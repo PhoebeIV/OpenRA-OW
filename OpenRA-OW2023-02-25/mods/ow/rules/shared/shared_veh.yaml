@@ -1,0 +1,204 @@
+MCV:
+	Inherits: ^Vehicle
+	Inherits@selection: ^SelectableSupportUnit
+	Buildable:
+		Queue: Vehicle
+		BuildPaletteOrder: 90
+		Prerequisites: fix, ~mcv, ~techlevel.medium, ~vehicles.mcvprereq
+		BuildDurationModifier: 50
+		Description: Deploys into another Construction Yard.\nSpeed: 71\n  Unarmed
+	Valued:
+		Cost: 5000
+	ProvidesPrerequisite:
+		Prerequisite: mcv
+
+MCV.2:
+	Inherits: MCV
+	Buildable:
+		Queue: Vehicle
+		BuildPaletteOrder: 90
+		BuildDurationModifier: 35
+		Prerequisites: ~!mcv, ~techlevel.medium, ~vehicles.mcvprereq
+	Valued:
+		Cost: 3000
+	RenderSprites:
+		Image: mcv
+
+MCVD:
+	Inherits: ^Vehicle
+	Inherits@selection: ^SelectableSupportUnit
+	Buildable:
+		Queue: Vehicle
+		BuildPaletteOrder: 90
+		Prerequisites: fix, ~mcv, ~techlevel.medium, ~vehicles.mcvdprereq
+		BuildDurationModifier: 50
+		Description: Deploys into another Construction Yard.\nSpeed: 71\n  Unarmed
+	Valued:
+		Cost: 5000
+	Tooltip:
+		Name: Mobile Construction Vehicle
+	Selectable:
+		DecorationBounds: 1792, 1792
+	SelectionDecorations:
+	Health:
+		HP: 60000
+	Armor:
+		Type: Light
+	Mobile:
+		Speed: 71
+		Locomotor: heavywheeled
+	RevealsShroud:
+		Range: 4c0
+	Transforms:
+		IntoActor: factd
+		Offset: -1,-1
+		Facing: 384
+		TransformSounds: constru2.aud, hvydoor1.aud
+		NoTransformNotification: BuildingCannotPlaceAudio
+	MustBeDestroyed:
+		RequiredForShortGame: true
+	BaseBuilding:
+	ProvidesPrerequisite:
+		Prerequisite: mcv
+	SpawnActorOnDeath:
+		Actor: MCVD.Husk
+	TransferTimedExternalConditionOnTransform:
+		Condition: invulnerability
+
+MCVD.2:
+	Inherits: MCVD
+	Buildable:
+		Queue: Vehicle
+		BuildPaletteOrder: 90
+		BuildDurationModifier: 35
+		Prerequisites: ~!mcv, ~techlevel.medium, ~vehicles.mcvdprereq
+	Valued:
+		Cost: 3000
+	RenderSprites:
+		Image: mcvd
+
+HARV:
+	Buildable:
+		Prerequisites: refinery, ~techlevel.infonly, ~vehicles.harvprereq
+		Description: Collects Ore, Tiberium and Gems for processing.\nSpeed: 85 \n  Unarmed
+	Harvester:
+		Resources: Ore,Gems,Tiberium,BlueTiberium
+	WithHarvesterPipsDecoration:
+		Position: BottomLeft
+		RequiresSelection: true
+		PipCount: 7
+		ResourceSequences:
+			Ore: pip-yellow
+			Gems: pip-red
+			Tiberium: pip-green
+			BlueTiberium: pip-blue
+
+HARVD:
+	Inherits: ^Vehicle
+	Inherits@selection: ^SelectableEconomicUnit
+	Buildable:
+		Queue: Vehicle
+		BuildPaletteOrder: 110
+		Prerequisites: refinery, ~techlevel.infonly, ~vehicles.harvdprereq
+		Description: Collects Ore, Tiberium and Gems for processing.\nSpeed: 85 \n  Unarmed
+	Valued:
+		Cost: 1100
+	Tooltip:
+		Name: Harvester
+		GenericName: Harvester
+	Selectable:
+		DecorationBounds: 1792, 1792
+	SelectionDecorations:
+	Harvester:
+		Capacity: 20
+		Resources: Ore,Gems,Tiberium,BlueTiberium
+		BaleUnloadDelay: 1
+		SearchFromProcRadius: 15
+		SearchFromHarvesterRadius: 8
+		EmptyCondition: no-ore
+	Health:
+		HP: 60000
+	Armor:
+		Type: Heavy
+	Mobile:
+		Speed: 85
+		Locomotor: heavywheeled
+	RevealsShroud:
+		Range: 4c0
+	WithHarvestAnimation:
+	WithDockingAnimation:
+	GpsDot:
+		String: Harvester
+	SpawnActorOnDeath:
+		Actor: HARVD.Husk
+	ChangesHealth:
+		Step: 100
+		Delay: 25
+		StartIfBelow: 50
+		DamageCooldown: 500
+	Explodes:
+		RequiresCondition: !no-ore
+		Weapon: OreExplosion
+	RenderSprites:
+		PlayerPalette: dawn
+		Image: harvd
+	WithHarvesterPipsDecoration:
+		Position: BottomLeft
+		RequiresSelection: true
+		PipCount: 7
+		ResourceSequences:
+			Ore: pip-yellow
+			Gems: pip-red
+			Tiberium: pip-green
+			BlueTiberium: pip-blue
+
+ARTY:
+	Buildable:
+		Prerequisites: radar, ~techlevel.medium, ~vehicles.artyprereq
+		Description: Long-range artillery.\nSpeed: 85\n  Strong vs Infantry, Buildings\n  Weak vs Vehicles, Aircraft
+	AttackFrontal:
+		PauseOnCondition: disabled
+		FacingTolerance: 0
+
+APC:
+	Buildable:
+		Prerequisites: ~techlevel.low, ~vehicles.apcprereq
+		Description: Tough infantry transport.\nSpeed: 142\n  Strong vs Infantry, Light armor\n  Weak vs Tanks, Aircraft
+	AttackFrontal:
+		PauseOnCondition: disabled
+		FacingTolerance: 0
+	Cargo:
+		PassengerConditions:
+			e1of: e1of
+	ProximityExternalCondition@officer:
+		RequiresCondition: e1of
+		Condition: squadboost
+		Range: 5c0
+	WithDecoration@officer2:
+		Image: pips
+		Sequence: pip-bonus
+		Palette: effect
+		Position: TopRight
+		ValidRelationships: None,Neutral,Enemy,Ally
+		RequiresCondition: !demoralise && e1of
+	ExternalCondition@demoralise:
+		Condition: demoralise
+
+TRUK:
+	Buildable:
+		Prerequisites: ~techlevel.low, ~vehicles.all
+		Description: Transports cash to other players.\nSpeed: 128\n  Unarmed
+
+MNLY:
+	Buildable:
+		Prerequisites: fix, ~techlevel.medium, ~vehicles.all
+		Description: Lays mines to destroy\nunwary enemy units.\nSpeed: 128 \nCan detect mines.\n  Unarmed
+	Rearmable:
+		RearmActors: fix, gfix
+
+FTRK:
+	Buildable:
+		Prerequisites: ~vehicles.ftrkprereq, ~techlevel.low
+		Description: Mobile unit with mounted Flak cannon.\nSpeed: 118\n  Strong vs Infantry, Light armor, Aircraft\n  Weak vs Tanks
+	AttackTurreted:
+		PauseOnCondition: disabled

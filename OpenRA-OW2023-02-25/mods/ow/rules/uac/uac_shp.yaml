@@ -1,0 +1,57 @@
+DMDD:
+	Inherits: ^Ship
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Buildable:
+		Queue: Ship
+		BuildAtProductionType: Boat
+		BuildPaletteOrder: 50
+		Prerequisites: ~syrd, advtechcenter, ~techlevel.unrestricted, ~ships.uac
+		Description: Very slow seige ship with AA capability. Can transport units.\nSpeed: 39\n  Strong vs Buildings, Aircraft\n  Weak vs Naval units
+	Valued:
+		Cost: 3000
+	Tooltip:
+		Name: Fortress
+	Health:
+		HP: 120000
+	Armor:
+		Type: Heavy
+	Mobile:
+		TurnSpeed: 12
+		Speed: 39
+		PauseOnCondition: notmobile
+	RevealsShroud:
+		MinRange: 6c0
+		Range: 7c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 6c0
+	Turreted:
+		Offset: 768,0,128
+		TurnSpeed: 12
+	Armament@PRIMARY:
+		Weapon: TowerMissile
+		LocalOffset: 480,-100,40, 480,100,40
+		Recoil: 171
+		RecoilRecovery: 34
+	Armament@SECONDARY:
+		Name: secondary
+		Weapon: TowerAAMissile
+		LocalOffset: 480,-100,40, 480,100,40
+		Recoil: 171
+		RecoilRecovery: 34
+	RangeMultiplier@boat:
+		Modifier: 120
+	AttackTurreted:
+	Selectable:
+		Bounds: 1877, 1877
+		DecorationBounds: 1877, 1877
+	WithSpriteTurret:
+		Turret: primary
+	Cargo:
+		Types: Infantry, Vehicle
+		MaxWeight: 8
+		PassengerFacing: 0
+		LoadingCondition: notmobile
+	WithCargoPipsDecoration:
+		Position: BottomLeft
+		RequiresSelection: true

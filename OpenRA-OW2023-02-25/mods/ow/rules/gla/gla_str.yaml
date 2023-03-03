@@ -1,0 +1,1011 @@
+^GLABuilding:
+	Explodes@hole:
+		Weapon: HoleDamage
+		EmptyWeapon: HoleDamage
+	ExternalCondition@tempheal:
+		Condition: tempheal
+	ChangesHealth@tempheal:
+		PercentageStep: 1
+		Delay: 25
+		StartIfBelow: 100
+		DamageCooldown: 125
+		RequiresCondition: tempheal
+
+^KassadStealth:
+	Cloak@stealthgen:
+		RequiresCondition: stealthgen && !disabled && !kassadstealth
+	Cloak@kassad:
+		IsPlayerPalette: true
+		InitialDelay: 25
+		CloakDelay: 100
+		CloakSound: gstealon.aud
+		UncloakSound: gstealof.aud
+		RequiresCondition: kassadstealth && !stealthgen && !disabled
+		UncloakOn: Attack, Unload, Infiltrate, Demolish, Damage
+	GrantConditionOnFaction@kassad:
+		Factions: kassad
+		Condition: kassadstealth
+
+^GLAHole:
+	Inherits: ^Building
+	Inherits@shape: ^2x2Shape
+	Inherits@kassad: ^KassadStealth
+	Selectable:
+		Bounds: 2048, 2048
+	Targetable:
+		TargetTypes: GroundActor, C4, DetonateAttack, Structure, Defense, Hole
+	Building:
+		Footprint: xx xx ==
+		Dimensions: 2,3
+		LocalCenterOffset: 0,-512,0
+	Health:
+		HP: 60000
+	Valued:
+		Cost: 150
+	Armor:
+		Type: Wood
+	Tooltip:
+		Name: GLA Hole
+	RevealsShroud:
+		MinRange: 2c0
+		Range: 3c0
+		RevealGeneratedShroud: False
+	Power:
+		Amount: 0
+	-WithColoredOverlay@IRONCURTAIN:
+	-TimedConditionBar:
+	DamageMultiplier@IRONCURTAIN:
+		Modifier: 15
+	-RepairableBuilding:
+	-WithBuildingRepairDecoration:
+	-SpawnActorsOnSell:
+	-Sellable:
+	-EngineerRepairable:
+	-GivesBuildableArea:
+	-ShakeOnDeath:
+	-Demolishable:
+	Demolishable:
+	-CaptureManager:
+	CaptureManager:
+	WithBuildingBib:
+	WithDamageOverlay:
+	-ActorLostNotification:
+	-SoundOnDamageTransition:
+	SoundOnDamageTransition:
+		DamagedSounds: kaboom1.aud
+	WithDeathAnimation:
+		DeathSequence: dead
+		UseDeathTypeSuffix: false
+	ChangesHealth@hole:
+		PercentageStep: 1
+		Delay: 25
+		StartIfBelow: 100
+		DamageCooldown: 125
+	Explodes:
+		DeathTypes: DefaultDeath, BulletDeath, SmallExplosionDeath, ExplosionDeath, FireDeath, TiberiumDeath, ElectricityDeath
+	Explodes@sound:
+		DeathTypes: DefaultDeath, BulletDeath, SmallExplosionDeath, ExplosionDeath, FireDeath, TiberiumDeath, ElectricityDeath
+		Weapon: UnitExplode
+		EmptyWeapon: UnitExplode
+	Explodes@hole:
+		DeathTypes: hole
+		Weapon: HoleBuild
+		EmptyWeapon: HoleBuild
+	KillsSelf:
+		Delay: 175
+		RequiresCondition: rebuild
+		DamageTypes: hole
+	GrantConditionOnDamageState:
+		Condition: rebuild
+		ValidDamageStates: Light, Undamaged
+		EnabledSounds: placbldg.aud
+	SpawnActorOnDeath@hole:
+		Actor: GTENT
+		DeathType: hole
+		SkipMakeAnimations: false
+	RenderSprites:
+		Image: ghole2x2
+
+^GLAHole1x1:
+	Inherits: ^GLAHole
+	Inherits@shape: ^1x1Shape
+	Selectable:
+		Bounds: 1024, 1024
+	Health:
+		HP: 30000
+	Building:
+		Footprint: x
+		Dimensions: 1,1
+		LocalCenterOffset: 0,0,0
+	WithBuildingBib:
+		HasMinibib: true
+	RenderSprites:
+		Image: ghole1x1
+
+^GLAHole3x2:
+	Inherits: ^GLAHole
+	Inherits@shape: ^3x2Shape
+	Selectable:
+		Bounds: 3072, 2048
+	Building:
+		Footprint: xxx xxx ===
+		Dimensions: 3,3
+		LocalCenterOffset: 0,-512,0
+	RenderSprites:
+		Image: ghole3x2
+
+^GLAHole3x3:
+	Inherits: ^GLAHole
+	Inherits@shape: ^3x3Shape
+	Selectable:
+		Bounds: 3072, 3072
+	Building:
+		Footprint: xxx xxx xxx ===
+		Dimensions: 3,4
+		LocalCenterOffset: 0,-512,0
+	RenderSprites:
+		Image: ghole3x3
+
+GFACT:
+	Inherits: FACT
+	Inherits@GLA: ^GLABuilding
+	SpawnActorsOnSell:
+		ActorTypes: ge1,ge1,ge1,tecn,tecn,gharv
+	Transforms:
+		IntoActor: gmcv
+	Production@power:
+		Produces: Structure, Defense, Tech, Wall
+		PauseOnCondition: !power
+	GrantConditionOnPrerequisite:
+		Prerequisites: anypower
+		Condition: power
+	SpawnActorOnDeath:
+		Actor: GFACT.Hole
+	RenderSprites:
+		Image: fact
+
+GFACT.Hole:
+	Inherits: ^GLAHole3x3
+	Tooltip:
+		Name: GLA Hole (Construction Yard)
+	Health:
+		HP: 100000
+	ChangesHealth@hole:
+		DamageCooldown: 750
+		Delay: 35
+	SpawnActorOnDeath@hole:
+		Actor: GFACT
+		DeathType: hole
+
+GSPEN:
+	Inherits: SPEN
+	Buildable:
+		Prerequisites: ~structures.gla, gproc, ~techlevel.low, ~!techlevel.noboats
+	ProvidesPrerequisite@buildingname:
+		Prerequisite: spen
+	Power:
+		Amount: 0
+	RenderSprites:
+		Image: spen
+
+GTENT:
+	Inherits: TENT
+	Inherits@GLA: ^GLABuilding
+	Buildable:
+		Prerequisites: ~structures.gla, ~techlevel.infonly, ~!structures.bothard
+	Tooltip:
+		Name: GLA Barracks
+	Power:
+		Amount: 0
+	Production@power:
+		Produces: Infantry, Soldier
+		PauseOnCondition: !power
+	GrantConditionOnPrerequisite:
+		Prerequisites: anypower
+		Condition: power
+	SpawnActorOnDeath:
+		Actor: GTENT.Hole
+	RenderSprites:
+		Image: tent
+
+GTENT.Hole:
+	Inherits: ^GLAHole
+	Tooltip:
+		Name: GLA Hole (Barracks)
+	SpawnActorOnDeath@hole:
+		Actor: GTENT
+		DeathType: hole
+
+GPROC:
+	Inherits: PROC
+	Inherits@GLA: ^GLABuilding
+	Buildable:
+		Prerequisites: gtent, ~techlevel.infonly, ~structures.gla, ~!ai.boss
+	Valued:
+		Cost: 1600
+	FreeActor:
+		Actor: GHARV
+		SpawnOffset: 1,2
+		Facing: 256
+	FreeActor@1:
+		Actor: GHARV
+		SpawnOffset: 1,2
+		Facing: 256
+		RequiresCondition: !build-incomplete
+	FreeActor@2:
+		Actor: GHARV
+		SpawnOffset: 2,2
+		Facing: 256
+		RequiresCondition: !build-incomplete
+	Power:
+		Amount: 0
+	Selectable:
+		Class: gproc
+	SpawnActorOnDeath:
+		Actor: GPROC.Hole
+	RenderSprites:
+		Image: proc
+
+GPROC.Hole:
+	Inherits: ^GLAHole3x3
+	Tooltip:
+		Name: GLA Hole (Refinery)
+	Health:
+		HP: 90000
+	SpawnActorOnDeath@hole:
+		Actor: GPROC.Free
+		DeathType: hole
+	ChangesHealth@hole:
+		DamageCooldown: 375
+
+GPROC.Free:
+	Inherits: GPROC
+	-Buildable:
+	ProvidesPrerequisite@buildingname:
+		Prerequisite: gproc
+	-FreeActor:
+	-FreeActor@1:
+	-FreeActor@2:
+
+GFOUNDRY:
+	Inherits: FOUNDRY
+	Inherits@GLA: ^GLABuilding
+	Buildable:
+		Prerequisites: ~techlevel.medium, ~structures.gla, ~!structures.bothard
+	Power:
+		Amount: 0
+	Valued:
+		Cost: 2000
+	SpawnActorOnDeath:
+		Actor: GFOUNDRY.Hole
+	RenderSprites:
+		Image: foundry
+
+GFOUNDRY.Hole:
+	Inherits: ^GLAHole
+	Tooltip:
+		Name: GLA Hole (Foundry)
+	SpawnActorOnDeath@hole:
+		Actor: GFOUNDRY
+
+GADVTECH:
+	Inherits: ADVTECH
+	Inherits@GLA: ^GLABuilding
+	Buildable:
+		Queue: Tech
+		BuildPaletteOrder: 9000
+		Prerequisites: techcenter, ~techlevel.unrestricted, ~structures.gla
+	Power:
+		Amount: 0
+	Valued:
+		Cost: 4000
+	SpawnActorOnDeath:
+		Actor: GADVTECH.Hole
+
+GADVTECH.Hole:
+	Inherits: ^GLAHole3x3
+	Tooltip:
+		Name: GLA Hole (Adv Tech Centre)
+	ChangesHealth@hole:
+		DamageCooldown: 750
+		Delay: 30
+	SpawnActorOnDeath@hole:
+		Actor: GADVTECH
+		DeathType: hole
+
+ATEK.GLA:
+	Inherits: ATEK
+	Inherits@GLA: ^GLABuilding
+	Building:
+		BuildSounds: constru2.aud, hvydoor1.aud
+	Buildable:
+		Queue: Building
+		BuildPaletteOrder: 140
+		Prerequisites: factory, radar, ~structures.gla, ~techlevel.unrestricted, ~!ai.hard
+		Description: Provides GLA advanced technologies.
+	Valued:
+		Cost: 2000
+	Power:
+		Amount: 0
+	Tooltip:
+		Name: GLA Palace
+	RenderSprites:
+		Image: gpal
+	SpawnActorOnDeath:
+		Actor: ATEK.Hole
+
+ATEK.Hole:
+	Inherits: ^GLAHole
+	Tooltip:
+		Name: GLA Hole (Palace)
+	ChangesHealth@hole:
+		DamageCooldown: 350
+		Delay: 28
+	SpawnActorOnDeath@hole:
+		Actor: ATEK.GLA
+		DeathType: hole
+
+GSILO:
+	Inherits: SILO
+	Inherits@GLA: ^GLABuilding
+	Buildable:
+		Queue: Building
+		Prerequisites: gproc, ~techlevel.infonly, ~structures.gla
+	Valued:
+		Cost: 200
+	Power:
+		Amount: 0
+	RenderSprites:
+		Image: silo
+	SpawnActorOnDeath:
+		Actor: GSILO.Hole
+
+GSILO.Hole:
+	Inherits: ^GLAHole1x1
+	Tooltip:
+		Name: GLA Hole (Silo)
+	Health:
+		HP: 40000
+	SpawnActorOnDeath@hole:
+		Actor: GSILO
+		DeathType: hole
+
+GAIR:
+	Inherits: ^Building
+	Inherits@GLA: ^GLABuilding
+	Inherits@prereqs: ^FactoryPrereqs
+	Selectable:
+		Bounds: 4096, 2048
+	HitShape:
+		TargetableOffsets: 0,0,0, 0,-512,256, 0,-1451,384, 0,512,128, 0,1536,85
+		Type: Rectangle
+			TopLeft: -2048, -1024
+			BottomRight: 1536, 1024
+	Buildable:
+		Queue: Building
+		BuildPaletteOrder: 80
+		Prerequisites: refinery, barracks, ~techlevel.low, ~structures.gla, ~!structures.bothard
+		Description: Delivers vehicles.
+	Valued:
+		Cost: 2200
+	Tooltip:
+		Name: Airstrip
+	Building:
+		Footprint: xxx= xxx= ====
+		Dimensions: 4,3
+		LocalCenterOffset: 0,-512,0
+	Health:
+		HP: 125000
+	Armor:
+		Type: Wood
+	RevealsShroud:
+		MinRange: 4c0
+		Range: 5c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 4c0
+	WithBuildingBib:
+	RallyPoint:
+		Path: 4,2
+	Exit@1:
+		SpawnOffset: -1024,-512,0
+		ExitCell: 3,1
+	ProductionAirdrop:
+		Produces: Vehicle
+		ReadyAudio: ReinforcementsArrived
+		ActorType: badr.g
+	ProductionAirdrop@power:
+		Produces: Vehicle
+		ReadyAudio: ReinforcementsArrived
+		ActorType: badr.g
+		PauseOnCondition: !power
+	GrantConditionOnPrerequisite:
+		Prerequisites: anypower
+		Condition: power
+	GrantExternalConditionToProduced:
+		Condition: produced
+	PrimaryBuilding:
+		PrimaryCondition: primary
+		SelectionNotification: PrimaryBuildingSelected
+	ProductionBar:
+		ProductionType: Vehicle
+	Power:
+		Amount: 0
+	ProvidesPrerequisite@buildingname:
+	Targetable:
+		TargetTypes: GroundActor, C4, DetonateAttack, Structure, SpyInfiltrate
+	InfiltrateForSupportPower:
+		Proxy: vehicles.upgraded
+		Types: SpyInfiltrate
+	WithDecoration@primary:
+		RequiresSelection: true
+		Image: pips
+		Sequence: tag-primary
+		Position: Top
+		RequiresCondition: primary
+	SpawnActorOnDeath:
+		Actor: GAIR.Hole
+
+GAIR.Hole:
+	Inherits: ^GLAHole3x2
+	Tooltip:
+		Name: GLA Hole (Airstrip)
+	Selectable:
+		Bounds: 4096, 2048
+	Health:
+		HP: 125000
+	Building:
+		Footprint: xxx= xxx= ====
+		Dimensions: 4,3
+		LocalCenterOffset: 0,-512,0
+	HitShape:
+		TargetableOffsets: 0,0,0, 0,-512,256, 0,-1451,384, 0,512,128, 0,1536,85
+		Type: Rectangle
+			TopLeft: -2048, -1024
+			BottomRight: 1536, 1024
+	ChangesHealth@hole:
+		DamageCooldown: 500
+	RenderSprites:
+		Image: gairhole
+	SpawnActorOnDeath@hole:
+		Actor: GAIR
+		DeathType: hole
+
+GFIX:
+	Inherits: FIX
+	Inherits@GLA: ^GLABuilding
+	Buildable:
+		Prerequisites: factory, ~structures.gla, ~techlevel.medium, ~!ai.boss
+	Valued:
+		Cost: 1300
+	Power:
+		Amount: 0
+	ProvidesPrerequisite@buildingname:
+		Prerequisite: fix
+	ProvidesPrerequisite@gfix:
+		Prerequisite: gfix
+	RenderSprites:
+		Image: fix
+	SpawnActorOnDeath:
+		Actor: GFIX.Hole
+
+GFIX.Hole:
+	Inherits: ^GLAHole3x2
+	Tooltip:
+		Name: GLA Hole (Service Depot)
+	Building:
+		Dimensions: 3,3
+		LocalCenterOffset: 0,0,0
+	-WithBuildingBib:
+	Selectable:
+		Bounds: 2901, 1450, 0, 128
+		DecorationBounds: 3072, 2048
+	SpawnActorOnDeath@hole:
+		Actor: GFIX
+		DeathType: hole
+
+GPBOX:
+	Inherits: PBOX
+	Inherits@GLA: ^GLABuilding
+	Buildable:
+		Queue: Defense
+		Prerequisites: gtent, ~structures.gla, ~!structures.kassad, ~techlevel.low, ~!ai.boss
+	Cargo:
+		InitialUnits: ge1
+	Power:
+		Amount: 0
+	RenderSprites:
+		Image: PBOX
+	SpawnActorOnDeath:
+		Actor: GPBOX.Hole
+
+GPBOX.Hole:
+	Inherits: ^GLAHole1x1
+	Tooltip:
+		Name: GLA Hole (Pillbox)
+	SpawnActorOnDeath@hole:
+		Actor: GPBOX
+		DeathType: hole
+
+GHBOX:
+	Inherits: HBOX
+	Inherits@GLA: ^GLABuilding
+	Buildable:
+		Queue: Defense
+		Prerequisites: gtent, ~structures.kassad, ~techlevel.low, ~!ai.boss
+	Cargo:
+		InitialUnits: ge1
+	Power:
+		Amount: 0
+	RenderSprites:
+		Image: HBOX
+	SpawnActorOnDeath:
+		Actor: GHBOX.Hole
+
+GHBOX.Hole:
+	Inherits: ^GLAHole1x1
+	Tooltip:
+		Name: GLA Hole (Camo Pillbox)
+	SpawnActorOnDeath@hole:
+		Actor: GHBOX
+		DeathType: hole
+
+SSTORM:
+	Inherits: ^ScienceBuilding
+	Inherits@IDISABLE: ^DisableOnLowPowerOrPowerDown
+	Inherits@shape: ^3x3Shape
+	Selectable:
+		Bounds: 3584, 3584
+	Valued:
+		Cost: 5000
+	Tooltip:
+		Name: Scud Storm
+	Buildable:
+		Queue: Tech
+		BuildPaletteOrder: 9002
+		Prerequisites: advtechcenter, ~techlevel.unrestricted, ~structures.gla, ~!sstorm
+		BuildLimit: 1
+		Description: Delivers a barrage of SCUD missiles.\nRequires power to operate.\nMaximum 1 can be built.\n  Special Ability: Scud Storm
+	Building:
+		Footprint: xxx xxx xxx ===
+		Dimensions: 3,4
+		LocalCenterOffset: 0,-512,0
+	WithBuildingBib:
+	Health:
+		HP: 150000
+	Armor:
+		Type: Wood
+	RevealsShroud:
+		MinRange: 5c0
+		Range: 6c0
+		RequiresCondition: !disabled
+		RevealGeneratedShroud: False
+	RevealsShroud@Offline:
+		Range: 5c0
+		RequiresCondition: disabled
+	RevealsShroud@GAPGEN:
+		Range: 5c0
+		RequiresCondition: !disabled
+	ProvidesPrerequisite@gla:
+		Factions: kassad, demo
+		Prerequisite: sstorm.gla
+	ProvidesPrerequisite@thrax:
+		Factions: thrax
+		Prerequisite: sstorm.thrax
+	NukePower:
+		OrderName: ScudStorm
+		Prerequisites: !sstorm.thrax
+		PauseOnCondition: disabled
+		Cursor: nuke
+		Icon: scudstorm
+		ChargeInterval: 22000
+		Name: Scud Storm
+		Description: Launches a barrage of Scuds\nat a target location.
+		BeginChargeSpeechNotification: AbombPrepping
+		EndChargeSpeechNotification: AbombReady
+		SelectTargetSpeechNotification: SelectTarget
+		InsufficientPowerSpeechNotification: InsufficientPower
+		IncomingSpeechNotification: AbombLaunchDetected
+		MissileWeapon: scudstorm
+		MissileDelay: 5
+		SpawnOffset: 0,0,0
+		DisplayTimerRelationships: Ally, Neutral, Enemy
+		DisplayBeacon: True
+		DisplayRadarPing: True
+		BeaconPoster: atomicon
+		CameraRange: 15c0
+		CameraRemoveDelay: 375
+		ArrowSequence: arrow
+		ClockSequence: clock
+		CircleSequence: circles
+		SupportPowerPaletteOrder: 70
+		MissilePalette: player
+		IsPlayerPalette: true
+		MissileImage: scudstorm
+	NukePower@thrax:
+		OrderName: ScudStorm2
+		Prerequisites: sstorm.thrax
+		PauseOnCondition: disabled
+		Cursor: nuke
+		Icon: scudstorm
+		ChargeInterval: 22000
+		Name: Toxin Scud Storm
+		Description: Launches a barrage of toxic Scuds\nat a target location.
+		BeginChargeSpeechNotification: AbombPrepping
+		EndChargeSpeechNotification: AbombReady
+		SelectTargetSpeechNotification: SelectTarget
+		InsufficientPowerSpeechNotification: InsufficientPower
+		IncomingSpeechNotification: AbombLaunchDetected
+		MissileWeapon: toxinscudstorm
+		MissileDelay: 5
+		SpawnOffset: 0,0,0
+		DisplayTimerRelationships: Ally, Neutral, Enemy
+		DisplayBeacon: True
+		DisplayRadarPing: True
+		BeaconPoster: atomicon
+		CameraRange: 15c0
+		CameraRemoveDelay: 375
+		ArrowSequence: arrow
+		ClockSequence: clock
+		CircleSequence: circles
+		SupportPowerPaletteOrder: 70
+		MissilePalette: player
+		IsPlayerPalette: true
+		MissileImage: toxinscudstorm
+	SupportPowerChargeBar:
+	Power:
+		Amount: 0
+	MustBeDestroyed:
+		RequiredForShortGame: false
+	WithSupportPowerActivationAnimation:
+		RequiresCondition: !build-incomplete
+	Explodes:
+		Type: CenterPosition
+		Weapon: MiniNuke
+		EmptyWeapon: MiniNuke
+	ProvidesPrerequisite@self:
+		Prerequisite: sstorm
+	ProvidesPrerequisite@superweapon:
+		Prerequisite: superweapon
+	SpawnActorOnDeath:
+		Actor: SSTORM.Hole
+
+SSTORM.Hole:
+	Inherits: ^GLAHole3x3
+	Health:
+		HP: 150000
+	Tooltip:
+		Name: GLA Hole (Scud Storm)
+	ChangesHealth@hole:
+		DamageCooldown: 500
+		Delay: 55
+	KillsSelf:
+		Delay: 250
+	ProvidesPrerequisite@self:
+		Prerequisite: sstorm
+	SpawnActorOnDeath@hole:
+		Actor: SSTORM
+		DeathType: hole
+
+GMISS:
+	Inherits: T.MISS
+	Inherits@GLA: ^GLABuilding
+	Buildable:
+		Queue: Tech
+		Prerequisites: advtechcenter, ~structures.gla, ~techlevel.unrestricted, ~!gmiss
+	Valued:
+		Cost: 7500
+	Power:
+		Amount: 0
+	ProvidesPrerequisite@self:
+		Prerequisite: gmiss
+	SpawnActorOnDeath:
+		Actor: GMISS.Hole
+
+GMISS.Hole:
+	Inherits: ^GLAHole3x2
+	Tooltip:
+		Name: GLA Hole (EpiTech Centre)
+	Health:
+		HP: 150000
+	ChangesHealth@hole:
+		DamageCooldown: 500
+		Delay: 55
+	KillsSelf:
+		Delay: 250
+	ProvidesPrerequisite@self:
+		Prerequisite: gmiss
+	SpawnActorOnDeath@hole:
+		Actor: GMISS
+		DeathType: hole
+
+GBLK:
+	Inherits: ^ScienceBuilding
+	Inherits@GLA: ^GLABuilding
+	Selectable:
+		Bounds: 4096, 2048
+	HitShape:
+		TargetableOffsets: 0,0,0, 0,-512,256, 0,-1451,384, 0,512,128, 0,1536,85
+		Type: Rectangle
+			TopLeft: -2048, -1024
+			BottomRight: 2048, 1024
+	Buildable:
+		Queue: Tech
+		BuildPaletteOrder: 9001
+		Prerequisites: advtechcenter, ~structures.gla, ~techlevel.unrestricted
+		Description: Provides steady income for the GLA.
+	Valued:
+		Cost: 2500
+	Tooltip:
+		Name: Black Market
+	ProvidesPrerequisite:
+		Prerequisite: techcenter
+	Building:
+		Footprint: x==x xxxx ====
+		Dimensions: 4,3
+		LocalCenterOffset: 0,-512,0
+	Health:
+		HP: 75000
+	Armor:
+		Type: Wood
+	RevealsShroud:
+		MinRange: 4c0
+		Range: 5c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 4c0
+	WithBuildingBib:
+	ProvidesPrerequisite@buildingname:
+	CashTrickler:
+		Interval: 375
+		Amount: 50
+		RequiresCondition: !power
+	CashTrickler@power:
+		Interval: 300
+		Amount: 50
+		RequiresCondition: power
+	GrantConditionOnPrerequisite:
+		Prerequisites: anypower
+		Condition: power
+	WithDeathAnimation:
+		DeathSequence: dead
+		UseDeathTypeSuffix: false
+	SpawnActorOnDeath:
+		Actor: GBLK.Hole
+
+GBLK.Hole:
+	Inherits: ^GLAHole3x2
+	Tooltip:
+		Name: GLA Hole (Black Market)
+	Selectable:
+		Bounds: 4096, 2048
+	Health:
+		HP: 75000
+	Building:
+		Footprint: xxx= xxx= ====
+		Dimensions: 4,3
+		LocalCenterOffset: 0,-512,0
+	HitShape:
+		TargetableOffsets: 0,0,0, 0,-512,256, 0,-1451,384, 0,512,128, 0,1536,85
+		Type: Rectangle
+			TopLeft: -2048, -1024
+			BottomRight: 1536, 1024
+	ChangesHealth@hole:
+		DamageCooldown: 500
+	RenderSprites:
+		Image: gairhole
+	SpawnActorOnDeath@hole:
+		Actor: GBLK
+		DeathType: hole
+
+GSTG:
+	Inherits: ^Defense
+	Inherits@GLA: ^GLABuilding
+	Inherits@kassad: ^KassadStealth
+	Inherits@AUTOTARGET: ^AutoTargetAll
+	Inherits@shape: ^2x2Shape
+	Buildable:
+		Queue: Defense
+		BuildPaletteOrder: 70
+		Prerequisites: gtent, radar, ~structures.gla, ~techlevel.medium
+		Description: Anti-Armor/Aircraft base defense.\nCan detect cloaked units.\n  Strong vs Vehicles, Aircraft\n  Weak vs Infantry
+	Valued:
+		Cost: 900
+	Tooltip:
+		Name: Stinger Site
+	Selectable:
+		Bounds: 2048, 2048
+	Building:
+		Footprint: xx xx
+		Dimensions: 2,2
+	Health:
+		HP: 65000
+	Armor:
+		Type: Wood
+	RevealsShroud:
+		MinRange: 6c0
+		Range: 8c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 6c0
+	Turreted@1:
+		TurnSpeed: 48
+		InitialFacing: 224
+		Offset: -192,448,0
+	Turreted@2:
+		Turret: secondary
+		TurnSpeed: 32
+		InitialFacing: 224
+		Offset: 160,-448,0
+	WithSpriteTurret@1:
+		Sequence: man
+		RequiresCondition: !build-incomplete
+	WithSpriteTurret@2:
+		Turret: secondary
+		Sequence: man
+		RequiresCondition: !build-incomplete && !deadman
+	WithMuzzleOverlay:
+	WithIdleOverlay:
+		Sequence: tarp
+		PauseOnCondition: !build-incomplete
+	Armament@1:
+		Weapon: StingerMissile
+		LocalOffset: 0,0,512
+		MuzzleSequence: shoot
+		MuzzlePalette: player
+	Armament@1AA:
+		Weapon: StingerMissileAA
+		LocalOffset: 0,0,512
+		MuzzleSequence: shoot
+		MuzzlePalette: player
+	Armament@2:
+		Turret: secondary
+		Weapon: StingerMissile
+		LocalOffset: 0,0,512
+		MuzzleSequence: shoot
+		MuzzlePalette: player
+		PauseOnCondition: deadman
+	Armament@2AA:
+		Turret: secondary
+		Weapon: StingerMissileAA
+		LocalOffset: 0,0,512
+		MuzzleSequence: shoot
+		MuzzlePalette: player
+		PauseOnCondition: deadman
+	AttackTurreted:
+		Turrets: primary, secondary
+	GrantConditionOnDamageState:
+		Condition: deadman
+		ValidDamageStates: critical
+	ExplosionOnDamageTransition:
+		Weapon: GSTGDeath
+		DamageState: critical
+	Explodes@man:
+		Weapon: GSTGDeath2
+		EmptyWeapon: GSTGDeath2
+	Power:
+		Amount: 0
+	DetectCloaked:
+		Range: 6c0
+	SpawnActorOnDeath:
+		Actor: GSTG.Hole
+	RenderSprites:
+		Image: gstgnew
+
+GSTG.Hole:
+	Inherits: ^GLAHole
+	Tooltip:
+		Name: GLA Hole (Stinger Site)
+	-WithBuildingBib:
+	-Building:
+	Building:
+		Footprint: xx xx
+		Dimensions: 2,2
+	SpawnActorOnDeath@hole:
+		Actor: GSTG
+		DeathType: hole
+
+GAMB:
+	Inherits: ^TechBuilding
+	Inherits@AUTOTARGET: ^AutoTargetAll
+	Targetable:
+		TargetTypes: GroundActor, C4, DetonateAttack, Structure, Defense
+	Health:
+		HP: 90000
+	Tooltip:
+		Name: GLA Ambush Hole
+		ShowOwnerRow: False
+	Armor:
+		Type: Wood
+	Selectable:
+		Bounds: 1024, 1024
+	KillsSelf:
+		Delay: 1250
+	FreeActor@1:
+		Actor: GE1R1
+	FreeActor@2:
+		Actor: GE1R1
+	FreeActor@3:
+		Actor: GE1R1
+	FreeActor@4:
+		Actor: GE1R1
+	FreeActor@5:
+		Actor: GE1R1
+	FreeActor@6:
+		Actor: GE1R1
+	FreeActor@7:
+		Actor: GE1R1
+	FreeActor@8:
+		Actor: GE1R1
+	FreeActor@9:
+		Actor: GE1R1
+	FreeActor@10:
+		Actor: GE1R1
+	FreeActor@11:
+		Actor: GE1R1
+	FreeActor@12:
+		Actor: GE1R1
+		AllowRespawn: true
+		RequiresCondition: produceunit
+	AutoTarget:
+		InitialStance: AttackAnything
+	AttackOmni:
+	Armament:
+		Weapon: GLAAmbushHole
+	ExternalCondition@ambushhole:
+		Condition: produceunit
+	ProximityExternalCondition:
+		Condition: wander
+		Range: 2c0
+	RenderSprites:
+		Image: mine
+		Palette: terrain
+
+GAMB2:
+	Inherits: GAMB
+	FreeActor@1:
+		Actor: GE2R1
+	FreeActor@2:
+		Actor: GE2R1
+	FreeActor@3:
+		Actor: GE2R1
+	FreeActor@4:
+		Actor: GE2R1
+	FreeActor@5:
+		Actor: GE2R1
+	-FreeActor@6:
+	-FreeActor@7:
+	-FreeActor@8:
+	-FreeActor@9:
+	-FreeActor@10:
+	-FreeActor@11:
+	FreeActor@12:
+		Actor: GE2R1
+		AllowRespawn: true
+		RequiresCondition: produceunit
+
+ATD.G:
+	Inherits: ATD
+	Buildable:
+		Prerequisites: shippen, ~techlevel.medium, ~structures.gla
+	Valued:
+		Cost: 1100
+	Power:
+		Amount: 0
+	DetectCloaked:
+		RequiresCondition: !disabled
+		DetectionTypes: Underwater
+		Range: 5c0
+	RenderSprites:
+		Image: ATD
+
+OREEXT.G:
+	Inherits: OREEXT
+	Buildable:
+		Prerequisites: techcenter, ~structures.oreextprereq2, ~techlevel.unrestricted
+	Valued:
+		Cost: 2000
+	Power:
+		Amount: 0
+	RenderSprites:
+		Image: oreext

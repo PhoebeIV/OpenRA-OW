@@ -1,0 +1,121 @@
+HELI:
+	Buildable:
+		Prerequisites: ~hpad, techcenter, ~techlevel.high, ~aircraft.allies
+		Description: Helicopter gunship armed\nwith multi-purpose missiles.\nSpeed: 149\n  Strong vs Buildings, Vehicles, Aircraft\n  Weak vs Infantry
+
+HIND:
+	-Buildable:
+
+MH60:
+	Buildable:
+		Prerequisites: ~hpad, ~techlevel.medium, ~aircraft.allies
+		Description: Helicopter gunship armed\nwith dual chainguns.\nSpeed: 112\n  Strong vs Infantry, Light armor\n  Weak vs Tanks, Aircraft
+
+TRAN:
+	Buildable:
+		Prerequisites: ~hpad, ~techlevel.medium, ~aircraft.tranprereq
+		Description: Fast Infantry Transport Helicopter.\nSpeed: 128\n  Unarmed
+
+
+U2.Drop:
+	Inherits: U2
+	RenderSprites:
+		Image: U2
+	Aircraft:
+		Speed: 450
+	-AttackBomber:
+	ParaDrop:
+		DropRange: 1c0
+	Cargo:
+		MaxWeight: 10
+
+BADR:
+	ParaDrop:
+		DropRange: 5c0
+	Cargo:
+		MaxWeight: 20
+
+
+C17:
+	Inherits: BADR
+	Health:
+		HP: 45000
+	Aircraft:
+		Speed: 160
+	Tooltip:
+		Name: C17
+	Contrail@1:
+		Offset: -261,-650,0
+		TrailLength: 15
+	Contrail@2:
+		Offset: -85,-384,0
+		TrailLength: 16
+	Contrail@3:
+		Offset: -85,384,0
+		TrailLength: 16
+	Contrail@4:
+		Offset: -261,650,0
+		TrailLength: 15
+	SpawnActorOnDeath:
+		Actor: C17.Husk
+
+C17.D:
+	Inherits: C17
+	-Targetable@AIRBORNE:
+	Aircraft:
+		Speed: 512
+	RenderSprites:
+		Image: c17
+
+BADR.G:
+	Inherits: C17
+	-Targetable@AIRBORNE:
+	Aircraft:
+		Speed: 512
+	RenderSprites:
+		Image: badr
+
+A10.Bomber:
+	Inherits: BADR.Bomber
+	Health:
+		HP: 17500
+	Aircraft:
+		Speed: 230
+	Contrail@1:
+		Offset: -432,560,0
+	Contrail@2:
+		Offset: -432,-560,0
+	SpawnActorOnDeath:
+		Actor: A10.Husk
+	WithDamageOverlay@0:
+		Offset: -432,560,0
+		Interval: 2
+	WithDamageOverlay@1:
+		Offset: -432,-560,0
+		Interval: 2
+	Tooltip:
+		Name: A-10 Thunderbolt
+	AttackBomber:
+		FacingTolerance: 8
+	Armament:
+		Weapon: NapalmBomb
+	RenderSprites:
+		Image: a10
+
+A10.Chem:
+	Inherits: A10.Bomber
+	Armament:
+		Weapon: A10Chem
+
+U2.Invis:
+	Inherits: U2.Drop
+	Aircraft:
+		Speed: 2000
+		CruiseAltitude: 1
+	-Contrail@1:
+	-Contrail@2:
+	ParaDrop:
+		ChuteSound:
+	RenderSprites:
+		Image: piff
+	-WithShadow:

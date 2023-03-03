@@ -1,0 +1,510 @@
+HARVD.BHAND:
+	Inherits: HARVD
+	-ExternalCondition@stealthgen:
+	-Cloak@stealthgen:
+	Cloak:
+		IsPlayerPalette: true
+		Palette: dawncloak
+		InitialDelay: 125
+		CloakDelay: 175
+		CloakSound: trans1.aud
+		UncloakSound: trans1.aud
+		UncloakOn: Damage
+		PauseOnCondition: cloak-force-disabled
+	GrantConditionOnDamageState@UNCLOAK:
+		Condition: cloak-force-disabled
+		ValidDamageStates: Critical
+	Buildable:
+		Prerequisites: refinery, ~vehicles.bhand
+
+1TNK.N:
+	Inherits: ^TrackedVehicle
+	Inherits@GAINSEXPERIENCE: ^GainsExperience
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Buildable:
+		Queue: Vehicle
+		BuildPaletteOrder: 50
+		Prerequisites: ~vehicles.nod, ~techlevel.low
+		Description: Fast tank, good for scouting.\nSpeed: 98\n  Strong vs Light armor\n  Weak vs Infantry, Tanks, Aircraft
+	Valued:
+		Cost: 700
+	Tooltip:
+		Name: Nod Light Tank
+		GenericName: Tank
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 27500
+	Armor:
+		Type: Heavy
+	Mobile:
+		Speed: 98
+	RevealsShroud:
+		MinRange: 4c0
+		Range: 5c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 4c0
+	Turreted:
+		TurnSpeed: 24
+	Armament:
+		Weapon: Nod70mm
+		Recoil: 85
+		RecoilRecovery: 25
+		LocalOffset: 768,0,90
+		MuzzleSequence: muzzle
+	AttackTurreted:
+		PauseOnCondition: disabled
+	WithMuzzleOverlay:
+	WithSpriteTurret:
+	SpawnActorOnDeath:
+		Actor: LTNKD.Husk
+	ProducibleWithLevel:
+		Prerequisites: vehicles.upgraded
+	RenderSprites:
+		Image: ltnkd
+
+ARTY.N:
+	Inherits: ARTY
+	Buildable:
+		Prerequisites: radar, ~vehicles.nod, ~techlevel.medium, ~!vehicles.marked
+	Armament:
+		Weapon: Nod155mm
+	RenderSprites:
+		Image: arty
+
+BGGYD:
+	Inherits: ^Vehicle
+	Inherits@GAINSEXPERIENCE: ^GainsExperience
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Buildable:
+		Queue: Vehicle
+		BuildPaletteOrder: 30
+		Prerequisites: ~vehicles.nod, ~techlevel.low
+		Description: Fast scout & anti-infantry vehicle.\nSpeed: 170\n  Strong vs Infantry\n  Weak vs Vehicles, Aircraft
+	Valued:
+		Cost: 350
+	Tooltip:
+		Name: Nod Buggy
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 12000
+	Armor:
+		Type: Light
+	Mobile:
+		TurnSpeed: 40
+		Speed: 170
+	RevealsShroud:
+		MinRange: 4c0
+		Range: 7c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 4c0
+	Turreted:
+		TurnSpeed: 40
+		Offset: 0,0,128
+	Armament:
+		Weapon: DawnM60mg
+		MuzzleSequence: muzzle
+		LocalOffset: 171,0,43
+	AttackTurreted:
+		PauseOnCondition: disabled
+	WithMuzzleOverlay:
+	WithSpriteTurret:
+	ProducibleWithLevel:
+		Prerequisites: vehicles.upgraded
+
+BIKE:
+	Inherits: ^Vehicle
+	Inherits@GAINSEXPERIENCE: ^GainsExperience
+	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
+	Valued:
+		Cost: 500
+	Buildable:
+		Queue: Vehicle
+		BuildPaletteOrder: 35
+		Prerequisites: ~vehicles.nod, ~techlevel.low
+		Description: Fast scout vehicle, armed with rockets.\nCan attack Aircraft.\nSpeed: 213\n  Strong vs Vehicles, Tanks\n  Weak vs Infantry
+	Tooltip:
+		Name: Recon Bike
+	Mobile:
+		TurnSpeed: 40
+		Speed: 213
+		Locomotor: bike
+	Health:
+		HP: 12000
+	Armor:
+		Type: Light
+	RevealsShroud:
+		MinRange: 4c0
+		Range: 8c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 4c0
+	Armament:
+		Weapon: BikeRockets
+		LocalOffset: -128, -170, 170, -128, 170, 170
+		LocalYaw: 100, -100
+	AttackFrontal:
+		PauseOnCondition: disabled
+		FacingTolerance: 0
+
+STNKD:
+	Inherits: ^TrackedVehicle
+	Inherits@GAINSEXPERIENCE: ^GainsExperience
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Buildable:
+		Queue: Vehicle
+		BuildPaletteOrder: 140
+		Prerequisites: advtechcenter, ~vehicles.bhand, ~techlevel.unrestricted
+		Description: Long-range missile tank that can cloak.\nCan attack Aircraft.\nHas weak armor\nSpeed: 142. Can be spotted by infantry and defense structures.\n  Strong vs Vehicles, Tanks\n  Weak vs Infantry.
+	Valued:
+		Cost: 950
+	Tooltip:
+		Name: Stealth Tank
+	Health:
+		HP: 20000
+	Armor:
+		Type: Light
+	Mobile:
+		Speed: 142
+	RevealsShroud:
+		MinRange: 4c0
+		Range: 5c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 4c0
+	AutoTarget:
+		InitialStance: HoldFire
+	Armament:
+		Weapon: STNKRockets
+		LocalOffset: 213,43,128, 213,-43,128
+	AttackFrontal:
+		PauseOnCondition: disabled
+		FacingTolerance: 0
+	-ExternalCondition@stealthgen:
+	-Cloak@stealthgen:
+	Cloak:
+		InitialDelay: 60
+		CloakDelay: 60
+		CloakSound: trans1.aud
+		UncloakSound: trans1.aud
+		PauseOnCondition: cloak-force-disabled || disabled
+	GrantConditionOnDamageState@UNCLOAK:
+		Condition: cloak-force-disabled
+		ValidDamageStates: Critical
+	DetectCloaked:
+		Range: 2c0
+	-MustBeDestroyed:
+	ProducibleWithLevel:
+		Prerequisites: vehicles.upgraded
+	SpawnActorOnDeath:
+		Actor: STNKD.Husk
+
+# Only for Marked of Kane - Separatists get Chem Tank
+FTNKD:
+	Inherits: ^TrackedVehicle
+	Inherits@GAINSEXPERIENCE: ^GainsExperience
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Valued:
+		Cost: 800
+	Tooltip:
+		Name: Flame Tank
+	Buildable:
+		Queue: Vehicle
+		BuildPaletteOrder: 55
+		Prerequisites: radar, ~vehicles.marked, ~techlevel.medium
+		Description: Heavily armored flame-throwing vehicle.\nSpeed: 98\n  Strong vs Infantry, Buildings, Light vehicles\n  Weak vs Tanks
+	Mobile:
+		TurnSpeed: 28
+		Speed: 98
+	Health:
+		HP: 32500
+	Armor:
+		Type: Heavy
+	RevealsShroud:
+		MinRange: 4c0
+		Range: 5c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 4c0
+	Armament:
+		Weapon: BigFlamer
+		LocalOffset: 512,128,42, 512,-128,42
+	AttackFrontal:
+		PauseOnCondition: disabled
+		FacingTolerance: 0
+	Explodes:
+		Weapon: CrateNapalm
+		EmptyWeapon: CrateNapalm
+	RenderSprites:
+		Image: FTNK
+
+FTNKD.N3:
+	Inherits: FTNKD
+	Valued:
+		Cost: 900
+	Tooltip:
+		Name: Chem Tank
+	Buildable:
+		Queue: Vehicle
+		BuildPaletteOrder: 55
+		Prerequisites: techcenter, ~vehicles.nod3, ~techlevel.medium
+		Description: Heavily armored tiberium-spray vehicle.\nCauses armour debuff.\nSpeed: 98\n  Strong vs Infantry, Buildings, Light vehicles\n  Weak vs Tanks
+		Icon: icon-chem
+	Armament:
+		Weapon: BigChemSpray
+	Explodes:
+		Weapon: TiberiumExplosion
+		EmptyWeapon: TiberiumExplosion
+	RenderSprites:
+		Image: FTNK
+
+CTNK.BHAND:
+	Inherits: ^TrackedVehicle
+	Inherits@Power: ^DisableOnLowPower
+	Buildable:
+		Queue: Vehicle
+		BuildPaletteOrder: 410
+		Prerequisites: advtechcenter, pdox.bhand, ~vehicles.bhand, ~techlevel.unrestricted
+		Description: Provides stealth to nearby friendly units\n and structures.\nRequires power.\nSpeed: 75\nCan detect cloaked units.\n  Unarmed
+		Icon: icon-sgen
+	Valued:
+		Cost: 2100
+	Tooltip:
+		Name: Mobile Stealth Generator
+	Power:
+		Amount: -50
+	Health:
+		HP: 22000
+	Armor:
+		Type: Heavy
+	Mobile:
+		Speed: 75
+	RevealsShroud:
+		MinRange: 4c0
+		Range: 5c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 4c0
+	RenderSprites:
+		Image: ctnk
+	DetectCloaked:
+		Range: 5c0
+	RenderDetectionCircle:
+		TrailCount: 1
+	WithRangeCircle:
+		Range: 5c0
+		Color: FF0000
+	ProximityExternalCondition:
+		RequiresCondition: !disabled
+		Condition: stealthgen
+		Range: 5c0
+		AffectsParent: true
+	Cloak@stealthgen:
+		PauseOnCondition: cloak-force-disabled
+	GrantConditionOnDamageState@UNCLOAK:
+		Condition: cloak-force-disabled
+		ValidDamageStates: Critical
+	Explodes:
+		Weapon: ArtilleryExplode
+		EmptyWeapon: ArtilleryExplode
+	SpawnActorOnDeath:
+		Actor: CTNKB.Husk
+
+SCORPION:
+	Inherits: ^TrackedVehicle
+	Inherits@GAINSEXPERIENCE: ^GainsExperience
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Buildable:
+		Queue: Vehicle
+		BuildPaletteOrder: 420
+		Prerequisites: advtechcenter, ~vehicles.marked, ~techlevel.unrestricted
+		Description: Long-range Obelisk-armed mech walker.\n  Strong vs Ground units\n  Weak vs Air
+	Valued:
+		Cost: 1650
+	Tooltip:
+		Name: Scorpion
+	Health:
+		HP: 30000
+	Armor:
+		Type: Light
+	Mobile:
+		TurnSpeed: 16
+		Speed: 48
+	RevealsShroud:
+		MinRange: 5c0
+		Range: 6c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 5c0
+	Armament:
+		Weapon: ScorpionLaser
+		LocalOffset: 590,0,900
+	AttackFrontal:
+		PauseOnCondition: disabled
+		FacingTolerance: 0
+	Explodes:
+		Weapon: ArtilleryExplode
+		EmptyWeapon: UnitExplode
+		LoadedChance: 100
+	ProducibleWithLevel:
+		Prerequisites: vehicles.upgraded
+	-WithFacingSpriteBody:
+	WithInfantryBody:
+		DefaultAttackSequence: shoot
+		MoveSequence: run
+		StandSequences: idle
+	Selectable:
+		Bounds: 1877, 1621, 0, -170
+		DecorationBounds: 1877, 1621, 0, -170
+	RenderSprites:
+		PlayerPalette: tsunit
+
+NOVAN:
+	Inherits: ^TrackedVehicle
+	Inherits@EPIC: ^EpicUnit
+	Inherits@EPIC2: ^EpicVehicle
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Buildable:
+		Queue: Vehicle
+		BuildPaletteOrder: 2500
+		Prerequisites: ulttechcenter, ~techlevel.unrestricted, ~ai.boss
+		BuildLimit: 1
+		Description: [EPIC]\nAdvanced mech walker armed with anti-infantry flamer,\n Obelisk and 120mm cannons.\nHigh damage and speed for less health than\n other epic units.\nSpeed: 72\n\n  Strong vs Everything\n  Weak vs Nothing
+	Valued:
+		Cost: 11000
+	Tooltip:
+		Name: Purifier
+	Health:
+		HP: 420000
+	Armor:
+		Type: Heavy
+	Mobile:
+		Voice: Move
+		TurnSpeed: 32
+		Speed: 72
+	Guard:
+		Voice: Move
+	Passenger:
+		Weight: 8
+		CustomPipType: red
+		Voice: Move
+	RevealsShroud:
+		Range: 10c0
+	Armament@PRIMARY:
+		Weapon: PurifierFlamer
+		LocalOffset: 800,650,1100, 800,750,1100, 800,700,1150
+	Armament@SECONDARY:
+		Weapon: PurifierLaser
+		LocalOffset: 800,-690,1100
+	Armament@QUATERNARY:
+		Weapon: Purifier120mm
+		LocalOffset: 800,690,1100, 800,790,1100, 800,-790,1100, 800,-690,1100
+		MuzzleSequence: muzzle
+		Recoil: 75
+		RecoilRecovery: 26
+	WithMuzzleOverlay:
+	ClassicFacingBodyOrientation:
+		QuantizedFacings: 32
+	WithFacingSpriteBody:
+		Sequence: idle
+	WithMoveAnimation:
+		MoveSequence: run
+		ValidMovementTypes: Horizontal, Turn
+	Turreted:
+		TurnSpeed: 16
+	AttackTurreted:
+		PauseOnCondition: disabled
+	WithSpriteTurret:
+	Selectable:
+		Bounds: 2133, 2346, 0, -768
+		DecorationBounds: 2133, 2346, 0, -768
+	AnnounceOnKill:
+	Voiced:
+		VoiceSet: ApocalypseVoice
+	Explodes:
+		Weapon: MiniNuke
+		EmptyWeapon: MiniNuke
+	RenderSprites:
+		PlayerPalette: tsunit
+	ChangesHealth:
+		Step: 550
+		Delay: 25
+		StartIfBelow: 50
+		DamageCooldown: 150
+
+NOVAN.M:
+	Inherits: ^TrackedVehicle
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Buildable:
+		Queue: Vehicle
+		BuildPaletteOrder: 430
+		Prerequisites: advtechcenter, ~vehicles.marked, ~techlevel.unrestricted
+		Icon: icon-norm
+		Description: Mech walker armed with anti-infantry flamer,\n and dual cannon.\nSpeed: 72\n\n  Strong vs Everything\n  Weak vs Aircraft
+	Valued:
+		Cost: 2500
+	Tooltip:
+		Name: Purifier
+	Health:
+		HP: 85000
+	Armor:
+		Type: Heavy
+	Mobile:
+		Voice: Move
+		TurnSpeed: 32
+		Speed: 72
+	Guard:
+		Voice: Move
+	Passenger:
+		Weight: 5
+		CustomPipType: red
+		Voice: Move
+	RevealsShroud:
+		MinRange: 5c0
+		Range: 6c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 5c0
+	Armament@PRIMARY:
+		Weapon: PurifierFlamer2
+		LocalOffset: 600,450,900, 600,550,900, 600,500,950
+	Armament@QUATERNARY:
+		Weapon: TurretGunDouble
+		LocalOffset: 600,490,900, 600,590,900, 600,-590,900, 600,-490,900
+		MuzzleSequence: muzzle
+		Recoil: 75
+		RecoilRecovery: 26
+	WithMuzzleOverlay:
+	ClassicFacingBodyOrientation:
+		QuantizedFacings: 32
+	WithFacingSpriteBody:
+		Sequence: idle
+	WithMoveAnimation:
+		MoveSequence: run
+		ValidMovementTypes: Horizontal, Turn
+	Turreted:
+		TurnSpeed: 16
+	AttackTurreted:
+		PauseOnCondition: disabled
+	WithSpriteTurret:
+	Selectable:
+		Bounds: 1920, 2133, 0, -682
+		DecorationBounds: 1920, 2133, 0, -682
+	Voiced:
+		VoiceSet: ApocalypseVoice
+	Explodes:
+		Weapon: E100Cannon
+		EmptyWeapon: E100Cannon
+	RenderSprites:
+		PlayerPalette: tsunit
+		Image: novan
+	ChangesHealth:
+		Step: 250
+		Delay: 25
+		StartIfBelow: 50
+		DamageCooldown: 150
+	SpawnActorOnDeath:
+		Actor: NOVAN.Husk

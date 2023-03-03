@@ -1,0 +1,285 @@
+E5:
+	Inherits: ^Soldier
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Buildable:
+		Queue: Infantry
+		BuildAtProductionType: Soldier
+		BuildPaletteOrder: 70
+		Prerequisites: techcenter, ~techlevel.high, ~infantry.e5prereq
+		Description: Advanced anti-material unit.\nCauses armour debuff.\n  Strong vs Infantry, Buildings\n  Weak vs Vehicles, Aircraft
+	Valued:
+		Cost: 450
+	Tooltip:
+		Name: Chem Warrior
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 12000
+	Armament@PRIMARY:
+		Weapon: ChemSpray
+		LocalOffset: 700,0,500
+		FireDelay: 8
+	Armament@GARRISONED:
+		Name: garrisoned
+		Weapon: ChemSpray
+	Armament@BUS:
+		Name: bus
+		Weapon: ChemSpray
+	TakeCover:
+		ProneOffset: 160,0,-288
+	Explodes:
+		Weapon: VisualExplode
+		EmptyWeapon: VisualExplode
+		Chance: 50
+	WithInfantryBody:
+		DefaultAttackSequence: shoot
+		RequiresCondition: !parachute
+	WithInfantryBody@PARACHUTE:
+		StandSequences: parachute
+		RequiresCondition: parachute
+	ProducibleWithLevel:
+		Prerequisites: barracks.upgraded
+	-DamagedByTerrain:
+
+SBH:
+	Inherits: ^TibSunSoldier
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Buildable:
+		Queue: Infantry
+		BuildAtProductionType: Soldier
+		BuildPaletteOrder: 69
+		Prerequisites: ~infantry.bhand, ~handd, radar, ~techlevel.medium
+		Icon: icon-sbh
+		Description: Cloaked infantry. Armed with\nlaser rifle.\n  Strong vs Infantry, Light Vehicles\n  Weak vs Heavy Armor, Aircraft
+	Valued:
+		Cost: 350
+	Tooltip:
+		Name: Black Hand
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 9000
+	AutoTarget:
+		InitialStance: HoldFire
+		InitialStanceAI: ReturnFire
+	Armament@PRIMARY:
+		Weapon: BlackHandLaser
+		LocalOffset: 427,0,341
+	Armament@GARRISONED:
+		Name: garrisoned
+		Weapon: BlackHandLaser
+	Armament@BUS:
+		Name: bus
+		Weapon: BlackHandLaser
+	WithInfantryBody:
+		DefaultAttackSequence: shoot
+		StandSequences: stand
+	ProducibleWithLevel:
+		Prerequisites: barracks.upgraded
+	RenderSprites:
+		Image: tse1
+	DeathSounds@NORMAL:
+		Voice: DieSBH
+		VolumeMultiplier: 0.8
+	DeathSounds@BURNED:
+		Voice: DieSBH
+		VolumeMultiplier: 0.8
+	DeathSounds@ZAPPED:
+		Voice: DieSBH
+		VolumeMultiplier: 0.8
+	-ExternalCondition@stealthgen:
+	-Cloak@stealthgen:
+	Cloak:
+		IsPlayerPalette: true
+		InitialDelay: 60
+		CloakDelay: 60
+		CloakSound: cloak5.aud
+		PauseOnCondition: cloak-force-disabled || disabled
+	GrantConditionOnDamageState@UNCLOAK:
+		Condition: cloak-force-disabled
+		ValidDamageStates: Critical
+	DetectCloaked:
+		Range: 3c0
+
+TSCYB:
+	Inherits: ^TibSunSoldier
+	Inherits: ^Cyborg
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Buildable:
+		Queue: Infantry
+		BuildAtProductionType: Soldier
+		BuildPaletteOrder: 85
+		Prerequisites: radar, ~infantry.marked, ~techlevel.infonly
+		Description: Cybernetic infantry unit with a\nmachine gun and rocket launcher.\n  Strong vs Infantry, Light armor\n  Weak vs Vehicles, Aircraft
+	Valued:
+		Cost: 600
+	Selectable:
+		Bounds: 938, 1024, 0, -213
+		DecorationBounds: 682, 938, 0, -298
+	Tooltip:
+		Name: Cyborg
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 30000
+	Armor:
+		Type: Light
+	Targetable:
+		RequiresCondition: !parachute
+		TargetTypes: GroundActor, Cyborg
+	Armament@PRIMARY:
+		Weapon: CyborgVulcan
+	Armament@GARRISONED:
+		Name: garrisoned
+		Weapon: Vulcan
+		MuzzleSequence: garrison-muzzle
+	Armament@SECONDARY:
+		Name: secondary
+		Weapon: DoomRPGCyb
+		LocalOffset: 256,-256,512
+	Armament@GARRISONED2:
+		Name: garrisoned
+		Weapon: DoomRPGCyb
+	Armament@BUS:
+		Name: bus
+		Weapon: CyborgVulcan
+		MuzzleSequence: garrisoned-muzzle
+	Armament@BUS2:
+		Name: bus
+		Weapon: DoomRPGCyb
+	ProducibleWithLevel:
+		Prerequisites: barracks.upgraded
+	AttackFrontal:
+		PauseOnCondition: disabled
+		FacingTolerance: 0
+	WithInfantryBody:
+		IdleSequences: idle1,idle2
+		StandSequences: stand
+		DefaultAttackSequence: shoot
+	TakeCover:
+		RequiresCondition: critical
+		Duration: -1
+		DamageModifiers:
+			Prone50Percent: 60
+		ProneOffset: 300,0,0
+		ProneSequencePrefix: crippled-
+	GrantConditionOnDamageState@CRITICAL:
+		Condition: critical
+		ValidDamageStates: Critical
+		GrantPermanently: true
+	ExplosionOnDamageTransition:
+		Weapon: TSInfExplode
+		DamageState: Critical
+		TriggerOnlyOnce: true
+	Explodes:
+		Weapon: TSInfExplode
+		EmptyWeapon: TSInfExplode
+	Mobile:
+		Voice: Move
+	Guard:
+		Voice: Move
+	Passenger:
+		Voice: Move
+	Voiced:
+		VoiceSet: CyborgVoice
+	WithDeathAnimation:
+		-CrushedSequence: die-crushed
+	-Crushable:
+	DamagedByTerrain:
+		Terrain: Tiberium, BlueTiberium
+		Damage: -100
+		DamageInterval: 16
+		DamageTypes: TiberiumDeath
+	-SpawnActorOnDeath@fire:
+
+TSCYBCOM:
+	Inherits: ^TibSunSoldier
+	Inherits: ^Cyborg
+	Inherits: ^EpicUnit
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Buildable:
+		Queue: Infantry
+		BuildAtProductionType: Soldier
+		BuildPaletteOrder: 9000
+		BuildLimit: 1
+		Prerequisites: radar, ulttechcenter, ~infantry.marked, ~techlevel.infonly
+		Description: [EPIC]\nCybernetic commando unit.\n  Strong vs Everything\n  Weak vs Aircraft
+	Valued:
+		Cost: 7500
+	Selectable:
+		Bounds: 1024, 1109, 0, -298
+		DecorationBounds: 768, 1024, 0, -384
+	Tooltip:
+		Name: Cyborg Commando
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 370000
+	Armor:
+		Type: Light
+	Targetable:
+		RequiresCondition: !parachute
+		TargetTypes: GroundActor, Infantry, Vehicle
+	AttackFrontal:
+		PauseOnCondition: disabled
+		FacingTolerance: 0
+	Armament@PRIMARY:
+		Weapon: CyborgPlasma
+		LocalOffset: 170,85,683
+		LocalYaw: -250
+	Armament@GARRISONED:
+		Name: garrisoned
+		Weapon: CyborgPlasma
+	Armament@BUS:
+		Name: bus
+		Weapon: CyborgPlasma
+	WithInfantryBody:
+		IdleSequences: idle1,idle2
+		StandSequences: stand
+		DefaultAttackSequence: shoot
+	TakeCover:
+		RequiresCondition: critical
+		Duration: -1
+		DamageModifiers:
+			Prone50Percent: 75
+		ProneOffset: 300,0,0
+		ProneSequencePrefix: crippled-
+	GrantConditionOnDamageState@CRITICAL:
+		Condition: critical
+		ValidDamageStates: Critical
+		GrantPermanently: true
+	ExplosionOnDamageTransition:
+		Weapon: TSInfExplode
+		DamageState: Critical
+		TriggerOnlyOnce: true
+	Explodes:
+		Weapon: CrateNuke
+		EmptyWeapon: CrateNuke
+	Mobile:
+		Voice: Move
+	Guard:
+		Voice: Move
+	Passenger:
+		Voice: Move
+	Voiced:
+		VoiceSet: CyborgCommandoVoice
+	-Crushable:
+	DamagedByTerrain:
+		Terrain: Tiberium, BlueTiberium
+		Damage: -500
+		DamageInterval: 25
+		DamageTypes: TiberiumDeath
+	ChangesHealth:
+		Step: 500
+		Delay: 25
+		StartIfBelow: 50
+		DamageCooldown: 150
+	AmbientSound:
+		SoundFiles: 23-i002.aud
+		Interval: 500, 1500
+		Delay: 500, 1500
+		RequiresCondition: !ismoving
+	GrantConditionOnMovement:
+		Condition: ismoving
+	AnnounceOnKill:
+	-SpawnActorOnDeath@fire:

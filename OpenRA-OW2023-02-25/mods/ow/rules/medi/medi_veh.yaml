@@ -1,0 +1,934 @@
+MCVM:
+	Inherits: MCV
+	Inherits@GLAVehicle: ^GLAVehicle
+	Inherits@selection: ^SelectableSupportUnit
+	Buildable:
+		Queue: Vehicle
+		BuildAtProductionType: Workshop
+		Prerequisites: armorymedi, ~mcv, ~vehicles.medi, ~techlevel.medium, ~vehicles.mcvmprereq
+		Description: Construction Yard1
+	Transforms:
+		IntoActor: factm
+		TransformSounds: medibuild1.aud, medibuildplace1.aud
+	WithMoveAnimation:
+		MoveSequence: run
+	RenderSprites:
+		Image: mcvmedi
+	Selectable:
+		Bounds: 1706, 1706
+		DecorationBounds: 1706, 1706
+
+MCVM.2:
+	Inherits: MCVM
+	Transforms:
+		IntoActor: factm
+	Buildable:
+		Queue: Vehicle
+		BuildAtProductionType: Workshop
+		BuildPaletteOrder: 90
+		BuildDurationModifier: 35
+		Prerequisites: ~!mcv, ~vehicles.medi
+		Description: Emergency Replacement
+	Valued:
+		Cost: 3000
+	RenderSprites:
+		Image: mcvmedi
+	Selectable:
+		Bounds: 1706, 1706
+		DecorationBounds: 1706, 1706
+MCVM.3:
+	Inherits: MCVM
+	Transforms:
+		IntoActor: factm
+	Buildable:
+		Queue: Vehicle
+		BuildAtProductionType: Workshop
+		BuildPaletteOrder: 90
+		BuildDurationModifier: 35
+		Prerequisites: ~!factm, ~!mcv, ~!vehicles.medi, armorymedi
+		Description: Emergency Replacement
+	Valued:
+		Cost: 3000
+	RenderSprites:
+		Image: mcvmedi
+	Selectable:
+		Bounds: 1706, 1706
+		DecorationBounds: 1706, 1706
+
+^Horse:
+	Targetable:
+		RequiresCondition: !parachute
+		TargetTypes: GroundActor, Infantry
+
+##Fast Cavalry archer.
+HorseCrossbowman:
+	Inherits: ^TrackedVehicle
+	Inherits@GAINSEXPERIENCE: ^GainsExperience
+	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
+	Inherits@Horse: ^Horse
+	Buildable:
+		Queue: Vehicle
+		Prerequisites: ~vehicles.medi, ~!structures.darkness
+		BuildPaletteOrder: 401
+		Description: Crossbowman on a horse.\n  Strong vs Infantry \n  Weak vs Vehicles, Aircraft
+	Valued:
+		Cost: 450
+	Tooltip:
+		Name: Horse Crossbowman
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 30000
+	Armor:
+		Type: None
+	WithMoveAnimation:
+		MoveSequence: run
+	Mobile:
+		TurnSpeed: 120
+		Speed: 160
+		Locomotor: wheeled
+	AutoTarget:
+		InitialStance: AttackAnything
+		ScanRadius: 9
+	RevealsShroud:
+		MinRange: 4c0
+		Range: 5c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 4c0
+	Armament:
+		Weapon: HorseCrossbow
+		PauseOnCondition: elementalweps
+		LocalOffset: 624,0,208
+	Armament@ElementalWepon:
+		Name: secondary
+		Weapon: HorseCrossbowElementalWeps
+		RequiresCondition: elementalweps
+		LocalOffset: 624,0,208
+	Armament@AA:
+		Name: secondary2
+		Weapon: HorseCrossbowAA
+		PauseOnCondition: elementalweps
+		LocalOffset: 624,0,208
+	Armament@AAElementalWepon:
+		Name: secondary3
+		Weapon: HorseCrossbowElementalWepsAA
+		RequiresCondition: elementalweps
+		LocalOffset: 624,0,208
+	WithAttackAnimation:
+		Sequence: shoot
+	WithAttackAnimation@2:
+		Armament: secondary
+		Sequence: shoot
+	WithDeathAnimation:
+		DeathSequence: die
+		UseDeathTypeSuffix: false
+	AttackFrontal:
+		TargetFrozenActors: True
+		ForceFireIgnoresActors: True
+		FacingTolerance: 0
+	ProducibleWithLevel:
+		Prerequisites: vehicles.upgraded
+	RenderSprites:
+		Image: horsecrossbowman
+	Voiced:
+		VoiceSet: CrossbowmanVoice
+
+##Fast Melee Cavalry
+HorseSwordman:
+	Inherits: ^TrackedVehicle
+	Inherits@GAINSEXPERIENCE: ^GainsExperience
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Inherits@Horse: ^Horse
+	Buildable:
+		Queue: Vehicle
+		Prerequisites: ~vehicles.medi, ~!structures.darkness
+		BuildPaletteOrder: 401
+		Description: Horseback Swordsman.\n  Strong vs Infantry and Artilary \n  Weak vs Vehicles, Aircraft
+	Valued:
+		Cost: 400
+	Tooltip:
+		Name: Horse Swordsman
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 35000
+	Armor:
+		Type: None
+	WithMoveAnimation:
+		MoveSequence: run
+	Mobile:
+		TurnSpeed: 160
+		Speed: 160
+		Locomotor: wheeled
+	AutoTarget:
+		InitialStance: AttackAnything
+		ScanRadius: 6
+	RevealsShroud:
+		MinRange: 4c0
+		Range: 5c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 4c0
+	Armament:
+		Weapon: HorseSword
+		PauseOnCondition: elementalweps
+	Armament@ElementalWepon:
+		Name: secondary
+		Weapon: HorseSwordElementalWeps
+		RequiresCondition: elementalweps
+	WithAttackAnimation:
+		Sequence: shoot
+	WithAttackAnimation@2:
+		Armament: secondary
+		Sequence: shoot
+	WithDeathAnimation:
+		DeathSequence: die
+	AttackFrontal:
+		TargetFrozenActors: True
+		ForceFireIgnoresActors: True
+		FacingTolerance: 0
+	ProducibleWithLevel:
+		Prerequisites: vehicles.upgraded
+	RenderSprites:
+		Image: horseswordman
+	Voiced:
+		VoiceSet: SwordmanVoice
+
+##Fast Melee Cavalry
+HorseScout:
+	Inherits: ^TrackedVehicle
+	Inherits@MediLowPower: ^MediLowPower
+	Inherits@GAINSEXPERIENCE: ^GainsExperience
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Inherits@Horse: ^Horse
+	Buildable:
+		Queue: Vehicle
+		Prerequisites: ~vehicles.medi, ~!structures.darkness
+		BuildPaletteOrder: 401
+		Description: Horseback Scout.\n  Strong vs None
+	Valued:
+		Cost: 600
+	Tooltip:
+		Name: Horse Scout
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 12000
+	Armor:
+		Type: None
+	WithMoveAnimation:
+		MoveSequence: run
+	Mobile:
+		TurnSpeed: 36
+		Speed: 230
+		Locomotor: wheeled
+	RevealsShroud:
+		MinRange: 6c0
+		Range: 12c512
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 6c0
+	Armament:
+		Weapon: HorseSword
+	WithAttackAnimation:
+		Sequence: shoot
+	WithDeathAnimation:
+		DeathSequence: die
+	AttackFrontal:
+		TargetFrozenActors: True
+		ForceFireIgnoresActors: True
+		FacingTolerance: 0
+	ProducibleWithLevel:
+		Prerequisites: vehicles.upgraded
+	RenderSprites:
+		Image: medihorsescout
+	Voiced:
+		VoiceSet: ScoutVoice
+	RevealsShroudMultiplier:
+		Modifier: 50
+		RequiresCondition: lowpower
+
+##Ranged Artilary unit
+Catapult:
+	Inherits: ^TrackedVehicle
+	Inherits@GAINSEXPERIENCE: ^GainsExperience
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Buildable:
+		Queue: Vehicle
+		BuildAtProductionType: Workshop
+		Prerequisites: ~vehicles.medi, armorymedi
+		BuildPaletteOrder: 401
+		Description: medium ranged artillery.\n  Strong vs Infantry, Buildings\n  Weak vs Vehicles, Aircraft
+	Valued:
+		Cost: 600
+	Tooltip:
+		Name: Catapult
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 15000
+	Armor:
+		Type: Light
+	WithMoveAnimation:
+		MoveSequence: run
+	Mobile:
+		TurnSpeed: 10
+		Speed: 70
+		Locomotor: heavywheeled
+	AutoTarget:
+		InitialStance: Defend
+		ScanRadius: 10
+	RevealsShroud:
+		MinRange: 4c0
+		Range: 5c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 4c0
+	Armament:
+		Weapon: catapult
+		PauseOnCondition: elementalweps
+		LocalOffset: 624,0,208
+	Armament@ElementalWepon:
+		Name: secondary
+		Weapon: CatapultElementalWeps
+		RequiresCondition: elementalweps
+		LocalOffset: 624,0,208
+	Armament@1:
+		Name: primary1
+		Weapon: catapult1
+		PauseOnCondition: elementalweps
+		LocalOffset: 624,0,208
+	Armament@ElementalWepon1:
+		Name: secondary1
+		Weapon: CatapultElementalWeps
+		RequiresCondition: elementalweps
+		LocalOffset: 624,0,208
+	Armament@2:
+		Name: primary2
+		Weapon: catapult2
+		PauseOnCondition: elementalweps
+		LocalOffset: 624,0,208
+	Armament@ElementalWepon2:
+		Name: secondary2
+		Weapon: CatapultElementalWeps
+		RequiresCondition: elementalweps
+		LocalOffset: 624,0,208
+	Armament@3:
+		Name: primary3
+		Weapon: catapult3
+		PauseOnCondition: elementalweps
+		LocalOffset: 624,0,208
+	Armament@ElementalWepon3:
+		Name: secondary3
+		Weapon: CatapultElementalWeps
+		RequiresCondition: elementalweps
+		LocalOffset: 624,0,208
+	WithAttackAnimation:
+		Sequence: shoot
+	WithAttackAnimation@2:
+		Armament: secondary
+		Sequence: shoot
+	WithDeathAnimation:
+		DeathSequence: die
+	AttackFrontal:
+		Armaments: primary , secondary , primary1 , secondary1 , primary2 , secondary2 ,primary3 , secondary3
+		TargetFrozenActors: True
+		FacingTolerance: 0
+	ProducibleWithLevel:
+		Prerequisites: vehicles.upgraded
+	RenderSprites:
+		Image: catapult
+	Voiced:
+		VoiceSet: SiegeWeaponVoice
+
+##Very long Ranged Artilary unit
+Trebuchet:
+	Inherits: ^TrackedVehicle
+	Inherits@GAINSEXPERIENCE: ^GainsExperience
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Buildable:
+		Queue: Vehicle
+		BuildAtProductionType: Workshop
+		Prerequisites: ~vehicles.medi, armorymedi
+		BuildPaletteOrder: 401
+		Description: Long-range artillery.\n  Strong vs Infantry, Buildings\n  Weak vs Vehicles, Aircraft
+	Valued:
+		Cost: 900
+	Tooltip:
+		Name: Trebuchet
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 10000
+	Armor:
+		Type: Light
+	WithMoveAnimation:
+		MoveSequence: run
+	Mobile:
+		TurnSpeed: 8
+		Speed: 60
+		Locomotor: heavywheeled
+	AutoTarget:
+		InitialStance: Defend
+		ScanRadius: 13
+	RevealsShroud:
+		MinRange: 4c0
+		Range: 5c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 4c0
+	Armament:
+		Weapon: trebuchet
+		LocalOffset: 624,0,208
+	WithAttackAnimation:
+		Sequence: shoot
+	WithDeathAnimation:
+		DeathSequence: die
+	AttackFrontal:
+		TargetFrozenActors: True
+		ForceFireIgnoresActors: True
+		FacingTolerance: 0
+	ProducibleWithLevel:
+		Prerequisites: vehicles.upraded
+	RenderSprites:
+		Image: trebuchet
+	Voiced:
+		VoiceSet: SiegeWeaponVoice
+
+##Long range AOE for killing Infantry
+Hwacha:
+	Inherits: ^TrackedVehicle
+	Inherits@GAINSEXPERIENCE: ^GainsExperience
+	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
+	Buildable:
+		Queue: Vehicle
+		BuildAtProductionType: Workshop
+		BuildPaletteOrder: 420
+		Prerequisites: ~vehicles.medi, armorymedi
+		Description: Long-range arrow artillery.\n  Strong vs Infantry, Light armor\n  Weak vs Tanks
+	Valued:
+		Cost: 900
+	Tooltip:
+		Name: Hwacha
+	Health:
+		HP: 10000
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	WithMoveAnimation:
+		MoveSequence: run
+	WithAttackAnimation:
+		Sequence: shoot
+	WithAttackAnimation@2:
+		Armament: secondary
+		Sequence: shoot
+	Armor:
+		Type: Light
+	Mobile:
+		Speed: 80
+	AutoTarget:
+		InitialStance: Defend
+		ScanRadius: 11
+	RevealsShroud:
+		MinRange: 4c0
+		Range: 5c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 4c0
+	Armament:
+		Weapon: hwachaarrow
+		PauseOnCondition: elementalweps
+		LocalOffset: 213,160,0, 213,-160,0
+	Armament@ElementalWepon:
+		Name: secondary
+		Weapon: HwachaarrowElementalWeps
+		RequiresCondition: elementalweps
+		LocalOffset: 213,160,0, 213,-160,0
+	Turreted:
+		TurnSpeed: 1023
+		Offset: -256,0,128
+	AttackFrontal:
+		Armaments: primary, secondary
+		PauseOnCondition: disabled
+		FacingTolerance: 0
+	Selectable:
+		DecorationBounds: 1194, 1194
+	Explodes:
+		Weapon: V2Explode
+	ProducibleWithLevel:
+		Prerequisites: vehicles.upgraded
+	RenderSprites:
+		Image: medihwacha
+	Voiced:
+		VoiceSet: SiegeWeaponVoice
+
+##Transport unit
+Carriage:
+	Inherits: ^TrackedVehicle
+	Inherits@GAINSEXPERIENCE: ^GainsExperience
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Inherits@CARGOPIPS: ^CargoPips
+	Buildable:
+		Queue: Vehicle
+		BuildAtProductionType: Workshop
+		BuildPaletteOrder: 120
+		Prerequisites: ~vehicles.medi, armorymedi
+		Description: Light infantry transport.\n Can Fire while moving \nStrength varies with occupants
+	Valued:
+		Cost: 600
+	Tooltip:
+		Name: Carriage
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 25000
+	Armor:
+		Type: Heavy
+	WithMoveAnimation:
+		MoveSequence: run
+	Mobile:
+		Speed: 142
+		PauseOnCondition: notmobile || being-captured
+	AutoTarget:
+		InitialStance: AttackAnything
+		ScanRadius: 7
+	RevealsShroud:
+		MinRange: 4c0
+		Range: 5c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 4c0
+	Armament:
+		Weapon: horsecrossbow
+		LocalOffset: 85,0,171
+	AttackGarrisoned:
+		Armaments: bus
+		PortOffsets: 384,-256,384, 64,-256,384, -192,-256,384, -448,-256,384, -768,0,384, 384,256,384, 64,256,384, -192,256,384, -448,256,384, -640,-256,384, -640,256,384
+		PortYaws: 48,256,256,256,512,976,768,768,768,256,768
+		PortCones: 112,96,96,96,112,96,96,96,96,96,96
+	ClassicFacingBodyOrientation:
+		QuantizedFacings: 32
+	AttackFrontal:
+		FacingTolerance: 0
+	WithMuzzleOverlay:
+	Cargo:
+		Types: Infantry
+		MaxWeight: 6
+		LoadingCondition: notmobile
+		EjectOnDeath: True
+	Selectable:
+		Bounds: 1280, 1280
+		DecorationBounds: 1280, 1280
+	ProducibleWithLevel:
+		Prerequisites: vehicles.upgraded
+	RenderSprites:
+		Image: medicarriage
+	Voiced:
+		VoiceSet: ScoutVoice
+	WithCargoPipsDecoration:
+		Position: BottomLeft
+		RequiresSelection: true
+
+##Sends Money to others
+TRUKMedi:
+	Inherits: ^TrackedVehicle
+	Inherits@selection: ^SelectableSupportUnit
+	Buildable:
+		Queue: Vehicle
+		BuildAtProductionType: Workshop
+		BuildPaletteOrder: 410
+		Prerequisites: ~vehicles.medi, armorymedi
+		Description: Transports cash to other players.\n  Unarmed
+	Valued:
+		Cost: 500
+	WithMoveAnimation:
+		MoveSequence: run
+	Tooltip:
+		Name: Supply Truck
+	Health:
+		HP: 11000
+	Armor:
+		Type: Light
+	Mobile:
+		Speed: 130
+	RevealsShroud:
+		Range: 4c0
+	DeliversCash:
+		Payload: 500
+		PlayerExperience: 50
+	SpawnActorOnDeath:
+		Actor: moneycrate
+	Selectable:
+		Bounds: 1280, 1280
+		DecorationBounds: 1280, 1280
+	RenderSprites:
+		Image: medicarriage
+
+##Boom?
+Trojan:
+	Inherits: ^TrackedVehicle
+	Buildable:
+		Queue: Vehicle
+		BuildAtProductionType: Workshop
+		BuildPaletteOrder: 330
+		Prerequisites: ~vehicles.medi, techcenter, armorymedi
+		Description: Truck with actively armed nuclear\nexplosives. Has very weak armor.
+	Valued:
+		Cost: 2000
+	Tooltip:
+		Name: Trojan
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 6000
+	Armor:
+		Type: Light
+	Mobile:
+		Speed: 85
+	RevealsShroud:
+		Range: 4c0
+	Explodes:
+		Weapon: TinyNuke
+		EmptyWeapon: TinyNuke
+		DamageSource: Killer
+	AttackFrontal:
+		FacingTolerance: 512
+	Armament@PRIMARY:
+		Weapon: DemoTruckTargeting
+	GrantConditionOnAttack:
+		Condition: triggered
+	GrantConditionOnDeploy:
+		DeployedCondition: triggered
+	-DamageMultiplier@IRONCURTAIN:
+	KillsSelf:
+		RequiresCondition: invulnerability || triggered
+	Chronoshiftable:
+		ExplodeInstead: true
+	RenderSprites:
+		Image: meditrojan
+	Voiced:
+		VoiceSet: SiegeWeaponVoice
+
+##Ballista
+Ballista:
+	Inherits: ^TrackedVehicle
+	Inherits@GAINSEXPERIENCE: ^GainsExperience
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Buildable:
+		Queue: Vehicle
+		BuildAtProductionType: Workshop
+		Prerequisites: ~vehicles.medi, techcenter, armorymedi
+		BuildPaletteOrder: 401
+		Description: Long-range Sniper artillery.\n  Strong vs Infantry, Vehicles\n  Weak vs Aircraft
+	Valued:
+		Cost: 1100
+	Tooltip:
+		Name: Ballista
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 15000
+	Armor:
+		Type: Light
+	Mobile:
+		TurnSpeed: 9
+		Speed: 70
+		Locomotor: heavywheeled
+	AutoTarget:
+		InitialStance: Defend
+		ScanRadius: 12
+	RevealsShroud:
+		MinRange: 4c0
+		Range: 5c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 4c0
+	Armament:
+		Weapon: ballistashot
+		PauseOnCondition: elementalweps
+		LocalOffset: 624,0,208
+	Armament@ElementalWepon:
+		Name: secondary
+		Weapon: BallistashotElementalWeps
+		RequiresCondition: elementalweps
+		LocalOffset: 624,0,208
+	WithAttackAnimation:
+		Sequence: shoot
+	WithAttackAnimation@2:
+		Armament: secondary
+		Sequence: shoot
+	AttackFrontal:
+		TargetFrozenActors: True
+		ForceFireIgnoresActors: True
+		FacingTolerance: 0
+	ProducibleWithLevel:
+		Prerequisites: vehicles.upgraded
+	RenderSprites:
+		Image: mediballista
+	Voiced:
+		VoiceSet: SiegeWeaponVoice
+
+SiegeTower:
+	Inherits: ^TrackedVehicle
+	Inherits@GAINSEXPERIENCE: ^GainsExperience
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Inherits@CARGOPIPS: ^CargoPips
+	Buildable:
+		Queue: Vehicle
+		BuildAtProductionType: Workshop
+		BuildPaletteOrder: 120
+		Prerequisites: ~vehicles.medi, armorymedi, ~techlevel.high
+		Description: Tough infantry transport.\n  Can Fire while moving \nStrength varies with occupants
+	Selectable:
+		Bounds: 2986, 2474
+		DecorationBounds: 2986, 2474
+	Valued:
+		Cost: 2500
+	Tooltip:
+		Name: Siege Tower
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 150000
+	Armor:
+		Type: Heavy
+	Mobile:
+		Speed: 32
+		PauseOnCondition: notmobile || being-captured
+	AutoTarget:
+		InitialStance: AttackAnything
+		ScanRadius: 10
+	RevealsShroud:
+		MinRange: 4c0
+		Range: 5c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 4c0
+	Armament:
+		Weapon: horsecrossbow
+		LocalOffset: 85,0,171
+	AttackGarrisoned:
+		Armaments: bus
+		PortOffsets: 384,-256,384, 64,-256,384, -192,-256,384, -448,-256,384, -768,0,384, 384,256,384, 64,256,384, -192,256,384, -448,256,384, -640,-256,384, -640,256,384
+		PortYaws: 48,256,256,256,512,976,768,768,768,256,768
+		PortCones: 112,96,96,96,112,96,96,96,96,96,96
+	ClassicFacingBodyOrientation:
+		QuantizedFacings: 32
+	AttackFrontal:
+		FacingTolerance: 0
+	WithMuzzleOverlay:
+	Cargo:
+		Types: Infantry
+		MaxWeight: 10
+		LoadingCondition: notmobile
+		PassengerConditions:
+			e1of: e1of
+			dm2of: e1of
+	ProducibleWithLevel:
+		Prerequisites: vehicles.upgraded
+	RenderSprites:
+		Image: medisiegetower
+	Voiced:
+		VoiceSet: SiegeWeaponVoice
+	WithCargoPipsDecoration:
+		Position: BottomLeft
+		RequiresSelection: true
+	ProximityExternalCondition@officer:
+		RequiresCondition: e1of
+		Condition: squadboost
+		Range: 6c0
+	WithDecoration@officer2:
+		Image: pips
+		Sequence: pip-bonus
+		Palette: effect
+		Position: TopRight
+		ValidRelationships: None,Neutral,Enemy,Ally
+		RequiresCondition: !demoralise && e1of
+	ExternalCondition@demoralise:
+		Condition: demoralise
+
+SIEGETOWER.Bot:
+	Inherits: SiegeTower
+	Buildable:
+		Prerequisites: ~vehicles.medi, armorymedi, ~vehicles.botonly, ~techlevel.high
+	Valued:
+		Cost: 5000
+	Cargo:
+		MaxWeight: 12
+		InitialUnits: lightningwizard, lightningwizard, crossbowman, crossbowman, crossbowman, wizard, wizard, musketeer, musketeer, e1of, dm4
+
+
+##Knight, sword horseman but more tanky
+
+
+Cannon:
+	Inherits: ^TrackedVehicle
+	Inherits@GAINSEXPERIENCE: ^GainsExperience
+	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
+	Buildable:
+		Queue: Vehicle
+		BuildAtProductionType: Workshop
+		Prerequisites: ~vehicles.medi, blacksmithmedi
+		BuildPaletteOrder: 401
+		Description: Long-range artillery.\n  Strong vs Vehicles, Buildings\n  Weak vs Infantry
+	Valued:
+		Cost: 1000
+	Tooltip:
+		Name: Cannon
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 20000
+	Armor:
+		Type: Heavy
+	WithMoveAnimation:
+		MoveSequence: run
+	Mobile:
+		TurnSpeed: 16
+		Speed: 70
+		Locomotor: heavywheeled
+	AutoTarget:
+		InitialStance: Defend
+		ScanRadius: 11
+	RevealsShroud:
+		MinRange: 4c0
+		Range: 5c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 4c0
+	Armament:
+		Weapon: CannonShot
+		PauseOnCondition: elementalweps
+		LocalOffset: 624,0,208
+	Armament@ElementalWepon:
+		Name: secondary
+		Weapon: CannonShotElementalWeps
+		RequiresCondition: elementalweps
+		LocalOffset: 624,0,208
+	WithAttackAnimation:
+		Sequence: shoot
+	WithAttackAnimation@2:
+		Armament: secondary
+		Sequence: shoot
+	WithDeathAnimation:
+		DeathSequence: die
+	AttackFrontal:
+		Armaments: primary, secondary
+		FacingTolerance: 0
+	ProducibleWithLevel:
+		Prerequisites: vehicles.upgraded
+	RenderSprites:
+		Image: medicannon
+	Voiced:
+		VoiceSet: SiegeWeaponVoice
+
+HorseMusket:
+	Inherits: ^TrackedVehicle
+	Inherits@GAINSEXPERIENCE: ^GainsExperience
+	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
+	Buildable:
+		Queue: Vehicle
+		Prerequisites: ~vehicles.medi, blacksmithmedi, ~!structures.darkness
+		BuildPaletteOrder: 401
+		Description: musketeer on horseback.\n  Strong vs Infantry\n  Weak vs Vehicles, Aircraft
+	Valued:
+		Cost: 700
+	Tooltip:
+		Name: Horse Musketeer
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 35000
+	Armor:
+		Type: Heavy
+	WithMoveAnimation:
+		MoveSequence: run
+	Mobile:
+		TurnSpeed: 120
+		Speed: 160
+		Locomotor: wheeled
+	AutoTarget:
+		InitialStance: AttackAnything
+		ScanRadius: 11
+	RevealsShroud:
+		MinRange: 4c0
+		Range: 5c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 4c0
+	Armament:
+		Weapon: MusketeerHorseShot
+		PauseOnCondition: elementalweps
+	Armament@ElementalWepon:
+		Name: secondary
+		Weapon: MusketeerHorseShotElementalWeps
+		RequiresCondition: elementalweps
+	WithAttackAnimation@2:
+		Armament: secondary
+		Sequence: shoot
+	WithAttackAnimation:
+		Sequence: shoot
+	WithDeathAnimation:
+		DeathSequence: die
+	AttackFrontal:
+		Armaments: primary, secondary
+		FacingTolerance: 0
+	ProducibleWithLevel:
+		Prerequisites: vehicles.upgraded
+	RenderSprites:
+		Image: medihorsemusket
+	Voiced:
+		VoiceSet: SwordmanVoice
+
+
+FireElemental:
+	Inherits: ^TrackedVehicle
+	Inherits@GAINSEXPERIENCE: ^GainsExperience
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Inherits@Horse: ^Horse
+	Buildable:
+		Queue: Vehicle
+		BuildPaletteOrder: 401
+		Prerequisites: ~vehicles.medi, blacksmithmedi, ~structures.elementalists
+		Description: Fire Elemental.\nSpeed: 78\n  Strong vs Infantry\n  Weak vs Vehicles, Air
+	Valued:
+		Cost: 500
+	Tooltip:
+		Name: Fire Elemental
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 35000
+	Armor:
+		Type: Light
+	WithMoveAnimation:
+		MoveSequence: run
+	Mobile:
+		TurnSpeed: 200
+		Speed: 70
+		Locomotor: wheeled
+	AutoTarget:
+		InitialStance: AttackAnything
+		ScanRadius: 6
+	RevealsShroud:
+		MinRange: 4c0
+		Range: 5c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 4c0
+	Armament:
+		Name: primary
+		Weapon: FireElementAttack
+	WithAttackAnimation:
+		Sequence: shoot
+	WithDeathAnimation:
+		DeathSequence: die
+	AttackFrontal:
+		Armaments: primary
+		FacingTolerance: 0
+	ProducibleWithLevel:
+		Prerequisites: vehicles.upgraded
+	RenderSprites:
+		Image: horseswordman
+	Voiced:
+		VoiceSet: SwordmanVoice

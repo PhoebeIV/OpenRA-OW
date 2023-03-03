@@ -1,0 +1,169 @@
+FTEK:
+	Inherits: ATEK
+	Building:
+		Footprint: xxx xxx ===
+		Dimensions: 3,3
+		LocalCenterOffset: 0,-512,0
+	Buildable:
+		Prerequisites: factory, radar, ~structures.fed, ~techlevel.high, ~!ai.hard
+		Description: Provides Federation advanced technologies.
+	Tooltip:
+		Name: Federation Tech Center
+	RenderSprites:
+		Image: CFLARF
+
+
+
+GAP3:
+	Inherits: ^Building
+	Inherits@IDISABLE: ^DisableOnLowPower
+	Valued:
+		Cost: 850
+	Tooltip:
+		Name: Federation Eye
+	Buildable:
+		BuildPaletteOrder: 185
+		Queue: Defense
+		Prerequisites: techcenter, ~structures.fed, ~techlevel.high
+		Icon: icon-gap3
+		Description: Detects nearby cloaked units.\n  Strong vs Spies, Phase Transports\n Weak vs Uncloaked things
+	Selectable:
+		Bounds: 1024, 1024
+		DecorationBounds: 938, 2048, 0, -512
+	WithBuildingBib:
+		HasMinibib: true
+	Power:
+		Amount: -100
+	Health:
+		HP: 40000
+	Armor:
+		Type: Wood
+	RevealsShroud:
+		MinRange: 16c0
+		Range: 18c0
+		RevealGeneratedShroud: False
+		RequiresCondition: !jammed && !disabled
+	RevealsShroud@lowpower:
+		Range: 3c0
+		RequiresCondition: jammed || disabled
+	DetectCloaked:
+		Range: 8c0
+		RequiresCondition: !jammed && !disabled
+	RevealsShroud@GAPGEN:
+		Range: 18c0
+		RequiresCondition: !disabled
+	RenderDetectionCircle:
+	RenderSprites:
+		Image: SPMST
+	ExternalCondition@JAMMED:
+		Condition: jammed
+
+DGUN:
+	Inherits: GUN
+	Inherits@IDISABLE: ^DisableOnLowPowerOrPowerDown
+	Buildable:
+		BuildPaletteOrder: 100
+		Prerequisites: techcenter, ~structures.fed, ~techlevel.high
+		Icon: icon-hellfire
+		Description: Long Range, Anti-Armor base defense.\n  Strong vs Tanks\n  Weak vs Infantry, Aircraft
+	Valued:
+		Cost: 1100
+	Tooltip:
+		Name: Hellfire Cannon
+	RevealsShroud:
+		MinRange: 7c0
+		Range: 9c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 7c0
+	Armament:
+		Weapon: TurretGunHellfire
+		LocalOffset: 512,-100,112, 512,100,112
+	AttackTurreted:
+		RequiresCondition: !build-incomplete
+		PauseOnCondition: lowpower
+	Power:
+		Amount: -50
+
+ADVSAM:
+	Inherits: SAM
+	Buildable:
+		Queue: Defense
+		BuildPaletteOrder: 165
+		Prerequisites: radar, advtechcenter, ~structures.fed, ~techlevel.high
+		Description: Stronger Anti-Air base defense.\nRequires power to operate.\nCan detect cloaked units.\n  Strong vs Aircraft\n  Weak vs Ground units
+	Valued:
+		Cost: 1700
+	Tooltip:
+		Name: Advanced SAM Site
+	Building:
+		Footprint: xx xx
+		Dimensions: 2,2
+	Power:
+		Amount: -80
+	Health:
+		HP: 50000
+	Armament:
+		Weapon: AdvNike
+
+OREGEN:
+	Inherits: ^Building
+	Inherits@IDISABLE: ^DisableOnLowPowerOrPowerDown
+	Valued:
+		Cost: 2400
+	Buildable:
+		Queue: Tech
+		BuildPaletteOrder: 190
+		Prerequisites: techcenter, ~structures.fed, ~techlevel.unrestricted
+		Description: Generates an ore field, \n  Unarmed
+	Tooltip:
+		Name: Ore Generator
+	Power:
+		Amount: -180
+	Health:
+		HP: 40000
+	Armor:
+		Type: Wood
+	RevealsShroud:
+		MinRange: 3c0
+		Range: 4c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 3c0
+	SeedsResource:
+		Interval: 100
+		MaxRange: 5
+		RequiresCondition: !disabled
+	CashTrickler:
+		Interval: 100
+		Amount: 10
+		RequiresCondition: !disabled
+	-AcceptsDeliveredCash:
+
+GEMGEN:
+	Inherits: OREGEN
+	Valued:
+		Cost: 4800
+	Buildable:
+		BuildPaletteOrder: 195
+		Prerequisites: advtechcenter, ~structures.fed, ~techlevel.unrestricted
+		Icon: icon-gem
+		Description: Generates a gem field, \n  Unarmed
+	Tooltip:
+		Name: Gem Generator
+	Power:
+		Amount: -300
+	Health:
+		HP: 20000
+	SeedsResource:
+		Interval: 125
+		ResourceType: Gems
+		MaxRange: 5
+	CashTrickler:
+		Interval: 100
+		Amount: 30
+	Explodes:
+		Weapon: TinyNuke
+		EmptyWeapon: TinyNuke
+	RenderSprites:
+		Image: OREGEN

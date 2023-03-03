@@ -1,0 +1,523 @@
+^FedHealing:
+	ChangesHealth@Fed:
+		PercentageStep: 5
+		Delay: 50
+		StartIfBelow: 50
+		DamageCooldown: 200
+	Crushable:
+		CrushClasses: heavywall
+
+FE1:
+	Inherits: ^TibSunSoldier
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Buildable:
+		Queue: Infantry
+		BuildAtProductionType: Soldier
+		BuildPaletteOrder: 10
+		Prerequisites: ~infantry.fed, ~techlevel.infonly
+		Icon: icon-fed
+		Description: Infantry in training.\n  Strong vs Nothing\n  Weak vs Everything
+	Valued:
+		Cost: 70
+	Tooltip:
+		Name: Initiate
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 4000
+	Armament@PRIMARY:
+		Weapon: M1Carbine
+		LocalOffset: 427,0,341
+	Armament@GARRISONED:
+		Name: garrisoned
+		Weapon: M1Carbine_Bus
+		MuzzleSequence: garrison-muzzle
+	Armament@BUS:
+		Name: bus
+		Weapon: M1Carbine_Bus
+		MuzzleSequence: garrison-muzzle
+	WithInfantryBody:
+		DefaultAttackSequence: shoot
+	ProducibleWithLevel:
+		Prerequisites: barracks.upgraded
+	ChangesHealth@Fed:
+		Step: 1
+		Delay: 50
+		StartIfBelow: 90
+		DamageCooldown: 100
+	RenderSprites:
+		Image: TSE4
+
+FE2:
+	Inherits: ^TibSunSoldier
+	Inherits: ^FedHealing
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Buildable:
+		Queue: Infantry
+		BuildAtProductionType: Soldier
+		BuildPaletteOrder: 15
+		Icon: icon-fed
+		Prerequisites: ~infantry.fed, ~techlevel.infonly
+		Description: Assault infantry.\n  Strong vs Infantry\n  Weak vs Vehicles
+	Valued:
+		Cost: 350
+	Tooltip:
+		Name: Strike Knight
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 15000
+	RevealsShroud:
+		Range: 5c0
+	Mobile:
+		Speed: 84
+	Armament@PRIMARY:
+		Weapon: FSMG
+		LocalOffset: 427,0,341
+	Armament@GARRISONED:
+		Name: garrisoned
+		Weapon: Vulcan_D
+		MuzzleSequence: garrison-muzzle
+	Armament@BUS:
+		Name: bus
+		Weapon: FSMG
+		MuzzleSequence: garrison-muzzle
+	WithInfantryBody:
+		DefaultAttackSequence: shoot
+	ProducibleWithLevel:
+		Prerequisites: barracks.upgraded
+	RenderSprites:
+		Image: TSE1
+
+FE3:
+	Inherits: ^TibSunSoldier
+	Inherits: ^FedHealing
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Buildable:
+		Queue: Infantry
+		BuildAtProductionType: Soldier
+		BuildPaletteOrder: 20
+		Prerequisites: ~infantry.fed, ~techlevel.infonly
+		Icon: icon-fed
+		Description: Infantry armed with grenades. \n  Strong vs Buildings, Infantry\n  Weak vs Vehicles
+	Valued:
+		Cost: 360
+	Tooltip:
+		Name: Grenade Knight
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 15000
+	RevealsShroud:
+		Range: 5c0
+	Armament@PRIMARY:
+		Weapon: FGrenade
+		LocalOffset: 427,0,341
+		FireDelay: 15
+	Armament@GARRISONED:
+		Name: garrisoned
+		Weapon: FGrenade
+	Armament@BUS:
+		Name: bus
+		Weapon: FGrenade
+	Explodes:
+		Weapon: UnitExplodeSmall
+		Chance: 50
+	WithInfantryBody:
+		DefaultAttackSequence: shoot
+	ProducibleWithLevel:
+		Prerequisites: barracks.upgraded
+	RenderSprites:
+		Image: TSE2
+
+FE4:
+	Inherits: ^TibSunSoldier
+	Inherits: ^FedHealing
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Buildable:
+		Queue: Infantry
+		BuildAtProductionType: Soldier
+		BuildPaletteOrder: 25
+		Prerequisites: ~infantry.fed, ~techlevel.infonly
+		Icon: icon-fed
+		Description: Anti-tank infantry with grenades.\n  Strong vs Tanks\n  Weak vs Infantry
+	Valued:
+		Cost: 650
+	Tooltip:
+		Name: Heavy Knight
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 40000
+	RevealsShroud:
+		Range: 5c0
+	Armament@PRIMARY:
+		Weapon: FRkt
+		LocalOffset: 427,0,341
+	Armament@SECONDARY:
+		Weapon: Grenade
+		LocalOffset: 427,0,341
+	Armament@GARRISONED:
+		Name: garrisoned
+		Weapon: FRkt
+	Armament@BUS:
+		Name: bus
+		Weapon: FRkt
+	WithInfantryBody:
+		DefaultAttackSequence: shoot
+	ProducibleWithLevel:
+		Prerequisites: barracks.upgraded
+	RenderSprites:
+		Image: fe4
+
+FE6:
+	Inherits: ^TibSunSoldier
+	Inherits: ^FedHealing
+	Inherits@selection: ^SelectableSupportUnit
+	Buildable:
+		Queue: Infantry
+		BuildAtProductionType: Soldier
+		BuildPaletteOrder: 28
+		Prerequisites: ~infantry.fed, ~techlevel.infonly
+		Icon: icon-fed
+		Description: Infiltrates and captures\nenemy structures.\n  Unarmed
+	Valued:
+		Cost: 500
+	Tooltip:
+		Name: Tech Knight
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 4000
+	RevealsShroud:
+		Range: 3c0
+	Passenger:
+		CustomPipType: yellow
+	WithInfantryBody:
+		RequiresCondition: !parachute
+	WithInfantryBody@PARACHUTE:
+		StandSequences: parachute
+		RequiresCondition: parachute
+	EngineerRepair:
+	RepairsBridges:
+	CaptureManager:
+	GrantConditionOnPrerequisite@GLOBALREUSABLEENGINEER:
+		Condition: global-reusable-engineers
+		Prerequisites: global-reusable-engineers
+	Captures:
+		RequiresCondition: !global-reusable-engineers
+		CaptureTypes: building
+		PlayerExperience: 25
+		CaptureDelay: 200
+	Captures@REUSABLE:
+		RequiresCondition: global-reusable-engineers
+		CaptureTypes: building
+		PlayerExperience: 25
+		CaptureDelay: 375
+		ConsumedByCapture: False
+		EnterCursor: ability
+		EnterBlockedCursor: move-blocked
+	Voiced:
+		VoiceSet: EngineerVoice
+	RenderSprites:
+		Image: TSENGI
+	-AttackFrontal:
+
+FE7:
+	Inherits: ^TibSunSoldier
+	Inherits: ^FedHealing
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Buildable:
+		Queue: Infantry
+		BuildAtProductionType: Soldier
+		BuildPaletteOrder: 110
+		Prerequisites: techcenter, ~infantry.fed, ~techlevel.high
+		Icon: icon-fed
+		Description: Elite stealth infantry, armed with \na sniper rifle.\n  Strong vs Infantry\n  Weak vs Vehicles
+	Valued:
+		Cost: 1300
+	Tooltip:
+		Name: Hunter Knight
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 18000
+	RevealsShroud:
+		MinRange: 5c0
+		Range: 7c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 5c0
+	Armament@PRIMARY:
+		Weapon: FSniper
+	Armament@GARRISONED:
+		Name: garrisoned
+		Weapon: FSniper
+		MuzzleSequence: garrison-muzzle
+	Armament@BUS:
+		Name: bus
+		Weapon: FSniper
+		MuzzleSequence: garrison-muzzle
+	Mobile:
+		Speed: 32
+		Voice: Move
+	Passenger:
+		Voice: Move
+		CustomPipType: red
+	Guard:
+		Voice: Move
+	AutoTarget:
+		InitialStance: HoldFire
+		InitialStanceAI: Defend
+	ExternalCondition@PRODUCED:
+		Condition: produced
+	VoiceAnnouncement:
+		RequiresCondition: produced
+		Voice: Build
+	AnnounceOnKill:
+	DetectCloaked:
+		Range: 6c0
+	-TakeCover:
+	-GpsDot:
+	-DamagedByTerrain:
+	-ExternalCondition@stealthgen:
+	-Cloak@stealthgen:
+	Cloak:
+		InitialDelay: 10
+		CloakDelay: 50
+		CloakSound: gstealon.aud
+		UncloakSound: gstealof.aud
+		UncloakOn: Move, Damage
+		PauseOnCondition: cloak-force-disabled || disabled
+	GrantConditionOnDamageState@UNCLOAK:
+		Condition: cloak-force-disabled
+		ValidDamageStates: Critical
+	WithInfantryBody:
+		DefaultAttackSequence: shoot
+		StandSequences: stand
+	Voiced:
+		VoiceSet: HunterVoice
+	ProducibleWithLevel:
+		Prerequisites: barracks.upgraded
+	RenderRangeCircle:
+	RenderSprites:
+		Image: TSE5P
+
+FMEDI:
+	Inherits: ^TibSunSoldier
+	Inherits: ^FedHealing
+	Buildable:
+		Queue: Infantry
+		BuildAtProductionType: Soldier
+		BuildPaletteOrder: 30
+		Prerequisites: ~infantry.fed, ~techlevel.infonly
+		Icon: icon-fed
+		Description: Heals nearby infantry.\n  Unarmed
+	Valued:
+		Cost: 650
+	Tooltip:
+		Name: Medic Knight
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 25000
+	Mobile:
+		Speed: 70
+	RevealsShroud:
+		Range: 3c0
+	Passenger:
+		CustomPipType: blue
+	Armament:
+		Weapon: FHeal
+		Cursor: heal
+		OutsideRangeCursor: heal
+		TargetRelationships: Ally
+		ForceTargetRelationships: None
+	WithInfantryBody:
+		IdleSequences: idle1, idle2
+		StandSequences: stand
+		DefaultAttackSequence: heal
+	Voiced:
+		VoiceSet: MedicVoice
+	AutoTarget:
+	AutoTargetPriority@DEFAULT:
+		ValidTargets: Infantry
+	RenderSprites:
+		Image: TSmedi
+
+FSHOK:
+	Inherits: ^TibSunSoldier
+	Inherits: ^FedHealing
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Buildable:
+		Queue: Infantry
+		BuildAtProductionType: Soldier
+		BuildPaletteOrder: 110
+		Prerequisites: techcenter, ~infantry.fed, ~techlevel.high
+		Icon: icon-fed
+		Description: Infantry with tesla coils\n Strong vs Infantry, Vehicles\n Weak vs Air, long-range
+	Valued:
+		Cost: 500
+	Tooltip:
+		Name: Shock Knight
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 12000
+	Mobile:
+		Speed: 70
+	RevealsShroud:
+		Range: 5c0
+	Armament@PRIMARY:
+		Weapon: PortaTesla
+		LocalOffset: 427,0,341
+	Armament@GARRISONED:
+		Name: garrisoned
+		Weapon: PortaTesla
+	Armament@BUS:
+		Name: bus
+		Weapon: PortaTesla
+	TakeCover:
+		ProneOffset: 227,0,-245
+	AttackFrontal:
+		Voice: Attack
+		FacingTolerance: 0
+	AttackMove:
+		Voice: Move
+	Passenger:
+		Voice: Move
+	Guard:
+		Voice: Move
+	WithInfantryBody:
+		DefaultAttackSequence: shoot
+		RequiresCondition: !parachute
+	WithInfantryBody@PARACHUTE:
+		StandSequences: parachute
+		RequiresCondition: parachute
+	Voiced:
+		VoiceSet: ShokVoice
+	ProducibleWithLevel:
+		Prerequisites: barracks.upgraded
+	RenderSprites:
+		Image: TSSHOK
+
+FRMBO:
+	Inherits: ^TibSunSoldier
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Valued:
+		Cost: 2800
+	Buildable:
+		Queue: Infantry
+		BuildAtProductionType: Soldier
+		BuildPaletteOrder: 120
+		Prerequisites: techcenter, ~infantry.fed, ~techlevel.high
+		Icon: icon-fed
+		Description: Elite commando unit.\n  Strong vs heavy armor, Buildings\n  Weak vs Aircraft
+	Tooltip:
+		Name: Justicar
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Mobile:
+		Speed: 84
+	Health:
+		HP: 90000
+	RevealsShroud:
+		MinRange: 5c0
+		Range: 7c0
+	RevealsShroud@GAPGEN:
+		Range: 5c0
+	Passenger:
+		CustomPipType: red
+	Armament@PRIMARY:
+		Weapon: JusticarGauss
+		LocalOffset: 427,0,341
+	Armament@SECONDARY:
+		Name: secondary
+		Weapon: JSMG
+		LocalOffset: 427,0,341
+	Armament@GARRISONED:
+		Name: garrisoned
+		Weapon: JusticarGauss
+	Armament@BUS:
+		Name: bus
+		Weapon: JusticarGauss
+	ExternalCondition@PRODUCED:
+		Condition: produced
+	VoiceAnnouncement:
+		RequiresCondition: produced
+		Voice: Build
+	AnnounceOnKill:
+	-TakeCover:
+	ChangesHealth:
+		PercentageStep: 5
+		Delay: 50
+		StartIfBelow: 90
+		DamageCooldown: 90
+	DetectCloaked:
+		Range: 3c0
+	WithInfantryBody:
+		DefaultAttackSequence: shoot
+		StandSequences: stand
+	Voiced:
+		VoiceSet: JusticarVoice
+		Volume: 0.6
+	ProducibleWithLevel:
+		Prerequisites: barracks.upgraded
+	RenderSprites:
+		Image: frmbo
+
+FMECH:
+	Inherits: ^TibSunSoldier
+	Inherits: ^FedHealing
+	Buildable:
+		Queue: Infantry
+		BuildAtProductionType: Soldier
+		BuildPaletteOrder: 35
+		Prerequisites: fix, ~infantry.fed, ~techlevel.medium
+		Icon: icon-fed
+		Description: Fixes nearby vehicles and \ndoesn't afraid of anything.\n  Unarmed
+	Valued:
+		Cost: 750
+	Tooltip:
+		Name: Repair Knight
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 12000
+	Mobile:
+		Speed: 70
+		Voice: Move
+	RevealsShroud:
+		Range: 3c0
+	Passenger:
+		CustomPipType: blue
+		Voice: Move
+	Armament:
+		Weapon: Repair
+		Cursor: repair
+		OutsideRangeCursor: repair
+		TargetRelationships: Ally
+		ForceTargetRelationships: None
+	AttackFrontal:
+		Voice: Action
+		FacingTolerance: 0
+	CaptureManager:
+	Captures:
+		CaptureTypes: husk
+		PlayerExperience: 25
+	Infiltrates:
+		Types: Husk
+		ValidRelationships: Ally
+		EnterCursor: goldwrench
+		PlayerExperience: 25
+	WithInfantryBody:
+		IdleSequences: idle
+		DefaultAttackSequence: repair
+		StandSequences: stand
+	Voiced:
+		VoiceSet: MechanicVoice
+	AutoTarget:
+	AutoTargetPriority@DEFAULT:
+		ValidTargets: Vehicle, Ship
+	RenderSprites:
+		Image: TSMECH

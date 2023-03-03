@@ -1,0 +1,173 @@
+
+ArnieDeath:
+	Warhead@1Dam: CreateEffect
+		ImpactSounds: arniedead.wav
+
+SuperEliteDeath:
+	Warhead@1Dam: CreateEffect
+		ImpactSounds: islydib.wav
+
+CybComDeath:
+	Warhead@1Dam: CreateEffect
+		ImpactSounds: xdeath1.wav
+
+Electro:
+	Warhead@1Dam: CreateEffect
+		ImpactSounds: electro1.aud
+		Explosions: small_napalm
+
+InfFireball:
+	Warhead@1Dam: CreateEffect
+		Explosions: small_napalm
+
+GSTGDeath:
+	Warhead@1Dam: CreateEffect
+		ImpactSounds: dedman1.aud,dedman2.aud,dedman3.aud,dedman4.aud,dedman5.aud,dedman7.aud,dedman8.aud, plrtospc.aud, dedman6.aud, nuyell1.aud, nuyell3.aud, nuyell4.aud, nuyell5.aud, stikdth1.aud, stikdth2.aud, stikdth3.aud, stikdth4.aud, stikdth5.aud, dspldeth.aud
+		Explosions: gstgdeath
+		ExplosionPalette: player
+		UsePlayerPalette: true
+
+GSTGDeath2:
+	Warhead@1Dam: CreateEffect
+		ImpactSounds: dedman1.aud,dedman2.aud,dedman3.aud,dedman4.aud,dedman5.aud,dedman7.aud,dedman8.aud, plrtospc.aud, dedman6.aud, nuyell1.aud, nuyell3.aud, nuyell4.aud, nuyell5.aud, stikdth1.aud, stikdth2.aud, stikdth3.aud, stikdth4.aud, stikdth5.aud, dspldeth.aud
+		Explosions: gstgdeath2
+		ExplosionPalette: player
+		UsePlayerPalette: true
+
+TSInfExplode:
+	Inherits: ^Explosion
+	Warhead@1Dam: SpreadDamage
+		Damage: 50
+		DamageTypes: FireDeath
+	Warhead@2Eff: CreateEffect
+		Explosions: s_bang34
+		ImpactSounds: expnew10.aud
+
+SpiderNuke:
+	ValidTargets: Ground, Water, GroundActor, WaterActor, Underwater, AirborneActor, Trees
+	Warhead@0Eff_impact: CreateEffect
+		ImpactSounds: dsspidth.wav
+	Warhead@56Eff_impact: CreateEffect
+		ImpactSounds: dsspidth.aud
+	Warhead@21Shake: ShakeScreen
+		Duration: 20
+		Intensity: 5
+		Multiplier: 1,1
+		Delay: 48
+	Warhead@22FlashEffect: FlashPaletteEffect
+		Duration: 20
+		FlashType: Nuke
+		Delay: 48
+	Warhead@1Dam_impact: SpreadDamage
+		Delay: 41
+		Spread: 1c0
+		Damage: 15000
+		Falloff: 1000, 368, 135, 50, 18, 7, 0
+		ValidTargets: GroundActor, WaterActor, Underwater, AirborneActor, Trees
+		Versus:
+			Concrete: 15
+		AffectsParent: true
+		DamageTypes: Prone50Percent, TriggerProne, FireDeath
+	Warhead@98Eff_impact: CreateEffect
+		ImpactSounds: jericho.wav
+		Delay: 35
+	Warhead@99Eff_impact: CreateEffect
+		ImpactSounds: jericho.wav
+		Delay: 35
+	Warhead@2Res_impact: DestroyResource
+		Size: 1
+		Delay: 41
+	Warhead@3Eff_impact: CreateEffect
+		ImpactSounds: kaboom1.aud
+		Delay: 41
+	Warhead@4Dam_areanuke1: SpreadDamage
+		Spread: 2c0
+		Damage: 6000
+		Falloff: 1000, 368, 135, 50, 18, 7, 0
+		Delay: 46
+		ValidTargets: GroundActor, WaterActor, Underwater, AirborneActor, Trees
+		Versus:
+			Concrete: 15
+		AffectsParent: true
+		DamageTypes: Prone50Percent, TriggerProne, FireDeath
+	Warhead@5Res_areanuke1: DestroyResource
+		Size: 2
+		Delay: 46
+	Warhead@6Eff_areanuke1: CreateEffect
+		ImpactSounds: kaboom22.aud
+		Delay: 46
+	Warhead@7Dam_areanuke2: SpreadDamage
+		Spread: 3c0
+		Damage: 6000
+		Falloff: 1000, 368, 135, 50, 18, 7, 0
+		Delay: 51
+		ValidTargets: GroundActor, WaterActor, Underwater, AirborneActor, Trees
+		Versus:
+			Concrete: 15
+		AffectsParent: true
+		DamageTypes: Prone50Percent, TriggerProne, FireDeath
+	Warhead@8Res_areanuke2: DestroyResource
+		Size: 2
+		Delay: 51
+	Warhead@9Dam_areanuke3: SpreadDamage
+		Spread: 4c0
+		Damage: 6000
+		Falloff: 1000, 368, 135, 50, 18, 7, 0
+		Delay: 56
+		ValidTargets: GroundActor, WaterActor, Underwater, AirborneActor, Trees
+		Versus:
+			Concrete: 15
+		AffectsParent: true
+		DamageTypes: Prone50Percent, TriggerProne, FireDeath
+	Warhead@11Smu_areanuke3: LeaveSmudge
+		SmudgeType: Scorch
+		Size: 3
+		Delay: 56
+
+HitlerCorpse:
+	Warhead@1Dam: SpreadDamage
+		Spread: 426
+		Damage: 2500
+		Falloff: 1000, 368, 135, 50, 18, 7, 0
+		ValidTargets: GroundActor
+		Versus:
+			None: 90
+			Wood: 75
+			Light: 60
+			Heavy: 25
+		AffectsParent: true
+		DamageTypes: Prone50Percent, TriggerProne, ExplosionDeath
+	Warhead@1Eff: CreateEffect
+		ImpactSounds: nbos7die.wav
+	Warhead@2Eff: CreateEffect
+		Delay: 45
+		Explosions: hitler
+		ImpactSounds: kaboom15.aud
+
+MechaHitlerCorpse:
+	Warhead@1Dam: SpreadDamage
+		Delay: 2
+		Spread: 128
+		Damage: 25000
+		ValidTargets: GroundActor
+		DamageTypes: Prone50Percent, TriggerProne, ExplosionDeath
+	Warhead@1Eff: CreateEffect
+		ImpactSounds: nbos6die.wav
+	Warhead@2Eff: CreateEffect
+		Explosions: building
+		ImpactSounds: dsbigexp.aud
+	Warhead@3Eff: CreateEffect
+		Delay: 45
+		Explosions: mhitler
+
+CyberExplode:
+	Warhead@1Dam: SpreadDamage
+		Delay: 25
+		Spread: 512
+		Damage: 30000
+		ValidTargets: GroundActor
+		Versus:
+			None: 25
+			Wood: 50
+			Light: 75
+		DamageTypes: Prone50Percent, TriggerProne, ExplosionDeath

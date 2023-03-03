@@ -1,0 +1,512 @@
+HANDD:
+	Inherits: ^DawnBuilding
+	Inherits@prereqs: ^BarracksPrereqs
+	Inherits@shape: ^2x2Shape
+	Selectable:
+		Bounds: 2048, 2048
+		DecorationBounds: 2048, 2901, 0, -426
+	HitShape:
+		UseTargetableCellsOffsets: false
+		TargetableOffsets: 0,0,0, 630,-512,0, 355,512,0, -281,-512,0, -630,512,0
+	Buildable:
+		Queue: Building
+		BuildPaletteOrder: 30
+		Prerequisites: anypower, ~structures.nod, ~techlevel.infonly, ~!structures.bothard
+		Description: Trains infantry.
+	Valued:
+		Cost: 500
+	Tooltip:
+		Name: Hand of Nod
+	Building:
+		Footprint: xx xx ==
+		Dimensions: 2,3
+		LocalCenterOffset: 0,-512,0
+	Health:
+		HP: 60000
+	Armor:
+		Type: Wood
+	RevealsShroud:
+		MinRange: 4c0
+		Range: 5c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 4c0
+	WithBuildingBib:
+	RallyPoint:
+	Exit@1:
+		SpawnOffset: 512,1024,0
+		ExitCell: 1,2
+	Production:
+		Produces: Infantry, Soldier
+	ProductionBar:
+		ProductionType: Infantry
+	PrimaryBuilding:
+		PrimaryCondition: primary
+		SelectionNotification: PrimaryBuildingSelected
+	GrantExternalConditionToProduced:
+		Condition: produced
+	Power:
+		Amount: -20
+	ProvidesPrerequisite@buildingname:
+	InfiltrateForSupportPower:
+		Proxy: barracks.upgraded
+		Types: SpyInfiltrate
+	Targetable:
+		TargetTypes: GroundActor, C4, DetonateAttack, Structure, SpyInfiltrate
+	WithDecoration@primary:
+		RequiresSelection: true
+		Image: pips
+		Sequence: tag-primary
+		Position: Top
+		RequiresCondition: primary
+	Cloak@stealthgen:
+		Palette: dawncloak
+	WithDeathAnimation:
+		DeathSequence: dead
+		UseDeathTypeSuffix: false
+		DeathSequencePalette: dawn
+	RenderSprites:
+		PlayerPalette: dawn
+	ActorPreviewPlaceBuildingPreview:
+
+AFLDD:
+	Inherits: ^DawnBuilding
+	Inherits@prereqs: ^FactoryPrereqs
+	Selectable:
+		Bounds: 4096, 2048
+	HitShape:
+		TargetableOffsets: 0,0,0, 0,-512,256, 0,-1451,384, 0,512,128, 0,1536,85
+		Type: Rectangle
+			TopLeft: -2048, -1024
+			BottomRight: 2048, 1024
+	Buildable:
+		Queue: Building
+		BuildPaletteOrder: 80
+		Prerequisites: refinery,barracks, ~techlevel.low, ~structures.nod, ~!structures.bothard
+		Description: Delivers vehicles.
+	Valued:
+		Cost: 2000
+	Tooltip:
+		Name: Airstrip
+	Building:
+		Footprint: XXXX xxxx ====
+		Dimensions: 4,3
+		LocalCenterOffset: 0,-512,0
+	Health:
+		HP: 175000
+	Armor:
+		Type: Wood
+	RevealsShroud:
+		MinRange: 4c0
+		Range: 5c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 4c0
+	WithBuildingBib:
+	RenderSprites:
+		PlayerPalette: dawn
+	ActorPreviewPlaceBuildingPreview:
+	WithIdleOverlay@DISH:
+		RequiresCondition: !build-incomplete
+		Sequence: idle-dish
+		Palette: dawn
+	WithDeliveryAnimation:
+		RequiresCondition: !build-incomplete
+	RallyPoint:
+		Path: 4,2
+	Exit@1:
+		SpawnOffset: -1024,0,0
+		ExitCell: 3,1
+	ProductionAirdrop:
+		Produces: Vehicle
+		ReadyAudio: ReinforcementsArrived
+		ActorType: c17.d
+	GrantExternalConditionToProduced:
+		Condition: produced
+	PrimaryBuilding:
+		PrimaryCondition: primary
+		SelectionNotification: PrimaryBuildingSelected
+	ProductionBar:
+		ProductionType: Vehicle
+	Power:
+		Amount: -30
+	ProvidesPrerequisite@buildingname:
+	Targetable:
+		TargetTypes: GroundActor, C4, DetonateAttack, Structure, SpyInfiltrate
+	InfiltrateForSupportPower:
+		Proxy: vehicles.upgraded
+		Types: SpyInfiltrate
+	WithDecoration@primary:
+		RequiresSelection: true
+		Image: pips
+		Sequence: tag-primary
+		Position: Top
+		RequiresCondition: primary
+	Cloak@stealthgen:
+		Palette: dawncloak
+	WithDeathAnimation:
+		DeathSequence: dead
+		UseDeathTypeSuffix: false
+		DeathSequencePalette: dawn
+
+PROCD.BHAND:
+	Inherits: PROCD
+	Buildable:
+		Prerequisites: anypower, ~techlevel.infonly, ~structures.bhand
+	FreeActor:
+		Actor: HARVD.BHAND
+		SpawnOffset: 1,2
+		Facing: 256
+	RenderSprites:
+		Image: PROCD
+	ProvidesPrerequisite@buildingname:
+		Prerequisite: procd
+	ProvidesPrerequisite:
+		Prerequisite: refinery
+
+STEK.NOD:
+	Inherits: STEK
+	Building:
+		BuildSounds: constru2.aud, hvydoor1.aud
+	Buildable:
+		Queue: Building
+		BuildPaletteOrder: 150
+		Prerequisites: factory, hqd, ~structures.nod, ~techlevel.unrestricted, ~!ai.hard
+		Description: Provides Nod transcendant technologies.
+	Tooltip:
+		Name: Nod Tech Center
+	RenderSprites:
+		Image: stek
+
+TMPLD:
+	Inherits: ^ScienceBuilding
+	Inherits@IDISABLE: ^DisableOnLowPowerOrPowerDown
+	Inherits@shape: ^3x2Shape
+	Selectable:
+		Bounds: 3072, 2048
+		DecorationBounds: 3072, 2901, 0, -512
+	HitShape:
+		TargetableOffsets: 0,0,0, 0,-896,0, 0,896,0, 840,0,0, -706,0,0, -706,-768,0, -706,640,0
+	Buildable:
+		Queue: Tech
+		BuildPaletteOrder: 150
+		Prerequisites: techcenter, ~techlevel.unrestricted, ~structures.nod
+		Description: Provides GPS and atomic bomb.\nRequires power to operate.
+		BuildLimit: 1
+	Valued:
+		Cost: 3000
+	Tooltip:
+		Name: Temple of Nod
+	ProvidesPrerequisite:
+		Prerequisite: techcenter
+	Building:
+		BuildSounds: constru2.aud, hvydoor1.aud
+		Footprint: XxX XxX ===
+		Dimensions: 3,3
+		LocalCenterOffset: 0,-512,0
+	Health:
+		HP: 150000
+	Armor:
+		Type: Wood
+	RevealsShroud:
+		MinRange: 4c0
+		Range: 5c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 4c0
+	WithBuildingBib:
+	Power:
+		Amount: -250
+	ProvidesPrerequisite@buildingname:
+	Explodes:
+		Type: CenterPosition
+		Weapon: MiniNuke
+		EmptyWeapon: MiniNuke
+	NukePower:
+		PauseOnCondition: disabled
+		OrderName: TempleNuke
+		Cursor: nuke
+		Icon: abomb
+		ChargeInterval: 19500
+		Name: Atom Bomb
+		Description: Launches a devastating atomic bomb\nat a target location.
+		BeginChargeSpeechNotification: AbombPrepping
+		EndChargeSpeechNotification: AbombReady
+		SelectTargetSpeechNotification: SelectTarget
+		InsufficientPowerSpeechNotification: InsufficientPower
+		IncomingSpeechNotification: AbombLaunchDetected
+		MissileWeapon: atomic
+		MissileDelay: 5
+		SpawnOffset: 1c0,427,0
+		DisplayTimerRelationships: Ally, Neutral, Enemy
+		DisplayBeacon: True
+		DisplayRadarPing: True
+		BeaconPoster: atomicon
+		CameraRange: 10c0
+		ArrowSequence: arrow
+		ClockSequence: clock
+		CircleSequence: circles
+		SupportPowerPaletteOrder: 70
+		MissileImage: atomic
+	NukePower@n3Primer:
+		PauseOnCondition: disabled
+		Prerequisites: ulttech.nod3, cbomb
+		OrderName: PrimerPower
+		Cursor: nuke
+		Icon: chemprim
+		ChargeInterval: 7500
+		Name: Catalyst Primer
+		Description: Launches the primer to detonate \nthe Catalyst Bomb.\nCreates a tiberium tree.
+		BeginChargeSpeechNotification: AbombPrepping
+		EndChargeSpeechNotification: AbombReady
+		SelectTargetSpeechNotification: SelectTarget
+		InsufficientPowerSpeechNotification: InsufficientPower
+		IncomingSpeechNotification: AbombLaunchDetected
+		MissileWeapon: atomic.nod3
+		MissileDelay: 5
+		SpawnOffset: 1c0,427,0
+		DisplayTimerRelationships: Ally, Neutral, Enemy
+		DisplayBeacon: True
+		DisplayRadarPing: True
+		BeaconPoster: chem
+		CameraRange: 10c0
+		ArrowSequence: arrow
+		ClockSequence: clock
+		CircleSequence: circles
+		SupportPowerPaletteOrder: 71
+		CameraRemoveDelay: 150
+		MissileImage: atomic.nod3
+	SpawnActorPower@n3Catalyst:
+		PauseOnCondition: disabled
+		Prerequisites: ulttech.nod3, !cbomb
+		OrderName: CatalystPower
+		Cursor: nuke
+		Icon: chem
+		ChargeInterval: 15000
+		LifeTime: -1
+		Name: Catalyst Bomb
+		Description: Silently place the catalyst bomb to\nlater be detonated by the Primer.
+		Actor: cbomb
+		SelectTargetSound: slcttgt1.aud
+		DisplayTimerRelationships: Ally, Neutral, Enemy
+		DisplayRadarPing: True
+		EffectSequence: idle
+	WithSupportPowerActivationAnimation:
+		RequiresCondition: !build-incomplete
+	WithSupportPowerActivationOverlay:
+		RequiresCondition: !build-incomplete
+		Sequence: smoke
+		Palette: dawn
+	WithDeathAnimation:
+		DeathSequence: dead
+		UseDeathTypeSuffix: false
+
+SAMD:
+	Inherits: ^Defense
+	Inherits@IDISABLE: ^DisableOnLowPowerOrPowerDown
+	Inherits@AUTOTARGET: ^AutoTargetAir
+	Inherits@shape: ^2x1Shape
+	Selectable:
+		Bounds: 2048, 1024
+	HitShape:
+		Type: Rectangle
+			TopLeft: -768,-512
+			BottomRight: 768,512
+	Valued:
+		Cost: 700
+	Tooltip:
+		Name: SAM Site
+	Buildable:
+		Queue: Defense
+		BuildPaletteOrder: 100
+		Prerequisites: radar, ~structures.samdprereq, ~techlevel.medium
+		Description: Anti-Air base defense.\nRequires power to operate.\n  Strong vs Aircraft\n  Weak vs Ground units
+	Building:
+		BuildSounds: constru2.aud, hvydoor1.aud
+		Footprint: xx
+		Dimensions: 2,1
+	Health:
+		HP: 40000
+	Armor:
+		Type: Heavy
+	RevealsShroud:
+		MinRange: 5c0
+		Range: 8c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 5c0
+	Turreted:
+		TurnSpeed: 40
+		InitialFacing: 0
+		RealignDelay: -1
+	-WithSpriteBody:
+	WithEmbeddedTurretSpriteBody:
+	Armament:
+		Weapon: DawnNike
+		MuzzleSequence: muzzle
+	AttackPopupTurreted:
+		RequiresCondition: !build-incomplete
+		PauseOnCondition: disabled
+	WithMuzzleOverlay:
+	Power:
+		Amount: -20
+	-BodyOrientation:
+	ClassicFacingBodyOrientation:
+	-ActorPreviewPlaceBuildingPreview:
+	SequencePlaceBuildingPreview:
+		Sequence: place
+	RenderSprites:
+		PlayerPalette: dawn
+	Cloak@stealthgen:
+		Palette: dawncloak
+	WithDeathAnimation:
+		DeathSequence: dead
+		UseDeathTypeSuffix: false
+		DeathSequencePalette: dawn
+
+OBLID:
+	Inherits: ^Defense
+	Inherits@IDISABLE: ^DisableOnLowPowerOrPowerDown
+	Inherits@AUTOTARGET: ^AutoTargetGround
+	Buildable:
+		Queue: Defense
+		BuildPaletteOrder: 80
+		Prerequisites: afldd, ~structures.nod, ~techlevel.medium
+		Description: Advanced base defense.\nRequires power to operate.\nCan detect cloaked units.\n  Strong vs Vehicles, Infantry\n  Weak vs Aircraft
+	Valued:
+		Cost: 1200
+	Tooltip:
+		Name: Obelisk of Light
+	Selectable:
+		Bounds: 1024, 1024
+		DecorationBounds: 1024, 1877, 0, -426
+	SelectionDecorations:
+	Health:
+		HP: 65000
+	Armor:
+		Type: Heavy
+	RevealsShroud:
+		MinRange: 6c0
+		Range: 8c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 6c0
+	WithBuildingBib:
+		HasMinibib: true
+	-WithSpriteBody:
+	WithChargeSpriteBody:
+		Sequence: active
+	Armament:
+		Weapon: ObeliskLaser
+		LocalOffset: 0,-85,1280
+	AttackCharges:
+		RequiresCondition: !build-incomplete && !disabled
+		PauseOnCondition: disabled
+		ChargeLevel: 65
+		ChargingCondition: charging
+	AmbientSound:
+		RequiresCondition: charging
+		SoundFiles: obelpowr.aud
+		Interval: 30, 40
+	Power:
+		Amount: -100
+	DetectCloaked:
+		Range: 6c0
+		RequiresCondition: !disabled
+	ProvidesPrerequisite@buildingname:
+	WithDeathAnimation:
+		DeathSequence: dead
+		UseDeathTypeSuffix: false
+
+PDOX.BHAND:
+	Inherits: ^ScienceBuilding
+	Inherits@IDISABLE: ^DisableOnLowPowerOrPowerDown
+	Inherits@shape: ^2x2Shape
+	Selectable:
+		Bounds: 2048, 2048
+	Buildable:
+		Queue: Tech
+		BuildPaletteOrder: 9001
+		Prerequisites: advtechcenter, ~techlevel.unrestricted, ~structures.pdoxbhandprereq
+		Icon: icon-sgen
+		Description: Creates a cloaking field for all nearby/n units and structures.\n\nRequires power.
+	Valued:
+		Cost: 3000
+	Tooltip:
+		Name: Stealth Generator
+	Building:
+		Footprint: xx xx
+		Dimensions: 2,2
+	Health:
+		HP: 60000
+	Armor:
+		Type: Wood
+	RevealsShroud:
+		MinRange: 5c0
+		Range: 8c0
+		RequiresCondition: !disabled
+		RevealGeneratedShroud: False
+	RevealsShroud@Offline:
+		Range: 5c0
+		RequiresCondition: disabled
+	RevealsShroud@GAPGEN:
+		Range: 6c0
+		RequiresCondition: !disabled
+	WithBuildingBib:
+		HasMinibib: true
+	Power:
+		Amount: -300
+	-MustBeDestroyed:
+	ProvidesPrerequisite@buildingname:
+	RenderSprites:
+		Image: PDOX
+	DetectCloaked:
+		Range: 8c0
+	RenderDetectionCircle:
+		TrailCount: 1
+	WithRangeCircle:
+		Range: 8c0
+		Color: FF0000
+	ProximityExternalCondition:
+		RequiresCondition: !disabled
+		Condition: stealthgen
+		Range: 8c0
+		AffectsParent: true
+
+CBOMB:
+	Inherits: ^TechBuilding
+	Health:
+		HP: 10000
+	Explodes:
+		Weapon: CatalystAtomic
+	SpawnActorOnDeath:
+		Probability: 100
+		Actor: split3
+		OwnerType: InternalName
+		InternalOwner: Neutral
+		RequiresLobbyCreeps: false
+	Tooltip:
+		Name: Catalyst Bomb
+		ShowOwnerRow: False
+	Armor:
+		Type: None
+	Targetable:
+		TargetTypes: Catalyst
+	-ShakeOnDeath:
+	-SoundOnDamageTransition:
+	-Demolishable:
+	-Selectable:
+	SelectionDecorations:
+	Interactable:
+		Bounds: 1024, 1024
+	ProvidesPrerequisite:
+		Prerequisite: cbomb
+	RenderSprites:
+		Image: BARL
+	Cloak:
+		InitialDelay: 1
+		CloakDelay: 1
+		UncloakOn: Attack
+	AmbientSound:
+		SoundFiles: ambtibe2.wav
+		Interval: 750, 3000

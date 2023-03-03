@@ -1,0 +1,361 @@
+C1.C:
+	Inherits: ^PlayableCivInfantry
+	Buildable:
+		Queue: Infantry
+		BuildAtProductionType: Civilian
+		BuildPaletteOrder: 10
+		Prerequisites: ~house, ~infantry.civ, ~techlevel.infonly
+		Description: Citizen of your city.\n  Weak vs Everything
+	Tooltip:
+		Name: Civilian
+	Valued:
+		Cost: 2500
+	RenderSprites:
+		Image: C1
+
+C2.C:
+	Inherits: ^PlayableCivInfantry
+	Buildable:
+		Queue: Infantry
+		BuildAtProductionType: Civilian
+		BuildPaletteOrder: 20
+		Prerequisites: ~house, ~infantry.civ, ~techlevel.infonly
+		Description: Citizen of your city.\n  Weak vs Everything
+	Tooltip:
+		Name: Civilian
+	Valued:
+		Cost: 2500
+	RenderSprites:
+		Image: C2
+
+C3.C:
+	Inherits: ^PlayableCivInfantry
+	Buildable:
+		Queue: Infantry
+		BuildAtProductionType: Civilian
+		BuildPaletteOrder: 30
+		Prerequisites: ~house, ~infantry.civ, ~techlevel.infonly
+		Description: Citizen of your city.\n  Weak vs Everything
+	Tooltip:
+		Name: Civilian
+	Valued:
+		Cost: 2500
+	RenderSprites:
+		Image: C3
+
+C4.C:
+	Inherits: ^PlayableCivInfantry
+	Buildable:
+		Queue: Infantry
+		BuildAtProductionType: Civilian
+		BuildPaletteOrder: 40
+		Prerequisites: ~house, ~infantry.civ, ~techlevel.infonly
+		Description: Citizen of your city.\n  Weak vs Everything
+	Tooltip:
+		Name: Civilian
+	Valued:
+		Cost: 2500
+	RenderSprites:
+		Image: C1
+
+C5.C:
+	Inherits: ^PlayableCivInfantry
+	Buildable:
+		Queue: Infantry
+		BuildAtProductionType: Civilian
+		BuildPaletteOrder: 50
+		Prerequisites: ~house, ~infantry.civ, ~techlevel.infonly
+		Description: Citizen of your city.\n  Weak vs Everything
+	Tooltip:
+		Name: Civilian
+	Valued:
+		Cost: 2500
+	RenderSprites:
+		Image: C2
+
+C6.C:
+	Inherits: ^PlayableCivInfantry
+	Buildable:
+		Queue: Infantry
+		BuildAtProductionType: Civilian
+		BuildPaletteOrder: 60
+		Prerequisites: ~house, ~infantry.civ, ~techlevel.infonly
+		Description: Citizen of your city.\n  Weak vs Everything
+	Tooltip:
+		Name: Civilian
+	Valued:
+		Cost: 2500
+	RenderSprites:
+		Image: C3
+
+POLICE:
+	Inherits: ^PlayableCivInfantry
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Buildable:
+		Queue: Infantry
+		BuildAtProductionType: Police
+		BuildPaletteOrder: 90
+		Prerequisites: ~policestation, ~infantry.civ, ~techlevel.infonly
+		BuildDuration: 625
+		Description: Potects your city and enforces the law.\n  Weak vs Vehicles, Aircraft
+	Valued:
+		Cost: 1500
+	Tooltip:
+		Name: Police Officer
+	Health:
+		HP: 5000
+	CashTrickler:
+		Amount: 10
+	ProximityCaptor:
+		Types: Infantry
+	Selectable:
+		Priority: 10
+		Class: Police
+	#AutoTarget:
+	#	ScanRadius: 10
+	AttackMove:
+	AttackFrontal:
+		FacingTolerance: 0
+	WithInfantryBody:
+		DefaultAttackSequence: shoot
+		IdleSequences: idle1,idle2
+		StandSequences: stand,stand2
+	Armament@PRIMARY:
+		Weapon: PolicePistol
+	Armament@GARRISONED:
+		Name: garrisoned
+		Weapon: PolicePistol
+		MuzzleSequence: garrison-muzzle
+	Passenger:
+		CustomPipType: blue
+	Voiced:
+		VoiceSet: GenericVoice
+	TakeCover:
+		DamageModifiers:
+			Prone50Percent: 50
+		DamageTriggers: TriggerProne
+	DetectCloaked:
+		DetectionTypes: Cloak, Hijacker
+		Range: 2c0
+	RenderSprites:
+		Image: SPY
+	-ScaredyCat:
+	-Harvester:
+	-WithDockingAnimation:
+	-WithFacingSpriteBody:
+	-WithMoveAnimation:
+	-WithHarvesterPipsDecoration:
+
+DOG.C:
+	Inherits: DOG
+	Buildable:
+		Queue: Infantry
+		BuildAtProductionType: Police
+		BuildPaletteOrder: 91
+		Prerequisites: ~policestation, ~infantry.civ, ~techlevel.infonly
+		BuildDuration: 1000
+		Description: K-9 police unit.\n  Strong vs Infantry\n  Weak vs Vehicles, Aircraft
+	Tooltip:
+		Name: Police Dog
+	Valued:
+		Cost: 3000
+	RenderSprites:
+		Image: DOG
+
+CSTRUCTW:
+	Inherits: ^PlayableCivInfantry
+	Buildable:
+		Queue: Infantry
+		BuildAtProductionType: Civic
+		BuildPaletteOrder: 100
+		Prerequisites: ~techlevel.infonly, ~techcenter, ~infantry.civ
+		BuildDuration: 750
+		Description: Repairs and maintains\ncity structures.\n  Unarmed
+	Valued:
+		Cost: 2000
+	Tooltip:
+		Name: Construction Worker
+	Health:
+		HP: 8000
+	CashTrickler:
+		Amount: 10
+	Selectable:
+		Priority: 7
+		Class: cstructw
+		Bounds: 597, 853, 0, -384
+	Passenger:
+		CustomPipType: yellow
+	Armament:
+		Weapon: RepairWorker
+		Cursor: repair
+		OutsideRangeCursor: repair
+		TargetRelationships: Ally
+		ForceTargetRelationships: None
+	AttackFrontal:
+		FacingTolerance: 0
+	RepairsBridges:
+	AutoTarget:
+		InitialStance: AttackAnything
+		ScanRadius: 20
+	AttackMove:
+	Voiced:
+		VoiceSet: EngineerVoice
+	TakeCover:
+		DamageModifiers:
+			Prone50Percent: 50
+		DamageTriggers: TriggerProne
+	WithInfantryBody:
+		DefaultAttackSequence: repair
+		StandSequences: stand
+	RenderSprites:
+		Image: E6
+	-ScaredyCat:
+	-Harvester:
+	-WithDockingAnimation:
+	-WithFacingSpriteBody:
+	-WithMoveAnimation:
+	-WithHarvesterPipsDecoration:
+
+PMEDI:
+	Inherits: ^PlayableCivInfantry
+	Buildable:
+		Queue: Infantry
+		BuildAtProductionType: Medical
+		BuildPaletteOrder: 95
+		Prerequisites: ~techlevel.infonly, ~infantry.civ
+		Description: Heals nearby infantry.\n  Unarmed
+	Valued:
+		Cost: 2000
+	Tooltip:
+		Name: Paramedic
+	Health:
+		HP: 6000
+	CashTrickler:
+		Amount: 10
+	Selectable:
+		Priority: 7
+		Class: medi
+	RevealsShroud:
+		Range: 3c0
+	Mobile:
+		Speed: 50
+	Passenger:
+		CustomPipType: blue
+	Armament:
+		Weapon: Heal
+		Cursor: heal
+		OutsideRangeCursor: heal
+		TargetRelationships: Ally
+		ForceTargetRelationships: None
+	AttackFrontal:
+		FacingTolerance: 0
+	AutoTarget:
+	AutoTargetPriority@DEFAULT:
+		ValidTargets: Infantry
+	AttackMove:
+	Voiced:
+		VoiceSet: MedicVoice
+	TakeCover:
+		DamageModifiers:
+			Prone50Percent: 50
+		DamageTriggers: TriggerProne
+	WithInfantryBody:
+		IdleSequences: idle
+		StandSequences: stand
+		DefaultAttackSequence: heal
+	RenderSprites:
+		Image: MEDI
+	-ScaredyCat:
+	-Harvester:
+	-WithDockingAnimation:
+	-WithFacingSpriteBody:
+	-WithMoveAnimation:
+	-WithHarvesterPipsDecoration:
+
+SCIENTIST:
+	Inherits: ^PlayableCivInfantry
+	Buildable:
+		Queue: Infantry
+		BuildAtProductionType: Science
+		BuildPaletteOrder: 110
+		Prerequisites: ~biolab, ~infantry.civ, ~techlevel.high
+		Description: Collects and studies Tiberium.\n  Not damaged by Tiberium.
+	Tooltip:
+		Name: Scientist
+	Valued:
+		Cost: 5000
+	CashTrickler:
+		Amount: 50
+	Selectable:
+		Class: scientist
+	Harvester:
+		UnblockCell: 0,1
+		Capacity: 1
+		Resources: Tiberium,BlueTiberium
+		SearchFromProcRadius: 30
+		SearchFromHarvesterRadius: 15
+	-DamagedByTerrain:
+	Voiced:
+		VoiceSet: EinsteinVoice
+	RenderSprites:
+		Image: EINSTEIN
+	WithHarvesterPipsDecoration:
+		Position: BottomLeft
+		RequiresSelection: true
+		PipCount: 1
+
+LEADER:
+	Inherits: ^PlayableCivInfantry
+	Buildable:
+		Queue: Infantry
+		BuildAtProductionType: Civic
+		BuildPaletteOrder: 110
+		Prerequisites: ~techcenter, ~infantry.civ, ~techlevel.high
+		Description: Leader of the people.\n  Weak vs Everything
+		BuildLimit: 1
+	Tooltip:
+		Name: Leader
+	Valued:
+		Cost: 30000
+	ProvidesPrerequisite:
+		Prerequisite: civleader
+	Selectable:
+		Priority: 7
+		Class: leader
+	-ScaredyCat:
+	-CashTrickler:
+	-Harvester:
+	-WithDockingAnimation:
+	-WithFacingSpriteBody:
+	-WithMoveAnimation:
+	-WithHarvesterPipsDecoration:
+	Mobile:
+		Voice: Move
+	AttackFrontal:
+		Voice: Attack
+		FacingTolerance: 0
+	AttackMove:
+		Voice: Move
+	Passenger:
+		Voice: Move
+	Guard:
+		Voice: Move
+	Voiced:
+		VoiceSet: StavrosVoice
+	TakeCover:
+		DamageModifiers:
+			Prone50Percent: 50
+		DamageTriggers: TriggerProne
+	WithInfantryBody:
+		IdleSequences: idle1
+	RenderSprites:
+		Image: GNRL
+
+#Criminal (change owner when spawned?)
+#SWAT
+#SWAT Sniper
+
+#Secret Service
+#Rifleman
+#Grenadier
+#Rocket Solder

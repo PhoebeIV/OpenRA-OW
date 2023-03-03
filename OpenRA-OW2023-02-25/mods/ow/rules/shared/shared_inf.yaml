@@ -1,0 +1,261 @@
+
+E1:
+	Buildable:
+		Prerequisites: ~barracks, ~techlevel.infonly, ~infantry.e1e3prereq
+	ProvidesPrerequisite@dawn:
+		Factions: nod, bhand, marked, nod3, gdi, steel, zocom, gdi3, hitler, himmler, heydrich
+		Prerequisite: e1.dawn
+	GrantConditionOnPrerequisite@dawn:
+		Condition: e1.dawn
+		Prerequisites: e1.dawn
+	Armament@PRIMARY:
+		Weapon: M1Carbine
+		RequiresCondition: !e1.dawn
+	Armament@DAWN:
+		Weapon: M1Carbine_D
+		RequiresCondition: e1.dawn
+	Armament@GARRISONED:
+		RequiresCondition: !e1.dawn
+	Armament@GARRISONEDDAWN:
+		Name: garrisoned
+		Weapon: Vulcan_D
+		MuzzleSequence: garrison-muzzle
+		RequiresCondition: e1.dawn
+	Armament@BUS:
+		Name: bus
+		Weapon: M1Carbine
+		MuzzleSequence: garrison-muzzle
+		RequiresCondition: !e1.dawn
+	Armament@BUSD:
+		Name: bus
+		Weapon: M1Carbine_D
+		MuzzleSequence: garrison-muzzle
+		RequiresCondition: e1.dawn
+
+E1.D:
+	Inherits: E1
+	RenderSprites:
+		Image: E1
+	-Buildable:
+	Armament@GARRISONED:
+		Weapon: Vulcan_D
+	Selectable:
+		Class: E1
+
+# Grenadier
+E2:
+	Buildable:
+		Prerequisites: ~barracks, ~techlevel.infonly, ~infantry.e2prereq
+	Armament@BUS:
+		Name: bus
+		Weapon: Grenade
+		FireDelay: 15
+
+# Rocket man
+E3:
+	Buildable:
+		Prerequisites: ~barracks, ~techlevel.infonly, ~infantry.e1e3prereq
+	Armament@BUS:
+		Name: bus
+		Weapon: Dragon
+
+# Flamethrower
+E4:
+	Buildable:
+		Prerequisites: ~barracks, radar, ~techlevel.low, ~infantry.e4prereq
+	Armament@BUS:
+		Name: bus
+		Weapon: Flamer
+
+E4R1:
+	Inherits: E4
+	RenderSprites:
+		Image: E4
+	ProducibleWithLevel:
+		Prerequisites: techlevel.infonly
+		InitialLevels: 1
+	-Buildable:
+
+# Engineer
+E6:
+	Buildable:
+		Prerequisites: ~barracks, ~techlevel.infonly, ~infantry.e6prereq
+	Infiltrates:
+		Types: Husk
+		ValidRelationships: Ally
+		EnterCursor: goldwrench
+		PlayerExperience: 25
+	Captures@husk:
+		CaptureTypes: husk
+		PlayerExperience: 25
+		CaptureDelay: 100
+		EnterCursor: goldwrench
+		ConsumedByCapture: true
+
+E1OF:
+	Inherits: ^Soldier
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Buildable:
+		Queue: Infantry
+		BuildAtProductionType: Soldier
+		BuildPaletteOrder: 61
+		Prerequisites: ~barracks, ~techlevel.infonly, ~infantry.e1ofprereq
+		Description: Squad leader, boosts nearby troops'\nspeed and firepower.\nSpeed: 62\n  Strong vs Infantry\n  Weak vs Vehicles, Aircraft
+	Tooltip:
+		Name: Officer
+	Valued:
+		Cost: 500
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 10000
+	ProximityExternalCondition:
+		Condition: squadboost
+		Range: 4c0
+		AffectsParent: true
+	WithDecoration@officer2:
+		Image: pips
+		Sequence: pip-bonus
+		Palette: effect
+		Position: TopRight
+		ValidRelationships: None,Neutral,Enemy,Ally
+		RequiresCondition: !demoralise
+	Armament@PRIMARY:
+		Weapon: M1Minigun
+	Armament@GARRISONED:
+		Name: garrisoned
+		Weapon: DoomMinigunDK
+		MuzzleSequence: garrison-muzzle
+	Armament@BUS:
+		Name: bus
+		Weapon: M1Minigun_Bus
+		MuzzleSequence: garrison-muzzle
+	WithInfantryBody:
+		DefaultAttackSequence: shoot
+		RequiresCondition: !parachute
+	WithInfantryBody@PARACHUTE:
+		StandSequences: parachute
+		RequiresCondition: parachute
+	ProducibleWithLevel:
+		Prerequisites: barracks.upgraded
+	RevealsShroud:
+		Range: 5c0
+	Selectable:
+		Bounds: 768, 853, 0, -256
+		DecorationBounds: 640, 896, 0, -426
+	Selectable:
+		Class: E1
+
+TSENGI.O:
+	Inherits: ^TibSunSoldier
+	Inherits@selection: ^SelectableSupportUnit
+	Buildable:
+		Queue: Infantry
+		BuildAtProductionType: Soldier
+		BuildPaletteOrder: 61
+		Prerequisites: ~barracks, ~techlevel.infonly, ~infantry.surveyorprereq
+		Icon: icon-surveyor
+		Description: Deploys an outpost for further \nbase expansion.\nAlso behaves as normal engineer.\n  Unarmed
+	Valued:
+		Cost: 1000
+	Tooltip:
+		Name: Surveyor
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Passenger:
+		CustomPipType: yellow
+	RepairsBridges:
+	CaptureManager:
+		PreventsAutoTarget: False
+	Captures:
+		CaptureTypes: building
+		PlayerExperience: 25
+		CaptureDelay: 150
+		ConsumedByCapture: False
+		SabotageThreshold: 25
+		SabotageHPRemoval: 30
+	Voiced:
+		VoiceSet: EngineerVoice
+	-AttackFrontal:
+	RenderSprites:
+		Image: tsengi
+	Transforms:
+		IntoActor: outpost
+		Offset: 0,-1
+		Facing: 384
+		TransformSounds: placbldg.aud, build5.aud
+		NoTransformNotification: BuildingCannotPlaceAudio
+
+# Expended Surveyor
+C1.O:
+	Inherits@1: ^CivInfantry
+	Inherits@2: ^ArmedCivilian
+	AutoTarget:
+	Voiced:
+		VoiceSet: EngineerVoice
+	RenderSprites:
+		Image: C1
+	Tooltip:
+		Name: Retired Surveyor
+
+MEDI:
+	Buildable:
+		Prerequisites: ~barracks, ~techlevel.infonly, ~infantry.mediprereq
+
+THF:
+	Buildable:
+		Prerequisites: ~barracks, radar, ~techlevel.medium, ~infantry.thfprereq
+
+SNIPER:
+	-Buildable:
+
+FLAMEGUY:
+	Inherits@1: ^ExistsInWorld
+	Inherits@2: ^SpriteActor
+	Mobile:
+		Speed: 52
+		Locomotor: foot
+	HiddenUnderFog:
+	WithInfantryBody:
+		IdleSequences: run
+	Health:
+		HP: 16000
+	ChangesHealth:
+		Step: -1250
+		StartIfBelow: 101
+	ScaredyCat:
+		PanicSequencePrefix:
+	WithDeathAnimation:
+		DeathSequencePalette: tsunit
+		DeathPaletteIsPlayerPalette: false
+		FallbackSequence: die
+		UseDeathTypeSuffix: false
+	HitShape:
+	MapEditorData:
+		Categories: System
+	RenderSprites:
+		Palette: tsunit2
+
+# Grenadier
+E2.tester:
+	Inherits: E2
+	Buildable:
+		Prerequisites: ~barracks, ~ulttechcenter, ~ai.boss
+	Tooltip:
+		Name: Testman
+	Armament@PRIMARY:
+		Weapon: WeatherGrenade
+	RenderSprites:
+		Image: e2
+
+Zombie:
+	-Explodes@GraveyardSpawnerDeath:
+	AutoTarget:
+		InitialStance: AttackAnything
+		ScanRadius: 256
+	Voiced:
+		VoiceSet: ZombieVoice
+	AmbientSound:
+		SoundFiles: dsposit1.aud,dsposit2.aud,dsposit3.aud,dsposact.aud
+		Interval: 400, 1200
+		Delay: 400, 1200

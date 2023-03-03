@@ -1,0 +1,75 @@
+Player:
+	-ConquestVictoryConditions:
+	LobbyPrerequisiteCheckbox@GLOBALBOUNTY:
+		Enabled: False
+		Locked: True
+
+World:
+	-CrateSpawner:
+	-SpawnMPUnits:
+	-MPStartLocations:
+	MusicPlaylist:
+		BackgroundMusic: run1226m
+	ResourceType@ore:
+		ValuePerUnit: 0
+	WeatherOverlay:
+		WindTick: 150, 550
+		UseSquares: false
+		ScatterDirection: 0, 0
+		Gravity: 8.00, 12.00
+		SwingOffset: 0, 0
+		SwingSpeed: 0, 0
+		SwingAmplitude: 0, 0
+		ParticleColors: 304074, 28386C, 202C60, 182C54
+		LineTailAlphaValue: 150
+		ParticleSize: 1, 1
+	GlobalLightingPaletteEffect:
+		Red: 0.75
+		Green: 0.85
+		Blue: 1.5
+		Ambient: 0.5 # 0.35
+	FlashPaletteEffect@LIGHTNINGSTRIKE:
+		Type: LightningStrike
+	LuaScript:
+		Scripts: rain-shellmap.lua
+	-StartGameNotification:
+
+^ExistsInWorld:
+	GivesExperience:
+		ActorExperienceModifier: 0
+
+^Vehicle:
+	DamageMultiplier@UNKILLABLE:
+		RequiresCondition: unkillable
+		Modifier: 0
+	ExternalCondition@UNKILLABLE:
+		Condition: unkillable
+
+^Infantry:
+	DeathSounds@NORMAL:
+		VolumeMultiplier: 0.1
+	DeathSounds@BURNED:
+		VolumeMultiplier: 0.1
+	DeathSounds@ZAPPED:
+		VolumeMultiplier: 0.1
+
+^Bridge:
+	DamageMultiplier:
+		Modifier: 0
+
+^Wall:
+	DamageMultiplier:
+		Modifier: 0
+
+powerproxy.naziparatroopers:
+	Inherits: powerproxy.paratroopers
+	ParatroopersPower:
+		DisplayBeacon: false
+		DropItems: E1,E1,E1,E1,E1,E1,E3
+
+powerproxy.fedparatroopers:
+	Inherits: powerproxy.paratroopers
+	ParatroopersPower:
+		DisplayBeacon: false
+		DropItems: FE2,FE2,FE2,FE4,FMEDI
+		

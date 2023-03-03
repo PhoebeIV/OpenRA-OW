@@ -1,0 +1,39 @@
+MCVC:
+	Inherits: ^Vehicle
+	Buildable:
+		Queue: Vehicle
+		BuildDuration: 2000
+		BuildPaletteOrder: 90
+		Prerequisites: ~weap, ~vehicles.civ
+		Description: Deploys into another Church.\n  Unarmed
+	Valued:
+		Cost: 2000
+	Tooltip:
+		Name: Mobile Church Vehicle
+	Selectable:
+		Priority: 4
+	SelectionDecorations:
+	Health:
+		HP: 60000
+	Armor:
+		Type: Light
+	Mobile:
+		Speed: 85
+		Locomotor: wheeled
+	RevealsShroud:
+		Range: 4c0
+	Transforms:
+		IntoActor: v01.c
+		Offset: -1,-1
+		Facing: 384
+		TransformSounds: placbldg.aud, build5.aud
+		NoTransformNotification: BuildingCannotPlaceAudio
+	MustBeDestroyed:
+		RequiredForShortGame: true
+	BaseBuilding:
+	SpawnActorOnDeath:
+		Actor: moneycrate
+	RenderSprites:
+		Image: TRUK
+	TransferTimedExternalConditionOnTransform:
+		Condition: invulnerability

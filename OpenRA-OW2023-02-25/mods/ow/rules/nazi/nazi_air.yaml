@@ -1,0 +1,297 @@
+BF109:
+	Inherits: ^TSPlane
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Buildable:
+		Queue: Aircraft
+		BuildAtProductionType: Plane
+		BuildPaletteOrder: 30
+		Prerequisites: ~afld, ~techlevel.medium, ~aircraft.nazi
+		Description: Attack Plane armed with\ndual machine guns.\nSpeed: 178\n  Strong vs Infantry, Light armor\n  Weak vs Tanks, Aircraft
+	Valued:
+		Cost: 1350
+	Tooltip:
+		Name: Messerschmitt Bf 109
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 6000
+	RevealsShroud:
+		MinRange: 9c0
+		Range: 11c0
+		MoveRecalculationThreshold: 0
+		Type: GroundPosition
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 9c0
+		MoveRecalculationThreshold: 0
+		Type: GroundPosition
+	Armament@PRIMARY:
+		Weapon: ChainGun.Yak
+		LocalOffset: 256,-213,0
+		MuzzleSequence: muzzle
+		PauseOnCondition: !ammo
+	Armament@SECONDARY:
+		Name: secondary
+		Weapon: ChainGun.Yak
+		LocalOffset: 256,213,0
+		MuzzleSequence: muzzle
+		PauseOnCondition: !ammo
+	AttackAircraft:
+		FacingTolerance: 80
+		PersistentTargeting: false
+		OpportunityFire: False
+	Aircraft:
+		CruiseAltitude: 2560
+		InitialFacing: 768
+		TurnSpeed: 16
+		Speed: 178
+		RepulsionSpeed: 40
+		MaximumPitch: 56
+	AutoTarget:
+		InitialStance: HoldFire
+		InitialStanceAI: HoldFire
+	AmmoPool:
+		Ammo: 18
+		ReloadDelay: 11
+		AmmoCondition: ammo
+	SelectionDecorations:
+	WithMuzzleOverlay:
+	Contrail:
+		Offset: -853,0,0
+	SpawnActorOnDeath:
+		Actor: BF109.Husk
+	WithDamageOverlay:
+		Offset: -853,0,0
+		Interval: 2
+	ProducibleWithLevel:
+		Prerequisites: aircraft.upgraded
+	Selectable:
+		DecorationBounds: 1280, 1194, 0, 85
+	Rearmable:
+		RearmActors: afld, afld.ukraine
+	WithAmmoPipsDecoration:
+		Position: BottomLeft
+		RequiresSelection: true
+		PipCount: 6
+
+BF109.Husk:
+	Inherits: ^TSPlaneHusk
+	Tooltip:
+		Name: Bf 109
+	Aircraft:
+		Speed: 178
+	WithDamageOverlay:
+		Offset: -427,0,0
+		MinimumDamageState: Undamaged
+	RevealsShroud:
+		Range: 12c0
+		Type: CenterPosition
+	RenderSprites:
+		Image: bf109
+	RenderVoxels:
+		Image: bf109
+		Scale: 10
+
+DO17:
+	Inherits: ^TSPlane
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Buildable:
+		Queue: Aircraft
+		BuildAtProductionType: Plane
+		BuildPaletteOrder: 35
+		Prerequisites: ~afld, techcenter, ~techlevel.unrestricted, ~aircraft.himmler
+		Description: Bomber with a devastating payload.\nSpeed: 256\n  Strong vs Ground units, Structures\n  Weak vs Aircraft
+	Valued:
+		Cost: 2000
+	Tooltip:
+		Name: Dornier Do 17 Bomber
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 19500
+	RevealsShroud:
+		MinRange: 7c0
+		Range: 9c0
+		MoveRecalculationThreshold: 0
+		Type: GroundPosition
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 7c0
+		MoveRecalculationThreshold: 0
+		Type: GroundPosition
+	Armament@PRIMARY:
+		Weapon: Do17Bomb
+		PauseOnCondition: !ammo
+	AttackAircraft:
+		FacingTolerance: 512
+		PersistentTargeting: false
+		OpportunityFire: False
+	Aircraft:
+		CruiseAltitude: 2560
+		InitialFacing: 768
+		TurnSpeed: 16
+		Speed: 256
+		RepulsionSpeed: 40
+		MaximumPitch: 56
+	AutoTarget:
+		InitialStance: HoldFire
+		InitialStanceAI: HoldFire
+	AmmoPool:
+		Ammo: 4
+		ReloadDelay: 100
+		AmmoCondition: ammo
+	SelectionDecorations:
+	WithMuzzleOverlay:
+	SpawnActorOnDeath:
+		Actor: DO17.Husk
+	Contrail@1:
+		Offset: 128,-256,0
+	Contrail@2:
+		Offset: 128,256,0
+	WithDamageOverlay@1:
+		Offset: 128,-256,0
+		Interval: 2
+	WithDamageOverlay@2:
+		Offset: 128,256,0
+		Interval: 2
+	ProducibleWithLevel:
+		Prerequisites: aircraft.upgraded
+	Selectable:
+		DecorationBounds: 1280, 1194, 0, 85
+	Rearmable:
+		RearmActors: afld, afld.ukraine
+	RenderSprites:
+		Image: do17
+	RenderVoxels:
+		Image: do17
+		Scale: 10
+	WithAmmoPipsDecoration:
+		Position: BottomLeft
+		RequiresSelection: true
+
+DO17.SHD:
+	Inherits: DO17
+	Buildable:
+		Queue: Aircraft
+		BuildAtProductionType: Plane
+		BuildPaletteOrder: 35
+		Prerequisites: ~afld, advtechcenter, ~techlevel.unrestricted, ~aircraft.heydrich
+	Valued:
+		Cost: 2500
+	Tooltip:
+		Name: Do 17 Stealth Bomber
+	Health:
+		HP: 14000
+	RevealsShroud:
+		MinRange: 6c0
+		Range: 8c0
+	RevealsShroud@GAPGEN:
+		Range: 6c0
+	Armament@PRIMARY:
+		Weapon: Do17Bomb2
+		PauseOnCondition: !ammo
+	AmmoPool:
+		Ammo: 8
+		ReloadDelay: 75
+	Aircraft:
+		Speed: 150
+	-ExternalCondition@stealthgen:
+	-Cloak@stealthgen:
+	Cloak:
+		Palette: tscloak
+		IsPlayerPalette: true
+		InitialDelay: 50
+		CloakDelay: 100
+		CloakSound: cloak5.aud
+		UncloakOn: Attack, Unload, Infiltrate, Demolish, Damage
+		PauseOnCondition: cloak-force-disabled || disabled
+	GrantConditionOnDamageState@UNCLOAK:
+		Condition: cloak-force-disabled
+		ValidDamageStates: Critical
+	WithAmmoPipsDecoration:
+		Position: BottomLeft
+		RequiresSelection: true
+
+DO17.Husk:
+	Inherits: ^TSPlaneHusk
+	Tooltip:
+		Name: Do 17
+	Aircraft:
+		Speed: 200
+	Contrail@1:
+		Offset: 128,-256,0
+	Contrail@2:
+		Offset: 128,256,0
+	WithDamageOverlay@1:
+		Offset: 128,-256,0
+		Interval: 2
+		MinimumDamageState: Undamaged
+	WithDamageOverlay@2:
+		Offset: 128,256,0
+		Interval: 2
+		MinimumDamageState: Undamaged
+	RenderSprites:
+		Image: do17
+	RenderVoxels:
+		Image: do17
+		Scale: 10
+
+DO17.Bomber:
+	Inherits: ^TSNeutralPlane
+	AttackBomber:
+		FacingTolerance: 8
+	Armament:
+		Weapon: Do18Bomb
+	Health:
+		HP: 17500
+	Aircraft:
+		CruiseAltitude: 2560
+		TurnSpeed: 20
+		Speed: 212
+		Repulsable: False
+		MaximumPitch: 56
+	AmmoPool:
+		Ammo: 6
+	-Selectable:
+	SelectionDecorations:
+	-Voiced:
+	Tooltip:
+		Name: Do 17 Bomber
+	Contrail@1:
+		Offset: -553,-256,0
+	Contrail@2:
+		Offset: -553,256,0
+	SpawnActorOnDeath:
+		Actor: DO17.Husk
+	WithDamageOverlay@1:
+		Offset: -553,-256,0
+		Interval: 2
+	WithDamageOverlay@2:
+		Offset: -553,256,0
+		Interval: 1
+	-EjectOnDeath:
+	-MapEditorData:
+	RejectsOrders:
+	RenderSprites:
+		Image: do17
+	GivesExperience:
+		Experience: 1000
+	Interactable:
+	RenderSprites:
+		Image: do17
+	RenderVoxels:
+		Image: do17
+		Scale: 10
+	SpawnActorOnDeath:
+		Actor: DO17.Husk
+	WithAmmoPipsDecoration:
+		Position: BottomLeft
+		RequiresSelection: true
+
+DO17.Auschwitz:
+	Inherits: DO17.Bomber
+	AmmoPool:
+		Ammo: 16
+	WithAmmoPipsDecoration:
+		Position: BottomLeft
+		RequiresSelection: true

@@ -1,0 +1,768 @@
+^AACannon:
+	ReloadDelay: 10
+	Range: 8c0
+	Report: aacanon3.aud
+	ValidTargets: AirborneActor
+	Projectile: InstantHit
+		Blockable: false
+	Warhead@1Dam: SpreadDamage
+		Spread: 213
+		Damage: 2000
+		ValidTargets: AirborneActor
+		Versus:
+			None: 40
+			Wood: 10
+			Light: 60
+			Heavy: 10
+			Concrete: 20
+		DamageTypes: Prone50Percent, TriggerProne, DefaultDeath
+	Warhead@2Eff: CreateEffect
+		Explosions: small_explosion_air
+		ValidTargets: Air, Ground, Water, Trees
+
+ZSU-23:
+	Inherits: ^AACannon
+	Burst: 2
+	BurstDelays: 0
+	ReloadDelay: 6
+	Range: 10c0
+	Warhead@1Dam: SpreadDamage
+		Damage: 1200
+		Versus:
+			None: 25
+			Wood: 75
+			Light: 75
+			Heavy: 100
+			Concrete: 50
+
+FLAK-23-AA:
+	Inherits: ^AACannon
+	Warhead@1Dam: SpreadDamage
+		ValidTargets: AirborneActor, GroundActor, WaterActor
+
+FLAK-23-AG:
+	Inherits: ^AACannon
+	Range: 6c0
+	ValidTargets: Ground, Water, GroundActor, WaterActor
+	Projectile: InstantHit
+		Blockable: true
+	Warhead@1Dam: SpreadDamage
+		ValidTargets: AirborneActor, GroundActor, WaterActor
+	Warhead@2Eff: CreateEffect
+		Explosions: flak_explosion_ground
+		ValidTargets: Ground, GroundActor, Air, AirborneActor, WaterActor, Trees
+	Warhead@3EffWater: CreateEffect
+		Explosions: small_splash
+		ValidTargets: Water, Underwater
+		InvalidTargets: Bridge
+
+# UAC Minigun Marine
+DoomMinigunAA:
+	Inherits: ^AACannon
+	ReloadDelay: 4
+	Range: 10c0
+	Report: dsshotgn2.aud
+	Projectile: Bullet
+		Speed: 3c340
+		Inaccuracy: 1024
+	Warhead@1Dam: SpreadDamage
+		Spread: 256
+		Damage: 400
+
+# Supersoldier
+SuperVulcanAA:
+	Inherits: DoomMinigunAA
+	Report: cygun1.aud
+	ReloadDelay: 40
+	Burst: 6
+	BurstDelays: 4
+
+# Deathknight
+DoomMinigunDKAA:
+	Inherits: DoomMinigunAA
+	Report: minigun_fire.aud
+	Warhead@1Dam: SpreadDamage
+		Damage: 1200
+
+# Spidermastermind
+DoomSpiderAA:
+	Inherits: ^AACannon
+	ReloadDelay: 4
+	Report: dsshotgn2.aud
+	Projectile: InstantHit
+		Inaccuracy: 256
+	Warhead@1Dam: SpreadDamage
+		Spread: 512
+		Damage: 1200
+
+^HeavyMG:
+	ReloadDelay: 30
+	Range: 6c0
+	Report: gun13.aud
+	ValidTargets: Ground, Water, GroundActor, WaterActor
+	Projectile: InstantHit
+		Blockable: true
+	Warhead@1Dam: SpreadDamage
+		Spread: 128
+		Damage: 2500
+		ValidTargets: GroundActor, WaterActor
+		Versus:
+			None: 120
+			Wood: 60
+			Light: 72
+			Heavy: 28
+			Concrete: 28
+		DamageTypes: Prone50Percent, TriggerProne, BulletDeath
+	Warhead@2Eff: CreateEffect
+		Explosions: piffs
+		ValidTargets: Ground, GroundActor, Air, AirborneActor, WaterActor, Trees
+	Warhead@3EffWater: CreateEffect
+		Explosions: water_piffs
+		ValidTargets: Water, Underwater
+		InvalidTargets: Bridge
+
+^LightMG:
+	Inherits: ^HeavyMG
+	Warhead@1Dam: SpreadDamage
+		Damage: 1000
+		Versus:
+			None: 150
+			Wood: 10
+			Light: 40
+			Heavy: 10
+			Concrete: 10
+		DamageTypes: Prone50Percent, TriggerProne, DefaultDeath
+	Warhead@2Eff: CreateEffect
+		Explosions: piff
+		Inaccuracy: 171
+	Warhead@3EffWater: CreateEffect
+		Explosions: water_piff
+		Inaccuracy: 171
+
+Vulcan:
+	Inherits: ^HeavyMG
+	Warhead@1Dam: SpreadDamage
+		Damage: 1000
+		Versus:
+			None: 200
+			Wood: 50
+			Light: 50
+			Heavy: 20
+			Concrete: 20
+	Warhead@4Dam_2: SpreadDamage
+		Spread: 128
+		Damage: 1000
+		Delay: 2
+		ValidTargets: GroundActor, WaterActor
+		Versus:
+			None: 200
+			Wood: 50
+			Light: 50
+			Heavy: 20
+			Concrete: 20
+		DamageTypes: Prone50Percent, TriggerProne, BulletDeath
+	Warhead@4Eff_2: CreateEffect
+		Explosions: piffs
+		ValidTargets: Ground, GroundActor, Air, AirborneActor, WaterActor, Trees
+		Delay: 2
+	Warhead@4Eff_2Water: CreateEffect
+		Explosions: water_piffs
+		ValidTargets: Water, Underwater
+		InvalidTargets: Bridge
+		Delay: 2
+	Warhead@5Dam_3: SpreadDamage
+		Spread: 128
+		Damage: 1000
+		Delay: 4
+		ValidTargets: GroundActor, WaterActor
+		Versus:
+			None: 200
+			Wood: 50
+			Light: 50
+			Heavy: 20
+			Concrete: 20
+		DamageTypes: Prone50Percent, TriggerProne, BulletDeath
+	Warhead@6Eff_3: CreateEffect
+		Explosions: piffs
+		ValidTargets: Ground, GroundActor, Air, AirborneActor, WaterActor, Trees
+		Delay: 4
+	Warhead@6Eff_3Water: CreateEffect
+		Explosions: water_piffs
+		ValidTargets: Water, Underwater
+		InvalidTargets: Bridge
+		Delay: 4
+	Warhead@7Dam_4: SpreadDamage
+		Spread: 128
+		Damage: 1000
+		Delay: 6
+		ValidTargets: GroundActor, WaterActor
+		Versus:
+			None: 200
+			Wood: 50
+			Light: 50
+			Heavy: 20
+			Concrete: 20
+		DamageTypes: Prone50Percent, TriggerProne, BulletDeath
+	Warhead@8Eff_4: CreateEffect
+		Explosions: piffs
+		ValidTargets: Ground, GroundActor, Air, AirborneActor, WaterActor, Trees
+		Delay: 6
+	Warhead@8Eff_4Water: CreateEffect
+		Explosions: water_piffs
+		ValidTargets: Water, Underwater
+		InvalidTargets: Bridge
+		Delay: 6
+	Warhead@9Dam_5: SpreadDamage
+		Spread: 128
+		Damage: 1000
+		Delay: 8
+		ValidTargets: GroundActor, WaterActor
+		Versus:
+			None: 200
+			Wood: 50
+			Light: 50
+			Heavy: 20
+			Concrete: 20
+		DamageTypes: Prone50Percent, TriggerProne, BulletDeath
+	Warhead@10Eff_5: CreateEffect
+		Explosions: piffs
+		ValidTargets: Ground, GroundActor, Air, AirborneActor, WaterActor, Trees
+		Delay: 8
+	Warhead@10Eff_5Water: CreateEffect
+		Explosions: water_piffs
+		ValidTargets: Water, Underwater
+		InvalidTargets: Bridge
+		Delay: 8
+	Warhead@11Dam_6: SpreadDamage
+		Spread: 128
+		Damage: 1000
+		Delay: 10
+		ValidTargets: GroundActor, WaterActor
+		Versus:
+			None: 200
+			Wood: 50
+			Light: 50
+			Heavy: 20
+			Concrete: 20
+		DamageTypes: Prone50Percent, TriggerProne, BulletDeath
+	Warhead@12Eff_6: CreateEffect
+		Explosions: piffs
+		ValidTargets: Ground, GroundActor, Air, AirborneActor, WaterActor, Trees
+		Delay: 10
+	Warhead@12Eff_6Water: CreateEffect
+		Explosions: water_piffs
+		ValidTargets: Water, Underwater
+		InvalidTargets: Bridge
+		Delay: 10
+
+# Dawn guard tower
+Vulcan_D:
+	Inherits: Vulcan
+	Report: gun8.aud
+	Projectile: InstantHit
+		Blockable: false
+
+# Double guard tower - for super soldier
+Vulcan_D2:
+	Inherits: Vulcan_D
+	Burst: 2
+	BurstDelays: 4
+	ReloadDelay: 45
+
+GAU-12:
+	Inherits: Vulcan_D
+	ReloadDelay: 15
+	Range: 9c0
+	ValidTargets: Ground, Infantry
+	InvalidTargets: Vehicle, Water, Structure, Wall, Husk, Mine
+
+ChainGun:
+	Inherits: ^HeavyMG
+	ReloadDelay: 10
+	Range: 5c0
+	MinRange: 0c768
+	Projectile: InstantHit
+		Blockable: false
+	Warhead@1Dam: SpreadDamage
+		Versus:
+			None: 144
+
+ChainGun.Yak:
+	Inherits: ^HeavyMG
+	ReloadDelay: 3
+	Range: 5c0
+	MinRange: 3c0
+	Projectile: InstantHit
+		Blockable: false
+	Warhead@1Dam: SpreadDamage
+		Damage: 4000
+		Versus:
+			None: 100
+			Wood: 50
+			Light: 60
+			Heavy: 25
+			Concrete: 25
+
+Pistol:
+	Inherits: ^LightMG
+	ReloadDelay: 7
+	Range: 3c0
+	Report: gun27.aud
+	Warhead@1Dam: SpreadDamage
+		Damage: 100
+		Versus:
+			None: 100
+	Warhead@2Eff: CreateEffect
+		Inaccuracy: 128
+	Warhead@3EffWater: CreateEffect
+		Inaccuracy: 128
+
+PolicePistol:
+	Inherits: Pistol
+	Warhead@1Dam: SpreadDamage
+		Damage: 150
+
+M1Carbine:
+	Inherits: ^LightMG
+	ReloadDelay: 20
+	Range: 5c0
+	Report: gun11.aud
+	Warhead@1Dam: SpreadDamage
+		Versus:
+			Wood: 30
+	Warhead@2Eff2: CreateEffect
+		Delay: 2
+		Explosions: piff
+		ValidTargets: Ground, GroundActor, Air, AirborneActor, WaterActor, Trees
+		Inaccuracy: 171
+	Warhead@3EffWater2: CreateEffect
+		Delay: 2
+		ValidTargets: Water, Underwater
+		InvalidTargets: Bridge
+		Explosions: water_piff
+		Inaccuracy: 171
+	Warhead@2Eff3: CreateEffect
+		Delay: 4
+		Explosions: piff
+		ValidTargets: Ground, GroundActor, Air, AirborneActor, WaterActor, Trees
+		Inaccuracy: 171
+	Warhead@3EffWater3: CreateEffect
+		Delay: 4
+		ValidTargets: Water, Underwater
+		InvalidTargets: Bridge
+		Explosions: water_piff
+		Inaccuracy: 171
+
+# Dawn rifle gun
+M1Carbine_D:
+	Inherits: M1Carbine
+	Report: mgun2.aud
+
+# Nazi rifle gun
+M1Carbine_N:
+	Inherits: M1Carbine
+	Report: infgun3.aud
+
+# GLA rifle gun
+M1Carbine_G:
+	Inherits: M1Carbine
+	Report: irebweaa.wav,irebweab.wav,irebweac.wav,irebwead.wav,irebweae.wav
+
+# GLA rifle gun - Bus
+M1Carbine_GBus:
+	Inherits: M1Carbine_G
+	Range: 6c0
+	Burst: 2
+	BurstDelays: 2
+
+# RA rifle gun - Bus
+M1Carbine_Bus:
+	Inherits: M1Carbine
+	Range: 6c0
+	Burst: 2
+	BurstDelays: 2
+
+# GLA rifle gun multi
+M1Carbine_G2:
+	Inherits: M1Carbine_G
+	ReloadDelay: 32
+	Burst: 4
+	BurstDelays: 4
+	Warhead@1Dam: SpreadDamage
+		Damage: 1250
+		Versus:
+			Wood: 24
+
+# Officer
+M1Minigun:
+	Inherits: M1Carbine
+	ReloadDelay: 24
+	Report: marattck.aud
+	Warhead@1Dam: SpreadDamage
+		Damage: 1800
+
+# Officer - Bus
+M1Minigun_Bus:
+	Inherits: M1Minigun
+	Range: 6c0
+	ReloadDelay: 18
+
+# Nazi Officer
+M1Minigun_N:
+	Inherits: M1Carbine
+	ReloadDelay: 24
+	Report: dsshotgn2.aud
+	Burst: 2
+	BurstDelays: 4
+	Warhead@1Dam: SpreadDamage
+		Damage: 1000
+
+# UAC Rifle Marine
+M1Minigun_U:
+	Inherits: M1Carbine
+	ReloadDelay: 26
+	Report: marattck.aud
+	Warhead@1Dam: SpreadDamage
+		Damage: 2300
+		Versus:
+			None: 120
+			Wood: 20
+			Light: 40
+			Heavy: 20
+			Concrete: 20
+
+# UAC Officer
+DoomSSG:
+	Inherits: M1Carbine
+	ReloadDelay: 60
+	Report: dsdshtgn.aud
+	Warhead@1Dam: SpreadDamage
+		Spread: 350
+		Damage: 7400
+		Versus:
+			None: 120
+			Wood: 20
+			Light: 40
+			Heavy: 20
+			Concrete: 20
+
+# UAC Minigun Marine
+DoomMinigun:
+	Inherits: ^LightMG
+	ReloadDelay: 4
+	Report: dsshotgn2.aud
+	Projectile: Bullet
+		Speed: 1c682
+		Inaccuracy: 756
+	Warhead@1Dam: SpreadDamage
+		Spread: 256
+		Damage: 700
+		Versus:
+			None: 100
+			Wood: 10
+			Light: 15
+			Heavy: 10
+			Concrete: 5
+	Warhead@2Eff2: CreateEffect
+		Delay: 2
+		Explosions: piffs
+		ValidTargets: Ground, GroundActor, Air, AirborneActor, WaterActor, Trees
+		Inaccuracy: 171
+	Warhead@3EffWater2: CreateEffect
+		Delay: 2
+		ValidTargets: Water, Underwater
+		InvalidTargets: Bridge
+		Explosions: water_piffs
+		Inaccuracy: 171
+	Warhead@2Eff3: CreateEffect
+		Delay: 4
+		Explosions: piffs
+		ValidTargets: Ground, GroundActor, Air, AirborneActor, WaterActor, Trees
+		Inaccuracy: 171
+	Warhead@3EffWater3: CreateEffect
+		Delay: 4
+		ValidTargets: Water, Underwater
+		InvalidTargets: Bridge
+		Explosions: water_piffs
+		Inaccuracy: 171
+
+# Deathknight
+DoomMinigunDK:
+	Inherits: DoomMinigun
+	Report: minigun_fire.aud
+	Range: 6c0
+	Warhead@1Dam: SpreadDamage
+		Damage: 2000
+		Versus:
+			None: 125
+
+# Heavy
+DoomMinigunHeavy:
+	Inherits: DoomMinigunDK
+	Warhead@1Dam: SpreadDamage
+		Versus:
+			None: 130
+			Wood: 20
+			Light: 30
+			Heavy: 20
+			Concrete: 10
+
+CyborgVulcan:
+	Inherits: ^HeavyMG
+	ReloadDelay: 40
+	Burst: 3
+	BurstDelays: 4
+	Report: cygun1.aud
+	Warhead@1Dam: SpreadDamage
+		Spread: 256
+		Damage: 1200
+		Versus:
+			None: 100
+			Wood: 30
+			Light: 60
+			Heavy: 25
+			Concrete: 25
+		DamageTypes: Prone50Percent, TriggerProne, DefaultDeath
+
+SuperVulcan:
+	Inherits: CyborgVulcan
+	Burst: 6
+	BurstDelays: 4
+
+# Spidermastermind gun
+DoomSpider:
+	Inherits: ^LightMG
+	Range: 10c0
+	ReloadDelay: 4
+	Report: dsshotgn2.aud
+	Projectile: InstantHit
+		Inaccuracy: 512
+	Warhead@1Dam: SpreadDamage
+		Spread: 512
+		Damage: 3500
+		Versus:
+			None: 100
+			Wood: 25
+			Light: 50
+			Heavy: 25
+			Concrete: 25
+		DamageTypes: Prone50Percent, TriggerProne, SmallExplosionDeath, SpawnCubeDeath
+		ValidRelationships: Neutral, Enemy
+	Warhead@cluster: FireCluster
+		Delay: 2
+		Weapon: DoomSpiderCluster
+		RandomClusterCount: 3
+		Dimensions: 3,3
+		Footprint: xxx xxx xxx
+
+DoomSpiderCluster:
+	Inherits: M1Carbine
+	-Report:
+	Projectile: InstantHit
+		Inaccuracy: 1c512
+	Warhead@1Dam: SpreadDamage
+		Spread: 256
+		Damage: 800
+		ValidRelationships: Neutral, Enemy
+
+JumpJetVulcan:
+	Inherits: CyborgVulcan
+	Burst: 2
+	BurstDelays: 6
+	Report: jumpjet1.aud
+	Warhead@1Dam: SpreadDamage
+		Damage: 1900
+
+M60mg:
+	Inherits: ^LightMG
+	ReloadDelay: 30
+	Range: 4c0
+	Report: pillbox1.aud
+	Burst: 5
+	Warhead@1Dam: SpreadDamage
+		Versus:
+			Light: 30
+
+# Dawn buggy/jeep
+DawnM60mg:
+	Inherits: M60mg
+	Report: mgun11.aud
+
+WolverineVulcan:
+	ReloadDelay: 55
+	Inherits: Vulcan
+	Range: 5c0
+	Report: tsgun4.aud
+
+^SnipeWeapon:
+	ReloadDelay: 80
+	Range: 3c512
+	Report: silppk.aud
+	ValidTargets: Ground, Infantry, Cyborg
+	InvalidTargets: Vehicle, Water, Structure, Wall, Husk, Mine
+	Projectile: InstantHit
+	Warhead@1Dam: SpreadDamage
+		Spread: 42
+		Damage: 15000
+		Versus:
+			None: 100
+			Light: 60
+			Heavy: 40
+		ValidTargets: Barrel, Infantry, Cyborg
+		DamageTypes: Prone50Percent, TriggerProne, DefaultDeath
+	Warhead@2Eff: CreateEffect
+		Explosions: piff
+		ValidTargets: Ground, Ship, Air, Trees
+	Warhead@3EffWater: CreateEffect
+		Explosions: water_piff
+		ValidTargets: Water, Underwater
+		InvalidTargets: Ship, Structure, Bridge
+
+SilencedPPK:
+	Inherits: ^SnipeWeapon
+	Report: silppk.aud
+	Warhead@1Dam: SpreadDamage
+		Spread: 128
+
+Colt45:
+	Inherits: ^SnipeWeapon
+	ReloadDelay: 5
+	Range: 7c0
+	Report: gun5.aud
+	Projectile: Bullet
+		Speed: 1c682
+	Warhead@1Dam: SpreadDamage
+		Damage: 5000
+
+Sniper:
+	Inherits: ^SnipeWeapon
+	ReloadDelay: 70
+	Range: 10c0
+	Warhead@1Dam: SpreadDamage
+		Damage: 14000
+
+CommandoSniper:
+	Inherits: ^SnipeWeapon
+	ReloadDelay: 60
+	Range: 8c0
+	Report: psgfire.aud
+	Warhead@1Dam: SpreadDamage
+		Damage: 20000
+
+TanyaSniper:
+	Inherits: ^SnipeWeapon
+	ReloadDelay: 50
+	Range: 8c0
+	Report: psgfire.aud
+	Warhead@1Dam: SpreadDamage
+		Damage: 22500
+
+# for GDI and UAC sniper, Fed too probably
+DoomSniper:
+	Inherits: ^SnipeWeapon
+	ReloadDelay: 150
+	Range: 12c0
+	Report: psgfire.aud
+	Projectile: LaserZap
+		Color: FFFFFF
+		Width: 12
+		Duration: 10
+	Warhead@1Dam: SpreadDamage
+		Damage: 22500
+
+FSniper:
+	Inherits: ^SnipeWeapon
+	ReloadDelay: 120
+	Range: 15c0
+	Report: psgfire.aud
+	Projectile: LaserZap
+		Color: FFFFFF
+		Width: 12
+		Duration: 8
+	Warhead@1Dam: SpreadDamage
+		Spread: 42
+		Damage: 25000
+		Versus:
+			None: 100
+			Wood: 25
+			Light: 75
+			Heavy: 50
+			Concrete: 25
+		DamageTypes: Prone50Percent, TriggerProne, BulletDeath
+
+JarmenSniper:
+	Inherits: ^SnipeWeapon
+	ReloadDelay: 75
+	Range: 13c0
+	Report: interfire.aud
+	Projectile: LaserZap
+		Color: FFFFFF
+		Width: 12
+		Duration: 10
+	Warhead@1Dam: SpreadDamage
+		Damage: 30000
+	Warhead@3hit: CreateEffect
+		Explosions: hitmarker
+		ImpactSounds: HITSOUND.wav
+		ValidTargets: Infantry
+
+KodiacAA:
+	Inherits: ^AACannon
+	Range: 10c0
+	Burst: 2
+	BurstDelays: 2
+	ReloadDelay: 6
+	Report: cannon1.aud
+	ValidTargets: AirborneActor, Infantry
+	Projectile: Bullet
+		Speed: 3c682
+		Inaccuracy: 256
+	Warhead@1Dam: SpreadDamage
+		Damage: 1400
+		ValidTargets: Infantry, AirborneActor
+		Versus:
+			None: 80
+		DamageTypes: Prone50Percent, TriggerProne, DefaultDeath
+	Warhead@2Eff: CreateEffect
+		ImpactActors: false
+
+FSMG:
+	ReloadDelay: 35
+	Range: 5c0
+	Report: pillbox1.aud
+	Burst: 3
+	ValidTargets: Ground, Water, GroundActor, WaterActor
+	Projectile: InstantHit
+		Blockable: true
+	Warhead@1Dam: SpreadDamage
+		Spread: 128
+		Damage: 1500
+		ValidTargets: GroundActor, WaterActor
+		Versus:
+			None: 150
+			Wood: 10
+			Light: 30
+			Heavy: 10
+			Concrete: 10
+		DamageTypes: Prone50Percent, TriggerProne, BulletDeath
+	Warhead@2Eff: CreateEffect
+		Explosions: piffs
+		ValidTargets: Ground, GroundActor, Air, AirborneActor, WaterActor, Trees
+	Warhead@3EffWater: CreateEffect
+		Explosions: water_piffs
+		ValidTargets: Water, Underwater
+		InvalidTargets: Bridge
+
+JSMG:
+	Inherits: FSMG
+	Range: 6c0
+
+ScoutBlaster:
+	Inherits: Vulcan
+	Report: blastgn2.aud
+	ReloadDelay: 35
+	Range: 6c0
+	Warhead@1Dam: SpreadDamage
+		Damage: 2000
+	Warhead@4Dam_2: SpreadDamage
+		Damage: 2000

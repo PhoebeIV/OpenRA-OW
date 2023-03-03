@@ -1,0 +1,145 @@
+^ProtossInfShield:
+	Inherits: ^ProtossShield
+	ChangesHealth@shield:
+		StartIfBelow: 80
+		DamageCooldown: 25
+
+PPROBE:
+	Inherits: ^Vehicle
+	Inherits@selection: ^SelectableEconomicUnit
+	Inherits@shield: ^ProtossInfShield
+	Buildable:
+		Queue: Infantry
+		BuildPaletteOrder: 110
+		Prerequisites: refinery, ~infantry.protoss, ~techlevel.infonly
+		Description: Collects Ore, Gems and Tiberium for processing.\nSpeed: 64\n  Unarmed
+	Valued:
+		Cost: 550
+	Tooltip:
+		Name: Probe
+		GenericName: Harvester
+	Selectable:
+		DecorationBounds: 1365, 1365
+	Harvester:
+		Capacity: 10
+		Resources: Ore,Gems,Tiberium,BlueTiberium
+		BaleUnloadDelay: 1
+		BaleUnloadAmount: 10
+		SearchFromProcRadius: 15
+		SearchFromHarvesterRadius: 8
+		EmptyCondition: no-ore
+	Health:
+		HP: 40000
+	Armor:
+		Type: Light
+	Mobile:
+		Speed: 64
+		Locomotor: foot2
+	RevealsShroud:
+		Range: 4c0
+	WithHarvestAnimation:
+	WithDockingAnimation:
+	GpsDot:
+		String: Harvester
+	SpawnActorOnDeath:
+		Actor: HARV.EmptyHusk
+	Explodes:
+		RequiresCondition: !no-ore
+		Weapon: OreExplosion
+	WithFacingSpriteBody:
+	WithHarvesterPipsDecoration:
+		Position: BottomLeft
+		Margin: 4, 3
+		RequiresSelection: true
+		PipCount: 4
+		ResourceSequences:
+			Ore: pip-yellow
+			Gems: pip-red
+			Tiberium: pip-green
+			BlueTiberium: pip-blue
+	RepairsBridges:
+	CaptureManager:
+	Captures:
+		CaptureTypes: building
+		PlayerExperience: 25
+		CaptureDelay: 200
+		SabotageThreshold: 50
+		SabotageHPRemoval: 60
+	Infiltrates:
+		Types: Husk
+		ValidRelationships: Ally
+		EnterCursor: goldwrench
+		PlayerExperience: 25
+	Captures@husk:
+		CaptureTypes: husk
+		PlayerExperience: 25
+		CaptureDelay: 100
+		EnterCursor: goldwrench
+		ConsumedByCapture: true
+	RenderSprites:
+	Hovers:
+	Voiced:
+		VoiceSet: ProtossRobotVoice
+
+PZEALOT:
+	Inherits: ^Infantry
+	Inherits@shield: ^ProtossInfShield
+	Buildable:
+		Prerequisites: ~infantry.protoss, ~techlevel.infonly
+		Description: Fanatical melee infantry.\nSpeed: 80\n  Strong vs infantry
+		Queue: Infantry
+		BuildAtProductionType: Soldier
+		BuildPaletteOrder: 40
+	Selectable:
+		Bounds: 768, 938, 0, 0
+		DecorationBounds: 682, 938, 0, 0
+	Valued:
+		Cost: 400
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Tooltip:
+		Name: Zealot
+	Health:
+		HP: 42000
+	Mobile:
+		Speed: 80
+	RevealsShroud:
+		Range: 4c512
+	Armament:
+		Weapon: ZealotStab
+	WithInfantryBody:
+		DefaultAttackSequence: shoot
+		IdleSequences: stand
+		StandSequences: stand
+	AutoTarget:
+		InitialStance: AttackAnything
+		ScanRadius: 5
+	AutoTargetPriority@DEFAULT:
+		ValidTargets: GroundActor, Infantry
+	Targetable:
+		TargetTypes: GroundActor, Infantry, Disguise
+	RenderSprites:
+	Voiced:
+		VoiceSet: ZealotVoice
+	WithDeathAnimation:
+		UseDeathTypeSuffix: false
+		CrushedSequence: die
+		CrushedSequencePalette: player
+		CrushedPaletteIsPlayerPalette: true
+	TakeCover:
+		SpeedModifier: 120
+		Duration: 100
+		DamageTriggers: TriggerProne
+	-SpawnActorOnDeath@fire:
+	UpdatesPlayerStatistics:
+	MustBeDestroyed:
+	ProximityCaptor:
+		Types: Infantry
+	AttackFrontal:
+		FacingTolerance: 0
+	GrantConditionOnPrerequisite@shoes:
+		Prerequisites: padun
+		Condition: shoes
+	SpeedMultiplier@shoes:
+		RequiresCondition: shoes
+		Modifier: 110

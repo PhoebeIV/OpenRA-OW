@@ -1,0 +1,443 @@
+^GLAVehicle:
+	GrantConditionOnPrerequisite@service:
+		Prerequisites: gfix
+		Condition: glavehicle
+	ChangesHealth@service:
+		PercentageStep: 1
+		Delay: 100
+		StartIfBelow: 100
+		DamageCooldown: 250
+		RequiresCondition: glavehicle
+
+GMCV:
+	Inherits: MCV
+	Inherits@GLAVehicle: ^GLAVehicle
+	Inherits@selection: ^SelectableSupportUnit
+	Buildable:
+		Prerequisites: fix, ~mcv, ~techlevel.medium, ~vehicles.gla
+	Transforms:
+		IntoActor: gfact
+	RenderSprites:
+		Image: mcv
+
+GMCV.2:
+	Inherits: GMCV
+	Transforms:
+		IntoActor: gfact
+	Buildable:
+		Queue: Vehicle
+		BuildPaletteOrder: 90
+		BuildDurationModifier: 35
+		Prerequisites: ~!mcv, ~techlevel.medium, ~vehicles.gla
+	Valued:
+		Cost: 3000
+
+GMGG:
+	Inherits: ^Vehicle
+	Inherits@selection: ^SelectableEconomicUnit
+	Valued:
+		Cost: 1400
+	Tooltip:
+		Name: Radar Van
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Buildable:
+		Queue: Vehicle
+		BuildPaletteOrder: 320
+		Prerequisites: gproc, ~vehicles.gla, ~techlevel.medium
+		Icon: icon-gla
+		Description: Provides an overview\nof the battlefield.\nSpeed: 64\n  Unarmed
+	Health:
+		HP: 22000
+	Armor:
+		Type: Heavy
+	Mobile:
+		Speed: 64
+	RevealsShroud:
+		MinRange: 6c0
+		Range: 10c0
+		RequiresCondition: !disabled
+		RevealGeneratedShroud: False
+	RevealsShroud@Offline:
+		Range: 5c0
+		RequiresCondition: disabled
+	RevealsShroud@GAPGEN:
+		Range: 6c0
+		RequiresCondition: !disabled
+	WithIdleOverlay@SPINNER:
+		Sequence: spinner
+		Offset: -256,0,256
+		PauseOnCondition: disabled || jammed
+	ProvidesPrerequisite:
+		Prerequisite: radar
+	ProvidesPrerequisite@buildingname:
+	ProvidesRadar:
+		RequiresCondition: !jammed && !disabled
+	ExternalCondition@JAMMED:
+		Condition: jammed
+	SpawnActorPower@spyvan:
+		PauseOnCondition: disabled
+		OrderName: VanSweep
+		Cursor: chrono-target
+		Icon: spy
+		ChargeInterval: 2250
+		LifeTime: 125
+		Name: Spy
+		Description: Reveal an area on the map for 5 seconds. \nReveals cloaked units.
+		Actor: camera.spyplane
+		SelectTargetSpeechNotification: SelectTarget
+		DisplayRadarPing: True
+		DeploySound: gradarup.aud
+		EffectSequence: idle
+	RenderSprites:
+		Image: mgg
+
+GBIKE:
+	Inherits: BIKE
+	Buildable:
+		Prerequisites: ~vehicles.gla, ~techlevel.low
+		Description: Fast scout vehicle, armed with dual machine guns.\nSpeed: 213\n  Strong vs Infantry\n  Weak vs Vehicles
+	Health:
+		HP: 14000
+	Mobile:
+		TurnSpeed: 40
+		Speed: 213
+		Locomotor: gbike
+	-Armament:
+	Armament:
+		Weapon: M1Carbine_G2
+		LocalOffset: -128, -170, 170, -128, 170, 170
+		MuzzleSequence: muzzle
+	WithMuzzleOverlay:
+	RenderSprites:
+		Image: bike
+
+GSCUD:
+	Inherits: V2RL
+	Buildable:
+		Queue: Vehicle
+		BuildPaletteOrder: 230
+		Prerequisites: techcenter, ~vehicles.demo, ~techlevel.medium
+		Description: Long-range rocket artillery.\n  Strong vs Infantry, Buildings\n  Weak vs Vehicles, Aircraft
+	Tooltip:
+		Name: GLA Scud Launcher
+	Valued:
+		Cost: 1500
+	Armament:
+		Weapon: GLASCUD
+	RenderSprites:
+		Image: v2rl
+
+GSCUD.T:
+	Inherits: V2RL
+	Buildable:
+		Queue: Vehicle
+		BuildPaletteOrder: 230
+		Prerequisites: techcenter, ~vehicles.thrax, ~techlevel.medium
+		Description: Long-range rocket artillery loaded with Tiberium.\n  Strong vs Infantry, Buildings\n  Weak vs Vehicles, Aircraft
+	Tooltip:
+		Name: GLA Toxin Scud
+	Valued:
+		Cost: 1500
+	Armament:
+		Weapon: ToxinSCUD
+	Explodes:
+		Weapon: ToxinSCUDExplode
+	RenderSprites:
+		Image: v2rl
+
+GFTRK:
+	Inherits: ^Vehicle
+	Inherits@GAINSEXPERIENCE: ^GainsExperience
+	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
+	Buildable:
+		Queue: Vehicle
+		BuildPaletteOrder: 130
+		Prerequisites: ~vehicles.gla, ~!vehicles.demo, ~techlevel.medium
+		Icon: gla-icon
+		Description: Mobile unit with mounted tiberium sprays.\nCauses armour debuff.\nSpeed: 98\n  Strong vs Infantry, Light armor, Structures\n  Weak vs Tanks
+	Valued:
+		Cost: 650
+	Tooltip:
+		Name: Toxin Truck
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 15000
+	Armor:
+		Type: Light
+	Mobile:
+		TurnSpeed: 36
+		Speed: 98
+	RevealsShroud:
+		MinRange: 4c0
+		Range: 6c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 4c0
+	Turreted:
+		TurnSpeed: 24
+		Offset: -298,0,212
+	Armament@AA:
+		Weapon: BigChemSpray
+		Recoil: 85
+		LocalOffset: 756,0,192
+	AttackTurreted:
+	WithSpriteTurret:
+		Sequence: turret2
+	Explodes@2:
+		Weapon: A10Gas
+		EmptyWeapon: A10Gas
+	SelectionDecorations:
+	ProducibleWithLevel:
+		Prerequisites: vehicles.upgraded
+	Selectable:
+		DecorationBounds: 1194, 1194
+	RenderSprites:
+		Image: ftrk
+
+1TNK.G:
+	Inherits: 1TNK.N
+	Buildable:
+		Prerequisites: ~vehicles.gla, ~techlevel.low
+	Tooltip:
+		Name: GLA Light Tank
+
+BGGYD.G:
+	Inherits: ^Vehicle
+	Inherits@GAINSEXPERIENCE: ^GainsExperience
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Buildable:
+		Queue: Vehicle
+		BuildPaletteOrder: 240
+		Prerequisites: techcenter, ~vehicles.gla, ~techlevel.high
+		Icon: icon-gla
+		Description: Fast anti-armour buggy.\nSpeed: 135\n  Strong vs Vehicles\n  Weak vs Vehicles, Infantry
+	Valued:
+		Cost: 800
+	Tooltip:
+		Name: Rocket Buggy
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 17500
+	Armor:
+		Type: Light
+	Mobile:
+		TurnSpeed: 32
+		Speed: 135
+	RevealsShroud:
+		MinRange: 5c0
+		Range: 8c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 5c0
+	Turreted:
+		TurnSpeed: 20
+		Offset: -256,0,96
+	Armament:
+		Weapon: BuggyRockets
+		LocalOffset: 171,-192,64, 171,0,-64, 171,192,64, 171,-192,-64, 171,0,64, 171,192,-64
+	AttackTurreted:
+		PauseOnCondition: disabled
+	WithSpriteTurret:
+		Sequence: pod
+	ProducibleWithLevel:
+		Prerequisites: vehicles.upgraded
+	RenderSprites:
+		Image: bggyd
+
+DTRK.G:
+	Inherits: ^Vehicle
+	Buildable:
+		Queue: Vehicle
+		BuildPaletteOrder: 330
+		Prerequisites: techcenter, ~vehicles.gla, ~techlevel.high
+		Icon: icon-gla
+		Description: Truck with actively armed \nexplosives. Has very weak armor.\n Speed: 128
+	Valued:
+		Cost: 900
+	Tooltip:
+		Name: Demo Truck
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 10000
+	Armor:
+		Type: Light
+	Mobile:
+		Speed: 128
+	RevealsShroud:
+		Range: 4c0
+	Explodes:
+		Weapon: DemoTrapExplosion
+		EmptyWeapon: DemoTrapExplosion
+		DamageSource: Killer
+	AttackFrontal:
+		FacingTolerance: 512
+	Armament@PRIMARY:
+		Weapon: DemoTrapTargeting
+	GrantConditionOnAttack:
+		Condition: triggered
+	GrantConditionOnDeploy:
+		DeployedCondition: triggered
+	-DamageMultiplier@IRONCURTAIN:
+	KillsSelf:
+		RequiresCondition: invulnerability || triggered
+	Chronoshiftable:
+		ExplodeInstead: true
+	Cloak@stealthgen:
+		RequiresCondition: stealthgen && !disabled && !kassadstealth
+	Cloak@kassad:
+		IsPlayerPalette: true
+		InitialDelay: 25
+		CloakDelay: 30
+		UncloakSound: gstealof.aud
+		RequiresCondition: kassadstealth && !stealthgen && !disabled
+		UncloakOn: Attack, Unload, Infiltrate, Demolish, Damage, Move
+	GrantConditionOnFaction@kassad:
+		Factions: kassad
+		Condition: kassadstealth
+	RenderSprites:
+		Image: truk
+
+
+MNLY.G:
+	Inherits: ^TrackedVehicle
+	Inherits@selection: ^SelectableSupportUnit
+	Buildable:
+		Queue: Vehicle
+		BuildPaletteOrder: 310
+		Prerequisites: gfix, ~techlevel.unrestricted, ~vehicles.gla
+		Description: Lays demo traps to destroy\nunwary enemy units.\nCan detect mines.\n Speed: 96\n  Unarmed
+	Valued:
+		Cost: 1200
+	Tooltip:
+		Name: Demotrap Layer
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 30000
+	Armor:
+		Type: Heavy
+	Mobile:
+		Speed: 96
+	RevealsShroud:
+		MinRange: 4c0
+		Range: 5c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 4c0
+	Minelayer:
+		Mine: XBAR
+		TileUnknownName: build-valid
+		TerrainTypes: Clear, Road, Beach, Ore, Gems, Rough, Bridge
+	MineImmune:
+	AmmoPool:
+		Ammo: 1
+		RearmSound: minelay1.aud
+		ReloadDelay: 750
+	DetectCloaked:
+		Range: 5c0
+		DetectionTypes: Mine
+	RenderDetectionCircle:
+	Explodes:
+		Weapon: DemoTrapExplosion2
+	RenderSprites:
+		Image: MNLY
+	Rearmable:
+		RearmActors: fix, gfix
+	WithAmmoPipsDecoration:
+		Position: BottomLeft
+		RequiresSelection: true
+
+BBUS:
+	Inherits: ^TrackedVehicle
+	Inherits@GAINSEXPERIENCE: ^GainsExperience
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Inherits@CARGOPIPS: ^CargoPips
+	Buildable:
+		Queue: Vehicle
+		BuildPaletteOrder: 120
+		Prerequisites: barracks, ~vehicles.gla, ~techlevel.high
+		Description: Unarmed infantry transport.\nInfantry can fire from inside.\nSpeed: 88 \n  Strong vs Infantry, Light armor\n  Weak vs Tanks, Aircraft
+	Valued:
+		Cost: 900
+	Tooltip:
+		Name: Battle Bus
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 65000
+	Armor:
+		Type: Heavy
+	Mobile:
+		Speed: 88
+		PauseOnCondition: notmobile || being-captured || disabled
+	RevealsShroud:
+		MinRange: 4c0
+		Range: 5c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 4c0
+	Turreted:
+		TurnSpeed: 1023
+	Cargo:
+		Types: Infantry
+		MaxWeight: 6
+		LoadingCondition: notmobile
+		EjectOnDeath: true
+		PassengerConditions:
+			e1of: e1of
+			dm2of: e1of
+	AttackGarrisoned:
+		Armaments: bus
+		PortOffsets: 384,-256,384, 64,-256,384, -192,-256,384, -448,-256,384, -768,0,384, 384,256,384, 64,256,384, -192,256,384, -448,256,384, -640,-256,384, -640,256,384
+		PortYaws: 48,256,256,256,512,976,768,768,768,256,768
+		PortCones: 112,96,96,96,112,96,96,96,96,96,96
+	ProducibleWithLevel:
+		Prerequisites: vehicles.upgraded
+	WithVoxelBody:
+	RenderVoxels:
+		PlayerPalette: tsunit
+		Scale: 12
+	-QuantizeFacingsFromSequence:
+	ClassicFacingBodyOrientation:
+		QuantizedFacings: 32
+	-WithFacingSpriteBody:
+	Selectable:
+		DecorationBounds: 1877, 1621, 0, -170
+	Explodes:
+		Weapon: UnitExplodeSmall2
+		EmptyWeapon: UnitExplodeSmall2
+	ProximityExternalCondition@officer:
+		RequiresCondition: e1of
+		Condition: squadboost
+		Range: 6c0
+	WithDecoration@officer2:
+		Image: pips
+		Sequence: pip-bonus
+		Palette: effect
+		Position: TopRight
+		ValidRelationships: None,Neutral,Enemy,Ally
+		RequiresCondition: !demoralise && e1of
+	ExternalCondition@demoralise:
+		Condition: demoralise
+	WithCargoPipsDecoration:
+		Position: BottomLeft
+		RequiresSelection: true
+
+BBUS.BOT:
+	Inherits: BBUS
+	Buildable:
+		Queue: Vehicle
+		BuildPaletteOrder: 120
+		Prerequisites: barracks, ~vehicles.gla, ~vehicles.botonly
+	Valued:
+		Cost: 1250
+	Cargo:
+		InitialUnits: ge1, ge1, ge3, ge3, e1of
+	RenderVoxels:
+		Image: bbus
+	RenderSprites:
+		Image: bbus

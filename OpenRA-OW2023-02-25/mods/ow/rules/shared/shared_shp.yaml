@@ -1,0 +1,196 @@
+LST:
+	Buildable:
+		Prerequisites: ~techlevel.low, ~ships.lstprereq
+		Description: General-purpose naval transport.\nCan carry infantry and tanks.\nSpeed: 113\n  Unarmed
+	Cargo:
+		Types: Infantry, Vehicle
+		MaxWeight: 10
+	Selectable:
+		DecorationBounds: 1792, 1621
+	Mobile:
+		PauseOnCondition: disabled || notmobile
+	WithCargoPipsDecoration:
+		Position: BottomLeft
+		RequiresSelection: true
+
+LST.E:
+	Inherits: LST
+	Buildable:
+		Prerequisites: ~techlevel.low, ~ships.england
+		Description: Submerged naval transport.\nCan carry infantry and tanks.\nSpeed: 96\n  Unarmed
+	Valued:
+		Cost: 1000
+	Tooltip:
+		Name: Submersive Transport
+	Cargo:
+		Types: Infantry, Vehicle
+		MaxWeight: 6
+	Mobile:
+		Speed: 96
+	-ExternalCondition@stealthgen:
+	-Cloak@stealthgen:
+	Cloak:
+		DetectionTypes: Underwater
+		InitialDelay: 0
+		CloakDelay: 125
+		CloakSound: subshow1.aud
+		UncloakSound: subshow1.aud
+		CloakedCondition: underwater
+		Palette: submerged
+		PauseOnCondition: cloak-force-disabled || notmobile
+	GrantConditionOnDamageState@UNCLOAK:
+		Condition: cloak-force-disabled
+		ValidDamageStates: Critical
+	Targetable:
+		TargetTypes: GroundActor, WaterActor, Ship, Submarine, Repair
+		RequiresCondition: !underwater
+	Targetable@UNDERWATER:
+		TargetTypes: Underwater, Submarine
+		RequiresCondition: underwater
+	RenderSprites:
+		Image: lst
+
+PT:
+	Buildable:
+		Description: Light scout & support ship.\nCan detect submarines.\nSpeed: 128\n  Strong vs Naval units\n  Weak vs Ground units, Aircraft
+	AttackTurreted:
+		PauseOnCondition: disabled
+
+DD:
+	Buildable:
+		Prerequisites: ~syrd, radar, ~!ships.gdi3, ~!ships.silver, ~techlevel.medium
+		Description: Fast multi-role ship.\nCan detect submarines.\nSpeed: 85\n  Strong vs Naval units, Vehicles, Aircraft\n  Weak vs Infantry
+	AttackTurreted:
+		PauseOnCondition: disabled
+
+CA:
+	Buildable:
+		Prerequisites: ~syrd, techcenter, ~!ships.steel, ~!ships.gdi3, ~techlevel.unrestricted, ~!ships.fed, ~!ships.uac
+		Description: Very slow long-range ship.\nSpeed: 42\n  Strong vs Buildings, Ground units\n  Weak vs Naval units, Aircraft
+	AttackTurreted:
+		PauseOnCondition: disabled
+
+SS:
+	Buildable:
+		Description: Submerged anti-ship unit\narmed with torpedoes.\nCan detect other submarines.\Speed: 71\n  Strong vs Naval units\n  Weak vs Ground units, Aircraft\n  Special Ability: Submerge
+	-ExternalCondition@stealthgen:
+	-Cloak@stealthgen:
+	AttackFrontal:
+		PauseOnCondition: disabled
+		FacingTolerance: 0
+
+MSUB:
+	Buildable:
+		Prerequisites: ~spen, techcenter, ~!ships.nod3, ~techlevel.unrestricted
+		Description: Submerged anti-ground siege unit\nwith anti-air capabilities.\nCan detect other submarines.\nSpeed: 42\n  Strong vs Buildings, Ground units, Aircraft\n  Weak vs Naval units\n  Special Ability: Submerge
+	-ExternalCondition@stealthgen:
+	-Cloak@stealthgen:
+	AttackFrontal:
+		PauseOnCondition: disabled
+		FacingTolerance: 0
+
+LSTNEW:
+	Inherits: ^Ship
+	Inherits@CARGOPIPS: ^CargoPips
+	Buildable:
+		Queue: Ship
+		BuildPaletteOrder: 10
+		Prerequisites: ~techlevel.low, ~ships.newlstprereq
+		Description: Amphibious transport.\nCan carry infantry and tanks.\n  Unarmed
+	Valued:
+		Cost: 900
+	Tooltip:
+		Name: Hovercraft
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 35000
+	Armor:
+		Type: Heavy
+	Mobile:
+		Locomotor: hover
+		Speed: 113
+		TurnSpeed: 16
+		PauseOnCondition: disabled || notmobile
+	RevealsShroud:
+		MinRange: 5c0
+		Range: 6c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 5c0
+	SelectionDecorations:
+	Cargo:
+		Types: Infantry, Vehicle
+		MaxWeight: 10
+		PassengerFacing: 0
+		LoadingCondition: notmobile
+		PassengerConditions:
+			e1of: e1of
+	ProximityExternalCondition@officer:
+		RequiresCondition: e1of
+		Condition: squadboost
+		Range: 5c0
+	WithDecoration@officer2:
+		Image: pips
+		Sequence: pip-bonus
+		Palette: effect
+		Position: TopRight
+		ValidRelationships: None,Neutral,Enemy,Ally
+		RequiresCondition: !demoralise && e1of
+	ExternalCondition@demoralise:
+		Condition: demoralise
+	-Chronoshiftable:
+	RenderSprites:
+		Palette: dawn
+	WithFacingSpriteBody:
+	Selectable:
+		DecorationBounds: 2048, 2048
+	WithCargo:
+		DisplayTypes: Infantry, Vehicle
+		LocalOffset: 390,-256,0, 390,256,0, 0,0,0, -390,-256,0, -390,256,0, 780,-256,0, 780,256,0, 512,0,0, -780,-256,0, -780,256,0
+
+LST2:
+	Inherits: ^Ship
+	Buildable:
+		Queue: Ship
+		BuildPaletteOrder: 10
+		Prerequisites: fix, ~techlevel.medium, ~ships.lst2prereq
+		Description: Lays mines to destroy\nunwary enemy ships and submarines.\nCan detect mines.\n  Unarmed
+	Valued:
+		Cost: 800
+	Tooltip:
+		Name: Minelayer
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 35000
+	Armor:
+		Type: Heavy
+	Mobile:
+		Speed: 113
+	RevealsShroud:
+		MinRange: 5c0
+		Range: 6c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 5c0
+	-RepairableNear:
+	Repairable:
+		RepairActors: gspen, spen, syrd
+	SelectionDecorations:
+	Selectable:
+		DecorationBounds: 1536, 1536
+	Rearmable:
+		RearmActors: gspen, spen, syrd
+	AmmoPool:
+		Ammo: 2
+		RearmSound: minelay1.aud
+		ReloadDelay: 375
+	Minelayer:
+		Mine: SEAMINE
+	DetectCloaked:
+		Range: 5c0
+		DetectionTypes: Mine
+	WithAmmoPipsDecoration:
+		Position: BottomLeft
+		RequiresSelection: true

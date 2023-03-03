@@ -1,0 +1,621 @@
+ORCA:
+	Inherits: HELI
+	Buildable:
+		Queue: Aircraft
+		BuildAtProductionType: Helicopter
+		BuildPaletteOrder: 40
+		Prerequisites: ~hpad, ~techlevel.medium, ~aircraft.gdi, ~!aircraft.gdi3
+		Description: VTOL aircraft armed\nwith multi-purpose missiles.\nSpeed: 149\n  Strong vs Tanks, Aircraft\n  Weak vs Infantry
+	Tooltip:
+		Name: Orca Fighter
+	WithMoveAnimation:
+	-WithIdleOverlay@ROTORAIR:
+	-WithIdleOverlay@ROTORGROUND:
+	SpawnActorOnDeath:
+		Actor: ORCA.Husk
+
+ORCA.Husk:
+	Inherits: HELI.Husk
+	Tooltip:
+		Name: Orca Fighter
+	WithDamageOverlay:
+		Offset: -427,0,0
+		Interval: 2
+		MinimumDamageState: Undamaged
+	-WithIdleOverlay:
+	RenderSprites:
+		Image: orca
+
+A10:
+	Inherits: ^Plane
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Buildable:
+		Queue: Aircraft
+		BuildAtProductionType: Helicopter
+		BuildPaletteOrder: 45
+		Prerequisites: ~hpad, ~techlevel.medium, ~aircraft.gdi, ~!aircraft.gdi3
+		Description: Bomber with a firey payload.\nSpeed: 256\n  Strong vs Infantry, structures\n  Weak vs Aircraft
+	Valued:
+		Cost: 2000
+	Tooltip:
+		Name: A-10 Warthog
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 18000
+	RevealsShroud:
+		MinRange: 9c0
+		Range: 11c0
+		MoveRecalculationThreshold: 0
+		Type: GroundPosition
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 9c0
+		MoveRecalculationThreshold: 0
+		Type: GroundPosition
+	Armament@PRIMARY:
+		Weapon: A10Napalm
+		LocalOffset: 256,-213,0
+		PauseOnCondition: !ammo
+	AttackAircraft:
+		FacingTolerance: 512
+		PersistentTargeting: false
+		OpportunityFire: False
+	Aircraft:
+		CruiseAltitude: 2560
+		InitialFacing: 768
+		TurnSpeed: 16
+		Speed: 256
+		RepulsionSpeed: 40
+		MaximumPitch: 56
+	AutoTarget:
+		InitialStance: HoldFire
+		InitialStanceAI: HoldFire
+	AmmoPool:
+		Ammo: 6
+		ReloadDelay: 50
+		AmmoCondition: ammo
+	SelectionDecorations:
+	WithMuzzleOverlay:
+	Contrail@1:
+		Offset: -500,-200,0
+	Contrail@2:
+		Offset: -500,200,0
+	SpawnActorOnDeath:
+		Actor: A10.Husk
+	WithDamageOverlay:
+		Offset: -853,0,0
+		Interval: 2
+	ProducibleWithLevel:
+		Prerequisites: aircraft.upgraded
+	Selectable:
+		DecorationBounds: 1280, 1194, 0, 85
+	Rearmable:
+		RearmActors: hpad
+	WithAmmoPipsDecoration:
+		Position: BottomLeft
+		RequiresSelection: true
+
+TSORCA:
+	Inherits: ^TSHelicopter
+	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
+	Buildable:
+		Queue: Aircraft
+		BuildAtProductionType: Helicopter
+		BuildPaletteOrder: 45
+		Prerequisites: ~hpad, ~techlevel.medium, ~aircraft.gdi3
+		Description: VTOL aircraft armed\nwith multi-purpose missiles.\nSpeed: 160\n  Strong vs Tanks, Aircraft\n  Weak vs Infantry
+	Valued:
+		Cost: 1800
+	Tooltip:
+		Name: Orca Gunship
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 15000
+	RevealsShroud:
+		MinRange: 10c0
+		Range: 12c0
+		MoveRecalculationThreshold: 0
+		Type: GroundPosition
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 10c0
+		MoveRecalculationThreshold: 0
+		Type: GroundPosition
+	Armament@PRIMARY:
+		Weapon: OrcaHellfireAA
+		LocalOffset: 0,-213,-85, 0,213,-85
+		PauseOnCondition: !ammo
+	Armament@SECONDARY:
+		Weapon: OrcaHellfireAG
+		LocalOffset: 0,213,-85, 0,-213,-85
+		PauseOnCondition: !ammo
+	AttackAircraft:
+		FacingTolerance: 80
+		PersistentTargeting: false
+		AttackType: Hover
+		OpportunityFire: False
+	Aircraft:
+		TurnSpeed: 16
+		Speed: 160
+	AutoTarget:
+		InitialStance: HoldFire
+		InitialStanceAI: HoldFire
+	AmmoPool:
+		Ammo: 8
+		AmmoCondition: ammo
+	SelectionDecorations:
+	SpawnActorOnDeath:
+		Actor: TSORCA.Husk
+	WithDamageOverlay:
+		Offset: -427,0,0
+	Contrail@1:
+		Offset: -200,-200,0
+	Contrail@2:
+		Offset: -200,200,0
+	ProducibleWithLevel:
+		Prerequisites: aircraft.upgraded
+	Selectable:
+		Bounds: 1536, 1194
+		DecorationBounds: 1536, 1194
+	Rearmable:
+		RearmActors: hpad
+	WithAmmoPipsDecoration:
+		Position: BottomLeft
+		RequiresSelection: true
+
+TSORCA.Husk:
+	Inherits: ^TSPlaneHusk
+	Tooltip:
+		Name: Orca Gunship
+	Aircraft:
+		Speed: 160
+	WithDamageOverlay:
+		Offset: -427,0,0
+		MinimumDamageState: Undamaged
+	RenderSprites:
+		Image: tsorca
+	RenderVoxels:
+		Image: tsorca
+
+TSORCAB:
+	Inherits: ^TSPlane
+	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
+	Buildable:
+		Queue: Aircraft
+		BuildAtProductionType: Helicopter
+		BuildPaletteOrder: 50
+		Prerequisites: ~hpad, techcenter, ~techlevel.high, ~aircraft.gdi3
+		Description: VTOL Bomber with a devastating payload.\nSpeed: 150\n  Strong vs Ground units, Structures\n  Weak vs Aircraft
+	Valued:
+		Cost: 2000
+	Tooltip:
+		Name: Orca Gunship
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 30000
+	RevealsShroud:
+		MinRange: 10c0
+		Range: 12c0
+		MoveRecalculationThreshold: 0
+		Type: GroundPosition
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 10c0
+		MoveRecalculationThreshold: 0
+		Type: GroundPosition
+	Armament@PRIMARY:
+		Weapon: OrcaBomb
+		PauseOnCondition: !ammo
+	AttackAircraft:
+		FacingTolerance: 512
+		PersistentTargeting: false
+		OpportunityFire: False
+	Aircraft:
+		TurnSpeed: 12
+		Speed: 150
+		TakeoffSounds: orcaup1.aud
+		LandingSounds: orcadwn1.aud
+	AutoTarget:
+		InitialStance: HoldFire
+		InitialStanceAI: HoldFire
+	AmmoPool:
+		Ammo: 4
+		AmmoCondition: ammo
+	SelectionDecorations:
+	SpawnActorOnDeath:
+		Actor: TSORCAB.Husk
+	WithDamageOverlay:
+		Offset: -427,0,0
+	Contrail@1:
+		Offset: -200,-300,0
+	Contrail@2:
+		Offset: -200,300,0
+	ProducibleWithLevel:
+		Prerequisites: aircraft.upgraded
+	Selectable:
+		Bounds: 1706, 1322, 0, -384
+		DecorationBounds: 1706, 1322, 0, -384
+	Rearmable:
+		RearmActors: hpad
+	WithAmmoPipsDecoration:
+		Position: BottomLeft
+		RequiresSelection: true
+
+TSORCAB.Husk:
+	Inherits: ^TSPlaneHusk
+	Tooltip:
+		Name: Orca Gunship
+	Aircraft:
+		Speed: 160
+	WithDamageOverlay:
+		Offset: -427,0,0
+		MinimumDamageState: Undamaged
+	RenderSprites:
+		Image: tsorcab
+	RenderVoxels:
+		Image: tsorcab
+
+TSORCATRAN:
+	Inherits: ^TSHelicopter
+	Inherits@CARGOPIPS: ^CargoPips
+	Buildable:
+		Queue: Aircraft
+		BuildAtProductionType: Helicopter
+		BuildPaletteOrder: 55
+		Prerequisites: ~hpad, techcenter, ~techlevel.high, ~aircraft.gdi3
+		Description: Heavily armored VTOL transport.\nCan transport vehicles.\nSpeed: 100\n  Unarmed
+	Valued:
+		Cost: 1600
+	Tooltip:
+		Name: Orca Carryall
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 60000
+	RevealsShroud:
+		MinRange: 7c0
+		Range: 9c0
+		MoveRecalculationThreshold: 0
+		Type: GroundPosition
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 7c0
+		MoveRecalculationThreshold: 0
+		Type: GroundPosition
+	Aircraft:
+		TurnSpeed: 16
+		Speed: 100
+		AltitudeVelocity: 0c58
+		TakeoffSounds: dropup1.aud
+		LandingSounds: dropdwn1.aud
+	Cargo:
+		Types: Infantry, Vehicle
+		MaxWeight: 10
+		AfterUnloadDelay: 40
+	SpawnActorOnDeath:
+		Actor: TSORCATRAN.Husk
+	SelectionDecorations:
+	Selectable:
+		DecorationBounds: 2389, 2133
+	WithDamageOverlay@0:
+		Offset: -432,560,0
+		Interval: 2
+	WithDamageOverlay@1:
+		Offset: -432,-560,0
+		Interval: 2
+	Contrail@1:
+		Offset: -400,-560,0
+	Contrail@2:
+		Offset: -400,560,0
+	RenderVoxels:
+		Scale: 10
+	WithCargoPipsDecoration:
+		Position: BottomLeft
+		RequiresSelection: true
+
+TSORCATRAN.Husk:
+	Inherits: ^TSPlaneHusk
+	Tooltip:
+		Name: Orca Carryall
+	Aircraft:
+		Speed: 100
+	WithDamageOverlay:
+		Offset: -427,0,0
+		MinimumDamageState: Undamaged
+	RenderSprites:
+		Image: tsorcatran
+	RenderVoxels:
+		Image: tsorcatran
+		Scale: 10
+
+TSKODIAC:
+	Inherits: ^TSHelicopter
+	Inherits@NoExp: ^NoExp
+	Inherits@EPIC: ^EpicUnit
+	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
+	Buildable:
+		Queue: Aircraft
+		BuildAtProductionType: Helicopter
+		BuildPaletteOrder: 900
+		Prerequisites: ~hpad, ulttechcenter, ~techlevel.unrestricted, ~aircraft.gdi3, ~!kodiakexist
+		Description: [EPIC]\nCapital VTOL Airship armed\nwith devastating Air-to-Ground weapons.\n  Special Ability: Can Deploy to produce as Barracks.\n  Strong vs Ground\n  Weak vs Air
+		BuildLimit: 1
+	Valued:
+		Cost: 15000
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Tooltip:
+		Name: Flagship Kodiak
+	Health:
+		HP: 220000
+	Armor:
+		Type: Light
+	RevealsShroud:
+		Range: 18c0
+		Type: CenterPosition
+	Turreted@PRIMARY:
+		Turret: primary
+		Offset: -768,0,-128
+		TurnSpeed: 20
+	Turreted@SECONDARY:
+		Turret: secondary
+		Offset: 768,0,-128
+		TurnSpeed: 20
+	Turreted@tertiary:
+		Turret: tertiary
+		Offset: -768,0,340
+		TurnSpeed: 20
+	Turreted@four:
+		Turret: four
+		TurnSpeed: 1023
+	Armament@1:
+		Turret: primary
+		Weapon: Kodiac120mm
+		MuzzleSequence: muzzle
+		LocalOffset: 100,0,-300
+		PauseOnCondition: !airborne
+		Recoil: 171
+		RecoilRecovery: 6
+	Armament@2:
+		Turret: secondary
+		Weapon: Kodiac120mm
+		MuzzleSequence: muzzle
+		LocalOffset: 100,0,-300
+		PauseOnCondition: !airborne
+		Recoil: 171
+		RecoilRecovery: 6
+		FireDelay: 4
+	Armament@3:
+		Turret: four
+		Weapon: KodiacBomb
+		LocalOffset: 0,0,-50
+		PauseOnCondition: !airborne
+	Armament@4:
+		Turret: tertiary
+		Weapon: KodiacNuke
+		MuzzleSequence: muzzle
+		LocalOffset: 400,0,400
+		Recoil: 171
+		RecoilRecovery: 6
+	Armament@5:
+		Turret: tertiary
+		Weapon: KodiacAA
+		MuzzleSequence: muzzle
+		LocalOffset: 400,-40,400,400,40,400
+		PauseOnCondition: airborne
+		Recoil: 56
+		RecoilRecovery: 6
+	WithMuzzleOverlay:
+	AttackTurreted:
+		Turrets: primary, secondary, tertiary, four
+	AttackMove:
+		Voice: Move
+	Guard:
+		Voice: Move
+	WithVoxelTurret@PRIMARY:
+		Turret: primary
+	WithVoxelTurret@SECONDARY:
+		Turret: secondary
+	WithVoxelTurret@tertiary:
+		Turret: tertiary
+		Sequence: turret2
+	Aircraft:
+		CruiseAltitude: 2560
+		TurnSpeed: 8
+		Speed: 60
+		TakeoffSounds: dropup1.aud
+		LandingSounds: dropdwn1.aud
+		Voice: Move
+	Selectable:
+		DecorationBounds: 4096, 2560, 0, -768
+	WithDamageOverlay@0:
+		Offset: -432,560,0
+		Interval: 2
+	WithDamageOverlay@1:
+		Offset: 0,-256,0
+		Interval: 2
+	WithDamageOverlay@2:
+		Offset: 512,100,0
+		Interval: 2
+		MinimumDamageState: Critical
+	Transforms:
+		IntoActor: tskodid
+		Offset: -2,0
+		Facing: 720
+		TransformSounds: placbldg.aud, build5.aud
+		NoTransformNotification: BuildingCannotPlaceAudio
+	AnnounceOnKill:
+	SpawnActorOnDeath:
+		Actor: TSKODIAC.Husk
+	ProvidesPrerequisite@kodiak:
+		Prerequisite: kodiakexist
+	Voiced:
+		VoiceSet: KodiacVoice
+		Volume: 1.5
+	RenderVoxels:
+		PlayerPalette: tsunit
+		Scale: 11
+
+TSKODIAC.Husk:
+	Inherits: ^TSPlaneHusk
+	Tooltip:
+		Name: Flagship Kodiak
+	Aircraft:
+		TurnSpeed: 16
+		Speed: 60
+	WithDamageOverlay@0:
+		Offset: -432,560,0
+		Interval: 2
+		MinimumDamageState: Undamaged
+	WithDamageOverlay@1:
+		Offset: 0,-256,0
+		Interval: 2
+		MinimumDamageState: Undamaged
+	WithDamageOverlay@2:
+		Offset: 512,100,0
+		Interval: 2
+		MinimumDamageState: Undamaged
+	RevealsShroud:
+		Range: 12c0
+		Type: CenterPosition
+	FallsToEarth:
+		Moves: True
+		Velocity: 35
+		Explosion: MiniNuke
+		MaximumSpinSpeed: 0
+	RenderSprites:
+		Image: tskodiac
+	RenderVoxels:
+		Image: tskodiac
+		Scale: 11
+	DamageMultiplier@aar1:
+		Modifier: 96
+	DamageMultiplier@nar2:
+		Modifier: 92
+	DamageMultiplier@nar3:
+		Modifier: 88
+	FirepowerMultiplier@nfp1:
+		Modifier: 104
+	FirepowerMultiplier@nfp2:
+		Modifier: 108
+	FirepowerMultiplier@nfp3:
+		Modifier: 112
+	ShakeOnDeath:
+		Duration: 15
+
+
+TSKODID:
+	Inherits: PYLED
+	Inherits@EPIC: ^EpicUnit
+	Inherits@AUTOTARGET: ^AutoTargetAll
+	-Buildable:
+	-GivesBuildableArea:
+	-RepairableBuilding:
+	-EngineerRepairable:
+	-Capturable:
+	-CapturableProgressBar:
+	-CapturableProgressBlink:
+	-SpawnActorsOnSell:
+	-Sellable:
+	-WithBuildingRepairDecoration:
+	-Demolishable:
+	WithMakeAnimation:
+		-Condition:
+	Valued:
+		Cost: 15000
+	Tooltip:
+		Name: Flagship Kodiak
+	Building:
+		Footprint: xxxx xxxx
+		Dimensions: 4,2
+	Health:
+		HP: 220000
+	Armor:
+		Type: Wood
+	RevealsShroud:
+		Range: 16c0
+	Exit@1:
+		SpawnOffset: 900,85,-200
+		ExitCell: 5,1
+	Exit@2:
+		SpawnOffset: 900,0,-200
+		ExitCell: 5,1
+	Power:
+		Amount: 0
+	-InfiltrateForSupportPower:
+	ProvidesPrerequisite@self:
+		Prerequisite: pyled
+	ProvidesPrerequisite@buildingname:
+	ProvidesPrerequisite@kodiak:
+		Prerequisite: kodiakexist
+	ProvidesPrerequisite@zocomupgrade:
+		RequiresPrerequisites: structures.zocom
+		Prerequisite: barracks.upgraded
+	Selectable:
+		Bounds: 4096, 2048
+	HitShape:
+		TargetableOffsets: 0,0,0, 0,-512,256, 0,-1451,384, 0,512,128, 0,1536,85
+		Type: Rectangle
+			TopLeft: -2048, -1024
+			BottomRight: 2048, 1024
+	Transforms:
+		IntoActor: tskodiac
+		Offset: 2,1
+		Facing: 720
+	WithDamageOverlay@0:
+		Offset: -432,560,0
+		Interval: 2
+	WithDamageOverlay@1:
+		Offset: 0,-256,0
+		Interval: 2
+	WithDamageOverlay@2:
+		Offset: 512,100,0
+		Interval: 2
+	Explodes:
+		Weapon: MiniNuke
+		EmptyWeapon: MiniNuke
+	Armament@1:
+		Weapon: KodiacNuke
+		MuzzleSequence: muzzle
+	Armament@2:
+		Weapon: KodiacAA
+		MuzzleSequence: muzzle
+	WithMuzzleOverlay:
+	AttackTurreted:
+		PauseOnCondition: disabled
+	RenderRangeCircle:
+	WithVoxelTurret:
+		Sequence: turret2
+	Turreted:
+		Offset: -80,-700,110
+		TurnSpeed: 24
+	RenderSprites:
+		PlayerPalette: tsunit
+	RenderVoxels:
+		Image: tskodiac
+		PlayerPalette: tsunit
+		Scale: 11
+	AnnounceOnKill:
+	Voiced:
+		VoiceSet: DeployedKodiacVoice
+		Volume: 1.5
+	-GrantConditionOnPrerequisite@bar1:
+	-GrantConditionOnPrerequisite@bar2:
+	-GrantConditionOnPrerequisite@bar3:
+	-DamageMultiplier@bar1:
+	-DamageMultiplier@bar2:
+	-DamageMultiplier@bar3:
+	WithColoredOverlay@IDISABLE:
+		RequiresCondition: disabled
+		Color: 000000B4
+	WithDecoration@POWERDOWN:
+		Image: poweroff
+		Sequence: offline
+		Palette: chrome
+		RequiresCondition: disabled
+		Position: Center
+	GrantCondition@primary:
+		Condition: primary

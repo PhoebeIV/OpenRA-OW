@@ -1,0 +1,194 @@
+SCRIN:
+	Inherits: ^TSPlane
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Buildable:
+		Queue: Aircraft
+		BuildAtProductionType: Helicopter
+		BuildPaletteOrder: 40
+		Description: Scrin-tech aircraft\nwith Air to ground plasma guns.\nSpeed: 256\n  Strong vs Tanks\n  Weak vs Infantry, Aircraft
+		Prerequisites: ~hpad, techcenter, ~techlevel.unrestricted, ~aircraft.nod, ~!aircraft.marked
+	Valued:
+		Cost: 2000
+	Tooltip:
+		Name: Banshee
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 15000
+	RevealsShroud:
+		MinRange: 9c0
+		Range: 11c0
+		MoveRecalculationThreshold: 0
+		Type: GroundPosition
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 9c0
+		MoveRecalculationThreshold: 0
+		Type: GroundPosition
+	Armament@PRIMARY:
+		Weapon: ScrinPlasma
+		LocalOffset: 80,-90,-85, 80,90,-85
+		PauseOnCondition: !ammo
+	AttackAircraft:
+		FacingTolerance: 80
+		PersistentTargeting: false
+		OpportunityFire: False
+	Aircraft:
+		CruiseAltitude: 2560
+		InitialFacing: 768
+		TurnSpeed: 16
+		Speed: 256
+		RepulsionSpeed: 40
+		MaximumPitch: 56
+	AutoTarget:
+		InitialStance: HoldFire
+		InitialStanceAI: HoldFire
+	AmmoPool:
+		Ammo: 12
+		ReloadDelay: 15
+		AmmoCondition: ammo
+	SelectionDecorations:
+	WithMuzzleOverlay:
+	Contrail@1:
+		Offset: -200,-250,0
+	Contrail@2:
+		Offset: -200,250,0
+	SpawnActorOnDeath:
+		Actor: Scrin.Husk
+	WithDamageOverlay:
+		Offset: -427,0,0
+		Interval: 2
+	ProducibleWithLevel:
+		Prerequisites: aircraft.upgraded
+	Selectable:
+		DecorationBounds: 1280, 1194, 0, 85
+	Rearmable:
+		RearmActors: hpad
+	WithAmmoPipsDecoration:
+		Position: BottomLeft
+		RequiresSelection: true
+		PipCount: 6
+
+SCRIN.Husk:
+	Inherits: ^TSPlaneHusk
+	Tooltip:
+		Name: Banshee
+	Aircraft:
+		Speed: 212
+	WithDamageOverlay:
+		Offset: -427,0,0
+		MinimumDamageState: Undamaged
+	RenderSprites:
+		Image: scrin
+	RenderVoxels:
+		Image: scrin
+
+A10.N3:
+	Inherits: A10
+	Buildable:
+		Prerequisites: ~hpad, advtechcenter, ~techlevel.unrestricted, ~aircraft.nod3
+		Icon: chem-icon
+		Description: Bomber with a gaseous tiberium payload.\nCauses armour debuff.\nSpeed: 224\n  Strong vs Infantry, structures\n  Weak vs Aircraft
+	Tooltip:
+		Name: A-10 Chemduster
+	Aircraft:
+		Speed: 224
+	Armament@PRIMARY:
+		Weapon: A10Chem
+	AmmoPool:
+		Ammo: 1
+		ReloadDelay: 350
+	Contrail@1:
+		StartColor: 00FF00
+		StartColorUsePlayerColor: false
+	Contrail@2:
+		StartColor: 00FF00
+		StartColorUsePlayerColor: false
+	RenderSprites:
+		Image: a10
+	WithAmmoPipsDecoration:
+		Position: BottomLeft
+		RequiresSelection: true
+
+VENOM:
+	Inherits: ^TSHelicopter
+	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
+	Buildable:
+		Queue: Aircraft
+		BuildAtProductionType: Helicopter
+		BuildPaletteOrder: 45
+		Prerequisites: ~hpad, ~techlevel.high, ~aircraft.nod
+		Description: VTOL gunship armed\nwith anti-ground lasers.\nSpeed: 149\n  Strong vs Light Vehicles, Infantry\n  Weak vs Aircraft, Tanks
+	Valued:
+		Cost: 1350
+	Tooltip:
+		Name: Venom
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 10000
+	RevealsShroud:
+		MinRange: 10c0
+		Range: 12c0
+		MoveRecalculationThreshold: 0
+		Type: GroundPosition
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 10c0
+		MoveRecalculationThreshold: 0
+		Type: GroundPosition
+	Armament@PRIMARY:
+		Weapon: VenomLaser
+		LocalOffset: 256,0,-100
+		PauseOnCondition: !ammo
+	AttackAircraft:
+		FacingTolerance: 80
+		PersistentTargeting: false
+		AttackType: Hover
+		OpportunityFire: False
+	Aircraft:
+		TurnSpeed: 16
+		Speed: 149
+	AutoTarget:
+		InitialStance: HoldFire
+		InitialStanceAI: HoldFire
+	AmmoPool:
+		Ammo: 9
+		AmmoCondition: ammo
+	SelectionDecorations:
+	SpawnActorOnDeath:
+		Actor: VENOM.Husk
+	WithDamageOverlay:
+		Offset: -427,0,0
+	Contrail@1:
+		Offset: -200,-200,0
+	Contrail@2:
+		Offset: -200,200,0
+	ProducibleWithLevel:
+		Prerequisites: aircraft.upgraded
+	Selectable:
+		Bounds: 1621, 1365, 0, -341
+		DecorationBounds: 1621, 1365, 0, -341
+	Rearmable:
+		RearmActors: hpad
+	RenderVoxels:
+		Scale: 0.8
+	WithAmmoPipsDecoration:
+		Position: BottomLeft
+		RequiresSelection: true
+		PipCount: 6
+
+VENOM.Husk:
+	Inherits: ^TSPlaneHusk
+	Tooltip:
+		Name: Venom
+	Aircraft:
+		Speed: 150
+	WithDamageOverlay:
+		Offset: -427,0,0
+		MinimumDamageState: Undamaged
+	RenderSprites:
+		Image: venom
+	RenderVoxels:
+		Image: venom
+		Scale: 0.8

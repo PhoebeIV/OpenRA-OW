@@ -1,0 +1,1911 @@
+ParaBomb:
+	ReloadDelay: 8
+	Range: 3c0
+	Report: chute1.aud
+	ValidTargets: Ground, Water, GroundActor, WaterActor
+	Projectile: GravityBomb
+		Image: PARABOMB
+		OpenSequence: open
+		Velocity: 0, 0, -40
+		Acceleration: 0, 0, 0
+		Shadow: False
+	Warhead@1Dam: SpreadDamage
+		Spread: 768
+		Damage: 30000
+		ValidTargets: GroundActor, WaterActor
+		Versus:
+			None: 30
+			Wood: 30
+			Light: 75
+			Concrete: 25
+		DamageTypes: Prone50Percent, TriggerProne, ExplosionDeath
+	Warhead@2Smu: LeaveSmudge
+		SmudgeType: Crater
+		ValidTargets: Ground, Infantry
+	Warhead@3Eff: CreateEffect
+		Explosions: artillery_explosion
+		ImpactSounds: kaboom15.aud
+		ValidTargets: Ground, GroundActor, WaterActor, Trees
+	Warhead@4EffWater: CreateEffect
+		Explosions: small_splash
+		ImpactSounds: splash9.aud
+		ValidTargets: Water, Underwater
+
+NapalmBomb:
+	ReloadDelay: 5
+	Range: 3c0
+	ValidTargets: Ground, Water, GroundActor, WaterActor
+	Projectile: GravityBomb
+		OpenSequence: open
+		Velocity: 0, 0, -128
+		Acceleration: 0, 0, 0
+		Shadow: False
+	Warhead@1Dam: SpreadDamage
+		Spread: 768
+		Damage: 20000
+		ValidTargets: GroundActor, WaterActor
+		Versus:
+			None: 175
+			Wood: 75
+			Light: 50
+			Concrete: 25
+			Heavy: 25
+		DamageTypes: Prone50Percent, TriggerProne, FireDeath, Incendiary
+	Warhead@2Smu: LeaveSmudge
+		SmudgeType: Crater
+		InvalidTargets: Vehicle, Structure, Wall, Husk, Trees
+	Warhead@3Eff: CreateEffect
+		Explosions: napalm
+		ImpactSounds: flamer2.aud
+		ValidTargets: Ground, GroundActor, WaterActor, Trees
+	Warhead@4EffWater: CreateEffect
+		Explosions: small_splash
+		ImpactSounds: splash9.aud
+		ValidTargets: Water, Underwater
+
+Atomic:
+	ValidTargets: Ground, Water, GroundActor, WaterActor, Underwater, AirborneActor, Trees
+	Warhead@98Eff_impact: CreateEffect
+		ImpactSounds: jericho.wav
+		ImpactActors: false
+	Warhead@99Eff_impact: CreateEffect
+		ImpactSounds: jericho.wav
+		ImpactActors: false
+	Warhead@1Dam_impact: SpreadDamage
+		Spread: 1c0
+		Damage: 15000
+		Falloff: 1000, 368, 135, 50, 18, 7, 0
+		ValidTargets: GroundActor, WaterActor, Underwater, AirborneActor, Trees
+		Versus:
+			Wood: 25
+			Concrete: 25
+		DamageTypes: Prone50Percent, TriggerProne, FireDeath, Incendiary
+	Warhead@2Res_impact: DestroyResource
+		Size: 1
+	Warhead@3Smu_impact: LeaveSmudge
+		SmudgeType: Scorch
+		ValidTargets: Ground, Infantry
+		Size: 1
+	Warhead@4Eff_impact: CreateEffect
+		Explosions: nuke
+		ImpactSounds: kaboom1.aud
+		ImpactActors: false
+		ValidTargets: Ground, Water, Air
+	Warhead@5Dam_areanuke1: SpreadDamage
+		Spread: 2c0
+		Damage: 6000
+		Falloff: 1000, 368, 135, 50, 18, 7, 0
+		Delay: 5
+		ValidTargets: GroundActor, WaterActor, Underwater, AirborneActor, Trees
+		Versus:
+			Wood: 25
+			Concrete: 25
+		DamageTypes: Prone50Percent, TriggerProne, FireDeath, Incendiary
+	Warhead@6Res_areanuke1: DestroyResource
+		Size: 2
+		Delay: 5
+	Warhead@7Smu_areanuke1: LeaveSmudge
+		SmudgeType: Scorch
+		ValidTargets: Ground, Infantry
+		Size: 2
+		Delay: 5
+	Warhead@8Eff_areanuke1: CreateEffect
+		ImpactSounds: kaboom22.aud
+		Delay: 5
+		ImpactActors: false
+	Warhead@9Dam_areanuke2: SpreadDamage
+		Spread: 3c0
+		Damage: 6000
+		Falloff: 1000, 368, 135, 50, 18, 7, 0
+		Delay: 10
+		ValidTargets: GroundActor, Trees, WaterActor, Underwater, AirborneActor
+		Versus:
+			Wood: 50
+			Tree: 200
+			Concrete: 25
+		DamageTypes: Prone50Percent, TriggerProne, FireDeath, Incendiary
+	Warhead@9Dam_areanukefission: SpreadDamage
+		Spread: 3c0
+		Damage: 10000
+		Falloff: 1000, 368, 135, 50, 18, 7, 0
+		Delay: 10
+		ValidTargets: Fission
+		DamageTypes: Prone50Percent, TriggerProne, FireDeath, Incendiary
+	Warhead@11Res_areanuke2: DestroyResource
+		Size: 3
+		Delay: 10
+	Warhead@12Smu_areanuke2: LeaveSmudge
+		SmudgeType: Scorch
+		ValidTargets: Ground, Infantry
+		Size: 3
+		Delay: 10
+	Warhead@13Dam_areanuke3: SpreadDamage
+		Spread: 4c0
+		Damage: 6000
+		Falloff: 1000, 368, 135, 50, 18, 7, 0
+		Delay: 15
+		ValidTargets: GroundActor, Trees, WaterActor, Underwater, AirborneActor
+		Versus:
+			Tree: 200
+			Concrete: 25
+		DamageTypes: Prone50Percent, TriggerProne, FireDeath, Incendiary
+	Warhead@15Res_areanuke3: DestroyResource
+		Size: 4
+		Delay: 15
+	Warhead@16Smu_areanuke3: LeaveSmudge
+		SmudgeType: Scorch
+		ValidTargets: Ground, Infantry
+		Size: 4
+		Delay: 15
+	Warhead@17Dam_areanuke4: SpreadDamage
+		Spread: 5c0
+		Damage: 6000
+		Falloff: 1000, 368, 135, 50, 18, 7, 0
+		Delay: 20
+		ValidTargets: GroundActor, Trees, WaterActor, Underwater, AirborneActor
+		Versus:
+			Tree: 200
+			Concrete: 25
+		DamageTypes: Prone50Percent, TriggerProne, FireDeath, Incendiary
+	Warhead@19Res_areanuke4: DestroyResource
+		Size: 5
+		Delay: 20
+	Warhead@20Smu_areanuke4: LeaveSmudge
+		SmudgeType: Scorch
+		ValidTargets: Ground, Infantry
+		Size: 5
+		Delay: 20
+	Warhead@21Shake: ShakeScreen
+		Duration: 20
+		Intensity: 5
+		Multiplier: 1,1
+	Warhead@22FlashEffect: FlashPaletteEffect
+		Duration: 20
+		FlashType: Nuke
+
+MiniNukeIon:
+	ValidTargets: Ground, Water, GroundActor, WaterActor, Underwater, AirborneActor, Trees
+	Warhead@4Effect: CreateEffect
+		Explosions: ionbeam6
+		ExplosionPalette: tseffect
+		ImpactActors: false
+	Warhead@5Effect: CreateEffect
+		Delay: 1
+		Explosions: ionbeam5
+		ExplosionPalette: tseffect
+		ImpactActors: false
+	Warhead@6Effect: CreateEffect
+		Delay: 2
+		Explosions: ionbeam4
+		ExplosionPalette: tseffect
+		ImpactActors: false
+	Warhead@7Effect: CreateEffect
+		Delay: 3
+		Explosions: ionbeam3
+		ExplosionPalette: tseffect
+		ImpactActors: false
+	Warhead@8Effect: CreateEffect
+		Delay: 4
+		Explosions: ionbeam2
+		ExplosionPalette: tseffect
+		ImpactActors: false
+	Warhead@9Effect: CreateEffect
+		Delay: 5
+		Explosions: ionbeam
+		ExplosionPalette: tseffect
+		ImpactActors: false
+	Warhead@1Dam_impact: SpreadDamage
+		Delay: 6
+		Spread: 1c0
+		Damage: 40000
+		Falloff: 1000, 368, 135, 50, 18, 7, 0
+		ValidTargets: GroundActor, WaterActor, Underwater, AirborneActor, Trees
+		Versus:
+			Concrete: 25
+		AffectsParent: true
+		DamageTypes: Prone50Percent, TriggerProne, ElectricityDeath
+	Warhead@2Res_impact: DestroyResource
+		Size: 1
+		Delay: 6
+	Warhead@2Eff: CreateEffect
+		Delay: 6
+		Explosions: ionring
+		ExplosionPalette: tseffect
+		ImpactActors: false
+	Warhead@4Dam_areanuke1: SpreadDamage
+		Spread: 2c0
+		Damage: 4000
+		Falloff: 1000, 368, 135, 50, 18, 7, 0
+		Delay: 13
+		ValidTargets: GroundActor, WaterActor, Underwater, AirborneActor, Trees
+		Versus:
+			Wood: 50
+			Concrete: 25
+		AffectsParent: true
+		DamageTypes: Prone50Percent, TriggerProne, ElectricityDeath
+	Warhead@5Res_areanuke1: DestroyResource
+		Size: 2
+		Delay: 13
+	Warhead@6Eff_areanuke1: CreateEffect
+		ImpactSounds: kaboom22.aud
+		Delay: 13
+		ImpactActors: false
+	Warhead@7Dam_areanuke2: SpreadDamage
+		Spread: 3c0
+		Damage: 4000
+		Falloff: 1000, 368, 135, 50, 18, 7, 0
+		Delay: 20
+		ValidTargets: GroundActor, WaterActor, Underwater, AirborneActor, Trees
+		Versus:
+			Wood: 50
+			Concrete: 25
+		AffectsParent: true
+		DamageTypes: Prone50Percent, TriggerProne, ElectricityDeath
+	Warhead@8Dam_areanuke2: SpreadDamage
+		Spread: 3c0
+		Damage: 3000
+		Falloff: 1000, 368, 135, 50, 18, 7, 0
+		Delay: 27
+		ValidTargets: Trees
+		DamageTypes: Incendiary
+	Warhead@9Res_areanuke2: DestroyResource
+		Size: 3
+		Delay: 23
+	Warhead@13Smu_areanuke3: LeaveSmudge
+		SmudgeType: Scorch
+		InvalidTargets: Vehicle, Structure, Wall, Trees
+		Size: 3
+		Delay: 23
+	Warhead@14Dam_impact: SpreadDamage
+		Delay: 25
+		Spread: 2c0
+		Damage: 50000
+		Falloff: 1000, 368, 135, 50, 18, 7, 0
+		ValidTargets: Hole
+		DamageTypes: ElectricityDeath
+	Warhead@15Shake: ShakeScreen
+		Duration: 20
+		Intensity: 4
+		Multiplier: 1,1
+	Warhead@22FlashEffect: FlashPaletteEffect
+		Duration: 20
+		FlashType: Nuke
+
+MiniNukeIonCrate:
+	Inherits: MiniNukeIon
+	Warhead@4Effect: CreateEffect
+		ImpactSounds: ion_fire2.aud
+	Warhead@1Dam_impact: SpreadDamage
+		Damage: 15000
+
+EMPWeapon:
+	ValidTargets: Ground, Water, GroundActor, WaterActor, Underwater, AirborneActor
+	Warhead@emp1: GrantExternalCondition
+		Range: 3c0
+		Duration: 500
+		Condition: disabled
+		ValidTargets: GroundActor, WaterActor, Underwater, AirborneActor
+		InvalidTargets: Structure
+	Warhead@emp2: GrantExternalCondition
+		Delay: 7
+		Range: 6c0
+		Duration: 500
+		Condition: disabled
+		ValidTargets: GroundActor, WaterActor, Underwater, AirborneActor
+		InvalidTargets: Structure
+	Warhead@emp3: GrantExternalCondition
+		Delay: 14
+		Range: 10c0
+		Duration: 500
+		Condition: disabled
+		ValidTargets: GroundActor, WaterActor, Underwater, AirborneActor
+		InvalidTargets: Structure
+	Warhead@emppwrplant: GrantExternalCondition
+		Delay: 21
+		Range: 16c0
+		Duration: 1000
+		Condition: disabled
+		ValidTargets: Structure
+		InvalidTargets: Vehicle, Infantry
+	Warhead@emppwrplant2: GrantExternalCondition
+		Delay: 21
+		Range: 16c0
+		Duration: 1000
+		Condition: emp
+		ValidTargets: Structure
+		InvalidTargets: Vehicle, Infantry
+
+EMPExplosion:
+	Inherits: EMPWeapon
+	Warhead@4Effect: CreateEffect
+		ImpactSounds: empexplosion.wav
+		Explosions: pulse_explosion
+		ExplosionPalette: tseffect
+		ImpactActors: false
+	Warhead@emp1: GrantExternalCondition
+		Range: 2c0
+	Warhead@emp2: GrantExternalCondition
+		Range: 4c0
+	Warhead@emp3: GrantExternalCondition
+		Range: 7c0
+	Warhead@emppwrplant: GrantExternalCondition
+		Range: 10c0
+	Warhead@emppwrplant2: GrantExternalCondition
+		Range: 10c0
+
+Atomic.Nod3:
+	ValidTargets: Catalyst
+	Warhead@1Dam_impact: SpreadDamage
+		Spread: 5c0
+		Damage: 5000
+		Falloff: 500, 500, 500, 500, 500, 500, 500
+		ValidTargets: Catalyst
+		DamageTypes: FireDeath
+	Warhead@2Shake: ShakeScreen
+		Duration: 15
+		Intensity: 4
+		Multiplier: 1,1
+
+CatalystAtomic:
+	ValidTargets: Ground, Water, GroundActor, WaterActor, Underwater, AirborneActor, Trees
+	Warhead@1Dam_impact: SpreadDamage
+		Spread: 1c0
+		Damage: 15000
+		Falloff: 1000, 368, 135, 50, 18, 7, 0
+		ValidTargets: GroundActor, WaterActor, Underwater, AirborneActor, Trees
+		Versus:
+			Heavy: 20
+			Concrete: 40
+		AffectsParent: true
+		DamageTypes: Prone50Percent, TriggerProne, TiberiumDeath
+	Warhead@97Eff_impact: CreateEffect
+		ImpactSounds: jericho.wav
+		ImpactActors: false
+	Warhead@98Eff_impact: CreateEffect
+		ImpactSounds: jericho.wav
+		ImpactActors: false
+	Warhead@99Eff_impact: CreateEffect
+		ImpactSounds: ambtibe2.wav
+		ImpactActors: false
+	Warhead@3Eff_impact: CreateEffect
+		Explosions: nuke
+		ImpactSounds: kaboom1.aud
+	Warhead@4Dam_areanuke1: SpreadDamage
+		Spread: 2c0
+		Damage: 2000
+		Falloff: 1000, 368, 135, 50, 18, 7, 0
+		Delay: 5
+		ValidTargets: GroundActor, WaterActor, Underwater, AirborneActor, Trees
+		Versus:
+			Heavy: 20
+			Concrete: 15
+		AffectsParent: true
+		DamageTypes: Prone50Percent, TriggerProne, TiberiumDeath
+	Warhead@6Eff_areanuke1: CreateEffect
+		ImpactSounds: kaboom22.aud
+		Delay: 5
+	Warhead@7Dam_areanuke2: SpreadDamage
+		Spread: 3c0
+		Damage: 2000
+		Falloff: 1000, 368, 135, 50, 18, 7, 0
+		Delay: 10
+		ValidTargets: GroundActor, WaterActor, Underwater, AirborneActor, Trees
+		Versus:
+			Heavy: 20
+			Concrete: 15
+		AffectsParent: true
+		DamageTypes: Prone50Percent, TriggerProne, TiberiumDeath
+	Warhead@9Dam_areanuke3: SpreadDamage
+		Spread: 4c0
+		Damage: 1000
+		Falloff: 1000, 368, 135, 50, 18, 7, 0
+		Delay: 15
+		ValidTargets: GroundActor, WaterActor, Underwater, AirborneActor, Trees
+		Versus:
+			Heavy: 20
+			Concrete: 15
+		AffectsParent: true
+		DamageTypes: Prone50Percent, TriggerProne, TiberiumDeath
+	Warhead@11Smu_areanuke3: LeaveSmudge
+		SmudgeType: Scorch
+		Size: 4
+		Delay: 15
+	Warhead@2Res_impact: DestroyResource
+		Size: 5
+		Delay: 15
+	Warhead@12Res: CreateResource
+		AddsResourceType: Tiberium
+		Size: 2
+		Delay: 16
+	Warhead@poison1: GrantExternalCondition
+		Range: 11c0
+		Condition: corrode
+		Duration: 1500
+	Warhead@gas: FireCluster
+		Delay: 12
+		Weapon: CatalystShrapnel
+		RandomClusterCount: 64
+		Dimensions: 12,12
+		Footprint: xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx
+	Warhead@13Eff_impact: CreateEffect
+		ImpactSounds: ambtibe1.wav
+		ImpactActors: false
+		Delay: 70
+	Warhead@14Eff_impact: CreateEffect
+		ImpactSounds: ambtibe1.wav
+		ImpactActors: false
+		Delay: 140
+	Warhead@15Eff_impact: CreateEffect
+		ImpactSounds: ambtibe1.wav
+		ImpactActors: false
+		Delay: 210
+	Warhead@16Eff_impact: CreateEffect
+		ImpactSounds: ambtibe1.wav
+		ImpactActors: false
+		Delay: 280
+	Warhead@17Eff_impact: CreateEffect
+		ImpactSounds: ambtibe1.wav
+		ImpactActors: false
+		Delay: 350
+	Warhead@18Eff_impact: CreateEffect
+		ImpactSounds: ambtibe1.wav
+		ImpactActors: false
+		Delay: 420
+	Warhead@19Eff_impact: CreateEffect
+		ImpactSounds: ambtibe1.wav
+		ImpactActors: false
+		Delay: 490
+	Warhead@20Eff_impact: CreateEffect
+		ImpactSounds: ambtibe1.wav
+		ImpactActors: false
+		Delay: 560
+	Warhead@21Eff_impact: CreateEffect
+		ImpactSounds: ambtibe1.wav
+		ImpactActors: false
+		Delay: 630
+	Warhead@22Eff_impact: CreateEffect
+		ImpactSounds: ambtibe1.wav
+		ImpactActors: false
+		Delay: 700
+	Warhead@23Eff_impact: CreateEffect
+		ImpactSounds: ambtibe1.wav
+		ImpactActors: false
+		Delay: 770
+	Warhead@24Eff_impact: CreateEffect
+		ImpactSounds: ambtibe1.wav
+		ImpactActors: false
+		Delay: 840
+	Warhead@25Eff_impact: CreateEffect
+		ImpactSounds: ambtibe1.wav
+		ImpactActors: false
+		Delay: 910
+	Warhead@22FlashEffect: FlashPaletteEffect
+		Duration: 40
+		FlashType: Catalyst
+
+CatalystShrapnel:
+	ReloadDelay: 1
+	Range: 3c512
+	Projectile: Bullet
+		Speed: 2c0
+	Warhead@1Eff: CreateEffect
+		Explosions: cloud
+		ImpactActors: false
+	Warhead@1poison: GrantExternalCondition
+		Range: 3c0
+		Condition: corrode
+		Duration: 1125
+		ValidTargets: GroundActor, WaterActor
+	Warhead@1Dam: SpreadDamage
+		Spread: 1c0
+		Damage: 500
+		ValidTargets: GroundActor, WaterActor
+		Versus:
+			Wood: 75
+			Heavy: 40
+			Concrete: 50
+		DamageTypes: Prone50Percent, TriggerProne, TiberiumDeath
+	Warhead@2Eff: CreateEffect
+		Explosions: cloud
+		ImpactActors: false
+		Delay: 18
+	Warhead@2poison: GrantExternalCondition
+		Range: 3c0
+		Condition: corrode
+		Duration: 1125
+		Delay: 18
+		ValidTargets: GroundActor, WaterActor
+	Warhead@2Dam: SpreadDamage
+		Spread: 1c0
+		Damage: 500
+		ValidTargets: GroundActor, WaterActor
+		Versus:
+			Wood: 75
+			Heavy: 40
+			Concrete: 50
+		DamageTypes: Prone50Percent, TriggerProne, TiberiumDeath
+		Delay: 18
+	Warhead@3Eff: CreateEffect
+		Explosions: cloud
+		ImpactActors: false
+		Delay: 36
+	Warhead@3poison: GrantExternalCondition
+		Range: 3c0
+		Condition: corrode
+		Duration: 1125
+		Delay: 36
+		ValidTargets: GroundActor, WaterActor
+	Warhead@3Dam: SpreadDamage
+		Spread: 1c0
+		Damage: 500
+		ValidTargets: GroundActor, WaterActor
+		Versus:
+			Wood: 75
+			Heavy: 40
+			Concrete: 50
+		DamageTypes: Prone50Percent, TriggerProne, TiberiumDeath
+		Delay: 36
+	Warhead@4Eff: CreateEffect
+		Explosions: cloud
+		ImpactActors: false
+		Delay: 54
+	Warhead@4poison: GrantExternalCondition
+		Range: 3c0
+		Condition: corrode
+		Duration: 1125
+		Delay: 54
+		ValidTargets: GroundActor, WaterActor
+	Warhead@4Dam: SpreadDamage
+		Spread: 1c0
+		Damage: 500
+		ValidTargets: GroundActor, WaterActor
+		Versus:
+			Wood: 75
+			Heavy: 40
+			Concrete: 50
+		DamageTypes: Prone50Percent, TriggerProne, TiberiumDeath
+		Delay: 54
+	Warhead@5Eff: CreateEffect
+		Explosions: cloud
+		ImpactActors: false
+		Delay: 72
+	Warhead@5poison: GrantExternalCondition
+		Range: 3c0
+		Condition: corrode
+		Duration: 1125
+		Delay: 72
+		ValidTargets: GroundActor, WaterActor
+	Warhead@5Dam: SpreadDamage
+		Spread: 1c0
+		Damage: 500
+		ValidTargets: GroundActor, WaterActor
+		Versus:
+			Wood: 75
+			Heavy: 40
+			Concrete: 50
+		DamageTypes: Prone50Percent, TriggerProne, TiberiumDeath
+		Delay: 72
+	Warhead@6Eff: CreateEffect
+		Explosions: cloud
+		ImpactActors: false
+		Delay: 90
+	Warhead@6poison: GrantExternalCondition
+		Range: 3c0
+		Condition: corrode
+		Duration: 1125
+		Delay: 90
+		ValidTargets: GroundActor, WaterActor
+	Warhead@6Dam: SpreadDamage
+		Spread: 1c0
+		Damage: 500
+		ValidTargets: GroundActor, WaterActor
+		Versus:
+			Wood: 75
+			Heavy: 40
+			Concrete: 50
+		DamageTypes: Prone50Percent, TriggerProne, TiberiumDeath
+		Delay: 90
+	Warhead@7Eff: CreateEffect
+		Explosions: cloud
+		ImpactActors: false
+		Delay: 108
+	Warhead@7poison: GrantExternalCondition
+		Range: 3c0
+		Condition: corrode
+		Duration: 1125
+		Delay: 108
+		ValidTargets: GroundActor, WaterActor
+	Warhead@7Dam: SpreadDamage
+		Spread: 1c0
+		Damage: 500
+		ValidTargets: GroundActor, WaterActor
+		Versus:
+			Wood: 75
+			Heavy: 40
+			Concrete: 50
+		DamageTypes: Prone50Percent, TriggerProne, TiberiumDeath
+		Delay: 108
+	Warhead@8Eff: CreateEffect
+		Explosions: cloud
+		ImpactActors: false
+		Delay: 126
+	Warhead@8poison: GrantExternalCondition
+		Range: 3c0
+		Condition: corrode
+		Duration: 1125
+		Delay: 126
+		ValidTargets: GroundActor, WaterActor
+	Warhead@8Dam: SpreadDamage
+		Spread: 1c0
+		Damage: 500
+		ValidTargets: GroundActor, WaterActor
+		Versus:
+			Wood: 75
+			Heavy: 40
+			Concrete: 50
+		DamageTypes: Prone50Percent, TriggerProne, TiberiumDeath
+		Delay: 126
+	Warhead@9Eff: CreateEffect
+		Explosions: cloud
+		Delay: 144
+	Warhead@9poison: GrantExternalCondition
+		Range: 3c0
+		Condition: corrode
+		Duration: 1125
+		Delay: 144
+		ValidTargets: GroundActor, WaterActor
+	Warhead@9Dam: SpreadDamage
+		Spread: 1c0
+		Damage: 500
+		ValidTargets: GroundActor, WaterActor
+		Versus:
+			Wood: 75
+			Heavy: 40
+			Concrete: 50
+		DamageTypes: Prone50Percent, TriggerProne, TiberiumDeath
+		Delay: 144
+	Warhead@gas: FireCluster
+		Delay: 125
+		Weapon: CatalystShrapnel_2
+		RandomClusterCount: 1
+		Dimensions: 6,6
+		Footprint: xxxxxx xxxxxx xxxxxx xxxxxx xxxxxx xxxxxx
+
+# roughly 40 seconds of lingering gasses
+CatalystShrapnel_2:
+	Inherits: CatalystShrapnel
+	Warhead@gas: FireCluster
+		Weapon: CatalystShrapnel_3
+
+CatalystShrapnel_3:
+	Inherits: CatalystShrapnel
+	Warhead@gas: FireCluster
+		Weapon: CatalystShrapnel_4
+
+CatalystShrapnel_4:
+	Inherits: CatalystShrapnel
+	Warhead@gas: FireCluster
+		Weapon: CatalystShrapnel_5
+
+CatalystShrapnel_5:
+	Inherits: CatalystShrapnel
+	Warhead@gas: FireCluster
+		Weapon: CatalystShrapnel_6
+
+CatalystShrapnel_6:
+	Inherits: CatalystShrapnel
+	Warhead@gas: FireCluster
+		Weapon: CatalystShrapnel_7
+
+CatalystShrapnel_7:
+	Inherits: CatalystShrapnel
+	Warhead@gas: FireCluster
+		Weapon: CatalystShrapnel_8
+
+CatalystShrapnel_8:
+	Inherits: CatalystShrapnel
+	-Warhead@gas:
+
+BanebladeCannon:
+	ReloadDelay: 300
+	Range: 11c0
+	MinRange: 4c0
+	Report: dsrpgfir.aud
+	ValidTargets: Ground, Water, GroundActor, WaterActor
+	Projectile: Bullet
+		Speed: 512
+		Image: 120MM
+		Inaccuracy: 0
+		ContrailLength: 20
+	Warhead@1Dam_impact: SpreadDamage
+		Spread: 512
+		Delay: 2
+		Damage: 15000
+		Falloff: 1000, 150, 135, 50, 18, 7, 0
+		ValidTargets: GroundActor, WaterActor, Underwater, AirborneActor, Trees
+		Versus:
+			Concrete: 75
+		AffectsParent: true
+		DamageTypes: Prone50Percent, TriggerProne, FireDeath
+	Warhead@98Eff_impact: CreateEffect
+		ImpactSounds: jericho.wav
+		ImpactActors: false
+	Warhead@99Eff_impact: CreateEffect
+		ImpactSounds: jericho.wav
+		ImpactActors: false
+	Warhead@2Res_impact: DestroyResource
+		Size: 1
+	Warhead@3Eff_impact: CreateEffect
+		Explosions: nuke
+		ImpactSounds: kaboom1.aud
+		ImpactActors: false
+	Warhead@4Dam_areanuke1: SpreadDamage
+		Spread: 2c0
+		Damage: 1800
+		Falloff: 500, 368, 135, 50, 18, 7, 0
+		Delay: 5
+		ValidTargets: GroundActor, WaterActor, Underwater, AirborneActor, Trees
+		Versus:
+			Concrete: 15
+		AffectsParent: true
+		DamageTypes: Prone50Percent, TriggerProne, FireDeath
+	Warhead@5Res_areanuke1: DestroyResource
+		Size: 2
+		Delay: 5
+	Warhead@6Eff_areanuke1: CreateEffect
+		ImpactSounds: dsbigexp.aud
+		Delay: 5
+	Warhead@7Dam_areanuke2: SpreadDamage
+		Spread: 3c0
+		Damage: 1500
+		Falloff: 500, 368, 135, 50, 18, 7, 0
+		Delay: 10
+		ValidTargets: GroundActor, WaterActor, Underwater, Trees
+		Versus:
+			Concrete: 15
+		AffectsParent: true
+		DamageTypes: Prone50Percent, TriggerProne, FireDeath
+	Warhead@9Dam_areanuke3: SpreadDamage
+		Spread: 3c0
+		Damage: 1000
+		Falloff: 500, 368, 135, 50, 18, 7, 0
+		Delay: 15
+		ValidTargets: GroundActor, WaterActor, Underwater, Trees
+		Versus:
+			Concrete: 15
+		AffectsParent: true
+		ValidRelationships: Enemy, Neutral
+		DamageTypes: Prone50Percent, TriggerProne, FireDeath
+	Warhead@10Eff_areanuke1: CreateEffect
+		ImpactSounds: dsbigexp.aud
+		Delay: 12
+	Warhead@11Smu_areanuke3: LeaveSmudge
+		SmudgeType: Scorch
+		Size: 3
+		Delay: 15
+	Warhead@12Eff_areanuke1: CreateEffect
+		ImpactSounds: dsrpgexp.aud
+		Delay: 15
+	Warhead@13Eff_areanuke1: CreateEffect
+		ImpactSounds: dsrpgexp.aud
+		Delay: 15
+	Warhead@14Eff_areanuke1: CreateEffect
+		ImpactSounds: dsbigexp.aud
+		Delay: 20
+	Warhead@15Dam_areanuke3: SpreadDamage
+		Spread: 3c0
+		Damage: 500
+		Falloff: 500, 368, 135, 50, 18, 7, 0
+		Delay: 20
+		ValidTargets: Ground, Water
+		Versus:
+			Concrete: 15
+		AffectsParent: true
+		DamageTypes: Prone50Percent, TriggerProne, FireDeath
+	Warhead@16Eff_areanuke1: CreateEffect
+		ImpactSounds: dsbigexp.aud
+		Delay: 29
+	Warhead@17Shake: ShakeScreen
+		Duration: 10
+		Intensity: 3
+		Multiplier: 1,1
+
+DoomSpawnCube:
+	ReloadDelay: 150
+	Range: 10c0
+	Report: dsbospit.aud
+	ValidTargets: Ground, Water, GroundActor, WaterActor
+	Projectile: Missile
+		Speed: 135
+		Blockable: false
+		Image: bcube
+		RangeLimit: 20c0
+	Warhead@1Dam: SpreadDamage
+		Spread: 256
+		Damage: 20000
+		DamageTypes: Prone50Percent, TriggerProne, SpawnCubeDeath
+		ValidTargets: GroundActor, WaterActor
+	Warhead@2Smu: LeaveSmudge
+		SmudgeType: Scorch
+		ValidTargets: Ground, Infantry
+	Warhead@3EffGround: CreateEffect
+		Explosions: large_napalm
+		ImpactSounds: dstelept.aud
+		ValidTargets: Ground, GroundActor, Water, WaterActor, Trees
+
+Scudstorm:
+	ValidTargets: Ground, Water, GroundActor, WaterActor, Underwater, AirborneActor, Trees
+	Warhead@98Eff_impact: CreateEffect
+		ImpactSounds: jericho.wav
+		ImpactActors: false
+	Warhead@99Eff_impact: CreateEffect
+		ImpactSounds: jericho.wav
+		ImpactActors: false
+	Warhead@1Dam_impact: SpreadDamage
+		Spread: 1c0
+		Damage: 7500
+		Falloff: 1000, 368, 135, 50, 18, 7, 0
+		ValidTargets: GroundActor, WaterActor, Underwater, AirborneActor, Trees
+		Versus:
+			Wood: 25
+			Concrete: 25
+		DamageTypes: Prone50Percent, TriggerProne, FireDeath, Incendiary
+	Warhead@2Res_impact: DestroyResource
+		Size: 1
+	Warhead@3Smu_impact: LeaveSmudge
+		SmudgeType: Scorch
+		ValidTargets: Ground, Infantry
+		Size: 1
+	Warhead@4Eff_impact: CreateEffect
+		Explosions: nuke
+		ImpactSounds: kaboom1.aud
+		ImpactActors: false
+		ValidTargets: Ground, Water, Air
+	Warhead@5Dam_areanuke1: SpreadDamage
+		Spread: 2c0
+		Damage: 3000
+		Falloff: 1000, 368, 135, 50, 18, 7, 0
+		Delay: 5
+		ValidTargets: GroundActor, WaterActor, Underwater, AirborneActor, Trees
+		Versus:
+			Wood: 25
+			Concrete: 25
+		DamageTypes: Prone50Percent, TriggerProne, FireDeath, Incendiary
+	Warhead@6Res_areanuke1: DestroyResource
+		Size: 2
+		Delay: 5
+	Warhead@7Smu_areanuke1: LeaveSmudge
+		SmudgeType: Scorch
+		ValidTargets: Ground, Infantry
+		Size: 2
+		Delay: 5
+	Warhead@8Eff_areanuke1: CreateEffect
+		ImpactSounds: kaboom22.aud
+		Delay: 5
+		ImpactActors: false
+	Warhead@9Dam_areanuke2: SpreadDamage
+		Spread: 3c0
+		Damage: 3000
+		Falloff: 1000, 368, 135, 50, 18, 7, 0
+		Delay: 10
+		ValidTargets: GroundActor, WaterActor, Underwater, AirborneActor, Trees
+		Versus:
+			Wood: 50
+			Concrete: 25
+		DamageTypes: Prone50Percent, TriggerProne, FireDeath, Incendiary
+	Warhead@10Dam_areanuke2: SpreadDamage
+		Spread: 3c0
+		Damage: 6000
+		Falloff: 1000, 368, 135, 50, 18, 7, 0
+		Delay: 15
+		ValidTargets: Fission
+		DamageTypes: Incendiary
+	Warhead@11Res_areanuke2: DestroyResource
+		Size: 3
+		Delay: 10
+	Warhead@12Smu_areanuke2: LeaveSmudge
+		SmudgeType: Scorch
+		ValidTargets: Ground, Infantry
+		Size: 3
+		Delay: 10
+	Warhead@13Dam_areanuke3: SpreadDamage
+		Spread: 4c0
+		Damage: 3000
+		Falloff: 1000, 368, 135, 50, 18, 7, 0
+		Delay: 15
+		ValidTargets: GroundActor, WaterActor, Underwater, AirborneActor, Trees
+		Versus:
+			Concrete: 25
+		DamageTypes: Prone50Percent, TriggerProne, FireDeath, Incendiary
+	Warhead@15Res_areanuke3: DestroyResource
+		Size: 4
+		Delay: 15
+	Warhead@16Smu_areanuke3: LeaveSmudge
+		SmudgeType: Scorch
+		ValidTargets: Ground, Infantry
+		Size: 4
+		Delay: 15
+	Warhead@cluster1: FireCluster
+		Weapon: ScudstormSmall
+		RandomClusterCount: 1
+		Dimensions: 8,8
+		Footprint: xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx
+	Warhead@cluster2: FireCluster
+		Delay: 20
+		Weapon: ScudstormSmall
+		RandomClusterCount: 1
+		Dimensions: 12,12
+		Footprint: xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx
+	Warhead@cluster3: FireCluster
+		Delay: 45
+		Weapon: ScudstormSmall
+		RandomClusterCount: 1
+		Dimensions: 12,12
+		Footprint: xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx
+	Warhead@cluster4: FireCluster
+		Delay: 70
+		Weapon: ScudstormSmall
+		RandomClusterCount: 1
+		Dimensions: 12,12
+		Footprint: xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx
+	Warhead@cluster5: FireCluster
+		Delay: 95
+		Weapon: ScudstormSmall
+		RandomClusterCount: 1
+		Dimensions: 15,15
+		Footprint: xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx
+	Warhead@cluster6: FireCluster
+		Delay: 120
+		Weapon: ScudstormSmall
+		RandomClusterCount: 1
+		Dimensions: 15,15
+		Footprint: xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx
+	Warhead@cluster7: FireCluster
+		Delay: 125
+		Weapon: ScudstormSmall
+		RandomClusterCount: 1
+		Dimensions: 15,15
+		Footprint: xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx
+	Warhead@22FlashEffect: FlashPaletteEffect
+		Duration: 20
+		FlashType: Nuke
+
+ScudstormSmall:
+	ValidTargets: Ground, Water, GroundActor, WaterActor, Underwater, AirborneActor, Trees
+	Projectile: Bullet
+		Speed: 2c0
+	Warhead@1Effect: CreateEffect
+		Explosions: sstormlong3
+		ExplosionPalette: player
+		UsePlayerPalette: true
+		ImpactActors: false
+	Warhead@2Effect: CreateEffect
+		Delay: 22
+		Explosions: sstormlong2
+		ExplosionPalette: player
+		UsePlayerPalette: true
+		ImpactActors: false
+	Warhead@3Effect: CreateEffect
+		Delay: 44
+		Explosions: sstormlong1
+		ExplosionPalette: player
+		UsePlayerPalette: true
+		ImpactActors: false
+	Warhead@98Eff_impact: CreateEffect
+		ImpactSounds: jericho.wav
+		Delay: 66
+		ImpactActors: false
+	Warhead@1Dam_impact: SpreadDamage
+		Delay: 66
+		Spread: 1c0
+		Damage: 8000
+		Falloff: 1000, 368, 135, 50, 18, 7, 0
+		ValidTargets: GroundActor, WaterActor, Underwater, AirborneActor, Trees
+		Versus:
+			Concrete: 25
+		AffectsParent: true
+		DamageTypes: Prone50Percent, TriggerProne, FireDeath, Incendiary
+	Warhead@2Res_impact: DestroyResource
+		Size: 1
+		Delay: 66
+	Warhead@2Eff: CreateEffect
+		Delay: 66
+		Explosions: nuke
+		ImpactActors: false
+	Warhead@4Dam_areanuke1: SpreadDamage
+		Spread: 2c0
+		Damage: 2500
+		Falloff: 1000, 368, 135, 50, 18, 7, 0
+		Delay: 65
+		ValidTargets: GroundActor, WaterActor, Underwater, AirborneActor, Trees
+		Versus:
+			Wood: 50
+			Concrete: 25
+		AffectsParent: true
+		DamageTypes: Prone50Percent, TriggerProne, FireDeath, Incendiary
+	Warhead@5Res_areanuke1: DestroyResource
+		Size: 2
+		Delay: 70
+	Warhead@6Eff_areanuke1: CreateEffect
+		ImpactSounds: kaboom22.aud
+		Delay: 70
+		ImpactActors: false
+	Warhead@7Dam_areanuke2: SpreadDamage
+		Spread: 3c0
+		Damage: 2500
+		Falloff: 1000, 368, 135, 50, 18, 7, 0
+		Delay: 75
+		ValidTargets: GroundActor, WaterActor, Underwater, AirborneActor, Trees
+		Versus:
+			Wood: 50
+			Concrete: 25
+		AffectsParent: true
+		DamageTypes: Prone50Percent, TriggerProne, FireDeath, Incendiary
+	Warhead@8Dam_areanuke2: SpreadDamage
+		Spread: 3c0
+		Damage: 2500
+		Falloff: 1000, 368, 135, 50, 18, 7, 0
+		Delay: 75
+		ValidTargets: Fission
+		DamageTypes: Incendiary
+	Warhead@9Res_areanuke2: DestroyResource
+		Size: 3
+		Delay: 75
+	Warhead@13Smu_areanuke3: LeaveSmudge
+		SmudgeType: Scorch
+		ValidTargets: Ground, Infantry
+		Size: 3
+		Delay: 75
+	Warhead@14Shake: ShakeScreen
+		Duration: 10
+		Intensity: 3
+		Multiplier: 1,1
+		Delay: 75
+	Warhead@22FlashEffect: FlashPaletteEffect
+		Duration: 15
+		Delay: 67
+		FlashType: Nuke
+
+ToxinScudstorm:
+	ValidTargets: Ground, Water, GroundActor, WaterActor, Underwater, AirborneActor, Trees
+	Warhead@98Eff_impact: CreateEffect
+		ImpactSounds: jericho.wav
+		ImpactActors: false
+	Warhead@99Eff_impact: CreateEffect
+		ImpactSounds: jericho.wav
+		ImpactActors: false
+	Warhead@1Dam_impact: SpreadDamage
+		Spread: 1c0
+		Damage: 5000
+		Falloff: 1000, 368, 135, 50, 18, 7, 0
+		ValidTargets: GroundActor, Trees, WaterActor, Underwater, AirborneActor
+		Versus:
+			Wood: 25
+			Concrete: 25
+		DamageTypes: Prone50Percent, TriggerProne, TiberiumDeath, Incendiary
+	Warhead@2Res_impact: DestroyResource
+		Size: 1
+	Warhead@3Smu_impact: LeaveSmudge
+		SmudgeType: Scorch
+		ValidTargets: Ground, Infantry
+		Size: 1
+	Warhead@4Eff_impact: CreateEffect
+		Explosions: nuke
+		ImpactSounds: kaboom1.aud
+		ImpactActors: false
+		ValidTargets: Ground, Water, Air
+	Warhead@5Dam_areanuke1: SpreadDamage
+		Spread: 2c0
+		Damage: 2000
+		Falloff: 1000, 368, 135, 50, 18, 7, 0
+		Delay: 5
+		ValidTargets: GroundActor, WaterActor, Underwater, AirborneActor, Trees
+		Versus:
+			Wood: 25
+			Concrete: 25
+		DamageTypes: Prone50Percent, TriggerProne, TiberiumDeath, Incendiary
+	Warhead@6Res_areanuke1: DestroyResource
+		Size: 2
+		Delay: 5
+	Warhead@7Smu_areanuke1: LeaveSmudge
+		SmudgeType: Scorch
+		ValidTargets: Ground, Infantry
+		Size: 2
+		Delay: 5
+	Warhead@8Eff_areanuke1: CreateEffect
+		ImpactSounds: kaboom22.aud
+		Delay: 5
+		ImpactActors: false
+	Warhead@9Dam_areanuke2: SpreadDamage
+		Spread: 3c0
+		Damage: 2000
+		Falloff: 1000, 368, 135, 50, 18, 7, 0
+		Delay: 10
+		ValidTargets: GroundActor, WaterActor, Underwater, AirborneActor, Trees
+		Versus:
+			Wood: 50
+			Concrete: 25
+		DamageTypes: Prone50Percent, TriggerProne, TiberiumDeath, Incendiary
+	Warhead@11Res_areanuke2: DestroyResource
+		Size: 3
+		Delay: 10
+	Warhead@12Smu_areanuke2: LeaveSmudge
+		SmudgeType: Scorch
+		ValidTargets: Ground, Infantry
+		Size: 3
+		Delay: 10
+	Warhead@13Dam_areanuke3: SpreadDamage
+		Spread: 3c0
+		Damage: 3000
+		Falloff: 1000, 368, 135, 50, 18, 7, 0
+		Delay: 15
+		ValidTargets: GroundActor, WaterActor, Underwater, AirborneActor, Trees
+		Versus:
+			Concrete: 25
+		DamageTypes: Prone50Percent, TriggerProne, TiberiumDeath, Incendiary
+	Warhead@15Res_areanuke3: DestroyResource
+		Size: 4
+		Delay: 15
+	Warhead@16Smu_areanuke3: LeaveSmudge
+		SmudgeType: Scorch
+		ValidTargets: Ground, Infantry
+		Size: 4
+		Delay: 15
+	Warhead@gas: FireCluster
+		Delay: 12
+		Weapon: CatalystShrapnel
+		RandomClusterCount: 8
+		Dimensions: 8,8
+		Footprint: xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx
+	Warhead@cluster1: FireCluster
+		Weapon: ToxinScudstormSmall
+		RandomClusterCount: 1
+		Dimensions: 8,8
+		Footprint: xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx
+	Warhead@cluster2: FireCluster
+		Delay: 20
+		Weapon: ToxinScudstormSmall
+		RandomClusterCount: 1
+		Dimensions: 12,12
+		Footprint: xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx
+	Warhead@cluster3: FireCluster
+		Delay: 45
+		Weapon: ToxinScudstormSmall
+		RandomClusterCount: 1
+		Dimensions: 12,12
+		Footprint: xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx
+	Warhead@cluster4: FireCluster
+		Delay: 70
+		Weapon: ToxinScudstormSmall
+		RandomClusterCount: 1
+		Dimensions: 12,12
+		Footprint: xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx
+	Warhead@cluster5: FireCluster
+		Delay: 95
+		Weapon: ToxinScudstormSmall
+		RandomClusterCount: 1
+		Dimensions: 15,15
+		Footprint: xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx
+	Warhead@cluster6: FireCluster
+		Delay: 120
+		Weapon: ToxinScudstormSmall
+		RandomClusterCount: 1
+		Dimensions: 15,15
+		Footprint: xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx
+	Warhead@cluster7: FireCluster
+		Delay: 125
+		Weapon: ToxinScudstormSmall
+		RandomClusterCount: 1
+		Dimensions: 15,15
+		Footprint: xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx
+	Warhead@22FlashEffect: FlashPaletteEffect
+		Duration: 20
+		FlashType: Catalyst
+
+ToxinScudstormSmall:
+	ValidTargets: Ground, Water, GroundActor, WaterActor, Underwater, AirborneActor, Trees
+	Projectile: Bullet
+		Speed: 2c0
+	Warhead@1Effect: CreateEffect
+		Explosions: sstormlong3
+		ExplosionPalette: player
+		UsePlayerPalette: true
+		ImpactActors: false
+	Warhead@2Effect: CreateEffect
+		Delay: 22
+		Explosions: sstormlong2
+		ExplosionPalette: player
+		UsePlayerPalette: true
+		ImpactActors: false
+	Warhead@3Effect: CreateEffect
+		Delay: 44
+		Explosions: sstormlong1
+		ExplosionPalette: player
+		UsePlayerPalette: true
+		ImpactActors: false
+	Warhead@98Eff_impact: CreateEffect
+		ImpactSounds: jericho.wav
+		Delay: 66
+		ImpactActors: false
+	Warhead@1Dam_impact: SpreadDamage
+		Delay: 66
+		Spread: 1c0
+		Damage: 6000
+		Falloff: 1000, 368, 135, 50, 18, 7, 0
+		ValidTargets: GroundActor, WaterActor, Underwater, AirborneActor, Trees
+		Versus:
+			Concrete: 25
+		AffectsParent: true
+		DamageTypes: Prone50Percent, TriggerProne, TiberiumDeath, Incendiary
+	Warhead@2Res_impact: DestroyResource
+		Size: 1
+		Delay: 66
+	Warhead@2Eff: CreateEffect
+		Delay: 66
+		Explosions: nuke
+		ImpactActors: false
+	Warhead@4Dam_areanuke1: SpreadDamage
+		Spread: 2c0
+		Damage: 2000
+		Falloff: 1000, 368, 135, 50, 18, 7, 0
+		Delay: 65
+		ValidTargets: GroundActor, WaterActor, Underwater, AirborneActor, Trees
+		Versus:
+			Wood: 50
+			Concrete: 25
+		AffectsParent: true
+		DamageTypes: Prone50Percent, TriggerProne, TiberiumDeath, Incendiary
+	Warhead@5Res_areanuke1: DestroyResource
+		Size: 2
+		Delay: 70
+	Warhead@6Eff_areanuke1: CreateEffect
+		ImpactSounds: kaboom22.aud
+		Delay: 70
+		ImpactActors: false
+	Warhead@7Dam_areanuke2: SpreadDamage
+		Spread: 3c0
+		Damage: 2000
+		Falloff: 1000, 368, 135, 50, 18, 7, 0
+		Delay: 75
+		ValidTargets: GroundActor, WaterActor, Underwater, AirborneActor, Trees
+		Versus:
+			Wood: 50
+			Concrete: 25
+		AffectsParent: true
+		DamageTypes: Prone50Percent, TriggerProne, TiberiumDeath, Incendiary
+	Warhead@8Dam_areanuke2: SpreadDamage
+		Spread: 3c0
+		Damage: 2000
+		Falloff: 1000, 368, 135, 50, 18, 7, 0
+		Delay: 75
+		ValidTargets: Trees
+		DamageTypes: Incendiary
+	Warhead@9Res_areanuke2: DestroyResource
+		Size: 3
+		Delay: 75
+	Warhead@13Smu_areanuke3: LeaveSmudge
+		SmudgeType: Scorch
+		ValidTargets: Ground, Infantry
+		Size: 3
+		Delay: 75
+	Warhead@gas: FireCluster
+		Delay: 12
+		Weapon: CatalystShrapnel
+		RandomClusterCount: 5
+		Dimensions: 8,8
+		Footprint: xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx
+	Warhead@14Shake: ShakeScreen
+		Duration: 10
+		Intensity: 3
+		Multiplier: 1,1
+		Delay: 75
+	Warhead@22FlashEffect: FlashPaletteEffect
+		Duration: 15
+		Delay: 67
+		FlashType: Catalyst
+
+##Super Weapon, Missle Up and down, spawns the lasers
+
+MediVoidWeapon:
+	ValidTargets: Ground, Water, GroundActor, WaterActor, Underwater, AirborneActor, Trees
+	Warhead@99Eff_impact: CreateEffect
+		ImpactSounds: voidsuperland.aud
+		ImpactActors: false
+	Warhead@1Effect: CreateEffect
+		Explosions: medivoidsuperland
+		ImpactActors: false
+	Warhead@Voidcluster1: FireCluster
+		Weapon: MediVoidWeaponSmall
+		RandomClusterCount: 1
+		Dimensions: 5,5
+		Footprint: xxxxx xxxxx xxxxx xxxxx xxxxx
+		Delay: 25
+	Warhead@Voidcluster2: FireCluster
+		Weapon: MediVoidWeaponSmall
+		RandomClusterCount: 1
+		Dimensions: 6,6
+		Footprint: xxxxxx xxxxxx xxxxxx xxxxxx xxxxxx xxxxxx
+		Delay: 30
+	Warhead@Voidcluster3: FireCluster
+		Weapon: MediVoidWeaponSmall
+		RandomClusterCount: 1
+		Dimensions: 7,7
+		Footprint: xxxxxxx xxxxxxx xxxxxxx xxxxxxx xxxxxxx xxxxxxx xxxxxxx
+		Delay: 35
+	Warhead@Voidcluster4: FireCluster
+		Weapon: MediVoidWeaponSmall
+		RandomClusterCount: 1
+		Dimensions: 8,8
+		Footprint: xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx
+		Delay: 40
+	Warhead@Voidcluster5: FireCluster
+		Weapon: MediVoidWeaponSmall
+		RandomClusterCount: 1
+		Dimensions: 9,9
+		Footprint: xxxxxxxxx xxxxxxxxx xxxxxxxxx xxxxxxxxx xxxxxxxxx xxxxxxxxx xxxxxxxxx xxxxxxxxx xxxxxxxxx
+		Delay: 45
+	Warhead@Voidcluster6: FireCluster
+		Weapon: MediVoidWeaponSmall
+		RandomClusterCount: 1
+		Dimensions: 10,10
+		Footprint: xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx
+		Delay: 50
+	Warhead@Voidcluster7: FireCluster
+		Weapon: MediVoidWeaponSmall
+		RandomClusterCount: 1
+		Dimensions: 11,11
+		Footprint: xxxxxxxxxxx xxxxxxxxxxx xxxxxxxxxxx xxxxxxxxxxx xxxxxxxxxxx xxxxxxxxxxx xxxxxxxxxxx xxxxxxxxxxx xxxxxxxxxxx xxxxxxxxxxx xxxxxxxxxxx
+		Delay: 55
+	Warhead@Voidcluster8: FireCluster
+		Weapon: MediVoidWeaponSmall
+		RandomClusterCount: 1
+		Dimensions: 12,12
+		Footprint: xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx
+		Delay: 60
+	Warhead@Voidcluster9: FireCluster
+		Weapon: MediVoidWeaponSmall
+		RandomClusterCount: 1
+		Dimensions: 13,13
+		Footprint: xxxxxxxxxxxxx xxxxxxxxxxxxx xxxxxxxxxxxxx xxxxxxxxxxxxx xxxxxxxxxxxxx xxxxxxxxxxxxx xxxxxxxxxxxxx xxxxxxxxxxxxx xxxxxxxxxxxxx xxxxxxxxxxxxx xxxxxxxxxxxxx xxxxxxxxxxxxx xxxxxxxxxxxxx
+		Delay: 65
+	Warhead@Voidcluster10: FireCluster
+		Weapon: MediVoidWeaponSmall
+		RandomClusterCount: 1
+		Dimensions: 14,14
+		Footprint: xxxxxxxxxxxxxx xxxxxxxxxxxxxx xxxxxxxxxxxxxx xxxxxxxxxxxxxx xxxxxxxxxxxxxx xxxxxxxxxxxxxx xxxxxxxxxxxxxx xxxxxxxxxxxxxx xxxxxxxxxxxxxx xxxxxxxxxxxxxx xxxxxxxxxxxxxx xxxxxxxxxxxxxx xxxxxxxxxxxxxx xxxxxxxxxxxxxx
+		Delay: 70
+	Warhead@Voidcluster11: FireCluster
+		Weapon: MediVoidWeaponSmall
+		RandomClusterCount: 1
+		Dimensions: 15,15
+		Footprint: xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx
+		Delay: 75
+	Warhead@Voidcluster12: FireCluster
+		Weapon: MediVoidWeaponSmall
+		RandomClusterCount: 1
+		Dimensions: 15,15
+		Footprint: xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx
+		Delay: 80
+	Warhead@22FlashEffect: FlashPaletteEffect
+		Duration: 50
+		Delay: 138
+		FlashType: Red
+
+##Damage Ion
+MediVoidWeaponSmall:
+	ValidTargets: Ground, Water, GroundActor, WaterActor, Underwater, AirborneActor, Trees
+	Projectile: Bullet
+		Speed: 2c0
+	Warhead@Voidcluster1: FireCluster
+		Weapon: MediVoidWeaponSmallMark
+		RandomClusterCount: 1
+		Dimensions: 1,1
+		Footprint: x
+	Warhead@MediVoid4Effect: CreateEffect
+		Explosions: voidionbeam6
+		ImpactActors: false
+		Delay: 100
+	Warhead@MediVoid5Effect: CreateEffect
+		Delay: 100
+		Explosions: voidionbeam5
+		ImpactActors: false
+	Warhead@MediVoid6Effect: CreateEffect
+		Delay: 102
+		Explosions: voidionbeam4
+		ImpactActors: false
+	Warhead@MediVoid7Effect: CreateEffect
+		Delay: 103
+		Explosions: voidionbeam3
+		ImpactActors: false
+	Warhead@MediVoid8Effect: CreateEffect
+		Delay: 104
+		Explosions: voidionbeam2
+		ImpactActors: false
+	Warhead@MediVoid9Effect: CreateEffect
+		Delay: 105
+		Explosions: voidionbeam
+		ImpactActors: false
+	Warhead@MediVoid1Dam_impact: SpreadDamage
+		Delay: 106
+		Spread: 1c0
+		Damage: 10000
+		Falloff: 1000, 368, 135, 50, 18, 7, 0
+		ValidTargets: GroundActor, WaterActor, Underwater, AirborneActor, Trees
+		Versus:
+			Concrete: 25
+		AffectsParent: true
+		DamageTypes: Prone50Percent, TriggerProne, ElectricityDeath
+	Warhead@MediVoid2Res_impact: DestroyResource
+		Size: 1
+		Delay: 106
+	Warhead@MediVoid2Eff: CreateEffect
+		Delay: 106
+		ImpactSounds: voidsuperboom1.aud,voidsuperboom2.aud
+		Explosions: voidionring
+		ImpactActors: false
+	Warhead@MediVoid4Dam_areanuke1: SpreadDamage
+		Spread: 2c0
+		Damage: 2000
+		Falloff: 1000, 368, 135, 50, 18, 7, 0
+		Delay: 113
+		ValidTargets: GroundActor, WaterActor, Underwater, AirborneActor, Trees
+		Versus:
+			Wood: 50
+			Concrete: 25
+		AffectsParent: true
+		DamageTypes: Prone50Percent, TriggerProne, ElectricityDeath
+	Warhead@MediVoid5Res_areanuke1: DestroyResource
+		Size: 2
+		Delay: 113
+	Warhead@MediVoid6Eff_areanuke1: CreateEffect
+		Delay: 113
+		ImpactActors: false
+	Warhead@MediVoid7Dam_areanuke2: SpreadDamage
+		Spread: 3c0
+		Damage: 2000
+		Falloff: 1000, 368, 135, 50, 18, 7, 0
+		Delay: 120
+		ValidTargets: GroundActor, WaterActor, Underwater, AirborneActor, Trees
+		Versus:
+			Wood: 50
+			Concrete: 25
+		AffectsParent: true
+		DamageTypes: Prone50Percent, TriggerProne, ElectricityDeath
+	Warhead@MediVoid9Res_areanuke2: DestroyResource
+		Size: 3
+		Delay: 123
+	Warhead@MediVoid13Smu_areanuke3: LeaveSmudge
+		SmudgeType: Scorch
+		InvalidTargets: Vehicle, Structure, Wall, Trees
+		Size: 3
+		Delay: 123
+	Warhead@15Shake: ShakeScreen
+		Duration: 10
+		Intensity: 3
+		Multiplier: 1,1
+		Delay: 125
+
+
+##Marks Targets
+MediVoidWeaponSmallMark:
+	ValidTargets: Ground, Water, GroundActor, WaterActor, Underwater, AirborneActor, Trees
+	Projectile: Bullet
+		Speed: 50
+	Warhead@1Dam: SpreadDamage
+		Spread: 256
+		Damage: 10
+		Versus:
+			Wood: 60
+		DamageTypes: Prone50Percent, TriggerProne, ElectricityDeath
+	Warhead@3EffGround: CreateEffect
+		ImpactSounds: voidsupercharge.aud
+		ImpactActors: false
+	Warhead@4Dam: SpreadDamage
+		Delay: 12
+		Spread: 1c256
+		Damage: 10
+		Falloff: 1000, 250, 100, 75, 50, 25, 5
+		Versus:
+			Wood: 50
+			Light: 65
+			Heavy: 60
+			Concrete: 30
+		DamageTypes: Prone50Percent, ElectricityDeath
+
+MediHolyWeapon:
+	ValidTargets: Ground, Water, GroundActor, WaterActor, Underwater, AirborneActor, Trees
+	Warhead@99Eff_impact: CreateEffect
+		ImpactSounds: voidsuperland.aud
+		ImpactActors: false
+	Warhead@1Effect: CreateEffect
+		Explosions: mediholysuperland
+		ImpactActors: false
+	Warhead@Voidcluster1: FireCluster
+		Weapon: MediHolyWeaponSmall
+		RandomClusterCount: 2
+		Dimensions: 5,5
+		Footprint: xxxxx xxxxx xxxxx xxxxx xxxxx
+		Delay: 25
+	Warhead@Voidcluster1b: FireCluster
+		Weapon: MediHolyWeaponSmall
+		RandomClusterCount: 2
+		Dimensions: 5,5
+		Footprint: xxxxx xxxxx xxxxx xxxxx xxxxx
+		Delay: 37
+	Warhead@Voidcluster1c: FireCluster
+		Weapon: MediHolyWeaponSmall
+		RandomClusterCount: 2
+		Dimensions: 5,5
+		Footprint: xxxxx xxxxx xxxxx xxxxx xxxxx
+		Delay: 45
+	Warhead@Voidcluster2: FireCluster
+		Weapon: MediHolyWeaponSmall
+		RandomClusterCount: 2
+		Dimensions: 6,6
+		Footprint: xxxxxx xxxxxx xxxxxx xxxxxx xxxxxx xxxxxx
+		Delay: 50
+	Warhead@Voidcluster2b: FireCluster
+		Weapon: MediHolyWeaponSmall
+		RandomClusterCount: 2
+		Dimensions: 6,6
+		Footprint: xxxxxx xxxxxx xxxxxx xxxxxx xxxxxx xxxxxx
+		Delay: 62
+	Warhead@Voidcluster2c: FireCluster
+		Weapon: MediHolyWeaponSmall
+		RandomClusterCount: 2
+		Dimensions: 6,6
+		Footprint: xxxxxx xxxxxx xxxxxx xxxxxx xxxxxx xxxxxx
+		Delay: 70
+	Warhead@Voidcluster3: FireCluster
+		Weapon: MediHolyWeaponSmall
+		RandomClusterCount: 2
+		Dimensions: 7,7
+		Footprint: xxxxxxx xxxxxxx xxxxxxx xxxxxxx xxxxxxx xxxxxxx xxxxxxx
+		Delay: 75
+	Warhead@Voidcluster3b: FireCluster
+		Weapon: MediHolyWeaponSmall
+		RandomClusterCount: 2
+		Dimensions: 7,7
+		Footprint: xxxxxxx xxxxxxx xxxxxxx xxxxxxx xxxxxxx xxxxxxx xxxxxxx
+		Delay: 84
+	Warhead@Voidcluster3c: FireCluster
+		Weapon: MediHolyWeaponSmall
+		RandomClusterCount: 2
+		Dimensions: 7,7
+		Footprint: xxxxxxx xxxxxxx xxxxxxx xxxxxxx xxxxxxx xxxxxxx xxxxxxx
+		Delay: 96
+	Warhead@Voidcluster4: FireCluster
+		Weapon: MediHolyWeaponSmall
+		RandomClusterCount: 2
+		Dimensions: 8,8
+		Footprint: xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx
+		Delay: 100
+	Warhead@Voidcluster4b: FireCluster
+		Weapon: MediHolyWeaponSmall
+		RandomClusterCount: 2
+		Dimensions: 8,8
+		Footprint: xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx
+		Delay: 107
+	Warhead@Voidcluster4c: FireCluster
+		Weapon: MediHolyWeaponSmall
+		RandomClusterCount: 2
+		Dimensions: 8,8
+		Footprint: xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx
+		Delay: 119
+	Warhead@Voidcluster5: FireCluster
+		Weapon: MediHolyWeaponSmall
+		RandomClusterCount: 2
+		Dimensions: 9,9
+		Footprint: xxxxxxxxx xxxxxxxxx xxxxxxxxx xxxxxxxxx xxxxxxxxx xxxxxxxxx xxxxxxxxx xxxxxxxxx xxxxxxxxx
+		Delay: 125
+	Warhead@Voidcluster5b: FireCluster
+		Weapon: MediHolyWeaponSmall
+		RandomClusterCount: 2
+		Dimensions: 9,9
+		Footprint: xxxxxxxxx xxxxxxxxx xxxxxxxxx xxxxxxxxx xxxxxxxxx xxxxxxxxx xxxxxxxxx xxxxxxxxx xxxxxxxxx
+		Delay: 134
+	Warhead@Voidcluster5c: FireCluster
+		Weapon: MediHolyWeaponSmall
+		RandomClusterCount: 2
+		Dimensions: 9,9
+		Footprint: xxxxxxxxx xxxxxxxxx xxxxxxxxx xxxxxxxxx xxxxxxxxx xxxxxxxxx xxxxxxxxx xxxxxxxxx xxxxxxxxx
+		Delay: 143
+	Warhead@Voidcluster6: FireCluster
+		Weapon: MediHolyWeaponSmall
+		RandomClusterCount: 2
+		Dimensions: 10,10
+		Footprint: xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx
+		Delay: 150
+	Warhead@Voidcluster6b: FireCluster
+		Weapon: MediHolyWeaponSmall
+		RandomClusterCount: 2
+		Dimensions: 10,10
+		Footprint: xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx
+		Delay: 158
+	Warhead@Voidcluster6c: FireCluster
+		Weapon: MediHolyWeaponSmall
+		RandomClusterCount: 2
+		Dimensions: 10,10
+		Footprint: xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx
+		Delay: 168
+	Warhead@Voidcluster7: FireCluster
+		Weapon: MediHolyWeaponSmall
+		RandomClusterCount: 2
+		Dimensions: 11,11
+		Footprint: xxxxxxxxxxx xxxxxxxxxxx xxxxxxxxxxx xxxxxxxxxxx xxxxxxxxxxx xxxxxxxxxxx xxxxxxxxxxx xxxxxxxxxxx xxxxxxxxxxx xxxxxxxxxxx xxxxxxxxxxx
+		Delay: 175
+	Warhead@Voidcluster7b: FireCluster
+		Weapon: MediHolyWeaponSmall
+		RandomClusterCount: 2
+		Dimensions: 11,11
+		Footprint: xxxxxxxxxxx xxxxxxxxxxx xxxxxxxxxxx xxxxxxxxxxx xxxxxxxxxxx xxxxxxxxxxx xxxxxxxxxxx xxxxxxxxxxx xxxxxxxxxxx xxxxxxxxxxx xxxxxxxxxxx
+		Delay: 190
+	Warhead@Voidcluster7c: FireCluster
+		Weapon: MediHolyWeaponSmall
+		RandomClusterCount: 2
+		Dimensions: 11,11
+		Footprint: xxxxxxxxxxx xxxxxxxxxxx xxxxxxxxxxx xxxxxxxxxxx xxxxxxxxxxx xxxxxxxxxxx xxxxxxxxxxx xxxxxxxxxxx xxxxxxxxxxx xxxxxxxxxxx xxxxxxxxxxx
+		Delay: 196
+	Warhead@Voidcluster8: FireCluster
+		Weapon: MediHolyWeaponSmall
+		RandomClusterCount: 2
+		Dimensions: 12,12
+		Footprint: xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx
+		Delay: 200
+	Warhead@Voidcluster8b: FireCluster
+		Weapon: MediHolyWeaponSmall
+		RandomClusterCount: 2
+		Dimensions: 12,12
+		Footprint: xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx
+		Delay: 210
+	Warhead@Voidcluster8c: FireCluster
+		Weapon: MediHolyWeaponSmall
+		RandomClusterCount: 2
+		Dimensions: 12,12
+		Footprint: xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx
+		Delay: 224
+	Warhead@Voidcluster9: FireCluster
+		Weapon: MediHolyWeaponSmall
+		RandomClusterCount: 2
+		Dimensions: 13,13
+		Footprint: xxxxxxxxxxxxx xxxxxxxxxxxxx xxxxxxxxxxxxx xxxxxxxxxxxxx xxxxxxxxxxxxx xxxxxxxxxxxxx xxxxxxxxxxxxx xxxxxxxxxxxxx xxxxxxxxxxxxx xxxxxxxxxxxxx xxxxxxxxxxxxx xxxxxxxxxxxxx xxxxxxxxxxxxx
+		Delay: 230
+	Warhead@Voidcluster9b: FireCluster
+		Weapon: MediHolyWeaponSmall
+		RandomClusterCount: 2
+		Dimensions: 13,13
+		Footprint: xxxxxxxxxxxxx xxxxxxxxxxxxx xxxxxxxxxxxxx xxxxxxxxxxxxx xxxxxxxxxxxxx xxxxxxxxxxxxx xxxxxxxxxxxxx xxxxxxxxxxxxx xxxxxxxxxxxxx xxxxxxxxxxxxx xxxxxxxxxxxxx xxxxxxxxxxxxx xxxxxxxxxxxxx
+		Delay: 240
+	Warhead@Voidcluster9c: FireCluster
+		Weapon: MediHolyWeaponSmall
+		RandomClusterCount: 2
+		Dimensions: 13,13
+		Footprint: xxxxxxxxxxxxx xxxxxxxxxxxxx xxxxxxxxxxxxx xxxxxxxxxxxxx xxxxxxxxxxxxx xxxxxxxxxxxxx xxxxxxxxxxxxx xxxxxxxxxxxxx xxxxxxxxxxxxx xxxxxxxxxxxxx xxxxxxxxxxxxx xxxxxxxxxxxxx xxxxxxxxxxxxx
+		Delay: 248
+	Warhead@Voidcluster10: FireCluster
+		Weapon: MediHolyWeaponSmall
+		RandomClusterCount: 2
+		Dimensions: 14,14
+		Footprint: xxxxxxxxxxxxxx xxxxxxxxxxxxxx xxxxxxxxxxxxxx xxxxxxxxxxxxxx xxxxxxxxxxxxxx xxxxxxxxxxxxxx xxxxxxxxxxxxxx xxxxxxxxxxxxxx xxxxxxxxxxxxxx xxxxxxxxxxxxxx xxxxxxxxxxxxxx xxxxxxxxxxxxxx xxxxxxxxxxxxxx xxxxxxxxxxxxxx
+		Delay: 260
+	Warhead@Voidcluster10b: FireCluster
+		Weapon: MediHolyWeaponSmall
+		RandomClusterCount: 2
+		Dimensions: 14,14
+		Footprint: xxxxxxxxxxxxxx xxxxxxxxxxxxxx xxxxxxxxxxxxxx xxxxxxxxxxxxxx xxxxxxxxxxxxxx xxxxxxxxxxxxxx xxxxxxxxxxxxxx xxxxxxxxxxxxxx xxxxxxxxxxxxxx xxxxxxxxxxxxxx xxxxxxxxxxxxxx xxxxxxxxxxxxxx xxxxxxxxxxxxxx xxxxxxxxxxxxxx
+		Delay: 268
+	Warhead@Voidcluster10c: FireCluster
+		Weapon: MediHolyWeaponSmall
+		RandomClusterCount: 2
+		Dimensions: 14,14
+		Footprint: xxxxxxxxxxxxxx xxxxxxxxxxxxxx xxxxxxxxxxxxxx xxxxxxxxxxxxxx xxxxxxxxxxxxxx xxxxxxxxxxxxxx xxxxxxxxxxxxxx xxxxxxxxxxxxxx xxxxxxxxxxxxxx xxxxxxxxxxxxxx xxxxxxxxxxxxxx xxxxxxxxxxxxxx xxxxxxxxxxxxxx xxxxxxxxxxxxxx
+		Delay: 280
+	Warhead@Voidcluster11: FireCluster
+		Weapon: MediHolyWeaponSmall
+		RandomClusterCount: 2
+		Dimensions: 15,15
+		Footprint: xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx
+		Delay: 290
+	Warhead@Voidcluster11b: FireCluster
+		Weapon: MediHolyWeaponSmall
+		RandomClusterCount: 2
+		Dimensions: 15,15
+		Footprint: xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx
+		Delay: 305
+	Warhead@Voidcluster11c: FireCluster
+		Weapon: MediHolyWeaponSmall
+		RandomClusterCount: 2
+		Dimensions: 15,15
+		Footprint: xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx
+		Delay: 311
+	Warhead@Voidcluster12: FireCluster
+		Weapon: MediHolyWeaponSmall
+		RandomClusterCount: 2
+		Dimensions: 15,15
+		Footprint: xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx
+		Delay: 320
+	Warhead@Voidcluster12: FireCluster
+		Weapon: MediHolyWeaponSmall
+		RandomClusterCount: 2
+		Dimensions: 15,15
+		Footprint: xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx
+		Delay: 332
+	Warhead@Voidcluster12: FireCluster
+		Weapon: MediHolyWeaponSmall
+		RandomClusterCount: 2
+		Dimensions: 15,15
+		Footprint: xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx
+		Delay: 340
+	Warhead@22FlashEffect: FlashPaletteEffect
+		Duration: 20
+		Delay: 90
+		FlashType: Nuke
+
+MediHolyWeaponSmall:
+	ValidTargets: Ground, Water, GroundActor, WaterActor, Underwater, AirborneActor, Trees
+	Projectile: Bullet
+		Speed: 2c0
+	Warhead@1Effect: CreateEffect
+		Explosions: holylong3
+		ExplosionPalette: player
+		UsePlayerPalette: true
+		ImpactActors: false
+	Warhead@2Effect: CreateEffect
+		Delay: 22
+		Explosions: holylong2
+		ExplosionPalette: player
+		UsePlayerPalette: true
+		ImpactActors: false
+	Warhead@3Effect: CreateEffect
+		Delay: 44
+		Explosions: holylong1
+		ExplosionPalette: player
+		UsePlayerPalette: true
+		ImpactActors: false
+	Warhead@98Eff_impact: CreateEffect
+		ImpactSounds: holyswordhit1.aud,holyswordhit2.aud,holyswordhit3.aud,holyswordhit4.aud,holyswordhit5.aud,holyswordhit6.aud
+		Delay: 66
+		ImpactActors: false
+	Warhead@1Dam_impact: SpreadDamage
+		Delay: 66
+		Spread: 1c0
+		Damage: 1500
+		Falloff: 800, 300, 135, 50, 18, 7, 0
+		ValidTargets: GroundActor, WaterActor, Underwater, AirborneActor, Trees
+		Versus:
+			Concrete: 25
+		AffectsParent: true
+		DamageTypes: Prone50Percent, TriggerProne, FireDeath, Incendiary
+	Warhead@2Res_impact: DestroyResource
+		Size: 1
+		Delay: 66
+	Warhead@2Eff: CreateEffect
+		Delay: 66
+		Explosions: large_napalm
+		ImpactActors: false
+	Warhead@9Res_areanuke2: DestroyResource
+		Size: 2
+		Delay: 75
+	Warhead@13Smu_areanuke3: LeaveSmudge
+		SmudgeType: Scorch
+		ValidTargets: Ground, Infantry
+		Size: 2
+		Delay: 75
+	Warhead@14Shake: ShakeScreen
+		Duration: 10
+		Intensity: 3
+		Multiplier: 1,1
+		Delay: 75
+
+MediElementalWeapon:
+	ValidTargets: Ground, Water, GroundActor, WaterActor, Underwater, AirborneActor, Trees
+	Warhead@99Eff_impact: CreateEffect
+		ImpactSounds: voidsuperland.aud
+		ImpactActors: false
+	Warhead@1Effect: CreateEffect
+		Explosions: medielementalsuperland
+		ImpactActors: false
+	Warhead@1Smu: LeaveSmudge
+		SmudgeType: Crater
+		Size: 5
+		Delay: 150
+	Warhead@1a: HealthPercentageDamage
+		Spread: 3c0
+		Damage: 75
+		Delay: 150
+		ValidTargets: GroundActor, WaterActor
+	Warhead@22FlashEffect: FlashPaletteEffect
+		Duration: 20
+		Delay: 150
+		FlashType: Catalyst
+	Warhead@1b: CreateEffect
+		Explosions: elementalsuperexplosion
+		ImpactSounds: elementalbang.aud
+		ImpactActors: false
+		Delay: 150
+	Warhead@1Shake: ShakeScreen
+		Duration: 20
+		Intensity: 5
+		Multiplier: 1,1
+		Delay: 150
+	Warhead@2Smu: LeaveSmudge
+		SmudgeType: Crater
+		Size: 7
+		Delay: 200
+	Warhead@2a: HealthPercentageDamage
+		Spread: 7c0
+		Damage: 30
+		Delay: 200
+		ValidTargets: GroundActor, WaterActor
+	Warhead@2b: CreateEffect
+		Explosions: elementalsuperexplosion
+		ImpactSounds: elementalbang.aud
+		ImpactActors: false
+		Delay: 200
+	Warhead@2Shake: ShakeScreen
+		Duration: 15
+		Intensity: 4
+		Multiplier: 1,1
+		Delay: 200
+	Warhead@3Smu: LeaveSmudge
+		SmudgeType: Crater
+		Size: 9
+		Delay: 250
+	Warhead@3a: HealthPercentageDamage
+		Spread: 9c0
+		Damage: 30
+		Delay: 250
+		ValidTargets: GroundActor, WaterActor
+	Warhead@3b: CreateEffect
+		Explosions: elementalsuperexplosion
+		ImpactSounds: elementalbang.aud
+		ImpactActors: false
+		Delay: 250
+	Warhead@3Shake: ShakeScreen
+		Duration: 10
+		Intensity: 3
+		Multiplier: 1,1
+		Delay: 250
+	Warhead@4Smu: LeaveSmudge
+		SmudgeType: Crater
+		Size: 11
+		Delay: 300
+	Warhead@4a: HealthPercentageDamage
+		Spread: 11c0
+		Damage: 30
+		Delay: 300
+		ValidTargets: GroundActor, WaterActor
+	Warhead@4b: CreateEffect
+		Explosions: elementalsuperexplosion
+		ImpactSounds: elementalbang.aud
+		ImpactActors: false
+		Delay: 300
+	Warhead@4Shake: ShakeScreen
+		Duration: 10
+		Intensity: 3
+		Multiplier: 1,1
+		Delay: 300
+	Warhead@25FlashEffect: FlashPaletteEffect
+		Duration: 20
+		Delay: 300
+		FlashType: Catalyst

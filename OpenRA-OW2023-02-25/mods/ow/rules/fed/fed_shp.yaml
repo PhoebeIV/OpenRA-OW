@@ -1,0 +1,274 @@
+EYESHIP:
+	Inherits: ^Ship
+	Buildable:
+		Queue: Ship
+		BuildAtProductionType: Boat
+		BuildPaletteOrder: 15
+		Prerequisites: radar, ~syrd, ~ships.silver, ~techlevel.medium
+		Description: Light scout ship.\nCan detect submarines.\nSpeed: 128\n  Weak vs Everything\n  Unarmed.
+	Valued:
+		Cost: 500
+	Tooltip:
+		Name: Scout Cruiser
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 10000
+	Armor:
+		Type: Heavy
+	Mobile:
+		TurnSpeed: 28
+		Speed: 128
+	WithIdleOverlay@SPINNER:
+		Sequence: spinner
+		Offset: -256,0,256
+	RevealsShroud:
+		MinRange: 18c0
+		Range: 20c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 18c0
+	SelectionDecorations:
+	DetectCloaked:
+		DetectionTypes: Underwater
+		Range: 15c0
+	RenderDetectionCircle:
+	Selectable:
+		DecorationBounds: 1536, 1536
+
+DD.F:
+	Inherits: DD
+	Buildable:
+		Prerequisites: radar, ~syrd, ~ships.silver, ~techlevel.medium
+	Tooltip:
+		Name: Silver Destroyer
+	Armament@SECONDARY:
+		Weapon: TorpTube
+		LocalOffset: 0,-171,0, 0,171,0
+		FireDelay: 2
+	RenderSprites:
+		Image: DD
+
+CRUISEMIS:
+	Inherits: ^Ship
+	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
+	Buildable:
+		Queue: Ship
+		BuildPaletteOrder: 80
+		Prerequisites: techcenter, ~ships.angels, ~techlevel.unrestricted
+		Description: Very slow long-range ship. \nSpeed: 42\n  Strong vs Buildings\n  Weak vs Ships, Submarines
+	Valued:
+		Cost: 2300
+	Tooltip:
+		Name: Cruise Missile Frigate
+	Health:
+		HP: 50000
+	Armor:
+		Type: Heavy
+	Mobile:
+		TurnSpeed: 12
+		Speed: 42
+	RevealsShroud:
+		MinRange: 6c0
+		Range: 7c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 6c0
+	Turreted@PRIMARY:
+		Turret: primary
+		Offset: -864,0,128
+		TurnSpeed: 12
+	Turreted@SECONDARY:
+		Turret: secondary
+		Offset: 768,0,128
+		TurnSpeed: 12
+	Armament@PRIMARY:
+		Turret: primary
+		Weapon: SubMissile
+		LocalOffset: 480,-100,40, 480,100,40
+	Armament@SECONDARY:
+		Name: secondary
+		Turret: secondary
+		Weapon: SubMissile
+		LocalOffset: 480,-100,40, 480,100,40
+	AttackTurreted:
+	WithSpriteTurret@PRIMARY:
+		Turret: primary
+	WithSpriteTurret@SECONDARY:
+		Turret: secondary
+	SelectionDecorations:
+	Selectable:
+		DecorationBounds: 1877, 1877
+
+CRUISEMIS.Silver:
+	Inherits: CRUISEMIS
+	Buildable:
+		Prerequisites: techcenter, ~ships.silver, ~techlevel.unrestricted
+	Valued:
+		Cost: 2100
+	RenderSprites:
+		Image: CRUISEMIS
+
+DD.R:
+	Inherits: DD
+	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
+	Buildable:
+		Queue: Ship
+		BuildPaletteOrder: 200
+		Prerequisites: advtechcenter, ~ships.fed, ~ships.silver, ~techlevel.unrestricted
+		BuildLimit: 2
+		Description: Anti-armor warship.\nCan detect submarines.\nSpeed:85\n  Strong vs Naval units, Heavy armor\n  Weak vs Infantry, Tanks
+	Valued:
+		Cost: 5000
+	Tooltip:
+		Name: Railgun Destroyer
+	Turreted:
+		TurnSpeed: 28
+		Offset: 341,0,128
+	-Armament@PRIMARY:
+	-Armament@SECONDARY:
+	-Armament@TERTIARY:
+	Armament:
+		Weapon: ShipRailgun
+		LocalOffset: 0,-100,0, 0,100,0
+		LocalYaw: 64, -64
+	AutoTarget:
+		InitialStance: HoldFire
+		InitialStanceAI: ReturnFire
+	-DetectCloaked:
+	-RenderDetectionCircle:
+
+SILVERLINING:
+	Inherits: ^EpicShip
+	Inherits@EPIC: ^EpicUnit
+	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
+	Buildable:
+		Queue: Ship
+		BuildPaletteOrder: 9002
+		Prerequisites: ulttechcenter, ~ships.silver, ~techlevel.unrestricted, ~!silverexists
+		Description: Order captial ship.\nSpeed: 42\n  Deflects incoming missiles.\n  Can detect cloaked units. \n  Strong vs Buildings and Aircraft\n  Weak vs Ships, Submarines
+		BuildLimit: 1
+	Valued:
+		Cost: 10000
+	Tooltip:
+		Name: Silver Lining
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	ProvidesPrerequisite:
+		Prerequisite: silverexists
+	Health:
+		HP: 500000
+	Armor:
+		Type: Heavy
+	Mobile:
+		TurnSpeed: 12
+		Speed: 42
+	RevealsShroud:
+		MinRange: 8c0
+		Range: 10c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 8c0
+	Turreted@PRIMARY:
+		Turret: primary
+		Offset: -1764,0,128
+		TurnSpeed: 12
+	Turreted@SECONDARY:
+		Turret: secondary
+		Offset: 1668,0,128
+		TurnSpeed: 12
+	Turreted@TERTIARY:
+		Turret: tertiary
+		Offset: -1364,0,128
+		TurnSpeed: 12
+	Turreted@QUARTERNARY:
+		Turret: quarternary
+		Offset: 1068,0,128
+		TurnSpeed: 12
+	Turreted@QUINARY:
+		Turret: quinary
+		Offset: -964,0,128
+		TurnSpeed: 12
+	Armament@PRIMARY:
+		Name: primary
+		Turret: primary
+		Weapon: sl8Inch1
+		LocalOffset: 480,-100,40, 480,100,40
+	Armament@SECONDARY:
+		Name: secondary
+		Turret: secondary
+		Weapon: sl8Inch2
+		LocalOffset: 480,-100,40, 480,100,40
+	Armament@TERTIARY:
+		Name: tertiary
+		Turret: tertiary
+		Weapon: sl8Inch3
+		LocalOffset: 480,-100,40, 480,100,40
+	Armament@QUARTERNARY:
+		Name: quarternary
+		Turret: quarternary
+		Weapon: sl8Inch4
+		LocalOffset: 480,-100,40, 480,100,40
+	Armament@QUINARY:
+		Name: quinary
+		Turret: quinary
+		Weapon: Stinger
+		LocalOffset: 480,-100,40, 480,100,40
+	Armament@SENARY:
+		Name: senary
+		Turret: quinary
+		Weapon: DepthCharge
+		LocalOffset: 480,-100,40, 480,100,40
+	Armament@SEPTENARY:
+		Name: septenary
+		Turret: quinary
+		Weapon: StingerAA
+		LocalOffset: 480,-100,40, 480,100,40
+	AttackTurreted:
+		PersistentTargeting: false
+		Armaments: primary, secondary, tertiary, quarternary, quinary, senary, septenary
+	WithSpriteTurret@PRIMARY:
+		Turret: primary
+	WithSpriteTurret@SECONDARY:
+		Turret: secondary
+	WithSpriteTurret@TERTIARY:
+		Turret: tertiary
+	WithSpriteTurret@QUARTERNARY:
+		Turret: quarternary
+	WithSpriteTurret@QUINARY:
+		Turret: quinary
+	WithIdleOverlay@SPINNER:
+		Sequence: spinner
+		Offset: -256,0,512
+	SelectionDecorations:
+	Selectable:
+		Bounds: 2816, 2816
+		DecorationBounds: 2816, 2816
+	ShakeOnDeath:
+	Explodes:
+		Weapon: CrateNuke
+		EmptyWeapon: CrateNuke
+	ChangesHealth:
+		Step: 500
+		Delay: 25
+		StartIfBelow: 50
+		DamageCooldown: 150
+	AnnounceOnKill:
+		Interval: 2000
+	Voiced:
+		VoiceSet: SilverVoice
+	ProximityExternalCondition@JAMMER:
+		Range: 18c0
+		ValidRelationships: Enemy, Neutral
+		Condition: jammed
+	WithRangeCircle@JAMMER:
+		Type: jammer
+		Range: 18c0
+		Color: 0000FF80
+	JamsMissiles:
+		Range: 5c0
+		DeflectionRelationships: Neutral, Enemy
+	RenderJammerCircle:
+	DetectCloaked:
+		Range: 8c0
+	RenderSprites:

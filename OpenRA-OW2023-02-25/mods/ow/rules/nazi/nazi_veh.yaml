@@ -1,0 +1,312 @@
+MTNKD.SHD:
+	Inherits: MTNKD.G
+	Buildable:
+		BuildPaletteOrder: 120
+		Prerequisites: radar, ~vehicles.heydrich, ~techlevel.medium
+		Description: Reich's Secondary Battle Tank.\nSpeed: 85\n  Strong vs Vehicles\n  Weak vs Infantry, Aircraft
+	Tooltip:
+		Name: Nazi Medium Tank
+	SpawnActorOnDeath:
+		Actor: MTNKD.NZ.Husk
+
+2TNK.NZ:
+	Inherits: ^TrackedVehicle
+	Inherits@GAINSEXPERIENCE: ^GainsExperience
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Buildable:
+		Queue: Vehicle
+		BuildPaletteOrder: 130
+		Prerequisites: fix, ~vehicles.destprereq, ~techlevel.medium
+		Description: Slow, lightly armoured tank destroyer.\nMust get close to attack.\nSpeed: 42\n  Strong vs Vehicles\n  Weak vs Aircraft
+	Valued:
+		Cost: 1000
+	Tooltip:
+		Name: Tank Destroyer
+	Health:
+		HP: 45000
+	Armor:
+		Type: Heavy
+	Mobile:
+		Speed: 42
+		TurnSpeed: 12
+	Turreted:
+		TurnSpeed: 12
+		Offset: 0,0,-64
+	RevealsShroud:
+		MinRange: 4c0
+		Range: 5c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 4c0
+	Armament:
+		Weapon: NaziAntiTank
+		Recoil: 128
+		RecoilRecovery: 60
+		LocalOffset: 768,0,90
+		MuzzleSequence: muzzle
+		PauseOnCondition: disabled
+	AttackFrontal:
+		FacingTolerance: 0
+	WithMuzzleOverlay:
+	WithSpriteTurret:
+	AutoTarget:
+		ScanRadius: 5
+	SpawnActorOnDeath:
+		Actor: 2TNK.NZ.Husk
+	SelectionDecorations:
+	Selectable:
+		DecorationBounds: 1194, 1194
+	ProducibleWithLevel:
+		Prerequisites: vehicles.upgraded
+
+
+3TNK.NZ:
+	Inherits: 3TNK
+	Buildable:
+		Queue: Vehicle
+		BuildPaletteOrder: 135
+		Prerequisites: fix, ~vehicles.nazi, ~techlevel.medium, ~!vehicles.heydrich
+		Description: Reich's Main Battle Tank, with dual cannons\nSpeed: 71\n  Strong vs Vehicles\n  Weak vs Infantry, Aircraft
+	Tooltip:
+		Name: Nazi Heavy Tank
+	SpawnActorOnDeath:
+		Actor: 3TNK.NZ.Husk
+	Turreted:
+		Offset: 0,0,180
+
+SEIGE:
+	Inherits: ^TrackedVehicle
+	Inherits@EXPERIENCE: ^GainsExperience
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Valued:
+		Cost: 1800
+	Tooltip:
+		Name: Seige Tank
+		RequiresCondition: !deployed
+	Tooltip@DEPLOYED:
+		Name: Seige Tank (deployed)
+		RequiresCondition: deployed
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Buildable:
+		Queue: Vehicle
+		BuildPaletteOrder: 140
+		Prerequisites: advtechcenter, ~vehicles.hitler, ~techlevel.medium
+		Description: Reich's deployable artillery tank.\n  Strong vs Vehicles, Infantry\n  Weak vs Aircraft
+	Mobile:
+		TurnSpeed: 8
+		Speed: 42
+		RequireForceMoveCondition: !undeployed
+	Health:
+		HP: 40000
+	Armor:
+		Type: Heavy
+	RevealsShroud:
+		MinRange: 5c0
+		Range: 6c0
+		RevealGeneratedShroud: False
+		RequiresCondition: undeployed
+	RevealsShroud@DEPLOYED:
+		MinRange: 5c0
+		Range: 9c0
+		RevealGeneratedShroud: False
+		RequiresCondition: deployed
+	RevealsShroud@GAPGEN:
+		Range: 5c0
+	Armament@PRIMARY:
+		Name: deployed
+		Weapon: SiegeCannon
+		LocalOffset: 1200,0,112
+		MuzzleSequence: muzzle
+		RequiresCondition: deployed
+		PauseOnCondition: disabled
+	WithMuzzleOverlay:
+	WithMakeAnimation:
+		BodyNames: deployedbody
+	GrantConditionOnDeploy:
+		PauseOnCondition: disabled || being-captured
+		DeployedCondition: deployed
+		UndeployedCondition: undeployed
+		UndeployOnMove: true
+		UndeployOnPickup: true
+		Facing: 128
+		AllowedTerrainTypes: Clear, Road, Rough
+		DeploySounds: seigedeploy.aud
+		UndeploySounds: cashturn.aud
+		Voice: Action
+	Repairable:
+		RequireForceMoveCondition: !undeployed
+	Passenger:
+		RequireForceMoveCondition: !undeployed
+		Weight: 4
+	GrantCondition@PREVIEWWORKAROUND:
+		Condition: real-actor
+	WithFacingSpriteBody:
+		Sequence: idle2
+		RequiresCondition: undeployed
+	WithSpriteBody:
+		Sequence: idle
+		RequiresCondition: !undeployed && real-actor
+		Name: deployedbody
+	WithSpriteTurret:
+	Turreted:
+		TurnSpeed: 8
+	AttackTurreted@deployed:
+		Armaments: deployed
+		RequiresCondition: deployed
+		PauseOnCondition: disabled
+		OutsideRangeRequiresForceFire: True
+	RevealOnFire:
+		ArmamentNames: deployed
+	Voiced:
+		VoiceSet: SeigeVoice
+	Selectable:
+		DecorationBounds: 1877, 1621, 0, -170
+	WithRangeCircle:
+		Range: 15c0
+
+ARTY.SS:
+	Inherits: ^TrackedVehicle
+	Inherits@EXPERIENCE: ^GainsExperience
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Buildable:
+		Queue: Vehicle
+		BuildPaletteOrder: 138
+		Prerequisites: radar, ~techlevel.medium, ~vehicles.himmler
+		Description: Long-range fire artillery.\nSpeed: 85\n  Strong vs Infantry, Buildings\n  Weak vs Vehicles, Aircraft
+	Valued:
+		Cost: 900
+	Tooltip:
+		Name: Inferno Artillery
+	Health:
+		HP: 12000
+	Armor:
+		Type: Light
+	Mobile:
+		TurnSpeed: 8
+		Speed: 85
+	RevealsShroud:
+		MinRange: 4c0
+		Range: 5c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 4c0
+	Armament:
+		Weapon: Nazi155mm
+		LocalOffset: 624,0,400
+		MuzzleSequence: muzzle
+		PauseOnCondition: disabled
+	AttackFrontal:
+		TargetFrozenActors: True
+		ForceFireIgnoresActors: True
+		FacingTolerance: 0
+	WithMuzzleOverlay:
+	Explodes:
+		Weapon: Nazi155mm
+		EmptyWeapon: Nazi155mm
+	ProducibleWithLevel:
+		Prerequisites: vehicles.upgraded
+	WithVoxelBody:
+	RenderVoxels:
+		PlayerPalette: tsunit
+		LightAmbientColor: 1.0,1.0,1.0
+		LightDiffuseColor: 0.7,0.7,0.7
+		Scale: 0.6
+	-QuantizeFacingsFromSequence:
+	ClassicFacingBodyOrientation:
+		QuantizedFacings: 32
+	-WithFacingSpriteBody:
+
+MAUS:
+	Inherits: ^TrackedVehicle
+	Inherits@EXPERIENCE: ^GainsExperience
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Buildable:
+		Queue: Vehicle
+		BuildPaletteOrder: 190
+		Prerequisites: fix, advtechcenter, ~techlevel.medium, ~vehicles.hitler
+		BuildLimit: 2
+		Description: Super heavy tank with supreme firepower.\nCannot attack air. Explodes violently.\n on death.\n  Strong vs Everything\n  Weak vs Aircraft\nMaximum of 2 can be built.
+	Valued:
+		Cost: 5000
+	Tooltip:
+		Name: Panzer VIII Maus
+	Health:
+		HP: 225000
+	Armor:
+		Type: Heavy
+	Mobile:
+		TurnSpeed: 8
+		Speed: 32
+		Locomotor: heavytracked
+		Voice: Move
+	Passenger:
+		Voice: Move
+		Weight: 8
+	Guard:
+		Voice: Move
+	AttackMove:
+		Voice: Move
+	Turreted@1:
+		TurnSpeed: 8
+		Offset: -220,0,0
+	Turreted@2:
+		Turret: secondary
+		TurnSpeed: 20
+	RevealsShroud:
+		MinRange: 6c0
+		Range: 7c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 6c0
+	Armament@1:
+		Weapon: E100Cannon
+		LocalOffset: 1924,0,600
+		Recoil: 150
+		RecoilRecovery: 31
+		MuzzleSequence: muzzle
+		PauseOnCondition: disabled
+	Armament@2:
+		Turret: secondary
+		Weapon: Vulcan_D
+		LocalOffset: 220,100,700
+		MuzzleSequence: muzzle2
+		PauseOnCondition: disabled
+	Armament@3:
+		Turret: secondary
+		Weapon: Vulcan_D
+		LocalOffset: 220,-100,700
+		MuzzleSequence: muzzle2
+		FireDelay: 6
+		PauseOnCondition: disabled
+	AttackTurreted:
+	WithMuzzleOverlay:
+	ShakeOnDeath:
+	Explodes@2:
+		Weapon: E100Cannon
+		EmptyWeapon: E100Cannon
+	SpawnActorOnDeath:
+		Actor: MAUS.Husk
+	ProducibleWithLevel:
+		Prerequisites: vehicles.upgraded
+	WithVoxelBody:
+	WithVoxelTurret:
+	Voiced:
+		VoiceSet: ApocalypseVoice
+	ChangesHealth:
+		Step: 200
+		Delay: 15
+		StartIfBelow: 50
+		DamageCooldown: 200
+	RenderVoxels:
+		PlayerPalette: tsunit
+		LightAmbientColor: 1.0,1.0,1.0
+		LightDiffuseColor: 0.7,0.7,0.7
+		Scale: 0.75
+	-QuantizeFacingsFromSequence:
+	ClassicFacingBodyOrientation:
+		QuantizedFacings: 32
+	-WithFacingSpriteBody:
+	Selectable:
+		Bounds: 2133, 2133, 0, -426
+		DecorationBounds: 2133, 2133, 0, -426

@@ -1,0 +1,104 @@
+NHAND:
+	Inherits: ^Building
+	Inherits@prereqs: ^BarracksPrereqs
+	Inherits@shape: ^2x2Shape
+	Selectable:
+		Bounds: 2048, 2048
+		DecorationBounds: 2048, 2901, 0, -426
+	HitShape:
+		UseTargetableCellsOffsets: false
+		TargetableOffsets: 0,0,0, 630,-512,0, 355,512,0, -281,-512,0, -630,512,0
+	Buildable:
+		Queue: Building
+		BuildPaletteOrder: 30
+		Prerequisites: anypower, ~structures.nazi, ~techlevel.infonly, ~!structures.bothard
+		Description: Trains infantry.
+	Valued:
+		Cost: 500
+	Tooltip:
+		Name: Hand of Hitler
+	Building:
+		Footprint: xx xx ==
+		Dimensions: 2,3
+		LocalCenterOffset: 0,-512,0
+	Health:
+		HP: 60000
+	Armor:
+		Type: Wood
+	RevealsShroud:
+		MinRange: 4c0
+		Range: 5c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 4c0
+	WithBuildingBib:
+	RallyPoint:
+	Exit@1:
+		SpawnOffset: 512,1024,0
+		ExitCell: 1,2
+	ProductionBar:
+		ProductionType: Infantry
+	Production:
+		Produces: Infantry, Soldier
+	PrimaryBuilding:
+		PrimaryCondition: primary
+		SelectionNotification: PrimaryBuildingSelected
+	GrantExternalConditionToProduced:
+		Condition: produced
+	Power:
+		Amount: -20
+	ProvidesPrerequisite@buildingname:
+	InfiltrateForSupportPower:
+		Proxy: barracks.upgraded
+		Types: SpyInfiltrate
+	Targetable:
+		TargetTypes: GroundActor, C4, DetonateAttack, Structure, SpyInfiltrate
+	WithDecoration@primary:
+		RequiresSelection: true
+		Image: pips
+		Sequence: tag-primary
+		Position: Top
+		RequiresCondition: primary
+	WithDeathAnimation:
+		DeathSequence: dead
+		UseDeathTypeSuffix: false
+		DeathSequencePalette: dawn
+	Cloak@stealthgen:
+		Palette: dawncloak
+	RenderSprites:
+		PlayerPalette: dawn
+	ActorPreviewPlaceBuildingPreview:
+
+ATEK.NZ:
+	Inherits: ATEK
+	Buildable:
+		Queue: Building
+		BuildPaletteOrder: 150
+		Prerequisites: factory, radar, ~structures.nazi, ~techlevel.unrestricted, ~!ai.hard
+		Description: Provides Nazi uber technologies.
+	Tooltip:
+		Name: Nazi Tech Center
+	RenderSprites:
+		Image: atek
+
+DGUN.NZ:
+	Inherits: GUN
+	Buildable:
+		Queue: Defense
+		BuildPaletteOrder: 70
+		Prerequisites: barracks, ~structures.nazi, ~techlevel.medium
+	Valued:
+		Cost: 900
+	Tooltip:
+		Name: Double Turret
+	Building:
+	Health:
+		HP: 52500
+	Armament:
+		Weapon: TurretGunDouble
+		LocalOffset: 512,-100,112, 512,100,112
+		MuzzleSequence: muzzle
+	Power:
+		Amount: -45
+	RenderSprites:
+		Image: dgun

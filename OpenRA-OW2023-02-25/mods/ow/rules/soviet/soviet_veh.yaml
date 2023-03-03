@@ -1,0 +1,210 @@
+3TNK:
+	Buildable:
+		Description: Soviet Main Battle Tank, with dual cannons\nSpeed: 71\n  Strong vs Vehicles\n  Weak vs Infantry, Aircraft
+	Tooltip:
+		Name: Soviet Heavy Tank
+	Valued:
+		Cost: 1100
+	AttackTurreted:
+		PauseOnCondition: disabled
+
+4TNK:
+	Buildable:
+		Prerequisites: fix, advtechcenter, ~vehicles.soviet, ~techlevel.unrestricted
+		Description: Big and slow tank, with anti-air capability.\nCan crush concrete walls.\nSpeed: 50\n  Strong vs Vehicles, Infantry, Aircraft\n  Weak vs Nothing
+	Tooltip:
+		Name: Soviet Mammoth Tank
+	Passenger:
+		Weight: 4
+	ChangesHealth:
+		Step: 800
+		Delay: 25
+		StartIfBelow: 50
+		DamageCooldown: 150
+	AttackTurreted:
+		PauseOnCondition: disabled
+
+V2RL:
+	Buildable:
+		Description: Long-range rocket artillery.\nSpeed: 85\n  Strong vs Infantry, Buildings\n  Weak vs Vehicles, Aircraft
+	AttackFrontal:
+		PauseOnCondition: disabled
+		FacingTolerance: 0
+
+TTNK:
+	Buildable:
+		Description: Tank with mounted Tesla coil.\nSpeed: 99\n  Strong vs Infantry, Vehicles, Buildings\n  Weak vs Aircraft
+	AttackTurreted:
+		PauseOnCondition: disabled
+
+DTRK:
+	Buildable:
+		Prerequisites: advtechcenter, superweapon, ~vehicles.dtrkprereq, ~techlevel.unrestricted
+		Description: Truck with actively armed nuclear\nexplosives. Has very weak armor.\nSpeed: 85
+	Tooltip:
+		Name: Nuclear Demo Truck
+
+QTNK:
+	Inherits: ^TrackedVehicle
+	Buildable:
+		Description: Deals seismic damage to nearby vehicles\nand structures.\nSpeed: 56\n  Strong vs Vehicles, Buildings\n  Weak vs Infantry, Aircraft
+
+ZTNK:
+	Inherits: ^TrackedVehicle
+	Inherits@EPIC: ^EpicUnit
+	Inherits@EPIC2: ^EpicVehicle
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Buildable:
+		Queue: Vehicle
+		BuildPaletteOrder: 2500
+		Prerequisites: ulttechcenter, fix, ~vehicles.russia, ~techlevel.unrestricted
+		Description: [EPIC]\nAdvanced Mobile Tesla platform.\nDeletes infantry.\nSpeed: 35\n  Strong vs Ground Units\n  Weak vs Air
+	Valued:
+		Cost: 10000
+	Tooltip:
+		Name: Tesla Goliath
+		GenericName: Death
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 500000
+	Armor:
+		Type: Heavy
+	Mobile:
+		Speed: 35
+		Locomotor: heavytracked
+		Voice: Move
+	Guard:
+		Voice: Move
+	Passenger:
+		Weight: 8
+		CustomPipType: red
+		Voice: Move
+	RevealsShroud:
+		MinRange: 7c0
+		Range: 9c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 7c0
+	Armament@PRIMARY:
+		Weapon: GoliathZap
+		LocalOffset: 0,0,900
+	Armament@SECONDARY:
+		Name: secondary
+		Weapon: GoliathZap2
+		LocalOffset: 0,0,900
+	Armament@TERTIARY:
+		Name: tertiary
+		Weapon: GoliathZapCluster
+		LocalOffset: 0,0,900
+	AttackTurreted:
+		PauseOnCondition: disabled
+		Armaments: primary, secondary, tertiary
+	Turreted:
+		Offset: -400,0,0
+	WithIdleOverlay@SPINNER:
+		Sequence: spinner
+		Offset: -400,0,0
+	SelectionDecorations:
+	Selectable:
+		DecorationBounds: 1877, 1621, 0, -170
+	Voiced:
+		VoiceSet: GoliathVoice
+	ChangesHealth:
+		Step: 650
+		Delay: 25
+		StartIfBelow: 50
+		DamageCooldown: 150
+	Explodes:
+		Weapon: CrateNuke
+		EmptyWeapon: CrateNuke
+
+U.TNK:
+	Inherits: ^TrackedVehicle
+	Inherits@EPIC: ^EpicUnit
+	Inherits@EPIC2: ^EpicVehicle
+	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
+	Buildable:
+		Queue: Vehicle
+		BuildPaletteOrder: 2500
+		Prerequisites: ulttechcenter, fix, ~vehicles.ukraine, ~techlevel.unrestricted
+		Description: Big and slow tank, with anti-air capability.\nCan crush concrete walls.\n  Strong vs Vehicles, Infantry, Aircraft\n  Weak vs Nothing
+	Valued:
+		Cost: 10000
+	Tooltip:
+		Name: Apocalypse Tank
+		GenericName: Tank
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 400000
+	Armor:
+		Type: Heavy
+	Mobile:
+		Speed: 35
+		Locomotor: heavytracked
+		Voice: Move
+	Guard:
+		Voice: Move
+	Passenger:
+		Weight: 8
+		CustomPipType: red
+		Voice: Move
+	RevealsShroud:
+		MinRange: 7c0
+		Range: 8c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 7c0
+	Turreted:
+		TurnSpeed: 8
+	Armament@PRIMARY:
+		Weapon: ApocCannon
+		LocalOffset: 900,180,340, 900,-180,340
+		Recoil: 171
+		RecoilRecovery: 30
+		MuzzleSequence: muzzle
+	Armament@SECONDARY:
+		Name: secondary
+		Weapon: ApocMissile
+		LocalOffset: -85,384,340, -85,-384,340
+		LocalYaw: -100,100
+		Recoil: 43
+		MuzzleSequence: muzzle
+	Armament@IRONCURTAIN:
+		Weapon: ApocIronCurtain
+	AttackTurreted:
+		PauseOnCondition: disabled
+	WithMuzzleOverlay:
+	WithSpriteTurret:
+	ChangesHealth:
+		Step: 650
+		Delay: 25
+		StartIfBelow: 50
+		DamageCooldown: 150
+	SelectionDecorations:
+	Voiced:
+		VoiceSet: ApocalypseVoice2
+	Selectable:
+		DecorationBounds: 1877, 1621, 0, -170
+	RenderSprites:
+	Explodes:
+		Weapon: CrateNuke
+		EmptyWeapon: CrateNuke
+	ExplosionOnDamageTransition@1:
+		Weapon: ApocIronCurtain
+		DamageState: Medium
+	ExplosionOnDamageTransition@2:
+		Weapon: ApocIronCurtain
+		DamageState: Heavy
+	ExplosionOnDamageTransition@3:
+		Weapon: ApocIronCurtain
+		DamageState: Critical
+
+U.TNKcrate:
+	Inherits: U.TNK
+	RenderSprites:
+		Image: u.tnk
+	Wanders:
+	AutoTargetPriority@DEFAULT:
+		ValidTargets: Infantry, Vehicle, Ship, Underwater, Structure, Defense, Mine

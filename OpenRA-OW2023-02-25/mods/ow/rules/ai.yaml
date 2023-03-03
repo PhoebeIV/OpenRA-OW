@@ -1,0 +1,2059 @@
+^Building:
+	GrantConditionOnPrerequisite@botmoney:
+		Condition: bot_med
+		Prerequisites: ai.medium
+	GrantConditionOnPrerequisite@botmoney2:
+		Condition: bot_hard
+		Prerequisites: ai.hard
+	GrantConditionOnPrerequisite@botmoney3:
+		Condition: bot_boss
+		Prerequisites: ai.boss
+	CashTrickler@medAI:
+		Interval: 300
+		Amount: 15
+		ShowTicks: false
+		RequiresCondition: bot_med
+	CashTrickler@hardAI:
+		Interval: 250
+		Amount: 30
+		ShowTicks: false
+		RequiresCondition: bot_hard
+	CashTrickler@bossAI:
+		Interval: 250
+		Amount: 60
+		ShowTicks: false
+		RequiresCondition: bot_boss
+
+^ScienceBuilding:
+	CashTrickler@medAI:
+		Amount: 150
+	CashTrickler@hardAI:
+		Amount: 300
+	CashTrickler@bossAI:
+		Amount: 1000
+	Production@boss:
+		Produces: Structure, Tech, Upgrade
+		PauseOnCondition: !bot_boss
+	BaseProvider@boss:
+		Range: 8c0
+		RequiresCondition: bot_boss
+
+^Defense:
+	PowerMultiplier@medAI:
+		RequiresCondition: bot_med
+		Modifier: 80
+	PowerMultiplier@hardAI:
+		RequiresCondition: bot_hard
+		Modifier: 60
+	PowerMultiplier@bossAI:
+		RequiresCondition: bot_boss
+		Modifier: 10
+
+^PowerPlant:
+	PowerMultiplier@medAI:
+		RequiresCondition: bot_med
+		Modifier: 125
+	PowerMultiplier@hardAI:
+		RequiresCondition: bot_hard
+		Modifier: 150
+	PowerMultiplier@bossAI:
+		RequiresCondition: bot_boss
+		Modifier: 400
+	ProvidesPrerequisite@poweroutage:
+		RequiresCondition: power-outage
+		Prerequisite: ai.powerout
+		RequiresPrerequisites: ai.hard
+
+^BotQueue_Infantry:
+	ProductionQueue@hardAI:
+		Type: Infantry
+		DisplayOrder: 2
+		Group: Infantry
+		LowPowerModifier: 100
+		BuildDurationModifier: 175
+
+^BotQueue_Vehicle:
+	ProductionQueue@hardAI:
+		Type: Vehicle
+		DisplayOrder: 3
+		Group: Vehicle
+		LowPowerModifier: 100
+		BuildDurationModifier: 175
+	BaseProvider@boss:
+		Range: 12c0
+		RequiresCondition: bot_boss
+
+FOUNDRY.bot: #additional queues for HARD AI
+	Inherits: FOUNDRY
+	Inherits@BotQueue_Infantry: ^BotQueue_Infantry
+	Buildable:
+		Prerequisites: conyard, ~techlevel.medium, ~structures.ultprereq, ~structures.bothard
+	Tooltip:
+		Name: Automation Facility
+	RenderSprites:
+		Image: foundry
+	ProductionQueue@hardAI_str:
+		Type: Building
+		DisplayOrder: 3
+		Group: Building
+		LowPowerModifier: 100
+		BuildDurationModifier: 150
+	ProductionQueue@hardAI_def:
+		Type: Defense
+		DisplayOrder: 4
+		Group: Defense
+		LowPowerModifier: 100
+		BuildDurationModifier: 150
+	ProductionQueue@hardAI_tech:
+		Type: Tech
+		DisplayOrder: 4
+		Group: Tech
+		LowPowerModifier: 100
+		BuildDurationModifier: 150
+
+GFOUNDRY.bot:
+	Inherits: FOUNDRY.bot
+	Inherits@GLA: ^GLABuilding
+	Buildable:
+		Prerequisites: ~techlevel.medium, ~structures.gla, ~structures.bothard
+	Tooltip:
+		Name: Automation Facility - Hole Edition
+	Power:
+		Amount: 0
+	SpawnActorOnDeath:
+		Actor: GFOUNDRY.Hole2
+
+GFOUNDRY.Hole2:
+	Inherits: GFOUNDRY.Hole
+	SpawnActorOnDeath@hole:
+		Actor: GFOUNDRY.bot
+
+MEDIFOUNDRY.bot: #additional queues for HARD AI
+	Inherits: FOUNDRY.bot
+	Buildable:
+		Prerequisites: conyard, ~techlevel.medium, ~structures.medi, ~structures.bothard
+	Tooltip:
+		Name: Slave Labor Manufacturing
+
+PSUPOR.bot: #additional queues for HARD AI
+	Inherits: PSUPOR
+	Inherits@BotQueue_Infantry: ^BotQueue_Infantry
+	Buildable:
+		Prerequisites: conyard, ~techlevel.medium, ~structures.protoss, ~structures.bothard
+	Tooltip:
+		Name: Robotics Support Bay
+	RenderSprites:
+		Image: psupor
+	ProductionQueue@hardAI_str:
+		Type: Building
+		DisplayOrder: 3
+		Group: Building
+		LowPowerModifier: 100
+		BuildDurationModifier: 150
+	ProductionQueue@hardAI_def:
+		Type: Defense
+		DisplayOrder: 4
+		Group: Defense
+		LowPowerModifier: 100
+		BuildDurationModifier: 150
+	ProductionQueue@hardAI_tech:
+		Type: Tech
+		DisplayOrder: 4
+		Group: Tech
+		LowPowerModifier: 100
+		BuildDurationModifier: 150
+	ProductionQueue@hardAI_bot:
+		Type: Bot
+		DisplayOrder: 3
+		Group: Bot
+		LowPowerModifier: 100
+		BuildDurationModifier: 150
+
+PYLED.bot:
+	Inherits: PYLED
+	Inherits@BotQueue_Infantry: ^BotQueue_Infantry
+	RenderSprites:
+		Image: pyled
+	Buildable:
+		Prerequisites: anypower, ~techlevel.infonly, ~structures.pyledprereq, ~structures.bothard, ~!ai.boss # GDI, UAC
+	ProvidesPrerequisite@buildingname:
+		Prerequisite: pyled
+
+BARR.bot:
+	Inherits: BARR
+	Inherits@BotQueue_Infantry: ^BotQueue_Infantry
+	RenderSprites:
+		Image: barr
+	Buildable:
+		Prerequisites: anypower, ~techlevel.infonly, ~structures.barrprereq, ~structures.bothard, ~!ai.boss # Fed, Soviet
+	ProvidesPrerequisite@buildingname:
+		Prerequisite: barr
+
+
+TENT.bot:
+	Inherits: TENT
+	Inherits@BotQueue_Infantry: ^BotQueue_Infantry
+	RenderSprites:
+		Image: tent
+	Buildable:
+		Prerequisites: anypower, ~techlevel.infonly, ~structures.allies, ~structures.bothard, ~!ai.boss
+	ProvidesPrerequisite@buildingname:
+		Prerequisite: tent
+
+HANDD.bot:
+	Inherits: HANDD
+	Inherits@BotQueue_Infantry: ^BotQueue_Infantry
+	RenderSprites:
+		Image: handd
+	Buildable:
+		Prerequisites: anypower, ~techlevel.infonly, ~structures.nod, ~structures.bothard, ~!ai.boss
+	ProvidesPrerequisite@buildingname:
+		Prerequisite: handd
+
+NHAND.bot:
+	Inherits: NHAND
+	Inherits@BotQueue_Infantry: ^BotQueue_Infantry
+	RenderSprites:
+		Image: nhand
+	Buildable:
+		Prerequisites: anypower, ~techlevel.infonly, ~structures.nazi, ~structures.bothard, ~!ai.boss
+	ProvidesPrerequisite@buildingname:
+		Prerequisite: nhand
+
+GTENT.bot:
+	Inherits: GTENT
+	Inherits@BotQueue_Infantry: ^BotQueue_Infantry
+	Buildable:
+		Prerequisites: ~structures.gla, ~techlevel.infonly, ~structures.bothard, ~!ai.boss
+	SpawnActorOnDeath:
+		Actor: GTENT.Hole2
+	ProvidesPrerequisite@buildingname:
+		Prerequisite: gtent
+
+GTENT.Hole2:
+	Inherits: GTENT.Hole
+	SpawnActorOnDeath@hole:
+		Actor: GTENT.bot
+
+TENTMEDI.bot:
+	Inherits: TENTMEDI
+	Inherits@BotQueue_Infantry: ^BotQueue_Infantry
+	Buildable:
+		Prerequisites: ~structures.medi, ~techlevel.infonly, ~structures.bothard, ~!ai.boss
+	ProvidesPrerequisite@buildingname:
+		Prerequisite: tentmedi
+	Exit@1:
+		ProductionTypes: Soldier, Infantry, Mage, Dog
+	Exit@2:
+		ProductionTypes: Soldier, Infantry, Mage, Dog
+
+PGATEW.bot:
+	Inherits: PGATEW
+	Inherits@BotQueue_Infantry: ^BotQueue_Infantry
+	RenderSprites:
+		Image: pgatew
+	Buildable:
+		Prerequisites: anypower, ~techlevel.infonly, ~structures.bothard, ~!ai.boss
+	ProvidesPrerequisite@buildingname:
+		Prerequisite: pgatew
+
+BARR.boss:
+	Inherits: BARR.bot
+	Buildable:
+		Queue: Tech
+		Prerequisites: ~techlevel.infonly, ~ai.boss
+	Tooltip:
+		Name: Boss Barracks
+	ProvidesPrerequisite@buildingname1:
+		Prerequisite: tentmedi
+	ProvidesPrerequisite@buildingname2:
+		Prerequisite: gtent
+	ProvidesPrerequisite@buildingname3:
+		Prerequisite: nhand
+	ProvidesPrerequisite@buildingname4:
+		Prerequisite: handd
+	ProvidesPrerequisite@buildingname5:
+		Prerequisite: tent
+	ProvidesPrerequisite@buildingname6:
+		Prerequisite: pyled
+	ProvidesPrerequisite@buildingname7:
+		Prerequisite: farmmedi
+	Power:
+		Amount: 0
+	Exit@1:
+		ProductionTypes: Soldier, Infantry, Mage, Dog
+	Exit@2:
+		ProductionTypes: Soldier, Infantry, Mage, Dog
+	RequiresBuildableArea:
+		Adjacent: 4
+	BaseProvider@boss:
+		Range: 6c0
+
+WEAP.bot:
+	Inherits: WEAP
+	Inherits@BotQueue_Infantry: ^BotQueue_Vehicle
+	RenderSprites:
+		Image: weap
+	Buildable:
+		Prerequisites: refinery, barracks, ~techlevel.low, ~structures.weapprereq, ~structures.bothard, ~!ai.boss # Allies, Soviet, Fed, UAC
+	ProvidesPrerequisite@buildingname:
+		Prerequisite: weap
+
+WEAPD.bot:
+	Inherits: WEAPD
+	Inherits@BotQueue_Infantry: ^BotQueue_Vehicle
+	RenderSprites:
+		Image: weapd
+	Buildable:
+		Prerequisites: refinery, barracks, ~techlevel.low, ~structures.weapdprereq, ~structures.bothard, ~!ai.boss
+	ProvidesPrerequisite@buildingname:
+		Prerequisite: weapd
+
+AFLDD.bot:
+	Inherits: AFLDD
+	Inherits@BotQueue_Infantry: ^BotQueue_Vehicle
+	RenderSprites:
+		Image: afldd
+	Buildable:
+		Prerequisites: refinery, barracks, ~techlevel.low, ~structures.nod, ~structures.bothard, ~!ai.boss
+	ProvidesPrerequisite@buildingname:
+		Prerequisite: afldd
+
+GAIR.bot:
+	Inherits: GAIR
+	Inherits@BotQueue_Infantry: ^BotQueue_Vehicle
+	RenderSprites:
+		Image: gair
+	Buildable:
+		Prerequisites: refinery, barracks, ~techlevel.low, ~structures.gla, ~structures.bothard, ~!ai.boss
+	SpawnActorOnDeath:
+		Actor: GAIR.Hole2
+	ProvidesPrerequisite@buildingname:
+		Prerequisite: gair
+
+GAIR.Hole2:
+	Inherits: GAIR.Hole
+	SpawnActorOnDeath@hole:
+		Actor: GAIR.bot
+
+STABLES.bot:
+	Inherits: STABLES
+	Inherits@BotQueue_Infantry: ^BotQueue_Vehicle
+	Buildable:
+		Prerequisites: farmmedi, ~structures.medi, ~structures.bothard
+	ProvidesPrerequisite@buildingname:
+		Prerequisite: stables
+	Exit@1:
+		ProductionTypes: Vehicle, Workshop
+	Exit@2:
+		ProductionTypes: Vehicle, Workshop
+
+ARMORY.bot:
+	Inherits: ARMORYMEDI
+	Inherits@BotQueue_Infantry: ^BotQueue_Vehicle
+	Buildable:
+		Prerequisites: stables, ~structures.medi, ~structures.bothard
+	ProvidesPrerequisite@buildingname:
+		Prerequisite: armorymedi
+	Exit@1:
+		ProductionTypes: Vehicle, Workshop
+	Exit@2:
+		ProductionTypes: Vehicle, Workshop
+
+PROBOT.bot:
+	Inherits: PROBOT
+	Inherits@BotQueue_Infantry: ^BotQueue_Vehicle
+	RenderSprites:
+		Image: probot
+	Buildable:
+		Prerequisites: refinery, ~structures.protoss, ~techlevel.low, ~structures.bothard, ~!ai.boss # Allies, Soviet, Fed, UAC
+	ProvidesPrerequisite@buildingname:
+		Prerequisite: probot
+
+WEAP.boss:
+	Inherits: WEAP.bot
+	Tooltip:
+		Name: Boss Factory
+	Buildable:
+		Prerequisites: refinery, barracks, ~techlevel.low,	~ai.boss
+	ProvidesPrerequisite@buildingname1:
+		Prerequisite: weapd
+	ProvidesPrerequisite@buildingname2:
+		Prerequisite: afldd
+	ProvidesPrerequisite@buildingname3:
+		Prerequisite: gair
+	Exit@1:
+		ProductionTypes: Vehicle, Workshop
+	Exit@2:
+		ProductionTypes: Vehicle, Workshop
+	RequiresBuildableArea:
+		Adjacent: 4
+
+ATEK.bot:
+	Inherits: ATEK
+	Buildable:
+		Queue: Building
+		BuildPaletteOrder: 150
+		BuildLimit: 2
+		Prerequisites: factory, radar, ~structures.botonly, ~techlevel.unrestricted, ~ai.hard
+		Description: Provides technologies.
+	Tooltip:
+		Name: Boss Tech Center
+	RenderSprites:
+		Image: atek
+	ProvidesPrerequisite@boss1:
+		RequiresPrerequisites: ai.boss
+		Prerequisite: atek
+	ProvidesPrerequisite@boss2:
+		RequiresPrerequisites: ai.boss
+		Prerequisite: stek
+	ProvidesPrerequisite@boss3:
+		RequiresPrerequisites: ai.boss
+		Prerequisite: atek.nz
+	ProvidesPrerequisite@boss4:
+		RequiresPrerequisites: ai.boss
+		Prerequisite: atek.gla
+	ProvidesPrerequisite@boss5:
+		RequiresPrerequisites: ai.boss
+		Prerequisite: atek.gdi
+	ProvidesPrerequisite@boss6:
+		RequiresPrerequisites: ai.boss
+		Prerequisite: stek.nod
+	ProvidesPrerequisite@boss7:
+		RequiresPrerequisites: ai.boss
+		Prerequisite: ftek
+	ProvidesPrerequisite@boss8:
+		RequiresPrerequisites: ai.boss
+		Prerequisite: dmb3
+	ProvidesPrerequisite@boss9:
+		RequiresPrerequisites: ai.boss
+		Prerequisite: castle
+	ProvidesPrerequisite@boss10:
+		RequiresPrerequisites: ai.boss
+		Prerequisite: manasupply
+	Power:
+		Amount: 100
+
+ADVTECH:
+	ProvidesPrerequisite@ai1:
+		RequiresPrerequisites: ai.boss
+		Prerequisite: upgrade.buildarmor1
+	ProvidesPrerequisite@ai2:
+		RequiresPrerequisites: ai.boss
+		Prerequisite: upgrade.buildfirepower1
+	ProvidesPrerequisite@ai3:
+		RequiresPrerequisites: ai.boss
+		Prerequisite: upgrade.infarmor1
+	ProvidesPrerequisite@ai4:
+		RequiresPrerequisites: ai.boss
+		Prerequisite: upgrade.veharmor1
+	ProvidesPrerequisite@ai5:
+		RequiresPrerequisites: ai.boss
+		Prerequisite: upgrade.navalarmor1
+	ProvidesPrerequisite@ai6:
+		RequiresPrerequisites: ai.boss
+		Prerequisite: upgrade.airarmor1
+
+^GlobalBounty:
+	ExternalCondition@AIbounty: # this allows players to gain bounty off boss AI kills
+		Condition: bossbounty
+	GivesBounty@boss:
+		RequiresCondition: !global-bounty && bossbounty
+		Percentage: 5
+	GrantConditionOnPrerequisite@bossbounty:
+		Condition: bossbountyexternal
+		Prerequisites: ai.boss
+	ProximityExternalCondition@bossbounty:
+		RequiresCondition: !global-bounty && bossbountyexternal
+		Condition: bossbounty
+		ValidRelationships: Ally, Enemy, Neutral
+		AffectsParent: true
+		Range: 6c0
+
+# Special structure for Boss AI, comes with a random weapon
+PBOX.boss:
+	Inherits: PBOX
+	Tooltip:
+		Name: Death Box
+	Buildable:
+		Prerequisites: barracks, ~ai.boss
+	-AttackGarrisoned:
+	Cargo:
+		InitialUnits: e1of
+	RangeMultiplier:
+		Modifier: 120
+	GrantConditionOnBotOwner:
+		Condition: bossai
+		Bots: boss
+	GrantRandomCondition@boss:
+		Conditions: boss1, boss2, boss3, boss4, boss5, boss6, boss7, boss8, boss9, boss10, boss1, boss2, boss3, boss4, boss5, boss7, boss8, boss9, boss10
+	AttackTurreted@boss:
+		Armaments: main, boss1, boss2, boss3, boss3b, boss4, boss5, boss6, boss7, boss8, boss9, boss10
+	Armament@main:
+		Weapon: Vulcan
+		LocalOffset: 256,0,256
+		MuzzleSequence: muzzle
+		Name: main
+	Armament@boss1:
+		Weapon: JarmenSniper
+		LocalOffset: 256,0,256
+		MuzzleSequence: muzzle
+		RequiresCondition: boss1 && bossai
+		Name: boss1
+	Armament@boss2:
+		Weapon: TTankZap
+		LocalOffset: 256,0,256
+		RequiresCondition: boss2 && bossai
+		Name: boss2
+	Armament@boss3:
+		Weapon: DoomBFG
+		LocalOffset: 256,0,256
+		RequiresCondition: boss3 && bossai
+		FireDelay: 25
+		Name: boss3
+	Armament@boss3b:
+		Weapon: DoomBFGSound
+		RequiresCondition: boss3 && bossai
+		Name: boss3b
+	Armament@boss4:
+		Weapon: CommanderRPG
+		LocalOffset: 256,0,256
+		RequiresCondition: boss4 && bossai
+		Name: boss4
+	Armament@boss5:
+		Weapon: PurifierFlamer
+		LocalOffset: 256,0,256
+		RequiresCondition: boss5 && bossai
+		Name: boss5
+	Armament@boss6:
+		Weapon: BanebladeCannon
+		LocalOffset: 256,0,256
+		RequiresCondition: boss6 && bossai
+		Name: boss6
+	Armament@boss7:
+		Weapon: DoomMinigunHeavy
+		LocalOffset: 256,0,256
+		MuzzleSequence: muzzle
+		RequiresCondition: boss7 && bossai
+		Name: boss7
+	Armament@boss8:
+		Weapon: WeatherLightning
+		LocalOffset: 256,0,256
+		RequiresCondition: boss8 && bossai
+		Name: boss8
+	Armament@boss9:
+		Weapon: CommandoGauss
+		LocalOffset: 256,0,256
+		RequiresCondition: boss9 && bossai
+		Name: boss9
+	Armament@boss10:
+		Weapon: Catapult
+		LocalOffset: 256,0,256
+		RequiresCondition: boss10 && bossai
+		Name: boss10
+	RenderSprites:
+		Image: pbox
+	-WithBuildingBib:
+
+GFIX.boss:
+	Inherits: GFIX
+	Buildable:
+		BuildLimit: 2
+		Prerequisites: factory, ~ai.boss, ~techlevel.medium
+	SpawnActorOnDeath:
+		Actor: GFIX.Hole2
+	Armament:
+		Weapon: RepairDepot
+		Cursor: repair
+		OutsideRangeCursor: repair
+		TargetRelationships: Ally
+		ForceTargetRelationships: None
+	AttackOmni:
+	AutoTarget:
+	AutoTargetPriority@DEFAULT:
+		ValidTargets: Vehicle, Ship, Infantry
+
+GFIX.Hole2:
+	Inherits: ^GLAHole3x2
+	Tooltip:
+		Name: GLA Hole (Service Depot)
+	Building:
+		Dimensions: 3,3
+		LocalCenterOffset: 0,0,0
+	-WithBuildingBib:
+	Selectable:
+		Bounds: 2901, 1450, 0, 128
+		DecorationBounds: 3072, 2048
+	SpawnActorOnDeath@hole:
+		Actor: GFIX.boss
+		DeathType: hole
+
+Player:
+	ModularBot@NormalAI:
+		Name: Medium AI
+		Type: medium
+	ModularBot@EasyAI:
+		Name: Easy AI
+		Type: easy
+	ModularBot@HardAI:
+		Name: Hard AI
+		Type: hard
+	ModularBot@BossAI:
+		Name: Boss AI
+		Type: boss
+	ProvidesPrerequisite@all:
+		RequiresCondition: enable-all-ai
+		Prerequisite: ai.all
+	ProvidesPrerequisite@easy:
+		RequiresCondition: enable-easy-ai
+		Prerequisite: ai.easy
+	ProvidesPrerequisite@medium:
+		RequiresCondition: enable-medium-ai
+		Prerequisite: ai.medium
+	ProvidesPrerequisite@hard:
+		RequiresCondition: enable-hard-ai || enable-boss-ai
+		Prerequisite: ai.hard
+	ProvidesPrerequisite@boss:
+		RequiresCondition: enable-boss-ai
+		Prerequisite: ai.boss
+	GrantConditionOnBotOwner@normal:
+		Condition: enable-medium-ai
+		Bots: medium
+	GrantConditionOnBotOwner@easy:
+		Condition: enable-easy-ai
+		Bots: easy
+	GrantConditionOnBotOwner@hard:
+		Condition: enable-hard-ai
+		Bots: hard
+	GrantConditionOnBotOwner@boss:
+		Condition: enable-boss-ai
+		Bots: boss
+	GrantConditionOnBotOwner@all:
+		Condition: enable-all-ai
+		Bots: easy, medium, hard, boss
+	GrantConditionOnFaction@medi:
+		Condition: enable-medi-ai
+		Factions: darkness, holy, elementalists
+	HarvesterBotModule:
+		RequiresCondition: enable-all-ai
+		HarvesterTypes: harv, harvd, harvd.bhand, gharv, slave, mediworker, pprobe
+		RefineryTypes: proc, procd, procd.bhand, gproc, farmmedi, factm, passim
+	BuildingRepairBotModule:
+		RequiresCondition: enable-all-ai
+	McvManagerBotModule@easy:
+		RequiresCondition: enable-easy-ai
+		McvTypes: mcv, mcvd, mcvd.2, mcv.2, gmcv, gmcv.2, mcvm, mcvm.2, mcvm.3, mcvc, pmcv, pmcv.2
+		ConstructionYardTypes: fact, factd, gfact, factm, v01.c, pnexus
+		McvFactoryTypes: weap, weapd, afldd, gair, armorymedi, probot
+		ScanForNewMcvInterval: 250
+		MinimumConstructionYardCount: 1
+	McvManagerBotModule@medhard:
+		RequiresCondition: enable-medium-ai || enable-hard-ai
+		McvTypes: mcv, mcvd, mcvd.2, mcv.2, gmcv, gmcv.2, mcvm, mcvm.2, mcvm.3, mcvc, pmcv, pmcv.2
+		ConstructionYardTypes: fact, factd, gfact, factm, v01.c, pnexus
+		McvFactoryTypes: weap, weapd, afldd, gair, armorymedi, probot
+		ScanForNewMcvInterval: 250
+		MinimumConstructionYardCount: 2
+	McvManagerBotModule@boss:
+		RequiresCondition: enable-boss-ai
+		McvTypes: mcv, mcvd, mcvd.2, mcv.2, gmcv, gmcv.2, mcvm, mcvm.2, mcvm.3, mcvc, pmcv, pmcv.2
+		ConstructionYardTypes: fact, factd, gfact, factm, v01.c, pnexus
+		McvFactoryTypes: weap, weapd, afldd, gair, armorymedi, probot
+		ScanForNewMcvInterval: 250
+		MinimumConstructionYardCount: 4
+	BaseBuilderBotModule@normal:
+		RequiresCondition: enable-all-ai
+		PlaceDefenseTowardsEnemyChance: 45
+		MaxBaseRadius: 50
+		MinimumExcessPower: 60
+		MaximumExcessPower: 200
+		ExcessPowerIncrement: 40
+		ExcessPowerIncreaseThreshold: 4
+		StructureProductionInactiveDelay: 75
+		BuildingQueues: Building, Tech, Upgrade, Bot, Carrier
+		ConstructionYardTypes: fact, factd, gfact, factm
+		RefineryTypes: proc, procd, procd.bhand, gproc, farmmedi, passim
+		PowerTypes: powr, apwr, dpwr, nuk2, xpwr, nuk3, manawell, deepmanawell
+		BarracksTypes: barr, tent, handd, pyled, nhand, gtent, foundry, gfoundry, tentmedi, tentmedi.bot, laborcamp, aeiou, barr.bot, barr.boss, tent.bot, handd.bot, pyled.bot, nhand.bot, gtent.bot, foundry.bot, gfoundry.bot, pgatew, pgatew.bot, psupor, psupor.bot
+		VehiclesFactoryTypes: weap, weapd, afldd, gair, stables, armorymedi, weap.bot, weap.boss, weapd.bot, afldd.bot, gair.bot, stables.bot, armory.bot, pgatew.bot, pgatew, probot, probot.bot, pcarry
+		ProductionTypes: barr, tent, weap, afld, hpad, pstarg, handd, pyled, nhand, gtent, foundry, gfoundry, weapd, afldd, gair, advtech, aeiou, tentmedi, tentmedi.bot, laborcamp, stables, armorymedi, merchantguild, hatchery, churchmedi, alchemylab, barr.bot, barr.boss, tent.bot, handd.bot, pyled.bot, nhand.bot, gtent.bot, foundry.bot, gfoundry.bot, medifoundry.bot, medifoundry, weap.bot, weap.boss, weapd.bot, afldd.bot, gair.bot, pgatew, pgatew.bot, psupor, psupor.bot, ptempl, probot, probot.bot, pcarry
+		NavalProductionTypes: syrd, spen, gspen, dockmedi
+		SiloTypes: silo, silod, gsilo, farmmedi
+		BuildingLimits:
+			xpwr: 4 # POWER
+			nuk3: 4
+			apwr: 6
+			nuk2: 6
+			powr: 8
+			dpwr: 8
+			manawell: 6
+			deepmanawell: 6
+			ppylon: 8
+			ppylon.bot: 4
+			proc: 3 # REFINERIES
+			procd: 3
+			procd.bhand: 3
+			gproc: 3
+			farmmedi: 5
+			passim: 4
+			dome: 1 # TECHNOLOGY / UTILITY
+			hqd: 1
+			gmgg: 1
+			fix: 1
+			gfix: 1
+			gfix.boss: 1
+			atek: 1
+			stek: 1
+			stek.nod: 1
+			atek.gdi: 1
+			dmb3: 1
+			ftek: 1
+			atek.nz: 1
+			atek.gla: 1
+			atek.bot: 4
+			advtech: 2
+			gadvtech: 2
+			t.miss: 1
+			gmiss: 1
+			foundry: 1
+			gfoundry: 1
+			medifoundry: 1
+			foundry.bot: 2
+			gfoundry.bot: 2
+			medifoundry.bot: 2
+			pdox.bhand: 3
+			castle: 1
+			academymedi: 1
+			library: 1
+			theeye: 1
+			goldmine: 1
+			merchantguild: 2
+			alchemylab: 1
+			medigraveyard: 1
+			pcyber: 1
+			pobser: 1
+			psupor: 1
+			psupor.bot: 2
+			padun: 1
+			ptempl: 2
+			barr: 2 # INFANTRY PRODUCTION
+			tent: 2
+			gtent: 2
+			handd: 2
+			pyled: 2
+			nhand: 2
+			kenn: 1
+			laborcamp: 1
+			tentmedi: 2
+			churchmedi: 1
+			barr.bot: 2
+			tent.bot: 2
+			gtent.bot: 2
+			handd.bot: 2
+			pyled.bot: 2
+			nhand.bot: 2
+			tentmedi.bot: 3
+			barr.boss: 4
+			pgatew: 4
+			pgatew.bot: 4
+			weap: 2 # VEHICLE PRODUCTION
+			weapd: 2
+			afldd: 2
+			gair: 2
+			armorymedi: 1
+			stables: 1
+			probot: 1
+			weap.bot: 2
+			weapd.bot: 2
+			afldd.bot: 2
+			gair.bot: 2
+			armory.bot: 1
+			stables.bot: 1
+			probot.bot: 2
+			weap.boss: 5
+			hpad: 6 # AIRCRAFT PRODUCTION
+			hatchery: 2
+			afld: 6
+			afld.ukraine: 6
+			pstarg: 2
+			spen: 1
+			syrd: 1
+			gspen: 1
+			dockmedi: 1
+			gtwr: 12 # DEFENSES
+			gun: 12
+			hbox: 9
+			pbox: 9
+			dgun: 6
+			dgun.nz: 9
+			ftur: 9
+			plstur: 7
+			tsla: 8
+			tsla.est: 8
+			ironball: 8
+			atwr: 8
+			atwr2: 8
+			oblid: 8
+			agun: 8
+			sam: 8
+			samd: 8
+			advsam: 6
+			atd: 6
+			atd.g: 6
+			gap: 6
+			gap3: 2
+			gpbox: 10
+			ghbox: 10
+			gstg: 8
+			pbox.boss: 15
+			archertower: 8
+			archertower2: 8
+			archertower3: 8
+			archertower4: 8
+			arcanetower: 6
+			elementaltotem: 4
+			monumenttothegods: 2
+			pphoto: 10
+			psbatt: 6
+			mslo: 1 # SUPERWEAPONS
+			pdox: 1
+			bio.a: 1
+			iron: 1
+			tmpld: 1
+			eyed: 1
+			hellgate: 1
+			hellgate.d: 2
+			sstorm: 1
+			firestormmedi: 1
+			gateoflight: 1
+			medidarkcrystal: 1
+		BuildingFractions:
+			proc: 150
+			procd: 150
+			procd.bhand: 150
+			gproc: 150
+			passim: 150
+			dome: 100
+			hqd: 100
+			gmgg: 100
+			fix: 10
+			gfix: 10
+			gfix.boss: 10
+			gap3: 10
+			oreext: 30
+			oreext.g: 30
+			oregen: 10
+			gemgen: 10
+			gap: 10
+			foundry: 10
+			gfoundry: 10
+			foundry.bot: 10
+			gfoundry.bot: 10
+			medifoundry: 10
+			medifoundry.bot: 10
+			tent: 500
+			barr: 500
+			pyled: 500
+			gtent: 500
+			handd: 500
+			nhand: 500
+			barr.bot: 500
+			barr.boss: 500
+			tent.bot: 500
+			gtent.bot: 500
+			handd.bot: 500
+			pyled.bot: 500
+			nhand.bot: 500
+			tentmedi.bot: 500
+			kenn: 20
+			weap: 50
+			weapd: 50
+			afldd: 50
+			gair: 50
+			weap.bot: 50
+			weap.boss: 50
+			weapd.bot: 50
+			afldd.bot: 50
+			gair.bot: 50
+			armory.bot: 50
+			stables.bot: 50
+			syrd: 10
+			spen: 10
+			gspen: 10
+			hpad: 10
+			afld: 10
+			afld.ukraine: 10
+			pbox: 70
+			hbox: 20
+			gpbox: 70
+			ghbox: 70
+			gstg: 50
+			gtwr: 100
+			gun: 70
+			dgun: 100
+			dgun.nz: 100
+			ftur: 100
+			plstur: 100
+			tsla: 75
+			tsla.est: 75
+			ironball: 60
+			atwr: 50
+			atwr2: 50
+			oblid: 50
+			agun: 50
+			sam: 50
+			samd: 50
+			advsam: 10
+			atd: 20
+			atd.g: 20
+			atek: 10
+			stek: 10
+			stek.nod: 10
+			atek.gdi: 10
+			atek.nz: 10
+			atek.gla: 10
+			dmb3: 10
+			ftek: 10
+			atek.bot: 10
+			advtech: 20
+			gadvtech: 20
+			gmiss: 20
+			t.miss: 20
+			mslo: 10
+			pdox: 10
+			bio.a: 10
+			pdox.bhand: 10
+			iron: 10
+			tmpld: 10
+			eyed: 10
+			sstorm: 10
+			hellgate: 10
+			hellgate.d: 10
+			firestormmedi: 10
+			gateoflight: 10
+			medidarkcrystal: 10
+			archertower: 70
+			archertower2: 70
+			archertower3: 70
+			archertower4: 70
+			arcanetower: 75
+			dockmedi: 10
+			hatchery: 10
+			armorymedi: 40
+			stables: 40
+			laborcamp: 150
+			tentmedi: 500
+			churchmedi: 400
+			castle: 20
+			academymedi: 30
+			library: 10
+			theeye: 100
+			goldmine: 5
+			merchantguild: 20
+			alchemylab: 10
+			farmmedi: 150
+			manawell: 50
+			deepmanawell: 80
+			medigraveyard: 10
+			elementaltotem: 10
+			monumenttothegods: 10
+			pbox.boss: 100
+			pgatew: 500
+			pgatew.bot: 500
+			ppylon: 30
+			ppylon.bot: 30
+			pcyber: 100
+			pphoto: 100
+			pobser: 100
+			psupor: 100
+			psupor.bot: 100
+			padun: 100
+			ptempl: 100
+			probot: 100
+			probot.bot: 100
+			psbatt: 100
+			pstarg: 100
+			pinter: 10
+			upgrade.infarmor1: 10
+			upgrade.infarmor2: 6
+			upgrade.infarmor3: 2
+			upgrade.inffirepower1: 10
+			upgrade.inffirepower2: 6
+			upgrade.inffirepower3: 2
+			upgrade.veharmor1: 10
+			upgrade.veharmor2: 6
+			upgrade.veharmor3: 2
+			upgrade.vehfirepower1: 10
+			upgrade.vehfirepower2: 6
+			upgrade.vehfirepower3: 2
+			upgrade.airarmor1: 2
+			upgrade.airarmor2: 1
+			upgrade.airarmor3: 1
+			upgrade.airfirepower1: 2
+			upgrade.airfirepower2: 1
+			upgrade.airfirepower3: 1
+			upgrade.navalarmor1: 1
+			upgrade.navalarmor2: 1
+			upgrade.navalarmor3: 1
+			upgrade.navalfirepower1: 1
+			upgrade.navalfirepower2: 1
+			upgrade.navalfirepower3: 1
+			upgrade.buildarmor1: 10
+			upgrade.buildarmor2: 6
+			upgrade.buildarmor3: 2
+			upgrade.buildfirepower1: 10
+			upgrade.buildfirepower2: 6
+			upgrade.buildfirepower3: 2
+			upgrade.mediarrow: 10
+			upgrade.mediarrowzap: 6
+			upgrade.mediarrowvoid: 6
+			upgrade.mediarrowwiz: 6
+			upgrade.mediarrowmusk: 2
+			upgrade.elementalwepstech: 10
+		DefenseTypes: pbox.boss, gfix.boss, tsla, agun, pbox, hbox, gun, ftur, sam, gtwr, atd, xbar, tsla.est, ironball, dgun.nz, atwr, atwr2, samd, oblid, dgun, advsam, solcdepl, plstur, gpbox, ghbox, gstg, atd.g, medigraveyard, archertower, archertower2, archertower3, archertower4, arcanetower, balistatower, cannontower, magicmine, medigarrisontower, pphoto, psbatt
+	SquadManagerBotModule@normal:
+		RequiresCondition: enable-easy-ai && !enable-medi-ai
+		SquadSize: 20
+		ExcludeFromSquadsTypes: harv, harvd, harvd.bhand, mcv, mcv.2, mcvd, mcvd.2, gmcv, gmcv.2, gharv, gmgg, dog, mcvm, mcvm.2, mcvm.3, truckmedi, mediworker, slave, surveyormedi, pmcv, pprobe
+		NavalUnitsTypes: ss,msub,dd,ca,lst,pt,dmdd,medicanoe,medimanofwar,medihwachaboat,mediarcaneboat
+		ConstructionYardTypes: fact,factd,gfact,factm,pnexus
+		NavalProductionTypes: spen,syrd,gspen,dockmedi
+		AttackForceInterval: 150
+		AssignRolesInterval: 125
+		MinimumAttackForceDelay: 250
+		AirUnitsTypes: mig, yak, heli, mh60, n.mig, bf109, do17, do17.shd, orca, a10, tsorca, tsorcab, tskodiac, scrin, a10.n3, venom, vanguard, lance, lance.angels, nhwk, nhwk.angels, paladin, c17.f, spectre, spectre.angels, medidragon, medigyro, medigryphonrider, mediicewyvern, medilightningelement, pscout, pcarry, pinter
+		ProtectionTypes: foundry.bot, gfoundry.bot, medifoundry.bot, psupor.bot, pyled.bot, barr.bot, tent.bot, handd.bot, nhand.bot, gtent.bot, tentmedi.bot, pgatew.bot, barr.boss, weap.bot, weapd.bot, afldd.bot, gair.bot, stables.bot, armory.bot, probot.bot, weap.boss, atek.bot, advtech, pbox.boss, gfix.boss, harv, mcv, mslo, gap, spen, syrd, iron, pdox, tsla, agun, dome, pbox, hbox, gun, ftur, sam, atek, weap, fact, proc, silo, hpad, afld, afld.ukraine, powr, apwr, stek, barr, kenn, tent, fix, fpwr, tenf, syrf, spef, weaf, domf, fixf, fapw, atef, pdof, mslf, facf, xpwr, dpwr, nuk2, nuk3, mcv.2, mcvd, mcvd.2, harvd, factd, foundry, procd, silod, pyled, weapd, hqd, gtwr, radio.p, atd, xbar, oreext, agate, vgate, bio.a, tsla.est, ironball, nhand, atek.nz, dgun.nz, atek.gdi, eyed, atwr, atwr2, handd, afldd, procd.bhand, stek.nod, tmpld, samd, oblid, pdox.bhand, harvd.bhand, ftek, gap3, dgun, advsam, oregen, gemgen, solcdepl, dmb3, plstur, hellgate, hellgate.d, gfact, gspen, gtent, gproc, gfoundry, gadvtech, atek.gla, gsilo, gair, gfix, gpbox, ghbox, sstorm, gmiss, gblk, gstg, atd.g, oreext.g, gharv, gmcv, gmcv.2, mcvc, fcom.c, hosp.c, v01.c, v02.c, v03.c, v04.c, v05.c, v06.c, v07.c, v08.c, v09.c, v10.c, v11.c, rushouse.c, asianhut.c, v13.c, v12.c, v14.c, v15.c, v16.c, v17.c, v18.c, rice.c, v19.c, oilb.c, barl.c, brl3.c, bio.c, weap.c, lhus.c, windmill.c, powr.c, utilpol1.c, utilpol2.c, ctek, cflarf, airport, syrd.c, civflag, autogara, actek, radio.c, satcntr, c1.c, c2.c, c3.c, c4.c, c5.c, c6.c, scientist, factm, medifoundry, tentmedi, laborcamp, farmmedi, goldmine, stables, stablesinfonly, dockmedi, hatchery, armorymedi, castle, academymedi, churchmedi, merchantguild, alchemylab, manawell, blacksmithmedi, deepmanawell, library, medigraveyard, firestormmedi, gateoflight, medidarkcrystal, archertower, archertower2, archertower3, archertower4, scouttower, theeye, arcanetower, balistatower, cannontower, magicmine, monumenttothegods, medigarrisontower, effecttester, slave, mediworker, mcvm, mcvm.2, mcvm.3, pnexus, pgatew.warp, pgatew, ppylon.warp, ppylon, ppylon.bot, passim.warp, passim, pcyber.warp, pcyber, pphoto.warp, pphoto, pobser.warp, pobser, psupor.warp, psupor, padun.warp, padun, ptempl.warp, ptempl, probot.warp, probot, psbatt.warp, psbatt, pstarg.warp, pstarg, pprobe, pmcv, pmcv.2, t.miss, haxor
+	SquadManagerBotModule@medium:
+		RequiresCondition: enable-medium-ai || enable-hard-ai && !enable-medi-ai
+		SquadSize: 30
+		ExcludeFromSquadsTypes: harv, harvd, harvd.bhand, mcv, mcv.2, mcvd, mcvd.2, gmcv, gmcv.2, gharv, gmgg, dog, mcvm, mcvm.2, mcvm.3, truckmedi, mediworker, slave, surveyormedi, pmcv, pprobe
+		NavalUnitsTypes: ss,msub,dd,ca,lst,pt,dmdd,medicanoe,medimanofwar,medihwachaboat,mediarcaneboat
+		ConstructionYardTypes: fact,factd,gfact,factm,pnexus
+		NavalProductionTypes: spen,syrd,gspen,dockmedi
+		AttackForceInterval: 125
+		AssignRolesInterval: 100
+		MinimumAttackForceDelay: 150
+		AirUnitsTypes: mig, yak, heli, mh60, n.mig, bf109, do17, do17.shd, orca, a10, tsorca, tsorcab, tskodiac, scrin, a10.n3, venom, vanguard, lance, lance.angels, nhwk, nhwk.angels, paladin, c17.f, spectre, spectre.angels, medidragon, medigyro, medigryphonrider, mediicewyvern, medilightningelement, pscout, pcarry, pinter
+		ProtectionTypes: foundry.bot, gfoundry.bot, medifoundry.bot, psupor.bot, pyled.bot, barr.bot, tent.bot, handd.bot, nhand.bot, gtent.bot, tentmedi.bot, pgatew.bot, barr.boss, weap.bot, weapd.bot, afldd.bot, gair.bot, stables.bot, armory.bot, probot.bot, weap.boss, atek.bot, advtech, pbox.boss, gfix.boss, harv, mcv, mslo, gap, spen, syrd, iron, pdox, tsla, agun, dome, pbox, hbox, gun, ftur, sam, atek, weap, fact, proc, silo, hpad, afld, afld.ukraine, powr, apwr, stek, barr, kenn, tent, fix, fpwr, tenf, syrf, spef, weaf, domf, fixf, fapw, atef, pdof, mslf, facf, xpwr, dpwr, nuk2, nuk3, mcv.2, mcvd, mcvd.2, harvd, factd, foundry, procd, silod, pyled, weapd, hqd, gtwr, radio.p, atd, xbar, oreext, agate, vgate, bio.a, tsla.est, ironball, nhand, atek.nz, dgun.nz, atek.gdi, eyed, atwr, atwr2, handd, afldd, procd.bhand, stek.nod, tmpld, samd, oblid, pdox.bhand, harvd.bhand, ftek, gap3, dgun, advsam, oregen, gemgen, solcdepl, dmb3, plstur, hellgate, hellgate.d, gfact, gspen, gtent, gproc, gfoundry, gadvtech, atek.gla, gsilo, gair, gfix, gpbox, ghbox, sstorm, gmiss, gblk, gstg, atd.g, oreext.g, gharv, gmcv, gmcv.2, mcvc, fcom.c, hosp.c, v01.c, v02.c, v03.c, v04.c, v05.c, v06.c, v07.c, v08.c, v09.c, v10.c, v11.c, rushouse.c, asianhut.c, v13.c, v12.c, v14.c, v15.c, v16.c, v17.c, v18.c, rice.c, v19.c, oilb.c, barl.c, brl3.c, bio.c, weap.c, lhus.c, windmill.c, powr.c, utilpol1.c, utilpol2.c, ctek, cflarf, airport, syrd.c, civflag, autogara, actek, radio.c, satcntr, c1.c, c2.c, c3.c, c4.c, c5.c, c6.c, scientist, factm, medifoundry, tentmedi, laborcamp, farmmedi, goldmine, stables, stablesinfonly, dockmedi, hatchery, armorymedi, castle, academymedi, churchmedi, merchantguild, alchemylab, manawell, blacksmithmedi, deepmanawell, library, medigraveyard, firestormmedi, gateoflight, medidarkcrystal, archertower, archertower2, archertower3, archertower4, scouttower, theeye, arcanetower, balistatower, cannontower, magicmine, monumenttothegods, medigarrisontower, effecttester, slave, mediworker, mcvm, mcvm.2, mcvm.3, pnexus, pgatew.warp, pgatew, ppylon.warp, ppylon, ppylon.bot, passim.warp, passim, pcyber.warp, pcyber, pphoto.warp, pphoto, pobser.warp, pobser, psupor.warp, psupor, padun.warp, padun, ptempl.warp, ptempl, probot.warp, probot, psbatt.warp, psbatt, pstarg.warp, pstarg, pprobe, pmcv, pmcv.2, t.miss, haxor
+	SquadManagerBotModule@boss:
+		RequiresCondition: enable-boss-ai && !enable-medi-ai
+		SquadSize: 40
+		ExcludeFromSquadsTypes: harv, harvd, harvd.bhand, mcv, mcv.2, mcvd, mcvd.2, gmcv, gmcv.2, gharv, gmgg, dog, mcvm, mcvm.2, mcvm.3, truckmedi, mediworker, slave, surveyormedi, pmcv, pprobe
+		NavalUnitsTypes: ss,msub,dd,ca,lst,pt,dmdd,medicanoe,medimanofwar,medihwachaboat,mediarcaneboat
+		ConstructionYardTypes: fact,factd,gfact,factm,pnexus
+		NavalProductionTypes: spen,syrd,gspen,dockmedi
+		AttackForceInterval: 100
+		AssignRolesInterval: 75
+		MinimumAttackForceDelay: 75
+		AirUnitsTypes: mig, yak, heli, mh60, n.mig, bf109, do17, do17.shd, orca, a10, tsorca, tsorcab, tskodiac, scrin, a10.n3, venom, vanguard, lance, lance.angels, nhwk, nhwk.angels, paladin, c17.f, spectre, spectre.angels, medidragon, medigyro, medigryphonrider, mediicewyvern, medilightningelement, pscout, pcarry, pinter
+		ProtectionTypes: foundry.bot, gfoundry.bot, medifoundry.bot, psupor.bot, pyled.bot, barr.bot, tent.bot, handd.bot, nhand.bot, gtent.bot, tentmedi.bot, pgatew.bot, barr.boss, weap.bot, weapd.bot, afldd.bot, gair.bot, stables.bot, armory.bot, probot.bot, weap.boss, atek.bot, advtech, pbox.boss, gfix.boss, harv, mcv, mslo, gap, spen, syrd, iron, pdox, tsla, agun, dome, pbox, hbox, gun, ftur, sam, atek, weap, fact, proc, silo, hpad, afld, afld.ukraine, powr, apwr, stek, barr, kenn, tent, fix, fpwr, tenf, syrf, spef, weaf, domf, fixf, fapw, atef, pdof, mslf, facf, xpwr, dpwr, nuk2, nuk3, mcv.2, mcvd, mcvd.2, harvd, factd, foundry, procd, silod, pyled, weapd, hqd, gtwr, radio.p, atd, xbar, oreext, agate, vgate, bio.a, tsla.est, ironball, nhand, atek.nz, dgun.nz, atek.gdi, eyed, atwr, atwr2, handd, afldd, procd.bhand, stek.nod, tmpld, samd, oblid, pdox.bhand, harvd.bhand, ftek, gap3, dgun, advsam, oregen, gemgen, solcdepl, dmb3, plstur, hellgate, hellgate.d, gfact, gspen, gtent, gproc, gfoundry, gadvtech, atek.gla, gsilo, gair, gfix, gpbox, ghbox, sstorm, gmiss, gblk, gstg, atd.g, oreext.g, gharv, gmcv, gmcv.2, mcvc, fcom.c, hosp.c, v01.c, v02.c, v03.c, v04.c, v05.c, v06.c, v07.c, v08.c, v09.c, v10.c, v11.c, rushouse.c, asianhut.c, v13.c, v12.c, v14.c, v15.c, v16.c, v17.c, v18.c, rice.c, v19.c, oilb.c, barl.c, brl3.c, bio.c, weap.c, lhus.c, windmill.c, powr.c, utilpol1.c, utilpol2.c, ctek, cflarf, airport, syrd.c, civflag, autogara, actek, radio.c, satcntr, c1.c, c2.c, c3.c, c4.c, c5.c, c6.c, scientist, factm, medifoundry, tentmedi, laborcamp, farmmedi, goldmine, stables, stablesinfonly, dockmedi, hatchery, armorymedi, castle, academymedi, churchmedi, merchantguild, alchemylab, manawell, blacksmithmedi, deepmanawell, library, medigraveyard, firestormmedi, gateoflight, medidarkcrystal, archertower, archertower2, archertower3, archertower4, scouttower, theeye, arcanetower, balistatower, cannontower, magicmine, monumenttothegods, medigarrisontower, effecttester, slave, mediworker, mcvm, mcvm.2, mcvm.3, pnexus, pgatew.warp, pgatew, ppylon.warp, ppylon, ppylon.bot, passim.warp, passim, pcyber.warp, pcyber, pphoto.warp, pphoto, pobser.warp, pobser, psupor.warp, psupor, padun.warp, padun, ptempl.warp, ptempl, probot.warp, probot, psbatt.warp, psbatt, pstarg.warp, pstarg, pprobe, pmcv, pmcv.2, t.miss, haxor
+	SquadManagerBotModule@mediall:
+		RequiresCondition: enable-all-ai && enable-medi-ai
+		SquadSize: 45
+		ExcludeFromSquadsTypes: harv, harvd, harvd.bhand, mcv, mcv.2, mcvd, mcvd.2, gmcv, gmcv.2, gharv, gmgg, dog, mcvm, mcvm.2, mcvm.3, truckmedi, mediworker, slave, surveyormedi, pmcv, pprobe
+		NavalUnitsTypes: ss,msub,dd,ca,lst,pt,dmdd,medicanoe,medimanofwar,medihwachaboat,mediarcaneboat
+		ConstructionYardTypes: fact,factd,gfact,factm,pnexus
+		NavalProductionTypes: spen,syrd,gspen,dockmedi
+		AttackForceInterval: 150
+		AssignRolesInterval: 100
+		MinimumAttackForceDelay: 150
+		AirUnitsTypes: mig, yak, heli, mh60, n.mig, bf109, do17, do17.shd, orca, a10, tsorca, tsorcab, tskodiac, scrin, a10.n3, venom, vanguard, lance, lance.angels, nhwk, nhwk.angels, paladin, c17.f, spectre, spectre.angels, medidragon, medigyro, medigryphonrider, mediicewyvern, medilightningelement, pscout, pcarry, pinter
+		ProtectionTypes: foundry.bot, gfoundry.bot, medifoundry.bot, psupor.bot, pyled.bot, barr.bot, tent.bot, handd.bot, nhand.bot, gtent.bot, tentmedi.bot, pgatew.bot, barr.boss, weap.bot, weapd.bot, afldd.bot, gair.bot, stables.bot, armory.bot, probot.bot, weap.boss, atek.bot, advtech, pbox.boss, gfix.boss, harv, mcv, mslo, gap, spen, syrd, iron, pdox, tsla, agun, dome, pbox, hbox, gun, ftur, sam, atek, weap, fact, proc, silo, hpad, afld, afld.ukraine, powr, apwr, stek, barr, kenn, tent, fix, fpwr, tenf, syrf, spef, weaf, domf, fixf, fapw, atef, pdof, mslf, facf, xpwr, dpwr, nuk2, nuk3, mcv.2, mcvd, mcvd.2, harvd, factd, foundry, procd, silod, pyled, weapd, hqd, gtwr, radio.p, atd, xbar, oreext, agate, vgate, bio.a, tsla.est, ironball, nhand, atek.nz, dgun.nz, atek.gdi, eyed, atwr, atwr2, handd, afldd, procd.bhand, stek.nod, tmpld, samd, oblid, pdox.bhand, harvd.bhand, ftek, gap3, dgun, advsam, oregen, gemgen, solcdepl, dmb3, plstur, hellgate, hellgate.d, gfact, gspen, gtent, gproc, gfoundry, gadvtech, atek.gla, gsilo, gair, gfix, gpbox, ghbox, sstorm, gmiss, gblk, gstg, atd.g, oreext.g, gharv, gmcv, gmcv.2, mcvc, fcom.c, hosp.c, v01.c, v02.c, v03.c, v04.c, v05.c, v06.c, v07.c, v08.c, v09.c, v10.c, v11.c, rushouse.c, asianhut.c, v13.c, v12.c, v14.c, v15.c, v16.c, v17.c, v18.c, rice.c, v19.c, oilb.c, barl.c, brl3.c, bio.c, weap.c, lhus.c, windmill.c, powr.c, utilpol1.c, utilpol2.c, ctek, cflarf, airport, syrd.c, civflag, autogara, actek, radio.c, satcntr, c1.c, c2.c, c3.c, c4.c, c5.c, c6.c, scientist, factm, medifoundry, tentmedi, laborcamp, farmmedi, goldmine, stables, stablesinfonly, dockmedi, hatchery, armorymedi, castle, academymedi, churchmedi, merchantguild, alchemylab, manawell, blacksmithmedi, deepmanawell, library, medigraveyard, firestormmedi, gateoflight, medidarkcrystal, archertower, archertower2, archertower3, archertower4, scouttower, theeye, arcanetower, balistatower, cannontower, magicmine, monumenttothegods, medigarrisontower, effecttester, slave, mediworker, mcvm, mcvm.2, mcvm.3, pnexus, pgatew.warp, pgatew, ppylon.warp, ppylon, ppylon.bot, passim.warp, passim, pcyber.warp, pcyber, pphoto.warp, pphoto, pobser.warp, pobser, psupor.warp, psupor, padun.warp, padun, ptempl.warp, ptempl, probot.warp, probot, psbatt.warp, psbatt, pstarg.warp, pstarg, pprobe, pmcv, pmcv.2, t.miss, haxor
+	UnitBuilderBotModule@normal:
+		RequiresCondition: enable-all-ai
+		UnitsToBuild:
+			e1: 30
+			e1of: 20
+			e2: 20
+			e3: 20
+			e4: 20
+			e5: 20
+			shok: 15
+			e7: 5
+			dog: 10
+			rmbo: 5
+			fe1: 50
+			fe2: 20
+			fe3: 20
+			fe4: 20
+			fshok: 20
+			dm1: 20
+			dm2: 30
+			dm2of: 20
+			dm3: 15
+			dm4: 5
+			dm6: 20
+			helld1: 10
+			helld1.de: 10
+			helld2: 10
+			helld3: 10
+			helld4: 25
+			helld4.de: 25
+			helld5: 10
+			helld6: 30
+			helld6.s: 30
+			helld7: 10
+			helld9: 10
+			nbos1: 20
+			nbos2: 20
+			nbos3: 15
+			nbos4: 10
+			nbos7: 50
+			tscyb: 20
+			tsghost: 15
+			tsjump: 10
+			tse5p.dm: 5
+			tse5p.gdi: 5
+			fe7: 5
+			frmbo: 5
+			tse5.g: 5
+			sbh: 20
+			ge1: 30
+			ge2: 35
+			ge3: 20
+			harv: 10
+			harvd: 10
+			harvd.bhand: 10
+			gharv: 10
+			apc: 30
+			jeep: 20
+			arty: 15
+			v2rl: 40
+			ftrk: 30
+			1tnk: 50
+			2tnk: 50
+			3tnk: 50
+			4tnk: 25
+			ttnk: 25
+			stnk: 5
+			mtnkd.g: 50
+			htnkd.g: 25
+			jeepd: 20
+			apc.g: 30
+			msam: 15
+			smech: 20
+			mmch: 50
+			triton: 25
+			1tnk.n: 50
+			arty.n: 25
+			bggyd: 20
+			bike: 25
+			stnkd: 10
+			ftnkd: 20
+			ftnkd.n3: 30
+			ctnk.bhand: 5
+			scorpion: 10
+			novan.m: 5
+			novan: 5
+			stnk.dm: 40
+			1tnk.dm: 50
+			dmgtnk: 25
+			dmgtnk.ph: 25
+			dmgtnk.m: 25
+			btnk.m: 50
+			mtnkd.shd: 50
+			2tnk.nz: 20
+			3tnk.nz: 50
+			maus: 10
+			gmgg: 100
+			arty.ss: 15
+			gbike: 25
+			gscud: 25
+			gscud.t: 25
+			gftrk: 35
+			bbus.bot: 30
+			1tnk.g: 40
+			bggyd.g: 25
+			aaty: 10
+			btnk: 40
+			btnk.sword: 60
+			lmech: 30
+			drone: 10
+			mornstar: 25
+			rtnk: 15
+			speeder: 10
+			fcru: 35
+			heli: 10
+			mh60: 10
+			mig: 10
+			n.mig: 20
+			yak: 10
+			bf109: 10
+			do17: 10
+			do17.shd: 10
+			orca: 10
+			a10: 10
+			tsorca: 20
+			tsorcab: 20
+			scrin: 10
+			a10.n3: 10
+			venom: 10
+			vanguard: 10
+			lance: 10
+			nhwk: 10
+			paladin: 10
+			spectre: 40
+			lance.angels: 10
+			nhwk.angels: 10
+			paladin.angels: 10
+			spectre.angels: 40
+			ss: 5
+			msub: 5
+			dd: 5
+			ca: 5
+			pt: 5
+			dmdd: 5
+			dd.f: 5
+			cruisemis: 5
+			cruisemis.silver: 5
+			dd.r: 5
+			silverlining: 50
+			baneblade: 50
+			direwolf: 50
+			aeiou: 50
+			ztnk: 50
+			u.tnk: 50
+			dm5: 50
+			helld8: 50
+			tselite: 50
+			tscybcom: 50
+			tskodiac: 50
+			nbos6: 50
+			solc: 50
+			e7.e: 50
+			e7.g: 50
+			heavyguy: 50
+			medigyro: 10
+			medidragon: 50
+			medigryphonrider: 10
+			horsecrossbowman: 30
+			horseswordman: 30
+			horsescout: 5
+			carapult: 25
+			trebuchet: 25
+			hwacha: 25
+			carriage: 30
+			trojan: 1
+			ballista: 30
+			siegetower.bot: 5
+			crossbowman: 50
+			swordman: 60
+			slave: 50
+			scoutmedi: 1
+			sapper: 1
+			mediworker: 50
+			priest: 2
+			berserker: 30
+			medipaladin: 50
+			wizard: 40
+			lightningwizard: 40
+			voidarcher: 50
+			mediabomination: 30
+			mediblademaster: 60
+			medihwachaboat: 10
+			medimanofwar: 10
+			mediarcaneboat: 20
+			mediicewyvern: 50
+			medideathknight: 50
+			horsemusket: 20
+			waterelemental: 20
+			pzealot: 30
+			pzealot.b: 30
+			pzealot.b2: 30
+			pdrago: 15
+			pdrago.b: 15
+			pdrago.b2: 15
+			pprobe: 10
+			preaver: 15
+			pobserver: 5
+			pscout: 10
+			pcarry: 10
+			pinter: 10
+		UnitLimits:
+			e1of: 4
+			dm2of: 4
+			e7: 2
+			rmbo: 2
+			dm4: 2
+			tse5p.dm: 2
+			tse5p.gdi: 2
+			fe7: 2
+			frmbo: 2
+			helld3: 4
+			helld7: 2
+			helld9: 2
+			ctnk.bhand: 1
+			gmgg: 1
+			scorpion: 2
+			nbos4: 2
+			dog: 4
+			harv: 8
+			harvd: 8
+			harvd.bhand: 8
+			jeep: 4
+			ftrk: 4
+			bbus.bot: 2
+			ss: 6
+			msub: 2
+			dd: 4
+			ca: 2
+			pt: 4
+			dmdd: 4
+			dd.f: 4
+			cruisemis: 2
+			cruisemis.silver: 4
+			dd.r: 2
+			silverlining: 1
+			heli: 3
+			mh60: 3
+			mig: 3
+			n.mig: 2
+			yak: 4
+			bf109: 3
+			do17: 3
+			do17.shd: 3
+			orca: 3
+			a10: 3
+			tsorca: 4
+			tsorcab: 4
+			scrin: 3
+			a10.n3: 3
+			venom: 4
+			vanguard: 3
+			lance: 3
+			nhwk: 3
+			paladin: 2
+			spectre: 1
+			lance.angels: 4
+			nhwk.angel: 4
+			paladin.angel: 4
+			spectre.angel: 1
+			baneblade: 1
+			direwolf: 1
+			aeiou: 1
+			ztnk: 1
+			u.tnk: 1
+			dm5: 1
+			helld8: 1
+			tselite: 1
+			tscybcom: 1
+			tskodiac: 1
+			nbos6: 1
+			solc: 1
+			e7.e: 1
+			e7.g: 1
+			novan: 1
+			heavyguy: 1
+			medigyro: 2
+			medidragon: 3
+			medigryphonrider: 5
+			horsecrossbowman: 10
+			horseswordman: 10
+			horsescout: 1
+			carapult: 4
+			trebuchet: 4
+			hwacha: 4
+			carriage: 1
+			trojan: 0
+			ballista: 4
+			cannon: 4
+			horsemusket: 6
+			waterelemental: 4
+			siegetower.bot: 2
+			bowman: 10
+			swordman: 30
+			crossbowman: 30
+			slave: 10
+			scoutmedi: 1
+			sapper: 0
+			mediworker: 15
+			priest: 2
+			berserker: 10
+			medipaladin: 10
+			wizard: 10
+			lightningwizard: 10
+			voidarcher: 15
+			mediabomination: 3
+			mediblademaster: 2
+			medihwachaboat: 2
+			medimanofwar: 3
+			mediarcaneboat: 5
+			mediicewyvern: 1
+			medideathknight: 1
+			pprobe: 10
+			pzealot: 40
+			pzealot.b: 40
+			pzealot.b2: 40
+			pdrago: 15
+			pdrago.b: 15
+			pdrago.b2: 15
+			pobserver: 2
+			pscout: 5
+			pcarry: 2
+			pinter: 10
+	SupportPowerBotModule:
+		RequiresCondition: enable-all-ai
+		Decisions:
+			spyplane:
+				OrderName: SovietSpyPlane
+				MinimumAttractiveness: 1
+				Consideration@1:
+					Against: Enemy
+					Types: Structure
+					Attractiveness: 1
+					TargetMetric: None
+					CheckRadius: 5c0
+			spyvan:
+				OrderName: VanSweep
+				MinimumAttractiveness: 1
+				Consideration@1:
+					Against: Enemy
+					Types: Structure
+					Attractiveness: 1
+					TargetMetric: None
+					CheckRadius: 5c0
+			paratroopers:
+				OrderName: SovietParatroopers
+				MinimumAttractiveness: 5
+				Consideration@1:
+					Against: Enemy
+					Types: Structure
+					Attractiveness: 1
+					TargetMetric: None
+					CheckRadius: 8c0
+				Consideration@2:
+					Against: Enemy
+					Types: Water
+					Attractiveness: -5
+					TargetMetric: None
+					CheckRadius: 8c0
+			parabombs:
+				OrderName: UkraineParabombs
+				MinimumAttractiveness: 1
+				Consideration@1:
+					Against: Enemy
+					Types: Structure
+					Attractiveness: 1
+					TargetMetric: None
+					CheckRadius: 5c0
+			nukepower:
+				OrderName: NukePowerInfoOrder
+				MinimumAttractiveness: 3000
+				Consideration@1:
+					Against: Enemy
+					Types: Structure
+					Attractiveness: 1
+					TargetMetric: Value
+					CheckRadius: 5c0
+				Consideration@2:
+					Against: Ally
+					Types: Air, Ground, Water
+					Attractiveness: -10
+					TargetMetric: Value
+					CheckRadius: 7c0
+			nukepower2:
+				OrderName: TempleNuke
+				MinimumAttractiveness: 3000
+				Consideration@1:
+					Against: Enemy
+					Types: Structure
+					Attractiveness: 1
+					TargetMetric: Value
+					CheckRadius: 5c0
+				Consideration@2:
+					Against: Ally
+					Types: Air, Ground, Water
+					Attractiveness: -10
+					TargetMetric: Value
+					CheckRadius: 7c0
+			nukepower3:
+				OrderName: ScudStorm
+				MinimumAttractiveness: 3000
+				Consideration@1:
+					Against: Enemy
+					Types: Structure
+					Attractiveness: 1
+					TargetMetric: Value
+					CheckRadius: 5c0
+				Consideration@2:
+					Against: Ally
+					Types: Air, Ground, Water
+					Attractiveness: -10
+					TargetMetric: Value
+					CheckRadius: 7c0
+			nukepower4:
+				OrderName: ScudStorm2
+				MinimumAttractiveness: 3000
+				Consideration@1:
+					Against: Enemy
+					Types: Structure
+					Attractiveness: 1
+					TargetMetric: Value
+					CheckRadius: 5c0
+				Consideration@2:
+					Against: Ally
+					Types: Air, Ground, Water
+					Attractiveness: -10
+					TargetMetric: Value
+					CheckRadius: 7c0
+			nukepower5:
+				OrderName: VoidRain
+				MinimumAttractiveness: 3000
+				Consideration@1:
+					Against: Enemy
+					Types: Structure
+					Attractiveness: 1
+					TargetMetric: Value
+					CheckRadius: 5c0
+				Consideration@2:
+					Against: Ally
+					Types: Air, Ground, Water
+					Attractiveness: -10
+					TargetMetric: Value
+					CheckRadius: 7c0
+			nukepower6:
+				OrderName: GateOfBabylon
+				MinimumAttractiveness: 3000
+				Consideration@1:
+					Against: Enemy
+					Types: Structure
+					Attractiveness: 1
+					TargetMetric: Value
+					CheckRadius: 5c0
+				Consideration@2:
+					Against: Ally
+					Types: Air, Ground, Water
+					Attractiveness: -10
+					TargetMetric: Value
+					CheckRadius: 7c0
+			nukepower7:
+				OrderName: medivoidweapon
+				MinimumAttractiveness: 3000
+				Consideration@1:
+					Against: Enemy
+					Types: Structure
+					Attractiveness: 1
+					TargetMetric: Value
+					CheckRadius: 5c0
+				Consideration@2:
+					Against: Ally
+					Types: Air, Ground, Water
+					Attractiveness: -10
+					TargetMetric: Value
+					CheckRadius: 7c0
+			nukepower8:
+				OrderName: medielementalweapon
+				MinimumAttractiveness: 3000
+				Consideration@1:
+					Against: Enemy
+					Types: Structure
+					Attractiveness: 1
+					TargetMetric: Value
+					CheckRadius: 5c0
+				Consideration@2:
+					Against: Ally
+					Types: Air, Ground, Water
+					Attractiveness: -10
+					TargetMetric: Value
+					CheckRadius: 7c0
+			nukepower9:
+				OrderName: LightningStorm
+				MinimumAttractiveness: 3000
+				Consideration@1:
+					Against: Enemy
+					Types: Structure
+					Attractiveness: 1
+					TargetMetric: Value
+					CheckRadius: 5c0
+				Consideration@2:
+					Against: Ally
+					Types: Air, Ground, Water
+					Attractiveness: -10
+					TargetMetric: Value
+					CheckRadius: 7c0
+			IonCannonPower:
+				OrderName: IonCannonPowerInfoOrder
+				MinimumAttractiveness: 1000
+				FineScanRadius: 2
+				Consideration@1:
+					Against: Enemy
+					Types: Air, Tank, Vehicle, Infantry, Water
+					Attractiveness: 2
+					TargetMetric: Value
+					CheckRadius: 2c0
+				Consideration@2:
+					Against: Enemy
+					Types: Structure
+					Attractiveness: 1
+					TargetMetric: Value
+					CheckRadius: 2c0
+				Consideration@3:
+					Against: Ally
+					Types: Ground, Water
+					Attractiveness: -10
+					TargetMetric: Value
+					CheckRadius: 3c0
+			EMP:
+				OrderName: EMPPower
+				MinimumAttractiveness: 1000
+				FineScanRadius: 2
+				Consideration@1:
+					Against: Enemy
+					Types: Air, Tank, Vehicle, Infantry
+					Attractiveness: 2
+					TargetMetric: Value
+					CheckRadius: 2c0
+				Consideration@2:
+					Against: Enemy
+					Types: Structure
+					Attractiveness: 1
+					TargetMetric: Value
+					CheckRadius: 2c0
+				Consideration@3:
+					Against: Ally
+					Types: Ground, Water
+					Attractiveness: -10
+					TargetMetric: Value
+					CheckRadius: 3c0
+			Catalyst:
+				OrderName: CatalystPower
+				MinimumAttractiveness: 3000
+				Consideration@1:
+					Against: Enemy
+					Types: Structure
+					Attractiveness: 1
+					TargetMetric: Value
+					CheckRadius: 3c0
+				Consideration@2:
+					Against: Ally
+					Types: Air, Ground, Water
+					Attractiveness: -10
+					TargetMetric: Value
+					CheckRadius: 7c0
+			Primer:
+				OrderName: PrimerPower
+				MinimumAttractiveness: 1
+				Consideration@1:
+					Against: Ally
+					Types: Catalyst
+					Attractiveness: 1
+					TargetMetric: None
+					CheckRadius: 5c0
+			paradoom:
+				OrderName: Paradoom
+				MinimumAttractiveness: 5
+				Consideration@1:
+					Against: Enemy
+					Types: Structure
+					Attractiveness: 1
+					TargetMetric: None
+					CheckRadius: 8c0
+				Consideration@2:
+					Against: Enemy
+					Types: Water
+					Attractiveness: -5
+					TargetMetric: None
+					CheckRadius: 8c0
+			hellportal1:
+				OrderName: HellPortalPower1
+				MinimumAttractiveness: 5
+				Consideration@1:
+					Against: Enemy
+					Types: Structure
+					Attractiveness: 1
+					TargetMetric: None
+					CheckRadius: 8c0
+				Consideration@2:
+					Against: Enemy
+					Types: Water
+					Attractiveness: -5
+					TargetMetric: None
+					CheckRadius: 8c0
+			hellportal2:
+				OrderName: HellPortalPower2
+				MinimumAttractiveness: 5
+				Consideration@1:
+					Against: Enemy
+					Types: Structure
+					Attractiveness: 1
+					TargetMetric: None
+					CheckRadius: 8c0
+				Consideration@2:
+					Against: Enemy
+					Types: Water
+					Attractiveness: -5
+					TargetMetric: None
+					CheckRadius: 8c0
+			NapalmStrike:
+				OrderName: GDINapalmStrike
+				MinimumAttractiveness: 1
+				Consideration@1:
+					Against: Enemy
+					Types: Structure
+					Attractiveness: 1
+					TargetMetric: None
+					CheckRadius: 5c0
+			Do17Strike:
+				OrderName: Do17Strike
+				MinimumAttractiveness: 1
+				Consideration@1:
+					Against: Enemy
+					Types: Structure
+					Attractiveness: 1
+					TargetMetric: None
+					CheckRadius: 5c0
+			ChemStrike:
+				OrderName: NodChemStrike
+				MinimumAttractiveness: 1
+				Consideration@1:
+					Against: Enemy
+					Types: Infantry, Vehicle
+					Attractiveness: 1
+					TargetMetric: None
+					CheckRadius: 5c0
+			ChemStrike2:
+				OrderName: GLAChemStrike
+				MinimumAttractiveness: 1
+				Consideration@1:
+					Against: Enemy
+					Types: Infantry, Vehicle
+					Attractiveness: 1
+					TargetMetric: None
+					CheckRadius: 5c0
+			Scrambler:
+				OrderName: GPSScrambler
+				MinimumAttractiveness: 5
+				Consideration@1:
+					Against: Ally
+					Types: Tank, Infantry, Structure
+					Attractiveness: 1
+					TargetMetric: Value
+					CheckRadius: 2c0
+			RussiaParatanks:
+				OrderName: RussiaParatanks
+				MinimumAttractiveness: 5
+				Consideration@1:
+					Against: Enemy
+					Types: Structure
+					Attractiveness: 1
+					TargetMetric: None
+					CheckRadius: 8c0
+				Consideration@2:
+					Against: Enemy
+					Types: Water
+					Attractiveness: -5
+					TargetMetric: None
+					CheckRadius: 8c0
+			himmlertroopers:
+				OrderName: EpicHimmler2
+				MinimumAttractiveness: 5
+				Consideration@1:
+					Against: Enemy
+					Types: Structure
+					Attractiveness: 1
+					TargetMetric: None
+					CheckRadius: 8c0
+				Consideration@2:
+					Against: Enemy
+					Types: Water
+					Attractiveness: -5
+					TargetMetric: None
+					CheckRadius: 8c0
+			himmlerbomb:
+				OrderName: EpicHimmler1
+				MinimumAttractiveness: 1
+				Consideration@1:
+					Against: Enemy
+					Types: Structure
+					Attractiveness: 1
+					TargetMetric: None
+					CheckRadius: 5c0
+			lunartroopers:
+				OrderName: LunarParatroopers
+				MinimumAttractiveness: 5
+				Consideration@1:
+					Against: Enemy
+					Types: Structure
+					Attractiveness: 1
+					TargetMetric: None
+					CheckRadius: 8c0
+				Consideration@2:
+					Against: Enemy
+					Types: Water
+					Attractiveness: -5
+					TargetMetric: None
+					CheckRadius: 8c0
+			lunarbomb:
+				OrderName: LunarParabombs
+				MinimumAttractiveness: 1
+				Consideration@1:
+					Against: Enemy
+					Types: Structure
+					Attractiveness: 1
+					TargetMetric: None
+					CheckRadius: 5c0
+			rebelambush:
+				OrderName: RebelAmbush
+				MinimumAttractiveness: 1
+				Consideration@1:
+					Against: Enemy
+					Types: Structure
+					Attractiveness: 5
+					TargetMetric: Value
+					CheckRadius: 5c0
+				Consideration@2:
+					Against: Enemy
+					Types: Water, Defense
+					Attractiveness: -5
+					TargetMetric: None
+					CheckRadius: 5c0
+			terrambush:
+				OrderName: BombAmbush
+				MinimumAttractiveness: 1
+				Consideration@1:
+					Against: Enemy
+					Types: Structure
+					Attractiveness: 5
+					TargetMetric: Value
+					CheckRadius: 5c0
+				Consideration@2:
+					Against: Enemy
+					Types: Water, Defense
+					Attractiveness: -5
+					TargetMetric: None
+					CheckRadius: 5c0
+			HolyLightPower:
+				OrderName: HolyLight
+				MinimumAttractiveness: 5
+				Consideration@1:
+					Against: Ally
+					Types: Tank, Infantry, Structure
+					Attractiveness: 1
+					TargetMetric: Value
+					CheckRadius: 4c0
+			SmitePower:
+				OrderName: SmitePower
+				MinimumAttractiveness: 1000
+				FineScanRadius: 2
+				Consideration@1:
+					Against: Enemy
+					Types: Infantry
+					Attractiveness: 100
+					TargetMetric: Value
+					CheckRadius: 5c0
+				Consideration@3:
+					Against: Ally
+					Types: Infantry
+					Attractiveness: -100
+					TargetMetric: Value
+					CheckRadius: 5c0
+			CursePower:
+				OrderName: CursePower
+				MinimumAttractiveness: 1000
+				FineScanRadius: 2
+				Consideration@1:
+					Against: Enemy
+					Types: Air, Tank, Vehicle, Infantry, Water
+					Attractiveness: 3
+					TargetMetric: Value
+					CheckRadius: 5c0
+				Consideration@2:
+					Against: Enemy
+					Types: Structure
+					Attractiveness: 1
+					TargetMetric: Value
+					CheckRadius: 5c0
+				Consideration@3:
+					Against: Ally
+					Types: Ground, Water
+					Attractiveness: -10
+					TargetMetric: Value
+					CheckRadius: 5c0
+			ElementTotem:
+				OrderName: ElementTotem
+				MinimumAttractiveness: 1000
+				FineScanRadius: 2
+				Consideration@1:
+					Against: Enemy
+					Types: Air, Tank, Vehicle, Infantry, Water
+					Attractiveness: 2
+					TargetMetric: Value
+					CheckRadius: 2c0
+				Consideration@2:
+					Against: Enemy
+					Types: Structure
+					Attractiveness: 1
+					TargetMetric: Value
+					CheckRadius: 2c0
+				Consideration@3:
+					Against: Ally
+					Types: Ground, Water
+					Attractiveness: 1
+					TargetMetric: Value
+					CheckRadius: 3c0
+			ElementalGolem:
+				OrderName: ElementalGolem
+				MinimumAttractiveness: 5
+				Consideration@1:
+					Against: Enemy
+					Types: Structure
+					Attractiveness: 1
+					TargetMetric: None
+					CheckRadius: 8c0
+				Consideration@2:
+					Against: Enemy
+					Types: Water
+					Attractiveness: -5
+					TargetMetric: None
+					CheckRadius: 8c0
+			ChainsPower:
+				OrderName: ChainsPower
+				MinimumAttractiveness: 1000
+				FineScanRadius: 2
+				Consideration@1:
+					Against: Enemy
+					Types: Air, Tank, Vehicle, Infantry
+					Attractiveness: 2
+					TargetMetric: Value
+					CheckRadius: 2c0
+				Consideration@2:
+					Against: Enemy
+					Types: Structure
+					Attractiveness: 1
+					TargetMetric: Value
+					CheckRadius: 2c0
+				Consideration@3:
+					Against: Ally
+					Types: Ground, Water
+					Attractiveness: -10
+					TargetMetric: Value
+					CheckRadius: 3c0
+			ElementalAirstrike:
+				OrderName: ElementalAirstrike
+				MinimumAttractiveness: 1
+				Consideration@1:
+					Against: Enemy
+					Types: Structure
+					Attractiveness: 1
+					TargetMetric: None
+					CheckRadius: 5c0
+			ParatankSoviet:
+				OrderName: ParatankSoviet
+				MinimumAttractiveness: 5
+				Consideration@1:
+					Against: Enemy
+					Types: Structure
+					Attractiveness: 1
+					TargetMetric: None
+					CheckRadius: 8c0
+				Consideration@2:
+					Against: Enemy
+					Types: Water
+					Attractiveness: -5
+					TargetMetric: None
+					CheckRadius: 8c0
+			ParatankAllies:
+				OrderName: ParatankAllies
+				MinimumAttractiveness: 5
+				Consideration@1:
+					Against: Enemy
+					Types: Structure
+					Attractiveness: 1
+					TargetMetric: None
+					CheckRadius: 8c0
+				Consideration@2:
+					Against: Enemy
+					Types: Water
+					Attractiveness: -5
+					TargetMetric: None
+					CheckRadius: 8c0
+			ParatankGDI:
+				OrderName: ParatankGDI
+				MinimumAttractiveness: 5
+				Consideration@1:
+					Against: Enemy
+					Types: Structure
+					Attractiveness: 1
+					TargetMetric: None
+					CheckRadius: 8c0
+				Consideration@2:
+					Against: Enemy
+					Types: Water
+					Attractiveness: -5
+					TargetMetric: None
+					CheckRadius: 8c0
+			ParatankNod:
+				OrderName: ParatankNod
+				MinimumAttractiveness: 5
+				Consideration@1:
+					Against: Enemy
+					Types: Structure
+					Attractiveness: 1
+					TargetMetric: None
+					CheckRadius: 8c0
+				Consideration@2:
+					Against: Enemy
+					Types: Water
+					Attractiveness: -5
+					TargetMetric: None
+					CheckRadius: 8c0
+			ParatankFed:
+				OrderName: ParatankFed
+				MinimumAttractiveness: 5
+				Consideration@1:
+					Against: Enemy
+					Types: Structure
+					Attractiveness: 1
+					TargetMetric: None
+					CheckRadius: 8c0
+				Consideration@2:
+					Against: Enemy
+					Types: Water
+					Attractiveness: -5
+					TargetMetric: None
+					CheckRadius: 8c0
+			ParatankUAC:
+				OrderName: ParatankUAC
+				MinimumAttractiveness: 5
+				Consideration@1:
+					Against: Enemy
+					Types: Structure
+					Attractiveness: 1
+					TargetMetric: None
+					CheckRadius: 8c0
+				Consideration@2:
+					Against: Enemy
+					Types: Water
+					Attractiveness: -5
+					TargetMetric: None
+					CheckRadius: 8c0
+			ParatankNazi:
+				OrderName: ParatankNazi
+				MinimumAttractiveness: 5
+				Consideration@1:
+					Against: Enemy
+					Types: Structure
+					Attractiveness: 1
+					TargetMetric: None
+					CheckRadius: 8c0
+				Consideration@2:
+					Against: Enemy
+					Types: Water
+					Attractiveness: -5
+					TargetMetric: None
+					CheckRadius: 8c0
+			ParatankGLA:
+				OrderName: ParatankGLA
+				MinimumAttractiveness: 5
+				Consideration@1:
+					Against: Enemy
+					Types: Structure
+					Attractiveness: 1
+					TargetMetric: None
+					CheckRadius: 8c0
+				Consideration@2:
+					Against: Enemy
+					Types: Water
+					Attractiveness: -5
+					TargetMetric: None
+					CheckRadius: 8c0

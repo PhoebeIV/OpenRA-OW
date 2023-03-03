@@ -1,0 +1,60 @@
+MIG:
+	Buildable:
+		Prerequisites: ~afld, techcenter, ~techlevel.high, ~aircraft.soviet
+		Description: Fast Ground-Attack Plane.\nSpeed: 256\n  Strong vs Buildings, Vehicles\n  Weak vs Infantry, Aircraft
+	Aircraft:
+		Speed: 256
+YAK:
+	Buildable:
+		Prerequisites: ~afld, ~techlevel.medium, ~aircraft.soviet
+		Description: Attack Plane armed with\ndual machine guns.\nSpeed: 178\n  Strong vs Infantry, Light armor\n  Weak vs Tanks, Aircraft
+
+N.MIG:
+	Inherits: MIG
+	Buildable:
+		Queue: Aircraft
+		BuildAtProductionType: Plane
+		BuildPaletteOrder: 65
+		Prerequisites: ~afld, advtechcenter, mslo, ~techlevel.unrestricted, ~aircraft.ukraine
+		BuildLimit: 3
+		Icon: nuke-icon
+		Description: Fast Ground-Attack Plane with nuclear warheads.\n  Strong vs Everything, Tanks\n  Weak vs Aircraft
+	Valued:
+		Cost: 2500
+	Tooltip:
+		Name: Nuke MiG
+	RenderSprites:
+		Image: MIG
+	Health:
+		HP: 12000
+	Armament:
+		Weapon: NukeMaverick
+		LocalOffset: 0,-640,0, 0,640,0
+		LocalYaw: -40, 24
+		PauseOnCondition: !ammo
+	AmmoPool:
+		Ammo: 1
+		ReloadDelay: 350
+	Aircraft:
+		Speed: 190
+	RevealsShroud:
+		MinRange: 5c0
+		Range: 8c0
+		MoveRecalculationThreshold: 0
+		Type: GroundPosition
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 5c0
+		MoveRecalculationThreshold: 0
+		Type: GroundPosition
+	Contrail@1:
+		Offset: -598,-683,0
+		StartColor: FF0000
+		StartColorUsePlayerColor: false
+	Contrail@2:
+		Offset: -598,683,0
+		StartColor: FF0000
+		StartColorUsePlayerColor: false
+	WithAmmoPipsDecoration:
+		Position: BottomLeft
+		RequiresSelection: true

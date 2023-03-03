@@ -1,0 +1,62 @@
+Player:
+	-ConquestVictoryConditions:
+	LobbyPrerequisiteCheckbox@GLOBALBOUNTY:
+		Enabled: False
+		Locked: True
+
+World:
+	-CrateSpawner:
+	-SpawnMPUnits:
+	-MPStartLocations:
+	MusicPlaylist:
+		BackgroundMusic: credits
+	ResourceType@ore:
+		ValuePerUnit: 0
+	GlobalLightingPaletteEffect:
+		Red: 1 # 1.5
+		Green: 1 # 1.1
+		Blue: 1 # 0.8
+		Ambient: 1 # 0.8
+	LuaScript:
+		Scripts: zombie-shellmap.lua
+	-StartGameNotification:
+
+^ExistsInWorld:
+	GivesExperience:
+		ActorExperienceModifier: 0
+
+^Vehicle:
+	DamageMultiplier@UNKILLABLE:
+		RequiresCondition: unkillable
+		Modifier: 0
+	ExternalCondition@UNKILLABLE:
+		Condition: unkillable
+
+^Infantry:
+	DeathSounds@NORMAL:
+		VolumeMultiplier: 0.1
+	DeathSounds@BURNED:
+		VolumeMultiplier: 0.1
+	DeathSounds@ZAPPED:
+		VolumeMultiplier: 0.1
+
+^Bridge:
+	DamageMultiplier:
+		Modifier: 0
+
+^Wall:
+	DamageMultiplier:
+		Modifier: 0
+
+APC:
+	Cargo:
+		InitialUnits: e1, e1, e1, e1, e1
+
+APC.G:
+	Cargo:
+		InitialUnits: e1.d, e1.d, e1.d, e1.d, e1.d
+
+powerproxy.paratroopers:
+	ParatroopersPower:
+		DisplayBeacon: false
+		DropItems: E1.D,E1.D,E1.D,E1.D,E1.D,RMBO

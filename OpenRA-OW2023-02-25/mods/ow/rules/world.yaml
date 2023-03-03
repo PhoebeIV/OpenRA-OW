@@ -1,0 +1,849 @@
+^BaseWorld:
+	Inherits: ^Palettes
+	AlwaysVisible:
+	ActorMap:
+	ScreenMap:
+	Selection:
+	MusicPlaylist:
+		VictoryMusic: score
+		DefeatMusic: map
+	TerrainGeometryOverlay:
+	DebugVisualizations:
+	Locomotor@FOOT:
+		Name: foot
+		Crushes: mine, crate
+		SharesCell: true
+		TerrainSpeeds:
+			Clear: 90
+			Rough: 80
+			Road: 100
+			Bridge: 100
+			Ore: 80
+			Gems: 80
+			Tiberium: 70
+				PathingCost: 300
+			BlueTiberium: 70
+				PathingCost: 300
+			Beach: 80
+	Locomotor@FOOT2:
+		Name: foot2
+		Crushes: mine, crate
+		TerrainSpeeds:
+			Clear: 90
+			Rough: 80
+			Road: 100
+			Bridge: 100
+			Ore: 100
+			Gems: 100
+			Tiberium: 70
+				PathingCost: 300
+			BlueTiberium: 70
+				PathingCost: 300
+			Beach: 80
+	Locomotor@WHEELED:
+		Name: wheeled
+		Crushes: mine, crate
+		TerrainSpeeds:
+			Clear: 80
+			Rough: 40
+			Road: 100
+			Bridge: 100
+			Ore: 70
+			Gems: 70
+			Tiberium: 70
+			BlueTiberium: 70
+			Beach: 40
+	Locomotor@HEAVYWHEELED:
+		Name: heavywheeled
+		Crushes: wall, mine, crate, infantry
+		TerrainSpeeds:
+			Clear: 80
+			Rough: 40
+			Road: 100
+			Bridge: 100
+			Ore: 70
+			Gems: 70
+			Tiberium: 70
+			BlueTiberium: 70
+			Beach: 40
+	Locomotor@LIGHTTRACKED:
+		Name: lighttracked
+		Crushes: wall, mine, crate
+		TerrainSpeeds:
+			Clear: 80
+			Rough: 70
+			Road: 100
+			Bridge: 100
+			Ore: 70
+			Gems: 70
+			Tiberium: 70
+			BlueTiberium: 70
+			Beach: 70
+	Locomotor@TRACKED:
+		Name: tracked
+		Crushes: wall, infantry, mine, crate
+		TerrainSpeeds:
+			Clear: 80
+			Rough: 70
+			Road: 100
+			Bridge: 100
+			Ore: 70
+			Gems: 70
+			Tiberium: 70
+			BlueTiberium: 70
+			Beach: 70
+	Locomotor@HEAVYTRACKED:
+		Name: heavytracked
+		Crushes: wall, infantry, mine, crate, heavywall
+		TerrainSpeeds:
+			Clear: 80
+			Rough: 70
+			Road: 100
+			Bridge: 100
+			Ore: 70
+			Gems: 70
+			Tiberium: 70
+			BlueTiberium: 70
+			Beach: 70
+	Locomotor@NAVAL:
+		Name: naval
+		Crushes: crate
+		TerrainSpeeds:
+			Water: 100
+	Locomotor@LANDINGCRAFT:
+		Name: lcraft
+		Crushes: crate
+		TerrainSpeeds:
+			Water: 100
+			Beach: 70
+	Locomotor@IMMOBILE:
+		Name: immobile
+		TerrainSpeeds:
+	Locomotor@BIKE:
+		Name: bike
+		Crushes: crate
+		TerrainSpeeds:
+			Clear: 80
+			Rough: 35
+			Road: 100
+			Bridge: 100
+			Tiberium: 35
+			BlueTiberium: 35
+			Ore: 35
+			Gems: 35
+			Beach: 35
+	Locomotor@DRONE:
+		Name: drone
+		Crushes: crate
+		TerrainSpeeds:
+			Clear: 100
+			Rough: 100
+			Road: 100
+			Ore: 100
+			Bridge: 100
+			Gems: 100
+			Tiberium: 100
+			BlueTiberium: 100
+			Beach: 90
+			Water: 80
+			Wall: 50
+			Rock: 50
+			River: 80
+	Locomotor@HOVER:
+		Name: hover
+		Crushes: crate
+		TerrainSpeeds:
+			Clear: 100
+			Rough: 100
+			Road: 100
+			Bridge: 100
+			Ore: 100
+			Gems: 100
+			Tiberium: 100
+			BlueTiberium: 100
+			Beach: 90
+			Water: 80
+			River: 80
+	Locomotor@BIGMECH:
+		Name: bigmech
+		Crushes: mine, crate, wall, infantry, heavywall
+		TerrainSpeeds:
+			Clear: 90
+			Rough: 60
+			Road: 100
+			Bridge: 100
+			Ore: 80
+			Gems: 80
+			Tiberium: 80
+			BlueTiberium: 80
+			Beach: 70
+	JumpjetLocomotor@JUMPJET:
+		Name: jumpjet
+		Crushes: crate
+		SharesCell: true
+		JumpjetTransitionCost: 100
+		TerrainSpeeds:
+			Clear: 90
+			Rough: 80
+			Road: 100
+			Bridge: 100
+			Tiberium: 70
+			BlueTiberium: 70
+			Beach: 80
+			Jumpjet: 110
+			Ore: 70
+			Gems: 70
+	JumpjetActorLayer:
+		HeightOffset: 1280
+	Locomotor@FLOAT:
+		Name: floater
+		Crushes: crate
+		SharesCell: false
+		TerrainSpeeds:
+			Clear: 100
+			Rough: 100
+			Road: 100
+			Bridge: 100
+			Ore: 100
+			Gems: 100
+			Tiberium: 100
+			BlueTiberium: 100
+			Beach: 100
+			Water: 75
+			Rock: 50
+			River: 50
+	Locomotor@GBIKE:
+		Name: gbike
+		Crushes: crate
+		SharesCell: false
+		TerrainSpeeds:
+			Clear: 100
+			Rough: 100
+			Road: 100
+			Bridge: 100
+			Ore: 100
+			Gems: 100
+			Tiberium: 100
+			BlueTiberium: 100
+			Beach: 100
+			Rock: 50
+			River: 50
+	TerrainRenderer:
+	ShroudRenderer:
+		FogVariants: shroud
+		Index: 255, 16, 32, 48, 64, 80, 96, 112, 128, 144, 160, 176, 192, 208, 224, 240, 20, 40, 56, 65, 97, 130, 148, 194, 24, 33, 66, 132, 28, 41, 67, 134, 1, 2, 4, 8, 3, 6, 12, 9, 7, 14, 13, 11, 5, 10, 15, 255
+		UseExtendedIndex: true
+	Faction@0:
+		Name: Allies Forces
+		InternalName: allies
+		Side: Allied Forces
+		Selectable: False
+	Faction@1:
+		Name: England
+		InternalName: england
+		Side: Allied Forces
+		Description: England: Espionage\nSpecial Units: Super Spy, Phase Transport,\n   Submersive Transport\nEpic Unit: Assassin Tanya\nEpitech Ability: ?
+	Faction@2:
+		Name: France
+		InternalName: france
+		Side: Allied Forces
+		Description: France: Deception\nSpecial Ability: Can build fake structures\nSpecial Unit: Mobile Gap Generator\nEpic Unit: A.E.I.O.U. [Support]\nEpitech Ability: ?
+	Faction@3:
+		Name: Germany
+		InternalName: germany
+		Side: Allied Forces
+		Description: Germany: Technology\nSpecial Ability: Advanced Chronoshift\nSpecial Unit: Chrono Tank\nEpic Unit: Chrono-Tanya\nEpitech Ability: ?
+	Faction@4:
+		Name: Soviet Union
+		InternalName: soviet
+		Side: Soviet Union
+		Selectable: False
+	Faction@5:
+		Name: Russia
+		InternalName: russia
+		Side: Soviet Union
+		Description: Russia: Tesla Weapons\nSpecial Units: Tesla Tank, Shock Trooper\nEpic Unit: Tesla Goliath\nEpitech Ability: Paratank Drop
+	Faction@6:
+		Name: Ukraine
+		InternalName: ukraine
+		Side: Soviet Union
+		Description: Ukraine: Explosives\nSpecial Ability: Parabombs\nSpecial Units: Nuke Demolition Truck, Nuke MiG\nEpic Unit: Apocalypse Tank
+	Faction@7:
+		Name: Estonia
+		InternalName: estonia
+		Side: Soviet Union
+		Description: Estonia: Defenses\nSpecial Buildings: Reinforced Walls, Gun Turrets\nSpecial Building: EMP Tesla Coil\nSpecial Ability: Advanced Iron Curtain\nSpecial Ability: Level 1 Building upgrades free at start.\nEpitech Ability: E.M. Pulse
+	Faction@gdi:
+		Name: Global Defense Initiative
+		InternalName: gdi
+		Side: Global Defense Initiative
+		Description: GDI: Heavy Weaponry
+		Selectable: False
+	Faction@steel:
+		Name: Steel Talons
+		InternalName: steel
+		Side: Global Defense Initiative
+		Description: Steel Talons: Walker Tech\nSpecial Units: Wolverine, Titan, Juggernaut\n   Marauder\nEpic Unit: Dire Wolf Assault Mech\n\nNo Tanks, or Commando
+	Faction@zocom:
+		Name: ZOCOM
+		InternalName: zocom
+		Side: Global Defense Initiative
+		Description: ZOCOM: Infantry\nSpecial Ability: Veteran Infantry\nSpecial Units: JumpJet Infantry, ZOCOM Commando\nEpic Unit: Super Elite\n\nNo Mammoth Tank
+	Faction@gdi3:
+		Name: GDI Aerospace
+		InternalName: gdi3
+		Side: Global Defense Initiative
+		Description: Aerospace Division: Air Superiority\nSpecial Ability: Cheaper Aircraft\nSpecial Units: Orca Gunship, Orca Bomber, Orca Carryall\nEpic Unit: Flagship Kodiak\n\nNo Cruiser or Destroyer
+	Faction@nod:
+		Name: Brotherhood of Nod
+		InternalName: nod
+		Side: Brotherhood of Nod
+		Description: Nod: Hit & Run Tactics
+		Selectable: False
+	Faction@bhand:
+		Name: Black Hand
+		InternalName: bhand
+		Side: Brotherhood of Nod
+		Description: Black Hand: Stealth\nSpecial Building: Stealth Generator\nSpecial Units: Stealth Soldier, Stealth Harvester\n    Mobile Stealth Gen, Stealth Tank\nEpitech Ability: Cloaking Devices\n\nNo flame tank
+	Faction@marked:
+		Name: Marked of Kane
+		InternalName: marked
+		Side: Brotherhood of Nod
+		Description: Marked of Kane: Cybernetics\nSpecial Units: Cyborg, Medic, \n   Scorpion, Purifier\nEpic Unit: Cyborg Commando\n\nNo Banshee or Napalm Strike
+	Faction@nod3:
+		Name: Separatists
+		InternalName: nod3
+		Side: Brotherhood of Nod
+		Description: Nod Separatists: Chemical Warfare\nSpecial Units: Chem Warrior, Chem Tank, A-10 Chem Duster\nSpecial Ability: A-10 Chem Strike\nEpitech Ability: Catalyst Bomb\n\nNo Missile Sub
+	Faction@fed:
+		Name: The Federation
+		InternalName: fed
+		Side: The Federation
+		Description: Federation: Superior Units and Quick Strikes
+		Selectable: False
+	Faction@sword:
+		Name: Ardent Sword
+		InternalName: sword
+		Side: The Federation
+		Description: Ardent Sword: Land Control\nSpecial Unit: Legionary\nEpic Unit: Sol Cannon \n\nNo Missile Frigate
+	Faction@angels:
+		Name: Lunar Angels
+		InternalName: angels
+		Side: The Federation
+		Description: Lunar Angels: Aerial Domination\nSpecial Unit: Paladin Fighter\nEpitech Ability: Lunar Carpet Bomb, Lunar Strike \n\nNo Plasma Tank or Rook
+	Faction@silver:
+		Name: Silver Lining
+		InternalName: silver
+		Side: The Federation
+		Description: Silver Lining: Naval Superiority\nSpecial Unit: Railgun Destroyer\nEpic Unit: The Silver Lining \n\nNo AC-130 Spectre
+	Faction@uac:
+		Name: Union Aerospace Corporation
+		InternalName: uac
+		Side: Union Aerospace Corporation
+		Description: UAC: Futuristic Technology
+		Selectable: False
+	Faction@phobos:
+		Name: Phobos Corps
+		InternalName: phobos
+		Side: Union Aerospace Corporation
+		Description: Phobos Corps: Marines\nSpecial Ability: Veteran Infantry\nSpecial Units: BFG Marine, Sniper, Raider Mammoth\nEpic Unit: Sarge\nEpitech Ability: Paradoom \n\nNo Cyberdemon
+	Faction@deimos:
+		Name: Deimos Corps
+		InternalName: deimos
+		Side: Union Aerospace Corporation
+		Description: Deimos Corps: Demons\nSpecial Ability: Early Hellgate Access - Limit to 2\nSpecial Units: Demons replace most Marines\nEpic Unit: Spider Mastermind\n\nNo Sniper
+	Faction@mars:
+		Name: Mars Corps
+		InternalName: mars
+		Side: Union Aerospace Corporation
+		Description: Mars Corps: Vehicular Firepower\nSpecial Ability: Veteran Vehicles\nSpecial Unit: Mammoth Overlord\nEpic Unit: Baneblade\n\nNo Sniper or Medic
+	Faction@nazi:
+		Name: The Third Reich
+		InternalName: nazi
+		Side: The Third Reich
+		Description: Nazi: Powerful vehicle domination
+		Selectable: False
+	Faction@hitler:
+		Name: Das Reich
+		InternalName: hitler
+		Side: The Third Reich
+		Description: Adolf Hitler: Vehicular Firepower\nSpecial Units: Maus Super Heavy Tank, Seige Tank\nEpic Unit: Mecha-Hitler\nEpitech Ability: Paradrop Tanks\n\nNo Do17 Strike
+	Faction@himmler:
+		Name: Schutzstaffel
+		InternalName: himmler
+		Side: The Third Reich
+		Description: Heinrich Himmler: Maximum Damage\nSpecial Units: Supersoldier, Death Knight\nSpecial Units: Inferno Artillery, Do-17 Bomber\nEpic Ability: Auschwitz Carpet Bomb, Stormtrooper Strike
+	Faction@heydrich:
+		Name: Sicherheitsdienst
+		InternalName: heydrich
+		Side: The Third Reich
+		Description: Reinhard Heydrich: Intelligence\nSpecial Ability: GPS Satellite\nSpecial Units: Super Hijacker, Do-17 Stealth Bomber\nSpecial Building: Stealth Generator\nEpic Ability: Cloaking Devices\n\nMed Tank replaces Heavy Tank
+	Faction@gla:
+		Name: Global Liberation Army
+		InternalName: gla
+		Side: Global Liberation Army
+		Description: GLA: Guerilla warfare
+		Selectable: False
+	Faction@demo:
+		Name: Rodall Juhziz
+		InternalName: demo
+		Side: Global Liberation Army
+		Description: General "Demo" Juhziz: Demolitions Expert\nSpecial Units: Nuke Demo Truck, High Ex. Terrorists\nEpic Ability: Terrorist Ambush\n  \nNo toxin truck or aircraft
+	Faction@kassad:
+		Name: Prince Kassad
+		InternalName: kassad
+		Side: Global Liberation Army
+		Description: General Kassad: Stealth and Ambushing\nSpecial Ability: Hidden GLA holes\nSpecial Units: Stealth terrorists and demo trucks\nEpic Ability: Rebel Ambush\nNo SCUD or aircraft
+	Faction@thrax:
+		Name: Dr. Thrax
+		InternalName: thrax
+		Side: Global Liberation Army
+		Description: Dr. Thrax: Chemical Warfare\nSpecial Units: Toxin Scud Launcher, Chem Warrior\nSuperweapon: Toxin Scud Storm\nEpic Ability: Chem Strike\nNo aircraft
+	Faction@medi:
+		Name: Medival
+		InternalName: medi
+		Side: Medieval
+		Description: Medival Faction of knights
+		Selectable: False
+	Faction@darkness:
+		Name: Dark Knights
+		InternalName: darkness
+		Side: Medieval
+		Description: Dark order of knights
+	Faction@holy:
+		Name: The Holy Chapter
+		InternalName: holy
+		Side: Medieval
+		Description: Holy Faction of knights
+	Faction@elementalists:
+		Name: Mages Guild
+		InternalName: elementalists
+		Side: Medieval
+		Description: Elemental Mage order
+	Faction@protoss:
+		Name: Protoss
+		InternalName: protoss
+		Side: StarCraft
+		Description: ancient aliens
+	Faction@civ:
+		Name: Civilians
+		InternalName: civ
+		Side: Civilian
+		Description: [incomplete] Civilians: Support\nSpecial Unit: Nothing\nEpic Unit: President\nEpitech Ability: Mass Supply Drop
+	Faction@random:
+		Name: Any
+		InternalName: Random
+		RandomFactionMembers: RandomAllies, RandomSoviet, RandomGDI, RandomNod, RandomUAC, RandomNazi, RandomGLA, RandomFed, RandomMedi, protoss
+		Side: Random
+		Description: Random Faction\nA random faction will be chosen when the game starts.
+	Faction@randomallies:
+		Name: Allies
+		InternalName: RandomAllies
+		RandomFactionMembers: england, france, germany
+		Side: Random
+		Description: Random Allied Country\nSpecialty: Intelligence and logistics.\nUtility: Chronosphere, GPS Satellite\nSuperweapon: Atom Bomb\nA random Allied country will be chosen when the game starts.
+	Faction@randomsoviet:
+		Name: Soviet
+		InternalName: RandomSoviet
+		RandomFactionMembers: russia, ukraine, estonia
+		Side: Random
+		Description: Random Soviet Country\nSpecialty: Heavy weapons.\nUtility: Iron Curtain, Spy Plane, Paratroopers\nSuperweapon: Atom Bomb\nA random Soviet country will be chosen when the game starts.
+	Faction@randomgdi:
+		Name: GDI
+		InternalName: RandomGDI
+		RandomFactionMembers: steel, zocom, gdi3
+		Side: Random
+		Description: Random GDI faction\nSpecialty: Heavy weapons.\nUtility: Napalm Strike\nSuperweapon: Ion Cannon\nA random GDI faction will be chosen when the game starts.
+	Faction@randomnod:
+		Name: Nod
+		InternalName: RandomNod
+		RandomFactionMembers: bhand, marked, nod3
+		Side: Random
+		Description: Random Nod faction\nSpecialty: Speed and stealth.\nUtility: Napalm Strike\nSuperweapon: Atom Bomb\nA random Nod faction will be chosen when the game starts.
+	Faction@randomfed:
+		Name: Federation
+		InternalName: RandomFed
+		RandomFactionMembers: sword, angels, silver
+		Side: Random
+		Description: Random Federation branch\nSpecialty: Extreme firepower and logistics.\nUtility: GPS Satellite\nSuperweapon: Ion Cannon\nA random Federation branch will be chosen when the game starts.
+	Faction@randomuac:
+		Name: UAC
+		InternalName: RandomUAC
+		RandomFactionMembers: phobos, deimos, mars
+		Side: Random
+		Description: Random UAC division\nSpecialty: Firepower and versatility.\nUtility: Hellgate, Paradoom\nSuperweapon: Ion Cannon\nA random UAC corporation will be chosen when the game starts.
+	Faction@randomnazi:
+		Name: Nazi Party
+		InternalName: RandomNazi
+		RandomFactionMembers: hitler, himmler, heydrich
+		Side: Random
+		Description: Random Nazi leader\nSpecialty: Firepower.\nUtility: Iron Curtain\nSuperweapon: Atom Bomb\nA random Nazi leader will be chosen when the game starts.
+	Faction@randomgla:
+		Name: GLA
+		InternalName: RandomGLA
+		RandomFactionMembers: demo, kassad, thrax
+		Side: Random
+		Description: Random GLA general\nSpecialty: Guerilla warfare, low tech.\nDoesn't use power.\nUtility: Radar Van Sweep, kill bounties\nSuperweapon: SCUD Storm\nA random GLA general will be chosen when the game starts.
+	Faction@randommedi:
+		Name: Medieval Order
+		InternalName: RandomMedi
+		RandomFactionMembers: darkness, holy, elementalists
+		Side: Random
+		Description: Random Medieval order.\nSpecialty: Swords and shit, stoneage.\nUtility: Fuk u
+	ResourceRenderer:
+		ResourceTypes:
+			Ore:
+				Type: Ore
+				Name: Ore
+				ResourceType: 1
+				TerrainType: Ore
+				Palette: player
+				Sequences: gold01,gold02,gold03,gold04
+				MaxDensity: 12
+				ValuePerUnit: 25
+				AllowedTerrainTypes: Clear,Road
+				AllowUnderActors: true
+			gem:
+				Type: Gems
+				Name: Jelly Beans
+				ResourceType: 2
+				TerrainType: Gems
+				Palette: player
+				Sequences: gem01,gem02,gem03,gem04
+				MaxDensity: 3
+				ValuePerUnit: 50
+				AllowedTerrainTypes: Clear,Road
+				AllowUnderActors: true
+			tib:
+				Type: Tiberium
+				Name: Tiberium Riparis
+				ResourceType: 3
+				Palette: player
+				Sequences: ti1,ti2,ti3,ti4,ti5,ti6,ti7,ti8,ti9,ti10,ti11,ti12
+				MaxDensity: 8
+				ValuePerUnit: 35
+				AllowedTerrainTypes: Clear,Road
+				AllowUnderActors: true
+				TerrainType: Tiberium
+			tib2:
+				Type: BlueTiberium
+				Name: Tiberium Vinifera
+				ResourceType: 4
+				Palette: player
+				Sequences: rtib1,rtib2,rtib3,rtib4,rtib5,rtib6,rtib7,rtib8,rtib9,rtib10,rtib11,rtib12
+				MaxDensity: 4
+				ValuePerUnit: 60
+				AllowedTerrainTypes: Clear,Road
+				AllowUnderActors: true
+				TerrainType: BlueTiberium
+			MediGold:
+				Type: MediGold
+				Name: Gold
+				ResourceType: 5
+				Palette: player
+				Sequences: rtib1,rtib2,rtib3,rtib4,rtib5,rtib6,rtib7,rtib8,rtib9,rtib10,rtib11,rtib12
+				MaxDensity: 10
+				ValuePerUnit: 15
+				AllowedTerrainTypes: Clear,Road
+				AllowUnderActors: true
+				TerrainType: Ore
+	ControlGroups:
+
+World:
+	Inherits: ^BaseWorld
+	ChatCommands:
+	DevCommands:
+	DebugVisualizationCommands:
+	PlayerCommands:
+	HelpCommand:
+	ScreenShaker:
+	BuildingInfluence:
+	ProductionQueueFromSelection:
+		ProductionPaletteWidget: PRODUCTION_PALETTE
+	LegacyBridgeLayer:
+		Bridges: bridge1, bridge2, bridge3, bridge4, br1, br2, br3, sbridge1, sbridge2, sbridge3, sbridge4
+	CustomTerrainDebugOverlay:
+	CrateSpawner:
+		DeliveryAircraft: badr
+		QuantizedFacings: 16
+		Minimum: 2
+		Maximum: 4
+		SpawnInterval: 3200
+		WaterChance: 20
+		InitialSpawnDelay: 1500
+		CheckboxDisplayOrder: 1
+		CrateActors: crate, moneycrate2, crate.fuckyou
+		CrateActorShares: 50, 25, 10
+	SmudgeLayer@SCORCH:
+		Type: Scorch
+		Sequence: scorches
+		SmokeChance: 50
+		SmokeImage: smoke_m
+		SmokeSequences: idle
+	SmudgeLayer@CRATER:
+		Type: Crater
+		Sequence: craters
+		SmokeChance: 25
+		SmokeImage: smoke_m
+		SmokeSequences: idle
+	ResourceLayer:
+	ResourceClaimLayer:
+	WarheadDebugOverlay:
+	SpawnMapActors:
+	MapBuildRadius:
+		AllyBuildRadiusCheckboxDisplayOrder: 4
+		BuildRadiusCheckboxDisplayOrder: 5
+	MapOptions:
+		ShortGameCheckboxDisplayOrder: 2
+		TechLevelDropdownDisplayOrder: 2
+		GameSpeedDropdownDisplayOrder: 3
+	MapCreeps:
+		CheckboxLabel: Creeps
+		CheckboxDescription: Allows creeps to spawn.
+	StartingUnits@mcvonly:
+		Class: none
+		ClassName: MCV Only
+		Factions: allies, england, france, germany, soviet, russia, ukraine, estonia, phobos, deimos, mars, hitler, himmler, heydrich
+		BaseActor: mcv
+	StartingUnits@mcvonlydawn:
+		Class: none
+		ClassName: MCV Only
+		Factions: gdi, steel, zocom, gdi3, nod, marked, bhand, nod3, fed, sword, angels, silver
+		BaseActor: mcvd
+	StartingUnits@mcvonlyciv:
+		Class: none
+		ClassName: MCV Only
+		Factions: civ
+		BaseActor: mcvc
+	StartingUnits@mcvonlygla:
+		Class: none
+		ClassName: MCV Only
+		Factions: demo, kassad, thrax
+		BaseActor: gmcv
+	StartingUnits@mcvonlymedi:
+		Class: none
+		ClassName: MCV Only
+		Factions: medi, darkness, holy, elementalists
+		BaseActor: mcvm
+	StartingUnits@mcvonlyprotoss:
+		Class: none
+		ClassName: MCV Only
+		Factions: protoss
+		BaseActor: pmcv
+	StartingUnits@lightallies:
+		Class: light
+		ClassName: Light Support
+		Factions: allies, england, france, germany
+		BaseActor: mcv
+		SupportActors: e1,e1,e1,e3,e3,jeep,1tnk
+		InnerSupportRadius: 3
+		OuterSupportRadius: 5
+	StartingUnits@lightsoviet:
+		Class: light
+		ClassName: Light Support
+		Factions: soviet, russia, ukraine, estonia
+		BaseActor: mcv
+		SupportActors: e1,e1,e1,e3,e3,apc,ftrk
+		InnerSupportRadius: 3
+		OuterSupportRadius: 5
+	StartingUnits@lightgdi:
+		Class: light
+		ClassName: Light Support
+		Factions: gdi, steel, zocom, gdi3
+		BaseActor: mcvd
+		SupportActors: e1,e1,e1,e3,e3,jeepd,apc.g
+		InnerSupportRadius: 3
+		OuterSupportRadius: 5
+	StartingUnits@lightnod:
+		Class: light
+		ClassName: Light Support
+		Factions: nod, marked, bhand, nod3
+		BaseActor: mcvd
+		SupportActors: e1,e1,e1,e3,e3,bggyd,1tnk.n
+		InnerSupportRadius: 3
+		OuterSupportRadius: 5
+	StartingUnits@lightfed:
+		Class: light
+		ClassName: Light Support
+		Factions: fed, sword, angels, silver
+		BaseActor: mcvd
+		SupportActors: fe2,fe2,fe2,fe3,fe3,mornstar,btnk
+		InnerSupportRadius: 3
+		OuterSupportRadius: 5
+	StartingUnits@lightuac:
+		Class: light
+		ClassName: Light Support
+		Factions: phobos, deimos, mars
+		BaseActor: mcv
+		SupportActors: dm2,dm2,dm2,dm1,dm1,dm3,1tnk.dm
+		InnerSupportRadius: 3
+		OuterSupportRadius: 5
+	StartingUnits@lightnazi:
+		Class: light
+		ClassName: Light Support
+		Factions: hitler, himmler, heydrich
+		BaseActor: mcv
+		SupportActors: e1,e1,e1,e3,e3,apc,ftrk
+		InnerSupportRadius: 3
+		OuterSupportRadius: 5
+	StartingUnits@lightgla:
+		Class: light
+		ClassName: Light Support
+		Factions: demo, kassad, thrax
+		BaseActor: gmcv
+		SupportActors: ge1,ge1,ge1,ge3,ge3,gbike,ftrk
+		InnerSupportRadius: 3
+		OuterSupportRadius: 5
+	StartingUnits@lightciv:
+		Class: light
+		ClassName: Light Support
+		Factions: civ
+		BaseActor: mcvc
+		SupportActors: c1.c,c2.c,c3.c,c4.c,c5.c,c6.c,police,dog.c,policecar
+		InnerSupportRadius: 3
+		OuterSupportRadius: 5
+	StartingUnits@lightmedi:
+		Class: light
+		ClassName: Light Support
+		Factions: medi, darkness, holy, elementalists
+		BaseActor: mcvm
+		SupportActors: footman,footman,footman,footman,bowman,crossbowman,swordman,scoutmedi,footman,footman,footman,footman,footman,footman,footman,footman,footman,footman,footman,footman,bowman,crossbowman,swordman,scoutmedi
+		InnerSupportRadius: 3
+		OuterSupportRadius: 5
+	StartingUnits@lightprotoss:
+		Class: light
+		ClassName: Light Support
+		Factions: protoss
+		BaseActor: pmcv
+		SupportActors: pzealot,pzealot,pzealot,pzealot,pdrago
+		InnerSupportRadius: 3
+		OuterSupportRadius: 5
+	StartingUnits@heavyallies:
+		Class: heavy
+		ClassName: Heavy Support
+		Factions: allies, england, france, germany
+		BaseActor: mcv
+		SupportActors: e1,e1,e1,e3,e3,jeep,1tnk,2tnk,2tnk,2tnk
+		InnerSupportRadius: 3
+		OuterSupportRadius: 5
+	StartingUnits@heavysoviet:
+		Class: heavy
+		ClassName: Heavy Support
+		Factions: soviet, russia, ukraine, estonia
+		BaseActor: mcv
+		SupportActors: e1,e1,e1,e3,e3,apc,ftrk,3tnk,3tnk
+		InnerSupportRadius: 3
+		OuterSupportRadius: 5
+	StartingUnits@heavygdi:
+		Class: heavy
+		ClassName: Heavy Support
+		Factions: gdi, steel, zocom, gdi3
+		BaseActor: mcvd
+		SupportActors: e1,e1,e1,e3,e3,jeepd,apc,mtnk.g,mtnk.g
+		InnerSupportRadius: 3
+		OuterSupportRadius: 5
+	StartingUnits@heavynod:
+		Class: heavy
+		ClassName: Heavy Support
+		Factions: nod, marked, bhand, nod3
+		BaseActor: mcvd
+		SupportActors: e1,e1,e1,e3,e3,bggyd,1tnk.n,1tnk.n,1tnk.n,bike
+		InnerSupportRadius: 3
+		OuterSupportRadius: 5
+	StartingUnits@heavyfed:
+		Class: heavy
+		ClassName: Heavy Support
+		Factions: fed, sword, angels, silver
+		BaseActor: mcvd
+		SupportActors: fe2,fe2,fe2,fe3,fe3,mornstar,mornstar,btnk,btnk,rtnk
+		InnerSupportRadius: 3
+		OuterSupportRadius: 5
+	StartingUnits@heavyuac:
+		Class: heavy
+		ClassName: Heavy Support
+		Factions: phobos, deimos, mars
+		BaseActor: mcv
+		SupportActors: dm2,dm2,dm2,dm1,dm1,dm1,1tnk.dm,1tnk.dm,stnk.dm,stnk.dm
+		InnerSupportRadius: 3
+		OuterSupportRadius: 5
+	StartingUnits@heavynazi:
+		Class: heavy
+		ClassName: Heavy Support
+		Factions: hitler, himmler
+		BaseActor: mcv
+		SupportActors: e1,e1,e1,e3,e3,nbos2,ftrk,3tnk.nz,3tnk.nz
+		InnerSupportRadius: 3
+		OuterSupportRadius: 5
+	StartingUnits@heavyheydrich:
+		Class: heavy
+		ClassName: Heavy Support
+		Factions: heydrich
+		BaseActor: mcv
+		SupportActors: e1,e1,e1,e3,e3,nbos2,ftrk,2tnk.shd,2tnk.shd,2tnk.shd
+		InnerSupportRadius: 3
+		OuterSupportRadius: 5
+	StartingUnits@heavygla:
+		Class: heavy
+		ClassName: Heavy Support
+		Factions: demo, kassad, thrax
+		BaseActor: gmcv
+		SupportActors: ge1,ge1,ge1,ge3,ge3,gbike,gbike,ftrk,gftrk,ge2,ge2,ge2,ge2,ge2
+		InnerSupportRadius: 3
+		OuterSupportRadius: 5
+	StartingUnits@heavyciv:
+		Class: heavy
+		ClassName: Heavy Support
+		Factions: civ
+		BaseActor: mcvc
+		SupportActors: c1.c,c1.c,c2.c,c2.c,c3.c,c3.c,c4.c,c4.c,c5.c,c5.c,c6.c,c6.c,police,police,dog.c,policecar,policecar
+		InnerSupportRadius: 3
+		OuterSupportRadius: 5
+	StartingUnits@heavymedi:
+		Class: heavy
+		ClassName: Heavy Support
+		Factions: medi, darkness, holy, elementalists
+		BaseActor: mcvm
+		SupportActors: footman,swordman,swordman,swordman,bowman,crossbowman,swordman,swordman,swordman,scoutmedi,catapult,catapult,sapper,ballista,horsecrossbowman,horsecrossbowman,horseswordman,horseswordman,horseswordman
+		InnerSupportRadius: 3
+		OuterSupportRadius: 5
+	StartingUnits@heavyprotoss:
+		Class: heavy
+		ClassName: Heavy Support
+		Factions: protoss
+		BaseActor: pmcv
+		SupportActors: pzealot,pzealot,pzealot,pzealot,pzealot,pzealot,pzealot,pzealot,pdrago,pdrago,pdrago,pdrago
+		InnerSupportRadius: 3
+		OuterSupportRadius: 5
+	MapStartingLocations:
+		SeparateTeamSpawnsCheckboxDisplayOrder: 6
+	SpawnStartingUnits:
+		DropdownDisplayOrder: 1
+	PathFinder:
+	ValidateOrder:
+	DebugPauseState:
+	RadarPings:
+	StartGameNotification:
+	ObjectivesPanel:
+		PanelName: SKIRMISH_STATS
+	LoadWidgetAtGameStart:
+	ScriptTriggers:
+	TimeLimitManager:
+		TimeLimitWarnings:
+			40: FourtyMinutesRemaining
+			30: ThirtyMinutesRemaining
+			20: TwentyMinutesRemaining
+			10: TenMinutesRemaining
+			5: WarningFiveMinutesRemaining
+			4: WarningFourMinutesRemaining
+			3: WarningThreeMinutesRemaining
+			2: WarningTwoMinutesRemaining
+			1: WarningOneMinuteRemaining
+
+EditorWorld:
+	Inherits: ^BaseWorld
+	EditorActorLayer:
+	EditorCursorLayer:
+	EditorResourceLayer:
+	EditorSelectionLayer:
+	LoadWidgetAtGameStart:
+	EditorActionManager:

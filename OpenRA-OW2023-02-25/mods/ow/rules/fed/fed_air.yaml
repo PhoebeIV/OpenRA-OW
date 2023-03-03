@@ -1,0 +1,572 @@
+VANGUARD:
+	Inherits: ORCA
+	Buildable:
+		BuildPaletteOrder: 90
+		Prerequisites: ~hpad, ~aircraft.fed, ~techlevel.medium
+		Description: VTOL aircraft armed\nwith multi-purpose missiles.\nSpeed: 149\n  Strong vs Tanks, Aircraft\n  Weak vs Infantry
+	Tooltip:
+		Name: Vanguard Gunship
+	EjectOnDeath:
+		PilotActor: FE2
+		SuccessRate: 50
+	RenderSprites:
+		Image: ORCA
+
+LANCE:
+	Inherits: ^TSPlane
+	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
+	Buildable:
+		Queue: Aircraft
+		BuildAtProductionType: Plane
+		BuildPaletteOrder: 100
+		Prerequisites: ~afld, ~aircraft.fed, ~techlevel.unrestricted, ~!aircraft.angels
+		Description: Ground and air support fighter.\nSpeed: 186\n  Strong vs Ground and Air\n  Weak vs Anti-Air
+	Valued:
+		Cost: 1500
+	Tooltip:
+		Name: O-19 Lance
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 18000
+	RevealsShroud:
+		MinRange: 9c0
+		Range: 11c0
+		MoveRecalculationThreshold: 0
+		Type: GroundPosition
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 9c0
+		MoveRecalculationThreshold: 0
+		Type: GroundPosition
+	Armament@PRIMARY:
+		Weapon: HellfireAA
+		LocalOffset: 0,-213,-85, 0,213,-85
+		PauseOnCondition: !ammo
+	Armament@SECONDARY:
+		Weapon: HellfireAG
+		LocalOffset: 0,213,-85, 0,-213,-85
+		PauseOnCondition: !ammo
+	AttackAircraft:
+		FacingTolerance: 256
+		PersistentTargeting: false
+		OpportunityFire: False
+	Aircraft:
+		CruiseAltitude: 2560
+		InitialFacing: 768
+		TurnSpeed: 20
+		Speed: 186
+		RepulsionSpeed: 40
+		MaximumPitch: 56
+	AutoTarget:
+		InitialStance: HoldFire
+		InitialStanceAI: HoldFire
+	-AppearsOnRadar:
+	AmmoPool:
+		Ammo: 8
+		ReloadDelay: 10
+		AmmoCondition: ammo
+	SelectionDecorations:
+	Contrail@1:
+		Offset: -598,-683,0
+	Contrail@2:
+		Offset: -598,683,0
+	WithDamageOverlay:
+		Offset: -853,0,171
+		Interval: 2
+	EjectOnDeath:
+		PilotActor: FE2
+		SuccessRate: 50
+	-GpsDot:
+	ProducibleWithLevel:
+		Prerequisites: aircraft.upgraded
+	Selectable:
+		DecorationBounds: 1877, 1706, 0, 0
+	Rearmable:
+		RearmActors: afld, afld.ukraine
+	RenderSprites:
+		Image: burninge
+	RenderVoxels:
+		Image: burninge
+		Scale: 0.7
+		LightAmbientColor: 1.0,1.0,1.0
+		LightDiffuseColor: 0.7,0.7,0.7
+	SpawnActorOnDeath:
+		Actor: LANCE.Husk
+	WithAmmoPipsDecoration:
+		Position: BottomLeft
+		RequiresSelection: true
+
+LANCE.Angels:
+	Inherits: LANCE
+	Buildable:
+		Prerequisites: ~afld, ~aircraft.angels, ~techlevel.unrestricted
+	Valued:
+		Cost: 1350
+
+LANCE.Husk:
+	Inherits: ^TSPlaneHusk
+	Tooltip:
+		Name: O-19 Lance
+	Contrail@1:
+		Offset: -598,-683,0
+	Contrail@2:
+		Offset: -598,683,0
+	Aircraft:
+		TurnSpeed: 20
+		Speed: 186
+	WithDamageOverlay:
+		Offset: -853,0,171
+		Interval: 2
+		MinimumDamageState: Undamaged
+	RevealsShroud:
+		MinRange: 9c0
+		Range: 11c0
+		Type: GroundPosition
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 9c0
+		Type: GroundPosition
+	RenderSprites:
+		Image: burninge
+	RenderVoxels:
+		Image: burninge
+		Scale: 0.7
+		LightAmbientColor: 1.0,1.0,1.0
+		LightDiffuseColor: 0.7,0.7,0.7
+
+NHWK:
+	Inherits: ^TSPlane
+	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
+	Buildable:
+		Queue: Aircraft
+		BuildAtProductionType: Plane
+		BuildPaletteOrder: 110
+		Prerequisites: ~afld, techcenter, ~aircraft.fed, ~techlevel.unrestricted, ~!aircraft.angels
+		Description: Precision strike stealth bomber.\nSpeed: 186\n  Strong vs Heavy Armor\n  Weak vs Anti-Air
+	Valued:
+		Cost: 1900
+	Tooltip:
+		Name: F-117C Nighthawk
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 18000
+	RevealsShroud:
+		MinRange: 9c0
+		Range: 11c0
+		MoveRecalculationThreshold: 0
+		Type: GroundPosition
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 9c0
+		MoveRecalculationThreshold: 0
+		Type: GroundPosition
+	Armament:
+		Weapon: Maverick
+		PauseOnCondition: !ammo
+	AttackAircraft:
+		FacingTolerance: 256
+		PersistentTargeting: false
+		OpportunityFire: False
+	Aircraft:
+		CruiseAltitude: 2560
+		InitialFacing: 768
+		TurnSpeed: 20
+		Speed: 200
+		RepulsionSpeed: 40
+		MaximumPitch: 56
+	AutoTarget:
+		InitialStance: HoldFire
+		InitialStanceAI: HoldFire
+	-AppearsOnRadar:
+	AmmoPool:
+		Ammo: 4
+		ReloadDelay: 50
+		AmmoCondition: ammo
+	SelectionDecorations:
+	Contrail@1:
+		Offset: -598,-683,0
+	Contrail@2:
+		Offset: -598,683,0
+	WithDamageOverlay:
+		Offset: -853,0,171
+		Interval: 2
+	EjectOnDeath:
+		PilotActor: FE2
+		SuccessRate: 50
+	-GpsDot:
+	ProducibleWithLevel:
+		Prerequisites: aircraft.upgraded
+	Selectable:
+		DecorationBounds: 1877, 1706, 0, 0
+	Rearmable:
+		RearmActors: afld, afld.ukraine
+	RenderSprites:
+		Image: stf
+	RenderVoxels:
+		Image: stf
+		Scale: 0.8
+		LightAmbientColor: 1.0,1.0,1.0
+		LightDiffuseColor: 0.7,0.7,0.7
+	SpawnActorOnDeath:
+		Actor: NHWK.Husk
+	WithAmmoPipsDecoration:
+		Position: BottomLeft
+		RequiresSelection: true
+
+NHWK.Angels:
+	Inherits: NHWK
+	Buildable:
+		Prerequisites: ~afld, techcenter, ~aircraft.angels, ~techlevel.unrestricted
+	Valued:
+		Cost: 1700
+
+NHWK.Husk:
+	Inherits: ^TSPlaneHusk
+	Tooltip:
+		Name: F-117C Nighthawk
+	Contrail@1:
+		Offset: -598,-683,0
+	Contrail@2:
+		Offset: -598,683,0
+	Aircraft:
+		TurnSpeed: 20
+		Speed: 186
+	WithDamageOverlay:
+		Offset: -853,0,171
+		Interval: 2
+		MinimumDamageState: Undamaged
+	RevealsShroud:
+		MinRange: 9c0
+		Range: 11c0
+		Type: GroundPosition
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 9c0
+		Type: GroundPosition
+	RenderSprites:
+		Image: stf
+	RenderVoxels:
+		Image: stf
+		Scale: 0.8
+		LightAmbientColor: 1.0,1.0,1.0
+		LightDiffuseColor: 0.7,0.7,0.7
+
+PALADIN:
+	Inherits: ^TSPlane
+	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
+	Buildable:
+		Queue: Aircraft
+		BuildAtProductionType: Plane
+		BuildPaletteOrder: 120
+		Prerequisites: ~afld, advtechcenter, ~aircraft.angels, ~techlevel.unrestricted
+		BuildLimit: 2
+		Description: Strong attack plane with countermeasures.\nSpeed: 223\n  Strong vs Ground and Air\n  Weak vs Anti-Air
+	Valued:
+		Cost: 3400
+	Tooltip:
+		Name: S-91 Paladin
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 35000
+	RevealsShroud:
+		MinRange: 9c0
+		Range: 11c0
+		MoveRecalculationThreshold: 0
+		Type: GroundPosition
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 9c0
+		MoveRecalculationThreshold: 0
+		Type: GroundPosition
+	Armament:
+		Weapon: FAirPlasma
+		PauseOnCondition: !ammo
+	AttackAircraft:
+		FacingTolerance: 256
+		PersistentTargeting: false
+		OpportunityFire: False
+	Aircraft:
+		CruiseAltitude: 2560
+		InitialFacing: 768
+		TurnSpeed: 20
+		Speed: 223
+		RepulsionSpeed: 40
+		MaximumPitch: 56
+	AutoTarget:
+		InitialStance: HoldFire
+		InitialStanceAI: HoldFire
+	AmmoPool:
+		Ammo: 32
+		ReloadDelay: 10
+		AmmoCondition: ammo
+	SelectionDecorations:
+	Contrail@1:
+		Offset: -598,-583,0
+	Contrail@2:
+		Offset: -598,583,0
+	WithDamageOverlay:
+		Offset: -853,0,171
+		Interval: 2
+	EjectOnDeath:
+		PilotActor: FE2
+		SuccessRate: 50
+	ProducibleWithLevel:
+		Prerequisites: aircraft.upgraded
+	Selectable:
+		DecorationBounds: 1877, 1706, 0, 0
+	Rearmable:
+		RearmActors: afld, afld.ukraine
+	RenderSprites:
+		Image: burningb
+	RenderVoxels:
+		Image: burningb
+		Scale: 0.7
+		LightAmbientColor: 1.0,1.0,1.0
+		LightDiffuseColor: 0.7,0.7,0.7
+	SpawnActorOnDeath:
+		Actor: PALADIN.Husk
+	WithAmmoPipsDecoration:
+		Position: BottomLeft
+		RequiresSelection: true
+		PipCount: 8
+
+PALADIN.Husk:
+	Inherits: ^TSPlaneHusk
+	Tooltip:
+		Name: S-91 Paladin
+	Contrail@1:
+		Offset: -598,-683,0
+	Contrail@2:
+		Offset: -598,683,0
+	Aircraft:
+		TurnSpeed: 20
+		Speed: 186
+	WithDamageOverlay:
+		Offset: -853,0,171
+		Interval: 2
+		MinimumDamageState: Undamaged
+	RevealsShroud:
+		MinRange: 9c0
+		Range: 11c0
+		Type: GroundPosition
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 9c0
+		Type: GroundPosition
+	RenderSprites:
+		Image: burningb
+	RenderVoxels:
+		Image: burningb
+		Scale: 0.7
+		LightAmbientColor: 1.0,1.0,1.0
+		LightDiffuseColor: 0.7,0.7,0.7
+
+C17.F:
+	Inherits: ^Plane
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Buildable:
+		Queue: Aircraft
+		BuildAtProductionType: Plane
+		BuildPaletteOrder: 130
+		Prerequisites: ~afld, advtechcenter, eyed.fed, ~aircraft.fed, ~!aircraft.silver, ~techlevel.unrestricted, ~disabled
+		Description: Nuclear Ground-Attack Plane.\nSpeed: 120\n  Strong vs Buildings, Light Vehicles\n  Weak vs Anti-Air
+		BuildLimit: 2
+	Valued:
+		Cost: 4000
+	Tooltip:
+		Name: C-17 Bomber
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 20000
+	RevealsShroud:
+		MinRange: 9c0
+		Range: 11c0
+		MoveRecalculationThreshold: 0
+		Type: GroundPosition
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 9c0
+		MoveRecalculationThreshold: 0
+		Type: GroundPosition
+	Armament:
+		Weapon: C17Nuke
+		PauseOnCondition: !ammo
+	AttackAircraft:
+		FacingTolerance: 80
+		PersistentTargeting: false
+		OpportunityFire: False
+	Aircraft:
+		CruiseAltitude: 2560
+		InitialFacing: 768
+		TurnSpeed: 8
+		Speed: 120
+		RepulsionSpeed: 40
+		MaximumPitch: 56
+	AmmoPool:
+		Ammo: 1
+		ReloadDelay: 200
+		AmmoCondition: ammo
+	SelectionDecorations:
+	Contrail@1:
+		Offset: -598,-683,0
+	Contrail@2:
+		Offset: -598,683,0
+	EjectOnDeath:
+		PilotActor: FE2
+		SuccessRate: 50
+	WithDamageOverlay:
+		Offset: -853,0,171
+		Interval: 2
+	ProducibleWithLevel:
+		Prerequisites: aircraft.upgraded
+	Selectable:
+		DecorationBounds: 2048, 1706, 0, 0
+	Rearmable:
+		RearmActors: afld, afld.ukraine
+	SpawnActorOnDeath:
+		Actor: C17.Husk2
+	RenderSprites:
+		Image: C17
+	WithAmmoPipsDecoration:
+		Position: BottomLeft
+		RequiresSelection: true
+
+C17.Husk2:
+	Inherits: C17.Husk
+	Tooltip:
+		Name: C-17 Bomber
+	RevealOnDeath:
+
+SPECTRE:
+	Inherits: ^TSPlane
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Buildable:
+		Queue: Aircraft
+		BuildAtProductionType: Plane
+		BuildPaletteOrder: 130
+		Prerequisites: ~afld, advtechcenter, eyed.fed, ~aircraft.fed, ~!aircraft.silver, ~techlevel.unrestricted, ~!aircraft.angels
+		Description: Nuclear Ground-Attack Plane.\nSpeed: 120\n  Strong vs Ground Targets\n  Weak vs Anti-Air
+		BuildLimit: 1
+	Valued:
+		Cost: 5500
+	Tooltip:
+		Name: AC-130 Spectre Gunship
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 60000
+	RevealsShroud:
+		MinRange: 9c0
+		Range: 11c0
+		MoveRecalculationThreshold: 0
+		Type: GroundPosition
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 9c0
+		MoveRecalculationThreshold: 0
+		Type: GroundPosition
+	AutoTarget:
+		InitialStance: AttackAnything
+		InitialStanceAI: AttackAnything
+	Armament@PRIMARY:
+		Weapon: GAU-12
+		LocalOffset: 256,-213,0
+		MuzzleSequence: muzzle
+		PauseOnCondition: !ammo
+	Armament@SECONDARY:
+		Name: secondary
+		Weapon: Spectre40mm
+		LocalOffset: 256,213,0
+		MuzzleSequence: muzzle
+		PauseOnCondition: !ammo
+	Armament@TERTIARY:
+		Name: tertiary
+		Weapon: Spectre105mm
+		LocalOffset: 256,213,0
+		MuzzleSequence: muzzle
+		PauseOnCondition: !ammo
+	AttackAircraft:
+		Armaments: primary, secondary # primary, secondary, tertiary
+		FacingTolerance: 512
+		PersistentTargeting: false
+	Aircraft:
+		CruiseAltitude: 2560
+		InitialFacing: 768
+		TurnSpeed: 8
+		Speed: 178
+		RepulsionSpeed: 40
+		MaximumPitch: 56
+	AmmoPool:
+		Ammo: 50
+		ReloadDelay: 20
+		AmmoCondition: ammo
+	SelectionDecorations:
+	Contrail@1:
+		Offset: -598,-683,0
+	Contrail@2:
+		Offset: -598,683,0
+	EjectOnDeath:
+		PilotActor: FE2
+		SuccessRate: 50
+	WithDamageOverlay:
+		Offset: -853,0,171
+		Interval: 2
+	Selectable:
+		Bounds: 2133, 1450, 0, 0
+		DecorationBounds: 4437, 3584, 0, 0
+	Rearmable:
+		RearmActors: afld, afld.ukraine
+	SpawnActorOnDeath:
+		Actor: SPECTRE.Husk
+	RenderSprites:
+		Image: ac130
+	RenderVoxels:
+		Image: ac130
+		Scale: 5
+		LightAmbientColor: 1.0,1.0,1.0
+		LightDiffuseColor: 0.7,0.7,0.7
+	WithAmmoPipsDecoration:
+		Position: BottomLeft
+		RequiresSelection: true
+
+SPECTRE.Angels:
+	Inherits: SPECTRE
+	Buildable:
+		Prerequisites: ~afld, advtechcenter, eyed.fed, ~aircraft.angels, ~!aircraft.silver, ~techlevel.unrestricted
+	Valued:
+		Cost: 5500
+
+SPECTRE.Husk:
+	Inherits: ^TSPlaneHusk
+	Tooltip:
+		Name: AC-130 Spectre Gunship
+	Contrail@1:
+		Offset: -598,-683,0
+	Contrail@2:
+		Offset: -598,683,0
+	Aircraft:
+		TurnSpeed: 8
+		Speed: 250
+	WithDamageOverlay:
+		Offset: -853,0,171
+		Interval: 2
+	RevealsShroud:
+		MinRange: 9c0
+		Range: 11c0
+		Type: GroundPosition
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 9c0
+		Type: GroundPosition
+	RenderSprites:
+		Image: ac130
+	RenderVoxels:
+		Image: ac130
+		Scale: 5
+		LightAmbientColor: 1.0,1.0,1.0
+		LightDiffuseColor: 0.7,0.7,0.7
+	RevealOnDeath:

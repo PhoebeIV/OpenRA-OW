@@ -1,0 +1,99 @@
+1TNK:
+	Buildable:
+		Description: Fast tank, good for scouting.\nSpeed: 118\n  Strong vs Light armor\n  Weak vs Infantry, Tanks, Aircraft
+	Valued:
+		Cost: 600
+	AttackTurreted:
+		PauseOnCondition: disabled
+
+2TNK:
+	Buildable:
+		Description: Allied Main Battle Tank.\nSpeed: 85\n  Strong vs Vehicles\n  Weak vs Infantry, Aircraft
+	Valued:
+		Cost: 800
+	AttackTurreted:
+		PauseOnCondition: disabled
+
+JEEP:
+	Buildable:
+		Description: Fast scout & anti-infantry vehicle.\nCan carry one infantry.\nSpeed: 170\n  Strong vs Infantry\n  Weak vs Vehicles, Aircraft
+	Valued:
+		Cost: 500
+	AttackTurreted:
+		PauseOnCondition: disabled
+
+AEIOU:
+	Inherits: ^TrackedVehicle
+	Inherits@EPIC: ^EpicUnit
+	Inherits@EPIC2: ^EpicVehicle
+	Buildable:
+		Queue: Vehicle
+		BuildPaletteOrder: 8000
+		Prerequisites: ulttechcenter, ~vehicles.france, ~techlevel.unrestricted
+		Description: Allied Enhanced Importance Omni Unit.\nPowerful, sturdy support unit. \nSpeed: 35  \nSpecial Abilitys: \n  - Chronoshift \n  - Gap Generator \n  - Global heal and repair \n  - Cloak Detection \n  - Reinforcements\n  - Radar Jamming\n  - Missile Jamming
+	Valued:
+		Cost: 15000
+	Tooltip:
+		Name: AEIOU
+	Health:
+		HP: 600000
+	Armor:
+		Type: Heavy
+	Mobile:
+		Speed: 35
+		Locomotor: floater
+		Voice: Move
+	RevealsShroud:
+		Range: 15c0
+	DetectCloaked:
+		Range: 12c0
+	PortableChrono:
+		ChargeDelay: 900
+	ProximityExternalCondition@JAMMER:
+		Range: 18c0
+		ValidRelationships: Enemy, Neutral
+		Condition: jammed
+	JamsMissiles:
+		Range: 5c0
+		DeflectionRelationships: Neutral, Enemy
+	CreatesShroud:
+		Range: 8c0
+	Selectable:
+		DecorationBounds: 1877, 1621, 0, -170
+	Passenger:
+		Weight: 8
+		CustomPipType: red
+	Voiced:
+		VoiceSet: SpyVoice
+	VoiceAnnouncement:
+		RequiresCondition: produced
+		Voice: Action
+	RenderJammerCircle:
+	RenderShroudCircle:
+	ProvidesPrerequisite@buildingname:
+	ProximityExternalCondition@aeiouboost:
+		Condition: aeiouboost
+		Range: 8c0
+	ProductionAirdrop:
+		Produces: Infantry.AEIOU
+		ActorType: u2.drop
+		ReadyAudio: ReinforcementsArrived # TODO: BaselineSpawn: true
+	ProductionQueue:
+		Type: Infantry.AEIOU
+		DisplayOrder: 2
+		Group: Infantry
+		LowPowerModifier: 100
+		ReadyAudio:
+		BlockedAudio: NoBuild
+		LimitedAudio: BuildingInProgress
+		QueuedAudio: Training
+		OnHoldAudio: OnHold
+		CancelledAudio: Cancelled
+	ProductionBar:
+		ProductionType: Infantry.AEIOU
+	Exit:
+		ExitCell: 1,1
+		SpawnOffset: 1024,1024,0
+	Explodes:
+		Weapon: TinyNuke
+		EmptyWeapon: TinyNuke

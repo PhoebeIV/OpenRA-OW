@@ -1,0 +1,490 @@
+MTNKD.G:
+	Inherits: 2TNK
+	Buildable:
+		BuildPaletteOrder: 220
+		Prerequisites: fix, ~vehicles.gdi, ~techlevel.medium, ~!vehicles.steel
+		Description: GDI Main Battle Tank.\nSpeed: 85\n  Strong vs Vehicles\n  Weak vs Infantry, Aircraft
+	Valued:
+		Cost: 850
+	Tooltip:
+		Name: GDI Medium Tank
+	Health:
+		HP: 50500
+	Mobile:
+		Speed: 85
+	Turreted:
+		TurnSpeed: 16
+	Armament:
+		Weapon: GDI120mm
+	SpawnActorOnDeath:
+		Actor: MTNKD.Husk
+	SelectionDecorations:
+	RenderSprites:
+		Image: mtnkd
+
+HTNKD.G:
+	Inherits: 4TNK
+	Buildable:
+		BuildPaletteOrder: 320
+		Prerequisites: fix, advtechcenter, ~vehicles.gdi, ~techlevel.unrestricted, ~!vehicles.zocom, ~!vehicles.steel
+		Description: Big and slow tank, with anti-air capability.\nCan crush concrete walls.\nSpeed: 50\n  Strong vs Vehicles, Infantry, Aircraft\n  Weak vs Nothing
+	Valued:
+		Cost: 2100
+	Tooltip:
+		Name: GDI Mammoth Tank
+		GenericName: Tank
+	Health:
+		HP: 95000
+	Mobile:
+		Speed: 50
+	Armament@PRIMARY:
+		Weapon: GDI120mmDual
+	SpawnActorOnDeath:
+		Actor: HTNKD.Husk
+	RenderSprites:
+		Image: htnkd
+
+JEEPD:
+	Inherits: JEEP
+	Buildable:
+		BuildPaletteOrder: 130
+		Prerequisites: ~vehicles.gdi, ~techlevel.low, ~!vehicles.steel
+		Description: Fast scout & anti-infantry vehicle.\nCan carry one infantry.\nSpeed: 156\n  Strong vs Infantry\n  Weak vs Vehicles, Aircraft
+	Tooltip:
+		Name: Humvee
+	Health:
+		HP: 17500
+	Mobile:
+		Speed: 156
+	Armament:
+		Weapon: DawnM60mg
+
+APC.G:
+	Inherits: APC
+	Buildable:
+		BuildPaletteOrder: 130
+		Prerequisites: ~vehicles.gdi, ~techlevel.low
+	Armament:
+		Weapon: DawnM60mg
+	RenderSprites:
+		Image: apc
+
+MSAM:
+	Inherits: ^TrackedVehicle
+	Inherits@GAINSEXPERIENCE: ^GainsExperience
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Buildable:
+		Queue: Vehicle
+		BuildPaletteOrder: 420
+		Prerequisites: hqd, ~vehicles.gdi, ~techlevel.medium, ~!vehicles.steel
+		Description: Long-range rocket artillery.\nSpeed: 85\n  Strong vs Infantry, Light armor, Buildings\n  Weak vs Tanks, Aircraft
+	Valued:
+		Cost: 1000
+	Tooltip:
+		Name: Rocket Launcher
+	Health:
+		HP: 20000
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Armor:
+		Type: Light
+	Mobile:
+		Speed: 85
+	RevealsShroud:
+		MinRange: 4c0
+		Range: 5c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 4c0
+	Armament:
+		Weapon: GDI277mm
+		LocalOffset: 213,160,0, 213,-160,0
+	Turreted:
+		TurnSpeed: 1023
+		Offset: -256,0,128
+	AttackFrontal:
+		PauseOnCondition: disabled
+		FacingTolerance: 0
+	Selectable:
+		DecorationBounds: 1194, 1194
+	Explodes:
+		Weapon: V2Explode
+	WithSpriteTurret:
+	ProducibleWithLevel:
+		Prerequisites: vehicles.upgraded
+
+SMECH:
+	Inherits: ^Vehicle
+	Inherits@GAINSEXPERIENCE: ^GainsExperience
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Buildable:
+		Queue: Vehicle
+		BuildPaletteOrder: 130
+		Prerequisites: ~vehicles.steel, ~techlevel.low
+		Description: Anti-personnel walker.\nSpeed: 99\n  Strong vs Infantry, Light armor\n  Weak vs Vehicles, Aircraft
+	Valued:
+		Cost: 650
+	Tooltip:
+		Name: Wolverine
+	Health:
+		HP: 26000
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Armor:
+		Type: Light
+	Mobile:
+		TurnSpeed: 20
+		Speed: 99
+	RevealsShroud:
+		MinRange: 5c0
+		Range: 6c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 5c0
+	AttackFrontal:
+		PauseOnCondition: disabled
+		FacingTolerance: 0
+	Armament:
+		Weapon: WolverineVulcan
+	QuantizeFacingsFromSequence:
+		Sequence: stand
+	WithFacingSpriteBody:
+		Sequence: stand
+	WithAttackAnimation:
+		Sequence: shoot
+	WithMoveAnimation:
+		MoveSequence: run
+		ValidMovementTypes: Horizontal, Turn
+	ProducibleWithLevel:
+		Prerequisites: vehicles.upgraded
+	Selectable:
+		Bounds: 853, 1365, 0, -341
+	RenderSprites:
+		PlayerPalette: tsunit
+	DeathSounds:
+		Voice: DieTS
+	Cloak@stealthgen:
+		Palette: tscloak
+
+MMCH:
+	Inherits: ^TrackedVehicle
+	Inherits@GAINSEXPERIENCE: ^GainsExperience
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Buildable:
+		Queue: Vehicle
+		BuildPaletteOrder: 220
+		Prerequisites: fix, ~vehicles.steel, ~techlevel.medium
+		Description: General purpose mechanized walker.\nSpeed: 60\n  Strong vs Vehicles\n  Weak vs Infantry, Aircraft
+	Valued:
+		Cost: 1150
+	Tooltip:
+		Name: Titan
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 70000
+	Armor:
+		Type: Heavy
+	Mobile:
+		TurnSpeed: 20
+		Speed: 60
+	RevealsShroud:
+		MinRange: 5c0
+		Range: 7c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 5c0
+	Passenger:
+		Weight: 4
+	Armament:
+		Weapon: Titan120mm
+		Recoil: 127
+		RecoilRecovery: 26
+		MuzzleSequence: muzzle
+		LocalOffset: 1024,272,832
+	WithMuzzleOverlay:
+	ClassicFacingBodyOrientation:
+		QuantizedFacings: 32
+	WithFacingSpriteBody:
+		Sequence: idle
+	WithMoveAnimation:
+		MoveSequence: run
+		ValidMovementTypes: Horizontal, Turn
+	Turreted:
+		TurnSpeed: 20
+	AttackTurreted:
+		PauseOnCondition: disabled
+	WithSpriteTurret:
+		Recoils: false
+	ProducibleWithLevel:
+		Prerequisites: vehicles.upgraded
+	Selectable:
+		Bounds: 1280, 1792, 0, -341
+	WithVoxelBarrel:
+		LocalOffset: 0, 51, 256
+	RenderVoxels:
+		PlayerPalette: tsunit
+		Scale: 9
+	RenderSprites:
+		PlayerPalette: tsunit
+	SpawnActorOnDeath:
+		Actor: MMCH.Husk
+	Cloak@stealthgen:
+		Palette: tscloak
+
+JUGG:
+	Inherits: ^TrackedVehicle
+	Inherits@EXPERIENCE: ^GainsExperience
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Valued:
+		Cost: 1500
+	Tooltip:
+		Name: Juggernaut
+		RequiresCondition: !deployed
+	Tooltip@DEPLOYED:
+		Name: Juggernaut (deployed)
+		RequiresCondition: deployed
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Buildable:
+		Queue: Vehicle
+		BuildPaletteOrder: 225
+		Prerequisites: fix, techcenter, ~vehicles.steel, ~techlevel.high
+		Description: Mobile Artillery Mech.\nNeeds to deploy in order to shoot.\nSpeed: 71\n  Strong vs Ground units\n  Weak vs Aircraft
+	Health:
+		HP: 50000
+	Armor:
+		Type: Light
+	Mobile:
+		Speed: 71
+		TurnSpeed: 20
+		RequireForceMoveCondition: !undeployed
+	RevealsShroud:
+		MinRange: 5c0
+		Range: 7c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 5c0
+	RenderVoxels:
+		PlayerPalette: tsunit
+		Scale: 10
+	RenderSprites:
+		PlayerPalette: tsunit
+	Cloak@stealthgen:
+		Palette: tscloak
+	ClassicFacingBodyOrientation:
+		QuantizedFacings: 32
+	WithRangeCircle:
+		Range: 15c0
+	WithMakeAnimation:
+		BodyNames: body, deployedbody
+	WithFacingSpriteBody:
+		Sequence: stand
+		RequiresCondition: undeployed
+	WithMoveAnimation:
+		MoveSequence: walk
+		ValidMovementTypes: Horizontal, Turn
+	GrantConditionOnDeploy:
+		PauseOnCondition: disabled || being-captured
+		DeployedCondition: deployed
+		UndeployedCondition: undeployed
+		UndeployOnMove: true
+		UndeployOnPickup: true
+		Facing: 384
+		AllowedTerrainTypes: Clear, Road, Rough
+		DeploySounds: placbldg.aud
+		UndeploySounds: ramenu1.aud
+	Repairable:
+		RequireForceMoveCondition: !undeployed
+	Passenger:
+		RequireForceMoveCondition: !undeployed
+		Weight: 6
+	GrantCondition@PREVIEWWORKAROUND:
+		Condition: real-actor
+	QuantizeFacingsFromSequence:
+		Sequence: turret
+	WithSpriteBody@deployed:
+		RequiresCondition: !undeployed && real-actor
+		Name: deployedbody
+	Turreted:
+		Turret: deployed
+		TurnSpeed: 20
+		InitialFacing: 384
+		Offset: -153,-17,256
+		RealignDelay: -1
+	WithVoxelTurret:
+		Turret: deployed
+		Sequence: turret
+		RequiresCondition: deployed
+	AttackTurreted@deployed:
+		Armaments: deployed
+		Turrets: deployed
+		RequiresCondition: deployed
+		PauseOnCondition: disabled
+		TargetFrozenActors: True
+		ForceFireIgnoresActors: True
+		OutsideRangeRequiresForceFire: True
+	Armament@deployed:
+		Name: deployed
+		Turret: deployed
+		Weapon: JuggArtilleryDeployed
+		LocalOffset: 1424,-180,512, 1424,0,512, 1424,180,512
+		RequiresCondition: deployed
+		MuzzleSequence: muzzle
+		MuzzlePalette: effect
+	WithMuzzleOverlay:
+	RevealOnFire:
+		ArmamentNames: deployed
+	SelectionDecorations:
+	Selectable:
+		DecorationBounds: 2048, 1706, 0, -341
+	ProducibleWithLevel:
+		Prerequisites: vehicles.upgraded
+	SpawnActorOnDeath:
+		Actor: JUGG.Husk
+
+TRITON:
+	Inherits: ^TrackedVehicle
+	Inherits@GAINSEXPERIENCE: ^GainsExperience
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Buildable:
+		Queue: Vehicle
+		BuildPaletteOrder: 230
+		Prerequisites: fix, advtechcenter, ~vehicles.steel, ~techlevel.unrestricted
+		Description: Advanced multi-purpose mechanized walker.\nSpeed: 52\n  Strong vs Vehicles, Infantry, Air\n  Weak vs Nothing
+	Valued:
+		Cost: 2200
+	Tooltip:
+		Name: Marauder
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 100000
+	Armor:
+		Type: Heavy
+	Mobile:
+		TurnSpeed: 16
+		Speed: 52
+		Locomotor: heavytracked
+	RevealsShroud:
+		MinRange: 5c0
+		Range: 7c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 5c0
+	Armament:
+		Weapon: Triton120mm
+		Recoil: 127
+		RecoilRecovery: 26
+		MuzzleSequence: muzzle
+		LocalOffset: 900,0,1250
+	Armament@SECONDARY:
+		Name: secondary
+		Weapon: TritonTusk
+		LocalOffset: -85,430,812, -85,-430,812
+		LocalYaw: -100,100
+		Recoil: 43
+		MuzzleSequence: muzzle
+	WithMuzzleOverlay:
+	Passenger:
+		Weight: 5
+	ClassicFacingBodyOrientation:
+		QuantizedFacings: 32
+	WithFacingSpriteBody:
+		Sequence: idle
+	WithMoveAnimation:
+		MoveSequence: run
+		ValidMovementTypes: Horizontal, Turn
+	Turreted:
+		TurnSpeed: 16
+	AttackTurreted:
+		PauseOnCondition: disabled
+	WithSpriteTurret:
+		Recoils: true
+	ProducibleWithLevel:
+		Prerequisites: vehicles.upgraded
+	Selectable:
+		Bounds: 1365, 1962, 0, -341
+	RenderSprites:
+		PlayerPalette: tsunit
+	Cloak@stealthgen:
+		Palette: tscloak
+	SpawnActorOnDeath:
+		Actor: TRITON.Husk
+	ShakeOnDeath:
+
+DIREWOLF:
+	Inherits: ^TrackedVehicle
+	Inherits@EPIC: ^EpicUnit
+	Inherits@EPIC2: ^EpicVehicle
+	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
+	Buildable:
+		Queue: Vehicle
+		BuildPaletteOrder: 2500
+		Prerequisites: ulttechcenter, ~vehicles.steel, ~techlevel.unrestricted
+		BuildLimit: 1
+		Description: [EPIC]\nAdvanced mech walker armed with gauss rifles,\n missiles and anti-infantry laser.\nMid damage and low speed for higher health than\n other epic units.\nSpeed: 44\n\n  Strong vs Everything\n  Weak vs Nothing
+	Valued:
+		Cost: 11000
+	Tooltip:
+		Name: Direwolf
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 550000
+	Armor:
+		Type: Heavy
+	Mobile:
+		Voice: Move
+		TurnSpeed: 32
+		Speed: 44
+	Guard:
+		Voice: Move
+	Passenger:
+		Weight: 8
+		CustomPipType: red
+		Voice: Move
+	RevealsShroud:
+		Range: 10c0
+	Armament@PRIMARY:
+		Weapon: DireGauss
+		MuzzleSequence: muzzle
+		Recoil: 127
+		RecoilRecovery: 26
+		LocalOffset: 400,600,1100, 400,-600,1100
+	Armament@SECONDARY:
+		Weapon: DireLaser
+		LocalOffset: 400,60,1200, 400,-60,1200
+	Armament@TERTIARY:
+		Weapon: DireMissile
+		MuzzleSequence: muzzle
+		LocalOffset: 0,-490,1550, 0,-390,1550, 0,-490,1500, 0,-390,1500
+	WithMuzzleOverlay:
+	ClassicFacingBodyOrientation:
+		QuantizedFacings: 32
+	WithFacingSpriteBody:
+		Sequence: idle
+	WithMoveAnimation:
+		MoveSequence: run
+		ValidMovementTypes: Horizontal, Turn
+	Turreted:
+		TurnSpeed: 16
+	AttackTurreted:
+		PauseOnCondition: disabled
+	WithSpriteTurret:
+	Selectable:
+		Bounds: 2133, 2346, 0, -768
+		DecorationBounds: 2133, 2346, 0, -768
+	AnnounceOnKill:
+	Voiced:
+		VoiceSet: PaladinVoice
+	Explodes:
+		Weapon: CrateNuke
+		EmptyWeapon: CrateNuke
+	RenderSprites:
+		PlayerPalette: tsunit
+	ChangesHealth:
+		Step: 750
+		Delay: 25
+		StartIfBelow: 50
+		DamageCooldown: 150

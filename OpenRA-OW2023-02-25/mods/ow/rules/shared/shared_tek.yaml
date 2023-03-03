@@ -1,0 +1,597 @@
+T.MISS:
+	Inherits: ^ScienceBuilding
+	Inherits@IDISABLE: ^DisableOnLowPower
+	Inherits@Boss: ^EpicBotPrereqs
+	Inherits@shape: ^3x2Shape
+	Selectable:
+		Bounds: 3072, 2389
+	Buildable:
+		Queue: Tech
+		BuildPaletteOrder: 9090
+		BuildDuration: 4500
+		Prerequisites: advtechcenter, ~techlevel.unrestricted, ~structures.ultprereq, ~!ai.boss
+		BuildLimit: 1
+		Description: Provides access to your faction's epic unit or ability.\n\n  Special Ability: Provides money\n Limit of one.
+	Valued:
+		Cost: 6000
+	Tooltip:
+		Name: EpiTech Center
+	ProvidesPrerequisite:
+		Prerequisite: techcenter
+	ProvidesPrerequisite@adv:
+		Prerequisite: advtechcenter
+	ProvidesPrerequisite@adv2:
+		Prerequisite: ulttechcenter
+	ProvidesPrerequisite@adv3:
+		Prerequisite: library
+	Explodes:
+		Type: CenterPosition
+		Weapon: EMPExplosion
+		EmptyWeapon: EMPExplosion
+	Building:
+		Footprint: xxx xxx ===
+		Dimensions: 3,3
+		LocalCenterOffset: 0,-512,0
+	Health:
+		HP: 150000
+	Armor:
+		Type: Wood
+	RenderSprites:
+		Image: miss
+	RevealsShroud:
+		MinRange: 7c0
+		Range: 8c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 7c0
+	WithBuildingBib:
+	Power:
+		Amount: -600
+	ProvidesPrerequisite@buildingname:
+	Production:
+		Produces: Vehicle, Infantry, Soldier
+	RallyPoint:
+		Path: 4,2
+	Exit@1:
+		SpawnOffset: 0,0,0
+		ExitCell: 1,1
+	PrimaryBuilding:
+		PrimaryCondition: primary
+		SelectionNotification: PrimaryBuildingSelected
+	WithDecoration@primary:
+		RequiresSelection: true
+		Image: pips
+		Sequence: tag-primary
+		Position: Top
+		RequiresCondition: primary
+	ProductionQueue@2:
+		Type: Vehicle
+		DisplayOrder: 2
+		Group: Vehicle
+		LowPowerModifier: 200
+		ReadyAudio: UnitReady
+		BlockedAudio: NoBuild
+		LimitedAudio: BuildingInProgress
+		QueuedAudio: Building
+		OnHoldAudio: OnHold
+		CancelledAudio: Cancelled
+	ProductionBar@2:
+		ProductionType: Vehicle
+	ClonesProducedUnits:
+		CloneableTypes: Infantry
+		ProductionType: Infantry
+	CashTrickler:
+		Interval: 750
+		Amount: 100
+		InitialDelay: 325
+		RequiresCondition: !disabled
+		UseResourceStorage: true
+	ProvidesPrerequisite@allies:
+		Factions: allies, england, france, germany
+		Prerequisite: ulttech.allies
+	ProvidesPrerequisite@alliesvanilla:
+		Factions: allies
+		Prerequisite: ulttech.alliesvanilla
+	ProvidesPrerequisite@england:
+		Factions: england
+		Prerequisite: ulttech.england
+	ProvidesPrerequisite@france:
+		Factions: france
+		Prerequisite: ulttech.france
+	ProvidesPrerequisite@germany:
+		Factions: germany
+		Prerequisite: ulttech.germany
+	ProvidesPrerequisite@soviet:
+		Factions: soviet, russia, ukraine, estonia
+		Prerequisite: ulttech.soviet
+	ProvidesPrerequisite@sovietvanilla:
+		Factions: soviet
+		Prerequisite: ulttech.sovietvanilla
+	ProvidesPrerequisite@russia:
+		Factions: russia
+		Prerequisite: ulttech.russia
+	ProvidesPrerequisite@ukraine:
+		Factions: ukraine
+		Prerequisite: ulttech.ukraine
+	ProvidesPrerequisite@estonia:
+		Factions: estonia
+		Prerequisite: ulttech.estonia
+	ProvidesPrerequisite@gdi:
+		Factions: gdi, steel, zocom, gdi3
+		Prerequisite: ulttech.gdi
+	ProvidesPrerequisite@steel:
+		Factions: steel
+		Prerequisite: ulttech.steel
+	ProvidesPrerequisite@zocom:
+		Factions: zocom
+		Prerequisite: ulttech.zocom
+	ProvidesPrerequisite@gdi3:
+		Factions: gdi3
+		Prerequisite: ulttech.gdi3
+	ProvidesPrerequisite@nod:
+		Factions: nod, bhand, marked, nod3
+		Prerequisite: ulttech.nod
+	ProvidesPrerequisite@bhand:
+		Factions: bhand
+		Prerequisite: ulttech.bhand
+	ProvidesPrerequisite@marked:
+		Factions: marked
+		Prerequisite: ulttech.marked
+	ProvidesPrerequisite@nod3:
+		Factions: nod3
+		Prerequisite: ulttech.nod3
+	ProvidesPrerequisite@fed:
+		Factions: fed, sword, angels, silver
+		Prerequisite: ulttech.fed
+	ProvidesPrerequisite@sword:
+		Factions: sword
+		Prerequisite: ulttech.sword
+	ProvidesPrerequisite@angels:
+		Factions: angels
+		Prerequisite: ulttech.angels
+	ProvidesPrerequisite@silver:
+		Factions: silver
+		Prerequisite: ulttech.silver
+	ProvidesPrerequisite@uac:
+		Factions: phobos, deimos, mars
+		Prerequisite: ulttech.uac
+	ProvidesPrerequisite@phobos:
+		Factions: phobos
+		Prerequisite: ulttech.phobos
+	ProvidesPrerequisite@deimos:
+		Factions: deimos
+		Prerequisite: ulttech.deimos
+	ProvidesPrerequisite@mars:
+		Factions: mars
+		Prerequisite: ulttech.mars
+	ProvidesPrerequisite@nazi:
+		Factions: hitler, himmler, heydrich
+		Prerequisite: ulttech.nazi
+	ProvidesPrerequisite@hitler:
+		Factions: hitler
+		Prerequisite: ulttech.hitler
+	ProvidesPrerequisite@himmler:
+		Factions: himmler
+		Prerequisite: ulttech.himmler
+	ProvidesPrerequisite@heydrich:
+		Factions: heydrich
+		Prerequisite: ulttech.heydrich
+	ProvidesPrerequisite@gla:
+		Factions: kassad, demo, thrax
+		Prerequisite: ulttech.gla
+	ProvidesPrerequisite@kassad:
+		Factions: kassad
+		Prerequisite: ulttech.kassad
+	ProvidesPrerequisite@demo:
+		Factions: demo
+		Prerequisite: ulttech.demo
+	ProvidesPrerequisite@thrax:
+		Factions: thrax
+		Prerequisite: ulttech.thrax
+	ProvidesPrerequisite@gpsscrombler:
+		Factions: bhand, heydrich, kassad, demo, thrax
+		Prerequisite: ulttech.gpsscrambler
+	ProvidesPrerequisite@civ:
+		Factions: civ
+		Prerequisite: ulttech.civ
+	AirstrikePower@himmlerbomb:
+		PauseOnCondition: disabled
+		OrderName: EpicHimmler1
+		Prerequisites: ulttech.himmler
+		Icon: parabombs
+		ChargeInterval: 12000
+		Name: Auschwitz Carpet Bomb
+		Description: A large squadron of Do 17s drop the bombs on a target.
+		SelectTargetSpeechNotification: SelectTarget
+		CameraActor: camera
+		CameraRemoveDelay: 150
+		UnitType: do17.auschwitz
+		QuantizedFacings: 8
+		DisplayBeacon: true
+		BeaconPoster: pbmbicon
+		SquadSize: 9
+		SquadOffset: -1792,1792,0
+		ArrowSequence: arrow
+		ClockSequence: clock
+		CircleSequence: circles
+		UseDirectionalTarget: True
+		DirectionArrowAnimation: paradirection
+		SupportPowerPaletteOrder: 40
+		DisplayTimerRelationships: Ally, Neutral, Enemy
+	ParatroopersPower@himmlerparatroop:
+		PauseOnCondition: disabled
+		OrderName: EpicHimmler2
+		Prerequisites: ulttech.himmler
+		Icon: paratroopers
+		ChargeInterval: 12000
+		Name: Stormtrooper Squad
+		Description: A Badger drops a squad of infantry\nanywhere on the map.
+		DropItems: E1,E1,E1,NBOS1,E1OF,E3,E3,E3,NBOS1,E1OF,E4,E4,E4,NBOS1,E1OF,E1,E1,E1,NBOS1,E1OF,E3,E3,E3,NBOS1,E1OF,E4,E4,E4,NBOS1,E1OF
+		ReinforcementsArrivedSpeechNotification: ReinforcementsArrived
+		SelectTargetSpeechNotification: SelectTarget
+		AllowImpassableCells: false
+		QuantizedFacings: 8
+		CameraActor: camera.paradrop
+		DisplayBeacon: true
+		BeaconPoster: pinficon
+		ArrowSequence: arrow
+		ClockSequence: clock
+		CircleSequence: circles
+		UseDirectionalTarget: True
+		DirectionArrowAnimation: paradirection
+		SupportPowerPaletteOrder: 50
+		DisplayTimerRelationships: Ally, Neutral, Enemy
+		SquadSize: 5
+	GrantExternalConditionPower@GPSScrambler:
+		OrderName: GPSScrambler
+		PauseOnCondition: disabled
+		Icon: scramble
+		Prerequisites: ulttech.gpsscrambler
+		ChargeInterval: 6000
+		Name: GPS Scrambler
+		Description: Hides your forces with a special cloaking device.
+		SelectTargetSpeechNotification: SelectTarget
+		InsufficientPowerSpeechNotification: InsufficientPower
+		Condition: gpsscrambler
+		OnFireSound: cloak5.aud
+		SupportPowerPaletteOrder: 10
+		DisplayTimerRelationships: Ally, Neutral, Enemy
+		Dimensions: 1, 1
+		Footprint: x
+	AirstrikePower@lunarparabombs:
+		PauseOnCondition: disabled
+		OrderName: LunarParabombs
+		Prerequisites: aircraft.angels
+		Icon: parabombs
+		ChargeInterval: 12000
+		Name: Lunar Carpet Bomb
+		Description: A large squad of Badgers drops parachuted\nbombs on your target.
+		SelectTargetSpeechNotification: SelectTarget
+		CameraActor: camera
+		CameraRemoveDelay: 150
+		UnitType: badr.bomber
+		QuantizedFacings: 8
+		DisplayBeacon: true
+		BeaconPoster: pbmbicon
+		SquadSize: 9
+		SquadOffset: -1792,1792,0
+		ArrowSequence: arrow
+		ClockSequence: clock
+		CircleSequence: circles
+		UseDirectionalTarget: True
+		DirectionArrowAnimation: paradirection
+		SupportPowerPaletteOrder: 60
+		DisplayTimerRelationships: Ally, Neutral, Enemy
+	ParatroopersPower@lunartroopers:
+		PauseOnCondition: disabled
+		OrderName: LunarParatroopers
+		Prerequisites: aircraft.angels
+		Icon: paratroopers
+		ChargeInterval: 12000
+		Name: Lunar Strike
+		Description: A large squad of Badgers drops a battalion of infantry\nanywhere on the map.
+		DropItems: FE2,FE2,FE2,FE2,FE2,FMEDI,FE4,FE2,FE2,FE2,FE2,FE2,FMEDI,FE4,FE2,FE2,FE2,FE2,FE2,FMEDI,FE4,FE2,FE2,FE2,FE2,FE2,FMEDI,FE4,FE2,FE2,FE2,FE2,FE2,FMEDI,FE4
+		ReinforcementsArrivedSpeechNotification: ReinforcementsArrived
+		SelectTargetSpeechNotification: SelectTarget
+		AllowImpassableCells: false
+		QuantizedFacings: 8
+		CameraActor: camera.paradrop
+		DisplayBeacon: true
+		BeaconPoster: pinficon
+		ArrowSequence: arrow
+		ClockSequence: clock
+		CircleSequence: circles
+		UseDirectionalTarget: True
+		DirectionArrowAnimation: paradirection
+		SupportPowerPaletteOrder: 70
+		DisplayTimerRelationships: Ally, Neutral, Enemy
+		SquadSize: 5
+		SquadOffset: -1792,1792,0
+	IonCannonPower@EMP:
+		OrderName: EMPPower
+		Prerequisites: ulttech.estonia
+		PauseOnCondition: disabled
+		Icon: emp
+		Cursor: chrono-target
+		ChargeInterval: 10500
+		Name: E.M. Pulse
+		Description: Initiate an EMP strike.\nInflicts no damage but disables all power plants\nwithin a 16 cell radius for 30 seconds. \nDisables vehicles in a 10 cell radius for 15.
+		SelectTargetSpeechNotification: SelectTarget
+		InsufficientPowerSpeechNotification: InsufficientPower
+		OnFireSound: empsound.wav
+		DisplayRadarPing: True
+		CameraActor: camera.small
+		SupportPowerPaletteOrder: 20
+		CameraRemoveDelay: 100
+		Effect: explosion
+		EffectSequence: pulse_explosion
+		EffectPalette: tseffect
+		Weapon: EMPWeapon
+		DisplayTimerRelationships: Ally, Neutral, Enemy
+	SpawnActorPower@rebelambush:
+		PauseOnCondition: disabled
+		Prerequisites: ulttech.kassad
+		OrderName: RebelAmbush
+		Cursor: chrono-target
+		Icon: ge1icon
+		ChargeInterval: 7500
+		LifeTime: -1
+		Name: Rebel Ambush
+		Description: A group of elite rebels ambush your target.\nAdditional rebels will appear if \n  placed near foes.
+		Actor: gamb
+		SelectTargetSpeechNotification: SelectTarget
+		InsufficientPowerSpeechNotification: InsufficientPower
+		DisplayRadarPing: True
+		DeploySound: gstealon.aud
+		DisplayTimerRelationships: Ally, Neutral, Enemy
+		EffectSequence: idle
+	SpawnActorPower@terrambush:
+		PauseOnCondition: disabled
+		Prerequisites: ulttech.demo
+		OrderName: BombAmbush
+		Cursor: chrono-target
+		Icon: ge2icon
+		ChargeInterval: 7500
+		LifeTime: -1
+		Name: Bomb Ambush
+		Description: A group of terrorists ambush your target.\nAdditional terrorists will appear if \n  placed near foes.
+		Actor: gamb2
+		SelectTargetSpeechNotification: SelectTarget
+		InsufficientPowerSpeechNotification: InsufficientPower
+		DisplayRadarPing: True
+		DeploySound: iteratd.aud
+		DisplayTimerRelationships: Ally, Neutral, Enemy
+		EffectSequence: idle
+	AirstrikePower@glachem:
+		PauseOnCondition: disabled
+		OrderName: GLAChemStrike
+		Prerequisites: techlevel.unrestricted, ulttech.thrax
+		Icon: a10chem
+		ChargeInterval: 12000
+		Name: Chem Strike
+		Description: An A-10 squadron douses your target with tiberium gasses.
+		SelectTargetSpeechNotification: SelectTarget
+		CameraActor: camera
+		CameraRemoveDelay: 150
+		UnitType: a10.chem
+		QuantizedFacings: 8
+		DisplayBeacon: true
+		BeaconPoster: napalm
+		SquadSize: 4
+		SquadOffset: -1792,1792,0
+		ArrowSequence: arrow
+		ClockSequence: clock
+		CircleSequence: circles
+		UseDirectionalTarget: True
+		DirectionArrowAnimation: paradirection
+		SupportPowerPaletteOrder: 40
+		DisplayTimerRelationships: Ally, Neutral, Enemy
+	ParatroopersPower@soviettanks:
+		OrderName: ParatankSoviet
+		Prerequisites: ulttech.soviet
+		Icon: paratank
+		ChargeInterval: 9000
+		Name: Paratanks
+		Description: A C17 drops a squad of Soviet\ntanks anywhere on the map.
+		DropItems: 3TNK,3TNK,3TNK,4TNK
+		UnitType: C17
+		ReinforcementsArrivedSpeechNotification: ReinforcementsArrived
+		SelectTargetSpeechNotification: SelectTarget
+		AllowImpassableCells: false
+		QuantizedFacings: 8
+		CameraActor: camera.paradrop
+		DisplayBeacon: true
+		BeaconPoster: paratank
+		ArrowSequence: arrow
+		ClockSequence: clock
+		CircleSequence: circles
+		UseDirectionalTarget: True
+		DirectionArrowAnimation: paradirection
+		SupportPowerPaletteOrder: 50
+	ParatroopersPower@alliestanks:
+		OrderName: ParatankAllies
+		Prerequisites: ulttech.allies
+		Icon: paratank
+		ChargeInterval: 9000
+		Name: Paratanks
+		Description: A C17 drops a squad of allied\nvehicles anywhere on the map.
+		UnitType: C17
+		DropItems: 2TNK,2TNK,2TNK,2TNK,1TNK,1TNK,1TNK,JEEP,JEEP,JEEP
+		ReinforcementsArrivedSpeechNotification: ReinforcementsArrived
+		SelectTargetSpeechNotification: SelectTarget
+		AllowImpassableCells: false
+		QuantizedFacings: 8
+		CameraActor: camera.paradrop
+		DisplayBeacon: true
+		BeaconPoster: paratank
+		ArrowSequence: arrow
+		ClockSequence: clock
+		CircleSequence: circles
+		UseDirectionalTarget: True
+		DirectionArrowAnimation: paradirection
+		SupportPowerPaletteOrder: 50
+		SquadSize: 2
+	ParatroopersPower@gditanks:
+		OrderName: ParatankGDI
+		Prerequisites: ulttech.gdi
+		Icon: paratank
+		ChargeInterval: 9000
+		Name: Paratanks
+		Description: A C17 drops a squad of GDI\ntanks anywhere on the map.
+		UnitType: C17
+		DropItems: MTNKD.G,MTNKD.G,MTNKD.G,MTNKD.G,HTNKD.G
+		ReinforcementsArrivedSpeechNotification: ReinforcementsArrived
+		SelectTargetSpeechNotification: SelectTarget
+		AllowImpassableCells: false
+		QuantizedFacings: 8
+		CameraActor: camera.paradrop
+		DisplayBeacon: true
+		BeaconPoster: paratank
+		ArrowSequence: arrow
+		ClockSequence: clock
+		CircleSequence: circles
+		UseDirectionalTarget: True
+		DirectionArrowAnimation: paradirection
+		SupportPowerPaletteOrder: 50
+	ParatroopersPower@nodtanks:
+		OrderName: ParatankNod
+		Prerequisites: ulttech.nod
+		Icon: paratank
+		ChargeInterval: 9000
+		Name: Paratanks
+		Description: A C17 drops a squad of Nod\nvehicles anywhere on the map.
+		UnitType: C17
+		DropItems: 1TNK.N,1TNK.N,1TNK.N,1TNK.N,1TNK.N,1TNK.N,BIKE,BIKE,BIKE,BGGYD
+		ReinforcementsArrivedSpeechNotification: ReinforcementsArrived
+		SelectTargetSpeechNotification: SelectTarget
+		AllowImpassableCells: false
+		QuantizedFacings: 8
+		CameraActor: camera.paradrop
+		DisplayBeacon: true
+		BeaconPoster: paratank
+		ArrowSequence: arrow
+		ClockSequence: clock
+		CircleSequence: circles
+		UseDirectionalTarget: True
+		DirectionArrowAnimation: paradirection
+		SupportPowerPaletteOrder: 50
+		SquadSize: 2
+	ParatroopersPower@fedtanks:
+		OrderName: ParatankFed
+		Prerequisites: ulttech.fed
+		Icon: paratank
+		ChargeInterval: 9000
+		Name: Paratanks
+		Description: A C17 drops a squad of Federation\nvehicles anywhere on the map.
+		UnitType: C17
+		DropItems: BTNK,BTNK,BTNK,BTNK,MORNSTAR,MORNSTAR
+		ReinforcementsArrivedSpeechNotification: ReinforcementsArrived
+		SelectTargetSpeechNotification: SelectTarget
+		AllowImpassableCells: false
+		QuantizedFacings: 8
+		CameraActor: camera.paradrop
+		DisplayBeacon: true
+		BeaconPoster: paratank
+		ArrowSequence: arrow
+		ClockSequence: clock
+		CircleSequence: circles
+		UseDirectionalTarget: True
+		DirectionArrowAnimation: paradirection
+		SupportPowerPaletteOrder: 50
+		SquadSize: 2
+	ParatroopersPower@uactanks:
+		OrderName: ParatankUAC
+		Prerequisites: ulttech.uac
+		Icon: paratank
+		ChargeInterval: 9000
+		Name: Paratanks
+		Description: A C17 drops a squad of UAC\ntanks anywhere on the map.
+		UnitType: C17
+		DropItems: STNK.DM,STNK.DM,STNK.DM,STNK.DM
+		ReinforcementsArrivedSpeechNotification: ReinforcementsArrived
+		SelectTargetSpeechNotification: SelectTarget
+		AllowImpassableCells: false
+		QuantizedFacings: 8
+		CameraActor: camera.paradrop
+		DisplayBeacon: true
+		BeaconPoster: paratank
+		ArrowSequence: arrow
+		ClockSequence: clock
+		CircleSequence: circles
+		UseDirectionalTarget: True
+		DirectionArrowAnimation: paradirection
+		SupportPowerPaletteOrder: 50
+	ParatroopersPower@nazitanks:
+		OrderName: ParatankNazi
+		Prerequisites: ulttech.nazi
+		Icon: paratank
+		ChargeInterval: 9000
+		Name: Paratanks
+		Description: A C17 drops a squad of Nazi\ntanks anywhere on the map.
+		UnitType: C17
+		DropItems: 2TNK.NZ,3TNK.NZ,3TNK.NZ,3TNK.NZ
+		ReinforcementsArrivedSpeechNotification: ReinforcementsArrived
+		SelectTargetSpeechNotification: SelectTarget
+		AllowImpassableCells: false
+		QuantizedFacings: 8
+		CameraActor: camera.paradrop
+		DisplayBeacon: true
+		BeaconPoster: paratank
+		ArrowSequence: arrow
+		ClockSequence: clock
+		CircleSequence: circles
+		UseDirectionalTarget: True
+		DirectionArrowAnimation: paradirection
+		SupportPowerPaletteOrder: 50
+	ParatroopersPower@glatanks:
+		OrderName: ParatankGLA
+		Prerequisites: ulttech.gla
+		Icon: paratank
+		ChargeInterval: 9000
+		Name: Paratanks
+		Description: A C17 drops a squad of GLA\nvehicles anywhere on the map.
+		UnitType: C17
+		DropItems: BBUS.BOT,GBIKE,GBIKE,GBIKE,GBIKE,GBIKE,BGGYD.G,BGGYD.G
+		ReinforcementsArrivedSpeechNotification: ReinforcementsArrived
+		SelectTargetSpeechNotification: SelectTarget
+		AllowImpassableCells: false
+		QuantizedFacings: 8
+		CameraActor: camera.paradrop
+		DisplayBeacon: true
+		BeaconPoster: paratank
+		ArrowSequence: arrow
+		ClockSequence: clock
+		CircleSequence: circles
+		UseDirectionalTarget: True
+		DirectionArrowAnimation: paradirection
+		SupportPowerPaletteOrder: 50
+		SquadSize: 2
+
+
+HAXOR:
+	Inherits: POWR
+	Buildable:
+		Prerequisites: ~disabled
+		Description: Become the Boss
+	ProvidesPrerequisite@bossmode:
+		Prerequisite: ai.boss
+	Tooltip:
+		Name: Boss Mode
+	Power:
+		Amount: 5000
+	-ExternalCondition@stealthgen:
+	-Cloak@stealthgen:
+	Cloak:
+		IsPlayerPalette: true
+		Palette: dawncloak
+		InitialDelay: 125
+		CloakDelay: 175
+		CloakSound: trans1.aud
+		UncloakSound: trans1.aud
+		UncloakOn: Damage
+		PauseOnCondition: cloak-force-disabled
+	GrantConditionOnDamageState@UNCLOAK:
+		Condition: cloak-force-disabled
+		ValidDamageStates: Critical
+	RenderSprites:
+		Image: POWR

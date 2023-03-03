@@ -1,0 +1,1142 @@
+DM2:
+	Inherits: ^DoomSoldier
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Buildable:
+		Queue: Infantry
+		BuildAtProductionType: Soldier
+		BuildPaletteOrder: 20
+		Prerequisites: ~barracks, ~techlevel.infonly, ~infantry.uac
+		Description: General-purpose infantry.\nSpeed: 56\n  Strong vs Infantry\n  Weak vs Vehicles, Aircraft
+	Valued:
+		Cost: 280
+	Tooltip:
+		Name: Rifle Marine
+	Health:
+		HP: 20000
+	Armament@PRIMARY:
+		Weapon: M1Minigun_U
+	Armament@GARRISONED:
+		Name: garrisoned
+		Weapon: Vulcan
+		MuzzleSequence: garrison-muzzle
+	Armament@BUS:
+		Name: bus
+		Weapon: M1Minigun_Bus
+		MuzzleSequence: garrison-muzzle
+	WithInfantryBody:
+		DefaultAttackSequence: shoot
+	ProducibleWithLevel:
+		Prerequisites: barracks.upgraded
+
+DM2OF:
+	Inherits: ^DoomSoldier
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Buildable:
+		Queue: Infantry
+		BuildAtProductionType: Soldier
+		BuildPaletteOrder: 24
+		Prerequisites: ~barracks, ~techlevel.infonly, ~infantry.uac
+		Description: Squad leader, boosts nearby troops'\nspeed and firepower.\nSpeed: 62\n  Strong vs Infantry\n  Weak vs Vehicles, Aircraft
+	Valued:
+		Cost: 650
+	Tooltip:
+		Name: Officer
+	Health:
+		HP: 32500
+	Armament@PRIMARY:
+		Weapon: DoomSSG
+	Armament@GARRISONED:
+		Name: garrisoned
+		Weapon: DoomMinigunDK
+		MuzzleSequence: garrison-muzzle
+	Armament@BUS:
+		Name: bus
+		Weapon: DoomSSG
+		MuzzleSequence: garrison-muzzle
+	WithInfantryBody:
+		DefaultAttackSequence: shoot
+	ProducibleWithLevel:
+		Prerequisites: barracks.upgraded
+	ProximityExternalCondition:
+		Condition: squadboost
+		Range: 4c0
+		AffectsParent: true
+	WithDecoration@officer2:
+		Image: pips
+		Sequence: pip-bonus
+		Palette: effect
+		Position: TopRight
+		ValidRelationships: None,Neutral,Enemy,Ally
+		RequiresCondition: !demoralise
+
+DM6:
+	Inherits: ^DoomSoldier
+	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
+	Buildable:
+		Queue: Infantry
+		BuildAtProductionType: Soldier
+		BuildPaletteOrder: 21
+		Prerequisites: ~barracks, ~techlevel.infonly, ~infantry.uac, ~!infantry.deimos
+		Description: Anti-Air infantry.\nSpeed: 56\n  Strong vs Infantry\n  Weak vs Tanks
+	Valued:
+		Cost: 350
+	Tooltip:
+		Name: Minigunner
+	Health:
+		HP: 15000
+	Armament@PRIMARY:
+		Weapon: DoomMinigun
+	Armament@SECONDARY:
+		Weapon: DoomMinigunAA
+	Armament@GARRISONED:
+		Name: garrisoned
+		Weapon: Vulcan
+		MuzzleSequence: garrison-muzzle
+	Armament@GARRISONEDAA:
+		Name: garrisoned
+		Weapon: DoomMinigunAA
+		MuzzleSequence: garrison-muzzle
+	Armament@BUS:
+		Name: bus
+		Weapon: DoomMinigun
+		MuzzleSequence: garrison-muzzle
+	Armament@BUSAA:
+		Name: bus
+		Weapon: DoomMinigunAA
+		MuzzleSequence: garrison-muzzle
+	WithInfantryBody:
+		DefaultAttackSequence: shoot
+	ProducibleWithLevel:
+		Prerequisites: barracks.upgraded
+	RenderSprites:
+	-ReloadDelayMultiplier@RANK-1:
+	-ReloadDelayMultiplier@RANK-2:
+	-ReloadDelayMultiplier@RANK-3:
+	-ReloadDelayMultiplier@RANK-ELITE:
+
+DM1:
+	Inherits: ^DoomSoldier
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Buildable:
+		Queue: Infantry
+		BuildAtProductionType: Soldier
+		BuildPaletteOrder: 22
+		Prerequisites: ~barracks, ~techlevel.infonly, ~infantry.uac
+		Description: Shoulder-mounted RPG.\nSpeed: 56\n  Strong vs Infantry, Light Vehicles\n  Weak vs Heavy Armor, Aircraft
+	Valued:
+		Cost: 400
+	Tooltip:
+		Name: RPG Marine
+	Health:
+		HP: 17500
+	Armament@PRIMARY:
+		Weapon: DoomRPG
+		LocalOffset: 0,0,700
+	Armament@GARRISONED:
+		Name: garrisoned
+		Weapon: DoomRPG
+	Armament@BUS:
+		Name: bus
+		Weapon: DoomRPG
+	WithInfantryBody:
+		DefaultAttackSequence: shoot
+	ProducibleWithLevel:
+		Prerequisites: barracks.upgraded
+
+DM3:
+	Inherits: ^DoomSoldier
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Buildable:
+		Queue: Infantry
+		BuildAtProductionType: Soldier
+		BuildPaletteOrder: 23
+		Prerequisites: radar, ~techlevel.medium, ~infantry.uac, ~!infantry.deimos
+		Description: Heavy anti-infantry and anti-armour marine.\nSpeed: 48\n  Strong vs Infantry, Tanks\n  Weak vs Light Vehicles, Aircraft
+	Valued:
+		Cost: 500
+	Tooltip:
+		Name: Plasma Gunner
+	Health:
+		HP: 25000
+	Mobile:
+		Speed: 48
+	Armament@PRIMARY:
+		Weapon: DoomPlasma
+		LocalOffset: 0,0,555
+	Armament@GARRISONED:
+		Name: garrisoned
+		Weapon: DoomPlasma
+	Armament@BUS:
+		Name: bus
+		Weapon: DoomPlasma
+	WithInfantryBody:
+		DefaultAttackSequence: shoot
+	ProducibleWithLevel:
+		Prerequisites: barracks.upgraded
+
+MEDI.DM:
+	Inherits: ^TibSunSoldier
+	Buildable:
+		Queue: Infantry
+		BuildAtProductionType: Soldier
+		BuildPaletteOrder: 70
+		Prerequisites: ~techlevel.infonly, ~infantry.uac, ~!infantry.mars
+		Description: Heals nearby infantry.\nSpeed: 56\n  Unarmed
+	Valued:
+		Cost: 350
+	Tooltip:
+		Name: UAC Medic
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 13000
+	RevealsShroud:
+		Range: 3c0
+	Passenger:
+		CustomPipType: blue
+	Armament:
+		Weapon: Heal
+		Cursor: heal
+		OutsideRangeCursor: heal
+		TargetRelationships: Ally
+		ForceTargetRelationships: None
+	WithInfantryBody:
+		IdleSequences: idle1, idle2
+		StandSequences: stand
+		DefaultAttackSequence: heal
+	Voiced:
+		VoiceSet: MedicVoice
+	AutoTarget:
+	AutoTargetPriority@DEFAULT:
+		ValidTargets: Infantry
+	RenderSprites:
+		Image: TSMEDI
+	-DamagedByTerrain:
+
+MECH.DM:
+	Inherits: ^TibSunSoldier
+	Buildable:
+		Queue: Infantry
+		BuildAtProductionType: Soldier
+		BuildPaletteOrder: 80
+		Prerequisites: ~techlevel.infonly, ~infantry.uac
+		Description: Repairs nearby vehicles and restores\nhusks to working condition by capturing them.\nSpeed: 56\n  Unarmed
+	Valued:
+		Cost: 650
+	Tooltip:
+		Name: UAC Mechanic
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 14000
+	Mobile:
+		Voice: Move
+	RevealsShroud:
+		Range: 3c0
+	Passenger:
+		CustomPipType: blue
+		Voice: Move
+	Armament:
+		Weapon: Repair
+		Cursor: repair
+		OutsideRangeCursor: repair
+		TargetRelationships: Ally
+		ForceTargetRelationships: None
+	AttackFrontal:
+		Voice: Action
+		FacingTolerance: 0
+	CaptureManager:
+	Captures@husk:
+		CaptureTypes: husk
+		PlayerExperience: 25
+		CaptureDelay: 25
+		ConsumedByCapture: true
+		EnterCursor: goldwrench
+	Infiltrates:
+		Types: Husk
+		ValidRelationships: Ally
+		EnterCursor: goldwrench
+		PlayerExperience: 25
+	WithInfantryBody:
+		IdleSequences: idle1, idle2
+		DefaultAttackSequence: heal
+		StandSequences: stand
+	Voiced:
+		VoiceSet: MechanicVoice
+	AutoTarget:
+	AutoTargetPriority@DEFAULT:
+		ValidTargets: Vehicle, Ship
+	RenderSprites:
+		Image: TSMECH
+	-DamagedByTerrain:
+
+DM4:
+	Inherits: ^DoomSoldier
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Buildable:
+		Queue: Infantry
+		BuildAtProductionType: Soldier
+		BuildPaletteOrder: 120
+		Prerequisites: advtechcenter, ~techlevel.unrestricted, ~infantry.phobos
+		Description: Heavy anti-material marine.\nSpeed: 48\n  Strong vs Infantry, Tanks\n  Weak vs Aircraft
+	Valued:
+		Cost: 1650
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Tooltip:
+		Name: BFG Marine
+	Health:
+		HP: 60000
+	Mobile:
+		Speed: 48
+		Voice: Move
+	Passenger:
+		Voice: Move
+		Weight: 2
+		CustomPipType: red
+	Guard:
+		Voice: Move
+	Armament@PRIMARY:
+		Weapon: DoomBFG
+		LocalOffset: 400,0,555
+		FireDelay: 25
+	Armament@SOUND:
+		Name: secondary
+		Weapon: DoomBFGSound
+	Armament@GARRISONED:
+		Name: garrisoned
+		Weapon: DoomBFG
+		FireDelay: 25
+	Armament@SOUNDg:
+		Name: garrisoned
+		Weapon: DoomBFGSound
+	Armament@BUS:
+		Name: bus
+		Weapon: DoomBFG
+		FireDelay: 25
+	Armament@SOUNDb:
+		Name: bus
+		Weapon: DoomBFGSound
+	AttackFrontal:
+		FacingTolerance: 0
+	ExternalCondition@PRODUCED:
+		Condition: produced
+	VoiceAnnouncement:
+		RequiresCondition: produced
+		Voice: Build
+	AnnounceOnKill:
+	Voiced:
+		VoiceSet: CommandoVoice
+	ProducibleWithLevel:
+		Prerequisites: barracks.upgraded
+	AmbientSound:
+		SoundFiles: ccmon1.aud
+		Interval: 500, 1500
+		Delay: 500, 1500
+		RequiresCondition: !ismoving
+	GrantConditionOnMovement:
+		Condition: ismoving
+	WithInfantryBody:
+		DefaultAttackSequence: shoot
+	RenderSprites:
+
+TSE5P.DM:
+	Inherits: ^TibSunSoldier
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Buildable:
+		Queue: Infantry
+		BuildAtProductionType: Soldier
+		BuildPaletteOrder: 130
+		Prerequisites: techcenter, ~infantry.uac
+		Description: Stealth while stationary.\nInvisible to GPS, always prone,\n  weapon has tracer.\nSpeed: 28\n  Strong vs Infantry\n  Weak vs Everything else
+	Valued:
+		Cost: 1400
+	Tooltip:
+		Name: UAC Sniper
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 7000
+	Mobile:
+		Speed: 28
+		Voice: Move
+	Guard:
+		Voice: Move
+	Passenger:
+		Voice: Move
+	-TakeCover:
+	-GpsDot:
+	RevealsShroud:
+		MinRange: 4c0
+		Range: 6c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 4c0
+	Armament@PRIMARY:
+		Weapon: DoomSniper
+	Armament@GARRISONED:
+		Name: garrisoned
+		Weapon: DoomSniper
+		MuzzleSequence: garrison-muzzle
+	Armament@BUS:
+		Name: bus
+		Weapon: DoomSniper
+		MuzzleSequence: garrison-muzzle
+	WithInfantryBody:
+		DefaultAttackSequence: shoot
+		StandSequences: stand
+	ExternalCondition@PRODUCED:
+		Condition: produced
+	VoiceAnnouncement:
+		RequiresCondition: produced
+		Voice: Build
+	AnnounceOnKill:
+	Voiced:
+		VoiceSet: HunterVoice
+	ProducibleWithLevel:
+		Prerequisites: barracks.upgraded
+	RenderRangeCircle:
+	RenderSprites:
+		Image: TSE5P
+	-DamagedByTerrain:
+	-ExternalCondition@stealthgen:
+	-Cloak@stealthgen:
+	Cloak:
+		IsPlayerPalette: true
+		InitialDelay: 25
+		CloakDelay: 60
+		CloakSound: gstealon.aud
+		UncloakSound: gstealof.aud
+		UncloakOn: Move, Damage
+		PauseOnCondition: cloak-force-disabled || disabled
+	GrantConditionOnDamageState@UNCLOAK:
+		Condition: cloak-force-disabled
+		ValidDamageStates: Critical
+
+DM5:
+	Inherits: ^DoomSoldier
+	Inherits@EPIC: ^EpicUnit
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Buildable:
+		Queue: Infantry
+		BuildAtProductionType: Soldier
+		BuildPaletteOrder: 2500
+		Prerequisites: ulttechcenter, ~techlevel.unrestricted, ~infantry.phobos
+		Description: [EPIC]\nDwayne 'The Sarge' Schwartz is armed with a BFG10k.\nSpeed: 48\n  Strong vs Infantry, Tanks\n  Weak vs Aircraft
+	Valued:
+		Cost: 5500
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Tooltip:
+		Name: The Sarge
+	Health:
+		HP: 250000
+	Mobile:
+		Speed: 48
+		Locomotor: foot2
+		Voice: Move
+	RevealsShroud:
+		MinRange: 4c0
+		Range: 6c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 4c0
+	Passenger:
+		Voice: Move
+		Weight: 4
+		CustomPipType: red
+	Guard:
+		Voice: Move
+	Armament@PRIMARY:
+		Weapon: DoomSuperBFG
+		LocalOffset: 400,0,555
+		FireDelay: 25
+	Armament@SOUND:
+		Name: secondary
+		Weapon: DoomSuperBFGSound
+	Armament@PLASMA:
+		Weapon: DoomSuperPlasma
+		LocalOffset: 400,0,555
+	Armament@GARRISONED:
+		Name: garrisoned
+		Weapon: DoomSuperBFG
+		FireDelay: 25
+	Armament@SOUNDg:
+		Name: garrisoned
+		Weapon: DoomSuperBFGSound
+	Armament@BUS:
+		Name: bus
+		Weapon: DoomSuperBFG
+		FireDelay: 25
+	Armament@SOUNDb:
+		Name: bus
+		Weapon: DoomSuperBFGSound
+	AttackFrontal:
+		FacingTolerance: 0
+	VoiceAnnouncement:
+		RequiresCondition: produced
+		Voice: Build
+	AnnounceOnKill:
+	Voiced:
+		VoiceSet: ArnieVoice
+		Volume: 1.25
+	ProducibleWithLevel:
+		Prerequisites: barracks.upgraded
+	AmbientSound:
+		SoundFiles: arniekil7.aud, arniekil2.aud
+		Interval: 500, 1500
+		Delay: 500, 1500
+		RequiresCondition: !ismoving
+	GrantConditionOnMovement:
+		Condition: ismoving
+	WithInfantryBody:
+		DefaultAttackSequence: shoot
+	SoundOnDamageTransition:
+		DamagedSounds: arniecrit1.wav,arniecrit2.wav,arniecrit3.wav
+	-Crushable:
+	Selectable:
+		Bounds: 1280, 1280, 0, -426
+	Explodes:
+		Weapon: CrateNuke
+		EmptyWeapon: CrateNuke
+	Explodes@arnie:
+		Weapon: ArnieDeath
+		EmptyWeapon: ArnieDeath
+	RenderSprites:
+
+^LargeDemon:
+	HitShape:
+		Type: Circle
+			Radius: 512
+	Passenger:
+		CargoType: Vehicle
+	RevealsShroud:
+		MinRange: 4c0
+		Range: 5c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 4c0
+
+HELLD1:
+	Inherits: ^DoomSoldier
+	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
+	Inherits@HITBOX: ^LargeDemon
+	Buildable:
+		Queue: Infantry
+		BuildAtProductionType: Soldier
+		BuildPaletteOrder: 405
+		Prerequisites: hellgate, ~techlevel.unrestricted, ~infantry.uac, ~!infantry.deimos
+		Description: Medium demon from Hell, can float over water and cliffs.\Speed: 72\n  Strong vs Infantry, Air\n  Weak vs Vehicles
+	Valued:
+		Cost: 500
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Tooltip:
+		Name: Cacodemon
+	Health:
+		HP: 25000
+	Armor:
+		Type: Light
+	Mobile:
+		Speed: 72
+		Locomotor: floater
+	Armament@PRIMARY:
+		Weapon: DoomCacodemon
+		LocalOffset: 150,0,333
+	Passenger:
+		Weight: 2
+	AttackFrontal:
+		FacingTolerance: 0
+	Voiced:
+		VoiceSet: CacodemonVoice
+	WithInfantryBody:
+		DefaultAttackSequence: shoot
+	ProducibleWithLevel:
+		Prerequisites: pdox.upgraded
+	RenderSprites:
+	Selectable:
+		DecorationBounds: 1024, 1024, 0, -426
+	Hovers:
+	-SpawnActorOnDeath@fire:
+
+HELLD2:
+	Inherits: ^DoomSoldier
+	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
+	Inherits@HITBOX: ^LargeDemon
+	Buildable:
+		Queue: Infantry
+		BuildAtProductionType: Soldier
+		BuildPaletteOrder: 410
+		Prerequisites: hellgate, ~techlevel.unrestricted, ~infantry.uac
+		Description: Large demon from Hell, can attack air.\nSpeed: 56\n  Strong vs Infantry, Air\n  Weak vs Vehicles
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Valued:
+		Cost: 1000
+	Tooltip:
+		Name: Baron Of Hell
+	Health:
+		HP: 60000
+	Armor:
+		Type: Light
+	Mobile:
+		Speed: 56
+		Locomotor: foot2
+	-Crushable:
+	Armament@PRIMARY:
+		Weapon: DoomBaron
+		LocalOffset: 200,0,500
+	Armament@SECONDARY:
+		Name: secondary
+		Weapon: DoomBaronClaw
+		FireDelay: 7
+	Armament@GARRISONED:
+		Name: garrisoned
+		Weapon: DoomBaron
+	Turreted:
+	AttackTurreted:
+	Voiced:
+		VoiceSet: BaronVoice
+	WithInfantryBody:
+		DefaultAttackSequence: shoot
+	ProducibleWithLevel:
+		Prerequisites: pdox.upgraded
+	Selectable:
+		Bounds: 1024, 1365, 0, -512
+		DecorationBounds: 1024, 1365, 0, -512
+	AmbientSound:
+		SoundFiles: dsdmact2.aud
+		Interval: 500, 1500
+		Delay: 500, 1500
+	-SpawnActorOnDeath@fire:
+
+HELLD3:
+	Inherits: ^DoomSoldier
+	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
+	Inherits@HITBOX: ^LargeDemon
+	Buildable:
+		Queue: Infantry
+		BuildAtProductionType: Soldier
+		BuildPaletteOrder: 415
+		Prerequisites: advtechcenter, hellgate, ~techlevel.unrestricted, ~infantry.uac, ~!infantry.phobos
+		Description: A cybernetic demon lord from Hell.\n Can attack air.\nSpeed: 65\n  Strong vs Everything\n  Weak vs Nothing
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Valued:
+		Cost: 2600
+	Tooltip:
+		Name: Cyberdemon
+	Health:
+		HP: 90000
+	Armor:
+		Type: Heavy
+	Mobile:
+		Speed: 65
+		Locomotor: tracked
+	Targetable:
+		TargetTypes: GroundActor, Vehicle, Repair, Tank
+	RevealsShroud:
+		Range: 6c0
+	Repairable:
+		RepairActors: fix
+	Passenger:
+		Weight: 5
+		CustomPipType: red
+	-Crushable:
+	RevealsShroud:
+		MinRange: 4c0
+		Range: 6c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 4c0
+	Armament@PRIMARY:
+		Weapon: CyberRPG
+		LocalOffset: 400,0,850
+	Armament@SECONDARY:
+		Weapon: CyberAA
+		LocalOffset: 400,0,850
+	AttackFrontal:
+		FacingTolerance: 0
+	ExternalCondition@PRODUCED:
+		Condition: produced
+	VoiceAnnouncement:
+		RequiresCondition: produced
+		Voice: Build
+	Voiced:
+		VoiceSet: CyberdemonVoice
+	WithInfantryBody:
+		DefaultAttackSequence: shoot
+	ProducibleWithLevel:
+		Prerequisites: pdox.upgraded
+	RenderSprites:
+	Selectable:
+		Bounds: 1450, 1877, 0, -768
+		DecorationBounds: 1450, 1877, 0, -768
+	Explodes:
+		Weapon: CyberExplode
+		EmptyWeapon: CyberExplode
+	AmbientSound:
+		SoundFiles: dsdmact2.aud
+		Interval: 500, 1500
+		Delay: 500, 1500
+	AmbientSound@move:
+		SoundFiles: dshoof.aud
+		Interval: 20
+		RequiresCondition: ismoving
+	GrantConditionOnMovement:
+		Condition: ismoving
+	-SpawnActorOnDeath@fire:
+
+HELLD3.S:
+	Inherits: HELLD3
+	-Buildable:
+	-ActorLostNotification:
+	AmbientSound@spawn:
+		SoundFiles: dscybsit.aud
+		Interval: 2000
+		Delay: 5
+	KillsSelf:
+		Delay: 750
+		DamageTypes: ElectricityDeath
+	RenderSprites:
+		Image: helld3
+
+HELLD4:
+	Inherits: ^DoomSoldier
+	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
+	Buildable:
+		Queue: Infantry
+		BuildAtProductionType: Soldier
+		BuildPaletteOrder: 400
+		Prerequisites: hellgate, ~techlevel.unrestricted, ~infantry.uac, ~!infantry.deimos
+		Description: Small demon from Hell, can attack air.\nSpeed: 56\n  Strong vs Infantry, Air\n  Weak vs Vehicles
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Valued:
+		Cost: 260
+	Tooltip:
+		Name: Imp
+	Health:
+		HP: 15000
+	Mobile:
+		Speed: 56
+	Armor:
+		Type: Light
+	Armament@PRIMARY:
+		Weapon: DoomImp
+		LocalOffset: 200,0,500
+	Armament@GARRISONED:
+		Name: garrisoned
+		Weapon: DoomImp
+	AttackFrontal:
+		FacingTolerance: 0
+	Voiced:
+		VoiceSet: ImpVoice
+	WithInfantryBody:
+		DefaultAttackSequence: shoot
+	ProducibleWithLevel:
+		Prerequisites: pdox.upgraded
+	RenderSprites:
+	-SpawnActorOnDeath@fire:
+
+HELLD1.DE:
+	Inherits: HELLD1
+	Buildable:
+		Prerequisites: radar, ~techlevel.medium, ~infantry.deimos
+	RenderSprites:
+		Image: helld1
+
+HELLD4.DE:
+	Inherits: HELLD4
+	Buildable:
+		Prerequisites: ~techlevel.infonly, ~infantry.deimos
+	RenderSprites:
+		Image: helld4
+
+HELLD5:
+	Inherits: ^DoomSoldier
+	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
+	Inherits@HITBOX: ^LargeDemon
+	Buildable:
+		Queue: Infantry
+		BuildAtProductionType: Soldier
+		BuildPaletteOrder: 409
+		Prerequisites: weap, ~techlevel.unrestricted, ~infantry.deimos
+		Description: Anti-vehicle skeletal man from Hell.\nCan attack air.\nSpeed: 66\n  Strong vs Vehicles, Air\n  Weak vs Infantry
+	Valued:
+		Cost: 725
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Tooltip:
+		Name: Revenant
+	Health:
+		HP: 37500
+	Armor:
+		Type: Light
+	Mobile:
+		Speed: 66
+		Locomotor: foot2
+	-Crushable:
+	Passenger:
+		Weight: 4
+	Armament@PRIMARY:
+		Weapon: RevenantMissile
+		LocalOffset: 400,-280,700
+		LocalYaw: 100
+	Armament@SECONDARY:
+		Weapon: RevenantMissile
+		LocalOffset: 400,280,700
+		LocalYaw: -100
+	Armament@TERTIARY:
+		Weapon: RevenantAA
+		LocalOffset: 400,-280,700, 400,280,700
+		LocalYaw: 100, -100
+	Armament@GARRISONED:
+		Name: garrisoned
+		Weapon: RevenantMissile
+	Armament@GARRISONED2:
+		Name: garrisoned
+		Weapon: RevenantAA
+	AttackFrontal:
+		FacingTolerance: 0
+	Voiced:
+		VoiceSet: RevenantVoice
+	WithInfantryBody:
+		DefaultAttackSequence: shoot
+	ProducibleWithLevel:
+		Prerequisites: pdox.upgraded
+	RenderSprites:
+	Selectable:
+		DecorationBounds: 1024, 1365, 0, -640
+	AmbientSound:
+		SoundFiles: dsskeact2.aud
+		Interval: 500, 1500
+		Delay: 500, 1500
+	-SpawnActorOnDeath@fire:
+
+HELLD6:
+	Inherits: ^DoomSoldier
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Buildable:
+		Queue: Infantry
+		BuildAtProductionType: Soldier
+		BuildPaletteOrder: 401
+		Prerequisites: ~techlevel.infonly, ~infantry.deimos
+		Description: Fast melee demon.\nSpeed: 78\n  Strong vs Infantry\n  Weak vs Vehicles, Air
+	Valued:
+		Cost: 180
+	Tooltip:
+		Name: Demon
+	Health:
+		HP: 15000
+	Mobile:
+		Speed: 78
+	Armament@PRIMARY:
+		Weapon: DoomDemonBite
+	AttackFrontal:
+		FacingTolerance: 0
+	TakeCover:
+		Duration: 100
+		SpeedModifier: 130
+		DamageModifiers:
+			Prone50Percent: 80
+		ProneSequencePrefix:
+		DamageTriggers: TriggerProne
+	AutoTarget:
+		ScanRadius: 5
+		InitialStance: AttackAnything
+	Voiced:
+		VoiceSet: DemonVoice
+	WithInfantryBody:
+		DefaultAttackSequence: shoot
+	ProducibleWithLevel:
+		Prerequisites: pdox.upgraded
+	RenderSprites:
+	Selectable:
+		Bounds: 853, 768, 0, -341
+		Class: Demons
+	AmbientSound:
+		SoundFiles: dsdmact2.aud
+		Interval: 500, 1500
+		Delay: 500, 1500
+	-SpawnActorOnDeath@fire:
+
+HELLD6.S:
+	Inherits: HELLD6
+	Buildable:
+		Queue: Infantry
+		BuildAtProductionType: Soldier
+		BuildPaletteOrder: 401
+		Prerequisites: ~techlevel.infonly, ~infantry.deimos
+		Description: Fast invisible melee demon.\nSpeed: 68\n  Strong vs Infantry\n  Weak vs Vehicles, Air
+		Icon: icon-spectre
+	Valued:
+		Cost: 220
+	Tooltip:
+		Name: Spectre
+	Health:
+		HP: 12500
+	Mobile:
+		Speed: 68
+	RenderSprites:
+		Image: helld6
+		PlayerPalette:
+		Palette: shadow
+	-GpsDot:
+	-ExternalCondition@stealthgen:
+	-Cloak@stealthgen:
+	Cloak:
+		InitialDelay: 0
+		CloakDelay: 5
+		CloakSound: null
+		UncloakSound: null
+		UncloakOn: Move, Damage, Attack
+		PauseOnCondition: cloak-force-disabled || disabled
+	GrantConditionOnDamageState@UNCLOAK:
+		Condition: cloak-force-disabled
+		ValidDamageStates: Critical
+
+HELLD7:
+	Inherits: ^DoomSoldier
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Inherits@HITBOX: ^LargeDemon
+	Buildable:
+		Queue: Infantry
+		BuildAtProductionType: Soldier
+		BuildPaletteOrder: 411
+		Prerequisites: fix, hellgate, ~techlevel.unrestricted, ~infantry.deimos
+		Description: Long-range seige demon from Hell.\nSpeed: 36\n  Strong vs Ground, Buildings\n  Weak vs Air
+	Valued:
+		Cost: 1400
+	Tooltip:
+		Name: Mancubus
+	Health:
+		HP: 40000
+	Armor:
+		Type: Light
+	Mobile:
+		Speed: 36
+		Locomotor: tracked
+	RevealsShroud:
+		MinRange: 5c0
+		Range: 6c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 5c0
+	-Crushable:
+	Armament@PRIMARY1:
+		Weapon: DoomMancSound
+	Armament@PRIMARY2:
+		Weapon: DoomManc1
+		LocalOffset: 200,-200,500, 200,200,500
+		LocalYaw: 0,0,270
+		FireDelay: 18
+	Armament@PRIMARY3:
+		Weapon: DoomManc2
+		LocalOffset: 200,200,500, 200,-200,500
+		LocalYaw: -96,96,-96
+		FireDelay: 18
+	Armament@GARRISONED1:
+		Name: garrisoned
+		Weapon: DoomMancSound
+	Armament@GARRISONED2:
+		Name: garrisoned
+		Weapon: DoomManc1
+		LocalYaw: -100,0,-100
+		FireDelay: 18
+	Armament@GARRISONED3:
+		Name: garrisoned
+		Weapon: DoomManc2
+		LocalYaw: 0,-100,100
+		FireDelay: 18
+	AttackFrontal:
+		FacingTolerance: 0
+	Targetable:
+		TargetTypes: GroundActor, Vehicle
+	Passenger:
+		Weight: 5
+	Voiced:
+		VoiceSet: MancubusVoice
+	WithInfantryBody:
+		DefaultAttackSequence: shoot
+	ProducibleWithLevel:
+		Prerequisites: pdox.upgraded
+	RenderSprites:
+	Selectable:
+		Bounds: 1280, 1450, 0, -512
+		DecorationBounds: 1280, 1450, 0, -512
+	AmbientSound:
+		SoundFiles: dsposact.aud
+		Interval: 500, 1500
+		Delay: 500, 1500
+	-SpawnActorOnDeath@fire:
+
+HELLD8:
+	Inherits: ^DoomSoldier
+	Inherits@NoExp: ^NoExp
+	Inherits@EPIC: ^EpicUnit
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Buildable:
+		Queue: Vehicle
+		BuildAtProductionType: Vehicle
+		BuildPaletteOrder: 9000
+		Prerequisites: ulttechcenter, hellgate, ~techlevel.unrestricted, ~infantry.deimos
+		Description: A mastermind of Hell, can spawn in new\n demons from the corpses of it's victims.\n  Strong vs Everything\n  Weak vs Nothing
+		BuildLimit: 1
+	Valued:
+		Cost: 10000
+	Tooltip:
+		Name: Spider Mastermind
+	Health:
+		HP: 400000
+	RevealsShroud:
+		MinRange: 7c0
+		Range: 9c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 7c0
+	Armor:
+		Type: Heavy
+	Mobile:
+		Speed: 48
+	Targetable:
+		TargetTypes: GroundActor, Vehicle
+	Passenger:
+		Weight: 8
+		CustomPipType: red
+	-Crushable:
+	Repairable:
+		RepairActors: fix
+	Armament@PRIMARY1:
+		Weapon: DoomSpider
+	Armament@PRIMARY2:
+		Weapon: DoomSpiderAA
+	Armament@SECONDARY:
+		Weapon: DoomSpawnCube
+		LocalOffset: 600,0,1200
+	AttackFrontal:
+		FacingTolerance: 0
+	AnnounceOnKill:
+	Voiced:
+		VoiceSet: SpiderVoice
+	WithInfantryBody:
+		DefaultAttackSequence: shoot
+	Selectable:
+		Bounds: 4352, 2560, 0, -1024
+		DecorationBounds: 4352, 2560, 0, -1024
+	-Explodes@elec:
+	Explodes@2:
+		Weapon: SpiderNuke
+		EmptyWeapon: SpiderNuke
+		Chance: 100
+	ProximityExternalCondition:
+		Condition: squadboost
+		Range: 8c0
+		AffectsParent: false
+	WithDecoration@officer2:
+		Image: pips
+		Sequence: pip-bonus
+		Palette: effect
+		Position: TopRight
+		ValidRelationships: None,Neutral,Enemy,Ally
+	AmbientSound:
+		SoundFiles: dsdmact.aud
+		Interval: 500, 1500
+		Delay: 500, 1500
+	AmbientSound@move:
+		SoundFiles: dsmetal2.aud
+		Interval: 10
+		RequiresCondition: ismoving
+	GrantConditionOnMovement:
+		Condition: ismoving
+	HitShape:
+		Type: Rectangle
+			TopLeft: -1280, -1024
+			BottomRight: 1280, 1024
+	-SpawnActorOnDeath@fire:
+
+
+HELLD9:
+	Inherits: ^DoomSoldier
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Inherits@HITBOX: ^LargeDemon
+	Buildable:
+		Queue: Infantry
+		BuildAtProductionType: Soldier
+		BuildPaletteOrder: 414
+		Prerequisites: advtechcenter, hellgate, ~techlevel.unrestricted, ~infantry.deimos
+		Description: Fire-elemental sniper and restoration demon,\ncan attack air.\nSpeed: 72\n  Strong vs Vehicles, Air\n  Weak vs Infantry
+	Valued:
+		Cost: 1800
+	Tooltip:
+		Name: Archvile
+	Health:
+		HP: 50000
+	Armor:
+		Type: Light
+	Mobile:
+		Speed: 72
+		Locomotor: foot2
+	RevealsShroud:
+		MinRange: 5c0
+		Range: 7c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 5c0
+	-Crushable:
+	Armament@SOUND:
+		Name: primary
+		Weapon: DoomArchvileDummy
+	Armament@SECONDARY1:
+		Name: secondary
+		Weapon: DoomArchvileHit
+		FireDelay: 58
+	Armament@SECONDARY2:
+		Name: secondary
+		Weapon: DoomArchvileFire
+		FireDelay: 25
+	Armament@HEAL:
+		Name: primary
+		Weapon: Heal
+		TargetRelationships: Ally
+		ForceTargetRelationships: None
+	Armament@GARRISONED:
+		Name: garrisoned
+		Weapon: DoomArchvileDummy
+	Armament@GARRISONED2:
+		Name: garrisoned
+		Weapon: DoomArchvileHit
+	Armament@GARRISONED3:
+		Name: garrisoned
+		Weapon: DoomArchvileFire
+	AttackFrontal:
+		FacingTolerance: 0
+	Voiced:
+		VoiceSet: ArchvileVoice
+	WithInfantryBody:
+		DefaultAttackSequence: shoot
+	ProducibleWithLevel:
+		Prerequisites: pdox.upgraded
+	-WithDeathAnimation:
+	WithDeathAnimation:
+		DeathTypes:
+			DefaultDeath: 1
+			BulletDeath: 1
+			SmallExplosionDeath: 1
+			ExplosionDeath: 1
+			FireDeath: 1
+			ElectricityDeath: 1
+	RenderSprites:
+	Selectable:
+		Bounds: 1024, 1365, 0, -640
+		DecorationBounds: 1024, 1365, 0, -640
+	ExternalCondition@PRODUCED:
+		Condition: produced
+	VoiceAnnouncement:
+		RequiresCondition: produced
+		Voice: Build
+	AmbientSound:
+		SoundFiles: dsvilact.aud
+		Interval: 500, 1500
+		Delay: 500, 1500
+	-SpawnActorOnDeath@fire:

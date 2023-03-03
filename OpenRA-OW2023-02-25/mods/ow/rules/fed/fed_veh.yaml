@@ -1,0 +1,600 @@
+AATY:
+	Inherits: ^TrackedVehicle
+	Inherits@GAINSEXPERIENCE: ^GainsExperience
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Buildable:
+		Queue: Vehicle
+		BuildPaletteOrder: 51
+		Prerequisites: fix, ~vehicles.fed, ~techlevel.medium, ~!vehicles.angels
+		Description: Long-range quad artillery.\n  Strong vs Infantry, Buildings\nSpeed: 85\n  Weak vs Tanks, Aircraft
+	Valued:
+		Cost: 1200
+	Tooltip:
+		Name: Rook Artillery
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 15000
+	Armor:
+		Type: Light
+	Mobile:
+		TurnSpeed: 12
+		Speed: 85
+		Locomotor: lighttracked
+	RevealsShroud:
+		MinRange: 4c0
+		Range: 6c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 4c0
+	Turreted:
+		TurnSpeed: 20
+		Offset: 0,0,200
+	Armament:
+		Weapon: d155mm
+		LocalOffset: 624,0,208
+		Recoil: 85
+		MuzzleSequence: muzzle
+		PauseOnCondition: disabled
+	AttackTurreted:
+		PauseOnCondition: disabled
+	WithMuzzleOverlay:
+	WithSpriteTurret:
+	Explodes:
+		Weapon: ArtilleryExplode
+		EmptyWeapon: UnitExplodeSmall
+		LoadedChance: 75
+	ProducibleWithLevel:
+		Prerequisites: vehicles.upgraded
+
+BTNK:
+	Inherits: ^TrackedVehicle
+	Inherits@GAINSEXPERIENCE: ^GainsExperience
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Buildable:
+		Queue: Vehicle
+		BuildPaletteOrder: 50
+		Prerequisites: fix, ~vehicles.silver, ~techlevel.medium
+		Description: Federation Main Battle Tank.\n  Strong vs Vehicles, Infantry\n  Weak vs Aircraft
+	Valued:
+		Cost: 950
+	Tooltip:
+		Name: Plasma Tank
+		GenericName: Tank
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 40000
+	Armor:
+		Type: Heavy
+	Mobile:
+		Speed: 95
+	RevealsShroud:
+		MinRange: 4c0
+		Range: 6c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 4c0
+	Turreted:
+		TurnSpeed: 24
+	Armament:
+		Weapon: FPlasma
+		Recoil: 85
+		RecoilRecovery: 25
+		LocalOffset: 768,0,90
+		MuzzleSequence: muzzle
+		PauseOnCondition: disabled
+	AttackTurreted:
+		PauseOnCondition: disabled
+	WithMuzzleOverlay:
+	WithSpriteTurret:
+	ProducibleWithLevel:
+		Prerequisites: vehicles.upgraded
+
+BTNK.Sword:
+	Inherits: BTNK
+	Buildable:
+		Prerequisites: fix, ~vehicles.sword, ~techlevel.medium
+	Valued:
+		Cost: 800
+	RenderSprites:
+		Image: BTNK
+
+LMECH:
+	Inherits: ^TrackedVehicle
+	Inherits@GAINSEXPERIENCE: ^GainsExperience
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Buildable:
+		Queue: Vehicle
+		BuildPaletteOrder: 55
+		Prerequisites: fix, ~vehicles.fed, ~techlevel.medium, ~vehicles.sword
+		Description: Federation assault mech. Uses fire.\n  Strong vs Infantry, Light Vehicles\n  Weak vs Vehicles, Aircraft
+	Valued:
+		Cost: 900
+	Tooltip:
+		Name: Legionary
+		GenericName: Mech
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 35000
+	Armor:
+		Type: Light
+	Mobile:
+		Speed: 125
+	RevealsShroud:
+		MinRange: 4c0
+		Range: 5c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 4c0
+	Turreted:
+		TurnSpeed: 60
+	Armament@PRIMARY:
+		Weapon: FireballLauncher2
+		Recoil: 1
+		PauseOnCondition: disabled
+	Armament@SECONDARY:
+		Weapon: FSMG
+		PauseOnCondition: disabled
+	AttackTurreted:
+		PauseOnCondition: disabled
+	WithMuzzleOverlay:
+	WithSpriteTurret:
+	Explodes:
+		Weapon: UnitExplodeSmall
+		EmptyWeapon: UnitExplodeSmall
+	ProducibleWithLevel:
+		Prerequisites: vehicles.upgraded
+
+DRONE:
+	Inherits: ^Vehicle
+	Inherits@GAINSEXPERIENCE: ^GainsExperience
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Buildable:
+		Queue: Vehicle
+		BuildPaletteOrder: 60
+		Prerequisites: techcenter, advtechcenter, ~vehicles.fed, ~techlevel.unrestricted
+		Description: Federation stealth drone.\n  Strong vs Infantry, Light Vehicles\n  Weak vs Heavy Vehicles, Aircraft
+	Valued:
+		Cost: 600
+	Tooltip:
+		Name: Sentinel
+		GenericName: Drone
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 10000
+	Armor:
+		Type: Light
+	Mobile:
+		Speed: 142
+		Locomotor: drone
+	RevealsShroud:
+		MinRange: 4c0
+		Range: 6c0
+	RevealsShroud@GAPGEN:
+		Range: 4c0
+	Armament:
+		Weapon: FPlasma
+		PauseOnCondition: disabled
+	AttackOmni:
+		PauseOnCondition: disabled
+	AutoTarget:
+		InitialStance: HoldFire
+		InitialStanceAI: Defend
+	DetectCloaked:
+		Range: 4c0
+	#	PauseOnCondition: disabled
+	#	Condition: !disabled
+	-MustBeDestroyed:
+	Cloak:
+		InitialDelay: 40
+		CloakDelay: 40
+		CloakSound: trans1.aud
+		UncloakSound: trans1.aud
+		PauseOnCondition: cloak-force-disabled
+	GrantConditionOnDamageState@UNCLOAK:
+		Condition: cloak-force-disabled
+		ValidDamageStates: Critical
+	Hovers:
+	ProducibleWithLevel:
+		Prerequisites: vehicles.upgraded
+	Selectable:
+		Bounds: 1024, 1280
+		DecorationBounds: 1024, 1280
+
+MORNSTAR:
+	Inherits: ^TrackedVehicle
+	Inherits@GAINSEXPERIENCE: ^GainsExperience
+	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
+	Buildable:
+		Queue: Vehicle
+		BuildPaletteOrder: 45
+		Prerequisites: radar, ~vehicles.fed, ~techlevel.medium
+		Description: Light, missile weilding hover vehicle.\n  Strong vs Vehicles, Aircraft\n  Weak vs Vehicles, Aircraft
+	Valued:
+		Cost: 800
+	Tooltip:
+		Name: Morning Star
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 20000
+	Armor:
+		Type: Light
+	Mobile:
+		Speed: 115
+		Locomotor: hover
+	RevealsShroud:
+		MinRange: 5c0
+		Range: 7c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 5c0
+	Armament:
+		Weapon: MonMis
+		LocalOffset: 213,128,0, 213,-128,0
+		PauseOnCondition: disabled
+	AttackTurreted:
+		PauseOnCondition: disabled
+	WithSpriteTurret:
+	Turreted:
+		TurnSpeed: 20
+	RenderSprites:
+		Image: MONGOOSE
+	ProducibleWithLevel:
+		Prerequisites: vehicles.upgraded
+	Hovers:
+	WithShadow:
+
+RTNK:
+	Inherits: ^TrackedVehicle
+	Inherits@GAINSEXPERIENCE: ^GainsExperience
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Inherits@CARGOPIPS: ^CargoPips
+	Buildable:
+		Queue: Vehicle
+		BuildPaletteOrder: 40
+		Prerequisites: ~vehicles.fed, ~techlevel.low
+		Description: Federation transport tank.\n  Strong vs Infantry, Light Vehicles\n  Weak vs Heavy Vehicles, Aircraft
+	Valued:
+		Cost: 900
+	Tooltip:
+		Name: Reaper Transport
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 80000
+	Armor:
+		Type: Heavy
+	Mobile:
+		Speed: 90
+		PauseOnCondition: notmobile || being-captured
+	RevealsShroud:
+		MinRange: 4c0
+		Range: 5c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 4c0
+	Turreted:
+		TurnSpeed: 20
+	Armament@PRIMARY:
+		Weapon: 90mm
+		Recoil: 85
+		RecoilRecovery: 25
+		PauseOnCondition: disabled
+	Armament@SECONDARY:
+		Name: secondary
+		Weapon: FSMG
+		PauseOnCondition: disabled
+	AttackTurreted:
+		PauseOnCondition: disabled
+	WithSpriteTurret:
+	Cargo:
+		Types: Infantry
+		MaxWeight: 5
+		PassengerFacing: 880
+		LoadingCondition: notmobile
+		PassengerConditions:
+			e1of: e1of
+	ProximityExternalCondition@officer:
+		RequiresCondition: e1of
+		Condition: squadboost
+		Range: 5c0
+	WithDecoration@officer2:
+		Image: pips
+		Sequence: pip-bonus
+		Palette: effect
+		Position: TopRight
+		ValidRelationships: None,Neutral,Enemy,Ally
+		RequiresCondition: !demoralise && e1of
+	ExternalCondition@demoralise:
+		Condition: demoralise
+	ProducibleWithLevel:
+		Prerequisites: vehicles.upgraded
+	Selectable:
+		Bounds: 1877, 1706, 0, 170
+		DecorationBounds: 1877, 1706, 0, 170
+	WithCargoPipsDecoration:
+		Position: BottomLeft
+		RequiresSelection: true
+
+SPEEDER:
+	Inherits: ^Vehicle
+	Inherits@GAINSEXPERIENCE: ^GainsExperience
+	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
+	Buildable:
+		Queue: Vehicle
+		BuildPaletteOrder: 30
+		Prerequisites: ~vehicles.fed, ~techlevel.low
+		Description: Fast scout vehicle, armed with \nrockets.\n  Strong vs Vehicles, Aircraft\n  Weak vs Infantry
+	Valued:
+		Cost: 600
+	Tooltip:
+		Name: Speeder
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Mobile:
+		TurnSpeed: 40
+		Speed: 250
+		Locomotor: hover
+	Health:
+		HP: 12000
+	Armor:
+		Type: Light
+	RevealsShroud:
+		MinRange: 4c0
+		Range: 7c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 4c0
+	Armament:
+		Weapon: BikeRockets
+		LocalOffset: -128, -170, 170, -128, 170, 170
+		LocalYaw: 100, -100
+		PauseOnCondition: disabled
+	AttackFrontal:
+		PauseOnCondition: disabled
+		FacingTolerance: 0
+	AutoTarget:
+	ProducibleWithLevel:
+		Prerequisites: vehicles.upgraded
+	Hovers:
+
+FCRU:
+	Inherits: ^Vehicle
+	Inherits@GAINSEXPERIENCE: ^GainsExperience
+	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
+	Buildable:
+		Queue: Vehicle
+		BuildPaletteOrder: 200
+		Prerequisites: fix, radar, advtechcenter, ~vehicles.fed, ~vehicles.sword, ~techlevel.unrestricted
+		BuildLimit: 2
+		Description: Strong mech unit.\n  Strong vs Everything\n  Weak vs Fast Aircraft
+	Valued:
+		Cost: 6000
+	Tooltip:
+		Name: Crusader
+		GenericName: Mech
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Voiced:
+		VoiceSet: SuperTankVoice
+	Passenger:
+		CargoType: Vehicle
+		CustomPipType: red
+		Weight: 4
+		Voice: Move
+	Health:
+		HP: 300000
+	Armor:
+		Type: Heavy
+	Mobile:
+		TurnSpeed: 60
+		Speed: 42
+		Locomotor: bigmech
+		Voice: Move
+	Guard:
+		Voice: Move
+	RevealsShroud:
+		MinRange: 6c0
+		Range: 8c0
+	RevealsShroud@GAPGEN:
+		Range: 6c0
+	Armament@PRIMARY:
+		Weapon: FCrGun
+		MuzzleSequence: muzzle
+		Recoil: 127
+		RecoilRecovery: 26
+		LocalOffset: 0,525,340, 0,-525,340
+		PauseOnCondition: disabled
+	Armament@SECONDARY:
+		Weapon: MammothTusk
+		LocalOffset: -80,-190,520, -80,-170,520, -80,-190,500, -80,-170,500
+		PauseOnCondition: disabled
+	Armament@TERTIARY:
+		Weapon: c155mm
+		LocalOffset: -80,-190,520, -80,-170,520, -80,-190,500, -80,-170,500
+		PauseOnCondition: disabled
+	WithMuzzleOverlay:
+	ClassicFacingBodyOrientation:
+		QuantizedFacings: 32
+	-WithFacingSpriteBody:
+	WithInfantryBody:
+		IdleSequences: idle
+		StandSequences: idle
+	Turreted:
+		TurnSpeed: 16
+	AttackTurreted:
+		PauseOnCondition: disabled
+	WithSpriteTurret:
+		Recoils: true
+	ShakeOnDeath:
+	Explodes@2:
+		Weapon: E100Cannon
+		EmptyWeapon: E100Cannon
+	SpawnActorOnDeath:
+		Actor: FCRU.Husk
+	ChangesHealth:
+		Step: 100
+		Delay: 10
+		StartIfBelow: 50
+		DamageCooldown: 150
+	RenderSprites:
+		PlayerPalette: tsunit
+	ProducibleWithLevel:
+		Prerequisites: vehicles.upgraded
+	Selectable:
+		Bounds: 1877, 1877, 0, -512
+		DecorationBounds: 1877, 1877, 0, -512
+
+SOLC:
+	Inherits@EPIC: ^EpicUnit
+	Inherits@EPIC2: ^EpicVehicle
+	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
+	Buildable:
+		Queue: Vehicle
+		BuildPaletteOrder: 9000
+		Prerequisites: ulttechcenter, fix, ~vehicles.sword, ~techlevel.unrestricted, ~!solexists
+		BuildLimit: 1
+		Description: [EPIC]\nVery slow, armoured deployable \n tank, powerful long range nuke.\n  Strong vs Vehicles, Infantry\n  Weak vs Aircraft
+	Selectable:
+		Bounds: 2986, 2474
+		DecorationBounds: 2986, 2474
+	Valued:
+		Cost: 25000
+	Tooltip:
+		Name: Sol Cannon
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	ProvidesPrerequisite:
+		Prerequisite: solexists
+	Health:
+		HP: 500000
+	Armor:
+		Type: Heavy
+	Mobile:
+		Speed: 35
+		TurnSpeed: 12
+		Locomotor: heavytracked
+	RevealsShroud:
+		MinRange: 8c0
+		Range: 10c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 8c0
+	Armament:
+		Weapon: SolShell
+		Recoil: 127
+		RecoilRecovery: 26
+		PauseOnCondition: disabled
+	AttackTurreted:
+		PauseOnCondition: disabled
+	Turreted:
+		TurnSpeed: 8
+	WithSpriteTurret:
+	Passenger:
+		CargoType: Epic
+		CustomPipType: red
+		Weight: 10
+	Explodes:
+		Weapon: MiniNuke
+		EmptyWeapon: MiniNuke
+	ShakeOnDeath:
+	ChangesHealth:
+		Step: 500
+		Delay: 25
+		StartIfBelow: 50
+		DamageCooldown: 200
+	AnnounceOnKill:
+		Interval: 2000
+	Voiced:
+		VoiceSet: SolCannonVoice
+	Transforms:
+		IntoActor: solcdepl
+		Offset: -1,-1
+		Facing: 768
+		TransformSounds: placbldg.aud, build5.aud
+		NoTransformSounds: nodeply1.aud
+	RenderRangeCircle:
+	WithRangeCircle:
+		Range: 25c0
+	TransferTimedExternalConditionOnTransform:
+		Condition: invulnerability
+
+SOLCDEPL:
+	Inherits: ^Defense
+	Inherits@EPIC: ^EpicUnit
+	Inherits@AUTOTARGET: ^AutoTargetGround
+	ProvidesPrerequisite:
+		Prerequisite: solexists
+	Valued:
+		Cost: 25000
+	Tooltip:
+		Name: Sol Cannon (Deployed)
+	Building:
+		Footprint: _x_ xxx _x_
+		Dimensions: 3,3
+		TerrainTypes: Clear,Road,Rough,Beach,Ore,Gems,Tiberium,BlueTiberium
+	Selectable:
+		Bounds: 3072, 3072
+		DecorationBounds: 3072, 3072
+	Health:
+		HP: 500000
+	Armor:
+		Type: Heavy
+	RevealsShroud:
+		MinRange: 8c0
+		Range: 10c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 8c0
+	Turreted:
+		TurnSpeed: 4
+		InitialFacing: 360
+		RequiresCondition: !build-incomplete
+	-WithSpriteBody:
+	WithEmbeddedTurretSpriteBody:
+	Armament:
+		Weapon: SolCannonBass
+		PauseOnCondition: disabled
+	AttackTurreted:
+		RequiresCondition: !build-incomplete
+		PauseOnCondition: disabled
+	RenderRangeCircle:
+	WithRangeCircle:
+		Range: 25c0
+	Transforms:
+		IntoActor: solc
+		Offset: 1,1
+		Facing: 768
+		TransformSounds: placbldg.aud, build5.aud
+		NoTransformSounds: nodeply1.aud
+	TransformsIntoMobile:
+		Locomotor: heavywheeled
+		RequiresForceMove: true
+	TransformsIntoPassenger:
+		CargoType: Vehicle
+		RequiresForceMove: true
+	TransformsIntoRepairable:
+		RepairActors: fix
+		RequiresForceMove: true
+	-Capturable:
+	-CaptureManager:
+	-CapturableProgressBar:
+	-CapturableProgressBlink:
+	-Sellable:
+	-Demolishable:
+	RepairableBuilding:
+		RepairStep: 0
+		PlayerExperience: 0
+	-EngineerRepairable:
+	Explodes:
+		Weapon: MiniNuke
+		EmptyWeapon: MiniNuke
+	ShakeOnDeath:
+	AnnounceOnKill:
+		Interval: 2000
+	Voiced:
+		VoiceSet: SolCannonVoice

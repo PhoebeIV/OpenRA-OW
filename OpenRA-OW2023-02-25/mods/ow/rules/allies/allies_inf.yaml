@@ -1,0 +1,237 @@
+MECH:
+	Buildable:
+		Description: Repairs nearby vehicles and restores\nhusks to working condition by capturing them.\nSpeed: 50\n  Unarmed
+	Captures@husk:
+		CaptureTypes: husk
+		PlayerExperience: 25
+		CaptureDelay: 25
+		ConsumedByCapture: true
+		EnterCursor: goldwrench
+
+E7:
+	Buildable:
+		Prerequisites: ~!infantry.england, ~!infantry.germany, ~tent, atek, ~techlevel.unrestricted
+		BuildLimit: 0
+		Description: Elite commando infantry. Armed with\ndual pistols and C4.\nSpeed: 71\n  Strong vs Infantry, Buildings\n  Weak vs Vehicles, Aircraft\n  Special Ability: Destroy Building with C4
+	Health:
+		HP: 12000
+	AmbientSound:
+		SoundFiles: cmon1.aud
+		Interval: 500, 1500
+		Delay: 500, 1500
+		RequiresCondition: !ismoving
+	GrantConditionOnMovement:
+		Condition: ismoving
+	Selectable:
+		Class: E7
+	Armament@BUS:
+		Name: bus
+		Weapon: Colt45
+		MuzzleSequence: garrison-muzzle
+
+E7.AEIOU:
+	Inherits: E7
+	Buildable:
+		Queue: Infantry.AEIOU
+		BuildAtProductionType: AEIOU
+		Prerequisites: ~aeiou
+		BuildDuration: 6000
+		BuildDurationModifier: 100
+		Description: Paradrop a commando to join the battle.
+	RenderSprites:
+		Image: E7
+	Valued:
+		Cost: 0
+	GivesExperience:
+		Experience: 1000
+	GainsExperience:
+		ExperienceModifier: 1000
+
+SPY.England:
+	Buildable:
+		Description: Infiltrates enemy structures for intel or\nsabotage. Exact effect depends on the\nbuilding infiltrated.\nLoses disguise when attacking.\nCloaked. Can detect spies.\n  Strong vs Infantry\n  Weak vs Vehicles, Aircraft\n  Special Ability: Disguised
+	Valued:
+		Cost: 900
+	-ExternalCondition@stealthgen:
+	-Cloak@stealthgen:
+	Cloak:
+		InitialDelay: 60
+		CloakDelay: 60
+		CloakSound: cloak5.aud
+		PauseOnCondition: cloak-force-disabled || disabled
+	GrantConditionOnDamageState@UNCLOAK:
+		Condition: cloak-force-disabled
+		ValidDamageStates: Critical
+	DetectCloaked:
+		Range: 3c0
+
+E7.E:
+	Inherits: ^TibSunSoldier
+	Inherits: ^EpicUnit
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Buildable:
+		Queue: Infantry
+		BuildAtProductionType: Soldier
+		BuildPaletteOrder: 9000
+		Prerequisites: ~infantry.england, ~tent, ulttechcenter, ~techlevel.unrestricted
+		Description: [EPIC]\nElite commando infantry. Armed with\nsniper, C4, and a cloak.\nSpeed: 80\n  Strong vs Infantry, Buildings\n  Weak vs Vehicles, Aircraft\n  Special Ability: Destroy Building with C4\nMaximum 1 can be trained.
+		Icon: icon-assassin
+		BuildLimit: 1
+		BuildDuration: 11250
+	Valued:
+		Cost: 4000
+	Tooltip:
+		Name: Assassin Tanya
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 80000
+	Mobile:
+		Speed: 80
+		Voice: Move
+	Guard:
+		Voice: Move
+	RevealsShroud:
+		Range: 6c0
+	Demolition:
+		DetonationDelay: 150
+		Voice: Demolish
+	Passenger:
+		CustomPipType: red
+		Voice: Move
+	Armament@PRIMARY:
+		Weapon: TanyaSniper
+	Armament@SECONDARY:
+		Weapon: TanyaGrenade
+	Armament@GARRISONED:
+		Name: garrisoned
+		Weapon: TanyaSniper
+		MuzzleSequence: garrison-muzzle
+	Armament@GARRISONED2:
+		Name: garrisoned
+		Weapon: TanyaGrenade
+	Armament@BUS:
+		Name: bus
+		Weapon: TanyaSniper
+		MuzzleSequence: garrison-muzzle
+	Armament@BUS2:
+		Name: bus
+		Weapon: TanyaGrenade
+	WithInfantryBody:
+		DefaultAttackSequence: shoot
+		StandSequences: stand
+	ExternalCondition@PRODUCED:
+		Condition: produced
+	VoiceAnnouncement:
+		RequiresCondition: produced
+		Voice: Build
+	AnnounceOnKill:
+	Voiced:
+		VoiceSet: TanyaEliteVoice
+	-ExternalCondition@stealthgen:
+	-Cloak@stealthgen:
+	Cloak:
+		IsPlayerPalette: true
+		InitialDelay: 60
+		CloakDelay: 60
+		CloakSound: cloak5.aud
+		PauseOnCondition: cloak-force-disabled || disabled
+	GrantConditionOnDamageState@UNCLOAK:
+		Condition: cloak-force-disabled
+		ValidDamageStates: Critical
+	DetectCloaked:
+		Range: 5c0
+	Selectable:
+		Bounds: 1024, 1109, 0, -298
+		DecorationBounds: 768, 1024, 0, -384
+	ChangesHealth:
+		Step: 300
+		Delay: 25
+		StartIfBelow: 60
+		DamageCooldown: 150
+	RenderSprites:
+		Image: tstanya
+	Explodes:
+		Weapon: CrateNuke
+		EmptyWeapon: CrateNuke
+
+E7.G:
+	Inherits: ^TibSunSoldier
+	Inherits: ^EpicUnit
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Buildable:
+		Queue: Infantry
+		BuildAtProductionType: Soldier
+		BuildPaletteOrder: 9000
+		Prerequisites: ~infantry.germany, ~tent, ulttechcenter, ~techlevel.unrestricted
+		Description: [EPIC]\nElite commando infantry. Armed with\ngauss rifle, C4, and a chronosuit.\nSpeed: 71\n  Strong vs Infantry, Buildings\n  Weak vs Vehicles, Aircraft\n  Special Ability: Destroy Building with C4\nMaximum 1 can be trained.
+		Icon: icon-chrono
+		BuildLimit: 1
+		BuildDuration: 11250
+	Valued:
+		Cost: 5000
+	Tooltip:
+		Name: Chrono-Tanya
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 80000
+	Mobile:
+		Speed: 71
+		Voice: Move
+	Guard:
+		Voice: Move
+	RevealsShroud:
+		Range: 6c0
+	Demolition:
+		DetonationDelay: 150
+		Voice: Demolish
+	Passenger:
+		CustomPipType: red
+		Voice: Move
+	Armament@PRIMARY:
+		Weapon: EliteGauss
+		LocalOffset: 427,0,341
+	Armament@GARRISONED:
+		Name: garrisoned
+		Weapon: EliteGauss
+		MuzzleSequence: garrison-muzzle
+	Armament@BUS:
+		Name: bus
+		Weapon: EliteGauss
+		MuzzleSequence: garrison-muzzle
+	WithInfantryBody:
+		DefaultAttackSequence: shoot
+		StandSequences: stand
+	ExternalCondition@PRODUCED:
+		Condition: produced
+	VoiceAnnouncement:
+		RequiresCondition: produced
+		Voice: Build2
+	AnnounceOnKill:
+	Voiced:
+		VoiceSet: TanyaEliteVoice
+	Selectable:
+		Bounds: 1024, 1109, 0, -298
+		DecorationBounds: 768, 1024, 0, -384
+	ChangesHealth:
+		Step: 300
+		Delay: 25
+		StartIfBelow: 60
+		DamageCooldown: 150
+	PortableChrono:
+		ChargeDelay: 375
+		MaxDistance: 9
+	Chronoshiftable:
+	AmbientSound:
+		SoundFiles: itanmof.aud
+		Interval: 500, 1500
+		Delay: 500, 1500
+		RequiresCondition: !ismoving
+	GrantConditionOnMovement:
+		Condition: ismoving
+	RenderSprites:
+		Image: e7.g
+	Explodes:
+		Weapon: CrateNuke
+		EmptyWeapon: CrateNuke

@@ -1,0 +1,1397 @@
+^ProtossBuilding:
+	Inherits: ^Building
+	GrantConditionOnDamageState@protossfire:
+		Condition: damaged
+		ValidDamageStates: Heavy, Critical
+	Inherits@shield: ^ProtossShield
+	Buildable:
+		Queue: Bot
+		Prerequisites: ~disabled
+		BuildDurationModifier: 40
+	Building:
+		BuildSounds: pbldgplc.aud,pwarp.aud
+	RepairableBuilding:
+		RepairStep: 400
+		PlayerExperience: 15
+		RequiresCondition: pylon
+		RepairPercent: 0
+	ExternalCondition@pylon:
+		Condition: pylon
+	WithColoredOverlay@nopylon:
+		RequiresCondition: !pylon
+		Color: 000000B4
+	ChangesHealth@shield:
+		RequiresCondition: pylon
+
+PNEXUS:
+	Inherits: ^ProtossBuilding
+	Inherits@prereqs: ^ConYardPrereqs
+	Inherits@con: ^ConYard
+	Production@Bot:
+		Produces: Bot
+		RequiresCondition: botowner
+	BaseProvider:
+		Range: 6c0
+		RequiresCondition: !botowner
+	BaseProvider@bot:
+		Range: 9c0
+		RequiresCondition: botowner
+	ProximityExternalCondition@pylon:
+		Condition: pylon
+		Range: 6c0
+		RequiresCondition: !botowner
+		AffectsParent: true
+	ProximityExternalCondition@pylonbot:
+		Condition: pylon
+		Range: 9c0
+		RequiresCondition: botowner
+		AffectsParent: true
+	Selectable:
+		Bounds: 3072, 3072
+	Building:
+		Footprint: xxX xxx +++ ===
+		Dimensions: 3,4
+		LocalCenterOffset: 0,-512,0
+		BuildSounds: pbldgplc.aud,pcompl.aud
+	Buildable:
+		Queue: Building
+		BuildPaletteOrder: 1000
+		Prerequisites: ~disabled
+		Description: Produces structures.
+	Health:
+		HP: 150000
+	Armor:
+		Type: Wood
+	RevealsShroud:
+		MinRange: 4c0
+		Range: 5c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 4c0
+	Valued:
+		Cost: 2000
+	Tooltip:
+		Name: Nexus
+	SpawnActorsOnSell:
+		ActorTypes: e1,e1,e1,tecn,tecn2,e6
+	BaseBuilding:
+	Transforms:
+		RequiresCondition: factundeploy
+		PauseOnCondition: chrono-vortex || being-captured || being-demolished || build-incomplete
+		IntoActor: pmcv
+		Offset: 1,1
+		Facing: 384
+	TransformsIntoMobile:
+		RequiresCondition: factundeploy
+		Locomotor: heavywheeled
+		RequiresForceMove: true
+	TransformsIntoPassenger:
+		RequiresCondition: factundeploy
+		CargoType: Vehicle
+		RequiresForceMove: true
+	TransformsIntoRepairable:
+		RequiresCondition: factundeploy
+		RepairActors: fix
+		RequiresForceMove: true
+	TransformsIntoTransforms:
+		RequiresCondition: factundeploy && build-incomplete
+	Sellable:
+		RequiresCondition: !build-incomplete && !chrono-vortex && !being-captured && !being-demolished
+	GrantConditionOnPrerequisite@GLOBALFACTUNDEPLOY:
+		Condition: factundeploy
+		Prerequisites: global-factundeploy
+	ProductionBar@Building:
+		ProductionType: Building
+	ProductionBar@Defense:
+		ProductionType: Defense
+		Color: 8A8A8A
+	WithBuildingBib:
+	WithBuildingPlacedAnimation:
+		RequiresCondition: !build-incomplete && !chrono-vortex
+	Power:
+		Amount: 0
+	WithDeathAnimation:
+		DeathSequence: dead
+		UseDeathTypeSuffix: false
+	ProvidesPrerequisite@buildingname:
+	HitShape:
+		TargetableOffsets: 1273,939,0, -980,-640,0, -980,640,0
+		Type: Rectangle
+			TopLeft: -1536, -1536
+			BottomRight: 1536, 1536
+	ConyardChronoReturn:
+		ReturnOriginalActorOnCondition: build-incomplete
+		Condition: chrono-vortex
+		Damage: 1500
+	TransferTimedExternalConditionOnTransform:
+		Condition: invulnerability
+	WithIdleOverlay@damage:
+		RequiresCondition: damaged
+		Sequence: fire1
+		Offset: -256,512,0
+	WithIdleOverlay@damage2:
+		RequiresCondition: damaged
+		Sequence: fire2
+		Offset: 128,128,0
+
+^WarpStructure:
+	Inherits: ^Building
+	Inherits@shape: ^2x2Shape
+	HitShape:
+		UseTargetableCellsOffsets: false
+	Selectable:
+		Bounds: 2048, 2048
+	Targetable:
+		TargetTypes: GroundActor, C4, DetonateAttack, Structure, Defense, ProtWarp
+	Building:
+		Footprint: xx xx ==
+		Dimensions: 2,3
+		LocalCenterOffset: 0,-512,0
+	Health:
+		HP: 60000
+	Valued:
+		Cost: 500
+	Armor:
+		Type: Wood
+	Tooltip:
+		Name: Warp
+	TooltipDescription:
+		Name: This structure is still building.
+	RevealsShroud:
+		MinRange: 0
+		Range: 3c0
+		RevealGeneratedShroud: False
+	Power:
+		Amount: 0
+	-WithColoredOverlay@IRONCURTAIN:
+	-TimedConditionBar:
+	DamageMultiplier@IRONCURTAIN:
+		Modifier: 15
+	-RepairableBuilding:
+	-WithBuildingRepairDecoration:
+	-SpawnActorsOnSell:
+	Sellable:
+		RefundPercent: 100
+	-EngineerRepairable:
+	-GivesBuildableArea:
+	-ShakeOnDeath:
+	-Demolishable:
+	Demolishable:
+	-CaptureManager:
+	CaptureManager:
+	WithBuildingBib:
+	WithDamageOverlay:
+	-ActorLostNotification:
+	-SoundOnDamageTransition:
+	Explodes:
+		Type: CenterPosition
+		DeathTypes: warp
+		Weapon: WarpExplode
+		EmptyWeapon: WarpExplode
+	WithDeathAnimation:
+		DeathTypes:
+			DefaultDeath: 1
+			BulletDeath: 1
+			SmallExplosionDeath: 1
+			ExplosionDeath: 1
+			FireDeath: 1
+			ElectricityDeath: 1
+			TiberiumDeath: 1
+			warp: 2
+	ChangesHealth@start:
+		PercentageStep: -90
+		Delay: 250000
+		StartIfBelow: 101
+		DamageCooldown: 0
+	ChangesHealth@building:
+		PercentageStep: 1
+		Delay: 6
+		StartIfBelow: 101
+		DamageCooldown: 35
+	KillsSelf:
+		Delay: 30
+		RequiresCondition: rebuild
+		DamageTypes: warp
+	GrantConditionOnDamageState:
+		Condition: rebuild
+		ValidDamageStates: Undamaged
+	SpawnActorOnDeath@hole:
+		Actor: pnexus
+		DeathType: warp
+		SkipMakeAnimations: false
+	Building:
+		BuildSounds: pbldgplc.aud,pwarp.aud
+	RenderSprites:
+		Image: pwarp
+	SequencePlaceBuildingPreview:
+		Sequence: place-pylon
+	-ActorPreviewPlaceBuildingPreview:
+	-Targetable@REPAIR:
+
+^WarpStructure3x2:
+	Inherits: ^WarpStructure
+	Inherits@shape: ^3x2Shape
+	HitShape:
+		UseTargetableCellsOffsets: false
+	Selectable:
+		Bounds: 3072, 3072
+	Building:
+		Footprint: xxx xxx ===
+		Dimensions: 3,3
+		LocalCenterOffset: 0,-512,0
+	WithBuildingBib:
+		Sequence: bib2
+
+PGATEW.warp:
+	Inherits: ^WarpStructure3x2
+	Buildable:
+		Queue: Building
+		BuildPaletteOrder: 30
+		Prerequisites: ~structures.protoss, ~techlevel.infonly, anypower
+		Description: Trains infantry.
+		Icon: icon-gateway
+		BuildDuration: 200
+	Tooltip:
+		Name: Warp (Gateway)
+	Selectable:
+		Bounds: 3072, 3072, 0, -426
+	Valued:
+		Cost: 1000
+	Health:
+		HP: 100000
+	SpawnActorOnDeath@hole:
+		Actor: pgatew
+	ChangesHealth@building:
+		PercentageStep: 1
+		Delay: 5
+		StartIfBelow: 101
+	SequencePlaceBuildingPreview:
+		Sequence: place-gateway
+
+PGATEW:
+	Inherits: ^ProtossBuilding
+	Inherits@shape: ^3x2Shape
+	Inherits@PRIMARY: ^PrimaryBuilding
+	Inherits@prereqs: ^BarracksPrereqs
+	Buildable:
+		Queue: Bot
+		Prerequisites: ~structures.protoss, ~techlevel.infonly, ~ai.all, ~!structures.bothard
+	Selectable:
+		Bounds: 3072, 3072, 0, -426
+	Valued:
+		Cost: 1000
+	Tooltip:
+		Name: Gateway
+	Building:
+		Footprint: xxx xxx ===
+		Dimensions: 3,3
+		LocalCenterOffset: 0,-512,0
+	Health:
+		HP: 100000
+	Armor:
+		Type: Wood
+	RevealsShroud:
+		MinRange: 4c0
+		Range: 5c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 4c0
+	PrimaryBuilding:
+		ProductionQueues: Infantry
+	WithBuildingBib:
+	RallyPoint:
+	Exit@1:
+		RequiresCondition: !being-captured
+		SpawnOffset: -170,810,0
+		ExitCell: 1,2
+		ProductionTypes: Soldier, Infantry
+	Exit@2:
+		RequiresCondition: !being-captured
+		SpawnOffset: -725,640,0
+		ExitCell: 0,2
+		ProductionTypes: Soldier, Infantry
+	Exit@3:
+		RequiresCondition: !being-captured && botowner
+		SpawnOffset: -170,810,0
+		ExitCell: 1,2
+		ProductionTypes: Vehicle
+	Production@vec:
+		RequiresCondition: cybercore
+		Produces: Vehicle
+		PauseOnCondition: !pylon
+	Production:
+		Produces: Infantry, Soldier
+		PauseOnCondition: !pylon
+	GrantConditionOnPrerequisite@vec:
+		Condition: cybercore
+		Prerequisites: pcyber
+	GrantExternalConditionToProduced:
+		Condition: produced
+	ProductionBar:
+		ProductionType: Infantry
+	ProductionBar@veh:
+		ProductionType: Vehicle
+		Color: 0088FF
+	ProvidesPrerequisite@buildingname:
+	InfiltrateForSupportPower:
+		Proxy: barracks.upgraded
+		Types: SpyInfiltrate
+	Targetable:
+		TargetTypes: GroundActor, C4, DetonateAttack, Structure, SpyInfiltrate
+	WithIdleOverlay@damage:
+		RequiresCondition: damaged
+		Sequence: fire1
+		Offset: -256,512,0
+	WithIdleOverlay@damage2:
+		RequiresCondition: damaged
+		Sequence: fire2
+		Offset: 128,128,0
+	GrantConditionOnPrerequisite@botowner:
+		Condition: botowner
+		Prerequisites: ai.all
+
+PPYLON.warp:
+	Inherits: ^WarpStructure
+	Buildable:
+		Queue: Building
+		BuildPaletteOrder: 10
+		Prerequisites: ~structures.protoss, ~techlevel.infonly
+		Description: Provides power and build area for Protoss structures.
+		Icon: icon-pylon
+		BuildDuration: 100
+	Tooltip:
+		Name: Warp (Pylon)
+	Valued:
+		Cost: 500
+	Health:
+		HP: 50000
+	SpawnActorOnDeath@hole:
+		Actor: ppylon
+	ChangesHealth@building:
+		PercentageStep: 2
+		Delay: 5
+		StartIfBelow: 101
+	-WithBuildingBib:
+	Building:
+		Footprint: xx xx
+		Dimensions: 2,2
+		LocalCenterOffset: 0,0,0
+	WithRangeCircle:
+		Range: 6c0
+	SequencePlaceBuildingPreview:
+		Sequence: place-pylon
+	RequiresBuildableArea:
+		Adjacent: 3
+
+PPYLON:
+	Inherits: ^ProtossBuilding
+	Inherits@power: ^PowerPlant
+	Inherits@POWER_OUTAGE: ^DisabledByPowerOutage
+	Inherits@shape: ^2x2Shape
+	Buildable:
+		Queue: Defense
+		Prerequisites: ~structures.protoss, ~techlevel.infonly, ~ai.all
+	Selectable:
+		Bounds: 2048, 2048
+	HitShape:
+		UseTargetableCellsOffsets: false
+		TargetableOffsets: 0,0,0, 640,-384,0, 640,512,0, -710,-512,0, -710,512,0
+	GrantConditionOnPrerequisite@botowner:
+		Condition: botowner
+		Prerequisites: ai.all, !ai.easy
+	BaseProvider:
+		Range: 6c0
+		RequiresCondition: !botowner
+	BaseProvider@bot:
+		Range: 9c0
+		RequiresCondition: botowner
+	ProximityExternalCondition:
+		Condition: pylon
+		Range: 6c0
+		RequiresCondition: !botowner && !disabled
+	ProximityExternalCondition@pylonbot:
+		Condition: pylon
+		Range: 9c0
+		RequiresCondition: botowner && !disabled
+	Valued:
+		Cost: 500
+	Tooltip:
+		Name: Pylon
+	ProvidesPrerequisite:
+		Prerequisite: anypower
+	Building:
+		Footprint: xx xx
+		Dimensions: 2,2
+	Health:
+		HP: 50000
+	Armor:
+		Type: Wood
+	RevealsShroud:
+		Range: 4c0
+	Power:
+		Amount: 0
+	Targetable:
+		TargetTypes: GroundActor, Structure, C4, DetonateAttack, SpyInfiltrate
+	WithIdleOverlay@damage:
+		RequiresCondition: damaged
+		Sequence: fire1
+		Offset: -256,512,0
+	WithIdleOverlay@damage2:
+		RequiresCondition: damaged
+		Sequence: fire2
+		Offset: 128,128,0
+	-ExternalCondition@pylon:
+	-WithColoredOverlay@nopylon:
+
+PPYLON.bot:
+	Inherits: PPYLON
+	RenderSprites:
+		Image: ppylon
+	Buildable:
+		Prerequisites: padun, ~structures.protoss, ~techlevel.infonly, ~ai.all
+
+PASSIM.warp:
+	Inherits: ^WarpStructure3x2
+	Buildable:
+		Queue: Building
+		BuildPaletteOrder: 60
+		Prerequisites: ~structures.protoss, ~techlevel.infonly, anypower
+		Description: Refines resources\ninto credits.
+		Icon: icon-assim
+		BuildDuration: 300
+	Tooltip:
+		Name: Warp (Assimilator)
+	Selectable:
+		Bounds: 3072, 3072, 0, -426
+	Valued:
+		Cost: 1400
+	Health:
+		HP: 90000
+	SpawnActorOnDeath@hole:
+		Actor: passim
+	ChangesHealth@building:
+		PercentageStep: 1
+		Delay: 6
+		StartIfBelow: 101
+	SequencePlaceBuildingPreview:
+		Sequence: place-assimilator
+
+PASSIM:
+	Inherits: ^ProtossBuilding
+	Inherits@shape: ^3x2Shape
+	Buildable:
+		Queue: Bot
+		Prerequisites: anypower, ~structures.protoss, ~techlevel.infonly, ~ai.all
+	Valued:
+		Cost: 1400
+	Tooltip:
+		Name: Assimilator
+	Building:
+		Footprint: +++ xxx ===
+		Dimensions: 3,3
+		LocalCenterOffset: 0,-512,0
+	Selectable:
+		Bounds: 3072, 3072, 0, -426
+	Targetable:
+		TargetTypes: GroundActor, Structure, C4, DetonateAttack, ThiefInfiltrate, SpyInfiltrate
+	Health:
+		HP: 90000
+	Armor:
+		Type: Wood
+	RevealsShroud:
+		MinRange: 4c0
+		Range: 5c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 4c0
+	Refinery:
+		DockAngle: 0
+		DockOffset: 1,0
+	StoresResources:
+		Capacity: 2000
+	CustomSellValue:
+		Value: 300
+	FreeActor:
+		Actor: PPROBE
+		SpawnOffset: 1,0
+		Facing: 256
+	FreeActor@2:
+		Actor: PPROBE
+		SpawnOffset: 1,1
+		Facing: 256
+	InfiltrateForCash:
+		Percentage: 50
+		Types: SpyInfiltrate, ThiefInfiltrate
+		InfiltratedNotification: CreditsStolen
+		Maximum: 5000
+	WithBuildingBib:
+	ProvidesPrerequisite@buildingname:
+	ProvidesPrerequisite:
+		Prerequisite: refinery
+	WithResourceStoragePipsDecoration:
+		Position: BottomLeft
+		Margin: 4, 3
+		RequiresSelection: true
+		PipCount: 17
+		FullSequence: pip-yellow
+	WithIdleOverlay@damage:
+		RequiresCondition: damaged
+		Sequence: fire1
+		Offset: -256,512,0
+	WithIdleOverlay@damage2:
+		RequiresCondition: damaged
+		Sequence: fire2
+		Offset: 128,128,0
+
+PCYBER.warp:
+	Inherits: ^WarpStructure
+	Buildable:
+		Queue: Building
+		BuildPaletteOrder: 100
+		Prerequisites: barracks, ~structures.protoss, ~techlevel.low
+		Description: Provides access to Dragoon,\n defense structures.
+		Icon: icon-cyber
+		BuildDuration: 400
+	Tooltip:
+		Name: Warp (Cybernetics Core)
+	Valued:
+		Cost: 1200
+	Health:
+		HP: 120000
+	SpawnActorOnDeath@hole:
+		Actor: pcyber
+	ChangesHealth@building:
+		PercentageStep: 1
+		Delay: 10
+		StartIfBelow: 101
+	Building:
+		Footprint: xx xx ==
+		Dimensions: 2,3
+		LocalCenterOffset: 0,-512,0
+	SequencePlaceBuildingPreview:
+		Sequence: place-cyber
+
+PCYBER:
+	Inherits: ^ProtossBuilding
+	Inherits@shape: ^2x2Shape
+	Buildable:
+		Queue: Bot
+		Prerequisites: barracks, refinery, ~structures.protoss, ~techlevel.low, ~ai.all
+	Selectable:
+		Bounds: 2048, 2048
+	Valued:
+		Cost: 1200
+	Tooltip:
+		Name: Cybernetics Core
+	ProvidesPrerequisite@buildingname:
+	Building:
+		Footprint: xx xx ==
+		Dimensions: 2,3
+		LocalCenterOffset: 0,-512,0
+	Health:
+		HP: 120000
+	Armor:
+		Type: Wood
+	RevealsShroud:
+		Range: 5c0
+	Targetable:
+		TargetTypes: GroundActor, Structure, C4, DetonateAttack, SpyInfiltrate
+	WithBuildingBib:
+	WithIdleOverlay@damage:
+		RequiresCondition: damaged
+		Sequence: fire1
+		Offset: -512,900,0
+	WithIdleOverlay@damage2:
+		RequiresCondition: damaged
+		Sequence: fire2
+		Offset: 128,-128,0
+	InfiltrateForSupportPower:
+		Proxy: vehicles.upgraded
+		Types: SpyInfiltrate
+	WithSpriteBody:
+		PauseOnCondition: disabled || !pylon
+	ProvidesPrerequisite@fix:
+		Prerequisite: fix
+
+PPHOTO.warp:
+	Inherits: ^WarpStructure
+	Buildable:
+		Queue: Defense
+		BuildPaletteOrder: 10
+		Prerequisites: pcyber, ~structures.protoss, ~techlevel.low
+		Description: Anti-air and anti-ground defense.
+		Icon: icon-photon
+		BuildDuration: 200
+	Tooltip:
+		Name: Warp (Photon Cannon)
+	Valued:
+		Cost: 900
+	Health:
+		HP: 37000
+	Armor:
+		Type: Heavy
+	SpawnActorOnDeath@hole:
+		Actor: pphoto
+	ChangesHealth@building:
+		PercentageStep: 1
+		Delay: 7
+		StartIfBelow: 101
+	-WithBuildingBib:
+	Building:
+		Footprint: xx xx
+		Dimensions: 2,2
+		LocalCenterOffset: 0,0,0
+	WithRangeCircle:
+		Range: 8c0
+	SequencePlaceBuildingPreview:
+		Sequence: place-photon
+
+PPHOTO:
+	Inherits: ^Defense
+	Inherits@IDISABLE: ^DisableOnLowPowerOrPowerDown
+	Inherits@AUTOTARGET: ^AutoTargetAll
+	Inherits@shape: ^2x2Shape
+	Inherits@protoss: ^ProtossBuilding
+	Selectable:
+		Bounds: 2048, 2048
+	HitShape:
+		Type: Rectangle
+			TopLeft: -768,-512
+			BottomRight: 768,512
+	Buildable:
+		Queue: Defense
+		BuildPaletteOrder: 90000
+		Prerequisites: pcyber, ~structures.protoss, ~techlevel.low, ~ai.all
+	Valued:
+		Cost: 900
+	Tooltip:
+		Name: Photon Cannon
+	Building:
+		Footprint: ++ xx
+		Dimensions: 2,2
+	Health:
+		HP: 37000
+	Armor:
+		Type: Heavy
+	RevealsShroud:
+		MinRange: 5c0
+		Range: 8c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 5c0
+	Turreted:
+		TurnSpeed: 90
+		InitialFacing: 0
+		RealignDelay: -1
+	-WithSpriteBody:
+	WithEmbeddedTurretSpriteBody:
+		QuantizedFacings: 64
+	Armament:
+		Weapon: PhotonPlasma
+		LocalOffset: 0,0,756
+		PauseOnCondition: !ammo
+	AttackPopupTurreted:
+		RequiresCondition: !build-incomplete
+		PauseOnCondition: disabled || !pylon
+		CloseDelay: 50
+	-BodyOrientation:
+	ClassicFacingBodyOrientation:
+		QuantizedFacings: 64
+	ChangesHealth@shield:
+		PercentageStep: 3
+		Delay: 75
+		StartIfBelow: 90
+		DamageCooldown: 150
+	AmmoPool:
+		Ammo: 2
+		AmmoCondition: ammo
+	ReloadAmmoPool:
+		ResetOnFire: true
+		Delay: 40
+	WithIdleOverlay@damage:
+		RequiresCondition: damaged
+		Sequence: fire1
+		Offset: -256,512,0
+	WithIdleOverlay@damage2:
+		RequiresCondition: damaged
+		Sequence: fire2
+		Offset: 128,128,0
+	DetectCloaked:
+		DetectionTypes: Cloak
+		Range: 6c0
+
+POBSER.warp:
+	Inherits: ^WarpStructure
+	Buildable:
+		Queue: Building
+		BuildPaletteOrder: 90
+		Prerequisites: refinery, ~structures.protoss, ~techlevel.medium
+		Description: Provides an overview\nof the battlefield.\nRequires power to operate.
+		Icon: icon-observ
+		BuildDuration: 400
+	Tooltip:
+		Name: Warp (Observatory)
+	Valued:
+		Cost: 1800
+	Health:
+		HP: 100000
+	SpawnActorOnDeath@hole:
+		Actor: pobser
+	ChangesHealth@building:
+		PercentageStep: 1
+		Delay: 12
+		StartIfBelow: 101
+	Building:
+		Footprint: xx xx ==
+		Dimensions: 2,3
+		LocalCenterOffset: 0,-512,0
+	SequencePlaceBuildingPreview:
+		Sequence: place-observ
+
+POBSER:
+	Inherits: ^ProtossBuilding
+	Inherits@shape: ^2x2Shape
+	Buildable:
+		Queue: Bot
+		Prerequisites: refinery, ~structures.protoss, ~techlevel.medium, ~ai.all
+		BuildLimit: 1
+	Selectable:
+		Bounds: 2048, 2048
+	Valued:
+		Cost: 1800
+	Tooltip:
+		Name: Observatory
+	ProvidesPrerequisite@buildingname:
+	ProvidesPrerequisite:
+		Prerequisite: radar
+	Building:
+		Footprint: xx xx ==
+		Dimensions: 2,3
+		LocalCenterOffset: 0,-512,0
+	Health:
+		HP: 100000
+	Armor:
+		Type: Wood
+	Targetable:
+		TargetTypes: GroundActor, Structure, C4, DetonateAttack, SpyInfiltrate
+	RevealsShroud:
+		MinRange: 6c0
+		Range: 10c0
+		RequiresCondition: !disabled && !pylon
+		RevealGeneratedShroud: False
+	RevealsShroud@Offline:
+		Range: 5c0
+		RequiresCondition: disabled || !pylon
+	RevealsShroud@GAPGEN:
+		Range: 6c0
+		RequiresCondition: !disabled && pylon
+	WithBuildingBib:
+	ProvidesRadar:
+		RequiresCondition: !jammed && !disabled && pylon
+	InfiltrateForExploration:
+		Types: SpyInfiltrate
+	ExternalCondition@JAMMED:
+		Condition: jammed
+	WithIdleOverlay@damage:
+		RequiresCondition: damaged
+		Sequence: fire1
+		Offset: -256,512,0
+	WithIdleOverlay@damage2:
+		RequiresCondition: damaged
+		Sequence: fire2
+		Offset: 128,128,0
+
+PSUPOR.warp:
+	Inherits: ^WarpStructure
+	Buildable:
+		Queue: Tech
+		BuildPaletteOrder: 25
+		Prerequisites: conyard, ~structures.protoss, ~techlevel.medium
+		Description: Autonomous building construction. \nIncreases build speed of Structures and\nDefense by 1 stage (max 10).
+		Icon: icon-support
+		BuildDuration: 600
+	Tooltip:
+		Name: Warp (Foundry)
+	Valued:
+		Cost: 2000
+	Health:
+		HP: 60000
+	SpawnActorOnDeath@hole:
+		Actor: psupor
+	ChangesHealth@building:
+		PercentageStep: 1
+		Delay: 12
+		StartIfBelow: 101
+	Building:
+		Footprint: xx xx ==
+		Dimensions: 2,3
+		LocalCenterOffset: 0,-512,0
+	SequencePlaceBuildingPreview:
+		Sequence: place-support
+
+PSUPOR:
+	Inherits: ^ProtossBuilding
+	Inherits@shape: ^2x2Shape
+	Inherits@prereqs: ^ConYardPrereqs
+	Buildable:
+		Queue: Tech
+		BuildPaletteOrder: 90000
+		Prerequisites: conyard, ~structures.protoss, ~techlevel.medium, ~ai.all, ~!structures.bothard
+	Selectable:
+		Bounds: 2048, 2048
+	Valued:
+		Cost: 2000
+	Tooltip:
+		Name: Protoss Foundry
+	Building:
+		Footprint: ++ xx ==
+		Dimensions: 2,3
+		LocalCenterOffset: 0,-512,0
+	Health:
+		HP: 100000
+	Armor:
+		Type: Wood
+	Targetable:
+		TargetTypes: GroundActor, Structure, C4, DetonateAttack, SpyInfiltrate
+	RevealsShroud:
+		MinRange: 2c0
+		Range: 3c0
+	WithBuildingBib:
+	ProvidesPrerequisite@buildingname:
+	GrantConditionOnPrerequisite@conyard:
+		Prerequisites: conyard
+		Condition: conyard
+	Production:
+		Produces: Building,Defense
+		RequiresCondition: conyard
+	ProductionBar@Building:
+		ProductionType: Building
+	ProductionBar@Defense:
+		ProductionType: Defense
+		Color: FF8C00
+	GrantConditionOnPrerequisite@botowner: #stuff for the bots
+		Condition: botowner
+		Prerequisites: ai.all
+	ProvidesPrerequisite@barracks:
+		Prerequisites: barracks
+		RequiresPrerequisites: ai.hard
+	ProductionBar@Infantry:
+		ProductionType: Infantry
+		RequiresCondition: botowner
+	Production@botowner:
+		Produces: Infantry, Soldier, Dog
+		PauseOnCondition: !botowner
+	Exit@1:
+		RequiresCondition: !being-captured
+		SpawnOffset: -42,810,0
+		ExitCell: 1,2
+		ProductionTypes: Soldier, Infantry, Dog
+	Exit@2:
+		RequiresCondition: !being-captured
+		SpawnOffset: -725,640,0
+		ExitCell: 0,2
+		ProductionTypes: Soldier, Infantry, Dog
+	WithIdleOverlay@damage:
+		RequiresCondition: damaged
+		Sequence: fire1
+		Offset: -256,512,0
+	WithIdleOverlay@damage2:
+		RequiresCondition: damaged
+		Sequence: fire2
+		Offset: 128,128,0
+
+PADUN.warp:
+	Inherits: ^WarpStructure
+	Buildable:
+		Queue: Building
+		BuildPaletteOrder: 140
+		Prerequisites: pcyber, radar, ~structures.protoss, ~techlevel.high
+		Description: Provides Protoss advanced technologies. \nIncreases Zealot move speed.
+		Icon: icon-adun
+		BuildDuration: 600
+	Tooltip:
+		Name: Warp (Citadel of Adun)
+	Valued:
+		Cost: 1500
+	Health:
+		HP: 60000
+	SpawnActorOnDeath@hole:
+		Actor: padun
+	ChangesHealth@building:
+		PercentageStep: 1
+		Delay: 12
+		StartIfBelow: 101
+	Building:
+		Footprint: xx xx ==
+		Dimensions: 2,3
+		LocalCenterOffset: 0,-512,0
+	SequencePlaceBuildingPreview:
+		Sequence: place-adun
+
+PADUN:
+	Inherits: ^ProtossBuilding
+	Inherits@shape: ^2x2Shape
+	Inherits@tech: ^TechCenter
+	Buildable:
+		Queue: Bot
+		Prerequisites: pcyber, radar, ~structures.protoss, ~techlevel.high, ~ai.all
+		BuildLimit: 1
+	Selectable:
+		Bounds: 2048, 2048
+	Valued:
+		Cost: 1500
+	Tooltip:
+		Name: Citadel of Adun
+	ProvidesPrerequisite@buildingname:
+	Building:
+		Footprint: xx xx ==
+		Dimensions: 2,3
+		LocalCenterOffset: 0,-512,0
+	Health:
+		HP: 60000
+	Armor:
+		Type: Wood
+	RevealsShroud:
+		Range: 5c0
+	Targetable:
+		TargetTypes: GroundActor, Structure, C4, DetonateAttack, SpyInfiltrate
+	WithBuildingBib:
+	WithIdleOverlay@damage:
+		RequiresCondition: damaged
+		Sequence: fire1
+		Offset: -512,900,0
+	WithIdleOverlay@damage2:
+		RequiresCondition: damaged
+		Sequence: fire2
+		Offset: 128,-128,0
+	InfiltrateForSupportPowerReset:
+		Types: SpyInfiltrate
+	Power:
+		Amount: 0
+
+PTEMPL.warp:
+	Inherits: ^WarpStructure3x2
+	Buildable:
+		Queue: Tech
+		BuildPaletteOrder: 9000
+		Prerequisites: techcenter, ~structures.protoss, ~techlevel.unrestricted
+		Description: Provides extra advanced technologies and\n upgrades to your forces.\n  Special Ability: Steady income
+		Icon: icon-templar
+		BuildLimit: 3
+		BuildDuration: 1000
+	Tooltip:
+		Name: Warp (Templar Archives)
+	Valued:
+		Cost: 3500
+	Health:
+		HP: 80000
+	SpawnActorOnDeath@hole:
+		Actor: ptempl
+	ChangesHealth@building:
+		PercentageStep: 1
+		Delay: 15
+		StartIfBelow: 101
+	Building:
+		Footprint: +++ xxx ===
+		Dimensions: 3,3
+		LocalCenterOffset: 0,-512,0
+	Selectable:
+		Bounds: 3072, 3072, 0, -426
+	SequencePlaceBuildingPreview:
+		Sequence: place-templar
+
+PTEMPL:
+	Inherits: ^ProtossBuilding
+	Inherits@pips: ^AdvTechPips
+	Inherits@shape: ^3x2Shape
+	Inherits@IDISABLE: ^DisableOnLowPower
+	-AlwaysVisible:
+	Buildable:
+		Queue: Bot
+		BuildLimit: 3
+		Prerequisites: techcenter, ~structures.protoss, ~techlevel.unrestricted, ~ai.all
+	Valued:
+		Cost: 3500
+	Tooltip:
+		Name: Templar Archives
+	ProvidesPrerequisite:
+		Prerequisite: techcenter
+	ProvidesPrerequisite@adv:
+		Prerequisite: advtechcenter
+	ProvidesPrerequisite@buildingname:
+	Building:
+		Footprint: +++ xxx ===
+		Dimensions: 3,3
+		LocalCenterOffset: 0,-512,0
+	Selectable:
+		Bounds: 3072, 3072, 0, -426
+	Health:
+		HP: 80000
+	Armor:
+		Type: Wood
+	RevealsShroud:
+		MinRange: 5c0
+		Range: 7c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 5c0
+	Targetable:
+		TargetTypes: GroundActor, Structure, C4, DetonateAttack, SpyInfiltrate
+	WithBuildingBib:
+	WithIdleOverlay@damage:
+		RequiresCondition: damaged
+		Sequence: fire1
+		Offset: -512,900,0
+	WithIdleOverlay@damage2:
+		RequiresCondition: damaged
+		Sequence: fire2
+		Offset: 128,-128,0
+	CashTrickler:
+		Interval: 750
+		Amount: 75
+		InitialDelay: 325
+		RequiresCondition: !disabled && pylon
+		UseResourceStorage: true
+	Production:
+		Produces: Upgrade
+		PauseOnCondition: disabled || !pylon
+	Exit:
+	ProductionBar@Building:
+		ProductionType: Upgrade
+	WithDecoration@frame:
+		RequiresCondition: !build-incomplete
+	GrantExternalConditionToProduced:
+		Condition: produced
+
+
+PROBOT.warp:
+	Inherits: ^WarpStructure3x2
+	Buildable:
+		Queue: Building
+		BuildPaletteOrder: 80
+		Prerequisites: refinery, ~structures.protoss, ~techlevel.low
+		Description: Produces vehicles.
+		Icon: icon-robot
+		BuildDuration: 600
+	Tooltip:
+		Name: Warp (Robotics Facility)
+	Valued:
+		Cost: 2000
+	Health:
+		HP: 150000
+	SpawnActorOnDeath@hole:
+		Actor: probot
+	ChangesHealth@building:
+		PercentageStep: 1
+		Delay: 13
+		StartIfBelow: 101
+	Building:
+		Footprint: +++ xxx ===
+		Dimensions: 3,3
+		LocalCenterOffset: 0,-512,0
+	Selectable:
+		Bounds: 3072, 3072, 0, -426
+	SequencePlaceBuildingPreview:
+		Sequence: place-robot
+
+PROBOT:
+	Inherits: ^ProtossBuilding
+	Inherits@prereqs: ^FactoryPrereqs
+	Inherits@shape: ^3x2Shape
+	Inherits@PRIMARY: ^PrimaryBuilding
+	Buildable:
+		Queue: Bot
+		Prerequisites: refinery, ~structures.protoss, ~techlevel.low, ~ai.all, ~!structures.bothard
+	Valued:
+		Cost: 2000
+	Tooltip:
+		Name: Robotics Facility
+	ProvidesPrerequisite@buildingname:
+	Building:
+		Footprint: +++ xxx ===
+		Dimensions: 3,3
+		LocalCenterOffset: 0,-512,0
+	Selectable:
+		Bounds: 3072, 3072, 0, -426
+	Health:
+		HP: 150000
+	Armor:
+		Type: Wood
+	RevealsShroud:
+		MinRange: 4c0
+		Range: 5c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 4c0
+	Targetable:
+		TargetTypes: GroundActor, Structure, C4, DetonateAttack, SpyInfiltrate
+	WithBuildingBib:
+	InfiltrateForSupportPower:
+		Proxy: vehicles.upgraded
+		Types: SpyInfiltrate
+		WithBuildingBib:
+	WithIdleOverlay@damage:
+		RequiresCondition: damaged
+		Sequence: fire1
+		Offset: -512,900,0
+	WithIdleOverlay@damage2:
+		RequiresCondition: damaged
+		Sequence: fire2
+		Offset: 128,-128,0
+	Production:
+		Produces: Vehicle
+		PauseOnCondition: !pylon
+	RallyPoint:
+	Exit@1:
+		RequiresCondition: !being-captured
+		SpawnOffset: -170,810,0
+		ExitCell: 1,2
+		ProductionTypes: Vehicle
+	Exit@2:
+		RequiresCondition: !being-captured
+		SpawnOffset: -725,640,0
+		ExitCell: 0,2
+		ProductionTypes: Vehicle
+	ProductionBar@Building:
+		ProductionType: Vehicle
+	Exit@3:
+		RequiresCondition: !being-captured && botowner
+		SpawnOffset: -170,810,0
+		ExitCell: 1,2
+		ProductionTypes: Infantry, Soldier
+	GrantConditionOnPrerequisite@botowner:
+		Condition: botowner
+		Prerequisites: ai.all
+
+PSBATT.warp:
+	Inherits: ^WarpStructure
+	Buildable:
+		Queue: Defense
+		BuildPaletteOrder: 10
+		Prerequisites: factory, ~structures.protoss, ~techlevel.medium
+		Description: Heals nearby friendly units and buildings.
+		Icon: icon-battery
+		BuildDuration: 200
+	Tooltip:
+		Name: Warp (Shield Battery)
+	Valued:
+		Cost: 1000
+	Health:
+		HP: 50000
+	Armor:
+		Type: Wood
+	SpawnActorOnDeath@hole:
+		Actor: psbatt
+	ChangesHealth@building:
+		PercentageStep: 1
+		Delay: 6
+		StartIfBelow: 101
+	-WithBuildingBib:
+	Building:
+		Footprint: xx xx
+		Dimensions: 2,2
+		LocalCenterOffset: 0,0,0
+	WithRangeCircle:
+		Range: 6c0
+	SequencePlaceBuildingPreview:
+		Sequence: place-battery
+
+PSBATT:
+	Inherits: ^Defense
+	Inherits@IDISABLE: ^DisableOnLowPowerOrPowerDown
+	Inherits@AUTOTARGET: ^AutoTargetAll
+	Inherits@shape: ^2x2Shape
+	Inherits@protoss: ^ProtossBuilding
+	Selectable:
+		Bounds: 2048, 2048
+	HitShape:
+		Type: Rectangle
+			TopLeft: -768,-512
+			BottomRight: 768,512
+	Buildable:
+		Queue: Defense
+		BuildPaletteOrder: 90000
+		Prerequisites: factory, ~structures.protoss, ~techlevel.medium, ~ai.all
+	Valued:
+		Cost: 1000
+	Tooltip:
+		Name: Shield Battery
+	Building:
+		Footprint: ++ xx
+		Dimensions: 2,2
+	Health:
+		HP: 50000
+	Armor:
+		Type: Wood
+	RevealsShroud:
+		MinRange: 4c0
+		Range: 5c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 4c0
+	Turreted:
+		TurnSpeed: 90
+		InitialFacing: 0
+		RealignDelay: -1
+	-WithSpriteBody:
+	WithEmbeddedTurretSpriteBody:
+		QuantizedFacings: 64
+	Armament:
+		Weapon: ShieldBattery
+		Cursor: repair
+		OutsideRangeCursor: repair
+		TargetRelationships: Ally
+		ForceTargetRelationships: None
+		PauseOnCondition: !ammo
+	AttackOmni:
+		RequiresCondition: !build-incomplete
+		PauseOnCondition: disabled || !pylon
+	-BodyOrientation:
+	ClassicFacingBodyOrientation:
+		QuantizedFacings: 64
+	ChangesHealth@shield:
+		PercentageStep: 3
+		Delay: 75
+		StartIfBelow: 90
+		DamageCooldown: 150
+	AmmoPool:
+		Ammo: 200
+		InitialAmmo: 100
+		AmmoCondition: ammo
+	ReloadAmmoPool:
+		ResetOnFire: true
+		Delay: 15
+	WithAmmoPipsDecoration:
+		Position: BottomLeft
+		Margin: 4, 3
+		RequiresSelection: false
+		PipCount: 20
+		FullSequence: pip-blue
+	WithIdleOverlay@damage:
+		RequiresCondition: damaged
+		Sequence: fire1
+		Offset: -256,512,0
+	WithIdleOverlay@damage2:
+		RequiresCondition: damaged
+		Sequence: fire2
+		Offset: 128,128,0
+	WithAttackOverlay@3:
+		Name: shoot
+		Sequence: shoot
+		Palette: player
+		IsPlayerPalette: true
+	AutoTarget:
+		InitialStance: AttackAnything
+		MinimumScanTimeInterval: 49
+		MaximumScanTimeInterval: 51
+
+
+PSTARG.warp:
+	Inherits: ^WarpStructure3x2
+	Buildable:
+		Queue: Building
+		BuildPaletteOrder: 120
+		Prerequisites: radar, ~structures.protoss, ~techlevel.medium
+		Description: Produces aircraft.
+		Icon: icon-stargate
+		BuildDuration: 600
+	Tooltip:
+		Name: Warp (Stargate)
+	Valued:
+		Cost: 1200
+	Health:
+		HP: 120000
+	SpawnActorOnDeath@hole:
+		Actor: pstarg
+	ChangesHealth@building:
+		PercentageStep: 1
+		Delay: 13
+		StartIfBelow: 101
+	Building:
+		Footprint: === =X= ===
+		Dimensions: 3,3
+		LocalCenterOffset: 0,-512,0
+	Selectable:
+		Bounds: 3072, 3072, 0, -426
+	SequencePlaceBuildingPreview:
+		Sequence: place-stargate
+	-WithBuildingBib:
+
+PSTARG:
+	Inherits: ^ProtossBuilding
+	Inherits@shape: ^3x3Shape
+	Inherits@PRIMARY: ^PrimaryBuilding
+	Inherits@prereqs: ^AircraftPrereqs
+	Buildable:
+		Queue: Bot
+		Prerequisites: radar, ~structures.protoss, ~techlevel.medium, ~ai.all
+		BuildLimit: 1
+	Valued:
+		Cost: 1200
+	Tooltip:
+		Name: Stargate
+	ProvidesPrerequisite@buildingname:
+	Building:
+		Footprint: === =X= ===
+		Dimensions: 3,3
+		LocalCenterOffset: 0,-512,0
+	Selectable:
+		Bounds: 3072, 3072, 0, -426
+	Health:
+		HP: 120000
+	Armor:
+		Type: Wood
+	RevealsShroud:
+		MinRange: 5c0
+		Range: 6c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 5c0
+	Targetable:
+		TargetTypes: GroundActor, Structure, C4, DetonateAttack, SpyInfiltrate
+	InfiltrateForSupportPower:
+		Proxy: aircraft.upgraded
+		Types: SpyInfiltrate
+		WithBuildingBib:
+	WithIdleOverlay@damage:
+		RequiresCondition: damaged
+		Sequence: fire1
+		Offset: -1024,900,0
+	WithIdleOverlay@damage2:
+		RequiresCondition: damaged
+		Sequence: fire2
+		Offset: 128,-128,0
+	WithIdleOverlay@damage3:
+		RequiresCondition: damaged
+		Sequence: fire1
+		Offset: 600,-600,0
+	Production:
+		Produces: Aircraft, Helicopter
+		PauseOnCondition: !pylon
+	Reservable:
+	RallyPoint:
+	Exit@1:
+		RequiresCondition: !being-captured
+		SpawnOffset: 0,-256,0
+		ExitCell: 0,0
+		Facing: 896
+	ProductionBar@Building:
+		ProductionType: Aircraft
+	ProximityExternalCondition:
+		Condition: reloadnear
+		Range: 4c0
+		RequiresCondition: pylon
+	SpawnActorPower@spyvan:
+		PauseOnCondition: disabled || !pylon
+		OrderName: VanSweep
+		Cursor: chrono-target
+		Icon: spy
+		ChargeInterval: 2250
+		LifeTime: 125
+		Name: Spy
+		Description: Reveal an area on the map for 5 seconds. \nReveals cloaked units.
+		Actor: camera.spyplane
+		SelectTargetSpeechNotification: SelectTarget
+		DisplayRadarPing: True
+		DeploySound: gradarup.aud
+		EffectSequence: idle

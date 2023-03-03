@@ -1,0 +1,517 @@
+NBOS1:
+	Inherits: ^NBOS
+	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
+	Buildable:
+		Queue: Infantry
+		BuildAtProductionType: Soldier
+		BuildPaletteOrder: 180
+		Prerequisites: factory, ~barracks, ~techlevel.medium, ~infantry.himmler
+		Description: Heavily armoured super soldier.\nCan attack air.\nSpeed: 52\n  Strong vs Infantry\n  Weak vs Vehicles
+	Valued:
+		Cost: 700
+	Tooltip:
+		Name: Supersoldier
+	Health:
+		HP: 60000
+	RevealsShroud:
+		Range: 5c0
+	Armor:
+		Type: Light
+	Targetable:
+		RequiresCondition: !parachute
+		TargetTypes: GroundActor, Cyborg, Disguise
+	Mobile:
+		Speed: 52
+	Passenger:
+		Weight: 2
+	Armament@PRIMARY:
+		Weapon: SuperVulcan
+	Armament@TERTIARY:
+		Weapon: SuperVulcanAA
+	Armament@GARRISONED:
+		Name: garrisoned
+		Weapon: Vulcan_D2
+		MuzzleSequence: garrison-muzzle
+	Armament@GARRISONED2:
+		Name: garrisoned
+		Weapon: SuperVulcanAA
+		MuzzleSequence: garrison-muzzle
+	Armament@BUS:
+		Name: bus
+		Weapon: SuperVulcan
+		MuzzleSequence: garrison-muzzle
+	Armament@BUS2:
+		Name: bus
+		Weapon: SuperVulcanAA
+		MuzzleSequence: garrison-muzzle
+	AttackFrontal:
+		FacingTolerance: 0
+	WithInfantryBody:
+		DefaultAttackSequence: shoot
+	ProducibleWithLevel:
+		Prerequisites: barracks.upgraded
+	RenderSprites:
+	-DeathSounds@BURNED:
+	-DeathSounds@ZAPPED:
+	DeathSounds@NORMAL:
+		Voice: DieJugg
+		DeathTypes: DefaultDeath, BulletDeath, SmallExplosionDeath, ExplosionDeath, FireDeath, TiberiumDeath, SpawnCubeDeath, ElectricityDeath
+	Selectable:
+		Bounds: 1194, 1365, 0, -682
+		DecorationBounds: 1194, 1365, 0, -682
+
+NBOS2:
+	Inherits: ^NBOS
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Buildable:
+		Queue: Infantry
+		BuildAtProductionType: Soldier
+		BuildPaletteOrder: 185
+		Prerequisites: radar, ~techlevel.infonly, ~infantry.nazi
+		Description: Hovering Hitler decoy with a flamethrower.\nCan travel over water and cliffs, good for scouting.\nSpeed: 72\n  Strong vs Infantry\n  Weak vs Vehicles, Aircraft
+	Valued:
+		Cost: 600
+	Tooltip:
+		Name: False Hitler
+	Health:
+		HP: 12000
+	Mobile:
+		Speed: 72
+		Locomotor: floater
+	RevealsShroud:
+		MinRange: 4c0
+		Range: 6c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 4c0
+	Passenger:
+		Weight: 1
+	Armament@PRIMARY:
+		Weapon: FalseFlamer
+		LocalOffset: 427,0,450
+		FireDelay: 4
+	Armament@GARRISONED:
+		Name: garrisoned
+		Weapon: Flamer
+	Armament@BUS:
+		Name: bus
+		Weapon: Flamer
+	Turreted:
+	AttackTurreted:
+	WithInfantryBody:
+		DefaultAttackSequence: shoot
+	ProducibleWithLevel:
+		Prerequisites: barracks.upgraded
+	RenderSprites:
+	Selectable:
+		Bounds: 1024, 1194, 0, -341
+	Hovers:
+
+NBOS3:
+	Inherits: ^NBOS
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Buildable:
+		Queue: Infantry
+		BuildAtProductionType: Soldier
+		BuildPaletteOrder: 190
+		Prerequisites: techcenter, ~techlevel.unrestricted, ~infantry.nazi
+		Description: Elite infantry with a rocket pistol.\n  Strong vs Infantry, light vehicles\n  Weak vs Aircraft
+	Valued:
+		Cost: 1400
+	Tooltip:
+		Name: Commander
+	Health:
+		HP: 80000
+	RevealsShroud:
+		Range: 7c0
+	Armament@PRIMARY:
+		Weapon: CommanderRPG
+		LocalOffset: 427,0,341
+	Armament@GARRISONED:
+		Name: garrisoned
+		Weapon: CommanderRPG
+	Armament@BUS:
+		Name: bus
+		Weapon: CommanderRPG
+	AttackFrontal:
+		FacingTolerance: 0
+	Mobile:
+		Speed: 64
+		Voice: Move
+	AttackMove:
+		Voice: Move
+	Passenger:
+		Voice: Move
+		CustomPipType: red
+		Weight: 3
+	Guard:
+		Voice: Move
+	ExternalCondition@PRODUCED:
+		Condition: produced
+	VoiceAnnouncement:
+		RequiresCondition: produced
+		Voice: Build
+	Voiced:
+		VoiceSet: CommandoVoice
+	AnnounceOnKill:
+	WithInfantryBody:
+		DefaultAttackSequence: shoot
+	ProducibleWithLevel:
+		Prerequisites: barracks.upgraded
+	Selectable:
+		Bounds: 1194, 1194, 0, -640
+		DecorationBounds: 1194, 1194, 0, -640
+
+NBOS4:
+	Inherits: ^NBOS
+	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
+	Inherits@iron: ^IronCurtainable
+	Inherits@rep: ^TargetRepairable
+	Buildable:
+		Queue: Infantry
+		BuildAtProductionType: Soldier
+		BuildPaletteOrder: 210
+		Prerequisites: advtechcenter, ~techlevel.unrestricted, ~infantry.himmler
+		Description: Elite super soldier, heavily armoured.\nSpecial ability: Squad boost. Demoralise enemy troops.\nSpeed: 48\n  Strong vs Everything\n  Weak vs Nothing
+	Valued:
+		Cost: 2800
+	Tooltip:
+		Name: Death Knight
+	Health:
+		HP: 100000
+	Armor:
+		Type: Heavy
+	RevealsShroud:
+		Range: 6c0
+	Armament@PRIMARY:
+		Weapon: DKCannon
+		LocalOffset: 0,-356,1224,0,356,1224
+	Armament@SECONDARY:
+		Weapon: DoomMinigunDK
+	Armament@TERTIARY:
+		Name: secondary
+		Weapon: DoomMinigunDKAA
+	AttackFrontal:
+		FacingTolerance: 512
+		Voice: Action
+	Mobile:
+		Speed: 48
+		Voice: Move
+	AttackMove:
+		Voice: Move
+	Passenger:
+		Voice: Move
+		CustomPipType: red
+		Weight: 5
+	Guard:
+		Voice: Move
+	Voiced:
+		VoiceSet: CyborgVoice
+	-DeathSounds@BURNED:
+	-DeathSounds@ZAPPED:
+	DeathSounds@NORMAL:
+		Voice: DieJugg
+		DeathTypes: DefaultDeath, BulletDeath, SmallExplosionDeath, ExplosionDeath, FireDeath, TiberiumDeath, SpawnCubeDeath, ElectricityDeath
+	ChangesHealth:
+		Step: 100
+		Delay: 3
+		StartIfBelow: 50
+		DamageCooldown: 150
+	WithInfantryBody:
+		DefaultAttackSequence: shoot
+	ProducibleWithLevel:
+		Prerequisites: barracks.upgraded
+	Selectable:
+		Bounds: 1834, 1877, 0, -853
+		DecorationBounds: 1834, 1877, 0, -853
+	RenderSprites:
+	Repairable:
+		RepairActors: fix, gfix.boss
+	Explodes:
+		Weapon: UnitExplodeSmall
+		EmptyWeapon: UnitExplodeSmall
+	Targetable:
+		TargetTypes: GroundActor, Vehicle, Tank, Cyborg
+	AmbientSound@move:
+		SoundFiles: dshoof.aud
+		Interval: 20
+		RequiresCondition: ismoving
+	GrantConditionOnMovement:
+		Condition: ismoving
+	ProximityExternalCondition@boost:
+		Condition: squadboost
+		Range: 7c0
+		AffectsParent: true
+	WithDecoration@officer2:
+		Image: pips
+		Sequence: pip-bonus
+		Palette: effect
+		Position: TopRight
+		ValidRelationships: None,Neutral,Enemy,Ally
+	ProximityExternalCondition@demoralise:
+		Condition: demoralise
+		Range: 8c0
+		AffectsParent: false
+		ValidRelationships: Enemy
+	-Cloneable:
+
+NBOS6:
+	Inherits: ^NBOS
+	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
+	Inherits@NoExp: ^NoExp
+	Inherits@iron: ^IronCurtainable
+	Inherits@epic: ^EpicUnit
+	Inherits@rep: ^TargetRepairable
+	Buildable:
+		Queue: Infantry
+		BuildAtProductionType: Soldier
+		BuildPaletteOrder: 9100
+		Prerequisites: ulttechcenter, ~techlevel.unrestricted, ~vehicles.hitler, ~!hitler
+		Description: The Fuhrer in super mecha armour.\nHitler ejects on death to fight more.\nSpeed: 60\n  Strong vs Everything\n  Weak vs Nothing
+		BuildLimit: 1
+	ProvidesPrerequisite:
+		Prerequisite: hitler
+	Valued:
+		Cost: 8000
+	Tooltip:
+		Name: Hitler
+	Health:
+		HP: 325000
+	Armor:
+		Type: Heavy
+	RevealsShroud:
+		MinRange: 7c0
+		Range: 11c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 7c0
+	Armament@PRIMARY:
+		Weapon: CommanderRPG
+		LocalOffset: 0,-456,756, 0,-456,656
+	Armament@PRIMARY2:
+		Weapon: HitlerGrenade
+		LocalOffset: 0,456,756, 0,456,756, 0,456,756
+		LocalYaw: -180,0,180
+	Armament@PRIMARY3:
+		Weapon: HitlerRPG
+		LocalOffset: 0,456,656
+	Armament@SECONDARY:
+		Weapon: DoomMinigunDK
+	Armament@TERTIARY:
+		Name: secondary
+		Weapon: DoomMinigunDKAA
+	AttackFrontal:
+		FacingTolerance: 512
+	Mobile:
+		Speed: 60
+		Locomotor: tracked
+		Voice: Move
+	AttackMove:
+		Voice: Move
+	Passenger:
+		Voice: Move
+		CustomPipType: red
+		Weight: 7
+		CargoType: Vehicle
+	Guard:
+		Voice: Move
+	Voiced:
+		VoiceSet: MechaHitlerVoice
+	-DeathSounds@BURNED:
+	-DeathSounds@ZAPPED:
+	DeathSounds@NORMAL:
+		Voice: Die
+		DeathTypes: DefaultDeath, BulletDeath, SmallExplosionDeath, ExplosionDeath, FireDeath, TiberiumDeath, SpawnCubeDeath, ElectricityDeath
+	Repairable:
+		RepairActors: fix, gfix.boss
+	RenderSprites:
+	WithInfantryBody:
+		DefaultAttackSequence: shoot
+	Selectable:
+		Bounds: 1792, 1792, 0, -853
+		DecorationBounds: 1792, 1792, 0, -853
+	Explodes@def:
+		Weapon: MechaHitlerCorpse
+		EmptyWeapon: MechaHitlerCorpse
+	ShakeOnDeath:
+	SoundOnDamageTransition:
+		DestroyedSounds: xplobig6.aud
+	SpawnActorOnDeath:
+		Actor: NBOS7
+	Targetable:
+		TargetTypes: GroundActor, Vehicle, Tank
+	Chronoshiftable:
+	ChangesHealth:
+		Step: 100
+		Delay: 3
+		StartIfBelow: 50
+		DamageCooldown: 150
+
+NBOS7:
+	Inherits: ^NBOS
+	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
+	Inherits@iron: ^IronCurtainable
+	Inherits@rep: ^TargetRepairable
+	Buildable:
+		Queue: Infantry
+		BuildAtProductionType: Soldier
+		BuildPaletteOrder: 215
+		Prerequisites: iron, advtechcenter, ~techlevel.unrestricted, ~infantry.nazi, ~!hitler
+		BuildLimit: 1
+		BuildDuration: 5000
+		Description: The Fuhrer fights on the frontlines.\nSpeed: 76\n  Strong vs Infantry, Light Vehicles\n  Weak vs Nothing
+	ProvidesPrerequisite:
+		Prerequisite: hitler
+	Valued:
+		Cost: 3500
+	Tooltip:
+		Name: Hitler
+	Health:
+		HP: 180000
+	Armor:
+		Type: Light
+	Targetable:
+		TargetTypes: GroundActor, Vehicle, Tank, Cyborg
+	RevealsShroud:
+		MinRange: 6c0
+		Range: 8c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 6c0
+	Armament@PRIMARY:
+		Weapon: CommanderRPG
+		LocalOffset: 0,-356,756
+	Armament@PRIMARY2:
+		Weapon: CommanderRPG
+		LocalOffset: 0,356,756
+		FireDelay: 5
+	Armament@SECONDARY:
+		Weapon: DoomMinigunDK
+	Armament@TERTIARY:
+		Name: secondary
+		Weapon: DoomMinigunDKAA
+	AttackFrontal:
+		FacingTolerance: 512
+	Mobile:
+		Speed: 76
+		Voice: Move
+	AttackMove:
+		Voice: Move
+	Passenger:
+		Voice: Move
+		CustomPipType: red
+		Weight: 4
+	Guard:
+		Voice: Move
+	Voiced:
+		VoiceSet: HitlerVoice
+	-DeathSounds@BURNED:
+	-DeathSounds@ZAPPED:
+	DeathSounds@NORMAL:
+		Voice: Die
+		DeathTypes: DefaultDeath, BulletDeath, SmallExplosionDeath, ExplosionDeath, FireDeath, TiberiumDeath, SpawnCubeDeath, ElectricityDeath
+	ChangesHealth:
+		Step: 100
+		Delay: 3
+		StartIfBelow: 50
+		DamageCooldown: 150
+	RenderSprites:
+	WithInfantryBody:
+		DefaultAttackSequence: shoot
+	ProducibleWithLevel:
+		Prerequisites: barracks.upgraded
+	Selectable:
+		Bounds: 1578, 1578, 0, -725
+		DecorationBounds: 1578, 1578, 0, -725
+	Explodes@def:
+		Weapon: HitlerCorpse
+		EmptyWeapon: HitlerCorpse
+	DamageMultiplier@IRONCURTAIN:
+		RequiresCondition: invulnerability
+		Modifier: 25
+	ExternalCondition@PRODUCED:
+		Condition: produced
+	VoiceAnnouncement:
+		RequiresCondition: produced
+		Voice: Build
+	-Cloneable:
+
+SPY.SHD:
+	Inherits: ^TibSunSoldier
+	Buildable:
+		Queue: Infantry
+		BuildAtProductionType: Soldier
+		BuildPaletteOrder: 90
+		Prerequisites: ~infantry.heydrich, factory, ~barracks, ~techlevel.medium
+		Description: Steals enemy credits.\nHijacks enemy vehicles.\nUnarmed.\nCan detect cloaked units and spies.\nSpeed: 80\n\nSpecial Ability: Cloaked
+	Valued:
+		Cost: 900
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Tooltip:
+		Name: Super Hijacker
+	Health:
+		HP: 8000
+	-Guard:
+	-TakeCover:
+	RevealsShroud:
+		Range: 5c0
+	Passenger:
+		CustomPipType: blue
+	Infiltrates:
+		Types: ThiefInfiltrate
+		Notification: BuildingInfiltrated
+		PlayerExperience: 50
+	Disguise:
+		DisguisedCondition: disguise
+	WithDecoration@disguise:
+		Image: pips
+		Sequence: pip-disguise
+		Palette: effect
+		Position: TopRight
+		RequiresCondition: disguise
+	-WithInfantryBody:
+	WithDisguisingInfantryBody:
+		DefaultAttackSequence: shoot
+		IdleSequences: idle1,idle2
+		StandSequences: stand
+	IgnoresDisguise:
+	DetectCloaked:
+		DetectionTypes: Cloak
+		Range: 3c0
+	CaptureManager:
+	Captures:
+		CaptureTypes: vehicle
+		PlayerExperience: 50
+	Voiced:
+		VoiceSet: HijackerVoice
+	RenderSprites:
+		Image: tsspy
+	DeathSounds@NORMAL:
+		Voice: DieSBH
+		VolumeMultiplier: 0.8
+	DeathSounds@BURNED:
+		Voice: DieSBH
+		VolumeMultiplier: 0.8
+	DeathSounds@ZAPPED:
+		Voice: DieSBH
+		VolumeMultiplier: 0.8
+	Crushable:
+		WarnProbability: 95
+	-ExternalCondition@stealthgen:
+	-Cloak@stealthgen:
+	Cloak:
+		InitialDelay: 25
+		CloakDelay: 60
+		CloakSound: gstealon.aud
+		UncloakSound: gstealof.aud
+		UncloakOn: Attack, Damage, Infiltrate, Demolish, Move
+		DetectionTypes: Cloak
+		IsPlayerPalette: true
+		PauseOnCondition: cloak-force-disabled || disabled
+	GrantConditionOnDamageState@UNCLOAK:
+		Condition: cloak-force-disabled
+		ValidDamageStates: Critical
+	Mobile:
+		Speed: 80
+		Voice: Move

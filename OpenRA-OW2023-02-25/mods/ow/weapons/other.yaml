@@ -1,0 +1,1858 @@
+^FireWeapon:
+	ValidTargets: Ground, Water, GroundActor, WaterActor, Trees
+	ReloadDelay: 65
+	Range: 5c0
+	Warhead@1Dam: SpreadDamage
+		Spread: 213
+		Damage: 15000
+		ValidTargets: GroundActor, WaterActor, Trees
+		Versus:
+			None: 90
+			Wood: 50
+			Tree: 50
+			Light: 60
+			Heavy: 25
+			Concrete: 20
+		DamageTypes: Prone50Percent, TriggerProne, FireDeath, Incendiary
+	Warhead@2Smu: LeaveSmudge
+		SmudgeType: Scorch
+		InvalidTargets: Structure, Wall
+	Warhead@3Eff: CreateEffect
+		Explosions: napalm
+		ImpactSounds: firebl3.aud
+		ImpactActors: false
+
+FireballLauncher:
+	Inherits: ^FireWeapon
+	Burst: 2
+	BurstDelays: 20
+	Projectile: Bullet
+		Speed: 250
+		TrailImage: fb2
+		Image: FB1
+		Blockable: false
+	Warhead@1Dam: SpreadDamage
+		Versus:
+			Light: 50
+
+Flamer:
+	Inherits: ^FireWeapon
+	ReloadDelay: 50
+	Burst: 15
+	BurstDelays: 1
+	Projectile: Bullet
+		Speed: 170
+		TrailImage: fb4
+		Image: fb3
+		LaunchAngle: 62
+		Inaccuracy: 853
+	Warhead@1Dam: SpreadDamage
+		Spread: 341
+		Damage: 1000
+		Versus:
+			None: 70
+			Wood: 80
+			Light: 40
+			Heavy: 20
+			Concrete: 10
+	Warhead@3Eff: CreateEffect
+		Explosions: small_napalm
+
+# False Hitler
+FalseFlamer:
+	Inherits: Flamer
+	Burst: 10
+	ReloadDelay: 65
+
+# Flame tank
+BigFlamer:
+	Inherits: Flamer
+	Burst: 20
+	Projectile: Bullet
+		Inaccuracy: 1024
+	Warhead@1Dam: SpreadDamage
+		Spread: 400
+		Damage: 1150
+	Warhead@3Eff: CreateEffect
+		Explosions: small_napalm
+
+# Purifier
+PurifierFlamer:
+	Inherits: Flamer
+	ReloadDelay: 2
+	Burst: 1
+	BurstDelays: 1
+	Range: 6c0
+	ValidTargets: Infantry, Structure, Cyborg
+	Projectile: Bullet
+		Inaccuracy: 1024
+	Warhead@1Dam: SpreadDamage
+		Spread: 400
+		Damage: 2000
+		Versus:
+			Light: 90
+	Warhead@3Eff: CreateEffect
+		Explosions: small_napalm
+
+PurifierFlamer2:
+	Inherits: BigFlamer
+	ValidTargets: Infantry, Structure, Cyborg
+
+Napalm:
+	Inherits: ^FireWeapon
+	ReloadDelay: 20
+	Range: 4c512
+	Projectile: Bullet
+		Image: BOMBLET
+		Speed: 85
+		Blockable: false
+	Warhead@1Dam: SpreadDamage
+		Spread: 170
+		Damage: 10000
+		Versus:
+			Wood: 100
+			Concrete: 50
+
+^TeslaWeapon:
+	ReloadDelay: 3
+	Range: 8c0
+	Report: tesla1.aud
+	Projectile: TeslaZap
+	ValidTargets: Ground, Water, GroundActor, WaterActor
+	Warhead@1Dam: SpreadDamage
+		Spread: 42
+		Damage: 10000
+		ValidTargets: GroundActor, WaterActor
+		Versus:
+			None: 300
+		DamageTypes: Prone50Percent, TriggerProne, ElectricityDeath
+
+TeslaZap:
+	Inherits: ^TeslaWeapon
+	Warhead@1Dam: SpreadDamage
+		Versus:
+			Wood: 60
+
+TeslaZapEMP:
+	Inherits: TeslaZap
+	TargetActorCenter: true
+	Warhead@2EMP: GrantExternalCondition
+		Range: 512
+		Condition: disabled
+		Duration: 100
+		ValidTargets: GroundActor, WaterActor
+
+PortaTesla:
+	Inherits: ^TeslaWeapon
+	ReloadDelay: 70
+	Range: 6c0
+	Warhead@1Dam: SpreadDamage
+		Damage: 4500
+		Versus:
+			None: 400
+			Wood: 73
+			Heavy: 60
+
+TTankZap:
+	Inherits: ^TeslaWeapon
+	ReloadDelay: 120
+	Range: 7c0
+	Warhead@1Dam: SpreadDamage
+		Versus:
+			None: 400
+
+GoliathZap:
+	Inherits: ^TeslaWeapon
+	ReloadDelay: 80
+	Burst: 3
+	BurstDelays: 3
+	Warhead@1Dam: SpreadDamage
+		Damage: 10500
+
+GoliathZap2:
+	Inherits: ^TeslaWeapon
+	ReloadDelay: 7
+	Range: 7c0
+	Report: shktrop1.aud
+	Projectile: TeslaZap
+		DimZaps: 0
+	Warhead@1Dam: SpreadDamage
+		Damage: 2500
+		AffectsParent: false
+
+GoliathZapCluster:
+	ReloadDelay: 2
+	Range: 8c0
+	ValidTargets: Ground, Water, GroundActor, WaterActor, AirborneActor
+	Projectile: Missile
+		RangeLimit: 1
+	Warhead@1Dam: SpreadDamage
+		Spread: 1
+		Damage: 1
+		ValidTargets: Ground, Water, GroundActor, WaterActor, AirborneActor
+	Warhead@2cluster: FireCluster
+		Weapon: GoliathZap3
+		RandomClusterCount: 1
+		Dimensions: 5,5
+		Footprint: xxxxx xxxxx xxxxx xxxxx xxxxx
+
+GoliathZap3:
+	Inherits: GoliathZap2
+	-Report:
+	Projectile: TeslaZap
+		Inaccuracy: 256
+	Warhead@1Dam: SpreadDamage
+		Spread: 180
+	Warhead@2Smu: LeaveSmudge
+		SmudgeType: Scorch
+		ValidTargets: Ground, Infantry
+
+DogJaw:
+	ValidTargets: Infantry
+	ReloadDelay: 10
+	Range: 2c0
+	Report: dogg5p.aud
+	TargetActorCenter: true
+	Projectile: InstantHit
+	Warhead@1Dam: TargetDamage
+		Damage: 50000
+		ValidTargets: Infantry
+		InvalidTargets: Ant
+		DamageTypes: DefaultDeath
+
+Heal:
+	ReloadDelay: 80
+	Range: 4c0
+	Report: heal2.aud
+	ValidTargets: Heal
+	Projectile: Bullet
+		Speed: 1c682
+	Warhead@1Dam: SpreadDamage
+		Spread: 213
+		Damage: -5000
+		ValidRelationships: Ally
+		ValidTargets: Heal
+		DebugOverlayColor: 00FF00
+
+FHeal:
+	Inherits: Heal
+	ReloadDelay: 55
+
+Repair:
+	Inherits: Heal
+	Report: fixit1.aud
+	ValidTargets: Repair
+	Warhead@1Dam: SpreadDamage
+		Damage: -2000
+		ValidTargets: Repair
+
+RepairWorker:
+	Inherits: Heal
+	ReloadDelay: 100
+	Report: fixit1.aud
+	ValidTargets: Repair, StructureRepair
+	Warhead@1Dam: SpreadDamage
+		Damage: -1250
+		ValidTargets: Repair, StructureRepair
+
+RepairDepot:
+	Inherits: Repair
+	ValidTargets: Heal, Repair
+	ReloadDelay: 25
+	Range: 6c0
+	Warhead@1Dam: HealthPercentageDamage
+		Damage: -3
+		ValidTargets: Repair
+	Warhead@2Dam: HealthPercentageDamage
+		Damage: -10
+		ValidTargets: Heal
+
+Demolish:
+	Warhead@1Dam: SpreadDamage
+		DamageTypes: DefaultDeath
+	Warhead@2Eff: CreateEffect
+		Explosions: building
+		ImpactSounds: kaboom25.aud
+
+Claw:
+	ReloadDelay: 30
+	Range: 1c512
+	ValidTargets: Ground, Water, GroundActor, WaterActor
+	Projectile: Bullet
+		Speed: 1c682
+	Warhead@1Dam: SpreadDamage
+		Spread: 213
+		Damage: 3000
+		ValidTargets: GroundActor, WaterActor
+		Versus:
+			None: 97
+			Wood: 10
+			Light: 30
+			Heavy: 10
+			Concrete: 10
+		DamageTypes: Prone50Percent, TriggerProne, DefaultDeath, ZombieDeath
+
+Mandible:
+	Inherits: Claw
+	ReloadDelay: 10
+	Burst: 2
+	BurstDelays: 14
+	StartBurstReport: antbite.aud
+	Warhead@1Dam: SpreadDamage
+		Damage: 6000
+		Versus:
+			None: 90
+		DamageTypes: Prone50Percent, TriggerProne, BulletDeath
+
+MandibleHeavy:
+	Inherits: Claw
+	ReloadDelay: 15
+	Burst: 2
+	BurstDelays: 20
+	StartBurstReport: antbite.aud
+	Warhead@1Dam: SpreadDamage
+		Damage: 10000
+		Versus:
+			None: 100
+			Light: 90
+			Heavy: 35
+			Concrete: 20
+		DamageTypes: Prone50Percent, TriggerProne, BulletDeath
+
+AntFireball:
+	Inherits: FireballLauncher
+	Report: antbite.aud
+	ReloadDelay: 50
+	Burst: 2
+	BurstDelays: 20
+	Range: 4c0
+	Projectile: Bullet
+		Speed: 200
+	Warhead@1Dam: SpreadDamage
+		Spread: 213
+		Damage: 4000
+		Versus:
+			None: 80
+			Wood: 85
+			Light: 45
+			Heavy: 20
+			Concrete: 15
+
+DemoTruckTargeting:
+	ValidTargets: DetonateAttack
+	Range: 2c0
+	Projectile: InstantHit
+	Warhead@1Dam: TargetDamage
+		ValidTargets: DetonateAttack
+
+TerroristTargeting:
+	ValidTargets: Ground, GroundActor, Water, WaterActor, Trees
+	Range: 1c256
+	Projectile: InstantHit
+	Warhead@1Dam: TargetDamage
+		ValidTargets: GroundActor, WaterActor, Trees
+
+DemoTrapTargeting:
+	Inherits: TerroristTargeting
+	Range: 2c0
+
+MADTankThump:
+	ValidTargets: GroundActor, WaterActor
+	InvalidTargets: MADTank, Infantry
+	Warhead@1Dam: HealthPercentageDamage
+		Spread: 7c0
+		Damage: 1
+		ValidTargets: GroundActor, WaterActor
+		InvalidTargets: MADTank, Infantry
+	Warhead@Shake: ShakeScreen
+		Duration: 10
+		Intensity: 3
+		Multiplier: 1,0
+
+MADTankDetonate:
+	ValidTargets: GroundActor, WaterActor
+	InvalidTargets: MADTank, Infantry
+	Warhead@1Dam: HealthPercentageDamage
+		Spread: 7c0
+		Damage: 19
+		ValidTargets: GroundActor, WaterActor
+		InvalidTargets: MADTank, Infantry
+	Warhead@2Smu: LeaveSmudge
+		SmudgeType: Crater
+		Size: 7,6
+	Warhead@3Eff: CreateEffect
+		Explosions: med_explosion
+		ImpactSounds: mineblo1.aud
+		ImpactActors: false
+
+Electro:
+	Warhead@1Dam: CreateEffect
+		ImpactSounds: electro1.aud
+		Explosions: small_napalm
+
+^LaserWeapon:
+	ReloadDelay: 40
+	Range: 8c0
+	Report: obelray1.aud
+	ValidTargets: Ground, Water, GroundActor, WaterActor
+	Projectile: LaserZap
+		Width: 85
+		ZOffset: 2047
+	Warhead@1Dam: SpreadDamage
+		Spread: 42
+		Damage: 32000
+		ValidTargets: GroundActor, WaterActor
+		Versus:
+			None: 220
+		DamageTypes: Prone50Percent, TriggerProne, FireDeath, Incendiary
+	Warhead@2Smu: LeaveSmudge
+		SmudgeType: Scorch
+		InvalidTargets: Structure, Wall, Vehicle
+
+ObeliskLaser:
+	Inherits: ^LaserWeapon
+	Range: 10c0
+	Warhead@1Dam: SpreadDamage
+		Spread: 128
+		Versus:
+			Wood: 60
+
+BlackHandLaser:
+	Inherits: ^LaserWeapon
+	ReloadDelay: 35
+	Range: 5c0
+	Report: lsclfire.aud
+	Burst: 5
+	BurstDelays: 3
+	Projectile: LaserZap
+		Width: 35
+		Duration: 2
+		UsePlayerColor: true
+	Warhead@1Dam: SpreadDamage
+		Damage: 800
+		Versus:
+			None: 140
+			Heavy: 50
+			Wood: 50
+	-Warhead@2Smu:
+
+ScorpionLaser:
+	Inherits: ^LaserWeapon
+	ReloadDelay: 200
+	Range: 11c0
+	Projectile: LaserZap
+		UsePlayerColor: true
+	Warhead@1Dam: SpreadDamage
+		Spread: 128
+		Damage: 9900
+		Versus:
+			None: 100
+			Wood: 75
+	Warhead@3Eff: CreateEffect
+		Delay: 40
+		ImpactSounds: obelpowr.aud
+		ImpactActors: false
+
+PurifierLaser:
+	Inherits: ^LaserWeapon
+	ReloadDelay: 125
+	Range: 7c0
+	ValidTargets: AirborneActor, Ground, GroundActor, Water, WaterActor
+	InvalidTargets: Infantry
+	Projectile: LaserZap
+		Width: 64
+		UsePlayerColor: true
+	Warhead@1Dam: SpreadDamage
+		Spread: 196
+		Damage: 34900
+		ValidTargets: GroundActor, WaterActor, AirborneActor
+		Versus:
+			None: 100
+			Wood: 75
+
+VenomLaser:
+	Inherits: ^LaserWeapon
+	ReloadDelay: 15
+	Range: 5c512
+	MinRange: 0c768
+	Report: lastur1.aud
+	Projectile: LaserZap
+		Width: 45
+		Duration: 7
+		UsePlayerColor: true
+	Warhead@1Dam: SpreadDamage
+		Damage: 8000
+		Versus:
+			None: 120
+			Wood: 40
+			Light: 75
+			Heavy: 25
+			Concrete: 25
+
+DireLaser:
+	Inherits: ^LaserWeapon
+	ReloadDelay: 20
+	Range: 6c0
+	Report: lastur1.aud
+	ValidTargets: Infantry, Cyborg
+	Projectile: LaserZap
+		Width: 45
+		Duration: 15
+	Warhead@1Dam: SpreadDamage
+		Damage: 10000
+		Versus:
+			None: 100
+
+OrcaBomb:
+	ReloadDelay: 8
+	Range: 2c0
+	ValidTargets: Ground, Water, GroundActor, WaterActor
+	Projectile: GravityBomb
+		Image: 120MM
+		Velocity: 72, 0, -128
+		Acceleration: 0, 0, 0
+		Shadow: False
+	Warhead@1Dam: SpreadDamage
+		Spread: 768
+		Damage: 22500
+		ValidTargets: GroundActor, WaterActor
+		Versus:
+			None: 125
+			Wood: 100
+			Light: 100
+			Heavy: 100
+			Concrete: 50
+		DamageTypes: Prone50Percent, TriggerProne, ExplosionDeath
+	Warhead@2Smu: LeaveSmudge
+		SmudgeType: Crater
+		ValidTargets: Ground, Infantry
+	Warhead@2Eff: CreateEffect
+		Explosions: self_destruct
+		ImpactSounds: expnew06.aud
+		ImpactActors: false
+		ValidTargets: Ground, GroundActor, WaterActor, Trees
+	Warhead@4EffWater: CreateEffect
+		Explosions: small_splash
+		ImpactSounds: splash9.aud
+		ValidTargets: Water, Underwater
+
+Do17Bomb:
+	Inherits: OrcaBomb
+	ReloadDelay: 6
+	Warhead@1Dam: SpreadDamage
+		Spread: 750
+		Damage: 12500
+
+Do17Bomb2:
+	Inherits: OrcaBomb
+	Range: 4c0
+	ReloadDelay: 6
+	Warhead@1Dam: SpreadDamage
+		Spread: 750
+		Damage: 16500
+
+Do18Bomb:
+	Inherits: OrcaBomb
+	Range: 6c0
+	ReloadDelay: 5
+	Projectile: GravityBomb
+		Velocity: 16, 0, -128
+	Warhead@1Dam: SpreadDamage
+		Spread: 1024
+		Damage: 26000
+		Versus:
+			None: 30
+			Wood: 30
+			Light: 75
+			Concrete: 25
+
+KodiacBomb:
+	Inherits: OrcaBomb
+	ReloadDelay: 15
+	Projectile: GravityBomb
+		Velocity: 0, 0, -128
+
+A10Napalm:
+	ReloadDelay: 3
+	Range: 2c0
+	ValidTargets: Ground, GroundActor, WaterActor, Water, Trees
+	Projectile: GravityBomb
+		Image: bomb
+		Velocity: 16, 0, -128
+		Acceleration: 0, 0, 0
+		Shadow: False
+	Warhead@1Dam: SpreadDamage
+		Spread: 900
+		Damage: 12500
+		Versus:
+			None: 150
+			Wood: 100
+			Light: 60
+			Concrete: 50
+			Heavy: 30
+		DamageTypes: Prone50Percent, TriggerProne, FireDeath, Incendiary
+		ValidTargets: GroundActor, WaterActor, Trees
+	Warhead@2Smu: LeaveSmudge
+		SmudgeType: Scorch
+		ValidTargets: Ground, Infantry
+	Warhead@2Eff: CreateEffect
+		Explosions: napalm
+		ImpactSounds: flamer2.aud
+		ImpactActors: false
+		ValidTargets: Ground, GroundActor, WaterActor, Trees
+	Warhead@4EffWater: CreateEffect
+		Explosions: small_splash
+		ImpactSounds: splash9.aud
+		ValidTargets: Water, Underwater
+
+ChemSpray:
+	Inherits: ^FireWeapon
+	ReloadDelay: 50
+	Burst: 15
+	BurstDelays: 1
+	Projectile: Bullet
+		Speed: 170
+		TrailImage: fbc_2
+		Image: fbc_1
+		LaunchAngle: 62
+		Inaccuracy: 853
+	Warhead@1Dam: SpreadDamage
+		Spread: 341
+		Damage: 350
+		Versus:
+			None: 150
+			Wood: 75
+			Light: 100
+			Heavy: 40
+			Concrete: 50
+		DamageTypes: Prone50Percent, TriggerProne, TiberiumDeath
+	Warhead@3Eff: CreateEffect
+		Explosions: baron
+	Warhead@poison1: GrantExternalCondition
+		Condition: corrode
+		Range: 950
+		Duration: 250
+		ValidTargets: GroundActor, WaterActor
+
+BigChemSpray:
+	Inherits: ChemSpray
+	Burst: 20
+	Projectile: Bullet
+		Inaccuracy: 1024
+	Warhead@1Dam: SpreadDamage
+		Damage: 420
+	Warhead@poison1: GrantExternalCondition
+		Range: 1c0
+		Duration: 350
+
+CyborgPlasma:
+	ReloadDelay: 36
+	Range: 7c0
+	Report: plasma1.aud
+	ValidTargets: GroundActor, Ground, Water, WaterActor
+	Projectile: Missile
+		MaximumLaunchSpeed: 150
+		MinimumLaunchSpeed: 150
+		Image: torpedo2
+		Speed: 756
+		Acceleration: 64
+		Shadow: true
+		Jammable: false
+		HorizontalRateOfTurn: 60
+		VerticalRateOfTurn: 180
+		RangeLimit: 14c0
+	Warhead@1Dam: SpreadDamage
+		Spread: 512
+		Damage: 18000
+		ValidTargets: GroundActor, WaterActor
+		Versus:
+			None: 100
+			Wood: 125
+			Light: 75
+			Heavy: 100
+			Concrete: 50
+		DamageTypes: Prone50Percent, TriggerProne, ElectricityDeath
+	Warhead@2Smu: LeaveSmudge
+		SmudgeType: Scorch
+	Warhead@3Eff: CreateEffect
+		Explosions: building
+		ImpactSounds: expnew06.aud
+		ImpactActors: false
+	Warhead@43Eff: CreateEffect
+		ImpactSounds: expnew06.aud
+		ImpactActors: false
+
+ScrinPlasma:
+	ReloadDelay: 15
+	Range: 7c0
+	MinRange: 2c0
+	Burst: 6
+	BurstDelays: 2
+	Report: plasma1.aud
+	ValidTargets: Ground, GroundActor, Water, WaterActor, Tree
+	Projectile: Missile
+		MaximumLaunchSpeed: 150
+		MinimumLaunchSpeed: 150
+		Image: torpedo2
+		Speed: 756
+		Acceleration: 64
+		Shadow: true
+		Jammable: false
+		HorizontalRateOfTurn: 60
+		VerticalRateOfTurn: 60
+		RangeLimit: 14c0
+		Inaccuracy: 512
+	Warhead@1Dam: SpreadDamage
+		Spread: 128
+		Damage: 2000
+		ValidTargets: GroundActor, WaterActor
+		Versus:
+			None: 100
+			Wood: 200
+			Light: 150
+			Heavy: 200
+			Concrete: 80
+		DamageTypes: Prone50Percent, TriggerProne, ElectricityDeath
+	Warhead@2Smu: LeaveSmudge
+		SmudgeType: Scorch
+	Warhead@3Eff: CreateEffect
+		Explosions: small_napalm
+		ImpactSounds: firebl3.aud
+		ImpactActors: false
+
+FAirPlasma:
+	ReloadDelay: 5
+	Range: 8c0
+	MinRange: 2c0
+	Burst: 6
+	BurstDelays: 6
+	Report: plasma1.aud
+	ValidTargets: Ground, GroundActor, Water, WaterActor, AirborneActor
+	Projectile: Missile
+		MaximumLaunchSpeed: 150
+		MinimumLaunchSpeed: 150
+		Image: Plasma
+		Speed: 582
+		Acceleration: 64
+		Shadow: true
+		Jammable: false
+		HorizontalRateOfTurn: 60
+		VerticalRateOfTurn: 60
+		RangeLimit: 14c0
+		Inaccuracy: 512
+		ContrailLength: 2
+	Warhead@1Dam: SpreadDamage
+		Spread: 128
+		Damage: 4000
+		ValidTargets: GroundActor, WaterActor, AirborneActor
+		Versus:
+			None: 100
+			Wood: 100
+			Light: 120
+			Heavy: 150
+			Concrete: 80
+		DamageTypes: Prone50Percent, TriggerProne, ExplosionDeath
+	Warhead@2Smu: LeaveSmudge
+		SmudgeType: Scorch
+	Warhead@3Eff: CreateEffect
+		Explosions: napalm
+		ImpactSounds: firebl3.aud
+		ImpactActors: false
+
+^GaussWeapon:
+	ReloadDelay: 90
+	Range: 6c0
+	Report: bigggun1.aud
+	ValidTargets: Ground, Water, GroundActor, WaterActor
+	Projectile: Railgun
+		BeamWidth: 41
+		HelixPlayerColor: true
+		ZOffset: 2047
+	Warhead@1Dam: SpreadDamage
+		Spread: 8
+		Damage: 11500
+		ValidTargets: GroundActor, WaterActor
+		Versus:
+			None: 125
+			Wood: 75
+			Light: 125
+			Heavy: 125
+			Concrete: 45
+		DamageTypes: Prone50Percent, TriggerProne, DefaultDeath
+	Warhead@2Smu: LeaveSmudge
+		SmudgeType: Scorch
+		ValidTargets: Ground, Vehicle, Infantry
+	Warhead@3Dam: SpreadDamage
+		Spread: 128
+		Damage: 1000
+		ValidTargets: GroundActor, WaterActor
+		DamageTypes: Prone50Percent, TriggerProne, DefaultDeath
+
+CommandoGauss:
+	Inherits: ^GaussWeapon
+	ReloadDelay: 90
+	Range: 6c512
+
+EliteGauss:
+	Inherits: ^GaussWeapon
+	ReloadDelay: 50
+	Range: 7c512
+	Report: railuse5.aud
+	Warhead@1Dam: SpreadDamage
+		Damage: 15000
+		Versus:
+			None: 150
+			Wood: 90
+			Concrete: 100
+	Warhead@3Dam: SpreadDamage
+		Spread: 256
+		Damage: 5000
+
+JusticarGauss:
+	Inherits: ^GaussWeapon
+	Range: 6c512
+	Warhead@1Dam: SpreadDamage
+		Damage: 18000
+		Versus:
+			None: 125
+			Wood: 75
+			Light: 125
+			Heavy: 125
+			Concrete: 75
+	Warhead@3Dam: SpreadDamage
+		Spread: 128
+		Damage: 5000
+
+DireGauss:
+	Inherits: ^GaussWeapon
+	ReloadDelay: 75
+	Range: 7c0
+	Report: railuse5.aud
+	InvalidTargets: Infantry
+	Projectile: Railgun
+		BeamWidth: 71
+		BeamAlphaDeltaPerTick: -4
+		HelixAlphaDeltaPerTick: -4
+		HelixThickness: 48
+		HelixRadius: 96
+		HitAnim: explosion
+		HitAnimSequence: med_explosion
+		Duration: 30
+	Warhead@1Dam: SpreadDamage
+		Damage: 25000
+		Versus:
+			None: 50
+			Light: 90
+
+TowerGauss:
+	Inherits: ^GaussWeapon
+	ReloadDelay: 75
+	Range: 9c0
+	Report: railfire.aud
+	Projectile: Railgun
+		BeamWidth: 71
+		BeamAlphaDeltaPerTick: -4
+		HelixAlphaDeltaPerTick: -4
+		HelixThickness: 48
+		HelixRadius: 96
+		HitAnim: explosion
+		HitAnimSequence: med_explosion
+		Duration: 30
+	Warhead@1Dam: SpreadDamage
+		Damage: 27500
+	Warhead@3EffGround: CreateEffect
+		Delay: 25
+		ImpactSounds: railreload.aud
+		ImpactActors: false
+
+MammothGauss:
+	Inherits: ^GaussWeapon
+	ReloadDelay: 125
+	Burst: 2
+	BurstDelays: 15
+	Range: 6c0
+	Report: railfire.aud
+	Projectile:
+		HitAnim: explosion
+		HitAnimSequence: med_explosion
+	Warhead@1Dam: SpreadDamage
+		Damage: 7800
+		Versus:
+			None: 35
+			Wood: 90
+			Concrete: 100
+	Warhead@3Dam: SpreadDamage
+		Spread: 256
+		Damage: 5000
+
+ShipRailgun:
+	ReloadDelay: 500
+	Range: 25c0
+	Report: railuse5.aud
+	Projectile: Railgun
+		BeamWidth: 100
+		HelixRadius: 70
+		HelixPlayerColor: true
+		ZOffset: 2047
+		DamageActorsInLine: true
+		HitAnim: explosion
+		HitAnimSequence: med_explosion
+	Warhead@1Dam: SpreadDamage
+		Spread: 512
+		Falloff: 100, 100
+		Damage: 50000
+		AffectsParent: false
+		ValidRelationships: Neutral, Enemy
+		Versus:
+			None: 75
+			Wood: 75
+			Light: 100
+			Heavy: 150
+			Concrete: 150
+		DamageTypes: Prone50Percent, TriggerProne, FireDeath
+	Warhead@2Dam: SpreadDamage
+		Spread: 512
+		Falloff: 10, 10 # Only does a small bit of damage to friendly units
+		Damage: 500
+		AffectsParent: false
+		ValidRelationships: Ally
+		Versus:
+			None: 75
+			Wood: 75
+			Light: 100
+			Heavy: 150
+			Concrete: 150
+		DamageTypes: Prone50Percent, TriggerProne, FireDeath
+
+^PlasmaWeapon:
+	ReloadDelay: 55
+	Range: 6c0
+	Report: PLASSHOT.aud
+	ValidTargets: Ground, Water, GroundActor, WaterActor
+	Projectile: Missile
+		Speed: 350
+		Blockable: true
+		Inaccuracy: 256
+		Image: plse
+	Warhead@1Dam: SpreadDamage
+		Spread: 256
+		Damage: 2000
+		ValidTargets: GroundActor, WaterActor
+		Versus:
+			None: 120
+			Wood: 80
+			Light: 40
+			Heavy: 80
+			Concrete: 50
+		DamageTypes: Prone50Percent, TriggerProne, SmallExplosionDeath
+	Warhead@2Smu: LeaveSmudge
+		SmudgeType: Scorch
+		ValidTargets: Ground, Infantry
+	Warhead@3EffGround: CreateEffect
+		Explosions: plasma
+		ImpactSounds: PLASIMP.aud
+		ValidTargets: Ground, GroundActor, WaterActor, Trees
+
+FPlasma:
+	Inherits: ^PlasmaWeapon
+	ReloadDelay: 30
+	Report: plasma1.aud
+	Projectile: Bullet
+		Speed: 582
+		Image: Plasma
+		ContrailLength: 2
+	Warhead@1Dam: SpreadDamage
+		Spread: 300
+		Damage: 4000
+	Warhead@3EffGround: CreateEffect
+		Explosions: napalm
+		ImpactSounds: firebl3.aud
+
+DoomPlasma:
+	Inherits: ^PlasmaWeapon
+	Burst: 3
+	BurstDelays: 4
+
+DoomPlasmaTank:
+	Inherits: ^PlasmaWeapon
+	Burst: 3
+	BurstDelays: 6
+	Range: 5c0
+	Warhead@1Dam: SpreadDamage
+		Damage: 2500
+
+DoomSuperPlasma:
+	Inherits: ^PlasmaWeapon
+	Burst: 4
+	BurstDelays: 4
+	Range: 8c0
+	Report: dsgenpls.aud
+	Warhead@1Dam: SpreadDamage
+		Damage: 4000
+
+DoomBFG:
+	ReloadDelay: 175
+	Range: 6c0
+	ValidTargets: Ground, Water, GroundActor, WaterActor
+	Projectile: Missile
+		Speed: 250
+		Blockable: true
+		Image: bfg
+		Inaccuracy: 800
+	Warhead@1Dam: SpreadDamage
+		Spread: 256
+		Damage: 25000
+		ValidTargets: GroundActor, WaterActor
+		Versus:
+			Wood: 60
+		DamageTypes: Prone50Percent, TriggerProne, ElectricityDeath
+	Warhead@2Smu: LeaveSmudge
+		SmudgeType: Scorch
+	Warhead@3EffGround: CreateEffect
+		Explosions: bfg
+		ImpactSounds: dsrxplod.aud
+		ImpactActors: false
+	Warhead@4Dam: SpreadDamage
+		Delay: 12
+		Spread: 1c256
+		Damage: 1250
+		Falloff: 1000, 250, 100, 75, 50, 25, 5
+		ValidTargets: GroundActor, WaterActor, AirborneActor
+		Versus:
+			Wood: 50
+			Light: 65
+			Heavy: 60
+			Concrete: 30
+		DamageTypes: Prone50Percent, ElectricityDeath
+	Warhead@5Smu: LeaveSmudge
+		Delay: 12
+		SmudgeType: Scorch
+		Size: 2,2
+
+DoomBFGSound:
+	ReloadDelay: 175
+	Range: 6c0
+	Report: dsbfg.aud
+	ValidTargets: Ground, Water, GroundActor, WaterActor
+	Projectile: InstantHit
+	Warhead@1Dam: SpreadDamage
+		Damage: 1
+		ValidTargets: Ground, Water, GroundActor, WaterActor
+
+DoomSuperBFG:
+	Inherits: DoomBFG
+	ReloadDelay: 200
+	Range: 8c0
+	Warhead@1Dam: SpreadDamage
+		Damage: 60000
+	Warhead@4Dam: SpreadDamage
+		Delay: 12
+		Spread: 1c256
+		Damage: 5500
+		Versus:
+			None: 50
+	Warhead@3EffGround: CreateEffect
+		ImpactSounds: dsrxplo2.aud
+
+DoomSuperBFGSound:
+	Inherits: DoomBFGSound
+	ReloadDelay: 200
+	Range: 8c0
+	Report: dsbfg2.aud
+
+DoomBaronClaw:
+	ReloadDelay: 20
+	Range: 1c512
+	Report: dsclaw.aud
+	Projectile: InstantHit
+	ValidTargets: Ground, Water, GroundActor, WaterActor
+	Warhead@1Dam: SpreadDamage
+		Spread: 213
+		Damage: 6000
+		ValidTargets: GroundActor, WaterActor
+		Versus:
+			None: 100
+			Wood: 33
+			Light: 77
+			Heavy: 33
+			Concrete: 20
+		DamageTypes: Prone50Percent, TriggerProne, DefaultDeath
+
+DoomDemonBite:
+	Inherits: DoomBaronClaw
+	ReloadDelay: 22
+	Report: dssgtatk.aud
+	Projectile: InstantHit
+	Warhead@1Dam: SpreadDamage
+		Spread: 1
+		Damage: 3400
+		Versus:
+			None: 100
+			Wood: 15
+			Light: 50
+			Heavy: 25
+			Concrete: 15
+
+DoomArchvileDummy:
+	ReloadDelay: 200
+	Range: 13c0
+	Report: dsvilatk.aud
+	ValidTargets: Ground, GroundActor, Water, WaterActor, Air, AirborneActor, Trees
+	Projectile: InstantHit
+	Warhead@1Dam: SpreadDamage
+		Spread: 1c0
+		Damage: 2
+		DamageTypes: Prone50Percent, TriggerProne, FireDeath, Incendiary
+		ValidTargets: GroundActor, WaterActor, AirborneActor, Trees
+	Warhead@2Smu: LeaveSmudge
+		SmudgeType: Scorch
+		ValidTargets: Ground, Vehicle, Infantry
+	Warhead@3EffGround: CreateEffect
+		Explosions: small_napalm
+		ImpactSounds: dsvilatk.aud
+		ValidTargets: Ground, Air, GroundActor, AirborneActor, WaterActor, Trees
+
+DoomArchvileHit:
+	ReloadDelay: 200
+	Range: 13c0
+	ValidTargets: Ground, GroundActor, Water, WaterActor, Air, AirborneActor, Trees
+	Projectile: LaserZap
+		Duration: 0
+		Width: 1
+		Color: 000000FF
+	Warhead@1Dam: SpreadDamage
+		Spread: 1c0
+		Damage: 10000
+		Versus:
+			None: 200
+			Heavy: 75
+		DamageTypes: Prone50Percent, TriggerProne, FireDeath
+		ValidTargets: GroundActor, WaterActor, AirborneActor, Trees
+	Warhead@2Smu: LeaveSmudge
+		SmudgeType: Scorch
+		ValidTargets: Ground, Vehicle, Infantry
+	Warhead@3EffGround: CreateEffect
+		Explosions: large_napalm
+		ImpactSounds: dsbigexp.aud
+		ImpactActors: false
+		ValidTargets: Water, Ground, Air, GroundActor, AirborneActor, WaterActor, Trees
+
+DoomArchvileFire:
+	ReloadDelay: 200
+	Range: 13c0
+	ValidTargets: Ground, GroundActor, Water, WaterActor, Air, AirborneActor, Trees
+	Projectile: LaserZap
+		Duration: 0
+		Width: 1
+		Color: 000000FF
+	Warhead@1Dam: SpreadDamage
+		Spread: 512
+		Damage: 500
+		Versus:
+			None: 500
+			Heavy: 75
+		DamageTypes: Prone50Percent, TriggerProne, FireDeath
+		ValidTargets: GroundActor, WaterActor, AirborneActor, Trees
+	Warhead@2Smu: LeaveSmudge
+		SmudgeType: Scorch
+		ValidTargets: Ground, Vehicle, Infantry
+	Warhead@3EffGround: CreateEffect
+		Explosions: small_napalm
+		ImpactSounds: dsflame.aud
+	Warhead@4EffGround: CreateEffect
+		Delay: 25
+		Explosions: small_napalm
+		ImpactSounds: dsflame.aud
+		ValidTargets: Ground, Air, GroundActor, AirborneActor, WaterActor, Trees
+
+FireballLauncher2:
+	ValidTargets: Ground, Water, GroundActor, WaterActor, Trees
+	ReloadDelay: 65
+	Range: 5c0
+	Burst: 2
+	BurstDelays: 6
+	Projectile: Bullet
+		Speed: 170
+		TrailImage: FB4
+		Image: FB3
+		LaunchAngle: 62
+		Inaccuracy: 853
+	Warhead@1Dam: SpreadDamage
+		Spread: 341
+		Damage: 1000
+		ValidTargets: GroundActor, WaterActor, Trees
+		Versus:
+			None: 100
+			Wood: 80
+			Light: 60
+			Heavy: 25
+			Concrete: 50
+		DamageTypes: Prone50Percent, TriggerProne, FireDeath, Incendiary
+	Warhead@2Smu: LeaveSmudge
+		SmudgeType: Scorch
+	Warhead@3Eff: CreateEffect
+		Explosions: small_napalm
+		ImpactSounds: firebl3.aud
+
+A10Chem:
+	ReloadDelay: 8
+	Range: 2c0
+	ValidTargets: Ground, Water, GroundActor, WaterActor
+	Projectile: GravityBomb
+		Image: bomb
+		Velocity: 96, 0, -128
+		Acceleration: 0, 0, 0
+		Shadow: False
+	Warhead@1Dam: SpreadDamage
+		Spread: 1c0
+		Damage: 4500
+		ValidTargets: GroundActor, WaterActor
+		Versus:
+			None: 300
+			Wood: 75
+			Heavy: 40
+			Concrete: 50
+		DamageTypes: Prone50Percent, TriggerProne, TiberiumDeath
+	Warhead@2Eff: CreateEffect
+		Explosions: baron
+		ImpactSounds: firebl3.aud
+		ImpactActors: false
+		ValidTargets: Ground, GroundActor, WaterActor, Trees
+	Warhead@3Eff_impact: CreateEffect
+		ImpactSounds: ambtibe2.wav
+		ImpactActors: false
+	Warhead@4EffWater: CreateEffect
+		Explosions: small_splash
+		ImpactSounds: splash9.aud
+		ValidTargets: Water, Underwater
+	Warhead@poison1: GrantExternalCondition
+		Condition: corrode
+		Range: 1c0
+		Duration: 500
+		ValidTargets: GroundActor, WaterActor
+	Warhead@gas: FireCluster
+		Delay: 5
+		Weapon: A10Gas
+		RandomClusterCount: 3
+		Dimensions: 4,4
+		Footprint: xxxx xxxx xxxx xxxx
+	Warhead@gas2: FireCluster
+		Delay: 54
+		Weapon: A10Gas
+		RandomClusterCount: 6
+		Dimensions: 6,6
+		Footprint: xxxxxx xxxxxx xxxxxx xxxxxx xxxxxx xxxxxx
+	Warhead@gas3: FireCluster
+		Delay: 90
+		Weapon: A10Gas
+		RandomClusterCount: 6
+		Dimensions: 6,6
+		Footprint: xxxxxx xxxxxx xxxxxx xxxxxx xxxxxx xxxxxx
+
+A10Gas:
+	ReloadDelay: 1
+	Range: 3c512
+	ValidTargets: Ground, Water, GroundActor, WaterActor
+	Projectile: Bullet
+		Speed: 2c0
+	Warhead@1Eff: CreateEffect
+		Explosions: cloud
+		ImpactActors: false
+	Warhead@1poison: GrantExternalCondition
+		Range: 3c0
+		Condition: corrode
+		Duration: 500
+		ValidTargets: GroundActor, WaterActor
+	Warhead@1Dam: SpreadDamage
+		Spread: 1c0
+		Damage: 300
+		ValidTargets: GroundActor, WaterActor
+		Versus:
+			None: 300
+			Wood: 75
+			Heavy: 40
+			Concrete: 50
+		DamageTypes: Prone50Percent, TriggerProne, TiberiumDeath
+	Warhead@2Eff: CreateEffect
+		Explosions: cloud
+		ImpactActors: false
+		Delay: 18
+	Warhead@2poison: GrantExternalCondition
+		Range: 3c0
+		Condition: corrode
+		Duration: 500
+		Delay: 18
+		ValidTargets: GroundActor, WaterActor
+	Warhead@2Dam: SpreadDamage
+		Spread: 1c0
+		Damage: 300
+		ValidTargets: GroundActor, WaterActor
+		Versus:
+			None: 300
+			Wood: 75
+			Heavy: 40
+			Concrete: 50
+		DamageTypes: Prone50Percent, TriggerProne, TiberiumDeath
+		Delay: 18
+	Warhead@3Eff: CreateEffect
+		Explosions: cloud
+		ImpactActors: false
+		Delay: 36
+	Warhead@3poison: GrantExternalCondition
+		Range: 3c0
+		Condition: corrode
+		Duration: 500
+		Delay: 36
+		ValidTargets: GroundActor, WaterActor
+	Warhead@3Dam: SpreadDamage
+		Spread: 1c0
+		Damage: 300
+		ValidTargets: GroundActor, WaterActor
+		Versus:
+			None: 300
+			Wood: 75
+			Heavy: 40
+			Concrete: 50
+		DamageTypes: Prone50Percent, TriggerProne, TiberiumDeath
+		Delay: 36
+	Warhead@4Eff: CreateEffect
+		Explosions: cloud
+		ImpactActors: false
+		Delay: 54
+	Warhead@4poison: GrantExternalCondition
+		Range: 3c0
+		Condition: corrode
+		Duration: 500
+		Delay: 54
+		ValidTargets: GroundActor, WaterActor
+	Warhead@4Dam: SpreadDamage
+		Spread: 1c0
+		Damage: 300
+		ValidTargets: GroundActor, WaterActor
+		Versus:
+			None: 300
+			Wood: 75
+			Heavy: 40
+			Concrete: 50
+		DamageTypes: Prone50Percent, TriggerProne, TiberiumDeath
+		Delay: 54
+	Warhead@5Eff: CreateEffect
+		Explosions: cloud
+		ImpactActors: false
+		Delay: 72
+	Warhead@5poison: GrantExternalCondition
+		Range: 3c0
+		Condition: corrode
+		Duration: 500
+		Delay: 72
+		ValidTargets: GroundActor, WaterActor
+	Warhead@5Dam: SpreadDamage
+		Spread: 1c0
+		Damage: 300
+		ValidTargets: GroundActor, WaterActor
+		Versus:
+			None: 300
+			Wood: 75
+			Heavy: 40
+			Concrete: 50
+		DamageTypes: Prone50Percent, TriggerProne, TiberiumDeath
+		Delay: 72
+
+ApocIronCurtain:
+	ReloadDelay: 625
+	Range: 7c0
+	Report: ironcur9.aud
+	ValidTargets: Ground, Water, GroundActor, WaterActor, AirborneActor
+	Projectile: GravityBomb
+		OpenSequence: idle
+		Velocity: 0, 0, -256
+		Acceleration: 0, 0, 0
+	Warhead@curtain: GrantExternalCondition
+		Condition: invulnerability
+		Range: 2c0
+		Duration: 150
+		AffectsParent: true
+		ValidTargets: GroundActor
+
+IronShroudWeapon:
+	ReloadDelay: 375
+	Range: 12c0
+	Report: ironcur9.aud
+	ValidTargets: Ground, Water, GroundActor, WaterActor, AirborneActor
+	Projectile: GravityBomb
+		OpenSequence: idle
+		Velocity: 0, 0, -256
+		Acceleration: 0, 0, 0
+	Warhead@curtain: GrantExternalCondition
+		Condition: ironshroud
+		Range: 4c0
+		Duration: 125
+		AffectsParent: true
+		ValidTargets: GroundActor, Ground, WaterActor, AirborneActor
+
+GLAAmbushHole:
+	ReloadDelay: 60
+	Range: 10c0
+	Report: gstealon.aud
+	ValidTargets: Ground, Water, GroundActor, WaterActor, AirborneActor
+	Projectile: GravityBomb
+		OpenSequence: idle
+		Velocity: 0, 0, -256
+		Acceleration: 0, 0, 0
+	Warhead@curtain: GrantExternalCondition
+		Condition: produceunit
+		Range: 1c0
+		Duration: 5
+		AffectsParent: true
+		ValidTargets: GroundActor
+
+ZombiehHole:
+	ReloadDelay: 60
+	Range: 25c0
+	ValidTargets: Ground, Water, GroundActor, WaterActor, AirborneActor
+	Projectile: GravityBomb
+		OpenSequence: idle
+		Velocity: 0, 0, -256
+		Acceleration: 0, 0, 0
+	Warhead@curtain: GrantExternalCondition
+		Condition: produceunit
+		Range: 1c0
+		Duration: 5
+		AffectsParent: true
+		ValidTargets: GroundActor
+
+LightningZap:
+	Warhead@1Dam: SpreadDamage
+		Spread: 84
+		Damage: 20000
+		ValidTargets: GroundActor, WaterActor
+		Versus:
+			None: 300
+			Wood: 100
+			Light: 100
+			Heavy: 100
+			Concrete: 100
+		DamageTypes: Prone50Percent, TriggerProne, ElectricityDeath
+		AffectsParent: true
+	Warhead@2Eff: CreateEffect
+		Explosions: lightning1, lightning2, lightning3, lightning4, lightning5, lightning6, lightning7, lightning8, lightning9, lightning10
+		ImpactSounds: expnew10.aud, expnew16.aud, expnew17.aud, expnew18.aud, expnew19.aud
+		ImpactActors: false
+	Warhead@3Eff: CreateEffect
+		Explosions: large_explosion, artillery_explosion, large_napalm
+		ImpactSounds: expnew10.aud, expnew16.aud, expnew17.aud, expnew18.aud, expnew19.aud
+		ImpactActors: false
+	Warhead@2Smu: LeaveSmudge
+		SmudgeType: Scorch
+		InvalidTargets: Structure, Wall
+	Warhead@4Eff: CreateEffect
+		Delay: 1
+		Explosions: lightning1, lightning2, lightning3, lightning4, lightning5, lightning6, lightning7, lightning8, lightning9, lightning10
+		ImpactActors: false
+	Warhead@5Eff: CreateEffect
+		Delay: 2
+		Explosions: lightning1, lightning2, lightning3, lightning4, lightning5, lightning6, lightning7, lightning8, lightning9, lightning10
+		ImpactActors: false
+	Warhead@6Eff: CreateEffect
+		Delay: 3
+		Explosions: lightning1, lightning2, lightning3, lightning4, lightning5, lightning6, lightning7, lightning8, lightning9, lightning10
+		ImpactActors: false
+
+CrateLightningZap:
+	Inherits: LightningZap
+	Warhead@1Dam: SpreadDamage
+		Spread: 42
+		Damage: 30000
+		Versus:
+			None: 500
+
+WeatherGrenade:
+	ReloadDelay: 375
+	Range: 10c0
+	ValidTargets: Ground, Water, GroundActor, WaterActor
+	Projectile: Bullet
+		Speed: 2c0
+		Image: BOMB
+	Warhead@1Dam: SpreadDamage
+		Spread: 128
+		Damage: 1
+		ValidTargets: GroundActor, WaterActor
+	Warhead@1Eff: CreateEffect
+		ExplosionPalette: ra2
+		Explosions: wccloud1, wccloud2, wccloud3
+		ImpactSounds: thunder2.aud, thunder3.aud, thunder4.aud, thunder5.aud
+		ImpactActors: false
+	Warhead@shadow: CreateEffect
+		ExplosionPalette: cloud
+		Explosions: wccloud1s, wccloud2s, wccloud3s
+		ImpactActors: false
+	Warhead@lightning: FireCluster
+		Delay: 125
+		Weapon: WeatherLightning
+		RandomClusterCount: 1
+		Dimensions: 1,1
+		Footprint: x
+	Warhead@lightning2: FireCluster
+		Delay: 175
+		Weapon: WeatherLightning
+		RandomClusterCount: 2
+		Dimensions: 4,4
+		Footprint: xxxx xxxx xxxx xxxx
+	Warhead@lightning3: FireCluster
+		Delay: 225
+		Weapon: WeatherLightning
+		RandomClusterCount: 2
+		Dimensions: 4,4
+		Footprint: xxxx xxxx xxxx xxxx
+	Warhead@lightning4: FireCluster
+		Delay: 275
+		Weapon: WeatherLightning
+		RandomClusterCount: 2
+		Dimensions: 4,4
+		Footprint: xxxx xxxx xxxx xxxx
+	Warhead@clouds1: FireCluster
+		Weapon: WeatherCluster
+		RandomClusterCount: 3
+		Dimensions: 7,7
+		Footprint: xxxxxxx xxxxxxx xxxxxxx xxxxxxx xxxxxxx xxxxxxx xxxxxxx
+	Warhead@clouds2: FireCluster
+		Delay: 75
+		Weapon: WeatherCluster
+		RandomClusterCount: 3
+		Dimensions: 12,12
+		Footprint: xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx
+	Warhead@clouds3: FireCluster
+		Delay: 150
+		Weapon: WeatherCluster
+		RandomClusterCount: 4
+		Dimensions: 12,12
+		Footprint: xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx
+	Warhead@clouds4: FireCluster
+		Delay: 225
+		Weapon: WeatherCluster
+		RandomClusterCount: 6
+		Dimensions: 12,12
+		Footprint: xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx
+	Warhead@clouds5: FireCluster
+		Delay: 300
+		Weapon: WeatherCluster
+		RandomClusterCount: 8
+		Dimensions: 16,16
+		Footprint: xxxxxxxxxxxxxxxx xxxxxxxxxxxxxxxx xxxxxxxxxxxxxxxx xxxxxxxxxxxxxxxx xxxxxxxxxxxxxxxx xxxxxxxxxxxxxxxx xxxxxxxxxxxxxxxx xxxxxxxxxxxxxxxx xxxxxxxxxxxxxxxx xxxxxxxxxxxxxxxx xxxxxxxxxxxxxxxx xxxxxxxxxxxxxxxx xxxxxxxxxxxxxxxx xxxxxxxxxxxxxxxx xxxxxxxxxxxxxxxx xxxxxxxxxxxxxxxx
+
+WeatherCluster:
+	Inherits: WeatherGrenade
+	Projectile: Bullet
+		Speed: 128
+		Inaccuracy: 3c0
+		-Image:
+	-Warhead@clouds1:
+	-Warhead@clouds2:
+	-Warhead@clouds3:
+	-Warhead@clouds4:
+	-Warhead@clouds5:
+	-Warhead@lightning2:
+	-Warhead@lightning3:
+	-Warhead@lightning4:
+
+WeatherLightning:
+	Inherits: LightningZap
+	Range: 12c0
+	ReloadDelay: 250
+	ValidTargets: Ground, Water, GroundActor, WaterActor
+	Projectile: Bullet
+		Speed: 5c0
+	Warhead@1Dam: SpreadDamage
+		Delay: 1
+		Spread: 1c512
+		Falloff: 150, 70, 30, 15, 5
+		Versus:
+			None: 100
+			Wood: 70
+			Light: 60
+			Heavy: 70
+			Concrete: 30
+	Warhead@2EMP: GrantExternalCondition
+		Range: 2c0
+		Condition: disabled
+		Duration: 225
+		ValidTargets: GroundActor, WaterActor
+
+WeatherMachineDeath:
+	Inherits: WeatherGrenade
+	Projectile: Bullet
+		-Image:
+	-Warhead@clouds3:
+	-Warhead@clouds4:
+	-Warhead@clouds5:
+	Warhead@lightning3: FireCluster
+		Delay: 0
+		Weapon: WeatherLightning
+		RandomClusterCount: 1
+		Dimensions: 1,1
+		Footprint: x
+	-Warhead@lightning4:
+
+ZealotStab:
+	ReloadDelay: 35
+	Range: 2c0
+	Report: pzehit00.aud,pzehit01.aud
+	ValidTargets: Ground, Water, GroundActor, WaterActor
+	Projectile: InstantHit
+	Warhead@1Dam: SpreadDamage
+		Spread: 64
+		Damage: 2500
+		Versus:
+			None: 100
+			Wood: 25
+			Light: 60
+			Heavy: 25
+			Concrete: 10
+		DamageTypes: DefaultDeath
+		ValidTargets: GroundActor, WaterActor
+	Warhead@2Dam: SpreadDamage
+		Delay: 3
+		Spread: 64
+		Damage: 2500
+		Versus:
+			None: 100
+			Wood: 25
+			Light: 60
+			Heavy: 25
+			Concrete: 10
+		DamageTypes: DefaultDeath
+		ValidTargets: GroundActor, WaterActor
+
+DragoonPlasma:
+	ReloadDelay: 50
+	Range: 5c512
+	Report: dragbull.aud
+	ValidTargets: Ground, Water, GroundActor, WaterActor
+	Projectile: Missile
+		Speed: 400
+		Blockable: true
+		Inaccuracy: 128
+		Image: Plasma
+		RangeLimit: 7c0
+		HorizontalRateOfTurn: 100
+	Warhead@1Dam: SpreadDamage
+		Spread: 256
+		Damage: 4500
+		ValidTargets: Ground, GroundActor, WaterActor, Trees, Air, AirborneActor
+		Versus:
+			None: 55
+			Wood: 90
+			Light: 75
+			Concrete: 50
+		DamageTypes: Prone50Percent, TriggerProne, SmallExplosionDeath
+	Warhead@2Smu: LeaveSmudge
+		SmudgeType: Crater
+		ValidTargets: Ground, Infantry
+	Warhead@3EffGround: CreateEffect
+		Explosions: med_explosion2
+		ImpactSounds: explomed.aud
+		ValidTargets: Ground, GroundActor, WaterActor, Trees, Air, AirborneActor
+
+DragoonPlasmaAir:
+	Inherits: DragoonPlasma
+	Range: 6c512
+	ValidTargets: Air, AirborneActor
+	Projectile: Missile
+		Speed: 500
+		Blockable: false
+		Inaccuracy: 0
+		HorizontalRateOfTurn: 25
+	Warhead@1Dam: SpreadDamage
+		Spread: 300
+		Damage: 3000
+
+PhotonPlasma:
+	ReloadDelay: 25
+	Range: 8c512
+	Report: dragbull.aud
+	ValidTargets: Ground, GroundActor, WaterActor, Trees, Air, AirborneActor
+	Projectile: Missile
+		Speed: 500
+		Blockable: false
+		Inaccuracy: 128
+		Image: Plasma
+		RangeLimit: 10c0
+		HorizontalRateOfTurn: 100
+	Warhead@1Dam: SpreadDamage
+		Spread: 325
+		Damage: 5300
+		ValidTargets: Ground, GroundActor, WaterActor, Trees, Air, AirborneActor
+		Versus:
+			None: 90
+			Wood: 50
+			Light: 90
+			Concrete: 40
+		DamageTypes: Prone50Percent, TriggerProne, ExplosionDeath
+		ValidRelationships: Neutral, Enemy
+	Warhead@2Smu: LeaveSmudge
+		SmudgeType: Crater
+		ValidTargets: Ground, Infantry
+	Warhead@3EffGround: CreateEffect
+		Explosions: med_explosion2
+		ImpactSounds: explomed.aud
+		ValidTargets: Ground, GroundActor, WaterActor, Trees, Air, AirborneActor
+
+ReaverScarab:
+	ReloadDelay: 100
+	Range: 6c0
+	ValidTargets: Ground, Water, GroundActor, WaterActor
+	Projectile: Missile
+		Speed: 128
+		Blockable: true
+		Image: pscarab
+		TrailImage: pscarabt
+		TrailInterval: 4
+		RangeLimit: 7c0
+	Warhead@1Dam: SpreadDamage
+		Spread: 400
+		Damage: 20000
+		ValidTargets: Ground, GroundActor, WaterActor, Trees
+		Versus:
+			None: 100
+			Wood: 100
+			Light: 80
+			Heavy: 135
+			Concrete: 75
+		DamageTypes: Prone50Percent, TriggerProne, ExplosionDeath
+		ValidRelationships: Neutral, Enemy
+	Warhead@2Dam: SpreadDamage
+		Spread: 400
+		Damage: 2000
+		ValidTargets: Ground, GroundActor, WaterActor, Trees
+		DamageTypes: Prone50Percent, TriggerProne, ExplosionDeath
+		ValidRelationships: Ally
+	Warhead@2Smu: LeaveSmudge
+		SmudgeType: Crater
+		ValidTargets: Ground, Infantry
+	Warhead@3EffGround: CreateEffect
+		Explosions: artillery_explosion
+		ImpactSounds: dsbigexp.aud
+		ValidTargets: Ground, GroundActor, WaterActor, Trees, Air, AirborneActor
+
+ShieldBattery:
+	ReloadDelay: 2
+	Range: 6c0
+	ValidTargets: Heal, Repair, StructureRepair
+	TargetActorCenter: true
+	Projectile: LaserZap
+		Width: 35
+		Duration: 2
+		TrackTarget: True
+		Color: 00BBFF
+	Warhead@1Dam: SpreadDamage
+		Spread: 96
+		Damage: -1200
+		ValidRelationships: Ally
+		ValidTargets: Heal
+		DebugOverlayColor: 00FF00
+	Warhead@2Dam: SpreadDamage
+		Spread: 213
+		Damage: -600
+		ValidRelationships: Ally
+		ValidTargets: Repair
+		InvalidTargets: AirborneActor
+		DebugOverlayColor: 00FF00
+	Warhead@3Dam: SpreadDamage
+		Spread: 213
+		Damage: -500
+		ValidRelationships: Ally
+		ValidTargets: StructureRepair
+		DebugOverlayColor: 00FF00
+	Warhead@4Dam: SpreadDamage
+		Spread: 213
+		Damage: -200
+		ValidRelationships: Ally
+		ValidTargets: Repair, AirborneActor
+		InvalidTargets: GroundActor
+		DebugOverlayColor: 00FF00
+
+CarrierSpawn:
+	ReloadDelay: 10
+	Range: 12c0
+	Report: pinlau00.aud
+	ValidTargets: Ground, Water, GroundActor, WaterActor, AirborneActor
+	Projectile: Missile
+		Speed: 20
+		RangeLimit: 1
+	Warhead@dam: SpreadDamage
+		Damage: 0
+		ValidTargets: Ground, Water, GroundActor, WaterActor, AirborneActor
+	Warhead@curtain: GrantExternalCondition
+		Condition: produceunit
+		Range: 1c0
+		Duration: 5
+		ValidTargets: Carrier
+		AffectsParent: true
+
+CarrierTarget:
+	ReloadDelay: 2
+	Range: 12c0
+	ValidTargets: Ground, Water, GroundActor, WaterActor, AirborneActor
+	Projectile: Bullet
+		Speed: 5c0
+		Blockable: false
+	Warhead@dam: SpreadDamage
+		Damage: 0
+		ValidTargets: Ground, Water, GroundActor, WaterActor, AirborneActor
+	Warhead@curtain: GrantExternalCondition
+		Condition: carriertarget
+		Range: 2c0
+		Duration: 150
+		ValidTargets: Ground, Water, GroundActor, WaterActor, AirborneActor
+
+InterceptorBlaster:
+	Inherits: ^PlasmaWeapon
+	ReloadDelay: 50
+	Burst: 2
+	BurstDelay: 10
+	Report: blastcan.aud
+	ValidTargets: CarrierTarget
+	Projectile: Missile
+		Speed: 350
+		Blockable: true
+		Inaccuracy: 400
+	Warhead@1Dam: SpreadDamage
+		Damage: 1500
+		ValidTargets: CarrierTarget
+		InvalidTargets: AirborneActor
+		Versus:
+			None: 200
+			Wood: 80
+			Light: 40
+			Heavy: 80
+			Concrete: 50
+	Warhead@2Dam: SpreadDamage
+		Damage: 1000
+		ValidTargets: AirborneActor, CarrierTarget
+		InvalidTargets: GroundActor, WaterActor, Interceptor, CarrierReturn, Carrier
+		Versus:
+			None: 200
+			Wood: 80
+			Light: 40
+			Heavy: 80
+			Concrete: 50
+	Warhead@3EffGround: CreateEffect
+		Explosions: plasma
+		-ImpactSounds:
+
+InterceptorBlaster2:
+	Inherits: InterceptorBlaster
+	-Report:
+	Warhead@3EffGround: CreateEffect
+		ImpactSounds: explosm.aud
+
+InterceptorReturnDummy:
+	ReloadDelay: 10
+	Range: 2c0
+	ValidTargets: CarrierReturn
+	Projectile: Missile
+		Speed: 20
+		RangeLimit: 1
+	Warhead@dam: SpreadDamage
+		Damage: 0
+		ValidTargets: CarrierReturn

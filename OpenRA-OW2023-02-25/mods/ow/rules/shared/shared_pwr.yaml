@@ -1,0 +1,278 @@
+^DisabledByPowerOutage:
+	Power@emp:
+		RequiresCondition: emp
+		Amount: -200
+	ExternalCondition@emp:
+		Condition: emp
+
+^PowerPlant:
+	Inherits: ^Building
+	DamageMultiplier@power:
+		RequiresCondition: power-outage
+		Modifier: 150
+	TimedConditionBar@power:
+		Condition: power-outage
+	Power:
+		RequiresCondition: !emp
+	ExternalCondition@emp:
+		Condition: emp
+	ProvidesPrerequisite@estoniabuff:
+		Factions: estonia
+		Prerequisite: estoniabuff
+	GrantConditionOnPrerequisite@estoniabuff:
+		Prerequisites: estoniabuff
+		Condition: estoniabuff
+	PowerMultiplier:
+		RequiresCondition: estoniabuff
+		Modifier: 120
+	ProximityExternalCondition:
+		Condition: pylon
+		Range: 6c0
+
+^DawnPowerPlant:
+	Inherits: ^PowerPlant
+	Building:
+		BuildSounds: constru2.aud, hvydoor1.aud
+
+# RA Basic Powerplant - Sov,All,Naz,UAC
+POWR:
+	Inherits: ^PowerPlant
+	Inherits@POWER_OUTAGE: ^DisabledByPowerOutage
+	Inherits@shape: ^2x2Shape
+	Selectable:
+		Bounds: 2048, 2048
+	HitShape:
+		UseTargetableCellsOffsets: false
+		TargetableOffsets: 0,0,0, 640,-384,0, 640,512,0, -710,-512,0, -710,512,0
+	Buildable:
+		Queue: Building
+		BuildPaletteOrder: 1
+		Prerequisites: ~techlevel.infonly, ~structures.domeprereq, ~!ai.powerout
+		Description: Provides power for other structures.
+	Valued:
+		Cost: 300
+	Tooltip:
+		Name: Power Plant
+	ProvidesPrerequisite:
+		Prerequisite: anypower
+	Building:
+		Footprint: xx xx ==
+		Dimensions: 2,3
+		LocalCenterOffset: 0,-512,0
+	Health:
+		HP: 40000
+	Armor:
+		Type: Wood
+	RevealsShroud:
+		Range: 4c0
+	WithBuildingBib:
+	Power:
+		Amount: 100
+	Targetable:
+		TargetTypes: GroundActor, Structure, C4, DetonateAttack, SpyInfiltrate
+	ScalePowerWithHealth:
+	WithDeathAnimation:
+		DeathSequence: dead
+		UseDeathTypeSuffix: false
+	RenderSprites:
+		FactionImages:
+			phobos: dmb1
+			mars: dmb1
+			deimos: dmb1
+
+# RA Adv Powerplant - Sov,All,Naz,UAC
+APWR:
+	Inherits: ^PowerPlant
+	Inherits@POWER_OUTAGE: ^DisabledByPowerOutage
+	Inherits@shape: ^3x2Shape
+	HitShape:
+		TargetableOffsets: -355,-1024,0
+	Buildable:
+		Queue: Building
+		BuildPaletteOrder: 110
+		Prerequisites: radar, ~techlevel.medium, ~structures.domeprereq, ~!ai.powerout
+		Description: Provides double the power of\na standard Power Plant.
+	Valued:
+		Cost: 500
+	Tooltip:
+		Name: Advanced Power Plant
+	ProvidesPrerequisite:
+		Prerequisite: anypower
+	Building:
+		Footprint: xxx Xxx ===
+		Dimensions: 3,3
+		LocalCenterOffset: 0,-512,0
+	Selectable:
+		Bounds: 3072, 2048
+		DecorationBounds: 3072, 2901, 0, -426
+	SelectionDecorations:
+	Health:
+		HP: 70000
+	Armor:
+		Type: Wood
+	RevealsShroud:
+		Range: 5c0
+	WithBuildingBib:
+	Power:
+		Amount: 200
+	Targetable:
+		TargetTypes: GroundActor, Structure, C4, DetonateAttack, SpyInfiltrate
+	ScalePowerWithHealth:
+	WithDeathAnimation:
+		DeathSequence: dead
+		UseDeathTypeSuffix: false
+	RenderSprites:
+		FactionImages:
+			phobos: dmb2
+			mars: dmb2
+			deimos: dmb2
+
+# RA Fission Powerplant - Sov,All,Naz,UAC
+XPWR:
+	Inherits: ^PowerPlant
+	Inherits@POWER_OUTAGE: ^DisabledByPowerOutage
+	Inherits@shape: ^3x2Shape
+	HitShape:
+		TargetableOffsets: -355,-1024,0
+	Buildable:
+		Queue: Tech
+		BuildPaletteOrder: 9001
+		Prerequisites: advtechcenter, ~techlevel.unrestricted, ~structures.domeprereq, ~!ai.boss, ~!ai.powerout
+		Description: Provides huge power, but very unstable.\n	Explodes violently.
+	Valued:
+		Cost: 1300
+	Tooltip:
+		Name: Fission Power Plant
+	ProvidesPrerequisite:
+		Prerequisite: anypower
+	Building:
+		Footprint: xxx Xxx ===
+		Dimensions: 3,3
+		LocalCenterOffset: 0,-512,0
+	Selectable:
+		Bounds: 3072, 2048
+		DecorationBounds: 3072, 2901, 0, -426
+	SelectionDecorations:
+	Health:
+		HP: 60000
+	Armor:
+		Type: Wood
+	RevealsShroud:
+		Range: 4c0
+	WithBuildingBib:
+	Power:
+		Amount: 600
+	Targetable:
+		TargetTypes: GroundActor, Structure, C4, DetonateAttack, SpyInfiltrate, Fission
+	ScalePowerWithHealth:
+	WithDeathAnimation:
+		DeathSequence: dead
+		UseDeathTypeSuffix: false
+	Explodes:
+		Type: CenterPosition
+		Weapon: TinyNuke
+		EmptyWeapon: TinyNuke
+	RenderSprites:
+		FactionImages:
+			phobos: dmb5
+			mars: dmb5
+			deimos: dmb5
+
+# Dawn Basic Powerplant - GDI, Nod, Fed
+DPWR:
+	Inherits: ^DawnPowerPlant
+	Inherits@POWER_OUTAGE: ^DisabledByPowerOutage
+	Inherits@shape: ^2x2Shape
+	Selectable:
+		Bounds: 2048, 2048
+	HitShape:
+		UseTargetableCellsOffsets: false
+		TargetableOffsets: 0,0,0, 640,-384,0, 640,512,0, -710,-512,0, -710,512,0
+	Buildable:
+		Queue: Building
+		BuildPaletteOrder: 1
+		Prerequisites: ~structures.hqdprereq, ~techlevel.infonly, ~!ai.powerout
+		Description: Provides power for other structures.
+	Valued:
+		Cost: 300
+	Tooltip:
+		Name: Power Plant
+	ProvidesPrerequisite:
+		Prerequisite: anypower
+	Building:
+		Footprint: xX xx ==
+		Dimensions: 2,3
+		LocalCenterOffset: 0,-512,0
+	Health:
+		HP: 40000
+	Armor:
+		Type: Wood
+	RevealsShroud:
+		Range: 4c0
+	WithBuildingBib:
+	Power:
+		Amount: 100
+	Targetable:
+		TargetTypes: GroundActor, Structure, C4, DetonateAttack, SpyInfiltrate
+	ScalePowerWithHealth:
+	WithDeathAnimation:
+		DeathSequence: dead
+		UseDeathTypeSuffix: false
+
+# Dawn Adv Powerplant - GDI, Nod, Fed
+NUK2:
+	Inherits: ^DawnPowerPlant
+	Inherits@POWER_OUTAGE: ^DisabledByPowerOutage
+	Inherits@shape: ^2x2Shape
+	Selectable:
+		Bounds: 2048, 2048
+	HitShape:
+		UseTargetableCellsOffsets: false
+		TargetableOffsets: 0,0,0, 640,-384,0, 640,512,0, -710,-512,0, -710,512,0
+	Buildable:
+		Queue: Building
+		BuildPaletteOrder: 110
+		Prerequisites: radar, ~techlevel.medium, ~structures.hqdprereq, ~!ai.powerout
+		Description: Provides double the power of\na standard Power Plant.
+	Valued:
+		Cost: 600
+	Tooltip:
+		Name: Advanced Power Plant
+	ProvidesPrerequisite:
+		Prerequisite: anypower
+	Building:
+		Footprint: xX xx ==
+		Dimensions: 2,3
+		LocalCenterOffset: 0,-512,0
+	Health:
+		HP: 65000
+	Armor:
+		Type: Wood
+	RevealsShroud:
+		Range: 5c0
+	WithBuildingBib:
+	Power:
+		Amount: 200
+	Targetable:
+		TargetTypes: GroundActor, Structure, C4, DetonateAttack, SpyInfiltrate
+	ScalePowerWithHealth:
+	WithDeathAnimation:
+		DeathSequence: dead
+		UseDeathTypeSuffix: false
+
+# Dawn Fission Powerplant - GDI, Nod, Fed
+NUK3:
+	Inherits: XPWR
+	Selectable:
+		Bounds: 3072, 2048
+	Buildable:
+		Prerequisites: advtechcenter, ~techlevel.unrestricted, ~structures.hqdprereq, ~!ai.boss, ~!ai.powerout
+	Building:
+		Footprint: xxx xxx ===
+		Dimensions: 3,3
+		LocalCenterOffset: 0,-512,0
+	WithIdleOverlay:
+		StartSequence: fire-start
+		Sequence: fire-loop
+	-RenderSprites:
+	RenderSprites:

@@ -1,0 +1,1603 @@
+^ExistsInWorld:
+	ExternalCondition@stealthgen:
+		Condition: stealthgen
+	ExternalCondition@disabled:
+		Condition: disabled
+	Cloak@stealthgen:
+		IsPlayerPalette: true
+		InitialDelay: 25
+		CloakDelay: 100
+		CloakSound: cloak5.aud
+		RequiresCondition: stealthgen && !disabled
+		UncloakOn: Attack, Unload, Infiltrate, Demolish, Damage
+
+^GPSScramblable:
+	ExternalCondition@gpsscrambler:
+		Condition: gpsscrambler
+	Cloak@gpsscrombler:
+		IsPlayerPalette: true
+		InitialDelay: 25
+		CloakDelay: 150
+		CloakSound: cloak5.aud
+		RequiresCondition: gpsscrambler && !disabled
+		UncloakOn: Attack, Unload, Infiltrate, Demolish, Damage
+		DetectionType: gpsscrambler
+
+^NoExp:
+	Inherits: ^GainsExperience
+	-GainsExperience:
+	-GrantCondition@RANK-ELITE:
+	-DamageMultiplier@RANK-1:
+	-DamageMultiplier@RANK-2:
+	-DamageMultiplier@RANK-3:
+	-DamageMultiplier@RANK-ELITE:
+	-FirepowerMultiplier@RANK-1:
+	-FirepowerMultiplier@RANK-2:
+	-FirepowerMultiplier@RANK-3:
+	-FirepowerMultiplier@RANK-ELITE:
+	-SpeedMultiplier@RANK-1:
+	-SpeedMultiplier@RANK-2:
+	-SpeedMultiplier@RANK-3:
+	-SpeedMultiplier@RANK-ELITE:
+	-ReloadDelayMultiplier@RANK-1:
+	-ReloadDelayMultiplier@RANK-2:
+	-ReloadDelayMultiplier@RANK-3:
+	-ReloadDelayMultiplier@RANK-ELITE:
+	-ChangesHealth@ELITE:
+	-WithDecoration@RANK-1:
+	-WithDecoration@RANK-2:
+	-WithDecoration@RANK-3:
+	-WithDecoration@RANK-ELITE:
+
+^CorrodesFromTibWeaps:
+	ExternalCondition@corrode:
+		Condition: corrode
+	DamageMultiplier@corrode:
+		RequiresCondition: corrode
+		Modifier: 120
+	WithColoredOverlay@corrode:
+		RequiresCondition: corrode
+		Color: 00800040
+	ExternalCondition@carrier:
+		Condition: carriertarget
+	Targetable@carrier:
+		RequiresCondition: carriertarget
+		TargetTypes: CarrierTarget
+
+^Pallyboosted:
+	ExternalCondition@pallyboost:
+		Condition: pallyboost
+	ChangesHealth@pallyboost:
+		RequiresCondition: pallyboost
+		Step: 100
+		Delay: 7
+		StartIfBelow: 100
+		DamageCooldown: 75
+
+^Monumentboosted:
+	ExternalCondition@Monumentboost:
+		Condition: Monumentboost
+	WithDecoration@Monumentboost:
+		Image: pips
+		Sequence: pip-aeiou
+		Palette: effect
+		Position: TopRight
+		ValidRelationships: None,Neutral,Enemy,Ally
+		RequiresCondition: Monumentboost
+
+^DarkWizBoosted:
+	ExternalCondition@DarkWizAura:
+		Condition: DarkWizAura
+
+^RotElementHit:
+	ExternalCondition@RotElementHit:
+		Condition: RotElementHitCon
+
+^ChainsConditioner:
+	ExternalCondition@ChainsCondition:
+		Condition: ChainsCondition
+	WithDecoration@ChainsCondition:
+		Image: pips
+		Sequence: mediholychainspip
+		Palette: effect
+		Position: TopRight
+		ValidRelationships: None,Neutral,Enemy,Ally
+		RequiresCondition: ChainsCondition
+
+^TotemBooster:
+	ExternalCondition@TotemBoost:
+		Condition: TotemBoost
+	SpeedMultiplier@TotemBoost:
+		RequiresCondition: TotemBoost
+		Modifier: 130
+
+
+^TotemDebufer:
+	ExternalCondition@TotemDebuf:
+		Condition: TotemDebuf
+	SpeedMultiplier@TotemDebuf:
+		RequiresCondition: TotemDebuf
+		Modifier: 70
+	ChangesHealth@TotemDebuf:
+		RequiresCondition: TotemDebuf
+		Step: -500
+		Delay: 50
+		StartIfBelow: 110
+		DamageCooldown: 0
+
+
+^CorruptedOreCon:
+	ExternalCondition@CorruptedOre:
+		Condition: CorruptedOre
+	WithDecoration@CorruptedOre:
+		Image: pips
+		Sequence: mediorecorruptionpip
+		Palette: effect
+		Position: TopRight
+		ValidRelationships: None,Neutral,Enemy,Ally
+		RequiresCondition: CorruptedOre
+
+^CurseDebuff:
+	ExternalCondition@CurseCondition:
+		Condition: CurseCondition
+	DamageMultiplier@CurseCondition:
+		RequiresCondition: CurseCondition
+		Modifier: 150
+	FirepowerMultiplier@CurseCondition:
+		RequiresCondition: CurseCondition
+		Modifier: 80
+	ReloadDelayMultiplier@CurseCondition:
+		RequiresCondition: CurseCondition
+		Modifier: 130
+	SpeedMultiplier@CurseCondition:
+		RequiresCondition: CurseCondition
+		Modifier: 75
+	WithDecoration@CurseCondition:
+		Image: pips
+		Sequence: mediorecorruptionpip
+		Palette: effect
+		Position: TopRight
+		ValidRelationships: None,Neutral,Enemy,Ally
+		RequiresCondition: CurseCondition
+
+
+^AEIOUBoosted:
+	ExternalCondition@aeiouboost:
+		Condition: aeiouboost
+	DamageMultiplier@aeiouboost:
+		RequiresCondition: aeiouboost
+		Modifier: 90
+	FirepowerMultiplier@aeiouboost:
+		RequiresCondition: aeiouboost
+		Modifier: 110
+	ReloadDelayMultiplier@aeiouboost:
+		RequiresCondition: aeiouboost
+		Modifier: 90
+	WithDecoration@aeiouboost:
+		Image: pips
+		Sequence: pip-aeiou
+		Palette: effect
+		Position: TopRight
+		ValidRelationships: None,Neutral,Enemy,Ally
+		RequiresCondition: aeiouboost
+	GrantConditionOnPrerequisite@commcentre:
+		Prerequisites: miss
+		Condition: missboost
+	RevealsShroudMultiplier@commcentre:
+		RequiresCondition: missboost
+		Modifier: 120
+
+^HolySuperBoosted:
+	ExternalCondition@HolySuperBoosted:
+		Condition: HolySuperBoosted
+	DamageMultiplier@HolySuperBoosted:
+		RequiresCondition: HolySuperBoosted
+		Modifier: 80
+	FirepowerMultiplier@HolySuperBoosted:
+		RequiresCondition: HolySuperBoosted
+		Modifier: 110
+	ReloadDelayMultiplier@HolySuperBoosted:
+		RequiresCondition: HolySuperBoosted
+		Modifier: 90
+	WithDecoration@HolySuperBoosted:
+		Image: pips
+		Sequence: pip-aeiou
+		Palette: effect
+		Position: TopRight
+		ValidRelationships: None,Neutral,Enemy,Ally
+		RequiresCondition: HolySuperBoosted
+
+^GlobalBounty:
+	ExternalCondition@GLAbounty: # this allows GLA to gain bounty on kills, but only within range of units/structures.
+		Condition: glabounty
+	GivesBounty@GLA:
+		RequiresCondition: !global-bounty && glabounty
+		Percentage: 5
+	GrantConditionOnFaction@glabounty:
+		Factions: thrax, demo, kassad
+		Condition: glabountyexternal
+	ProximityExternalCondition@glabounty:
+		RequiresCondition: !global-bounty && glabountyexternal
+		Condition: glabounty
+		ValidRelationships: Enemy
+		AffectsParent: false
+		Range: 6c0
+
+^3x3Shape:
+	HitShape:
+		UseTargetableCellsOffsets: true
+		Type: Rectangle
+			TopLeft: -1536, -1536
+			BottomRight: 1536, 1536
+
+^2x3Shape:
+	HitShape:
+		UseTargetableCellsOffsets: true
+		Type: Rectangle
+			TopLeft: -1024, -1536
+			BottomRight: 1024, 1536
+
+^ConYard:
+	BaseProvider:
+		Range: 16c0
+		RequiresCondition: !botowner
+	BaseProvider@bot:
+		Range: 20c0
+		RequiresCondition: botowner
+	Production:
+		Produces: Building,Defense,Tech,Wall
+	Exit:
+	ProductionBar@Building:
+		ProductionType: Building
+	ProductionBar@Defense:
+		ProductionType: Defense
+		Color: FF8C00
+	ProductionBar@Tech:
+		ProductionType: Tech
+		Color: 9FFF42
+	ProductionBar@Wall:
+		ProductionType: Wall
+		Color: FF7373
+	ProvidesPrerequisite@conyard:
+		Prerequisite: conyard
+	ProvidesPrerequisite@mcv:
+		Prerequisite: mcv
+	GrantConditionOnPrerequisite@botowner:
+		Condition: botowner
+		Prerequisites: ai.all, !ai.easy
+
+^TechCenter:
+	GrantConditionOnPrerequisite@noradio:
+		Prerequisites: !radio.p
+		Condition: noradio
+	GpsPower@global:
+		Prerequisites: radio.p
+		PauseOnCondition: noradio || disabled
+		Icon: gps
+		OneShot: true
+		ChargeInterval: 1500
+		Name: GPS Satellite
+		Description: Reveals map terrain and provides tactical\ninformation.
+		RevealDelay: 375
+		LaunchSound: satlnch1.aud
+	ProvidesPrerequisite:
+		Prerequisite: techcenter
+	Valued:
+		Cost: 1500
+	Power:
+		Amount: -200
+	SupportPowerChargeBar:
+
+^DawnBuilding:
+	Inherits: ^Building
+	Building:
+		BuildSounds: constru2.aud, hvydoor1.aud
+
+^Soldier:
+	TakeCover:
+		SpeedModifier: 65
+		Duration: 75
+
+^MediSoldier:
+	Inherits: ^Infantry
+	UpdatesPlayerStatistics:
+	MustBeDestroyed:
+	ProximityCaptor:
+		Types: Infantry
+	WithInfantryBody:
+		IdleSequences: idle1
+		StandSequences: stand
+	AttackFrontal:
+		FacingTolerance: 0
+	Selectable:
+		Bounds: 768, 938, 0, -469
+		DecorationBounds: 682, 938, 0, -469
+	WithDeathAnimation:
+		DeathTypes:
+			DefaultDeath: 1
+			BulletDeath: 1
+			SmallExplosionDeath: 1
+			ExplosionDeath: 4
+	TakeCover:
+		SpeedModifier: 130
+		Duration: 105
+		DamageTriggers: TriggerProne
+	GrantConditionOnPrerequisite@elementalweps:
+		Condition: elementalweps
+		Prerequisites: upgrade.elementalwepstech, ~advtechcenter
+
+^TibSunSoldier:
+	Inherits@1: ^Soldier
+	RenderSprites:
+	WithInfantryBody:
+		IdleSequences: idle1,idle2
+		StandSequences: stand
+	DeathSounds@NORMAL:
+		Voice: DieTS
+	DeathSounds@ZAPPED:
+		Voice: DieTS
+	Explodes@tiberium:
+		Weapon: TSInfExplode
+		EmptyWeapon: TSInfExplode
+		DeathTypes: TiberiumDeath
+
+^NBOS:
+	Inherits@1: ^Soldier
+	DeathSounds@NORMAL:
+		Voice: DieTS
+	DeathSounds@ZAPPED:
+		Voice: DieTS
+	Explodes@fire:
+		Weapon: TSInfExplode
+		EmptyWeapon: TSInfExplode
+		DeathTypes: FireDeath, TiberiumDeath
+	Mobile:
+		Locomotor: foot2
+	-TakeCover:
+	-Crushable:
+	-SpawnActorOnDeath@fire:
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+
+^DoomSoldier:
+	Inherits@1: ^Soldier
+	DeathSounds@NORMAL:
+		Voice: DieTS
+	DeathSounds@ZAPPED:
+		Voice: DieTS
+	Explodes@fire:
+		Weapon: TSInfExplode
+		EmptyWeapon: TSInfExplode
+		DeathTypes: FireDeath, TiberiumDeath
+	Selectable:
+		Bounds: 768, 938, 0, -469
+		DecorationBounds: 682, 938, 0, -469
+	-DamagedByTerrain:
+	-TakeCover:
+	RevealsShroud:
+		MinRange: 4c0
+		Range: 5c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 4c0
+
+^PlayableCivInfantry:
+	Inherits: ^CivInfantry
+	Inherits@CorruptedOre: ^CorruptedOreCon
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	MustBeDestroyed:
+	-WithInfantryBody:
+	WithFacingSpriteBody:
+		-BodyOrientation:
+	ClassicFacingBodyOrientation:
+		QuantizedFacings: 8
+	-BodyOrientation:
+	WithMoveAnimation:
+		MoveSequence: run
+	WithDockingAnimation:
+	Selectable:
+		Priority: 5
+	CashTrickler:
+		Interval: 375
+		Amount: 5
+		ShowTicks: false
+	Harvester:
+		UnblockCell: 0,1
+		Capacity: 1
+		Resources: Ore,Gems
+		SearchFromProcRadius: 30
+		SearchFromHarvesterRadius: 15
+	MapEditorData:
+		Categories: Infantry
+	WithHarvesterPipsDecoration:
+		Position: BottomLeft
+		RequiresSelection: true
+		PipCount: 1
+
+^PlayableCivBuilding:
+	Inherits: ^Building
+	Health:
+		HP: 40000
+	Armor:
+		Type: Wood
+	RevealsShroud:
+		MinRange: 3c0
+		Range: 4c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 3c0
+	-WithMakeAnimation:
+	Capturable:
+		-RequiresCondition:
+		Types: building
+	CapturableProgressBar:
+	CapturableProgressBlink:
+	Sellable:
+		RequiresCondition: !being-captured && !being-demolished
+		SellSounds: cashturn.aud
+	-RepairableBuilding:
+	-WithBuildingRepairDecoration:
+
+^PlayableCivHouse:
+	Inherits: ^PlayableCivBuilding
+	Inherits@IDISABLE: ^DisableOnLowPower
+	Valued:
+		Cost: 500
+	RallyPoint:
+	Production:
+		Produces: Infantry, Civilian
+	PrimaryBuilding:
+		PrimaryCondition: primary
+		SelectionNotification: PrimaryBuildingSelected
+	WithDecoration@primary:
+		RequiresSelection: true
+		Image: pips
+		Sequence: tag-primary
+		Position: Top
+		RequiresCondition: primary
+	StoresResources:
+		Capacity: 500
+	ProductionBar:
+		ProductionType: Infantry
+	Power:
+		Amount: -10
+	EngineerRepairable:
+	CashTrickler:
+		Interval: 375
+		Amount: 50
+		ShowTicks: false
+		RequiresCondition: !disabled
+	ProvidesPrerequisite@civ:
+		Factions: civ
+		Prerequisite: infantry.civ
+	ProvidesPrerequisite@house:
+		Factions: civ
+		Prerequisite: house
+	InfiltrateForCash:
+		Percentage: 50
+		Types: SpyInfiltrate, ThiefInfiltrate
+		InfiltratedNotification: CreditsStolen
+	WithResourceStoragePipsDecoration:
+		Position: BottomLeft
+		RequiresSelection: true
+		PipCount: 5
+		FullSequence: pip-yellow
+
+^PlayableCivHouseLarge:
+	Inherits: ^PlayableCivHouse
+	Building:
+		Footprint: xx xx
+		Dimensions: 2,2
+	Exit@1:
+		SpawnOffset: -42,810,0
+		ExitCell: 1,2
+	Exit@2:
+		SpawnOffset: -725,640,0
+		ExitCell: 0,2
+	Refinery:
+		DockOffset: 1,2
+	FreeActor:
+		Actor: c1.c
+		SpawnOffset: 1,2
+		Facing: 256
+
+^PlayableCivHouseWide:
+	Inherits: ^PlayableCivHouse
+	Building:
+		Footprint: xx
+		Dimensions: 2,1
+	Exit@1:
+		SpawnOffset: -42,810,0
+		ExitCell: 1,1
+	Exit@2:
+		SpawnOffset: -725,640,0
+		ExitCell: 0,1
+	Refinery:
+		DockOffset: 1,1
+	FreeActor:
+		Actor: c3.c
+		SpawnOffset: 1,1
+		Facing: 256
+
+^PlayableCivHouseTall:
+	Inherits: ^PlayableCivHouse
+	Building:
+		Footprint: _ x
+		Dimensions: 1,2
+	Exit:
+		SpawnOffset: -725,640,0
+		ExitCell: 0,2
+	Refinery:
+		DockOffset: 0,2
+	FreeActor:
+		Actor: c5.c
+		SpawnOffset: 1,2
+		Facing: 256
+
+^PlayableCivHouseSmall:
+	Inherits: ^PlayableCivHouse
+	Building:
+		Footprint: x
+		Dimensions: 1,1
+	Exit:
+		SpawnOffset: -725,640,0
+		ExitCell: 0,1
+	Refinery:
+		DockOffset: 0,1
+	FreeActor:
+		Actor: c2.c
+		SpawnOffset: 0,1
+		Facing: 256
+
+^TibTree:
+	Inherits@1: ^SpriteActor
+	Interactable:
+	Tooltip:
+		Name: Blossom Tree
+		ShowOwnerRow: false
+	RenderSprites:
+		Palette: dawn
+	WithSpriteBody:
+	Building:
+		Footprint: x
+		Dimensions: 1,1
+	AppearsOnRadar:
+	RadarColorFromTerrain:
+		Terrain: Tiberium
+	AppearsOnMapPreview:
+		Terrain: Tiberium
+	HiddenUnderShroud:
+	WithMakeAnimation:
+	MapEditorData:
+		Categories: Resource spawn
+	RequiresSpecificOwners:
+		ValidOwnerNames: Neutral
+
+^BasicBuilding:
+	Targetable@REPAIR:
+		RequiresCondition: repairtime
+		TargetTypes: StructureRepair
+	GrantConditionOnDamageState@DAMAGED:
+		Condition: repairtime
+		ValidDamageStates: Light, Medium, Heavy, Critical
+	SoundOnDamageTransition:
+		DestroyedSounds: kaboom22.aud, crmble2.aud, dcrumble.aud
+	CaptureNotification:
+		LoseNotification: StructureLost
+	ExternalCondition@PZom:
+		Condition: producezomblobal
+	FreeActor@globzomb1:
+		Actor: MediZombieCreepC
+		RequiresCondition: producezomblobal
+		AllowRespawn: True
+		SpawnOffset: -1, -1
+
+^Building:
+	Inherits@Monumentboost: ^Monumentboosted
+	Inherits@CurseCondition: ^CurseDebuff
+	Inherits@corrode: ^CorrodesFromTibWeaps
+	Capturable:
+		ValidRelationships: Enemy, Neutral, Ally
+	ChangesHealth@Monumentboost:
+		RequiresCondition: Monumentboost
+		PercentageStep: 1
+		Delay: 40
+		StartIfBelow: 100
+		DamageCooldown: 40
+	RevealOnFire:
+	GrantConditionOnPrerequisite@bar1:
+		Prerequisites: upgrade.buildarmor1, advtechcenter
+		Condition: bar1
+	GrantConditionOnPrerequisite@bar2:
+		Prerequisites: upgrade.buildarmor2, advtechcenter
+		Condition: bar2
+	GrantConditionOnPrerequisite@bar3:
+		Prerequisites: upgrade.buildarmor3, advtechcenter
+		Condition: bar3
+	DamageMultiplier@bar1:
+		RequiresCondition: bar1 && !bar2
+		Modifier: 80
+	DamageMultiplier@bar2:
+		RequiresCondition: bar2 && !bar3
+		Modifier: 60
+	DamageMultiplier@bar3:
+		RequiresCondition: bar3
+		Modifier: 40
+	SpawnActorsOnSell:
+		Factions: england, germany, france, russia, ukraine, estonia, steel, zocom, gdi3, marked, bhand, nod3, hitler, himmler, heydrich
+	SpawnActorsOnSell@uac:
+		Factions: phobos, mars, deimos
+		ActorTypes: dm2,tecn,tecn,tecn,tecn
+	SpawnActorsOnSell@fed:
+		Factions: angels, silver, sword
+		ActorTypes: fe1,fe1,fe1,tecn,tecn
+	SpawnActorsOnSell@gla:
+		Factions: demo, kassad, thrax
+		ActorTypes: ge1,ge1,ge1,tecn,tecn
+	SpawnActorsOnSell@medi:
+		Factions: darkness, holy, elementalists
+		ActorTypes: slave,slave,slave,slave,slave,slave,slave,slave,slave,slave,slave,slave,slave,slave,slave,slave,slave,slave,slave,slave
+	ActorLostNotification:
+		Notification: StructureLost
+	ExternalCondition@PZom:
+		Condition: producezomblobal
+	FreeActor@globzomb1:
+		Actor: MediZombieCreepC
+		RequiresCondition: producezomblobal
+		AllowRespawn: True
+		SpawnOffset: -1, -1
+
+^Defense:
+	Inherits@Monumentboost: ^Monumentboosted
+	Inherits@CurseCondition: ^CurseDebuff
+	ChangesHealth@Monumentboost:
+		RequiresCondition: Monumentboost
+		PercentageStep: 1
+		Delay: 40
+		StartIfBelow: 100
+		DamageCooldown: 40
+	GivesBuildableArea:
+		AreaTypes: building, fake
+	GrantConditionOnPrerequisite@bar1:
+		Prerequisites: upgrade.buildarmor1, advtechcenter
+		Condition: bar1
+	GrantConditionOnPrerequisite@bar2:
+		Prerequisites: upgrade.buildarmor2, advtechcenter
+		Condition: bar2
+	GrantConditionOnPrerequisite@bar3:
+		Prerequisites: upgrade.buildarmor3, advtechcenter
+		Condition: bar3
+	DamageMultiplier@bar1:
+		RequiresCondition: bar1 && !bar2
+		Modifier: 80
+	DamageMultiplier@bar2:
+		RequiresCondition: bar2 && !bar3
+		Modifier: 60
+	DamageMultiplier@bar3:
+		RequiresCondition: bar3
+		Modifier: 40
+	GrantConditionOnPrerequisite@bfp1:
+		Prerequisites: upgrade.buildfirepower1, advtechcenter
+		Condition: bfp1
+	GrantConditionOnPrerequisite@bfp2:
+		Prerequisites: upgrade.buildfirepower2, advtechcenter
+		Condition: bfp2
+	GrantConditionOnPrerequisite@bfp3:
+		Prerequisites: upgrade.buildfirepower3, advtechcenter
+		Condition: bfp3
+	FirepowerMultiplier@bfp1:
+		RequiresCondition: bfp1 && !bfp2
+		Modifier: 114
+	FirepowerMultiplier@bfp2:
+		RequiresCondition: bfp2 && !bfp3
+		Modifier: 128
+	FirepowerMultiplier@bfp3:
+		RequiresCondition: bfp3
+		Modifier: 142
+	GrantConditionOnPrerequisite@commcentre:
+		Prerequisites: miss
+		Condition: missboost
+	RevealsShroudMultiplier@commcentre:
+		RequiresCondition: missboost
+		Modifier: 120
+
+^ScienceBuilding:
+	Inherits@Monumentboost: ^Monumentboosted
+	Inherits@CurseCondition: ^CurseDebuff
+	ChangesHealth@Monumentboost:
+		RequiresCondition: Monumentboost
+		PercentageStep: 1
+		Delay: 40
+		StartIfBelow: 100
+		DamageCooldown: 40
+	SpawnActorsOnSell:
+		Factions: england, germany, france, russia, ukraine, estonia, steel, zocom, gdi3, marked, bhand, nod3, hitler, himmler, heydrich
+	SpawnActorsOnSell@uac:
+		Factions: phobos, mars, deimos
+		ActorTypes: dm2,dm2,dm2,dm2,tecn,tecn,tecn,tecn,tecn,tecn,tecn,tecn,tecn,tecn,e6,e6,e6,e6,e6,chan,chan,chan,chan
+	SpawnActorsOnSell@fed:
+		Factions: angels, silver, sword
+		ActorTypes: fe1,fe1,fe1,fe1,tecn,tecn,tecn,tecn,tecn,tecn,tecn,tecn,tecn,tecn,fe6,fe6,fe6,fe6,fe6,chan,chan,chan,chan
+	SpawnActorsOnSell@gla:
+		Factions: demo, kassad, thrax
+		ActorTypes: ge1,ge1,ge1,ge1,tecn,tecn,tecn,tecn,tecn,tecn,tecn,tecn,tecn,tecn,gharv,gharv,gharv,gharv,gharv,chan,chan,chan,chan
+	SpawnActorsOnSell@medi:
+		Factions: darkness, holy, elementalists
+		ActorTypes: slave,slave,slave,slave,slave,slave,slave,slave,slave,slave,slave,slave,slave,slave,slave,slave,slave,slave,slave,slave
+	Targetable@tech:
+		TargetTypes: Tech
+	ExternalCondition@PZom:
+		Condition: producezomblobal
+	FreeActor@globzomb1:
+		Actor: MediZombieCreepC
+		RequiresCondition: producezomblobal
+		AllowRespawn: True
+		SpawnOffset: -1, -1
+
+^Vehicle:
+	Inherits@corrode: ^CorrodesFromTibWeaps
+	Inherits@aeiou: ^AEIOUBoosted
+	Inherits@CurseCondition: ^CurseDebuff
+	Inherits@Monumentboost: ^Monumentboosted
+	Inherits@TotemBoost: ^TotemBooster
+	Inherits@TotemDebuf: ^TotemDebufer
+	Inherits@ChainsCondition: ^ChainsConditioner
+	Inherits@CorruptedOre: ^CorruptedOreCon
+	Inherits@glavehicle: ^GLAVehicle # self healing for GLA owned vehicles
+	Inherits@gps: ^GPSScramblable
+	RevealOnFire:
+	Repairable:
+		RepairActors: fix, gfix, gfix.boss
+	GrantConditionOnPrerequisite@var1:
+		Prerequisites: upgrade.veharmor1, advtechcenter
+		Condition: var1
+	GrantConditionOnPrerequisite@var2:
+		Prerequisites: upgrade.veharmor2, advtechcenter
+		Condition: var2
+	GrantConditionOnPrerequisite@var3:
+		Prerequisites: upgrade.veharmor3, advtechcenter
+		Condition: var3
+	GrantConditionOnPrerequisite@vfp1:
+		Prerequisites: upgrade.vehfirepower1, advtechcenter
+		Condition: vfp1
+	GrantConditionOnPrerequisite@vp2:
+		Prerequisites: upgrade.vehfirepower2, advtechcenter
+		Condition: vfp2
+	GrantConditionOnPrerequisite@vfp3:
+		Prerequisites: upgrade.vehfirepower3, advtechcenter
+		Condition: vfp3
+	DamageMultiplier@var1:
+		RequiresCondition: var1 && !var2
+		Modifier: 85
+	DamageMultiplier@var2:
+		RequiresCondition: var2 && !var3
+		Modifier: 70
+	DamageMultiplier@var3:
+		RequiresCondition: var3
+		Modifier: 55
+	FirepowerMultiplier@vfp1:
+		RequiresCondition: vfp1 && !vfp2
+		Modifier: 115
+	FirepowerMultiplier@vfp2:
+		RequiresCondition: vfp2 && !vfp3
+		Modifier: 130
+	FirepowerMultiplier@vfp3:
+		RequiresCondition: vfp3
+		Modifier: 145
+	Targetable@parachute:
+		RequiresCondition: parachute
+		TargetTypes: AirborneActor
+	SpeedMultiplier@disabled:
+		RequiresCondition: disabled
+		Modifier: 0
+	Passenger:
+		Weight: 2
+	Mobile:
+		PauseOnCondition: being-captured || disabled
+	WithColoredOverlay@IDISABLE:
+		RequiresCondition: disabled
+		Color: 000000B4
+	WithDecoration@POWERDOWN:
+		Image: poweroff
+		Sequence: offline
+		Palette: chrome
+		RequiresCondition: disabled
+		Position: Center
+	ExternalCondition@garageboost:
+		Condition: garageboost
+	SpeedMultiplier@garagepeedboost:
+		RequiresCondition: garageboost
+		Modifier: 140
+	ReloadDelayMultiplier@garagereloadboost:
+		RequiresCondition: garageboost
+		Modifier: 75
+	DamageMultiplier@garagedefenseboost:
+		RequiresCondition: garageboost
+		Modifier: 75
+	ChangesHealth@garagerepair:
+		PercentageStep: 1
+		Delay: 100
+		StartIfBelow: 100
+		DamageCooldown: 125
+		RequiresCondition: garageboost
+	ChangesHealth@aeiouboost:
+		RequiresCondition: aeiouboost
+		PercentageStep: 1
+		Delay: 75
+		StartIfBelow: 70
+		DamageCooldown: 100
+	ChangesHealth@Monumentboost:
+		RequiresCondition: Monumentboost
+		PercentageStep: 1
+		Delay: 40
+		StartIfBelow: 100
+		DamageCooldown: 40
+	ChangesHealth@TotemDebuf:
+		RequiresCondition: TotemDebuf
+		Step: -2000
+		Delay: 50
+		StartIfBelow: 110
+		DamageCooldown: 0
+	##ChainsCondition
+	SpeedMultiplier@ChainsCondition:
+		RequiresCondition: ChainsCondition
+		Modifier: 0
+	SpawnActorOnDeath@cube:
+		Probability: 40
+		Actor: helld4
+		OwnerType: Killer
+		DeathType: SpawnCubeDeath
+		RequiresLobbyCreeps: false
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	ExternalCondition@fixsell:
+		Condition: fixsell
+	Sellable@fixsell:
+		RequiresCondition: fixsell
+		SellSounds: unitsld1.aud, cashturn.aud
+	SpawnActorsOnSell:
+		Factions: england, germany, france, russia, ukraine, estonia, steel, zocom, gdi3, marked, bhand, nod3, hitler, himmler, heydrich
+		ActorTypes: e1,e1,e1,tecn
+	SpawnActorsOnSell@uac:
+		Factions: phobos, mars, deimos
+		ActorTypes: dm2,tecn,tecn
+	SpawnActorsOnSell@fed:
+		Factions: angels, silver, sword
+		ActorTypes: fe1,fe1,fe1,tecn
+	SpawnActorsOnSell@gla:
+		Factions: demo, kassad, thrax
+		ActorTypes: ge1,ge1,ge1,tecn
+
+^Infantry:
+	Inherits@DarkWizBoosted: ^DarkWizBoosted
+	Inherits@RotElementHit: ^RotElementHit
+	Inherits@corrode: ^CorrodesFromTibWeaps
+	Inherits@pallyboost: ^Pallyboosted
+	Inherits@Monumentboost: ^Monumentboosted
+	Inherits@TotemBoost: ^TotemBooster
+	Inherits@TotemDebuf: ^TotemDebufer
+	Inherits@ChainsCondition: ^ChainsConditioner
+	Inherits@CorruptedOre: ^CorruptedOreCon
+	Inherits@aeiou: ^AEIOUBoosted
+	Inherits@ShieldHero: ^HolySuperBoosted
+	Inherits@CurseCondition: ^CurseDebuff
+	Inherits@gps: ^GPSScramblable
+	Crushable:
+		RequiresCondition: !HolySuperBoosted
+	RevealOnFire:
+	GrantConditionOnPrerequisite@iar1:
+		Prerequisites: upgrade.infarmor1, advtechcenter
+		Condition: iar1
+	GrantConditionOnPrerequisite@iar2:
+		Prerequisites: upgrade.infarmor2, advtechcenter
+		Condition: iar2
+	GrantConditionOnPrerequisite@iar3:
+		Prerequisites: upgrade.infarmor3, advtechcenter
+		Condition: iar3
+	GrantConditionOnPrerequisite@ifp1:
+		Prerequisites: upgrade.inffirepower1, advtechcenter
+		Condition: ifp1
+	GrantConditionOnPrerequisite@ifp2:
+		Prerequisites: upgrade.inffirepower2, advtechcenter
+		Condition: ifp2
+	GrantConditionOnPrerequisite@ifp3:
+		Prerequisites: upgrade.inffirepower3, advtechcenter
+		Condition: ifp3
+	DamageMultiplier@iar1:
+		RequiresCondition: iar1 && !iar2
+		Modifier: 85
+	DamageMultiplier@iar2:
+		RequiresCondition: iar2 && !iar3
+		Modifier: 70
+	DamageMultiplier@iar3:
+		RequiresCondition: iar3
+		Modifier: 55
+	FirepowerMultiplier@ifp1:
+		RequiresCondition: ifp1 && !ifp2
+		Modifier: 115
+	FirepowerMultiplier@ifp2:
+		RequiresCondition: ifp2 && !ifp3
+		Modifier: 130
+	FirepowerMultiplier@ifp3:
+		RequiresCondition: ifp3
+		Modifier: 145
+	Targetable@parachute:
+		RequiresCondition: parachute
+		TargetTypes: AirborneActor
+	DamageMultiplier@parachute:
+		RequiresCondition: parachute
+		Modifier: 500
+	ExternalCondition@squadboost:
+		Condition: squadboost
+	SpeedMultiplier@squadboost:
+		RequiresCondition: squadboost
+		Modifier: 110
+	ReloadDelayMultiplier@squadboost:
+		RequiresCondition: squadboost
+		Modifier: 85
+	ExternalCondition@hospitalhealciv:
+		Condition: hospitalhealciv
+	ChangesHealth@HOSPITALCIV:
+		Step: 500
+		Delay: 100
+		StartIfBelow: 100
+		DamageCooldown: 125
+		RequiresCondition: hospitalhealciv
+	ExternalCondition@flagboost:
+		Condition: flagboost
+	FirepowerMultiplier@flagfirepowerboost:
+		RequiresCondition: flagboost
+		Modifier: 130
+	InaccuracyMultiplier@flagaccuracyboost:
+		RequiresCondition: flagboost
+		Modifier: 50
+	ExternalCondition@bioboost:
+		Condition: bioboost
+	SpeedMultiplier@biospeedboost:
+		RequiresCondition: bioboost
+		Modifier: 140
+	ReloadDelayMultiplier@bioreloadboost:
+		RequiresCondition: bioboost
+		Modifier: 75
+	DamageMultiplier@biodefenseboost:
+		RequiresCondition: bioboost
+		Modifier: 75
+	ChangesHealth@TotemDebuf:
+		RequiresCondition: TotemDebuf
+		Step: -1000
+		Delay: 50
+		StartIfBelow: 110
+		DamageCooldown: 0
+	ChangesHealth@aeiouboost:
+		RequiresCondition: aeiouboost
+		PercentageStep: 3
+		Delay: 25
+		StartIfBelow: 90
+		DamageCooldown: 50
+	ChangesHealth@HolySuperBoosted:
+		RequiresCondition: HolySuperBoosted
+		PercentageStep: 3
+		Delay: 75
+		StartIfBelow: 90
+		DamageCooldown: 75
+	ChangesHealth@Monumentboost:
+		RequiresCondition: Monumentboost
+		PercentageStep: 1
+		Delay: 40
+		StartIfBelow: 100
+		DamageCooldown: 40
+	SpeedMultiplier@ChainsCondition:
+		RequiresCondition: ChainsCondition
+		Modifier: 0
+	ExternalCondition@demoralise:
+		Condition: demoralise
+	SpeedMultiplier@demoralise:
+		RequiresCondition: demoralise
+		Modifier: 90
+	ReloadDelayMultiplier@demoralise:
+		RequiresCondition: demoralise
+		Modifier: 115
+	WithDecoration@demoralise:
+		Image: pips
+		Sequence: pip-minus
+		Palette: effect
+		Position: TopRight
+		ValidRelationships: None,Neutral,Enemy,Ally
+		RequiresCondition: demoralise && !squadboost
+	DeathSounds@NORMAL:
+		DeathTypes: DefaultDeath, BulletDeath, SmallExplosionDeath, ExplosionDeath, SpawnCubeDeath
+	DeathSounds@BURNED:
+		Voice: Burned
+		DeathTypes: FireDeath, TiberiumDeath
+	DeathSounds@ZAPPED:
+		Voice: Die
+		DeathTypes: ElectricityDeath
+	Explodes@elec:
+		Weapon: Electro
+		EmptyWeapon: Electro
+		DeathTypes: ElectricityDeath
+	Explodes@tiberium:
+		Weapon: TSInfExplode
+		EmptyWeapon: TSInfExplode
+		DeathTypes: TiberiumDeath, SpawnCubeDeath
+	Explodes@fire:
+		Weapon: InfFireball
+		EmptyWeapon: InfFireball
+		DeathTypes: FireDeath
+	Explodes@GraveyardSpawnerDeath:
+		Weapon: GraveyardSpawnerDeath
+		EmptyWeapon: GraveyardSpawnerDeath
+	DamagedByTerrain:
+		Terrain: Tiberium, BlueTiberium
+		Damage: 200
+		DamageInterval: 16
+		DamageTypes: TiberiumDeath
+	SpawnActorOnDeath@tiberium:
+		Actor: vice
+		Probability: 5
+		OwnerType: InternalName
+		InternalOwner: Creeps
+		DeathType: TiberiumDeath
+		RequiresLobbyCreeps: true
+	SpawnActorOnDeath@cube:
+		Probability: 15
+		Actor: helld6
+		OwnerType: Killer
+		DeathType: SpawnCubeDeath
+		RequiresLobbyCreeps: false
+	SpawnActorOnDeath@fire:
+		Actor: flameguy
+		DeathType: FireDeath
+	SpawnActorOnDeath@zombie:
+		Actor: Zombie
+		OwnerType: Killer
+		DeathType: ZombieDeath
+	SpawnActorOnDeath@Darkwiz:
+		RequiresCondition: DarkWizAura
+		Probability: 40
+		Actor: MediZombie
+		DeathType: DefaultDeath
+	SpawnActorOnDeath@RotElement:
+		RequiresCondition: RotElementHitCon
+		Actor: RotElement
+		OwnerType: Killer
+		DeathType: ElementalDeath
+	WithDeathAnimation:
+		DeathTypes:
+			DefaultDeath: 1
+			BulletDeath: 2
+			SmallExplosionDeath: 3
+			ExplosionDeath: 4
+			-FireDeath:
+			ElectricityDeath: 6
+		CrushedSequence: die-crushed
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	TurnOnIdle:
+	DetectCloaked@GPS:
+		Range: 1c0
+		DetectionTypes: gpsscrambler
+
+^Cyborg:
+	Inherits: ^Infantry
+	Mobile:
+		PauseOnCondition: disabled
+	WithColoredOverlay@IDISABLE:
+		RequiresCondition: disabled
+		Color: 000000B4
+	Targetable:
+		RequiresCondition: !parachute
+		TargetTypes: GroundActor, Cyborg, Disguise
+	SpawnActorOnDeath@cube:
+		Probability: 35
+		Actor: helld4
+		OwnerType: Killer
+		DeathType: SpawnCubeDeath
+		RequiresLobbyCreeps: false
+	-SpawnActorOnDeath@fire:
+	Explodes@fire:
+		Weapon: TSInfExplode
+		EmptyWeapon: TSInfExplode
+		DeathTypes: FireDeath
+
+^Ship:
+	Inherits@corrode: ^CorrodesFromTibWeaps
+	Inherits@CurseCondition: ^CurseDebuff
+	RepairableNear:
+		RepairActors: spen, syrd, gspen, dockmedi
+	RevealOnFire:
+	GrantConditionOnPrerequisite@nar1:
+		Prerequisites: upgrade.navarmor1, advtechcenter
+		Condition: nar1
+	GrantConditionOnPrerequisite@nar2:
+		Prerequisites: upgrade.navarmor2, advtechcenter
+		Condition: nar2
+	GrantConditionOnPrerequisite@nar3:
+		Prerequisites: upgrade.navarmor3, advtechcenter
+		Condition: nar3
+	GrantConditionOnPrerequisite@nfp1:
+		Prerequisites: upgrade.navfirepower1, advtechcenter
+		Condition: nfp1
+	GrantConditionOnPrerequisite@nfp2:
+		Prerequisites: upgrade.navfirepower2, advtechcenter
+		Condition: nfp2
+	GrantConditionOnPrerequisite@nfp3:
+		Prerequisites: upgrade.navfirepower3, advtechcenter
+		Condition: nfp3
+	DamageMultiplier@nar1:
+		RequiresCondition: nar1 && !nar2
+		Modifier: 85
+	DamageMultiplier@nar2:
+		RequiresCondition: nar2 && !nar3
+		Modifier: 70
+	DamageMultiplier@nar3:
+		RequiresCondition: nar3
+		Modifier: 55
+	FirepowerMultiplier@nfp1:
+		RequiresCondition: nfp1 && !nfp2
+		Modifier: 115
+	FirepowerMultiplier@nfp2:
+		RequiresCondition: nfp2 && !nfp3
+		Modifier: 130
+	FirepowerMultiplier@nfp3:
+		RequiresCondition: nfp3
+		Modifier: 145
+	Mobile:
+		PauseOnCondition: disabled
+	WithColoredOverlay@IDISABLE:
+		RequiresCondition: disabled
+		Color: 000000B4
+	ExternalCondition@fixsell:
+		Condition: fixsell
+	Sellable@fixsell:
+		RequiresCondition: fixsell
+		SellSounds: UnitSold
+
+^NeutralPlane:
+	Inherits@CurseCondition: ^CurseDebuff
+	Inherits@TotemBoost: ^TotemBooster
+	Inherits@TotemDebuf: ^TotemDebufer
+	Inherits@corrode: ^CorrodesFromTibWeaps
+	Repairable:
+		RepairActors: fix, gfix, gfix.boss
+	RevealOnFire:
+	GrantConditionOnPrerequisite@aar1:
+		Prerequisites: upgrade.airarmor1, advtechcenter
+		Condition: aar1
+	GrantConditionOnPrerequisite@aar2:
+		Prerequisites: upgrade.airarmor2, advtechcenter
+		Condition: aar2
+	GrantConditionOnPrerequisite@aar3:
+		Prerequisites: upgrade.airarmor3, advtechcenter
+		Condition: aar3
+	GrantConditionOnPrerequisite@afp1:
+		Prerequisites: upgrade.airfirepower1, advtechcenter
+		Condition: afp1
+	GrantConditionOnPrerequisite@afp2:
+		Prerequisites: upgrade.airfirepower2, advtechcenter
+		Condition: afp2
+	GrantConditionOnPrerequisite@afp3:
+		Prerequisites: upgrade.airfirepower3, advtechcenter
+		Condition: afp3
+	DamageMultiplier@aar1:
+		RequiresCondition: aar1 && !aar2
+		Modifier: 82
+	DamageMultiplier@nar2:
+		RequiresCondition: aar2 && !aar3
+		Modifier: 64
+	DamageMultiplier@nar3:
+		RequiresCondition: aar3
+		Modifier: 48
+	FirepowerMultiplier@nfp1:
+		RequiresCondition: afp1 && !afp2
+		Modifier: 115
+	FirepowerMultiplier@nfp2:
+		RequiresCondition: afp2 && !afp3
+		Modifier: 130
+	FirepowerMultiplier@nfp3:
+		RequiresCondition: afp3
+		Modifier: 145
+	Aircraft:
+	KillsSelf:
+		RequiresCondition: airborne && disabled
+	Targetable@REPAIR:
+		RequiresCondition: damaged
+		TargetTypes: Repair
+	ExternalCondition@reloadnear:
+		Condition: reloadnear
+
+^TSHelicopter:
+	Inherits: ^Helicopter
+	ClassicFacingBodyOrientation:
+		QuantizedFacings: 32
+	-WithFacingSpriteBody:
+	-QuantizeFacingsFromSequence:
+	-WithShadow:
+	RenderSprites:
+	RenderVoxels:
+		PlayerPalette: tsunit
+		Scale: 9
+	WithVoxelBody:
+	Cloak@stealthgen:
+		Palette: tscloak
+
+^Helicopter:
+	Inherits@CurseCondition: ^CurseDebuff
+	Inherits@TotemBoost: ^TotemBooster
+	Inherits@TotemDebuf: ^TotemDebufer
+
+
+^Plane:
+	Inherits@CurseCondition: ^CurseDebuff
+	Inherits@TotemBoost: ^TotemBooster
+	Inherits@TotemDebuf: ^TotemDebufer
+	Repairable:
+		RepairActors: fix, gfix, gfix.boss
+
+^TSPlane:
+	Inherits: ^Plane
+	ClassicFacingBodyOrientation:
+		QuantizedFacings: 32
+	-BodyOrientation:
+	-WithFacingSpriteBody:
+	-QuantizeFacingsFromSequence:
+	-WithShadow:
+	RenderSprites:
+	RenderVoxels:
+		PlayerPalette: tsunit
+		Scale: 9
+	WithVoxelBody:
+	Cloak@stealthgen:
+		Palette: tscloak
+
+^TSNeutralPlane:
+	Inherits: ^NeutralPlane
+	ClassicFacingBodyOrientation:
+		QuantizedFacings: 32
+	-BodyOrientation:
+	-WithFacingSpriteBody:
+	-QuantizeFacingsFromSequence:
+	-WithShadow:
+	RenderSprites:
+	RenderVoxels:
+		PlayerPalette: tsunit
+		Scale: 9
+	WithVoxelBody:
+	Cloak@stealthgen:
+		Palette: tscloak
+
+^TSPlaneHusk:
+	Inherits: ^PlaneHusk
+	ClassicFacingBodyOrientation:
+		QuantizedFacings: 32
+	-BodyOrientation:
+	-WithFacingSpriteBody:
+	-QuantizeFacingsFromSequence:
+	-WithShadow:
+	RenderSprites:
+	RenderVoxels:
+		PlayerPalette: tsunit
+		Scale: 9
+	WithVoxelBody:
+	FallsToEarth:
+		Velocity: 112
+
+^Viceroid:
+	Inherits@1: ^ExistsInWorld
+	Inherits@2: ^SpriteActor
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Inherits@selection: ^SelectableCombatUnit
+	Huntable:
+	Health:
+		HP: 30000
+	Armor:
+		Type: Wood
+	RevealsShroud:
+		Range: 6c0
+	Mobile:
+		Voice: Move
+		Speed: 71
+		Locomotor: wheeled
+	SelectionDecorations:
+	WithSpriteControlGroupDecoration:
+	Selectable:
+		Bounds: 1024, 1024
+	Targetable:
+		TargetTypes: GroundActor, Creep
+	AutoTarget:
+		ScanRadius: 5
+	AttackMove:
+		Voice: Attack
+	DrawLineToTarget:
+	HiddenUnderFog:
+	Valued:
+		Cost: 1000
+	Tooltip:
+		Name: Visceroid
+	Armament:
+		Weapon: Chemspray
+		LocalOffset: 384,0,0
+	AttackFrontal:
+		Voice: Attack
+		FacingTolerance: 0
+	ClassicFacingBodyOrientation:
+		QuantizedFacings: 8
+	-BodyOrientation:
+	WithSpriteBody:
+	WithMuzzleOverlay:
+	Guard:
+		Voice: Move
+	Guardable:
+	DamagedByTerrain:
+		Damage: -100
+		DamageInterval: 4
+		DamageTypes: TiberiumDeath
+		Terrain: Tiberium, BlueTiberium
+	Voiced:
+		VoiceSet: AntVoice
+	HitShape:
+		Type: Circle
+			Radius: 427
+	MapEditorData:
+		Categories: Critter
+	ExternalCondition@corrode:
+		Condition: corrode
+	DamageMultiplier@corrode:
+		RequiresCondition: corrode
+		Modifier: 75
+	WithColoredOverlay@corrode:
+		RequiresCondition: corrode
+		Color: 00800040
+	RenderSprites:
+		PlayerPalette: dawn
+	Explodes:
+		Weapon: UnitExplodeSmall
+		EmptyWeapon: UnitExplodeSmall
+
+^EpicUnit:
+	Buildable:
+		BuildDuration: 10000
+		BuildDurationModifier: 55
+		BuildLimit: 1
+	AnnounceOnSeen:
+		PingRadar: True
+		Notification: EnemyUnitsApproaching
+	ExternalCondition@PRODUCED:
+		Condition: produced
+	VoiceAnnouncement:
+		RequiresCondition: produced
+		Voice: Build
+	WithDecoration@elite:
+		Image: pips
+		Sequence: pip-poison
+		Palette: effect
+		ValidRelationships: None,Neutral,Enemy,Ally
+	GpsDot:
+		String: Biohazard
+	Cloneable:
+		Types: Epic
+	ChangesHealth@aeiouboost:
+		RequiresCondition: aeiouboost
+		PercentageStep: 1
+		Delay: 75
+		StartIfBelow: 70
+		DamageCooldown: 100
+
+^EpicVehicle:
+	Inherits: ^Vehicle
+	DamageMultiplier@var1:
+		RequiresCondition: var1 && !var2
+		Modifier: 96
+	DamageMultiplier@var2:
+		RequiresCondition: var2 && !var3
+		Modifier: 92
+	DamageMultiplier@var3:
+		RequiresCondition: var3
+		Modifier: 88
+	FirepowerMultiplier@vfp1:
+		RequiresCondition: vfp1 && !vfp2
+		Modifier: 104
+	FirepowerMultiplier@vfp2:
+		RequiresCondition: vfp2 && !vfp3
+		Modifier: 108
+	FirepowerMultiplier@vfp3:
+		RequiresCondition: vfp3
+		Modifier: 112
+	ShakeOnDeath:
+		Duration: 15
+	DamageMultiplier@IRONCURTAIN:
+		RequiresCondition: invulnerability
+		Modifier: 25
+	ChangesHealth@aeiouboost:
+		RequiresCondition: aeiouboost
+		PercentageStep: 1
+		Delay: 150
+		StartIfBelow: 70
+		DamageCooldown: 100
+	GpsDot:
+		String: Biohazard
+	Cloneable:
+		Types: Epic
+
+^EpicShip:
+	Inherits: ^Ship
+	DamageMultiplier@nar1:
+		RequiresCondition: nar1 && !nar2
+		Modifier: 96
+	DamageMultiplier@nar2:
+		RequiresCondition: nar2 && !nar3
+		Modifier: 92
+	DamageMultiplier@nar3:
+		RequiresCondition: nar3
+		Modifier: 88
+	FirepowerMultiplier@nfp1:
+		RequiresCondition: nfp1 && !nfp2
+		Modifier: 104
+	FirepowerMultiplier@nfp2:
+		RequiresCondition: nfp2 && !nfp3
+		Modifier: 108
+	FirepowerMultiplier@nfp3:
+		RequiresCondition: nfp3
+		Modifier: 112
+	ShakeOnDeath:
+		Duration: 15
+	DamageMultiplier@IRONCURTAIN:
+		RequiresCondition: invulnerability
+		Modifier: 25
+	GpsDot:
+		String: Biohazard
+	Cloneable:
+		Types: Epic
+
+#For non-vehicles
+^TargetRepairable:
+	Targetable@REPAIR:
+		RequiresCondition: !parachute && damaged
+		TargetTypes: Repair
+	GrantConditionOnDamageState@DAMAGED:
+		Condition: damaged
+		ValidDamageStates: Light, Medium, Heavy, Critical
+
+^Road:
+	Inherits@1: ^ExistsInWorld
+	Inherits@2: ^SpriteActor
+	Inherits@corrode: ^CorrodesFromTibWeaps
+	Inherits@shape: ^1x1Shape
+	Interactable:
+		Bounds: 1024, 1024
+	OwnerLostAction:
+		Action: ChangeOwner
+	Building:
+		Footprint: =
+		Dimensions: 1,1
+		BuildSounds: placbldg.aud
+		TerrainTypes: Clear,Road
+		UndeploySounds: cashturn.aud
+		#RequiresCondition: !deployed
+		#RequiresBaseProvider: False
+	Buildable:
+		Queue: Wall
+		BuildPaletteOrder: 501
+		Prerequisites: ~techlevel.infonly, ~structures.civ
+		BuildDuration: 10
+		Description: Expands city limits.
+	RequiresBuildableArea: # switch to this for civ buildings rather than base provider?
+		AreaTypes: building
+		Adjacent: 8
+	#GivesBuildableArea:
+	#	AreaTypes: building, fake
+	BaseProvider:
+		Range: 4c0
+	#SelectionDecorations:
+	#Selectable:
+	#	Priority: 3
+	FootprintPlaceBuildingPreview:
+	#ChangesTerrain:
+	#	TerrainType: Road
+	#Immobile:
+	#	OccupiesSpace: true
+	LineBuild:
+		Range: 8
+		NodeTypes: road
+	LineBuildNode:
+		Types: road
+	Valued:
+		Cost: 100
+	CustomSellValue:
+		Value: 0
+	Tooltip:
+		Name: Road
+	Health:
+		HP: 100000
+		NotifyAppliedDamage: false
+	Armor:
+		Type: Concrete
+	Targetable:
+		TargetTypes: GroundActor, CivRepair
+		RequiresForceFire: true
+	-GivesExperience:
+	ProximityCaptor:
+		Types: Road
+	Sellable:
+		SellSounds: cashturn.aud
+	Guardable:
+	WithSpriteBody:
+	FrozenUnderFog:
+	FrozenUnderFogUpdatedByGps:
+	RenderSprites:
+		Palette: noplayer
+	RadarColorFromTerrain:
+		Terrain: Road
+	AppearsOnMapPreview:
+		Terrain: Road
+	MapEditorData:
+		Categories: Wall
+	#KillsSelf:
+	#GrantConditionOnDeploy:
+	#	DeployedCondition: deployed
+	#	UndeployedCondition: undeployed
+	#	AllowedTerrainTypes: Clear, Road, Rough
+	#	DeploySounds: placbldg.aud
+	#	UndeploySounds: ramenu1.aud
+	#WithIdleOverlay:
+	#	Sequence: conwork
+	#	RequiresCondition: undeployed
+
+^Wall:
+	RenderSprites:
+		Palette: noplayer
+
+^AutoTargetGround:
+	AutoTargetPriority@DEFAULT:
+		ValidTargets: Infantry, Cyborg, Vehicle, Water, Ship, Underwater, Defense, Mine
+	AutoTargetPriority@ATTACKANYTHING:
+		ValidTargets: Infantry, Cyborg, Vehicle, Water, Ship, Underwater, Structure, Defense, Mine
+
+^AutoTargetAll:
+	AutoTargetPriority@DEFAULT:
+		ValidTargets: Infantry, Cyborg, Vehicle, Water, Ship, Underwater, AirborneActor, Defense, Mine
+	AutoTargetPriority@ATTACKANYTHING:
+		ValidTargets: Infantry, Cyborg, Vehicle, Water, Ship, Underwater, AirborneActor, Structure, Defense, Mine
+
+^Husk:
+	Inherits: ^BasicHusk
+	WithIdleOverlay@Burns:
+		Image: fire
+		Sequence: 1
+		IsDecoration: True
+	ChangesHealth:
+		Step: -125
+		StartIfBelow: 101
+		Delay: 8
+	Husk:
+		AllowedTerrain: Clear, Rough, Road, Ore, Gems, Beach, Tiberium, BlueTiberium
+
+^IronCurtainable:
+	WithColoredOverlay@ironshroud:
+		RequiresCondition: ironshroud
+		Color: 80000040
+	DamageMultiplier@ironshroud:
+		RequiresCondition: ironshroud
+		Modifier: 40
+	ExternalCondition@ironshroud:
+		Condition: ironshroud
+
+^Bridge:
+	GrantConditionOnPrerequisite:
+		Prerequisites: explodebridges
+		Condition: explodebridges
+	Health:
+		HP: 200000
+	ChangesHealth:
+		RequiresCondition: explodebridges
+		StartIfBelow: 100
+		PercentageStep: 100
+
+^CivInfantry:
+	Voiced:
+		VoiceSet: ScientistVoice
+
+^CivField:
+	HitShape:
+	Health:

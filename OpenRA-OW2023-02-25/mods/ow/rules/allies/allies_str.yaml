@@ -1,0 +1,100 @@
+TENT:
+	Inherits@prereqs: ^BarracksPrereqs
+	Buildable:
+		Prerequisites: anypower, ~structures.allies, ~techlevel.infonly, ~!structures.bothard
+
+ATEK:
+	Inherits@TECH: ^TechCenter
+	-GpsPower:
+	Buildable:
+		Queue: Building
+		BuildPaletteOrder: 140
+		Prerequisites: factory, dome, ~structures.allies, ~techlevel.high, ~!ai.hard
+		Description: Provides Allied advanced technologies.
+
+PDOX:
+	Buildable:
+		Queue: Tech
+
+BIO.A:
+	Inherits: ^ScienceBuilding
+	Inherits@IDISABLE: ^DisableOnLowPowerOrPowerDown
+	Inherits@shape: ^2x2Shape
+	Selectable:
+		Bounds: 2048, 2048
+	HitShape:
+		UseTargetableCellsOffsets: false
+		TargetableOffsets: 0,0,0, 630,-512,0, 355,512,0, -281,-512,0, -630,512,0
+	Valued:
+		Cost: 2500
+	Tooltip:
+		Name: Weather Machine
+	Buildable:
+		Queue: Tech
+		BuildPaletteOrder: 140
+		Prerequisites: techcenter, ~techlevel.unrestricted, ~structures.weatherprereq
+		BuildLimit: 1
+		Description: Can generate a deadly lightning storm.\nRequires power to operate.\nMaximum 1 can be built.\n  Special Ability: Lighting Storm
+	Building:
+		Footprint: xx xx ==
+		Dimensions: 2,3
+		LocalCenterOffset: 0,-512,0
+	Health:
+		HP: 120000
+	Armor:
+		Type: Wood
+	RevealsShroud:
+		MinRange: 5c0
+		Range: 6c0
+		RequiresCondition: !disabled
+		RevealGeneratedShroud: False
+	RevealsShroud@Offline:
+		Range: 5c0
+		RequiresCondition: disabled
+	RevealsShroud@GAPGEN:
+		Range: 5c0
+		RequiresCondition: !disabled
+	WithBuildingBib:
+	IonCannonPower:
+		OrderName: LightningStorm
+		PauseOnCondition: disabled
+		Icon: weathericon
+		Cursor: chrono-target
+		ChargeInterval: 17500
+		Name: Lighting Storm
+		Description: Create a deadly lightning storm.\nApplies gradual damage to a large area.
+		BeginChargeSpeechNotification: IonCannonCharge
+		EndChargeSpeechNotification: IonCannonReady
+		SelectTargetSpeechNotification: DawnSelectTarget
+		InsufficientPowerSpeechNotification: InsufficientPower
+		OnFireSound: thunder-ambient.aud
+		DisplayRadarPing: True
+		CameraActor: camera.spyplane
+		SupportPowerPaletteOrder: 20
+		WeaponDelay: 0
+		CameraRemoveDelay: 450
+		Effect: explosion
+		EffectSequence: piff
+		Weapon: WeatherGrenade
+		DisplayTimerRelationships: Ally, Neutral, Enemy
+	SupportPowerChargeBar:
+	InfiltrateForSupportPowerReset:
+		Types: SpyInfiltrate
+	Targetable:
+		TargetTypes: GroundActor, C4, DetonateAttack, Structure, SpyInfiltrate
+	Power:
+		Amount: -250
+	MustBeDestroyed:
+		RequiredForShortGame: false
+	ProvidesPrerequisite@self:
+	ProvidesPrerequisite@superweapon:
+		Prerequisite: superweapon
+	Explodes@Weather:
+		Type: CenterPosition
+		Weapon: WeatherMachineDeath
+		EmptyWeapon: WeatherMachineDeath
+	RenderSprites:
+		Image: BIO
+	WithDeathAnimation:
+		DeathSequence: dead
+		UseDeathTypeSuffix: false

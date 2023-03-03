@@ -1,0 +1,161 @@
+DMB3:
+	Inherits: ATEK
+	Buildable:
+		Queue: Building
+		BuildPaletteOrder: 150
+		Prerequisites: factory, radar, ~structures.uac, ~techlevel.unrestricted, ~!ai.hard
+		Description: Provides UAC advanced technologies.\n  Special Ability: Paradoom
+	Tooltip:
+		Name: UAC Tech Center
+	ParatroopersPower@paradoom:
+		OrderName: Paradoom
+		Icon: paradoom
+		ChargeInterval: 10500
+		Name: Paradoom
+		Description: A Badger drops a squad of marines\nanywhere on the map.
+		DropItems: DM2,DM2,DM2,DM1,DM1
+		ReinforcementsArrivedSpeechNotification: ReinforcementsArrived
+		SelectTargetSpeechNotification: SelectTarget
+		AllowImpassableCells: false
+		QuantizedFacings: 8
+		CameraActor: camera.paradrop
+		DisplayBeacon: true
+		BeaconPoster: pinficon
+		ArrowSequence: arrow
+		ClockSequence: clock
+		CircleSequence: circles
+		UseDirectionalTarget: True
+		DirectionArrowAnimation: paradirection
+		SupportPowerPaletteOrder: 50
+
+PLSTUR:
+	Inherits: ^Defense
+	Inherits@IDISABLE: ^DisableOnLowPowerOrPowerDown
+	Inherits@AUTOTARGET: ^AutoTargetGround
+	Buildable:
+		Queue: Defense
+		BuildPaletteOrder: 80
+		Prerequisites: weap, ~structures.uac, ~techlevel.unrestricted
+		Description: Advanced base defense.\nRequires power to operate.\nCan detect cloaked units.\n  Strong vs Vehicles, Infantry\n  Weak vs Aircraft
+	Valued:
+		Cost: 1500
+	Tooltip:
+		Name: Gauss Tower
+	Health:
+		HP: 60000
+	Armor:
+		Type: Heavy
+	RevealsShroud:
+		MinRange: 6c0
+		Range: 8c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 6c0
+	Armament:
+		Weapon: TowerGauss
+		LocalOffset: 0,0,200
+	AttackCharges:
+		RequiresCondition: !build-incomplete
+		PauseOnCondition: lowpower
+		ChargeLevel: 110
+		ChargeRate: 4
+		ChargingCondition: charging
+	AmbientSound:
+		RequiresCondition: charging
+		SoundFiles: railcharge.aud
+		Interval: 90, 90
+	Power:
+		Amount: -150
+	DetectCloaked:
+		Range: 4c0
+		RequiresCondition: !disabled
+	ProvidesPrerequisite@buildingname:
+
+HELLGATE:
+	Inherits: PDOX
+	Buildable:
+		Queue: Tech
+		BuildPaletteOrder: 9001
+		Prerequisites: advtechcenter, ~structures.uac, ~techlevel.unrestricted, ~!structures.deimos
+		BuildLimit: 1
+		Description: Gain access to Hell to produce\npowerful demon units.\nRequires power to operate.\n  Special Ability: Summon Demon
+	Tooltip:
+		Name: Hell Portal
+	Health:
+		HP: 100000
+	ProvidesPrerequisite@buildingname:
+	ProvidesPrerequisite@phobos:
+		Factions: phobos
+		Prerequisite: pdox.phobos
+	ProvidesPrerequisite@deimos:
+		Factions: deimos
+		Prerequisite: pdox.deimos
+	ProvidesPrerequisite@deimosupgrade:
+		Factions: deimos
+		Prerequisite: pdox.upgraded
+	ProvidesPrerequisite@mars:
+		Factions: mars
+		Prerequisite: pdox.mars
+	ProvidesPrerequisite@uacstructure:
+		RequiresPrerequisites: structures.uac
+		Prerequisite: pdox.uac
+	-ChronoshiftPower@chronoshift:
+	-ChronoshiftPower@advancedchronoshift:
+	ParatroopersPower@MarsDeimos:
+		PauseOnCondition: disabled
+		OrderName: HellPortalPower1
+		Prerequisites: !pdox.phobos
+		Icon: hell
+		ChargeInterval: 7500
+		Name: Summon Cyberdemon
+		Description: Summon a lord of Hell to fight for you \n for 30 seconds.
+		DropItems: helld3.s
+		UnitType: U2.Invis
+		ReinforcementsArrivedSpeechNotification: ReinforcementsArrived
+		SelectTargetSpeechNotification: SelectTarget
+		AllowImpassableCells: false
+		QuantizedFacings: 8
+		CameraActor: camera.paradrop
+		DisplayBeacon: true
+		BeaconPoster: pinficon
+		ArrowSequence: arrow
+		ClockSequence: clock
+		CircleSequence: circles
+		UseDirectionalTarget: True
+		DirectionArrowAnimation: paradirection
+		SupportPowerPaletteOrder: 50
+	ParatroopersPower@Phobos:
+		PauseOnCondition: disabled
+		OrderName: HellPortalPower2
+		Prerequisites: pdox.phobos
+		Icon: hell
+		ChargeInterval: 3750
+		Name: Summon Baron of Hell
+		Description: Summon a lord of Hell to fight for you.
+		DropItems: helld2
+		UnitType: U2.Invis
+		ReinforcementsArrivedSpeechNotification: ReinforcementsArrived
+		SelectTargetSpeechNotification: SelectTarget
+		AllowImpassableCells: false
+		QuantizedFacings: 8
+		CameraActor: camera.paradrop
+		DisplayBeacon: true
+		BeaconPoster: pinficon
+		ArrowSequence: arrow
+		ClockSequence: clock
+		CircleSequence: circles
+		UseDirectionalTarget: True
+		DirectionArrowAnimation: paradirection
+		SupportPowerPaletteOrder: 50
+
+HELLGATE.D:
+	Inherits: HELLGATE
+	Buildable:
+		BuildPaletteOrder: 120
+		Prerequisites: techcenter, ~structures.deimos, ~techlevel.unrestricted
+		BuildLimit: 2
+		Description: Gain access to Hell to produce\npowerful demon units.\nCan have 2 active charges.\nRequires power to operate.\n  Special Ability: Summon Cyberdemon
+	RenderSprites:
+		Image: hellgate
+	ProvidesPrerequisite@buildingname:
+		Prerequisite: hellgate

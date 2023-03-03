@@ -1,0 +1,399 @@
+GE1:
+	Inherits: E1
+	Buildable:
+		Prerequisites: ~barracks, ~techlevel.infonly, ~infantry.gla
+		Description: Light infantry.\nSpeed: 62\n  Strong vs Infantry\n  Weak vs Vehicles, Aircraft
+		Icon: icon-gla
+	Tooltip:
+		Name: Rebel
+	Health:
+		HP: 4500
+	Mobile:
+		Speed: 62
+	Armament@DAWN:
+		Weapon: M1Carbine_G
+	Armament@PRIMARY:
+		Weapon: M1Carbine_G
+	Armament@BUS:
+		Name: bus
+		Weapon: M1Carbine_GBus
+		MuzzleSequence: garrison-muzzle
+	RenderSprites:
+		Image: tse4
+
+GE1R1:
+	Inherits: GE1
+	ProducibleWithLevel:
+		Prerequisites: techlevel.infonly
+		InitialLevels: 1
+	-Buildable:
+	Tooltip:
+		Name: Elite Rebel
+	Health:
+		HP: 10000
+	Valued:
+		Cost: 250
+	Armament@DAWN:
+		Weapon: M1Carbine_G2
+	Armament@PRIMARY:
+		Weapon: M1Carbine_G2
+	AutoTarget:
+		InitialStance: HoldFire
+	ExternalCondition:
+		Condition: wander
+	Wanders:
+		RequiresCondition: wander
+	Cloak:
+		IsPlayerPalette: true
+		InitialDelay: 0
+		CloakDelay: 100
+		UncloakSound: gstealof.aud
+		UncloakOn: Attack, Unload, Infiltrate, Demolish, Damage
+	-Cloak@stealthgen:
+	-ExternalCondition@stealthgen:
+	-ExternalCondition@disabled:
+
+GE2:
+	Inherits: ^Soldier
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Buildable:
+		Queue: Infantry
+		BuildAtProductionType: Soldier
+		BuildPaletteOrder: 12
+		Prerequisites: ~barracks, ~techlevel.infonly, ~infantry.gla
+		Description: Suicide bomber.\nSpeed: 64 - 84\n  Strong vs Infantry, Vehicles\n  Weak vs Long range
+	Valued:
+		Cost: 140
+	Tooltip:
+		Name: Terrorist
+	Mobile:
+		Speed: 64
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 6000
+	AttackFrontal:
+		FacingTolerance: 512
+		Voice: Attack
+	Armament@PRIMARY:
+		Weapon: TerroristTargeting
+	AutoTarget:
+		InitialStance: AttackAnything
+		ScanRadius: 6
+	WithInfantryBody:
+		StandSequences: stand
+		DefaultAttackSequence: stand
+	Explodes:
+		Weapon: TerroristBomb
+		EmptyWeapon: TerroristBomb
+		DeathTypes: SmallExplosionDeath, ExplosionDeath, FireDeath, TiberiumDeath, ElectricityDeath, Suicide
+	KillsSelf:
+		RequiresCondition: triggered
+		DamageTypes: Suicide
+	WithDeathAnimation:
+		DeathTypes:
+			Suicide: 4
+	DeathSounds@SUICIDE:
+		DeathTypes: Suicide
+	TakeCover:
+		DamageModifiers:
+			Prone50Percent: 100
+		SpeedModifier: 140
+		ProneSequencePrefix: panic-
+	GrantConditionOnAttack:
+		Condition: triggered
+	Voiced:
+		VoiceSet: TerroristVoice
+	Cloak@stealthgen:
+		RequiresCondition: stealthgen && !disabled && !kassadstealth
+	Cloak@kassad:
+		IsPlayerPalette: true
+		InitialDelay: 25
+		CloakDelay: 30
+		UncloakSound: gstealof.aud
+		RequiresCondition: kassadstealth && !stealthgen && !disabled
+		UncloakOn: Attack, Unload, Infiltrate, Demolish, Damage, Move
+	GrantConditionOnFaction@kassad:
+		Factions: kassad
+		Condition: kassadstealth
+	RenderSprites:
+		Image: gc1
+
+GE2R1:
+	Inherits: GE2
+	-Buildable:
+	-TakeCover:
+	ExternalCondition:
+		Condition: wander
+	Wanders:
+		RequiresCondition: wander
+	WithInfantryBody:
+		MoveSequence: panic-run
+	Mobile:
+		Speed: 96
+
+GE3:
+	Inherits: E3
+	Buildable:
+		Prerequisites: ~barracks, ~techlevel.infonly, ~infantry.gla
+		Description: Anti-tank/Anti-aircraft infantry.\nSpeed: 62\n  Strong vs Vehicles, Aircraft\n  Weak vs Infantry
+		Icon: icon-gla
+	Tooltip:
+		Name: RPG Troop
+	Health:
+		HP: 4100
+	Mobile:
+		Speed: 62
+	Armament@SECONDARY:
+		Weapon: Dragon_G
+	Armament@GARRISONED:
+		Weapon: Dragon_G
+	Armament@BUS:
+		Weapon: Dragon_G
+	RenderSprites:
+		Image: e3
+
+GHARV:
+	Inherits: ^Soldier
+	Inherits@selection: ^SelectableEconomicUnit
+	Buildable:
+		Queue: Infantry
+		BuildAtProductionType: Infantry
+		BuildPaletteOrder: 11
+		Prerequisites: gproc, ~techlevel.infonly, ~infantry.gla
+		Icon: icon-gla
+		Description: Collects Ore, Tiberium and Gems for processing.\nCan repair buildngs and vehicles.\nInfiltrates and captures\nenemy structures.\nSpeed: 64\n  Unarmed
+	Valued:
+		Cost: 350
+	Tooltip:
+		Name: Worker
+	Mobile:
+		Speed: 64
+	Health:
+		HP: 5500
+	Passenger:
+		CustomPipType: yellow
+	Harvester:
+		UnblockCell: 0,1
+		Capacity: 6
+		Resources: Ore,Gems,Tiberium,BlueTiberium
+		SearchFromProcRadius: 30
+		SearchFromHarvesterRadius: 15
+		HarvestVoice: Harvest
+		MaxUnloadQueue: 9
+	Voiced:
+		VoiceSet: Worker2Voice
+	Armament:
+		Weapon: RepairWorker
+		Cursor: repair
+		OutsideRangeCursor: repair
+		TargetRelationships: Ally
+		ForceTargetRelationships: None
+	-WithInfantryBody:
+	-TakeCover:
+	WithFacingSpriteBody:
+		Sequence: stand
+	BodyOrientation:
+		QuantizedFacings: 8
+	WithMoveAnimation:
+		MoveSequence: run
+	WithAttackAnimation:
+		Sequence: idle1
+	WithDockingAnimation:
+	AttackFrontal:
+		Voice: Repair
+		FacingTolerance: 0
+	AutoTarget:
+	AutoTargetPriority@DEFAULT:
+		ValidTargets: Vehicle, Ship, Structure
+	RepairsBridges:
+	CaptureManager:
+	GrantConditionOnPrerequisite@GLOBALREUSABLEENGINEER:
+		Condition: global-reusable-engineers
+		Prerequisites: global-reusable-engineers
+	Captures:
+		RequiresCondition: !global-reusable-engineers
+		CaptureTypes: building
+		PlayerExperience: 25
+		CaptureDelay: 200
+		SabotageThreshold: 50
+		SabotageHPRemoval: 60
+	Captures@REUSABLE:
+		RequiresCondition: global-reusable-engineers
+		CaptureTypes: building
+		PlayerExperience: 25
+		CaptureDelay: 375
+		ConsumedByCapture: False
+		EnterCursor: ability
+		EnterBlockedCursor: move-blocked
+		SabotageThreshold: 50
+		SabotageHPRemoval: 60
+	Infiltrates:
+		Types: Husk
+		ValidRelationships: Ally
+		EnterCursor: goldwrench
+		PlayerExperience: 25
+	Captures@husk:
+		CaptureTypes: husk
+		PlayerExperience: 25
+		CaptureDelay: 100
+		EnterCursor: goldwrench
+		ConsumedByCapture: true
+	DamagedByTerrain:
+		Terrain: Tiberium, BlueTiberium
+		Damage: 75
+		DamageInterval: 16
+		DamageTypes: TiberiumDeath
+	GrantConditionOnPrerequisite@shoes:
+		Prerequisites: upgrade.glashoes, advtechcenter
+		Condition: shoes
+	SpeedMultiplier@shoes:
+		RequiresCondition: shoes
+		Modifier: 115
+	RenderSprites:
+		Image: e6
+	WithHarvesterPipsDecoration:
+		Position: BottomLeft
+		RequiresSelection: true
+		PipCount: 2
+
+GHIJACK:
+	Inherits: ^TibSunSoldier
+	Buildable:
+		Queue: Infantry
+		BuildAtProductionType: Soldier
+		BuildPaletteOrder: 90
+		Prerequisites: ~infantry.gla, factory, ~barracks, ~techlevel.medium
+		Description: Steals enemy credits.\nHijacks enemy vehicles.\nUnarmed.\nSpeed: 72
+	Valued:
+		Cost: 600
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Tooltip:
+		Name: Hijacker
+	Health:
+		HP: 8000
+	-Guard:
+	-TakeCover:
+	RevealsShroud:
+		Range: 5c0
+	Passenger:
+		CustomPipType: blue
+	Infiltrates:
+		Types: ThiefInfiltrate
+		Notification: BuildingInfiltrated
+		PlayerExperience: 50
+	Disguise:
+		DisguisedCondition: disguise
+	WithDecoration@disguise:
+		Image: pips
+		Sequence: pip-disguise
+		Palette: effect
+		Position: TopRight
+		RequiresCondition: disguise
+	-WithInfantryBody:
+	WithDisguisingInfantryBody:
+		DefaultAttackSequence: shoot
+		IdleSequences: idle1,idle2
+		StandSequences: stand
+	CaptureManager:
+	Captures:
+		CaptureTypes: vehicle
+		PlayerExperience: 50
+	Voiced:
+		VoiceSet: HijackerVoice
+	RenderSprites:
+		Image: tsspy
+	Crushable:
+		WarnProbability: 95
+	Mobile:
+		Speed: 72
+		Voice: Move
+
+TSE5.G:
+	Inherits: ^TibSunSoldier
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Buildable:
+		Queue: Infantry
+		BuildAtProductionType: Soldier
+		BuildPaletteOrder: 250
+		Prerequisites: techcenter, ~infantry.gla
+		Icon: icon-gla
+		BuildLimit: 1
+		Description: Stealth sniper.\nInvisible to GPS, weapon has tracer.\nSpeed: 56\n  Strong vs Infantry\n  Weak vs Everything else
+	Valued:
+		Cost: 2500
+	Tooltip:
+		Name: Jarmen Kell
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 20000
+	Mobile:
+		Speed: 56
+		Voice: Move
+	Guard:
+		Voice: Move
+	Passenger:
+		Voice: Move
+		CustomPipType: red
+	-GpsDot:
+	RevealsShroud:
+		MinRange: 5c0
+		Range: 8c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 5c0
+	Armament@PRIMARY:
+		Weapon: JarmenSniper
+		LocalOffset: 427,0,341
+	Armament@GARRISONED:
+		Name: garrisoned
+		Weapon: JarmenSniper
+		MuzzleSequence: garrison-muzzle
+	Armament@BUS:
+		Name: bus
+		Weapon: JarmenSniper
+		MuzzleSequence: garrison-muzzle
+	WithInfantryBody:
+		DefaultAttackSequence: shoot
+		StandSequences: stand
+	ExternalCondition@PRODUCED:
+		Condition: produced
+	VoiceAnnouncement:
+		RequiresCondition: produced
+		Voice: Build
+	AnnounceOnKill:
+	Voiced:
+		VoiceSet: JarmenVoice
+	ProducibleWithLevel:
+		Prerequisites: barracks.upgraded
+	RenderRangeCircle:
+	RenderSprites:
+		Image: TSE5
+	-ExternalCondition@stealthgen:
+	-Cloak@stealthgen:
+	Cloak:
+		IsPlayerPalette: true
+		InitialDelay: 25
+		CloakDelay: 80
+		CloakSound: gstealon.aud
+		UncloakSound: gstealof.aud
+		UncloakOn: Attack, Damage, Demolish
+		PauseOnCondition: cloak-force-disabled || disabled
+	GrantConditionOnDamageState@UNCLOAK:
+		Condition: cloak-force-disabled
+		ValidDamageStates: Critical
+	Demolition:
+		DetonationDelay: 45
+		Voice: Action
+	DetectCloaked:
+		DetectionTypes: Cloak
+		Range: 4c0
+	WithDecoration@elite: # just so that he's easier to spot.
+		Image: pips
+		Sequence: pip-poison
+		Palette: effect
+		ValidRelationships: Ally
+	ProximityExternalCondition@glabounty:
+		Range: 9c0

@@ -1,0 +1,1250 @@
+FCOM.C:
+	Inherits: ^PlayableCivBuilding
+	Building:
+		Footprint: xx xx ==
+		Dimensions: 2,3
+	Buildable:
+		Queue: Tech
+		BuildPaletteOrder: 20
+		Prerequisites: ~techlevel.infonly, ~anypower, ~house, ~structures.civ
+		Description: Trains police officers and dogs.
+	Valued:
+		Cost: 20000
+	Tooltip:
+		Name: Police Station
+	RevealsShroud:
+		MinRange: 4c0
+		Range: 5c0
+	RevealsShroud@GAPGEN:
+		Range: 4c0
+	WithBuildingBib:
+		HasMinibib: true
+	RallyPoint:
+	Exit@1:
+		RequiresCondition: !being-captured
+		SpawnOffset: -42,810,0
+		ExitCell: 1,2
+	Exit@2:
+		RequiresCondition: !being-captured
+		SpawnOffset: -725,640,0
+		ExitCell: 0,2
+	Production:
+		Produces: Infantry, Police
+	PrimaryBuilding:
+		PrimaryCondition: primary
+		SelectionNotification: PrimaryBuildingSelected
+	WithDecoration@primary:
+		RequiresSelection: true
+		Image: pips
+		Sequence: tag-primary
+		Position: Top
+		RequiresCondition: primary
+	ProductionBar:
+		ProductionType: Infantry
+	Power:
+		Amount: -100
+	ProvidesPrerequisite:
+		Prerequisite: policestation
+	ProvidesPrerequisite@buildingname:
+	RenderSprites:
+		Image: FCOM
+	WithMakeAnimation:
+	EngineerRepairable:
+
+HOSP.C:
+	Inherits: ^PlayableCivBuilding
+	Inherits@IDISABLE: ^DisableOnLowPower
+	Building:
+		Footprint: xx xx ==
+		Dimensions: 2,3
+	Buildable:
+		Queue: Tech
+		BuildPaletteOrder: 21
+		Prerequisites: ~techlevel.infonly, ~anypower, ~house, ~structures.civ
+		Description: Keeps your city healthy.
+	Valued:
+		Cost: 2500
+	Tooltip:
+		Name: Hospital
+	Health:
+		HP: 100000
+	RevealsShroud:
+		MinRange: 4c0
+		Range: 5c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 4c0
+	WithBuildingBib:
+		HasMinibib: true
+	RallyPoint:
+	Exit@1:
+		RequiresCondition: !being-captured
+		SpawnOffset: -42,810,0
+		ExitCell: 1,2
+	Exit@2:
+		RequiresCondition: !being-captured
+		SpawnOffset: -725,640,0
+		ExitCell: 0,2
+	Production:
+		Produces: Infantry, Medical
+	PrimaryBuilding:
+		PrimaryCondition: primary
+		SelectionNotification: PrimaryBuildingSelected
+	WithDecoration@primary:
+		RequiresSelection: true
+		Image: pips
+		Sequence: tag-primary
+		Position: Top
+		RequiresCondition: primary
+	ProductionBar:
+		ProductionType: Infantry
+	WithDeathAnimation:
+		DeathSequence: dead
+		UseDeathTypeSuffix: false
+	Power:
+		Amount: -100
+	ProvidesPrerequisite@buildingname:
+	ProvidesPrerequisite:
+		Prerequisite: hospital
+	ProximityExternalCondition:
+		Condition: hospitalhealciv
+		Range: 16c0
+		RequiresCondition: !disabled
+	RenderSprites:
+		Image: HOSP
+	WithMakeAnimation:
+	EngineerRepairable:
+
+V01.C:
+	Inherits: ^PlayableCivBuilding
+	Inherits@con: ^ConYard
+	Inherits@prereqs: ^ConYardPrereqs
+	Building:
+		Footprint: xx xx
+		Dimensions: 2,2
+	Buildable:
+		Queue: Building
+		BuildPaletteOrder: 1001
+		Prerequisites: ~disabled
+		Description: Produces structures.
+	Tooltip:
+		Name: Church
+	Health:
+		HP: 40000
+	ProvidesPrerequisite@civ:
+		Factions: civ
+		Prerequisite: structures.civ
+	RevealsShroud:
+		MinRange: 4c0
+		Range: 10c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 4c0
+	Refinery:
+		DockOffset: 1,2
+	EngineerRepairable:
+	FreeActor:
+		Actor: c1.c
+		SpawnOffset: 1,2
+		Facing: 256
+	StoresResources:
+		Capacity: 1000
+	BaseProvider:
+		PauseOnCondition: being-captured
+		Range: 8c0
+	RenderSprites:
+		Image: V01
+	WithResourceStoragePipsDecoration:
+		Position: BottomLeft
+		RequiresSelection: true
+		PipCount: 10
+		FullSequence: pip-yellow
+
+V02.C:
+	Inherits: ^PlayableCivHouseLarge
+	Buildable:
+		Queue: Building
+		BuildPaletteOrder: 30
+		Prerequisites: ~techlevel.infonly, ~structures.civ, ~anypower
+		Description: Provides civilians a place to live in the city.
+	Tooltip:
+		Name: Double Long House
+	RenderSprites:
+		Image: V02
+
+V03.C:
+	Inherits: ^PlayableCivHouseLarge
+	Buildable:
+		Queue: Building
+		BuildPaletteOrder: 31
+		Prerequisites: ~techlevel.infonly, ~structures.civ, ~anypower
+		Description: Provides civilians a place to live in the city.
+	Tooltip:
+		Name: Double House
+	RenderSprites:
+		Image: V03
+
+V04.C:
+	Inherits: ^PlayableCivHouseLarge
+	Buildable:
+		Queue: Building
+		BuildPaletteOrder: 32
+		Prerequisites: ~techlevel.infonly, ~structures.civ, ~anypower
+		Description: Provides civilians a place to live in the city.
+	Tooltip:
+		Name: Big House
+	RenderSprites:
+		Image: V04
+
+V05.C:
+	Inherits: ^PlayableCivHouseWide
+	Buildable:
+		Queue: Building
+		BuildPaletteOrder: 33
+		Prerequisites: ~techlevel.infonly, ~structures.civ, ~anypower
+		Description: Provides civilians a place to live in the city.
+	Tooltip:
+		Name: Shed House
+	RenderSprites:
+		Image: V05
+
+V06.C:
+	Inherits: ^PlayableCivHouseWide
+	Buildable:
+		Queue: Building
+		BuildPaletteOrder: 34
+		Prerequisites: ~techlevel.infonly, ~structures.civ, ~anypower
+		Description: Provides civilians a place to live in the city.
+	Tooltip:
+		Name: Farm House
+	RenderSprites:
+		Image: V06
+
+V07.C:
+	Inherits: ^PlayableCivHouseWide
+	Buildable:
+		Queue: Building
+		BuildPaletteOrder: 35
+		Prerequisites: ~techlevel.infonly, ~structures.civ, ~anypower
+		Description: Provides civilians a place to live in the city.
+	Tooltip:
+		Name: Fence House
+	RenderSprites:
+		Image: V07
+
+V08.C:
+	Inherits: ^PlayableCivHouseSmall
+	Buildable:
+		Queue: Building
+		BuildPaletteOrder: 36
+		Prerequisites: ~techlevel.infonly, ~structures.civ, ~anypower
+		Description: Provides civilians a place to live in the city.
+	Tooltip:
+		Name: Box House
+	RenderSprites:
+		Image: V08
+
+V09.C:
+	Inherits: ^PlayableCivHouseSmall
+	Buildable:
+		Queue: Building
+		BuildPaletteOrder: 37
+		Prerequisites: ~techlevel.infonly, ~structures.civ, ~anypower
+		Description: Provides civilians a place to live in the city.
+	Tooltip:
+		Name: Tiny House
+	RenderSprites:
+		Image: V09
+
+V10.C:
+	Inherits: ^PlayableCivHouseSmall
+	Buildable:
+		Queue: Building
+		BuildPaletteOrder: 38
+		Prerequisites: ~techlevel.infonly, ~structures.civ, ~anypower
+		Description: Provides civilians a place to live in the city.
+	Tooltip:
+		Name: Simple House
+	RenderSprites:
+		Image: V10
+
+V11.C:
+	Inherits: ^PlayableCivHouseSmall
+	Buildable:
+		Queue: Building
+		BuildPaletteOrder: 39
+		Prerequisites: ~techlevel.infonly, ~structures.civ, ~anypower
+		Description: Provides civilians a place to live in the city.
+	Tooltip:
+		Name: Small House
+	RenderSprites:
+		Image: V11
+
+RUSHOUSE.C:
+	Inherits: ^PlayableCivHouseTall
+	Buildable:
+		Queue: Building
+		BuildPaletteOrder: 42
+		Prerequisites: ~techlevel.infonly, ~structures.civ, ~anypower
+		Description: Provides civilians a place to live in the city.
+	Tooltip:
+		Name: Rush House
+	RenderSprites:
+		Image: RUSHOUSE
+
+ASIANHUT.C:
+	Inherits: ^PlayableCivHouseSmall
+	Buildable:
+		Queue: Building
+		BuildPaletteOrder: 43
+		Prerequisites: ~techlevel.infonly, ~structures.civ, ~anypower
+		Description: Provides civilians a place to live in the city.
+	Tooltip:
+		Name: Asian House
+	RenderSprites:
+		Image: ASIANHUT
+
+V13.C:
+	Inherits: ^PlayableCivHouseSmall
+	Buildable:
+		Queue: Building
+		BuildPaletteOrder: 40
+		Prerequisites: ~techlevel.infonly, ~structures.civ, ~anypower
+		Description: Provides the city with lolz.
+	Tooltip:
+		Name: Pile of Fun
+	Valued:
+		Cost: 400
+	-Power:
+	CashTrickler:
+		Interval: 375
+		Amount: 40
+	-FreeActor:
+	RenderSprites:
+		Image: V13
+
+V12.C:
+	Inherits: ^PlayableCivHouseSmall
+	Buildable:
+		Queue: Building
+		BuildPaletteOrder: 41
+		Prerequisites: ~techlevel.infonly, ~structures.civ, ~anypower
+		Description: Provides the city with lolz.
+	Tooltip:
+		Name: Bigger Pile of Fun
+	Valued:
+		Cost: 400
+	-Power:
+	CashTrickler:
+		Interval: 375
+		Amount: 40
+	-FreeActor:
+	RenderSprites:
+		Image: V12
+
+V14.C:
+	Inherits: ^PlayableCivHouseSmall
+	Buildable:
+		Queue: Building
+		BuildPaletteOrder: 44
+		Prerequisites: ~techlevel.infonly, ~structures.civ, ~anypower
+		Description: Provides the city with food.
+	Tooltip:
+		Name: Corn Field
+	Valued:
+		Cost: 1000
+	-Power:
+	CashTrickler:
+		Interval: 375
+		Amount: 100
+	-FreeActor:
+	-Refinery:
+	RenderSprites:
+		Image: V14
+
+V15.C:
+	Inherits: ^PlayableCivHouseSmall
+	Buildable:
+		Queue: Building
+		BuildPaletteOrder: 45
+		Prerequisites: ~techlevel.infonly, ~structures.civ, ~anypower
+		Description: Provides the city with food.
+	Tooltip:
+		Name: Grain Field
+	Valued:
+		Cost: 1000
+	-Power:
+	CashTrickler:
+		Interval: 375
+		Amount: 100
+	-FreeActor:
+	-Refinery:
+	RenderSprites:
+		Image: V15
+
+V16.C:
+	Inherits: ^PlayableCivHouseSmall
+	Buildable:
+		Queue: Building
+		BuildPaletteOrder: 46
+		Prerequisites: ~techlevel.infonly, ~structures.civ, ~anypower
+		Description: Provides the city with food.
+	Tooltip:
+		Name: Gourd Field
+	Valued:
+		Cost: 1000
+	-Power:
+	CashTrickler:
+		Interval: 375
+		Amount: 100
+	-FreeActor:
+	-Refinery:
+	RenderSprites:
+		Image: V16
+
+V17.C:
+	Inherits: ^PlayableCivHouseSmall
+	Buildable:
+		Queue: Building
+		BuildPaletteOrder: 47
+		Prerequisites: ~techlevel.infonly, ~structures.civ, ~anypower
+		Description: Provides the city with food.
+	Tooltip:
+		Name: Potato Field
+	Valued:
+		Cost: 1000
+	-Power:
+	CashTrickler:
+		Interval: 375
+		Amount: 100
+	-FreeActor:
+	-Refinery:
+	RenderSprites:
+		Image: V17
+
+V18.C:
+	Inherits: ^PlayableCivHouseSmall
+	Buildable:
+		Queue: Building
+		BuildPaletteOrder: 48
+		Prerequisites: ~techlevel.infonly, ~structures.civ, ~anypower
+		Description: Provides the city with food.
+	Tooltip:
+		Name: Cabbage Field
+	Valued:
+		Cost: 1000
+	-Power:
+	CashTrickler:
+		Interval: 375
+		Amount: 100
+	-FreeActor:
+	-Refinery:
+	RenderSprites:
+		Image: V18
+
+RICE.C:
+	Inherits: ^PlayableCivHouseSmall
+	Buildable:
+		Queue: Building
+		BuildPaletteOrder: 49
+		Prerequisites: ~techlevel.infonly, ~structures.civ, ~anypower
+		Description: Provides the city with food.
+	Tooltip:
+		Name: Rice Field
+	Valued:
+		Cost: 1000
+	-Power:
+	CashTrickler:
+		Interval: 375
+		Amount: 100
+	-FreeActor:
+	-Refinery:
+	RenderSprites:
+		Image: RICE
+
+V19.C:
+	Inherits: ^PlayableCivBuilding
+	Inherits@IDISABLE: ^DisableOnLowPower
+	Buildable:
+		Queue: Tech
+		BuildPaletteOrder: 22
+		Prerequisites: ~techlevel.infonly, ~structures.civ, ~anypower
+		Description: Provides steady income to the city.
+	Tooltip:
+		Name: Oil Derrick
+	Valued:
+		Cost: 2500
+	CashTrickler:
+		Interval: 375
+		Amount: 250
+		RequiresCondition: !disabled
+	Power:
+		Amount: -50
+	RenderSprites:
+		Image: V19
+
+OILB.C:
+	Inherits: ^PlayableCivBuilding
+	Inherits@IDISABLE: ^DisableOnLowPower
+	HitShape:
+		UseTargetableCellsOffsets: false
+		TargetableOffsets: 0,0,0, 630,-300,0, 420,512,0, -420,-512,0, -630,300,0
+	Building:
+		Footprint: xx xx
+		Dimensions: 2,2
+	Buildable:
+		Queue: Tech
+		BuildPaletteOrder: 22
+		Prerequisites: ~techlevel.infonly, ~structures.civ, ~anypower
+		Description: Provides a larger steady income to the city.
+	Tooltip:
+		Name: Oil Refinery
+	Valued:
+		Cost: 5000
+	Power:
+		Amount: -100
+	Health:
+		HP: 100000
+	RevealsShroud:
+		MinRange: 3c0
+		Range: 4c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 3c0
+	EngineerRepairable:
+	CashTrickler:
+		Interval: 375
+		Amount: 500
+		RequiresCondition: !disabled
+	Explodes:
+		Weapon: BarrelExplode
+	GpsDot:
+		String: Oil
+	GivesCashOnCapture:
+		Amount: 1000
+	RenderSprites:
+		Image: OILB
+
+BARL.C:
+	Inherits: ^PlayableCivBuilding
+	Buildable:
+		Queue: Tech
+		BuildPaletteOrder: 24
+		Prerequisites: ~techlevel.infonly, ~structures.civ, ~anypower
+		Description: Provides resource storage.
+	Valued:
+		Cost: 50
+	Tooltip:
+		Name: Resource Barrel
+	Health:
+		HP: 1000
+	Explodes:
+		Weapon: BarrelExplode
+	StoresResources:
+		Capacity: 500
+	CashTrickler:
+		Interval: 375
+		Amount: 10
+	Armor:
+		Type: None
+	Targetable:
+		TargetTypes: GroundActor, DemoTruck, Barrel
+	-SoundOnDamageTransition:
+	RenderSprites:
+		Image: BARL
+	WithResourceStoragePipsDecoration:
+		Position: BottomLeft
+		RequiresSelection: true
+		PipCount: 2
+		FullSequence: pip-yellow
+
+BRL3.C:
+	Inherits: ^PlayableCivBuilding
+	Buildable:
+		Queue: Tech
+		BuildPaletteOrder: 25
+		Prerequisites: ~techlevel.infonly, ~structures.civ, ~anypower
+		Description: Provides resource storage.
+	Valued:
+		Cost: 100
+	Tooltip:
+		Name: Resource Barrels
+	Health:
+		HP: 1000
+	Explodes:
+		Weapon: BarrelExplode
+	StoresResources:
+		Capacity: 1000
+	CashTrickler:
+		Interval: 375
+		Amount: 10
+	Armor:
+		Type: None
+	Targetable:
+		TargetTypes: GroundActor, DemoTruck, Barrel
+	-SoundOnDamageTransition:
+	RenderSprites:
+		Image: BRL3
+	WithResourceStoragePipsDecoration:
+		Position: BottomLeft
+		RequiresSelection: true
+		PipCount: 2
+		FullSequence: pip-yellow
+
+BIO.C:
+	Inherits: ^PlayableCivBuilding
+	Inherits@IDISABLE: ^DisableOnLowPower
+	Building:
+		Footprint: xx xx
+		Dimensions: 2,2
+	Buildable:
+		Queue: Tech
+		BuildPaletteOrder: 50
+		Prerequisites: ~techcenter, ~hospital, ~structures.civ, ~anypower
+		Description: Enhance the health of the city's citizens\nand research dangerous materials.
+	Valued:
+		Cost: 20000
+	Tooltip:
+		Name: Biological Lab
+	RallyPoint:
+	Exit@1:
+		RequiresCondition: !being-captured
+		SpawnOffset: -42,810,0
+		ExitCell: 1,2
+	Exit@2:
+		RequiresCondition: !being-captured
+		SpawnOffset: -725,640,0
+		ExitCell: 0,2
+	Production:
+		Produces: Infantry, Science
+	PrimaryBuilding:
+		PrimaryCondition: primary
+		SelectionNotification: PrimaryBuildingSelected
+	WithDecoration@primary:
+		RequiresSelection: true
+		Image: pips
+		Sequence: tag-primary
+		Position: Top
+		RequiresCondition: primary
+	ProductionBar:
+		ProductionType: Infantry
+	EngineerRepairable:
+	WithDeathAnimation:
+		DeathSequence: dead
+		UseDeathTypeSuffix: false
+	ProvidesPrerequisite:
+		Prerequisite: biolab
+	ProvidesPrerequisite@buildingname:
+	ProximityExternalCondition:
+		Condition: bioboost
+		Range: 16c0
+		RequiresCondition: !disabled
+	RenderSprites:
+		Image: BIO
+	WithMakeAnimation:
+
+WEAP.C:
+	Inherits: WEAP
+	Inherits@IDISABLE: ^DisableOnLowPower
+	Buildable:
+		Queue: Tech
+		BuildPaletteOrder: 27
+		Prerequisites: ~anypower, ~house, ~structures.civ
+		Description: Produces vehicles and supplies.
+		Icon: icon-shipping
+	Tooltip:
+		Name: Shipping Center
+	Valued:
+		Cost: 10000
+	-RepairableBuilding:
+	-WithBuildingRepairDecoration:
+	CashTrickler:
+		Interval: 375
+		Amount: 1000
+		RequiresCondition: !disabled
+	ProvidesPrerequisite@civ:
+		Factions: civ
+		Prerequisite: vehicles.civ
+	ProvidesPrerequisite:
+		Prerequisite: weap
+	StoresResources:
+		Capacity: 5000
+	Power:
+		Amount: -200
+	Targetable:
+		TargetTypes: GroundActor, C4, DetonateAttack, Structure, SpyInfiltrate, CivRepair
+	RenderSprites:
+		Image: WEAP
+	WithResourceStoragePipsDecoration:
+		Position: BottomLeft
+		RequiresSelection: true
+		PipCount: 10
+		FullSequence: pip-yellow
+
+LHUS.C:
+	Inherits: ^PlayableCivBuilding
+	Inherits@IDISABLE: ^DisableOnLowPowerOrPowerDown
+	Building:
+		Footprint: x
+		Dimensions: 1,1
+	Buildable:
+		Queue: Building
+		BuildPaletteOrder: 26
+		Prerequisites: ~anypower, ~house, ~structures.civ
+		Description: Provides a view of the surroundings. \nCan detect cloaked units.
+	Valued:
+		Cost: 4000
+	Tooltip:
+		Name: Lighthouse
+	Selectable:
+		Bounds: 1024, 2048, 0, -682
+	SelectionDecorations:
+	Power:
+		Amount: -40
+	RevealsShroud:
+		MinRange: 6c0
+		Range: 10c0
+		RequiresCondition: !disabled
+		RevealGeneratedShroud: False
+	RevealsShroud@Offline:
+		Range: 5c0
+		RequiresCondition: disabled
+	RevealsShroud@GAPGEN:
+		Range: 6c0
+		RequiresCondition: !disabled
+	DetectCloaked:
+		Range: 6c0
+	ProvidesPrerequisite:
+		Prerequisite: lighthouse
+	RenderSprites:
+		Image: LHUS
+	-RepairableBuilding:
+	-WithBuildingRepairDecoration:
+	-WithDecoration@POWERDOWN:
+	WithDecoration@POWERDOWN:
+		Image: poweroff
+		Sequence: offline
+		Palette: chrome
+		RequiresCondition: powerdown
+		Position: Center
+
+WINDMILL.C:
+	Inherits: ^PlayableCivBuilding
+	Inherits@POWER_OUTAGE: ^DisabledByPowerOutage
+	Building:
+		Footprint: x
+		Dimensions: 1,1
+	Buildable:
+		Queue: Building
+		BuildPaletteOrder: 10
+		Prerequisites: ~techlevel.infonly, ~structures.civ
+		Description: Provides power to the city.
+	Valued:
+		Cost: 1000
+	Tooltip:
+		Name: Windmill
+	Selectable:
+		Bounds: 1024, 1024, 0, -597
+	SelectionDecorations:
+	Power:
+		Amount: 100
+	ScalePowerWithHealth:
+	Targetable:
+		TargetTypes: GroundActor, Structure, C4, DetonateAttack, SpyInfiltrate, CivRepair
+	InfiltrateForPowerOutage:
+	ProvidesPrerequisite:
+		Prerequisite: anypower
+	ProvidesPrerequisite@buildingname:
+	RenderSprites:
+		Image: WINDMILL
+
+POWR.C:
+	Inherits: POWR
+	Buildable:
+		Queue: Building
+		BuildPaletteOrder: 11
+		Prerequisites: anypower, ~techlevel.infonly, ~structures.civ
+	Valued:
+		Cost: 10000
+	Power:
+		Amount: 500
+	-RepairableBuilding:
+	-WithBuildingRepairDecoration:
+	Targetable:
+		TargetTypes: GroundActor, Structure, C4, DetonateAttack, SpyInfiltrate, CivRepair
+	RenderSprites:
+		Image: POWR
+
+UTILPOL1.C:
+	Inherits: ^PlayableCivBuilding
+	Building:
+		Footprint: x
+		Dimensions: 1,1
+	Buildable:
+		Queue: Tech
+		BuildPaletteOrder: 12
+		Prerequisites: anypower, ~structures.civ, ~anypower
+		Description: Provides power to the city.
+	Valued:
+		Cost: 100
+	Tooltip:
+		Name: L/R Utility Pole
+	Health:
+		HP: 1000
+	SelectionDecorations:
+	Power:
+		Amount: 10
+	ScalePowerWithHealth:
+	RenderSprites:
+		Image: UTILPOL1
+
+UTILPOL2.C:
+	Inherits: ^PlayableCivBuilding
+	Building:
+		Footprint: x
+		Dimensions: 1,1
+	Buildable:
+		Queue: Tech
+		BuildPaletteOrder: 13
+		Prerequisites: anypower, ~structures.civ, ~anypower
+		Description: Provides power to the city.
+	Valued:
+		Cost: 100
+	Tooltip:
+		Name: U/D Utility Pole
+	Health:
+		HP: 1000
+	SelectionDecorations:
+	Power:
+		Amount: 10
+	ScalePowerWithHealth:
+	RenderSprites:
+		Image: UTILPOL2
+
+CTEK:
+	Inherits: STEK
+	Inherits@IDISABLE: ^DisableOnLowPower
+	Buildable:
+		Queue: Tech
+		BuildPaletteOrder: 150
+		Prerequisites: ~weap, ~anypower, ~structures.civ, ~techlevel.medium
+		Description: Provides your city with advancement opportunities.
+		Icon: icon-city
+	Tooltip:
+		Name: City Hall
+	Valued:
+		Cost: 20000
+	CashTrickler:
+		Interval: 375
+		Amount: 2000
+		RequiresCondition: !disabled
+	RallyPoint:
+	Exit@1:
+		RequiresCondition: !being-captured
+		SpawnOffset: -42,810,0
+		ExitCell: 1,2
+	Exit@2:
+		RequiresCondition: !being-captured
+		SpawnOffset: -725,640,0
+		ExitCell: 0,2
+	Production:
+		Produces: Infantry, Civic
+	PrimaryBuilding:
+		PrimaryCondition: primary
+		SelectionNotification: PrimaryBuildingSelected
+	WithDecoration@primary:
+		RequiresSelection: true
+		Image: pips
+		Sequence: tag-primary
+		Position: Top
+		RequiresCondition: primary
+	ProductionBar:
+		ProductionType: Infantry
+	Power:
+		Amount: -200
+	-RepairableBuilding:
+	-WithBuildingRepairDecoration:
+	RenderSprites:
+		Image: STEK
+
+CFLARF:
+	Inherits: ^PlayableCivBuilding
+	Building:
+		Footprint: xxx xxx
+		Dimensions: 3,2
+	Buildable:
+		Queue: Tech
+		BuildPaletteOrder: 133
+		Prerequisites: ~weap, ~radar, ~advtechcenter, ~structures.civ, ~techlevel.unrestricted
+		Description: Allows your city to develop aircraft.
+	Valued:
+		Cost: 15000
+	Tooltip:
+		Name: Aerospace Center
+	ProvidesPrerequisite:
+		Prerequisite: aerospace
+	ProvidesPrerequisite@buildingname:
+	Health:
+		HP: 40000
+	Armor:
+		Type: Wood
+	RevealsShroud:
+		MinRange: 2c0
+		Range: 3c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 2c0
+	WithBuildingBib:
+	EngineerRepairable:
+	Power:
+		Amount: -200
+	RenderSprites:
+		Image: CFLARF
+
+AIRPORT:
+	Inherits: ^PlayableCivBuilding
+	Building:
+		Footprint: xxxxx xxxxx xxxxx
+		Dimensions: 5,3
+	Buildable:
+		Queue: Tech
+		BuildPaletteOrder: 135
+		Prerequisites: ~aerospace, ~radar, ~structures.civ, ~techlevel.medium
+		Description: Allows your city to develop aircraft.
+	Valued:
+		Cost: 30000
+	Health:
+		HP: 100000
+	Tooltip:
+		Name: Airport
+	Selectable:
+		Class: afld
+	#	Bounds: 72,48
+	RevealsShroud:
+		MinRange: 4c0
+		Range: 5c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 4c0
+	Exit@1:
+		RequiresCondition: !being-captured
+		ExitCell: 2,1
+		Facing: 256
+	RallyPoint:
+	Production:
+		Produces: Aircraft, Plane
+	ProvidesPrerequisite@civ:
+		Factions: civ
+		Prerequisite: aircraft.civ
+	ProvidesPrerequisite@buildingname:
+	Reservable:
+	ParatroopersPower@civmoneydrop:
+		OrderName: CivilianMoneyDrop
+		Prerequisites: aircraft.civ
+		Icon: cratedrop
+		ChargeInterval: 300
+		Name: Supply Drop
+		Description: A C-17 drops several supply crates\nanywhere on the map.
+		DropItems: moneycrate,moneycrate,moneycrate,moneycrate,moneycrate,moneycrate,moneycrate,moneycrate,moneycrate,moneycrate
+		SelectTargetSpeechNotification: SelectTarget
+		AllowImpassableCells: false
+		QuantizedFacings: 8
+		CameraActor: camera.paradrop
+		DisplayBeacon: true
+		BeaconPoster: cratedrop
+		ArrowSequence: arrow
+		ClockSequence: clock
+		CircleSequence: circles
+		UseDirectionalTarget: True
+		DirectionArrowAnimation: paradirection
+		SupportPowerPaletteOrder: 100
+	ProductionBar:
+		ProductionType: Aircraft
+	SupportPowerChargeBar:
+	PrimaryBuilding:
+		PrimaryCondition: primary
+		SelectionNotification: PrimaryBuildingSelected
+	Power:
+		Amount: -20
+	Targetable:
+		TargetTypes: GroundActor, C4, DetonateAttack, Structure, SpyInfiltrate, CivRepair
+	InfiltrateForSupportPower:
+		Proxy: aircraft.upgraded
+		Types: SpyInfiltrate
+	WithDecoration@primary:
+		RequiresSelection: true
+		Image: pips
+		Sequence: tag-primary
+		Position: Top
+		RequiresCondition: primary
+
+SYRD.C:
+	Inherits: ^PlayableCivBuilding
+	Selectable:
+		Bounds: 3072, 2048
+	Buildable:
+		Queue: Tech
+		BuildPaletteOrder: 130
+		Prerequisites: ~weap, ~techcenter, ~lighthouse, ~structures.civ, ~techlevel.medium
+	Valued:
+		Cost: 30000
+	Targetable:
+		TargetTypes: GroundActor, Water, Structure, WaterStructure, C4, DetonateAttack, SpyInfiltrate, CivRepair
+	Building:
+		Footprint: XXX xxx XXX
+		Dimensions: 3,3
+		TerrainTypes: Water
+	RequiresBuildableArea:
+		Adjacent: 8
+	-GivesBuildableArea:
+	Health:
+		HP: 100000
+	RevealsShroud:
+		MinRange: 4c0
+		Range: 5c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 4c0
+	Exit@1:
+		RequiresCondition: !being-captured
+		SpawnOffset: -1024,1024,0
+		Facing: 640
+		ExitCell: 0,2
+		ProductionTypes: Ship, Boat
+	Exit@2:
+		RequiresCondition: !being-captured
+		SpawnOffset: 1024,1024,0
+		Facing: 896
+		ExitCell: 2,2
+		ProductionTypes: Ship, Boat
+	Exit@3:
+		RequiresCondition: !being-captured
+		SpawnOffset: -1024,-1024,0
+		Facing: 384
+		ExitCell: 0,0
+		ProductionTypes: Ship, Boat
+	Exit@4:
+		RequiresCondition: !being-captured
+		SpawnOffset: 1024,-1024,0
+		Facing: 128
+		ExitCell: 2,0
+		ProductionTypes: Ship, Boat
+	Production:
+		Produces: Ship, Boat
+	PrimaryBuilding:
+		PrimaryCondition: primary
+		SelectionNotification: PrimaryBuildingSelected
+	-SpawnActorsOnSell:
+	RepairsUnits:
+		HpPerStep: 1000
+		StartRepairingNotification: Repairing
+		FinishRepairingNotification: UnitRepaired
+		PlayerExperience: 15
+	RallyPoint:
+	ProductionBar:
+		ProductionType: Ship
+	Power:
+		Amount: -30
+	DetectCloaked:
+		DetectionTypes: Underwater
+		Range: 10c0
+	RenderDetectionCircle:
+	ProvidesPrerequisite@civ:
+		Factions: civ
+		Prerequisite: ships.civ
+	ProvidesPrerequisite@buildingname:
+	MapEditorData:
+		ExcludeTilesets: INTERIOR
+	WithDecoration@primary:
+		RequiresSelection: true
+		Image: pips
+		Sequence: tag-primary
+		Position: Top
+		RequiresCondition: primary
+	HitShape:
+		TargetableOffsets: 768,0,0, 768,-1024,0, 768,1024,0
+		Type: Rectangle
+			TopLeft: -1536, -1152
+			BottomRight: 1536, 598
+	HitShape@BOTTOM:
+		TargetableOffsets: -768,0,0
+		Type: Rectangle
+			TopLeft: -512, 598
+			BottomRight: 512, 1110
+	RenderSprites:
+		Image: SYRD
+
+CIVFLAG:
+	Inherits: ^PlayableCivBuilding
+	Buildable:
+		Queue: Tech
+		BuildPaletteOrder: 14
+		Prerequisites: ~techcenter, ~structures.civ, ~techlevel.medium
+		Description: A landmark that inspires your city.
+		BuildDuration: 750
+	Tooltip:
+		Name: Flag
+	Valued:
+		Cost: 8000
+	Health:
+		HP: 10000
+	Armor:
+		Type: None
+	ProximityExternalCondition:
+		Condition: flagboost
+		Range: 6c0
+	RenderSprites:
+		Image: CTFLAG
+
+AUTOGARA:
+	Inherits: ^PlayableCivBuilding
+	Inherits@IDISABLE: ^DisableOnLowPower
+	Building:
+		Footprint: xxx xxx
+		Dimensions: 3,2
+	Buildable:
+		Queue: Tech
+		BuildPaletteOrder: 28
+		Prerequisites: ~techcenter, ~structures.civ, ~techlevel.medium
+		Description: Repairs and maintains vehicles in your city.
+	Tooltip:
+		Name: Auto Garage
+	Valued:
+		Cost: 20000
+	Health:
+		HP: 100000
+	ProvidesPrerequisite:
+		Prerequisite: garage
+	ProvidesPrerequisite@buildingname:
+	ProximityExternalCondition:
+		Condition: garageboost
+		Range: 6c0
+		RequiresCondition: !disabled
+	RenderSprites:
+		Image: SPLYDEPO
+	WithMakeAnimation:
+	EngineerRepairable:
+
+ACTEK:
+	Inherits: ^PlayableCivBuilding
+	Inherits@IDISABLE: ^DisableOnLowPower
+	Building:
+		Footprint: xxx xxx
+		Dimensions: 3,2
+	Buildable:
+		Queue: Tech
+		BuildPaletteOrder: 160
+		Prerequisites: ~techcenter, ~structures.civ, ~techlevel.medium
+		Description: Provides the capability to build advanced projects.
+	Tooltip:
+		Name: Advanced Communications Center
+	Valued:
+		Cost: 30000
+	CashTrickler:
+		Interval: 375
+		Amount: 2000
+		RequiresCondition: !disabled
+	Power:
+		Amount: -200
+	EngineerRepairable:
+	ProvidesPrerequisite:
+		Prerequisite: advtechcenter
+	ProvidesPrerequisite@buildingname:
+	RenderSprites:
+		Image: ADVCOMF
+
+RADIO.C:
+	Inherits: ^PlayableCivBuilding
+	Inherits@IDISABLE: ^DisableOnLowPowerOrPowerDown
+	Building:
+		Footprint: _____ ___x_ xxxxx xxxxx xxxxx
+		Dimensions: 5,5
+	HitShape:
+		UseTargetableCellsOffsets: true
+		Type: Rectangle
+			TopLeft: -2048, -2048
+			BottomRight: 2048, 2048
+	Buildable:
+		Queue: Tech
+		BuildPaletteOrder: 155
+		Prerequisites: ~advtechcenter, ~structures.civ, ~techlevel.medium
+		Description: Provides access to GPS Satellite.\nAlso provides radar.
+		BuildLimit: 1
+		BuildDuration: 17500
+	Tooltip:
+		Name: Radio Telescope
+	Valued:
+		Cost: 10000
+	Health:
+		HP: 100000
+	Targetable:
+		TargetTypes: GroundActor, Structure, C4, DetonateAttack, SpyInfiltrate, CivRepair
+	InfiltrateForExploration:
+		Types: SpyInfiltrate
+	Power:
+		Amount: -200
+	ProvidesRadar:
+		RequiresCondition: !jammed && !disabled
+	ProvidesPrerequisite:
+		Prerequisite: radar
+	ProvidesPrerequisite@buildingname:
+	RenderSprites:
+		Image: radio
+	RevealsShroud:
+		MinRange: 6c0
+		Range: 10c0
+		RequiresCondition: !disabled
+		RevealGeneratedShroud: False
+	RevealsShroud@Offline:
+		Range: 5c0
+		RequiresCondition: disabled
+	RevealsShroud@GAPGEN:
+		Range: 6c0
+		RequiresCondition: !disabled
+	ExternalCondition@JAMMED:
+		Condition: jammed
+	EngineerRepairable:
+	-RepairableBuilding:
+	-WithBuildingRepairDecoration:
+	-WithDecoration@POWERDOWN:
+	WithDecoration@POWERDOWN:
+		Image: poweroff
+		Sequence: offline
+		Palette: chrome
+		RequiresCondition: powerdown
+		Position: Center
+
+SATCNTR:
+	Inherits: ^PlayableCivBuilding
+	Inherits@TECH: ^TechCenter
+	Inherits@IDISABLE: ^DisableOnLowPower
+	Inherits@shape: ^2x2Shape
+	Selectable:
+		Bounds: 2048, 2048
+	Buildable:
+		Queue: Building
+		BuildPaletteOrder: 140
+		Prerequisites: ~advtechcenter, ~radar, ~structures.civ, ~techlevel.unrestricted
+		Description: Provides GPS launch capability.
+	Valued:
+		Cost: 30000
+	Tooltip:
+		Name: Satellite Launch Center
+	Building:
+		Footprint: xx xx ==
+		Dimensions: 2,3
+		LocalCenterOffset: 0,-512,0
+	Health:
+		HP: 60000
+	RevealsShroud:
+		MinRange: 4c0
+		Range: 5c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 4c0
+	WithBuildingBib:
+	Power:
+		Amount: -200
+	ProvidesPrerequisite@buildingname:
+	RenderSprites:
+		Image: ATEK

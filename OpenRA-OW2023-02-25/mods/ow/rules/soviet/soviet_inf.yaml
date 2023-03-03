@@ -1,0 +1,130 @@
+SHOK:
+	Buildable:
+		Description: Elite infantry with portable Tesla coils.\nSpeed: 56\n  Strong vs Infantry, Vehicles\n  Weak vs Aircraft
+	Armament@BUS:
+		Name: bus
+		Weapon: PortaTesla
+
+DOG:
+	Buildable:
+		Description: Anti-infantry unit.\nCan detect spies.\nSpeed: 99\n  Strong vs Infantry\n  Weak vs Vehicles, Aircraft
+	WithDeathAnimation:
+		DeathTypes:
+			DefaultDeath: 1
+			BulletDeath: 2
+			SmallExplosionDeath: 3
+			ExplosionDeath: 4
+			FireDeath: 5
+			ElectricityDeath: 6
+		CrushedSequence: die-crushed
+	-SpawnActorOnDeath@fire:
+	-SpawnActorOnDeath@zombie:
+
+HEAVYGUY:
+	Inherits: ^NBOS
+	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
+	Buildable:
+		Queue: Infantry
+		BuildAtProductionType: Soldier
+		BuildPaletteOrder: 300
+		Prerequisites: advtechcenter, ~techlevel.unrestricted, ~infantry.soviet
+		BuildLimit: 1
+		Description: Elite commando with a minigun.\n  Strong vs Infantry, light vehicles, aircraft\n  Weak vs Tanks
+	AutoTargetPriority@Infantry:
+		ValidTargets: Infantry, Cyborg
+		Priority: 2
+	Valued:
+		Cost: 2400
+	Tooltip:
+		Name: Heavy
+	Health:
+		HP: 130000
+	Armor:
+		Type: Heavy
+	RevealsShroud:
+		Range: 7c0
+	Targetable:
+		RequiresCondition: !parachute
+		TargetTypes: GroundActor, Cyborg
+	Armament@PRIMARY:
+		Weapon: DoomMinigunHeavy
+		LocalOffset: 620,0,140
+		MuzzleSequence: muzzle
+	Armament@PRIMARY2:
+		Weapon: HeavyGrenade
+		LocalOffset: 340,150,400, 340,-150,400
+	Armament@GARRISONED:
+		Name: garrisoned
+		Weapon: DoomMinigunHeavy
+	Armament@BUS:
+		Name: bus
+		Weapon: DoomMinigunHeavy
+	Armament@TERTIARY:
+		Name: secondary
+		Weapon: DoomMinigunDKAA
+		LocalOffset: 620,0,140
+		MuzzleSequence: muzzle
+	AttackFrontal:
+		FacingTolerance: 0
+	Mobile:
+		Speed: 64
+		Voice: Move
+	AttackMove:
+		Voice: Move
+	Passenger:
+		Voice: Move
+		CustomPipType: red
+		Weight: 3
+	Guard:
+		Voice: Move
+	ExternalCondition@PRODUCED:
+		Condition: produced
+	VoiceAnnouncement:
+		RequiresCondition: produced
+		Voice: Build
+	Voiced:
+		VoiceSet: HeavyVoice
+	AnnounceOnKill:
+	WithInfantryBody:
+		DefaultAttackSequence: shoot
+	ProducibleWithLevel:
+		Prerequisites: barracks.upgraded
+	Selectable:
+		Bounds: 1194, 1194, 0, -640
+		DecorationBounds: 1194, 1194, 0, -640
+	ChangesHealth:
+		Step: 75
+		Delay: 3
+		StartIfBelow: 50
+		DamageCooldown: 150
+	RenderSprites:
+		PlayerPalette: tsunit
+	WithDeathAnimation:
+		DeathSequencePalette: tsunit
+	WithMuzzleOverlay:
+	ProximityExternalCondition:
+		Condition: squadboost
+		Range: 7c0
+		AffectsParent: true
+	WithDecoration@officer2:
+		Image: pips
+		Sequence: pip-bonus
+		Palette: effect
+		Position: TopRight
+		ValidRelationships: None,Neutral,Enemy,Ally
+		RequiresCondition: !demoralise
+	ProximityExternalCondition@demoralise:
+		Condition: demoralise
+		Range: 8c0
+		AffectsParent: false
+		ValidRelationships: Enemy
+	-Cloneable:
+	AmbientSound:
+		SoundFiles: heavyidle1.aud, heavyidle2.aud
+		Interval: 500, 1500
+		Delay: 500, 1500
+		RequiresCondition: !ismoving
+	GrantConditionOnMovement:
+		Condition: ismoving
+	SoundOnDamageTransition:
+		DamagedSounds: heavycrit1.aud,heavycrit2.aud,heavycrit3.aud

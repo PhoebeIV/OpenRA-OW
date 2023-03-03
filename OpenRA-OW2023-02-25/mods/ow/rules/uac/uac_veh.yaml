@@ -1,0 +1,335 @@
+STNK.DM:
+	Inherits: ^Vehicle
+	Inherits@GAINSEXPERIENCE: ^GainsExperience
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Inherits@CARGOPIPS: ^CargoPips
+	Buildable:
+		Queue: Vehicle
+		BuildPaletteOrder: 140
+		Prerequisites: barracks, fix, ~vehicles.uac, ~techlevel.unrestricted
+		Icon: icon-raider
+		Description: Heavy armored infantry transport\n  serves as UAC main battle tank. \n Speed: 128\n  Strong vs Light armor\n  Weak vs Infantry, Tanks, Aircraft
+	Valued:
+		Cost: 900
+	Tooltip:
+		Name: UAC Raider
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 42000
+	Armor:
+		Type: Heavy
+	Mobile:
+		Speed: 128
+		Locomotor: heavywheeled
+		PauseOnCondition: notmobile || being-captured
+	RevealsShroud:
+		MinRange: 4c0
+		Range: 6c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 4c0
+	Armament:
+		Weapon: RaiderRPG
+		LocalOffset: 192,0,176
+	Turreted:
+		TurnSpeed: 20
+	AttackTurreted:
+		PauseOnCondition: disabled
+	WithSpriteTurret:
+	Cargo:
+		Types: Infantry
+		MaxWeight: 4
+		LoadingCondition: notmobile
+		PassengerConditions:
+			e1of: e1of
+	ProximityExternalCondition@officer:
+		RequiresCondition: e1of
+		Condition: squadboost
+		Range: 5c0
+	WithDecoration@officer2:
+		Image: pips
+		Sequence: pip-bonus
+		Palette: effect
+		Position: TopRight
+		ValidRelationships: None,Neutral,Enemy,Ally
+		RequiresCondition: !demoralise && e1of
+	ExternalCondition@demoralise:
+		Condition: demoralise
+	ProducibleWithLevel:
+		Prerequisites: vehicles.upgraded
+	RenderSprites:
+		Image: STNK
+	WithCargoPipsDecoration:
+		Position: BottomLeft
+		RequiresSelection: true
+
+1TNK.DM:
+	Inherits: 1TNK.N
+	Buildable:
+		Prerequisites: ~vehicles.uac, ~techlevel.low, ~!vehicles.mars
+	Tooltip:
+		Name: UAC Light Tank
+
+DMGTNK:
+	Inherits: 4TNK
+	Buildable:
+		Queue: Vehicle
+		BuildPaletteOrder: 320
+		Prerequisites: fix, advtechcenter, ~vehicles.deimos, ~techlevel.unrestricted
+		Description: Big and slow gauss tank, with anti-air capability.\nCan crush concrete walls.\nSpeed: 46\n  Strong vs Vehicles, Infantry, Aircraft\n  Weak vs Nothing
+	Valued:
+		Cost: 2100
+	Tooltip:
+		Name: Mammoth Mk III
+	Mobile:
+		Speed: 46
+	Armament@PRIMARY:
+		Weapon: MammothGauss
+	SpawnActorOnDeath:
+		Actor: DMGTNK.Husk
+
+DMGTNK.PH:
+	Inherits: DMGTNK
+	Inherits@CARGOPIPS: ^CargoPips
+	Buildable:
+		Queue: Vehicle
+		BuildPaletteOrder: 320
+		Prerequisites: fix, advtechcenter, ~vehicles.phobos, ~techlevel.unrestricted
+		Description: Big and slow gauss tank, with anti-air capability.\nCan crush concrete walls.\nCan transport infantry.\nSpeed: 60\n  Strong vs Vehicles, Infantry, Aircraft\n  Weak vs Nothing
+	Passenger:
+		Weight: 6
+	Valued:
+		Cost: 2100
+	Health:
+		HP: 80000
+	Tooltip:
+		Name: Raider Mammoth
+	Mobile:
+		Speed: 56
+		PauseOnCondition: notmobile || being-captured
+	Cargo:
+		Types: Infantry
+		MaxWeight: 4
+		LoadingCondition: notmobile
+		EjectOnDeath: true
+		PassengerConditions:
+			e1of: e1of
+	ProximityExternalCondition@officer:
+		RequiresCondition: e1of
+		Condition: squadboost
+		Range: 5c0
+	WithDecoration@officer2:
+		Image: pips
+		Sequence: pip-bonus
+		Palette: effect
+		Position: TopRight
+		ValidRelationships: None,Neutral,Enemy,Ally
+		RequiresCondition: !demoralise && e1of
+	ExternalCondition@demoralise:
+		Condition: demoralise
+	SpawnActorOnDeath:
+		Actor: DMGTNK.PH.Husk
+	Explodes:
+		Weapon: UnitExplodeOverlord
+		EmptyWeapon: UnitExplodeOverlord
+	RenderSprites:
+		Image: DMGTNK
+	WithCargoPipsDecoration:
+		Position: BottomLeft
+		RequiresSelection: true
+
+DMGTNK.M:
+	Inherits: DMGTNK
+	Buildable:
+		Queue: Vehicle
+		BuildPaletteOrder: 320
+		Icon: icon-overlord
+		Prerequisites: fix, advtechcenter, ~vehicles.mars, ~techlevel.unrestricted
+		Description: Big and slow gauss tank, boosts nearby troops.\nAlso has BFG9000.\nCan crush concrete walls.\nSpeed: 36\n  Strong vs Vehicles, Infantry\n  Weak vs Aircraft
+		BuildLimit: 2
+	Valued:
+		Cost: 4500
+	Tooltip:
+		Name: Mammoth Overlord
+	Health:
+		HP: 150000
+	Mobile:
+		Speed: 32
+	Passenger:
+		Weight: 8
+	Armament@PRIMARY:
+		Turret: primary
+	Armament@SECONDARY:
+		Turret: primary
+		Weapon: DoomRPG
+	Armament@TERTIARY:
+		Turret: secondary
+		Weapon: DoomBFG
+		Recoil: 200
+		RecoilRecovery: 15
+		LocalOffset: 768,0,0
+		FireDelay: 25
+	Armament@SOUND:
+		Turret: secondary
+		Weapon: DoomBFGSound
+	Turreted:
+		Turret: primary
+		TurnSpeed: 8
+	Turreted@2:
+		Turret: secondary
+		Offset: -350,0,256
+		TurnSpeed: 16
+	WithSpriteTurret:
+		Turret: primary
+	WithSpriteTurret@2:
+		Turret: secondary
+		Sequence: turret3
+	AttackTurreted:
+		Turrets: primary, secondary
+	ProximityExternalCondition@officer:
+		Condition: squadboost
+		Range: 5c0
+	WithDecoration@officer2:
+		Image: pips
+		Sequence: pip-bonus
+		Palette: effect
+		Position: TopRight
+		ValidRelationships: None,Neutral,Enemy,Ally
+		RequiresCondition: !demoralise
+	ExternalCondition@demoralise:
+		Condition: demoralise
+	SpawnActorOnDeath:
+		Actor: DMGTNK.M.Husk
+	RenderSprites:
+		Image: DMGTNK
+
+BTNK.M:
+	Inherits: ^TrackedVehicle
+	Inherits@GAINSEXPERIENCE: ^GainsExperience
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Buildable:
+		Queue: Vehicle
+		BuildPaletteOrder: 50
+		Prerequisites: fix, ~vehicles.mars, ~techlevel.medium
+		Description: Tank mounted with a plasma cannon.\nSpeed: 85\n  Strong vs Vehicles, Infantry\n  Weak vs Aircraft
+	Valued:
+		Cost: 900
+	Tooltip:
+		Name: Plasma Tank
+	Health:
+		HP: 40000
+	Armor:
+		Type: Heavy
+	Mobile:
+		Speed: 85
+	RevealsShroud:
+		MinRange: 4c0
+		Range: 6c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 4c0
+	Turreted:
+		TurnSpeed: 20
+	AttackTurreted:
+		PauseOnCondition: disabled
+	Armament:
+		Weapon: DoomPlasmaTank
+		LocalOffset: 768,-40,90, 768,40,90
+		MuzzleSequence: muzzle
+		Recoil: 85
+		RecoilRecovery: 25
+	WithSpriteTurret:
+	SpawnActorOnDeath:
+		Actor: BTNK.M.Husk
+	ProducibleWithLevel:
+		Prerequisites: vehicles.upgraded
+	RenderSprites:
+		Image: BTNK
+
+BANEBLADE:
+	Inherits: ^EpicVehicle
+	Inherits@EPIC: ^EpicUnit
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Buildable:
+		Queue: Vehicle
+		BuildPaletteOrder: 9000
+		Prerequisites: ulttechcenter, ~vehicles.mars, ~techlevel.unrestricted
+		Description: Huge, slow but destructive tank of the UAC.\nSpeed: 24\n  Strong vs Everything\n  Weak vs Nothing
+		BuildLimit: 1
+	Valued:
+		Cost: 20000
+	Tooltip:
+		Name: Baneblade
+	Health:
+		HP: 500000
+	Armor:
+		Type: Heavy
+	Mobile:
+		Speed: 24
+		TurnSpeed: 4
+		Locomotor: heavytracked
+		Voice: Move
+	RevealsShroud:
+		MinRange: 8c0
+		Range: 12c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 8c0
+	Turreted:
+		TurnSpeed: 4
+	-Passenger:
+	Guard:
+		Voice: Move
+	Armament@PRIMARY:
+		Weapon: BanebladeCannon
+		LocalOffset: 1100,200,800
+		Recoil: 200
+		RecoilRecovery: 100
+		MuzzleSequence: muzzle
+	AttackFrontal:
+		PauseOnCondition: disabled
+		FacingTolerance: 0
+	VoiceAnnouncement:
+		Voice: Build2
+	AnnounceOnKill:
+	WithMuzzleOverlay:
+	AutoTarget:
+	ChangesHealth:
+		Step: 2
+		Delay: 6
+		StartIfBelow: 50
+		DamageCooldown: 350
+	Selectable:
+		Bounds: 2560, 2048, 0, -426
+		DecorationBounds: 2560, 2048, 0, -426
+	ClassicFacingBodyOrientation:
+		QuantizedFacings: 32
+	-WithFacingSpriteBody:
+	-QuantizeFacingsFromSequence:
+	RenderSprites:
+	RenderVoxels:
+		PlayerPalette: tsunit
+		Scale: 1.1
+	WithVoxelBody:
+	WithVoxelTurret:
+	WithVoxelBarrel:
+	Explodes:
+		Weapon: MiniNuke
+		EmptyWeapon: MiniNuke
+	Voiced:
+		VoiceSet: ArnieVoice
+	Explodes@arnie:
+		Weapon: ArnieDeath
+		EmptyWeapon: ArnieDeath
+	SoundOnDamageTransition:
+		DamagedSounds: arniecrit1.wav,arniecrit2.wav,arniecrit3.wav
+	ChangesHealth:
+		Step: 750
+		Delay: 25
+		StartIfBelow: 50
+		DamageCooldown: 150
+	HitShape:
+		Type: Rectangle
+			TopLeft: -1024, -1024
+			BottomRight: 1024, 1024

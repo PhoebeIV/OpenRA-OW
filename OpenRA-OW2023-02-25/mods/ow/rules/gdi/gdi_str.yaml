@@ -1,0 +1,189 @@
+ATEK.GDI:
+	Inherits: ATEK
+	Building:
+		BuildSounds: constru2.aud, hvydoor1.aud
+	Buildable:
+		Queue: Building
+		BuildPaletteOrder: 140
+		Prerequisites: weapd, hqd, ~structures.gdi, ~techlevel.unrestricted, ~!ai.hard
+		Description: Provides GDI advanced technologies.
+	Tooltip:
+		Name: GDI Tech Center
+	RenderSprites:
+		Image: atek
+
+EYED:
+	Inherits: ^DawnBuilding
+	Inherits@IDISABLE: ^DisableOnLowPowerOrPowerDown
+	Inherits@shape: ^2x2Shape
+	Selectable:
+		Bounds: 2048, 2048
+	HitShape:
+		UseTargetableCellsOffsets: false
+		TargetableOffsets: 0,0,0, 630,-384,0, 630,384,0, -700,-512,0, -700,512,0
+	Buildable:
+		Queue: Tech
+		BuildPaletteOrder: 140
+		Prerequisites: techcenter, ~techlevel.unrestricted, ~structures.eyedprereq # GDI, UAC, Fed
+		Description: Provides radar and Orbital Ion Cannon support power.\nRequires power to operate.
+		BuildLimit: 1
+	Valued:
+		Cost: 3000
+	Tooltip:
+		Name: Adv. Com. Center
+	Building:
+		Footprint: x_ xx ==
+		Dimensions: 2,3
+		LocalCenterOffset: 0,-512,0
+	Targetable:
+		TargetTypes: GroundActor, Structure, C4, DetonateAttack, SpyInfiltrate
+	Health:
+		HP: 150000
+	Armor:
+		Type: Wood
+	RevealsShroud:
+		MinRange: 6c0
+		Range: 10c0
+		RequiresCondition: !disabled
+		RevealGeneratedShroud: False
+	RevealsShroud@Offline:
+		Range: 5c0
+		RequiresCondition: disabled
+	RevealsShroud@GAPGEN:
+		Range: 6c0
+		RequiresCondition: !disabled
+	WithBuildingBib:
+	WithSpriteBody:
+		PauseOnCondition: disabled || jammed
+	ProvidesRadar:
+		RequiresCondition: !jammed && !disabled
+	InfiltrateForExploration:
+		Types: SpyInfiltrate
+	Power:
+		Amount: -250
+	ProvidesPrerequisite@uac:
+		Factions: phobos, deimos, mars
+		Prerequisite: eyed.uac
+	ProvidesPrerequisite@fed:
+		Factions: sword, angels, silver
+		Prerequisite: eyed.fed
+	ProvidesPrerequisite@buildingname:
+	ProvidesPrerequisite@radar:
+		Prerequisite: radar
+	ProvidesPrerequisite@dome:
+		Prerequisite: dome
+	ProvidesPrerequisite@hqd:
+		Prerequisite: hqd
+	ProvidesPrerequisite@superweapon:
+		Prerequisite: superweapon
+	ExternalCondition@JAMMED:
+		Condition: jammed
+	Explodes:
+		Type: CenterPosition
+		Weapon: MiniNuke
+		EmptyWeapon: MiniNuke
+	IonCannonPower:
+		PauseOnCondition: disabled
+		Icon: ioncannon
+		Cursor: chrono-target
+		ChargeInterval: 19500
+		Name: Ion Cannon
+		Description: Initiate an Ion Cannon strike.\nApplies instant damage to a small area.
+		BeginChargeSpeechNotification: IonCannonCharge
+		EndChargeSpeechNotification: IonCannonReady
+		SelectTargetSpeechNotification: DawnSelectTarget
+		InsufficientPowerSpeechNotification: InsufficientPower
+		OnFireSound: ion_fire2.aud
+		DisplayRadarPing: True
+		CameraActor: camera.small
+		SupportPowerPaletteOrder: 20
+		WeaponDelay: 0
+		CameraRemoveDelay: 100
+		Effect: explosion
+		EffectSequence: piff
+		Weapon: MiniNukeIon
+		DisplayTimerRelationships: Ally, Neutral, Enemy
+	RenderSprites:
+		PlayerPalette: dawn
+	ActorPreviewPlaceBuildingPreview:
+	Cloak@stealthgen:
+		Palette: dawncloak
+	WithDeathAnimation:
+		DeathSequence: dead
+		UseDeathTypeSuffix: false
+
+ATWR:
+	Inherits: ^Defense
+	Inherits@IDISABLE: ^DisableOnLowPowerOrPowerDown
+	Inherits@AUTOTARGET: ^AutoTargetAll
+	Building:
+		BuildSounds: constru2.aud, hvydoor1.aud
+	Valued:
+		Cost: 1300
+	Tooltip:
+		Name: Advanced Guard Tower
+	Buildable:
+		BuildPaletteOrder: 60
+		Prerequisites: radar, ~structures.gdi, ~techlevel.unrestricted
+		Queue: Defense
+		Description: All-purpose defensive structure.\n	Strong vs Aircraft, Tanks\n	Weak vs Infantry
+	Selectable:
+		Bounds: 1024, 1024
+		DecorationBounds: 938, 2048, 0, -512
+	SelectionDecorations:
+	Health:
+		HP: 65000
+	Armor:
+		Type: Heavy
+	RevealsShroud:
+		Range: 8c0
+	WithBuildingBib:
+		HasMinibib: true
+	Turreted:
+		TurnSpeed: 1023
+		Offset: 128,128,384
+	Armament@PRIMARY:
+		Weapon: TowerMissile
+		LocalOffset: 256,128,0, 256,-128,0
+		LocalYaw: -100,100
+	Armament@SECONDARY:
+		Weapon: TowerAAMissile
+		LocalOffset: 256,128,0, 256,-128,0
+		LocalYaw: -100,100
+	AttackTurreted:
+		RequiresCondition: !build-incomplete
+		PauseOnCondition: lowpower || disabled
+	-BodyOrientation:
+	ClassicFacingBodyOrientation:
+		QuantizedFacings: 8
+	DetectCloaked:
+		Range: 6c0
+		RequiresCondition: !lowpower
+	Power:
+		Amount: -100
+	WithDeathAnimation:
+		DeathSequence: dead
+		UseDeathTypeSuffix: false
+
+ATWR2:
+	Inherits: ATWR
+	Valued:
+		Cost: 1000
+	Tooltip:
+		Name: Rocket Tower
+	Buildable:
+		Prerequisites: factory, ~structures.allies, ~techlevel.unrestricted
+		Description: High-explosive defensive structure.\nCannot attack air.\n	Strong vs Vehicles
+	Health:
+		HP: 50000
+	Armor:
+		Type: Heavy
+	Armament@PRIMARY:
+		Weapon: TowerMissile
+		LocalOffset: 256,128,0, 256,-128,0
+		LocalYaw: -100,100
+	-Armament@SECONDARY:
+	Power:
+		Amount: -60
+	RenderSprites:
+		Image: ATWR
