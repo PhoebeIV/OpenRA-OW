@@ -142,16 +142,16 @@
 		Condition: CurseCondition
 	DamageMultiplier@CurseCondition:
 		RequiresCondition: CurseCondition
-		Modifier: 150
+		Modifier: 120
 	FirepowerMultiplier@CurseCondition:
 		RequiresCondition: CurseCondition
 		Modifier: 80
 	ReloadDelayMultiplier@CurseCondition:
 		RequiresCondition: CurseCondition
-		Modifier: 130
+		Modifier: 120
 	SpeedMultiplier@CurseCondition:
 		RequiresCondition: CurseCondition
-		Modifier: 75
+		Modifier: 80
 	WithDecoration@CurseCondition:
 		Image: pips
 		Sequence: mediorecorruptionpip
@@ -320,7 +320,7 @@
 			ExplosionDeath: 4
 	TakeCover:
 		SpeedModifier: 130
-		Duration: 105
+		Duration: 75
 		DamageTriggers: TriggerProne
 	GrantConditionOnPrerequisite@elementalweps:
 		Condition: elementalweps
@@ -965,9 +965,9 @@
 		Modifier: 75
 	ChangesHealth@TotemDebuf:
 		RequiresCondition: TotemDebuf
-		Step: -1000
-		Delay: 50
-		StartIfBelow: 110
+		PercentageStep: -2
+		Delay: 25
+		StartIfBelow: 101
 		DamageCooldown: 0
 	ChangesHealth@aeiouboost:
 		RequiresCondition: aeiouboost
@@ -1383,6 +1383,53 @@
 		Delay: 75
 		StartIfBelow: 70
 		DamageCooldown: 100
+
+#Reduces upgrade effectiveness on VERY strong epic infantry units
+^EpicInfantryNerf:
+	Inherits: ^Infantry
+	DamageMultiplier@iar1:
+		RequiresCondition: iar1 && !iar2
+		Modifier: 96
+	DamageMultiplier@iar2:
+		RequiresCondition: iar2 && !iar3
+		Modifier: 92
+	DamageMultiplier@iar3:
+		RequiresCondition: iar3
+		Modifier: 88
+	FirepowerMultiplier@ifp1:
+		RequiresCondition: ifp1 && !ifp2
+		Modifier: 104
+	FirepowerMultiplier@ifp2:
+		RequiresCondition: ifp2 && !ifp3
+		Modifier: 108
+	FirepowerMultiplier@ifp3:
+		RequiresCondition: ifp3
+		Modifier: 112
+	ShakeOnDeath:
+		Duration: 15
+	ChangesHealth@TotemDebuf:
+		RequiresCondition: TotemDebuf
+		PercentageStep: -2
+		Delay: 50
+		StartIfBelow: 101
+		DamageCooldown: 0
+	ChangesHealth@aeiouboost:
+		RequiresCondition: aeiouboost
+		PercentageStep: 1
+		Delay: 75
+		StartIfBelow: 70
+		DamageCooldown: 100
+	ChangesHealth@HolySuperBoosted:
+		RequiresCondition: HolySuperBoosted
+		PercentageStep: 1
+		Delay: 75
+		StartIfBelow: 90
+		DamageCooldown: 75
+	-ChangesHealth@Monumentboost:
+	GpsDot:
+		String: Biohazard
+	Cloneable:
+		Types: Epic
 
 ^EpicVehicle:
 	Inherits: ^Vehicle
