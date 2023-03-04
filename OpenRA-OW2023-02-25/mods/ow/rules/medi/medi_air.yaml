@@ -23,20 +23,21 @@ MediDragon:
 		Name: primary
 		Weapon: DragonGround
 		RequiresCondition: !lowpower
+		PauseOnCondition: !ammo
 	Armament@SECONDARY:
 		Name: secondary
 		Weapon: DragonAir
 		RequiresCondition: !lowpower
+		PauseOnCondition: !ammo
 	AttackAircraft:
 		Armaments: primary, secondary
-		FacingTolerance: 512
+		FacingTolerance: 250
 		PersistentTargeting: false
-		AttackType: Hover
-		PauseOnCondition: !ammo
+		AttackType: Strafe
 		OpportunityFire: False
 	Aircraft:
-		TurnSpeed: 20
-		Speed: 180
+		TurnSpeed: 30
+		Speed: 170
 	RevealsShroud:
 		MinRange: 11c0
 		Range: 13c0
@@ -51,6 +52,7 @@ MediDragon:
 		Ammo: 40
 		ReloadDelay: 1
 		AmmoCondition: ammo
+		Name: DragonAmmo
 	RevealsShroud@GAPGEN:
 		Range: 11c0
 		MoveRecalculationThreshold: 0
@@ -65,6 +67,7 @@ MediDragon:
 		Actor: MediDragon.Husk
 	Rearmable:
 		RearmActors: hatchery
+		AmmoPools: DragonAmmo
 	WithAmmoPipsDecoration:
 		Position: BottomLeft
 		RequiresSelection: true
@@ -476,7 +479,7 @@ ChaosElemental:
 	Aircraft:
 		CruiseAltitude: 1500
 		TurnSpeed: 10
-		Speed: 80
+		Speed: 50
 	RevealsShroud:
 		Range: 18c0
 		Type: CenterPosition
@@ -530,7 +533,7 @@ ChaosElemental:
 	AmmoPool:
 		Name: ChaosAmmoPool
 		Armaments: spawner
-		Ammo: 1
+		Ammo: 2
 		InitialAmmo: 1
 		ReloadCount: 1
 		ReloadDelay: 100
@@ -623,6 +626,6 @@ ChaosOrb:
 		Name: Death
 		Weapon: DeathChaos
 	KillsSelf@expire:
-		Delay: 200
+		Delay: 300
 	GrantRandomCondition@ChaosType:
 		Conditions: TypeFire, TypeToxic, TypeWater, TypeLightning, TypeEarth, TypeDeath
