@@ -468,7 +468,6 @@ ManofWar:
 	Projectile: Bullet
 		Blockable: False
 		Speed: 190
-		Blockable: false
 		LaunchAngle: 100
 		Inaccuracy: 3c1300
 		Image: catapultshot
@@ -1164,6 +1163,7 @@ GraveyardSpawnerDeath:
 		Duration: 1
 		ValidTargets: GroundActor
 
+
 MediDeathKnightAttack2:
 	ReloadDelay: 600
 	Range: 14c0
@@ -1527,7 +1527,7 @@ LightningElementShot:
 	Projectile: TeslaZap
 	Warhead@1Dam: SpreadDamage
 		Spread: 42
-		Damage: 120
+		Damage: 220
 		#5500
 		ValidTargets: GroundActor, WaterActor
 		Versus:
@@ -1537,7 +1537,7 @@ LightningElementShot:
 		DamageTypes: Prone50Percent, TriggerProne, ElectricityDeath
 	Warhead@2Dam: SpreadDamage
 		Spread: 42
-		Damage: 60
+		Damage: 120
 		#3000
 		ValidTargets: Air, AirborneActor
 		Versus:
@@ -1545,6 +1545,60 @@ LightningElementShot:
 			Wood: 73
 			Heavy: 60
 		DamageTypes: Prone50Percent, TriggerProne, ElectricityDeath
+
+ChaosSpawner:
+	ReloadDelay: 100
+	Range: 10c0
+	ValidTargets: Ground, Water, GroundActor, WaterActor, Air, AirborneActor, Structure
+	Projectile: InstantHit
+	Warhead@1Dam: SpreadDamage
+		Damage: 1
+		ValidTargets: Air, AirborneActor, GroundActor, WaterActor
+
+
+ArcaneZapchaos:
+	ReloadDelay: 7
+	Range: 10c0
+	TargetActorCenter: True
+	ValidTargets: Ground, Water, GroundActor, WaterActor, Air, AirborneActor
+	Projectile: LaserZap
+		Blockable: False
+		Duration: 20
+		DamageInterval: 10
+		SecondaryBeam: True
+		TrackTarget: True
+		Color: 0033cc
+	Warhead@1Dam: SpreadDamage
+		Spread: 42
+		Damage: 2750
+		Versus:
+			None: 100
+			Wood: 70
+			Light: 50
+			Heavy: 50
+			Concrete: 30
+		DamageTypes: Prone50Percent, TriggerProne, ElectricityDeath
+		ValidTargets: Ground, GroundActor, Water, WaterActor
+	TargetActorCenter: True
+
+ArcaneZapchaos2:
+	Inherits: ArcaneZapchaos
+	ReloadDelay: 10
+	ValidTargets: AirborneActor
+	Projectile: LaserZap
+		Blockable: False
+		Duration: 30
+	Warhead@1Dam: SpreadDamage
+		Spread: 42
+		Damage: 1500
+		Versus:
+			Wood: 100
+			Light: 100
+			Heavy: 100
+			Concrete: 100
+		DamageTypes: Prone50Percent, TriggerProne, ElectricityDeath
+		ValidTargets: AirborneActor
+
 
 LightningElementShotEMP:
 	Inherits: LightningElementShot
@@ -1577,3 +1631,43 @@ ElementSpray:
 		Condition: RotElementHitCon
 		Range: 1c0
 		Duration: 350
+
+FireChaos:
+	Inherits: FireElementAttack
+	ReloadDelay: 150
+	Range: 10c0
+
+ToxicChaos:
+	Inherits: ElementSpray
+	ReloadDelay: 20
+	Range: 10c0
+
+WaterChaos:
+	Inherits: WaterElementalBlast
+	ReloadDelay: 50
+	Burst: 5
+	Range: 10c0
+
+LightningChaos:
+	Inherits: LightningElementShot
+	ReloadDelay: 5
+	Range: 10c0
+
+EarthChaos:
+	Inherits: ManofWar
+	ReloadDelay: 300
+	Range: 10c0
+	Burst: 16
+	BurstDelays: 0
+	Projectile: Bullet
+		Speed: 100
+		LaunchAngle: 50
+		Inaccuracy: 2c1300
+		Image: catapultshot
+		Shadow: True
+
+DeathChaos:
+	Inherits: MusketeerShot
+	ReloadDelay: 70
+	Burst: 1
+	Range: 10c0

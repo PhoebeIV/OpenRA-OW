@@ -436,3 +436,193 @@ MediLightningElement:
 		Actor: medigryphonrider.Husk
 	RenderSprites:
 		Image: medigyro
+
+
+
+
+
+
+
+
+
+
+
+
+
+ChaosElemental:
+	Inherits: ^Helicopter
+	Inherits@NoExp: ^NoExp
+	Inherits@EPIC: ^EpicUnit
+	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
+	Buildable:
+		Queue: Aircraft
+		BuildAtProductionType: Helicopter
+		BuildPaletteOrder: 65
+		Prerequisites: ~aircraft.elementalists, library
+		BuildLimit: 1
+		Description: Chaos Elemental
+	Valued:
+		Cost: 15000
+	Tooltip:
+		Name: Chaos Elemental
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	RenderSprites:
+		Image: mediicewyvern
+	Health:
+		HP: 200000
+	Armor:
+		Type: Light
+	Aircraft:
+		CruiseAltitude: 1500
+		TurnSpeed: 10
+		Speed: 80
+	RevealsShroud:
+		Range: 18c0
+		Type: CenterPosition
+	RevealsShroud@GAPGEN:
+		Range: 11c0
+		MoveRecalculationThreshold: 0
+		Type: GroundPosition
+	Selectable:
+		DecorationBounds: 4096, 2560, 0, -768
+	SelectionDecorations:
+	ProducibleWithLevel:
+		Prerequisites: aircraft.upgraded
+	SpawnActorOnDeath:
+		Actor: Mediicewyvern.Husk
+	Rearmable:
+		RearmActors: hatchery
+	VoiceAnnouncement:
+		RequiresCondition: produced
+		Voice: Build
+	AnnounceOnKill:
+	Voiced:
+		VoiceSet: icewyvernvoice
+	-EjectOnDeath:
+	ExternalCondition@GraveyardSouls:
+		Condition: GraveyardSouls
+	ExternalCondition@producechaos:
+		Condition: producechaos
+	GrantConditionOnAttack:
+		Condition: producechaos
+		ArmamentNames: spawner
+	FreeActor@1:
+		Actor: ChaosOrb
+		SpawnOffset: -1, 1
+		RequiresCondition: producechaos && ChaosSoulCount
+		AllowRespawn: True
+	FreeActor@2:
+		Actor: ChaosOrb
+		SpawnOffset: -1, -1
+		RequiresCondition: producechaos && ChaosSoulCount
+		AllowRespawn: True
+	FreeActor@3:
+		Actor: ChaosOrb
+		SpawnOffset: 1, -1
+		RequiresCondition: producechaos && ChaosSoulCount
+		AllowRespawn: True
+	FreeActor@4:
+		Actor: ChaosOrb
+		SpawnOffset: 1, 1
+		RequiresCondition: producechaos && ChaosSoulCount
+		AllowRespawn: True
+	AmmoPool:
+		Name: ChaosAmmoPool
+		Armaments: spawner
+		Ammo: 1
+		InitialAmmo: 1
+		ReloadCount: 1
+		ReloadDelay: 100
+		AmmoCondition: ChaosSoulCount
+	ReloadAmmoPool:
+		AmmoPool: ChaosAmmoPool
+		Delay: 100
+		Count: 1
+	WithAmmoPipsDecoration:
+		Position: BottomLeft
+		PipCount: 6
+		AmmoPools: ChaosAmmoPool
+	AutoTarget:
+		InitialStance: AttackAnything
+	AttackAircraft:
+		Armaments: spawner, zap1, zap2
+	Armament@spawner:
+		Name: spawner
+		Weapon: ChaosSpawner
+		RequiresCondition: ChaosSoulCount
+	Armament@zap1:
+		Name: zap1
+		Weapon: ArcaneZapchaos
+	Armament@zap2:
+		Name: zap2
+		Weapon: ArcaneZapchaos2
+	AttackWander:
+		MinMoveDelay: 50
+		MaxMoveDelay: 500
+
+
+ChaosOrb:
+	Inherits: MediLightningElement
+	-Buildable:
+	UpdatesPlayerStatistics:
+		AddToArmyValue: false
+	Health:
+		HP: 10000000
+	-RevealsShroud:
+	-RevealsShroud@GAPGEN:
+	-Armament@PRIMARY:
+	-Armament@SECONDARY:
+	Aircraft:
+		CruiseAltitude: 1350
+		RepulsionSpeed: 200
+		TurnSpeed: 100
+		Speed: 0
+	-WithIdleOverlay@ROTORAIR:
+	-WithIdleOverlay@ROTORGROUND:
+	-ProducibleWithLevel:
+	-SpawnActorOnDeath:
+	AutoTarget:
+		InitialStance: AttackAnything
+	Inherits@AUTOTARGET: ^AutoTargetAll
+	Valued: 
+		Cost: 0
+	Tooltip:
+		Name: Ball of Chaos
+	-WithFacingSpriteBody:
+	WithSpriteBody:
+	RenderSprites:
+		Image: Chaosorb
+	Voiced:
+		VoiceSet: WaterElementalVoice
+	AttackAircraft:
+		Armaments: Fire, Toxic, Water, Lightning, Earth, Death
+		FacingTolerance: 512
+	Armament@Fire:
+		RequiresCondition: TypeFire
+		Name: Fire
+		Weapon: FireChaos
+	Armament@Toxic:
+		RequiresCondition: TypeToxic
+		Name: Toxic
+		Weapon: ToxicChaos
+	Armament@Water:
+		RequiresCondition: TypeWater
+		Name: Water
+		Weapon: WaterChaos
+	Armament@Lightning:
+		RequiresCondition: TypeLightning
+		Name: Lightning
+		Weapon: LightningChaos
+	Armament@Earth:
+		RequiresCondition: TypeEarth
+		Name: Earth
+		Weapon: EarthChaos
+	Armament@Death:
+		RequiresCondition: TypeDeath
+		Name: Death
+		Weapon: DeathChaos
+	KillsSelf@expire:
+		Delay: 200
+	GrantRandomCondition@ChaosType:
+		Conditions: TypeFire, TypeToxic, TypeWater, TypeLightning, TypeEarth, TypeDeath
