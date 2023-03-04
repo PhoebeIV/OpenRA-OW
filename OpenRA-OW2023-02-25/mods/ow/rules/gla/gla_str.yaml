@@ -443,8 +443,51 @@ GAIR:
 		Sequence: tag-primary
 		Position: Top
 		RequiresCondition: primary
+	ParatroopersPower@airdropmines:
+		OrderName: GLAMines
+		UnitType: BADR.DEMO
+		Prerequisites: atek.gla
+		Icon: paratroopers
+		ChargeInterval: 7500
+		Name: Demo Trap Airdrop
+		Description: A Badger a bunch of demo traps \nanywhere on the map.
+		DropItems: 1TNK.DEMO, 1TNK.DEMO, 1TNK.DEMO, 1TNK.DEMO, 1TNK.DEMO
+		ReinforcementsArrivedSpeechNotification: ReinforcementsArrived
+		SelectTargetSpeechNotification: SelectTarget
+		AllowImpassableCells: false
+		QuantizedFacings: 8
+		CameraActor: camera.paradrop
+		DisplayBeacon: true
+		BeaconPoster: pinficon
+		ArrowSequence: arrow
+		ClockSequence: clock
+		CircleSequence: circles
+		UseDirectionalTarget: True
+		DirectionArrowAnimation: paradirection
+		SupportPowerPaletteOrder: 50
 	SpawnActorOnDeath:
 		Actor: GAIR.Hole
+
+1TNK.DEMO:
+	Inherits: 1TNK.MINE
+	-Explodes:
+	KillsSelf:
+		Delay: 5
+		RequiresCondition: !parachute
+	-SpawnActorOnDeath:
+	SpawnActorOnDeath@2:
+		Actor: XBAR
+	RenderSprites:
+		Image: barl
+
+BADR.DEMO:
+	Inherits: BADR
+	ParaDrop:
+		DropInterval: 10
+	Cargo:
+		MaxWeight: 20
+	RenderSprites:
+		Image: badr
 
 GAIR.Hole:
 	Inherits: ^GLAHole3x2
