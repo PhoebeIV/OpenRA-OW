@@ -549,6 +549,7 @@ ChaosElemental:
 	AutoTarget:
 		InitialStance: AttackAnything
 	AttackAircraft:
+		AttackType: Hover
 		Armaments: spawner, zap1, zap2
 	Armament@spawner:
 		Name: spawner
@@ -563,6 +564,8 @@ ChaosElemental:
 	AttackWander:
 		MinMoveDelay: 50
 		MaxMoveDelay: 500
+	Targetable:
+		TargetTypes: GroundActor, AirborneActor
 
 
 ChaosOrb:
@@ -576,6 +579,11 @@ ChaosOrb:
 	-RevealsShroud@GAPGEN:
 	-Armament@PRIMARY:
 	-Armament@SECONDARY:
+	-Selectable:
+	-GpsDot:
+	-AppearsOnRadar:
+	-ActorLostNotification:
+	Interactable:
 	Aircraft:
 		CruiseAltitude: 1350
 		RepulsionSpeed: 200
@@ -599,7 +607,7 @@ ChaosOrb:
 	Voiced:
 		VoiceSet: WaterElementalVoice
 	AttackAircraft:
-		Armaments: Fire, Toxic, Water, Lightning, Earth, Death
+		Armaments: Fire, Toxic, Water, Lightning, Lightning2, Earth, Death, Fire2, Toxic2, Water2, Lightning3, Lightning4, Earth2, Death2, Death3
 		FacingTolerance: 512
 	Armament@Fire:
 		RequiresCondition: TypeFire
@@ -617,6 +625,10 @@ ChaosOrb:
 		RequiresCondition: TypeLightning
 		Name: Lightning
 		Weapon: LightningChaos
+	Armament@Lightning2:
+		RequiresCondition: TypeLightning
+		Name: Lightning
+		Weapon: LightningChaos
 	Armament@Earth:
 		RequiresCondition: TypeEarth
 		Name: Earth
@@ -625,7 +637,40 @@ ChaosOrb:
 		RequiresCondition: TypeDeath
 		Name: Death
 		Weapon: DeathChaos
+	Armament@Fire2:
+		RequiresCondition: TypeFire2
+		Name: Fire2
+		Weapon: ChaosWizBall
+	Armament@Toxic2:
+		RequiresCondition: TypeToxic2
+		Name: Toxic2
+		Weapon: ToxicChaos
+	Armament@Water2:
+		RequiresCondition: TypeWater2
+		Name: Water2
+		Weapon: ChaosHwacha
+	Armament@Lightning3:
+		RequiresCondition: TypeLightning2
+		Name: Lightning3
+		Weapon: LightningChaos
+	Armament@Lightning4:
+		RequiresCondition: TypeLightning2
+		Name: Lightning4
+		Weapon: LightningChaos
+	Armament@Earth2:
+		RequiresCondition: TypeEarth2
+		Name: Earth2
+		Weapon: ChaosTornado
+	Armament@Death2:
+		RequiresCondition: TypeDeath2
+		Name: Death2
+		Weapon: Chaoszap
+	Armament@Death3:
+		RequiresCondition: TypeDeath2
+		Name: Death3
+		Weapon: Chaoszap2
 	KillsSelf@expire:
 		Delay: 300
 	GrantRandomCondition@ChaosType:
-		Conditions: TypeFire, TypeToxic, TypeWater, TypeLightning, TypeEarth, TypeDeath
+		Conditions: TypeFire, TypeToxic, TypeWater, TypeLightning, TypeEarth, TypeDeath, TypeFire2, TypeToxic2, TypeWater2, TypeLightning2, TypeEarth2, TypeDeath2
+	-EjectOnDeath:
