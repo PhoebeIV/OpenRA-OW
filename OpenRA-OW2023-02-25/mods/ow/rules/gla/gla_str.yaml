@@ -52,6 +52,12 @@
 		RevealGeneratedShroud: False
 	Power:
 		Amount: 0
+	DamageMultiplier@bar1:
+		Modifier: 96
+	DamageMultiplier@bar2:
+		Modifier: 93
+	DamageMultiplier@bar3:
+		Modifier: 90
 	-WithColoredOverlay@IRONCURTAIN:
 	-TimedConditionBar:
 	DamageMultiplier@IRONCURTAIN:
@@ -467,27 +473,6 @@ GAIR:
 		SupportPowerPaletteOrder: 50
 	SpawnActorOnDeath:
 		Actor: GAIR.Hole
-
-1TNK.DEMO:
-	Inherits: 1TNK.MINE
-	-Explodes:
-	KillsSelf:
-		Delay: 5
-		RequiresCondition: !parachute
-	-SpawnActorOnDeath:
-	SpawnActorOnDeath@2:
-		Actor: XBAR
-	RenderSprites:
-		Image: barl
-
-BADR.DEMO:
-	Inherits: BADR
-	ParaDrop:
-		DropInterval: 10
-	Cargo:
-		MaxWeight: 20
-	RenderSprites:
-		Image: badr
 
 GAIR.Hole:
 	Inherits: ^GLAHole3x2
@@ -948,6 +933,62 @@ GSTG.Hole:
 		Actor: GSTG
 		DeathType: hole
 
+ATD.G:
+	Inherits: ATD
+	Buildable:
+		Prerequisites: shippen, ~techlevel.medium, ~structures.gla
+	Valued:
+		Cost: 1100
+	Power:
+		Amount: 0
+	DetectCloaked:
+		RequiresCondition: !disabled
+		DetectionTypes: Underwater
+		Range: 5c0
+	RenderSprites:
+		Image: ATD
+
+OREEXT.G:
+	Inherits: OREEXT
+	Buildable:
+		Prerequisites: techcenter, ~structures.oreextprereq2, ~techlevel.unrestricted
+	Valued:
+		Cost: 2000
+	Power:
+		Amount: 0
+	RenderSprites:
+		Image: oreext
+
+#This is the actor that's dropped by the demo trap paradrop, that becomes the demo trap a few seconds after landing
+1TNK.DEMO:
+	Inherits: 1TNK.MINE
+	Explodes:
+		Weapon: SmallBuildingExplode
+		DeathTypes: TriggerProne
+	KillsSelf:
+		Delay: 100
+		RequiresCondition: !parachute
+		DamageTypes: replace
+	-SpawnActorOnDeath:
+	SpawnActorOnDeath@2:
+		Actor: XBAR
+		DeathType: replace
+	RenderSprites:
+		Image: barl
+	Health:
+		HP: 20000
+	Armor:
+		Type: Wood
+
+BADR.DEMO:
+	Inherits: BADR
+	ParaDrop:
+		DropInterval: 10
+	Cargo:
+		MaxWeight: 20
+	RenderSprites:
+		Image: badr
+
 GAMB:
 	Inherits: ^TechBuilding
 	Inherits@AUTOTARGET: ^AutoTargetAll
@@ -1026,29 +1067,3 @@ GAMB2:
 		Actor: GE2R1
 		AllowRespawn: true
 		RequiresCondition: produceunit
-
-ATD.G:
-	Inherits: ATD
-	Buildable:
-		Prerequisites: shippen, ~techlevel.medium, ~structures.gla
-	Valued:
-		Cost: 1100
-	Power:
-		Amount: 0
-	DetectCloaked:
-		RequiresCondition: !disabled
-		DetectionTypes: Underwater
-		Range: 5c0
-	RenderSprites:
-		Image: ATD
-
-OREEXT.G:
-	Inherits: OREEXT
-	Buildable:
-		Prerequisites: techcenter, ~structures.oreextprereq2, ~techlevel.unrestricted
-	Valued:
-		Cost: 2000
-	Power:
-		Amount: 0
-	RenderSprites:
-		Image: oreext
