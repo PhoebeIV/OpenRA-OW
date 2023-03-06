@@ -26,9 +26,10 @@ SwordElementalWeps:
 
 Sword2:
 	Inherits: Sword
+	ReloadDelay: 25
 	Report: swordmanattack1.aud,swordmanattack2.aud,swordmanattack3.aud,swordmanattack4.aud,swordmanattack5.aud,swordmanattack6.aud,swordmanattack7.aud,swordmanattack8.aud,swordmanattack9.aud,swordmanattack10.aud,swordmanattack11.aud,swordmanattack12.aud
 	Warhead@1Dam: SpreadDamage
-		Damage: 4000
+		Damage: 5000
 
 Sword2ElementalWeps:
 	Inherits: Sword2
@@ -1037,20 +1038,18 @@ WaterElementalBlast:
 		ImpactSounds: waterelementalhit1.aud, waterelementalhit2.aud, waterelementalhit3.aud
 
 IceWyvernShot:
-	ReloadDelay: 200
-	Range: 9c512
-	MinRange: 4c0
+	ReloadDelay: 100
+	Range: 5c0
 	Report: wyverniceattack.aud
 	ValidTargets: Ground, Water, GroundActor, WaterActor
 	Projectile: Missile
 		Blockable: False
-		Speed: 200
+		Speed: 150
 		Image: mediicewyvernproj
-		RangeLimit: 13c0
+		RangeLimit: 8c0
 		ContrailLength: 15
 		ContrailStartColor: 2b669c
 		ContrailWidth: 0c128
-		LockOnProbability: 0
 	Warhead@effect1: CreateEffect
 		Explosions: mediwaterelementalexplode
 		ImpactSounds: wyvernicehit1.aud, wyvernicehit2.aud, wyvernicehit3.aud
@@ -1065,59 +1064,51 @@ IceWyvernShot:
 		ValidTargets: Ground, GroundActor, Water, WaterActor, Trees
 	Warhead@effect3: FireCluster
 		Weapon: IceWyvernIce
-		RandomClusterCount: 8
-		Dimensions: 5,5
-		Footprint: xxxxx xxxxx xxxxx xxxxx xxxxx
+		RandomClusterCount: 4
+		Dimensions: 4,4
+		Footprint: xxxx xxxx xxxx xxxx xxxx
 	Warhead@effect4: FireCluster
 		Weapon: IceWyvernIce2
-		RandomClusterCount: 16
-		Dimensions: 7,7
-		Footprint: xxxxxxx xxxxxxx xxxxxxx xxxxxxx xxxxxxx xxxxxxx xxxxxxx
+		RandomClusterCount: 7
+		Dimensions: 5,5
+		Footprint: xxxxx xxxxx xxxxx xxxxx xxxxx xxxxx xxxxx
 	Warhead@1Dam: SpreadDamage
-		Spread: 500
-		Damage: 4000
-		Falloff: 1000, 368, 135, 50, 18, 7, 0
+		Spread: 200
+		Damage: 1800
 		ValidTargets: GroundActor, WaterActor
 		Versus:
 			Concrete: 15
-		AffectsParent: True
 		DamageTypes: Prone50Percent, TriggerProne, FireDeath, Incendiary
 	Warhead@3Eff_impact3: CreateEffect
 		Explosions: mediicewyvernflash
 		ValidTargets: Ground, GroundActor, Water, WaterActor, Trees
 	Warhead@2Res_impact: DestroyResource
-		Size: 2
+		Size: 1
 	Warhead@4Dam_areanuke1: SpreadDamage
-		Spread: 1000
-		Damage: 2000
-		Falloff: 500, 368, 135, 50, 18, 7, 0
+		Spread: 128
+		Damage: 1000
 		ValidTargets: GroundActor, WaterActor
 		Versus:
 			Concrete: 15
 		AffectsParent: True
 		DamageTypes: Prone50Percent, TriggerProne, FireDeath, Incendiary
 	Warhead@7Dam_areanuke2: SpreadDamage
-		Spread: 1500
-		Damage: 1500
-		Falloff: 500, 368, 135, 50, 18, 7, 0
+		Spread: 128
+		Damage: 1000
 		ValidTargets: GroundActor, WaterActor
 		Versus:
 			Concrete: 15
-		AffectsParent: True
 		DamageTypes: Prone50Percent, TriggerProne, FireDeath, Incendiary
 	Warhead@9Dam_areanuke3: SpreadDamage
-		Spread: 2000
+		Spread: 128
 		Damage: 1000
-		Falloff: 500, 368, 135, 50, 18, 7, 0
-		Delay: 15
 		ValidTargets: GroundActor, WaterActor
 		Versus:
 			Concrete: 15
-		AffectsParent: True
 		DamageTypes: Prone50Percent, TriggerProne, FireDeath, Incendiary
 	Warhead@11Smu_areanuke3: LeaveSmudge
 		SmudgeType: Scorch
-		Size: 2
+		Size: 1
 
 IceWyvernIce:
 	ValidTargets: Ground, Water, GroundActor, WaterActor, Trees

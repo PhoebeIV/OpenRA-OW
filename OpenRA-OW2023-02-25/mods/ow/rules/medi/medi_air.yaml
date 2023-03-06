@@ -162,7 +162,7 @@ medigryphonrider:
 		BuildAtProductionType: Helicopter
 		BuildPaletteOrder: 20
 		BuildDuration: 1000
-		Prerequisites: ~aircraft.medi
+		Prerequisites: ~aircraft.medi, ~!aircraft.darkness
 		Description: Magical Attack Aircraft. \n Regenerates Ammo \n Strong vs Tanks \n  Weak vs Infantry Light armor, Aircraft
 	Valued:
 		Cost: 2000
@@ -225,18 +225,16 @@ medigryphonrider:
 
 Mediicewyvern:
 	Inherits: ^Helicopter
-	Inherits@NoExp: ^NoExp
-	Inherits@EPIC: ^EpicUnit
 	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
 	Buildable:
 		Queue: Aircraft
 		BuildAtProductionType: Helicopter
 		BuildPaletteOrder: 65
-		Prerequisites: ~aircraft.elementalists, library
+		Prerequisites: ~aircraft.darkness
 		BuildLimit: 1
 		Description: Demon of the sky, Strong Seige flyer, Hit and run with slow attacks
 	Valued:
-		Cost: 15000
+		Cost: 2000
 	Tooltip:
 		Name: Ice Wyvern
 	UpdatesPlayerStatistics:
@@ -244,7 +242,7 @@ Mediicewyvern:
 	RenderSprites:
 		Image: mediicewyvern
 	Health:
-		HP: 200000
+		HP: 9000
 	Armor:
 		Type: Light
 	Armament@PRIMARY:
@@ -261,13 +259,13 @@ Mediicewyvern:
 		TurnSpeed: 10
 		Speed: 80
 	RevealsShroud:
-		Range: 18c0
+		Range: 10c0
 		Type: CenterPosition
 	AutoTarget:
 		InitialStance: Defend
 		InitialStanceAI: Defend
 	RevealsShroud@GAPGEN:
-		Range: 11c0
+		Range: 8c0
 		MoveRecalculationThreshold: 0
 		Type: GroundPosition
 	Selectable:
@@ -309,15 +307,8 @@ Mediicewyvern.Husk:
 	RevealsShroud:
 		Range: 12c0
 		Type: CenterPosition
-	FallsToEarth:
-		Moves: True
-		Velocity: 35
-		Explosion: MiniNuke
-		MaximumSpinSpeed: 0
 	RenderSprites:
 		Image: mediicewyvern
-	ShakeOnDeath:
-		Duration: 15
 
 MediDragonBomber:
 	Inherits: ^Plane
