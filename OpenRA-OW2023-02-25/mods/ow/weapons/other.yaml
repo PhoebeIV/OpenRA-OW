@@ -1392,7 +1392,7 @@ IronShroudWeapon:
 
 GLAAmbushHole:
 	ReloadDelay: 60
-	Range: 10c0
+	Range: 7c0
 	Report: gstealon.aud
 	ValidTargets: Ground, Water, GroundActor, WaterActor, AirborneActor
 	Projectile: GravityBomb
@@ -1418,6 +1418,28 @@ ZombiehHole:
 		Condition: produceunit
 		Range: 1c0
 		Duration: 5
+		AffectsParent: true
+		ValidTargets: GroundActor
+
+BackupGeneratorWeapon:
+	ReloadDelay: 400
+	Range: 10c0
+	ValidTargets: Ground, Water, GroundActor, WaterActor, AirborneActor
+	Projectile: GravityBomb
+		OpenSequence: idle
+		Velocity: 0, 0, -256
+		Acceleration: 0, 0, 0
+	Warhead@active: GrantExternalCondition
+		Condition: active
+		Range: 1c0
+		Duration: 300
+		AffectsParent: true
+		ValidTargets: GroundActor
+	Warhead@reload: GrantExternalCondition
+		Condition: reload
+		Range: 1c0
+		Delay: 1500
+		Duration: 25
 		AffectsParent: true
 		ValidTargets: GroundActor
 

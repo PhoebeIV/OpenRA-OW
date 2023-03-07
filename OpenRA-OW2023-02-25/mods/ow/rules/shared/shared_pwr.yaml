@@ -28,6 +28,12 @@
 	ProximityExternalCondition:
 		Condition: pylon
 		Range: 6c0
+	WithColoredOverlay@lowpower:
+		RequiresCondition: lowpower2 && !emp
+		Color: 00000050
+	GrantConditionOnPowerState@LOWPOWER:
+		Condition: lowpower2
+		ValidPowerStates: Low, Critical
 
 ^DawnPowerPlant:
 	Inherits: ^PowerPlant
@@ -98,6 +104,8 @@ APWR:
 		Name: Advanced Power Plant
 	ProvidesPrerequisite:
 		Prerequisite: anypower
+	ProvidesPrerequisite@grade:
+		Prerequisite: power.grade1
 	Building:
 		Footprint: xxx Xxx ===
 		Dimensions: 3,3
@@ -145,6 +153,8 @@ XPWR:
 		Name: Fission Power Plant
 	ProvidesPrerequisite:
 		Prerequisite: anypower
+	ProvidesPrerequisite@grade:
+		Prerequisite: power.grade2
 	Building:
 		Footprint: xxx Xxx ===
 		Dimensions: 3,3
@@ -240,6 +250,8 @@ NUK2:
 		Name: Advanced Power Plant
 	ProvidesPrerequisite:
 		Prerequisite: anypower
+	ProvidesPrerequisite@grade:
+		Prerequisite: power.grade1
 	Building:
 		Footprint: xX xx ==
 		Dimensions: 2,3
@@ -276,3 +288,154 @@ NUK3:
 		Sequence: fire-loop
 	-RenderSprites:
 	RenderSprites:
+
+# Backup generator - all factions
+PWRGEN:
+	Inherits: ^Building
+	Inherits@IDISABLE: ^DisabledByPowerOutage
+	Inherits@IDISABLE2: ^DisableOnLowPower
+	Inherits@AUTOTARGET: ^AutoTargetAll
+	Valued:
+		Cost: 1200
+	Buildable:
+		Queue: Tech
+		BuildPaletteOrder: 26
+		Prerequisites: anypower, foundry, ~techlevel.unrestricted
+		Description: Provides a backup power when  \n you have low power. \n  Unarmed
+		BuildLimit: 1
+	Tooltip:
+		Name: Backup Generator
+	Health:
+		HP: 25000
+	Armor:
+		Type: Wood
+	RevealsShroud:
+		Range: 1c0
+	GrantConditionOnDamageState:
+		Condition: disabled
+		ValidDamageStates: critical
+	MustBeDestroyed:
+		RequiredForShortGame: false
+	-ExternalCondition@emp:
+	Power@grade0:
+		RequiresCondition: active && !grade1 && !deepmanawell
+		Amount: 100
+	Power@grade1:
+		RequiresCondition: active && grade1 && !grade2
+		Amount: 200
+	Power@grade2:
+		RequiresCondition: active && grade2
+		Amount: 600
+	Power@mana:
+		RequiresCondition: active && grademana && !grade2
+		Amount: 250
+	Power@bot:
+		RequiresCondition: active && gradebot
+		Amount: 2500
+	Explodes:
+		Weapon: DemoTrapExplosion2
+		EmptyWeapon: DemoTrapExplosion2
+	-GrantCondition@IDISABLE:
+	-WithColoredOverlay@IDISABLE:
+	-Power@emp:
+	GrantConditionOnPrerequisite@1: 
+		Condition: grade1
+		Prerequisites: power.grade1
+	GrantConditionOnPrerequisite@2:
+		Condition: grade2
+		Prerequisites: power.grade2
+	GrantConditionOnPrerequisite@mana: 
+		Condition: grademana
+		Prerequisites: deepmanawell
+	GrantConditionOnPrerequisite@ai:
+		Condition: gradebot
+		Prerequisites: ai.all
+	AutoTarget:
+		InitialStance: AttackAnything
+	AttackOmni:
+		PauseOnCondition: emp || disabled
+	Armament:
+		RequiresCondition: lowpower
+		PauseOnCondition: !ammo
+		Weapon: BackupGeneratorWeapon
+		FireDelay: 75
+		AmmoUsage: 1
+		TargetRelationships: Ally
+		ForceTargetRelationships: None
+	AmmoPool:
+		Ammo: 1
+		ReloadDelay: 1500
+		AmmoCondition: ammo
+	ReloadAmmoPool:
+		Delay: 1
+		RequiresCondition: reload
+	AmbientSound:
+		SoundFiles: radaron2.aud
+		RequiresCondition: active
+		Interval: 1600
+	AmbientSound@lowpower:
+		SoundFiles: buzzy1.aud
+		RequiresCondition: lowpower && ammo
+		Interval: 25
+	TimedConditionBar@active:
+		Condition: active
+		Color: FFFF45
+	ExternalCondition@active:
+		Condition: active
+	ExternalCondition@reload:
+		Condition: reload
+	WithColoredOverlay@noammo:
+		RequiresCondition: !ammo && !active
+		Color: 00000050
+	-AcceptsDeliveredCash:
+	ProvidesPrerequisite@estoniabuff:
+		Factions: estonia
+		Prerequisite: estoniabuff
+	GrantConditionOnPrerequisite@estoniabuff:
+		Prerequisites: estoniabuff
+		Condition: estoniabuff
+	PowerMultiplier@estoniabuff:
+		RequiresCondition: estoniabuff
+		Modifier: 120
+	PowerMultiplier@MediManaUp:
+		Modifier: 150
+		RequiresCondition: MediManaUp
+	GrantConditionOnPrerequisite@MediManaUp:
+		Condition: MediManaUp
+		Prerequisites: structures.elementalists
+	WithSpriteBody:
+		PauseOnCondition: !lowpower && !active
+	RenderSprites:
+		Palette: player
+		Image: V19
+	SpawnActorOnDeath:
+		Actor: PWRGEN.Husk
+		OwnerType: InternalName
+		InternalOwner: Neutral
+	Sellable:
+		RequiresCondition: !build-incomplete && !being-captured && !being-demolished && ammo
+	-WithMakeAnimation:
+
+PWRGEN.Husk:
+	Inherits: ^Building
+	RenderSprites:
+		Palette: player
+		Image: V19.Husk
+	Tooltip:
+		Name: Backup Generator (Dead)
+	WithSpriteBody:
+	WithIdleOverlay:
+		StartSequence: fire-start
+		Sequence: fire-loop
+	-Selectable:
+	-Targetable:
+	-Demolishable:
+	-Explodes:
+	Interactable:
+	Health:
+		HP: 25000
+	Armor:
+		Type: Wood
+	KillsSelf:
+		RemoveInstead: true
+		Delay: 6000
