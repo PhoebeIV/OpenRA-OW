@@ -850,6 +850,11 @@ GSTG:
 		HP: 65000
 	Armor:
 		Type: Wood
+	Demolishable:
+		RequiresCondition: sniped
+	Targetable@infantry:
+		RequiresCondition: !sniped
+		TargetTypes: Infantry
 	RevealsShroud:
 		MinRange: 6c0
 		Range: 8c0
@@ -867,11 +872,11 @@ GSTG:
 		Offset: 160,-448,0
 	WithSpriteTurret@1:
 		Sequence: man
-		RequiresCondition: !build-incomplete
+		RequiresCondition: !build-incomplete && !sniped
 	WithSpriteTurret@2:
 		Turret: secondary
 		Sequence: man
-		RequiresCondition: !build-incomplete && !deadman
+		RequiresCondition: !build-incomplete && !deadman && !sniped
 	WithMuzzleOverlay:
 	WithIdleOverlay:
 		Sequence: tarp
@@ -881,11 +886,13 @@ GSTG:
 		LocalOffset: 0,0,512
 		MuzzleSequence: shoot
 		MuzzlePalette: player
+		PauseOnCondition: sniped
 	Armament@1AA:
 		Weapon: StingerMissileAA
 		LocalOffset: 0,0,512
 		MuzzleSequence: shoot
 		MuzzlePalette: player
+		PauseOnCondition: sniped
 	Armament@2:
 		Turret: secondary
 		Weapon: StingerMissile
@@ -900,25 +907,60 @@ GSTG:
 		MuzzleSequence: shoot
 		MuzzlePalette: player
 		PauseOnCondition: deadman
+	Armament@snipekill:
+		Name: sniped
+		Weapon: GSTGSnipeKill
+		LocalOffset: 0,0,0,160,-448,0
+		RequiresCondition: sniped >= 2
+		TargetRelationships: Ally
+		ForceTargetRelationships: None
 	AttackTurreted:
 		Turrets: primary, secondary
+		Armaments: primary, secondary, sniped
 	GrantConditionOnDamageState:
 		Condition: deadman
 		ValidDamageStates: critical
-	ExplosionOnDamageTransition:
-		Weapon: GSTGDeath
-		DamageState: critical
+	FreeActor@sniped1:
+		RequiresCondition: deadman
+		Actor: GSTG.Death
+		AllowRespawn: true
+	FreeActor@sniped2:
+		RequiresCondition: sniped
+		Actor: GSTG.Death
+		SpawnOffset: 1, 0
+		AllowRespawn: true
 	Explodes@man:
-		Weapon: GSTGDeath2
-		EmptyWeapon: GSTGDeath2
+		Weapon: GSTGDeath
+		EmptyWeapon: GSTGDeath
+	ExternalCondition@sniped:
+		Condition: snipekill
+	GrantCondition@poison1:
+		RequiresCondition: corrode >= 17
+		Condition: deadman
+	GrantCondition@poison2:
+		RequiresCondition: corrode >= 30
+		Condition: sniped
+	GrantCondition@sniped1:
+		RequiresCondition: snipekill >= 2 
+		Condition: deadman
+	GrantCondition@sniped2:
+		RequiresCondition: snipekill >= 4 
+		Condition: sniped
 	Power:
 		Amount: 0
 	DetectCloaked:
+		RequiresCondition: !deadman
 		Range: 6c0
 	SpawnActorOnDeath:
 		Actor: GSTG.Hole
 	RenderSprites:
 		Image: gstgnew
+
+GSTG.Death:
+	Inherits: 1TNK.MINE
+	-SpawnActorOnDeath:
+	Explodes:
+		Weapon: GSTGDeath
 
 GSTG.Hole:
 	Inherits: ^GLAHole

@@ -599,13 +599,14 @@ WolverineVulcan:
 	Range: 3c512
 	Report: silppk.aud
 	ValidTargets: Ground, Infantry, Cyborg
-	InvalidTargets: Vehicle, Water, Structure, Wall, Husk, Mine
+	InvalidTargets: Vehicle, Water, Wall, Husk, Mine
 	Projectile: InstantHit
 	Warhead@1Dam: SpreadDamage
 		Spread: 42
 		Damage: 15000
 		Versus:
 			None: 100
+			Wood: 1
 			Light: 60
 			Heavy: 40
 		ValidTargets: Barrel, Infantry, Cyborg
@@ -617,6 +618,11 @@ WolverineVulcan:
 		Explosions: water_piff
 		ValidTargets: Water, Underwater
 		InvalidTargets: Ship, Structure, Bridge
+	Warhead@snipekill: GrantExternalCondition
+		Condition: snipekill
+		Range: 1c0
+		Duration: 900
+		ValidTargets: GroundActor
 
 SilencedPPK:
 	Inherits: ^SnipeWeapon
@@ -705,6 +711,11 @@ JarmenSniper:
 		Explosions: hitmarker
 		ImpactSounds: HITSOUND.wav
 		ValidTargets: Infantry
+	Warhead@snipekill: GrantExternalCondition
+		Condition: snipekill
+		Range: 1c0
+		Duration: 1250
+		ValidTargets: GroundActor
 
 KodiacAA:
 	Inherits: ^AACannon
