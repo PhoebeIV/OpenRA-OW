@@ -1,0 +1,93 @@
+USARANGER:
+	Inherits: ^Soldier
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Buildable:
+		Queue: Infantry
+		BuildAtProductionType: Soldier
+		BuildPaletteOrder: 61
+		Prerequisites: ~infantry.usa
+		Description: US Ranger, equipped with M16A2 assault rifles\nand flash grenades.\nSpeed: 62\n  Strong vs Infantry\n  Weak vs Vehicles, Aircraft
+	Tooltip:
+		Name: Ranger
+	Valued:
+		Cost: 225
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 10000
+	Armament@PRIMARY:
+		Weapon: M1Minigun
+	Armament@SECONDARY:
+		Weapon: Grenade
+		FireDelay: 15
+	Armament@GARRISONED:
+		Name: garrisoned
+		Weapon: DoomMinigunDK
+		MuzzleSequence: garrison-muzzle
+	Armament@BUS:
+		Name: bus
+		Weapon: M1Minigun_Bus
+		MuzzleSequence: garrison-muzzle
+	WithInfantryBody:
+		DefaultAttackSequence: shoot
+		RequiresCondition: !parachute
+	WithInfantryBody@PARACHUTE:
+		StandSequences: parachute
+		RequiresCondition: parachute
+	ProducibleWithLevel:
+		Prerequisites: barracks.upgraded
+	RevealsShroud:
+		Range: 5c0
+	Selectable:
+		Bounds: 768, 853, 0, -256
+		DecorationBounds: 640, 896, 0, -426
+	Selectable:
+		Class: E1
+	RenderSprites:
+		Image: E1OF
+        
+USADEFENDER:
+	Inherits: ^Soldier
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Buildable:
+		Queue: Infantry
+		BuildAtProductionType: Soldier
+		BuildPaletteOrder: 61
+		Prerequisites: ~infantry.usa
+		Description: US Missile Defender, equipped with an MK 153 SMAW\nCan be upgraded with a laser targeting system\nimproving range and fire rate.\n  Strong vs Vehicles, Aircraft\n  Weak vs Infantry
+	Tooltip:
+		Name: Missile Defender
+	Valued:
+		Cost: 300
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 8000
+	Armament@PRIMARY:
+		Weapon: Dragon
+		FireDelay: 5
+	Armament@GARRISONED:
+		Name: garrisoned
+		Weapon: Dragon
+		MuzzleSequence: garrison-muzzle
+	Armament@BUS:
+		Name: bus
+		Weapon: Dragon
+		MuzzleSequence: garrison-muzzle
+	WithInfantryBody:
+		DefaultAttackSequence: shoot
+		RequiresCondition: !parachute
+	WithInfantryBody@PARACHUTE:
+		StandSequences: parachute
+		RequiresCondition: parachute
+	ProducibleWithLevel:
+		Prerequisites: barracks.upgraded
+	RevealsShroud:
+		Range: 5c0
+	Selectable:
+		Bounds: 768, 853, 0, -256
+		DecorationBounds: 640, 896, 0, -426
+	Selectable:
+		Class: E1
+	RenderSprites:
+		Image: E3
