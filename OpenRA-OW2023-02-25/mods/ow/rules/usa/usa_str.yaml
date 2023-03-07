@@ -123,3 +123,167 @@ USABARRACKS:
 		DeathSequence: dead
 		UseDeathTypeSuffix: false
 		DeathSequencePalette: dawn
+       
+USASUPPLYCENTER:
+	Inherits: ^DawnBuilding
+	Buildable:
+		Queue: Building
+		BuildPaletteOrder: 15
+		Prerequisites: anypower, ~structures.usa
+		Description: Refines Ore, Tiberium and Gems\ninto credits.
+	Valued:
+		Cost: 1400
+	Tooltip:
+		Name: Supply Center
+	Building:
+		Footprint: _x_ xxx === ===
+		Dimensions: 3,4
+		LocalCenterOffset: 0,-512,0
+	Selectable:
+		Bounds: 3072, 2133, 0, 170
+		DecorationBounds: 3072, 2986, 0, -85
+	SelectionDecorations:
+	Targetable:
+		TargetTypes: GroundActor, Structure, C4, DetonateAttack, ThiefInfiltrate, SpyInfiltrate
+	Health:
+		HP: 90000
+	Armor:
+		Type: Wood
+	RevealsShroud:
+		MinRange: 4c0
+		Range: 5c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 4c0
+	Refinery:
+		DockAngle: 448
+		DockOffset: 0,2
+		IsDragRequired: True
+		DragOffset: -554,512,0
+		DragLength: 12
+	StoresResources:
+		Capacity: 1500
+	DrawLineToTarget:
+	CustomSellValue:
+		Value: 300
+	FreeActor:
+		Actor: USACHINOOK
+		SpawnOffset: 1,2
+		Facing: 256
+	InfiltrateForCash:
+		Percentage: 50
+		Types: SpyInfiltrate, ThiefInfiltrate
+		InfiltratedNotification: CreditsStolen
+		Maximum: 5000
+	RenderSprites:
+        Image: PROCD
+	WithBuildingBib:
+	Power:
+		Amount: -30
+	WithDeathAnimation:
+		DeathSequence: dead
+		UseDeathTypeSuffix: false
+	ProvidesPrerequisite@buildingname:
+	ProvidesPrerequisite:
+		Prerequisite: refinery
+	HitShape:
+		Type: Rectangle
+			TopLeft: -1536, -512
+			BottomRight: 1536, 598
+	HitShape@TOP:
+		TargetableOffsets: 1680,0,0
+		Type: Rectangle
+			TopLeft: -512, -1536
+			BottomRight: 512, -512
+	HitShape@BOTTOMLEFT:
+		TargetableOffsets: -1260,-1024,0
+		Type: Rectangle
+			TopLeft: -1536, 598
+			BottomRight: -512, 1280
+	WithDeathAnimation:
+		DeathSequence: dead
+		UseDeathTypeSuffix: false
+	WithResourceStoragePipsDecoration:
+		Position: BottomLeft
+		RequiresSelection: true
+		PipCount: 17
+		FullSequence: pip-yellow
+        
+USAWARFACTORY:
+	Inherits: ^DawnBuilding
+	Inherits@prereqs: ^FactoryPrereqs
+	Selectable:
+		Bounds: 3072, 3072
+	Buildable:
+		Queue: Building
+		BuildPaletteOrder: 80
+		Prerequisites: refinery, anypower, ~structures.usa
+		Description: Produces vehicles.
+	Valued:
+		Cost: 2000
+	Tooltip:
+		Name: War Factory
+	Building:
+		Footprint: ___ xxx === ===
+		Dimensions: 3,4
+		LocalCenterOffset: 0,-512,0
+	Health:
+		HP: 170000
+	Armor:
+		Type: Wood
+	RevealsShroud:
+		MinRange: 4c0
+		Range: 5c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 4c0
+	WithBuildingBib:
+	WithProductionDoorOverlay:
+		Sequence: build-top
+		RequiresCondition: !build-incomplete
+	RallyPoint:
+		Path: 0,3
+	Exit@1:
+		RequiresCondition: !being-captured
+		SpawnOffset: -341,-341,0
+		ExitCell: 0,2
+		ExitDelay: 3
+	Production:
+		Produces: Vehicle
+	GrantExternalConditionToProduced:
+		Condition: produced
+	PrimaryBuilding:
+		PrimaryCondition: primary
+		SelectionNotification: PrimaryBuildingSelected
+	ProductionBar:
+		ProductionType: Vehicle
+	Power:
+		Amount: -30
+	ProvidesPrerequisite@buildingname:
+	Targetable:
+		TargetTypes: GroundActor, C4, DetonateAttack, Structure, SpyInfiltrate
+	InfiltrateForSupportPower:
+		Proxy: vehicles.upgraded
+		Types: SpyInfiltrate
+	WithDecoration@primary:
+		RequiresSelection: true
+		Image: pips
+		Sequence: tag-primary
+		Position: Top
+		RequiresCondition: primary
+	-ActorPreviewPlaceBuildingPreview:
+	SequencePlaceBuildingPreview:
+		Sequence: place
+	RenderSprites:
+        Image: WEAPD
+	HitShape:
+		TargetableOffsets: 0,0,0, 0,1024,0, 0,-1024,0
+		Type: Rectangle
+			TopLeft: -1536, -1024
+			BottomRight: 1536, 512
+	Cloak@stealthgen:
+		Palette: dawncloak
+	WithDeathAnimation:
+		DeathSequence: dead
+		UseDeathTypeSuffix: false
+		DeathSequencePalette: dawn

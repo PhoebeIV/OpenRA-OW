@@ -1,0 +1,80 @@
+ 
+USACHINOOK:
+	Inherits: ^Vehicle
+	Inherits@CARGOPIPS: ^CargoPips
+	Buildable:
+		Queue: Aircraft
+		BuildAtProductionType: Vehicle
+		BuildPaletteOrder: 10
+		Prerequisites: refinery, ~aircraft.usa
+		Description: Collects Ore, Tiberium and Gems for processing.\nSpeed: 100 \n  Unarmed
+	Valued:
+		Cost: 11000
+	Tooltip:
+		Name: Chinook
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 60000
+	Harvester:
+		Capacity: 20
+		Resources: Ore,Gems,Tiberium,BlueTiberium
+		BaleUnloadDelay: 1
+		BaleLoadDelay: 3
+		SearchFromProcRadius: 15
+		SearchFromHarvesterRadius: 8
+		EmptyCondition: no-ore
+	ChangesHealth:
+		Step: 100
+		Delay: 25
+		StartIfBelow: 50
+		DamageCooldown: 500
+	RevealsShroud:
+		MinRange: 6c0
+		Range: 8c0
+		Type: GroundPosition
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 6c0
+		Type: GroundPosition
+	WithIdleOverlay@ROTOR1AIR:
+		Offset: 597,0,213
+		Sequence: rotor
+		RequiresCondition: airborne
+	WithIdleOverlay@ROTOR1GROUND:
+		Offset: 597,0,213
+		Sequence: slow-rotor
+		RequiresCondition: !airborne
+	WithIdleOverlay@ROTOR2AIR:
+		Offset: -597,0,341
+		Sequence: rotor2
+		RequiresCondition: airborne
+	WithIdleOverlay@ROTOR2GROUND:
+		Offset: -597,0,341
+		Sequence: slow-rotor2
+		RequiresCondition: !airborne
+	Cargo:
+		Types: Infantry
+		MaxWeight: 8
+		AfterUnloadDelay: 40
+	SpawnActorOnDeath:
+		Actor: TRAN.Husk
+	Selectable:
+		DecorationBounds: 1706, 1536
+	Explodes:
+		RequiresCondition: !no-ore
+		Weapon: OreExplosion
+	Mobile:
+		Speed: 71
+		Locomotor: jumpjet
+	WithHarvesterPipsDecoration:
+		Position: BottomLeft
+		RequiresSelection: true
+		PipCount: 7
+		ResourceSequences:
+			Ore: pip-yellow
+			Gems: pip-red
+			Tiberium: pip-green
+			BlueTiberium: pip-blue
+	RenderSprites:
+		Image: TRAN
