@@ -199,6 +199,22 @@ ShieldKnight:
 	Voiced:
 		VoiceSet: SwordmanVoice
 
+DismountedKnight:
+	Inherits@Knight: ShieldKnight
+	-Buildable:
+	Tooltip:
+		Name: Dismounted Knight
+	Armament@1:
+		Name: PRIMARY
+		Weapon: Sword
+		PauseOnCondition: elementalweps
+	Armament@ElementalWepon:
+		Name: SECONDARY
+		Weapon: SwordElementalWeps
+		RequiresCondition: elementalweps
+	Mobile:
+		Speed: 60
+
 ##Gathers resources
 SLAVE:
 	Inherits@MediSoldier: ^MediSoldier
@@ -828,6 +844,9 @@ LIGHTNINGWIZARD:
 		Cost: 700
 	Tooltip:
 		Name: Lightning Wizard
+	-Armament:
+	-Armament@GARRISONED:
+	-Armament@BUS:
 	Armament:
 		Weapon: LightningWizardShot
 	Armament@GARRISONED:
@@ -989,6 +1008,8 @@ MEDIGolemDrop:
 	Inherits: MEDIGolem
 	-Buildable:
 	Passenger:
+	-SpawnActorOnDeath@Golem:
+	-SpawnActorOnDeath@Golem2:
 
 MEDIGolemMini:
 	Inherits: MEDIGolem
