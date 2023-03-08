@@ -156,6 +156,7 @@ BladeMasterTornado:
 	Report: blademastertornado.aud
 	TargetActorCenter: True
 	Projectile: Missile
+		Jammable: False
 		Speed: 50
 		HorizontalRateOfTurn: 60
 		RangeLimit: 25c0
@@ -752,6 +753,7 @@ WizBall:
 	Report: plasma1.aud
 	ValidTargets: Ground, Water, GroundActor, WaterActor, Air, AirborneActor
 	Projectile: Missile
+		Jammable: False
 		Blockable: False
 		Speed: 582
 		Image: Plasma
@@ -1031,6 +1033,7 @@ IceWyvernShot:
 	Report: wyverniceattack.aud
 	ValidTargets: Ground, Water, GroundActor, WaterActor
 	Projectile: Missile
+		Jammable: False
 		Blockable: False
 		Speed: 150
 		Image: mediicewyvernproj
@@ -1062,7 +1065,7 @@ IceWyvernShot:
 		Footprint: xxxxx xxxxx xxxxx xxxxx xxxxx xxxxx xxxxx
 	Warhead@1Dam: SpreadDamage
 		Spread: 200
-		Damage: 1800
+		Damage: 1500
 		ValidTargets: GroundActor, WaterActor
 		Versus:
 			Concrete: 15
@@ -1097,6 +1100,12 @@ IceWyvernShot:
 	Warhead@11Smu_areanuke3: LeaveSmudge
 		SmudgeType: Scorch
 		Size: 1
+	Warhead@curtain: GrantExternalCondition
+		ValidTargets: GroundActor, Trees, WaterActor, Underwater, AirborneActor
+		ValidRelationships: Enemy, Neutral
+		Condition: CurseCondition
+		Range: 2c0
+		Duration: 150
 
 IceWyvernIce:
 	ValidTargets: Ground, Water, GroundActor, WaterActor, Trees
@@ -1106,6 +1115,12 @@ IceWyvernIce:
 		Explosions: mediicewyvernice
 		ImpactActors: false
 		ValidTargets: Ground, GroundActor, Water, WaterActor, Trees
+	Warhead@curtain: GrantExternalCondition
+		ValidTargets: GroundActor, Trees, WaterActor, Underwater, AirborneActor
+		ValidRelationships: Enemy, Neutral
+		Condition: CurseCondition
+		Range: 1c0
+		Duration: 150
 
 IceWyvernIce2:
 	ValidTargets: Ground, Water, GroundActor, WaterActor, Trees
@@ -1115,6 +1130,12 @@ IceWyvernIce2:
 		Explosions: mediicewyvernice2
 		ImpactActors: false
 		ValidTargets: Ground, GroundActor, Water, WaterActor, Trees
+	Warhead@curtain: GrantExternalCondition
+		ValidTargets: GroundActor, Trees, WaterActor, Underwater, AirborneActor
+		ValidRelationships: Enemy, Neutral
+		Condition: CurseCondition
+		Range: 1c0
+		Duration: 150
 
 GraveyardSpawner:
 	ReloadDelay: 40
