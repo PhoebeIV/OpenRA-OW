@@ -289,3 +289,115 @@ USAWARFACTORY:
 		DeathSequence: dead
 		UseDeathTypeSuffix: false
 		DeathSequencePalette: dawn
+
+USAAIRFIELD:
+	Inherits: ^Building
+	Inherits@shape: ^3x2Shape
+	Inherits@PRIMARY: ^PrimaryBuilding
+	Buildable:
+		Queue: Building
+		BuildPaletteOrder: 130
+		Prerequisites: refinery, anypower, ~structures.usa
+		Description: Produces and reloads aircraft.\n  Special Ability: Spy Plane\n  Special Ability: Paratroopers
+	Tooltip:
+		Name: USA Airfield
+	Valued:
+		Cost: 2000
+	Building:
+		Footprint: XXXX xxx= xx==
+		Dimensions: 4,3
+	Health:
+		HP: 170000
+	Armor:
+		Type: Wood
+	RevealsShroud:
+		MinRange: 4c0
+		Range: 5c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 4c0
+	Selectable:
+		Bounds: 4096, 2048
+	HitShape:
+		TargetableOffsets: 0,0,0, 0,-512,256, 0,-1451,384, 0,512,128, 0,1536,85
+		Type: Rectangle
+			TopLeft: -2048, -1024
+			BottomRight: 2048, 1024
+	Production:
+		Produces: Aircraft, Plane
+	Power:
+		Amount: -30
+	ProvidesPrerequisite@usa:
+		Factions: usa
+		Prerequisite: aircraft.usa
+	ProvidesPrerequisite@buildingname:
+	Targetable:
+		TargetTypes: GroundActor, C4, DetonateAttack, Structure, SpyInfiltrate
+	InfiltrateForSupportPower:
+		Proxy: vehicles.upgraded
+		Types: SpyInfiltrate
+	WithDecoration@primary:
+		RequiresSelection: true
+		Image: pips
+		Sequence: tag-primary
+		Position: Top
+		RequiresCondition: primary
+	WithIdleOverlay@DISH:
+		Sequence: idle-dish
+	Exit@0:
+		ProductionTypes: Aircraft, Plane
+	Exit@1:
+		ProductionTypes: Aircraft, Plane
+		SpawnOffset: 512,512,0
+	Exit@2:
+		ExitCell: 1,1
+		Facing: 192
+		SpawnOffset: -1024,0,0
+		ProductionTypes: Aircraft, Plane
+	Exit@3:
+		ExitCell: 1,2
+		Facing: 192
+		SpawnOffset: -1024,544,0
+		ProductionTypes: Aircraft, Plane
+	WithDeathAnimation:
+		DeathSequence: dead
+		UseDeathTypeSuffix: false
+	RenderSprites:
+        Image: usaairfieldbuilding
+	RallyPoint:
+		ForceSetType: Plane
+        
+usastrategycenter:
+	Inherits: ^ScienceBuilding
+	Inherits@shape: ^3x3Shape
+	Selectable:
+		Bounds: 3072, 3072
+	Buildable:
+		Queue: Building
+		Prerequisites: refinery, anypower, ~structures.usa
+		Description: Basic Techcenter building.\nAlso unlocks upgrades.
+		BuildPaletteOrder: 150
+	Tooltip:
+		Name: Strategy Center
+	Building:
+		Footprint: xxx xxx x=x
+		Dimensions: 3,3
+	Valued:
+		Cost: 1500
+	Health:
+		HP: 80000
+	Armor:
+		Type: Heavy
+	RevealsShroud:
+		MinRange: 5c0
+		Range: 7c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 5c0
+	Targetable:
+		TargetTypes: GroundActor, C4, DetonateAttack, Structure, SpyInfiltrate
+	ProvidesPrerequisite@buildingname:
+	ProvidesPrerequisite:
+		Prerequisite: techcenter
+	RenderSprites:
+		Image: usastrategycenter

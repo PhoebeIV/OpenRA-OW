@@ -16,17 +16,17 @@ USARANGER:
 	Health:
 		HP: 10000
 	Armament@PRIMARY:
-		Weapon: M1Minigun
+		Weapon: rangershot
 	Armament@SECONDARY:
-		Weapon: Grenade
+		Weapon: rangergrenade
 		FireDelay: 15
 	Armament@GARRISONED:
 		Name: garrisoned
-		Weapon: DoomMinigunDK
+		Weapon: rangershotgarrison
 		MuzzleSequence: garrison-muzzle
 	Armament@BUS:
 		Name: bus
-		Weapon: M1Minigun_Bus
+		Weapon: rangershotgarrison
 		MuzzleSequence: garrison-muzzle
 	WithInfantryBody:
 		DefaultAttackSequence: shoot
@@ -44,7 +44,7 @@ USARANGER:
 	Selectable:
 		Class: E1
 	RenderSprites:
-		Image: E1OF
+		Image: usaranger
         
 USADEFENDER:
 	Inherits: ^Soldier
@@ -64,15 +64,16 @@ USADEFENDER:
 	Health:
 		HP: 8000
 	Armament@PRIMARY:
-		Weapon: Dragon
-		FireDelay: 5
+		Weapon: missiledefendershot
+	Armament@Secondary:
+		Weapon: missiledefendershotair
 	Armament@GARRISONED:
 		Name: garrisoned
-		Weapon: Dragon
+		Weapon: missiledefendershotgarrison
 		MuzzleSequence: garrison-muzzle
 	Armament@BUS:
 		Name: bus
-		Weapon: Dragon
+		Weapon: missiledefendershotgarrison
 		MuzzleSequence: garrison-muzzle
 	WithInfantryBody:
 		DefaultAttackSequence: shoot
@@ -90,7 +91,7 @@ USADEFENDER:
 	Selectable:
 		Class: E3
 	RenderSprites:
-		Image: E3
+		Image: usadefender
         
 USAPATHFINDER:
 	Inherits: ^Soldier
@@ -150,3 +151,65 @@ USAPATHFINDER:
 		Class: E1
 	RenderSprites:
 		Image: usapathfinder
+ 
+USABurton:
+	Inherits: ^Soldier
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Buildable:
+		Queue: Infantry
+		BuildAtProductionType: Soldier
+		BuildPaletteOrder: 120
+		Prerequisites: ~infantry.usa
+		Description: An expert in covert operations, Colonel Burton can wreak havoc against enemy infantry of all types.\nArmed with a rifle, knife and remote or timed demo charges,\nColonel Burton’s stealth training allows him to move invisibly across almost any terrain.\n He has over 500 confirmed kills.
+	Valued:
+		Cost: 1500
+	Tooltip:
+		Name: Burton
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 12000
+	Mobile:
+		Speed: 71
+		Voice: Move
+	Guard:
+		Voice: Move
+	RevealsShroud:
+		Range: 6c0
+	Demolition:
+		DetonationDelay: 45
+		Voice: Demolish
+	Passenger:
+		CustomPipType: red
+		Voice: Move
+	Armament@PRIMARY:
+		Weapon: burtonshot
+	Armament@GARRISONED:
+		Name: garrisoned
+		Weapon: burtonshotgarrison
+		MuzzleSequence: garrison-muzzle
+	Armament@BUS:
+		Name: bus
+		Weapon: burtonshotgarrison
+		MuzzleSequence: garrison-muzzle
+	WithInfantryBody:
+		DefaultAttackSequence: shoot
+		StandSequences: stand
+	ExternalCondition@PRODUCED:
+		Condition: produced
+	VoiceAnnouncement:
+		RequiresCondition: produced
+		Voice: Build
+	AnnounceOnKill:
+	Voiced:
+		VoiceSet: CommandoVoice
+	ProducibleWithLevel:
+		Prerequisites: barracks.upgraded
+	RenderSprites:
+	AmbientSound:
+		SoundFiles: ccmon1.aud
+		Interval: 500, 1500
+		Delay: 500, 1500
+		RequiresCondition: !ismoving
+	GrantConditionOnMovement:
+		Condition: ismoving

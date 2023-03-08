@@ -20,7 +20,7 @@ USACRUSADER:
 		Actor: MTNKD.Husk
 	SelectionDecorations:
 	RenderSprites:
-		Image: mtnkd
+		Image: usacrusadertank
         
 USAPALADIN:
 	Inherits: 2TNK
@@ -41,12 +41,13 @@ USAPALADIN:
 	Armament@Primary:
 		Weapon: GDI120mm
 	Armament@Secondary:
-		Weapon: USACrusaderLaser
+		Weapon: USAPaladinLaser
 	JamsMissiles:
-		Range: 1c0
+		Range: 3c0
+        Chance: 50
 		DeflectionRelationships: Neutral, Enemy
 	SpawnActorOnDeath:
-		Actor: usapaladintankhusk
+		Actor: 2TNK.NZ.Husk
 	SelectionDecorations:
 	RenderSprites:
 		Image: usapaladintank
@@ -77,7 +78,7 @@ USAHUMVEE:
 			e1of: e1of
 			dm2of: e1of
 	RenderSprites:
-		Image: jeep
+		Image: usahumvee
         
 USAAMBULANCE:
 	Inherits: JEEP
@@ -123,7 +124,7 @@ USAAMBULANCE:
 			e1of: e1of
 			dm2of: e1of
 	RenderSprites:
-		Image: jeepd
+		Image: usaambulance
         
 USATOMAHAWK:
 	Inherits: V2RL
@@ -139,7 +140,7 @@ USATOMAHAWK:
 	Armament:
 		Weapon: GLASCUD
 	RenderSprites:
-		Image: v2rl
+		Image: usatomahawk
         
 USASENTRYDRONE:
 	Inherits: BIKE
@@ -195,8 +196,63 @@ USAAVENGER:
 	Mobile:
 		Speed: 156
 	Armament:
-		Weapon: ArcaneZap2
+		Weapon: USAAvengerLaserAir
 	Armament@Secondary:
 		Weapon: USAAvengerLaser
 	RenderSprites:
-		Image: mgg
+		Image: usaavenger
+
+USAMICROWAVE:
+	Inherits: 2TNK
+	Buildable:
+		BuildPaletteOrder: 220
+		Prerequisites: ~vehicles.usa
+		Description: Advanced support tank.\nEquipped with a Microwave generator.\nCan disable vehicals and structures and fry infantry.\nSpeed: 85\n  Strong vs Vehicles, Infantry\n  Weak vs Aircraft
+	Valued:
+		Cost: 900
+	Tooltip:
+		Name: Microwave Tank
+	Health:
+		HP: 30000
+	Mobile:
+		Speed: 85
+	Turreted:
+		TurnSpeed: 16
+	Armament:
+		Weapon: USAMicrowaveLaser
+	ProximityExternalCondition@burn:
+		Condition: burn
+		Range: 3c512
+	JamsMissiles:
+		Range: 4c0
+        Chance: 40
+		DeflectionRelationships: Neutral, Enemy
+	SpawnActorOnDeath:
+		Actor: 2TNK.NZ.Husk
+	SelectionDecorations:
+	RenderSprites:
+		Image: usamicrowavetank
+        
+USALASERCRUSADER:
+	Inherits: 2TNK
+	Buildable:
+		BuildPaletteOrder: 220
+		Prerequisites: ~vehicles.usa
+		Description: USA main battle tank.\nEquipped with a High-energy directed pulse laser cannon.\nSpeed: 85\n  Strong vs Vehicles\n  Weak vs Infantry, Aircraft
+	Valued:
+		Cost: 900
+	Tooltip:
+		Name: Laser Crusader Tank
+	Health:
+		HP: 55000
+	Mobile:
+		Speed: 85
+	Turreted:
+		TurnSpeed: 16
+	Armament:
+		Weapon: USALaserCrusaderLaser
+	SpawnActorOnDeath:
+		Actor: MTNKD.Husk
+	SelectionDecorations:
+	RenderSprites:
+		Image: usalasercrusadertank

@@ -1019,3 +1019,65 @@ ScoutMissile:
 	Warhead@3Eff: CreateEffect
 		Explosions: med_explosion_air
 		ImpactSounds: explosm.aud
+
+rangergrenade:
+	Inherits: ^Artillery
+	ReloadDelay: 50
+	Range: 4c384
+	MinRange: 0c512
+	InvalidTargets: Vehicle, Tank, Structure, Wall
+	Report: grenade1.aud
+	Projectile: Bullet
+		Speed: 128
+		Inaccuracy: 512
+		Image: BOMB
+	Warhead@1Dam: SpreadDamage
+		Spread: 0c256
+		Damage: 2500
+		InvalidTargets: Vehicle, Tank, Structure, Wall
+	Warhead@2Dam: SpreadDamage
+		Spread: 1c0
+		Falloff: 100, 100
+		Damage: 1000
+		InvalidTargets: Vehicle, Tank, Structure, Wall
+		DamageTypes: TriggerProne, ExplosionDeath
+	Warhead@3Eff: CreateEffect
+		Explosions: flashbang
+		ImpactSounds: kaboom25.aud
+	Warhead@4EffWater: CreateEffect
+		Explosions: small_splash
+        
+missiledefendershot:
+	Inherits: ^AntiGroundMissile
+	RequiresNormalFire: true
+	ReloadDelay: 25
+	Range: 4c384
+	Report: imisweaa.wav, imisweab.wav, imisweac.wav
+	Projectile: Missile
+		TrailImage: smokey
+	Warhead@1Dam: SpreadDamage
+		Damage: 4000
+		ValidTargets: Ground, GroundActor, Air, AirborneActor, WaterActor, Trees
+
+missiledefendershotair:
+	Inherits: ^AntiAirMissile
+	RequiresNormalFire: true
+	ReloadDelay: 25
+	Range: 6c0
+	Report: imisweaa.wav, imisweab.wav, imisweac.wav
+	Projectile: Missile
+		TrailImage: smokey
+		RangeLimit: 7c0
+	Warhead@1Dam: SpreadDamage
+		Damage: 4000
+
+
+missiledefendershotgarrison:
+	Inherits: missiledefendershot
+	RequiresNormalFire: false
+	Range: 5c853
+	Projectile: Missile
+		RangeLimit: 7c0
+	Warhead@1Dam: SpreadDamage
+		Damage: 5000
+		ValidTargets: Ground, GroundActor, Air, AirborneActor, WaterActor, Trees

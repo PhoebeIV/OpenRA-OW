@@ -1879,31 +1879,32 @@ InterceptorReturnDummy:
 		Damage: 0
 		ValidTargets: CarrierReturn
 
-USACrusaderLaser:
+USAPaladinLaser:
 	Inherits: ^LaserWeapon
 	ReloadDelay: 35
 	Range: 5c0
-	Report: lsclfire.aud
+	Report: USAPaladinLasershot.aud
 	Projectile: LaserZap
-		Width: 40
-		Duration: 2
-		UsePlayerColor: true
+		Width: 60
+		ZOffset: 2047
+		Color: FF0000
 	Warhead@1Dam: SpreadDamage
 		Damage: 1600
 		Versus:
 			None: 140
 			Heavy: 50
 			Wood: 50
+    DamageTypes: Prone50Percent, TriggerProne, FireDeath
 	-Warhead@2Smu:
     
 USAAvengerLaser:
 	ReloadDelay: 1
-	Range: 10c0
+	Range: 8c0
 	TargetActorCenter: True
-	ValidTargets: Ground, Water, GroundActor, WaterActor, Air, AirborneActor
+	ValidTargets: Ground, GroundActor, Water, WaterActor
 	Projectile: LaserZap
-		Width: 40
-		Duration: 2
+		Width: 50
+		Duration: 10
 		UsePlayerColor: true
 	Warhead@1Dam: SpreadDamage
 		Damage: 200
@@ -1915,4 +1916,74 @@ USAAvengerLaser:
 			Concrete: 30
 		DamageTypes: Prone50Percent, TriggerProne, ElectricityDeath
 		ValidTargets: Ground, GroundActor, Water, WaterActor
+	Warhead@2: GrantExternalCondition
+		Condition: Corrode
+		Duration: 200
+		ValidTargets: Ground, GroundActor, Water, WaterActor
 	TargetActorCenter: True
+    
+USAAvengerLaserAir:
+	Inherits: ArcaneZap
+	ReloadDelay: 4
+	Range: 8c512
+	MinRange: 0c0
+	Report: USAPaladinLasershot.aud
+	ValidTargets: AirborneActor, Air
+	Projectile: LaserZap
+		Width: 60
+		ZOffset: 2047
+		Color: FF0000
+	Warhead@1Dam: SpreadDamage
+		Damage: 800
+		Versus:
+			Wood: 100
+			Light: 100
+			Heavy: 100
+			Concrete: 100
+		DamageTypes: Prone50Percent, TriggerProne, ElectricityDeath
+		ValidTargets: AirborneActor, Air
+        
+USAMicrowaveLaser:
+	ReloadDelay: 10
+	Range: 7c0
+	Report: USAMicrowaveLasershot.aud
+	TargetActorCenter: True
+	ValidTargets: Ground, Water, GroundActor, WaterActor
+	Projectile: LaserZap
+		Width: 120
+		Duration: 30
+		Color: FFA500
+        Shape: Cylindrical
+	Warhead@1Dam: SpreadDamage
+		Damage: 2000
+		Versus:
+			None: 100
+			Wood: 0
+			Light: 0
+			Heavy: 0
+			Concrete: 0
+		DamageTypes: Prone50Percent, TriggerProne, FireDeath
+		ValidTargets: Ground, GroundActor, Water, WaterActor
+	Warhead@2EMP: GrantExternalCondition
+		Condition: disabled
+		Duration: 50
+		ValidTargets: GroundActor, WaterActor
+	TargetActorCenter: True
+    
+USALaserCrusaderLaser:
+	Inherits: ^LaserWeapon
+	ReloadDelay: 35
+	Range: 7c0
+	Report: USAPaladinLasershot.aud
+	Projectile: LaserZap
+		Width: 60
+		ZOffset: 2047
+		Color: FF0000
+	Warhead@1Dam: SpreadDamage
+		Damage: 5200
+		Versus:
+			None: 140
+			Heavy: 50
+			Wood: 50
+    DamageTypes: Prone50Percent, TriggerProne, FireDeath
+	-Warhead@2Smu:
