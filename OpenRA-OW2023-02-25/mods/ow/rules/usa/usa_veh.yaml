@@ -1,0 +1,202 @@
+USACRUSADER:
+	Inherits: 2TNK
+	Buildable:
+		BuildPaletteOrder: 220
+		Prerequisites: ~vehicles.usa
+		Description: USA main battle tank.\nEquipped with an 120 mm L30 rifled gun.\nSpeed: 85\n  Strong vs Vehicles\n  Weak vs Infantry, Aircraft
+	Valued:
+		Cost: 900
+	Tooltip:
+		Name: Crusader Tank
+	Health:
+		HP: 55000
+	Mobile:
+		Speed: 85
+	Turreted:
+		TurnSpeed: 16
+	Armament:
+		Weapon: GDI120mm
+	SpawnActorOnDeath:
+		Actor: MTNKD.Husk
+	SelectionDecorations:
+	RenderSprites:
+		Image: mtnkd
+        
+USAPALADIN:
+	Inherits: 2TNK
+	Buildable:
+		BuildPaletteOrder: 230
+		Prerequisites: ~vehicles.usa
+		Description: USA main battle tank.\nEquipped with an 120 mm ramjet-assisted cannon.\nand point defense laser.\nSpeed: 85\n  Strong vs Vehicles\n  Weak vs Infantry, Aircraft
+	Valued:
+		Cost: 1100
+	Tooltip:
+		Name: Paladin Tank
+	Health:
+		HP: 70000
+	Mobile:
+		Speed: 85
+	Turreted:
+		TurnSpeed: 16
+	Armament@Primary:
+		Weapon: GDI120mm
+	Armament@Secondary:
+		Weapon: USACrusaderLaser
+	JamsMissiles:
+		Range: 1c0
+		DeflectionRelationships: Neutral, Enemy
+	SpawnActorOnDeath:
+		Actor: usapaladintankhusk
+	SelectionDecorations:
+	RenderSprites:
+		Image: usapaladintank
+        
+USAHUMVEE:
+	Inherits: JEEP
+	Buildable:
+		BuildPaletteOrder: 210
+		Prerequisites: ~vehicles.usa
+		Description: Lightly armed infantry transport.\nArmed with a machine gun, tow missile launcher and 5 gun ports.\nSpeed: 156\n  Strong vs Infantry\n  Weak vs Vehicles, Aircraft
+	Tooltip:
+		Name: Humvee
+	Health:
+		HP: 17500
+	Mobile:
+		Speed: 156
+	Armament:
+		Weapon: DawnM60mg
+	Armament@Secondary:
+		Weapon: Dragon
+		FireDelay: 5
+	Cargo:
+		Types: Infantry
+		MaxWeight: 5
+		AfterUnloadDelay: 40
+		EjectOnDeath: true
+		PassengerConditions:
+			e1of: e1of
+			dm2of: e1of
+	RenderSprites:
+		Image: jeep
+        
+USAAMBULANCE:
+	Inherits: JEEP
+	Buildable:
+		BuildPaletteOrder: 210
+		Prerequisites: ~vehicles.usa
+		Description: Unarmed support vehicle.\nCan carry three infantry.\nSpeed: 156
+	Tooltip:
+		Name: Ambulance
+	Health:
+		HP: 17500
+	Mobile:
+		Speed: 156
+	Armament:
+		Weapon: Heal
+		Cursor: heal
+		OutsideRangeCursor: heal
+		TargetRelationships: Ally
+		ForceTargetRelationships: None
+	Armament@Secondary:
+		Weapon: Repair
+		Cursor: repair
+		OutsideRangeCursor: repair
+		TargetRelationships: Ally
+		ForceTargetRelationships: None
+	ProximityExternalCondition@ambulance:
+		Condition: ambulance
+		Range: 2c512
+	WithRangeCircle:
+		Range: 2c512
+	WithDecoration@ambulance:
+		Image: pips
+		Sequence: pip-heal
+		Palette: effect
+		Position: TopRight
+		ValidRelationships: None,Neutral,Enemy,Ally
+	Cargo:
+		Types: Infantry
+		MaxWeight: 3
+		AfterUnloadDelay: 40
+		EjectOnDeath: true
+		PassengerConditions:
+			e1of: e1of
+			dm2of: e1of
+	RenderSprites:
+		Image: jeepd
+        
+USATOMAHAWK:
+	Inherits: V2RL
+	Buildable:
+		Queue: Vehicle
+		BuildPaletteOrder: 230
+		Prerequisites: ~vehicles.usa
+		Description: Long-range rocket artillery.\n  Strong vs Infantry, Buildings\n  Weak vs Vehicles, Aircraft
+	Tooltip:
+		Name: Tomahawk Launcher
+	Valued:
+		Cost: 1500
+	Armament:
+		Weapon: GLASCUD
+	RenderSprites:
+		Image: v2rl
+        
+USASENTRYDRONE:
+	Inherits: BIKE
+	Buildable:
+		Queue: Vehicle
+		BuildPaletteOrder: 230
+		Prerequisites: ~vehicles.usa
+		Description: Detection vehicle.\nCamouflaged while not moving.\nCan be upgraded with a machine gun for self defense\n\n  Weak vs Everything
+	Health:
+		HP: 14000
+	Mobile:
+		TurnSpeed: 40
+		Speed: 60
+		Locomotor: gbike
+	Tooltip:
+		Name: Sentry Drone
+	-Armament:
+	Armament:
+		Weapon: M1Carbine_G2
+		LocalOffset: -128, -170, 170, -128, 170, 170
+		MuzzleSequence: muzzle
+	WithMuzzleOverlay:
+	Cloak:
+		InitialDelay: 100
+		CloakDelay: 50
+		UncloakOn: Attack, Unload, Infiltrate, Demolish, Move
+		CloakTypes: Cloak
+		IsPlayerPalette: true
+		RequiresCondition: !cloak-force-disabled
+	RenderDetectionCircle:
+	DetectCloaked:
+		Range: 5c640
+	AutoTarget:
+		InitialStance: HoldFire
+	Turreted:
+		TurnSpeed: 8
+	GrantConditionOnDamageState@UNCLOAK:
+		Condition: cloak-force-disabled
+		ValidDamageStates: Critical
+	RenderSprites:
+		Image: usasentrydrone
+        
+USAAVENGER:
+	Inherits: JEEP
+	Buildable:
+		BuildPaletteOrder: 210
+		Prerequisites: ~vehicles.usa
+		Description: Support vehicle.\nArmed with twin anti-air lasers and anti personal laser\nSpeed: 156\n  Strong vs Infantry, Aircraft\n  Weak vs Vehicles
+	Tooltip:
+		Name: Avenger
+	Health:
+		HP: 17500
+	Mobile:
+		Speed: 156
+	Armament:
+		Weapon: ArcaneZap2
+	Armament@Secondary:
+		Weapon: USAAvengerLaser
+	RenderSprites:
+		Image: mgg
