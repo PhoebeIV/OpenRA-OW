@@ -26,7 +26,7 @@ USAPALADIN:
 	Inherits: 2TNK
 	Buildable:
 		BuildPaletteOrder: 230
-		Prerequisites: ~vehicles.usa
+		Prerequisites: ~vehicles.usa, techcenter
 		Description: USA main battle tank.\nEquipped with an 120 mm ramjet-assisted cannon.\nand point defense laser.\nSpeed: 85\n  Strong vs Vehicles\n  Weak vs Infantry, Aircraft
 	Valued:
 		Cost: 1100
@@ -60,6 +60,8 @@ USAHUMVEE:
 		Description: Lightly armed infantry transport.\nArmed with a machine gun, tow missile launcher and 5 gun ports.\nSpeed: 156\n  Strong vs Infantry\n  Weak vs Vehicles, Aircraft
 	Tooltip:
 		Name: Humvee
+	Valued:
+		Cost: 700
 	Health:
 		HP: 17500
 	Mobile:
@@ -88,6 +90,8 @@ USAAMBULANCE:
 		Description: Unarmed support vehicle.\nCan carry three infantry.\nSpeed: 156
 	Tooltip:
 		Name: Ambulance
+	Valued:
+		Cost: 600
 	Health:
 		HP: 17500
 	Mobile:
@@ -127,18 +131,24 @@ USAAMBULANCE:
 		Image: usaambulance
         
 USATOMAHAWK:
-	Inherits: V2RL
+	Inherits: 2TNK
 	Buildable:
 		Queue: Vehicle
 		BuildPaletteOrder: 230
-		Prerequisites: ~vehicles.usa
-		Description: Long-range rocket artillery.\n  Strong vs Infantry, Buildings\n  Weak vs Vehicles, Aircraft
+		Prerequisites: ~vehicles.usa, techcenter
+		Description: Long-range rocket artillery.\n  Strong vs Infantry, Buildings, Vehicles, Aircraft
+	Health:
+		HP: 20000
 	Tooltip:
 		Name: Tomahawk Launcher
 	Valued:
-		Cost: 1500
+		Cost: 1200
+	Turreted:
+		TurnSpeed: 16
 	Armament:
-		Weapon: GLASCUD
+		Weapon: tomahawkmissile
+	Armament@Secondary:
+		Weapon: tomahawkmissileair
 	RenderSprites:
 		Image: usatomahawk
         
@@ -151,6 +161,8 @@ USASENTRYDRONE:
 		Description: Detection vehicle.\nCamouflaged while not moving.\nCan be upgraded with a machine gun for self defense\n\n  Weak vs Everything
 	Health:
 		HP: 14000
+	Valued:
+		Cost: 500
 	Mobile:
 		TurnSpeed: 40
 		Speed: 60
@@ -187,14 +199,16 @@ USAAVENGER:
 	Inherits: JEEP
 	Buildable:
 		BuildPaletteOrder: 210
-		Prerequisites: ~vehicles.usa
+		Prerequisites: ~vehicles.usa, techcenter
 		Description: Support vehicle.\nArmed with twin anti-air lasers and anti personal laser\nSpeed: 156\n  Strong vs Infantry, Aircraft\n  Weak vs Vehicles
 	Tooltip:
 		Name: Avenger
 	Health:
-		HP: 17500
+		HP: 25000
 	Mobile:
 		Speed: 156
+	Valued:
+		Cost: 2000
 	Armament:
 		Weapon: USAAvengerLaserAir
 	Armament@Secondary:
@@ -206,10 +220,10 @@ USAMICROWAVE:
 	Inherits: 2TNK
 	Buildable:
 		BuildPaletteOrder: 220
-		Prerequisites: ~vehicles.usa
+		Prerequisites: ~vehicles.usa, techcenter
 		Description: Advanced support tank.\nEquipped with a Microwave generator.\nCan disable vehicals and structures and fry infantry.\nSpeed: 85\n  Strong vs Vehicles, Infantry\n  Weak vs Aircraft
 	Valued:
-		Cost: 900
+		Cost: 800
 	Tooltip:
 		Name: Microwave Tank
 	Health:

@@ -185,8 +185,9 @@ USASUPPLYCENTER:
 		DeathSequence: dead
 		UseDeathTypeSuffix: false
 	ProvidesPrerequisite@buildingname:
-	ProvidesPrerequisite:
-		Prerequisite: refinery
+	ProvidesPrerequisite@usa:
+		Factions: usa
+		Prerequisite: Supply Center
 	HitShape:
 		Type: Rectangle
 			TopLeft: -1536, -512
@@ -209,6 +210,10 @@ USASUPPLYCENTER:
 		RequiresSelection: true
 		PipCount: 17
 		FullSequence: pip-yellow
+	Production:
+		Produces: Helicopter, Aircraft
+	Exit:
+		ProductionTypes: Helicopter
         
 USAWARFACTORY:
 	Inherits: ^DawnBuilding
@@ -218,7 +223,7 @@ USAWARFACTORY:
 	Buildable:
 		Queue: Building
 		BuildPaletteOrder: 80
-		Prerequisites: refinery, anypower, ~structures.usa
+		Prerequisites: Supply Center, anypower, ~structures.usa
 		Description: Produces vehicles.
 	Valued:
 		Cost: 2000
@@ -261,6 +266,12 @@ USAWARFACTORY:
 	Power:
 		Amount: -30
 	ProvidesPrerequisite@buildingname:
+	ProvidesPrerequisite@usa:
+		Factions: usa
+		Prerequisite: War Factory
+	ProvidesPrerequisite@usa2:
+		Factions: usa
+		Prerequisite: vehicles.usa
 	Targetable:
 		TargetTypes: GroundActor, C4, DetonateAttack, Structure, SpyInfiltrate
 	InfiltrateForSupportPower:
@@ -297,12 +308,12 @@ USAAIRFIELD:
 	Buildable:
 		Queue: Building
 		BuildPaletteOrder: 130
-		Prerequisites: refinery, anypower, ~structures.usa
+		Prerequisites: Supply Center, anypower, ~structures.usa
 		Description: Produces and reloads aircraft.\n  Special Ability: Spy Plane\n  Special Ability: Paratroopers
 	Tooltip:
 		Name: USA Airfield
 	Valued:
-		Cost: 2000
+		Cost: 1500
 	Building:
 		Footprint: XXXX xxx= xx==
 		Dimensions: 4,3
@@ -324,7 +335,7 @@ USAAIRFIELD:
 			TopLeft: -2048, -1024
 			BottomRight: 2048, 1024
 	Production:
-		Produces: Aircraft, Plane
+		Produces: Aircraft, Plane, Helicopter
 	Power:
 		Amount: -30
 	ProvidesPrerequisite@usa:
@@ -344,8 +355,8 @@ USAAIRFIELD:
 		RequiresCondition: primary
 	WithIdleOverlay@DISH:
 		Sequence: idle-dish
-	Exit@0:
-		ProductionTypes: Aircraft, Plane
+	Exit:
+		ProductionTypes: Aircraft, Plane, Helicopter
 	Exit@1:
 		ProductionTypes: Aircraft, Plane
 		SpawnOffset: 512,512,0
@@ -374,8 +385,8 @@ usastrategycenter:
 		Bounds: 3072, 3072
 	Buildable:
 		Queue: Building
-		Prerequisites: refinery, anypower, ~structures.usa
-		Description: Basic Techcenter building.\nAlso unlocks upgrades.
+		Prerequisites: Supply Center, War Factory, anypower, ~structures.usa
+		Description: Strategic Center, provides upgrades.
 		BuildPaletteOrder: 150
 	Tooltip:
 		Name: Strategy Center
@@ -388,6 +399,8 @@ usastrategycenter:
 		HP: 80000
 	Armor:
 		Type: Heavy
+	Power:
+		Amount: -70
 	RevealsShroud:
 		MinRange: 5c0
 		Range: 7c0

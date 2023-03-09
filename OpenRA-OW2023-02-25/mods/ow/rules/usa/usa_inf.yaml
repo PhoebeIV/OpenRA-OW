@@ -100,7 +100,7 @@ USAPATHFINDER:
 		Queue: Infantry
 		BuildAtProductionType: Soldier
 		BuildPaletteOrder: 61
-		Prerequisites: ~infantry.usa
+		Prerequisites: ~infantry.usa, techcenter
 		Description: US Elite Sniper, equipped with Heckler & Koch MSG90\nand ghillie suits for camouflage.\nSpeed: 62\n  Strong vs Infantry\n  Weak vs Vehicles, Aircraft
 	Tooltip:
 		Name: Pathfinder
@@ -159,7 +159,7 @@ USABurton:
 		Queue: Infantry
 		BuildAtProductionType: Soldier
 		BuildPaletteOrder: 120
-		Prerequisites: ~infantry.usa
+		Prerequisites: ~infantry.usa, techcenter
 		Description: An expert in covert operations, Colonel Burton can wreak havoc against enemy infantry of all types.\nArmed with a rifle, knife and remote or timed demo charges,\nColonel Burton’s stealth training allows him to move invisibly across almost any terrain.\n He has over 500 confirmed kills.
 	Valued:
 		Cost: 1500
@@ -213,3 +213,10 @@ USABurton:
 		RequiresCondition: !ismoving
 	GrantConditionOnMovement:
 		Condition: ismoving
+	Cloak:
+		InitialDelay: 10
+		CloakDelay: 30
+		UncloakOn: Attack, Unload, Infiltrate, Demolish
+		CloakTypes: Cloak
+		IsPlayerPalette: true
+		RequiresCondition: !cloak-force-disabled
