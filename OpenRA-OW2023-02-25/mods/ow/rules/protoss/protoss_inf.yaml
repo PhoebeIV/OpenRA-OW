@@ -10,7 +10,7 @@ PPROBE:
 	Inherits@shield: ^ProtossInfShield
 	Buildable:
 		Queue: Infantry
-		BuildPaletteOrder: 110
+		BuildPaletteOrder: 45
 		Prerequisites: refinery, ~infantry.protoss, ~techlevel.infonly
 		Description: Collects Ore, Gems and Tiberium for processing.\nSpeed: 96\n  Unarmed
 	Valued:
@@ -91,6 +91,7 @@ PZEALOT:
 		Queue: Infantry
 		BuildAtProductionType: Soldier
 		BuildPaletteOrder: 40
+		BuildDuration: 300
 	Selectable:
 		Bounds: 768, 938, 0, 0
 		DecorationBounds: 682, 938, 0, 0
@@ -144,3 +145,80 @@ PZEALOT:
 	SpeedMultiplier@shoes:
 		RequiresCondition: shoes
 		Modifier: 110
+
+PARCHON:
+	Inherits: ^Infantry
+	Inherits@shield: ^ProtossInfShield
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Buildable:
+		Prerequisites: ~infantry.protoss, ~techlevel.unrestricted
+		Description: Fanatical melee infantry.\nSpeed: 88\n  Strong vs infantry
+		Queue: Infantry
+		BuildAtProductionType: Soldier
+		BuildPaletteOrder: 55
+		BuildDuration: 300
+	Selectable:
+		Bounds: 1024, 1024
+		DecorationBounds: 1877, 1877, 0, 0
+	Valued:
+		Cost: 4000
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Tooltip:
+		Name: Archon
+	Health:
+		HP: 150000
+	Armor:
+		Type: Heavy
+	Mobile:
+		Speed: 88
+		Locomotor: foot2
+		TurnSpeed: 90
+	RevealsShroud:
+		Range: 6c512
+	Armament:
+		Weapon: ArchonBeam1
+	WithInfantryBody:
+		DefaultAttackSequence: shoot2
+		IdleSequences: stand
+		StandSequences: stand
+	AutoTarget:
+		ScanRadius: 5
+	Targetable:
+		TargetTypes: GroundActor, Vehicle, Tank, Cyborg
+	RenderSprites:
+	Voiced:
+		VoiceSet: ZealotVoice
+	-DeathSounds@NORMAL:
+	-DeathSounds@BURNED:
+	-DeathSounds@ZAPPED:
+	WithDeathAnimation:
+		UseDeathTypeSuffix: false
+		CrushedSequence: die
+		CrushedSequencePalette: player
+		CrushedPaletteIsPlayerPalette: true
+	TakeCover:
+		SpeedModifier: 120
+		Duration: 100
+		DamageTriggers: TriggerProne
+	-SpawnActorOnDeath@fire:
+	UpdatesPlayerStatistics:
+	MustBeDestroyed:
+	ProximityCaptor:
+		Types: Infantry
+	AttackFrontal:
+		FacingTolerance: 0
+	WithSpriteBody:
+		Sequence: body
+		Palette: player
+		IsPlayerPalette: True
+	WithIdleOverlay@1:
+		Sequence: atom
+		Palette: player
+		IsPlayerPalette: True
+	WithMakeAnimation:
+		Sequence: make2
+		Condition: building-incomplete
+	Explodes:
+		Weapon: E100Cannon
+		EmptyWeapon: E100Cannon

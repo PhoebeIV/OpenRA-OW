@@ -276,14 +276,71 @@
 		ValidRelationships: Ally, Enemy, Neutral, None
 		Palette: effect
 
+upgrade.spawn:
+	Inherits: 1TNK.MINE
+	-Explodes:
+	SpawnActorOnDeath:
+		Actor: UpgradeHandler
+		OwnerType: Victim
 
+upgrade.levelup:
+	Inherits: 1TNK.MINE
+	Explodes:
+		Weapon: UpgradeHack
+		EmptyWeapon: UpgradeHack
+	-SpawnActorOnDeath:
+
+UpgradeHandler:
+	Inherits@mine: MINE
+	-WithSpriteBody:
+	-SeedsResource:
+	-RequiresSpecificOwners:
+	-Tooltip:
+	-MapEditorData:
+	-AppearsOnRadar:
+	RenderSprites:
+		Image: MINE
+	Immobile:
+		OccupiesSpace: false
+	ChangesTerrain:
+		TerrainType: Clear
+	-Interactable:
+	Production:
+		Produces: Upgrade
+		RequiresCondition: conyard && !busy
+	Production@1:
+		Produces: Upgrade
+		RequiresCondition: conyard && upgradelevel >= 1
+	Production@2:
+		Produces: Upgrade
+		RequiresCondition: conyard && upgradelevel >= 2
+	Production@3:
+		Produces: Upgrade
+		RequiresCondition: conyard && upgradelevel >= 3
+	GrantConditionOnPrerequisite@conyard:
+		Condition: conyard
+		Prerequisites: conyard
+	ExternalCondition@upgrade:
+		Condition: upgradelevel
+	GrantConditionOnProduction@busy:
+		Condition: busy
+		Duration: 25
+	ProvidesPrerequisite:
+		RequiresCondition: busy
+		Prerequisite: upgrade.busy
+	FreeActor:
+		AllowRespawn: true
+		Actor: upgrade.levelup
+		RequiresCondition: busy
+	Targetable:
+		TargetTypes: UpgradeThing
 
 ^UpgradeBase:
 	Buildable:
 		Queue: Upgrade
 		BuildLimit: 1
-		BuildDurationModifier: 75
-		BuildDuration: 10000
+		BuildDurationModifier: 100
+		BuildDuration: 11250
 	AlwaysVisible:
 	Interactable:
 	ScriptTriggers:
@@ -292,12 +349,12 @@
 ^UpgradeBase2:
 	Inherits: ^UpgradeBase
 	Buildable:
-		BuildDuration: 15000
+		BuildDuration: 11250
 
 ^UpgradeBase3:
 	Inherits: ^UpgradeBase
 	Buildable:
-		BuildDuration: 22500
+		BuildDuration: 11250
 
 upgrade.buildarmor1:
 	Inherits: ^UpgradeBase
@@ -306,9 +363,9 @@ upgrade.buildarmor1:
 	Buildable:
 		Description: Improve structure health by 20%
 		BuildPaletteOrder: 9998
-		Prerequisites: ~advtechcenter, ~!upgrade.buildarmor1
+		Prerequisites: ~!upgrade.busy, ~!upgrade.buildarmor1
 	Valued:
-		Cost: 6000
+		Cost: 0
 	ProvidesPrerequisite@upgradename:
 
 upgrade.buildarmor2:
@@ -318,9 +375,9 @@ upgrade.buildarmor2:
 	Buildable:
 		Description: Improve structure health by 40%
 		BuildPaletteOrder: 9998
-		Prerequisites: ~advtechcenter, ~upgrade.buildarmor1, ~!upgrade.buildarmor2
+		Prerequisites: ~!upgrade.busy, ~upgrade.buildarmor1, ~!upgrade.buildarmor2
 	Valued:
-		Cost: 12000
+		Cost: 0
 	ProvidesPrerequisite@upgradename:
 
 upgrade.buildarmor3:
@@ -330,9 +387,9 @@ upgrade.buildarmor3:
 	Buildable:
 		Description: Improve structure health by 60%
 		BuildPaletteOrder: 9998
-		Prerequisites: ~advtechcenter, ~upgrade.buildarmor2, ~!upgrade.buildarmor3
+		Prerequisites: ~!upgrade.busy, ~upgrade.buildarmor2, ~!upgrade.buildarmor3
 	Valued:
-		Cost: 24000
+		Cost: 0
 	ProvidesPrerequisite@upgradename:
 
 upgrade.buildfirepower1:
@@ -342,9 +399,9 @@ upgrade.buildfirepower1:
 	Buildable:
 		Description: Improve defensive structure damage by 14%
 		BuildPaletteOrder: 9999
-		Prerequisites: ~advtechcenter, ~!upgrade.buildfirepower1
+		Prerequisites: ~!upgrade.busy, ~!upgrade.buildfirepower1
 	Valued:
-		Cost: 7500
+		Cost: 0
 	ProvidesPrerequisite@upgradename:
 
 upgrade.buildfirepower2:
@@ -354,9 +411,9 @@ upgrade.buildfirepower2:
 	Buildable:
 		Description: Improve defensive structure damage by 28%
 		BuildPaletteOrder: 9999
-		Prerequisites: ~advtechcenter, ~upgrade.buildfirepower1, ~!upgrade.buildfirepower2
+		Prerequisites: ~!upgrade.busy, ~upgrade.buildfirepower1, ~!upgrade.buildfirepower2
 	Valued:
-		Cost: 15000
+		Cost: 0
 	ProvidesPrerequisite@upgradename:
 
 upgrade.buildfirepower3:
@@ -366,9 +423,9 @@ upgrade.buildfirepower3:
 	Buildable:
 		Description: Improve defensive structure damage by 42%
 		BuildPaletteOrder: 9999
-		Prerequisites: ~advtechcenter, ~upgrade.buildfirepower2, ~!upgrade.buildfirepower3
+		Prerequisites: ~!upgrade.busy, ~upgrade.buildfirepower2, ~!upgrade.buildfirepower3
 	Valued:
-		Cost: 30000
+		Cost: 0
 	ProvidesPrerequisite@upgradename:
 
 ###########################
@@ -380,9 +437,9 @@ upgrade.infarmor1:
 	Buildable:
 		Description: Improve infantry armour by 15%
 		BuildPaletteOrder: 10000
-		Prerequisites: ~advtechcenter, ~!upgrade.infarmor1
+		Prerequisites: ~!upgrade.busy, ~!upgrade.infarmor1
 	Valued:
-		Cost: 7500
+		Cost: 0
 	ProvidesPrerequisite@upgradename:
 
 upgrade.infarmor2:
@@ -392,9 +449,9 @@ upgrade.infarmor2:
 	Buildable:
 		Description: Improve infantry armour by 30%
 		BuildPaletteOrder: 10000
-		Prerequisites: ~advtechcenter, ~upgrade.infarmor1, ~!upgrade.infarmor2
+		Prerequisites: ~!upgrade.busy, ~upgrade.infarmor1, ~!upgrade.infarmor2
 	Valued:
-		Cost: 15000
+		Cost: 0
 	ProvidesPrerequisite@upgradename:
 
 upgrade.infarmor3:
@@ -404,9 +461,9 @@ upgrade.infarmor3:
 	Buildable:
 		Description: Improve infantry armour by 45%
 		BuildPaletteOrder: 10000
-		Prerequisites: ~advtechcenter, ~upgrade.infarmor2, ~!upgrade.infarmor3
+		Prerequisites: ~!upgrade.busy, ~upgrade.infarmor2, ~!upgrade.infarmor3
 	Valued:
-		Cost: 30000
+		Cost: 0
 	ProvidesPrerequisite@upgradename:
 
 upgrade.inffirepower1:
@@ -416,7 +473,7 @@ upgrade.inffirepower1:
 	Buildable:
 		Description: Improve infantry weapon damage by 15%
 		BuildPaletteOrder: 10001
-		Prerequisites: ~advtechcenter, ~!upgrade.inffirepower1
+		Prerequisites: ~!upgrade.busy, ~!upgrade.inffirepower1
 	Valued:
 		Cost: 8500
 	ProvidesPrerequisite@upgradename:
@@ -428,7 +485,7 @@ upgrade.inffirepower2:
 	Buildable:
 		Description: Improve infantry weapon damage by 30%
 		BuildPaletteOrder: 10001
-		Prerequisites: ~advtechcenter, ~upgrade.inffirepower1, ~!upgrade.inffirepower2
+		Prerequisites: ~!upgrade.busy, ~upgrade.inffirepower1, ~!upgrade.inffirepower2
 	Valued:
 		Cost: 17000
 	ProvidesPrerequisite@upgradename:
@@ -440,7 +497,7 @@ upgrade.inffirepower3:
 	Buildable:
 		Description: Improve infantry weapon damage by 45%
 		BuildPaletteOrder: 10001
-		Prerequisites: ~advtechcenter, ~upgrade.inffirepower2, ~!upgrade.inffirepower3
+		Prerequisites: ~!upgrade.busy, ~upgrade.inffirepower2, ~!upgrade.inffirepower3
 	Valued:
 		Cost: 34000
 	ProvidesPrerequisite@upgradename:
@@ -454,7 +511,7 @@ upgrade.veharmor1:
 	Buildable:
 		Description: Improve vehicle armour by 15%
 		BuildPaletteOrder: 10002
-		Prerequisites: ~advtechcenter, ~!upgrade.veharmor1
+		Prerequisites: ~!upgrade.busy, ~!upgrade.veharmor1
 	Valued:
 		Cost: 7500
 	ProvidesPrerequisite@upgradename:
@@ -466,7 +523,7 @@ upgrade.veharmor2:
 	Buildable:
 		Description: Improve vehicle armour by 30%
 		BuildPaletteOrder: 10002
-		Prerequisites: ~advtechcenter, ~upgrade.veharmor1, ~!upgrade.veharmor2
+		Prerequisites: ~!upgrade.busy, ~upgrade.veharmor1, ~!upgrade.veharmor2
 	Valued:
 		Cost: 15000
 	ProvidesPrerequisite@upgradename:
@@ -478,7 +535,7 @@ upgrade.veharmor3:
 	Buildable:
 		Description: Improve vehicle armour by 45%
 		BuildPaletteOrder: 10002
-		Prerequisites: ~advtechcenter, ~upgrade.veharmor2, ~!upgrade.veharmor3
+		Prerequisites: ~!upgrade.busy, ~upgrade.veharmor2, ~!upgrade.veharmor3
 	Valued:
 		Cost: 30000
 	ProvidesPrerequisite@upgradename:
@@ -490,7 +547,7 @@ upgrade.vehfirepower1:
 	Buildable:
 		Description: Improve vehicle weapon damage by 15%
 		BuildPaletteOrder: 10003
-		Prerequisites: ~advtechcenter, ~!upgrade.vehfirepower1
+		Prerequisites: ~!upgrade.busy, ~!upgrade.vehfirepower1
 	Valued:
 		Cost: 8500
 	ProvidesPrerequisite@upgradename:
@@ -502,7 +559,7 @@ upgrade.vehfirepower2:
 	Buildable:
 		Description: Improve vehicle weapon damage by 30%
 		BuildPaletteOrder: 10003
-		Prerequisites: ~advtechcenter, ~upgrade.vehfirepower1, ~!upgrade.vehfirepower2
+		Prerequisites: ~!upgrade.busy, ~upgrade.vehfirepower1, ~!upgrade.vehfirepower2
 	Valued:
 		Cost: 17000
 	ProvidesPrerequisite@upgradename:
@@ -514,7 +571,7 @@ upgrade.vehfirepower3:
 	Buildable:
 		Description: Improve vehicle weapon damage by 45%
 		BuildPaletteOrder: 10003
-		Prerequisites: ~advtechcenter, ~upgrade.vehfirepower2, ~!upgrade.vehfirepower3
+		Prerequisites: ~!upgrade.busy, ~upgrade.vehfirepower2, ~!upgrade.vehfirepower3
 	Valued:
 		Cost: 34000
 	ProvidesPrerequisite@upgradename:
@@ -528,7 +585,7 @@ upgrade.airarmor1:
 	Buildable:
 		Description: Improve aircraft armour by 18%
 		BuildPaletteOrder: 10004
-		Prerequisites: ~advtechcenter, ~!upgrade.airarmor1
+		Prerequisites: ~!upgrade.busy, ~!upgrade.airarmor1
 	Valued:
 		Cost: 7500
 	ProvidesPrerequisite@upgradename:
@@ -540,7 +597,7 @@ upgrade.airarmor2:
 	Buildable:
 		Description: Improve aircraft armour by 36%
 		BuildPaletteOrder: 10004
-		Prerequisites: ~advtechcenter, ~upgrade.airarmor1, ~!upgrade.airarmor2
+		Prerequisites: ~!upgrade.busy, ~upgrade.airarmor1, ~!upgrade.airarmor2
 	Valued:
 		Cost: 15000
 	ProvidesPrerequisite@upgradename:
@@ -552,7 +609,7 @@ upgrade.airarmor3:
 	Buildable:
 		Description: Improve aircraft armour by 54%
 		BuildPaletteOrder: 10004
-		Prerequisites: ~advtechcenter, ~upgrade.airarmor2, ~!upgrade.airarmor3
+		Prerequisites: ~!upgrade.busy, ~upgrade.airarmor2, ~!upgrade.airarmor3
 	Valued:
 		Cost: 30000
 	ProvidesPrerequisite@upgradename:
@@ -564,7 +621,7 @@ upgrade.airfirepower1:
 	Buildable:
 		Description: Improve aircraft weapon damage by 15%
 		BuildPaletteOrder: 10005
-		Prerequisites: ~advtechcenter, ~!upgrade.airfirepower1
+		Prerequisites: ~!upgrade.busy, ~!upgrade.airfirepower1
 	Valued:
 		Cost: 8500
 	ProvidesPrerequisite@upgradename:
@@ -576,7 +633,7 @@ upgrade.airfirepower2:
 	Buildable:
 		Description: Improve aircraft weapon damage by 30%
 		BuildPaletteOrder: 10005
-		Prerequisites: ~advtechcenter, ~upgrade.airfirepower1, ~!upgrade.airfirepower2
+		Prerequisites: ~!upgrade.busy, ~upgrade.airfirepower1, ~!upgrade.airfirepower2
 	Valued:
 		Cost: 17000
 	ProvidesPrerequisite@upgradename:
@@ -588,7 +645,7 @@ upgrade.airfirepower3:
 	Buildable:
 		Description: Improve aircraft weapon damage by 45%
 		BuildPaletteOrder: 10005
-		Prerequisites: ~advtechcenter, ~upgrade.airfirepower2, ~!upgrade.airfirepower3
+		Prerequisites: ~!upgrade.busy, ~upgrade.airfirepower2, ~!upgrade.airfirepower3
 	Valued:
 		Cost: 34000
 	ProvidesPrerequisite@upgradename:
@@ -602,7 +659,7 @@ upgrade.navarmor1:
 	Buildable:
 		Description: Improve naval armour by 15%
 		BuildPaletteOrder: 10005
-		Prerequisites: ~advtechcenter, ~!upgrade.navarmor1
+		Prerequisites: ~!upgrade.busy, ~!upgrade.navarmor1
 	Valued:
 		Cost: 7500
 	ProvidesPrerequisite@upgradename:
@@ -614,7 +671,7 @@ upgrade.navarmor2:
 	Buildable:
 		Description: Improve naval armour by 30%
 		BuildPaletteOrder: 10005
-		Prerequisites: ~advtechcenter, ~upgrade.navarmor1, ~!upgrade.navarmor2
+		Prerequisites: ~!upgrade.busy, ~upgrade.navarmor1, ~!upgrade.navarmor2
 	Valued:
 		Cost: 15000
 	ProvidesPrerequisite@upgradename:
@@ -626,7 +683,7 @@ upgrade.navarmor3:
 	Buildable:
 		Description: Improve naval armour by 45%
 		BuildPaletteOrder: 10005
-		Prerequisites: ~advtechcenter, ~upgrade.navarmor2, ~!upgrade.navarmor3
+		Prerequisites: ~!upgrade.busy, ~upgrade.navarmor2, ~!upgrade.navarmor3
 	Valued:
 		Cost: 30000
 	ProvidesPrerequisite@upgradename:
@@ -638,7 +695,7 @@ upgrade.navfirepower1:
 	Buildable:
 		Description: Improve naval weapon damage by 15%
 		BuildPaletteOrder: 10006
-		Prerequisites: ~advtechcenter, ~!upgrade.navfirepower1
+		Prerequisites: ~!upgrade.busy, ~!upgrade.navfirepower1
 	Valued:
 		Cost: 8500
 	ProvidesPrerequisite@upgradename:
@@ -650,7 +707,7 @@ upgrade.navfirepower2:
 	Buildable:
 		Description: Improve naval weapon damage by 30%
 		BuildPaletteOrder: 10006
-		Prerequisites: ~advtechcenter, ~upgrade.navfirepower1, ~!upgrade.navfirepower2
+		Prerequisites: ~!upgrade.busy, ~upgrade.navfirepower1, ~!upgrade.navfirepower2
 	Valued:
 		Cost: 17000
 	ProvidesPrerequisite@upgradename:
@@ -662,7 +719,7 @@ upgrade.navfirepower3:
 	Buildable:
 		Description: Improve naval weapon damage by 45%
 		BuildPaletteOrder: 10006
-		Prerequisites: ~advtechcenter, ~upgrade.navfirepower2, ~!upgrade.navfirepower3
+		Prerequisites: ~!upgrade.busy, ~upgrade.navfirepower2, ~!upgrade.navfirepower3
 	Valued:
 		Cost: 34000
 	ProvidesPrerequisite@upgradename:
