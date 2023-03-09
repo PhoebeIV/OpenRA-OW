@@ -303,7 +303,6 @@ USAWARFACTORY:
 
 USAAIRFIELD:
 	Inherits: ^Building
-	Inherits@shape: ^3x2Shape
 	Inherits@PRIMARY: ^PrimaryBuilding
 	Buildable:
 		Queue: Building
@@ -317,6 +316,14 @@ USAAIRFIELD:
 	Building:
 		Footprint: XXXX xxx= xx==
 		Dimensions: 4,3
+		LocalCenterOffset: 0,-512,0
+	Selectable:
+		Bounds: 4096, 2048
+	HitShape:
+		TargetableOffsets: 0,0,0, 0,-512,256, 0,-1451,384, 0,512,128, 0,1536,85
+		Type: Rectangle
+			TopLeft: -2048, -1024
+			BottomRight: 1536, 1024
 	Health:
 		HP: 170000
 	Armor:
@@ -416,6 +423,9 @@ usastrategycenter:
 		Prerequisite: techcenter
 	RenderSprites:
 		Image: usastrategycenter
+	RenderDetectionCircle:
+	DetectCloaked:
+		Range: 5c0
 
 usasupplydropzone:
 	Inherits: ^Building
@@ -449,6 +459,8 @@ usasupplydropzone:
 	CashTricklerBar
 	RenderSprites:
 		Image: usasupplydropzone
+	RevealsShroud@GAPGEN:
+		Range: 5c0
         
 usaparticlecannon:
 	Inherits: ^Building
@@ -534,9 +546,7 @@ usapatriot:
 	Selectable:
 		Bounds: 2048, 1024
 	Turreted:
-		TurnSpeed: 8
-		InitialFacing: 0
-		PreviewFacing: 0
+		TurnSpeed: 16
 	-WithSpriteBody:
 	WithEmbeddedTurretSpriteBody:
 	Armament@AG:
@@ -564,3 +574,5 @@ usapatriot:
 		UseClassicFacingFudge: True
 	RenderSprites:
 		Image: usapatriot
+	RevealsShroud@GAPGEN:
+		Range: 5c0
