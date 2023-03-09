@@ -436,8 +436,8 @@ SCOUTMEDI:
 	-ExternalCondition@stealthgen:
 	-Cloak@stealthgen:
 	Cloak:
-		InitialDelay: 10
-		CloakDelay: 50
+		InitialDelay: 100
+		CloakDelay: 100
 		CloakSound: gstealon.aud
 		UncloakSound: gstealof.aud
 		UncloakOn: Move, Damage
@@ -752,9 +752,9 @@ MEDIPALADIN:
 	IgnoresDisguise:
 	ProximityExternalCondition@pallyboost:
 		Condition: pallyboost
-		Range: 5c512
+		Range: 2c512
 	WithRangeCircle:
-		Range: 5c512
+		Range: 2c512
 	RenderSprites:
 		Image: medipaladin
 	Voiced:
@@ -922,6 +922,7 @@ VOIDARCHER:
 MEDIABOMINATION:
 	Inherits@MediSoldier: ^MediSoldier
 	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	-Cloneable:
 	ChangesHealth:
 		PercentageStep: 10
 		Delay: 40
@@ -1028,6 +1029,7 @@ MEDIGolemMini:
 MEDIBLADEMASTER:
 	Inherits@MEDIPALADIN: MEDIPALADIN
 	Inherits@MediLowPower: ^MediLowPower
+	-Cloneable:
 	Buildable:
 		Prerequisites: ~infantry.elementalists, advtechcenter
 		Description: Master Swordsman can throw tornados with his swings \n Strong vs infantry \n Weak vs Air
@@ -1372,6 +1374,7 @@ ShieldHero:
 	Inherits@sprite: ^TSMedi
 	Inherits@NoExp: ^NoExp
 	Inherits@EPIC: ^EpicUnit
+	Inherits@EPIC2: ^EpicInfantryNerf
 	-Crushable:
 	Buildable:
 		Prerequisites: ~infantry.holy, advtechcenter, library
@@ -1395,7 +1398,7 @@ ShieldHero:
 	RevealsShroud:
 		Range: 15c0
 	DetectCloaked:
-		Range: 12c0
+		Range: 5c0
 	ProximityExternalCondition@HolySuperBoosted:
 		Condition: HolySuperBoosted
 		Range: 10c0
