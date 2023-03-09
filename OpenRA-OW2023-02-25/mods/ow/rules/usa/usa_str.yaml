@@ -390,6 +390,8 @@ usastrategycenter:
 		BuildPaletteOrder: 150
 	Tooltip:
 		Name: Strategy Center
+	ProvidesRadar:
+		RequiresCondition: !lowpower
 	Building:
 		Footprint: xxx xxx x=x
 		Dimensions: 3,3
@@ -414,3 +416,151 @@ usastrategycenter:
 		Prerequisite: techcenter
 	RenderSprites:
 		Image: usastrategycenter
+
+usasupplydropzone:
+	Inherits: ^Building
+	Inherits@SHAPE: ^2x2Shape
+	Selectable:
+		Bounds: 2048, 2048
+	Buildable:
+		Queue: Building
+		Prerequisites: techcenter, ~structures.usa
+		BuildPaletteOrder: 150
+		Description: A Cargo Plane drops money crates here every 2 minutes.
+	Valued:
+		Cost: 2500
+	Tooltip:
+		Name: Supply Drop Zone
+	Building:
+		Footprint: xx xx
+		Dimensions: 2,2
+	Health:
+		HP: 100000
+	Armor:
+		Type: Wood
+	Power:
+		Amount: -150
+	ProvidesPrerequisite@buildingname:
+	CashTrickler:
+		Interval: 3000
+		InitialDelay: 3000
+		Amount: 1500
+		PauseOnCondition: lowpower || disabled
+	CashTricklerBar
+	RenderSprites:
+		Image: usasupplydropzone
+        
+usaparticlecannon:
+	Inherits: ^Building
+	Inherits@shape: ^2x2Shape
+	Inherits@IDISABLE: ^DisableOnLowPowerOrPowerDown
+	Valued:
+		Cost: 5000
+	Tooltip:
+		Name: Particle Uplink Cannon
+	Buildable:
+		Queue: Tech
+		Prerequisites: techcenter, ~structures.usa
+		BuildLimit: 1
+		Description: Provides Particle Cannon support power.
+		BuildPaletteOrder: 500
+	Building:
+		Footprint: xx xx
+		Dimensions: 2,2
+	Selectable:
+		Bounds: 2048, 2048
+	Health:
+		HP: 100000
+	Armor:
+		Type: Wood
+	RevealsShroud:
+		MinRange: 5c0
+		Range: 6c0
+		RequiresCondition: !disabled
+		RevealGeneratedShroud: False
+	SpawnActorPower:
+		OrderName: Particle Cannon Strike
+		Actor: hack.particle_beam
+		LifeTime: 500
+		ChargeInterval: 12000
+		Icon: particle
+		Name: Particle Cannon
+		Description: Initiates an Particle Cannon strike.
+		DisplayTimerStances: Enemy, Neutral, Ally
+		Prerequisites: ~structures.usa
+		EffectSequence: idle
+	SupportPowerChargeBar:
+	Power:
+		Amount: -150
+	MustBeDestroyed:
+		RequiredForShortGame: false
+	WithSupportPowerActivationAnimation:
+		RequiresCondition: !build-incomplete
+	ProvidesPrerequisite@superweapon:
+		Prerequisite: superweapon
+	RenderSprites:
+		Image: usaparticlecannon
+		PlayerPalette: dawn
+	Explodes:
+		Type: CenterPosition
+		Weapon: MiniNuke
+		EmptyWeapon: MiniNuke
+
+usapatriot:
+	Inherits: ^Defense
+	Inherits@AUTOTARGET: ^AutoTargetAll
+	Inherits@LOWPOWER: ^DisableOnLowPower
+	Inherits@SHAPE: ^2x1Shape
+	GivesExperience:
+		Experience: 200
+	Buildable:
+		Queue: Defense
+		BuildPaletteOrder: 4
+		BuildDuration: 625
+		BuildDurationModifier: 100
+		Prerequisites: anypower,  ~structures.usa
+		Description: Anti-tank & anti-air base defense.
+	Valued:
+		Cost: 1000
+	Tooltip:
+		Name: Patriot Missile System
+	Building:
+		Footprint: xx
+		Dimensions: 2,1
+	Health:
+		HP: 100000
+	Armor:
+		Type: Wood
+	Selectable:
+		Bounds: 2048, 1024
+	Turreted:
+		TurnSpeed: 8
+		InitialFacing: 0
+		PreviewFacing: 0
+	-WithSpriteBody:
+	WithEmbeddedTurretSpriteBody:
+	Armament@AG:
+		Weapon: usapatriotshot
+		LocalOffset: 0,0,320
+		MuzzleSequence: muzzle
+	Armament@AA:
+		Weapon: usapatriotshotair
+		LocalOffset: 0,0,320
+		MuzzleSequence: muzzle
+	WithRangeCircle:
+		Range: 5c640
+	WithRangeCircle@AA:
+		Type: aa
+		Range: 8c768
+		Color: 00DDDD88
+	AttackTurreted:
+	WithMuzzleOverlay:
+	Power:
+		Amount: -40
+	RenderDetectionCircle:
+	DetectCloaked:
+		Range: 5c0
+	BodyOrientation:
+		UseClassicFacingFudge: True
+	RenderSprites:
+		Image: usapatriot

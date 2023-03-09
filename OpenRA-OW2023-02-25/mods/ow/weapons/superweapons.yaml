@@ -1890,3 +1890,30 @@ MediElementalWeapon:
 		Duration: 20
 		Delay: 300
 		FlashType: Catalyst
+        
+aoe.particle_beam:
+	ValidTargets: Ground, Water, Air, Trees
+	Range: 1c0
+	ReloadDelay: 2
+	Projectile: InstantHit
+	Warhead@1Dam: SpreadDamage
+		Spread: 1c512
+		Damage: 3200
+		ValidTargets: Ground, Water, Air, Trees
+		Versus:
+			None: 30
+			Wood: 30
+			Light: 75
+			Concrete: 25
+		DamageTypes: Prone50Percent, TriggerProne, ExplosionDeath
+	Warhead@2Eff: CreateEffect
+		Explosions: particle_ring
+		ValidTargets: Ground, Water, Air, Trees
+	Warhead@3Smu_impact: LeaveSmudge
+		SmudgeType: Scorch
+		InvalidTargets: Vehicle, Tank, Structure, Wall
+		Size: 0
+	Warhead@3Smu_impactSnow: LeaveSmudge
+		SmudgeType: SnowScorch
+		InvalidTargets: Vehicle, Tank, Structure, Wall
+		Size: 0
