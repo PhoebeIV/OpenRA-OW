@@ -2,7 +2,7 @@
 	Inherits: ^ProtossShield
 	ChangesHealth@shield:
 		StartIfBelow: 80
-		DamageCooldown: 25
+		DamageCooldown: 7
 
 PPROBE:
 	Inherits: ^Vehicle
@@ -133,7 +133,6 @@ PZEALOT:
 		Duration: 100
 		DamageTriggers: TriggerProne
 	-SpawnActorOnDeath@fire:
-	UpdatesPlayerStatistics:
 	MustBeDestroyed:
 	ProximityCaptor:
 		Types: Infantry
@@ -146,17 +145,87 @@ PZEALOT:
 		RequiresCondition: shoes
 		Modifier: 110
 
+PTEMPLAR:
+	Inherits: ^Infantry
+	Inherits@shield: ^ProtossInfShield
+	Inherits@autotarget: ^AutoTargetGroundAssaultMove
+	Buildable:
+		Prerequisites: ~infantry.protoss, techcenter, ~techlevel.high
+		Description: Psi empowered ranged support.\n Can merge with another into a \n powerful Archon.\nSpeed: 72\n  Strong vs ground units
+		Queue: Infantry
+		BuildAtProductionType: Soldier
+		BuildPaletteOrder: 41
+	Selectable:
+		Bounds: 768, 938, 0, 0
+		DecorationBounds: 682, 938, 0, 0
+	Valued:
+		Cost: 1600
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Tooltip:
+		Name: High Templar
+	Health:
+		HP: 42000
+	Mobile:
+		Speed: 80
+		Locomotor: foot2
+		TurnSpeed: 72
+	RevealsShroud:
+		Range: 4c512
+	Armament@main:
+		RequiresCondition: !merge
+		Weapon: ZealotStab
+	Armament@merge:
+		RequiresCondition: merge
+		Weapon: ZealotStab
+		Name: mergeattack
+	WithInfantryBody:
+		DefaultAttackSequence: shoot
+		IdleSequences: stand
+		StandSequences: stand
+	Targetable:
+		TargetTypes: GroundActor, Infantry, Disguise, TemplarMerge
+	RenderSprites:
+	Voiced:
+		VoiceSet: ZealotVoice
+	WithDeathAnimation:
+		UseDeathTypeSuffix: false
+		CrushedSequence: die
+		CrushedSequencePalette: player
+		CrushedPaletteIsPlayerPalette: true
+	-SpawnActorOnDeath@fire:
+	MustBeDestroyed:
+	ProximityCaptor:
+		Types: Infantry
+	AttackFrontal:
+		Armaments: primary, mergeattack
+		FacingTolerance: 16
+	GrantConditionOnDeploy@1:
+		DeployedCondition: merge
+	GrantConditionOnAttack@1:
+		Condition: kill
+		ArmamentNames: mergeattack
+	KillsSelf@merge:
+		RequiresCondition: kill
+		DamageTypes: spawnarchon
+	SpawnActorOnDeath@merge:
+		Actor: PARCHON
+		DeathType: spawnarchon
+	RenderSprites:
+		Image: pzealot
+
+
+# Should not be buildable - currently is for testing purposes
 PARCHON:
 	Inherits: ^Infantry
 	Inherits@shield: ^ProtossInfShield
 	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
 	Buildable:
 		Prerequisites: ~infantry.protoss, ~techlevel.unrestricted
-		Description: Fanatical melee infantry.\nSpeed: 88\n  Strong vs infantry
+		Description: Powerful being of 2 merged High Templar\n The ultimate sacrifice.\nSpeed: 88\n  Strong vs ground units
 		Queue: Infantry
 		BuildAtProductionType: Soldier
 		BuildPaletteOrder: 55
-		BuildDuration: 300
 	Selectable:
 		Bounds: 1024, 1024
 		DecorationBounds: 1877, 1877, 0, 0
@@ -173,7 +242,7 @@ PARCHON:
 	Mobile:
 		Speed: 88
 		Locomotor: foot2
-		TurnSpeed: 90
+		TurnSpeed: 64
 	RevealsShroud:
 		Range: 6c512
 	Armament:
@@ -202,7 +271,6 @@ PARCHON:
 		Duration: 100
 		DamageTriggers: TriggerProne
 	-SpawnActorOnDeath@fire:
-	UpdatesPlayerStatistics:
 	MustBeDestroyed:
 	ProximityCaptor:
 		Types: Infantry
@@ -222,3 +290,4 @@ PARCHON:
 	Explodes:
 		Weapon: E100Cannon
 		EmptyWeapon: E100Cannon
+	-Crushable:
