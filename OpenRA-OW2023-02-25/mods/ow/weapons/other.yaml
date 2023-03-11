@@ -1702,8 +1702,8 @@ PhotonPlasma:
 		HorizontalRateOfTurn: 100
 	Warhead@1Dam: SpreadDamage
 		Spread: 325
-		Damage: 5300
-		ValidTargets: Ground, GroundActor, WaterActor, Trees, Air, AirborneActor
+		Damage: 6000
+		ValidTargets: Ground, GroundActor, WaterActor, Trees
 		Versus:
 			None: 90
 			Wood: 50
@@ -1711,6 +1711,22 @@ PhotonPlasma:
 			Concrete: 40
 		DamageTypes: Prone50Percent, TriggerProne, ExplosionDeath
 		ValidRelationships: Neutral, Enemy
+	Warhead@2Dam: SpreadDamage
+		Spread: 256
+		Damage: 1000
+		ValidTargets: Ground, GroundActor, WaterActor, Trees
+		Versus:
+			None: 90
+			Wood: 50
+			Light: 90
+			Concrete: 40
+		DamageTypes: Prone50Percent, TriggerProne, ExplosionDeath
+		ValidRelationships: Ally
+	Warhead@3Dam: SpreadDamage
+		Spread: 325
+		Damage: 3000
+		ValidTargets: Air, AirborneActor
+		DamageTypes: ExplosionDeath
 	Warhead@2Smu: LeaveSmudge
 		SmudgeType: Crater
 		ValidTargets: Ground, Infantry
@@ -1879,6 +1895,118 @@ InterceptorReturnDummy:
 		Damage: 0
 		ValidTargets: CarrierReturn
 
+TemplarWeather:
+	Inherits: WeatherGrenade
+	ReloadDelay: 100
+	Range: 10c0
+	Projectile: Bullet
+		Speed: 128
+		Inaccuracy: 3c0
+		-Image:
+	Warhead@lightning: FireCluster
+		Delay: 25
+		Weapon: WeatherLightning
+		RandomClusterCount: 1
+		Dimensions: 3,3
+		Footprint: xxx xxx xxx 
+	Warhead@lightning1: FireCluster
+		Delay: 100
+		Weapon: WeatherLightning
+		RandomClusterCount: 1
+		Dimensions: 3,3
+		Footprint: xxx xxx xxx
+	-Warhead@clouds1:
+	-Warhead@clouds2:
+	-Warhead@clouds3:
+	-Warhead@clouds4:
+	-Warhead@clouds5:
+	-Warhead@lightning2:
+	-Warhead@lightning3:
+	-Warhead@lightning4:
+
+TemplarMergeWeapon:
+	ReloadDelay: 25
+	Range: 1c0
+	ValidTargets: TemplarMerge
+	Projectile: InstantHit
+	Warhead@dam: SpreadDamage
+		Delay: 2
+		Damage: 1
+		ValidTargets: TemplarMerge
+	Warhead@cond: GrantExternalCondition
+		Condition: removeself
+		Range: 1c0
+		Duration: 150
+		ValidTargets: TemplarMerge
+
+ArchonBeam1:
+	Inherits: ^TeslaWeapon
+	ReloadDelay: 25
+	Report: parfir00.aud
+	Range: 4c0
+	Projectile: TeslaZap
+		TrackTarget: false
+		Duration: 18
+	ValidTargets: Ground, Water, GroundActor, WaterActor
+	Warhead@1Dam: SpreadDamage
+		Spread: 192
+		Damage: 12000
+		ValidTargets: GroundActor, WaterActor
+		Versus:
+			None: 125
+			Wood: 80
+			Heavy: 60
+			Concrete: 50
+		DamageTypes: Prone50Percent, ElectricityDeath
+	Warhead@2Smu: LeaveSmudge
+		SmudgeType: Scorch
+		ValidTargets: Ground, Infantry
+	Warhead@2Dam: SpreadDamage
+		Delay: 12
+		Spread: 320
+		Damage: 6000
+		ValidTargets: GroundActor, WaterActor
+		Versus:
+			None: 125
+			Wood: 80
+			Heavy: 60
+			Concrete: 50
+		DamageTypes: Prone50Percent, TriggerProne, ElectricityDeath
+	Warhead@3EffGround: CreateEffect
+		Explosions: plasma
+		Inaccuracy: 512
+		ValidTargets: Ground, Air, GroundActor, AirborneActor, WaterActor, Water, Trees
+	Warhead@4EffGround: CreateEffect
+		Explosions: plasma
+		Inaccuracy: 512
+		ValidTargets: Ground, Air, GroundActor, AirborneActor, WaterActor, Water, Trees
+		Delay: 3
+	Warhead@5EffGround: CreateEffect
+		Explosions: plasma
+		Inaccuracy: 512
+		ValidTargets: Ground, Air, GroundActor, AirborneActor, WaterActor, Water, Trees
+		Delay: 6
+	Warhead@6EffGround: CreateEffect
+		Explosions: plasma
+		Inaccuracy: 512
+		ValidTargets: Ground, Air, GroundActor, AirborneActor, WaterActor, Water, Trees
+		Delay: 9
+	Warhead@7EffGround: CreateEffect
+		Explosions: plasma
+		Inaccuracy: 512
+		ValidTargets: Ground, Air, GroundActor, AirborneActor, WaterActor, Water, Trees
+		Delay: 12
+	Warhead@8EffGround: CreateEffect
+		Explosions: plasma
+		Inaccuracy: 512
+		ValidTargets: Ground, Air, GroundActor, AirborneActor, WaterActor, Water, Trees
+		Delay: 15
+	Warhead@9EffGround: CreateEffect
+		Explosions: plasma
+		Inaccuracy: 512
+		ValidTargets: Ground, Air, GroundActor, AirborneActor, WaterActor, Water, Trees
+		Delay: 18
+
 USAPaladinLaser:
 	Inherits: ^LaserWeapon
 	ReloadDelay: 35
@@ -2005,71 +2133,3 @@ UpgradeHack:
 		Duration: 0
 		AffectsParent: true
 		ValidTargets: UpgradeThing
-
-ArchonBeam1:
-	Inherits: ^TeslaWeapon
-	ReloadDelay: 25
-	Report: parfir00.aud
-	Range: 4c0
-	Projectile: TeslaZap
-		TrackTarget: false
-		Duration: 18
-	ValidTargets: Ground, Water, GroundActor, WaterActor
-	Warhead@1Dam: SpreadDamage
-		Spread: 128
-		Damage: 12000
-		ValidTargets: GroundActor, WaterActor
-		Versus:
-			None: 125
-			Wood: 80
-			Heavy: 60
-			Concrete: 50
-		DamageTypes: Prone50Percent, TriggerProne, ElectricityDeath
-	Warhead@2Smu: LeaveSmudge
-		SmudgeType: Scorch
-		ValidTargets: Ground, Infantry
-	Warhead@2Dam: SpreadDamage
-		Delay: 12
-		Spread: 256
-		Damage: 6000
-		ValidTargets: GroundActor, WaterActor
-		Versus:
-			None: 125
-			Wood: 80
-			Heavy: 60
-			Concrete: 50
-		DamageTypes: Prone50Percent, TriggerProne, ElectricityDeath
-	Warhead@3EffGround: CreateEffect
-		Explosions: plasma
-		Inaccuracy: 512
-		ValidTargets: Ground, Air, GroundActor, AirborneActor, WaterActor, Water, Trees
-	Warhead@4EffGround: CreateEffect
-		Explosions: plasma
-		Inaccuracy: 512
-		ValidTargets: Ground, Air, GroundActor, AirborneActor, WaterActor, Water, Trees
-		Delay: 3
-	Warhead@5EffGround: CreateEffect
-		Explosions: plasma
-		Inaccuracy: 512
-		ValidTargets: Ground, Air, GroundActor, AirborneActor, WaterActor, Water, Trees
-		Delay: 6
-	Warhead@6EffGround: CreateEffect
-		Explosions: plasma
-		Inaccuracy: 512
-		ValidTargets: Ground, Air, GroundActor, AirborneActor, WaterActor, Water, Trees
-		Delay: 9
-	Warhead@7EffGround: CreateEffect
-		Explosions: plasma
-		Inaccuracy: 512
-		ValidTargets: Ground, Air, GroundActor, AirborneActor, WaterActor, Water, Trees
-		Delay: 12
-	Warhead@8EffGround: CreateEffect
-		Explosions: plasma
-		Inaccuracy: 512
-		ValidTargets: Ground, Air, GroundActor, AirborneActor, WaterActor, Water, Trees
-		Delay: 15
-	Warhead@9EffGround: CreateEffect
-		Explosions: plasma
-		Inaccuracy: 512
-		ValidTargets: Ground, Air, GroundActor, AirborneActor, WaterActor, Water, Trees
-		Delay: 18
