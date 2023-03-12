@@ -822,15 +822,15 @@ DragonGround:
 		Inaccuracy: 800
 		ContrailLength: 2
 	Warhead@1Dam: SpreadDamage
-		Spread: 213
-		Damage: 2000
-		ValidTargets: GroundActor, WaterActor, Trees
+		Spread: 768
+		Damage: 5000
+		ValidTargets: GroundActor, WaterActor
 		Versus:
-			None: 150
-			Wood: 100
-			Light: 80
-			Heavy: 70
-			Concrete: 80
+			None: 175
+			Wood: 75
+			Light: 50
+			Concrete: 25
+			Heavy: 25
 		DamageTypes: Prone50Percent, TriggerProne, FireDeath, Incendiary
 	Warhead@2Smu: LeaveSmudge
 		SmudgeType: Scorch
@@ -1412,34 +1412,32 @@ DragonGroundBomber:
 	Range: 6c0
 	ReloadDelay: 7
 	Projectile: GravityBomb
-		Image: fb2
+		Image: imp
 		Velocity: 72, 0, -128
 		Acceleration: 0, 0, 0
 		Shadow: False
 	Warhead@1Dam: SpreadDamage
-		Spread: 213
+		Spread: 768
 		Damage: 20000
-		ValidTargets: GroundActor, WaterActor, Trees
+		ValidTargets: GroundActor, WaterActor
 		Versus:
-			None: 150
-			Wood: 100
-			Light: 60
-			Heavy: 50
-			Concrete: 80
+			None: 175
+			Wood: 75
+			Light: 50
+			Concrete: 25
+			Heavy: 25
 		DamageTypes: Prone50Percent, TriggerProne, FireDeath, Incendiary
 	Warhead@2Smu: LeaveSmudge
-		SmudgeType: Scorch
-		InvalidTargets: Structure, Wall
+		SmudgeType: Crater
+		InvalidTargets: Vehicle, Structure, Wall, Husk, Trees
 	Warhead@3Eff: CreateEffect
-		Explosions: large_napalm
-		ImpactSounds: firebl3.aud
-		ImpactActors: false
-	Warhead@cluster: FireCluster
-		Delay: 4
-		Weapon: Nazi155mmCluster
-		RandomClusterCount: 4
-		Dimensions: 4,4
-		Footprint: xxxx xxxx xxxx xxxx
+		Explosions: napalm
+		ImpactSounds: flamer2.aud
+		ValidTargets: Ground, GroundActor, WaterActor, Trees
+	Warhead@4EffWater: CreateEffect
+		Explosions: small_splash
+		ImpactSounds: splash9.aud
+		ValidTargets: Water, Underwater
 
 
 
@@ -1452,6 +1450,7 @@ FireElementAttack:
 		Speed: 300
 		Image: imp
 		Shadow: False
+		Inaccuracy: 3
 	Warhead@1Dam: SpreadDamage
 		Spread: 213
 		Damage: 5000
@@ -1459,10 +1458,10 @@ FireElementAttack:
 		InvalidTargets: Structure
 		ValidRelationships: Enemy, Neutral
 		Versus:
-			None: 100
+			None: 50
 			Wood: 100
-			Light: 10
-			Heavy: 10
+			Light: 80
+			Heavy: 70
 			Concrete: 30
 		DamageTypes: Prone50Percent, TriggerProne, FireDeath, Incendiary
 	Warhead@1DamS: SpreadDamage
