@@ -1900,18 +1900,18 @@ TemplarWeather:
 	ReloadDelay: 100
 	Range: 10c0
 	Projectile: Bullet
-		Speed: 128
+		Speed: 1c0
 		Inaccuracy: 3c0
 		-Image:
 	Warhead@lightning: FireCluster
 		Delay: 25
-		Weapon: WeatherLightning
+		Weapon: TemplarLightning
 		RandomClusterCount: 1
 		Dimensions: 3,3
 		Footprint: xxx xxx xxx 
 	Warhead@lightning1: FireCluster
 		Delay: 100
-		Weapon: WeatherLightning
+		Weapon: TemplarLightning
 		RandomClusterCount: 1
 		Dimensions: 3,3
 		Footprint: xxx xxx xxx
@@ -1923,6 +1923,31 @@ TemplarWeather:
 	-Warhead@lightning2:
 	-Warhead@lightning3:
 	-Warhead@lightning4:
+
+TemplarLightning:
+	Inherits: LightningZap
+	Range: 12c0
+	ReloadDelay: 250
+	ValidTargets: Ground, Water, GroundActor, WaterActor
+	Projectile: Bullet
+		Speed: 5c0
+	Warhead@1Dam: SpreadDamage
+		Delay: 1
+		Damage: 10000
+		Spread: 750
+		Falloff: 200, 80, 70, 30, 15, 10
+		Versus:
+			None: 100
+			Wood: 50
+			Light: 60
+			Heavy: 70
+			Concrete: 30
+	Warhead@2EMP: GrantExternalCondition
+		Range: 2c0
+		Condition: disabled
+		Duration: 75
+		ValidTargets: GroundActor, WaterActor
+
 
 TemplarMergeWeapon:
 	ReloadDelay: 25
@@ -1938,6 +1963,14 @@ TemplarMergeWeapon:
 		Range: 1c0
 		Duration: 150
 		ValidTargets: TemplarMerge
+
+DTemplarMergeWeapon:
+	Inherits: TemplarMergeWeapon
+	ValidTargets: DTemplarMerge
+	Warhead@dam: SpreadDamage
+		ValidTargets: DTemplarMerge
+	Warhead@cond: GrantExternalCondition
+		ValidTargets: DTemplarMerge
 
 ArchonBeam1:
 	Inherits: ^TeslaWeapon
@@ -2006,6 +2039,49 @@ ArchonBeam1:
 		Inaccuracy: 512
 		ValidTargets: Ground, Air, GroundActor, AirborneActor, WaterActor, Water, Trees
 		Delay: 18
+
+TemplarBlade:
+	ReloadDelay: 35
+	Range: 2c0
+	Report: darkblade.aud
+	ValidTargets: Ground, Water, GroundActor, WaterActor
+	Projectile: InstantHit
+	Warhead@1Dam: TargetDamage
+		Spread: 64
+		Delay: 3
+		Damage: 15000
+		Versus:
+			None: 100
+			Wood: 75
+			Light: 75
+			Heavy: 75
+			Concrete: 50
+		DamageTypes: DefaultDeath
+		ValidTargets: GroundActor, WaterActor
+
+DarkArchonMindControl:
+	ReloadDelay: 100
+	Range: 9c0
+	Report: mind.aud
+	ValidTargets: Infantry, Vehicle, AirborneActor
+	ValidRelationships: Enemy
+	InvalidTargets: Structure
+	Projectile: LaserZap
+	Warhead@1Dam: ChangeOwner
+		Delay: 1
+		Range: 128
+		ValidTargets: Infantry, Vehicle, AirborneActor
+		InvalidTargets: EpicUnit
+		ValidRelationships: Enemy
+	Warhead@2Dam: ChangeOwner
+		Range: 128
+		Duration: 375
+		ValidTargets: EpicUnit
+		ValidRelationships: Enemy
+	Warhead@3EffGround: CreateEffect
+		Explosions: bfgred
+		ImpactSounds: mind.aud
+		ValidTargets: Ground, Air, GroundActor, AirborneActor, WaterActor, Water, Trees
 
 USAPaladinLaser:
 	Inherits: ^LaserWeapon

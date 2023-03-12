@@ -150,11 +150,12 @@ PTEMPLAR:
 	Inherits@shield: ^ProtossInfShield
 	Inherits@autotarget: ^AutoTargetGroundAssaultMove
 	Buildable:
-		Prerequisites: ~infantry.protoss, techcenter, ~techlevel.high
+		Prerequisites: ~infantry.protoss, advtechcenter, ~techlevel.high
 		Description: Psi empowered ranged support.\n Can merge with another into a \n powerful Archon.\nSpeed: 72\n  Strong vs ground units
 		Queue: Infantry
 		BuildAtProductionType: Soldier
 		BuildPaletteOrder: 41
+		BuildDuration: 1500
 	Selectable:
 		Bounds: 950, 950, 0, 0
 		DecorationBounds: 1280, 1280, 0, -128
@@ -165,7 +166,7 @@ PTEMPLAR:
 	Tooltip:
 		Name: High Templar
 	Health:
-		HP: 42000
+		HP: 31000
 	Mobile:
 		Speed: 80
 		Locomotor: foot2
@@ -200,10 +201,11 @@ PTEMPLAR:
 	ReloadAmmoPool:
 		Delay: 25
 	WithAmmoPipsDecoration:
-		PipCount: 8
+		PipCount: 10
+		FullSequence: pip-blue
 	RenderSprites:
 	Voiced:
-		VoiceSet: ZealotVoice
+		VoiceSet: ProtossTemplarVoice
 	WithDeathAnimation:
 		UseDeathTypeSuffix: false
 		CrushedSequence: die
@@ -240,18 +242,18 @@ PTEMPLAR:
 		SkipMakeAnimations: false
 
 
-# Should not be buildable - currently is for testing purposes
+# Buildable only for AI as they would not do it properly with Templars
 PARCHON:
 	Inherits: ^Infantry
 	Inherits@shield: ^ProtossInfShield
 	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
 	Buildable:
-		Prerequisites: ~infantry.protoss, ~techlevel.unrestricted, ~ai.all
+		Prerequisites: ~infantry.protoss, ~techlevel.unrestricted, ~ai.all, advtechcenter
 		Description: Powerful being of 2 merged High Templar\n The ultimate sacrifice.\nSpeed: 88\n  Strong vs ground units
 		Queue: Infantry
 		BuildAtProductionType: Soldier
 		BuildPaletteOrder: 90000
-		BuildLimit: 3
+		BuildLimit: 4
 	Selectable:
 		Bounds: 1024, 1024
 		DecorationBounds: 1877, 1877, 0, 0
@@ -285,7 +287,7 @@ PARCHON:
 		TargetTypes: GroundActor, Vehicle, Tank, Cyborg
 	RenderSprites:
 	Voiced:
-		VoiceSet: ZealotVoice
+		VoiceSet: ProtossArchonVoice
 	-DeathSounds@NORMAL:
 	-DeathSounds@BURNED:
 	-DeathSounds@ZAPPED:
@@ -294,10 +296,6 @@ PARCHON:
 		CrushedSequence: die
 		CrushedSequencePalette: player
 		CrushedPaletteIsPlayerPalette: true
-	TakeCover:
-		SpeedModifier: 120
-		Duration: 100
-		DamageTriggers: TriggerProne
 	-SpawnActorOnDeath@fire:
 	MustBeDestroyed:
 	ProximityCaptor:
@@ -326,6 +324,247 @@ PARCHON:
 		StartIfBelow: 101
 		DamageCooldown: 0
 		RequiresCondition: forming
+	VoiceAnnouncement:
+		RequiresCondition: !forming
+		Voice: Build
+	AmbientSound@forming:
+		SoundFiles: ptesum00.aud
+		RequiresCondition: forming
+		Interval: 3000
+	Explodes:
+		Weapon: E100Cannon
+		EmptyWeapon: E100Cannon
+	-Crushable:
+
+
+PDTEMPLAR:
+	Inherits: ^Infantry
+	Inherits@shield: ^ProtossInfShield
+	Inherits@Autotarget: ^AutoTargetGroundAssaultMove
+	Buildable:
+		Prerequisites: ~infantry.protoss, advtechcenter, ~techlevel.unrestricted
+		Description: Stealth assassin.\nSpeed: 96\n  Strong vs ground units
+		Queue: Infantry
+		BuildAtProductionType: Soldier
+		BuildPaletteOrder: 42
+		BuildDuration: 1750
+	Selectable:
+		Bounds: 950, 950, 0, 0
+		DecorationBounds: 1100, 1100, 0, -256
+	Valued:
+		Cost: 2200
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Tooltip:
+		Name: Dark Templar
+	Health:
+		HP: 40000
+	Mobile:
+		Speed: 96
+		Locomotor: foot2
+		TurnSpeed: 64
+	RevealsShroud:
+		Range: 4c512
+	Armament:
+		RequiresCondition: !merge
+		Weapon: TemplarBlade
+	Armament@merge:
+		RequiresCondition: merge
+		Weapon: DTemplarMergeWeapon
+		TargetRelationships: Ally
+		Name: mergeattack
+	WithInfantryBody:
+		DefaultAttackSequence: shoot
+		IdleSequences: stand
+		StandSequences: stand
+	AutoTarget:
+		ScanRadius: 5
+	Targetable:
+		TargetTypes: GroundActor, Infantry, Disguise, DTemplarMerge
+	AutoTargetPriority@DEFAULT:
+		RequiresCondition: !stance-attackanything && !assault-move && !merge
+	AutoTargetPriority@ATTACKANYTHING:
+		RequiresCondition: stance-attackanything || assault-move && !merge
+	RenderSprites:
+	Voiced:
+		VoiceSet: ProtossTemplarVoice
+	WithDeathAnimation:
+		UseDeathTypeSuffix: false
+		CrushedSequence: die
+		CrushedSequencePalette: player
+		CrushedPaletteIsPlayerPalette: true
+		RequiresCondition: !kill
+	-SpawnActorOnDeath@fire:
+	ActorLostNotification:
+		RequiresCondition: !kill
+	MustBeDestroyed:
+	ProximityCaptor:
+		Types: Infantry
+	AttackFrontal:
+		FacingTolerance: 0
+	AttackFrontal:
+		Armaments: primary, mergeattack
+		FacingTolerance: 16
+	GrantConditionOnDeploy@1:
+		DeployedCondition: merge
+	GrantConditionOnAttack@1:
+		Condition: kill
+		ArmamentNames: mergeattack
+	ExternalCondition@removeself:
+		Condition: removeself
+	KillsSelf@merge:
+		Delay: 1
+		RequiresCondition: kill
+		DamageTypes: spawnarchon
+	KillsSelf@remove:
+		Delay: 1
+		RequiresCondition: removeself
+		RemoveInstead: true
+	SpawnActorOnDeath@merge:
+		Actor: PDARCHON
+		DeathType: spawnarchon
+		SkipMakeAnimations: false
+	-ExternalCondition@stealthgen:
+	-Cloak@stealthgen:
+	Cloak:
+		IsPlayerPalette: true
+		InitialDelay: 25
+		CloakDelay: 80
+		CloakSound: tphclo00.aud
+		UncloakSound: tphclo01.aud
+		UncloakOn: Demolish
+		PauseOnCondition: cloak-force-disabled || disabled
+	GrantConditionOnDamageState@UNCLOAK:
+		Condition: cloak-force-disabled
+		ValidDamageStates: Critical
+	-Crushable:
+
+PDARCHON:
+	Inherits: ^Infantry
+	Inherits@shield: ^ProtossInfShield
+	Buildable:
+		Prerequisites: ~infantry.protoss, ~techlevel.unrestricted, ~ai.all, advtechcenter
+		Description: Powerful being of 2 merged Dark Templar\n The ultimate sacrifice.\nSpeed: 88\n  Mind control ability
+		Queue: Infantry
+		BuildAtProductionType: Soldier
+		BuildPaletteOrder: 90000
+		BuildLimit: 2
+	Selectable:
+		Bounds: 1024, 1024
+		DecorationBounds: 1877, 1877, 0, 0
+	Valued:
+		Cost: 4000
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Tooltip:
+		Name: Dark Archon
+	Health:
+		HP: 100000
+	Armor:
+		Type: Heavy
+	Mobile:
+		Speed: 88
+		Locomotor: foot2
+		TurnSpeed: 64
+		PauseOnCondition: forming
+	RevealsShroud:
+		Range: 6c512
+	Armament:
+		Weapon: DarkArchonMindControl
+		RequiresCondition: !forming
+		PauseOnCondition: ammo < 180
+		AmmoUsage: 180
+	AmmoPool:
+		Ammo: 180
+		AmmoCondition: ammo
+		InitialAmmo: 90
+	ReloadAmmoPool:
+		Delay: 25
+	WithAmmoPipsDecoration:
+		PipCount: 10
+		FullSequence: pip-blue
+	WithInfantryBody:
+		DefaultAttackSequence: shoot2
+		IdleSequences: stand
+		StandSequences: stand
+	Targetable:
+		TargetTypes: GroundActor, Vehicle, Tank, Cyborg
+	GrantConditionOnPrerequisite@botowner:
+		Condition: botowner
+		Prerequisites: ai.all
+	AutoTarget:
+		RequiresCondition: botowner
+		AttackAnythingCondition: stance-attackanything
+	AutoTargetPriority@DEFAULT:
+		RequiresCondition: !stance-attackanything && !assault-move && botowner
+		ValidTargets: Infantry, Vehicle, Ship, Underwater, AirborneActor, Defense, Mine
+		InvalidTargets: NoAutoTarget
+	AutoTargetPriority@ATTACKANYTHING:
+		RequiresCondition: stance-attackanything || assault-move && botowner
+		ValidTargets: Infantry, Vehicle, Ship, Underwater, AirborneActor, Structure, Defense, Mine
+		InvalidTargets: NoAutoTarget
+	AttackMove:
+		AssaultMoveCondition: assault-move
+	RenderSprites:
+	Voiced:
+		VoiceSet: ProtossDArchonVoice
+	-DeathSounds@NORMAL:
+	-DeathSounds@BURNED:
+	-DeathSounds@ZAPPED:
+	WithDeathAnimation:
+		UseDeathTypeSuffix: false
+		CrushedSequence: die
+		CrushedSequencePalette: player
+		CrushedPaletteIsPlayerPalette: true
+	-SpawnActorOnDeath@fire:
+	Passenger:
+		Weight: 4
+	MustBeDestroyed:
+	ProximityCaptor:
+		Types: Infantry
+	AttackFrontal:
+		FacingTolerance: 0
+		RequiresCondition: ammo >= 180
+	WithSpriteBody:
+		Sequence: body
+		Palette: player
+		IsPlayerPalette: True
+	WithIdleOverlay@1:
+		Sequence: atom
+		Palette: player
+		IsPlayerPalette: True
+	WithMakeAnimation:
+		Sequence: make3
+		Condition: forming
+	ChangesHealth@start:
+		PercentageStep: -75
+		Delay: 250000
+		StartIfBelow: 101
+		DamageCooldown: 0
+		RequiresCondition: forming
+	ChangesHealth@forming:
+		PercentageStep: 1
+		Delay: 5
+		StartIfBelow: 101
+		DamageCooldown: 0
+		RequiresCondition: forming
+	ChangesHealth@fireweapon:
+		PercentageStep: -75
+		Delay: 15
+		StartIfBelow: 101
+		DamageCooldown: 0
+		RequiresCondition: firedweapon
+	ChangesHealth@shield:
+		PercentageStep: 1
+		Delay: 40
+		StartIfBelow: 100
+		DamageCooldown: 25
+		PauseOnCondition: disabled || firedweapon
+	GrantConditionOnAttack@1:
+		Condition: firedweapon
+	VoiceAnnouncement:
+		RequiresCondition: !forming
+		Voice: Build
 	AmbientSound@forming:
 		SoundFiles: ptesum00.aud
 		RequiresCondition: forming
