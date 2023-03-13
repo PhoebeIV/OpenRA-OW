@@ -147,6 +147,101 @@ PSCOUT:
 		RequiresCondition: reloadnear
 		Delay: 75
 
+PARBITER:
+	Inherits: ^Helicopter
+	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
+	Inherits@shield: ^ProtossShield
+	Buildable:
+		Queue: Aircraft
+		BuildAtProductionType: Helicopter
+		BuildPaletteOrder: 41
+		Prerequisites: ~aircraft.protoss, advtechcenter, ~techlevel.unrestricted
+		Description: Protoss support ship with\nwith area cloak.\nSpeed: 112\n  Strong vs Infantry, Aircraft\n  Weak vs Vehicles, Buildings
+	Valued:
+		Cost: 2500
+	Tooltip:
+		Name: Arbiter
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 18000
+	RevealsShroud:
+		MinRange: 7c0
+		Range: 9c0
+		Type: GroundPosition
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 7c0
+		Type: GroundPosition
+	Armament@PRIMARY1:
+		Weapon: DragoonPlasma
+		PauseOnCondition: !ammo
+	Armament@SECONDARY:
+		Weapon: DragoonPlasmaAir
+		PauseOnCondition: !ammo
+	AttackAircraft:
+		FacingTolerance: 32
+		PersistentTargeting: false
+		AttackType: Hover
+		OpportunityFire: False
+	Aircraft:
+		TurnSpeed: 16
+		Speed: 112
+		LandAltitude: 1200
+	AutoTarget:
+		InitialStance: ReturnFire
+		InitialStanceAI: ReturnFire
+	GrantConditionOnMovement@scout:
+		Condition: moving
+	GrantConditionOnAttack@scout:
+		Condition: shooting
+		RevokeDelay: 10
+	AmmoPool:
+		Ammo: 16
+		AmmoCondition: ammo
+	WithAmmoPipsDecoration:
+		Position: BottomLeft
+		Margin: 4, 3
+		RequiresSelection: true
+		PipCount: 8
+	SpawnActorOnDeath:
+		Actor: PARBITER.Husk
+	WithDamageOverlay:
+		Offset: -427,0,0
+	ProducibleWithLevel:
+		Prerequisites: aircraft.upgraded
+	Selectable:
+		DecorationBounds: 1536, 1365
+	Rearmable:
+		RearmActors: pstarg
+	Hovers@CRUISING:
+		-RequiresCondition:
+	Voiced:
+		VoiceSet: ProtossScoutVoice
+	RenderSprites:
+	WithFacingSpriteBody@2:
+		Name: engine
+		Sequence: engine
+		RequiresCondition: moving
+		Palette: effect
+	-EjectOnDeath:
+	ReloadAmmoPool@reloadnear:
+		RequiresCondition: reloadnear
+		Delay: 75
+	DetectCloaked:
+		Range: 6c0
+	RenderDetectionCircle:
+		TrailCount: 1
+	WithRangeCircle:
+		Range: 6c0
+		Color: FF0000
+	ProximityExternalCondition:
+		RequiresCondition: !disabled
+		Condition: arbiterstealth
+		Range: 6c0
+		AffectsParent: false
+	-Cloak@arbiterstealth:
+
 PCARRY:
 	Inherits: ^Helicopter
 	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
@@ -343,14 +438,20 @@ PCARRY:
 		Range: 15c0
 	GrantExternalConditionToProduced@build:
 		Condition: interceptorbuild
+	GrantConditionOnAttack@shoot:
+		Condition: attacking
+		ArmamentNames: painter, weap1
+		RevokeDelay: 50
 	ProductionQueue:
 		Type: Carrier
 		DisplayOrder: 9
 		Group: Carrier
 		LowPowerModifier: 100
 		BuildDurationModifier: 100
+		PauseOnCondition: attacking
 	Production:
 		Produces: Carrier
+		PauseOnCondition: attacking
 	Exit:
 		SpawnOffset: 0,0,512
 		ExitCell: 1,1
