@@ -99,6 +99,22 @@ FACTM:
 		Prerequisite: conyard
 	ProvidesPrerequisite@mcv:
 		Prerequisite: mcv
+	ExternalCondition@EpicDenial:
+		Condition: EpicDenialAura
+	GrantConditionOnPrerequisite@HolyOnlyBoost:
+		Condition: HolyBoostableOnly
+		Prerequisites: ~structures.holy, churchmedi
+	ProximityExternalCondition@MonumentboostHoly:
+		RequiresCondition: !disabled && HolyBoostableOnly && !EpicDenialAura
+		Condition: MonumentboostHoly
+		Range: 15c512
+	ProximityExternalCondition@MartyrBind:
+		RequiresCondition: !disabled && HolyBoostableOnly
+		Condition: MartyrBind
+		Range: 15c512
+	WithRangeCircle@MonumentboostHoly:
+		Range: 15c512
+		RequiresCondition: HolyBoostableOnly && !EpicDenialAura
 
 MEDIFOUNDRY:
 	Inherits: FOUNDRY
@@ -1634,7 +1650,7 @@ ElementalTotem:
 		Dimensions: 2,2
 		BuildSounds: medibuild1.aud, medibuildjobdone1.aud, medibuildplace1.aud
 	Health:
-		HP: 60000
+		HP: 100
 	Armor:
 		Type: Concrete
 	RevealsShroud:
@@ -1910,7 +1926,7 @@ SCOUTTOWER:
 		BuildSounds: medibuild1.aud, medibuildjobdone1.aud, medibuildplace1.aud
 	Buildable:
 		Queue: Defense
-		Prerequisites: ~structures.medi, farmmedi,  ~techlevel.low
+		Prerequisites: ~structures.medi, farmmedi,  ~techlevel.low, ~!structures.darkness
 		Description: Stealth Scout Tower no attacks Huge Vision
 		BuildPaletteOrder: 5
 	Valued:
@@ -2102,7 +2118,7 @@ BalistaTower:
 	-DetectCloaked:
 	Buildable:
 		Queue: Defense
-		Prerequisites: ~structures.medi, blacksmithmedi, ~!upgrade.cannondefence
+		Prerequisites: ~structures.medi, blacksmithmedi, ~!upgrade.cannondefence, ~!structures.darkness
 		Description: Tower With a Balista strapped to the roof \nStrong vs Vehicles
 		BuildPaletteOrder: 5
 	Valued:
@@ -2146,7 +2162,7 @@ CannonTower:
 	Inherits: BalistaTower
 	Buildable:
 		Queue: Defense
-		Prerequisites: ~structures.medi, blacksmithmedi, ~upgrade.cannondefence, ~!structures.elementalists
+		Prerequisites: ~structures.medi, blacksmithmedi, ~upgrade.cannondefence, ~!structures.elementalists, ~!structures.darkness
 		Description: Tower With a Cannon strapped to the roof \nStrong vs Aircraft & Vehicles
 		BuildPaletteOrder: 5
 	Armament@PRIMARY:
@@ -2255,7 +2271,7 @@ MonumentToTheGods:
 		Queue: Defense
 		Prerequisites: ~structures.medi, manasupply, ~structures.holy, ~techlevel.medium
 		BuildLimit: 5
-		Description: Gives Healing aura to units and structures
+		Description: Gives Healing aura to units and structures, /nSmaller Aura that gives larger boost to just Holy Units (Disabled Neer Super units.)
 		BuildPaletteOrder: 15
 	Building:
 		Footprint: xx xx
@@ -2282,6 +2298,19 @@ MonumentToTheGods:
 		Range: 11c512
 	WithRangeCircle:
 		Range: 11c512
+	ProximityExternalCondition@MonumentboostHoly:
+		RequiresCondition: !disabled && HolyBoostableOnly && !EpicDenialAura
+		Condition: MonumentboostHoly
+		Range: 8c512
+	ProximityExternalCondition@MonumentboostHoly:
+		RequiresCondition: !disabled && HolyBoostableOnly
+		Condition: MartyrBind
+		Range: 8c512
+	ExternalCondition@EpicDenial:
+		Condition: EpicDenialAura
+	WithRangeCircle@MonumentboostHoly:
+		Range: 8c512
+		RequiresCondition: !EpicDenialAura
 	Power:
 		Amount: 0
 	RenderSprites:
@@ -2295,7 +2324,7 @@ MediGarrisonTower:
 	Inherits@CARGOPIPS: ^CargoPips
 	Buildable:
 		Queue: Defense
-		Prerequisites: ~structures.medi, farmmedi, ~techlevel.low
+		Prerequisites: ~structures.medi, farmmedi, ~techlevel.low, ~!structures.darkness
 		Description: Garison Units for Defence
 		BuildPaletteOrder: 3
 	Building:

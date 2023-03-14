@@ -1346,6 +1346,51 @@ SmitePowerWep:
 		ValidRelationships: Enemy, Neutral
 		DamageTypes: Prone50Percent, TriggerProne, ElectricityDeath
 
+SmiteMartyr:
+	ValidTargets: Ground, GroundActor, Trees, Water, WaterActor, Underwater, Air, AirborneActor
+	Warhead@: HealthPercentageDamage
+		Spread: 3c512
+		ValidTargets: Infantry
+		Damage: 10
+		ValidRelationships: Enemy, Neutral
+		DamageTypes: Prone50Percent, TriggerProne, ElectricityDeath
+	Warhead@Eff: CreateEffect
+		Explosions: medismiteproj
+		Image: explosion
+	Warhead@friend: HealthPercentageDamage
+		Delay: 150
+		Spread: 2c0
+		ValidTargets: Infantry
+		Damage: -10
+		ValidRelationships: Ally
+		DamageTypes: Prone50Percent, TriggerProne, ElectricityDeath
+	Warhead@SmiteDam_impact: SpreadDamage
+		Spread: 2c0
+		Damage: 7000
+		Falloff: 100, 75, 50, 30, 20, 10
+		ValidTargets: Infantry
+		ValidRelationships: Enemy, Neutral
+		DamageTypes: Prone50Percent, TriggerProne, ElectricityDeath
+
+MartyrHeal:
+	Inherits: Heal
+	ReloadDelay: 100
+	Range: 5c0
+	Warhead@1Dam: SpreadDamage
+		Spread: 213
+		Damage: -3000
+		ValidRelationships: Ally
+		ValidTargets: Heal
+		DebugOverlayColor: 00FF00
+	Warhead@PercentHeal: HealthPercentageDamage
+		Delay: 10
+		Spread: 2c0
+		ValidTargets: Infantry
+		Damage: -5
+		ValidRelationships: Ally
+		DamageTypes: Prone50Percent, TriggerProne, ElectricityDeath
+
+
 ChainsPowerWep:
 	ReloadDelay: 300
 	Range: 5c0
@@ -1695,3 +1740,40 @@ ChaosWizBall:
 	Inherits: WizBall
 	ReloadDelay: 25
 	Range: 12c0
+
+
+DarkRageDeathWep:
+	InstantHit:
+	GrantExternalConditionWarhead@DarkRageDeathWar:
+		Condition: DarkRageStacks
+		Duration: 500
+		Range: 10
+		ValidTargets: GroundActor
+		ValidRelationships: Ally
+	GrantExternalConditionWarhead@DarkRageDeathWar1:
+		Condition: DarkRageStacksHeal
+		Duration: 2
+		Range: 10
+		ValidTargets: GroundActor
+		ValidRelationships: Ally
+
+
+
+AssasinBlade:
+	ReloadDelay: 300
+	Range: 2c0
+	Report: footmansword1.aud,footmansword2.aud,footmansword3.aud,footmansword4.aud,footmansword5.aud,footmansword6.aud
+	ValidTargets: Ground, Infantry, Cyborg
+	InvalidTargets: Vehicle, Water, Wall, Husk, Mine, EpicUnit
+	Projectile: InstantHit
+	Warhead@1Dam: SpreadDamage
+		Damage: 100000
+		ValidTargets: Ground, Infantry, Cyborg
+		InvalidTargets: Vehicle, Water, Wall, Husk, Mine, EpicUnit
+		Versus:
+			None: 100
+			Wood: 20
+			Light: 40
+			Heavy: 20
+			Concrete: 20
+		DamageTypes: Prone50Percent, TriggerProne, DefaultDeath

@@ -199,6 +199,53 @@ HorseSwordman:
 	SpawnActorOnDeath:
 		Actor: DismountedKnight
 
+
+
+HorsePaladin:
+	Inherits: HorseSwordman
+	Buildable:
+		Queue: Vehicle
+		Prerequisites: ~vehicles.medi, ~structures.holy, advtechcenter, churchmedi
+		BuildPaletteOrder: 401
+		Description: Horseback Paladin.\n  Strong vs Infantry and Artilary \n  Weak vs Vehicles, Aircraft
+	Valued:
+		Cost: 2000
+	Tooltip:
+		Name: Horse Paladin
+	Health:
+		HP: 30000
+	Armor:
+		Type: Light
+	SpawnActorOnDeath:
+		Actor: MEDIPALADIN
+	ChangesHealth@pallyboost:
+		PercentageStep: 10
+		Delay: 50
+		StartIfBelow: 80
+		DamageCooldown: 50
+		RequiresCondition: !lowpower
+	ProximityExternalCondition@pallyboost:
+		Condition: pallyboost
+		Range: 1c512
+	WithRangeCircle:
+		Range: 1c512
+	WithDecoration@pallyboost:
+		Image: pips
+		Sequence: pip-heal
+		Palette: effect
+		Position: TopRight
+		ValidRelationships: None,Neutral,Enemy,Ally
+	Mobile:
+		TurnSpeed: 160
+		Speed: 160
+		Locomotor: wheeled
+	Armament:
+		Weapon: PaladinSword
+	-Armament@ElementalWepon:
+	Voiced:
+		VoiceSet: PaladinVoiceMedi
+	IgnoresDisguise:
+
 ##Fast Melee Cavalry
 HorseScout:
 	Inherits: ^TrackedVehicle

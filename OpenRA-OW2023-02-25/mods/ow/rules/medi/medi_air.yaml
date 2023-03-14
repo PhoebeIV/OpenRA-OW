@@ -7,7 +7,7 @@ MediDragon:
 		BuildAtProductionType: Helicopter
 		BuildPaletteOrder: 65
 		Prerequisites: ~aircraft.holy
-		BuildLimit: 3
+		BuildLimit: 4
 		Description: Airborn Fighter of the Medieval era, \n  Strong vs Infantry, Light armor, Aircraft\n  Weak vs Tanks
 	Valued:
 		Cost: 2500
@@ -374,6 +374,7 @@ MediLightningElement:
 		Queue: Aircraft
 		BuildAtProductionType: Helicopter
 		BuildPaletteOrder: 20
+		BuildLimit: 5
 		Prerequisites: ~aircraft.medi, ~aircraft.elementalists
 		Description: Lightning Elemental \nHas magic EMP attack.\n  Strong vs Tanks, Aircraft\n  Weak vs Infantry, Light armor
 	Valued:
@@ -446,13 +447,21 @@ ChaosElemental:
 	Inherits@NoExp: ^NoExp
 	Inherits@EPIC: ^EpicUnit
 	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
+	AutoTarget:
+		ScanRadius: 500
+		InitialStanceAI: AttackAnything
+		InitialStance: AttackAnything
+		MinimumScanTimeInterval: 50
+		MaximumScanTimeInterval: 300
+	-Selectable:
+	Interactable:
 	Buildable:
 		Queue: Aircraft
 		BuildAtProductionType: Helicopter
 		BuildPaletteOrder: 65
 		Prerequisites: ~aircraft.elementalists, library
 		BuildLimit: 1
-		Description: Chaos Elemental
+		Description: Chaos Elemental, Cannot be controlled and will attack wander arround the map
 	Valued:
 		Cost: 15000
 	Tooltip:
@@ -462,7 +471,7 @@ ChaosElemental:
 	RenderSprites:
 		Image: mediicewyvern
 	Health:
-		HP: 200000
+		HP: 300000
 	Armor:
 		Type: Light
 	Aircraft:
@@ -545,11 +554,15 @@ ChaosElemental:
 		Weapon: ChaosSpawner
 		RequiresCondition: ChaosSoulCount
 	AttackWander:
-		WanderMoveRadius: 20
+		WanderMoveRadius: 200
 		MinMoveDelay: 50
 		MaxMoveDelay: 500
-	Targetable:
-		TargetTypes: GroundActor, AirborneActor
+	Targetable@Infantry:
+		TargetTypes: GroundActor, Infantry, Cyborg
+	Targetable@Air:
+		TargetTypes: Air, AirborneActor
+	Targetable@Vehicle:
+		TargetTypes: GroundActor, Vehicle
 
 
 ChaosOrb:

@@ -404,8 +404,8 @@ SCOUTMEDI:
 	Inherits@MediSoldier: ^MediSoldier
 	Inherits@sprite: ^TSMedi
 	Buildable:
-		Prerequisites: ~infantry.medi, farmmedi
-		Description: Scout with long vision and stealth when stationary.\n  can deploy into a scout tower.
+		Prerequisites: ~infantry.medi, ~!infantry.darkness
+		Description: Stealthed Assasin Made for exicuting Infantry./nCan bypass Defenses and only spotable by Infantry./nloses stealth for a long time on attack or damage
 		Queue: Infantry
 		BuildAtProductionType: Soldier
 		BuildPaletteOrder: 406
@@ -454,6 +454,38 @@ SCOUTMEDI:
 	RevealsShroudMultiplier:
 		Modifier: 50
 		RequiresCondition: lowpower
+
+
+Assasin:
+	Inherits@Scout: SCOUTMEDI
+	Buildable:
+		Prerequisites: ~infantry.medi, farmmedi, ~infantry.darkness
+		Description: Scout with long vision and stealth when stationary.\n  can deploy into a scout tower.
+		Queue: Infantry
+		BuildAtProductionType: Soldier
+		BuildPaletteOrder: 406
+		BuildLimit: 3
+	RevealsShroud:
+		Range: 5c512
+	Armament:
+		Weapon: AssasinBlade
+		RequiresCondition: DarkCloakOn
+	Mobile:
+		Speed: 70
+	Health:
+		HP: 500
+	Targetable:
+		TargetTypes: GroundActor, Infantry, Disguise,
+	Cloak:
+		IsPlayerPalette: true
+		InitialDelay: 100
+		CloakDelay: 150
+		CloakType: DarkAssasin
+		CloakSound: tphclo00.aud
+		UncloakSound: tphclo01.aud
+		UncloakOn: Attack, Damage
+		CloakedCondition: DarkCloakOn
+
 
 ##Harder hitting longer range but slow refire
 CROSSBOWMAN:
@@ -613,7 +645,7 @@ PRIEST:
 		Queue: Infantry
 		BuildAtProductionType: Soldier
 		BuildPaletteOrder: 404
-		Prerequisites: ~infantry.medi, churchmedi, ~!infantry.darkness
+		Prerequisites: ~infantry.medi, churchmedi, ~!infantry.darkness, ~!infantry.holy
 		Description: Heals nearby infantry.\n  The word of god
 	Valued:
 		Cost: 600
@@ -658,6 +690,46 @@ PRIEST:
 		ValidTargets: Infantry, GroundActor
 	RenderSprites:
 		Image: medipriest
+
+
+HOLYMARTYR:
+	Inherits@PRIEST: PRIEST
+	Buildable:
+		Queue: Infantry
+		BuildAtProductionType: Soldier
+		BuildPaletteOrder: 404
+		Prerequisites: ~infantry.medi, churchmedi, ~infantry.holy
+		Description: Heals nearby infantry.\n  The word of god, Dies if it leaves your base, or range of Holy Monuments.
+	ExternalCondition@MartyrBind:
+		Condition: MartyrBind
+	GrantCondition@MartyrBindOutOfBounds:
+		Condition: MartyrBindOutOfBounds
+		RequiresCondition: !MartyrBind
+	GrantCondition@MartyrBindOutOfBounds:
+		Condition: corrode
+		RequiresCondition: MartyrBindOutOfBounds
+	ChangesHealth@OutOfBounds:
+		PercentageStep: 5
+		Delay: 10
+		StartIfBelow: 110
+		RequiresCondition: MartyrBindOutOfBounds
+	Armament:
+		Weapon: MartyrHeal
+		Cursor: heal
+		OutsideRangeCursor: heal
+		TargetRelationships: Ally
+		ForceTargetRelationships: None
+	Armament@GARRISONED:
+		Name: garrisoned
+		Weapon: MartyrHeal
+		Cursor: heal
+		OutsideRangeCursor: heal
+		TargetRelationships: Ally
+		ForceTargetRelationships: None
+	Explodes:
+		Weapon: SmiteMartyr
+		EmptyWeapon: SmiteMartyr
+	
 
 BERSERKER:
 	Inherits@FOOTMAN: FOOTMAN
@@ -745,7 +817,6 @@ MEDIPALADIN:
 		Range: 6c0
 	Armament:
 		Weapon: PaladinSword
-		PauseOnCondition: elementalweps
 	WithInfantryBody:
 		DefaultAttackSequence: shoot
 		StandSequences: stand
@@ -931,13 +1002,6 @@ MEDIABOMINATION:
 		RequiresCondition: lowpower
 	-Passenger:
 	-Crushable:
-	Buildable:
-		Prerequisites: ~infantry.darkness, advtechcenter
-		Description: Tank unit, Slow and Heavy \n Strong vs All Ground \n Weak vs Air, Mobile Range units
-		Queue: Infantry
-		BuildAtProductionType: Soldier
-		BuildPaletteOrder: 417
-		BuildDuration: 1500
 	Valued:
 		Cost: 2000
 	UpdatesPlayerStatistics:
@@ -980,7 +1044,6 @@ MEDIABOMINATION:
 
 MEDIABOMINATIONTemp:
 	Inherits: MEDIABOMINATION
-	-Buildable:
 	Health:
 		HP: 100000
 	KillsSelf:
@@ -1031,7 +1094,7 @@ MEDIBLADEMASTER:
 	Inherits@MediLowPower: ^MediLowPower
 	-Cloneable:
 	Buildable:
-		Prerequisites: ~infantry.elementalists, advtechcenter
+		Prerequisites: ~infantry.darkness, advtechcenter
 		Description: Master Swordsman can throw tornados with his swings \n Strong vs infantry \n Weak vs Air
 		Queue: Infantry
 		BuildAtProductionType: Soldier
@@ -1445,6 +1508,7 @@ RotElement:
 		Queue: Infantry
 		BuildAtProductionType: Soldier
 		BuildPaletteOrder: 414
+		BuildLimit: 10
 	Valued:
 		Cost: 1000
 	Tooltip:

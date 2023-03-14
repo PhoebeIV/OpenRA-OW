@@ -308,6 +308,25 @@
 		SpeedModifier: 65
 		Duration: 75
 
+^HolyBoostedHolyOnly:
+	ExternalCondition@MonumentboostHoly:
+		Condition: MonumentboostHoly
+	ExternalCondition@EpicDenial:
+		Condition: EpicDenialAura
+	GrantConditionOnPrerequisite@HolyOnlyBoost:
+		Condition: HolyBoostableOnly
+		Prerequisites: ~structures.holy
+	DamageMultiplier@HolyBoostedRanged:
+		Modifier: 80
+		RequiresCondition: MonumentboostHoly && HolyBoostableOnly && !EpicDenialAura
+	ReloadDelayMultiplier@HolyBoostedReloadDelay:
+		Modifier: 80
+		RequiresCondition: MonumentboostHoly && HolyBoostableOnly && !EpicDenialAura
+	SpeedMultiplier@HolyBoostedSpeed:
+		Modifier: 110
+		RequiresCondition: MonumentboostHoly && HolyBoostableOnly && !EpicDenialAura
+	
+
 ^MediSoldier:
 	Inherits: ^Infantry
 	UpdatesPlayerStatistics:
@@ -335,6 +354,36 @@
 	GrantConditionOnPrerequisite@elementalweps:
 		Condition: elementalweps
 		Prerequisites: upgrade.elementalwepstech, ~advtechcenter
+	GrantConditionOnPrerequisite@DarkBuffEnabled:
+		Condition: DarkBuffEnabled
+		Prerequisites: ~structures.darkness
+	DamageMultiplier@Rage10:
+		Modifier: 80
+		RequiresCondition: DarkRageStacks >= 10
+	FirepowerMultiplier@Rage40:
+		Modifier: 120
+		RequiresCondition: DarkRageStacks >= 40
+	ReloadDelayMultiplier@Rage30:
+		Modifier: 150
+		RequiresCondition: DarkRageStacks >= 30
+	SpeedMultiplier@Rage20:
+		Modifier: 130
+		RequiresCondition: DarkRageStacks >= 20
+	ChangesHealth@Rage50:
+		PercentageStep: 5
+		Delay: 40
+		RequiresCondition: DarkRageStacksHeal && DarkRageStacks >= 50
+	ExternalCondition@DarkRageStacks:
+		Condition: DarkRageStacks
+		TotalCap: 100
+	ExternalCondition@DarkRageStacksHeal:
+		Condition: DarkRageStacksHeal
+		TotalCap: 1
+	Explodes@DarkRageDeath:
+		Weapon: DarkRageDeathWep
+		EmptyWeapon: DarkRageDeathWep
+		DamageSource: Killer
+		RequiresCondition: DarkBuffEnabled
 
 ^TibSunSoldier:
 	Inherits@1: ^Soldier
@@ -749,6 +798,7 @@
 	Inherits@corrode: ^CorrodesFromTibWeaps
 	Inherits@aeiou: ^AEIOUBoosted
 	Inherits@CurseCondition: ^CurseDebuff
+	Inherits@HolyBoostedHolyOnly: ^HolyBoostedHolyOnly
 	Inherits@Monumentboost: ^Monumentboosted
 	Inherits@TotemBoost: ^TotemBooster
 	Inherits@TotemDebuf: ^TotemDebufer
@@ -885,6 +935,7 @@
 	Inherits@corrode: ^CorrodesFromTibWeaps
 	Inherits@pallyboost: ^Pallyboosted
 	Inherits@Monumentboost: ^Monumentboosted
+	Inherits@HolyBoostedHolyOnly: ^HolyBoostedHolyOnly
 	Inherits@TotemBoost: ^TotemBooster
 	Inherits@TotemDebuf: ^TotemDebufer
 	Inherits@ChainsCondition: ^ChainsConditioner
@@ -1089,6 +1140,9 @@
 		Range: 1c0
 		DetectionTypes: gpsscrambler
 	TemporaryOwnerManager:
+	DetectCloaked@AssasinDark:
+		DetectionTypes: DarkAssasin
+		Range: 3
 
 ^Cyborg:
 	Inherits: ^Infantry
@@ -1408,6 +1462,10 @@
 		DamageCooldown: 100
 	Targetable@epic1:
 		TargetTypes: EpicUnit
+	ProximityExternalCondition@EpicDenialAura:
+		ValidRelationships: Enemy
+		Condition: EpicDenialAura
+		Range: 20c512
 
 #Reduces upgrade effectiveness on VERY strong epic infantry units
 ^EpicInfantryNerf:
