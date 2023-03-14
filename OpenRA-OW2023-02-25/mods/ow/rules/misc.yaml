@@ -442,31 +442,55 @@ Zombie:
 		RequiresCondition: wander
 
 hack.particle_beam:
-	Inherits: ^Vehicle
+	Inherits: ^Helicopter
+	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
 	Health:
-		HP: 1000
+		HP: 5000
+	-UpdatesPlayerStatistics:
+	-Hovers@CRUISING:
+	-SelectionDecorations:
+	-GpsDot:
+	-Voiced:
+	-Targetable@GROUND:
+	-Targetable@AIRBORNE:
+	-Targetable@REPAIR:
+	-WithShadow:
 	DamageMultiplier@UNKILLABLE:
 		Modifier: 0
-	Mobile:
-		Locomotor: locomotorparticlebeam
-		Speed: 30
-		TurnSpeed: 255
+	RevealsShroud:
+		Range: 3c0
+		Type: GroundPosition
+		RevealGeneratedShroud: False
+	Armament@PRIMARY:
+		Weapon: aoe.particle_beam
+		TargetRelationships: Ally, Enemy, Neutral
+		ForceTargetRelationships: None
+	Turreted:
+		TurnSpeed: 90
+	AttackTurreted:
+	Aircraft:
+		TurnSpeed: 16
+		Speed: 32
+		CanSlide: false
+		CanForceLand: false
+		CruiseAltitude: 1024
+		LandAltitude: 1000
+		AltitudeVelocity: 1000
 	AutoTarget:
 		InitialStance: AttackAnything
-	AttackOmni:
-	Armament:
-		Weapon: aoe.particle_beam
-	-Targetable:
-	AmbientSound:
-		SoundFiles: sparlo2a.aud, sparlo2b.aud, sparlo2c.aud, sparlo3a.aud, sparlo3b.aud, sparlo3c.aud, sparlo4a.aud, sparlo4b.aud, sparlo4c.aud
-		Interval: 2
-	KillsSelf:
+		InitialStanceAI: AttackAnything
+		EnableStances: false
+	Selectable:
+		DecorationBounds: 2048, 2048
+	-KillsSelf:
+	KillsSelf@1:
 		RemoveInstead: true
-		Delay: 250
-	ProximityExternalCondition:
-		Condition: wander
-		Range: 2c0
-        
+		Delay: 500
+	Wanders:
+		WanderMoveRadius: 4
+	-SpawnActorOnDeath:
+	-Explodes:
+
 camera.particle_cannon:
 	Inherits: CAMERA
 	EditorOnlyTooltip:

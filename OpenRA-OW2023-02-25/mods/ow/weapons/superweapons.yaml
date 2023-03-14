@@ -1892,31 +1892,32 @@ MediElementalWeapon:
 		FlashType: Catalyst
         
 aoe.particle_beam:
-	ValidTargets: Ground, Water, Air, Trees
-	Range: 1c0
+	ValidTargets: Ground, GroundActor, Water, WaterActor, Air, AirborneActor, Underwater, Trees
+	Range: 15c0
 	ReloadDelay: 2
-	Projectile: InstantHit
+	Projectile: GravityBomb
+		Velocity: 0, 0, -512
 	Warhead@1Dam: SpreadDamage
-		Spread: 1c512
-		Damage: 3200
-		ValidTargets: Ground, Water, Air, Trees
+		Spread: 1c0
+		Damage: 3300
+		ValidTargets: Ground, GroundActor, Water, WaterActor, Air, AirborneActor, Underwater, Trees
 		Versus:
-			None: 30
-			Wood: 30
+			None: 60
+			Wood: 40
 			Light: 75
 			Concrete: 25
-		DamageTypes: Prone50Percent, TriggerProne, ExplosionDeath
+		DamageTypes: Prone50Percent, TriggerProne, ElectricityDeath
 	Warhead@2Eff: CreateEffect
 		Explosions: particle_ring
-		ValidTargets: Ground, Water, Air, Trees
+		ValidTargets: Ground, GroundActor, Water, WaterActor, Air, AirborneActor, Underwater, Trees
 	Warhead@3Smu_impact: LeaveSmudge
 		SmudgeType: Scorch
 		InvalidTargets: Vehicle, Tank, Structure, Wall
-		Size: 0
+		Size: 1
 	Warhead@3Smu_impactSnow: LeaveSmudge
 		SmudgeType: SnowScorch
 		InvalidTargets: Vehicle, Tank, Structure, Wall
-		Size: 0
+		Size: 1
 
 usafuelairbomb:
 	Inherits: ParaBomb
