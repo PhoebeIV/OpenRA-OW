@@ -1065,8 +1065,8 @@ missiledefendershotair:
 	Range: 6c0
 	Report: imisweaa.wav, imisweab.wav, imisweac.wav
 	Projectile: Missile
-		Speed: 300
-		RangeLimit: 7c0
+		Speed: 400
+		RangeLimit: 10c0
 	Warhead@1Dam: SpreadDamage
 		Damage: 3000
 
@@ -1437,3 +1437,75 @@ usaa10missile:
 	Warhead@1Dam: SpreadDamage
 		Spread: 1c256
 		Damage: 15000
+        
+usapatriotshotemp:
+	Inherits: ^AntiGroundMissile
+	ReloadDelay: 70
+	Burst: 4
+	BurstDelays: 6
+	Range: 6c640
+	Report: bpatweaa.wav, bpatweab.wav, bpatweac.wav
+	Projectile: Missile
+		Arm: 3
+		Inaccuracy: 64
+		Image: MISSILE
+		HorizontalRateOfTurn: 25
+		RangeLimit: 10c512
+		MinimumLaunchAngle: 62
+		MaximumLaunchAngle: 62
+        ContrailStartColor: 0000FF
+        ContrailEndColor: 00008B
+		Speed: 384
+	Warhead@1Dam: SpreadDamage
+		Damage: 2000
+		Versus:
+			None: 40
+			Wood: 40
+			Light: 80
+			Heavy: 80
+			Concrete: 100
+        DamageTypes: Prone50Percent, TriggerProne, SmallExplosionDeath
+    Warhead@2EMP: GrantExternalCondition
+		Condition: disabled
+		Duration: 100
+		ValidTargets: GroundActor, WaterActor
+		DamageTypes: Prone50Percent, TriggerProne, SmallExplosionDeath
+        
+missiledefendershotupgrade:
+	Inherits: ^AntiGroundMissile
+	RequiresNormalFire: true
+	ReloadDelay: 20
+	Range: 6c384
+	Report: imisweaa.wav, imisweab.wav, imisweac.wav
+	Projectile: Missile
+        ContrailStartColor: FF0000
+        ContrailEndColor: 8B0000
+	Warhead@1Dam: SpreadDamage
+		Damage: 3000
+		ValidTargets: Ground, GroundActor, Air, AirborneActor, WaterActor, Trees
+
+missiledefendershotairupgrade:
+	Inherits: ^AntiAirMissile
+	RequiresNormalFire: true
+	ReloadDelay: 20
+	Range: 8c0
+	Report: imisweaa.wav, imisweab.wav, imisweac.wav
+	Projectile: Missile
+        ContrailStartColor: FF0000
+        ContrailEndColor: 8B0000
+		Speed: 300
+		RangeLimit: 12c0
+	Warhead@1Dam: SpreadDamage
+		Damage: 3000
+
+missiledefendershotgarrisonupgrade:
+	Inherits: missiledefendershotupgrade
+	RequiresNormalFire: false
+	Range: 7c853
+	Projectile: Missile
+        ContrailStartColor: FF0000
+        ContrailEndColor: 8B0000
+		RangeLimit: 9c0
+	Warhead@1Dam: SpreadDamage
+		Damage: 4000
+		ValidTargets: Ground, GroundActor, Air, AirborneActor, WaterActor, Trees

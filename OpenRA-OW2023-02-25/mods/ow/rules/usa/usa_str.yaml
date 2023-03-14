@@ -466,7 +466,7 @@ usastrategycenter:
 		Prerequisites: ~structures.usa
 	ParatroopersPower@usarangers:
 		OrderName: usarangers
-		Prerequisites: ~structures.usa
+		Prerequisites: ~structures.usa, ~aircraft.usa
 		Icon: paratroopers
 		ChargeInterval: 7000
 		Name: Paratroopers
@@ -489,7 +489,7 @@ usastrategycenter:
 		SquadSize: 3
 	AirstrikePower@a10strike:
 		OrderName: a10strike
-		Prerequisites: ~structures.usa
+		Prerequisites: ~structures.usa, ~aircraft.usa, ~advtechcenter
 		Icon: usaa10power
 		ChargeInterval: 9000
 		Name: A10 Strike
@@ -509,29 +509,6 @@ usastrategycenter:
 		UseDirectionalTarget: True
 		DirectionArrowAnimation: paradirection
 		SupportPowerPaletteOrder: 40
-	AirstrikePower@MOAB:
-		OrderName: Motherofallbombs
-		Prerequisites: ~structures.usa
-		Icon: usamoabpower
-		ChargeInterval: 12000
-		Name: MOAB
-		Description: Drop a MOAB on a specified location.
-		SelectTargetSpeechNotification: SelectTarget
-		CameraActor: camera
-		CameraRemoveDelay: 150
-		UnitType: usamoabplane
-		QuantizedFacings: 8
-		DisplayBeacon: true
-		BeaconPoster: pinficon
-		SquadSize: 1
-		SquadOffset: -1792,1792,0
-		ArrowSequence: arrow
-		ClockSequence: clock
-		CircleSequence: circles
-		UseDirectionalTarget: True
-		DirectionArrowAnimation: paradirection
-		SupportPowerPaletteOrder: 40
-		DisplayTimerRelationships: Ally, Neutral, Enemy
         
 usasupplydropzone:
 	Inherits: ^Building
@@ -627,10 +604,8 @@ usaparticlecannon:
 usapatriot:
 	Inherits: ^Defense
 	Inherits@AUTOTARGET: ^AutoTargetAll
-	Inherits@LOWPOWER: ^DisableOnLowPower
+	Inherits@LOWPOWER: ^DisableOnLowPowerOrPowerDown
 	Inherits@SHAPE: ^2x1Shape
-	GivesExperience:
-		Experience: 200
 	Buildable:
 		Queue: Defense
 		BuildPaletteOrder: 4
@@ -682,3 +657,113 @@ usapatriot:
 		Image: usapatriot
 	RevealsShroud@GAPGEN:
 		Range: 5c0
+        
+usapatriotEMP:
+	Inherits: ^Defense
+	Inherits@AUTOTARGET: ^AutoTargetAll
+	Inherits@LOWPOWER: ^DisableOnLowPowerOrPowerDown
+	Inherits@SHAPE: ^2x1Shape
+	Buildable:
+		Queue: Defense
+		BuildPaletteOrder: 4
+		BuildDuration: 625
+		BuildDurationModifier: 100
+		Prerequisites: anypower, ~structures.usa, upgrade.superweaponsgeneral
+		Description: Patriot Missile System upgrade with EMP rockets, disabling vehicles.\nProvided by General Alexis Alexander.
+	Valued:
+		Cost: 1000
+	Tooltip:
+		Name: EMP Patriot Missile System
+	Building:
+		Footprint: xx
+		Dimensions: 2,1
+	Health:
+		HP: 100000
+	Armor:
+		Type: Wood
+	Selectable:
+		Bounds: 2048, 1024
+	Turreted:
+		TurnSpeed: 16
+	-WithSpriteBody:
+	WithEmbeddedTurretSpriteBody:
+	Armament@AG:
+		Weapon: usapatriotshotemp
+		LocalOffset: 0,0,320
+		MuzzleSequence: muzzle
+	Armament@AA:
+		Weapon: usapatriotshotair
+		LocalOffset: 0,0,320
+		MuzzleSequence: muzzle
+	WithRangeCircle:
+		Range: 6c640
+	WithRangeCircle@AA:
+		Type: aa
+		Range: 8c768
+		Color: 00DDDD88
+	AttackTurreted:
+	WithMuzzleOverlay:
+	Power:
+		Amount: -80
+	RenderDetectionCircle:
+	DetectCloaked:
+		Range: 5c0
+	BodyOrientation:
+		UseClassicFacingFudge: True
+	RenderSprites:
+		Image: usapatriotemp
+	RevealsShroud@GAPGEN:
+		Range: 5c0
+ 
+usalaserpatriot:
+	Inherits: ^Defense
+	Inherits@IDISABLE: ^DisableOnLowPowerOrPowerDown
+	Inherits@AUTOTARGET: ^AutoTargetGround
+	Buildable:
+		Queue: Defense
+		BuildPaletteOrder: 80
+		Prerequisites: anypower, ~structures.usa, upgrade.lasergeneral
+		Description: Laster Defense Turret.\nProvided by General Townes
+	Valued:
+		Cost: 1200
+	Tooltip:
+		Name: Laser Defense Turret
+	Selectable:
+		Bounds: 1024, 1024
+		DecorationBounds: 1024, 1877, 0, -426
+	SelectionDecorations:
+	Health:
+		HP: 65000
+	Armor:
+		Type: Heavy
+	RevealsShroud:
+		MinRange: 6c0
+		Range: 8c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 6c0
+	WithBuildingBib:
+		HasMinibib: true
+	-WithSpriteBody:
+	WithChargeSpriteBody:
+		Sequence: active
+	Armament:
+		Weapon: ObeliskLaser
+		LocalOffset: 0,-85,1280
+	AttackCharges:
+		RequiresCondition: !build-incomplete && !disabled
+		PauseOnCondition: disabled
+		ChargeLevel: 65
+		ChargingCondition: charging
+	AmbientSound:
+		RequiresCondition: charging
+		SoundFiles: obelpowr.aud
+		Interval: 30, 40
+	Power:
+		Amount: -100
+	DetectCloaked:
+		Range: 6c0
+		RequiresCondition: !disabled
+	WithDeathAnimation:
+		DeathSequence: dead
+		UseDeathTypeSuffix: false

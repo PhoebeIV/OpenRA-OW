@@ -41,8 +41,6 @@ USARANGER:
 	Selectable:
 		Bounds: 768, 853, 0, -256
 		DecorationBounds: 640, 896, 0, -426
-	Selectable:
-		Class: E1
 	RenderSprites:
 		Image: usaranger
         
@@ -65,16 +63,42 @@ USADEFENDER:
 		HP: 8000
 	Armament@PRIMARY:
 		Weapon: missiledefendershot
+        PauseOnCondition: upgrade.laserguidedmissiles
 	Armament@Secondary:
 		Weapon: missiledefendershotair
+        PauseOnCondition: upgrade.laserguidedmissiles
 	Armament@GARRISONED:
 		Name: garrisoned
 		Weapon: missiledefendershotgarrison
 		MuzzleSequence: garrison-muzzle
+        PauseOnCondition: upgrade.laserguidedmissiles
 	Armament@BUS:
 		Name: bus
 		Weapon: missiledefendershotgarrison
 		MuzzleSequence: garrison-muzzle
+        PauseOnCondition: upgrade.laserguidedmissiles
+	Armament@PRIMARYupgrade:
+		Weapon: missiledefendershotupgrade
+        RequiresCondition: upgrade.laserguidedmissiles
+	Armament@PRIMARYupgradelaser:
+		Weapon: USAmissiledefendertargetinglaser
+        RequiresCondition: upgrade.laserguidedmissiles
+	Armament@Secondaryupgrade:
+		Weapon: missiledefendershotairupgrade
+        RequiresCondition: upgrade.laserguidedmissiles
+	Armament@Secondaryupgradeair:
+		Weapon: USAmissiledefendertargetinglaserair
+        RequiresCondition: upgrade.laserguidedmissiles
+	Armament@GARRISONEDupgrade:
+		Name: garrisoned
+		Weapon: missiledefendershotgarrisonupgrade
+		MuzzleSequence: garrison-muzzle
+        RequiresCondition: upgrade.laserguidedmissiles
+	Armament@BUSupgrade:
+		Name: bus
+		Weapon: missiledefendershotgarrisonupgrade
+		MuzzleSequence: garrison-muzzle
+        RequiresCondition: upgrade.laserguidedmissiles
 	WithInfantryBody:
 		DefaultAttackSequence: shoot
 		RequiresCondition: !parachute
@@ -88,10 +112,11 @@ USADEFENDER:
 	Selectable:
 		Bounds: 768, 853, 0, -256
 		DecorationBounds: 640, 896, 0, -426
-	Selectable:
-		Class: E3
 	RenderSprites:
 		Image: usadefender
+    GrantConditionOnPrerequisite@1:
+        Condition: upgrade.laserguidedmissiles
+        Prerequisites: upgrade.laserguidedmissiles
         
 USAPATHFINDER:
 	Inherits: ^Soldier
@@ -135,7 +160,7 @@ USAPATHFINDER:
 		Range: 5c0
 	Selectable:
 		Bounds: 768, 853, 0, -256
-		DecorationBounds: 640, 896, 0, -426
+		DecorationBounds: 640, 896, 0, -426 
 	Cloak:
 		InitialDelay: 250
 		CloakDelay: 120
@@ -147,8 +172,6 @@ USAPATHFINDER:
 	GrantConditionOnDamageState@UNCLOAK:
 		Condition: cloak-force-disabled
 		ValidDamageStates: Critical
-	Selectable:
-		Class: E1
 	RenderSprites:
 		Image: usapathfinder
  
