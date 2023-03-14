@@ -254,7 +254,7 @@ PCARRY:
 		Description: Protoss gunship armed\nwith Anti-matter missiles and \n photon blasters.\nSpeed: 56\n  Strong vs Everything
 		BuildLimit: 2
 	Valued:
-		Cost: 4000
+		Cost: 5000
 	Tooltip:
 		Name: Carrier
 	UpdatesPlayerStatistics:
@@ -269,16 +269,14 @@ PCARRY:
 	RevealsShroud@GAPGEN:
 		Range: 7c0
 		Type: GroundPosition
-	Rearmable:
-		RearmActors: pstarg
 	Armament@weap1:
 		Name: weap1
 		Weapon: CarrierSpawn
-		PauseOnCondition: !ammo1
-		RequiresCondition: enableweap1
+		PauseOnCondition: !ammo
 	Armament@painter:
 		Name: painter
 		Weapon: CarrierTarget
+		PauseOnCondition: !ammo
 	AttackAircraft:
 		Armaments: painter,weap1
 		FacingTolerance: 512
@@ -287,8 +285,9 @@ PCARRY:
 	Aircraft:
 		TurnSpeed: 8
 		Speed: 56
-		CruiseAltitude: 1500
 		LandAltitude: 1200
+		CanSlide: false
+		IdealSeparation: 2560
 	AutoTarget:
 		InitialStance: Defend
 		InitialStanceAI: AttackAnything
@@ -297,9 +296,7 @@ PCARRY:
 	WithAmmoPipsDecoration:
 		Position: BottomLeft
 		Margin: 4, 3
-		RequiresSelection: true
-		PipCount: 6
-		AmmoPools: ammo1
+		PipCount: 10
 	SpawnActorOnDeath:
 		Actor: PCARRY.Husk
 	WithDamageOverlay:
@@ -329,135 +326,22 @@ PCARRY:
 	GrantConditionOnPrerequisite@botowner:
 		Condition: botowner
 		Prerequisites: ai.all
-	ReloadAmmoPool@reloadnear1:
-		AmmoPool: ammo1
-		RequiresCondition: botowner
-		Delay: 300
-		Count: 2
-	ReloadAmmoPool@reloadinter1:
-		AmmoPool: ammo1
-		Delay: 5
-		RequiresCondition: interceptor1
+	ReloadAmmoPool@reloadnear:
+		RequiresCondition: reloadnear
+		Delay: 75
+	Rearmable:
+		RearmActors: pstarg
 	AmmoPool@1:
-		Name: ammo1
 		Armaments: weap1
-		Ammo: 6
-		AmmoCondition: ammo1
-		InitialAmmo: 1
+		Ammo: 50
+		AmmoCondition: ammo
+		InitialAmmo: 10
 	ExternalCondition@produce:
 		Condition: produceunit
-	ExternalCondition@interceptordie1:
-		Condition: interceptor1
-	ExternalCondition@interceptordie2:
-		Condition: interceptor2
-	ExternalCondition@interceptordie3:
-		Condition: interceptor3
-	ExternalCondition@interceptordie4:
-		Condition: interceptor4
-	ExternalCondition@interceptordie5:
-		Condition: interceptor5
-	ExternalCondition@interceptordie6:
-		Condition: interceptor6
-	ExternalCondition@interceptordie7:
-		Condition: interceptor7
-	ExternalCondition@interceptordie8:
-		Condition: interceptor8
-	ExternalCondition@interceptordie9:
-		Condition: interceptor9
-	ExternalCondition@interceptordie10:
-		Condition: interceptor10
-	ExternalCondition@interceptordie11:
-		Condition: interceptor11
-	ExternalCondition@interceptordie12:
-		Condition: interceptor12
-	ProximityExternalCondition@interceptor1:
-		Condition: carriernear1
-		RequiresCondition: enableweap1
-		Range: 15c0
-	ProximityExternalCondition@interceptor2:
-		Condition: carriernear2
-		RequiresCondition: enableweap2
-		Range: 15c0
-	ProximityExternalCondition@interceptor3:
-		Condition: carriernear3
-		RequiresCondition: enableweap3
-		Range: 15c0
-	ProximityExternalCondition@interceptor4:
-		Condition: carriernear4
-		RequiresCondition: enableweap4
-		Range: 15c0
-	ProximityExternalCondition@interceptor5:
-		Condition: carriernear5
-		RequiresCondition: enableweap5
-		Range: 15c0
-	ProximityExternalCondition@interceptor6:
-		Condition: carriernear6
-		RequiresCondition: enableweap6
-		Range: 15c0
-	ProximityExternalCondition@interceptor7:
-		Condition: carriernear7
-		RequiresCondition: enableweap7
-		Range: 15c0
-	ProximityExternalCondition@interceptor8:
-		Condition: carriernear8
-		RequiresCondition: enableweap8
-		Range: 15c0
-	ProximityExternalCondition@interceptor9:
-		Condition: carriernear9
-		RequiresCondition: enableweap9
-		Range: 15c0
-	ProximityExternalCondition@interceptor10:
-		Condition: carriernear10
-		RequiresCondition: enableweap10
-		Range: 15c0
-	ProximityExternalCondition@interceptor11:
-		Condition: carriernear11
-		RequiresCondition: enableweap11
-		Range: 15c0
-	ProximityExternalCondition@interceptor12:
-		Condition: carriernear12
-		RequiresCondition: enableweap12
-		Range: 15c0
-	GrantRandomCondition@type:
-		Conditions: enableweap1 # enableweap2,enableweap3,enableweap4,enableweap5,enableweap6,enableweap7,enableweap8,enableweap9,enableweap10,enableweap11,enableweap12
-	GrantConditionOnAttack@return:
-		ArmamentNames: painter
-		Condition: returninterceptors
-		RevokeDelay: 3
-		RevokeAll: true
 	FreeActor@interceptor:
 		Actor: PINTER
 		AllowRespawn: true
 		RequiresCondition: produceunit
-	Targetable@carrier3:
-		TargetTypes: CarrierReturn
-		RequiresCondition: !returninterceptors
-	ProximityExternalCondition@carrierreturn:
-		Condition: interceptorreturn
-		RequiresCondition: !returninterceptors
-		Range: 15c0
-	GrantExternalConditionToProduced@build:
-		Condition: interceptorbuild
-	GrantConditionOnAttack@shoot:
-		Condition: attacking
-		ArmamentNames: painter, weap1
-		RevokeDelay: 50
-	ProductionQueue:
-		Type: Carrier
-		DisplayOrder: 9
-		Group: Carrier
-		LowPowerModifier: 100
-		BuildDurationModifier: 100
-		PauseOnCondition: attacking
-	Production:
-		Produces: Carrier
-		PauseOnCondition: attacking
-	Exit:
-		SpawnOffset: 0,0,512
-		ExitCell: 1,1
-		Facing: 768
-	ProductionBar:
-		ProductionType: Carrier
 
 PINTER:
 	Inherits: ^NeutralPlane
@@ -469,13 +353,12 @@ PINTER:
 		Prerequisites: ~pcarry
 		Description: Small drone figther \nwith photon blasters.\nSpeed: 200\n  Strong vs Everything
 	Valued:
-		Cost: 500
+		Cost: 50
 	Tooltip:
-		Name: Protoss Interceptor
+		Name: Interceptor
 	Health:
-		HP: 10000
-	UpdatesPlayerStatistics:
-		AddToArmyValue: true
+		HP: 25000
+	-UpdatesPlayerStatistics:
 	Targetable@inter:
 		TargetTypes: Interceptor
 	RevealsShroud:
@@ -494,11 +377,6 @@ PINTER:
 		Weapon: InterceptorBlaster2
 		LocalOffset: 0,-300,0
 		TargetRelationships: Neutral, Enemy
-	Armament@return:
-		Name: return
-		Weapon: InterceptorReturnDummy
-		TargetRelationships: Ally
-		RequiresCondition: interceptorreturn
 	AttackAircraft:
 		FacingTolerance: 120
 		PersistentTargeting: true
@@ -507,15 +385,20 @@ PINTER:
 	Aircraft:
 		CruiseAltitude: 1350
 		TurnSpeed: 24
-		Speed: 200
+		Speed: 192
 		RepulsionSpeed: 40
 		MaximumPitch: 56
+		Repulsable: false
+	GrantConditionWhileAiming@wander:
+		Condition: shooting
 	-Selectable:
 	Interactable:
 	-EjectOnDeath:
 	RejectsOrders:
 	-ActorLostNotification:
 	-SpawnActorOnDeath:
+	Wanders:
+		RequiresCondition: !shooting
 	Contrail@1:
 		Offset: -598,-300,0
 	Contrail@2:
@@ -525,10 +408,6 @@ PINTER:
 		Interval: 2
 	RenderSprites:
 	Explodes:
-		Weapon: UnitExplodeSmall
-		EmptyWeapon: UnitExplodeSmall
-	Explodes@2:
-		DeathTypes: normal
 		Weapon: UnitExplodeSmall
 		EmptyWeapon: UnitExplodeSmall
 	AutoTarget:
@@ -548,142 +427,96 @@ PINTER:
 		Palette: player
 		IsPlayerPalette: true
 		RequiresCondition: shooting
-	ExternalCondition@carriernear1:
-		Condition: carriernear1
-	ExternalCondition@carriernear2:
-		Condition: carriernear2
-	ExternalCondition@carriernear3:
-		Condition: carriernear3
-	ExternalCondition@carriernear4:
-		Condition: carriernear4
-	ExternalCondition@carriernear5:
-		Condition: carriernear5
-	ExternalCondition@carriernear6:
-		Condition: carriernear6
-	ExternalCondition@carriernear7:
-		Condition: carriernear7
-	ExternalCondition@carriernear8:
-		Condition: carriernear8
-	ExternalCondition@carriernear9:
-		Condition: carriernear9
-	ExternalCondition@carriernear10:
-		Condition: carriernear10
-	ExternalCondition@carriernear11:
-		Condition: carriernear11
-	ExternalCondition@carriernear12:
-		Condition: carriernear12
-	Explodes@timer1:
-		DeathTypes: timer1
-		Weapon: InterceptorExplosion1
-		EmptyWeapon: InterceptorExplosion1
-	Explodes@timer2:
-		DeathTypes: timer2
-		Weapon: InterceptorExplosion2
-		EmptyWeapon: InterceptorExplosion2
-	Explodes@timer3:
-		DeathTypes: timer3
-		Weapon: InterceptorExplosion3
-		EmptyWeapon: InterceptorExplosion3
-	Explodes@timer4:
-		DeathTypes: timer4
-		Weapon: InterceptorExplosion4
-		EmptyWeapon: InterceptorExplosion4
-	Explodes@timer5:
-		DeathTypes: timer5
-		Weapon: InterceptorExplosion5
-		EmptyWeapon: InterceptorExplosion5
-	Explodes@timer6:
-		DeathTypes: timer6
-		Weapon: InterceptorExplosion6
-		EmptyWeapon: InterceptorExplosion6
-	Explodes@timer7:
-		DeathTypes: timer7
-		Weapon: InterceptorExplosion7
-		EmptyWeapon: InterceptorExplosion7
-	Explodes@timer8:
-		DeathTypes: timer8
-		Weapon: InterceptorExplosion8
-		EmptyWeapon: InterceptorExplosion8
-	Explodes@timer9:
-		DeathTypes: timer9
-		Weapon: InterceptorExplosion9
-		EmptyWeapon: InterceptorExplosion9
-	Explodes@timer10:
-		DeathTypes: timer10
-		Weapon: InterceptorExplosion10
-		EmptyWeapon: InterceptorExplosion10
-	Explodes@timer11:
-		DeathTypes: timer11
-		Weapon: InterceptorExplosion11
-		EmptyWeapon: InterceptorExplosion11
-	Explodes@timer12:
-		DeathTypes: timer12
-		Weapon: InterceptorExplosion12
-		EmptyWeapon: InterceptorExplosion12
 	KillsSelf@timer1:
-		DamageTypes: timer1
 		Delay: 500
-		RequiresCondition: carriernear1
-	KillsSelf@timer2:
-		DamageTypes: timer2
-		Delay: 500
-		RequiresCondition: carriernear2
-	KillsSelf@timer3:
-		DamageTypes: timer3
-		Delay: 375
-		RequiresCondition: carriernear3
-	KillsSelf@timer4:
-		DamageTypes: timer4
-		Delay: 375
-		RequiresCondition: carriernear4
-	KillsSelf@timer5:
-		DamageTypes: timer5
-		Delay: 375
-		RequiresCondition: carriernear5
-	KillsSelf@timer6:
-		DamageTypes: timer6
-		Delay: 375
-		RequiresCondition: carriernear6
-	KillsSelf@timer7:
-		DamageTypes: timer7
-		Delay: 375
-		RequiresCondition: carriernear7
-	KillsSelf@timer8:
-		DamageTypes: timer8
-		Delay: 375
-		RequiresCondition: carriernear8
-	KillsSelf@timer9:
-		DamageTypes: timer9
-		Delay: 375
-		RequiresCondition: carriernear9
-	KillsSelf@timer10:
-		DamageTypes: timer10
-		Delay: 375
-		RequiresCondition: carriernear10
-	KillsSelf@timer11:
-		DamageTypes: timer11
-		Delay: 375
-		RequiresCondition: carriernear11
-	KillsSelf@timer12:
-		DamageTypes: timer12
-		Delay: 375
-		RequiresCondition: carriernear12
-	KillsSelf@anytime: # die if out of range of a carrier
-		DamageTypes: normal
-		Delay: 100
-		RequiresCondition: !carriernear1 && !carriernear2 && !carriernear3 && !carriernear4 && !carriernear5 && !carriernear6 && !carriernear7 && !carriernear8 && !carriernear9 && !carriernear10 && !carriernear11 && !carriernear12
-	GrantConditionOnAttack@return:
-		ArmamentNames: return
-		Condition: interceptorreturn2
-	KillsSelf@return:
-		DamageTypes: timer1
-		Delay: 25
-		RequiresCondition: interceptorreturn2
-	ExternalCondition@interceptorreturn:
-		Condition: interceptorreturn
-	KillsSelf@build:
-		DamageTypes: timer2
-		Delay: 1
-		RequiresCondition: interceptorbuild
-	ExternalCondition@build:
-		Condition: interceptorbuild
+
+PMOTHER:
+	Inherits: ^Helicopter
+	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
+	Inherits@shield: ^ProtossShield
+	Inherits@EPIC: ^EpicUnit
+	Buildable:
+		Queue: Aircraft
+		BuildAtProductionType: Helicopter
+		BuildPaletteOrder: 900
+		Prerequisites: ~aircraft.protoss, ulttechcenter, ~techlevel.unrestricted
+		Description: [EPIC]\nProtoss epic support ship with\nwith area cloak and lasers.\nCan teleport on deploy.\nSpeed: 16\n  Strong vs Everything
+		BuildLimit: 1
+	Valued:
+		Cost: 15000
+	Tooltip:
+		Name: Protoss Mothership
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 300000
+	RevealsShroud:
+		MinRange: 6c0
+		Range: 12c0
+		Type: GroundPosition
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 6c0
+		Type: GroundPosition
+	Armament@PRIMARY1:
+		Weapon: MothershipIon
+		AttackDelay: 125
+		AmmoUsage: 10
+		PauseOnCondition: ammo < 10
+	Armament@SECONDARY:
+		Weapon: DragoonPlasmaAir
+	AttackTurreted:
+	Turreted:
+	Aircraft:
+		TurnSpeed: 16
+		Speed: 16
+		CruiseAltitude: 4800
+		LandAltitude: 1200
+	AutoTarget:
+		InitialStance: ReturnFire
+		InitialStanceAI: ReturnFire
+	GrantConditionOnMovement@scout:
+		Condition: moving
+	GrantConditionOnAttack@scout:
+		Condition: shooting
+		RevokeDelay: 10
+	SpawnActorOnDeath:
+		Actor: PARBITER.Husk
+	WithDamageOverlay:
+		Offset: -427,0,0
+	Selectable:
+		DecorationBounds: 1536, 1365
+	Hovers@CRUISING:
+		-RequiresCondition:
+	Voiced:
+		VoiceSet: ProtossScoutVoice
+	RenderSprites:
+	-EjectOnDeath:
+	DetectCloaked:
+		Range: 8c0
+	RenderDetectionCircle:
+		TrailCount: 1
+	WithRangeCircle:
+		Range: 8c0
+		Color: FF0000
+	ProximityExternalCondition:
+		RequiresCondition: !disabled
+		Condition: arbiterstealth
+		Range: 6c0
+		AffectsParent: false
+	-Cloak@arbiterstealth:
+	AmmoPool:
+		Ammo: 10
+		AmmoCondition: ammo
+	WithAmmoPipsDecoration:
+		Position: BottomLeft
+		Margin: 4, 3
+		RequiresSelection: true
+		PipCount: 10
+	ReloadAmmoPool@reloadnear:
+		Delay: 250
+	PortableChrono:
+		ChargeDelay: 750
+		MaxDistance: 5
+	RenderSprites:
+		PlayerPalette: ra2

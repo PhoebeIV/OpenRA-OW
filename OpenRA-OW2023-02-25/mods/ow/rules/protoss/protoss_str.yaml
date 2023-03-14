@@ -1391,3 +1391,164 @@ PSTARG:
 		DisplayRadarPing: True
 		DeploySound: gradarup.aud
 		EffectSequence: idle
+
+PFLEET.warp:
+	Inherits: ^WarpStructure3x2
+	Buildable:
+		Queue: Tech
+		Prerequisites: advtechcenter, ~structures.protoss, ~techlevel.unrestricted, ~!pfleet
+		Description: Provides access to your faction's epic unit or ability.\n\n  Special Ability: Provides money\n Limit of one.
+		Icon: icon-fleet
+		BuildPaletteOrder: 9090
+		BuildDuration: 1500
+		BuildLimit: 1
+	Tooltip:
+		Name: Warp (Fleet Beacon)
+	Valued:
+		Cost: 6000
+	Health:
+		HP: 300000
+	SpawnActorOnDeath@hole:
+		Actor: pfleet
+	ChangesHealth@building:
+		PercentageStep: 1
+		Delay: 50
+		StartIfBelow: 101
+	Building:
+		Footprint: +++ xxx ===
+		Dimensions: 3,3
+		LocalCenterOffset: 0,-512,0
+	Selectable:
+		Bounds: 3072, 3072, 0, -426
+	SequencePlaceBuildingPreview:
+		Sequence: place-fleet
+	ProvidesPrerequisite@self:
+		Prerequisite: pfleet
+
+PFLEET:
+	Inherits: ^ProtossBuilding
+	Inherits@prereqs: ^FactoryPrereqs
+	Inherits@shape: ^3x2Shape
+	Inherits@PRIMARY: ^PrimaryBuilding
+	Buildable:
+		Queue: Bot
+		Prerequisites: advtechcenter, ~structures.protoss, ~techlevel.unrestricted
+		BuildLimit: 1
+		BuildDuration: 4500
+	Valued:
+		Cost: 6000
+	Tooltip:
+		Name: Fleet Beacon
+	ProvidesPrerequisite@buildingname:
+	ProvidesPrerequisite:
+		Prerequisite: techcenter
+	ProvidesPrerequisite@adv:
+		Prerequisite: advtechcenter
+	ProvidesPrerequisite@adv2:
+		Prerequisite: ulttechcenter
+	ProvidesPrerequisite@adv3:
+		Prerequisite: library
+	Building:
+		Footprint: +++ xxx ===
+		Dimensions: 3,3
+		LocalCenterOffset: 0,-512,0
+	Selectable:
+		Bounds: 3072, 3072, 0, -426
+	Health:
+		HP: 150000
+	Armor:
+		Type: Wood
+	RevealsShroud:
+		MinRange: 7c0
+		Range: 8c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 7c0
+	Targetable:
+		TargetTypes: GroundActor, Structure, C4, DetonateAttack, SpyInfiltrate
+	WithBuildingBib:
+	InfiltrateForSupportPower:
+		Proxy: vehicles.upgraded
+		Types: SpyInfiltrate
+		WithBuildingBib:
+	WithIdleOverlay@damage:
+		RequiresCondition: damaged
+		Sequence: fire1
+		Offset: -512,900,0
+	WithIdleOverlay@damage2:
+		RequiresCondition: damaged
+		Sequence: fire2
+		Offset: 128,-128,0
+	Production:
+		Produces: Vehicle, Infantry, Soldier
+		PauseOnCondition: !pylon
+	RallyPoint:
+		Path: 4,2
+	Exit@1:
+		RequiresCondition: !being-captured
+		SpawnOffset: -170,810,0
+		ExitCell: 1,2
+		ProductionTypes: Vehicle
+	Exit@2:
+		RequiresCondition: !being-captured
+		SpawnOffset: -725,640,0
+		ExitCell: 0,2
+		ProductionTypes: Infantry, Soldier
+	Exit@3:
+		RequiresCondition: !being-captured && botowner
+		SpawnOffset: -170,810,0
+		ExitCell: 1,2
+		ProductionTypes: Infantry, Soldier
+	ProductionQueue@2:
+		Type: Vehicle
+		DisplayOrder: 2
+		Group: Vehicle
+		LowPowerModifier: 200
+		ReadyAudio: UnitReady
+		BlockedAudio: NoBuild
+		LimitedAudio: BuildingInProgress
+		QueuedAudio: Building
+		OnHoldAudio: OnHold
+		CancelledAudio: Cancelled
+	ProductionBar@Building:
+		ProductionType: Vehicle
+	ClonesProducedUnits:
+		CloneableTypes: Infantry
+		ProductionType: Infantry
+	GrantConditionOnPrerequisite@botowner:
+		Condition: botowner
+		Prerequisites: ai.all
+	CashTrickler:
+		Interval: 750
+		Amount: 100
+		InitialDelay: 325
+		RequiresCondition: !disabled
+		UseResourceStorage: true
+	ChronoshiftPower@advancedchronoshift:
+		OrderName: AdvancedChronoshift2
+		PauseOnCondition: disabled
+		Icon: chrono
+		ChargeInterval: 6000
+		Name: Mass Recall
+		Description: Teleports a large group of units across\nthe map for 20 seconds.
+		SelectTargetSpeechNotification: SelectTarget
+		InsufficientPowerSpeechNotification: InsufficientPower
+		BeginChargeSpeechNotification: ChronosphereCharging
+		EndChargeSpeechNotification: ChronosphereReady
+		SelectTargetTextNotification: Select target.
+		InsufficientPowerTextNotification: Insufficient power.
+		BeginChargeTextNotification: Chronosphere charging.
+		EndChargeTextNotification: Chronosphere ready.
+		Duration: 400
+		KillCargo: true
+		DisplayRadarPing: True
+		SupportPowerPaletteOrder: 30
+		Dimensions: 5, 5
+		Footprint: __x__ _xxx_ xxxxx _xxx_ __x__
+	SupportPowerChargeBar:
+	InfiltrateForSupportPowerReset:
+		Types: SpyInfiltrate
+	Explodes:
+		Type: CenterPosition
+		Weapon: EMPExplosion
+		EmptyWeapon: EMPExplosion
