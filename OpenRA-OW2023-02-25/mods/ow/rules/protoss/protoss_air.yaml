@@ -357,7 +357,7 @@ PINTER:
 	Tooltip:
 		Name: Interceptor
 	Health:
-		HP: 25000
+		HP: 12500
 	-UpdatesPlayerStatistics:
 	Targetable@inter:
 		TargetTypes: Interceptor
@@ -384,7 +384,8 @@ PINTER:
 		StrafeRunLength: 4c0
 	Aircraft:
 		CruiseAltitude: 1350
-		TurnSpeed: 24
+		LandAltitude: 1320
+		TurnSpeed: 32
 		Speed: 192
 		RepulsionSpeed: 40
 		MaximumPitch: 56
@@ -413,6 +414,7 @@ PINTER:
 	AutoTarget:
 		InitialStance: AttackAnything
 		InitialStanceAI: AttackAnything
+		MaximumScanTimeInterval: 4
 		ScanRadius: 20
 	AutoTargetPriority@ATTACKANYTHING:
 		RequiresCondition: stance-attackanything
@@ -434,13 +436,14 @@ PMOTHER:
 	Inherits: ^Helicopter
 	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
 	Inherits@shield: ^ProtossShield
+	Inherits@shape: ^3x3Shape
 	Inherits@EPIC: ^EpicUnit
 	Buildable:
 		Queue: Aircraft
 		BuildAtProductionType: Helicopter
 		BuildPaletteOrder: 900
 		Prerequisites: ~aircraft.protoss, ulttechcenter, ~techlevel.unrestricted
-		Description: [EPIC]\nProtoss epic support ship with\nwith area cloak and lasers.\nCan teleport on deploy.\nSpeed: 16\n  Strong vs Everything
+		Description: [EPIC]\nProtoss epic support ship with\nwith area cloak and lasers.\nCan teleport on deploy.\nSpeed: 24\n  Strong vs Everything
 		BuildLimit: 1
 	Valued:
 		Cost: 15000
@@ -462,15 +465,23 @@ PMOTHER:
 		Weapon: MothershipIon
 		AttackDelay: 125
 		AmmoUsage: 10
+		Turret: primary
 		PauseOnCondition: ammo < 10
-	Armament@SECONDARY:
-		Weapon: DragoonPlasmaAir
+	Armament@weap1:
+		Name: secondary
+		Weapon: MothershipSpawn
+		Turret: secondary
+		RequiresCondition: shipammo
 	AttackTurreted:
+		Turrets: primary, secondary
 	Turreted:
+		Turret: primary
+	Turreted@2:
+		Turret: secondary
 	Aircraft:
 		TurnSpeed: 16
-		Speed: 16
-		CruiseAltitude: 4800
+		Speed: 24
+		CruiseAltitude: 4200
 		LandAltitude: 1200
 	AutoTarget:
 		InitialStance: ReturnFire
@@ -481,16 +492,16 @@ PMOTHER:
 		Condition: shooting
 		RevokeDelay: 10
 	SpawnActorOnDeath:
-		Actor: PARBITER.Husk
+		Actor: PMOTHER.Husk
 	WithDamageOverlay:
 		Offset: -427,0,0
 	Selectable:
-		DecorationBounds: 1536, 1365
+		Bounds: 2048, 2048
+		DecorationBounds: 5120, 5120
 	Hovers@CRUISING:
 		-RequiresCondition:
 	Voiced:
 		VoiceSet: ProtossScoutVoice
-	RenderSprites:
 	-EjectOnDeath:
 	DetectCloaked:
 		Range: 8c0
@@ -508,15 +519,56 @@ PMOTHER:
 	AmmoPool:
 		Ammo: 10
 		AmmoCondition: ammo
+		Armaments: primary
+	AmmoPool@ship:
+		Ammo: 3
+		Name: shipammo
+		Armaments: secondary
+		AmmoCondition: shipammo
+		InitialAmmo: 0
+	ReloadAmmoPool@reloadnear:
+		Delay: 225
+	ReloadAmmoPool@shipammo:
+		Delay: 25
+		AmmoPool: shipammo
 	WithAmmoPipsDecoration:
 		Position: BottomLeft
 		Margin: 4, 3
-		RequiresSelection: true
 		PipCount: 10
-	ReloadAmmoPool@reloadnear:
-		Delay: 250
+		AmmoPools: primary
 	PortableChrono:
 		ChargeDelay: 750
-		MaxDistance: 5
+		MaxDistance: 6
 	RenderSprites:
 		PlayerPalette: ra2
+	-KillsSelf:
+	ChangesHealth@shield:
+		PercentageStep: 1
+		Delay: 250
+		StartIfBelow: 80
+		DamageCooldown: 500
+		PauseOnCondition: disabled
+	ExternalCondition@produce:
+		Condition: produceunit
+	ExternalCondition@produce2:
+		Condition: produceunit2
+	FreeActor@interceptor:
+		Actor: PINTER
+		Facing: 256
+		SpawnOffset: -2,-4
+		AllowRespawn: true
+		RequiresCondition: produceunit
+	FreeActor@interceptor2:
+		Actor: PINTER
+		Facing: -256
+		SpawnOffset: 2,-4
+		AllowRespawn: true
+		RequiresCondition: produceunit2
+	Targetable@carrier2:
+		TargetTypes: Mothership
+	ProximityExternalCondition@carrier:
+		Condition: carriertarget
+		Range: 15c0
+		ValidRelationships: Enemy, Neutral
+	WithSpriteBody@shadow:
+		Sequence: shadow

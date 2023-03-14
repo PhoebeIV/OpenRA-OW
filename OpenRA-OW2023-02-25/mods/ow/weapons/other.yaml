@@ -1845,6 +1845,32 @@ CarrierTarget:
 		Duration: 150
 		ValidTargets: Ground, Water, GroundActor, WaterActor, AirborneActor
 
+MothershipSpawn:
+	ReloadDelay: 400
+	Burst: 3
+	BurstDelays: 5
+	Range: 13c0
+	Report: pinlau00.aud
+	ValidTargets: Ground, Water, GroundActor, WaterActor, AirborneActor
+	Projectile: Missile
+		Speed: 1
+		RangeLimit: 1
+	Warhead@dam: SpreadDamage
+		Damage: 0
+		ValidTargets: Ground, Water, GroundActor, WaterActor, AirborneActor
+	Warhead@curtain: GrantExternalCondition
+		Condition: produceunit
+		Range: 1c0
+		Duration: 2
+		ValidTargets: Mothership
+		AffectsParent: true
+	Warhead@curtain2: GrantExternalCondition
+		Condition: produceunit2
+		Range: 1c0
+		Duration: 2
+		ValidTargets: Mothership
+		AffectsParent: true
+
 InterceptorBlaster:
 	Inherits: ^PlasmaWeapon
 	ReloadDelay: 50
@@ -1976,7 +2002,7 @@ DTemplarMergeWeapon:
 
 ArchonBeam1:
 	Inherits: ^TeslaWeapon
-	ReloadDelay: 25
+	ReloadDelay: 27
 	Report: parfir00.aud
 	Range: 4c0
 	Projectile: TeslaZap
@@ -1989,7 +2015,7 @@ ArchonBeam1:
 		ValidTargets: GroundActor, WaterActor
 		Versus:
 			None: 125
-			Wood: 80
+			Wood: 50
 			Heavy: 60
 			Concrete: 50
 		DamageTypes: Prone50Percent, ElectricityDeath
@@ -2003,7 +2029,7 @@ ArchonBeam1:
 		ValidTargets: GroundActor, WaterActor
 		Versus:
 			None: 125
-			Wood: 80
+			Wood: 50
 			Heavy: 60
 			Concrete: 50
 		DamageTypes: Prone50Percent, TriggerProne, ElectricityDeath
