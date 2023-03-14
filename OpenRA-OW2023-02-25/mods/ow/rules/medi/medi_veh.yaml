@@ -226,9 +226,9 @@ HorsePaladin:
 		RequiresCondition: !lowpower
 	ProximityExternalCondition@pallyboost:
 		Condition: pallyboost
-		Range: 1c512
+		Range: 3c512
 	WithRangeCircle:
-		Range: 1c512
+		Range: 3c512
 	WithDecoration@pallyboost:
 		Image: pips
 		Sequence: pip-heal
@@ -241,10 +241,21 @@ HorsePaladin:
 		Locomotor: wheeled
 	Armament:
 		Weapon: PaladinSword
-	-Armament@ElementalWepon:
+		PauseOnCondition: elementalweps
+	Armament@ElementalWepon:
+		Name: secondary
+		Weapon: PaladinSword
+		RequiresCondition: elementalweps
 	Voiced:
 		VoiceSet: PaladinVoiceMedi
 	IgnoresDisguise:
+	RenderSprites:
+		Image: horseswordman
+	WithAttackAnimation:
+		Sequence: shoot
+	WithAttackAnimation@2:
+		Armament: secondary
+		Sequence: shoot
 
 ##Fast Melee Cavalry
 HorseScout:
