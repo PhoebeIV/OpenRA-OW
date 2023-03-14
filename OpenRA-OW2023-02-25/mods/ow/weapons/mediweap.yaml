@@ -351,6 +351,8 @@ Hwachaarrow:
 		Inaccuracy: 3c0
 	Warhead@1Dam: SpreadDamage
 		Spread: 256
+		Versus:
+			Wood: 30
 	Warhead@2Dam: SpreadDamage
 		Spread: 256
 		Damage: 2000
@@ -373,7 +375,7 @@ CatapultAbomination:
 
 Catapult:
 	Inherits: ^Artillery
-	ReloadDelay: 85
+	ReloadDelay: 60
 	Range: 8c0
 	MinRange: 3c0
 	Report: stonethrowerattack1.aud,stonethrowerattack2.aud,stonethrowerattack3.aud,stonethrowerattack4.aud,stonethrowerattack5.aud
@@ -486,6 +488,77 @@ ManofWar:
 		ValidTargets: Water, Underwater
 		InvalidTargets: Bridge
 
+MetalElementalInfantry:
+	Inherits: ManofWar
+	ValidTargets: Ground, GroundActor, Infantry, Cyborg, Air, AirborneActor
+	InvalidTargets: Vehicle, Water, Wall, Husk, Mine, Structure
+	ReloadDelay: 100
+	Range: 7c0
+	Burst: 20
+	BurstDelays: 0
+	Report: crossbowmanshoot1.aud,crossbowmanshoot2.aud,crossbowmanshoot3.aud
+	TargetActorCenter: True
+	Projectile: Bullet
+		Blockable: True
+		Speed: 350
+		LaunchAngle: 2
+		Inaccuracy: 1
+		Image: catapultshot
+		Shadow: True
+	Warhead@1Dam: SpreadDamage
+		Spread: 100
+		Damage: 10000
+		ValidTargets: GroundActor, Infantry, Cyborg, AirborneActor
+		Versus:
+			None: 100
+			Wood: 10
+			Light: 40
+			Heavy: 40
+			Concrete: 40
+		DamageTypes: Prone50Percent, TriggerProne, DefaultDeath
+	Warhead@2Eff: CreateEffect
+		Explosions: piff
+		Inaccuracy: 171
+	Warhead@3EffWater: CreateEffect
+		Explosions: water_piff
+		Inaccuracy: 171
+
+
+MetalElementalNonInfantry:
+	Inherits: CannonShot
+	InvalidTargets: Infantry, Cyborg, AirborneActor
+	ValidTargets: Ground, GroundActor, Vehicle, Wall, Mine, Structure
+	ReloadDelay: 250
+	Range: 7c0
+	Burst: 1
+	BurstDelays: 0
+	Report: cannonattack1.aud
+	TargetActorCenter: True
+	Projectile: Railgun
+		DamageActorsInLine: True
+	Warhead@1Dam: SpreadDamage
+		Spread: 150
+		Damage: 25000
+		Falloff: 1000, 368, 135, 50, 18, 7, 0
+	ValidTargets: GroundActor, Vehicle, Wall, Structure
+	InvalidTargets: Infantry, Cyborg, AirborneActor
+		Versus:
+			None: 40
+			Wood: 70
+			Light: 100
+			Heavy: 80
+			Concrete: 30
+		DamageTypes: Prone50Percent, TriggerProne, SmallExplosionDeath
+	Warhead@2Smu: LeaveSmudge
+		SmudgeType: Crater
+		InvalidTargets: Vehicle, Structure, Wall, Husk, Trees
+	Warhead@3Eff: CreateEffect
+		Explosions: artillery_explosion
+		ImpactSounds: CatapultMissile1.aud,CatapultMissile2.aud,CatapultMissile3.aud,CatapultMissile4.aud
+
+
+
+
 Voidarchershot:
 	ValidTargets: Ground, Water, GroundActor, WaterActor, AirborneActor
 	ReloadDelay: 120
@@ -558,7 +631,7 @@ Ballistashot:
 			Wood: 50
 			Light: 60
 			Heavy: 45
-			Concrete: 30
+			Concrete: 80
 		DamageTypes: Prone50Percent, TriggerProne, ExplosionDeath
 	Warhead@2Smu: LeaveSmudge
 		SmudgeType: Crater
@@ -991,6 +1064,8 @@ LightningWizardShot:
 WaterElementalBlast:
 	ReloadDelay: 38
 	Range: 6c0
+	BurstDelays: 2
+	Burst: 3
 	Report: waterelementalattack1.aud,waterelementalattack2.aud
 	ValidTargets: Ground, Water, GroundActor, WaterActor
 	Projectile: Missile
@@ -1004,7 +1079,7 @@ WaterElementalBlast:
 		ContrailWidth: 0c128
 	Warhead@ArcBoat1Dam: SpreadDamage
 		Spread: 0c256
-		Damage: 7000
+		Damage: 4000
 		ValidTargets: GroundActor
 		Versus:
 			None: 55
@@ -1372,6 +1447,26 @@ SmiteMartyr:
 		ValidRelationships: Enemy, Neutral
 		DamageTypes: Prone50Percent, TriggerProne, ElectricityDeath
 
+SmiteEle:
+	ValidTargets: Ground, GroundActor, Trees, Water, WaterActor, Underwater, Air, AirborneActor
+	Warhead@: HealthPercentageDamage
+		Spread: 3c512
+		ValidTargets: Infantry
+		Damage: 15
+		ValidRelationships: Enemy, Neutral
+		DamageTypes: Prone50Percent, TriggerProne, ElectricityDeath
+	Warhead@Eff: CreateEffect
+		Explosions: medismiteproj
+		Image: explosion
+	Warhead@SmiteDam_impact: SpreadDamage
+		Spread: 2c0
+		Damage: 20000
+		Falloff: 100, 75, 50, 30, 20, 10
+		ValidTargets: Infantry
+		ValidRelationships: Enemy, Neutral
+		DamageTypes: Prone50Percent, TriggerProne, ElectricityDeath
+	
+
 MartyrHeal:
 	Inherits: Heal
 	ReloadDelay: 100
@@ -1487,47 +1582,6 @@ DragonGroundBomber:
 
 
 
-FireElementAttack:
-	ValidTargets: Ground, Water, GroundActor, WaterActor, Trees, Structure
-	Range: 2c0
-	ReloadDelay: 100
-	Projectile: Bullet
-		Speed: 300
-		Image: imp
-		Shadow: False
-		Inaccuracy: 3
-	Warhead@1Dam: SpreadDamage
-		Spread: 213
-		Damage: 5000
-		ValidTargets: GroundActor, WaterActor, Trees
-		InvalidTargets: Structure
-		ValidRelationships: Enemy, Neutral
-		Versus:
-			None: 50
-			Wood: 100
-			Light: 80
-			Heavy: 70
-			Concrete: 30
-		DamageTypes: Prone50Percent, TriggerProne, FireDeath, Incendiary
-	Warhead@1DamS: SpreadDamage
-		Spread: 213
-		Damage: 1000
-		ValidTargets: Structure
-		ValidRelationships: Enemy, Neutral
-		DamageTypes: Prone50Percent, TriggerProne, FireDeath, Incendiary
-	Warhead@2Smu: LeaveSmudge
-		SmudgeType: Scorch
-		InvalidTargets: Structure, Wall
-	Warhead@3Eff: CreateEffect
-		Explosions: large_napalm
-		ImpactSounds: firebl3.aud
-		ImpactActors: false
-	Warhead@cluster: FireCluster
-		Delay: 1
-		Weapon: medi155mmCluster
-		RandomClusterCount: 2
-		Dimensions: 3,3
-		Footprint: xXx XXX xXx
 
 
 medi155mmCluster:
@@ -1563,28 +1617,30 @@ medi155mmCluster:
 
 
 LightningElementShot:
-	ReloadDelay: 20
-	Range: 7c0
+	Inherits: LightningWizardShot
+	ReloadDelay: 50
+	Range: 8c0
 	Report: tesla1.aud
-	ValidTargets: Ground, Water, GroundActor, WaterActor, Air, AirborneActor, Structure
+	ValidTargets: Ground, Water, GroundActor, WaterActor, Air, AirborneActor
 	Projectile: TeslaZap
 	Warhead@1Dam: SpreadDamage
 		Spread: 42
-		Damage: 1300
+		Damage: 500
 		ValidTargets: GroundActor, WaterActor
 		Versus:
-			None: 100
+			None: 120
 			Wood: 50
-			Heavy: 60
+			Light: 100
+			Heavy: 100
 		DamageTypes: Prone50Percent, TriggerProne, ElectricityDeath
 	Warhead@2Dam: SpreadDamage
 		Spread: 42
-		Damage: 500
-		ValidTargets: Air, AirborneActor
-		Versus:
+		Damage: 5000
 			None: 100
-			Wood: 73
-			Heavy: 60
+			Wood: 100
+			Light: 100
+			Heavy: 100
+		ValidTargets: Air, AirborneActor
 		DamageTypes: Prone50Percent, TriggerProne, ElectricityDeath
 
 
@@ -1651,13 +1707,13 @@ ElementSpray:
 	Projectile: Bullet
 		Inaccuracy: 1024
 	Warhead@1Dam: SpreadDamage
-		Damage: 619
+		Damage: 800
 		Versus:
 			None: 150
 			Wood: 75
-			Light: 70
+			Light: 60
 			Heavy: 40
-			Concrete: 50
+			Concrete: 70
 		DamageTypes: Prone50Percent, TriggerProne, ElementalDeath
 	Warhead@poison2: GrantExternalCondition
 		Condition: RotElementHitCon
@@ -1682,7 +1738,7 @@ WaterChaos:
 
 LightningChaos:
 	Inherits: LightningElementShot
-	ReloadDelay: 20
+	ReloadDelay: 50
 	Range: 12c0
 
 EarthChaos:
@@ -1777,3 +1833,30 @@ AssasinBlade:
 			Heavy: 20
 			Concrete: 20
 		DamageTypes: Prone50Percent, TriggerProne, DefaultDeath
+
+
+FireElementalDeath:
+	Inherits: DemoTrapExplosion2
+	ValidTargets: Ground, GroundActor, WaterActor, Water
+	Projectile: InstantHit
+	Warhead@1Dam: SpreadDamage
+		Spread: 1c0
+		Damage: 5000
+		AffectsParent: false
+	Warhead@2Dam: SpreadDamage
+		Damage: 5000
+		AffectsParent: false
+
+FireElementAttack:
+	Inherits: DemoTrapExplosion2
+	ValidTargets: Ground, GroundActor, WaterActor, Water
+	Projectile: InstantHit
+	ReloadDelay: 300
+	Range: 2c0
+	Warhead@1Dam: SpreadDamage
+		Spread: 1c0
+		Damage: 10000
+		AffectsParent: false
+	Warhead@2Dam: SpreadDamage
+		Damage: 0
+		AffectsParent: false

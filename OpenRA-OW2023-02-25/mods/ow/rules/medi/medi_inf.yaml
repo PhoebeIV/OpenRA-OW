@@ -997,102 +997,43 @@ VOIDARCHER:
 	Voiced:
 		VoiceSet: VoidArcherVoice
 
-MEDIABOMINATION:
-	Inherits@MediSoldier: ^MediSoldier
-	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+
+FireElemental:
+	Inherits@Sapper: SAPPER
+	-TakeCover:
+	-KillsSelf:
 	-Cloneable:
-	ChangesHealth:
-		PercentageStep: 10
-		Delay: 40
-		StartIfBelow: 80
-		DamageCooldown: 70
-		RequiresCondition: lowpower
 	-Passenger:
 	-Crushable:
-	Valued:
-		Cost: 2000
-	UpdatesPlayerStatistics:
-		AddToArmyValue: true
-	Tooltip:
-		Name: Abomination
-	Armor:
-		Type: Heavy
-	Health:
-		HP: 106969
-	Mobile:
-		Speed: 40
-		Locomotor: foot2
-	Selectable:
-		Bounds: 1450, 1877, 0, -768
-		DecorationBounds: 1450, 1877, 0, -768
-	SelectionDecorations:
-	RevealsShroud:
-		Range: 5c512
-	Armament:
-		Weapon: Abominationsmash
-	AutoTarget:
-		InitialStance: AttackAnything
-		ScanRadius: 6
-	AutoTargetPriority@DEFAULT:
-		ValidTargets: GroundActor, Infantry
-	WithInfantryBody:
-		DefaultAttackSequence: shoot
-	Targetable:
-		TargetTypes: GroundActor, Infantry, Disguise
-	RenderSprites:
-		Image: mediabomination
-	ExternalCondition@PRODUCED:
-		Condition: produced
-	VoiceAnnouncement:
-		RequiresCondition: produced
-		Voice: Build
-	Voiced:
-		VoiceSet: AbominationVoice
-
-MEDIABOMINATIONTemp:
-	Inherits: MEDIABOMINATION
-	Health:
-		HP: 100000
-	KillsSelf:
-		Delay: 250, 1000
-
-
-MEDIGolem:
-	Inherits: MEDIABOMINATION
-	Tooltip:
-		Name: Golem
+	Armament@PRIMARY:
+		Name: Primary
+		Weapon: FireElementAttack
+	AttackFrontal:
+		Armaments: Primary
+		FacingTolerance: 200
+	Explodes:
+		Weapon: FireElementalDeath
+		EmptyWeapon: FireElementalDeath
+		DeathTypes: SmallExplosionDeath, ExplosionDeath, FireDeath, TiberiumDeath, ElectricityDeath, Suicide
 	Buildable:
-		Prerequisites: ~infantry.elementalists, advtechcenter
-		Description: Tank unit, Slow and Heavy \n Strong vs All Ground \n Weak vs Air, Mobile Range units
 		Queue: Infantry
-		BuildAtProductionType: Soldier
-		BuildPaletteOrder: 417
-		BuildDuration: 1500
+		BuildPaletteOrder: 401
+		BuildLimit: 8
+		Prerequisites: ~vehicles.medi, blacksmithmedi, ~structures.elementalists
+		Description: Fire Elemental.\nSpeed: 78\n  Strong vs Infantry\n  Weak vs Vehicles, Air
 	Health:
-		HP: 106969
-	SpawnActorOnDeath@Golem:
-		Actor: MEDIGolemMini
-	SpawnActorOnDeath@Golem2:
-		Actor: MEDIGolemMini
-
-MEDIGolemDrop:
-	Inherits: MEDIGolem
-	-Buildable:
-	Passenger:
-	-SpawnActorOnDeath@Golem:
-	-SpawnActorOnDeath@Golem2:
-
-MEDIGolemMini:
-	Inherits: MEDIGolem
-	-Buildable:
-	Health:
-		HP: 42069
+		HP: 30000
+	Armor:
+		Type: None
+	Valued:
+		Cost: 800
+	Voiced:
+		VoiceSet: TerroristVoice
 	RenderSprites:
-		Image: mediabomination
-	-SpawnActorOnDeath@Golem:
-	-SpawnActorOnDeath@Golem2:
-	Mobile:
-		Speed: 60
+		Image: medisapper
+
+
+
 
 
 ##Throws tornados and doesn�t afraid of anything
@@ -1524,11 +1465,11 @@ RotElement:
 		BuildPaletteOrder: 414
 		BuildLimit: 10
 	Valued:
-		Cost: 1000
+		Cost: 1200
 	Tooltip:
 		Name: Rot Element
 	Health:
-		HP: 32000
+		HP: 50000
 	Mobile:
 		Speed: 50
 	Armament:
