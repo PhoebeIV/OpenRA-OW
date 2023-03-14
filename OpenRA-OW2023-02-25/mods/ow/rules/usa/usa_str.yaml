@@ -513,6 +513,7 @@ usastrategycenter:
 usasupplydropzone:
 	Inherits: ^Building
 	Inherits@SHAPE: ^2x2Shape
+	Inherits@IDISABLE: ^DisableOnLowPowerOrPowerDown
 	Selectable:
 		Bounds: 2048, 2048
 	Buildable:
@@ -538,7 +539,6 @@ usasupplydropzone:
 		Interval: 3000
 		InitialDelay: 3000
 		Amount: 1500
-		PauseOnCondition: lowpower || disabled
 	CashTricklerBar
 	RenderSprites:
 		Image: usasupplydropzone
@@ -577,13 +577,13 @@ usaparticlecannon:
 		OrderName: Particle Cannon Strike
 		Actor: hack.particle_beam
 		LifeTime: 500
-		ChargeInterval: 12000
+		ChargeInterval: 14000
 		Icon: particle
 		Name: Particle Cannon
 		Description: Initiates an Particle Cannon strike.
-		DisplayTimerStances: Enemy, Neutral, Ally
 		Prerequisites: ~structures.usa
 		EffectSequence: idle
+		DisplayTimerRelationships: Ally, Neutral, Enemy
 	SupportPowerChargeBar:
 	Power:
 		Amount: -150
@@ -767,3 +767,56 @@ usalaserpatriot:
 	WithDeathAnimation:
 		DeathSequence: dead
 		UseDeathTypeSuffix: false
+        
+usasilo:
+	Inherits: ^Building
+	Inherits@IDISABLE: ^DisableOnLowPowerOrPowerDown
+	Selectable:
+		Bounds: 1024, 1024
+	Buildable:
+		Queue: Defense
+		BuildPaletteOrder: 35
+		Prerequisites: ~structures.usa
+		Description: Stores excess refined\nOre and Gems.
+	Valued:
+		Cost: 300
+	Targetable:
+		TargetTypes: GroundActor, Structure, C4, DetonateAttack, ThiefInfiltrate
+	Tooltip:
+		Name: Silo
+	-GivesBuildableArea:
+	-MustBeDestroyed:
+	Health:
+		HP: 30000
+	Armor:
+		Type: Wood
+	RevealsShroud:
+		Range: 4c0
+	InfiltrateForCash:
+		Percentage: 50
+		Types: ThiefInfiltrate
+		InfiltratedNotification: CreditsStolen
+		InfiltratedTextNotification: Credits stolen.
+	WithBuildingBib:
+		HasMinibib: true
+	-WithSpriteBody:
+	WithResourceLevelSpriteBody:
+		Sequence: stages
+	StoresResources:
+		Capacity: 3000
+	-SpawnActorsOnSell:
+	Power:
+		Amount: -20
+	Explodes:
+		Weapon: SmallBuildingExplode
+		EmptyWeapon: SmallBuildingExplode
+	WithResourceStoragePipsDecoration:
+		Position: BottomLeft
+		Margin: 4, 3
+		RequiresSelection: true
+		PipCount: 5
+		FullSequence: pip-yellow
+	CashTrickler:
+		Interval: 1500
+		InitialDelay: 1500
+		Amount: 20

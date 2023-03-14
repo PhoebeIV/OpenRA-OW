@@ -17,6 +17,7 @@ USARANGER:
 		HP: 10000
 	Armament@PRIMARY:
 		Weapon: rangershot
+        PauseOnCondition: upgrade.lasergeneral
 	Armament@SECONDARY:
 		Weapon: rangergrenade
 		FireDelay: 15
@@ -24,10 +25,25 @@ USARANGER:
 		Name: garrisoned
 		Weapon: rangershotgarrison
 		MuzzleSequence: garrison-muzzle
+        PauseOnCondition: upgrade.lasergeneral
 	Armament@BUS:
 		Name: bus
 		Weapon: rangershotgarrison
 		MuzzleSequence: garrison-muzzle
+        PauseOnCondition: upgrade.lasergeneral
+	Armament@PRIMARYUpgrade:
+		Weapon: USARangerLaser
+        RequiresCondition: upgrade.lasergeneral
+	Armament@GARRISONEDUpgrade:
+		Name: garrisoned
+		Weapon: USARangerLaser
+		MuzzleSequence: garrison-muzzle
+        RequiresCondition: upgrade.lasergeneral
+	Armament@BUSUpgrade:
+		Name: bus
+		Weapon: USARangerLaser
+		MuzzleSequence: garrison-muzzle
+        RequiresCondition: upgrade.lasergeneral
 	WithInfantryBody:
 		DefaultAttackSequence: shoot
 		RequiresCondition: !parachute
@@ -43,7 +59,11 @@ USARANGER:
 		DecorationBounds: 640, 896, 0, -426
 	RenderSprites:
 		Image: usaranger
-        
+    GrantConditionOnPrerequisite@1:
+        Condition: upgrade.lasergeneral
+        Prerequisites: upgrade.lasergeneral
+
+
 USADEFENDER:
 	Inherits: ^Soldier
 	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
