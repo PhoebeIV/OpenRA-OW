@@ -1374,24 +1374,24 @@ usapatriotshot:
 	ReloadDelay: 50
 	Burst: 4
 	BurstDelays: 6
-	Range: 5c640
+	Range: 6c640
 	Report: bpatweaa.wav, bpatweab.wav, bpatweac.wav
 	Projectile: Missile
 		Arm: 3
-		Inaccuracy: 0
+		Inaccuracy: 64
 		Image: MISSILE
 		HorizontalRateOfTurn: 25
 		RangeLimit: 10c512
-		Speed: 300
 		MinimumLaunchAngle: 62
 		MaximumLaunchAngle: 62
+		Speed: 384
 	Warhead@1Dam: SpreadDamage
-		Damage: 3000
+		Damage: 4000
 		Versus:
 			None: 40
 			Wood: 40
-			Light: 60
-			Heavy: 60
+			Light: 80
+			Heavy: 80
 			Concrete: 100
 		DamageTypes: Prone50Percent, TriggerProne, SmallExplosionDeath
 
@@ -1406,20 +1406,34 @@ usapatriotshotair:
 		Arm: 3
 		Inaccuracy: 0
 		Image: MISSILE
-        Speed: 341
 		HorizontalRateOfTurn: 25
 		RangeLimit: 16c0
 		MinimumLaunchAngle: 62
 		MaximumLaunchAngle: 62
+        Speed: 512
 	Warhead@1Dam: SpreadDamage
-		Damage: 2500
+		Damage: 4000
 		Versus:
 			None: 40
 			Wood: 40
-			Light: 60
-			Heavy: 60
+			Light: 80
+			Heavy: 80
 			Concrete: 100
 		DamageTypes: Prone50Percent, TriggerProne, SmallExplosionDeath
 	Warhead@3Eff: CreateEffect
 		Explosions: med_explosion_air
 		ImpactSounds: kaboom25.aud
+        
+usaa10missile:
+	Inherits: ^AntiGroundMissile
+	ReloadDelay: 12
+	Range: 8c768
+	Report: vmigweaa.wav, vmigweab.wav
+	Projectile: Missile
+		Speed: 256
+		Inaccuracy: 128
+		CruiseAltitude: 2c0
+		RangeLimit: 11c410
+	Warhead@1Dam: SpreadDamage
+		Spread: 1c256
+		Damage: 15000

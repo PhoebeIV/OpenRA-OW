@@ -27,11 +27,20 @@ USACOLDFUSION:
 		HP: 40000
 	Armor:
 		Type: Wood
+	Armor@Extra150:
+		Type: Heavy
+        RequiresCondition: coldfusionup2
 	RevealsShroud:
 		Range: 4c0
 	WithBuildingBib:
 	Power:
 		Amount: 100
+	Power@Extra50:
+		Amount: 50
+        RequiresCondition: coldfusionup1
+	Power@Extra150:
+		Amount: 150
+        RequiresCondition: coldfusionup2
 	Targetable:
 		TargetTypes: GroundActor, Structure, C4, DetonateAttack, SpyInfiltrate
 	ScalePowerWithHealth:
@@ -40,7 +49,24 @@ USACOLDFUSION:
 		UseDeathTypeSuffix: false
 	RenderSprites:
         Image: usacoldfusionbuilding
-        
+	GrantConditionOnPrerequisite@coldfusionup1:
+		Condition: coldfusionup1
+		Prerequisites: ~upgrade.coldreactor
+	GrantConditionOnPrerequisite@coldfusionup2:
+		Condition: coldfusionup2
+		Prerequisites: ~upgrade.coldreactoradvanced
+	Explodes@Extra150:
+		Type: CenterPosition
+		Weapon: TinyNuke
+		EmptyWeapon: TinyNuke
+        RequiresCondition: coldfusionup2
+    WithSpriteBody@Extra50:
+        RequiresCondition: coldfusionup1
+        Sequence: idle2
+    WithSpriteBody@Extra150:
+        RequiresCondition: coldfusionup2
+        Sequence: idle3
+
 USABARRACKS:
 	Inherits: ^DawnBuilding
 	Inherits@prereqs: ^BarracksPrereqs
@@ -426,7 +452,87 @@ usastrategycenter:
 	RenderDetectionCircle:
 	DetectCloaked:
 		Range: 5c0
-
+    SpawnActorPower@spydrone:
+		OrderName: SpyDrone
+        Name: Spy Drone
+        Actor: USASPYDRONE
+        LifeTime: -1
+		ChargeInterval: 2500
+		Icon: usaspydronepower
+		Descriptions: Spy Drone
+		LongDescs: Spawns a Spy Drone anywhere on the map.
+		StartFullyCharged: false
+		SelectTargetSpeechNotification: SelectTarget
+		Prerequisites: ~structures.usa
+	ParatroopersPower@usarangers:
+		OrderName: usarangers
+		Prerequisites: ~structures.usa
+		Icon: paratroopers
+		ChargeInterval: 7000
+		Name: Paratroopers
+		Description: A C17 drops a squad of US Rangers anywhere on the map.
+		UnitType: C17
+		DropItems: USARANGER,USARANGER,USARANGER,USARANGER,USARANGER,USARANGER,USARANGER,USARANGER,USARANGER,USARANGER,USARANGER,USARANGER,USARANGER,USARANGER,USARANGER,USARANGER,USARANGER,USARANGER,USARANGER,USARANGER
+		ReinforcementsArrivedSpeechNotification: ReinforcementsArrived
+		SelectTargetSpeechNotification: SelectTarget
+		AllowImpassableCells: false
+		QuantizedFacings: 8
+		CameraActor: camera.paradrop
+		DisplayBeacon: true
+		BeaconPoster: pinficon
+		ArrowSequence: arrow
+		ClockSequence: clock
+		CircleSequence: circles
+		UseDirectionalTarget: True
+		DirectionArrowAnimation: paradirection
+		SupportPowerPaletteOrder: 50
+		SquadSize: 3
+	AirstrikePower@a10strike:
+		OrderName: a10strike
+		Prerequisites: ~structures.usa
+		Icon: usaa10power
+		ChargeInterval: 9000
+		Name: A10 Strike
+		Description: 3 A10 planes bombard a target location.
+		SelectTargetSpeechNotification: SelectTarget
+		CameraActor: camera
+		CameraRemoveDelay: 150
+		UnitType: usaa10
+		QuantizedFacings: 8
+		DisplayBeacon: true
+		BeaconPoster: pinficon
+		SquadSize: 3
+		SquadOffset: -1792,1792,0
+		ArrowSequence: arrow
+		ClockSequence: clock
+		CircleSequence: circles
+		UseDirectionalTarget: True
+		DirectionArrowAnimation: paradirection
+		SupportPowerPaletteOrder: 40
+	AirstrikePower@MOAB:
+		OrderName: Motherofallbombs
+		Prerequisites: ~structures.usa
+		Icon: usamoabpower
+		ChargeInterval: 12000
+		Name: MOAB
+		Description: Drop a MOAB on a specified location.
+		SelectTargetSpeechNotification: SelectTarget
+		CameraActor: camera
+		CameraRemoveDelay: 150
+		UnitType: usamoabplane
+		QuantizedFacings: 8
+		DisplayBeacon: true
+		BeaconPoster: pinficon
+		SquadSize: 1
+		SquadOffset: -1792,1792,0
+		ArrowSequence: arrow
+		ClockSequence: clock
+		CircleSequence: circles
+		UseDirectionalTarget: True
+		DirectionArrowAnimation: paradirection
+		SupportPowerPaletteOrder: 40
+		DisplayTimerRelationships: Ally, Neutral, Enemy
+        
 usasupplydropzone:
 	Inherits: ^Building
 	Inherits@SHAPE: ^2x2Shape
@@ -530,7 +636,7 @@ usapatriot:
 		BuildPaletteOrder: 4
 		BuildDuration: 625
 		BuildDurationModifier: 100
-		Prerequisites: anypower,  ~structures.usa
+		Prerequisites: anypower, ~structures.usa
 		Description: Anti-tank & anti-air base defense.
 	Valued:
 		Cost: 1000
@@ -558,7 +664,7 @@ usapatriot:
 		LocalOffset: 0,0,320
 		MuzzleSequence: muzzle
 	WithRangeCircle:
-		Range: 5c640
+		Range: 6c640
 	WithRangeCircle@AA:
 		Type: aa
 		Range: 8c768

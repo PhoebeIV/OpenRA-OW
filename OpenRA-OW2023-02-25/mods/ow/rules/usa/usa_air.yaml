@@ -97,8 +97,8 @@ USACOMBATCHINOOK:
 		Queue: Aircraft
 		BuildAtProductionType: Helicopter
 		BuildPaletteOrder: 10
-		Prerequisites: ~aircraft.usa, Supply Center
-		Description: Fast Infantry Transport Helicopter.\n  Unarmed
+		Prerequisites: ~aircraft.usa, Supply Center, upgrade.aircraftgeneral
+		Description: Fast Infantry Transport Helicopter.\nCan be loaded with units that can fire onto targets.
 	Valued:
 		Cost: 1500
 	Tooltip:
@@ -163,7 +163,7 @@ USACOMANCHE:
 		BuildAtProductionType: Helicopter
 		BuildPaletteOrder: 20
 		Prerequisites: ~aircraft.usa
-		Description: Helicopter gunship armed\nwith dual chainguns.\n  Strong vs Infantry, Light armor\n  Weak vs Tanks, Aircraft
+		Description: Attack helicopter armed with twin 20 mm chainguns & anti-tank missiles.
 	Valued:
 		Cost: 1800
 	Tooltip:
@@ -181,12 +181,12 @@ USACOMANCHE:
 		Range: 8c0
 		Type: GroundPosition
 	Armament@PRIMARY:
-		Weapon: ChainGun
+		Weapon: rangershot
 		LocalOffset: 85,-213,-85, 85,213,-85
 		MuzzleSequence: muzzle
 	Armament@SECONDARY:
 		Name: secondary
-		Weapon: ChainGun
+		Weapon: rangershot
 		LocalOffset: 85,213,-85, 85,-213,-85
 		MuzzleSequence: muzzle
 	Armament@TRI:
@@ -257,7 +257,7 @@ USARAPTOR:
 		BuildAtProductionType: Plane
 		BuildPaletteOrder: 50
 		Prerequisites: ~aircraft.usa
-		Description: Multi-role fighter plane.\n\nCan attack both ground and air targets.
+		Description: Multi-role fighter plane.\nCan attack both ground and air targets.
 	Valued:
 		Cost: 2000
 	Tooltip:
@@ -265,7 +265,7 @@ USARAPTOR:
 	UpdatesPlayerStatistics:
 		AddToArmyValue: true
 	Health:
-		HP: 16000
+		HP: 14000
 	RevealsShroud:
 		MinRange: 11c0
 		Range: 13c0
@@ -334,8 +334,8 @@ USARAPTOR:
 	RenderSprites:
 		Image: usaraptor
 	JamsMissiles:
-		Range: 3c0
-        Chance: 50
+		Range: 2c0
+        Chance: 20
 		DeflectionRelationships: Neutral, Enemy
 
 USASTEALTHFIGHTER:
@@ -424,8 +424,8 @@ USASTEALTHFIGHTER:
 	RenderSprites:
 		Image: usastealthfighter
 	JamsMissiles:
-		Range: 3c0
-        Chance: 50
+		Range: 2c0
+        Chance: 20
 		DeflectionRelationships: Neutral, Enemy
 	Cloak:
 		InitialDelay: 125
@@ -446,7 +446,7 @@ USAAURORA:
 		BuildAtProductionType: Plane
 		BuildPaletteOrder: 50
 		Prerequisites: ~aircraft.usa, techcenter
-		Description: Fast fighter plane.\n\nCan not be damaged while attacking.\n\nSlows down and becomes vulnerable after attacking.
+		Description: Fast fighter plane.\nCan not be damaged while attacking.\nSlows down and becomes vulnerable after attacking.
 	Valued:
 		Cost: 3000
 	Tooltip:
@@ -523,8 +523,8 @@ USAAURORA:
 	RenderSprites:
 		Image: usaaurora
 	JamsMissiles:
-		Range: 3c0
-        Chance: 50
+		Range: 2c0
+        Chance: 40
 		DeflectionRelationships: Neutral, Enemy
         
 USAKINGRAPTOR:
@@ -534,8 +534,8 @@ USAKINGRAPTOR:
 		Queue: Aircraft
 		BuildAtProductionType: Plane
 		BuildPaletteOrder: 50
-		Prerequisites: ~aircraft.usa, techcenter
-		Description: Multi-role fighter plane.\n\nCan deflect enemy missiles with lasers.
+		Prerequisites: ~aircraft.usa, techcenter, upgrade.aircraftgeneral
+		Description: Multi-role fighter plane.\nCan deflect enemy missiles with lasers.
 	Valued:
 		Cost: 3000
 	Tooltip:
@@ -543,7 +543,7 @@ USAKINGRAPTOR:
 	UpdatesPlayerStatistics:
 		AddToArmyValue: true
 	Health:
-		HP: 24000
+		HP: 18000
 	RevealsShroud:
 		MinRange: 11c0
 		Range: 13c0
@@ -618,7 +618,7 @@ USAKINGRAPTOR:
 	RenderSprites:
 		Image: usakingraptor
 	JamsMissiles:
-		Range: 3c0
+		Range: 2c0
         Chance: 50
 		DeflectionRelationships: Neutral, Enemy
         
@@ -629,8 +629,8 @@ USAAURORAALPHA:
 		Queue: Aircraft
 		BuildAtProductionType: Plane
 		BuildPaletteOrder: 50
-		Prerequisites: ~aircraft.usa, techcenter
-		Description: Fast fighter plane.\n\nCan not be damaged while attacking.\n\nSlows down and becomes vulnerable after attacking.
+		Prerequisites: ~aircraft.usa, techcenter, upgrade.aircraftgeneral
+		Description: Fast fighter plane.\nCan not be damaged while attacking.\nSlows down and becomes vulnerable after attacking.
 	Valued:
 		Cost: 4000
 	Tooltip:
@@ -707,6 +707,139 @@ USAAURORAALPHA:
 	RenderSprites:
 		Image: usaauroraalpha
 	JamsMissiles:
-		Range: 3c0
+		Range: 2c0
         Chance: 50
 		DeflectionRelationships: Neutral, Enemy
+        
+USASPYDRONE:
+	Inherits: ^Plane
+	Valued:
+		Cost: 250
+	Tooltip:
+		Name: Spy Drone
+	Health:
+		HP: 20000
+	RevealsShroud:
+		MinRange: 6c0
+		Range: 7c0
+		Type: GroundPosition
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 6c0
+		Type: GroundPosition
+	Aircraft:
+		CruiseAltitude: 2560
+		InitialFacing: 192
+		TurnSpeed: 8
+		Speed: 65
+		RepulsionSpeed: 40
+		MaximumPitch: 56
+		TakeOffOnCreation: false
+	SelectionDecorations:
+	Cloak:
+		InitialDelay: 35
+		CloakDelay: 50
+		UncloakOn: Attack, Unload, Infiltrate, Demolish
+		CloakTypes: Cloak
+		IsPlayerPalette: true
+		RequiresCondition: !cloak-force-disabled
+	GrantConditionOnDamageState@UNCLOAK:
+		Condition: cloak-force-disabled
+		ValidDamageStates: Critical
+	Contrail:
+		Offset: -511,0,0
+	RenderDetectionCircle:
+	DetectCloaked:
+		Range: 6c256
+	-Selectable:
+	-SpawnActorOnDeath:
+	-MustBeDestroyed:
+	Interactable:
+		DecorationBounds: 30,28,0,2
+
+USAA10:
+	Inherits: ^Plane
+	Tooltip:
+		Name: A-10 Thunderbolt
+	Health:
+		HP: 60000
+	Valued:
+		Cost: 2000
+	Aircraft:
+		TurnSpeed: 4
+		Speed: 180
+		Repulsable: False
+	AttackBomber:
+		Armaments: gun, missile
+	Armament@GUNS:
+		Name: gun
+		Weapon: a10shot
+		LocalOffset: 1024,0,-85
+	Armament@MISSILES1:
+		Name: missile
+		Weapon: usaa10missile
+		LocalOffset: 0,384,0
+		PauseOnCondition: !ammo
+	Armament@MISSILES2:
+		Name: missile
+		Weapon: usaa10missile
+		LocalOffset: 0,-384,0
+		PauseOnCondition: !ammo
+	WithMuzzleOverlay:
+	Contrail@1:
+		Offset: -640,171,0
+		TrailLength: 15
+	Contrail@2:
+		Offset: -640,-171,0
+		TrailLength: 15
+	AmmoPool:
+		Name: missile
+		Armaments: missile
+		Ammo: 6
+		PipCount: 0
+		AmmoCondition: ammo
+	-Selectable:
+	SelectionDecorations:
+		RenderSelectionBars: False
+	RejectsOrders:
+	SpawnActorOnDeath:
+		Actor: USAA10.Husk
+	RenderSprites:
+		PlayerPalette: dawn
+	Interactable:
+    
+usamoabplane:
+	Inherits: ^Plane
+	Health:
+		HP: 100000
+	Valued:
+		Cost: 2000
+	Aircraft:
+		TurnSpeed: 4
+		Speed: 180
+		Repulsable: False
+	WithMuzzleOverlay:
+	Contrail@1:
+		Offset: -640,171,0
+		TrailLength: 15
+	Contrail@2:
+		Offset: -640,-171,0
+		TrailLength: 15
+	-Selectable:
+	SelectionDecorations:
+		RenderSelectionBars: False
+	AttackBomber:
+	Armament:
+		Weapon: usamoab
+		PauseOnCondition: !ammo
+	AmmoPool:
+		Ammo: 1
+		AmmoCondition: ammo
+	Tooltip:
+		Name: B-52
+	RejectsOrders:
+	RenderSprites:
+		Image: usaauroraalpha
+	SpawnActorOnDeath:
+		Actor: USAA10.Husk
+	Interactable:
