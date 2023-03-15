@@ -82,6 +82,7 @@ PPROBE:
 	Hovers:
 	Voiced:
 		VoiceSet: ProtossRobotVoice
+	-Cloneable:
 
 PZEALOT:
 	Inherits: ^Infantry
@@ -241,6 +242,7 @@ PTEMPLAR:
 		Actor: PARCHON
 		DeathType: spawnarchon
 		SkipMakeAnimations: false
+	-Cloneable:
 
 
 # Buildable only for AI as they would not do it properly with Templars
@@ -254,7 +256,6 @@ PARCHON:
 		Queue: Infantry
 		BuildAtProductionType: Soldier
 		BuildPaletteOrder: 90000
-		BuildLimit: 4
 	Selectable:
 		Bounds: 1024, 1024
 		DecorationBounds: 1877, 1877, 0, 0
@@ -286,6 +287,9 @@ PARCHON:
 		ScanRadius: 5
 	Targetable:
 		TargetTypes: GroundActor, Vehicle, Tank, Cyborg
+	Targetable@forming:
+		TargetTypes: ProtWarp
+		RequiresCondition: forming
 	RenderSprites:
 	Voiced:
 		VoiceSet: ProtossArchonVoice
@@ -348,18 +352,18 @@ PDTEMPLAR:
 		Queue: Infantry
 		BuildAtProductionType: Soldier
 		BuildPaletteOrder: 42
-		BuildDuration: 1750
+		BuildDuration: 1500
 	Selectable:
 		Bounds: 950, 950, 0, 0
 		DecorationBounds: 1100, 1100, 0, -256
 	Valued:
-		Cost: 2200
+		Cost: 1800
 	UpdatesPlayerStatistics:
 		AddToArmyValue: true
 	Tooltip:
 		Name: Dark Templar
 	Health:
-		HP: 40000
+		HP: 50000
 	Mobile:
 		Speed: 96
 		Locomotor: foot2
@@ -439,6 +443,7 @@ PDTEMPLAR:
 		Condition: cloak-force-disabled
 		ValidDamageStates: Critical
 	-Crushable:
+	-Cloneable:
 
 PDARCHON:
 	Inherits: ^Infantry
@@ -490,6 +495,9 @@ PDARCHON:
 		StandSequences: stand
 	Targetable:
 		TargetTypes: GroundActor, Vehicle, Tank, Cyborg
+	Targetable@forming:
+		TargetTypes: ProtWarp
+		RequiresCondition: forming
 	GrantConditionOnPrerequisite@botowner:
 		Condition: botowner
 		Prerequisites: ai.all
