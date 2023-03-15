@@ -131,24 +131,52 @@ USAAMBULANCE:
 		Image: usaambulance
         
 USATOMAHAWK:
-	Inherits: 2TNK
+	Inherits: ^TrackedVehicle
+	Inherits@GAINSEXPERIENCE: ^GainsExperience
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
 	Buildable:
 		Queue: Vehicle
 		BuildPaletteOrder: 230
 		Prerequisites: ~vehicles.usa, techcenter
 		Description: Long-range rocket artillery.\nCapable of locking onto any target.
-	Health:
-		HP: 20000
-	Tooltip:
-		Name: Tomahawk Launcher
 	Valued:
 		Cost: 1800
-	Turreted:
-		TurnSpeed: 16
+	Tooltip:
+		Name: Tomahawk Launcher
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 20000
+	Armor:
+		Type: Light
+	Mobile:
+		TurnSpeed: 8
+		Speed: 72
+		Locomotor: lighttracked
+	RevealsShroud:
+		MinRange: 4c0
+		Range: 5c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 4c0
 	Armament:
 		Weapon: tomahawkmissile
 	Armament@Secondary:
 		Weapon: tomahawkmissileair
+	AttackFrontal:
+		TargetFrozenActors: True
+		ForceFireIgnoresActors: True
+		FacingTolerance: 0
+	WithMuzzleOverlay:
+	Explodes:
+		Weapon: ArtilleryExplode
+		EmptyWeapon: UnitExplodeSmall
+		LoadedChance: 75
+	ProducibleWithLevel:
+		Prerequisites: vehicles.upgraded
+	WithProductionIconOverlay:
+		Types: Veterancy
+		Prerequisites: vehicles.upgraded
 	RenderSprites:
 		Image: usatomahawk
         

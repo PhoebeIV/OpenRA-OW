@@ -410,6 +410,31 @@ USAAIRFIELD:
         Image: usaairfieldbuilding
 	RallyPoint:
 		ForceSetType: Plane
+	AirstrikePower@a10strike:
+		OrderName: a10strike
+		Prerequisites: ~structures.usa, ~aircraft.usa, ~advtechcenter
+		Icon: usaa10power
+		ChargeInterval: 12000
+		Name: A10 Strike
+		Description: 3 A10 Thunderbirds bombard a target location.
+		SelectTargetSpeechNotification: SelectTarget
+		CameraActor: camera
+		CameraRemoveDelay: 150
+		UnitType: usaa10
+		QuantizedFacings: 8
+		DisplayBeacon: true
+		BeaconPoster: pinficon
+		SquadSize: 3
+		SquadOffset: -1792,1792,0
+		ArrowSequence: arrow
+		ClockSequence: clock
+		CircleSequence: circles
+		UseDirectionalTarget: True
+		DirectionArrowAnimation: paradirection
+		SupportPowerPaletteOrder: 40
+	ProximityExternalCondition:
+		Condition: reloadnear
+		Range: 7c0
         
 usastrategycenter:
 	Inherits: ^ScienceBuilding
@@ -457,7 +482,7 @@ usastrategycenter:
         Name: Spy Drone
         Actor: USASPYDRONE
         LifeTime: -1
-		ChargeInterval: 2500
+		ChargeInterval: 3000
 		Icon: usaspydronepower
 		Descriptions: Spy Drone
 		LongDescs: Spawns a Spy Drone anywhere on the map.
@@ -468,7 +493,7 @@ usastrategycenter:
 		OrderName: usarangers
 		Prerequisites: ~structures.usa, ~aircraft.usa
 		Icon: paratroopers
-		ChargeInterval: 7000
+		ChargeInterval: 9000
 		Name: Paratroopers
 		Description: A C17 drops a squad of US Rangers anywhere on the map.
 		UnitType: C17
@@ -487,28 +512,50 @@ usastrategycenter:
 		DirectionArrowAnimation: paradirection
 		SupportPowerPaletteOrder: 50
 		SquadSize: 3
-	AirstrikePower@a10strike:
-		OrderName: a10strike
-		Prerequisites: ~structures.usa, ~aircraft.usa, ~advtechcenter
-		Icon: usaa10power
-		ChargeInterval: 9000
-		Name: A10 Strike
-		Description: 3 A10 planes bombard a target location.
+	ParatroopersPower@usatanks:
+		OrderName: usatanks
+		Prerequisites: ~structures.usa, ~aircraft.usa, ~upgrade.aircraftgeneral
+		Icon: paratank
+		ChargeInterval: 12000
+		Name: Paratanks
+		Description: A C17 drops a squad of Tanks anywhere on the map.
+		UnitType: C17
+		DropItems: USACRUSADER,USACRUSADER,USAPALADIN,USACRUSADER,USACRUSADER
+		ReinforcementsArrivedSpeechNotification: ReinforcementsArrived
 		SelectTargetSpeechNotification: SelectTarget
-		CameraActor: camera
-		CameraRemoveDelay: 150
-		UnitType: usaa10
+		AllowImpassableCells: false
 		QuantizedFacings: 8
+		CameraActor: camera.paradrop
 		DisplayBeacon: true
 		BeaconPoster: pinficon
-		SquadSize: 3
-		SquadOffset: -1792,1792,0
 		ArrowSequence: arrow
 		ClockSequence: clock
 		CircleSequence: circles
 		UseDirectionalTarget: True
 		DirectionArrowAnimation: paradirection
-		SupportPowerPaletteOrder: 40
+		SupportPowerPaletteOrder: 50
+		SquadSize: 1
+	IonCannonPower@EMP:
+		OrderName: EMPPower
+		Prerequisites: ~upgrade.superweaponsgeneral
+		PauseOnCondition: disabled
+		Icon: emp
+		Cursor: chrono-target
+		ChargeInterval: 10500
+		Name: E.M. Pulse
+		Description: Initiate an EMP strike.\nInflicts no damage but disables all power plants\nwithin a 16 cell radius for 30 seconds. \nDisables vehicles in a 10 cell radius for 15.
+		SelectTargetSpeechNotification: SelectTarget
+		InsufficientPowerSpeechNotification: InsufficientPower
+		OnFireSound: empsound.wav
+		DisplayRadarPing: True
+		CameraActor: camera.small
+		SupportPowerPaletteOrder: 20
+		CameraRemoveDelay: 100
+		Effect: explosion
+		EffectSequence: pulse_explosion
+		EffectPalette: tseffect
+		Weapon: EMPWeapon
+		DisplayTimerRelationships: Ally, Neutral, Enemy
         
 usasupplydropzone:
 	Inherits: ^Building
@@ -533,17 +580,24 @@ usasupplydropzone:
 	Armor:
 		Type: Wood
 	Power:
-		Amount: -150
+		Amount: -100
 	ProvidesPrerequisite@buildingname:
 	CashTrickler:
 		Interval: 3000
 		InitialDelay: 3000
-		Amount: 1500
-	CashTricklerBar
+		Amount: 500
+        UseResourceStorage: true
+	CashTricklerBar:
+    CashTricklerMultiplier:
+        Modifier: 200
+        RequiresCondition: upgradesupplylines
 	RenderSprites:
 		Image: usasupplydropzone
 	RevealsShroud@GAPGEN:
 		Range: 5c0
+    GrantConditionOnPrerequisite@1:
+        Condition: upgradesupplylines
+        Prerequisites: upgrade.supplylines
         
 usaparticlecannon:
 	Inherits: ^Building
@@ -750,6 +804,9 @@ usalaserpatriot:
 	Armament:
 		Weapon: ObeliskLaser
 		LocalOffset: 0,-85,1280
+	Armament@Secondary:
+		Weapon: USAAvengerLaserAir
+		LocalOffset: 0,-85,1280
 	AttackCharges:
 		RequiresCondition: !build-incomplete && !disabled
 		PauseOnCondition: disabled
@@ -771,23 +828,27 @@ usalaserpatriot:
 usasilo:
 	Inherits: ^Building
 	Inherits@IDISABLE: ^DisableOnLowPowerOrPowerDown
+	Inherits@shape: ^2x2Shape
 	Selectable:
-		Bounds: 1024, 1024
+		Bounds: 2048, 2048
 	Buildable:
 		Queue: Defense
 		BuildPaletteOrder: 35
 		Prerequisites: ~structures.usa
-		Description: Stores excess refined\nOre and Gems.
+		Description: Stores excess refined Ore and Gems.
+	Building:
+		Footprint: xx xx
+		Dimensions: 2,2
 	Valued:
-		Cost: 300
+		Cost: 1000
 	Targetable:
 		TargetTypes: GroundActor, Structure, C4, DetonateAttack, ThiefInfiltrate
 	Tooltip:
-		Name: Silo
+		Name: US Silo
 	-GivesBuildableArea:
 	-MustBeDestroyed:
 	Health:
-		HP: 30000
+		HP: 70000
 	Armor:
 		Type: Wood
 	RevealsShroud:
@@ -803,10 +864,10 @@ usasilo:
 	WithResourceLevelSpriteBody:
 		Sequence: stages
 	StoresResources:
-		Capacity: 3000
+		Capacity: 12000
 	-SpawnActorsOnSell:
 	Power:
-		Amount: -20
+		Amount: -40
 	Explodes:
 		Weapon: SmallBuildingExplode
 		EmptyWeapon: SmallBuildingExplode
@@ -814,9 +875,43 @@ usasilo:
 		Position: BottomLeft
 		Margin: 4, 3
 		RequiresSelection: true
-		PipCount: 5
+		PipCount: 20
 		FullSequence: pip-yellow
-	CashTrickler:
-		Interval: 1500
-		InitialDelay: 1500
-		Amount: 20
+        
+usadeepdrill:
+	Inherits: ^Building
+	Inherits@IDISABLE: ^DisableOnLowPowerOrPowerDown
+	Inherits@shape: ^3x2Shape
+	Selectable:
+		Bounds: 3072, 2048
+	Buildable:
+		Queue: Tech
+		BuildPaletteOrder: 35
+		Prerequisites: ~structures.usa, upgrade.superweaponsgeneral
+		Description: Deep drill that can pull gems from the deepest of locations.
+	Building:
+		Footprint: xxx xxx xxx
+		Dimensions: 3,3
+		LocalCenterOffset: 0,-512,0
+	Valued:
+		Cost: 7000
+	Targetable:
+		TargetTypes: GroundActor, Structure, C4, DetonateAttack, ThiefInfiltrate
+	Tooltip:
+		Name: Deep Drill
+	SeedsResource:
+		Interval: 125
+		ResourceType: Gems
+		MaxRange: 5
+	Health:
+		HP: 60000
+	Armor:
+		Type: Heavy
+	RevealsShroud:
+		Range: 6c0
+	-SpawnActorsOnSell:
+	Power:
+		Amount: -300
+	Explodes:
+		Weapon: TinyNuke
+		EmptyWeapon: TinyNuke

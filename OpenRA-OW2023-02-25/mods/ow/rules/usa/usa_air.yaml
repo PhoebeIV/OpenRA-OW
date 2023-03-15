@@ -88,6 +88,9 @@ USACHINOOK:
 	RenderSprites:
 		Image: usachinook
     Hovers:
+    GrantConditionOnPrerequisite@1:
+        Condition: upgradesupplylines
+        Prerequisites: upgrade.supplylines
         
 USACOMBATCHINOOK:
 	Inherits: ^Helicopter
@@ -248,6 +251,10 @@ USACOMANCHE:
 		Prerequisites: aircraft.upgraded
 	RenderSprites:
 		Image: HIND
+	ReloadAmmoPool@reloadnear:
+		RequiresCondition: reloadnear
+		Delay: 500
+        Count: 12
         
 USARAPTOR:
 	Inherits: ^Plane
@@ -337,6 +344,10 @@ USARAPTOR:
 		Range: 2c0
         Chance: 20
 		DeflectionRelationships: Neutral, Enemy
+	ReloadAmmoPool@reloadnear:
+		RequiresCondition: reloadnear
+		Delay: 500
+        Count: 2
 
 USASTEALTHFIGHTER:
 	Inherits: ^Plane
@@ -437,6 +448,10 @@ USASTEALTHFIGHTER:
 	GrantConditionOnDamageState@UNCLOAK:
 		Condition: cloak-force-disabled
 		ValidDamageStates: Critical
+	ReloadAmmoPool@reloadnear:
+		RequiresCondition: reloadnear
+		Delay: 500
+        Count: 2
         
 USAAURORA:
 	Inherits: ^Plane
@@ -470,7 +485,8 @@ USAAURORA:
 		PauseOnCondition: !ammo
 	Armament@laser:
 		Weapon: usakingraptorlaser
-		LocalOffset: 0,213,-85
+		LocalOffset: 0,-640,0, 0,640,0
+		LocalYaw: -40, 24
 		Name: usakingraptorlaser
 	AttackAircraft:
 		FacingTolerance: 80
@@ -526,6 +542,10 @@ USAAURORA:
 		Range: 2c0
         Chance: 40
 		DeflectionRelationships: Neutral, Enemy
+	ReloadAmmoPool@reloadnear:
+		RequiresCondition: reloadnear
+		Delay: 500
+        Count: 1
         
 USAKINGRAPTOR:
 	Inherits: ^Plane
@@ -559,7 +579,8 @@ USAKINGRAPTOR:
 		PauseOnCondition: !ammo
 	Armament@laser:
 		Weapon: usakingraptorlaser
-		LocalOffset: 0,213,-85
+		LocalOffset: 0,-640,0, 0,640,0
+		LocalYaw: -40, 24
 		Name: usakingraptorlaser
 	Armament@air:
 		Weapon: usakingraptorshotair
@@ -621,6 +642,10 @@ USAKINGRAPTOR:
 		Range: 2c0
         Chance: 50
 		DeflectionRelationships: Neutral, Enemy
+	ReloadAmmoPool@reloadnear:
+		RequiresCondition: reloadnear
+		Delay: 500
+        Count: 3
         
 USAAURORAALPHA:
 	Inherits: ^Plane
@@ -629,7 +654,7 @@ USAAURORAALPHA:
 		Queue: Aircraft
 		BuildAtProductionType: Plane
 		BuildPaletteOrder: 50
-		Prerequisites: ~aircraft.usa, techcenter, upgrade.aircraftgeneral
+		Prerequisites: ~aircraft.usa, techcenter, upgrade.superweaponsgeneral
 		Description: Fast fighter plane.\nCan not be damaged while attacking.\nSlows down and becomes vulnerable after attacking.
 	Valued:
 		Cost: 4000
@@ -710,6 +735,10 @@ USAAURORAALPHA:
 		Range: 2c0
         Chance: 50
 		DeflectionRelationships: Neutral, Enemy
+	ReloadAmmoPool@reloadnear:
+		RequiresCondition: reloadnear
+		Delay: 1000
+        Count: 1
         
 USASPYDRONE:
 	Inherits: ^Plane
@@ -732,9 +761,10 @@ USASPYDRONE:
 		InitialFacing: 192
 		TurnSpeed: 8
 		Speed: 65
-		RepulsionSpeed: 40
+		RepulsionSpeed: 80
 		MaximumPitch: 56
-		TakeOffOnCreation: false
+		TakeOffOnCreation: true
+        VTOL: true
 	SelectionDecorations:
 	Cloak:
 		InitialDelay: 35
@@ -843,3 +873,55 @@ usamoabplane:
 	SpawnActorOnDeath:
 		Actor: USAMOABPLANE.Husk
 	Interactable:
+
+USATRANSPORTCHINOOK:
+	Inherits: ^Helicopter
+	Inherits@CARGOPIPS: ^CargoPips
+	Buildable:
+		Queue: Aircraft
+		BuildAtProductionType: Helicopter
+		BuildPaletteOrder: 10
+		Prerequisites: ~aircraft.usa, Supply Center, upgrade.aircraftgeneral
+		Description: Fast Vehicle Transport Helicopter.
+	Valued:
+		Cost: 1500
+	Tooltip:
+		Name: Halo
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 30000
+	RevealsShroud:
+		MinRange: 6c0
+		Range: 8c0
+		Type: GroundPosition
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 6c0
+		Type: GroundPosition
+	Aircraft:
+		TurnSpeed: 20
+		Speed: 128
+		AltitudeVelocity: 0c58
+	WithIdleOverlay@ROTOR1AIR:
+		Offset: 260,0,343
+		Sequence: rotor
+		RequiresCondition: airborne
+	WithIdleOverlay@ROTOR1GROUND:
+		Offset: 260,0,343
+		Sequence: slow-rotor
+		RequiresCondition: !airborne
+	Cargo:
+		Types: Vehicle, Tank
+		MaxWeight: 10
+		AfterUnloadDelay: 40
+		EjectOnDeath: true
+		PassengerConditions:
+			e1of: e1of
+			dm2of: e1of
+	SpawnActorOnDeath:
+		Actor: VECHICLECHINOOK.Husk
+	Selectable:
+		DecorationBounds: 1706, 1536
+	RenderSprites:
+		Image: usavehiclechinook
