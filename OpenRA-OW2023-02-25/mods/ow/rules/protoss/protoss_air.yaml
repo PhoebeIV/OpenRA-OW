@@ -1,6 +1,7 @@
 POBSERVER:
 	Inherits: ^Helicopter
 	Inherits@selection: ^SelectableSupportUnit
+	Inherits@shield: ^ProtossShield
 	Buildable:
 		Queue: Vehicle
 		BuildAtProductionType: Vehicle
@@ -49,6 +50,62 @@ POBSERVER:
 		RequiresCondition: !cloaked
 	Voiced:
 		VoiceSet: ProtossRobotVoice
+	-EjectOnDeath:
+
+PSHUTTLE:
+	Inherits: ^Helicopter
+	Inherits@shield: ^ProtossShield
+	Buildable:
+		Queue: Vehicle
+		BuildAtProductionType: Vehicle
+		BuildPaletteOrder: 100
+		Prerequisites: radar, ~vehicles.protoss, ~techlevel.medium
+		Description: Protoss transport ship.\nSpeed: 136\n  Unarmed
+	Valued:
+		Cost: 1000
+	Tooltip:
+		Name: Shuttle
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 12000
+	RevealsShroud:
+		MinRange: 7c0
+		Range: 9c0
+		Type: GroundPosition
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 7c0
+		Type: GroundPosition
+	Aircraft:
+		TurnSpeed: 64
+		Speed: 136
+		CanSlide: false
+	Cargo:
+		Types: Infantry, Vehicle
+		MaxWeight: 8
+		AfterUnloadDelay: 40
+	GrantConditionOnMovement@scout:
+		Condition: moving
+	SpawnActorOnDeath:
+		Actor: PSHUTTLE.Husk
+	WithDamageOverlay:
+		Offset: -427,0,0
+	Selectable:
+		DecorationBounds: 1536, 1365
+	Hovers@CRUISING:
+		-RequiresCondition:
+	Voiced:
+		VoiceSet: ProtossRobotVoice
+	RenderSprites:
+	WithFacingSpriteBody@2:
+		Name: engine
+		Sequence: engine
+		RequiresCondition: moving
+		Palette: effect
+	WithCargoPipsDecoration:
+		Position: BottomLeft
+		RequiresSelection: true
 	-EjectOnDeath:
 
 PSCOUT:
@@ -390,8 +447,6 @@ PINTER:
 		RepulsionSpeed: 40
 		MaximumPitch: 56
 		Repulsable: false
-	GrantConditionWhileAiming@wander:
-		Condition: shooting
 	-Selectable:
 	Interactable:
 	-EjectOnDeath:
@@ -399,7 +454,7 @@ PINTER:
 	-ActorLostNotification:
 	-SpawnActorOnDeath:
 	Wanders:
-		RequiresCondition: !shooting
+		RequiresCondition: !shooting2
 	Contrail@1:
 		Offset: -598,-300,0
 	Contrail@2:
@@ -423,6 +478,9 @@ PINTER:
 	GrantConditionOnAttack@scout:
 		Condition: shooting
 		RevokeDelay: 5
+	GrantConditionOnAttack@wander:
+		Condition: shooting2
+		RevokeDelay: 100
 	WithFacingSpriteBody@3:
 		Name: shoot
 		Sequence: shoot
@@ -505,7 +563,7 @@ PMOTHER:
 	Hovers@CRUISING:
 		-RequiresCondition:
 	Voiced:
-		VoiceSet: ProtossScoutVoice
+		VoiceSet: ProtossMothershipVoice
 	-EjectOnDeath:
 	DetectCloaked:
 		Range: 8c0
@@ -576,3 +634,16 @@ PMOTHER:
 		ValidRelationships: Enemy, Neutral
 	WithSpriteBody@shadow:
 		Sequence: shadow
+	AmbientSound@moving:
+		SoundFiles: pnewht00.aud
+		RequiresCondition: moving
+		Delay: 25
+	AmbientSound@still:
+		SoundFiles: pnewht00.aud
+		Interval: 250, 750
+		Delay: 250, 750
+		RequiresCondition: !moving
+	AnnounceOnKill:
+	Explodes@sound:
+		Weapon: MothershipDeath
+		EmptyWeapon: MothershipDeath
