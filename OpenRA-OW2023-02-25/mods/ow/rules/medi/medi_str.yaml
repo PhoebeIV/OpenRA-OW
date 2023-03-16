@@ -1,3 +1,13 @@
+
+###############################################################################
+##################################   Buildings   ##############################
+###############################################################################
+
+###############################################################################
+##############################   MCV and Building   ###########################
+###############################################################################
+
+##Allows for production of buildings.
 FACTM:
 	Inherits@1: ^ConYardPrereqs
 	Inherits@2: ^Building
@@ -117,6 +127,7 @@ FACTM:
 		Range: 15c512
 		RequiresCondition: HolyBoostableOnly && !EpicDenialAura
 
+##Speeds up Building que
 MEDIFOUNDRY:
 	Inherits: FOUNDRY
 	Valued:
@@ -131,7 +142,49 @@ MEDIFOUNDRY:
 	RenderSprites:
 		Image: foundry
 
-##Infantry production
+##Outpost for Expanding build area.
+OUTPOSTMEDI:
+	Inherits: ^Building
+	Selectable:
+		Bounds: 1024, 1024, 0, 512
+		DecorationBounds: 938, 1962, 0, 170
+	Valued:
+		Cost: 500
+	Building:
+		Footprint: = x
+		Dimensions: 1,2
+		BuildSounds: medibuild1.aud, medibuildjobdone1.aud, medibuildplace1.aud
+	Targetable:
+		TargetTypes: GroundActor, Structure, C4, DetonateAttack, SpyInfiltrate
+	Tooltip:
+		Name: Camping Spot
+	BaseProvider:
+		Range: 8c0
+	Health:
+		HP: 30000
+	Armor:
+		Type: Wood
+	RevealsShroud:
+		Range: 4c0
+	-SpawnActorsOnSell:
+	-AcceptsDeliveredCash:
+	Explodes:
+		Weapon: SmallBuildingExplode
+		EmptyWeapon: SmallBuildingExplode
+	HitShape:
+		Type: Rectangle
+			TopLeft: -512, -512
+			BottomRight: 512, 512
+	RenderSprites:
+		Image: outpostmedi
+	Sellable:
+		SkipMakeAnimation: true
+
+###############################################################################
+##################################   Production   #############################
+###############################################################################
+
+##Infantry Units
 TENTMEDI:
 	Inherits: ^BarracksPrereqs
 	Inherits: ^Building
@@ -201,244 +254,7 @@ TENTMEDI:
 	RenderSprites:
 		Image: tentmedi
 
-##Makes Slaves
-LABORCAMP:
-	Inherits: ^Building
-	Inherits@shape: ^3x3Shape
-	FreeActor@1:
-		Actor: SLAVE
-	Buildable:
-		Queue: Building
-		Prerequisites: ~structures.medi, ~techlevel.infonly
-		Description: Allows production  of slave units.\nWorker units will also produce from this building.
-		BuildPaletteOrder: 2
-	Selectable:
-		Bounds: 3072, 3072
-	Tooltip:
-		Name: Labor Camp
-	Building:
-		Footprint: === =x= ===
-		Dimensions: 3,3
-		BuildSounds: medibuild1.aud, medibuildjobdone1.aud, medibuildplace1.aud
-	Armor:
-		Type: Wood
-	Valued:
-		Cost: 550
-	Health:
-		HP: 70000
-	GrantConditionOnDeploy@slaveworkon:
-		DeployedCondition: slaveworkon
-		SkipMakeAnimation: true
-	ProximityExternalCondition@slavework:
-		RequiresCondition: slaveworkon
-		Condition: slavework
-		Range: 10c0
-	RevealsShroud:
-		MinRange: 4c0
-		Range: 5c0
-		RevealGeneratedShroud: False
-	RevealsShroud@GAPGEN:
-		Range: 4c0
-	RallyPoint:
-		Path: 0,2
-	Exit@1:
-		RequiresCondition: !being-captured
-		SpawnOffset: 0,0,0
-		ExitCell: 1,1
-		ProductionTypes: Dog, Infantry
-	Exit@2:
-		RequiresCondition: !being-captured
-		SpawnOffset: 0,0,0
-		ExitCell: 1,1
-		ProductionTypes: Dog, Infantry
-	Production:
-		Produces: Infantry, Dog
-	PrimaryBuilding:
-		PrimaryCondition: primary
-		SelectionNotification: PrimaryBuildingSelected
-	WithDecoration@primary:
-		RequiresSelection: true
-		Image: pips
-		Sequence: tag-primary
-		Position: Top
-		RequiresCondition: primary
-	ProductionBar:
-		ProductionType: Infantry
-	-SpawnActorsOnSell:
-	Targetable:
-		TargetTypes: GroundActor, C4, DetonateAttack, Structure
-	ProvidesPrerequisite@buildingname:
-	WithBuildingBib:
-	RenderSprites:
-		Image: laborcampmedi
-
-##Resource Drop
-FARMMEDI:
-	Inherits: PROC
-	-FreeActor:
-	FreeActor@1:
-		Actor: SLAVE
-	-Power:
-	-WithIdleOverlay@TOP:
-	-WithIdleOverlay@uac:
-	-WithDeathAnimation:
-	Inherits@shape: ^2x2Shape
-	Selectable:
-		Bounds: 2048, 2048
-	Refinery:
-		DockOffset: 1,1
-	Buildable:
-		Queue: Building
-		Prerequisites: ~structures.medi, laborcamp, ~!ai.boss, ~techlevel.infonly
-		Description: Drop off point for resources gathered by Slaves and Workers.\nAlso acts as a Silo to allow more credits to be held.
-		BuildPaletteOrder: 3
-	Tooltip:
-		Name: Farm
-	Building:
-		Footprint: xx ==
-		Dimensions: 2,2
-		BuildSounds: medibuild1.aud, medibuildjobdone1.aud, medibuildplace1.aud
-	StoresResources:
-		Capacity: 1000
-	Valued:
-		Cost: 400
-	Health:
-		HP: 20000
-	GrantConditionOnDeploy@slavework:
-		DeployedCondition: slaveworkon
-		SkipMakeAnimation: true
-	ProximityExternalCondition@slavework:
-		RequiresCondition: slaveworkon
-		Condition: slavework
-		Range: 10c0
-	Armor:
-		Type: Wood
-	RevealsShroud:
-		Range: 4c0
-		RequiresCondition: ManaBoost
-	ProvidesPrerequisite@buildingname:
-	ResourceValueMultiplier:
-		Modifier: 110
-		RequiresCondition: ManaBoost
-	GrantConditionOnPrerequisite:
-		Condition: ManaBoost
-		Prerequisites: manasupply
-	WithBuildingBib:
-	InfiltrateForCash:
-		Percentage: 50
-		Types: SpyInfiltrate, ThiefInfiltrate
-		InfiltratedNotification: CreditsStolen
-		Maximum: 5000
-	RenderSprites:
-		Image: farmmedi
-	WithResourceStoragePipsDecoration:
-		Position: BottomLeft
-		RequiresSelection: true
-		PipCount: 7
-		FullSequence: pip-yellow
-
-##GoldMine
-GoldMine:
-	Inherits: ^Building
-	Inherits@shape: ^2x2Shape
-	Selectable:
-		Bounds: 2048, 2048
-	Buildable:
-		Queue: Tech
-		Prerequisites: ~structures.medi, laborcamp, library, ~techlevel.high
-		Description: Slowly produces resources\naround this building.
-		BuildPaletteOrder: 31
-	Tooltip:
-		Name: Gold Mine
-	Building:
-		Footprint: xx xx
-		Dimensions: 2,2
-		BuildSounds: medibuild1.aud, medibuildjobdone1.aud, medibuildplace1.aud
-	StoresResources:
-		Capacity: 1500
-	Valued:
-		Cost: 4000
-	Health:
-		HP: 20000
-	Armor:
-		Type: Wood
-	RevealsShroud:
-		Range: 4c0
-		RequiresCondition: ManaBoost
-	Targetable:
-		TargetTypes: GroundActor, C4, DetonateAttack, Structure
-	ProvidesPrerequisite@buildingname:
-	SeedsResource:
-		Interval: 300
-		ResourceType: Ore
-		MaxRange: 2
-	SeedsResource:
-		RequiresCondition: ManaBoost
-		Interval: 200
-		ResourceType: Ore
-		MaxRange: 2
-	Cargo:
-		Types: GaryWorker
-		MaxWeight: 1
-		LoadedCondition: GaryWork
-	SeedsResource@GaryWork:
-		RequiresCondition: GaryWork
-		Interval: 180
-		ResourceType: Ore
-		MaxRange: 2
-	GrantConditionOnPrerequisite:
-		Condition: ManaBoost
-		Prerequisites: manasupply
-	WithBuildingBib:
-	RenderSprites:
-		Image: medigoldmine
-	Power:
-		Amount: -200
-	WithResourceStoragePipsDecoration:
-		Position: BottomLeft
-		RequiresSelection: true
-		PipCount: 7
-		FullSequence: pip-yellow
-
-##Outpost for building
-OUTPOSTMEDI:
-	Inherits: ^Building
-	Selectable:
-		Bounds: 1024, 1024, 0, 512
-		DecorationBounds: 938, 1962, 0, 170
-	Valued:
-		Cost: 500
-	Building:
-		Footprint: = x
-		Dimensions: 1,2
-		BuildSounds: medibuild1.aud, medibuildjobdone1.aud, medibuildplace1.aud
-	Targetable:
-		TargetTypes: GroundActor, Structure, C4, DetonateAttack, SpyInfiltrate
-	Tooltip:
-		Name: Camping Spot
-	BaseProvider:
-		Range: 8c0
-	Health:
-		HP: 30000
-	Armor:
-		Type: Wood
-	RevealsShroud:
-		Range: 4c0
-	-SpawnActorsOnSell:
-	-AcceptsDeliveredCash:
-	Explodes:
-		Weapon: SmallBuildingExplode
-		EmptyWeapon: SmallBuildingExplode
-	HitShape:
-		Type: Rectangle
-			TopLeft: -512, -512
-			BottomRight: 512, 512
-	RenderSprites:
-		Image: outpostmedi
-	Sellable:
-		SkipMakeAnimation: true
-
-##Horse production building
+##Horse Units
 STABLES:
 	Inherits: ^FactoryPrereqs
 	Inherits: ^Building
@@ -506,6 +322,7 @@ STABLES:
 	RenderSprites:
 		Image: stablemedi
 
+##Allows for production of Horse units when infantry only is enabled.
 STABLESInfOnly:
 	Inherits: STABLES
 	Buildable:
@@ -688,6 +505,213 @@ ARMORYMEDI:
 	RenderSprites:
 		Image: mediarmoury
 
+###############################################################################
+###########################   Slaves and workers   ############################
+###############################################################################
+
+##Makes Slaves
+LABORCAMP:
+	Inherits: ^Building
+	Inherits@shape: ^3x3Shape
+	FreeActor@1:
+		Actor: SLAVE
+	Buildable:
+		Queue: Building
+		Prerequisites: ~structures.medi, ~techlevel.infonly
+		Description: Allows production  of slave units.\nWorker units will also produce from this building.
+		BuildPaletteOrder: 2
+	Selectable:
+		Bounds: 3072, 3072
+	Tooltip:
+		Name: Labor Camp
+	Building:
+		Footprint: === =x= ===
+		Dimensions: 3,3
+		BuildSounds: medibuild1.aud, medibuildjobdone1.aud, medibuildplace1.aud
+	Armor:
+		Type: Wood
+	Valued:
+		Cost: 550
+	Health:
+		HP: 70000
+	GrantConditionOnDeploy@slaveworkon:
+		DeployedCondition: slaveworkon
+		SkipMakeAnimation: true
+	ProximityExternalCondition@slavework:
+		RequiresCondition: slaveworkon
+		Condition: slavework
+		Range: 10c0
+	RevealsShroud:
+		MinRange: 4c0
+		Range: 5c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 4c0
+	RallyPoint:
+		Path: 0,2
+	Exit@1:
+		RequiresCondition: !being-captured
+		SpawnOffset: 0,0,0
+		ExitCell: 1,1
+		ProductionTypes: Dog, Infantry
+	Exit@2:
+		RequiresCondition: !being-captured
+		SpawnOffset: 0,0,0
+		ExitCell: 1,1
+		ProductionTypes: Dog, Infantry
+	Production:
+		Produces: Infantry, Dog
+	PrimaryBuilding:
+		PrimaryCondition: primary
+		SelectionNotification: PrimaryBuildingSelected
+	WithDecoration@primary:
+		RequiresSelection: true
+		Image: pips
+		Sequence: tag-primary
+		Position: Top
+		RequiresCondition: primary
+	ProductionBar:
+		ProductionType: Infantry
+	-SpawnActorsOnSell:
+	Targetable:
+		TargetTypes: GroundActor, C4, DetonateAttack, Structure
+	ProvidesPrerequisite@buildingname:
+	WithBuildingBib:
+	RenderSprites:
+		Image: laborcampmedi
+
+##Resource Drop and silo
+FARMMEDI:
+	Inherits: PROC
+	-FreeActor:
+	FreeActor@1:
+		Actor: SLAVE
+	-Power:
+	-WithIdleOverlay@TOP:
+	-WithIdleOverlay@uac:
+	-WithDeathAnimation:
+	Inherits@shape: ^2x2Shape
+	Selectable:
+		Bounds: 2048, 2048
+	Refinery:
+		DockOffset: 1,1
+	Buildable:
+		Queue: Building
+		Prerequisites: ~structures.medi, laborcamp, ~!ai.boss, ~techlevel.infonly
+		Description: Drop off point for resources gathered by Slaves and Workers.\nAlso acts as a Silo to allow more credits to be held.
+		BuildPaletteOrder: 3
+	Tooltip:
+		Name: Farm
+	Building:
+		Footprint: xx ==
+		Dimensions: 2,2
+		BuildSounds: medibuild1.aud, medibuildjobdone1.aud, medibuildplace1.aud
+	StoresResources:
+		Capacity: 1000
+	Valued:
+		Cost: 400
+	Health:
+		HP: 20000
+	GrantConditionOnDeploy@slavework:
+		DeployedCondition: slaveworkon
+		SkipMakeAnimation: true
+	ProximityExternalCondition@slavework:
+		RequiresCondition: slaveworkon
+		Condition: slavework
+		Range: 10c0
+	Armor:
+		Type: Wood
+	RevealsShroud:
+		Range: 4c0
+		RequiresCondition: ManaBoost
+	ProvidesPrerequisite@buildingname:
+	ResourceValueMultiplier:
+		Modifier: 110
+		RequiresCondition: ManaBoost
+	GrantConditionOnPrerequisite:
+		Condition: ManaBoost
+		Prerequisites: manasupply
+	WithBuildingBib:
+	InfiltrateForCash:
+		Percentage: 50
+		Types: SpyInfiltrate, ThiefInfiltrate
+		InfiltratedNotification: CreditsStolen
+		Maximum: 5000
+	RenderSprites:
+		Image: farmmedi
+	WithResourceStoragePipsDecoration:
+		Position: BottomLeft
+		RequiresSelection: true
+		PipCount: 7
+		FullSequence: pip-yellow
+
+##GoldMine, Seeds Resources
+GoldMine:
+	Inherits: ^Building
+	Inherits@shape: ^2x2Shape
+	Selectable:
+		Bounds: 2048, 2048
+	Buildable:
+		Queue: Tech
+		Prerequisites: ~structures.medi, laborcamp, library, ~techlevel.high
+		Description: Slowly produces resources\naround this building.
+		BuildPaletteOrder: 31
+	Tooltip:
+		Name: Gold Mine
+	Building:
+		Footprint: xx xx
+		Dimensions: 2,2
+		BuildSounds: medibuild1.aud, medibuildjobdone1.aud, medibuildplace1.aud
+	StoresResources:
+		Capacity: 1500
+	Valued:
+		Cost: 4000
+	Health:
+		HP: 20000
+	Armor:
+		Type: Wood
+	RevealsShroud:
+		Range: 4c0
+		RequiresCondition: ManaBoost
+	Targetable:
+		TargetTypes: GroundActor, C4, DetonateAttack, Structure
+	ProvidesPrerequisite@buildingname:
+	SeedsResource:
+		Interval: 300
+		ResourceType: Ore
+		MaxRange: 2
+	SeedsResource:
+		RequiresCondition: ManaBoost
+		Interval: 200
+		ResourceType: Ore
+		MaxRange: 2
+	Cargo:
+		Types: GaryWorker
+		MaxWeight: 1
+		LoadedCondition: GaryWork
+	SeedsResource@GaryWork:
+		RequiresCondition: GaryWork
+		Interval: 180
+		ResourceType: Ore
+		MaxRange: 2
+	GrantConditionOnPrerequisite:
+		Condition: ManaBoost
+		Prerequisites: manasupply
+	WithBuildingBib:
+	RenderSprites:
+		Image: medigoldmine
+	Power:
+		Amount: -200
+	WithResourceStoragePipsDecoration:
+		Position: BottomLeft
+		RequiresSelection: true
+		PipCount: 7
+		FullSequence: pip-yellow
+
+###############################################################################
+###############################   Tech Buildings.   ###########################
+###############################################################################
+
 ##Tech structure and Defence
 CASTLE:
 	Inherits: ^ScienceBuilding
@@ -759,6 +783,49 @@ ACADEMYMEDI:
 	WithBuildingBib:
 	RenderSprites:
 		Image: mediacademy
+
+##Allows the use of Gunpowder units
+BLACKSMITHMEDI:
+	Inherits: ^Building
+	Inherits@shape: ^3x3Shape
+	Selectable:
+		Bounds: 3072, 3072
+	Buildable:
+		Queue: Tech
+		Prerequisites: ~structures.medi, academymedi, ~techlevel.medium, ~!structures.elementalists
+		Description: Allows the production of gun-powder based units.
+		BuildPaletteOrder: 7
+	Tooltip:
+		Name: Blacksmith
+	Building:
+		Footprint: xxx xxx x=x
+		Dimensions: 3,3
+		BuildSounds: medibuild1.aud, medibuildjobdone1.aud, medibuildplace1.aud
+	Valued:
+		Cost: 2000
+	Health:
+		HP: 80000
+	Armor:
+		Type: Heavy
+	RevealsShroud:
+		Range: 4c0
+	Power:
+		Amount: -50
+	Targetable:
+		TargetTypes: GroundActor, C4, DetonateAttack, Structure, SpyInfiltrate
+	PrimaryBuilding:
+		PrimaryCondition: primary
+		SelectionNotification: PrimaryBuildingSelected
+	WithDecoration@primary:
+		RequiresSelection: true
+		Image: pips
+		Sequence: tag-primary
+		Position: Top
+		RequiresCondition: primary
+	ProvidesPrerequisite@buildingname:
+	WithBuildingBib:
+	RenderSprites:
+		Image: mediblacksmith
 
 ##Unlocks God Powers and creates Priests
 CHURCHMEDI:
@@ -861,6 +928,7 @@ CHURCHMEDI:
 		EffectSequence: medicurseproj
 		Weapon: CursePowerWep
 		DisplayTimerRelationships: None
+	##Elemental Totem
 	SpawnActorPower@ElementTotem:
 		OrderName: ElementTotem
 		Actor: ElementalTotem
@@ -870,6 +938,7 @@ CHURCHMEDI:
 		Description: Summons a Magic Totem that improves your move speed, in the area
 		Prerequisites: ~structures.elementalists
 		EffectSequence: idle
+	##GolemDrop
 	ParatroopersPower@ElementalGolem:
 		OrderName: ElementalGolem
 		UnitType: MediDragonBomberZoomies
@@ -892,6 +961,7 @@ CHURCHMEDI:
 		UseDirectionalTarget: True
 		DirectionArrowAnimation: paradirection
 		SupportPowerPaletteOrder: 50
+	##Zombie Hoard
 	SpawnActorPower@Undead:
 		OrderName: Undead Magic
 		Actor: MediZombiehoard
@@ -942,7 +1012,7 @@ MERCHANTGUILD:
 	RenderSprites:
 		Image: mediguild
 
-##Pasive Income at high mana cost, makes Potion Throwers
+##Pasive Income at high mana cost, Enables Elementals.
 ALCHEMYLAB:
 	Inherits: ^Building
 	Inherits@IDISABLE: ^DisableOnLowPowerOrPowerDown
@@ -978,6 +1048,7 @@ ALCHEMYLAB:
 	ProvidesPrerequisite@buildingname:
 	Targetable:
 		TargetTypes: GroundActor, C4, DetonateAttack, Structure, SpyInfiltrate
+	##StealthPower
 	GrantExternalConditionPower@DarknessStealth:
 		OrderName: ElementalStealth
 		PauseOnCondition: disabled
@@ -1042,138 +1113,6 @@ ALCHEMYLAB:
 	WithBuildingBib:
 	RenderSprites:
 		Image: medialchemy
-
-##Power structure gives mana
-MANAWELL:
-	Inherits: ^PowerPlant
-	Inherits@POWER_OUTAGE: ^DisabledByPowerOutage
-	Inherits@shape: ^2x2Shape
-	Selectable:
-		Bounds: 2048, 2048
-	Buildable:
-		Queue: Building
-		Prerequisites: ~structures.medi, academymedi, ~!ai.powerout, ~!ai.boss,  ~techlevel.low
-		Description: Provides Power
-		BuildPaletteOrder: 5
-	Tooltip:
-		Name: Mana Well
-	Building:
-		Footprint: xx ==
-		Dimensions: 2,2
-		BuildSounds: medibuild1.aud, medibuildjobdone1.aud, medibuildplace1.aud
-	Valued:
-		Cost: 300
-	Health:
-		HP: 40000
-	Armor:
-		Type: Wood
-	RevealsShroud:
-		Range: 4c0
-	Power:
-		Amount: 100
-	PowerMultiplier@MediManaUp:
-		Modifier: 150
-		RequiresCondition: MediManaUp
-	GrantConditionOnPrerequisite@MediManaUp:
-		Condition: MediManaUp
-		Prerequisites: structures.elementalists
-	Targetable:
-		TargetTypes: GroundActor, C4, DetonateAttack, Structure
-	ProvidesPrerequisite@buildingname:
-	ProvidesPrerequisite@manasupply:
-		Prerequisite: manasupply
-	ProvidesPrerequisite:
-		Prerequisite: anypower
-	WithBuildingBib:
-	RenderSprites:
-		Image: medimanawell
-	PowerMultiplier@hardAI:
-		RequiresCondition: bot_hard
-		Modifier: 200
-
-BLACKSMITHMEDI:
-	Inherits: ^Building
-	Inherits@shape: ^3x3Shape
-	Selectable:
-		Bounds: 3072, 3072
-	Buildable:
-		Queue: Tech
-		Prerequisites: ~structures.medi, academymedi, ~techlevel.medium
-		Description: Allows the production of gun-powder based units.
-		BuildPaletteOrder: 7
-	Tooltip:
-		Name: Blacksmith
-	Building:
-		Footprint: xxx xxx x=x
-		Dimensions: 3,3
-		BuildSounds: medibuild1.aud, medibuildjobdone1.aud, medibuildplace1.aud
-	Valued:
-		Cost: 2000
-	Health:
-		HP: 80000
-	Armor:
-		Type: Heavy
-	RevealsShroud:
-		Range: 4c0
-	Power:
-		Amount: -50
-	Targetable:
-		TargetTypes: GroundActor, C4, DetonateAttack, Structure, SpyInfiltrate
-	PrimaryBuilding:
-		PrimaryCondition: primary
-		SelectionNotification: PrimaryBuildingSelected
-	WithDecoration@primary:
-		RequiresSelection: true
-		Image: pips
-		Sequence: tag-primary
-		Position: Top
-		RequiresCondition: primary
-	ProvidesPrerequisite@buildingname:
-	WithBuildingBib:
-	RenderSprites:
-		Image: mediblacksmith
-
-##Power structure gives mana
-DEEPMANAWELL:
-	Inherits: MANAWELL
-	Inherits@shape: ^3x3Shape
-	Buildable:
-		Queue: Building
-		Prerequisites: ~structures.medi, manawell, ~!ai.powerout, ~!ai.boss, ~techlevel.medium
-		Description: Provides a large amount of Power
-		BuildPaletteOrder: 6
-	Building:
-		Footprint: xxx xxx ===
-		Dimensions: 3,3
-		BuildSounds: medibuild1.aud, medibuildjobdone1.aud, medibuildplace1.aud
-	Tooltip:
-		Name: Deep Mana Well
-	Selectable:
-		Bounds: 3072, 3072
-	Valued:
-		Cost: 400
-	Health:
-		HP: 70000
-	Armor:
-		Type: Heavy
-	Power:
-		Amount: 250
-	PowerMultiplier@MediManaUp:
-		Modifier: 150
-		RequiresCondition: MediManaUp
-	GrantConditionOnPrerequisite@MediManaUp:
-		Condition: MediManaUp
-		Prerequisites: structures.elementalists
-	ProvidesPrerequisite@buildingname:
-	ProvidesPrerequisite@manasupply:
-		Prerequisite: manasupply
-	ProvidesPrerequisite:
-		Prerequisite: anypower
-	RenderSprites:
-		Image: medibigmanawell
-	PowerMultiplier@hardAI:
-		RequiresCondition: bot_hard
-		Modifier: 200
 
 ##Super Tech
 LIBRARY:
@@ -1258,78 +1197,103 @@ LIBRARY:
 		Weapon: EMPExplosion
 		EmptyWeapon: EMPExplosion
 
-##Blacksmith, Will introduce cannons and musket guys, will also repair vehicles
+###############################################################################
+##############################   Power Buildings.   ###########################
+###############################################################################
 
-##Graveyard
-MediGraveyard:
-	ExternalCondition@GraveyardSouls:
-		Condition: GraveyardSouls
-	Inherits: ^ScienceBuilding
-	Inherits@shape: ^3x3Shape
-	Inherits@AUTOTARGET: ^AutoTargetAll
-	Targetable:
-		TargetTypes: GroundActor, C4, DetonateAttack, Structure, Defense
+##Power structure gives mana
+MANAWELL:
+	Inherits: ^PowerPlant
+	Inherits@POWER_OUTAGE: ^DisabledByPowerOutage
+	Inherits@shape: ^2x2Shape
 	Selectable:
-		Bounds: 3072, 3072
+		Bounds: 2048, 2048
 	Buildable:
-		Queue: Tech
-		Prerequisites: ~structures.medi, alchemylab, ~structures.darkness, ~techlevel.medium
-		Description: Turns Neerby Dead infantry into uncontrollable Zombies.
-		BuildPaletteOrder: 12
-		BuildLimit: 1
+		Queue: Building
+		Prerequisites: ~structures.medi, academymedi, ~!ai.powerout, ~!ai.boss,  ~techlevel.low
+		Description: Provides Power
+		BuildPaletteOrder: 5
 	Tooltip:
-		Name: Graveyard
+		Name: Mana Well
 	Building:
-		Footprint: x=x === x=x
-		Dimensions: 3,3
+		Footprint: xx ==
+		Dimensions: 2,2
 		BuildSounds: medibuild1.aud, medibuildjobdone1.aud, medibuildplace1.aud
 	Valued:
-		Cost: 2500
+		Cost: 300
 	Health:
-		HP: 80000
+		HP: 40000
 	Armor:
-		Type: Heavy
+		Type: Wood
 	RevealsShroud:
 		Range: 4c0
+	Power:
+		Amount: 100
+	PowerMultiplier@MediManaUp:
+		Modifier: 150
+		RequiresCondition: MediManaUp
+	GrantConditionOnPrerequisite@MediManaUp:
+		Condition: MediManaUp
+		Prerequisites: structures.elementalists
+	Targetable:
+		TargetTypes: GroundActor, C4, DetonateAttack, Structure
 	ProvidesPrerequisite@buildingname:
+	ProvidesPrerequisite@manasupply:
+		Prerequisite: manasupply
+	ProvidesPrerequisite:
+		Prerequisite: anypower
 	WithBuildingBib:
-	FreeActor@1:
-		Actor: MediZombie
-		RequiresCondition: producezomb
-		AllowRespawn: True
-	AmmoPool:
-		Name: GraveAmmoPool
-		Armaments: primary
-		Ammo: 50
-		InitialAmmo: 5
-		ReloadCount: 5
-		ReloadDelay: 300
-		AmmoCondition: GraveyardSoulCount
-	ReloadAmmoPool:
-		AmmoPool: GraveAmmoPool
-		Delay: 1
-		Count: 1
-		RequiresCondition: GraveyardSouls
-	WithAmmoPipsDecoration:
-		Position: BottomLeft
-		PipCount: 10
-		AmmoPools: GraveAmmoPool
-	AutoTarget:
-		InitialStance: AttackAnything
-	AttackOmni:
-	Armament:
-		Weapon: GraveyardSpawner
-		TargetRelationships: Ally
-		ForceTargetRelationships: Ally
-		RequiresCondition: GraveyardSoulCount
-	ExternalCondition@ambushhole:
-		Condition: producezomb
 	RenderSprites:
-		Image: medigraveyard
-##Need to change Units spawned and sprites
+		Image: medimanawell
+	PowerMultiplier@hardAI:
+		RequiresCondition: bot_hard
+		Modifier: 200
 
+##Power structure gives mana
+DEEPMANAWELL:
+	Inherits: MANAWELL
+	Inherits@shape: ^3x3Shape
+	Buildable:
+		Queue: Building
+		Prerequisites: ~structures.medi, manawell, ~!ai.powerout, ~!ai.boss, ~techlevel.medium
+		Description: Provides a large amount of Power
+		BuildPaletteOrder: 6
+	Building:
+		Footprint: xxx xxx ===
+		Dimensions: 3,3
+		BuildSounds: medibuild1.aud, medibuildjobdone1.aud, medibuildplace1.aud
+	Tooltip:
+		Name: Deep Mana Well
+	Selectable:
+		Bounds: 3072, 3072
+	Valued:
+		Cost: 400
+	Health:
+		HP: 70000
+	Armor:
+		Type: Heavy
+	Power:
+		Amount: 250
+	PowerMultiplier@MediManaUp:
+		Modifier: 150
+		RequiresCondition: MediManaUp
+	GrantConditionOnPrerequisite@MediManaUp:
+		Condition: MediManaUp
+		Prerequisites: structures.elementalists
+	ProvidesPrerequisite@buildingname:
+	ProvidesPrerequisite@manasupply:
+		Prerequisite: manasupply
+	ProvidesPrerequisite:
+		Prerequisite: anypower
+	RenderSprites:
+		Image: medibigmanawell
+	PowerMultiplier@hardAI:
+		RequiresCondition: bot_hard
+		Modifier: 200
 
-##Super Weapons
+###############################################################################
+##############################   Nuke Buildings.   ############################
+###############################################################################
 
 ##Elemental Super Weapon
 FireStormMedi:
@@ -1574,7 +1538,279 @@ MediDarkCrystal:
 		Weapon: MiniNuke
 		EmptyWeapon: MiniNuke
 
-##Walls
+###############################################################################
+##############################   Special Buildings.   #########################
+###############################################################################
+
+#Forms Summons a Magic Totem that improves your move speed, slows enemies and decays Health from enemies in the area
+ElementalTotem:
+	Inherits: ^Defense
+	Inherits@shape: ^2x2Shape
+	-SpawnActorsOnSell:
+	Selectable:
+		Bounds: 2048, 2048
+	AttackOmni:
+	Valued:
+		Cost: 5000
+	CustomSellValue:
+		Value: 0
+	Tooltip:
+		Name: Dark Monument To The Gods
+	Building:
+		Footprint: xx xx
+		Dimensions: 2,2
+		BuildSounds: medibuild1.aud, medibuildjobdone1.aud, medibuildplace1.aud
+	Health:
+		HP: 100
+	Armor:
+		Type: Concrete
+	RevealsShroud:
+		MinRange: 0c0
+		Range: 0c0
+		RequiresCondition: !disabled
+		RevealGeneratedShroud: False
+	RevealsShroud@Offline:
+		Range: 0c0
+		RequiresCondition: disabled
+	RevealsShroud@GAPGEN:
+		Range: 0c0
+		RequiresCondition: !disabled
+	ProximityExternalCondition@TotemBoost:
+		RequiresCondition: !disabled
+		ValidRelationships: Ally
+		Condition: TotemBoost
+		Range: 9c512
+	WithRangeCircle:
+		Range: 8c512
+	Power:
+		Amount: 0
+	RenderSprites:
+		Image: meditotem
+
+##Grants radar but also provides a smaller circle of dark shroud, fragile, high mana cost
+TheEye:
+	Inherits: ^Building
+	Inherits@IDISABLE: ^DisableOnLowPowerOrPowerDown
+	Valued:
+		Cost: 1400
+	Tooltip:
+		Name: The Eye
+	Buildable:
+		Queue: Tech
+		Prerequisites: ~structures.medi, academymedi, ~techlevel.medium
+		Description: Provides radar
+		BuildLimit: 2
+		BuildPaletteOrder: 6
+	Building:
+		Footprint: x x x
+		Dimensions: 1,3
+		BuildSounds: medibuild1.aud, medibuildjobdone1.aud, medibuildplace1.aud
+	Selectable:
+		Bounds: 1024, 3072
+		DecorationBounds: 1024, 3072, 0, 0
+	SelectionDecorations:
+	WithBuildingBib:
+		HasMinibib: true
+	Health:
+		HP: 22000
+	Armor:
+		Type: Wood
+	RevealsShroud:
+		MinRange: 6c0
+		Range: 10c0
+		RequiresCondition: !disabled
+		RevealGeneratedShroud: False
+	RevealsShroud@Offline:
+		Range: 5c0
+		RequiresCondition: disabled
+	RevealsShroud@GAPGEN:
+		Range: 6c0
+		RequiresCondition: !disabled
+	DetectCloaked:
+		Range: 6c0
+		RequiresCondition: !disabled
+	ProvidesPrerequisite:
+		Prerequisite: radar
+	ProvidesPrerequisite@buildingname:
+	Power:
+		Amount: -50
+	ProvidesRadar:
+		RequiresCondition: !jammed && !disabled
+	ExternalCondition@JAMMED:
+		Condition: jammed
+	##Vision Power
+	SpawnActorPower@spyvan:
+		PauseOnCondition: disabled
+		OrderName: SeerVision
+		Cursor: chrono-target
+		Icon: spy
+		ChargeInterval: 3000
+		LifeTime: 125
+		Name: Seer
+		Description: Reveal an area on the map for 5 seconds. \nReveals cloaked units.
+		Actor: camera.spyplane
+		SelectTargetSpeechNotification: SelectTarget
+		DisplayRadarPing: True
+		DeploySound: gradarup.aud
+		EffectSequence: idle
+	RenderSprites:
+		Image: medieyetower
+	ExternalCondition@EyeBoost:
+		Condition: EyeBoost
+	GrantConditionOnDeploy@EyeBoost:
+		DeployedCondition: EyeBoost
+		SkipMakeAnimation: true
+	PowerMultiplier:
+		Modifier: 600
+		RequiresCondition: EyeBoost
+	ChangesHealth@EyeBoost:
+		PercentageStep: -5
+		Delay: 30
+		StartIfBelow: 110
+		DamageCooldown: 0
+		RequiresCondition: EyeBoost
+		DamageTypes: DefaultDeath
+	RevealsShroudMultiplier:
+		Modifier: 400
+		RequiresCondition: EyeBoost
+	DetectCloakedMultiplier:
+		Modifier: 400
+		RequiresCondition: EyeBoost
+
+##Monument: Gives Healing aura to units and structures
+MonumentToTheGods:
+	Inherits: ^Building
+	Inherits@IDISABLE: ^DisableOnLowPowerOrPowerDown
+	Inherits@shape: ^2x2Shape
+	-SpawnActorsOnSell:
+	Selectable:
+		Bounds: 2048, 2048
+	Valued:
+		Cost: 2000
+	Tooltip:
+		Name: Monument To The Gods
+	Buildable:
+		Queue: Defense
+		Prerequisites: ~structures.medi, manasupply, ~structures.holy, ~techlevel.medium
+		BuildLimit: 5
+		Description: Gives Healing aura to units and structures, /nSmaller Aura that gives larger boost to just Holy Units (Disabled Neer Super units.)
+		BuildPaletteOrder: 15
+	Building:
+		Footprint: xx xx
+		Dimensions: 2,2
+		BuildSounds: medibuild1.aud, medibuildjobdone1.aud, medibuildplace1.aud
+	Health:
+		HP: 80000
+	Armor:
+		Type: Heavy
+	RevealsShroud:
+		MinRange: 5c0
+		Range: 6c0
+		RequiresCondition: !disabled
+		RevealGeneratedShroud: False
+	RevealsShroud@Offline:
+		Range: 5c0
+		RequiresCondition: disabled
+	RevealsShroud@GAPGEN:
+		Range: 5c0
+		RequiresCondition: !disabled
+	ProximityExternalCondition@Monumentboost:
+		RequiresCondition: !disabled
+		Condition: Monumentboost
+		Range: 11c512
+	WithRangeCircle:
+		Range: 11c512
+	GrantConditionOnPrerequisite@HolyOnlyBoost:
+		Condition: HolyBoostableOnly
+		Prerequisites: ~structures.holy, churchmedi
+	ProximityExternalCondition@MonumentboostHoly:
+		RequiresCondition: HolyBoostableOnly && !EpicDenialAura
+		Condition: MonumentboostHoly
+		Range: 8c512
+	ProximityExternalCondition@MartyrBind:
+		RequiresCondition: HolyBoostableOnly
+		Condition: MartyrBind
+		Range: 8c512
+	ExternalCondition@EpicDenial:
+		Condition: EpicDenialAura
+	WithRangeCircle@MonumentboostHoly:
+		Range: 8c512
+		RequiresCondition: !EpicDenialAura
+	Power:
+		Amount: 0
+	RenderSprites:
+		Image: medimonument
+
+##Graveyard
+MediGraveyard:
+	ExternalCondition@GraveyardSouls:
+		Condition: GraveyardSouls
+	Inherits: ^ScienceBuilding
+	Inherits@shape: ^3x3Shape
+	Inherits@AUTOTARGET: ^AutoTargetAll
+	Targetable:
+		TargetTypes: GroundActor, C4, DetonateAttack, Structure, Defense
+	Selectable:
+		Bounds: 3072, 3072
+	Buildable:
+		Queue: Tech
+		Prerequisites: ~structures.medi, alchemylab, ~structures.darkness, ~techlevel.medium
+		Description: Turns Neerby Dead infantry into uncontrollable Zombies.
+		BuildPaletteOrder: 12
+		BuildLimit: 1
+	Tooltip:
+		Name: Graveyard
+	Building:
+		Footprint: x=x === x=x
+		Dimensions: 3,3
+		BuildSounds: medibuild1.aud, medibuildjobdone1.aud, medibuildplace1.aud
+	Valued:
+		Cost: 2500
+	Health:
+		HP: 80000
+	Armor:
+		Type: Heavy
+	RevealsShroud:
+		Range: 4c0
+	ProvidesPrerequisite@buildingname:
+	WithBuildingBib:
+	FreeActor@1:
+		Actor: MediZombie
+		RequiresCondition: producezomb
+		AllowRespawn: True
+	AmmoPool:
+		Name: GraveAmmoPool
+		Armaments: primary
+		Ammo: 50
+		InitialAmmo: 5
+		ReloadCount: 5
+		ReloadDelay: 300
+		AmmoCondition: GraveyardSoulCount
+	ReloadAmmoPool:
+		AmmoPool: GraveAmmoPool
+		Delay: 1
+		Count: 1
+		RequiresCondition: GraveyardSouls
+	WithAmmoPipsDecoration:
+		Position: BottomLeft
+		PipCount: 10
+		AmmoPools: GraveAmmoPool
+	AutoTarget:
+		InitialStance: AttackAnything
+	AttackOmni:
+	Armament:
+		Weapon: GraveyardSpawner
+		TargetRelationships: Ally
+		ForceTargetRelationships: Ally
+		RequiresCondition: GraveyardSoulCount
+	ExternalCondition@ambushhole:
+		Condition: producezomb
+	RenderSprites:
+		Image: medigraveyard
+
+###############################################################################
+#################################   Walls   ###################################
+###############################################################################
 
 ##Energy Wall, Damage units in a range.
 ##Need to change Weapon and sprites
@@ -1631,51 +1867,6 @@ MageWallElemental:
 		Prerequisites: ~structures.medi, ~structures.elementalists, ~!structures.elementalists, ~techlevel.low
 		Description: Magic Wall (Regenrates Health)
 		BuildPaletteOrder: 1
-
-#Forms Summons a Magic Totem that improves your move speed, slows enemies and decays Health from enemies in the area
-ElementalTotem:
-	Inherits: ^Defense
-	Inherits@shape: ^2x2Shape
-	-SpawnActorsOnSell:
-	Selectable:
-		Bounds: 2048, 2048
-	AttackOmni:
-	Valued:
-		Cost: 5000
-	CustomSellValue:
-		Value: 0
-	Tooltip:
-		Name: Dark Monument To The Gods
-	Building:
-		Footprint: xx xx
-		Dimensions: 2,2
-		BuildSounds: medibuild1.aud, medibuildjobdone1.aud, medibuildplace1.aud
-	Health:
-		HP: 100
-	Armor:
-		Type: Concrete
-	RevealsShroud:
-		MinRange: 0c0
-		Range: 0c0
-		RequiresCondition: !disabled
-		RevealGeneratedShroud: False
-	RevealsShroud@Offline:
-		Range: 0c0
-		RequiresCondition: disabled
-	RevealsShroud@GAPGEN:
-		Range: 0c0
-		RequiresCondition: !disabled
-	ProximityExternalCondition@TotemBoost:
-		RequiresCondition: !disabled
-		ValidRelationships: Ally
-		Condition: TotemBoost
-		Range: 9c512
-	WithRangeCircle:
-		Range: 8c512
-	Power:
-		Amount: 0
-	RenderSprites:
-		Image: meditotem
 
 SBAGmedi:
 	Inherits: ^Wall
@@ -1734,6 +1925,10 @@ BRIKmedi:
 		Type: concrete
 	RenderSprites:
 		Image: BRIK
+
+###############################################################################
+##############################   Defense Buildings.   #########################
+###############################################################################
 
 ##Starter Defence unlocks from farm
 ARCHERTOWER:
@@ -1968,95 +2163,6 @@ SCOUTTOWER:
 		Modifier: 50
 		RequiresCondition: lowpower
 
-##Grants radar but also provides a smaller circle of dark shroud, fragile, high mana cost
-TheEye:
-	Inherits: ^Building
-	Inherits@IDISABLE: ^DisableOnLowPowerOrPowerDown
-	Valued:
-		Cost: 1400
-	Tooltip:
-		Name: The Eye
-	Buildable:
-		Queue: Tech
-		Prerequisites: ~structures.medi, academymedi, ~techlevel.medium
-		Description: Provides radar
-		BuildLimit: 2
-		BuildPaletteOrder: 6
-	Building:
-		Footprint: x x x
-		Dimensions: 1,3
-		BuildSounds: medibuild1.aud, medibuildjobdone1.aud, medibuildplace1.aud
-	Selectable:
-		Bounds: 1024, 3072
-		DecorationBounds: 1024, 3072, 0, 0
-	SelectionDecorations:
-	WithBuildingBib:
-		HasMinibib: true
-	Health:
-		HP: 22000
-	Armor:
-		Type: Wood
-	RevealsShroud:
-		MinRange: 6c0
-		Range: 10c0
-		RequiresCondition: !disabled
-		RevealGeneratedShroud: False
-	RevealsShroud@Offline:
-		Range: 5c0
-		RequiresCondition: disabled
-	RevealsShroud@GAPGEN:
-		Range: 6c0
-		RequiresCondition: !disabled
-	DetectCloaked:
-		Range: 6c0
-		RequiresCondition: !disabled
-	ProvidesPrerequisite:
-		Prerequisite: radar
-	ProvidesPrerequisite@buildingname:
-	Power:
-		Amount: -50
-	ProvidesRadar:
-		RequiresCondition: !jammed && !disabled
-	ExternalCondition@JAMMED:
-		Condition: jammed
-	SpawnActorPower@spyvan:
-		PauseOnCondition: disabled
-		OrderName: SeerVision
-		Cursor: chrono-target
-		Icon: spy
-		ChargeInterval: 3000
-		LifeTime: 125
-		Name: Seer
-		Description: Reveal an area on the map for 5 seconds. \nReveals cloaked units.
-		Actor: camera.spyplane
-		SelectTargetSpeechNotification: SelectTarget
-		DisplayRadarPing: True
-		DeploySound: gradarup.aud
-		EffectSequence: idle
-	RenderSprites:
-		Image: medieyetower
-	ExternalCondition@EyeBoost:
-		Condition: EyeBoost
-	GrantConditionOnDeploy@EyeBoost:
-		DeployedCondition: EyeBoost
-		SkipMakeAnimation: true
-	PowerMultiplier:
-		Modifier: 600
-		RequiresCondition: EyeBoost
-	ChangesHealth@EyeBoost:
-		PercentageStep: -5
-		Delay: 40
-		StartIfBelow: 110
-		DamageCooldown: 0
-		RequiresCondition: EyeBoost
-		DamageTypes: DefaultDeath
-	RevealsShroudMultiplier:
-		Modifier: 400
-		RequiresCondition: EyeBoost
-	DetectCloakedMultiplier:
-		Modifier: 400
-		RequiresCondition: EyeBoost
-
 ##Users Mana, Like an obilisk but constant beam disables on mana loss
 ArcaneTower:
 	Inherits: ^Defense
@@ -2112,7 +2218,7 @@ ArcaneTower:
 	RenderSprites:
 		Image: mediarcanetower
 
-
+##Long Range Defense
 BalistaTower:
 	Inherits: ArcaneTower
 	-Power:
@@ -2158,7 +2264,7 @@ BalistaTower:
 	DeathSounds:
 		RequiresCondition: !TransCannon
 
-
+##Long Range Defense
 CannonTower:
 	Inherits: BalistaTower
 	Buildable:
@@ -2256,70 +2362,6 @@ MAGICMINE:
 	RenderSprites:
 		Image: barl
 
-##Monument: Gives Healing aura to units and structures
-MonumentToTheGods:
-	Inherits: ^Building
-	Inherits@IDISABLE: ^DisableOnLowPowerOrPowerDown
-	Inherits@shape: ^2x2Shape
-	-SpawnActorsOnSell:
-	Selectable:
-		Bounds: 2048, 2048
-	Valued:
-		Cost: 2000
-	Tooltip:
-		Name: Monument To The Gods
-	Buildable:
-		Queue: Defense
-		Prerequisites: ~structures.medi, manasupply, ~structures.holy, ~techlevel.medium
-		BuildLimit: 5
-		Description: Gives Healing aura to units and structures, /nSmaller Aura that gives larger boost to just Holy Units (Disabled Neer Super units.)
-		BuildPaletteOrder: 15
-	Building:
-		Footprint: xx xx
-		Dimensions: 2,2
-		BuildSounds: medibuild1.aud, medibuildjobdone1.aud, medibuildplace1.aud
-	Health:
-		HP: 80000
-	Armor:
-		Type: Heavy
-	RevealsShroud:
-		MinRange: 5c0
-		Range: 6c0
-		RequiresCondition: !disabled
-		RevealGeneratedShroud: False
-	RevealsShroud@Offline:
-		Range: 5c0
-		RequiresCondition: disabled
-	RevealsShroud@GAPGEN:
-		Range: 5c0
-		RequiresCondition: !disabled
-	ProximityExternalCondition@Monumentboost:
-		RequiresCondition: !disabled
-		Condition: Monumentboost
-		Range: 11c512
-	WithRangeCircle:
-		Range: 11c512
-	GrantConditionOnPrerequisite@HolyOnlyBoost:
-		Condition: HolyBoostableOnly
-		Prerequisites: ~structures.holy, churchmedi
-	ProximityExternalCondition@MonumentboostHoly:
-		RequiresCondition: HolyBoostableOnly && !EpicDenialAura
-		Condition: MonumentboostHoly
-		Range: 8c512
-	ProximityExternalCondition@MartyrBind:
-		RequiresCondition: HolyBoostableOnly
-		Condition: MartyrBind
-		Range: 8c512
-	ExternalCondition@EpicDenial:
-		Condition: EpicDenialAura
-	WithRangeCircle@MonumentboostHoly:
-		Range: 8c512
-		RequiresCondition: !EpicDenialAura
-	Power:
-		Amount: 0
-	RenderSprites:
-		Image: medimonument
-
 ##Garison Tower, Stores units for defending base, maybe boost range if posible?
 MediGarrisonTower:
 	Inherits: ^Defense
@@ -2375,30 +2417,3 @@ MediGarrisonTower:
 	WithCargoPipsDecoration:
 		Position: BottomLeft
 		RequiresSelection: true
-
-
-
-
-
-EffectTester:
-	Inherits: SCOUTTOWER
-	-Buildable:
-	Building:
-		BuildSounds: medibuild1.aud, medibuildjobdone1.aud, medibuildplace1.aud
-		Prerequisites:
-	Tooltip:
-		Name:
-	RenderSprites:
-		Image: mediarrowtower
-	Selectable:
-		Bounds: 1024, 1024
-		DecorationBounds: 1024, 1024, 0, 0
-	ProximityExternalCondition@Zomb:
-		Condition: producezomblobal
-		Range: 100c0
-		ValidRelationships: Ally, Enemy
-	KillsSelf:
-		RemoveInstead: True
-		Delay: 1
-	Valued:
-		Cost: 1

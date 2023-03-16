@@ -1,3 +1,9 @@
+
+###############################################################################
+##########################      #########################
+###############################################################################
+
+
 ^MediLowPower:
 	GrantConditionOnPowerState@LOWPOWER:
 		Condition: lowpower
@@ -447,6 +453,12 @@ FireElemental:
 	-Cloneable:
 	-Passenger:
 	-Crushable:
+	Buildable:
+		Queue: Infantry
+		BuildPaletteOrder: 401
+		BuildLimit: 8
+		Prerequisites: ~infantry.medi, alchemylab, ~infantry.elementalists
+		Description: Fire Elemental.\nSpeed: 78\n  Strong vs Infantry\n  Weak vs Vehicles, Air
 	Armament@PRIMARY:
 		Name: Primary
 		Weapon: FireElementAttack
@@ -457,12 +469,6 @@ FireElemental:
 		Weapon: FireElementalDeath
 		EmptyWeapon: FireElementalDeath
 		DeathTypes: SmallExplosionDeath, ExplosionDeath, FireDeath, TiberiumDeath, ElectricityDeath, Suicide
-	Buildable:
-		Queue: Infantry
-		BuildPaletteOrder: 401
-		BuildLimit: 8
-		Prerequisites: ~vehicles.medi, blacksmithmedi, ~structures.elementalists
-		Description: Fire Elemental.\nSpeed: 78\n  Strong vs Infantry\n  Weak vs Vehicles, Air
 	Health:
 		HP: 30000
 	Armor:
@@ -1048,7 +1054,7 @@ MUSKETEER:
 	Inherits@BOWMAN: BOWMAN
 	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
 	Buildable:
-		Prerequisites: ~infantry.medi, blacksmithmedi, ~!structures.elementalists
+		Prerequisites: ~infantry.medi, blacksmithmedi, ~!infantry.elementalists
 		Description: Slow firing musketeer \n Strong vs infantry, Air \n Weak vs Vehicles, Buildings
 		Queue: Infantry
 		BuildAtProductionType: Soldier
@@ -1080,7 +1086,7 @@ Boomstick:
 	Valued:
 		Cost: 300
 	Buildable:
-		Prerequisites: ~infantry.medi, blacksmithmedi, ~!structures.elementalists
+		Prerequisites: ~infantry.medi, blacksmithmedi, ~!infantry.elementalists
 		Description: Slow firing Blunderbus \n Strong vs infantry \n Weak vs Vehicles, Air
 		Queue: Infantry
 		BuildAtProductionType: Soldier
@@ -1101,7 +1107,7 @@ Boomstick:
 	Armament@ElementalWepon:
 		LocalOffset: 427,0,341
 		FireDelay: 6
-		Weapon: MusketeerShotElementalWeps
+		Weapon: BlunderbusShotElementalWeps
 		RequiresCondition: elementalweps
 	Armament@GARRISONED:
 		Name: garrisoned
@@ -1110,7 +1116,7 @@ Boomstick:
 		PauseOnCondition: elementalweps
 	Armament@GARRISONEDElementalWepon:
 		Name: garrisoned
-		Weapon: MusketeerShotElementalWeps
+		Weapon: BlunderbusShotElementalWeps
 		FireDelay: 6
 		RequiresCondition: elementalweps
 	Armament@BUS:
@@ -1120,7 +1126,7 @@ Boomstick:
 		PauseOnCondition: elementalweps
 	Armament@BUSElementalWepon:
 		Name: bus
-		Weapon: MusketeerShotElementalWeps
+		Weapon: BlunderbusShotElementalWeps
 		FireDelay: 6
 		RequiresCondition: elementalweps
 	RenderSprites:
@@ -1138,7 +1144,7 @@ RotElement:
 		Modifier: 50
 		RequiresCondition: lowpower
 	Buildable:
-		Prerequisites: ~infantry.medi, advtechcenter, ~infantry.elementalists
+		Prerequisites: ~infantry.medi, alchemylab, ~infantry.elementalists
 		Description: Rot Elemental fires Toxic spray \n Strong vs Infantry Weak vs Anything else.
 		Queue: Infantry
 		BuildAtProductionType: Soldier

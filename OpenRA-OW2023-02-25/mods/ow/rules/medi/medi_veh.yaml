@@ -1,3 +1,13 @@
+
+###############################################################################
+##################################   Vehicles   ###############################
+###############################################################################
+
+
+###############################################################################
+##############################   MCV and Inherits.   ##########################
+###############################################################################
+
 MCVM:
 	Inherits: MCV
 	Inherits@GLAVehicle: ^GLAVehicle
@@ -36,6 +46,7 @@ MCVM.2:
 	Selectable:
 		Bounds: 1706, 1706
 		DecorationBounds: 1706, 1706
+
 MCVM.3:
 	Inherits: MCVM
 	Transforms:
@@ -55,10 +66,99 @@ MCVM.3:
 		Bounds: 1706, 1706
 		DecorationBounds: 1706, 1706
 
+##Inherit for Horse units, makes the targetable as infantry.
 ^Horse:
 	Targetable:
 		RequiresCondition: !parachute
-		TargetTypes: GroundActor, Infantry
+		TargetTypes: GroundActor, Infantry, Vehicle
+
+###############################################################################
+##############################   Utility and Misc   ###########################
+###############################################################################
+
+##Sends Money to others
+TRUKMedi:
+	Inherits: ^TrackedVehicle
+	Inherits@selection: ^SelectableSupportUnit
+	Buildable:
+		Queue: Vehicle
+		BuildAtProductionType: Workshop
+		BuildPaletteOrder: 410
+		Prerequisites: ~vehicles.medi, armorymedi
+		Description: Transports cash to other players.\n  Unarmed
+	Valued:
+		Cost: 500
+	WithMoveAnimation:
+		MoveSequence: run
+	Tooltip:
+		Name: Supply Truck
+	Health:
+		HP: 11000
+	Armor:
+		Type: Light
+	Mobile:
+		Speed: 130
+	RevealsShroud:
+		Range: 4c0
+	DeliversCash:
+		Payload: 500
+		PlayerExperience: 50
+	SpawnActorOnDeath:
+		Actor: moneycrate
+	Selectable:
+		Bounds: 1280, 1280
+		DecorationBounds: 1280, 1280
+	RenderSprites:
+		Image: medicarriage
+
+##Boom?
+Trojan:
+	Inherits: ^TrackedVehicle
+	Buildable:
+		Queue: Vehicle
+		BuildAtProductionType: Workshop
+		BuildPaletteOrder: 330
+		Prerequisites: ~vehicles.medi, techcenter, armorymedi
+		Description: Truck with actively armed nuclear\nexplosives. Has very weak armor.
+	Valued:
+		Cost: 2000
+	Tooltip:
+		Name: Trojan
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 6000
+	Armor:
+		Type: Light
+	Mobile:
+		Speed: 85
+	RevealsShroud:
+		Range: 4c0
+	Explodes:
+		Weapon: TinyNuke
+		EmptyWeapon: TinyNuke
+		DamageSource: Killer
+	AttackFrontal:
+		FacingTolerance: 512
+	Armament@PRIMARY:
+		Weapon: DemoTruckTargeting
+	GrantConditionOnAttack:
+		Condition: triggered
+	GrantConditionOnDeploy:
+		DeployedCondition: triggered
+	-DamageMultiplier@IRONCURTAIN:
+	KillsSelf:
+		RequiresCondition: invulnerability || triggered
+	Chronoshiftable:
+		ExplodeInstead: true
+	RenderSprites:
+		Image: meditrojan
+	Voiced:
+		VoiceSet: SiegeWeaponVoice
+
+###############################################################################
+##############################   Horse Units   ################################
+###############################################################################
 
 ##Fast Cavalry archer.
 HorseCrossbowman:
@@ -68,7 +168,7 @@ HorseCrossbowman:
 	Inherits@Horse: ^Horse
 	Buildable:
 		Queue: Vehicle
-		Prerequisites: ~vehicles.medi, ~!structures.darkness
+		Prerequisites: ~vehicles.medi, ~!vehicles.darkness, ~stables
 		BuildPaletteOrder: 401
 		BuildDuration: 300
 		Description: Crossbowman on a horse.\n  Strong vs Infantry \n  Weak vs Vehicles, Aircraft
@@ -145,7 +245,7 @@ HorseSwordman:
 	Inherits@Horse: ^Horse
 	Buildable:
 		Queue: Vehicle
-		Prerequisites: ~vehicles.medi, ~!structures.darkness
+		Prerequisites: ~vehicles.medi, ~!vehicles.darkness, ~stables
 		BuildPaletteOrder: 401
 		BuildDuration: 300
 		Description: Horseback Swordsman.\n  Strong vs Infantry and Artilary \n  Weak vs Vehicles, Aircraft
@@ -201,13 +301,12 @@ HorseSwordman:
 	SpawnActorOnDeath:
 		Actor: DismountedKnight
 
-
-
+##Mounted Paladin
 HorsePaladin:
 	Inherits: HorseSwordman
 	Buildable:
 		Queue: Vehicle
-		Prerequisites: ~vehicles.medi, ~structures.holy, advtechcenter, churchmedi
+		Prerequisites: ~vehicles.medi, ~vehicles.holy, advtechcenter, churchmedi, ~stables
 		BuildPaletteOrder: 401
 		BuildDuration: 1500
 		Description: Horseback Paladin.\n  Strong vs Infantry and Artilary \n  Weak vs Vehicles, Aircraft
@@ -276,7 +375,7 @@ HorseScout:
 	Inherits@Horse: ^Horse
 	Buildable:
 		Queue: Vehicle
-		Prerequisites: ~vehicles.medi, ~!structures.darkness
+		Prerequisites: ~vehicles.medi, ~!vehicles.darkness, ~stables
 		BuildPaletteOrder: 401
 		BuildDuration: 400
 		Description: Horseback Scout.\n  Strong vs None
@@ -323,6 +422,71 @@ HorseScout:
 		RequiresCondition: lowpower
 	SpawnActorOnDeath:
 		Actor: DismountedKnight
+
+##Mounted Sniper
+HorseMusket:
+	Inherits: ^TrackedVehicle
+	Inherits@GAINSEXPERIENCE: ^GainsExperience
+	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
+	Buildable:
+		Queue: Vehicle
+		Prerequisites: ~vehicles.medi, blacksmithmedi, ~!vehicles.darkness, ~!vehicles.elementalists, ~stables
+		BuildPaletteOrder: 401
+		Description: musketeer on horseback.\n  Strong vs Infantry\n  Weak vs Vehicles, Aircraft
+	Valued:
+		Cost: 700
+	Tooltip:
+		Name: Horse Musketeer
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 35000
+	Armor:
+		Type: Heavy
+	WithMoveAnimation:
+		MoveSequence: run
+	Mobile:
+		TurnSpeed: 120
+		Speed: 160
+		Locomotor: wheeled
+	AutoTarget:
+		InitialStance: AttackAnything
+		ScanRadius: 11
+	RevealsShroud:
+		MinRange: 4c0
+		Range: 5c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 4c0
+	Armament:
+		Weapon: MusketeerHorseShot
+		PauseOnCondition: elementalweps
+	Armament@ElementalWepon:
+		Name: secondary
+		Weapon: MusketeerHorseShotElementalWeps
+		RequiresCondition: elementalweps
+	WithAttackAnimation@2:
+		Armament: secondary
+		Sequence: shoot
+	WithAttackAnimation:
+		Sequence: shoot
+	WithDeathAnimation:
+		DeathSequence: die
+	AttackFrontal:
+		Armaments: primary, secondary
+		FacingTolerance: 0
+	ProducibleWithLevel:
+		Prerequisites: vehicles.upgraded
+	RenderSprites:
+		Image: medihorsemusket
+	Voiced:
+		VoiceSet: SwordmanVoice
+	SpawnActorOnDeath:
+		Actor: MUSKETEER
+
+###############################################################################
+###############################   Artilary Units   ############################
+###############################################################################
 
 ##Ranged Artilary unit
 Catapult:
@@ -377,7 +541,7 @@ Catapult:
 		LocalOffset: 624,0,208
 	Armament@ElementalWepon1:
 		Name: secondary1
-		Weapon: CatapultElementalWeps
+		Weapon: CatapultElementalWeps1
 		RequiresCondition: elementalweps
 		LocalOffset: 624,0,208
 	Armament@2:
@@ -387,7 +551,7 @@ Catapult:
 		LocalOffset: 624,0,208
 	Armament@ElementalWepon2:
 		Name: secondary2
-		Weapon: CatapultElementalWeps
+		Weapon: CatapultElementalWeps2
 		RequiresCondition: elementalweps
 		LocalOffset: 624,0,208
 	Armament@3:
@@ -397,7 +561,7 @@ Catapult:
 		LocalOffset: 624,0,208
 	Armament@ElementalWepon3:
 		Name: secondary3
-		Weapon: CatapultElementalWeps
+		Weapon: CatapultElementalWeps3
 		RequiresCondition: elementalweps
 		LocalOffset: 624,0,208
 	WithAttackAnimation:
@@ -426,7 +590,7 @@ Trebuchet:
 	Buildable:
 		Queue: Vehicle
 		BuildAtProductionType: Workshop
-		Prerequisites: ~vehicles.medi, armorymedi
+		Prerequisites: ~vehicles.medi, techcenter, armorymedi
 		BuildPaletteOrder: 401
 		Description: Long-range artillery.\n  Strong vs Infantry, Buildings\n  Weak vs Vehicles, Aircraft
 	Valued:
@@ -538,7 +702,133 @@ Hwacha:
 	Voiced:
 		VoiceSet: SiegeWeaponVoice
 
-##Transport unit
+##Ballista
+Ballista:
+	Inherits: ^TrackedVehicle
+	Inherits@GAINSEXPERIENCE: ^GainsExperience
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Buildable:
+		Queue: Vehicle
+		BuildAtProductionType: Workshop
+		Prerequisites: ~vehicles.medi, techcenter, armorymedi
+		BuildPaletteOrder: 401
+		BuildDuration: 900
+		Description: Long-range Sniper artillery.\n  Strong vs Infantry, Vehicles\n  Weak vs Aircraft
+	Valued:
+		Cost: 1100
+	Tooltip:
+		Name: Ballista
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 15000
+	Armor:
+		Type: Light
+	Mobile:
+		TurnSpeed: 9
+		Speed: 70
+		Locomotor: heavywheeled
+	AutoTarget:
+		InitialStance: Defend
+		ScanRadius: 12
+	RevealsShroud:
+		MinRange: 4c0
+		Range: 5c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 4c0
+	Armament:
+		Weapon: ballistashot
+		PauseOnCondition: elementalweps
+		LocalOffset: 624,0,208
+	Armament@ElementalWepon:
+		Name: secondary
+		Weapon: BallistashotElementalWeps
+		RequiresCondition: elementalweps
+		LocalOffset: 624,0,208
+	WithAttackAnimation:
+		Sequence: shoot
+	WithAttackAnimation@2:
+		Armament: secondary
+		Sequence: shoot
+	AttackFrontal:
+		TargetFrozenActors: True
+		ForceFireIgnoresActors: True
+		FacingTolerance: 0
+	ProducibleWithLevel:
+		Prerequisites: vehicles.upgraded
+	RenderSprites:
+		Image: mediballista
+	Voiced:
+		VoiceSet: SiegeWeaponVoice
+
+##Longer Range, Anti Vehicle.
+Cannon:
+	Inherits: ^TrackedVehicle
+	Inherits@GAINSEXPERIENCE: ^GainsExperience
+	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
+	Buildable:
+		Queue: Vehicle
+		BuildAtProductionType: Workshop
+		Prerequisites: ~vehicles.medi, blacksmithmedi, ~!vehicles.elementalists
+		BuildPaletteOrder: 401
+		Description: Long-range artillery.\n  Strong vs Vehicles, Buildings\n  Weak vs Infantry
+	Valued:
+		Cost: 1000
+	Tooltip:
+		Name: Cannon
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 20000
+	Armor:
+		Type: Heavy
+	WithMoveAnimation:
+		MoveSequence: run
+	Mobile:
+		TurnSpeed: 16
+		Speed: 70
+		Locomotor: heavywheeled
+	AutoTarget:
+		InitialStance: Defend
+		ScanRadius: 11
+	RevealsShroud:
+		MinRange: 4c0
+		Range: 5c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 4c0
+	Armament:
+		Weapon: CannonShot
+		PauseOnCondition: elementalweps
+		LocalOffset: 624,0,208
+	Armament@ElementalWepon:
+		Name: secondary
+		Weapon: CannonShotElementalWeps
+		RequiresCondition: elementalweps
+		LocalOffset: 624,0,208
+	WithAttackAnimation:
+		Sequence: shoot
+	WithAttackAnimation@2:
+		Armament: secondary
+		Sequence: shoot
+	WithDeathAnimation:
+		DeathSequence: die
+	AttackFrontal:
+		Armaments: primary, secondary
+		FacingTolerance: 0
+	ProducibleWithLevel:
+		Prerequisites: vehicles.upgraded
+	RenderSprites:
+		Image: medicannon
+	Voiced:
+		VoiceSet: SiegeWeaponVoice
+
+###############################################################################
+#################################   Transport Units   #########################
+###############################################################################
+
+##Fast Transport
 Carriage:
 	Inherits: ^TrackedVehicle
 	Inherits@GAINSEXPERIENCE: ^GainsExperience
@@ -605,146 +895,7 @@ Carriage:
 		Position: BottomLeft
 		RequiresSelection: true
 
-##Sends Money to others
-TRUKMedi:
-	Inherits: ^TrackedVehicle
-	Inherits@selection: ^SelectableSupportUnit
-	Buildable:
-		Queue: Vehicle
-		BuildAtProductionType: Workshop
-		BuildPaletteOrder: 410
-		Prerequisites: ~vehicles.medi, armorymedi
-		Description: Transports cash to other players.\n  Unarmed
-	Valued:
-		Cost: 500
-	WithMoveAnimation:
-		MoveSequence: run
-	Tooltip:
-		Name: Supply Truck
-	Health:
-		HP: 11000
-	Armor:
-		Type: Light
-	Mobile:
-		Speed: 130
-	RevealsShroud:
-		Range: 4c0
-	DeliversCash:
-		Payload: 500
-		PlayerExperience: 50
-	SpawnActorOnDeath:
-		Actor: moneycrate
-	Selectable:
-		Bounds: 1280, 1280
-		DecorationBounds: 1280, 1280
-	RenderSprites:
-		Image: medicarriage
-
-##Boom?
-Trojan:
-	Inherits: ^TrackedVehicle
-	Buildable:
-		Queue: Vehicle
-		BuildAtProductionType: Workshop
-		BuildPaletteOrder: 330
-		Prerequisites: ~vehicles.medi, techcenter, armorymedi
-		Description: Truck with actively armed nuclear\nexplosives. Has very weak armor.
-	Valued:
-		Cost: 2000
-	Tooltip:
-		Name: Trojan
-	UpdatesPlayerStatistics:
-		AddToArmyValue: true
-	Health:
-		HP: 6000
-	Armor:
-		Type: Light
-	Mobile:
-		Speed: 85
-	RevealsShroud:
-		Range: 4c0
-	Explodes:
-		Weapon: TinyNuke
-		EmptyWeapon: TinyNuke
-		DamageSource: Killer
-	AttackFrontal:
-		FacingTolerance: 512
-	Armament@PRIMARY:
-		Weapon: DemoTruckTargeting
-	GrantConditionOnAttack:
-		Condition: triggered
-	GrantConditionOnDeploy:
-		DeployedCondition: triggered
-	-DamageMultiplier@IRONCURTAIN:
-	KillsSelf:
-		RequiresCondition: invulnerability || triggered
-	Chronoshiftable:
-		ExplodeInstead: true
-	RenderSprites:
-		Image: meditrojan
-	Voiced:
-		VoiceSet: SiegeWeaponVoice
-
-##Ballista
-Ballista:
-	Inherits: ^TrackedVehicle
-	Inherits@GAINSEXPERIENCE: ^GainsExperience
-	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
-	Buildable:
-		Queue: Vehicle
-		BuildAtProductionType: Workshop
-		Prerequisites: ~vehicles.medi, techcenter, armorymedi
-		BuildPaletteOrder: 401
-		BuildDuration: 900
-		Description: Long-range Sniper artillery.\n  Strong vs Infantry, Vehicles\n  Weak vs Aircraft
-	Valued:
-		Cost: 1100
-	Tooltip:
-		Name: Ballista
-	UpdatesPlayerStatistics:
-		AddToArmyValue: true
-	Health:
-		HP: 15000
-	Armor:
-		Type: Light
-	Mobile:
-		TurnSpeed: 9
-		Speed: 70
-		Locomotor: heavywheeled
-	AutoTarget:
-		InitialStance: Defend
-		ScanRadius: 12
-	RevealsShroud:
-		MinRange: 4c0
-		Range: 5c0
-		RevealGeneratedShroud: False
-	RevealsShroud@GAPGEN:
-		Range: 4c0
-	Armament:
-		Weapon: ballistashot
-		PauseOnCondition: elementalweps
-		LocalOffset: 624,0,208
-	Armament@ElementalWepon:
-		Name: secondary
-		Weapon: BallistashotElementalWeps
-		RequiresCondition: elementalweps
-		LocalOffset: 624,0,208
-	WithAttackAnimation:
-		Sequence: shoot
-	WithAttackAnimation@2:
-		Armament: secondary
-		Sequence: shoot
-	AttackFrontal:
-		TargetFrozenActors: True
-		ForceFireIgnoresActors: True
-		FacingTolerance: 0
-	ProducibleWithLevel:
-		Prerequisites: vehicles.upgraded
-	RenderSprites:
-		Image: mediballista
-	Voiced:
-		VoiceSet: SiegeWeaponVoice
-
+##Slow Armored Transport
 SiegeTower:
 	Inherits: ^TrackedVehicle
 	Inherits@GAINSEXPERIENCE: ^GainsExperience
@@ -824,6 +975,7 @@ SiegeTower:
 	ExternalCondition@demoralise:
 		Condition: demoralise
 
+##Siege Tower for bot use, Only Buildable by bots
 SIEGETOWER.Bot:
 	Inherits: SiegeTower
 	Buildable:
@@ -834,196 +986,11 @@ SIEGETOWER.Bot:
 		MaxWeight: 12
 		InitialUnits: lightningwizard, lightningwizard, crossbowman, crossbowman, crossbowman, wizard, wizard, musketeer, musketeer, e1of, dm4
 
+###############################################################################
+#################################   Golem Inherits   ##########################
+###############################################################################
 
-##Knight, sword horseman but more tanky
-
-
-Cannon:
-	Inherits: ^TrackedVehicle
-	Inherits@GAINSEXPERIENCE: ^GainsExperience
-	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
-	Buildable:
-		Queue: Vehicle
-		BuildAtProductionType: Workshop
-		Prerequisites: ~vehicles.medi, blacksmithmedi, ~!structures.elementalists
-		BuildPaletteOrder: 401
-		Description: Long-range artillery.\n  Strong vs Vehicles, Buildings\n  Weak vs Infantry
-	Valued:
-		Cost: 1000
-	Tooltip:
-		Name: Cannon
-	UpdatesPlayerStatistics:
-		AddToArmyValue: true
-	Health:
-		HP: 20000
-	Armor:
-		Type: Heavy
-	WithMoveAnimation:
-		MoveSequence: run
-	Mobile:
-		TurnSpeed: 16
-		Speed: 70
-		Locomotor: heavywheeled
-	AutoTarget:
-		InitialStance: Defend
-		ScanRadius: 11
-	RevealsShroud:
-		MinRange: 4c0
-		Range: 5c0
-		RevealGeneratedShroud: False
-	RevealsShroud@GAPGEN:
-		Range: 4c0
-	Armament:
-		Weapon: CannonShot
-		PauseOnCondition: elementalweps
-		LocalOffset: 624,0,208
-	Armament@ElementalWepon:
-		Name: secondary
-		Weapon: CannonShotElementalWeps
-		RequiresCondition: elementalweps
-		LocalOffset: 624,0,208
-	WithAttackAnimation:
-		Sequence: shoot
-	WithAttackAnimation@2:
-		Armament: secondary
-		Sequence: shoot
-	WithDeathAnimation:
-		DeathSequence: die
-	AttackFrontal:
-		Armaments: primary, secondary
-		FacingTolerance: 0
-	ProducibleWithLevel:
-		Prerequisites: vehicles.upgraded
-	RenderSprites:
-		Image: medicannon
-	Voiced:
-		VoiceSet: SiegeWeaponVoice
-
-HorseMusket:
-	Inherits: ^TrackedVehicle
-	Inherits@GAINSEXPERIENCE: ^GainsExperience
-	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
-	Buildable:
-		Queue: Vehicle
-		Prerequisites: ~vehicles.medi, blacksmithmedi, ~!structures.darkness, ~!structures.elementalists
-		BuildPaletteOrder: 401
-		Description: musketeer on horseback.\n  Strong vs Infantry\n  Weak vs Vehicles, Aircraft
-	Valued:
-		Cost: 700
-	Tooltip:
-		Name: Horse Musketeer
-	UpdatesPlayerStatistics:
-		AddToArmyValue: true
-	Health:
-		HP: 35000
-	Armor:
-		Type: Heavy
-	WithMoveAnimation:
-		MoveSequence: run
-	Mobile:
-		TurnSpeed: 120
-		Speed: 160
-		Locomotor: wheeled
-	AutoTarget:
-		InitialStance: AttackAnything
-		ScanRadius: 11
-	RevealsShroud:
-		MinRange: 4c0
-		Range: 5c0
-		RevealGeneratedShroud: False
-	RevealsShroud@GAPGEN:
-		Range: 4c0
-	Armament:
-		Weapon: MusketeerHorseShot
-		PauseOnCondition: elementalweps
-	Armament@ElementalWepon:
-		Name: secondary
-		Weapon: MusketeerHorseShotElementalWeps
-		RequiresCondition: elementalweps
-	WithAttackAnimation@2:
-		Armament: secondary
-		Sequence: shoot
-	WithAttackAnimation:
-		Sequence: shoot
-	WithDeathAnimation:
-		DeathSequence: die
-	AttackFrontal:
-		Armaments: primary, secondary
-		FacingTolerance: 0
-	ProducibleWithLevel:
-		Prerequisites: vehicles.upgraded
-	RenderSprites:
-		Image: medihorsemusket
-	Voiced:
-		VoiceSet: SwordmanVoice
-	SpawnActorOnDeath:
-		Actor: MUSKETEER
-
-
-
-MetalElemental:
-	Inherits@MediSoldier: ^MediSoldier
-	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
-	-TakeCover:
-	-Cloneable:
-	Buildable:
-		Prerequisites: ~vehicles.elementalists, advtechcenter
-		Queue: Vehicle
-		BuildAtProductionType: Soldier
-		BuildPaletteOrder: 417
-		BuildDuration: 1000
-		BuildLimit: 5
-		Description: Metal Elemental
-	-Passenger:
-	-Crushable:
-	Valued:
-		Cost: 3500
-	UpdatesPlayerStatistics:
-		AddToArmyValue: true
-	Tooltip:
-		Name: Metal Elemental
-	Armor:
-		Type: Heavy
-	Health:
-		HP: 40000
-	Mobile:
-		Speed: 60
-		Locomotor: foot2
-	Selectable:
-		Bounds: 1450, 1877, 0, -768
-		DecorationBounds: 1450, 1877, 0, -768
-	SelectionDecorations:
-	RevealsShroud:
-		Range: 8c512
-	Armament@Inf:
-		Name: Secondary
-		Weapon: MetalElementalInfantry
-	Armament@NonInf:
-		Name: Primary
-		Weapon: MetalElementalNonInfantry
-	AttackFrontal:
-		Armaments: Primary, Secondary
-		FacingTolerance: 200
-	AutoTarget:
-		InitialStance: AttackAnything
-		ScanRadius: 8
-	AutoTargetPriority@DEFAULT:
-		ValidTargets: GroundActor, Infantry
-	WithInfantryBody:
-		DefaultAttackSequence: shoot
-	Targetable:
-		TargetTypes: GroundActor, Vehicle
-	RenderSprites:
-		Image: mediabomination
-	ExternalCondition@PRODUCED:
-		Condition: produced
-	VoiceAnnouncement:
-		RequiresCondition: produced
-		Voice: Build
-	Voiced:
-		VoiceSet: AbominationVoice
-
-
+##Base for Golem Varients.
 MEDIABOMINATION:
 	Inherits@MediSoldier: ^MediSoldier
 	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
@@ -1083,26 +1050,6 @@ MEDIABOMINATIONTemp:
 	KillsSelf:
 		Delay: 250, 1000
 
-
-MEDIGolem:
-	Inherits: MEDIABOMINATION
-	Tooltip:
-		Name: Golem
-	Buildable:
-		Prerequisites: ~vehicles.elementalists, advtechcenter
-		Description: Tank unit, Slow and Heavy \n Strong vs All Ground \n Weak vs Air, Mobile Range units
-		Queue: Vehicle
-		BuildAtProductionType: Soldier
-		BuildPaletteOrder: 417
-		BuildDuration: 1500
-		BuildLimit: 5
-	Health:
-		HP: 156969
-	SpawnActorOnDeath@Golem:
-		Actor: MEDIGolemMini
-	SpawnActorOnDeath@Golem2:
-		Actor: MEDIGolemMini
-
 MEDIGolemDrop:
 	Inherits: MEDIGolem
 	-Buildable:
@@ -1121,3 +1068,90 @@ MEDIGolemMini:
 	-SpawnActorOnDeath@Golem2:
 	Mobile:
 		Speed: 60
+
+###############################################################################
+#################################   Elemental Units  ##########################
+###############################################################################
+
+##Strong slow walking Siege unit, Kills most things quite well but costs a lot.
+MetalElemental:
+	Inherits@MediSoldier: ^MediSoldier
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	-TakeCover:
+	-Cloneable:
+	Buildable:
+		Prerequisites: ~vehicles.elementalists, alchemylab
+		Queue: Vehicle
+		BuildAtProductionType: Soldier
+		BuildPaletteOrder: 417
+		BuildDuration: 1000
+		BuildLimit: 5
+		Description: Metal Elemental
+	-Passenger:
+	-Crushable:
+	Valued:
+		Cost: 3500
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Tooltip:
+		Name: Metal Elemental
+	Armor:
+		Type: Heavy
+	Health:
+		HP: 40000
+	Mobile:
+		Speed: 60
+		Locomotor: foot2
+	Selectable:
+		Bounds: 1450, 1877, 0, -768
+		DecorationBounds: 1450, 1877, 0, -768
+	SelectionDecorations:
+	RevealsShroud:
+		Range: 8c512
+	Armament@Inf:
+		Name: Secondary
+		Weapon: MetalElementalInfantry
+	Armament@NonInf:
+		Name: Primary
+		Weapon: MetalElementalNonInfantry
+	AttackFrontal:
+		Armaments: Primary, Secondary
+		FacingTolerance: 200
+	AutoTarget:
+		InitialStance: AttackAnything
+		ScanRadius: 8
+	AutoTargetPriority@DEFAULT:
+		ValidTargets: GroundActor, Infantry
+	WithInfantryBody:
+		DefaultAttackSequence: shoot
+	Targetable:
+		TargetTypes: GroundActor, Vehicle
+	RenderSprites:
+		Image: mediabomination
+	ExternalCondition@PRODUCED:
+		Condition: produced
+	VoiceAnnouncement:
+		RequiresCondition: produced
+		Voice: Build
+	Voiced:
+		VoiceSet: AbominationVoice
+
+##Slow, high HP golem
+MEDIGolem:
+	Inherits: MEDIABOMINATION
+	Tooltip:
+		Name: Golem
+	Buildable:
+		Prerequisites: ~vehicles.elementalists, alchemylab
+		Description: Tank unit, Slow and Heavy \n Strong vs All Ground \n Weak vs Air, Mobile Range units
+		Queue: Vehicle
+		BuildAtProductionType: Soldier
+		BuildPaletteOrder: 417
+		BuildDuration: 1500
+		BuildLimit: 5
+	Health:
+		HP: 156969
+	SpawnActorOnDeath@Golem:
+		Actor: MEDIGolemMini
+	SpawnActorOnDeath@Golem2:
+		Actor: MEDIGolemMini
