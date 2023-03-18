@@ -205,7 +205,7 @@ Bow:
 		DamageTypes: Prone50Percent, TriggerProne, DefaultDeath
 
 Crossbow:
-	ValidTargets: GroundActor, WaterActor, Ground, Water
+	ValidTargets: GroundActor, WaterActor, Ground, Water, Air, AirborneActor
 	ReloadDelay: 80
 	Range: 8c0
 	Report: crossbowmanshoot1.aud,crossbowmanshoot2.aud,crossbowmanshoot3.aud
@@ -213,7 +213,7 @@ Crossbow:
 		Speed: 450
 		Image: DRAGON
 		ContrailLength: 8
-	Warhead@1Dam: SpreadDamage
+	Warhead@GDam: SpreadDamage
 		Spread: 128
 		Damage: 2500
 		ValidTargets: GroundActor, WaterActor
@@ -224,16 +224,6 @@ Crossbow:
 			Heavy: 35
 			Concrete: 20
 		DamageTypes: Prone50Percent, TriggerProne, DefaultDeath
-
-CrossbowAA:
-	ValidTargets: Air, AirborneActor
-	ReloadDelay: 80
-	Range: 8c0
-	Report: crossbowmanshoot1.aud,crossbowmanshoot2.aud,crossbowmanshoot3.aud
-	Projectile: Missile
-		Speed: 450
-		Image: DRAGON
-		ContrailLength: 8
 	Warhead@1Dam: SpreadDamage
 		Spread: 128
 		Damage: 1000
@@ -243,7 +233,7 @@ CrossbowAA:
 CrossbowFire:
 	Inherits: Crossbow
 	Range: 8c5
-	Warhead@1Dam: SpreadDamage
+	Warhead@GDam: SpreadDamage
 		Spread: 128
 		Damage: 2800
 		Versus:
@@ -253,19 +243,9 @@ CrossbowFire:
 			Heavy: 35
 			Concrete: 30
 
-CrossbowFireAA:
-	Inherits: CrossbowAA
-	Range: 8c5
-	Warhead@1Dam: SpreadDamage
-		Spread: 128
-		Damage: 1000
 
 HorseCrossbow:
 	Inherits: Crossbow
-	ReloadDelay: 68
-
-HorseCrossbowAA:
-	Inherits: CrossbowAA
 	ReloadDelay: 68
 
 Hwachaarrow:
@@ -281,11 +261,11 @@ Hwachaarrow:
 		Image: DRAGON
 		ContrailLength: 0
 		Inaccuracy: 3c0
-	Warhead@1Dam: SpreadDamage
+	Warhead@GDam: SpreadDamage
 		Spread: 256
 		Versus:
 			Wood: 30
-	Warhead@2Dam: SpreadDamage
+	Warhead@1Dam: SpreadDamage
 		Spread: 256
 		Damage: 2000
 		ValidTargets: Air, AirborneActor
@@ -530,24 +510,8 @@ CrossbowFireElementalWeps:
 		ValidTargets: GroundActor, WaterActor
 		ValidRelationships: Enemy, Neutral
 
-CrossbowFireElementalWepsAA:
-	Inherits: CrossbowFireAA
-	Warhead@ElementalWarhead: GrantExternalCondition
-		Condition: corrode
-		Duration: 300
-		ValidTargets: GroundActor, WaterActor
-		ValidRelationships: Enemy, Neutral
-
 HorseCrossbowElementalWeps:
 	Inherits: HorseCrossbow
-	Warhead@ElementalWarhead: GrantExternalCondition
-		Condition: corrode
-		Duration: 300
-		ValidTargets: GroundActor, WaterActor
-		ValidRelationships: Enemy, Neutral
-
-HorseCrossbowElementalWepsAA:
-	Inherits: HorseCrossbowAA
 	Warhead@ElementalWarhead: GrantExternalCondition
 		Condition: corrode
 		Duration: 300
@@ -1194,8 +1158,8 @@ MetalElementalInfantry:
 	TargetActorCenter: True
 	Projectile: Bullet
 		Blockable: True
-		Speed: 350
-		LaunchAngle: 2
+		Speed: 200, 400
+		LaunchAngle: 1, 10
 		Inaccuracy: 2
 		Image: catapultshot
 		Shadow: True
@@ -1204,7 +1168,7 @@ MetalElementalInfantry:
 		Damage: 10000
 		ValidTargets: GroundActor, Infantry, Cyborg, AirborneActor
 		Versus:
-			None: 100
+			None: 150
 			Wood: 5
 			Light: 40
 			Heavy: 40

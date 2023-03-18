@@ -71,6 +71,18 @@ MCVM.3:
 	Targetable:
 		RequiresCondition: !parachute
 		TargetTypes: GroundActor, Infantry, Vehicle
+	Mobile:
+		TurnSpeed: 160
+		Speed: 160
+		Locomotor: wheeled
+
+^MediSiege:
+	Mobile:
+		TurnSpeed: 12
+		Speed: 60
+		Locomotor: heavywheeled
+	Armor:
+		Type: Light
 
 ###############################################################################
 ##############################   Utility and Misc   ###########################
@@ -184,10 +196,6 @@ HorseCrossbowman:
 		Type: None
 	WithMoveAnimation:
 		MoveSequence: run
-	Mobile:
-		TurnSpeed: 120
-		Speed: 160
-		Locomotor: wheeled
 	AutoTarget:
 		InitialStance: AttackAnything
 		ScanRadius: 9
@@ -204,16 +212,6 @@ HorseCrossbowman:
 	Armament@ElementalWepon:
 		Name: secondary
 		Weapon: HorseCrossbowElementalWeps
-		RequiresCondition: elementalweps
-		LocalOffset: 624,0,208
-	Armament@AA:
-		Name: secondary2
-		Weapon: HorseCrossbowAA
-		PauseOnCondition: elementalweps
-		LocalOffset: 624,0,208
-	Armament@AAElementalWepon:
-		Name: secondary3
-		Weapon: HorseCrossbowElementalWepsAA
 		RequiresCondition: elementalweps
 		LocalOffset: 624,0,208
 	WithAttackAnimation:
@@ -261,10 +259,6 @@ HorseSwordman:
 		Type: None
 	WithMoveAnimation:
 		MoveSequence: run
-	Mobile:
-		TurnSpeed: 160
-		Speed: 160
-		Locomotor: wheeled
 	AutoTarget:
 		InitialStance: AttackAnything
 		ScanRadius: 6
@@ -337,10 +331,6 @@ HorsePaladin:
 		Palette: effect
 		Position: TopRight
 		ValidRelationships: None,Neutral,Enemy,Ally
-	Mobile:
-		TurnSpeed: 160
-		Speed: 160
-		Locomotor: wheeled
 	Armament:
 		Weapon: PaladinSword
 		PauseOnCondition: elementalweps
@@ -391,10 +381,6 @@ HorseScout:
 		Type: None
 	WithMoveAnimation:
 		MoveSequence: run
-	Mobile:
-		TurnSpeed: 36
-		Speed: 230
-		Locomotor: wheeled
 	RevealsShroud:
 		MinRange: 6c0
 		Range: 12c512
@@ -445,10 +431,6 @@ HorseMusket:
 		Type: Heavy
 	WithMoveAnimation:
 		MoveSequence: run
-	Mobile:
-		TurnSpeed: 120
-		Speed: 160
-		Locomotor: wheeled
 	AutoTarget:
 		InitialStance: AttackAnything
 		ScanRadius: 11
@@ -491,6 +473,7 @@ HorseMusket:
 ##Ranged Artilary unit
 Catapult:
 	Inherits: ^TrackedVehicle
+	Inherits@Msiege: ^MediSiege
 	Inherits@GAINSEXPERIENCE: ^GainsExperience
 	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
 	Buildable:
@@ -508,14 +491,8 @@ Catapult:
 		AddToArmyValue: true
 	Health:
 		HP: 15000
-	Armor:
-		Type: Light
 	WithMoveAnimation:
 		MoveSequence: run
-	Mobile:
-		TurnSpeed: 10
-		Speed: 70
-		Locomotor: heavywheeled
 	AutoTarget:
 		InitialStance: Defend
 		ScanRadius: 10
@@ -585,6 +562,7 @@ Catapult:
 ##Very long Ranged Artilary unit
 Trebuchet:
 	Inherits: ^TrackedVehicle
+	Inherits@Msiege: ^MediSiege
 	Inherits@GAINSEXPERIENCE: ^GainsExperience
 	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
 	Buildable:
@@ -601,14 +579,8 @@ Trebuchet:
 		AddToArmyValue: true
 	Health:
 		HP: 10000
-	Armor:
-		Type: Light
 	WithMoveAnimation:
 		MoveSequence: run
-	Mobile:
-		TurnSpeed: 8
-		Speed: 60
-		Locomotor: heavywheeled
 	AutoTarget:
 		InitialStance: Defend
 		ScanRadius: 13
@@ -639,6 +611,7 @@ Trebuchet:
 ##Long range AOE for killing Infantry
 Hwacha:
 	Inherits: ^TrackedVehicle
+	Inherits@Msiege: ^MediSiege
 	Inherits@GAINSEXPERIENCE: ^GainsExperience
 	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
 	Buildable:
@@ -662,10 +635,6 @@ Hwacha:
 	WithAttackAnimation@2:
 		Armament: secondary
 		Sequence: shoot
-	Armor:
-		Type: Light
-	Mobile:
-		Speed: 80
 	AutoTarget:
 		InitialStance: Defend
 		ScanRadius: 11
@@ -705,6 +674,7 @@ Hwacha:
 ##Ballista
 Ballista:
 	Inherits: ^TrackedVehicle
+	Inherits@Msiege: ^MediSiege
 	Inherits@GAINSEXPERIENCE: ^GainsExperience
 	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
 	Buildable:
@@ -722,12 +692,6 @@ Ballista:
 		AddToArmyValue: true
 	Health:
 		HP: 15000
-	Armor:
-		Type: Light
-	Mobile:
-		TurnSpeed: 9
-		Speed: 70
-		Locomotor: heavywheeled
 	AutoTarget:
 		InitialStance: Defend
 		ScanRadius: 12
@@ -765,6 +729,7 @@ Ballista:
 ##Longer Range, Anti Vehicle.
 Cannon:
 	Inherits: ^TrackedVehicle
+	Inherits@Msiege: ^MediSiege
 	Inherits@GAINSEXPERIENCE: ^GainsExperience
 	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
 	Buildable:
@@ -785,10 +750,6 @@ Cannon:
 		Type: Heavy
 	WithMoveAnimation:
 		MoveSequence: run
-	Mobile:
-		TurnSpeed: 16
-		Speed: 70
-		Locomotor: heavywheeled
 	AutoTarget:
 		InitialStance: Defend
 		ScanRadius: 11

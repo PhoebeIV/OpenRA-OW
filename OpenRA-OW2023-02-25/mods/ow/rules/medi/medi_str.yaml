@@ -2013,7 +2013,7 @@ ARCHERTOWER:
 		RequiresCondition: medidefenceup1
 	Armament@PRIMARY2:
 		Name: PRIMARY2
-		Weapon: CrossbowAA
+		Weapon: Crossbow
 		RequiresCondition: medidefenceup1
 	Armament@SECONDARY1:
 		Name: SECONDARY1
@@ -2046,8 +2046,14 @@ ARCHERTOWER:
 		Actor: archertower2
 		DeathType: Transf1D
 		SpawnAfterDefeat: False
+	ActorLostNotification:
+		RequiresCondition: TransStage
+	GrantCondition@NoLossSound:
+		Condition: TransStage
+		RequiresCondition: Transf1 && !TransStop
 	KillsSelf:
 		DamageTypes: Transf1D
+		Delay: 10
 		RequiresCondition: Transf1 && !TransStop
 		PauseOnCondition: chrono-vortex || being-captured || being-demolished || build-incomplete || TransStop2 || TransStop3 || TransStop
 
@@ -2069,8 +2075,12 @@ ARCHERTOWER2:
 		Actor: archertower3
 		DeathType: Transf2D
 		SpawnAfterDefeat: False
+	GrantCondition@NoLossSound:
+		Condition: TransStage
+		RequiresCondition: Transf2 && !TransStop
 	KillsSelf:
 		DamageTypes: Transf2D
+		Delay: 10
 		RequiresCondition: Transf2 && !TransStop
 		PauseOnCondition: chrono-vortex || being-captured || being-demolished || build-incomplete || TransStop3 || TransStop
 
@@ -2092,6 +2102,9 @@ ARCHERTOWER3:
 		Actor: archertower4
 		DeathType: Transf3D
 		SpawnAfterDefeat: False
+	GrantCondition@NoLossSound:
+		Condition: TransStage
+		RequiresCondition: Transf3 && !TransStop
 	KillsSelf:
 		DamageTypes: Transf3D
 		RequiresCondition: Transf3 && !TransStop
@@ -2112,6 +2125,7 @@ ARCHERTOWER4:
 	GrantConditionOnPrerequisite@T4:
 		Condition: TransStop
 		Prerequisites: ~upgrade.mediarrowmusk
+	-GrantCondition@NoLossSound:
 
 ##Deployed version of scout
 SCOUTTOWER:
