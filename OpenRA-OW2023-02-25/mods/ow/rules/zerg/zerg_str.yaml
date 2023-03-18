@@ -116,6 +116,11 @@ CreepGenBig:
 	-AppearsOnMapPreview:
 	-MapEditorData:
 	-RequiresSpecificOwners:
+	-ChangesHealth@1:
+	-ChangesHealth@2:
+	-ExplosionOnDamageTransition:
+	Targetable:
+		TargetTypes: CreepGenerator
 	Health:
 		HP: 500000
 	ExternalCondition@creep:
@@ -163,6 +168,7 @@ ZHATCHERY:
 	Inherits@prereqs: ^ConYardPrereqs
 	Inherits@con: ^ConYard
 	Inherits@shape: ^2x3Shape
+	Inherits@PRIMARY: ^PrimaryBuilding
 	Production@Bot:
 		Produces: Bot
 		RequiresCondition: botowner
@@ -249,7 +255,7 @@ ZCCOLONY:
 		Prerequisites: ~disabled
 		Description: Spreads creep.
 	Health:
-		HP: 150000
+		HP: 40000
 	Armor:
 		Type: Wood
 	RevealsShroud:
@@ -259,7 +265,7 @@ ZCCOLONY:
 	RevealsShroud@GAPGEN:
 		Range: 4c0
 	Valued:
-		Cost: 2000
+		Cost: 500
 	Tooltip:
 		Name: Creep Colony
 	BaseBuilding:
@@ -269,6 +275,8 @@ ZCCOLONY:
 		DeathSequence: dead
 		UseDeathTypeSuffix: false
 	ProvidesPrerequisite@buildingname:
+	ProvidesPrerequisite@power:
+		Prerequisite: anypower
 	WithIdleOverlay@damage:
 		RequiresCondition: damaged
 		Sequence: blood1
@@ -281,11 +289,79 @@ ZCCOLONY:
 		RequiresCondition: damaged3
 		Sequence: blood4
 		Offset: -256,0,0
+	Explodes:
+		Type: CenterPosition
+		Weapon: SmallZergBuildingExplode
+		EmptyWeapon: SmallZergBuildingExplode
 	FreeActor:
 		Actor: CreepSpawnerMedium
 		SpawnOffset: 1,0
 		RequiresCondition: !build-incomplete
 	FreeActor@effect_complete:
 		Actor: SmallZergBuildingComplete
+		SpawnOffset: 1,0
+		RequiresCondition: !build-incomplete
+
+ZEXTRAC:
+	Inherits: ^ZergBuilding
+	Inherits@shape: ^3x2Shape
+	Building:
+		Footprint: +++ xxx ===
+		Dimensions: 3,3
+		LocalCenterOffset: 0,-768,0
+	Selectable:
+		Bounds: 3072, 3072, 0, -426
+	Buildable:
+		Queue: Wall
+		BuildPaletteOrder: 450
+		Prerequisites: ~disabled
+		Description: Stores and refines resources.
+	Health:
+		HP: 90000
+	Armor:
+		Type: Wood
+	RevealsShroud:
+		MinRange: 4c0
+		Range: 5c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 4c0
+	Refinery:
+		DockAngle: 0
+		DockOffset: 1,0
+	StoresResources:
+		Capacity: 2000
+	Valued:
+		Cost: 800
+	Tooltip:
+		Name: Extractor
+	BaseBuilding:
+	Sellable:
+		RequiresCondition: !build-incomplete && !chrono-vortex && !being-captured && !being-demolished
+	WithDeathAnimation:
+		DeathSequence: dead
+		UseDeathTypeSuffix: false
+	ProvidesPrerequisite@buildingname:
+	ProvidesPrerequisite:
+		Prerequisite: refinery
+	WithIdleOverlay@damage:
+		RequiresCondition: damaged
+		Sequence: blood1
+		Offset: 1500,-512,0
+	WithIdleOverlay@damage2:
+		RequiresCondition: damaged2
+		Sequence: blood3
+		Offset: 512,700,0
+	WithIdleOverlay@damage3:
+		RequiresCondition: damaged3
+		Sequence: blood4
+		Offset: -1256,0,0
+	InfiltrateForCash:
+		Percentage: 50
+		Types: SpyInfiltrate, ThiefInfiltrate
+		InfiltratedNotification: CreditsStolen
+		Maximum: 5000
+	FreeActor@effect_complete:
+		Actor: MediumZergBuildingComplete
 		SpawnOffset: 1,0
 		RequiresCondition: !build-incomplete

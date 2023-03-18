@@ -12,10 +12,11 @@ ZDRONE:
 		Cost: 500
 	Tooltip:
 		Name: Zerg Drone
+		GenericName: Zerg Drone
 	Selectable:
 		DecorationBounds: 1365, 1365
 	Harvester:
-		Capacity: 10
+		Capacity: 8
 		Resources: Ore,Gems,Tiberium,BlueTiberium
 		BaleUnloadDelay: 1
 		BaleUnloadAmount: 10
@@ -37,15 +38,26 @@ ZDRONE:
 	WithHarvestAnimation:
 		HarvestSequence: shoot
 	WithDockingAnimation:
-		DockSequence: stand
+		DockSequence: run
+		DockLoopSequence: run
 	WithMoveAnimation:
 		MoveSequence: run
 	WithDeathAnimation:
 		DeathSequence: die
-		UseDeathTypeSuffix: false
+		UseDeathTypeSuffix: true
+		DeathTypes: 
+			DefaultDeath: 1
+			FireDeath: 1
+			TiberiumDeath: 1
+			ExplosionDeath: 1
+			ElectricityDeath: 1
+			BulletDeath: 1
+			SmallExplosionDeath: 1
 	DeathSounds:
+		DeathTypes: DefaultDeath, FireDeath, TiberiumDeath, ExplosionDeath, ElectricityDeath, BulletDeath, SmallExplosionDeath
 	GpsDot:
 		String: Harvester
+	-Explodes:
 	WithFacingSpriteBody:
 	WithHarvesterPipsDecoration:
 		Position: BottomLeft
@@ -78,11 +90,15 @@ ZDRONE:
 		ConsumedByCapture: true
 	ProvidesPrerequisite@self:
 	RenderSprites:
+		Image: zdrone
 	Voiced:
 		VoiceSet: ZergDroneVoice
+	ActorLostNotification:
+		RequiresCondition: !waiting_to_evolve
 	GrantConditionOnProduction@waiting_to_evolve:
 		Condition: waiting_to_evolve
 	WithDecoration@waiting_to_evolve:
+		Image: zdrone
 		RequiresCondition: waiting_to_evolve
 		Sequence: evolve
 		Offset: 0,768,768
@@ -109,26 +125,53 @@ ZDRONE:
 	GrantConditionOnProduction@hatchery:
 		Condition: str_hatchery
 		Actors: ZE.HATCHERY, ZE.HATCHERY2
-	GrantConditionOnProduction@colony:
-		Condition: str_colony
-		Actors: ZE.COLONY
 	Transforms:
 		IntoActor: zhatchery
 		TransformSounds: zbldgplc.aud
 		Facing: -256
 		Offset: -1,0
 		RequiresCondition: str_hatchery
-	
+	GrantConditionOnProduction@colony:
+		Condition: str_colony
+		Actors: ZE.COLONY
+	KillsSelf@colony:
+		RequiresCondition: str_colony || str_extrac
+		DamageTypes: no_sound
+		Delay: 10
+	SpawnActorOnDeath@colony:
+		Actor: ZDRONE.colony
+		RequiresCondition: str_colony
+	GrantConditionOnProduction@extrac:
+		Condition: str_extrac
+		Actors: ZE.EXTRAC
+	SpawnActorOnDeath@extrac:
+		Actor: ZDRONE.extrac
+		RequiresCondition: str_extrac
 
 
 ZDRONE.colony:
-	Inherits: ZDRONE
+	Inherits@drone: ZDRONE
 	-Buildable:
+	Tooltip:
+		Name: Drone (Evolving: Creep Colony)
+	GrantCondition:
+		Condition: waiting_to_evolve
+	-Transforms:
 	Transforms:
 		IntoActor: zccolony
 		TransformSounds: zbldgplc.aud
 		Offset: -1,0
-		RequiresCondition: str_colony
+		Facing: -256
+
+ZDRONE.extrac:
+	Inherits@drone: ZDRONE.colony
+	Tooltip:
+		Name: Drone (Evolving: Extractor)
+	Transforms:
+		IntoActor: zextrac
+		TransformSounds: zbldgplc.aud
+		Offset: -1,0
+		Facing: -256
 
 ^ZergEvolve:
 	Buildable:
@@ -167,9 +210,21 @@ ZE.COLONY:
 		Name: Evolve into Creep Colony
 	Buildable:
 		Description: Spreads creep, can be evolved into \n defensive structures. \n\nMust be placed on creep.
-		Prerequisites: ~techlevel.medium, ~zdrone
+		Prerequisites: ~techlevel.infonly, ~zdrone
 		BuildDuration: 300
 	Valued:
-		Cost: 0
+		Cost: 50
 	RenderSprites:
 		Image: zccolony
+
+ZE.EXTRAC:
+	Inherits: ^ZergEvolve
+	Tooltip:
+		Name: Evolve into Extractor
+		Description: Refines and stores resources. \n\nMust be placed on creep.
+		Prerequisites: ~techlevel.infonly, ~zdrone
+		BuildDuration: 1000
+	Valued:
+		Cost: 300
+	RenderSprites:
+		Image: zextrac
