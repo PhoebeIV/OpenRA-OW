@@ -24,6 +24,7 @@
 				PathingCost: 300
 			BlueTiberium: 70
 				PathingCost: 300
+			Creep: 80
 			Beach: 80
 	Locomotor@FOOT2:
 		Name: foot2
@@ -33,12 +34,13 @@
 			Rough: 80
 			Road: 100
 			Bridge: 100
-			Ore: 100
-			Gems: 100
+			Ore: 80
+			Gems: 80
 			Tiberium: 70
 				PathingCost: 300
 			BlueTiberium: 70
 				PathingCost: 300
+			Creep: 80
 			Beach: 80
 	Locomotor@WHEELED:
 		Name: wheeled
@@ -52,6 +54,7 @@
 			Gems: 70
 			Tiberium: 70
 			BlueTiberium: 70
+			Creep: 70
 			Beach: 40
 	Locomotor@HEAVYWHEELED:
 		Name: heavywheeled
@@ -65,6 +68,7 @@
 			Gems: 70
 			Tiberium: 70
 			BlueTiberium: 70
+			Creep: 70
 			Beach: 40
 	Locomotor@LIGHTTRACKED:
 		Name: lighttracked
@@ -78,6 +82,7 @@
 			Gems: 70
 			Tiberium: 70
 			BlueTiberium: 70
+			Creep: 70
 			Beach: 70
 	Locomotor@TRACKED:
 		Name: tracked
@@ -91,6 +96,7 @@
 			Gems: 70
 			Tiberium: 70
 			BlueTiberium: 70
+			Creep: 70
 			Beach: 70
 	Locomotor@HEAVYTRACKED:
 		Name: heavytracked
@@ -104,6 +110,7 @@
 			Gems: 70
 			Tiberium: 70
 			BlueTiberium: 70
+			Creep: 70
 			Beach: 70
 	Locomotor@NAVAL:
 		Name: naval
@@ -131,6 +138,7 @@
 			BlueTiberium: 35
 			Ore: 35
 			Gems: 35
+			Creep: 70
 			Beach: 35
 	Locomotor@DRONE:
 		Name: drone
@@ -144,6 +152,7 @@
 			Gems: 100
 			Tiberium: 100
 			BlueTiberium: 100
+			Creep: 100
 			Beach: 90
 			Water: 80
 			Wall: 50
@@ -165,6 +174,7 @@
 			Water: 100
 			Wall: 100
 			Rock: 100
+			Creep: 100
 			River: 100
 	Locomotor@PARTICLE_BEAM:
 		Name: locomotorparticlebeam
@@ -182,6 +192,7 @@
 			Wall: 100
 			Rock: 100
 			River: 100
+			Creep: 100
 	Locomotor@HOVER:
 		Name: hover
 		Crushes: crate
@@ -194,6 +205,7 @@
 			Gems: 100
 			Tiberium: 100
 			BlueTiberium: 100
+			Creep: 100
 			Beach: 90
 			Water: 80
 			River: 80
@@ -209,6 +221,7 @@
 			Gems: 80
 			Tiberium: 80
 			BlueTiberium: 80
+			Creep: 80
 			Beach: 70
 	JumpjetLocomotor@JUMPJET:
 		Name: jumpjet
@@ -225,6 +238,7 @@
 			Beach: 80
 			Jumpjet: 110
 			Ore: 70
+			Creep: 70
 			Gems: 70
 	JumpjetActorLayer:
 		HeightOffset: 1280
@@ -241,6 +255,7 @@
 			Gems: 100
 			Tiberium: 100
 			BlueTiberium: 100
+			Creep: 100
 			Beach: 100
 			Water: 75
 			Rock: 50
@@ -254,11 +269,12 @@
 			Rough: 100
 			Road: 100
 			Bridge: 100
-			Ore: 100
-			Gems: 100
-			Tiberium: 100
-			BlueTiberium: 100
-			Beach: 100
+			Ore: 90
+			Gems: 90
+			Tiberium: 90
+			BlueTiberium: 90
+			Beach: 90
+			Creep: 90
 			Rock: 50
 			River: 50
 	TerrainRenderer:
@@ -458,6 +474,11 @@
 		InternalName: protoss
 		Side: StarCraft
 		Description: ancient aliens
+	Faction@zerg:
+		Name: Zerg
+		InternalName: zerg
+		Side: StarCraft
+		Description: ancient aliens but evil
 	Faction@usa:
 		Name: USA
 		InternalName: usa
@@ -550,6 +571,10 @@
 				Name: Gold
 				Palette: player
 				Sequences: rtib1,rtib2,rtib3,rtib4,rtib5,rtib6,rtib7,rtib8,rtib9,rtib10,rtib11,rtib12
+			ZergCreep:
+				Name: Creep
+				Palette: player
+				Sequences: zcreep00,zcreep01,zcreep02,zcreep03,zcreep04,zcreep05
 	ControlGroups:
 
 World:
@@ -594,27 +619,32 @@ World:
 			Ore:
 				ResourceIndex: 1
 				TerrainType: Ore
-				AllowedTerrainTypes: Clear,Road
+				AllowedTerrainTypes: Clear,Road,Creep
 				MaxDensity: 12
 			Gems:
 				ResourceIndex: 2
 				TerrainType: Gems
-				AllowedTerrainTypes: Clear,Road
+				AllowedTerrainTypes: Clear,Road,Creep
 				MaxDensity: 3
 			Tiberium:
 				ResourceIndex: 3
 				TerrainType: Tiberium
-				AllowedTerrainTypes: Clear,Road
+				AllowedTerrainTypes: Clear,Road,Creep
 				MaxDensity: 8
 			BlueTiberium:
 				ResourceIndex: 4
 				TerrainType: BlueTiberium
-				AllowedTerrainTypes: Clear,Road
+				AllowedTerrainTypes: Clear,Road,Creep
 				MaxDensity: 4
 			MediGold:
 				ResourceIndex: 5
 				TerrainType: Ore
 				MaxDensity: 10
+				AllowedTerrainTypes: Clear,Road,Creep
+			ZergCreep:
+				ResourceIndex: 6
+				TerrainType: Creep
+				MaxDensity: 6
 				AllowedTerrainTypes: Clear,Road
 	ResourceClaimLayer:
 	WarheadDebugOverlay:
@@ -663,6 +693,12 @@ World:
 		ClassName: MCV Only
 		Factions: protoss
 		BaseActor: pmcv
+		SupportActors: upgrade.spawn
+	StartingUnits@mcvonlyzerg:
+		Class: none
+		ClassName: MCV Only
+		Factions: zerg
+		BaseActor: zmcv
 		SupportActors: upgrade.spawn
 	StartingUnits@mcvusaonly:
 		Class: none
@@ -756,6 +792,14 @@ World:
 		Factions: protoss
 		BaseActor: pmcv
 		SupportActors: pzealot,pzealot,pzealot,pzealot,pdrago,upgrade.spawn
+		InnerSupportRadius: 3
+		OuterSupportRadius: 5
+	StartingUnits@lightzerg:
+		Class: light
+		ClassName: Light Support
+		Factions: zerg
+		BaseActor: zmcv
+		SupportActors: upgrade.spawn
 		InnerSupportRadius: 3
 		OuterSupportRadius: 5
 	StartingUnits@lightusa:
@@ -860,6 +904,14 @@ World:
 		Factions: protoss
 		BaseActor: pmcv
 		SupportActors: pzealot,pzealot,pzealot,pzealot,pzealot,pzealot,pzealot,pzealot,pdrago,pdrago,pdrago,pdrago,upgrade.spawn
+		InnerSupportRadius: 3
+		OuterSupportRadius: 5
+	StartingUnits@heavyzerg:
+		Class: heavy
+		ClassName: Heavy Support
+		Factions: zerg
+		BaseActor: zmcv
+		SupportActors: upgrade.spawn
 		InnerSupportRadius: 3
 		OuterSupportRadius: 5
 	StartingUnits@heavyusa:

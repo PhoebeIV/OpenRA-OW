@@ -1,0 +1,291 @@
+^ZergRegen:
+	ChangesHealth@regen:
+		PercentageStep: 1
+		Delay: 125
+		StartIfBelow: 100
+		DamageCooldown: 250
+	ChangesHealth@regen2:
+		PercentageStep: 1
+		Delay: 80
+		StartIfBelow: 40
+		DamageCooldown: 250
+
+
+^ZergBuilding:
+	Inherits: ^Building
+	Inherits@regen: ^ZergRegen
+	GrantConditionOnDamageState@blood1:
+		Condition: damaged
+		ValidDamageStates: Medium, Heavy, Critical
+	GrantConditionOnDamageState@blood2:
+		Condition: damaged2
+		ValidDamageStates: Heavy, Critical
+	GrantConditionOnDamageState@blood3:
+		Condition: damaged3
+		ValidDamageStates: Critical
+	Buildable:
+		Queue: Bot
+		Prerequisites: ~disabled
+		BuildDurationModifier: 40
+	Building:
+		BuildSounds: zbldgplc.aud
+		AllowPlacementOnResources: true
+		TerrainTypes: Creep
+	RepairableBuilding:
+		RepairStep: 400
+		PlayerExperience: 2
+		RepairPercent: 0
+	ProximityExternalCondition@creepalive:
+		Condition: creepalive
+		Range: 3c0
+	Explodes:
+		Type: CenterPosition
+		Weapon: LargeZergBuildingExplode
+		EmptyWeapon: LargeZergBuildingExplode
+	SoundOnDamageTransition:
+		DamagedSounds: kaboom1.aud
+		DestroyedSounds: zbldgdth.aud
+	AmbientSound@completed:
+		SoundFiles: zchrdy00.aud
+		RequiresCondition: !build-incomplete
+		Interval: -1
+
+
+ZMCV:
+	Inherits: MCV
+	Inherits@selection: ^SelectableSupportUnit
+	Buildable:
+		Prerequisites: fix, ~mcv, ~techlevel.medium, ~vehicles.zerg
+		Icon: icon-hatchery
+	Transforms:
+		IntoActor: zhatchery
+		TransformSounds: zbldgplc.aud
+		Facing: -256
+		Offset: -1,0
+	WithFacingSpriteBody:
+		Sequence: stand
+	WithMoveAnimation:
+		MoveSequence: run
+	WithDeathAnimation:
+		DeathSequence: die
+		UseDeathTypeSuffix: false
+	-SpawnActorOnDeath:
+	RenderSprites:
+		Image: zdrone
+	Voiced:
+		VoiceSet: ZergDroneVoice
+
+
+ZMCV.2:
+	Inherits: ZMCV
+	Buildable:
+		Queue: Vehicle
+		BuildPaletteOrder: 90
+		BuildDurationModifier: 35
+		Prerequisites: ~!mcv, ~techlevel.medium, ~vehicles.zerg
+	Valued:
+		Cost: 3000
+
+CreepSpawnerBig:
+	Inherits: 1TNK.MINE
+	SpawnActorOnDeath:
+		Actor: CreepGenBig
+		OwnerType: Victim
+	Explodes:
+		Weapon: CreepSplashBig
+		EmptyWeapon: CreepSplashBig
+
+CreepSpawnerMedium:
+	Inherits: CreepSpawnerBig
+	SpawnActorOnDeath:
+		Actor: CreepGenBig
+	Explodes:
+		Weapon: CreepSplashMed
+		EmptyWeapon: CreepSplashMed
+
+CreepGenBig:
+	Inherits: MINE
+	Inherits@shape: ^1x1Shape
+	RenderSprites:
+		Image: MINE
+	-WithSpriteBody:
+	-Interactable:
+	-Tooltip:
+	-AppearsOnRadar:
+	-RadarColorFromTerrain:
+	-AppearsOnMapPreview:
+	-MapEditorData:
+	-RequiresSpecificOwners:
+	Health:
+		HP: 500000
+	ExternalCondition@creep:
+		Condition: creepalive
+	KillsSelf:
+		RequiresCondition: !creepalive
+		Delay: 25
+	Explodes:
+		Weapon: CreepRemoveBig
+	SeedsResource:
+		Interval: 1
+		MaxRange: 9
+		ResourceType: ZergCreep
+
+CreepGenMed:
+	Inherits: CreepGenBig
+	Explodes:
+		Weapon: CreepRemoveMed
+	SeedsResource:
+		Interval: 2
+		MaxRange: 7
+		ResourceType: ZergCreep
+
+SmallZergBuildingComplete:
+	Inherits: CreepSpawnerBig
+	-SpawnActorOnDeath:
+	Explodes:
+		Weapon: SmallZergBuildingSpawn
+		EmptyWeapon: SmallZergBuildingSpawn
+
+MediumZergBuildingComplete:
+	Inherits: SmallZergBuildingComplete
+	Explodes:
+		Weapon: MediumZergBuildingSpawn
+		EmptyWeapon: MediumZergBuildingSpawn
+
+LargeZergBuildingComplete:
+	Inherits: SmallZergBuildingComplete
+	Explodes:
+		Weapon: LargeZergBuildingSpawn
+		EmptyWeapon: LargeZergBuildingSpawn
+
+ZHATCHERY:
+	Inherits: ^ZergBuilding
+	Inherits@prereqs: ^ConYardPrereqs
+	Inherits@con: ^ConYard
+	Inherits@shape: ^2x3Shape
+	Production@Bot:
+		Produces: Bot
+		RequiresCondition: botowner
+	Exit@0:
+		ExitCell: 1,1
+	RallyPoint:
+	Selectable:
+		Bounds: 3072, 3072
+	Building:
+		Footprint: xxx x_x
+		Dimensions: 3,2
+		LocalCenterOffset: 0,-512,0
+		BuildSounds: zbldgplc.aud
+		TerrainTypes: Clear,Road,Creep
+	Buildable:
+		Queue: Building
+		BuildPaletteOrder: 1000
+		Prerequisites: ~disabled
+		Description: Produces structures.
+	Health:
+		HP: 150000
+	Armor:
+		Type: Wood
+	RevealsShroud:
+		MinRange: 4c0
+		Range: 5c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 4c0
+	Valued:
+		Cost: 2000
+	Tooltip:
+		Name: Hatchery
+	BaseBuilding:
+	Sellable:
+		RequiresCondition: !build-incomplete && !chrono-vortex && !being-captured && !being-demolished
+	GrantConditionOnPrerequisite@GLOBALFACTUNDEPLOY:
+		Condition: factundeploy
+		Prerequisites: global-factundeploy
+	Power:
+		Amount: 0
+	Production:
+		Produces: Building,Defense,Tech,Wall
+		RequiresCondition: !building-incomplete
+	WithDeathAnimation:
+		DeathSequence: dead
+		UseDeathTypeSuffix: false
+	ProvidesPrerequisite@buildingname:
+	HitShape:
+		TargetableOffsets: 1273,939,0, -980,-640,0, -980,640,0
+		Type: Rectangle
+			TopLeft: -1536, -1536
+			BottomRight: 1536, 1536
+	WithIdleOverlay@damage:
+		RequiresCondition: damaged
+		Sequence: blood1
+		Offset: 1100,-512,0
+	WithIdleOverlay@damage2:
+		RequiresCondition: damaged2
+		Sequence: blood2
+		Offset: 512,700,0
+	WithIdleOverlay@damage3:
+		RequiresCondition: damaged3
+		Sequence: blood4
+		Offset: -600,0,0
+	FreeActor:
+		Actor: CreepSpawnerBig
+		SpawnOffset: 1,0
+		RequiresCondition: !build-incomplete
+	FreeActor@effect_complete:
+		Actor: MediumZergBuildingComplete
+		SpawnOffset: 1,0
+		RequiresCondition: !build-incomplete
+
+ZCCOLONY:
+	Inherits: ^ZergBuilding
+	Inherits@shape: ^2x2Shape
+	Building:
+		Footprint: xx ++
+		Dimensions: 2,2
+	Buildable:
+		Queue: Wall
+		BuildPaletteOrder: 450
+		Prerequisites: ~disabled
+		Description: Spreads creep.
+	Health:
+		HP: 150000
+	Armor:
+		Type: Wood
+	RevealsShroud:
+		MinRange: 4c0
+		Range: 5c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 4c0
+	Valued:
+		Cost: 2000
+	Tooltip:
+		Name: Creep Colony
+	BaseBuilding:
+	Sellable:
+		RequiresCondition: !build-incomplete && !chrono-vortex && !being-captured && !being-demolished
+	WithDeathAnimation:
+		DeathSequence: dead
+		UseDeathTypeSuffix: false
+	ProvidesPrerequisite@buildingname:
+	WithIdleOverlay@damage:
+		RequiresCondition: damaged
+		Sequence: blood1
+		Offset: 1100,-512,0
+	WithIdleOverlay@damage2:
+		RequiresCondition: damaged2
+		Sequence: blood3
+		Offset: 512,700,0
+	WithIdleOverlay@damage3:
+		RequiresCondition: damaged3
+		Sequence: blood4
+		Offset: -256,0,0
+	FreeActor:
+		Actor: CreepSpawnerMedium
+		SpawnOffset: 1,0
+		RequiresCondition: !build-incomplete
+	FreeActor@effect_complete:
+		Actor: SmallZergBuildingComplete
+		SpawnOffset: 1,0
+		RequiresCondition: !build-incomplete

@@ -1,0 +1,175 @@
+
+ZDRONE:
+	Inherits: ^Vehicle
+	Inherits@selection: ^SelectableEconomicUnit
+	Inherits@creep: ^ZergUnit
+	Buildable:
+		Queue: Building
+		BuildPaletteOrder: 45
+		Prerequisites: ~structures.zerg, ~techlevel.infonly
+		Description: Collects resources and can also\n evolve into Zerg structures.\nSpeed: 96\n  Unarmed
+	Valued:
+		Cost: 500
+	Tooltip:
+		Name: Zerg Drone
+	Selectable:
+		DecorationBounds: 1365, 1365
+	Harvester:
+		Capacity: 10
+		Resources: Ore,Gems,Tiberium,BlueTiberium
+		BaleUnloadDelay: 1
+		BaleUnloadAmount: 10
+		SearchFromProcRadius: 15
+		SearchFromHarvesterRadius: 8
+		EmptyCondition: no-ore
+	Selectable:
+		Class: ZDRONE
+	Health:
+		HP: 35000
+	Armor:
+		Type: Light
+	Mobile:
+		Speed: 96
+		Locomotor: foot2
+		TurnSpeed: 90
+	RevealsShroud:
+		Range: 4c0
+	WithHarvestAnimation:
+		HarvestSequence: shoot
+	WithDockingAnimation:
+		DockSequence: stand
+	WithMoveAnimation:
+		MoveSequence: run
+	WithDeathAnimation:
+		DeathSequence: die
+		UseDeathTypeSuffix: false
+	DeathSounds:
+	GpsDot:
+		String: Harvester
+	WithFacingSpriteBody:
+	WithHarvesterPipsDecoration:
+		Position: BottomLeft
+		Margin: 4, 3
+		RequiresSelection: true
+		PipCount: 4
+		ResourceSequences:
+			Ore: pip-yellow
+			Gems: pip-red
+			Tiberium: pip-green
+			BlueTiberium: pip-blue
+	RepairsBridges:
+	CaptureManager:
+	Captures:
+		CaptureTypes: building
+		PlayerExperience: 25
+		CaptureDelay: 200
+		SabotageThreshold: 50
+		SabotageHPRemoval: 60
+	Infiltrates:
+		Types: Husk
+		ValidRelationships: Ally
+		EnterCursor: goldwrench
+		PlayerExperience: 25
+	Captures@husk:
+		CaptureTypes: husk
+		PlayerExperience: 25
+		CaptureDelay: 100
+		EnterCursor: goldwrench
+		ConsumedByCapture: true
+	ProvidesPrerequisite@self:
+	RenderSprites:
+	Voiced:
+		VoiceSet: ZergDroneVoice
+	GrantConditionOnProduction@waiting_to_evolve:
+		Condition: waiting_to_evolve
+	WithDecoration@waiting_to_evolve:
+		RequiresCondition: waiting_to_evolve
+		Sequence: evolve
+		Offset: 0,768,768
+		Palette: player
+		IsPlayerPalette: true
+		Position: Top
+	ProductionBar@zergstructure:
+		ProductionType: Building.Zerg
+		RequiresCondition: !waiting_to_evolve
+	Production@zergstructure:
+		Produces: Building.Zerg
+		RequiresCondition: !waiting_to_evolve
+	ProductionQueue@zergstructure:
+		Type: Building.Zerg
+		Group: Building
+		DisplayOrder: 2
+		ReadyAudio: ConstructionComplete
+		BlockedAudio: NoBuild
+		LimitedAudio: BuildingInProgress
+		QueuedAudio: Building
+		OnHoldAudio: OnHold
+		CancelledAudio: Cancelled
+		QueueLimit: 1
+	GrantConditionOnProduction@hatchery:
+		Condition: str_hatchery
+		Actors: ZE.HATCHERY, ZE.HATCHERY2
+	GrantConditionOnProduction@colony:
+		Condition: str_colony
+		Actors: ZE.COLONY
+	Transforms:
+		IntoActor: zhatchery
+		TransformSounds: zbldgplc.aud
+		Facing: -256
+		Offset: -1,0
+		RequiresCondition: str_hatchery
+	
+
+
+ZDRONE.colony:
+	Inherits: ZDRONE
+	-Buildable:
+	Transforms:
+		IntoActor: zccolony
+		TransformSounds: zbldgplc.aud
+		Offset: -1,0
+		RequiresCondition: str_colony
+
+^ZergEvolve:
+	Buildable:
+		Queue: Building.Zerg
+		BuildDurationModifier: 60
+		BuildAtProductionType: Building.Zerg
+	AlwaysVisible:
+	Interactable:
+	ScriptTriggers:
+	KillsSelf:
+		RemoveInstead: true
+
+ZE.HATCHERY:
+	Inherits: ^ZergEvolve
+	Tooltip:
+		Name: Evolve into Hatchery
+	Buildable:
+		Description: Zerg's baseline structure. \n\nSpreads creep and doesn't need\n   to be placed on creep.
+		BuildPaletteOrder: 1
+		Prerequisites: ~mcv, ~techlevel.medium, ~zdrone
+	Valued:
+		Cost: 5000
+	RenderSprites:
+		Image: zhatchery
+
+ZE.HATCHERY2:
+	Inherits: ZE.HATCHERY
+	Buildable:
+		Prerequisites: ~!mcv, ~techlevel.medium, ~zdrone
+	Valued:
+		Cost: 3000
+
+ZE.COLONY:
+	Inherits: ^ZergEvolve
+	Tooltip:
+		Name: Evolve into Creep Colony
+	Buildable:
+		Description: Spreads creep, can be evolved into \n defensive structures. \n\nMust be placed on creep.
+		Prerequisites: ~techlevel.medium, ~zdrone
+		BuildDuration: 300
+	Valued:
+		Cost: 0
+	RenderSprites:
+		Image: zccolony

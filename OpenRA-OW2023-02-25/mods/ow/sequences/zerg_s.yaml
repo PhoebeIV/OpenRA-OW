@@ -1,0 +1,160 @@
+
+^ZergBlood:
+	blood1: zbblood00
+		Length: 6
+		ZOffset: 1023
+		Tick: 150
+		Scale: 0.75
+	blood1big: zbblood00
+		Start: 6
+		Length: 6
+		ZOffset: 1023
+		Tick: 150
+		Scale: 0.75
+	blood2: zbblood01
+		Length: 6
+		ZOffset: 1023
+		Tick: 150
+		Scale: 0.75
+	blood2big: zbblood01
+		Start: 6
+		Length: 6
+		ZOffset: 1023
+		Tick: 150
+		Scale: 0.75
+	blood3: zbblood02
+		Length: 6
+		ZOffset: 1023
+		Tick: 150
+		Scale: 0.75
+	blood3big: zbblood02
+		Start: 6
+		Length: 6
+		ZOffset: 1023
+		Tick: 150
+		Scale: 0.75
+	blood4: zbblood03
+		Length: 6
+		ZOffset: 1023
+		Tick: 150
+		Scale: 0.75
+	blood4big: zbblood03
+		Start: 6
+		Length: 6
+		ZOffset: 1023
+		Tick: 150
+		Scale: 0.75
+
+zhatchery:
+	Inherits: ^ZergBlood
+	idle:
+		Length: *
+		Frames: 0,1,2,3,3,2,1
+		Tick: 150
+	make: zbstart
+		Length: *
+		Frames: 0,1,2,3,4,5,6,7,8,9,13,14,15,16,17,18,19,20,21
+		Tick: 150
+	build: zbstart
+		Length: *
+		Frames: 2,3,4,5,6,7,8,9,13,14,15,16,17,18,19,20,21
+		Tick: 150
+	dead:
+		Tick: 500
+	icon: zhatcheryicon
+
+zccolony:
+	Inherits: ^ZergBlood
+	idle:
+		Length: *
+		Frames: 0,1,2,3
+		Tick: 150
+	make: zbstart
+		Length: *
+		Frames: 0,1,2,3,4,5,6,7,8,4,5,6,7,8,4,5,6,7,8,9,10,11,12
+		Tick: 200
+	building: zbstart
+		Length: *
+		Frames: 4,5,6,7,8
+		Tick: 200
+	complete: zbstart
+		Length: *
+		Frames: 9,10,11,12
+	dead:
+		Tick: 500
+	icon: zccolonyicon
+
+#units
+
+zdrone:
+	idle:
+		Scale: 0.75
+		Facings: -8
+		Combine:
+			zdrone:
+				Length: 5
+				Frames: 0,1,2,3,4
+			zdrone:
+				Length: 3
+				Frames: 3,2,1
+				FlipX: true
+	stand:
+		Scale: 0.75
+		Facings: -8
+		Combine:
+			zdrone:
+				Length: 5
+				Frames: 0,1,2,3,4
+			zdrone:
+				Length: 3
+				Frames: 3,2,1
+				FlipX: true
+	run:
+		Scale: 0.75
+		Facings: -8
+		Length: 6
+		Tick: 100
+		Combine:
+			zdrone:
+				Length: 30
+				Frames: 0,5,10,15,20,25, 1,6,11,16,21,26, 2,7,12,17,22,27, 3,8,13,18,23,28, 4,9,14,19,24,29
+			zdrone:
+				Length: 18
+				Frames: 3,8,13,18,23,28, 2,7,12,17,22,27, 1,6,11,16,21,26
+				FlipX: true
+	shoot:
+		Scale: 0.75
+		Facings: -8
+		Length: 4
+		Tick: 125
+		Combine:
+			zdrone:
+				Length: 20
+				Frames: 30,35,40,45, 31,36,41,46, 32,37,42,47, 33,38,43,48, 34,39,44,49
+			zdrone:
+				Length: 12
+				Frames: 33,38,43,48, 32,37,42,47, 31,36,41,46
+				FlipX: true
+	die:
+		Scale: 0.75
+		Start: 50
+		Length: 12
+		Tick: 125
+	evolve: gpsdot
+		Start: 6
+	icon: zdroneicon
+	icon-hatchery: zdroneicon_hatch
+
+resources:
+	zcreep00: zcreep00
+		UseTilesetExtension: false
+	zcreep01: zcreep01
+		UseTilesetExtension: false
+	zcreep02: zcreep02
+		UseTilesetExtension: false
+	zcreep03: zcreep03
+		UseTilesetExtension: false
+	zcreep04: zcreep04
+		UseTilesetExtension: false
+	zcreep05: zcreep05
+		UseTilesetExtension: false
