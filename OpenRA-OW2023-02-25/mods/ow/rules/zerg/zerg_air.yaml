@@ -1,0 +1,74 @@
+ZOVERLORD:
+	Inherits: ^Helicopter
+	Inherits@selection: ^SelectableSupportUnit
+	Inherits@shield: ^ZergUnit
+	Buildable:
+		Queue: Building
+		BuildPaletteOrder: 60
+		Prerequisites: ~structures.zerg, ~techlevel.infonly
+		Description: Allows control over your swarm.\n Detects cloaked units.\nSpeed: 24 \n\nCan be upgraded with speed and transport upgrades.
+	Selectable:
+		DecorationBounds: 1536, 1365
+	-GrantConditionOnPowerState@freeroam:
+	-RejectsOrders@freeroam:
+	-Wanders@freeroam:
+	Valued:
+		Cost: 1000
+	Power:
+		Amount: 100
+	Tooltip:
+		Name: Overlord
+	UpdatesPlayerStatistics:
+	Health:
+		HP: 40000
+	RevealsShroud:
+		MinRange: 6c0
+		Range: 7c0
+		Type: GroundPosition
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 6c0
+		Type: GroundPosition
+	Aircraft:
+		TurnSpeed: 32
+		Speed: 24
+		CanSlide: false
+	WithFacingSpriteBody:
+		RequiresCondition: !moving
+	WithFacingSpriteBody@moving:
+		Sequence: move
+		StarSequence: movestart
+		RequiresCondition: moving
+	WithDeathAnimation:
+		UseDeathTypeSuffix: false
+	GrantConditionOnMovement:
+		Condition: moving
+	ProvidesPrerequisite@power:
+		Prerequisite: anypower
+	-SpawnActorOnDeath:
+	-Explodes:
+	Explodes:
+		Weapon: ZergAirUnitDeath
+		EmptyWeapon: ZergAirUnitDeath
+	DetectCloaked:
+		DetectionTypes: Cloak
+		Range: 6c0
+	RenderDetectionCircle:
+	Voiced:
+		VoiceSet: ZergOverlordVoice
+	-EjectOnDeath:
+	GrantConditionOnPrerequisite@shoes:
+		Prerequisites: zerg.overlord
+		Condition: shoes
+	SpeedMultiplier@shoes:
+		RequiresCondition: shoes
+		Modifier: 150
+	PowerMultiplier@shoes:
+		RequiresCondition: shoes
+		Modifier: 150
+	RevealsShroudMultiplier@shoes:
+		RequiresCondition: shoes
+		Modifier: 125
+	DetectCloakedMultiplier@shoes:
+		RequiresCondition: shoes
+		Modifier: 125

@@ -49,7 +49,11 @@
 		SoundFiles: zchrdy00.aud
 		RequiresCondition: !build-incomplete
 		Interval: -1
-
+	ToggleConditionOnOrder@explode:
+		OrderName: Sell
+		Condition: sell_me
+	KillsSelf@explode:
+		RequiresCondition: sell_me
 
 ZMCV:
 	Inherits: MCV
@@ -173,7 +177,15 @@ ZHATCHERY:
 		Produces: Bot
 		RequiresCondition: botowner
 	Exit@0:
-		ExitCell: 1,1
+		SpawnOffset: -600,810,0
+		ExitCell: 0,2
+	Exit@1:
+		SpawnOffset: -600,810,0
+		ExitCell: 1,2
+	Exit@2:
+		SpawnOffset: -170,810,0
+		ExitCell: 2,2
+		ProductionTypes: Infantry, Hatchery
 	RallyPoint:
 	Selectable:
 		Bounds: 3072, 3072
@@ -203,16 +215,14 @@ ZHATCHERY:
 	Tooltip:
 		Name: Hatchery
 	BaseBuilding:
-	Sellable:
-		RequiresCondition: !build-incomplete && !chrono-vortex && !being-captured && !being-demolished
 	GrantConditionOnPrerequisite@GLOBALFACTUNDEPLOY:
 		Condition: factundeploy
 		Prerequisites: global-factundeploy
 	Power:
-		Amount: 0
+		Amount: 10
 	Production:
-		Produces: Building,Defense,Tech,Wall
-		RequiresCondition: !building-incomplete
+		Produces: Building,Defense,Tech,Wall,Hatchery
+		RequiresCondition: !build-incomplete
 	WithDeathAnimation:
 		DeathSequence: dead
 		UseDeathTypeSuffix: false
@@ -246,13 +256,16 @@ ZHATCHERY:
 ZCCOLONY:
 	Inherits: ^ZergBuilding
 	Inherits@shape: ^2x2Shape
+	Inherits@selection: ^SelectableCombatBuilding
+	Inherits@AUTOTARGET: ^AutoTargetAll
+	RenderRangeCircle:
 	Building:
 		Footprint: xx ++
 		Dimensions: 2,2
 	Buildable:
 		Queue: Wall
 		BuildPaletteOrder: 450
-		Prerequisites: ~disabled
+		Prerequisites: ~structures.zerg, ~techlevel.infonly, ~ai.all
 		Description: Spreads creep.
 	Health:
 		HP: 40000
@@ -268,15 +281,18 @@ ZCCOLONY:
 		Cost: 500
 	Tooltip:
 		Name: Creep Colony
+		RequiresCondition: !waiting_to_evolve
+	Tooltip@1:
+		Name: Sunken Colony
+		RequiresCondition: str_sunken
+	Tooltip@2:
+		Name: Spore Colony
+		RequiresCondition: str_spore
 	BaseBuilding:
-	Sellable:
-		RequiresCondition: !build-incomplete && !chrono-vortex && !being-captured && !being-demolished
 	WithDeathAnimation:
 		DeathSequence: dead
 		UseDeathTypeSuffix: false
 	ProvidesPrerequisite@buildingname:
-	ProvidesPrerequisite@power:
-		Prerequisite: anypower
 	WithIdleOverlay@damage:
 		RequiresCondition: damaged
 		Sequence: blood1
@@ -301,6 +317,123 @@ ZCCOLONY:
 		Actor: SmallZergBuildingComplete
 		SpawnOffset: 1,0
 		RequiresCondition: !build-incomplete
+	ProductionBar@zergstructure:
+		ProductionType: Building.ZergColony
+		RequiresCondition: !waiting_to_evolve
+	Production@zergstructure:
+		Produces: Building.ZergColony
+		RequiresCondition: !waiting_to_evolve && !build-incomplete
+	ProductionQueue@zergstructure:
+		Type: Building.ZergColony
+		Group: Building
+		DisplayOrder: 2
+		BlockedAudio: NoBuild
+		LimitedAudio: BuildingInProgress
+		QueuedAudio: Building
+		OnHoldAudio: OnHold
+		CancelledAudio: Cancelled
+		QueueLimit: 1
+	GrantConditionOnProduction@waiting_to_evolve:
+		Condition: waiting_to_evolve
+	GrantConditionOnProduction@sunken:
+		Condition: str_sunken
+		Actors: ZE.SUNKEN
+	GrantConditionOnProduction@spore:
+		Condition: str_spore
+		Actors: ZE.SPORE
+	GrantConditionOnProduction@animating:
+		Condition: animating
+		Duration: 110
+	Targetable@defense:
+		RequiresCondition: waiting_to_evolve
+		TargetTypes: Defense
+	AutoTarget:
+		RequiresCondition: waiting_to_evolve
+	WithIdleOverlay@main:
+		Sequence: idle2
+		RequiresCondition: !build-incomplete && !waiting_to_evolve
+	WithSpriteBody@sunken:
+		RequiresCondition: str_sunken
+		StartSequence: sunken-make
+		Sequence: sunken-turret
+	WithSpriteBody@spore:
+		RequiresCondition: str_spore
+		StartSequence: sunken-make
+		Sequence: spore-idle
+	WithIdleOverlay@sunken_shadow:
+		RequiresCondition: str_sunken && !animating
+		Sequence: sunken-shadow
+		IsPlayerPalette: true
+		Palette: player
+	WithSpriteTurret@sunken:
+		RequiresCondition: str_sunken && !animating
+		Sequence: sunken-turret
+		Recoils: false
+	WithTurretAttackAnimation@sunken:
+		RequiresCondition: str_sunken && !animating
+		Sequence: sunken-attack
+	Turreted@sunken:
+		RequiresCondition: str_sunken && !animating
+	AttackTurreted:
+		Turrets: primary, secondary
+		FacingTolerance: 128
+	Armament@sunken:
+		RequiresCondition: str_sunken && !animating
+		Weapon: SunkenAttack
+		LocalOffset: 0,0,512
+	Armament@spore:
+		Name: secondary
+		Turret: secondary
+		RequiresCondition: str_spore && !animating
+		Weapon: SporeAttack
+	AmbientSound@evolved:
+		SoundFiles: zchrdy00.aud
+		RequiresCondition: waiting_to_evolve && !animating
+		Interval: -1
+	FreeActor@evolve_complete:
+		Actor: SmallZergBuildingComplete
+		SpawnOffset: 1,0
+		RequiresCondition: waiting_to_evolve && !animating
+	DetectCloaked:
+		DetectionTypes: Cloak
+		Range: 6c0
+		RequiresCondition: str_spore
+	Turreted@spore:
+		RequiresCondition: str_spore && !animating
+		Turret: secondary
+		Offset: 0,-800,1200
+	DamageMultiplier@evolved:
+		Modifier: 80
+		RequiresCondition: waiting_to_evolve
+
+
+ZE.SUNKEN:
+	Inherits: ^ZergEvolve
+	Tooltip:
+		Name: Evolve into Sunken Colony
+	Buildable:
+		Queue: Building.ZergColony
+		BuildAtProductionType: Building.ZergColony
+		Description: Anti-ground defensive structure. \n Cannot detect cloaked. \n\nStrong vs ground units
+		Prerequisites: barracks, ~techlevel.infonly, ~zccolony
+	Valued:
+		Cost: 500
+	RenderSprites:
+		Image: zsunken
+
+ZE.SPORE:
+	Inherits: ^ZergEvolve
+	Tooltip:
+		Name: Evolve into Spore Colony
+	Buildable:
+		Queue: Building.ZergColony
+		BuildAtProductionType: Building.ZergColony
+		Description: Anti-air defensive structure. \n Detects cloaked units. \n\nStrong vs aircraft
+		Prerequisites: barracks, ~techlevel.infonly, ~zccolony
+	Valued:
+		Cost: 500
+	RenderSprites:
+		Image: zspore
 
 ZEXTRAC:
 	Inherits: ^ZergBuilding
@@ -314,7 +447,7 @@ ZEXTRAC:
 	Buildable:
 		Queue: Wall
 		BuildPaletteOrder: 450
-		Prerequisites: ~disabled
+		Prerequisites: ~structures.zerg, ~techlevel.infonly, ~ai.all, ~!ai.boss
 		Description: Stores and refines resources.
 	Health:
 		HP: 90000
@@ -336,8 +469,6 @@ ZEXTRAC:
 	Tooltip:
 		Name: Extractor
 	BaseBuilding:
-	Sellable:
-		RequiresCondition: !build-incomplete && !chrono-vortex && !being-captured && !being-demolished
 	WithDeathAnimation:
 		DeathSequence: dead
 		UseDeathTypeSuffix: false
@@ -365,3 +496,149 @@ ZEXTRAC:
 		Actor: MediumZergBuildingComplete
 		SpawnOffset: 1,0
 		RequiresCondition: !build-incomplete
+	WithResourceStoragePipsDecoration:
+		Position: BottomLeft
+		Margin: 4, 3
+		RequiresSelection: true
+		PipCount: 17
+		FullSequence: pip-yellow
+
+ZPOOL:
+	Inherits: ^ZergBuilding
+	Inherits@prereqs: ^BarracksPrereqs
+	Inherits@shape: ^2x2Shape
+	Building:
+		Footprint: ++ xx
+		Dimensions: 2,2
+	Buildable:
+		Queue: Wall
+		BuildPaletteOrder: 450
+		Prerequisites:  ~structures.zerg, ~techlevel.infonly, ~ai.all, ~!ai.boss
+		Description: Allows production of zerglings
+	Health:
+		HP: 60000
+	Armor:
+		Type: Wood
+	RevealsShroud:
+		MinRange: 4c0
+		Range: 5c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 4c0
+	Valued:
+		Cost: 500
+	Tooltip:
+		Name: Spawning Pool
+	BaseBuilding:
+	WithDeathAnimation:
+		DeathSequence: dead
+		UseDeathTypeSuffix: false
+	ProvidesPrerequisite@buildingname:
+	WithIdleOverlay@damage:
+		RequiresCondition: damaged
+		Sequence: blood1
+		Offset: 1200,-512,0
+	WithIdleOverlay@damage2:
+		RequiresCondition: damaged2
+		Sequence: blood3
+		Offset: 512,700,700
+	WithIdleOverlay@damage3:
+		RequiresCondition: damaged3
+		Sequence: blood2
+		Offset: -512,0,0
+	InfiltrateForSupportPower:
+		Proxy: barracks.upgraded
+		Types: SpyInfiltrate
+	Targetable:
+		TargetTypes: GroundActor, C4, DetonateAttack, Structure, SpyInfiltrate
+	Explodes:
+		Type: CenterPosition
+		Weapon: SmallZergBuildingExplode
+		EmptyWeapon: SmallZergBuildingExplode
+	Exit@1:
+		RequiresCondition: !being-captured
+		SpawnOffset: -42,810,0
+		ExitCell: 1,2
+		ProductionTypes: Soldier, Infantry
+	Exit@2:
+		RequiresCondition: !being-captured
+		SpawnOffset: -725,640,0
+		ExitCell: 0,2
+		ProductionTypes: Soldier, Infantry
+	Production:
+		Produces: Infantry, Soldier
+	GrantExternalConditionToProduced:
+		Condition: produced
+	ProductionBar:
+		ProductionType: Infantry
+	GrantExternalConditionToProduced@zergling:
+		Condition: zerglingdouble
+		Duration: 25
+
+ZHYDRADEN:
+	Inherits: ^ZergBuilding
+	Inherits@prereqs: ^BarracksPrereqs
+	Inherits@shape: ^3x2Shape
+	Building:
+		Footprint: +++ xxx ===
+		Dimensions: 3,3
+		LocalCenterOffset: 0,-768,0
+	Selectable:
+		Bounds: 3072, 3072, 0, -426
+	Buildable:
+		Queue: Wall
+		BuildPaletteOrder: 450
+		Prerequisites: zpool, ~structures.zerg, ~techlevel.infonly, ~ai.all
+		Description: Allows production of hydralisks
+	Health:
+		HP: 90000
+	Armor:
+		Type: Wood
+	RevealsShroud:
+		MinRange: 4c0
+		Range: 5c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 4c0
+	Valued:
+		Cost: 1000
+	Tooltip:
+		Name: Hydralisk Den
+	BaseBuilding:
+	WithDeathAnimation:
+		DeathSequence: dead
+		UseDeathTypeSuffix: false
+	ProvidesPrerequisite@buildingname:
+	WithIdleOverlay@damage:
+		RequiresCondition: damaged
+		Sequence: blood2
+		Offset: 1200,-512,0
+	WithIdleOverlay@damage2:
+		RequiresCondition: damaged2
+		Sequence: blood1
+		Offset: 512,700,700
+	WithIdleOverlay@damage3:
+		RequiresCondition: damaged3
+		Sequence: blood3
+		Offset: 0,-512,-256
+	InfiltrateForSupportPower:
+		Proxy: barracks.upgraded
+		Types: SpyInfiltrate
+	Targetable:
+		TargetTypes: GroundActor, C4, DetonateAttack, Structure, SpyInfiltrate
+	Exit@1:
+		RequiresCondition: !being-captured
+		SpawnOffset: -42,810,0
+		ExitCell: 1,2
+		ProductionTypes: Soldier, Infantry
+	Exit@2:
+		RequiresCondition: !being-captured
+		SpawnOffset: -725,640,0
+		ExitCell: 0,2
+		ProductionTypes: Soldier, Infantry
+	Production:
+		Produces: Infantry, Soldier
+	GrantExternalConditionToProduced:
+		Condition: produced
+	ProductionBar:
+		ProductionType: Infantry

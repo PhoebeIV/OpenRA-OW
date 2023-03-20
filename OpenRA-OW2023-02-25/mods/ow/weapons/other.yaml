@@ -2190,7 +2190,7 @@ USAMicrowaveLaser:
 		Width: 120
 		Duration: 30
 		Color: FFA500
-        Shape: Cylindrical
+		Shape: Cylindrical
 	Warhead@1Dam: SpreadDamage
 		Damage: 2000
 		Versus:
@@ -2224,7 +2224,7 @@ USALaserCrusaderLaser:
 			Light: 90
 			Heavy: 90
 			Concrete: 90
-    DamageTypes: Prone50Percent, TriggerProne, FireDeath
+		DamageTypes: Prone50Percent, TriggerProne, FireDeath
 	-Warhead@2Smu:
 
 UpgradeHack:
@@ -2297,7 +2297,7 @@ USARangerLaser:
 			None: 140
 			Heavy: 50
 			Wood: 50
-    DamageTypes: Prone50Percent, TriggerProne, FireDeath
+		DamageTypes: Prone50Percent, TriggerProne, FireDeath
 	-Warhead@2Smu:
     
 USALaserpatriotshot:
@@ -2345,3 +2345,163 @@ USALaserpatriotshotair:
 		ValidTargets: AirborneActor, Air
         DamageTypes: Prone50Percent, TriggerProne, FireDeath
 	-Warhead@2Smu:
+
+ZerglingAttack:
+	ReloadDelay: 12
+	Burst: 6
+	BurstDelays: 13,11,12,10,14
+	Range: 2c0
+	Report: zzeatk00.aud, zzeatk01.aud
+	ValidTargets: Ground, Water, GroundActor, WaterActor
+	Projectile: InstantHit
+	Warhead@1Dam: SpreadDamage
+		Spread: 64
+		Damage: 900
+		Versus:
+			None: 100
+			Wood: 50
+			Light: 60
+			Heavy: 40
+			Concrete: 10
+		DamageTypes: DefaultDeath
+		ValidTargets: GroundActor, WaterActor
+
+ZerglingAttack2:
+	Inherits: ZerglingAttack
+	BurstDelays: 16,10,13,11,14
+
+ZerglingAttack3:
+	Inherits: ZerglingAttack
+	BurstDelays: 14,13,10,12,15
+
+ZerglingAttackFast:
+	Inherits: ZerglingAttack
+	ReloadDelay: 9
+	BurstDelays: 9,9,8,7,10
+
+ZerglingAttack2Fast:
+	Inherits: ZerglingAttackFast
+	BurstDelays: 8,7,10,10,9
+
+ZerglingAttack3Fast:
+	Inherits: ZerglingAttackFast
+	BurstDelays: 10,7,7,9,8
+
+
+SunkenAttack:
+	ReloadDelay: 50
+	Range: 9c512
+	Report: zlufir00.aud
+	ValidTargets: Ground, GroundActor, WaterActor, Trees
+	Projectile: Missile
+		Speed: 500
+		Blockable: false
+		RangeLimit: 10c0
+		HorizontalRateOfTurn: 100
+	Warhead@1Dam: SpreadDamage
+		Spread: 325
+		Damage: 16000
+		ValidTargets: Ground, GroundActor, WaterActor, Trees
+		Versus:
+			None: 90
+			Wood: 50
+			Light: 90
+			Concrete: 40
+		DamageTypes: Prone50Percent, TriggerProne, ExplosionDeath
+	Warhead@3EffGround: CreateEffect
+		Explosions: zerg_spine
+		ImpactSounds: zluhit00.aud
+		ValidTargets: Ground, GroundActor, WaterActor, Trees
+		Inaccuracy: 256
+
+SporeAttack:
+	ReloadDelay: 18
+	Range: 10c512
+	Report: zlufir00.aud
+	ValidTargets: Air, AirborneActor
+	Projectile: Missile
+		Speed: 400
+		Blockable: false
+		Inaccuracy: 128
+		TrailImage: fbc_2
+		Image: fbc_1
+		RangeLimit: 10c0
+		HorizontalRateOfTurn: 100
+		MinimumLaunchAngle: 90
+		MaximumLaunchAngle: 90
+		TrailInterval: 1
+	Warhead@3Dam: SpreadDamage
+		Spread: 325
+		Damage: 3000
+		ValidTargets: Air, AirborneActor
+		DamageTypes: ExplosionDeath
+	Warhead@2Smu: LeaveSmudge
+		SmudgeType: Crater
+		ValidTargets: Ground, Infantry
+	Warhead@3EffGround: CreateEffect
+		Explosions: baron
+		ImpactSounds: zluhit00.aud
+		ValidTargets: Ground, GroundActor, WaterActor, Trees, Air, AirborneActor
+
+HydraSpines:
+	ReloadDelay: 21
+	Range: 5c512
+	Report: spooghit.aud
+	ValidTargets: Ground, Water, GroundActor, WaterActor, Trees, Air, AirborneActor
+	Projectile: InstantHit
+	Warhead@1Dam: SpreadDamage
+		Spread: 64
+		Damage: 1900
+		Versus:
+			None: 100
+			Wood: 50
+			Light: 75
+			Heavy: 75
+			Concrete: 10
+		DamageTypes: DefaultDeath, TriggerProne, Prone50Percent
+		ValidTargets: GroundActor, WaterActor
+	Warhead@2Dam: SpreadDamage
+		Spread: 64
+		Damage: 900
+		Versus:
+			None: 100
+			Wood: 50
+			Light: 60
+			Heavy: 40
+			Concrete: 10
+		DamageTypes: ExplosionDeath, TriggerProne, Prone50Percent
+		ValidTargets: Air, AirborneActor
+	Warhead@3EffGround: CreateEffect
+		Explosions: baron
+		ValidTargets: Ground, GroundActor, WaterActor, Trees, Air, AirborneActor
+		Inaccuracy: 256
+
+LurkerSpikes:
+	ReloadDelay: 50
+	Range: 7c0
+	Burst: 6
+	BurstDelays: 1
+	StartBurstReport: zlrkfir1.aud
+	FirstBurstTargetOffset: -2700,0,0
+	FollowingBurstTargetOffset: 900,0,0
+	ValidTargets: Ground, GroundActor, WaterActor, Trees
+	Projectile: Bullet
+		Speed: 1c682
+	Warhead@1Dam: SpreadDamage
+		Spread: 256
+		Damage: 5000
+		ValidTargets: Ground, GroundActor, WaterActor, Trees
+		InvalidTargets: BurrowedLurker
+		Versus:
+			None: 120
+			Wood: 50
+			Light: 90
+			Heavy: 50
+			Concrete: 40
+		DamageTypes: Prone50Percent, TriggerProne, ExplosionDeath
+	Warhead@3EffGround: CreateEffect
+		Explosions: zerg_spike
+		ValidTargets: Ground, GroundActor, WaterActor, Trees
+	Warhead@4EffActor: CreateEffect
+		ImpactSounds: zlrkhit1.aud
+		ValidTargets: GroundActor, WaterActor, Trees

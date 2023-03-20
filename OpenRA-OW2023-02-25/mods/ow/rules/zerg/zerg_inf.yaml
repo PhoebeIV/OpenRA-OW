@@ -5,3 +5,379 @@
 		TerrainTypes: Creep
 	SpeedMultiplier@creep:
 		Modifier: 120
+		RequiresCondition: oncreep
+	ChangesHealth@creep:
+		RequiresCondition: oncreep || burrowed
+		PercentageStep: 1
+		Delay: 75
+		StartIfBelow: 100
+		DamageCooldown: 250
+	GrantConditionOnPowerState@freeroam:
+		Condition: lowpower
+		ValidPowerStates: Low, Critical
+	RejectsOrders@freeroam:
+		RequiresCondition: lowpower
+	Wanders@freeroam:
+		RequiresCondition: lowpower
+		WanderMoveRadius: 4
+		MinMoveDelay: 12
+		MaxMoveDelay: 75
+
+^ZergUnitWeapon:
+	Inherits@zerg: ^ZergUnit
+	-Wanders@freeroam:
+	AttackWander@freeroam:
+		RequiresCondition: lowpower
+		WanderMoveRadius: 4
+		MinMoveDelay: 12
+		MaxMoveDelay: 75
+
+
+ZZERGLING:
+	Inherits: ^Infantry
+	Inherits@zerg: ^ZergUnitWeapon
+	Inherits@autotarget: ^AutoTargetGroundAssaultMove
+	Buildable:
+		Prerequisites: zpool, ~infantry.zerg, ~techlevel.infonly
+		Description: Basic ground unit, powerful in swarms.\nComes in pairs.\n  Speed: 104\n  Strong vs infantry
+		Queue: Infantry
+		BuildAtProductionType: Hatchery
+		BuildPaletteOrder: 40
+	Selectable:
+		Bounds: 512, 512, 0, 0
+		DecorationBounds: 512, 512, 0, 0
+		Class: ZZERGLING
+	Valued:
+		Cost: 200
+	GivesExperience:
+		Experience: 100
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Tooltip:
+		Name: Zergling
+	Health:
+		HP: 8500
+	Mobile:
+		Speed: 104
+	Power:
+		Amount: -5
+	RevealsShroud:
+		Range: 4c512
+	Armament@1:
+		Name: primary
+		Weapon: ZerglingAttack
+		RequiresCondition: weap1 && !shoes
+	Armament@2:
+		Name: primary
+		Weapon: ZerglingAttack2
+		RequiresCondition: weap2 && !shoes
+	Armament@3:
+		Name: primary
+		Weapon: ZerglingAttack3
+		RequiresCondition: weap3 && !shoes
+	Armament@12:
+		Name: primary
+		Weapon: ZerglingAttackFast
+		RequiresCondition: weap1 && shoes || rank-elite
+	Armament@22:
+		Name: primary
+		Weapon: ZerglingAttack2Fast
+		RequiresCondition: weap2 && shoes || rank-elite
+	Armament@32:
+		Name: primary
+		Weapon: ZerglingAttack3Fast
+		RequiresCondition: weap3 && shoes || rank-elite
+	GrantRandomCondition:
+		Conditions: weap1, weap2, weap3
+	WithInfantryBody:
+		DefaultAttackSequence: shoot
+		IdleSequences: stand
+		StandSequences: stand
+		RequiresCondition: !burrowed
+	WithInfantryBody@down:
+		DefaultAttackSequence: burrowed
+		IdleSequences: burrowed
+		StandSequences: burrowed
+		RequiresCondition: burrowed
+	AutoTarget:
+		InitialStance: AttackAnything
+		ScanRadius: 5
+		HoldFireCondition: burrowing
+	AutoTargetPriority@DEFAULT:
+		ValidTargets: GroundActor, Infantry
+	Targetable:
+		TargetTypes: GroundActor, Infantry, Disguise
+	RenderSprites:
+	Voiced:
+		VoiceSet: ZergZerglingVoice
+	-DeathSounds@NORMAL:
+	-DeathSounds@BURNED:
+	-DeathSounds@ZAPPED:
+	DeathSounds:
+	WithDeathAnimation:
+		UseDeathTypeSuffix: false
+		CrushedSequence: die
+		CrushedSequencePalette: player
+		CrushedPaletteIsPlayerPalette: true
+	TakeCover:
+		SpeedModifier: 110
+		Duration: 75
+		DamageTriggers: TriggerProne
+	-SpawnActorOnDeath@fire:
+	MustBeDestroyed:
+	ProximityCaptor:
+		Types: Infantry
+	AttackFrontal:
+		FacingTolerance: 0
+	GrantConditionOnPrerequisite@shoes:
+		Prerequisites: zerg.zergling
+		Condition: shoes
+	SpeedMultiplier@shoes:
+		RequiresCondition: shoes
+		Modifier: 120
+	ReloadDelayMultiplier@shoes:
+		RequiresCondition: shoes
+		Modifier: 75
+	ExternalCondition@zergling:
+		Condition: zerglingdouble
+	FreeActor@zergling:
+		RequiresCondition: !zerglingdouble
+		Actor: ZZERGLING2
+	Cloak@burrow:
+		RequiresCondition: burrowing
+		InitialDelay: 75
+		CloakDelay: 50
+		CloakSound: burrowdn.aud
+		UncloakSound: burrowup.aud
+		CloakedCondition: burrowed
+		EffectImage: zzergling
+		EffectPalette: player
+		EffectPaletteIsPlayerPalette: true
+		CloakEffectSequence: burrow
+		UncloakEffectSequence: unburrow
+		UncloakOn: Damage, Attack, Move
+		Palette: player
+		IsPlayerPalette: true
+	ChangesHealth@regen:
+		PercentageStep: 2
+	ChangesHealth@regen2:
+		PercentageStep: 2
+	ChangesHealth@creep:
+		PercentageStep: 3
+
+ZZERGLING2:
+	Inherits: ZZERGLING
+	RenderSprites:
+		Image: zzergling
+	-ExternalCondition@zergling:
+	-FreeActor@zergling:
+	-Buildable:
+	Valued:
+		Cost: 200
+	-GivesBounty:
+	-UpdatesPlayerStatistics:
+	-Power:
+
+ZHYDRA:
+	Inherits: ^Infantry
+	Inherits@zerg: ^ZergUnitWeapon
+	Inherits@autotarget: ^AutoTargetAllAssaultMove
+	Buildable:
+		Prerequisites: zhydraden, ~infantry.zerg, ~techlevel.infonly
+		Description: Ranged ground unit.\n  Speed: 88\n  Strong vs infantry and aircraft
+		Queue: Infantry
+		BuildAtProductionType: Hatchery
+		BuildPaletteOrder: 41
+	Selectable:
+		Bounds: 800, 800, 0, 0
+		DecorationBounds: 900, 900, 0, 0
+	Valued:
+		Cost: 600
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Tooltip:
+		Name: Hydralisk
+	Armor:
+		Type: Light
+	Health:
+		HP: 25000
+	Mobile:
+		Speed: 88
+		TurnSpeed: 128
+		Locomotor: foot2
+	Power:
+		Amount: -5
+	-Crushable:
+	RevealsShroud:
+		Range: 5c512
+	Armament:
+		Name: primary
+		MuzzleSequence: spooge
+		Weapon: HydraSpines
+	WithMuzzleOverlay:
+	WithInfantryBody:
+		DefaultAttackSequence: shoot
+		IdleSequences: stand
+		StandSequences: stand
+		RequiresCondition: !burrowed && !attacking
+	WithInfantryBody@attacking:
+		DefaultAttackSequence: shoot
+		IdleSequences: aim
+		StandSequences: aim
+		RequiresCondition: !burrowed && attacking
+	WithInfantryBody@down:
+		DefaultAttackSequence: burrowed
+		IdleSequences: burrowed
+		StandSequences: burrowed
+		RequiresCondition: burrowed
+	GrantConditionOnAttack@attacking:
+		Condition: attacking
+		RevokeDelay: 40
+	AutoTarget:
+		HoldFireCondition: burrowing
+	Targetable:
+		TargetTypes: GroundActor, Infantry, Disguise
+	RenderSprites:
+	Voiced:
+		VoiceSet: ZergHydraVoice
+	-DeathSounds@NORMAL:
+	-DeathSounds@BURNED:
+	-DeathSounds@ZAPPED:
+	DeathSounds:
+	WithDeathAnimation:
+		UseDeathTypeSuffix: false
+		CrushedSequence: die
+		CrushedSequencePalette: player
+		CrushedPaletteIsPlayerPalette: true
+	-SpawnActorOnDeath@fire:
+	MustBeDestroyed:
+	ProximityCaptor:
+		Types: Infantry
+	AttackFrontal:
+		FacingTolerance: 32
+	GrantConditionOnPrerequisite@shoes:
+		Prerequisites: zerg.hydra
+		Condition: shoes
+	SpeedMultiplier@shoes:
+		RequiresCondition: shoes
+		Modifier: 120
+	RangeMultiplier@shoes:
+		RequiresCondition: shoes
+		Modifier: 120
+	Cloak@burrow:
+		RequiresCondition: burrowing
+		InitialDelay: 75
+		CloakDelay: 50
+		CloakSound: burrowdn.aud
+		UncloakSound: burrowup.aud
+		CloakedCondition: burrowed
+		EffectImage: zhydra
+		EffectPalette: player
+		EffectPaletteIsPlayerPalette: true
+		CloakEffectSequence: burrow
+		UncloakEffectSequence: unburrow
+		UncloakOn: Damage, Attack, Move
+		Palette: player
+		IsPlayerPalette: true
+
+ZLURKER:
+	Inherits: ^Infantry
+	Inherits@zerg: ^ZergUnitWeapon
+	Inherits@autotarget: ^AutoTargetGroundAssaultMove
+	Buildable:
+		Prerequisites: zhydraden, ~infantry.zerg, ~techlevel.medium
+		Description: Ranged burrowing unit - must \n deploy to attack\n\n  Speed: 88\n  Strong vs ground units
+		Queue: Infantry
+		BuildAtProductionType: Hatchery
+		BuildDuration: 1000
+		BuildPaletteOrder: 42
+	Selectable:
+		Bounds: 1100, 1100, 0, 0
+		DecorationBounds: 1500, 1200, 0, 0
+	Valued:
+		Cost: 1500
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Tooltip:
+		Name: Lurker
+	Armor:
+		Type: Light
+	Health:
+		HP: 37000
+	Mobile:
+		Speed: 88
+		TurnSpeed: 64
+		Locomotor: foot2
+		RequireForceMoveCondition: !undeployed
+	Power:
+		Amount: -10
+	-Crushable:
+	RevealsShroud:
+		Range: 5c512
+	Armament:
+		Name: primary
+		Weapon: LurkerSpikes
+		RequiresCondition: deployed
+	Turreted:
+		TurnSpeed: 128
+	AttackTurreted@deployed:
+		RequiresCondition: deployed
+		OutsideRangeRequiresForceFire: True
+	-WithInfantryBody:
+	WithFacingSpriteBody:
+		Sequence: idle
+		RequiresCondition: undeployed && real-actor
+		Name: body
+	WithSpriteBody:
+		Sequence: burrowed
+		RequiresCondition: !undeployed
+		Name: deployedbody
+	WithMoveAnimation:
+	WithMakeAnimation:
+		BodyNames: deployedbody
+		Sequence: burrow
+	QuantizeFacingsFromSequence:
+		Sequence: idle
+	GrantCondition@PREVIEWWORKAROUND:
+		Condition: real-actor
+	AutoTarget:
+	Targetable:
+		TargetTypes: GroundActor, Infantry, Disguise
+	Targetable@burrowed:
+		TargetTypes: BurrowedLurker
+		RequiresCondition: deployed
+	RenderSprites:
+	Voiced:
+		VoiceSet: ZergLurkerVoice
+	-DeathSounds@NORMAL:
+	-DeathSounds@BURNED:
+	-DeathSounds@ZAPPED:
+	DeathSounds:
+	WithDeathAnimation:
+		UseDeathTypeSuffix: false
+		CrushedSequence: die
+		CrushedSequencePalette: player
+		CrushedPaletteIsPlayerPalette: true
+	-SpawnActorOnDeath@fire:
+	MustBeDestroyed:
+	ProximityCaptor:
+		Types: Infantry
+	Cloak@burrow:
+		RequiresCondition: deployed
+		InitialDelay: 50
+		CloakDelay: 30
+		CloakedCondition: burrowed
+		UncloakOn: Damage, Move
+		Palette: player
+		IsPlayerPalette: true
+	GrantConditionOnDeploy:
+		DeployedCondition: deployed
+		UndeployedCondition: undeployed
+		UndeployOnMove: true
+		UndeployOnPickup: true
+		Facing: -256
+		AllowedTerrainTypes: Clear, Road, Rough, Creep
+		DeploySounds: zluburrw.aud
+		UndeploySounds: burrowup.aud
+		Voice: Action
+	RenderRangeCircle:

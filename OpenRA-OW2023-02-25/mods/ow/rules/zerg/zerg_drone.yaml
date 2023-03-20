@@ -11,7 +11,7 @@ ZDRONE:
 	Valued:
 		Cost: 500
 	Tooltip:
-		Name: Zerg Drone
+		Name: Drone
 		GenericName: Zerg Drone
 	Selectable:
 		DecorationBounds: 1365, 1365
@@ -33,6 +33,8 @@ ZDRONE:
 		Speed: 96
 		Locomotor: foot2
 		TurnSpeed: 90
+	Power:
+		Amount: -5
 	RevealsShroud:
 		Range: 4c0
 	WithHarvestAnimation:
@@ -135,7 +137,7 @@ ZDRONE:
 		Condition: str_colony
 		Actors: ZE.COLONY
 	KillsSelf@colony:
-		RequiresCondition: str_colony || str_extrac
+		RequiresCondition: str_colony || str_extrac || str_pool || str_hydra
 		DamageTypes: no_sound
 		Delay: 10
 	SpawnActorOnDeath@colony:
@@ -147,6 +149,18 @@ ZDRONE:
 	SpawnActorOnDeath@extrac:
 		Actor: ZDRONE.extrac
 		RequiresCondition: str_extrac
+	GrantConditionOnProduction@pool:
+		Condition: str_pool
+		Actors: ZE.POOL
+	SpawnActorOnDeath@pool:
+		Actor: ZDRONE.pool
+		RequiresCondition: str_pool
+	GrantConditionOnProduction@hydra:
+		Condition: str_hydra
+		Actors: ZE.HYDRA
+	SpawnActorOnDeath@hydra:
+		Actor: ZDRONE.hydra
+		RequiresCondition: str_hydra
 
 
 ZDRONE.colony:
@@ -160,7 +174,7 @@ ZDRONE.colony:
 	Transforms:
 		IntoActor: zccolony
 		TransformSounds: zbldgplc.aud
-		Offset: -1,0
+		Offset: 0,0
 		Facing: -256
 
 ZDRONE.extrac:
@@ -169,6 +183,28 @@ ZDRONE.extrac:
 		Name: Drone (Evolving: Extractor)
 	Transforms:
 		IntoActor: zextrac
+		TransformSounds: zbldgplc.aud
+		Offset: -1,0
+		Facing: -256
+
+ZDRONE.pool:
+	Inherits@drone: ZDRONE.colony
+	Tooltip:
+		Name: Drone (Evolving: Spawning Pool)
+	GrantCondition:
+		Condition: waiting_to_evolve
+	Transforms:
+		IntoActor: zpool
+		TransformSounds: zbldgplc.aud
+		Offset: 0,0
+		Facing: -256
+
+ZDRONE.hydra:
+	Inherits@drone: ZDRONE.colony
+	Tooltip:
+		Name: Drone (Evolving: Hydralisk Den)
+	Transforms:
+		IntoActor: zhydraden
 		TransformSounds: zbldgplc.aud
 		Offset: -1,0
 		Facing: -256
@@ -213,7 +249,7 @@ ZE.COLONY:
 		Prerequisites: ~techlevel.infonly, ~zdrone
 		BuildDuration: 300
 	Valued:
-		Cost: 50
+		Cost: 10
 	RenderSprites:
 		Image: zccolony
 
@@ -221,6 +257,7 @@ ZE.EXTRAC:
 	Inherits: ^ZergEvolve
 	Tooltip:
 		Name: Evolve into Extractor
+	Buildable:
 		Description: Refines and stores resources. \n\nMust be placed on creep.
 		Prerequisites: ~techlevel.infonly, ~zdrone
 		BuildDuration: 1000
@@ -228,3 +265,29 @@ ZE.EXTRAC:
 		Cost: 300
 	RenderSprites:
 		Image: zextrac
+
+ZE.POOL:
+	Inherits: ^ZergEvolve
+	Tooltip:
+		Name: Evolve into Spawning Pool
+	Buildable:
+		Description: Allows production of Zerglings at\n a Hatchery. \n\nMust be placed on creep.
+		Prerequisites: zccolony, ~techlevel.infonly, ~zdrone
+		BuildDuration: 500
+	Valued:
+		Cost: 10
+	RenderSprites:
+		Image: zpool
+
+ZE.HYDRA:
+	Inherits: ^ZergEvolve
+	Tooltip:
+		Name: Evolve into Spawning Pool
+	Buildable:
+		Description: Allows production of Hydralisks at\n a Hatchery. \n\nMust be placed on creep.
+		Prerequisites: zpool, ~techlevel.infonly, ~zdrone
+		BuildDuration: 1000
+	Valued:
+		Cost: 500
+	RenderSprites:
+		Image: zhydraden
