@@ -222,7 +222,6 @@ ZHATCHERY:
 		Amount: 10
 	Production:
 		Produces: Building,Defense,Tech,Wall,Hatchery
-		RequiresCondition: !build-incomplete
 	WithDeathAnimation:
 		DeathSequence: dead
 		UseDeathTypeSuffix: false
@@ -271,12 +270,22 @@ ZCCOLONY:
 		HP: 40000
 	Armor:
 		Type: Wood
+		RequiresCondition: !waiting_to_evolve
+	Armor@2:
+		Type: Heavy
+		RequiresCondition: waiting_to_evolve
 	RevealsShroud:
 		MinRange: 4c0
 		Range: 5c0
 		RevealGeneratedShroud: False
+		RequiresCondition: !waiting_to_evolve
 	RevealsShroud@GAPGEN:
 		Range: 4c0
+	RevealsShroud@defense:
+		MinRange: 4c0
+		Range: 7c0
+		RevealGeneratedShroud: False
+		RequiresCondition: waiting_to_evolve
 	Valued:
 		Cost: 500
 	Tooltip:
@@ -601,7 +610,7 @@ ZHYDRADEN:
 	RevealsShroud@GAPGEN:
 		Range: 4c0
 	Valued:
-		Cost: 1000
+		Cost: 1200
 	Tooltip:
 		Name: Hydralisk Den
 	BaseBuilding:
