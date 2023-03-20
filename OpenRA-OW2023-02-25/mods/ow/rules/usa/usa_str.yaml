@@ -412,7 +412,7 @@ USAAIRFIELD:
 		ForceSetType: Plane
 	AirstrikePower@a10strike:
 		OrderName: a10strike
-		Prerequisites: ~structures.usa, ~aircraft.usa, ~advtechcenter
+		Prerequisites: ~structures.usa, ~aircraft.usa, ~upgrade.aircraftgeneral
 		Icon: usaa10power
 		ChargeInterval: 12000
 		Name: A10 Strike
@@ -423,7 +423,7 @@ USAAIRFIELD:
 		UnitType: usaa10
 		QuantizedFacings: 8
 		DisplayBeacon: true
-		BeaconPoster: pinficon
+		BeaconPoster: usaa10strikebeacon
 		SquadSize: 3
 		SquadOffset: -1792,1792,0
 		ArrowSequence: arrow
@@ -432,6 +432,29 @@ USAAIRFIELD:
 		UseDirectionalTarget: True
 		DirectionArrowAnimation: paradirection
 		SupportPowerPaletteOrder: 40
+		DisplayTimerRelationships: Ally, Neutral, Enemy
+	ParatroopersPower@airdropmines:
+		OrderName: USAMines
+		UnitType: C17
+		Prerequisites: ~structures.usa, ~aircraft.usa
+		Icon: usalandmines
+		ChargeInterval: 6000
+		Name: Mines Airdrop
+		Description: A C17 drops a line of mine anywhere on the map.
+		DropItems: USAMINEDROP, USAMINEDROP, USAMINEDROP, USAMINEDROP, USAMINEDROP
+		ReinforcementsArrivedSpeechNotification: ReinforcementsArrived
+		SelectTargetSpeechNotification: SelectTarget
+		AllowImpassableCells: false
+		QuantizedFacings: 8
+		CameraActor: camera.paradrop
+		DisplayBeacon: true
+		BeaconPoster: usalandminesbeacon
+		ArrowSequence: arrow
+		ClockSequence: clock
+		CircleSequence: circles
+		UseDirectionalTarget: True
+		DirectionArrowAnimation: paradirection
+		SupportPowerPaletteOrder: 50
 	ProximityExternalCondition:
 		Condition: reloadnear
 		Range: 7c0
@@ -495,9 +518,9 @@ usastrategycenter:
 		Icon: paratroopers
 		ChargeInterval: 9000
 		Name: Paratroopers
-		Description: A C17 drops a squad of US Rangers anywhere on the map.
+		Description: A C17 drops a squad of US soldiers anywhere on the map.
 		UnitType: C17
-		DropItems: USARANGER,USARANGER,USARANGER,USARANGER,USARANGER,USARANGER,USARANGER,USARANGER,USARANGER,USARANGER,USARANGER,USARANGER,USARANGER,USARANGER,USARANGER,USARANGER,USARANGER,USARANGER,USARANGER,USARANGER
+		DropItems: USARANGER,USARANGER,USARANGER,USARANGER,USARANGER,USADEFENDER,USADEFENDER,USADEFENDER,USADEFENDER,USADEFENDER,USARANGER,USARANGER,USARANGER,USARANGER,USARANGER,USADEFENDER,USADEFENDER,USADEFENDER,USADEFENDER,USADEFENDER
 		ReinforcementsArrivedSpeechNotification: ReinforcementsArrived
 		SelectTargetSpeechNotification: SelectTarget
 		AllowImpassableCells: false
@@ -512,29 +535,6 @@ usastrategycenter:
 		DirectionArrowAnimation: paradirection
 		SupportPowerPaletteOrder: 50
 		SquadSize: 3
-	ParatroopersPower@usatanks:
-		OrderName: usatanks
-		Prerequisites: ~structures.usa, ~aircraft.usa, ~upgrade.aircraftgeneral
-		Icon: paratank
-		ChargeInterval: 12000
-		Name: Paratanks
-		Description: A C17 drops a squad of Tanks anywhere on the map.
-		UnitType: C17
-		DropItems: USACRUSADER,USACRUSADER,USAPALADIN,USACRUSADER,USACRUSADER
-		ReinforcementsArrivedSpeechNotification: ReinforcementsArrived
-		SelectTargetSpeechNotification: SelectTarget
-		AllowImpassableCells: false
-		QuantizedFacings: 8
-		CameraActor: camera.paradrop
-		DisplayBeacon: true
-		BeaconPoster: pinficon
-		ArrowSequence: arrow
-		ClockSequence: clock
-		CircleSequence: circles
-		UseDirectionalTarget: True
-		DirectionArrowAnimation: paradirection
-		SupportPowerPaletteOrder: 50
-		SquadSize: 1
 	IonCannonPower@EMP:
 		OrderName: EMPPower
 		Prerequisites: ~upgrade.superweaponsgeneral
@@ -556,6 +556,101 @@ usastrategycenter:
 		EffectPalette: tseffect
 		Weapon: EMPWeapon
 		DisplayTimerRelationships: Ally, Neutral, Enemy
+ 
+#mines move later
+USAMINEDROP:
+	Inherits: 1TNK.MINE
+	Explodes:
+		Weapon: SmallBuildingExplode
+		DeathTypes: TriggerProne
+	KillsSelf:
+		Delay: 1
+		RequiresCondition: !parachute
+		DamageTypes: replace
+	-SpawnActorOnDeath:
+	SpawnActorOnDeath@2:
+		Actor: USAMINEDROPACTOR
+		DeathType: replace
+	RenderSprites:
+		Image: minvs
+	Health:
+		HP: 20000
+	Armor:
+		Type: Wood
+
+USAMINEDROPACTOR:
+	Inherits: ^Defense
+	Inherits@AUTOTARGET: ^AutoTargetGround
+	Buildable:
+		Queue: Defense
+		BuildPaletteOrder: 200
+		Prerequisites: ~structures.usa, !structures.usa
+		Description: Highly explosive proximity trap.\n  Strong vs Ground units\n  Weak vs Aircraft
+	RequiresBuildableArea:
+		AreaTypes: building, fake
+		Adjacent: 4
+	-GivesBuildableArea:
+	Valued:
+		Cost: 600
+	-Sellable:
+	-Demolishable:
+	-Capturable:
+	-CapturableProgressBar:
+	-CapturableProgressBlink:
+	-CaptureManager:
+	-ActorLostNotification:
+	Tooltip:
+		Name: Land Mine
+	SelectionDecorations:
+	Health:
+		HP: 22500
+	Armor:
+		Type: Wood
+	RevealsShroud:
+		Range: 2c0
+	Targetable:
+		RequiresCondition: !triggered
+	Armament:
+		Weapon: DemoTrapTargeting
+	AttackCharges:
+		RequiresCondition: !build-incomplete
+		ChargeLevel: 100
+		ChargingCondition: triggered
+		PauseOnCondition: disabled
+	AmbientSound:
+		RequiresCondition: triggered
+		SoundFiles: mineblo1.aud
+		Interval: 1
+	Cloak:
+		InitialDelay: 20
+		CloakDelay: 20
+		UncloakOn: Attack
+		Palette: cloak
+		DetectionTypes: Mine
+		IsPlayerPalette: true
+		PauseOnCondition: triggered
+	ProvidesPrerequisite@buildingname:
+	DamageMultiplier@IRONCURTAIN:
+		RequiresCondition: triggered
+	GrantConditionOnDeploy:
+		DeployedCondition: triggered
+		RequiresCondition: !triggered
+	KillsSelf:
+		RequiresCondition: invulnerability || triggered
+		Delay: 1
+		DamageTypes: Suicide
+	GrantConditionOnDamageState:
+		Condition: triggered
+		ValidDamageStates: critical
+	DamageMultiplier@die:
+		RequiresCondition: triggered
+		Modifier: 0
+	Explodes:
+		Weapon: USATrapExplosion
+		EmptyWeapon: USATrapExplosion
+		DamageSource: Killer
+	RenderSprites:
+		Image: minvs
         
 usasupplydropzone:
 	Inherits: ^Building
@@ -772,64 +867,149 @@ usapatriotEMP:
 		UseClassicFacingFudge: True
 	RenderSprites:
 		Image: usapatriotemp
+        PlayerPalette: dawn
 	RevealsShroud@GAPGEN:
 		Range: 5c0
- 
+        
 usalaserpatriot:
 	Inherits: ^Defense
-	Inherits@IDISABLE: ^DisableOnLowPowerOrPowerDown
 	Inherits@AUTOTARGET: ^AutoTargetGround
 	Buildable:
 		Queue: Defense
-		BuildPaletteOrder: 80
+		BuildPaletteOrder: 70
 		Prerequisites: anypower, ~structures.usa, upgrade.lasergeneral
-		Description: Laster Defense Turret.\nProvided by General Townes
+		Description: Laser Defense Turret.\nProvided by General Townes
 	Valued:
 		Cost: 1200
 	Tooltip:
 		Name: Laser Defense Turret
-	Selectable:
-		Bounds: 1024, 1024
-		DecorationBounds: 1024, 1877, 0, -426
-	SelectionDecorations:
+	Building:
 	Health:
 		HP: 65000
 	Armor:
 		Type: Heavy
 	RevealsShroud:
-		MinRange: 6c0
-		Range: 8c0
+		MinRange: 5c0
+		Range: 6c512
 		RevealGeneratedShroud: False
 	RevealsShroud@GAPGEN:
-		Range: 6c0
+		Range: 5c0
 	WithBuildingBib:
 		HasMinibib: true
-	-WithSpriteBody:
-	WithChargeSpriteBody:
-		Sequence: active
+	Turreted:
+		TurnSpeed: 48
+		InitialFacing: 192
+		RealignDelay: -1
+		RequiresCondition: !build-incomplete
+	WithSpriteTurret:
+		RequiresCondition: !build-incomplete
+		Recoils: false
 	Armament:
-		Weapon: ObeliskLaser
-		LocalOffset: 0,-85,1280
+		Weapon: USALaserpatriotshot
+		LocalOffset: 512,0,112
+		MuzzleSequence: muzzle
 	Armament@Secondary:
-		Weapon: USAAvengerLaserAir
-		LocalOffset: 0,-85,1280
-	AttackCharges:
-		RequiresCondition: !build-incomplete && !disabled
-		PauseOnCondition: disabled
-		ChargeLevel: 65
-		ChargingCondition: charging
-	AmbientSound:
-		RequiresCondition: charging
-		SoundFiles: obelpowr.aud
-		Interval: 30, 40
+		Weapon: USALaserpatriotshotair
+		LocalOffset: 512,0,112
+		MuzzleSequence: muzzle
+	AttackTurreted:
+		PauseOnCondition: build-incomplete
+	WithMuzzleOverlay:
 	Power:
-		Amount: -100
+		Amount: -40
 	DetectCloaked:
 		Range: 6c0
-		RequiresCondition: !disabled
-	WithDeathAnimation:
-		DeathSequence: dead
-		UseDeathTypeSuffix: false
+	-BodyOrientation:
+	ClassicFacingBodyOrientation:
+	RenderSprites:
+		Image: usalaserpatriot
+        PlayerPalette: dawn
+        
+usafirebase:
+	Inherits: ^Defense
+	Inherits@AUTOTARGET: ^AutoTargetGround
+	Buildable:
+		Queue: Defense
+		BuildPaletteOrder: 70
+		Prerequisites: anypower, ~structures.usa
+		Description: Firebase defense structure. Long ranged artillery.
+	Selectable:
+		Bounds: 2048, 2048
+	Valued:
+		Cost: 1600
+	Tooltip:
+		Name: Firebase
+	Building:
+        Footprint: _x_ xxx _x_
+        Dimensions: 3,3
+    FreeActor@1:
+        Actor: firebasebunker
+        SpawnOffset: 0,0
+    FreeActor@2:
+        Actor: firebasebunker
+        SpawnOffset: 0,2
+    FreeActor@3:
+        Actor: firebasebunker
+        SpawnOffset: 2,2
+    FreeActor@4:
+        Actor: firebasebunker
+        SpawnOffset: 2,0
+	Health:
+		HP: 65000
+	Armor:
+		Type: Heavy
+	RevealsShroud:
+		MinRange: 5c0
+		Range: 6c512
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 5c0
+	WithBuildingBib:
+		HasMinibib: true
+	Turreted:
+		TurnSpeed: 48
+		InitialFacing: 192
+		RealignDelay: -1
+		RequiresCondition: !build-incomplete
+	WithSpriteTurret:
+		RequiresCondition: !build-incomplete
+		Recoils: false
+	Armament:
+		Weapon: usafirebaseshot
+		MuzzleSequence: muzzle
+		LocalOffset: 1000,200,60, 1000,0,60, 1000,-200,60
+	AttackTurreted:
+		PauseOnCondition: build-incomplete
+	WithMuzzleOverlay:
+	Power:
+		Amount: -40
+	DetectCloaked:
+		Range: 6c0
+	-BodyOrientation:
+	ClassicFacingBodyOrientation:
+	RenderSprites:
+		Image: usafirebase
+	Explodes:
+		Weapon: FireBaseExplosion
+		EmptyWeapon: FireBaseExplosion
+	HitShape:
+		TargetableOffsets: 840,0,0, 598,-640,0, 598,640,0, -1060,0,0, -768,-640,0, -768,640,0
+		Type: Polygon
+			Points: -1536,-300, -640,-811, 640,-811, 1536,-300, 1536,555, 640,1110, -640,1110, -1536,555
+        
+firebasebunker:
+	Inherits: PBOX
+	-Buildable:
+    Targetable: 
+        TargetTypes: Firebasebox
+    -Cargo:
+    Cargo:
+		Types: Infantry
+		MaxWeight: 1
+	RenderSprites:
+		Image: PBOX
+	Power:
+		Amount: 0
         
 usasilo:
 	Inherits: ^Building
@@ -884,41 +1064,41 @@ usasilo:
 		PipCount: 20
 		FullSequence: pip-yellow
         
-usadeepdrill:
-	Inherits: ^Building
-	Inherits@IDISABLE: ^DisableOnLowPowerOrPowerDown
-	Inherits@shape: ^3x2Shape
-	Selectable:
-		Bounds: 3072, 2048
-	Buildable:
-		Queue: Tech
-		BuildPaletteOrder: 35
-		Prerequisites: ~structures.usa, upgrade.superweaponsgeneral
-		Description: Deep drill that can pull gems from the deepest of locations.
-	Building:
-		Footprint: xxx xxx xxx
-		Dimensions: 3,3
-		LocalCenterOffset: 0,-512,0
-	Valued:
-		Cost: 7000
-	Targetable:
-		TargetTypes: GroundActor, Structure, C4, DetonateAttack, ThiefInfiltrate
-	Tooltip:
-		Name: Deep Drill
-	SeedsResource:
-		Interval: 125
-		ResourceType: Gems
-		MaxRange: 5
-		PauseOnCondition: disabled
-	Health:
-		HP: 60000
-	Armor:
-		Type: Heavy
-	RevealsShroud:
-		Range: 6c0
-	-SpawnActorsOnSell:
-	Power:
-		Amount: -300
-	Explodes:
-		Weapon: TinyNuke
-		EmptyWeapon: TinyNuke
+##usadeepdrill:
+##	Inherits: ^Building
+##	Inherits@IDISABLE: ^DisableOnLowPowerOrPowerDown
+##	Inherits@shape: ^3x2Shape
+##	Selectable:
+##		Bounds: 3072, 2048
+##	Buildable:
+##		Queue: Tech
+##		BuildPaletteOrder: 35
+##		Prerequisites: ~structures.usa, upgrade.superweaponsgeneral
+##		Description: Deep drill that can pull gems from the deepest of locations.
+##	Building:
+##		Footprint: xxx xxx xxx
+##		Dimensions: 3,3
+##		LocalCenterOffset: 0,-512,0
+##	Valued:
+##		Cost: 7000
+##	Targetable:
+##		TargetTypes: GroundActor, Structure, C4, DetonateAttack, ThiefInfiltrate
+##	Tooltip:
+##		Name: Deep Drill
+##	SeedsResource:
+##		Interval: 125
+##		ResourceType: Gems
+##		MaxRange: 5
+##		PauseOnCondition: disabled
+##	Health:
+##		HP: 60000
+##	Armor:
+##		Type: Heavy
+##	RevealsShroud:
+##		Range: 6c0
+##	-SpawnActorsOnSell:
+##	Power:
+##		Amount: -300
+##	Explodes:
+##		Weapon: TinyNuke
+##		EmptyWeapon: TinyNuke

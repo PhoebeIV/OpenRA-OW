@@ -22,6 +22,9 @@ USACRUSADER:
 	SelectionDecorations:
 	RenderSprites:
 		Image: usacrusadertank
+    GrantConditionOnPrerequisite@1:
+        Condition: upgradesuperweaponsgeneral
+        Prerequisites: upgrade.superweaponsgeneral
         
 USAPALADIN:
 	Inherits: 2TNK
@@ -42,17 +45,30 @@ USAPALADIN:
 		TurnSpeed: 16
 	Armament@Primary:
 		Weapon: GDI120mm
+        PauseOnCondition: upgradesuperweaponsgeneral
 	Armament@Secondary:
 		Weapon: USAPaladinLaser
+	Armament@PrimaryUpgrade1:
+		Weapon: 120mm
+		LocalOffset: 768,85,90, 768,-85,90
+        RequiresCondition: upgradesuperweaponsgeneral
 	JamsMissiles:
-		Range: 2c0
-        Chance: 20
+		Range: 3c0
+        Chance: 25
 		DeflectionRelationships: Neutral, Enemy
 	SpawnActorOnDeath:
 		Actor: 2TNK.NZ.Husk
+    WithSpriteTurret: 
+        Sequence: turret
+    WithSpriteTurret@upgrade: 
+        Sequence: turret2
+        RequiresCondition: upgradesuperweaponsgeneral
 	SelectionDecorations:
 	RenderSprites:
 		Image: usapaladintank
+    GrantConditionOnPrerequisite@1:
+        Condition: upgradesuperweaponsgeneral
+        Prerequisites: upgrade.superweaponsgeneral
         
 USAHUMVEE:
 	Inherits: JEEP
@@ -189,7 +205,7 @@ USASENTRYDRONE:
 		Queue: Vehicle
 		BuildPaletteOrder: 230
 		Prerequisites: ~vehicles.usa
-		Description: Unmanned detection vehicle.\nCamouflaged while not moving.\nCan be upgraded with a machine gun for self defense\n  Weak vs Everything
+		Description: Unmanned detection vehicle.\nCamouflaged while not moving.\nArmed with a machine gun for self defense\n  Weak vs Everything
         BuildDuration: 300
 	Health:
 		HP: 14000
@@ -275,7 +291,7 @@ USAMICROWAVE:
 		Range: 3c512
 	JamsMissiles:
 		Range: 3c0
-        Chance: 20
+        Chance: 25
 		DeflectionRelationships: Neutral, Enemy
 	SpawnActorOnDeath:
 		Actor: 2TNK.NZ.Husk
@@ -302,8 +318,9 @@ USALASERCRUSADER:
 		TurnSpeed: 16
 	Armament:
 		Weapon: USALaserCrusaderLaser
+		LocalOffset: 511,200,113, 511,-200,113
 	SpawnActorOnDeath:
-		Actor: MTNKD.Husk
+		Actor: USALASERCRUSADER.Husk
 	SelectionDecorations:
 	RenderSprites:
 		Image: usalasercrusadertank

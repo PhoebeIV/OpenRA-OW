@@ -14,7 +14,7 @@ USARANGER:
 	UpdatesPlayerStatistics:
 		AddToArmyValue: true
 	Health:
-		HP: 12000
+		HP: 13000
 	Armament@PRIMARY:
 		Weapon: rangershot
         PauseOnCondition: upgradelasergeneral
@@ -80,7 +80,7 @@ USADEFENDER:
 	UpdatesPlayerStatistics:
 		AddToArmyValue: true
 	Health:
-		HP: 8000
+		HP: 10000
 	Armament@PRIMARY:
 		Weapon: missiledefendershot
         PauseOnCondition: upgradelasergeneral
@@ -160,14 +160,30 @@ USAPATHFINDER:
 		InvalidTargets: NoAutoTarget
 	Armament@PRIMARY:
 		Weapon: pathfindersniper
+        PauseOnCondition: upgradelasergeneral
 	Armament@GARRISONED:
 		Name: garrisoned
 		Weapon: pathfindersniper
 		MuzzleSequence: garrison-muzzle
+        PauseOnCondition: upgradelasergeneral
 	Armament@BUS:
 		Name: bus
 		Weapon: pathfindersniper
 		MuzzleSequence: garrison-muzzle
+        PauseOnCondition: upgradelasergeneral
+	Armament@PRIMARYupgrade:
+		Weapon: pathfindersniperupgrade
+        RequiresCondition: upgradelasergeneral
+	Armament@GARRISONEDupgrade:
+		Name: garrisoned
+		Weapon: pathfindersniperupgrade
+		MuzzleSequence: garrison-muzzle
+        RequiresCondition: upgradelasergeneral
+	Armament@BUSupgrade:
+		Name: bus
+		Weapon: pathfindersniperupgrade
+		MuzzleSequence: garrison-muzzle
+        RequiresCondition: upgradelasergeneral
 	WithInfantryBody:
 		DefaultAttackSequence: shoot
 		RequiresCondition: !parachute
@@ -182,8 +198,8 @@ USAPATHFINDER:
 		Bounds: 768, 853, 0, -256
 		DecorationBounds: 640, 896, 0, -426 
 	Cloak:
-		InitialDelay: 250
-		CloakDelay: 120
+		InitialDelay: 200
+		CloakDelay: 100
 		CloakSound:
 		UncloakSound:
 		UncloakOn: Attack, Unload, Infiltrate, Demolish, Move
@@ -194,6 +210,9 @@ USAPATHFINDER:
 		ValidDamageStates: Critical
 	RenderSprites:
 		Image: usapathfinder
+    GrantConditionOnPrerequisite@1:
+        Condition: upgradelasergeneral
+        Prerequisites: upgrade.lasergeneral
  
 USABurton:
 	Inherits: ^Soldier
@@ -211,7 +230,7 @@ USABurton:
 	UpdatesPlayerStatistics:
 		AddToArmyValue: true
 	Health:
-		HP: 12000
+		HP: 20000
 	Mobile:
 		Speed: 71
 		Voice: Move

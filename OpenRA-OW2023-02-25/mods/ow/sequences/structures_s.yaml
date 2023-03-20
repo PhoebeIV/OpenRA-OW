@@ -2648,48 +2648,71 @@ usafirebase:
 	icon: usafirebaseicon
     
 usapatriotemp:
-	idle: usapatriot
+	idle: samd
+		Start: 17
+		Facings: 32
+	damaged-idle samd
+		Start: 81
 		Facings: 32
 		UseClassicFacingFudge: True
 		Offset: -2,-2
-	damaged-idle usapatriot
-		Start: 34
-		Facings: 32
-		UseClassicFacingFudge: True
-		Offset: -2,-2
-	make: sammake
-		Length: *
+	make: samdmake
+		Length: 21
 		Offset: -2,-2
 	muzzle: samfire
 		Length: 18
 		Facings: 8
 		Offset: -2,6
 	icon: usapatriotempicon
-    
+         
 usalaserpatriot:
-	Defaults: oblid
-		Offset: 0,-12
-	idle: oblid
-	damaged-idle: oblid
-		Start: 4
-	active: oblid
-		Length: 4
-		Tick: 680
-	damaged-active: oblid
-		Start: 4
-		Length: 4
-		Tick: 680
-	dead: oblid
-		Start: 8
-		Tick: 800
-	make: oblidmake
-		Length: 13
+	idle: gunmake # Empty first frame (agunmake has no empty frames). We need WithSpriteBody for the make anim, and WSB needs at least a placeholder default sequence to work
+	make: usalaserpatriotmake
+		Length: *
+		Tick: 40
+	turret:
+		Facings: 32
+		UseClassicFacings: True
+	damaged-turret: usalaserpatriot
+		Start: 32
+		Facings: 32
+		UseClassicFacings: True
+	muzzle: gunfire2
+		Length: *
 	bib: mbGUN
 		Length: *
 		Offset: -1,-1
 		UseTilesetExtension: true
 	icon: usalaserpatrioticon
+    
+usafirebase:
+	idle: empty
+	damaged-idle: empty
+	turret: usafirebase
+		Facings: 32
+		UseClassicFacings: True
 		Offset: 0,0
+        Scale: 1.25
+	damaged-turret: usafirebase
+		Start: 32
+		Facings: 32
+		UseClassicFacings: True
+		Offset: 0,0
+        Scale: 1.25
+	make: usafirebasemake
+		Length: *
+		Offset: 0,0
+		Tick: 75
+        Scale: 1.25
+	muzzle: smokeygun
+		Length: 12
+		Tick: 30
+		Offset: 0,0
+	bib: mbSAM
+		Length: *
+		Offset: -1,-1
+		UseTilesetExtension: true
+	icon: usafirebaseicon
         
 usasilo:
 	idle:
