@@ -209,7 +209,7 @@ ZHYDRA:
 	Armor:
 		Type: Light
 	Health:
-		HP: 25000
+		HP: 22500
 	Mobile:
 		Speed: 88
 		TurnSpeed: 128
@@ -294,7 +294,7 @@ ZLURKER:
 	Inherits@zerg: ^ZergUnitWeapon
 	Inherits@autotarget: ^AutoTargetGroundAssaultMove
 	Buildable:
-		Prerequisites: zhydraden, ~infantry.zerg, ~techlevel.medium
+		Prerequisites: zhydraden, ~infantry.zerg, ~techlevel.high, techcenter
 		Description: Ranged burrowing unit - must \n deploy to attack\n\n  Speed: 88\n  Strong vs ground units
 		Queue: Infantry
 		BuildAtProductionType: Hatchery
@@ -312,7 +312,7 @@ ZLURKER:
 	Armor:
 		Type: Light
 	Health:
-		HP: 37000
+		HP: 32500
 	Mobile:
 		Speed: 88
 		TurnSpeed: 64
@@ -327,11 +327,21 @@ ZLURKER:
 		Name: primary
 		Weapon: LurkerSpikes
 		RequiresCondition: deployed
+	Armament@2:
+		Name: ai
+		Weapon: LurkerDeploy
+		RequiresCondition: undeployed && ai_hack
 	Turreted:
 		TurnSpeed: 128
 	AttackTurreted@deployed:
-		RequiresCondition: deployed
+		RequiresCondition: deployed || ai_hack
 		OutsideRangeRequiresForceFire: True
+		Armaments: primary, ai
+	GrantConditionOnAttack: 
+		ArmamentNames: ai, primary
+		RequiresCondition: ai_hack
+		Condition: deployed
+		RevokeDelay: 250
 	-WithInfantryBody:
 	WithFacingSpriteBody:
 		Sequence: idle
@@ -372,14 +382,18 @@ ZLURKER:
 	ProximityCaptor:
 		Types: Infantry
 	Cloak@burrow:
-		RequiresCondition: deployed
+		RequiresCondition: deployed && !ai_hack
 		InitialDelay: 50
 		CloakDelay: 30
 		CloakedCondition: burrowed
 		UncloakOn: Damage, Move
 		Palette: player
 		IsPlayerPalette: true
+	GrantCondition@ai:
+		Condition: undeployed
+		RequiresCondition: !deployed && ai_hack
 	GrantConditionOnDeploy:
+		RequiresCondition: !ai_hack
 		DeployedCondition: deployed
 		UndeployedCondition: undeployed
 		UndeployOnMove: true
@@ -390,3 +404,89 @@ ZLURKER:
 		UndeploySounds: burrowup.aud
 		Voice: Action
 	RenderRangeCircle:
+	GrantConditionOnBotOwner:
+		Condition: ai_hack
+		Bots: easy, medium, hard, boss
+	DamageMultiplier@bot:
+		RequiresCondition: ai_hack
+		Modifier: 120
+	FirepowerMultiplier@bot:
+		RequiresCondition: ai_hack
+		Modifier: 80
+	ReloadDelayMultiplier@bot:
+		RequiresCondition: ai_hack
+		Modifier: 125
+	-Cloneable:
+
+ZULTRA:
+	Inherits: ^Infantry
+	Inherits@zerg: ^ZergUnitWeapon
+	Inherits@autotarget: ^AutoTargetAllAssaultMove
+	Buildable:
+		Prerequisites: zultraden, ~infantry.zerg, ~techlevel.unrestricted
+		Description: Powerful ground unit.\n  Speed: 88\n  Strong vs ground, structures
+		Queue: Infantry
+		BuildDuration: 3000
+		BuildAtProductionType: Hatchery
+		BuildPaletteOrder: 43
+	Selectable:
+		Bounds: 1100, 1100, 0, 0
+		DecorationBounds: 1600, 1400, 0, 0
+	Valued:
+		Cost: 3500
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Tooltip:
+		Name: Ultralisk
+	Armor:
+		Type: Heavy
+	Health:
+		HP: 150000
+	Mobile:
+		Speed: 88
+		TurnSpeed: 64
+		Locomotor: foot2
+	Power:
+		Amount: -25
+	-Crushable:
+	Passenger:
+		Weight: 4
+	RevealsShroud:
+		Range: 6c512
+	Armament:
+		Name: primary
+		Weapon: UltraAttack
+	WithInfantryBody:
+		DefaultAttackSequence: shoot
+		IdleSequences: stand
+		StandSequences: stand
+	AutoTarget:
+	Targetable:
+		TargetTypes: GroundActor, Infantry, Cyborg
+	RenderSprites:
+	Voiced:
+		VoiceSet: ZergUltraVoice
+	-DeathSounds@NORMAL:
+	-DeathSounds@BURNED:
+	-DeathSounds@ZAPPED:
+	DeathSounds:
+	WithDeathAnimation:
+		UseDeathTypeSuffix: false
+		CrushedSequence: die
+		CrushedSequencePalette: player
+		CrushedPaletteIsPlayerPalette: true
+	-SpawnActorOnDeath@fire:
+	MustBeDestroyed:
+	ProximityCaptor:
+		Types: Infantry
+	AttackFrontal:
+		FacingTolerance: 32
+	ChangesHealth@creep:
+		Delay: 175
+	ExternalCondition@PRODUCED:
+		Condition: produced
+	VoiceAnnouncement:
+		RequiresCondition: produced
+		Voice: Build
+	-Cloneable:
+

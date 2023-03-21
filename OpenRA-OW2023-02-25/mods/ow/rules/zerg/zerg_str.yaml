@@ -27,17 +27,24 @@
 		Queue: Bot
 		Prerequisites: ~disabled
 		BuildDurationModifier: 40
-	Building:
+	-Building:
+	D2kBuilding:
+		Dimensions: 1,1
+		Footprint: x
 		BuildSounds: zbldgplc.aud
 		AllowPlacementOnResources: true
 		TerrainTypes: Creep
+		RequiresBaseProvider: True
+		Adjacent: 5
+		Damage: 0
+		DamageInterval: 80000
+		DamageThreshold: 100
+		DamageTerrainTypes: Water
+		ConcreteTemplate: 1500
 	RepairableBuilding:
 		RepairStep: 400
 		PlayerExperience: 2
 		RepairPercent: 0
-	ProximityExternalCondition@creepalive:
-		Condition: creepalive
-		Range: 3c0
 	Explodes:
 		Type: CenterPosition
 		Weapon: LargeZergBuildingExplode
@@ -59,7 +66,8 @@ ZMCV:
 	Inherits: MCV
 	Inherits@selection: ^SelectableSupportUnit
 	Buildable:
-		Prerequisites: fix, ~mcv, ~techlevel.medium, ~vehicles.zerg
+		Queue: Tech
+		Prerequisites: ~mcv, ~techlevel.medium, ~infantry.zerg, ~ai.all
 		Icon: icon-hatchery
 	Transforms:
 		IntoActor: zhatchery
@@ -78,15 +86,16 @@ ZMCV:
 		Image: zdrone
 	Voiced:
 		VoiceSet: ZergDroneVoice
+	Power:
+		Amount: 10
 
 
 ZMCV.2:
 	Inherits: ZMCV
 	Buildable:
-		Queue: Vehicle
 		BuildPaletteOrder: 90
 		BuildDurationModifier: 35
-		Prerequisites: ~!mcv, ~techlevel.medium, ~vehicles.zerg
+		Prerequisites: ~!mcv, ~techlevel.medium, ~infantry.zerg, ~ai.all
 	Valued:
 		Cost: 3000
 
@@ -98,6 +107,11 @@ CreepSpawnerBig:
 	Explodes:
 		Weapon: CreepSplashBig
 		EmptyWeapon: CreepSplashBig
+
+CreepSpawnerBig2:
+	Inherits: CreepSpawnerBig
+	SpawnActorOnDeath:
+		Actor: CreepGenBig2
 
 CreepSpawnerMedium:
 	Inherits: CreepSpawnerBig
@@ -135,9 +149,17 @@ CreepGenBig:
 	Explodes:
 		Weapon: CreepRemoveBig
 	SeedsResource:
-		Interval: 1
+		Interval: 2
 		MaxRange: 9
 		ResourceType: ZergCreep
+	ProximityExternalCondition:
+		Condition: creepgen
+		Range: 9c0
+		ValidRelationships: Neutral, Ally, Enemy
+
+CreepGenBig2:
+	Inherits: CreepGenBig
+	-Explodes:
 
 CreepGenMed:
 	Inherits: CreepGenBig
@@ -147,6 +169,8 @@ CreepGenMed:
 		Interval: 2
 		MaxRange: 7
 		ResourceType: ZergCreep
+	ProximityExternalCondition:
+		Range: 7c0
 
 SmallZergBuildingComplete:
 	Inherits: CreepSpawnerBig
@@ -167,39 +191,85 @@ LargeZergBuildingComplete:
 		Weapon: LargeZergBuildingSpawn
 		EmptyWeapon: LargeZergBuildingSpawn
 
+ClonerSpawner:
+	Inherits: 1TNK.MINE
+	SpawnActorOnDeath:
+		Actor: ZergCloner
+		OwnerType: Victim
+	-Explodes:
+
+ZergCloner:
+	Inherits: CreepGenBig
+	Inherits@shape: ^1x1Shape
+	Inherits@1: ^PrimaryBuilding
+	-Explodes:
+	-SeedsResource:
+	-ProximityExternalCondition:
+	Tooltip:
+		Name: Hive Unit Cloning
+	Selectable:
+		Bounds: 768, 768, 0, 0
+		DecorationBounds: 768, 768, 0, 0
+	Production:
+		Produces: Infantry,Hatchery
+	ProductionQueue@2:
+		Type: Infantry
+		DisplayOrder: 2
+		Group: Infantry
+		LowPowerModifier: 200
+		ReadyAudio: UnitReady
+		BlockedAudio: NoBuild
+		LimitedAudio: BuildingInProgress
+		QueuedAudio: Building
+		OnHoldAudio: OnHold
+		CancelledAudio: Cancelled
+	ClonesProducedUnits:
+		CloneableTypes: Infantry, Hatchery
+		ProductionType: Infantry
+	Exit@1:
+		SpawnOffset: 0,512,0
+		ExitCell: 0,1
+	RallyPoint:
+
 ZHATCHERY:
 	Inherits: ^ZergBuilding
 	Inherits@prereqs: ^ConYardPrereqs
 	Inherits@con: ^ConYard
-	Inherits@shape: ^2x3Shape
 	Inherits@PRIMARY: ^PrimaryBuilding
+	HitShape:
+		TargetableOffsets: 1273,939,0, -980,-640,0, -980,640,0
+		Type: Rectangle
+			TopLeft: -1536, -1536
+			BottomRight: 1536, 1536
 	Production@Bot:
 		Produces: Bot
 		RequiresCondition: botowner
 	Exit@0:
-		SpawnOffset: -600,810,0
-		ExitCell: 0,2
+		SpawnOffset: -600,1500,0
+		ExitCell: 0,3
 	Exit@1:
-		SpawnOffset: -600,810,0
-		ExitCell: 1,2
+		SpawnOffset: -600,1500,0
+		ExitCell: 1,3
 	Exit@2:
-		SpawnOffset: -170,810,0
-		ExitCell: 2,2
+		SpawnOffset: 0,1500,0
+		ExitCell: 2,3
 		ProductionTypes: Infantry, Hatchery
 	RallyPoint:
 	Selectable:
 		Bounds: 3072, 3072
-	Building:
-		Footprint: xxx x_x
-		Dimensions: 3,2
+	D2kBuilding:
+		Footprint: =x= xxx x=x ===
+		Dimensions: 3,4
 		LocalCenterOffset: 0,-512,0
 		BuildSounds: zbldgplc.aud
 		TerrainTypes: Clear,Road,Creep
+		Adjacent: 9
 	Buildable:
 		Queue: Building
 		BuildPaletteOrder: 1000
-		Prerequisites: ~disabled
+		Prerequisites: ~zlair, ~ai.hard
 		Description: Produces structures.
+		BuildLimit: 3
 	Health:
 		HP: 150000
 	Armor:
@@ -211,9 +281,16 @@ ZHATCHERY:
 	RevealsShroud@GAPGEN:
 		Range: 4c0
 	Valued:
-		Cost: 2000
+		Cost: 5000
 	Tooltip:
 		Name: Hatchery
+		RequiresCondition: !lair_upgrade && !hive_upgrade
+	Tooltip@1:
+		Name: Lair
+		RequiresCondition: lair_upgrade && !hive_upgrade
+	Tooltip@2:
+		Name: Hive
+		RequiresCondition: hive_upgrade
 	BaseBuilding:
 	GrantConditionOnPrerequisite@GLOBALFACTUNDEPLOY:
 		Condition: factundeploy
@@ -222,6 +299,8 @@ ZHATCHERY:
 		Amount: 10
 	Production:
 		Produces: Building,Defense,Tech,Wall,Hatchery
+	GrantExternalConditionToProduced:
+		Condition: produced
 	WithDeathAnimation:
 		DeathSequence: dead
 		UseDeathTypeSuffix: false
@@ -243,14 +322,180 @@ ZHATCHERY:
 		RequiresCondition: damaged3
 		Sequence: blood4
 		Offset: -600,0,0
-	FreeActor:
+	WithIdleOverlay@main:
+		Sequence: idle2
+		RequiresCondition: !build-incomplete && !lair_upgrade && !hive_upgrade
+	WithSpriteBody@lair:
+		RequiresCondition: lair_upgrade && !hive_upgrade
+		StartSequence: lair-make
+		Sequence: lair-idle
+	WithSpriteBody@hive:
+		RequiresCondition: hive_upgrade
+		StartSequence: hive-make
+		Sequence: hive-idle
+	FreeActor@creep:
 		Actor: CreepSpawnerBig
-		SpawnOffset: 1,0
+		SpawnOffset: 0,0
+		RequiresCondition: !build-incomplete
+	FreeActor@creep2:
+		Actor: CreepSpawnerBig
+		SpawnOffset: 0,2
+		RequiresCondition: !build-incomplete
+	FreeActor@creep3:
+		Actor: CreepSpawnerBig
+		SpawnOffset: 2,0
+		RequiresCondition: !build-incomplete
+	FreeActor@creep4:
+		Actor: CreepSpawnerBig
+		SpawnOffset: 2,2
 		RequiresCondition: !build-incomplete
 	FreeActor@effect_complete:
 		Actor: MediumZergBuildingComplete
-		SpawnOffset: 1,0
+		SpawnOffset: 1,1
 		RequiresCondition: !build-incomplete
+	Pluggable@1:
+		Offset: 1,0
+		Conditions:
+			zlair: lair_upgrade
+			zhive: hive_upgrade
+		Requirements:
+			zlair: !build-incomplete && !lair_upgrade && !hive_upgrade
+			zhive: lair_upgrade && !hive_upgrade
+		EditorOptions:
+			zlair: Lair
+			zhive: Hive
+	Pluggable@2:
+		Offset: 1,1
+		Conditions:
+			zlair: lair_upgrade
+			zhive: hive_upgrade
+		Requirements:
+			zlair: !build-incomplete && !lair_upgrade && !hive_upgrade
+			zhive: lair_upgrade && !hive_upgrade
+		EditorOptions:
+			zlair: Lair
+			zhive: Hive
+	FreeActor@1:
+		Actor: ZergLairComplete
+		SpawnOffset: 1,1
+		RequiresCondition: lair_upgrade
+	FreeActor@2:
+		Actor: ZergHiveComplete
+		SpawnOffset: 1,1
+		RequiresCondition: hive_upgrade
+	FreeActor@clonerspawner:
+		Actor: ClonerSpawner
+		SpawnOffset: 1,2
+		RequiresCondition: hive_upgrade
+	DamageMultiplier@lair:
+		Modifier: 75
+		RequiresCondition: lair_upgrade
+	DamageMultiplier@hive:
+		Modifier: 40
+		RequiresCondition: hive_upgrade
+	ProvidesPrerequisite@lair:
+		RequiresCondition: lair_upgrade
+		Prerequisite: zlair
+	ProvidesPrerequisite@advtech:
+		RequiresCondition: lair_upgrade
+		Prerequisite: advtechcenter
+	ProvidesPrerequisite@epic1:
+		RequiresCondition: hive_upgrade
+		Prerequisite: zhive
+	ProvidesPrerequisite@epic2:
+		RequiresCondition: hive_upgrade
+		Prerequisite: ulttechcenter
+	ProvidesPrerequisite@epic3:
+		RequiresCondition: hive_upgrade
+		Prerequisite: library
+	ProvidesPrerequisite@epic4:
+		RequiresCondition: hive_upgrade
+		Prerequisite: pfleet
+	Explodes@emp:
+		RequiresCondition: hive_upgrade
+		Type: CenterPosition
+		Weapon: EMPExplosion
+		EmptyWeapon: EMPExplosion
+	ClonesProducedUnits:
+		RequiresCondition: hive_upgrade
+		CloneableTypes: Infantry, Hatchery
+		ProductionType: Infantry
+	CashTrickler@2:
+		Interval: 750
+		Amount: 100
+		InitialDelay: 325
+		RequiresCondition: hive_upgrade
+		UseResourceStorage: true
+	ProximityExternalCondition@creepalive:
+		Condition: creepalive
+		Range: 3c0
+
+ZergLairComplete:
+	Inherits: SmallZergBuildingComplete
+	Explodes:
+		Weapon: MediumZergBuildingSpawn_Lair
+		EmptyWeapon: MediumZergBuildingSpawn_Lair
+
+ZergHiveComplete:
+	Inherits: SmallZergBuildingComplete
+	Explodes:
+		Weapon: LargeZergBuildingSpawn_Hive
+		EmptyWeapon: LargeZergBuildingSpawn_Hive
+
+ZLAIR.up:
+	Inherits: ^BuildingPlug
+	Valued:
+		Cost: 3000
+	Tooltip:
+		Name: Evolve to Lair
+	Buildable:
+		Queue: Tech
+		BuildPaletteOrder: 1000
+		Prerequisites: zchamber, ~structures.zerg, ~techlevel.high
+		Description: Evolve a Hatchery to a Lair. \nUnlocks access to Advanced structures and units.
+		Icon: icon-lair
+	Plug:
+		Type: zlair
+	Building:
+		BuildSounds: zbldgplc.aud
+	RenderSprites:
+		Image: zhatchery
+	SequencePlaceBuildingPreview:
+		Sequence: lair-idle
+
+ZHIVE.up:
+	Inherits: ^BuildingPlug
+	Valued:
+		Cost: 6000
+	Tooltip:
+		Name: Evolve to Hive
+	Buildable:
+		Queue: Tech
+		BuildPaletteOrder: 1001
+		BuildDuration: 4500
+		Prerequisites: zlair, ~structures.zerg, ~techlevel.unrestricted, ~!ulttechcenter
+		Description: Evolve a Lair to a Hive. \nUnlocks access to Epic structures and units. \n\nLimit of 1.
+		Icon: icon-hive
+	Plug:
+		Type: zhive
+	Building:
+		BuildSounds: zbldgplc.aud
+	RenderSprites:
+		Image: zhatchery
+	SequencePlaceBuildingPreview:
+		Sequence: hive-idle
+
+ZLAIR:
+	AlwaysVisible:
+	Interactable:
+	Tooltip:
+		Name: Lair
+
+ZHIVE:
+	AlwaysVisible:
+	Interactable:
+	Tooltip:
+		Name: Hive
 
 ZCCOLONY:
 	Inherits: ^ZergBuilding
@@ -258,7 +503,7 @@ ZCCOLONY:
 	Inherits@selection: ^SelectableCombatBuilding
 	Inherits@AUTOTARGET: ^AutoTargetAll
 	RenderRangeCircle:
-	Building:
+	D2kBuilding:
 		Footprint: xx ++
 		Dimensions: 2,2
 	Buildable:
@@ -400,9 +645,9 @@ ZCCOLONY:
 		RequiresCondition: waiting_to_evolve && !animating
 		Interval: -1
 	FreeActor@evolve_complete:
-		Actor: SmallZergBuildingComplete
+		Actor: ZergColonyComplete
 		SpawnOffset: 1,0
-		RequiresCondition: waiting_to_evolve && !animating
+		RequiresCondition: waiting_to_evolve
 	DetectCloaked:
 		DetectionTypes: Cloak
 		Range: 6c0
@@ -414,7 +659,9 @@ ZCCOLONY:
 	DamageMultiplier@evolved:
 		Modifier: 80
 		RequiresCondition: waiting_to_evolve
-
+	ProximityExternalCondition@creepalive:
+		Condition: creepalive
+		Range: 2c0
 
 ZE.SUNKEN:
 	Inherits: ^ZergEvolve
@@ -444,13 +691,24 @@ ZE.SPORE:
 	RenderSprites:
 		Image: zspore
 
+ZergColonyComplete:
+	Inherits: SmallZergBuildingComplete
+	Explodes:
+		Weapon: SmallZergBuildingSpawn_Delayed
+		EmptyWeapon: SmallZergBuildingSpawn_Delayed
+
+ZCCOLONY.bot:
+	Inherits: ZCCOLONY
+	RenderSprites: 
+		Image: zccolony
+
 ZEXTRAC:
 	Inherits: ^ZergBuilding
 	Inherits@shape: ^3x2Shape
-	Building:
+	D2kBuilding:
 		Footprint: +++ xxx ===
 		Dimensions: 3,3
-		LocalCenterOffset: 0,-768,0
+		LocalCenterOffset: 0,-512,0
 	Selectable:
 		Bounds: 3072, 3072, 0, -426
 	Buildable:
@@ -516,13 +774,13 @@ ZPOOL:
 	Inherits: ^ZergBuilding
 	Inherits@prereqs: ^BarracksPrereqs
 	Inherits@shape: ^2x2Shape
-	Building:
+	D2kBuilding:
 		Footprint: ++ xx
 		Dimensions: 2,2
 	Buildable:
 		Queue: Wall
 		BuildPaletteOrder: 450
-		Prerequisites:  ~structures.zerg, ~techlevel.infonly, ~ai.all, ~!ai.boss
+		Prerequisites:  ~structures.zerg, refinery, ~techlevel.infonly, ~ai.all, ~!ai.hard
 		Description: Allows production of zerglings
 	Health:
 		HP: 60000
@@ -588,10 +846,10 @@ ZHYDRADEN:
 	Inherits: ^ZergBuilding
 	Inherits@prereqs: ^BarracksPrereqs
 	Inherits@shape: ^3x2Shape
-	Building:
+	D2kBuilding:
 		Footprint: +++ xxx ===
 		Dimensions: 3,3
-		LocalCenterOffset: 0,-768,0
+		LocalCenterOffset: 0,-512,0
 	Selectable:
 		Bounds: 3072, 3072, 0, -426
 	Buildable:
@@ -651,3 +909,99 @@ ZHYDRADEN:
 		Condition: produced
 	ProductionBar:
 		ProductionType: Infantry
+
+ZCHAMBER:
+	Inherits: ^ZergBuilding
+	Inherits@prereqs: ^BarracksPrereqs
+	Inherits@shape: ^3x2Shape
+	D2kBuilding:
+		Footprint: =x= xx= xxx
+		Dimensions: 3,3
+		LocalCenterOffset: 0,-512,0
+	Selectable:
+		Bounds: 3072, 3072, 0, -426
+	Buildable:
+		Queue: Wall
+		BuildPaletteOrder: 450
+		Prerequisites: zhydraden, ~structures.zerg, ~techlevel.high, ~ai.all
+		Description: Allows Zerg specific upgrades
+	Health:
+		HP: 90000
+	Armor:
+		Type: Wood
+	RevealsShroud:
+		MinRange: 4c0
+		Range: 5c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 4c0
+	Valued:
+		Cost: 1200
+	Tooltip:
+		Name: Evolution Chamber
+	BaseBuilding:
+	WithDeathAnimation:
+		DeathSequence: dead
+		UseDeathTypeSuffix: false
+	ProvidesPrerequisite@buildingname:
+	ProvidesPrerequisite@tech:
+		Prerequisite: techcenter
+	WithIdleOverlay@damage:
+		RequiresCondition: damaged
+		Sequence: blood2
+		Offset: 1200,-512,0
+	WithIdleOverlay@damage2:
+		RequiresCondition: damaged2
+		Sequence: blood1
+		Offset: 512,900,700
+	WithIdleOverlay@damage3:
+		RequiresCondition: damaged3
+		Sequence: blood3
+		Offset: 0,-1024,-256
+
+ZULTRADEN:
+	Inherits: ^ZergBuilding
+	Inherits@prereqs: ^BarracksPrereqs
+	Inherits@shape: ^3x2Shape
+	D2kBuilding:
+		Footprint: === xxx xxx
+		Dimensions: 3,3
+		LocalCenterOffset: 0,-512,0
+	Selectable:
+		Bounds: 3072, 3072, 0, -426
+	Buildable:
+		Queue: Wall
+		BuildPaletteOrder: 450
+		Prerequisites: advtechcenter, ~structures.zerg, ~techlevel.unrestricted, ~ai.all
+		Description: Home of the Ultralisk
+	Health:
+		HP: 110000
+	Armor:
+		Type: Wood
+	RevealsShroud:
+		MinRange: 4c0
+		Range: 5c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 4c0
+	Valued:
+		Cost: 1200
+	Tooltip:
+		Name: Ultralisk Cavern
+	BaseBuilding:
+	WithDeathAnimation:
+		DeathSequence: dead
+		UseDeathTypeSuffix: false
+	ProvidesPrerequisite@buildingname:
+	WithIdleOverlay@damage:
+		RequiresCondition: damaged
+		Sequence: blood2
+		Offset: 1200,-512,0
+	WithIdleOverlay@damage2:
+		RequiresCondition: damaged2
+		Sequence: blood1
+		Offset: 512,900,700
+	WithIdleOverlay@damage3:
+		RequiresCondition: damaged3
+		Sequence: blood3
+		Offset: 0,-1024,-256

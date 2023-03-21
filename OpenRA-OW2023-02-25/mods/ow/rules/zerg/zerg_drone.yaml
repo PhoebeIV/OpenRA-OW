@@ -135,13 +135,13 @@ ZDRONE:
 		IntoActor: zhatchery
 		TransformSounds: zbldgplc.aud
 		Facing: -256
-		Offset: -1,0
+		Offset: -1,-1
 		RequiresCondition: str_hatchery
 	GrantConditionOnProduction@colony:
 		Condition: str_colony
 		Actors: ZE.COLONY
 	KillsSelf@colony:
-		RequiresCondition: str_colony || str_extrac || str_pool || str_hydra
+		RequiresCondition: str_colony || str_extrac || str_pool || str_hydra || str_chamber || str_ultraden
 		DamageTypes: no_sound
 		Delay: 10
 	SpawnActorOnDeath@colony:
@@ -165,6 +165,18 @@ ZDRONE:
 	SpawnActorOnDeath@hydra:
 		Actor: ZDRONE.hydra
 		RequiresCondition: str_hydra
+	GrantConditionOnProduction@chamber:
+		Condition: str_chamber
+		Actors: ZE.CHAMBER
+	SpawnActorOnDeath@chamber:
+		Actor: ZDRONE.chamber
+		RequiresCondition: str_chamber
+	GrantConditionOnProduction@ultraden:
+		Condition: str_ultraden
+		Actors: ZE.ULTRADEN
+	SpawnActorOnDeath@ultraden:
+		Actor: ZDRONE.ultraden
+		RequiresCondition: str_ultraden
 
 
 ZDRONE.colony:
@@ -213,6 +225,26 @@ ZDRONE.hydra:
 		Offset: -1,0
 		Facing: -256
 
+ZDRONE.chamber:
+	Inherits@drone: ZDRONE.colony
+	Tooltip:
+		Name: Drone (Evolving: Evolution Chamber)
+	Transforms:
+		IntoActor: zchamber
+		TransformSounds: zbldgplc.aud
+		Offset: -1,0
+		Facing: -256
+
+ZDRONE.ultraden:
+	Inherits@drone: ZDRONE.colony
+	Tooltip:
+		Name: Drone (Evolving: Ultralisk Cavern)
+	Transforms:
+		IntoActor: zultraden
+		TransformSounds: zbldgplc.aud
+		Offset: -1,0
+		Facing: -256
+
 ^ZergEvolve:
 	Buildable:
 		Queue: Building.Zerg
@@ -250,6 +282,7 @@ ZE.COLONY:
 		Name: Evolve into Creep Colony
 	Buildable:
 		Description: Spreads creep, can be evolved into \n defensive structures. \n\nMust be placed on creep.
+		BuildPaletteOrder: 2
 		Prerequisites: ~techlevel.infonly, ~zdrone
 		BuildDuration: 300
 	Valued:
@@ -263,6 +296,7 @@ ZE.EXTRAC:
 		Name: Evolve into Extractor
 	Buildable:
 		Description: Refines and stores resources. \n\nMust be placed on creep.
+		BuildPaletteOrder: 3
 		Prerequisites: ~techlevel.infonly, ~zdrone
 		BuildDuration: 1000
 	Valued:
@@ -276,6 +310,7 @@ ZE.POOL:
 		Name: Evolve into Spawning Pool
 	Buildable:
 		Description: Allows production of Zerglings at\n a Hatchery. \n\nMust be placed on creep.
+		BuildPaletteOrder: 4
 		Prerequisites: zccolony, ~techlevel.infonly, ~zdrone
 		BuildDuration: 500
 	Valued:
@@ -289,9 +324,38 @@ ZE.HYDRA:
 		Name: Evolve into Spawning Pool
 	Buildable:
 		Description: Allows production of Hydralisks at\n a Hatchery. \n\nMust be placed on creep.
+		BuildPaletteOrder: 5
 		Prerequisites: zpool, ~techlevel.infonly, ~zdrone
 		BuildDuration: 1000
 	Valued:
 		Cost: 500
 	RenderSprites:
 		Image: zhydraden
+
+ZE.CHAMBER:
+	Inherits: ^ZergEvolve
+	Tooltip:
+		Name: Evolve into Spawning Pool
+	Buildable:
+		Description: Provides access to Zerg-specific upgrades\n and ability to evolve your Hatchery. \n\nMust be placed on creep.
+		BuildPaletteOrder: 6
+		Prerequisites: zhydraden, ~techlevel.high, ~zdrone
+		BuildDuration: 2000
+	Valued:
+		Cost: 1500
+	RenderSprites:
+		Image: zchamber
+
+ZE.ULTRADEN:
+	Inherits: ^ZergEvolve
+	Tooltip:
+		Name: Evolve into Spawning Pool
+	Buildable:
+		Description: Provides access to Zerg-specific upgrades\n and ability to evolve your Hatchery. \n\nMust be placed on creep.
+		BuildPaletteOrder: 7
+		Prerequisites: advtechcenter, ~techlevel.unrestricted, ~zdrone
+		BuildDuration: 2000
+	Valued:
+		Cost: 1500
+	RenderSprites:
+		Image: zultraden
