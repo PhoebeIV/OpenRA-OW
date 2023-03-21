@@ -207,7 +207,7 @@ Bow:
 Crossbow:
 	ValidTargets: GroundActor, WaterActor, Ground, Water, Air, AirborneActor
 	ReloadDelay: 80
-	Range: 8c0
+	Range: 5c0
 	Report: crossbowmanshoot1.aud,crossbowmanshoot2.aud,crossbowmanshoot3.aud
 	Projectile: Bullet
 		Speed: 450
@@ -232,7 +232,7 @@ Crossbow:
 
 CrossbowFire:
 	Inherits: Crossbow
-	Range: 8c5
+	Range: 5c5
 	Warhead@GDam: SpreadDamage
 		Spread: 128
 		Damage: 2800
@@ -264,14 +264,18 @@ Hwachaarrow:
 	Warhead@GDam: SpreadDamage
 		Spread: 256
 		Versus:
-			Wood: 30
+			None: 110
+			Wood: 10
+			Light: 20
+			Heavy: 25
+			Concrete: 20
 		DamageTypes: DefaultDeath
 	-Warhead@1Dam:
 
 Voidarchershot:
 	ValidTargets: Ground, Water, GroundActor, WaterActor, AirborneActor
 	ReloadDelay: 120
-	Range: 7c0
+	Range: 6c0
 	Report: voidarchershot.aud
 	TargetActorCenter: True
 	Projectile: Missile
@@ -394,7 +398,7 @@ MusketeerHorseShot:
 
 WizBall:
 	ReloadDelay: 30
-	Range: 7c0
+	Range: 6c0
 	Report: plasma1.aud
 	ValidTargets: Ground, Water, GroundActor, WaterActor, Air, AirborneActor
 	Projectile: Missile
@@ -423,7 +427,7 @@ WizBall:
 
 LightningWizardShot:
 	ReloadDelay: 70
-	Range: 8c0
+	Range: 6c0
 	Report: tesla1.aud
 	ValidTargets: Ground, Water, GroundActor, WaterActor, Air, AirborneActor
 	Projectile: TeslaZap
@@ -552,47 +556,46 @@ MusketeerHorseShotElementalWeps:
 ##########################   Siege Basic Attacks   ############################
 ###############################################################################
 
-CatapultAbomination:
-	Inherits: Catapult
-	ReloadDelay: 150
-	MinRange: 1c0
-	Range: 5c0
-
 Catapult:
 	Inherits: ^Artillery
 	ReloadDelay: 60
-	Range: 8c0
-	MinRange: 3c0
+	Burst: 1
+	BurstDelay: 0
+	Range: 7c0
+	MinRange: 2c0
 	Report: stonethrowerattack1.aud,stonethrowerattack2.aud,stonethrowerattack3.aud,stonethrowerattack4.aud,stonethrowerattack5.aud
 	Projectile: Bullet
-		Inaccuracy: 2c0
+		Inaccuracy: 3c0
 		Blockable: False
 		Speed: 170
 		Image: catapultshot
 		Shadow: True
 	Warhead@1Dam: SpreadDamage
 		Spread: 426
-		Damage: 4000
+		Damage: 3000
+		Versus:
+			None: 90
+			Wood: 70
+			Light: 40
+			Heavy: 75
+			Concrete: 100
+		DamageTypes: Prone50Percent, TriggerProne, DefaultDeath
 	Warhead@3Eff: CreateEffect
 		ImpactSounds: CatapultMissile1.aud,CatapultMissile2.aud,CatapultMissile3.aud,CatapultMissile4.aud
 
-Catapult1:
+CatapultAbomination:
 	Inherits: Catapult
-
-Catapult2:
-	Inherits: Catapult
-
-Catapult3:
-	Inherits: Catapult
+	ReloadDelay: 150
+	MinRange: 1c0
+	Range: 5c0
 
 Trebuchet:
 	Inherits: Catapult
 	ReloadDelay: 150
 	Burst: 1
 	Range: 12c0
-	MinRange: 3c0
+	MinRange: 4c0
 	Projectile: Bullet
-		Blockable: False
 		Speed: 150
 		LaunchAngle: 150
 		Inaccuracy: 2c0
@@ -607,12 +610,11 @@ Trebuchet:
 			Light: 40
 			Heavy: 75
 			Concrete: 100
-		DamageTypes: Prone50Percent, TriggerProne, DefaultDeath
 
 Ballistashot:
 	ValidTargets: Ground, Water, GroundActor, WaterActor
 	ReloadDelay: 165
-	Range: 10c0
+	Range: 8c0
 	MinRange: 2c0
 	Report: stonethrowerattack1.aud,stonethrowerattack2.aud,stonethrowerattack3.aud,stonethrowerattack4.aud,stonethrowerattack5.aud
 	TargetActorCenter: True
@@ -629,10 +631,10 @@ Ballistashot:
 		Falloff: 1000, 368, 135, 50, 18, 7, 0
 		ValidTargets: GroundActor, WaterActor
 		Versus:
-			None: 70
-			Wood: 50
+			None: 80
+			Wood: 30
 			Light: 60
-			Heavy: 45
+			Heavy: 35
 			Concrete: 80
 		DamageTypes: Prone50Percent, TriggerProne, ExplosionDeath
 	Warhead@2Smu: LeaveSmudge
@@ -651,7 +653,7 @@ Ballistashot:
 CannonShot:
 	ValidTargets: Ground, Water, GroundActor, WaterActor
 	ReloadDelay: 210
-	Range: 11c0
+	Range: 10c0
 	MinRange: 1c0
 	Report: cannonattack1.aud
 	TargetActorCenter: True
@@ -672,7 +674,7 @@ CannonShot:
 			None: 40
 			Wood: 45
 			Light: 100
-			Heavy: 50
+			Heavy: 70
 			Concrete: 30
 		DamageTypes: Prone50Percent, TriggerProne, SmallExplosionDeath
 	Warhead@2Smu: LeaveSmudge
@@ -693,15 +695,6 @@ CatapultElementalWeps:
 		Duration: 300
 		ValidTargets: GroundActor, WaterActor
 		ValidRelationships: Enemy, Neutral
-
-CatapultElementalWeps1:
-	Inherits: CatapultElementalWeps
-
-CatapultElementalWeps2:
-	Inherits: CatapultElementalWeps
-
-CatapultElementalWeps3:
-	Inherits: CatapultElementalWeps
 
 TrebuchetElementalWeps:
 	Inherits: Trebuchet
@@ -1040,8 +1033,8 @@ ArcaneBoatZapAA:
 BallistashotTower:
 	Inherits: Ballistashot
 	ReloadDelay: 150
-	Range: 11c0
-	MinRange: 2c0
+	Range: 10c0
+	MinRange: 3c0
 	Projectile: Bullet
 		Blockable: False
 
@@ -1049,16 +1042,16 @@ CannonShotTower:
 	Inherits: CannonShot
 	ReloadDelay: 150
 	Range: 12c0
-	MinRange: 2c0
+	MinRange: 4c0
 	Projectile: Bullet
 		Blockable: False
 
 ArcherTower:
 	ValidTargets: Ground, Water, GroundActor, WaterActor
-	ReloadDelay: 40
-	Burst: 2
+	ReloadDelay: 20
+	Burst: 1
 	BurstDelays: 0
-	Range: 8c0
+	Range: 6c0
 	Report: crossbowmanshoot1.aud,crossbowmanshoot2.aud,crossbowmanshoot3.aud
 	TargetActorCenter: True
 	Projectile: Missile

@@ -68,13 +68,19 @@ MCVM.3:
 
 ##Inherit for Horse units, makes the targetable as infantry.
 ^Horse:
-	Targetable:
-		RequiresCondition: !parachute
-		TargetTypes: GroundActor, Infantry, Vehicle
+	GrantConditionOnPrerequisite@heavyhorsearmor:
+		Condition: heavyhorse
+		Prerequisites: upgrade.heavyhorsearmor, ~advtechcenter
 	Mobile:
 		TurnSpeed: 160
 		Speed: 160
 		Locomotor: wheeled
+	Targetable:
+		RequiresCondition: !parachute && !heavyhorse
+		TargetTypes: GroundActor, Infantry, Vehicle
+	Targetable@HeavyHorse:
+		RequiresCondition: !parachute && heavyhorse
+		TargetTypes: GroundActor, Vehicle
 
 ^MediSiege:
 	Mobile:
@@ -311,7 +317,7 @@ HorsePaladin:
 	Health:
 		HP: 30000
 	Armor:
-		Type: Light
+		Type: Heavy
 	SpawnActorOnDeath:
 		Actor: MEDIPALADIN
 	ChangesHealth@pallyboost:
@@ -428,7 +434,7 @@ HorseMusket:
 	Health:
 		HP: 35000
 	Armor:
-		Type: Heavy
+		Type: Light
 	WithMoveAnimation:
 		MoveSequence: run
 	AutoTarget:
@@ -513,32 +519,42 @@ Catapult:
 		LocalOffset: 624,0,208
 	Armament@1:
 		Name: primary1
-		Weapon: catapult1
+		Weapon: catapult
 		PauseOnCondition: elementalweps
 		LocalOffset: 624,0,208
 	Armament@ElementalWepon1:
 		Name: secondary1
-		Weapon: CatapultElementalWeps1
+		Weapon: CatapultElementalWeps
 		RequiresCondition: elementalweps
 		LocalOffset: 624,0,208
 	Armament@2:
 		Name: primary2
-		Weapon: catapult2
+		Weapon: catapult
 		PauseOnCondition: elementalweps
 		LocalOffset: 624,0,208
 	Armament@ElementalWepon2:
 		Name: secondary2
-		Weapon: CatapultElementalWeps2
+		Weapon: CatapultElementalWeps
 		RequiresCondition: elementalweps
 		LocalOffset: 624,0,208
 	Armament@3:
 		Name: primary3
-		Weapon: catapult3
+		Weapon: catapult
 		PauseOnCondition: elementalweps
 		LocalOffset: 624,0,208
 	Armament@ElementalWepon3:
 		Name: secondary3
-		Weapon: CatapultElementalWeps3
+		Weapon: CatapultElementalWeps
+		RequiresCondition: elementalweps
+		LocalOffset: 624,0,208
+	Armament@4:
+		Name: primary4
+		Weapon: catapult
+		PauseOnCondition: elementalweps
+		LocalOffset: 624,0,208
+	Armament@ElementalWepon4:
+		Name: secondary4
+		Weapon: CatapultElementalWeps
 		RequiresCondition: elementalweps
 		LocalOffset: 624,0,208
 	WithAttackAnimation:
@@ -549,7 +565,7 @@ Catapult:
 	WithDeathAnimation:
 		DeathSequence: die
 	AttackFrontal:
-		Armaments: primary , secondary , primary1 , secondary1 , primary2 , secondary2 ,primary3 , secondary3
+		Armaments: primary , secondary , primary1 , secondary1 , primary2 , secondary2 ,primary3 , secondary3, primary4 , secondary4
 		TargetFrozenActors: True
 		FacingTolerance: 0
 	ProducibleWithLevel:
