@@ -1,0 +1,141 @@
+usaspycarrier:
+	Inherits: ^Ship
+	Buildable:
+		Queue: Ship
+		BuildPaletteOrder: 60
+		Prerequisites: ~ships.usa
+		Description: Carrier used to detect invisible units and unscouted areas in a large location.
+	Valued:
+		Cost: 3500
+	Tooltip:
+		Name: US Spy Carrier
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 70000
+	Armor:
+		Type: Heavy
+	RevealsShroud:
+		MinRange: 5c0
+		Range: 18c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 10c0
+	Mobile:
+		TurnSpeed: 16
+		Speed: 31
+	WithIdleOverlay@SPINNER:
+		Sequence: spinner
+		Offset: 30,70,600
+	Selectable:
+		DecorationBounds: 1877, 1877
+	DetectCloaked:
+		Range: 18c0
+        
+usareconboat:
+	Inherits: ^Ship
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Buildable:
+		Queue: Ship
+		BuildPaletteOrder: 20
+		Prerequisites: ~ships.usa
+		Description: Fast scout boat, armed with rockets.
+	Valued:
+		Cost: 750
+	Tooltip:
+		Name: US Recon Boat
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 11000
+	Armor:
+		Type: Light
+	Mobile:
+		TurnSpeed: 40
+		Speed: 113
+	RevealsShroud:
+		MinRange: 4c0
+		Range: 5c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 4c0
+	Armament@PRIMARY:
+		Weapon: missiledefendershot
+		LocalOffset: -128, -170, 170, -128, 170, 170
+		LocalYaw: 100, -100
+	Armament@SECONDARY:
+		Name: secondary
+		Weapon: DepthCharge
+		MuzzleSequence: muzzle
+	AttackFrontal:
+		FacingTolerance: 0
+	WithMuzzleOverlay:
+	DetectCloaked:
+		DetectionTypes: Underwater
+		Range: 2c0
+	RenderDetectionCircle:
+	Selectable:
+		DecorationBounds: 1536, 1536
+        
+usamlrscarrier:
+	Inherits: ^Ship
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Buildable:
+		Queue: Ship
+		BuildAtProductionType: Boat
+		BuildPaletteOrder: 50
+		Prerequisites: ~ships.usa
+		Description: Very slow long-range ship.\n  Strong vs Buildings, Ground units\n  Weak vs Naval units, Aircraft
+	Valued:
+		Cost: 4000
+	Tooltip:
+		Name: US MLRS Carrier
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 80000
+	Armor:
+		Type: Heavy
+	Mobile:
+		TurnSpeed: 12
+		Speed: 44
+	RevealsShroud:
+		MinRange: 5c0
+		Range: 7c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 5c0
+	Turreted@PRIMARY:
+		Turret: primary
+		Offset: -896,0,128
+		TurnSpeed: 12
+	Turreted@SECONDARY:
+		Turret: secondary
+		Offset: 768,0,128
+		TurnSpeed: 12
+	Armament@PRIMARY:
+		Turret: primary
+		Weapon: usamlrscarriershot
+		LocalOffset: 480,-100,40, 480,100,40
+		Recoil: 171
+		RecoilRecovery: 34
+		MuzzleSequence: muzzle
+	Armament@SECONDARY:
+		Name: secondary
+		Turret: secondary
+		Weapon: usamlrscarriershot
+		LocalOffset: 480,-100,40, 480,100,40
+		Recoil: 171
+		RecoilRecovery: 34
+		MuzzleSequence: muzzle
+	AttackTurreted:
+		Turrets: primary, secondary
+		TargetFrozenActors: True
+		ForceFireIgnoresActors: True
+	WithMuzzleOverlay:
+	WithSpriteTurret@PRIMARY:
+		Turret: primary
+	WithSpriteTurret@SECONDARY:
+		Turret: secondary
+	Selectable:
+		DecorationBounds: 1877, 1877

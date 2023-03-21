@@ -14,7 +14,7 @@ USARANGER:
 	UpdatesPlayerStatistics:
 		AddToArmyValue: true
 	Health:
-		HP: 13000
+		HP: 10000
 	Armament@PRIMARY:
 		Weapon: rangershot
         PauseOnCondition: upgradelasergeneral
@@ -62,6 +62,8 @@ USARANGER:
     GrantConditionOnPrerequisite@1:
         Condition: upgradelasergeneral
         Prerequisites: upgrade.lasergeneral
+	Voiced:
+		VoiceSet: RangerVoice
 
 
 USADEFENDER:
@@ -80,7 +82,7 @@ USADEFENDER:
 	UpdatesPlayerStatistics:
 		AddToArmyValue: true
 	Health:
-		HP: 10000
+		HP: 8000
 	Armament@PRIMARY:
 		Weapon: missiledefendershot
         PauseOnCondition: upgradelasergeneral
@@ -137,6 +139,8 @@ USADEFENDER:
     GrantConditionOnPrerequisite@1:
         Condition: upgradelasergeneral
         Prerequisites: upgrade.lasergeneral
+	Voiced:
+		VoiceSet: MissileDefenderVoice
         
 USAPATHFINDER:
 	Inherits: ^Soldier
@@ -213,7 +217,9 @@ USAPATHFINDER:
     GrantConditionOnPrerequisite@1:
         Condition: upgradelasergeneral
         Prerequisites: upgrade.lasergeneral
- 
+	Voiced:
+		VoiceSet: PathfinderVoice
+        
 USABurton:
 	Inherits: ^Soldier
 	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
@@ -223,6 +229,7 @@ USABurton:
 		BuildPaletteOrder: 120
 		Prerequisites: ~infantry.usa, techcenter
 		Description: An expert in covert operations, Colonel Burton can wreak havoc against enemy infantry of all types.\nArmed with a rifle, knife and remote or timed demo charges,\nColonel Burton’s stealth training allows him to move invisibly across almost any terrain.\n He has over 500 confirmed kills.
+        BuildLimit: 1
 	Valued:
 		Cost: 1500
 	Tooltip:
@@ -230,7 +237,7 @@ USABurton:
 	UpdatesPlayerStatistics:
 		AddToArmyValue: true
 	Health:
-		HP: 20000
+		HP: 35000
 	Mobile:
 		Speed: 71
 		Voice: Move
@@ -263,18 +270,9 @@ USABurton:
 		RequiresCondition: produced
 		Voice: Build
 	AnnounceOnKill:
-	Voiced:
-		VoiceSet: CommandoVoice
 	ProducibleWithLevel:
 		Prerequisites: barracks.upgraded
 	RenderSprites:
-	AmbientSound:
-		SoundFiles: ccmon1.aud
-		Interval: 500, 1500
-		Delay: 500, 1500
-		RequiresCondition: !ismoving
-	GrantConditionOnMovement:
-		Condition: ismoving
 	Cloak:
 		InitialDelay: 10
 		CloakDelay: 30
@@ -282,3 +280,5 @@ USABurton:
 		CloakTypes: Cloak
 		IsPlayerPalette: true
 		RequiresCondition: !cloak-force-disabled
+	Voiced:
+		VoiceSet: BurtonVoice

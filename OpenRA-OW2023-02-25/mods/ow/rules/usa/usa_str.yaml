@@ -560,6 +560,8 @@ usastrategycenter:
 #mines move later
 USAMINEDROP:
 	Inherits: 1TNK.MINE
+    Parachutable: 
+        FallRate: 128
 	Explodes:
 		Weapon: SmallBuildingExplode
 		DeathTypes: TriggerProne
@@ -824,7 +826,7 @@ usapatriotEMP:
 		Prerequisites: anypower, ~structures.usa, upgrade.superweaponsgeneral
 		Description: Patriot Missile System upgrade with EMP rockets, disabling vehicles.\nProvided by General Alexis Alexander.
 	Valued:
-		Cost: 1000
+		Cost: 1200
 	Tooltip:
 		Name: EMP Patriot Missile System
 	Building:
@@ -859,7 +861,7 @@ usapatriotEMP:
 	AttackTurreted:
 	WithMuzzleOverlay:
 	Power:
-		Amount: -80
+		Amount: -70
 	RenderDetectionCircle:
 	DetectCloaked:
 		Range: 5c0
@@ -880,7 +882,7 @@ usalaserpatriot:
 		Prerequisites: anypower, ~structures.usa, upgrade.lasergeneral
 		Description: Laser Defense Turret.\nProvided by General Townes
 	Valued:
-		Cost: 1200
+		Cost: 1400
 	Tooltip:
 		Name: Laser Defense Turret
 	Building:
@@ -916,7 +918,7 @@ usalaserpatriot:
 		PauseOnCondition: build-incomplete
 	WithMuzzleOverlay:
 	Power:
-		Amount: -40
+		Amount: -70
 	DetectCloaked:
 		Range: 6c0
 	-BodyOrientation:
@@ -1063,6 +1065,105 @@ usasilo:
 		RequiresSelection: true
 		PipCount: 20
 		FullSequence: pip-yellow
+        
+usashipyard:
+	Inherits: ^Building
+	Inherits@PRIMARY: ^PrimaryBuilding
+	Selectable:
+		Bounds: 3072, 2048
+	InfiltrateForSupportPower:
+		Proxy: powerproxy.sonarpulse
+		Types: SpyInfiltrate
+	Buildable:
+		Queue: Building
+		BuildPaletteOrder: 40
+		Prerequisites: anypower, ~structures.usa
+		Description: Produces and repairs\nships and transports.
+	Valued:
+		Cost: 1000
+	Tooltip:
+		Name: US Naval Yard
+	Targetable:
+		TargetTypes: WaterActor, Structure, C4, DetonateAttack, SpyInfiltrate
+	Building:
+		Footprint: XXX xxx XXX
+		Dimensions: 3,3
+		TerrainTypes: Water
+	RequiresBuildableArea:
+		Adjacent: 8
+	-GivesBuildableArea:
+	Health:
+		HP: 100000
+	Armor:
+		Type: Wood
+	RevealsShroud:
+		MinRange: 4c0
+		Range: 5c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 4c0
+	Exit@1:
+		RequiresCondition: !being-captured
+		SpawnOffset: -1024,1024,0
+		Facing: 640
+		ExitCell: 0,2
+		ProductionTypes: Ship, Boat
+	Exit@2:
+		RequiresCondition: !being-captured
+		SpawnOffset: 1024,1024,0
+		Facing: 896
+		ExitCell: 2,2
+		ProductionTypes: Ship, Boat
+	Exit@3:
+		RequiresCondition: !being-captured
+		SpawnOffset: -1024,-1024,0
+		Facing: 384
+		ExitCell: 0,0
+		ProductionTypes: Ship, Boat
+	Exit@4:
+		RequiresCondition: !being-captured
+		SpawnOffset: 1024,-1024,0
+		Facing: 128
+		ExitCell: 2,0
+		ProductionTypes: Ship, Boat
+	Production:
+		Produces: Ship, Boat
+	-SpawnActorsOnSell:
+	RepairsUnits:
+		HpPerStep: 1000
+		StartRepairingNotification: Repairing
+		StartRepairingTextNotification: Repairing.
+		FinishRepairingNotification: UnitRepaired
+		FinishRepairingTextNotification: Unit repaired.
+		PlayerExperience: 5
+	RallyPoint:
+		ForceSetType: Ship
+	CommandBarBlacklist:
+		DisableStop: false
+	ProductionBar:
+		ProductionType: Ship
+	Power:
+		Amount: -30
+	DetectCloaked:
+		DetectionTypes: Underwater
+		Range: 10c0
+	RenderDetectionCircle:
+	ProvidesPrerequisite@buildingname:
+	ProvidesPrerequisite@usa2:
+		Factions: usa
+		Prerequisite: ships.usa
+	MapEditorData:
+		ExcludeTilesets: INTERIOR
+	HitShape:
+		TargetableOffsets: 768,0,0, 768,-1024,0, 768,1024,0
+		Type: Rectangle
+			TopLeft: -1536, -1152
+			BottomRight: 1536, 598
+	HitShape@BOTTOM:
+		TargetableOffsets: -768,0,0
+		Type: Rectangle
+			TopLeft: -512, 598
+			BottomRight: 512, 1110
         
 ##usadeepdrill:
 ##	Inherits: ^Building
