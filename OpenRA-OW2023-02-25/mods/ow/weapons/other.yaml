@@ -1653,18 +1653,17 @@ DragoonPlasma:
 	Projectile: Missile
 		Speed: 400
 		Blockable: true
-		Inaccuracy: 128
 		Image: Plasma
 		RangeLimit: 7c0
 		HorizontalRateOfTurn: 100
 	Warhead@1Dam: SpreadDamage
-		Spread: 256
+		Spread: 300
 		Damage: 4500
 		ValidTargets: Ground, GroundActor, WaterActor, Trees, Air, AirborneActor
 		Versus:
 			None: 55
 			Wood: 90
-			Light: 75
+			Light: 80
 			Concrete: 50
 		DamageTypes: Prone50Percent, TriggerProne, SmallExplosionDeath
 	Warhead@2Smu: LeaveSmudge
@@ -1674,6 +1673,7 @@ DragoonPlasma:
 		Explosions: med_explosion2
 		ImpactSounds: explomed.aud
 		ValidTargets: Ground, GroundActor, WaterActor, Trees, Air, AirborneActor
+		Inaccuracy: 128
 
 DragoonPlasmaAir:
 	Inherits: DragoonPlasma
@@ -2367,7 +2367,7 @@ ZerglingAttack:
 		ValidTargets: GroundActor, WaterActor
 	Warhead@2StructureDam: SpreadDamage
 		Spread: 64
-		Damage: 500
+		Damage: 380
 		Versus:
 			None: 100
 			Wood: 0
@@ -2421,6 +2421,18 @@ SunkenAttack:
 			Light: 90
 			Concrete: 40
 		DamageTypes: Prone50Percent, TriggerProne, ExplosionDeath
+		ValidRelationships: Enemy, Neutral
+	Warhead@AllyDam: SpreadDamage
+		Spread: 325
+		Damage: 4000
+		ValidTargets: Ground, GroundActor, WaterActor, Trees
+		Versus:
+			None: 90
+			Wood: 50
+			Light: 90
+			Concrete: 40
+		DamageTypes: Prone50Percent, TriggerProne, ExplosionDeath
+		ValidRelationships: Ally
 	Warhead@3EffGround: CreateEffect
 		Explosions: zerg_spine
 		ImpactSounds: zluhit00.aud
@@ -2490,7 +2502,7 @@ HydraSpines:
 		Inaccuracy: 256
 
 LurkerSpikes:
-	ReloadDelay: 50
+	ReloadDelay: 60
 	Range: 7c0
 	Burst: 6
 	BurstDelays: 1
@@ -2501,10 +2513,9 @@ LurkerSpikes:
 	Projectile: Bullet
 		Speed: 1c682
 	Warhead@1Dam: SpreadDamage
-		Spread: 256
-		Damage: 7500
+		Spread: 300
+		Damage: 3200
 		ValidTargets: Ground, GroundActor, WaterActor, Trees
-		InvalidTargets: BurrowedLurker
 		Versus:
 			None: 120
 			Wood: 50
@@ -2512,9 +2523,50 @@ LurkerSpikes:
 			Heavy: 75
 			Concrete: 40
 		DamageTypes: Prone50Percent, TriggerProne, ExplosionDeath
+		ValidRelationships: Enemy, Neutral
+	Warhead@2Dam: SpreadDamage
+		Spread: 300
+		Delay: 2
+		Damage: 3200
+		ValidTargets: Ground, GroundActor, WaterActor, Trees
+		Versus:
+			None: 120
+			Wood: 50
+			Light: 90
+			Heavy: 75
+			Concrete: 40
+		DamageTypes: Prone50Percent, TriggerProne, SmallExplosionDeath
+		ValidRelationships: Enemy, Neutral
+	Warhead@AllyDam: SpreadDamage
+		Spread: 300
+		Damage: 2000
+		ValidTargets: Ground, GroundActor, WaterActor, Trees
+		InvalidTargets: BurrowedLurker
+		Versus:
+			None: 200
+			Wood: 50
+			Light: 100
+			Heavy: 75
+			Concrete: 40
+		DamageTypes: Prone50Percent, TriggerProne, ExplosionDeath
+		ValidRelationships: Ally
 	Warhead@3EffGround: CreateEffect
 		Explosions: zerg_spike
 		ValidTargets: Ground, GroundActor, WaterActor, Trees
 	Warhead@4EffActor: CreateEffect
 		ImpactSounds: zlrkhit1.aud
 		ValidTargets: GroundActor, WaterActor, Trees
+
+#for AI to deploy a unit
+LurkerDeploy:
+	ReloadDelay: 25
+	Range: 7c0
+	ValidTargets: Ground, Water, GroundActor, WaterActor
+	Projectile: GravityBomb
+		Velocity: 0, 0, -128
+	Warhead@curtain: GrantExternalCondition
+		Condition: deployed
+		Range: 1c0
+		Duration: 250
+		AffectsParent: true
+		ValidTargets: GroundActor

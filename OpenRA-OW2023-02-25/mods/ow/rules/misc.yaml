@@ -12,19 +12,43 @@ MINE:
 		OccupiesSpace: false
 	ChangesTerrain:
 		TerrainType: Oremine
+	ExternalCondition@creep:
+		Condition: creepgen
 	ChangesHealth@1:
 		PercentageStep: -25
 		StartIfBelow: 101
-		Delay: 25
+		Delay: 10
+		RequiresCondition: creepgen
 	ChangesHealth@2:
 		PercentageStep: 100
 		StartIfBelow: 74
-		Delay: 25
+		Delay: 10
+		RequiresCondition: creepgen
 	ExplosionOnDamageTransition:
 		Weapon: CreepPreventer
 		DamageState: Medium
 	Interactable:
 		Bounds: 1024, 1024
+
+GMINE:
+	HitShape:
+	Health:
+		HP: 9000000
+	ExternalCondition@creep:
+		Condition: creepgen
+	ChangesHealth@1:
+		PercentageStep: -25
+		StartIfBelow: 101
+		Delay: 10
+		RequiresCondition: creepgen
+	ChangesHealth@2:
+		PercentageStep: 100
+		StartIfBelow: 74
+		Delay: 10
+		RequiresCondition: creepgen
+	ExplosionOnDamageTransition:
+		Weapon: CreepPreventer
+		DamageState: Medium
 
 MINE.CR:
 	Inherits: MINE
@@ -41,6 +65,7 @@ MINE.CR:
 	Explodes:
 		Weapon: DemoTrapExplosion2
 		EmptyWeapon: DemoTrapExplosion2
+	-ExternalCondition@creep:
 
 GMINE.CR:
 	Inherits: GMINE
@@ -57,6 +82,7 @@ GMINE.CR:
 	Explodes:
 		Weapon: DemoTrapExplosion2
 		EmptyWeapon: DemoTrapExplosion2
+	-ExternalCondition@creep:
 
 CAMERA:
 	Interactable:

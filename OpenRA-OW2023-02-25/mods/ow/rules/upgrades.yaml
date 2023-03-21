@@ -337,31 +337,48 @@ UpgradeHandler:
 		RequiresCondition: busy
 	Targetable:
 		TargetTypes: UpgradeThing
+	ProvidesPrerequisite@noboats:
+		Factions: zerg, protoss
+		Prerequisite: techlevel.noboats
+	ProvidesPrerequisite@novehicles:
+		Factions: zerg
+		Prerequisite: faction.novehicles
+	ProvidesPrerequisite@aiprefer_noveh:
+		Factions: darkness, elementalists, mars, phobos, estonia, heydrich, silver
+		Prerequisite: faction.novehicles
+		RequiresPrerequisites: ai.all
+	ProvidesPrerequisite@aiprefer_noinf:
+		Factions: steel, gdi3, deimos, estonia, russia, ukraine, hitler, silver
+		Prerequisite: faction.noinfantry
+		RequiresPrerequisites: ai.all
+	ProvidesPrerequisite@ai_noboats:
+		Prerequisite: techlevel.noboats
+		RequiresPrerequisites: ai.all, !structures.silver
 
 ^UpgradeBase:
 	Buildable:
 		Queue: Upgrade
 		BuildLimit: 1
 		BuildDurationModifier: 100
-		BuildDuration: 9000
+		BuildDuration: 6000
 	AlwaysVisible:
 	Interactable:
 	ScriptTriggers:
 	RenderSprites:
 	Valued:
-		Cost: 50
+		Cost: 20
 	UpdatesPlayerStatistics:
 
 #use for the non-standard stat upgrades ie. medieval elemental weapons
 ^UpgradeBaseExt:
 	Inherits: ^UpgradeBase
 	Buildable:
-		BuildDuration: 2500
+		BuildDuration: 2000
 
 ^UpgradeBase2:
 	Inherits: ^UpgradeBase
 	Buildable:
-		BuildDuration: 9000
+		BuildDuration: 7500
 
 ^UpgradeBase3:
 	Inherits: ^UpgradeBase
@@ -437,7 +454,7 @@ upgrade.infarmor1:
 	Buildable:
 		Description: Improve infantry armour by 15%
 		BuildPaletteOrder: 10000
-		Prerequisites: ~!upgrade.busy, ~!upgrade.infarmor1
+		Prerequisites: ~!upgrade.busy, ~!upgrade.infarmor1, ~!faction.noinfantry
 	ProvidesPrerequisite@upgradename:
 
 upgrade.infarmor2:
@@ -467,7 +484,7 @@ upgrade.inffirepower1:
 	Buildable:
 		Description: Improve infantry weapon damage by 15%
 		BuildPaletteOrder: 10001
-		Prerequisites: ~!upgrade.busy, ~!upgrade.inffirepower1
+		Prerequisites: ~!upgrade.busy, ~!upgrade.inffirepower1, ~!faction.noinfantry
 	ProvidesPrerequisite@upgradename:
 
 upgrade.inffirepower2:
@@ -499,7 +516,7 @@ upgrade.veharmor1:
 	Buildable:
 		Description: Improve vehicle armour by 15%
 		BuildPaletteOrder: 10002
-		Prerequisites: ~!upgrade.busy, ~!upgrade.veharmor1
+		Prerequisites: ~!upgrade.busy, ~!upgrade.veharmor1, ~!faction.novehicles
 	ProvidesPrerequisite@upgradename:
 
 upgrade.veharmor2:
@@ -529,7 +546,7 @@ upgrade.vehfirepower1:
 	Buildable:
 		Description: Improve vehicle weapon damage by 15%
 		BuildPaletteOrder: 10003
-		Prerequisites: ~!upgrade.busy, ~!upgrade.vehfirepower1
+		Prerequisites: ~!upgrade.busy, ~!upgrade.vehfirepower1, ~!faction.novehicles
 	ProvidesPrerequisite@upgradename:
 
 upgrade.vehfirepower2:
