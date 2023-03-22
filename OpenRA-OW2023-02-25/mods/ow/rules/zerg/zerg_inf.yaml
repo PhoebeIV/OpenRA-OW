@@ -424,7 +424,7 @@ ZULTRA:
 	Inherits@autotarget: ^AutoTargetAllAssaultMove
 	Buildable:
 		Prerequisites: zultraden, ~infantry.zerg, ~techlevel.unrestricted
-		Description: Powerful ground unit.\n  Speed: 88\n  Strong vs ground, structures
+		Description: Powerful ground unit.\n  Speed: 88\n  Strong vs ground units and structures
 		Queue: Infantry
 		BuildDuration: 3000
 		BuildAtProductionType: Hatchery
@@ -461,8 +461,12 @@ ZULTRA:
 		IdleSequences: stand
 		StandSequences: stand
 	AutoTarget:
+		InitialStance: AttackAnything
+		ScanRadius: 5
+	AutoTargetPriority@DEFAULT:
+		ValidTargets: GroundActor, Infantry
 	Targetable:
-		TargetTypes: GroundActor, Infantry, Cyborg
+		TargetTypes: GroundActor, Infantry
 	RenderSprites:
 	Voiced:
 		VoiceSet: ZergUltraVoice
