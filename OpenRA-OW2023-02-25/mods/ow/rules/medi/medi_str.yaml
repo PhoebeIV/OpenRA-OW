@@ -2431,3 +2431,97 @@ MediGarrisonTower:
 	WithCargoPipsDecoration:
 		Position: BottomLeft
 		RequiresSelection: true
+
+
+
+
+
+##Test Building
+Oceanorb:
+	Inherits: ^Defense
+	Inherits@IDISABLE: ^DisableOnLowPowerOrPowerDown
+	Inherits@AUTOTARGET: ^AutoTargetAll
+	-SpawnActorsOnSell:
+	Buildable:
+		Queue: Wall
+		Prerequisites: ~structures.medi, ~!structures.medi
+		Description: Tower that user Mana To fire a constant Beam \nStrong vs Aircraft, Vehicles & Infantry
+		BuildPaletteOrder: 4
+	Building:
+		BuildSounds: medibuild1.aud, medibuildjobdone1.aud, medibuildplace1.aud
+		TerrainTypes: Water
+		Footprint: =
+	Valued:
+		Cost: 1200
+	Tooltip:
+		Name: Arcane Tower
+	Selectable:
+		Bounds: 1024, 1024
+		DecorationBounds: 1024, 1024, 0, 0
+	GrantConditionOnDeploy:
+		UndeployedCondition: underwatercon
+		DeployedCondition: abovewatercon
+	SelectionDecorations:
+	Health:
+		HP: 50000
+	Armor:
+		Type: Heavy
+	WithBuildingBib:
+		HasMinibib: true
+	Turreted:
+		TurnSpeed: 1023
+		Offset: 128,128,384
+	Armament@Floating:
+		Name: AboveWaterWepAA
+		Weapon: ArcaneZapWaterAA
+		LocalOffset: 256,128,0, 256,-128,0
+		LocalYaw: -100,100
+		RequiresCondition: abovewatercon
+	Armament@FloatingBoats:
+		Name: AboveWaterWep
+		Weapon: ArcaneZapBoats
+		LocalOffset: 256,128,0, 256,-128,0
+		LocalYaw: -100,100
+		RequiresCondition: abovewatercon
+	Armament@UnderWater:
+		Name: UnderWaterWep
+		Weapon: ArcaneZapWater
+		LocalOffset: 256,128,0, 256,-128,0
+		LocalYaw: -100,100
+		RequiresCondition: underwatercon
+	AttackTurreted:
+		Armaments: UnderWaterWep, AboveWaterWep, AboveWaterWepAA
+		RequiresCondition: !build-incomplete
+		PauseOnCondition: lowpower || disabled
+	-BodyOrientation:
+	Cloak:
+		CloakType: Underwater
+		RequiresCondition: underwatercon
+		CloakedCondition: underwater
+		CloakDelay: 100
+		UncloakOn: Attack, Demolish, Damage
+	ClassicFacingBodyOrientation:
+		QuantizedFacings: 8
+	Power:
+		Amount: -50
+	DetectCloaked@UNDERWATER:
+		DetectionTypes: Underwater
+		Range: 8c0
+		RequiresCondition: !disabled && underwatercon
+	RevealsShroud@UNDERWATER:
+		Range: 5c0
+		RequiresCondition: !disabled && underwatercon
+	RevealsShroud@Floating:
+		Range: 8c0
+		RequiresCondition: !disabled && abovewatercon
+	Targetable:
+		TargetTypes: GroundActor, WaterActor, Ship, Submarine, Repair
+		RequiresCondition: !underwater
+	Targetable@UNDERWATER:
+		TargetTypes: Underwater, Submarine
+		RequiresCondition: underwater
+	ProvidesPrerequisite@buildingname:
+	RenderSprites:
+		Image: mediarcanetower
+
+
