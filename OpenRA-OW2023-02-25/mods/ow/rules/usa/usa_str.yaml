@@ -1,5 +1,5 @@
 
-USACOLDFUSION:
+usacoldfusion:
 	Inherits: ^PowerPlant
 	Inherits@POWER_OUTAGE: ^DisabledByPowerOutage
 	Inherits@shape: ^2x2Shape
@@ -67,7 +67,7 @@ USACOLDFUSION:
         RequiresCondition: coldfusionup2
         Sequence: idle3
 
-USABARRACKS:
+usabarracks:
 	Inherits: ^DawnBuilding
 	Inherits@prereqs: ^BarracksPrereqs
 	Inherits@shape: ^2x2Shape
@@ -151,7 +151,7 @@ USABARRACKS:
 		UseDeathTypeSuffix: false
 		DeathSequencePalette: dawn
        
-USASUPPLYCENTER:
+usasupplycenter:
 	Inherits: ^DawnBuilding
 	Buildable:
 		Queue: Building
@@ -241,7 +241,7 @@ USASUPPLYCENTER:
 	Exit:
 		ProductionTypes: Helicopter
         
-USAWARFACTORY:
+usawarfactory:
 	Inherits: ^DawnBuilding
 	Inherits@prereqs: ^FactoryPrereqs
 	Selectable:
@@ -327,7 +327,7 @@ USAWARFACTORY:
 		UseDeathTypeSuffix: false
 		DeathSequencePalette: dawn
 
-USAAIRFIELD:
+usaairfield:
 	Inherits: ^Building
 	Inherits@PRIMARY: ^PrimaryBuilding
 	Buildable:
@@ -751,7 +751,7 @@ usaparticlecannon:
 		Range: 5c0
 		RevealGeneratedShroud: False
 	SpawnActorPower:
-		OrderName: Particle Cannon Strike
+		OrderName: ParticleCannonStrike
 		Actor: hack.particle_beam
 		LifeTime: 500
 		ChargeInterval: 14000
@@ -904,6 +904,7 @@ usapatriotEMP:
 usalaserpatriot:
 	Inherits: ^Defense
 	Inherits@AUTOTARGET: ^AutoTargetAll
+	Inherits@LOWPOWER: ^DisableOnLowPowerOrPowerDown
 	Buildable:
 		Queue: Defense
 		BuildPaletteOrder: 70
@@ -938,10 +939,12 @@ usalaserpatriot:
 		Weapon: USALaserpatriotshot
 		LocalOffset: 512,0,112
 		MuzzleSequence: muzzle
+		PauseOnCondition: disabled
 	Armament@Secondary:
 		Weapon: USALaserpatriotshotair
 		LocalOffset: 512,0,112
 		MuzzleSequence: muzzle
+		PauseOnCondition: disabled
 	AttackTurreted:
 		PauseOnCondition: build-incomplete
 	WithMuzzleOverlay:
