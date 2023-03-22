@@ -338,7 +338,7 @@ USAAIRFIELD:
 	Tooltip:
 		Name: USA Airfield
 	Valued:
-		Cost: 1500
+		Cost: 1250
 	Building:
 		Footprint: XXXX xxx= xx==
 		Dimensions: 4,3
@@ -360,8 +360,6 @@ USAAIRFIELD:
 		RevealGeneratedShroud: False
 	RevealsShroud@GAPGEN:
 		Range: 4c0
-	Selectable:
-		Bounds: 4096, 2048
 	HitShape:
 		TargetableOffsets: 0,0,0, 0,-512,256, 0,-1451,384, 0,512,128, 0,1536,85
 		Type: Rectangle
@@ -408,8 +406,9 @@ USAAIRFIELD:
 		UseDeathTypeSuffix: false
 	RenderSprites:
         Image: usaairfieldbuilding
+	Reservable:
 	RallyPoint:
-		ForceSetType: Plane
+		ForceSetType: Plane, Aircraft
 	AirstrikePower@a10strike:
 		OrderName: a10strike
 		Prerequisites: ~structures.usa, ~aircraft.usa, ~upgrade.aircraftgeneral
@@ -458,6 +457,33 @@ USAAIRFIELD:
 	ProximityExternalCondition:
 		Condition: reloadnear
 		Range: 7c0
+    FreeActor@1:
+        Actor: usaairstriplandingspot
+        SpawnOffset: 3,1
+    FreeActor@2:
+        Actor: usaairstriplandingspot
+        SpawnOffset: 0,0
+    FreeActor@3:
+        Actor: usaairstriplandingspot
+        SpawnOffset: 3,0
+	Explodes:
+		Weapon: FireBaseExplosion
+		EmptyWeapon: FireBaseExplosion
+
+usaairstriplandingspot:
+	Inherits: ^Building
+	-WithMakeAnimation:
+    Targetable: 
+        TargetTypes: Firebasebox
+	Reservable:
+	RenderSprites:
+		Image: usaairstriplandingspot
+	Power:
+		Amount: 0
+	Health:
+		HP: 10000
+	Armor:
+		Type: Wood
         
 usastrategycenter:
 	Inherits: ^ScienceBuilding
@@ -721,9 +747,8 @@ usaparticlecannon:
 	Armor:
 		Type: Wood
 	RevealsShroud:
-		MinRange: 5c0
-		Range: 6c0
-		RequiresCondition: !disabled
+		MinRange: 4c0
+		Range: 5c0
 		RevealGeneratedShroud: False
 	SpawnActorPower:
 		OrderName: Particle Cannon Strike
@@ -737,6 +762,9 @@ usaparticlecannon:
 		EffectSequence: idle
 		DisplayTimerRelationships: Ally, Neutral, Enemy
 		PauseOnCondition: disabled
+		LaunchSound: eulapar.wav
+		EndChargeSound: euparrea.wav
+		DetectedSound: eudepar.wav
 	SupportPowerChargeBar:
 	Power:
 		Amount: -150

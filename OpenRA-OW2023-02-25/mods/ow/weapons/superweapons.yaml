@@ -303,26 +303,26 @@ MiniNukeIonCrate:
 		Damage: 15000
 
 EMPWeapon:
-	ValidTargets: Ground, Water, GroundActor, WaterActor, Underwater, AirborneActor
+	ValidTargets: Ground, Water, GroundActor, WaterActor, Underwater, AirborneActor, Air
 	Warhead@emp1: GrantExternalCondition
 		Range: 3c0
 		Duration: 500
 		Condition: disabled
-		ValidTargets: GroundActor, WaterActor, Underwater, AirborneActor
+		ValidTargets: GroundActor, WaterActor, Underwater, AirborneActor, Air
 		InvalidTargets: Structure
 	Warhead@emp2: GrantExternalCondition
 		Delay: 7
 		Range: 6c0
 		Duration: 500
 		Condition: disabled
-		ValidTargets: GroundActor, WaterActor, Underwater, AirborneActor
+		ValidTargets: GroundActor, WaterActor, Underwater, AirborneActor, Air
 		InvalidTargets: Structure
 	Warhead@emp3: GrantExternalCondition
 		Delay: 14
 		Range: 10c0
 		Duration: 500
 		Condition: disabled
-		ValidTargets: GroundActor, WaterActor, Underwater, AirborneActor
+		ValidTargets: GroundActor, WaterActor, Underwater, AirborneActor, Air
 		InvalidTargets: Structure
 	Warhead@emppwrplant: GrantExternalCondition
 		Delay: 21
@@ -346,6 +346,7 @@ EMPExplosion:
 		Explosions: pulse_explosion
 		ExplosionPalette: tseffect
 		ImpactActors: false
+		ValidTargets: Ground, Water, GroundActor, WaterActor, Underwater, AirborneActor, Air
 	Warhead@emp1: GrantExternalCondition
 		Range: 2c0
 	Warhead@emp2: GrantExternalCondition
@@ -1898,12 +1899,12 @@ MediElementalWeapon:
 aoe.particle_beam:
 	ValidTargets: Ground, GroundActor, Water, WaterActor, Air, AirborneActor, Underwater, Trees
 	Range: 15c0
-	ReloadDelay: 2
+	ReloadDelay: 4
 	Projectile: GravityBomb
 		Velocity: 0, 0, -512
 	Warhead@1Dam: SpreadDamage
 		Spread: 1c0
-		Damage: 3300
+		Damage: 7000
 		ValidTargets: Ground, GroundActor, Water, WaterActor, Air, AirborneActor, Underwater, Trees
 		Versus:
 			None: 60
@@ -1914,6 +1915,7 @@ aoe.particle_beam:
 	Warhead@2Eff: CreateEffect
 		Explosions: particle_ring
 		ValidTargets: Ground, GroundActor, Water, WaterActor, Air, AirborneActor, Underwater, Trees
+		ImpactSounds: sparlo4a.aud, sparlo4b.aud, sparlo4c.aud
 	Warhead@3Smu_impact: LeaveSmudge
 		SmudgeType: Scorch
 		InvalidTargets: Vehicle, Tank, Structure, Wall
@@ -1921,6 +1923,14 @@ aoe.particle_beam:
 	Warhead@3Smu_impactSnow: LeaveSmudge
 		SmudgeType: SnowScorch
 		InvalidTargets: Vehicle, Tank, Structure, Wall
+		Size: 1
+	Warhead@4Eff: CreateEffect
+		Explosions: particlebeam1
+		ValidTargets: Ground, GroundActor, Water, WaterActor, Air, AirborneActor, Underwater, Trees
+	Warhead@5Eff: CreateEffect
+		Explosions: particlebeam2
+		ValidTargets: Ground, GroundActor, Water, WaterActor, Air, AirborneActor, Underwater, Trees
+	Warhead@6Res_areanuke1: DestroyResource
 		Size: 1
 
 usafuelairbomb:

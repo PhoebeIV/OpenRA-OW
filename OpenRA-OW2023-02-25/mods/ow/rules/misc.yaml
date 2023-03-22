@@ -534,14 +534,26 @@ hack.particle_beam:
 		EnableStances: false
 	Selectable:
 		DecorationBounds: 2048, 2048
+    GrantConditionOnPrerequisite@1:
+        Condition: upgradesuperweaponsgeneral
+        Prerequisites: upgrade.superweaponsgeneral
 	-KillsSelf:
 	KillsSelf@1:
 		RemoveInstead: true
 		Delay: 500
+		RequiresCondition: !upgradesuperweaponsgeneral
+	KillsSelf@2:
+		RemoveInstead: false
+		Delay: 600
+		RequiresCondition: upgradesuperweaponsgeneral
 	Wanders:
 		WanderMoveRadius: 4
+	Explodes:
+		Weapon: EMPExplosion
+		EmptyWeapon: EMPExplosion
+		RequiresCondition: upgradesuperweaponsgeneral
 	-SpawnActorOnDeath:
-	-Explodes:
+	-EjectOnDeath:
 
 camera.particle_cannon:
 	Inherits: CAMERA

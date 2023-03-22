@@ -1249,52 +1249,6 @@ usakingraptorshotair:
 		Explosions: large_splash
 		ImpactSounds: splash9.aud
 
-usastealthfightershot:
-	Inherits: ^AntiGroundMissile
-	ReloadDelay: 2
-	Range: 8c768
-	MinRange: 2c512
-	Report: vmigweaa.wav, vmigweab.wav
-	Projectile: Missile
-		Speed: 256
-		Inaccuracy: 128
-		CruiseAltitude: 2c0
-		RangeLimit: 12c410
-	Warhead@1Dam: SpreadDamage
-		Damage: 30000
-		Versus:
-			None: 50
-			Wood: 50
-			Light: 80
-			Heavy: 80
-			Concrete: 50
-		DamageTypes: Prone50Percent, TriggerProne, SmallExplosionDeath
-	Warhead@3Eff: CreateEffect
-		Explosions: artillery_explosion
-		ImpactSounds: kaboom15.aud
-	Warhead@4EffWater: CreateEffect
-		Explosions: large_splash
-		ImpactSounds: splash9.aud
-	Warhead@5Smu: LeaveSmudge
-		SmudgeType: Crater
-		Size: 2
-		Delay: 50
-	Warhead@5a: SpreadDamage
-		Spread: 2c0
-		Damage: 12500
-		Delay: 50
-		Versus:
-			None: 100
-			Wood: 100
-			Light: 50
-			Heavy: 50
-			Concrete: 50
-		DamageTypes: Prone50Percent, TriggerProne, SmallExplosionDeath
-	Warhead@5Shake: ShakeScreen
-		Duration: 5
-		Multiplier: 1,1
-		Delay: 50
-
 usastealthfightershotbunkerbuster:
 	Inherits: ^AntiGroundMissile
 	ReloadDelay: 2
@@ -1307,41 +1261,42 @@ usastealthfightershotbunkerbuster:
 		CruiseAltitude: 2c0
 		RangeLimit: 12c410
 	Warhead@1Dam: SpreadDamage
+		Spread: 192
 		Damage: 12500
+		ValidTargets: GroundActor, WaterActor
 		Versus:
-			None: 40
-			Wood: 50
-			Light: 30
-			Heavy: 30
-			Concrete: 100
-		DamageTypes: Prone50Percent, TriggerProne, SmallExplosionDeath
+			None: 80
+			Wood: 60
+			Light: 50
+			Heavy: 80
+			Concrete: 50
 	Warhead@3Eff: CreateEffect
 		Explosions: artillery_explosion
 		ImpactSounds: kaboom15.aud
-	Warhead@4EffWater: CreateEffect
-		Explosions: large_splash
-		ImpactSounds: splash9.aud
-	Warhead@5Smu: LeaveSmudge
+	Warhead@4Smu: LeaveSmudge
 		SmudgeType: Crater
-		Size: 3
-		Delay: 70
-	Warhead@5a: SpreadDamage
-		Spread: 2c0
+		Size: 1
+		Delay: 50
+	Warhead@5Dam: SpreadDamage
+		Spread: 512
 		Damage: 12500
-		Delay: 70
-        ImpactSounds: elementalbang.aud
+		Delay: 50
 		Versus:
-			None: 40
-			Wood: 50
-			Light: 30
-			Heavy: 30
+			None: 80
+			Wood: 40
+			Light: 40
+			Heavy: 60
 			Concrete: 100
 		DamageTypes: Prone50Percent, TriggerProne, SmallExplosionDeath
-	Warhead@5Shake: ShakeScreen
-		Duration: 20
+		ValidTargets: GroundActor, WaterActor
+	Warhead@6Shake: ShakeScreen
+		Duration: 10
 		Intensity: 1
 		Multiplier: 1,1
-		Delay: 70
+		Delay: 50
+	Warhead73Eff: CreateEffect
+		Delay: 50
+        ImpactSounds: kaboom1.aud
 
 usaaurorashot:
 	Inherits: ^AntiGroundMissile
@@ -1355,11 +1310,11 @@ usaaurorashot:
 		TrailImage: smokey
 		TrailInterval: 1
 		Blockable: false
-		Image: DRAGON
+		Image: moab_bomb
 		Shadow: True
 	Warhead@1Dam: SpreadDamage
-		Spread: 0c512
-		Damage: 45000
+		Spread: 512
+		Damage: 55000
 		Versus:
 			None: 50
 			Wood: 50
@@ -1385,11 +1340,11 @@ usaauroraalphashot:
 		TrailImage: smokey
 		TrailInterval: 1
 		Blockable: false
-		Image: DRAGON
+		Image: moab_bomb
 		Shadow: True
 	Warhead@1Dam: SpreadDamage
-		Spread: 0c512
-		Damage: 60000
+		Spread: 512
+		Damage: 80000
 		Versus:
 			None: 100
 			Wood: 100
@@ -1398,8 +1353,7 @@ usaauroraalphashot:
 			Concrete: 50
 		DamageTypes: Prone50Percent, TriggerProne, SmallExplosionDeath
 	Warhead@3Eff: CreateEffect
-		Delay: 10
-		Explosions: nuke
+		Explosions: fuelbomb
 		ImpactSounds: kaboom1.aud
         
 usapatriotshot:
@@ -1546,7 +1500,7 @@ missiledefendershotgarrisonupgrade:
 usamlrscarriershot:
 	Inherits: ^AntiGroundMissile
 	ReloadDelay: 300
-	Burst: 16
+	Burst: 8
 	BurstDelays: 4
 	Range: 18c0
 	MinRange: 3c0
@@ -1557,11 +1511,17 @@ usamlrscarriershot:
 		RangeLimit: 20c0
 	Warhead@1Dam: SpreadDamage
 		Spread: 192
-		Damage: 2500
+		Damage: 6000
 		ValidTargets: GroundActor, WaterActor
 		Versus:
-			None: 20
-			Wood: 70
-			Light: 60
-			Heavy: 100
+			None: 80
+			Wood: 60
+			Light: 50
+			Heavy: 80
 			Concrete: 50
+	Warhead@3Eff: CreateEffect
+		Explosions: artillery_explosion
+		ImpactSounds: kaboom15.aud
+	Warhead@4EffWater: CreateEffect
+		Explosions: large_splash
+		ImpactSounds: splash9.aud

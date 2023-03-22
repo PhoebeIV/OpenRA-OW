@@ -208,7 +208,7 @@ USACOMANCHE:
 		FacingTolerance: 80
 		PersistentTargeting: false
 		AttackType: Hover
-		OpportunityFire: False
+		OpportunityFire: true
 	Aircraft:
 		TurnSpeed: 16
 		Speed: 112
@@ -242,7 +242,7 @@ USACOMANCHE:
 	Selectable:
 		DecorationBounds: 1621, 1365
 	Rearmable:
-		RearmActors: usaairfield, hpad
+		RearmActors: usaairfield, hpad, usaairstriplandingspot
 	WithAmmoPipsDecoration:
 		Position: BottomLeft
 		Margin: 4, 3
@@ -334,7 +334,7 @@ USARAPTOR:
 	ProducibleWithLevel:
 		Prerequisites: aircraft.upgraded
 	Rearmable:
-		RearmActors: usaairfield, afld, afld.ukraine
+		RearmActors: usaairfield, afld, afld.ukraine, usaairstriplandingspot
 	WithAmmoPipsDecoration:
 		Position: BottomLeft
 		Margin: 4, 3
@@ -383,17 +383,10 @@ USASTEALTHFIGHTER:
 		Range: 11c0
 		Type: GroundPosition
 	Armament:
-		Weapon: usastealthfightershot
-		LocalOffset: 0,-640,0, 0,640,0
-		LocalYaw: -40, 24
-		PauseOnCondition: !ammo
-		RequiresCondition: !bunker_busters
-	Armament@BUNKER_BUSTERS:
 		Weapon: usastealthfightershotbunkerbuster
 		LocalOffset: 0,-640,0, 0,640,0
 		LocalYaw: -40, 24
 		PauseOnCondition: !ammo
-		RequiresCondition: bunker_busters
 	AttackAircraft:
 		FacingTolerance: 20
 	Aircraft:
@@ -430,7 +423,7 @@ USASTEALTHFIGHTER:
 	ProducibleWithLevel:
 		Prerequisites: aircraft.upgraded
 	Rearmable:
-		RearmActors: usaairfield, afld, afld.ukraine
+		RearmActors: usaairfield, afld, afld.ukraine, usaairstriplandingspot
 	WithAmmoPipsDecoration:
 		Position: BottomLeft
 		Margin: 4, 3
@@ -473,13 +466,13 @@ USAAURORA:
 		Prerequisites: ~aircraft.usa, ~techcenter, ~!upgrade.superweaponsgeneral
 		Description: Fast fighter plane.\nCan not be damaged while attacking.\nSlows down and becomes vulnerable after attacking.
 	Valued:
-		Cost: 3000
+		Cost: 3500
 	Tooltip:
 		Name: Aurora
 	UpdatesPlayerStatistics:
 		AddToArmyValue: true
 	Health:
-		HP: 8000
+		HP: 7000
 	RevealsShroud:
 		MinRange: 11c0
 		Range: 13c0
@@ -493,19 +486,14 @@ USAAURORA:
 		LocalOffset: 0,-640,0, 0,640,0
 		LocalYaw: -40, 24
 		PauseOnCondition: !ammo
-	Armament@laser:
-		Weapon: usakingraptorlaser
-		LocalOffset: 0,-640,0, 0,640,0
-		LocalYaw: -40, 24
-		Name: usakingraptorlaser
 	AttackAircraft:
 		FacingTolerance: 80
 		PersistentTargeting: false
-		OpportunityFire: False
+		OpportunityFire: true
 	Aircraft:
 		CruiseAltitude: 2560
-		TurnSpeed: 12
-		Speed: 266
+		TurnSpeed: 16
+		Speed: 180
 		RepulsionSpeed: 40
 		MaximumPitch: 56
 	AutoTarget:
@@ -526,6 +514,12 @@ USAAURORA:
 		StartColorAlpha: 128
 	SpawnActorOnDeath:
 		Actor: USAAURORA.Husk
+	SpeedMultiplier@AFTERBURNER:
+		Modifier: 180
+		RequiresCondition: ammo
+	DamageMultiplier@AFTERBURNER:
+		Modifier: 80
+		RequiresCondition: ammo
 	LeavesTrails:
 		Offsets: -853,0,171
 		MovingInterval: 2
@@ -536,7 +530,7 @@ USAAURORA:
 	ProducibleWithLevel:
 		Prerequisites: aircraft.upgraded
 	Rearmable:
-		RearmActors: usaairfield, afld, afld.ukraine
+		RearmActors: usaairfield, afld, afld.ukraine, usaairstriplandingspot
 	WithAmmoPipsDecoration:
 		Position: BottomLeft
 		Margin: 4, 3
@@ -590,11 +584,6 @@ USAKINGRAPTOR:
 		LocalOffset: 0,-640,0, 0,640,0
 		LocalYaw: -40, 24
 		PauseOnCondition: !ammo
-	Armament@laser:
-		Weapon: usakingraptorlaser
-		LocalOffset: 0,-640,0, 0,640,0
-		LocalYaw: -40, 24
-		Name: usakingraptorlaser
 	Armament@air:
 		Weapon: usakingraptorshotair
 		LocalOffset: 0,-640,0, 0,640,0
@@ -603,7 +592,7 @@ USAKINGRAPTOR:
 	AttackAircraft:
 		FacingTolerance: 20
 		PersistentTargeting: false
-		OpportunityFire: False
+		OpportunityFire: true
 	Aircraft:
 		CruiseAltitude: 2560
 		InitialFacing: 192
@@ -639,7 +628,7 @@ USAKINGRAPTOR:
 	ProducibleWithLevel:
 		Prerequisites: aircraft.upgraded
 	Rearmable:
-		RearmActors: usaairfield, afld, afld.ukraine
+		RearmActors: usaairfield, afld, afld.ukraine, usaairstriplandingspot
 	WithAmmoPipsDecoration:
 		Position: BottomLeft
 		Margin: 4, 3
@@ -673,13 +662,13 @@ USAAURORAALPHA:
 		Description: Fast fighter plane.\nCan not be damaged while attacking.\nSlows down and becomes vulnerable after attacking.
         BuildDuration: 3300
 	Valued:
-		Cost: 3500
+		Cost: 5000
 	Tooltip:
 		Name: Aurora Alpha
 	UpdatesPlayerStatistics:
 		AddToArmyValue: true
 	Health:
-		HP: 8000
+		HP: 7000
 	RevealsShroud:
 		MinRange: 11c0
 		Range: 13c0
@@ -693,20 +682,22 @@ USAAURORAALPHA:
 		LocalOffset: 0,-640,0, 0,640,0
 		LocalYaw: -40, 24
 		PauseOnCondition: !ammo
-	Armament@laser:
-		Weapon: usakingraptorlaser
-		LocalOffset: 0,213,-85
-		Name: usakingraptorlaser
 	AttackAircraft:
 		FacingTolerance: 80
 		PersistentTargeting: false
-		OpportunityFire: False
+		OpportunityFire: true
 	Aircraft:
 		CruiseAltitude: 2560
-		TurnSpeed: 12
-		Speed: 266
+		TurnSpeed: 16
+		Speed: 180
 		RepulsionSpeed: 40
 		MaximumPitch: 56
+	SpeedMultiplier@AFTERBURNER:
+		Modifier: 180
+		RequiresCondition: ammo
+	DamageMultiplier@AFTERBURNER:
+		Modifier: 80
+		RequiresCondition: ammo
 	AutoTarget:
 		InitialStance: HoldFire
 		InitialStanceAI: HoldFire
@@ -735,7 +726,7 @@ USAAURORAALPHA:
 	ProducibleWithLevel:
 		Prerequisites: aircraft.upgraded
 	Rearmable:
-		RearmActors: usaairfield, afld, afld.ukraine
+		RearmActors: usaairfield, afld, afld.ukraine, usaairstriplandingspot
 	WithAmmoPipsDecoration:
 		Position: BottomLeft
 		Margin: 4, 3
