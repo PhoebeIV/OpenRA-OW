@@ -168,7 +168,7 @@ CTFLAG:
 CRATE:
 	-GiveCashCrateAction:
 	LevelUpCrateAction:
-		SelectionShares: 30
+		SelectionShares: 20
 	GiveMcvCrateAction:
 		ValidFactions: england, france, germany, russia, ukraine, estonia, phobos, deimos, mars, hitler, himmler, heydrich
 		NoBaseSelectionShares: 1000
@@ -273,6 +273,11 @@ CRATE:
 		Units: swordman,swordman,swordman,swordman,swordman,crossbowman,crossbowman
 		ValidFactions: darkness, holy, elementalists
 		TimeDelay: 4500
+	GiveUnitCrateAction@wall:
+		SelectionShares: 3
+		Units: 1tnk.brik,1tnk.brik,1tnk.brik,1tnk.brik,1tnk.brik,1tnk.brik,1tnk.brik,1tnk.brik,1tnk.brik,1tnk.brik
+		Prerequisites: techlevel.unrestricted
+		Owner: Creeps
 	Crate:
 		Duration: 6000
 
@@ -296,7 +301,7 @@ MONEYCRATE2:
 CRATE.FuckYou:
 	Inherits: ^Crate
 	GiveUnitCrateAction@supertank:
-		SelectionShares: 2
+		SelectionShares: 4
 		Units: u.tnkcrate
 		Prerequisites: techlevel.unrestricted
 		Owner: Creeps
@@ -315,7 +320,7 @@ CRATE.FuckYou:
 		SelectionShares: 9
 		Units: 1tnk.grave
 	GiveUnitCrateAction@globzombcrate:
-		SelectionShares: 4
+		SelectionShares: 3
 		Units: medizombiecreepcrate
 		Owner: Creeps
 	ExplodeCrateAction@emp:
@@ -327,6 +332,11 @@ CRATE.FuckYou:
 	ExplodeCrateAction@poison:
 		Weapon: ToxinScudstormSmall
 		SelectionShares: 12
+	GiveUnitCrateAction@wall:
+		SelectionShares: 10
+		Units: 1tnk.brik,1tnk.brik,1tnk.brik,1tnk.brik,1tnk.brik,1tnk.brik,1tnk.brik,1tnk.brik,1tnk.brik,1tnk.brik
+		Prerequisites: techlevel.unrestricted
+		Owner: Creeps
 	Crate:
 		Duration: 15000
 	Tooltip:
@@ -376,6 +386,13 @@ CRATE.FuckYou:
 		OwnerType: InternalName
 		InternalOwner: Creeps
 		RequiresLobbyCreeps: true
+
+1TNK.BRIK:
+	Inherits: 1TNK.MINE
+	-Explodes:
+	SpawnActorOnDeath:
+		Actor: brik
+		OwnerType: Victim
 
 LIGHTNING:
 	Inherits@1: ^ExistsInWorld

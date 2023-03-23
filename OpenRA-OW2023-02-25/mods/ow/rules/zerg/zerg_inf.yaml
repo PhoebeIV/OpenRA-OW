@@ -315,8 +315,8 @@ ZLURKER:
 	Inherits@zerg: ^ZergUnitWeapon
 	Inherits@autotarget: ^AutoTargetGroundAssaultMove
 	Buildable:
-		Prerequisites: zhydraden, ~infantry.zerg, ~techlevel.high, techcenter
-		Description: Ranged burrowing unit - must \n deploy to attack\n\n  Speed: 88\n  Strong vs ground units
+		Prerequisites: zhydraden, ~infantry.zerg, ~techlevel.high, techcenter, ~!ai.all
+		Description: Ranged burrowing unit - must \n burrow to attack\n\n  Speed: 112\n  Strong vs ground units
 		Queue: Infantry
 		BuildAtProductionType: Hatchery
 		BuildDuration: 1000
@@ -335,7 +335,7 @@ ZLURKER:
 	Health:
 		HP: 32500
 	Mobile:
-		Speed: 88
+		Speed: 112
 		TurnSpeed: 64
 		Locomotor: foot2
 		RequireForceMoveCondition: !undeployed
@@ -348,21 +348,12 @@ ZLURKER:
 		Name: primary
 		Weapon: LurkerSpikes
 		RequiresCondition: deployed
-	Armament@2:
-		Name: ai
-		Weapon: LurkerDeploy
-		RequiresCondition: undeployed && ai_hack
 	Turreted:
 		TurnSpeed: 128
 	AttackTurreted@deployed:
-		RequiresCondition: deployed || ai_hack
+		RequiresCondition: deployed
 		OutsideRangeRequiresForceFire: True
-		Armaments: primary, ai
-	GrantConditionOnAttack: 
-		ArmamentNames: ai, primary
-		RequiresCondition: ai_hack
-		Condition: deployed
-		RevokeDelay: 250
+		Armaments: primary
 	-WithInfantryBody:
 	WithFacingSpriteBody:
 		Sequence: idle
@@ -403,7 +394,7 @@ ZLURKER:
 	ProximityCaptor:
 		Types: Infantry
 	Cloak@burrow:
-		RequiresCondition: deployed && !ai_hack
+		RequiresCondition: deployed
 		InitialDelay: 50
 		CloakDelay: 30
 		CloakedCondition: burrowed
@@ -412,9 +403,8 @@ ZLURKER:
 		IsPlayerPalette: true
 	GrantCondition@ai:
 		Condition: undeployed
-		RequiresCondition: !deployed && ai_hack
+		RequiresCondition: !deployed
 	GrantConditionOnDeploy:
-		RequiresCondition: !ai_hack
 		DeployedCondition: deployed
 		UndeployedCondition: undeployed
 		UndeployOnMove: true
@@ -425,19 +415,125 @@ ZLURKER:
 		UndeploySounds: burrowup.aud
 		Voice: Action
 	RenderRangeCircle:
-	GrantConditionOnBotOwner:
-		Condition: ai_hack
-		Bots: easy, medium, hard, boss
-	DamageMultiplier@bot:
-		RequiresCondition: ai_hack
-		Modifier: 120
-	FirepowerMultiplier@bot:
-		RequiresCondition: ai_hack
-		Modifier: 80
-	ReloadDelayMultiplier@bot:
-		RequiresCondition: ai_hack
-		Modifier: 125
 	-Cloneable:
+
+#Special AI version of the Lurker that "auto-deploys"
+ZLURKER.AI:
+	Inherits: ^Infantry
+	Inherits@zerg: ^ZergUnitWeapon
+	Inherits@autotarget: ^AutoTargetGroundAssaultMove
+	Buildable:
+		Prerequisites: zhydraden, ~infantry.zerg, ~techlevel.high, techcenter, ~ai.all
+		Description: Ranged burrowing unit - must \n burrow to attack\n\n  Speed: 112\n  Strong vs ground units
+		Queue: Infantry
+		BuildAtProductionType: Hatchery
+		BuildDuration: 1000
+		BuildPaletteOrder: 42
+	Selectable:
+		Bounds: 1100, 1100, 0, 0
+		DecorationBounds: 1500, 1200, 0, 0
+	Valued:
+		Cost: 1500
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Tooltip:
+		Name: Lurker
+	Armor:
+		Type: Light
+	Health:
+		HP: 32500
+	Mobile:
+		Speed: 112
+		TurnSpeed: 64
+		Locomotor: foot2
+		RequiresCondition: !busy
+	Power:
+		Amount: -10
+	-Crushable:
+	RevealsShroud:
+		Range: 5c512
+	Armament:
+		Name: primary
+		Weapon: LurkerSpikes
+		RequiresCondition: burrowed
+	Armament@2:
+		Name: ai
+		Weapon: LurkerDeploy
+	Turreted:
+		TurnSpeed: 128
+	AttackTurreted@deployed:
+		OutsideRangeRequiresForceFire: True
+		Armaments: primary, ai
+	-WithInfantryBody:
+	WithFacingSpriteBody@moving:
+		Body: body
+		StartSequence: unburrow
+		Sequence: move
+		RequiresCondition: moving || (turning && !burrowed)
+	WithSpriteBody:
+		StartSequence: burrow
+		Sequence: burrowed
+		RequiresCondition: !moving && !turning
+		Name: deployedbody
+	WithMakeAnimation:
+		BodyNames: deployedbody
+		Sequence: burrow
+		Condition: burrowing
+	QuantizeFacingsFromSequence:
+		Sequence: idle
+	GrantCondition@PREVIEWWORKAROUND:
+		Condition: real-actor
+	GrantConditionOnMovement@1:
+		Condition: moving
+	GrantConditionOnMovement@2:
+		Condition: turning
+		ValidMovementTypes: Turn
+	GrantConditionOnAttack@1:
+		Condition: busy
+		RevokeDelay: 125
+	AutoTarget:
+	Targetable:
+		TargetTypes: GroundActor, Infantry, Disguise
+	Targetable@burrowed:
+		TargetTypes: BurrowedLurker
+		RequiresCondition: !moving
+	Voiced:
+		VoiceSet: ZergLurkerVoice
+	-DeathSounds@NORMAL:
+	-DeathSounds@BURNED:
+	-DeathSounds@ZAPPED:
+	DeathSounds:
+	WithDeathAnimation:
+		UseDeathTypeSuffix: false
+		CrushedSequence: die
+		CrushedSequencePalette: player
+		CrushedPaletteIsPlayerPalette: true
+	-SpawnActorOnDeath@fire:
+	MustBeDestroyed:
+	ProximityCaptor:
+		Types: Infantry
+	Cloak@burrow:
+		RequiresCondition: !moving
+		InitialDelay: 50
+		CloakDelay: 25
+		CloakedCondition: burrowed
+		UncloakOn: Move
+		Palette: player
+		IsPlayerPalette: true
+	RenderRangeCircle:
+	-Cloneable:
+	RenderSprites: 
+		Image: zlurker
+	AmbientSound@burrowing:
+		SoundFiles: zluburrw.aud
+		RequiresCondition: !moving && !turning
+		Delay: 25
+		Interval: -1
+	AmbientSound@unburrow:
+		SoundFiles: burrowup.aud
+		RequiresCondition: moving || (turning && !burrowed)
+		Interval: -1
+		Delay: 25
 
 ZULTRA:
 	Inherits: ^Infantry

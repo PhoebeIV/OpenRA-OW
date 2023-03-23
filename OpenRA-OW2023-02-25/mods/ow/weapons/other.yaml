@@ -1670,6 +1670,7 @@ DragoonPlasma:
 		Image: Plasma
 		RangeLimit: 7c0
 		HorizontalRateOfTurn: 100
+		Jammable: false
 	Warhead@1Dam: SpreadDamage
 		Spread: 300
 		Damage: 4500
@@ -1698,6 +1699,7 @@ DragoonPlasmaAir:
 		Blockable: false
 		Inaccuracy: 0
 		HorizontalRateOfTurn: 25
+		JammedDiversionRange: 4
 	Warhead@1Dam: SpreadDamage
 		Spread: 300
 		Damage: 3000
@@ -1714,6 +1716,7 @@ PhotonPlasma:
 		Image: Plasma
 		RangeLimit: 10c0
 		HorizontalRateOfTurn: 100
+		JammedDiversionRange: 8
 	Warhead@1Dam: SpreadDamage
 		Spread: 325
 		Damage: 6000
@@ -1760,6 +1763,7 @@ ReaverScarab:
 		TrailImage: pscarabt
 		TrailInterval: 4
 		RangeLimit: 7c0
+		JammedDiversionRange: 5
 	Warhead@1Dam: SpreadDamage
 		Spread: 400
 		Damage: 20000
@@ -2387,7 +2391,7 @@ ZerglingAttack:
 			Wood: 0
 			Light: 0
 			Heavy: 100
-			Concrete: 50
+			Concrete: 25
 		DamageTypes: DefaultDeath
 		ValidTargets: Structure
 
@@ -2425,6 +2429,7 @@ SunkenAttack:
 		Blockable: false
 		RangeLimit: 10c0
 		HorizontalRateOfTurn: 100
+		Jammable: false
 	Warhead@1Dam: SpreadDamage
 		Spread: 325
 		Damage: 16000
@@ -2517,7 +2522,7 @@ HydraSpines:
 
 LurkerSpikes:
 	ReloadDelay: 60
-	Range: 7c0
+	Range: 6c0
 	Burst: 6
 	BurstDelays: 1
 	StartBurstReport: zlrkfir1.aud
@@ -2574,7 +2579,7 @@ LurkerSpikes:
 #for AI to deploy a unit
 LurkerDeploy:
 	ReloadDelay: 25
-	Range: 7c0
+	Range: 7c512
 	ValidTargets: Ground, Water, GroundActor, WaterActor
 	Projectile: GravityBomb
 		Velocity: 0, 0, -128
@@ -2621,3 +2626,89 @@ UltraAttack:
 		Delay: 4
 		ImpactSounds: zulhit00.aud, zulhit01.aud
 		ValidTargets: GroundActor, WaterActor, Trees
+
+MutaGlaive:
+	ReloadDelay: 50
+	Range: 6c0
+	Report: zmufir00.aud
+	ValidTargets: Ground, Water, GroundActor, WaterActor, AirborneActor
+	Projectile: Missile
+		Speed: 350
+		Blockable: true
+		Image: zmutaball
+		RangeLimit: 8c0
+		HorizontalRateOfTurn: 100
+		Jammable: false
+		ContrailLength: 15
+		AirburstAltitude: 512
+	Warhead@1Dam: SpreadDamage
+		Spread: 512
+		Damage: 4000
+		ValidTargets: Ground, GroundActor, WaterActor, Trees
+		Versus:
+			None: 120
+			Wood: 60
+			Light: 80
+			Concrete: 25
+		DamageTypes: Prone50Percent, TriggerProne, SmallExplosionDeath
+	Warhead@1DamAir: SpreadDamage
+		Spread: 400
+		Damage: 2000
+		ValidTargets: Air, AirborneActor
+		Versus:
+			None: 120
+			Wood: 60
+			Light: 80
+			Concrete: 25
+		DamageTypes: SmallExplosionDeath
+	Warhead@3EffGround: CreateEffect
+		Explosions: baron
+		ImpactSounds: zquhit02.aud
+		ValidTargets: Ground, GroundActor, WaterActor, Trees, Air, AirborneActor
+		Inaccuracy: 128
+	Warhead@4Cluster: FireCluster
+		Weapon: MutaGlaiveBounce1
+		RandomClusterCount: 2
+		Dimensions: 3,3
+		Footprint: xxx xxx xxx
+
+MutaGlaiveBounce1:
+	Range: 6c0
+	ValidTargets: Ground, Water, GroundActor, WaterActor
+	Projectile: Bullet
+		Speed: 250
+		Blockable: true
+		Image: zmutaball
+		Sequence: idle2
+		Inaccuracy: 1c0
+		LaunchAngle: 35,42
+	Warhead@1Dam: SpreadDamage
+		Spread: 256
+		Damage: 1200
+		ValidTargets: Ground, GroundActor, WaterActor, Trees, Air, AirborneActor
+		Versus:
+			None: 120
+			Wood: 60
+			Light: 80
+			Concrete: 25
+		DamageTypes: Prone50Percent, TriggerProne, ExplosionDeath
+	Warhead@3EffGround: CreateEffect
+		Explosions: baron
+		ImpactSounds: zquhit00.aud, zquhit01.aud
+		ValidTargets: Ground, GroundActor, WaterActor, Trees, Air, AirborneActor
+		Inaccuracy: 128
+	Warhead@4Cluster: FireCluster
+		Weapon: MutaGlaiveBounce2
+		RandomClusterCount: 1
+		Dimensions: 3,3
+		Footprint: xxx xxx xxx
+
+MutaGlaiveBounce2:
+	Inherits: MutaGlaiveBounce1
+	Range: 6c0
+	Projectile: Bullet
+		Image: zmutaball
+		Sequence: idle3
+		Inaccuracy: 1c512
+		LaunchAngle: 35,42
+	-Warhead@4Cluster:

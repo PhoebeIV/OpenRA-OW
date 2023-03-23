@@ -19,7 +19,7 @@ ZOVERLORD:
 		Name: Overlord
 	UpdatesPlayerStatistics:
 	Health:
-		HP: 40000
+		HP: 30000
 	RevealsShroud:
 		MinRange: 6c0
 		Range: 7c0
@@ -46,6 +46,7 @@ ZOVERLORD:
 		Prerequisite: anypower
 	-SpawnActorOnDeath:
 	-Explodes:
+	DeathSounds:
 	Explodes:
 		Weapon: ZergAirUnitDeath
 		EmptyWeapon: ZergAirUnitDeath
@@ -75,3 +76,85 @@ ZOVERLORD:
 		RequiresCondition: !jammed && !lowpower
 	ExternalCondition@JAMMED:
 		Condition: jammed
+
+ZMUTA:
+	Inherits: ^Helicopter
+	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
+	Inherits@shield: ^ZergUnit
+	Buildable:
+		Queue: Aircraft
+		BuildAtProductionType: Helicopter
+		BuildPaletteOrder: 40
+		Prerequisites: ~aircraft.zerg, ~techlevel.high
+		Description: Primary Zerg air-attack unit.\nSpeed: 144\n  Strong vs Infantry, Aircraft\n  Weak vs Vehicles, Buildings
+	Valued:
+		Cost: 1500
+	Tooltip:
+		Name: Mutalisk
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 10000
+	RevealsShroud:
+		MinRange: 6c0
+		Range: 7c0
+		Type: GroundPosition
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 6c0
+		Type: GroundPosition
+	Armament@PRIMARY1:
+		Weapon: MutaGlaive
+		LocalOffset: 0,0,-128
+		PauseOnCondition: !ammo
+	AttackAircraft:
+		FacingTolerance: 32
+		PersistentTargeting: false
+		AttackType: Hover
+		OpportunityFire: False
+	Aircraft:
+		TurnSpeed: 64
+		Speed: 144
+		LandAltitude: 1200
+		CanSlide: false
+	AutoTarget:
+		InitialStance: ReturnFire
+		InitialStanceAI: ReturnFire
+	AmmoPool:
+		Ammo: 18
+		AmmoCondition: ammo
+	WithAmmoPipsDecoration:
+		Position: BottomLeft
+		Margin: 4, 3
+		RequiresSelection: true
+		PipCount: 9
+	-SpawnActorOnDeath:
+	-Explodes:
+	Explodes:
+		Weapon: ZergAirUnitDeath
+		EmptyWeapon: ZergAirUnitDeath
+	ProducibleWithLevel:
+		Prerequisites: aircraft.upgraded
+	Selectable:
+		DecorationBounds: 1536, 1365
+	Rearmable:
+		RearmActors: zspire
+	Hovers@CRUISING:
+		-RequiresCondition:
+	Voiced:
+		VoiceSet: ZergMutaVoice
+	RenderSprites:
+	WithMoveAnimation:
+	DeathSounds:
+	-EjectOnDeath:
+	ReloadAmmoPool@reloadnear:
+		RequiresCondition: reloadnear
+		Delay: 50
+	ReloadAmmoPool@normal:
+		RequiresCondition: !attacking
+		Delay: 250
+	GrantConditionOnAttack@reload:
+		Condition: attacking
+		RevokeDelay: 250
+	WithDeathAnimation:
+		UseDeathTypeSuffix: false

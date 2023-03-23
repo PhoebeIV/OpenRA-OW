@@ -71,7 +71,6 @@
 	CashTrickler@bossAI:
 		Amount: 1000
 
-
 ZMCV:
 	Inherits: MCV
 	Inherits@selection: ^SelectableSupportUnit
@@ -98,7 +97,6 @@ ZMCV:
 		VoiceSet: ZergDroneVoice
 	Power:
 		Amount: 10
-
 
 ZMCV.2:
 	Inherits: ZMCV
@@ -212,6 +210,8 @@ ZergCloner:
 	Inherits: CreepGenBig
 	Inherits@shape: ^1x1Shape
 	Inherits@1: ^PrimaryBuilding
+	Inherits@Boss: ^EpicBotPrereqs
+	Inherits@selection: ^SelectableBuilding
 	-Explodes:
 	-SeedsResource:
 	-ProximityExternalCondition:
@@ -314,6 +314,15 @@ ZHATCHERY:
 	WithDeathAnimation:
 		DeathSequence: dead
 		UseDeathTypeSuffix: false
+		RequiresCondition: !lair_upgrade && !hive_upgrade
+	WithDeathAnimation@1:
+		DeathSequence: lair-dead
+		UseDeathTypeSuffix: false
+		RequiresCondition: lair_upgrade && !hive_upgrade
+	WithDeathAnimation@2:
+		DeathSequence: hive-dead
+		UseDeathTypeSuffix: false
+		RequiresCondition: hive_upgrade
 	ProvidesPrerequisite@buildingname:
 	HitShape:
 		TargetableOffsets: 1273,939,0, -980,-640,0, -980,640,0
@@ -486,7 +495,7 @@ ZHIVE.up:
 		Queue: Tech
 		BuildPaletteOrder: 1001
 		BuildDuration: 4500
-		Prerequisites: zlair, ~structures.zerg, ~techlevel.unrestricted, ~!ulttechcenter
+		Prerequisites: zlair, zspire, ~structures.zerg, ~techlevel.unrestricted, ~!ulttechcenter
 		Description: Evolve a Lair to a Hive. \nUnlocks access to Epic structures and units. \n\nLimit of 1.
 		Icon: icon-hive
 	Plug:
@@ -559,6 +568,15 @@ ZCCOLONY:
 	WithDeathAnimation:
 		DeathSequence: dead
 		UseDeathTypeSuffix: false
+		RequiresCondition: !waiting_to_evolve
+	WithDeathAnimation@1:
+		DeathSequence: sunken-dead
+		UseDeathTypeSuffix: false
+		RequiresCondition: str_sunken
+	WithDeathAnimation@2:
+		DeathSequence: spore-dead
+		UseDeathTypeSuffix: false
+		RequiresCondition: str_spore
 	ProvidesPrerequisite@buildingname:
 	WithIdleOverlay@damage:
 		RequiresCondition: damaged
@@ -589,7 +607,7 @@ ZCCOLONY:
 		RequiresCondition: !waiting_to_evolve
 	Production@zergstructure:
 		Produces: Building.ZergColony
-		RequiresCondition: !waiting_to_evolve && !build-incomplete
+		RequiresCondition: !waiting_to_evolve
 	ProductionQueue@zergstructure:
 		Type: Building.ZergColony
 		Group: Building
@@ -686,7 +704,7 @@ ZE.SUNKEN:
 		Description: Anti-ground defensive structure. \n Cannot detect cloaked. \n\nStrong vs ground units
 		Prerequisites: barracks, ~techlevel.infonly, ~zccolony
 	Valued:
-		Cost: 500
+		Cost: 400
 	RenderSprites:
 		Image: zsunken
 
@@ -700,7 +718,7 @@ ZE.SPORE:
 		Description: Anti-air defensive structure. \n Detects cloaked units. \n\nStrong vs aircraft
 		Prerequisites: barracks, ~techlevel.infonly, ~zccolony
 	Valued:
-		Cost: 500
+		Cost: 400
 	RenderSprites:
 		Image: zspore
 
@@ -867,6 +885,10 @@ ZPOOL:
 	GrantExternalConditionToProduced@zergling:
 		Condition: zerglingdouble
 		Duration: 25
+	FreeActor@effect_complete:
+		Actor: SmallZergBuildingComplete
+		SpawnOffset: 1,1
+		RequiresCondition: !build-incomplete
 
 ZHYDRADEN:
 	Inherits: ^ZergBuilding
@@ -935,10 +957,14 @@ ZHYDRADEN:
 		Condition: produced
 	ProductionBar:
 		ProductionType: Infantry
+	FreeActor@effect_complete:
+		Actor: MediumZergBuildingComplete
+		SpawnOffset: 1,1
+		RequiresCondition: !build-incomplete
 
 ZCHAMBER:
 	Inherits: ^ZergScienceBuilding
-	Inherits@prereqs: ^BarracksPrereqs
+	Inherits@prereqs: ^AdvTechPips
 	Inherits@shape: ^3x2Shape
 	D2kBuilding:
 		Footprint: =x= xx= xxx
@@ -949,6 +975,7 @@ ZCHAMBER:
 	Buildable:
 		Queue: Wall
 		BuildPaletteOrder: 450
+		BuildDuration: 2000
 		Prerequisites: zhydraden, ~structures.zerg, ~techlevel.high, ~ai.all
 		Description: Allows Zerg specific upgrades
 	Health:
@@ -962,7 +989,7 @@ ZCHAMBER:
 	RevealsShroud@GAPGEN:
 		Range: 4c0
 	Valued:
-		Cost: 1200
+		Cost: 2000
 	Tooltip:
 		Name: Evolution Chamber
 	BaseBuilding:
@@ -984,6 +1011,10 @@ ZCHAMBER:
 		RequiresCondition: damaged3
 		Sequence: blood3
 		Offset: 0,-1024,-256
+	FreeActor@effect_complete:
+		Actor: MediumZergBuildingComplete
+		SpawnOffset: 1,1
+		RequiresCondition: !build-incomplete
 
 ZULTRADEN:
 	Inherits: ^ZergScienceBuilding
@@ -998,10 +1029,12 @@ ZULTRADEN:
 	Buildable:
 		Queue: Wall
 		BuildPaletteOrder: 450
+		BuildDuration: 2500
 		Prerequisites: advtechcenter, ~structures.zerg, ~techlevel.unrestricted, ~ai.all
 		Description: Home of the Ultralisk
+		BuildLimit: 1
 	Health:
-		HP: 110000
+		HP: 120000
 	Armor:
 		Type: Wood
 	RevealsShroud:
@@ -1011,7 +1044,7 @@ ZULTRADEN:
 	RevealsShroud@GAPGEN:
 		Range: 4c0
 	Valued:
-		Cost: 1200
+		Cost: 2000
 	Tooltip:
 		Name: Ultralisk Cavern
 	BaseBuilding:
@@ -1031,3 +1064,146 @@ ZULTRADEN:
 		RequiresCondition: damaged3
 		Sequence: blood3
 		Offset: 0,-1024,-256
+	FreeActor@effect_complete:
+		Actor: MediumZergBuildingComplete
+		SpawnOffset: 1,1
+		RequiresCondition: !build-incomplete
+
+ZSPIRE:
+	Inherits: ^ZergBuilding
+	Inherits@prereqs: ^AircraftPrereqs
+	Inherits@shape: ^2x2Shape
+	D2kBuilding:
+		Footprint: ++ xx
+		Dimensions: 2,2
+	Buildable:
+		Queue: Wall
+		BuildPaletteOrder: 450
+		BuildDuration: 2000
+		Prerequisites:  ~structures.zerg, techcenter, ~techlevel.high, ~ai.all
+		Description: Allows production of zerg air units
+		BuildLimit: 1
+	Health:
+		HP: 110000
+	Armor:
+		Type: Wood
+	RevealsShroud:
+		MinRange: 4c0
+		Range: 5c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 4c0
+	Valued:
+		Cost: 1500
+	Tooltip:
+		Name: Spire
+		RequiresCondition: !spire_upgrade
+	Tooltip@2:
+		Name: Greater Spire
+		RequiresCondition: spire_upgrade
+	BaseBuilding:
+	WithDeathAnimation:
+		DeathSequence: dead
+		UseDeathTypeSuffix: false
+		RequiresCondition: !spire_upgrade
+	WithDeathAnimation@2:
+		DeathSequence: dead
+		UseDeathTypeSuffix: false
+		RequiresCondition: spire_upgrade
+	ProvidesPrerequisite@buildingname:
+		RequiresCondition: !spire_upgrade
+	WithIdleOverlay@damage:
+		RequiresCondition: damaged
+		Sequence: blood1
+		Offset: 450,-512,0
+	WithIdleOverlay@damage2:
+		RequiresCondition: damaged2
+		Sequence: blood3
+		Offset: 0,700,1224
+	WithIdleOverlay@damage3:
+		RequiresCondition: damaged3
+		Sequence: blood2
+		Offset: -512,0,350
+	WithIdleOverlay@main:
+		Sequence: idle2
+		RequiresCondition: !build-incomplete && !spire_upgrade
+	WithSpriteBody@spire:
+		RequiresCondition: spire_upgrade
+		StartSequence: greater-make
+		Sequence: greater-idle
+	Explodes:
+		Type: CenterPosition
+		Weapon: SmallZergBuildingExplode
+		EmptyWeapon: SmallZergBuildingExplode
+	Exit@1:
+		RequiresCondition: !being-captured
+		SpawnOffset: 0,-256,0
+		ExitCell: 0,0
+		Facing: 896
+	Production:
+		Produces: Aircraft, Helicopter
+	CommandBarBlacklist:
+		DisableStop: false
+	GrantExternalConditionToProduced:
+		Condition: produced
+	ProductionBar:
+		ProductionType: Aircraft
+	GrantExternalConditionToProduced@scourge:
+		Condition: scourgedouble
+		Duration: 25
+	Targetable:
+		TargetTypes: GroundActor, C4, DetonateAttack, Structure, SpyInfiltrate
+	InfiltrateForSupportPower:
+		Proxy: aircraft.upgraded
+		Types: SpyInfiltrate
+	FreeActor@effect_complete:
+		Actor: MediumZergBuildingComplete
+		SpawnOffset: 1,0
+		RequiresCondition: !build-incomplete
+	Pluggable@1:
+		Offset: 0,0
+		Conditions:
+			zgspire: spire_upgrade
+		Requirements:
+			zgspire: !build-incomplete && !spire_upgrade
+		EditorOptions:
+			zgspire: Greater Spire
+	FreeActor@2:
+		Actor: ZergLairComplete
+		SpawnOffset: 1,-1
+		RequiresCondition: spire_upgrade
+	DamageMultiplier@spire:
+		Modifier: 75
+		RequiresCondition: spire_upgrade
+	Reservable:
+	ProximityExternalCondition:
+		Condition: reloadnear
+		Range: 4c0
+
+ZGSPIRE.up:
+	Inherits: ^BuildingPlug
+	Valued:
+		Cost: 2500
+	Tooltip:
+		Name: Evolve to Greater Spire
+	Buildable:
+		Queue: Tech
+		BuildPaletteOrder: 1002
+		BuildDuration: 4500
+		Prerequisites: zlair, ~zspire, ~structures.zerg, ~techlevel.unrestricted
+		Description: Evolve a Spire into a Greater Spire. \nUnlocks access to advanced air units.
+		Icon: icon-gspire
+	Plug:
+		Type: zgspire
+	Building:
+		BuildSounds: zbldgplc.aud
+	RenderSprites:
+		Image: zspire
+	SequencePlaceBuildingPreview:
+		Sequence: greater-idle
+
+ZGSPIRE:
+	AlwaysVisible:
+	Interactable:
+	Tooltip:
+		Name: Greater Spire

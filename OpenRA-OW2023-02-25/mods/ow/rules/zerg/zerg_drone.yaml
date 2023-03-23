@@ -141,7 +141,7 @@ ZDRONE:
 		Condition: str_colony
 		Actors: ZE.COLONY
 	KillsSelf@colony:
-		RequiresCondition: str_colony || str_extrac || str_pool || str_hydra || str_chamber || str_ultraden
+		RequiresCondition: str_colony || str_extrac || str_pool || str_hydra || str_chamber || str_ultraden || str_spire
 		DamageTypes: no_sound
 		Delay: 10
 	SpawnActorOnDeath@colony:
@@ -177,6 +177,12 @@ ZDRONE:
 	SpawnActorOnDeath@ultraden:
 		Actor: ZDRONE.ultraden
 		RequiresCondition: str_ultraden
+	GrantConditionOnProduction@spire:
+		Condition: str_spire
+		Actors: ZE.SPIRE
+	SpawnActorOnDeath@spire:
+		Actor: ZDRONE.spire
+		RequiresCondition: str_spire
 
 
 ZDRONE.colony:
@@ -243,6 +249,16 @@ ZDRONE.ultraden:
 		IntoActor: zultraden
 		TransformSounds: zbldgplc.aud
 		Offset: -1,0
+		Facing: -256
+
+ZDRONE.spire:
+	Inherits@drone: ZDRONE.colony
+	Tooltip:
+		Name: Drone (Evolving: Spire)
+	Transforms:
+		IntoActor: zspire
+		TransformSounds: zbldgplc.aud
+		Offset: 0,0
 		Facing: -256
 
 ^ZergEvolve:
@@ -321,7 +337,7 @@ ZE.POOL:
 ZE.HYDRA:
 	Inherits: ^ZergEvolve
 	Tooltip:
-		Name: Evolve into Spawning Pool
+		Name: Evolve into Hydralisk Den
 	Buildable:
 		Description: Allows production of Hydralisks at\n a Hatchery. \n\nMust be placed on creep.
 		BuildPaletteOrder: 5
@@ -335,7 +351,7 @@ ZE.HYDRA:
 ZE.CHAMBER:
 	Inherits: ^ZergEvolve
 	Tooltip:
-		Name: Evolve into Spawning Pool
+		Name: Evolve into Evolution Chamber
 	Buildable:
 		Description: Provides access to Zerg-specific upgrades\n and ability to evolve your Hatchery. \n\nMust be placed on creep.
 		BuildPaletteOrder: 6
@@ -349,13 +365,27 @@ ZE.CHAMBER:
 ZE.ULTRADEN:
 	Inherits: ^ZergEvolve
 	Tooltip:
-		Name: Evolve into Spawning Pool
+		Name: Evolve into Ultralisk Cavern
 	Buildable:
-		Description: Provides access to Zerg-specific upgrades\n and ability to evolve your Hatchery. \n\nMust be placed on creep.
-		BuildPaletteOrder: 7
+		Description: Allows production of Ultralisks at \n a Hatchery. \n\nMust be placed on creep.
+		BuildPaletteOrder: 8
 		Prerequisites: advtechcenter, ~techlevel.unrestricted, ~zdrone
 		BuildDuration: 2000
 	Valued:
 		Cost: 1500
 	RenderSprites:
 		Image: zultraden
+
+ZE.SPIRE:
+	Inherits: ^ZergEvolve
+	Tooltip:
+		Name: Evolve into Ultralisk Cavern
+	Buildable:
+		Description: Allows production of basic air units\n at a Hatchery. \n\nMust be placed on creep.
+		BuildPaletteOrder: 7
+		Prerequisites: techcenter, ~techlevel.high, ~zdrone
+		BuildDuration: 2000
+	Valued:
+		Cost: 1500
+	RenderSprites:
+		Image: zspire

@@ -74,6 +74,8 @@ zhatchery:
 		Length: *
 		Tick: 175
 		Offset: 0, -8
+	lair-dead: zlair
+		Tick: 500
 	hive-make: zbstart
 		Length: *
 		Frames: 22,23,24,25,26,22,23,24,25,26,22,23,24,25,26,22,23,24,25,26,22,23,24,25,26,22,23,24,25,26,22,23,24,25,26,27,28,29,30
@@ -82,6 +84,8 @@ zhatchery:
 		Length: *
 		Tick: 200
 		Offset: 0, -12
+	hive-dead: zhive
+		Tick: 500
 	icon: zhatcheryicon
 	icon-lair: zlairicon
 	icon-hive: zhiveicon
@@ -289,6 +293,47 @@ zultraden:
 	dead:
 		Tick: 500
 	icon: zultradenicon
+
+zspire:
+	Inherits: ^ZergBlood
+	idle:
+		Start: 3
+		ZOffset: -8
+		Offset: 0,-24
+	idle2:
+		Length: *
+		Frames: 0,1,2,0
+		Tick: 150
+		Offset: 0,-24
+	make: zbstart
+		Length: *
+		Frames: 0,1,2,3,4,5,6,7,8,4,5,6,7,8,4,5,6,7,8,9,13,14,15,16,17,13,14,15,16,17,18,19,20,21
+		Tick: 200
+	building: zbstart
+		Length: *
+		Frames: 4,5,6,7,8
+		Tick: 200
+	complete: zbstart
+		Length: *
+		Frames: 9,10,11,12
+	dead:
+		Tick: 500
+		Offset: 0,-24
+	greater-make: zbstart
+		Length: *
+		Frames: 13,14,15,16,17,13,14,15,16,17,13,14,15,16,17,13,14,15,16,17,13,14,15,16,17,13,14,15,16,17,13,14,15,16,17,18,19,20,21
+		Tick: 200
+		Offset: 0,-24
+	greater-idle: zgspire
+		Length: *
+		Frames: 0,1,2,0
+		Tick: 150
+		Offset: 0,-24
+	greated-dead: zgspire
+		Tick: 500
+		Offset: 0,-24
+	icon: zspireicon
+	icon-gspire: zgspireicon
 
 #units
 
@@ -524,6 +569,7 @@ zlurker:
 	burrowed: 
 		Scale: 0.75
 		Start: 80
+		ZOffset: -128
 	burrow: 
 		Scale: 0.75
 		Start: 66
@@ -623,6 +669,38 @@ zoverlord:
 		Tick: 150
 	icon: zoverlordicon
 
+zmuta:
+	idle:
+		Scale: 0.75
+		Facings: -16
+		Length: 5
+		Tick: 200
+		Combine:
+			zmuta:
+				Length: 45
+				Frames: 0,9,18,27,36, 1,10,19,28,37, 2,11,20,29,38, 3,12,21,30,39, 4,13,22,31,40, 5,14,23,32,41, 6,15,24,33,42, 7,16,25,34,43, 8,17,26,35,44
+			zmuta:
+				Length: 35
+				Frames: 7,16,25,34,43, 6,15,24,33,42, 5,14,23,32,41, 4,13,22,31,40, 3,12,21,30,39, 2,11,20,29,38, 1,10,19,28,37
+				FlipX: true
+	move:
+		Scale: 0.75
+		Facings: -16
+		Length: 5
+		Tick: 100
+		Combine:
+			zmuta:
+				Length: 45
+				Frames: 0,9,18,27,36, 1,10,19,28,37, 2,11,20,29,38, 3,12,21,30,39, 4,13,22,31,40, 5,14,23,32,41, 6,15,24,33,42, 7,16,25,34,43, 8,17,26,35,44
+			zmuta:
+				Length: 35
+				Frames: 7,16,25,34,43, 6,15,24,33,42, 5,14,23,32,41, 4,13,22,31,40, 3,12,21,30,39, 2,11,20,29,38, 1,10,19,28,37
+				FlipX: true
+	die:
+		Start: 45
+		Tick: 150
+	icon: zmutaicon
+
 resources:
 	zcreep00: zcreep00
 		UseTilesetExtension: false
@@ -669,6 +747,20 @@ explosion:
 	zerg_air_death1: zairdeath
 		Tick: 150
 		Scale: 0.75
+
+zmutaball:
+	idle:
+		Length: *
+		Scale: 0.8
+		ZOffset: 1023
+	idle2:
+		Length: *
+		Scale: 0.6
+		ZOffset: 1023
+	idle3:
+		Length: *
+		Scale: 0.3
+		ZOffset: 1023
 
 zerg.zergling:
 	icon: zupgrade1icon
