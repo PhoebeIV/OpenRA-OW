@@ -299,6 +299,95 @@ PARBITER:
 		AffectsParent: false
 	-Cloak@arbiterstealth:
 
+PCORSAIR:
+	Inherits: ^Helicopter
+	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
+	Inherits@shield: ^ProtossShield
+	Buildable:
+		Queue: Aircraft
+		BuildAtProductionType: Helicopter
+		BuildPaletteOrder: 42
+		Prerequisites: ~aircraft.protoss, techcenter, ~techlevel.high
+		Description: Protoss gunship armed\nwith anti-air Neutron flares and \n ground unit disruptors.\nSpeed: 144\n  Strong vs Aircraft, Vehicles\n  Weak vs Infantry
+	Valued:
+		Cost: 1800
+	Tooltip:
+		Name: Corsair
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 10000
+	RevealsShroud:
+		MinRange: 7c0
+		Range: 9c0
+		Type: GroundPosition
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 7c0
+		Type: GroundPosition
+	Armament@PRIMARY1:
+		Weapon: CorsairFlare
+		PauseOnCondition: !ammo
+	Armament@SECONDARY:
+		Weapon: CorsairDisruptor
+		PauseOnCondition: !ammo
+		AmmoUsage: 16
+	AttackAircraft:
+		FacingTolerance: 32
+		PersistentTargeting: false
+		AttackType: Hover
+		OpportunityFire: False
+	Aircraft:
+		TurnSpeed: 32
+		Speed: 144
+		LandAltitude: 1200
+	AutoTarget:
+		InitialStance: ReturnFire
+		InitialStanceAI: ReturnFire
+	GrantConditionOnMovement@scout:
+		Condition: moving
+	GrantConditionOnAttack@scout:
+		Condition: shooting
+		RevokeDelay: 9
+	AmmoPool:
+		Ammo: 32
+		AmmoCondition: ammo
+	WithAmmoPipsDecoration:
+		Position: BottomLeft
+		Margin: 4, 3
+		RequiresSelection: true
+		PipCount: 8
+	SpawnActorOnDeath:
+		Actor: PCORSAIR.Husk
+	WithDamageOverlay:
+		Offset: -427,0,0
+	ProducibleWithLevel:
+		Prerequisites: aircraft.upgraded
+	Selectable:
+		DecorationBounds: 1236, 1065
+	Rearmable:
+		RearmActors: pstarg
+	Hovers@CRUISING:
+		-RequiresCondition:
+	Voiced:
+		VoiceSet: ProtossScoutVoice
+	RenderSprites:
+	WithFacingSpriteBody@2:
+		Name: engine
+		Sequence: engine
+		RequiresCondition: moving
+		Palette: effect
+	WithFacingSpriteBody@3:
+		Name: shoot
+		Sequence: shoot
+		Palette: player
+		IsPlayerPalette: true
+		RequiresCondition: shooting
+	-EjectOnDeath:
+	ReloadAmmoPool@reloadnear:
+		RequiresCondition: reloadnear
+		Delay: 50
+
 PCARRY:
 	Inherits: ^Helicopter
 	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove

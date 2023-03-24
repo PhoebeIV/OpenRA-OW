@@ -97,6 +97,17 @@ ZMCV:
 		VoiceSet: ZergDroneVoice
 	Power:
 		Amount: 10
+	FreeActor@creep:
+		Actor: CreepSpawnerStart
+		SpawnOffset: 0,0
+	ToggleConditionOnOrder:
+		OrderName: Deploy
+		EnabledSound: zbldgplc.aud
+		Condition: deploying
+	FreeActor@2:
+		Actor: 1tnk
+		SpawnOffset: 1,1
+		RequiresCondition: deploying
 
 ZMCV.2:
 	Inherits: ZMCV
@@ -120,6 +131,11 @@ CreepSpawnerBig2:
 	Inherits: CreepSpawnerBig
 	SpawnActorOnDeath:
 		Actor: CreepGenBig2
+
+CreepSpawnerStart:
+	Inherits: CreepSpawnerBig
+	SpawnActorOnDeath:
+		Actor: CreepGenBigStart
 
 CreepSpawnerMedium:
 	Inherits: CreepSpawnerBig
@@ -164,10 +180,19 @@ CreepGenBig:
 		Condition: creepgen
 		Range: 9c0
 		ValidRelationships: Neutral, Ally, Enemy
+	ChangesTerrain:
+		TerrainType: Creep
 
 CreepGenBig2:
 	Inherits: CreepGenBig
 	-Explodes:
+
+CreepGenBigStart:
+	Inherits: CreepGenBig
+	KillsSelf:
+		RequiresCondition: !creepalive
+		Delay: 100
+	-SeedsResource:
 
 CreepGenMed:
 	Inherits: CreepGenBig
@@ -358,7 +383,7 @@ ZHATCHERY:
 		RequiresCondition: !build-incomplete
 	FreeActor@creep2:
 		Actor: CreepSpawnerBig
-		SpawnOffset: 0,2
+		SpawnOffset: 0,3
 		RequiresCondition: !build-incomplete
 	FreeActor@creep3:
 		Actor: CreepSpawnerBig
@@ -366,7 +391,7 @@ ZHATCHERY:
 		RequiresCondition: !build-incomplete
 	FreeActor@creep4:
 		Actor: CreepSpawnerBig
-		SpawnOffset: 2,2
+		SpawnOffset: 2,3
 		RequiresCondition: !build-incomplete
 	FreeActor@effect_complete:
 		Actor: MediumZergBuildingComplete
@@ -450,7 +475,7 @@ ZHATCHERY:
 		UseResourceStorage: true
 	ProximityExternalCondition@creepalive:
 		Condition: creepalive
-		Range: 3c0
+		Range: 4c0
 
 ZergLairComplete:
 	Inherits: SmallZergBuildingComplete
@@ -495,7 +520,7 @@ ZHIVE.up:
 		Queue: Tech
 		BuildPaletteOrder: 1001
 		BuildDuration: 4500
-		Prerequisites: zlair, zspire, ~structures.zerg, ~techlevel.unrestricted, ~!ulttechcenter
+		Prerequisites: zlair, zgspire, ~structures.zerg, ~techlevel.unrestricted, ~!ulttechcenter
 		Description: Evolve a Lair to a Hive. \nUnlocks access to Epic structures and units. \n\nLimit of 1.
 		Icon: icon-hive
 	Plug:
@@ -666,11 +691,13 @@ ZCCOLONY:
 		RequiresCondition: str_sunken && !animating
 		Weapon: SunkenAttack
 		LocalOffset: 0,0,512
+		PauseOnCondition: disabled
 	Armament@spore:
 		Name: secondary
 		Turret: secondary
 		RequiresCondition: str_spore && !animating
 		Weapon: SporeAttack
+		PauseOnCondition: disabled
 	AmbientSound@evolved:
 		SoundFiles: zchrdy00.aud
 		RequiresCondition: waiting_to_evolve && !animating
@@ -682,7 +709,7 @@ ZCCOLONY:
 	DetectCloaked:
 		DetectionTypes: Cloak
 		Range: 6c0
-		RequiresCondition: str_spore
+		RequiresCondition: str_spore && !disabled
 	Turreted@spore:
 		RequiresCondition: str_spore && !animating
 		Turret: secondary
@@ -693,6 +720,9 @@ ZCCOLONY:
 	ProximityExternalCondition@creepalive:
 		Condition: creepalive
 		Range: 2c0
+	WithColoredOverlay@IDISABLE:
+		RequiresCondition: disabled && waiting_to_evolve
+		Color: 000000B4
 
 ZE.SUNKEN:
 	Inherits: ^ZergEvolve
@@ -745,6 +775,7 @@ ZEXTRAC:
 	Buildable:
 		Queue: Wall
 		BuildPaletteOrder: 450
+		BuildDuration: 1400
 		Prerequisites: ~structures.zerg, ~techlevel.infonly, ~ai.all, ~!ai.boss
 		Description: Stores and refines resources.
 	Health:
@@ -1030,7 +1061,7 @@ ZULTRADEN:
 		Queue: Wall
 		BuildPaletteOrder: 450
 		BuildDuration: 2500
-		Prerequisites: advtechcenter, ~structures.zerg, ~techlevel.unrestricted, ~ai.all
+		Prerequisites: ulttechcenter, ~structures.zerg, ~techlevel.unrestricted, ~ai.all
 		Description: Home of the Ultralisk
 		BuildLimit: 1
 	Health:
@@ -1082,7 +1113,7 @@ ZSPIRE:
 		BuildDuration: 2000
 		Prerequisites:  ~structures.zerg, techcenter, ~techlevel.high, ~ai.all
 		Description: Allows production of zerg air units
-		BuildLimit: 1
+		BuildLimit: 2
 	Health:
 		HP: 110000
 	Armor:
@@ -1111,7 +1142,12 @@ ZSPIRE:
 		UseDeathTypeSuffix: false
 		RequiresCondition: spire_upgrade
 	ProvidesPrerequisite@buildingname:
+	ProvidesPrerequisite@spire:
+		RequiresCondition: spire_upgrade
+		Prerequisite: zgspire
+	ProvidesPrerequisite@spire2:
 		RequiresCondition: !spire_upgrade
+		Prerequisite: zspire.up
 	WithIdleOverlay@damage:
 		RequiresCondition: damaged
 		Sequence: blood1
@@ -1137,7 +1173,7 @@ ZSPIRE:
 		EmptyWeapon: SmallZergBuildingExplode
 	Exit@1:
 		RequiresCondition: !being-captured
-		SpawnOffset: 0,-256,0
+		SpawnOffset: 0,-256,512
 		ExitCell: 0,0
 		Facing: 896
 	Production:
@@ -1179,6 +1215,40 @@ ZSPIRE:
 	ProximityExternalCondition:
 		Condition: reloadnear
 		Range: 4c0
+	ProximityExternalCondition@spots:
+		Condition: nearby_spire
+		Range: 2c0
+	FreeActor@aispot1:
+		Actor: ZSPIRE.spot
+		SpawnOffset: 0,0
+		RequiresCondition: bot_med || bot_hard || bot_boss
+	FreeActor@aispot2:
+		Actor: ZSPIRE.spot
+		SpawnOffset: 0,1
+		RequiresCondition: bot_med || bot_hard || bot_boss
+	FreeActor@aispot3:
+		Actor: ZSPIRE.spot
+		SpawnOffset: 1,0
+		RequiresCondition: bot_med || bot_hard || bot_boss
+
+ZSPIRE.spot:
+	Inherits: ^Building
+	-WithMakeAnimation:
+	Reservable:
+	RenderSprites:
+		Image: usaairstriplandingspot
+	Health:
+		HP: 10000
+	KillsSelf:
+		RequiresCondition: !nearby_spire
+		Delay: 25
+	ExternalCondition@spire: 
+		Condition: nearby_spire
+	RallyPoint:
+	Exit:
+		SpawnOffset: 0,-256,512
+		ExitCell: 0,0
+		Facing: 896
 
 ZGSPIRE.up:
 	Inherits: ^BuildingPlug
@@ -1190,7 +1260,7 @@ ZGSPIRE.up:
 		Queue: Tech
 		BuildPaletteOrder: 1002
 		BuildDuration: 4500
-		Prerequisites: zlair, ~zspire, ~structures.zerg, ~techlevel.unrestricted
+		Prerequisites: zlair, ~zspire.up, ~structures.zerg, ~techlevel.unrestricted
 		Description: Evolve a Spire into a Greater Spire. \nUnlocks access to advanced air units.
 		Icon: icon-gspire
 	Plug:
