@@ -1,0 +1,149 @@
+DukeNukem:
+	Inherits: ^Soldier
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Valued:
+		Cost: 10000
+	Tooltip:
+		Name: Duke Nukem
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 150000
+	Mobile:
+		Speed: 90
+		Voice: Move
+	Guard:
+		Voice: Move
+	RevealsShroud:
+		Range: 6c0
+	Passenger:
+		CustomPipType: red
+		Voice: Move
+	AttackFrontal:
+		Armaments: gun1, gun2, gun3, gun4, gun5, gun6, gun7, gun8, gun9
+    Armament@1:
+        Name: gun1
+        Weapon: dukenukempistol
+        RequiresCondition: !gun2
+    GrantConditionOnAttack@1:
+        ArmamentNames: gun1
+        Condition: gun2
+		RequiredShotsPerInstance: 14
+        RevokeDelay: 1000
+    Armament@2:
+        Name: gun2
+        Weapon: dukenukemmg
+        RequiresCondition: gun2 && !gun3
+    GrantConditionOnAttack@2:
+        ArmamentNames: gun2
+        Condition: gun3
+		RequiredShotsPerInstance: 30
+        RevokeDelay: 1000
+    Armament@3:
+        Name: gun3
+        Weapon: dukenukemshotgun
+        RequiresCondition: gun3 && !gun4
+    GrantConditionOnAttack@3:
+        ArmamentNames: gun3
+        Condition: gun4
+		RequiredShotsPerInstance: 5
+        RevokeDelay: 1000
+    Armament@4:
+        Name: gun4
+        Weapon: dukenukempipebomb
+		LocalOffset: 0,0,555
+        RequiresCondition: gun4 && !gun5
+    GrantConditionOnAttack@4:
+        ArmamentNames: gun4
+        Condition: gun5
+		RequiredShotsPerInstance: 5
+        RevokeDelay: 1000
+    Armament@5:
+        Name: gun5
+        Weapon: dukenukemrpg
+		LocalOffset: 0,0,555
+        RequiresCondition: gun5 && !gun6
+    GrantConditionOnAttack@5:
+        ArmamentNames: gun5
+        Condition: gun6
+		RequiredShotsPerInstance: 5
+        RevokeDelay: 1000
+    Armament@6:
+        Name: gun6
+        Weapon: dukenukemshrink
+		LocalOffset: 0,0,555
+        RequiresCondition: gun6 && !gun7
+    GrantConditionOnAttack@6:
+        ArmamentNames: gun6
+        Condition: gun7
+		RequiredShotsPerInstance: 7
+        RevokeDelay: 1000
+    Armament@7:
+        Name: gun7
+        Weapon: dukenukemexpand
+        RequiresCondition: gun7 && !gun8
+    GrantConditionOnAttack@7:
+        ArmamentNames: gun7
+        Condition: gun8
+		RequiredShotsPerInstance: 25
+        RevokeDelay: 1000
+    Armament@8:
+        Name: gun8
+        Weapon: dukenukemfreezer
+		LocalOffset: 0,0,555
+        RequiresCondition: gun8 && !gun9
+    GrantConditionOnAttack@8:
+        ArmamentNames: gun8
+        Condition: gun9
+		RequiredShotsPerInstance: 40
+        RevokeDelay: 1000
+    Armament@9:
+        Name: gun9
+        Weapon: dukenukemdevestator
+		LocalOffset: 0,0,555
+        RequiresCondition: gun9 && !gun10
+    GrantConditionOnAttack@9:
+        ArmamentNames: gun9
+        Condition: gun10
+		RequiredShotsPerInstance: 80
+        RevokeDelay: 1000
+	Armament@GARRISONED:
+		Name: garrisoned
+		Weapon: dukenukempistol
+		MuzzleSequence: garrison-muzzle
+	Armament@BUS:
+		Name: bus
+		Weapon: dukenukempistol
+		MuzzleSequence: garrison-muzzle
+	WithInfantryBody:
+		DefaultAttackSequence: shoot
+		StandSequences: stand
+	ExternalCondition@PRODUCED:
+		Condition: produced
+	VoiceAnnouncement:
+		RequiresCondition: produced
+		Voice: Build
+	AmbientSound:
+		SoundFiles: dukenukembuild1.wav, dukenukembuild2.wav, dukenukembuild3.wav, dukenukembuild4.wav, dukenukembuild5.wav, dukenukembuild6.wav, dukenukembuild7.wav, dukenukembuild8.wav, dukenukembuild9.wav, dukenukembuild10.wav, dukenukembuild1.wav, dukenukemkill3.wav, dukenukemkill5.wav, dukenukembuild2.wav, dukenukemselect2.wav, dukenukembuild6.wav, dukenukemmove3.wav, dukenukemselect3.wav, dukenukemmove4.wav, dukenukembuild8.wav, dukenukemmove5.wav, dukenukemmove6.wav, dukenukemmove7.wav, dukenukemselect4.wav
+		Delay: 0
+		Interval: 250, 500
+	AnnounceOnKill:
+		Voice: Kill
+	ProducibleWithLevel:
+		Prerequisites: barracks.upgraded
+	AnnounceOnSeen:
+		PingRader: true
+	RenderSprites:
+		Image: USABurton
+	Voiced:
+		VoiceSet: DukeNukemVoice
+		Volume: 10
+	AttackWander:
+		WanderMoveRadius: 10
+		MinMoveDelay: 5
+		MaxMoveDelay: 100
+	ChangesHealth:
+		Step: 100
+		Delay: 25
+		StartIfBelow: 50
+		DamageCooldown: 500

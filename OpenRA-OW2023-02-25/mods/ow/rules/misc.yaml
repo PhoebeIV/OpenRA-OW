@@ -332,10 +332,18 @@ CRATE.FuckYou:
 	ExplodeCrateAction@poison:
 		Weapon: ToxinScudstormSmall
 		SelectionShares: 12
+	GiveUnitCrateAction@ionbeam:
+		SelectionShares: 12
+		Units: hack.particle_beam
+		Owner: Creeps
 	GiveUnitCrateAction@wall:
 		SelectionShares: 10
 		Units: 1tnk.brik,1tnk.brik,1tnk.brik,1tnk.brik,1tnk.brik,1tnk.brik,1tnk.brik,1tnk.brik,1tnk.brik,1tnk.brik
 		Prerequisites: techlevel.unrestricted
+		Owner: Creeps
+	GiveUnitCrateAction@dukenukem:
+		SelectionShares: 10
+		Units: dukenukem
 		Owner: Creeps
 	Crate:
 		Duration: 15000
@@ -563,8 +571,10 @@ hack.particle_beam:
 		RemoveInstead: false
 		Delay: 600
 		RequiresCondition: upgradesuperweaponsgeneral
-	Wanders:
-		WanderMoveRadius: 4
+	AttackWander:
+		WanderMoveRadius: 1
+		MinMoveDelay: 50
+		MaxMoveDelay: 100
 	Explodes:
 		Weapon: EMPExplosion
 		EmptyWeapon: EMPExplosion
