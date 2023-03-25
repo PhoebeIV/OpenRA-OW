@@ -22,8 +22,8 @@
 	GrantConditionOnPrerequisite@estoniabuff:
 		Prerequisites: estoniabuff
 		Condition: estoniabuff
-	PowerMultiplier:
-		RequiresCondition: estoniabuff
+	PowerMultiplier@powrup:
+		RequiresCondition: estoniabuff || power_upgrade
 		Modifier: 120
 	ProximityExternalCondition:
 		Condition: pylon
@@ -34,6 +34,23 @@
 	GrantConditionOnPowerState@LOWPOWER:
 		Condition: lowpower2
 		ValidPowerStates: Low, Critical
+	Pluggable@1:
+		Offset: 0,0
+		Conditions:
+			powr.up: power_upgrade
+		Requirements:
+			powr.up: !build-incomplete && !power_upgrade && !estoniabuff
+		EditorOptions:
+			powr.up: Power Boosted
+	WithDecoration@powrup:
+		Image: rank
+		Sequence: rank-veteran-3
+		Palette: effect
+		Position: BottomRight
+		Margin: 5, 6
+		ValidRelationships: Ally, Enemy, Neutral
+		RequiresCondition: power_upgrade
+		RequiresSelection: true
 
 ^DawnPowerPlant:
 	Inherits: ^PowerPlant
@@ -440,3 +457,24 @@ PWRGEN.Husk:
 	KillsSelf:
 		RemoveInstead: true
 		Delay: 6000
+
+
+POWR.up:
+	Inherits: ^BuildingPlug
+	Valued:
+		Cost: 300
+	Tooltip:
+		Name: Boost Power Output
+	Buildable:
+		Queue: Wall
+		BuildPaletteOrder: 100
+		BuildDuration: 4500
+		Prerequisites: anypower, radar, ~structures.estonia, ~techlevel.high
+		Description: Place onto a friendly power plant/n to increase power output by 20%.
+		Icon: icon-powr
+	Plug:
+		Type: powr.up
+	RenderSprites:
+		Image: oregen
+	SequencePlaceBuildingPreview:
+		Sequence: idle
