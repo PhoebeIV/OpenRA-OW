@@ -599,7 +599,7 @@ HAXOR:
 	Inherits: POWR
 	Buildable:
 		Prerequisites: ~disabled
-		Description: Become the Boss
+		Description: Become the Boss, makes your \n structures never targeted by AI.
 	ProvidesPrerequisite@bossmode:
 		Prerequisite: ai.boss
 	Tooltip:
@@ -623,4 +623,18 @@ HAXOR:
 	RenderSprites:
 		Image: POWR
 	Targetable:
-		TargetTypes: Catalyst
+		TargetTypes: UpgradeThing
+	GrantConditionOnDeploy@cheats:
+		DeployedCondition: cheats_off
+		UndeployedCondition: cheats_on
+	ProvidesPrerequisite@cheats:
+		RequiresCondition: cheats_on
+		Prerequisite: never_target_me
+	WithDecoration@cheatson:
+		Image: rank
+		Sequence: rank-elite
+		Palette: effect
+		Position: BottomRight
+		Margin: 5, 6
+		ValidRelationships: Ally, Enemy, Neutral
+		RequiresCondition: cheats_on
