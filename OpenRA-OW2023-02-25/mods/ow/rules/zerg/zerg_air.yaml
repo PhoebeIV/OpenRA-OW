@@ -4,9 +4,9 @@ ZOVERLORD:
 	Inherits@shield: ^ZergUnit
 	Buildable:
 		Queue: Building
-		BuildPaletteOrder: 60
+		BuildPaletteOrder: 25
 		Prerequisites: ~structures.zerg, ~techlevel.infonly
-		Description: Allows control over your swarm.\n Detects cloaked units.\nSpeed: 24 \n\nCan be upgraded with speed and transport upgrades.
+		Description: Allows control over your swarm.\n Detects cloaked units.\nSpeed: 24 \n\nCan be upgraded with speed, control and sensory upgrades.\n\nUnarmed
 	Selectable:
 		DecorationBounds: 1536, 1365
 	-RejectsOrders@freeroam:
@@ -14,7 +14,7 @@ ZOVERLORD:
 	Valued:
 		Cost: 1000
 	Power:
-		Amount: 100
+		Amount: 80
 	Tooltip:
 		Name: Overlord
 	UpdatesPlayerStatistics:
@@ -65,7 +65,7 @@ ZOVERLORD:
 		Modifier: 200
 	PowerMultiplier@shoes:
 		RequiresCondition: shoes
-		Modifier: 150
+		Modifier: 125
 	RevealsShroudMultiplier@shoes:
 		RequiresCondition: shoes
 		Modifier: 125
@@ -97,7 +97,7 @@ ZMUTA:
 		HP: 10000
 	RevealsShroud:
 		MinRange: 6c0
-		Range: 7c0
+		Range: 8c0
 		Type: GroundPosition
 		RevealGeneratedShroud: False
 	RevealsShroud@GAPGEN:
@@ -118,8 +118,7 @@ ZMUTA:
 		LandAltitude: 1200
 		CanSlide: false
 	AutoTarget:
-		InitialStance: ReturnFire
-		InitialStanceAI: ReturnFire
+		InitialStance: Defend
 	AmmoPool:
 		Ammo: 18
 		AmmoCondition: ammo
@@ -153,6 +152,107 @@ ZMUTA:
 	ReloadAmmoPool@normal:
 		RequiresCondition: !attacking
 		Delay: 250
+	GrantConditionOnAttack@reload:
+		Condition: attacking
+		RevokeDelay: 250
+	WithDeathAnimation:
+		UseDeathTypeSuffix: false
+
+ZQUEEN:
+	Inherits: ^Helicopter
+	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
+	Inherits@shield: ^ZergUnit
+	Buildable:
+		Queue: Aircraft
+		BuildAtProductionType: Helicopter
+		BuildPaletteOrder: 41
+		Prerequisites: znest, ~aircraft.zerg, ~techlevel.high
+		Description: Zerg air support unit. Can infect \n and ensnare enemies.\nSpeed: 136\n\n  Unarmed
+	Valued:
+		Cost: 2000
+	Tooltip:
+		Name: Queen
+		RequiresCondition: !ensnare_equipped && !parasite_equipped
+	Tooltip@1:
+		Name: Queen - Ensnare
+		GenericName: Queen
+		RequiresCondition: ensnare_equipped
+	Tooltip@2:
+		Name: Queen - Parasite
+		GenericName: Queen
+		RequiresCondition: parasite_equipped
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 15000
+	RevealsShroud:
+		MinRange: 8c0
+		Range: 9c0
+		Type: GroundPosition
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 8c0
+		Type: GroundPosition
+	Armament@PRIMARY1:
+		Weapon: QueenEnsnare
+		LocalOffset: 0,0,-128
+		PauseOnCondition: ammo < 6
+		RequiresCondition: ensnare_equipped
+		AmmoUsage: 6
+	Armament@SECOND:
+		Weapon: QueenParasite
+		LocalOffset: 0,0,-128
+		PauseOnCondition: ammo < 8
+		RequiresCondition: parasite_equipped
+		AmmoUsage: 8
+	GrantConditionOnDeploy:
+		UndeployedCondition: ensnare_equipped
+		DeployedCondition: parasite_equipped
+		SkipMakeAnimation: true
+	AttackAircraft:
+		FacingTolerance: 32
+		PersistentTargeting: false
+		AttackType: Hover
+		OpportunityFire: False
+	Aircraft:
+		TurnSpeed: 64
+		Speed: 136
+		LandAltitude: 1200
+		CanSlide: false
+	AutoTarget:
+		InitialStance: ReturnFire
+		InitialStanceAI: ReturnFire
+	AmmoPool:
+		Ammo: 8
+		AmmoCondition: ammo
+		ReloadDelay: 250
+	WithAmmoPipsDecoration:
+		Position: BottomLeft
+		Margin: 4, 3
+		RequiresSelection: true
+		PipCount: 8
+	-SpawnActorOnDeath:
+	-Explodes:
+	Explodes:
+		Weapon: ZergAirUnitDeath
+		EmptyWeapon: ZergAirUnitDeath
+	ProducibleWithLevel:
+		Prerequisites: aircraft.upgraded
+	Selectable:
+		DecorationBounds: 1600, 1600
+	Rearmable:
+		RearmActors: zspire, zspire.spot
+	Hovers@CRUISING:
+		-RequiresCondition:
+	Voiced:
+		VoiceSet: ZergQueenVoice
+	RenderSprites:
+	WithMoveAnimation:
+	DeathSounds:
+	-EjectOnDeath:
+	ReloadAmmoPool@normal:
+		RequiresCondition: !attacking
+		Delay: 187
 	GrantConditionOnAttack@reload:
 		Condition: attacking
 		RevokeDelay: 250

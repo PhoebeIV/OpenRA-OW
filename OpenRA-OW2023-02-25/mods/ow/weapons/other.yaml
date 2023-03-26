@@ -2688,7 +2688,7 @@ UltraAttack:
 
 MutaGlaive:
 	ReloadDelay: 50
-	Range: 6c0
+	Range: 7c0
 	Report: zmufir00.aud
 	ValidTargets: Ground, Water, GroundActor, WaterActor, AirborneActor
 	Projectile: Missile
@@ -2702,7 +2702,7 @@ MutaGlaive:
 		AirburstAltitude: 512
 	Warhead@1Dam: SpreadDamage
 		Spread: 512
-		Damage: 4000
+		Damage: 6000
 		ValidTargets: Ground, GroundActor, WaterActor, Trees
 		Versus:
 			None: 120
@@ -2712,7 +2712,7 @@ MutaGlaive:
 		DamageTypes: Prone50Percent, TriggerProne, SmallExplosionDeath
 	Warhead@1DamAir: SpreadDamage
 		Spread: 400
-		Damage: 2000
+		Damage: 3000
 		ValidTargets: Air, AirborneActor
 		Versus:
 			None: 120
@@ -2743,7 +2743,7 @@ MutaGlaiveBounce1:
 		LaunchAngle: 35,42
 	Warhead@1Dam: SpreadDamage
 		Spread: 256
-		Damage: 1200
+		Damage: 1500
 		ValidTargets: Ground, GroundActor, WaterActor, Trees, Air, AirborneActor
 		Versus:
 			None: 120
@@ -2771,3 +2771,40 @@ MutaGlaiveBounce2:
 		Inaccuracy: 1c512
 		LaunchAngle: 35,42
 	-Warhead@4Cluster:
+
+
+QueenEnsnare:
+	ReloadDelay: 50
+	Range: 9c0
+	ValidTargets: Ground, Water, GroundActor, WaterActor, AirborneActor
+	InvalidTargets: Structure
+	Projectile: Missile
+		Speed: 450
+		Blockable: true
+		Image: zmutaball
+		RangeLimit: 25c0
+		HorizontalRateOfTurn: 100
+		Jammable: false
+		ContrailLength: 15
+	Warhead@3EffGround: CreateEffect
+		Explosions: ensnare
+		ImpactSounds: zquens00.aud
+		ValidTargets: Ground, GroundActor, WaterActor, Trees, Air, AirborneActor
+	Warhead@curtain: GrantExternalCondition
+		Condition: queen_ensnare
+		Range: 4c0
+		Duration: 750
+		AffectsParent: false
+		ValidTargets: WaterActor, GroundActor, AirborneActor
+
+QueenParasite:
+	Inherits: QueenEnsnare
+	Projectile: Missile
+		Speed: 450
+	Warhead@3EffGround: CreateEffect
+		Explosions: baron
+		ImpactSounds: zqutag01.aud
+	Warhead@curtain: GrantExternalCondition
+		Condition: queen_parasite
+		Range: 1c0
+		Duration: 7500

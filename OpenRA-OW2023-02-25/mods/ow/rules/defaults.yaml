@@ -11,13 +11,14 @@
 		RequiresCondition: stealthgen && !disabled
 		UncloakOn: Attack, Unload, Infiltrate, Demolish, Damage
 
+# Applies to infantry and vehicles
 ^GPSScramblable:
 	ExternalCondition@gpsscrambler:
 		Condition: gpsscrambler
 	Cloak@gpsscrombler:
 		IsPlayerPalette: true
 		InitialDelay: 25
-		CloakDelay: 150
+		CloakDelay: 75
 		CloakSound: cloak5.aud
 		RequiresCondition: gpsscrambler && !disabled
 		UncloakOn: Attack, Unload, Infiltrate, Demolish, Damage
@@ -32,6 +33,56 @@
 		UncloakSound: tphclo01.aud
 		RequiresCondition: arbiterstealth && !disabled
 		UncloakOn: Attack, Unload, Infiltrate, Demolish
+	WithColoredOverlay@ensnare:
+		RequiresCondition: queen_ensnare
+		Color: 80AA0040
+	ExternalCondition@ensnare:
+		Condition: queen_ensnare
+	SpeedMultiplier@ensnare:
+		RequiresCondition: queen_ensnare
+		Modifier: 65
+	ReloadDelayMultiplier@ensnare:
+		RequiresCondition: queen_ensnare
+		Modifier: 133
+	WithColoredOverlay@parasite:
+		RequiresCondition: queen_parasite
+		Color: 99AA0010
+	ExternalCondition@parasite:
+		Condition: queen_parasite
+	RevealsShroud@parasite:
+		Range: 5c0
+		Type: GroundPosition
+		ValidRelationships: Enemy
+		RequiresCondition: queen_parasite
+
+# Applies to infantry, vehicles and structures
+^CorrodesFromTibWeaps:
+	ExternalCondition@corrode:
+		Condition: corrode
+	DamageMultiplier@corrode:
+		RequiresCondition: corrode
+		Modifier: 120
+	WithColoredOverlay@corrode:
+		RequiresCondition: corrode
+		Color: 00800040
+	ExternalCondition@carrier:
+		Condition: carriertarget
+	Targetable@carrier:
+		RequiresCondition: carriertarget
+		TargetTypes: CarrierTarget
+	ExternalCondition@plague:
+		Condition: defiler_plague
+	WithColoredOverlay@plague:
+		RequiresCondition: defiler_plague
+		Color: 80000040
+	ChangesHealth@plague:
+		Step: -101
+		Delay: 5
+		StartIfBelow: 101
+		RequiresCondition: defiler_plague && enough_health
+	GrantConditionOnHealth@plague:
+		MinHP: 99
+		Condition: enough_health
 
 ^NoExp:
 	Inherits: ^GainsExperience
@@ -58,21 +109,6 @@
 	-WithDecoration@RANK-2:
 	-WithDecoration@RANK-3:
 	-WithDecoration@RANK-ELITE:
-
-^CorrodesFromTibWeaps:
-	ExternalCondition@corrode:
-		Condition: corrode
-	DamageMultiplier@corrode:
-		RequiresCondition: corrode
-		Modifier: 120
-	WithColoredOverlay@corrode:
-		RequiresCondition: corrode
-		Color: 00800040
-	ExternalCondition@carrier:
-		Condition: carriertarget
-	Targetable@carrier:
-		RequiresCondition: carriertarget
-		TargetTypes: CarrierTarget
 
 ^Pallyboosted:
 	ExternalCondition@pallyboost:
@@ -672,13 +708,13 @@
 		DamageCooldown: 40
 	RevealOnFire:
 	GrantConditionOnPrerequisite@bar1:
-		Prerequisites: upgrade.buildarmor1, advtechcenter
+		Prerequisites: upgrade.buildarmor1
 		Condition: bar1
 	GrantConditionOnPrerequisite@bar2:
-		Prerequisites: upgrade.buildarmor2, advtechcenter
+		Prerequisites: upgrade.buildarmor2
 		Condition: bar2
 	GrantConditionOnPrerequisite@bar3:
-		Prerequisites: upgrade.buildarmor3, advtechcenter
+		Prerequisites: upgrade.buildarmor3
 		Condition: bar3
 	DamageMultiplier@bar1:
 		RequiresCondition: bar1 && !bar2
@@ -740,13 +776,13 @@
 	GivesBuildableArea:
 		AreaTypes: building, fake
 	GrantConditionOnPrerequisite@bar1:
-		Prerequisites: upgrade.buildarmor1, advtechcenter
+		Prerequisites: upgrade.buildarmor1
 		Condition: bar1
 	GrantConditionOnPrerequisite@bar2:
-		Prerequisites: upgrade.buildarmor2, advtechcenter
+		Prerequisites: upgrade.buildarmor2
 		Condition: bar2
 	GrantConditionOnPrerequisite@bar3:
-		Prerequisites: upgrade.buildarmor3, advtechcenter
+		Prerequisites: upgrade.buildarmor3
 		Condition: bar3
 	DamageMultiplier@bar1:
 		RequiresCondition: bar1 && !bar2
@@ -758,13 +794,13 @@
 		RequiresCondition: bar3
 		Modifier: 40
 	GrantConditionOnPrerequisite@bfp1:
-		Prerequisites: upgrade.buildfirepower1, advtechcenter
+		Prerequisites: upgrade.buildfirepower1
 		Condition: bfp1
 	GrantConditionOnPrerequisite@bfp2:
-		Prerequisites: upgrade.buildfirepower2, advtechcenter
+		Prerequisites: upgrade.buildfirepower2
 		Condition: bfp2
 	GrantConditionOnPrerequisite@bfp3:
-		Prerequisites: upgrade.buildfirepower3, advtechcenter
+		Prerequisites: upgrade.buildfirepower3
 		Condition: bfp3
 	FirepowerMultiplier@bfp1:
 		RequiresCondition: bfp1 && !bfp2
@@ -845,22 +881,22 @@
 	Repairable:
 		RepairActors: fix, gfix, gfix.boss
 	GrantConditionOnPrerequisite@var1:
-		Prerequisites: upgrade.veharmor1, advtechcenter
+		Prerequisites: upgrade.veharmor1
 		Condition: var1
 	GrantConditionOnPrerequisite@var2:
-		Prerequisites: upgrade.veharmor2, advtechcenter
+		Prerequisites: upgrade.veharmor2
 		Condition: var2
 	GrantConditionOnPrerequisite@var3:
-		Prerequisites: upgrade.veharmor3, advtechcenter
+		Prerequisites: upgrade.veharmor3
 		Condition: var3
 	GrantConditionOnPrerequisite@vfp1:
-		Prerequisites: upgrade.vehfirepower1, advtechcenter
+		Prerequisites: upgrade.vehfirepower1
 		Condition: vfp1
 	GrantConditionOnPrerequisite@vp2:
-		Prerequisites: upgrade.vehfirepower2, advtechcenter
+		Prerequisites: upgrade.vehfirepower2
 		Condition: vfp2
 	GrantConditionOnPrerequisite@vfp3:
-		Prerequisites: upgrade.vehfirepower3, advtechcenter
+		Prerequisites: upgrade.vehfirepower3
 		Condition: vfp3
 	DamageMultiplier@var1:
 		RequiresCondition: var1 && !var2
@@ -983,22 +1019,22 @@
 		RequiresCondition: !HolySuperBoosted
 	RevealOnFire:
 	GrantConditionOnPrerequisite@iar1:
-		Prerequisites: upgrade.infarmor1, advtechcenter
+		Prerequisites: upgrade.infarmor1
 		Condition: iar1
 	GrantConditionOnPrerequisite@iar2:
-		Prerequisites: upgrade.infarmor2, advtechcenter
+		Prerequisites: upgrade.infarmor2
 		Condition: iar2
 	GrantConditionOnPrerequisite@iar3:
-		Prerequisites: upgrade.infarmor3, advtechcenter
+		Prerequisites: upgrade.infarmor3
 		Condition: iar3
 	GrantConditionOnPrerequisite@ifp1:
-		Prerequisites: upgrade.inffirepower1, advtechcenter
+		Prerequisites: upgrade.inffirepower1
 		Condition: ifp1
 	GrantConditionOnPrerequisite@ifp2:
-		Prerequisites: upgrade.inffirepower2, advtechcenter
+		Prerequisites: upgrade.inffirepower2
 		Condition: ifp2
 	GrantConditionOnPrerequisite@ifp3:
-		Prerequisites: upgrade.inffirepower3, advtechcenter
+		Prerequisites: upgrade.inffirepower3
 		Condition: ifp3
 	DamageMultiplier@iar1:
 		RequiresCondition: iar1 && !iar2
@@ -1208,22 +1244,22 @@
 		RepairActors: spen, syrd, gspen, dockmedi
 	RevealOnFire:
 	GrantConditionOnPrerequisite@nar1:
-		Prerequisites: upgrade.navarmor1, advtechcenter
+		Prerequisites: upgrade.navarmor1
 		Condition: nar1
 	GrantConditionOnPrerequisite@nar2:
-		Prerequisites: upgrade.navarmor2, advtechcenter
+		Prerequisites: upgrade.navarmor2
 		Condition: nar2
 	GrantConditionOnPrerequisite@nar3:
-		Prerequisites: upgrade.navarmor3, advtechcenter
+		Prerequisites: upgrade.navarmor3
 		Condition: nar3
 	GrantConditionOnPrerequisite@nfp1:
-		Prerequisites: upgrade.navfirepower1, advtechcenter
+		Prerequisites: upgrade.navfirepower1
 		Condition: nfp1
 	GrantConditionOnPrerequisite@nfp2:
-		Prerequisites: upgrade.navfirepower2, advtechcenter
+		Prerequisites: upgrade.navfirepower2
 		Condition: nfp2
 	GrantConditionOnPrerequisite@nfp3:
-		Prerequisites: upgrade.navfirepower3, advtechcenter
+		Prerequisites: upgrade.navfirepower3
 		Condition: nfp3
 	DamageMultiplier@nar1:
 		RequiresCondition: nar1 && !nar2
@@ -1260,26 +1296,27 @@
 	Inherits@TotemBoost: ^TotemBooster
 	Inherits@TotemDebuf: ^TotemDebufer
 	Inherits@corrode: ^CorrodesFromTibWeaps
+	Inherits@GPS: ^GPSScramblable
 	Repairable:
 		RepairActors: fix, gfix, gfix.boss
 	RevealOnFire:
 	GrantConditionOnPrerequisite@aar1:
-		Prerequisites: upgrade.airarmor1, advtechcenter
+		Prerequisites: upgrade.airarmor1
 		Condition: aar1
 	GrantConditionOnPrerequisite@aar2:
-		Prerequisites: upgrade.airarmor2, advtechcenter
+		Prerequisites: upgrade.airarmor2
 		Condition: aar2
 	GrantConditionOnPrerequisite@aar3:
-		Prerequisites: upgrade.airarmor3, advtechcenter
+		Prerequisites: upgrade.airarmor3
 		Condition: aar3
 	GrantConditionOnPrerequisite@afp1:
-		Prerequisites: upgrade.airfirepower1, advtechcenter
+		Prerequisites: upgrade.airfirepower1
 		Condition: afp1
 	GrantConditionOnPrerequisite@afp2:
-		Prerequisites: upgrade.airfirepower2, advtechcenter
+		Prerequisites: upgrade.airfirepower2
 		Condition: afp2
 	GrantConditionOnPrerequisite@afp3:
-		Prerequisites: upgrade.airfirepower3, advtechcenter
+		Prerequisites: upgrade.airfirepower3
 		Condition: afp3
 	DamageMultiplier@aar1:
 		RequiresCondition: aar1 && !aar2

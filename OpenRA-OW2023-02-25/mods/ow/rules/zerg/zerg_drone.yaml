@@ -5,7 +5,7 @@ ZDRONE:
 	Inherits@creep: ^ZergUnit
 	Buildable:
 		Queue: Building
-		BuildPaletteOrder: 45
+		BuildPaletteOrder: 20
 		Prerequisites: ~structures.zerg, ~techlevel.infonly
 		Description: Collects resources and can also\n evolve into Zerg structures.\nSpeed: 96\n  Unarmed
 	Valued:
@@ -141,7 +141,7 @@ ZDRONE:
 		Condition: str_colony
 		Actors: ZE.COLONY
 	KillsSelf@colony:
-		RequiresCondition: str_colony || str_extrac || str_pool || str_hydra || str_chamber || str_ultraden || str_spire
+		RequiresCondition: str_colony || str_extrac || str_pool || str_hydra || str_chamber || str_ultraden || str_spire || str_nest || str_mound
 		DamageTypes: no_sound
 		Delay: 10
 	SpawnActorOnDeath@colony:
@@ -183,6 +183,18 @@ ZDRONE:
 	SpawnActorOnDeath@spire:
 		Actor: ZDRONE.spire
 		RequiresCondition: str_spire
+	GrantConditionOnProduction@nest:
+		Condition: str_nest
+		Actors: ZE.NEST
+	SpawnActorOnDeath@nest:
+		Actor: ZDRONE.nest
+		RequiresCondition: str_nest
+	GrantConditionOnProduction@mound:
+		Condition: str_mound
+		Actors: ZE.MOUND
+	SpawnActorOnDeath@mound:
+		Actor: ZDRONE.mound
+		RequiresCondition: str_mound
 
 
 ZDRONE.colony:
@@ -207,7 +219,6 @@ ZDRONE.extrac:
 		IntoActor: zextrac
 		TransformSounds: zbldgplc.aud
 		Offset: -1,0
-		Facing: -256
 
 ZDRONE.pool:
 	Inherits@drone: ZDRONE.colony
@@ -219,7 +230,6 @@ ZDRONE.pool:
 		IntoActor: zpool
 		TransformSounds: zbldgplc.aud
 		Offset: 0,0
-		Facing: -256
 
 ZDRONE.hydra:
 	Inherits@drone: ZDRONE.colony
@@ -229,7 +239,6 @@ ZDRONE.hydra:
 		IntoActor: zhydraden
 		TransformSounds: zbldgplc.aud
 		Offset: -1,0
-		Facing: -256
 
 ZDRONE.chamber:
 	Inherits@drone: ZDRONE.colony
@@ -239,7 +248,6 @@ ZDRONE.chamber:
 		IntoActor: zchamber
 		TransformSounds: zbldgplc.aud
 		Offset: -1,0
-		Facing: -256
 
 ZDRONE.ultraden:
 	Inherits@drone: ZDRONE.colony
@@ -249,7 +257,6 @@ ZDRONE.ultraden:
 		IntoActor: zultraden
 		TransformSounds: zbldgplc.aud
 		Offset: -1,0
-		Facing: -256
 
 ZDRONE.spire:
 	Inherits@drone: ZDRONE.colony
@@ -259,7 +266,24 @@ ZDRONE.spire:
 		IntoActor: zspire
 		TransformSounds: zbldgplc.aud
 		Offset: 0,0
-		Facing: -256
+
+ZDRONE.nest:
+	Inherits@drone: ZDRONE.colony
+	Tooltip:
+		Name: Drone (Evolving: Queen's Nest)
+	Transforms:
+		IntoActor: znest
+		TransformSounds: zbldgplc.aud
+		Offset: 0,0
+
+ZDRONE.mound:
+	Inherits@drone: ZDRONE.colony
+	Tooltip:
+		Name: Drone (Evolving: Defiler Mound)
+	Transforms:
+		IntoActor: zmound
+		TransformSounds: zbldgplc.aud
+		Offset: -1,0
 
 ^ZergEvolve:
 	Buildable:
@@ -368,20 +392,20 @@ ZE.ULTRADEN:
 		Name: Evolve into Ultralisk Cavern
 	Buildable:
 		Description: Allows production of Ultralisks at \n a Hatchery. \n\nMust be placed on creep.
-		BuildPaletteOrder: 8
-		Prerequisites: advtechcenter, ~techlevel.unrestricted, ~zdrone
-		BuildDuration: 2000
+		BuildPaletteOrder: 9
+		Prerequisites: ulttechcenter, ~techlevel.unrestricted, ~zdrone
+		BuildDuration: 2500
 	Valued:
-		Cost: 1500
+		Cost: 2000
 	RenderSprites:
 		Image: zultraden
 
 ZE.SPIRE:
 	Inherits: ^ZergEvolve
 	Tooltip:
-		Name: Evolve into Ultralisk Cavern
+		Name: Evolve into Spire
 	Buildable:
-		Description: Allows production of basic air units\n at a Hatchery. \n\nMust be placed on creep.
+		Description: Allows production of basic air units\n at a Spire. \n\nMust be placed on creep.
 		BuildPaletteOrder: 7
 		Prerequisites: techcenter, ~techlevel.high, ~zdrone
 		BuildDuration: 2000
@@ -389,3 +413,31 @@ ZE.SPIRE:
 		Cost: 1500
 	RenderSprites:
 		Image: zspire
+
+ZE.NEST:
+	Inherits: ^ZergEvolve
+	Tooltip:
+		Name: Evolve into Queen's Nest
+	Buildable:
+		Description: Allows production of a Queen\n at a Spire. \n\nMust be placed on creep.
+		BuildPaletteOrder: 8
+		Prerequisites: advtechcenter, zspire, ~techlevel.high, ~zdrone
+		BuildDuration: 2000
+	Valued:
+		Cost: 1500
+	RenderSprites:
+		Image: znest
+
+ZE.MOUND:
+	Inherits: ^ZergEvolve
+	Tooltip:
+		Name: Evolve into Defiler Mound
+	Buildable:
+		Description: Allows production of Defilers\n at a Hatchery. \n\nMust be placed on creep.
+		BuildPaletteOrder: 8
+		Prerequisites: ulttechcenter, ~techlevel.unrestricted, ~zdrone
+		BuildDuration: 1800
+	Valued:
+		Cost: 1300
+	RenderSprites:
+		Image: zmound

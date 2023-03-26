@@ -191,7 +191,7 @@ CreepGenBigStart:
 	Inherits: CreepGenBig
 	KillsSelf:
 		RequiresCondition: !creepalive
-		Delay: 100
+		Delay: 750
 	-SeedsResource:
 
 CreepGenMed:
@@ -302,7 +302,7 @@ ZHATCHERY:
 	Buildable:
 		Queue: Building
 		BuildPaletteOrder: 1000
-		Prerequisites: ~zlair, ~ai.hard
+		Prerequisites: ~zpool, ~ai.hard
 		Description: Produces structures.
 		BuildLimit: 3
 	Health:
@@ -333,9 +333,31 @@ ZHATCHERY:
 	Power:
 		Amount: 10
 	Production:
-		Produces: Building,Defense,Tech,Wall,Hatchery
+		Produces: Building,Defense,Tech,Wall
+	Production@inf:
+		Produces: Hatchery,Infantry
+		PauseOnCondition: busy
+	ProductionQueue@infantry:
+		Type: Infantry
+		DisplayOrder: 0
+		Group: Infantry
+		LowPowerModifier: 300
+		BuildDurationModifier: 100
+		ReadyAudio: UnitReady
+		BlockedAudio: NoBuild
+		LimitedAudio: BuildingInProgress
+		QueuedAudio: Training
+		OnHoldAudio: OnHold
+		CancelledAudio: Cancelled
+	ProductionBar@Inf:
+		ProductionType: Infantry
+		Color: FF0000
 	GrantExternalConditionToProduced:
 		Condition: produced
+	GrantConditionOnProduction@busy:
+		Condition: busy
+		Duration: 125
+		ShowSelectionBar: false
 	WithDeathAnimation:
 		DeathSequence: dead
 		UseDeathTypeSuffix: false
@@ -427,10 +449,6 @@ ZHATCHERY:
 		Actor: ZergHiveComplete
 		SpawnOffset: 1,1
 		RequiresCondition: hive_upgrade
-	FreeActor@clonerspawner:
-		Actor: ClonerSpawner
-		SpawnOffset: 1,2
-		RequiresCondition: hive_upgrade
 	DamageMultiplier@lair:
 		Modifier: 75
 		RequiresCondition: lair_upgrade
@@ -463,10 +481,6 @@ ZHATCHERY:
 		Type: CenterPosition
 		Weapon: EMPExplosion
 		EmptyWeapon: EMPExplosion
-	ClonesProducedUnits:
-		RequiresCondition: hive_upgrade
-		CloneableTypes: Infantry, Hatchery
-		ProductionType: Infantry
 	CashTrickler@2:
 		Interval: 750
 		Amount: 100
@@ -520,8 +534,8 @@ ZHIVE.up:
 		Queue: Tech
 		BuildPaletteOrder: 1001
 		BuildDuration: 4500
-		Prerequisites: zlair, zgspire, ~structures.zerg, ~techlevel.unrestricted, ~!ulttechcenter
-		Description: Evolve a Lair to a Hive. \nUnlocks access to Epic structures and units. \n\nLimit of 1.
+		Prerequisites: zlair, znest, ~structures.zerg, ~techlevel.unrestricted, ~!ulttechcenter
+		Description: Evolve a Lair to a Hive. \nUnlocks access to high tier structures and units. \n\nLimit of 1.
 		Icon: icon-hive
 	Plug:
 		Type: zhive
@@ -574,7 +588,7 @@ ZCCOLONY:
 	RevealsShroud@GAPGEN:
 		Range: 4c0
 	RevealsShroud@defense:
-		MinRange: 4c0
+		MinRange: 6c0
 		Range: 7c0
 		RevealGeneratedShroud: False
 		RequiresCondition: waiting_to_evolve
@@ -907,12 +921,8 @@ ZPOOL:
 		SpawnOffset: -725,640,0
 		ExitCell: 0,2
 		ProductionTypes: Soldier, Infantry
-	Production:
-		Produces: Infantry, Soldier
 	GrantExternalConditionToProduced:
 		Condition: produced
-	ProductionBar:
-		ProductionType: Infantry
 	GrantExternalConditionToProduced@zergling:
 		Condition: zerglingdouble
 		Duration: 25
@@ -1061,7 +1071,7 @@ ZULTRADEN:
 		Queue: Wall
 		BuildPaletteOrder: 450
 		BuildDuration: 2500
-		Prerequisites: ulttechcenter, ~structures.zerg, ~techlevel.unrestricted, ~ai.all
+		Prerequisites: ulttechcenter, zpool, ~structures.zerg, ~techlevel.unrestricted, ~ai.all
 		Description: Home of the Ultralisk
 		BuildLimit: 1
 	Health:
@@ -1261,7 +1271,7 @@ ZGSPIRE.up:
 		BuildPaletteOrder: 1002
 		BuildDuration: 4500
 		Prerequisites: zlair, ~zspire.up, ~structures.zerg, ~techlevel.unrestricted
-		Description: Evolve a Spire into a Greater Spire. \nUnlocks access to advanced air units.
+		Description: Evolve a Spire into a Greater Spire. \nUnlocks access to advanced air units\n and upgrades.
 		Icon: icon-gspire
 	Plug:
 		Type: zgspire
@@ -1277,3 +1287,103 @@ ZGSPIRE:
 	Interactable:
 	Tooltip:
 		Name: Greater Spire
+
+ZNEST:
+	Inherits: ^ZergScienceBuilding
+	Inherits@prereqs: ^BarracksPrereqs
+	Inherits@shape: ^2x2Shape
+	D2kBuilding:
+		Footprint: ++ xx
+		Dimensions: 2,2
+	Buildable:
+		Queue: Wall
+		BuildPaletteOrder: 450
+		BuildDuration: 2500
+		Prerequisites: advtechcenter, zspire, ~techlevel.high, ~ai.all
+		Description: Home of the Queen
+		BuildLimit: 1
+	Health:
+		HP: 90000
+	Armor:
+		Type: Wood
+	RevealsShroud:
+		MinRange: 6c0
+		Range: 7c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 6c0
+	Valued:
+		Cost: 2000
+	Tooltip:
+		Name: Queen's Nest
+	BaseBuilding:
+	WithDeathAnimation:
+		DeathSequence: dead
+		UseDeathTypeSuffix: false
+	ProvidesPrerequisite@buildingname:
+	WithIdleOverlay@damage:
+		RequiresCondition: damaged
+		Sequence: blood2
+		Offset: 1700,-512,0
+	WithIdleOverlay@damage2:
+		RequiresCondition: damaged2
+		Sequence: blood1
+		Offset: 512,900,900
+	WithIdleOverlay@damage3:
+		RequiresCondition: damaged3
+		Sequence: blood3
+		Offset: -800,-1024,-256
+	FreeActor@effect_complete:
+		Actor: MediumZergBuildingComplete
+		SpawnOffset: 0,1
+		RequiresCondition: !build-incomplete
+
+ZMOUND:
+	Inherits: ^ZergScienceBuilding
+	Inherits@prereqs: ^BarracksPrereqs
+	Inherits@shape: ^3x2Shape
+	D2kBuilding:
+		Footprint: ++x xxx
+		Dimensions: 3,2
+	Buildable:
+		Queue: Wall
+		BuildPaletteOrder: 450
+		BuildDuration: 2500
+		Prerequisites: ulttechcenter, zpool, ~techlevel.high, ~ai.all
+		Description: Home of the Defiler
+		BuildLimit: 1
+	Health:
+		HP: 120000
+	Armor:
+		Type: Wood
+	RevealsShroud:
+		MinRange: 6c0
+		Range: 7c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 6c0
+	Valued:
+		Cost: 1800
+	Tooltip:
+		Name: Defiler Mound
+	BaseBuilding:
+	WithDeathAnimation:
+		DeathSequence: dead
+		UseDeathTypeSuffix: false
+	ProvidesPrerequisite@buildingname:
+	WithIdleOverlay@damage:
+		RequiresCondition: damaged
+		Sequence: blood2
+		Offset: 1500,-512,0
+	WithIdleOverlay@damage2:
+		RequiresCondition: damaged2
+		Sequence: blood1
+		Offset: 512,900,700
+	WithIdleOverlay@damage3:
+		RequiresCondition: damaged3
+		Sequence: blood3
+		Offset: -1500,-1024,-256
+	FreeActor@effect_complete:
+		Actor: MediumZergBuildingComplete
+		SpawnOffset: 0,1
+		RequiresCondition: !build-incomplete
