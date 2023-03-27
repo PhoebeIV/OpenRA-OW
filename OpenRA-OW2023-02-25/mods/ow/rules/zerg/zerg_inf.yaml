@@ -143,6 +143,14 @@ ZZERGLING:
 	FreeActor@zergling:
 		RequiresCondition: !zerglingdouble
 		Actor: ZZERGLING2
+	FreeActor@zergling_ai:
+		RequiresCondition: botowner && random1
+		Actor: ZZERGLING2
+	GrantConditionOnPrerequisite@ai:
+		Condition: botowner
+		Prerequisites: ai.hard
+	GrantRandomCondition@ai:
+		Conditions: random1,random2,random3
 	Cloak@burrow:
 		RequiresCondition: burrowing
 		InitialDelay: 75
@@ -603,3 +611,115 @@ ZULTRA:
 		Voice: Build
 	-Cloneable:
 
+ZDEFILER:
+	Inherits: ^Infantry
+	Inherits@zerg: ^ZergUnitWeapon
+	Inherits@autotarget: ^AutoTargetAllAssaultMove
+	Buildable:
+		Prerequisites: zmound, ~infantry.zerg, ~techlevel.unrestricted
+		Description: Ground support unit. Boosts friendly units and\n reduces incoming missile accuracy.\n  Speed: 64\n  Plague: Drains groups of enemies' health.
+		Queue: Infantry
+		BuildAtProductionType: Hatchery
+		BuildPaletteOrder: 44
+	Selectable:
+		Bounds: 1000, 1000, 0, 0
+		DecorationBounds: 1300, 1300, 0, 0
+	Valued:
+		Cost: 2800
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Tooltip:
+		Name: Defiler
+	Armor:
+		Type: Light
+	Health:
+		HP: 18000
+	Mobile:
+		Speed: 64
+		TurnSpeed: 128
+		Locomotor: foot2
+	Power:
+		Amount: -15
+	-Crushable:
+	RevealsShroud:
+		Range: 8c512
+	Armament:
+		Weapon: DefilerPlague
+		PauseOnCondition: ammo < 8
+		AmmoUsage: 8
+	AmmoPool:
+		Ammo: 8
+		AmmoCondition: ammo
+	WithAmmoPipsDecoration:
+		Position: BottomLeft
+		Margin: 4, 3
+		RequiresSelection: true
+		PipCount: 8
+	WithInfantryBody:
+		DefaultAttackSequence: run
+		IdleSequences: stand
+		StandSequences: stand
+		RequiresCondition: !burrowed
+	WithInfantryBody@down:
+		DefaultAttackSequence: burrowed
+		IdleSequences: burrowed
+		StandSequences: burrowed
+		RequiresCondition: burrowed
+	AutoTarget:
+		HoldFireCondition: burrowing
+	Targetable:
+		TargetTypes: GroundActor, Infantry, Disguise
+	RenderSprites:
+	Voiced:
+		VoiceSet: ZergDefilerVoice
+	-DeathSounds@NORMAL:
+	-DeathSounds@BURNED:
+	-DeathSounds@ZAPPED:
+	DeathSounds:
+	WithDeathAnimation:
+		UseDeathTypeSuffix: false
+		CrushedSequence: die
+		CrushedSequencePalette: player
+		CrushedPaletteIsPlayerPalette: true
+	-SpawnActorOnDeath@fire:
+	MustBeDestroyed:
+	ProximityCaptor:
+		Types: Infantry
+	AttackFrontal:
+		FacingTolerance: 32
+		PauseOnCondition: ammo < 8
+	ReloadAmmoPool@normal:
+		RequiresCondition: !attacking
+		Delay: 300
+	GrantConditionOnAttack@reload:
+		Condition: attacking
+		RevokeDelay: 250
+	Cloak@burrow:
+		RequiresCondition: burrowing
+		InitialDelay: 75
+		CloakDelay: 50
+		CloakSound: burrowdn.aud
+		UncloakSound: burrowup.aud
+		CloakedCondition: burrowed
+		EffectImage: zdefiler
+		EffectPalette: player
+		EffectPaletteIsPlayerPalette: true
+		CloakEffectSequence: burrow
+		UncloakEffectSequence: unburrow
+		UncloakOn: Damage, Attack, Move
+		Palette: player
+		IsPlayerPalette: true
+	ProximityExternalCondition:
+		Condition: squadboost
+		Range: 5c0
+	WithDecoration@officer2:
+		Image: pips
+		Sequence: pip-bonus
+		Palette: effect
+		Position: TopRight
+		ValidRelationships: None,Neutral,Enemy,Ally
+		RequiresCondition: !demoralise
+	JamsMissiles:
+		Range: 3c0
+		DeflectionRelationships: Neutral, Enemy
+		Chance: 50

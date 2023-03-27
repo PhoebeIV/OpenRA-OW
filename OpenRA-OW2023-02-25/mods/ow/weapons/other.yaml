@@ -2657,9 +2657,9 @@ UltraAttack:
 	Projectile: InstantHit
 	Warhead@1Dam: SpreadDamage
 		Spread: 64
-		Damage: 12000
+		Damage: 13000
 		Versus:
-			None: 100
+			None: 115
 			Wood: 50
 			Light: 60
 			Heavy: 80
@@ -2792,7 +2792,7 @@ QueenEnsnare:
 		ValidTargets: Ground, GroundActor, WaterActor, Trees, Air, AirborneActor
 	Warhead@curtain: GrantExternalCondition
 		Condition: queen_ensnare
-		Range: 4c0
+		Range: 5c0
 		Duration: 750
 		AffectsParent: false
 		ValidTargets: WaterActor, GroundActor, AirborneActor
@@ -2802,9 +2802,58 @@ QueenParasite:
 	Projectile: Missile
 		Speed: 450
 	Warhead@3EffGround: CreateEffect
-		Explosions: baron
+		Explosions: sporehit
 		ImpactSounds: zqutag01.aud
 	Warhead@curtain: GrantExternalCondition
 		Condition: queen_parasite
 		Range: 1c0
 		Duration: 7500
+
+DefilerPlague:
+	ReloadDelay: 50
+	Range: 8c0
+	ValidTargets: Ground, Water, GroundActor, WaterActor, AirborneActor
+	Projectile: Bullet
+		Speed: 1c512
+		Image: zmutaball
+	Warhead@3EffGround: CreateEffect
+		Explosions: plague
+		ImpactSounds: zdeblo00.aud
+		ValidTargets: Ground, GroundActor, WaterActor, Trees, Air, AirborneActor
+	Warhead@curtain: GrantExternalCondition
+		Condition: defiler_plague
+		Range: 5c0
+		Duration: 1500
+		AffectsParent: true
+		ValidTargets: WaterActor, GroundActor, AirborneActor
+
+GuardianSpores:
+	ReloadDelay: 75
+	Range: 10c0
+	Report: zgufir00.aud
+	ValidTargets: Ground, Water, GroundActor, WaterActor
+	Projectile: Missile
+		Speed: 350
+		Blockable: true
+		Image: zmutaball
+		RangeLimit: 12c0
+		HorizontalRateOfTurn: 100
+		TrailImage: fbc_2
+		Image: fbc_1
+		JammedDiversionRange: 5
+	Warhead@1Dam: SpreadDamage
+		Spread: 512
+		Damage: 22500
+		ValidTargets: Ground, GroundActor, WaterActor, Trees
+		Versus:
+			None: 80
+			Wood: 70
+			Light: 100
+			Heavy: 60
+			Concrete: 25
+		DamageTypes: Prone50Percent, TriggerProne, SmallExplosionDeath
+	Warhead@3EffGround: CreateEffect
+		Explosions: sporehit
+		ImpactSounds: zguhit00.aud
+		ValidTargets: Ground, GroundActor, WaterActor, Trees, Air, AirborneActor
+		Inaccuracy: 128
