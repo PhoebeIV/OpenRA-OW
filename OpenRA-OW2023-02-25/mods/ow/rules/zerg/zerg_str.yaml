@@ -35,12 +35,13 @@
 		AllowPlacementOnResources: true
 		TerrainTypes: Creep
 		RequiresBaseProvider: True
-		Adjacent: 5
 		Damage: 0
 		DamageInterval: 80000
 		DamageThreshold: 100
 		DamageTerrainTypes: Water
 		ConcreteTemplate: 1500
+	RequiresBuildableArea:
+		Adjacent: 6
 	RepairableBuilding:
 		RepairStep: 200
 		PlayerExperience: 2
@@ -144,6 +145,19 @@ CreepSpawnerMedium:
 	Explodes:
 		Weapon: CreepSplashMed
 		EmptyWeapon: CreepSplashMed
+
+NydusSpawner:
+	Inherits: CreepSpawnerBig
+	SpawnActorOnDeath:
+		Actor: ZNYDUS
+		SkipMakeAnimations: false
+	Explodes:
+		Weapon: CreepSplashMed
+		EmptyWeapon: CreepSplashMed
+	Explodes@2:
+		Weapon: CreepSplashBig
+		EmptyWeapon: CreepSplashBig
+
 
 CreepGenBig:
 	Inherits: MINE
@@ -490,6 +504,27 @@ ZHATCHERY:
 	ProximityExternalCondition@creepalive:
 		Condition: creepalive
 		Range: 4c0
+	ParatroopersPower@rebelambush:
+		PauseOnCondition: disabled
+		Prerequisites: zhive
+		OrderName: ZergCanal
+		Cursor: chrono-target
+		Icon: icon
+		IconImage: znydus
+		ChargeInterval: 7500
+		LifeTime: -1
+		Name: Nydus Canal
+		Description: Spawn in a surprise Nydus Canal. Spawns zerglings and hydralisks.\nAdditional zerglings will appear if \n  placed near foes.
+		DropItems: NydusSpawner
+		UnitType: U2.Nydus
+		SelectTargetSpeechNotification: SelectTarget
+		InsufficientPowerSpeechNotification: InsufficientPower
+		DisplayRadarPing: True
+		DisplayTimerRelationships: Ally, Neutral, Enemy
+		EffectSequence: idle
+		CameraActor: camera.paradrop
+		DisplayBeacon: false
+		UseDirectionalTarget: false
 
 ZergLairComplete:
 	Inherits: SmallZergBuildingComplete
@@ -1387,3 +1422,169 @@ ZMOUND:
 		Actor: MediumZergBuildingComplete
 		SpawnOffset: 0,1
 		RequiresCondition: !build-incomplete
+
+ZNYDUS:
+	Inherits: ^ZergBuilding
+	Inherits@prereqs: ^BarracksPrereqs
+	Inherits@shape: ^2x2Shape
+	Inherits@primary: ^PrimaryBuilding
+	D2kBuilding:
+		Footprint: ++ xx
+		Dimensions: 2,2
+		TerrainTypes: Creep,Road,Clear
+		RequiresBaseProvider: false
+	Buildable:
+		Queue: Wall
+		BuildPaletteOrder: 450
+		Prerequisites:  ~structures.zerg, ulttechcenter, ~techlevel.unrestricted, ~ai.all
+		BuildLimit: 1
+	-RequiresBuildableArea:
+	Health:
+		HP: 80000
+	Armor:
+		Type: Wood
+	RevealsShroud:
+		MinRange: 4c0
+		Range: 5c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 4c0
+	Valued:
+		Cost: 1000
+	Tooltip:
+		Name: Nydus Canal
+	BaseBuilding:
+	WithDeathAnimation:
+		DeathSequence: dead
+		UseDeathTypeSuffix: false
+	ProvidesPrerequisite@buildingname:
+	WithIdleOverlay@damage:
+		RequiresCondition: damaged
+		Sequence: blood1
+		Offset: 1200,-512,0
+	WithIdleOverlay@damage2:
+		RequiresCondition: damaged2
+		Sequence: blood3
+		Offset: 512,700,700
+	WithIdleOverlay@damage3:
+		RequiresCondition: damaged3
+		Sequence: blood2
+		Offset: -512,0,0
+	InfiltrateForSupportPower:
+		Proxy: barracks.upgraded
+		Types: SpyInfiltrate
+	Targetable:
+		TargetTypes: GroundActor, C4, DetonateAttack, Structure, SpyInfiltrate
+	Explodes:
+		Type: CenterPosition
+		Weapon: SmallZergBuildingExplode
+		EmptyWeapon: SmallZergBuildingExplode
+	Exit@1:
+		RequiresCondition: !being-captured
+		SpawnOffset: -42,810,0
+		ExitCell: 1,2
+		ProductionTypes: Soldier, Infantry
+	Exit@2:
+		RequiresCondition: !being-captured
+		SpawnOffset: -725,640,0
+		ExitCell: 0,2
+		ProductionTypes: Soldier, Infantry
+	GrantExternalConditionToProduced:
+		Condition: produced
+	GrantExternalConditionToProduced@zergling:
+		Condition: zerglingdouble
+		Duration: 25
+	FreeActor@effect_complete:
+		Actor: SmallZergBuildingComplete
+		SpawnOffset: 1,1
+		RequiresCondition: !build-incomplete
+	Production@inf:
+		Produces: Hatchery,Infantry
+		PauseOnCondition: busy
+	ProductionQueue@infantry:
+		Type: Infantry
+		DisplayOrder: 0
+		Group: Infantry
+		LowPowerModifier: 300
+		BuildDurationModifier: 100
+		ReadyAudio: UnitReady
+		BlockedAudio: NoBuild
+		LimitedAudio: BuildingInProgress
+		QueuedAudio: Training
+		OnHoldAudio: OnHold
+		CancelledAudio: Cancelled
+	ProductionBar@Inf:
+		ProductionType: Infantry
+		Color: FF0000
+	FreeActor@1:
+		Actor: ZZERGLING
+		RequiresCondition: !build-incomplete
+		SpawnOffset: -1,0
+	FreeActor@2:
+		Actor: ZZERGLING
+		RequiresCondition: !build-incomplete
+		SpawnOffset: -1,0
+	FreeActor@3:
+		Actor: ZZERGLING
+		RequiresCondition: !build-incomplete
+		SpawnOffset: -1,1
+	FreeActor@4:
+		Actor: ZZERGLING
+		RequiresCondition: !build-incomplete
+		SpawnOffset: -1,1
+	FreeActor@5:
+		Actor: ZZERGLING
+		RequiresCondition: !build-incomplete
+		SpawnOffset: 0,2
+	FreeActor@6:
+		Actor: ZZERGLING
+		RequiresCondition: !build-incomplete
+		SpawnOffset: 0,2
+	FreeActor@7:
+		Actor: ZZERGLING
+		RequiresCondition: !build-incomplete
+		SpawnOffset: 1,2
+	FreeActor@8:
+		Actor: ZZERGLING
+		RequiresCondition: !build-incomplete
+		SpawnOffset: 1,2
+	FreeActor@9:
+		Actor: ZHYDRA
+		RequiresCondition: !build-incomplete
+		SpawnOffset: 2,1
+	FreeActor@10:
+		Actor: ZHYDRA
+		RequiresCondition: !build-incomplete
+		SpawnOffset: 2,0
+	FreeActor@11:
+		Actor: ZHYDRA
+		RequiresCondition: !build-incomplete
+		SpawnOffset: 2,2
+	FreeActor@13:
+		Actor: ZZERGLING
+		AllowRespawn: true
+		RequiresCondition: produceunit && !build-incomplete
+	AutoTarget:
+		InitialStance: AttackAnything
+	AttackOmni:
+		PauseOnCondition: !ammo
+	Armament:
+		Weapon: GLAAmbushHole
+		PauseOnCondition: !ammo
+		RequiresCondition: !build-incomplete
+	ExternalCondition@ambushhole:
+		Condition: produceunit
+	ProximityExternalCondition:
+		Condition: wander
+		Range: 2c0
+	AmmoPool:
+		Ammo: 10
+		AmmoCondition: ammo
+	ReloadAmmoPool@normal:
+		RequiresCondition: !attacking
+		Delay: 500
+	GrantConditionOnAttack@reload:
+		Condition: attacking
+		RevokeDelay: 250
+	Explodes@removecreep:
+		Weapon: CreepRemoveBig
