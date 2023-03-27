@@ -1427,7 +1427,7 @@ ZNYDUS:
 	Inherits: ^ZergBuilding
 	Inherits@prereqs: ^BarracksPrereqs
 	Inherits@shape: ^2x2Shape
-	Inherits@primary: ^PrimaryBuilding
+	Inherits@def: ^Defense
 	D2kBuilding:
 		Footprint: ++ xx
 		Dimensions: 2,2
@@ -1437,8 +1437,7 @@ ZNYDUS:
 		Queue: Wall
 		BuildPaletteOrder: 450
 		Prerequisites:  ~structures.zerg, ulttechcenter, ~techlevel.unrestricted, ~ai.all
-		BuildLimit: 1
-	-RequiresBuildableArea:
+		BuildLimit: 2
 	Health:
 		HP: 80000
 	Armor:
@@ -1482,13 +1481,13 @@ ZNYDUS:
 	Exit@1:
 		RequiresCondition: !being-captured
 		SpawnOffset: -42,810,0
-		ExitCell: 1,2
-		ProductionTypes: Soldier, Infantry
+		ExitCell: 0,0
+		ProductionTypes: Soldier, Infantry, Hatchery
 	Exit@2:
 		RequiresCondition: !being-captured
 		SpawnOffset: -725,640,0
-		ExitCell: 0,2
-		ProductionTypes: Soldier, Infantry
+		ExitCell: 0,0
+		ProductionTypes: Soldier, Infantry, Hatchery
 	GrantExternalConditionToProduced:
 		Condition: produced
 	GrantExternalConditionToProduced@zergling:
@@ -1588,3 +1587,4 @@ ZNYDUS:
 		RevokeDelay: 250
 	Explodes@removecreep:
 		Weapon: CreepRemoveBig
+		EmptyWeapon: CreepRemoveBig
