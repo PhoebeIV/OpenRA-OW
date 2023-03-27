@@ -11,14 +11,10 @@ DukeNukem:
 		HP: 150000
 	Mobile:
 		Speed: 90
-		Voice: Move
-	Guard:
-		Voice: Move
 	RevealsShroud:
 		Range: 6c0
 	Passenger:
 		CustomPipType: red
-		Voice: Move
 	AttackFrontal:
 		Armaments: gun1, gun2, gun3, gun4, gun5, gun6, gun7, gun8, gun9
     Armament@1:
@@ -134,9 +130,117 @@ DukeNukem:
 	AnnounceOnSeen:
 		PingRader: true
 	RenderSprites:
-		Image: USABurton
+		Image: dukenukem
 	Voiced:
 		VoiceSet: DukeNukemVoice
+		Volume: 10
+	AttackWander:
+		WanderMoveRadius: 10
+		MinMoveDelay: 5
+		MaxMoveDelay: 100
+	ChangesHealth:
+		Step: 100
+		Delay: 25
+		StartIfBelow: 50
+		DamageCooldown: 500
+
+JudgeDredd:
+	Inherits: ^Soldier
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Valued:
+		Cost: 10000
+	Tooltip:
+		Name: Judge Dredd
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 160000
+	Mobile:
+		Speed: 70
+	RevealsShroud:
+		Range: 6c0
+	Passenger:
+		CustomPipType: red
+	AttackFrontal:
+		Armaments: gun1, gun2, gun3, gun4, gun5, gun6, gun7, gun8, gun9
+    Armament@1:
+        Name: gun1
+        Weapon: judgedreddpistol1
+        RequiresCondition: !gun2
+    GrantConditionOnAttack@1:
+        ArmamentNames: gun1
+        Condition: gun2
+		RequiredShotsPerInstance: 15
+        RevokeDelay: 600
+    Armament@2:
+        Name: gun2
+        Weapon: judgedreddpistol2
+        RequiresCondition: gun2 && !gun3
+    GrantConditionOnAttack@2:
+        ArmamentNames: gun2
+        Condition: gun3
+		RequiredShotsPerInstance: 20
+        RevokeDelay: 600
+    Armament@3:
+        Name: gun3
+        Weapon: judgedreddpistol3
+        RequiresCondition: gun3 && !gun4
+    GrantConditionOnAttack@3:
+        ArmamentNames: gun3
+        Condition: gun4
+		RequiredShotsPerInstance: 10
+        RevokeDelay: 600
+    Armament@4:
+        Name: gun4
+        Weapon: judgedreddpistol4
+		LocalOffset: 0,0,555
+        RequiresCondition: gun4 && !gun5
+    GrantConditionOnAttack@4:
+        ArmamentNames: gun4
+        Condition: gun5
+		RequiredShotsPerInstance: 10
+        RevokeDelay: 600
+    Armament@5:
+        Name: gun5
+        Weapon: judgedreddpistol5
+		LocalOffset: 0,0,555
+        RequiresCondition: gun5 && !gun6
+    GrantConditionOnAttack@5:
+        ArmamentNames: gun5
+        Condition: gun6
+		RequiredShotsPerInstance: 25
+        RevokeDelay: 600
+	Armament@GARRISONED:
+		Name: garrisoned
+		Weapon: judgedreddpistol2
+		MuzzleSequence: garrison-muzzle
+	Armament@BUS:
+		Name: bus
+		Weapon: judgedreddpistol2
+		MuzzleSequence: garrison-muzzle
+	WithInfantryBody:
+		DefaultAttackSequence: shoot
+		StandSequences: stand
+	ExternalCondition@PRODUCED:
+		Condition: produced
+	VoiceAnnouncement:
+		RequiresCondition: produced
+		Voice: Build
+	AmbientSound:
+        SoundFiles: dredd1.wav, dredd2.wav, dredd3.wav dredd4.wav, dredd5.wav, dredd6.wav, dredd7.wav, dredd8.wav, dredd9.wav, dredd10.wav dredd11.wav, dredd12.wav, dredd13.wav, dredd14.wav, dredd15.wav, dredd16.wav, dredd17.wav, dredd18.wav, dredd19.wav, dredd20.wav, dredd21.wav, dredd22.wav, dredd23.wav, dredd24.wav, dredd25.wav, dredd26.wav, dredd27.wav, dredd28.wav, dredd29.wav, dredd31.wav, dredd32.wav, dredd33.wav, dredd34.wav, dredd35.wav, dredd36.wav, dredd37.wav, dredd38.wav, dredd39.wav, dredd40.wav, dredd41.wav, dredd42.wav, dredd43.wav, dredd44.wav, dredd45.wav, dredd46.wav, dredd47.wav, dredd48.wav, dredd49.wav, dredd50.wav
+		Delay: 0
+		Interval: 250, 500
+	AnnounceOnKill:
+		Voice: Kill
+	ProducibleWithLevel:
+		Prerequisites: barracks.upgraded
+	AnnounceOnSeen:
+		PingRader: true
+	RenderSprites:
+		Image: judgedredd
+        PlayerPalette: dawn
+	Voiced:
+		VoiceSet: JudgeDreddVoice
 		Volume: 10
 	AttackWander:
 		WanderMoveRadius: 10
