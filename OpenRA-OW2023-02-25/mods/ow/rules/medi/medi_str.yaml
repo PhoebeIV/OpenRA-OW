@@ -792,7 +792,7 @@ BLACKSMITHMEDI:
 		Bounds: 3072, 3072
 	Buildable:
 		Queue: Tech
-		Prerequisites: ~structures.medi, academymedi, ~techlevel.medium, ~!structures.elementalists
+		Prerequisites: ~structures.medi, academymedi, ~techlevel.medium
 		Description: Allows the production of gun-powder based units.
 		BuildPaletteOrder: 7
 	Tooltip:
@@ -1591,6 +1591,7 @@ ElementalTotem:
 TheEye:
 	Inherits: ^Building
 	Inherits@IDISABLE: ^DisableOnLowPowerOrPowerDown
+	Inherits@AUTOTARGET: ^AutoTargetAll
 	Valued:
 		Cost: 1400
 	Tooltip:
@@ -1655,27 +1656,99 @@ TheEye:
 		EffectSequence: idle
 	RenderSprites:
 		Image: medieyetower
-	ExternalCondition@EyeBoost:
+	##Need to fix, stacks are not working correctly.
+	##Toggle conditions on deploy to allow self targeting weapon for applying stacks.
+	ExternalCondition@ambushhole:
 		Condition: EyeBoost
-	GrantConditionOnDeploy@EyeBoost:
-		DeployedCondition: EyeBoost
-		SkipMakeAnimation: true
-	PowerMultiplier:
-		Modifier: 600
-		RequiresCondition: EyeBoost
-	ChangesHealth@EyeBoost:
-		PercentageStep: -10
-		Delay: 20
+		TotalCap: 35
+	AutoTarget:
+		InitialStance: AttackAnything
+	GrantConditionOnDeploy@EyeBooster:
+		DeployedCondition: eyebooster
+	GrantConditionOnHealth@Eyelow:
+		Condition: Eyelow
+		MaxHP: 20000
+		RequiresCondition: eyebooster
+	RevealsShroudMultiplier@loweye:
+		Modifier: 50
+		RequiresCondition: Eyelow
+	DetectCloakedMultiplier@loweye:
+		Modifier: 50
+		RequiresCondition: Eyelow
+	PowerMultiplier@loweye:
+		Modifier: 500
+		RequiresCondition: Eyelow && EyeBoost >= 9
+	Targetable@eyetower:
+		TargetTypes: eyetower
+		RequiresCondition: eyebooster
+	AttackOmni:
+	Armament:
+		TargetRelationships: Ally
+		ForceTargetRelationships: Ally
+		Name: primary
+		Weapon: eyeself
+		RequiresCondition: eyebooster
+	##Grant T1 Boost on having more than 10 stacks.
+	GrantCondition@step1:
+		Condition: step1eye
+		RequiresCondition: EyeBoost >= 10 && !step3eye && !step2eye && !Eyelow && eyebooster
+	PowerMultiplier@Step1:
+		Modifier: 150
+		RequiresCondition: step1eye
+	ChangesHealth@Step1:
+		PercentageStep: -5
+		Delay: 100
 		StartIfBelow: 110
 		DamageCooldown: 0
-		RequiresCondition: EyeBoost
+		RequiresCondition: step1eye
 		DamageTypes: DefaultDeath
-	RevealsShroudMultiplier:
+	RevealsShroudMultiplier@Step1:
+		Modifier: 150
+		RequiresCondition: step1eye 
+	DetectCloakedMultiplier@Step1:
+		Modifier: 150
+		RequiresCondition: step1eye
+	##Grant T2 Boost on having more than 20 stacks.
+	GrantCondition@step2:
+		Condition: step2eye
+		RequiresCondition: EyeBoost >= 20 && !step3eye && !Eyelow && eyebooster
+	PowerMultiplier@Step2:
 		Modifier: 250
-		RequiresCondition: EyeBoost
-	DetectCloakedMultiplier:
-		Modifier: 250
-		RequiresCondition: EyeBoost
+		RequiresCondition: step2eye
+	ChangesHealth@Step2:
+		PercentageStep: -5
+		Delay: 60
+		StartIfBelow: 110
+		DamageCooldown: 0
+		RequiresCondition: step2eye 
+		DamageTypes: DefaultDeath
+	RevealsShroudMultiplier@Step2:
+		Modifier: 200
+		RequiresCondition: step2eye
+	DetectCloakedMultiplier@Step2:
+		Modifier: 200
+		RequiresCondition: step2eye
+	##Grant T3 Boost on having more than 25 stacks.
+	GrantCondition@step3:
+		Condition: step3eye
+		RequiresCondition: EyeBoost >= 30 && !Eyelow && eyebooster
+	PowerMultiplier@Step3:
+		Modifier: 400
+		RequiresCondition: step3eye
+	ChangesHealth@Step3:
+		PercentageStep: -10
+		Delay: 30
+		StartIfBelow: 110
+		DamageCooldown: 0
+		RequiresCondition: step3eye
+		DamageTypes: DefaultDeath
+	RevealsShroudMultiplier@Step3:
+		Modifier: 300
+		RequiresCondition: step3eye
+	DetectCloakedMultiplier@Step3:
+		Modifier: 300
+		RequiresCondition: step3eye
+
 
 ##Monument: Gives Healing aura to units and structures
 MonumentToTheGods:

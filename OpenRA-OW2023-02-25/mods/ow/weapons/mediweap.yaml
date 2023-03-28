@@ -243,7 +243,6 @@ CrossbowFire:
 			Heavy: 35
 			Concrete: 30
 
-
 HorseCrossbow:
 	Inherits: Crossbow
 	ReloadDelay: 68
@@ -1446,7 +1445,7 @@ GraveyardSpawner:
 		ValidTargets: GroundActor
 
 GraveyardSpawnerDeath:
-	Warhead@curtain: GrantExternalCondition
+	Warhead@SpawnerDeath: GrantExternalCondition
 		Condition: GraveyardSouls
 		Range: 30c0
 		Duration: 1
@@ -1454,17 +1453,31 @@ GraveyardSpawnerDeath:
 
 DarkRageDeathWep:
 	InstantHit:
-	GrantExternalConditionWarhead@DarkRageDeathWar:
+	Warhead@DarkRageDeathWar: GrantExternalCondition
 		Condition: DarkRageStacks
 		Duration: 500
 		Range: 10
 		ValidTargets: GroundActor
 		ValidRelationships: Ally
-	GrantExternalConditionWarhead@DarkRageDeathWar1:
+	Warhead@DarkRageDeathWar1: GrantExternalCondition
 		Condition: DarkRageStacksHeal
 		Duration: 2
 		Range: 10
 		ValidTargets: GroundActor
+		ValidRelationships: Ally
+
+eyeself:
+	ReloadDelay: 20
+	Range: 3c0
+	ValidTargets: eyetower
+	Projectile: Bullet
+		Speed: 1c682
+	Warhead@curtain: GrantExternalCondition
+		Condition: EyeBoost
+		Range: 1c0
+		Duration: 1000
+		AffectsParent: True
+		ValidTargets: eyetower
 		ValidRelationships: Ally
 
 ###############################################################################
