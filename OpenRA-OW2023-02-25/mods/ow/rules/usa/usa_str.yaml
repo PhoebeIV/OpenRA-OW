@@ -866,12 +866,29 @@ usapatriotEMP:
 		TurnSpeed: 16
 	-WithSpriteBody:
 	WithEmbeddedTurretSpriteBody:
-	Armament@AG:
-		Weapon: usapatriotshotemp
+	AttackTurreted:
+		Armaments: primary, primaryair
+    Armament@AG:
+        Name: primary
+        Weapon: usapatriotshotemp
 		LocalOffset: 0,0,320
 		MuzzleSequence: muzzle
 		PauseOnCondition: disabled
+    GrantConditionOnAttack@1:
+        ArmamentNames: primary
+        Condition: patriotrange
+		RequiredShotsPerInstance: 8
+        RevokeDelay: 55
+	RangeMultiplier:
+		Modifier: 150
+		RequiresCondition: patriotrangetrue
+	ProximityExternalCondition:
+		Condition: patriotrangetrue
+		RequiresCondition: patriotrange
+	ExternalCondition:
+		Condition: patriotrangetrue
 	Armament@AA:
+		Name: primaryair
 		Weapon: usapatriotshotair
 		LocalOffset: 0,0,320
 		MuzzleSequence: muzzle
