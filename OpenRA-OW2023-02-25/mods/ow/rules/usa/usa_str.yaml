@@ -940,6 +940,14 @@ usalaserpatriot:
 		Range: 5c0
 	WithBuildingBib:
 		HasMinibib: true
+	AmmoPool:
+		Ammo: 5
+		AmmoCondition: ammo
+	ReloadAmmoPool:
+	    AmmoPool: primary
+		Delay: 25
+		ResetOnFire: true
+		Count: 1
 	Turreted:
 		TurnSpeed: 48
 		InitialFacing: 192
@@ -949,10 +957,11 @@ usalaserpatriot:
 		RequiresCondition: !build-incomplete
 		Recoils: false
 	Armament:
+	    Name: primary
 		Weapon: USALaserpatriotshot
 		LocalOffset: 512,0,112
 		MuzzleSequence: muzzle
-		PauseOnCondition: disabled
+		PauseOnCondition: !ammo
 	Armament@Secondary:
 		Weapon: USALaserpatriotshotair
 		LocalOffset: 512,0,112
