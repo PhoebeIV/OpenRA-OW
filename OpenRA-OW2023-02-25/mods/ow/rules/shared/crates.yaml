@@ -1,0 +1,727 @@
+World:
+	CrateSpawner:
+		DeliveryAircraft: badr
+		QuantizedFacings: 16
+		Minimum: 2
+		Maximum: 4
+		SpawnInterval: 3200
+		WaterChance: 20
+		InitialSpawnDelay: 1500
+		CheckboxDisplayOrder: 1
+		CrateActors: crate, moneycrate2, crate.fuckyou
+		CrateActorShares: 50, 35, 15
+
+CRATE:
+	-GiveCashCrateAction:
+	LevelUpCrateAction:
+		SelectionShares: 20
+	GiveMcvCrateAction:
+		ValidFactions: england, france, germany, russia, ukraine, estonia, phobos, deimos, mars, hitler, himmler, heydrich
+		NoBaseSelectionShares: 1000
+		Units: mcv
+	GiveMcvCrateAction@dawn:
+		ValidFactions: nod, bhand, marked, nod3, gdi, steel, zocom, gdi3, sword, angels, silver
+		SelectionShares: 0
+		NoBaseSelectionShares: 1000
+		Units: mcvd
+	GiveMcvCrateAction@gla:
+		ValidFactions: thrax, demo, kassad
+		SelectionShares: 0
+		NoBaseSelectionShares: 1000
+		Units: gmcv
+	GiveMcvCrateAction@medi:
+		ValidFactions: darkness, holy, elementalists
+		SelectionShares: 0
+		NoBaseSelectionShares: 1000
+		Units: mcvm
+	GiveMcvCrateAction@protoss:
+		ValidFactions: protoss
+		SelectionShares: 0
+		NoBaseSelectionShares: 1000
+		Units: pmcv
+	GiveMcvCrateAction@zerg:
+		ValidFactions: zerg
+		SelectionShares: 0
+		NoBaseSelectionShares: 1000
+		Units: zmcv
+	DuplicateUnitCrateAction:
+		MaxDuplicateValue: 4000
+	GiveUnitCrateAction@split:
+		SelectionShares: 1
+		Units: 1tnk.split3
+	GiveUnitCrateAction@mine:
+		SelectionShares: 2
+		Units: 1tnk.mine
+	GiveUnitCrateAction@gmine:
+		SelectionShares: 1
+		Units: 1tnk.gmine
+	GiveUnitCrateAction@dtrk:
+		SelectionShares: 2
+		Units: dtrk
+		Prerequisites: techlevel.unrestricted
+	ExplodeCrateAction@lightning:
+		Weapon: CrateLightningZap
+		SelectionShares: 4
+	GrantExternalConditionCrateAction@cloak:
+		Condition: stealthgen
+		SelectionShares: 6
+		MaxExtraCollectors: 2
+	GiveUnitCrateAction@apc:
+		-ValidFactions:
+		Prerequisites: techlevel.low, vehicles.apcprereq
+	GiveUnitCrateAction@ftrk:
+		-ValidFactions:
+		Prerequisites: techlevel.low, vehicles.ftrkprereq
+	GiveUnitCrateAction@arty:
+		-ValidFactions:
+		Prerequisites: techlevel.medium, radar, vehicles.artyprereq
+	GiveUnitCrateAction@squadlight:
+		ValidFactions: allies, england, france, germany, soviet, russia, ukraine, gdi, gdi3, zocom, steel, nod, nod3, bhand, marked, civ, hitler, himmler, heydrich
+	GiveUnitCrateAction@squadlightfed:
+		SelectionShares: 10
+		Units: fe1,fe1,fe1,fe1,fe1,fe2
+		ValidFactions: sword, angels, silver
+	GiveUnitCrateAction@squadlightuac:
+		SelectionShares: 10
+		Units: dm2,dm2,dm2,dm2,dm1
+		ValidFactions: phobos, deimos, mars
+	GiveUnitCrateAction@squadlightgla:
+		SelectionShares: 10
+		Units: ge1,ge1,ge1,ge3,ge3
+		ValidFactions: gla, demo, kassad, thrax
+	GiveUnitCrateAction@squadlightmedi:
+		SelectionShares: 10
+		Units: swordman,swordman,swordman,swordman,swordman
+		ValidFactions: darkness, holy, elementalists
+	GiveUnitCrateAction@squadheavysoviet:
+		Units: e1,e1,e4,e4,e3,e3,e3,e6,e1of
+		ValidFactions: soviet, russia, ukraine, nod, nod3, bhand, marked, hitler, himmler, heydrich
+	GiveUnitCrateAction@squadheavyallies:
+		Units: e1,e1,e1,e1,e3,e3,e3,e6,medi,e1of
+		ValidFactions: allies, england, france, germany, marked, zocom
+	GiveUnitCrateAction@squadheavyfed:
+		SelectionShares: 7
+		Units: fe1,fe1,fe1,fe1,fe2,fe2,fe4,fmedi
+		ValidFactions: sword, angels, silver
+		TimeDelay: 4500
+	GiveUnitCrateAction@squadheavyuac:
+		SelectionShares: 7
+		Units: dm2,dm2,dm2,dm2of,dm1,dm6,dm6,medi.dm
+		ValidFactions: phobos, deimos, mars
+		TimeDelay: 4500
+	GiveUnitCrateAction@squadheavygla:
+		SelectionShares: 7
+		Units: e1,e1,e1,e1,e3,e3,e3,e6,medi
+		ValidFactions: gla, demo, kassad, thrax
+		TimeDelay: 4500
+	GiveUnitCrateAction@squadheavymedi:
+		SelectionShares: 7
+		Units: swordman,swordman,swordman,swordman,swordman,crossbowman,crossbowman
+		ValidFactions: darkness, holy, elementalists
+		TimeDelay: 4500
+	GiveUnitCrateAction@dukenukem:
+		SelectionShares: 3
+		Units: dukenukem
+		Sound: dukenukembuild5.aud
+	GiveUnitCrateAction@judgedredd:
+		SelectionShares: 3
+		Units: judgedredd
+		Sound: dredd1.aud
+	Crate:
+		Duration: 6000
+
+MONEYCRATE2:
+	Inherits: MONEYCRATE
+	GiveCashCrateAction:
+		Amount: 1000
+		SelectionShares: 75
+		UseCashTick: true
+	GiveCashCrateAction@2:
+		Amount: 2000
+		SelectionShares: 40
+		UseCashTick: true
+	GiveCashCrateAction@3:
+		Amount: 3000
+		SelectionShares: 15
+		UseCashTick: true
+	Crate:
+		Duration: 6000
+
+CRATE.FuckYou:
+	Inherits: ^Crate
+	GiveUnitCrateAction@supertank:
+		SelectionShares: 4
+		Units: u.tnkcrate
+		Prerequisites: techlevel.unrestricted
+		Owner: Creeps
+	GiveUnitCrateAction@vice:
+		SelectionShares: 19
+		Units: vice
+		Owner: Creeps
+	ExplodeCrateAction@ion:
+		Weapon: MiniNukeIonCrate
+		SelectionShares: 10
+		Sound: ion_fire2.aud
+	ExplodeCrateAction@nuke:
+		Weapon: CrateNuke
+		SelectionShares: 7
+	GiveUnitCrateAction@grave:
+		SelectionShares: 9
+		Units: 1tnk.grave
+	GiveUnitCrateAction@globzombcrate:
+		SelectionShares: 3
+		Units: medizombiecreepcrate
+		Owner: Creeps
+	ExplodeCrateAction@emp:
+		Weapon: EMPExplosion
+		SelectionShares: 8
+	ExplodeCrateAction@dk:
+		Weapon: MediDeathKnightAttack2
+		SelectionShares: 10
+	ExplodeCrateAction@poison:
+		Weapon: ToxinScudstormSmall
+		SelectionShares: 12
+	GiveUnitCrateAction@ionbeam:
+		SelectionShares: 9
+		Units: hack.particle_beam
+		Owner: Creeps
+	GiveUnitCrateAction@dukenukem:
+		SelectionShares: 4
+		Units: dukenukem
+		Sound: dukenukembuild5.aud
+		Owner: Creeps
+	GiveUnitCrateAction@judgedredd:
+		SelectionShares: 4
+		Units: judgedredd
+		Sound: dredd1.aud
+		Owner: Creeps
+	GiveUnitCrateAction@wall:
+		SelectionShares: 10
+		Units: 1tnk.brik,1tnk.brik,1tnk.brik,1tnk.brik,1tnk.brik,1tnk.brik,1tnk.brik,1tnk.brik,1tnk.brik,1tnk.brik
+		Owner: Creeps
+	GiveUnitCrateAction@fakecrate:
+		SelectionShares: 4
+		Units: fakecrate
+		Owner: Creeps
+	Crate:
+		Duration: 15000
+	Tooltip:
+		Name: Crate
+		GenericName: Crate
+
+1TNK.MINE:
+	Inherits: 1TNK
+	-Buildable:
+	-WithSpriteTurret:
+	-WithMuzzleOverlay:
+	-Turreted:
+	-Armament:
+	-AttackTurreted:
+	-AutoTarget:
+	-AutoTargetPriority@DEFAULT:
+	-AutoTargetPriority@ATTACKANYTHING:
+	-Selectable:
+	-SelectionDecorations:
+	-Tooltip:
+	-RevealsShroud:
+	RenderSprites:
+		Image: 1tnk
+	KillsSelf:
+	-UpdatesPlayerStatistics:
+	-ActorLostNotification:
+	Explodes:
+		Weapon: DemoTrapExplosion2
+	SpawnActorOnDeath:
+		Actor: mine.cr
+		OwnerType: InternalName
+
+1TNK.GMINE:
+	Inherits: 1TNK.MINE
+	SpawnActorOnDeath:
+		Actor: gmine.cr
+
+1TNK.SPLIT3:
+	Inherits: 1TNK.MINE
+	SpawnActorOnDeath:
+		Actor: split3.cr
+
+1TNK.GRAVE:
+	Inherits: 1TNK.MINE
+	SpawnActorOnDeath:
+		Actor: grave
+		OwnerType: InternalName
+		InternalOwner: Creeps
+		RequiresLobbyCreeps: true
+
+1TNK.BRIK:
+	Inherits: 1TNK.MINE
+	-Explodes:
+	SpawnActorOnDeath:
+		Actor: brik
+		OwnerType: Victim
+
+U.TNKcrate:
+	Inherits: U.TNK
+	-Buildable:
+	RenderSprites:
+		Image: u.tnk
+	AttackWander:
+		WanderMoveRadius: 4
+		MinMoveDelay: 12
+		MaxMoveDelay: 75
+	AutoTargetPriority@DEFAULT:
+		ValidTargets: Infantry, Vehicle, Ship, Underwater, Structure, Defense, Mine
+
+LIGHTNING:
+	Inherits@1: ^ExistsInWorld
+	Inherits@2: ^SpriteActor
+	Health:
+		HP: 100
+	Armor:
+		Type: Wood
+	RevealsShroud:
+		Range: 6c0
+	Targetable:
+		TargetTypes: GroundActor, Creep
+	Mobile:
+		Voice: Move
+		Speed: 71
+		Locomotor: wheeled
+	SelectionDecorations:
+	Selectable:
+		Bounds: 1024, 1024
+	WithSpriteControlGroupDecoration:
+	DrawLineToTarget:
+	HiddenUnderFog:
+	WithSpriteBody:
+	RenderSprites:
+		Image: vice
+	HitShape:
+		Type: Circle
+			Radius: 427
+	KillsSelf:
+	Explodes:
+		Weapon: LightningZap
+
+GRAVE:
+	Inherits: ^TechBuilding
+	Inherits@AUTOTARGET: ^AutoTargetAll
+	Targetable:
+		TargetTypes: GroundActor, C4, DetonateAttack, Structure, Defense
+	Health:
+		HP: 90000
+	Tooltip:
+		Name: Haunted Mausoleum
+		ShowOwnerRow: False
+	Armor:
+		Type: Concrete
+	Selectable:
+		Bounds: 1024, 1024
+	FreeActor@1:
+		Actor: ZOMBIE
+	FreeActor@2:
+		Actor: ZOMBIE
+	FreeActor@3:
+		Actor: ZOMBIE
+	FreeActor@4:
+		Actor: ZOMBIE
+	FreeActor@5:
+		Actor: ZOMBIE
+	FreeActor@6:
+		Actor: ZOMBIE
+	FreeActor@7:
+		Actor: ZOMBIE
+	FreeActor@8:
+		Actor: ZOMBIE
+	FreeActor@9:
+		Actor: ZOMBIE
+	FreeActor@10:
+		Actor: ZOMBIE
+	FreeActor@11:
+		Actor: ZOMBIE
+	FreeActor@12:
+		Actor: ZOMBIE
+		AllowRespawn: true
+		RequiresCondition: produceunit
+	AutoTarget:
+		InitialStance: AttackAnything
+	AttackOmni:
+	Armament:
+		Weapon: ZombiehHole
+	ExternalCondition@ambushhole:
+		Condition: produceunit
+	ProximityExternalCondition:
+		Condition: wander
+		Range: 2c0
+
+Zombie:
+	Inherits: ^Soldier
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Valued:
+		Cost: 100
+	Tooltip:
+		Name: Zombie
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Buildable:
+		Queue: Infantry
+		BuildAtProductionType: Soldier
+		BuildPaletteOrder: 200
+		Prerequisites: ~barracks, ~bio
+		Description: Slow undead. Attacks in close combat.
+	Health:
+		HP: 25000
+	Mobile:
+		Speed: 42
+	AutoTarget:
+		ScanRadius: 25
+	WithInfantryBody:
+		DefaultAttackSequence: bite
+		IdleSequences: idle1
+	Armament:
+		Weapon: claw
+	Voiced:
+		VoiceSet: AntVoice
+	-TakeCover:
+	ExternalCondition:
+		Condition: wander
+	Wanders:
+		RequiresCondition: wander
+
+DukeNukem:
+	Inherits: ^Soldier
+	Inherits: ^EpicUnit
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Valued:
+		Cost: 10000
+	Tooltip:
+		Name: Duke Nukem
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 150000
+	Mobile:
+		Speed: 90
+	RevealsShroud:
+		Range: 6c0
+	Passenger:
+		CustomPipType: red
+	AttackFrontal:
+		Armaments: gun1, gun2, gun3, gun4, gun5, gun6, gun7, gun8, gun9
+    Armament@1:
+        Name: gun1
+        Weapon: dukenukempistol
+        RequiresCondition: !gun2
+    GrantConditionOnAttack@1:
+        ArmamentNames: gun1
+        Condition: gun2
+		RequiredShotsPerInstance: 14
+        RevokeDelay: 1000
+    Armament@2:
+        Name: gun2
+        Weapon: dukenukemmg
+        RequiresCondition: gun2 && !gun3
+    GrantConditionOnAttack@2:
+        ArmamentNames: gun2
+        Condition: gun3
+		RequiredShotsPerInstance: 30
+        RevokeDelay: 1000
+    Armament@3:
+        Name: gun3
+        Weapon: dukenukemshotgun
+        RequiresCondition: gun3 && !gun4
+    GrantConditionOnAttack@3:
+        ArmamentNames: gun3
+        Condition: gun4
+		RequiredShotsPerInstance: 5
+        RevokeDelay: 1000
+    Armament@4:
+        Name: gun4
+        Weapon: dukenukempipebomb
+		LocalOffset: 0,0,555
+        RequiresCondition: gun4 && !gun5
+    GrantConditionOnAttack@4:
+        ArmamentNames: gun4
+        Condition: gun5
+		RequiredShotsPerInstance: 5
+        RevokeDelay: 1000
+    Armament@5:
+        Name: gun5
+        Weapon: dukenukemrpg
+		LocalOffset: 0,0,555
+        RequiresCondition: gun5 && !gun6
+    GrantConditionOnAttack@5:
+        ArmamentNames: gun5
+        Condition: gun6
+		RequiredShotsPerInstance: 5
+        RevokeDelay: 1000
+    Armament@6:
+        Name: gun6
+        Weapon: dukenukemshrink
+		LocalOffset: 0,0,555
+        RequiresCondition: gun6 && !gun7
+    GrantConditionOnAttack@6:
+        ArmamentNames: gun6
+        Condition: gun7
+		RequiredShotsPerInstance: 7
+        RevokeDelay: 1000
+    Armament@7:
+        Name: gun7
+        Weapon: dukenukemexpand
+        RequiresCondition: gun7 && !gun8
+    GrantConditionOnAttack@7:
+        ArmamentNames: gun7
+        Condition: gun8
+		RequiredShotsPerInstance: 25
+        RevokeDelay: 1000
+    Armament@8:
+        Name: gun8
+        Weapon: dukenukemfreezer
+		LocalOffset: 0,0,555
+        RequiresCondition: gun8 && !gun9
+    GrantConditionOnAttack@8:
+        ArmamentNames: gun8
+        Condition: gun9
+		RequiredShotsPerInstance: 40
+        RevokeDelay: 1000
+    Armament@9:
+        Name: gun9
+        Weapon: dukenukemdevestator
+		LocalOffset: 0,0,555
+        RequiresCondition: gun9 && !gun10
+    GrantConditionOnAttack@9:
+        ArmamentNames: gun9
+        Condition: gun10
+		RequiredShotsPerInstance: 80
+        RevokeDelay: 1000
+	Armament@GARRISONED:
+		Name: garrisoned
+		Weapon: dukenukempistol
+		MuzzleSequence: garrison-muzzle
+	Armament@BUS:
+		Name: bus
+		Weapon: dukenukempistol
+		MuzzleSequence: garrison-muzzle
+	WithInfantryBody:
+		DefaultAttackSequence: shoot
+		StandSequences: stand
+	ExternalCondition@PRODUCED:
+		Condition: produced
+	VoiceAnnouncement:
+		RequiresCondition: produced
+		Voice: Build
+	AmbientSound:
+		SoundFiles: dukenukembuild1.wav, dukenukembuild2.wav, dukenukembuild3.wav, dukenukembuild4.wav, dukenukembuild5.wav, dukenukembuild6.wav, dukenukembuild7.wav, dukenukembuild8.wav, dukenukembuild9.wav, dukenukembuild10.wav, dukenukembuild1.wav, dukenukemkill3.wav, dukenukemkill5.wav, dukenukembuild2.wav, dukenukemselect2.wav, dukenukembuild6.wav, dukenukemmove3.wav, dukenukemselect3.wav, dukenukemmove4.wav, dukenukembuild8.wav, dukenukemmove5.wav, dukenukemmove6.wav, dukenukemmove7.wav, dukenukemselect4.wav
+		Delay: 0
+		Interval: 250, 500
+	AnnounceOnKill:
+		Voice: Kill
+	ProducibleWithLevel:
+		Prerequisites: barracks.upgraded
+	AnnounceOnSeen:
+		PingRader: true
+	RenderSprites:
+		Image: dukenukem
+	Voiced:
+		VoiceSet: DukeNukemVoice
+	AttackWander:
+		WanderMoveRadius: 10
+		MinMoveDelay: 5
+		MaxMoveDelay: 100
+	ChangesHealth:
+		Step: 100
+		Delay: 25
+		StartIfBelow: 50
+		DamageCooldown: 500
+
+JudgeDredd:
+	Inherits: ^Soldier
+	Inherits: ^EpicUnit
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Valued:
+		Cost: 10000
+	Tooltip:
+		Name: Judge Dredd
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 160000
+	Mobile:
+		Speed: 70
+	RevealsShroud:
+		Range: 6c0
+	Passenger:
+		CustomPipType: red
+	AttackFrontal:
+		Armaments: gun1, gun2, gun3, gun4, gun5, gun6, gun7, gun8, gun9
+    Armament@1:
+        Name: gun1
+        Weapon: judgedreddpistol1
+        RequiresCondition: !gun2
+    GrantConditionOnAttack@1:
+        ArmamentNames: gun1
+        Condition: gun2
+		RequiredShotsPerInstance: 15
+        RevokeDelay: 600
+    Armament@2:
+        Name: gun2
+        Weapon: judgedreddpistol2
+        RequiresCondition: gun2 && !gun3
+    GrantConditionOnAttack@2:
+        ArmamentNames: gun2
+        Condition: gun3
+		RequiredShotsPerInstance: 20
+        RevokeDelay: 600
+    Armament@3:
+        Name: gun3
+        Weapon: judgedreddpistol3
+        RequiresCondition: gun3 && !gun4
+    GrantConditionOnAttack@3:
+        ArmamentNames: gun3
+        Condition: gun4
+		RequiredShotsPerInstance: 10
+        RevokeDelay: 600
+    Armament@4:
+        Name: gun4
+        Weapon: judgedreddpistol4
+		LocalOffset: 0,0,555
+        RequiresCondition: gun4 && !gun5
+    GrantConditionOnAttack@4:
+        ArmamentNames: gun4
+        Condition: gun5
+		RequiredShotsPerInstance: 10
+        RevokeDelay: 600
+    Armament@5:
+        Name: gun5
+        Weapon: judgedreddpistol5
+		LocalOffset: 0,0,555
+        RequiresCondition: gun5 && !gun6
+    GrantConditionOnAttack@5:
+        ArmamentNames: gun5
+        Condition: gun6
+		RequiredShotsPerInstance: 25
+        RevokeDelay: 600
+	Armament@GARRISONED:
+		Name: garrisoned
+		Weapon: judgedreddpistol2
+		MuzzleSequence: garrison-muzzle
+	Armament@BUS:
+		Name: bus
+		Weapon: judgedreddpistol2
+		MuzzleSequence: garrison-muzzle
+	WithInfantryBody:
+		DefaultAttackSequence: shoot
+		StandSequences: stand
+	ExternalCondition@PRODUCED:
+		Condition: produced
+	VoiceAnnouncement:
+		RequiresCondition: produced
+		Voice: Build
+	AmbientSound:
+        SoundFiles: dredd1.wav, dredd2.wav, dredd3.wav dredd4.wav, dredd5.wav, dredd6.wav, dredd7.wav, dredd8.wav, dredd9.wav, dredd10.wav dredd11.wav, dredd12.wav, dredd13.wav, dredd14.wav, dredd15.wav, dredd16.wav, dredd17.wav, dredd18.wav, dredd19.wav, dredd20.wav, dredd21.wav, dredd22.wav, dredd23.wav, dredd24.wav, dredd25.wav, dredd26.wav, dredd27.wav, dredd28.wav, dredd29.wav, dredd31.wav, dredd32.wav, dredd33.wav, dredd34.wav, dredd35.wav, dredd36.wav, dredd37.wav, dredd38.wav, dredd39.wav, dredd40.wav, dredd41.wav, dredd42.wav, dredd43.wav, dredd44.wav, dredd45.wav, dredd46.wav, dredd47.wav, dredd48.wav, dredd49.wav, dredd50.wav
+		Delay: 0
+		Interval: 250, 500
+	AnnounceOnKill:
+		Voice: Kill
+	ProducibleWithLevel:
+		Prerequisites: barracks.upgraded
+	AnnounceOnSeen:
+		PingRader: true
+	RenderSprites:
+		Image: judgedredd
+        PlayerPalette: dawn
+	Voiced:
+		VoiceSet: JudgeDreddVoice
+	AttackWander:
+		WanderMoveRadius: 10
+		MinMoveDelay: 5
+		MaxMoveDelay: 100
+	ChangesHealth:
+		Step: 100
+		Delay: 25
+		StartIfBelow: 50
+		DamageCooldown: 500
+
+
+FAKECRATE:
+	Inherits: ^TrackedVehicle
+	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
+	Interactable:
+		Bounds: 1024, 1024
+	Valued:
+		Cost: 10000
+	Tooltip:
+		Name: Crate
+	Health:
+		HP: 200000
+	Armor:
+		Type: Heavy
+	Mobile:
+		Speed: 8
+		Locomotor: foot2
+	RevealsShroud:
+		MinRange: 7c0
+		Range: 8c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 7c0
+	Turreted:
+	AttackTurreted:
+		RequiresCondition: !opening
+		Armaments: primary, secondary, curtain
+	Armament@PRIMARY:
+		Weapon: CrateCannon
+		LocalOffset: 256,0,256
+	Armament@SECONDARY:
+		Name: secondary
+		Weapon: CrateSniper
+		LocalOffset: 256,0,256
+	Armament@IRONCURTAIN:
+		Weapon: ApocIronCurtain
+		Name: curtain
+	AutoTarget:
+	ChangesHealth:
+		Step: 650
+		Delay: 25
+		StartIfBelow: 50
+		DamageCooldown: 150
+	Voiced:
+		VoiceSet: CommandoVoice
+	AnnounceOnKill:
+	-Selectable:
+	RenderSprites:
+	-Explodes:
+	ExplosionOnDamageTransition@1:
+		Weapon: ApocIronCurtain
+		DamageState: Medium
+	ExplosionOnDamageTransition@2:
+		Weapon: ApocIronCurtain
+		DamageState: Heavy
+	ExplosionOnDamageTransition@3:
+		Weapon: ApocIronCurtain
+		DamageState: Critical
+	SpawnActorOnDeath:
+		Actor: crate
+	WithDeathAnimation:
+		UseDeathTypeSuffix: false
+	WithFacingSpriteBody:
+		Sequence: idle-closed
+	WithSpriteTurret:
+		RequiresCondition: !opening
+		Sequence: idle
+	WithMakeAnimation:
+		Condition: opening
+	WithTurretAttackAnimation@1:
+		Sequence: shoot
+		Armament: primary
+	WithTurretAttackAnimation@2:
+		Sequence: shoot
+		Armament: secondary
+	AttackWander:
+		WanderMoveRadius: 4
+		MinMoveDelay: 0
+		MaxMoveDelay: 0
+	Targetable:
+		RequiresCondition: !opening
+		TargetTypes: GroundActor, Vehicle
+	-Targetable@REPAIR:
