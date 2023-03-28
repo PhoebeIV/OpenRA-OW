@@ -1668,6 +1668,7 @@ TheEye:
 	GrantConditionOnHealth@Eyelow:
 		Condition: Eyelow
 		MaxHP: 20000
+		RequiresCondition: eyebooster
 	RevealsShroudMultiplier@loweye:
 		Modifier: 50
 		RequiresCondition: Eyelow
@@ -1690,7 +1691,7 @@ TheEye:
 	##Grant T1 Boost on having more than 10 stacks.
 	GrantCondition@step1:
 		Condition: step1eye
-		RequiresCondition: EyeBoost >= 10 && !step3eye && !step2eye && !Eyelow
+		RequiresCondition: EyeBoost >= 10 && !step3eye && !step2eye && !Eyelow && eyebooster
 	PowerMultiplier@Step1:
 		Modifier: 150
 		RequiresCondition: step1eye
@@ -1708,14 +1709,14 @@ TheEye:
 		Modifier: 150
 		RequiresCondition: step1eye
 	##Grant T2 Boost on having more than 20 stacks.
-	GrantCondition@step1:
+	GrantCondition@step2:
 		Condition: step2eye
-		RequiresCondition: EyeBoost >= 20 && !step3eye && !Eyelow
+		RequiresCondition: EyeBoost >= 20 && !step3eye && !Eyelow && eyebooster
 	PowerMultiplier@Step2:
 		Modifier: 250
 		RequiresCondition: step2eye
 	ChangesHealth@Step2:
-		PercentageStep: -10
+		PercentageStep: -5
 		Delay: 60
 		StartIfBelow: 110
 		DamageCooldown: 0
@@ -1728,14 +1729,14 @@ TheEye:
 		Modifier: 200
 		RequiresCondition: step2eye
 	##Grant T3 Boost on having more than 25 stacks.
-	GrantCondition@step1:
+	GrantCondition@step3:
 		Condition: step3eye
-		RequiresCondition: EyeBoost >= 30 && !Eyelow
+		RequiresCondition: EyeBoost >= 30 && !Eyelow && eyebooster
 	PowerMultiplier@Step3:
 		Modifier: 400
 		RequiresCondition: step3eye
 	ChangesHealth@Step3:
-		PercentageStep: -15
+		PercentageStep: -10
 		Delay: 30
 		StartIfBelow: 110
 		DamageCooldown: 0
