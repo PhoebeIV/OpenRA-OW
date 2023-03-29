@@ -1634,7 +1634,7 @@ TheEye:
 		Prerequisite: radar
 	ProvidesPrerequisite@buildingname:
 	Power:
-		Amount: -50
+		Amount: -100
 	ProvidesRadar:
 		RequiresCondition: !jammed && !disabled
 	ExternalCondition@JAMMED:
@@ -1670,13 +1670,13 @@ TheEye:
 		MaxHP: 20000
 		RequiresCondition: eyebooster
 	RevealsShroudMultiplier@loweye:
-		Modifier: 50
+		Modifier: 10
 		RequiresCondition: Eyelow
 	DetectCloakedMultiplier@loweye:
-		Modifier: 50
+		Modifier: 10
 		RequiresCondition: Eyelow
 	PowerMultiplier@loweye:
-		Modifier: 500
+		Modifier: 800
 		RequiresCondition: Eyelow && EyeBoost >= 9
 	Targetable@eyetower:
 		TargetTypes: eyetower
@@ -1688,66 +1688,106 @@ TheEye:
 		Name: primary
 		Weapon: eyeself
 		RequiresCondition: eyebooster
-	##Grant T1 Boost on having more than 10 stacks.
+	##Grant T1 Boost on having more than 5 stacks.
 	GrantCondition@step1:
 		Condition: step1eye
-		RequiresCondition: EyeBoost >= 10 && !step3eye && !step2eye && !Eyelow && eyebooster
+		RequiresCondition: EyeBoost >= 5 && EyeBoost <= 11 && !Eyelow && eyebooster
 	PowerMultiplier@Step1:
-		Modifier: 150
+		Modifier: 200
 		RequiresCondition: step1eye
 	ChangesHealth@Step1:
-		PercentageStep: -5
-		Delay: 100
+		PercentageStep: -2
+		Delay: 60
 		StartIfBelow: 110
 		DamageCooldown: 0
 		RequiresCondition: step1eye
 		DamageTypes: DefaultDeath
 	RevealsShroudMultiplier@Step1:
-		Modifier: 150
+		Modifier: 125
 		RequiresCondition: step1eye 
 	DetectCloakedMultiplier@Step1:
-		Modifier: 150
+		Modifier: 125
 		RequiresCondition: step1eye
-	##Grant T2 Boost on having more than 20 stacks.
+	##Grant T2 Boost on having more than 12 stacks.
 	GrantCondition@step2:
 		Condition: step2eye
-		RequiresCondition: EyeBoost >= 20 && !step3eye && !Eyelow && eyebooster
+		RequiresCondition: EyeBoost >= 12 && EyeBoost <= 19 && !Eyelow && eyebooster
 	PowerMultiplier@Step2:
-		Modifier: 250
+		Modifier: 300
 		RequiresCondition: step2eye
 	ChangesHealth@Step2:
-		PercentageStep: -5
+		PercentageStep: -4
 		Delay: 60
 		StartIfBelow: 110
 		DamageCooldown: 0
 		RequiresCondition: step2eye 
 		DamageTypes: DefaultDeath
 	RevealsShroudMultiplier@Step2:
-		Modifier: 200
+		Modifier: 150
 		RequiresCondition: step2eye
 	DetectCloakedMultiplier@Step2:
-		Modifier: 200
+		Modifier: 150
 		RequiresCondition: step2eye
-	##Grant T3 Boost on having more than 25 stacks.
+	##Grant T3 Boost on having more than 20 stacks.
 	GrantCondition@step3:
 		Condition: step3eye
-		RequiresCondition: EyeBoost >= 30 && !Eyelow && eyebooster
+		RequiresCondition: EyeBoost >= 20 && EyeBoost <= 24 && !Eyelow && eyebooster
 	PowerMultiplier@Step3:
 		Modifier: 400
 		RequiresCondition: step3eye
 	ChangesHealth@Step3:
-		PercentageStep: -10
-		Delay: 30
+		PercentageStep: -6
+		Delay: 60
 		StartIfBelow: 110
 		DamageCooldown: 0
 		RequiresCondition: step3eye
 		DamageTypes: DefaultDeath
 	RevealsShroudMultiplier@Step3:
-		Modifier: 300
+		Modifier: 200
 		RequiresCondition: step3eye
 	DetectCloakedMultiplier@Step3:
-		Modifier: 300
+		Modifier: 200
 		RequiresCondition: step3eye
+	##Grant T4 Boost on having more than 25 stacks.
+	GrantCondition@step4:
+		Condition: step4eye
+		RequiresCondition: EyeBoost >= 25 && EyeBoost <= 29 && !Eyelow && eyebooster
+	PowerMultiplier@step4:
+		Modifier: 500
+		RequiresCondition: step4eye
+	ChangesHealth@step4:
+		PercentageStep: -8
+		Delay: 60
+		StartIfBelow: 110
+		DamageCooldown: 0
+		RequiresCondition: step4eye
+		DamageTypes: DefaultDeath
+	RevealsShroudMultiplier@step4:
+		Modifier: 250
+		RequiresCondition: step4eye
+	DetectCloakedMultiplier@step4:
+		Modifier: 250
+		RequiresCondition: step4eye
+	##Grant T5 Boost on having more than 30 stacks.
+	GrantCondition@step5:
+		Condition: step5eye
+		RequiresCondition: EyeBoost >= 30 && !Eyelow && eyebooster
+	PowerMultiplier@step5:
+		Modifier: 600
+		RequiresCondition: step5eye
+	ChangesHealth@step5:
+		PercentageStep: -10
+		Delay: 30
+		StartIfBelow: 110
+		DamageCooldown: 0
+		RequiresCondition: step5eye
+		DamageTypes: DefaultDeath
+	RevealsShroudMultiplier@step5:
+		Modifier: 300
+		RequiresCondition: step5eye
+	DetectCloakedMultiplier@step5:
+		Modifier: 300
+		RequiresCondition: step5eye
 
 
 ##Monument: Gives Healing aura to units and structures
