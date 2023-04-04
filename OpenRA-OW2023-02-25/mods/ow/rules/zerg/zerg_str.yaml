@@ -531,7 +531,8 @@ ZHATCHERY:
 		Icon: icon
 		IconImage: zdevouring
 		PauseOnCondition: disabled
-		Prerequisites: ~zhive, ~!zdevouring
+		RequiresCondition: !spawn_wait
+		Prerequisites: ~zhive
 		Actors: zdevouring,zdevouring,zdevouring,zdevouring,zdevouring,zdevouring,zdevouring,zdevouring,zdevouring,zdevouring,zdevouring,zdevouring
 		Type: SpecialUnit
 		ChargeInterval: 3750
@@ -544,6 +545,10 @@ ZHATCHERY:
 	Production@specialunit:
 		Produces: SpecialUnit
 		RequiresCondition: hive_upgrade
+	GrantConditionOnProduction@specialunit:
+		Condition: spawn_wait
+		Duration: 250
+		Actors: zdevouring
 
 ZergLairComplete:
 	Inherits: SmallZergBuildingComplete
