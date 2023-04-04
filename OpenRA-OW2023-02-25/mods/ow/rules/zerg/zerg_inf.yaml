@@ -44,8 +44,8 @@ ZZERGLING:
 		BuildAtProductionType: Hatchery
 		BuildPaletteOrder: 40
 	Selectable:
-		Bounds: 512, 512, 0, 0
-		DecorationBounds: 512, 512, 0, 0
+		Bounds: 512, 512, 0, 100
+		DecorationBounds: 512, 512, 0, 100
 		Class: ZZERGLING
 	Valued:
 		Cost: 200
@@ -78,15 +78,15 @@ ZZERGLING:
 	Armament@12:
 		Name: primary
 		Weapon: ZerglingAttackFast
-		RequiresCondition: weap1 && shoes || rank-elite
+		RequiresCondition: weap1 && (shoes || rank-elite)
 	Armament@22:
 		Name: primary
 		Weapon: ZerglingAttack2Fast
-		RequiresCondition: weap2 && shoes || rank-elite
+		RequiresCondition: weap2 && (shoes || rank-elite)
 	Armament@32:
 		Name: primary
 		Weapon: ZerglingAttack3Fast
-		RequiresCondition: weap3 && shoes || rank-elite
+		RequiresCondition: weap3 && (shoes || rank-elite)
 	GrantRandomCondition:
 		Conditions: weap1, weap2, weap3
 	WithInfantryBody:
@@ -143,9 +143,11 @@ ZZERGLING:
 	FreeActor@zergling:
 		RequiresCondition: !zerglingdouble
 		Actor: ZZERGLING2
+		SpawnOffset: 0,1
 	FreeActor@zergling_ai:
 		RequiresCondition: botowner && random1
 		Actor: ZZERGLING2
+		SpawnOffset: 0,1
 	GrantConditionOnPrerequisite@ai:
 		Condition: botowner
 		Prerequisites: ai.hard
@@ -731,3 +733,72 @@ ZDEFILER:
 		Range: 3c0
 		DeflectionRelationships: Neutral, Enemy
 		Chance: 50
+
+
+ZDEVOURING:
+	Inherits: ZZERGLING
+	Buildable:
+		Prerequisites: ~disabled
+		Description: An advanced strain of Zergling.\nComes in pairs.\n  Speed: 112\n  Strong vs infantry
+		Queue: Infantry
+		BuildAtProductionType: Hatchery
+		BuildPaletteOrder: 900
+	Selectable:
+		Bounds: 700, 700, 0, 200
+		DecorationBounds: 700, 700, 0, 200
+		Class: ZZERGLING
+	Valued:
+		Cost: 600
+	GivesExperience:
+		Experience: 600
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Tooltip:
+		Name: Devouring One
+	Health:
+		HP: 22500
+	Mobile:
+		Speed: 112
+	Power:
+		Amount: 0
+	RevealsShroud:
+		Range: 6c0
+	ProvidesPrerequisite:
+		Prerequisite: zdevouring
+	Armament@1:
+		Name: primary
+		Weapon: ZerglingAttackFast
+		RequiresCondition: weap1
+	Armament@2:
+		Name: primary
+		Weapon: ZerglingAttack2Fast
+		RequiresCondition: weap2
+	Armament@3:
+		Name: primary
+		Weapon: ZerglingAttack3Fast
+		RequiresCondition: weap3
+	-Armament@12:
+	-Armament@22:
+	-Armament@32:
+	AutoTarget:
+		ScanRadius: 6
+	-GrantConditionOnPrerequisite@shoes:
+	SpeedMultiplier@shoes:
+		-RequiresCondition:
+	ReloadDelayMultiplier@shoes:
+		-RequiresCondition:
+	FirepowerMultiplier@devouringone:
+		Modifier: 150
+	-FreeActor@zergling:
+	-FreeActor@zergling_ai:
+	DamageMultiplier@iar1:
+		Modifier: 85
+	DamageMultiplier@iar2:
+		Modifier: 70
+	DamageMultiplier@iar3:
+		Modifier: 55
+	WithDecoration@elite:
+		Image: pips
+		Sequence: pip-poison
+		Palette: effect
+		ValidRelationships: None,Neutral,Enemy,Ally

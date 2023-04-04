@@ -653,7 +653,7 @@ FAKECRATE:
 	Tooltip:
 		Name: Crate
 	Health:
-		HP: 200000
+		HP: 150000
 	Armor:
 		Type: Heavy
 	Mobile:
@@ -701,7 +701,7 @@ FAKECRATE:
 		Weapon: ApocIronCurtain
 		DamageState: Critical
 	SpawnActorOnDeath:
-		Actor: crate
+		Actor: FakeCrateReward
 	WithDeathAnimation:
 		UseDeathTypeSuffix: false
 	WithFacingSpriteBody:
@@ -725,3 +725,62 @@ FAKECRATE:
 		RequiresCondition: !opening
 		TargetTypes: GroundActor, Vehicle
 	-Targetable@REPAIR:
+
+FakeCrateReward:
+	Inherits: MONEYCRATE
+	GiveCashCrateAction:
+		Amount: 15000
+		SelectionShares: 25
+		UseCashTick: true
+	GiveUnitCrateAction@dukenukem:
+		SelectionShares: 20
+		Units: dukenukem
+		Sound: dukenukembuild5.aud
+	GiveUnitCrateAction@judgedredd:
+		SelectionShares: 20
+		Units: judgedredd
+		Sound: dredd1.aud
+	GiveMcvCrateAction:
+		ValidFactions: england, france, germany, russia, ukraine, estonia, phobos, deimos, mars, hitler, himmler, heydrich, usa
+		NoBaseSelectionShares: 1000
+		Units: mcv
+	GiveMcvCrateAction@dawn:
+		ValidFactions: nod, bhand, marked, nod3, gdi, steel, zocom, gdi3, sword, angels, silver
+		SelectionShares: 10
+		NoBaseSelectionShares: 1000
+		Units: mcvd
+	GiveMcvCrateAction@gla:
+		ValidFactions: thrax, demo, kassad
+		SelectionShares: 10
+		NoBaseSelectionShares: 1000
+		Units: gmcv
+	GiveMcvCrateAction@medi:
+		ValidFactions: darkness, holy, elementalists
+		SelectionShares: 10
+		NoBaseSelectionShares: 1000
+		Units: mcvm
+	GiveMcvCrateAction@protoss:
+		ValidFactions: protoss
+		SelectionShares: 10
+		NoBaseSelectionShares: 1000
+		Units: pmcv
+	GiveMcvCrateAction@zerg:
+		ValidFactions: zerg
+		SelectionShares: 10
+		NoBaseSelectionShares: 1000
+		Units: zmcv
+	DuplicateUnitCrateAction:
+		MaxDuplicateValue: 4000
+	GiveUnitCrateAction@split:
+		SelectionShares: 10
+		Units: 1tnk.split3
+	GiveUnitCrateAction@mine:
+		SelectionShares: 15
+		Units: 1tnk.mine
+	GiveUnitCrateAction@gmine:
+		SelectionShares: 5
+		Units: 1tnk.gmine
+	Crate:
+		Duration: 6000
+	RenderSprites:
+		Image: scrate

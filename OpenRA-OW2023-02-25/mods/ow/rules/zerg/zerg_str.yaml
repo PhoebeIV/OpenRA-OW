@@ -302,7 +302,7 @@ ZHATCHERY:
 	Exit@2:
 		SpawnOffset: 0,1500,0
 		ExitCell: 2,3
-		ProductionTypes: Infantry, Hatchery
+		ProductionTypes: Infantry, Hatchery, SpecialUnit
 	RallyPoint:
 	Selectable:
 		Bounds: 3072, 3072
@@ -525,6 +525,25 @@ ZHATCHERY:
 		CameraActor: camera.paradrop
 		DisplayBeacon: false
 		UseDirectionalTarget: false
+	ProduceActorPower@devouringone:
+		Name: Spawn Devouring Ones
+		Description: Spawn a group of an advanced strain of Zergling.\n  Speed: 134\n  Strong vs infantry, Structures
+		Icon: icon
+		IconImage: zdevouring
+		PauseOnCondition: disabled
+		Prerequisites: ~zhive, ~!zdevouring
+		Actors: zdevouring,zdevouring,zdevouring,zdevouring,zdevouring,zdevouring,zdevouring,zdevouring,zdevouring,zdevouring,zdevouring,zdevouring
+		Type: SpecialUnit
+		ChargeInterval: 3750
+		EndChargeTextNotification: Devouring Ones ready.
+		ReadyAudio: ReinforcementsArrived
+		ReadyTextNotification: Reinforcements have arrived.
+		BlockedAudio: NoBuild
+		BlockedTextNotification: No room for new unit.
+		OrderName: ProduceActorPower.DevouringOne
+	Production@specialunit:
+		Produces: SpecialUnit
+		RequiresCondition: hive_upgrade
 
 ZergLairComplete:
 	Inherits: SmallZergBuildingComplete
@@ -599,6 +618,10 @@ ZCCOLONY:
 	Inherits@selection: ^SelectableCombatBuilding
 	Inherits@AUTOTARGET: ^AutoTargetAll
 	RenderRangeCircle:
+	RenderSprites:
+		Image: zccolony
+	Selectable:
+		Class: ZCCOLONY
 	D2kBuilding:
 		Footprint: xx ++
 		Dimensions: 2,2
@@ -606,7 +629,7 @@ ZCCOLONY:
 		Queue: Wall
 		BuildPaletteOrder: 450
 		Prerequisites: ~structures.zerg, ~techlevel.infonly, ~ai.all
-		Description: Spreads creep.
+		Description: Spreads creep, can be evolved into \n defensive structures. \n\nMust be placed on creep.
 	Health:
 		HP: 40000
 	Armor:
@@ -772,6 +795,18 @@ ZCCOLONY:
 	WithColoredOverlay@IDISABLE:
 		RequiresCondition: disabled && waiting_to_evolve
 		Color: 000000B4
+
+# Buildable version granted by an upgrade
+ZCCOLONY2:
+	Inherits: ZCCOLONY
+	D2kBuilding:
+	Buildable:
+		Queue: Defense
+		BuildPaletteOrder: 90
+		Prerequisites: ~structures.zerg, ~techlevel.unrestricted, ~zerg.spawning, ~zhive
+		BuildDuration: 800
+	RequiresBuildableArea:
+		Adjacent: 4
 
 ZE.SUNKEN:
 	Inherits: ^ZergEvolve
