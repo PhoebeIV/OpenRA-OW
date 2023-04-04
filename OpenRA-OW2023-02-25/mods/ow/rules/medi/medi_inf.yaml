@@ -18,6 +18,8 @@
 		DeathSequencePalette: tsunit
 		CrushedSequencePalette: tsunit
 
+
+
 ###############################################################################
 ##########################   Harvesters and Utility   #########################
 ###############################################################################
@@ -235,7 +237,7 @@ SCOUTMEDI:
 	WithInfantryBody:
 		DefaultAttackSequence: shoot
 	AutoTarget:
-		InitialStance: AttackAnything
+		InitialStance: Defend
 	AutoTargetPriority@DEFAULT:
 		ValidTargets: GroundActor, Infantry
 	Targetable:
@@ -491,9 +493,9 @@ FOOTMAN:
 	Valued:
 		Cost: 90
 	Tooltip:
-		Name: SHOULD NOT BE BULDABLE, PLACEHOLDER/INHERITS
+		Name: Mediaval knight. \n Strong vs infantry\n Weak vs anything else
 	Health:
-		HP: 30000
+		HP: 17000
 	Mobile:
 		Speed: 65
 	UpdatesPlayerStatistics:
@@ -548,6 +550,7 @@ SWORDMAN:
 ##Base Infantry for Medi, More HP less damage.
 ShieldKnight:
 	Inherits@FOOTMAN: FOOTMAN
+	Inherits@HighHPInf: ^HighHPInfantry
 	Buildable:
 		Prerequisites: ~infantry.medi
 		Description: Mediaval Shield knight. \n Strong vs infantry\n Weak vs anything else
@@ -646,6 +649,7 @@ MEDIPALADIN:
 		BuildAtProductionType: Soldier
 		BuildPaletteOrder: 413
 		BuildDuration: 800
+		BuildLimit: 15
 	Selectable:
 		Bounds: 1194, 1365, 0, -682
 		DecorationBounds: 1194, 1365, 0, -682
@@ -654,14 +658,14 @@ MEDIPALADIN:
 	Tooltip:
 		Name: Holy Paladin
 	Health:
-		HP: 70000
+		HP: 56789
 	Armor:
 		Type: Heavy
 	ChangesHealth@pallyboost:
-		PercentageStep: 10
+		PercentageStep: 2
 		Delay: 50
-		StartIfBelow: 80
-		DamageCooldown: 50
+		StartIfBelow: 50
+		DamageCooldown: 100
 		RequiresCondition: !lowpower
 	FirepowerMultiplier:
 		Modifier: 70
@@ -696,6 +700,12 @@ MEDIPALADIN:
 		RequiresCondition: HolyBoostableOnly
 		Condition: MartyrBind
 		Range: 5c512
+	DamageMultiplier@iar1:
+		Modifier: 85
+	DamageMultiplier@iar2:
+		Modifier: 75
+	DamageMultiplier@iar3:
+		Modifier: 70
 
 ##Throws tornados and doesn�t afraid of anything
 MEDIBLADEMASTER:
@@ -775,7 +785,7 @@ BOWMAN:
 		DefaultAttackSequence: shoot
 		StandSequences: stand
 	AutoTarget:
-		InitialStance: AttackAnything
+		InitialStance: Defend
 		ScanRadius: 6
 	AutoTargetPriority@DEFAULT:
 		ValidTargets: GroundActor
@@ -904,7 +914,7 @@ VOIDARCHER:
 		Weapon: Voidarchershot3
 		RequiresCondition: elementalweps
 	AutoTarget:
-		InitialStance: AttackAnything
+		InitialStance: Defend
 		ScanRadius: 9
 	RenderSprites:
 		Image: medivoidarcher
@@ -1035,7 +1045,7 @@ MUSKETEER:
 		Name: bus
 		Weapon: MusketeerShot
 	AutoTarget:
-		InitialStance: AttackAnything
+		InitialStance: Defend
 		ScanRadius: 10
 	RenderSprites:
 		Image: medimusketeer
