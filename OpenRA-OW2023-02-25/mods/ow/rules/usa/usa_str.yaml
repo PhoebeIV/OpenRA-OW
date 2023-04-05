@@ -35,6 +35,9 @@ usacoldfusion:
 	WithBuildingBib:
 	Power:
 		Amount: 100
+	Power@AI50:
+		Amount: 100
+        RequiresCondition: ai.hard
 	Power@Extra50:
 		Amount: 50
         RequiresCondition: coldfusionup1
@@ -240,6 +243,12 @@ usasupplycenter:
 		Produces: Helicopter, Aircraft
 	Exit:
 		ProductionTypes: Helicopter
+	GrantConditionOnPrerequisite@supplylines:
+		Condition: supplylines
+		Prerequisites: ~upgrade.supplylines
+	ResourceValueMultiplier@supplylines:
+		Modifier: 125
+		RequiresCondition: supplylines
         
 usawarfactory:
 	Inherits: ^DawnBuilding
@@ -536,7 +545,7 @@ usastrategycenter:
 		Icon: usaspydronepower
 		Descriptions: Spy Drone
 		LongDescs: Spawns a Spy Drone anywhere on the map.
-		StartFullyCharged: false
+		StartFullyCharged: true
 		SelectTargetSpeechNotification: SelectTarget
 		Prerequisites: ~structures.usa
 	ParatroopersPower@usarangers:
@@ -562,6 +571,24 @@ usastrategycenter:
 		DirectionArrowAnimation: paradirection
 		SupportPowerPaletteOrder: 50
 		SquadSize: 3
+	GrantExternalConditionPower@patriotism:
+		PauseOnCondition: disabled
+		Icon: patriotismicon
+		ChargeInterval: 7500
+		Prerequisites: ~upgrade.aircraftgeneral, ~upgrade.superweaponsgeneral, upgrade.lasergeneral
+		Name: Patriotism
+		OrderName: patriotism
+		Description: Makes a group of units fight for their country. (20% Buff)
+		Duration: 750
+		SelectTargetSpeechNotification: SelectTarget
+		InsufficientPowerSpeechNotification: InsufficientPower
+		DisplayRadarPing: True
+		Condition: patriotismboost
+		OnFireSound: sfrenzya.wav
+		SupportPowerPaletteOrder: 10
+		Dimensions: 7, 7
+		Footprint: _xxxxx_ xxxxxxx xxxxxxx xxxxxxx xxxxxxx xxxxxxx _xxxxx_
+		DisplayTimerRelationships: Ally, Neutral, Enemy
  
 #mines move later
 USAMINEDROP:

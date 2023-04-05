@@ -83,6 +83,14 @@
 	GrantConditionOnHealth@plague:
 		MinHP: 99
 		Condition: enough_health
+	ExternalCondition@avengermarked:
+		Condition: avengermarked
+	DamageMultiplier@avengermarked:
+		RequiresCondition: avengermarked
+		Modifier: 110
+	WithColoredOverlay@avengermarked:
+		RequiresCondition: avengermarked
+		Color: 0000FF40
 
 ^NoExp:
 	Inherits: ^GainsExperience
@@ -742,6 +750,9 @@
 	SpawnActorsOnSell@gla:
 		Factions: demo, kassad, thrax
 		ActorTypes: ge1,ge1,ge1,tecn,tecn
+	SpawnActorsOnSell@usa:
+		Factions: usa
+		ActorTypes: usaranger,usaranger,usaranger,usaranger,usaranger
 	SpawnActorsOnSell@medi:
 		Factions: darkness, holy, elementalists
 		ActorTypes: slave,slave,slave,slave,slave,slave,slave,slave,slave,slave,slave,slave,slave,slave,slave,slave,slave,slave,slave,slave
@@ -829,6 +840,9 @@
 	SpawnActorsOnSell@medi:
 		Factions: darkness, holy, elementalists
 		ActorTypes: slave,slave,slave,slave,slave,slave,slave,slave,slave,slave,slave,slave,slave,slave,slave,slave,slave,slave,slave,slave
+	SpawnActorsOnSell@usa:
+		Factions: usa
+		ActorTypes: usaranger,usaranger,usaranger,usaranger,usaranger
 	Targetable@tech:
 		TargetTypes: Tech
 	ExternalCondition@PZom:
@@ -865,6 +879,8 @@
 	Inherits@CorruptedOre: ^CorruptedOreCon
 	Inherits@glavehicle: ^GLAVehicle # self healing for GLA owned vehicles
 	Inherits@gps: ^GPSScramblable
+	Inherits@patriotism: ^patriotismboost
+	Inherits@advancedtraining: ^advancedtraining
 	RevealOnFire:
 	Repairable:
 		RepairActors: fix, gfix, gfix.boss
@@ -987,6 +1003,9 @@
 	SpawnActorsOnSell@gla:
 		Factions: demo, kassad, thrax
 		ActorTypes: ge1,ge1,ge1,tecn
+	SpawnActorsOnSell@usa:
+		Factions: usa
+		ActorTypes: usaranger,usaranger,usaranger,usaranger,usaranger
 
 ^Infantry:
 	Inherits@DarkWizBoosted: ^DarkWizBoosted
@@ -1003,6 +1022,8 @@
 	Inherits@ShieldHero: ^HolySuperBoosted
 	Inherits@CurseCondition: ^CurseDebuff
 	Inherits@gps: ^GPSScramblable
+	Inherits@patriotism: ^patriotismboostInfantry
+	Inherits@advancedtraining: ^advancedtraining
 	Crushable:
 		RequiresCondition: !HolySuperBoosted
 	RevealOnFire:
@@ -1228,6 +1249,8 @@
 ^Ship:
 	Inherits@corrode: ^CorrodesFromTibWeaps
 	Inherits@CurseCondition: ^CurseDebuff
+	Inherits@patriotism: ^patriotismboost
+	Inherits@advancedtraining: ^advancedtraining
 	RepairableNear:
 		RepairActors: spen, syrd, gspen, dockmedi
 	RevealOnFire:
@@ -1285,6 +1308,8 @@
 	Inherits@TotemDebuf: ^TotemDebufer
 	Inherits@corrode: ^CorrodesFromTibWeaps
 	Inherits@GPS: ^GPSScramblable
+	Inherits@patriotism: ^patriotismboost
+	Inherits@advancedtraining: ^advancedtraining
 	Repairable:
 		RepairActors: fix, gfix, gfix.boss
 	RevealOnFire:
@@ -1363,12 +1388,16 @@
 	Inherits@CurseCondition: ^CurseDebuff
 	Inherits@TotemBoost: ^TotemBooster
 	Inherits@TotemDebuf: ^TotemDebufer
+	Inherits@patriotism: ^patriotismboost
+	Inherits@advancedtraining: ^advancedtraining
 
 
 ^Plane:
 	Inherits@CurseCondition: ^CurseDebuff
 	Inherits@TotemBoost: ^TotemBooster
 	Inherits@TotemDebuf: ^TotemDebufer
+	Inherits@patriotism: ^patriotismboost
+	Inherits@advancedtraining: ^advancedtraining
 	Repairable:
 		RepairActors: fix, gfix, gfix.boss
 
@@ -1797,3 +1826,44 @@
 ^CivField:
 	HitShape:
 	Health:
+
+^patriotismboost:
+	ExternalCondition@patriotismboost:
+		Condition: patriotismboost
+	DamageMultiplier@patriotismboost:
+		RequiresCondition: patriotismboost
+		Modifier: 80
+	FirepowerMultiplier@patriotismboost:
+		RequiresCondition: patriotismboost
+		Modifier: 120
+	ReloadDelayMultiplier@patriotismboost:
+		RequiresCondition: patriotismboost
+		Modifier: 80
+	RangeMultiplier@patriotismboost:
+		RequiresCondition: patriotismboost
+		Modifier: 110
+	SpeedMultiplier@patriotismboost:
+		RequiresCondition: patriotismboost
+		Modifier: 120
+	TimedConditionBar@patriotismboost:
+		Color: 00FFFF
+		Condition: patriotismboost
+	WithIdleOverlay@patriotismboost:
+		Image: patriotism-overlay
+		Sequence: vehicle
+		Palette: effect
+		RequiresCondition: patriotismboost
+		IsDecoration: True
+
+^patriotismboostInfantry:
+	Inherits: ^patriotismboost
+	WithIdleOverlay@patriotismboost:
+		Sequence: infantry
+
+^advancedtraining:
+    GrantConditionOnPrerequisite@advancedtraining:
+        Condition: advancedtraining
+        Prerequisites: upgrade.usatraining
+	GainsExperienceMultiplier@advancedtraining:
+		RequiresCondition: advancedtraining
+		Modifier: 200
