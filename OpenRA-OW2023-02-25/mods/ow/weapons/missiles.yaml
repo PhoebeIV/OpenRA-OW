@@ -1023,7 +1023,7 @@ ScoutMissile:
 rangergrenade:
 	Inherits: ^Artillery
 	ReloadDelay: 50
-	Range: 4c384
+	Range: 5c0
 	MinRange: 0c512
 	InvalidTargets: Vehicle, Tank, Structure, Wall
 	Report: grenade1.aud
@@ -1051,7 +1051,7 @@ missiledefendershot:
 	Inherits: ^AntiGroundMissile
 	RequiresNormalFire: true
 	ReloadDelay: 25
-	Range: 4c384
+	Range: 5c0
 	Report: imisweaa.wav, imisweab.wav, imisweac.wav
 	Projectile: Missile
 	Warhead@1Dam: SpreadDamage
@@ -1070,13 +1070,51 @@ missiledefendershotair:
 	Warhead@1Dam: SpreadDamage
 		Damage: 3000
 
-
 missiledefendershotgarrison:
 	Inherits: missiledefendershot
 	RequiresNormalFire: false
-	Range: 5c853
+	Range: 6c0
 	Projectile: Missile
 		RangeLimit: 7c0
+	Warhead@1Dam: SpreadDamage
+		Damage: 4000
+		ValidTargets: Ground, GroundActor, Air, AirborneActor, WaterActor, Trees
+
+missiledefendershotupgrade:
+	Inherits: ^AntiGroundMissile
+	RequiresNormalFire: true
+	ReloadDelay: 15
+	Range: 5c0
+	Report: imisweaa.wav, imisweab.wav, imisweac.wav
+	Projectile: Missile
+        ContrailStartColor: FF0000
+        ContrailEndColor: 8B0000
+	Warhead@1Dam: SpreadDamage
+		Damage: 3000
+		ValidTargets: Ground, GroundActor, Air, AirborneActor, WaterActor, Trees
+
+missiledefendershotairupgrade:
+	Inherits: ^AntiAirMissile
+	RequiresNormalFire: true
+	ReloadDelay: 15
+	Range: 6c0
+	Report: imisweaa.wav, imisweab.wav, imisweac.wav
+	Projectile: Missile
+        ContrailStartColor: FF0000
+        ContrailEndColor: 8B0000
+		Speed: 400
+		RangeLimit: 12c0
+	Warhead@1Dam: SpreadDamage
+		Damage: 3000
+
+missiledefendershotgarrisonupgrade:
+	Inherits: missiledefendershotupgrade
+	RequiresNormalFire: false
+	Range: 6c0
+	Projectile: Missile
+        ContrailStartColor: FF0000
+        ContrailEndColor: 8B0000
+		RangeLimit: 9c0
 	Warhead@1Dam: SpreadDamage
 		Damage: 4000
 		ValidTargets: Ground, GroundActor, Air, AirborneActor, WaterActor, Trees
@@ -1467,49 +1505,10 @@ usapatriotshotemp:
 		ValidTargets: GroundActor, WaterActor
 		DamageTypes: Prone50Percent, TriggerProne, SmallExplosionDeath
         
-missiledefendershotupgrade:
-	Inherits: ^AntiGroundMissile
-	RequiresNormalFire: true
-	ReloadDelay: 15
-	Range: 7c384
-	Report: imisweaa.wav, imisweab.wav, imisweac.wav
-	Projectile: Missile
-        ContrailStartColor: FF0000
-        ContrailEndColor: 8B0000
-	Warhead@1Dam: SpreadDamage
-		Damage: 3000
-		ValidTargets: Ground, GroundActor, Air, AirborneActor, WaterActor, Trees
-
-missiledefendershotairupgrade:
-	Inherits: ^AntiAirMissile
-	RequiresNormalFire: true
-	ReloadDelay: 15
-	Range: 9c0
-	Report: imisweaa.wav, imisweab.wav, imisweac.wav
-	Projectile: Missile
-        ContrailStartColor: FF0000
-        ContrailEndColor: 8B0000
-		Speed: 400
-		RangeLimit: 12c0
-	Warhead@1Dam: SpreadDamage
-		Damage: 3000
-
-missiledefendershotgarrisonupgrade:
-	Inherits: missiledefendershotupgrade
-	RequiresNormalFire: false
-	Range: 8c853
-	Projectile: Missile
-        ContrailStartColor: FF0000
-        ContrailEndColor: 8B0000
-		RangeLimit: 9c0
-	Warhead@1Dam: SpreadDamage
-		Damage: 4000
-		ValidTargets: Ground, GroundActor, Air, AirborneActor, WaterActor, Trees
-        
 usamlrscarriershot:
 	Inherits: ^AntiGroundMissile
 	ReloadDelay: 300
-	Burst: 8
+	Burst: 12
 	BurstDelays: 4
 	Range: 18c0
 	MinRange: 3c0
@@ -1520,12 +1519,12 @@ usamlrscarriershot:
 		RangeLimit: 20c0
 	Warhead@1Dam: SpreadDamage
 		Spread: 192
-		Damage: 6000
-		ValidTargets: GroundActor, WaterActor
+		Damage: 7000
+		ValidTargets: Ground, GroundActor, WaterActor
 		Versus:
-			None: 80
-			Wood: 60
-			Light: 50
+			None: 140
+			Wood: 100
+			Light: 80
 			Heavy: 80
 			Concrete: 50
 	Warhead@3Eff: CreateEffect

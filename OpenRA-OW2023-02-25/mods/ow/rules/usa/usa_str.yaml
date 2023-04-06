@@ -17,6 +17,13 @@ usacoldfusion:
 		Cost: 300
 	Tooltip:
 		Name: Cold Fusion Reactor
+        RequiresCondition: !coldfusionup1 && !coldfusionup2
+	Tooltip@Extra50:
+		Name: Cold Fusion Reactor (Control Rods)
+        RequiresCondition: coldfusionup1 && !coldfusionup2
+	Tooltip@Extra150:
+		Name: Cold Fusion Reactor (Nuclear Rods)
+        RequiresCondition: coldfusionup2
 	ProvidesPrerequisite:
 		Prerequisite: anypower
 	Building:
@@ -575,7 +582,7 @@ usastrategycenter:
 		PauseOnCondition: disabled
 		Icon: patriotismicon
 		ChargeInterval: 7500
-		Prerequisites: ~upgrade.aircraftgeneral, ~upgrade.superweaponsgeneral, upgrade.lasergeneral
+		Prerequisites: ~upgrade.aircraftgeneral, ~upgrade.superweaponsgeneral, ~upgrade.lasergeneral
 		Name: Patriotism
 		OrderName: patriotism
 		Description: Makes a group of units fight for their country. (20% Buff)
@@ -588,7 +595,7 @@ usastrategycenter:
 		SupportPowerPaletteOrder: 10
 		Dimensions: 7, 7
 		Footprint: _xxxxx_ xxxxxxx xxxxxxx xxxxxxx xxxxxxx xxxxxxx _xxxxx_
-		DisplayTimerRelationships: Ally, Neutral, Enemy
+		DisplayTimerRelationships: Ally
  
 #mines move later
 USAMINEDROP:
@@ -710,7 +717,7 @@ usasupplydropzone:
 	Armor:
 		Type: Wood
 	Power:
-		Amount: -100
+		Amount: -200
 	ProvidesPrerequisite@buildingname:
 	CashTrickler:
 		Interval: 3000
@@ -754,9 +761,7 @@ usaparticlecannon:
 	Armor:
 		Type: Wood
 	RevealsShroud:
-		MinRange: 4c0
-		Range: 5c0
-		RevealGeneratedShroud: False
+		Range: 4c0
 	SpawnActorPower:
 		OrderName: ParticleCannonStrike
 		Actor: hack.particle_beam
@@ -997,7 +1002,7 @@ usalaserpatriot:
 		PauseOnCondition: build-incomplete
 	WithMuzzleOverlay:
 	Power:
-		Amount: -80
+		Amount: -100
 	DetectCloaked:
 		Range: 6c0
 	-BodyOrientation:
