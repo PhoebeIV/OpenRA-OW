@@ -72,6 +72,10 @@
 		Delay: 75
 		StartIfBelow: 40
 		-DamageCooldown:
+	ChangesHealth@trigger_repair:
+		RequiresCondition: trigger_repair
+		Step: 40
+	-ChangesHealth@trigger_repair2:
 
 ^ZergScienceBuilding:
 	Inherits: ^ZergBuilding
@@ -551,7 +555,7 @@ ZHATCHERY:
 		ReadyTextNotification: Reinforcements have arrived.
 		BlockedAudio: NoBuild
 		BlockedTextNotification: No room for new unit.
-		OrderName: ProduceActorPower.DevouringOne
+		OrderName: SpawnDevouringOne
 	Production@specialunit:
 		Produces: SpecialUnit
 		RequiresCondition: hive_upgrade
@@ -1478,6 +1482,7 @@ ZNYDUS:
 	Inherits@prereqs: ^BarracksPrereqs
 	Inherits@shape: ^2x2Shape
 	Inherits@def: ^Defense
+	Inherits@AUTOTARGET: ^AutoTargetAll
 	-Building:
 	Selectable:
 		Bounds: 2048, 2048
@@ -1628,6 +1633,7 @@ ZNYDUS:
 		Weapon: NydusSpawn
 		PauseOnCondition: !ammo
 		RequiresCondition: !build-incomplete
+		ForceTargetRelationships: None
 	ExternalCondition@ambushhole:
 		Condition: produceunit
 	ProximityExternalCondition:
@@ -1654,3 +1660,109 @@ ZNYDUS:
 		Interval: -1
 		Delay: 0
 		RequiresCondition: busy
+	ProximityExternalCondition:
+		Condition: creepgen
+		Range: 7c0
+		ValidRelationships: Neutral, Ally, Enemy
+
+ZMSLO:
+	Inherits: ^ZergBuilding
+	Inherits@IDISABLE: ^DisableOnLowPowerOrPowerDown
+	Inherits@shape: ^2x1Shape
+	Selectable:
+		Bounds: 2048, 1024
+	Valued:
+		Cost: 2500
+	Tooltip:
+		Name: Infested Missile Silo
+	Buildable:
+		Queue: Tech
+		Icon: icon-zerg
+		BuildPaletteOrder: 1003
+		Prerequisites: ~structures.zerg, zlair, ~techlevel.unrestricted
+		BuildLimit: 1
+		Description: Provides an atomic bomb full of plague and corrosion.\nRequires power to operate.\nMaximum 1 can be built.\n  Special Ability: Zerg Atom Bomb
+	D2kBuilding:
+		Footprint: xx
+		Dimensions: 2,1
+	Health:
+		HP: 100000
+	Armor:
+		Type: Wood
+	RevealsShroud:
+		MinRange: 5c0
+		Range: 6c0
+		RequiresCondition: !disabled
+		RevealGeneratedShroud: False
+	RevealsShroud@Offline:
+		Range: 5c0
+		RequiresCondition: disabled
+	RevealsShroud@GAPGEN:
+		Range: 5c0
+		RequiresCondition: !disabled
+	Explodes@bomb:
+		Type: CenterPosition
+		Weapon: MiniNuke
+		EmptyWeapon: MiniNuke
+	Explodes@plague:
+		Type: CenterPosition
+		Weapon: DefilerPlague
+		EmptyWeapon: DefilerPlague
+	NukePower:
+		PauseOnCondition: disabled
+		OrderName: ZergAtom
+		Cursor: nuke
+		Icon: znuke
+		ChargeInterval: 19500
+		Name: Plague Bomb
+		Description: Launches a devastating atomic bomb\nat a target location, inflicting plague\n and corrosion.
+		BeginChargeSpeechNotification: AbombPrepping
+		EndChargeSpeechNotification: AbombReady
+		SelectTargetSpeechNotification: SelectTarget
+		InsufficientPowerSpeechNotification: InsufficientPower
+		IncomingSpeechNotification: AbombLaunchDetected
+		SelectTargetTextNotification: Select target.
+		InsufficientPowerTextNotification: Insufficient power.
+		BeginChargeTextNotification: A-bomb prepping.
+		EndChargeTextNotification: A-bomb ready.
+		IncomingTextNotification: A-bomb launch detected.
+		MissileWeapon: PlagueAtomic
+		MissileImage: atomic.nod3
+		MissileDelay: 5
+		SpawnOffset: 1c0,427,0
+		DisplayTimerRelationships: Ally, Neutral, Enemy
+		DisplayBeacon: True
+		DisplayRadarPing: True
+		BeaconPoster: chem
+		CameraRange: 10c0
+		ArrowSequence: arrow
+		ClockSequence: clock
+		CircleSequence: circles
+		SupportPowerPaletteOrder: 70
+		CameraRemoveDelay: 150
+	SupportPowerChargeBar:
+	InfiltrateForSupportPowerReset:
+		Types: SpyInfiltrate
+	Targetable:
+		TargetTypes: GroundActor, C4, DetonateAttack, Structure, SpyInfiltrate
+	Power:
+		Amount: -100
+	MustBeDestroyed:
+		RequiredForShortGame: false
+	WithSupportPowerActivationAnimation:
+		RequiresCondition: !build-incomplete
+	RenderSprites:
+		Image: mslo
+	WithIdleOverlay:
+		RequiresCondition: !build-incomplete
+		Image: zmslo
+		Sequence: idle
+		IsPlayerPalette: true
+		Palette: player
+	FreeActor@effect_complete:
+		Actor: SmallZergBuildingComplete
+		SpawnOffset: 0,0
+		RequiresCondition: !build-incomplete
+	ProvidesPrerequisite@self:
+	ProvidesPrerequisite@superweapon:
+		Prerequisite: superweapon
