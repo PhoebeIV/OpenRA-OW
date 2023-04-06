@@ -43,7 +43,7 @@
 	RequiresBuildableArea:
 		Adjacent: 6
 	RepairableBuilding:
-		RepairStep: 200
+		RepairStep: 50
 		PlayerExperience: 2
 		RepairPercent: 0
 	Explodes:
@@ -62,6 +62,16 @@
 		Condition: sell_me
 	KillsSelf@explode:
 		RequiresCondition: sell_me
+	ChangesHealth@regen:
+		PercentageStep: 1
+		Delay: 110
+		StartIfBelow: 100
+		DamageCooldown: 250
+	ChangesHealth@regen2:
+		PercentageStep: 1
+		Delay: 75
+		StartIfBelow: 40
+		-DamageCooldown:
 
 ^ZergScienceBuilding:
 	Inherits: ^ZergBuilding
@@ -809,7 +819,7 @@ ZCCOLONY2:
 		Queue: Defense
 		BuildPaletteOrder: 90
 		Prerequisites: ~structures.zerg, ~techlevel.unrestricted, ~zerg.spawning, ~zhive
-		BuildDuration: 800
+		BuildDuration: 1000
 	RequiresBuildableArea:
 		Adjacent: 4
 
