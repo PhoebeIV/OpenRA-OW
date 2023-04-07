@@ -1,0 +1,130 @@
+Player:
+	-ConquestVictoryConditions:
+	LobbyPrerequisiteCheckbox@GLOBALBOUNTY:
+		Enabled: False
+		Locked: True
+	PlayerResources:
+		ResourceValues:
+			Ore: 0
+			Gems: 0
+			Tiberium: 0
+	Shroud:
+		FogCheckboxEnabled: false
+		ExploredMapCheckboxEnabled: true
+
+World:
+	-CrateSpawner:
+	-SpawnStartingUnits:
+	-MapStartingLocations:
+	MusicPlaylist:
+		BackgroundMusic: sctitle
+	GlobalLightingPaletteEffect:
+		Red: 1 # 1.5
+		Green: 1 # 1.1
+		Blue: 1 # 0.8
+		Ambient: 1 # 0.8
+	LuaScript:
+		Scripts: script.lua
+	-StartGameNotification:
+
+^ExistsInWorld:
+	GivesExperience:
+		ActorExperienceModifier: 0
+	DamageMultiplier@UNKILLABLE:
+		RequiresCondition: unkillable
+		Modifier: 3
+	FirepowerMultiplier@UNKILLABLE:
+		RequiresCondition: unkillable
+		Modifier: 200
+	ReloadDelayMultiplier@UNKILLABLE:
+		RequiresCondition: unkillable
+		Modifier: 80
+	RangeMultiplier@UNKILLABLE:
+		RequiresCondition: defender
+		Modifier: 110
+	ExternalCondition@UNKILLABLE:
+		Condition: unkillable
+	ExternalCondition@defender:
+		Condition: defender
+	DetectCloaked:
+		DetectionTypes: Cloak
+		Range: 10c0
+	RevealsShroudMultiplier:
+		Modifier: 200
+
+ZLURKER.AI:
+	AutoTarget:
+		ScanRadius: 40
+
+ZZERGLING:
+	AutoTarget:
+		ScanRadius: 40
+
+ZULTRA:
+	AutoTarget:
+		ScanRadius: 40
+
+ZKERRIGAN:
+	AutoTarget:
+		ScanRadius: 40
+
+ZHYDRA:
+	AutoTarget:
+		ScanRadius: 40
+
+ZHATCHERY:
+	-GrantConditionOnProduction@busy:
+
+ZCCOLONY:
+	GrantRandomCondition@sbeve1:
+		Conditions: str_sunken, str_spore
+	GrantCondition@sbeve:
+		RequiresCondition: str_sunken || str_spore
+		Condition: waiting_to_evolve
+
+ZNYDUS:
+	KillsSelf@new:
+		Delay: 2250
+	Health:
+		HP: 160000
+
+PFLEET:
+	-ClonesProducedUnits:
+	Production:
+		Produces: Vehicle, Infantry, Soldier, Aircraft, Helicopter
+
+PGATEW:
+	Production:
+		Produces: Vehicle, Infantry, Soldier
+
+PMOTHER:
+	-WithAmmoPipsDecoration:
+	Health:
+		HP: 60000
+
+PSBATT:
+	-WithAmmoPipsDecoration:
+
+PTEMPLAR:
+	ReloadAmmoPool:
+		Delay: 5
+	-WithAmmoPipsDecoration:
+
+PCARRY:
+	-WithAmmoPipsDecoration:
+	ReloadAmmoPool@map:
+		Delay: 5
+
+PSCOUT:
+	-WithAmmoPipsDecoration:
+	ReloadAmmoPool@map:
+		Delay: 5
+
+PSHUTTLE:
+	Health:
+		HP: 100000
+
+powerproxy.paratroopers:
+	ParatroopersPower:
+		DropItems: NydusSpawner
+		UnitType: U2.Nydus
