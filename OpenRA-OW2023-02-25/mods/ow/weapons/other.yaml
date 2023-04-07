@@ -2866,3 +2866,72 @@ GuardianSpores:
 		ImpactSounds: zguhit00.aud
 		ValidTargets: Ground, GroundActor, WaterActor, Trees, Air, AirborneActor
 		Inaccuracy: 128
+
+
+KerriganBeam:
+	Inherits: ^TeslaWeapon
+	ReloadDelay: 24
+	Report: ukifir00.aud
+	Range: 8c0
+	Projectile: TeslaZap
+		TrackTarget: false
+		Duration: 6
+		Image: zlitning
+	ValidTargets: Ground, Water, GroundActor, WaterActor, AirborneActor
+	Warhead@1Dam: SpreadDamage
+		Spread: 256
+		Damage: 12000
+		ValidTargets: GroundActor, WaterActor
+		Versus:
+			None: 80
+			Light: 60
+			Wood: 60
+			Heavy: 70
+			Concrete: 60
+		DamageTypes: Prone50Percent, TiberiumDeath
+	Warhead@1Air: SpreadDamage
+		Spread: 128
+		Damage: 5000
+		ValidTargets: AirborneActor
+		DamageTypes: TiberiumDeath
+	Warhead@2Smu: LeaveSmudge
+		SmudgeType: Scorch
+		ValidTargets: Ground, Infantry
+	Warhead@2Dam: SpreadDamage
+		Delay: 8
+		Spread: 400
+		Damage: 6000
+		ValidTargets: GroundActor, WaterActor
+		Versus:
+			Light: 75
+			Wood: 50
+			Heavy: 60
+			Concrete: 50
+		DamageTypes: Prone50Percent, TriggerProne, ElectricityDeath
+	Warhead@3EffGround: CreateEffect
+		Explosions: baron
+		Inaccuracy: 512
+		ValidTargets: Ground, Air, GroundActor, AirborneActor, WaterActor, Water, Trees
+	Warhead@4EffGround: CreateEffect
+		Explosions: baron
+		Inaccuracy: 512
+		ValidTargets: Ground, Air, GroundActor, AirborneActor, WaterActor, Water, Trees
+		Delay: 2
+	Warhead@5EffGround: CreateEffect
+		Explosions: baron
+		Inaccuracy: 512
+		ValidTargets: Ground, Air, GroundActor, AirborneActor, WaterActor, Water, Trees
+		Delay: 4
+	Warhead@6EffGround: CreateEffect
+		Explosions: baron
+		Inaccuracy: 512
+		ValidTargets: Ground, Air, GroundActor, AirborneActor, WaterActor, Water, Trees
+		Delay: 6
+
+KerriganPlague:
+	Inherits: DefilerPlague
+	ReloadDelay: 1500
+	Range: 8c0
+	Warhead@curtain: GrantExternalCondition
+		AffectsParent: false
+		ValidRelationships: Enemy, Neutral

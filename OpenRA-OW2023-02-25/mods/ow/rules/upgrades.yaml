@@ -361,8 +361,25 @@ UpgradeHandler:
 	ProvidesPrerequisite@ai_noboats:
 		Prerequisite: faction.noboats
 		RequiresPrerequisites: ai.all, !structures.silver
+	GrantConditionOnPrerequisite@extraupgrade:
+		Condition: bot_harder
+		Prerequisites: ai.harder
+	FreeActor@harderbot:
+		Actor: UpgradeHandlerBot
+		SpawnOffset: 1,0
+		RequiresCondition: bot_harder
 	OwnerLostAction:
 		Action: Dispose
+
+UpgradeHandlerBot:
+	Inherits@mine: UpgradeHandler
+	-FreeActor@harderbot:
+	ProductionQueue@Upgrade:
+		Type: Upgrade
+		DisplayOrder: 9
+		LowPowerModifier: 300
+		BuildDurationModifier: 250
+	-ExternalCondition@upgrade:
 
 ^UpgradeBase:
 	Buildable:

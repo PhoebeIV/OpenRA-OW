@@ -1,13 +1,16 @@
 ^Building:
 	GrantConditionOnBotOwner@bot:
 		Condition: botowner
-		Bots: easy,medium,hard,boss
+		Bots: easy,medium,hard,harder,boss
 	GrantConditionOnPrerequisite@botmoney:
 		Condition: bot_med
 		Prerequisites: ai.medium
 	GrantConditionOnPrerequisite@botmoney2:
 		Condition: bot_hard
 		Prerequisites: ai.hard
+	GrantConditionOnPrerequisite@botmoney4:
+		Condition: bot_harder
+		Prerequisites: ai.harder
 	GrantConditionOnPrerequisite@botmoney3:
 		Condition: bot_boss
 		Prerequisites: ai.boss
@@ -21,9 +24,14 @@
 		Amount: 30
 		ShowTicks: false
 		RequiresCondition: bot_hard
+	CashTrickler@harderAI:
+		Interval: 250
+		Amount: 20
+		ShowTicks: false
+		RequiresCondition: bot_harder
 	CashTrickler@bossAI:
 		Interval: 250
-		Amount: 60
+		Amount: 75
 		ShowTicks: false
 		RequiresCondition: bot_boss
 	ExternalCondition@trigger_repair:
@@ -44,6 +52,8 @@
 		Amount: 150
 	CashTrickler@hardAI:
 		Amount: 300
+	CashTrickler@harderAI:
+		Amount: 150
 	CashTrickler@bossAI:
 		Amount: 1000
 	Production@boss:
@@ -71,6 +81,9 @@
 	PowerMultiplier@hardAI:
 		RequiresCondition: bot_hard
 		Modifier: 150
+	PowerMultiplier@harderAI:
+		RequiresCondition: bot_harder
+		Modifier: 110
 	PowerMultiplier@bossAI:
 		RequiresCondition: bot_boss
 		Modifier: 400
@@ -700,6 +713,9 @@ Player:
 	ModularBot@HardAI:
 		Name: Hard AI
 		Type: hard
+	ModularBot@HarderAI:
+		Name: Harder AI
+		Type: harder
 	ModularBot@BossAI:
 		Name: Boss AI
 		Type: boss
@@ -713,8 +729,11 @@ Player:
 		RequiresCondition: enable-medium-ai
 		Prerequisite: ai.medium
 	ProvidesPrerequisite@hard:
-		RequiresCondition: enable-hard-ai || enable-boss-ai
+		RequiresCondition: enable-hard-ai || enable-harder-ai || enable-boss-ai
 		Prerequisite: ai.hard
+	ProvidesPrerequisite@harder:
+		RequiresCondition: enable-harder-ai || enable-boss-ai
+		Prerequisite: ai.harder
 	ProvidesPrerequisite@boss:
 		RequiresCondition: enable-boss-ai
 		Prerequisite: ai.boss
@@ -726,13 +745,16 @@ Player:
 		Bots: easy
 	GrantConditionOnBotOwner@hard:
 		Condition: enable-hard-ai
-		Bots: hard
+		Bots: hard,harder
+	GrantConditionOnBotOwner@harder:
+		Condition: enable-harder-ai
+		Bots: harder
 	GrantConditionOnBotOwner@boss:
 		Condition: enable-boss-ai
 		Bots: boss
 	GrantConditionOnBotOwner@all:
 		Condition: enable-all-ai
-		Bots: easy, medium, hard, boss
+		Bots: easy, medium, hard, harder, boss
 	GrantConditionOnFaction@medi:
 		Condition: enable-medi-ai
 		Factions: darkness, holy, elementalists, zerg
@@ -802,6 +824,8 @@ Player:
 			passim: 4
 			zextrac: 4
 			usasupplycenter: 2
+			oreext: 4
+			oreext.g: 4
 			dome: 1 # TECHNOLOGY / UTILITY
 			hqd: 1
 			gmgg: 1
@@ -972,8 +996,8 @@ Player:
 			gfix: 10
 			gfix.boss: 10
 			gap3: 10
-			oreext: 30
-			oreext.g: 30
+			oreext: 5
+			oreext.g: 5
 			oregen: 10
 			gemgen: 10
 			gap: 10
@@ -1486,6 +1510,7 @@ Player:
 			zqueen: 5
 			zguardian: 5
 			zdefiler: 5
+			zkerrigan: 5
 			usacrusader: 20
 			usapaladin: 10
 			usahumvee: 20

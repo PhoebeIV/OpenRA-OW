@@ -185,3 +185,49 @@ ZergAirUnitDeath:
 		ImpactSounds: expnew10.aud
 		Explosions: zerg_air_death1
 		ValidTargets: Ground, Air, GroundActor, AirborneActor, WaterActor, Trees
+
+KerriganDeath:
+	Warhead@1Dam: CreateEffect
+		ImpactSounds: zkedth00.wav
+		ImpactActors: false
+	Warhead@99Eff_impact: CreateEffect
+		Delay: 60
+		ImpactSounds: jericho.wav
+		ImpactActors: false
+	Warhead@2Eff: CreateEffect
+		Delay: 60
+		Explosions: blood_explosion_small
+		ImpactSounds: zbldgdth.aud
+		ImpactActors: false
+	Warhead@1Dam_impact: SpreadDamage
+		Spread: 1c0
+		Delay: 68
+		Damage: 10000
+		Falloff: 1000, 368, 135, 50, 18, 7, 0
+		ValidTargets: GroundActor, Trees, WaterActor, Underwater, AirborneActor
+		Versus:
+			Concrete: 25
+		AffectsParent: true
+		DamageTypes: Prone50Percent, TriggerProne, FireDeath, Incendiary
+	Warhead@4Dam_areanuke1: SpreadDamage
+		Spread: 1c512
+		Delay: 73
+		Damage: 6000
+		Falloff: 1000, 600, 400, 250, 150, 100, 0
+		ValidTargets: GroundActor, Trees, WaterActor, Underwater, AirborneActor
+		Versus:
+			Concrete: 25
+		AffectsParent: true
+		DamageTypes: Prone50Percent, TriggerProne, FireDeath, Incendiary
+	Warhead@6Smu_areanuke1: LeaveSmudge
+		SmudgeType: Scorch
+		ValidTargets: Ground, Infantry
+		Size: 4
+		Delay: 73
+	Warhead@TREEKILL: SpreadDamage
+		Spread: 1c0
+		Damage: 12000
+		Falloff: 1000, 600, 400, 250, 150, 100, 0
+		Delay: 73
+		ValidTargets: Trees
+		DamageTypes: Incendiary

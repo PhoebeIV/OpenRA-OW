@@ -62,6 +62,7 @@ ZZERGLING:
 	Power:
 		Amount: -5
 	RevealsShroud:
+		MinRange: 3c0
 		Range: 4c512
 	Armament@1:
 		Name: primary
@@ -244,6 +245,7 @@ ZHYDRA:
 		Amount: -5
 	-Crushable:
 	RevealsShroud:
+		MinRange: 3c0
 		Range: 5c512
 	Armament:
 		Name: primary
@@ -361,6 +363,7 @@ ZLURKER:
 		Amount: -10
 	-Crushable:
 	RevealsShroud:
+		MinRange: 3c0
 		Range: 5c512
 	Armament:
 		Name: primary
@@ -466,6 +469,7 @@ ZLURKER.AI:
 		Amount: -10
 	-Crushable:
 	RevealsShroud:
+		MinRange: 3c0
 		Range: 5c512
 	Armament:
 		Name: primary
@@ -579,6 +583,7 @@ ZULTRA:
 	Passenger:
 		Weight: 4
 	RevealsShroud:
+		MinRange: 5c0
 		Range: 6c512
 	Armament:
 		Name: primary
@@ -652,6 +657,7 @@ ZDEFILER:
 		Amount: -15
 	-Crushable:
 	RevealsShroud:
+		MinRange: 5c0
 		Range: 8c512
 	Armament:
 		Weapon: DefilerPlague
@@ -802,3 +808,112 @@ ZDEVOURING:
 		Sequence: pip-poison
 		Palette: effect
 		ValidRelationships: None,Neutral,Enemy,Ally
+
+
+ZKERRIGAN:
+	Inherits: ^EpicInfantryNerf
+	Inherits@epic: ^EpicUnit
+	Inherits@zerg: ^ZergUnitWeapon
+	Inherits@autotarget: ^AutoTargetAllAssaultMove
+	-RejectsOrders@freeroam:
+	-AttackWander@freeroam:
+	Buildable:
+		Prerequisites: zhive, ~infantry.zerg, ~techlevel.unrestricted
+		Description: The Queen of the Swarm.\n  Speed: 96\n  Strong vs everything
+		Queue: Infantry
+		BuildAtProductionType: Hatchery
+		BuildPaletteOrder: 2501
+		BuildLimit: 1
+	Selectable:
+		Bounds: 1000, 1000, 0, 0
+		DecorationBounds: 1200, 1200, 0, 0
+	Valued:
+		Cost: 6000
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Tooltip:
+		Name: Kerrigan
+	Health:
+		HP: 200000
+	Mobile:
+		Speed: 96
+		TurnSpeed: 128
+		Locomotor: foot2
+	Power:
+		Amount: 100
+	-Crushable:
+	RevealsShroud:
+		MinRange: 5c0
+		Range: 8c512
+	Armament@1:
+		Name: primary
+		Weapon: KerriganBeam
+		LocalOffset: 512,200,256
+	Armament@2:
+		Name: primary
+		Weapon: KerriganBomb
+		LocalOffset: 512,-200,256
+		FireDelay: 14
+		LocalYaw: 96,-96
+	Armament@3:
+		Name: primary
+		Weapon: KerriganPlague
+		LocalOffset: 512,-200,555
+		FireDelay: 25
+	WithInfantryBody:
+		DefaultAttackSequence: shoot
+		IdleSequences: stand
+		StandSequences: stand
+		RequiresCondition: !burrowed
+	WithInfantryBody@down:
+		DefaultAttackSequence: burrowed
+		IdleSequences: burrowed
+		StandSequences: burrowed
+		RequiresCondition: burrowed
+	GrantConditionOnAttack@attacking:
+		Condition: attacking
+		RevokeDelay: 40
+	AutoTarget:
+		HoldFireCondition: burrowing
+	Targetable:
+		TargetTypes: GroundActor, Infantry, Disguise
+	RenderSprites:
+	AnnounceOnKill:
+	Voiced:
+		VoiceSet: ZergKerriganVoice
+	-DeathSounds@NORMAL:
+	-DeathSounds@BURNED:
+	-DeathSounds@ZAPPED:
+	DeathSounds:
+	WithDeathAnimation:
+		UseDeathTypeSuffix: false
+		CrushedSequence: die
+		CrushedSequencePalette: player
+		CrushedPaletteIsPlayerPalette: true
+	-SpawnActorOnDeath@fire:
+	MustBeDestroyed:
+	ProximityCaptor:
+		Types: Infantry
+	AttackFrontal:
+		FacingTolerance: 32
+	Cloak@burrow:
+		RequiresCondition: burrowing
+		InitialDelay: 75
+		CloakDelay: 50
+		CloakSound: burrowdn.aud
+		UncloakSound: burrowup.aud
+		CloakedCondition: burrowed
+		EffectImage: zkerrigan
+		EffectPalette: player
+		EffectPaletteIsPlayerPalette: true
+		CloakEffectSequence: burrow
+		UncloakEffectSequence: unburrow
+		UncloakOn: Damage, Attack, Move
+		Palette: player
+		IsPlayerPalette: true
+	ProximityExternalCondition:
+		Condition: wander
+		Range: 2c0
+	Explodes:
+		Weapon: KerriganDeath
+		EmptyWeapon: KerriganDeath

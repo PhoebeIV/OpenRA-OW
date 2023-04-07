@@ -1664,3 +1664,37 @@ dukenukemdevestator:
 	Warhead@3Eff: CreateEffect
 		Explosions: dukenukemexplosiontiny
 		ImpactSounds: dukeexplosion.wav
+
+
+KerriganBomb:
+	Inherits: ^AntiGroundMissile
+	ReloadDelay: 250
+	Range: 8c0
+	Report: zgufir00.aud
+	Projectile: Missile
+		Arm: 3
+		Image: zmutaball
+		HorizontalRateOfTurn: 25
+		RangeLimit: 12c512
+		MinimumLaunchAngle: 62
+		MaximumLaunchAngle: 62
+		Speed: 512
+	Warhead@1Dam: SpreadDamage
+		Damage: 20000
+		Spread: 1c256
+		Versus:
+			None: 100
+			Wood: 50
+			Light: 80
+			Heavy: 50
+			Concrete: 100
+		DamageTypes: Prone50Percent, TriggerProne, SmallExplosionDeath
+	Warhead@3Eff: CreateEffect
+		Explosions: dukenukemexplosionsmall
+		ImpactSounds: dsrpgexp.aud
+	Warhead@curtain: GrantExternalCondition
+		Condition: queen_ensnare
+		Range: 2c0
+		Duration: 250
+		AffectsParent: false
+		ValidTargets: WaterActor, GroundActor, AirborneActor
