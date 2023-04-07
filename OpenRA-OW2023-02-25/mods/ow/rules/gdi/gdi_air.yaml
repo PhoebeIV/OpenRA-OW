@@ -379,6 +379,7 @@ TSKODIAC:
 		PauseOnCondition: !airborne
 		Recoil: 171
 		RecoilRecovery: 6
+		AmmoUsage: 0
 	Armament@2:
 		Turret: secondary
 		Weapon: Kodiac120mm
@@ -388,11 +389,13 @@ TSKODIAC:
 		Recoil: 171
 		RecoilRecovery: 6
 		FireDelay: 4
+		AmmoUsage: 0
 	Armament@3:
 		Turret: four
 		Weapon: KodiacBomb
 		LocalOffset: 0,0,-50
 		PauseOnCondition: !airborne
+		AmmoUsage: 0
 	Armament@4:
 		Turret: tertiary
 		Weapon: KodiacNuke
@@ -400,6 +403,8 @@ TSKODIAC:
 		LocalOffset: 400,0,400
 		Recoil: 171
 		RecoilRecovery: 6
+		PauseOnCondition: ammo < 10
+		AmmoUsage: 10
 	Armament@5:
 		Turret: tertiary
 		Weapon: KodiacAA
@@ -408,6 +413,18 @@ TSKODIAC:
 		PauseOnCondition: airborne
 		Recoil: 56
 		RecoilRecovery: 6
+		AmmoUsage: 0
+	AmmoPool:
+		Ammo: 10
+		AmmoCondition: ammo
+		InitialAmmo: 2
+	ReloadAmmoPool@normal:
+		Delay: 50
+	WithAmmoPipsDecoration:
+		Position: BottomLeft
+		Margin: 4, 3
+		RequiresSelection: true
+		PipCount: 10
 	WithMuzzleOverlay:
 	AttackTurreted:
 		Turrets: primary, secondary, tertiary, four
@@ -580,9 +597,23 @@ TSKODID:
 	Armament@1:
 		Weapon: KodiacNuke
 		MuzzleSequence: muzzle
+		PauseOnCondition: ammo < 10
+		AmmoUsage: 10
 	Armament@2:
 		Weapon: KodiacAA
 		MuzzleSequence: muzzle
+		AmmoUsage: 0
+	AmmoPool:
+		Ammo: 10
+		AmmoCondition: ammo
+		InitialAmmo: 2
+	ReloadAmmoPool@normal:
+		Delay: 50
+	WithAmmoPipsDecoration:
+		Position: BottomLeft
+		Margin: 4, 3
+		RequiresSelection: true
+		PipCount: 10
 	WithMuzzleOverlay:
 	AttackTurreted:
 		PauseOnCondition: disabled
