@@ -485,7 +485,7 @@ PASSIM:
 	Inherits@shape: ^3x2Shape
 	Buildable:
 		Queue: Bot
-		Prerequisites: anypower, ~structures.protoss, ~techlevel.infonly, ~ai.all
+		Prerequisites: anypower, ~structures.protoss, ~techlevel.infonly, ~ai.all, ~!ai.boss
 	Valued:
 		Cost: 1400
 	Tooltip:
@@ -978,10 +978,10 @@ PTEMPL.warp:
 	Buildable:
 		Queue: Tech
 		BuildPaletteOrder: 9000
-		Prerequisites: techcenter, ~structures.protoss, ~techlevel.unrestricted
-		Description: Provides extra advanced technologies and\n upgrades to your forces.\n  Special Ability: Steady income
+		Prerequisites: techcenter, ~structures.protoss, ~techlevel.unrestricted, !ptempl.req
+		Description: Provides extra advanced technologies and\n upgrades to your forces.\n  Special Ability: Steady income\n  Superweapon: Orbital Beam Cannon
 		Icon: icon-templar
-		BuildLimit: 3
+		BuildLimit: 1
 		BuildDuration: 1000
 	Tooltip:
 		Name: Warp (Templar Archives)
@@ -1003,6 +1003,8 @@ PTEMPL.warp:
 		Bounds: 3072, 3072, 0, -426
 	SequencePlaceBuildingPreview:
 		Sequence: place-templar
+	ProvidesPrerequisite@templ:
+		Prerequisite: ptempl.req
 
 PTEMPL:
 	Inherits: ^ProtossBuilding
@@ -1012,8 +1014,8 @@ PTEMPL:
 	-AlwaysVisible:
 	Buildable:
 		Queue: Bot
-		BuildLimit: 3
-		Prerequisites: techcenter, ~structures.protoss, ~techlevel.unrestricted, ~ai.all
+		BuildLimit: 1
+		Prerequisites: techcenter, ~structures.protoss, ~techlevel.unrestricted, ~ai.all, !ptempl.req
 	Valued:
 		Cost: 3500
 	Tooltip:
@@ -1023,6 +1025,8 @@ PTEMPL:
 	ProvidesPrerequisite@adv:
 		Prerequisite: advtechcenter
 	ProvidesPrerequisite@buildingname:
+	ProvidesPrerequisite@templ:
+		Prerequisite: ptempl.req
 	Building:
 		Footprint: +++ xxx ===
 		Dimensions: 3,3
@@ -1060,7 +1064,33 @@ PTEMPL:
 		RequiresCondition: !build-incomplete
 	GrantExternalConditionToProduced:
 		Condition: produced
+	IonCannonPower:
+		PauseOnCondition: disabled
+		Icon: ioncannon
+		Cursor: chrono-target
+		ChargeInterval: 19500
+		Name: Orbital Beam Cannon
+		Description: Initiate an Orbital Beam Cannon strike.\nApplies instant damage to a small area.
+		BeginChargeSpeechNotification: IonCannonCharge
+		EndChargeSpeechNotification: IonCannonReady
+		SelectTargetSpeechNotification: DawnSelectTarget
+		InsufficientPowerSpeechNotification: InsufficientPower
+		OnFireSound: pmoatk00.wav
+		DisplayRadarPing: True
+		CameraActor: camera.small
+		SupportPowerPaletteOrder: 20
+		WeaponDelay: 0
+		CameraRemoveDelay: 100
+		Effect: explosion
+		EffectSequence: piff
+		Weapon: MiniNukeIon
+		DisplayTimerRelationships: Ally, Neutral, Enemy
 
+ptempl.req:
+	AlwaysVisible:
+	Interactable:
+	Tooltip:
+		Name: Limited
 
 PROBOT.warp:
 	Inherits: ^WarpStructure3x2
@@ -1398,7 +1428,7 @@ PFLEET.warp:
 	Inherits: ^WarpStructure3x2
 	Buildable:
 		Queue: Tech
-		Prerequisites: advtechcenter, ~structures.protoss, ~techlevel.unrestricted, ~!pfleet
+		Prerequisites: advtechcenter, ~structures.protoss, ~techlevel.unrestricted, !pfleet.req
 		Description: Provides access to your faction's epic unit or ability.\n\n  Special Ability: Provides money\n Limit of one.
 		Icon: icon-fleet
 		BuildPaletteOrder: 9090
@@ -1424,8 +1454,8 @@ PFLEET.warp:
 		Bounds: 3072, 3072, 0, -426
 	SequencePlaceBuildingPreview:
 		Sequence: place-fleet
-	ProvidesPrerequisite@self:
-		Prerequisite: pfleet
+	ProvidesPrerequisite@fleet:
+		Prerequisite: pfleet.req
 
 PFLEET:
 	Inherits: ^ProtossBuilding
@@ -1434,7 +1464,7 @@ PFLEET:
 	Inherits@PRIMARY: ^PrimaryBuilding
 	Buildable:
 		Queue: Bot
-		Prerequisites: advtechcenter, ~structures.protoss, ~techlevel.unrestricted
+		Prerequisites: advtechcenter, ~structures.protoss, ~techlevel.unrestricted, !pfleet.req
 		BuildLimit: 1
 		BuildDuration: 4500
 	Valued:
@@ -1450,6 +1480,8 @@ PFLEET:
 		Prerequisite: ulttechcenter
 	ProvidesPrerequisite@adv3:
 		Prerequisite: library
+	ProvidesPrerequisite@fleet:
+		Prerequisite: pfleet.req
 	Building:
 		Footprint: +++ xxx ===
 		Dimensions: 3,3
@@ -1554,3 +1586,9 @@ PFLEET:
 		Type: CenterPosition
 		Weapon: EMPExplosion
 		EmptyWeapon: EMPExplosion
+
+pfleet.req:
+	AlwaysVisible:
+	Interactable:
+	Tooltip:
+		Name: Limited

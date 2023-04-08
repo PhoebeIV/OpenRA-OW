@@ -26,6 +26,8 @@ T.MISS:
 		Prerequisite: library
 	ProvidesPrerequisite@adv4:
 		Prerequisite: pfleet
+	ProvidesPrerequisite@adv5:
+		Prerequisite: zhive
 	Explodes:
 		Type: CenterPosition
 		Weapon: EMPExplosion
@@ -51,7 +53,7 @@ T.MISS:
 		Amount: -600
 	ProvidesPrerequisite@buildingname:
 	Production:
-		Produces: Vehicle, Infantry, Soldier
+		Produces: Vehicle, Infantry, Soldier, Hatchery
 	RallyPoint:
 		Path: 4,2
 	Exit@1:
@@ -199,6 +201,9 @@ T.MISS:
 	ProvidesPrerequisite@usa:
 		Factions: usa
 		Prerequisite: ulttech.usa
+	ProvidesPrerequisite@zerg:
+		Factions: zerg
+		Prerequisite: ulttech.zerg
 	AirstrikePower@himmlerbomb:
 		PauseOnCondition: disabled
 		OrderName: EpicHimmler1
@@ -594,6 +599,47 @@ T.MISS:
 		DirectionArrowAnimation: paradirection
 		SupportPowerPaletteOrder: 40
 		DisplayTimerRelationships: Ally, Neutral, Enemy
+	ParatroopersPower@rebelambush:
+		PauseOnCondition: disabled
+		Prerequisites: ulttech.zerg
+		OrderName: ZergCanal
+		Cursor: chrono-target
+		Icon: icon
+		IconImage: znydus
+		ChargeInterval: 7500
+		LifeTime: -1
+		Name: Nydus Canal
+		Description: Spawn in a surprise Nydus Canal. Spawns zerglings and hydralisks.\nAdditional zerglings will appear if \n  placed near foes.
+		DropItems: NydusSpawner
+		UnitType: U2.Nydus
+		SelectTargetSpeechNotification: SelectTarget
+		InsufficientPowerSpeechNotification: InsufficientPower
+		DisplayRadarPing: True
+		DisplayTimerRelationships: Ally, Neutral, Enemy
+		EffectSequence: idle
+		CameraActor: camera.paradrop
+		DisplayBeacon: false
+		UseDirectionalTarget: false
+	ProduceActorPower@devouringone:
+		Name: Spawn Devouring Ones
+		Description: Spawn a group of an advanced strain of Zergling.\n  Speed: 134\n  Strong vs infantry, Structures
+		Icon: icon
+		IconImage: zdevouring
+		PauseOnCondition: disabled
+		RequiresCondition: !spawn_wait
+		Prerequisites: ulttech.zerg
+		Actors: zdevouring,zdevouring,zdevouring,zdevouring,zdevouring,zdevouring,zdevouring,zdevouring,zdevouring,zdevouring,zdevouring,zdevouring
+		Type: SpecialUnit
+		ChargeInterval: 3750
+		EndChargeTextNotification: Devouring Ones ready.
+		ReadyAudio: ReinforcementsArrived
+		ReadyTextNotification: Reinforcements have arrived.
+		BlockedAudio: NoBuild
+		BlockedTextNotification: No room for new unit.
+		OrderName: SpawnDevouringOne
+	Production@specialunit:
+		Produces: SpecialUnit
+		RequiresCondition: hive_upgrade
 
 HAXOR:
 	Inherits: POWR

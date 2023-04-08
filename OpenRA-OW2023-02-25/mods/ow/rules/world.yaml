@@ -282,6 +282,9 @@
 		FogVariants: shroud
 		Index: 255, 16, 32, 48, 64, 80, 96, 112, 128, 144, 160, 176, 192, 208, 224, 240, 20, 40, 56, 65, 97, 130, 148, 194, 24, 33, 66, 132, 28, 41, 67, 134, 1, 2, 4, 8, 3, 6, 12, 9, 7, 14, 13, 11, 5, 10, 15, 255
 		UseExtendedIndex: true
+	-Faction@random:
+	-Faction@randomallies:
+	-Faction@randomsoviet:
 	Faction@0:
 		Name: Allies Forces
 		InternalName: allies
@@ -473,12 +476,12 @@
 		Name: Protoss
 		InternalName: protoss
 		Side: StarCraft
-		Description: ancient aliens
+		Description: Protoss\nSpecial Ability: Recharging Shields\nEpic Unit: Mothership\nEpitech Ability: Mass Recall\nSuperweapon: Orbital Beam
 	Faction@zerg:
 		Name: Zerg
 		InternalName: zerg
 		Side: StarCraft
-		Description: ancient aliens but evil
+		Description: Zerg Swarm\nSpecial Ability: Regenerating Health\nEpic Unit: Kerrigan\nEpitech Ability: Nydus Canal\nSuperweapon: Plague Bomb
 	Faction@usa:
 		Name: USA
 		InternalName: usa
@@ -489,19 +492,19 @@
 		InternalName: civ
 		Side: Civilian
 		Description: [incomplete] Civilians: Support\nSpecial Unit: Nothing\nEpic Unit: President\nEpitech Ability: Mass Supply Drop
-	Faction@random:
+	Faction@random1:
 		Name: Any
 		InternalName: Random
 		RandomFactionMembers: RandomAllies, RandomSoviet, RandomGDI, RandomNod, RandomUAC, RandomNazi, RandomGLA, RandomFed, RandomMedi, protoss, zerg, usa
 		Side: Random
 		Description: Random Faction\nA random faction will be chosen when the game starts.
-	Faction@randomallies:
+	Faction@randomallies1:
 		Name: Allies
 		InternalName: RandomAllies
 		RandomFactionMembers: england, france, germany
 		Side: Random
 		Description: Random Allied Country\nSpecialty: Intelligence and logistics.\nUtility: Chronosphere, GPS Satellite\nSuperweapon: Atom Bomb\nA random Allied country will be chosen when the game starts.
-	Faction@randomsoviet:
+	Faction@randomsoviet1:
 		Name: Soviet
 		InternalName: RandomSoviet
 		RandomFactionMembers: russia, ukraine, estonia
@@ -532,7 +535,7 @@
 		Side: Random
 		Description: Random UAC division\nSpecialty: Firepower and versatility.\nUtility: Hellgate, Paradoom\nSuperweapon: Ion Cannon\nA random UAC corporation will be chosen when the game starts.
 	Faction@randomnazi:
-		Name: Nazi Party
+		Name: Third Reich
 		InternalName: RandomNazi
 		RandomFactionMembers: hitler, himmler, heydrich
 		Side: Random
@@ -689,8 +692,8 @@ World:
 		Factions: zerg
 		BaseActor: zmcv
 		SupportActors: upgrade.spawn, zdrone
-		InnerSupportRadius: 4
-		OuterSupportRadius: 5
+		InnerSupportRadius: 5
+		OuterSupportRadius: 7
 	StartingUnits@lightallies:
 		Class: light
 		ClassName: Light Support
@@ -784,7 +787,7 @@ World:
 		ClassName: Light Support
 		Factions: zerg
 		BaseActor: zmcv
-		SupportActors: upgrade.spawn
+		SupportActors: upgrade.spawn,zdrone,zhydra,zzergling2,zzergling2,zzergling2,zzergling2,zzergling2,zzergling2
 		InnerSupportRadius: 3
 		OuterSupportRadius: 5
 	StartingUnits@lightusa:
@@ -856,7 +859,7 @@ World:
 		ClassName: Heavy Support
 		Factions: heydrich
 		BaseActor: mcv
-		SupportActors: e1,e1,e1,e3,e3,nbos2,ftrk,2tnk.shd,2tnk.shd,2tnk.shd,upgrade.spawn
+		SupportActors: e1,e1,e1,e3,e3,nbos2,ftrk,2tnk.nz,2tnk.nz,2tnk.nz,upgrade.spawn
 		InnerSupportRadius: 3
 		OuterSupportRadius: 5
 	StartingUnits@heavygla:
@@ -896,9 +899,9 @@ World:
 		ClassName: Heavy Support
 		Factions: zerg
 		BaseActor: zmcv
-		SupportActors: upgrade.spawn
-		InnerSupportRadius: 3
-		OuterSupportRadius: 5
+		SupportActors: upgrade.spawn,zdrone,zdrone,zhydra,zhydra,zhydra,zzergling,zzergling,zzergling,zzergling,zzergling,zzergling,zzergling,zzergling,zoverlord
+		InnerSupportRadius: 4
+		OuterSupportRadius: 7
 	StartingUnits@heavyusa:
 		Class: heavy
 		ClassName: Heavy Support
@@ -936,7 +939,7 @@ World:
 		PresetHues: 0, 0.125, 0.22, 0.375, 0.5, 0.56, 0.8, 0.88, 0, 0.15, 0.235, 0.4, 0.47, 0.55, 0.75, 0.85
 		PresetSaturations: 0.9, 0.9, 0.9, 0.9, 0.9, 0.9, 0.9, 0.9, 0.4, 0.5, 0.4, 0.5, 0.4, 0.5, 0.4, 0.5
 		HsvSaturationRange: 0.0, 1.0
-		SimilarityThreshold: 0.0
+		SimilarityThreshold: 0.1
 
 EditorWorld:
 	Inherits: ^BaseWorld
