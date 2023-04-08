@@ -32,13 +32,13 @@ World:
 		ActorExperienceModifier: 0
 	DamageMultiplier@UNKILLABLE:
 		RequiresCondition: unkillable
-		Modifier: 3
+		Modifier: 20
 	FirepowerMultiplier@UNKILLABLE:
 		RequiresCondition: unkillable
-		Modifier: 200
+		Modifier: 300
 	ReloadDelayMultiplier@UNKILLABLE:
 		RequiresCondition: unkillable
-		Modifier: 80
+		Modifier: 75
 	RangeMultiplier@UNKILLABLE:
 		RequiresCondition: defender
 		Modifier: 110
@@ -74,10 +74,14 @@ ZHYDRA:
 
 ZHATCHERY:
 	-GrantConditionOnProduction@busy:
+	ProvidesPrerequisite@1upgrade:
+		Prerequisite: zerg.zergling
+	ProvidesPrerequisite@2upgrade:
+		Prerequisite: upgrade.infarmor1
 
 ZCCOLONY:
 	GrantRandomCondition@sbeve1:
-		Conditions: str_sunken, str_spore
+		Conditions: str_sunken, str_sunken, str_spore
 	GrantCondition@sbeve:
 		RequiresCondition: str_sunken || str_spore
 		Condition: waiting_to_evolve
@@ -87,6 +91,22 @@ ZNYDUS:
 		Delay: 2250
 	Health:
 		HP: 160000
+
+PZEALOT:
+	AutoTarget:
+		ScanRadius: 40
+	RangeMultiplier@UNKILLABLE:
+		Modifier: 125
+
+PDRAGO:
+	AutoTarget:
+		ScanRadius: 40
+
+PNEXUS:
+	Explodes:
+		Type: CenterPosition
+		Weapon: DeleteNuke
+		EmptyWeapon: DeleteNuke
 
 PFLEET:
 	-ClonesProducedUnits:
@@ -99,8 +119,12 @@ PGATEW:
 
 PMOTHER:
 	-WithAmmoPipsDecoration:
-	Health:
-		HP: 60000
+	-Armament@weap1:
+	DamageMultiplier@die:
+		RequiresCondition: ammo < 10
+		Modifier: 500
+	AutoTarget:
+		ScanRadius: 40
 
 PSBATT:
 	-WithAmmoPipsDecoration:

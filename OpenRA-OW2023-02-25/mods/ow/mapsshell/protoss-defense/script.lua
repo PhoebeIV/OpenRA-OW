@@ -15,16 +15,21 @@ ProducedUnitTypes =
 {
 		{ factory = Gateway1, types = { "pzealot","pzealot","pdrago","pdtemplar" } },
 		{ factory = Gateway2, types = { "pzealot","pzealot","pdrago","parchon" } },
+		{ factory = Gateway3, types = { "pzealot","pzealot","pdrago" } },
+		{ factory = Gateway4, types = { "pzealot","pzealot","pdrago" } },
 		{ factory = Hatchery1, types = { "zzergling", "zzergling", "zhydra", "zlurker.ai", "zultra", "zkerrigan" } },
 		{ factory = Hatchery2, types = { "zzergling", "zzergling", "zhydra", "zlurker.ai" } },
 		{ factory = Hatchery3, types = { "zzergling", "zzergling", "zhydra", "zlurker.ai" } },
+		{ factory = Hatchery4, types = { "zzergling", "zzergling", "zhydra", "zultra" } },
+		{ factory = Hatchery5, types = { "zzergling", "zzergling", "zhydra" } },
 		{ factory = Spire1, types = { "zmuta", "zguardian", "zqueen" } },
 		{ factory = Spire2, types = { "zmuta" } },
-		{ factory = Chronosphere, types = { "pmother", "pscout" } }
+		{ factory = Stargate1, types = { "pmother", "pscout", "pscout", "pscout" } }
 }
 
 HelicopterUnitTypes = { "pzealot", "pzealot", "pdrago" };
 ParadropWaypoints = { Nydus1, Nydus2, Nydus3, Nydus4 }
+AlliedUnitTypes = { "pzealot", "pzealot", "pzealot", "pzealot", "pdrago" }
 
 Mig1Waypoints = { Mig11, Mig12, Mig13, Mig14 }
 Mig2Waypoints = { Mig21, Mig22, Mig23, Mig24 }
@@ -40,7 +45,7 @@ BindActorTriggers = function(a)
 		else
 			Trigger.OnIdle(a, function(a)
 				if a.IsInWorld then
-					a.AttackMove(AlliedTechnologyCenter.Location)
+					a.AttackMove(AttackSpot.Location)
 				end
 			end)
 		end
@@ -60,12 +65,25 @@ BindActorTriggers = function(a)
 	end
 end
 
+SendAlliedUnits = function(entryCell, unitTypes, interval)
+	local units = Reinforcements.Reinforce(allies, unitTypes, { entryCell }, interval)
+	Utils.Do(units, function(unit)
+		BindActorTriggers(unit)
+	end)
+
+	if not AlliedTechnologyCenter.IsDead then
+		Trigger.OnAllKilled(units, function() SendAlliedUnits(entryCell, unitTypes, interval) end)
+	end
+end
+
 SendSovietUnits = function(entryCell, unitTypes, interval)
 	local units = Reinforcements.Reinforce(soviets, unitTypes, { entryCell }, interval)
 	Utils.Do(units, function(unit)
 		BindActorTriggers(unit)
 	end)
-	Trigger.OnAllKilled(units, function() SendSovietUnits(entryCell, unitTypes, interval) end)
+	if not AlliedTechnologyCenter.IsDead then
+		Trigger.OnAllKilled(units, function() SendSovietUnits(entryCell, unitTypes, interval) end)
+	end
 end
 
 SendMigs = function(waypoints)
@@ -81,6 +99,7 @@ SendMigs = function(waypoints)
 end
 
 InsertAlliedChinookReinforcements = function(entry, hpad)
+	local waitTime = Utils.RandomInteger(45,75)
 	local units = Reinforcements.ReinforceWithTransport(allies, "pshuttle",
 		HelicopterUnitTypes, { entry.Location, hpad.Location + CVec.New(1, 2) }, { entry.Location })[2]
 
@@ -88,20 +107,24 @@ InsertAlliedChinookReinforcements = function(entry, hpad)
 		BindActorTriggers(unit)
 	end)
 
-	Trigger.AfterDelay(DateTime.Seconds(45), function() InsertAlliedChinookReinforcements(entry, hpad) end)
+	if not AlliedTechnologyCenter.IsDead then
+		Trigger.AfterDelay(DateTime.Seconds(waitTime), function() InsertAlliedChinookReinforcements(entry, hpad) end)
+	end
 end
 
 ParadropSovietUnits = function()
 	local lz = Utils.Random(ParadropWaypoints)
 	local aircraft = powerproxy.TargetParatroopers(lz.CenterPosition)
 
-	Utils.Do(aircraft, function(a)
-		Trigger.OnPassengerExited(a, function(t, p)
-			BindActorTriggers(p)
+	if not AlliedTechnologyCenter.IsDead then
+		Utils.Do(aircraft, function(a)
+			Trigger.OnPassengerExited(a, function(t, p)
+				BindActorTriggers(p)
+			end)
 		end)
-	end)
+		Trigger.AfterDelay(DateTime.Seconds(60), ParadropSovietUnits)
+	end
 
-	Trigger.AfterDelay(DateTime.Seconds(60), ParadropSovietUnits)
 end
 
 ProduceUnits = function(t)
@@ -110,7 +133,9 @@ ProduceUnits = function(t)
 		local unitType = t.types[Utils.RandomInteger(1, #t.types + 1)]
 		factory.Wait(Actor.BuildTime(unitType)*0.5)
 		factory.Produce(unitType)
-		factory.CallFunc(function() ProduceUnits(t) end)
+		if not AlliedTechnologyCenter.IsDead then
+			factory.CallFunc(function() ProduceUnits(t) end)
+		end
 	end
 end
 
@@ -147,13 +172,15 @@ end
 ChronoshiftAlliedUnits = function()
 	local cells = Utils.ExpandFootprint({ ChronoshiftLocation.Location }, false)
 	local units = { }
-	for i = 1, #cells do
+	if not Chronosphere.IsDead then
+		for i = 1, #cells do
 		local unit = Actor.Create("pzealot", true, { Owner = allies, Facing = Angle.South })
 		BindActorTriggers(unit)
 		units[unit] = cells[i]
+		end
+		Chronosphere.Chronoshift(units)
+		Trigger.AfterDelay(DateTime.Seconds(30), ChronoshiftAlliedUnits)
 	end
-	Chronosphere.Chronoshift(units)
-	Trigger.AfterDelay(DateTime.Seconds(45), ChronoshiftAlliedUnits)
 end
 
 ticks = 0
@@ -163,7 +190,7 @@ Tick = function()
 	ticks = ticks + 1
 
 	local t = (ticks + 45) % (360 * speed) * (math.pi / 180) / speed;
-	Camera.Position = viewportOrigin + WVec.New(15200 * math.sin(t), 16480 * math.cos(t), 0)
+	Camera.Position = viewportOrigin + WVec.New(11200 * math.sin(t), 12480 * math.cos(t), 0)
 end
 
 WorldLoaded = function()
@@ -176,6 +203,9 @@ WorldLoaded = function()
 	SetupFactories()
 	InsertAlliedChinookReinforcements(Chinook1Entry, HeliPad1)
 	InsertAlliedChinookReinforcements(Chinook2Entry, HeliPad2)
+	InsertAlliedChinookReinforcements(Entry3, HeliPad3)
+	InsertAlliedChinookReinforcements(Entry8, HeliPad4)
+	InsertAlliedChinookReinforcements(Entry5, HeliPad5)
 	powerproxy = Actor.Create(ProxyType, false, { Owner = soviets })
 	ParadropSovietUnits()
 	Trigger.AfterDelay(DateTime.Seconds(5), ChronoshiftAlliedUnits)
@@ -184,19 +214,19 @@ WorldLoaded = function()
 	Trigger.AfterDelay(DateTime.Seconds(30), function() SendMigs(Mig1Waypoints) end)
 	Trigger.AfterDelay(DateTime.Seconds(30), function() SendMigs(Mig2Waypoints) end)
 
+	SendAlliedUnits(Entry5.Location, AlliedUnitTypes, 50)
+
 	SendSovietUnits(Entry1.Location, UnitTypes, 50)
 	SendSovietUnits(Entry2.Location, UnitTypes, 50)
 	SendSovietUnits(Entry3.Location, UnitTypes, 50)
 	SendSovietUnits(Entry4.Location, UnitTypes, 50)
-	SendSovietUnits(Entry5.Location, UnitTypes, 50)
 	SendSovietUnits(Entry6.Location, UnitTypes, 50)
 	SendSovietUnits(Entry7.Location, UnitTypes, 50)
-	SendSovietUnits(Entry8.Location, BeachUnitTypes, 15)
+	SendSovietUnits(Entry8.Location, BeachUnitTypes, 75)
 	SendSovietUnits(Entry1.Location, Zerglings, 5)
 	SendSovietUnits(Entry2.Location, Zerglings, 5)
 	SendSovietUnits(Entry3.Location, Zerglings, 5)
 	SendSovietUnits(Entry4.Location, Zerglings, 5)
-	SendSovietUnits(Entry5.Location, Zerglings, 5)
 	SendSovietUnits(Entry6.Location, Zerglings, 5)
 	SendSovietUnits(Entry7.Location, Zerglings, 5)
 end

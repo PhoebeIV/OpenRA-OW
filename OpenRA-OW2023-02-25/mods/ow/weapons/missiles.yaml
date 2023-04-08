@@ -858,6 +858,7 @@ RevenantMissile:
 		Speed: 220
 		Inaccuracy: 350
 		ContrailLength: 0
+		RangeLimit: 9c0
 	Warhead@1Dam: SpreadDamage
 		Damage: 3800
 		Versus:
@@ -890,6 +891,7 @@ DoomImp:
 		Blockable: true
 		Inaccuracy: 256
 		Image: imp
+		RangeLimit: 7c0
 	Warhead@1Dam: SpreadDamage
 		Spread: 256
 		Damage: 4000
@@ -900,7 +902,18 @@ DoomImp:
 			Heavy: 50
 			Concrete: 50
 		DamageTypes: Prone50Percent, TriggerProne, SmallExplosionDeath
-		ValidTargets: GroundActor, WaterActor, AirborneActor
+		ValidTargets: GroundActor, WaterActor
+	Warhead@1Air: SpreadDamage
+		Spread: 256
+		Damage: 2000
+		Versus:
+			None: 100
+			Wood: 50
+			Light: 125
+			Heavy: 50
+			Concrete: 50
+		DamageTypes: SmallExplosionDeath
+		ValidTargets: AirborneActor
 	Warhead@2Smu: LeaveSmudge
 		SmudgeType: Crater
 		ValidTargets: Ground, Infantry
@@ -917,6 +930,8 @@ DoomCacodemon:
 		Image: cacod
 	Warhead@1Dam: SpreadDamage
 		Damage: 5500
+	Warhead@1Air: SpreadDamage
+		Damage: 2250
 	Warhead@3Eff: CreateEffect
 		Explosions: caco
 
@@ -933,6 +948,8 @@ DoomBaron:
 			Wood: 75
 			Light: 100
 			Heavy: 80
+	Warhead@1Air: SpreadDamage
+		Damage: 3000
 	Warhead@3Eff: CreateEffect
 		Explosions: baron
 
