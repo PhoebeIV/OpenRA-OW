@@ -529,25 +529,27 @@ PINTER:
 		OpportunityFire: true
 		StrafeRunLength: 4c0
 	Aircraft:
-		CruiseAltitude: 1350
-		LandAltitude: 1320
+		CruiseAltitude: 920
+		LandAltitude: 900
 		TurnSpeed: 32
 		Speed: 192
 		RepulsionSpeed: 40
 		MaximumPitch: 56
 		Repulsable: false
+		AltitudeVelocity: 900
+		MinAirborneAltitude: 900
 	-Selectable:
 	Interactable:
 	-EjectOnDeath:
 	RejectsOrders:
 	-ActorLostNotification:
 	-SpawnActorOnDeath:
-	AttackWander:
-		RequiresCondition: !shooting2
 	Contrail@1:
 		Offset: -598,-300,0
+		RequiresCondition: airborne
 	Contrail@2:
 		Offset: -598,300,0
+		RequiresCondition: airborne
 	WithDamageOverlay:
 		Offset: -853,0,171
 		Interval: 2
@@ -567,9 +569,6 @@ PINTER:
 	GrantConditionOnAttack@scout:
 		Condition: shooting
 		RevokeDelay: 5
-	GrantConditionOnAttack@wander:
-		Condition: shooting2
-		RevokeDelay: 100
 	WithFacingSpriteBody@3:
 		Name: shoot
 		Sequence: shoot

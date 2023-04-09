@@ -118,7 +118,7 @@ TSGHOST:
 		RequiresCondition: !ismoving
 	GrantConditionOnMovement:
 		Condition: ismoving
-	-DamagedByTerrain:
+	-GrantConditionOnTerrain@tiberium:
 	-Cloneable:
 
 TSJUMP:
@@ -175,8 +175,8 @@ TSJUMP:
 	-TakeCover:
 	Hovers:
 		RequiresCondition: airborne
-	DamagedByTerrain:
-		RequiresCondition: !airborne
+	ChangesHealth@tiberium:
+		RequiresCondition: !airborne && standing_in_tiberium
 	ProducibleWithLevel:
 		Prerequisites: barracks.upgraded
 	WithShadow:
@@ -277,7 +277,7 @@ TSELITE:
 		RequiresCondition: !ismoving
 	GrantConditionOnMovement:
 		Condition: ismoving
-	-DamagedByTerrain:
+	-GrantConditionOnTerrain@tiberium:
 	ChangesHealth:
 		Step: 350
 		Delay: 25

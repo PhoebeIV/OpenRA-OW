@@ -478,7 +478,7 @@
 	Selectable:
 		Bounds: 768, 938, 0, -469
 		DecorationBounds: 682, 938, 0, -469
-	-DamagedByTerrain:
+	-GrantConditionOnTerrain@tiberium:
 	-TakeCover:
 	RevealsShroud:
 		MinRange: 4c0
@@ -1171,11 +1171,15 @@
 	Explodes@GraveyardSpawnerDeath:
 		Weapon: GraveyardSpawnerDeath
 		EmptyWeapon: GraveyardSpawnerDeath
-	DamagedByTerrain:
-		Terrain: Tiberium, BlueTiberium
-		Damage: 200
-		DamageInterval: 16
+	ChangesHealth@tiberium:
+		RequiresCondition: standing_in_tiberium
 		DamageTypes: TiberiumDeath
+		Step: -200
+		Delay: 16
+		StartIfBelow: 101
+	GrantConditionOnTerrain@tiberium:
+		Condition: standing_in_tiberium
+		TerrainTypes: Tiberium, BlueTiberium
 	SpawnActorOnDeath@tiberium:
 		Actor: vice
 		Probability: 5
@@ -1498,11 +1502,15 @@
 	Guard:
 		Voice: Move
 	Guardable:
-	DamagedByTerrain:
-		Damage: -100
-		DamageInterval: 4
+	ChangesHealth@tiberium:
+		RequiresCondition: standing_in_tiberium
 		DamageTypes: TiberiumDeath
-		Terrain: Tiberium, BlueTiberium
+		Step: 100
+		Delay: 4
+		StartIfBelow: 101
+	GrantConditionOnTerrain@tiberium:
+		Condition: standing_in_tiberium
+		TerrainTypes: Tiberium, BlueTiberium
 	Voiced:
 		VoiceSet: AntVoice
 	HitShape:

@@ -346,3 +346,99 @@ ZGUARDIAN:
 		RevokeDelay: 375
 	WithDeathAnimation:
 		UseDeathTypeSuffix: false
+
+ZSCOURGE:
+	Inherits: ^Helicopter
+	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
+	Inherits@shield: ^ZergUnit
+	Buildable:
+		Queue: Aircraft
+		BuildAtProductionType: Helicopter
+		BuildPaletteOrder: 43
+		Prerequisites: ~aircraft.zerg, ~techlevel.high
+		Description: Kamikaze unit. Must get close\n to initiate attack.\nSpeed: 144\n  Strong vs Vehicles, Aircraft, Buildings\n  Weak vs Anti-air
+	HitShape:
+		Type: Circle
+			Radius: 468
+	Valued:
+		Cost: 600
+	GivesExperience:
+		Experience: 300
+	Tooltip:
+		Name: Scourge
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 3000
+	Power:
+		Amount: -5
+	RevealsShroud:
+		MinRange: 3c0
+		Range: 4c0
+		Type: GroundPosition
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 3c0
+		Type: GroundPosition
+	Armament@PRIMARY1:
+		Weapon: ScourgeWeapon
+	AttackAircraft:
+		FacingTolerance: 32
+		PersistentTargeting: false
+		AttackType: Hover
+		OpportunityFire: False
+	Aircraft:
+		TurnSpeed: 64
+		Speed: 144
+		LandAltitude: 1200
+		CruiseAltitude: 1280
+		IdealSeparation: 900
+		CanSlide: false
+		MinAirborneAltitude: 1240
+	AutoTarget:
+		InitialStance: AttackAnything
+		EnableStances: false
+	-SpawnActorOnDeath:
+	-Explodes:
+	Explodes:
+		Weapon: ZergAirUnitDeath2
+		EmptyWeapon: ZergAirUnitDeath2
+	Selectable:
+		Bounds: 600, 600, 0, 100
+		DecorationBounds: 600, 600, 0, 100
+		Class: ZSCOURGE
+	Hovers@CRUISING:
+		-RequiresCondition:
+	Voiced:
+		VoiceSet: ZergScourgeVoice
+	RenderSprites:
+	WithMoveAnimation:
+	DeathSounds:
+	-EjectOnDeath:
+	GrantConditionOnAttack@attack:
+		Condition: attacking
+	KillsSelf@attack:
+		RequiresCondition: attacking
+		RemoveInstead: true
+	WithDeathAnimation:
+		UseDeathTypeSuffix: false
+	FreeActor@scourge:
+		RequiresCondition: airborne
+		Actor: ZSCOURGE2
+
+ZSCOURGE2:
+	Inherits: ZSCOURGE
+	RenderSprites:
+		Image: zscourge
+	-FreeActor@scourge:
+	-Buildable:
+	Valued:
+		Cost: 300
+	-GivesBounty:
+	UpdatesPlayerStatistics:
+		AddToArmyValue: false
+		AddToAssetsValue: false
+		OverrideActor: zscourge
+	-Power:
+	Aircraft:
+		AltitudeVelocity: 1200

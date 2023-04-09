@@ -1682,7 +1682,6 @@ dukenukemdevestator:
 		Explosions: dukenukemexplosiontiny
 		ImpactSounds: dukeexplosion.wav
 
-
 KerriganBomb:
 	Inherits: ^AntiGroundMissile
 	ReloadDelay: 250
@@ -1693,8 +1692,8 @@ KerriganBomb:
 		Image: zmutaball
 		HorizontalRateOfTurn: 25
 		RangeLimit: 12c512
-		MinimumLaunchAngle: 62
-		MaximumLaunchAngle: 62
+		MinimumLaunchAngle: 8
+		MaximumLaunchAngle: 64
 		Speed: 512
 	Warhead@1Dam: SpreadDamage
 		Damage: 20000
@@ -1715,3 +1714,49 @@ KerriganBomb:
 		Duration: 250
 		AffectsParent: false
 		ValidTargets: WaterActor, GroundActor, AirborneActor
+
+ScourgeWeapon:
+	Inherits: ^AntiGroundMissile
+	ReloadDelay: 250
+	-Report:
+	Range: 4c0
+	ValidTargets: Ground, Water, GroundActor, WaterActor, AirborneActor
+	Projectile: Missile
+		Arm: 3
+		Image: zscourge
+		Sequence: move
+		Palette: player
+		IsPlayerPalette: true
+		HorizontalRateOfTurn: 64
+		RangeLimit: 9c0
+		Speed: 190
+		ContrailLength: 0
+		MinimumLaunchSpeed: 144
+		MaximumLaunchSpeed: 144
+		Acceleration: 5
+		Inaccuracy: 756
+	Warhead@1Dam: SpreadDamage
+		Damage: 12000
+		Spread: 512
+		Versus:
+			None: 125
+			Wood: 80
+			Light: 40
+			Heavy: 70
+			Concrete: 50
+		DamageTypes: Prone50Percent, TriggerProne, SmallExplosionDeath
+		ValidTargets: GroundActor, WaterActor
+	Warhead@2Air: SpreadDamage
+		Damage: 8000
+		Spread: 512
+		Versus:
+			None: 100
+			Wood: 100
+			Light: 100
+			Heavy: 100
+			Concrete: 50
+		DamageTypes: Prone50Percent, TriggerProne, SmallExplosionDeath
+		ValidTargets: AirborneActor
+	Warhead@3Eff: CreateEffect
+		Explosions: scourge
+		ImpactSounds: zavhit00.aud
