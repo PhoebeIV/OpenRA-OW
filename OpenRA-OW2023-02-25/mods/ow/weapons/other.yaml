@@ -1208,7 +1208,7 @@ DoomArchvileHit:
 		Width: 1
 		Color: 000000FF
 	Warhead@1Dam: SpreadDamage
-		Spread: 1c0
+		Spread: 512
 		Damage: 10000
 		Versus:
 			None: 200
@@ -1497,6 +1497,12 @@ NydusSpawn:
 	Inherits: GLAAmbushHole
 	Report: zovtra00.aud,zovtra01.aud
 
+KerriganSpawn:
+	Inherits: GLAAmbushHole
+	ReloadDelay: 175
+	Range: 8c0
+	Report: zovtra00.aud,zovtra01.aud
+
 ZombiehHole:
 	ReloadDelay: 60
 	Range: 25c0
@@ -1737,26 +1743,30 @@ ZealotStab:
 		ValidTargets: GroundActor, WaterActor
 
 DragoonPlasma:
-	ReloadDelay: 50
+	ReloadDelay: 48
 	Range: 5c512
 	Report: dragbull.aud
 	ValidTargets: Ground, Water, GroundActor, WaterActor
 	Projectile: Missile
-		Speed: 400
+		Speed: 500
 		Blockable: true
 		Image: Plasma
 		RangeLimit: 7c0
-		HorizontalRateOfTurn: 100
+		HorizontalRateOfTurn: 128
+		VerticalRateOfTurn: 128
 		Jammable: false
+		MinimumLaunchSpeed: 328
+		MaximumLaunchSpeed: 350
+		CruiseAltitude: 128
 	Warhead@1Dam: SpreadDamage
 		Spread: 300
-		Damage: 4500
+		Damage: 5000
 		ValidTargets: Ground, GroundActor, WaterActor, Trees, Air, AirborneActor
 		Versus:
 			None: 55
 			Wood: 90
-			Light: 80
-			Concrete: 50
+			Light: 75
+			Concrete: 40
 		DamageTypes: Prone50Percent, TriggerProne, SmallExplosionDeath
 	Warhead@2Smu: LeaveSmudge
 		SmudgeType: Crater
@@ -1765,17 +1775,17 @@ DragoonPlasma:
 		Explosions: med_explosion2
 		ImpactSounds: explomed.aud
 		ValidTargets: Ground, GroundActor, WaterActor, Trees, Air, AirborneActor
-		Inaccuracy: 128
+		Inaccuracy: 64
 
 DragoonPlasmaAir:
 	Inherits: DragoonPlasma
 	Range: 6c512
 	ValidTargets: Air, AirborneActor
 	Projectile: Missile
-		Speed: 500
+		Speed: 600
 		Blockable: false
 		Inaccuracy: 0
-		HorizontalRateOfTurn: 25
+		HorizontalRateOfTurn: 48
 		JammedDiversionRange: 4
 	Warhead@1Dam: SpreadDamage
 		Spread: 300
@@ -2169,10 +2179,13 @@ TemplarBlade:
 	Range: 2c0
 	Report: darkblade.aud
 	ValidTargets: Ground, Water, GroundActor, WaterActor
-	Projectile: InstantHit
+	Projectile: LaserZap
+		Duration: 0
+		Width: 1
+		Color: 000000FF
 	Warhead@1Dam: TargetDamage
 		Spread: 64
-		Delay: 3
+		Delay: 5
 		Damage: 15000
 		Versus:
 			None: 100
@@ -2192,7 +2205,6 @@ DarkArchonMindControl:
 	InvalidTargets: Structure
 	Projectile: LaserZap
 	Warhead@1Dam: ChangeOwner
-		Delay: 1
 		Range: 128
 		ValidTargets: Infantry, Vehicle, AirborneActor
 		InvalidTargets: EpicUnit
@@ -2560,10 +2572,10 @@ SunkenAttack:
 	Report: zlufir00.aud
 	ValidTargets: Ground, GroundActor, WaterActor, Trees
 	Projectile: Missile
-		Speed: 500
+		Speed: 480
 		Blockable: false
 		RangeLimit: 10c0
-		HorizontalRateOfTurn: 100
+		HorizontalRateOfTurn: 128
 		Jammable: false
 	Warhead@1Dam: SpreadDamage
 		Spread: 325
@@ -2659,15 +2671,15 @@ HydraSpines:
 
 LurkerSpikes:
 	ReloadDelay: 60
-	Range: 6c0
-	Burst: 6
-	BurstDelays: 1
+	Range: 7c0
+	Burst: 7
+	BurstDelays: 2
 	StartBurstReport: zlrkfir1.aud
-	FirstBurstTargetOffset: -2700,0,0
-	FollowingBurstTargetOffset: 900,0,0
+	FirstBurstTargetOffset: -3072,0,0
+	FollowingBurstTargetOffset: 1024,0,0
 	ValidTargets: Ground, GroundActor, WaterActor, Trees
 	Projectile: Bullet
-		Speed: 1c682
+		Speed: 512
 		Blockable: false
 	Warhead@1Dam: SpreadDamage
 		Spread: 128
