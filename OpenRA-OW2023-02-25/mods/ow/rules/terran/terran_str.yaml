@@ -1,0 +1,153 @@
+
+1TNK.TCMD:
+	Inherits: 1TNK.MINE
+	-Explodes:
+	KillsSelf:
+		Delay: 1
+	SpawnActorOnDeath:
+		Actor: TCOMMAND
+		OwnerType: Victim
+
+^TerranBuilding:
+	Health:
+		HP: 100
+	GrantConditionOnDamageState@fire1:
+		Condition: damaged_light
+		ValidDamageStates: Light, Heavy, Critical
+	GrantConditionOnDamageState@fire2:
+		Condition: damaged_heavy
+		ValidDamageStates: Heavy, Critical
+	GrantConditionOnDamageState@fire3:
+		Condition: damaged_critical
+		ValidDamageStates: Critical
+	WithIdleOverlay@fire1:
+		RequiresCondition: damaged_light
+		Image: fire
+		Sequence: 4
+		IsDecoration: true
+		Offset: 0,-1024,512
+	WithIdleOverlay@fire2:
+		RequiresCondition: damaged_heavy
+		Image: fire
+		Sequence: 3
+		IsDecoration: true
+		Offset: 0,1024,768
+	WithIdleOverlay@fire3:
+		RequiresCondition: damaged_critical
+		Image: fire
+		Sequence: 2
+		IsDecoration: true
+		Offset: 0,0,512
+	RepairableBuilding:
+		RepairCondition: player_repairing
+	ChangesHealth@fire:
+		Step: -700
+		StartIfBelow: 26
+		Delay: 24
+		RequiresCondition: !player_repairing
+
+TCOMMAND:
+	Inherits: ^Building
+	Inherits@fire: ^TerranBuilding
+	Inherits@con: ^ConYard
+	Inherits@prereqs: ^ConYardPrereqs
+	HitShape:
+		TargetableOffsets: 0,0,0, 0,-512,256, 0,-1451,384, 0,512,128, 0,1536,85
+		Type: Rectangle
+			TopLeft: -2048, -1024
+			BottomRight: 2048, 1024
+	Selectable:
+		Bounds: 4096, 3072
+		Class: TCOMMAND
+	Building:
+		Footprint: xxxx xxxx ====
+		Dimensions: 4,3
+		LocalCenterOffset: 0,-512,0
+	Buildable:
+		Queue: Building
+		BuildPaletteOrder: 1000
+		Prerequisites: ~disabled
+		Description: Produces structures.
+	Health:
+		HP: 150000
+	Armor:
+		Type: Wood
+	RevealsShroud:
+		MinRange: 4c0
+		Range: 5c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 4c0
+	Valued:
+		Cost: 2000
+	Tooltip:
+		Name: Command Center
+	BaseBuilding:
+	Transforms:
+		PauseOnCondition: chrono-vortex || being-captured || being-demolished || build-incomplete
+		IntoActor: tcommand.air
+		Offset: 1,0
+		Facing: 0
+		NoTransformNotification: BuildingCannotPlaceAudio
+	TransformsIntoMobile:
+		Locomotor: heavywheeled
+		RequiresForceMove: true
+	TransformsIntoTransforms:
+		RequiresCondition: build-incomplete
+	Sellable:
+		RequiresCondition: !build-incomplete && !chrono-vortex && !being-captured && !being-demolished
+	BaseProvider:
+		PauseOnCondition: being-captured
+		Range: 16c0
+	WithBuildingBib:
+	WithBuildingPlacedAnimation:
+		RequiresCondition: !build-incomplete && !chrono-vortex
+	Power:
+		Amount: 0
+	WithDeathAnimation:
+		DeathSequence: dead
+		UseDeathTypeSuffix: false
+	ProvidesPrerequisite@buildingname:
+	TransferTimedExternalConditionOnTransform:
+		Condition: invulnerability
+
+TCOMMAND.landed:
+	Inherits: TCOMMAND
+	RenderSprites:
+		Image: tcommand
+	WithMakeAnimation:
+		Sequence: land
+
+TCOMMAND.air:
+	Inherits: ^FlyingBuilding
+	Inherits@fire: ^TerranBuilding
+	Inherits@prereqs: ^ConYardPrereqs
+	RenderSprites:
+		Image: tcommand
+	HitShape:
+		TargetableOffsets: 0,0,0, 0,-512,256, 0,-1451,384, 0,512,128, 0,1536,85
+		Type: Rectangle
+			TopLeft: -2048, -1024
+			BottomRight: 2048, 1024
+	Selectable:
+		Bounds: 4096, 3072
+	Transforms:
+		PauseOnCondition: chrono-vortex || being-captured || being-demolished || build-incomplete
+		IntoActor: tcommand.landed
+		Offset: -1,0
+	Health:
+		HP: 150000
+	RevealsShroud:
+		MinRange: 5c0
+		Range: 6c0
+		RevealGeneratedShroud: False
+		Type: GroundPosition
+	RevealsShroud@GAPGEN:
+		Range: 5c0
+		Type: GroundPosition
+	Valued:
+		Cost: 2000
+	Tooltip:
+		Name: Command Center
+	SpawnActorOnDeath:
+		Actor: pmother.husk
