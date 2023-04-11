@@ -63,6 +63,13 @@ fact.gla:
 	damaged-flag: factflag
 		Start: 9
 
+fact.usa:
+	Inherits: ^RAConYard
+	flag: factflag
+		Start: 10
+	damaged-flag: factflag
+		Start: 11
+
 ^DawnConYard:
 	build: factd
 		Start: 4
@@ -122,12 +129,6 @@ factd.fed2:
 		Start: 6
 	damaged-flag: factdflag
 		Start: 7
-        
-factd.usa:
-	Inherits: ^DawnConYard
-	flag: factdflag
-	damaged-flag: factdflag
-		Start: 1
 
 oilb:
 	icon: hospicon
@@ -2513,11 +2514,10 @@ usastrategycenter:
 		Start: 1
 	make: usastrategycentermake
 		Length: *
-	active: sputdoor
-		Length: *
-		Offset: -4,0
+	active:
+		Start: 1
 	hold_the_line: usastrategycenterhtl
-		Offset: 12,-12
+		Offset: 12,-12a
 	damaged-hold_the_line: usastrategycenterhtl
 		Start: 1
 		Offset: 12,-12
@@ -2567,22 +2567,20 @@ usasupplydropzone:
 	icon: usasupplydropzoneicon
     
 usaparticlecannon:
-	idle:
-		Length: 16
-		Tick: 100
-	damaged-idle:
-		Start: 16
-		Length: 16
-		Tick: 100
-	dead:
-		Start: 32
-		Tick: 800
-	make: usaparticlecannonmake
+	idle: tpwr
+		Offset: 0,-10
+	damaged-idle: tpwr
+		Start: 1
+		Offset: 0,-10
+	make: tpwrmake
 		Length: *
-		Tick: 80
-	active:
-		Length: 16
-		Tick: 100
+		Offset: 0,-10
+	dead: tpwr
+		Start: 1
+		Tick: 800
+		Offset: 0,-10
+	power: litning
+		Length: *
 	icon: usaparticlecannonicon
     
 usapatriot:

@@ -374,3 +374,76 @@ C17Nuke:
 		Size: 4
 		Delay: 15
 		ValidTargets: Ground, Infantry
+
+Redeemernuke:
+	ValidTargets: Ground, Water, Air, GroundActor, WaterActor, AirborneActor
+	Warhead@97Eff_impact: CreateEffect
+		ImpactSounds: redeemer_explosionsound.wav
+		ImpactActors: false
+	Warhead@1Eff_impact: CreateEffect
+		Explosions: redeemerexplosionstart
+		ImpactActors: false
+	Warhead@1Eff_impacta: CreateEffect
+		Explosions: redeemerexplosionring
+		ImpactActors: false
+	Warhead@1Dam_impact: SpreadDamage
+		Delay: 25
+		Spread: 1c0
+		Damage: 10000
+		Falloff: 1000, 368, 135, 50, 18, 7, 0
+		ValidTargets: GroundActor, Trees, WaterActor, Underwater, AirborneActor
+		Versus:
+			Concrete: 25
+		AffectsParent: true
+		DamageTypes: Prone50Percent, TriggerProne, FireDeath, Incendiary
+	Warhead@2Res_impact: DestroyResource
+	Warhead@3Eff_impact: CreateEffect
+		Explosions: redeemerexplosion
+		ImpactActors: false
+		Delay: 20
+	Warhead@4Dam_areanuke1: SpreadDamage
+		Spread: 1c512
+		Damage: 6000
+		Falloff: 1000, 600, 400, 250, 150, 100, 0
+		Delay: 5
+		ValidTargets: GroundActor, Trees, WaterActor, Underwater, AirborneActor
+		Versus:
+			Concrete: 25
+		AffectsParent: true
+		DamageTypes: Prone50Percent, TriggerProne, FireDeath, Incendiary
+		Delay: 25
+	Warhead@97Eff_impacta: CreateEffect
+		ImpactSounds: redeemer_explosionsoundend.wav
+		ImpactActors: false
+		Delay: 25
+	Warhead@97Eff_impactaa: CreateEffect
+		ImpactSounds: redeemer_explosionsoundend.wav
+		ImpactActors: false
+		Delay: 25
+	Warhead@97Eff_impactaaa: CreateEffect
+		ImpactSounds: BExplosion5.wav
+		ImpactActors: false
+		Delay: 25
+	Warhead@97Eff_impactaaaa: CreateEffect
+		ImpactSounds: BExplosion5.wav
+		ImpactActors: false
+		Delay: 25
+	Warhead@5Res_areanuke1: DestroyResource
+		Size: 4
+		Delay: 25
+	Warhead@6Smu_areanuke1: LeaveSmudge
+		SmudgeType: Scorch
+		ValidTargets: Ground, Infantry
+		Size: 4
+		Delay: 5
+		Delay: 25
+	Warhead@TREEKILL: SpreadDamage
+		Spread: 1c0
+		Damage: 12000
+		Falloff: 1000, 600, 400, 250, 150, 100, 0
+		Delay: 25
+		ValidTargets: Trees
+		DamageTypes: Incendiary
+	Warhead@22FlashEffect: FlashPaletteEffect
+		Duration: 25
+		FlashType: Nuke

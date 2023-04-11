@@ -789,6 +789,9 @@
 ^Defense:
 	Inherits@Monumentboost: ^Monumentboosted
 	Inherits@CurseCondition: ^CurseDebuff
+	Inherits@usabombardment: ^usabombardment
+	Inherits@usasearchanddestroy: ^usasearchanddestroy
+	Inherits@usahold_the_line: ^usaholdtheline
 	ChangesHealth@Monumentboost:
 		RequiresCondition: Monumentboost
 		PercentageStep: 1
@@ -886,6 +889,9 @@
 	Inherits@gps: ^GPSScramblable
 	Inherits@patriotism: ^patriotismboost
 	Inherits@advancedtraining: ^advancedtraining
+	Inherits@usabombardment: ^usabombardment
+	Inherits@usasearchanddestroy: ^usasearchanddestroy
+	Inherits@usahold_the_line: ^usaholdtheline
 	RevealOnFire:
 	Repairable:
 		RepairActors: fix, gfix, gfix.boss
@@ -1029,6 +1035,9 @@
 	Inherits@gps: ^GPSScramblable
 	Inherits@patriotism: ^patriotismboostInfantry
 	Inherits@advancedtraining: ^advancedtraining
+	Inherits@usabombardment: ^usabombardment
+	Inherits@usasearchanddestroy: ^usasearchanddestroy
+	Inherits@usahold_the_line: ^usaholdtheline
 	Crushable:
 		RequiresCondition: !HolySuperBoosted
 	RevealOnFire:
@@ -1261,8 +1270,11 @@
 	Inherits@CurseCondition: ^CurseDebuff
 	Inherits@patriotism: ^patriotismboost
 	Inherits@advancedtraining: ^advancedtraining
+	Inherits@usabombardment: ^usabombardment
+	Inherits@usasearchanddestroy: ^usasearchanddestroy
+	Inherits@usahold_the_line: ^usaholdtheline
 	RepairableNear:
-		RepairActors: spen, syrd, gspen, dockmedi
+		RepairActors: spen, syrd, gspen, dockmedi, usashipyard
 	RevealOnFire:
 	GrantConditionOnPrerequisite@nar1:
 		Prerequisites: upgrade.navarmor1
@@ -1320,6 +1332,9 @@
 	Inherits@GPS: ^GPSScramblable
 	Inherits@patriotism: ^patriotismboost
 	Inherits@advancedtraining: ^advancedtraining
+	Inherits@usabombardment: ^usabombardment
+	Inherits@usasearchanddestroy: ^usasearchanddestroy
+	Inherits@usahold_the_line: ^usaholdtheline
 	Repairable:
 		RepairActors: fix, gfix, gfix.boss
 	RevealOnFire:
@@ -1390,6 +1405,11 @@
 	Inherits@Monumentboost: ^Monumentboosted
 	Inherits@corrode: ^CorrodesFromTibWeaps
 	Inherits@CurseCondition: ^CurseDebuff
+	Inherits@patriotism: ^patriotismboost
+	Inherits@advancedtraining: ^advancedtraining
+	Inherits@usabombardment: ^usabombardment
+	Inherits@usasearchanddestroy: ^usasearchanddestroy
+	Inherits@usahold_the_line: ^usaholdtheline
 	Huntable:
 	OwnerLostAction:
 		Action: Kill
@@ -1524,6 +1544,9 @@
 	Inherits@TotemDebuf: ^TotemDebufer
 	Inherits@patriotism: ^patriotismboost
 	Inherits@advancedtraining: ^advancedtraining
+	Inherits@usabombardment: ^usabombardment
+	Inherits@usasearchanddestroy: ^usasearchanddestroy
+	Inherits@usahold_the_line: ^usaholdtheline
 
 
 ^Plane:
@@ -1532,6 +1555,9 @@
 	Inherits@TotemDebuf: ^TotemDebufer
 	Inherits@patriotism: ^patriotismboost
 	Inherits@advancedtraining: ^advancedtraining
+	Inherits@usabombardment: ^usabombardment
+	Inherits@usasearchanddestroy: ^usasearchanddestroy
+	Inherits@usahold_the_line: ^usaholdtheline
 	Repairable:
 		RepairActors: fix, gfix, gfix.boss
 
@@ -2046,3 +2072,48 @@
 	GainsExperienceMultiplier@advancedtraining:
 		RequiresCondition: advancedtraining
 		Modifier: 200
+
+^usabombardment:
+	ExternalCondition@usa.bombardment:
+		Condition: usa.bombardment
+	FirepowerMultiplier@usa.bombardment:
+		RequiresCondition: usa.bombardment
+		Modifier: 120
+	WithDecoration@usa.bombardment:
+		Image: pips
+		Sequence: usastrategypipbombardment
+		Palette: effect
+		Position: TopLeft
+		ValidRelationships: None,Neutral,Enemy,Ally
+		RequiresCondition: usa.bombardment
+
+^usaholdtheline:
+	ExternalCondition@usa.hold_the_line:
+		Condition: usa.hold_the_line
+	DamageMultiplier@usa.hold_the_line:
+		RequiresCondition: usa.hold_the_line
+		Modifier: 90
+	WithDecoration@usa.hold_the_line:
+		Image: pips
+		Sequence: usastrategypipholdtheline
+		Palette: effect
+		Position: TopLeft
+		ValidRelationships: None,Neutral,Enemy,Ally
+		RequiresCondition: usa.hold_the_line
+
+^usasearchanddestroy:
+	ExternalCondition@usa.search_and_destroy:
+		Condition: usa.search_and_destroy
+	RangeMultiplier@usa.search_and_destroy:
+		RequiresCondition: usa.search_and_destroy
+		Modifier: 120
+	RevealsShroudMultiplier@usa.search_and_destroy:
+		RequiresCondition: usa.search_and_destroy
+		Modifier: 120
+	WithDecoration@usa.search_and_destroy:
+		Image: pips
+		Sequence: usastrategypipsearchanddestroy
+		Palette: effect
+		Position: TopLeft
+		ValidRelationships: None,Neutral,Enemy,Ally
+		RequiresCondition: usa.search_and_destroy

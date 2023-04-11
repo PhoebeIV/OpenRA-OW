@@ -66,15 +66,12 @@ upgrade.aircraftgeneral:
 		Description: Recruit General Malcolm Granger to join your forces.\nUnlocks advanced airforce units and abilities.
 		BuildPaletteOrder: 10010
 		Prerequisites: ~structures.usa, techcenter
-        BuildDuration: 1500
+        BuildDuration: 6000
 	Valued:
-		Cost: 10000
+		Cost: 5000
 	ProvidesPrerequisite@upgradename:
 	ExternalCondition@PRODUCED:
 		Condition: produced
-    VoiceAnnouncement:
-        Voice: usaaircraftgeneral.wav
-        RequiresCondition: upgrade.aircraftgeneral
         
 upgrade.superweaponsgeneral:
 	Inherits: ^UpgradeBaseExt
@@ -84,15 +81,12 @@ upgrade.superweaponsgeneral:
 		Description: Recruit General Alexis Alexander to join your forces.\nUnlocks advanced weaponry and abilities.
 		BuildPaletteOrder: 10011
 		Prerequisites: ~structures.usa, techcenter
-        BuildDuration: 1500
+        BuildDuration: 6000
 	Valued:
-		Cost: 17500
+		Cost: 10000
 	ProvidesPrerequisite@upgradename:
 	ExternalCondition@PRODUCED:
 		Condition: produced
-    VoiceAnnouncement:
-        Voice: usasuperweaponsgeneral.wav
-        RequiresCondition: upgrade.superweaponsgeneral
         
 upgrade.lasergeneral:
 	Inherits: ^UpgradeBaseExt
@@ -102,12 +96,57 @@ upgrade.lasergeneral:
 		Description: Recruit General "Pinpoint" Townes to join your forces.\nUnlocks laser weaponry and abilities.
 		BuildPaletteOrder: 10012
 		Prerequisites: ~structures.usa, techcenter
-        BuildDuration: 1500
+        BuildDuration: 6000
 	Valued:
-		Cost: 12500
+		Cost: 7500
 	ProvidesPrerequisite@upgradename:
 	ExternalCondition@PRODUCED:
 		Condition: produced
-    VoiceAnnouncement:
-        Voice: usalasergeneral.wav
-        RequiresCondition: upgrade.lasergeneral
+
+upgrade.searchanddestroy:
+	Inherits: ^UpgradeBaseExt
+	Tooltip:
+		Name: Search and Destroy
+	Buildable:
+		Queue: Wall
+		Description: Increases weapon range & sight range of all friendly ground units by 20%.\nInstalls sensors that enabled the detection of stealthed units within a large radius around the strategy center.
+		BuildPaletteOrder: 10012
+		Prerequisites: ~structures.usa, techcenter, !upgrade.holdtheline, !upgrade.bombardment
+        BuildDuration: 25
+	Valued:
+		Cost: 1
+	ProvidesPrerequisite@upgradename:
+	ExternalCondition@PRODUCED:
+		Condition: produced
+
+upgrade.holdtheline:
+	Inherits: ^UpgradeBaseExt
+	Tooltip:
+		Name: Hold the Line
+	Buildable:
+		Queue: Wall
+		Description: Increases armor of all friendly ground units by 10%.\nReinforces the strategy center with sandbags to increase its resilience.
+		BuildPaletteOrder: 10012
+		Prerequisites: ~structures.usa, techcenter, !upgrade.bombardment, !upgrade.searchanddestroy
+        BuildDuration: 25
+	Valued:
+		Cost: 1
+	ProvidesPrerequisite@upgradename:
+	ExternalCondition@PRODUCED:
+		Condition: produced
+
+upgrade.bombardment:
+	Inherits: ^UpgradeBaseExt
+	Tooltip:
+		Name: Bombardment
+	Buildable:
+		Queue: Wall
+		Description: Increases damage of all friendly ground units by 20%.\nDeploys an artillery piece from the strategy center for defense.
+		BuildPaletteOrder: 10012
+		Prerequisites: ~structures.usa, techcenter, !upgrade.holdtheline, !upgrade.searchanddestroy
+        BuildDuration: 25
+	Valued:
+		Cost: 1
+	ProvidesPrerequisite@upgradename:
+	ExternalCondition@PRODUCED:
+		Condition: produced

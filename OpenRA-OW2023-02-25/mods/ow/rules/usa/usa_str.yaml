@@ -25,7 +25,7 @@ usacoldfusion:
 		Name: Cold Fusion Reactor (Nuclear Rods)
         RequiresCondition: coldfusionup2
 	DamageMultiplier@Extra150:
-		Modifier: 50
+		Modifier: 90
 		RequiresCondition: coldfusionup2
 	ProvidesPrerequisite:
 		Prerequisite: anypower
@@ -380,13 +380,10 @@ usaairfield:
 		RevealGeneratedShroud: False
 	RevealsShroud@GAPGEN:
 		Range: 4c0
-	HitShape:
-		TargetableOffsets: 0,0,0, 0,-512,256, 0,-1451,384, 0,512,128, 0,1536,85
-		Type: Rectangle
-			TopLeft: -2048, -1024
-			BottomRight: 2048, 1024
 	Production:
 		Produces: Aircraft, Plane, Helicopter
+	ProductionBar:
+		ProductionType: Aircraft
 	Power:
 		Amount: -30
 	ProvidesPrerequisite@usa:
@@ -529,7 +526,10 @@ usastrategycenter:
 	Armor:
 		Type: Heavy
 	Power:
-		Amount: -70
+		Amount: -100
+	Power@Strategy:
+		Amount: -100
+        RequiresCondition: bombardment || hold_the_line || search_and_destroy
 	RevealsShroud:
 		MinRange: 5c0
 		Range: 7c0
@@ -543,9 +543,6 @@ usastrategycenter:
 		Prerequisite: techcenter
 	RenderSprites:
 		Image: usastrategycenter
-	RenderDetectionCircle:
-	DetectCloaked:
-		Range: 5c0
     SpawnActorPower@spydrone:
 		OrderName: SpyDrone
         Name: Spy Drone
@@ -599,6 +596,57 @@ usastrategycenter:
 		Dimensions: 7, 7
 		Footprint: _xxxxx_ xxxxxxx xxxxxxx xxxxxxx xxxxxxx xxxxxxx _xxxxx_
 		DisplayTimerRelationships: Ally
+	Turreted:
+		TurnSpeed: 3
+		InitialFacing: 96
+		Offset: -416, -576, 0
+	RenderDetectionCircle:
+	DetectCloaked:
+		Range: 12c512
+		RequiresCondition: search_and_destroy && !disabled
+	Armament:
+		Weapon: usafirebaseshot
+		LocalOffset: 520,0,450
+		RequiresCondition: bombardment
+	WithIdleOverlay@HOLD_THE_LINE:
+		Sequence: hold_the_line
+		Palette: effect
+		RequiresCondition: hold_the_line
+	DamageMultiplier@HOLD_THE_LINE:
+		RequiresCondition: hold_the_line
+		Modifier: 50
+	WithIdleOverlay@SEARCH_AND_DESTROY:
+		Sequence: search_and_destroy
+		RequiresCondition: search_and_destroy
+	AttackTurreted:
+		PauseOnCondition: build-incomplete || emp || hacked || lowpower || disabled
+	WithRangeCircle:
+		Range: 10c0
+		Color: DDDD0088
+		RequiresCondition: bombardment
+	WithSpriteTurret:
+		RequiresCondition: bombardment && !build-incomplete
+	GrantConditionOnPrerequisite@bombardment:
+		Condition: bombardment
+		Prerequisites: ~upgrade.bombardment
+	GrantConditionOnPrerequisite@holdtheline:
+		Condition: hold_the_line
+		Prerequisites: ~upgrade.holdtheline
+	GrantConditionOnPrerequisite@searchanddestroy:
+		Condition: search_and_destroy
+		Prerequisites: ~upgrade.searchanddestroy
+	ProximityExternalCondition@bombardment:
+		Condition: usa.bombardment
+		RequiresCondition: bombardment
+		Range: 32c0
+	ProximityExternalCondition@holdtheline:
+		Condition: usa.hold_the_line
+		RequiresCondition: hold_the_line
+		Range: 32c0
+	ProximityExternalCondition@searchanddestroy:
+		Condition: usa.search_and_destroy
+		RequiresCondition: search_and_destroy
+		Range: 32c0
  
 #mines move later
 USAMINEDROP:
@@ -742,7 +790,7 @@ usasupplydropzone:
         
 usaparticlecannon:
 	Inherits: ^Building
-	Inherits@shape: ^2x2Shape
+	Inherits@shape: ^3x3Shape
 	Inherits@IDISABLE: ^DisableOnLowPowerOrPowerDown
 	Valued:
 		Cost: 5000
@@ -755,10 +803,15 @@ usaparticlecannon:
 		Description: Provides Particle Cannon support power.
 		BuildPaletteOrder: 500
 	Building:
-		Footprint: xx xx
-		Dimensions: 2,2
+		Footprint: xxx Xxx ===
+		Dimensions: 3,3
+		LocalCenterOffset: 0,-512,0
 	Selectable:
-		Bounds: 2048, 2048
+		Bounds: 3072, 2048
+		DecorationBounds: 3072, 2901, 0, -426
+	WithIdleOverlay@POWER:
+		Offset: -20,-70,0
+		Sequence: power
 	Health:
 		HP: 100000
 	Armor:
@@ -781,16 +834,13 @@ usaparticlecannon:
 		DetectedSound: eudepar.wav
 	SupportPowerChargeBar:
 	Power:
-		Amount: -150
+		Amount: -200
 	MustBeDestroyed:
 		RequiredForShortGame: false
-	WithSupportPowerActivationAnimation:
-		RequiresCondition: !build-incomplete
 	ProvidesPrerequisite@superweapon:
 		Prerequisite: superweapon
 	RenderSprites:
 		Image: usaparticlecannon
-		PlayerPalette: dawn
 	Explodes:
 		Type: CenterPosition
 		Weapon: MiniNuke
@@ -982,6 +1032,7 @@ usalaserpatriot:
 		Delay: 25
 		ResetOnFire: true
 		Count: 1
+		PauseOnCondition: disabled
 	Turreted:
 		TurnSpeed: 48
 		InitialFacing: 192
