@@ -59,15 +59,15 @@ FLAK-23-AG:
 # UAC Minigun Marine
 DoomMinigunAA:
 	Inherits: ^AACannon
-	ReloadDelay: 4
+	ReloadDelay: 3
 	Range: 10c0
-	Report: dsshotgn2.aud
+	Report: dspistol.aud, dspistol01.aud, dspistol02.aud, dspistol03.aud, dspistol04.aud
 	Projectile: Bullet
 		Speed: 3c340
 		Inaccuracy: 1024
 	Warhead@1Dam: SpreadDamage
 		Spread: 256
-		Damage: 400
+		Damage: 300
 
 # Supersoldier
 SuperVulcanAA:
@@ -397,7 +397,7 @@ M1Carbine_G2:
 M1Minigun:
 	Inherits: M1Carbine
 	ReloadDelay: 24
-	Report: marattck.aud
+	Report: dsshotgn.aud
 	Warhead@1Dam: SpreadDamage
 		Damage: 1800
 
@@ -421,9 +421,9 @@ M1Minigun_N:
 M1Minigun_U:
 	Inherits: M1Carbine
 	ReloadDelay: 26
-	Report: marattck.aud
+	Report: dsshotgn.aud
 	Warhead@1Dam: SpreadDamage
-		Damage: 2300
+		Damage: 2400
 		Versus:
 			None: 120
 			Wood: 20
@@ -449,14 +449,14 @@ DoomSSG:
 # UAC Minigun Marine
 DoomMinigun:
 	Inherits: ^LightMG
-	ReloadDelay: 4
-	Report: dsshotgn2.aud
+	ReloadDelay: 3
+	Report: dspistol.aud, dspistol01.aud, dspistol02.aud, dspistol03.aud, dspistol04.aud
 	Projectile: Bullet
 		Speed: 1c682
 		Inaccuracy: 756
 	Warhead@1Dam: SpreadDamage
 		Spread: 256
-		Damage: 700
+		Damage: 600
 		Versus:
 			None: 100
 			Wood: 10
@@ -564,6 +564,43 @@ DoomSpiderCluster:
 		Spread: 256
 		Damage: 800
 		ValidRelationships: Neutral, Enemy
+
+TerranMarine:
+	Inherits: M1Carbine
+	ReloadDelay: 26
+	Report: marattck.aud
+	Warhead@1Dam: SpreadDamage
+		Damage: 2300
+		Versus:
+			None: 115
+			Wood: 25
+			Light: 45
+			Heavy: 25
+			Concrete: 25
+
+TerranMarineGarrison:
+	Inherits: TerranMarine
+	ReloadDelay: 24
+	Range: 6c0
+
+TerranMarineUp:
+	Inherits: TerranMarine
+	Range: 6c0
+	ValidTargets: Ground, Water, GroundActor, WaterActor, Air, AirborneActor
+	Warhead@2Dam: SpreadDamage
+		Damage: 1200
+		Versus:
+			None: 100
+			Wood: 20
+			Light: 50
+			Heavy: 20
+			Concrete: 20
+		ValidTargets: Air, AirborneActor
+
+TerranMarineGarrisonUp:
+	Inherits: TerranMarineUp
+	ReloadDelay: 24
+	Range: 6c512
 
 JumpJetVulcan:
 	Inherits: CyborgVulcan

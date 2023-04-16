@@ -1,0 +1,412 @@
+TSCV:
+	Inherits: ^Vehicle
+	Inherits@selection: ^SelectableEconomicUnit
+	Buildable:
+		Queue: Infantry
+		BuildPaletteOrder: 45
+		Prerequisites: refinery, ~infantry.terran, ~techlevel.infonly
+		Description: Collects Ore, Gems and Tiberium for processing.\nSpeed: 96\n  Can repair structures and vehicles.
+		BuildDurationModifier: 200
+	Valued:
+		Cost: 400
+	Tooltip:
+		Name: SCV
+	Selectable:
+		DecorationBounds: 1280, 1280
+	Harvester:
+		Capacity: 8
+		Resources: Ore,Gems,Tiberium,BlueTiberium
+		BaleUnloadDelay: 1
+		BaleUnloadAmount: 10
+		SearchFromProcRadius: 15
+		SearchFromHarvesterRadius: 8
+		EmptyCondition: no-ore
+	Health:
+		HP: 40000
+	Armor:
+		Type: Light
+	Mobile:
+		Speed: 96
+		Locomotor: foot2
+		TurnSpeed: 90
+	RevealsShroud:
+		MinRange: 4c0
+		Range: 5c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 4c0
+	Armament:
+		Weapon: RepairSCV
+		Cursor: repair
+		OutsideRangeCursor: repair
+		TargetRelationships: Ally
+		ForceTargetRelationships: None
+	AttackFrontal:
+		FacingTolerance: 0
+	WithHarvestAnimation:
+		HarvestSequence: shoot
+	WithAttackAnimation:
+		Sequence: shoot
+	WithFacingSpriteBody:
+	GrantConditionOnMovement@scout:
+		Condition: moving
+	GpsDot:
+		String: Harvester
+	Explodes:
+		RequiresCondition: !no-ore
+		Weapon: OreExplosion
+	Explodes@2:
+		Weapon: SCVExplosion
+		EmptyWeapon: SCVExplosion
+	WithHarvesterPipsDecoration:
+		Position: BottomLeft
+		Margin: 4, 3
+		RequiresSelection: true
+		PipCount: 4
+		ResourceSequences:
+			Ore: pip-yellow
+			Gems: pip-red
+			Tiberium: pip-green
+			BlueTiberium: pip-blue
+	RepairsBridges:
+	CaptureManager:
+	Infiltrates:
+		Types: Husk
+		ValidRelationships: Ally
+		EnterCursor: goldwrench
+		PlayerExperience: 25
+	Captures@husk:
+		CaptureTypes: husk
+		PlayerExperience: 25
+		CaptureDelay: 100
+		EnterCursor: goldwrench
+		ConsumedByCapture: true
+	RenderSprites:
+	Voiced:
+		VoiceSet: TerranSCVVoice
+	DeathSounds:
+		DeathTypes: DefaultDeath, FireDeath, TiberiumDeath, ExplosionDeath, ElectricityDeath, BulletDeath, SmallExplosionDeath
+	AutoTarget:
+	AutoTargetPriority@DEFAULT:
+		ValidTargets: Vehicle, Ship, Structure
+
+^CanTakeStimpacks:
+	WithDecoration@stimpack:
+		Image: pips
+		Sequence: pip-yellow
+		Palette: effect
+		Position: TopLeft
+		ValidRelationships: Ally
+		RequiresCondition: stimpack && !active_stimpack && health_stimpack
+	WithDecoration@stimpack2:
+		Image: pips
+		Sequence: pip-empty
+		Palette: effect
+		Position: TopLeft
+		ValidRelationships: Ally
+		RequiresCondition: stimpack && tacadamy && health_stimpack
+	ExternalCondition@stimpacks:
+		Condition: give_stimpack
+	GrantCondition@stimpacks:
+		RequiresCondition: give_stimpack
+		Condition: stimpack
+		GrantPermanently: true
+	ProximityExternalCondition@stimpack:
+		Condition: take_stimpack
+		Range: 3c0
+	GrantConditionOnPrerequisite@academy:
+		Prerequisites: tacadamy
+		Condition: tacadamy
+	GrantRandomCondition@bot_decider:
+		Conditions: randombot0, bot_stimpack, bot_stimpack
+	GrantConditionOnPrerequisite@bot_decider:
+		Prerequisites: ai.all, tacadamy
+		Condition: botowner
+	GrantCondition@bot_decider:
+		RequiresCondition: bot_stimpack && botowner
+		Condition: stimpack
+	SpeedMultiplier@stimpack:
+		RequiresCondition: active_stimpack && health_stimpack
+		Modifier: 150
+	ReloadDelayMultiplier@stimpack:
+		RequiresCondition: active_stimpack && health_stimpack
+		Modifier: 80
+	DamageMultiplier@stimpack:
+		RequiresCondition: active_stimpack && health_stimpack
+		Modifier: 125
+
+TMARINE:
+	Inherits: ^DoomSoldier
+	Inherits@stim: ^CanTakeStimpacks
+	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
+	Buildable:
+		Queue: Infantry
+		BuildAtProductionType: Soldier
+		BuildPaletteOrder: 20
+		Prerequisites: ~barracks, ~techlevel.infonly, ~infantry.terran
+		Description: General-purpose infantry.\nSpeed: 60\n  Strong vs Infantry\n  Weak vs Vehicles, Aircraft \n\nCan attack air with an upgrade.
+		BuildDurationModifier: 150
+	Selectable:
+		Bounds: 768, 938, 0, 0
+		DecorationBounds: 750, 938, 0, 0
+		Class: TMARINE
+	Valued:
+		Cost: 300
+	Tooltip:
+		Name: Marine
+	Mobile:
+		Speed: 60
+	Health:
+		HP: 18000
+	Armament@PRIMARY:
+		Weapon: TerranMarine
+		RequiresCondition: !marine_upgraded
+	Armament@GARRISONED:
+		Name: garrisoned
+		Weapon: Vulcan
+		MuzzleSequence: garrison-muzzle
+	Armament@BUS:
+		Name: bus
+		Weapon: TerranMarineGarrison
+		RequiresCondition: !marine_upgraded
+	Armament@PRIMARYUp:
+		Weapon: TerranMarineUp
+		RequiresCondition: marine_upgraded
+	Armament@BUSUp:
+		Name: bus
+		Weapon: TerranMarineGarrisonUp
+		RequiresCondition: marine_upgraded
+	WithInfantryBody:
+		DefaultAttackSequence: shoot
+		StandSequences: stand,stand2
+		IdleSequences: stand,stand2,aiming
+		RequiresCondition: !aiming && !shooting
+	WithInfantryBody@aiming:
+		DefaultAttackSequence: shoot
+		StandSequences: aiming
+		IdleSequences: stand,stand2,run
+		RequiresCondition: aiming && !shooting
+	WithInfantryBody@shooting:
+		DefaultAttackSequence: shoot
+		StandSequences: shoot
+		IdleSequences: shoot
+		RequiresCondition: aiming && shooting
+	GrantConditionOnAttack@aiming:
+		Condition: aiming
+		RevokeDelay: 50
+	GrantConditionOnAttack@shooting:
+		Condition: shooting
+		RevokeDelay: 14
+	GrantConditionOnMovement@move:
+		Condition: moving
+	WithDeathAnimation:
+		UseDeathTypeSuffix: false
+		CrushedSequence: die
+		CrushedSequencePalette: player
+		CrushedPaletteIsPlayerPalette: true
+	ProducibleWithLevel:
+		Prerequisites: barracks.upgraded
+	Voiced:
+		VoiceSet: TerranMarineVoice
+	GrantRandomCondition:
+		Conditions: nothing,nothing,nothing,nothing,nothing,nothing,nothing,talkative
+	AmbientSound@talky:
+		SoundFiles: tmardy00.aud, tmapss00.aud, tmapss01.aud, tmapss02.aud, tmapss03.aud, tmapss04.aud, tmapss06.aud, tmayes01.aud
+		Delay: 750, 1500
+		Interval: 1000, 2250
+		RequiresCondition: !moving && !aiming && talkative
+	AmbientSound@talky2:
+		SoundFiles: tmardy00.aud
+		Delay: 25
+		Interval: -1
+		RequiresCondition: talkative
+	DeathSounds@NORMAL:
+		Voice: Die
+	DeathSounds@ZAPPED:
+		Voice: Die
+	GrantConditionOnPrerequisite@upgrade:
+		Prerequisites: terran.marine
+		Condition: marine_upgraded
+	GrantConditionOnAttack@stimpack:
+		Condition: active_stimpack
+		RequiresCondition: stimpack && health_stimpack
+		RevokeDelay: 375
+		RevokeAll: true
+	AmbientSound@stimpack:
+		SoundFiles: tmasti00.aud,tmasti01.aud
+		Delay: 0,25
+		Interval: 400,500
+		RequiresCondition: active_stimpack
+	ChangesHealth@stimpack:
+		RequiresCondition: active_stimpack && health_stimpack
+		Step: -175
+		Delay: 25
+		StartIfBelow: 101
+	GrantConditionOnHealth@stimpack:
+		MinHP: 4500
+		Condition: health_stimpack
+
+TMARINE.b:
+	Inherits: TMARINE
+	Buildable:
+		Prerequisites: ~infantry.terran, ~techlevel.infonly, ~ai.all
+		BuildPaletteOrder: 90000
+	RenderSprites:
+		Image: tmarine
+	Cloneable:
+		Types: Infantry
+	UpdatesPlayerStatistics:
+		OverrideActor: tmarine
+
+TMARINE.b2:
+	Inherits: TMARINE.b
+
+
+TFIREBAT:
+	Inherits: ^DoomSoldier
+	Inherits@stim: ^CanTakeStimpacks
+	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
+	Buildable:
+		Queue: Infantry
+		BuildAtProductionType: Soldier
+		BuildPaletteOrder: 25
+		Prerequisites: tacadamy, ~barracks, ~techlevel.infonly, ~infantry.terran
+		Description: Splash damage flamethrower.\nSpeed: 60\n  Strong vs Infantry, Structures\n  Weak vs Vehicles, Aircraft
+		BuildDurationModifier: 150
+		BuildDuration: 300
+	Selectable:
+		Bounds: 768, 938, 0, 0
+		DecorationBounds: 750, 938, 0, 0
+		Class: TFIREBAT
+	Valued:
+		Cost: 400
+	Tooltip:
+		Name: Firebat
+	Mobile:
+		Speed: 60
+	TakeCover:
+		SpeedModifier: 125
+		Duration: 50
+		DamageTriggers: TriggerProne
+	Health:
+		HP: 25000
+	Armament@PRIMARY:
+		Weapon: FirebatFlamer
+		MuzzleSequence: muzzle
+		MuzzlePalette: dawneffect
+		LocalOffset: 256,200,256
+	Armament@PRIMARY2:
+		Weapon: FirebatFlamer2
+		MuzzleSequence: muzzle
+		MuzzlePalette: dawneffect
+		LocalOffset: 256,-200,256
+	Armament@GARRISONED:
+		Name: garrisoned
+		Weapon: FirebatFlamer
+		MuzzlePalette: dawneffect
+		MuzzleSequence: muzzle
+		LocalOffset: 256,200,256
+	Armament@GARRISONED2:
+		Name: garrisoned
+		Weapon: FirebatFlamer2
+		MuzzlePalette: dawneffect
+		MuzzleSequence: muzzle
+		LocalOffset: 256,-200,256
+	Armament@BUS:
+		Name: bus
+		Weapon: FirebatFlamer
+		MuzzlePalette: dawneffect
+		MuzzleSequence: muzzle
+		LocalOffset: 256,200,256
+	Armament@BUS2:
+		Name: bus
+		Weapon: FirebatFlamer2
+		MuzzlePalette: dawneffect
+		MuzzleSequence: muzzle
+		LocalOffset: 256,-200,256
+	WithInfantryBody:
+		DefaultAttackSequence: shoot
+		StandSequences: stand
+		IdleSequences: stand,aiming
+		RequiresCondition: !aiming && !shooting
+	WithInfantryBody@aiming:
+		DefaultAttackSequence: shoot
+		StandSequences: aiming
+		IdleSequences: stand,run
+		RequiresCondition: aiming && !shooting
+	WithInfantryBody@shooting:
+		DefaultAttackSequence: shoot
+		StandSequences: shoot
+		IdleSequences: shoot
+		RequiresCondition: aiming && shooting
+	GrantConditionOnAttack@aiming:
+		Condition: aiming
+		RevokeDelay: 50
+	GrantConditionOnAttack@shooting:
+		Condition: shooting
+		RevokeDelay: 14
+	GrantConditionOnMovement@move:
+		Condition: moving
+	-WithDeathAnimation:
+	ProducibleWithLevel:
+		Prerequisites: barracks.upgraded
+	Voiced:
+		VoiceSet: TerranFirebatVoice
+	GrantRandomCondition:
+		Conditions: nothing,nothing,nothing,nothing,nothing,nothing,nothing,talkative
+	AmbientSound@talky:
+		SoundFiles: tfbrdy00.aud, tfbpss00.aud, tfbpss01.aud, tfbpss02.aud, tfbpss03.aud, tfbpss04.aud, tfbpss05.aud, tfbpss06.aud, tfbyes03.aud
+		Delay: 750, 1500
+		Interval: 1000, 2250
+		RequiresCondition: !moving && !aiming && talkative
+	AmbientSound@talky2:
+		SoundFiles: tfbrdy00.aud
+		Delay: 25
+		Interval: -1
+		RequiresCondition: talkative
+	DeathSounds@NORMAL:
+		Voice: Die
+	DeathSounds@ZAPPED:
+		Voice: Die
+	DeathSounds@BURNED:
+		Voice: Die
+	-SpawnActorOnDeath@fire:
+	GrantConditionOnPrerequisite@upgrade:
+		Prerequisites: terran.marine
+		Condition: marine_upgraded
+	GrantConditionOnAttack@stimpack:
+		Condition: active_stimpack
+		RequiresCondition: stimpack && health_stimpack
+		RevokeDelay: 375
+		RequiredShotsPerInstance: 1,3
+	AmbientSound@stimpack:
+		SoundFiles: tmasti00.aud,tmasti01.aud
+		Delay: 0,25
+		Interval: 400,550
+		RequiresCondition: active_stimpack
+	ChangesHealth@stimpack:
+		RequiresCondition: active_stimpack && health_stimpack
+		Step: -243
+		Delay: 25
+		StartIfBelow: 101
+	GrantConditionOnHealth@stimpack:
+		MinHP: 6250
+		Condition: health_stimpack
+	Explodes:
+		Weapon: UnitExplodeSmall
+		EmptyWeapon: UnitExplodeSmall
+		DamageSource: Killer
+	WithMuzzleOverlay:
+
+
+TFIREBAT.b:
+	Inherits: TFIREBAT
+	Buildable:
+		Prerequisites: tacadamy, ~barracks, ~techlevel.infonly, ~infantry.terran, ~ai.all
+		BuildPaletteOrder: 90000
+	RenderSprites:
+		Image: tfirebat
+	Cloneable:
+		Types: Infantry
+	UpdatesPlayerStatistics:
+		OverrideActor: tfirebat

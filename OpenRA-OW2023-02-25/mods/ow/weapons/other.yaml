@@ -40,6 +40,9 @@ Flamer:
 	ReloadDelay: 50
 	Burst: 15
 	BurstDelays: 1
+	MinRange: 1c0
+	FirstBurstTargetOffset: -756,0,0
+	FollowingBurstTargetOffset: 96,0,0
 	Projectile: Bullet
 		Speed: 170
 		TrailImage: fb4
@@ -63,6 +66,7 @@ FalseFlamer:
 	Inherits: Flamer
 	Burst: 10
 	ReloadDelay: 65
+	FirstBurstTargetOffset: -512,0,0
 
 # Flame tank
 BigFlamer:
@@ -253,7 +257,11 @@ RepairWorker:
 	ValidTargets: Repair, StructureRepair
 	Warhead@1Dam: SpreadDamage
 		Damage: -1250
-		ValidTargets: Repair, StructureRepair
+		ValidTargets: Repair
+	Warhead@2Dam: SpreadDamage
+		Damage: -2000
+		ValidTargets: StructureRepair
+		DebugOverlayColor: 00FF00
 
 RepairDepot:
 	Inherits: Repair
@@ -3023,3 +3031,105 @@ KerriganPlague:
 	Warhead@curtain: GrantExternalCondition
 		AffectsParent: false
 		ValidRelationships: Enemy, Neutral
+
+RepairSCV:
+	Inherits: RepairWorker
+	Range: 1c512
+	ReloadDelay: 12
+	-Report:
+	ValidTargets: Repair, StructureRepair
+	Warhead@1Dam: SpreadDamage
+		Damage: -500
+	Warhead@2Dam: SpreadDamage
+		Damage: -350
+	Warhead@3EffGround: CreateEffect
+		Explosions: scvsparks
+		ImpactSounds: edrrep00.aud, edrrep01.aud, edrrep02.aud, edrrep03.aud, edrrep04.aud
+		Inaccuracy: 64
+		ValidTargets: GroundActor, WaterActor
+	Warhead@reptrigger: GrantExternalCondition
+		Range: 1c0
+		Condition: player_repairing
+		ValidTargets: Structure
+		Duration: 100
+
+
+FirebatFlamer:
+	Inherits: ^FireWeapon
+	Report: tfbfir00.aud, tfbfir01.aud
+	ReloadDelay: 32
+	Range: 4c0
+	MinRange: 1c0
+	Projectile: Bullet
+		Speed: 1c0
+	Warhead@1Dam: SpreadDamage
+		Delay: 5
+		Spread: 256
+		Damage: 6500
+		Versus:
+			Wood: 35
+	-Warhead@3Eff:
+	Warhead@3resource: DestroyResource
+		Size: 1
+		Delay: 5
+		ResourceAmount: 1
+		ResourceTypes: ZergCreep, Tiberium, BlueTiberium
+
+FirebatFlamer2:
+	ReloadDelay: 30
+	Burst: 3
+	BurstDelays: 0
+	Range: 4c0
+	MinRange: 1c0
+	ValidTargets: Ground, Water, GroundActor, WaterActor, Trees
+	FirstBurstTargetOffset: -1536,0,0
+	FollowingBurstTargetOffset: 380,0,0
+	Projectile: Bullet
+		Speed: 1c0
+	Warhead@2Dam: SpreadDamage
+		Delay: 2
+		Spread: 213
+		Damage: 2000
+		ValidTargets: GroundActor, WaterActor, Trees
+		Versus:
+			None: 90
+			Wood: 50
+			Tree: 50
+			Light: 60
+			Heavy: 25
+			Concrete: 20
+		DamageTypes: Prone50Percent, TriggerProne, FireDeath, Incendiary
+		ValidRelationships: Enemy, Neutral
+	Warhead@3Dam: SpreadDamage
+		Delay: 2
+		Spread: 213
+		Damage: 2000
+		ValidTargets: GroundActor, WaterActor, Trees
+		InvalidTargets: Structure
+		Versus:
+			None: 90
+			Wood: 50
+			Tree: 50
+			Light: 60
+			Heavy: 25
+			Concrete: 20
+		DamageTypes: Prone50Percent, TriggerProne, FireDeath, Incendiary
+		ValidRelationships: Ally
+	Warhead@2Smu: LeaveSmudge
+		SmudgeType: Scorch
+		InvalidTargets: Structure, Wall
+	Warhead@3resource: DestroyResource
+		Size: 1
+		Delay: 2
+		ResourceAmount: 1
+		ResourceTypes: ZergCreep, Tiberium, BlueTiberium
+
+FirebatFlamerGarrison:
+	Inherits: FirebatFlamer
+	MinRange: 0
+
+FirebatFlamerGarrison2:
+	Inherits: FirebatFlamer2
+	MinRange: 0
+	FirstBurstTargetOffset: -768,0,0
+	FollowingBurstTargetOffset: 380,0,0

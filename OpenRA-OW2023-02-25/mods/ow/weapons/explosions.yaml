@@ -151,6 +151,7 @@ ToxinSCUDExplode:
 		Footprint: x
 
 BuildingExplode:
+	Projectile: InstantHit
 	Warhead@2Eff: CreateEffect
 		Explosions: building, building_napalm, large_explosion, self_destruct, large_napalm
 	Warhead@Smu: LeaveSmudge
@@ -319,10 +320,15 @@ TerroristBomb:
 		ValidTargets: Ground, Water, Air
 		ImpactSounds: kaboom22.aud, expnew05.aud, expnew11.aud, dsbigexp.aud, dsbarexp.aud, xplobig6.aud
 	-Warhead@3EffWater:
+	Warhead@15Shake: ShakeScreen
+		Duration: 5
+		Intensity: 1
+		Multiplier: 1,1
 
 DemoTrapExplosion:
 	Inherits: ^Explosion
 	ValidTargets: Ground, Water, GroundActor, WaterActor
+	Projectile: InstantHit
 	Warhead@1Dam: SpreadDamage
 		Spread: 1c0
 		Damage: 25000
@@ -350,14 +356,20 @@ DemoTrapExplosion:
 		ValidTargets: Ground, Water, Air
 		ImpactSounds: dsrpgexp.aud
 	-Warhead@3EffWater:
+	Warhead@15Shake: ShakeScreen
+		Duration: 5
+		Intensity: 2
+		Multiplier: 1,1
 
 DemoTrapExplosion2:
 	Inherits: DemoTrapExplosion
 	Warhead@1Dam: SpreadDamage
 		Damage: 15000
+		ValidRelationships: Neutral, Enemy, Ally
 	Warhead@2Dam: SpreadDamage
 		Damage: 8000
-        
+		ValidRelationships: Neutral, Enemy, Ally
+    
 USATrapExplosion:
 	Inherits: DemoTrapExplosion
 	Warhead@1Dam: SpreadDamage
@@ -669,3 +681,25 @@ LargeZergBuildingSpawn_Hive:
 		Explosions: zerg_spawn_large
 		ImpactSounds: zchrdy00.aud
 		ImpactActors: false
+
+TerranBuildingExplode:
+	Inherits: BuildingExplode
+	Warhead@Smu: FireCluster
+		Weapon: BuildingExplode
+		RandomClusterCount: 15
+		Dimensions: 5,5
+		Footprint: xxxxx xXXXx xXXXx xXXXx xxxxx
+	Warhead@explode1: FireCluster
+		Weapon: DemoTrapExplosion2
+		RandomClusterCount: 1
+		Dimensions: 1,1
+		Footprint: x
+	Warhead@2Eff: CreateEffect
+		Explosions: large_explosion
+		ImpactSounds: kaboom22.aud, crmble2.aud, dcrumble.aud
+		ImpactActors: false
+
+SCVExplosion:
+	Inherits: UnitExplodeSmall
+	Warhead@2Eff: CreateEffect
+		ImpactSounds: tscdth00.aud

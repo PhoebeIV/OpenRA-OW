@@ -1,19 +1,14 @@
-
-1TNK.TCMD:
-	Inherits: 1TNK.MINE
-	-Explodes:
-	KillsSelf:
-		Delay: 1
-	SpawnActorOnDeath:
-		Actor: TCOMMAND
-		OwnerType: Victim
-
 ^TerranBuilding:
 	Health:
-		HP: 100
+		HP: 10000
+	Buildable:
+		Queue: Bot
+		Prerequisites: ~disabled
+		IconPalette: player
+		IconPaletteIsPlayerPalette: true
 	GrantConditionOnDamageState@fire1:
 		Condition: damaged_light
-		ValidDamageStates: Light, Heavy, Critical
+		ValidDamageStates: Medium, Heavy, Critical
 	GrantConditionOnDamageState@fire2:
 		Condition: damaged_heavy
 		ValidDamageStates: Heavy, Critical
@@ -41,10 +36,45 @@
 	RepairableBuilding:
 		RepairCondition: player_repairing
 	ChangesHealth@fire:
-		Step: -700
+		Step: -350
 		StartIfBelow: 26
-		Delay: 24
-		RequiresCondition: !player_repairing
+		Delay: 25
+		RequiresCondition: !player_repairing && !defiler_plague
+	GrantConditionOnHealth@plague:
+		MinHP: 3500
+
+#for falling airborne buildings
+^TerranBuildingHusk:
+	Inherits: ^PlaneHusk
+	-WithFacingSpriteBody:
+	WithIdleOverlay@fire1:
+		Image: fire
+		Sequence: 4
+		IsDecoration: true
+		Offset: 0,-1024,512
+	WithIdleOverlay@fire2:
+		Image: fire
+		Sequence: 3
+		IsDecoration: true
+		Offset: 0,1024,768
+	WithIdleOverlay@fire3:
+		Image: fire
+		Sequence: 2
+		IsDecoration: true
+		Offset: 0,0,512
+	RevealsShroud:
+		MinRange: 4c0
+		Range: 5c0
+		Type: GroundPosition
+	WithSpriteBody: 
+		Sequence: idle-air
+	FallsToEarth:
+		Explosion: TerranBuildingExplode
+		Velocity: 43
+	WithDeathAnimation:
+		DeathSequence: dead
+		UseDeathTypeSuffix: false
+	ShakeOnDeath:
 
 TCOMMAND:
 	Inherits: ^Building
@@ -60,13 +90,13 @@ TCOMMAND:
 		Bounds: 4096, 3072
 		Class: TCOMMAND
 	Building:
-		Footprint: xxxx xxxx ====
+		Footprint: =xx= xxxx xxxx
 		Dimensions: 4,3
-		LocalCenterOffset: 0,-512,0
+		LocalCenterOffset: 0,0,0
 	Buildable:
 		Queue: Building
 		BuildPaletteOrder: 1000
-		Prerequisites: ~disabled
+		Prerequisites: techcenter, ~structures.terran, ~techlevel.medium
 		Description: Produces structures.
 	Health:
 		HP: 150000
@@ -79,14 +109,14 @@ TCOMMAND:
 	RevealsShroud@GAPGEN:
 		Range: 4c0
 	Valued:
-		Cost: 2000
+		Cost: 5000
 	Tooltip:
 		Name: Command Center
 	BaseBuilding:
 	Transforms:
 		PauseOnCondition: chrono-vortex || being-captured || being-demolished || build-incomplete
 		IntoActor: tcommand.air
-		Offset: 1,0
+		Offset: 1,1
 		Facing: 0
 		NoTransformNotification: BuildingCannotPlaceAudio
 	TransformsIntoMobile:
@@ -94,6 +124,8 @@ TCOMMAND:
 		RequiresForceMove: true
 	TransformsIntoTransforms:
 		RequiresCondition: build-incomplete
+	TransferTimedExternalConditionOnTransform:
+		Condition: invulnerability
 	Sellable:
 		RequiresCondition: !build-incomplete && !chrono-vortex && !being-captured && !being-demolished
 	BaseProvider:
@@ -108,11 +140,44 @@ TCOMMAND:
 		DeathSequence: dead
 		UseDeathTypeSuffix: false
 	ProvidesPrerequisite@buildingname:
-	TransferTimedExternalConditionOnTransform:
-		Condition: invulnerability
+	FreeActor@addoncaptor:
+		Actor: TCOMMAND.addoncaptor
+		SpawnOffset: 4,2
+	ProximityExternalCondition@ccnear:
+		Condition: cc_near
+		Range: 3c512
+	WithProductionOverlay:
+		RequiresCondition: !build-incomplete
+		Palette: player
+		IsPlayerPalette: true
+	ExternalCondition@cc_addon_exists:
+		Condition: cc_addon_exists
+	Pluggable@1:
+		Offset: 1,2
+		Conditions:
+			tcomsat.plug: spawn_comsat
+		Requirements:
+			tcomsat.plug: !build-incomplete && !cc_addon_exists
+		EditorOptions:
+			tcomsat.plug: ComSat Station
+	FreeActor@1:
+		Actor: TCOMSAT
+		SpawnOffset: 4,2
+		RequiresCondition: spawn_comsat
+		AllowRespawn: true
+	ProvidesPrerequisite@pluggable:
+		RequiresCondition: !build-incomplete && !cc_addon_exists
+		Prerequisite: tcommand.addon
+
+TCOMMAND.addon:
+	AlwaysVisible:
+	Interactable:
+	Tooltip:
+		Name: Command Center with no addon
 
 TCOMMAND.landed:
 	Inherits: TCOMMAND
+	-Buildable:
 	RenderSprites:
 		Image: tcommand
 	WithMakeAnimation:
@@ -130,11 +195,10 @@ TCOMMAND.air:
 			TopLeft: -2048, -1024
 			BottomRight: 2048, 1024
 	Selectable:
-		Bounds: 4096, 3072
+		Bounds: 4096, 3072, 512, 0
 	Transforms:
-		PauseOnCondition: chrono-vortex || being-captured || being-demolished || build-incomplete
 		IntoActor: tcommand.landed
-		Offset: -1,0
+		Offset: -1,-1
 	Health:
 		HP: 150000
 	RevealsShroud:
@@ -150,4 +214,1011 @@ TCOMMAND.air:
 	Tooltip:
 		Name: Command Center
 	SpawnActorOnDeath:
-		Actor: pmother.husk
+		Actor: tcommand.husk
+	GrantConditionOnPrerequisite@DUMBASS_AI:
+		Prerequisites: ai.all
+		Condition: replace_me
+	FreeActor@bot:
+		RequiresCondition: replace_me
+		Actor: tcommand
+		SpawnOffset: -1,-1
+	KillsSelf@bot:
+		RequiresCondition: replace_me
+		RemoveInstead: true
+		Delay: 50
+
+TCOMMAND.addoncaptor:
+	Inherits: MINE
+	Inherits@shape: ^1x1Shape
+	RenderSprites:
+		Image: MINE
+	-WithSpriteBody:
+	-Interactable:
+	-Tooltip:
+	-AppearsOnRadar:
+	-RadarColorFromTerrain:
+	-AppearsOnMapPreview:
+	-MapEditorData:
+	-RequiresSpecificOwners:
+	-ChangesHealth@1:
+	-ChangesHealth@2:
+	-ExplosionOnDamageTransition:
+	-ChangesTerrain:
+	Targetable:
+		TargetTypes: AddonCaptor
+	Health:
+		HP: 500000
+	ExternalCondition@addon:
+		Condition: cc_near
+	KillsSelf:
+		RequiresCondition: !cc_near
+		Delay: 12
+		RemoveInstead: true
+	ProximityExternalCondition@addon:
+		Condition: cc_addon
+		Range: 1c0
+	-SeedsResource:
+
+TCOMMAND.Husk:
+	Inherits: ^TerranBuildingHusk
+	Tooltip:
+		Name: Command Center
+	RenderSprites:
+		Image: tcommand
+
+TCOMSAT.spawn:
+	Inherits: 1TNK.MINE
+	FreeActor:
+		Actor: TCOMSAT
+		SpawnOffset: 4,1
+	-Explodes:
+	-SpawnActorOnDeath:
+
+TCOMSAT.plug:
+	Inherits: ^BuildingPlug
+	Valued:
+		Cost: 1500
+	Tooltip:
+		Name: Addon: ComSat Station
+	Buildable:
+		Queue: Tech
+		BuildPaletteOrder: 30
+		Prerequisites: refinery, tcommand.addon, ~structures.terran, ~techlevel.medium
+		Description: Attach to Command Center. Provides an overview of the battlefield.\nRequires power to operate.
+		IconPalette: player
+		IconPaletteIsPlayerPalette: true
+	Plug:
+		Type: tcomsat.plug
+	RenderSprites:
+		Image: tcomsat
+	SequencePlaceBuildingPreview:
+		Sequence: idle
+	Power:
+		Amount: -50
+
+TCOMSAT:
+	Inherits: ^Building
+	Inherits@2: ^TerranBuilding
+	Inherits@POWER_OUTAGE: ^DisableOnLowPowerOrPowerDown
+	Selectable:
+		Bounds: 1920, 1280
+	HitShape:
+		UseTargetableCellsOffsets: true
+		Type: Rectangle
+			TopLeft: -1024, -512
+			BottomRight: 1024, 512
+	-Buildable:
+	MustBeDestroyed:
+		RequiredForShortGame: false
+	OwnerLostAction:
+		Action: ChangeOwner
+	Valued:
+		Cost: 1500
+	Tooltip:
+		Name: ComSat Station
+	ProvidesPrerequisite@buildingname:
+		RequiresCondition: cc_addon
+	ProvidesPrerequisite@radar:
+		Prerequisite: radar
+	Building:
+		Footprint: xx
+		Dimensions: 2,1
+		LocalCenterOffset: -128,-128,0
+	Health:
+		HP: 80000
+	Armor:
+		Type: Wood
+	RevealsShroud:
+		Range: 5c0
+	Power:
+		Amount: -50
+	WithIdleOverlay:
+		Palette: player
+		IsPlayerPalette: true
+		RequiresCondition: !build-incomplete
+		PauseOnCondition: disabled
+	WithDeathAnimation:
+		DeathSequence: dead
+		UseDeathTypeSuffix: false
+	WithIdleOverlay@fire1:
+		Offset: 0,-650,0
+	WithIdleOverlay@fire2:
+		Offset: 0,512,320
+	WithIdleOverlay@fire3:
+		Offset: 0,0,256
+	ExternalCondition@nearcc:
+		Condition: cc_addon
+	GrantCondition@nearcc:
+		RequiresCondition: !cc_addon
+		Condition: disabled
+	SpawnActorPower@spyvan:
+		PauseOnCondition: lowpower || powerdown
+		RequiresCondition: cc_addon
+		OrderName: VanSweep
+		Cursor: chrono-target
+		Icon: spy
+		ChargeInterval: 2250
+		LifeTime: 125
+		Name: Scanner Sweep
+		Description: Reveal an area on the map for 5 seconds. \nReveals cloaked units.
+		Actor: camera.spyplane
+		SelectTargetSpeechNotification: SelectTarget
+		DisplayRadarPing: True
+		DeploySound: tcssca00.aud
+		EffectSequence: idle
+	ProximityExternalCondition@iexist:
+		Condition: cc_addon_exists
+		Range: 4c0
+	Sellable:
+		RequiresCondition: !build-incomplete && !being-captured && !being-demolished && cc_addon
+
+TSUPPLY:
+	Inherits: ^PowerPlant
+	Inherits@2: ^TerranBuilding
+	Inherits@POWER_OUTAGE: ^DisabledByPowerOutage
+	Inherits@shape: ^2x2Shape
+	Selectable:
+		Bounds: 2048, 2048
+	HitShape:
+		UseTargetableCellsOffsets: false
+		TargetableOffsets: 0,0,0, 640,-384,0, 640,512,0, -710,-512,0, -710,512,0
+	Buildable:
+		Queue: Building
+		BuildPaletteOrder: 10
+		Prerequisites: ~techlevel.infonly, ~structures.terran
+		Description: Provides power for other structures.
+	Valued:
+		Cost: 300
+	Tooltip:
+		Name: Supply Depot
+	ProvidesPrerequisite@buildingname:
+	Building:
+		Footprint: xx xx ==
+		Dimensions: 2,3
+		LocalCenterOffset: 0,-512,0
+	Health:
+		HP: 40000
+	Armor:
+		Type: Wood
+	RevealsShroud:
+		Range: 4c0
+	WithBuildingBib:
+	Power:
+		Amount: 100
+	ScalePowerWithHealth:
+	WithDeathAnimation:
+		DeathSequence: dead
+		UseDeathTypeSuffix: false
+	-Pluggable@1:
+	Pluggable@1:
+		Offset: 0,0
+		Conditions:
+			tsupply.up: power_upgrade
+		Requirements:
+			tsupply.up: !build-incomplete && !power_upgrade && !estoniabuff
+		EditorOptions:
+			tsupply.up: Power Boosted
+	WithIdleOverlay@fans:
+		RequiresCondition: !build-incomplete && !power_upgrade && !estoniabuff
+		Sequence: idle-fan1
+		PauseOnCondition: lowpower2
+	WithIdleOverlay@fans2:
+		RequiresCondition: power_upgrade || estoniabuff
+		Sequence: idle-fan2
+		PauseOnCondition: lowpower2
+	PowerMultiplier@powrup:
+		Modifier: 200
+	DamageMultiplier@powrup:
+		Modifier: 60
+	WithIdleOverlay@fire1:
+		Offset: 0,-512,0
+	WithIdleOverlay@fire2:
+		Offset: 0,512,256
+	WithIdleOverlay@fire3:
+		Offset: 0,0,512
+	ProvidesPrerequisite@pluggable:
+		RequiresCondition: !build-incomplete && !power_upgrade
+		Prerequisite: tsupply.socket
+
+TSUPPLY.socket:
+	AlwaysVisible:
+	Interactable:
+	Tooltip:
+		Name: Supply Depot (unupgraded)
+
+TSUPPLY.up:
+	Inherits: ^BuildingPlug
+	Valued:
+		Cost: 400
+	Tooltip:
+		Name: Boost Supply Output
+	Buildable:
+		Queue: Wall
+		BuildPaletteOrder: 102
+		Prerequisites: tsupply.socket, ~structures.terran, ~techlevel.medium
+		Description: Place onto a friendly supply depot/n to increase power output by 100%.
+		Icon: icon-powr
+		BuildDuration: 800
+	Plug:
+		Type: tsupply.up
+	RenderSprites:
+		Image: oregen
+	SequencePlaceBuildingPreview:
+		Sequence: idle
+
+
+TREFINERY:
+	Inherits: ^Building
+	Inherits@2: ^TerranBuilding
+	Inherits@shape: ^3x2Shape
+	Buildable:
+		Queue: Building
+		BuildPaletteOrder: 15
+		Prerequisites: anypower, ~techlevel.infonly, ~structures.terran, ~!ai.boss
+		Description: Refines Ore, Tiberium and Gems\ninto credits.
+	Valued:
+		Cost: 1400
+	Tooltip:
+		Name: Refinery
+	Building:
+		Footprint: xxx =xx ===
+		Dimensions: 3,3
+		LocalCenterOffset: 0,-512,0
+	Selectable:
+		Bounds: 3072, 3072
+	SelectionDecorations:
+	Targetable:
+		TargetTypes: GroundActor, Structure, C4, DetonateAttack, ThiefInfiltrate, SpyInfiltrate
+	Health:
+		HP: 90000
+	Armor:
+		Type: Wood
+	RevealsShroud:
+		MinRange: 4c0
+		Range: 5c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 4c0
+	Refinery:
+		DockAngle: 256
+		DockOffset: 0,2
+	StoresResources:
+		Capacity: 1500
+	DrawLineToTarget:
+	CustomSellValue:
+		Value: 300
+	FreeActor:
+		Actor: TSCV
+		SpawnOffset: 0,2
+		Facing: 256
+	FreeActor@2:
+		Actor: TSCV
+		SpawnOffset: 1,2
+		Facing: 1024
+	InfiltrateForCash:
+		Percentage: 50
+		Types: SpyInfiltrate, ThiefInfiltrate
+		InfiltratedNotification: CreditsStolen
+		Maximum: 5000
+	WithBuildingBib:
+	Power:
+		Amount: -50
+	WithDeathAnimation:
+		DeathSequence: dead
+		UseDeathTypeSuffix: false
+	ProvidesPrerequisite@buildingname:
+	ProvidesPrerequisite:
+		Prerequisite: refinery
+	WithResourceStoragePipsDecoration:
+		Position: BottomLeft
+		RequiresSelection: true
+		PipCount: 17
+		FullSequence: pip-yellow
+	WithIdleOverlay@fire1:
+		Offset: 0,-600,-128
+	WithIdleOverlay@fire2:
+		Offset: 0,512,256
+	WithIdleOverlay@fire3:
+		Offset: 0,256,512
+
+TBARR:
+	Inherits: ^Building
+	Inherits@fire: ^TerranBuilding
+	Inherits@shape: ^3x2Shape
+	Inherits@prereqs: ^BarracksPrereqs
+	Selectable:
+		Bounds: 3072, 3072
+		Class: TBARR
+	Buildable:
+		Queue: Building
+		BuildPaletteOrder: 30
+		Prerequisites: anypower, ~structures.terran, ~techlevel.infonly, ~!ai.boss, ~!tbarr
+		Description: Trains infantry. \nEach one has its own production queue.
+	Valued:
+		Cost: 800
+	Tooltip:
+		Name: Terran Barracks
+	Building:
+		Footprint: +++ xxx ===
+		Dimensions: 3,3
+		LocalCenterOffset: 0,-1024,0
+	Health:
+		HP: 100000
+	Armor:
+		Type: Wood
+	RevealsShroud:
+		MinRange: 5c0
+		Range: 6c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 5c0
+	WithBuildingBib:
+	RallyPoint:
+		ForceSetType: Infantry
+	CommandBarBlacklist:
+		DisableStop: false
+	Exit@1:
+		RequiresCondition: !being-captured
+		SpawnOffset: -170,810,0
+		ExitCell: 1,2
+		ProductionTypes: Soldier, Infantry
+	Exit@2:
+		RequiresCondition: !being-captured
+		SpawnOffset: -725,640,0
+		ExitCell: 0,2
+		ProductionTypes: Soldier, Infantry
+	Production:
+		Produces: Infantry, Soldier
+	ProductionQueue@infantry:
+		Type: Infantry
+		DisplayOrder: 0
+		Group: Infantry
+		LowPowerModifier: 300
+		BuildDurationModifier: 100
+		ReadyAudio: UnitReady
+		BlockedAudio: NoBuild
+		LimitedAudio: BuildingInProgress
+		QueuedAudio: Training
+		OnHoldAudio: OnHold
+		CancelledAudio: Cancelled
+	GrantExternalConditionToProduced:
+		Condition: produced
+	ProductionBar:
+		ProductionType: Infantry
+	Power:
+		Amount: -50
+	ProvidesPrerequisite@buildingname:
+	InfiltrateForSupportPower:
+		Proxy: barracks.upgraded
+		Types: SpyInfiltrate
+	WithProductionOverlay:
+		Palette: player
+		IsPlayerPalette: true
+		RequiresCondition: !build-incomplete
+	Targetable:
+		TargetTypes: GroundActor, C4, DetonateAttack, Structure, SpyInfiltrate
+	WithIdleOverlay@fire1:
+		Offset: 0,-1024,512
+	WithIdleOverlay@fire2:
+		Offset: 0,1024,768
+	WithIdleOverlay@fire3:
+		Offset: 0,0,512
+	Transforms:
+		PauseOnCondition: being-captured || being-demolished || build-incomplete
+		IntoActor: tbarr.air
+		Offset: 1,0
+		Facing: 0
+		NoTransformNotification: BuildingCannotPlaceAudio
+	TransformsIntoMobile:
+		Locomotor: heavywheeled
+		RequiresForceMove: true
+	TransformsIntoTransforms:
+		RequiresCondition: build-incomplete
+	TransferTimedExternalConditionOnTransform:
+		Condition: invulnerability
+	RenderSprites:
+		Image: tbarr
+	WithDeathAnimation:
+		DeathSequence: dead
+		UseDeathTypeSuffix: false
+
+TBARR.landed:
+	Inherits: TBARR
+	-Buildable:
+	WithMakeAnimation:
+		Sequence: land
+	ProvidesPrerequisite@buildingname:
+		Prerequisite: tbarr
+
+TBARR.1:
+	Inherits: TBARR
+	Buildable:
+		Prerequisites: anypower, ~structures.terran, ~techlevel.infonly, ~!ai.boss, ~tbarr, ~!tbarr.1, ~!tbarr.2
+	Valued:
+		Cost: 1200
+	Transforms:
+		IntoActor: tbarr.air.1
+
+TBARR.landed.1:
+	Inherits: TBARR.landed
+	ProvidesPrerequisite@buildingname:
+		Prerequisite: tbarr.1
+	Transforms:
+		IntoActor: tbarr.air.1
+	Valued:
+		Cost: 1200
+
+TBARR.2:
+	Inherits: TBARR
+	Buildable:
+		Prerequisites: techcenter, ~structures.terran, ~techlevel.high, ~!ai.boss, ~tbarr.1, ~!tbarr.2
+	Valued:
+		Cost: 1800
+	Transforms:
+		IntoActor: tbarr.air.2
+	Power:
+		Amount: -100
+
+TBARR.landed.2:
+	Inherits: TBARR.landed
+	ProvidesPrerequisite@buildingname:
+		Prerequisite: tbarr.2
+	Transforms:
+		IntoActor: tbarr.air.2
+	Valued:
+		Cost: 1800
+	Power:
+		Amount: -100
+
+TBARR.3:
+	Inherits: TBARR
+	Buildable:
+		Prerequisites: advtechcenter, ~structures.terran, ~techlevel.unrestricted, ~!ai.boss, ~tbarr.2
+	Valued:
+		Cost: 2500
+	Transforms:
+		IntoActor: tbarr.air.3
+	Power:
+		Amount: -200
+
+TBARR.landed.3:
+	Inherits: TBARR.landed
+	ProvidesPrerequisite@buildingname:
+		Prerequisite: tbarr.3
+	Transforms:
+		IntoActor: tbarr.air.3
+	Valued:
+		Cost: 2500
+	Power:
+		Amount: -200
+
+TBARR.air:
+	Inherits: ^FlyingBuilding
+	Inherits@fire: ^TerranBuilding
+	Inherits@shape: ^3x2Shape
+	Inherits@prereqs: ^BarracksPrereqs
+	RenderSprites:
+		Image: tbarr
+	Selectable:
+		Bounds: 3072, 3072
+		Class: TBARR.air
+	Transforms:
+		IntoActor: tbarr.landed
+		Offset: -1,0
+	Health:
+		HP: 100000
+	RevealsShroud:
+		MinRange: 5c0
+		Range: 6c0
+		RevealGeneratedShroud: False
+		Type: GroundPosition
+	RevealsShroud@GAPGEN:
+		Range: 5c0
+		Type: GroundPosition
+	Valued:
+		Cost: 800
+	Tooltip:
+		Name: Terran Barracks
+	SpawnActorOnDeath:
+		Actor: tbarr.husk
+	ProvidesPrerequisite@buildingname:
+		Prerequisite: tbarr
+	Power:
+		Amount: -50
+
+TBARR.air.1:
+	Inherits: TBARR.air
+	ProvidesPrerequisite@buildingname:
+		Prerequisite: tbarr.1
+	Transforms:
+		IntoActor: tbarr.landed.1
+	Valued:
+		Cost: 1200
+
+TBARR.air.2:
+	Inherits: TBARR.air
+	ProvidesPrerequisite@buildingname:
+		Prerequisite: tbarr.2
+	Transforms:
+		IntoActor: tbarr.landed.2
+	Valued:
+		Cost: 1800
+	Power:
+		Amount: -100
+
+TBARR.air.3:
+	Inherits: TBARR.air
+	ProvidesPrerequisite@buildingname:
+		Prerequisite: tbarr.3
+	Transforms:
+		IntoActor: tbarr.landed.3
+	Valued:
+		Cost: 2500
+	Power:
+		Amount: -200
+
+TBARR.Husk:
+	Inherits: ^TerranBuildingHusk
+	Tooltip:
+		Name: Terran Barracks
+	RenderSprites:
+		Image: tbarr
+	WithIdleOverlay@fire1:
+		Offset: 0,-1024,512
+	WithIdleOverlay@fire2:
+		Offset: 0,1024,768
+	WithIdleOverlay@fire3:
+		Offset: 0,0,512
+
+TACADAMY:
+	Inherits: ^Building
+	Inherits@2: ^TerranBuilding
+	Inherits@shape: ^2x2Shape
+	Selectable:
+		Bounds: 2048, 2048
+	HitShape:
+		UseTargetableCellsOffsets: false
+		TargetableOffsets: 0,0,0, 640,-384,0, 640,512,0, -710,-512,0, -710,512,0
+	Buildable:
+		Queue: Building
+		BuildPaletteOrder: 31
+		Prerequisites: barracks, ~techlevel.infonly, ~structures.terran
+		Description: Allows access to additional infantry and upgrades.
+	Valued:
+		Cost: 1200
+	Tooltip:
+		Name: Academy
+	TooltipDescription:
+		ValidRelationships: Ally
+		Description: Move Marines or Firebats near this structure to give them stimpacks.
+	ProvidesPrerequisite@buildingname:
+	Building:
+		Footprint: xx xx ==
+		Dimensions: 2,3
+		LocalCenterOffset: 0,-512,0
+	Health:
+		HP: 90000
+	Armor:
+		Type: Wood
+	RevealsShroud:
+		Range: 5c0
+	WithBuildingBib:
+	Power:
+		Amount: -100
+	WithIdleOverlay:
+		Palette: player
+		IsPlayerPalette: true
+		RequiresCondition: !build-incomplete && take_stimpack
+	WithDeathAnimation:
+		DeathSequence: dead
+		UseDeathTypeSuffix: false
+	WithIdleOverlay@fire1:
+		Offset: 0,-512,0
+	WithIdleOverlay@fire2:
+		Offset: 0,512,256
+	WithIdleOverlay@fire3:
+		Offset: 0,0,512
+	ProximityExternalCondition@stimpack:
+		RequiresCondition: allow_ext
+		Condition: give_stimpack
+		Range: 3c0
+	GrantConditionOnPrerequisite@tech:
+		Prerequisites: techlevel.low
+		Condition: allow_ext
+	ExternalCondition@stimpack:
+		Condition: take_stimpack
+	Voiced:
+		VoiceSet: TerranAcadamyVoice
+
+TENBAY:
+	Inherits: ^Building
+	Inherits@fire: ^TerranBuilding
+	Inherits@con: ^TechCenter
+	HitShape:
+		TargetableOffsets: 0,0,0, 0,-512,256, 0,-1451,384, 0,512,128, 0,1536,85
+		Type: Rectangle
+			TopLeft: -2048, -1024
+			BottomRight: 2048, 1024
+	Selectable:
+		Bounds: 4096, 3072
+		Class: TENBAY
+	Building:
+		Footprint: =xx= xxxx ====
+		Dimensions: 4,3
+		LocalCenterOffset: 0,-512,0
+	Buildable:
+		Queue: Building
+		BuildPaletteOrder: 32
+		Prerequisites: tacadamy, radar, ~techlevel.high, ~structures.terran
+		Description: Produces Terran advanced technologies.
+	Health:
+		HP: 120000
+	Armor:
+		Type: Wood
+	RevealsShroud:
+		MinRange: 4c0
+		Range: 5c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 4c0
+	Valued:
+		Cost: 1500
+	Tooltip:
+		Name: Technology Center
+	BaseBuilding:
+	Transforms:
+		PauseOnCondition: being-captured || being-demolished || build-incomplete
+		IntoActor: tenbay.air
+		Offset: 1,0
+		Facing: 0
+		NoTransformNotification: BuildingCannotPlaceAudio
+	TransformsIntoMobile:
+		Locomotor: heavywheeled
+		RequiresForceMove: true
+	TransformsIntoTransforms:
+		RequiresCondition: build-incomplete
+	TransferTimedExternalConditionOnTransform:
+		Condition: invulnerability
+	WithBuildingBib:
+	Power:
+		Amount: -200
+	WithDeathAnimation:
+		DeathSequence: dead
+		UseDeathTypeSuffix: false
+	ProvidesPrerequisite@buildingname:
+	WithIdleOverlay@fire1:
+		Offset: 0,-1024,512
+	WithIdleOverlay@fire2:
+		Offset: 0,1024,256
+	WithIdleOverlay@fire3:
+		Offset: 0,0,512
+
+TENBAY.landed:
+	Inherits: TENBAY
+	-Buildable:
+	RenderSprites:
+		Image: tenbay
+	WithMakeAnimation:
+		Sequence: land
+
+TENBAY.air:
+	Inherits: ^FlyingBuilding
+	Inherits@fire: ^TerranBuilding
+	Inherits@prereqs: ^TechCenter
+	RenderSprites:
+		Image: tenbay
+	HitShape:
+		TargetableOffsets: 0,0,0, 0,-512,256, 0,-1451,384, 0,512,128, 0,1536,85
+		Type: Rectangle
+			TopLeft: -2048, -1024
+			BottomRight: 2048, 1024
+	Selectable:
+		Bounds: 4096, 3072, 512, 0
+	Transforms:
+		IntoActor: tenbay.landed
+		Offset: -1,0
+	Health:
+		HP: 150000
+	RevealsShroud:
+		MinRange: 5c0
+		Range: 6c0
+		RevealGeneratedShroud: False
+		Type: GroundPosition
+	RevealsShroud@GAPGEN:
+		Range: 5c0
+		Type: GroundPosition
+	Valued:
+		Cost: 2000
+	Tooltip:
+		Name: Technology Center
+	SpawnActorOnDeath:
+		Actor: tenbay.husk
+
+TENBAY.Husk:
+	Inherits: ^TerranBuildingHusk
+	Tooltip:
+		Name: Technology Center
+	RenderSprites:
+		Image: tenbay
+
+TBUNKER:
+	Inherits: ^Defense
+	Inherits@fire: ^TerranBuilding
+	Inherits@shape: ^2x1Shape
+	Inherits@AUTOTARGET: ^AutoTargetAll
+	Inherits@CARGOPIPS: ^CargoPips
+	Selectable:
+		Class: TBUNKER
+		Bounds: 2048,1664
+	Tooltip:
+		Name: Bunker
+	Building:
+		Dimensions: 2,2
+		Footprint: ++ xx
+	Buildable:
+		Queue: Defense
+		BuildPaletteOrder: 40
+		Prerequisites: barracks, ~structures.terran, ~techlevel.low, ~!ai.all
+		Description: Static defense with a fireport for\n garrisoned troops.\nCannot detect cloaked units.\n  Strong vs Infantry, Light armor\n  Weak vs Tanks, Aircraft
+	Valued:
+		Cost: 600
+	Health:
+		HP: 60000
+	Armor:
+		Type: Heavy
+	RevealsShroud:
+		MinRange: 5c0
+		Range: 6c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 5c0
+	WithBuildingBib:
+	Turreted:
+		TurnSpeed: 512
+	-QuantizeFacingsFromSequence:
+	BodyOrientation:
+		QuantizedFacings: 8
+	EngineerRepairable:
+		RequiresCondition: damaged
+	GrantConditionOnDamageState@DAMAGED:
+		Condition: damaged
+		ValidDamageStates: Light, Medium, Heavy, Critical
+	Cargo:
+		Types: Infantry
+		MaxWeight: 4
+		PassengerConditions:
+			tmarine: tmarine
+			tfirebat: tfirebat
+			e1of: e1of
+			dm2of: e1of
+	ProximityExternalCondition@officer:
+		RequiresCondition: e1of
+		Condition: squadboost
+		Range: 5c0
+	WithDecoration@officer2:
+		Image: pips
+		Sequence: pip-bonus
+		Palette: effect
+		Position: TopRight
+		ValidRelationships: None,Neutral,Enemy,Ally
+		RequiresCondition: !demoralise && e1of
+	ExternalCondition@demoralise:
+		Condition: demoralise
+	-SpawnActorsOnSell:
+	GrantConditionOnAttack@shooting:
+		Condition: shooting
+		RevokeDelay: 14
+	WithMuzzleOverlay:
+	Armament@marine1:
+		Weapon: TerranMarineGarrison
+		MuzzleSequence: muzzle
+		RequiresCondition: tmarine
+		PauseOnCondition: marine_upgraded
+	Armament@marine2:
+		Weapon: TerranMarineGarrison
+		MuzzleSequence: muzzle
+		RequiresCondition: tmarine >= 2
+		FireDelay: 2
+		PauseOnCondition: marine_upgraded
+	Armament@marine3:
+		Weapon: TerranMarineGarrison
+		MuzzleSequence: muzzle
+		RequiresCondition: tmarine >= 3
+		FireDelay: 4
+		PauseOnCondition: marine_upgraded
+	Armament@marine4:
+		Weapon: TerranMarineGarrison
+		MuzzleSequence: muzzle
+		RequiresCondition: tmarine >= 4
+		FireDelay: 6
+		PauseOnCondition: marine_upgraded
+	Armament@marine1b:
+		Weapon: TerranMarineGarrisonUp
+		MuzzleSequence: muzzle
+		RequiresCondition: tmarine
+		PauseOnCondition: !marine_upgraded
+	Armament@marine2b:
+		Weapon: TerranMarineGarrisonUp
+		MuzzleSequence: muzzle
+		RequiresCondition: tmarine >= 2
+		FireDelay: 2
+		PauseOnCondition: !marine_upgraded
+	Armament@marine3b:
+		Weapon: TerranMarineGarrisonUp
+		MuzzleSequence: muzzle
+		RequiresCondition: tmarine >= 3
+		FireDelay: 4
+		PauseOnCondition: !marine_upgraded
+	Armament@marine4b:
+		Weapon: TerranMarineGarrisonUp
+		MuzzleSequence: muzzle
+		RequiresCondition: tmarine >= 4
+		FireDelay: 6
+		PauseOnCondition: !marine_upgraded
+	Armament@firebat1a:
+		Weapon: FirebatFlamerGarrison
+		MuzzleSequence: flame
+		MuzzlePalette: dawneffect
+		LocalOffset: 512,260,256
+		RequiresCondition: tfirebat
+	Armament@firebat1b:
+		Weapon: FirebatFlamerGarrison2
+		MuzzleSequence: flame
+		MuzzlePalette: dawneffect
+		LocalOffset: 512,-260,256
+		RequiresCondition: tfirebat
+	Armament@firebat2a:
+		Weapon: FirebatFlamerGarrison
+		MuzzleSequence: flame
+		MuzzlePalette: dawneffect
+		LocalOffset: 512,260,256
+		RequiresCondition: tfirebat >= 2
+		FireDelay: 2
+	Armament@firebat2b:
+		Weapon: FirebatFlamerGarrison2
+		MuzzleSequence: flame
+		MuzzlePalette: dawneffect
+		LocalOffset: 512,-260,256
+		RequiresCondition: tfirebat >= 2
+		FireDelay: 2
+	Armament@firebat3a:
+		Weapon: FirebatFlamerGarrison
+		MuzzleSequence: flame
+		MuzzlePalette: dawneffect
+		LocalOffset: 512,260,256
+		RequiresCondition: tfirebat >= 3
+		FireDelay: 3
+	Armament@firebat3b:
+		Weapon: FirebatFlamerGarrison2
+		MuzzleSequence: flame
+		MuzzlePalette: dawneffect
+		LocalOffset: 512,-260,256
+		RequiresCondition: tfirebat >= 3
+		FireDelay: 3
+	Armament@firebat4a:
+		Weapon: FirebatFlamerGarrison
+		MuzzleSequence: flame
+		MuzzlePalette: dawneffect
+		LocalOffset: 512,260,256
+		RequiresCondition: tfirebat >= 4
+		FireDelay: 4
+	Armament@firebat4b:
+		Weapon: FirebatFlamerGarrison2
+		MuzzleSequence: flame
+		MuzzlePalette: dawneffect
+		LocalOffset: 512,-260,256
+		RequiresCondition: tfirebat >= 4
+		FireDelay: 4
+	AttackTurreted:
+	RenderRangeCircle:
+		FallbackRange: 6c0
+	GrantConditionOnPrerequisite@upgrade:
+		Prerequisites: terran.marine
+		Condition: marine_upgraded
+	SpawnActorOnDeath@1:
+		Actor: tmarine
+		Probability: 90
+		Offset: 0,0
+		RequiresCondition: tmarine >= 1
+	SpawnActorOnDeath@2:
+		Actor: tmarine
+		Probability: 80
+		Offset: 0,1
+		RequiresCondition: tmarine >= 2
+	SpawnActorOnDeath@3:
+		Actor: tmarine
+		Probability: 70
+		Offset: 1,0
+		RequiresCondition: tmarine >= 3
+	SpawnActorOnDeath@4:
+		Actor: tfirebat
+		Offset: 1,1
+		RequiresCondition: tfirebat >= 1
+
+TBUNKER.BOT:
+	Inherits: TBUNKER
+	Buildable:
+		BuildPaletteOrder: 9000
+		Prerequisites: barracks, ~structures.terran, ~techlevel.low, ~ai.all
+	Valued:
+		Cost: 1200
+	GivesExperience:
+		Experience: 600
+	Cargo:
+		InitialUnits: tmarine,tmarine,tmarine,tfirebat
+	RenderSprites:
+		Image: tbunker
+	Explodes@2:
+		Weapon: UnitExplodeSmall2
+		EmptyWeapon: UnitExplodeSmall2
+
+TMISSILE:
+	Inherits: ^Defense
+	Inherits@fire: ^TerranBuilding
+	Inherits@AUTOTARGET: ^AutoTargetAll
+	Buildable:
+		Queue: Defense
+		BuildPaletteOrder: 45
+		Prerequisites: radar, ~structures.terran, ~techlevel.medium
+		Description: Anti-Armor base defense.\nCan detect cloaked units.\n  Strong vs Vehicles\n  Weak vs Infantry, Aircraft
+	Valued:
+		Cost: 700
+	Tooltip:
+		Name: Missile Turret
+	Selectable:
+		Bounds: 1024, 1024
+		DecorationBounds: 1024, 2048, 0, -512
+	Building:
+	Health:
+		HP: 40000
+	Armor:
+		Type: Heavy
+	RevealsShroud:
+		MinRange: 5c0
+		Range: 8c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 5c0
+	WithBuildingBib:
+		HasMinibib: true
+	Turreted:
+		TurnSpeed: 48
+		InitialFacing: 192
+		RealignDelay: -1
+		RequiresCondition: !build-incomplete
+	WithSpriteTurret:
+		RequiresCondition: !build-incomplete && shooting
+	WithIdleOverlay:
+		RequiresCondition: !build-incomplete && !shooting
+	Armament:
+		Weapon: TerranNike
+		LocalOffset: 384,-256,1200, 384,256,1200, 450,-256,1100, 450,256,1100, 400,-256,1000, 400,256,1000
+	AttackTurreted:
+		PauseOnCondition: build-incomplete
+	Power:
+		Amount: -40
+	DetectCloaked:
+		Range: 8c0
+	GrantConditionOnAttack@shooting:
+		Condition: shooting
+		RevokeDelay: 100

@@ -300,6 +300,9 @@
 		RequiresCondition: botowner
 	Production:
 		Produces: Building,Defense,Tech,Wall
+	Production@Bot:
+		Produces: Bot
+		RequiresCondition: botowner
 	Exit:
 	ProductionBar@Building:
 		ProductionType: Building
@@ -352,7 +355,7 @@
 
 ^Soldier:
 	TakeCover:
-		SpeedModifier: 65
+		SpeedModifier: 75
 		Duration: 75
 
 ^HolyBoostedHolyOnly:
@@ -758,7 +761,7 @@
 		ActorTypes: slave,slave,slave,slave,slave,slave,slave,slave,slave,slave,slave,slave,slave,slave,slave,slave,slave,slave,slave,slave
 	SpawnActorsOnSell@terran:
 		Factions: terran
-		ActorTypes: tecn,tecn,tecn,tecn
+		ActorTypes: tecn,tecn,tecn,tecn,tmarine
 	ActorLostNotification:
 		Notification: StructureLost
 	ExternalCondition@PZom:
@@ -1484,7 +1487,7 @@
 	CaptureNotification:
 		TextNotification: Structure captured.
 	RepairableBuilding:
-		RepairStep: 350
+		RepairStep: 250
 		PlayerExperience: 2
 		RepairingNotification: Repairing
 	WithBuildingRepairDecoration:
@@ -2117,3 +2120,7 @@
 		Position: TopLeft
 		ValidRelationships: None,Neutral,Enemy,Ally
 		RequiresCondition: usa.search_and_destroy
+
+^DisableOnLowPower:
+	WithColoredOverlay@IDISABLE:
+		Color: 00000040
