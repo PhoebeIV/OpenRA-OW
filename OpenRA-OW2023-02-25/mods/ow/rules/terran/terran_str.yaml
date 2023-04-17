@@ -42,6 +42,45 @@
 		RequiresCondition: !player_repairing && !defiler_plague
 	GrantConditionOnHealth@plague:
 		MinHP: 3500
+	ExternalCondition@roomforaddon:
+		Condition: room_for_addon
+
+^TerranAddonSpaceReserver:
+	Inherits: ^SpriteActor
+	Inherits@1: ^ExistsInWorld
+	Inherits@shape: ^2x2Shape
+	RenderSprites:
+		Image: tbunker
+	HiddenUnderShroud:
+	RequiresSpecificOwners:
+		ValidOwnerNames: Neutral
+	WithBuildingBib:
+	HitShape:
+		UseTargetableCellsOffsets: false
+	Interactable:
+		Bounds: 1024, 1024
+	Targetable:
+		TargetTypes: UpgradeThing
+	Building:
+		Footprint: x+ ==
+		Dimensions: 2,2
+	Tooltip:
+		Name: Reserved space for addons
+		ShowOwnerRow: false
+	Health:
+		HP: 5000
+	KillsSelf:
+		RequiresCondition: !cc_near
+		Delay: 12
+		RemoveInstead: true
+	KillsSelf@remover:
+		RequiresCondition: kill_addon
+		RemoveInstead: true
+	ExternalCondition@remover:
+		Condition: kill_addon
+	ProximityExternalCondition@roomforaddon:
+		Condition: room_for_addon
+		Range: 3c0
 
 #for falling airborne buildings
 ^TerranBuildingHusk:
@@ -82,7 +121,6 @@ TCOMMAND:
 	Inherits@con: ^ConYard
 	Inherits@prereqs: ^ConYardPrereqs
 	HitShape:
-		TargetableOffsets: 0,0,0, 0,-512,256, 0,-1451,384, 0,512,128, 0,1536,85
 		Type: Rectangle
 			TopLeft: -2048, -1024
 			BottomRight: 2048, 1024
@@ -157,7 +195,7 @@ TCOMMAND:
 		Conditions:
 			tcomsat.plug: spawn_comsat
 		Requirements:
-			tcomsat.plug: !build-incomplete && !cc_addon_exists
+			tcomsat.plug: !build-incomplete && !cc_addon_exists && room_for_addon
 		EditorOptions:
 			tcomsat.plug: ComSat Station
 	FreeActor@1:
@@ -166,7 +204,7 @@ TCOMMAND:
 		RequiresCondition: spawn_comsat
 		AllowRespawn: true
 	ProvidesPrerequisite@pluggable:
-		RequiresCondition: !build-incomplete && !cc_addon_exists
+		RequiresCondition: !build-incomplete && !cc_addon_exists && room_for_addon
 		Prerequisite: tcommand.addon
 
 TCOMMAND.addon:
@@ -227,35 +265,6 @@ TCOMMAND.air:
 		RemoveInstead: true
 		Delay: 50
 
-^TerranAddonSpaceReserver:
-	Inherits: ^SpriteActor
-	Inherits@1: ^ExistsInWorld
-	Inherits@shape: ^2x2Shape
-	RenderSprites:
-		Image: tbunker
-	HiddenUnderShroud:
-	RequiresSpecificOwners:
-		ValidOwnerNames: Neutral
-	WithBuildingBib:
-	HitShape:
-		UseTargetableCellsOffsets: false
-	Interactable:
-		Bounds: 1024, 1024
-	Targetable:
-		TargetTypes: UpgradeThing
-	Building:
-		Footprint: x+ ==
-		Dimensions: 2,2
-	Tooltip:
-		Name: Reserved space for addons
-		ShowOwnerRow: false
-	Health:
-		HP: 5000
-	KillsSelf:
-		RequiresCondition: !cc_near
-		Delay: 12
-		RemoveInstead: true
-
 TCOMMAND.addoncaptor:
 	Inherits: ^TerranAddonSpaceReserver
 	ExternalCondition@addon:
@@ -265,6 +274,8 @@ TCOMMAND.addoncaptor:
 	ProximityExternalCondition@addon:
 		Condition: cc_addon
 		Range: 1c0
+	ProximityExternalCondition@roomforaddon:
+		Range: 4c0
 
 TCOMMAND.Husk:
 	Inherits: ^TerranBuildingHusk
@@ -272,114 +283,6 @@ TCOMMAND.Husk:
 		Name: Command Center
 	RenderSprites:
 		Image: tcommand
-
-TCOMSAT.plug:
-	Inherits: ^BuildingPlug
-	Valued:
-		Cost: 1500
-	Tooltip:
-		Name: Addon: ComSat Station
-	Buildable:
-		Queue: Tech
-		BuildPaletteOrder: 30
-		Prerequisites: refinery, tcommand.addon, ~structures.terran, ~techlevel.medium
-		Description: Attach to Command Center. Provides an overview of the battlefield.\nRequires power to operate.
-		IconPalette: player
-		IconPaletteIsPlayerPalette: true
-	Plug:
-		Type: tcomsat.plug
-	RenderSprites:
-		Image: tcomsat
-	SequencePlaceBuildingPreview:
-		Sequence: idle
-	Power:
-		Amount: -50
-
-TCOMSAT:
-	Inherits: ^Building
-	Inherits@2: ^TerranBuilding
-	Inherits@POWER_OUTAGE: ^DisableOnLowPowerOrPowerDown
-	Selectable:
-		Bounds: 1920, 1280
-	HitShape:
-		UseTargetableCellsOffsets: true
-		Type: Rectangle
-			TopLeft: -1024, -512
-			BottomRight: 1024, 512
-	-Buildable:
-	MustBeDestroyed:
-		RequiredForShortGame: false
-	OwnerLostAction:
-		Action: ChangeOwner
-	Valued:
-		Cost: 1500
-	Tooltip:
-		Name: ComSat Station
-	ProvidesPrerequisite@buildingname:
-		RequiresCondition: cc_addon
-	ProvidesPrerequisite@radar:
-		RequiresCondition: cc_addon
-		Prerequisite: radar
-	Building:
-		Footprint: xx
-		Dimensions: 2,1
-		LocalCenterOffset: 0,-512,0
-	Health:
-		HP: 80000
-	Armor:
-		Type: Wood
-	RevealsShroud:
-		MinRange: 6c0
-		Range: 10c0
-		RequiresCondition: !disabled
-		RevealGeneratedShroud: False
-	RevealsShroud@GAPGEN:
-		Range: 6c0
-		RequiresCondition: !disabled
-	Power:
-		Amount: -50
-		RequiresCondition: cc_addon
-	WithIdleOverlay:
-		Palette: player
-		IsPlayerPalette: true
-		RequiresCondition: !build-incomplete
-		PauseOnCondition: disabled
-	WithDeathAnimation:
-		DeathSequence: dead
-		UseDeathTypeSuffix: false
-	WithIdleOverlay@fire1:
-		Offset: 0,-650,0
-	WithIdleOverlay@fire2:
-		Offset: 0,512,320
-	WithIdleOverlay@fire3:
-		Offset: 0,0,256
-	ExternalCondition@nearcc:
-		Condition: cc_addon
-	GrantCondition@nearcc:
-		RequiresCondition: !cc_addon
-		Condition: disabled
-	SpawnActorPower@spyvan:
-		PauseOnCondition: lowpower || powerdown
-		RequiresCondition: cc_addon
-		OrderName: VanSweep
-		Cursor: chrono-target
-		Icon: spy
-		ChargeInterval: 2250
-		LifeTime: 200
-		Name: Scanner Sweep
-		Description: Reveal an area on the map for 5 seconds. \nReveals cloaked units.
-		Actor: camera.spyplane
-		SelectTargetSpeechNotification: SelectTarget
-		DisplayRadarPing: True
-		DeploySound: tcssca00.aud
-		EffectSequence: idle
-	ProximityExternalCondition@iexist:
-		Condition: cc_addon_exists
-		Range: 4c0
-	Sellable:
-		RequiresCondition: !build-incomplete && !being-captured && !being-demolished && cc_addon
-	ProvidesRadar:
-		RequiresCondition: !jammed && !disabled
 
 TSUPPLY:
 	Inherits: ^PowerPlant
@@ -884,7 +787,7 @@ TENBAY:
 		LocalCenterOffset: 0,-512,0
 	Buildable:
 		Queue: Building
-		BuildPaletteOrder: 33
+		BuildPaletteOrder: 35
 		Prerequisites: factory, radar, ~techlevel.high, ~structures.terran
 		Description: Produces Terran advanced technologies.
 	Health:
@@ -1338,13 +1241,19 @@ TFACTORY:
 		DisableStop: false
 	Exit@1:
 		RequiresCondition: !being-captured
-		SpawnOffset: -170,810,0
 		ExitCell: 2,3
 		ProductionTypes: Vehicle
 	Exit@2:
 		RequiresCondition: !being-captured
-		SpawnOffset: -170,810,0
 		ExitCell: 0,3
+		ProductionTypes: Vehicle
+	Exit@3:
+		RequiresCondition: !being-captured
+		ExitCell: -1,0
+		ProductionTypes: Vehicle
+	Exit@4:
+		RequiresCondition: !being-captured
+		ExitCell: 2,-1
 		ProductionTypes: Vehicle
 	Production:
 		Produces: Vehicle
@@ -1377,7 +1286,7 @@ TFACTORY:
 		Conditions:
 			tshop.plug: spawn_shop
 		Requirements:
-			tshop.plug: !build-incomplete && !fac_addon_exists
+			tshop.plug: !build-incomplete && !fac_addon_exists && room_for_addon
 		EditorOptions:
 			tshop.plug: Machine Shop
 	FreeActor@1:
@@ -1386,7 +1295,7 @@ TFACTORY:
 		RequiresCondition: spawn_shop
 		AllowRespawn: true
 	ProvidesPrerequisite@pluggable:
-		RequiresCondition: !build-incomplete && !fac_addon_exists
+		RequiresCondition: !build-incomplete && !fac_addon_exists && room_for_addon
 		Prerequisite: tfactory.addon
 
 TFACTORY.addon:
@@ -1449,80 +1358,333 @@ TFACTORY.Husk:
 	RenderSprites:
 		Image: tfactory
 
-TSHOP.plug:
-	Inherits: ^BuildingPlug
-	Valued:
-		Cost: 1000
-	Tooltip:
-		Name: Addon: Machine Shop
-	Buildable:
-		Queue: Tech
-		BuildPaletteOrder: 29
-		Prerequisites: ~factory, tfactory.addon, ~structures.terran, ~techlevel.medium
-		Description: Attach to Factory. Allows access to Siege Tank and upgrades.
-		IconPalette: player
-		IconPaletteIsPlayerPalette: true
-	Plug:
-		Type: tshop.plug
-	RenderSprites:
-		Image: tshop
-	SequencePlaceBuildingPreview:
-		Sequence: idle
-	Power:
-		Amount: -50
-
-TSHOP:
+TSPORT:
 	Inherits: ^Building
-	Inherits@2: ^TerranBuilding
+	Inherits@fire: ^TerranBuilding
+	Inherits@shape: ^3x3Shape
+	Inherits@prereqs: ^AircraftPrereqs
 	Selectable:
-		Bounds: 1920, 1280
-	HitShape:
-		UseTargetableCellsOffsets: true
-		Type: Rectangle
-			TopLeft: -1024, -1024
-			BottomRight: 1024, 1024
-	-Buildable:
-	MustBeDestroyed:
-		RequiredForShortGame: false
-	OwnerLostAction:
-		Action: ChangeOwner
-	Valued:
-		Cost: 1000
-	Tooltip:
-		Name: Machine Shop
-	ProvidesPrerequisite@buildingname:
-		RequiresCondition: fac_addon
+		Bounds: 3072, 3072
+		Class: TSPORT
 	Building:
-		Footprint: xx
-		Dimensions: 2,1
-		LocalCenterOffset: 128,-640,0
+		Footprint: xxx xxx ===
+		Dimensions: 3,3
+		LocalCenterOffset: 0,-512,0
+	Buildable:
+		Queue: Building
+		BuildPaletteOrder: 34
+		Prerequisites: radar, factory, ~structures.terran, ~techlevel.medium
+		Description: Produces aircraft.
 	Health:
-		HP: 80000
+		HP: 150000
 	Armor:
 		Type: Wood
 	RevealsShroud:
+		MinRange: 4c0
+		Range: 5c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
 		Range: 4c0
+	Valued:
+		Cost: 2000
+	Tooltip:
+		Name: Starport
+	BaseBuilding:
+	Transforms:
+		PauseOnCondition: chrono-vortex || being-captured || being-demolished || build-incomplete
+		IntoActor: tsport.air
+		Offset: 1,0
+		Facing: 0
+		NoTransformNotification: BuildingCannotPlaceAudio
+	TransformsIntoMobile:
+		Locomotor: heavywheeled
+		RequiresForceMove: true
+	TransformsIntoTransforms:
+		RequiresCondition: build-incomplete
+	TransferTimedExternalConditionOnTransform:
+		Condition: invulnerability
+	WithBuildingBib:
 	Power:
-		Amount: -50
-		RequiresCondition: fac_addon
-	WithSpriteBody:
-		PauseOnCondition: disabled
+		Amount: -100
 	WithDeathAnimation:
 		DeathSequence: dead
 		UseDeathTypeSuffix: false
-	WithIdleOverlay@fire1:
-		Offset: 0,-650,0
-	WithIdleOverlay@fire2:
-		Offset: 0,512,320
-	WithIdleOverlay@fire3:
-		Offset: 0,0,256
-	ExternalCondition@nearcc:
-		Condition: fac_addon
-	GrantCondition@nearcc:
-		RequiresCondition: !fac_addon
-		Condition: disabled
-	ProximityExternalCondition@iexist:
-		Condition: fac_addon_exists
+	ProvidesPrerequisite@buildingname:
+		Prerequisite: tsport
+	FreeActor@addoncaptor:
+		Actor: TSPORT.addoncaptor
+		SpawnOffset: 3,1
+	WithProductionOverlay:
+		RequiresCondition: !build-incomplete
+		Palette: player
+		IsPlayerPalette: true
+	RallyPoint:
+		ForceSetType: Helicopter
+	CommandBarBlacklist:
+		DisableStop: false
+	Exit@1:
+		RequiresCondition: !being-captured
+		SpawnOffset: 0,0,512
+		ExitCell: 3,3
+		ProductionTypes: Helicopter
+	Production:
+		Produces: Aircraft, Helicopter
+	ProductionQueue@aircraft:
+		Type: Aircraft
+		DisplayOrder: 0
+		Group: Aircraft
+		LowPowerModifier: 300
+		BuildDurationModifier: 100
+		ReadyAudio: UnitReady
+		BlockedAudio: NoBuild
+		LimitedAudio: BuildingInProgress
+		QueuedAudio: Building
+		OnHoldAudio: OnHold
+		CancelledAudio: Cancelled
+	GrantExternalConditionToProduced:
+		Condition: produced
+	ProductionBar:
+		ProductionType: Aircraft
+	Reservable:
+	ProximityExternalCondition@reload:
+		Condition: reloadnear
 		Range: 4c0
-	Sellable:
-		RequiresCondition: !build-incomplete && !being-captured && !being-demolished && fac_addon
+	InfiltrateForSupportPower:
+		Proxy: aircraft.upgraded
+		Types: SpyInfiltrate
+	ProximityExternalCondition@ccnear:
+		Condition: star_near
+		Range: 3c512
+	ExternalCondition@cc_addon_exists:
+		Condition: star_addon_exists
+	Pluggable@1:
+		Offset: 1,1
+		Conditions:
+			tctrl.plug: spawn_shop
+		Requirements:
+			tctrl.plug: !build-incomplete && !star_addon_exists && room_for_addon
+		EditorOptions:
+			tctrl.plug: Control Tower
+	FreeActor@1:
+		Actor: TCTRL
+		SpawnOffset: 3,2
+		RequiresCondition: spawn_shop
+		AllowRespawn: true
+	ProvidesPrerequisite@pluggable:
+		RequiresCondition: !build-incomplete && !star_addon_exists && room_for_addon
+		Prerequisite: tsport.addon
+
+TSPORT.addon:
+	AlwaysVisible:
+	Interactable:
+	Tooltip:
+		Name: Starport with no addon
+
+TSPORT.landed:
+	Inherits: TSPORT
+	-Buildable:
+	RenderSprites:
+		Image: tsport
+	WithMakeAnimation:
+		Sequence: land
+
+TSPORT.air:
+	Inherits: ^FlyingBuilding
+	Inherits@fire: ^TerranBuilding
+	Inherits@shape: ^3x3Shape
+	Inherits@prereqs: ^AircraftPrereqs
+	RenderSprites:
+		Image: tsport
+	Selectable:
+		Bounds: 3072, 3072,0,512
+	Transforms:
+		IntoActor: tsport.landed
+		Offset: -1,0
+	Health:
+		HP: 150000
+	RevealsShroud:
+		MinRange: 5c0
+		Range: 6c0
+		RevealGeneratedShroud: False
+		Type: GroundPosition
+	RevealsShroud@GAPGEN:
+		Range: 5c0
+		Type: GroundPosition
+	Valued:
+		Cost: 2000
+	Tooltip:
+		Name: Starport
+	SpawnActorOnDeath:
+		Actor: tsport.husk
+
+TSPORT.addoncaptor:
+	Inherits: ^TerranAddonSpaceReserver
+	ExternalCondition@addon:
+		Condition: star_near
+	KillsSelf:
+		RequiresCondition: !star_near
+	ProximityExternalCondition@addon:
+		Condition: star_addon
+		Range: 1c0
+
+TSPORT.Husk:
+	Inherits: ^TerranBuildingHusk
+	Tooltip:
+		Name: Starport
+	RenderSprites:
+		Image: tsport
+
+TSCIENCE:
+	Inherits: ^ScienceBuilding
+	Inherits@fire: ^TerranBuilding
+	Inherits@shape: ^3x3Shape
+	Selectable:
+		Bounds: 3072, 3072
+		Class: TSCIENCE
+	Building:
+		Footprint: xxx xxx ===
+		Dimensions: 3,3
+		LocalCenterOffset: 0,-512,0
+	Buildable:
+		Queue: Tech
+		BuildPaletteOrder: 34
+		Prerequisites: techcenter, ~structures.terran, ~techlevel.unrestricted, ~!ai.boss
+		Description: Provides extra advanced technologies and\n upgrades to your forces.\n  Special Ability: Steady income\n\n  Allows access to more Barracks.
+	Health:
+		HP: 120000
+	Armor:
+		Type: Wood
+	RevealsShroud:
+		MinRange: 4c0
+		Range: 5c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 4c0
+	Valued:
+		Cost: 2000
+	Tooltip:
+		Name: Science Facility
+	BaseBuilding:
+	Transforms:
+		PauseOnCondition: chrono-vortex || being-captured || being-demolished || build-incomplete
+		IntoActor: tscience.air
+		Offset: 1,0
+		Facing: 0
+		NoTransformNotification: BuildingCannotPlaceAudio
+	TransformsIntoMobile:
+		Locomotor: heavywheeled
+		RequiresForceMove: true
+	TransformsIntoTransforms:
+		RequiresCondition: build-incomplete
+	TransferTimedExternalConditionOnTransform:
+		Condition: invulnerability
+	WithBuildingBib:
+	Power:
+		Amount: -100
+	WithDeathAnimation:
+		DeathSequence: dead
+		UseDeathTypeSuffix: false
+	ProvidesPrerequisite@buildingname:
+		Prerequisite: tscience
+	ProvidesPrerequisite:
+		Prerequisite: techcenter
+	ProvidesPrerequisite@adv:
+		Prerequisite: advtechcenter
+	CashTrickler:
+		Interval: 750
+		Amount: 75
+		InitialDelay: 325
+		RequiresCondition: !disabled
+		UseResourceStorage: true
+	FreeActor@addoncaptor:
+		Actor: TSCIENCE.addoncaptor
+		SpawnOffset: 3,1
+	ProximityExternalCondition@ccnear:
+		Condition: scf_near
+		Range: 3c512
+	ExternalCondition@cc_addon_exists:
+		Condition: scf_addon_exists
+	Pluggable@1:
+		Offset: 1,1
+		Conditions:
+			tcops.plug: spawn_shop
+			tplab.plug: spawn_lab
+		Requirements:
+			tcops.plug: !build-incomplete && !scf_addon_exists && room_for_addon
+			tplab.plug: !build-incomplete && !scf_addon_exists && room_for_addon
+		EditorOptions:
+			tcops.plug: Covert Ops
+			tplab.plug: Physics Lab
+	FreeActor@1:
+		Actor: TCOPS
+		SpawnOffset: 3,2
+		RequiresCondition: spawn_shop
+		AllowRespawn: true
+	FreeActor@2:
+		Actor: TPLAB
+		SpawnOffset: 3,2
+		RequiresCondition: spawn_lab
+		AllowRespawn: true
+	ProvidesPrerequisite@pluggable:
+		RequiresCondition: !build-incomplete && !scf_addon_exists && room_for_addon
+		Prerequisite: tscience.addon
+
+TSCIENCE.addon:
+	AlwaysVisible:
+	Interactable:
+	Tooltip:
+		Name: Science Facility with no addon
+
+TSCIENCE.landed:
+	Inherits: TSCIENCE
+	-Buildable:
+	RenderSprites:
+		Image: tscience
+	WithMakeAnimation:
+		Sequence: land
+
+TSCIENCE.air:
+	Inherits: ^FlyingBuilding
+	Inherits@fire: ^TerranBuilding
+	Inherits@shape: ^3x3Shape
+	Inherits@prereqs: ^AircraftPrereqs
+	RenderSprites:
+		Image: tscience
+	Selectable:
+		Bounds: 3072, 3072,0,512
+	Transforms:
+		IntoActor: tscience.landed
+		Offset: -1,0
+	Health:
+		HP: 150000
+	RevealsShroud:
+		MinRange: 5c0
+		Range: 6c0
+		RevealGeneratedShroud: False
+		Type: GroundPosition
+	RevealsShroud@GAPGEN:
+		Range: 5c0
+		Type: GroundPosition
+	Valued:
+		Cost: 3000
+	Tooltip:
+		Name: Science Facility
+	SpawnActorOnDeath:
+		Actor: tscience.husk
+
+TSCIENCE.addoncaptor:
+	Inherits: ^TerranAddonSpaceReserver
+	ExternalCondition@addon:
+		Condition: scf_near
+	KillsSelf:
+		RequiresCondition: !scf_near
+	ProximityExternalCondition@addon:
+		Condition: scf_addon
+		Range: 1c0
+
+TSCIENCE.Husk:
+	Inherits: ^TerranBuildingHusk
+	Tooltip:
+		Name: Science Facility
+	RenderSprites:
+		Image: tscience

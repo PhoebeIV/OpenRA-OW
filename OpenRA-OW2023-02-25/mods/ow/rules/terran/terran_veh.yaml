@@ -6,7 +6,7 @@ TVULT:
 		Cost: 600
 	Buildable:
 		Queue: Vehicle
-		BuildPaletteOrder: 10
+		BuildPaletteOrder: 100
 		Prerequisites: ~vehicles.terran, ~techlevel.low
 		Description: Fast scout vehicle, armed with grenades.\nSpeed: 114\n  Strong vs Infantry\n  Weak vs Tanks
 		BuildDurationModifier: 150
@@ -51,7 +51,7 @@ TSTANK:
 	Inherits@EXPERIENCE: ^GainsExperience
 	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
 	Valued:
-		Cost: 1200
+		Cost: 1500
 	Tooltip:
 		Name: Terran Siege Tank
 		RequiresCondition: !deployed
@@ -62,10 +62,10 @@ TSTANK:
 		AddToArmyValue: true
 	Buildable:
 		Queue: Vehicle
-		BuildPaletteOrder: 140
+		BuildPaletteOrder: 105
 		Prerequisites: tshop, ~vehicles.terran, ~techlevel.medium, ~!ai.all
 		Description: Deployable artillery tank.\nSpeed: 56\n  Strong vs Vehicles, Infantry\n  Weak vs Aircraft
-		BuildDuration: 1500
+		BuildDuration: 2000
 	Mobile:
 		TurnSpeed: 24
 		Speed: 56
@@ -172,7 +172,7 @@ TSTANK:
 	Selectable:
 		DecorationBounds: 1877, 1621, 0, -170
 	WithRangeCircle:
-		Range: 15c0
+		Range: 13c0
 	SpawnActorOnDeath:
 		Actor: TSTANK.Husk
 		RequiresCondition: !deployed
@@ -279,11 +279,6 @@ TSTANK.BOT:
 		Condition: tank_alive
 		Range: 256
 
-#	KillsSelf@deploy:
-#		RemoveInstead: true
-#		Delay: 1
-#		RequiresCondition: deploy_tank
-
 TSTANK.BOT.D:
 	Inherits: ^TrackedVehicle
 	Inherits@EXPERIENCE: ^GainsExperience
@@ -359,7 +354,7 @@ TSTANK.BOT.D:
 	Selectable:
 		DecorationBounds: 1877, 1621, 0, -170
 	WithRangeCircle:
-		Range: 15c0
+		Range: 13c0
 	ExternalCondition@deploy_tank:
 		Condition: undeploy_tank
 	ExternalCondition@tank_alive:
@@ -391,11 +386,6 @@ TSTANK.BOT.D:
 		TargetTypes: SiegeTank
 	FreeActor@checkec:
 		Actor: TSTANK.BOT.Checker
-
-#	FreeActor@deploy:
-#		Actor: TSTANK.BOT
-#		Facing: 640
-#		RequiresCondition: undeploy_tank
 
 TSTANK.BOT.Checker:
 	Inherits: MINE

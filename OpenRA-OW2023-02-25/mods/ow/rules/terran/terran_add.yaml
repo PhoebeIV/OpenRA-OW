@@ -1,0 +1,415 @@
+
+TCOMSAT.plug:
+	Inherits: ^BuildingPlug
+	Valued:
+		Cost: 1500
+	Tooltip:
+		Name: Addon: ComSat Station
+	Buildable:
+		Queue: Tech
+		BuildPaletteOrder: 199
+		Prerequisites: refinery, ~tcommand.addon, ~structures.terran, ~techlevel.medium
+		Description: Attach to Command Center. Provides an overview of the battlefield.\nRequires power to operate.
+		IconPalette: player
+		IconPaletteIsPlayerPalette: true
+	Plug:
+		Type: tcomsat.plug
+	RenderSprites:
+		Image: tcomsat
+	SequencePlaceBuildingPreview:
+		Sequence: idle
+	Power:
+		Amount: -50
+
+# this is to prevent the AI from building a 2nd comsat, because they don't need that
+TCOMSAT.plugai:
+	Inherits: TCOMSAT.plug
+	Buildable:
+		Queue: Bot
+		Prerequisites: refinery, tcommand.addon, ~structures.terran, ~techlevel.medium, ~ai.all, ~!tcomsat
+
+TCOMSAT:
+	Inherits: ^Building
+	Inherits@2: ^TerranBuilding
+	Inherits@POWER_OUTAGE: ^DisableOnLowPowerOrPowerDown
+	-ProximityExternalCondition@addons:
+	Selectable:
+		Bounds: 1920, 1280
+	HitShape:
+		UseTargetableCellsOffsets: true
+		Type: Rectangle
+			TopLeft: -1024, -512
+			BottomRight: 1024, 512
+	-Buildable:
+	MustBeDestroyed:
+		RequiredForShortGame: false
+	OwnerLostAction:
+		Action: ChangeOwner
+	Valued:
+		Cost: 1500
+	Tooltip:
+		Name: ComSat Station
+	ProvidesPrerequisite@buildingname:
+		RequiresCondition: cc_addon
+	ProvidesPrerequisite@radar:
+		RequiresCondition: cc_addon
+		Prerequisite: radar
+	Building:
+		Footprint: xx
+		Dimensions: 2,1
+		LocalCenterOffset: 0,-512,0
+	Health:
+		HP: 80000
+	Armor:
+		Type: Wood
+	RevealsShroud:
+		MinRange: 6c0
+		Range: 10c0
+		RequiresCondition: !disabled
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 6c0
+		RequiresCondition: !disabled
+	Power:
+		Amount: -50
+		RequiresCondition: cc_addon
+	WithIdleOverlay:
+		Palette: player
+		IsPlayerPalette: true
+		RequiresCondition: !build-incomplete
+		PauseOnCondition: disabled
+	WithDeathAnimation:
+		DeathSequence: dead
+		UseDeathTypeSuffix: false
+	WithIdleOverlay@fire1:
+		Offset: 0,-650,0
+	WithIdleOverlay@fire2:
+		Offset: 0,512,320
+	WithIdleOverlay@fire3:
+		Offset: 0,0,256
+	ExternalCondition@nearcc:
+		Condition: cc_addon
+	GrantCondition@nearcc:
+		RequiresCondition: !cc_addon
+		Condition: disabled
+	SpawnActorPower@spyvan:
+		PauseOnCondition: lowpower || powerdown
+		RequiresCondition: cc_addon
+		OrderName: VanSweep
+		Cursor: chrono-target
+		Icon: spy
+		ChargeInterval: 2250
+		LifeTime: 200
+		Name: Scanner Sweep
+		Description: Reveal an area on the map for 5 seconds. \nReveals cloaked units.
+		Actor: camera.spyplane
+		SelectTargetSpeechNotification: SelectTarget
+		DisplayRadarPing: True
+		DeploySound: tcssca00.aud
+		EffectSequence: idle
+	ProximityExternalCondition@iexist:
+		Condition: cc_addon_exists
+		Range: 4c0
+	Sellable:
+		RequiresCondition: !build-incomplete && !being-captured && !being-demolished && cc_addon
+	ProvidesRadar:
+		RequiresCondition: !jammed && !disabled
+
+TSHOP.plug:
+	Inherits: ^BuildingPlug
+	Valued:
+		Cost: 1000
+	Tooltip:
+		Name: Addon: Machine Shop
+	Buildable:
+		Queue: Vehicle
+		BuildPaletteOrder: 115
+		Prerequisites: ~factory, ~tfactory.addon, ~structures.terran, ~techlevel.medium
+		Description: Attach to Factory. \nAllows access to Siege Tank,\n Goliath and vehicle upgrades.
+		IconPalette: player
+		IconPaletteIsPlayerPalette: true
+	Plug:
+		Type: tshop.plug
+	RenderSprites:
+		Image: tshop
+	SequencePlaceBuildingPreview:
+		Sequence: idle
+	Power:
+		Amount: -50
+
+TSHOP.plugai:
+	Inherits: TSHOP.plug
+	Buildable:
+		Queue: Bot
+		Prerequisites: factory, tfactory.addon, ~structures.terran, ~techlevel.medium, ~ai.all, ~!tshop
+
+TSHOP:
+	Inherits: ^Building
+	Inherits@2: ^TerranBuilding
+	Inherits@IDISABLE: ^DisableOnLowPower
+	-ProximityExternalCondition@addons:
+	Selectable:
+		Bounds: 1920, 1280
+	HitShape:
+		UseTargetableCellsOffsets: true
+		Type: Rectangle
+			TopLeft: -1024, -1024
+			BottomRight: 1024, 1024
+	-Buildable:
+	MustBeDestroyed:
+		RequiredForShortGame: false
+	OwnerLostAction:
+		Action: ChangeOwner
+	Valued:
+		Cost: 1000
+	Tooltip:
+		Name: Machine Shop
+	ProvidesPrerequisite@buildingname:
+		RequiresCondition: fac_addon
+	Building:
+		Footprint: xx
+		Dimensions: 2,1
+		LocalCenterOffset: 128,-640,0
+	Health:
+		HP: 80000
+	Armor:
+		Type: Wood
+	RevealsShroud:
+		Range: 4c0
+	Power:
+		Amount: -50
+		RequiresCondition: fac_addon
+	WithSpriteBody:
+		PauseOnCondition: disabled
+	WithDeathAnimation:
+		DeathSequence: dead
+		UseDeathTypeSuffix: false
+	WithIdleOverlay@fire1:
+		Offset: 0,-650,0
+	WithIdleOverlay@fire2:
+		Offset: 0,512,320
+	WithIdleOverlay@fire3:
+		Offset: 0,0,256
+	ExternalCondition@nearcc:
+		Condition: fac_addon
+	GrantCondition@nearcc:
+		RequiresCondition: !fac_addon
+		Condition: disabled
+	ProximityExternalCondition@iexist:
+		Condition: fac_addon_exists
+		Range: 4c0
+	Sellable:
+		RequiresCondition: !build-incomplete && !being-captured && !being-demolished && fac_addon
+
+TCTRL.plug:
+	Inherits: ^BuildingPlug
+	Valued:
+		Cost: 1000
+	Tooltip:
+		Name: Addon: Control Tower
+	Buildable:
+		Queue: Aircraft
+		BuildPaletteOrder: 200
+		Prerequisites: ~tsport, ~tsport.addon, ~structures.terran, ~techlevel.high
+		Description: Attach to Starport. \nAllows access to Dropship and \n aircraft upgrades.
+		IconPalette: player
+		IconPaletteIsPlayerPalette: true
+	Plug:
+		Type: tctrl.plug
+	RenderSprites:
+		Image: tctrl
+	SequencePlaceBuildingPreview:
+		Sequence: idle
+	Power:
+		Amount: -50
+
+TCTRL.plugai:
+	Inherits: TCTRL.plug
+	Buildable:
+		Queue: Bot
+		Prerequisites: ~tsport, ~tsport.addon, ~structures.terran, ~techlevel.high, ~ai.all, ~!tctrl
+
+TCTRL:
+	Inherits: ^Building
+	Inherits@2: ^TerranBuilding
+	Inherits@IDISABLE: ^DisableOnLowPower
+	-ProximityExternalCondition@addons:
+	Selectable:
+		Bounds: 1920, 1280
+	HitShape:
+		UseTargetableCellsOffsets: true
+		Type: Rectangle
+			TopLeft: -1024, -1024
+			BottomRight: 1024, 1024
+	-Buildable:
+	MustBeDestroyed:
+		RequiredForShortGame: false
+	OwnerLostAction:
+		Action: ChangeOwner
+	Valued:
+		Cost: 1000
+	Tooltip:
+		Name: Control Tower
+	ProvidesPrerequisite@buildingname:
+		RequiresCondition: star_addon
+	Building:
+		Footprint: xx
+		Dimensions: 2,1
+		LocalCenterOffset: 128,-640,0
+	Health:
+		HP: 80000
+	Armor:
+		Type: Wood
+	RevealsShroud:
+		Range: 4c0
+	Power:
+		Amount: -50
+		RequiresCondition: star_addon
+	WithSpriteBody:
+		PauseOnCondition: disabled
+	WithDeathAnimation:
+		DeathSequence: dead
+		UseDeathTypeSuffix: false
+	WithIdleOverlay@fire1:
+		Offset: 0,-650,0
+	WithIdleOverlay@fire2:
+		Offset: 0,512,320
+	WithIdleOverlay@fire3:
+		Offset: 0,0,256
+	ExternalCondition@nearcc:
+		Condition: star_addon
+	GrantCondition@nearcc:
+		RequiresCondition: !star_addon
+		Condition: disabled
+	ProximityExternalCondition@iexist:
+		Condition: star_addon_exists
+		Range: 4c0
+	Sellable:
+		RequiresCondition: !build-incomplete && !being-captured && !being-demolished && star_addon
+
+TCOPS.plug:
+	Inherits: ^BuildingPlug
+	Valued:
+		Cost: 1000
+	Tooltip:
+		Name: Addon: Covert Ops
+	Buildable:
+		Queue: Tech
+		BuildPaletteOrder: 200
+		Prerequisites: ~tscience, ~tscience.addon, ~structures.terran, ~techlevel.unrestricted
+		Description: Attach to Science Facility. \nAllows access to Ghost and \n missile silo.
+		IconPalette: player
+		IconPaletteIsPlayerPalette: true
+	Plug:
+		Type: tcops.plug
+	RenderSprites:
+		Image: tcops
+	SequencePlaceBuildingPreview:
+		Sequence: idle
+	Power:
+		Amount: -100
+
+TCOPS.plugai:
+	Inherits: TCOPS.plug
+	Buildable:
+		Queue: Bot
+		Prerequisites: ~tscience, ~tscience.addon, ~structures.terran, ~techlevel.unrestricted, ~ai.all, ~!tcops
+
+TCOPS:
+	Inherits: ^Building
+	Inherits@2: ^TerranBuilding
+	Inherits@IDISABLE: ^DisableOnLowPower
+	-ProximityExternalCondition@addons:
+	Selectable:
+		Bounds: 1920, 1280
+	HitShape:
+		UseTargetableCellsOffsets: true
+		Type: Rectangle
+			TopLeft: -1024, -1024
+			BottomRight: 1024, 1024
+	-Buildable:
+	MustBeDestroyed:
+		RequiredForShortGame: false
+	OwnerLostAction:
+		Action: ChangeOwner
+	Valued:
+		Cost: 1000
+	Tooltip:
+		Name: Covert Ops
+	ProvidesPrerequisite@buildingname:
+		RequiresCondition: scf_addon
+	Building:
+		Footprint: xx
+		Dimensions: 2,1
+		LocalCenterOffset: 128,-640,0
+	Health:
+		HP: 80000
+	Armor:
+		Type: Wood
+	RevealsShroud:
+		Range: 4c0
+	Power:
+		Amount: -100
+		RequiresCondition: scf_addon
+	WithSpriteBody:
+		PauseOnCondition: disabled
+	WithDeathAnimation:
+		DeathSequence: dead
+		UseDeathTypeSuffix: false
+	WithIdleOverlay:
+		Palette: player
+		IsPlayerPalette: true
+		RequiresCondition: !build-incomplete
+		PauseOnCondition: disabled
+	WithIdleOverlay@fire1:
+		Offset: 0,-650,0
+	WithIdleOverlay@fire2:
+		Offset: 0,512,320
+	WithIdleOverlay@fire3:
+		Offset: 0,0,256
+	ExternalCondition@nearcc:
+		Condition: scf_addon
+	GrantCondition@nearcc:
+		RequiresCondition: !scf_addon
+		Condition: disabled
+	ProximityExternalCondition@iexist:
+		Condition: scf_addon_exists
+		Range: 4c0
+	Sellable:
+		RequiresCondition: !build-incomplete && !being-captured && !being-demolished && scf_addon
+
+TPLAB.plug:
+	Inherits: ^BuildingPlug
+	Valued:
+		Cost: 1000
+	Tooltip:
+		Name: Addon: Physics Lab
+	Buildable:
+		Queue: Tech
+		BuildPaletteOrder: 201
+		Prerequisites: ~tscience, ~tscience.addon, ~structures.terran, ~techlevel.unrestricted
+		Description: Attach to Science Facility. \nAllows access to Battlecruiser.
+		IconPalette: player
+		IconPaletteIsPlayerPalette: true
+	Plug:
+		Type: tplab.plug
+	RenderSprites:
+		Image: tplab
+	SequencePlaceBuildingPreview:
+		Sequence: idle
+	Power:
+		Amount: -100
+
+TPLAB.plugai:
+	Inherits: TPLAB.plug
+	Buildable:
+		Queue: Bot
+		Prerequisites: ~tscience, ~tscience.addon, ~structures.terran, ~techlevel.unrestricted, ~ai.all, ~!tplab
+
+TPLAB:
+	Inherits: TCOPS
+	Tooltip:
+		Name: Physics Lab
+	ProvidesPrerequisite@buildingname:
+		RequiresCondition: scf_addon
+	-WithIdleOverlay:
