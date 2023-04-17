@@ -439,7 +439,7 @@ NaziAntiTank:
 
 SiegeCannon:
 	Inherits: ^Cannon
-	ReloadDelay: 250
+	ReloadDelay: 200
 	Range: 15c0
 	MinRange: 5c0
 	Report: dsrpgfir.aud
@@ -449,11 +449,12 @@ SiegeCannon:
 		ContrailLength: 25
 		Inaccuracy: 1c0
 		Blockable: false
+		LaunchAngle: 76
 	Warhead@1Dam: SpreadDamage
-		Spread: 756
+		Spread: 600
 		Damage: 30000
 		Versus:
-			None: 50
+			None: 35
 			Wood: 75
 			Concrete: 50
 	Warhead@3Eff: CreateEffect
@@ -1226,3 +1227,118 @@ usafirebaseshot:
 		Explosions: large_splash
 		ImpactSounds: splash9.aud
 		ValidTargets: Water
+
+
+VultureGrenade:
+	ReloadDelay: 50
+	Range: 6c0
+	Report: tvufir00.aud
+	ValidTargets: Ground, Water, GroundActor, WaterActor
+	Projectile: Missile
+		Speed: 512
+		Blockable: true
+		Image: tgrenade
+		RangeLimit: 7c0
+		HorizontalRateOfTurn: 128
+		VerticalRateOfTurn: 128
+		Jammable: false
+		MinimumLaunchSpeed: 328
+		MaximumLaunchSpeed: 350
+		CruiseAltitude: 128
+	Warhead@1Dam: SpreadDamage
+		Spread: 300
+		Damage: 5000
+		ValidTargets: Ground, GroundActor, WaterActor, Trees
+		Versus:
+			None: 125
+			Wood: 50
+			Light: 75
+			Heavy: 30
+			Concrete: 20
+		DamageTypes: Prone50Percent, TriggerProne, SmallExplosionDeath
+	Warhead@2Smu: LeaveSmudge
+		SmudgeType: Crater
+		ValidTargets: Ground, Infantry
+	Warhead@3EffGround: CreateEffect
+		Explosions: med_explosion
+		ImpactSounds: tvuhit00.aud,tvuhit01.aud,tvuhit02.aud
+		ValidTargets: Ground, GroundActor, WaterActor, Trees
+	Warhead@4EffGround: CreateEffect
+		Delay: 2
+		Explosions: med_explosion
+		ImpactActors: false
+		Inaccuracy: 256
+	Warhead@5EffGround: CreateEffect
+		Delay: 4
+		Explosions: med_explosion
+		ImpactActors: false
+		Inaccuracy: 256
+
+TerranSiegeCannon:
+	Inherits: ^Cannon
+	ReloadDelay: 175
+	Range: 15c0
+	MinRange: 5c0
+	Report: dsrpgfir.aud
+	Projectile: InstantHit
+		Inaccuracy: 512
+	Warhead@0Dam: SpreadDamage
+		Spread: 128
+		Damage: 15000
+		ValidTargets: GroundActor, WaterActor
+		Versus:
+			None: 100
+			Wood: 40
+			Light: 50
+			Heavy: 50
+			Concrete: 50
+		DamageTypes: BulletDeath, TriggerProne
+	Warhead@1Dam: SpreadDamage
+		Spread: 512
+		Damage: 40000
+		Versus:
+			None: 35
+			Wood: 40
+			Light: 100
+			Concrete: 50
+		Delay: 6
+		DamageTypes: Prone50Percent, TriggerProne, BulletDeath
+	Warhead@3Eff: CreateEffect
+		Explosions: dukenukemexplosionsmall
+		ImpactSounds: dsrpgexp.aud
+	Warhead@4Eff: CreateEffect
+		ImpactSounds: dsrpgfir.aud
+		ValidTargets: Ground, GroundActor, WaterActor, Trees, Air
+	Warhead@5Eff: CreateEffect
+		Explosions: building22
+		Delay: 5
+		ValidTargets: Ground, GroundActor, WaterActor, Trees, Air
+	Warhead@2Smu: LeaveSmudge
+		SmudgeType: Crater
+		Size: 1
+
+TerranSiegeCannonEffect:
+	ReloadDelay: 175
+	Range: 15c0
+	MinRange: 5c0
+	ValidTargets: Ground, Water, GroundActor, WaterActor
+	Projectile: Missile
+		Speed: 2
+		RangeLimit: 3
+	Warhead@3Eff: CreateEffect
+		Explosions: siegeattack
+		ValidTargets: Ground, GroundActor, WaterActor, Trees, Air
+		Delay: 3
+
+TerranCannon:
+	Inherits: ^Cannon
+	ReloadDelay: 80
+	Range: 5c0
+	Report: ttafir00.aud
+	Projectile: Bullet
+		Speed: 1c256
+		-Image:
+	Warhead@1Dam: SpreadDamage
+		Damage: 6000
+		Versus:
+			Heavy: 115

@@ -260,6 +260,7 @@ RepairWorker:
 		ValidTargets: Repair
 	Warhead@2Dam: SpreadDamage
 		Damage: -2000
+		ValidRelationships: Ally
 		ValidTargets: StructureRepair
 		DebugOverlayColor: 00FF00
 
@@ -1752,7 +1753,7 @@ ZealotStab:
 
 DragoonPlasma:
 	ReloadDelay: 48
-	Range: 5c512
+	Range: 6c0
 	Report: dragbull.aud
 	ValidTargets: Ground, Water, GroundActor, WaterActor
 	Projectile: Missile
@@ -1787,7 +1788,7 @@ DragoonPlasma:
 
 DragoonPlasmaAir:
 	Inherits: DragoonPlasma
-	Range: 6c512
+	Range: 7c0
 	ValidTargets: Air, AirborneActor
 	Projectile: Missile
 		Speed: 600
@@ -3035,6 +3036,7 @@ KerriganPlague:
 RepairSCV:
 	Inherits: RepairWorker
 	Range: 1c512
+	MinRange: 64
 	ReloadDelay: 12
 	-Report:
 	ValidTargets: Repair, StructureRepair
@@ -3046,7 +3048,7 @@ RepairSCV:
 		Explosions: scvsparks
 		ImpactSounds: edrrep00.aud, edrrep01.aud, edrrep02.aud, edrrep03.aud, edrrep04.aud
 		Inaccuracy: 64
-		ValidTargets: GroundActor, WaterActor
+		ValidTargets: Repair, StructureRepair
 	Warhead@reptrigger: GrantExternalCondition
 		Range: 1c0
 		Condition: player_repairing
@@ -3127,9 +3129,60 @@ FirebatFlamer2:
 FirebatFlamerGarrison:
 	Inherits: FirebatFlamer
 	MinRange: 0
+	ReloadDelay: 26
+	Warhead@1Dam: SpreadDamage
+		Damage: 9000
 
 FirebatFlamerGarrison2:
 	Inherits: FirebatFlamer2
 	MinRange: 0
+	ReloadDelay: 24
 	FirstBurstTargetOffset: -768,0,0
 	FollowingBurstTargetOffset: 380,0,0
+	Warhead@2Dam: SpreadDamage
+		Damage: 4000
+
+TerranMedicHeal:
+	ReloadDelay: 7
+	Range: 4c0
+	Report: tmedheal.aud
+	ValidTargets: Heal
+	Projectile: Bullet
+		Speed: 1c682
+	Warhead@1Dam: SpreadDamage
+		Spread: 213
+		Damage: -475
+		ValidRelationships: Ally
+		ValidTargets: Heal
+		DebugOverlayColor: 00FF00
+
+TerranMedicHealGarrison:
+	Inherits: TerranMedicHeal
+	Range: 5c512
+
+#for AI to deploy a unit
+TerranSiegeDeploy:
+	ReloadDelay: 100
+	Range: 10c0
+	ValidTargets: Ground, Water, GroundActor, WaterActor
+	Projectile: GravityBomb
+		Velocity: 0, 0, -128
+	Warhead@curtain: GrantExternalCondition
+		Delay: 75
+		Condition: deploy_tank
+		Range: 512
+		Duration: 25
+		AffectsParent: true
+		ValidTargets: GroundActor
+
+TerranSiegeUndeploy:
+	Warhead@curtain: GrantExternalCondition
+		Delay: 75
+		Condition: undeploy_tank
+		Range: 512
+		Duration: 25
+		AffectsParent: true
+		ValidTargets: GroundActor
+	Warhead@4Eff: CreateEffect
+		ImpactSounds: ttatra01.aud
+		ValidTargets: SiegeTank

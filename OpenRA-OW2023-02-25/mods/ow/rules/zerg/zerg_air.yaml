@@ -5,7 +5,7 @@ ZOVERLORD:
 	Buildable:
 		Queue: Building
 		BuildPaletteOrder: 25
-		Prerequisites: ~structures.zerg, ~techlevel.infonly
+		Prerequisites: ~structures.zerg, ~techlevel.infonly, ~!zerg.overlord
 		Description: Allows control over your swarm.\n Detects cloaked units.\nSpeed: 24 \n\nCan be upgraded with speed, control and sensory upgrades.\n\nUnarmed
 	Selectable:
 		DecorationBounds: 1536, 1365
@@ -76,6 +76,30 @@ ZOVERLORD:
 		RequiresCondition: !jammed && !lowpower
 	ExternalCondition@JAMMED:
 		Condition: jammed
+	FreeActor@1:
+		Actor: ZOVERLORD.Upgraded
+		RequiresCondition: shoes
+	KillsSelf@shoes:
+		RemoveInstead: true
+		Delay: 1
+		RequiresCondition: shoes
+
+ZOVERLORD.Upgraded:
+	Inherits: ZOVERLORD
+	Buildable:
+		Prerequisites: ~structures.zerg, ~techlevel.infonly, ~zerg.overlord
+		Description: Allows control over your swarm.\n Detects cloaked units.\nSpeed: 24 \n\nCan be upgraded with speed, control and sensory upgrades.\n\nTransports units.
+	RenderSprites:
+		Image: zoverlord
+	WithCargoPipsDecoration:
+		Position: BottomLeft
+		RequiresSelection: true
+	Cargo:
+		Types: Infantry, Vehicle
+		MaxWeight: 8
+		AfterUnloadDelay: 40
+	-FreeActor@1:
+	-KillsSelf@shoes:
 
 ZMUTA:
 	Inherits: ^Helicopter

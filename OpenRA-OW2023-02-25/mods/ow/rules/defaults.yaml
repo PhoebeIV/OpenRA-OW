@@ -827,6 +827,12 @@
 	RevealsShroudMultiplier@commcentre:
 		RequiresCondition: missboost
 		Modifier: 120
+	Targetable@REPAIR:
+		RequiresCondition: repairtime
+		TargetTypes: StructureRepair
+	GrantConditionOnDamageState@DAMAGED:
+		Condition: repairtime
+		ValidDamageStates: Light, Medium, Heavy, Critical
 
 ^ScienceBuilding:
 	Inherits@Monumentboost: ^Monumentboosted
@@ -1238,12 +1244,15 @@
 		AddToArmyValue: true
 	TurnOnIdle:
 	DetectCloaked@GPS:
-		Range: 1c0
+		Range: 1c512
 		DetectionTypes: gpsscrambler
 	TemporaryOwnerManager:
 	DetectCloaked@AssasinDark:
 		DetectionTypes: DarkAssasin
 		Range: 3
+	GainsExperienceMultiplier:
+		Modifier: 25
+		RequiresCondition: disable-experience
 
 ^Cyborg:
 	Inherits: ^Infantry
@@ -2004,7 +2013,9 @@
 		StartIfBelow: 101
 		Delay: 8
 	Husk:
-		AllowedTerrain: Clear, Rough, Road, Ore, Gems, Beach, Tiberium, BlueTiberium
+		AllowedTerrain: Clear, Rough, Road, Ore, Gems, Beach, Tiberium, BlueTiberium, Creep
+	WithColoredOverlay@IDISABLE:
+		Color: 00000080
 
 ^IronCurtainable:
 	WithColoredOverlay@ironshroud:
@@ -2123,4 +2134,4 @@
 
 ^DisableOnLowPower:
 	WithColoredOverlay@IDISABLE:
-		Color: 00000040
+		Color: 00000080

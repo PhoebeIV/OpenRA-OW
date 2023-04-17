@@ -66,7 +66,7 @@
 		MinRange: 4c0
 		Range: 5c0
 		Type: GroundPosition
-	WithSpriteBody: 
+	WithSpriteBody:
 		Sequence: idle-air
 	FallsToEarth:
 		Explosion: TerranBuildingExplode
@@ -96,7 +96,7 @@ TCOMMAND:
 	Buildable:
 		Queue: Building
 		BuildPaletteOrder: 1000
-		Prerequisites: techcenter, ~structures.terran, ~techlevel.medium
+		Prerequisites: factory, ~structures.terran, ~techlevel.medium
 		Description: Produces structures.
 	Health:
 		HP: 150000
@@ -142,7 +142,7 @@ TCOMMAND:
 	ProvidesPrerequisite@buildingname:
 	FreeActor@addoncaptor:
 		Actor: TCOMMAND.addoncaptor
-		SpawnOffset: 4,2
+		SpawnOffset: 4,1
 	ProximityExternalCondition@ccnear:
 		Condition: cc_near
 		Range: 3c512
@@ -227,37 +227,44 @@ TCOMMAND.air:
 		RemoveInstead: true
 		Delay: 50
 
-TCOMMAND.addoncaptor:
-	Inherits: MINE
-	Inherits@shape: ^1x1Shape
+^TerranAddonSpaceReserver:
+	Inherits: ^SpriteActor
+	Inherits@1: ^ExistsInWorld
+	Inherits@shape: ^2x2Shape
 	RenderSprites:
-		Image: MINE
-	-WithSpriteBody:
-	-Interactable:
-	-Tooltip:
-	-AppearsOnRadar:
-	-RadarColorFromTerrain:
-	-AppearsOnMapPreview:
-	-MapEditorData:
-	-RequiresSpecificOwners:
-	-ChangesHealth@1:
-	-ChangesHealth@2:
-	-ExplosionOnDamageTransition:
-	-ChangesTerrain:
+		Image: tbunker
+	HiddenUnderShroud:
+	RequiresSpecificOwners:
+		ValidOwnerNames: Neutral
+	WithBuildingBib:
+	HitShape:
+		UseTargetableCellsOffsets: false
+	Interactable:
+		Bounds: 1024, 1024
 	Targetable:
-		TargetTypes: AddonCaptor
+		TargetTypes: UpgradeThing
+	Building:
+		Footprint: x+ ==
+		Dimensions: 2,2
+	Tooltip:
+		Name: Reserved space for addons
+		ShowOwnerRow: false
 	Health:
-		HP: 500000
-	ExternalCondition@addon:
-		Condition: cc_near
+		HP: 5000
 	KillsSelf:
 		RequiresCondition: !cc_near
 		Delay: 12
 		RemoveInstead: true
+
+TCOMMAND.addoncaptor:
+	Inherits: ^TerranAddonSpaceReserver
+	ExternalCondition@addon:
+		Condition: cc_near
+	KillsSelf:
+		RequiresCondition: !cc_near
 	ProximityExternalCondition@addon:
 		Condition: cc_addon
 		Range: 1c0
-	-SeedsResource:
 
 TCOMMAND.Husk:
 	Inherits: ^TerranBuildingHusk
@@ -265,14 +272,6 @@ TCOMMAND.Husk:
 		Name: Command Center
 	RenderSprites:
 		Image: tcommand
-
-TCOMSAT.spawn:
-	Inherits: 1TNK.MINE
-	FreeActor:
-		Actor: TCOMSAT
-		SpawnOffset: 4,1
-	-Explodes:
-	-SpawnActorOnDeath:
 
 TCOMSAT.plug:
 	Inherits: ^BuildingPlug
@@ -319,19 +318,27 @@ TCOMSAT:
 	ProvidesPrerequisite@buildingname:
 		RequiresCondition: cc_addon
 	ProvidesPrerequisite@radar:
+		RequiresCondition: cc_addon
 		Prerequisite: radar
 	Building:
 		Footprint: xx
 		Dimensions: 2,1
-		LocalCenterOffset: -128,-128,0
+		LocalCenterOffset: 0,-512,0
 	Health:
 		HP: 80000
 	Armor:
 		Type: Wood
 	RevealsShroud:
-		Range: 5c0
+		MinRange: 6c0
+		Range: 10c0
+		RequiresCondition: !disabled
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 6c0
+		RequiresCondition: !disabled
 	Power:
 		Amount: -50
+		RequiresCondition: cc_addon
 	WithIdleOverlay:
 		Palette: player
 		IsPlayerPalette: true
@@ -358,7 +365,7 @@ TCOMSAT:
 		Cursor: chrono-target
 		Icon: spy
 		ChargeInterval: 2250
-		LifeTime: 125
+		LifeTime: 200
 		Name: Scanner Sweep
 		Description: Reveal an area on the map for 5 seconds. \nReveals cloaked units.
 		Actor: camera.spyplane
@@ -371,6 +378,8 @@ TCOMSAT:
 		Range: 4c0
 	Sellable:
 		RequiresCondition: !build-incomplete && !being-captured && !being-demolished && cc_addon
+	ProvidesRadar:
+		RequiresCondition: !jammed && !disabled
 
 TSUPPLY:
 	Inherits: ^PowerPlant
@@ -678,6 +687,9 @@ TBARR.2:
 		IntoActor: tbarr.air.2
 	Power:
 		Amount: -100
+	FreeActor@bot1:
+		RequiresCondition: botowner
+		Actor: terran.marine
 
 TBARR.landed.2:
 	Inherits: TBARR.landed
@@ -841,7 +853,7 @@ TACADAMY:
 	ProximityExternalCondition@stimpack:
 		RequiresCondition: allow_ext
 		Condition: give_stimpack
-		Range: 3c0
+		Range: 5c0
 	GrantConditionOnPrerequisite@tech:
 		Prerequisites: techlevel.low
 		Condition: allow_ext
@@ -849,10 +861,14 @@ TACADAMY:
 		Condition: take_stimpack
 	Voiced:
 		VoiceSet: TerranAcadamyVoice
+	WithRangeCircle:
+		Type: Stims
+		Range: 5c0
 
 TENBAY:
 	Inherits: ^Building
 	Inherits@fire: ^TerranBuilding
+	Inherits@pips: ^AdvTechPips
 	Inherits@con: ^TechCenter
 	HitShape:
 		TargetableOffsets: 0,0,0, 0,-512,256, 0,-1451,384, 0,512,128, 0,1536,85
@@ -868,8 +884,8 @@ TENBAY:
 		LocalCenterOffset: 0,-512,0
 	Buildable:
 		Queue: Building
-		BuildPaletteOrder: 32
-		Prerequisites: tacadamy, radar, ~techlevel.high, ~structures.terran
+		BuildPaletteOrder: 33
+		Prerequisites: factory, radar, ~techlevel.high, ~structures.terran
 		Description: Produces Terran advanced technologies.
 	Health:
 		HP: 120000
@@ -964,7 +980,7 @@ TENBAY.Husk:
 TBUNKER:
 	Inherits: ^Defense
 	Inherits@fire: ^TerranBuilding
-	Inherits@shape: ^2x1Shape
+	Inherits@shape: ^2x2Shape
 	Inherits@AUTOTARGET: ^AutoTargetAll
 	Inherits@CARGOPIPS: ^CargoPips
 	Selectable:
@@ -1009,6 +1025,8 @@ TBUNKER:
 		PassengerConditions:
 			tmarine: tmarine
 			tfirebat: tfirebat
+			tscv: tscv
+			tmedic: tmedic
 			e1of: e1of
 			dm2of: e1of
 	ProximityExternalCondition@officer:
@@ -1130,6 +1148,7 @@ TBUNKER:
 		RequiresCondition: tfirebat >= 4
 		FireDelay: 4
 	AttackTurreted:
+		Armaments: primary
 	RenderRangeCircle:
 		FallbackRange: 6c0
 	GrantConditionOnPrerequisite@upgrade:
@@ -1154,6 +1173,28 @@ TBUNKER:
 		Actor: tfirebat
 		Offset: 1,1
 		RequiresCondition: tfirebat >= 1
+	SpawnActorOnDeath@5:
+		Actor: tmedic
+		Offset: 1,1
+		RequiresCondition: tmedic
+	SpawnActorOnDeath@6:
+		Actor: tscv
+		Offset: 1,1
+		RequiresCondition: tscv
+	ChangesHealth@scv:
+		Step: 500
+		StartIfBelow: 101
+		Delay: 25
+		RequiresCondition: tscv
+	WithIdleOverlay@fire1:
+		Offset: 0,-512,128
+	WithIdleOverlay@fire2:
+		Offset: 0,512,512
+	WithIdleOverlay@fire3:
+		Offset: 0,128,340
+	Capturable:
+		RequiresCondition: !build-incomplete && repairtime
+	-SpawnActorsOnSell@terran:
 
 TBUNKER.BOT:
 	Inherits: TBUNKER
@@ -1171,6 +1212,8 @@ TBUNKER.BOT:
 	Explodes@2:
 		Weapon: UnitExplodeSmall2
 		EmptyWeapon: UnitExplodeSmall2
+	ChangesHealth@scv:
+		RequiresCondition: bot_hard
 
 TMISSILE:
 	Inherits: ^Defense
@@ -1222,3 +1265,264 @@ TMISSILE:
 	GrantConditionOnAttack@shooting:
 		Condition: shooting
 		RevokeDelay: 100
+	WithIdleOverlay@fire1:
+		Offset: 0,-256,128
+	WithIdleOverlay@fire2:
+		Offset: 0,256,512
+	WithIdleOverlay@fire3:
+		Offset: 0,128,340
+	-SpawnActorsOnSell@terran:
+
+TFACTORY:
+	Inherits: ^Building
+	Inherits@fire: ^TerranBuilding
+	Inherits@shape: ^3x3Shape
+	Inherits@prereqs: ^FactoryPrereqs
+	Selectable:
+		Bounds: 3072, 3072
+		Class: TFACTORY
+	Building:
+		Footprint: xxx xxx ===
+		Dimensions: 3,3
+		LocalCenterOffset: 0,-512,0
+	Buildable:
+		Queue: Building
+		BuildPaletteOrder: 32
+		Prerequisites: barracks, refinery, ~structures.terran, ~techlevel.low
+		Description: Produces vehicles.
+	Health:
+		HP: 150000
+	Armor:
+		Type: Wood
+	RevealsShroud:
+		MinRange: 4c0
+		Range: 5c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 4c0
+	Valued:
+		Cost: 2000
+	Tooltip:
+		Name: Terran Factory
+	BaseBuilding:
+	Transforms:
+		PauseOnCondition: chrono-vortex || being-captured || being-demolished || build-incomplete
+		IntoActor: tfactory.air
+		Offset: 1,0
+		Facing: 0
+		NoTransformNotification: BuildingCannotPlaceAudio
+	TransformsIntoMobile:
+		Locomotor: heavywheeled
+		RequiresForceMove: true
+	TransformsIntoTransforms:
+		RequiresCondition: build-incomplete
+	TransferTimedExternalConditionOnTransform:
+		Condition: invulnerability
+	WithBuildingBib:
+	Power:
+		Amount: -100
+	WithDeathAnimation:
+		DeathSequence: dead
+		UseDeathTypeSuffix: false
+	ProvidesPrerequisite@buildingname:
+	FreeActor@addoncaptor:
+		Actor: TFACTORY.addoncaptor
+		SpawnOffset: 3,1
+	WithProductionOverlay:
+		RequiresCondition: !build-incomplete
+		Palette: player
+		IsPlayerPalette: true
+	RallyPoint:
+		ForceSetType: Vehicle
+	CommandBarBlacklist:
+		DisableStop: false
+	Exit@1:
+		RequiresCondition: !being-captured
+		SpawnOffset: -170,810,0
+		ExitCell: 2,3
+		ProductionTypes: Vehicle
+	Exit@2:
+		RequiresCondition: !being-captured
+		SpawnOffset: -170,810,0
+		ExitCell: 0,3
+		ProductionTypes: Vehicle
+	Production:
+		Produces: Vehicle
+	ProductionQueue@infantry:
+		Type: Vehicle
+		DisplayOrder: 0
+		Group: Vehicle
+		LowPowerModifier: 300
+		BuildDurationModifier: 100
+		ReadyAudio: UnitReady
+		BlockedAudio: NoBuild
+		LimitedAudio: BuildingInProgress
+		QueuedAudio: Building
+		OnHoldAudio: OnHold
+		CancelledAudio: Cancelled
+	GrantExternalConditionToProduced:
+		Condition: produced
+	ProductionBar:
+		ProductionType: Vehicle
+	InfiltrateForSupportPower:
+		Proxy: vehicles.upgraded
+		Types: SpyInfiltrate
+	ProximityExternalCondition@ccnear:
+		Condition: fac_near
+		Range: 3c512
+	ExternalCondition@cc_addon_exists:
+		Condition: fac_addon_exists
+	Pluggable@1:
+		Offset: 1,1
+		Conditions:
+			tshop.plug: spawn_shop
+		Requirements:
+			tshop.plug: !build-incomplete && !fac_addon_exists
+		EditorOptions:
+			tshop.plug: Machine Shop
+	FreeActor@1:
+		Actor: TSHOP
+		SpawnOffset: 3,2
+		RequiresCondition: spawn_shop
+		AllowRespawn: true
+	ProvidesPrerequisite@pluggable:
+		RequiresCondition: !build-incomplete && !fac_addon_exists
+		Prerequisite: tfactory.addon
+
+TFACTORY.addon:
+	AlwaysVisible:
+	Interactable:
+	Tooltip:
+		Name: Factory with no addon
+
+TFACTORY.landed:
+	Inherits: TFACTORY
+	-Buildable:
+	RenderSprites:
+		Image: tfactory
+	WithMakeAnimation:
+		Sequence: land
+
+TFACTORY.air:
+	Inherits: ^FlyingBuilding
+	Inherits@fire: ^TerranBuilding
+	Inherits@shape: ^3x3Shape
+	Inherits@prereqs: ^FactoryPrereqs
+	RenderSprites:
+		Image: tfactory
+	Selectable:
+		Bounds: 3072, 3072,0,512
+	Transforms:
+		IntoActor: tfactory.landed
+		Offset: -1,0
+	Health:
+		HP: 150000
+	RevealsShroud:
+		MinRange: 5c0
+		Range: 6c0
+		RevealGeneratedShroud: False
+		Type: GroundPosition
+	RevealsShroud@GAPGEN:
+		Range: 5c0
+		Type: GroundPosition
+	Valued:
+		Cost: 2000
+	Tooltip:
+		Name: Terran Factory
+	SpawnActorOnDeath:
+		Actor: tfactory.husk
+
+TFACTORY.addoncaptor:
+	Inherits: ^TerranAddonSpaceReserver
+	ExternalCondition@addon:
+		Condition: fac_near
+	KillsSelf:
+		RequiresCondition: !fac_near
+	ProximityExternalCondition@addon:
+		Condition: fac_addon
+		Range: 1c0
+
+TFACTORY.Husk:
+	Inherits: ^TerranBuildingHusk
+	Tooltip:
+		Name: Terran Factory
+	RenderSprites:
+		Image: tfactory
+
+TSHOP.plug:
+	Inherits: ^BuildingPlug
+	Valued:
+		Cost: 1000
+	Tooltip:
+		Name: Addon: Machine Shop
+	Buildable:
+		Queue: Tech
+		BuildPaletteOrder: 29
+		Prerequisites: ~factory, tfactory.addon, ~structures.terran, ~techlevel.medium
+		Description: Attach to Factory. Allows access to Siege Tank and upgrades.
+		IconPalette: player
+		IconPaletteIsPlayerPalette: true
+	Plug:
+		Type: tshop.plug
+	RenderSprites:
+		Image: tshop
+	SequencePlaceBuildingPreview:
+		Sequence: idle
+	Power:
+		Amount: -50
+
+TSHOP:
+	Inherits: ^Building
+	Inherits@2: ^TerranBuilding
+	Selectable:
+		Bounds: 1920, 1280
+	HitShape:
+		UseTargetableCellsOffsets: true
+		Type: Rectangle
+			TopLeft: -1024, -1024
+			BottomRight: 1024, 1024
+	-Buildable:
+	MustBeDestroyed:
+		RequiredForShortGame: false
+	OwnerLostAction:
+		Action: ChangeOwner
+	Valued:
+		Cost: 1000
+	Tooltip:
+		Name: Machine Shop
+	ProvidesPrerequisite@buildingname:
+		RequiresCondition: fac_addon
+	Building:
+		Footprint: xx
+		Dimensions: 2,1
+		LocalCenterOffset: 128,-640,0
+	Health:
+		HP: 80000
+	Armor:
+		Type: Wood
+	RevealsShroud:
+		Range: 4c0
+	Power:
+		Amount: -50
+		RequiresCondition: fac_addon
+	WithSpriteBody:
+		PauseOnCondition: disabled
+	WithDeathAnimation:
+		DeathSequence: dead
+		UseDeathTypeSuffix: false
+	WithIdleOverlay@fire1:
+		Offset: 0,-650,0
+	WithIdleOverlay@fire2:
+		Offset: 0,512,320
+	WithIdleOverlay@fire3:
+		Offset: 0,0,256
+	ExternalCondition@nearcc:
+		Condition: fac_addon
+	GrantCondition@nearcc:
+		RequiresCondition: !fac_addon
+		Condition: disabled
+	ProximityExternalCondition@iexist:
+		Condition: fac_addon_exists
+		Range: 4c0
+	Sellable:
+		RequiresCondition: !build-incomplete && !being-captured && !being-demolished && fac_addon

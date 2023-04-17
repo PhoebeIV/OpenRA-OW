@@ -43,6 +43,11 @@ TSCV:
 		ForceTargetRelationships: None
 	AttackFrontal:
 		FacingTolerance: 0
+	AutoTarget:
+	AutoTargetPriority@DEFAULT:
+		ValidTargets: Vehicle, Ship, Structure
+	Targetable@REPAIR:
+		TargetTypes: Heal
 	WithHarvestAnimation:
 		HarvestSequence: shoot
 	WithAttackAnimation:
@@ -86,9 +91,11 @@ TSCV:
 		VoiceSet: TerranSCVVoice
 	DeathSounds:
 		DeathTypes: DefaultDeath, FireDeath, TiberiumDeath, ExplosionDeath, ElectricityDeath, BulletDeath, SmallExplosionDeath
-	AutoTarget:
-	AutoTargetPriority@DEFAULT:
-		ValidTargets: Vehicle, Ship, Structure
+	Passenger:
+		CargoType: Infantry
+		CargoCondition: disable-experience
+		CustomPipType: yellow
+		Weight: 1
 
 ^CanTakeStimpacks:
 	WithDecoration@stimpack:
@@ -134,6 +141,12 @@ TSCV:
 	DamageMultiplier@stimpack:
 		RequiresCondition: active_stimpack && health_stimpack
 		Modifier: 125
+	WithIdleOverlay@patriotismboost:
+		Image: patriotism-overlay
+		Sequence: infantry
+		Palette: effect
+		RequiresCondition: patriotismboost || active_stimpack
+		IsDecoration: True
 
 TMARINE:
 	Inherits: ^DoomSoldier
@@ -156,6 +169,7 @@ TMARINE:
 		Name: Marine
 	Mobile:
 		Speed: 60
+		TurnSpeed: 90
 	Health:
 		HP: 18000
 	Armament@PRIMARY:
@@ -184,7 +198,7 @@ TMARINE:
 	WithInfantryBody@aiming:
 		DefaultAttackSequence: shoot
 		StandSequences: aiming
-		IdleSequences: stand,stand2,run
+		IdleSequences: stand,stand2
 		RequiresCondition: aiming && !shooting
 	WithInfantryBody@shooting:
 		DefaultAttackSequence: shoot
@@ -209,7 +223,7 @@ TMARINE:
 	Voiced:
 		VoiceSet: TerranMarineVoice
 	GrantRandomCondition:
-		Conditions: nothing,nothing,nothing,nothing,nothing,nothing,nothing,talkative
+		Conditions: nothing,nothing,nothing,nothing,nothing,nothing2,nothing2,talkative
 	AmbientSound@talky:
 		SoundFiles: tmardy00.aud, tmapss00.aud, tmapss01.aud, tmapss02.aud, tmapss03.aud, tmapss04.aud, tmapss06.aud, tmayes01.aud
 		Delay: 750, 1500
@@ -230,13 +244,13 @@ TMARINE:
 	GrantConditionOnAttack@stimpack:
 		Condition: active_stimpack
 		RequiresCondition: stimpack && health_stimpack
-		RevokeDelay: 375
-		RevokeAll: true
+		RevokeDelay: 250
+		RequiredShotsPerInstance: 1,3
 	AmbientSound@stimpack:
 		SoundFiles: tmasti00.aud,tmasti01.aud
-		Delay: 0,25
-		Interval: 400,500
-		RequiresCondition: active_stimpack
+		Delay: 50,175
+		Interval: 300,750
+		RequiresCondition: active_stimpack && (talkative || nothing2)
 	ChangesHealth@stimpack:
 		RequiresCondition: active_stimpack && health_stimpack
 		Step: -175
@@ -265,7 +279,7 @@ TMARINE.b2:
 TFIREBAT:
 	Inherits: ^DoomSoldier
 	Inherits@stim: ^CanTakeStimpacks
-	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
 	Buildable:
 		Queue: Infantry
 		BuildAtProductionType: Soldier
@@ -284,6 +298,7 @@ TFIREBAT:
 		Name: Firebat
 	Mobile:
 		Speed: 60
+		TurnSpeed: 90
 	TakeCover:
 		SpeedModifier: 125
 		Duration: 50
@@ -324,6 +339,11 @@ TFIREBAT:
 		MuzzlePalette: dawneffect
 		MuzzleSequence: muzzle
 		LocalOffset: 256,-200,256
+	AutoTarget:
+		InitialStance: AttackAnything
+		ScanRadius: 6
+	AutoTargetPriority@DEFAULT:
+		ValidTargets: Infantry
 	WithInfantryBody:
 		DefaultAttackSequence: shoot
 		StandSequences: stand
@@ -353,7 +373,7 @@ TFIREBAT:
 	Voiced:
 		VoiceSet: TerranFirebatVoice
 	GrantRandomCondition:
-		Conditions: nothing,nothing,nothing,nothing,nothing,nothing,nothing,talkative
+		Conditions: nothing,nothing,nothing,nothing,nothing,nothing2,nothing2,talkative
 	AmbientSound@talky:
 		SoundFiles: tfbrdy00.aud, tfbpss00.aud, tfbpss01.aud, tfbpss02.aud, tfbpss03.aud, tfbpss04.aud, tfbpss05.aud, tfbpss06.aud, tfbyes03.aud
 		Delay: 750, 1500
@@ -377,13 +397,13 @@ TFIREBAT:
 	GrantConditionOnAttack@stimpack:
 		Condition: active_stimpack
 		RequiresCondition: stimpack && health_stimpack
-		RevokeDelay: 375
+		RevokeDelay: 250
 		RequiredShotsPerInstance: 1,3
 	AmbientSound@stimpack:
 		SoundFiles: tmasti00.aud,tmasti01.aud
-		Delay: 0,25
-		Interval: 400,550
-		RequiresCondition: active_stimpack
+		Delay: 50,175
+		Interval: 300,750
+		RequiresCondition: active_stimpack && (talkative || nothing2)
 	ChangesHealth@stimpack:
 		RequiresCondition: active_stimpack && health_stimpack
 		Step: -243
@@ -410,3 +430,117 @@ TFIREBAT.b:
 		Types: Infantry
 	UpdatesPlayerStatistics:
 		OverrideActor: tfirebat
+
+TMEDIC:
+	Inherits: ^DoomSoldier
+	Buildable:
+		Queue: Infantry
+		BuildAtProductionType: Soldier
+		BuildPaletteOrder: 30
+		Prerequisites: tacadamy, ~barracks, ~techlevel.infonly, ~infantry.terran
+		Description: Heals nearby infantry.\n Infiltrates and captures\nenemy structures.\n  Unarmed
+		BuildDurationModifier: 150
+		BuildDuration: 325
+	Selectable:
+		Bounds: 768, 938, 0, 0
+		DecorationBounds: 750, 938, 0, 0
+		Class: TMEDIC
+	Valued:
+		Cost: 600
+	Tooltip:
+		Name: Medic
+	Mobile:
+		Speed: 60
+		TurnSpeed: 90
+	TakeCover:
+		SpeedModifier: 125
+		Duration: 50
+		DamageTriggers: TriggerProne
+	Passenger:
+		CustomPipType: blue
+	Health:
+		HP: 30000
+	Armament@PRIMARY:
+		Weapon: TerranMedicHeal
+		PauseOnCondition: !ammo
+		Cursor: heal
+		OutsideRangeCursor: heal
+		TargetRelationships: Ally
+		ForceTargetRelationships: None
+	AutoTarget:
+	AutoTargetPriority@DEFAULT:
+		ValidTargets: Infantry
+	AmmoPool:
+		Ammo: 200
+		AmmoCondition: ammo
+		InitialAmmo: 75
+	ReloadAmmoPool:
+		Delay: 10
+		RequiresCondition: !aiming
+	WithAmmoPipsDecoration:
+		PipCount: 14
+		FullSequence: bar-red
+		EmptySequence: bar-empty
+	WithInfantryBody:
+		DefaultAttackSequence: shoot
+		StandSequences: stand,stand2,stand3
+		IdleSequences: stand,stand2,stand3,aiming
+		RequiresCondition: !aiming && !shooting
+	WithInfantryBody@aiming:
+		DefaultAttackSequence: shoot
+		StandSequences: aiming
+		IdleSequences: stand,stand2,stand3,run
+		RequiresCondition: aiming && !shooting
+	WithInfantryBody@shooting:
+		DefaultAttackSequence: shoot
+		StandSequences: shoot
+		IdleSequences: shoot
+		RequiresCondition: aiming && shooting
+	GrantConditionOnAttack@aiming:
+		Condition: aiming
+		RevokeDelay: 75
+	GrantConditionOnAttack@shooting:
+		Condition: shooting
+		RevokeDelay: 14
+	GrantConditionOnMovement@move:
+		Condition: moving
+	WithDeathAnimation:
+		UseDeathTypeSuffix: false
+		CrushedSequence: die
+		CrushedSequencePalette: player
+		CrushedPaletteIsPlayerPalette: true
+	ProducibleWithLevel:
+		Prerequisites: barracks.upgraded
+	Voiced:
+		VoiceSet: TerranMedicVoice
+	GrantRandomCondition:
+		Conditions: nothing,nothing,nothing,nothing,talkative
+	AmbientSound@talky2:
+		SoundFiles: tmdrdy00.aud
+		Delay: 25
+		Interval: -1
+		RequiresCondition: talkative
+	DeathSounds@NORMAL:
+		Voice: Die
+	DeathSounds@ZAPPED:
+		Voice: Die
+	DeathSounds@BURNED:
+		Voice: Die
+	-SpawnActorOnDeath@fire:
+	CaptureManager:
+	GrantConditionOnPrerequisite@GLOBALREUSABLEENGINEER:
+		Condition: global-reusable-engineers
+		Prerequisites: global-reusable-engineers
+	Captures:
+		RequiresCondition: !global-reusable-engineers
+		CaptureTypes: building
+		PlayerExperience: 10
+		CaptureDelay: 200
+	Captures@REUSABLE:
+		RequiresCondition: global-reusable-engineers
+		CaptureTypes: building
+		PlayerExperience: 10
+		CaptureDelay: 375
+		ConsumedByCapture: False
+		EnterCursor: ability
+		EnterBlockedCursor: move-blocked

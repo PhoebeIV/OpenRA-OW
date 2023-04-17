@@ -66,10 +66,10 @@
 ^Defense:
 	PowerMultiplier@medAI:
 		RequiresCondition: bot_med
-		Modifier: 80
+		Modifier: 75
 	PowerMultiplier@hardAI:
 		RequiresCondition: bot_hard
-		Modifier: 60
+		Modifier: 50
 	PowerMultiplier@bossAI:
 		RequiresCondition: bot_boss
 		Modifier: 10
@@ -717,18 +717,23 @@ TCOMMAND.ai:
 		Adjacent: 9
 	Buildable:
 		Queue: Bot
-		Prerequisites: tacadamy, ~structures.terran, ~techlevel.medium, ~ai.all
+		Prerequisites: factory, ~structures.terran, ~techlevel.medium, ~ai.all
 		BuildLimit: 4
 	RenderSprites:
 		Image: tcommand
 
-# this is to prevent the AI from building a 2nd comsat
+# this is to prevent the AI from building a 2nd comsat, because they don't need that
 TCOMSAT.plugai:
 	Inherits: TCOMSAT.plug
 	Buildable:
 		Queue: Bot
-		BuildPaletteOrder: 30
 		Prerequisites: refinery, tcommand.addon, ~structures.terran, ~techlevel.medium, ~ai.all, ~!tcomsat
+
+TSHOP.plugai:
+	Inherits: TSHOP.plug
+	Buildable:
+		Queue: Bot
+		Prerequisites: factory, tfactory.addon, ~structures.terran, ~techlevel.medium, ~ai.all, ~!tshop
 
 Player:
 	ModularBot@NormalAI:
@@ -814,7 +819,7 @@ Player:
 		MinimumConstructionYardCount: 4
 	BaseBuilderBotModule@normal:
 		RequiresCondition: enable-all-ai
-		PlaceDefenseTowardsEnemyChance: 45
+		PlaceDefenseTowardsEnemyChance: 50
 		MaxBaseRadius: 50
 		MinimumExcessPower: 60
 		MaximumExcessPower: 200
@@ -826,11 +831,11 @@ Player:
 		RefineryTypes: proc, procd, procd.bhand, gproc, farmmedi, passim, zextrac, usasupplycenter, trefinery
 		PowerTypes: powr, apwr, dpwr, nuk2, xpwr, nuk3, manawell, deepmanawell, zoverlord, usacoldfusion, tsupply
 		BarracksTypes: barr, tent, handd, pyled, nhand, gtent, foundry, gfoundry, tentmedi, tentmedi.bot, laborcamp, aeiou, barr.bot, barr.boss, tent.bot, handd.bot, pyled.bot, nhand.bot, gtent.bot, foundry.bot, gfoundry.bot, pgatew, pgatew.bot, psupor, psupor.bot, zpool, zpool.bot, zhydraden, usabarracks, zhatchery, znydus, tbarr, tbarr.1, tbarr.2, tbarr.3
-		VehiclesFactoryTypes: weap, weapd, afldd, gair, stables, armorymedi, weap.bot, weap.boss, weapd.bot, afldd.bot, gair.bot, stables.bot, armory.bot, pgatew.bot, pgatew, probot, probot.bot, zhatchery, usawarfactory
-		ProductionTypes: barr, tent, weap, afld, hpad, pstarg, handd, pyled, nhand, gtent, foundry, gfoundry, weapd, afldd, gair, upgradehandler, aeiou, tentmedi, tentmedi.bot, laborcamp, stables, armorymedi, merchantguild, hatchery, churchmedi, alchemylab, barr.bot, barr.boss, tent.bot, handd.bot, pyled.bot, nhand.bot, gtent.bot, foundry.bot, gfoundry.bot, medifoundry.bot, medifoundry, weap.bot, weap.boss, weapd.bot, afldd.bot, gair.bot, pgatew, pgatew.bot, psupor, psupor.bot, ptempl, probot, probot.bot, pcarry, zhatchery, zpool, zpool.bot, zccolony, zhydraden, zspire, usaairfield, usawarfactory, usastrategycenter, usabarracks, usashipyard, znydus, tcommand, tcommand.landed, tbarr, tbarr.1, tbarr.2, tbarr.3
+		VehiclesFactoryTypes: weap, weapd, afldd, gair, stables, armorymedi, weap.bot, weap.boss, weapd.bot, afldd.bot, gair.bot, stables.bot, armory.bot, pgatew.bot, pgatew, probot, probot.bot, zhatchery, usawarfactory, tfactory
+		ProductionTypes: barr, tent, weap, afld, hpad, pstarg, handd, pyled, nhand, gtent, foundry, gfoundry, weapd, afldd, gair, upgradehandler, aeiou, tentmedi, tentmedi.bot, laborcamp, stables, armorymedi, merchantguild, hatchery, churchmedi, alchemylab, barr.bot, barr.boss, tent.bot, handd.bot, pyled.bot, nhand.bot, gtent.bot, foundry.bot, gfoundry.bot, medifoundry.bot, medifoundry, weap.bot, weap.boss, weapd.bot, afldd.bot, gair.bot, pgatew, pgatew.bot, psupor, psupor.bot, ptempl, probot, probot.bot, pcarry, zhatchery, zpool, zpool.bot, zccolony, zhydraden, zspire, usaairfield, usawarfactory, usastrategycenter, usabarracks, usashipyard, znydus, tcommand, tcommand.landed, tbarr, tbarr.1, tbarr.2, tbarr.3, tfactory
 		NavalProductionTypes: syrd, spen, gspen, dockmedi, usashipyard
 		SiloTypes: silo, silod, gsilo, farmmedi
-		DefenseTypes: pbox.boss, gfix.boss, tsla, agun, pbox, hbox, gun, ftur, sam, gtwr, atd, xbar, tsla.est, ironball, dgun.nz, atwr, atwr2, samd, oblid, dgun, advsam, solcdepl, plstur, gpbox, ghbox, gstg, atd.g, medigraveyard, archertower, archertower2, archertower3, archertower4, arcanetower, balistatower, cannontower, magicmine, medigarrisontower, pphoto, psbatt, zccolony, usapatriot, usapatriotemp, usalaserpatriot, usafirebaseai, tbunker.bot
+		DefenseTypes: pbox.boss, gfix.boss, tsla, agun, pbox, hbox, gun, ftur, sam, gtwr, atd, xbar, tsla.est, ironball, dgun.nz, atwr, atwr2, samd, oblid, dgun, advsam, solcdepl, plstur, gpbox, ghbox, gstg, atd.g, medigraveyard, archertower, archertower2, archertower3, archertower4, arcanetower, balistatower, cannontower, magicmine, medigarrisontower, pphoto, psbatt, zccolony, usapatriot, usapatriotemp, usalaserpatriot, usafirebaseai, tbunker.bot, tmissile, tstank.bot.buildable
 		BuildingLimits:
 			xpwr: 4 # POWER
 			nuk3: 4
@@ -940,16 +945,17 @@ Player:
 			armorymedi: 1
 			stables: 1
 			probot: 1
-			weap.bot: 2
-			weapd.bot: 2
-			afldd.bot: 2
-			gair.bot: 2
+			weap.bot: 3
+			weapd.bot: 3
+			afldd.bot: 3
+			gair.bot: 3
 			armory.bot: 1
 			stables.bot: 1
 			probot.bot: 2
 			weap.boss: 5
 			usawarfactory: 3
 			usashipyard: 1
+			tfactory: 3
 			hpad: 6 # AIRCRAFT PRODUCTION
 			hatchery: 2
 			afld: 6
@@ -965,36 +971,36 @@ Player:
 			gun: 12
 			hbox: 9
 			pbox: 9
-			dgun: 6
-			dgun.nz: 9
-			ftur: 9
-			plstur: 7
-			tsla: 8
-			tsla.est: 8
-			ironball: 8
-			atwr: 8
-			atwr2: 8
-			oblid: 8
-			agun: 8
-			sam: 8
-			samd: 8
-			advsam: 6
-			atd: 6
-			atd.g: 6
-			gap: 6
+			dgun: 8
+			dgun.nz: 10
+			ftur: 12
+			plstur: 8
+			tsla: 10
+			tsla.est: 10
+			ironball: 10
+			atwr: 10
+			atwr2: 10
+			oblid: 10
+			agun: 10
+			sam: 10
+			samd: 10
+			advsam: 8
+			atd: 8
+			atd.g: 8
+			gap: 8
 			gap3: 2
 			gpbox: 10
 			ghbox: 10
 			gstg: 8
 			pbox.boss: 15
-			archertower: 8
-			archertower2: 8
+			archertower: 12
+			archertower2: 10
 			archertower3: 8
 			archertower4: 8
-			arcanetower: 6
+			arcanetower: 8
 			elementaltotem: 4
 			monumenttothegods: 2
-			pphoto: 10
+			pphoto: 12
 			psbatt: 6
 			zccolony: 6
 			zccolony.bot: 9
@@ -1003,6 +1009,7 @@ Player:
 			usalaserpatriot: 10
 			usafirebaseai: 4 #creat an AI specific one for units in pillboxes
 			tbunker.bot: 8
+			tmissile: 10
 			mslo: 1 # SUPERWEAPONS
 			pdox: 1
 			bio.a: 1
@@ -1196,6 +1203,10 @@ Player:
 			tenbay: 10
 			tcomsat.plugai: 5
 			tbunker.bot: 15
+			tmissile: 20
+			tfactory: 10
+			tshop.plugai: 5
+			tstank.bot.buildable: 5
 			usabarracks: 100
 			usawarfactory: 100
 			usasupplycenter: 100
@@ -1269,7 +1280,7 @@ Player:
 		ConstructionYardTypes: fact,factd,gfact,factm,pnexus,zhatchery,tcommand,tcommand.landed
 		NavalProductionTypes: spen,syrd,gspen,dockmedi,usashipyard
 		AirUnitsTypes: mig, yak, heli, mh60, n.mig, bf109, do17, do17.shd, orca, a10, tsorca, tsorcab, scrin, a10.n3, venom, vanguard, lance, lance.angels, nhwk, nhwk.angels, paladin, c17.f, spectre, spectre.angels, medidragon, medigyro, medigryphonrider, mediicewyvern, medilightningelement, pscout, pcarry, mediLightningelement,usacombatchinookai,usacomanche,usaraptor,usastealthfighter,usaaurora,usakingraptor,usaauroraalpha, zmuta, zqueen, zscourge
-		ProtectionTypes: foundry.bot, gfoundry.bot, medifoundry.bot, psupor.bot, pyled.bot, barr.bot, tent.bot, handd.bot, nhand.bot, gtent.bot, tentmedi.bot, pgatew.bot, barr.boss, weap.bot, weapd.bot, afldd.bot, gair.bot, stables.bot, armory.bot, probot.bot, weap.boss, atek.bot, advtech, pbox.boss, gfix.boss, harv, mcv, mslo, gap, spen, syrd, iron, pdox, tsla, agun, dome, pbox, hbox, gun, ftur, sam, atek, weap, fact, proc, silo, hpad, afld, afld.ukraine, powr, apwr, stek, barr, kenn, tent, fix, fpwr, tenf, syrf, spef, weaf, domf, fixf, fapw, atef, pdof, mslf, facf, xpwr, dpwr, nuk2, nuk3, mcv.2, mcvd, mcvd.2, harvd, factd, foundry, procd, silod, pyled, weapd, hqd, gtwr, radio.p, atd, xbar, oreext, agate, vgate, bio.a, tsla.est, ironball, nhand, atek.nz, dgun.nz, atek.gdi, eyed, atwr, atwr2, handd, afldd, procd.bhand, stek.nod, tmpld, samd, oblid, pdox.bhand, harvd.bhand, ftek, gap3, dgun, advsam, oregen, gemgen, solcdepl, dmb3, plstur, hellgate, hellgate.d, gfact, gspen, gtent, gproc, gfoundry, gadvtech, atek.gla, gsilo, gair, gfix, gpbox, ghbox, sstorm, gmiss, gblk, gstg, atd.g, oreext.g, gharv, gmcv, gmcv.2, mcvc, fcom.c, hosp.c, v01.c, v02.c, v03.c, v04.c, v05.c, v06.c, v07.c, v08.c, v09.c, v10.c, v11.c, rushouse.c, asianhut.c, v13.c, v12.c, v14.c, v15.c, v16.c, v17.c, v18.c, rice.c, v19.c, oilb.c, barl.c, brl3.c, bio.c, weap.c, lhus.c, windmill.c, powr.c, utilpol1.c, utilpol2.c, ctek, cflarf, airport, syrd.c, civflag, autogara, actek, radio.c, satcntr, c1.c, c2.c, c3.c, c4.c, c5.c, c6.c, scientist, factm, medifoundry, tentmedi, laborcamp, farmmedi, goldmine, stables, stablesinfonly, dockmedi, hatchery, armorymedi, castle, academymedi, churchmedi, merchantguild, alchemylab, manawell, blacksmithmedi, deepmanawell, library, medigraveyard, firestormmedi, gateoflight, medidarkcrystal, archertower, archertower2, archertower3, archertower4, scouttower, theeye, arcanetower, balistatower, cannontower, magicmine, monumenttothegods, medigarrisontower, effecttester, slave, mediworker, mcvm, mcvm.2, mcvm.3, pnexus, pgatew.warp, pgatew, ppylon.warp, ppylon, ppylon.bot, passim.warp, passim, pcyber.warp, pcyber, pphoto.warp, pphoto, pobser.warp, pobser, psupor.warp, psupor, padun.warp, padun, ptempl.warp, ptempl, probot.warp, probot, psbatt.warp, psbatt, pstarg.warp, pstarg, pprobe, pmcv, pmcv.2, t.miss, haxor, zhatchery, zpool, zpool.bot, zccolony, zextrac, zoverlord, zspire, zchamber, zultraden, zhydraden, znest, zmound, usacoldfusion, usabarracks, usasupplycenter, usawarfactory, usaairfield, usastrategycenter, usaparticlecannon, usapatriot, usapatriotemp, usalaserpatriot, usafirebaseai, usashipyard, zmslo, tcommand, tcommand.landed, tcommand.air, tbarr, tbarr.1, tbarr.2, tbarr.3, trefinery, tsupply, tacadamy, tenbay
+		ProtectionTypes: foundry.bot, gfoundry.bot, medifoundry.bot, psupor.bot, pyled.bot, barr.bot, tent.bot, handd.bot, nhand.bot, gtent.bot, tentmedi.bot, pgatew.bot, barr.boss, weap.bot, weapd.bot, afldd.bot, gair.bot, stables.bot, armory.bot, probot.bot, weap.boss, atek.bot, advtech, pbox.boss, gfix.boss, harv, mcv, mslo, gap, spen, syrd, iron, pdox, tsla, agun, dome, pbox, hbox, gun, ftur, sam, atek, weap, fact, proc, silo, hpad, afld, afld.ukraine, powr, apwr, stek, barr, kenn, tent, fix, fpwr, tenf, syrf, spef, weaf, domf, fixf, fapw, atef, pdof, mslf, facf, xpwr, dpwr, nuk2, nuk3, mcv.2, mcvd, mcvd.2, harvd, factd, foundry, procd, silod, pyled, weapd, hqd, gtwr, radio.p, atd, xbar, oreext, agate, vgate, bio.a, tsla.est, ironball, nhand, atek.nz, dgun.nz, atek.gdi, eyed, atwr, atwr2, handd, afldd, procd.bhand, stek.nod, tmpld, samd, oblid, pdox.bhand, harvd.bhand, ftek, gap3, dgun, advsam, oregen, gemgen, solcdepl, dmb3, plstur, hellgate, hellgate.d, gfact, gspen, gtent, gproc, gfoundry, gadvtech, atek.gla, gsilo, gair, gfix, gpbox, ghbox, sstorm, gmiss, gblk, gstg, atd.g, oreext.g, gharv, gmcv, gmcv.2, mcvc, fcom.c, hosp.c, v01.c, v02.c, v03.c, v04.c, v05.c, v06.c, v07.c, v08.c, v09.c, v10.c, v11.c, rushouse.c, asianhut.c, v13.c, v12.c, v14.c, v15.c, v16.c, v17.c, v18.c, rice.c, v19.c, oilb.c, barl.c, brl3.c, bio.c, weap.c, lhus.c, windmill.c, powr.c, utilpol1.c, utilpol2.c, ctek, cflarf, airport, syrd.c, civflag, autogara, actek, radio.c, satcntr, c1.c, c2.c, c3.c, c4.c, c5.c, c6.c, scientist, factm, medifoundry, tentmedi, laborcamp, farmmedi, goldmine, stables, stablesinfonly, dockmedi, hatchery, armorymedi, castle, academymedi, churchmedi, merchantguild, alchemylab, manawell, blacksmithmedi, deepmanawell, library, medigraveyard, firestormmedi, gateoflight, medidarkcrystal, archertower, archertower2, archertower3, archertower4, scouttower, theeye, arcanetower, balistatower, cannontower, magicmine, monumenttothegods, medigarrisontower, effecttester, slave, mediworker, mcvm, mcvm.2, mcvm.3, pnexus, pgatew.warp, pgatew, ppylon.warp, ppylon, ppylon.bot, passim.warp, passim, pcyber.warp, pcyber, pphoto.warp, pphoto, pobser.warp, pobser, psupor.warp, psupor, padun.warp, padun, ptempl.warp, ptempl, probot.warp, probot, psbatt.warp, psbatt, pstarg.warp, pstarg, pprobe, pmcv, pmcv.2, t.miss, haxor, zhatchery, zpool, zpool.bot, zccolony, zextrac, zoverlord, zspire, zchamber, zultraden, zhydraden, znest, zmound, usacoldfusion, usabarracks, usasupplycenter, usawarfactory, usaairfield, usastrategycenter, usaparticlecannon, usapatriot, usapatriotemp, usalaserpatriot, usafirebaseai, usashipyard, zmslo, tcommand, tcommand.landed, tcommand.air, tbarr, tbarr.1, tbarr.2, tbarr.3, trefinery, tsupply, tacadamy, tenbay, tbunker.bot, tmissile, tfactory
 		IgnoredEnemyTargetTypes: Catalyst, UpgradeThing
 		MaxBaseRadius: 50
 	SquadManagerBotModule@medium:
@@ -1284,7 +1295,7 @@ Player:
 		ConstructionYardTypes: fact,factd,gfact,factm,pnexus,zhatchery,tcommand,tcommand.landed
 		NavalProductionTypes: spen,syrd,gspen,dockmedi,usashipyard
 		AirUnitsTypes: mig, yak, heli, mh60, n.mig, bf109, do17, do17.shd, orca, a10, tsorca, tsorcab, scrin, a10.n3, venom, vanguard, lance, lance.angels, nhwk, nhwk.angels, paladin, c17.f, spectre, spectre.angels, medidragon, medigyro, medigryphonrider, mediicewyvern, medilightningelement, pscout, pcarry, mediLightningelement,usacombatchinookai,usacomanche,usaraptor,usastealthfighter,usaaurora,usakingraptor,usaauroraalpha, zmuta, zqueen, zscourge
-		ProtectionTypes: foundry.bot, gfoundry.bot, medifoundry.bot, psupor.bot, pyled.bot, barr.bot, tent.bot, handd.bot, nhand.bot, gtent.bot, tentmedi.bot, pgatew.bot, barr.boss, weap.bot, weapd.bot, afldd.bot, gair.bot, stables.bot, armory.bot, probot.bot, weap.boss, atek.bot, advtech, pbox.boss, gfix.boss, harv, mcv, mslo, gap, spen, syrd, iron, pdox, tsla, agun, dome, pbox, hbox, gun, ftur, sam, atek, weap, fact, proc, silo, hpad, afld, afld.ukraine, powr, apwr, stek, barr, kenn, tent, fix, fpwr, tenf, syrf, spef, weaf, domf, fixf, fapw, atef, pdof, mslf, facf, xpwr, dpwr, nuk2, nuk3, mcv.2, mcvd, mcvd.2, harvd, factd, foundry, procd, silod, pyled, weapd, hqd, gtwr, radio.p, atd, xbar, oreext, agate, vgate, bio.a, tsla.est, ironball, nhand, atek.nz, dgun.nz, atek.gdi, eyed, atwr, atwr2, handd, afldd, procd.bhand, stek.nod, tmpld, samd, oblid, pdox.bhand, harvd.bhand, ftek, gap3, dgun, advsam, oregen, gemgen, solcdepl, dmb3, plstur, hellgate, hellgate.d, gfact, gspen, gtent, gproc, gfoundry, gadvtech, atek.gla, gsilo, gair, gfix, gpbox, ghbox, sstorm, gmiss, gblk, gstg, atd.g, oreext.g, gharv, gmcv, gmcv.2, mcvc, fcom.c, hosp.c, v01.c, v02.c, v03.c, v04.c, v05.c, v06.c, v07.c, v08.c, v09.c, v10.c, v11.c, rushouse.c, asianhut.c, v13.c, v12.c, v14.c, v15.c, v16.c, v17.c, v18.c, rice.c, v19.c, oilb.c, barl.c, brl3.c, bio.c, weap.c, lhus.c, windmill.c, powr.c, utilpol1.c, utilpol2.c, ctek, cflarf, airport, syrd.c, civflag, autogara, actek, radio.c, satcntr, c1.c, c2.c, c3.c, c4.c, c5.c, c6.c, scientist, factm, medifoundry, tentmedi, laborcamp, farmmedi, goldmine, stables, stablesinfonly, dockmedi, hatchery, armorymedi, castle, academymedi, churchmedi, merchantguild, alchemylab, manawell, blacksmithmedi, deepmanawell, library, medigraveyard, firestormmedi, gateoflight, medidarkcrystal, archertower, archertower2, archertower3, archertower4, scouttower, theeye, arcanetower, balistatower, cannontower, magicmine, monumenttothegods, medigarrisontower, effecttester, slave, mediworker, mcvm, mcvm.2, mcvm.3, pnexus, pgatew.warp, pgatew, ppylon.warp, ppylon, ppylon.bot, passim.warp, passim, pcyber.warp, pcyber, pphoto.warp, pphoto, pobser.warp, pobser, psupor.warp, psupor, padun.warp, padun, ptempl.warp, ptempl, probot.warp, probot, psbatt.warp, psbatt, pstarg.warp, pstarg, pprobe, pmcv, pmcv.2, t.miss, haxor, zhatchery, zpool, zpool.bot, zccolony, zextrac, zoverlord, zspire, zchamber, zultraden, zhydraden, znest, zmound, usacoldfusion, usabarracks, usasupplycenter, usawarfactory, usaairfield, usastrategycenter, usaparticlecannon, usapatriot, usapatriotemp, usalaserpatriot, usafirebaseai, usashipyard, zmslo, tcommand, tcommand.landed, tcommand.air, tbarr, tbarr.1, tbarr.2, tbarr.3, trefinery, tsupply, tacadamy, tenbay
+		ProtectionTypes: foundry.bot, gfoundry.bot, medifoundry.bot, psupor.bot, pyled.bot, barr.bot, tent.bot, handd.bot, nhand.bot, gtent.bot, tentmedi.bot, pgatew.bot, barr.boss, weap.bot, weapd.bot, afldd.bot, gair.bot, stables.bot, armory.bot, probot.bot, weap.boss, atek.bot, advtech, pbox.boss, gfix.boss, harv, mcv, mslo, gap, spen, syrd, iron, pdox, tsla, agun, dome, pbox, hbox, gun, ftur, sam, atek, weap, fact, proc, silo, hpad, afld, afld.ukraine, powr, apwr, stek, barr, kenn, tent, fix, fpwr, tenf, syrf, spef, weaf, domf, fixf, fapw, atef, pdof, mslf, facf, xpwr, dpwr, nuk2, nuk3, mcv.2, mcvd, mcvd.2, harvd, factd, foundry, procd, silod, pyled, weapd, hqd, gtwr, radio.p, atd, xbar, oreext, agate, vgate, bio.a, tsla.est, ironball, nhand, atek.nz, dgun.nz, atek.gdi, eyed, atwr, atwr2, handd, afldd, procd.bhand, stek.nod, tmpld, samd, oblid, pdox.bhand, harvd.bhand, ftek, gap3, dgun, advsam, oregen, gemgen, solcdepl, dmb3, plstur, hellgate, hellgate.d, gfact, gspen, gtent, gproc, gfoundry, gadvtech, atek.gla, gsilo, gair, gfix, gpbox, ghbox, sstorm, gmiss, gblk, gstg, atd.g, oreext.g, gharv, gmcv, gmcv.2, mcvc, fcom.c, hosp.c, v01.c, v02.c, v03.c, v04.c, v05.c, v06.c, v07.c, v08.c, v09.c, v10.c, v11.c, rushouse.c, asianhut.c, v13.c, v12.c, v14.c, v15.c, v16.c, v17.c, v18.c, rice.c, v19.c, oilb.c, barl.c, brl3.c, bio.c, weap.c, lhus.c, windmill.c, powr.c, utilpol1.c, utilpol2.c, ctek, cflarf, airport, syrd.c, civflag, autogara, actek, radio.c, satcntr, c1.c, c2.c, c3.c, c4.c, c5.c, c6.c, scientist, factm, medifoundry, tentmedi, laborcamp, farmmedi, goldmine, stables, stablesinfonly, dockmedi, hatchery, armorymedi, castle, academymedi, churchmedi, merchantguild, alchemylab, manawell, blacksmithmedi, deepmanawell, library, medigraveyard, firestormmedi, gateoflight, medidarkcrystal, archertower, archertower2, archertower3, archertower4, scouttower, theeye, arcanetower, balistatower, cannontower, magicmine, monumenttothegods, medigarrisontower, effecttester, slave, mediworker, mcvm, mcvm.2, mcvm.3, pnexus, pgatew.warp, pgatew, ppylon.warp, ppylon, ppylon.bot, passim.warp, passim, pcyber.warp, pcyber, pphoto.warp, pphoto, pobser.warp, pobser, psupor.warp, psupor, padun.warp, padun, ptempl.warp, ptempl, probot.warp, probot, psbatt.warp, psbatt, pstarg.warp, pstarg, pprobe, pmcv, pmcv.2, t.miss, haxor, zhatchery, zpool, zpool.bot, zccolony, zextrac, zoverlord, zspire, zchamber, zultraden, zhydraden, znest, zmound, usacoldfusion, usabarracks, usasupplycenter, usawarfactory, usaairfield, usastrategycenter, usaparticlecannon, usapatriot, usapatriotemp, usalaserpatriot, usafirebaseai, usashipyard, zmslo, tcommand, tcommand.landed, tcommand.air, tbarr, tbarr.1, tbarr.2, tbarr.3, trefinery, tsupply, tacadamy, tenbay, tbunker.bot, tmissile, tfactory
 		IgnoredEnemyTargetTypes: Catalyst, UpgradeThing
 		MaxBaseRadius: 50
 	SquadManagerBotModule@boss:
@@ -1299,7 +1310,7 @@ Player:
 		ConstructionYardTypes: fact,factd,gfact,factm,pnexus,zhatchery,tcommand,tcommand.landed
 		NavalProductionTypes: spen,syrd,gspen,dockmedi,usashipyard
 		AirUnitsTypes: mig, yak, heli, mh60, n.mig, bf109, do17, do17.shd, orca, a10, tsorca, tsorcab, scrin, a10.n3, venom, vanguard, lance, lance.angels, nhwk, nhwk.angels, paladin, c17.f, spectre, spectre.angels, medidragon, medigyro, medigryphonrider, mediicewyvern, medilightningelement, pscout, pcarry, mediLightningelement,usacombatchinookai,usacomanche,usaraptor,usastealthfighter,usaaurora,usakingraptor,usaauroraalpha, zmuta, zqueen, zscourge
-		ProtectionTypes: foundry.bot, gfoundry.bot, medifoundry.bot, psupor.bot, pyled.bot, barr.bot, tent.bot, handd.bot, nhand.bot, gtent.bot, tentmedi.bot, pgatew.bot, barr.boss, weap.bot, weapd.bot, afldd.bot, gair.bot, stables.bot, armory.bot, probot.bot, weap.boss, atek.bot, advtech, pbox.boss, gfix.boss, harv, mcv, mslo, gap, spen, syrd, iron, pdox, tsla, agun, dome, pbox, hbox, gun, ftur, sam, atek, weap, fact, proc, silo, hpad, afld, afld.ukraine, powr, apwr, stek, barr, kenn, tent, fix, fpwr, tenf, syrf, spef, weaf, domf, fixf, fapw, atef, pdof, mslf, facf, xpwr, dpwr, nuk2, nuk3, mcv.2, mcvd, mcvd.2, harvd, factd, foundry, procd, silod, pyled, weapd, hqd, gtwr, radio.p, atd, xbar, oreext, agate, vgate, bio.a, tsla.est, ironball, nhand, atek.nz, dgun.nz, atek.gdi, eyed, atwr, atwr2, handd, afldd, procd.bhand, stek.nod, tmpld, samd, oblid, pdox.bhand, harvd.bhand, ftek, gap3, dgun, advsam, oregen, gemgen, solcdepl, dmb3, plstur, hellgate, hellgate.d, gfact, gspen, gtent, gproc, gfoundry, gadvtech, atek.gla, gsilo, gair, gfix, gpbox, ghbox, sstorm, gmiss, gblk, gstg, atd.g, oreext.g, gharv, gmcv, gmcv.2, mcvc, fcom.c, hosp.c, v01.c, v02.c, v03.c, v04.c, v05.c, v06.c, v07.c, v08.c, v09.c, v10.c, v11.c, rushouse.c, asianhut.c, v13.c, v12.c, v14.c, v15.c, v16.c, v17.c, v18.c, rice.c, v19.c, oilb.c, barl.c, brl3.c, bio.c, weap.c, lhus.c, windmill.c, powr.c, utilpol1.c, utilpol2.c, ctek, cflarf, airport, syrd.c, civflag, autogara, actek, radio.c, satcntr, c1.c, c2.c, c3.c, c4.c, c5.c, c6.c, scientist, factm, medifoundry, tentmedi, laborcamp, farmmedi, goldmine, stables, stablesinfonly, dockmedi, hatchery, armorymedi, castle, academymedi, churchmedi, merchantguild, alchemylab, manawell, blacksmithmedi, deepmanawell, library, medigraveyard, firestormmedi, gateoflight, medidarkcrystal, archertower, archertower2, archertower3, archertower4, scouttower, theeye, arcanetower, balistatower, cannontower, magicmine, monumenttothegods, medigarrisontower, effecttester, slave, mediworker, mcvm, mcvm.2, mcvm.3, pnexus, pgatew.warp, pgatew, ppylon.warp, ppylon, ppylon.bot, passim.warp, passim, pcyber.warp, pcyber, pphoto.warp, pphoto, pobser.warp, pobser, psupor.warp, psupor, padun.warp, padun, ptempl.warp, ptempl, probot.warp, probot, psbatt.warp, psbatt, pstarg.warp, pstarg, pprobe, pmcv, pmcv.2, t.miss, haxor, zhatchery, zpool, zpool.bot, zccolony, zextrac, zoverlord, zspire, zchamber, zultraden, zhydraden, znest, zmound, usacoldfusion, usabarracks, usasupplycenter, usawarfactory, usaairfield, usastrategycenter, usaparticlecannon, usapatriot, usapatriotemp, usalaserpatriot, usafirebaseai, usashipyard, zmslo, tcommand, tcommand.landed, tcommand.air, tbarr, tbarr.1, tbarr.2, tbarr.3, trefinery, tsupply, tacadamy, tenbay
+		ProtectionTypes: foundry.bot, gfoundry.bot, medifoundry.bot, psupor.bot, pyled.bot, barr.bot, tent.bot, handd.bot, nhand.bot, gtent.bot, tentmedi.bot, pgatew.bot, barr.boss, weap.bot, weapd.bot, afldd.bot, gair.bot, stables.bot, armory.bot, probot.bot, weap.boss, atek.bot, advtech, pbox.boss, gfix.boss, harv, mcv, mslo, gap, spen, syrd, iron, pdox, tsla, agun, dome, pbox, hbox, gun, ftur, sam, atek, weap, fact, proc, silo, hpad, afld, afld.ukraine, powr, apwr, stek, barr, kenn, tent, fix, fpwr, tenf, syrf, spef, weaf, domf, fixf, fapw, atef, pdof, mslf, facf, xpwr, dpwr, nuk2, nuk3, mcv.2, mcvd, mcvd.2, harvd, factd, foundry, procd, silod, pyled, weapd, hqd, gtwr, radio.p, atd, xbar, oreext, agate, vgate, bio.a, tsla.est, ironball, nhand, atek.nz, dgun.nz, atek.gdi, eyed, atwr, atwr2, handd, afldd, procd.bhand, stek.nod, tmpld, samd, oblid, pdox.bhand, harvd.bhand, ftek, gap3, dgun, advsam, oregen, gemgen, solcdepl, dmb3, plstur, hellgate, hellgate.d, gfact, gspen, gtent, gproc, gfoundry, gadvtech, atek.gla, gsilo, gair, gfix, gpbox, ghbox, sstorm, gmiss, gblk, gstg, atd.g, oreext.g, gharv, gmcv, gmcv.2, mcvc, fcom.c, hosp.c, v01.c, v02.c, v03.c, v04.c, v05.c, v06.c, v07.c, v08.c, v09.c, v10.c, v11.c, rushouse.c, asianhut.c, v13.c, v12.c, v14.c, v15.c, v16.c, v17.c, v18.c, rice.c, v19.c, oilb.c, barl.c, brl3.c, bio.c, weap.c, lhus.c, windmill.c, powr.c, utilpol1.c, utilpol2.c, ctek, cflarf, airport, syrd.c, civflag, autogara, actek, radio.c, satcntr, c1.c, c2.c, c3.c, c4.c, c5.c, c6.c, scientist, factm, medifoundry, tentmedi, laborcamp, farmmedi, goldmine, stables, stablesinfonly, dockmedi, hatchery, armorymedi, castle, academymedi, churchmedi, merchantguild, alchemylab, manawell, blacksmithmedi, deepmanawell, library, medigraveyard, firestormmedi, gateoflight, medidarkcrystal, archertower, archertower2, archertower3, archertower4, scouttower, theeye, arcanetower, balistatower, cannontower, magicmine, monumenttothegods, medigarrisontower, effecttester, slave, mediworker, mcvm, mcvm.2, mcvm.3, pnexus, pgatew.warp, pgatew, ppylon.warp, ppylon, ppylon.bot, passim.warp, passim, pcyber.warp, pcyber, pphoto.warp, pphoto, pobser.warp, pobser, psupor.warp, psupor, padun.warp, padun, ptempl.warp, ptempl, probot.warp, probot, psbatt.warp, psbatt, pstarg.warp, pstarg, pprobe, pmcv, pmcv.2, t.miss, haxor, zhatchery, zpool, zpool.bot, zccolony, zextrac, zoverlord, zspire, zchamber, zultraden, zhydraden, znest, zmound, usacoldfusion, usabarracks, usasupplycenter, usawarfactory, usaairfield, usastrategycenter, usaparticlecannon, usapatriot, usapatriotemp, usalaserpatriot, usafirebaseai, usashipyard, zmslo, tcommand, tcommand.landed, tcommand.air, tbarr, tbarr.1, tbarr.2, tbarr.3, trefinery, tsupply, tacadamy, tenbay, tbunker.bot, tmissile, tfactory
 		IgnoredEnemyTargetTypes: Catalyst, UpgradeThing
 		MaxBaseRadius: 100
 	SquadManagerBotModule@mediall:
@@ -1314,7 +1325,7 @@ Player:
 		ConstructionYardTypes: fact,factd,gfact,factm,pnexus,zhatchery,tcommand,tcommand.landed
 		NavalProductionTypes: spen,syrd,gspen,dockmedi,usashipyard
 		AirUnitsTypes: mig, yak, heli, mh60, n.mig, bf109, do17, do17.shd, orca, a10, tsorca, tsorcab, scrin, a10.n3, venom, vanguard, lance, lance.angels, nhwk, nhwk.angels, paladin, c17.f, spectre, spectre.angels, medidragon, medigyro, medigryphonrider, mediicewyvern, medilightningelement, pscout, pcarry, mediLightningelement,usacombatchinookai,usacomanche,usaraptor,usastealthfighter,usaaurora,usakingraptor,usaauroraalpha, zmuta, zqueen, zscourge
-		ProtectionTypes: foundry.bot, gfoundry.bot, medifoundry.bot, psupor.bot, pyled.bot, barr.bot, tent.bot, handd.bot, nhand.bot, gtent.bot, tentmedi.bot, pgatew.bot, barr.boss, weap.bot, weapd.bot, afldd.bot, gair.bot, stables.bot, armory.bot, probot.bot, weap.boss, atek.bot, advtech, pbox.boss, gfix.boss, harv, mcv, mslo, gap, spen, syrd, iron, pdox, tsla, agun, dome, pbox, hbox, gun, ftur, sam, atek, weap, fact, proc, silo, hpad, afld, afld.ukraine, powr, apwr, stek, barr, kenn, tent, fix, fpwr, tenf, syrf, spef, weaf, domf, fixf, fapw, atef, pdof, mslf, facf, xpwr, dpwr, nuk2, nuk3, mcv.2, mcvd, mcvd.2, harvd, factd, foundry, procd, silod, pyled, weapd, hqd, gtwr, radio.p, atd, xbar, oreext, agate, vgate, bio.a, tsla.est, ironball, nhand, atek.nz, dgun.nz, atek.gdi, eyed, atwr, atwr2, handd, afldd, procd.bhand, stek.nod, tmpld, samd, oblid, pdox.bhand, harvd.bhand, ftek, gap3, dgun, advsam, oregen, gemgen, solcdepl, dmb3, plstur, hellgate, hellgate.d, gfact, gspen, gtent, gproc, gfoundry, gadvtech, atek.gla, gsilo, gair, gfix, gpbox, ghbox, sstorm, gmiss, gblk, gstg, atd.g, oreext.g, gharv, gmcv, gmcv.2, mcvc, fcom.c, hosp.c, v01.c, v02.c, v03.c, v04.c, v05.c, v06.c, v07.c, v08.c, v09.c, v10.c, v11.c, rushouse.c, asianhut.c, v13.c, v12.c, v14.c, v15.c, v16.c, v17.c, v18.c, rice.c, v19.c, oilb.c, barl.c, brl3.c, bio.c, weap.c, lhus.c, windmill.c, powr.c, utilpol1.c, utilpol2.c, ctek, cflarf, airport, syrd.c, civflag, autogara, actek, radio.c, satcntr, c1.c, c2.c, c3.c, c4.c, c5.c, c6.c, scientist, factm, medifoundry, tentmedi, laborcamp, farmmedi, goldmine, stables, stablesinfonly, dockmedi, hatchery, armorymedi, castle, academymedi, churchmedi, merchantguild, alchemylab, manawell, blacksmithmedi, deepmanawell, library, medigraveyard, firestormmedi, gateoflight, medidarkcrystal, archertower, archertower2, archertower3, archertower4, scouttower, theeye, arcanetower, balistatower, cannontower, magicmine, monumenttothegods, medigarrisontower, effecttester, slave, mediworker, mcvm, mcvm.2, mcvm.3, pnexus, pgatew.warp, pgatew, ppylon.warp, ppylon, ppylon.bot, passim.warp, passim, pcyber.warp, pcyber, pphoto.warp, pphoto, pobser.warp, pobser, psupor.warp, psupor, padun.warp, padun, ptempl.warp, ptempl, probot.warp, probot, psbatt.warp, psbatt, pstarg.warp, pstarg, pprobe, pmcv, pmcv.2, t.miss, haxor, zhatchery, zpool, zpool.bot, zccolony, zextrac, zoverlord, zspire, zchamber, zultraden, zhydraden, znest, zmound, usacoldfusion, usabarracks, usasupplycenter, usawarfactory, usaairfield, usastrategycenter, usaparticlecannon, usapatriot, usapatriotemp, usalaserpatriot, usafirebaseai, usashipyard, zmslo, tcommand, tcommand.landed, tcommand.air, tbarr, tbarr.1, tbarr.2, tbarr.3, trefinery, tsupply, tacadamy, tenbay
+		ProtectionTypes: foundry.bot, gfoundry.bot, medifoundry.bot, psupor.bot, pyled.bot, barr.bot, tent.bot, handd.bot, nhand.bot, gtent.bot, tentmedi.bot, pgatew.bot, barr.boss, weap.bot, weapd.bot, afldd.bot, gair.bot, stables.bot, armory.bot, probot.bot, weap.boss, atek.bot, advtech, pbox.boss, gfix.boss, harv, mcv, mslo, gap, spen, syrd, iron, pdox, tsla, agun, dome, pbox, hbox, gun, ftur, sam, atek, weap, fact, proc, silo, hpad, afld, afld.ukraine, powr, apwr, stek, barr, kenn, tent, fix, fpwr, tenf, syrf, spef, weaf, domf, fixf, fapw, atef, pdof, mslf, facf, xpwr, dpwr, nuk2, nuk3, mcv.2, mcvd, mcvd.2, harvd, factd, foundry, procd, silod, pyled, weapd, hqd, gtwr, radio.p, atd, xbar, oreext, agate, vgate, bio.a, tsla.est, ironball, nhand, atek.nz, dgun.nz, atek.gdi, eyed, atwr, atwr2, handd, afldd, procd.bhand, stek.nod, tmpld, samd, oblid, pdox.bhand, harvd.bhand, ftek, gap3, dgun, advsam, oregen, gemgen, solcdepl, dmb3, plstur, hellgate, hellgate.d, gfact, gspen, gtent, gproc, gfoundry, gadvtech, atek.gla, gsilo, gair, gfix, gpbox, ghbox, sstorm, gmiss, gblk, gstg, atd.g, oreext.g, gharv, gmcv, gmcv.2, mcvc, fcom.c, hosp.c, v01.c, v02.c, v03.c, v04.c, v05.c, v06.c, v07.c, v08.c, v09.c, v10.c, v11.c, rushouse.c, asianhut.c, v13.c, v12.c, v14.c, v15.c, v16.c, v17.c, v18.c, rice.c, v19.c, oilb.c, barl.c, brl3.c, bio.c, weap.c, lhus.c, windmill.c, powr.c, utilpol1.c, utilpol2.c, ctek, cflarf, airport, syrd.c, civflag, autogara, actek, radio.c, satcntr, c1.c, c2.c, c3.c, c4.c, c5.c, c6.c, scientist, factm, medifoundry, tentmedi, laborcamp, farmmedi, goldmine, stables, stablesinfonly, dockmedi, hatchery, armorymedi, castle, academymedi, churchmedi, merchantguild, alchemylab, manawell, blacksmithmedi, deepmanawell, library, medigraveyard, firestormmedi, gateoflight, medidarkcrystal, archertower, archertower2, archertower3, archertower4, scouttower, theeye, arcanetower, balistatower, cannontower, magicmine, monumenttothegods, medigarrisontower, effecttester, slave, mediworker, mcvm, mcvm.2, mcvm.3, pnexus, pgatew.warp, pgatew, ppylon.warp, ppylon, ppylon.bot, passim.warp, passim, pcyber.warp, pcyber, pphoto.warp, pphoto, pobser.warp, pobser, psupor.warp, psupor, padun.warp, padun, ptempl.warp, ptempl, probot.warp, probot, psbatt.warp, psbatt, pstarg.warp, pstarg, pprobe, pmcv, pmcv.2, t.miss, haxor, zhatchery, zpool, zpool.bot, zccolony, zextrac, zoverlord, zspire, zchamber, zultraden, zhydraden, znest, zmound, usacoldfusion, usabarracks, usasupplycenter, usawarfactory, usaairfield, usastrategycenter, usaparticlecannon, usapatriot, usapatriotemp, usalaserpatriot, usafirebaseai, usashipyard, zmslo, tcommand, tcommand.landed, tcommand.air, tbarr, tbarr.1, tbarr.2, tbarr.3, trefinery, tsupply, tacadamy, tenbay, tbunker.bot, tmissile, tfactory
 		IgnoredEnemyTargetTypes: Catalyst, UpgradeThing
 		MaxBaseRadius: 60
 	UnitBuilderBotModule@normal:
@@ -1326,6 +1337,9 @@ Player:
 			e3: 20
 			e4: 20
 			e5: 20
+			medi: 5
+			fmedi: 5
+			medi.dm: 5
 			shok: 15
 			e7: 5
 			dog: 10
@@ -1589,10 +1603,16 @@ Player:
 			tmarine.b2: 20
 			tfirebat: 15
 			tfirebat.b: 15
+			tmedic: 5
+			tvult: 10
+			tstank.bot: 5
 		UnitLimits:
 			e1of: 4
 			dm2of: 4
 			e7: 2
+			medi: 6
+			fmedi: 4
+			medi.dm: 4
 			rmbo: 2
 			dm4: 2
 			tse5p.dm: 2
@@ -1755,6 +1775,7 @@ Player:
 			usareconboat: 10
 			usaspycarrier: 1
 			tscv: 10
+			tmedic: 6
 		UnitDelays:
 			pzealot.b: 9000
 			pzealot.b2: 18000
