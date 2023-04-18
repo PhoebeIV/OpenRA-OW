@@ -265,38 +265,10 @@ ClonerSpawner:
 
 ZergCloner:
 	Inherits: CreepGenBig
-	Inherits@shape: ^1x1Shape
-	Inherits@1: ^PrimaryBuilding
 	Inherits@Boss: ^EpicBotPrereqs
-	Inherits@selection: ^SelectableBuilding
 	-Explodes:
 	-SeedsResource:
 	-ProximityExternalCondition:
-	Tooltip:
-		Name: Hive Unit Cloning
-	Selectable:
-		Bounds: 768, 768, 0, 0
-		DecorationBounds: 768, 768, 0, 0
-	Production:
-		Produces: Infantry,Hatchery
-	ProductionQueue@2:
-		Type: Infantry
-		DisplayOrder: 2
-		Group: Infantry
-		LowPowerModifier: 200
-		ReadyAudio: UnitReady
-		BlockedAudio: NoBuild
-		LimitedAudio: BuildingInProgress
-		QueuedAudio: Building
-		OnHoldAudio: OnHold
-		CancelledAudio: Cancelled
-	ClonesProducedUnits:
-		CloneableTypes: Infantry, Hatchery
-		ProductionType: Infantry
-	Exit@1:
-		SpawnOffset: 0,512,0
-		ExitCell: 0,1
-	RallyPoint:
 
 ZHATCHERY:
 	Inherits: ^ZergBuilding
@@ -480,6 +452,10 @@ ZHATCHERY:
 		Actor: ZergHiveComplete
 		SpawnOffset: 1,1
 		RequiresCondition: hive_upgrade
+	FreeActor@3:
+		Actor: ZergCloner
+		SpawnOffset: 1,2
+		RequiresCondition: hive_upgrade && botowner
 	DamageMultiplier@lair:
 		Modifier: 75
 		RequiresCondition: lair_upgrade

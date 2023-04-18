@@ -8,7 +8,7 @@ TVULT:
 		Queue: Vehicle
 		BuildPaletteOrder: 100
 		Prerequisites: ~vehicles.terran, ~techlevel.low
-		Description: Fast scout vehicle, armed with grenades.\nSpeed: 114\n  Strong vs Infantry\n  Weak vs Tanks
+		Description: Fast scout vehicle, armed with grenades.\nCan place Spider Mines.\n\nSpeed: 114\n  Strong vs Infantry\n  Weak vs Tanks
 		BuildDurationModifier: 150
 		BuildDuration: 400
 	Tooltip:
@@ -23,7 +23,7 @@ TVULT:
 		Type: Light
 	RevealsShroud:
 		MinRange: 4c0
-		Range: 6c0
+		Range: 7c0
 		RevealGeneratedShroud: False
 	RevealsShroud@GAPGEN:
 		Range: 4c0
@@ -44,7 +44,153 @@ TVULT:
 		EmptyWeapon: VultureDeath
 	Hovers:
 	DetectCloaked:
-		Range: 4c0
+		Range: 3c0
+	Minelayer:
+		Mine: TSPIDER
+		TileUnknownName: build-valid
+		TerrainTypes: Clear, Road, Beach, Ore, Gems, Rough, Bridge, Creep, Tiberium
+	AmmoPool:
+		Ammo: 3
+		InitialAmmo: 3
+		ReloadDelay: 75
+		Armaments: none
+		AmmoCondition: ammo
+	WithAmmoPipsDecoration:
+		Position: BottomLeft
+		Margin: 4, 3
+		RequiresSelection: true
+		RequiresCondition: ammo
+	Rearmable:
+		RearmActors: tc04
+	GrantConditionOnPrerequisite@bot:
+		Prerequisites: ai.all, tshop
+		Condition: botowner
+	GrantRandomCondition@bot:
+		Conditions: none,minelayer
+	GrantConditionOnAttack@bot:
+		RequiresCondition: minelayer && botowner
+		Condition: shoot
+		MaximumInstances: 10
+		RevokeDelay: 15000
+	FreeActor@mine:
+		RequiresCondition: shoot == 2
+		Actor: TSPIDER
+	FreeActor@mine2:
+		RequiresCondition: shoot == 5
+		Actor: TSPIDER
+	FreeActor@mine3:
+		RequiresCondition: shoot == 10
+		Actor: TSPIDER
+
+TSPIDER:
+	Inherits: ^Vehicle
+	Inherits@AUTOTARGET: ^AutoTargetAll
+	-ActorLostNotification:
+	-UpdatesPlayerStatistics:
+	-Selectable:
+	-SelectionDecorations:
+	-WithSpriteControlGroupDecoration:
+	-DrawLineToTarget:
+	OwnerLostAction:
+		Action: ChangeOwner
+		Owner: Creeps
+	Interactable:
+		Bounds: 512,512
+	Tooltip:
+		Name: Spider Mine
+	Mobile:
+		TurnSpeed: 60
+		Speed: 224
+		Locomotor: foot
+		RequiresCondition: armed
+	Health:
+		HP: 14000
+	Armor:
+		Type: Light
+	RevealsShroud:
+		Range: 2c0
+	Armament:
+		Weapon: SpiderMineTargeting
+		LocalOffset: 256,0,256
+		RequiresCondition: armed
+	RejectsOrders:
+	AttackFrontal:
+		RequiresCondition: armed
+		PauseOnCondition: disabled
+	GrantConditionOnAttack@explode:
+		Condition: shooting
+	GrantConditionOnMovement@moving:
+		Condition: moving
+		ValidMovementTypes: Horizontal, Turn
+	AutoTarget:
+		InitialStance: AttackAnything
+		EnableStances: false
+		ScanRadius: 4
+		RequiresCondition: armed
+	KillsSelf:
+		RequiresCondition: shooting && chase
+		DamageTypes: Suicide
+		Delay: 1
+	Targetable@mine:
+		TargetTypes: Mine
+	Explodes:
+		RequiresCondition: !shooting
+	Explodes@bomb:
+		Weapon: SpiderMineExplosion
+		EmptyWeapon: SpiderMineExplosion
+		DamageSource: Killer
+		DeathTypes: Suicide
+	SpeedMultiplier@cloaked:
+		Modifier: 0
+		RequiresCondition: !chase
+	-WithFacingSpriteBody:
+	WithSpriteBody:
+		RequiresCondition: cloaked && !moving
+	WithSpriteBody@2:
+		RequiresCondition: !cloaked && !moving
+		Sequence: idle-up
+	WithSpriteBody@3:
+		RequiresCondition: !cloaked && moving
+		Sequence: move
+	AmbientSound:
+		RequiresCondition: moving
+		SoundFiles: tvumin00.aud
+		Delay: 5
+	Cloak:
+		InitialDelay: 75
+		CloakDelay: 25
+		UncloakOn: Attack, Move, Damage
+		Palette: player
+		DetectionTypes: Mine
+		IsPlayerPalette: true
+		CloakSound: tvumin01.aud
+		UncloakSound: tvumin01.aud
+		CloakedCondition: cloaked
+	ExternalCondition@ready:
+		Condition: armed
+	ExternalCondition@chase:
+		Condition: chase
+	FreeActor@attack:
+		RequiresCondition: armed && !cloaked
+		Actor: TSPIDER.attack
+		AllowRespawn: true
+	FreeActor@arm:
+		Actor: TSPIDER.arm
+	DetectCloaked:
+		Range: 3c0
+
+TSPIDER.arm:
+	Inherits: 1TNK.MINE
+	-SpawnActorOnDeath:
+	Mobile:
+		Locomotor: foot
+	Explodes:
+		Weapon: SpiderMineArming
+
+TSPIDER.attack:
+	Inherits: TSPIDER.arm
+	Explodes:
+		Weapon: SpiderMineAttack
 
 TSTANK:
 	Inherits: ^TrackedVehicle
@@ -64,12 +210,13 @@ TSTANK:
 		Queue: Vehicle
 		BuildPaletteOrder: 105
 		Prerequisites: tshop, ~vehicles.terran, ~techlevel.medium, ~!ai.all
-		Description: Deployable artillery tank.\nSpeed: 56\n  Strong vs Vehicles, Infantry\n  Weak vs Aircraft
+		Description: Deployable artillery tank.\nSpeed: 48\n  Strong vs Vehicles, Infantry\n  Weak vs Aircraft
 		BuildDuration: 2000
 	Mobile:
 		TurnSpeed: 24
-		Speed: 56
+		Speed: 48
 		RequireForceMoveCondition: !undeployed
+		ImmovableCondition: !undeployed
 	Health:
 		HP: 40000
 	Armor:
@@ -182,7 +329,6 @@ TSTANK:
 	GrantConditionOnPrerequisite@upgrade:
 		Prerequisites: terran.tank
 		Condition: enable_siege
-
 
 TSTANK.BOT:
 	Inherits: ^TrackedVehicle
@@ -403,7 +549,6 @@ TSTANK.BOT.Checker:
 	-ChangesHealth@2:
 	-SeedsResource:
 
-
 TSTANK.BOT.BUILDABLE:
 	Inherits: ^TrackedVehicle
 	Inherits@EXPERIENCE: ^GainsExperience
@@ -503,3 +648,69 @@ TSTANK.BOT.BUILDABLE:
 		Delay: 0
 		Interval: -1
 		SoundFiles: ttatra00.aud
+
+
+TGOLIATH:
+	Inherits: ^Vehicle
+	Inherits@GAINSEXPERIENCE: ^GainsExperience
+	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
+	Valued:
+		Cost: 900
+	Buildable:
+		Queue: Vehicle
+		BuildPaletteOrder: 110
+		Prerequisites: tshop, ~vehicles.terran, ~techlevel.high
+		Description: Mech walker. Can attack air.\n\nSpeed: 96\n  Strong vs Infantry, Aircraft\n  Weak vs Tanks
+		BuildDurationModifier: 150
+		BuildDuration: 400
+	Tooltip:
+		Name: Goliath
+	Mobile:
+		TurnSpeed: 48
+		Speed: 96
+		Locomotor: foot2
+	Health:
+		HP: 50000
+	Armor:
+		Type: Heavy
+	RevealsShroud:
+		MinRange: 4c0
+		Range: 6c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 4c0
+	Armament:
+		Weapon: TerranGoliath
+		LocalOffset: 512,0,128
+	Armament@2:
+		Name: secondary
+		Weapon: TerranHK
+		LocalOffset: -384,-384,640, -384,384,640
+		LocalYaw: -192,192
+	AttackTurreted:
+		PauseOnCondition: disabled
+	Turreted:
+		TurnSpeed: 40
+	GrantConditionOnAttack@shoot:
+		Condition: shooting
+		RevokeDelay: 5
+		ArmamentNames: primary
+	GrantConditionOnMovement@moving:
+		Condition: moving
+	WithFacingSpriteBody:
+		RequiresCondition: !moving
+	WithFacingSpriteBody@move:
+		RequiresCondition: moving
+		Sequence: move
+	WithSpriteTurret@main:
+		RequiresCondition: !moving && !shooting
+	WithSpriteTurret@move:
+		RequiresCondition: moving && !shooting
+		Sequence: turret-move
+	WithSpriteTurret@shoot:
+		RequiresCondition: shooting
+		Sequence: turret-fire
+	SpawnActorOnDeath:
+		Actor: TGOLIATH.Husk
+	Voiced:
+		VoiceSet: TerranGoliathVoice

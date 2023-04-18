@@ -1239,18 +1239,19 @@ VultureGrenade:
 		Blockable: true
 		Image: tgrenade
 		RangeLimit: 7c0
-		HorizontalRateOfTurn: 128
-		VerticalRateOfTurn: 128
+		HorizontalRateOfTurn: 64
+		VerticalRateOfTurn: 32
 		Jammable: false
-		MinimumLaunchSpeed: 328
-		MaximumLaunchSpeed: 350
+		MinimumLaunchSpeed: 128
+		MaximumLaunchSpeed: 140
 		CruiseAltitude: 128
+		Acceleration: 64
 	Warhead@1Dam: SpreadDamage
 		Spread: 300
 		Damage: 5000
 		ValidTargets: Ground, GroundActor, WaterActor, Trees
 		Versus:
-			None: 125
+			None: 115
 			Wood: 50
 			Light: 75
 			Heavy: 30
@@ -1294,18 +1295,28 @@ TerranSiegeCannon:
 			Light: 50
 			Heavy: 50
 			Concrete: 50
-		DamageTypes: BulletDeath, TriggerProne
-		Delay: 1
+		DamageTypes: SmallExplosionDeath, TriggerProne
+		Delay: 2
+	Warhead@1Dam: SpreadDamage
+		Spread: 256
+		Damage: 15000
+		Versus:
+			None: 60
+			Wood: 40
+			Light: 100
+			Concrete: 50
+		Delay: 4
+		DamageTypes: Prone50Percent, TriggerProne, SmallExplosionDeath
 	Warhead@1Dam: SpreadDamage
 		Spread: 512
-		Damage: 40000
+		Damage: 25000
 		Versus:
 			None: 40
 			Wood: 40
 			Light: 100
 			Concrete: 50
 		Delay: 8
-		DamageTypes: Prone50Percent, TriggerProne, BulletDeath
+		DamageTypes: Prone50Percent, TriggerProne, SmallExplosionDeath
 	Warhead@3Eff: CreateEffect
 		Explosions: dukenukemexplosionsmall
 		ImpactSounds: dsrpgexp.aud

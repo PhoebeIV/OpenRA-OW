@@ -206,6 +206,10 @@ TCOMMAND:
 	ProvidesPrerequisite@pluggable:
 		RequiresCondition: !build-incomplete && !cc_addon_exists && room_for_addon
 		Prerequisite: tcommand.addon
+	ProductionTimeMultiplier@bot:
+		Prerequisites: ai.hard
+		Multiplier: 75
+		Queue: Building
 
 TCOMMAND.addon:
 	AlwaysVisible:
@@ -626,6 +630,23 @@ TBARR.landed.3:
 		Cost: 2500
 	Power:
 		Amount: -200
+
+TBARR.AI:
+	Inherits: TBARR
+	Buildable:
+		Queue: Bot
+		Prerequisites: anypower, ~structures.terran, ~techlevel.high, ~!ai.boss, ~ai.hard
+		BuildLimit: 3
+		Description: Bot only structure to give Hard AI a large advantage.
+	Valued:
+		Cost: 800
+	Power:
+		Amount: 0
+	ProvidesPrerequisite@buildingname:
+		Prerequisite: tbarr.3
+	ProductionQueue@infantry:
+		LowPowerModifier: 200
+		BuildDurationModifier: 60
 
 TBARR.air:
 	Inherits: ^FlyingBuilding
@@ -1191,7 +1212,7 @@ TFACTORY:
 	Buildable:
 		Queue: Building
 		BuildPaletteOrder: 32
-		Prerequisites: barracks, refinery, ~structures.terran, ~techlevel.low
+		Prerequisites: barracks, refinery, ~structures.terran, ~techlevel.low, ~!ai.boss
 		Description: Produces vehicles.
 	Health:
 		HP: 150000
@@ -1373,7 +1394,7 @@ TSPORT:
 	Buildable:
 		Queue: Building
 		BuildPaletteOrder: 34
-		Prerequisites: radar, factory, ~structures.terran, ~techlevel.medium
+		Prerequisites: radar, factory, ~structures.terran, ~techlevel.medium, ~!ai.boss
 		Description: Produces aircraft.
 	Health:
 		HP: 150000
@@ -1424,9 +1445,9 @@ TSPORT:
 		DisableStop: false
 	Exit@1:
 		RequiresCondition: !being-captured
-		SpawnOffset: 0,0,512
-		ExitCell: 3,3
-		ProductionTypes: Helicopter
+		SpawnOffset: 0,-256,0
+		ExitCell: 0,0
+		Facing: 896
 	Production:
 		Produces: Aircraft, Helicopter
 	ProductionQueue@aircraft:

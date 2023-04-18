@@ -3151,7 +3151,7 @@ TerranMedicHeal:
 		Speed: 1c682
 	Warhead@1Dam: SpreadDamage
 		Spread: 213
-		Damage: -475
+		Damage: -430
 		ValidRelationships: Ally
 		ValidTargets: Heal
 		DebugOverlayColor: 00FF00
@@ -3171,7 +3171,7 @@ TerranSiegeDeploy:
 	Warhead@curtain: GrantExternalCondition
 		Delay: 25
 		Condition: deploy_tank
-		Range: 512
+		Range: 160
 		Duration: 25
 		AffectsParent: true
 		ValidTargets: GroundActor
@@ -3187,3 +3187,32 @@ TerranSiegeUndeploy:
 	Warhead@4Eff: CreateEffect
 		ImpactSounds: ttatra01.aud
 		ValidTargets: SiegeTank
+
+SpiderMineTargeting:
+	ValidTargets: Vehicle, Infantry
+	InvalidTargets: Mine
+	Range: 1c0
+	Projectile: InstantHit
+	Warhead@1Dam: TargetDamage
+		ValidTargets: Vehicle, Infantry
+
+SpiderMineAttack:
+	Projectile: GravityBomb
+		Velocity: 0, 0, -128
+	Warhead@curtain: GrantExternalCondition
+		Delay: 20
+		Condition: chase
+		Range: 1c512
+		Duration: 40
+		AffectsParent: true
+		ValidTargets: GroundActor
+
+SpiderMineArming:
+	Projectile: GravityBomb
+		Velocity: 0, 0, -128
+	Warhead@curtain: GrantExternalCondition
+		Delay: 75
+		Condition: armed
+		Range: 72
+		AffectsParent: true
+		ValidTargets: GroundActor
