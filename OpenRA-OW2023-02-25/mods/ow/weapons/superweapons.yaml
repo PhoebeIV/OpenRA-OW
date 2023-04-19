@@ -2219,3 +2219,89 @@ DeleteNuke:
 		RandomClusterCount: 48
 		Dimensions: 12,12
 		Footprint: xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx
+
+NukeCannonShot:
+	ReloadDelay: 350
+	Range: 15c0
+	MinRange: 5c0
+	Report: vnukweaa.wav
+	ValidTargets: Ground, Water, GroundActor, WaterActor
+	Projectile: Bullet
+		Speed: 256
+		Image: 120MM
+		Inaccuracy: 0
+		ContrailLength: 20
+	Warhead@1Dam_impact: SpreadDamage
+		Spread: 512
+		Delay: 2
+		Damage: 15000
+		Falloff: 1000, 150, 135, 50, 18, 7, 0
+		ValidTargets: GroundActor, WaterActor, Underwater, AirborneActor, Trees
+		Versus:
+			Concrete: 75
+		AffectsParent: true
+		DamageTypes: Prone50Percent, TriggerProne, FireDeath
+	Warhead@98Eff_impact: CreateEffect
+		ImpactSounds: jericho.wav
+		ImpactActors: false
+	Warhead@2Res_impact: DestroyResource
+		Size: 1
+	Warhead@3Eff_impact: CreateEffect
+		Explosions: nuke
+		ImpactSounds: kaboom1.aud
+		ImpactActors: false
+	Warhead@4Dam_areanuke1: SpreadDamage
+		Spread: 2c0
+		Damage: 1800
+		Falloff: 500, 368, 135, 50, 18, 7, 0
+		Delay: 5
+		ValidTargets: GroundActor, WaterActor, Underwater, AirborneActor, Trees
+		Versus:
+			Concrete: 15
+		AffectsParent: true
+		DamageTypes: Prone50Percent, TriggerProne, FireDeath
+	Warhead@5Res_areanuke1: DestroyResource
+		Size: 2
+		Delay: 5
+	Warhead@7Dam_areanuke2: SpreadDamage
+		Spread: 3c0
+		Damage: 1500
+		Falloff: 500, 368, 135, 50, 18, 7, 0
+		Delay: 10
+		ValidTargets: GroundActor, WaterActor, Underwater, Trees
+		Versus:
+			Concrete: 15
+		AffectsParent: true
+		DamageTypes: Prone50Percent, TriggerProne, FireDeath
+	Warhead@9Dam_areanuke3: SpreadDamage
+		Spread: 3c0
+		Damage: 1000
+		Falloff: 500, 368, 135, 50, 18, 7, 0
+		Delay: 15
+		ValidTargets: GroundActor, WaterActor, Underwater, Trees
+		Versus:
+			Concrete: 15
+		AffectsParent: true
+		ValidRelationships: Enemy, Neutral
+		DamageTypes: Prone50Percent, TriggerProne, FireDeath
+	Warhead@10Eff_areanuke1: CreateEffect
+		ImpactSounds: dsbigexp.aud
+		Delay: 12
+	Warhead@11Smu_areanuke3: LeaveSmudge
+		SmudgeType: Scorch
+		Size: 3
+		Delay: 15
+	Warhead@15Dam_areanuke3: SpreadDamage
+		Spread: 3c0
+		Damage: 500
+		Falloff: 500, 368, 135, 50, 18, 7, 0
+		Delay: 20
+		ValidTargets: Ground, Water
+		Versus:
+			Concrete: 15
+		AffectsParent: true
+		DamageTypes: Prone50Percent, TriggerProne, FireDeath
+	Warhead@17Shake: ShakeScreen
+		Duration: 10
+		Intensity: 3
+		Multiplier: 1,1

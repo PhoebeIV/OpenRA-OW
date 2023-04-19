@@ -1,0 +1,778 @@
+chinanuclearreactor:
+	Inherits: ^PowerPlant
+	Inherits@POWER_OUTAGE: ^DisabledByPowerOutage
+	Inherits@shape: ^2x2Shape
+	Selectable:
+		Bounds: 2048, 2048
+	HitShape:
+		UseTargetableCellsOffsets: false
+		TargetableOffsets: 0,0,0, 640,-384,0, 640,512,0, -710,-512,0, -710,512,0
+	Buildable:
+		Queue: Building
+		BuildPaletteOrder: 1
+		Prerequisites: ~structures.china
+		Description: Provides power for other structures.\nCan be deployed to Overcharge Power at the cost of structure integrity.
+	Valued:
+		Cost: 600
+	Tooltip:
+		Name: Nuclear Reactor
+	ProvidesPrerequisite:
+		Prerequisite: anypower
+	Building:
+		Footprint: xx xx ==
+		Dimensions: 2,3
+		LocalCenterOffset: 0,-512,0
+	Health:
+		HP: 80000
+	Armor:
+		Type: Wood
+	RevealsShroud:
+		Range: 4c0
+	WithBuildingBib:
+	Power:
+		Amount: 200
+	Targetable:
+		TargetTypes: GroundActor, Structure, C4, DetonateAttack, SpyInfiltrate
+	ScalePowerWithHealth:
+	WithDeathAnimation:
+		DeathSequence: dead
+		UseDeathTypeSuffix: false
+	RenderSprites:
+        Image: chinanuclearreactor
+		PlayerPalette: dawn
+
+chinasupplycenter:
+	Inherits: ^Building
+	Buildable:
+		Queue: Building
+		BuildPaletteOrder: 60
+		Prerequisites: anypower, ~techlevel.infonly
+		Description: Refines Ore and Gems\ninto credits.
+	Valued:
+		Cost: 1400
+	Tooltip:
+		Name: Supply Center
+	Building:
+		Footprint: _X_ xxx X== ===
+		Dimensions: 3,4
+		LocalCenterOffset: 0,-512,0
+	Selectable:
+		Bounds: 3072, 2133, 0, 170
+		DecorationBounds: 3072, 2986, 0, -85
+	Targetable:
+		TargetTypes: GroundActor, Structure, C4, DetonateAttack, ThiefInfiltrate, SpyInfiltrate
+	Health:
+		HP: 90000
+	Armor:
+		Type: Wood
+	RevealsShroud:
+		MinRange: 4c0
+		Range: 5c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 4c0
+	Refinery:
+		DockAngle: 256
+		DockOffset: 1,2
+	StoresResources:
+		Capacity: 2000
+	CustomSellValue:
+		Value: 300
+	FreeActor:
+		Actor: HARV
+		SpawnOffset: 1,2
+		Facing: 256
+	InfiltrateForCash:
+		Percentage: 50
+		Types: SpyInfiltrate, ThiefInfiltrate
+		InfiltratedNotification: CreditsStolen
+		InfiltratedTextNotification: Credits stolen.
+	WithBuildingBib:
+	WithIdleOverlay@TOP:
+		RequiresCondition: !build-incomplete
+		Sequence: idle-top
+	Power:
+		Amount: -30
+	WithDeathAnimation:
+		DeathSequence: dead
+		UseDeathTypeSuffix: false
+	ProvidesPrerequisite@buildingname:
+	HitShape:
+		Type: Rectangle
+			TopLeft: -1536, -512
+			BottomRight: 1536, 598
+	HitShape@TOP:
+		TargetableOffsets: 1680,0,0
+		Type: Rectangle
+			TopLeft: -512, -1536
+			BottomRight: 512, -512
+	HitShape@BOTTOMLEFT:
+		TargetableOffsets: -1260,-1024,0
+		Type: Rectangle
+			TopLeft: -1536, 598
+			BottomRight: -512, 1280
+	-ActorPreviewPlaceBuildingPreview:
+	SequencePlaceBuildingPreview:
+		Sequence: idle
+		SequenceAlpha: 0.65
+	WithResourceStoragePipsDecoration:
+		Position: BottomLeft
+		Margin: 4, 3
+		RequiresSelection: true
+		PipCount: 17
+		FullSequence: pip-yellow
+	RenderSprites:
+        Image: chinasupplycenter
+
+chinabarracks:
+	Inherits: ^DawnBuilding
+	Inherits@prereqs: ^BarracksPrereqs
+	Inherits@shape: ^2x2Shape
+	Selectable:
+		Bounds: 2048, 2048
+	HitShape:
+		UseTargetableCellsOffsets: false
+		TargetableOffsets: 0,0,0, 630,-512,0, 355,512,0, -281,-512,0, -630,512,0
+	Buildable:
+		Queue: Building
+		BuildPaletteOrder: 20
+		Prerequisites: anypower, ~structures.china
+		Description: Trains infantry.
+	Valued:
+		Cost: 600
+	Tooltip:
+		Name: Barracks
+	Building:
+		Footprint: xx xx ==
+		Dimensions: 2,3
+		LocalCenterOffset: 0,-512,0
+	Health:
+		HP: 70000
+	Armor:
+		Type: Wood
+	RevealsShroud:
+		MinRange: 4c0
+		Range: 5c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 4c0
+	RenderSprites:
+        Image: chinabarracks
+	ActorPreviewPlaceBuildingPreview:
+	Cloak@stealthgen:
+		Palette: dawncloak
+	WithBuildingBib:
+	RallyPoint:
+	Exit@1:
+		RequiresCondition: !being-captured
+		SpawnOffset: -42,810,0
+		ExitCell: 1,2
+		ProductionTypes: Soldier, Infantry
+	Exit@2:
+		RequiresCondition: !being-captured
+		SpawnOffset: -725,640,0
+		ExitCell: 0,2
+		ProductionTypes: Soldier, Infantry
+	Production:
+		Produces: Infantry, Soldier
+	GrantExternalConditionToProduced:
+		Condition: produced
+	PrimaryBuilding:
+		PrimaryCondition: primary
+		SelectionNotification: PrimaryBuildingSelected
+	ProductionBar:
+		ProductionType: Infantry
+	Power:
+		Amount: 0
+	ProvidesPrerequisite@buildingname:
+	InfiltrateForSupportPower:
+		Proxy: barracks.upgraded
+		Types: SpyInfiltrate
+	Targetable:
+		TargetTypes: GroundActor, C4, DetonateAttack, Structure, SpyInfiltrate
+	WithDecoration@primary:
+		RequiresSelection: true
+		Image: pips
+		Sequence: tag-primary
+		Position: Top
+		RequiresCondition: primary
+	ProvidesPrerequisite@zocomupgrade:
+		RequiresPrerequisites: structures.zocom
+		Prerequisite: barracks.upgraded
+	ProvidesPrerequisite@phobosupgrade:
+		RequiresPrerequisites: structures.phobos
+		Prerequisite: barracks.upgraded
+	WithDeathAnimation:
+		DeathSequence: dead
+		UseDeathTypeSuffix: false
+		DeathSequencePalette: dawn
+
+chinawarfactory:
+	Inherits: ^DawnBuilding
+	Inherits@prereqs: ^FactoryPrereqs
+	Selectable:
+		Bounds: 3072, 3072
+	Buildable:
+		Queue: Building
+		BuildPaletteOrder: 80
+		Prerequisites: chinasupplycenter, anypower, ~structures.china
+		Description: Produces vehicles.
+	Valued:
+		Cost: 2000
+	Tooltip:
+		Name: War Factory
+	Building:
+		Footprint: ___ xxx === ===
+		Dimensions: 3,4
+		LocalCenterOffset: 0,-512,0
+	Health:
+		HP: 170000
+	Armor:
+		Type: Wood
+	RevealsShroud:
+		MinRange: 4c0
+		Range: 5c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 4c0
+	WithBuildingBib:
+	WithProductionDoorOverlay:
+		Sequence: build-top
+		RequiresCondition: !build-incomplete
+	RallyPoint:
+		Path: 0,3
+	Exit@1:
+		RequiresCondition: !being-captured
+		SpawnOffset: -341,-341,0
+		ExitCell: 0,2
+		ExitDelay: 3
+	Production:
+		Produces: Vehicle
+	GrantExternalConditionToProduced:
+		Condition: produced
+	PrimaryBuilding:
+		PrimaryCondition: primary
+		SelectionNotification: PrimaryBuildingSelected
+	ProductionBar:
+		ProductionType: Vehicle
+	Power:
+		Amount: -30
+	ProvidesPrerequisite@buildingname:
+	ProvidesPrerequisite@usa:
+		Factions: usa
+		Prerequisite: War Factory
+	ProvidesPrerequisite@usa2:
+		Factions: usa
+		Prerequisite: vehicles.usa
+	Targetable:
+		TargetTypes: GroundActor, C4, DetonateAttack, Structure, SpyInfiltrate
+	InfiltrateForSupportPower:
+		Proxy: vehicles.upgraded
+		Types: SpyInfiltrate
+	WithDecoration@primary:
+		RequiresSelection: true
+		Image: pips
+		Sequence: tag-primary
+		Position: Top
+		RequiresCondition: primary
+	-ActorPreviewPlaceBuildingPreview:
+	SequencePlaceBuildingPreview:
+		Sequence: place
+	RenderSprites:
+        PlayerPalette: dawn
+        Image: chinawarfactory
+	HitShape:
+		TargetableOffsets: 0,0,0, 0,1024,0, 0,-1024,0
+		Type: Rectangle
+			TopLeft: -1536, -1024
+			BottomRight: 1536, 512
+	Cloak@stealthgen:
+		Palette: dawncloak
+	WithDeathAnimation:
+		DeathSequence: dead
+		UseDeathTypeSuffix: false
+		DeathSequencePalette: dawn
+
+chinapropagandacenter:
+	Inherits: ^ScienceBuilding
+	Inherits@shape: ^3x3Shape
+	Selectable:
+		Bounds: 3072, 3072
+	Buildable:
+		Queue: Building
+		Prerequisites: chinasupplycenter, chinawarfactory, anypower, ~structures.china
+		Description: Strategic Center, provides upgrades.
+		BuildPaletteOrder: 150
+	Tooltip:
+		Name: Propaganda Center
+	ProvidesRadar:
+		RequiresCondition: !lowpower
+	Building:
+		Footprint: xxx xxx x=x
+		Dimensions: 3,3
+	Valued:
+		Cost: 1500
+	Health:
+		HP: 80000
+	Armor:
+		Type: Heavy
+	Power:
+		Amount: -150
+	RevealsShroud:
+		MinRange: 5c0
+		Range: 7c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 5c0
+	Targetable:
+		TargetTypes: GroundActor, C4, DetonateAttack, Structure, SpyInfiltrate
+	ProvidesPrerequisite@buildingname:
+	ProvidesPrerequisite:
+		Prerequisite: techcenter
+	RenderSprites:
+		Image: chinapropaganda
+	    PlayerPalette: dawn
+	AirstrikePower@spyplane:
+		OrderName: ChinaSpyPlane
+		Icon: spyplane
+		ChargeInterval: 3750
+		Name: Spy Plane
+		Description: Reveals an area of the map.
+		SelectTargetSpeechNotification: SelectTarget
+		EndChargeSpeechNotification: SpyPlaneReady
+		SelectTargetTextNotification: Select target.
+		EndChargeTextNotification: Spy plane ready.
+		CameraActor: camera.spyplane
+		CameraRemoveDelay: 150
+		UnitType: u2
+		QuantizedFacings: 8
+		DisplayBeacon: true
+		BeaconPoster: camicon
+		ArrowSequence: arrow
+		ClockSequence: clock
+		CircleSequence: circles
+		UseDirectionalTarget: True
+		DirectionArrowAnimation: paradirection
+		SupportPowerPaletteOrder: 60
+	ParatroopersPower@usarangers:
+		OrderName: usarangers
+		Prerequisites: ~structures.usa, ~aircraft.usa
+		Icon: paratroopers
+		ChargeInterval: 9000
+		Name: Paratroopers
+		Description: A C17 drops a squad of US soldiers anywhere on the map.
+		UnitType: C17
+		DropItems: USARANGER,USARANGER,USARANGER,USARANGER,USARANGER,USADEFENDER,USADEFENDER,USADEFENDER,USADEFENDER,USADEFENDER,USARANGER,USARANGER,USARANGER,USARANGER,USARANGER,USADEFENDER,USADEFENDER,USADEFENDER,USADEFENDER,USADEFENDER
+		ReinforcementsArrivedSpeechNotification: ReinforcementsArrived
+		SelectTargetSpeechNotification: SelectTarget
+		AllowImpassableCells: false
+		QuantizedFacings: 8
+		CameraActor: camera.paradrop
+		DisplayBeacon: true
+		BeaconPoster: pinficon
+		ArrowSequence: arrow
+		ClockSequence: clock
+		CircleSequence: circles
+		UseDirectionalTarget: True
+		DirectionArrowAnimation: paradirection
+		SupportPowerPaletteOrder: 50
+		SquadSize: 3
+	GrantExternalConditionPower@Frenzy:
+		PauseOnCondition: disabled
+		Icon: patriotismicon
+		ChargeInterval: 7500
+		Name: Frenzy
+		OrderName: frenzy
+		Description: Makes a group of units fight for their country. (20% Buff)
+		Duration: 750
+		SelectTargetSpeechNotification: SelectTarget
+		InsufficientPowerSpeechNotification: InsufficientPower
+		DisplayRadarPing: True
+		Condition: patriotismboost
+		OnFireSound: sfrenzya.wav
+		SupportPowerPaletteOrder: 10
+		Dimensions: 7, 7
+		Footprint: _xxxxx_ xxxxxxx xxxxxxx xxxxxxx xxxxxxx xxxxxxx _xxxxx_
+		DisplayTimerRelationships: Ally
+	ParatroopersPower@airdropmines:
+		OrderName: ChinaMines
+		UnitType: C17
+		Prerequisites: ~structures.china, ~aircraft.china
+		Icon: usalandmines
+		ChargeInterval: 6000
+		Name: Mines Airdrop
+		Description: A C17 drops a line of mine anywhere on the map.
+		DropItems: USAMINEDROP, USAMINEDROP, USAMINEDROP, USAMINEDROP, USAMINEDROP,USAMINEDROP, USAMINEDROP, USAMINEDROP, USAMINEDROP, USAMINEDROP,USAMINEDROP, USAMINEDROP
+		ReinforcementsArrivedSpeechNotification: ReinforcementsArrived
+		SelectTargetSpeechNotification: SelectTarget
+		AllowImpassableCells: false
+		QuantizedFacings: 8
+		CameraActor: camera.paradrop
+		DisplayBeacon: true
+		BeaconPoster: usalandminesbeacon
+		ArrowSequence: arrow
+		ClockSequence: clock
+		CircleSequence: circles
+		UseDirectionalTarget: True
+		DirectionArrowAnimation: paradirection
+		SupportPowerPaletteOrder: 50
+		SquadSize: 4
+
+usaairfield:
+	Inherits: ^Building
+	Inherits@PRIMARY: ^PrimaryBuilding
+	Inherits@prereqs: ^AircraftPrereqs
+	Buildable:
+		Queue: Building
+		BuildPaletteOrder: 130
+		Prerequisites: chinasupplycenter, anypower, ~structures.china
+		Description: Produces and reloads aircraft.\n  Special Ability: Spy Plane\n  Special Ability: Paratroopers
+	Tooltip:
+		Name: PRC Airfield
+	Valued:
+		Cost: 1250
+	Building:
+		Footprint: xxxx =x== xxxx
+		Dimensions: 4,3
+	WithIdleOverlay@FLAG:
+		Sequence: idle-flag
+	Selectable:
+		Bounds: 4096, 2048
+	HitShape:
+		TargetableOffsets: 0,0,0, 0,-512,256, 0,-1451,384, 0,512,128, 0,1536,85
+		Type: Rectangle
+			TopLeft: -2048, -1024
+			BottomRight: 1536, 1024
+	Health:
+		HP: 170000
+	Armor:
+		Type: Wood
+	RevealsShroud:
+		MinRange: 4c0
+		Range: 5c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 4c0
+	Production:
+		Produces: Aircraft, Plane, Helicopter
+	ProductionBar:
+		ProductionType: Aircraft
+	Power:
+		Amount: -30
+	ProvidesPrerequisite@usa:
+		Factions: china
+		Prerequisite: aircraft.china
+	ProvidesPrerequisite@buildingname:
+	Targetable:
+		TargetTypes: GroundActor, C4, DetonateAttack, Structure, SpyInfiltrate
+	InfiltrateForSupportPower:
+		Proxy: vehicles.upgraded
+		Types: SpyInfiltrate
+	WithDecoration@primary:
+		RequiresSelection: true
+		Image: pips
+		Sequence: tag-primary
+		Position: Top
+		RequiresCondition: primary
+	Exit:
+		ProductionTypes: Aircraft, Plane, Helicopter
+	Exit@1:
+		ProductionTypes: Aircraft, Plane
+		SpawnOffset: 512,512,0
+	Exit@2:
+		ExitCell: 1,1
+		Facing: 192
+		SpawnOffset: -1024,0,0
+		ProductionTypes: Aircraft, Plane
+	Exit@3:
+		ExitCell: 1,2
+		Facing: 192
+		SpawnOffset: -1024,544,0
+		ProductionTypes: Aircraft, Plane
+	WithDeathAnimation:
+		DeathSequence: dead
+		UseDeathTypeSuffix: false
+	RenderSprites:
+        Image: chinaairfield
+	Reservable:
+	RallyPoint:
+		ForceSetType: Plane, Aircraft
+	ProximityExternalCondition:
+		Condition: reloadnear
+		Range: 7c0
+    FreeActor@1:
+        Actor: usaairstriplandingspot
+        SpawnOffset: 3,1
+    FreeActor@2:
+        Actor: usaairstriplandingspot
+        SpawnOffset: 0,0
+    FreeActor@3:
+        Actor: usaairstriplandingspot
+        SpawnOffset: 3,0
+	Explodes:
+		Weapon: FireBaseExplosion
+		EmptyWeapon: FireBaseExplosion
+
+chinainternetcenter:
+	Inherits: ^Building
+	Inherits@SHAPE: ^2x2Shape
+	Inherits@IDISABLE: ^DisableOnLowPowerOrPowerDown
+	Selectable:
+		Bounds: 2048, 2048
+	Buildable:
+		Queue: Building
+		Prerequisites: techcenter, ~structures.china
+		BuildPaletteOrder: 150
+		Description: internet cafe to play LEAGUE OF LEGENDS and sell the accounts for FAT STACKS
+	Valued:
+		Cost: 2500
+	Tooltip:
+		Name: Internet Cafe (Currently playing League of Legends)
+	Building:
+		Footprint: xx xx
+		Dimensions: 2,2
+	Health:
+		HP: 100000
+	Armor:
+		Type: Wood
+	Power:
+		Amount: -200
+	ProvidesPrerequisite@buildingname:
+	CashTrickler:
+		Interval: 50
+		InitialDelay: 50
+		Amount: 5
+        UseResourceStorage: true
+		PauseOnCondition: disabled
+	RenderSprites:
+		Image: chinainternetcenter
+	RevealsShroud@GAPGEN:
+		Range: 5c0
+
+chinanuclearsilo:
+	Inherits: ^Building
+	Inherits@shape: ^2x1Shape
+	Inherits@IDISABLE: ^DisableOnLowPowerOrPowerDown
+	Valued:
+		Cost: 5000
+	Tooltip:
+		Name: Nuclear Missile Silo
+	Buildable:
+		Queue: Tech
+		Prerequisites: techcenter, ~structures.china
+		BuildLimit: 1
+		Description: Provides a Nuke.
+		BuildPaletteOrder: 500
+	Building:
+		Footprint: xx
+		Dimensions: 2,1
+	Selectable:
+		Bounds: 3072, 2048
+		DecorationBounds: 3072, 2901, 0, -426
+	Health:
+		HP: 100000
+	Armor:
+		Type: Wood
+	RevealsShroud:
+		Range: 4c0
+	NukePower:
+		PauseOnCondition: disabled
+		Cursor: nuke
+		Icon: abomb
+		ChargeInterval: 13500
+		Name: Atom Bomb
+		Description: Launches a devastating atomic bomb\nat a target location.
+		BeginChargeSpeechNotification: AbombPrepping
+		EndChargeSpeechNotification: AbombReady
+		SelectTargetSpeechNotification: SelectTarget
+		InsufficientPowerSpeechNotification: InsufficientPower
+		IncomingSpeechNotification: AbombLaunchDetected
+		SelectTargetTextNotification: Select target.
+		InsufficientPowerTextNotification: Insufficient power.
+		BeginChargeTextNotification: A-bomb prepping.
+		EndChargeTextNotification: A-bomb ready.
+		IncomingTextNotification: A-bomb launch detected.
+		MissileWeapon: atomic
+		MissileImage: atomic
+		MissileDelay: 5
+		SpawnOffset: 1c0,427,0
+		DisplayTimerRelationships: Ally, Neutral, Enemy
+		DisplayBeacon: True
+		DisplayRadarPing: True
+		BeaconPoster: atomicon
+		CameraRange: 10c0
+		ArrowSequence: arrow
+		ClockSequence: clock
+		CircleSequence: circles
+		SupportPowerPaletteOrder: 70
+	SupportPowerChargeBar:
+	Power:
+		Amount: -200
+	MustBeDestroyed:
+		RequiredForShortGame: false
+	ProvidesPrerequisite@superweapon:
+		Prerequisite: superweapon
+	RenderSprites:
+		Image: chinanuclearsilo
+	Explodes:
+		Type: CenterPosition
+		Weapon: MiniNuke
+		EmptyWeapon: MiniNuke
+
+chinagatlinggun:
+	Inherits: ^Defense
+	Inherits@AUTOTARGET: ^AutoTargetGround
+	Buildable:
+		Queue: Defense
+		BuildPaletteOrder: 70
+		Prerequisites: ~structures.china, anypower
+		Description: Anti-Armor base defense.\nCan detect cloaked units.\n  Strong vs Vehicles\n  Weak vs Infantry, Aircraft
+	Valued:
+		Cost: 800
+	Tooltip:
+		Name: Gatling Cannon
+	Building:
+	Health:
+		HP: 40000
+	Armor:
+		Type: Heavy
+	RevealsShroud:
+		MinRange: 5c0
+		Range: 6c512
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 5c0
+	WithBuildingBib:
+		HasMinibib: true
+	Turreted:
+		TurnSpeed: 48
+		InitialFacing: 192
+		RealignDelay: -1
+		RequiresCondition: !build-incomplete
+	WithSpriteTurret:
+		RequiresCondition: !build-incomplete
+		Recoils: false
+	Armament@PRIMARY:
+		Weapon: gatlingtankshot
+		LocalOffset: 512,0,112
+		MuzzleSequence: muzzle
+	Armament@SECONDARY:
+		Weapon: gatlingtankshotair
+		LocalOffset: 512,0,112
+		MuzzleSequence: muzzle
+	GrantConditionOnAttack@gatling:
+		Condition: gatling
+		RequiredShotsPerInstance: 4
+		MaximumInstances: 2
+		RevokeDelay: 25
+		RevokeAll: true
+		IsCyclic: false
+	ReloadDelayMultiplier@Gatling1:
+		RequiresCondition: gatling >= 1
+		Modifier: 50
+	ReloadDelayMultiplier@Gatling2:
+		RequiresCondition: gatling >= 2
+		Modifier: 50
+	AttackTurreted:
+		PauseOnCondition: build-incomplete
+	WithMuzzleOverlay:
+	Power:
+		Amount: -40
+	-BodyOrientation:
+	ClassicFacingBodyOrientation:
+
+chinaspeakertower:
+	Inherits: ^Building
+	Inherits@IDISABLE: ^DisableOnLowPowerOrPowerDown
+	Valued:
+		Cost: 1400
+	Tooltip:
+		Name: Speaker Tower
+	Buildable:
+		Queue: Defense
+		Prerequisites: ~structures.china, techcenter
+		Description: Provides propaganda n shit
+		BuildPaletteOrder: 6
+	Building:
+		Footprint: x x
+		Dimensions: 1,2
+	Selectable:
+		Bounds: 1024, 3072
+		DecorationBounds: 1024, 3072, 0, 0
+	SelectionDecorations:
+	WithBuildingBib:
+		HasMinibib: true
+	Health:
+		HP: 80000
+	Armor:
+		Type: Wood
+	RevealsShroud:
+		MinRange: 5c0
+		Range: 6c512
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 5c0
+	DetectCloaked:
+		Range: 6c0
+		RequiresCondition: !disabled
+	Power:
+		Amount: -100
+	ProximityExternalCondition@propaganda:
+		Condition: propaganda
+		RequiresCondition: !disabled
+		Range: 7c0
+
+chinabunker:
+	Inherits: ^Defense
+	Inherits@AUTOTARGET: ^AutoTargetAll
+	Inherits@CARGOPIPS: ^CargoPips
+	Tooltip:
+		Name: Pillbox
+	Building:
+	Buildable:
+		Queue: Defense
+		BuildPaletteOrder: 40
+		Prerequisites: ~structures.china
+		Description: Static defense with a fireport for\na garrisoned soldier.\nCan detect cloaked units.\n  Strong vs Infantry, Light armor\n  Weak vs Tanks, Aircraft
+	Valued:
+		Cost: 700
+	CustomSellValue:
+		Value: 400
+	Health:
+		HP: 50000
+	Armor:
+		Type: Heavy
+	RevealsShroud:
+		MinRange: 5c0
+		Range: 6c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 5c0
+	WithBuildingBib:
+		HasMinibib: true
+	Turreted:
+		TurnSpeed: 512
+	-QuantizeFacingsFromSequence:
+	BodyOrientation:
+		QuantizedFacings: 8
+	EngineerRepairable:
+		RequiresCondition: damaged
+	GrantConditionOnDamageState@DAMAGED:
+		Condition: damaged
+		ValidDamageStates: Light, Medium, Heavy, Critical
+	Cargo:
+		Types: Infantry
+		MaxWeight: 2
+	-SpawnActorsOnSell:
+	AttackGarrisoned:
+		PauseOnCondition: build-incomplete
+		Armaments: garrisoned
+		PortOffsets: 384,0,128, 224,-341,128, -224,-341,128, -384,0,128, -224,341,128, 224,341,128
+		PortYaws: 0, 176, 341, 512, 682, 853
+		PortCones: 88, 88, 88, 88, 88, 88
+	RenderRangeCircle:
+		FallbackRange: 6c0
+	Power:
+		Amount: -20
+	DetectCloaked:
+		Range: 6c0

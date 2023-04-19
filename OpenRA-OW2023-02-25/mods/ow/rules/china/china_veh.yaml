@@ -1,0 +1,472 @@
+chinabattlemaster:
+	Inherits: 2TNK
+	Buildable:
+		BuildPaletteOrder: 220
+		Prerequisites: ~vehicles.china
+		Description: USA main battle tank.\nEquipped with an 120 mm L30 rifled gun.\nSpeed: 85\n  Strong vs Vehicles\n  Weak vs Infantry, Aircraft
+        BuildDuration: 900
+	Valued:
+		Cost: 1000
+	Tooltip:
+		Name: Battlemaster Tank
+	Health:
+		HP: 55000
+	Mobile:
+		Speed: 85
+	Turreted:
+		TurnSpeed: 16
+	Armament:
+		Weapon: 125mm
+	SpawnActorOnDeath:
+		Actor: chinabattlemaster.husk
+	SelectionDecorations:
+	RenderSprites:
+		Image: chinabattlemaster
+	Voiced:
+		VoiceSet: BattlemasterTankVoice
+
+chinadragontank:
+	Inherits: 2TNK
+	Buildable:
+		BuildPaletteOrder: 220
+		Prerequisites: ~vehicles.china
+		Description: USA main battle tank.\nEquipped with an 120 mm L30 rifled gun.\nSpeed: 85\n  Strong vs Vehicles\n  Weak vs Infantry, Aircraft
+        BuildDuration: 900
+	Valued:
+		Cost: 1000
+	Tooltip:
+		Name: Dragon Tank
+	Health:
+		HP: 55000
+	Mobile:
+		Speed: 85
+	Turreted:
+		TurnSpeed: 16
+	Armament:
+		Weapon: DragonTankshot
+		MuzzleSequence: muzzle
+		LocalOffset: 750,200,150, 750,-200,150
+	SpawnActorOnDeath:
+		Actor: chinadragontank.Husk
+	SelectionDecorations:
+	RenderSprites:
+		Image: chinadragontank
+		PlayerPalette: dawn
+	WithDamageOverlay:
+		Palette: dawn
+	Voiced:
+		VoiceSet: DragonTankVoice
+
+chinagatlingtank:
+	Inherits: ^Vehicle
+	Inherits@GAINSEXPERIENCE: ^GainsExperience
+	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
+	Buildable:
+		Queue: Vehicle
+		BuildPaletteOrder: 130
+		Prerequisites: ~vehicles.china
+		Description: Mobile unit with mounted Flak cannon.\n  Strong vs Infantry, Light armor, Aircraft\n  Weak vs Tanks
+	Valued:
+		Cost: 600
+	Tooltip:
+		Name: Gatling Tank
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 15000
+	Armor:
+		Type: Light
+	Mobile:
+		TurnSpeed: 40
+		Speed: 113
+	RevealsShroud:
+		MinRange: 4c0
+		Range: 6c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 4c0
+	Turreted:
+		TurnSpeed: 40
+		Offset: -298,0,298
+	Armament@AA:
+		Weapon: gatlingtankshot
+		Recoil: 85
+		LocalOffset: 512,0,192
+		MuzzleSequence: muzzle
+	Armament@AG:
+		Weapon: gatlingtankshotair
+		Recoil: 85
+		LocalOffset: 512,0,192
+		MuzzleSequence: muzzle
+	GrantConditionOnAttack@gatling:
+		Condition: gatling
+		RequiredShotsPerInstance: 4
+		MaximumInstances: 2
+		RevokeDelay: 25
+		RevokeAll: true
+		IsCyclic: false
+	ReloadDelayMultiplier@Gatling1:
+		RequiresCondition: gatling >= 1
+		Modifier: 50
+	ReloadDelayMultiplier@Gatling2:
+		RequiresCondition: gatling >= 2
+		Modifier: 50
+	AttackTurreted:
+	WithMuzzleOverlay:
+	WithSpriteTurret:
+	ProducibleWithLevel:
+		Prerequisites: vehicles.upgraded
+	Selectable:
+		DecorationBounds: 1194, 1194
+	WithProductionIconOverlay:
+		Types: Veterancy
+		Prerequisites: vehicles.upgraded
+	RenderSprites:
+		Image: chinagatlingtank
+	Voiced:
+		VoiceSet: GatlingTankVoice
+
+chinalisteningoutpost:
+	Inherits: ^TrackedVehicle
+	Inherits@GAINSEXPERIENCE: ^GainsExperience
+	Buildable:
+		Queue: Vehicle
+		BuildPaletteOrder: 120
+		Prerequisites: ~vehicles.china
+		Description: Unarmed infantry transport.\nInfantry can fire from inside.\nSpeed: 88 \n  Strong vs Infantry, Light armor\n  Weak vs Tanks, Aircraft
+	Valued:
+		Cost: 900
+	Tooltip:
+		Name: Listening Outpost
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 65000
+	Armor:
+		Type: Heavy
+	Mobile:
+		Speed: 88
+		PauseOnCondition: notmobile || being-captured || disabled
+	RevealsShroud:
+		MinRange: 4c0
+		Range: 5c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 4c0
+	ProducibleWithLevel:
+		Prerequisites: vehicles.upgraded
+	ClassicFacingBodyOrientation:
+		QuantizedFacings: 32
+	Selectable:
+		DecorationBounds: 1877, 1621, 0, -170
+	Explodes:
+		Weapon: UnitExplodeSmall2
+		EmptyWeapon: UnitExplodeSmall2
+	WithIdleOverlay@SPINNER:
+		Sequence: spinner
+		Offset: 0,0,400
+	RenderSprites:
+		Image: chinalisteningoutpost
+	Voiced:
+		VoiceSet: ListeningOutpostVoice
+	Cloak:
+		InitialDelay: 200
+		CloakDelay: 100
+		CloakSound:
+		UncloakSound:
+		UncloakOn: Attack, Unload, Infiltrate, Demolish, Move
+		IsPlayerPalette: true
+		RequiresCondition: !cloak-force-disabled
+	GrantConditionOnDamageState@UNCLOAK:
+		Condition: cloak-force-disabled
+		ValidDamageStates: Critical
+	RenderDetectionCircle:
+		DetectionTypes: Cloak
+	DetectCloaked:
+		Range: 3c256
+
+chinatroopcarrier:
+	Inherits: ^TrackedVehicle
+	Inherits@GAINSEXPERIENCE: ^GainsExperience
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Inherits@CARGOPIPS: ^CargoPips
+	Buildable:
+		Queue: Vehicle
+		BuildPaletteOrder: 120
+		Prerequisites: ~vehicles.china, techcenter
+		Description: Unarmed infantry transport.\nInfantry can fire from inside.\nSpeed: 88 \n  Strong vs Infantry, Light armor\n  Weak vs Tanks, Aircraft
+	Valued:
+		Cost: 900
+	Tooltip:
+		Name: Troop Crawler
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 65000
+	Armor:
+		Type: Heavy
+	Mobile:
+		Speed: 88
+		PauseOnCondition: notmobile || being-captured || disabled
+	RevealsShroud:
+		MinRange: 4c0
+		Range: 5c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 4c0
+	Turreted:
+		TurnSpeed: 1023
+	Cargo:
+		Types: Infantry
+		MaxWeight: 8
+		LoadingCondition: notmobile
+		PassengerConditions:
+			e1of: e1of
+			dm2of: e1of
+	AttackGarrisoned:
+		Armaments: bus
+		PortOffsets: 384,-256,384, 64,-256,384, -192,-256,384, -448,-256,384, -768,0,384, 384,256,384, 64,256,384, -192,256,384, -448,256,384, -640,-256,384, -640,256,384
+		PortYaws: 48,256,256,256,512,976,768,768,768,256,768
+		PortCones: 112,96,96,96,112,96,96,96,96,96,96
+	ProducibleWithLevel:
+		Prerequisites: vehicles.upgraded
+	ClassicFacingBodyOrientation:
+		QuantizedFacings: 32
+	Selectable:
+		DecorationBounds: 1877, 1621, 0, -170
+	Explodes:
+		Weapon: UnitExplodeSmall2
+		EmptyWeapon: UnitExplodeSmall2
+	WithCargoPipsDecoration:
+		Position: BottomLeft
+		RequiresSelection: true
+	WithIdleOverlay@SPINNER:
+		Sequence: spinner
+	RenderSprites:
+		Image: chinatroopcarrier
+	Voiced:
+		VoiceSet: TroopCrawlerVoice
+	RenderDetectionCircle:
+		DetectionTypes: Cloak
+	DetectCloaked:
+		Range: 2c256
+
+chinaassaulttroopcarrier:
+	Inherits: chinatroopcarrier
+	Buildable:
+		Queue: Vehicle
+		BuildPaletteOrder: 120
+		Prerequisites: ~vehicles.china, techcenter
+		Description: Unarmed infantry transport.\nInfantry can fire from inside.\nSpeed: 88 \n  Strong vs Infantry, Light armor\n  Weak vs Tanks, Aircraft
+	Valued:
+		Cost: 2000
+	Tooltip:
+		Name: Assault Troop Crawler
+	RenderSprites:
+		Image: chinaassaulttroopcarrier
+	Voiced:
+		VoiceSet: AssaultTroopCrawlerVoice
+	Cargo:
+		Types: Infantry
+		MaxWeight: 8
+		LoadingCondition: notmobile
+		PassengerConditions:
+			e1of: e1of
+			dm2of: e1of
+		InitialUnits: chinaredguard, chinaredguard, chinaredguard, chinaredguard, chinaredguard, chinaredguard, chinaredguard, chinaredguard
+
+chinaecm:
+	Inherits: 2TNK
+	Buildable:
+		BuildPaletteOrder: 220
+		Prerequisites: ~vehicles.china, techcenter
+		Description: Advanced support tank.\nEquipped with a Microwave generator.\nCan disable vehicles, structures and fry infantry.\n  Strong vs Vehicles, Infantry\n  Weak vs Aircraft
+        BuildDuration: 1200
+	Valued:
+		Cost: 1000
+	Tooltip:
+		Name: ECM Tank
+	Health:
+		HP: 30000
+	Mobile:
+		Speed: 85
+	Armament:
+		Weapon: chinaecmshot
+	Turreted:
+		TurnSpeed: 16
+	JamsMissiles:
+		Range: 5c0
+		DeflectionRelationships: Neutral, Enemy
+	SpawnActorOnDeath:
+		Actor: chinaecmtank.Husk
+	RenderJammerCircle:
+	SelectionDecorations:
+	RenderSprites:
+		Image: chinaecmtank
+		PlayerPalette: dawn
+	Voiced:
+		VoiceSet: ECMTankVoice
+
+chinainfernocannon:
+	Inherits: ARTY.SS
+	Buildable:
+		Queue: Vehicle
+		BuildPaletteOrder: 138
+		Prerequisites: ~vehicles.china, techcenter
+		Description: Long-range fire artillery.\nSpeed: 85\n  Strong vs Infantry, Buildings\n  Weak vs Vehicles, Aircraft
+	Valued:
+		Cost: 1100
+	Tooltip:
+		Name: Inferno Artillery
+	Health:
+		HP: 12000
+	Voiced:
+		VoiceSet: InfernoCannonVoice
+
+chinanukecannon:
+	Inherits: ^TrackedVehicle
+	Inherits@EXPERIENCE: ^GainsExperience
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Valued:
+		Cost: 2500
+	Tooltip:
+		Name: Nuke Cannon
+		RequiresCondition: !deployed
+	Tooltip@DEPLOYED:
+		Name: Nuke Cannon (deployed)
+		RequiresCondition: deployed
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Buildable:
+		Queue: Vehicle
+		BuildPaletteOrder: 140
+		Prerequisites: ~vehicles.china, techcenter
+		Description: Reich's deployable artillery tank.\nSpeed: 50\n  Strong vs Vehicles, Infantry\n  Weak vs Aircraft
+	Mobile:
+		TurnSpeed: 12
+		Speed: 50
+		RequireForceMoveCondition: !undeployed
+		ImmovableCondition: !undeployed
+	Health:
+		HP: 40000
+	Armor:
+		Type: Heavy
+	RevealsShroud:
+		MinRange: 5c0
+		Range: 6c0
+		RevealGeneratedShroud: False
+		RequiresCondition: undeployed
+	RevealsShroud@DEPLOYED:
+		MinRange: 5c0
+		Range: 9c0
+		RevealGeneratedShroud: False
+		RequiresCondition: deployed
+	RevealsShroud@GAPGEN:
+		Range: 5c0
+	Armament@PRIMARY:
+		Name: deployed
+		Weapon: NukeCannonShot
+		LocalOffset: 1200,0,112
+		MuzzleSequence: muzzle
+		RequiresCondition: deployed
+		PauseOnCondition: disabled
+	WithMuzzleOverlay:
+	WithMakeAnimation:
+		BodyNames: deployedbody
+	GrantConditionOnDeploy:
+		PauseOnCondition: disabled || being-captured
+		DeployedCondition: deployed
+		UndeployedCondition: undeployed
+		UndeployOnMove: true
+		UndeployOnPickup: true
+		Facing: 128
+		AllowedTerrainTypes: Clear, Road, Rough
+		DeploySounds: seigedeploy.aud
+		UndeploySounds: cashturn.aud
+		Voice: Action
+	Repairable:
+		RequireForceMoveCondition: !undeployed
+	Passenger:
+		RequireForceMoveCondition: !undeployed
+		Weight: 4
+	GrantCondition@PREVIEWWORKAROUND:
+		Condition: real-actor
+	WithFacingSpriteBody:
+		Sequence: idle2
+		RequiresCondition: undeployed
+	WithSpriteBody:
+		Sequence: idle
+		RequiresCondition: !undeployed && real-actor
+		Name: deployedbody
+	WithSpriteTurret:
+	Turreted:
+		TurnSpeed: 8
+	AttackTurreted@deployed:
+		Armaments: deployed
+		RequiresCondition: deployed
+		PauseOnCondition: disabled
+		OutsideRangeRequiresForceFire: True
+	RevealOnFire:
+		ArmamentNames: deployed
+	Voiced:
+		VoiceSet: NukeCannonVoice
+	Selectable:
+		DecorationBounds: 1877, 1621, 0, -170
+	WithRangeCircle:
+		Range: 15c0
+
+chinaoverlord:
+	Inherits: ^TrackedVehicle
+	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
+	Buildable:
+		Queue: Vehicle
+		BuildPaletteOrder: 2500
+		Prerequisites: ~vehicles.china, techcenter
+		Description: Big and slow tank, with anti-air capability.\nCan crush concrete walls.\n  Strong vs Vehicles, Infantry, Aircraft\n  Weak vs Nothing
+	Valued:
+		Cost: 2000
+	Tooltip:
+		Name: Overlord Tank
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 100000
+	Armor:
+		Type: Heavy
+	Mobile:
+		Speed: 35
+		Locomotor: heavytracked
+		Voice: Move
+	Guard:
+		Voice: Move
+	Passenger:
+		Weight: 8
+		CustomPipType: red
+		Voice: Move
+	RevealsShroud:
+		MinRange: 7c0
+		Range: 8c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 7c0
+	Turreted:
+		TurnSpeed: 8
+	Armament@PRIMARY:
+		Weapon: 125mmoverlord
+		LocalOffset: 1400,100,340, 1400,-100,340
+		Recoil: 171
+		RecoilRecovery: 30
+		MuzzleSequence: muzzle
+	AttackTurreted:
+		PauseOnCondition: disabled
+	WithMuzzleOverlay:
+	WithSpriteTurret:
+	SelectionDecorations:
+	Voiced:
+		VoiceSet: OverlordTankVoice
+	Selectable:
+		DecorationBounds: 1877, 1621, 0, -170
+	SpawnActorOnDeath:
+		Actor: chinaoverlord.Husk
+	RenderSprites:
+		Image: chinaoverlord

@@ -1,0 +1,172 @@
+chinaredguard:
+	Inherits: ^Soldier
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Buildable:
+		Queue: Infantry
+		BuildAtProductionType: Soldier
+		BuildPaletteOrder: 61
+		Prerequisites: ~infantry.china
+		Description: US Ranger, equipped with M16A2 assault rifles\nand flash grenades.\nSpeed: 62\n  Strong vs Infantry\n  Weak vs Vehicles, Aircraft
+	Tooltip:
+		Name: Red Guard
+	Valued:
+		Cost: 450
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 13000
+	Armament@PRIMARY:
+		Weapon: redguardshot
+	Armament@GARRISONED:
+		Name: garrisoned
+		Weapon: redguardshotgarrison
+		MuzzleSequence: garrison-muzzle
+	Armament@BUS:
+		Name: bus
+		Weapon: redguardshotgarrison
+		MuzzleSequence: garrison-muzzle
+        PauseOnCondition: upgradelasergeneral
+	WithInfantryBody:
+		DefaultAttackSequence: shoot
+		RequiresCondition: !parachute
+	WithInfantryBody@PARACHUTE:
+		StandSequences: parachute
+		RequiresCondition: parachute
+	ProducibleWithLevel:
+		Prerequisites: barracks.upgraded
+	RevealsShroud:
+		Range: 5c0
+	Selectable:
+		Bounds: 768, 853, 0, -256
+		DecorationBounds: 640, 896, 0, -426
+		Class: redguard
+	FreeActor@extraredguard:
+		Actor: chinaredguard2
+		SpawnOffset: 0,-1
+	RenderSprites:
+		Image: chinaredguard
+		PlayerPalette: dawn
+	Voiced:
+		VoiceSet: RedGuardVoice
+
+chinaredguard2:
+	Inherits: chinaredguard
+	Selectable:
+		Bounds: 768, 853, 0, -256
+		DecorationBounds: 640, 896, 0, -426
+		Class: redguard
+	-FreeActor@extraredguard:
+	-Buildable:
+
+chinatankhunter:
+	Inherits: ^Soldier
+	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
+	Buildable:
+		Queue: Infantry
+		BuildAtProductionType: Soldier
+		BuildPaletteOrder: 61
+		Prerequisites: ~infantry.china
+		Description: US Missile Defender, equipped with an MK 153 SMAW\nCan be upgraded with a laser targeting system\nimproving range and fire rate.\n  Strong vs Vehicles, Aircraft\n  Weak vs Infantry
+	Tooltip:
+		Name: Tank Hunter
+	Valued:
+		Cost: 400
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 8000
+	Armament@PRIMARY:
+		Weapon: tankhuntershot
+        LocalOffset: 0,0,555
+	Armament@Secondary:
+		Weapon: tankhuntershotair
+        LocalOffset: 0,0,555
+	Armament@GARRISONED:
+		Name: garrisoned
+		Weapon: tankhuntershotgarrison
+		MuzzleSequence: garrison-muzzle
+	Armament@BUS:
+		Name: bus
+		Weapon: tankhuntershotgarrison
+		MuzzleSequence: garrison-muzzle
+	WithInfantryBody:
+		DefaultAttackSequence: shoot
+		RequiresCondition: !parachute
+	WithInfantryBody@PARACHUTE:
+		StandSequences: parachute
+		RequiresCondition: parachute
+	ProducibleWithLevel:
+		Prerequisites: barracks.upgraded
+	RevealsShroud:
+		Range: 5c0
+	Selectable:
+		Bounds: 768, 853, 0, -256
+		DecorationBounds: 640, 896, 0, -426
+	RenderSprites:
+		Image: chinatankhunter
+	Voiced:
+		VoiceSet: TankHunterVoice
+
+chinaminigunner:
+	Inherits: ^Soldier
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Buildable:
+		Queue: Infantry
+		BuildAtProductionType: Soldier
+		BuildPaletteOrder: 61
+		Prerequisites: ~infantry.china, techcenter
+		Description: US Ranger, equipped with M16A2 assault rifles\nand flash grenades.\nSpeed: 62\n  Strong vs Infantry\n  Weak vs Vehicles, Aircraft
+	Tooltip:
+		Name: Minigunner
+	Valued:
+		Cost: 600
+	Selectable:
+		Class: redguard
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 15000
+	Armament@PRIMARY:
+		Weapon: minigunnershot
+	Armament@SECONDARY:
+		Weapon: minigunnershotair
+	Armament@GARRISONED:
+		Name: garrisoned
+		Weapon: minigunnershot
+		MuzzleSequence: garrison-muzzle
+	Armament@BUS:
+		Name: bus
+		Weapon: minigunnershot
+		MuzzleSequence: garrison-muzzle
+        PauseOnCondition: upgradelasergeneral
+	GrantConditionOnAttack@gatling:
+		Condition: gatling
+		RequiredShotsPerInstance: 4
+		MaximumInstances: 2
+		RevokeDelay: 25
+		RevokeAll: true
+		IsCyclic: false
+	ReloadDelayMultiplier@Gatling1:
+		RequiresCondition: gatling >= 1
+		Modifier: 60
+	ReloadDelayMultiplier@Gatling2:
+		RequiresCondition: gatling >= 2
+		Modifier: 60
+	WithInfantryBody:
+		DefaultAttackSequence: shoot
+		RequiresCondition: !parachute
+	WithInfantryBody@PARACHUTE:
+		StandSequences: parachute
+		RequiresCondition: parachute
+	ProducibleWithLevel:
+		Prerequisites: barracks.upgraded
+	RevealsShroud:
+		Range: 5c0
+	Selectable:
+		Bounds: 768, 853, 0, -256
+		DecorationBounds: 640, 896, 0, -426
+	RenderSprites:
+		Image: chinaminigunner
+		PlayerPalette: dawn
+	Voiced:
+		VoiceSet: MinigunnerVoice

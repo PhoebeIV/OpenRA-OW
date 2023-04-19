@@ -798,6 +798,7 @@
 	Inherits@usabombardment: ^usabombardment
 	Inherits@usasearchanddestroy: ^usasearchanddestroy
 	Inherits@usahold_the_line: ^usaholdtheline
+	Inherits@propagandaboost: ^propagandaboost
 	ChangesHealth@Monumentboost:
 		RequiresCondition: Monumentboost
 		PercentageStep: 1
@@ -904,6 +905,7 @@
 	Inherits@usabombardment: ^usabombardment
 	Inherits@usasearchanddestroy: ^usasearchanddestroy
 	Inherits@usahold_the_line: ^usaholdtheline
+	Inherits@propagandaboost: ^propagandaboost
 	RevealOnFire:
 	Repairable:
 		RepairActors: fix, gfix, gfix.boss
@@ -1050,6 +1052,7 @@
 	Inherits@usabombardment: ^usabombardment
 	Inherits@usasearchanddestroy: ^usasearchanddestroy
 	Inherits@usahold_the_line: ^usaholdtheline
+	Inherits@propagandaboost: ^propagandaboost
 	Crushable:
 		RequiresCondition: !HolySuperBoosted
 	RevealOnFire:
@@ -1288,6 +1291,7 @@
 	Inherits@usabombardment: ^usabombardment
 	Inherits@usasearchanddestroy: ^usasearchanddestroy
 	Inherits@usahold_the_line: ^usaholdtheline
+	Inherits@propagandaboost: ^propagandaboost
 	RepairableNear:
 		RepairActors: spen, syrd, gspen, dockmedi, usashipyard
 	RevealOnFire:
@@ -1350,6 +1354,7 @@
 	Inherits@usabombardment: ^usabombardment
 	Inherits@usasearchanddestroy: ^usasearchanddestroy
 	Inherits@usahold_the_line: ^usaholdtheline
+	Inherits@propagandaboost: ^propagandaboost
 	Repairable:
 		RepairActors: fix, gfix, gfix.boss
 	RevealOnFire:
@@ -1425,6 +1430,7 @@
 	Inherits@usabombardment: ^usabombardment
 	Inherits@usasearchanddestroy: ^usasearchanddestroy
 	Inherits@usahold_the_line: ^usaholdtheline
+	Inherits@propagandaboost: ^propagandaboost
 	Huntable:
 	OwnerLostAction:
 		Action: Kill
@@ -1562,6 +1568,7 @@
 	Inherits@usabombardment: ^usabombardment
 	Inherits@usasearchanddestroy: ^usasearchanddestroy
 	Inherits@usahold_the_line: ^usaholdtheline
+	Inherits@propagandaboost: ^propagandaboost
 
 
 ^Plane:
@@ -1573,6 +1580,7 @@
 	Inherits@usabombardment: ^usabombardment
 	Inherits@usasearchanddestroy: ^usasearchanddestroy
 	Inherits@usahold_the_line: ^usaholdtheline
+	Inherits@propagandaboost: ^propagandaboost
 	Repairable:
 		RepairActors: fix, gfix, gfix.boss
 
@@ -2138,3 +2146,22 @@
 ^DisableOnLowPower:
 	WithColoredOverlay@IDISABLE:
 		Color: 00000080
+
+^propagandaboost:
+	ExternalCondition@propagandaboost:
+		Condition: propaganda
+	ChangesHealth@propagandaboost:
+		Step: 0
+		PercentageStep: 1
+		Delay: 50
+		StartBelow: 100
+		RequiresCondition: propaganda
+	ReloadDelayMultiplier@propagandaboost:
+		RequiresCondition: propaganda
+		Modifier: 90
+	WithIdleOverlay@propagandaboost:
+		Image: pips
+		Sequence: chinapropagandapip
+		Position: TopLeft
+		ValidRelationships: None,Neutral,Enemy,Ally
+		RequiresCondition: propaganda
