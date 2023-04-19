@@ -1,26 +1,236 @@
-#############################################
-#################  Evil  ####################
-#############################################
 
+###############################################################################
+##################################   Buildings   ##############################
+###############################################################################
 
-
-#############################################
-############  MCV && Power  #################
-#############################################
+###############################################################################
+##############################   MCV and Power   ###########################
+###############################################################################
 
 ##  MCV: Ritual Grounds: Auto Produces Summoners
-
+FACTE:
+	Inherits@FACTM: FACTM
+	Building:
+		Footprint: xxx xxx X== ===
+		Dimensions: 3,4
+		LocalCenterOffset: 0,-512,0
+		BuildSounds: medibuild1.aud, medibuildjobdone1.aud, medibuildplace1.aud
+	Buildable:
+		Queue: Building
+		Prerequisites: ~disabled
+		Description: Allows the construction of buildings.
+	Tooltip:
+		Name: Keep
+	RevealsShroud@GAPGEN:
+		Range: 4c0
+	-Refinery:
+	-StoresResources:
+		Capacity: 2000
+	-SpawnActorsOnSell:
+	-Transforms:
+	-TransformsIntoMobile:
+	-TransformsIntoPassenger:
+	-TransformsIntoRepairable:
+	ProvidesPrerequisite@buildingname:
+	-TransferTimedExternalConditionOnTransform:
+	-GrantConditionOnPrerequisite@HolyOnlyBoost:
+	-ProximityExternalCondition@MonumentboostHoly:
+	-ProximityExternalCondition@MartyrBind:
+	-WithRangeCircle@MonumentboostHoly:
+	AmmoPool:
+		Name: SummonerPool
+		Armaments: primary
+		Ammo: 1
+		InitialAmmo: 1
+		ReloadCount: 1
+		ReloadDelay: 600
+		AmmoCondition: SummonerPoolAmmoCondition
+	ReloadAmmoPool:
+		AmmoPool: SummonerPool
+		Delay: 590
+		Count: 1
+		RequiresCondition: ~disabled
+	WithAmmoPipsDecoration:
+		Position: BottomLeft
+		PipCount: 10
+		AmmoPools: GraveAmmoPool
+	FreeActor@summoner:
+		Actor: EvilSummoner
+		SpawnOffset: 1,1
+		AllowRespawn: True
+		RequiresCondition: FreeSummoner
+	FreeActor@summonerstarter1:
+		Actor: EvilSummoner
+		SpawnOffset: 1,1
+		AllowRespawn: False
+	FreeActor@summonerstarter2:
+		Actor: EvilSummoner
+		SpawnOffset: 1,1
+		AllowRespawn: False
+	FreeActor@summonerstarter3:
+		Actor: EvilSummoner
+		SpawnOffset: 1,1
+		AllowRespawn: False
+	GrantConditionOnAttack:
+		Condition: FreeSummoner
+		RevokeDelay: 10
+		RevokeAll: True
+	AutoTarget:
+		InitialStance: AttackAnything
+		ScanRadius: 10
+	AttackOmni:
+	Armament:
+		Weapon: FactoryShot
+		TargetRelationships: Ally
+		ForceTargetRelationships: Ally
+		RequiresCondition: SummonerPoolAmmoCondition
+		
 ## Hell conduit: Provides Power, 1x1 footprint
+Hellconduit:
+	Inherits: ^Building
+	Buildable:
+		Queue: Building
+		Prerequisites: ~structures.evil
+		Description: Power Source of pure evil
+		BuildPaletteOrder: 1
+	ProvidesPrerequisite@buildingname:
+	Building:
+		BuildSounds: medibuild1.aud, medibuildjobdone1.aud, medibuildplace1.aud
+	Valued:
+		Cost: 1200
+	Tooltip:
+		Name: Hell Conduit
+	Selectable:
+		Bounds: 1024, 1024
+		DecorationBounds: 1024, 1024, 0, 0
+	SelectionDecorations:
+	Health:
+		HP: 40000
+	Armor:
+		Type: Wood
+	RevealsShroud:
+		Range: 4c0
+	WithBuildingBib:
+		HasMinibib: true
+	-BodyOrientation:
+	ClassicFacingBodyOrientation:
+		QuantizedFacings: 8
+	Power:
+		Amount: 100
+	RenderSprites:
+		Image: mediarcanetower
 
+		
 #############################################
 ################  Income  ###################
 #############################################
 
 ## Hoard pile: Replaces Silo.
+Hoardpile1st:
+	Inherits: PROC
+	-FreeActor:
+	-Power:
+	-WithIdleOverlay@TOP:
+	-WithIdleOverlay@uac:
+	-WithDeathAnimation:
+	Inherits@shape: ^2x2Shape
+	Selectable:
+		Bounds: 2048, 2048
+	-Refinery:
+	Buildable:
+		Queue: Building
+		Prerequisites: ~structures.evil, ~!hoardpile1st, hellconduit
+		Description: Storage of gold
+		BuildPaletteOrder: 2
+	Tooltip:
+		Name: Dragons Hoard
+	Building:
+		Footprint: xx ==
+		Dimensions: 2,2
+		BuildSounds: medibuild1.aud, medibuildjobdone1.aud, medibuildplace1.aud
+	StoresResources:
+		Capacity: 5000
+	Valued:
+		Cost: 400
+	Health:
+		HP: 20000
+	Armor:
+		Type: Wood
+	RevealsShroud:
+		Range: 4c0
+	ProvidesPrerequisite@buildingname:
+	WithBuildingBib:
+	InfiltrateForCash:
+		Percentage: 20
+		Types: SpyInfiltrate, ThiefInfiltrate
+		InfiltratedNotification: CreditsStolen
+		Maximum: 5000
+	RenderSprites:
+		Image: farmmedi
+
+Hoardpile:
+	Inherits: Hoardpile1st
+	Buildable:
+		Queue: Building
+		Prerequisites: ~structures.evil, ~hoardpile1st, hellconduit
+		Description: Storage of gold
+		BuildPaletteOrder: 2
+	Valued:
+		Cost: 5000
+
 
 ## Shallow Grave: Spawns Undead Slaves on cooldown. (Starter workers.)
+Shallowgrave:
+	Inherits: PROC
+	-FreeActor:
+	-Power:
+	-WithIdleOverlay@TOP:
+	-WithIdleOverlay@uac:
+	-WithDeathAnimation:
+	Inherits@shape: ^2x2Shape
+	Selectable:
+		Bounds: 2048, 2048
+	Refinery:
+		DockOffset: 1,1
+	Buildable:
+		Queue: Building
+		Prerequisites: ~structures.evil, hoardpile1st, ~!ai.boss, ~techlevel.infonly
+		Description: Drop off point for resources, Spawns undead slaves to harvest for you
+		BuildPaletteOrder: 3
+	Tooltip:
+		Name: Shallow Grave
+	Building:
+		Footprint: xx ==
+		Dimensions: 2,2
+		BuildSounds: medibuild1.aud, medibuildjobdone1.aud, medibuildplace1.aud
+	Valued:
+		Cost: 1000
+	Health:
+		HP: 10000
+	Armor:
+		Type: Wood
+	ProvidesPrerequisite@buildingname:
+	ResourceValueMultiplier:
+		Modifier: 100
+	WithBuildingBib:
+	RenderSprites:
+		Image: farmmedi
+	ExternalCondition:
+		Condition: Gravespawn
+	FreeActor@summoner:
+		Actor: UndeadSlave
+		SpawnOffset: 1,1
+		AllowRespawn: True
+		RequiresCondition: Gravespawn
+	FreeActor@summoner1st:
+		Actor: UndeadSlave
+		SpawnOffset: 1,1
+		AllowRespawn: False
+
 
 ## Golem Core: Redeployable Structure/Unit, Auto produces Worker Golems, does not give build range.
+
+
 
 #############################################
 ###############  Infantry  ##################
@@ -28,7 +238,9 @@
 
 ## Body Pit, spawns Zombies, Skeletons, and Swarm Hosts.
 
+
 ##  Hell Gateway: Produces Demons, Imps and Hellhounds
+
 
 #############################################
 ###############  Vehicles  ##################
@@ -36,11 +248,13 @@
 
 ## Greater Hell Gateway: Produces Vehicles
 
+
 #############################################
 ##################  Air  ####################
 #############################################
 
 ## Harpy Nest: Builds flyers
+
 
 #############################################
 ###################  Boats  #################
@@ -48,17 +262,22 @@
 
 ## Kracken Den: Builds boats.
 
+
 #############################################
 ###################  Tech  ##################
 #############################################
 
 ## Ritual Grounds: Tech Center. Gives Powers.
 
+
 ## Alchemy Lab: Same as Medi but dark reskin. (Advanced Tech)
+
 
 ## Cursed Library: Super Tech (Cannot clone units). Increases the life time and carry capacity of spawned Undead slaves
 
+
 ## Chaos Portal: Super Weapon, not sure on function yet
+
 
 #############################################
 ##################  Defences  ###############
