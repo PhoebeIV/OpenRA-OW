@@ -18,7 +18,7 @@ TVULT:
 		Speed: 144
 		Locomotor: hover
 	Health:
-		HP: 15000
+		HP: 14000
 	Armor:
 		Type: Light
 	RevealsShroud:
@@ -133,6 +133,9 @@ TSPIDER:
 		Delay: 1
 	Targetable@mine:
 		TargetTypes: Mine
+	Targetable@noautotarget:
+		TargetTypes: NoAutoTarget
+		RequiresCondition: !chase
 	Explodes:
 		RequiresCondition: !shooting
 	Explodes@bomb:
@@ -157,8 +160,8 @@ TSPIDER:
 		SoundFiles: tvumin00.aud
 		Delay: 5
 	Cloak:
-		InitialDelay: 75
-		CloakDelay: 25
+		InitialDelay: 60
+		CloakDelay: 20
 		UncloakOn: Attack, Move, Damage
 		Palette: player
 		DetectionTypes: Mine
@@ -166,6 +169,9 @@ TSPIDER:
 		CloakSound: tvumin01.aud
 		UncloakSound: tvumin01.aud
 		CloakedCondition: cloaked
+	DamageMultiplier:
+		Modifier: 25
+		RequiresCondition: !armed
 	ExternalCondition@ready:
 		Condition: armed
 	ExternalCondition@chase:
@@ -194,8 +200,8 @@ TSPIDER.attack:
 
 TSTANK:
 	Inherits: ^TrackedVehicle
-	Inherits@EXPERIENCE: ^GainsExperience
 	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	-RangeMultiplier@usa.search_and_destroy:
 	Valued:
 		Cost: 1500
 	Tooltip:
@@ -332,7 +338,6 @@ TSTANK:
 
 TSTANK.BOT:
 	Inherits: ^TrackedVehicle
-	Inherits@EXPERIENCE: ^GainsExperience
 	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
 	RenderSprites: 
 		Image: TSTANK
@@ -427,12 +432,12 @@ TSTANK.BOT:
 
 TSTANK.BOT.D:
 	Inherits: ^TrackedVehicle
-	Inherits@EXPERIENCE: ^GainsExperience
 	Inherits@AUTOTARGET: ^AutoTargetGround
 	-SelectionDecorations:
 	-WithSpriteControlGroupDecoration:
 	-Selectable:
 	-Tooltip:
+	-RangeMultiplier@usa.search_and_destroy:
 	GainsExperienceMultiplier:
 		Modifier: 0
 	RenderSprites: 

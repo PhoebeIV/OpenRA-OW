@@ -57,16 +57,11 @@
 	WithBuildingBib:
 	HitShape:
 		UseTargetableCellsOffsets: false
-	Interactable:
-		Bounds: 1024, 1024
 	Targetable:
-		TargetTypes: UpgradeThing
+		TargetTypes: UpgradeThing, Ground
 	Building:
-		Footprint: x+ ==
+		Footprint: ++ ++
 		Dimensions: 2,2
-	Tooltip:
-		Name: Reserved space for addons
-		ShowOwnerRow: false
 	Health:
 		HP: 5000
 	KillsSelf:
@@ -74,10 +69,14 @@
 		Delay: 12
 		RemoveInstead: true
 	KillsSelf@remover:
-		RequiresCondition: kill_addon
+		RequiresCondition: kill_addon && !occupying_space
 		RemoveInstead: true
+	DamageMultiplier:
+		Modifier: 0
 	ExternalCondition@remover:
 		Condition: kill_addon
+	ExternalCondition@remover2:
+		Condition: occupying_space
 	ProximityExternalCondition@roomforaddon:
 		Condition: room_for_addon
 		Range: 3c0
@@ -194,14 +193,22 @@ TCOMMAND:
 		Offset: 1,2
 		Conditions:
 			tcomsat.plug: spawn_comsat
+			tsilo.plug: spawn_silo
 		Requirements:
 			tcomsat.plug: !build-incomplete && !cc_addon_exists && room_for_addon
+			tsilo.plug: !build-incomplete && !cc_addon_exists && room_for_addon
 		EditorOptions:
 			tcomsat.plug: ComSat Station
+			tsilo.plug: Missile Silo
 	FreeActor@1:
 		Actor: TCOMSAT
 		SpawnOffset: 4,2
 		RequiresCondition: spawn_comsat
+		AllowRespawn: true
+	FreeActor@2:
+		Actor: TCOMSAT
+		SpawnOffset: 4,2
+		RequiresCondition: spawn_silo
 		AllowRespawn: true
 	ProvidesPrerequisite@pluggable:
 		RequiresCondition: !build-incomplete && !cc_addon_exists && room_for_addon
@@ -301,7 +308,7 @@ TSUPPLY:
 	Buildable:
 		Queue: Building
 		BuildPaletteOrder: 10
-		Prerequisites: ~techlevel.infonly, ~structures.terran
+		Prerequisites: ~techlevel.infonly, ~structures.terran, ~!ai.powerout
 		Description: Provides power for other structures.
 	Valued:
 		Cost: 300
@@ -381,7 +388,6 @@ TSUPPLY.up:
 		Image: oregen
 	SequencePlaceBuildingPreview:
 		Sequence: idle
-
 
 TREFINERY:
 	Inherits: ^Building

@@ -11,6 +11,21 @@
 		RequiresCondition: stealthgen && !disabled
 		UncloakOn: Attack, Unload, Infiltrate, Demolish, Damage
 
+
+^3x3Shape:
+	HitShape:
+		UseTargetableCellsOffsets: true
+		Type: Rectangle
+			TopLeft: -1536, -1536
+			BottomRight: 1536, 1536
+
+^2x3Shape:
+	HitShape:
+		UseTargetableCellsOffsets: true
+		Type: Rectangle
+			TopLeft: -1024, -1536
+			BottomRight: 1024, 1536
+
 # Applies to infantry and vehicles
 ^GPSScramblable:
 	ExternalCondition@gpsscrambler:
@@ -276,20 +291,6 @@
 		ValidRelationships: Enemy
 		AffectsParent: false
 		Range: 6c0
-
-^3x3Shape:
-	HitShape:
-		UseTargetableCellsOffsets: true
-		Type: Rectangle
-			TopLeft: -1536, -1536
-			BottomRight: 1536, 1536
-
-^2x3Shape:
-	HitShape:
-		UseTargetableCellsOffsets: true
-		Type: Rectangle
-			TopLeft: -1024, -1536
-			BottomRight: 1024, 1536
 
 ^ConYard:
 	BaseProvider:
@@ -688,6 +689,7 @@
 		ValidOwnerNames: Neutral
 
 ^BasicBuilding:
+	Inherits@shape: ^1x1Shape
 	Targetable@REPAIR:
 		RequiresCondition: repairtime
 		TargetTypes: StructureRepair
@@ -837,6 +839,9 @@
 	GrantConditionOnDamageState@DAMAGED:
 		Condition: repairtime
 		ValidDamageStates: Light, Medium, Heavy, Critical
+	ProximityExternalCondition@addons:
+		Condition: kill_addon
+		Range: 1c512
 
 ^ScienceBuilding:
 	Inherits@Monumentboost: ^Monumentboosted

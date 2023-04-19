@@ -1,3 +1,43 @@
+^TerranAddon:
+	Inherits: ^Building
+	Inherits@2: ^TerranBuilding
+	Inherits@POWER_OUTAGE: ^DisableOnLowPowerOrPowerDown
+	ProximityExternalCondition@space:
+		Condition: occupying_space
+		Range: 1c512
+	-ProximityExternalCondition@addons:
+	Selectable:
+		Bounds: 1920, 1280
+	HitShape:
+		UseTargetableCellsOffsets: true
+		Type: Rectangle
+			TopLeft: -1024, -512
+			BottomRight: 1024, 512
+	-Buildable:
+	MustBeDestroyed:
+		RequiredForShortGame: false
+	OwnerLostAction:
+		Action: ChangeOwner
+	Building:
+		Footprint: xx
+		Dimensions: 2,1
+		LocalCenterOffset: 0,-512,0
+	Health:
+		HP: 80000
+	Armor:
+		Type: Wood
+	RevealsShroud:
+		Range: 4c0
+		RequiresCondition: !disabled
+	WithDeathAnimation:
+		DeathSequence: dead
+		UseDeathTypeSuffix: false
+	WithIdleOverlay@fire1:
+		Offset: 0,-650,0
+	WithIdleOverlay@fire2:
+		Offset: 0,512,320
+	WithIdleOverlay@fire3:
+		Offset: 0,0,256
 
 TCOMSAT.plug:
 	Inherits: ^BuildingPlug
@@ -29,22 +69,7 @@ TCOMSAT.plugai:
 		Prerequisites: refinery, tcommand.addon, ~structures.terran, ~techlevel.medium, ~ai.all, ~!tcomsat
 
 TCOMSAT:
-	Inherits: ^Building
-	Inherits@2: ^TerranBuilding
-	Inherits@POWER_OUTAGE: ^DisableOnLowPowerOrPowerDown
-	-ProximityExternalCondition@addons:
-	Selectable:
-		Bounds: 1920, 1280
-	HitShape:
-		UseTargetableCellsOffsets: true
-		Type: Rectangle
-			TopLeft: -1024, -512
-			BottomRight: 1024, 512
-	-Buildable:
-	MustBeDestroyed:
-		RequiredForShortGame: false
-	OwnerLostAction:
-		Action: ChangeOwner
+	Inherits: ^TerranAddon
 	Valued:
 		Cost: 1500
 	Tooltip:
@@ -54,18 +79,9 @@ TCOMSAT:
 	ProvidesPrerequisite@radar:
 		RequiresCondition: cc_addon
 		Prerequisite: radar
-	Building:
-		Footprint: xx
-		Dimensions: 2,1
-		LocalCenterOffset: 0,-512,0
-	Health:
-		HP: 80000
-	Armor:
-		Type: Wood
 	RevealsShroud:
 		MinRange: 6c0
 		Range: 10c0
-		RequiresCondition: !disabled
 		RevealGeneratedShroud: False
 	RevealsShroud@GAPGEN:
 		Range: 6c0
@@ -78,15 +94,6 @@ TCOMSAT:
 		IsPlayerPalette: true
 		RequiresCondition: !build-incomplete
 		PauseOnCondition: disabled
-	WithDeathAnimation:
-		DeathSequence: dead
-		UseDeathTypeSuffix: false
-	WithIdleOverlay@fire1:
-		Offset: 0,-650,0
-	WithIdleOverlay@fire2:
-		Offset: 0,512,320
-	WithIdleOverlay@fire3:
-		Offset: 0,0,256
 	ExternalCondition@nearcc:
 		Condition: cc_addon
 	GrantCondition@nearcc:
@@ -144,36 +151,13 @@ TSHOP.plugai:
 		Prerequisites: factory, tfactory.addon, ~structures.terran, ~techlevel.medium, ~ai.all, ~!tshop
 
 TSHOP:
-	Inherits: ^Building
-	Inherits@2: ^TerranBuilding
-	Inherits@IDISABLE: ^DisableOnLowPower
-	-ProximityExternalCondition@addons:
-	Selectable:
-		Bounds: 1920, 1280
-	HitShape:
-		UseTargetableCellsOffsets: true
-		Type: Rectangle
-			TopLeft: -1024, -1024
-			BottomRight: 1024, 1024
-	-Buildable:
-	MustBeDestroyed:
-		RequiredForShortGame: false
-	OwnerLostAction:
-		Action: ChangeOwner
+	Inherits: ^TerranAddon
 	Valued:
 		Cost: 1000
 	Tooltip:
 		Name: Machine Shop
 	ProvidesPrerequisite@buildingname:
 		RequiresCondition: fac_addon
-	Building:
-		Footprint: xx
-		Dimensions: 2,1
-		LocalCenterOffset: 128,-640,0
-	Health:
-		HP: 80000
-	Armor:
-		Type: Wood
 	RevealsShroud:
 		Range: 4c0
 	Power:
@@ -181,15 +165,6 @@ TSHOP:
 		RequiresCondition: fac_addon
 	WithSpriteBody:
 		PauseOnCondition: disabled
-	WithDeathAnimation:
-		DeathSequence: dead
-		UseDeathTypeSuffix: false
-	WithIdleOverlay@fire1:
-		Offset: 0,-650,0
-	WithIdleOverlay@fire2:
-		Offset: 0,512,320
-	WithIdleOverlay@fire3:
-		Offset: 0,0,256
 	ExternalCondition@nearcc:
 		Condition: fac_addon
 	GrantCondition@nearcc:
@@ -230,36 +205,13 @@ TCTRL.plugai:
 		Prerequisites: ~tsport, ~tsport.addon, ~structures.terran, ~techlevel.high, ~ai.all, ~!tctrl
 
 TCTRL:
-	Inherits: ^Building
-	Inherits@2: ^TerranBuilding
-	Inherits@IDISABLE: ^DisableOnLowPower
-	-ProximityExternalCondition@addons:
-	Selectable:
-		Bounds: 1920, 1280
-	HitShape:
-		UseTargetableCellsOffsets: true
-		Type: Rectangle
-			TopLeft: -1024, -1024
-			BottomRight: 1024, 1024
-	-Buildable:
-	MustBeDestroyed:
-		RequiredForShortGame: false
-	OwnerLostAction:
-		Action: ChangeOwner
+	Inherits: ^TerranAddon
 	Valued:
 		Cost: 1000
 	Tooltip:
 		Name: Control Tower
 	ProvidesPrerequisite@buildingname:
 		RequiresCondition: star_addon
-	Building:
-		Footprint: xx
-		Dimensions: 2,1
-		LocalCenterOffset: 128,-640,0
-	Health:
-		HP: 80000
-	Armor:
-		Type: Wood
 	RevealsShroud:
 		Range: 4c0
 	Power:
@@ -267,15 +219,6 @@ TCTRL:
 		RequiresCondition: star_addon
 	WithSpriteBody:
 		PauseOnCondition: disabled
-	WithDeathAnimation:
-		DeathSequence: dead
-		UseDeathTypeSuffix: false
-	WithIdleOverlay@fire1:
-		Offset: 0,-650,0
-	WithIdleOverlay@fire2:
-		Offset: 0,512,320
-	WithIdleOverlay@fire3:
-		Offset: 0,0,256
 	ExternalCondition@nearcc:
 		Condition: star_addon
 	GrantCondition@nearcc:
@@ -316,36 +259,13 @@ TCOPS.plugai:
 		Prerequisites: ~tscience, ~tscience.addon, ~structures.terran, ~techlevel.unrestricted, ~ai.all, ~!tcops
 
 TCOPS:
-	Inherits: ^Building
-	Inherits@2: ^TerranBuilding
-	Inherits@IDISABLE: ^DisableOnLowPower
-	-ProximityExternalCondition@addons:
-	Selectable:
-		Bounds: 1920, 1280
-	HitShape:
-		UseTargetableCellsOffsets: true
-		Type: Rectangle
-			TopLeft: -1024, -1024
-			BottomRight: 1024, 1024
-	-Buildable:
-	MustBeDestroyed:
-		RequiredForShortGame: false
-	OwnerLostAction:
-		Action: ChangeOwner
+	Inherits: ^TerranAddon
 	Valued:
 		Cost: 1000
 	Tooltip:
 		Name: Covert Ops
 	ProvidesPrerequisite@buildingname:
 		RequiresCondition: scf_addon
-	Building:
-		Footprint: xx
-		Dimensions: 2,1
-		LocalCenterOffset: 128,-640,0
-	Health:
-		HP: 80000
-	Armor:
-		Type: Wood
 	RevealsShroud:
 		Range: 4c0
 	Power:
@@ -353,20 +273,11 @@ TCOPS:
 		RequiresCondition: scf_addon
 	WithSpriteBody:
 		PauseOnCondition: disabled
-	WithDeathAnimation:
-		DeathSequence: dead
-		UseDeathTypeSuffix: false
 	WithIdleOverlay:
 		Palette: player
 		IsPlayerPalette: true
 		RequiresCondition: !build-incomplete
 		PauseOnCondition: disabled
-	WithIdleOverlay@fire1:
-		Offset: 0,-650,0
-	WithIdleOverlay@fire2:
-		Offset: 0,512,320
-	WithIdleOverlay@fire3:
-		Offset: 0,0,256
 	ExternalCondition@nearcc:
 		Condition: scf_addon
 	GrantCondition@nearcc:
