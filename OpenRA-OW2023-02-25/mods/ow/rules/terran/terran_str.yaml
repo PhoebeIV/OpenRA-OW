@@ -732,6 +732,146 @@ TBARR.Husk:
 	WithIdleOverlay@fire3:
 		Offset: 0,0,512
 
+TBARR.drop:
+	Inherits: TBARR.air
+	-ProvidesPrerequisite@buildingname:
+	-Transforms:
+	Aircraft:
+		TurnSpeed: 20
+		Speed: 300
+		CruiseAltitude: 16c0
+		MaximumPitch: 110
+		LandableTerrainTypes: Clear, Road, Creep
+	LeavesTrails@1:
+		Image: smokey
+		MovingInterval: 2
+		SpawnAtLastPosition: False
+		Type: CenterPosition
+		Offsets: -1024,1024,512
+	LeavesTrails@2:
+		Image: smokey
+		MovingInterval: 2
+		SpawnAtLastPosition: False
+		Type: CenterPosition
+		Offsets: 1024,1024,512
+	LeavesTrails@3:
+		Image: smokey
+		MovingInterval: 2
+		SpawnAtLastPosition: False
+		Type: CenterPosition
+		Offsets: 1024,-1024,512
+	LeavesTrails@4:
+		Image: smokey
+		MovingInterval: 2
+		SpawnAtLastPosition: False
+		Type: CenterPosition
+		Offsets: -1024,-1024,512
+	Armament:
+		Weapon: TerranGoliath
+	AttackAircraft:
+	AmmoPool:
+		Ammo: 5
+	FallsToEarth:
+		Explosion: E100Cannon
+		Moves: true
+		Velocity: 640
+		MaximumSpinSpeed: 0
+	AmbientSound@airborne:
+		SoundFiles: land.aud
+		Interval: -1
+		Delay: 5
+		RequiresCondition: airborne
+	SpawnActorOnDeath@1:
+		Actor: TBARR.dropped
+		Offset: -1,0
+	ShakeOnDeath:
+
+TBARR.dropped:
+	Inherits: TBARR.landed
+	Inherits@target: ^AutoTargetAll
+	-ProvidesPrerequisite@buildingname:
+	-Transforms:
+	-UpdatesPlayerStatistics:
+	-TransformsIntoMobile:
+	-TransformsIntoTransforms:
+	-TransferTimedExternalConditionOnTransform:
+	-ActorLostNotification:
+	-Explodes:
+	-ShakeOnDeath:
+	-SoundOnDamageTransition:
+	-WithDeathAnimation:
+	WithMakeAnimation:
+		Sequence: unlift
+	WithSpriteBody:
+		Sequence: production-overlay
+	ProductionQueue@infantry:
+		LowPowerModifier: 200
+		BuildDurationModifier: 40
+	KillsSelf:
+		Delay: 1500
+	FreeActor@5:
+		Actor: TMEDIC
+		SpawnOffset: 1,3
+	FreeActor@6:
+		Actor: TMEDIC
+		SpawnOffset: 0,3
+	FreeActor@7:
+		Actor: TMARINE
+		SpawnOffset: 0,0
+	FreeActor@8:
+		Actor: TMARINE
+		SpawnOffset: 0,1
+	FreeActor@9:
+		Actor: TMARINE
+		SpawnOffset: 0,2
+	FreeActor@10:
+		Actor: TMARINE
+		SpawnOffset: 1,2
+	FreeActor@11:
+		Actor: TMARINE
+		SpawnOffset: 2,2
+	FreeActor@12:
+		Actor: TMARINE
+		SpawnOffset: 1,2
+		AllowRespawn: true
+		RequiresCondition: produceunit
+	AutoTarget:
+		InitialStance: AttackAnything
+	AttackOmni:
+	Armament:
+		Weapon: TerranBarracksSpawn
+	ExternalCondition@ambushhole:
+		Condition: produceunit
+	ProximityExternalCondition:
+		Condition: wander
+		Range: 3c0
+	ProximityExternalCondition@stimpack:
+		Condition: give_stimpack
+		Range: 5c0
+	SpawnActorOnDeath@1:
+		Actor: TBARR.leave
+		Offset: 1,0
+
+TBARR.leave:
+	Inherits: TBARR.air
+	-ProvidesPrerequisite@buildingname:
+	-Transforms:
+	-Targetable@GROUND:
+	-Targetable@REPAIR:
+	-UpdatesPlayerStatistics:
+	RejectsOrders:
+	Aircraft:
+		Speed: 128
+		CruiseAltitude: 16c0
+		LandableTerrainTypes: Clear, Road, Creep
+		IdleBehavior: LeaveMap
+		CruisingCondition: remove_me
+		AltitudeVelocity: 86
+	KillsSelf:
+		Delay: 500
+		RemoveInstead: true
+		RequiresCondition: remove_me
+
 TACADAMY:
 	Inherits: ^Building
 	Inherits@2: ^TerranBuilding

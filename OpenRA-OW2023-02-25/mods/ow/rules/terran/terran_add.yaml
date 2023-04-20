@@ -99,13 +99,14 @@ TCOMSAT:
 	GrantCondition@nearcc:
 		RequiresCondition: !cc_addon
 		Condition: disabled
+	SupportPowerChargeBar:
 	SpawnActorPower@spyvan:
 		PauseOnCondition: lowpower || powerdown
 		RequiresCondition: cc_addon
 		OrderName: VanSweep
 		Cursor: chrono-target
 		Icon: spy
-		ChargeInterval: 2250
+		ChargeInterval: 3000
 		LifeTime: 200
 		Name: Scanner Sweep
 		Description: Reveal an area on the map for 5 seconds. \nReveals cloaked units.
@@ -114,6 +115,7 @@ TCOMSAT:
 		DisplayRadarPing: True
 		DeploySound: tcssca00.aud
 		EffectSequence: idle
+		AllowMultiple: true
 	ProximityExternalCondition@iexist:
 		Condition: cc_addon_exists
 		Range: 4c0
@@ -186,7 +188,7 @@ TCTRL.plug:
 		Queue: Aircraft
 		BuildPaletteOrder: 200
 		Prerequisites: ~tsport, ~tsport.addon, ~structures.terran, ~techlevel.high
-		Description: Attach to Starport. \nAllows access to Dropship and \n aircraft upgrades.
+		Description: Attach to Starport. \nAllows production of Dropship and aircraft upgrades. \nSupport Power: Orbital Drop
 		IconPalette: player
 		IconPaletteIsPlayerPalette: true
 	Plug:
@@ -229,6 +231,28 @@ TCTRL:
 		Range: 4c0
 	Sellable:
 		RequiresCondition: !build-incomplete && !being-captured && !being-demolished && star_addon
+	SupportPowerChargeBar:
+	DropPodsPower:
+		OrderName: OrbitalDrop
+		Cursor: chrono-target
+		PauseOnCondition: disabled
+		RequiresCondition: star_addon
+		Icon: orbitaldrop
+		Name: Orbital Drop
+		Description: Orbital drop reinforcements.\nA Terran Barracks drops to target location\n along with some marines.\n\nLasts 1 minute.
+		SelectTargetSpeechNotification: SelectTarget
+		SelectTargetTextNotification: Select target.
+		DisplayRadarPing: true
+		ChargeInterval: 9000
+		UnitTypes: TBARR.drop
+		Drops: 1,1
+		PodScatter: 1
+		PodFacing: 704
+		EntryEffect: explosion
+		EntryEffectSequence: ionring
+		CameraActor: camera
+		Weapon: TerranGoliath2
+		WeaponDelay: 5
 
 TCOPS.plug:
 	Inherits: ^BuildingPlug

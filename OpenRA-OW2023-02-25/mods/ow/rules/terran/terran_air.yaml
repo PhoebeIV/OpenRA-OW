@@ -1,0 +1,168 @@
+TWRAITH:
+	Inherits: ^Helicopter
+	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
+	Buildable:
+		Queue: Aircraft
+		BuildAtProductionType: Helicopter
+		BuildPaletteOrder: 180
+		Prerequisites: ~aircraft.terran, ~techlevel.medium
+		Description: Terran gunship armed\nwith Gemini AA missile and \n 25mm burst lasers.\nCan cloak but reduces effectiveness.\nSpeed: 160\n  Strong vs Infantry, Aircraft\n  Weak vs Vehicles, Buildings
+	Valued:
+		Cost: 1800
+	Tooltip:
+		Name: Wraith
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 16000
+	RevealsShroud:
+		MinRange: 7c0
+		Range: 9c0
+		Type: GroundPosition
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 7c0
+		Type: GroundPosition
+	Armament@PRIMARY1:
+		Weapon: WraithMissile
+		LocalOffset: 0,-280,-85
+		LocalYaw: -180
+		PauseOnCondition: !ammo
+	Armament@PRIMARY2:
+		Weapon: WraithMissile
+		LocalOffset: 0,280,-85
+		LocalYaw: 180
+		PauseOnCondition: !ammo
+	Armament@SECONDARY:
+		Weapon: WraithShot
+		LocalOffset: 384,0,-96
+		PauseOnCondition: !ammo
+	AttackAircraft:
+		FacingTolerance: 32
+		PersistentTargeting: false
+		AttackType: Hover
+		OpportunityFire: False
+	Aircraft:
+		TurnSpeed: 24
+		Speed: 160
+		LandAltitude: 1200
+	AutoTarget:
+		InitialStance: ReturnFire
+		InitialStanceAI: ReturnFire
+	GrantConditionOnMovement@scout:
+		Condition: moving
+	AmmoPool:
+		Ammo: 16
+		AmmoCondition: ammo
+	WithAmmoPipsDecoration:
+		Position: BottomLeft
+		Margin: 4, 3
+		RequiresSelection: true
+		PipCount: 16
+		FullSequence: bar-green
+		EmptySequence: bar-empty
+	SpawnActorOnDeath:
+		Actor: TWRAITH.Husk
+	WithDamageOverlay:
+		Offset: -427,0,0
+	ProducibleWithLevel:
+		Prerequisites: aircraft.upgraded
+	Selectable:
+		DecorationBounds: 1536, 1365
+	Rearmable:
+		RearmActors: tsport, tsport.landed
+	Hovers@CRUISING:
+		-RequiresCondition:
+	Voiced:
+		VoiceSet: TerranWraithVoice
+	RenderSprites:
+	WithFacingSpriteBody@2:
+		Name: engine
+		Sequence: engine
+		RequiresCondition: moving
+		Palette: effect
+	-EjectOnDeath:
+	ReloadAmmoPool@reloadnear:
+		RequiresCondition: reloadnear
+		Delay: 75
+	Cloak@arbiterstealth:
+		IsPlayerPalette: true
+		InitialDelay: 25
+		CloakDelay: 25
+		CloakSound: tphclo00.aud
+		UncloakSound: tphclo01.aud
+		RequiresCondition: arbiterstealth && (ammo > 2)
+		CloakedCondition: cloaked
+		UncloakOn: Unload, Infiltrate, Demolish
+	GrantConditionOnDeploy:
+		UndeployedCondition: notstealth
+		DeployedCondition: arbiterstealth
+		SkipMakeAnimation: true
+	DamageMultiplier@stealthed:
+		Modifier: 110
+		RequiresCondition: cloaked
+	FirepowerMultiplier@stealthed:
+		Modifier: 90
+		RequiresCondition: cloaked
+	ReloadDelayMultiplier@stealthed:
+		Modifier: 110
+		RequiresCondition: cloaked
+	SpeedMultiplier@stealthed:
+		Modifier: 90
+		RequiresCondition: cloaked
+
+TDROPSHIP:
+	Inherits: ^Helicopter
+	Inherits@shield: ^ProtossShield
+	Buildable:
+		Queue: Aircraft
+		BuildAtProductionType: Helicopter
+		BuildPaletteOrder: 185
+		Prerequisites: tctrl, ~aircraft.terran, ~techlevel.medium
+		Description: Terran transport ship.\nSpeed: 136\n  Unarmed
+	Valued:
+		Cost: 1000
+	Tooltip:
+		Name: Dropship
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 16000
+	RevealsShroud:
+		MinRange: 7c0
+		Range: 9c0
+		Type: GroundPosition
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 7c0
+		Type: GroundPosition
+	Aircraft:
+		TurnSpeed: 64
+		Speed: 136
+		CanSlide: false
+	Cargo:
+		Types: Infantry, Vehicle
+		MaxWeight: 8
+		AfterUnloadDelay: 40
+	GrantConditionOnMovement@scout:
+		Condition: moving
+	SpawnActorOnDeath:
+		Actor: TDROPSHIP.Husk
+	WithDamageOverlay:
+		Offset: -427,0,0
+	Selectable:
+		DecorationBounds: 1536, 1365
+	Hovers@CRUISING:
+		-RequiresCondition:
+	Voiced:
+		VoiceSet: TerranDropshipVoice
+	RenderSprites:
+	WithFacingSpriteBody@2:
+		Name: engine
+		Sequence: engine
+		RequiresCondition: moving
+		Palette: effect
+	WithCargoPipsDecoration:
+		Position: BottomLeft
+		RequiresSelection: true
+	-EjectOnDeath:
