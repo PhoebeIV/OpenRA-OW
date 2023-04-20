@@ -721,6 +721,28 @@ usafirebaseaiboss:
         Actor: PBOX.boss
         SpawnOffset: 2,0
 
+chinabunkerai:
+	Inherits: chinabunker
+	Buildable:
+		Prerequisites: ~ai.boss, ~structures.china, ~!upgrade.infantrygeneral
+	Cargo:
+		Types: Infantry
+		MaxWeight: 4
+		InitialUnits: chinaredguard, chinaredguard, chinatankhunter, chinatankhunter
+	RenderSprites:
+		Image: chinabunker
+
+chinafortifiedbunkerai:
+	Inherits: chinafortifiedbunker
+	Buildable:
+		Prerequisites: ~ai.boss, ~structures.china, ~upgrade.infantrygeneral
+	Cargo:
+		Types: Infantry
+		MaxWeight: 8
+		InitialUnits: chinaredguard, chinaredguard, chinatankhunter, chinatankhunter, chinaredguard, chinaredguard, chinaminigunner, chinaminigunner
+	RenderSprites:
+		Image: chinafortifiedbunker
+
 usacombatchinookai:
 	Inherits: usacombatchinook
 	Buildable:
@@ -851,9 +873,9 @@ Player:
 			deepmanawell: 6
 			ppylon: 6
 			ppylon.bot: 6
-			usacoldfusion: 14
+			usacoldfusion: 18
 			tsupply: 14
-			chinanuclearreactor: 8
+			chinanuclearreactor: 12
 			proc: 3 # REFINERIES
 			procd: 3
 			procd.bhand: 3
@@ -1027,6 +1049,8 @@ Player:
 			tmissile: 10
 			chinaspeakertower: 3
 			chinagatlinggun: 8
+			chinabunkerai: 4
+			chinafortifiedbunkerai: 4
 			mslo: 1 # SUPERWEAPONS
 			pdox: 1
 			bio.a: 1
@@ -1295,6 +1319,10 @@ Player:
 			upgrade.searchanddestroy: 33
 			upgrade.holdtheline: 33
 			upgrade.bombardment: 33
+			upgrade.nukegeneral: 10
+			upgrade.tankgeneral: 10
+			upgrade.infantrygeneral: 10
+			upgrade.patriotism: 5
 			zerg.zergling: 100
 			zerg.hydra: 100
 			terran.marine: 100
@@ -1649,10 +1677,11 @@ Player:
 			chinaassaulttroopcarrier: 2
 			chinaecm: 4
 			chinainfernocannon: 4
-			chinanukecannon: 2
-			chinaoverlord: 3
+			chinaoverlordgatling: 3
+			chinaoverlordspeaker: 3
 			chinamig: 4
 			chinaredguard: 20
+			chinaattackoutpost: 2
 		UnitLimits:
 			e1of: 4
 			dm2of: 4
@@ -1833,9 +1862,11 @@ Player:
 			chinaecm: 5
 			chinainfernocannon: 6
 			chinanukecannon: 3
-			chinaoverlord: 6
+			chinaoverlordgatling: 6
+			chinaoverlordspeaker: 6
 			chinamig: 8
 			chinaredguard: 30
+			chinaattackoutpost: 3
 		UnitDelays:
 			pzealot.b: 9000
 			pzealot.b2: 18000
@@ -1850,6 +1881,15 @@ Player:
 		Decisions:
 			spyplane:
 				OrderName: SovietSpyPlane
+				MinimumAttractiveness: 1
+				Consideration@1:
+					Against: Enemy
+					Types: Structure
+					Attractiveness: 1
+					TargetMetric: None
+					CheckRadius: 5c0
+			ChinaSpyPlane:
+				OrderName: ChinaSpyPlane
 				MinimumAttractiveness: 1
 				Consideration@1:
 					Against: Enemy
@@ -2064,6 +2104,21 @@ Player:
 					Attractiveness: -10
 					TargetMetric: Value
 					CheckRadius: 7c0
+			nukepower12:
+				OrderName: chinanuke
+				MinimumAttractiveness: 3000
+				Consideration@1:
+					Against: Enemy
+					Types: Structure
+					Attractiveness: 1
+					TargetMetric: Value
+					CheckRadius: 5c0
+				Consideration@2:
+					Against: Ally
+					Types: Air, Ground, Water
+					Attractiveness: -10
+					TargetMetric: Value
+					CheckRadius: 7c0
 			IonCannonPower:
 				OrderName: IonCannonPowerInfoOrder
 				MinimumAttractiveness: 1000
@@ -2149,6 +2204,21 @@ Player:
 					CheckRadius: 8c0
 			usarangers:
 				OrderName: usarangers
+				MinimumAttractiveness: 5
+				Consideration@1:
+					Against: Enemy
+					Types: Structure
+					Attractiveness: 1
+					TargetMetric: None
+					CheckRadius: 8c0
+				Consideration@2:
+					Against: Enemy
+					Types: Water
+					Attractiveness: -5
+					TargetMetric: None
+					CheckRadius: 8c0
+			chinadrop:
+				OrderName: chinadrop
 				MinimumAttractiveness: 5
 				Consideration@1:
 					Against: Enemy
@@ -2270,6 +2340,30 @@ Player:
 					Attractiveness: 1
 					TargetMetric: None
 					CheckRadius: 5c0
+			ChinaMines:
+				OrderName: ChinaMines
+				MinimumAttractiveness: 1
+				Consideration@1:
+					Against: Enemy
+					Types: Infantry, Vehicle
+					Attractiveness: 1
+					TargetMetric: None
+					CheckRadius: 5c0
+			ChinaTanks:
+				OrderName: chinatanks
+				MinimumAttractiveness: 5
+				Consideration@1:
+					Against: Enemy
+					Types: Structure
+					Attractiveness: 1
+					TargetMetric: None
+					CheckRadius: 8c0
+				Consideration@2:
+					Against: Enemy
+					Types: Water
+					Attractiveness: -5
+					TargetMetric: None
+					CheckRadius: 8c0
 			moab:
 				OrderName: Motherofallbombs
 				MinimumAttractiveness: 1
@@ -2281,6 +2375,15 @@ Player:
 					CheckRadius: 5c0
 			patriotism:
 				OrderName: patriotism
+				MinimumAttractiveness: 5
+				Consideration@1:
+					Against: Ally
+					Types: Vehicle, Infantry
+					Attractiveness: 1
+					TargetMetric: Health
+					CheckRadius: 4c0
+			frenzy:
+				OrderName: frenzy
 				MinimumAttractiveness: 5
 				Consideration@1:
 					Against: Ally

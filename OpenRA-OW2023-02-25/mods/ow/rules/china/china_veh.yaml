@@ -1,5 +1,62 @@
+^hordebonustank:
+	ExternalCondition@hordebonustank:
+		Condition: hordebonustank
+		RequiresCondition: !upgradeinfantrygeneral
+	ProximityExternalCondition@hordebonustank:
+		Condition: hordebonustank
+		Range: 3c0
+		RequiresCondition: !upgradeinfantrygeneral
+	ReloadDelayMultiplier@hordebonustank:
+		RequiresCondition: hordebonustank >= 5 && !upgradeinfantrygeneral
+		Modifier: 90
+	WithIdleOverlay@hordebonus:
+		Image: hordebonus-overlay
+		Sequence: vehicle
+		Palette: effect
+		RequiresCondition: hordebonustank >= 5 && !upgradeinfantrygeneral
+		IsDecoration: True
+	ExternalCondition@hordebonustankupgrade1:
+		Condition: hordebonustankupgrade1
+		RequiresCondition: upgradeinfantrygeneral && !upgradepatriotism
+	ProximityExternalCondition@hordebonustankupgrade1:
+		Condition: hordebonustankupgrade1
+		Range: 3c0
+		RequiresCondition: upgradeinfantrygeneral && !upgradepatriotism
+	ReloadDelayMultiplier@hordebonustankupgrade1:
+		RequiresCondition: hordebonustankupgrade1 >= 5 && upgradeinfantrygeneral
+		Modifier: 80
+	WithIdleOverlay@hordebonustankupgrade1:
+		Image: hordebonus-overlay
+		Sequence: vehicleupgrade1
+		Palette: effect
+		RequiresCondition: hordebonustankupgrade1 >= 5 && upgradeinfantrygeneral
+		IsDecoration: True
+	ExternalCondition@hordebonustankupgrade2:
+		Condition: hordebonustankupgrade2
+		RequiresCondition: upgradepatriotism
+	ProximityExternalCondition@hordebonustankupgrade2:
+		Condition: hordebonustankupgrade2
+		Range: 3c0
+		RequiresCondition: upgradepatriotism
+	ReloadDelayMultiplier@hordebonustankupgrade2:
+		RequiresCondition: hordebonustankupgrade2 >= 5
+		Modifier: 70
+	WithIdleOverlay@hordebonustankupgrade2:
+		Image: hordebonus-overlay
+		Sequence: vehicleupgrade2
+		Palette: effect
+		RequiresCondition: hordebonustankupgrade2 >= 5
+		IsDecoration: True
+    GrantConditionOnPrerequisite@1:
+        Condition: upgradeinfantrygeneral
+        Prerequisites: upgrade.infantrygeneral
+    GrantConditionOnPrerequisite@2:
+        Condition: upgradepatriotism
+        Prerequisites: upgrade.patriotism
+
 chinabattlemaster:
 	Inherits: 2TNK
+	Inherits@hordebonus: ^hordebonustank
 	Buildable:
 		BuildPaletteOrder: 220
 		Prerequisites: ~vehicles.china
@@ -8,6 +65,9 @@ chinabattlemaster:
 		Cost: 1000
 	Tooltip:
 		Name: Battlemaster Tank
+	Tooltip@hordebonus:
+		Name: Battlemaster Tank (Nationalism)
+        RequiresCondition: hordebonustank >= 5
 	Health:
 		HP: 55000
 	Mobile:
@@ -19,7 +79,6 @@ chinabattlemaster:
 	SpawnActorOnDeath:
 		Actor: chinabattlemaster.husk
 	SelectionDecorations:
-	RenderSprites:
 		Image: chinabattlemaster
 	Voiced:
 		VoiceSet: BattlemasterTankVoice
@@ -127,10 +186,11 @@ chinagatlingtank:
 chinalisteningoutpost:
 	Inherits: ^TrackedVehicle
 	Inherits@GAINSEXPERIENCE: ^GainsExperience
+	Inherits@CARGOPIPS: ^CargoPips
 	Buildable:
 		Queue: Vehicle
 		BuildPaletteOrder: 120
-		Prerequisites: ~vehicles.china
+		Prerequisites: ~vehicles.china,  ~!upgrade.infantrygeneral
 		Description: Unarmed infantry transport.\nInfantry can fire from inside.\nSpeed: 88 \n  Strong vs Infantry, Light armor\n  Weak vs Tanks, Aircraft
 	Valued:
 		Cost: 900
@@ -182,6 +242,53 @@ chinalisteningoutpost:
 		DetectionTypes: Cloak
 	DetectCloaked:
 		Range: 3c256
+	Cargo:
+		Types: Infantry
+		MaxWeight: 2
+		LoadingCondition: notmobile
+		PassengerConditions:
+			e1of: e1of
+			dm2of: e1of
+
+chinaattackoutpost:
+	Inherits: chinalisteningoutpost
+	Buildable:
+		Queue: Vehicle
+		BuildPaletteOrder: 120
+		Prerequisites: ~vehicles.china, techcenter, ~upgrade.infantrygeneral
+		Description: Unarmed infantry transport.\nInfantry can fire from inside.\nSpeed: 88 \n  Strong vs Infantry, Light armor\n  Weak vs Tanks, Aircraft
+	Valued:
+		Cost: 1500
+	Tooltip:
+		Name: Attack Outpost
+	RenderSprites:
+		Image: chinalisteningoutpost
+	Voiced:
+		VoiceSet: AssaultTroopCrawlerVoice
+	Cargo:
+		Types: Infantry
+		MaxWeight: 8
+		LoadingCondition: notmobile
+		PassengerConditions:
+			e1of: e1of
+			dm2of: e1of
+		InitialUnits: chinaredguard, chinaredguard, chinaredguard, chinaredguard, chinaredguard, chinatankhunter, chinatankhunter, chinatankhunter
+	AttackGarrisoned:
+		Armaments: bus
+		PortOffsets: 384,-256,384, 64,-256,384, -192,-256,384, -448,-256,384, -768,0,384, 384,256,384, 64,256,384, -192,256,384, -448,256,384, -640,-256,384, -640,256,384
+		PortYaws: 48,256,256,256,512,976,768,768,768,256,768
+		PortCones: 112,96,96,96,112,96,96,96,96,96,96
+	ProximityExternalCondition@propaganda:
+		Condition: propaganda
+		RequiresCondition: !disabled && !upgrade.propaganda
+		Range: 3c0
+    GrantConditionOnPrerequisite@propagandaupgrade:
+        Condition: upgradepropaganda
+        Prerequisites: upgrade.propaganda
+	ProximityExternalCondition@propagandaupgrade:
+		Condition: propagandaupgrade
+		RequiresCondition: !disabled && upgradepropaganda
+		Range: 3c0
 
 chinatroopcarrier:
 	Inherits: ^TrackedVehicle
@@ -191,7 +298,7 @@ chinatroopcarrier:
 	Buildable:
 		Queue: Vehicle
 		BuildPaletteOrder: 120
-		Prerequisites: ~vehicles.china, techcenter
+		Prerequisites: ~vehicles.china, techcenter, ~!upgrade.infantrygeneral
 		Description: Unarmed infantry transport.\nInfantry can fire from inside.\nSpeed: 88 \n  Strong vs Infantry, Light armor\n  Weak vs Tanks, Aircraft
 	Valued:
 		Cost: 900
@@ -254,10 +361,10 @@ chinaassaulttroopcarrier:
 	Buildable:
 		Queue: Vehicle
 		BuildPaletteOrder: 120
-		Prerequisites: ~vehicles.china, techcenter
+		Prerequisites: ~vehicles.china, techcenter, ~upgrade.infantrygeneral
 		Description: Unarmed infantry transport.\nInfantry can fire from inside.\nSpeed: 88 \n  Strong vs Infantry, Light armor\n  Weak vs Tanks, Aircraft
 	Valued:
-		Cost: 2000
+		Cost: 1500
 	Tooltip:
 		Name: Assault Troop Crawler
 	RenderSprites:
@@ -293,7 +400,7 @@ chinaecm:
 	Turreted:
 		TurnSpeed: 16
 	JamsMissiles:
-		Range: 5c0
+		Range: 3c0
 		DeflectionRelationships: Neutral, Enemy
 	SpawnActorOnDeath:
 		Actor: chinaecmtank.Husk
@@ -338,7 +445,7 @@ chinanukecannon:
 	Buildable:
 		Queue: Vehicle
 		BuildPaletteOrder: 140
-		Prerequisites: ~vehicles.china, techcenter
+		Prerequisites: ~vehicles.china, techcenter, upgrade.nukegeneral
 		Description: Reich's deployable artillery tank.\nSpeed: 50\n  Strong vs Vehicles, Infantry\n  Weak vs Aircraft
 	Mobile:
 		TurnSpeed: 12
@@ -416,11 +523,6 @@ chinanukecannon:
 chinaoverlord:
 	Inherits: ^TrackedVehicle
 	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
-	Buildable:
-		Queue: Vehicle
-		BuildPaletteOrder: 2500
-		Prerequisites: ~vehicles.china, techcenter
-		Description: Big and slow tank, with anti-air capability.\nCan crush concrete walls.\n  Strong vs Vehicles, Infantry, Aircraft\n  Weak vs Nothing
 	Valued:
 		Cost: 2250
 	Tooltip:
@@ -449,16 +551,21 @@ chinaoverlord:
 		Range: 7c0
 	Turreted:
 		TurnSpeed: 8
+		Turret: primary
 	Armament@PRIMARY:
 		Weapon: 125mmoverlord
 		LocalOffset: 1400,100,340, 1400,-100,340
 		Recoil: 171
 		RecoilRecovery: 30
 		MuzzleSequence: muzzle
+		Turret: primary
 	AttackTurreted:
+		Turrets: primary
 		PauseOnCondition: disabled
 	WithMuzzleOverlay:
 	WithSpriteTurret:
+		Sequence: turret
+		Turret: primary
 	SelectionDecorations:
 	Voiced:
 		VoiceSet: OverlordTankVoice
@@ -468,3 +575,253 @@ chinaoverlord:
 		Actor: chinaoverlord.Husk
 	RenderSprites:
 		Image: chinaoverlord
+
+chinaoverlordspeaker:
+	Inherits: ^TrackedVehicle
+	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
+	Buildable:
+		Queue: Vehicle
+		BuildPaletteOrder: 2500
+		Prerequisites: ~vehicles.china, techcenter
+		Description: Big and slow tank, with anti-air capability.\nCan crush concrete walls.\n  Strong vs Vehicles, Infantry, Aircraft\n  Weak vs Nothing
+	Valued:
+		Cost: 2250
+	Tooltip:
+		Name: Overlord Tank (Speaker Tower)
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 100000
+	Armor:
+		Type: Heavy
+	Mobile:
+		Speed: 35
+		Locomotor: heavytracked
+		Voice: Move
+	Guard:
+		Voice: Move
+	Passenger:
+		Weight: 8
+		CustomPipType: red
+		Voice: Move
+	RevealsShroud:
+		MinRange: 7c0
+		Range: 8c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 7c0
+	Turreted:
+		TurnSpeed: 8
+		Turret: primary
+	Armament@PRIMARY:
+		Weapon: 125mmoverlord
+		LocalOffset: 1400,100,340, 1400,-100,340
+		Recoil: 171
+		RecoilRecovery: 30
+		MuzzleSequence: muzzle
+		Turret: primary
+	AttackTurreted:
+		Turrets: primary
+		PauseOnCondition: disabled
+	WithMuzzleOverlay:
+	WithSpriteTurret:
+		Sequence: turret
+		Turret: primary
+	SelectionDecorations:
+	Voiced:
+		VoiceSet: OverlordTankVoice
+	Selectable:
+		DecorationBounds: 1877, 1621, 0, -170
+	SpawnActorOnDeath:
+		Actor: chinaoverlord.Husk
+	RenderSprites:
+		Image: chinaoverlordspeaker
+	WithIdleOverlay@SPINNER:
+		Sequence: spinner
+		Offset: 0,0,500
+	ProximityExternalCondition@propaganda:
+		Condition: propaganda
+		RequiresCondition: !disabled && !upgrade.propaganda
+		Range: 4c0
+    GrantConditionOnPrerequisite@propagandaupgrade:
+        Condition: upgradepropaganda
+        Prerequisites: upgrade.propaganda
+	ProximityExternalCondition@propagandaupgrade:
+		Condition: propagandaupgrade
+		RequiresCondition: !disabled && upgradepropaganda
+		Range: 4c0
+
+chinaoverlordgatling:
+	Inherits: ^TrackedVehicle
+	Inherits@AUTOTARGET: ^AutoTargetAll
+	Buildable:
+		Queue: Vehicle
+		BuildPaletteOrder: 2500
+		Prerequisites: ~vehicles.china, techcenter
+		Description: Big and slow tank, with anti-air capability.\nCan crush concrete walls.\n  Strong vs Vehicles, Infantry, Aircraft\n  Weak vs Nothing
+	Valued:
+		Cost: 2250
+	Tooltip:
+		Name: Overlord Tank (Gatling Cannon)
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 100000
+	Armor:
+		Type: Heavy
+	Mobile:
+		Speed: 35
+		Locomotor: heavytracked
+		Voice: Move
+	Guard:
+		Voice: Move
+	Passenger:
+		Weight: 8
+		CustomPipType: red
+		Voice: Move
+	RevealsShroud:
+		MinRange: 7c0
+		Range: 8c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 7c0
+	Turreted:
+		TurnSpeed: 8
+		Turret: primary
+	Armament@PRIMARY:
+		Weapon: 125mmoverlord
+		LocalOffset: 1400,100,340, 1400,-100,340
+		Recoil: 171
+		RecoilRecovery: 30
+		MuzzleSequence: muzzle
+		Turret: primary
+	AttackTurreted:
+		Turrets: primary, secondary
+		PauseOnCondition: disabled
+	WithMuzzleOverlay:
+	WithSpriteTurret:
+		Sequence: turret
+		Turret: primary
+	Armament@secondary:
+		Weapon: overlordgatlingshot
+		LocalOffset: 512,0,176
+		MuzzleSequence: muzzlegatling
+		Turret: secondary
+	Armament@secondaryair:
+		Weapon: overlordgatlingshotair
+		LocalOffset: 512,0,176
+		MuzzleSequence: muzzlegatling
+		Turret: secondary
+	Turreted@Gatling:
+		Turret: secondary
+		Offset: 0,0,256
+		TurnSpeed: 64
+	WithSpriteTurret@Gatling:
+		Sequence: turretgatling
+		Turret: secondary
+	SelectionDecorations:
+	Voiced:
+		VoiceSet: OverlordTankVoice
+	Selectable:
+		DecorationBounds: 1877, 1621, 0, -170
+	SpawnActorOnDeath:
+		Actor: chinaoverlord.Husk
+	RenderSprites:
+		Image: chinaoverlordgatling
+
+chinaemperor:
+	Inherits: ^TrackedVehicle
+	Inherits@AUTOTARGET: ^AutoTargetAll
+	Buildable:
+		Queue: Vehicle
+		BuildPaletteOrder: 2500
+		Prerequisites: ~vehicles.china, techcenter, upgrade.tankgeneral
+		Description: Big and slow tank, with anti-air capability.\nCan crush concrete walls.\n  Strong vs Vehicles, Infantry, Aircraft\n  Weak vs Nothing
+	Valued:
+		Cost: 3000
+	Tooltip:
+		Name: Emperor Overlord Tank
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 200000
+	Armor:
+		Type: Heavy
+	Mobile:
+		Speed: 35
+		Locomotor: heavytracked
+		Voice: Move
+	Guard:
+		Voice: Move
+	Passenger:
+		Weight: 8
+		CustomPipType: red
+		Voice: Move
+	RevealsShroud:
+		MinRange: 7c0
+		Range: 8c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 7c0
+	Turreted:
+		TurnSpeed: 8
+		Turret: primary
+	Armament@PRIMARY:
+		Weapon: 125mmemperor
+		LocalOffset: 1400,100,340, 1400,-100,340
+		Recoil: 171
+		RecoilRecovery: 30
+		MuzzleSequence: muzzle
+		Turret: primary
+	AttackTurreted:
+		Turrets: primary, secondary
+		PauseOnCondition: disabled
+	WithMuzzleOverlay:
+	WithSpriteTurret:
+		Sequence: turret
+		Turret: primary
+	Armament@secondary:
+		Weapon: overlordgatlingshot
+		LocalOffset: 512,0,176
+		MuzzleSequence: muzzlegatling
+		Turret: secondary
+	Armament@secondaryair:
+		Weapon: overlordgatlingshotair
+		LocalOffset: 512,0,176
+		MuzzleSequence: muzzlegatling
+		Turret: secondary
+	Turreted@Gatling:
+		Turret: secondary
+		Offset: 0,0,256
+		TurnSpeed: 64
+	WithSpriteTurret@Gatling:
+		Sequence: turretgatling
+		Turret: secondary
+	SelectionDecorations:
+	Voiced:
+		VoiceSet: EmperorOverlordVoice
+	Selectable:
+		DecorationBounds: 1877, 1621, 0, -170
+	SpawnActorOnDeath:
+		Actor: chinaemperor.Husk
+	RenderSprites:
+		Image: chinaemperor
+	WithIdleOverlay@SPINNER:
+		Sequence: spinner
+		Offset: -500,0,500
+	ProximityExternalCondition@propaganda:
+		Condition: propaganda
+		RequiresCondition: !disabled && !upgrade.propaganda
+		Range: 5c0
+    GrantConditionOnPrerequisite@propagandaupgrade:
+        Condition: upgradepropaganda
+        Prerequisites: upgrade.propaganda
+	ProximityExternalCondition@propagandaupgrade:
+		Condition: propagandaupgrade
+		RequiresCondition: !disabled && upgradepropaganda
+		Range: 5c0
+	VoiceAnnouncement:
+		RequiresCondition: produced
+		Voice: Build
+	AnnounceOnKill:
+		Voice: Kill

@@ -29,13 +29,38 @@ chinanuclearreactor:
 	RevealsShroud:
 		Range: 4c0
 	WithBuildingBib:
-	Power:
+	Power@notovercharged:
 		Amount: 200
+		RequiresCondition: !overcharge && !disabled
+	Power@overcharged:
+		Amount: 300
+		RequiresCondition: overcharge && !disabled
+	Explodes@overcharged:
+		Weapon: TinyNuke
+		EmptyWeapon: TinyNuke
+		RequiresCondition: overcharge && !disabled
+	GrantConditionOnDeploy:
+		MakeAnimationDeployTypes:
+		DeployedCondition: overcharge
+		SkipMakeAnimation: True
+	ChangesHealth@overcharged:
+		RequiresCondition: overcharge && !disabled
+		PercentageStep: -5
+		Delay: 25
+		DamageCooldown: 25
+		StartIfBelow: 110
+	WithIdleOverlay@overcharge:
+		Image: explosion
+		Sequence: dukenukemexplosiontiny
+		Offset: 0,-562,612
+		RequiresCondition: overcharge && !disabled
+		Palette: noplayer
 	Targetable:
 		TargetTypes: GroundActor, Structure, C4, DetonateAttack, SpyInfiltrate
 	ScalePowerWithHealth:
 	WithDeathAnimation:
 		DeathSequence: dead
+		PlayerPalette: ra2
 		UseDeathTypeSuffix: false
 	RenderSprites:
         Image: chinanuclearreactor
@@ -97,6 +122,8 @@ chinasupplycenter:
 		DeathSequence: dead
 		UseDeathTypeSuffix: false
 	ProvidesPrerequisite@buildingname:
+	ProvidesPrerequisite@refinery:
+		Prerequisite: refinery
 	HitShape:
 		Type: Rectangle
 			TopLeft: -1536, -512
@@ -205,7 +232,6 @@ chinabarracks:
 	WithDeathAnimation:
 		DeathSequence: dead
 		UseDeathTypeSuffix: false
-		DeathSequencePalette: dawn
 
 chinawarfactory:
 	Inherits: ^DawnBuilding
@@ -354,15 +380,15 @@ chinapropagandacenter:
 		UseDirectionalTarget: True
 		DirectionArrowAnimation: paradirection
 		SupportPowerPaletteOrder: 60
-	ParatroopersPower@usarangers:
-		OrderName: usarangers
-		Prerequisites: ~structures.usa, ~aircraft.usa
+	ParatroopersPower@chinadrop:
+		OrderName: chinadrop
+		Prerequisites: ~structures.china, ~aircraft.china, upgrade.infantrygeneral
 		Icon: paratroopers
 		ChargeInterval: 9000
 		Name: Paratroopers
-		Description: A C17 drops a squad of US soldiers anywhere on the map.
+		Description: A C17 drops a squad of Chinese soldiers anywhere on the map.
 		UnitType: C17
-		DropItems: USARANGER,USARANGER,USARANGER,USARANGER,USARANGER,USADEFENDER,USADEFENDER,USADEFENDER,USADEFENDER,USADEFENDER,USARANGER,USARANGER,USARANGER,USARANGER,USARANGER,USADEFENDER,USADEFENDER,USADEFENDER,USADEFENDER,USADEFENDER
+		DropItems: chinaredguard, chinaredguard, chinaredguard, chinatankhunter, chinaminigunner, chinaredguard, chinaredguard, chinaredguard, chinatankhunter, chinaminigunner, chinaredguard, chinaredguard, chinaredguard, chinatankhunter, chinaminigunner
 		ReinforcementsArrivedSpeechNotification: ReinforcementsArrived
 		SelectTargetSpeechNotification: SelectTarget
 		AllowImpassableCells: false
@@ -379,16 +405,16 @@ chinapropagandacenter:
 		SquadSize: 3
 	GrantExternalConditionPower@Frenzy:
 		PauseOnCondition: disabled
-		Icon: patriotismicon
+		Icon: frenzyicon
 		ChargeInterval: 7500
 		Name: Frenzy
 		OrderName: frenzy
 		Description: Makes a group of units fight for their country. (20% Buff)
-		Duration: 750
+		Duration: 375
 		SelectTargetSpeechNotification: SelectTarget
 		InsufficientPowerSpeechNotification: InsufficientPower
 		DisplayRadarPing: True
-		Condition: patriotismboost
+		Condition: frenzyboost
 		OnFireSound: sfrenzya.wav
 		SupportPowerPaletteOrder: 10
 		Dimensions: 7, 7
@@ -400,9 +426,9 @@ chinapropagandacenter:
 		Prerequisites: ~structures.china, ~aircraft.china
 		Icon: usalandmines
 		ChargeInterval: 6000
-		Name: Mines Airdrop
-		Description: A C17 drops a line of mine anywhere on the map.
-		DropItems: USAMINEDROP, USAMINEDROP, USAMINEDROP, USAMINEDROP, USAMINEDROP,USAMINEDROP, USAMINEDROP, USAMINEDROP, USAMINEDROP, USAMINEDROP,USAMINEDROP, USAMINEDROP
+		Name: Mine Airdrop
+		Description: A C17 drops a cluster mine.
+		DropItems: chinaminedrop
 		ReinforcementsArrivedSpeechNotification: ReinforcementsArrived
 		SelectTargetSpeechNotification: SelectTarget
 		AllowImpassableCells: false
@@ -416,7 +442,84 @@ chinapropagandacenter:
 		UseDirectionalTarget: True
 		DirectionArrowAnimation: paradirection
 		SupportPowerPaletteOrder: 50
-		SquadSize: 4
+		SquadSize: 1
+	ParatroopersPower@chinatanks:
+		OrderName: chinatanks
+		Prerequisites: ~structures.china, ~aircraft.china, upgrade.tankgeneral
+		Icon: paratank
+		ChargeInterval: 9000
+		Name: Paratanks
+		Description: A C17 drops a squad of Battlemaster tanks anywhere on the map.
+		DropItems: chinabattlemaster,chinabattlemaster,chinabattlemaster,chinabattlemaster,chinabattlemaster
+		UnitType: C17
+		ReinforcementsArrivedSpeechNotification: ReinforcementsArrived
+		SelectTargetSpeechNotification: SelectTarget
+		AllowImpassableCells: false
+		QuantizedFacings: 8
+		CameraActor: camera.paradrop
+		DisplayBeacon: true
+		BeaconPoster: paratank
+		ArrowSequence: arrow
+		ClockSequence: clock
+		CircleSequence: circles
+		UseDirectionalTarget: True
+		DirectionArrowAnimation: paradirection
+		SupportPowerPaletteOrder: 50
+
+chinaminedrop:
+	Inherits: 1TNK.MINE
+    Parachutable: 
+        FallRate: 128
+	Explodes:
+		Weapon: SmallBuildingExplode
+		DeathTypes: TriggerProne
+	KillsSelf:
+		Delay: 75
+		RequiresCondition: !parachute
+		DamageTypes: replace
+	-SpawnActorOnDeath:
+	SpawnActorOnDeath@2:
+		Actor: USAMINEDROPACTOR
+		DeathType: replace
+		Offset: 0,0
+	SpawnActorOnDeath@3:
+		Actor: USAMINEDROPACTOR
+		DeathType: replace
+		Offset: -1,0
+	SpawnActorOnDeath@4:
+		Actor: USAMINEDROPACTOR
+		DeathType: replace
+		Offset: 1,0
+	SpawnActorOnDeath@5:
+		Actor: USAMINEDROPACTOR
+		DeathType: replace
+		Offset: 0,1
+	SpawnActorOnDeath@6:
+		Actor: USAMINEDROPACTOR
+		DeathType: replace
+		Offset: 0,-1
+	SpawnActorOnDeath@7:
+		Actor: USAMINEDROPACTOR
+		DeathType: replace
+		Offset: -2,0
+	SpawnActorOnDeath@8:
+		Actor: USAMINEDROPACTOR
+		DeathType: replace
+		Offset: 2,0
+	SpawnActorOnDeath@9:
+		Actor: USAMINEDROPACTOR
+		DeathType: replace
+		Offset: 0,2
+	SpawnActorOnDeath@10:
+		Actor: USAMINEDROPACTOR
+		DeathType: replace
+		Offset: 0,-2
+	RenderSprites:
+		Image: minvs
+	Health:
+		HP: 20000
+	Armor:
+		Type: Wood
 
 chinaairfield:
 	Inherits: ^Building
@@ -538,16 +641,19 @@ chinainternetcenter:
 	Power:
 		Amount: -200
 	ProvidesPrerequisite@buildingname:
-	CashTrickler:
-		Interval: 50
-		InitialDelay: 50
-		Amount: 5
-        UseResourceStorage: true
-		PauseOnCondition: disabled
 	RenderSprites:
 		Image: chinainternetcenter
 	RevealsShroud@GAPGEN:
 		Range: 5c0
+	Cargo:
+		Types: ChinaHacker
+		MaxWeight: 8
+		PipCount: 8
+		AfterLoadDelay: 0
+		BeforeUnloadDelay: 0
+		AfterUnloadDelay: 0
+		EjectOnDeathDamage: 50
+		PauseOnCondition: disabled
 
 chinanuclearsilo:
 	Inherits: ^Building
@@ -580,7 +686,8 @@ chinanuclearsilo:
 		Cursor: nuke
 		Icon: abomb
 		ChargeInterval: 13500
-		Name: Atom Bomb
+		Name: Nuclear Missile
+		OrderName: chinanuke
 		Description: Launches a devastating atomic bomb\nat a target location.
 		BeginChargeSpeechNotification: AbombPrepping
 		EndChargeSpeechNotification: AbombReady
@@ -694,8 +801,8 @@ chinaspeakertower:
 		Description: Provides propaganda n shit
 		BuildPaletteOrder: 6
 	Building:
-		Footprint: x x
-		Dimensions: 1,2
+		Footprint: x
+		Dimensions: 1,1
 	Selectable:
 		Bounds: 1024, 3072
 		DecorationBounds: 1024, 3072, 0, 0
@@ -719,20 +826,32 @@ chinaspeakertower:
 		Amount: -100
 	ProximityExternalCondition@propaganda:
 		Condition: propaganda
-		RequiresCondition: !disabled
+		RequiresCondition: !disabled && !upgrade.propaganda
+		Range: 7c0
+    GrantConditionOnPrerequisite@propagandaupgrade:
+        Condition: upgradepropaganda
+        Prerequisites: upgrade.propaganda
+	ProximityExternalCondition@propagandaupgrade:
+		Condition: propagandaupgrade
+		RequiresCondition: !disabled && upgradepropaganda
 		Range: 7c0
 
 chinabunker:
 	Inherits: ^Defense
+	Inherits@SHAPE: ^2x2Shape
 	Inherits@AUTOTARGET: ^AutoTargetAll
 	Inherits@CARGOPIPS: ^CargoPips
 	Tooltip:
-		Name: Pillbox
+		Name: Bunker
 	Building:
+		Footprint: xx xx
+		Dimensions: 2,2
+	Selectable:
+		Bounds: 2048, 2048
 	Buildable:
 		Queue: Defense
 		BuildPaletteOrder: 40
-		Prerequisites: ~structures.china
+		Prerequisites: ~structures.china, ~infantry.china, ~!upgrade.infantrygeneral
 		Description: Static defense with a fireport for\na garrisoned soldier.\nCan detect cloaked units.\n  Strong vs Infantry, Light armor\n  Weak vs Tanks, Aircraft
 	Valued:
 		Cost: 700
@@ -762,7 +881,7 @@ chinabunker:
 		ValidDamageStates: Light, Medium, Heavy, Critical
 	Cargo:
 		Types: Infantry
-		MaxWeight: 2
+		MaxWeight: 4
 	-SpawnActorsOnSell:
 	AttackGarrisoned:
 		PauseOnCondition: build-incomplete
@@ -771,8 +890,28 @@ chinabunker:
 		PortYaws: 0, 176, 341, 512, 682, 853
 		PortCones: 88, 88, 88, 88, 88, 88
 	RenderRangeCircle:
-		FallbackRange: 6c0
 	Power:
 		Amount: -20
-	DetectCloaked:
-		Range: 6c0
+
+chinafortifiedbunker:
+	Inherits: chinabunker
+	Tooltip:
+		Name: Fortified Bunker
+	Buildable:
+		Queue: Defense
+		BuildPaletteOrder: 40
+		Prerequisites: ~structures.china, ~upgrade.infantrygeneral, chinabarracks
+		Description: Static defense with a fireport for\na garrisoned soldier.\nCan detect cloaked units.\n  Strong vs Infantry, Light armor\n  Weak vs Tanks, Aircraft
+	Valued:
+		Cost: 1400
+	Health:
+		HP: 100000
+	Cargo:
+		Types: Infantry
+		MaxWeight: 8
+	AttackGarrisoned:
+		PauseOnCondition: build-incomplete
+		Armaments: garrisoned
+		PortOffsets: 384,0,128, 224,-341,128, -224,-341,128, -384,0,128, -224,341,128, 224,341,128
+		PortYaws: 0, 176, 341, 512, 682, 853
+		PortCones: 88, 88, 88, 88, 88, 88

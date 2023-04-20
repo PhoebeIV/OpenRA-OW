@@ -911,6 +911,7 @@
 	Inherits@usasearchanddestroy: ^usasearchanddestroy
 	Inherits@usahold_the_line: ^usaholdtheline
 	Inherits@propagandaboost: ^propagandaboost
+	Inherits@frenzyboost: ^frenzyboost
 	RevealOnFire:
 	Repairable:
 		RepairActors: fix, gfix, gfix.boss
@@ -1057,7 +1058,8 @@
 	Inherits@usabombardment: ^usabombardment
 	Inherits@usasearchanddestroy: ^usasearchanddestroy
 	Inherits@usahold_the_line: ^usaholdtheline
-	Inherits@propagandaboost: ^propagandaboost
+	Inherits@propagandaboost: ^propagandaboostinfantry
+	Inherits@frenzyboost: ^frenzyboost
 	Crushable:
 		RequiresCondition: !HolySuperBoosted
 	RevealOnFire:
@@ -1297,6 +1299,7 @@
 	Inherits@usasearchanddestroy: ^usasearchanddestroy
 	Inherits@usahold_the_line: ^usaholdtheline
 	Inherits@propagandaboost: ^propagandaboost
+	Inherits@frenzyboost: ^frenzyboost
 	RepairableNear:
 		RepairActors: spen, syrd, gspen, dockmedi, usashipyard
 	RevealOnFire:
@@ -1360,6 +1363,7 @@
 	Inherits@usasearchanddestroy: ^usasearchanddestroy
 	Inherits@usahold_the_line: ^usaholdtheline
 	Inherits@propagandaboost: ^propagandaboost
+	Inherits@frenzyboost: ^frenzyboost
 	Repairable:
 		RepairActors: fix, gfix, gfix.boss
 	RevealOnFire:
@@ -1436,6 +1440,7 @@
 	Inherits@usasearchanddestroy: ^usasearchanddestroy
 	Inherits@usahold_the_line: ^usaholdtheline
 	Inherits@propagandaboost: ^propagandaboost
+	Inherits@frenzyboost: ^frenzyboost
 	Huntable:
 	OwnerLostAction:
 		Action: Kill
@@ -1574,6 +1579,7 @@
 	Inherits@usasearchanddestroy: ^usasearchanddestroy
 	Inherits@usahold_the_line: ^usaholdtheline
 	Inherits@propagandaboost: ^propagandaboost
+	Inherits@frenzyboost: ^frenzyboost
 
 
 ^Plane:
@@ -1586,6 +1592,7 @@
 	Inherits@usasearchanddestroy: ^usasearchanddestroy
 	Inherits@usahold_the_line: ^usaholdtheline
 	Inherits@propagandaboost: ^propagandaboost
+	Inherits@frenzyboost: ^frenzyboost
 	Repairable:
 		RepairActors: fix, gfix, gfix.boss
 
@@ -2108,7 +2115,7 @@
 		Condition: usa.bombardment
 	FirepowerMultiplier@usa.bombardment:
 		RequiresCondition: usa.bombardment
-		Modifier: 120
+		Modifier: 110
 	WithDecoration@usa.bombardment:
 		Image: pips
 		Sequence: usastrategypipbombardment
@@ -2136,10 +2143,10 @@
 		Condition: usa.search_and_destroy
 	RangeMultiplier@usa.search_and_destroy:
 		RequiresCondition: usa.search_and_destroy
-		Modifier: 120
+		Modifier: 110
 	RevealsShroudMultiplier@usa.search_and_destroy:
 		RequiresCondition: usa.search_and_destroy
-		Modifier: 120
+		Modifier: 110
 	WithDecoration@usa.search_and_destroy:
 		Image: pips
 		Sequence: usastrategypipsearchanddestroy
@@ -2165,8 +2172,57 @@
 		RequiresCondition: propaganda
 		Modifier: 90
 	WithIdleOverlay@propagandaboost:
-		Image: pips
-		Sequence: chinapropagandapip
-		Position: TopLeft
-		ValidRelationships: None,Neutral,Enemy,Ally
+		Image: propagandaboost-overlay
+		Sequence: vehicle
+		Palette: effect
 		RequiresCondition: propaganda
+		IsDecoration: True
+	ExternalCondition@propagandaboostupgrade:
+		Condition: propagandaupgrade
+	ChangesHealth@propagandaboostupgrade:
+		Step: 0
+		PercentageStep: 2
+		Delay: 50
+		StartBelow: 100
+		RequiresCondition: propagandaupgrade
+	ReloadDelayMultiplier@propagandaboostupgrade:
+		RequiresCondition: propagandaupgrade
+		Modifier: 80
+	WithIdleOverlay@propagandaboostupgrade:
+		Image: propagandaboost-overlay
+		Sequence: vehicleupgrade1
+		Palette: effect
+		RequiresCondition: propagandaupgrade
+		IsDecoration: True
+
+^propagandaboostinfantry:
+	Inherits: ^propagandaboost
+	WithIdleOverlay@propagandaboost:
+		Sequence: infantry
+	WithIdleOverlay@propagandaboostupgrade:
+		Sequence: infantryupgrade1
+
+^frenzyboost:
+	ExternalCondition@frenzyboost:
+		Condition: frenzyboost
+	DamageMultiplier@frenzyboost:
+		RequiresCondition: frenzyboost
+		Modifier: 80
+	FirepowerMultiplier@frenzyboost:
+		RequiresCondition: frenzyboost
+		Modifier: 120
+	ReloadDelayMultiplier@frenzyboost:
+		RequiresCondition: frenzyboost
+		Modifier: 80
+	RangeMultiplier@frenzyboost:
+		RequiresCondition: frenzyboost
+		Modifier: 110
+	SpeedMultiplier@frenzyboost:
+		RequiresCondition: frenzyboost
+		Modifier: 120
+	TimedConditionBar@frenzyboost:
+		Color: FFFF00
+		Condition: frenzyboost
+	WithColoredOverlay@frenzyboost:
+		RequiresCondition: frenzyboost
+		Color: FFFF0050

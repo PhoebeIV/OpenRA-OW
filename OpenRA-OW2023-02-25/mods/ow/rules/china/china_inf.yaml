@@ -1,14 +1,74 @@
+^hordebonus:
+	ExternalCondition@hordebonus:
+		Condition: hordebonus
+		RequiresCondition: !upgradeinfantrygeneral
+	ProximityExternalCondition@hordebonus:
+		Condition: hordebonus
+		Range: 2c0
+		RequiresCondition: !upgradeinfantrygeneral
+	ReloadDelayMultiplier@hordebonus:
+		RequiresCondition: hordebonus >= 10 && !upgradeinfantrygeneral
+		Modifier: 90
+	WithIdleOverlay@hordebonus:
+		Image: hordebonus-overlay
+		Sequence: infantry
+		Palette: effect
+		RequiresCondition: hordebonus >= 10 && !upgradeinfantrygeneral
+		IsDecoration: True
+	ExternalCondition@hordebonusupgrade1:
+		Condition: hordebonusupgrade1
+		RequiresCondition: upgradeinfantrygeneral && !upgradepatriotism
+	ProximityExternalCondition@hordebonusupgrade1:
+		Condition: hordebonusupgrade1
+		Range: 2c0
+		RequiresCondition: upgradeinfantrygeneral && !upgradepatriotism
+	ReloadDelayMultiplier@hordebonusupgrade1:
+		RequiresCondition: hordebonusupgrade1 >= 10 && upgradeinfantrygeneral
+		Modifier: 80
+	WithIdleOverlay@hordebonusupgrade1:
+		Image: hordebonus-overlay
+		Sequence: infantryupgrade1
+		Palette: effect
+		RequiresCondition: hordebonusupgrade1 >= 10 && upgradeinfantrygeneral
+		IsDecoration: True
+	ExternalCondition@hordebonusupgrade2:
+		Condition: hordebonusupgrade2
+		RequiresCondition: upgradepatriotism
+	ProximityExternalCondition@hordebonusupgrade2:
+		Condition: hordebonusupgrade2
+		Range: 2c0
+		RequiresCondition: upgradepatriotism
+	ReloadDelayMultiplier@hordebonusupgrade2:
+		RequiresCondition: hordebonusupgrade2 >= 10
+		Modifier: 70
+	WithIdleOverlay@hordebonusupgrade2:
+		Image: hordebonus-overlay
+		Sequence: infantryupgrade2
+		Palette: effect
+		RequiresCondition: hordebonusupgrade2 >= 10
+		IsDecoration: True
+    GrantConditionOnPrerequisite@1:
+        Condition: upgradeinfantrygeneral
+        Prerequisites: upgrade.infantrygeneral
+    GrantConditionOnPrerequisite@2:
+        Condition: upgradepatriotism
+        Prerequisites: upgrade.patriotism
+
 chinaredguard:
 	Inherits: ^Soldier
+	Inherits@hordebonus: ^hordebonus
 	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
 	Buildable:
 		Queue: Infantry
 		BuildAtProductionType: Soldier
-		BuildPaletteOrder: 61
+		BuildPaletteOrder: 5
 		Prerequisites: ~infantry.china
 		Description: US Ranger, equipped with M16A2 assault rifles\nand flash grenades.\nSpeed: 62\n  Strong vs Infantry\n  Weak vs Vehicles, Aircraft
 	Tooltip:
 		Name: Red Guard
+	Tooltip@hordebonus:
+		Name: Red Guard (Nationalism)
+        RequiresCondition: hordebonus >= 10
 	Valued:
 		Cost: 450
 	UpdatesPlayerStatistics:
@@ -49,6 +109,7 @@ chinaredguard:
 	Voiced:
 		VoiceSet: RedGuardVoice
 
+
 chinaredguard2:
 	Inherits: chinaredguard
 	Selectable:
@@ -60,15 +121,19 @@ chinaredguard2:
 
 chinatankhunter:
 	Inherits: ^Soldier
+	Inherits@hordebonus: ^hordebonus
 	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
 	Buildable:
 		Queue: Infantry
 		BuildAtProductionType: Soldier
-		BuildPaletteOrder: 61
+		BuildPaletteOrder: 6
 		Prerequisites: ~infantry.china
 		Description: US Missile Defender, equipped with an MK 153 SMAW\nCan be upgraded with a laser targeting system\nimproving range and fire rate.\n  Strong vs Vehicles, Aircraft\n  Weak vs Infantry
 	Tooltip:
 		Name: Tank Hunter
+	Tooltip@hordebonus:
+		Name: Tank Hunter (Nationalism)
+        RequiresCondition: hordebonus >= 10
 	Valued:
 		Cost: 400
 	UpdatesPlayerStatistics:
@@ -109,23 +174,25 @@ chinatankhunter:
 
 chinaminigunner:
 	Inherits: ^Soldier
+	Inherits@hordebonus: ^hordebonus
 	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
 	Buildable:
 		Queue: Infantry
 		BuildAtProductionType: Soldier
-		BuildPaletteOrder: 61
-		Prerequisites: ~infantry.china, techcenter
+		BuildPaletteOrder: 10
+		Prerequisites: ~infantry.china, techcenter, upgrade.infantrygeneral
 		Description: US Ranger, equipped with M16A2 assault rifles\nand flash grenades.\nSpeed: 62\n  Strong vs Infantry\n  Weak vs Vehicles, Aircraft
 	Tooltip:
 		Name: Minigunner
+	Tooltip@hordebonus:
+		Name: Minigunner (Nationalism)
+        RequiresCondition: hordebonus >= 10
 	Valued:
 		Cost: 600
-	Selectable:
-		Class: redguard
 	UpdatesPlayerStatistics:
 		AddToArmyValue: true
 	Health:
-		HP: 15000
+		HP: 16000
 	Armament@PRIMARY:
 		Weapon: minigunnershot
 	Armament@SECONDARY:
@@ -170,3 +237,97 @@ chinaminigunner:
 		PlayerPalette: dawn
 	Voiced:
 		VoiceSet: MinigunnerVoice
+
+chinahacker:
+	Inherits: ^Soldier
+	Buildable:
+		Queue: Infantry
+		BuildAtProductionType: Soldier
+		BuildPaletteOrder: 7
+		Prerequisites: ~infantry.china, techcenter, chinainternetcenter, ~!upgrade.infantrygeneral
+		Description: hacking the internet dry
+	Valued:
+		Cost: 900
+	Tooltip:
+		Name: Hacker
+	Health:
+		HP: 10000
+	Selectable:
+		Class: hacker
+	Mobile:
+		Voice: Move
+		PauseOnCondition: !(!deployed)
+	SpeedMultiplier@DAMAGED:
+		Modifier: 50
+	Passenger:
+		CargoType: ChinaHacker
+		PipType: Yellow
+		Voice: Move
+		CargoConditions:
+			chinainternetcenter: ininternetcenter
+	Armament@Anim:
+		Weapon: chinahackeranim
+		LocalOffset: 0,0,196
+		RequiresCondition: enddisable == 0 && !deployed
+	Armament@End:
+		Weapon: chinahackerend
+		LocalOffset: 0,0,196
+		RequiresCondition: enddisable == 1 && !deployed
+	GrantConditionOnAttack@End:
+		Condition: enddisable
+		RequiredShotsPerInstance: 13
+		MaximumInstances: 2
+		RevokeDelay: 20
+		RevokeAll: true
+		IsCyclic: false
+	AttackFrontal:
+		RequiresCondition: !deployed
+	GrantConditionOnDeploy:
+		DeployedCondition: deployed
+		Facing: 128
+	WithInfantryBody:
+		DefaultAttackSequence: hack
+		RequiresCondition: !deployed
+	WithSpriteBody@DEPLOYED:
+		Sequence: hack
+		RequiresCondition: deployed
+	CashTrickler@RANK-0:
+		Interval: 50
+		Amount: 5
+		RequiresCondition: deployed
+	CashTrickler@RANK-0-INTERNET:
+		Interval: 45
+		Amount: 5
+		RequiresCondition: ininternetcenter
+	ExperienceTrickler@RANK-0:
+		Interval: 50
+		Amount: 1
+		RequiresCondition: (deployed || ininternetcenter)
+	ProducibleWithLevel:
+		Prerequisites: barracks.upgraded
+	Voiced:
+		VoiceSet: HackerVoice
+	-MustBeDestroyed:
+
+chinasuperhacker:
+	Inherits: chinahacker
+	Buildable:
+		Queue: Infantry
+		BuildAtProductionType: Soldier
+		BuildPaletteOrder: 7
+		Prerequisites: ~infantry.china, ~techcenter, ~chinainternetcenter, ~upgrade.infantrygeneral
+		Description: hacking the internet dry
+	Tooltip:
+		Name: Super Hacker
+	CashTrickler@RANK-0:
+		Interval: 25
+		Amount: 5
+		RequiresCondition: deployed
+	CashTrickler@RANK-0-INTERNET:
+		Interval: 20
+		Amount: 5
+		RequiresCondition: ininternetcenter
+	ExperienceTrickler@RANK-0:
+		Interval: 25
+		Amount: 1
+		RequiresCondition: (deployed || ininternetcenter)
