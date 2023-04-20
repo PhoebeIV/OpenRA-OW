@@ -325,7 +325,7 @@
 		Prerequisite: mcv
 	GrantConditionOnPrerequisite@botowner:
 		Condition: botowner
-		Prerequisites: ai.all, !ai.easy
+		Prerequisites: ai.all
 
 ^TechCenter:
 	GrantConditionOnPrerequisite@noradio:
@@ -353,11 +353,6 @@
 	Inherits: ^Building
 	Building:
 		BuildSounds: constru2.aud, hvydoor1.aud
-
-^Soldier:
-	TakeCover:
-		SpeedModifier: 75
-		Duration: 75
 
 ^HolyBoostedHolyOnly:
 	ExternalCondition@MonumentboostHoly:
@@ -436,6 +431,262 @@
 		DamageSource: Killer
 		RequiresCondition: DarkBuffEnabled
 
+^Infantry:
+	Inherits@DarkWizBoosted: ^DarkWizBoosted
+	Inherits@RotElementHit: ^RotElementHit
+	Inherits@corrode: ^CorrodesFromTibWeaps
+	Inherits@pallyboost: ^Pallyboosted
+	Inherits@Monumentboost: ^Monumentboosted
+	Inherits@HolyBoostedHolyOnly: ^HolyBoostedHolyOnly
+	Inherits@TotemBoost: ^TotemBooster
+	Inherits@TotemDebuf: ^TotemDebufer
+	Inherits@ChainsCondition: ^ChainsConditioner
+	Inherits@CorruptedOre: ^CorruptedOreCon
+	Inherits@aeiou: ^AEIOUBoosted
+	Inherits@ShieldHero: ^HolySuperBoosted
+	Inherits@CurseCondition: ^CurseDebuff
+	Inherits@gps: ^GPSScramblable
+	Inherits@patriotism: ^patriotismboostInfantry
+	Inherits@advancedtraining: ^advancedtraining
+	Inherits@usabombardment: ^usabombardment
+	Inherits@usasearchanddestroy: ^usasearchanddestroy
+	Inherits@usahold_the_line: ^usaholdtheline
+	Inherits@frenzyboost: ^frenzyboost
+	Inherits@propagandaboost: ^propagandaboostinfantry
+	Crushable:
+		RequiresCondition: !HolySuperBoosted
+	RevealOnFire:
+	GrantConditionOnPrerequisite@iar1:
+		Prerequisites: upgrade.infarmor1
+		Condition: iar1
+	GrantConditionOnPrerequisite@iar2:
+		Prerequisites: upgrade.infarmor2
+		Condition: iar2
+	GrantConditionOnPrerequisite@iar3:
+		Prerequisites: upgrade.infarmor3
+		Condition: iar3
+	GrantConditionOnPrerequisite@ifp1:
+		Prerequisites: upgrade.inffirepower1
+		Condition: ifp1
+	GrantConditionOnPrerequisite@ifp2:
+		Prerequisites: upgrade.inffirepower2
+		Condition: ifp2
+	GrantConditionOnPrerequisite@ifp3:
+		Prerequisites: upgrade.inffirepower3
+		Condition: ifp3
+	DamageMultiplier@iar1:
+		RequiresCondition: iar1 && (!iar2 && !corrode && !defiler_plague)
+		Modifier: 85
+	DamageMultiplier@iar2:
+		RequiresCondition: iar2 && (!iar3 && !corrode && !defiler_plague)
+		Modifier: 70
+	DamageMultiplier@iar3:
+		RequiresCondition: iar3 && (!corrode && !defiler_plague)
+		Modifier: 55
+	FirepowerMultiplier@ifp1:
+		RequiresCondition: ifp1 && !ifp2
+		Modifier: 115
+	FirepowerMultiplier@ifp2:
+		RequiresCondition: ifp2 && !ifp3
+		Modifier: 130
+	FirepowerMultiplier@ifp3:
+		RequiresCondition: ifp3
+		Modifier: 145
+	Targetable@parachute:
+		RequiresCondition: parachute
+		TargetTypes: AirborneActor
+	DamageMultiplier@parachute:
+		RequiresCondition: parachute
+		Modifier: 500
+	ExternalCondition@squadboost:
+		Condition: squadboost
+	SpeedMultiplier@squadboost:
+		RequiresCondition: squadboost
+		Modifier: 110
+	ReloadDelayMultiplier@squadboost:
+		RequiresCondition: squadboost
+		Modifier: 85
+	ExternalCondition@hospitalhealciv:
+		Condition: hospitalhealciv
+	ChangesHealth@HOSPITALCIV:
+		Step: 500
+		Delay: 100
+		StartIfBelow: 100
+		DamageCooldown: 125
+		RequiresCondition: hospitalhealciv
+	ExternalCondition@flagboost:
+		Condition: flagboost
+	FirepowerMultiplier@flagfirepowerboost:
+		RequiresCondition: flagboost
+		Modifier: 130
+	InaccuracyMultiplier@flagaccuracyboost:
+		RequiresCondition: flagboost
+		Modifier: 50
+	ExternalCondition@bioboost:
+		Condition: bioboost
+	SpeedMultiplier@biospeedboost:
+		RequiresCondition: bioboost
+		Modifier: 140
+	ReloadDelayMultiplier@bioreloadboost:
+		RequiresCondition: bioboost
+		Modifier: 75
+	DamageMultiplier@biodefenseboost:
+		RequiresCondition: bioboost
+		Modifier: 75
+	ChangesHealth@TotemDebuf:
+		RequiresCondition: TotemDebuf
+		PercentageStep: -2
+		Delay: 25
+		StartIfBelow: 101
+		DamageCooldown: 0
+	ChangesHealth@aeiouboost:
+		RequiresCondition: aeiouboost
+		PercentageStep: 3
+		Delay: 25
+		StartIfBelow: 90
+		DamageCooldown: 50
+	ChangesHealth@HolySuperBoosted:
+		RequiresCondition: HolySuperBoosted
+		PercentageStep: 3
+		Delay: 75
+		StartIfBelow: 90
+		DamageCooldown: 150
+	ChangesHealth@Monumentboost:
+		RequiresCondition: Monumentboost
+		PercentageStep: 1
+		Delay: 40
+		StartIfBelow: 100
+		DamageCooldown: 40
+	SpeedMultiplier@ChainsCondition:
+		RequiresCondition: ChainsCondition
+		Modifier: 0
+	ExternalCondition@demoralise:
+		Condition: demoralise
+	SpeedMultiplier@demoralise:
+		RequiresCondition: demoralise
+		Modifier: 90
+	ReloadDelayMultiplier@demoralise:
+		RequiresCondition: demoralise
+		Modifier: 115
+	WithDecoration@demoralise:
+		Image: pips
+		Sequence: pip-minus
+		Palette: effect
+		Position: TopRight
+		ValidRelationships: None,Neutral,Enemy,Ally
+		RequiresCondition: demoralise && !squadboost
+	DeathSounds@NORMAL:
+		DeathTypes: DefaultDeath, BulletDeath, SmallExplosionDeath, ExplosionDeath, SpawnCubeDeath
+	DeathSounds@BURNED:
+		Voice: Burned
+		DeathTypes: FireDeath, TiberiumDeath
+	DeathSounds@ZAPPED:
+		Voice: Die
+		DeathTypes: ElectricityDeath
+	Explodes@elec:
+		Weapon: Electro
+		EmptyWeapon: Electro
+		DeathTypes: ElectricityDeath
+	Explodes@tiberium:
+		Weapon: TSInfExplode
+		EmptyWeapon: TSInfExplode
+		DeathTypes: TiberiumDeath, SpawnCubeDeath
+	Explodes@fire:
+		Weapon: InfFireball
+		EmptyWeapon: InfFireball
+		DeathTypes: FireDeath
+	Explodes@GraveyardSpawnerDeath:
+		Weapon: GraveyardSpawnerDeath
+		EmptyWeapon: GraveyardSpawnerDeath
+	ChangesHealth@tiberium:
+		RequiresCondition: standing_in_tiberium
+		DamageTypes: TiberiumDeath
+		Step: -200
+		Delay: 16
+		StartIfBelow: 101
+	GrantConditionOnTerrain@tiberium:
+		Condition: standing_in_tiberium
+		TerrainTypes: Tiberium, BlueTiberium
+	SpawnActorOnDeath@tiberium:
+		Actor: vice
+		Probability: 5
+		OwnerType: InternalName
+		InternalOwner: Creeps
+		DeathType: TiberiumDeath
+		RequiresLobbyCreeps: true
+	SpawnActorOnDeath@cube:
+		Probability: 15
+		Actor: helld6
+		OwnerType: Killer
+		DeathType: SpawnCubeDeath
+		RequiresLobbyCreeps: false
+	SpawnActorOnDeath@fire:
+		Actor: flameguy
+		DeathType: FireDeath
+	SpawnActorOnDeath@zombie:
+		Actor: Zombie
+		OwnerType: Killer
+		DeathType: ZombieDeath
+	SpawnActorOnDeath@Darkwiz:
+		RequiresCondition: DarkWizAura
+		Probability: 40
+		Actor: MediZombie
+		DeathType: DefaultDeath
+	SpawnActorOnDeath@RotElement:
+		RequiresCondition: RotElementHitCon
+		Actor: RotElement
+		OwnerType: Killer
+		DeathType: ElementalDeath
+	WithDeathAnimation:
+		DeathTypes:
+			DefaultDeath: 1
+			BulletDeath: 2
+			SmallExplosionDeath: 3
+			ExplosionDeath: 4
+			-FireDeath:
+			ElectricityDeath: 6
+		CrushedSequence: die-crushed
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	TurnOnIdle:
+	DetectCloaked@GPS:
+		Range: 1c512
+		DetectionTypes: gpsscrambler
+	TemporaryOwnerManager:
+	DetectCloaked@AssasinDark:
+		DetectionTypes: DarkAssasin
+		Range: 3
+	GainsExperienceMultiplier:
+		Modifier: 25
+		RequiresCondition: disable-experience
+
+^Cyborg:
+	Inherits: ^Infantry
+	Mobile:
+		PauseOnCondition: disabled
+	WithColoredOverlay@IDISABLE:
+		RequiresCondition: disabled
+		Color: 000000B4
+	Targetable:
+		RequiresCondition: !parachute
+		TargetTypes: GroundActor, Cyborg, Disguise
+	SpawnActorOnDeath@cube:
+		Probability: 35
+		Actor: helld4
+		OwnerType: Killer
+		DeathType: SpawnCubeDeath
+		RequiresLobbyCreeps: false
+	-SpawnActorOnDeath@fire:
+	Explodes@fire:
+		Weapon: TSInfExplode
+		EmptyWeapon: TSInfExplode
+		DeathTypes: FireDeath
+
+^Soldier:
+	TakeCover:
+		SpeedModifier: 90
+		Duration: 125
+
 ^TibSunSoldier:
 	Inherits@1: ^Soldier
 	RenderSprites:
@@ -484,6 +735,12 @@
 		DecorationBounds: 682, 938, 0, -469
 	-GrantConditionOnTerrain@tiberium:
 	-TakeCover:
+	TakeCover:
+		SpeedModifier: 100
+		DamageModifiers:
+			Sniper75Percent: 75
+		DamageTriggers: TriggerSniperProne
+		Duration: 100
 	RevealsShroud:
 		MinRange: 4c0
 		Range: 5c0
@@ -1037,257 +1294,6 @@
 	SpawnActorsOnSell@usa:
 		Factions: usa
 		ActorTypes: usaranger,usaranger,usaranger,usaranger,usaranger
-
-^Infantry:
-	Inherits@DarkWizBoosted: ^DarkWizBoosted
-	Inherits@RotElementHit: ^RotElementHit
-	Inherits@corrode: ^CorrodesFromTibWeaps
-	Inherits@pallyboost: ^Pallyboosted
-	Inherits@Monumentboost: ^Monumentboosted
-	Inherits@HolyBoostedHolyOnly: ^HolyBoostedHolyOnly
-	Inherits@TotemBoost: ^TotemBooster
-	Inherits@TotemDebuf: ^TotemDebufer
-	Inherits@ChainsCondition: ^ChainsConditioner
-	Inherits@CorruptedOre: ^CorruptedOreCon
-	Inherits@aeiou: ^AEIOUBoosted
-	Inherits@ShieldHero: ^HolySuperBoosted
-	Inherits@CurseCondition: ^CurseDebuff
-	Inherits@gps: ^GPSScramblable
-	Inherits@patriotism: ^patriotismboostInfantry
-	Inherits@advancedtraining: ^advancedtraining
-	Inherits@usabombardment: ^usabombardment
-	Inherits@usasearchanddestroy: ^usasearchanddestroy
-	Inherits@usahold_the_line: ^usaholdtheline
-	Inherits@propagandaboost: ^propagandaboostinfantry
-	Inherits@frenzyboost: ^frenzyboost
-	Crushable:
-		RequiresCondition: !HolySuperBoosted
-	RevealOnFire:
-	GrantConditionOnPrerequisite@iar1:
-		Prerequisites: upgrade.infarmor1
-		Condition: iar1
-	GrantConditionOnPrerequisite@iar2:
-		Prerequisites: upgrade.infarmor2
-		Condition: iar2
-	GrantConditionOnPrerequisite@iar3:
-		Prerequisites: upgrade.infarmor3
-		Condition: iar3
-	GrantConditionOnPrerequisite@ifp1:
-		Prerequisites: upgrade.inffirepower1
-		Condition: ifp1
-	GrantConditionOnPrerequisite@ifp2:
-		Prerequisites: upgrade.inffirepower2
-		Condition: ifp2
-	GrantConditionOnPrerequisite@ifp3:
-		Prerequisites: upgrade.inffirepower3
-		Condition: ifp3
-	DamageMultiplier@iar1:
-		RequiresCondition: iar1 && (!iar2 && !corrode && !defiler_plague)
-		Modifier: 85
-	DamageMultiplier@iar2:
-		RequiresCondition: iar2 && (!iar3 && !corrode && !defiler_plague)
-		Modifier: 70
-	DamageMultiplier@iar3:
-		RequiresCondition: iar3 && (!corrode && !defiler_plague)
-		Modifier: 55
-	FirepowerMultiplier@ifp1:
-		RequiresCondition: ifp1 && !ifp2
-		Modifier: 115
-	FirepowerMultiplier@ifp2:
-		RequiresCondition: ifp2 && !ifp3
-		Modifier: 130
-	FirepowerMultiplier@ifp3:
-		RequiresCondition: ifp3
-		Modifier: 145
-	Targetable@parachute:
-		RequiresCondition: parachute
-		TargetTypes: AirborneActor
-	DamageMultiplier@parachute:
-		RequiresCondition: parachute
-		Modifier: 500
-	ExternalCondition@squadboost:
-		Condition: squadboost
-	SpeedMultiplier@squadboost:
-		RequiresCondition: squadboost
-		Modifier: 110
-	ReloadDelayMultiplier@squadboost:
-		RequiresCondition: squadboost
-		Modifier: 85
-	ExternalCondition@hospitalhealciv:
-		Condition: hospitalhealciv
-	ChangesHealth@HOSPITALCIV:
-		Step: 500
-		Delay: 100
-		StartIfBelow: 100
-		DamageCooldown: 125
-		RequiresCondition: hospitalhealciv
-	ExternalCondition@flagboost:
-		Condition: flagboost
-	FirepowerMultiplier@flagfirepowerboost:
-		RequiresCondition: flagboost
-		Modifier: 130
-	InaccuracyMultiplier@flagaccuracyboost:
-		RequiresCondition: flagboost
-		Modifier: 50
-	ExternalCondition@bioboost:
-		Condition: bioboost
-	SpeedMultiplier@biospeedboost:
-		RequiresCondition: bioboost
-		Modifier: 140
-	ReloadDelayMultiplier@bioreloadboost:
-		RequiresCondition: bioboost
-		Modifier: 75
-	DamageMultiplier@biodefenseboost:
-		RequiresCondition: bioboost
-		Modifier: 75
-	ChangesHealth@TotemDebuf:
-		RequiresCondition: TotemDebuf
-		PercentageStep: -2
-		Delay: 25
-		StartIfBelow: 101
-		DamageCooldown: 0
-	ChangesHealth@aeiouboost:
-		RequiresCondition: aeiouboost
-		PercentageStep: 3
-		Delay: 25
-		StartIfBelow: 90
-		DamageCooldown: 50
-	ChangesHealth@HolySuperBoosted:
-		RequiresCondition: HolySuperBoosted
-		PercentageStep: 3
-		Delay: 75
-		StartIfBelow: 90
-		DamageCooldown: 150
-	ChangesHealth@Monumentboost:
-		RequiresCondition: Monumentboost
-		PercentageStep: 1
-		Delay: 40
-		StartIfBelow: 100
-		DamageCooldown: 40
-	SpeedMultiplier@ChainsCondition:
-		RequiresCondition: ChainsCondition
-		Modifier: 0
-	ExternalCondition@demoralise:
-		Condition: demoralise
-	SpeedMultiplier@demoralise:
-		RequiresCondition: demoralise
-		Modifier: 90
-	ReloadDelayMultiplier@demoralise:
-		RequiresCondition: demoralise
-		Modifier: 115
-	WithDecoration@demoralise:
-		Image: pips
-		Sequence: pip-minus
-		Palette: effect
-		Position: TopRight
-		ValidRelationships: None,Neutral,Enemy,Ally
-		RequiresCondition: demoralise && !squadboost
-	DeathSounds@NORMAL:
-		DeathTypes: DefaultDeath, BulletDeath, SmallExplosionDeath, ExplosionDeath, SpawnCubeDeath
-	DeathSounds@BURNED:
-		Voice: Burned
-		DeathTypes: FireDeath, TiberiumDeath
-	DeathSounds@ZAPPED:
-		Voice: Die
-		DeathTypes: ElectricityDeath
-	Explodes@elec:
-		Weapon: Electro
-		EmptyWeapon: Electro
-		DeathTypes: ElectricityDeath
-	Explodes@tiberium:
-		Weapon: TSInfExplode
-		EmptyWeapon: TSInfExplode
-		DeathTypes: TiberiumDeath, SpawnCubeDeath
-	Explodes@fire:
-		Weapon: InfFireball
-		EmptyWeapon: InfFireball
-		DeathTypes: FireDeath
-	Explodes@GraveyardSpawnerDeath:
-		Weapon: GraveyardSpawnerDeath
-		EmptyWeapon: GraveyardSpawnerDeath
-	ChangesHealth@tiberium:
-		RequiresCondition: standing_in_tiberium
-		DamageTypes: TiberiumDeath
-		Step: -200
-		Delay: 16
-		StartIfBelow: 101
-	GrantConditionOnTerrain@tiberium:
-		Condition: standing_in_tiberium
-		TerrainTypes: Tiberium, BlueTiberium
-	SpawnActorOnDeath@tiberium:
-		Actor: vice
-		Probability: 5
-		OwnerType: InternalName
-		InternalOwner: Creeps
-		DeathType: TiberiumDeath
-		RequiresLobbyCreeps: true
-	SpawnActorOnDeath@cube:
-		Probability: 15
-		Actor: helld6
-		OwnerType: Killer
-		DeathType: SpawnCubeDeath
-		RequiresLobbyCreeps: false
-	SpawnActorOnDeath@fire:
-		Actor: flameguy
-		DeathType: FireDeath
-	SpawnActorOnDeath@zombie:
-		Actor: Zombie
-		OwnerType: Killer
-		DeathType: ZombieDeath
-	SpawnActorOnDeath@Darkwiz:
-		RequiresCondition: DarkWizAura
-		Probability: 40
-		Actor: MediZombie
-		DeathType: DefaultDeath
-	SpawnActorOnDeath@RotElement:
-		RequiresCondition: RotElementHitCon
-		Actor: RotElement
-		OwnerType: Killer
-		DeathType: ElementalDeath
-	WithDeathAnimation:
-		DeathTypes:
-			DefaultDeath: 1
-			BulletDeath: 2
-			SmallExplosionDeath: 3
-			ExplosionDeath: 4
-			-FireDeath:
-			ElectricityDeath: 6
-		CrushedSequence: die-crushed
-	UpdatesPlayerStatistics:
-		AddToArmyValue: true
-	TurnOnIdle:
-	DetectCloaked@GPS:
-		Range: 1c512
-		DetectionTypes: gpsscrambler
-	TemporaryOwnerManager:
-	DetectCloaked@AssasinDark:
-		DetectionTypes: DarkAssasin
-		Range: 3
-	GainsExperienceMultiplier:
-		Modifier: 25
-		RequiresCondition: disable-experience
-
-^Cyborg:
-	Inherits: ^Infantry
-	Mobile:
-		PauseOnCondition: disabled
-	WithColoredOverlay@IDISABLE:
-		RequiresCondition: disabled
-		Color: 000000B4
-	Targetable:
-		RequiresCondition: !parachute
-		TargetTypes: GroundActor, Cyborg, Disguise
-	SpawnActorOnDeath@cube:
-		Probability: 35
-		Actor: helld4
-		OwnerType: Killer
-		DeathType: SpawnCubeDeath
-		RequiresLobbyCreeps: false
-	-SpawnActorOnDeath@fire:
-	Explodes@fire:
-		Weapon: TSInfExplode
-		EmptyWeapon: TSInfExplode
-		DeathTypes: FireDeath
 
 ^Ship:
 	Inherits@corrode: ^CorrodesFromTibWeaps
