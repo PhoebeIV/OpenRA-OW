@@ -3,6 +3,143 @@
 ##################################   Buildings   ##############################
 ###############################################################################
 
+Dummyplug:
+	Inherits: ^Building
+	Inherits@IDISABLE: ^DisableOnLowPowerOrPowerDown
+	Buildable:
+		Queue: Bodypitprod
+		Prerequisites: ~structures.evil
+		Description: Dummy plug
+		BuildPaletteOrder: 1
+	ProvidesPrerequisite@buildingname:
+	Building:
+		BuildSounds: medibuild1.aud, medibuildjobdone1.aud, medibuildplace1.aud
+	Valued:
+		Cost: 0
+	Tooltip:
+		Name: Dummy plug
+	Selectable:
+		Bounds: 1024, 1024
+		DecorationBounds: 1024, 1024, 0, 0
+	SelectionDecorations:
+	Health:
+		HP: 40000
+	Armor:
+		Type: Wood
+	RevealsShroud:
+		Range: 4c0
+	WithBuildingBib:
+		HasMinibib: true
+	-BodyOrientation:
+	ClassicFacingBodyOrientation:
+		QuantizedFacings: 8
+	Power:
+		Amount: -0
+	RenderSprites:
+		Image: mediarcanetower
+	Plug:
+		Type: dummyplug
+	Replaceable:
+		Types: buildskelly, buildhost, buildgouls
+		RequiresCondition: !disabled
+
+SetGoul:
+	Inherits: ^Building
+	Inherits@IDISABLE: ^DisableOnLowPowerOrPowerDown
+	-Targetable:
+	Buildable:
+		Queue: Bodypitprod
+		Prerequisites: ~structures.evil
+		Description: Goul Plug
+		BuildPaletteOrder: 1
+	ProvidesPrerequisite@buildingname:
+	Building:
+		BuildSounds: medibuild1.aud, medibuildjobdone1.aud, medibuildplace1.aud
+	Valued:
+		Cost: 0
+	Tooltip:
+		Name: Goul Plug
+	Selectable:
+		Bounds: 1024, 1024
+		DecorationBounds: 1024, 1024, 0, 0
+	SelectionDecorations:
+	Health:
+		HP: 40000
+	Armor:
+		Type: Wood
+	RevealsShroud:
+		Range: 4c0
+	WithBuildingBib:
+		HasMinibib: true
+	-BodyOrientation:
+	ClassicFacingBodyOrientation:
+		QuantizedFacings: 8
+	Power:
+		Amount: -100
+	RenderSprites:
+		Image: mediarcanetower
+	Replaceable:
+		Types: buildskelly , buildhost
+		RequiresCondition: !disabled
+	Replacement:
+		ReplaceableTypes: buildgouls
+	ProximityExternalCondition:
+		Condition: buildgouls
+		Range: 3c0
+
+SetSkelly:
+	Inherits: SetGoul
+	Buildable:
+		Queue: Bodypitprod
+		Prerequisites: ~structures.evil
+		Description: Skelly Plug
+		BuildPaletteOrder: 1
+	ProvidesPrerequisite@buildingname:
+	Building:
+		BuildSounds: medibuild1.aud, medibuildjobdone1.aud, medibuildplace1.aud
+	Valued:
+		Cost: 0
+	Tooltip:
+		Name: Skelly Plug
+	Power:
+		Amount: -100
+	RenderSprites:
+		Image: mediarcanetower
+	Replaceable:
+		Types: buildgouls , buildHost
+	Replacement:
+		ReplaceableTypes: buildskelly
+	ProximityExternalCondition:
+		Condition: buildSkelly
+		Range: 2c0
+
+SetHost:
+	Inherits: SetGoul
+	Buildable:
+		Queue: Bodypitprod
+		Prerequisites: ~structures.evil
+		Description: Host Plug
+		BuildPaletteOrder: 1
+	ProvidesPrerequisite@buildingname:
+	Building:
+		BuildSounds: medibuild1.aud, medibuildjobdone1.aud, medibuildplace1.aud
+	Valued:
+		Cost: 0
+	Tooltip:
+		Name: Host Plug
+	Power:
+		Amount: -100
+	RenderSprites:
+		Image: mediarcanetower
+	Replaceable:
+		Types: buildgouls , buildskelly
+		RequiresCondition: !disabled
+	Replacement:
+		ReplaceableTypes: buildhost
+	ProximityExternalCondition:
+		Condition: buildHost
+		Range: 1c0
+
 ###############################################################################
 ##############################   MCV and Power   ###########################
 ###############################################################################
@@ -10,6 +147,7 @@
 ##  MCV: Ritual Grounds: Auto Produces Summoners
 FACTE:
 	Inherits@FACTM: FACTM
+	Inherits@IDISABLE: ^DisableOnLowPowerOrPowerDown
 	Building:
 		Footprint: xxx xxx X== ===
 		Dimensions: 3,4
@@ -54,6 +192,19 @@ FACTE:
 		Position: BottomLeft
 		PipCount: 10
 		AmmoPools: GraveAmmoPool
+	GrantConditionOnAttack:
+		Condition: FreeSummoner
+		RevokeDelay: 10
+		RevokeAll: True
+	AutoTarget:
+		InitialStance: AttackAnything
+		ScanRadius: 10
+	AttackOmni:
+	Armament:
+		Weapon: FactoryShot
+		TargetRelationships: Enemy, Neutral, Ally
+		RequiresCondition: SummonerPoolAmmoCondition
+		PauseOnCondition: disabled
 	FreeActor@summoner:
 		Actor: EvilSummoner
 		SpawnOffset: 1,1
@@ -71,19 +222,6 @@ FACTE:
 		Actor: EvilSummoner
 		SpawnOffset: 1,1
 		AllowRespawn: False
-	GrantConditionOnAttack:
-		Condition: FreeSummoner
-		RevokeDelay: 10
-		RevokeAll: True
-	AutoTarget:
-		InitialStance: AttackAnything
-		ScanRadius: 10
-	AttackOmni:
-	Armament:
-		Weapon: FactoryShot
-		TargetRelationships: Ally
-		ForceTargetRelationships: Ally
-		RequiresCondition: SummonerPoolAmmoCondition
 		
 ## Hell conduit: Provides Power, 1x1 footprint
 Hellconduit:
@@ -97,7 +235,7 @@ Hellconduit:
 	Building:
 		BuildSounds: medibuild1.aud, medibuildjobdone1.aud, medibuildplace1.aud
 	Valued:
-		Cost: 1200
+		Cost: 200
 	Tooltip:
 		Name: Hell Conduit
 	Selectable:
@@ -182,8 +320,11 @@ Hoardpile:
 ## Shallow Grave: Spawns Undead Slaves on cooldown. (Starter workers.)
 Shallowgrave:
 	Inherits: PROC
+	Inherits@IDISABLE: ^DisableOnLowPowerOrPowerDown
+	Inherits@AUTOTARGET: ^AutoTargetAll
 	-FreeActor:
-	-Power:
+	Power:
+		Amount: 50
 	-WithIdleOverlay@TOP:
 	-WithIdleOverlay@uac:
 	-WithDeathAnimation:
@@ -215,20 +356,80 @@ Shallowgrave:
 	WithBuildingBib:
 	RenderSprites:
 		Image: farmmedi
-	ExternalCondition:
-		Condition: Gravespawn
-	FreeActor@summoner:
+	FreeActor@Summon:
 		Actor: UndeadSlave
 		SpawnOffset: 1,1
 		AllowRespawn: True
-		RequiresCondition: Gravespawn
-	FreeActor@summoner1st:
+		RequiresCondition: FreeSummon
+	FreeActor@Summon1st:
 		Actor: UndeadSlave
 		SpawnOffset: 1,1
 		AllowRespawn: False
+	AmmoPool:
+		Name: SummonerPool
+		Armaments: primary
+		Ammo: 1
+		InitialAmmo: 1
+		ReloadCount: 1
+		ReloadDelay: 1000
+		AmmoCondition: SlavePoolAmmoCondition
+	ReloadAmmoPool:
+		AmmoPool: SummonerPool
+		Delay: 1000
+		Count: 1
+		RequiresCondition: !disabled
+	WithAmmoPipsDecoration:
+		Position: BottomLeft
+		PipCount: 10
+		AmmoPools: GraveAmmoPool
+	GrantConditionOnAttack:
+		Condition: FreeSummon
+		RevokeDelay: 10
+		RevokeAll: True
+	AutoTarget:
+		InitialStance: AttackAnything
+		ScanRadius: 10
+	AttackOmni:
+	Armament:
+		Weapon: FactoryShot
+		TargetRelationships: Enemy, Neutral, Ally
+		RequiresCondition: SlavePoolAmmoCondition
+		PauseOnCondition: disabled
 
 
 ## Golem Core: Redeployable Structure/Unit, Auto produces Worker Golems, does not give build range.
+GolemCore:
+	Inherits: Shallowgrave
+	Inherits@IDISABLE: ^DisableOnLowPowerOrPowerDown
+	Power:
+		Amount: 100
+	Buildable:
+		Queue: Building
+		Prerequisites: ~structures.evil, hoardpile1st, ~!ai.boss, ~techlevel.infonly
+		Description: Drop off point for resources, Spawns Worker Golems to harvest for you
+		BuildPaletteOrder: 3
+	Tooltip:
+		Name: Golem Core
+	Valued:
+		Cost: 1000
+	Health:
+		HP: 10000
+	Armor:
+		Type: Wood
+	ProvidesPrerequisite@buildingname:
+	ResourceValueMultiplier:
+		Modifier: 100
+	RenderSprites:
+		Image: farmmedi
+	FreeActor@Summon:
+		Actor: Harvestergolem
+		SpawnOffset: 1,1
+		AllowRespawn: True
+		RequiresCondition: FreeSummon
+	FreeActor@Summon1st:
+		Actor: Harvestergolem
+		SpawnOffset: 1,1
+		AllowRespawn: False
 
 
 
@@ -236,7 +437,199 @@ Shallowgrave:
 ###############  Infantry  ##################
 #############################################
 
-## Body Pit, spawns Zombies, Skeletons, and Swarm Hosts.
+## Body Pit, spawns Gouls, Skeletons, and Swarm Hosts.
+
+Bodypit:
+	Inherits: ^BarracksPrereqs
+	Inherits: ^Building
+	Inherits@IDISABLE: ^DisableOnLowPowerOrPowerDown
+	Inherits@shape: ^2x2Shape
+	AutoTarget:
+		AllowMovement: False
+	Selectable:
+		Bounds: 2048, 3072, 0, 512
+	HitShape:
+		UseTargetableCellsOffsets: false
+		TargetableOffsets: 0,0,0, 630,-512,0, 355,512,0, -281,-512,0, -630,512,0
+	Buildable:
+		Queue: Building
+		Prerequisites: ~structures.evil, ~techlevel.infonly, ~!structures.bothard
+		Description: Allows production of Corpse Based units
+		BuildPaletteOrder: 1
+	Valued:
+		Cost: 500
+	Tooltip:
+		Name: Body Pit
+	Building:
+		Footprint: xx xx _+
+		Dimensions: 2,3
+		LocalCenterOffset: 0,-512,0
+		BuildSounds: medibuild1.aud, medibuildjobdone1.aud, medibuildplace1.aud
+	Health:
+		HP: 60000
+	Armor:
+		Type: Wood
+	RevealsShroud:
+		MinRange: 4c0
+		Range: 5c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 4c0
+	WithBuildingBib:
+	Exit@1:
+		SpawnOffset: -42,810,0
+		ExitCell: 1,2
+		ProductionTypes: Bodypitprod
+	ProductionQueue@Bodypitinfantry:
+		Type: Bodypitprod
+		DisplayOrder: 2
+		LowPowerModifier: 200
+		ReadyAudio: UnitReady
+		BlockedAudio: NoBuild
+		LimitedAudio: BuildingInProgress
+		QueuedAudio: Building
+		OnHoldAudio: OnHold
+		CancelledAudio: Cancelled
+	Production:
+		Produces: Bodypitprod
+	GrantExternalConditionToProduced:
+		Condition: produced
+	ProvidesPrerequisite@buildingname:
+	InfiltrateForSupportPower:
+		Proxy: barracks.upgraded
+		Types: SpyInfiltrate
+	Targetable:
+		TargetTypes: GroundActor, C4, DetonateAttack, Structure, SpyInfiltrate
+	RenderSprites:
+		Image: tentmedi
+	GrantConditionOnPlayerResources:
+		Condition: HasMoney
+	ExternalCondition:
+		Condition: Conduit
+	ReloadAmmoDelayMultiplier:
+		Modifier: 100
+		RequiresCondition: Conduit
+	ReloadDelayMultiplier:
+		Modifier: 100
+	ExternalCondition@buildHost:
+		Condition: buildHost
+	ExternalCondition@buildSkelly:
+		Condition: buildSkelly
+	ExternalCondition@buildgouls:
+		Condition: buildgouls
+	FreeActor@Dummyplug:
+		Actor: Dummyplug
+		SpawnOffset: 0,2
+		AllowRespawn: False
+		RequiresCondition: !disabled
+	CashTrickler@goul:
+		Interval: 5
+		InitialDelay: 10
+		Amount: -100
+		PauseOnCondition: disabled || !HasMoney
+		RequiresCondition: buildgouls
+	CashTrickler@skelly:
+		Interval: 5
+		InitialDelay: 10
+		Amount: -100
+		PauseOnCondition: disabled || !HasMoney
+		RequiresCondition: buildSkelly
+	CashTrickler@host:
+		Interval: 5
+		InitialDelay: 10
+		Amount: -100
+		PauseOnCondition: disabled || !HasMoney
+		RequiresCondition: buildHost
+	FreeActor@goul:
+		Actor: goul
+		SpawnOffset: 1,2
+		AllowRespawn: True
+		RequiresCondition: SummonGoul
+	FreeActor@skelly:
+		Actor: skelly
+		SpawnOffset: 1,2
+		AllowRespawn: True
+		RequiresCondition: SummonSkelly
+	FreeActor@host:
+		Actor: corpsehost
+		SpawnOffset: 1,2
+		AllowRespawn: True
+		RequiresCondition: SummonHost
+	AmmoPool@goul:
+		Name: gpool
+		Armaments: Goulwep
+		Ammo: 1
+		InitialAmmo: 1
+		ReloadCount: 1
+		ReloadDelay: 1000
+		AmmoCondition: gpoolAmmoCondition
+	ReloadAmmoPool@goul:
+		AmmoPool: gpool
+		Delay: 1000
+		Count: 1
+		RequiresCondition: buildgouls
+	AmmoPool@skelly:
+		Name: spool
+		Armaments: skellywep
+		Ammo: 1
+		InitialAmmo: 1
+		ReloadCount: 1
+		ReloadDelay: 1000
+		AmmoCondition: spoolAmmoCondition
+	ReloadAmmoPool@skelly:
+		AmmoPool: spool
+		Delay: 1000
+		Count: 1
+		RequiresCondition: buildSkelly
+	AmmoPool@host:
+		Name: hpool
+		Armaments: hostwep
+		Ammo: 1
+		InitialAmmo: 1
+		ReloadCount: 1
+		ReloadDelay: 1000
+		AmmoCondition: hpoolAmmoCondition
+	ReloadAmmoPool@host:
+		AmmoPool: hpool
+		Delay: 1000
+		Count: 1
+		RequiresCondition: buildHost
+	GrantConditionOnAttack@goul:
+		Condition: SummonGoul
+		ArmamentNames: Goulwep
+		RevokeDelay: 1
+		RevokeAll: True
+	GrantConditionOnAttack@skelly:
+		Condition: SummonSkelly
+		ArmamentNames: skellywep
+		RevokeDelay: 1
+		RevokeAll: True
+	GrantConditionOnAttack@host:
+		Condition: SummonHost
+		ArmamentNames: hostwep
+		RevokeDelay: 1
+		RevokeAll: True
+	AutoTarget:
+		InitialStance: AttackAnything
+		ScanRadius: 10
+	AttackOmni:
+		Armaments: Goulwep, skellywep, hostwep
+		PauseOnCondition: disabled
+	Armament@goul:
+		Name: Goulwep
+		Weapon: FactoryShot
+		TargetRelationships: Enemy, Neutral, Ally
+		RequiresCondition: gpoolAmmoCondition && buildgouls
+	Armament@skelly:
+		Name: skellywep
+		Weapon: FactoryShot
+		TargetRelationships: Enemy, Neutral, Ally
+		RequiresCondition: spoolAmmoCondition && buildSkelly
+	Armament@host:
+		Name: hostwep
+		Weapon: FactoryShot
+		TargetRelationships: Enemy, Neutral, Ally
+		RequiresCondition: hpoolAmmoCondition && buildHost
 
 
 ##  Hell Gateway: Produces Demons, Imps and Hellhounds

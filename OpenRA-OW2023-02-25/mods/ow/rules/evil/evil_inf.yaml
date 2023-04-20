@@ -1,7 +1,8 @@
 
 ###############################################################################
-###############################   Evil   ######################################
+###########################   Dummy Units   ###################################
 ###############################################################################
+
 
 
 ###############################################################################
@@ -15,7 +16,7 @@ EvilSummoner:
 	Valued:
 		Cost: 0
 	Tooltip:
-		Name: Undead Slave
+		Name: Evil Summoner
 	Mobile:
 		Speed: 54
 	Health:
@@ -74,10 +75,10 @@ UndeadSlave:
 		Resources: Ore,Gems,Tiberium,BlueTiberium,MediGold
 		BaleLoadDelay: 10
 		SearchFromProcRadius: 10
-		SearchFromHarvesterRadius: 5
+		SearchFromHarvesterRadius: 10
 		HarvestVoice: Harvest
 		MaxUnloadQueue: 9
-		FullyLoadedSpeed: 60
+		FullyLoadedSpeed: 30
 	Voiced:
 		VoiceSet: SlaveVoice
 	-Armament:
@@ -95,10 +96,149 @@ UndeadSlave:
 	-RepairsBridges:
 	RenderSprites:
 		Image: medislave
+	KillsSelf:
+		Delay: 1000
 
+Harvestergolem:
+	Inherits@SLAVE: SLAVE
+	-Buildable:
+	Valued:
+		Cost: 0
+	Tooltip:
+		Name: Harvester golem
+	Mobile:
+		Speed: 54
+	Health:
+		HP: 1000
+	Passenger:
+		CustomPipType: yellow
+	-SpeedMultiplier:
+	-ChangesHealth:
+	Harvester:
+		UnblockCell: 0,1
+		Capacity: 4
+		Resources: Ore,Gems,Tiberium,BlueTiberium,MediGold
+		BaleLoadDelay: 10
+		SearchFromProcRadius: 10
+		SearchFromHarvesterRadius: 10
+		HarvestVoice: Harvest
+		MaxUnloadQueue: 9
+		FullyLoadedSpeed: 30
+	Voiced:
+		VoiceSet: SlaveVoice
+	-Armament:
+	WithFacingSpriteBody:
+		Sequence: stand
+	BodyOrientation:
+		QuantizedFacings: 8
+	WithMoveAnimation:
+		MoveSequence: run
+	-WithAttackAnimation:
+	WithDockingAnimation:
+	-AttackFrontal:
+	-AutoTarget:
+	-AutoTargetPriority@DEFAULT:
+	-RepairsBridges:
+	RenderSprites:
+		Image: medislave
+	KillsSelf:
+		Delay: 1000
 ###############################################################################
 #######################   Melee Units   #######################################
 ###############################################################################
+
+goul:
+	Inherits@FOOTMAN: FOOTMAN
+	Buildable:
+		Prerequisites: ~infantry.evil
+		Description: Mediaval knight. \n Strong vs infantry\n Weak vs anything else
+		Queue: Bodypitprod
+		BuildAtProductionType: Bodypitprod
+		BuildPaletteOrder: 408
+		BuildDuration: 140
+	Valued:
+		Cost: 140
+	Tooltip:
+		Name: goul
+	Health:
+		HP: 17000
+	AttackFrontal:
+		Armaments: PRIMARY, SECONDARY
+		FacingTolerance: 0
+	Armament@1:
+		Name: PRIMARY
+		Weapon: Sword2
+		PauseOnCondition: elementalweps
+	Armament@ElementalWepon:
+		Name: SECONDARY
+		Weapon: Sword2ElementalWeps
+		RequiresCondition: elementalweps
+	RenderSprites:
+		Image: mediswordman
+	Voiced:
+		VoiceSet: SwordmanVoice
+
+skelly:
+	Inherits@FOOTMAN: FOOTMAN
+	Buildable:
+		Prerequisites: ~infantry.evil
+		Description: Mediaval knight. \n Strong vs infantry\n Weak vs anything else
+		Queue: Bodypitprod
+		BuildAtProductionType: Bodypitprod
+		BuildPaletteOrder: 408
+		BuildDuration: 140
+	Valued:
+		Cost: 140
+	Tooltip:
+		Name: skelly
+	Health:
+		HP: 17000
+	AttackFrontal:
+		Armaments: PRIMARY, SECONDARY
+		FacingTolerance: 0
+	Armament@1:
+		Name: PRIMARY
+		Weapon: Sword2
+		PauseOnCondition: elementalweps
+	Armament@ElementalWepon:
+		Name: SECONDARY
+		Weapon: Sword2ElementalWeps
+		RequiresCondition: elementalweps
+	RenderSprites:
+		Image: mediswordman
+	Voiced:
+		VoiceSet: SwordmanVoice
+
+corpsehost:
+	Inherits@FOOTMAN: FOOTMAN
+	Buildable:
+		Prerequisites: ~infantry.evil
+		Description: Mediaval knight. \n Strong vs infantry\n Weak vs anything else
+		Queue: Bodypitprod
+		BuildAtProductionType: Bodypitprod
+		BuildPaletteOrder: 408
+		BuildDuration: 140
+	Valued:
+		Cost: 140
+	Tooltip:
+		Name: corpsehost
+	Health:
+		HP: 17000
+	AttackFrontal:
+		Armaments: PRIMARY, SECONDARY
+		FacingTolerance: 0
+	Armament@1:
+		Name: PRIMARY
+		Weapon: Sword2
+		PauseOnCondition: elementalweps
+	Armament@ElementalWepon:
+		Name: SECONDARY
+		Weapon: Sword2ElementalWeps
+		RequiresCondition: elementalweps
+	RenderSprites:
+		Image: mediswordman
+	Voiced:
+		VoiceSet: SwordmanVoice
 
 ###############################################################################
 ##########################   Super Units   ####################################
