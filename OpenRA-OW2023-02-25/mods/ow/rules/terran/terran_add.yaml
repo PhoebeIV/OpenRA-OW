@@ -461,3 +461,20 @@ TSILO:
 	KillsSelf:
 		RequiresCondition: botowner && !cc_addon
 		Delay: 125
+	WithDecoration@nuke1:
+		Image: pips
+		Sequence: pip-empty
+		Palette: effect
+		Position: BottomLeft
+		ValidRelationships: None, Ally, Enemy, Neutral
+		RequiresCondition: !has_nuke
+	WithDecoration@nuke2:
+		Image: pips
+		Sequence: pip-red
+		Palette: effect
+		Position: BottomLeft
+		ValidRelationships: None, Ally, Enemy, Neutral
+		RequiresCondition: has_nuke
+	GrantConditionOnPrerequisite@hasnuke:
+		Prerequisites: terran.nuke
+		Condition: has_nuke
