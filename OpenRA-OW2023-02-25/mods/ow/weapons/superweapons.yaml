@@ -2474,3 +2474,35 @@ NuclearParaDrop:
 		Size: 3
 		Delay: 625
 		ResourceAmount: 10
+
+TerranNukeDown:
+	ValidTargets: Ground, Water, GroundActor, WaterActor, Underwater, AirborneActor, Trees
+	Projectile: Bullet
+		Speed: 2c0
+	Warhead@1Effect: CreateEffect
+		Explosions: idle
+		ExplosionPalette: player
+		Image: tnuke
+		UsePlayerPalette: true
+		ImpactActors: false
+	Warhead@cluster2: FireCluster
+		Delay: 52
+		Weapon: TerranNuke
+		RandomClusterCount: 1
+		Dimensions: 1,1
+		Footprint: x
+
+TerranNuke:
+	Inherits: Atomic
+	Projectile: Bullet
+		Speed: 2c0
+	Warhead@4Eff_impact: CreateEffect
+		Explosions: nuke
+		ImpactSounds: tnshit00.aud
+		ImpactActors: false
+		ValidTargets: Ground, Water, Air
+	Warhead@5Eff_impact: CreateEffect
+		Explosions: dukenukemexplosionbig
+		ImpactSounds: tnshit00.aud
+		ImpactActors: false
+		ValidTargets: Ground, Water, Air

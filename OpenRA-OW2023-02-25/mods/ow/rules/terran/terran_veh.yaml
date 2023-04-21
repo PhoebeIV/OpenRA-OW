@@ -33,7 +33,7 @@ TVULT:
 	AttackFrontal:
 		PauseOnCondition: disabled
 		FacingTolerance: 0
-	SpawnActorOnDeath:
+	SpawnActorOnDeath: 
 		Actor: TVULT.Husk
 	Voiced:
 		VoiceSet: TerranVultureVoice
@@ -67,8 +67,11 @@ TVULT:
 		Condition: botowner
 	GrantRandomCondition@bot:
 		Conditions: none,minelayer
+	GrantConditionOnTerrain@mines:
+		TerrainTypes: Water, Beach
+		Condition: nomines
 	GrantConditionOnAttack@bot:
-		RequiresCondition: minelayer && botowner
+		RequiresCondition: minelayer && botowner && !nomines
 		Condition: shoot
 		MaximumInstances: 10
 		RevokeDelay: 15000

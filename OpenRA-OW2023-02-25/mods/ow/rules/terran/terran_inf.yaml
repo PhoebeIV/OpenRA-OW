@@ -6,7 +6,7 @@ TSCV:
 		BuildPaletteOrder: 45
 		Prerequisites: refinery, ~infantry.terran, ~techlevel.infonly
 		Description: Collects Ore, Gems and Tiberium for processing.\nSpeed: 96\n  Can repair structures and vehicles.
-		BuildDurationModifier: 200
+		BuildDurationModifier: 150
 	Valued:
 		Cost: 400
 	Tooltip:
@@ -473,6 +473,8 @@ TMEDIC:
 		TargetRelationships: Ally
 		ForceTargetRelationships: None
 	AutoTarget:
+		InitialStance: AttackAnything
+		ScanRadius: 6
 	AutoTargetPriority@DEFAULT:
 		ValidTargets: Infantry
 	AmmoPool:
@@ -549,3 +551,211 @@ TMEDIC:
 		ConsumedByCapture: False
 		EnterCursor: ability
 		EnterBlockedCursor: move-blocked
+
+TGHOST:
+	Inherits: ^DoomSoldier
+	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
+	Buildable:
+		Queue: Infantry
+		BuildAtProductionType: Soldier
+		BuildPaletteOrder: 31
+		Prerequisites: tacadamy, tcops, ~barracks, ~techlevel.unrestricted, ~infantry.terran
+		Description: Covert Ops assassin.\nSpeed: 60\n  Strong vs Infantry\n  Weak vs Vehicles, Aircraft \n\nCan use stealth, and launch spot for the Missile Silo.
+		BuildDurationModifier: 150
+		BuildDuration: 500
+	Selectable:
+		Bounds: 768, 938, 0, 0
+		DecorationBounds: 750, 938, 0, 0
+		Class: TGHOST
+	Valued:
+		Cost: 1400
+	Tooltip:
+		GenericName: Ghost
+		Name: Ghost
+		RequiresCondition: !nuke_armed
+	Tooltip@2:
+		GenericName: Ghost
+		Name: Ghost - Target Painting (No Nuke)
+		RequiresCondition: nuke_armed && (!nuke_built || !nuke_ammo)
+	Tooltip@3:
+		GenericName: Ghost
+		Name: Ghost - Target Painting
+		RequiresCondition: nuke_armed && nuke_built
+	Mobile:
+		Speed: 60
+		TurnSpeed: 90
+	Health:
+		HP: 16500
+	Armament@PRIMARY:
+		Weapon: TerranGhost
+		RequiresCondition: !nuke_armed || ((nuke_armed && !nuke_built) || (nuke_armed && nuke_built && !nuke_ammo))
+	Armament@SECONDARY:
+		Name: nuke
+		Weapon: TerranGhostPainter
+		RequiresCondition: nuke_armed && nuke_built && nuke_ammo
+		LocalOffset: 300,0,256
+	Armament@THREE:
+		Name: nukedrop
+		Weapon: TerranGhostNuke
+		RequiresCondition: nuking == 20 && (nuke_built && nuke_ammo && !stop_nuke)
+	Armament@GARRISONED:
+		Name: garrisoned
+		Weapon: TerranGhost
+		MuzzleSequence: garrison-muzzle
+	Armament@BUS:
+		Name: bus
+		Weapon: TerranGhost
+	AttackFrontal:
+		Armaments: primary, nuke, nukedrop
+	AmmoPool:
+		Ammo: 32
+		AmmoCondition: ammo
+		Armaments: primary, nuke
+		InitialAmmo: 1
+	AmmoPool@nuke:
+		Ammo: 1
+		Name: nuke_ammopool
+		AmmoCondition: nuke_ammo
+		Armaments: nukedrop
+		InitialAmmo: 1
+	WithAmmoPipsDecoration:
+		PipCount: 14
+		FullSequence: bar-blue
+		EmptySequence: bar-empty
+	WithInfantryBody:
+		DefaultAttackSequence: shoot
+		StandSequences: stand,stand2
+		IdleSequences: stand,stand2,aiming
+		RequiresCondition: !aiming && !shooting
+	WithInfantryBody@aiming:
+		DefaultAttackSequence: aiming
+		StandSequences: aiming
+		IdleSequences: stand,stand2
+		RequiresCondition: aiming && !shooting
+	WithInfantryBody@shooting:
+		DefaultAttackSequence: shoot
+		StandSequences: shoot
+		IdleSequences: shoot
+		RequiresCondition: aiming && shooting
+	GrantConditionOnAttack@aiming:
+		ArmamentNames: primary, nuke
+		Condition: aiming
+		RevokeDelay: 50
+	GrantConditionOnAttack@nuking:
+		ArmamentNames: nuke
+		Condition: nuking
+		MaximumInstances: 20
+		RevokeAll: true
+		RevokeDelay: 50
+	GrantConditionOnAttack@nuking2:
+		ArmamentNames: nuke
+		Condition: nuke_use
+		RevokeDelay: 50
+	GrantConditionOnAttack@nuking3:
+		ArmamentNames: nuke
+		Condition: nuke_use2
+		RequiredShotsPerInstance: 4
+		RevokeDelay: 50
+	GrantConditionOnAttack@nuking4:
+		ArmamentNames: nuke
+		Condition: nuke_use3
+		RevokeDelay: 50
+	GrantConditionOnAttack@nukedrop:
+		ArmamentNames: nukedrop
+		Condition: nuke_revoke
+		RevokeDelay: 50
+	GrantConditionOnAttack@shooting:
+		Condition: shooting
+		RevokeDelay: 5
+	GrantConditionOnMovement@move:
+		Condition: moving
+	WithDeathAnimation:
+		UseDeathTypeSuffix: false
+		CrushedSequence: die
+		CrushedSequencePalette: player
+		CrushedPaletteIsPlayerPalette: true
+	ProducibleWithLevel:
+		Prerequisites: barracks.upgraded
+	Voiced:
+		VoiceSet: TerranGhostVoice
+	AmbientSound@talky2:
+		SoundFiles: tghrdy00.aud
+		Delay: 25
+		Interval: -1
+	AmbientSound@nuke:
+		SoundFiles: tghlas00.aud
+		Delay: 0
+		Interval: -1
+		RequiresCondition: nuke_use
+	VoiceAnnouncement@nuke:
+		Voice: Laser
+		RequiresCondition: nuke_use3 && nuke_built
+	VoiceAnnouncement@2:
+		Voice: AbombLaunchDetected
+		RequiresCondition: nuke_use2 && nuke_built
+	DeathSounds@NORMAL:
+		Voice: Die
+	DeathSounds@ZAPPED:
+		Voice: Die
+	GrantConditionOnPrerequisite@upgrade:
+		Prerequisites: terran.ghost
+		Condition: ghost_upgraded
+	AutoTarget:
+		ReturnFireCondition: arbiterstealth
+		HoldFireCondition: arbiterstealth
+	ReloadAmmoPool@reloadnear:
+		RequiresCondition: !arbiterstealth || botowner
+		Delay: 75
+	ReloadAmmoPool@nuker:
+		RequiresCondition: nuke_armed || botowner
+		Delay: 50
+	Cloak@arbiterstealth:
+		IsPlayerPalette: true
+		InitialDelay: 5
+		CloakDelay: 25
+		CloakSound: tphclo00.aud
+		UncloakSound: tphclo01.aud
+		RequiresCondition: (arbiterstealth || botowner) && (ammo > 4)
+		CloakedCondition: cloaked
+		UncloakOn: Unload, Infiltrate, Demolish
+	GrantConditionOnPrerequisite@nuke:
+		Prerequisites: terran.nuke
+		Condition: nuke_built
+	ProvidesPrerequisite@nuke: 
+		RequiresCondition: nuke_revoke
+		Prerequisite: nuke_launched
+	ProvidesPrerequisite@nuke_sound: 
+		RequiresCondition: nuke_use
+		Prerequisite: nuke_sound
+	GrantConditionOnDeploy:
+		RequiresCondition: nuke_built
+		DeployedCondition: nuke_armed
+		SkipMakeAnimation: true
+	WithDecoration@nuke1:
+		Image: pips
+		Sequence: pip-empty
+		Palette: effect
+		Position: BottomLeft
+		ValidRelationships: Ally
+		RequiresCondition: nuke_armed && (!nuke_built || (nuke_built && !nuke_ammo))
+	WithDecoration@nuke2:
+		Image: pips
+		Sequence: pip-red
+		Palette: effect
+		Position: BottomLeft
+		ValidRelationships: Ally
+		RequiresCondition: nuke_armed && nuke_built && nuke_ammo
+	ExternalCondition@stop_nuke:
+		Condition: stop_nuke
+	ProximityExternalCondition@stop_nuke:
+		RequiresCondition: nuking >= 14
+		Condition: stop_nuke
+		Range: 32c0
+	GrantConditionOnPrerequisite@bot:
+		Prerequisites: ai.all
+		Condition: botowner
+	GrantRandomCondition:
+		Conditions: nothing,nothing,bot_nuker
+	GrantCondition@botnuker:
+		RequiresCondition: bot_nuker && botowner
+		Condition: nuke_armed

@@ -48,7 +48,7 @@ TCOMSAT.plug:
 	Buildable:
 		Queue: Tech
 		BuildPaletteOrder: 199
-		Prerequisites: refinery, ~tcommand.addon, ~structures.terran, ~techlevel.medium
+		Prerequisites: refinery, tcommand.addon, ~structures.terran, ~techlevel.medium
 		Description: Attach to Command Center. Provides an overview of the battlefield.\nRequires power to operate.
 		IconPalette: player
 		IconPaletteIsPlayerPalette: true
@@ -133,7 +133,7 @@ TSHOP.plug:
 	Buildable:
 		Queue: Vehicle
 		BuildPaletteOrder: 115
-		Prerequisites: ~factory, ~tfactory.addon, ~structures.terran, ~techlevel.medium
+		Prerequisites: ~factory, tfactory.addon, ~structures.terran, ~techlevel.medium
 		Description: Attach to Factory. \nAllows access to Siege Tank,\n Goliath and vehicle upgrades.
 		IconPalette: player
 		IconPaletteIsPlayerPalette: true
@@ -204,7 +204,7 @@ TCTRL.plugai:
 	Inherits: TCTRL.plug
 	Buildable:
 		Queue: Bot
-		Prerequisites: ~tsport, ~tsport.addon, ~structures.terran, ~techlevel.high, ~ai.all, ~!tctrl
+		Prerequisites: ~tsport, tsport.addon, ~structures.terran, ~techlevel.high, ~ai.all, ~!tctrl
 
 TCTRL:
 	Inherits: ^TerranAddon
@@ -263,7 +263,7 @@ TCOPS.plug:
 	Buildable:
 		Queue: Tech
 		BuildPaletteOrder: 200
-		Prerequisites: ~tscience, ~tscience.addon, ~structures.terran, ~techlevel.unrestricted
+		Prerequisites: ~tscience, tscience.addon, ~structures.terran, ~techlevel.unrestricted
 		Description: Attach to Science Facility. \nAllows access to Ghost and \n missile silo.
 		IconPalette: player
 		IconPaletteIsPlayerPalette: true
@@ -322,7 +322,7 @@ TPLAB.plug:
 	Buildable:
 		Queue: Tech
 		BuildPaletteOrder: 201
-		Prerequisites: ~tscience, ~tscience.addon, ~structures.terran, ~techlevel.unrestricted
+		Prerequisites: ~tscience, tscience.addon, ~structures.terran, ~techlevel.unrestricted
 		Description: Attach to Science Facility. \nAllows access to Battlecruiser.
 		IconPalette: player
 		IconPaletteIsPlayerPalette: true
@@ -348,3 +348,116 @@ TPLAB:
 	ProvidesPrerequisite@buildingname:
 		RequiresCondition: scf_addon
 	-WithIdleOverlay:
+
+
+TSILO.plug:
+	Inherits: ^BuildingPlug
+	Valued:
+		Cost: 2000
+	Tooltip:
+		Name: Addon: Missile Silo
+	Buildable:
+		Queue: Tech
+		BuildPaletteOrder: 202
+		Prerequisites: tcops, tcommand.addon, ~structures.terran, ~techlevel.unrestricted, ~!tsilo
+		Description: Attach to Command Center. \nAllows production of a nuclear missile.\nRequires power to operate.
+		IconPalette: player
+		IconPaletteIsPlayerPalette: true
+	Plug:
+		Type: tsilo.plug
+	RenderSprites:
+		Image: tsilo
+	SequencePlaceBuildingPreview:
+		Sequence: idle
+	Power:
+		Amount: -200
+
+TSILO:
+	Inherits: ^TerranAddon
+	Valued:
+		Cost: 2000
+	Tooltip:
+		Name: Missile Silo
+	ProvidesPrerequisite@buildingname:
+	RevealsShroud@GAPGEN:
+		Range: 6c0
+		RequiresCondition: !disabled
+	Power:
+		Amount: -200
+		RequiresCondition: cc_addon
+	WithProductionOverlay:
+	ExternalCondition@nearcc:
+		Condition: cc_addon
+	GrantCondition@nearcc:
+		RequiresCondition: !cc_addon
+		Condition: disabled
+	SupportPowerChargeBar:
+	Explodes:
+		Type: CenterPosition
+		Weapon: TerranSiloNuke
+		EmptyWeapon: TerranSiloNuke
+	Exit:
+		ProductionTypes: Nuke, Bot
+	Production:
+		Produces: Nuke
+	Production@bot:
+		RequiresCondition: botowner
+		Produces: Bot
+	ProductionQueue@nuke:
+		Type: Nuke
+		DisplayOrder: 9
+		LowPowerModifier: 300
+		ReadyAudio: AbombReady
+		BlockedAudio: NoBuild
+		LimitedAudio: BuildingInProgress
+		QueuedAudio: AbombPrepping
+		OnHoldAudio: OnHold
+		CancelledAudio: Cancelled
+	NukePower:
+		ChargeInterval: 19500
+		PauseOnCondition: disabled
+		RequiresCondition: botowner && nothing
+		Cursor: nuke
+		Icon: abomb
+		Name: Atom Bomb
+		Description: Launches a devastating atomic bomb\nat a target location.
+		BeginChargeSpeechNotification: AbombPrepping
+		EndChargeSpeechNotification: AbombReady
+		SelectTargetSpeechNotification: SelectTarget
+		InsufficientPowerSpeechNotification: InsufficientPower
+		IncomingSpeechNotification: AbombLaunchDetected
+		SelectTargetTextNotification: Select target.
+		InsufficientPowerTextNotification: Insufficient power.
+		BeginChargeTextNotification: A-bomb prepping.
+		EndChargeTextNotification: A-bomb ready.
+		IncomingTextNotification: A-bomb launch detected.
+		MissileWeapon: TerranNuke
+		MissileImage: tatomic
+		MissileDelay: 5
+		MissilePalette: player
+		IsPlayerPalette: true
+		SpawnOffset: 1c0,427,0
+		DisplayTimerRelationships: Ally, Neutral, Enemy
+		DisplayBeacon: True
+		DisplayRadarPing: True
+		BeaconPoster: atomicon
+		CameraRange: 10c0
+		ArrowSequence: arrow
+		ClockSequence: clock
+		CircleSequence: circles
+		SupportPowerPaletteOrder: 70
+	ProximityExternalCondition@iexist:
+		Condition: cc_addon_exists
+		Range: 4c0
+	Sellable:
+	AmbientSound@nuke:
+		SoundFiles: tnsfir00.aud
+		Delay: 0
+		Interval: -1
+		RequiresCondition: nuke_sound
+	GrantConditionOnPrerequisite@nuke:
+		Prerequisites: nuke_sound
+		Condition: nuke_sound
+	KillsSelf:
+		RequiresCondition: botowner && !cc_addon
+		Delay: 125

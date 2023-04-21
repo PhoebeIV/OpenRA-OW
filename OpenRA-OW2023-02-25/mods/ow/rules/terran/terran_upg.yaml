@@ -23,3 +23,54 @@ terran.tank:
 	ProvidesPrerequisite@upgradename:
 	Valued:
 		Cost: 5000
+
+terran.nuke:
+	Inherits@mine: MINE
+	-WithSpriteBody:
+	-SeedsResource:
+	-RequiresSpecificOwners:
+	-Tooltip:
+	-MapEditorData:
+	-AppearsOnRadar:
+	-ChangesHealth@1:
+	-ChangesHealth@2:
+	-ExplosionOnDamageTransition:
+	-RenderSprites:
+	RenderSprites:
+		Image: terran.nuke
+	Targetable:
+		TargetTypes: UpgradeThing, TerranNuke
+	Immobile:
+		OccupiesSpace: false
+	ChangesTerrain:
+		TerrainType: Clear
+	Interactable:
+	Health:
+		HP: 100
+	Tooltip:
+		Name: Atom Bomb
+	Buildable:
+		Queue: Nuke
+		BuildLimit: 1
+		Description: Arm a nuclear missile. Must be launched by a Terran Ghost.\nStrong vs Everything
+		BuildPaletteOrder: 1
+		Prerequisites: ~!terran.nuke, ~tsilo, ~structures.terran, ~techlevel.unrestricted
+		BuildDurationModifier: 100
+		BuildDuration: 9000
+	ProvidesPrerequisite@upgradename:
+	Valued:
+		Cost: 5000
+	GrantConditionOnPrerequisite@nuke:
+		Prerequisites: nuke_launched
+		Condition: nuke_launched
+	KillsSelf:
+		RequiresCondition: nuke_launched
+		RemoveInstead: true
+
+terran.nuke.AI:
+	Inherits@mine: terran.nuke
+	Buildable:
+		Queue: Bot
+		BuildAtProductionType: Nuke
+	ProvidesPrerequisite@upgradename:
+		Prerequisite: terran.nuke

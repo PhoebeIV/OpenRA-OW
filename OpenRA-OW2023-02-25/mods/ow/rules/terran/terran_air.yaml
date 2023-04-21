@@ -37,6 +37,7 @@ TWRAITH:
 		Weapon: WraithShot
 		LocalOffset: 384,0,-96
 		PauseOnCondition: !ammo
+		MuzzleSequence: muzzle
 	AttackAircraft:
 		FacingTolerance: 32
 		PersistentTargeting: false
@@ -45,7 +46,7 @@ TWRAITH:
 	Aircraft:
 		TurnSpeed: 24
 		Speed: 160
-		LandAltitude: 1200
+		LandAltitude: 768
 	AutoTarget:
 		InitialStance: ReturnFire
 		InitialStanceAI: ReturnFire
@@ -110,10 +111,12 @@ TWRAITH:
 	SpeedMultiplier@stealthed:
 		Modifier: 90
 		RequiresCondition: cloaked
+	GrantConditionOnPrerequisite@bot:
+		Prerequisites: ai.all
+		Condition: arbiterstealth
 
 TDROPSHIP:
 	Inherits: ^Helicopter
-	Inherits@shield: ^ProtossShield
 	Buildable:
 		Queue: Aircraft
 		BuildAtProductionType: Helicopter
@@ -137,7 +140,7 @@ TDROPSHIP:
 		Range: 7c0
 		Type: GroundPosition
 	Aircraft:
-		TurnSpeed: 64
+		TurnSpeed: 48
 		Speed: 136
 		CanSlide: false
 	Cargo:
@@ -166,3 +169,179 @@ TDROPSHIP:
 		Position: BottomLeft
 		RequiresSelection: true
 	-EjectOnDeath:
+
+TBATTLE:
+	Inherits: ^Helicopter
+	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
+	Buildable:
+		Queue: Aircraft
+		BuildAtProductionType: Helicopter
+		BuildPaletteOrder: 195
+		Prerequisites: tctrl, tplab, ~aircraft.terran, ~techlevel.unrestricted
+		Description: Terran capital ship.\nSlow but armed to the teeth with lasers.\nSpeed: 160\n  Strong vs Everything\n  Weak vs Nothing
+		BuildLimit: 2
+	HitShape:
+		Type: Rectangle
+			TopLeft: -1000, -1250
+			BottomRight: 1000, 1250
+		TargetableOffsets: -1024,0,0, -512,0,0, 0,0,0, 512,0,0, 1024,0,0, 0,-750,0, 0,750,0, -512,-750,0, -512,750,0, -1024,-750,0, -1024,750,0
+	Valued:
+		Cost: 6000
+	Tooltip:
+		Name: Battlecruiser
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 120000
+	RevealsShroud:
+		MinRange: 8c0
+		Range: 11c0
+		Type: GroundPosition
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 8c0
+		Type: GroundPosition
+	AttackTurreted:
+		Turrets: 1,2,3,4,5
+	Armament@1:
+		Weapon: BattlecruiserShot
+		Turret: 1
+		LocalOffset: 384,0,-96
+		MuzzleSequence: muzzle
+		PauseOnCondition: !ammo
+	Armament@2:
+		Weapon: BattlecruiserShot
+		LocalOffset: 384,0,-96
+		Turret: 2
+		AttackDelay: 2
+		MuzzleSequence: muzzle
+		PauseOnCondition: !ammo
+	Armament@3:
+		Weapon: BattlecruiserShot
+		LocalOffset: 384,0,-96
+		Turret: 3
+		AttackDelay: 5
+		MuzzleSequence: muzzle
+		PauseOnCondition: !ammo
+	Armament@4:
+		Weapon: BattlecruiserShot
+		LocalOffset: 384,0,-96
+		Turret: 4
+		AttackDelay: 8
+		MuzzleSequence: muzzle
+		PauseOnCondition: !ammo
+	Armament@5:
+		Weapon: BattlecruiserShot
+		LocalOffset: 384,0,-96
+		Turret: 5
+		AttackDelay: 11
+		MuzzleSequence: muzzle
+		PauseOnCondition: !ammo
+	Turreted@1:
+		Turret: 1
+		TurnSpeed: 9
+		Offset: -128,768,0
+		InitialFacing: 32
+	Turreted@2:
+		Turret: 2
+		TurnSpeed: 9
+		Offset: -128,-768,0
+		InitialFacing: 64
+	Turreted@3:
+		Turret: 3
+		TurnSpeed: 12
+		Offset: 512,0,-96
+		InitialFacing: 96
+	Turreted@4:
+		Turret: 4
+		TurnSpeed: 12
+		Offset: -256,-64,-96
+		InitialFacing: 128
+	Turreted@5:
+		Turret: 5
+		TurnSpeed: 15
+		Offset: -256,64,-96
+		InitialFacing: 160
+	Aircraft:
+		TurnSpeed: 8
+		Speed: 56
+		LandAltitude: 768
+		CruiseAltitude: 1792
+	AutoTarget:
+		InitialStance: ReturnFire
+		InitialStanceAI: ReturnFire
+	GrantConditionOnMovement@scout:
+		Condition: moving
+	AmmoPool:
+		Ammo: 96
+		AmmoCondition: ammo
+	WithAmmoPipsDecoration:
+		Position: BottomLeft
+		Margin: 4, 3
+		RequiresSelection: true
+		PipCount: 40
+		FullSequence: bar-green
+		EmptySequence: bar-empty
+	SpawnActorOnDeath:
+		Actor: TBATTLE.Husk
+	WithDamageOverlay:
+		Offset: -427,0,0
+	ProducibleWithLevel:
+		Prerequisites: aircraft.upgraded
+	Selectable:
+		DecorationBounds: 3072, 2218
+		Bounds: 2730, 2048
+	Rearmable:
+		RearmActors: tsport, tsport.landed
+	Hovers@CRUISING:
+		-RequiresCondition:
+	Voiced:
+		VoiceSet: TerranBattlecruiserVoice
+	RenderSprites:
+	WithMuzzleOverlay:
+	WithFacingSpriteBody@2:
+		Name: engine
+		Sequence: engine
+		RequiresCondition: moving
+		Palette: effect
+	-EjectOnDeath:
+	ReloadAmmoPool@reloadnear:
+		Delay: 50
+	ReloadAmmoPool@bot:
+		RequiresCondition: botowner || reloadnear
+		Delay: 30
+	GrantConditionOnDamageState@fire1:
+		Condition: damaged_light
+		ValidDamageStates: Medium, Heavy, Critical
+	GrantConditionOnDamageState@fire2:
+		Condition: damaged_heavy
+		ValidDamageStates: Heavy, Critical
+	GrantConditionOnDamageState@fire3:
+		Condition: damaged_critical
+		ValidDamageStates: Critical
+	WithIdleOverlay@fire1:
+		RequiresCondition: damaged_light
+		Image: fire
+		Sequence: 4
+		IsDecoration: true
+		Offset: 256,512,0
+	WithIdleOverlay@fire2:
+		RequiresCondition: damaged_heavy
+		Image: fire
+		Sequence: 3
+		IsDecoration: true
+		Offset: -128,-640,0
+	WithIdleOverlay@fire3:
+		RequiresCondition: damaged_critical
+		Image: fire
+		Sequence: 2
+		IsDecoration: true
+		Offset: 0,128,0
+	ExternalCondition@PRODUCED:
+		Condition: produced
+	VoiceAnnouncement:
+		RequiresCondition: produced
+		Voice: Build
+	GrantConditionOnPrerequisite@bot:
+		Prerequisites: ai.all
+		Condition: botowner

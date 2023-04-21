@@ -310,7 +310,7 @@ UpgradeHandler:
 	-Interactable:
 	Production:
 		Produces: Upgrade
-		RequiresCondition: conyard && !busy
+		PauseOnCondition: !conyard && busy
 	Production@1:
 		Produces: Upgrade
 		RequiresCondition: conyard && upgradelevel >= 1
@@ -331,9 +331,6 @@ UpgradeHandler:
 	GrantConditionOnProduction@busy:
 		Condition: busy
 		Duration: 25
-	ProvidesPrerequisite:
-		RequiresCondition: busy
-		Prerequisite: upgrade.busy
 	FreeActor:
 		AllowRespawn: true
 		Actor: upgrade.levelup
