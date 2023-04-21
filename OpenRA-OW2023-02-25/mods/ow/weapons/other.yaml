@@ -2319,7 +2319,7 @@ usakingraptorlaser:
     
 USAAvengerLaser:
 	ReloadDelay: 1
-	Range: 10c0
+	Range: 9c0
 	TargetActorCenter: True
 	ValidTargets: Ground, GroundActor, Water, WaterActor
 	Projectile: LaserZap
@@ -2345,7 +2345,7 @@ USAAvengerLaser:
 USAAvengerLaserAir:
 	Inherits: ArcaneZap2
 	ReloadDelay: 4
-	Range: 8c512
+	Range: 7c512
 	MinRange: 0c0
 	Report: USAPaladinLasershot.aud
 	ValidTargets: AirborneActor, Air
@@ -2365,7 +2365,7 @@ USAAvengerLaserAir:
         
 USAMicrowaveLaser:
 	ReloadDelay: 10
-	Range: 7c0
+	Range: 6c0
 	Report: USAMicrowaveLasershot.aud
 	TargetActorCenter: True
 	ValidTargets: Ground, Water, GroundActor, WaterActor
@@ -2393,7 +2393,7 @@ USAMicrowaveLaser:
 USALaserCrusaderLaser:
 	Inherits: ^LaserWeapon
 	ReloadDelay: 35
-	Range: 7c0
+	Range: 6c0
 	Report: USAPaladinLasershot.aud
 	Projectile: LaserZap
 		Width: 60
@@ -3286,7 +3286,7 @@ chinaecmshot:
 	Range: 7c0
 	Report: USAMicrowaveLasershot.aud
 	TargetActorCenter: True
-	ValidTargets: Ground, Water, GroundActor, WaterActor
+	ValidTargets: Tank, Vehicle
 	Projectile: LaserZap
 		Width: 120
 		Duration: 30
@@ -3301,17 +3301,17 @@ chinaecmshot:
 			Heavy: 0
 			Concrete: 0
 		DamageTypes: Prone50Percent, TriggerProne, FireDeath
-		ValidTargets: Ground, GroundActor, Water, WaterActor
+		ValidTargets: Tank, Vehicle
 	Warhead@2EMP: GrantExternalCondition
 		Condition: disabled
 		Duration: 50
-		ValidTargets: GroundActor, WaterActor
+		ValidTargets: Tank, Vehicle
 	TargetActorCenter: True
 
 chinahackeranim:
 	ReloadDelay: 15
-	Range: 3c768
-	ValidTargets: GroundActor, WaterActor
+	Range: 4c768
+	ValidTargets: Tank, Vehicle
 	TargetActorCenter: true
 	Report: ucapture.aud
 	Projectile: LaserZap
@@ -3321,13 +3321,12 @@ chinahackeranim:
 		SecondaryBeamWidth: 90
 		SecondaryBeamColor: FF000035
 	Warhead@1Dam: TargetDamage
-		ValidTargets: GroundActor, WaterActor
-		ValidStances: Enemy, Neutral
+		ValidTargets: Tank, Vehicle
 
 chinahackerend:
 	ReloadDelay: 25
-	Range: 3c768
-	ValidTargets: GroundActor, WaterActor
+	Range: 4c768
+	ValidTargets: Tank, Vehicle
 	TargetActorCenter: true
 	Report: ucapture.aud
 	Projectile: LaserZap
@@ -3337,9 +3336,15 @@ chinahackerend:
 		SecondaryBeamWidth: 90
 		SecondaryBeamColor: FF000035
 	Warhead@1Dam: TargetDamage
-		ValidTargets: GroundActor, WaterActor
-		ValidStances: Enemy, Neutral
-	Warhead@2Dis: GrantExternalCondition
-		Range: 0c512
-		Duration: 50
+		Damage: 2000
+		Versus:
+			None: 0
+			Wood: 0
+			Light: 0
+			Heavy: 0
+			Concrete: 0
+		ValidTargets: Tank, Vehicle
+	Warhead@2EMP: GrantExternalCondition
 		Condition: disabled
+		Duration: 250
+		ValidTargets: Tank, Vehicle

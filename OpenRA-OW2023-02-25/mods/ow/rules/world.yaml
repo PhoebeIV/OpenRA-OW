@@ -26,6 +26,7 @@
 				PathingCost: 300
 			Creep: 80
 			Beach: 80
+			Radiation: 70
 	Locomotor@FOOT2:
 		Name: foot2
 		Crushes: mine, crate
@@ -42,6 +43,7 @@
 				PathingCost: 300
 			Creep: 80
 			Beach: 80
+			Radiation: 70
 	Locomotor@WHEELED:
 		Name: wheeled
 		Crushes: mine, crate
@@ -56,6 +58,7 @@
 			BlueTiberium: 70
 			Creep: 70
 			Beach: 40
+			Radiation: 70
 	Locomotor@HEAVYWHEELED:
 		Name: heavywheeled
 		Crushes: wall, mine, crate, infantry
@@ -70,6 +73,7 @@
 			BlueTiberium: 70
 			Creep: 70
 			Beach: 40
+			Radiation: 70
 	Locomotor@LIGHTTRACKED:
 		Name: lighttracked
 		Crushes: wall, mine, crate
@@ -84,6 +88,7 @@
 			BlueTiberium: 70
 			Creep: 70
 			Beach: 70
+			Radiation: 70
 	Locomotor@TRACKED:
 		Name: tracked
 		Crushes: wall, infantry, mine, crate
@@ -98,6 +103,7 @@
 			BlueTiberium: 70
 			Creep: 70
 			Beach: 70
+			Radiation: 70
 	Locomotor@HEAVYTRACKED:
 		Name: heavytracked
 		Crushes: wall, infantry, mine, crate, heavywall
@@ -112,6 +118,7 @@
 			BlueTiberium: 70
 			Creep: 70
 			Beach: 70
+			Radiation: 70
 	Locomotor@NAVAL:
 		Name: naval
 		Crushes: crate
@@ -140,6 +147,7 @@
 			Gems: 35
 			Creep: 70
 			Beach: 35
+			Radiation: 70
 	Locomotor@DRONE:
 		Name: drone
 		Crushes: crate
@@ -158,6 +166,7 @@
 			Wall: 50
 			Rock: 50
 			River: 80
+			Radiation: 100
 	Locomotor@CHINOOK:
 		Name: chinook
 		Crushes: crate
@@ -176,6 +185,7 @@
 			Rock: 100
 			Creep: 100
 			River: 100
+			Radiation: 100
 	Locomotor@PARTICLE_BEAM:
 		Name: locomotorparticlebeam
 		TerrainSpeeds:
@@ -193,6 +203,7 @@
 			Rock: 100
 			River: 100
 			Creep: 100
+			Radiation: 100
 	Locomotor@HOVER:
 		Name: hover
 		Crushes: crate
@@ -209,6 +220,7 @@
 			Beach: 90
 			Water: 80
 			River: 80
+			Radiation: 100
 	Locomotor@BIGMECH:
 		Name: bigmech
 		Crushes: mine, crate, wall, infantry, heavywall
@@ -223,6 +235,7 @@
 			BlueTiberium: 80
 			Creep: 80
 			Beach: 70
+			Radiation: 80
 	JumpjetLocomotor@JUMPJET:
 		Name: jumpjet
 		Crushes: crate
@@ -240,6 +253,7 @@
 			Ore: 70
 			Creep: 70
 			Gems: 70
+			Radiation: 70
 	JumpjetActorLayer:
 		HeightOffset: 1280
 	Locomotor@FLOAT:
@@ -260,6 +274,7 @@
 			Water: 75
 			Rock: 50
 			River: 50
+			Radiation: 100
 	Locomotor@GBIKE:
 		Name: gbike
 		Crushes: crate
@@ -277,6 +292,7 @@
 			Creep: 90
 			Rock: 50
 			River: 50
+			Radiation: 90
 	TerrainRenderer:
 	ShroudRenderer:
 		FogVariants: shroud
@@ -593,6 +609,10 @@
 				Name: Creep
 				Palette: player
 				Sequences: zcreep00,zcreep01,zcreep02,zcreep03,zcreep04,zcreep05
+			Radiation:
+				Name: Radiation
+				Palette: player
+				Sequences: radiation01,radiation02,radiation03,radiation04,radiation05,radiation06
 	ControlGroups:
 
 World:
@@ -652,6 +672,11 @@ World:
 				ResourceIndex: 6
 				TerrainType: Creep
 				MaxDensity: 6
+				AllowedTerrainTypes: Clear,Road,Creep
+			Radiation:
+				ResourceIndex: 7
+				TerrainType: Radiation
+				MaxDensity: 1
 				AllowedTerrainTypes: Clear,Road,Creep
 	ResourceClaimLayer:
 	WarheadDebugOverlay:
@@ -1009,33 +1034,38 @@ EditorWorld:
 			Ore:
 				ResourceIndex: 1
 				TerrainType: Ore
-				AllowedTerrainTypes: Clear,Road,Creep
+				AllowedTerrainTypes: Clear,Road,Creep,Radiation
 				MaxDensity: 12
 			Gems:
 				ResourceIndex: 2
 				TerrainType: Gems
-				AllowedTerrainTypes: Clear,Road,Creep
+				AllowedTerrainTypes: Clear,Road,Creep,Radiation
 				MaxDensity: 3
 			Tiberium:
 				ResourceIndex: 3
 				TerrainType: Tiberium
-				AllowedTerrainTypes: Clear,Road,Creep
+				AllowedTerrainTypes: Clear,Road,Creep,Radiation
 				MaxDensity: 8
 			BlueTiberium:
 				ResourceIndex: 4
 				TerrainType: BlueTiberium
-				AllowedTerrainTypes: Clear,Road,Creep
+				AllowedTerrainTypes: Clear,Road,Creep,Radiation
 				MaxDensity: 4
 			MediGold:
 				ResourceIndex: 5
 				TerrainType: Ore
 				MaxDensity: 10
-				AllowedTerrainTypes: Clear,Road,Creep
+				AllowedTerrainTypes: Clear,Road,Creep,Radiation
 			ZergCreep:
 				ResourceIndex: 6
 				TerrainType: Creep
 				MaxDensity: 6
-				AllowedTerrainTypes: Clear,Road,Creep
+				AllowedTerrainTypes: Clear,Road,Creep,Radiation
+			Radiation:
+				ResourceIndex: 7
+				TerrainType: Radiation
+				MaxDensity: 6
+				AllowedTerrainTypes: Clear,Road,Creep,Radiation
 	EditorSelectionLayer:
 	LoadWidgetAtGameStart:
 	EditorActionManager:

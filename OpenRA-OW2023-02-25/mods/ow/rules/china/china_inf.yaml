@@ -47,16 +47,34 @@
 		Palette: effect
 		RequiresCondition: hordebonusupgrade2 >= 10
 		IsDecoration: True
-    GrantConditionOnPrerequisite@1:
+    GrantConditionOnPrerequisite@hordebonusupgrade1:
         Condition: upgradeinfantrygeneral
         Prerequisites: upgrade.infantrygeneral
-    GrantConditionOnPrerequisite@2:
+    GrantConditionOnPrerequisite@hordebonusupgrade2:
         Condition: upgradepatriotism
         Prerequisites: upgrade.patriotism
+
+^infantrygeneralbuff:
+	ProductionCostMultiplier@infantrygeneralbuff:
+		Multiplier: 90
+		Prerequisites: upgrade.infantrygeneral
+	ProductionTimeMultiplier@infantrygeneralbuff:
+		Multiplier: 90
+		Prerequisites: upgrade.infantrygeneral
+
+^infantrytrainingbuff:
+	ProducibleWithLevel@infantrytrainingbufflvl1:
+		Prerequisites: upgrade.infantrytraininglvl1, !upgrade.infantrytraininglvl2
+		InitialLevels: 1
+	ProducibleWithLevel@infantrytrainingbufflvl2:
+		Prerequisites: upgrade.infantrytraininglvl1, upgrade.infantrytraininglvl2 
+		InitialLevels: 2
 
 chinaredguard:
 	Inherits: ^Soldier
 	Inherits@hordebonus: ^hordebonus
+	Inherits@infantrygeneralbuff: ^infantrygeneralbuff
+	Inherits@infantrytrainingbuff: ^infantrytrainingbuff
 	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
 	Buildable:
 		Queue: Infantry
@@ -122,6 +140,8 @@ chinaredguard2:
 chinatankhunter:
 	Inherits: ^Soldier
 	Inherits@hordebonus: ^hordebonus
+	Inherits@infantrygeneralbuff: ^infantrygeneralbuff
+	Inherits@infantrytrainingbuff: ^infantrytrainingbuff
 	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
 	Buildable:
 		Queue: Infantry
@@ -175,6 +195,8 @@ chinatankhunter:
 chinaminigunner:
 	Inherits: ^Soldier
 	Inherits@hordebonus: ^hordebonus
+	Inherits@infantrygeneralbuff: ^infantrygeneralbuff
+	Inherits@infantrytrainingbuff: ^infantrytrainingbuff
 	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
 	Buildable:
 		Queue: Infantry
@@ -240,6 +262,7 @@ chinaminigunner:
 
 chinahacker:
 	Inherits: ^Soldier
+	Inherits@infantrytrainingbuff: ^infantrytrainingbuff
 	Buildable:
 		Queue: Infantry
 		BuildAtProductionType: Soldier
@@ -251,14 +274,12 @@ chinahacker:
 	Tooltip:
 		Name: Hacker
 	Health:
-		HP: 10000
+		HP: 5000
 	Selectable:
 		Class: hacker
 	Mobile:
 		Voice: Move
 		PauseOnCondition: !(!deployed)
-	SpeedMultiplier@DAMAGED:
-		Modifier: 50
 	Passenger:
 		CargoType: ChinaHacker
 		PipType: Yellow

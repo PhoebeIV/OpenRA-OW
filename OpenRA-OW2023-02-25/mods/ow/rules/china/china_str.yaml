@@ -39,6 +39,9 @@ chinanuclearreactor:
 		Weapon: TinyNuke
 		EmptyWeapon: TinyNuke
 		RequiresCondition: overcharge && !disabled
+	Explodes:
+		Weapon: chinareactionexplode
+		EmptyWeapon: chinareactionexplode
 	GrantConditionOnDeploy:
 		MakeAnimationDeployTypes:
 		DeployedCondition: overcharge
@@ -284,12 +287,9 @@ chinawarfactory:
 	Power:
 		Amount: -30
 	ProvidesPrerequisite@buildingname:
-	ProvidesPrerequisite@usa:
-		Factions: usa
-		Prerequisite: War Factory
-	ProvidesPrerequisite@usa2:
-		Factions: usa
-		Prerequisite: vehicles.usa
+	ProvidesPrerequisite@china:
+		Factions: china
+		Prerequisite: vehicles.china
 	Targetable:
 		TargetTypes: GroundActor, C4, DetonateAttack, Structure, SpyInfiltrate
 	InfiltrateForSupportPower:
@@ -465,6 +465,106 @@ chinapropagandacenter:
 		UseDirectionalTarget: True
 		DirectionArrowAnimation: paradirection
 		SupportPowerPaletteOrder: 50
+	AirstrikePower@nuclearparabombs:
+		OrderName: ChinaParabombs
+		Prerequisites: ~structures.china, ~aircraft.china, upgrade.nukegeneral
+		Icon: parabombs
+		ChargeInterval: 9000
+		Name: Nuclear Parabombs
+		Description: A Badger drops a load of parachuted nuclear bombs\nat the selected location.
+		SelectTargetSpeechNotification: SelectTarget
+		SelectTargetTextNotification: Select target.
+		CameraActor: camera
+		CameraRemoveDelay: 150
+		UnitType: china.bomber
+		QuantizedFacings: 8
+		DisplayBeacon: true
+		BeaconPoster: pbmbicon
+		SquadSize: 1
+		SquadOffset: 1792,1792,0
+		ArrowSequence: arrow
+		ClockSequence: clock
+		CircleSequence: circles
+		UseDirectionalTarget: True
+		DirectionArrowAnimation: paradirection
+		SupportPowerPaletteOrder: 40
+
+chinaartillerypower:
+	Inherits: ^Plane
+    Targetable: 
+        TargetTypes: donthitmethanks
+	Health:
+		HP: 80000
+	Valued:
+		Cost: 2000
+	Aircraft:
+		TurnSpeed: 20
+		Speed: 50
+		CruiseAltitude: 32c0
+		MaximumPitch: 110
+		VTOL: true
+		LandableTerrainTypes: Clear, Road, Creep, Bridge, Water, Ore, Gems, Rough, Tiberium, BlueTiberium, Radiation, Beach
+	WithMuzzleOverlay:
+	-ActorLostNotification:
+	Contrail@1:
+		Offset: 0,0,0
+		StartColor: FFFFFF
+		TrailLength: 35
+	-Selectable:
+	AttackAircraft:
+	Armament:
+		Weapon: NuclearParaDrop
+	Tooltip:
+		Name: bomblol
+	RejectsOrders:
+	-SpawnActorOnDeath:
+	FallsToEarth:
+		Explosion: ArtilleryPowerExplosion
+		Moves: true
+		Velocity: 160
+		MaximumSpinSpeed: 0
+	AmbientSound@airborne:
+		SoundFiles: gshescra.aud, gshescrb.aud, gshescrv.aud, gshescrd.aud
+		Interval: 25, 100
+		Delay: 50
+	-EjectOnDeath:
+	Interactable:
+
+china.Bomber:
+	Inherits: ^Plane
+	Health:
+		HP: 80000
+	Valued:
+		Cost: 2000
+	Aircraft:
+		TurnSpeed: 4
+		Speed: 220
+		Repulsable: False
+	WithMuzzleOverlay:
+	Contrail@1:
+		Offset: -640,171,0
+		TrailLength: 15
+	Contrail@2:
+		Offset: -640,-171,0
+		TrailLength: 15
+	-Selectable:
+	SelectionDecorations:
+		RenderSelectionBars: False
+	AttackBomber:
+	Armament:
+		Weapon: NuclearParaDrop
+		PauseOnCondition: !ammo
+	AmmoPool:
+		Ammo: 10
+		AmmoCondition: ammo
+	Tooltip:
+		Name: Stealth Bomber
+	RejectsOrders:
+	RenderSprites:
+		Image: usamoabplane
+	SpawnActorOnDeath:
+		Actor: usamoabplane.Husk
+	Interactable:
 
 chinaminedrop:
 	Inherits: 1TNK.MINE
@@ -699,7 +799,7 @@ chinanuclearsilo:
 		BeginChargeTextNotification: A-bomb prepping.
 		EndChargeTextNotification: A-bomb ready.
 		IncomingTextNotification: A-bomb launch detected.
-		MissileWeapon: atomic
+		MissileWeapon: ChinaNuke
 		MissileImage: atomic
 		MissileDelay: 5
 		SpawnOffset: 1c0,427,0
@@ -851,14 +951,14 @@ chinabunker:
 	Buildable:
 		Queue: Defense
 		BuildPaletteOrder: 40
-		Prerequisites: ~structures.china, ~infantry.china, ~!upgrade.infantrygeneral
+		Prerequisites: ~structures.china, ~infantry.china, chinabarracks, ~!upgrade.infantrygeneral
 		Description: Static defense with a fireport for\na garrisoned soldier.\nCan detect cloaked units.\n  Strong vs Infantry, Light armor\n  Weak vs Tanks, Aircraft
 	Valued:
 		Cost: 700
 	CustomSellValue:
 		Value: 400
 	Health:
-		HP: 50000
+		HP: 75000
 	Armor:
 		Type: Heavy
 	RevealsShroud:
@@ -905,7 +1005,7 @@ chinafortifiedbunker:
 	Valued:
 		Cost: 1400
 	Health:
-		HP: 100000
+		HP: 125000
 	Cargo:
 		Types: Infantry
 		MaxWeight: 8
@@ -915,3 +1015,5 @@ chinafortifiedbunker:
 		PortOffsets: 384,0,128, 224,-341,128, -224,-341,128, -384,0,128, -224,341,128, 224,341,128
 		PortYaws: 0, 176, 341, 512, 682, 853
 		PortCones: 88, 88, 88, 88, 88, 88
+	Power:
+		Amount: -40

@@ -54,15 +54,56 @@
         Condition: upgradepatriotism
         Prerequisites: upgrade.patriotism
 
+^tankgeneralbuff:
+	ProductionCostMultiplier@tankgeneralbuff:
+		Multiplier: 90
+		Prerequisites: upgrade.tankgeneral
+	ProductionTimeMultiplier@tankgeneralbuff:
+		Multiplier: 90
+		Prerequisites: upgrade.tankgeneral
+
+^tanktrainingbuff:
+	ProducibleWithLevel@tanktrainingbufflvl1:
+		Prerequisites: upgrade.vehicletraininglvl1, !upgrade.vehicletraininglvl2
+		InitialLevels: 1
+	ProducibleWithLevel@tanktrainingbufflvl2:
+		Prerequisites: upgrade.vehicletraininglvl1, upgrade.vehicletraininglvl2
+		InitialLevels: 2
+
+^artillerytrainingbuff:
+	ProducibleWithLevel@artillerytrainingbuff:
+		Prerequisites: upgrade.artillerytraininglvl1
+		InitialLevels: 1
+
+^nuclearvehiclesbuff:
+	GrantConditionOnPrerequisite@nuclearvehiclesbuff1:
+        Condition: upgradeuraniumtanks
+        Prerequisites: upgrade.uraniumtanks
+	SpeedMultiplier@nuclearenginesbuff:
+		Modifier: 125
+		RequiresCondition: upgradeuraniumtanks
+    GrantConditionOnPrerequisite@nuclearvehiclesbuff2:
+        Condition: upgradeuraniumshells
+        Prerequisites: upgrade.uraniumshells
+	WithDecoration@nuclearvehiclesbuff:
+		Image: pips
+		Sequence: pip-elite
+		Palette: effect
+		ValidRelationships: None,Neutral,Enemy,Ally
+		RequiresCondition: upgradeuraniumshells
+
 chinabattlemaster:
 	Inherits: 2TNK
 	Inherits@hordebonus: ^hordebonustank
+	Inherits@tankgeneralbuff: ^tankgeneralbuff
+	Inherits@nuclearvehiclesbuff: ^nuclearvehiclesbuff
+	Inherits@tanktrainingbuff: ^tanktrainingbuff
 	Buildable:
 		BuildPaletteOrder: 220
 		Prerequisites: ~vehicles.china
 		Description: USA main battle tank.\nEquipped with an 120 mm L30 rifled gun.\nSpeed: 85\n  Strong vs Vehicles\n  Weak vs Infantry, Aircraft
 	Valued:
-		Cost: 1000
+		Cost: 900
 	Tooltip:
 		Name: Battlemaster Tank
 	Tooltip@hordebonus:
@@ -76,15 +117,33 @@ chinabattlemaster:
 		TurnSpeed: 16
 	Armament:
 		Weapon: 125mm
+		Recoil: 128
+		RecoilRecovery: 38
+		LocalOffset: 720,0,80
+		MuzzleSequence: muzzle
+		PauseOnCondition: upgradeuraniumshells
+	Armament@uraniumshells:
+		Weapon: 125mmuranium
+		Recoil: 128
+		RecoilRecovery: 38
+		LocalOffset: 720,0,80
+		MuzzleSequence: muzzle
+		RequiresCondition: upgradeuraniumshells
 	SpawnActorOnDeath:
 		Actor: chinabattlemaster.husk
 	SelectionDecorations:
 		Image: chinabattlemaster
 	Voiced:
 		VoiceSet: BattlemasterTankVoice
+	Explodes@nuclearenginesbuff:
+		Weapon: chinabattlemasterexplosion
+		EmptyWeapon: chinabattlemasterexplosion
+		RequiresCondition: upgradeuraniumtanks
 
 chinadragontank:
 	Inherits: 2TNK
+	Inherits@tankgeneralbuff: ^tankgeneralbuff
+	Inherits@tanktrainingbuff: ^tanktrainingbuff
 	Buildable:
 		BuildPaletteOrder: 220
 		Prerequisites: ~vehicles.china
@@ -116,6 +175,8 @@ chinadragontank:
 
 chinagatlingtank:
 	Inherits: ^Vehicle
+	Inherits@tankgeneralbuff: ^tankgeneralbuff
+	Inherits@tanktrainingbuff: ^tanktrainingbuff
 	Inherits@GAINSEXPERIENCE: ^GainsExperience
 	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
 	Buildable:
@@ -124,7 +185,7 @@ chinagatlingtank:
 		Prerequisites: ~vehicles.china
 		Description: Mobile unit with mounted Flak cannon.\n  Strong vs Infantry, Light armor, Aircraft\n  Weak vs Tanks
 	Valued:
-		Cost: 600
+		Cost: 800
 	Tooltip:
 		Name: Gatling Tank
 	UpdatesPlayerStatistics:
@@ -144,7 +205,7 @@ chinagatlingtank:
 		Range: 4c0
 	Turreted:
 		TurnSpeed: 40
-		Offset: -298,0,298
+		Offset: 0,0,298
 	Armament@AA:
 		Weapon: gatlingtankshot
 		Recoil: 85
@@ -186,6 +247,7 @@ chinagatlingtank:
 chinalisteningoutpost:
 	Inherits: ^TrackedVehicle
 	Inherits@GAINSEXPERIENCE: ^GainsExperience
+	Inherits@tankgeneralbuff: ^tankgeneralbuff
 	Inherits@CARGOPIPS: ^CargoPips
 	Buildable:
 		Queue: Vehicle
@@ -292,6 +354,7 @@ chinaattackoutpost:
 
 chinatroopcarrier:
 	Inherits: ^TrackedVehicle
+	Inherits@tankgeneralbuff: ^tankgeneralbuff
 	Inherits@GAINSEXPERIENCE: ^GainsExperience
 	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
 	Inherits@CARGOPIPS: ^CargoPips
@@ -382,6 +445,7 @@ chinaassaulttroopcarrier:
 
 chinaecm:
 	Inherits: 2TNK
+	Inherits@tankgeneralbuff: ^tankgeneralbuff
 	Buildable:
 		BuildPaletteOrder: 220
 		Prerequisites: ~vehicles.china, techcenter
@@ -414,6 +478,8 @@ chinaecm:
 
 chinainfernocannon:
 	Inherits: ARTY.SS
+	Inherits@artillerytrainingbuff: ^artillerytrainingbuff
+	Inherits@tankgeneralbuff: ^tankgeneralbuff
 	Buildable:
 		Queue: Vehicle
 		BuildPaletteOrder: 138
@@ -430,6 +496,8 @@ chinainfernocannon:
 
 chinanukecannon:
 	Inherits: ^TrackedVehicle
+	Inherits@tankgeneralbuff: ^tankgeneralbuff
+	Inherits@artillerytrainingbuff: ^artillerytrainingbuff
 	Inherits@EXPERIENCE: ^GainsExperience
 	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
 	Valued:
@@ -519,12 +587,19 @@ chinanukecannon:
 		DecorationBounds: 1877, 1621, 0, -170
 	WithRangeCircle:
 		Range: 15c0
+	Explodes@nuclearenginesbuff:
+		Weapon: chinabattlemasterexplosion
+		EmptyWeapon: chinabattlemasterexplosion
 
 chinaoverlord:
 	Inherits: ^TrackedVehicle
+	Inherits@tankgeneralbuff: ^tankgeneralbuff
+	Inherits@nuclearvehiclesbuff: ^nuclearvehiclesbuff
+	Inherits@tanktrainingbuff: ^tanktrainingbuff
+	Inherits@GAINSEXPERIENCE: ^GainsExperience
 	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
 	Valued:
-		Cost: 2250
+		Cost: 2500
 	Tooltip:
 		Name: Overlord Tank
 	UpdatesPlayerStatistics:
@@ -559,6 +634,15 @@ chinaoverlord:
 		RecoilRecovery: 30
 		MuzzleSequence: muzzle
 		Turret: primary
+		PauseOnCondition: upgradeuraniumshells
+	Armament@uraniumshells:
+		Weapon: 125mmoverlorduranium
+		LocalOffset: 1400,100,340, 1400,-100,340
+		Recoil: 171
+		RecoilRecovery: 30
+		MuzzleSequence: muzzle
+		Turret: primary
+		RequiresCondition: upgradeuraniumshells
 	AttackTurreted:
 		Turrets: primary
 		PauseOnCondition: disabled
@@ -575,9 +659,17 @@ chinaoverlord:
 		Actor: chinaoverlord.Husk
 	RenderSprites:
 		Image: chinaoverlord
+	Explodes@nuclearenginesbuff:
+		Weapon: chinaoverlordexplosion
+		EmptyWeapon: chinaoverlordexplosion
+		RequiresCondition: upgradeuraniumtanks
 
 chinaoverlordspeaker:
 	Inherits: ^TrackedVehicle
+	Inherits@tankgeneralbuff: ^tankgeneralbuff
+	Inherits@nuclearvehiclesbuff: ^nuclearvehiclesbuff
+	Inherits@tanktrainingbuff: ^tanktrainingbuff
+	Inherits@GAINSEXPERIENCE: ^GainsExperience
 	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
 	Buildable:
 		Queue: Vehicle
@@ -585,7 +677,7 @@ chinaoverlordspeaker:
 		Prerequisites: ~vehicles.china, techcenter
 		Description: Big and slow tank, with anti-air capability.\nCan crush concrete walls.\n  Strong vs Vehicles, Infantry, Aircraft\n  Weak vs Nothing
 	Valued:
-		Cost: 2250
+		Cost: 2500
 	Tooltip:
 		Name: Overlord Tank (Speaker Tower)
 	UpdatesPlayerStatistics:
@@ -620,6 +712,15 @@ chinaoverlordspeaker:
 		RecoilRecovery: 30
 		MuzzleSequence: muzzle
 		Turret: primary
+		PauseOnCondition: upgradeuraniumshells
+	Armament@uraniumshells:
+		Weapon: 125mmoverlorduranium
+		LocalOffset: 1400,100,340, 1400,-100,340
+		Recoil: 171
+		RecoilRecovery: 30
+		MuzzleSequence: muzzle
+		Turret: primary
+		RequiresCondition: upgradeuraniumshells
 	AttackTurreted:
 		Turrets: primary
 		PauseOnCondition: disabled
@@ -650,9 +751,17 @@ chinaoverlordspeaker:
 		Condition: propagandaupgrade
 		RequiresCondition: !disabled && upgradepropaganda
 		Range: 4c0
+	Explodes@nuclearenginesbuff:
+		Weapon: chinaoverlordexplosion
+		EmptyWeapon: chinaoverlordexplosion
+		RequiresCondition: upgradeuraniumtanks
 
 chinaoverlordgatling:
 	Inherits: ^TrackedVehicle
+	Inherits@tankgeneralbuff: ^tankgeneralbuff
+	Inherits@nuclearvehiclesbuff: ^nuclearvehiclesbuff
+	Inherits@tanktrainingbuff: ^tanktrainingbuff
+	Inherits@GAINSEXPERIENCE: ^GainsExperience
 	Inherits@AUTOTARGET: ^AutoTargetAll
 	Buildable:
 		Queue: Vehicle
@@ -660,7 +769,7 @@ chinaoverlordgatling:
 		Prerequisites: ~vehicles.china, techcenter
 		Description: Big and slow tank, with anti-air capability.\nCan crush concrete walls.\n  Strong vs Vehicles, Infantry, Aircraft\n  Weak vs Nothing
 	Valued:
-		Cost: 2250
+		Cost: 2500
 	Tooltip:
 		Name: Overlord Tank (Gatling Cannon)
 	UpdatesPlayerStatistics:
@@ -695,6 +804,15 @@ chinaoverlordgatling:
 		RecoilRecovery: 30
 		MuzzleSequence: muzzle
 		Turret: primary
+		PauseOnCondition: upgradeuraniumshells
+	Armament@uraniumshells:
+		Weapon: 125mmoverlorduranium
+		LocalOffset: 1400,100,340, 1400,-100,340
+		Recoil: 171
+		RecoilRecovery: 30
+		MuzzleSequence: muzzle
+		Turret: primary
+		RequiresCondition: upgradeuraniumshells
 	AttackTurreted:
 		Turrets: primary, secondary
 		PauseOnCondition: disabled
@@ -728,9 +846,17 @@ chinaoverlordgatling:
 		Actor: chinaoverlord.Husk
 	RenderSprites:
 		Image: chinaoverlordgatling
+	Explodes@nuclearenginesbuff:
+		Weapon: chinaoverlordexplosion
+		EmptyWeapon: chinaoverlordexplosion
+		RequiresCondition: upgradeuraniumtanks
 
 chinaemperor:
 	Inherits: ^TrackedVehicle
+	Inherits@tankgeneralbuff: ^tankgeneralbuff
+	Inherits@nuclearvehiclesbuff: ^nuclearvehiclesbuff
+	Inherits@tanktrainingbuff: ^tanktrainingbuff
+	Inherits@GAINSEXPERIENCE: ^GainsExperience
 	Inherits@AUTOTARGET: ^AutoTargetAll
 	Buildable:
 		Queue: Vehicle
@@ -738,7 +864,7 @@ chinaemperor:
 		Prerequisites: ~vehicles.china, techcenter, upgrade.tankgeneral
 		Description: Big and slow tank, with anti-air capability.\nCan crush concrete walls.\n  Strong vs Vehicles, Infantry, Aircraft\n  Weak vs Nothing
 	Valued:
-		Cost: 3000
+		Cost: 3250
 	Tooltip:
 		Name: Emperor Overlord Tank
 	UpdatesPlayerStatistics:
@@ -773,6 +899,15 @@ chinaemperor:
 		RecoilRecovery: 30
 		MuzzleSequence: muzzle
 		Turret: primary
+		PauseOnCondition: upgradeuraniumshells
+	Armament@uraniumshells:
+		Weapon: 125mmemperoruranium
+		LocalOffset: 1400,100,340, 1400,-100,340
+		Recoil: 171
+		RecoilRecovery: 30
+		MuzzleSequence: muzzle
+		Turret: primary
+		RequiresCondition: upgradeuraniumshells
 	AttackTurreted:
 		Turrets: primary, secondary
 		PauseOnCondition: disabled
@@ -825,3 +960,7 @@ chinaemperor:
 		Voice: Build
 	AnnounceOnKill:
 		Voice: Kill
+	Explodes@nuclearenginesbuff:
+		Weapon: chinaoverlordexplosion
+		EmptyWeapon: chinaoverlordexplosion
+		RequiresCondition: upgradeuraniumtanks
