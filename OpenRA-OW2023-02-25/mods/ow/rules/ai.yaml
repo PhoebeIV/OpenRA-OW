@@ -1337,6 +1337,10 @@ Player:
 			upgrade.artillerytraininglvl1: 5
 			upgrade.uraniumtanks: 5
 			upgrade.uraniumshells: 5
+			soviet.iron: 100
+			soviet.tesla: 100
+			allies.training1: 100
+			allies.training2: 100
 			zerg.zergling: 100
 			zerg.hydra: 100
 			terran.marine: 100
@@ -2574,13 +2578,28 @@ Player:
 					CheckRadius: 8c0
 			HolyLightPower:
 				OrderName: HolyLight
-				MinimumAttractiveness: 5
+				MinimumAttractiveness: 10
 				Consideration@1:
 					Against: Ally
 					Types: Vehicle, Infantry, Structure
 					Attractiveness: 1
 					TargetMetric: Health
-					CheckRadius: 4c0
+					CheckRadius: 3c0
+			IronCurtain:
+				OrderName: IronCurtain
+				MinimumAttractiveness: 1000
+				Consideration@1:
+					Against: Ally
+					Types: Vehicle
+					Attractiveness: 2
+					TargetMetric: Value
+					CheckRadius: 2c0
+				Consideration@2:
+					Against: Ally
+					Types: Vehicle
+					Attractiveness: -1
+					TargetMetric: Health
+					CheckRadius: 2c0
 			SmitePower:
 				OrderName: SmitePower
 				MinimumAttractiveness: 1000

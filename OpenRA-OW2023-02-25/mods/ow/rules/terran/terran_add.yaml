@@ -18,6 +18,12 @@
 		RequiredForShortGame: false
 	OwnerLostAction:
 		Action: ChangeOwner
+	Tooltip:
+		Name: X with attached Y
+		RequiresCondition: !in_world
+	Tooltip@in_world:
+		Name: X
+		RequiresCondition: in_world
 	Building:
 		Footprint: xx
 		Dimensions: 2,1
@@ -41,6 +47,8 @@
 	KillsSelf:
 		RequiresCondition: botowner && !cc_addon #remove for bots to free up space in their base
 		Delay: 750
+	GrantCondition@realactor:
+		Condition: in_world
 
 TCOMSAT.plug:
 	Inherits: ^BuildingPlug
@@ -76,7 +84,11 @@ TCOMSAT:
 	Valued:
 		Cost: 1500
 	Tooltip:
+		Name: Command Centre with attached ComSat Station
+		RequiresCondition: !in_world
+	Tooltip@in_world:
 		Name: ComSat Station
+		RequiresCondition: in_world
 	ProvidesPrerequisite@buildingname:
 		RequiresCondition: cc_addon
 	ProvidesPrerequisite@radar:
@@ -160,6 +172,8 @@ TSHOP:
 	Valued:
 		Cost: 1000
 	Tooltip:
+		Name: Factory with attached Machine Shop
+	Tooltip@in_world:
 		Name: Machine Shop
 	ProvidesPrerequisite@buildingname:
 		RequiresCondition: fac_addon
@@ -177,7 +191,7 @@ TSHOP:
 		Condition: disabled
 	ProximityExternalCondition@iexist:
 		Condition: fac_addon_exists
-		Range: 4c0
+		Range: 3c0
 	Sellable:
 		RequiresCondition: !build-incomplete && !being-captured && !being-demolished && fac_addon
 	KillsSelf:
@@ -216,6 +230,8 @@ TCTRL:
 	Valued:
 		Cost: 1000
 	Tooltip:
+		Name: Starport with attached Control Tower
+	Tooltip@in_world:
 		Name: Control Tower
 	ProvidesPrerequisite@buildingname:
 		RequiresCondition: star_addon
@@ -233,7 +249,7 @@ TCTRL:
 		Condition: disabled
 	ProximityExternalCondition@iexist:
 		Condition: star_addon_exists
-		Range: 4c0
+		Range: 3c0
 	Sellable:
 		RequiresCondition: !build-incomplete && !being-captured && !being-demolished && star_addon
 	SupportPowerChargeBar:
@@ -294,6 +310,8 @@ TCOPS:
 	Valued:
 		Cost: 1000
 	Tooltip:
+		Name: Science Facility with attached Covert Ops
+	Tooltip@in_world:
 		Name: Covert Ops
 	ProvidesPrerequisite@buildingname:
 		RequiresCondition: scf_addon
@@ -316,7 +334,7 @@ TCOPS:
 		Condition: disabled
 	ProximityExternalCondition@iexist:
 		Condition: scf_addon_exists
-		Range: 4c0
+		Range: 3c0
 	Sellable:
 		RequiresCondition: !build-incomplete && !being-captured && !being-demolished && scf_addon
 	KillsSelf:
@@ -353,6 +371,8 @@ TPLAB.plugai:
 TPLAB:
 	Inherits: TCOPS
 	Tooltip:
+		Name: Science Facility with attached Physics Lab
+	Tooltip@in_world:
 		Name: Physics Lab
 	ProvidesPrerequisite@buildingname:
 		RequiresCondition: scf_addon
@@ -368,7 +388,7 @@ TSILO.plug:
 	Buildable:
 		Queue: Tech
 		BuildPaletteOrder: 202
-		Prerequisites: tcops, tcommand.addon, ~structures.terran, ~techlevel.unrestricted, ~!tsilo
+		Prerequisites: tcops, ~tcommand.addon, ~structures.terran, ~techlevel.unrestricted, ~!tsilo
 		Description: Attach to Command Center. \nAllows production of a nuclear missile.\nRequires power to operate.
 		IconPalette: player
 		IconPaletteIsPlayerPalette: true
@@ -386,6 +406,8 @@ TSILO:
 	Valued:
 		Cost: 2000
 	Tooltip:
+		Name: Command Center with attached Missile Silo
+	Tooltip@in_world:
 		Name: Missile Silo
 	ProvidesPrerequisite@buildingname:
 	RevealsShroud@GAPGEN:
@@ -412,6 +434,9 @@ TSILO:
 	Production@bot:
 		RequiresCondition: botowner
 		Produces: Bot
+	ProductionBar:
+		ProductionType: Nuke
+		Color: Magenta
 	ProductionQueue@nuke:
 		Type: Nuke
 		DisplayOrder: 9
@@ -422,39 +447,6 @@ TSILO:
 		QueuedAudio: AbombPrepping
 		OnHoldAudio: OnHold
 		CancelledAudio: Cancelled
-	NukePower:
-		ChargeInterval: 19500
-		PauseOnCondition: disabled
-		RequiresCondition: botowner && nothing
-		Cursor: nuke
-		Icon: abomb
-		Name: Atom Bomb
-		Description: Launches a devastating atomic bomb\nat a target location.
-		BeginChargeSpeechNotification: AbombPrepping
-		EndChargeSpeechNotification: AbombReady
-		SelectTargetSpeechNotification: SelectTarget
-		InsufficientPowerSpeechNotification: InsufficientPower
-		IncomingSpeechNotification: AbombLaunchDetected
-		SelectTargetTextNotification: Select target.
-		InsufficientPowerTextNotification: Insufficient power.
-		BeginChargeTextNotification: A-bomb prepping.
-		EndChargeTextNotification: A-bomb ready.
-		IncomingTextNotification: A-bomb launch detected.
-		MissileWeapon: TerranNuke
-		MissileImage: tatomic
-		MissileDelay: 5
-		MissilePalette: player
-		IsPlayerPalette: true
-		SpawnOffset: 1c0,427,0
-		DisplayTimerRelationships: Ally, Neutral, Enemy
-		DisplayBeacon: True
-		DisplayRadarPing: True
-		BeaconPoster: atomicon
-		CameraRange: 10c0
-		ArrowSequence: arrow
-		ClockSequence: clock
-		CircleSequence: circles
-		SupportPowerPaletteOrder: 70
 	ProximityExternalCondition@iexist:
 		Condition: cc_addon_exists
 		Range: 4c0

@@ -560,7 +560,7 @@ TGHOST:
 		BuildAtProductionType: Soldier
 		BuildPaletteOrder: 31
 		Prerequisites: tacadamy, tcops, ~barracks, ~techlevel.unrestricted, ~infantry.terran
-		Description: Covert Ops assassin.\nSpeed: 60\n  Strong vs Infantry\n  Weak vs Vehicles, Aircraft \n\nCan use stealth, and launch spot for the Missile Silo.
+		Description: Covert Ops assassin.\nSpeed: 72\n  Strong vs Infantry\n  Weak vs Vehicles, Aircraft \n\nCan use stealth, and launch spot for the Missile Silo.
 		BuildDurationModifier: 150
 		BuildDuration: 500
 	Selectable:
@@ -581,8 +581,14 @@ TGHOST:
 		GenericName: Ghost
 		Name: Ghost - Target Painting
 		RequiresCondition: nuke_armed && nuke_built
+	RevealsShroud:
+		MinRange: 7c0
+		Range: 9c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 7c0
 	Mobile:
-		Speed: 60
+		Speed: 72
 		TurnSpeed: 90
 	Health:
 		HP: 16500
@@ -697,9 +703,6 @@ TGHOST:
 		Voice: Die
 	DeathSounds@ZAPPED:
 		Voice: Die
-	GrantConditionOnPrerequisite@upgrade:
-		Prerequisites: terran.ghost
-		Condition: ghost_upgraded
 	AutoTarget:
 		ReturnFireCondition: arbiterstealth
 		HoldFireCondition: arbiterstealth
@@ -707,7 +710,7 @@ TGHOST:
 		RequiresCondition: !arbiterstealth || botowner
 		Delay: 75
 	ReloadAmmoPool@nuker:
-		RequiresCondition: nuke_armed || botowner
+		RequiresCondition: nuke_armed && botowner
 		Delay: 50
 	Cloak@arbiterstealth:
 		IsPlayerPalette: true
@@ -759,3 +762,12 @@ TGHOST:
 	GrantCondition@botnuker:
 		RequiresCondition: bot_nuker && botowner
 		Condition: nuke_armed
+	GrantConditionOnPrerequisite@upgrade:
+		Prerequisites: terran.ghost
+		Condition: ghost_upgraded
+	RangeMultiplier@upgrade:
+		RequiresCondition: ghost_upgraded
+		Modifier: 115
+	RevealsShroudMultiplier@upgrade:
+		RequiresCondition: ghost_upgraded
+		Modifier: 125

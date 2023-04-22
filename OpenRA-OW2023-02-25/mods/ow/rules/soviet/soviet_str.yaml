@@ -1,6 +1,41 @@
+soviet.iron:
+	Inherits: ^UpgradeBaseExt
+	Tooltip:
+		Name: Iron Blanket Protocol
+	Buildable:
+		Description: Increases armor of all Structures and Tanks by 20% with reactive plating.
+		BuildPaletteOrder: 12000
+		Prerequisites: ~!upgrade.busy, ~!soviet.iron, ~structures.soviet, advtechcenter, techlevel.unrestricted
+		BuildDuration: 4000
+	ProvidesPrerequisite@upgradename:
+	Valued:
+		Cost: 5000
+
+soviet.tesla:
+	Inherits: ^UpgradeBaseExt
+	Tooltip:
+		Name: Improved Coils
+	Buildable:
+		Description: A new alloy was discovered for use in electrical coils,\n increasing damage and range of Tesla weapons.
+		BuildPaletteOrder: 12001
+		Prerequisites: ~!upgrade.busy, ~!soviet.tesla, ~structures.soviet, advtechcenter, techlevel.unrestricted
+	ProvidesPrerequisite@upgradename:
+	Valued:
+		Cost: 5000
+
 TSLA:
 	Buildable:
 		Prerequisites: weap, ~structures.soviet, ~!structures.estonia, ~techlevel.medium
+	RangeMultiplier@upgrade2:
+		RequiresCondition: tesla_upgrade
+		Modifier: 110
+	FirepowerMultiplier@upgrade2:
+		RequiresCondition: tesla_upgrade
+		Modifier: 120
+
+IRON:
+	GrantExternalConditionPower@IRONCURTAIN:
+		OrderName: IronCurtain
 
 TSLA.EST:
 	Inherits: TSLA
