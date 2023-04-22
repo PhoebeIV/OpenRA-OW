@@ -1828,7 +1828,7 @@ chinamigshot:
 		Shadow: True
 	Warhead@1Dam: SpreadDamage
 		Spread: 512
-		Damage: 15000
+		Damage: 25000
 		Versus:
 			None: 120
 			Wood: 40
@@ -1843,3 +1843,49 @@ chinamigshot:
 		RandomClusterCount: 4
 		Dimensions: 3,3
 		Footprint: xxx xxx xxx
+
+chinanukemigshot:
+	Inherits: ^AntiGroundMissile
+	ReloadDelay: 8
+	Range: 8c0
+	Report: vmigweaa.wav, vmigweab.wav
+	Projectile: Missile
+		Arm: 3
+		Image: moab_bomb
+		TrailImage: smokey
+		HorizontalRateOfTurn: 25
+		RangeLimit: 12c512
+		MinimumLaunchAngle: 62
+		MaximumLaunchAngle: 62
+		Speed: 384
+		Shadow: True
+	Warhead@1Dam: SpreadDamage
+		Spread: 768
+		Damage: 50000
+		ValidTargets: GroundActor, WaterActor
+		Versus:
+			None: 80
+			Wood: 80
+			Heavy: 80
+			Light: 80
+			Concrete: 25
+		DamageTypes: Prone50Percent, TriggerProne, ExplosionDeath
+	Warhead@3Eff: CreateEffect
+		Explosions: dukenukemexplosionsmallchina
+		ImpactSounds: dukeexplosion.wav
+	Warhead@Res7: DestroyResource
+		Size: 3
+		ResourceAmount: 10
+	Warhead@4Radiation: CreateResource
+		AddsResourceType: Radiation
+		Delay: 1
+		Size: 2
+	Warhead@15Shake: ShakeScreen
+		Duration: 5
+		Intensity: 2
+		Multiplier: 1,1
+	Warhead@Res7: DestroyResource
+		ResourceTypes: Radiation
+		Size: 3
+		Delay: 625
+		ResourceAmount: 10

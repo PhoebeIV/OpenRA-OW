@@ -83,3 +83,96 @@ chinamig:
         Count: 2
 	Voiced:
 		VoiceSet: MiGVoice
+
+chinanukemig:
+	Inherits: ^Plane
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Buildable:
+		Queue: Aircraft
+		BuildAtProductionType: Plane
+		BuildPaletteOrder: 50
+		Prerequisites: ~aircraft.china, techcenter, upgrade.nukegeneral
+		Description: Fast fighter plane.\nCan not be damaged while attacking.\nSlows down and becomes vulnerable after attacking.
+        BuildDuration: 3300
+	Valued:
+		Cost: 2500
+	Tooltip:
+		Name: Tactical Nuke MiG
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 10000
+	RevealsShroud:
+		MinRange: 11c0
+		Range: 13c0
+		Type: GroundPosition
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 11c0
+		Type: GroundPosition
+	Armament:
+		Weapon: chinanukemigshot
+		LocalOffset: 0,-640,0, 0,640,0
+		LocalYaw: -40, 24
+		PauseOnCondition: !ammo
+	AttackAircraft:
+		FacingTolerance: 80
+		PersistentTargeting: false
+		OpportunityFire: false
+	Aircraft:
+		CruiseAltitude: 2560
+		InitialFacing: 192
+		TurnSpeed: 16
+		Speed: 223
+		RepulsionSpeed: 40
+		MaximumPitch: 56
+	AutoTarget:
+		InitialStance: HoldFire
+		InitialStanceAI: HoldFire
+	AmmoPool:
+		Ammo: 2
+        ReloadDelay: 125
+		AmmoCondition: ammo
+	Selectable:
+		Bounds: 1536, 1194, 0, 85
+		DecorationBounds: 1706, 1237, 0, 42
+	Contrail@1:
+		Offset: -598,-683,0
+		StartColorAlpha: 128
+	Contrail@2:
+		Offset: -598,683,0
+		StartColorAlpha: 128
+	SpawnActorOnDeath:
+		Actor: chinanukemig.Husk.empty
+		RequiresCondition: !ammo
+	SpawnActorOnDeath@2:
+		Actor: chinanukemig.Husk.loaded
+		RequiresCondition: ammo
+	LeavesTrails:
+		Offsets: -853,0,171
+		MovingInterval: 2
+		Image: smokey
+		SpawnAtLastPosition: False
+		Type: CenterPosition
+		RequiresCondition: enable-smoke
+	ProducibleWithLevel:
+		Prerequisites: aircraft.upgraded
+	Rearmable:
+		RearmActors: chinaairfield, usaairfield, afld, afld.ukraine, usaairstriplandingspot
+	WithAmmoPipsDecoration:
+		Position: BottomLeft
+		Margin: 4, 3
+		RequiresSelection: true
+	GrantConditionOnDamageState@SmokeTrail:
+		Condition: enable-smoke
+	WithProductionIconOverlay:
+		Types: Veterancy
+		Prerequisites: aircraft.upgraded
+	RenderSprites:
+		Image: chinanukemig
+	ReloadAmmoPool@reloadnear:
+		RequiresCondition: reloadnear
+		Delay: 1000
+        Count: 1
+	Voiced:
+		VoiceSet: MiGVoice
