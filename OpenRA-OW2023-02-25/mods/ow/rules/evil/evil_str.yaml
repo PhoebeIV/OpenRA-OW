@@ -46,6 +46,15 @@ Dummyplug:
 SetGoul:
 	Inherits: ^Building
 	Inherits@IDISABLE: ^DisableOnLowPowerOrPowerDown
+	Inherits@AUTOTARGET: ^AutoTargetAll
+	StoresResources:
+		Capacity: 5000
+	GrantConditionOnPlayerResources@hasmon:
+		Condition: HasMoney
+	ExternalCondition@conduit:
+		Condition: Conduit
+	ExternalCondition@dummy:
+		Condition: DummyCondition
 	-Targetable:
 	Buildable:
 		Queue: Bodypitprod
@@ -83,12 +92,68 @@ SetGoul:
 		RequiresCondition: !disabled
 	Replacement:
 		ReplaceableTypes: buildgouls
-	ProximityExternalCondition:
+	AmmoPool:
+		Name: SummonerPool
+		Armaments: primary
+		Ammo: 1
+		InitialAmmo: 0
+		ReloadCount: 1
+		ReloadDelay: 1000
+		AmmoCondition: SlavePoolAmmoCondition
+	ReloadAmmoPool:
+		AmmoPool: SummonerPool
+		Delay: 1000
+		Count: 1
+		RequiresCondition: HasMoney
+		PauseOnCondition: disabled
+	WithAmmoPipsDecoration:
+		Position: BottomLeft
+		PipCount: 10
+		AmmoPools: GraveAmmoPool
+	GrantConditionOnAttack:
+		Condition: FreeSummon
+		RevokeDelay: 1000
+		RevokeAll: True
+	AutoTarget:
+		InitialStance: AttackAnything
+		ScanRadius: 10
+	AttackOmni:
+	Armament:
+		Weapon: FactoryShot
+		TargetRelationships: Ally
+		ForceTargetRelationships: Ally
+		RequiresCondition: SlavePoolAmmoCondition && HasMoney
+		PauseOnCondition: disabled
+	FreeActor:
+		Actor: goul
+		SpawnOffset: 1,0
+		AllowRespawn: True
+		RequiresCondition: FreeSummon
+	CashTrickler@FreeUnits:
+		Interval: 15
+		InitialDelay: 10
+		Amount: -100
+		RequiresCondition: FreeSummon && HasMoney
+		PauseOnCondition: disabled
+	ExternalCondition@buildgouls:
 		Condition: buildgouls
-		Range: 3c0
+	ReloadAmmoDelayMultiplier@buildspeedg:
+		Modifier: 100
+		RequiresCondition: Conduit
+	ReloadDelayMultiplier@buildspeedg:
+		Modifier: 100
 
 SetSkelly:
 	Inherits: SetGoul
+	-ExternalCondition@buildgouls:
+	GrantConditionOnPlayerResources@hasmon:
+		Condition: HasMoney
+	ExternalCondition@conduit:
+		Condition: Conduit
+	ExternalCondition@dummy:
+		Condition: DummyCondition
+	StoresResources:
+		Capacity: 5000
 	Buildable:
 		Queue: Bodypitprod
 		Prerequisites: ~structures.evil
@@ -109,12 +174,68 @@ SetSkelly:
 		Types: buildgouls , buildHost
 	Replacement:
 		ReplaceableTypes: buildskelly
-	ProximityExternalCondition:
+	AmmoPool:
+		Name: SummonerPool
+		Armaments: primary
+		Ammo: 1
+		InitialAmmo: 0
+		ReloadCount: 1
+		ReloadDelay: 1000
+		AmmoCondition: SlavePoolAmmoCondition
+	ReloadAmmoPool:
+		AmmoPool: SummonerPool
+		Delay: 1000
+		Count: 1
+		RequiresCondition: HasMoney
+		PauseOnCondition: disabled
+	WithAmmoPipsDecoration:
+		Position: BottomLeft
+		PipCount: 10
+		AmmoPools: GraveAmmoPool
+	GrantConditionOnAttack:
+		Condition: FreeSummon
+		RevokeDelay: 10
+		RevokeAll: True
+	AutoTarget:
+		InitialStance: AttackAnything
+		ScanRadius: 10
+	AttackOmni:
+	Armament:
+		Weapon: FactoryShot
+		TargetRelationships: Ally
+		ForceTargetRelationships: Ally
+		RequiresCondition: SlavePoolAmmoCondition && HasMoney
+		PauseOnCondition: disabled
+	FreeActor:
+		Actor: skelly
+		SpawnOffset: 1,0
+		AllowRespawn: True
+		RequiresCondition: FreeSummon
+	CashTrickler@FreeUnits:
+		Interval: 15
+		InitialDelay: 10
+		Amount: -100
+		RequiresCondition: FreeSummon && HasMoney
+		PauseOnCondition: disabled
+	ExternalCondition@buildSkelly:
 		Condition: buildSkelly
-		Range: 2c0
+	ReloadAmmoDelayMultiplier@buildspeeds:
+		Modifier: 100
+		RequiresCondition: Conduit
+	ReloadDelayMultiplier@buildspeeds:
+		Modifier: 100
 
 SetHost:
 	Inherits: SetGoul
+	-ExternalCondition@buildgouls:
+	GrantConditionOnPlayerResources@hasmon:
+		Condition: HasMoney
+	ExternalCondition@conduit:
+		Condition: Conduit
+	ExternalCondition@dummy:
+		Condition: DummyCondition
+	StoresResources:
+		Capacity: 5000
 	Buildable:
 		Queue: Bodypitprod
 		Prerequisites: ~structures.evil
@@ -136,9 +257,55 @@ SetHost:
 		RequiresCondition: !disabled
 	Replacement:
 		ReplaceableTypes: buildhost
-	ProximityExternalCondition:
-		Condition: buildHost
-		Range: 1c0
+	AmmoPool:
+		Name: SummonerPool
+		Armaments: primary
+		Ammo: 1
+		InitialAmmo: 0
+		ReloadCount: 1
+		ReloadDelay: 1000
+		AmmoCondition: SlavePoolAmmoCondition
+	ReloadAmmoPool:
+		AmmoPool: SummonerPool
+		Delay: 1000
+		Count: 1
+		RequiresCondition: HasMoney
+		PauseOnCondition: disabled
+	WithAmmoPipsDecoration:
+		Position: BottomLeft
+		PipCount: 10
+		AmmoPools: GraveAmmoPool
+	GrantConditionOnAttack:
+		Condition: FreeSummon
+		RevokeDelay: 10
+		RevokeAll: True
+	AutoTarget:
+		InitialStance: AttackAnything
+		ScanRadius: 10
+	AttackOmni:
+	Armament:
+		Weapon: FactoryShot
+		TargetRelationships: Ally
+		ForceTargetRelationships: Ally
+		RequiresCondition: SlavePoolAmmoCondition && HasMoney
+		PauseOnCondition: disabled
+	FreeActor:
+		Actor: corpsehost
+		SpawnOffset: 1,0
+		AllowRespawn: True
+		RequiresCondition: FreeSummon 
+	CashTrickler@FreeUnits:
+		Interval: 15
+		InitialDelay: 10
+		Amount: -100
+		RequiresCondition: FreeSummon && HasMoney
+		PauseOnCondition: disabled
+	ReloadAmmoDelayMultiplier@buildspeedh:
+		Modifier: 100
+		RequiresCondition: Conduit
+	ReloadDelayMultiplier@buildspeedh:
+		Modifier: 100
+
 
 ###############################################################################
 ##############################   MCV and Power   ###########################
@@ -148,11 +315,14 @@ SetHost:
 FACTE:
 	Inherits@FACTM: FACTM
 	Inherits@IDISABLE: ^DisableOnLowPowerOrPowerDown
+	Inherits@AUTOTARGET: ^AutoTargetAll
 	Building:
 		Footprint: xxx xxx X== ===
 		Dimensions: 3,4
 		LocalCenterOffset: 0,-512,0
 		BuildSounds: medibuild1.aud, medibuildjobdone1.aud, medibuildplace1.aud
+	ExternalCondition@dummy:
+		Condition: DummyCondition
 	Buildable:
 		Queue: Building
 		Prerequisites: ~disabled
@@ -202,7 +372,8 @@ FACTE:
 	AttackOmni:
 	Armament:
 		Weapon: FactoryShot
-		TargetRelationships: Enemy, Neutral, Ally
+		TargetRelationships: Ally
+		ForceTargetRelationships: Ally
 		RequiresCondition: SummonerPoolAmmoCondition
 		PauseOnCondition: disabled
 	FreeActor@summoner:
@@ -257,6 +428,11 @@ Hellconduit:
 		Amount: 100
 	RenderSprites:
 		Image: mediarcanetower
+	WithRangeCircle@Conduit:
+		Range: 4c512
+	ProximityExternalCondition@Conduit:
+		Condition: Conduit
+		Range: 4c512
 
 		
 #############################################
@@ -286,8 +462,6 @@ Hoardpile1st:
 		Footprint: xx ==
 		Dimensions: 2,2
 		BuildSounds: medibuild1.aud, medibuildjobdone1.aud, medibuildplace1.aud
-	StoresResources:
-		Capacity: 5000
 	Valued:
 		Cost: 400
 	Health:
@@ -322,6 +496,8 @@ Shallowgrave:
 	Inherits: PROC
 	Inherits@IDISABLE: ^DisableOnLowPowerOrPowerDown
 	Inherits@AUTOTARGET: ^AutoTargetAll
+	ExternalCondition@dummy:
+		Condition: DummyCondition
 	-FreeActor:
 	Power:
 		Amount: 50
@@ -392,7 +568,8 @@ Shallowgrave:
 	AttackOmni:
 	Armament:
 		Weapon: FactoryShot
-		TargetRelationships: Enemy, Neutral, Ally
+		TargetRelationships: Ally
+		ForceTargetRelationships: Ally
 		RequiresCondition: SlavePoolAmmoCondition
 		PauseOnCondition: disabled
 
@@ -401,6 +578,8 @@ Shallowgrave:
 GolemCore:
 	Inherits: Shallowgrave
 	Inherits@IDISABLE: ^DisableOnLowPowerOrPowerDown
+	ExternalCondition@dummy:
+		Condition: DummyCondition
 	Power:
 		Amount: 100
 	Buildable:
@@ -442,10 +621,7 @@ GolemCore:
 Bodypit:
 	Inherits: ^BarracksPrereqs
 	Inherits: ^Building
-	Inherits@IDISABLE: ^DisableOnLowPowerOrPowerDown
 	Inherits@shape: ^2x2Shape
-	AutoTarget:
-		AllowMovement: False
 	Selectable:
 		Bounds: 2048, 3072, 0, 512
 	HitShape:
@@ -502,134 +678,11 @@ Bodypit:
 		TargetTypes: GroundActor, C4, DetonateAttack, Structure, SpyInfiltrate
 	RenderSprites:
 		Image: tentmedi
-	GrantConditionOnPlayerResources:
-		Condition: HasMoney
-	ExternalCondition:
-		Condition: Conduit
-	ReloadAmmoDelayMultiplier:
-		Modifier: 100
-		RequiresCondition: Conduit
-	ReloadDelayMultiplier:
-		Modifier: 100
-	ExternalCondition@buildHost:
-		Condition: buildHost
-	ExternalCondition@buildSkelly:
-		Condition: buildSkelly
-	ExternalCondition@buildgouls:
-		Condition: buildgouls
 	FreeActor@Dummyplug:
 		Actor: Dummyplug
 		SpawnOffset: 0,2
 		AllowRespawn: False
 		RequiresCondition: !disabled
-	CashTrickler@goul:
-		Interval: 5
-		InitialDelay: 10
-		Amount: -100
-		PauseOnCondition: disabled || !HasMoney
-		RequiresCondition: buildgouls
-	CashTrickler@skelly:
-		Interval: 5
-		InitialDelay: 10
-		Amount: -100
-		PauseOnCondition: disabled || !HasMoney
-		RequiresCondition: buildSkelly
-	CashTrickler@host:
-		Interval: 5
-		InitialDelay: 10
-		Amount: -100
-		PauseOnCondition: disabled || !HasMoney
-		RequiresCondition: buildHost
-	FreeActor@goul:
-		Actor: goul
-		SpawnOffset: 1,2
-		AllowRespawn: True
-		RequiresCondition: SummonGoul
-	FreeActor@skelly:
-		Actor: skelly
-		SpawnOffset: 1,2
-		AllowRespawn: True
-		RequiresCondition: SummonSkelly
-	FreeActor@host:
-		Actor: corpsehost
-		SpawnOffset: 1,2
-		AllowRespawn: True
-		RequiresCondition: SummonHost
-	AmmoPool@goul:
-		Name: gpool
-		Armaments: Goulwep
-		Ammo: 1
-		InitialAmmo: 1
-		ReloadCount: 1
-		ReloadDelay: 1000
-		AmmoCondition: gpoolAmmoCondition
-	ReloadAmmoPool@goul:
-		AmmoPool: gpool
-		Delay: 1000
-		Count: 1
-		RequiresCondition: buildgouls
-	AmmoPool@skelly:
-		Name: spool
-		Armaments: skellywep
-		Ammo: 1
-		InitialAmmo: 1
-		ReloadCount: 1
-		ReloadDelay: 1000
-		AmmoCondition: spoolAmmoCondition
-	ReloadAmmoPool@skelly:
-		AmmoPool: spool
-		Delay: 1000
-		Count: 1
-		RequiresCondition: buildSkelly
-	AmmoPool@host:
-		Name: hpool
-		Armaments: hostwep
-		Ammo: 1
-		InitialAmmo: 1
-		ReloadCount: 1
-		ReloadDelay: 1000
-		AmmoCondition: hpoolAmmoCondition
-	ReloadAmmoPool@host:
-		AmmoPool: hpool
-		Delay: 1000
-		Count: 1
-		RequiresCondition: buildHost
-	GrantConditionOnAttack@goul:
-		Condition: SummonGoul
-		ArmamentNames: Goulwep
-		RevokeDelay: 1
-		RevokeAll: True
-	GrantConditionOnAttack@skelly:
-		Condition: SummonSkelly
-		ArmamentNames: skellywep
-		RevokeDelay: 1
-		RevokeAll: True
-	GrantConditionOnAttack@host:
-		Condition: SummonHost
-		ArmamentNames: hostwep
-		RevokeDelay: 1
-		RevokeAll: True
-	AutoTarget:
-		InitialStance: AttackAnything
-		ScanRadius: 10
-	AttackOmni:
-		Armaments: Goulwep, skellywep, hostwep
-		PauseOnCondition: disabled
-	Armament@goul:
-		Name: Goulwep
-		Weapon: FactoryShot
-		TargetRelationships: Enemy, Neutral, Ally
-		RequiresCondition: gpoolAmmoCondition && buildgouls
-	Armament@skelly:
-		Name: skellywep
-		Weapon: FactoryShot
-		TargetRelationships: Enemy, Neutral, Ally
-		RequiresCondition: spoolAmmoCondition && buildSkelly
-	Armament@host:
-		Name: hostwep
-		Weapon: FactoryShot
-		TargetRelationships: Enemy, Neutral, Ally
-		RequiresCondition: hpoolAmmoCondition && buildHost
 
 
 ##  Hell Gateway: Produces Demons, Imps and Hellhounds
