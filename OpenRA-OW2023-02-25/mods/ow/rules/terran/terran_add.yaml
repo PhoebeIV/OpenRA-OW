@@ -38,6 +38,9 @@
 		Offset: 0,512,320
 	WithIdleOverlay@fire3:
 		Offset: 0,0,256
+	KillsSelf:
+		RequiresCondition: botowner && !cc_addon #remove for bots to free up space in their base
+		Delay: 750
 
 TCOMSAT.plug:
 	Inherits: ^BuildingPlug
@@ -177,6 +180,8 @@ TSHOP:
 		Range: 4c0
 	Sellable:
 		RequiresCondition: !build-incomplete && !being-captured && !being-demolished && fac_addon
+	KillsSelf:
+		RequiresCondition: botowner && !fac_addon
 
 TCTRL.plug:
 	Inherits: ^BuildingPlug
@@ -253,6 +258,8 @@ TCTRL:
 		CameraActor: camera
 		Weapon: TerranGoliath2
 		WeaponDelay: 5
+	KillsSelf:
+		RequiresCondition: botowner && !star_addon
 
 TCOPS.plug:
 	Inherits: ^BuildingPlug
@@ -312,6 +319,8 @@ TCOPS:
 		Range: 4c0
 	Sellable:
 		RequiresCondition: !build-incomplete && !being-captured && !being-demolished && scf_addon
+	KillsSelf:
+		RequiresCondition: botowner && !scf_addon
 
 TPLAB.plug:
 	Inherits: ^BuildingPlug
