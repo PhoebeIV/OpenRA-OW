@@ -357,6 +357,12 @@ PROCD:
 		RequiresSelection: true
 		PipCount: 17
 		FullSequence: pip-yellow
+	GrantConditionOnPrerequisite@processing:
+		Prerequisites: nod.tiberium
+		Condition: processing
+	ResourceValueMultiplier@processing:
+		RequiresCondition: processing
+		Modifier: 110
 
 SILOD:
 	Inherits: ^DawnBuilding
@@ -931,6 +937,26 @@ AFLD:
 FTUR:
 	Buildable:
 		Prerequisites: barracks, ~techlevel.low, ~structures.spenprereq
+	GrantConditionOnPrerequisite@ttr:
+		Prerequisites: ttr.fuel
+		Condition: ttr_upgrade
+	RangeMultiplier@ttr:
+		RequiresCondition: ttr_upgrade
+		Modifier: 120
+	FirepowerMultiplier@ttr:
+		RequiresCondition: ttr_upgrade
+		Modifier: 120
+	GrantConditionOnPrerequisite@nod:
+		Prerequisites: structures.nod
+		Condition: chem_weapon
+	Armament:
+		Weapon: FireballLauncher
+		LocalOffset: 512,0,0
+		RequiresCondition: !chem_weapon
+	Armament@nod:
+		Weapon: ChemFireballLauncher
+		LocalOffset: 512,0,0
+		RequiresCondition: chem_weapon
 
 # Buildable by allies and UAC
 PBOX:

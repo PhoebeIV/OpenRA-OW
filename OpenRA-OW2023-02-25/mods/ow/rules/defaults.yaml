@@ -11,7 +11,6 @@
 		RequiresCondition: stealthgen && !disabled
 		UncloakOn: Attack, Unload, Infiltrate, Demolish, Damage
 
-
 ^3x3Shape:
 	HitShape:
 		UseTargetableCellsOffsets: true
@@ -49,15 +48,15 @@
 		RequiresCondition: arbiterstealth && !disabled
 		UncloakOn: Attack, Unload, Infiltrate, Demolish
 	WithColoredOverlay@ensnare:
-		RequiresCondition: queen_ensnare
+		RequiresCondition: queen_ensnare && !gdi_suits
 		Color: 80AA0040
 	ExternalCondition@ensnare:
 		Condition: queen_ensnare
 	SpeedMultiplier@ensnare:
-		RequiresCondition: queen_ensnare
+		RequiresCondition: queen_ensnare && !gdi_suits
 		Modifier: 65
 	ReloadDelayMultiplier@ensnare:
-		RequiresCondition: queen_ensnare
+		RequiresCondition: queen_ensnare && !gdi_suits
 		Modifier: 133
 	WithColoredOverlay@parasite:
 		RequiresCondition: queen_parasite
@@ -75,10 +74,10 @@
 	ExternalCondition@corrode:
 		Condition: corrode
 	DamageMultiplier@corrode:
-		RequiresCondition: corrode
+		RequiresCondition: corrode && !gdi_suits
 		Modifier: 110
 	WithColoredOverlay@corrode:
-		RequiresCondition: corrode
+		RequiresCondition: corrode && !gdi_suits
 		Color: 00800040
 	ExternalCondition@carrier:
 		Condition: carriertarget
@@ -106,6 +105,18 @@
 	WithColoredOverlay@avengermarked:
 		RequiresCondition: avengermarked
 		Color: 0000FF40
+	GrantConditionOnPrerequisite@GDIsuits:
+		Prerequisites: gdi.suits
+		Condition: gdi_suits
+	DamageMultiplier@corrode:
+		RequiresCondition: corrode && gdi_suits
+		Modifier: 75
+	GrantConditionOnPrerequisite@fanatics:
+		Prerequisites: nod.fanatic
+		Condition: nod_fanatics
+	ReloadDelayMultiplier@fanatics:
+		RequiresCondition: nod_fanatics
+		Modifier: 90
 
 ^NoExp:
 	Inherits: ^GainsExperience
@@ -255,6 +266,15 @@
 	RevealsShroudMultiplier@commcentre:
 		RequiresCondition: missboost
 		Modifier: 120
+	GrantConditionOnPrerequisite@alliesupgrade:
+		Prerequisites: allies.training1
+		Condition: allies_training
+	RevealsShroudMultiplier@alliesupgrade:
+		RequiresCondition: allies_training
+		Modifier: 110
+	RangeMultiplier@alliesupgrade:
+		RequiresCondition: allies_training
+		Modifier: 110
 
 ^HolySuperBoosted:
 	ExternalCondition@HolySuperBoosted:
@@ -608,7 +628,7 @@
 		Condition: standing_in_tiberium
 		TerrainTypes: Tiberium, BlueTiberium
 	ChangesHealth@radiation:
-		RequiresCondition: standing_in_radiation
+		RequiresCondition: standing_in_radiation && !gdi_suits
 		DamageTypes: FireDeath
 		Step: -200
 		Delay: 8
@@ -1114,6 +1134,18 @@
 	ProximityExternalCondition@addons:
 		Condition: kill_addon
 		Range: 1c512
+	GrantConditionOnPrerequisite@alliesupgrade:
+		Prerequisites: allies.training1
+		Condition: allies_training
+	RevealsShroudMultiplier@alliesupgrade:
+		RequiresCondition: allies_training
+		Modifier: 110
+	RangeMultiplier@alliesupgrade:
+		RequiresCondition: allies_training
+		Modifier: 110
+	DetectCloakedMultiplier@alliesupgrade:
+		RequiresCondition: allies_training
+		Modifier: 110
 
 ^ScienceBuilding:
 	Inherits@Monumentboost: ^Monumentboosted
@@ -1278,7 +1310,7 @@
 		StartIfBelow: 110
 		DamageCooldown: 0
 	ChangesHealth@radiation:
-		RequiresCondition: standing_in_radiation
+		RequiresCondition: standing_in_radiation && !gdi_suits
 		Step: -400
 		Delay: 8
 		StartIfBelow: 101
@@ -1317,6 +1349,14 @@
 	SpawnActorsOnSell@usa:
 		Factions: usa
 		ActorTypes: usaranger,usaranger,usaranger,usaranger,usaranger
+
+^TrackedVehicle:
+	GrantConditionOnPrerequisite@gdi_speed:
+		Prerequisites: gdi.speed
+		Condition: gdi_speed
+	SpeedMultiplier@gdi_speed:
+		RequiresCondition: gdi_speed
+		Modifier: 120
 
 ^Ship:
 	Inherits@corrode: ^CorrodesFromTibWeaps
@@ -1451,6 +1491,12 @@
 		UncloakSound: tphclo01.aud
 		RequiresCondition: arbiterstealth && !disabled
 		UncloakOn: Attack, Unload, Infiltrate, Demolish
+	GrantConditionOnPrerequisite@gdi_speed:
+		Prerequisites: gdi.speed
+		Condition: gdi_speed
+	SpeedMultiplier@gdi_speed:
+		RequiresCondition: gdi_speed
+		Modifier: 120
 
 ^FlyingBuilding:
 	Inherits@1: ^ExistsInWorld

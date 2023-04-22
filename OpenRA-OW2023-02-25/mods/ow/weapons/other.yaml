@@ -35,6 +35,20 @@ FireballLauncher:
 		Versus:
 			Light: 50
 
+ChemFireballLauncher:
+	Inherits: FireballLauncher
+	Projectile: Bullet
+		TrailImage: fbc_4
+		Image: fbc_3
+	Warhead@poison1: GrantExternalCondition
+		Delay: 1
+		Condition: corrode
+		Range: 1c0
+		Duration: 250
+		ValidTargets: GroundActor, WaterActor
+	Warhead@3Eff: CreateEffect
+		Explosions: chemexplo
+
 Flamer:
 	Inherits: ^FireWeapon
 	ReloadDelay: 50
@@ -741,6 +755,33 @@ BigChemSpray:
 		Range: 1c0
 		Duration: 350
 
+ChemSpray_Beta:
+	Inherits: ChemSpray
+	Projectile: Bullet
+		Speed: 170
+		TrailImage: fbcb_2
+		Image: fbcb_1
+		LaunchAngle: 62
+		Inaccuracy: 853
+	Warhead@1Dam: SpreadDamage
+		Damage: 465
+	Warhead@3Eff: CreateEffect
+		Explosions: baronblue
+	Warhead@poison1: GrantExternalCondition
+		Range: 1024
+		Duration: 300
+
+BigChemSpray_Beta:
+	Inherits: ChemSpray_Beta
+	Burst: 20
+	Projectile: Bullet
+		Inaccuracy: 1024
+	Warhead@1Dam: SpreadDamage
+		Damage: 558
+	Warhead@poison1: GrantExternalCondition
+		Range: 1c512
+		Duration: 400
+
 CyborgPlasma:
 	ReloadDelay: 36
 	Range: 7c0
@@ -1345,15 +1386,37 @@ A10Chem:
 		Dimensions: 6,6
 		Footprint: xxxxxx xxxxxx xxxxxx xxxxxx xxxxxx xxxxxx
 
+A10Chem_Beta:
+	Inherits: A10Chem
+	Warhead@1Dam: SpreadDamage
+		Damage: 5900
+	Warhead@2Eff: CreateEffect
+		Explosions: baronblue
+	Warhead@poison1: GrantExternalCondition
+		Duration: 500
+	Warhead@gas: FireCluster
+		Weapon: A10Gas_Beta
+		RandomClusterCount: 5
+	Warhead@gas2: FireCluster
+		Weapon: A10Gas_Beta
+		RandomClusterCount: 9
+	Warhead@gas3: FireCluster
+		Weapon: A10Gas_Beta
+		RandomClusterCount: 9
+		Dimensions: 8,8
+		Footprint: xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx
+
 A10Gas:
 	ReloadDelay: 1
 	Range: 3c512
 	ValidTargets: Ground, Water, GroundActor, WaterActor
 	Projectile: Bullet
 		Speed: 2c0
+		Inaccuracy: 1c0
 	Warhead@1Eff: CreateEffect
 		Explosions: cloud
 		ImpactActors: false
+		Inaccuracy: 512
 	Warhead@1poison: GrantExternalCondition
 		Range: 3c0
 		Condition: corrode
@@ -1373,6 +1436,7 @@ A10Gas:
 		Explosions: cloud
 		ImpactActors: false
 		Delay: 18
+		Inaccuracy: 512
 	Warhead@2poison: GrantExternalCondition
 		Range: 3c0
 		Condition: corrode
@@ -1394,6 +1458,7 @@ A10Gas:
 		Explosions: cloud
 		ImpactActors: false
 		Delay: 36
+		Inaccuracy: 512
 	Warhead@3poison: GrantExternalCondition
 		Range: 3c0
 		Condition: corrode
@@ -1415,6 +1480,7 @@ A10Gas:
 		Explosions: cloud
 		ImpactActors: false
 		Delay: 54
+		Inaccuracy: 512
 	Warhead@4poison: GrantExternalCondition
 		Range: 3c0
 		Condition: corrode
@@ -1436,6 +1502,7 @@ A10Gas:
 		Explosions: cloud
 		ImpactActors: false
 		Delay: 72
+		Inaccuracy: 512
 	Warhead@5poison: GrantExternalCondition
 		Range: 3c0
 		Condition: corrode
@@ -1453,6 +1520,20 @@ A10Gas:
 			Concrete: 50
 		DamageTypes: Prone50Percent, TriggerProne, TiberiumDeath
 		Delay: 72
+
+A10Gas_Beta:
+	Inherits: A10Gas
+	Warhead@1Eff: CreateEffect
+		Explosions: cloudb
+		ImpactActors: false
+	Warhead@2Eff: CreateEffect
+		Explosions: cloudb
+	Warhead@3Eff: CreateEffect
+		Explosions: cloudb
+	Warhead@4Eff: CreateEffect
+		Explosions: cloudb
+	Warhead@5Eff: CreateEffect
+		Explosions: cloudb
 
 ApocIronCurtain:
 	ReloadDelay: 625
@@ -1738,8 +1819,8 @@ ZealotStab:
 		Versus:
 			None: 100
 			Wood: 25
-			Light: 60
-			Heavy: 25
+			Light: 80
+			Heavy: 30
 			Concrete: 10
 		DamageTypes: DefaultDeath
 		ValidTargets: GroundActor, WaterActor
@@ -1750,8 +1831,8 @@ ZealotStab:
 		Versus:
 			None: 100
 			Wood: 25
-			Light: 60
-			Heavy: 25
+			Light: 80
+			Heavy: 30
 			Concrete: 10
 		DamageTypes: DefaultDeath
 		ValidTargets: GroundActor, WaterActor

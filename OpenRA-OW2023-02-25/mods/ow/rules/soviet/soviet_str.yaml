@@ -5,7 +5,7 @@ soviet.iron:
 	Buildable:
 		Description: Increases armor of all Structures and Tanks by 20% with reactive plating.
 		BuildPaletteOrder: 12000
-		Prerequisites: ~!upgrade.busy, ~!soviet.iron, ~structures.soviet, advtechcenter, techlevel.unrestricted
+		Prerequisites: ~!upgrade.busy, ~!soviet.iron, ~structures.soviet, advtechcenter, ~techlevel.unrestricted
 		BuildDuration: 4000
 	ProvidesPrerequisite@upgradename:
 	Valued:
@@ -18,7 +18,7 @@ soviet.tesla:
 	Buildable:
 		Description: A new alloy was discovered for use in electrical coils,\n increasing damage and range of Tesla weapons.
 		BuildPaletteOrder: 12001
-		Prerequisites: ~!upgrade.busy, ~!soviet.tesla, ~structures.soviet, advtechcenter, techlevel.unrestricted
+		Prerequisites: ~!upgrade.busy, ~!soviet.tesla, ~structures.soviet, advtechcenter, ~techlevel.unrestricted
 	ProvidesPrerequisite@upgradename:
 	Valued:
 		Cost: 5000
@@ -26,6 +26,9 @@ soviet.tesla:
 TSLA:
 	Buildable:
 		Prerequisites: weap, ~structures.soviet, ~!structures.estonia, ~techlevel.medium
+	GrantConditionOnPrerequisite@upgrade2:
+		Prerequisites: soviet.tesla
+		Condition: tesla_upgrade
 	RangeMultiplier@upgrade2:
 		RequiresCondition: tesla_upgrade
 		Modifier: 110

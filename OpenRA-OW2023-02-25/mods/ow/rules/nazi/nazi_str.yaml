@@ -1,3 +1,28 @@
+ttr.fuel:
+	Inherits: ^UpgradeBaseExt
+	Tooltip:
+		Name: Improved Fuel Chemistry
+	Buildable:
+		Description: Increases damage and range of flame weapons by 20%.
+		BuildPaletteOrder: 12006
+		Prerequisites: ~!upgrade.busy, ~!ttr.fuel, ~structures.nazi, ~techlevel.high
+	ProvidesPrerequisite@upgradename:
+	Valued:
+		Cost: 5000
+
+ttr.fanatic:
+	Inherits: ^UpgradeBaseExt
+	Tooltip:
+		Name: Fanaticism
+	Buildable:
+		Description: Enables Fanaticism support power. \n\nIncreases all stats by 20% for 30 seconds.
+		BuildPaletteOrder: 12007
+		Prerequisites: ~!upgrade.busy, ~!ttr.fanatic, ~structures.nazi, advtechcenter, ~techlevel.unrestricted
+		BuildDuration: 4000
+	ProvidesPrerequisite@upgradename:
+	Valued:
+		Cost: 5000
+
 NHAND:
 	Inherits: ^Building
 	Inherits@prereqs: ^BarracksPrereqs
@@ -77,9 +102,27 @@ ATEK.NZ:
 		Prerequisites: factory, radar, ~structures.nazi, ~techlevel.unrestricted, ~!ai.hard
 		Description: Provides Nazi uber technologies.
 	Tooltip:
-		Name: Nazi Tech Center
+		Name: Reich Tech Center
 	RenderSprites:
 		Image: atek
+	GrantExternalConditionPower@patriotism:
+		PauseOnCondition: disabled
+		Icon: fanaticism
+		ChargeInterval: 7500
+		Prerequisites: ttr.fanatic
+		Name: Fanaticism
+		OrderName: patriotism
+		Description: Increases all stats of selected units by 20% for 30 seconds.
+		Duration: 750
+		SelectTargetSpeechNotification: SelectTarget
+		InsufficientPowerSpeechNotification: InsufficientPower
+		DisplayRadarPing: True
+		Condition: patriotismboost
+		OnFireSound: sfrenzya.wav
+		SupportPowerPaletteOrder: 10
+		Dimensions: 7, 7
+		Footprint: _xxxxx_ xxxxxxx xxxxxxx xxxxxxx xxxxxxx xxxxxxx _xxxxx_
+		DisplayTimerRelationships: Ally
 
 DGUN.NZ:
 	Inherits: GUN

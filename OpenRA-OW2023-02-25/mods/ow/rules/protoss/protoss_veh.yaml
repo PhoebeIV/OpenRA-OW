@@ -4,7 +4,21 @@
 		Delay: 75
 		StartIfBelow: 80
 		DamageCooldown: 250
+		RequiresCondition: !shields
 		PauseOnCondition: disabled
+	GrantConditionOnPrerequisite@shields:
+		Prerequisites: protoss.shields
+		Condition: shields
+	ChangesHealth@shield2:
+		PercentageStep: 1
+		Delay: 50
+		StartIfBelow: 80
+		DamageCooldown: 100
+		RequiresCondition: shields
+		PauseOnCondition: disabled
+	DamageMultiplier@shields:
+		RequiresCondition: shields
+		Modifier: 95
 
 PMCV:
 	Inherits: MCV
@@ -96,6 +110,15 @@ PDRAGO:
 		CrushedSequence: die
 		CrushedSequencePalette: player
 		CrushedPaletteIsPlayerPalette: true
+	GrantConditionOnPrerequisite@charge:
+		Prerequisites: protoss.dragoon
+		Condition: charge
+	RangeMultiplier@charge:
+		RequiresCondition: charge
+		Modifier: 118
+	RevealsShroudMultiplier@charge:
+		RequiresCondition: charge
+		Modifier: 118
 
 PDRAGO.b:
 	Inherits: PDRAGO

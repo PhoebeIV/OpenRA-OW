@@ -26,11 +26,11 @@ upgrade.glashoes:
 	Tooltip:
 		Name: Worker Shoes
 	Buildable:
-		Description: Improve worker move speed by 10%
+		Description: Improve worker move speed by 20%
 		BuildPaletteOrder: 10007
-		Prerequisites: ~infantry.gla, ~advtechcenter, ~!upgrade.glashoes
+		Prerequisites: ~infantry.gla, advtechcenter, ~!upgrade.glashoes
 	Valued:
-		Cost: 4000
+		Cost: 2500
 	ProvidesPrerequisite@upgradename:
 	Voiced:
 		VoiceSet: Worker2Voice
@@ -39,3 +39,29 @@ upgrade.glashoes:
 		Voice: Upgrade
 	ExternalCondition@PRODUCED:
 		Condition: produced
+
+gla.beta:
+	Inherits: ^UpgradeBaseExt
+	Tooltip:
+		Name: Anthrax Beta
+	Buildable:
+		Description: Increases damage of chemical weapons by 33%
+		BuildPaletteOrder: 10008
+		Prerequisites: ~!upgrade.busy, ~!gla.beta, ~structures.gla, ~techlevel.high
+		BuildDuration: 6000
+	ProvidesPrerequisite@upgradename:
+	Valued:
+		Cost: 10000
+
+gla.pay:
+	Inherits: ^UpgradeBaseExt
+	Tooltip:
+		Name: Hazard Pay
+	Buildable:
+		Description: Pays your workers more, and in turn this\n increases GLA Hole resilience.
+		BuildPaletteOrder: 10009
+		Prerequisites: ~!upgrade.busy, ~!gla.pay, ~structures.gla, advtechcenter, ~techlevel.unrestricted
+		BuildDuration: 4000
+	ProvidesPrerequisite@upgradename:
+	Valued:
+		Cost: 5000

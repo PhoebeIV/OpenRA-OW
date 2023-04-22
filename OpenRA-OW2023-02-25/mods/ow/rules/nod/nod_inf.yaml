@@ -19,12 +19,28 @@ E5:
 		Weapon: ChemSpray
 		LocalOffset: 700,0,500
 		FireDelay: 8
+		RequiresCondition: !beta
 	Armament@GARRISONED:
 		Name: garrisoned
 		Weapon: ChemSpray
+		RequiresCondition: !beta
 	Armament@BUS:
 		Name: bus
 		Weapon: ChemSpray
+		RequiresCondition: !beta
+	Armament@PRIMARY2:
+		Weapon: ChemSpray_Beta
+		LocalOffset: 700,0,500
+		FireDelay: 8
+		RequiresCondition: beta
+	Armament@GARRISONED2:
+		Name: garrisoned
+		Weapon: ChemSpray_Beta
+		RequiresCondition: beta
+	Armament@BUS2:
+		Name: bus
+		Weapon: ChemSpray_Beta
+		RequiresCondition: beta
 	TakeCover:
 		ProneOffset: 160,0,-288
 	Explodes:
@@ -40,6 +56,9 @@ E5:
 	ProducibleWithLevel:
 		Prerequisites: barracks.upgraded
 	-GrantConditionOnTerrain@tiberium:
+	GrantConditionOnPrerequisite@beta:
+		Prerequisites: gla.beta
+		Condition: beta
 
 SBH:
 	Inherits: ^TibSunSoldier
