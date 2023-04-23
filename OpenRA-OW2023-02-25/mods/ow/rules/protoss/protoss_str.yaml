@@ -35,6 +35,9 @@ protoss.shields:
 		BuildDurationModifier: 40
 	Building:
 		BuildSounds: pbldgplc.aud,pwarp.aud
+	RequiresBuildableArea:
+		AreaTypes: pylon
+		Adjacent: 3
 	RepairableBuilding:
 		RepairStep: 200
 		PlayerExperience: 2
@@ -72,6 +75,8 @@ PNEXUS:
 		Range: 9c0
 		RequiresCondition: botowner
 		AffectsParent: true
+	GivesBuildableArea:
+		AreaTypes: building, pylon
 	Selectable:
 		Bounds: 3072, 3072
 	Building:
@@ -168,6 +173,9 @@ PNEXUS:
 		Footprint: xx xx ==
 		Dimensions: 2,3
 		LocalCenterOffset: 0,-512,0
+	RequiresBuildableArea:
+		AreaTypes: pylon
+		Adjacent: 4
 	Health:
 		HP: 60000
 	Valued:
@@ -405,7 +413,8 @@ PPYLON.warp:
 	SequencePlaceBuildingPreview:
 		Sequence: place-pylon
 	RequiresBuildableArea:
-		Adjacent: 3
+		AreaTypes: building, pylon
+		Adjacent: 4
 	Selectable:
 		Bounds: 1638, 1638
 
@@ -446,7 +455,7 @@ PPYLON:
 	ProvidesPrerequisite:
 		Prerequisite: anypower
 	Building:
-		Footprint: x
+		Footprint: +
 		Dimensions: 1,1
 	Health:
 		HP: 45000
@@ -466,6 +475,9 @@ PPYLON:
 		RequiresCondition: damaged
 		Sequence: fire2
 		Offset: 128,128,0
+	RequiresBuildableArea:
+		AreaTypes: building, pylon
+		Adjacent: 4
 	-ExternalCondition@pylon:
 	-WithColoredOverlay@nopylon:
 

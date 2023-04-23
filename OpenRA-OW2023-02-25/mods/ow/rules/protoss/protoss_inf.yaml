@@ -83,6 +83,37 @@ PPROBE:
 	Voiced:
 		VoiceSet: ProtossRobotVoice
 
+PPROBE.ENG:
+	Inherits: PZEALOT
+	RenderSprites:
+		Image: pzealot
+	Buildable:
+		BuildPaletteOrder: 9000
+		Prerequisites: ~infantry.protoss, ~techlevel.infonly, ~ai.all
+		Description: Captures stuff for the AI.
+		BuildLimit: 1
+	CaptureManager:
+	GrantConditionOnPrerequisite@GLOBALREUSABLEENGINEER:
+		Condition: global-reusable-engineers
+		Prerequisites: global-reusable-engineers
+	Captures:
+		RequiresCondition: !global-reusable-engineers
+		CaptureTypes: building
+		PlayerExperience: 10
+		CaptureDelay: 200
+	Captures@REUSABLE:
+		RequiresCondition: global-reusable-engineers
+		CaptureTypes: building
+		PlayerExperience: 10
+		CaptureDelay: 375
+		ConsumedByCapture: False
+		EnterCursor: ability
+		EnterBlockedCursor: move-blocked
+	AttackWander@roam:
+		WanderMoveRadius: 3
+		MinMoveDelay: 250
+		MaxMoveDelay: 400
+
 PZEALOT:
 	Inherits: ^Infantry
 	Inherits@shield: ^ProtossInfShield

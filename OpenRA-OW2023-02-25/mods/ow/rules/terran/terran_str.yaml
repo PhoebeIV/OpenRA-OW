@@ -150,6 +150,8 @@ TCOMMAND:
 	Tooltip:
 		Name: Command Center
 	BaseBuilding:
+	RallyPoint:
+		ForceSetType: SCV
 	Transforms:
 		PauseOnCondition: chrono-vortex || being-captured || being-demolished || build-incomplete
 		IntoActor: tcommand.air
@@ -258,6 +260,7 @@ TCOMMAND.air:
 	RevealsShroud@GAPGEN:
 		Range: 5c0
 		Type: GroundPosition
+	BaseBuilding:
 	Valued:
 		Cost: 2000
 	Tooltip:
@@ -974,7 +977,6 @@ TENBAY:
 		Cost: 1500
 	Tooltip:
 		Name: Technology Center
-	BaseBuilding:
 	Transforms:
 		PauseOnCondition: being-captured || being-demolished || build-incomplete
 		IntoActor: tenbay.air
@@ -1054,6 +1056,7 @@ TMISSILE:
 	Inherits: ^Defense
 	Inherits@fire: ^TerranBuilding
 	Inherits@AUTOTARGET: ^AutoTargetAll
+	Inherits@DISABLE: ^DisableOnLowPowerOrPowerDown
 	Buildable:
 		Queue: Defense
 		BuildPaletteOrder: 45
@@ -1088,9 +1091,11 @@ TMISSILE:
 		RequiresCondition: !build-incomplete && shooting
 	WithIdleOverlay:
 		RequiresCondition: !build-incomplete && !shooting
+		PauseOnCondition: disabled
 	Armament:
 		Weapon: TerranNike
 		LocalOffset: 384,-256,1200, 384,256,1200, 450,-256,1100, 450,256,1100, 400,-256,1000, 400,256,1000
+		PauseOnCondition: disabled
 	AttackTurreted:
 		PauseOnCondition: build-incomplete
 	Power:
@@ -1139,7 +1144,6 @@ TFACTORY:
 		Cost: 2000
 	Tooltip:
 		Name: Terran Factory
-	BaseBuilding:
 	Transforms:
 		PauseOnCondition: chrono-vortex || being-captured || being-demolished || build-incomplete
 		IntoActor: tfactory.air
@@ -1173,20 +1177,25 @@ TFACTORY:
 		DisableStop: false
 	Exit@1:
 		RequiresCondition: !being-captured
-		ExitCell: 2,3
-		ProductionTypes: Vehicle
-	Exit@2:
-		RequiresCondition: !being-captured
+		SpawnOffset: -1024,1024,0
 		ExitCell: 0,3
 		ProductionTypes: Vehicle
+		Priority: 3
+	Exit@2:
+		RequiresCondition: !being-captured
+		ExitCell: 2,3
+		ProductionTypes: Vehicle
+		Priority: 2
 	Exit@3:
 		RequiresCondition: !being-captured
 		ExitCell: -1,0
 		ProductionTypes: Vehicle
+		Priority: 1
 	Exit@4:
 		RequiresCondition: !being-captured
 		ExitCell: 2,-1
 		ProductionTypes: Vehicle
+		Priority: 1
 	Production:
 		Produces: Vehicle
 	ProductionQueue@infantry:
@@ -1321,7 +1330,6 @@ TSPORT:
 		Cost: 2000
 	Tooltip:
 		Name: Starport
-	BaseBuilding:
 	Transforms:
 		PauseOnCondition: chrono-vortex || being-captured || being-demolished || build-incomplete
 		IntoActor: tsport.air
@@ -1480,7 +1488,7 @@ TSCIENCE:
 	Buildable:
 		Queue: Tech
 		BuildPaletteOrder: 34
-		Prerequisites: techcenter, ~structures.terran, ~techlevel.unrestricted, ~!ai.boss
+		Prerequisites: tacadamy, techcenter, ~structures.terran, ~techlevel.unrestricted, ~!ai.boss
 		Description: Provides extra advanced technologies and\n upgrades to your forces.\n  Special Ability: Steady income\n\n  Allows access to more Barracks.
 	Health:
 		HP: 120000
@@ -1496,7 +1504,6 @@ TSCIENCE:
 		Cost: 2000
 	Tooltip:
 		Name: Science Facility
-	BaseBuilding:
 	Transforms:
 		PauseOnCondition: chrono-vortex || being-captured || being-demolished || build-incomplete
 		IntoActor: tscience.air
@@ -1620,7 +1627,6 @@ TSCIENCE.Husk:
 		Name: Science Facility
 	RenderSprites:
 		Image: tscience
-
 
 TBUNKER:
 	Inherits: ^Defense
@@ -1819,18 +1825,22 @@ TBUNKER:
 		Turret: 1
 		TurnSpeed: 24
 		InitialFacing: 0
+		RealignDelay: 1
 	Turreted@2:
 		Turret: 2
 		TurnSpeed: 24
 		InitialFacing: 256
+		RealignDelay: 1
 	Turreted@3:
 		Turret: 3
 		TurnSpeed: 24
 		InitialFacing: 512
+		RealignDelay: 1
 	Turreted@4:
 		Turret: 4
 		TurnSpeed: 24
 		InitialFacing: 768
+		RealignDelay: 1
 	AttackTurreted:
 		Armaments: primary
 		Turrets: 1,2,3,4
@@ -1897,6 +1907,7 @@ TBUNKER.BOT:
 	Buildable:
 		BuildPaletteOrder: 9000
 		Prerequisites: barracks, ~structures.terran, ~techlevel.low, ~ai.all
+		Description: AI-only, contains 3 marines and a firebat. \nAlso has self-heals for Hard difficulty
 	Valued:
 		Cost: 1200
 	GivesExperience:
@@ -1915,6 +1926,7 @@ TBUNKER.BOT2:
 	Inherits: TBUNKER.BOT
 	Buildable:
 		Prerequisites: barracks, tcops, ~structures.terran, ~techlevel.unrestricted, ~ai.all
+		Description: AI-only, contains 3 marines and a ghost. \nAlso has self-heals for Hard difficulty
 	Cargo:
 		InitialUnits: tmarine,tmarine,tmarine,tghost
 

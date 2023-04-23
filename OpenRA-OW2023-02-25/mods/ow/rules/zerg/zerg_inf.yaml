@@ -143,11 +143,11 @@ ZZERGLING:
 	FreeActor@zergling:
 		RequiresCondition: !zerglingdouble
 		Actor: ZZERGLING2
-		SpawnOffset: 0,1
+		SpawnOffset: 0,0
 	FreeActor@zergling_ai:
 		RequiresCondition: botowner && random1
 		Actor: ZZERGLING2
-		SpawnOffset: 0,1
+		SpawnOffset: 0,0
 	GrantConditionOnPrerequisite@ai:
 		Condition: botowner
 		Prerequisites: ai.hard
@@ -213,6 +213,37 @@ ZZERGLING.b:
 
 ZZERGLING.b2:
 	Inherits: ZZERGLING.b
+
+ZDRONE.ENG:
+	Inherits: ZZERGLING
+	RenderSprites:
+		Image: zzergling
+	Buildable:
+		BuildPaletteOrder: 9000
+		Prerequisites: ~barracks, ~structures.zerg, ~techlevel.infonly, ~ai.all
+		Description: Captures stuff for the AI.
+		BuildLimit: 1
+	CaptureManager:
+	GrantConditionOnPrerequisite@GLOBALREUSABLEENGINEER:
+		Condition: global-reusable-engineers
+		Prerequisites: global-reusable-engineers
+	Captures:
+		RequiresCondition: !global-reusable-engineers
+		CaptureTypes: building
+		PlayerExperience: 10
+		CaptureDelay: 200
+	Captures@REUSABLE:
+		RequiresCondition: global-reusable-engineers
+		CaptureTypes: building
+		PlayerExperience: 10
+		CaptureDelay: 375
+		ConsumedByCapture: False
+		EnterCursor: ability
+		EnterBlockedCursor: move-blocked
+	AttackWander@roam:
+		WanderMoveRadius: 3
+		MinMoveDelay: 175
+		MaxMoveDelay: 400
 
 ZHYDRA:
 	Inherits: ^Infantry
