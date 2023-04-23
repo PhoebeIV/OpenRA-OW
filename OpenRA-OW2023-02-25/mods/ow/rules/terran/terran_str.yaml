@@ -1050,244 +1050,6 @@ TENBAY.Husk:
 	RenderSprites:
 		Image: tenbay
 
-TBUNKER:
-	Inherits: ^Defense
-	Inherits@fire: ^TerranBuilding
-	Inherits@shape: ^2x2Shape
-	Inherits@AUTOTARGET: ^AutoTargetAll
-	Inherits@CARGOPIPS: ^CargoPips
-	Selectable:
-		Class: TBUNKER
-		Bounds: 2048,1664
-	Tooltip:
-		Name: Bunker
-	Building:
-		Dimensions: 2,2
-		Footprint: ++ xx
-	Buildable:
-		Queue: Defense
-		BuildPaletteOrder: 40
-		Prerequisites: barracks, ~structures.terran, ~techlevel.low, ~!ai.all
-		Description: Static defense with a fireport for\n garrisoned troops.\nCannot detect cloaked units.\n  Strong vs Infantry, Light armor\n  Weak vs Tanks, Aircraft
-	Valued:
-		Cost: 600
-	Health:
-		HP: 60000
-	Armor:
-		Type: Heavy
-	RevealsShroud:
-		MinRange: 5c0
-		Range: 6c0
-		RevealGeneratedShroud: False
-	RevealsShroud@GAPGEN:
-		Range: 5c0
-	WithBuildingBib:
-	Turreted:
-		TurnSpeed: 512
-	-QuantizeFacingsFromSequence:
-	BodyOrientation:
-		QuantizedFacings: 8
-	EngineerRepairable:
-		RequiresCondition: damaged
-	GrantConditionOnDamageState@DAMAGED:
-		Condition: damaged
-		ValidDamageStates: Light, Medium, Heavy, Critical
-	Cargo:
-		Types: Infantry
-		MaxWeight: 4
-		PassengerConditions:
-			tmarine: tmarine
-			tfirebat: tfirebat
-			tscv: tscv
-			tmedic: tmedic
-			e1of: e1of
-			dm2of: e1of
-	ProximityExternalCondition@officer:
-		RequiresCondition: e1of
-		Condition: squadboost
-		Range: 5c0
-	WithDecoration@officer2:
-		Image: pips
-		Sequence: pip-bonus
-		Palette: effect
-		Position: TopRight
-		ValidRelationships: None,Neutral,Enemy,Ally
-		RequiresCondition: !demoralise && e1of
-	ExternalCondition@demoralise:
-		Condition: demoralise
-	-SpawnActorsOnSell:
-	GrantConditionOnAttack@shooting:
-		Condition: shooting
-		RevokeDelay: 14
-	WithMuzzleOverlay:
-	Armament@marine1:
-		Weapon: TerranMarineGarrison
-		MuzzleSequence: muzzle
-		RequiresCondition: tmarine
-		PauseOnCondition: marine_upgraded
-	Armament@marine2:
-		Weapon: TerranMarineGarrison
-		MuzzleSequence: muzzle
-		RequiresCondition: tmarine >= 2
-		FireDelay: 2
-		PauseOnCondition: marine_upgraded
-	Armament@marine3:
-		Weapon: TerranMarineGarrison
-		MuzzleSequence: muzzle
-		RequiresCondition: tmarine >= 3
-		FireDelay: 4
-		PauseOnCondition: marine_upgraded
-	Armament@marine4:
-		Weapon: TerranMarineGarrison
-		MuzzleSequence: muzzle
-		RequiresCondition: tmarine >= 4
-		FireDelay: 6
-		PauseOnCondition: marine_upgraded
-	Armament@marine1b:
-		Weapon: TerranMarineGarrisonUp
-		MuzzleSequence: muzzle
-		RequiresCondition: tmarine
-		PauseOnCondition: !marine_upgraded
-	Armament@marine2b:
-		Weapon: TerranMarineGarrisonUp
-		MuzzleSequence: muzzle
-		RequiresCondition: tmarine >= 2
-		FireDelay: 2
-		PauseOnCondition: !marine_upgraded
-	Armament@marine3b:
-		Weapon: TerranMarineGarrisonUp
-		MuzzleSequence: muzzle
-		RequiresCondition: tmarine >= 3
-		FireDelay: 4
-		PauseOnCondition: !marine_upgraded
-	Armament@marine4b:
-		Weapon: TerranMarineGarrisonUp
-		MuzzleSequence: muzzle
-		RequiresCondition: tmarine >= 4
-		FireDelay: 6
-		PauseOnCondition: !marine_upgraded
-	Armament@firebat1a:
-		Weapon: FirebatFlamerGarrison
-		MuzzleSequence: flame
-		MuzzlePalette: dawneffect
-		LocalOffset: 512,260,256
-		RequiresCondition: tfirebat
-	Armament@firebat1b:
-		Weapon: FirebatFlamerGarrison2
-		MuzzleSequence: flame
-		MuzzlePalette: dawneffect
-		LocalOffset: 512,-260,256
-		RequiresCondition: tfirebat
-	Armament@firebat2a:
-		Weapon: FirebatFlamerGarrison
-		MuzzleSequence: flame
-		MuzzlePalette: dawneffect
-		LocalOffset: 512,260,256
-		RequiresCondition: tfirebat >= 2
-		FireDelay: 2
-	Armament@firebat2b:
-		Weapon: FirebatFlamerGarrison2
-		MuzzleSequence: flame
-		MuzzlePalette: dawneffect
-		LocalOffset: 512,-260,256
-		RequiresCondition: tfirebat >= 2
-		FireDelay: 2
-	Armament@firebat3a:
-		Weapon: FirebatFlamerGarrison
-		MuzzleSequence: flame
-		MuzzlePalette: dawneffect
-		LocalOffset: 512,260,256
-		RequiresCondition: tfirebat >= 3
-		FireDelay: 3
-	Armament@firebat3b:
-		Weapon: FirebatFlamerGarrison2
-		MuzzleSequence: flame
-		MuzzlePalette: dawneffect
-		LocalOffset: 512,-260,256
-		RequiresCondition: tfirebat >= 3
-		FireDelay: 3
-	Armament@firebat4a:
-		Weapon: FirebatFlamerGarrison
-		MuzzleSequence: flame
-		MuzzlePalette: dawneffect
-		LocalOffset: 512,260,256
-		RequiresCondition: tfirebat >= 4
-		FireDelay: 4
-	Armament@firebat4b:
-		Weapon: FirebatFlamerGarrison2
-		MuzzleSequence: flame
-		MuzzlePalette: dawneffect
-		LocalOffset: 512,-260,256
-		RequiresCondition: tfirebat >= 4
-		FireDelay: 4
-	AttackTurreted:
-		Armaments: primary
-	RenderRangeCircle:
-		FallbackRange: 6c0
-	GrantConditionOnPrerequisite@upgrade:
-		Prerequisites: terran.marine
-		Condition: marine_upgraded
-	SpawnActorOnDeath@1:
-		Actor: tmarine
-		Probability: 90
-		Offset: 0,0
-		RequiresCondition: tmarine >= 1
-	SpawnActorOnDeath@2:
-		Actor: tmarine
-		Probability: 80
-		Offset: 0,1
-		RequiresCondition: tmarine >= 2
-	SpawnActorOnDeath@3:
-		Actor: tmarine
-		Probability: 70
-		Offset: 1,0
-		RequiresCondition: tmarine >= 3
-	SpawnActorOnDeath@4:
-		Actor: tfirebat
-		Offset: 1,1
-		RequiresCondition: tfirebat >= 1
-	SpawnActorOnDeath@5:
-		Actor: tmedic
-		Offset: 1,1
-		RequiresCondition: tmedic
-	SpawnActorOnDeath@6:
-		Actor: tscv
-		Offset: 1,1
-		RequiresCondition: tscv
-	ChangesHealth@scv:
-		Step: 500
-		StartIfBelow: 101
-		Delay: 25
-		RequiresCondition: tscv
-	WithIdleOverlay@fire1:
-		Offset: 0,-512,128
-	WithIdleOverlay@fire2:
-		Offset: 0,512,512
-	WithIdleOverlay@fire3:
-		Offset: 0,128,340
-	Capturable:
-		RequiresCondition: !build-incomplete && repairtime
-	-SpawnActorsOnSell@terran:
-
-TBUNKER.BOT:
-	Inherits: TBUNKER
-	Buildable:
-		BuildPaletteOrder: 9000
-		Prerequisites: barracks, ~structures.terran, ~techlevel.low, ~ai.all
-	Valued:
-		Cost: 1200
-	GivesExperience:
-		Experience: 600
-	Cargo:
-		InitialUnits: tmarine,tmarine,tmarine,tfirebat
-	RenderSprites:
-		Image: tbunker
-	Explodes@2:
-		Weapon: UnitExplodeSmall2
-		EmptyWeapon: UnitExplodeSmall2
-	ChangesHealth@scv:
-		RequiresCondition: bot_hard
-
 TMISSILE:
 	Inherits: ^Defense
 	Inherits@fire: ^TerranBuilding
@@ -1858,3 +1620,312 @@ TSCIENCE.Husk:
 		Name: Science Facility
 	RenderSprites:
 		Image: tscience
+
+
+TBUNKER:
+	Inherits: ^Defense
+	Inherits@fire: ^TerranBuilding
+	Inherits@shape: ^2x2Shape
+	Inherits@AUTOTARGET: ^AutoTargetAll
+	Inherits@CARGOPIPS: ^CargoPips
+	Selectable:
+		Class: TBUNKER
+		Bounds: 2048,1664
+	Tooltip:
+		Name: Bunker
+	Building:
+		Dimensions: 2,2
+		Footprint: ++ xx
+	Buildable:
+		Queue: Defense
+		BuildPaletteOrder: 40
+		Prerequisites: barracks, ~structures.terran, ~techlevel.low, ~!ai.all
+		Description: Static defense with a fireport for\n garrisoned troops.\nCannot detect cloaked units.\n  Strong vs Infantry, Light armor\n  Weak vs Tanks, Aircraft
+	Valued:
+		Cost: 600
+	Health:
+		HP: 60000
+	Armor:
+		Type: Heavy
+	RevealsShroud:
+		MinRange: 5c0
+		Range: 6c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 5c0
+	WithBuildingBib:
+	-QuantizeFacingsFromSequence:
+	BodyOrientation:
+		QuantizedFacings: 8
+	EngineerRepairable:
+		RequiresCondition: repairtime
+	GrantConditionOnDamageState@DAMAGED:
+		Condition: repairtime
+		ValidDamageStates: Light, Medium, Heavy, Critical
+	Cargo:
+		Types: Infantry
+		MaxWeight: 4
+		PassengerConditions:
+			tmarine: tmarine
+			tfirebat: tfirebat
+			tscv: tscv
+			tmedic: tmedic
+			tghost: tghost
+			e1of: e1of
+			dm2of: e1of
+	ProximityExternalCondition@officer:
+		RequiresCondition: e1of
+		Condition: squadboost
+		Range: 5c0
+	WithDecoration@officer2:
+		Image: pips
+		Sequence: pip-bonus
+		Palette: effect
+		Position: TopRight
+		ValidRelationships: None,Neutral,Enemy,Ally
+		RequiresCondition: !demoralise && e1of
+	ExternalCondition@demoralise:
+		Condition: demoralise
+	-SpawnActorsOnSell:
+	GrantConditionOnAttack@shooting:
+		Condition: shooting
+		RevokeDelay: 14
+	WithMuzzleOverlay:
+	Armament@marine1:
+		Weapon: TerranMarineGarrison
+		MuzzleSequence: muzzle
+		RequiresCondition: tmarine
+		Turret: 1
+		PauseOnCondition: marine_upgraded
+	Armament@marine2:
+		Weapon: TerranMarineGarrison
+		MuzzleSequence: muzzle
+		RequiresCondition: tmarine >= 2
+		Turret: 2
+		PauseOnCondition: marine_upgraded
+	Armament@marine3:
+		Weapon: TerranMarineGarrison
+		MuzzleSequence: muzzle
+		RequiresCondition: tmarine >= 3
+		Turret: 3
+		PauseOnCondition: marine_upgraded
+	Armament@marine4:
+		Weapon: TerranMarineGarrison
+		MuzzleSequence: muzzle
+		RequiresCondition: tmarine >= 4
+		Turret: 4
+		PauseOnCondition: marine_upgraded
+	Armament@marine1b:
+		Weapon: TerranMarineGarrisonUp
+		MuzzleSequence: muzzle
+		RequiresCondition: tmarine
+		Turret: 1
+		PauseOnCondition: !marine_upgraded
+	Armament@marine2b:
+		Weapon: TerranMarineGarrisonUp
+		MuzzleSequence: muzzle
+		RequiresCondition: tmarine >= 2
+		Turret: 2
+		PauseOnCondition: !marine_upgraded
+	Armament@marine3b:
+		Weapon: TerranMarineGarrisonUp
+		MuzzleSequence: muzzle
+		RequiresCondition: tmarine >= 3
+		Turret: 3
+		PauseOnCondition: !marine_upgraded
+	Armament@marine4b:
+		Weapon: TerranMarineGarrisonUp
+		MuzzleSequence: muzzle
+		RequiresCondition: tmarine >= 4
+		Turret: 4
+		PauseOnCondition: !marine_upgraded
+	Armament@firebat1a:
+		Weapon: FirebatFlamerGarrison
+		MuzzleSequence: flame
+		MuzzlePalette: dawneffect
+		LocalOffset: 512,260,256
+		Turret: 1
+		RequiresCondition: tfirebat
+	Armament@firebat1b:
+		Weapon: FirebatFlamerGarrison2
+		MuzzleSequence: flame
+		MuzzlePalette: dawneffect
+		LocalOffset: 512,-260,256
+		Turret: 1
+		RequiresCondition: tfirebat
+	Armament@firebat2a:
+		Weapon: FirebatFlamerGarrison
+		MuzzleSequence: flame
+		MuzzlePalette: dawneffect
+		LocalOffset: 512,260,256
+		RequiresCondition: tfirebat >= 2
+		Turret: 2
+	Armament@firebat2b:
+		Weapon: FirebatFlamerGarrison2
+		MuzzleSequence: flame
+		MuzzlePalette: dawneffect
+		LocalOffset: 512,-260,256
+		RequiresCondition: tfirebat >= 2
+		Turret: 2
+	Armament@firebat3a:
+		Weapon: FirebatFlamerGarrison
+		MuzzleSequence: flame
+		MuzzlePalette: dawneffect
+		LocalOffset: 512,260,256
+		RequiresCondition: tfirebat >= 3
+		Turret: 3
+	Armament@firebat3b:
+		Weapon: FirebatFlamerGarrison2
+		MuzzleSequence: flame
+		MuzzlePalette: dawneffect
+		LocalOffset: 512,-260,256
+		RequiresCondition: tfirebat >= 3
+		Turret: 3
+	Armament@firebat4a:
+		Weapon: FirebatFlamerGarrison
+		MuzzleSequence: flame
+		MuzzlePalette: dawneffect
+		LocalOffset: 512,260,256
+		RequiresCondition: tfirebat >= 4
+		Turret: 4
+	Armament@firebat4b:
+		Weapon: FirebatFlamerGarrison2
+		MuzzleSequence: flame
+		MuzzlePalette: dawneffect
+		LocalOffset: 512,-260,256
+		RequiresCondition: tfirebat >= 4
+		Turret: 4
+	Armament@ghost1:
+		Weapon: TerranGhost
+		MuzzleSequence: muzzle
+		RequiresCondition: tghost
+		Turret: 1
+	Armament@ghost2:
+		Weapon: TerranGhost
+		MuzzleSequence: muzzle
+		RequiresCondition: tghost >= 2
+		Turret: 2
+	Armament@ghost3:
+		Weapon: TerranGhost
+		MuzzleSequence: muzzle
+		RequiresCondition: tghost >= 3
+		Turret: 3
+	Armament@ghost4:
+		Weapon: TerranGhost
+		MuzzleSequence: muzzle
+		RequiresCondition: tghost >= 4
+		Turret: 4
+	Turreted@1:
+		Turret: 1
+		TurnSpeed: 24
+		InitialFacing: 0
+	Turreted@2:
+		Turret: 2
+		TurnSpeed: 24
+		InitialFacing: 256
+	Turreted@3:
+		Turret: 3
+		TurnSpeed: 24
+		InitialFacing: 512
+	Turreted@4:
+		Turret: 4
+		TurnSpeed: 24
+		InitialFacing: 768
+	AttackTurreted:
+		Armaments: primary
+		Turrets: 1,2,3,4
+	RenderRangeCircle:
+		FallbackRange: 6c0
+	GrantConditionOnPrerequisite@upgrade:
+		Prerequisites: terran.marine
+		Condition: marine_upgraded
+	SpawnActorOnDeath@1:
+		Actor: tmarine
+		Probability: 90
+		Offset: 0,0
+		RequiresCondition: tmarine >= 1
+	SpawnActorOnDeath@2:
+		Actor: tmarine
+		Probability: 80
+		Offset: 0,1
+		RequiresCondition: tmarine >= 2
+	SpawnActorOnDeath@3:
+		Actor: tmarine
+		Probability: 70
+		Offset: 1,0
+		RequiresCondition: tmarine >= 3
+	SpawnActorOnDeath@4:
+		Actor: tfirebat
+		Offset: 1,1
+		RequiresCondition: tfirebat >= 1
+	SpawnActorOnDeath@5:
+		Actor: tfirebat
+		Offset: 0,1
+		RequiresCondition: tfirebat >= 2
+	SpawnActorOnDeath@6:
+		Actor: tmedic
+		Offset: 1,1
+		RequiresCondition: tmedic
+	SpawnActorOnDeath@7:
+		Actor: tscv
+		Offset: 1,1
+		RequiresCondition: tscv
+	SpawnActorOnDeath@8:
+		Actor: tghost
+		Offset: 1,1
+		RequiresCondition: tghost >= 1
+	ChangesHealth@scv:
+		Step: 500
+		StartIfBelow: 101
+		Delay: 25
+		RequiresCondition: tscv
+	DamageMultiplier@scv:
+		Modifier: 90
+		RequiresCondition: tscv
+	WithIdleOverlay@fire1:
+		Offset: 0,-512,128
+	WithIdleOverlay@fire2:
+		Offset: 0,512,512
+	WithIdleOverlay@fire3:
+		Offset: 0,128,340
+	Capturable:
+		RequiresCondition: !build-incomplete && repairtime
+	-SpawnActorsOnSell@terran:
+
+TBUNKER.BOT:
+	Inherits: TBUNKER
+	Buildable:
+		BuildPaletteOrder: 9000
+		Prerequisites: barracks, ~structures.terran, ~techlevel.low, ~ai.all
+	Valued:
+		Cost: 1200
+	GivesExperience:
+		Experience: 600
+	Cargo:
+		InitialUnits: tmarine,tmarine,tmarine,tfirebat
+	RenderSprites:
+		Image: tbunker
+	Explodes@2:
+		Weapon: UnitExplodeSmall2
+		EmptyWeapon: UnitExplodeSmall2
+	ChangesHealth@scv:
+		RequiresCondition: bot_hard
+
+TBUNKER.BOT2:
+	Inherits: TBUNKER.BOT
+	Buildable:
+		Prerequisites: barracks, tcops, ~structures.terran, ~techlevel.unrestricted, ~ai.all
+	Cargo:
+		InitialUnits: tmarine,tmarine,tmarine,tghost
+
+MISS.TERRAN:
+	Inherits: T.MISS
+	Buildable:
+		BuildPaletteOrder: 35
+		Prerequisites: advtechcenter, ~structures.terran, ~techlevel.unrestricted
+	ProvidesPrerequisite@ai:
+		RequiresPrerequisites: ai.hard
+		Prerequisite: tcops
+	ProvidesPrerequisite@ai2:
+		RequiresPrerequisites: ai.hard
+		Prerequisite: tplab

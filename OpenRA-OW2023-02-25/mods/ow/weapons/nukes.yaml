@@ -150,6 +150,34 @@ MiniNuke:
 TerranSiloNuke:
 	Inherits: MiniNuke
 		ValidTargets: GroundActor, WaterActor, Underwater, AirborneActor, Trees, TerranNuke
+	Projectile: InstantHit
+	Warhead@3Eff_impact: CreateEffect
+		Explosions: nuke
+		ImpactSounds: tnshit00.aud
+		ImpactActors: false
+	Warhead@4Eff_impact: CreateEffect
+		Explosions: dukenukemexplosionbig
+		ImpactSounds: tnshit00.aud
+		ImpactActors: false
+
+TerranCrateNukeDrop:
+	Warhead@1Dam: CreateEffect
+		Explosions: idle
+		ExplosionPalette: player
+		Image: tnuke
+		UsePlayerPalette: true
+		ImpactActors: false
+	Warhead@cluster2: FireCluster
+		Delay: 52
+		Weapon: TerranCrateNuke
+		RandomClusterCount: 1
+		Dimensions: 1,1
+		Footprint: x
+
+TerranCrateNuke:
+	Inherits: CrateNuke
+		ValidTargets: GroundActor, WaterActor, Underwater, AirborneActor, Trees, TerranNuke
+	Projectile: InstantHit
 	Warhead@3Eff_impact: CreateEffect
 		Explosions: nuke
 		ImpactSounds: tnshit00.aud

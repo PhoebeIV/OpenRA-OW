@@ -657,7 +657,6 @@ TSTANK.BOT.BUILDABLE:
 		Interval: -1
 		SoundFiles: ttatra00.aud
 
-
 TGOLIATH:
 	Inherits: ^Vehicle
 	Inherits@GAINSEXPERIENCE: ^GainsExperience
@@ -722,3 +721,99 @@ TGOLIATH:
 		Actor: TGOLIATH.Husk
 	Voiced:
 		VoiceSet: TerranGoliathVoice
+
+TVULT.RAYNOR:
+	Inherits: TVULT
+	Inherits@epic: ^EpicUnit
+	Valued:
+		Cost: 6000
+	Buildable:
+		Queue: Vehicle
+		BuildPaletteOrder: 111
+		Prerequisites: ~factory, ulttechcenter, ~techlevel.unrestricted, ~vehicles.terran, !active.raynor
+		Description: In Vulture.\n\nLeader of Raynor's Raiders armed with a modified\n Grenade launcher.\nSpeed: 172\n  Strong vs Infantry, Aircraft\n  Weak vs Vehicles \n\nEquipped with a squad booster.
+		BuildDurationModifier: 150
+		BuildDuration: 2000
+		BuildLimit: 1
+	Tooltip:
+		Name: Jim Raynor
+	Mobile:
+		TurnSpeed: 90
+		Speed: 172
+		Locomotor: hover
+		Voice: Move
+	Guard:
+		Voice: Move
+	Passenger:
+		CustomPipType: red
+		Voice: Move
+	Health:
+		HP: 100000
+	Armor:
+		Type: Light
+	RevealsShroud:
+		MinRange: 7c0
+		Range: 9c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 7c0
+	Armament:
+		Weapon: RaynorVultureGrenade
+		LocalOffset: 512,-200,128, 512,200,128
+	Armament@PRIMARY:
+		Weapon: TerranRaynor
+		MuzzleSequence: muzzle
+		LocalOffset: 256,-300,128, 256,300,128
+	WithMuzzleOverlay:
+	ExternalCondition@PRODUCED:
+		Condition: produced
+	Voiced:
+		VoiceSet: TerranRaynorVoice
+	VoiceAnnouncement:
+		RequiresCondition: produced
+		Voice: Build
+	AnnounceOnKill:
+	GrantConditionOnAttack@bot:
+		RequiresCondition: minelayer && botowner && !nomines
+		Condition: shoot
+		MaximumInstances: 10
+		RevokeDelay: 75
+	AmmoPool:
+		Ammo: 5
+		InitialAmmo: 5
+	ReloadAmmoPool:
+		Delay: 750
+	ProximityExternalCondition@squadboost:
+		Condition: squadboost
+		Range: 7c0
+	WithDecoration@officer2:
+		Image: pips
+		Sequence: pip-bonus
+		Palette: effect
+		Position: TopRight
+		ValidRelationships: None,Neutral,Enemy,Ally
+		RequiresCondition: !demoralise
+	ProvidesPrerequisite@inthefield:
+		Prerequisite: active.raynor
+	AmbientSound@talky:
+		SoundFiles: trajuke.aud
+		Delay: 75, 150
+		Interval: 4500, 9000
+	Explodes@marine:
+		Weapon: VultureRaynorDeath
+		EmptyWeapon: VultureRaynorDeath
+	SpawnActorOnDeath: 
+		Actor: TVULT.RAYNOR.Husk
+	SpawnActorOnDeath@raynor: 
+		Actor: TRAYNOR
+
+TVULT.RAYNOR.Recapture:
+	Inherits: TVULT.RAYNOR
+	RenderSprites: 
+		Image: tvult.raynor
+	-Buildable:
+	AmbientSound@talky:
+		Delay: 4500, 9000
+		Interval: 4500, 9000
+	AmmoPool:
+		InitialAmmo: 1

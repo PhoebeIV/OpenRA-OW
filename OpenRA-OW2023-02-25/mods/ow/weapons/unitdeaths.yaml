@@ -244,3 +244,30 @@ VultureDeath:
 	Warhead@2Eff: CreateEffect
 		Explosions: marinedie
 		Inaccuracy: 400
+
+RaynorDeath:
+	Warhead@1Dam: CreateEffect
+		Explosions: idle
+		ExplosionPalette: player
+		Image: tnuke
+		UsePlayerPalette: true
+		ImpactSounds: tradth01.wav
+		ImpactActors: false
+	Warhead@cluster2: FireCluster
+		Delay: 52
+		Weapon: TerranCrateNuke
+		RandomClusterCount: 1
+		Dimensions: 1,1
+		Footprint: x
+
+VultureRaynorDeath:
+	Inherits: ^Explosion
+	Warhead@2Eff: CreateEffect
+		Explosions: building
+		Inaccuracy: 400
+	Warhead@1Dam: SpreadDamage
+		Delay: 2
+		Spread: 128
+		Damage: 40000
+		ValidTargets: Infantry
+		DamageTypes: Prone50Percent, TriggerProne, ExplosionDeath

@@ -52,6 +52,9 @@ T.MISS:
 	Power:
 		Amount: -600
 	ProvidesPrerequisite@buildingname:
+		Prerequisite: t.miss
+	GrantExternalConditionToProduced:
+		Condition: produced
 	Production:
 		Produces: Vehicle, Infantry, Soldier, Hatchery
 	RallyPoint:
@@ -210,6 +213,12 @@ T.MISS:
 	ProvidesPrerequisite@zerg:
 		Factions: zerg
 		Prerequisite: ulttech.zerg
+	ProvidesPrerequisite@terran:
+		Factions: terran
+		Prerequisite: ulttech.terran
+	ProvidesPrerequisite@protoss:
+		Factions: protoss
+		Prerequisite: ulttech.protoss
 	AirstrikePower@himmlerbomb:
 		PauseOnCondition: disabled
 		OrderName: EpicHimmler1
@@ -751,6 +760,15 @@ HAXOR.AI1:
 		Name: Enable AI Prereqs: Medium
 	RenderSprites:
 		Image: POWR
+	GrantConditionOnDeploy@ai:
+		DeployedCondition: enable_ai
+		UndeployedCondition: 
+	ProvidesPrerequisite@aienable:
+		RequiresCondition: enable_ai
+		Prerequisite: ai.enable
+	ProvidesPrerequisite@aienable2:
+		RequiresCondition: enable_ai
+		Prerequisite: ai.enable_med
 
 HAXOR.AI2:
 	Inherits: POWR
@@ -767,6 +785,15 @@ HAXOR.AI2:
 		Name: Enable AI Prereqs: Hard
 	RenderSprites:
 		Image: POWR
+	GrantConditionOnDeploy@ai:
+		DeployedCondition: enable_ai
+		UndeployedCondition: 
+	ProvidesPrerequisite@aienable:
+		RequiresCondition: enable_ai
+		Prerequisite: ai.enable
+	ProvidesPrerequisite@aienable2:
+		RequiresCondition: enable_ai
+		Prerequisite: ai.enable_hard
 
 ###############
 # Test Lasers #

@@ -884,10 +884,35 @@ TVULT.Husk:
 	Inherits: ^Husk
 	Tooltip:
 		Name: Husk (Vulture)
+	ChangesHealth:
+		Step: -250
 	TransformOnCapture:
 		IntoActor: tvult
 	InfiltrateForTransform:
 		IntoActor: tvult
+
+TVULT.RAYNOR.Husk:
+	Inherits: TVULT.Husk
+	ChangesHealth:
+		Step: -400
+	Health:
+		HP: 50000
+	ProximityExternalCondition@wander: # move ejected raynor from the husk
+		Condition: wander 
+		Range: 1c0
+	InfiltrateForTransform:
+		Types: RaynorVulture
+		IntoActor: tvult.raynor.recapture
+		ForceHealthPercentage: 15
+	Targetable:
+		TargetTypes: GroundActor, NoAutoTarget
+	Targetable@ready:
+		RequiresCondition: capturable
+		TargetTypes: RaynorVulture
+	GrantConditionOnHealth@ready:
+		MinHP: 100
+		MaxHP: 25000
+		Condition: capturable
 
 TSTANK.Husk:
 	Inherits: ^Husk
