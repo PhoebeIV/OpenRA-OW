@@ -472,7 +472,7 @@ ATEK.bot:
 		Queue: Building
 		BuildPaletteOrder: 150
 		BuildLimit: 2
-		Prerequisites: factory, radar, ~structures.botonly, ~techlevel.unrestricted, ~ai.hard
+		Prerequisites: factory, radar, ~structures.botonly, ~techlevel.high, ~ai.hard
 		Description: Provides technologies.
 	Tooltip:
 		Name: Boss Tech Center
@@ -515,7 +515,7 @@ ATEK.bot:
 		Prerequisite: padun
 	Power:
 		Amount: 100
-	GrantExternalConditionPower@patriotism:
+	GrantExternalConditionPower@fanaticism:
 		PauseOnCondition: disabled
 		Icon: fanaticism
 		ChargeInterval: 7500
@@ -693,37 +693,17 @@ usafirebaseai:
 	Buildable:
 		Prerequisites: ~ai.hard, ~structures.usa, War Factory
 	FreeActor@1:
-        Actor: PBOX
+        Actor: firebasebunker.ai
         SpawnOffset: 0,0
-		RequiresCondition: !ai.boss
     FreeActor@2:
-        Actor: PBOX
+        Actor: firebasebunker.ai2
         SpawnOffset: 0,2
-		RequiresCondition: !ai.boss
     FreeActor@3:
-        Actor: PBOX
+        Actor: firebasebunker.ai
         SpawnOffset: 2,2
-		RequiresCondition: !ai.boss
     FreeActor@4:
-        Actor: PBOX
+        Actor: firebasebunker.ai
         SpawnOffset: 2,0
-		RequiresCondition: !ai.boss
-	FreeActor@5:
-        Actor: PBOX.boss
-        SpawnOffset: 0,0
-		RequiresCondition: ai.boss
-    FreeActor@6:
-        Actor: PBOX.boss
-        SpawnOffset: 0,2
-		RequiresCondition: ai.boss
-    FreeActor@7:
-        Actor: PBOX.boss
-        SpawnOffset: 2,2
-		RequiresCondition: ai.boss
-    FreeActor@8:
-        Actor: PBOX.boss
-        SpawnOffset: 2,0
-		RequiresCondition: ai.boss
 
 usafirebaseaiboss:
 	Inherits: usafirebase
@@ -741,6 +721,16 @@ usafirebaseaiboss:
     FreeActor@4:
         Actor: PBOX.boss
         SpawnOffset: 2,0
+
+firebasebunker.ai:
+	Inherits: firebasebunker
+	Cargo:
+		InitialUnits: e1
+
+firebasebunker.ai2:
+	Inherits: firebasebunker
+	Cargo:
+		InitialUnits: usapathfinder
 
 chinabunkerai:
 	Inherits: chinabunker
@@ -1404,9 +1394,9 @@ Player:
 			upgrade.buildarmor1: 1500
 			upgrade.buildfirepower1: 1500
 	CaptureManagerBotModule:
-		RequiresCondition: enable-all-ai
+		RequiresCondition: enable-all-ai 
+		CapturableActorTypes: oilb, miss, fcom, oreext.g, tmiss, gmiss, miss.terran
 		CapturingActorTypes: e6, fe6, tsengi.o, tmedic, gharv, zdrone.eng, surveyormedi, pprobe.eng
-		CapturableActorTypes: oilb, miss, fcom, oreext.g
 	SquadManagerBotModule@normal:
 		RequiresCondition: enable-easy-ai && !enable-medi-ai
 		SquadSize: 15
@@ -1792,8 +1782,8 @@ Player:
 			medi: 6
 			fmedi: 6
 			medi.dm: 6
-			mech: 6
-			fmech: 6
+			mech: 4
+			fmech: 4
 			mech.dm: 4
 			rmbo: 2
 			dm4: 2
@@ -2528,22 +2518,28 @@ Player:
 					CheckRadius: 5c0
 			patriotism:
 				OrderName: patriotism
-				MinimumAttractiveness: 5
+				MinimumAttractiveness: 15
+				MinimumScanTimeInterval: 50
+				MaximumScanTimeInterval: 60
+				CoarseScanRadius: 12
 				Consideration@1:
 					Against: Ally
-					Types: Vehicle, Infantry
+					Types: FrenzyMe
 					Attractiveness: 1
-					TargetMetric: Health
-					CheckRadius: 4c0
+					TargetMetric: None
+					CheckRadius: 6c0
 			frenzy:
 				OrderName: frenzy
-				MinimumAttractiveness: 5
+				MinimumAttractiveness: 15
+				MinimumScanTimeInterval: 50
+				MaximumScanTimeInterval: 60
+				CoarseScanRadius: 12
 				Consideration@1:
 					Against: Ally
-					Types: Vehicle, Infantry
+					Types: FrenzyMe
 					Attractiveness: 1
-					TargetMetric: Health
-					CheckRadius: 4c0
+					TargetMetric: None
+					CheckRadius: 6c0
 			Scrambler:
 				OrderName: GPSScrambler
 				MinimumAttractiveness: 5

@@ -146,7 +146,7 @@ TCOMMAND:
 	RevealsShroud@GAPGEN:
 		Range: 4c0
 	Valued:
-		Cost: 5000
+		Cost: 4000
 	Tooltip:
 		Name: Command Center
 	BaseBuilding:
@@ -240,6 +240,14 @@ TCOMMAND.air:
 	Inherits@prereqs: ^ConYardPrereqs
 	RenderSprites:
 		Image: tcommand
+	Buildable:
+		Queue: Aircraft
+		BuildAtProductionType: Helicopter
+		BuildPaletteOrder: 1000
+		Prerequisites: ~!mcv, ~aircraft.terran, ~techlevel.medium
+		Description: Produces structures.
+	ProvidesPrerequisite@mcv:
+		Prerequisite: mcv
 	HitShape:
 		TargetableOffsets: 0,0,0, 0,-512,256, 0,-1451,384, 0,512,128, 0,1536,85
 		Type: Rectangle
@@ -262,7 +270,7 @@ TCOMMAND.air:
 		Type: GroundPosition
 	BaseBuilding:
 	Valued:
-		Cost: 2000
+		Cost: 2500
 	Tooltip:
 		Name: Command Center
 	SpawnActorOnDeath:

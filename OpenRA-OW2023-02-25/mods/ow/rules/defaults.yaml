@@ -173,26 +173,7 @@
 	ExternalCondition@RotElementHit:
 		Condition: RotElementHitCon
 
-^ChainsConditioner:
-	ExternalCondition@ChainsCondition:
-		Condition: ChainsCondition
-	WithDecoration@ChainsCondition:
-		Image: pips
-		Sequence: mediholychainspip
-		Palette: effect
-		Position: TopRight
-		ValidRelationships: None,Neutral,Enemy,Ally
-		RequiresCondition: ChainsCondition
-
-^TotemBooster:
-	ExternalCondition@TotemBoost:
-		Condition: TotemBoost
-	SpeedMultiplier@TotemBoost:
-		RequiresCondition: TotemBoost
-		Modifier: 130
-
-
-^TotemDebufer:
+^TotemAffected:
 	ExternalCondition@TotemDebuf:
 		Condition: TotemDebuf
 	SpeedMultiplier@TotemDebuf:
@@ -204,18 +185,12 @@
 		Delay: 50
 		StartIfBelow: 110
 		DamageCooldown: 0
+	ExternalCondition@TotemBoost:
+		Condition: TotemBoost
+	SpeedMultiplier@TotemBoost:
+		RequiresCondition: TotemBoost
+		Modifier: 130
 
-
-^CorruptedOreCon:
-	ExternalCondition@CorruptedOre:
-		Condition: CorruptedOre
-	WithDecoration@CorruptedOre:
-		Image: pips
-		Sequence: mediorecorruptionpip
-		Palette: effect
-		Position: TopRight
-		ValidRelationships: None,Neutral,Enemy,Ally
-		RequiresCondition: CorruptedOre
 
 ^CurseDebuff:
 	ExternalCondition@CurseCondition:
@@ -275,6 +250,18 @@
 	RangeMultiplier@alliesupgrade:
 		RequiresCondition: allies_training
 		Modifier: 110
+	ExternalCondition@ChainsCondition:
+		Condition: ChainsCondition
+	WithDecoration@ChainsCondition:
+		Image: pips
+		Sequence: mediholychainspip
+		Palette: effect
+		Position: TopRight
+		ValidRelationships: None,Neutral,Enemy,Ally
+		RequiresCondition: ChainsCondition
+	SpeedMultiplier@ChainsCondition:
+		RequiresCondition: ChainsCondition
+		Modifier: 0
 
 ^HolySuperBoosted:
 	ExternalCondition@HolySuperBoosted:
@@ -458,20 +445,16 @@
 	Inherits@pallyboost: ^Pallyboosted
 	Inherits@Monumentboost: ^Monumentboosted
 	Inherits@HolyBoostedHolyOnly: ^HolyBoostedHolyOnly
-	Inherits@TotemBoost: ^TotemBooster
-	Inherits@TotemDebuf: ^TotemDebufer
-	Inherits@ChainsCondition: ^ChainsConditioner
-	Inherits@CorruptedOre: ^CorruptedOreCon
+	Inherits@TotemBoost: ^TotemAffected
 	Inherits@aeiou: ^AEIOUBoosted
 	Inherits@ShieldHero: ^HolySuperBoosted
 	Inherits@CurseCondition: ^CurseDebuff
 	Inherits@gps: ^GPSScramblable
-	Inherits@patriotism: ^patriotismboostInfantry
 	Inherits@advancedtraining: ^advancedtraining
 	Inherits@usabombardment: ^usabombardment
 	Inherits@usasearchanddestroy: ^usasearchanddestroy
 	Inherits@usahold_the_line: ^usaholdtheline
-	Inherits@frenzyboost: ^frenzyboost
+	Inherits@frenzyboost: ^FrenzyBoostInfantry
 	Inherits@propagandaboost: ^propagandaboostinfantry
 	Crushable:
 		RequiresCondition: !HolySuperBoosted
@@ -577,9 +560,6 @@
 		Delay: 40
 		StartIfBelow: 100
 		DamageCooldown: 40
-	SpeedMultiplier@ChainsCondition:
-		RequiresCondition: ChainsCondition
-		Modifier: 0
 	ExternalCondition@demoralise:
 		Condition: demoralise
 	SpeedMultiplier@demoralise:
@@ -783,7 +763,6 @@
 
 ^PlayableCivInfantry:
 	Inherits: ^CivInfantry
-	Inherits@CorruptedOre: ^CorruptedOreCon
 	UpdatesPlayerStatistics:
 		AddToArmyValue: true
 	MustBeDestroyed:
@@ -1205,19 +1184,15 @@
 	Inherits@CurseCondition: ^CurseDebuff
 	Inherits@HolyBoostedHolyOnly: ^HolyBoostedHolyOnly
 	Inherits@Monumentboost: ^Monumentboosted
-	Inherits@TotemBoost: ^TotemBooster
-	Inherits@TotemDebuf: ^TotemDebufer
-	Inherits@ChainsCondition: ^ChainsConditioner
-	Inherits@CorruptedOre: ^CorruptedOreCon
+	Inherits@TotemBoost: ^TotemAffected
 	Inherits@glavehicle: ^GLAVehicle # self healing for GLA owned vehicles
 	Inherits@gps: ^GPSScramblable
-	Inherits@patriotism: ^patriotismboost
 	Inherits@advancedtraining: ^advancedtraining
 	Inherits@usabombardment: ^usabombardment
 	Inherits@usasearchanddestroy: ^usasearchanddestroy
 	Inherits@usahold_the_line: ^usaholdtheline
 	Inherits@propagandaboost: ^propagandaboost
-	Inherits@frenzyboost: ^frenzyboost
+	Inherits@frenzyboost: ^FrenzyBoost
 	RevealOnFire:
 	Repairable:
 		RepairActors: fix, gfix, gfix.boss
@@ -1319,10 +1294,6 @@
 	GrantConditionOnTerrain@radiation:
 		Condition: standing_in_radiation
 		TerrainTypes: Radiation
-	##ChainsCondition
-	SpeedMultiplier@ChainsCondition:
-		RequiresCondition: ChainsCondition
-		Modifier: 0
 	SpawnActorOnDeath@cube:
 		Probability: 40
 		Actor: helld4
@@ -1364,13 +1335,12 @@
 	Inherits@corrode: ^CorrodesFromTibWeaps
 	Inherits@GPS: ^GPSScramblable
 	Inherits@CurseCondition: ^CurseDebuff
-	Inherits@patriotism: ^patriotismboost
 	Inherits@advancedtraining: ^advancedtraining
 	Inherits@usabombardment: ^usabombardment
 	Inherits@usasearchanddestroy: ^usasearchanddestroy
 	Inherits@usahold_the_line: ^usaholdtheline
 	Inherits@propagandaboost: ^propagandaboost
-	Inherits@frenzyboost: ^frenzyboost
+	Inherits@frenzyboost: ^FrenzyBoost
 	RepairableNear:
 		RepairActors: spen, syrd, gspen, dockmedi, usashipyard
 	RevealOnFire:
@@ -1424,17 +1394,15 @@
 
 ^NeutralPlane:
 	Inherits@CurseCondition: ^CurseDebuff
-	Inherits@TotemBoost: ^TotemBooster
-	Inherits@TotemDebuf: ^TotemDebufer
+	Inherits@TotemBoost: ^TotemAffected
 	Inherits@corrode: ^CorrodesFromTibWeaps
 	Inherits@GPS: ^GPSScramblable
-	Inherits@patriotism: ^patriotismboost
 	Inherits@advancedtraining: ^advancedtraining
 	Inherits@usabombardment: ^usabombardment
 	Inherits@usasearchanddestroy: ^usasearchanddestroy
 	Inherits@usahold_the_line: ^usaholdtheline
 	Inherits@propagandaboost: ^propagandaboost
-	Inherits@frenzyboost: ^frenzyboost
+	Inherits@frenzyboost: ^FrenzyBoost
 	Repairable:
 		RepairActors: fix, gfix, gfix.boss
 	RevealOnFire:
@@ -1500,6 +1468,75 @@
 		RequiresCondition: gdi_speed
 		Modifier: 120
 
+^TSHelicopter:
+	Inherits: ^Helicopter
+	ClassicFacingBodyOrientation:
+		QuantizedFacings: 32
+	-WithFacingSpriteBody:
+	-QuantizeFacingsFromSequence:
+	-WithShadow:
+	RenderSprites:
+	RenderVoxels:
+		PlayerPalette: tsunit
+		Scale: 9
+	WithVoxelBody:
+	Cloak@stealthgen:
+		Palette: tscloak
+
+^Plane:
+	Repairable:
+		RepairActors: fix, gfix, gfix.boss
+
+^Helicopter:
+
+^TSPlane:
+	Inherits: ^Plane
+	ClassicFacingBodyOrientation:
+		QuantizedFacings: 32
+	-BodyOrientation:
+	-WithFacingSpriteBody:
+	-QuantizeFacingsFromSequence:
+	-WithShadow:
+	RenderSprites:
+	RenderVoxels:
+		PlayerPalette: tsunit
+		Scale: 9
+	WithVoxelBody:
+	Cloak@stealthgen:
+		Palette: tscloak
+
+^TSNeutralPlane:
+	Inherits: ^NeutralPlane
+	ClassicFacingBodyOrientation:
+		QuantizedFacings: 32
+	-BodyOrientation:
+	-WithFacingSpriteBody:
+	-QuantizeFacingsFromSequence:
+	-WithShadow:
+	RenderSprites:
+	RenderVoxels:
+		PlayerPalette: tsunit
+		Scale: 9
+	WithVoxelBody:
+	Cloak@stealthgen:
+		Palette: tscloak
+
+^TSPlaneHusk:
+	Inherits: ^PlaneHusk
+	ClassicFacingBodyOrientation:
+		QuantizedFacings: 32
+	-BodyOrientation:
+	-WithFacingSpriteBody:
+	-QuantizeFacingsFromSequence:
+	-WithShadow:
+	RenderSprites:
+	RenderVoxels:
+		PlayerPalette: tsunit
+		Scale: 9
+	WithVoxelBody:
+	FallsToEarth:
+		Velocity: 112
+
 ^FlyingBuilding:
 	Inherits@1: ^ExistsInWorld
 	Inherits@2: ^IronCurtainable
@@ -1511,8 +1548,6 @@
 	Inherits@Monumentboost: ^Monumentboosted
 	Inherits@corrode: ^CorrodesFromTibWeaps
 	Inherits@CurseCondition: ^CurseDebuff
-	Inherits@patriotism: ^patriotismboost
-	Inherits@advancedtraining: ^advancedtraining
 	Inherits@usabombardment: ^usabombardment
 	Inherits@usasearchanddestroy: ^usasearchanddestroy
 	Inherits@usahold_the_line: ^usaholdtheline
@@ -1629,96 +1664,6 @@
 		RequiresCondition: bar3 && (!corrode && !defiler_plague)
 		Modifier: 40
 
-
-^TSHelicopter:
-	Inherits: ^Helicopter
-	ClassicFacingBodyOrientation:
-		QuantizedFacings: 32
-	-WithFacingSpriteBody:
-	-QuantizeFacingsFromSequence:
-	-WithShadow:
-	RenderSprites:
-	RenderVoxels:
-		PlayerPalette: tsunit
-		Scale: 9
-	WithVoxelBody:
-	Cloak@stealthgen:
-		Palette: tscloak
-
-^Helicopter:
-	Inherits@CurseCondition: ^CurseDebuff
-	Inherits@TotemBoost: ^TotemBooster
-	Inherits@TotemDebuf: ^TotemDebufer
-	Inherits@patriotism: ^patriotismboost
-	Inherits@advancedtraining: ^advancedtraining
-	Inherits@usabombardment: ^usabombardment
-	Inherits@usasearchanddestroy: ^usasearchanddestroy
-	Inherits@usahold_the_line: ^usaholdtheline
-	Inherits@propagandaboost: ^propagandaboost
-	Inherits@frenzyboost: ^frenzyboost
-
-
-^Plane:
-	Inherits@CurseCondition: ^CurseDebuff
-	Inherits@TotemBoost: ^TotemBooster
-	Inherits@TotemDebuf: ^TotemDebufer
-	Inherits@patriotism: ^patriotismboost
-	Inherits@advancedtraining: ^advancedtraining
-	Inherits@usabombardment: ^usabombardment
-	Inherits@usasearchanddestroy: ^usasearchanddestroy
-	Inherits@usahold_the_line: ^usaholdtheline
-	Inherits@propagandaboost: ^propagandaboost
-	Inherits@frenzyboost: ^frenzyboost
-	Repairable:
-		RepairActors: fix, gfix, gfix.boss
-
-^TSPlane:
-	Inherits: ^Plane
-	ClassicFacingBodyOrientation:
-		QuantizedFacings: 32
-	-BodyOrientation:
-	-WithFacingSpriteBody:
-	-QuantizeFacingsFromSequence:
-	-WithShadow:
-	RenderSprites:
-	RenderVoxels:
-		PlayerPalette: tsunit
-		Scale: 9
-	WithVoxelBody:
-	Cloak@stealthgen:
-		Palette: tscloak
-
-^TSNeutralPlane:
-	Inherits: ^NeutralPlane
-	ClassicFacingBodyOrientation:
-		QuantizedFacings: 32
-	-BodyOrientation:
-	-WithFacingSpriteBody:
-	-QuantizeFacingsFromSequence:
-	-WithShadow:
-	RenderSprites:
-	RenderVoxels:
-		PlayerPalette: tsunit
-		Scale: 9
-	WithVoxelBody:
-	Cloak@stealthgen:
-		Palette: tscloak
-
-^TSPlaneHusk:
-	Inherits: ^PlaneHusk
-	ClassicFacingBodyOrientation:
-		QuantizedFacings: 32
-	-BodyOrientation:
-	-WithFacingSpriteBody:
-	-QuantizeFacingsFromSequence:
-	-WithShadow:
-	RenderSprites:
-	RenderVoxels:
-		PlayerPalette: tsunit
-		Scale: 9
-	WithVoxelBody:
-	FallsToEarth:
-		Velocity: 112
 
 ^Viceroid:
 	Inherits@1: ^ExistsInWorld
@@ -2147,39 +2092,6 @@
 	HitShape:
 	Health:
 
-^patriotismboost:
-	ExternalCondition@patriotismboost:
-		Condition: patriotismboost
-	DamageMultiplier@patriotismboost:
-		RequiresCondition: patriotismboost
-		Modifier: 80
-	FirepowerMultiplier@patriotismboost:
-		RequiresCondition: patriotismboost
-		Modifier: 120
-	ReloadDelayMultiplier@patriotismboost:
-		RequiresCondition: patriotismboost
-		Modifier: 80
-	RangeMultiplier@patriotismboost:
-		RequiresCondition: patriotismboost
-		Modifier: 110
-	SpeedMultiplier@patriotismboost:
-		RequiresCondition: patriotismboost
-		Modifier: 120
-	TimedConditionBar@patriotismboost:
-		Color: 00FFFF
-		Condition: patriotismboost
-	WithIdleOverlay@patriotismboost:
-		Image: patriotism-overlay
-		Sequence: vehicle
-		Palette: effect
-		RequiresCondition: patriotismboost
-		IsDecoration: True
-
-^patriotismboostInfantry:
-	Inherits: ^patriotismboost
-	WithIdleOverlay@patriotismboost:
-		Sequence: infantry
-
 ^advancedtraining:
     GrantConditionOnPrerequisite@advancedtraining:
         Condition: advancedtraining
@@ -2280,23 +2192,25 @@
 	WithIdleOverlay@propagandaboostupgrade:
 		Sequence: infantryupgrade1
 
-^frenzyboost:
+^FrenzyBoost:
+	ExternalCondition@patriotismboost:
+		Condition: patriotismboost
 	ExternalCondition@frenzyboost:
 		Condition: frenzyboost
 	DamageMultiplier@frenzyboost:
-		RequiresCondition: frenzyboost
+		RequiresCondition: frenzyboost || patriotismboost
 		Modifier: 80
 	FirepowerMultiplier@frenzyboost:
-		RequiresCondition: frenzyboost
+		RequiresCondition: frenzyboost || patriotismboost
 		Modifier: 120
 	ReloadDelayMultiplier@frenzyboost:
-		RequiresCondition: frenzyboost
+		RequiresCondition: frenzyboost || patriotismboost
 		Modifier: 80
 	RangeMultiplier@frenzyboost:
-		RequiresCondition: frenzyboost
+		RequiresCondition: frenzyboost || patriotismboost
 		Modifier: 110
 	SpeedMultiplier@frenzyboost:
-		RequiresCondition: frenzyboost
+		RequiresCondition: frenzyboost || patriotismboost
 		Modifier: 120
 	TimedConditionBar@frenzyboost:
 		Color: FFFF00
@@ -2304,3 +2218,23 @@
 	WithColoredOverlay@frenzyboost:
 		RequiresCondition: frenzyboost
 		Color: FFFF0050
+	TimedConditionBar@patriotismboost:
+		Color: 00FFFF
+		Condition: patriotismboost
+	WithIdleOverlay@patriotismboost:
+		Image: patriotism-overlay
+		Sequence: vehicle
+		Palette: effect
+		RequiresCondition: patriotismboost
+		IsDecoration: True
+	GrantConditionOnAttack@ai_consideration:
+		Condition: frenziable
+		RevokeDelay: 100
+	Targetable@ai_consideration:
+		RequiresCondition: frenziable
+		TargetTypes: FrenzyMe
+
+^FrenzyBoostInfantry:
+	Inherits: ^FrenzyBoost
+	WithIdleOverlay@patriotismboost:
+		Sequence: infantry
