@@ -3439,7 +3439,7 @@ chinaecmshot:
 
 chinahackeranim:
 	ReloadDelay: 15
-	Range: 4c768
+	Range: 7c768
 	ValidTargets: Tank, Vehicle
 	TargetActorCenter: true
 	Report: ucapture.aud
@@ -3454,7 +3454,7 @@ chinahackeranim:
 
 chinahackerend:
 	ReloadDelay: 25
-	Range: 4c768
+	Range: 7c768
 	ValidTargets: Tank, Vehicle
 	TargetActorCenter: true
 	Report: ucapture.aud
@@ -3477,3 +3477,75 @@ chinahackerend:
 		Condition: disabled
 		Duration: 250
 		ValidTargets: Tank, Vehicle
+
+HelixBomb:
+	ReloadDelay: 75
+	Range: 1c0
+	ValidTargets: Ground, Water, GroundActor, WaterActor
+	Projectile: GravityBomb
+		Image: 120MM
+		Velocity: 72, 0, -128
+		Acceleration: 0, 0, 0
+		Shadow: False
+	Warhead@1Dam: SpreadDamage
+		Spread: 768
+		Damage: 17500
+		ValidTargets: GroundActor, WaterActor
+		Versus:
+			None: 175
+			Wood: 75
+			Light: 50
+			Concrete: 25
+			Heavy: 25
+		DamageTypes: Prone50Percent, TriggerProne, FireDeath, Incendiary
+	Warhead@2Smu: LeaveSmudge
+		SmudgeType: Crater
+		InvalidTargets: Vehicle, Structure, Wall, Husk, Trees
+	Warhead@3Eff: CreateEffect
+		Explosions: napalm
+		ImpactSounds: flamer2.aud
+		ValidTargets: Ground, GroundActor, WaterActor, Trees
+	Warhead@4EffWater: CreateEffect
+		Explosions: small_splash
+		ImpactSounds: splash9.aud
+		ValidTargets: Water, Underwater
+
+HelixBombNuke:
+	ReloadDelay: 100
+	Range: 1c0
+	ValidTargets: Ground, Water, GroundActor, WaterActor
+	Projectile: GravityBomb
+		Image: 120MM
+		Velocity: 72, 0, -128
+		Acceleration: 0, 0, 0
+		Shadow: False
+	Warhead@1Dam: SpreadDamage
+		Spread: 768
+		Damage: 50000
+		ValidTargets: GroundActor, WaterActor
+		Versus:
+			None: 80
+			Wood: 80
+			Heavy: 80
+			Light: 80
+			Concrete: 25
+		DamageTypes: Prone50Percent, TriggerProne, ExplosionDeath
+	Warhead@3Eff: CreateEffect
+		Explosions: dukenukemexplosionsmallchina
+		ImpactSounds: dukeexplosion.wav
+	Warhead@Res7: DestroyResource
+		Size: 3
+		ResourceAmount: 10
+	Warhead@4Radiation: CreateResource
+		AddsResourceType: Radiation
+		Delay: 1
+		Size: 2
+	Warhead@15Shake: ShakeScreen
+		Duration: 5
+		Intensity: 2
+		Multiplier: 1,1
+	Warhead@Res7: DestroyResource
+		ResourceTypes: Radiation
+		Size: 3
+		Delay: 625
+		ResourceAmount: 10

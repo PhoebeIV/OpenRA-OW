@@ -5,10 +5,10 @@ chinamig:
 		Queue: Aircraft
 		BuildAtProductionType: Plane
 		BuildPaletteOrder: 50
-		Prerequisites: ~aircraft.china
+		Prerequisites: ~aircraft.china, !upgrade.nukegeneral
 		Description: Multi-role fighter plane.\nCan attack both ground and air targets.
 	Valued:
-		Cost: 1600
+		Cost: 1500
 	Tooltip:
 		Name: MiG
 	UpdatesPlayerStatistics:
@@ -91,7 +91,7 @@ chinanukemig:
 		Queue: Aircraft
 		BuildAtProductionType: Plane
 		BuildPaletteOrder: 50
-		Prerequisites: ~aircraft.china, techcenter, upgrade.nukegeneral
+		Prerequisites: ~aircraft.china, techcenter, ~upgrade.nukegeneral
 		Description: Fast fighter plane.\nCan not be damaged while attacking.\nSlows down and becomes vulnerable after attacking.
         BuildDuration: 3300
 	Valued:
@@ -176,3 +176,275 @@ chinanukemig:
         Count: 1
 	Voiced:
 		VoiceSet: MiGVoice
+
+chinahelixgatling:
+	Inherits: ^Helicopter
+	Inherits@CARGOPIPS: ^CargoPips
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Buildable:
+		Queue: Aircraft
+		BuildAtProductionType: Helicopter
+		BuildPaletteOrder: 20
+		Prerequisites: ~aircraft.china, techcenter, !~upgrade.nukegeneral
+		Description: Attack helicopter armed with twin 20 mm chainguns & anti-tank missiles.\nCan be upgraded to use stealth after recruiting General Malcolm Granger.
+	Valued:
+		Cost: 1800
+	Tooltip:
+		Name: Helix (Gatling Cannon)
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 25000
+	RevealsShroud:
+		MinRange: 8c0
+		Range: 10c0
+		Type: GroundPosition
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 8c0
+		Type: GroundPosition
+	Armament@PRIMARY:
+		Weapon: helixgatling
+		LocalOffset: 85,-213,-85, 85,213,-85
+		MuzzleSequence: muzzle
+		PauseOnCondition: !ammo
+	Armament@SECONDARY:
+		Weapon: helixgatlingair
+		LocalOffset: 85,213,-85, 85,-213,-85
+		MuzzleSequence: muzzle
+		PauseOnCondition: !ammo
+	Armament@TRI:
+		Weapon: Helixbomb
+		LocalOffset: 85,213,-85, 85,-213,-85
+	AttackAircraft:
+		FacingTolerance: 80
+		PersistentTargeting: false
+		AttackType: Hover
+		OpportunityFire: true
+	Aircraft:
+		TurnSpeed: 16
+		Speed: 112
+	AutoTarget:
+		InitialStance: HoldFire
+		InitialStanceAI: HoldFire
+	WithIdleOverlay@ROTOR1AIR:
+		Offset: 260,0,343
+		Sequence: rotor
+		RequiresCondition: airborne
+	WithIdleOverlay@ROTOR1GROUND:
+		Offset: 260,0,343
+		Sequence: slow-rotor
+		RequiresCondition: !airborne
+	AmmoPool:
+		Ammo: 200
+		ReloadDelay: 8
+		AmmoCondition: ammo
+	WithMuzzleOverlay:
+	SpawnActorOnDeath:
+		Actor: VECHICLECHINOOK.Husk
+	LeavesTrails:
+		Offsets: -427,0,0
+		Image: smokey
+		MovingInterval: 3
+		SpawnAtLastPosition: False
+		Type: CenterPosition
+		RequiresCondition: enable-smoke
+		TrailWhileStationary: True
+		StationaryInterval: 3
+	ProducibleWithLevel:
+		Prerequisites: aircraft.upgraded
+	Selectable:
+		DecorationBounds: 1621, 1365
+	Rearmable:
+		RearmActors: chinaairfield, usaairfield, hpad, usaairstriplandingspot
+	WithAmmoPipsDecoration:
+		Position: BottomLeft
+		Margin: 4, 3
+		RequiresSelection: true
+		PipCount: 8
+	GrantConditionOnDamageState@SmokeTrail:
+		Condition: enable-smoke
+	WithProductionIconOverlay:
+		Types: Veterancy
+		Prerequisites: aircraft.upgraded
+	RenderSprites:
+		Image: chinagatlinghelix
+	ReloadAmmoPool@reloadnear:
+		RequiresCondition: reloadnear
+		Delay: 500
+        Count: 50
+	Voiced:
+		VoiceSet: HelixVoice
+	Cargo:
+		Types: Infantry
+		MaxWeight: 8
+		AfterUnloadDelay: 40
+		EjectOnDeath: true
+		PassengerConditions:
+			e1of: e1of
+			dm2of: e1of
+
+chinahelixspeaker:
+	Inherits: chinahelixgatling
+	Buildable:
+		Queue: Aircraft
+		BuildAtProductionType: Helicopter
+		BuildPaletteOrder: 20
+		Prerequisites: ~aircraft.china, techcenter, !~upgrade.nukegeneral
+		Description: Attack helicopter armed with twin 20 mm chainguns & anti-tank missiles.\nCan be upgraded to use stealth after recruiting General Malcolm Granger.
+	Tooltip:
+		Name: Helix (Speaker Tower)
+	RenderSprites:
+		Image: chinaspeakerhelix
+	-Armament@PRIMARY:
+	-Armament@SECONDARY:
+	-WithAmmoPipsDecoration:
+	-AmmoPool:
+	-ReloadAmmoPool@reloadnear:
+	ProximityExternalCondition@propaganda:
+		Condition: propaganda
+		RequiresCondition: !disabled && !upgrade.propaganda
+		Range: 4c0
+    GrantConditionOnPrerequisite@propagandaupgrade:
+        Condition: upgradepropaganda
+        Prerequisites: upgrade.propaganda
+	ProximityExternalCondition@propagandaupgrade:
+		Condition: propagandaupgrade
+		RequiresCondition: !disabled && upgradepropaganda
+		Range: 4c0
+
+chinanukehelixgatling:
+	Inherits: ^Helicopter
+	Inherits@CARGOPIPS: ^CargoPips
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Buildable:
+		Queue: Aircraft
+		BuildAtProductionType: Helicopter
+		BuildPaletteOrder: 20
+		Prerequisites: ~aircraft.china, techcenter, ~upgrade.nukegeneral
+		Description: Attack helicopter armed with twin 20 mm chainguns & anti-tank missiles.\nCan be upgraded to use stealth after recruiting General Malcolm Granger.
+	Valued:
+		Cost: 2000
+	Tooltip:
+		Name: Nuke Helix (Gatling Cannon)
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 30000
+	RevealsShroud:
+		MinRange: 8c0
+		Range: 10c0
+		Type: GroundPosition
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 8c0
+		Type: GroundPosition
+	Armament@PRIMARY:
+		Weapon: helixgatling
+		LocalOffset: 85,-213,-85, 85,213,-85
+		MuzzleSequence: muzzle
+		PauseOnCondition: !ammo
+	Armament@SECONDARY:
+		Weapon: helixgatlingair
+		LocalOffset: 85,213,-85, 85,-213,-85
+		MuzzleSequence: muzzle
+		PauseOnCondition: !ammo
+	Armament@TRI:
+		Weapon: HelixBombNuke
+		LocalOffset: 85,213,-85, 85,-213,-85
+	AttackAircraft:
+		FacingTolerance: 80
+		PersistentTargeting: false
+		AttackType: Hover
+		OpportunityFire: true
+	Aircraft:
+		TurnSpeed: 16
+		Speed: 112
+	AutoTarget:
+		InitialStance: HoldFire
+		InitialStanceAI: HoldFire
+	WithIdleOverlay@ROTOR1AIR:
+		Offset: 260,0,343
+		Sequence: rotor
+		RequiresCondition: airborne
+	WithIdleOverlay@ROTOR1GROUND:
+		Offset: 260,0,343
+		Sequence: slow-rotor
+		RequiresCondition: !airborne
+	AmmoPool:
+		Ammo: 200
+		ReloadDelay: 8
+		AmmoCondition: ammo
+	WithMuzzleOverlay:
+	SpawnActorOnDeath:
+		Actor: chinahelix.Husk
+	LeavesTrails:
+		Offsets: -427,0,0
+		Image: smokey
+		MovingInterval: 3
+		SpawnAtLastPosition: False
+		Type: CenterPosition
+		RequiresCondition: enable-smoke
+		TrailWhileStationary: True
+		StationaryInterval: 3
+	ProducibleWithLevel:
+		Prerequisites: aircraft.upgraded
+	Selectable:
+		DecorationBounds: 1621, 1365
+	Rearmable:
+		RearmActors: chinaairfield, usaairfield, hpad, usaairstriplandingspot
+	WithAmmoPipsDecoration:
+		Position: BottomLeft
+		Margin: 4, 3
+		RequiresSelection: true
+		PipCount: 8
+	GrantConditionOnDamageState@SmokeTrail:
+		Condition: enable-smoke
+	WithProductionIconOverlay:
+		Types: Veterancy
+		Prerequisites: aircraft.upgraded
+	RenderSprites:
+		Image: chinanukegatlinghelix
+	ReloadAmmoPool@reloadnear:
+		RequiresCondition: reloadnear
+		Delay: 500
+        Count: 50
+	Voiced:
+		VoiceSet: HelixVoice
+	Cargo:
+		Types: Infantry
+		MaxWeight: 8
+		AfterUnloadDelay: 40
+		EjectOnDeath: true
+		PassengerConditions:
+			e1of: e1of
+			dm2of: e1of
+
+chinanukehelixspeaker:
+	Inherits: chinanukehelixgatling
+	Buildable:
+		Queue: Aircraft
+		BuildAtProductionType: Helicopter
+		BuildPaletteOrder: 20
+		Prerequisites: ~aircraft.china, techcenter, ~upgrade.nukegeneral
+		Description: Attack helicopter armed with twin 20 mm chainguns & anti-tank missiles.\nCan be upgraded to use stealth after recruiting General Malcolm Granger.
+	Tooltip:
+		Name: Nuke Helix (Speaker Tower)
+	RenderSprites:
+		Image: chinanukespeakerhelix
+	-Armament@PRIMARY:
+	-Armament@SECONDARY:
+	-WithAmmoPipsDecoration:
+	-AmmoPool:
+	-ReloadAmmoPool@reloadnear:
+	ProximityExternalCondition@propaganda:
+		Condition: propaganda
+		RequiresCondition: !disabled && !upgrade.propaganda
+		Range: 4c0
+    GrantConditionOnPrerequisite@propagandaupgrade:
+        Condition: upgradepropaganda
+        Prerequisites: upgrade.propaganda
+	ProximityExternalCondition@propagandaupgrade:
+		Condition: propagandaupgrade
+		RequiresCondition: !disabled && upgradepropaganda
+		Range: 4c0
