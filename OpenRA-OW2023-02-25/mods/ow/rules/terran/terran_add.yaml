@@ -418,6 +418,7 @@ TSILO:
 		Amount: -200
 		RequiresCondition: cc_addon
 	WithProductionOverlay:
+		PauseOnCondition: disabled
 	ExternalCondition@nearcc:
 		Condition: cc_addon
 	GrantCondition@nearcc:
@@ -432,9 +433,8 @@ TSILO:
 		ProductionTypes: Nuke, Bot
 	Production:
 		Produces: Nuke
-	Production@bot:
-		RequiresCondition: botowner
-		Produces: Bot
+		PauseOnCondition: disabled
+		RequiresCondition: cc_addon
 	ProductionBar:
 		ProductionType: Nuke
 		Color: FF00FF
@@ -480,3 +480,26 @@ TSILO:
 	GrantConditionOnPrerequisite@hasnuke:
 		Prerequisites: terran.nuke
 		Condition: has_nuke
+	NukePower:
+		Prerequisites: terran.nuke
+		RequiresCondition: cc_addon
+		PauseOnCondition: has_nuke
+		Cursor: nuke
+		Icon: abomb
+		ChargeInterval: 25
+		Name: Terran Atom Bomb
+		Description: You have a nuclear missile ready. Waiting for a Ghost to paint target.
+		MissileWeapon: atomic
+		MissileImage: atomic
+		MissileDelay: 5
+		SpawnOffset: 1c0,427,0
+		DisplayTimerRelationships: Ally, Neutral, Enemy
+		DisplayBeacon: True
+		DisplayRadarPing: True
+		BeaconPoster: atomicon
+		CameraRange: 10c0
+		ArrowSequence: arrow
+		ClockSequence: clock
+		CircleSequence: circles
+		SupportPowerPaletteOrder: 70
+	SupportPowerChargeBar:

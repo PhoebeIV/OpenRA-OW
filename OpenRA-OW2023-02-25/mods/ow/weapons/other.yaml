@@ -3391,6 +3391,93 @@ TerranGhostNuke:
 		Explosions: ghostpaint
 		ValidTargets: Ground, Water, GroundActor, WaterActor, Trees
 
+VesselDefenseMatrix:
+	ReloadDelay: 100
+	Range: 9c0
+	Report: tvedef00.aud
+	ValidTargets: GroundActor, AirborneActor
+	InvalidTargets: Structure
+	ValidRelationships: Ally
+	Projectile: LaserZap
+		Width: 0
+	Warhead@condition: GrantExternalCondition
+		Condition: defense_matrix
+		Range: 128
+		Duration: 750
+		ValidTargets: GroundActor, AirborneActor
+		InvalidTargets: Structure, FrenzyMe
+	Warhead@condition2: GrantExternalCondition
+		Condition: defense_matrix
+		Range: 128
+		Duration: 375
+		ValidTargets: FrenzyMe
+		InvalidTargets: Structure
+
+VesselDefenseMatrixAI:
+	Inherits: VesselDefenseMatrix
+	ValidTargets: Heal, Repair
+	Warhead@condition: GrantExternalCondition
+		ValidTargets: Heal, Repair
+
+VesselIrradiate:
+	ReloadDelay: 100
+	Range: 9c0
+	Report: tveirr00.aud
+	ValidTargets: GroundActor, WaterActor, AirborneActor
+	InvalidTargets: Structure
+	Projectile: InstantHit
+		Width: 0
+	Warhead@condition1: GrantExternalCondition
+		Condition: irradiate
+		Range: 2c0
+		Duration: 900
+		ValidTargets: GroundActor, WaterActor, AirborneActor
+		InvalidTargets: Structure
+	Warhead@condition2: GrantExternalCondition
+		Condition: corrode
+		Range: 2c0
+		Duration: 900
+		ValidTargets: GroundActor, WaterActor, AirborneActor
+		InvalidTargets: Structure
+	Warhead@0Eff: CreateEffect
+		ImpactSounds: tveirr00.aud
+
+VesselIrradiateDamage:
+	Inherits: VesselIrradiate
+	-Report:
+	Warhead@1Dam: SpreadDamage
+		Spread: 512
+		Delay: 25
+		Damage: 1000
+		ValidTargets: Ground, GroundActor, WaterActor, Trees
+		InvalidTargets: Structure
+		Versus:
+			None: 100
+			Wood: 70
+			Light: 175
+			Heavy: 250
+			Concrete: 40
+		DamageTypes: FireDeath
+	-Warhead@condition1: GrantExternalCondition
+	-Warhead@condition2: GrantExternalCondition
+	-Warhead@0Eff: CreateEffect
+
+VesselIrradiateSpread:
+	Inherits: VesselIrradiate
+	-Report:
+	Warhead@condition1: GrantExternalCondition
+		Condition: irradiate
+		Range: 2c0
+		Duration: 250
+		ValidTargets: GroundActor, WaterActor, AirborneActor
+		InvalidTargets: Structure
+	Warhead@condition2: GrantExternalCondition
+		Condition: corrode
+		Range: 2c0
+		Duration: 250
+		ValidTargets: GroundActor, WaterActor, AirborneActor
+		InvalidTargets: Structure
+
 DragonTankshot:
 	Inherits: Flamer
 	ReloadDelay: 2

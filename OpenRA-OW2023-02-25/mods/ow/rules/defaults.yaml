@@ -117,6 +117,37 @@
 	ReloadDelayMultiplier@fanatics:
 		RequiresCondition: nod_fanatics
 		Modifier: 90
+	ExternalCondition@irradiate:
+		Condition: irradiate
+	ChangesHealth@irradiate:
+		Step: -200
+		Delay: 5
+		StartIfBelow: 101
+		DamageTypes: FireDeath
+		RequiresCondition: irradiate
+	ExplosionOnDamageTransition@irrad2:
+		RequiresCondition: irradiate
+		DamageState: Medium
+		Weapon: VesselIrradiateDamage
+	ExplosionOnDamageTransition@irrad3:
+		RequiresCondition: irradiate
+		DamageState: Heavy
+		Weapon: VesselIrradiateDamage
+	ExplosionOnDamageTransition@irrad4:
+		RequiresCondition: irradiate
+		DamageState: Critical
+		Weapon: VesselIrradiateSpread
+		TriggerOnlyOnce: true
+
+^IronCurtainable:
+	WithColoredOverlay@ironshroud:
+		RequiresCondition: ironshroud
+		Color: 80000040
+	DamageMultiplier@ironshroud:
+		RequiresCondition: ironshroud
+		Modifier: 40
+	ExternalCondition@ironshroud:
+		Condition: ironshroud
 
 ^NoExp:
 	Inherits: ^GainsExperience
@@ -1794,6 +1825,9 @@
 		DamageCooldown: 250
 	GainsExperienceMultiplier@epicunit:
 		Modifier: 33
+	DamageMultiplier@defmatrix:
+		RequiresCondition: defense_matrix
+		Modifier: 20
 
 #Reduces upgrade effectiveness on VERY strong epic infantry units
 ^EpicInfantryNerf:
@@ -2027,6 +2061,15 @@
 	AutoTargetPriority@ATTACKANYTHING:
 		ValidTargets: Infantry, Cyborg, Vehicle, Water, Ship, Underwater, AirborneActor, Structure, Defense, Mine
 
+^AutoTargetAirAssaultMove:
+	Inherits: ^AutoTargetAir
+	AutoTargetPriority@DEFAULT:
+		RequiresCondition: !stance-attackanything && !assault-move
+	AutoTargetPriority@ATTACKANYTHING:
+		RequiresCondition: stance-attackanything || assault-move
+	AttackMove:
+		AssaultMoveCondition: assault-move
+
 ^Husk:
 	Inherits: ^BasicHusk
 	WithIdleOverlay@Burns:
@@ -2041,16 +2084,6 @@
 		AllowedTerrain: Clear, Rough, Road, Ore, Gems, Beach, Tiberium, BlueTiberium, Creep, Radiation
 	WithColoredOverlay@IDISABLE:
 		Color: 00000080
-
-^IronCurtainable:
-	WithColoredOverlay@ironshroud:
-		RequiresCondition: ironshroud
-		Color: 80000040
-	DamageMultiplier@ironshroud:
-		RequiresCondition: ironshroud
-		Modifier: 40
-	ExternalCondition@ironshroud:
-		Condition: ironshroud
 
 ^Bridge:
 	GrantConditionOnPrerequisite:
@@ -2206,6 +2239,23 @@
 		Palette: effect
 		RequiresCondition: patriotismboost
 		IsDecoration: True
+	ExternalCondition@defmatrix:
+		Condition: defense_matrix
+	WithIdleOverlay@defmatrix1:
+		Image: tdefense
+		Sequence: front
+		Palette: effect
+		RequiresCondition: defense_matrix
+		IsDecoration: True
+	WithIdleOverlay@defmatrix2:
+		Image: tdefense
+		Sequence: back
+		Palette: effect
+		RequiresCondition: defense_matrix
+		IsDecoration: True
+	DamageMultiplier@defmatrix:
+		RequiresCondition: defense_matrix
+		Modifier: 20
 	GrantConditionOnAttack@ai_consideration:
 		Condition: frenziable
 		RevokeDelay: 100

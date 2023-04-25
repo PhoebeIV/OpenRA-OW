@@ -26,12 +26,12 @@ TWRAITH:
 	Armament@PRIMARY1:
 		Weapon: WraithMissile
 		LocalOffset: 0,-280,-85
-		LocalYaw: -180
+		LocalYaw: 180
 		PauseOnCondition: !ammo
 	Armament@PRIMARY2:
 		Weapon: WraithMissile
 		LocalOffset: 0,280,-85
-		LocalYaw: 180
+		LocalYaw: -180
 		PauseOnCondition: !ammo
 	Armament@SECONDARY:
 		Weapon: WraithShot
@@ -170,6 +170,133 @@ TDROPSHIP:
 		RequiresSelection: true
 	-EjectOnDeath:
 
+TVESSEL:
+	Inherits: ^Helicopter
+	Inherits@AUTOTARGET: ^AutoTargetAirAssaultMove
+	Buildable:
+		Queue: Aircraft
+		BuildAtProductionType: Helicopter
+		BuildPaletteOrder: 190
+		Prerequisites: tctrl, advtechcenter, ~aircraft.terran, ~techlevel.unrestricted
+		Description: Terran support vessel. Can provide defense matrices to allies, and irradiate enemies.\nSpeed: 128\n\nDetects cloaked units.
+	Valued:
+		Cost: 2500
+	Tooltip:
+		Name: Science Vessel
+	Tooltip:
+		Name: Science Vessel
+		RequiresCondition: !irradiate_equipped && !dm_equipped
+	Tooltip@1:
+		Name: Science Vessel - Irradiate
+		GenericName: Science Vessel
+		RequiresCondition: irradiate_equipped && !dm_equipped
+	Tooltip@2:
+		Name: Science Vessel - Defense Matrix
+		GenericName: Science Vessel
+		RequiresCondition: dm_equipped
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 32000
+	RevealsShroud:
+		MinRange: 8c0
+		Range: 11c0
+		Type: GroundPosition
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 8c0
+		Type: GroundPosition
+	DetectCloaked:
+		Range: 7c0
+	Armament@PRIMARY1:
+		Weapon: VesselIrradiate
+		AmmoUsage: 60
+		PauseOnCondition: ammo < 60
+		RequiresCondition: irradiate_equipped && !dm_equipped
+	Armament@PRIMARY2:
+		Name: secondary
+		Weapon: VesselDefenseMatrix
+		AmmoUsage: 30
+		PauseOnCondition: ammo < 30
+		RequiresCondition: !botowner && dm_equipped
+		TargetRelationships: Ally
+		ForceTargetRelationships: Ally
+	Armament@PRIMARY3:
+		Name: secondary
+		Weapon: VesselDefenseMatrixAI
+		AmmoUsage: 30
+		PauseOnCondition: ammo < 30
+		RequiresCondition: botowner && dm_equipped
+		TargetRelationships: Ally
+		ForceTargetRelationships: Ally
+	GrantConditionOnDeploy:
+		RequiresCondition: !botowner
+		UndeployedCondition: irradiate_equipped
+		DeployedCondition: dm_equipped
+		SkipMakeAnimation: true
+	AttackTurreted:
+	Turreted:
+	WithSpriteTurret:
+	Aircraft:
+		TurnSpeed: 24
+		Speed: 128
+		LandAltitude: 768
+	AutoTarget:
+		InitialStance: HoldFire
+		InitialStanceAI: AttackAnything
+	AmmoPool:
+		Ammo: 120
+		AmmoCondition: ammo
+		InitialAmmo: 45
+	WithAmmoPipsDecoration:
+		Position: BottomLeft
+		Margin: 4, 3
+		RequiresSelection: true
+		PipCount: 32
+		FullSequence: bar-blue
+		EmptySequence: bar-empty
+	-SpawnActorOnDeath:
+	Explodes:
+		Weapon: VesselExplosion
+		EmptyWeapon: VesselExplosion
+		-RequiresCondition:
+	WithDamageOverlay:
+		Offset: 0,0,0
+	ProducibleWithLevel:
+		Prerequisites: aircraft.upgraded
+	Selectable:
+		Bounds: 1500,2000,0,-370
+		DecorationBounds: 2048, 2048,0,-370
+	Rearmable:
+		RearmActors: tsport, tsport.landed
+	Hovers@CRUISING:
+		-RequiresCondition:
+	Voiced:
+		VoiceSet: TerranVesselVoice
+	RenderSprites:
+	-EjectOnDeath:
+	ExternalCondition@PRODUCED:
+		Condition: produced
+	VoiceAnnouncement:
+		RequiresCondition: produced
+		Voice: Build
+	ReloadAmmoPool@reloadnear:
+		RequiresCondition: reloadnear || botowner
+		Delay: 50
+	ReloadAmmoPool@normal:
+		Delay: 50
+	GrantConditionOnPrerequisite@bot:
+		Prerequisites: ai.all
+		Condition: botowner
+	GrantRandomCondition:
+		Conditions: random1,random1,random2
+	GrantCondition@bot1:
+		RequiresCondition: botowner && random1
+		Condition: irradiate_equipped
+	GrantCondition@bot2:
+		RequiresCondition: botowner && random2
+		Condition: dm_equipped
+
 TBATTLE:
 	Inherits: ^Helicopter
 	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
@@ -267,14 +394,12 @@ TBATTLE:
 		Speed: 56
 		LandAltitude: 768
 		CruiseAltitude: 1792
-	AutoTarget:
-		InitialStance: ReturnFire
-		InitialStanceAI: ReturnFire
 	GrantConditionOnMovement@scout:
 		Condition: moving
 	AmmoPool:
 		Ammo: 96
 		AmmoCondition: ammo
+		InitialAmmo: 32
 	WithAmmoPipsDecoration:
 		Position: BottomLeft
 		Margin: 4, 3
@@ -345,3 +470,81 @@ TBATTLE:
 	GrantConditionOnPrerequisite@bot:
 		Prerequisites: ai.all
 		Condition: botowner
+
+TVALK:
+	Inherits: ^Helicopter
+	Inherits@AUTOTARGET: ^AutoTargetAirAssaultMove
+	Buildable:
+		Queue: Aircraft
+		BuildAtProductionType: Helicopter
+		BuildPaletteOrder: 196
+		Prerequisites: tctrl, ~aircraft.terran, ~techlevel.high
+		Description: Terran armored missile Frigate armed\nwith H.A.L.O. Cluster rockets.\nCan only attack air.\nSpeed: 152\n  Strong vs Aircraft\n  Weak vs Anything else
+	Valued:
+		Cost: 2000
+	Tooltip:
+		Name: Valkyrie
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 32000
+	RevealsShroud:
+		MinRange: 7c0
+		Range: 9c0
+		Type: GroundPosition
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 7c0
+		Type: GroundPosition
+	Armament@PRIMARY1:
+		Weapon: Valkyrie
+		LocalOffset: 0,-280,-85, 0,280,-85
+		LocalYaw: 180, -180
+		PauseOnCondition: !ammo
+	AttackAircraft:
+		FacingTolerance: 32
+		PersistentTargeting: false
+		AttackType: Hover
+		OpportunityFire: False
+	Aircraft:
+		TurnSpeed: 24
+		Speed: 152
+		LandAltitude: 768
+	AutoTarget:
+		InitialStanceAI: AttackAnything
+	GrantConditionOnMovement@scout:
+		Condition: moving
+	AmmoPool:
+		Ammo: 32
+		AmmoCondition: ammo
+	WithAmmoPipsDecoration:
+		Position: BottomLeft
+		Margin: 4, 3
+		RequiresSelection: true
+		PipCount: 16
+		FullSequence: bar-green
+		EmptySequence: bar-empty
+	SpawnActorOnDeath:
+		Actor: TVALK.Husk
+	WithDamageOverlay:
+		Offset: -427,0,0
+	ProducibleWithLevel:
+		Prerequisites: aircraft.upgraded
+	Selectable:
+		DecorationBounds: 1536, 1365
+	Rearmable:
+		RearmActors: tsport, tsport.landed
+	Hovers@CRUISING:
+		-RequiresCondition:
+	Voiced:
+		VoiceSet: TerranValkyrieVoice
+	RenderSprites:
+	WithFacingSpriteBody@2:
+		Name: engine
+		Sequence: engine
+		RequiresCondition: moving
+		Palette: effect
+	-EjectOnDeath:
+	ReloadAmmoPool@reloadnear:
+		RequiresCondition: reloadnear
+		Delay: 45
