@@ -819,37 +819,6 @@ CASTLE:
 
 ##Magic Tech
 ACADEMYMEDI:
-	Inherits: ATEK
-	Inherits@shape: ^3x3Shape
-	Inherits@pips: ^AdvTechPips
-	-AlwaysVisible:
-	Selectable:
-		Bounds: 3072, 3072
-	Buildable:
-		Queue: Tech
-		Prerequisites: ~structures.medi, techcenter,  ~techlevel.low
-		Description: Advanced Tech building\nallows the production of magic based units.
-		BuildPaletteOrder: 2
-	Tooltip:
-		Name: Medieval Academy (Advanced Tech)
-	Building:
-		Footprint: xxx xxx x=x
-		Dimensions: 3,3
-		BuildSounds: medibuild1.aud, medibuildjobdone1.aud, medibuildplace1.aud
-	Valued:
-		Cost: 2500
-	Health:
-		HP: 90000
-	Power:
-		Amount: 0
-	ProvidesPrerequisite@buildingname:
-	ProvidesPrerequisite:
-		Prerequisite: techcenter
-	ProvidesPrerequisite@adv:
-		Prerequisite: advtechcenter
-	WithBuildingBib:
-	RenderSprites:
-		Image: mediacademy
 
 ##Allows the use of Gunpowder units
 BLACKSMITHMEDI:
@@ -859,7 +828,7 @@ BLACKSMITHMEDI:
 		Bounds: 3072, 3072
 	Buildable:
 		Queue: Tech
-		Prerequisites: ~structures.medi, academymedi, ~techlevel.medium
+		Prerequisites: ~structures.medi, merchantguild, ~techlevel.medium
 		Description: Allows the production of gun-powder based units.
 		BuildPaletteOrder: 7
 	Tooltip:
@@ -902,7 +871,7 @@ CHURCHMEDI:
 		Bounds: 2048, 2048
 	Buildable:
 		Queue: Tech
-		Prerequisites: ~structures.medi, academymedi, advtechcenter, ~techlevel.medium
+		Prerequisites: ~structures.medi, merchantguild, advtechcenter, ~techlevel.medium
 		Description: Unlocks priests that heal infantry.\Provides abilities
 		BuildLimit: 2
 		BuildPaletteOrder: 5
@@ -1040,8 +1009,10 @@ CHURCHMEDI:
 
 ##Makes Better Workers and generates pasive income
 MERCHANTGUILD:
-	Inherits: ^ScienceBuilding
+	Inherits: ATEK
 	Inherits@shape: ^3x3Shape
+	Inherits@pips: ^AdvTechPips
+	-AlwaysVisible:
 	Selectable:
 		Bounds: 3072, 3072
 	Buildable:
@@ -1051,15 +1022,15 @@ MERCHANTGUILD:
 		BuildLimit: 3
 		BuildPaletteOrder: 3
 	Tooltip:
-		Name: Merchant Guild
+		Name: Merchant Guild (Advanced Tech)
 	Building:
 		Footprint: xxx xxx ===
 		Dimensions: 3,3
 		BuildSounds: medibuild1.aud, medibuildjobdone1.aud, medibuildplace1.aud
 	Valued:
-		Cost: 2000
+		Cost: 3000
 	Health:
-		HP: 70000
+		HP: 100000
 	Armor:
 		Type: Wood
 	RevealsShroud:
@@ -1068,6 +1039,8 @@ MERCHANTGUILD:
 		Interval: 100
 		Amount: 10
 	ProvidesPrerequisite@buildingname:
+	ProvidesPrerequisite@adv:
+		Prerequisite: advtechcenter
 	Targetable:
 		TargetTypes: GroundActor, C4, DetonateAttack, Structure, SpyInfiltrate
 	WithBuildingBib:
@@ -1270,7 +1243,7 @@ MANAWELL:
 		Bounds: 2048, 2048
 	Buildable:
 		Queue: Building
-		Prerequisites: ~structures.medi, academymedi, ~!ai.powerout, ~!ai.boss,  ~techlevel.low
+		Prerequisites: ~structures.medi, merchantguild, ~!ai.powerout, ~!ai.boss,  ~techlevel.low
 		Description: Provides Power
 		BuildPaletteOrder: 5
 	Tooltip:
@@ -1658,7 +1631,7 @@ TheEye:
 		Name: The Eye
 	Buildable:
 		Queue: Tech
-		Prerequisites: ~structures.medi, academymedi, ~techlevel.medium
+		Prerequisites: ~structures.medi, merchantguild, ~techlevel.medium
 		Description: Provides radar
 		BuildLimit: 2
 		BuildPaletteOrder: 6
@@ -2364,7 +2337,7 @@ ArcaneTower:
 	-SpawnActorsOnSell:
 	Buildable:
 		Queue: Defense
-		Prerequisites: ~structures.medi, academymedi, ~techlevel.medium
+		Prerequisites: ~structures.medi, merchantguild, ~techlevel.medium
 		Description: Tower that user Mana To fire a constant Beam \nStrong vs Aircraft, Vehicles & Infantry
 		BuildPaletteOrder: 4
 	Building:
