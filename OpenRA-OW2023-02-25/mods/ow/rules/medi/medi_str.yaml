@@ -360,7 +360,8 @@ DOCKMEDI:
 		Produces: Ship, Boat
 	RenderSprites:
 		Image: syrd
-	-Power:
+	Power:
+		Amount: 0
 
 ##Air units
 HATCHERY:
@@ -433,7 +434,8 @@ HATCHERY:
 		RequiresCondition: primary
 	RenderSprites:
 		Image: medihatchery
-	-Power:
+	Power:
+		Amount: 0
 
 ##Seige units
 ARMORYMEDI:
@@ -819,7 +821,9 @@ CASTLE:
 
 ##Magic Tech
 ACADEMYMEDI:
-
+	Inherits: CASTLE
+	-Buildable:
+	
 ##Allows the use of Gunpowder units
 BLACKSMITHMEDI:
 	Inherits: ^Building
@@ -828,7 +832,7 @@ BLACKSMITHMEDI:
 		Bounds: 3072, 3072
 	Buildable:
 		Queue: Tech
-		Prerequisites: ~structures.medi, merchantguild, ~techlevel.medium
+		Prerequisites: ~structures.medi, merchantguild, ~techlevel.medium, manasupply
 		Description: Allows the production of gun-powder based units.
 		BuildPaletteOrder: 7
 	Tooltip:
@@ -849,15 +853,6 @@ BLACKSMITHMEDI:
 		Amount: -50
 	Targetable:
 		TargetTypes: GroundActor, C4, DetonateAttack, Structure, SpyInfiltrate
-	PrimaryBuilding:
-		PrimaryCondition: primary
-		SelectionNotification: PrimaryBuildingSelected
-	WithDecoration@primary:
-		RequiresSelection: true
-		Image: pips
-		Sequence: tag-primary
-		Position: Top
-		RequiresCondition: primary
 	ProvidesPrerequisite@buildingname:
 	WithBuildingBib:
 	RenderSprites:
@@ -1631,7 +1626,7 @@ TheEye:
 		Name: The Eye
 	Buildable:
 		Queue: Tech
-		Prerequisites: ~structures.medi, merchantguild, ~techlevel.medium
+		Prerequisites: ~structures.medi, merchantguild, ~techlevel.medium, manasupply
 		Description: Provides radar
 		BuildLimit: 2
 		BuildPaletteOrder: 6
