@@ -6,7 +6,7 @@ World:
 		Maximum: 6
 		SpawnInterval: 3200
 		WaterChance: 20
-		InitialSpawnDelay: 1500
+		InitialSpawnDelay: 2500
 		CheckboxDisplayOrder: 1
 		CrateActors: crate, moneycrate2, crate.fuckyou
 		CrateActorShares: 50, 30, 20
@@ -214,6 +214,17 @@ CRATE.FuckYou:
 		SelectionShares: 7
 	ExplodeCrateAction@nukedrop:
 		Weapon: TerranCrateNukeDrop
+		SelectionShares: 5
+	GiveUnitCrateAction@amogus:
+		SelectionShares: 2
+		Units: amogus,amogus,amogus,amogus,amogus,amogus,amogus,amogus,amogus,amogus,amogus,amogus,amogus,amogus,amogus,amogus,amogus,amogus,amogus,amogus,amogus,amogus,amogus,amogus,amogus
+		Sound: amogusspawn.aud
+		Owner: Creeps
+	ExplodeCrateAction@bsod:
+		Weapon: BSODnuke
+		SelectionShares: 6
+	ExplodeCrateAction@ChinaCrateNuke:
+		Weapon: ChinaCrateNuke
 		SelectionShares: 5
 	Crate:
 		Duration: 15000
@@ -797,3 +808,70 @@ FakeCrateReward:
 		Duration: 6000
 	RenderSprites:
 		Image: scrate
+
+AMOGUS:
+	Inherits: ^Soldier
+	Valued:
+		Cost: 1000
+	Tooltip:
+		Name: Sussy Baka
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Selectable:
+		Bounds: 512, 725, -42, -170
+		DecorationBounds: 512, 725, -42, -170
+	Health:
+		HP: 25000
+	Mobile:
+		Speed: 100
+		Voice: Move
+		PauseOnCondition: attack-cooldown || eating
+	Guard:
+		Voice: Move
+	Passenger:
+		Voice: Move
+	RevealsShroud:
+		Range: 5c512
+	Armament:
+		Weapon: amogusknife
+		ReloadingCondition: attack-cooldown
+	-AttackFrontal:
+	AttackLeap:
+		Voice: Attack
+		PauseOnCondition: attacking || attack-cooldown
+	AttackMove:
+		Voice: Move
+	GrantConditionOnAttack:
+		Condition: eating
+		RevokeDelay: 20
+	GrantConditionWhileAiming:
+		Condition: run
+	AutoTarget:
+		InitialStance: AttackAnything
+	AutoTargetPriority@DEFAULT:
+		ValidTargets: Infantry
+	Targetable:
+		TargetTypes: GroundActor, Infantry
+	WithInfantryBody:
+		MoveSequence: walk
+		StandSequences: stand
+		DefaultAttackSequence: eat
+		RequiresCondition: !run && !parachute
+	WithInfantryBody@RUN:
+		MoveSequence: run
+		RequiresCondition: run && !parachute
+	WithInfantryBody@PARACHUTE:
+		RequiresCondition: parachute
+		Palette: player-noshadow
+		IsPlayerPalette: true
+	SpeedMultiplier:
+		Modifier: 150
+		RequiresCondition: run
+	IgnoresDisguise:
+	Voiced:
+		VoiceSet: AmogusVoice
+	-TakeCover:
+	AttackWander:
+		WanderMoveRadius: 4
+		MinMoveDelay: 25
+		MaxMoveDelay: 75

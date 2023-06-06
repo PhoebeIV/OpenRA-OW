@@ -354,3 +354,67 @@ chinasuperhacker:
 		Interval: 25
 		Amount: 1
 		RequiresCondition: (deployed || ininternetcenter)
+
+chinablacklotus:
+	Inherits: ^Soldier
+	Inherits@infantrytrainingbuff: ^infantrytrainingbuff
+	Buildable:
+		Queue: Infantry
+		BuildAtProductionType: Soldier
+		BuildPaletteOrder: 9
+		Prerequisites: ~infantry.china, techcenter
+		Description: hacking the internet dry
+		BuildLimit: 1
+	Valued:
+		Cost: 1500
+	Tooltip:
+		Name: Black Lotus
+	Health:
+		HP: 20000
+	Mobile:
+		Voice: Move
+		PauseOnCondition: !(!deployed)
+	Armament@Anim:
+		Weapon: chinablacklotusanim
+		LocalOffset: 0,0,196
+		RequiresCondition: enddisable == 0 && !deployed
+	Armament@End:
+		Weapon: chinablacklotusend
+		LocalOffset: 0,0,196
+		RequiresCondition: enddisable == 1 && !deployed
+	GrantConditionOnAttack@End:
+		Condition: enddisable
+		RequiredShotsPerInstance: 13
+		MaximumInstances: 2
+		RevokeDelay: 20
+		RevokeAll: true
+		IsCyclic: false
+	AttackFrontal:
+		RequiresCondition: !deployed
+	WithInfantryBody:
+		DefaultAttackSequence: hack
+		RequiresCondition: !deployed
+	WithSpriteBody@DEPLOYED:
+		Sequence: hack
+		RequiresCondition: deployed
+	ProducibleWithLevel:
+		Prerequisites: barracks.upgraded
+	Voiced:
+		VoiceSet: LotusVoice
+	Cloak:
+		InitialDelay: 10
+		CloakDelay: 30
+		UncloakOn: Attack, Unload, Infiltrate, Demolish
+		CloakTypes: Cloak
+		IsPlayerPalette: true
+		RequiresCondition: !cloak-force-disabled
+	VoiceAnnouncement:
+		RequiresCondition: produced
+		Voice: Build
+	CaptureManager:
+	Captures:
+		CaptureTypes: Structure, Vehicle, Tank, building
+		ConsumedByCapture: False
+		PlayerExperience: 10
+		CaptureDelay: 200
+	-MustBeDestroyed:

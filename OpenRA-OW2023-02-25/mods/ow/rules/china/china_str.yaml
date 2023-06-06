@@ -1060,3 +1060,48 @@ chinafortifiedbunker:
 		PortCones: 88, 88, 88, 88, 88, 88
 	Power:
 		Amount: -40
+
+chinanukecannonai:
+	Inherits: ^Defense
+	Inherits@AUTOTARGET: ^AutoTargetAll
+	Buildable:
+		Queue: Defense
+		BuildPaletteOrder: 70
+		Prerequisites: ~structures.china, anypower, ~ai.all, upgrade.nukegeneral
+		Description: Anti-Armor base defense.\nCan detect cloaked units.\n  Strong vs Vehicles\n  Weak vs Infantry, Aircraft
+	Valued:
+		Cost: 2500
+	Tooltip:
+		Name: Nuke Cannon
+	Building:
+	Health:
+		HP: 40000
+	Armor:
+		Type: Heavy
+	RevealsShroud:
+		MinRange: 5c0
+		Range: 6c512
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 5c0
+	WithBuildingBib:
+		HasMinibib: true
+	Armament@PRIMARY:
+		Name: deployed
+		Weapon: NukeCannonShot
+		LocalOffset: 1200,0,112
+		MuzzleSequence: muzzle
+	WithSpriteTurret:
+	Turreted:
+		TurnSpeed: 8
+	AttackTurreted@deployed:
+		Armaments: deployed
+		OutsideRangeRequiresForceFire: True
+	WithMuzzleOverlay:
+	Power:
+		Amount: -80
+	-BodyOrientation:
+	ClassicFacingBodyOrientation:
+	Explodes@nuclearenginesbuff:
+		Weapon: chinabattlemasterexplosion
+		EmptyWeapon: chinabattlemasterexplosion
