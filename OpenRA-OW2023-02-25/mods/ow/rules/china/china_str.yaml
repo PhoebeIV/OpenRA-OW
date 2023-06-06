@@ -327,7 +327,7 @@ chinapropagandacenter:
 	Buildable:
 		Queue: Building
 		Prerequisites: chinasupplycenter, chinawarfactory, anypower, ~structures.china
-		Description: Strategic Center, provides upgrades.
+		Description: Propaganda Center, provides upgrades.
 		BuildPaletteOrder: 150
 	Tooltip:
 		Name: Propaganda Center
@@ -674,7 +674,7 @@ chinaairfield:
 		Queue: Building
 		BuildPaletteOrder: 130
 		Prerequisites: chinasupplycenter, anypower, ~structures.china
-		Description: Produces and reloads aircraft.\n  Special Ability: Spy Plane\n  Special Ability: Paratroopers
+		Description: Produces and reloads aircraft.\n  Special Ability: Spy Plane.
 	Tooltip:
 		Name: PRC Airfield
 	Valued:
@@ -871,7 +871,7 @@ chinagatlinggun:
 		Queue: Defense
 		BuildPaletteOrder: 70
 		Prerequisites: ~structures.china, anypower
-		Description: Anti-Armor base defense.\nCan detect cloaked units.\n  Strong vs Vehicles\n  Weak vs Infantry, Aircraft
+		Description: Anti-Infantry and Air base defense.\nCan detect cloaked units.\n  Strong vs Infantry, Aircraft\n  Weak vs Vehicles
 	Valued:
 		Cost: 800
 	Tooltip:
@@ -941,7 +941,7 @@ chinaspeakertower:
 	Buildable:
 		Queue: Defense
 		Prerequisites: ~structures.china, techcenter
-		Description: Provides propaganda n shit
+		Description: Provides a 10% attack speed buff to nearby units. Can be upgraded to provide 20%
 		BuildPaletteOrder: 6
 	Building:
 		Footprint: x
@@ -995,7 +995,7 @@ chinabunker:
 		Queue: Defense
 		BuildPaletteOrder: 40
 		Prerequisites: ~structures.china, ~infantry.china, chinabarracks, ~!upgrade.infantrygeneral
-		Description: Static defense with a fireport for\na garrisoned soldier.\nCan detect cloaked units.\n  Strong vs Infantry, Light armor\n  Weak vs Tanks, Aircraft
+		Description: Static defense with a fireport for\na garrisoned soldiers.
 	Valued:
 		Cost: 700
 	CustomSellValue:
@@ -1068,7 +1068,7 @@ chinanukecannonai:
 		Queue: Defense
 		BuildPaletteOrder: 70
 		Prerequisites: ~structures.china, anypower, ~ai.all, upgrade.nukegeneral
-		Description: Anti-Armor base defense.\nCan detect cloaked units.\n  Strong vs Vehicles\n  Weak vs Infantry, Aircraft
+		Description: fuckyou
 	Valued:
 		Cost: 2500
 	Tooltip:
@@ -1105,3 +1105,103 @@ chinanukecannonai:
 	Explodes@nuclearenginesbuff:
 		Weapon: chinabattlemasterexplosion
 		EmptyWeapon: chinabattlemasterexplosion
+
+chinashipyard:
+	Inherits: ^Building
+	Inherits@PRIMARY: ^PrimaryBuilding
+	Inherits@prereqs: ^NavalPrereqs
+	Selectable:
+		Bounds: 3072, 2048
+	InfiltrateForSupportPower:
+		Proxy: powerproxy.sonarpulse
+		Types: SpyInfiltrate
+	Buildable:
+		Queue: Building
+		BuildPaletteOrder: 80
+		Prerequisites: anypower, ~structures.china, chinasupplycenter, ~!techlevel.noboats
+		Description: Produces and repairs\nships and transports.
+	Valued:
+		Cost: 1000
+	Tooltip:
+		Name: China Naval Yard
+	Targetable:
+		TargetTypes: WaterActor, Structure, C4, DetonateAttack, SpyInfiltrate
+	Building:
+		Footprint: XXX xxx XXX
+		Dimensions: 3,3
+		TerrainTypes: Water
+	RequiresBuildableArea:
+		Adjacent: 8
+	-GivesBuildableArea:
+	Health:
+		HP: 100000
+	Armor:
+		Type: Wood
+	RevealsShroud:
+		MinRange: 4c0
+		Range: 5c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 4c0
+	Exit@1:
+		RequiresCondition: !being-captured
+		SpawnOffset: -1024,1024,0
+		Facing: 640
+		ExitCell: 0,2
+		ProductionTypes: Ship, Boat
+	Exit@2:
+		RequiresCondition: !being-captured
+		SpawnOffset: 1024,1024,0
+		Facing: 896
+		ExitCell: 2,2
+		ProductionTypes: Ship, Boat
+	Exit@3:
+		RequiresCondition: !being-captured
+		SpawnOffset: -1024,-1024,0
+		Facing: 384
+		ExitCell: 0,0
+		ProductionTypes: Ship, Boat
+	Exit@4:
+		RequiresCondition: !being-captured
+		SpawnOffset: 1024,-1024,0
+		Facing: 128
+		ExitCell: 2,0
+		ProductionTypes: Ship, Boat
+	Production:
+		Produces: Ship, Boat
+	-SpawnActorsOnSell:
+	RepairsUnits:
+		HpPerStep: 1000
+		StartRepairingNotification: Repairing
+		StartRepairingTextNotification: Repairing.
+		FinishRepairingNotification: UnitRepaired
+		FinishRepairingTextNotification: Unit repaired.
+		PlayerExperience: 5
+	RallyPoint:
+		ForceSetType: Ship
+	CommandBarBlacklist:
+		DisableStop: false
+	ProductionBar:
+		ProductionType: Ship
+	Power:
+		Amount: -30
+	DetectCloaked:
+		DetectionTypes: Underwater
+		Range: 10c0
+	RenderDetectionCircle:
+	ProvidesPrerequisite@buildingname:
+	ProvidesPrerequisite@china2:
+		Factions: china
+		Prerequisite: ships.china
+	MapEditorData:
+		ExcludeTilesets: INTERIOR
+	HitShape:
+		TargetableOffsets: 768,0,0, 768,-1024,0, 768,1024,0
+		Type: Rectangle
+			TopLeft: -1536, -1152
+			BottomRight: 1536, 598
+	HitShape@BOTTOM:
+		TargetableOffsets: -768,0,0
+		Type: Rectangle
+			TopLeft: -512, 598
+			BottomRight: 512, 1110
