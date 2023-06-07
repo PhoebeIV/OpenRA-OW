@@ -764,7 +764,6 @@ chinaairfield:
 chinainternetcenter:
 	Inherits: ^Building
 	Inherits@SHAPE: ^2x2Shape
-	Inherits@IDISABLE: ^DisableOnLowPowerOrPowerDown
 	Selectable:
 		Bounds: 2048, 2048
 	Buildable:
@@ -798,7 +797,6 @@ chinainternetcenter:
 		BeforeUnloadDelay: 0
 		AfterUnloadDelay: 0
 		EjectOnDeathDamage: 50
-		PauseOnCondition: disabled
 
 chinanuclearsilo:
 	Inherits: ^Building
@@ -866,6 +864,7 @@ chinanuclearsilo:
 
 chinagatlinggun:
 	Inherits: ^Defense
+	Inherits@LOWPOWER: ^DisableOnLowPowerOrPowerDown
 	Inherits@AUTOTARGET: ^AutoTargetAll
 	Buildable:
 		Queue: Defense
@@ -901,10 +900,12 @@ chinagatlinggun:
 		Weapon: gatlingturretshot
 		LocalOffset: 512,0,112
 		MuzzleSequence: muzzle
+		PauseOnCondition: disabled
 	Armament@SECONDARY:
 		Weapon: gatlingtankshotair
 		LocalOffset: 512,0,112
 		MuzzleSequence: muzzle
+		PauseOnCondition: disabled
 	GrantConditionOnAttack@gatling:
 		Condition: gatling
 		RequiredShotsPerInstance: 4
