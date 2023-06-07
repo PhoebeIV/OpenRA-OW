@@ -36,11 +36,18 @@ MINE:
 	GrantConditionOnPrerequisite@gems:
 		Prerequisites: techlevel.gems
 		Condition: gems
-	SeedsResource:
-		RequiresCondition: !gems
-	SeedsResource@gems:
+	SpawnActorOnDeath@gems:
 		RequiresCondition: gems
-		ResourceType: Gems
+		Actor: GMINE
+		DeathType: gems
+	KillsSelf@gems:
+		Delay: 25
+		RequiresCondition: gems
+		DamageTypes: gems
+	Explodes@gems:
+		DeathTypes: gems
+		Weapon: OreMineExplosion
+		EmptyWeapon: OreMineExplosion
 
 GMINE:
 	HitShape:
