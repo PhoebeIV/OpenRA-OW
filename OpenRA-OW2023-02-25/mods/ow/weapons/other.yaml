@@ -1022,6 +1022,76 @@ MammothGauss:
 		Spread: 256
 		Damage: 5000
 
+DesolatorGun:
+	Inherits: ^GaussWeapon
+	ReloadDelay: 100
+	Range: 6c0
+	Report: bigggun1.aud
+	Projectile: Railgun
+		BeamWidth: 0
+		HelixColor: 00FF00
+		HelixPlayerColor: false
+	Warhead@1Dam: SpreadDamage
+		Spread: 8
+		Damage: 6000
+		ValidTargets: GroundActor, WaterActor
+		Versus:
+			None: 120
+			Wood: 40
+			Light: 100
+			Heavy: 40
+			Concrete: 45
+		DamageTypes: Prone50Percent, TriggerProne, TiberiumDeath
+	Warhead@3Dam: SpreadDamage
+		DamageTypes: Prone50Percent, TriggerProne, FireDeath
+	Warhead@4Dam: SpreadDamage
+		Delay: 25
+		Spread: 256
+		Damage: 1000
+		Versus:
+			None: 100
+			Wood: 60
+			Light: 100
+			Heavy: 50
+			Concrete: 45
+		ValidTargets: GroundActor, WaterActor
+		DamageTypes: Prone50Percent, TriggerProne, DefaultDeath
+	Warhead@5Dam: SpreadDamage
+		Delay: 50
+		Spread: 256
+		Damage: 1000
+		Versus:
+			None: 100
+			Wood: 60
+			Light: 100
+			Heavy: 50
+			Concrete: 45
+		ValidTargets: GroundActor, WaterActor
+		DamageTypes: Prone50Percent, TriggerProne, DefaultDeath
+	Warhead@6Dam: SpreadDamage
+		Delay: 75
+		Spread: 256
+		Damage: 1000
+		Versus:
+			None: 100
+			Wood: 60
+			Light: 100
+			Heavy: 50
+			Concrete: 45
+		ValidTargets: GroundActor, WaterActor
+		DamageTypes: Prone50Percent, TriggerProne, DefaultDeath
+	Warhead@radiation: FireCluster
+		Weapon: NewRadiationCloud
+		Delay: 3
+		RandomClusterCount: 3
+		Dimensions: 5,5
+		Footprint: xxxxx xxXxx xXXXx xxXxx xxxxx
+	Warhead@radiation2: FireCluster
+		Weapon: NewRadiationCloud
+		RandomClusterCount: 1
+		Dimensions: 1,1
+		Footprint: x
+
 ShipRailgun:
 	ReloadDelay: 500
 	Range: 25c0
@@ -3690,3 +3760,133 @@ chinablacklotusend:
 		Condition: disabled
 		Duration: 350
 		ValidTargets: Tank, Vehicle, Structure
+
+DesolatorSpread:
+	ReloadDelay: 5
+	Range: 20c0
+	ValidTargets: Ground, Water, GroundActor, WaterActor, AirborneActor
+	Projectile: GravityBomb
+		OpenSequence: idle
+		Velocity: 0, 0, -256
+		Acceleration: 0, 0, 0
+	Warhead@1Dam: SpreadDamage
+		Damage: 1
+		ValidTargets: Ground, Water, GroundActor, WaterActor
+	Warhead@radiation: FireCluster
+		Weapon: NewRadiationCloud_Deso
+		Delay: 3
+		RandomClusterCount: 5
+		Dimensions: 16,16
+		Footprint: __xxxxxxxxxxxx__ _xxxxxxxxxxxxxx_ xxxxxxxxxxxxxxxx xxxxxxxxxxxxxxxx xxxxxxxxxxxxxxxx xxxxxxxxxxxxxxxx xxxxxxxxxxxxxxxx xxxxxxxxxxxxxxxx xxxxxxxxxxxxxxxx xxxxxxxxxxxxxxxx xxxxxxxxxxxxxxxx xxxxxxxxxxxxxxxx xxxxxxxxxxxxxxxx xxxxxxxxxxxxxxxx _xxxxxxxxxxxxxx_ __xxxxxxxxxxxx__
+
+NewRadiationCloud:
+	ReloadDelay: 1
+	Range: 3c512
+	ValidTargets: Ground, Water, GroundActor, WaterActor
+	Projectile: Bullet
+		Speed: 128,512
+		Blockable: false
+	Warhead@1Eff: CreateEffect
+		Explosions: radiation
+		ImpactActors: false
+		ExplosionPalette: player
+	Warhead@1poison: GrantExternalCondition
+		Range: 1c512
+		Condition: standing_in_radiation
+		Duration: 375
+		ValidTargets: GroundActor, WaterActor
+	Warhead@1Dam: SpreadDamage
+		Delay: 0
+		Spread: 256
+		Damage: 300
+		ValidTargets: GroundActor, WaterActor
+		Versus:
+			None: 100
+			Wood: 15
+			Heavy: 50
+			Concrete: 50
+		DamageTypes: FireDeath
+	Warhead@2Dam: SpreadDamage
+		Delay: 50
+		Spread: 256
+		Damage: 300
+		ValidTargets: GroundActor, WaterActor
+		Versus:
+			None: 100
+			Wood: 15
+			Heavy: 50
+			Concrete: 50
+		DamageTypes: FireDeath
+	Warhead@3Dam: SpreadDamage
+		Delay: 100
+		Spread: 256
+		Damage: 300
+		ValidTargets: GroundActor, WaterActor
+		Versus:
+			None: 100
+			Wood: 15
+			Heavy: 50
+			Concrete: 50
+		DamageTypes: FireDeath
+	Warhead@4Dam: SpreadDamage
+		Delay: 150
+		Spread: 256
+		Damage: 300
+		ValidTargets: GroundActor, WaterActor
+		Versus:
+			None: 100
+			Wood: 15
+			Heavy: 50
+			Concrete: 50
+		DamageTypes: FireDeath
+	Warhead@5Dam: SpreadDamage
+		Delay: 200
+		Spread: 256
+		Damage: 300
+		ValidTargets: GroundActor, WaterActor
+		Versus:
+			None: 100
+			Wood: 15
+			Heavy: 50
+			Concrete: 50
+		DamageTypes: FireDeath
+	Warhead@6Dam: SpreadDamage
+		Delay: 250
+		Spread: 256
+		Damage: 300
+		ValidTargets: GroundActor, WaterActor
+		Versus:
+			None: 100
+			Wood: 15
+			Heavy: 50
+			Concrete: 50
+		DamageTypes: FireDeath
+	Warhead@7Dam: SpreadDamage
+		Delay: 300
+		Spread: 256
+		Damage: 300
+		ValidTargets: GroundActor, WaterActor
+		Versus:
+			None: 100
+			Wood: 15
+			Heavy: 50
+			Concrete: 50
+		DamageTypes: FireDeath
+	Warhead@8Dam: SpreadDamage
+		Delay: 350
+		Spread: 256
+		Damage: 300
+		ValidTargets: GroundActor, WaterActor
+		Versus:
+			None: 100
+			Wood: 15
+			Heavy: 50
+			Concrete: 50
+		DamageTypes: FireDeath
+
+NewRadiationCloud_Deso:
+	Inherits: NewRadiationCloud
+	Projectile: Bullet
+		Speed: 128,512
+		InaccuracyType: PerCellIncrement
+		Inaccuracy: 4

@@ -128,3 +128,72 @@ HEAVYGUY:
 		Condition: ismoving
 	SoundOnDamageTransition:
 		DamagedSounds: heavycrit1.aud,heavycrit2.aud,heavycrit3.aud
+
+
+E4DESO:
+	Inherits: ^Soldier
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Buildable:
+		Queue: Infantry
+		BuildAtProductionType: Soldier
+		BuildPaletteOrder: 131
+		Prerequisites: techcenter, mslo, ~techlevel.unrestricted, ~infantry.soviet
+		Description: Advanced anti-material infantry\nDeploy to create a radiation field.\n  Strong vs Infantry, Light vehicles\n  Weak vs Heavy vehicles, Aircraft
+	Valued:
+		Cost: 600
+	Tooltip:
+		Name: Desolator
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 11000
+	Mobile:
+		RequireForceMoveCondition: !undeployed
+		ImmovableCondition: !undeployed
+	Armament@PRIMARY:
+		Weapon: DesolatorGun
+		RequiresCondition: undeployed
+		LocalOffset: 700,0,500
+	Armament@GARRISONED:
+		Name: garrisoned
+		RequiresCondition: undeployed
+		Weapon: DesolatorGun
+	Armament@deployed:
+		Weapon: DesolatorSpread
+		TargetRelationships: Ally, Neutral, Enemy
+		RequiresCondition: deployed
+	TakeCover:
+		ProneOffset: 160,0,-288
+	Explodes:
+		Weapon: VisualExplode
+		EmptyWeapon: VisualExplode
+		Chance: 50
+	WithInfantryBody:
+		DefaultAttackSequence: shoot
+		RequiresCondition: !parachute && undeployed
+	WithInfantryBody@dep:
+		RequiresCondition: !parachute && deployed
+	WithInfantryBody@PARACHUTE:
+		StandSequences: parachute
+		RequiresCondition: parachute
+		Palette: player-noshadow
+		IsPlayerPalette: true
+	ProducibleWithLevel:
+		Prerequisites: barracks.upgraded
+	WithProductionIconOverlay:
+		Types: Veterancy
+		Prerequisites: barracks.upgraded
+	-GrantConditionOnTerrain@radiation:
+	GrantConditionOnDeploy:
+		DeployedCondition: deployed
+		UndeployedCondition: undeployed
+		UndeployOnMove: true
+		UndeployOnPickup: true
+		Facing: 640
+		AllowedTerrainTypes: Clear, Road, Rough, Ore, Gems, Tiberium, BlueTiberium, Creep
+	FirepowerMultiplier@deployed:
+		RequiresCondition: deployed
+		Modifier: 400
+	DamageMultiplier@deployed:
+		RequiresCondition: deployed
+		Modifier: 150

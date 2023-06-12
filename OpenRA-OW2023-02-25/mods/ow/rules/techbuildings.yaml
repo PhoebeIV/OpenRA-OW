@@ -16,6 +16,44 @@ MISS:
 		Position: Center
 		Palette: player
 		IsPlayerPalette: True
+	SpawnActorOnDeath:
+		Actor: MISS.Husk
+		SkipMakeAnimations: true
+		OwnerType: InternalName
+		RequiresCondition: respawnable
+	GrantConditionOnPrerequisite@respawnable:
+		Prerequisites: techlevel.techrespamn
+		Condition: respawnable
+
+
+MISS.Husk:
+	Inherits: MISS
+	RenderSprites:
+		Image: miss
+	-Capturable:
+	-CapturableProgressBar:
+	-CapturableProgressBlink:
+	-CaptureManager:
+	-Targetable:
+	Tooltip:
+		Name: Communications Center (Dead)
+	TooltipDescription@other:
+		Description: This structure is being rebuilt.
+	WithSpriteBody:
+		Sequence: dead
+	KillsSelf:
+		Delay: 4500
+	SpawnActorOnDeath:
+		Actor: MISS
+	ChangesHealth@health:
+		PercentageStep: -90
+		StartIfBelow: 101
+		Delay: 10
+		RequiresCondition: currenthp
+	GrantConditionOnHealth@health:
+		MinHP: 100000
+		Condition: currenthp
+
 
 OILB:
 	Health:
@@ -29,6 +67,44 @@ OILB:
 		Position: Center
 		Palette: player
 		IsPlayerPalette: True
+	SpawnActorOnDeath:
+		Actor: OILB.Husk
+		SkipMakeAnimations: true
+		OwnerType: InternalName
+		RequiresCondition: respawnable
+	GrantConditionOnPrerequisite@respawnable:
+		Prerequisites: techlevel.techrespamn
+		Condition: respawnable
+
+OILB.Husk:
+	Inherits: OILB
+	RenderSprites:
+		Image: oilb
+	-Capturable:
+	-Targetable:
+	-CapturableProgressBar:
+	-CapturableProgressBlink:
+	-CaptureManager:
+	Tooltip:
+		Name: Oil Derrick (Dead)
+	TooltipDescription@other:
+		Description: This structure is being rebuilt.
+	WithSpriteBody:
+		Sequence: damaged-idle
+	Explodes:
+		Weapon: BuildingExplode
+	KillsSelf:
+		Delay: 4500
+	SpawnActorOnDeath:
+		Actor: OILB
+	ChangesHealth@health:
+		PercentageStep: -90
+		StartIfBelow: 101
+		Delay: 10
+		RequiresCondition: currenthp
+	GrantConditionOnHealth@health:
+		MinHP: 100000
+		Condition: currenthp
 
 FCOM:
 	Health:
@@ -42,6 +118,42 @@ FCOM:
 		Position: Center
 		Palette: player
 		IsPlayerPalette: True
+	SpawnActorOnDeath:
+		Actor: FCOM.Husk
+		SkipMakeAnimations: true
+		OwnerType: InternalName
+		RequiresCondition: respawnable
+	GrantConditionOnPrerequisite@respawnable:
+		Prerequisites: techlevel.techrespamn
+		Condition: respawnable
+
+FCOM.Husk:
+	Inherits: FCOM
+	RenderSprites:
+		Image: FCOM
+	-Capturable:
+	-Targetable:
+	-CapturableProgressBar:
+	-CapturableProgressBlink:
+	-CaptureManager:
+	Tooltip:
+		Name: Forward Command (Dead)
+	TooltipDescription@other:
+		Description: This structure is being rebuilt.
+	WithSpriteBody:
+		Sequence: damaged-idle
+	KillsSelf:
+		Delay: 4500
+	SpawnActorOnDeath:
+		Actor: FCOM
+	ChangesHealth@health:
+		PercentageStep: -90
+		StartIfBelow: 101
+		Delay: 10
+		RequiresCondition: currenthp
+	GrantConditionOnHealth@health:
+		MinHP: 100000
+		Condition: currenthp
 
 HOSP:
 	Health:
@@ -55,3 +167,39 @@ HOSP:
 		Position: Center
 		Palette: player
 		IsPlayerPalette: True
+	SpawnActorOnDeath:
+		Actor: HOSP.Husk
+		SkipMakeAnimations: true
+		OwnerType: InternalName
+		RequiresCondition: respawnable
+	GrantConditionOnPrerequisite@respawnable:
+		Prerequisites: techlevel.techrespamn
+		Condition: respawnable
+
+HOSP.Husk:
+	Inherits: HOSP
+	RenderSprites:
+		Image: hosp
+	-Capturable:
+	-Targetable:
+	-CapturableProgressBar:
+	-CapturableProgressBlink:
+	-CaptureManager:
+	Tooltip:
+		Name: Hostipal (Dead)
+	TooltipDescription@other:
+		Description: This structure is being rebuilt.
+	WithSpriteBody:
+		Sequence: dead
+	KillsSelf:
+		Delay: 4500
+	SpawnActorOnDeath:
+		Actor: HOSP
+	ChangesHealth@health:
+		PercentageStep: -90
+		StartIfBelow: 101
+		Delay: 10
+		RequiresCondition: currenthp
+	GrantConditionOnHealth@health:
+		MinHP: 100000
+		Condition: currenthp
