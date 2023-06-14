@@ -3890,3 +3890,144 @@ NewRadiationCloud_Deso:
 		Speed: 128,512
 		InaccuracyType: PerCellIncrement
 		Inaccuracy: 4
+
+usarailgunlaser:
+	Inherits: ^LaserWeapon
+	ReloadDelay: 75
+	Burst: 4
+	BurstDelays: 8
+	Range: 4c0
+	Report: USAPaladinLasershot.aud
+	Projectile: LaserZap
+		Width: 60
+		ZOffset: 2047
+		Color: FF0000
+	Warhead@1Dam: SpreadDamage
+		Damage: 1600
+		Versus:
+			None: 140
+			Heavy: 50
+			Wood: 50
+        InvalidTargets: Vehicle, Tank, Structure, Wall
+    DamageTypes: Prone50Percent, TriggerProne, FireDeath
+	-Warhead@2Smu:
+
+usarailgunchargeattack:
+	ReloadDelay: 50
+	Range: 16c0
+	MinRange: 6c0
+	Report: snipergun_dp.wav
+	ValidTargets: Ground, Water, GroundActor, WaterActor
+	Projectile: LaserZap
+		Width: 0
+		ZOffset: 0
+	Warhead@1Dam: SpreadDamage
+		Spread: 42
+		Damage: 0
+		ValidTargets: GroundActor, WaterActor
+		Versus:
+			None: 220
+
+usarailguncharging:
+	ReloadDelay: 50
+	Range: 16c0
+	MinRange: 6c0
+	Report: snipergun_ap.wav
+	ValidTargets: Ground, Water, GroundActor, WaterActor
+	Projectile: LaserZap
+		Width: 0
+		ZOffset: 0
+	Warhead@1Eff: CreateEffect
+		Explosions: railgunmarker
+		ValidTargets: Ground, Air, GroundActor, AirborneActor, WaterActor, Trees
+
+usarailgunattack:
+	ReloadDelay: 300
+	Range: 16c0
+	MinRange: 6c0
+	AfterFireSound: Snipergun_Reload.wav
+	Report: SniperGunFire1.wav
+	ValidTargets: Ground, Water, GroundActor, WaterActor
+	Projectile: Railgun
+		Duration: 50
+		BeamWidth: 0c120
+		BeamColor: FFA50080
+		HelixColor: FFFFFF80
+	Warhead@emp1: GrantExternalCondition
+		Range: 5c0
+		Duration: 125
+		Condition: disabled
+		ValidTargets: GroundActor, WaterActor, Underwater, AirborneActor, Air
+		Delay: 75
+	Warhead@97aEff_impact: CreateEffect
+		ImpactSounds: SniperGunFire1.wav
+		ImpactActors: false
+	Warhead@97Eff_impact: CreateEffect
+		ImpactSounds: redeemer_explosionsound.wav
+		ImpactActors: false
+	Warhead@1Eff_impact: CreateEffect
+		Explosions: redeemerexplosionstart
+		ImpactActors: false
+	Warhead@1Eff_impacta: CreateEffect
+		Explosions: redeemerexplosionring
+		ImpactActors: false
+	Warhead@1Dam_impact: SpreadDamage
+		Delay: 25
+		Spread: 1c0
+		Damage: 10000
+		Falloff: 600, 368, 135, 50, 18, 7, 0
+		ValidTargets: GroundActor, Trees, WaterActor, Underwater, AirborneActor
+		Versus:
+			Concrete: 25
+		DamageTypes: Prone50Percent, TriggerProne, FireDeath, Incendiary
+	Warhead@2Res_impact: DestroyResource
+	Warhead@3Eff_impact: CreateEffect
+		Explosions: redeemerexplosion
+		ImpactActors: false
+		Delay: 20
+	Warhead@4Dam_areanuke1: SpreadDamage
+		Spread: 1c512
+		Damage: 6000
+		Falloff: 1000, 800, 600, 400, 250, 150, 100, 0
+		Delay: 25
+		ValidTargets: GroundActor, Trees, WaterActor, Underwater, AirborneActor
+		Versus:
+			Concrete: 25
+		DamageTypes: Prone50Percent, TriggerProne, FireDeath, Incendiary
+		Delay: 25
+	Warhead@97Eff_impacta: CreateEffect
+		ImpactSounds: redeemer_explosionsoundend.wav
+		ImpactActors: false
+		Delay: 25
+	Warhead@97Eff_impactaa: CreateEffect
+		ImpactSounds: redeemer_explosionsoundend.wav
+		ImpactActors: false
+		Delay: 25
+	Warhead@97Eff_impactaaa: CreateEffect
+		ImpactSounds: BExplosion5.wav
+		ImpactActors: false
+		Delay: 25
+	Warhead@97Eff_impactaaaa: CreateEffect
+		ImpactSounds: BExplosion5.wav
+		ImpactActors: false
+		Delay: 25
+	Warhead@5Res_areanuke1: DestroyResource
+		Size: 4
+		Delay: 25
+	Warhead@6Smu_areanuke1: LeaveSmudge
+		SmudgeType: Scorch
+		ValidTargets: Ground, Infantry
+		Size: 4
+		Delay: 5
+		Delay: 25
+	Warhead@TREEKILL: SpreadDamage
+		Spread: 1c0
+		Damage: 5000
+		Falloff: 600, 400, 250, 150, 100, 0
+		Delay: 25
+		ValidTargets: Trees
+		DamageTypes: Incendiary
+	Warhead@22FlashEffect: FlashPaletteEffect
+		Duration: 25
+		Delay: 25
+		FlashType: Nuke

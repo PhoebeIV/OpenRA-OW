@@ -288,7 +288,7 @@ USAMICROWAVE:
 	Inherits: 2TNK
 	Buildable:
 		BuildPaletteOrder: 220
-		Prerequisites: ~vehicles.usa, techcenter, upgrade.superweaponsgeneral
+		Prerequisites: ~vehicles.usa, advtechcenter, upgrade.superweaponsgeneral
 		Description: Advanced support tank.\nEquipped with a Microwave generator.\nCan disable vehicles, structures and fry infantry.\n  Strong vs Vehicles, Infantry\n  Weak vs Aircraft
         BuildDuration: 1200
 	Valued:
@@ -322,7 +322,7 @@ USALASERCRUSADER:
 	Inherits: 2TNK
 	Buildable:
 		BuildPaletteOrder: 220
-		Prerequisites: ~vehicles.usa, upgrade.lasergeneral
+		Prerequisites: ~vehicles.usa, advtechcenter, upgrade.lasergeneral
 		Description: USA main battle tank.\nEquipped with a High-energy directed pulse laser cannon.\nSpeed: 85\n  Strong vs Vehicles\n  Weak vs Infantry, Aircraft
         BuildDuration: 1200
 	Valued:
@@ -345,3 +345,115 @@ USALASERCRUSADER:
 		Image: usalasercrusadertank
 	Voiced:
 		VoiceSet: LaserTankVoice
+
+usarailgun:
+	Inherits: ^TrackedVehicle
+	Inherits@EPIC: ^EpicUnit
+	Inherits@EPIC2: ^EpicVehicle
+	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
+	Buildable:
+		Queue: Vehicle
+		BuildPaletteOrder: 2500
+		Prerequisites: ~vehicles.usa, advtechcenter, upgrade.lasergeneral, upgrade.superweaponsgeneral, upgrade.aircraftgeneral
+		Description: [EPIC]\nCannon-Caliber Electromagnetic Artillery.
+	Valued:
+		Cost: 18000
+	Tooltip:
+		Name: CCEM Artillery
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 400000
+	Armor:
+		Type: Heavy
+	Mobile:
+		Speed: 35
+		Locomotor: heavytracked
+		Voice: Move
+	Guard:
+		Voice: Move
+	Passenger:
+		Weight: 8
+		CustomPipType: red
+		Voice: Move
+	RevealsShroud:
+		MinRange: 7c0
+		Range: 8c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 7c0
+	Turreted:
+		TurnSpeed: 8
+		Turret: primary
+	AttackTurreted:
+		Turrets: primary
+		PauseOnCondition: disabled
+		Armaments: secondary, gun1, gun2, gun3
+    Armament@1:
+        Name: gun1
+        Weapon: usarailgunchargeattack
+        RequiresCondition: !gun2 && !gun3 && !disabled
+		PauseOnCondition: gun2
+    GrantConditionOnAttack@1:
+        ArmamentNames: gun1
+        Condition: gun2
+		RequiredShotsPerInstance: 1
+        RevokeDelay: 300
+    Armament@2:
+        Name: gun2
+        Weapon: usarailguncharging
+        RequiresCondition: gun2 && !gun3
+		PauseOnCondition: gun3
+    GrantConditionOnAttack@2:
+        ArmamentNames: gun2
+        Condition: gun3
+		RequiredShotsPerInstance: 4
+        RevokeDelay: 300
+		RevokeAll: true
+    Armament@3:
+        Name: gun3
+        Weapon: usarailgunattack
+		LocalOffset: 1400,0,340
+		MuzzleSequence: muzzle
+        RequiresCondition: gun3
+    GrantConditionOnAttack@3:
+        ArmamentNames: gun3
+        Condition: disabled
+		RequiredShotsPerInstance: 1
+        RevokeDelay: 500
+	Armament@SECONDARY:
+		Weapon: usarailgunlaser
+		LocalOffset: -600,300,200, -600,-300,200
+		PauseOnCondition: disabled
+		Turret: primary
+		Name: secondary
+	WithMuzzleOverlay:
+	WithSpriteTurret:
+		Sequence: turret
+		Turret: primary
+		Palette: dawn
+		IsPlayerPalette: true
+	SpeedMultiplier:
+		Modifier: 20
+		RequiresCondition: gun2
+	RangeMultiplier:
+		Modifier: 125
+		RequiresCondition: gun2
+	Explodes:
+		Weapon: MiniNuke
+		EmptyWeapon: MiniNuke
+	ShakeOnDeath:
+	ChangesHealth:
+		Step: 500
+		Delay: 25
+		StartIfBelow: 50
+		DamageCooldown: 200
+	AnnounceOnKill:
+		Interval: 2000
+	Voiced:
+		VoiceSet: SolCannonVoice
+	SelectionDecorations:
+	Selectable:
+		DecorationBounds: 1877, 1621, 0, -170
+	RenderSprites:
+		Image: usarailgun
