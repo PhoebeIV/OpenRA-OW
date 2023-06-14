@@ -369,22 +369,12 @@
 	GrantConditionOnPrerequisite@noradio:
 		Prerequisites: !radio.p
 		Condition: noradio
-	GpsPower@global:
-		Prerequisites: radio.p
-		PauseOnCondition: noradio || disabled
-		Icon: gps
-		OneShot: true
-		ChargeInterval: 1500
-		Name: GPS Satellite
-		Description: Reveals map terrain and provides tactical\ninformation.
-		RevealDelay: 375
-		LaunchSound: satlnch1.aud
 	ProvidesPrerequisite:
 		Prerequisite: techcenter
 	Valued:
 		Cost: 1500
 	Power:
-		Amount: -200
+		Amount: -100
 	SupportPowerChargeBar:
 
 ^DawnBuilding:
@@ -487,6 +477,9 @@
 	Inherits@usahold_the_line: ^usaholdtheline
 	Inherits@frenzyboost: ^FrenzyBoostInfantry
 	Inherits@propagandaboost: ^propagandaboostinfantry
+	OwnerLostAction:
+		Action: ChangeOwner
+		Owner: Creeps
 	Crushable:
 		RequiresCondition: !HolySuperBoosted
 	RevealOnFire:
@@ -1007,6 +1000,8 @@
 	Inherits@Monumentboost: ^Monumentboosted
 	Inherits@corrode: ^CorrodesFromTibWeaps
 	Inherits@CurseCondition: ^CurseDebuff
+	OwnerLostAction:
+		Action: ChangeOwner
 	Capturable:
 		ValidRelationships: Enemy, Neutral, Ally
 	ChangesHealth@Monumentboost:
@@ -1203,6 +1198,9 @@
 	Inherits@usahold_the_line: ^usaholdtheline
 	Inherits@propagandaboost: ^propagandaboost
 	Inherits@frenzyboost: ^FrenzyBoost
+	OwnerLostAction:
+		Action: ChangeOwner
+		Owner: Creeps
 	RevealOnFire:
 	Repairable:
 		RepairActors: fix, gfix, gfix.boss

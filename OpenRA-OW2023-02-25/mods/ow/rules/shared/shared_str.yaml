@@ -869,7 +869,7 @@ SYRD:
 	GrantExternalConditionToProduced:
 		Condition: produced
 	Building:
-		Footprint: =x= xxx =x=
+		Footprint: =x= x=x =x=
 	-SpawnActorsOnSell@uac:
 	-SpawnActorsOnSell@fed:
 	-SpawnActorsOnSell@gla:
@@ -885,7 +885,7 @@ SPEN:
 	GrantExternalConditionToProduced:
 		Condition: produced
 	Building:
-		Footprint: =x= xxx =x=
+		Footprint: =x= x=x =x=
 	-SpawnActorsOnSell@uac:
 	-SpawnActorsOnSell@fed:
 	-SpawnActorsOnSell@gla:
@@ -1218,11 +1218,16 @@ RADIO.P:
 		RequiresCondition: !disabled
 	ExternalCondition@JAMMED:
 		Condition: jammed
-	-WithMakeAnimation:
 	SupportPowerChargeBar:
-	Capturable:
-		-RequiresCondition:
-		Types: building
+	GpsPower@global:
+		PauseOnCondition: noradio || disabled || jammed
+		Icon: gps
+		OneShot: true
+		ChargeInterval: 1500
+		Name: GPS Satellite
+		Description: Reveals map terrain and provides tactical\ninformation.
+		RevealDelay: 375
+		LaunchSound: satlnch1.aud
 	Sellable:
 		RequiresCondition: !being-captured && !being-demolished
 		SellSounds: cashturn.aud
