@@ -1,6 +1,40 @@
+############################################################################################
+###################################### Level ###############################################
+############################################################################################
+
 #### Grants conditions to store your level ups, makes sure you dont lose levels on death.
 #### (Goes on upgrade actor).
 ^herolevelconditions:
+  GrantConditionOnPrerequisite@herolvl1:
+    Condition: herolvlstored1
+    Prerequisites: herolvl1
+  GrantConditionOnPrerequisite@herolvl2:
+    Condition: herolvlstored2
+    Prerequisites: herolvl2
+  GrantConditionOnPrerequisite@herolvl3:
+    Condition: herolvlstored3
+    Prerequisites: herolvl3
+  GrantConditionOnPrerequisite@herolvl4:
+    Condition: herolvlstored4
+    Prerequisites: herolvl4
+  GrantConditionOnPrerequisite@herolvl5:
+    Condition: herolvlstored5
+    Prerequisites: herolvl5
+  GrantConditionOnPrerequisite@herolvl6:
+    Condition: herolvlstored6
+    Prerequisites: herolvl6
+  GrantConditionOnPrerequisite@herolvl7:
+    Condition: herolvlstored7
+    Prerequisites: herolvl7
+  GrantConditionOnPrerequisite@herolvl8:
+    Condition: herolvlstored8
+    Prerequisites: herolvl8
+  GrantConditionOnPrerequisite@herolvl9:
+    Condition: herolvlstored9
+    Prerequisites: herolvl9
+  GrantConditionOnPrerequisite@herolvl10:
+    Condition: herolvlstored10
+    Prerequisites: herolvl10
   ProvidesPrerequisite@herolvl1:
     Prerequisite: herolvl1
     GrantPermanently: true
@@ -44,46 +78,138 @@
   GrantCondition@herolvlstored1:
     Condition: herolvlstored1
     GrantPermanently: True
-    RequiresCondition: herolvl1 || herolvlstored1
+    RequiresCondition: herolvlstored1
   GrantCondition@herolvlstored2:
     Condition: herolvlstored2
     GrantPermanently: True
-    RequiresCondition: herolvl2 || herolvlstored2
+    RequiresCondition: herolvlstored2
   GrantCondition@herolvlstored3:
     Condition: herolvlstored3
     GrantPermanently: True
-    RequiresCondition: herolvl3 || herolvlstored3
+    RequiresCondition: herolvlstored3
   GrantCondition@herolvlstored4:
     Condition: herolvlstored4
     GrantPermanently: True
-    RequiresCondition: herolvl4 || herolvlstored4
+    RequiresCondition: herolvlstored4
   GrantCondition@herolvlstored5:
     Condition: herolvlstored5
     GrantPermanently: True
-    RequiresCondition: herolvl5 || herolvlstored5
+    RequiresCondition: herolvlstored5
   GrantCondition@herolvlstored6:
     Condition: herolvlstored6
     GrantPermanently: True
-    RequiresCondition: herolvl6 || herolvlstored6
+    RequiresCondition: herolvlstored6
   GrantCondition@herolvlstored7:
     Condition: herolvlstored7
     GrantPermanently: True
-    RequiresCondition: herolvl7 || herolvlstored7
+    RequiresCondition: herolvlstored7
   GrantCondition@herolvlstored8:
     Condition: herolvlstored8
     GrantPermanently: True
-    RequiresCondition: herolvl8 || herolvlstored8
+    RequiresCondition: herolvlstored8
   GrantCondition@herolvlstored9:
     Condition: herolvlstored9
     GrantPermanently: True
-    RequiresCondition: herolvl9 || herolvlstored9
+    RequiresCondition: herolvlstored9
   GrantCondition@herolvlstored10:
     Condition: herolvlstored10
     GrantPermanently: True
-    RequiresCondition: herolvl10 || herolvlstored10
+    RequiresCondition: herolvlstored10
+
+#### Saves Hero Levels. (goes on hero)
+^heroproducewithlevel:
+  ProducibleWithLevel@1:
+    Prerequisites: herolvl1
+    InitialLevels: 1
+  ProducibleWithLevel@2:
+    Prerequisites: herolvl2
+    InitialLevels: 2
+  ProducibleWithLevel@3:
+    Prerequisites: herolvl3
+    InitialLevels: 3
+  ProducibleWithLevel@4:
+    Prerequisites: herolvl4
+    InitialLevels: 4
+  ProducibleWithLevel@5:
+    Prerequisites: herolvl5
+    InitialLevels: 5
+  ProducibleWithLevel@6:
+    Prerequisites: herolvl6
+    InitialLevels: 6
+  ProducibleWithLevel@7:
+    Prerequisites: herolvl7
+    InitialLevels: 7
+  ProducibleWithLevel@8:
+    Prerequisites: herolvl8
+    InitialLevels: 8
+  ProducibleWithLevel@9:
+    Prerequisites: herolvl9
+    InitialLevels: 9
+  ProducibleWithLevel@10:
+    Prerequisites: herolvl10
+    InitialLevels: 10
+  GainsExperience:
+		Conditions:
+			1000: herolevel
+			2000: herolevel2
+			3000: herolevel3
+			4000: herolevel4
+			5000: herolevel5
+			7000: herolevel6
+			9000: herolevel7
+			12000: herolevel8
+			16000: herolevel9
+			20000: herolevel10
+  ProvidesPrerequisite@herolvl1:
+    Prerequisite: herolvl1
+    GrantPermanently: true
+    RequiresCondition: herolevel1
+  ProvidesPrerequisite@herolvl2:
+    Prerequisite: herolvl2
+    GrantPermanently: true
+    RequiresCondition: herolevel2
+  ProvidesPrerequisite@herolvl3:
+    Prerequisite: herolvl3
+    GrantPermanently: true
+    RequiresCondition: herolevel3
+  ProvidesPrerequisite@herolvl4:
+    Prerequisite: herolvl4
+    GrantPermanently: true
+    RequiresCondition: herolevel4
+  ProvidesPrerequisite@herolvl5:
+    Prerequisite: herolvl5
+    GrantPermanently: true
+    RequiresCondition: herolevel5
+  ProvidesPrerequisite@herolvl6:
+    Prerequisite: herolvl6
+    GrantPermanently: true
+    RequiresCondition: herolevel6
+  ProvidesPrerequisite@herolvl7:
+    Prerequisite: herolvl7
+    GrantPermanently: true
+    RequiresCondition: herolevel7
+  ProvidesPrerequisite@herolvl8:
+    Prerequisite: herolvl8
+    GrantPermanently: true
+    RequiresCondition: herolevel8
+  ProvidesPrerequisite@herolvl9:
+    Prerequisite: herolvl9
+    GrantPermanently: true
+    RequiresCondition: herolevel9
+  ProvidesPrerequisite@herolvl10:
+    Prerequisite: herolvl10
+    GrantPermanently: true
+    RequiresCondition: herolevel10
+  GivesExperience: 
+    Experience: 10000
+
+############################################################################################
+###################################### Faction #############################################
+############################################################################################
+
 
 #### This enables the hero's based on what faction your playing
-#### and checks for them to be turned on in menu. (Goes on upgrade actor).
+#### Converts faction condition to a prereq and saves. (Goes on upgrade actor).
 ^herofactionconditions:
   GrantConditionOnFaction@heroallies:
     Condition: enableheroallies
@@ -190,23 +316,20 @@
   ProvidesPrerequisite@herociv:
     Prerequisite: enableherociv
     RequiresCondition: enableherociv
+  ProvidesPrerequisite@heroall:
+    Prerequisite: enableheroall
+    RequiresCondition: enableherociv || enableherochina || enableherousa || enableheroterran || enableherozerg || enableheroprotoss || enableheromedi || enableherogla || enableheronazi || enableherouac || enableherofed || enableheronod || enableherogdi || enableherosoviet || enableheroallies
 
-#### Exit point for initial hero production (Goes on upgrade actor).
-^heroinitalexit:
-  GrantConditionOnPrerequisite@heroclasspickedprereq:
-    Condition: heroclasspicked
-    Prerequisites	: heroclasspickedprereq
-  Exit@heroclasspick:
-    ProductionTypes: heroclasspick
-    RequiresCondition: !heroclasspicked
-  ProvidesPrerequisite@heroclasspickedprereq:
-    Prerequisite: heroclasspickedprereq
-    RequiresCondition: heroclasspicked
 
-#### provide upgrades prereq and lock them on buying. (put on upgrade actor)
-#### this locks the tier will have another batch of code for what upgrade to go with
+############################################################################################
+####################################### Upgrades ###########################################
+############################################################################################
+
+#### provide upgrades prereq and lock them on buying. 
+###(put this code on upgrade actor for saving)
+#### this locks the tier will have another batch of code for what upgrade to go with, (will add new building for building these.)
 #### code for picking what upgrade will go in Shared and Faction files.
-^heroupgradeshandler:
+^heroupgradeshandler:  ## Might rework this depending how the upgrades work out.
   GrantConditionOnProduction@heroupgradecounter:
     Condition: heroupgradecounter
     Actors: heroupgrades
@@ -241,198 +364,118 @@
     Prerequisite: upgrade10chosen
     RequiresCondition: heroupgradecounter >= 10
 
-#### options to pick from for hero classes. have the faction ones inherit and change these.
+
+############################################################################################
+###################################### Tiers ###############################################
+############################################################################################
+
+### Takes and saves what tier your at for hero (goes on upgrade)
+^heroclasstiers:
+  GrantConditionOnPrerequisite@herotier1:
+    Condition: herotierstored1
+    Prerequisites: herotier1
+  GrantConditionOnPrerequisite@herotier2:
+    Condition: herotierstored2
+    Prerequisites: herotier2
+  GrantConditionOnPrerequisite@herotier3:
+    Condition: herotierstored3
+    Prerequisites: herotier3
+  GrantConditionOnPrerequisite@herotier4:
+    Condition: herotierstored4
+    Prerequisites: herotier4
+  GrantConditionOnPrerequisite@herotier5:
+    Condition: herotierstored5
+    Prerequisites: herotier5
+  ProvidesPrerequisite@herotier1:
+    Prerequisite: herotier1
+    GrantPermanently: true
+    RequiresCondition: herotierstored1
+  ProvidesPrerequisite@herotier2:
+    Prerequisite: herotier2
+    GrantPermanently: true
+    RequiresCondition: herotierstored2
+  ProvidesPrerequisite@herotier3:
+    Prerequisite: herotier3
+    GrantPermanently: true
+    RequiresCondition: herotierstored3
+  ProvidesPrerequisite@herotier4:
+    Prerequisite: herotier4
+    GrantPermanently: true
+    RequiresCondition: herotierstored4
+  ProvidesPrerequisite@herotier5:
+    Prerequisite: herotier5
+    GrantPermanently: true
+    RequiresCondition: herotierstored5
+  GrantCondition@herotierstored1:
+    Condition: herotierstored1
+    GrantPermanently: True
+    RequiresCondition: herotierstored1
+  GrantCondition@herotierstored2:
+    Condition: herotierstored2
+    GrantPermanently: True
+    RequiresCondition: herotierstored2
+  GrantCondition@herotierstored3:
+    Condition: herotierstored3
+    GrantPermanently: True
+    RequiresCondition: herotierstored3
+  GrantCondition@herotierstored4:
+    Condition: herotierstored4
+    GrantPermanently: True
+    RequiresCondition: herotierstored4
+  GrantCondition@herotierstored5:
+    Condition: herotierstored5
+    GrantPermanently: True
+    RequiresCondition: herotierstored5
+
+
+#### Saves Hero Tier. Does nothing just for reference.
+#    ^heroproducewithtier:
+  #    ProvidesPrerequisite@herotier1:
+    #    Prerequisite: herotier1
+    #    GrantPermanently: true
+    #    RequiresCondition: herotier1
+  #    ProvidesPrerequisite@herotier2:
+    #    Prerequisite: herotier2
+    #    GrantPermanently: true
+    #    RequiresCondition: herotier2
+  #    ProvidesPrerequisite@herotier3:
+    #    Prerequisite: herotier3
+    #    GrantPermanently: true
+    #    RequiresCondition: herotier3
+  #    ProvidesPrerequisite@herotier4:
+    #    Prerequisite: herotier4
+    #    GrantPermanently: true
+    #    RequiresCondition: herotier4
+  #    ProvidesPrerequisite@herotier5:
+    #    Prerequisite: herotier5
+    #    GrantPermanently: true
+    #    RequiresCondition: herotier5
+
+
 #### (will need to be made into a dummy actor in world potentialy just kill this after produce)
-^heroclassblank01:
+^heroexampleblank1:
   Buildable:
     Queue: heroclasspick
     BuildLimit: 1
     Prerequisites: ~!heroclasspicked && ~heroclasspicked
     Description: Hero class 1 (change this)
 	Valued:
-		Cost: 0
+		Cost: 1000
 	UpdatesPlayerStatistics:
 		AddToArmyValue: false
-  ProvidesPrerequisite@hero1chosen:
-    Prerequisite: hero1chosen
-  ProvidesPrerequisite@heroclasspicked:
-    Prerequisite: heroclasspicked
   OwnerLostAction: 
     Action: Dispose
-   
-^heroclassblank02:
-  Buildable:
-    Queue: heroclasspick
-    BuildLimit: 1
-    Prerequisites: ~!heroclasspicked && ~heroclasspicked
-    Description: Hero class 2 (change this)
-	Valued:
-		Cost: 0
-	UpdatesPlayerStatistics:
-		AddToArmyValue: false
-  ProvidesPrerequisite@hero2chosen:
-    Prerequisite: hero2chosen
-  ProvidesPrerequisite@heroclasspicked:
-    Prerequisite: heroclasspicked
-  OwnerLostAction: 
-    Action: Dispose 
-    
-^heroclassblank03:
-  Buildable:
-    Queue: heroclasspick
-    BuildLimit: 1
-    Prerequisites: ~!heroclasspicked && ~heroclasspicked
-    Description: Hero class 3 (change this)
-	Valued:
-		Cost: 0
-	UpdatesPlayerStatistics:
-		AddToArmyValue: false
-  ProvidesPrerequisite@hero3chosen:
-    Prerequisite: hero3chosen
-  ProvidesPrerequisite@heroclasspicked:
-    Prerequisite: heroclasspicked
-  OwnerLostAction: 
-    Action: Dispose
-   
-^heroclassblank04:
-  Buildable:
-    Queue: heroclasspick
-    BuildLimit: 1
-    Prerequisites: ~!heroclasspicked && ~heroclasspicked
-    Description: Hero class 4 (change this)
-	Valued:
-		Cost: 0
-	UpdatesPlayerStatistics:
-		AddToArmyValue: false
-  ProvidesPrerequisite@hero4chosen:
-    Prerequisite: hero4chosen
-  ProvidesPrerequisite@heroclasspicked:
-    Prerequisite: heroclasspicked
-  OwnerLostAction: 
-    Action: Dispose 
-    
-^heroclassblank05:
-  Buildable:
-    Queue: heroclasspick
-    BuildLimit: 1
-    Prerequisites: ~!heroclasspicked && ~heroclasspicked
-    Description: Hero class 5 (change this)
-	Valued:
-		Cost: 0
-	UpdatesPlayerStatistics:
-		AddToArmyValue: false
-  ProvidesPrerequisite@hero5chosen:
-    Prerequisite: hero5chosen
-  ProvidesPrerequisite@heroclasspicked:
-    Prerequisite: heroclasspicked
-  OwnerLostAction: 
-    Action: Dispose
-   
-^heroclassblank06:
-  Buildable:
-    Queue: heroclasspick
-    BuildLimit: 1
-    Prerequisites: ~!heroclasspicked && ~heroclasspicked
-    Description: Hero class 6 (change this)
-	Valued:
-		Cost: 0
-	UpdatesPlayerStatistics:
-		AddToArmyValue: false
-  ProvidesPrerequisite@hero6chosen:
-    Prerequisite: hero6chosen
-  ProvidesPrerequisite@heroclasspicked:
-    Prerequisite: heroclasspicked
-  OwnerLostAction: 
-    Action: Dispose 
-    
 
-#### Class Chosen, (goes on initial hero) allows you to choose starting hero class
-#### disables itself after choosing hero
-### (needs to be a dumy start unit that cannot move and will become untargetable or die after building)
-^heroclass:
-  Production@heroclasspick:
-    Produces: heroclasspick
-    RequiresCondition: !heroclasspicked
-  GrantConditionOnProduction@heroclasspick:
-    Condition: heroclasspicked
-    Actors: heroclasspick
-  ProvidesPrerequisite@heroclasspickedprereq:
-    Prerequisite: heroclasspickedprereq
-    RequiresCondition: heroclasspicked
 
-#### Saves Hero Levels. (goes on hero)
-^heroproducewithlevel:
-  ProducibleWithLevel@1:
-    Prerequisites: herolvl1
-    InitialLevels: 1
-  ProducibleWithLevel@2:
-    Prerequisites: herolvl2
-    InitialLevels: 1
-  ProducibleWithLevel@3:
-    Prerequisites: herolvl3
-    InitialLevels: 1
-  ProducibleWithLevel@4:
-    Prerequisites: herolvl4
-    InitialLevels: 1
-  ProducibleWithLevel@5:
-    Prerequisites: herolvl5
-    InitialLevels: 1
-  ProducibleWithLevel@6:
-    Prerequisites: herolvl6
-    InitialLevels: 1
-  ProducibleWithLevel@7:
-    Prerequisites: herolvl7
-    InitialLevels: 1
-  ProducibleWithLevel@8:
-    Prerequisites: herolvl8
-    InitialLevels: 1
-  ProducibleWithLevel@9:
-    Prerequisites: herolvl9
-    InitialLevels: 1
-  ProducibleWithLevel@10:
-    Prerequisites: herolvl10
-    InitialLevels: 1
-  GainsExperience@:
-    Conditions: herolevel1, herolevel2, herolevel3, herolevel4, herolevel5, herolevel6, herolevel7, herolevel8, herolevel9, herolevel10
-  ProvidesPrerequisite@herolvl1:
-    Prerequisite: herolvl1
-    GrantPermanently: true
-    RequiresCondition: herolevel1
-  ProvidesPrerequisite@herolvl2:
-    Prerequisite: herolvl2
-    GrantPermanently: true
-    RequiresCondition: herolevel2
-  ProvidesPrerequisite@herolvl3:
-    Prerequisite: herolvl3
-    GrantPermanently: true
-    RequiresCondition: herolevel3
-  ProvidesPrerequisite@herolvl4:
-    Prerequisite: herolvl4
-    GrantPermanently: true
-    RequiresCondition: herolevel4
-  ProvidesPrerequisite@herolvl5:
-    Prerequisite: herolvl5
-    GrantPermanently: true
-    RequiresCondition: herolevel5
-  ProvidesPrerequisite@herolvl6:
-    Prerequisite: herolvl6
-    GrantPermanently: true
-    RequiresCondition: herolevel6
-  ProvidesPrerequisite@herolvl7:
-    Prerequisite: herolvl7
-    GrantPermanently: true
-    RequiresCondition: herolevel7
-  ProvidesPrerequisite@herolvl8:
-    Prerequisite: herolvl8
-    GrantPermanently: true
-    RequiresCondition: herolevel8
-  ProvidesPrerequisite@herolvl9:
-    Prerequisite: herolvl9
-    GrantPermanently: true
-    RequiresCondition: herolevel9
-  ProvidesPrerequisite@herolvl10:
-    Prerequisite: herolvl10
-    GrantPermanently: true
-    RequiresCondition: herolevel10
-  GivesExperience: 
-    Experience: 1000
+
+
+
+
+
+
+#Level ups done on upgrade actor and hero.
+#Hero Enable for menu partialy done. still need to add menu items
+
+#Class picking started
+#upgrade picking started
+#Hero replace not done.
