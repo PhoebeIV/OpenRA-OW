@@ -1494,8 +1494,16 @@
 ^Plane:
 	Repairable:
 		RepairActors: fix, gfix, gfix.boss
+	ChangesHealth@landed:
+		PercentageStep: 1
+		Delay: 25
+		StartIfBelow: 100
+		DamageCooldown: 50
+		RequiresCondition: !airborne
+
 
 ^Helicopter:
+	-ChangesHealth@landed:
 
 ^TSPlane:
 	Inherits: ^Plane
@@ -1512,6 +1520,7 @@
 	WithVoxelBody:
 	Cloak@stealthgen:
 		Palette: tscloak
+	-ChangesHealth@landed:
 
 ^TSNeutralPlane:
 	Inherits: ^NeutralPlane
