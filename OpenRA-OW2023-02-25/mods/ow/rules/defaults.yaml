@@ -780,6 +780,8 @@
 		RevealGeneratedShroud: False
 	RevealsShroud@GAPGEN:
 		Range: 4c0
+	SoundOnDamageTransition:
+		DamagedSounds: baud.aud, dsplpain2.aud
 
 ^HighHPInfantry:
 	Targetable@highHP:
@@ -1076,6 +1078,21 @@
 	DamageMultiplier@sovietiron:
 		RequiresCondition: soviet_iron
 		Modifier: 80
+	GrantConditionOnPrerequisite@gapgen1:
+		Prerequisites: ulttech.france
+		Condition: ulttech.france
+	GrantConditionOnPrerequisite@gapgen2:
+		Prerequisites: ulttech.heydrich
+		Condition: ulttech.france
+	CreatesShroud:
+		Range: 5c0
+		RequiresCondition: !disabled && (ulttech.france || nearbygap)
+	ExternalCondition@nearbygap:
+		Condition: nearbygap
+	ProximityExternalCondition@nearbygap:
+		RequiresCondition: ulttech.france
+		Condition: nearbygap
+		Range: 5c0
 
 ^Defense:
 	Inherits@Monumentboost: ^Monumentboosted

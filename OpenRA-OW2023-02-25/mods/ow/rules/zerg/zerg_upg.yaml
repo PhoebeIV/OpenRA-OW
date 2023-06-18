@@ -41,7 +41,25 @@ zerg.spawning:
 	Buildable:
 		Description: Allows production and placement of creep colonies\n without using drones.
 		BuildPaletteOrder: 10110
-		Prerequisites: ~!upgrade.busy, ~!zerg.spawning, ~structures.zerg, zhive
+		Prerequisites: ~!upgrade.busy, ~!zerg.spawning, ~structures.zerg, zhive, ~!zerg.easybuild
 	ProvidesPrerequisite@upgradename:
 	Valued:
 		Cost: 5000
+
+zerg.easybuild:
+	Inherits: ^UpgradeBaseExt
+	Tooltip:
+		Name: Enable EZ Build Mode
+	Buildable:
+		Queue: Wall
+		Description: Allows production and placement of zerg structures\n without using drones.
+		BuildPaletteOrder: 10110
+		BuildDuration: 500
+		Prerequisites: ~!zerg.easybuild, ~structures.zerg
+	ProvidesPrerequisite@upgradename:
+	ProvidesPrerequisite@ai:
+		Prerequisite: ai.all
+	Valued:
+		Cost: 25000
+	RenderSprites:
+		Image: zerg.spawning

@@ -107,8 +107,16 @@ OILB.Husk:
 		Condition: currenthp
 
 FCOM:
+	Inherits@prereqs: ^ConYardPrereqs
+	Inherits@prereqs2: ^BarracksPrereqs
 	Health:
 		HP: 200000
+	TooltipDescription@ally:
+		Description: Provides buildable area, and Building + Infantry production queues.
+		ValidRelationships: Ally
+	TooltipDescription@other:
+		Description: Capture to give buildable area, and Building + Infantry production queues.
+		ValidRelationships: Neutral, Enemy
 	RepairableBuilding:
 		RepairStep: 100
 		RepairCondition: repairing
@@ -126,6 +134,30 @@ FCOM:
 	GrantConditionOnPrerequisite@respawnable:
 		Prerequisites: techlevel.techrespamn
 		Condition: respawnable
+	Production:
+		Produces: Building,Defense, Infantry, Soldier, Dog, Hatchery, Mage
+	ProductionBar@Building:
+		ProductionType: Building
+	ProductionBar@Defense:
+		ProductionType: Defense
+		Color: FF8C00
+	ProductionBar@Infantry:
+		ProductionType: Infantry
+	BaseProvider:
+		PauseOnCondition: being-captured
+		Range: 12c0
+	ProvidesPrerequisite@foundry:
+		Prerequisite: foundry
+	Exit@1:
+		RequiresCondition: !being-captured
+		SpawnOffset: -42,810,0
+		ExitCell: 1,2
+	Exit@2:
+		RequiresCondition: !being-captured
+		SpawnOffset: -725,640,0
+		ExitCell: 0,2
+	RallyPoint:
+		ForceSetType: Infantry
 
 FCOM.Husk:
 	Inherits: FCOM
