@@ -74,8 +74,20 @@
 		RequiresCondition: bot_hard
 		Modifier: 50
 	PowerMultiplier@bossAI:
-		RequiresCondition: bot_boss
+		RequiresCondition: bot_boss || bot_harder
 		Modifier: 10
+	RangeMultiplier@harderAI:
+		RequiresCondition: bot_harder && !bot_boss
+		Modifier: 125
+	DamageMultiplier@harderAI:
+		RequiresCondition: bot_harder && !bot_boss
+		Modifier: 75
+	FirepowerMultiplier@harderAI:
+		RequiresCondition: bot_harder && !bot_boss
+		Modifier: 110
+	ReloadDelayMultiplier@harderAI:
+		RequiresCondition: bot_harder && !bot_boss
+		Modifier: 80
 
 ^PowerPlant:
 	PowerMultiplier@medAI:
@@ -576,7 +588,7 @@ PBOX.boss:
 	Tooltip:
 		Name: Death Box
 	Buildable:
-		Prerequisites: barracks, ~ai.boss
+		Prerequisites: barracks, ~ai.harder
 	-AttackGarrisoned:
 	Cargo:
 		InitialUnits: e1of
@@ -584,11 +596,11 @@ PBOX.boss:
 		Modifier: 120
 	GrantConditionOnBotOwner:
 		Condition: bossai
-		Bots: boss
+		Bots: boss,harder
 	GrantRandomCondition@boss:
-		Conditions: boss1, boss2, boss3, boss4, boss5, boss6, boss7, boss8, boss9, boss10, boss1, boss2, boss3, boss4, boss5, boss7, boss8, boss9, boss10
+		Conditions: boss1, boss2, boss3, boss4, boss5, boss6, boss7, boss8, boss9, boss10, boss1, boss2, boss3, boss4, boss5, boss7, boss8, boss9, boss10, boss11
 	AttackTurreted@boss:
-		Armaments: main, boss1, boss2, boss3, boss3b, boss4, boss5, boss6, boss7, boss8, boss9, boss10
+		Armaments: main, boss1, boss2, boss3, boss3b, boss4, boss5, boss6, boss7, boss8, boss9, boss10, boss11
 	Armament@main:
 		Weapon: Vulcan
 		LocalOffset: 256,0,256
@@ -651,9 +663,28 @@ PBOX.boss:
 		LocalOffset: 256,0,256
 		RequiresCondition: boss10 && bossai
 		Name: boss10
+	Armament@boss11a:
+		Weapon: GoliathZap
+		LocalOffset: 256,0,256
+		RequiresCondition: boss11 && bossai
+		Name: boss11
+	Armament@boss11b:
+		Weapon: GoliathZap2
+		LocalOffset: 256,0,256
+		RequiresCondition: boss11 && bossai
+		Name: boss11
+	Armament@boss11c:
+		Weapon: GoliathZapCluster
+		LocalOffset: 256,0,256
+		RequiresCondition: boss11 && bossai
+		Name: boss11
 	RenderSprites:
 		Image: pbox
 	-WithBuildingBib:
+	-RangeMultiplier@harderAI:
+	-DamageMultiplier@harderAI:
+	-FirepowerMultiplier@harderAI:
+	-ReloadDelayMultiplier@harderAI:
 
 GFIX.boss:
 	Inherits: GFIX
