@@ -598,7 +598,7 @@ PBOX.boss:
 		Condition: bossai
 		Bots: boss,harder
 	GrantRandomCondition@boss:
-		Conditions: boss1, boss2, boss3, boss4, boss5, boss6, boss7, boss8, boss9, boss10, boss1, boss2, boss3, boss4, boss5, boss7, boss8, boss9, boss10, boss11
+		Conditions: boss1, boss2, boss3, boss4, boss5, boss6, boss7, boss8, boss9, boss10, boss1, boss3, boss4, boss5, boss7, boss8, boss9, boss10, boss11
 	AttackTurreted@boss:
 		Armaments: main, boss1, boss2, boss3, boss3b, boss4, boss5, boss6, boss7, boss8, boss9, boss10, boss11
 	Armament@main:
@@ -613,7 +613,7 @@ PBOX.boss:
 		RequiresCondition: boss1 && bossai
 		Name: boss1
 	Armament@boss2:
-		Weapon: TTankZap
+		Weapon: DoomSpawnCube
 		LocalOffset: 256,0,256
 		RequiresCondition: boss2 && bossai
 		Name: boss2
@@ -665,17 +665,17 @@ PBOX.boss:
 		Name: boss10
 	Armament@boss11a:
 		Weapon: GoliathZap
-		LocalOffset: 256,0,256
+		LocalOffset: 0,0,256
 		RequiresCondition: boss11 && bossai
 		Name: boss11
 	Armament@boss11b:
 		Weapon: GoliathZap2
-		LocalOffset: 256,0,256
+		LocalOffset: 0,0,256
 		RequiresCondition: boss11 && bossai
 		Name: boss11
 	Armament@boss11c:
 		Weapon: GoliathZapCluster
-		LocalOffset: 256,0,256
+		LocalOffset: 0,0,256
 		RequiresCondition: boss11 && bossai
 		Name: boss11
 	RenderSprites:
@@ -846,6 +846,9 @@ Player:
 	GrantConditionOnPrerequisite@ai_enable3:
 		Condition: enable-hard-ai
 		Prerequisites: ai.enable_hard
+	GrantConditionOnPrerequisite@ai_enable4:
+		Condition: enable-no-epic
+		Prerequisites: techlevel.noepic
 	GrantConditionOnBotOwner@normal:
 		Condition: enable-medium-ai
 		Bots: medium
@@ -2025,6 +2028,10 @@ Player:
 			zhydra.b: 13500
 			tmarine.b: 4500
 			tmarine.b2: 9000
+	UnitBuilderBotModule@noepic:
+		RequiresCondition: enable-no-epic
+		UnitsToBuild:
+			traynor: 1
 	SupportPowerBotModule:
 		RequiresCondition: enable-all-ai
 		Decisions:

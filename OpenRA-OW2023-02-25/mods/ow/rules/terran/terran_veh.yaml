@@ -203,6 +203,7 @@ TSPIDER.attack:
 
 TSTANK:
 	Inherits: ^TrackedVehicle
+	Inherits@GAINSEXPERIENCE: ^GainsExperience
 	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
 	-RangeMultiplier@usa.search_and_destroy:
 	Valued:
@@ -340,6 +341,30 @@ TSTANK:
 	GrantConditionOnPrerequisite@upgrade:
 		Prerequisites: terran.tank
 		Condition: enable_siege
+	GainsExperienceMultiplier:
+		Modifier: 20
+	RangeMultiplier@RANK-ELITE:
+		RequiresCondition: rank-elite
+		Modifier: 110
+	ExternalCondition@stacked_siege:
+		Condition: stacked_siege
+	ProximityExternalCondition:
+		RequiresCondition: deployed
+		Condition: stacked_siege
+		AffectsParent: true
+		Range: 6c0
+	InaccuracyMultiplier@siege1:
+		RequiresCondition: stacked_siege > 2
+		Modifier: 110
+	InaccuracyMultiplier@siege2:
+		RequiresCondition: stacked_siege > 3
+		Modifier: 115
+	InaccuracyMultiplier@siege3:
+		RequiresCondition: stacked_siege > 4
+		Modifier: 120
+	InaccuracyMultiplier@siege4:
+		RequiresCondition: stacked_siege > 5
+		Modifier: 120
 
 TSTANK.BOT:
 	Inherits: ^TrackedVehicle
