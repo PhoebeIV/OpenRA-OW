@@ -129,7 +129,6 @@ chinaredguard:
 		SpawnOffset: -1,-1
 	RenderSprites:
 		Image: chinaredguard
-		PlayerPalette: dawn
 	Voiced:
 		VoiceSet: RedGuardVoice
 
@@ -142,6 +141,9 @@ chinaredguard2:
 		Class: redguard
 	-FreeActor@extraredguard:
 	-Buildable:
+	UpdatesPlayerStatistics:
+		AddToArmyValue: false
+		AddToAssetsValue: false
 
 chinatankhunter:
 	Inherits: ^Soldier
@@ -287,7 +289,7 @@ chinahacker:
 		BuildPaletteOrder: 7
 		Prerequisites: ~infantry.china, techcenter, chinainternetcenter, ~!upgrade.infantrygeneral
 		Description: hacking the internet dry
-		BuildLimit: 25
+		BuildLimit: 15
 	Valued:
 		Cost: 900
 	Tooltip:
@@ -357,7 +359,7 @@ chinasuperhacker:
 		BuildPaletteOrder: 7
 		Prerequisites: ~infantry.china, ~techcenter, ~chinainternetcenter, ~upgrade.infantrygeneral
 		Description: hacking the internet dry
-		BuildLimit: 25
+		BuildLimit: 15
 	Tooltip:
 		Name: Super Hacker
 	CashTrickler@RANK-0:
@@ -379,7 +381,7 @@ chinablacklotus:
 	Buildable:
 		Queue: Infantry
 		BuildAtProductionType: Soldier
-		BuildPaletteOrder: 9
+		BuildPaletteOrder: 40
 		Prerequisites: ~infantry.china, techcenter
 		Description: The Black Lotus unit was formed from a need to attack the enemy on a different field than just combat. Each is extremely proficient with any IT, to the point that they can subvert enemy buildings and disable vehicles. 
 		BuildLimit: 1
@@ -439,3 +441,122 @@ chinablacklotus:
 		PlayerExperience: 10
 		CaptureDelay: 200
 	-MustBeDestroyed:
+
+chinanukeneer:
+	Inherits: ^Soldier
+	Inherits@hordebonus: ^hordebonus
+	Inherits@infantrygeneralbuff: ^infantrygeneralbuff
+	Inherits@infantrytrainingbuff: ^infantrytrainingbuff
+	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
+	Buildable:
+		Queue: Infantry
+		BuildAtProductionType: Soldier
+		BuildPaletteOrder: 41
+		Prerequisites: ~infantry.china, techcenter, upgrade.nukegeneral
+		Description: The Nukeneer can use their bulky mortar to lob low-yield tactical nuclear warheads over significant distances. 
+	Tooltip:
+		Name: Nukaneer
+	Tooltip@hordebonus:
+		Name: Nukaneer (Nationalism)
+        RequiresCondition: hordebonus >= 10
+	Valued:
+		Cost: 1000
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 8000
+	Mobile:
+		Voice: Move
+	Guard:
+		Voice: Move
+	Passenger:
+		Voice: Move
+	Armament@PRIMARY:
+		Weapon: chinanukeneershot
+        LocalOffset: 0,0,555
+		FireDelay: 15
+	Armament@GARRISONED:
+		Name: garrisoned
+		Weapon: chinanukeneershot
+		FireDelay: 15
+	Armament@BUS:
+		Name: bus
+		Weapon: chinanukeneershot
+		FireDelay: 15
+	WithInfantryBody:
+		DefaultAttackSequence: shoot
+		RequiresCondition: !parachute
+	WithInfantryBody@PARACHUTE:
+		StandSequences: parachute
+		RequiresCondition: parachute
+	ProducibleWithLevel:
+		Prerequisites: barracks.upgraded
+	RevealsShroud:
+		Range: 5c0
+	Selectable:
+		Bounds: 768, 853, 0, -256
+		DecorationBounds: 640, 896, 0, -426
+	RenderSprites:
+		Image: chinanukeneer
+	Voiced:
+		VoiceSet: NukaneerVoice
+
+chinadragonbreathers:
+	Inherits: ^Soldier
+	Inherits@hordebonus: ^hordebonus
+	Inherits@infantrygeneralbuff: ^infantrygeneralbuff
+	Inherits@infantrytrainingbuff: ^infantrytrainingbuff
+	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
+	Buildable:
+		Queue: Infantry
+		BuildAtProductionType: Soldier
+		BuildPaletteOrder: 42
+		Prerequisites: ~infantry.china, techcenter, upgrade.infantrygeneral
+		Description: Armed with a close range shotgun with Dragonbreath rounds.
+	Tooltip:
+		Name: Dragonbreathers
+	Tooltip@hordebonus:
+		Name: Dragonbreathers (Nationalism)
+        RequiresCondition: hordebonus >= 10
+	Valued:
+		Cost: 600
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 22000
+	Mobile:
+		Voice: Move
+	Guard:
+		Voice: Move
+	Passenger:
+		Voice: Move
+	Armament@PRIMARY:
+		Weapon: chinadragonbreathshot
+		MuzzleSequence: muzzle
+        LocalOffset: 0,0,555
+		FireDelay: 5
+	Armament@GARRISONED:
+		Name: garrisoned
+		Weapon: chinadragonbreathshot
+		FireDelay: 5
+	Armament@BUS:
+		Name: bus
+		Weapon: chinadragonbreathshot
+		FireDelay: 5
+	WithInfantryBody:
+		DefaultAttackSequence: shoot
+		RequiresCondition: !parachute
+	WithInfantryBody@PARACHUTE:
+		StandSequences: parachute
+		RequiresCondition: parachute
+	ProducibleWithLevel:
+		Prerequisites: barracks.upgraded
+	RevealsShroud:
+		Range: 5c0
+	Selectable:
+		Bounds: 768, 853, 0, -256
+		DecorationBounds: 640, 896, 0, -426
+	RenderSprites:
+		Image: chinadragonbreather
+	Voiced:
+		VoiceSet: DragonBreatherVoice

@@ -1406,6 +1406,22 @@ TerranRaynorCannon:
 
 120mmpaladin:
 	Inherits: ^Cannon
+	ReloadDelay: 90
+	Report: vcruweaa.wav, vcruweab.wav, vcruweac.wav
+	Projectile: Bullet
+		Speed: 682
+		Image: 125mm
+		Shadow: True
+	Warhead@1Dam: SpreadDamage
+		Damage: 8000
+		Versus:
+			Heavy: 115
+		InvalidTargets: Air
+
+120mmpaladinupgrade:
+	Inherits: ^Cannon
+	Burst: 2
+	BurstDelays: 10
 	Report: vcruweaa.wav, vcruweab.wav, vcruweac.wav
 	Projectile: Bullet
 		Speed: 682
@@ -1564,3 +1580,65 @@ chinainfernoshipshot:
 		RandomClusterCount: 4
 		Dimensions: 3,3
 		Footprint: xxx xxx xxx
+
+125mmHopper:
+	Inherits: ^Cannon
+	Report: HopperCannon01.aud, HopperCannon02.aud, HopperCannon03.aud, HopperCannon04.aud
+	Projectile: Bullet
+		Speed: 682
+		Image: 125mm
+		Shadow: True
+	Warhead@1Dam: SpreadDamage
+		Damage: 3500
+		Versus:
+			Heavy: 115
+		InvalidTargets: Air
+
+125mmHopperuranium:
+	Inherits: 125mmHopper
+	Projectile: Bullet
+		Speed: 682
+		Image: 125mmheatn
+		Shadow: True
+	Warhead@1Dam: SpreadDamage
+		Damage: 5000
+		Versus:
+			Heavy: 115
+		InvalidTargets: Air
+	Warhead@4Radiation: CreateResource
+		AddsResourceType: Radiation
+		Size: 1
+	Warhead@Res7: DestroyResource
+		ResourceTypes: Radiation
+		Size: 1
+		Delay: 150
+		ResourceAmount: 10
+
+125mmshenlong:
+	Inherits: NukeCannonShot
+	ReloadDelay: 450
+	Range: 9c0
+	MinRange: 4c0
+
+shenlonginfernoshot:
+	Inherits: 155mm
+	Range: 7c0
+	Report: vinfweac.aud
+	ReloadDelay: 220
+	Burst: 4
+	BurstDelays: 12
+	Projectile: Bullet
+		Speed: 150
+		Inaccuracy: 1024
+		TrailImage: fb2
+	Warhead@1Dam: SpreadDamage
+		Spread: 512
+		Damage: 15000
+		Versus:
+			None: 120
+			Wood: 40
+			Light: 40
+			Heavy: 10
+		DamageTypes: Prone50Percent, TriggerProne, FireDeath
+	Warhead@3Eff: CreateEffect
+		Explosions: large_napalm

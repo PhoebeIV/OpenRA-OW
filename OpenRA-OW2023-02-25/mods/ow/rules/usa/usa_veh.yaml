@@ -22,6 +22,10 @@ USACRUSADER:
 		TurnSpeed: 16
 	Armament:
 		Weapon: 120mmcrusader
+		Recoil: 128
+		RecoilRecovery: 38
+		LocalOffset: 720,0,80
+		MuzzleSequence: muzzle
 	SpawnActorOnDeath:
 		Actor: usacrusader.Husk
 	SelectionDecorations:
@@ -59,14 +63,22 @@ USAPALADIN:
 		Voice: Move
 	Turreted:
 		TurnSpeed: 16
+	-Armament:
 	Armament@Primary:
 		Weapon: 120mmpaladin
-		LocalOffset: 768,-85,90
+		Recoil: 128
+		RecoilRecovery: 38
+		LocalOffset: 720,0,80
+		MuzzleSequence: muzzle
+		PauseOnCondition: upgradesuperweaponsgeneral
 	Armament@Secondary:
 		Weapon: USAPaladinLaser
 	Armament@PrimaryUpgrade1:
-		Weapon: 120mmpaladin
-		LocalOffset: 768,85,90
+		Weapon: 120mmpaladinupgrade
+		LocalOffset: 900,180,340, 900,-180,340
+		Recoil: 171
+		RecoilRecovery: 30
+		MuzzleSequence: muzzle
         RequiresCondition: upgradesuperweaponsgeneral
 	JamsMissiles:
 		Range: 3c0
@@ -76,6 +88,7 @@ USAPALADIN:
 		Actor: usapaladin.Husk
     WithSpriteTurret: 
         Sequence: turret
+        RequiresCondition: !upgradesuperweaponsgeneral
     WithSpriteTurret@upgrade: 
         Sequence: turret2
         RequiresCondition: upgradesuperweaponsgeneral
@@ -496,7 +509,7 @@ usarailgun:
 	AnnounceOnKill:
 		Interval: 2000
 	Voiced:
-		VoiceSet: SolCannonVoice
+		VoiceSet: CCEMVoice
 	SelectionDecorations:
 	Selectable:
 		DecorationBounds: 1877, 1621, 0, -170

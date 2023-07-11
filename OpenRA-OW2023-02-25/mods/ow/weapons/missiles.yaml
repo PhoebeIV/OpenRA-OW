@@ -1936,3 +1936,40 @@ chinanukemigshot:
 		Size: 3
 		Delay: 625
 		ResourceAmount: 10
+
+chinanukeneershot:
+	Inherits: ^Artillery
+	ReloadDelay: 100
+	Range: 9c0
+	MinRange: 6c0
+	Report: grenade1.aud
+	Projectile: Bullet
+		Speed: 96
+		Inaccuracy: 3c256
+		Image: BOMB
+	Warhead@1Dam: SpreadDamage
+		Spread: 512
+		Damage: 8000
+		Falloff: 100, 75, 50, 0, 0, 0
+		Versus:
+			None: 75
+			Wood: 50
+			Light: 50
+			Heavy: 70
+			Concrete: 70
+		DamageTypes: Prone50Percent, TriggerProne, FireDeath, Incendiary
+	Warhead@3Eff: CreateEffect
+		Explosions: dukenukemexplosionsmallchina
+		ImpactSounds: dukeexplosion.wav
+	Warhead@Res5: DestroyResource
+		Size: 1
+		ResourceAmount: 10
+	Warhead@4Radiation: CreateResource
+		AddsResourceType: Radiation
+		Size: 1
+		Delay: 1
+	Warhead@Res7: DestroyResource
+		ResourceTypes: Radiation
+		Size: 1
+		Delay: 375
+		ResourceAmount: 10

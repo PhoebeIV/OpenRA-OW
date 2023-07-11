@@ -85,12 +85,6 @@
     GrantConditionOnPrerequisite@nuclearvehiclesbuff2:
         Condition: upgradeuraniumshells
         Prerequisites: upgrade.uraniumshells
-	WithDecoration@nuclearvehiclesbuff:
-		Image: pips
-		Sequence: pip-elite
-		Palette: effect
-		ValidRelationships: None,Neutral,Enemy,Ally
-		RequiresCondition: upgradeuraniumshells
 
 chinabattlemaster:
 	Inherits: 2TNK
@@ -1051,3 +1045,207 @@ chinaemperor:
 		Pieces: 1,1
 		Range: 2c0, 5c0
 		RequiresCondition: upgradeuraniumtanks
+
+chinahoppertank:
+	Inherits: 2TNK
+	Inherits@hordebonus: ^hordebonustank
+	Inherits@tankgeneralbuff: ^tankgeneralbuff
+	Inherits@nuclearvehiclesbuff: ^nuclearvehiclesbuff
+	Inherits@tanktrainingbuff: ^tanktrainingbuff
+	Buildable:
+		BuildPaletteOrder: 220
+		Prerequisites: ~vehicles.china, upgrade.tankgeneral
+		Description: China support battletank. Good for building horde bonus.\nEquipped with an 125 mm 2A46 smoothbore gun.\nSpeed: 85\n  Strong vs Vehicles\n  Weak vs Infantry, Aircraft
+	Valued:
+		Cost: 600
+	Tooltip:
+		Name: Hopper Tank
+	Tooltip@hordebonus:
+		Name: Hopper Tank (Nationalism)
+        RequiresCondition: hordebonustank >= 5
+	Health:
+		HP: 25000
+	Mobile:
+		Speed: 110
+		Voice: Move
+	Guard:
+		Voice: Move
+	Turreted:
+		TurnSpeed: 16
+	Armament:
+		Weapon: 125mmHopper
+		Recoil: 128
+		RecoilRecovery: 38
+		LocalOffset: 720,0,80
+		MuzzleSequence: muzzle
+		PauseOnCondition: upgradeuraniumshells
+	Armament@uraniumshells:
+		Weapon: 125mmHopperuranium
+		Recoil: 128
+		RecoilRecovery: 38
+		LocalOffset: 720,0,80
+		MuzzleSequence: muzzle
+		RequiresCondition: upgradeuraniumshells
+	SelectionDecorations:
+		Image: chinahoppertank
+	Voiced:
+		VoiceSet: HopperTankVoice
+	Explodes@nuclearenginesbuff:
+		Weapon: chinabattlemasterexplosion
+		EmptyWeapon: chinabattlemasterexplosion
+		RequiresCondition: upgradeuraniumtanks
+	ThrowsShrapnel:
+		Weapons: chinabattlemasterexplosionturret
+		Pieces: 1,1
+		Range: 2c0, 5c0
+		RequiresCondition: upgradeuraniumtanks
+	ProximityExternalCondition@hordebonustank:
+		Condition: hordebonustank
+		Range: 6c0
+		RequiresCondition: !upgradeinfantrygeneral
+	ProximityExternalCondition@hordebonustankupgrade1:
+		Condition: hordebonustankupgrade1
+		Range: 6c0
+		RequiresCondition: upgradeinfantrygeneral && !upgradepatriotism
+	ProximityExternalCondition@hordebonustankupgrade2:
+		Condition: hordebonustankupgrade2
+		Range: 6c0
+		RequiresCondition: upgradepatriotism
+
+chinashenlong:
+	Inherits: ^TrackedVehicle
+	Inherits@EPIC: ^EpicUnit
+	Inherits@EPIC2: ^EpicVehicle
+	Inherits@nuclearvehiclesbuff: ^nuclearvehiclesbuff
+	Inherits@AUTOTARGET: ^AutoTargetAll
+	Buildable:
+		Queue: Vehicle
+		BuildPaletteOrder: 2500
+		Prerequisites: ~vehicles.china, advtechcenter, upgrade.tankgeneral, upgrade.infantrygeneral, upgrade.nukegeneral
+		Description: [EPIC]\nThe Shenlong Emperor Tank is the most advanced overlord tank ever created.
+		BuildLimit: 1
+	Valued:
+		Cost: 25000
+	Tooltip:
+		Name: Shenlong Emperor Tank
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 350000
+	Armor:
+		Type: Heavy
+	Mobile:
+		Speed: 35
+		Locomotor: heavytracked
+		Voice: Move
+	Guard:
+		Voice: Move
+	Passenger:
+		Weight: 8
+		CustomPipType: red
+		Voice: Move
+	RevealsShroud:
+		MinRange: 7c0
+		Range: 8c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 7c0
+	Turreted:
+		TurnSpeed: 8
+		Turret: primary
+		Offset: 0,0,256
+	Armament@PRIMARY:
+		Weapon: 125mmshenlong
+		LocalOffset: 1400,100,0
+		Recoil: 171
+		RecoilRecovery: 30
+		MuzzleSequence: muzzle
+		Turret: primary
+	AttackTurreted:
+		Turrets: primary, secondary, tri, quad
+		PauseOnCondition: disabled
+	WithMuzzleOverlay:
+	WithSpriteTurret:
+		Sequence: turret
+		Turret: primary
+	Armament@secondary:
+		Weapon: overlordgatlingshot
+		LocalOffset: 512,0,176
+		MuzzleSequence: muzzlegatling
+		Turret: secondary
+	Armament@secondaryair:
+		Weapon: overlordgatlingshotair
+		LocalOffset: 512,0,176
+		MuzzleSequence: muzzlegatling
+		Turret: secondary
+	Turreted@Gatling:
+		Turret: secondary
+		Offset: 0,0,256
+		TurnSpeed: 64
+	WithSpriteTurret@Gatling:
+		Sequence: turretgatling
+		Turret: secondary
+	Armament@tri:
+		Weapon: shenlonginfernoshot
+		LocalOffset: -200,-200,0
+		MuzzleSequence: muzzlegatling
+		Turret: tri
+	Armament@quad:
+		Weapon: shenlonginfernoshot
+		LocalOffset: -200,200,0
+		MuzzleSequence: muzzlegatling
+		Turret: quad
+	WithSpriteTurret@Missile1:
+		Sequence: turretmissile1
+		Turret: tri
+	Turreted@missile1:
+		Turret: tri
+		Offset: -400,-300,0
+		TurnSpeed: 64
+	WithSpriteTurret@Missile2:
+		Sequence: turretmissile2
+		Turret: quad
+	Turreted@missile2:
+		Turret: quad
+		Offset: -400,300,0
+		TurnSpeed: 64
+	WithIdleOverlay@SPINNER:
+		Sequence: spinner
+		Offset: -500,0,500
+	SelectionDecorations:
+	Voiced:
+		VoiceSet: ShenlongVoice
+	Selectable:
+		DecorationBounds: 1877, 1621, 0, -170
+	ShakeOnDeath:
+	ChangesHealth:
+		Step: 500
+		Delay: 25
+		StartIfBelow: 50
+		DamageCooldown: 200
+	RenderSprites:
+		Image: chinashenlong
+	VoiceAnnouncement:
+		RequiresCondition: produced
+		Voice: Build
+	AnnounceOnKill:
+		Voice: Kill
+	Explodes:
+		Weapon: MiniNuke
+		EmptyWeapon: MiniNuke
+		RequiresCondition: !upgradeuraniumtanks
+	Explodes@nuclearenginesbuff:
+		Weapon: MiniNukeRadiation
+		EmptyWeapon: MiniNukeRadiation
+		RequiresCondition: upgradeuraniumtanks
+	ProximityExternalCondition@propaganda:
+		Condition: propaganda
+		RequiresCondition: !disabled && !upgrade.propaganda
+		Range: 5c0
+    GrantConditionOnPrerequisite@propagandaupgrade:
+        Condition: upgradepropaganda
+        Prerequisites: upgrade.propaganda
+	ProximityExternalCondition@propagandaupgrade:
+		Condition: propagandaupgrade
+		RequiresCondition: !disabled && upgradepropaganda
+		Range: 5c0
