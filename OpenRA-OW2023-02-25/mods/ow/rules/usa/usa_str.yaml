@@ -674,6 +674,9 @@ USAMINEDROP:
 USAMINEDROPACTOR:
 	Inherits: ^Defense
 	Inherits@AUTOTARGET: ^AutoTargetGround
+	Building:
+		Footprint: x
+		Dimensions: 1,1
 	Buildable:
 		Queue: Defense
 		BuildPaletteOrder: 200
@@ -755,10 +758,10 @@ usasupplydropzone:
 		Queue: Building
 		Prerequisites: techcenter, ~structures.usa
 		BuildPaletteOrder: 150
-		Description: A Cargo Plane drops money crates here every 2 minutes.
-		BuildLimit: 5
+		Description: A Cargo Plane drops money crates here every 2.5 minutes.
+		BuildLimit: 2
 	Valued:
-		Cost: 2500
+		Cost: 3000
 	Tooltip:
 		Name: Supply Drop Zone
 	Building:
@@ -769,18 +772,8 @@ usasupplydropzone:
 	Armor:
 		Type: Wood
 	Power:
-		Amount: -200
+		Amount: -250
 	ProvidesPrerequisite@buildingname:
-	CashTrickler:
-		Interval: 3000
-		InitialDelay: 3000
-		Amount: 500
-        UseResourceStorage: true
-		PauseOnCondition: disabled
-	CashTricklerBar:
-    CashTricklerMultiplier:
-        Modifier: 200
-        RequiresCondition: upgradesupplylines
 	RenderSprites:
 		Image: usasupplydropzone
 	RevealsShroud@GAPGEN:
@@ -788,6 +781,53 @@ usasupplydropzone:
     GrantConditionOnPrerequisite@1:
         Condition: upgradesupplylines
         Prerequisites: upgrade.supplylines
+	ParatroopersPower@SupplyDrop:
+		OrderName: SupplyDrop
+		UnitType: BADR
+		Icon: usasupplydroppower
+		ChargeInterval: 3750
+		Name: Supply Drop
+		Description: A US Badger drops a line of supply crates anywhere on the map.
+		DropItems: MONEYCRATESUPPLYDROP, MONEYCRATESUPPLYDROP, MONEYCRATESUPPLYDROP, MONEYCRATESUPPLYDROP, MONEYCRATESUPPLYDROP, MONEYCRATESUPPLYDROP
+		ReinforcementsArrivedSpeechNotification: ReinforcementsArrived
+		SelectTargetSpeechNotification: SelectTarget
+		AllowImpassableCells: false
+		QuantizedFacings: 8
+		CameraActor: camera.paradrop
+		DisplayBeacon: true
+		BeaconPoster: usasupplydropbeacon
+		ArrowSequence: arrow
+		ClockSequence: clock
+		CircleSequence: circles
+		UseDirectionalTarget: False
+		DirectionArrowAnimation: paradirection
+		SupportPowerPaletteOrder: 1
+		AllowMultiple: True
+		PauseOnCondition: disabled
+	ParatroopersPower@SupplyDropExtra:
+		OrderName: SupplyDrop2
+		UnitType: BADR
+		Icon: usasupplydroppower
+		ChargeInterval: 3750
+		Name: Supply Drop
+		Description: A US Badger drops a line of supply crates anywhere on the map.
+		DropItems: MONEYCRATESUPPLYDROP, MONEYCRATESUPPLYDROP, MONEYCRATESUPPLYDROP, MONEYCRATESUPPLYDROP, MONEYCRATESUPPLYDROP, MONEYCRATESUPPLYDROP
+		ReinforcementsArrivedSpeechNotification: ReinforcementsArrived
+		SelectTargetSpeechNotification: SelectTarget
+		AllowImpassableCells: false
+		QuantizedFacings: 8
+		CameraActor: camera.paradrop
+		DisplayBeacon: true
+		BeaconPoster: usasupplydropbeacon
+		ArrowSequence: arrow
+		ClockSequence: clock
+		CircleSequence: circles
+		UseDirectionalTarget: False
+		DirectionArrowAnimation: paradirection
+		SupportPowerPaletteOrder: 1
+		AllowMultiple: True
+		PauseOnCondition: disabled
+		RequiresCondition: upgradesupplylines
         
 usaparticlecannon:
 	Inherits: ^Building
@@ -857,7 +897,7 @@ usapatriot:
 		BuildPaletteOrder: 4
 		BuildDuration: 625
 		BuildDurationModifier: 100
-		Prerequisites: anypower, ~structures.usa
+		Prerequisites: anypower, ~structures.usa, usabarracks
 		Description: Anti-tank & anti-air base defense.
 	Valued:
 		Cost: 1000
@@ -934,7 +974,7 @@ usapatriotEMP:
 		BuildPaletteOrder: 4
 		BuildDuration: 625
 		BuildDurationModifier: 100
-		Prerequisites: anypower, ~structures.usa, upgrade.superweaponsgeneral
+		Prerequisites: anypower, ~structures.usa, usabarracks, upgrade.superweaponsgeneral
 		Description: Patriot Missile System upgrade with EMP rockets, disabling vehicles.\nProvided by General Alexis Alexander.
 	Valued:
 		Cost: 1200
@@ -1010,7 +1050,7 @@ usalaserpatriot:
 	Buildable:
 		Queue: Defense
 		BuildPaletteOrder: 70
-		Prerequisites: anypower, ~structures.usa, upgrade.lasergeneral
+		Prerequisites: anypower, ~structures.usa, usabarracks, upgrade.lasergeneral
 		Description: Laser Defense Turret.\nProvided by General Townes
 	Valued:
 		Cost: 1400
@@ -1076,7 +1116,7 @@ usafirebase:
 	Buildable:
 		Queue: Defense
 		BuildPaletteOrder: 70
-		Prerequisites: anypower, ~structures.usa
+		Prerequisites: anypower, ~structures.usa, usabarracks
 		Description: Firebase defense structure. Long ranged artillery.
 	Selectable:
 		Bounds: 2048, 2048
