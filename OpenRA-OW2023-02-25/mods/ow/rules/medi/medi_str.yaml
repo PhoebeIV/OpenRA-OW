@@ -1671,7 +1671,7 @@ TheEye:
 		Condition: jammed
 	##Vision Power
 	SpawnActorPower@spyvan:
-		PauseOnCondition: disabled
+		PauseOnCondition: disabled || Eyelow
 		OrderName: SeerVision
 		Cursor: chrono-target
 		Icon: spy
@@ -1690,15 +1690,23 @@ TheEye:
 	##Toggle conditions on deploy to allow self targeting weapon for applying stacks.
 	ExternalCondition@ambushhole:
 		Condition: EyeBoost
-		TotalCap: 35
+		TotalCap: 50
 	AutoTarget:
 		InitialStance: AttackAnything
 	GrantConditionOnDeploy@EyeBooster:
 		DeployedCondition: eyebooster
+	GrantConditionOnHealth@Eyelow10k:
+		Condition: Eyelow10k
+		MaxHP: 5000
+		RequiresCondition: eyebooster
 	GrantConditionOnHealth@Eyelow:
 		Condition: Eyelow
-		MaxHP: 20000
-		RequiresCondition: eyebooster
+		MaxHP: 50000
+		RequiresCondition: Eyelowattack
+	GrantConditionOnAttack@eyelow50k:
+		Condition: Eyelowattack
+		RequiresCondition: Eyelow10k
+		RevokeDelay: 2000
 	RevealsShroudMultiplier@loweye:
 		Modifier: 10
 		RequiresCondition: Eyelow
@@ -1706,7 +1714,7 @@ TheEye:
 		Modifier: 10
 		RequiresCondition: Eyelow
 	PowerMultiplier@loweye:
-		Modifier: 800
+		Modifier: 1200
 		RequiresCondition: Eyelow && EyeBoost >= 9
 	Targetable@eyetower:
 		TargetTypes: eyetower
@@ -1726,7 +1734,7 @@ TheEye:
 		Modifier: 200
 		RequiresCondition: step1eye
 	ChangesHealth@Step1:
-		PercentageStep: -2
+		PercentageStep: -1
 		Delay: 60
 		StartIfBelow: 110
 		DamageCooldown: 0
@@ -1746,17 +1754,17 @@ TheEye:
 		Modifier: 300
 		RequiresCondition: step2eye
 	ChangesHealth@Step2:
-		PercentageStep: -4
+		PercentageStep: -2
 		Delay: 60
 		StartIfBelow: 110
 		DamageCooldown: 0
 		RequiresCondition: step2eye 
 		DamageTypes: DefaultDeath
 	RevealsShroudMultiplier@Step2:
-		Modifier: 150
+		Modifier: 130
 		RequiresCondition: step2eye
 	DetectCloakedMultiplier@Step2:
-		Modifier: 150
+		Modifier: 130
 		RequiresCondition: step2eye
 	##Grant T3 Boost on having more than 20 stacks.
 	GrantCondition@step3:
@@ -1766,44 +1774,44 @@ TheEye:
 		Modifier: 400
 		RequiresCondition: step3eye
 	ChangesHealth@Step3:
-		PercentageStep: -6
+		PercentageStep: -3
 		Delay: 60
 		StartIfBelow: 110
 		DamageCooldown: 0
 		RequiresCondition: step3eye
 		DamageTypes: DefaultDeath
 	RevealsShroudMultiplier@Step3:
-		Modifier: 200
+		Modifier: 140
 		RequiresCondition: step3eye
 	DetectCloakedMultiplier@Step3:
-		Modifier: 200
+		Modifier: 140
 		RequiresCondition: step3eye
 	##Grant T4 Boost on having more than 25 stacks.
 	GrantCondition@step4:
 		Condition: step4eye
-		RequiresCondition: EyeBoost >= 25 && EyeBoost <= 29 && !Eyelow && eyebooster
+		RequiresCondition: EyeBoost >= 25 && EyeBoost <= 39 && !Eyelow && eyebooster
 	PowerMultiplier@step4:
-		Modifier: 500
+		Modifier: 600
 		RequiresCondition: step4eye
 	ChangesHealth@step4:
-		PercentageStep: -8
+		PercentageStep: -5
 		Delay: 60
 		StartIfBelow: 110
 		DamageCooldown: 0
 		RequiresCondition: step4eye
 		DamageTypes: DefaultDeath
 	RevealsShroudMultiplier@step4:
-		Modifier: 250
+		Modifier: 150
 		RequiresCondition: step4eye
 	DetectCloakedMultiplier@step4:
-		Modifier: 250
+		Modifier: 150
 		RequiresCondition: step4eye
-	##Grant T5 Boost on having more than 30 stacks.
+	##Grant T5 Boost on having more than 40 stacks.
 	GrantCondition@step5:
 		Condition: step5eye
-		RequiresCondition: EyeBoost >= 30 && !Eyelow && eyebooster
+		RequiresCondition: EyeBoost >= 40 && !Eyelow && eyebooster
 	PowerMultiplier@step5:
-		Modifier: 600
+		Modifier: 1000
 		RequiresCondition: step5eye
 	ChangesHealth@step5:
 		PercentageStep: -10
@@ -1813,10 +1821,10 @@ TheEye:
 		RequiresCondition: step5eye
 		DamageTypes: DefaultDeath
 	RevealsShroudMultiplier@step5:
-		Modifier: 300
+		Modifier: 200
 		RequiresCondition: step5eye
 	DetectCloakedMultiplier@step5:
-		Modifier: 300
+		Modifier: 200
 		RequiresCondition: step5eye
 
 
