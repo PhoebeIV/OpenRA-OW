@@ -649,7 +649,7 @@ PBOX.boss:
 		RequiresCondition: boss7 && bossai
 		Name: boss7
 	Armament@boss8:
-		Weapon: WeatherLightning
+		Weapon: WeatherLightningDeathBox
 		LocalOffset: 256,0,256
 		RequiresCondition: boss8 && bossai
 		Name: boss8
@@ -1584,6 +1584,7 @@ Player:
 			smech: 20
 			mmch: 50
 			triton: 25
+			jugg.bot: 10
 			1tnk.n: 50
 			arty.n: 25
 			bggyd: 20
@@ -2471,6 +2472,15 @@ Player:
 					CheckRadius: 8c0
 			zergdevouringones:
 				OrderName: SpawnDevouringOne
+				MinimumAttractiveness: 5
+				Consideration@1:
+					Against: Ally
+					Types: Vehicle, Infantry, Structure
+					Attractiveness: 1
+					TargetMetric: Health
+					CheckRadius: 4c0
+			hunterseeker:
+				OrderName: HunterSeeker
 				MinimumAttractiveness: 5
 				Consideration@1:
 					Against: Ally

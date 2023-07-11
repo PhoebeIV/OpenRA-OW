@@ -1866,6 +1866,26 @@ WeatherLightning:
 		Duration: 225
 		ValidTargets: GroundActor, WaterActor
 
+WeatherLightningDeathBox:
+	Inherits: WeatherLightning
+	Range: 11c0
+	ReloadDelay: 300
+	Warhead@1Dam: SpreadDamage
+		Delay: 1
+		Spread: 750
+		Falloff: 150, 50, 20, 10, 5
+		Versus:
+			None: 100
+			Wood: 70
+			Light: 60
+			Heavy: 70
+			Concrete: 30
+	Warhead@2EMP: GrantExternalCondition
+		Range: 1c0
+		Condition: disabled
+		Duration: 150
+		ValidTargets: GroundActor, WaterActor
+
 WeatherMachineDeath:
 	Inherits: WeatherGrenade
 	Projectile: Bullet
@@ -3348,6 +3368,12 @@ TerranSiegeUndeploy:
 	Warhead@4Eff: CreateEffect
 		ImpactSounds: ttatra01.aud
 		ValidTargets: SiegeTank
+
+JuggDeploy:
+	Inherits: TerranSiegeDeploy
+	ReloadDelay: 50
+	Range: 15c0
+	MinRange: 4c0
 
 SpiderMineTargeting:
 	ValidTargets: Vehicle, Infantry

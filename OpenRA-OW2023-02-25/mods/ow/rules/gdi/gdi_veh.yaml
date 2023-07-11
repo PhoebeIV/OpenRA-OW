@@ -250,7 +250,7 @@ JUGG:
 		Queue: Vehicle
 		BuildPaletteOrder: 225
 		Prerequisites: fix, techcenter, ~vehicles.steel, ~techlevel.high
-		Description: Mobile Artillery Mech.\nNeeds to deploy in order to shoot.\nSpeed: 71\n  Strong vs Ground units\n  Weak vs Aircraft
+		Description: Mobile Artillery Mech.\nNeeds to deploy in order to attack.\nSpeed: 71\n  Strong vs Ground units\n  Weak vs Aircraft
 	Health:
 		HP: 50000
 	Armor:
@@ -273,8 +273,10 @@ JUGG:
 		PlayerPalette: tsunit
 	Cloak@stealthgen:
 		Palette: tscloak
-	ClassicFacingBodyOrientation:
+	-ClassicFacingBodyOrientation:
+	BodyOrientation:
 		QuantizedFacings: 32
+		UseClassicPerspectiveFudge: true
 	WithRangeCircle:
 		Range: 15c0
 	WithMakeAnimation:
@@ -292,7 +294,7 @@ JUGG:
 		UndeployOnMove: true
 		UndeployOnPickup: true
 		Facing: 384
-		AllowedTerrainTypes: Clear, Road, Rough
+		AllowedTerrainTypes: Clear, Road, Rough, Ore, Gems, Tiberium, BlueTiberium, Creep
 		DeploySounds: placbldg.aud
 		UndeploySounds: ramenu1.aud
 	Repairable:
@@ -302,17 +304,15 @@ JUGG:
 		Weight: 6
 	GrantCondition@PREVIEWWORKAROUND:
 		Condition: real-actor
-	QuantizeFacingsFromSequence:
-		Sequence: turret
 	WithSpriteBody@deployed:
 		RequiresCondition: !undeployed && real-actor
 		Name: deployedbody
 	Turreted:
 		Turret: deployed
 		TurnSpeed: 20
-		InitialFacing: 384
+		InitialFacing: 0
 		Offset: -153,-17,256
-		RealignDelay: -1
+		RealignDelay: 125
 	WithVoxelTurret:
 		Turret: deployed
 		Sequence: turret
@@ -489,3 +489,216 @@ DIREWOLF:
 		Delay: 25
 		StartIfBelow: 50
 		DamageCooldown: 150
+
+
+JUGG.BOT:
+	Inherits: ^TrackedVehicle
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	RenderSprites: 
+		Image: JUGG
+		PlayerPalette: tsunit
+	Valued:
+		Cost: 1500
+	Tooltip:
+		Name: Juggernaut
+		RequiresCondition: !deploy_tank && !tank_here
+	Tooltip@1:
+		Name: Juggernaut (Deployed)
+		RequiresCondition: deploy_tank || tank_here
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Buildable:
+		Queue: Vehicle
+		BuildPaletteOrder: 9000
+		Prerequisites: fix, techcenter, ~vehicles.steel, ~techlevel.high, ~ai.all
+		Description: Auto-deploys. AI Use only.
+		BuildDuration: 2000
+		BuildLimit: 8
+	Mobile:
+		TurnSpeed: 24
+		Speed: 56
+		PauseOnCondition: deploy_tank || tank_here
+	Health:
+		HP: 50000
+	Armor:
+		Type: Light
+	-RevealOnFire:
+	RevealsShroud:
+		MinRange: 5c0
+		Range: 6c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 5c0
+	Armament@deployme:
+		Name: primary
+		Weapon: JuggDeploy
+		Turret: primary
+		LocalOffset: 0,0,0
+		PauseOnCondition: disabled
+		RequiresCondition: !deploy_tank && !tank_here
+	WithMuzzleOverlay:
+	WithMoveAnimation:
+		MoveSequence: walk
+		ValidMovementTypes: Horizontal, Turn
+	Passenger:
+		RequireForceMoveCondition: !undeployed
+		Weight: 4
+	WithFacingSpriteBody:
+		Sequence: stand
+		RequiresCondition: !deploy_tank && !tank_here
+	Turreted@1:
+		TurnSpeed: 128
+		Turret: primary
+		PauseOnCondition: disabled
+	AttackTurreted@deployed:
+		Armaments: primary, deployed
+		Turrets: primary, deployed
+		PauseOnCondition: disabled
+	Voiced:
+		VoiceSet: SeigeVoice
+	Selectable:
+		DecorationBounds: 2048, 1706, 0, -341
+	SpawnActorOnDeath:
+		Actor: JUGG.Husk
+	ExternalCondition@deploy_tank:
+		Condition: deploy_tank
+	ExternalCondition@tankexists:
+		Condition: tank_here
+	FreeActor@deploy:
+		Actor: JUGG.BOT.D
+		Facing: 640
+		RequiresCondition: deploy_tank && !tank_here
+		AllowRespawn: true
+	ProximityExternalCondition@not_dead:
+		Condition: tank_alive
+		Range: 256
+
+JUGG.BOT.D:
+	Inherits: ^TrackedVehicle
+	Inherits@AUTOTARGET: ^AutoTargetGround
+	-SelectionDecorations:
+	-WithSpriteControlGroupDecoration:
+	-Selectable:
+	-Tooltip:
+	-RangeMultiplier@usa.search_and_destroy:
+	GainsExperienceMultiplier:
+		Modifier: 0
+	RenderVoxels:
+		Image: jugg
+		PlayerPalette: tsunit
+		Scale: 10
+	RenderSprites:
+		PlayerPalette: tsunit
+		Image: JUGG
+	UpdatesPlayerStatistics:
+		AddToArmyValue: false
+	Mobile:
+		Speed: 1
+		PauseOnCondition: alive
+	GrantCondition@1:
+		Condition: alive
+	Health:
+		HP: 50000
+	DamageMultiplier:
+		Modifier: 0
+	Armor:
+		Type: Light
+	RevealsShroud:
+		MinRange: 5c0
+		Range: 8c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 5c0
+	Armament@DEPLOYED:
+		Name: deployed
+		Weapon: JuggArtilleryDeployed
+		Turret: deployed
+		MuzzleSequence: muzzle
+		LocalOffset: 1424,-180,512, 1424,0,512, 1424,180,512
+		PauseOnCondition: disabled
+		RequiresCondition: !build-incomplete
+	WithMuzzleOverlay:
+	WithMakeAnimation:
+		Condition: build-incomplete
+	-WithFacingSpriteBody:
+	WithSpriteBody:
+		Sequence: idle
+	WithVoxelTurret:
+		Turret: deployed
+		Sequence: turret
+		RequiresCondition: !build-incomplete
+	Turreted@2:
+		TurnSpeed: 24
+		InitialFacing: 512
+		Turret: deployed
+		Offset: -153,-17,256
+		RealignDelay: 125
+		PauseOnCondition: disabled
+		RequiresCondition: !build-incomplete
+	AttackTurreted@deployed:
+		Armaments: primary, deployed
+		Turrets: primary, deployed
+		PauseOnCondition: disabled
+	RevealOnFire:
+		ArmamentNames: deployed
+	Voiced:
+		VoiceSet: SeigeVoice
+	Selectable:
+		DecorationBounds: 1877, 1621, 0, -170
+	WithRangeCircle:
+		Range: 15c0
+	ExternalCondition@deploy_tank:
+		Condition: undeploy_tank
+	ExternalCondition@tank_alive:
+		Condition: tank_alive
+	AmbientSound:
+		Delay: 0
+		Interval: -1
+		SoundFiles: ttatra00.aud
+	KillsSelf@deploy:
+		RemoveInstead: true
+		Delay: 1
+		RequiresCondition: undeploy_tank
+	KillsSelf@dead:
+		RemoveInstead: true
+		Delay: 1
+		RequiresCondition: !tank_alive
+	ProximityExternalCondition@imhere:
+		Condition: tank_attacking
+		RequiresCondition: shooting
+		Range: 256
+	ProximityExternalCondition@imhere2:
+		Condition: tank_here
+		Range: 256
+	GrantConditionOnAttack@shooting:
+		ArmamentNames: deployed
+		Condition: shooting
+		RevokeDelay: 250
+	Targetable@deploytype:
+		TargetTypes: SiegeTank
+	FreeActor@checkec:
+		Actor: JUGG.BOT.Checker
+	-ClassicFacingBodyOrientation:
+	BodyOrientation:
+		QuantizedFacings: 32
+		UseClassicPerspectiveFudge: true
+
+JUGG.BOT.Checker:
+	Inherits: MINE
+	-WithSpriteBody:
+	-ChangesTerrain:
+	ExternalCondition@creep:
+		Condition: tank_attacking
+	KillsSelf:
+		Delay: 200
+		RequiresCondition: !tank_attacking
+	Explodes:
+		Weapon: TerranSiegeUndeploy
+		EmptyWeapon: TerranSiegeUndeploy
+	-ChangesHealth@1:
+	-ChangesHealth@2:
+	-SeedsResource:
+	-GrantConditionOnPrerequisite@gems:
+	-SpawnActorOnDeath@gems:
+	-KillsSelf@gems:
+	-Explodes@gems:

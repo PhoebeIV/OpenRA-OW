@@ -835,19 +835,26 @@ JuggArtillery:
 
 JuggArtilleryDeployed:
 	Inherits: ^Artillery
-	ReloadDelay: 125
+	ReloadDelay: 135
 	Range: 15c0
 	MinRange: 4c0
 	Burst: 3
-	BurstDelays: 8
+	BurstDelays: 9
 	Report: vinfweac.aud
+	FirstBurstTargetOffset: -512,-1536,0
+	FollowingBurstTargetOffset: 512,1536,0
 	Projectile: Bullet
 		Speed: 256
-		Inaccuracy: 2c0
+		Inaccuracy: 1c0
 		ContrailLength: 30
 		LaunchAngle: 92
 	Warhead@1Dam: SpreadDamage
-		Damage: 22000
+		Damage: 20000
+		Versus:
+			None: 70
+			Wood: 40
+			Light: 60
+			Heavy: 25
 
 2Inch:
 	Inherits: ^Cannon
@@ -1350,7 +1357,6 @@ TerranSiegeCannon:
 	Warhead@4Eff: CreateEffect
 		ImpactSounds: dsrpgfir.aud
 		ValidTargets: Ground, GroundActor, WaterActor, Trees, Air
-		Delay: 2
 	Warhead@5Eff: CreateEffect
 		Explosions: building22
 		Delay: 7

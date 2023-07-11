@@ -192,3 +192,78 @@ VENOM.Husk:
 	RenderVoxels:
 		Image: venom
 		Scale: 0.8
+
+HUNTER:
+	Inherits@2: ^ExistsInWorld
+	Inherits@3: ^AutoTargetAllAssaultMove
+	RejectsOrders:
+	Valued:
+		Cost: 1000
+	Tooltip:
+		Name: Hunter-Seeker Droid
+	Health:
+		HP: 500000
+	Armor:
+		Type: Light
+	AttackMove:
+	Aircraft:
+		TurnSpeed: 64
+		Speed: 355
+		Pitch: 0
+		Roll: 0
+		CruiseAltitude: 2c0
+		CruisingCondition: cruising
+		MoveIntoShroud: true
+	AttackTurreted:
+		TargetFrozenActors: true
+	Turreted:
+	Armament@PRIMARY:
+		Weapon: HunterSeekerBomb
+	GrantConditionOnAttack:
+		Condition: triggered
+	KillsSelf@1:
+		RequiresCondition: triggered
+	KillsSelf@2:
+		RequiresCondition: disabled
+		DamageTypes: disabled
+	Explodes:
+		Weapon: UnitExplodeSmall
+		EmptyWeapon: UnitExplodeSmall
+		DeathTypes: disabled
+	Targetable:
+		TargetTypes: AirborneActor, GroundActor
+	HiddenUnderFog:
+		Type: CenterPosition
+	BodyOrientation:
+		UseClassicPerspectiveFudge: False
+	RenderSprites:
+		Image: GGHUNT
+		PlayerPalette: tsunit
+	WithFacingSpriteBody:
+	Hovers@CRUISING:
+		RequiresCondition: cruising
+	QuantizeFacingsFromSequence:
+	AppearsOnRadar:
+		UseLocation: true
+	Interactable:
+	HitShape:
+	MapEditorData:
+		Categories: System
+	AutoTarget:
+		InitialStance: AttackAnything
+		ScanRadius: 256
+	AttackWander:
+		WanderMoveRadius: 64
+		ReduceMoveRadiusDelay: 1
+		MinMoveDelay: 3
+		MaxMoveDelay: 4
+	ActorLostNotification:
+		Notification: AirUnitLost
+		TextNotification: Hunter-Seeker target destroyed.
+	OwnerLostAction:
+		Action: ChangeOwner
+		Owner: Creeps
+	IgnoresDisguise:
+	WithShadow:
+		Offset: 43, 128, 0
+		ZOffset: -129
