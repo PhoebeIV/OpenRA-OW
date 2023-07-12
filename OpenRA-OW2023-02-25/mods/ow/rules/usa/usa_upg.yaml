@@ -24,7 +24,7 @@ upgrade.coldreactoradvanced:
 		Queue: Wall
 		Description: Upgrade your Cold Reactors to provide even more power.\nCold Reactors become volatile and explode if destroyed.\nProceed at your own risk.
 		BuildPaletteOrder: 10007
-		Prerequisites: ~structures.usa, ~advtechcenter, ~upgrade.coldreactor, upgrade.superweaponsgeneral
+		Prerequisites: ~structures.usa, advtechcenter, ~upgrade.coldreactor, upgrade.superweaponsgeneral, ~!faction.lasergeneral, ~!faction.aircraftgeneral
         BuildDuration: 2000
 	Valued:
 		Cost: 10000
@@ -56,10 +56,58 @@ upgrade.usatraining:
 		Queue: Wall
 		Description: Doubles the experience gained for all units.
 		BuildPaletteOrder: 10007
-		Prerequisites: ~structures.usa, techcenter
+		Prerequisites: ~structures.usa, advtechcenter
         BuildDuration: 6000
 	Valued:
 		Cost: 10000
+	ProvidesPrerequisite@upgradename:
+	ExternalCondition@PRODUCED:
+		Condition: produced
+
+upgrade.cheaperplanes:
+	Inherits: ^UpgradeBaseExt
+	Tooltip:
+		Name: Advanced Engineering
+	Buildable:
+		Queue: Wall
+		Description: Halves the cost of aircraft.
+		BuildPaletteOrder: 10007
+		Prerequisites: ~structures.usa, advtechcenter, ~faction.aircraftgeneral
+        BuildDuration: 6000
+	Valued:
+		Cost: 10000
+	ProvidesPrerequisite@upgradename:
+	ExternalCondition@PRODUCED:
+		Condition: produced
+
+upgrade.laserguided:
+	Inherits: ^UpgradeBaseExt
+	Tooltip:
+		Name: Laser Guided Missiles
+	Buildable:
+		Queue: Wall
+		Description: Increase range and damage of Stealth Bombers and King Raptors.
+		BuildPaletteOrder: 10007
+		Prerequisites: ~structures.usa, techcenter, ~faction.aircraftgeneral
+        BuildDuration: 6000
+	Valued:
+		Cost: 7500
+	ProvidesPrerequisite@upgradename:
+	ExternalCondition@PRODUCED:
+		Condition: produced
+
+upgrade.countermeasures:
+	Inherits: ^UpgradeBaseExt
+	Tooltip:
+		Name: Countermeasures
+	Buildable:
+		Queue: Wall
+		Description: Aircraft now drop stronger countermeasures to prevent missile targeting.
+		BuildPaletteOrder: 10007
+		Prerequisites: ~structures.usa, techcenter, ~faction.aircraftgeneral
+        BuildDuration: 6000
+	Valued:
+		Cost: 8000
 	ProvidesPrerequisite@upgradename:
 	ExternalCondition@PRODUCED:
 		Condition: produced
@@ -71,7 +119,7 @@ upgrade.aircraftgeneral:
 	Buildable:
 		Description: Recruit General Malcolm Granger to join your forces.\nUnlocks advanced airforce units and abilities.
 		BuildPaletteOrder: 10010
-		Prerequisites: ~structures.usa, techcenter
+		Prerequisites: ~structures.usa, techcenter, ~!faction.lasergeneral, ~!faction.aircraftgeneral, ~!faction.superweaponsgeneral
         BuildDuration: 6000
 	Valued:
 		Cost: 5000
@@ -86,7 +134,7 @@ upgrade.superweaponsgeneral:
 	Buildable:
 		Description: Recruit General Alexis Alexander to join your forces.\nUnlocks advanced weaponry and abilities.
 		BuildPaletteOrder: 10011
-		Prerequisites: ~structures.usa, techcenter
+		Prerequisites: ~structures.usa, techcenter, ~!faction.lasergeneral, ~!faction.aircraftgeneral, ~!faction.superweaponsgeneral
         BuildDuration: 6000
 	Valued:
 		Cost: 10000
@@ -101,7 +149,7 @@ upgrade.lasergeneral:
 	Buildable:
 		Description: Recruit General "Pinpoint" Townes to join your forces.\nUnlocks laser weaponry and abilities.
 		BuildPaletteOrder: 10012
-		Prerequisites: ~structures.usa, techcenter
+		Prerequisites: ~structures.usa, techcenter, ~!faction.lasergeneral, ~!faction.aircraftgeneral, ~!faction.superweaponsgeneral
         BuildDuration: 6000
 	Valued:
 		Cost: 7500

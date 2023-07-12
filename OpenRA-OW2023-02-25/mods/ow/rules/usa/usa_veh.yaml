@@ -2,7 +2,7 @@ USACRUSADER:
 	Inherits: 2TNK
 	Buildable:
 		BuildPaletteOrder: 220
-		Prerequisites: ~vehicles.usa
+		Prerequisites: ~vehicles.usa, ~!faction.lasergeneral, ~!faction.aircraftgeneral, ~!faction.superweaponsgeneral
 		Description: USA main battle tank.\nEquipped with an 120 mm L30 rifled gun.\nSpeed: 85\n  Strong vs Vehicles\n  Weak vs Infantry, Aircraft
         BuildDuration: 900
 	Valued:
@@ -41,7 +41,7 @@ USAPALADIN:
 	Inherits: 2TNK
 	Buildable:
 		BuildPaletteOrder: 230
-		Prerequisites: ~vehicles.usa, techcenter
+		Prerequisites: ~vehicles.usa, techcenter, ~!faction.lasergeneral, ~!faction.aircraftgeneral
 		Description: USA main battle tank.\nEquipped with an 120 mm ramjet-assisted cannon.\nand point defense laser.\nSpeed: 85\n  Strong vs Vehicles\n  Weak vs Infantry, Aircraft
         BuildDuration: 1400
 	Valued:
@@ -142,7 +142,7 @@ USAAMBULANCE:
 	Inherits: JEEP
 	Buildable:
 		BuildPaletteOrder: 210
-		Prerequisites: ~vehicles.usa
+		Prerequisites: ~vehicles.usa, ~!faction.superweaponsgeneral
 		Description: Unarmed support vehicle.\nCan carry three infantry.\nCan heal infantry and repair vehicles.
 	Tooltip:
 		Name: Ambulance
@@ -200,7 +200,7 @@ USATOMAHAWK:
 	Buildable:
 		Queue: Vehicle
 		BuildPaletteOrder: 230
-		Prerequisites: ~vehicles.usa, techcenter
+		Prerequisites: ~vehicles.usa, techcenter, ~!faction.lasergeneral
 		Description: Long-range rocket artillery.\nCapable of locking onto any target.
         BuildDuration: 1600
 	Valued:
@@ -331,12 +331,18 @@ USAAVENGER:
 		Image: usaavenger
 	Voiced:
 		VoiceSet: AvengerVoice
+	ProductionCostMultiplier@lasergeneral:
+		Multiplier: 80
+		Prerequisites: faction.lasergeneral
+	ProductionTimeMultiplier@lasergeneral:
+		Multiplier: 80
+		Prerequisites: faction.lasergeneral
 
 USAMICROWAVE:
 	Inherits: 2TNK
 	Buildable:
 		BuildPaletteOrder: 220
-		Prerequisites: ~vehicles.usa, advtechcenter, upgrade.superweaponsgeneral
+		Prerequisites: ~vehicles.usa, advtechcenter
 		Description: Advanced support tank.\nEquipped with a Microwave generator.\nCan disable vehicles, structures and fry infantry.\n  Strong vs Vehicles, Infantry\n  Weak vs Aircraft
         BuildDuration: 1200
 	Valued:
@@ -375,7 +381,7 @@ USALASERCRUSADER:
 	Inherits: 2TNK
 	Buildable:
 		BuildPaletteOrder: 220
-		Prerequisites: ~vehicles.usa, advtechcenter, upgrade.lasergeneral
+		Prerequisites: ~vehicles.usa, techcenter, upgrade.lasergeneral, ~!faction.aircraftgeneral, ~!faction.superweaponsgeneral
 		Description: USA main battle tank.\nEquipped with a High-energy directed pulse laser cannon.\nSpeed: 85\n  Strong vs Vehicles\n  Weak vs Infantry, Aircraft
         BuildDuration: 1200
 	Valued:
@@ -403,6 +409,12 @@ USALASERCRUSADER:
 		Image: usalasercrusadertank
 	Voiced:
 		VoiceSet: LaserTankVoice
+	ProductionCostMultiplier@lasergeneral:
+		Multiplier: 80
+		Prerequisites: faction.lasergeneral
+	ProductionTimeMultiplier@lasergeneral:
+		Multiplier: 80
+		Prerequisites: faction.lasergeneral
 
 usarailgun:
 	Inherits: ^TrackedVehicle
@@ -412,7 +424,7 @@ usarailgun:
 	Buildable:
 		Queue: Vehicle
 		BuildPaletteOrder: 2500
-		Prerequisites: ~vehicles.usa, advtechcenter, upgrade.lasergeneral, upgrade.superweaponsgeneral, upgrade.aircraftgeneral
+		Prerequisites: ~vehicles.usa, ulttechcenter, upgrade.lasergeneral, upgrade.superweaponsgeneral, upgrade.aircraftgeneral, ~!faction.lasergeneral, ~!faction.aircraftgeneral, ~!faction.superweaponsgeneral
 		Description: [EPIC]\nCannon-Caliber Electromagnetic Artillery.
 	Valued:
 		Cost: 18000
@@ -498,8 +510,8 @@ usarailgun:
 		Modifier: 125
 		RequiresCondition: gun2
 	Explodes:
-		Weapon: MiniNuke
-		EmptyWeapon: MiniNuke
+		Weapon: CrateNuke
+		EmptyWeapon: CrateNuke
 	ShakeOnDeath:
 	ChangesHealth:
 		Step: 500

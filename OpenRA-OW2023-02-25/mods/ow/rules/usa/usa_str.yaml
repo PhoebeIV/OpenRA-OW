@@ -54,6 +54,9 @@ usacoldfusion:
 	Power@Extra150:
 		Amount: 150
         RequiresCondition: coldfusionup2
+	Power@townes:
+		Amount: 50
+        RequiresCondition: townespowerup
 	Targetable:
 		TargetTypes: GroundActor, Structure, C4, DetonateAttack, SpyInfiltrate
 	ScalePowerWithHealth:
@@ -62,6 +65,9 @@ usacoldfusion:
 		UseDeathTypeSuffix: false
 	RenderSprites:
         Image: usacoldfusionbuilding
+	GrantConditionOnPrerequisite@townes:
+		Condition: townespowerup
+		Prerequisites: ~faction.lasergeneral
 	GrantConditionOnPrerequisite@coldfusionup1:
 		Condition: coldfusionup1
 		Prerequisites: ~upgrade.coldreactor
@@ -225,7 +231,7 @@ usasupplycenter:
 		UseDeathTypeSuffix: false
 	ProvidesPrerequisite@buildingname:
 	ProvidesPrerequisite@usa:
-		Factions: usa
+		Factions: usa, townes, granger, alexander
 		Prerequisite: Supply Center
 	HitShape:
 		Type: Rectangle
@@ -268,7 +274,7 @@ usawarfactory:
 	Buildable:
 		Queue: Building
 		BuildPaletteOrder: 80
-		Prerequisites: Supply Center, anypower, ~structures.usa
+		Prerequisites: usasupplycenter, anypower, ~structures.usa
 		Description: Produces vehicles.
 	Valued:
 		Cost: 2000
@@ -312,10 +318,10 @@ usawarfactory:
 		Amount: -30
 	ProvidesPrerequisite@buildingname:
 	ProvidesPrerequisite@usa:
-		Factions: usa
+		Factions: usa, townes, granger, alexander
 		Prerequisite: War Factory
 	ProvidesPrerequisite@usa2:
-		Factions: usa
+		Factions: usa, townes, granger, alexander
 		Prerequisite: vehicles.usa
 	Targetable:
 		TargetTypes: GroundActor, C4, DetonateAttack, Structure, SpyInfiltrate
@@ -353,7 +359,7 @@ usaairfield:
 	Buildable:
 		Queue: Building
 		BuildPaletteOrder: 130
-		Prerequisites: Supply Center, anypower, ~structures.usa
+		Prerequisites: usasupplycenter, anypower, ~structures.usa
 		Description: Produces and reloads aircraft.\n  Special Ability: Spy Plane\n  Special Ability: Paratroopers
 	Tooltip:
 		Name: USA Airfield
@@ -387,7 +393,7 @@ usaairfield:
 	Power:
 		Amount: -30
 	ProvidesPrerequisite@usa:
-		Factions: usa
+		Factions: usa, townes, granger, alexander
 		Prerequisite: aircraft.usa
 	ProvidesPrerequisite@buildingname:
 	Targetable:
@@ -509,7 +515,7 @@ usastrategycenter:
 		Bounds: 3072, 3072
 	Buildable:
 		Queue: Building
-		Prerequisites: Supply Center, War Factory, anypower, ~structures.usa
+		Prerequisites: usasupplycenter, usawarfactory, anypower, ~structures.usa
 		Description: Strategic Center, provides upgrades.
 		BuildPaletteOrder: 150
 	Tooltip:
@@ -897,7 +903,7 @@ usapatriot:
 		BuildPaletteOrder: 4
 		BuildDuration: 625
 		BuildDurationModifier: 100
-		Prerequisites: anypower, ~structures.usa, usabarracks
+		Prerequisites: anypower, ~structures.usa, usabarracks, ~!faction.lasergeneral, ~!faction.superweaponsgeneral
 		Description: Anti-tank & anti-air base defense.
 	Valued:
 		Cost: 1000
@@ -974,7 +980,7 @@ usapatriotEMP:
 		BuildPaletteOrder: 4
 		BuildDuration: 625
 		BuildDurationModifier: 100
-		Prerequisites: anypower, ~structures.usa, usabarracks, upgrade.superweaponsgeneral
+		Prerequisites: anypower, ~structures.usa, usabarracks, upgrade.superweaponsgeneral, ~!faction.lasergeneral, ~!faction.aircraftgeneral
 		Description: Patriot Missile System upgrade with EMP rockets, disabling vehicles.\nProvided by General Alexis Alexander.
 	Valued:
 		Cost: 1200
@@ -1050,7 +1056,7 @@ usalaserpatriot:
 	Buildable:
 		Queue: Defense
 		BuildPaletteOrder: 70
-		Prerequisites: anypower, ~structures.usa, usabarracks, upgrade.lasergeneral
+		Prerequisites: anypower, ~structures.usa, usabarracks, upgrade.lasergeneral, ~!faction.aircraftgeneral, ~!faction.superweaponsgeneral
 		Description: Laser Defense Turret.\nProvided by General Townes
 	Valued:
 		Cost: 1400
@@ -1109,6 +1115,12 @@ usalaserpatriot:
 	RenderSprites:
 		Image: usalaserpatriot
         PlayerPalette: dawn
+	ProductionCostMultiplier@lasergeneral:
+		Multiplier: 90
+		Prerequisites: faction.lasergeneral
+	ProductionTimeMultiplier@lasergeneral:
+		Multiplier: 90
+		Prerequisites: faction.lasergeneral
         
 usafirebase:
 	Inherits: ^Defense
@@ -1334,7 +1346,7 @@ usashipyard:
 	RenderDetectionCircle:
 	ProvidesPrerequisite@buildingname:
 	ProvidesPrerequisite@usa2:
-		Factions: usa
+		Factions: usa, townes, granger, alexander
 		Prerequisite: ships.usa
 	MapEditorData:
 		ExcludeTilesets: INTERIOR

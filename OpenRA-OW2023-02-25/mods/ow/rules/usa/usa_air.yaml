@@ -7,7 +7,7 @@ usachinook:
 		Queue: Aircraft
 		BuildAtProductionType: Helicopter
 		BuildPaletteOrder: 10
-		Prerequisites:  ~aircraft.usa, Supply Center
+		Prerequisites:  ~aircraft.usa, usasupplycenter
 		Description: Collects Ore, Tiberium and Gems for processing.\nSpeed: 96 \n  Unarmed
 	Valued:
 		Cost: 1200
@@ -100,6 +100,12 @@ usachinook:
 	Targetable:
 		TargetTypes: Air, AirborneActor
 	-Passenger:
+	ProductionCostMultiplier@airforcegeneral:
+		Multiplier: 50
+		Prerequisites: upgrade.cheaperplanes
+	ProductionTimeMultiplier@airforcegeneral:
+		Multiplier: 50
+		Prerequisites: upgrade.cheaperplanes
         
 usacombatchinook:
 	Inherits: ^Helicopter
@@ -109,7 +115,7 @@ usacombatchinook:
 		Queue: Aircraft
 		BuildAtProductionType: Helicopter
 		BuildPaletteOrder: 10
-		Prerequisites: ~aircraft.usa, Supply Center, upgrade.aircraftgeneral
+		Prerequisites: ~aircraft.usa, usasupplycenter, upgrade.aircraftgeneral, ~!faction.lasergeneral, ~!faction.superweaponsgeneral
 		Description: Fast Infantry Transport Helicopter.\nCan be loaded with units that can fire onto targets.
 	Valued:
 		Cost: 1400
@@ -171,6 +177,12 @@ usacombatchinook:
 		Image: usacombatchinook
 	Voiced:
 		VoiceSet: CombatChinookVoice
+	ProductionCostMultiplier@airforcegeneral:
+		Multiplier: 50
+		Prerequisites: upgrade.cheaperplanes
+	ProductionTimeMultiplier@airforcegeneral:
+		Multiplier: 50
+		Prerequisites: upgrade.cheaperplanes
         
 usacomanche:
 	Inherits: ^Helicopter
@@ -205,11 +217,24 @@ usacomanche:
 		Weapon: rangershot
 		LocalOffset: 85,-213,-85, 85,213,-85
 		MuzzleSequence: muzzle
+		PauseOnCondition: lasergeneralupgrade
 	Armament@SECONDARY:
 		Name: secondary
 		Weapon: rangershot
 		LocalOffset: 85,213,-85, 85,-213,-85
 		MuzzleSequence: muzzle
+		PauseOnCondition: lasergeneralupgrade
+	Armament@PRIMARYlaser:
+		Weapon: USARangerLaser
+		LocalOffset: 85,-213,-85, 85,213,-85
+		MuzzleSequence: muzzle
+		RequiresCondition: lasergeneralupgrade
+	Armament@SECONDARYlaser:
+		Name: secondary
+		Weapon: USARangerLaser
+		LocalOffset: 85,213,-85, 85,-213,-85
+		MuzzleSequence: muzzle
+		RequiresCondition: lasergeneralupgrade
 	Armament@TRI:
 		Weapon: HellfireAA
 		LocalOffset: 0,-213,-85, 0,213,-85
@@ -281,6 +306,9 @@ usacomanche:
     GrantConditionOnPrerequisite@1:
         Condition: upgradeaircraftgeneral
         Prerequisites: upgrade.aircraftgeneral
+    GrantConditionOnPrerequisite@2:
+        Condition: lasergeneralupgrade
+        Prerequisites: faction.lasergeneral
 	Cloak:
 		InitialDelay: 125
 		CloakDelay: 60
@@ -291,6 +319,12 @@ usacomanche:
 	GrantConditionOnDamageState@UNCLOAK:
 		Condition: cloak-force-disabled
 		ValidDamageStates: Critical
+	ProductionCostMultiplier@airforcegeneral:
+		Multiplier: 50
+		Prerequisites: upgrade.cheaperplanes
+	ProductionTimeMultiplier@airforcegeneral:
+		Multiplier: 50
+		Prerequisites: upgrade.cheaperplanes
         
 usaraptor:
 	Inherits: ^Plane
@@ -299,7 +333,7 @@ usaraptor:
 		Queue: Aircraft
 		BuildAtProductionType: Plane
 		BuildPaletteOrder: 50
-		Prerequisites: ~aircraft.usa, ~!upgrade.aircraftgeneral
+		Prerequisites: ~aircraft.usa, ~!upgrade.aircraftgeneral, ~!faction.aircraftgeneral
 		Description: Multi-role fighter plane.\nCan attack both ground and air targets.
 	Valued:
 		Cost: 2000
@@ -397,7 +431,7 @@ usastealthfighter:
 		Queue: Aircraft
 		BuildAtProductionType: Plane
 		BuildPaletteOrder: 50
-		Prerequisites: ~aircraft.usa
+		Prerequisites: ~aircraft.usa, techcenter
 		Description: Stealth fighter plane.
 	Valued:
 		Cost: 2400
@@ -419,7 +453,13 @@ usastealthfighter:
 		Weapon: usastealthfightershotbunkerbuster
 		LocalOffset: 0,-640,0, 0,640,0
 		LocalYaw: -40, 24
+		PauseOnCondition: !ammo || upgradelaserguided
+	Armament@groundupgrade:
+		Weapon: usastealthfightershotbunkerbusterlaserguided
+		LocalOffset: 0,-640,0, 0,640,0
+		LocalYaw: -40, 24
 		PauseOnCondition: !ammo
+        RequiresCondition: upgradelaserguided
 	AttackAircraft:
 		FacingTolerance: 20
 	Aircraft:
@@ -447,6 +487,14 @@ usastealthfighter:
 	Contrail@2:
 		Offset: -598,683,0
 		StartColorAlpha: 128
+	Contrail@3:
+		Offset: -598,0,0
+		StartColorAlpha: 128
+		RequiresCondition: upgradecountermeasures
+		StartColor: FFFFFF
+		EndColor: ADD8E6
+		TrailLength: 35
+		StartColorUsePlayerColor: false
 	SpawnActorOnDeath:
 		Actor: USASTEALTHFIGHTER.Husk
 	LeavesTrails:
@@ -475,6 +523,11 @@ usastealthfighter:
 		Range: 2c0
         Chance: 20
 		DeflectionRelationships: Neutral, Enemy
+	JamsMissiles@countermeasures:
+		Range: 3c0
+        Chance: 30
+		DeflectionRelationships: Neutral, Enemy
+		RequiresCondition: upgradecountermeasures
 	Cloak:
 		InitialDelay: 125
 		CloakDelay: 60
@@ -491,6 +544,18 @@ usastealthfighter:
         Count: 2
 	Voiced:
 		VoiceSet: StealthFighterVoice
+	ProductionCostMultiplier@airforcegeneral:
+		Multiplier: 50
+		Prerequisites: upgrade.cheaperplanes
+	ProductionTimeMultiplier@airforcegeneral:
+		Multiplier: 50
+		Prerequisites: upgrade.cheaperplanes
+    GrantConditionOnPrerequisite@1:
+        Condition: upgradelaserguided
+        Prerequisites: upgrade.laserguided
+    GrantConditionOnPrerequisite@2:
+        Condition: upgradecountermeasures
+        Prerequisites: upgrade.countermeasures
         
 usaaurora:
 	Inherits: ^Plane
@@ -551,6 +616,14 @@ usaaurora:
 	Contrail@2:
 		Offset: -598,683,0
 		StartColorAlpha: 128
+	Contrail@3:
+		Offset: -598,0,0
+		StartColorAlpha: 128
+		RequiresCondition: upgradecountermeasures
+		StartColor: FFFFFF
+		EndColor: ADD8E6
+		TrailLength: 35
+		StartColorUsePlayerColor: false
 	SpawnActorOnDeath:
 		Actor: USAAURORA.Husk
 	SpeedMultiplier@AFTERBURNER:
@@ -585,12 +658,26 @@ usaaurora:
 		Range: 2c0
         Chance: 40
 		DeflectionRelationships: Neutral, Enemy
+	JamsMissiles@countermeasures:
+		Range: 3c0
+        Chance: 20
+		DeflectionRelationships: Neutral, Enemy
+		RequiresCondition: upgradecountermeasures
 	ReloadAmmoPool@reloadnear:
 		RequiresCondition: reloadnear
 		Delay: 500
         Count: 1
 	Voiced:
 		VoiceSet: AuroraVoice
+	ProductionCostMultiplier@airforcegeneral:
+		Multiplier: 50
+		Prerequisites: upgrade.cheaperplanes
+	ProductionTimeMultiplier@airforcegeneral:
+		Multiplier: 50
+		Prerequisites: upgrade.cheaperplanes
+    GrantConditionOnPrerequisite@2:
+        Condition: upgradecountermeasures
+        Prerequisites: upgrade.countermeasures
         
 usakingraptor:
 	Inherits: ^Plane
@@ -599,7 +686,7 @@ usakingraptor:
 		Queue: Aircraft
 		BuildAtProductionType: Plane
 		BuildPaletteOrder: 50
-		Prerequisites: ~aircraft.usa, techcenter, upgrade.aircraftgeneral
+		Prerequisites: ~aircraft.usa, techcenter, upgrade.aircraftgeneral, ~!faction.lasergeneral, ~!faction.superweaponsgeneral
 		Description: Multi-role fighter plane.\nCan deflect enemy missiles with lasers.
         BuildDuration: 2300
 	Valued:
@@ -609,7 +696,7 @@ usakingraptor:
 	UpdatesPlayerStatistics:
 		AddToArmyValue: true
 	Health:
-		HP: 18000
+		HP: 22000
 	RevealsShroud:
 		MinRange: 11c0
 		Range: 13c0
@@ -622,12 +709,24 @@ usakingraptor:
 		Weapon: usakingraptorshot
 		LocalOffset: 0,-640,0, 0,640,0
 		LocalYaw: -40, 24
-		PauseOnCondition: !ammo
+		PauseOnCondition: !ammo || upgradelaserguided
 	Armament@air:
 		Weapon: usakingraptorshotair
 		LocalOffset: 0,-640,0, 0,640,0
 		LocalYaw: -40, 24
+		PauseOnCondition: !ammo || upgradelaserguided
+	Armament@groundupgrade:
+		Weapon: usakingraptorshotlaserguided
+		LocalOffset: 0,-640,0, 0,640,0
+		LocalYaw: -40, 24
 		PauseOnCondition: !ammo
+        RequiresCondition: upgradelaserguided
+	Armament@airupgrade:
+		Weapon: usakingraptorshotairlaserguided
+		LocalOffset: 0,-640,0, 0,640,0
+		LocalYaw: -40, 24
+		PauseOnCondition: !ammo
+        RequiresCondition: upgradelaserguided
 	AttackAircraft:
 		FacingTolerance: 20
 		PersistentTargeting: false
@@ -658,6 +757,14 @@ usakingraptor:
 	Contrail@2:
 		Offset: -598,683,0
 		StartColorAlpha: 128
+	Contrail@3:
+		Offset: -598,0,0
+		StartColorAlpha: 128
+		RequiresCondition: upgradecountermeasures
+		StartColor: FFFFFF
+		EndColor: ADD8E6
+		TrailLength: 35
+		StartColorUsePlayerColor: false
 	SpawnActorOnDeath:
 		Actor: USAKINGRAPTOR.Husk
 	LeavesTrails:
@@ -686,12 +793,29 @@ usakingraptor:
 		Range: 2c0
         Chance: 50
 		DeflectionRelationships: Neutral, Enemy
+	JamsMissiles@countermeasures:
+		Range: 3c0
+        Chance: 25
+		DeflectionRelationships: Neutral, Enemy
+		RequiresCondition: upgradecountermeasures
 	ReloadAmmoPool@reloadnear:
 		RequiresCondition: reloadnear
 		Delay: 500
         Count: 3
 	Voiced:
 		VoiceSet: KingRaptorVoice
+	ProductionCostMultiplier@airforcegeneral:
+		Multiplier: 50
+		Prerequisites: upgrade.cheaperplanes
+	ProductionTimeMultiplier@airforcegeneral:
+		Multiplier: 50
+		Prerequisites: upgrade.cheaperplanes
+    GrantConditionOnPrerequisite@1:
+        Condition: upgradelaserguided
+        Prerequisites: upgrade.laserguided
+    GrantConditionOnPrerequisite@2:
+        Condition: upgradecountermeasures
+        Prerequisites: upgrade.countermeasures
         
 usaauroraalpha:
 	Inherits: ^Plane
@@ -700,7 +824,7 @@ usaauroraalpha:
 		Queue: Aircraft
 		BuildAtProductionType: Plane
 		BuildPaletteOrder: 50
-		Prerequisites: ~aircraft.usa, techcenter, upgrade.superweaponsgeneral
+		Prerequisites: ~aircraft.usa, techcenter, upgrade.superweaponsgeneral, ~!faction.lasergeneral, ~!faction.aircraftgeneral
 		Description: Fast fighter plane.\nCan not be damaged while attacking.\nSlows down and becomes vulnerable after attacking.
         BuildDuration: 3300
 	Valued:
@@ -941,7 +1065,7 @@ usatransportchinook:
 		Queue: Aircraft
 		BuildAtProductionType: Helicopter
 		BuildPaletteOrder: 10
-		Prerequisites: ~aircraft.usa, Supply Center, upgrade.aircraftgeneral
+		Prerequisites: ~aircraft.usa, usasupplycenter, upgrade.aircraftgeneral, ~!faction.lasergeneral, ~!faction.superweaponsgeneral
 		Description: Fast Vehicle Transport Helicopter.
 	Valued:
 		Cost: 1500
@@ -997,3 +1121,125 @@ usasupplydropplane:
 		Image: usasupplydropplane
 	SpawnActorOnDeath:
 		Actor: usasupplydropplane.Husk.empty
+
+usaspectregunship:
+	Inherits: ^TSPlane
+	Inherits@NoExp: ^NoExp
+	Inherits@EPIC: ^EpicUnit
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Buildable:
+		Queue: Aircraft
+		BuildAtProductionType: Plane
+		BuildPaletteOrder: 130
+		Prerequisites:  ~aircraft.usa, ulttechcenter, upgrade.aircraftgeneral, ~!faction.lasergeneral, ~!faction.superweaponsgeneral, ~faction.aircraftgeneral
+		Description: The Spectre Gunship was a support aircraft that could be periodically deployed by particularly high-ranking US generals based on the Lockheed AC-130 Spectre.\nSpeed: 120\n  Strong vs Ground Targets\n  Weak vs Anti-Air
+		BuildLimit: 1
+	Valued:
+		Cost: 17500
+	Tooltip:
+		Name: Lockheed AC-130 Spectre
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 180000
+	RevealsShroud:
+		MinRange: 9c0
+		Range: 11c0
+		MoveRecalculationThreshold: 0
+		Type: GroundPosition
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 9c0
+		MoveRecalculationThreshold: 0
+		Type: GroundPosition
+	AutoTarget:
+		InitialStance: AttackAnything
+		InitialStanceAI: AttackAnything
+	Armament@PRIMARY:
+		Name: primary
+		Weapon: GAU-12
+		LocalOffset: 256,-213,0
+		MuzzleSequence: muzzle
+	Armament@SECONDARY:
+		Name: secondary
+		Weapon: USASpectreGunshipbunkerbuster
+		LocalOffset: 256,213,0
+		MuzzleSequence: muzzle
+	Armament@TERTIARY:
+		Name: tertiary
+		Weapon: USASpectreGunshipcannon
+		LocalOffset: 256,213,0
+		MuzzleSequence: muzzle
+	AttackAircraft:
+		Armaments: primary, secondary, tertiary
+		FacingTolerance: 512
+		PersistentTargeting: false
+	Aircraft:
+		CruiseAltitude: 2560
+		InitialFacing: 768
+		TurnSpeed: 8
+		Speed: 150
+		RepulsionSpeed: 40
+		MaximumPitch: 56
+	SelectionDecorations:
+	Contrail@1:
+		Offset: -98,-683,256
+	Contrail@2:
+		Offset: -98,683,256
+	Contrail@3:
+		Offset: -98,1283,256
+	Contrail@4:
+		Offset: -98,-1283,256
+	WithDamageOverlay:
+		Offset: -853,0,171
+		Interval: 2
+	Selectable:
+		Bounds: 2133, 1450, 0, 0
+		DecorationBounds: 4437, 3584, 0, 0
+	SpawnActorOnDeath:
+		Actor: USASpectreGunship.Husk
+	RenderSprites:
+		Image: USASpectreGunship
+	RenderVoxels:
+		Image: usaspectregunship
+		Scale: 1.25
+		LightAmbientColor: 1.0,1.0,1.0
+		LightDiffuseColor: 0.7,0.7,0.7
+	Voiced:
+		VoiceSet: SpectreGunShipVoice
+
+USASpectreGunship.Husk:
+	Inherits: ^TSPlaneHusk
+	Tooltip:
+		Name: Lockheed AC-130 Spectre
+	Contrail@1:
+		Offset: -598,-683,0
+	Contrail@2:
+		Offset: -598,683,0
+	Aircraft:
+		TurnSpeed: 8
+		Speed: 250
+	WithDamageOverlay:
+		Offset: -853,0,171
+		Interval: 2
+	RevealsShroud:
+		MinRange: 9c0
+		Range: 11c0
+		Type: GroundPosition
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 9c0
+		Type: GroundPosition
+	RenderSprites:
+		Image: USASpectreGunship
+	RenderVoxels:
+		Image: usaspectregunship
+		Scale: 1.25
+		LightAmbientColor: 1.0,1.0,1.0
+		LightDiffuseColor: 0.7,0.7,0.7
+	RevealOnDeath:
+	FallsToEarth:
+		Moves: True
+		Velocity: 50
+		Explosion: MiniNuke
+		MaximumSpinSpeed: 0
