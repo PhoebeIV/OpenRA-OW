@@ -1,481 +1,465 @@
-############################################################################################
-###################################### Level ###############################################
-############################################################################################
-
-#### Grants conditions to store your level ups, makes sure you dont lose levels on death.
-#### (Goes on upgrade actor).
-^herolevelconditions:
-  GrantConditionOnPrerequisite@herolvl1:
-    Condition: herolvlstored1
-    Prerequisites: herolvl1
-  GrantConditionOnPrerequisite@herolvl2:
-    Condition: herolvlstored2
-    Prerequisites: herolvl2
-  GrantConditionOnPrerequisite@herolvl3:
-    Condition: herolvlstored3
-    Prerequisites: herolvl3
-  GrantConditionOnPrerequisite@herolvl4:
-    Condition: herolvlstored4
-    Prerequisites: herolvl4
-  GrantConditionOnPrerequisite@herolvl5:
-    Condition: herolvlstored5
-    Prerequisites: herolvl5
-  GrantConditionOnPrerequisite@herolvl6:
-    Condition: herolvlstored6
-    Prerequisites: herolvl6
-  GrantConditionOnPrerequisite@herolvl7:
-    Condition: herolvlstored7
-    Prerequisites: herolvl7
-  GrantConditionOnPrerequisite@herolvl8:
-    Condition: herolvlstored8
-    Prerequisites: herolvl8
-  GrantConditionOnPrerequisite@herolvl9:
-    Condition: herolvlstored9
-    Prerequisites: herolvl9
-  GrantConditionOnPrerequisite@herolvl10:
-    Condition: herolvlstored10
-    Prerequisites: herolvl10
-  ProvidesPrerequisite@herolvl1:
-    Prerequisite: herolvl1
-    GrantPermanently: true
-    RequiresCondition: herolvlstored1
-  ProvidesPrerequisite@herolvl2:
-    Prerequisite: herolvl2
-    GrantPermanently: true
-    RequiresCondition: herolvlstored2
-  ProvidesPrerequisite@herolvl3:
-    Prerequisite: herolvl3
-    GrantPermanently: true
-    RequiresCondition: herolvlstored3
-  ProvidesPrerequisite@herolvl4:
-    Prerequisite: herolvl4
-    GrantPermanently: true
-    RequiresCondition: herolvlstored4
-  ProvidesPrerequisite@herolvl5:
-    Prerequisite: herolvl5
-    GrantPermanently: true
-    RequiresCondition: herolvlstored5
-  ProvidesPrerequisite@herolvl6:
-    Prerequisite: herolvl6
-    GrantPermanently: true
-    RequiresCondition: herolvlstored6
-  ProvidesPrerequisite@herolvl7:
-    Prerequisite: herolvl7
-    GrantPermanently: true
-    RequiresCondition: herolvlstored7
-  ProvidesPrerequisite@herolvl8:
-    Prerequisite: herolvl8
-    GrantPermanently: true
-    RequiresCondition: herolvlstored8
-  ProvidesPrerequisite@herolvl9:
-    Prerequisite: herolvl9
-    GrantPermanently: true
-    RequiresCondition: herolvlstored9
-  ProvidesPrerequisite@herolvl10:
-    Prerequisite: herolvl10
-    GrantPermanently: true
-    RequiresCondition: herolvlstored10
-  GrantCondition@herolvlstored1:
-    Condition: herolvlstored1
-    GrantPermanently: True
-    RequiresCondition: herolvlstored1
-  GrantCondition@herolvlstored2:
-    Condition: herolvlstored2
-    GrantPermanently: True
-    RequiresCondition: herolvlstored2
-  GrantCondition@herolvlstored3:
-    Condition: herolvlstored3
-    GrantPermanently: True
-    RequiresCondition: herolvlstored3
-  GrantCondition@herolvlstored4:
-    Condition: herolvlstored4
-    GrantPermanently: True
-    RequiresCondition: herolvlstored4
-  GrantCondition@herolvlstored5:
-    Condition: herolvlstored5
-    GrantPermanently: True
-    RequiresCondition: herolvlstored5
-  GrantCondition@herolvlstored6:
-    Condition: herolvlstored6
-    GrantPermanently: True
-    RequiresCondition: herolvlstored6
-  GrantCondition@herolvlstored7:
-    Condition: herolvlstored7
-    GrantPermanently: True
-    RequiresCondition: herolvlstored7
-  GrantCondition@herolvlstored8:
-    Condition: herolvlstored8
-    GrantPermanently: True
-    RequiresCondition: herolvlstored8
-  GrantCondition@herolvlstored9:
-    Condition: herolvlstored9
-    GrantPermanently: True
-    RequiresCondition: herolvlstored9
-  GrantCondition@herolvlstored10:
-    Condition: herolvlstored10
-    GrantPermanently: True
-    RequiresCondition: herolvlstored10
-
-#### Saves Hero Levels. (goes on hero)
-^heroproducewithlevel:
-  ProducibleWithLevel@1:
-    Prerequisites: herolvl1
-    InitialLevels: 1
-  ProducibleWithLevel@2:
-    Prerequisites: herolvl2
-    InitialLevels: 2
-  ProducibleWithLevel@3:
-    Prerequisites: herolvl3
-    InitialLevels: 3
-  ProducibleWithLevel@4:
-    Prerequisites: herolvl4
-    InitialLevels: 4
-  ProducibleWithLevel@5:
-    Prerequisites: herolvl5
-    InitialLevels: 5
-  ProducibleWithLevel@6:
-    Prerequisites: herolvl6
-    InitialLevels: 6
-  ProducibleWithLevel@7:
-    Prerequisites: herolvl7
-    InitialLevels: 7
-  ProducibleWithLevel@8:
-    Prerequisites: herolvl8
-    InitialLevels: 8
-  ProducibleWithLevel@9:
-    Prerequisites: herolvl9
-    InitialLevels: 9
-  ProducibleWithLevel@10:
-    Prerequisites: herolvl10
-    InitialLevels: 10
-  GainsExperience:
+^Heroexp:
+	GainsExperience@Hero:
+		LevelUpNotification: LevelUp
+		LevelUpTextNotification: Unit promoted.
 		Conditions:
-			1000: herolevel
-			2000: herolevel2
-			3000: herolevel3
-			4000: herolevel4
-			5000: herolevel5
-			7000: herolevel6
-			9000: herolevel7
-			12000: herolevel8
-			16000: herolevel9
-			20000: herolevel10
-  ProvidesPrerequisite@herolvl1:
-    Prerequisite: herolvl1
-    GrantPermanently: true
-    RequiresCondition: herolevel1
-  ProvidesPrerequisite@herolvl2:
-    Prerequisite: herolvl2
-    GrantPermanently: true
-    RequiresCondition: herolevel2
-  ProvidesPrerequisite@herolvl3:
-    Prerequisite: herolvl3
-    GrantPermanently: true
-    RequiresCondition: herolevel3
-  ProvidesPrerequisite@herolvl4:
-    Prerequisite: herolvl4
-    GrantPermanently: true
-    RequiresCondition: herolevel4
-  ProvidesPrerequisite@herolvl5:
-    Prerequisite: herolvl5
-    GrantPermanently: true
-    RequiresCondition: herolevel5
-  ProvidesPrerequisite@herolvl6:
-    Prerequisite: herolvl6
-    GrantPermanently: true
-    RequiresCondition: herolevel6
-  ProvidesPrerequisite@herolvl7:
-    Prerequisite: herolvl7
-    GrantPermanently: true
-    RequiresCondition: herolevel7
-  ProvidesPrerequisite@herolvl8:
-    Prerequisite: herolvl8
-    GrantPermanently: true
-    RequiresCondition: herolevel8
-  ProvidesPrerequisite@herolvl9:
-    Prerequisite: herolvl9
-    GrantPermanently: true
-    RequiresCondition: herolevel9
-  ProvidesPrerequisite@herolvl10:
-    Prerequisite: herolvl10
-    GrantPermanently: true
-    RequiresCondition: herolevel10
-  GivesExperience: 
-    Experience: 10000
+			1000: rank-veteran
+			3000: rank-veteran
+			6000: rank-veteran
+			10000: rank-veteran
+		LevelUpImage: crate-effects
+    ExperienceModifier: 1
+	GrantCondition@Level1:
+		RequiresCondition: rank-veteran == 1
+		Condition: LV1
+	GrantCondition@Level2:
+		RequiresCondition: rank-veteran == 2
+		Condition: LV2
+	GrantCondition@Level3:
+		RequiresCondition: rank-veteran == 3
+		Condition: LV3
+	GrantCondition@Level4:
+		RequiresCondition: rank-veteran == 4
+		Condition: LV4
+	GrantCondition@Level4:
+		RequiresCondition: rank-veteran >= 5
+		Condition: LV5
+	DamageMultiplier@Level1:
+		RequiresCondition: rank-veteran == 1
+		Modifier: 95
+	DamageMultiplier@Level2:
+		RequiresCondition: rank-veteran == 2
+		Modifier: 90
+	DamageMultiplier@Level3:
+		RequiresCondition: rank-veteran == 3
+		Modifier: 85
+	DamageMultiplier@Level4:
+		RequiresCondition: LV4
+		Modifier: 75
+	FirepowerMultiplier@Level1:
+		RequiresCondition: rank-veteran == 1
+		Modifier: 105
+	FirepowerMultiplier@Level2:
+		RequiresCondition: rank-veteran == 2
+		Modifier: 110
+	FirepowerMultiplier@Level3:
+		RequiresCondition: rank-veteran == 3
+		Modifier: 120
+	FirepowerMultiplier@Level4:
+		RequiresCondition: LV4
+		Modifier: 130
+	SpeedMultiplier@Level1:
+		RequiresCondition: rank-veteran == 1
+		Modifier: 105
+	SpeedMultiplier@Level2:
+		RequiresCondition: rank-veteran == 2
+		Modifier: 110
+	SpeedMultiplier@Level3:
+		RequiresCondition: rank-veteran == 3
+		Modifier: 120
+	SpeedMultiplier@Level4:
+		RequiresCondition: LV4
+		Modifier: 140
+	ReloadDelayMultiplier@Level1:
+		RequiresCondition: rank-veteran == 1
+		Modifier: 95
+	ReloadDelayMultiplier@Level2:
+		RequiresCondition: rank-veteran == 2
+		Modifier: 90
+	ReloadDelayMultiplier@Level3:
+		RequiresCondition: rank-veteran == 3
+		Modifier: 85
+	ReloadDelayMultiplier@Level4:
+		RequiresCondition: LV4
+		Modifier: 75
+	WithDecoration@Level1:
+		Image: rank
+		Sequence: rank-veteran-1
+		Palette: effect
+		Position: BottomRight
+		Margin: 5, 6
+		ValidRelationships: Ally, Enemy, Neutral
+		RequiresCondition: rank-veteran == 1
+	WithDecoration@Level2:
+		Image: rank
+		Sequence: rank-veteran-2
+		Palette: effect
+		Position: BottomRight
+		Margin: 5, 6
+		ValidRelationships: Ally, Enemy, Neutral
+		RequiresCondition: rank-veteran == 2
+	WithDecoration@Level3:
+		Image: rank
+		Sequence: rank-veteran-3
+		Palette: effect
+		Position: BottomRight
+		Margin: 5, 6
+		ValidRelationships: Ally, Enemy, Neutral
+		RequiresCondition: rank-veteran == 3
+	WithDecoration@Level4:
+		Image: rank
+		Sequence: rank-elite
+		Palette: effect
+		Position: BottomRight
+		Margin: 5, 6
+		ValidRelationships: Ally, Enemy, Neutral
+		RequiresCondition: LV4
+	ChangesHealth@Level4:
+		Step: 0
+		PercentageStep: 6
+		Delay: 100
+		StartIfBelow: 100
+		DamageCooldown: 50
+		RequiresCondition: LV4
+	ChangesHealth@Level1:
+		Step: 0
+		PercentageStep: 2
+		Delay: 400
+		StartIfBelow: 60
+		DamageCooldown: 325
+		RequiresCondition: rank-veteran == 1
+	ChangesHealth@Level2:
+		Step: 0
+		PercentageStep: 3
+		Delay: 300
+		StartIfBelow: 75
+		DamageCooldown: 225
+		RequiresCondition: rank-veteran == 2
+	ChangesHealth@Level3:
+		Step: 0
+		PercentageStep: 4
+		Delay: 200
+		StartIfBelow: 90
+		DamageCooldown: 125
+		RequiresCondition: rank-veteran == 3
 
-############################################################################################
-###################################### Faction #############################################
-############################################################################################
+^HeroInfantry:
+	Inherits@1: ^ExistsInWorld
+	Inherits@2: ^Heroexp
+	Inherits@4: ^SpriteActor
+	Inherits@bounty: ^GlobalBounty
+	Inherits@selection: ^SelectableCombatUnit
+	Inherits@handicaps: ^PlayerHandicaps
+	OwnerLostAction:
+		Action: Kill
+		DeathTypes: DefaultDeath
+	Health:
+		HP: 2500
+	Armor:
+		Type: None
+	RevealsShroud:
+		Range: 4c0
+	Mobile:
+		Speed: 54
+		AlwaysTurnInPlace: true
+		Locomotor: foot
+	Selectable:
+		Bounds: 768, 853, 0, -256
+		DecorationBounds: 512, 768, 0, -341
+	Targetable:
+		TargetTypes: GroundActor, Infantry, Disguise, Hero
+	Targetable@HEAL:
+		RequiresCondition: !parachute && damaged
+		TargetTypes: Heal
+	GrantConditionOnDamageState@DAMAGED:
+		Condition: damaged
+		ValidDamageStates: Light, Medium, Heavy, Critical
+	QuantizeFacingsFromSequence:
+		Sequence: stand
+	WithInfantryBody:
+	WithDeathAnimation:
+		DeathTypes:
+			DefaultDeath: 1
+			BulletDeath: 2
+			SmallExplosionDeath: 3
+			ExplosionDeath: 4
+			FireDeath: 5
+			ElectricityDeath: 6
+		CrushedSequence: die-crushed
+	AttackMove:
+	GainsExperienceMultiplier:
+		Modifier: 0
+		RequiresCondition: disable-experience
+	HiddenUnderFog:
+	ActorLostNotification:
+		TextNotification: Hero lost.
+	GpsDot:
+		String: Biohazard
+	Guard:
+	Guardable:
+	Tooltip:
+		GenericName: Hero Unit (Base Tooltip)
+	ChangesHealth@HOSPITAL:
+		Step: 500
+		Delay: 100
+		StartIfBelow: 100
+		DamageCooldown: 125
+		RequiresCondition: hospitalheal
+	GrantConditionOnPrerequisite@HOSPITAL:
+		Condition: hospital
+		Prerequisites: hosp
+	GrantConditionOnDamageState@HOSPITAL:
+		Condition: damaged
+		ValidDamageStates: Light, Medium, Heavy, Critical
+	GrantCondition@HOSPITAL:
+		RequiresCondition: hospital && damaged
+		Condition: hospitalheal
+	WithDecoration@REDCROSS:
+		Image: pips
+		Sequence: medic
+		Position: BottomRight
+		Margin: 17, 4
+		RequiresCondition: hospitalheal
+		BlinkInterval: 32
+		BlinkPattern: Off, On
+	DeathSounds@NORMAL:
+		DeathTypes: DefaultDeath, BulletDeath, SmallExplosionDeath, ExplosionDeath
+	DeathSounds@BURNED:
+		Voice: Burned
+		DeathTypes: FireDeath
+	DeathSounds@ZAPPED:
+		Voice: Zapped
+		DeathTypes: ElectricityDeath
+	Voiced:
+		VoiceSet: GenericVoice
+	HitShape:
+		Type: Circle
+			Radius: 128
+	MapEditorData:
+		Categories: Infantry
+	DetectCloaked:
+		DetectionTypes: Cloak
+		Range: 3c0
 
-
-#### This enables the hero's based on what faction your playing
-#### Converts faction condition to a prereq and saves. (Goes on upgrade actor).
-^herofactionconditions:
-  GrantConditionOnFaction@heroallies:
-    Condition: enableheroallies
-    Factions: allies
-    RequiresCondition: menuheroenabled
-  GrantConditionOnFaction@herosoviet:
-    Condition: enableherosoviet
-    Factions: soviet
-    RequiresCondition: menuheroenabled
-  GrantConditionOnFaction@herogdi:
-    Condition: enableherogdi
-    Factions: gdi
-    RequiresCondition: menuheroenabled
-  GrantConditionOnFaction@heronod:
-    Condition: enableheronod
-    Factions: nod
-    RequiresCondition: menuheroenabled
-  GrantConditionOnFaction@herofed:
-    Condition: enableherofed
-    Factions: fed
-    RequiresCondition: menuheroenabled
-  GrantConditionOnFaction@herouac:
-    Condition: enableherouac
-    Factions: uac
-    RequiresCondition: menuheroenabled
-  GrantConditionOnFaction@heronazi:
-    Condition: enableheronazi
-    Factions: nazi
-    RequiresCondition: menuheroenabled
-  GrantConditionOnFaction@herogla:
-    Condition: enableherogla
-    Factions: gla
-    RequiresCondition: menuheroenabled
-  GrantConditionOnFaction@heromedi:
-    Condition: enableheromedi
-    Factions: medi
-    RequiresCondition: menuheroenabled
-  GrantConditionOnFaction@heroprotoss:
-    Condition: enableheroprotoss
-    Factions: protoss
-    RequiresCondition: menuheroenabled
-  GrantConditionOnFaction@herozerg:
-    Condition: enableherozerg
-    Factions: zerg
-    RequiresCondition: menuheroenabled
-  GrantConditionOnFaction@heroterran:
-    Condition: enableheroterran
-    Factions: terran
-    RequiresCondition: menuheroenabled
-  GrantConditionOnFaction@herousa:
-    Condition: enableherousa
-    Factions: usa
-    RequiresCondition: menuheroenabled
-  GrantConditionOnFaction@herochina:
-    Condition: enableherochina
-    Factions: china
-    RequiresCondition: menuheroenabled
-  GrantConditionOnFaction@herociv:
-    Condition: enableherociv
-    Factions: civ
-    RequiresCondition: menuheroenabled
-  ProvidesPrerequisite@heroallies:
-    Prerequisite: enableheroallies
-    RequiresCondition: enableheroallies
-  ProvidesPrerequisite@herosoviet:
-    Prerequisite: enableherosoviet
-    RequiresCondition: enableherosoviet
-  ProvidesPrerequisite@herogdi:
-    Prerequisite: enableherogdi
-    RequiresCondition: enableherogdi
-  ProvidesPrerequisite@heronod:
-    Prerequisite: enableheronod
-    RequiresCondition: enableheronod
-  ProvidesPrerequisite@herofed:
-    Prerequisite: enableherofed
-    RequiresCondition: enableherofed
-  ProvidesPrerequisite@herouac:
-    Prerequisite: enableherouac
-    RequiresCondition: enableherouac
-  ProvidesPrerequisite@heronazi:
-    Prerequisite: enableheronazi
-    RequiresCondition: enableheronazi
-  ProvidesPrerequisite@herogla:
-    Prerequisite: enableherogla
-    RequiresCondition: enableherogla
-  ProvidesPrerequisite@heromedi:
-    Prerequisite: enableheromedi
-    RequiresCondition: enableheromedi
-  ProvidesPrerequisite@heroprotoss:
-    Prerequisite: enableheroprotoss
-    RequiresCondition: enableheroprotoss
-  ProvidesPrerequisite@herozerg:
-    Prerequisite: enableherozerg
-    RequiresCondition: enableherozerg
-  ProvidesPrerequisite@heroterran:
-    Prerequisite: enableheroterran
-    RequiresCondition: enableheroterran
-  ProvidesPrerequisite@herousa:
-    Prerequisite: enableherousa
-    RequiresCondition: enableherousa
-  ProvidesPrerequisite@herochina:
-    Prerequisite: enableherochina
-    RequiresCondition: enableherochina
-  ProvidesPrerequisite@herociv:
-    Prerequisite: enableherociv
-    RequiresCondition: enableherociv
-  ProvidesPrerequisite@heroall:
-    Prerequisite: enableheroall
-    RequiresCondition: enableherociv || enableherochina || enableherousa || enableheroterran || enableherozerg || enableheroprotoss || enableheromedi || enableherogla || enableheronazi || enableherouac || enableherofed || enableheronod || enableherogdi || enableherosoviet || enableheroallies
-
-
-############################################################################################
-####################################### Upgrades ###########################################
-############################################################################################
-
-#### provide upgrades prereq and lock them on buying. 
-###(put this code on upgrade actor for saving)
-#### this locks the tier will have another batch of code for what upgrade to go with, (will add new building for building these.)
-#### code for picking what upgrade will go in Shared and Faction files.
-^heroupgradeshandler:  ## Might rework this depending how the upgrades work out.
-  GrantConditionOnProduction@heroupgradecounter:
-    Condition: heroupgradecounter
-    Actors: heroupgrades
-  ProvidesPrerequisite@upgrade01chosen:
-    Prerequisite: upgrade01chosen
-    RequiresCondition: heroupgradecounter >= 1
-  ProvidesPrerequisite@upgrade02chosen:
-    Prerequisite: upgrade02chosen
-    RequiresCondition: heroupgradecounter >= 2
-  ProvidesPrerequisite@upgrade03chosen:
-    Prerequisite: upgrade03chosen
-    RequiresCondition: heroupgradecounter >= 3
-  ProvidesPrerequisite@upgrade04chosen:
-    Prerequisite: upgrade04chosen
-    RequiresCondition: heroupgradecounter >= 4
-  ProvidesPrerequisite@upgrade05chosen:
-    Prerequisite: upgrade05chosen
-    RequiresCondition: heroupgradecounter >= 5
-  ProvidesPrerequisite@upgrade06chosen:
-    Prerequisite: upgrade06chosen
-    RequiresCondition: heroupgradecounter >= 6
-  ProvidesPrerequisite@upgrade07chosen:
-    Prerequisite: upgrade07chosen
-    RequiresCondition: heroupgradecounter >= 7
-  ProvidesPrerequisite@upgrade08chosen:
-    Prerequisite: upgrade08chosen
-    RequiresCondition: heroupgradecounter >= 8
-  ProvidesPrerequisite@upgrade09chosen:
-    Prerequisite: upgrade09chosen
-    RequiresCondition: heroupgradecounter >= 9
-  ProvidesPrerequisite@upgrade10chosen:
-    Prerequisite: upgrade10chosen
-    RequiresCondition: heroupgradecounter >= 10
-
-
-############################################################################################
-###################################### Tiers ###############################################
-############################################################################################
-
-### Takes and saves what tier your at for hero (goes on upgrade)
-^heroclasstiers:
-  GrantConditionOnPrerequisite@herotier1:
-    Condition: herotierstored1
-    Prerequisites: herotier1
-  GrantConditionOnPrerequisite@herotier2:
-    Condition: herotierstored2
-    Prerequisites: herotier2
-  GrantConditionOnPrerequisite@herotier3:
-    Condition: herotierstored3
-    Prerequisites: herotier3
-  GrantConditionOnPrerequisite@herotier4:
-    Condition: herotierstored4
-    Prerequisites: herotier4
-  GrantConditionOnPrerequisite@herotier5:
-    Condition: herotierstored5
-    Prerequisites: herotier5
-  ProvidesPrerequisite@herotier1:
-    Prerequisite: herotier1
-    GrantPermanently: true
-    RequiresCondition: herotierstored1
-  ProvidesPrerequisite@herotier2:
-    Prerequisite: herotier2
-    GrantPermanently: true
-    RequiresCondition: herotierstored2
-  ProvidesPrerequisite@herotier3:
-    Prerequisite: herotier3
-    GrantPermanently: true
-    RequiresCondition: herotierstored3
-  ProvidesPrerequisite@herotier4:
-    Prerequisite: herotier4
-    GrantPermanently: true
-    RequiresCondition: herotierstored4
-  ProvidesPrerequisite@herotier5:
-    Prerequisite: herotier5
-    GrantPermanently: true
-    RequiresCondition: herotierstored5
-  GrantCondition@herotierstored1:
-    Condition: herotierstored1
-    GrantPermanently: True
-    RequiresCondition: herotierstored1
-  GrantCondition@herotierstored2:
-    Condition: herotierstored2
-    GrantPermanently: True
-    RequiresCondition: herotierstored2
-  GrantCondition@herotierstored3:
-    Condition: herotierstored3
-    GrantPermanently: True
-    RequiresCondition: herotierstored3
-  GrantCondition@herotierstored4:
-    Condition: herotierstored4
-    GrantPermanently: True
-    RequiresCondition: herotierstored4
-  GrantCondition@herotierstored5:
-    Condition: herotierstored5
-    GrantPermanently: True
-    RequiresCondition: herotierstored5
-
-
-#### Saves Hero Tier. Does nothing just for reference.
-#    ^heroproducewithtier:
-  #    ProvidesPrerequisite@herotier1:
-    #    Prerequisite: herotier1
-    #    GrantPermanently: true
-    #    RequiresCondition: herotier1
-  #    ProvidesPrerequisite@herotier2:
-    #    Prerequisite: herotier2
-    #    GrantPermanently: true
-    #    RequiresCondition: herotier2
-  #    ProvidesPrerequisite@herotier3:
-    #    Prerequisite: herotier3
-    #    GrantPermanently: true
-    #    RequiresCondition: herotier3
-  #    ProvidesPrerequisite@herotier4:
-    #    Prerequisite: herotier4
-    #    GrantPermanently: true
-    #    RequiresCondition: herotier4
-  #    ProvidesPrerequisite@herotier5:
-    #    Prerequisite: herotier5
-    #    GrantPermanently: true
-    #    RequiresCondition: herotier5
-
-
-#### (will need to be made into a dummy actor in world potentialy just kill this after produce)
-^heroexampleblank1:
-  Buildable:
-    Queue: heroclasspick
-    BuildLimit: 1
-    Prerequisites: ~!heroclasspicked && ~heroclasspicked
-    Description: Hero class 1 (change this)
-	Valued:
-		Cost: 1000
+    
+	Inherits@DarkWizBoosted: ^DarkWizBoosted
+	Inherits@RotElementHit: ^RotElementHit
+	Inherits@corrode: ^CorrodesFromTibWeaps
+	Inherits@pallyboost: ^Pallyboosted
+	Inherits@Monumentboost: ^Monumentboosted
+	Inherits@HolyBoostedHolyOnly: ^HolyBoostedHolyOnly
+	Inherits@TotemBoost: ^TotemAffected
+	Inherits@aeiou: ^AEIOUBoosted
+	Inherits@ShieldHero: ^HolySuperBoosted
+	Inherits@CurseCondition: ^CurseDebuff
+	Inherits@gps: ^GPSScramblable
+	Inherits@advancedtraining: ^advancedtraining
+	Inherits@usabombardment: ^usabombardment
+	Inherits@usasearchanddestroy: ^usasearchanddestroy
+	Inherits@usahold_the_line: ^usaholdtheline
+	Inherits@frenzyboost: ^FrenzyBoostInfantry
+	Inherits@propagandaboost: ^propagandaboostinfantry
+	OwnerLostAction:
+		Action: ChangeOwner
+		Owner: Creeps
+	Crushable:
+		RequiresCondition: !HolySuperBoosted
+	RevealOnFire:
+	GrantConditionOnPrerequisite@iar1:
+		Prerequisites: upgrade.infarmor1
+		Condition: iar1
+	GrantConditionOnPrerequisite@iar2:
+		Prerequisites: upgrade.infarmor2
+		Condition: iar2
+	GrantConditionOnPrerequisite@iar3:
+		Prerequisites: upgrade.infarmor3
+		Condition: iar3
+	GrantConditionOnPrerequisite@ifp1:
+		Prerequisites: upgrade.inffirepower1
+		Condition: ifp1
+	GrantConditionOnPrerequisite@ifp2:
+		Prerequisites: upgrade.inffirepower2
+		Condition: ifp2
+	GrantConditionOnPrerequisite@ifp3:
+		Prerequisites: upgrade.inffirepower3
+		Condition: ifp3
+	DamageMultiplier@iar1:
+		RequiresCondition: iar1 && (!iar2 && !corrode && !defiler_plague)
+		Modifier: 85
+	DamageMultiplier@iar2:
+		RequiresCondition: iar2 && (!iar3 && !corrode && !defiler_plague)
+		Modifier: 70
+	DamageMultiplier@iar3:
+		RequiresCondition: iar3 && (!corrode && !defiler_plague)
+		Modifier: 55
+	FirepowerMultiplier@ifp1:
+		RequiresCondition: ifp1 && !ifp2
+		Modifier: 115
+	FirepowerMultiplier@ifp2:
+		RequiresCondition: ifp2 && !ifp3
+		Modifier: 130
+	FirepowerMultiplier@ifp3:
+		RequiresCondition: ifp3
+		Modifier: 145
+	Targetable@parachute:
+		RequiresCondition: parachute
+		TargetTypes: AirborneActor
+	DamageMultiplier@parachute:
+		RequiresCondition: parachute
+		Modifier: 500
+	ExternalCondition@squadboost:
+		Condition: squadboost
+	SpeedMultiplier@squadboost:
+		RequiresCondition: squadboost
+		Modifier: 110
+	ReloadDelayMultiplier@squadboost:
+		RequiresCondition: squadboost
+		Modifier: 85
+	ExternalCondition@hospitalhealciv:
+		Condition: hospitalhealciv
+	ChangesHealth@HOSPITALCIV:
+		Step: 500
+		Delay: 100
+		StartIfBelow: 100
+		DamageCooldown: 125
+		RequiresCondition: hospitalhealciv
+	ExternalCondition@flagboost:
+		Condition: flagboost
+	FirepowerMultiplier@flagfirepowerboost:
+		RequiresCondition: flagboost
+		Modifier: 130
+	InaccuracyMultiplier@flagaccuracyboost:
+		RequiresCondition: flagboost
+		Modifier: 50
+	ExternalCondition@bioboost:
+		Condition: bioboost
+	SpeedMultiplier@biospeedboost:
+		RequiresCondition: bioboost
+		Modifier: 140
+	ReloadDelayMultiplier@bioreloadboost:
+		RequiresCondition: bioboost
+		Modifier: 75
+	DamageMultiplier@biodefenseboost:
+		RequiresCondition: bioboost
+		Modifier: 75
+	ChangesHealth@TotemDebuf:
+		RequiresCondition: TotemDebuf
+		PercentageStep: -2
+		Delay: 25
+		StartIfBelow: 101
+		DamageCooldown: 0
+	ChangesHealth@aeiouboost:
+		RequiresCondition: aeiouboost
+		PercentageStep: 3
+		Delay: 25
+		StartIfBelow: 90
+		DamageCooldown: 50
+	ChangesHealth@HolySuperBoosted:
+		RequiresCondition: HolySuperBoosted
+		PercentageStep: 3
+		Delay: 75
+		StartIfBelow: 90
+		DamageCooldown: 150
+	ChangesHealth@Monumentboost:
+		RequiresCondition: Monumentboost
+		PercentageStep: 1
+		Delay: 40
+		StartIfBelow: 100
+		DamageCooldown: 40
+	ExternalCondition@demoralise:
+		Condition: demoralise
+	SpeedMultiplier@demoralise:
+		RequiresCondition: demoralise
+		Modifier: 90
+	ReloadDelayMultiplier@demoralise:
+		RequiresCondition: demoralise
+		Modifier: 115
+	WithDecoration@demoralise:
+		Image: pips
+		Sequence: pip-minus
+		Palette: effect
+		Position: TopRight
+		ValidRelationships: None,Neutral,Enemy,Ally
+		RequiresCondition: demoralise && !squadboost
+	DeathSounds@NORMAL:
+		DeathTypes: DefaultDeath, BulletDeath, SmallExplosionDeath, ExplosionDeath, SpawnCubeDeath
+	DeathSounds@BURNED:
+		Voice: Burned
+		DeathTypes: FireDeath, TiberiumDeath
+	DeathSounds@ZAPPED:
+		Voice: Die
+		DeathTypes: ElectricityDeath
+	Explodes@elec:
+		Weapon: Electro
+		EmptyWeapon: Electro
+		DeathTypes: ElectricityDeath
+	Explodes@tiberium:
+		Weapon: TSInfExplode
+		EmptyWeapon: TSInfExplode
+		DeathTypes: TiberiumDeath, SpawnCubeDeath
+	Explodes@fire:
+		Weapon: InfFireball
+		EmptyWeapon: InfFireball
+		DeathTypes: FireDeath
+	Explodes@GraveyardSpawnerDeath:
+		Weapon: GraveyardSpawnerDeath
+		EmptyWeapon: GraveyardSpawnerDeath
+	ChangesHealth@tiberium:
+		RequiresCondition: standing_in_tiberium
+		DamageTypes: TiberiumDeath
+		Step: -200
+		Delay: 16
+		StartIfBelow: 101
+	GrantConditionOnTerrain@tiberium:
+		Condition: standing_in_tiberium
+		TerrainTypes: Tiberium, BlueTiberium
+	ChangesHealth@radiation:
+		RequiresCondition: standing_in_radiation && !gdi_suits
+		DamageTypes: FireDeath, TriggerProne
+		Step: -200
+		Delay: 8
+		StartIfBelow: 101
+	GrantConditionOnTerrain@radiation:
+		Condition: standing_in_radiation
+		TerrainTypes: Radiation
+	SpawnActorOnDeath@tiberium:
+		Actor: vice
+		Probability: 5
+		OwnerType: InternalName
+		InternalOwner: Creeps
+		DeathType: TiberiumDeath
+		RequiresLobbyCreeps: true
+	SpawnActorOnDeath@cube:
+		Probability: 15
+		Actor: helld6
+		OwnerType: Killer
+		DeathType: SpawnCubeDeath
+		RequiresLobbyCreeps: false
+	SpawnActorOnDeath@fire:
+		Actor: flameguy
+		DeathType: FireDeath
+	SpawnActorOnDeath@zombie:
+		Actor: Zombie
+		OwnerType: Killer
+		DeathType: ZombieDeath
+	SpawnActorOnDeath@Darkwiz:
+		RequiresCondition: DarkWizAura
+		Probability: 30
+		Actor: MediZombie
+	SpawnActorOnDeath@RotElement:
+		RequiresCondition: RotElementHitCon
+		Actor: RotElement
+		OwnerType: Killer
+		DeathType: ElementalDeath
+	WithDeathAnimation:
+		DeathTypes:
+			DefaultDeath: 1
+			BulletDeath: 2
+			SmallExplosionDeath: 3
+			ExplosionDeath: 4
+			-FireDeath:
+			ElectricityDeath: 6
+		CrushedSequence: die-crushed
 	UpdatesPlayerStatistics:
-		AddToArmyValue: false
-  OwnerLostAction: 
-    Action: Dispose
-
-
-
-
-
-
-
-
-#Level ups done on upgrade actor and hero.
-#Hero Enable for menu partialy done. still need to add menu items
-
-#Class picking started
-#upgrade picking started
-#Hero replace not done.
+		AddToArmyValue: true
+	TurnOnIdle:
+	DetectCloaked@GPS:
+		Range: 1c512
+		DetectionTypes: gpsscrambler
+	TemporaryOwnerManager:
+	DetectCloaked@AssasinDark:
+		DetectionTypes: DarkAssasin
+		Range: 3
+	GainsExperienceMultiplier:
+		Modifier: 25
+		RequiresCondition: disable-experience

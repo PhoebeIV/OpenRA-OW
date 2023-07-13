@@ -330,18 +330,9 @@ UpgradeHandler:
 	Production@5:
 		Produces: Upgrade
 		RequiresCondition: conyard && upgradelevel >= 5
-	Production@hero:
-		Produces: heroupgrades
-		RequiresCondition: enableheroallcon
-	Production@herotier:
-		Produces: herotierupgrades
-		RequiresCondition: enableheroallcon
 	GrantConditionOnPrerequisite@conyard:
 		Condition: conyard
 		Prerequisites: conyard
-	GrantConditionOnPrerequisite@enableheroall:
-		Condition: enableheroallcon
-		Prerequisites: enableheroall
 	ExternalCondition@upgrade:
 		Condition: upgradelevel
 	GrantConditionOnProduction@busy:
@@ -417,25 +408,6 @@ UpgradeHandlerBot:
 		Cost: 20
 	UpdatesPlayerStatistics:
 
-^HeroUpgradeBase:
-	Inherits: ^UpgradeBase
-	Buildable:
-		Queue: heroupgrades
-		BuildLimit: 1
-		BuildDurationModifier: 100
-		BuildDuration: 5
-	Valued:
-		Cost: 20
-
-^HerotierBase:
-	Inherits: ^UpgradeBase
-	Buildable:
-		Queue: herotierupgrades
-		BuildLimit: 1
-		BuildDurationModifier: 100
-		BuildDuration: 5
-	Valued:
-		Cost: 20
 
 #use for the non-standard stat upgrades ie. medieval elemental weapons
 ^UpgradeBaseExt:
