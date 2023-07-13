@@ -122,9 +122,18 @@ USAHUMVEE:
 		Voice: Move
 	Armament:
 		Weapon: DawnM60mg
+		PauseOnCondition: upgradelasergeneral
 	Armament@Secondary:
 		Weapon: Dragon
 		FireDelay: 5
+		PauseOnCondition: upgradelasergeneral
+	Armament@LaserGeneral1:
+		Weapon: usalaserdragon
+		FireDelay: 5
+		RequiresCondition: upgradelasergeneral
+	Armament@LaserGeneral2:
+		Weapon: USARangerLaser
+		RequiresCondition: upgradelasergeneral
 	Cargo:
 		Types: Infantry
 		MaxWeight: 5
@@ -137,6 +146,15 @@ USAHUMVEE:
 		Image: usahumvee
 	Voiced:
 		VoiceSet: HumveeVoice
+    GrantConditionOnPrerequisite@lasergeneral:
+        Condition: upgradelasergeneral
+        Prerequisites: faction.lasergeneral
+	ReloadDelayMultiplier@chargedlasers:
+		Modifier: 80
+		RequiresCondition: upgradechargedlasers
+    GrantConditionOnPrerequisite@chargedlasers:
+        Condition: upgradechargedlasers
+        Prerequisites: upgrade.chargedlasers
         
 USAAMBULANCE:
 	Inherits: JEEP
@@ -279,6 +297,11 @@ USASENTRYDRONE:
 		Weapon: M1Carbine_G2
 		LocalOffset: -128, -170, 170, -128, 170, 170
 		MuzzleSequence: muzzle
+		PauseOnCondition: upgradelasergeneral
+	Armament@LaserGeneral:
+		Weapon: USARangerLaser
+		FireDelay: 5
+		RequiresCondition: upgradelasergeneral
 	WithMuzzleOverlay:
 	Cloak:
 		InitialDelay: 100
@@ -301,6 +324,15 @@ USASENTRYDRONE:
 		Image: usasentrydrone
 	Voiced:
 		VoiceSet: SentryDroneVoice
+    GrantConditionOnPrerequisite@1:
+        Condition: upgradelasergeneral
+        Prerequisites: faction.lasergeneral
+	ReloadDelayMultiplier@chargedlasers:
+		Modifier: 80
+		RequiresCondition: upgradechargedlasers
+    GrantConditionOnPrerequisite@chargedlasers:
+        Condition: upgradechargedlasers
+        Prerequisites: upgrade.chargedlasers
         
 USAAVENGER:
 	Inherits: JEEP
@@ -337,6 +369,13 @@ USAAVENGER:
 	ProductionTimeMultiplier@lasergeneral:
 		Multiplier: 80
 		Prerequisites: faction.lasergeneral
+	ReloadDelayMultiplier@chargedlasers:
+		Modifier: 80
+		RequiresCondition: upgradechargedlasers
+    GrantConditionOnPrerequisite@chargedlasers:
+        Condition: upgradechargedlasers
+        Prerequisites: upgrade.chargedlasers
+
 
 USAMICROWAVE:
 	Inherits: 2TNK
@@ -415,6 +454,12 @@ USALASERCRUSADER:
 	ProductionTimeMultiplier@lasergeneral:
 		Multiplier: 80
 		Prerequisites: faction.lasergeneral
+	ReloadDelayMultiplier@chargedlasers:
+		Modifier: 80
+		RequiresCondition: upgradechargedlasers
+    GrantConditionOnPrerequisite@chargedlasers:
+        Condition: upgradechargedlasers
+        Prerequisites: upgrade.chargedlasers
 
 usarailgun:
 	Inherits: ^TrackedVehicle
@@ -527,3 +572,90 @@ usarailgun:
 		DecorationBounds: 1877, 1621, 0, -170
 	RenderSprites:
 		Image: usarailgun
+
+usadisrupter:
+	Inherits: 2TNK
+	Inherits@EPIC: ^EpicUnit
+	Inherits@EPIC2: ^EpicVehicle
+	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
+	Buildable:
+		BuildPaletteOrder: 2500
+		Prerequisites: ~vehicles.usa, ulttechcenter, ~faction.lasergeneral, ~!faction.superweaponsgeneral, ~!faction.aircraftgeneral
+		Description: General Townes personal project. The ultimate laser equipped tank.\nSpeed: 85\n  Strong vs Vehicles\n  Weak vs Infantry, Aircraft
+	Valued:
+		Cost: 20000
+	Tooltip:
+		Name: Disrupter
+	Health:
+		HP: 350000
+	Armor:
+		Type: Heavy
+	Mobile:
+		Speed: 85
+		Voice: Move
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Guard:
+		Voice: Move
+	Passenger:
+		Voice: Move
+	Turreted:
+		TurnSpeed: 32
+	-Armament:
+	Armament:
+		Weapon: DisrupterLaser
+		LocalOffset: 600,0,250
+	GrantConditionOnAttack@disrupter:
+		Condition: disrupter
+		RequiredShotsPerInstance: 4
+		MaximumInstances: 10
+		RevokeDelay: 40
+		RevokeAll: true
+		IsCyclic: false
+	ReloadDelayMultiplier@disrupter1:
+		RequiresCondition: disrupter >= 1
+		Modifier: 75
+	ReloadDelayMultiplier@disrupter2:
+		RequiresCondition: disrupter >= 2
+		Modifier: 75
+	ReloadDelayMultiplier@disrupter3:
+		RequiresCondition: disrupter >= 3
+		Modifier: 75
+	ReloadDelayMultiplier@disrupter4:
+		RequiresCondition: disrupter >= 4
+		Modifier: 75
+	ReloadDelayMultiplier@disrupter5:
+		RequiresCondition: disrupter >= 6
+		Modifier: 75
+	ReloadDelayMultiplier@disrupter6:
+		RequiresCondition: disrupter >= 8
+		Modifier: 60
+	InaccuracyMultiplier@disrupter6:
+		RequiresCondition: disrupter >= 8
+		Modifier: 150
+	ReloadDelayMultiplier@disrupter7:
+		RequiresCondition: disrupter >= 10
+		Modifier: 60
+	InaccuracyMultiplier@disrupter7:
+		RequiresCondition: disrupter >= 10
+		Modifier: 200
+	FirepowerMultiplier@disrupter7:
+		RequiresCondition: disrupter >= 10
+		Modifier: 75
+	Explodes:
+		Weapon: CrateNuke
+		EmptyWeapon: CrateNuke
+	ShakeOnDeath:
+	ChangesHealth:
+		Step: 500
+		Delay: 25
+		StartIfBelow: 50
+		DamageCooldown: 200
+	SelectionDecorations:
+	RenderSprites:
+		Image: usadisrupter
+	Voiced:
+		VoiceSet: CCEMVoice
+	WithIdleOverlay@SPINNER:
+		Sequence: spinner
+		Offset: -500,0,500

@@ -70,12 +70,17 @@ USARANGER:
 		DecorationBounds: 640, 896, 0, -426
 	RenderSprites:
 		Image: usaranger
-    GrantConditionOnPrerequisite@1:
+    GrantConditionOnPrerequisite@lasergeneral:
         Condition: upgradelasergeneral
         Prerequisites: upgrade.lasergeneral
 	Voiced:
 		VoiceSet: RangerVoice
-
+	ReloadDelayMultiplier@chargedlasers:
+		Modifier: 80
+		RequiresCondition: upgradechargedlasers
+    GrantConditionOnPrerequisite@chargedlasers:
+        Condition: upgradechargedlasers
+        Prerequisites: upgrade.chargedlasers
 
 USADEFENDER:
 	Inherits: ^Soldier
@@ -163,11 +168,17 @@ USADEFENDER:
 		DecorationBounds: 640, 896, 0, -426
 	RenderSprites:
 		Image: usadefender
-    GrantConditionOnPrerequisite@1:
+    GrantConditionOnPrerequisite@lasergeneral:
         Condition: upgradelasergeneral
         Prerequisites: upgrade.lasergeneral
 	Voiced:
 		VoiceSet: MissileDefenderVoice
+	ReloadDelayMultiplier@chargedlasers:
+		Modifier: 80
+		RequiresCondition: upgradechargedlasers
+    GrantConditionOnPrerequisite@chargedlasers:
+        Condition: upgradechargedlasers
+        Prerequisites: upgrade.chargedlasers
         
 USAPATHFINDER:
 	Inherits: ^Soldier
@@ -253,11 +264,17 @@ USAPATHFINDER:
 		ValidDamageStates: Critical
 	RenderSprites:
 		Image: usapathfinder
-    GrantConditionOnPrerequisite@1:
+    GrantConditionOnPrerequisite@lasergeneral:
         Condition: upgradelasergeneral
         Prerequisites: upgrade.lasergeneral
 	Voiced:
 		VoiceSet: PathfinderVoice
+	ReloadDelayMultiplier@chargedlasers:
+		Modifier: 80
+		RequiresCondition: upgradechargedlasers
+    GrantConditionOnPrerequisite@chargedlasers:
+        Condition: upgradechargedlasers
+        Prerequisites: upgrade.chargedlasers
         
 USABurton:
 	Inherits: ^Soldier
@@ -292,14 +309,31 @@ USABurton:
 		Voice: Move
 	Armament@PRIMARY:
 		Weapon: burtonshot
+		PauseOnCondition: upgradelasergeneral
 	Armament@GARRISONED:
 		Name: garrisoned
 		Weapon: burtonshotgarrison
 		MuzzleSequence: garrison-muzzle
+		PauseOnCondition: upgradelasergeneral
 	Armament@BUS:
 		Name: bus
 		Weapon: burtonshotgarrison
 		MuzzleSequence: garrison-muzzle
+		PauseOnCondition: upgradelasergeneral
+	Armament@PRIMARYUpgrade:
+		Weapon: burtonshotlaser
+		LocalOffset: 0,0,250
+		RequiresCondition: upgradelasergeneral
+	Armament@GARRISONEDUpgrade:
+		Name: garrisoned
+		Weapon: burtonshotlasergarrison
+		MuzzleSequence: garrison-muzzle
+		RequiresCondition: upgradelasergeneral
+	Armament@BUSUpgrade:
+		Name: bus
+		Weapon: burtonshotlasergarrison
+		MuzzleSequence: garrison-muzzle
+		RequiresCondition: upgradelasergeneral
 	WithInfantryBody:
 		DefaultAttackSequence: shoot
 		StandSequences: stand
@@ -321,3 +355,12 @@ USABurton:
 		RequiresCondition: !cloak-force-disabled
 	Voiced:
 		VoiceSet: BurtonVoice
+	ReloadDelayMultiplier@chargedlasers:
+		Modifier: 80
+		RequiresCondition: upgradechargedlasers
+    GrantConditionOnPrerequisite@chargedlasers:
+        Condition: upgradechargedlasers
+        Prerequisites: upgrade.chargedlasers
+    GrantConditionOnPrerequisite@lasergeneral:
+        Condition: upgradelasergeneral
+        Prerequisites: faction.lasergeneral

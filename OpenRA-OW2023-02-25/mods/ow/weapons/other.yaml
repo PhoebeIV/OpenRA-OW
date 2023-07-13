@@ -2702,6 +2702,29 @@ USALaserpatriotshotair:
         DamageTypes: Prone50Percent, TriggerProne, FireDeath
 	-Warhead@2Smu:
 
+burtonshotlaser:
+	Inherits: ^LaserWeapon
+	ReloadDelay: 6
+	Range: 5c0
+	Report: USAPaladinLasershot.aud
+	Projectile: LaserZap
+		Color: FF0000
+		Width: 32
+		Duration: 8
+	Warhead@1Dam: SpreadDamage
+		Damage: 6000
+		Versus:
+			None: 75
+			Wood: 80
+			Light: 80
+			Heavy: 40
+			Concrete: 10
+    DamageTypes: Prone50Percent, TriggerProne, FireDeath
+
+burtonshotlasergarrison:
+	Inherits: burtonshotlaser
+	Range: 6c0
+
 ZerglingAttack:
 	ReloadDelay: 12
 	Burst: 6
@@ -4061,3 +4084,29 @@ usarailgunattack:
 		Delay: 25
 		ValidTargets: Trees
 		DamageTypes: Incendiary
+
+DisrupterLaser:
+	Inherits: ^LaserWeapon
+	ReloadDelay: 35
+	Range: 7c0
+	Report: disruptershot.wav
+	Projectile: LaserZap
+		Width: 80
+		ZOffset: 2047
+		Color: FF0000
+		Inaccuracy: 128
+		InaccuracyType: PerCellIncrement
+		TrackTarget: false
+	Warhead@1Dam: SpreadDamage
+		Damage: 8000
+		Spread: 192
+		Versus:
+			None: 110
+			Wood: 60
+			Light: 60
+			Heavy: 40
+			Concrete: 30
+		DamageTypes: Prone50Percent, TriggerProne, FireDeath
+	Warhead@2Smu: LeaveSmudge
+		SmudgeType: Scorch
+		InvalidTargets: Structure, Wall, Vehicle
