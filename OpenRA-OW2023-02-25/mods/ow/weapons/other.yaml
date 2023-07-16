@@ -255,6 +255,12 @@ Heal:
 		ValidRelationships: Ally
 		ValidTargets: Heal
 		DebugOverlayColor: 00FF00
+	Warhead@cond: GrantExternalCondition
+		Condition: healed
+		Range: 1c0
+		Duration: 375
+		ValidTargets: Infantry
+		InvalidTargets: BeingHealed
 
 FHeal:
 	Inherits: Heal
@@ -3359,6 +3365,12 @@ TerranMedicHeal:
 		ValidRelationships: Ally
 		ValidTargets: Heal
 		DebugOverlayColor: 00FF00
+	Warhead@cond: GrantExternalCondition
+		Condition: healed
+		Range: 512
+		Duration: 50
+		ValidTargets: Infantry
+		InvalidTargets: BeingHealed
 
 TerranMedicHealGarrison:
 	Inherits: TerranMedicHeal
@@ -3528,13 +3540,13 @@ VesselDefenseMatrix:
 		Range: 128
 		Duration: 750
 		ValidTargets: GroundActor, AirborneActor
-		InvalidTargets: Structure, FrenzyMe
+		InvalidTargets: Structure, FrenzyMe, DefenseMatrix
 	Warhead@condition2: GrantExternalCondition
 		Condition: defense_matrix
 		Range: 128
 		Duration: 375
 		ValidTargets: FrenzyMe
-		InvalidTargets: Structure
+		InvalidTargets: Structure, DefenseMatrix
 
 VesselDefenseMatrixAI:
 	Inherits: VesselDefenseMatrix

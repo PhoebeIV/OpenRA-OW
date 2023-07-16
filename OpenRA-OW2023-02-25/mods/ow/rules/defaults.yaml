@@ -10,6 +10,7 @@
 		CloakSound: cloak5.aud
 		RequiresCondition: stealthgen && !disabled
 		UncloakOn: Attack, Unload, Infiltrate, Demolish, Damage
+		CloakedCondition: cloaked
 
 ^3x3Shape:
 	HitShape:
@@ -37,6 +38,7 @@
 		RequiresCondition: gpsscrambler && !disabled
 		UncloakOn: Attack, Unload, Infiltrate, Demolish, Damage
 		DetectionType: gpsscrambler
+		CloakedCondition: cloaked
 	ExternalCondition@arbiterstealth:
 		Condition: arbiterstealth
 	Cloak@arbiterstealth:
@@ -47,6 +49,7 @@
 		UncloakSound: tphclo01.aud
 		RequiresCondition: arbiterstealth && !disabled
 		UncloakOn: Attack, Unload, Infiltrate, Demolish
+		CloakedCondition: cloaked
 	WithColoredOverlay@ensnare:
 		RequiresCondition: queen_ensnare && !gdi_suits
 		Color: 80AA0040
@@ -681,6 +684,9 @@
 	UpdatesPlayerStatistics:
 		AddToArmyValue: true
 	TurnOnIdle:
+	DetectCloaked:
+		DetectionTypes: Cloak
+		Range: 1c512
 	DetectCloaked@GPS:
 		Range: 1c512
 		DetectionTypes: gpsscrambler
@@ -691,6 +697,20 @@
 	GainsExperienceMultiplier:
 		Modifier: 25
 		RequiresCondition: disable-experience
+	ExternalCondition@beinghealed:
+		Condition: healed
+	Targetable@beinghealed:
+		RequiresCondition: healed && !botowner
+		TargetTypes: BeingHealed
+	GrantConditionOnPrerequisite@botowner:
+		Condition: botowner
+		Prerequisites: ai.all
+	Targetable@cloaked:
+		RequiresCondition: cloaked
+		TargetTypes: NoAITarget
+	DetectCloakedMultiplier@botowner:
+		RequiresCondition: botowner
+		Modifier: 150
 
 ^Cyborg:
 	Inherits: ^Infantry
@@ -1155,6 +1175,9 @@
 	DetectCloakedMultiplier@alliesupgrade:
 		RequiresCondition: allies_training
 		Modifier: 110
+	Targetable@cloaked:
+		RequiresCondition: cloaked
+		TargetTypes: NoAITarget
 
 ^ScienceBuilding:
 	Inherits@Monumentboost: ^Monumentboosted
@@ -1346,6 +1369,9 @@
 	SpawnActorsOnSell@usa:
 		Factions: usa
 		ActorTypes: usaranger,usaranger,usaranger,usaranger,usaranger
+	Targetable@cloaked:
+		RequiresCondition: cloaked
+		TargetTypes: NoAITarget
 
 ^TrackedVehicle:
 	GrantConditionOnPrerequisite@gdi_speed:
@@ -2279,6 +2305,9 @@
 	DamageMultiplier@defmatrix:
 		RequiresCondition: defense_matrix
 		Modifier: 20
+	Targetable@defmatrix:
+		RequiresCondition: defense_matrix
+		TargetTypes: DefenseMatrix
 	GrantConditionOnAttack@ai_consideration:
 		Condition: frenziable
 		RevokeDelay: 100
@@ -2290,3 +2319,8 @@
 	Inherits: ^FrenzyBoost
 	WithIdleOverlay@patriotismboost:
 		Sequence: infantry
+
+^Crate:
+	Crate:
+		Duration: 6000
+		TerrainTypes: Clear, Rough, Road, Ore, Beach, Water, Gems, Tiberium, BlueTiberium

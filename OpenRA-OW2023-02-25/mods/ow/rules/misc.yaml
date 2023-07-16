@@ -48,6 +48,20 @@ MINE:
 		DeathTypes: gems
 		Weapon: OreMineExplosion
 		EmptyWeapon: OreMineExplosion
+	SpawnActorOnDeath@tibtree:
+		RequiresCondition: tibtree
+		Actor: SPLIT3
+		DeathType: tibtree
+	KillsSelf@tibtree:
+		Delay: 25
+		RequiresCondition: tibtree
+		DamageTypes: tibtree
+	Explodes@tibtree:
+		DeathTypes: tibtree
+		Weapon: TibTreeExplosion
+		EmptyWeapon: TibTreeExplosion
+	GrantRandomCondition@tiberium:
+		Conditions: tibtree,none,none,none,none,none,none,none,none,none,none,none,none,none,none,none
 
 GMINE:
 	HitShape:
@@ -158,7 +172,7 @@ SPLIT3:
 		PlayerPalette: dawn
 	SeedsResource:
 		ResourceType: Tiberium
-		Interval: 100
+		Interval: 65
 
 SPLIT3.CR:
 	Inherits: SPLIT3
@@ -183,7 +197,21 @@ SPLIT4:
 		PlayerPalette: dawn
 	SeedsResource:
 		ResourceType: BlueTiberium
-		Interval: 150
+		Interval: 65
+
+SPLIT4.CR:
+	Inherits: SPLIT4
+	HitShape:
+	Targetable:
+		TargetTypes: GroundActor, C4, DetonateAttack, Structure
+	Health:
+		HP: 100000
+	Armor:
+		Type: Wood
+	ShakeOnDeath:
+	Explodes:
+		Weapon: DemoTrapExplosion2
+		EmptyWeapon: DemoTrapExplosion2
 
 VICE:
 	Inherits: ^Viceroid
