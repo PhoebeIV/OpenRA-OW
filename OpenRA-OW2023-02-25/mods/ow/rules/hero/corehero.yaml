@@ -1,3 +1,7 @@
+##
+
+#Goes on Hero
+#Manages Hero Exp and level gains
 ^Heroexp:
 	GainsExperience@Hero:
 		LevelUpNotification: LevelUp
@@ -133,18 +137,33 @@
 		DamageCooldown: 125
 		RequiresCondition: rank-veteran == 3
 
+#Hero Version of the Infantry Inherit. 
+#(will merge into same file as original later with Inherits and -traits after testing)
 ^HeroInfantry:
 	Inherits@1: ^ExistsInWorld
-	Inherits@2: ^Heroexp
+	Inherits@HeroExp: ^Heroexp
+	Inherits@HLS: HeroLevelSender
 	Inherits@4: ^SpriteActor
 	Inherits@bounty: ^GlobalBounty
 	Inherits@selection: ^SelectableCombatUnit
 	Inherits@handicaps: ^PlayerHandicaps
+	Inherits@pallyboost: ^Pallyboosted
+	Inherits@Monumentboost: ^Monumentboosted
+	Inherits@HolyBoostedHolyOnly: ^HolyBoostedHolyOnly
+	Inherits@TotemBoost: ^TotemAffected
+	Inherits@aeiou: ^AEIOUBoosted
+	Inherits@ShieldHero: ^HolySuperBoosted
+	Inherits@gps: ^GPSScramblable
+	Inherits@usabombardment: ^usabombardment
+	Inherits@usasearchanddestroy: ^usasearchanddestroy
+	Inherits@usahold_the_line: ^usaholdtheline
+	Inherits@frenzyboost: ^FrenzyBoostInfantry
+	Inherits@propagandaboost: ^propagandaboostinfantry
 	OwnerLostAction:
-		Action: Kill
-		DeathTypes: DefaultDeath
+		Action: ChangeOwner
+		Owner: Creeps
 	Health:
-		HP: 2500
+		HP: 10000
 	Armor:
 		Type: None
 	RevealsShroud:
@@ -153,6 +172,7 @@
 		Speed: 54
 		AlwaysTurnInPlace: true
 		Locomotor: foot
+	RevealOnFire:
 	Selectable:
 		Bounds: 768, 853, 0, -256
 		DecorationBounds: 512, 768, 0, -341
@@ -177,9 +197,6 @@
 			ElectricityDeath: 6
 		CrushedSequence: die-crushed
 	AttackMove:
-	GainsExperienceMultiplier:
-		Modifier: 0
-		RequiresCondition: disable-experience
 	HiddenUnderFog:
 	ActorLostNotification:
 		TextNotification: Hero lost.
@@ -213,12 +230,12 @@
 		BlinkInterval: 32
 		BlinkPattern: Off, On
 	DeathSounds@NORMAL:
-		DeathTypes: DefaultDeath, BulletDeath, SmallExplosionDeath, ExplosionDeath
+		DeathTypes: DefaultDeath, BulletDeath, SmallExplosionDeath, ExplosionDeath, SpawnCubeDeath
 	DeathSounds@BURNED:
 		Voice: Burned
-		DeathTypes: FireDeath
+		DeathTypes: FireDeath, TiberiumDeath
 	DeathSounds@ZAPPED:
-		Voice: Zapped
+		Voice: Die
 		DeathTypes: ElectricityDeath
 	Voiced:
 		VoiceSet: GenericVoice
@@ -229,74 +246,7 @@
 		Categories: Infantry
 	DetectCloaked:
 		DetectionTypes: Cloak
-		Range: 3c0
-
-    
-	Inherits@DarkWizBoosted: ^DarkWizBoosted
-	Inherits@RotElementHit: ^RotElementHit
-	Inherits@corrode: ^CorrodesFromTibWeaps
-	Inherits@pallyboost: ^Pallyboosted
-	Inherits@Monumentboost: ^Monumentboosted
-	Inherits@HolyBoostedHolyOnly: ^HolyBoostedHolyOnly
-	Inherits@TotemBoost: ^TotemAffected
-	Inherits@aeiou: ^AEIOUBoosted
-	Inherits@ShieldHero: ^HolySuperBoosted
-	Inherits@CurseCondition: ^CurseDebuff
-	Inherits@gps: ^GPSScramblable
-	Inherits@advancedtraining: ^advancedtraining
-	Inherits@usabombardment: ^usabombardment
-	Inherits@usasearchanddestroy: ^usasearchanddestroy
-	Inherits@usahold_the_line: ^usaholdtheline
-	Inherits@frenzyboost: ^FrenzyBoostInfantry
-	Inherits@propagandaboost: ^propagandaboostinfantry
-	OwnerLostAction:
-		Action: ChangeOwner
-		Owner: Creeps
-	Crushable:
-		RequiresCondition: !HolySuperBoosted
-	RevealOnFire:
-	GrantConditionOnPrerequisite@iar1:
-		Prerequisites: upgrade.infarmor1
-		Condition: iar1
-	GrantConditionOnPrerequisite@iar2:
-		Prerequisites: upgrade.infarmor2
-		Condition: iar2
-	GrantConditionOnPrerequisite@iar3:
-		Prerequisites: upgrade.infarmor3
-		Condition: iar3
-	GrantConditionOnPrerequisite@ifp1:
-		Prerequisites: upgrade.inffirepower1
-		Condition: ifp1
-	GrantConditionOnPrerequisite@ifp2:
-		Prerequisites: upgrade.inffirepower2
-		Condition: ifp2
-	GrantConditionOnPrerequisite@ifp3:
-		Prerequisites: upgrade.inffirepower3
-		Condition: ifp3
-	DamageMultiplier@iar1:
-		RequiresCondition: iar1 && (!iar2 && !corrode && !defiler_plague)
-		Modifier: 85
-	DamageMultiplier@iar2:
-		RequiresCondition: iar2 && (!iar3 && !corrode && !defiler_plague)
-		Modifier: 70
-	DamageMultiplier@iar3:
-		RequiresCondition: iar3 && (!corrode && !defiler_plague)
-		Modifier: 55
-	FirepowerMultiplier@ifp1:
-		RequiresCondition: ifp1 && !ifp2
-		Modifier: 115
-	FirepowerMultiplier@ifp2:
-		RequiresCondition: ifp2 && !ifp3
-		Modifier: 130
-	FirepowerMultiplier@ifp3:
-		RequiresCondition: ifp3
-		Modifier: 145
-	Targetable@parachute:
-		RequiresCondition: parachute
-		TargetTypes: AirborneActor
-	DamageMultiplier@parachute:
-		RequiresCondition: parachute
-		Modifier: 500
+		Range: 3c0	
 	ExternalCondition@squadboost:
 		Condition: squadboost
 	SpeedMultiplier@squadboost:
@@ -371,14 +321,6 @@
 		Position: TopRight
 		ValidRelationships: None,Neutral,Enemy,Ally
 		RequiresCondition: demoralise && !squadboost
-	DeathSounds@NORMAL:
-		DeathTypes: DefaultDeath, BulletDeath, SmallExplosionDeath, ExplosionDeath, SpawnCubeDeath
-	DeathSounds@BURNED:
-		Voice: Burned
-		DeathTypes: FireDeath, TiberiumDeath
-	DeathSounds@ZAPPED:
-		Voice: Die
-		DeathTypes: ElectricityDeath
 	Explodes@elec:
 		Weapon: Electro
 		EmptyWeapon: Electro
@@ -394,31 +336,15 @@
 	Explodes@GraveyardSpawnerDeath:
 		Weapon: GraveyardSpawnerDeath
 		EmptyWeapon: GraveyardSpawnerDeath
-	ChangesHealth@tiberium:
-		RequiresCondition: standing_in_tiberium
-		DamageTypes: TiberiumDeath
-		Step: -200
-		Delay: 16
-		StartIfBelow: 101
-	GrantConditionOnTerrain@tiberium:
-		Condition: standing_in_tiberium
-		TerrainTypes: Tiberium, BlueTiberium
 	ChangesHealth@radiation:
 		RequiresCondition: standing_in_radiation && !gdi_suits
 		DamageTypes: FireDeath, TriggerProne
-		Step: -200
-		Delay: 8
+		Step: -100
+		Delay: 16
 		StartIfBelow: 101
 	GrantConditionOnTerrain@radiation:
 		Condition: standing_in_radiation
 		TerrainTypes: Radiation
-	SpawnActorOnDeath@tiberium:
-		Actor: vice
-		Probability: 5
-		OwnerType: InternalName
-		InternalOwner: Creeps
-		DeathType: TiberiumDeath
-		RequiresLobbyCreeps: true
 	SpawnActorOnDeath@cube:
 		Probability: 15
 		Actor: helld6
@@ -428,14 +354,6 @@
 	SpawnActorOnDeath@fire:
 		Actor: flameguy
 		DeathType: FireDeath
-	SpawnActorOnDeath@zombie:
-		Actor: Zombie
-		OwnerType: Killer
-		DeathType: ZombieDeath
-	SpawnActorOnDeath@Darkwiz:
-		RequiresCondition: DarkWizAura
-		Probability: 30
-		Actor: MediZombie
 	SpawnActorOnDeath@RotElement:
 		RequiresCondition: RotElementHitCon
 		Actor: RotElement
@@ -459,7 +377,408 @@
 	TemporaryOwnerManager:
 	DetectCloaked@AssasinDark:
 		DetectionTypes: DarkAssasin
-		Range: 3
-	GainsExperienceMultiplier:
-		Modifier: 25
-		RequiresCondition: disable-experience
+		Range: 6
+
+## Goes onto Hero, 
+##Turns Level ups into conditions for each Tier
+^HeroLevelSender:
+	ProvidesPrerequisite@T1LV1:
+		Prerequisite: T1LV1
+		RequiresPrerequisites: T1
+		RequiresCondition: LV1
+	ProvidesPrerequisite@T1LV2:
+		Prerequisite: T1LV2
+		RequiresPrerequisites: T1
+		RequiresCondition: LV2
+	ProvidesPrerequisite@T1LV3:
+		Prerequisite: T1LV3
+		RequiresPrerequisites: T1
+		RequiresCondition: LV3
+	ProvidesPrerequisite@T1LV4:
+		Prerequisite: T1LV4
+		RequiresPrerequisites: T1
+		RequiresCondition: LV4
+	ProvidesPrerequisite@T1LV5:
+		Prerequisite: T1LV5
+		RequiresPrerequisites: T1
+		RequiresCondition: LV5
+	ProvidesPrerequisite@T5LV1:
+		Prerequisite: T5LV1
+		RequiresPrerequisites: T5
+		RequiresCondition: LV1
+	ProvidesPrerequisite@T5LV2:
+		Prerequisite: T5LV2
+		RequiresPrerequisites: T5
+		RequiresCondition: LV2
+	ProvidesPrerequisite@T5LV3:
+		Prerequisite: T5LV3
+		RequiresPrerequisites: T5
+		RequiresCondition: LV3
+	ProvidesPrerequisite@T5LV4:
+		Prerequisite: T5LV4
+		RequiresPrerequisites: T5
+		RequiresCondition: LV4
+	ProvidesPrerequisite@T5LV5:
+		Prerequisite: T5LV5
+		RequiresPrerequisites: T5
+		RequiresCondition: LV5
+	ProvidesPrerequisite@T3LV1:
+		Prerequisite: T3LV1
+		RequiresPrerequisites: T3
+		RequiresCondition: LV1
+	ProvidesPrerequisite@T3LV2:
+		Prerequisite: T3LV2
+		RequiresPrerequisites: T3
+		RequiresCondition: LV2
+	ProvidesPrerequisite@T3LV3:
+		Prerequisite: T3LV3
+		RequiresPrerequisites: T3
+		RequiresCondition: LV3
+	ProvidesPrerequisite@T3LV4:
+		Prerequisite: T3LV4
+		RequiresPrerequisites: T3
+		RequiresCondition: LV4
+	ProvidesPrerequisite@T3LV5:
+		Prerequisite: T3LV5
+		RequiresPrerequisites: T3
+		RequiresCondition: LV5
+	ProvidesPrerequisite@T4LV1:
+		Prerequisite: T4LV1
+		RequiresPrerequisites: T4
+		RequiresCondition: LV1
+	ProvidesPrerequisite@T4LV2:
+		Prerequisite: T4LV2
+		RequiresPrerequisites: T4
+		RequiresCondition: LV2
+	ProvidesPrerequisite@T4LV3:
+		Prerequisite: T4LV3
+		RequiresPrerequisites: T4
+		RequiresCondition: LV3
+	ProvidesPrerequisite@T4LV4:
+		Prerequisite: T4LV4
+		RequiresPrerequisites: T4
+		RequiresCondition: LV4
+	ProvidesPrerequisite@T4LV5:
+		Prerequisite: T4LV5
+		RequiresPrerequisites: T4
+		RequiresCondition: LV5
+	ProvidesPrerequisite@T5LV1:
+		Prerequisite: T5LV1
+		RequiresPrerequisites: T5
+		RequiresCondition: LV1
+	ProvidesPrerequisite@T5LV2:
+		Prerequisite: T5LV2
+		RequiresPrerequisites: T5
+		RequiresCondition: LV2
+	ProvidesPrerequisite@T5LV3:
+		Prerequisite: T5LV3
+		RequiresPrerequisites: T5
+		RequiresCondition: LV3
+	ProvidesPrerequisite@T5LV4:
+		Prerequisite: T5LV4
+		RequiresPrerequisites: T5
+		RequiresCondition: LV4
+	ProvidesPrerequisite@T5LV5:
+		Prerequisite: T5LV5
+		RequiresPrerequisites: T5
+		RequiresCondition: LV5
+
+#Goes on upgrades Holds Tiers and Levels
+^HeroLvLHolder:
+	#Provides Tier Prerequisites (Tier1 condition = T1 Prereq)
+	ProvidesPrerequisite@Tier1:
+		Prerequisite: T1
+		RequiresCondition: Tier1
+	ProvidesPrerequisite@Tier2:
+		Prerequisite: T2
+		RequiresCondition: Tier2
+	ProvidesPrerequisite@Tier3:
+		Prerequisite: T3
+		RequiresCondition: Tier3
+	ProvidesPrerequisite@Tier4:
+		Prerequisite: T4
+		RequiresCondition: Tier4
+	ProvidesPrerequisite@Tier5:
+		Prerequisite: T5
+		RequiresCondition: Tier5
+	#Provides a prerequisite for showing that the level is stored.
+	ProvidesPrerequisite@T1L1:
+		Prerequisite: T1LV1Stored
+		RequiresCondition: T1LV1
+	#Takes Incoming Prereq from Hero and makes a condition on the holder
+	GrantConditionOnPrerequisite@T1LV1:
+		Condition: IncomingT1LV1
+		Prerequisites: T1LV1
+	#Takes Incomingcondition and turns into a perminant stored condition
+	GrantCondition@T1LV1:
+		Condition: T1LV1
+		GrantPermanently: True
+		RequiresCondition: IncomingT1LV1
+	#Level 2
+	ProvidesPrerequisite@T1L2:
+		Prerequisite: T1LV2Stored
+		RequiresCondition: T1LV2
+	GrantConditionOnPrerequisite@T1LV2:
+		Condition: IncomingT1LV2
+		Prerequisites: T1LV2
+	GrantCondition@T1LV2:
+		Condition: T1LV2
+		GrantPermanently: True
+		RequiresCondition: IncomingT1LV2
+	#Level 3
+	ProvidesPrerequisite@T1L3:
+		Prerequisite: T1LV3Stored
+		RequiresCondition: T1LV3
+	GrantConditionOnPrerequisite@T1LV3:
+		Condition: IncomingT1LV3
+		Prerequisites: T1LV3
+	GrantCondition@T1LV3:
+		Condition: T1LV3
+		GrantPermanently: True
+		RequiresCondition: IncomingT1LV3
+	#Level 4
+	ProvidesPrerequisite@T1L4:
+		Prerequisite: T1LV4Stored
+		RequiresCondition: T1LV4
+	GrantConditionOnPrerequisite@T1LV4:
+		Condition: IncomingT1LV4
+		Prerequisites: T1LV4
+	GrantCondition@T1LV4:
+		Condition: T1LV4
+		GrantPermanently: True
+		RequiresCondition: IncomingT1LV4
+	#Level 5
+	ProvidesPrerequisite@T1L5:
+		Prerequisite: T1LV5Stored
+		RequiresCondition: T1LV5
+	GrantConditionOnPrerequisite@T1LV5:
+		Condition: IncomingT1LV5
+		Prerequisites: T1LV5
+	GrantCondition@T1LV5:
+		Condition: T1LV5
+		GrantPermanently: True
+		RequiresCondition: IncomingT1LV5
+	#Tier 2
+	#Level 1
+	ProvidesPrerequisite@T2L1:
+		Prerequisite: T2LV1Stored
+		RequiresCondition: T2LV1
+	GrantConditionOnPrerequisite@T2LV1:
+		Condition: IncomingT2LV1
+		Prerequisites: T2LV1
+	GrantCondition@T2LV1:
+		Condition: T2LV1
+		GrantPermanently: True
+		RequiresCondition: IncomingT2LV1
+	#Level 2
+	ProvidesPrerequisite@T2L2:
+		Prerequisite: T2LV2Stored
+		RequiresCondition: T2LV2
+	GrantConditionOnPrerequisite@T2LV2:
+		Condition: IncomingT2LV2
+		Prerequisites: T2LV2
+	GrantCondition@T2LV2:
+		Condition: T2LV2
+		GrantPermanently: True
+		RequiresCondition: IncomingT2LV2
+	#Level 3
+	ProvidesPrerequisite@T2L3:
+		Prerequisite: T2LV3Stored
+		RequiresCondition: T2LV3
+	GrantConditionOnPrerequisite@T2LV3:
+		Condition: IncomingT2LV3
+		Prerequisites: T2LV3
+	GrantCondition@T2LV3:
+		Condition: T2LV3
+		GrantPermanently: True
+		RequiresCondition: IncomingT2LV3
+	#Level 4
+	ProvidesPrerequisite@T2L4:
+		Prerequisite: T2LV4Stored
+		RequiresCondition: T2LV4
+	GrantConditionOnPrerequisite@T2LV4:
+		Condition: IncomingT2LV4
+		Prerequisites: T2LV4
+	GrantCondition@T2LV4:
+		Condition: T2LV4
+		GrantPermanently: True
+		RequiresCondition: IncomingT2LV4
+	#Level 5
+	ProvidesPrerequisite@T2L5:
+		Prerequisite: T2LV5Stored
+		RequiresCondition: T2LV5
+	GrantConditionOnPrerequisite@T2LV5:
+		Condition: IncomingT2LV5
+		Prerequisites: T2LV5
+	GrantCondition@T2LV5:
+		Condition: T2LV5
+		GrantPermanently: True
+		RequiresCondition: IncomingT2LV5
+	#Tier 3
+	#Level 1
+	ProvidesPrerequisite@T3L1:
+		Prerequisite: T3LV1Stored
+		RequiresCondition: T3LV1
+	GrantConditionOnPrerequisite@T3LV1:
+		Condition: IncomingT3LV1
+		Prerequisites: T3LV1
+	GrantCondition@T3LV1:
+		Condition: T3LV1
+		GrantPermanently: True
+		RequiresCondition: IncomingT3LV1
+	#Level 2
+	ProvidesPrerequisite@T3L2:
+		Prerequisite: T3LV2Stored
+		RequiresCondition: T3LV2
+	GrantConditionOnPrerequisite@T3LV2:
+		Condition: IncomingT3LV2
+		Prerequisites: T3LV2
+	GrantCondition@T3LV2:
+		Condition: T3LV2
+		GrantPermanently: True
+		RequiresCondition: IncomingT3LV2
+	#Level 3
+	ProvidesPrerequisite@T3L3:
+		Prerequisite: T3LV3Stored
+		RequiresCondition: T3LV3
+	GrantConditionOnPrerequisite@T3LV3:
+		Condition: IncomingT3LV3
+		Prerequisites: T3LV3
+	GrantCondition@T3LV3:
+		Condition: T3LV3
+		GrantPermanently: True
+		RequiresCondition: IncomingT3LV3
+	#Level 4
+	ProvidesPrerequisite@T3L4:
+		Prerequisite: T3LV4Stored
+		RequiresCondition: T3LV4
+	GrantConditionOnPrerequisite@T3LV4:
+		Condition: IncomingT3LV4
+		Prerequisites: T3LV4
+	GrantCondition@T3LV4:
+		Condition: T3LV4
+		GrantPermanently: True
+		RequiresCondition: IncomingT3LV4
+	#Level 5
+	ProvidesPrerequisite@T3L5:
+		Prerequisite: T3LV5Stored
+		RequiresCondition: T3LV5
+	GrantConditionOnPrerequisite@T3LV5:
+		Condition: IncomingT3LV5
+		Prerequisites: T3LV5
+	GrantCondition@T3LV5:
+		Condition: T3LV5
+		GrantPermanently: True
+		RequiresCondition: IncomingT3LV5
+	#Tier 4
+	#Level 1
+	ProvidesPrerequisite@T4L1:
+		Prerequisite: T4LV1Stored
+		RequiresCondition: T4LV1
+	GrantConditionOnPrerequisite@T4LV1:
+		Condition: IncomingT4LV1
+		Prerequisites: T4LV1
+	GrantCondition@T4LV1:
+		Condition: T4LV1
+		GrantPermanently: True
+		RequiresCondition: IncomingT4LV1
+	#Level 2
+	ProvidesPrerequisite@T4L2:
+		Prerequisite: T4LV2Stored
+		RequiresCondition: T4LV2
+	GrantConditionOnPrerequisite@T4LV2:
+		Condition: IncomingT4LV2
+		Prerequisites: T4LV2
+	GrantCondition@T4LV2:
+		Condition: T4LV2
+		GrantPermanently: True
+		RequiresCondition: IncomingT4LV2
+	#Level 3
+	ProvidesPrerequisite@T4L3:
+		Prerequisite: T4LV3Stored
+		RequiresCondition: T4LV3
+	GrantConditionOnPrerequisite@T4LV3:
+		Condition: IncomingT4LV3
+		Prerequisites: T4LV3
+	GrantCondition@T4LV3:
+		Condition: T4LV3
+		GrantPermanently: True
+		RequiresCondition: IncomingT4LV3
+	#Level 4
+	ProvidesPrerequisite@T4L4:
+		Prerequisite: T4LV4Stored
+		RequiresCondition: T4LV4
+	GrantConditionOnPrerequisite@T4LV4:
+		Condition: IncomingT4LV4
+		Prerequisites: T4LV4
+	GrantCondition@T4LV4:
+		Condition: T4LV4
+		GrantPermanently: True
+		RequiresCondition: IncomingT4LV4
+	#Level 5
+	ProvidesPrerequisite@T4L5:
+		Prerequisite: T4LV5Stored
+		RequiresCondition: T4LV5
+	GrantConditionOnPrerequisite@T4LV5:
+		Condition: IncomingT4LV5
+		Prerequisites: T4LV5
+	GrantCondition@T4LV5:
+		Condition: T4LV5
+		GrantPermanently: True
+		RequiresCondition: IncomingT4LV5
+	#Tier 5
+	#Level 1
+	ProvidesPrerequisite@T5L1:
+		Prerequisite: T5LV1Stored
+		RequiresCondition: T5LV1
+	GrantConditionOnPrerequisite@T5LV1:
+		Condition: IncomingT5LV1
+		Prerequisites: T5LV1
+	GrantCondition@T5LV1:
+		Condition: T5LV1
+		GrantPermanently: True
+		RequiresCondition: IncomingT5LV1
+	#Level 2
+	ProvidesPrerequisite@T5L2:
+		Prerequisite: T5LV2Stored
+		RequiresCondition: T5LV2
+	GrantConditionOnPrerequisite@T5LV2:
+		Condition: IncomingT5LV2
+		Prerequisites: T5LV2
+	GrantCondition@T5LV2:
+		Condition: T5LV2
+		GrantPermanently: True
+		RequiresCondition: IncomingT5LV2
+	#Level 3
+	ProvidesPrerequisite@T5L3:
+		Prerequisite: T5LV3Stored
+		RequiresCondition: T5LV3
+	GrantConditionOnPrerequisite@T5LV3:
+		Condition: IncomingT5LV3
+		Prerequisites: T5LV3
+	GrantCondition@T5LV3:
+		Condition: T5LV3
+		GrantPermanently: True
+		RequiresCondition: IncomingT5LV3
+	#Level 4
+	ProvidesPrerequisite@T5L4:
+		Prerequisite: T5LV4Stored
+		RequiresCondition: T5LV4
+	GrantConditionOnPrerequisite@T5LV4:
+		Condition: IncomingT5LV4
+		Prerequisites: T5LV4
+	GrantCondition@T5LV4:
+		Condition: T5LV4
+		GrantPermanently: True
+		RequiresCondition: IncomingT5LV4
+	#Level 5
+	ProvidesPrerequisite@T5L5:
+		Prerequisite: T5LV5Stored
+		RequiresCondition: T5LV5
+	GrantConditionOnPrerequisite@T5LV5:
+		Condition: IncomingT5LV5
+		Prerequisites: T5LV5
+	GrantCondition@T5LV5:
+		Condition: T5LV5
+		GrantPermanently: True
+		RequiresCondition: IncomingT5LV5
