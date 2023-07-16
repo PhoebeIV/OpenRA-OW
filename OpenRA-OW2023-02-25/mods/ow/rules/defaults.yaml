@@ -691,6 +691,14 @@
 	GainsExperienceMultiplier:
 		Modifier: 25
 		RequiresCondition: disable-experience
+	ExternalCondition@beinghealed:
+		Condition: healed
+	Targetable@beinghealed:
+		RequiresCondition: healed && !botowner
+		TargetTypes: BeingHealed
+	GrantConditionOnPrerequisite@botowner:
+		Condition: botowner
+		Prerequisites: ai.all
 
 ^Cyborg:
 	Inherits: ^Infantry
@@ -2279,6 +2287,9 @@
 	DamageMultiplier@defmatrix:
 		RequiresCondition: defense_matrix
 		Modifier: 20
+	Targetable@defmatrix:
+		RequiresCondition: defense_matrix
+		TargetTypes: DefenseMatrix
 	GrantConditionOnAttack@ai_consideration:
 		Condition: frenziable
 		RevokeDelay: 100
@@ -2290,3 +2301,8 @@
 	Inherits: ^FrenzyBoost
 	WithIdleOverlay@patriotismboost:
 		Sequence: infantry
+
+^Crate:
+	Crate:
+		Duration: 6000
+		TerrainTypes: Clear, Rough, Road, Ore, Beach, Water, Gems, Tiberium, BlueTiberium

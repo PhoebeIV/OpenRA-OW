@@ -16,11 +16,11 @@ CRATE:
 	LevelUpCrateAction:
 		SelectionShares: 15
 	GiveMcvCrateAction:
-		ValidFactions: england, france, germany, russia, ukraine, estonia, phobos, deimos, mars, hitler, himmler, heydrich, usa
+		ValidFactions: england, france, germany, russia, ukraine, estonia, phobos, deimos, mars, hitler, himmler, heydrich, usa, townes, granger, alexander
 		NoBaseSelectionShares: 1000
 		Units: mcv
 	GiveMcvCrateAction@dawn:
-		ValidFactions: nod, bhand, marked, nod3, gdi, steel, zocom, gdi3, sword, angels, silver
+		ValidFactions: nod, bhand, marked, nod3, gdi, steel, zocom, gdi3, sword, angels, silver, china
 		SelectionShares: 0
 		NoBaseSelectionShares: 1000
 		Units: mcvd
@@ -50,16 +50,20 @@ CRATE:
 		NoBaseSelectionShares: 1000
 		Units: tcommand.air
 	DuplicateUnitCrateAction:
-		SelectionShares: 12
+		SelectionShares: 15
+		MaxAmount: 10
 		MaxDuplicateValue: 4000
 	GiveUnitCrateAction@split:
-		SelectionShares: 1
+		SelectionShares: 3
 		Units: 1tnk.split3
-	GiveUnitCrateAction@mine:
+	GiveUnitCrateAction@split2:
 		SelectionShares: 2
+		Units: 1tnk.split4
+	GiveUnitCrateAction@mine:
+		SelectionShares: 3
 		Units: 1tnk.mine
 	GiveUnitCrateAction@gmine:
-		SelectionShares: 1
+		SelectionShares: 2
 		Units: 1tnk.gmine
 	GiveUnitCrateAction@dtrk:
 		SelectionShares: 2
@@ -67,10 +71,10 @@ CRATE:
 		Prerequisites: techlevel.unrestricted
 	ExplodeCrateAction@lightning:
 		Weapon: CrateLightningZap
-		SelectionShares: 4
+		SelectionShares: 2
 	GrantExternalConditionCrateAction@cloak:
 		Condition: stealthgen
-		SelectionShares: 6
+		SelectionShares: 5
 		MaxExtraCollectors: 2
 	GiveUnitCrateAction@apc:
 		-ValidFactions:
@@ -133,6 +137,17 @@ CRATE:
 		SelectionShares: 3
 		Units: judgedredd
 		Sound: dredd1.aud
+	GiveUnitCrateAction@hunterkiller:
+		SelectionShares: 3
+		Units: hunter
+	RevealMapCrateAction:
+		SelectionShares: 2
+	GrantExternalConditionCrateAction@invuln:
+		SelectionShares: 5
+		Sequence: invuln
+		Sound: ironcur9.aud
+		Condition: invulnerability
+		Duration: 750
 	Crate:
 		Duration: 6000
 
@@ -279,6 +294,11 @@ CRATE.FuckYou:
 	Inherits: 1TNK.MINE
 	SpawnActorOnDeath:
 		Actor: split3.cr
+
+1TNK.SPLIT4:
+	Inherits: 1TNK.MINE
+	SpawnActorOnDeath:
+		Actor: split4.cr
 
 1TNK.GRAVE:
 	Inherits: 1TNK.MINE
@@ -782,11 +802,11 @@ FakeCrateReward:
 		Units: judgedredd
 		Sound: dredd1.aud
 	GiveMcvCrateAction:
-		ValidFactions: england, france, germany, russia, ukraine, estonia, phobos, deimos, mars, hitler, himmler, heydrich, usa
+		ValidFactions: england, france, germany, russia, ukraine, estonia, phobos, deimos, mars, hitler, himmler, heydrich, usa, townes, granger, alexander
 		NoBaseSelectionShares: 1000
 		Units: mcv
 	GiveMcvCrateAction@dawn:
-		ValidFactions: nod, bhand, marked, nod3, gdi, steel, zocom, gdi3, sword, angels, silver
+		ValidFactions: nod, bhand, marked, nod3, gdi, steel, zocom, gdi3, sword, angels, silver, china
 		SelectionShares: 10
 		NoBaseSelectionShares: 1000
 		Units: mcvd
@@ -816,7 +836,10 @@ FakeCrateReward:
 		NoBaseSelectionShares: 1000
 		Units: tcommand.air
 	DuplicateUnitCrateAction:
-		MaxDuplicateValue: 4000
+		SelectionShares: 10
+		MaxAmount: 10
+		MinAmount: 1
+		MaxDuplicateValue: 5000
 	GiveUnitCrateAction@split:
 		SelectionShares: 10
 		Units: 1tnk.split3
@@ -826,6 +849,9 @@ FakeCrateReward:
 	GiveUnitCrateAction@gmine:
 		SelectionShares: 5
 		Units: 1tnk.gmine
+	GiveUnitCrateAction@split2:
+		SelectionShares: 5
+		Units: 1tnk.split4
 	Crate:
 		Duration: 6000
 	RenderSprites:
