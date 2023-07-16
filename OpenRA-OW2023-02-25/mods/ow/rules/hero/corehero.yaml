@@ -48,10 +48,10 @@
 		Modifier: 110
 	FirepowerMultiplier@Level3:
 		RequiresCondition: rank-veteran == 3
-		Modifier: 120
+		Modifier: 115
 	FirepowerMultiplier@Level4:
 		RequiresCondition: LV4
-		Modifier: 130
+		Modifier: 120
 	SpeedMultiplier@Level1:
 		RequiresCondition: rank-veteran == 1
 		Modifier: 105
@@ -60,10 +60,10 @@
 		Modifier: 110
 	SpeedMultiplier@Level3:
 		RequiresCondition: rank-veteran == 3
-		Modifier: 120
+		Modifier: 115
 	SpeedMultiplier@Level4:
 		RequiresCondition: LV4
-		Modifier: 140
+		Modifier: 120
 	ReloadDelayMultiplier@Level1:
 		RequiresCondition: rank-veteran == 1
 		Modifier: 95
@@ -75,7 +75,7 @@
 		Modifier: 85
 	ReloadDelayMultiplier@Level4:
 		RequiresCondition: LV4
-		Modifier: 75
+		Modifier: 80
 	WithDecoration@Level1:
 		Image: rank
 		Sequence: rank-veteran-1
@@ -142,7 +142,7 @@
 ^HeroInfantry:
 	Inherits@1: ^ExistsInWorld
 	Inherits@HeroExp: ^Heroexp
-	Inherits@HLS: HeroLevelSender
+	Inherits@HLS: ^HeroLevelSender
 	Inherits@4: ^SpriteActor
 	Inherits@bounty: ^GlobalBounty
 	Inherits@selection: ^SelectableCombatUnit
@@ -402,26 +402,28 @@
 		Prerequisite: T1LV5
 		RequiresPrerequisites: T1
 		RequiresCondition: LV5
-	ProvidesPrerequisite@T5LV1:
-		Prerequisite: T5LV1
-		RequiresPrerequisites: T5
+	#T2
+	ProvidesPrerequisite@T2LV1:
+		Prerequisite: T2LV1
+		RequiresPrerequisites: T2
 		RequiresCondition: LV1
-	ProvidesPrerequisite@T5LV2:
-		Prerequisite: T5LV2
-		RequiresPrerequisites: T5
+	ProvidesPrerequisite@T2LV2:
+		Prerequisite: T2LV2
+		RequiresPrerequisites: T2
 		RequiresCondition: LV2
-	ProvidesPrerequisite@T5LV3:
-		Prerequisite: T5LV3
-		RequiresPrerequisites: T5
+	ProvidesPrerequisite@T2LV3:
+		Prerequisite: T2LV3
+		RequiresPrerequisites: T2
 		RequiresCondition: LV3
-	ProvidesPrerequisite@T5LV4:
-		Prerequisite: T5LV4
-		RequiresPrerequisites: T5
+	ProvidesPrerequisite@T2LV4:
+		Prerequisite: T2LV4
+		RequiresPrerequisites: T2
 		RequiresCondition: LV4
-	ProvidesPrerequisite@T5LV5:
-		Prerequisite: T5LV5
-		RequiresPrerequisites: T5
+	ProvidesPrerequisite@T2LV5:
+		Prerequisite: T2LV5
+		RequiresPrerequisites: T2
 		RequiresCondition: LV5
+	#T3
 	ProvidesPrerequisite@T3LV1:
 		Prerequisite: T3LV1
 		RequiresPrerequisites: T3
@@ -442,6 +444,7 @@
 		Prerequisite: T3LV5
 		RequiresPrerequisites: T3
 		RequiresCondition: LV5
+	#T4
 	ProvidesPrerequisite@T4LV1:
 		Prerequisite: T4LV1
 		RequiresPrerequisites: T4
@@ -462,6 +465,7 @@
 		Prerequisite: T4LV5
 		RequiresPrerequisites: T4
 		RequiresCondition: LV5
+	#T5
 	ProvidesPrerequisite@T5LV1:
 		Prerequisite: T5LV1
 		RequiresPrerequisites: T5
@@ -782,3 +786,224 @@
 		Condition: T5LV5
 		GrantPermanently: True
 		RequiresCondition: IncomingT5LV5
+
+
+#Spawn these for holding Hero Tiers.
+^HeroTier1:
+	ProvidesPrerequisite@T1:
+		Prerequisite: T1
+
+^HeroTier2:
+	ProvidesPrerequisite@T2:
+		Prerequisite: T2
+
+^HeroTier3:
+	ProvidesPrerequisite@T3:
+		Prerequisite: T3
+
+^HeroTier4:
+	ProvidesPrerequisite@T4:
+		Prerequisite: T4
+
+^HeroTier5:
+	ProvidesPrerequisite@T5:
+		Prerequisite: T5
+
+#Goes onto Hero, Gives Upgrades from Prerequisites.
+^HeroUpgradeL1OnHero:
+	#T1
+	GrantConditionOnPrerequisite@T1L1UpgradeRange:
+		Condition: T1L1Range
+		Prerequisites: T1L1RangeHero
+	RangeMultiplier@L1T1:
+		Modifier: 110
+		RequiresCondition: T1L1Range
+	GrantConditionOnPrerequisite@T1L1UpgradeSpeed:
+		Condition: T1L1Speed
+		Prerequisites: T1L1SpeedHero
+	SpeedMultiplier@L1T1:
+		Modifier: 105
+		RequiresCondition: T1L1Speed
+	GrantConditionOnPrerequisite@T1L1UpgradeVision:
+		Condition: T1L1Vision
+		Prerequisites: T1L1VisionHero
+	RevealsShroudMultiplier@L1T1:
+		Modifier: 105
+		RequiresCondition: T1L1Vision
+	#T2
+	GrantConditionOnPrerequisite@T2L1UpgradeRange:
+		Condition: T2L1Range
+		Prerequisites: T2L1RangeHero
+	RangeMultiplier@L1T2:
+		Modifier: 110
+		RequiresCondition: T2L1Range
+	GrantConditionOnPrerequisite@T2L1UpgradeSpeed:
+		Condition: T2L1Speed
+		Prerequisites: T2L1SpeedHero
+	SpeedMultiplier@L1T2:
+		Modifier: 105
+		RequiresCondition: T2L1Speed
+	GrantConditionOnPrerequisite@T2L1UpgradeVision:
+		Condition: T2L1Vision
+		Prerequisites: T2L1VisionHero
+	RevealsShroudMultiplier@L1T2:
+		Modifier: 105
+		RequiresCondition: T2L1Vision
+	#T3
+	GrantConditionOnPrerequisite@T3L1UpgradeRange:
+		Condition: T3L1Range
+		Prerequisites: T3L1RangeHero
+	RangeMultiplier@L1T3:
+		Modifier: 110
+		RequiresCondition: T3L1Range
+	GrantConditionOnPrerequisite@T3L1UpgradeSpeed:
+		Condition: T3L1Speed
+		Prerequisites: T3L1SpeedHero
+	SpeedMultiplier@L1T3:
+		Modifier: 105
+		RequiresCondition: T3L1Speed
+	GrantConditionOnPrerequisite@T3L1UpgradeVision:
+		Condition: T3L1Vision
+		Prerequisites: T3L1VisionHero
+	RevealsShroudMultiplier@L1T3:
+		Modifier: 105
+		RequiresCondition: T3L1Vision
+	#T4
+	GrantConditionOnPrerequisite@T4L1UpgradeRange:
+		Condition: T4L1Range
+		Prerequisites: T4L1RangeHero
+	RangeMultiplier@L1T4:
+		Modifier: 110
+		RequiresCondition: T4L1Range
+	GrantConditionOnPrerequisite@T4L1UpgradeSpeed:
+		Condition: T4L1Speed
+		Prerequisites: T4L1SpeedHero
+	SpeedMultiplier@L1T4:
+		Modifier: 105
+		RequiresCondition: T4L1Speed
+	GrantConditionOnPrerequisite@T4L1UpgradeVision:
+		Condition: T4L1Vision
+		Prerequisites: T4L1VisionHero
+	RevealsShroudMultiplier@L1T4:
+		Modifier: 105
+		RequiresCondition: T4L1Vision
+	#T5
+	GrantConditionOnPrerequisite@T5L1UpgradeRange:
+		Condition: T5L1Range
+		Prerequisites: T5L1RangeHero
+	RangeMultiplier@L1T5:
+		Modifier: 110
+		RequiresCondition: T5L1Range
+	GrantConditionOnPrerequisite@T5L1UpgradeSpeed:
+		Condition: T5L1Speed
+		Prerequisites: T5L1SpeedHero
+	SpeedMultiplier@L1T5:
+		Modifier: 105
+		RequiresCondition: T5L1Speed
+	GrantConditionOnPrerequisite@T5L1UpgradeVision:
+		Condition: T5L1Vision
+		Prerequisites: T5L1VisionHero
+	RevealsShroudMultiplier@L1T5:
+		Modifier: 105
+		RequiresCondition: T5L1Vision
+
+
+
+#Goes onto Hero, Gives Upgrades from Prerequisites.
+^HeroUpgradeL2OnHero:
+	#T1
+	GrantConditionOnPrerequisite@T1L2UpgradeReloadDelay:
+		Condition: T1L2ReloadDelay
+		Prerequisites: T1L2ReloadDelayHero
+	ReloadDelayMultiplier@L2T1:
+		Modifier: 90
+		RequiresCondition: T1L2ReloadDelay
+	GrantConditionOnPrerequisite@T1L2UpgradeFirepower:
+		Condition: T1L2Firepower
+		Prerequisites: T1L2FirepowerHero
+	FirepowerMultiplier@L2T1:
+		Modifier: 105
+		RequiresCondition: T1L2Firepower
+	GrantConditionOnPrerequisite@T1L2UpgradeVision:
+		Condition: T1L2Vision
+		Prerequisites: T1L2VisionHero
+	DamageMultiplier@L2T1:
+		Modifier: 95
+		RequiresCondition: T1L2Vision
+	#T2
+	GrantConditionOnPrerequisite@T2L2UpgradeReloadDelay:
+		Condition: T2L2ReloadDelay
+		Prerequisites: T2L2ReloadDelayHero
+	ReloadDelayMultiplier@L2T2:
+		Modifier: 90
+		RequiresCondition: T2L2ReloadDelay
+	GrantConditionOnPrerequisite@T2L2UpgradeFirepower:
+		Condition: T2L2Firepower
+		Prerequisites: T2L2FirepowerHero
+	FirepowerMultiplier@L2T2:
+		Modifier: 105
+		RequiresCondition: T2L2Firepower
+	GrantConditionOnPrerequisite@T2L2UpgradeVision:
+		Condition: T2L2Vision
+		Prerequisites: T2L2VisionHero
+	DamageMultiplier@L2T2:
+		Modifier: 95
+		RequiresCondition: T2L2Vision
+	#T3
+	GrantConditionOnPrerequisite@T3L2UpgradeReloadDelay:
+		Condition: T3L2ReloadDelay
+		Prerequisites: T3L2ReloadDelayHero
+	ReloadDelayMultiplier@L2T3:
+		Modifier: 90
+		RequiresCondition: T3L2ReloadDelay
+	GrantConditionOnPrerequisite@T3L2UpgradeFirepower:
+		Condition: T3L2Firepower
+		Prerequisites: T3L2FirepowerHero
+	FirepowerMultiplier@L2T3:
+		Modifier: 105
+		RequiresCondition: T3L2Firepower
+	GrantConditionOnPrerequisite@T3L2UpgradeVision:
+		Condition: T3L2Vision
+		Prerequisites: T3L2VisionHero
+	DamageMultiplier@L2T3:
+		Modifier: 95
+		RequiresCondition: T3L2Vision
+	#T4
+	GrantConditionOnPrerequisite@T4L2UpgradeReloadDelay:
+		Condition: T4L2ReloadDelay
+		Prerequisites: T4L2ReloadDelayHero
+	ReloadDelayMultiplier@L2T4:
+		Modifier: 90
+		RequiresCondition: T4L2ReloadDelay
+	GrantConditionOnPrerequisite@T4L2UpgradeFirepower:
+		Condition: T4L2Firepower
+		Prerequisites: T4L2FirepowerHero
+	FirepowerMultiplier@L2T4:
+		Modifier: 105
+		RequiresCondition: T4L2Firepower
+	GrantConditionOnPrerequisite@T4L2UpgradeVision:
+		Condition: T4L2Vision
+		Prerequisites: T4L2VisionHero
+	DamageMultiplier@L2T4:
+		Modifier: 95
+		RequiresCondition: T4L2Vision
+	#T5
+	GrantConditionOnPrerequisite@T5L2UpgradeReloadDelay:
+		Condition: T5L2ReloadDelay
+		Prerequisites: T5L2ReloadDelayHero
+	ReloadDelayMultiplier@L2T5:
+		Modifier: 90
+		RequiresCondition: T5L2ReloadDelay
+	GrantConditionOnPrerequisite@T5L2UpgradeFirepower:
+		Condition: T5L2Firepower
+		Prerequisites: T5L2FirepowerHero
+	FirepowerMultiplier@L2T5:
+		Modifier: 105
+		RequiresCondition: T5L2Firepower
+	GrantConditionOnPrerequisite@T5L2UpgradeVision:
+		Condition: T5L2Vision
+		Prerequisites: T5L2VisionHero
+	DamageMultiplier@L2T5:
+		Modifier: 95
+		RequiresCondition: T5L2Vision
+
