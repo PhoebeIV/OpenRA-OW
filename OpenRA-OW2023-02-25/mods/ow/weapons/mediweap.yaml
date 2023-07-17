@@ -57,12 +57,13 @@ BerserkerSwordFast:
 
 PaladinSword:
 	Inherits: Sword2
+	Range: 3c0
 	ReloadDelay: 75
 	Warhead@1Dam: SpreadDamage
 		Spread: 96
 		Damage: 6000
 		Versus:
-			None: 100
+			None: 200
 			Wood: 50
 			Light: 90
 			Heavy: 60
@@ -1476,7 +1477,7 @@ eyeself:
 
 MediDeathKnightAttack2:
 	ReloadDelay: 600
-	Range: 14c0
+	Range: 8c0
 	Report: medideathknightbeamcharge.aud
 	ValidTargets: Ground, Water, GroundActor, WaterActor
 	Projectile: LaserZap
@@ -1716,6 +1717,86 @@ Chaoswep15:
 	Inherits: WaterElementalBlast
 	ReloadDelay: 40
 	Range: 10c0
+
+PaladinHealWep:
+	ReloadDelay: 209
+	Range: 6c0
+	Report: tesla1.aud
+	ValidTargets: Ground, Water, GroundActor, WaterActor, Air, AirborneActor
+	Projectile: TeslaZap
+		Width: 0c100
+		Duration: 10
+		TrackTarget: false
+	Warhead@1heala: HealthPercentageDamage
+		Spread: 2c0
+		Damage: -5
+		ValidTargets: Heal
+		ValidRelationships: Ally
+	Warhead@1healb: CreateEffect
+		Explosions: medihealeffect
+		ImpactSounds: mediholyheal.aud
+		ImpactActors: false
+	
+SmitePaladinWep:
+	ReloadDelay: 303
+	Range: 6c0
+	Report: tesla1.aud
+	ValidTargets: Ground, Water, GroundActor, WaterActor, Air, AirborneActor
+	Projectile: LaserZap
+		Width: 0c100
+		Duration: 10
+		TrackTarget: false
+	Warhead@: HealthPercentageDamage
+		Delay: 0
+		Spread: 2c512
+		ValidTargets: Infantry
+		Damage: 10
+		ValidRelationships: Enemy, Neutral
+		DamageTypes: Prone50Percent, TriggerProne, ElectricityDeath
+	Warhead@Eff: CreateEffect
+		Explosions: medigryphonriderattack
+		Image: explosion
+		Delay: 0
+	Warhead@friend: HealthPercentageDamage
+		Delay: 0
+		Spread: 2c0
+		ValidTargets: Infantry
+		Damage: 5
+		ValidRelationships: Ally
+		DamageTypes: Prone50Percent, TriggerProne, ElectricityDeath
+	Warhead@SmiteDam_impact: SpreadDamage
+		Delay: 0
+		Spread: 2c0
+		Damage: 7000
+		ValidTargets: Infantry
+		ValidRelationships: Enemy, Neutral
+		DamageTypes: Prone50Percent, TriggerProne, ElectricityDeath
+
+LightningPaladinShot:
+	ReloadDelay: 157
+	Range: 6c0
+	Report: tesla1.aud
+	ValidTargets: Ground, Water, GroundActor, WaterActor, Air, AirborneActor
+	Projectile: Railgun
+		DamageActorsInLine: True
+	Warhead@1Dam: SpreadDamage
+		Spread: 42
+		Damage: 10000
+		ValidTargets: GroundActor, WaterActor
+		Versus:
+			None: 100
+			Wood: 73
+			Heavy: 60
+		DamageTypes: Prone50Percent, TriggerProne, ElectricityDeath
+	Warhead@2Dam: SpreadDamage
+		Spread: 42
+		Damage: 2000
+		ValidTargets: Air, AirborneActor
+		Versus:
+			None: 80
+			Wood: 73
+			Heavy: 60
+		DamageTypes: Prone50Percent, TriggerProne, ElectricityDeath
 
 ###############################################################################
 ##############################   Ability Attacks   ############################

@@ -1364,12 +1364,12 @@ ShieldHero:
 	Tooltip:
 		Name: Divine Protection
 	Health:
-		HP: 400000
+		HP: 300000
 	Mobile:
 		Speed: 60
 		Locomotor: foot2
 	RevealsShroud:
-		Range: 15c0
+		Range: 10c0
 	DetectCloaked:
 		Range: 5c0
 	ProximityExternalCondition@HolySuperBoosted:
@@ -1378,7 +1378,20 @@ ShieldHero:
 	Explodes:
 		Weapon: SmitePowerWep
 		EmptyWeapon: SmitePowerWep
-	Armament:
+	AttackFrontal:
+		Armaments: ZapPally, HealPally, SmitePally, PallySword
+	Armament@ZapPally:
+		Name: ZapPally
+		Weapon: LightningPaladinShot
+	Armament@HealPally:
+		Name: HealPally
+		Weapon: PaladinHealWep
+		TargetRelationships: Ally
+	Armament@SmitePally:
+		Name: SmitePally
+		Weapon: SmitePaladinWep
+	Armament@PallySword:
+		Name: PallySword
 		Weapon: PaladinSword
 	WithInfantryBody:
 		DefaultAttackSequence: shoot
@@ -1444,10 +1457,14 @@ MEDIDEATHKNIGHT:
 	SelectionDecorations:
 	RevealsShroud:
 		Range: 7c512
-	Armament:
-		Weapon: MediDeathKnightAttack1
+	GrantConditionOnAttack@sword:
+		Condition: SwordSwing
+		RevokeDelay: 800
 	Armament@SECONDARY:
 		Name: secondary
+		Weapon: MediDeathKnightAttack1
+		RequiresCondition: SwordSwing
+	Armament:
 		Weapon: MediDeathKnightAttack2
 		LocalOffset: 400,60,2200, 400,-60,2200
 	WithInfantryBody:
