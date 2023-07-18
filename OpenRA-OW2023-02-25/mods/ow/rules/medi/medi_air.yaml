@@ -445,8 +445,8 @@ ChaosElemental:
 		InitialStance: AttackAnything
 		MinimumScanTimeInterval: 50
 		MaximumScanTimeInterval: 300
-	-Selectable:
-	Interactable:
+	Selectable:
+		DecorationBounds: 4096, 2560, 0, -768
 	Buildable:
 		Queue: Aircraft
 		BuildAtProductionType: Helicopter
@@ -481,8 +481,6 @@ ChaosElemental:
 		Prerequisites: aircraft.upgraded
 	SpawnActorOnDeath:
 		Actor: MediChaos.Husk
-	Rearmable:
-		RearmActors: hatchery
 	VoiceAnnouncement:
 		RequiresCondition: produced
 		Voice: Build
@@ -492,64 +490,136 @@ ChaosElemental:
 	-EjectOnDeath:
 	ExternalCondition@GraveyardSouls:
 		Condition: GraveyardSouls
-	ExternalCondition@producechaos:
-		Condition: producechaos
 	GrantConditionOnAttack:
 		Condition: producechaos
 		ArmamentNames: spawner
 	FreeActor@1:
 		Actor: ChaosOrb
 		SpawnOffset: -1, 1
-		RequiresCondition: producechaos && ChaosSoulCount
+		RequiresCondition: producechaos
 		AllowRespawn: True
 	FreeActor@2:
 		Actor: ChaosOrb
 		SpawnOffset: -1, -1
-		RequiresCondition: producechaos && ChaosSoulCount
+		RequiresCondition: producechaos
 		AllowRespawn: True
 	FreeActor@3:
 		Actor: ChaosOrb
 		SpawnOffset: 1, -1
-		RequiresCondition: producechaos && ChaosSoulCount
+		RequiresCondition: producechaos
 		AllowRespawn: True
 	FreeActor@4:
 		Actor: ChaosOrb
 		SpawnOffset: 1, 1
-		RequiresCondition: producechaos && ChaosSoulCount
+		RequiresCondition: producechaos
 		AllowRespawn: True
-	AmmoPool:
-		Name: ChaosAmmoPool
-		Armaments: spawner
-		Ammo: 2
-		InitialAmmo: 1
-		ReloadCount: 1
-		ReloadDelay: 200
-		AmmoCondition: ChaosSoulCount
-	ReloadAmmoPool:
-		AmmoPool: ChaosAmmoPool
-		Delay: 200
-		Count: 1
-	WithAmmoPipsDecoration:
-		Position: BottomLeft
-		PipCount: 6
-		AmmoPools: ChaosAmmoPool
 	AutoTarget:
 		InitialStance: AttackAnything
-	AttackAircraft:
-		AttackType: Hover
-		Armaments: spawner, zap1, zap2
+	AttackFrontal@chaos:
+		Armaments: chaos01,chaos02,chaos03,chaos04,chaos05,chaos06,chaos07,chaos08,chaos09,chaos10,chaos11,chaos12,chaos13,chaos14,chaos15,spawner,chaoswep
 	Armament@spawner:
 		Name: spawner
 		Weapon: ChaosSpawner
-		RequiresCondition: ChaosSoulCount
+	Armament@Chaos01:
+		RequiresCondition: Chaos010
+		Name: chaos01
+		Weapon: Chaoswep01
+	Armament@Chaos02:
+		RequiresCondition: Chaos020
+		Name: chaos02
+		Weapon: Chaoswep02
+	Armament@Chaos03:
+		RequiresCondition: Chaos030
+		Name: chaos03
+		Weapon: Chaoswep03
+	Armament@Chaos04:
+		RequiresCondition: Chaos040
+		Name: chaos04
+		Weapon: Chaoswep04
+	Armament@Chaos05:
+		RequiresCondition: Chaos050
+		Name: chaos05
+		Weapon: Chaoswep05
+	Armament@Chaos06:
+		RequiresCondition: Chaos060
+		Name: chaos06
+		Weapon: Chaoswep06
+	Armament@Chaos07:
+		RequiresCondition: Chaos070
+		Name: chaos07
+		Weapon: Chaoswep07
+	Armament@Chaos08:
+		RequiresCondition: Chaos080
+		Name: chaos08
+		Weapon: Chaoswep08
+	Armament@Chaos09:
+		RequiresCondition: Chaos090
+		Name: chaos09
+		Weapon: Chaoswep09
+	Armament@Chaos10:
+		RequiresCondition: Chaos100
+		Name: chaos10
+		Weapon: Chaoswep10
+	Armament@Chaos11:
+		RequiresCondition: Chaos110
+		Name: chaos11
+		Weapon: Chaoswep11
+	Armament@Chaos12:
+		RequiresCondition: Chaos120
+		Name: chaos12
+		Weapon: Chaoswep12
+	Armament@Chaos13:
+		RequiresCondition: Chaos130
+		Name: chaos13
+		Weapon: Chaoswep13
+	Armament@Chaos14:
+		RequiresCondition: Chaos140
+		Name: chaos14
+		Weapon: Chaoswep14
+	Armament@Chaos15:
+		RequiresCondition: Chaos150
+		Name: chaos15
+		Weapon: Chaoswep15
+	Armament@Chaoswep:
+		Name: chaoswep
+		Weapon: Chaoswep
+	ExternalCondition@Chaosaura1:
+		Condition: Chaos010
+	ExternalCondition@Chaosaura2:
+		Condition: Chaos020
+	ExternalCondition@Chaosaura3:
+		Condition: Chaos030
+	ExternalCondition@Chaosaura4:
+		Condition: Chaos040
+	ExternalCondition@Chaosaura5:
+		Condition: Chaos050
+	ExternalCondition@Chaosaura6:
+		Condition: Chaos060
+	ExternalCondition@Chaosaura7:
+		Condition: Chaos070
+	ExternalCondition@Chaosaura8:
+		Condition: Chaos080
+	ExternalCondition@Chaosaura9:
+		Condition: Chaos090
+	ExternalCondition@Chaosaura10:
+		Condition: Chaos100
+	ExternalCondition@Chaosaura11:
+		Condition: Chaos110
+	ExternalCondition@Chaosaura12:
+		Condition: Chaos120
+	ExternalCondition@Chaosaura13:
+		Condition: Chaos130
+	ExternalCondition@Chaosaura14:
+		Condition: Chaos140
+	ExternalCondition@Chaosaura15:
+		Condition: Chaos150
 	AttackWander:
 		WanderMoveRadius: 200
 		MinMoveDelay: 50
 		MaxMoveDelay: 500
-	Targetable@Infantry:
-		TargetTypes: GroundActor, Infantry
 	Targetable@Air:
 		TargetTypes: Air, AirborneActor
+	
 
 ##Attack of the Chaos Elemental.
 ChaosOrb:
@@ -592,71 +662,75 @@ ChaosOrb:
 		Image: Chaosorb
 	Voiced:
 		VoiceSet: WaterElementalVoice
-	AttackAircraft:
-		Armaments: Chaos01,Chaos02,Chaos03,Chaos04,Chaos05,Chaos06,Chaos07,Chaos08,Chaos09,Chaos10,Chaos11,Chaos12,Chaos13,Chaos14,Chaos15
-		FacingTolerance: 512
-	Armament@Chaos01:
-		RequiresCondition: Chaos01
-		Name: Chaos01
-		Weapon: Chaoswep01
-	Armament@Chaos02:
-		RequiresCondition: Chaos02
-		Name: Chaos02
-		Weapon: Chaoswep02
-	Armament@Chaos03:
-		RequiresCondition: Chaos03
-		Name: Chaos03
-		Weapon: Chaoswep03
-	Armament@Chaos04:
-		RequiresCondition: Chaos04
-		Name: Chaos04
-		Weapon: Chaoswep04
-	Armament@Chaos05:
-		RequiresCondition: Chaos05
-		Name: Chaos05
-		Weapon: Chaoswep05
-	Armament@Chaos06:
-		RequiresCondition: Chaos06
-		Name: Chaos06
-		Weapon: Chaoswep06
-	Armament@Chaos07:
-		RequiresCondition: Chaos07
-		Name: Chaos07
-		Weapon: Chaoswep07
-	Armament@Chaos08:
-		RequiresCondition: Chaos08
-		Name: Chaos08
-		Weapon: Chaoswep08
-	Armament@Chaos09:
-		RequiresCondition: Chaos09
-		Name: Chaos09
-		Weapon: Chaoswep09
-	Armament@Chaos10:
-		RequiresCondition: Chaos10
-		Name: Chaos10
-		Weapon: Chaoswep10
-	Armament@Chaos11:
-		RequiresCondition: Chaos11
-		Name: Chaos11
-		Weapon: Chaoswep11
-	Armament@Chaos12:
-		RequiresCondition: Chaos12
-		Name: Chaos12
-		Weapon: Chaoswep12
-	Armament@Chaos13:
-		RequiresCondition: Chaos13
-		Name: Chaos13
-		Weapon: Chaoswep13
-	Armament@Chaos14:
-		RequiresCondition: Chaos14
-		Name: Chaos14
-		Weapon: Chaoswep14
-	Armament@Chaos15:
-		RequiresCondition: Chaos15
-		Name: Chaos15
-		Weapon: Chaoswep15
 	KillsSelf@expire:
 		Delay: 300
+	AttackAircraft:
+		Armaments: ChaosOrb
+		FacingTolerance: 512
+	Armament@ChaosOrb:
+		Name: ChaosOrb
+		FireDelay: 10
+		Weapon: DarkRageDeathWep
 	GrantRandomCondition@ChaosType:
-		Conditions: Chaos01,Chaos02,Chaos03,Chaos04,Chaos05,Chaos06,Chaos07,Chaos08,Chaos09,Chaos10,Chaos11,Chaos12,Chaos13,Chaos14,Chaos15
+		Conditions: Chaos01,Chaos02,Chaos03,Chaos04,Chaos05,Chaos06,Chaos07,Chaos08,Chaos09,Chaos10,Chaos11,Chaos12,Chaos13,Chaos14,Chaos15,
 	-EjectOnDeath:
+	ProximityExternalCondition@Chaosaura1:
+		Condition: Chaos010
+		Range: 5
+		RequiresCondition: Chaos01
+	ProximityExternalCondition@Chaosaura2:
+		Condition: Chaos020
+		Range: 5
+		RequiresCondition: Chaos02
+	ProximityExternalCondition@Chaosaura3:
+		Condition: Chaos030
+		Range: 5
+		RequiresCondition: Chaos03
+	ProximityExternalCondition@Chaosaura4:
+		Condition: Chaos040
+		Range: 5
+		RequiresCondition: Chaos04
+	ProximityExternalCondition@Chaosaura5:
+		Condition: Chaos050
+		Range: 5
+		RequiresCondition: Chaos05
+	ProximityExternalCondition@Chaosaura6:
+		Condition: Chaos060
+		Range: 5
+		RequiresCondition: Chaos06
+	ProximityExternalCondition@Chaosaura7:
+		Condition: Chaos070
+		Range: 5
+		RequiresCondition: Chaos07
+	ProximityExternalCondition@Chaosaura8:
+		Condition: Chaos080
+		Range: 5
+		RequiresCondition: Chaos08
+	ProximityExternalCondition@Chaosaura9:
+		Condition: Chaos090
+		Range: 5
+		RequiresCondition: Chaos09
+	ProximityExternalCondition@Chaosaura10:
+		Condition: Chaos100
+		Range: 5
+		RequiresCondition: Chaos10
+	ProximityExternalCondition@Chaosaura11:
+		Condition: Chaos110
+		Range: 5
+		RequiresCondition: Chaos11
+	ProximityExternalCondition@Chaosaura12:
+		Condition: Chaos120
+		Range: 5
+		RequiresCondition: Chaos12
+	ProximityExternalCondition@Chaosaura13:
+		Condition: Chaos130
+		Range: 5
+		RequiresCondition: Chaos13
+	ProximityExternalCondition@Chaosaura14:
+		Condition: Chaos140
+		Range: 5
+		RequiresCondition: Chaos14
+	ProximityExternalCondition@Chaosaura15:
+		Condition: Chaos150
+		Range: 5
+		RequiresCondition: Chaos15

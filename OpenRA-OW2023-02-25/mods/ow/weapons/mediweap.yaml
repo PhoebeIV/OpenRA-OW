@@ -1417,7 +1417,7 @@ FireElementAttack:
 ###############################################################################
 
 GraveyardSpawner:
-	ReloadDelay: 40
+	ReloadDelay: 30
 	Range: 10c0
 	ValidTargets: Ground, Water, GroundActor, WaterActor, AirborneActor
 	Projectile: InstantHit
@@ -1452,20 +1452,20 @@ DarkRageDeathWep:
 		ValidRelationships: Ally
 	Warhead@DarkRageDeathWar1: GrantExternalCondition
 		Condition: DarkRageStacksHeal
-		Duration: 2
+		Duration: 5
 		Range: 10
 		ValidTargets: GroundActor
 		ValidRelationships: Ally
 
 eyeself:
-	ReloadDelay: 20
+	ReloadDelay: 10
 	Range: 3c0
 	ValidTargets: eyetower
 	Projectile: Bullet
 		Speed: 1c682
 	Warhead@curtain: GrantExternalCondition
 		Condition: EyeBoost
-		Range: 1c0
+		Range: 2c0
 		Duration: 2000
 		AffectsParent: True
 		ValidTargets: eyetower
@@ -1515,6 +1515,18 @@ MediDeathKnightAttack2:
 		Damage: 7000
 		Falloff: 1000, 368, 135, 50, 18, 7, 0
 		ValidTargets: Ground, Water, GroundActor, WaterActor
+		ValidRelationships: Enemy, Neutral
+		AffectsParent: false
+		Versus:
+			Concrete: 15
+		DamageTypes: Prone50Percent, TriggerProne, FireDeath, Incendiary
+		Delay: 60
+	Warhead@1DamA: SpreadDamage
+		Spread: 1500
+		Damage: 3000
+		Falloff: 1000, 368, 135, 50, 18, 7, 0
+		ValidTargets: Ground, Water, GroundActor, WaterActor
+		ValidRelationships: Ally
 		AffectsParent: false
 		Versus:
 			Concrete: 15
@@ -1538,6 +1550,18 @@ MediDeathKnightAttack2:
 		Damage: 5000
 		Falloff: 500, 368, 135, 50, 18, 7, 0
 		ValidTargets: Ground, Water, GroundActor, WaterActor
+		ValidRelationships: Enemy, Neutral
+		AffectsParent: false
+		Versus:
+			Concrete: 15
+		DamageTypes: Prone50Percent, TriggerProne, FireDeath, Incendiary
+		Delay: 70
+	Warhead@7Dam_areanuke2A: SpreadDamage
+		Spread: 3000
+		Damage: 2000
+		Falloff: 500, 368, 135, 50, 18, 7, 0
+		ValidTargets: Ground, Water, GroundActor, WaterActor
+		ValidRelationships: Ally
 		AffectsParent: false
 		Versus:
 			Concrete: 15
@@ -1554,6 +1578,18 @@ MediDeathKnightAttack2:
 		Damage: 2000
 		Falloff: 500, 368, 135, 50, 18, 7, 0
 		ValidTargets: Ground, Water, GroundActor, WaterActor
+		ValidRelationships: Enemy, Neutral
+		AffectsParent: false
+		Versus:
+			Concrete: 15
+		DamageTypes: Prone50Percent, TriggerProne, FireDeath, Incendiary
+		Delay: 80
+	Warhead@4Dam_areanuke1A: SpreadDamage
+		Spread: 4000
+		Damage: 1000
+		Falloff: 500, 368, 135, 50, 18, 7, 0
+		ValidTargets: Ground, Water, GroundActor, WaterActor
+		ValidRelationships: Ally
 		AffectsParent: false
 		Versus:
 			Concrete: 15
@@ -1563,6 +1599,19 @@ MediDeathKnightAttack2:
 		Spread: 5000
 		Damage: 1000
 		Falloff: 500, 368, 135, 50, 18, 7, 0
+		ValidRelationships: Enemy, Neutral
+		Delay: 15
+		ValidTargets: Ground, Water, GroundActor, WaterActor
+		AffectsParent: false
+		Versus:
+			Concrete: 15
+		DamageTypes: Prone50Percent, TriggerProne, FireDeath, Incendiary
+		Delay: 80
+	Warhead@9Dam_areanuke3A: SpreadDamage
+		Spread: 5000
+		Damage: 200
+		Falloff: 500, 368, 135, 50, 18, 7, 0
+		ValidRelationships: Ally
 		Delay: 15
 		ValidTargets: Ground, Water, GroundActor, WaterActor
 		AffectsParent: false
@@ -1626,9 +1675,14 @@ MediDeathKnightEffect2:
 	Warhead@MediVoid4Effect: CreateEffect
 		Explosions: small_napalm
 		ImpactActors: false
+	
+Chaoswep:
+	Inherits: Catapult
+	ReloadDelay: 803
+	Range: 7c0
 
 ChaosSpawner:
-	ReloadDelay: 200
+	ReloadDelay: 250
 	Range: 7c0
 	ValidTargets: Ground, Water, GroundActor, WaterActor, Air, AirborneActor, Structure
 	Projectile: InstantHit
@@ -1639,97 +1693,100 @@ ChaosSpawner:
 Chaoswep01:
 	Inherits: Hwachaarrow
 	ReloadDelay: 200
-	Range: 10c0
+	Range: 7c0
 
 Chaoswep02:
 	Inherits: ManofWar
 	ReloadDelay: 200
+	Range: 7c0
 
 Chaoswep03:
 	Inherits: BallistashotTower
-	ReloadDelay: 120
+	ReloadDelay: 110
 	Burst: 0
-	Range: 10c0
+	Range: 7c0
 
 Chaoswep04:
 	Inherits: CannonShotTower
 	ReloadDelay: 120
 	Burst: 0
-	Range: 10c0
+	Range: 7c0
 
 Chaoswep05:
 	Inherits: LightningElementShot
 	ReloadDelay: 40
 	Burst: 0
-	Range: 10c0
+	Range: 7c0
 
 Chaoswep06:
 	Inherits: MetalElementalInfantry
 	ReloadDelay: 90
-	Range: 10c0
+	Range: 7c0
 
 Chaoswep07:
 	Inherits: WaterElementalBlast
-	ReloadDelay: 40
-	Range: 10c0
+	ReloadDelay: 33
+	Range: 7c0
 
 Chaoswep08:
 	Inherits: MusketeerShot
-	Range: 10c0
+	Range: 7c0
 	Burst: 2
-	ReloadDelay: 60
+	ReloadDelay: 120
 
 Chaoswep09:
 	Inherits: WizBall
 	ReloadDelay: 20
 	Burst: 3
-	Range: 10c0
+	Range: 7c0
 	
 Chaoswep10:
 	Inherits: Catapult
-	ReloadDelay: 40
-	Range: 10c0
+	ReloadDelay: 803
+	Range: 7c0
 
 Chaoswep11:
 	Inherits: Hwachaarrow
 	ReloadDelay: 200
-	Range: 10c0
+	Range: 7c0
 
 Chaoswep12:
 	Inherits: BladeMasterTornado
 	ReloadDelay: 150
 	Burst: 0
-	Range: 10c0
+	Range: 7c0
 
 Chaoswep13:
 	Inherits: LightningElementShot
 	ReloadDelay: 40
 	Burst: 0
-	Range: 10c0
+	Range: 7c0
 
 Chaoswep14:
 	Inherits: TurretGunDouble
-	ReloadDelay: 40
+	ReloadDelay: 46
 	Burst: 3
-	Range: 10c0
+	Range: 7c0
 
 Chaoswep15:
 	Inherits: WaterElementalBlast
-	ReloadDelay: 40
-	Range: 10c0
+	ReloadDelay: 43
+	Range: 7c0
 
 PaladinHealWep:
 	ReloadDelay: 209
-	Range: 6c0
+	Range: 7c0
 	Report: tesla1.aud
 	ValidTargets: Ground, Water, GroundActor, WaterActor, Air, AirborneActor
-	Projectile: TeslaZap
-		Width: 0c100
-		Duration: 10
-		TrackTarget: false
+	Projectile: InstantHit
 	Warhead@1heala: HealthPercentageDamage
 		Spread: 2c0
-		Damage: -5
+		Damage: -2
+		ValidTargets: Heal
+		ValidRelationships: Ally
+	Warhead@1Dam: SpreadDamage
+		Damage: -2000
+		Spread: 2c0
 		ValidTargets: Heal
 		ValidRelationships: Ally
 	Warhead@1healb: CreateEffect
@@ -1739,18 +1796,15 @@ PaladinHealWep:
 	
 SmitePaladinWep:
 	ReloadDelay: 303
-	Range: 6c0
+	Range: 7c0
 	Report: tesla1.aud
 	ValidTargets: Ground, Water, GroundActor, WaterActor, Air, AirborneActor
-	Projectile: LaserZap
-		Width: 0c100
-		Duration: 10
-		TrackTarget: false
+	Projectile: InstantHit
 	Warhead@: HealthPercentageDamage
 		Delay: 0
 		Spread: 2c512
 		ValidTargets: Infantry
-		Damage: 10
+		Damage: 5
 		ValidRelationships: Enemy, Neutral
 		DamageTypes: Prone50Percent, TriggerProne, ElectricityDeath
 	Warhead@Eff: CreateEffect
@@ -1774,11 +1828,13 @@ SmitePaladinWep:
 
 LightningPaladinShot:
 	ReloadDelay: 157
-	Range: 6c0
+	Range: 7c0
 	Report: tesla1.aud
 	ValidTargets: Ground, Water, GroundActor, WaterActor, Air, AirborneActor
-	Projectile: Railgun
-		DamageActorsInLine: True
+	Projectile:  LaserZap
+		Width: 0c100
+		Duration: 10
+		TrackTarget: false
 	Warhead@1Dam: SpreadDamage
 		Spread: 42
 		Damage: 10000
