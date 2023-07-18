@@ -1597,9 +1597,34 @@ usapatriotshotemp:
         DamageTypes: Prone50Percent, TriggerProne, SmallExplosionDeath
     Warhead@2EMP: GrantExternalCondition
 		Condition: disabled
-		Duration: 100
+		Duration: 10
 		ValidTargets: GroundActor, WaterActor
 		DamageTypes: Prone50Percent, TriggerProne, SmallExplosionDeath
+
+missiledefendershotemp:
+	Inherits: ^AntiGroundMissile
+	RequiresNormalFire: true
+	ReloadDelay: 35
+	Range: 5c0
+	Report: imisweaa.wav, imisweab.wav, imisweac.wav
+	Projectile: Missile
+        ContrailStartColor: 0000FF
+        ContrailEndColor: 00008B
+	Warhead@1Dam: SpreadDamage
+		Damage: 2000
+		ValidTargets: Ground, GroundActor, Air, AirborneActor, WaterActor, Trees
+    Warhead@2EMP: GrantExternalCondition
+		Condition: disabled
+		Duration: 5
+		ValidTargets: GroundActor, WaterActor
+		DamageTypes: Prone50Percent, TriggerProne, SmallExplosionDeath
+
+missiledefendershotempgarrison:
+	Inherits: missiledefendershotemp
+	RequiresNormalFire: false
+	Range: 6c0
+	Projectile: Missile
+		RangeLimit: 7c0
         
 usamlrscarriershot:
 	Inherits: ^AntiGroundMissile
@@ -2210,3 +2235,15 @@ usalaserdragon:
 	Warhead@1Dam: SpreadDamage
 		Damage: 3000
 		ValidTargets: Ground, GroundActor, Air, AirborneActor, WaterActor, Trees
+
+usaempdragon:
+	Inherits: ^AntiGroundMissile
+	Projectile: Missile
+		TrailImage: smokey
+        ContrailStartColor: 0000FF
+        ContrailEndColor: 00008B
+    Warhead@2EMP: GrantExternalCondition
+		Condition: disabled
+		Duration: 5
+		ValidTargets: GroundActor, WaterActor
+		DamageTypes: Prone50Percent, TriggerProne, SmallExplosionDeath

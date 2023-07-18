@@ -507,25 +507,40 @@
 		Name: USA
 		InternalName: usa
 		Side: United States of America
-		Description: MURICA'!\nFUCK YEAH!\nCOMIN' AGAIN TO SAVE THE MOTHER FUCKIN' DAY YEAH!
+		Description: MURICA'!\nFUCK YEAH!\nCOMIN' AGAIN TO SAVE THE MOTHER FUCKIN' DAY YEAH!\nAbility to recruit all USA Generals at the cost of upgrades.
 	Faction@townes:
 		Name: Laser General
 		InternalName: townes
 		Side: United States of America
-		Description: MURICA'!\nFUCK YEAH!\nCOMIN' AGAIN TO SAVE THE MOTHER FUCKIN' DAY YEAH!
+		Description: General "Pinpoint" Townes\nSpecial Units: Lasar Weaponry, Disrupter Tank\nSuperweapon: Particle Ion Cannon\nEpic Ability: MOAB
 	Faction@granger:
 		Name: Airforce General
 		InternalName: granger
 		Side: United States of America
-		Description: MURICA'!\nFUCK YEAH!\nCOMIN' AGAIN TO SAVE THE MOTHER FUCKIN' DAY YEAH!
+		Description: General Malcolm 'Ace' Granger\nSpecial Units: Superior Aircraft, Spectre Gunship\nSuperweapon: Particle Ion Cannon\nEpic Ability: A10 Strike\nNo Tanks
 	Faction@alexander:
 		Name: Superweapons General
 		InternalName: alexander
 		Side: United States of America
-		Description: MURICA'!\nFUCK YEAH!\nCOMIN' AGAIN TO SAVE THE MOTHER FUCKIN' DAY YEAH!
+		Description:  General Alexis Alexander\nSpecial Units: N/A \nSuperweapon: Particle Ion Cannon & Tomahawk Storm\nEpic Ability: MOAB\nNo Tanks
 	Faction@china:
 		Name: China
 		InternalName: china
+		Side: People's Republic of China
+		Description: bing chilling
+	Faction@infantry:
+		Name: Infantry General
+		InternalName: infantry
+		Side: People's Republic of China
+		Description: bing chilling
+	Faction@tank:
+		Name: Tank General
+		InternalName: tank
+		Side: People's Republic of China
+		Description: bing chilling
+	Faction@nuke:
+		Name: Nuke General
+		InternalName: nuke
 		Side: People's Republic of China
 		Description: bing chilling
 	Faction@civ:
@@ -536,7 +551,7 @@
 	Faction@random1:
 		Name: Any
 		InternalName: Random
-		RandomFactionMembers: RandomAllies, RandomSoviet, RandomGDI, RandomNod, RandomUAC, RandomNazi, RandomGLA, RandomFed, RandomMedi, protoss, zerg, terran, usa, china
+		RandomFactionMembers: RandomAllies, RandomSoviet, RandomGDI, RandomNod, RandomUAC, RandomNazi, RandomGLA, RandomFed, RandomMedi, RandomUSA, RandomChina, protoss, zerg, terran, usa, china
 		Side: Random
 		Description: Random Faction\nA random faction will be chosen when the game starts.
 	Faction@randomallies1:
@@ -593,6 +608,18 @@
 		RandomFactionMembers: darkness, holy, elementalists
 		Side: Random
 		Description: Random Medieval order.\nSpecialty: Swords and shit, stoneage.\nUtility: Fuk u
+	Faction@randomusa:
+		Name: USA
+		InternalName: RandomUSA
+		RandomFactionMembers: townes, granger, alexander
+		Side: Random
+		Description: Random USA General.\nSpecialty: MURICA'!\nFUCK YEAH!\nCOMIN' AGAIN TO SAVE THE MOTHER FUCKIN' DAY YEAH!
+	Faction@randomchina:
+		Name: China
+		InternalName: RandomChina
+		RandomFactionMembers: tank, infantry, nuke
+		Side: Random
+		Description: Random China General.\nSpecialty: bing chilling
 	ResourceRenderer:
 		ResourceTypes:
 			Ore:
@@ -710,7 +737,7 @@ World:
 	StartingUnits@mcvonlydawn:
 		Class: none
 		ClassName: MCV Only
-		Factions: gdi, steel, zocom, gdi3, nod, marked, bhand, nod3, fed, sword, angels, silver, china
+		Factions: gdi, steel, zocom, gdi3, nod, marked, bhand, nod3, fed, sword, angels, silver, china, tank, nuke, infantry
 		BaseActor: mcvd
 		SupportActors: upgrade.spawn
 	StartingUnits@mcvonlyciv:
@@ -886,6 +913,30 @@ World:
 		SupportActors: chinaredguard2,chinaredguard2,chinaredguard2,chinaredguard2,chinaredguard2,chinaredguard2,chinatankhunter,chinagatlingtank,chinabattlemaster,upgrade.spawn
 		InnerSupportRadius: 3
 		OuterSupportRadius: 5
+	StartingUnits@lightchinatank:
+		Class: light
+		ClassName: Light Support
+		Factions: tank
+		BaseActor: mcvd
+		SupportActors: chinaredguard2,chinaredguard2,chinaredguard2,chinaredguard2,chinaredguard2,chinaredguard2,chinatankhunter,chinagatlingtank,chinabattlemaster,upgrade.spawn
+		InnerSupportRadius: 3
+		OuterSupportRadius: 5
+	StartingUnits@lightchinanuke:
+		Class: light
+		ClassName: Light Support
+		Factions: nuke
+		BaseActor: mcvd
+		SupportActors: chinanukeneer,chinanukeneer,chinaredguard2,chinaredguard2,chinaredguard2,chinaredguard2,chinatankhunter,chinagatlingtank,chinabattlemaster,upgrade.spawn
+		InnerSupportRadius: 3
+		OuterSupportRadius: 5
+	StartingUnits@lightchinainfantry:
+		Class: light
+		ClassName: Light Support
+		Factions: infantry
+		BaseActor: mcvd
+		SupportActors: chinadragonbreathers,chinadragonbreathers,chinadragonbreathers,chinaminigunner,chinaminigunner,chinaminigunner,chinatankhunter,chinagatlingtank,chinabattlemaster,upgrade.spawn
+		InnerSupportRadius: 3
+		OuterSupportRadius: 5
 	StartingUnits@heavyallies:
 		Class: heavy
 		ClassName: Heavy Support
@@ -1028,6 +1079,30 @@ World:
 		Factions: china
 		BaseActor: mcvd
 		SupportActors: chinaredguard2,chinaredguard2,chinaredguard2,chinaredguard2,chinaredguard2,chinaredguard2,chinaredguard2,chinaredguard2,chinatankhunter,chinatankhunter,chinagatlingtank,chinadragontank,chinabattlemaster,chinabattlemaster,upgrade.spawn
+		InnerSupportRadius: 3
+		OuterSupportRadius: 5
+	StartingUnits@heavychinatank:
+		Class: heavy
+		ClassName: Heavy Support
+		Factions: tank
+		BaseActor: mcvd
+		SupportActors: chinaredguard2,chinaredguard2,chinaredguard2,chinaredguard2,chinaredguard2,chinaredguard2,chinahoppertank,chinahoppertank,chinatankhunter,chinatankhunter,chinagatlingtank,chinadragontank,chinabattlemaster,chinabattlemaster,upgrade.spawn
+		InnerSupportRadius: 3
+		OuterSupportRadius: 5
+	StartingUnits@heavychinanuke:
+		Class: heavy
+		ClassName: Heavy Support
+		Factions: tank
+		BaseActor: mcvd
+		SupportActors: chinanukeneer,chinanukeneer,chinaredguard2,chinaredguard2,chinaredguard2,chinaredguard2,chinaredguard2,chinaredguard2,chinatankhunter,chinatankhunter,chinagatlingtank,chinadragontank,chinabattlemaster,chinabattlemaster,upgrade.spawn
+		InnerSupportRadius: 3
+		OuterSupportRadius: 5
+	StartingUnits@heavychinainfantry:
+		Class: heavy
+		ClassName: Heavy Support
+		Factions: infantry
+		BaseActor: mcvd
+		SupportActors: chinadragonbreathers,chinadragonbreathers,chinadragonbreathers,chinadragonbreathers,chinaminigunner,chinaminigunner,chinaminigunner,chinaminigunner,chinatankhunter,chinatankhunter,chinagatlingtank,chinatroopcarrier,chinabattlemaster,chinabattlemaster,upgrade.spawn
 		InnerSupportRadius: 3
 		OuterSupportRadius: 5
 	MapStartingLocations:

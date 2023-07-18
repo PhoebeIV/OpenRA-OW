@@ -126,7 +126,7 @@ USAHUMVEE:
 	Armament@Secondary:
 		Weapon: Dragon
 		FireDelay: 5
-		PauseOnCondition: upgradelasergeneral
+		PauseOnCondition: upgradelasergeneral || upgradeempmissiles
 	Armament@LaserGeneral1:
 		Weapon: usalaserdragon
 		FireDelay: 5
@@ -134,6 +134,10 @@ USAHUMVEE:
 	Armament@LaserGeneral2:
 		Weapon: USARangerLaser
 		RequiresCondition: upgradelasergeneral
+	Armament@Secondaryemp:
+		Weapon: usaempdragon
+		FireDelay: 5
+		RequiresCondition: upgradeempmissiles
 	Cargo:
 		Types: Infantry
 		MaxWeight: 5
@@ -154,6 +158,9 @@ USAHUMVEE:
     GrantConditionOnPrerequisite@chargedlasers:
         Condition: upgradechargedlasers
         Prerequisites: upgrade.chargedlasers
+    GrantConditionOnPrerequisite@empmissiles:
+        Condition: upgradeempmissiles
+        Prerequisites: upgrade.empmissiles
         
 USAAMBULANCE:
 	Inherits: JEEP
@@ -636,10 +643,7 @@ usadisrupter:
 		Modifier: 60
 	InaccuracyMultiplier@disrupter7:
 		RequiresCondition: disrupter >= 10
-		Modifier: 200
-	FirepowerMultiplier@disrupter7:
-		RequiresCondition: disrupter >= 10
-		Modifier: 75
+		Modifier: 125
 	Explodes:
 		Weapon: CrateNuke
 		EmptyWeapon: CrateNuke

@@ -54,9 +54,6 @@ usacoldfusion:
 	Power@Extra150:
 		Amount: 150
         RequiresCondition: coldfusionup2
-	Power@townes:
-		Amount: 50
-        RequiresCondition: townespowerup
 	Targetable:
 		TargetTypes: GroundActor, Structure, C4, DetonateAttack, SpyInfiltrate
 	ScalePowerWithHealth:
@@ -65,9 +62,6 @@ usacoldfusion:
 		UseDeathTypeSuffix: false
 	RenderSprites:
         Image: usacoldfusionbuilding
-	GrantConditionOnPrerequisite@townes:
-		Condition: townespowerup
-		Prerequisites: ~faction.lasergeneral
 	GrantConditionOnPrerequisite@coldfusionup1:
 		Condition: coldfusionup1
 		Prerequisites: ~upgrade.coldreactor
@@ -1412,3 +1406,247 @@ usashipyard:
 ##	Explodes:
 ##		Weapon: TinyNuke
 ##		EmptyWeapon: TinyNuke
+
+usasupportmatrix:
+	Inherits: ^Defense
+	Inherits@LOWPOWER: ^DisableOnLowPowerOrPowerDown
+	Inherits@AUTOTARGET: ^AutoTargetAll
+	Inherits@SHAPE: ^2x1Shape
+	Buildable:
+		Queue: Defense
+		BuildPaletteOrder: 4
+		BuildDuration: 625
+		BuildDurationModifier: 100
+		Prerequisites: anypower, ~structures.usa, techcenter, upgrade.superweaponsgeneral, ~!faction.lasergeneral, ~!faction.aircraftgeneral
+		Description: Support matrix system that increases attack and defense of nearby units for a short amount of time.\nProvided by General Alexis Alexander.
+	Valued:
+		Cost: 1200
+	Tooltip:
+		Name: Support Matrix
+	Building:
+		Footprint: xx
+		Dimensions: 2,1
+	Health:
+		HP: 60000
+	Armor:
+		Type: Wood
+	RevealsShroud:
+		MinRange: 5c0
+		Range: 6c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 5c0
+	WithBuildingBib:
+		HasMinibib: true
+	WithTeslaChargeAnimation:
+	Armament:
+		Weapon: SupportMatrixWeapon
+		LocalOffset: 512,0,0
+		TargetRelationships: Ally
+		ForceTargetRelationships: None
+	AttackTesla:
+		RequiresCondition: !build-incomplete
+		PauseOnCondition: disabled
+		MaxCharges: 1
+		ReloadDelay: 350
+		InitialChargeDelay: 70
+	-QuantizeFacingsFromSequence:
+	BodyOrientation:
+		QuantizedFacings: 8
+	Power:
+		Amount: -100
+	ProvidesPrerequisite@buildingname:
+	Explodes:
+		Weapon: E100Cannon
+		EmptyWeapon: E100Cannon
+	ExplosionOnDamageTransition:
+		Weapon: SupportMatrixWeapon
+		RequiresCondition: !disabled || !lowpower || !powerdown
+	DamageMultiplier@ironshroud:
+		Modifier: 50
+	-RenderRangeCircle:
+	WithRangeCircle:
+		Range: 12c0
+		Color: FF000080
+	RenderSprites:
+		Image: usasupportmatrix
+
+usatomahawkstorm:
+	Inherits: ^Building
+	Inherits@shape: ^2x1Shape
+	Inherits@IDISABLE: ^DisableOnLowPowerOrPowerDown
+	Valued:
+		Cost: 5000
+	Tooltip:
+		Name: Tomahawk Storm
+	Buildable:
+		Queue: Tech
+		Prerequisites: anypower, ~structures.usa, upgrade.superweaponsgeneral, advtechcenter, ~!faction.lasergeneral, ~!faction.aircraftgeneral
+		Description: Provides the Tomahawk Storm ability.
+		BuildLimit: 1
+		BuildPaletteOrder: 500
+	Building:
+		Footprint: xx
+		Dimensions: 2,1
+	Selectable:
+		Bounds: 3072, 2048
+		DecorationBounds: 3072, 2901, 0, -426
+	Health:
+		HP: 100000
+	Armor:
+		Type: Wood
+	RevealsShroud:
+		Range: 4c0
+	DropPodsPower@artillery:
+		Icon: tomahawkstormpowericon
+		Name: Tomahawk Storm
+		OrderName: tomahawkstorm
+		Description: Launches a tomahawk storm on the targeted area.
+		UnitTypes: tomahawkstormpower, tomahawkstormpower1, tomahawkstormpower2, tomahawkstormpower3, tomahawkstormpower4, tomahawkstormpower5
+		Cursor: chrono-target
+		Drops: 40,44
+		PodScatter: 10
+		PodFacing: 704
+		PauseOnCondition: disabled
+		CameraActor: camera
+		CameraRemoveDelay: 300
+		Weapon: ArtilleryPowerMarker
+		WeaponDelay: 5
+		ChargeInterval: 15000
+		EntryEffect: explosion
+		EntryEffectSequence: bunkerbustersring
+		LaunchSound: InterceptorMissile01.wav
+		SelectTargetSpeechNotification: SelectTarget
+		SelectTargetTextNotification: Select target.
+		DisplayRadarPing: true
+		DisplayTimerRelationships: Ally, Enemy, Neutral
+		BeaconPoster: artillerybarragebeacon
+	SupportPowerChargeBar:
+	Power:
+		Amount: -200
+	MustBeDestroyed:
+		RequiredForShortGame: false
+	ProvidesPrerequisite@superweapon:
+		Prerequisite: superweapon
+	RenderSprites:
+		Image: usatomahawkstorm
+	Explodes:
+		Type: CenterPosition
+		Weapon: MiniNuke
+		EmptyWeapon: MiniNuke
+
+tomahawkstormpower:
+	Inherits: ^Plane
+	Health:
+		HP: 10000
+	Valued:
+		Cost: 2000
+	Aircraft:
+		TurnSpeed: 20
+		Speed: 125
+		CruiseAltitude: 32c0
+		MaximumPitch: 110
+		VTOL: true
+		LandableTerrainTypes: Clear, Road, Creep, Bridge, Water, Ore, Gems, Rough, Tiberium, BlueTiberium, Radiation, Beach
+	WithMuzzleOverlay:
+	-ActorLostNotification:
+	Contrail:
+		Offset: 0,0,0
+		StartColor: FFFFFF
+		TrailLength: 35
+	-Selectable:
+	AttackAircraft:
+	Armament:
+		Weapon: NuclearParaDrop
+	Tooltip:
+		Name: bomblol
+	RejectsOrders:
+	-SpawnActorOnDeath:
+	FallsToEarth:
+		Explosion: TomahawkStormExplosion
+		Moves: true
+		Velocity: 160
+		MaximumSpinSpeed: 0
+	AmbientSound@airborne:
+		SoundFiles: gshescre.wav, gshescrf.wav, gshescreg.wav, gshescrh.wav, gshescri.wav, gshescrj.wav, gshescrk.wav
+		Interval: 25, 100
+		Delay: 5
+	-EjectOnDeath:
+	Interactable:
+	RenderSprites:
+		Image: tomahawkstormpower
+
+tomahawkstormpower1:
+	Inherits: tomahawkstormpower
+	Aircraft:
+		TurnSpeed: 20
+		Speed: 125
+		CruiseAltitude: 32c0
+		MaximumPitch: 110
+		VTOL: true
+		LandableTerrainTypes: Clear, Road, Creep, Bridge, Water, Ore, Gems, Rough, Tiberium, BlueTiberium, Radiation, Beach
+	FallsToEarth:
+		Explosion: TomahawkStormExplosion
+		Moves: true
+		Velocity: 170
+		MaximumSpinSpeed: 0
+
+tomahawkstormpower2:
+	Inherits: tomahawkstormpower
+	Aircraft:
+		TurnSpeed: 20
+		Speed: 125
+		CruiseAltitude: 32c0
+		MaximumPitch: 110
+		VTOL: true
+		LandableTerrainTypes: Clear, Road, Creep, Bridge, Water, Ore, Gems, Rough, Tiberium, BlueTiberium, Radiation, Beach
+	FallsToEarth:
+		Explosion: TomahawkStormExplosion
+		Moves: true
+		Velocity: 180
+		MaximumSpinSpeed: 0
+
+tomahawkstormpower3:
+	Inherits: tomahawkstormpower
+	Aircraft:
+		TurnSpeed: 20
+		Speed: 125
+		CruiseAltitude: 32c0
+		MaximumPitch: 110
+		VTOL: true
+		LandableTerrainTypes: Clear, Road, Creep, Bridge, Water, Ore, Gems, Rough, Tiberium, BlueTiberium, Radiation, Beach
+	FallsToEarth:
+		Explosion: TomahawkStormExplosion
+		Moves: true
+		Velocity: 150
+		MaximumSpinSpeed: 0
+
+tomahawkstormpower4:
+	Inherits: tomahawkstormpower
+	Aircraft:
+		TurnSpeed: 20
+		Speed: 125
+		CruiseAltitude: 32c0
+		MaximumPitch: 110
+		VTOL: true
+		LandableTerrainTypes: Clear, Road, Creep, Bridge, Water, Ore, Gems, Rough, Tiberium, BlueTiberium, Radiation, Beach
+	FallsToEarth:
+		Explosion: TomahawkStormExplosion
+		Moves: true
+		Velocity: 140
+		MaximumSpinSpeed: 0
+
+tomahawkstormpower5:
+	Inherits: tomahawkstormpower
+	Aircraft:
+		TurnSpeed: 20
+		Speed: 125
+		CruiseAltitude: 32c0
+		MaximumPitch: 110
+		VTOL: true
+		LandableTerrainTypes: Clear, Road, Creep, Bridge, Water, Ore, Gems, Rough, Tiberium, BlueTiberium, Radiation, Beach
+	FallsToEarth:
+		Explosion: TomahawkStormExplosion
+		Moves: true
+		Velocity: 145
+		MaximumSpinSpeed: 0

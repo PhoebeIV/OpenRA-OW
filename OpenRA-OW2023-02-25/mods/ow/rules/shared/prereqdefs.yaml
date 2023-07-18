@@ -1,7 +1,7 @@
 ^ConYardPrereqs:
 	Inherits@ConYardPrereqs_Bot: ^ConYardPrereqs_Bot
 	ProvidesPrerequisite@oreext: # Buildable by all bar GLA
-		Factions: allies, england, france, germany, soviet, russia, ukraine, estonia, phobos, deimos, mars, hitler, himmler, heydrich, nod, bhand, marked, nod3, gdi, steel, zocom, gdi3, sword, angels, silver, civ, darkness, holy, elementalists, usa, terran, china, townes, alexander, granger
+		Factions: allies, england, france, germany, soviet, russia, ukraine, estonia, phobos, deimos, mars, hitler, himmler, heydrich, nod, bhand, marked, nod3, gdi, steel, zocom, gdi3, sword, angels, silver, civ, darkness, holy, elementalists, usa, terran, china, townes, alexander, granger, tank, infantry, nuke
 		Prerequisite: structures.oreextprereq
 		RequiresPrerequisites: !techlevel.gems
 	ProvidesPrerequisite@oreextnopower: # Protoss / GLA
@@ -9,10 +9,10 @@
 		Prerequisite: structures.oreextprereq2
 		RequiresPrerequisites: !techlevel.gems
 	ProvidesPrerequisite@ultprereq: # EpicTech centre Buildable by all bar Civilians/GLA/Medi
-		Factions: allies, england, france, germany, soviet, russia, ukraine, estonia, phobos, deimos, mars, hitler, himmler, heydrich, nod, bhand, marked, nod3, gdi, steel, zocom, gdi3, sword, angels, silver, usa, china, townes, alexander, granger
+		Factions: allies, england, france, germany, soviet, russia, ukraine, estonia, phobos, deimos, mars, hitler, himmler, heydrich, nod, bhand, marked, nod3, gdi, steel, zocom, gdi3, sword, angels, silver, usa, china, townes, alexander, granger, tank, infantry, nuke
 		Prerequisite: structures.ultprereq
 	ProvidesPrerequisite@all: # Buildable by all bar Civilians
-		Factions: allies, england, france, germany, soviet, russia, ukraine, estonia, phobos, deimos, mars, hitler, himmler, heydrich, nod, bhand, marked, nod3, gdi, steel, zocom, gdi3, sword, angels, silver, demo, kassad, thrax, usa, evil, china, townes, alexander, granger
+		Factions: allies, england, france, germany, soviet, russia, ukraine, estonia, phobos, deimos, mars, hitler, himmler, heydrich, nod, bhand, marked, nod3, gdi, steel, zocom, gdi3, sword, angels, silver, demo, kassad, thrax, usa, evil, china, townes, alexander, granger, tank, infantry, nuke
 		Prerequisite: structures.all
 	ProvidesPrerequisite@proc: # REF
 		Factions: allies, england, france, germany, soviet, russia, ukraine, estonia, hitler, himmler, heydrich
@@ -212,12 +212,33 @@
 	ProvidesPrerequisite@alexander2:
 		Factions: alexander
 		Prerequisite: faction.superweaponsgeneral
+	ProvidesPrerequisite@alexander3:
+		Factions: alexander
+		Prerequisite: upgrade.coldreactor
 	ProvidesPrerequisite@evil:
 		Factions: evil
 		Prerequisite: structures.evil
 	ProvidesPrerequisite@china:
-		Factions: china
+		Factions: china, tank, infantry, nuke
 		Prerequisite: structures.china
+	ProvidesPrerequisite@tank1:
+		Factions: tank
+		Prerequisite: upgrade.tankgeneral
+	ProvidesPrerequisite@tank2:
+		Factions: tank
+		Prerequisite: faction.tankgeneral
+	ProvidesPrerequisite@infantry1:
+		Factions: infantry
+		Prerequisite: upgrade.infantrygeneral
+	ProvidesPrerequisite@infantry2:
+		Factions: infantry
+		Prerequisite: faction.infantrygeneral
+	ProvidesPrerequisite@nuke1:
+		Factions: nuke
+		Prerequisite: upgrade.nukegeneral
+	ProvidesPrerequisite@nuke2:
+		Factions: nuke
+		Prerequisite: faction.nukegeneral
 	ProvidesPrerequisite@botonly:
 		Prerequisite: structures.botonly
 		RequiresPrerequisites: ai.all
@@ -230,7 +251,7 @@
 	ProvidesPrerequisite:
 		Prerequisite: barracks
 	ProvidesPrerequisite@surv: # Surveyor (all but civ/medi)
-		Factions: allies, england, france, germany, soviet, ukraine, russia, estonia, nod, marked, bhand, nod3, gdi, zocom, steel, gdi3, hitler, himmler, heydrich, thrax, demo, kassad, angels, silver, sword, phobos, deimos, mars, usa, china, townes, alexander, granger
+		Factions: allies, england, france, germany, soviet, ukraine, russia, estonia, nod, marked, bhand, nod3, gdi, zocom, steel, gdi3, hitler, himmler, heydrich, thrax, demo, kassad, angels, silver, sword, phobos, deimos, mars, usa, china, townes, alexander, granger, tank, infantry, nuke
 		Prerequisite: infantry.surveyorprereq
 	ProvidesPrerequisite@e1of: # Officer
 		Factions: allies, england, france, germany, soviet, ukraine, russia, estonia, nod, marked, bhand, nod3, gdi, zocom, steel, gdi3, hitler, himmler, heydrich, civ, demo, kassad, thrax
@@ -245,7 +266,7 @@
 		Factions: soviet, ukraine, russia, estonia, nod, marked, bhand, nod3, civ
 		Prerequisite: infantry.e4prereq
 	ProvidesPrerequisite@e6: # Engineer
-		Factions: allies, england, france, germany, soviet, ukraine, russia, estonia, nod, marked, bhand, nod3, gdi, zocom, steel, gdi3, phobos, deimos, mars, hitler, himmler, heydrich, usa, china, townes, alexander, granger
+		Factions: allies, england, france, germany, soviet, ukraine, russia, estonia, nod, marked, bhand, nod3, gdi, zocom, steel, gdi3, phobos, deimos, mars, hitler, himmler, heydrich, usa, china, townes, alexander, granger, tank, infantry, nuke
 		Prerequisite: infantry.e6prereq
 	ProvidesPrerequisite@medic: # Medic
 		Factions: allies, england, france, germany, marked, zocom
@@ -254,7 +275,7 @@
 		Factions: allies, england, france, germany, estonia, steel
 		Prerequisite: infantry.mechprereq
 	ProvidesPrerequisite@thf: # Thief
-		Factions: soviet, ukraine, russia, estonia, nod, marked, bhand, nod3, hitler, himmler, heydrich, china
+		Factions: soviet, ukraine, russia, estonia, nod, marked, bhand, nod3, hitler, himmler, heydrich, china, tank, infantry, nuke
 		Prerequisite: infantry.thfprereq
 	ProvidesPrerequisite@e5: # Chem Warrior
 		Factions: nod3, thrax
@@ -517,7 +538,7 @@
 		RequiresPrerequisites: structures.usa
 		Prerequisite: infantry.usa
 	ProvidesPrerequisite@usa:
-		Factions: usa
+		Factions: usa, townes, alexander, granger
 		Prerequisite: infantry.usa
 	ProvidesPrerequisite@evilstructures:
 		RequiresPrerequisites: structures.evil
@@ -529,7 +550,7 @@
 		RequiresPrerequisites: structures.china
 		Prerequisite: infantry.china
 	ProvidesPrerequisite@china:
-		Factions: china
+		Factions: china, tank, infantry, nuke
 		Prerequisite: infantry.china
 	ProvidesPrerequisite@botonly:
 		Prerequisite: infantry.botonly
@@ -539,22 +560,22 @@
 	ProvidesPrerequisite:
 		Prerequisite: factory
 	ProvidesPrerequisite@all: # Buildable by all bar Civilians
-		Factions: allies, england, france, germany, soviet, russia, ukraine, estonia, phobos, deimos, mars, hitler, himmler, heydrich, demo, kassad, thrax, nod, bhand, marked, nod3, gdi, steel, zocom, gdi3, sword, angels, silver, usa, china, townes, alexander, granger
+		Factions: allies, england, france, germany, soviet, russia, ukraine, estonia, phobos, deimos, mars, hitler, himmler, heydrich, demo, kassad, thrax, nod, bhand, marked, nod3, gdi, steel, zocom, gdi3, sword, angels, silver, usa, china, townes, alexander, granger, tank, infantry, nuke
 		Prerequisite: vehicles.all
 	ProvidesPrerequisite@supply: # Buildable by all bar Civilians
-		Factions: allies, england, france, germany, soviet, russia, ukraine, estonia, phobos, deimos, mars, hitler, himmler, heydrich, demo, kassad, thrax, nod, bhand, marked, nod3, gdi, steel, zocom, gdi3, sword, angels, silver, usa, china, terran, zerg, protoss, townes, alexander, granger
+		Factions: allies, england, france, germany, soviet, russia, ukraine, estonia, phobos, deimos, mars, hitler, himmler, heydrich, demo, kassad, thrax, nod, bhand, marked, nod3, gdi, steel, zocom, gdi3, sword, angels, silver, usa, china, terran, zerg, protoss, townes, alexander, granger, tank, infantry, nuke
 		Prerequisite: vehicles.truk
 	ProvidesPrerequisite@mcv: # RA MCV
 		Factions: allies, england, france, germany, soviet, russia, ukraine, estonia, phobos, deimos, mars, hitler, himmler, heydrich, usa, townes, alexander, granger
 		Prerequisite: vehicles.mcvprereq
 	ProvidesPrerequisite@mcvd: # Dawn MCV
-		Factions: nod, bhand, marked, nod3, gdi, steel, zocom, gdi3, sword, angels, silver, china
+		Factions: nod, bhand, marked, nod3, gdi, steel, zocom, gdi3, sword, angels, silver, china, tank, infantry, nuke
 		Prerequisite: vehicles.mcvdprereq
 	ProvidesPrerequisite@mcvm: # Medi MCV
 		Factions: medi, darkness, holy, elementalists
 		Prerequisite: vehicles.mcvmprereq
 	ProvidesPrerequisite@harv: # RA Harvester
-		Factions: allies, england, france, germany, soviet, russia, ukraine, estonia, hitler, himmler, heydrich, china
+		Factions: allies, england, france, germany, soviet, russia, ukraine, estonia, hitler, himmler, heydrich, china, tank, infantry, nuke
 		Prerequisite: vehicles.harvprereq
 	ProvidesPrerequisite@harvd: # Dawn Harvester
 		Factions: nod, marked, nod3, gdi, steel, zocom, gdi3, sword, angels, silver, phobos, deimos, mars
@@ -826,7 +847,7 @@
 		RequiresPrerequisites: structures.evil
 		Prerequisite: vehicles.evil
 	ProvidesPrerequisite@china:
-		Factions: china
+		Factions: china, tank, infantry, nuke
 		Prerequisite: vehicles.china
 	ProvidesPrerequisite@chinastructures:
 		RequiresPrerequisites: structures.china
@@ -848,7 +869,7 @@
 		Factions: allies, france, germany, soviet, ukraine, russia, estonia, hitler, himmler, heydrich, angels, silver, sword, phobos, deimos, mars
 		Prerequisite: ships.lstprereq
 	ProvidesPrerequisite@newlst: # Hovercraft
-		Factions: nod, marked, bhand, nod3, gdi, zocom, steel, gdi3, demo, thrax, kassad, china
+		Factions: nod, marked, bhand, nod3, gdi, zocom, steel, gdi3, demo, thrax, kassad, china, tank, infantry, nuke
 		Prerequisite: ships.newlstprereq
 	ProvidesPrerequisite@lste: # Submersive transport
 		Factions: england, heydrich
@@ -1091,7 +1112,7 @@
 		RequiresPrerequisites: structures.evil
 		Prerequisite: ships.evil
 	ProvidesPrerequisite@china:
-		Factions: china
+		Factions: china, tank, infantry, nuke
 		Prerequisite: ships.china
 	ProvidesPrerequisite@chinastructures:
 		RequiresPrerequisites: structures.china
@@ -1364,7 +1385,7 @@
 		RequiresPrerequisites: structures.evil
 		Prerequisite: aircraft.evil
 	ProvidesPrerequisite@china:
-		Factions: china
+		Factions: china, tank, infantry, nuke
 		Prerequisite: aircraft.china
 	ProvidesPrerequisite@chinastructures:
 		RequiresPrerequisites: structures.china

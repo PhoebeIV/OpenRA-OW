@@ -148,6 +148,14 @@ CRATE:
 		Sound: ironcur9.aud
 		Condition: invulnerability
 		Duration: 750
+	SupportPowerCrateAction@colonydrop:
+		Proxy: powerproxy.colonydrop
+		Sound: colonydroppickup.wav
+		SelectionShares: 1
+	SupportPowerCrateAction@roadroller:
+		Proxy: powerproxy.roadroller
+		Sound: roadrollerpickup.wav
+		SelectionShares: 2
 	Crate:
 		Duration: 6000
 
@@ -923,3 +931,273 @@ AMOGUS:
 		WanderMoveRadius: 4
 		MinMoveDelay: 25
 		MaxMoveDelay: 75
+
+ColonyDrop:
+	Inherits: ^Plane
+	Health:
+		HP: 200000
+	Aircraft:
+		TurnSpeed: 20
+		Speed: 125
+		CruiseAltitude: 32c0
+		MaximumPitch: 110
+		VTOL: true
+		LandableTerrainTypes: Clear, Road, Creep, Bridge, Water, Ore, Gems, Rough, Tiberium, BlueTiberium, Radiation, Beach
+	WithMuzzleOverlay:
+	-ActorLostNotification:
+	Contrail:
+		Offset: 0,0,0
+		StartColor: d4552f
+		TrailLength: 150
+		StartColorUsePlayerColor: false
+		TrailWidth: 0c78
+	Contrail@1:
+		Offset: 0,-1500,0
+		StartColor: a1a1a1
+		TrailLength: 170
+		StartColorUsePlayerColor: false
+	Contrail@2:
+		Offset: 0,1580,0
+		StartColor: bd6c37
+		TrailLength: 120
+		StartColorUsePlayerColor: false
+	Contrail@3:
+		Offset: 0,-3000,0
+		StartColor: 696969
+		TrailLength: 140
+		StartColorUsePlayerColor: false
+		TrailWidth: 0c124
+	Contrail@4:
+		Offset: 0,4000,0
+		StartColor: 696969
+		TrailLength: 180
+		StartColorUsePlayerColor: false
+	WithIdleOverlay@1:
+		Sequence: idle-overlay1
+	WithIdleOverlay@2:
+		Sequence: idle-overlay2
+	WithIdleOverlay@3:
+		Sequence: idle-overlay3
+	WithIdleOverlay@4:
+		Sequence: idle-overlay4
+	WithIdleOverlay@5:
+		Sequence: idle-overlay5
+	WithIdleOverlay@6:
+		Sequence: idle-overlay6
+	WithIdleOverlay@7:
+		Sequence: idle-overlay7
+	WithIdleOverlay@8:
+		Sequence: idle-overlay8
+	-Selectable:
+	AttackAircraft:
+	Armament:
+		Weapon: colonydropsharpnel
+	Tooltip:
+		Name: why the fuck are you mousing over this, you have more important things to do if this is coming down
+	RejectsOrders:
+	-SpawnActorOnDeath:
+	FallsToEarth:
+		Explosion: ColonyDropExplosion
+		Moves: true
+		Velocity: 80
+		MaximumSpinSpeed: 0
+	AmbientSound@airborne:
+		SoundFiles: gshescre.wav, gshescrf.wav, gshescreg.wav, gshescrh.wav, gshescri.wav, gshescrj.wav, gshescrk.wav
+		Interval: 25, 75
+		Delay: 50
+	-EjectOnDeath:
+	Interactable:
+
+powerproxy.colonydrop:
+	AlwaysVisible:
+	DropPodsPower@colonydrop:
+		Icon: colonydropicon
+		Name: Colony Drop
+		OrderName: colonydrop
+		Description: Drops a colony onto targeted area.
+		UnitTypes: ColonyDrop
+		Cursor: chrono-target
+		Drops: 1,1
+		PodScatter: 4
+		PodFacing: 704
+		PauseOnCondition: disabled
+		CameraActor: camera
+		CameraRemoveDelay: 750
+		Weapon: usarailguncharging
+		WeaponDelay: 5
+		ChargeInterval: 45000
+		EntryEffect: explosion
+		EntryEffectSequence: redeemerexplosion
+		LaunchSound: colonydropentry.wav
+		SelectTargetSpeechNotification: SelectTarget
+		SelectTargetTextNotification: Select target.
+		DisplayRadarPing: true
+		DisplayTimerRelationships: Ally, Enemy, Neutral
+		BeaconPoster: artillerybarragebeacon
+		OneShot: true
+		AllowMultiple: true
+
+powerproxy.roadroller:
+	AlwaysVisible:
+	DropPodsPower@roadroller:
+		Icon: roadrollericon
+		Name: Road Roller
+		OrderName: roadroller
+		Description: ROAD ROLLA DAAAAAAAAAA
+		UnitTypes: roadroller
+		Cursor: chrono-target
+		Drops: 1,1
+		PodScatter: 4
+		PodFacing: 704
+		PauseOnCondition: disabled
+		CameraActor: camera
+		CameraRemoveDelay: 750
+		Weapon: usarailguncharging
+		WeaponDelay: 5
+		ChargeInterval: 1250
+		EntryEffect: explosion
+		EntryEffectSequence: redeemerexplosion
+		LaunchSound: roadrollerenter.wav
+		SelectTargetSpeechNotification: SelectTarget
+		SelectTargetTextNotification: Select target.
+		DisplayRadarPing: true
+		BeaconPoster: artillerybarragebeacon
+		OneShot: true
+		AllowMultiple: true
+
+roadroller:
+	Inherits: ^Plane
+	Health:
+		HP: 200000
+	Aircraft:
+		TurnSpeed: 20
+		Speed: 300
+		CruiseAltitude: 16c0
+		MaximumPitch: 110
+		LandableTerrainTypes: Clear, Road, Creep, Bridge, Water, Ore, Gems, Rough, Tiberium, BlueTiberium, Radiation, Beach
+	WithMuzzleOverlay:
+	-ActorLostNotification:
+	-Selectable:
+	AttackAircraft:
+	Armament:
+		Weapon: TerranGoliath
+	Tooltip:
+		Name: KONO DIO DA!
+	RejectsOrders:
+	-SpawnActorOnDeath:
+	FallsToEarth:
+		Explosion: E100Cannon
+		Moves: true
+		Velocity: 450
+		MaximumSpinSpeed: 0
+	AmbientSound@airborne:
+		SoundFiles: roadrollerland.wav
+		Interval: -1
+		Delay: 5
+		RequiresCondition: airborne
+	SpawnActorOnDeath@1:
+		Actor: roadroller.dropped
+		Offset: -1,0
+	-EjectOnDeath:
+	Interactable:
+
+roadroller.dropped:
+	Inherits: 2TNK
+	-Buildable:
+	-ActorLostNotification:
+	Valued:
+		Cost: 1000
+	Health:
+		HP: 200000
+	Tooltip:
+		Name: Road Roller
+	AutoTarget:
+		InitialStance: AttackAnything
+		ScanRadius: 32
+	Health:
+		HP: 55000
+	Mobile:
+		Speed: 0
+		Voice: Move
+	Guard:
+		Voice: Move
+	Passenger:
+		Voice: Move
+	Turreted:
+		TurnSpeed: 16
+	Armament:
+		Weapon: RoadRollerSound
+	SpawnActorOnDeath:
+		Actor: roadroller.leave
+	KillsSelf:
+		Delay: 150
+	Voiced:
+		VoiceSet: CrusaderTankVoice
+	Explodes@roadroller:
+		Weapon: MiniNuke
+		EmptyWeapon: MiniNuke
+	ThrowsShrapnel@1:
+		Weapons: roadrollerexplosion1
+		Pieces: 1,1
+		Range: 4c0, 12c0
+	ThrowsShrapnel@2:
+		Weapons: roadrollerexplosion2
+		Pieces: 1,1
+		Range: 4c0, 12c0
+	ThrowsShrapnel@3:
+		Weapons: roadrollerexplosion3
+		Pieces: 1,1
+		Range: 4c0, 12c0
+	ThrowsShrapnel@4:
+		Weapons: roadrollerexplosion4
+		Pieces: 1,1
+		Range: 4c0, 12c0
+	ThrowsShrapnel@5:
+		Weapons: roadrollerexplosion5
+		Pieces: 1,1
+		Range: 4c0, 12c0
+	ThrowsShrapnel@6:
+		Weapons: roadrollerexplosion6
+		Pieces: 1,1
+		Range: 4c0, 12c0
+	ThrowsShrapnel@7:
+		Weapons: roadrollerexplosion7
+		Pieces: 1,1
+		Range: 4c0, 12c0
+
+roadroller.leave:
+	Inherits: TBARR.air
+	-ProvidesPrerequisite@buildingname:
+	-Transforms:
+	-Targetable@GROUND:
+	-Targetable@REPAIR:
+	-UpdatesPlayerStatistics:
+	RejectsOrders:
+	Tooltip:
+		Name: Road Roller
+	Aircraft:
+		Speed: 128
+		CruiseAltitude: 16c0
+		LandableTerrainTypes: Clear, Road, Creep
+		IdleBehavior: LeaveMap
+		AltitudeVelocity: 86
+	KillsSelf:
+		Delay: 150
+		RemoveInstead: true
+	Aircraft:
+		TakeoffSounds: roadrollerleave.wav
+		LandingSounds: roadrollerleave.wav
+		AirborneCondition: airborne
+		Speed: 24
+		CanHover: True
+		CanSlide: True
+		CruisingCondition: cruising
+		LandableTerrainTypes: Clear, Road
+		Crushes: crate, mine, infantry
+		VTOL: true
+	RenderSprites:
+		Image: roadroller.leave
+	AmbientSound@airborne:
+		SoundFiles: roadrollerleave.wav
+		Interval: 5000, 10000
+		Delay: 0

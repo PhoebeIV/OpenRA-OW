@@ -73,6 +73,7 @@ USARANGER:
     GrantConditionOnPrerequisite@lasergeneral:
         Condition: upgradelasergeneral
         Prerequisites: upgrade.lasergeneral
+
 	Voiced:
 		VoiceSet: RangerVoice
 	ReloadDelayMultiplier@chargedlasers:
@@ -81,6 +82,9 @@ USARANGER:
     GrantConditionOnPrerequisite@chargedlasers:
         Condition: upgradechargedlasers
         Prerequisites: upgrade.chargedlasers
+	RangeMultiplier@chargedlasers:
+		Modifier: 125
+		RequiresCondition: upgradechargedlasers
 
 USADEFENDER:
 	Inherits: ^Soldier
@@ -112,7 +116,7 @@ USADEFENDER:
 	Armament@PRIMARY:
 		Weapon: missiledefendershot
         LocalOffset: 0,0,555
-        PauseOnCondition: upgradelasergeneral
+        PauseOnCondition: upgradelasergeneral || upgradeempmissiles
 	Armament@Secondary:
 		Weapon: missiledefendershotair
         LocalOffset: 0,0,555
@@ -121,12 +125,12 @@ USADEFENDER:
 		Name: garrisoned
 		Weapon: missiledefendershotgarrison
 		MuzzleSequence: garrison-muzzle
-        PauseOnCondition: upgradelasergeneral
+        PauseOnCondition: upgradelasergeneral || upgradeempmissiles
 	Armament@BUS:
 		Name: bus
 		Weapon: missiledefendershotgarrison
 		MuzzleSequence: garrison-muzzle
-        PauseOnCondition: upgradelasergeneral
+        PauseOnCondition: upgradelasergeneral  || upgradeempmissiles
 	Armament@PRIMARYupgrade:
 		Weapon: missiledefendershotupgrade
         LocalOffset: 0,0,555
@@ -148,11 +152,20 @@ USADEFENDER:
 		Weapon: missiledefendershotgarrisonupgrade
 		MuzzleSequence: garrison-muzzle
         RequiresCondition: upgradelasergeneral
-	Armament@BUSupgrade:
-		Name: bus
-		Weapon: missiledefendershotgarrisonupgrade
+	Armament@PRIMARYemp:
+		Weapon: missiledefendershotemp
+        LocalOffset: 0,0,555
+        RequiresCondition: upgradeempmissiles
+	Armament@GARRISONEDemp:
+		Name: garrisoned
+		Weapon: missiledefendershotempgarrison
 		MuzzleSequence: garrison-muzzle
-        RequiresCondition: upgradelasergeneral
+        RequiresCondition: upgradeempmissiles
+	Armament@BUSemp:
+		Name: bus
+		Weapon: missiledefendershotempgarrison
+		MuzzleSequence: garrison-muzzle
+        RequiresCondition: upgradeempmissiles
 	WithInfantryBody:
 		DefaultAttackSequence: shoot
 		RequiresCondition: !parachute
@@ -179,6 +192,12 @@ USADEFENDER:
     GrantConditionOnPrerequisite@chargedlasers:
         Condition: upgradechargedlasers
         Prerequisites: upgrade.chargedlasers
+	RangeMultiplier@chargedlasers:
+		Modifier: 120
+		RequiresCondition: upgradechargedlasers
+    GrantConditionOnPrerequisite@empmissiles:
+        Condition: upgradeempmissiles
+        Prerequisites: upgrade.empmissiles
         
 USAPATHFINDER:
 	Inherits: ^Soldier
