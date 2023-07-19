@@ -47,12 +47,18 @@
 		Palette: effect
 		RequiresCondition: hordebonustankupgrade2 >= 5
 		IsDecoration: True
-    GrantConditionOnPrerequisite@1:
+    GrantConditionOnPrerequisite@infantrygeneral:
         Condition: upgradeinfantrygeneral
         Prerequisites: upgrade.infantrygeneral
-    GrantConditionOnPrerequisite@2:
+    GrantConditionOnPrerequisite@upgradepatriotism:
         Condition: upgradepatriotism
         Prerequisites: upgrade.patriotism
+    GrantConditionOnPrerequisite@autoloader:
+        Condition: upgradeautoloader
+        Prerequisites: upgrade.autoloader
+	ReloadDelayMultiplier@autoloader:
+		RequiresCondition: upgradeautoloader
+		Modifier: 80
 
 ^tankgeneralbuff:
 	ProductionCostMultiplier@tankgeneralbuff:
@@ -261,7 +267,7 @@ chinalisteningoutpost:
 	Buildable:
 		Queue: Vehicle
 		BuildPaletteOrder: 120
-		Prerequisites: ~vehicles.china,  ~!upgrade.infantrygeneral
+		Prerequisites: ~vehicles.china, ~!upgrade.infantrygeneral, ~!faction.infantrygeneral
 		Description: The Listening Outpost can  be deployed on the front lines, detecting unit movements over a wide radius, including stealth units.
 	Valued:
 		Cost: 900
@@ -329,7 +335,7 @@ chinaattackoutpost:
 	Buildable:
 		Queue: Vehicle
 		BuildPaletteOrder: 120
-		Prerequisites: ~vehicles.china, techcenter, ~upgrade.infantrygeneral
+		Prerequisites: ~vehicles.china, techcenter, ~upgrade.infantrygeneral, ~!faction.nukegeneral, ~!faction.tankgeneral
 		Description: Like the Listening Outpost, it can detect all types of enemy units over a wide radius. Equipped with a propaganda tower.
 	Valued:
 		Cost: 1500
@@ -373,7 +379,7 @@ chinatroopcarrier:
 	Buildable:
 		Queue: Vehicle
 		BuildPaletteOrder: 120
-		Prerequisites: ~vehicles.china, techcenter, ~!upgrade.infantrygeneral
+		Prerequisites: ~vehicles.china, techcenter, ~!upgrade.infantrygeneral, ~!faction.infantrygeneral
 		Description: The Troop Crawler is a fairly fast but unarmed APC that is not designed to come into contact with heavy armor.
 	Valued:
 		Cost: 900
@@ -439,7 +445,7 @@ chinaassaulttroopcarrier:
 	Buildable:
 		Queue: Vehicle
 		BuildPaletteOrder: 120
-		Prerequisites: ~vehicles.china, techcenter, ~upgrade.infantrygeneral
+		Prerequisites: ~vehicles.china, techcenter, ~upgrade.infantrygeneral, ~!faction.nukegeneral, ~!faction.tankgeneral
 		Description: Like the regular Troop Crawler, it is a reasonably fast wheeled APC, already coming with eight red guard on board upon rolling out of the War Factory, with stealth detection.
 	Valued:
 		Cost: 2250
@@ -503,7 +509,7 @@ chinainfernocannon:
 	Buildable:
 		Queue: Vehicle
 		BuildPaletteOrder: 138
-		Prerequisites: ~vehicles.china, techcenter
+		Prerequisites: ~vehicles.china, techcenter, ~!faction.tankgeneral
 		Description: Inferno Cannons are self-propelled howitzers, firing napalm shells that explode and burn on impact, doing great damage to softer targets. 
 	Valued:
 		Cost: 1100
@@ -537,7 +543,7 @@ chinanukecannon:
 	Buildable:
 		Queue: Vehicle
 		BuildPaletteOrder: 140
-		Prerequisites: ~vehicles.china, advtechcenter, upgrade.nukegeneral
+		Prerequisites: ~vehicles.china, advtechcenter, upgrade.nukegeneral, ~!faction.tankgeneral, ~!faction.infantrygeneral
 		Description: The Nuke Cannon consists of a large howitzer-like weapon mounted on a tracked vehicle, with a cabin for the crew located at the front, similar to a regular truck. 
 	Mobile:
 		TurnSpeed: 12
@@ -706,7 +712,7 @@ chinaoverlordspeaker:
 	Buildable:
 		Queue: Vehicle
 		BuildPaletteOrder: 2500
-		Prerequisites: ~vehicles.china, advtechcenter
+		Prerequisites: ~vehicles.china, advtechcenter, ~!faction.infantrygeneral
 		Description: Large and slow, the Overlord tank is a battlefield force to be reckoned with. Equipped with a propaganda tower.
 	Valued:
 		Cost: 3000
@@ -803,7 +809,7 @@ chinaoverlordgatling:
 	Buildable:
 		Queue: Vehicle
 		BuildPaletteOrder: 2500
-		Prerequisites: ~vehicles.china, advtechcenter
+		Prerequisites: ~vehicles.china, advtechcenter, ~!faction.infantrygeneral
 		Description: Large and slow, the Overlord tank is a battlefield force to be reckoned with. Equipped with a Gatling Gun.
 	Valued:
 		Cost: 3000
@@ -901,7 +907,7 @@ chinaemperor:
 	Buildable:
 		Queue: Vehicle
 		BuildPaletteOrder: 2500
-		Prerequisites: ~vehicles.china, advtechcenter, upgrade.tankgeneral
+		Prerequisites: ~vehicles.china, advtechcenter, upgrade.tankgeneral, ~!faction.nukegeneral, ~!faction.infantrygeneral
 		Description: The Emperor Overlord Tank is an improved model of the Overlord tank. Equipped with both Gatling gun and Propaganda Tower.
 		BuildLimit: 3
 	Valued:
@@ -1054,7 +1060,7 @@ chinahoppertank:
 	Inherits@tanktrainingbuff: ^tanktrainingbuff
 	Buildable:
 		BuildPaletteOrder: 220
-		Prerequisites: ~vehicles.china, upgrade.tankgeneral
+		Prerequisites: ~vehicles.china, upgrade.tankgeneral, ~!faction.nukegeneral, ~!faction.infantrygeneral
 		Description: China support battletank. Good for building horde bonus.\nEquipped with an 125 mm 2A46 smoothbore gun.\nSpeed: 85\n  Strong vs Vehicles\n  Weak vs Infantry, Aircraft
 	Valued:
 		Cost: 600
@@ -1121,7 +1127,7 @@ chinashenlong:
 	Buildable:
 		Queue: Vehicle
 		BuildPaletteOrder: 2500
-		Prerequisites: ~vehicles.china, advtechcenter, upgrade.tankgeneral, upgrade.infantrygeneral, upgrade.nukegeneral
+		Prerequisites: ~vehicles.china, advtechcenter, upgrade.tankgeneral, upgrade.infantrygeneral, upgrade.nukegeneral, ~!faction.nukegeneral, ~!faction.tankgeneral, ~!faction.infantrygeneral
 		Description: [EPIC]\nThe Shenlong Emperor Tank is the most advanced overlord tank ever created.
 		BuildLimit: 1
 	Valued:
@@ -1231,13 +1237,8 @@ chinashenlong:
 	AnnounceOnKill:
 		Voice: Kill
 	Explodes:
-		Weapon: CrateNuke
-		EmptyWeapon: CrateNuke
-		RequiresCondition: !upgradeuraniumtanks
-	Explodes@nuclearenginesbuff:
 		Weapon: MiniNukeRadiation
 		EmptyWeapon: MiniNukeRadiation
-		RequiresCondition: upgradeuraniumtanks
 	ProximityExternalCondition@propaganda:
 		Condition: propaganda
 		RequiresCondition: !disabled && !upgrade.propaganda

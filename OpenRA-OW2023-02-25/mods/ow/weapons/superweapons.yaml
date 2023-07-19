@@ -2525,3 +2525,315 @@ TerranNuke:
 		ImpactSounds: tnshit00.aud
 		ImpactActors: false
 		ValidTargets: Ground, Water, Air
+
+ColonyDropExplosion:
+	ValidTargets: Ground, Water, GroundActor, WaterActor, Underwater, AirborneActor, Trees
+	Warhead@colony1: ShakeScreen
+		Duration: 100
+		Intensity: 8
+		Multiplier: 1,1
+	Warhead@colonyflash1: FlashPaletteEffect
+		Duration: 40
+		FlashType: Nuke
+	Warhead@colonyflash2: FlashPaletteEffect
+		Duration: 20
+		Delay: 20
+		FlashType: Nuke
+	Warhead@colonyflash3: FlashPaletteEffect
+		Duration: 20
+		Delay: 40
+		FlashType: Nuke
+	Warhead@colonyflash4: FlashPaletteEffect
+		Duration: 60
+		Delay: 40
+		FlashType: Nuke
+	Warhead@colonyflash5: FlashPaletteEffect
+		Duration: 40
+		Delay: 60
+		FlashType: Nuke
+	Warhead@colonyflash6: FlashPaletteEffect
+		Duration: 40
+		Delay: 100
+		FlashType: Nuke
+	Warhead@colony3: ShakeScreen
+		Duration: 50
+		Intensity: 5
+		Multiplier: 1,1
+		Delay: 100
+	Warhead@4Eff_impact: CreateEffect
+		Explosions: colonydropnuke
+		ImpactSounds: colonydropsound1.wav
+		ImpactActors: false
+		ValidTargets: Ground, Water, Air
+	Warhead@1Eff_impacta: CreateEffect
+		Explosions: redeemerexplosionstart
+		ImpactActors: false
+		ValidTargets: Ground, Water, Air
+	Warhead@98Eff_impact: CreateEffect
+		ImpactSounds: redeemer_explosionsound.wav
+		ImpactActors: false
+	Warhead@98Eff_impact1: CreateEffect
+		ImpactSounds: colonydropsound1.wav
+		ImpactActors: false
+	Warhead@1Dam_impact: SpreadDamage
+		Spread: 1c0
+		Damage: 30000
+		Falloff: 1000, 368, 135, 50, 18, 7, 0
+		ValidTargets: GroundActor, WaterActor, Underwater, AirborneActor, Trees
+		Versus:
+			Wood: 25
+			Concrete: 25
+		DamageTypes: Prone50Percent, TriggerProne, FireDeath, Incendiary
+	Warhead@5Dam_areanuke1: SpreadDamage
+		Spread: 2c0
+		Damage: 12000
+		Falloff: 1000, 368, 135, 50, 18, 7, 0
+		Delay: 5
+		ValidTargets: GroundActor, WaterActor, Underwater, AirborneActor, Trees
+		Versus:
+			Wood: 25
+			Concrete: 25
+		DamageTypes: Prone50Percent, TriggerProne, FireDeath, Incendiary
+	Warhead@8Eff_areanuke1: CreateEffect
+		ImpactSounds: kaboom22.aud
+		Delay: 5
+		ImpactActors: false
+	Warhead@9Dam_areanuke2: SpreadDamage
+		Spread: 4c0
+		Damage: 12000
+		Falloff: 1000, 368, 135, 50, 18, 7, 0
+		Delay: 10
+		ValidTargets: GroundActor, Trees, WaterActor, Underwater, AirborneActor
+		Versus:
+			Wood: 50
+			Tree: 200
+			Concrete: 25
+		DamageTypes: Prone50Percent, TriggerProne, FireDeath, Incendiary
+	Warhead@9Dam_areanukefission: SpreadDamage
+		Spread: 6c0
+		Damage: 20000
+		Falloff: 1000, 368, 135, 50, 18, 7, 0
+		Delay: 10
+		ValidTargets: Fission
+		DamageTypes: Prone50Percent, TriggerProne, FireDeath, Incendiary
+	Warhead@13Dam_areanuke3: SpreadDamage
+		Spread: 8c0
+		Damage: 12000
+		Falloff: 1000, 368, 135, 50, 18, 7, 0
+		Delay: 15
+		ValidTargets: GroundActor, Trees, WaterActor, Underwater, AirborneActor
+		Versus:
+			Tree: 200
+			Concrete: 25
+		DamageTypes: Prone50Percent, TriggerProne, FireDeath, Incendiary
+	Warhead@17Dam_areanuke4: SpreadDamage
+		Spread: 16c0
+		Damage: 12000
+		Falloff: 1000, 368, 135, 50, 18, 7, 0
+		Delay: 20
+		ValidTargets: GroundActor, Trees, WaterActor, Underwater, AirborneActor
+		Versus:
+			Tree: 200
+			Concrete: 25
+		DamageTypes: Prone50Percent, TriggerProne, FireDeath, Incendiary
+	Warhead@19Res_areanuke4: DestroyResource
+		Size: 16
+		Delay: 20
+	Warhead@20Smu_areanuke4: LeaveSmudge
+		SmudgeType: Scorch
+		ValidTargets: Ground, Infantry
+		Size: 16
+		Delay: 20
+	Warhead@1Radiation: CreateResource
+		AddsResourceType: Radiation
+		Size: 14
+		Delay: 21
+	Warhead@2Radiation: DestroyResource
+		ResourceTypes: Radiation
+		Size: 15
+		Delay: 1000
+		ResourceAmount: 10
+	Warhead@emppwrplant: GrantExternalCondition
+		Range: 22c0
+		Duration: 1000
+		Condition: disabled
+		ValidTargets: Ground, Water, GroundActor, WaterActor, Underwater, Structure
+		Delay: 75
+
+colonydropsharpnel:
+	Inherits: 155mm
+	-Report:
+	-MinRange:
+	Projectile: Bullet
+		Speed: 32, 64
+		LaunchAngle: 128, 192
+		Image: 120MM
+		Shadow: false
+		Palette: player
+		IsPlayerPalette: True
+	Warhead@1Dam: SpreadDamage
+		Damage: 15000
+	Warhead@Res5: DestroyResource
+		Size: 4
+		ResourceAmount: 10
+	Warhead@4Radiation: CreateResource
+		AddsResourceType: Radiation
+		Size: 4
+		Delay: 1
+	Warhead@Res7: DestroyResource
+		ResourceTypes: Radiation
+		Size: 4
+		Delay: 375
+		ResourceAmount: 10
+	Warhead@3Eff: CreateEffect
+		Explosions: dukenukemexplosionmed
+		ImpactSounds: dukeexplosion.wav
+		ValidTargets: Ground, Water, Air
+
+ChinaSuperNuke:
+	ValidTargets: Ground, Water, GroundActor, WaterActor, Underwater, AirborneActor, Trees
+	Warhead@colony1: ShakeScreen
+		Duration: 100
+		Intensity: 8
+		Multiplier: 1,1
+		Delay: 10
+	Warhead@colonyflash1: FlashPaletteEffect
+		Duration: 40
+		FlashType: Nuke
+	Warhead@colonyflash2: FlashPaletteEffect
+		Duration: 20
+		Delay: 20
+		FlashType: Nuke
+	Warhead@colonyflash3: FlashPaletteEffect
+		Duration: 20
+		Delay: 40
+		FlashType: Nuke
+	Warhead@colonyflash4: FlashPaletteEffect
+		Duration: 60
+		Delay: 40
+		FlashType: Nuke
+	Warhead@colonyflash5: FlashPaletteEffect
+		Duration: 40
+		Delay: 60
+		FlashType: Nuke
+	Warhead@colonyflash6: FlashPaletteEffect
+		Duration: 40
+		Delay: 100
+		FlashType: Nuke
+	Warhead@colony3: ShakeScreen
+		Duration: 50
+		Intensity: 5
+		Multiplier: 1,1
+		Delay: 100
+	Warhead@7Eff_impact: CreateEffect
+		Explosions: colonydropnuke
+		Delay: 10
+		ImpactActors: false
+		ValidTargets: Ground, Water, Air
+	Warhead@1Eff_impacta: CreateEffect
+		Explosions: redeemerexplosionstart
+		ImpactActors: false
+		ValidTargets: Ground, Water, Air
+	Warhead@98Eff_impact: CreateEffect
+		ImpactSounds: redeemer_explosionsound.wav
+		ImpactActors: false
+	Warhead@98Eff_impact1: CreateEffect
+		ImpactSounds: colonydropsound1.wav
+		ImpactActors: false
+	Warhead@98Eff_impact2: CreateEffect
+		ImpactSounds: colonydropsound1.wav
+		ImpactActors: false
+	Warhead@8111Eff_areanuke1: CreateEffect
+		ImpactSounds: kaboom22.aud
+		Delay: 5
+		ImpactActors: false
+	Warhead@1Dam_impact: SpreadDamage
+		Spread: 2c0
+		Damage: 20000
+		Falloff: 1000, 368, 135, 50, 18, 7, 0
+		Delay: 10
+		ValidTargets: GroundActor, WaterActor, Underwater, AirborneActor, Trees
+		Versus:
+			Wood: 25
+			Concrete: 25
+		DamageTypes: Prone50Percent, TriggerProne, FireDeath, Incendiary
+	Warhead@5Dam_areanuke1: SpreadDamage
+		Spread: 3c0
+		Damage: 11000
+		Falloff: 1000, 368, 135, 50, 18, 7, 0
+		Delay: 15
+		ValidTargets: GroundActor, WaterActor, Underwater, AirborneActor, Trees
+		Versus:
+			Wood: 25
+			Concrete: 25
+		DamageTypes: Prone50Percent, TriggerProne, FireDeath, Incendiary
+	Warhead@9Dam_areanuke2: SpreadDamage
+		Spread: 4c0
+		Damage: 11000
+		Falloff: 1000, 368, 135, 50, 18, 7, 0
+		Delay: 20
+		ValidTargets: GroundActor, Trees, WaterActor, Underwater, AirborneActor
+		Versus:
+			Wood: 50
+			Tree: 200
+			Concrete: 25
+		DamageTypes: Prone50Percent, TriggerProne, FireDeath, Incendiary
+	Warhead@9Dam_areanukefission: SpreadDamage
+		Spread: 6c0
+		Damage: 15000
+		Falloff: 1000, 368, 135, 50, 18, 7, 0
+		Delay: 25
+		ValidTargets: Fission
+		DamageTypes: Prone50Percent, TriggerProne, FireDeath, Incendiary
+	Warhead@13Dam_areanuke3: SpreadDamage
+		Spread: 8c0
+		Damage: 11000
+		Falloff: 1000, 368, 135, 50, 18, 7, 0
+		Delay: 30
+		ValidTargets: GroundActor, Trees, WaterActor, Underwater, AirborneActor
+		Versus:
+			Tree: 200
+			Concrete: 25
+		DamageTypes: Prone50Percent, TriggerProne, FireDeath, Incendiary
+	Warhead@17Dam_areanuke4: SpreadDamage
+		Spread: 10c0
+		Damage: 6000
+		Falloff: 1000, 368, 135, 50, 18, 7, 0
+		Delay: 35
+		ValidTargets: GroundActor, Trees, WaterActor, Underwater, AirborneActor
+		Versus:
+			Tree: 200
+			Concrete: 25
+		DamageTypes: Prone50Percent, TriggerProne, FireDeath, Incendiary
+	Warhead@19Res_areanuke4: DestroyResource
+		Size: 14
+		Delay: 20
+	Warhead@20Smu_areanuke4: LeaveSmudge
+		SmudgeType: Scorch
+		ValidTargets: Ground, Infantry
+		Size: 14
+		Delay: 20
+	Warhead@1Radiation: CreateResource
+		AddsResourceType: Radiation
+		Size: 14
+		Delay: 21
+	Warhead@2Radiation: DestroyResource
+		ResourceTypes: Radiation
+		Size: 4
+		Delay: 1000
+		ResourceAmount: 10
+	Warhead@3Radiation: DestroyResource
+		ResourceTypes: Radiation
+		Size: 8
+		Delay: 1025
+		ResourceAmount: 10
+	Warhead@4Radiation: DestroyResource
+		ResourceTypes: Radiation
+		Size: 12
+		Delay: 1050
+		ResourceAmount: 10
+	Warhead@5Radiation: DestroyResource
+		ResourceTypes: Radiation
+		Size: 16
+		Delay: 1075
+		ResourceAmount: 10

@@ -1,35 +1,35 @@
 ^hordebonus:
 	ExternalCondition@hordebonus:
 		Condition: hordebonus
-		RequiresCondition: !upgradeinfantrygeneral
+		RequiresCondition: !upgradenationalism
 	ProximityExternalCondition@hordebonus:
 		Condition: hordebonus
 		Range: 2c0
-		RequiresCondition: !upgradeinfantrygeneral
+		RequiresCondition: !upgradenationalism
 	ReloadDelayMultiplier@hordebonus:
-		RequiresCondition: hordebonus >= 10 && !upgradeinfantrygeneral
+		RequiresCondition: hordebonus >= 10 && !upgradenationalism
 		Modifier: 90
 	WithIdleOverlay@hordebonus:
 		Image: hordebonus-overlay
 		Sequence: infantry
 		Palette: effect
-		RequiresCondition: hordebonus >= 10 && !upgradeinfantrygeneral
+		RequiresCondition: hordebonus >= 10 && !upgradenationalism
 		IsDecoration: True
 	ExternalCondition@hordebonusupgrade1:
 		Condition: hordebonusupgrade1
-		RequiresCondition: upgradeinfantrygeneral && !upgradepatriotism
+		RequiresCondition: upgradenationalism && !upgradepatriotism
 	ProximityExternalCondition@hordebonusupgrade1:
 		Condition: hordebonusupgrade1
 		Range: 2c0
-		RequiresCondition: upgradeinfantrygeneral && !upgradepatriotism
+		RequiresCondition: upgradenationalism && !upgradepatriotism
 	ReloadDelayMultiplier@hordebonusupgrade1:
-		RequiresCondition: hordebonusupgrade1 >= 10 && upgradeinfantrygeneral
+		RequiresCondition: hordebonusupgrade1 >= 10 && upgradenationalism
 		Modifier: 80
 	WithIdleOverlay@hordebonusupgrade1:
 		Image: hordebonus-overlay
 		Sequence: infantryupgrade1
 		Palette: effect
-		RequiresCondition: hordebonusupgrade1 >= 10 && upgradeinfantrygeneral
+		RequiresCondition: hordebonusupgrade1 >= 10 && upgradenationalism
 		IsDecoration: True
 	ExternalCondition@hordebonusupgrade2:
 		Condition: hordebonusupgrade2
@@ -48,8 +48,8 @@
 		RequiresCondition: hordebonusupgrade2 >= 10
 		IsDecoration: True
     GrantConditionOnPrerequisite@hordebonusupgrade1:
-        Condition: upgradeinfantrygeneral
-        Prerequisites: upgrade.infantrygeneral
+        Condition: upgradenationalism
+        Prerequisites: upgrade.nationalism
     GrantConditionOnPrerequisite@hordebonusupgrade2:
         Condition: upgradepatriotism
         Prerequisites: upgrade.patriotism
@@ -70,17 +70,30 @@
 		Prerequisites: upgrade.infantrytraininglvl1, upgrade.infantrytraininglvl2 
 		InitialLevels: 2
 
+^infantryfirstaidkits:
+    GrantConditionOnPrerequisite@firstaidkits:
+        Condition: upgradefirstaidkits
+        Prerequisites: upgrade.firstaidkits
+	ChangesHealth@firstaidkits:
+		Step: 0
+		PercentageStep: 30
+		StartIfBelow: 25
+		Delay: 750
+		DamageCooldown: 250
+		RequiresCondition: upgradefirstaidkits
+
 chinaredguard:
 	Inherits: ^Soldier
 	Inherits@hordebonus: ^hordebonus
 	Inherits@infantrygeneralbuff: ^infantrygeneralbuff
 	Inherits@infantrytrainingbuff: ^infantrytrainingbuff
+	Inherits@infantrytrainingbuff: ^infantryfirstaidkits
 	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
 	Buildable:
 		Queue: Infantry
 		BuildAtProductionType: Soldier
 		BuildPaletteOrder: 5
-		Prerequisites: ~infantry.china
+		Prerequisites: ~infantry.china, ~!faction.infantrygeneral
 		Description: China Red Guard, equipped with Bolt-action rifle.\nSpeed: 62\n  Strong vs Infantry\n  Weak vs Vehicles, Aircraft
 	Tooltip:
 		Name: Red Guard
@@ -150,6 +163,7 @@ chinatankhunter:
 	Inherits@hordebonus: ^hordebonus
 	Inherits@infantrygeneralbuff: ^infantrygeneralbuff
 	Inherits@infantrytrainingbuff: ^infantrytrainingbuff
+	Inherits@infantrytrainingbuff: ^infantryfirstaidkits
 	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
 	Buildable:
 		Queue: Infantry
@@ -188,6 +202,14 @@ chinatankhunter:
 		Name: bus
 		Weapon: tankhuntershotgarrison
 		MuzzleSequence: garrison-muzzle
+	Armament@GARRISONEDair:
+		Name: garrisonedair
+		Weapon: tankhuntershotair
+		MuzzleSequence: garrison-muzzle
+	Armament@BUSair:
+		Name: busair
+		Weapon: tankhuntershotair
+		MuzzleSequence: garrison-muzzle
 	WithInfantryBody:
 		DefaultAttackSequence: shoot
 		RequiresCondition: !parachute
@@ -211,12 +233,13 @@ chinaminigunner:
 	Inherits@hordebonus: ^hordebonus
 	Inherits@infantrygeneralbuff: ^infantrygeneralbuff
 	Inherits@infantrytrainingbuff: ^infantrytrainingbuff
+	Inherits@infantrytrainingbuff: ^infantryfirstaidkits
 	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
 	Buildable:
 		Queue: Infantry
 		BuildAtProductionType: Soldier
 		BuildPaletteOrder: 10
-		Prerequisites: ~infantry.china, techcenter, upgrade.infantrygeneral
+		Prerequisites: ~infantry.china, upgrade.infantrygeneral, ~!faction.nukegeneral, ~!faction.tankgeneral
 		Description: Mini-Gunners are elite Red Guards equipped with hand-held miniguns.
 	Tooltip:
 		Name: Minigunner
@@ -283,11 +306,12 @@ chinaminigunner:
 chinahacker:
 	Inherits: ^Soldier
 	Inherits@infantrytrainingbuff: ^infantrytrainingbuff
+	Inherits@infantrytrainingbuff: ^infantryfirstaidkits
 	Buildable:
 		Queue: Infantry
 		BuildAtProductionType: Soldier
 		BuildPaletteOrder: 7
-		Prerequisites: ~infantry.china, techcenter, chinainternetcenter, ~!upgrade.infantrygeneral
+		Prerequisites: ~infantry.china, techcenter, chinainternetcenter, ~!upgrade.infantrygeneral, ~!faction.infantrygeneral
 		Description: hacking the internet dry
 		BuildLimit: 15
 	Valued:
@@ -357,7 +381,7 @@ chinasuperhacker:
 		Queue: Infantry
 		BuildAtProductionType: Soldier
 		BuildPaletteOrder: 7
-		Prerequisites: ~infantry.china, ~techcenter, ~chinainternetcenter, ~upgrade.infantrygeneral
+		Prerequisites: ~infantry.china, ~techcenter, ~chinainternetcenter, ~upgrade.infantrygeneral, ~!faction.nukegeneral, ~!faction.tankgeneral
 		Description: hacking the internet dry
 		BuildLimit: 15
 	Tooltip:
@@ -378,6 +402,7 @@ chinasuperhacker:
 chinablacklotus:
 	Inherits: ^Soldier
 	Inherits@infantrytrainingbuff: ^infantrytrainingbuff
+	Inherits@infantrytrainingbuff: ^infantryfirstaidkits
 	Buildable:
 		Queue: Infantry
 		BuildAtProductionType: Soldier
@@ -447,12 +472,13 @@ chinanukeneer:
 	Inherits@hordebonus: ^hordebonus
 	Inherits@infantrygeneralbuff: ^infantrygeneralbuff
 	Inherits@infantrytrainingbuff: ^infantrytrainingbuff
+	Inherits@infantrytrainingbuff: ^infantryfirstaidkits
 	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
 	Buildable:
 		Queue: Infantry
 		BuildAtProductionType: Soldier
 		BuildPaletteOrder: 41
-		Prerequisites: ~infantry.china, techcenter, upgrade.nukegeneral
+		Prerequisites: ~infantry.china, techcenter, ~faction.nukegeneral, ~!faction.tankgeneral, ~!faction.infantrygeneral
 		Description: The Nukeneer can use their bulky mortar to lob low-yield tactical nuclear warheads over significant distances. 
 	Tooltip:
 		Name: Nukaneer
@@ -506,12 +532,13 @@ chinadragonbreathers:
 	Inherits@hordebonus: ^hordebonus
 	Inherits@infantrygeneralbuff: ^infantrygeneralbuff
 	Inherits@infantrytrainingbuff: ^infantrytrainingbuff
+	Inherits@infantrytrainingbuff: ^infantryfirstaidkits
 	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
 	Buildable:
 		Queue: Infantry
 		BuildAtProductionType: Soldier
 		BuildPaletteOrder: 42
-		Prerequisites: ~infantry.china, techcenter, upgrade.infantrygeneral
+		Prerequisites: ~infantry.china, techcenter, upgrade.infantrygeneral, ~!faction.nukegeneral, ~!faction.tankgeneral, ~faction.infantrygeneral
 		Description: Armed with a close range shotgun with Dragonbreath rounds.
 	Tooltip:
 		Name: Dragonbreather
