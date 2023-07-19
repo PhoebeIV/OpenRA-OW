@@ -40,7 +40,9 @@ SLAVE:
 	Tooltip:
 		Name: Slave
 	Mobile:
-		Speed: 54
+		Speed: 72
+		Locomotor: foot2
+		TurnsWhileMoving: true
 	Health:
 		HP: 3000
 	Passenger:
@@ -57,14 +59,14 @@ SLAVE:
 		DamageTypes: DefaultDeath
 	Harvester:
 		UnblockCell: 0,1
-		Capacity: 4
+		Capacity: 5
 		Resources: Ore,Gems,Tiberium,BlueTiberium,MediGold
 		BaleLoadDelay: 10
 		SearchFromProcRadius: 10
 		SearchFromHarvesterRadius: 5
 		HarvestVoice: Harvest
 		MaxUnloadQueue: 9
-		FullyLoadedSpeed: 60
+		FullyLoadedSpeed: 75
 	Voiced:
 		VoiceSet: SlaveVoice
 	Armament:
@@ -116,7 +118,10 @@ MEDIWORKER:
 	Tooltip:
 		Name: Worker
 	Mobile:
-		Speed: 90
+		Speed: 96
+		Locomotor: foot2
+		CanMoveBackward: true
+		TurnsWhileMoving: true
 	Health:
 		HP: 10000
 	SpeedMultiplier:
@@ -132,7 +137,7 @@ MEDIWORKER:
 		Type: Light
 	Harvester:
 		UnblockCell: 0,1
-		Capacity: 8
+		Capacity: 10
 		BaleLoadDelay: 5
 		Resources: Ore,Gems,Tiberium,BlueTiberium,MediGold
 		HarvestVoice: Harvest
@@ -152,45 +157,16 @@ MEDIWORKER:
 
 ##Builds Outposts
 SURVEYORMEDI:
+	Inherits: TSENGI.O
 	Inherits@MediSoldier: ^MediSoldier
-	Inherits@selection: ^SelectableSupportUnit
-	Inherits@sprite: ^TSMedi
 	Buildable:
 		Queue: Infantry
 		BuildAtProductionType: Soldier
 		BuildPaletteOrder: 405
 		Prerequisites: ~infantry.medi, laborcamp
-		Description: Deploys an outpost for further \nbase expansion.\nAlso behaves as normal engineer.\n  Unarmed
-	Valued:
-		Cost: 800
-	Tooltip:
-		Name: Surveyor
-	UpdatesPlayerStatistics:
-		AddToArmyValue: true
-	Passenger:
-		CustomPipType: yellow
-	InstantlyRepairs:
-	RepairsBridges:
-	CaptureManager:
-	GrantConditionOnPrerequisite@GLOBALREUSABLEENGINEER:
-		Condition: global-reusable-engineers
-		Prerequisites: global-reusable-engineers
-	Captures:
-		RequiresCondition: !global-reusable-engineers
-		CaptureTypes: building
-		PlayerExperience: 25
-		CaptureDelay: 200
-	Captures@REUSABLE:
-		RequiresCondition: global-reusable-engineers
-		CaptureTypes: building
-		PlayerExperience: 25
-		CaptureDelay: 375
-		ConsumedByCapture: False
-		EnterCursor: ability
-		EnterBlockedCursor: move-blocked
+		Icon: icon
 	Voiced:
 		VoiceSet: WorkerVoice
-	-AttackFrontal:
 	RenderSprites:
 		Image: surveyormedi
 	Transforms:
