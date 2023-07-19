@@ -9,7 +9,7 @@ T.MISS:
 		Queue: Tech
 		BuildPaletteOrder: 9090
 		BuildDuration: 4500
-		Prerequisites: advtechcenter, ~techlevel.unrestricted, ~structures.ultprereq, ~!ai.boss, ~!techlevel.noepic, ~!faction.aircraftgeneral
+		Prerequisites: advtechcenter, ~techlevel.unrestricted, ~structures.ultprereq, ~!ai.boss, ~!techlevel.noepic, ~!faction.aircraftgeneral, ~!faction.infantrygeneral
 		BuildLimit: 1
 		Description: Provides access to your faction's epic unit or ability.\n\n  Special Ability: Provides money\n Limit of one.
 	Valued:
@@ -958,3 +958,28 @@ T.MISSAIR:
 		ProductionType: Aircraft
 	Production:
 		Produces: Aircraft, Plane, Helicopter, Infantry, Soldier
+
+T.MISSINFANTRY:
+	Inherits: T.MISS
+	Buildable:
+		Queue: Tech
+		BuildPaletteOrder: 9090
+		BuildDuration: 4500
+		Prerequisites: advtechcenter, ~techlevel.unrestricted, ~!ai.boss, ~!techlevel.noepic, ~structures.ultprereq, ~faction.infantrygeneral
+		BuildLimit: 1
+		Description: Provides access to your faction's epic unit or ability.\n\n  Special Ability: Provides money\n Limit of one.
+	ProductionQueue@2:
+		Type: Infantry
+		DisplayOrder: 2
+		Group: Infantry
+		LowPowerModifier: 200
+		ReadyAudio: UnitReady
+		BlockedAudio: NoBuild
+		LimitedAudio: BuildingInProgress
+		QueuedAudio: Building
+		OnHoldAudio: OnHold
+		CancelledAudio: Cancelled
+	ProductionBar@2:
+		ProductionType: Infantry
+	Production:
+		Produces: Infantry, Soldier

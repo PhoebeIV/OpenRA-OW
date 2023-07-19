@@ -1,15 +1,29 @@
-# OpenRA Mod SDK Contributing Guidelines
+# OpenRA Contributing Guidelines
 
-Thank you for your interest in OpenRA, OpenRA modding, and the OpenRA Mod SDK.  OpenRA is an open source project, and our community members – you – are the driving force behind it.  There are many ways to contribute, from writing tutorials or blog posts, improving the documentation, submitting bug reports and feature requests or writing code which can be incorporated into OpenRA, the Mod SDK, or our other sub-projects.
+## Participating
+Help us keep OpenRA open and inclusive. Please read and follow our [Code of Conduct](https://github.com/OpenRA/OpenRA/blob/bleed/CODE_OF_CONDUCT.md).
 
-Please note that this repository is specifically for the scripts and infrastructure used to develop and build mods; bugs and feature requests against OpenRA itself should be directed to [the main OpenRA/OpenRA repository](https://github.com/OpenRA/OpenRA).  If you do come across a bug with the Mod SDK, or would like to request a new feature, then please take a look at the issue tracker first to see if it has already been reported.
+## Bug reports
 
-When developing new features, it is important to make sure that they work on all our supported platforms.  Right now, this means Windows >= 7 (with PowerShell >= 3), macOS >= 10.7, and Linux.  We would like to also support *BSD, but do not currently have a means to test this.
+* Have you read the [FAQ](https://github.com/OpenRA/OpenRA/wiki/FAQ)?
+* Add the appropriate log files on crashes.
+* Mention the version you have tested against.
+* Please be specific on how to reproduce the problem.
+* Do not submit duplicate issues. Search first.
+* Avoid including multiple requests/bugs into a single issue.
 
-Some issues to be aware of include:
-* Use http://www.shellcheck.net/ to confirm POSIX compatibility of *.sh scripts.
-* Avoid non-standard gnu extensions to common Unix tools (e.g. the `-f` flag from GNU `readlink`)
+## Patches
 
-While your pull-request is in review it will be helpful if you join IRC to discuss the changes.
+* [Coding standard](https://github.com/OpenRA/OpenRA/wiki/Coding-Standard)
+* [Branches and Releases](https://github.com/OpenRA/OpenRA/wiki/Branches-and-Releases)
+* [Licensing](http://www.gnu.org/licenses/quick-guide-gplv3.html)
 
-See also the in-depth guide on [contributing](https://github.com/OpenRA/OpenRA/wiki/Contributing) on the main OpenRA project wiki.  Most of the content on this page also applies to the Mod SDK.
+Please `git rebase` to the latest revision of the bleed branch.
+
+Don't forget to add yourself to [AUTHORS](https://github.com/OpenRA/OpenRA/blob/bleed/AUTHORS).
+
+Please propose a [CHANGELOG](https://github.com/OpenRA/OpenRA/wiki/CHANGELOG) entry in the pull-request comments.
+
+While your pull-request is in review it will be helpful if you join [IRC](irc://chat.freenode.net/openra) to discuss the changes.
+
+See also the in-depth guide on [contributing](https://github.com/OpenRA/OpenRA/wiki/Contributing) to the OpenRA project.

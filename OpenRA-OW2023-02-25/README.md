@@ -1,19 +1,57 @@
-This repository contains a bare development environment for creating a new mod/game on the [OpenRA](https://github.com/OpenRA/OpenRA) engine.
+# OpenRA
 
-These scripts and support files wrap and automatically manage a copy of the OpenRA game engine and common files during development, and generates Windows installers, macOS .app bundles, and Linux [AppImages](https://appimage.org/) for distribution.
+A Libre/Free Real Time Strategy game engine supporting early Westwood classics.
 
-The key scripts in this SDK are:
+* Website: [https://www.openra.net](https://www.openra.net)
+* Chat: [#openra on Libera](ircs://irc.libera.chat:6697/openra) ([web](https://web.libera.chat/#openra)) or [Discord](https://discord.openra.net) ![Discord Badge](https://discordapp.com/api/guilds/153649279762694144/widget.png)
+* Repository: [https://github.com/OpenRA/OpenRA](https://github.com/OpenRA/OpenRA) ![Continuous Integration](https://github.com/OpenRA/OpenRA/workflows/Continuous%20Integration/badge.svg)
 
-| Windows               | Linux / macOS            | Purpose
-| --------------------- | ------------------------ | ------------- |
-| make.cmd              | Makefile                 | Compiles your project and fetches dependencies (including the OpenRA engine).
-| launch-game.cmd       | launch-game.sh           | Launches your project from the SDK directory.
-| launch-server.cmd     | launch-server.sh         | Launches a dedicated server for your project from the SDK directory.
-| utility.cmd           | utility.sh         | Launches the OpenRA Utility for your project.
-| &lt;not available&gt; | packaging/package-all.sh | Generates release installers for your project.
+Please read the [FAQ](https://github.com/OpenRA/OpenRA/wiki/FAQ) in our [Wiki](https://github.com/OpenRA/OpenRA/wiki) and report problems at [https://github.com/OpenRA/OpenRA/issues](https://github.com/OpenRA/OpenRA/issues).
 
-To launch your project from the development environment you must first compile the project by running `make.cmd` (Windows), or opening a terminal in the SDK directory and running `make` (Linux / macOS).  You can then run `launch-game.cmd` (Windows) or `launch-game.sh` (Linux / macOS) to run your game.
+Join the [Forum](https://forum.openra.net/) for discussion.
 
-The `example` mod included in this repository provides the bare minimum structure to launch to the in-game main menu for the sole purpose of demonstrating the SDK.  See [Getting Started](https://github.com/OpenRA/OpenRAModTemplate/wiki/Getting-Started) on the Wiki for instructions on how to adapt this template for your own projects.  For common questions, please see the [FAQ](https://github.com/OpenRA/OpenRAModSDK/wiki/FAQ).  See [Updating to a new SDK or Engine version](https://github.com/OpenRA/OpenRAModSDK/wiki/Updating-to-a-new-SDK-or-Engine-version) for a guide on updating your mod a newer OpenRA release.
+## Play
 
-The OpenRA engine and SDK scripts are made available under the [GPLv3](https://github.com/OpenRA/OpenRA/blob/bleed/COPYING) license, and any executable code developed by a mod and loaded by the engine (i.e. custom mod DLLs, lua scripts) must be released under a compatible license.  Your mod data files (artwork, sound files, yaml, etc) are not part of your mod's source code, so your are free to distribute these assets under different terms (e.g. allowing redistribution in unmodified form, but not for use in other works).
+Distributed mods include a reimagining of
+
+* Command & Conquer: Red Alert
+* Command & Conquer: Tiberian Dawn
+* Dune 2000
+
+EA has not endorsed and does not support this product.
+
+Check our [Playing the Game](https://github.com/OpenRA/OpenRA/wiki/Playing-the-game) Guide to win multiplayer matches.
+
+## Contribute
+
+* Please read [INSTALL.md](https://github.com/OpenRA/OpenRA/blob/bleed/INSTALL.md) and [Compiling](https://github.com/OpenRA/OpenRA/wiki/Compiling) on how to set up an OpenRA development environment.
+* See [Hacking](https://github.com/OpenRA/OpenRA/wiki/Hacking) for a (now very outdated) overview of the engine.
+* Read and follow our [Code of Conduct](https://github.com/OpenRA/OpenRA/blob/bleed/CODE_OF_CONDUCT.md).
+* To get your patches merged, please adhere to the [Contributing](https://github.com/OpenRA/OpenRA/blob/bleed/CONTRIBUTING.md) guidelines.
+
+## Mapping
+
+* We offer a [Mapping](https://github.com/OpenRA/OpenRA/wiki/Mapping) Tutorial as you can change gameplay drastically with custom rules.
+* For scripted mission have a look at the [Lua API](https://docs.openra.net/en/latest/release/lua/).
+* If you want to share your maps with the community, upload them at the [OpenRA Resource Center](https://resource.openra.net).
+
+## Modding
+
+* Download a copy of the [OpenRA Mod SDK](https://github.com/OpenRA/OpenRAModSDK) to start your own mod.
+* Check the [Modding Guide](https://github.com/OpenRA/OpenRA/wiki/Modding-Guide) to create your own classic RTS.
+* There exists an auto-generated [Trait documentation](https://docs.openra.net/en/latest/release/traits/) to get started with yaml files.
+* Some hints on how to create new OpenRA compatible [Pixelart](https://github.com/OpenRA/OpenRA/wiki/Pixelart).
+* Upload total conversions at [our Mod DB profile](https://www.moddb.com/games/openra/mods).
+
+## Support
+
+* Sponsor a [mirror server](https://github.com/OpenRA/OpenRAWebsiteV3/tree/master/packages) if you have some bandwidth to spare.
+* You can immediately set up a [Dedicated](https://github.com/OpenRA/OpenRA/wiki/Dedicated) Game Server.
+
+## License
+Copyright 2007-2022 The OpenRA Developers (see [AUTHORS](https://github.com/OpenRA/OpenRA/blob/bleed/AUTHORS))
+This file is part of OpenRA, which is free software. It is made
+available to you under the terms of the GNU General Public License
+as published by the Free Software Foundation, either version 3 of
+the License, or (at your option) any later version. For more
+information, see [COPYING](https://github.com/OpenRA/OpenRA/blob/bleed/COPYING).

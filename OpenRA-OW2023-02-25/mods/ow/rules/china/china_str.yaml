@@ -388,7 +388,7 @@ chinapropagandacenter:
 		Name: Paratroopers
 		Description: A C17 drops a squad of Chinese soldiers anywhere on the map.
 		UnitType: C17
-		DropItems: chinaredguard2, chinaredguard2, chinaredguard2, chinatankhunter, chinaminigunner, chinaredguard2, chinaredguard2, chinaredguard2, chinatankhunter, chinaminigunner, chinaredguard2, chinaredguard2, chinaredguard2, chinatankhunter, chinaminigunner
+		DropItems: chinaredguard2, chinadragonbreathers, chinaredguard2, chinatankhunter, chinaminigunner, chinaredguard2, chinadragonbreathers, chinaredguard2, chinatankhunter, chinaminigunner, chinaredguard2, chinadragonbreathers, chinaredguard2, chinatankhunter, chinaminigunner
 		ReinforcementsArrivedSpeechNotification: ReinforcementsArrived
 		SelectTargetSpeechNotification: SelectTarget
 		AllowImpassableCells: false
@@ -427,7 +427,7 @@ chinapropagandacenter:
 		ChargeInterval: 12500
 		Name: Paratanks
 		Description: A C17 drops a squad of Battlemaster tanks anywhere on the map.
-		DropItems: chinabattlemaster,chinabattlemaster,chinabattlemaster,chinabattlemaster,chinabattlemaster
+		DropItems: chinahoppertank,chinabattlemaster,chinabattlemaster,chinabattlemaster,chinabattlemaster,chinahoppertank
 		UnitType: C17
 		ReinforcementsArrivedSpeechNotification: ReinforcementsArrived
 		SelectTargetSpeechNotification: SelectTarget
@@ -808,7 +808,7 @@ chinanuclearsilo:
 		Name: Nuclear Missile Silo
 	Buildable:
 		Queue: Tech
-		Prerequisites: techcenter, ~structures.china
+		Prerequisites: techcenter, ~structures.china, ~!faction.nukegeneral
 		BuildLimit: 1
 		Description: Provides a Nuke.
 		BuildPaletteOrder: 500
@@ -1206,3 +1206,67 @@ chinashipyard:
 		Type: Rectangle
 			TopLeft: -512, 598
 			BottomRight: 512, 1110
+
+chinasupernuclearsilo:
+	Inherits: ^Building
+	Inherits@shape: ^2x1Shape
+	Inherits@IDISABLE: ^DisableOnLowPowerOrPowerDown
+	Valued:
+		Cost: 5000
+	Tooltip:
+		Name: Super Nuclear Missile Silo
+	Buildable:
+		Queue: Tech
+		Prerequisites: techcenter, ~structures.china, ~faction.nukegeneral
+		BuildLimit: 1
+		Description: Provides a Super Nuke.
+		BuildPaletteOrder: 500
+	Building:
+		Footprint: xx
+		Dimensions: 2,1
+	Selectable:
+		Bounds: 3072, 2048
+		DecorationBounds: 3072, 2901, 0, -426
+	Health:
+		HP: 200000
+	Armor:
+		Type: Wood
+	RevealsShroud:
+		Range: 4c0
+	NukePower:
+		PauseOnCondition: disabled
+		Cursor: nuke
+		Icon: nuclearmissile
+		ChargeInterval: 31500
+		Name: Super Nuclear Missile
+		OrderName: chinanuke
+		Description: Launches a devastating atomic bomb\nat a target location.
+		LaunchSound: nukelaunch.aud
+		EndChargeSound: ecnukrea.wav
+		DetectedSound: ecdenuk.aud
+		MissileWeapon: ChinaSuperNuke
+		MissileImage: atomic
+		MissileDelay: 5
+		SpawnOffset: 1c0,427,0
+		DisplayTimerRelationships: Ally, Neutral, Enemy
+		DisplayBeacon: True
+		DisplayRadarPing: True
+		BeaconPoster: chinanukebeacon
+		CameraRange: 10c0
+		ArrowSequence: arrow
+		ClockSequence: clock
+		CircleSequence: circles
+		SupportPowerPaletteOrder: 70
+	SupportPowerChargeBar:
+	Power:
+		Amount: -500
+	MustBeDestroyed:
+		RequiredForShortGame: false
+	ProvidesPrerequisite@superweapon:
+		Prerequisite: superweapon
+	RenderSprites:
+		Image: chinanuclearsilo
+	Explodes:
+		Type: CenterPosition
+		Weapon: ChinaNuke
+		EmptyWeapon: ChinaNuke
