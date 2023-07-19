@@ -10,9 +10,12 @@ uniform sampler2D Texture3;
 uniform sampler2D Texture4;
 uniform sampler2D Texture5;
 uniform sampler2D Texture6;
+uniform sampler2D Texture7;
 uniform sampler2D Palette;
+uniform sampler2D ColorShifts;
 
 uniform bool EnableDepthPreview;
+uniform vec2 DepthPreviewParams;
 uniform float DepthTextureScale;
 uniform float AntialiasPixelsPerTexel;
 
@@ -35,6 +38,7 @@ uniform vec2 Texture3Size;
 uniform vec2 Texture4Size;
 uniform vec2 Texture5Size;
 uniform vec2 Texture6Size;
+uniform vec2 Texture7Size;
 #else
 in vec4 vColor;
 
@@ -52,19 +56,47 @@ in vec4 vTint;
 out vec4 fragColor;
 #endif
 
-float jet_r(float x)
+vec3 rgb2hsv(vec3 c)
 {
-	return x < 0.7 ? 4.0 * x - 1.5 : -4.0 * x + 4.5;
+	// From http://lolengine.net/blog/2013/07/27/rgb-to-hsv-in-glsl
+	vec4 K = vec4(0.0, -1.0 / 3.0, 2.0 / 3.0, -1.0);
+	vec4 p = c.g < c.b ? vec4(c.bg, K.wz) : vec4(c.gb, K.xy);
+	vec4 q = c.r < p.x ? vec4(p.xyw, c.r) : vec4(c.r, p.yzx);
+	float d = q.x - min(q.w, q.y);
+	float e = 1.0e-10;
+	return vec3(abs(q.z + (q.w - q.y) / (6.0 * d + e)), d / (q.x + e), q.x);
 }
 
-float jet_g(float x)
+vec3 hsv2rgb(vec3 c)
 {
-	return x < 0.5 ? 4.0 * x - 0.5 : -4.0 * x + 3.5;
+	// From http://lolengine.net/blog/2013/07/27/rgb-to-hsv-in-glsl
+	vec4 K = vec4(1.0, 2.0 / 3.0, 1.0 / 3.0, 3.0);
+	vec3 p = abs(fract(c.xxx + K.xyz) * 6.0 - K.www);
+	return c.z * mix(K.xxx, clamp(p - K.xxx, 0.0, 1.0), c.y);
 }
 
-float jet_b(float x)
+float srgb2linear(float c)
 {
-	return x < 0.3 ? 4.0 * x + 0.5 : -4.0 * x + 2.5;
+	// Standard gamma conversion equation: see e.g. http://entropymine.com/imageworsener/srgbformula/
+	return c <= 0.04045f ? c / 12.92f : pow((c + 0.055f) / 1.055f, 2.4f);
+}
+
+vec4 srgb2linear(vec4 c)
+{
+	// The SRGB color has pre-multiplied alpha which we must undo before removing the the gamma correction
+	return c.a * vec4(srgb2linear(c.r / c.a), srgb2linear(c.g / c.a), srgb2linear(c.b / c.a), 1.0f);
+}
+
+float linear2srgb(float c)
+{
+	// Standard gamma conversion equation: see e.g. http://entropymine.com/imageworsener/srgbformula/
+	return c <= 0.0031308 ? c * 12.92f : 1.055f * pow(c, 1.0f / 2.4f) - 0.055f;
+}
+
+vec4 linear2srgb(vec4 c)
+{
+	// The linear color has pre-multiplied alpha which we must undo before applying the the gamma correction
+	return c.a * vec4(linear2srgb(c.r / c.a), linear2srgb(c.g / c.a), linear2srgb(c.b / c.a), 1.0f);
 }
 
 #if __VERSION__ == 120
@@ -82,8 +114,10 @@ vec2 Size(float samplerIndex)
 		return Texture4Size;
 	else if (samplerIndex < 5.5)
 		return Texture5Size;
+	else if (samplerIndex < 6.5)
+		return Texture6Size;
 
-	return Texture6Size;
+	return Texture7Size;
 }
 
 vec4 Sample(float samplerIndex, vec2 pos)
@@ -100,8 +134,10 @@ vec4 Sample(float samplerIndex, vec2 pos)
 		return texture2D(Texture4, pos);
 	else if (samplerIndex < 5.5)
 		return texture2D(Texture5, pos);
+	else if (samplerIndex < 6.5)
+		return texture2D(Texture6, pos);
 
-	return texture2D(Texture6, pos);
+	return texture2D(Texture7, pos);
 }
 #else
 ivec2 Size(float samplerIndex)
@@ -118,8 +154,10 @@ ivec2 Size(float samplerIndex)
 		return textureSize(Texture4, 0);
 	else if (samplerIndex < 5.5)
 		return textureSize(Texture5, 0);
+	else if (samplerIndex < 6.5)
+		return textureSize(Texture6, 0);
 
-	return textureSize(Texture6, 0);
+	return textureSize(Texture7, 0);
 }
 
 vec4 Sample(float samplerIndex, vec2 pos)
@@ -136,8 +174,10 @@ vec4 Sample(float samplerIndex, vec2 pos)
 		return texture(Texture4, pos);
 	else if (samplerIndex < 5.5)
 		return texture(Texture5, pos);
+	else if (samplerIndex < 6.5)
+		return texture(Texture6, pos);
 
-	return texture(Texture6, pos);
+	return texture(Texture7, pos);
 }
 #endif
 
@@ -166,6 +206,21 @@ vec4 SamplePalettedBilinear(float samplerIndex, vec2 coords, vec2 textureSize)
 	#endif
 
 	return mix(mix(c1, c2, interp.x), mix(c3, c4, interp.x), interp.y);
+}
+
+vec4 ColorShift(vec4 c, float p)
+{
+	#if __VERSION__ == 120
+	vec4 shift = texture2D(ColorShifts, vec2(0.5, p));
+	#else
+	vec4 shift = texture(ColorShifts, vec2(0.5, p));
+	#endif
+
+	vec3 hsv = rgb2hsv(srgb2linear(c).rgb);
+	if (hsv.r >= shift.b && shift.a >= hsv.r)
+		c = linear2srgb(vec4(hsv2rgb(vec3(hsv.r + shift.r, clamp(hsv.g + shift.g, 0.0, 1.0), hsv.b)), c.a));
+
+	return c;
 }
 
 void main()
@@ -205,6 +260,9 @@ void main()
 	if (c.a == 0.0)
 		discard;
 
+	if (vRGBAFraction.r > 0.0 && vTexMetadata.s > 0.0)
+		c = ColorShift(c, vTexMetadata.s);
+
 	float depth = gl_FragCoord.z;
 	if (length(vDepthMask) > 0.0)
 	{
@@ -212,25 +270,30 @@ void main()
 		depth = depth + DepthTextureScale * dot(y, vDepthMask);
 	}
 
-	// Convert to window coords
-	gl_FragDepth = 0.5 * depth + 0.5;
+	gl_FragDepth = depth;
 
 	if (EnableDepthPreview)
 	{
-		float x = 1.0 - gl_FragDepth;
-		float r = clamp(jet_r(x), 0.0, 1.0);
-		float g = clamp(jet_g(x), 0.0, 1.0);
-		float b = clamp(jet_b(x), 0.0, 1.0);
+		float intensity = 1.0 - clamp(DepthPreviewParams.x * depth - 0.5 * DepthPreviewParams.x - DepthPreviewParams.y + 0.5, 0.0, 1.0);
+
 		#if __VERSION__ == 120
-		gl_FragColor = vec4(r, g, b, 1.0);
+		gl_FragColor = vec4(vec3(intensity), 1.0);
 		#else
-		fragColor = vec4(r, g, b, 1.0);
+		fragColor = vec4(vec3(intensity), 1.0);
 		#endif
 	}
 	else
-	#if __VERSION__ == 120
-		gl_FragColor = c * vTint;
+	{
+		// A negative tint alpha indicates that the tint should replace the colour instead of multiplying it
+		if (vTint.a < 0.0)
+			c = vec4(vTint.rgb, -vTint.a);
+		else
+			c *= vTint;
+
+		#if __VERSION__ == 120
+		gl_FragColor = c;
 		#else
-		fragColor = c * vTint;
+		fragColor = c;
 		#endif
+	}
 }
