@@ -1,5 +1,5 @@
 --[[
-   Copyright 2007-2022 The OpenRA Developers (see AUTHORS)
+   Copyright (c) The OpenRA Developers and Contributors
    This file is part of OpenRA, which is free software. It is made
    available to you under the terms of the GNU General Public License
    as published by the Free Software Foundation, either version 3 of
@@ -94,9 +94,9 @@ WorldLoaded = function()
 
 	InitObjectives(Spain)
 
-	EatSpain = BadGuy.AddObjective("For the Swarm!")
-	GasNests = Spain.AddObjective("Gas every ant nest.")
-	KillAll = Spain.AddObjective("Kill every ant lurking above ground.")
+	EatSpain = AddPrimaryObjective(BadGuy, "")
+	GasNests = AddPrimaryObjective(Spain, "gas-every-ant-nest")
+	KillAll = AddPrimaryObjective(Spain, "kill-every-ant-above-ground")
 
 	Camera.Position = DefaultCameraPosition.CenterPosition
 	Start()

@@ -1,5 +1,5 @@
 --[[
-   Copyright 2007-2022 The OpenRA Developers (see AUTHORS)
+   Copyright (c) The OpenRA Developers and Contributors
    This file is part of OpenRA, which is free software. It is made
    available to you under the terms of the GNU General Public License
    as published by the Free Software Foundation, either version 3 of
@@ -24,7 +24,7 @@ MissionStart = function()
 	end)
 
 	Trigger.AfterDelay(DateTime.Seconds(45), function()
-		Media.DisplayMessage("Commander, the truck has stopped at a nearby allied base.\nAllied radio intercepts say the truck has orders to flee the battlefield\nif any Soviet units approach the base.")
+		Media.DisplayMessage(UserInterface.Translate("trucks-stopped-near-allied-base"))
 	end)
 
 	Trigger.OnKilled(StolenTruck, function()
@@ -40,7 +40,7 @@ end
 Trigger.OnEnteredProximityTrigger(TruckAlarm.CenterPosition, WDist.FromCells(11), function(actor, triggerflee)
 	if actor.Owner == USSR and actor.Type ~= "badr" and actor.Type ~= "u2" and actor.Type ~= "camera.spyplane" then
 		Trigger.RemoveProximityTrigger(triggerflee)
-		Media.DisplayMessage("The convoy truck is attempting to escape!")
+		Media.DisplayMessage(UserInterface.Translate("convoy-truck-escaping"))
 		EscapeCamera = Actor.Create("camera", true, { Owner = USSR, Location = TruckAlarm.Location })
 		Media.PlaySoundNotification(USSR, "AlertBleep")
 		Utils.Do(TruckEscape, function(waypoint)
@@ -79,8 +79,8 @@ WorldLoaded = function()
 
 	InitObjectives(USSR)
 
-	DestroyTruck = USSR.AddObjective("Destroy the stolen convoy truck.\nDo not let it escape.")
-	DefendCommand = USSR.AddObjective("Defend our forward command center.")
+	DestroyTruck = AddPrimaryObjective(USSR, "destroy-stolen-convoy-truck")
+	DefendCommand = AddPrimaryObjective(USSR, "defend-forward-command-center")
 
 	Camera.Position = DefaultCameraPosition.CenterPosition
 

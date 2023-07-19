@@ -1,5 +1,5 @@
 --[[
-   Copyright 2007-2022 The OpenRA Developers (see AUTHORS)
+   Copyright (c) The OpenRA Developers and Contributors
    This file is part of OpenRA, which is free software. It is made
    available to you under the terms of the GNU General Public License
    as published by the Free Software Foundation, either version 3 of
@@ -44,10 +44,10 @@ MissionStart = function()
 		TroopsArrived = true
 	end)
 
-	InfantryProduction()
+	ProduceInfantry()
 end
 
-InfantryProduction = function()
+ProduceInfantry = function()
 	if (SETent1.IsDead or SETent1.Owner ~= Greece) and (SETent2.IsDead or SETent2.Owner ~= Greece) then
 		return
 	end
@@ -56,7 +56,7 @@ InfantryProduction = function()
 
 	Greece.Build(toBuild, function(unit)
 		IdlingUnits[#IdlingUnits + 1] = unit[1]
-		Trigger.AfterDelay(InfantryDelay, InfantryProduction)
+		Trigger.AfterDelay(InfantryDelay, ProduceInfantry)
 
 		if #IdlingUnits >= (AttackGroupSize * 1.5) then
 			SendAttack()
@@ -309,9 +309,9 @@ WorldLoaded = function()
 
 	InitObjectives(USSR)
 
-	BeatRussia = Greece.AddObjective("Stop Ivan.")
-	KillAll = USSR.AddObjective("Destroy all that oppose us.")
-	CaptureDome = USSR.AddObjective("Capture the enemy radar dome.", "Secondary", false)
+	BeatRussia = AddPrimaryObjective(Greece, "")
+	KillAll = AddPrimaryObjective(USSR, "destroy-opposition")
+	CaptureDome = AddSecondaryObjective(USSR, "capture-enemy-radar-dome")
 
 	Camera.Position = LZ.CenterPosition
 	ShockDrop = Actor.Create("shockdrop", false, { Owner = USSR })

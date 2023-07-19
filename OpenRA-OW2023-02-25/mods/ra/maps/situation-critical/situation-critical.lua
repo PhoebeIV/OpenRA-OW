@@ -1,5 +1,5 @@
 --[[
-   Copyright 2007-2022 The OpenRA Developers (see AUTHORS)
+   Copyright (c) The OpenRA Developers and Contributors
    This file is part of OpenRA, which is free software. It is made
    available to you under the terms of the GNU General Public License
    as published by the Free Software Foundation, either version 3 of
@@ -90,7 +90,7 @@ SetupTriggers = function()
 	end)
 
 	Trigger.OnInfiltrated(BioLab, function()
-		Media.DisplayMessage("Plans stolen; erasing all data.", "Scientist")
+		Media.DisplayMessage("plans-stolen-erase-data", "scientist")
 		Trigger.AfterDelay(DateTime.Seconds(5), function()
 			USSR.MarkCompletedObjective(InfiltrateLab)
 			LabInfiltrated = true
@@ -137,7 +137,7 @@ SendInVolkov = function()
 			USSR.MarkFailedObjective(VolkovSurvive)
 		end)
 		Trigger.OnAddedToWorld(teamVolkov[1], function(a)
-			Media.DisplayMessage("IFF software update failed. Require manual target input.", "Volkov")
+			Media.DisplayMessage(UserInterface.Translate("software-update-failed-manual-targets"), UserInterface.Translate("volkov"))
 		end)
 
 		Trigger.OnAddedToWorld(teamVolkov[2], function(b)
@@ -150,17 +150,20 @@ SendInVolkov = function()
 	end
 end
 
-ticked = TimerTicks
+Ticked = TimerTicks
 Tick = function()
 	if Turkey.PowerState ~= "Normal" then
 		SendInVolkov()
 	end
 
-	if ticked > 0 then
-		UserInterface.SetMissionText("Missiles launch in " .. Utils.FormatTime(ticked), TimerColor)
-		ticked = ticked - 1
-	elseif ticked == 0 then
-		UserInterface.SetMissionText("We're too late!", USSR.Color)
+	if Ticked > 0 then
+		if (Ticked % DateTime.Seconds(1)) == 0 then
+			Timer = UserInterface.Translate("missiles-launch-in", { ["time"] = Utils.FormatTime(Ticked) })
+			UserInterface.SetMissionText(Timer, TimerColor)
+		end
+		Ticked = Ticked - 1
+	elseif Ticked == 0 then
+		UserInterface.SetMissionText(UserInterface.Translate("too-late"), USSR.Color)
 		Turkey.MarkCompletedObjective(LaunchMissles)
 	end
 end
@@ -171,12 +174,12 @@ WorldLoaded = function()
 
 	InitObjectives(USSR)
 
-	LaunchMissles = Turkey.AddObjective("Survive until time expires.")
-	KillPower = USSR.AddObjective("Bring the base to low power. Volkov will arrive\nonce the defenses are down.")
-	InfiltrateLab = USSR.AddObjective("Infiltrate the bio-weapons lab with the scientist.")
-	DestroyFacility = USSR.AddObjective("Destroy the bio-weapons lab and missile silos.")
-	KillSams = USSR.AddObjective("Destroy all sam sites on the island.\nOur strategic bombers will finish the rest.", "Secondary", false)
-	VolkovSurvive = USSR.AddObjective("Volkov must survive.")
+	LaunchMissles = AddPrimaryObjective(Turkey, "")
+	KillPower = AddPrimaryObjective(USSR, "kill-power")
+	InfiltrateLab = AddPrimaryObjective(USSR, "infiltrate-bio-weapons-lab-scientist")
+	DestroyFacility = AddPrimaryObjective(USSR, "destroy-bio-weapons-lab-missile-silos")
+	KillSams = AddSecondaryObjective(USSR, "destroy-all-sam-sites-strategic-bombers")
+	VolkovSurvive = AddPrimaryObjective(USSR, "volkov-survive")
 
 	Trigger.AfterDelay(DateTime.Minutes(3), function()
 		Media.PlaySpeechNotification(USSR, "WarningFiveMinutesRemaining")

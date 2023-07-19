@@ -1,5 +1,5 @@
 --[[
-   Copyright 2007-2022 The OpenRA Developers (see AUTHORS)
+   Copyright (c) The OpenRA Developers and Contributors
    This file is part of OpenRA, which is free software. It is made
    available to you under the terms of the GNU General Public License
    as published by the Free Software Foundation, either version 3 of
@@ -7,7 +7,7 @@
    information, see COPYING.
 ]]
 
-lstReinforcements =
+LstReinforcements =
 {
 	actors = { "mcv" },
 	entryPath = { AlliedMCVEntry.Location, Unload1.Location },
@@ -28,7 +28,7 @@ KosyginContacted = false
 InitialAlliedReinforcements = function()
 	Trigger.AfterDelay(DateTime.Seconds(1), function()
 		Media.PlaySpeechNotification(Greece, "ReinforcementsArrived")
-		Reinforcements.ReinforceWithTransport(Greece, "lst.reinforcement", lstReinforcements.actors, lstReinforcements.entryPath, lstReinforcements.exitPath)
+		Reinforcements.ReinforceWithTransport(Greece, "lst.reinforcement", LstReinforcements.actors, LstReinforcements.entryPath, LstReinforcements.exitPath)
 	end)
 end
 
@@ -50,7 +50,7 @@ CreateKosygin = function()
 	Media.PlaySpeechNotification(Greece, "ObjectiveMet")
 	local kosygin = Actor.Create(KosyginType, true, { Location = KosyginSpawnPoint.Location, Owner = Greece })
 	Trigger.OnKilled(kosygin, RescueFailed)
-	ExtractObjective = Greece.AddObjective("Extract Kosygin and\nget him back to your base.")
+	ExtractObjective = AddPrimaryObjective(Greece, "extract-kosygin")
 	Trigger.AfterDelay(DateTime.Seconds(1), function() Media.PlaySpeechNotification(Greece, "TargetFreed") end)
 end
 
@@ -161,9 +161,9 @@ WorldLoaded = function()
 	USSR = Player.GetPlayer("USSR")
 	Camera.Position = DefaultCameraPosition.CenterPosition
 	InitObjectives(Greece)
-	UseSpyObjective = Greece.AddObjective("Infiltrate the Soviet command center and\ncontact Kosygin.")
-	KosyginSurviveObjective = Greece.AddObjective("Kosygin must survive.")
-	USSRObj = USSR.AddObjective("Eliminate all Allied forces.")
+	UseSpyObjective = AddPrimaryObjective(Greece, "infiltrate-soviet-command-center-contact-kosygin")
+	KosyginSurviveObjective = AddPrimaryObjective(Greece, "kosygin-must-survive")
+	USSRObj = AddPrimaryObjective(USSR, "")
 	InitialAlliedReinforcements()
 	InfiltrateForwardCenter()
 	InitialSovietPatrols()

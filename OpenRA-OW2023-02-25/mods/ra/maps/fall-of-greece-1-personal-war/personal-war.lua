@@ -1,5 +1,5 @@
 --[[
-   Copyright 2007-2022 The OpenRA Developers (see AUTHORS)
+   Copyright (c) The OpenRA Developers and Contributors
    This file is part of OpenRA, which is free software. It is made
    available to you under the terms of the GNU General Public License
    as published by the Free Software Foundation, either version 3 of
@@ -36,7 +36,7 @@ FootprintTrigger12 = { CPos.New(35, 39), CPos.New(35, 40), CPos.New(35, 41), CPo
 ExtractionHelicopterType = "tran"
 ExtractionPath = { ChinookEntry.Location, ExtractionPoint.Location }
 
-lstReinforcements =
+LstReinforcements =
 {
 	first =
 	{
@@ -79,7 +79,7 @@ MissionStart = function()
 						end)
 					end)
 					Trigger.AfterDelay(DateTime.Seconds(6), function()
-						Media.DisplayMessage("Commander, there are several civilians in the area.\nWe'll need you to call out targets.", "Tanya")
+						Media.DisplayMessage(UserInterface.Translate("civilians-manual-targetting"), UserInterface.Translate("tanya"))
 					end)
 				end
 			end)
@@ -184,7 +184,7 @@ FootprintTriggers = function()
 			foot5Triggered = true
 
 			Media.PlaySoundNotification(Allies, "AlertBleep")
-			Media.DisplayMessage("Alfa Niner this is Lima One Six. Be advised, Soviet aircraft and armor moving into your AO.", "Headquarters")
+			Media.DisplayMessage(UserInterface.Translate("soviet-aircraft-armor-moving-in"), UserInterface.Translate("headquarters"))
 			Utils.Do(Trigger5Team, function(actor)
 				if not actor.IsDead then
 					actor.AttackMove(TacticalNuke1.Location)
@@ -205,7 +205,7 @@ FootprintTriggers = function()
 
 			Trigger.AfterDelay(DateTime.Seconds(20), function()
 				Media.PlaySoundNotification(Allies, "AlertBuzzer")
-				Media.DisplayMessage("Extraction point is compromised. Evacuate the base!", "Headquarters")
+				Media.DisplayMessage(UserInterface.Translate("extraction-point-compromised-evacuate-base"), UserInterface.Translate("headquarters"))
 				local defenders = Reinforcements.Reinforce(England, TentTeam, { Tent.Location, TentMove.Location }, 0)
 				Utils.Do(defenders, IdleHunt)
 				if Difficulty == "hard" then
@@ -230,7 +230,7 @@ FootprintTriggers = function()
 			end)
 
 			Trigger.AfterDelay(DateTime.Seconds(50), function()
-				Media.DisplayMessage("We've set up a new extraction point to the Northwest.", "Headquarters")
+				Media.DisplayMessage(UserInterface.Translate("new-extraction-point-northwest"), UserInterface.Translate("headquarters"))
 			end)
 		end
 	end)
@@ -241,7 +241,7 @@ FootprintTriggers = function()
 			Trigger.RemoveFootprintTrigger(id)
 			foot6Triggered = true
 
-			local reinforcement = lstReinforcements.first
+			local reinforcement = LstReinforcements.first
 			Media.PlaySpeechNotification(Allies, "ReinforcementsArrived")
 			Reinforcements.ReinforceWithTransport(Allies, "lst.reinforcement", reinforcement.actors, reinforcement.entryPath, reinforcement.exitPath)
 		end
@@ -349,7 +349,7 @@ FootprintTriggers = function()
 				trig11camera.Destroy()
 			end)
 
-			local reinforcement = lstReinforcements.second
+			local reinforcement = LstReinforcements.second
 			Media.PlaySpeechNotification(Allies, "ReinforcementsArrived")
 			Reinforcements.ReinforceWithTransport(Allies, "lst.reinforcement", reinforcement.actors, reinforcement.entryPath, reinforcement.exitPath)
 		end
@@ -362,7 +362,7 @@ FootprintTriggers = function()
 			foot12Triggered = true
 
 			Media.PlaySoundNotification(Allies, "AlertBleep")
-			Media.DisplayMessage("Stalin will pay for what he has done today!\nI will bury him with my own hands!", "Stavros")
+			Media.DisplayMessage(UserInterface.Translate("stalin-will-pay"), UserInterface.Translate("stavros"))
 		end
 	end)
 end
@@ -492,9 +492,9 @@ WorldLoaded = function()
 
 	InitObjectives(Allies)
 
-	SovietObj = USSR.AddObjective("Kill Stavros.")
-	ProtectVIPs = Allies.AddObjective("Keep Stavros and Tanya alive.")
-	ExtractStavros = Allies.AddObjective("Get Stavros and Tanya to the extraction helicopter.")
+	SovietObj = AddPrimaryObjective(USSR, "")
+	ProtectVIPs = AddPrimaryObjective(Allies, "keep-stavros-tanya-alive")
+	ExtractStavros = AddPrimaryObjective(Allies, "get-tanya-stavros-helicopter")
 
 	InsertionDrop = Actor.Create("insertiondrop", false, { Owner = Allies })
 	InsertionDropHard = Actor.Create("insertiondrophard", false, { Owner = Allies })

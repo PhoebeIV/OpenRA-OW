@@ -1,5 +1,5 @@
 --[[
-   Copyright 2007-2022 The OpenRA Developers (see AUTHORS)
+   Copyright (c) The OpenRA Developers and Contributors
    This file is part of OpenRA, which is free software. It is made
    available to you under the terms of the GNU General Public License
    as published by the Free Software Foundation, either version 3 of
@@ -121,9 +121,9 @@ WorldLoaded = function()
 
 	InitObjectives(USSR)
 
-	KillAll = USSR.AddObjective("Destroy all Allied units and structures.")
-	DestroyVillageObjective = USSR.AddObjective("Destroy the village of Allied sympathizers.", "Secondary", false)
-	BeatUSSR = Greece.AddObjective("Defeat the Soviet forces.")
+	KillAll = AddPrimaryObjective(USSR, "destroy-allied-units-structures")
+	DestroyVillageObjective = AddSecondaryObjective(USSR, "destroy-allied-sympathizers-village")
+	BeatUSSR = AddPrimaryObjective(Greece, "")
 
 	FirstReinforcementTrigger()
 	SecondReinforcementTrigger()

@@ -544,6 +544,30 @@
 	WithFacingSpriteBody:
 	HitShape:
 
+^Submarine:
+	Inherits: ^Ship
+	Targetable:
+		TargetTypes: WaterActor, Ship, Submarine, Repair
+		RequiresCondition: !underwater
+	Targetable@UNDERWATER:
+		TargetTypes: Underwater, Submarine
+		RequiresCondition: underwater
+	Cloak:
+		DetectionTypes: Underwater
+		InitialDelay: 0
+		CloakDelay: 50
+		CloakSound: subshow1.aud
+		UncloakSound: subshow1.aud
+		CloakedCondition: underwater
+		Palette: submerged
+		PauseOnCondition: cloak-force-disabled
+	GrantConditionOnDamageState@UNCLOAK:
+		Condition: cloak-force-disabled
+		ValidDamageStates: Critical
+	-MustBeDestroyed:
+	WithDamageOverlay:
+		MinimumDamageState: Critical
+
 ^NeutralPlane:
 	Inherits@1: ^ExistsInWorld
 	Inherits@4: ^SpriteActor
@@ -703,7 +727,7 @@
 		RepairStep: 700
 		PlayerExperience: 5
 		RepairingNotification: Repairing
-	EngineerRepairable:
+	InstantlyRepairable:
 	AcceptsDeliveredCash:
 	WithMakeAnimation:
 		Condition: build-incomplete
@@ -716,6 +740,7 @@
 	CapturableProgressBlink:
 	SpawnActorsOnSell:
 		ActorTypes: e1,e1,e1,tecn,tecn2
+		GuaranteedActorTypes: e1
 	MustBeDestroyed:
 		RequiredForShortGame: true
 	GpsDot:
@@ -756,9 +781,6 @@
 	MapEditorData:
 		Categories: Defense
 	-CommandBarBlacklist:
-	ProximityExternalCondition@addons:
-		Condition: kill_addon
-		Range: 1c0
 
 ^Wall:
 	Inherits@1: ^ExistsInWorld

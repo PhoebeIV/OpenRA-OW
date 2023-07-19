@@ -1,5 +1,5 @@
 --[[
-   Copyright 2007-2022 The OpenRA Developers (see AUTHORS)
+   Copyright (c) The OpenRA Developers and Contributors
    This file is part of OpenRA, which is free software. It is made
    available to you under the terms of the GNU General Public License
    as published by the Free Software Foundation, either version 3 of
@@ -46,13 +46,13 @@ InfantryGGWaypoints = { PatrolPoint2, BetweenBasesPoint, PrepGGArmyPoint }
 TanksGGWaypoints = { PatrolPoint2, BetweenBasesPoint, PrepGGArmyPoint }
 
 Para = function()
-	local powerproxy = Actor.Create("powerproxy.paratroopers", false, { Owner = player })
+	local powerproxy = Actor.Create("powerproxy.paratroopers", false, { Owner = USSR })
 	powerproxy.TargetParatroopers(ParaPoint.CenterPosition, Angle.New(112))
 	powerproxy.Destroy()
 end
 
 Para2 = function()
-	local powerproxy = Actor.Create("powerproxy.paratroopers", false, { Owner = player })
+	local powerproxy = Actor.Create("powerproxy.paratroopers", false, { Owner = USSR })
 	powerproxy.TargetParatroopers(USSRExpansionPoint.CenterPosition, Angle.New(112))
 	powerproxy.Destroy()
 end
