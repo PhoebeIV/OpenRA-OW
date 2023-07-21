@@ -40,7 +40,7 @@ SLAVE:
 	Tooltip:
 		Name: Slave
 	Mobile:
-		Speed: 72
+		Speed: 82
 		Locomotor: foot2
 		TurnsWhileMoving: true
 	Health:
@@ -118,7 +118,7 @@ MEDIWORKER:
 	Tooltip:
 		Name: Worker
 	Mobile:
-		Speed: 96
+		Speed: 106
 		Locomotor: foot2
 		CanMoveBackward: true
 		TurnsWhileMoving: true
@@ -1138,7 +1138,7 @@ MediZombie:
 	UpdatesPlayerStatistics:
 		AddToArmyValue: false
 	Health:
-		HP: 20000
+		HP: 12000
 	Mobile:
 		Speed: 48
 	RevealsShroud:
@@ -1182,7 +1182,7 @@ MediZombieCreepC:
 	KillsSelf:
 		Delay: 1
 	Health:
-		HP: 5000000
+		HP: 5000
 	-UpdatesPlayerStatistics:
 
 MediZombieCreepA:
@@ -1356,6 +1356,11 @@ ShieldHero:
 		EmptyWeapon: SmitePowerWep
 	AttackFrontal:
 		Armaments: ZapPally, HealPally, SmitePally, PallySword
+	GrantConditionOnAttack@PallyHealEnabled:
+		Condition: PallyHealEnabled
+		ArmamentNames: ZapPally, HealPally, SmitePally, PallySword
+		RevokeDelay: 1000
+		RequiredShotsPerInstance: 5
 	Armament@ZapPally:
 		Name: ZapPally
 		Weapon: LightningPaladinShot
@@ -1363,6 +1368,7 @@ ShieldHero:
 		Name: HealPally
 		Weapon: PaladinHealWep
 		TargetRelationships: Ally
+		RequiresCondition: PallyHealEnabled
 	Armament@SmitePally:
 		Name: SmitePally
 		Weapon: SmitePaladinWep

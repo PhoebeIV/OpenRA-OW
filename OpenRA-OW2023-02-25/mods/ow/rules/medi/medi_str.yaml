@@ -37,8 +37,6 @@ FACTM:
 		RevealGeneratedShroud: False
 	RevealsShroud@GAPGEN:
 		Range: 4c0
-	Refinery:
-		DockOffset: 1,2
 	StoresResources:
 		Capacity: 1500
 	InstantlyRepairable:
@@ -515,8 +513,6 @@ ARMORYMEDI:
 LABORCAMP:
 	Inherits: ^Building
 	Inherits@shape: ^3x3Shape
-	FreeActor@1:
-		Actor: SLAVE
 	Buildable:
 		Queue: Building
 		Prerequisites: ~structures.medi, ~techlevel.infonly, ~!ai.boss
@@ -587,15 +583,17 @@ LABORCAMP:
 FARMMEDI:
 	Inherits: PROC
 	-FreeActor:
+	FreeActor@1:
+		Actor: SLAVE
 	-Power:
 	-WithIdleOverlay@TOP:
 	-WithIdleOverlay@uac:
 	-WithDeathAnimation:
-	Inherits@shape: ^2x2Shape
+	Inherits@shape: ^1x1Shape
 	Selectable:
-		Bounds: 2048, 2048
+		Bounds: 1024, 1024
 	Refinery:
-		DockOffset: 1,1
+		DockOffset: 0,0
 	Buildable:
 		Queue: Building
 		Prerequisites: ~structures.medi, laborcamp, ~!ai.boss, ~techlevel.infonly
@@ -604,13 +602,13 @@ FARMMEDI:
 	Tooltip:
 		Name: Farm
 	Building:
-		Footprint: xx ==
-		Dimensions: 2,2
+		Footprint: =
+		Dimensions: 1,1
 		BuildSounds: medibuild1.aud, medibuildjobdone1.aud, medibuildplace1.aud
 	StoresResources:
-		Capacity: 1000
+		Capacity: 200
 	Valued:
-		Cost: 400
+		Cost: 1000
 	Health:
 		HP: 20000
 	GrantConditionOnDeploy@slavework:
@@ -632,7 +630,7 @@ FARMMEDI:
 	GrantConditionOnPrerequisite:
 		Condition: ManaBoost
 		Prerequisites: manasupply
-	WithBuildingBib:
+	-WithBuildingBib:
 	InfiltrateForCash:
 		Percentage: 50
 		Types: SpyInfiltrate, ThiefInfiltrate
@@ -643,7 +641,7 @@ FARMMEDI:
 	WithResourceStoragePipsDecoration:
 		Position: BottomLeft
 		RequiresSelection: true
-		PipCount: 7
+		PipCount: 5
 		FullSequence: pip-yellow
 
 ##GoldMine, Seeds Resources
@@ -652,22 +650,10 @@ GoldMine:
 	Inherits@shape: ^2x2Shape
 	Selectable:
 		Bounds: 2048, 2048
-	Buildable:
-		Queue: Tech
-		Prerequisites: ~structures.medi, laborcamp, library, ~techlevel.high, ~!techlevel.noepic
-		Description: Slowly produces resources\naround this building.
-		BuildPaletteOrder: 31
-		BuildLimit: 4
-	Tooltip:
-		Name: Gold Mine
 	Building:
 		Footprint: xx xx
 		Dimensions: 2,2
 		BuildSounds: medibuild1.aud, medibuildjobdone1.aud, medibuildplace1.aud
-	StoresResources:
-		Capacity: 1500
-	Valued:
-		Cost: 3000
 	Health:
 		HP: 20000
 	Armor:
@@ -677,92 +663,169 @@ GoldMine:
 		RequiresCondition: ManaBoost
 	Targetable:
 		TargetTypes: GroundActor, C4, DetonateAttack, Structure
-	ProvidesPrerequisite@buildingname:
+	ProvidesPrerequisite@GoldMine:
+		Prerequisite: GoldMine
+	WithBuildingBib:
+	RenderSprites:
+		Image: medigoldmine
+	CashTrickler@GoldMine:
+		Interval: 100
+		Amount: 20
+		UseResourceStorage: True
+	CashTricklerMultiplier@GoldMine1:
+		Modifier: 100
+		RequiresCondition: GaryWork == 4
+	CashTricklerMultiplier@GoldMine2:
+		Modifier: 150
+		RequiresCondition: GaryWork == 8
+	CashTricklerMultiplier@GoldMine3:
+		Modifier: 225
+		RequiresCondition: GaryWork == 12
+	CashTricklerMultiplier@GoldMine4:
+		Modifier: 400
+		RequiresCondition: GaryWork == 16
+	CashTricklerMultiplier@GoldMine5:
+		Modifier: 600
+		RequiresCondition: GaryWork == 20
+	
+GoldMineSpawner:
+	Inherits: GoldMine
+	Buildable:
+		Queue: Tech
+		Prerequisites: ~structures.medi, laborcamp, library, ~techlevel.high, ~!techlevel.noepic
+		Description: Slowly produces money when workers provided
+		BuildPaletteOrder: 31
+		BuildLimit: 4
+	Valued:
+		Cost: 5000
+	UpdatesPlayerStatistics:
+		AddToArmyValue: False
 	GrantRandomCondition@DeepGold:
-		Conditions: gmdepth1, gmdepth2, gmdepth3, gmdepth4, gmdepth5  
-	SeedsResource@o:
-		Interval: 800
-		ResourceType: Ore
-		MaxRange: 2
-	SeedsResource@g:
-		Interval: 1500
-		ResourceType: Gems
-		MaxRange: 2
-	SeedsResource@G5D1:
-		RequiresCondition: GaryWork >= 3 && gmdepth1
-		Interval: 600 
-		ResourceType: Ore
-		MaxRange: 2
-	SeedsResource@G5D2:
-		RequiresCondition: GaryWork >= 3 && gmdepth2
-		Interval: 650
-		ResourceType: Ore
-		MaxRange: 2
-	SeedsResource@G5D3:
-		RequiresCondition: GaryWork >= 3 && gmdepth3
-		Interval: 700
-		ResourceType: Ore
-		MaxRange: 2
-	SeedsResource@G5D4:
-		RequiresCondition: GaryWork >= 3 && gmdepth4
-		Interval: 750
-		ResourceType: Ore
-		MaxRange: 2
-	SeedsResource@G5D5:
-		RequiresCondition: GaryWork >= 3 && gmdepth5
-		Interval: 800
-		ResourceType: Ore
-		MaxRange: 2
-	SeedsResource@G10D2:
-		RequiresCondition: GaryWork >= 6 && gmdepth2
-		Interval: 600
-		ResourceType: Ore
-		MaxRange: 2
-	SeedsResource@G10D3:
-		RequiresCondition: GaryWork >= 6 && gmdepth3
-		Interval: 700
-		ResourceType: Gems
-		MaxRange: 2
-	SeedsResource@G10D4:
-		RequiresCondition: GaryWork >= 6 && gmdepth4
-		Interval: 500
-		ResourceType: Ore
-		MaxRange: 2
-	SeedsResource@G10D5:
-		RequiresCondition: GaryWork >= 6 && gmdepth5
-		Interval: 500
-		ResourceType: Ore
-		MaxRange: 2
-	SeedsResource@G15D3:
-		RequiresCondition: GaryWork >= 9 && gmdepth3
-		Interval: 500
-		ResourceType: Ore
-		MaxRange: 2
-	SeedsResource@G15D4:
-		RequiresCondition: GaryWork >= 9 && gmdepth4
-		Interval: 600
-		ResourceType: Gems
-		MaxRange: 2
-	SeedsResource@G15D5:
-		RequiresCondition: GaryWork >= 9 && gmdepth5
-		Interval: 500
-		ResourceType: Ore
-		MaxRange: 2
-	SeedsResource@G20D3:
-		RequiresCondition: GaryWork >= 12 && gmdepth3
-		Interval: 700
-		ResourceType: Ore
-		MaxRange: 2
-	SeedsResource@G20D4:
-		RequiresCondition: GaryWork >= 12 && gmdepth4
-		Interval: 500
-		ResourceType: Ore
-		MaxRange: 2
-	SeedsResource@G20D5:
-		RequiresCondition: GaryWork >= 12 && gmdepth5
-		Interval: 500
-		ResourceType: Gems
-		MaxRange: 2
+		Conditions: gmdepth1, gmdepth2, gmdepth3, gmdepth4, gmdepth5
+	KillsSelf@gmd1:
+		RemoveInstead: True
+		RequiresCondition: gmdepth1
+		delay: 5
+	SpawnActorOnDeath@gmd1:
+		Actor: GoldMineD1
+		RequiresCondition: gmdepth1
+	KillsSelf@gmd2:
+		RemoveInstead: True
+		RequiresCondition: gmdepth2
+		delay: 5
+	SpawnActorOnDeath@gmd2:
+		Actor: GoldMineD2
+		RequiresCondition: gmdepth2
+	KillsSelf@gmd3:
+		RemoveInstead: True
+		RequiresCondition: gmdepth3
+		delay: 5
+	SpawnActorOnDeath@gmd3:
+		Actor: GoldMineD3
+		RequiresCondition: gmdepth3
+	KillsSelf@gmd4:
+		RemoveInstead: True
+		RequiresCondition: gmdepth4
+		delay: 5
+	SpawnActorOnDeath@gmd4:
+		Actor: GoldMineD4
+		RequiresCondition: gmdepth4
+	KillsSelf@gmd5:
+		RemoveInstead: True
+		RequiresCondition: gmdepth5
+		delay: 5
+	SpawnActorOnDeath@gmd5:
+		Actor: GoldMineD5
+		RequiresCondition: gmdepth5	
+
+GoldMineD1:
+	Inherits: GoldMine
+	Tooltip:
+		Name: Gold Mine (Depth 1)
+	Cargo:
+		Types: GaryWorker
+		MaxWeight: 4
+		LoadedCondition: GaryWork
+	WithCargoPipsDecoration:
+		Position: BottomLeft
+		RequiresSelection: true
+		PipCount: 2
+	Power:
+		Amount: -200
+	StoresResources:
+		Capacity: 1000
+	Valued:
+		Cost: 5000
+	CustomSellValue@GoldMine:
+		Value: 5000
+		
+GoldMineD2:
+	Inherits: GoldMine
+	Tooltip:
+		Name: Gold Mine (Depth 2)
+	Cargo:
+		Types: GaryWorker
+		MaxWeight: 8
+		LoadedCondition: GaryWork
+	WithCargoPipsDecoration:
+		Position: BottomLeft
+		RequiresSelection: true
+		PipCount: 4
+	Power:
+		Amount: -400
+	StoresResources:
+		Capacity: 2000
+	Valued:
+		Cost: 7000
+	CustomSellValue@GoldMine:
+		Value: 5000
+	
+GoldMineD3:
+	Inherits: GoldMine
+	Tooltip:
+		Name: Gold Mine (Depth 3)
+	Cargo:
+		Types: GaryWorker
+		MaxWeight: 12
+		LoadedCondition: GaryWork
+	WithCargoPipsDecoration:
+		Position: BottomLeft
+		RequiresSelection: true
+		PipCount: 6
+	Power:
+		Amount: -700
+	StoresResources:
+		Capacity: 4000
+	Valued:
+		Cost: 10000
+	CustomSellValue@GoldMine:
+		Value: 5000
+		
+GoldMineD4:
+	Inherits: GoldMine
+	Tooltip:
+		Name: Gold Mine (Depth 4)
+	Cargo:
+		Types: GaryWorker
+		MaxWeight: 16
+		LoadedCondition: GaryWork
+	WithCargoPipsDecoration:
+		Position: BottomLeft
+		RequiresSelection: true
+		PipCount: 8
+	Power:
+		Amount: -1000
+	StoresResources:
+		Capacity: 6000
+	Valued:
+		Cost: 15000
+	CustomSellValue@GoldMine:
+		Value: 5000
+		
+GoldMineD5:
+	Inherits: GoldMine
+	Tooltip:
+		Name: Gold Mine (Depth 5)
 	Cargo:
 		Types: GaryWorker
 		MaxWeight: 20
@@ -770,12 +833,15 @@ GoldMine:
 	WithCargoPipsDecoration:
 		Position: BottomLeft
 		RequiresSelection: true
-		PipCount: 4
-	WithBuildingBib:
-	RenderSprites:
-		Image: medigoldmine
+		PipCount: 10
 	Power:
-		Amount: -300
+		Amount: -2000
+	StoresResources:
+		Capacity: 10000
+	Valued:
+		Cost: 20000
+	CustomSellValue@GoldMine:
+		Value: 5000
 
 ###############################################################################
 ###############################   Tech Buildings.   ###########################
@@ -1188,9 +1254,6 @@ LIBRARY:
 	Exit@2:
 		SpawnOffset: 2,2,0
 		ExitCell: 2,1
-	PrimaryBuilding:
-		PrimaryCondition: primary
-		SelectionNotification: PrimaryBuildingSelected
 	WithDecoration@primary:
 		RequiresSelection: true
 		Image: pips
@@ -1198,7 +1261,7 @@ LIBRARY:
 		Position: Top
 		RequiresCondition: primary
 	ProductionQueue@2:
-		Type: Soldier, Infantry, Mage
+		Type: Infantry, Mage, Soldier
 		DisplayOrder: 2
 		Group: Infantry
 		LowPowerModifier: 200
@@ -1261,7 +1324,7 @@ MANAWELL:
 	RevealsShroud:
 		Range: 4c0
 	Power:
-		Amount: 100
+		Amount: 75
 	PowerMultiplier@MediManaUp:
 		Modifier: 150
 		RequiresCondition: MediManaUp
@@ -1306,7 +1369,7 @@ DEEPMANAWELL:
 	Armor:
 		Type: Wood
 	Power:
-		Amount: 250
+		Amount: 150
 	PowerMultiplier@MediManaUp:
 		Modifier: 150
 		RequiresCondition: MediManaUp
@@ -1829,7 +1892,6 @@ TheEye:
 	DetectCloakedMultiplier@step5:
 		Modifier: 200
 		RequiresCondition: step5eye
-
 
 ##Monument: Gives Healing aura to units and structures
 MonumentToTheGods:
