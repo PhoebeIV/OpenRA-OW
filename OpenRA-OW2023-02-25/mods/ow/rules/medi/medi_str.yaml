@@ -666,26 +666,51 @@ GoldMine:
 	RenderSprites:
 		Image: medigoldmine
 	CashTrickler@GoldMine:
-		Interval: 50
-		Amount: 3
+		Interval: 200
+		Amount: 2
 		UseResourceStorage: True
 		RequiresCondition: GaryWork >= 1
 	CashTricklerMultiplier@GoldMine1:
 		Modifier: 100
-		RequiresCondition: GaryWork >= 1 && EyeBoost <= 4
+		RequiresCondition: GaryWork >= 1 && GaryWork <= 4
 	CashTricklerMultiplier@GoldMine2:
 		Modifier: 150
-		RequiresCondition: GaryWork >= 5 && EyeBoost <= 8
+		RequiresCondition: GaryWork >= 5 && GaryWork <= 8
 	CashTricklerMultiplier@GoldMine3:
 		Modifier: 225
-		RequiresCondition: GaryWork >= 9 && EyeBoost <= 12
+		RequiresCondition: GaryWork >= 9 && GaryWork <= 12
 	CashTricklerMultiplier@GoldMine4:
 		Modifier: 400
-		RequiresCondition: GaryWork >= 13 && EyeBoost <= 16
+		RequiresCondition: GaryWork >= 13 && GaryWork <= 16
 	CashTricklerMultiplier@GoldMine5:
 		Modifier: 600
-		RequiresCondition: GaryWork >= 17 && EyeBoost <= 20
-	
+		RequiresCondition: GaryWork >= 17 && GaryWork <= 20
+	SeedsResource@GoldMine1:
+		Interval: 100
+		ResourceType: MediGold
+		RequiresCondition: GaryWork >= 1
+		MaxRange: 5
+	SeedsResource@GoldMine2:
+		Interval: 100
+		ResourceType: Ore
+		RequiresCondition: GaryWork >= 5
+		MaxRange: 5
+	SeedsResource@GoldMine3:
+		Interval: 100
+		ResourceType: Ore
+		RequiresCondition: GaryWork >= 9
+		MaxRange: 5
+	SeedsResource@GoldMine4:
+		Interval: 200
+		ResourceType: Gems
+		RequiresCondition: GaryWork >= 13
+		MaxRange: 5
+	SeedsResource@GoldMine5:
+		Interval: 300
+		ResourceType: Gems
+		RequiresCondition: GaryWork >= 17
+		MaxRange: 5
+
 GoldMineD1:
 	Inherits: GoldMine
 	Tooltip:
@@ -699,7 +724,7 @@ GoldMineD1:
 		RequiresSelection: true
 		PipCount: 2
 	Power:
-		Amount: -200
+		Amount: -300
 	StoresResources:
 		Capacity: 1000
 	Valued:
@@ -720,7 +745,7 @@ GoldMineD2:
 		RequiresSelection: true
 		PipCount: 4
 	Power:
-		Amount: -400
+		Amount: -500
 	StoresResources:
 		Capacity: 2000
 	Valued:
@@ -741,7 +766,7 @@ GoldMineD3:
 		RequiresSelection: true
 		PipCount: 6
 	Power:
-		Amount: -700
+		Amount: -900
 	StoresResources:
 		Capacity: 4000
 	Valued:
@@ -762,7 +787,7 @@ GoldMineD4:
 		RequiresSelection: true
 		PipCount: 8
 	Power:
-		Amount: -1000
+		Amount: -1300
 	StoresResources:
 		Capacity: 6000
 	Valued:
@@ -798,7 +823,6 @@ GoldMineSpawner:
 		Prerequisites: ~structures.medi, laborcamp, library, ~techlevel.high, ~!techlevel.noepic
 		Description: Slowly produces money when workers provided
 		BuildPaletteOrder: 31
-		BuildLimit: 4
 	Valued:
 		Cost: 5000
 	UpdatesPlayerStatistics:
