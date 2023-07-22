@@ -533,9 +533,6 @@ LABORCAMP:
 		Cost: 550
 	Health:
 		HP: 70000
-	GrantConditionOnDeploy@slaveworkon:
-		DeployedCondition: slaveworkon
-		SkipMakeAnimation: true
 	ProximityExternalCondition@slavework:
 		RequiresCondition: slaveworkon
 		Condition: slavework
@@ -669,75 +666,26 @@ GoldMine:
 	RenderSprites:
 		Image: medigoldmine
 	CashTrickler@GoldMine:
-		Interval: 100
-		Amount: 20
+		Interval: 50
+		Amount: 3
 		UseResourceStorage: True
+		RequiresCondition: GaryWork >= 1
 	CashTricklerMultiplier@GoldMine1:
 		Modifier: 100
-		RequiresCondition: GaryWork == 4
+		RequiresCondition: GaryWork >= 1 && EyeBoost <= 4
 	CashTricklerMultiplier@GoldMine2:
 		Modifier: 150
-		RequiresCondition: GaryWork == 8
+		RequiresCondition: GaryWork >= 5 && EyeBoost <= 8
 	CashTricklerMultiplier@GoldMine3:
 		Modifier: 225
-		RequiresCondition: GaryWork == 12
+		RequiresCondition: GaryWork >= 9 && EyeBoost <= 12
 	CashTricklerMultiplier@GoldMine4:
 		Modifier: 400
-		RequiresCondition: GaryWork == 16
+		RequiresCondition: GaryWork >= 13 && EyeBoost <= 16
 	CashTricklerMultiplier@GoldMine5:
 		Modifier: 600
-		RequiresCondition: GaryWork == 20
+		RequiresCondition: GaryWork >= 17 && EyeBoost <= 20
 	
-GoldMineSpawner:
-	Inherits: GoldMine
-	Buildable:
-		Queue: Tech
-		Prerequisites: ~structures.medi, laborcamp, library, ~techlevel.high, ~!techlevel.noepic
-		Description: Slowly produces money when workers provided
-		BuildPaletteOrder: 31
-		BuildLimit: 4
-	Valued:
-		Cost: 5000
-	UpdatesPlayerStatistics:
-		AddToArmyValue: False
-	GrantRandomCondition@DeepGold:
-		Conditions: gmdepth1, gmdepth2, gmdepth3, gmdepth4, gmdepth5
-	KillsSelf@gmd1:
-		RemoveInstead: True
-		RequiresCondition: gmdepth1
-		delay: 5
-	SpawnActorOnDeath@gmd1:
-		Actor: GoldMineD1
-		RequiresCondition: gmdepth1
-	KillsSelf@gmd2:
-		RemoveInstead: True
-		RequiresCondition: gmdepth2
-		delay: 5
-	SpawnActorOnDeath@gmd2:
-		Actor: GoldMineD2
-		RequiresCondition: gmdepth2
-	KillsSelf@gmd3:
-		RemoveInstead: True
-		RequiresCondition: gmdepth3
-		delay: 5
-	SpawnActorOnDeath@gmd3:
-		Actor: GoldMineD3
-		RequiresCondition: gmdepth3
-	KillsSelf@gmd4:
-		RemoveInstead: True
-		RequiresCondition: gmdepth4
-		delay: 5
-	SpawnActorOnDeath@gmd4:
-		Actor: GoldMineD4
-		RequiresCondition: gmdepth4
-	KillsSelf@gmd5:
-		RemoveInstead: True
-		RequiresCondition: gmdepth5
-		delay: 5
-	SpawnActorOnDeath@gmd5:
-		Actor: GoldMineD5
-		RequiresCondition: gmdepth5	
-
 GoldMineD1:
 	Inherits: GoldMine
 	Tooltip:
@@ -842,6 +790,53 @@ GoldMineD5:
 		Cost: 20000
 	CustomSellValue@GoldMine:
 		Value: 5000
+
+GoldMineSpawner:
+	Inherits: GoldMine
+	Buildable:
+		Queue: Tech
+		Prerequisites: ~structures.medi, laborcamp, library, ~techlevel.high, ~!techlevel.noepic
+		Description: Slowly produces money when workers provided
+		BuildPaletteOrder: 31
+		BuildLimit: 4
+	Valued:
+		Cost: 5000
+	UpdatesPlayerStatistics:
+		AddToArmyValue: False
+	GrantRandomCondition@DeepGold:
+		Conditions: gmdepth1, gmdepth2, gmdepth3, gmdepth4, gmdepth5
+	KillsSelf@gmd1:
+		RequiresCondition: gmdepth1
+		delay: 5
+	SpawnActorOnDeath@gmd1:
+		Actor: GoldMineD1
+		RequiresCondition: gmdepth1
+	KillsSelf@gmd2:
+		RequiresCondition: gmdepth2
+		delay: 5
+	SpawnActorOnDeath@gmd2:
+		Actor: GoldMineD2
+		RequiresCondition: gmdepth2
+	KillsSelf@gmd3:
+		RequiresCondition: gmdepth3
+		delay: 5
+	SpawnActorOnDeath@gmd3:
+		Actor: GoldMineD3
+		RequiresCondition: gmdepth3
+	KillsSelf@gmd4:
+		RequiresCondition: gmdepth4
+		delay: 5
+	SpawnActorOnDeath@gmd4:
+		Actor: GoldMineD4
+		RequiresCondition: gmdepth4
+	KillsSelf@gmd5:
+		RequiresCondition: gmdepth5
+		delay: 5
+	SpawnActorOnDeath@gmd5:
+		Actor: GoldMineD5
+		RequiresCondition: gmdepth5	
+	-Explodes:
+	-ActorLostNotification:
 
 ###############################################################################
 ###############################   Tech Buildings.   ###########################
