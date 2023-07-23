@@ -474,6 +474,7 @@ usaairfield:
 	ProximityExternalCondition:
 		Condition: reloadnear
 		Range: 7c0
+
     FreeActor@1:
         Actor: usaairstriplandingspot
         SpawnOffset: 3,1
@@ -486,6 +487,9 @@ usaairfield:
 	Explodes:
 		Weapon: FireBaseExplosion
 		EmptyWeapon: FireBaseExplosion
+    ProximityExternalCondition@airstriplandingspotthingy:
+        Condition: airstriplandingspotthingy
+        Range: 3c512
 
 usaairstriplandingspot:
 	Inherits: ^Building
@@ -501,7 +505,13 @@ usaairstriplandingspot:
 		HP: 10000
 	Armor:
 		Type: Wood
-
+    ExternalCondition: 
+        Condition: airstriplandingspotthingy
+    KillsSelf:
+        RequiresCondition: !airstriplandingspotthingy
+        Delay: 50
+        RemoveInstead: true
+        
 usastrategycenter:
 	Inherits: ^ScienceBuilding
 	Inherits@shape: ^3x3Shape
