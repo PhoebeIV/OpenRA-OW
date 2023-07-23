@@ -242,20 +242,26 @@ GPROC:
 		Prerequisites: gtent, ~techlevel.infonly, ~structures.gla, ~!ai.boss
 	Valued:
 		Cost: 1600
+	Building:
+		Footprint: _X_ xx+ +== ===
+		Dimensions: 3,4
 	FreeActor:
 		Actor: GHARV
 		SpawnOffset: 1,2
-		Facing: 256
 	FreeActor@1:
 		Actor: GHARV
 		SpawnOffset: 1,2
-		Facing: 256
 		RequiresCondition: !build-incomplete
 	FreeActor@2:
 		Actor: GHARV
 		SpawnOffset: 2,2
-		Facing: 256
 		RequiresCondition: !build-incomplete
+	FreeActor@a:
+		Actor: GPROC.DropOff
+		SpawnOffset: 0,2
+	FreeActor@c:
+		Actor: GPROC.DropOff
+		SpawnOffset: 2,2
 	Refinery:
 		DockAngle: 256
 		DockOffset: 1,2
@@ -267,6 +273,42 @@ GPROC:
 		Actor: GPROC.Hole
 	RenderSprites:
 		Image: proc
+	StoresResources:
+		Capacity: 1500
+	Explodes:
+		Weapon: FireBaseExplosion
+		EmptyWeapon: FireBaseExplosion
+	ProximityExternalCondition@refinery:
+		Condition: refinery
+		Range: 2c512
+
+GPROC.DropOff:
+	Inherits: ^Building
+	-WithMakeAnimation:
+	-ExternalCondition@carrier:
+	-Targetable@carrier:
+	RenderSprites:
+		Image: usaairstriplandingspot
+	Building:
+		Footprint: +
+	Targetable:
+		TargetTypes: Firebasebox
+	Reservable:
+	Health:
+		HP: 10000
+	Armor:
+		Type: Wood
+	Refinery:
+		DockAngle: 256
+		DockOffset: 0,0
+	StoresResources:
+		Capacity: 250
+	ExternalCondition: 
+		Condition: refinery
+	KillsSelf:
+		RequiresCondition: !refinery
+		Delay: 50
+		RemoveInstead: true
 
 GPROC.Hole:
 	Inherits: ^GLAHole3x3
@@ -971,6 +1013,7 @@ GSTG:
 		Actor: GSTG.Hole
 	RenderSprites:
 		Image: gstgnew
+	WithBuildingBib:
 
 GSTG.Death:
 	Inherits: 1TNK.MINE
