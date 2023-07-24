@@ -403,6 +403,7 @@ TSE5.G:
 C1.Master:
 	Inherits: C1
 	UpdatesPlayerStatistics:
+	-ScaredyCat:
 	Tooltip:
 		Name: Angry Mob
 	Targetable:
@@ -410,7 +411,7 @@ C1.Master:
 	Targetable@mob:
 		TargetTypes: Mob
 	Health:
-		HP: 100000
+		HP: 25000
 	Selectable:
 		Bounds: 3072, 2048
 		DecorationBounds: 3072, 2048
@@ -419,9 +420,12 @@ C1.Master:
 		BuildAtProductionType: Soldier
 		BuildPaletteOrder: 240
 		Prerequisites: techcenter, ~infantry.gla
-		Description: Very angry at the enemy.\nSpeed: 56\n  Strong vs Ground units\n  Weak vs Everything else
+		Icon: icon-mob
+		Description: Very angry at the enemy.\nSpeed: 56\n  Strong vs Ground units\n  Weak vs Aircraft
 	Valued:
 		Cost: 900
+	Armament:
+		Weapon: MobPistol
 	RenderSprites:
 		Image: c1
 	HitShape:
@@ -433,18 +437,20 @@ C1.Master:
 		Actors: c1.g, c2.g, c3.g, c4.g, c5.g, c6.g, c7.g, c8.g, c9.g, c10.g, c1.g, c2.g, c3.g, c4.g, c5.g, c6.g, c7.g, c8.g, c9.g, c10.g
 		InitialActorCount: 5
 		NoRegeneration: false
-		RespawnTicks: 150
+		RespawnTicks: 250
 		ExitByBudding: true
 		SlavesHaveFreeWill: false
 		AggregateHealth: false
 		SlaveDisposalOnKill: DoNothing
+	Voiced:
+		VoiceSet: AngryMobMaleVoice
 	ChangesHealth:
 		Step: 5000
 		Delay: 250
 		DamageCooldown: 250
 		StartIfBelow: 100
 	KillsSelf@slave_near:
-		Delay: 100
+		Delay: 50
 		RequiresCondition: !slave_near
 		DamageTypes: DefaultDeath
 	ExternalCondition@slave_near:
@@ -452,6 +458,15 @@ C1.Master:
 	ProximityExternalCondition@boss_near:
 		Range: 9c0
 		Condition: boss_near
+	AmbientSound@1:
+		RequiresCondition: slave_near > 5
+		SoundFiles: ianglo2a.aud,ianglo2b.aud,ianglo2c.aud,ianglo2d.aud
+		Delay: 25
+		Interval: 47,50
+	AmbientSound@2:
+		RequiresCondition: slave_near > 5
+		SoundFiles: iangsela.aud,iangselb.aud,iangselc.aud,iangseld.aud
+		Interval: 250, 600
 
 C1.G:
 	Inherits@1: ^CivInfantry
@@ -460,7 +475,12 @@ C1.G:
 	-SelectionDecorations:
 	-WithSpriteControlGroupDecoration:
 	-ActorLostNotification:
-	-ScaredyCat:
+	-UpdatesPlayerStatistics:
+	ScaredyCat:
+		PanicChance: 35
+		PanicDuration: 75
+		PanicSpeedModifier: 125
+		AttackPanicChance: 10
 	Interactable:
 		Bounds: 512,1024
 	MobSpawnerSlave:
@@ -474,6 +494,71 @@ C1.G:
 		HP: 6500
 	Tooltip:
 		Name: Angry Mob
+	Armament:
+		Weapon: MobPistol
+		RequiresCondition: none || has_grenade
+	Armament@2:
+		Weapon: MobGrenade
+		LocalOffset: 0,0,555
+		FireDelay: 15
+		RequiresCondition: has_grenade
+	GrantRandomCondition@weapon:
+		Conditions: none,none,has_grenade
+	GrantRandomCondition@randombuff:
+		Conditions: buff1,buff2,buff3,buff4,buff5
+	ReloadDelayMultiplier@buff1:
+		RequiresCondition: buff1
+		Modifier: 95
+	ReloadDelayMultiplier@buff2:
+		RequiresCondition: buff2
+		Modifier: 90
+	ReloadDelayMultiplier@buff3:
+		RequiresCondition: buff3
+		Modifier: 105
+	ReloadDelayMultiplier@buff4:
+		RequiresCondition: buff4
+		Modifier: 110
+	ReloadDelayMultiplier@buff5:
+		RequiresCondition: buff5
+		Modifier: 115
+	SpeedMultiplier@buff1:
+		RequiresCondition: buff1
+		Modifier: 95
+	SpeedMultiplier@buff2:
+		RequiresCondition: buff2
+		Modifier: 97
+	SpeedMultiplier@buff3:
+		RequiresCondition: buff3
+		Modifier: 100
+	SpeedMultiplier@buff4:
+		RequiresCondition: buff4
+		Modifier: 103
+	SpeedMultiplier@buff5:
+		RequiresCondition: buff5
+		Modifier: 106
+	RangeMultiplier@buff1:
+		RequiresCondition: buff1 || buff2
+		Modifier: 85
+	RangeMultiplier@buff3:
+		RequiresCondition: buff3 || buff4
+		Modifier: 100
+	RangeMultiplier@buff5:
+		RequiresCondition: buff5
+		Modifier: 115
+	SpeedMultiplier@hurt:
+		RequiresCondition: hurt
+		Modifier: 90
+	SpeedMultiplier@hurt2:
+		RequiresCondition: hurt > 1
+		Modifier: 80
+	GrantConditionOnDamageState@hurt:
+		Condition: hurt
+		ValidDamageStates: Heavy
+	GrantConditionOnDamageState@hurt2:
+		Condition: hurt
+		ValidDamageStates: Heavy, Critical
+	Voiced:
+		VoiceSet: AngryMobMaleVoice
 	RenderSprites:
 		Image: C1
 	Explodes:
@@ -497,7 +582,7 @@ C2.G:
 C3.G:
 	Inherits: C1.G
 	Voiced:
-		VoiceSet: CivilianFemaleVoice
+		VoiceSet: AngryMobFemaleVoice
 	RenderSprites:
 		Image: C2
 
@@ -553,6 +638,8 @@ C10.G:
 	Inherits: C1.G
 	Tooltip:
 		Name: Angry Scientist
+	Voiced:
+		VoiceSet: ScientistVoice
 	WithInfantryBody:
 		Palette: civilian10
 	WithDeathAnimation:
