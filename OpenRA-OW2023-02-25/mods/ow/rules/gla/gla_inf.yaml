@@ -399,3 +399,162 @@ TSE5.G:
 		ValidRelationships: Ally
 	ProximityExternalCondition@glabounty:
 		Range: 9c0
+
+C1.Master:
+	Inherits: C1
+	UpdatesPlayerStatistics:
+	Tooltip:
+		Name: Angry Mob
+	Targetable:
+		RequiresCondition: !slave_near
+	Targetable@mob:
+		TargetTypes: Mob
+	Health:
+		HP: 100000
+	Selectable:
+		Bounds: 3072, 2048
+		DecorationBounds: 3072, 2048
+	Buildable:
+		Queue: Infantry
+		BuildAtProductionType: Soldier
+		BuildPaletteOrder: 240
+		Prerequisites: techcenter, ~infantry.gla
+		Description: Very angry at the enemy.\nSpeed: 56\n  Strong vs Ground units\n  Weak vs Everything else
+	Valued:
+		Cost: 900
+	RenderSprites:
+		Image: c1
+	HitShape:
+		UseTargetableCellsOffsets: true
+		Type: Rectangle
+			TopLeft: -1536, -1024
+			BottomRight: 1536, 1024
+	MobSpawnerMaster:
+		Actors: c1.g, c2.g, c3.g, c4.g, c5.g, c6.g, c7.g, c8.g, c9.g, c10.g, c1.g, c2.g, c3.g, c4.g, c5.g, c6.g, c7.g, c8.g, c9.g, c10.g
+		InitialActorCount: 5
+		NoRegeneration: false
+		RespawnTicks: 150
+		ExitByBudding: true
+		SlavesHaveFreeWill: false
+		AggregateHealth: false
+		SlaveDisposalOnKill: DoNothing
+	ChangesHealth:
+		Step: 5000
+		Delay: 250
+		DamageCooldown: 250
+		StartIfBelow: 100
+	KillsSelf@slave_near:
+		Delay: 100
+		RequiresCondition: !slave_near
+		DamageTypes: DefaultDeath
+	ExternalCondition@slave_near:
+		Condition: slave_near
+	ProximityExternalCondition@boss_near:
+		Range: 9c0
+		Condition: boss_near
+
+C1.G:
+	Inherits@1: ^CivInfantry
+	Inherits@2: ^ArmedCivilian
+	-Selectable:
+	-SelectionDecorations:
+	-WithSpriteControlGroupDecoration:
+	-ActorLostNotification:
+	-ScaredyCat:
+	Interactable:
+		Bounds: 512,1024
+	MobSpawnerSlave:
+		DamageTypes: DefaultDeath
+		MasterDeadCondition: killme
+	KillsSelf@killme:
+		RequiresCondition: killme || !boss_near
+		Delay: 50, 125
+		DamageTypes: DefaultDeath
+	Health:
+		HP: 6500
+	Tooltip:
+		Name: Angry Mob
+	RenderSprites:
+		Image: C1
+	Explodes:
+		Weapon: MobDamage
+		EmptyWeapon: MobDamage
+	ProximityExternalCondition@slave_near:
+		Range: 6c0
+		Condition: slave_near
+	ExternalCondition@boss_near:
+		Condition: boss_near
+
+
+C2.G:
+	Inherits: C1.G
+	WithInfantryBody:
+		Palette: civilian2
+	WithDeathAnimation:
+		DeathSequencePalette: civilian2
+		DeathPaletteIsPlayerPalette: false
+
+C3.G:
+	Inherits: C1.G
+	Voiced:
+		VoiceSet: CivilianFemaleVoice
+	RenderSprites:
+		Image: C2
+
+C4.G:
+	Inherits: C3.G
+	WithInfantryBody:
+		Palette: civilian4
+	WithDeathAnimation:
+		DeathSequencePalette: civilian4
+		DeathPaletteIsPlayerPalette: false
+
+C5.G:
+	Inherits: C3.G
+	WithInfantryBody:
+		Palette: civilian5
+	WithDeathAnimation:
+		DeathSequencePalette: civilian5
+		DeathPaletteIsPlayerPalette: false
+
+C6.G:
+	Inherits: C1.G
+	WithInfantryBody:
+		Palette: civilian6
+	WithDeathAnimation:
+		DeathSequencePalette: civilian6
+		DeathPaletteIsPlayerPalette: false
+
+C7.G:
+	Inherits: C1.G
+	WithInfantryBody:
+		Palette: civilian7
+	WithDeathAnimation:
+		DeathSequencePalette: civilian7
+		DeathPaletteIsPlayerPalette: false
+
+C8.G:
+	Inherits: C1.G
+	WithInfantryBody:
+		Palette: civilian8
+	WithDeathAnimation:
+		DeathSequencePalette: civilian8
+		DeathPaletteIsPlayerPalette: false
+
+C9.G:
+	Inherits: C1.G
+	WithInfantryBody:
+		Palette: civilian9
+	WithDeathAnimation:
+		DeathSequencePalette: civilian9
+		DeathPaletteIsPlayerPalette: false
+
+C10.G:
+	Inherits: C1.G
+	Tooltip:
+		Name: Angry Scientist
+	WithInfantryBody:
+		Palette: civilian10
+	WithDeathAnimation:
+		DeathSequencePalette: civilian10
+		DeathPaletteIsPlayerPalette: false
