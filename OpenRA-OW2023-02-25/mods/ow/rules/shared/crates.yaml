@@ -4,9 +4,9 @@ World:
 		QuantizedFacings: 16
 		Minimum: 3
 		Maximum: 6
-		SpawnInterval: 3200
-		WaterChance: 20
-		InitialSpawnDelay: 2500
+		SpawnInterval: 3000
+		WaterChance: 2010
+		InitialSpawnDelay: 1500
 		CheckboxDisplayOrder: 1
 		CrateActors: crate, moneycrate2, crate.fuckyou
 		CrateActorShares: 52, 33, 15
@@ -196,6 +196,10 @@ MONEYCRATESUPPLYDROP:
 
 CRATE.FuckYou:
 	Inherits: ^Crate
+	GiveUnitCrateAction@crate:
+		SelectionShares: 4
+		Units: 1tnk.crate
+		Owner: Neutral
 	GiveUnitCrateAction@supertank:
 		SelectionShares: 4
 		Units: u.tnkcrate
@@ -1285,3 +1289,23 @@ powerproxy.lightning:
 		DisplayTimerRelationships: Ally, Neutral, Enemy
   		AllowMultiple: true
 		OneShot: true
+
+1TNK.CRATE:
+	Inherits: 1TNK.MINE
+	SpawnActorOnDeath:
+		Actor: CRATE.Chain
+	-Explodes:
+
+CRATE.Chain:
+	Inherits: ^Crate
+	GiveCashCrateAction:
+		Amount: 20000
+		SelectionShares: 5
+		UseCashTick: true
+	ExplodeCrateAction@nuke:
+		Weapon: MiniNuke
+		SelectionShares: 5
+	GiveUnitCrateAction@crate:
+		SelectionShares: 90
+		Units: 1tnk.crate
+		Owner: Neutral
