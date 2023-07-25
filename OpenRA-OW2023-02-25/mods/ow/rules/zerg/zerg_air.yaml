@@ -60,12 +60,6 @@ ZOVERLORD:
 	GrantConditionOnPrerequisite@shoes:
 		Prerequisites: zerg.overlord
 		Condition: shoes
-	SpeedMultiplier@shoes:
-		RequiresCondition: shoes
-		Modifier: 200
-	PowerMultiplier@shoes:
-		RequiresCondition: shoes
-		Modifier: 125
 	RevealsShroudMultiplier@shoes:
 		RequiresCondition: shoes
 		Modifier: 125
@@ -76,19 +70,38 @@ ZOVERLORD:
 		RequiresCondition: !jammed && !lowpower
 	ExternalCondition@JAMMED:
 		Condition: jammed
-	FreeActor@1:
-		Actor: ZOVERLORD.Upgraded
+	GrantConditionOnPrerequisite@botowner:
+		Condition: botowner
+		Prerequisites: ai.all
+	PowerMultiplier@botowner:
+		RequiresCondition: botowner
+		Modifier: 200
+	GrantPeriodicCondition@deploy:
+		Condition: force_deploy
 		RequiresCondition: shoes
-	KillsSelf@shoes:
-		RemoveInstead: true
-		Delay: 1
-		RequiresCondition: shoes
+		CooldownDuration: 50
+		ActiveDuration: 50
+		StartsGranted: true
+	TransformOnCondition@shoes:
+		IntoActor: ZOVERLORD.Upgraded
+		RequiresCondition: shoes && force_deploy
+	Wanders@creep:
+		RequiresCondition: oncreep
+		MinMoveDelay: 150
+		MaxMoveDelay: 750
+		WanderMoveRadius: 3
 
 ZOVERLORD.Upgraded:
 	Inherits: ZOVERLORD
 	Buildable:
 		Prerequisites: ~structures.zerg, ~techlevel.infonly, ~zerg.overlord
-		Description: Allows control over your swarm.\n Detects cloaked units.\nSpeed: 24 \n\nCan be upgraded with speed, control and sensory upgrades.\n\nTransports units.
+		Description: [Upgraded]\n Allows control over your swarm.\n Detects cloaked units.\nSpeed: 64 \n\nTransports units.
+	Aircraft:
+		TurnSpeed: 32
+		Speed: 64
+		CanSlide: true
+	Health:
+		HP: 40000
 	RenderSprites:
 		Image: zoverlord
 	WithCargoPipsDecoration:
@@ -97,9 +110,11 @@ ZOVERLORD.Upgraded:
 	Cargo:
 		Types: Infantry, Vehicle
 		MaxWeight: 8
-		AfterUnloadDelay: 40
-	-FreeActor@1:
-	-KillsSelf@shoes:
+		AfterUnloadDelay: 5
+	Power:
+		Amount: 100
+	-GrantPeriodicCondition@deploy:
+	-TransformOnCondition@shoes:
 
 ZMUTA:
 	Inherits: ^Helicopter

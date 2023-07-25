@@ -8,6 +8,8 @@ ZDRONE:
 		BuildPaletteOrder: 20
 		Prerequisites: ~structures.zerg, ~techlevel.infonly
 		Description: Collects resources and can also\n evolve into Zerg structures.\nSpeed: 96\n  Unarmed
+	Passenger:
+		Weight: 1
 	Valued:
 		Cost: 500
 	Tooltip:
@@ -128,71 +130,78 @@ ZDRONE:
 		OnHoldAudio: OnHold
 		CancelledAudio: Cancelled
 		QueueLimit: 1
+	GrantPeriodicCondition@deploy:
+		Condition: force_deploy
+		RequiresCondition: waiting_to_evolve
+		CooldownDuration: 10
+		ActiveDuration: 25
+		StartsGranted: true
 	GrantConditionOnProduction@hatchery:
 		Condition: str_hatchery
 		Actors: ZE.HATCHERY, ZE.HATCHERY2
 	TransformOnCondition@hatchery:
 		IntoActor: ZDRONE.hatchery
-		RequiresCondition: str_hatchery
+		RequiresCondition: str_hatchery && force_deploy
 	GrantConditionOnProduction@colony:
 		Condition: str_colony
 		Actors: ZE.COLONY
 	TransformOnCondition@colony:
 		IntoActor: ZDRONE.colony
-		RequiresCondition: str_colony
+		RequiresCondition: str_colony && force_deploy
 	GrantConditionOnProduction@extrac:
 		Condition: str_extrac
 		Actors: ZE.EXTRAC
 	TransformOnCondition@extrac:
 		IntoActor: ZDRONE.extrac
-		RequiresCondition: str_extrac
+		RequiresCondition: str_extrac && force_deploy
 	GrantConditionOnProduction@pool:
 		Condition: str_pool
 		Actors: ZE.POOL
 	TransformOnCondition@pool:
 		IntoActor: ZDRONE.pool
-		RequiresCondition: str_pool
+		RequiresCondition: str_pool && force_deploy
 	GrantConditionOnProduction@hydra:
 		Condition: str_hydra
 		Actors: ZE.HYDRA
 	TransformOnCondition@hydra:
 		IntoActor: ZDRONE.hydra
-		RequiresCondition: str_hydra
+		RequiresCondition: str_hydra && force_deploy
 	GrantConditionOnProduction@chamber:
 		Condition: str_chamber
 		Actors: ZE.CHAMBER
 	TransformOnCondition@chamber:
 		IntoActor: ZDRONE.chamber
-		RequiresCondition: str_chamber
+		RequiresCondition: str_chamber && force_deploy
 	GrantConditionOnProduction@ultraden:
 		Condition: str_ultraden
 		Actors: ZE.ULTRADEN
 	TransformOnCondition@ultraden:
 		IntoActor: ZDRONE.ultraden
-		RequiresCondition: str_ultraden
+		RequiresCondition: str_ultraden && force_deploy
 	GrantConditionOnProduction@spire:
 		Condition: str_spire
 		Actors: ZE.SPIRE
 	TransformOnCondition@spire:
 		IntoActor: ZDRONE.spire
-		RequiresCondition: str_spire
+		RequiresCondition: str_spire && force_deploy
 	GrantConditionOnProduction@nest:
 		Condition: str_nest
 		Actors: ZE.NEST
 	TransformOnCondition@nest:
 		IntoActor: ZDRONE.nest
-		RequiresCondition: str_nest
+		RequiresCondition: str_nest && force_deploy
 	GrantConditionOnProduction@mound:
 		Condition: str_mound
 		Actors: ZE.MOUND
 	TransformOnCondition@mound:
 		IntoActor: ZDRONE.mound
-		RequiresCondition: str_mound
+		RequiresCondition: str_mound && force_deploy
 
 
 ZDRONE.colony:
 	Inherits@drone: ZDRONE
 	-Buildable:
+	-GrantPeriodicCondition@deploy:
 	Tooltip:
 		Name: Drone (Creep Colony)
 	GrantCondition:

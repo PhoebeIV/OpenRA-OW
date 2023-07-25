@@ -623,6 +623,7 @@ CreepRemoveBig:
 
 
 CreepPreventer:
+	ReloadDelay: 30
 	ValidTargets: Ground, Water, GroundActor, WaterActor
 	Warhead@Res1: DestroyResource
 		ResourceTypes: ZergCreep
@@ -632,12 +633,12 @@ CreepPreventer:
 		ResourceTypes: ZergCreep
 		Size: 2
 		ResourceAmount: 2
-		Delay: 2
+		Delay: 10
 	Warhead@Res3: DestroyResource
 		ResourceTypes: ZergCreep
 		Size: 2
 		ResourceAmount: 2
-		Delay: 4
+		Delay: 20
 
 LargeZergBuildingExplode:
 	Warhead@2Eff: CreateEffect
@@ -948,6 +949,11 @@ VesselExplosion:
 		ImpactSounds: tvedth00.aud
 
 OreMineExplosion:
+	Warhead@1Dam: SpreadDamage
+		Damage: 100000
+		Spread: 128
+		DamageTypes: ExplosionDeath
+		ValidTargets: Ground, GroundActor
 	Warhead@15Res_areanuke3: DestroyResource
 		Size: 4
 	Warhead@5Radiation: CreateResource
