@@ -15,7 +15,7 @@ ZDRONE:
 		GenericName: Zerg Drone
 		RequiresCondition: !str_hatchery
 	Tooltip@1:
-		Name: Drone (Evolving: Hatchery)
+		Name: Drone (Hatchery)
 		RequiresCondition: str_hatchery
 	Selectable:
 		DecorationBounds: 1365, 1365
@@ -131,157 +131,150 @@ ZDRONE:
 	GrantConditionOnProduction@hatchery:
 		Condition: str_hatchery
 		Actors: ZE.HATCHERY, ZE.HATCHERY2
-	Transforms:
-		IntoActor: zhatchery
-		TransformSounds: zbldgplc.aud
-		Facing: -256
-		Offset: -1,-1
+	TransformOnCondition@hatchery:
+		IntoActor: ZDRONE.hatchery
 		RequiresCondition: str_hatchery
 	GrantConditionOnProduction@colony:
 		Condition: str_colony
 		Actors: ZE.COLONY
-	KillsSelf@colony:
-		RequiresCondition: str_colony || str_extrac || str_pool || str_hydra || str_chamber || str_ultraden || str_spire || str_nest || str_mound
-		DamageTypes: no_sound
-		Delay: 10
-	SpawnActorOnDeath@colony:
-		Actor: ZDRONE.colony
+	TransformOnCondition@colony:
+		IntoActor: ZDRONE.colony
 		RequiresCondition: str_colony
 	GrantConditionOnProduction@extrac:
 		Condition: str_extrac
 		Actors: ZE.EXTRAC
-	SpawnActorOnDeath@extrac:
-		Actor: ZDRONE.extrac
+	TransformOnCondition@extrac:
+		IntoActor: ZDRONE.extrac
 		RequiresCondition: str_extrac
 	GrantConditionOnProduction@pool:
 		Condition: str_pool
 		Actors: ZE.POOL
-	SpawnActorOnDeath@pool:
-		Actor: ZDRONE.pool
+	TransformOnCondition@pool:
+		IntoActor: ZDRONE.pool
 		RequiresCondition: str_pool
 	GrantConditionOnProduction@hydra:
 		Condition: str_hydra
 		Actors: ZE.HYDRA
-	SpawnActorOnDeath@hydra:
-		Actor: ZDRONE.hydra
+	TransformOnCondition@hydra:
+		IntoActor: ZDRONE.hydra
 		RequiresCondition: str_hydra
 	GrantConditionOnProduction@chamber:
 		Condition: str_chamber
 		Actors: ZE.CHAMBER
-	SpawnActorOnDeath@chamber:
-		Actor: ZDRONE.chamber
+	TransformOnCondition@chamber:
+		IntoActor: ZDRONE.chamber
 		RequiresCondition: str_chamber
 	GrantConditionOnProduction@ultraden:
 		Condition: str_ultraden
 		Actors: ZE.ULTRADEN
-	SpawnActorOnDeath@ultraden:
-		Actor: ZDRONE.ultraden
+	TransformOnCondition@ultraden:
+		IntoActor: ZDRONE.ultraden
 		RequiresCondition: str_ultraden
 	GrantConditionOnProduction@spire:
 		Condition: str_spire
 		Actors: ZE.SPIRE
-	SpawnActorOnDeath@spire:
-		Actor: ZDRONE.spire
+	TransformOnCondition@spire:
+		IntoActor: ZDRONE.spire
 		RequiresCondition: str_spire
 	GrantConditionOnProduction@nest:
 		Condition: str_nest
 		Actors: ZE.NEST
-	SpawnActorOnDeath@nest:
-		Actor: ZDRONE.nest
+	TransformOnCondition@nest:
+		IntoActor: ZDRONE.nest
 		RequiresCondition: str_nest
 	GrantConditionOnProduction@mound:
 		Condition: str_mound
 		Actors: ZE.MOUND
-	SpawnActorOnDeath@mound:
-		Actor: ZDRONE.mound
+	TransformOnCondition@mound:
+		IntoActor: ZDRONE.mound
 		RequiresCondition: str_mound
+
 
 ZDRONE.colony:
 	Inherits@drone: ZDRONE
 	-Buildable:
 	Tooltip:
-		Name: Drone (Evolving: Creep Colony)
+		Name: Drone (Creep Colony)
 	GrantCondition:
 		Condition: waiting_to_evolve
-	-Transforms:
 	Transforms:
 		IntoActor: zccolony
 		TransformSounds: zbldgplc.aud
 		Offset: 0,0
 		Facing: -256
 
+ZDRONE.hatchery:
+	Inherits@drone: ZDRONE.colony
+	Tooltip:
+		Name: Drone (Hatchery)
+	Transforms:
+		IntoActor: zhatchery
+		Offset: -1,-1
+
 ZDRONE.extrac:
 	Inherits@drone: ZDRONE.colony
 	Tooltip:
-		Name: Drone (Evolving: Extractor)
+		Name: Drone (Extractor)
 	Transforms:
 		IntoActor: zextrac
-		TransformSounds: zbldgplc.aud
 		Offset: -1,0
 
 ZDRONE.pool:
 	Inherits@drone: ZDRONE.colony
 	Tooltip:
-		Name: Drone (Evolving: Spawning Pool)
+		Name: Drone (Spawning Pool)
 	GrantCondition:
 		Condition: waiting_to_evolve
 	Transforms:
 		IntoActor: zpool
-		TransformSounds: zbldgplc.aud
 		Offset: 0,0
 
 ZDRONE.hydra:
 	Inherits@drone: ZDRONE.colony
 	Tooltip:
-		Name: Drone (Evolving: Hydralisk Den)
+		Name: Drone (Hydralisk Den)
 	Transforms:
 		IntoActor: zhydraden
-		TransformSounds: zbldgplc.aud
 		Offset: -1,0
 
 ZDRONE.chamber:
 	Inherits@drone: ZDRONE.colony
 	Tooltip:
-		Name: Drone (Evolving: Evolution Chamber)
+		Name: Drone (Evolution Chamber)
 	Transforms:
 		IntoActor: zchamber
-		TransformSounds: zbldgplc.aud
 		Offset: -1,0
 
 ZDRONE.ultraden:
 	Inherits@drone: ZDRONE.colony
 	Tooltip:
-		Name: Drone (Evolving: Ultralisk Cavern)
+		Name: Drone (Ultralisk Cavern)
 	Transforms:
 		IntoActor: zultraden
-		TransformSounds: zbldgplc.aud
 		Offset: -1,0
 
 ZDRONE.spire:
 	Inherits@drone: ZDRONE.colony
 	Tooltip:
-		Name: Drone (Evolving: Spire)
+		Name: Drone (Spire)
 	Transforms:
 		IntoActor: zspire
-		TransformSounds: zbldgplc.aud
 		Offset: 0,0
 
 ZDRONE.nest:
 	Inherits@drone: ZDRONE.colony
 	Tooltip:
-		Name: Drone (Evolving: Queen's Nest)
+		Name: Drone (Queen's Nest)
 	Transforms:
 		IntoActor: znest
-		TransformSounds: zbldgplc.aud
 		Offset: 0,0
 
 ZDRONE.mound:
 	Inherits@drone: ZDRONE.colony
 	Tooltip:
-		Name: Drone (Evolving: Defiler Mound)
+		Name: Drone (Defiler Mound)
 	Transforms:
 		IntoActor: zmound
-		TransformSounds: zbldgplc.aud
 		Offset: -1,0
 
 ^ZergEvolve:
