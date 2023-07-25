@@ -69,6 +69,9 @@ CRATE:
 		SelectionShares: 2
 		Units: dtrk
 		Prerequisites: techlevel.unrestricted
+	GiveUnitCrateAction@xbar:
+		SelectionShares: 6
+		Units: 1tnk.xbar,1tnk.xbar,1tnk.xbar
 	ExplodeCrateAction@lightning:
 		Weapon: CrateLightningZap
 		SelectionShares: 2
@@ -138,10 +141,10 @@ CRATE:
 		Units: judgedredd
 		Sound: dredd1.aud
 	GiveUnitCrateAction@hunterkiller:
-		SelectionShares: 3
+		SelectionShares: 4
 		Units: hunter
 	RevealMapCrateAction:
-		SelectionShares: 2
+		SelectionShares: 3
 	GrantExternalConditionCrateAction@invuln:
 		SelectionShares: 5
 		Sequence: invuln
@@ -155,6 +158,10 @@ CRATE:
 	SupportPowerCrateAction@roadroller:
 		Proxy: powerproxy.roadroller
 		Sound: roadrollerpickup.wav
+		SelectionShares: 2
+	SupportPowerCrateAction@lightning:
+		Proxy: powerproxy.lightning
+		Sound: thunder-ambient.wav
 		SelectionShares: 2
 	Crate:
 		Duration: 6000
@@ -202,11 +209,14 @@ CRATE.FuckYou:
 		Weapon: MiniNukeIonCrate
 		SelectionShares: 10
 		Sound: ion_fire2.aud
+	ExplodeCrateAction@biglightning:
+		Weapon: LightningGrenade
+		SelectionShares: 4
 	ExplodeCrateAction@nuke:
 		Weapon: CrateNuke
 		SelectionShares: 7
 	GiveUnitCrateAction@grave:
-		SelectionShares: 9
+		SelectionShares: 8
 		Units: 1tnk.grave
 	GiveUnitCrateAction@globzombcrate:
 		SelectionShares: 1
@@ -221,6 +231,9 @@ CRATE.FuckYou:
 	ExplodeCrateAction@poison:
 		Weapon: ToxinScudstormSmall
 		SelectionShares: 12
+	ExplodeCrateAction@lightningzap:
+		Weapon: CrateLightningZap
+		SelectionShares: 2
 	GiveUnitCrateAction@ionbeam:
 		SelectionShares: 9
 		Units: hack.particle_beam
@@ -243,12 +256,16 @@ CRATE.FuckYou:
 		SelectionShares: 4
 		Units: fakecrate
 		Owner: Creeps
+	GiveUnitCrateAction@oblid:
+		SelectionShares: 5
+		Units: 1tnk.oblid
+		Owner: Creeps
 	ExplodeCrateAction@redeemernuke:
 		Weapon: Redeemernuke
 		SelectionShares: 7
 	ExplodeCrateAction@nukedrop:
 		Weapon: TerranCrateNukeDrop
-		SelectionShares: 5
+		SelectionShares: 6
 	GiveUnitCrateAction@amogus:
 		SelectionShares: 2
 		Units: amogus,amogus,amogus,amogus,amogus,amogus,amogus,amogus,amogus,amogus,amogus,amogus,amogus,amogus,amogus,amogus,amogus,amogus,amogus,amogus,amogus,amogus,amogus,amogus,amogus
@@ -256,7 +273,7 @@ CRATE.FuckYou:
 		Owner: Creeps
 	ExplodeCrateAction@bsod:
 		Weapon: BSODnuke
-		SelectionShares: 6
+		SelectionShares: 5
 	ExplodeCrateAction@ChinaCrateNuke:
 		Weapon: ChinaCrateNuke
 		SelectionShares: 5
@@ -814,7 +831,7 @@ FakeCrateReward:
 		NoBaseSelectionShares: 1000
 		Units: mcv
 	GiveBaseBuilderCrateAction@dawn:
-		ValidFactions: nod, bhand, marked, nod3, gdi, steel, zocom, gdi3, sword, angels, silver, china
+		ValidFactions: nod, bhand, marked, nod3, gdi, steel, zocom, gdi3, sword, angels, silver, china, infantry, tank, nuke
 		SelectionShares: 10
 		NoBaseSelectionShares: 1000
 		Units: mcvd
@@ -1202,3 +1219,69 @@ roadroller.leave:
 		SoundFiles: roadrollerleave.wav
 		Interval: 5000, 10000
 		Delay: 0
+
+1TNK.XBAR:
+	Inherits: 1TNK.MINE
+	SpawnActorOnDeath:
+		Actor: xbar
+	-Explodes:
+
+1TNK.OBLID:
+	Inherits: 1TNK.MINE
+	SpawnActorOnDeath:
+		Actor: oblid.cr
+		SkipMakeAnimations: false
+  
+OBLID.CR:
+	Inherits: OBLID
+	Inherits@AUTOTARGET: ^AutoTargetAll
+	-Buildable:
+	Valued:
+		Cost: 2000
+	Tooltip:
+		Name: Obelisk of Creeps
+	Health:
+		HP: 100000
+	Power:
+		Amount: 0
+	DetectCloaked:
+		Range: 12c0
+		RequiresCondition: !disabled
+	ProvidesPrerequisite@buildingname:
+	RevealsShroud:
+		MinRange: 6c0
+		Range: 15c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 6c0
+	RenderSprites:
+		Image: OBLID
+	RangeMultiplier@1:
+		Modifier: 120
+
+powerproxy.lightning:
+	AlwaysVisible:
+	IonCannonPower:
+		OrderName: CrateLightningStorm
+		PauseOnCondition: disabled
+		Icon: weathericon
+		Cursor: chrono-target
+		ChargeInterval: 4500
+		Name: Crate Lighting Storm
+		Description: Create a deadly lightning storm.\nApplies gradual damage to a large area.
+		BeginChargeSpeechNotification: IonCannonCharge
+		EndChargeSpeechNotification: IonCannonReady
+		SelectTargetSpeechNotification: DawnSelectTarget
+		InsufficientPowerSpeechNotification: InsufficientPower
+		OnFireSound: thunder-ambient.aud
+		DisplayRadarPing: True
+		CameraActor: camera.spyplane
+		SupportPowerPaletteOrder: 20
+		WeaponDelay: 0
+		CameraRemoveDelay: 450
+		Effect: explosion
+		EffectSequence: piff
+		Weapon: WeatherGrenade
+		DisplayTimerRelationships: Ally, Neutral, Enemy
+  		AllowMultiple: true
+		OneShot: true
