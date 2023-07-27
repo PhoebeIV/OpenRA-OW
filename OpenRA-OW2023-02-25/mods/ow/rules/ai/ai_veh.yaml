@@ -1,0 +1,141 @@
+# primarily for APC variations
+^FactoryPrereqs:
+	ProvidesPrerequisite@aiapc1: # RA APC
+		Factions: soviet, russia, ukraine, estonia, hitler, himmler, heydrich
+		Prerequisite: vehicles.apcprereq_sov
+
+# allies a - 3 light inf, 1 rocket, 1 officer
+APC.AI1:
+	Inherits: APC
+	RenderSprites:
+		Image: apc
+	Buildable:
+		Prerequisites: ~techlevel.low, ~vehicles.apcprereq, ~ai.all
+		Description: AI prefilled APC.
+		BuildDuration: 1000
+		BuildPaletteOrder: 9999
+	Cargo:
+		InitialUnits: e1,e1,e1,e3,e1of
+	AutoDeployer:
+		DeployTicks: 150
+		UndeployTicks: 150
+		DeployChance: 50
+
+# allies b - 3 light inf, 1 rocket, 1 medi
+APC.AI2:
+	Inherits: APC.AI1
+	Buildable:
+		Prerequisites: ~techlevel.low, ~vehicles.allies, ~ai.all
+	Cargo:
+		InitialUnits: e1,e1,e1,medi,e3
+
+# allies c - 1 medi, 2 light inf, tanya, 1 officer
+APC.AI3:
+	Inherits: APC.AI1
+	Buildable:
+		Prerequisites: ~techlevel.unrestricted, ~vehicles.allies, ~ai.all, techcenter
+		BuildDuration: 1500
+		BuildLimit: 1
+	Cargo:
+		InitialUnits: medi,e1,e1,e7,e1of
+
+# GDI a - 2 light inf, 2 gren, 1 officer
+APC.AI4:
+	Inherits: APC.G
+	RenderSprites:
+		Image: apc
+	Buildable:
+		Prerequisites: ~techlevel.low, ~vehicles.gdi, ~ai.all
+		BuildDuration: 1000
+		BuildPaletteOrder: 9999
+	Cargo:
+		InitialUnits: e1,e1,e2,e2,e1of
+	AutoDeployer:
+		DeployTicks: 150
+		UndeployTicks: 150
+		DeployChance: 50
+
+# GDI b - 3 light inf, 1 rocket, 1 officer
+APC.AI5:
+	Inherits: APC.AI4
+	Cargo:
+		InitialUnits: e1,e1,e1,e3,e1of
+
+# GDI c - 1 gren, 2 light inf, 1 commando, 1 officer //Aerospace only
+APC.AI6:
+	Inherits: APC.AI4
+	Buildable:
+		Prerequisites: ~techlevel.unrestricted, ~vehicles.gdi3, ~ai.all, techcenter
+		BuildDuration: 1500
+		BuildLimit: 1
+	Cargo:
+		InitialUnits: e2,e1,e1,rmbo,e1of
+
+# GDI d - 1 medi, 2 light inf, 1 commando, 1 officer //ZOCOM only
+APC.AI7:
+	Inherits: APC.AI4
+	Buildable:
+		Prerequisites: ~techlevel.unrestricted, ~vehicles.zocom, ~ai.all, techcenter
+		BuildDuration: 1500
+		BuildLimit: 1
+	Cargo:
+		InitialUnits: tse5p.gdi,e1,e1,tsghost,e1of
+
+# soviet/naz a - 1 flamer, 3 light, 1 officer
+APC.AI8:
+	Inherits: APC.AI1
+	Buildable:
+		Prerequisites: ~techlevel.low, ~vehicles.apcprereq_sov, ~ai.all
+	Cargo:
+		InitialUnits: e1,e1,e1,e4,e1of
+
+# soviet/naz b - 4 flamer, 1 officer
+APC.AI9:
+	Inherits: APC.AI1
+	Buildable:
+		Prerequisites: ~techlevel.low, ~vehicles.apcprereq_sov, ~ai.all
+	Cargo:
+		InitialUnits: e4,e4,e4,e4,e1of
+
+# soviet c - 5 tesla
+APC.AI10:
+	Inherits: APC.AI1
+	Buildable:
+		Prerequisites: ~techlevel.high, ~vehicles.russia, ~ai.all
+	Cargo:
+		InitialUnits: shok,shok,shok,shok,shok
+
+# UAC a - 3 rifle, 1 officer
+STNK.AI1:
+	Inherits: STNK.DM
+	Buildable:
+		Prerequisites: ~techlevel.low, ~vehicles.uac, ~ai.all
+		Description: AI prefilled Raider.
+		BuildDuration: 1200
+		BuildPaletteOrder: 9999
+	Cargo:
+		InitialUnits: dm2,dm2,dm2,dm2of
+	AutoDeployer:
+		DeployTicks: 150
+		UndeployTicks: 150
+		DeployChance: 50
+
+# UAC b - 2 rifle, 2 rocket
+STNK.AI2:
+	Inherits: STNK.AI1
+	Cargo:
+		InitialUnits: dm2,dm2,dm1,dm1
+
+# UAC c - 2 plasma, 2 medi
+STNK.AI3:
+	Inherits: STNK.AI1
+	Cargo:
+		InitialUnits: medi.dm,medi.dm,dm3,dm3
+
+# UAC d - 1 bfg, 1 offcier, 1 medi
+STNK.AI4:
+	Inherits: STNK.AI1
+	Buildable:
+		Prerequisites: ~techlevel.unrestricted, ~vehicles.uac, ~ai.all
+	Cargo:
+		InitialUnits: dm4,dm2of,medi.dm

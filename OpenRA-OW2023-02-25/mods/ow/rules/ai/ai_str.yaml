@@ -1,0 +1,642 @@
+FOUNDRY.bot: #additional queues for HARD AI
+	Inherits: FOUNDRY
+	Inherits@BotQueue_Infantry: ^BotQueue_Infantry
+	Buildable:
+		Prerequisites: conyard, ~techlevel.medium, ~structures.foundryprereq, ~structures.bothard
+	Tooltip:
+		Name: Automation Facility
+	RenderSprites:
+		Image: foundry
+	ProductionQueue@hardAI_str:
+		Type: Building
+		DisplayOrder: 3
+		Group: Building
+		LowPowerModifier: 100
+		BuildDurationModifier: 150
+	ProductionQueue@hardAI_def:
+		Type: Defense
+		DisplayOrder: 4
+		Group: Defense
+		LowPowerModifier: 100
+		BuildDurationModifier: 150
+	ProductionQueue@hardAI_tech:
+		Type: Tech
+		DisplayOrder: 4
+		Group: Tech
+		LowPowerModifier: 100
+		BuildDurationModifier: 150
+
+GFOUNDRY.bot:
+	Inherits: FOUNDRY.bot
+	Inherits@GLA: ^GLABuilding
+	Inherits@BarracksPrereqs: ^BarracksPrereqs
+	Buildable:
+		Prerequisites: ~techlevel.medium, ~structures.gla, ~structures.bothard
+	Tooltip:
+		Name: Automation Facility - Hole Edition
+	Power:
+		Amount: 0
+	SpawnActorOnDeath:
+		Actor: GFOUNDRY.Hole2
+
+GFOUNDRY.Hole2:
+	Inherits: GFOUNDRY.Hole
+	SpawnActorOnDeath@hole:
+		Actor: GFOUNDRY.bot
+
+MEDIFOUNDRY.bot: #additional queues for HARD AI
+	Inherits: FOUNDRY.bot
+	Buildable:
+		Prerequisites: conyard, ~techlevel.medium, ~structures.medi, ~structures.bothard
+	Tooltip:
+		Name: Slave Labor Manufacturing
+
+PSUPOR.bot: #additional queues for HARD AI
+	Inherits: PSUPOR
+	Inherits@BotQueue_Infantry: ^BotQueue_Infantry
+	Buildable:
+		Prerequisites: conyard, ~techlevel.medium, ~structures.protoss, ~structures.bothard, ~!ai.boss
+	Tooltip:
+		Name: Robotics Support Bay
+	RenderSprites:
+		Image: psupor
+	ProductionQueue@hardAI_str:
+		Type: Building
+		DisplayOrder: 3
+		Group: Building
+		LowPowerModifier: 100
+		BuildDurationModifier: 150
+	ProductionQueue@hardAI_def:
+		Type: Defense
+		DisplayOrder: 4
+		Group: Defense
+		LowPowerModifier: 100
+		BuildDurationModifier: 150
+	ProductionQueue@hardAI_tech:
+		Type: Tech
+		DisplayOrder: 4
+		Group: Tech
+		LowPowerModifier: 100
+		BuildDurationModifier: 150
+	ProductionQueue@hardAI_bot:
+		Type: Bot
+		DisplayOrder: 3
+		Group: Bot
+		LowPowerModifier: 100
+		BuildDurationModifier: 150
+
+PYLED.bot:
+	Inherits: PYLED
+	Inherits@BotQueue_Infantry: ^BotQueue_Infantry
+	RenderSprites:
+		Image: pyled
+	Buildable:
+		Prerequisites: anypower, ~techlevel.infonly, ~structures.pyledprereq, ~structures.bothard, ~!ai.boss # GDI, UAC
+	ProvidesPrerequisite@buildingname:
+		Prerequisite: pyled
+
+BARR.bot:
+	Inherits: BARR
+	Inherits@BotQueue_Infantry: ^BotQueue_Infantry
+	RenderSprites:
+		Image: barr
+	Buildable:
+		Prerequisites: anypower, ~techlevel.infonly, ~structures.barrprereq, ~structures.bothard, ~!ai.boss # Fed, Soviet
+	ProvidesPrerequisite@buildingname:
+		Prerequisite: barr
+
+
+TENT.bot:
+	Inherits: TENT
+	Inherits@BotQueue_Infantry: ^BotQueue_Infantry
+	RenderSprites:
+		Image: tent
+	Buildable:
+		Prerequisites: anypower, ~techlevel.infonly, ~structures.allies, ~structures.bothard, ~!ai.boss
+	ProvidesPrerequisite@buildingname:
+		Prerequisite: tent
+
+HANDD.bot:
+	Inherits: HANDD
+	Inherits@BotQueue_Infantry: ^BotQueue_Infantry
+	RenderSprites:
+		Image: handd
+	Buildable:
+		Prerequisites: anypower, ~techlevel.infonly, ~structures.nod, ~structures.bothard, ~!ai.boss
+	ProvidesPrerequisite@buildingname:
+		Prerequisite: handd
+
+NHAND.bot:
+	Inherits: NHAND
+	Inherits@BotQueue_Infantry: ^BotQueue_Infantry
+	RenderSprites:
+		Image: nhand
+	Buildable:
+		Prerequisites: anypower, ~techlevel.infonly, ~structures.nazi, ~structures.bothard, ~!ai.boss
+	ProvidesPrerequisite@buildingname:
+		Prerequisite: nhand
+
+GTENT.bot:
+	Inherits: GTENT
+	Inherits@BotQueue_Infantry: ^BotQueue_Infantry
+	Buildable:
+		Prerequisites: ~structures.gla, ~techlevel.infonly, ~structures.bothard, ~!ai.boss
+	SpawnActorOnDeath:
+		Actor: GTENT.Hole2
+	ProvidesPrerequisite@buildingname:
+		Prerequisite: gtent
+
+GTENT.Hole2:
+	Inherits: GTENT.Hole
+	SpawnActorOnDeath@hole:
+		Actor: GTENT.bot
+
+TENTMEDI.bot:
+	Inherits: TENTMEDI
+	Inherits@BotQueue_Infantry: ^BotQueue_Infantry
+	Buildable:
+		Prerequisites: ~structures.medi, ~techlevel.infonly, ~structures.bothard, ~!ai.boss
+	ProvidesPrerequisite@buildingname:
+		Prerequisite: tentmedi
+	Exit@1:
+		ProductionTypes: Soldier, Infantry, Mage, Dog
+	Exit@2:
+		ProductionTypes: Soldier, Infantry, Mage, Dog
+
+PGATEW.bot:
+	Inherits: PGATEW
+	Inherits@BotQueue_Infantry: ^BotQueue_Infantry
+	RenderSprites:
+		Image: pgatew
+	Buildable:
+		Prerequisites: anypower, ~techlevel.infonly, ~structures.protoss, ~structures.bothard, ~!ai.boss
+	ProvidesPrerequisite@buildingname:
+		Prerequisite: pgatew
+
+ZPOOL.bot:
+	Inherits: ZPOOL
+	Inherits@BotQueue_Infantry: ^BotQueue_Infantry
+	RenderSprites:
+		Image: zpool
+	Building:
+		Footprint: xx xx ==
+		Dimensions: 2,3
+		LocalCenterOffset: 0,-512,0
+	Buildable:
+		Prerequisites: anypower, ~techlevel.infonly, ~structures.zerg, ~structures.bothard, ~!ai.boss
+	ProvidesPrerequisite@buildingname:
+		Prerequisite: zpool
+	Exit@1:
+		ProductionTypes: Soldier, Infantry, Hatchery
+	Exit@2:
+		ProductionTypes: Soldier, Infantry, Hatchery
+	Production:
+		Produces: Infantry, Soldier, Hatchery
+
+BARR.boss:
+	Inherits: BARR.bot
+	Buildable:
+		Queue: Tech
+		Prerequisites: ~techlevel.infonly, ~ai.boss
+	Tooltip:
+		Name: Boss Barracks
+	Building:
+		Footprint: ++ xx ==
+		Dimensions: 2,3
+		LocalCenterOffset: 0,-512,0
+	ProvidesPrerequisite@buildingname1:
+		Prerequisite: tentmedi
+	ProvidesPrerequisite@buildingname2:
+		Prerequisite: gtent
+	ProvidesPrerequisite@buildingname3:
+		Prerequisite: nhand
+	ProvidesPrerequisite@buildingname4:
+		Prerequisite: handd
+	ProvidesPrerequisite@buildingname5:
+		Prerequisite: tent
+	ProvidesPrerequisite@buildingname6:
+		Prerequisite: pyled
+	ProvidesPrerequisite@buildingname7:
+		Prerequisite: farmmedi
+	ProvidesPrerequisite@buildingname8:
+		Prerequisite: zpool
+	ProvidesPrerequisite@buildingname9:
+		Prerequisite: zhydraden
+	ProvidesPrerequisite@buildingname10:
+		Prerequisite: tbarr
+	ProvidesPrerequisite@buildingname11:
+		Prerequisite: tacadamy
+	ProvidesPrerequisite@buildingname12:
+		Prerequisite: refinery
+	ProvidesPrerequisite@buildingname13:
+		Prerequisite: proc
+	ProvidesPrerequisite@buildingname14:
+		Prerequisite: laborcamp
+	Power:
+		Amount: 0
+	Exit@1:
+		ProductionTypes: Soldier, Infantry, Mage, Dog, Hatchery
+	Exit@2:
+		ProductionTypes: Soldier, Infantry, Mage, Dog, Hatchery
+	RequiresBuildableArea:
+		Adjacent: 5
+	CashTrickler@bossAI:
+		Amount: 500
+	BaseProvider@boss:
+		Range: 7c0
+	Refinery:
+		DockAngle: 256
+		DockOffset: 0,0
+	StoresResources:
+		Capacity: 20000
+
+WEAP.bot:
+	Inherits: WEAP
+	Inherits@BotQueue_Infantry: ^BotQueue_Vehicle
+	RenderSprites:
+		Image: weap
+	Buildable:
+		Prerequisites: refinery, barracks, ~techlevel.low, ~structures.weapprereq, ~structures.bothard, ~!ai.boss # Allies, Soviet, Fed, UAC
+	ProvidesPrerequisite@buildingname:
+		Prerequisite: weap
+
+WEAPD.bot:
+	Inherits: WEAPD
+	Inherits@BotQueue_Infantry: ^BotQueue_Vehicle
+	RenderSprites:
+		Image: weapd
+	Buildable:
+		Prerequisites: refinery, barracks, ~techlevel.low, ~structures.weapdprereq, ~structures.bothard, ~!ai.boss
+	ProvidesPrerequisite@buildingname:
+		Prerequisite: weapd
+
+AFLDD.bot:
+	Inherits: AFLDD
+	Inherits@BotQueue_Infantry: ^BotQueue_Vehicle
+	RenderSprites:
+		Image: afldd
+	Buildable:
+		Prerequisites: refinery, barracks, ~techlevel.low, ~structures.nod, ~structures.bothard, ~!ai.boss
+	ProvidesPrerequisite@buildingname:
+		Prerequisite: afldd
+
+GAIR.bot:
+	Inherits: GAIR
+	Inherits@BotQueue_Infantry: ^BotQueue_Vehicle
+	RenderSprites:
+		Image: gair
+	Buildable:
+		Prerequisites: refinery, barracks, ~techlevel.low, ~structures.gla, ~structures.bothard, ~!ai.boss
+	SpawnActorOnDeath:
+		Actor: GAIR.Hole2
+	ProvidesPrerequisite@buildingname:
+		Prerequisite: gair
+
+GAIR.Hole2:
+	Inherits: GAIR.Hole
+	SpawnActorOnDeath@hole:
+		Actor: GAIR.bot
+
+STABLES.bot:
+	Inherits: STABLES
+	Inherits@BotQueue_Infantry: ^BotQueue_Vehicle
+	Buildable:
+		Prerequisites: farmmedi, ~structures.medi, ~structures.bothard
+	ProvidesPrerequisite@buildingname:
+		Prerequisite: stables
+	Exit@1:
+		ProductionTypes: Vehicle, Workshop
+	Exit@2:
+		ProductionTypes: Vehicle, Workshop
+
+ARMORY.bot:
+	Inherits: ARMORYMEDI
+	Inherits@BotQueue_Infantry: ^BotQueue_Vehicle
+	Buildable:
+		Prerequisites: stables, ~structures.medi, ~structures.bothard
+	ProvidesPrerequisite@buildingname:
+		Prerequisite: armorymedi
+	Exit@1:
+		ProductionTypes: Vehicle, Workshop
+	Exit@2:
+		ProductionTypes: Vehicle, Workshop
+
+PROBOT.bot:
+	Inherits: PROBOT
+	Inherits@BotQueue_Infantry: ^BotQueue_Vehicle
+	RenderSprites:
+		Image: probot
+	Buildable:
+		Prerequisites: refinery, ~structures.protoss, ~techlevel.low, ~structures.bothard, ~!ai.boss # Allies, Soviet, Fed, UAC
+	ProvidesPrerequisite@buildingname:
+		Prerequisite: probot
+
+WEAP.boss:
+	Inherits: WEAP.bot
+	Tooltip:
+		Name: Boss Factory
+	Buildable:
+		Prerequisites: refinery, barracks, ~techlevel.low,	~ai.boss
+	ProvidesPrerequisite@buildingname1:
+		Prerequisite: weapd
+	ProvidesPrerequisite@buildingname2:
+		Prerequisite: afldd
+	ProvidesPrerequisite@buildingname3:
+		Prerequisite: gair
+	Exit@1:
+		ProductionTypes: Vehicle, Workshop
+	Exit@2:
+		ProductionTypes: Vehicle, Workshop
+	RequiresBuildableArea:
+		Adjacent: 4
+
+ATEK.bot:
+	Inherits: ATEK
+	Buildable:
+		Queue: Building
+		BuildPaletteOrder: 150
+		BuildLimit: 2
+		Prerequisites: factory, radar, ~structures.botonly, ~techlevel.high, ~ai.hard
+		Description: Provides technologies.
+	Tooltip:
+		Name: Boss Tech Center
+	RenderSprites:
+		Image: atek
+	ProvidesPrerequisite@boss1:
+		RequiresPrerequisites: ai.boss
+		Prerequisite: atek
+	ProvidesPrerequisite@boss2:
+		RequiresPrerequisites: ai.boss
+		Prerequisite: stek
+	ProvidesPrerequisite@boss3:
+		RequiresPrerequisites: ai.boss
+		Prerequisite: atek.nz
+	ProvidesPrerequisite@boss4:
+		RequiresPrerequisites: ai.boss
+		Prerequisite: atek.gla
+	ProvidesPrerequisite@boss5:
+		RequiresPrerequisites: ai.boss
+		Prerequisite: atek.gdi
+	ProvidesPrerequisite@boss6:
+		RequiresPrerequisites: ai.boss
+		Prerequisite: stek.nod
+	ProvidesPrerequisite@boss7:
+		RequiresPrerequisites: ai.boss
+		Prerequisite: ftek
+	ProvidesPrerequisite@boss8:
+		RequiresPrerequisites: ai.boss
+		Prerequisite: dmb3
+	ProvidesPrerequisite@boss9:
+		RequiresPrerequisites: ai.boss
+		Prerequisite: castle
+	ProvidesPrerequisite@boss10:
+		RequiresPrerequisites: ai.boss
+		Prerequisite: manasupply
+	ProvidesPrerequisite@boss11:
+		RequiresPrerequisites: ai.boss
+		Prerequisite: zlair
+	ProvidesPrerequisite@adun:
+		Prerequisite: padun
+	Power:
+		Amount: 100
+	GrantExternalConditionPower@fanaticism:
+		PauseOnCondition: disabled
+		Icon: fanaticism
+		ChargeInterval: 7500
+		Prerequisites: ttr.fanatic
+		Name: Fanaticism
+		OrderName: patriotism
+		Description: Increases all stats of selected units by 20% for 30 seconds.
+		Duration: 750
+		SelectTargetSpeechNotification: SelectTarget
+		InsufficientPowerSpeechNotification: InsufficientPower
+		DisplayRadarPing: True
+		Condition: patriotismboost
+		OnFireSound: sfrenzya.wav
+		SupportPowerPaletteOrder: 10
+		Dimensions: 7, 7
+		Footprint: _xxxxx_ xxxxxxx xxxxxxx xxxxxxx xxxxxxx xxxxxxx _xxxxx_
+		DisplayTimerRelationships: Ally
+
+# Special structure for Boss AI, comes with a random weapon
+PBOX.boss:
+	Inherits: PBOX
+	Tooltip:
+		Name: Death Box
+	Buildable:
+		Prerequisites: barracks, ~ai.harder
+	-AttackGarrisoned:
+	Cargo:
+		InitialUnits: e1of
+	RangeMultiplier:
+		Modifier: 120
+	GrantConditionOnBotOwner:
+		Condition: bossai
+		Bots: boss,harder
+	GrantRandomCondition@boss:
+		Conditions: boss1, boss2, boss3, boss4, boss5, boss6, boss7, boss8, boss9, boss10, boss1, boss3, boss4, boss5, boss7, boss8, boss9, boss10, boss11
+	AttackTurreted@boss:
+		Armaments: main, boss1, boss2, boss3, boss3b, boss4, boss5, boss6, boss7, boss8, boss9, boss10, boss11
+	Armament@main:
+		Weapon: Vulcan
+		LocalOffset: 256,0,256
+		MuzzleSequence: muzzle
+		Name: main
+	Armament@boss1:
+		Weapon: JarmenSniper
+		LocalOffset: 256,0,256
+		MuzzleSequence: muzzle
+		RequiresCondition: boss1 && bossai
+		Name: boss1
+	Armament@boss2:
+		Weapon: DoomSpawnCube
+		LocalOffset: 256,0,256
+		RequiresCondition: boss2 && bossai
+		Name: boss2
+	Armament@boss3:
+		Weapon: DoomBFG
+		LocalOffset: 256,0,256
+		RequiresCondition: boss3 && bossai
+		FireDelay: 25
+		Name: boss3
+	Armament@boss3b:
+		Weapon: DoomBFGSound
+		RequiresCondition: boss3 && bossai
+		Name: boss3b
+	Armament@boss4:
+		Weapon: CommanderRPG
+		LocalOffset: 256,0,256
+		RequiresCondition: boss4 && bossai
+		Name: boss4
+	Armament@boss5:
+		Weapon: PurifierFlamer
+		LocalOffset: 256,0,256
+		RequiresCondition: boss5 && bossai
+		Name: boss5
+	Armament@boss6:
+		Weapon: BanebladeCannon
+		LocalOffset: 256,0,256
+		RequiresCondition: boss6 && bossai
+		Name: boss6
+	Armament@boss7:
+		Weapon: DoomMinigunHeavy
+		LocalOffset: 256,0,256
+		MuzzleSequence: muzzle
+		RequiresCondition: boss7 && bossai
+		Name: boss7
+	Armament@boss8:
+		Weapon: WeatherLightningDeathBox
+		LocalOffset: 256,0,256
+		RequiresCondition: boss8 && bossai
+		Name: boss8
+	Armament@boss9:
+		Weapon: CommandoGauss
+		LocalOffset: 256,0,256
+		RequiresCondition: boss9 && bossai
+		Name: boss9
+	Armament@boss10:
+		Weapon: Catapult
+		LocalOffset: 256,0,256
+		RequiresCondition: boss10 && bossai
+		Name: boss10
+	Armament@boss11a:
+		Weapon: GoliathZap
+		LocalOffset: 0,0,256
+		RequiresCondition: boss11 && bossai
+		Name: boss11
+	Armament@boss11b:
+		Weapon: GoliathZap2
+		LocalOffset: 0,0,256
+		RequiresCondition: boss11 && bossai
+		Name: boss11
+	Armament@boss11c:
+		Weapon: GoliathZapCluster
+		LocalOffset: 0,0,256
+		RequiresCondition: boss11 && bossai
+		Name: boss11
+	RenderSprites:
+		Image: pbox
+	Power:
+		Amount: 0
+	-WithBuildingBib:
+	-RangeMultiplier@harderAI:
+	-DamageMultiplier@harderAI:
+	-FirepowerMultiplier@harderAI:
+	-ReloadDelayMultiplier@harderAI:
+
+GFIX.boss:
+	Inherits: GFIX
+	Buildable:
+		BuildLimit: 2
+		Prerequisites: factory, ~ai.boss, ~techlevel.medium
+	SpawnActorOnDeath:
+		Actor: GFIX.Hole2
+	Armament:
+		Weapon: RepairDepot
+		Cursor: repair
+		OutsideRangeCursor: repair
+		TargetRelationships: Ally
+		ForceTargetRelationships: None
+	AttackOmni:
+	AutoTarget:
+	AutoTargetPriority@DEFAULT:
+		ValidTargets: Vehicle, Ship, Infantry
+
+GFIX.Hole2:
+	Inherits: ^GLAHole3x2
+	Tooltip:
+		Name: GLA Hole (Service Depot)
+	Building:
+		Dimensions: 3,3
+		LocalCenterOffset: 0,0,0
+	-WithBuildingBib:
+	Selectable:
+		Bounds: 2901, 1450, 0, 128
+		DecorationBounds: 3072, 2048
+	SpawnActorOnDeath@hole:
+		Actor: GFIX.boss
+		DeathType: hole
+
+usafirebaseai:
+	Inherits: usafirebase
+	Buildable:
+		Prerequisites: ~ai.hard, ~structures.usa, usawarfactory
+	FreeActor@1:
+        Actor: firebasebunker.ai
+        SpawnOffset: 0,0
+    FreeActor@2:
+        Actor: firebasebunker.ai2
+        SpawnOffset: 0,2
+    FreeActor@3:
+        Actor: firebasebunker.ai
+        SpawnOffset: 2,2
+    FreeActor@4:
+        Actor: firebasebunker.ai
+        SpawnOffset: 2,0
+
+usafirebaseaiboss:
+	Inherits: usafirebase
+	Buildable:
+		Prerequisites: ~ai.boss, ~structures.usa, usawarfactory
+	   FreeActor@1:
+        Actor: PBOX.boss
+        SpawnOffset: 0,0
+    FreeActor@2:
+        Actor: PBOX.boss
+        SpawnOffset: 0,2
+    FreeActor@3:
+        Actor: PBOX.boss
+        SpawnOffset: 2,2
+    FreeActor@4:
+        Actor: PBOX.boss
+        SpawnOffset: 2,0
+
+firebasebunker.ai:
+	Inherits: firebasebunker
+	Cargo:
+		InitialUnits: e1
+
+firebasebunker.ai2:
+	Inherits: firebasebunker
+	Cargo:
+		InitialUnits: usapathfinder
+
+chinabunkerai:
+	Inherits: chinabunker
+	Buildable:
+		Prerequisites: ~ai.hard, ~structures.china, chinabarracks
+	Cargo:
+		Types: Infantry
+		MaxWeight: 4
+		InitialUnits: chinaredguard2, chinaredguard2, chinatankhunter, chinatankhunter
+	RenderSprites:
+		Image: chinabunker
+
+chinafortifiedbunkerai:
+	Inherits: chinafortifiedbunker
+	Buildable:
+		Prerequisites: ~ai.hard, ~structures.china, ~upgrade.infantrygeneral
+	Cargo:
+		Types: Infantry
+		MaxWeight: 8
+		InitialUnits: chinaredguard2, chinaredguard2, chinatankhunter, chinatankhunter, chinaredguard2, chinaredguard2, chinaminigunner, chinaminigunner
+	RenderSprites:
+		Image: chinafortifiedbunker
+
+usacombatchinookai:
+	Inherits: usacombatchinook
+	Buildable:
+		Prerequisites: ~ai.hard, ~aircraft.usa, Supply Center, upgrade.aircraftgeneral
+	Cargo:
+		InitialUnits: usaranger,usaranger,usaranger,usaranger,usadefender,usadefender,usadefender,usadefender,usapathfinder,usapathfinder
+
+TCOMMAND.ai:
+	Inherits: TCOMMAND
+	Building:
+		Adjacent: 9
+	Buildable:
+		Queue: Bot
+		Prerequisites: factory, ~structures.terran, ~techlevel.medium, ~ai.all
+		BuildLimit: 4
+	RenderSprites:
+		Image: tcommand
