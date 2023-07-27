@@ -18,6 +18,22 @@
 		DeathSequencePalette: tsunit
 		CrushedSequencePalette: tsunit
 
+^AutoTargetInfantryPriority:
+	AutoTargetPriority@Infantry:
+		ValidTargets: Infantry
+		Priority: 2
+	AutoTargetPriority@Vehicle:
+		ValidTargets: Vehicle
+		Priority: 1
+
+^AutoTargetVehiclePriority:
+	AutoTargetPriority@Infantry:
+		ValidTargets: Infantry
+		Priority: 2
+	AutoTargetPriority@Vehicle:
+		ValidTargets: Vehicle
+		Priority: 1
+
 
 
 ###############################################################################
@@ -26,7 +42,7 @@
 
 ##Medi Harvester unit.
 SLAVE:
-	Inherits@MediSoldier: ^MediSoldier
+	Inherits: ^Soldier
 	Inherits@selection: ^SelectableEconomicUnit
 	Inherits@sprite: ^TSMedi
 	Buildable:
@@ -40,7 +56,7 @@ SLAVE:
 	Tooltip:
 		Name: Slave
 	Mobile:
-		Speed: 82
+		Speed: 80
 		Locomotor: foot2
 		TurnsWhileMoving: true
 	Health:
@@ -61,11 +77,10 @@ SLAVE:
 		UnblockCell: 0,1
 		Capacity: 5
 		Resources: Ore,Gems,Tiberium,BlueTiberium,MediGold
-		BaleLoadDelay: 10
 		SearchFromProcRadius: 10
-		SearchFromHarvesterRadius: 5
+		SearchFromHarvesterRadius: 10
 		HarvestVoice: Harvest
-		MaxUnloadQueue: 1
+		MaxUnloadQueue: 2
 		FullyLoadedSpeed: 75
 	Voiced:
 		VoiceSet: SlaveVoice
@@ -118,9 +133,8 @@ MEDIWORKER:
 	Tooltip:
 		Name: Worker
 	Mobile:
-		Speed: 106
+		Speed: 100
 		Locomotor: foot2
-		CanMoveBackward: true
 		TurnsWhileMoving: true
 	Health:
 		HP: 10000
@@ -137,11 +151,11 @@ MEDIWORKER:
 		Type: Light
 	Harvester:
 		UnblockCell: 0,1
-		Capacity: 10
+		Capacity: 12
 		BaleLoadDelay: 5
 		Resources: Ore,Gems,Tiberium,BlueTiberium,MediGold
 		HarvestVoice: Harvest
-		MaxUnloadQueue: 1
+		MaxUnloadQueue: 2
 	Voiced:
 		VoiceSet: WorkerVoice
 	ChangesHealth@tiberium:
@@ -185,6 +199,7 @@ SCOUTMEDI:
 	Inherits@MediLowPower: ^MediLowPower
 	Inherits@MediSoldier: ^MediSoldier
 	Inherits@sprite: ^TSMedi
+	Inherits@InfPro: ^AutoTargetInfantryPriority
 	Buildable:
 		Prerequisites: ~infantry.medi, ~!infantry.darkness
 		Description: Scout with long vision and stealth when stationary.\n  can deploy into a scout tower.
@@ -237,6 +252,7 @@ SCOUTMEDI:
 ##can only hit infantry is stealth
 Assasin:
 	Inherits@Scout: SCOUTMEDI
+	Inherits@InfPro: ^AutoTargetInfantryPriority
 	Buildable:
 		Prerequisites: ~infantry.medi, farmmedi, ~infantry.darkness
 		Description: Stealthed Assasin Made for exicuting Infantry./nCan bypass Defenses and only spotable by Infantry./nloses stealth for a long time on attack or damage		
@@ -264,6 +280,8 @@ Assasin:
 		UncloakSound: tphclo01.aud
 		UncloakOn: Attack, Damage
 		CloakedCondition: DarkCloakOn
+	AutoTarget:
+		InitialStance: HoldFire
 
 ###############################################################################
 ##############################   Medics   #####################################
@@ -421,6 +439,7 @@ SAPPER:
 ##Suicide Bomber that can keep exploding without death
 FireElemental:
 	Inherits@Sapper: SAPPER
+	Inherits@InfPro: ^AutoTargetVehiclePriority
 	-TakeCover:
 	-KillsSelf:
 	-Cloneable:
@@ -461,6 +480,7 @@ FireElemental:
 FOOTMAN:
 	Inherits@MediSoldier: ^MediSoldier
 	Inherits@sprite: ^TSMedi
+	Inherits@InfPro: ^AutoTargetInfantryPriority
 	Valued:
 		Cost: 90
 	Tooltip:
@@ -617,6 +637,7 @@ BERSERKER:
 MEDIPALADIN:
 	Inherits@FOOTMAN: FOOTMAN
 	Inherits@MediLowPower: ^MediLowPower
+	Inherits@InfPro: ^AutoTargetVehiclePriority
 	Buildable:
 		Prerequisites: ~infantry.holy, advtechcenter, churchmedi
 		Description: He carries a holy sword. Provides a healing aura to nearby troops.\n Strong vs infantry, Light armor \n Weak vs Air, Tanks, Buildings
@@ -692,6 +713,7 @@ MEDIPALADINInjured:
 MEDIBLADEMASTER:
 	Inherits@MEDIPALADIN: FOOTMAN
 	Inherits@MediLowPower: ^MediLowPower
+	Inherits@InfPro: ^AutoTargetVehiclePriority
 	-Cloneable:
 	Buildable:
 		Prerequisites: ~infantry.darkness, advtechcenter
@@ -750,6 +772,7 @@ MEDIBLADEMASTER:
 BOWMAN:
 	Inherits@MediSoldier: ^MediSoldier
 	Inherits@sprite: ^TSMedi
+	Inherits@InfPro: ^AutoTargetInfantryPriority
 	Valued:
 		Cost: 80
 	UpdatesPlayerStatistics:
@@ -848,6 +871,7 @@ VOIDARCHER:
 	Inherits@BOWMAN: BOWMAN
 	Inherits@MediLowPower: ^MediLowPower
 	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
+	Inherits@InfPro: ^AutoTargetVehiclePriority
 	ReloadDelayMultiplier:
 		Modifier: 150
 		RequiresCondition: lowpower
@@ -909,6 +933,7 @@ WIZARD:
 	Inherits@BOWMAN: BOWMAN
 	Inherits@MediLowPower: ^MediLowPower
 	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
+	Inherits@InfPro: ^AutoTargetVehiclePriority
 	ReloadDelayMultiplier:
 		Modifier: 150
 		RequiresCondition: lowpower
@@ -1038,6 +1063,7 @@ MUSKETEER:
 ##Musketeer but close range and burst
 Boomstick:
 	Inherits: BOWMAN
+	Inherits@InfPro: ^AutoTargetVehiclePriority
 	Valued:
 		Cost: 300
 	Buildable:
@@ -1135,6 +1161,7 @@ MediZombie:
 	Inherits@MediSoldier: ^MediSoldier
 	-Explodes@GraveyardSpawnerDeath:
 	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Inherits@InfPro: ^AutoTargetInfantryPriority
 	-Selectable:
 	Interactable:
 		Bounds: 768, 938, 0, -469
@@ -1332,6 +1359,7 @@ ShieldHero:
 	Inherits@NoExp: ^NoExp
 	Inherits@EPIC: ^EpicUnit
 	Inherits@EPIC2: ^EpicInfantryNerf
+	Inherits@InfPro: ^AutoTargetVehiclePriority
 	-Crushable:
 	Buildable:
 		Prerequisites: ~infantry.holy, advtechcenter, library
@@ -1419,6 +1447,7 @@ MEDIDEATHKNIGHT:
 	Inherits@EPIC: ^EpicUnit
 	Inherits@EPIC2: ^EpicInfantryNerf
 	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
+	Inherits@InfPro: ^AutoTargetVehiclePriority
 	Buildable:
 		Prerequisites: ~infantry.darkness, advtechcenter, library
 		Description: Dark Knight Super unit, Practicaly a nuke on legs. \n Strong vs Anything Close \n Weak vs Anything fast or ranged.

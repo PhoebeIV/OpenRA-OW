@@ -578,19 +578,23 @@ LABORCAMP:
 
 ##Resource Drop and silo
 FARMMEDI:
-	Inherits: PROC
-	-FreeActor:
-	FreeActor@1:
+	Inherits: GPROC
+	-FreeActor@1:
+	-FreeActor@2:
+	FreeActor:
 		Actor: SLAVE
 	-Power:
 	-WithIdleOverlay@TOP:
 	-WithIdleOverlay@uac:
 	-WithDeathAnimation:
-	Inherits@shape: ^1x1Shape
+	Power:
+		Amount: 0
 	Selectable:
-		Bounds: 1024, 1024
+		Class: gproc
+		Bounds: 2048, 2048
+	-SpawnActorOnDeath:
 	Refinery:
-		DockOffset: 0,0
+		DockOffset: 1,1
 	Buildable:
 		Queue: Building
 		Prerequisites: ~structures.medi, laborcamp, ~!ai.boss, ~techlevel.infonly
@@ -599,11 +603,11 @@ FARMMEDI:
 	Tooltip:
 		Name: Farm
 	Building:
-		Footprint: =
-		Dimensions: 1,1
+		Footprint: == ==
+		Dimensions: 2,2
 		BuildSounds: medibuild1.aud, medibuildjobdone1.aud, medibuildplace1.aud
 	StoresResources:
-		Capacity: 200
+		Capacity: 600
 	Valued:
 		Cost: 1000
 	Health:
@@ -615,24 +619,10 @@ FARMMEDI:
 		RequiresCondition: slaveworkon
 		Condition: slavework
 		Range: 10c0
-	Armor:
-		Type: Wood
 	RevealsShroud:
 		Range: 4c0
 		RequiresCondition: ManaBoost
 	ProvidesPrerequisite@buildingname:
-	ResourceValueMultiplier:
-		Modifier: 110
-		RequiresCondition: ManaBoost
-	GrantConditionOnPrerequisite:
-		Condition: ManaBoost
-		Prerequisites: manasupply
-	-WithBuildingBib:
-	InfiltrateForCash:
-		Percentage: 50
-		Types: SpyInfiltrate, ThiefInfiltrate
-		InfiltratedNotification: CreditsStolen
-		Maximum: 5000
 	RenderSprites:
 		Image: farmmedi
 	WithResourceStoragePipsDecoration:
@@ -640,6 +630,15 @@ FARMMEDI:
 		RequiresSelection: true
 		PipCount: 5
 		FullSequence: pip-yellow
+	FreeActor@a:
+		Actor: FARMMEDI.DropOff
+		SpawnOffset: 0,0
+	FreeActor@c:
+		Actor: FARMMEDI.DropOff
+		SpawnOffset: 1,0
+
+FARMMEDI.DropOff:
+	Inherits: GPROC.DropOff
 
 ##GoldMine, Seeds Resources
 GoldMine:
@@ -1264,7 +1263,7 @@ LIBRARY:
 	RenderSprites:
 		Image: medilibrary
 	Production:
-		Produces: Infantry, Soldier, Mage
+		Produces: Infantry
 	RallyPoint:
 		Path: 3,3
 	Exit@1:
@@ -1280,7 +1279,7 @@ LIBRARY:
 		Position: Top
 		RequiresCondition: primary
 	ProductionQueue@2:
-		Type: Infantry, Mage, Soldier
+		Type: Infantry
 		DisplayOrder: 2
 		Group: Infantry
 		LowPowerModifier: 200
@@ -2687,7 +2686,7 @@ Oceanorb:
 	-SpawnActorsOnSell:
 	Buildable:
 		Queue: Defense
-		Prerequisites: ~structures.medi
+		Prerequisites: ~structures.medi, ~!structures.medi
 		Description: Tower that user Mana To fire a constant Beam \nStrong vs Aircraft, Vehicles & Infantry
 		BuildPaletteOrder: 4
 	Building:
