@@ -1,11 +1,6 @@
 ^ProtossInfShield:
 	Inherits: ^ProtossShield
 	Chronoshiftable:
-	ChangesHealth@shield:
-		StartIfBelow: 80
-		DamageCooldown: 7
-	ChangesHealth@shield2:
-		DamageCooldown: 3
 
 PPROBE:
 	Inherits: ^Vehicle
@@ -32,7 +27,9 @@ PPROBE:
 		SearchFromHarvesterRadius: 8
 		EmptyCondition: no-ore
 	Health:
-		HP: 40000
+		HP: 20000
+	Shielded:
+		MaxStrength: 20000
 	Armor:
 		Type: Light
 	Mobile:
@@ -136,7 +133,9 @@ PZEALOT:
 	Tooltip:
 		Name: Zealot
 	Health:
-		HP: 42000
+		HP: 25000
+	Shielded:
+		MaxStrength: 18000
 	Mobile:
 		Speed: 80
 	RevealsShroud:
@@ -217,7 +216,9 @@ PTEMPLAR:
 	Tooltip:
 		Name: High Templar
 	Health:
-		HP: 31000
+		HP: 20000
+	Shielded:
+		MaxStrength: 40000
 	Mobile:
 		Speed: 80
 		Locomotor: foot2
@@ -257,6 +258,7 @@ PTEMPLAR:
 		PipCount: 20
 		FullSequence: bar-blue
 		EmptySequence: bar-empty
+		Position: BottomLeft
 	RenderSprites:
 	Voiced:
 		VoiceSet: ProtossTemplarVoice
@@ -319,7 +321,9 @@ PARCHON:
 	Tooltip:
 		Name: Archon
 	Health:
-		HP: 120000
+		HP: 20000
+	Shielded:
+		MaxStrength: 150000
 	Armor:
 		Type: Heavy
 	Mobile:
@@ -418,7 +422,7 @@ PDTEMPLAR:
 	Tooltip:
 		Name: Dark Templar
 	Health:
-		HP: 50000
+		HP: 30000
 	Mobile:
 		Speed: 96
 		Locomotor: foot2
@@ -522,9 +526,14 @@ PDARCHON:
 	Tooltip:
 		Name: Dark Archon
 	Health:
-		HP: 100000
+		HP: 20000
+	Shielded:
+		RequiresCondition: !firedweapon
+		MaxStrength: 120000
 	Armor:
 		Type: Heavy
+	AutoTarget:
+		InitialStance: ReturnFire
 	Mobile:
 		Speed: 88
 		Locomotor: foot2
@@ -542,19 +551,20 @@ PDARCHON:
 	AmmoPool:
 		Ammo: 180
 		AmmoCondition: ammo
-		InitialAmmo: 90
+		InitialAmmo: 120
 	ReloadAmmoPool:
 		Delay: 25
 	WithAmmoPipsDecoration:
 		PipCount: 24
 		FullSequence: bar-blue
 		EmptySequence: bar-empty
+		Position: BottomLeft
 	WithInfantryBody:
 		DefaultAttackSequence: shoot2
 		IdleSequences: stand
 		StandSequences: stand
 	Targetable:
-		TargetTypes: GroundActor, Vehicle, Tank, Cyborg
+		TargetTypes: GroundActor, Vehicle, Tank, Cyborg, DarkArchon
 	Targetable@forming:
 		TargetTypes: ProtWarp
 		RequiresCondition: forming
@@ -617,12 +627,6 @@ PDARCHON:
 		StartIfBelow: 101
 		DamageCooldown: 0
 		RequiresCondition: forming
-	ChangesHealth@fireweapon:
-		PercentageStep: -75
-		Delay: 15
-		StartIfBelow: 101
-		DamageCooldown: 0
-		RequiresCondition: firedweapon
 	ChangesHealth@shield:
 		PercentageStep: 1
 		Delay: 40
@@ -631,6 +635,10 @@ PDARCHON:
 		PauseOnCondition: disabled || firedweapon
 	GrantConditionOnAttack@1:
 		Condition: firedweapon
+		RevokeDelay: 24
+	ExplodeWeapon:
+		Weapon: RemoveShield
+		RequiresCondition: firedweapon
 	VoiceAnnouncement:
 		RequiresCondition: !forming
 		Voice: Build

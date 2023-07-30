@@ -29,6 +29,8 @@ protoss.shields:
 		Condition: damaged
 		ValidDamageStates: Heavy, Critical
 	Inherits@shield: ^ProtossShield
+	Shielded:
+		MaxStrength: 40000
 	Buildable:
 		Queue: Bot
 		Prerequisites: ~disabled
@@ -90,7 +92,9 @@ PNEXUS:
 		Prerequisites: ~disabled
 		Description: Produces structures.
 	Health:
-		HP: 150000
+		HP: 80000
+	Shielded:
+		MaxStrength: 80000
 	Armor:
 		Type: Wood
 	RevealsShroud:
@@ -178,10 +182,22 @@ PNEXUS:
 		Adjacent: 4
 	Health:
 		HP: 60000
+	Shielded:
+		MaxStrength: 60000
+		RegenAmount: 400
+		RegenInterval: 100
+		RegenDelay: 50
+		SelectionBarColor: AAAAFF
+		ShieldsUpCondition: shielded
+		RequiresCondition: started
+	Armor@shield:
+		RequiresCondition: shielded
+		Type: Shield
+	Armor:
+		RequiresCondition: !shielded
+		Type: Wood
 	Valued:
 		Cost: 500
-	Armor:
-		Type: Wood
 	Tooltip:
 		Name: Warp
 	TooltipDescription:
@@ -196,6 +212,12 @@ PNEXUS:
 	-TimedConditionBar:
 	DamageMultiplier@IRONCURTAIN:
 		Modifier: 15
+	DamageMultiplier@normal:
+		Modifier: 150
+		RequiresCondition: started
+	GrantDelayedCondition:
+		Condition: started
+		Delay: 5
 	-RepairableBuilding:
 	-WithBuildingRepairDecoration:
 	-SpawnActorsOnSell:
@@ -290,7 +312,7 @@ PGATEW.warp:
 	Valued:
 		Cost: 1000
 	Health:
-		HP: 100000
+		HP: 60000
 	SpawnActorOnDeath@hole:
 		Actor: pgatew
 	ChangesHealth@building:
@@ -319,7 +341,9 @@ PGATEW:
 		Dimensions: 3,3
 		LocalCenterOffset: 0,-512,0
 	Health:
-		HP: 100000
+		HP: 60000
+	Shielded:
+		MaxStrength: 60000
 	Armor:
 		Type: Wood
 	RevealsShroud:
@@ -458,7 +482,9 @@ PPYLON:
 		Footprint: +
 		Dimensions: 1,1
 	Health:
-		HP: 45000
+		HP: 30000
+	Shielded:
+		MaxStrength: 30000
 	Armor:
 		Type: Wood
 	RevealsShroud:
@@ -533,7 +559,9 @@ PASSIM:
 	Targetable:
 		TargetTypes: GroundActor, Structure, C4, DetonateAttack, ThiefInfiltrate, SpyInfiltrate
 	Health:
-		HP: 90000
+		HP: 50000
+	Shielded:
+		MaxStrength: 50000
 	Armor:
 		Type: Wood
 	RevealsShroud:
@@ -627,7 +655,9 @@ PCYBER:
 		Dimensions: 2,3
 		LocalCenterOffset: 0,-512,0
 	Health:
-		HP: 120000
+		HP: 65000
+	Shielded:
+		MaxStrength: 65000
 	Armor:
 		Type: Wood
 	RevealsShroud:
@@ -708,7 +738,9 @@ PPHOTO:
 		Footprint: ++ xx
 		Dimensions: 2,2
 	Health:
-		HP: 45000
+		HP: 40000
+	Shielded:
+		MaxStrength: 40000
 	Armor:
 		Type: Heavy
 	RevealsShroud:
@@ -816,7 +848,9 @@ POBSER:
 		Dimensions: 2,3
 		LocalCenterOffset: 0,-512,0
 	Health:
-		HP: 100000
+		HP: 55000
+	Shielded:
+		MaxStrength: 55000
 	Armor:
 		Type: Wood
 	Targetable:
@@ -895,7 +929,9 @@ PSUPOR:
 		Dimensions: 2,3
 		LocalCenterOffset: 0,-512,0
 	Health:
-		HP: 100000
+		HP: 55000
+	Shielded:
+		MaxStrength: 55000
 	Armor:
 		Type: Wood
 	Targetable:
@@ -995,7 +1031,9 @@ PADUN:
 		Dimensions: 2,3
 		LocalCenterOffset: 0,-512,0
 	Health:
-		HP: 60000
+		HP: 50000
+	Shielded:
+		MaxStrength: 50000
 	Armor:
 		Type: Wood
 	RevealsShroud:
@@ -1077,7 +1115,9 @@ PTEMPL:
 	Selectable:
 		Bounds: 3072, 3072, 0, -426
 	Health:
-		HP: 80000
+		HP: 60000
+	Shielded:
+		MaxStrength: 60000
 	Armor:
 		Type: Wood
 	RevealsShroud:
@@ -1185,7 +1225,9 @@ PROBOT:
 	Selectable:
 		Bounds: 3072, 3072, 0, -426
 	Health:
-		HP: 150000
+		HP: 80000
+	Shielded:
+		MaxStrength: 80000
 	Armor:
 		Type: Wood
 	RevealsShroud:
@@ -1291,7 +1333,9 @@ PSBATT:
 		Footprint: ++ xx
 		Dimensions: 2,2
 	Health:
-		HP: 50000
+		HP: 30000
+	Shielded:
+		MaxStrength: 30000
 	Armor:
 		Type: Wood
 	RevealsShroud:
@@ -1410,7 +1454,9 @@ PSTARG:
 	Selectable:
 		Bounds: 3072, 3072, 0, -426
 	Health:
-		HP: 120000
+		HP: 70000
+	Shielded:
+		MaxStrength: 70000
 	Armor:
 		Type: Wood
 	RevealsShroud:
@@ -1535,7 +1581,9 @@ PFLEET:
 	Selectable:
 		Bounds: 3072, 3072, 0, -426
 	Health:
-		HP: 150000
+		HP: 80000
+	Shielded:
+		MaxStrength: 80000
 	Armor:
 		Type: Wood
 	RevealsShroud:

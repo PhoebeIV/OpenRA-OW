@@ -1,24 +1,22 @@
 ^ProtossShield:
-	ChangesHealth@shield:
-		PercentageStep: 1
-		Delay: 75
-		StartIfBelow: 80
-		DamageCooldown: 250
-		RequiresCondition: !shields
-		PauseOnCondition: disabled
 	GrantConditionOnPrerequisite@shields:
 		Prerequisites: protoss.shields
 		Condition: shields
-	ChangesHealth@shield2:
-		PercentageStep: 1
-		Delay: 50
-		StartIfBelow: 80
-		DamageCooldown: 100
-		RequiresCondition: shields
-		PauseOnCondition: disabled
 	DamageMultiplier@shields:
-		RequiresCondition: shields
-		Modifier: 95
+		RequiresCondition: shields && shielded
+		Modifier: 90
+	Shielded:
+		MaxStrength: 20000
+		RegenAmount: 400
+		RegenInterval: 25
+		RegenDelay: 50
+		SelectionBarColor: AAAAFF
+		ShieldsUpCondition: shielded
+	Armor@shield:
+		RequiresCondition: shielded
+		Type: Shield
+	Armor: 
+		RequiresCondition: !shielded
 
 PMCV:
 	Inherits: MCV
@@ -68,7 +66,9 @@ PDRAGO:
 	Tooltip:
 		Name: Dragoon
 	Health:
-		HP: 40000
+		HP: 30000
+	Shielded:
+		MaxStrength: 24000
 	Armor:
 		Type: Heavy
 	Mobile:
@@ -155,7 +155,9 @@ PREAVER:
 	Tooltip:
 		Name: Reaver
 	Health:
-		HP: 40000
+		HP: 30000
+	Shielded:
+		MaxStrength: 24000
 	Armor:
 		Type: Heavy
 	Mobile:
