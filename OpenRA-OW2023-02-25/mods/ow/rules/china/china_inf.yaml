@@ -297,11 +297,31 @@ chinaminigunner:
 	Selectable:
 		Bounds: 768, 853, 0, -256
 		DecorationBounds: 640, 896, 0, -426
+		Class: chinaminigunner
 	RenderSprites:
 		Image: chinaminigunner
 		PlayerPalette: dawn
+	FreeActor@extraminigunner:
+		Actor: chinaminigunner2
+		SpawnOffset: -1,-1
+		RequiresCondition: extraminigunner
+    GrantConditionOnPrerequisite@extraminigunner:
+        Condition: extraminigunner
+        Prerequisites: faction.infantrygeneral
 	Voiced:
 		VoiceSet: MinigunnerVoice
+
+chinaminigunner2:
+	Inherits: chinaminigunner
+	Selectable:
+		Bounds: 768, 853, 0, -256
+		DecorationBounds: 640, 896, 0, -426
+		Class: chinaminigunner
+	-FreeActor@extraminigunner:
+	-Buildable:
+	UpdatesPlayerStatistics:
+		AddToArmyValue: false
+		AddToAssetsValue: false
 
 chinahacker:
 	Inherits: ^Soldier
@@ -587,3 +607,63 @@ chinadragonbreathers:
 		Image: chinadragonbreather
 	Voiced:
 		VoiceSet: DragonBreatherVoice
+
+chinamortar:
+	Inherits: ^Soldier
+	Inherits@hordebonus: ^hordebonus
+	Inherits@infantrygeneralbuff: ^infantrygeneralbuff
+	Inherits@infantrytrainingbuff: ^infantrytrainingbuff
+	Inherits@infantrytrainingbuff: ^infantryfirstaidkits
+	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
+	Buildable:
+		Queue: Infantry
+		BuildAtProductionType: Soldier
+		BuildPaletteOrder: 41
+		Prerequisites: ~infantry.china, techcenter, upgrade.infantrygeneral, ~!faction.nukegeneral, ~!faction.tankgeneral, ~faction.infantrygeneral
+		Description: The mortar team can use their bulky mortar to lob artillery over significant distances. 
+	Tooltip:
+		Name: Mortar
+	Tooltip@hordebonus:
+		Name: Mortar (Nationalism)
+        RequiresCondition: hordebonus >= 10
+	Valued:
+		Cost: 800
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 8000
+	Mobile:
+		Voice: Move
+	Guard:
+		Voice: Move
+	Passenger:
+		Voice: Move
+	Armament@PRIMARY:
+		Weapon: chinamortarshot
+        LocalOffset: 0,0,555
+		FireDelay: 15
+	Armament@GARRISONED:
+		Name: garrisoned
+		Weapon: chinamortarshot
+		FireDelay: 15
+	Armament@BUS:
+		Name: bus
+		Weapon: chinamortarshot
+		FireDelay: 15
+	WithInfantryBody:
+		DefaultAttackSequence: shoot
+		RequiresCondition: !parachute
+	WithInfantryBody@PARACHUTE:
+		StandSequences: parachute
+		RequiresCondition: parachute
+	ProducibleWithLevel:
+		Prerequisites: barracks.upgraded
+	RevealsShroud:
+		Range: 5c0
+	Selectable:
+		Bounds: 768, 853, 0, -256
+		DecorationBounds: 640, 896, 0, -426
+	RenderSprites:
+		Image: chinamortar
+	Voiced:
+		VoiceSet: NukaneerVoice

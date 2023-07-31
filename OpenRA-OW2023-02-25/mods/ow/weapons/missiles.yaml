@@ -1967,7 +1967,7 @@ chinanukemigshot:
 
 chinanukeneershot:
 	Inherits: ^Artillery
-	ReloadDelay: 100
+	ReloadDelay: 150
 	Range: 9c0
 	MinRange: 6c0
 	Report: grenade1.aud
@@ -1977,8 +1977,7 @@ chinanukeneershot:
 		Image: BOMB
 	Warhead@1Dam: SpreadDamage
 		Spread: 512
-		Damage: 8000
-		Falloff: 100, 75, 50, 0, 0, 0
+		Damage: 12000
 		Versus:
 			None: 75
 			Wood: 50
@@ -2001,6 +2000,33 @@ chinanukeneershot:
 		Size: 1
 		Delay: 375
 		ResourceAmount: 10
+
+chinamortarshot:
+	Inherits: ^Artillery
+	ReloadDelay: 100
+	Range: 11c0
+	MinRange: 2c0
+	Report: grenade1.aud
+	Projectile: Bullet
+		Speed: 156
+		Inaccuracy: 2c256
+		ContrailLength: 30
+		Image: BOMB
+	Warhead@1Dam: SpreadDamage
+		Spread: 512
+		Damage: 10000
+		Versus:
+			None: 75
+			Wood: 50
+			Light: 50
+			Heavy: 70
+			Concrete: 70
+		DamageTypes: Prone50Percent, TriggerProne, FireDeath, Incendiary
+	Warhead@3Eff: CreateEffect
+		Explosions: artillery_explosion
+		ImpactSounds: kaboom15.aud
+	Warhead@4EffWater: CreateEffect
+		Explosions: med_splash
 
 HunterSeekerBomb:
 	Inherits: ^AntiGroundMissile
@@ -2247,5 +2273,31 @@ usaempdragon:
     Warhead@2EMP: GrantExternalCondition
 		Condition: disabled
 		Duration: 5
+		ValidTargets: GroundActor, WaterActor
+		DamageTypes: Prone50Percent, TriggerProne, SmallExplosionDeath
+
+bingchilling:
+	Inherits: ^AntiGroundMissile
+	ReloadDelay: 300
+	Range: 14c0
+	Report: bingchillingyes.aud
+	Projectile: Missile
+		Speed: 156
+		ContrailLength: 30
+		Image: icecream
+		RangeLimit: 17c0
+	Warhead@1Dam: SpreadDamage
+		Damage: 5
+		Spread: 2c128
+		Versus:
+			None: 40
+			Wood: 40
+			Light: 80
+			Heavy: 80
+			Concrete: 100
+		DamageTypes: Prone50Percent, TriggerProne, SmallExplosionDeath
+    Warhead@2EMP: GrantExternalCondition
+		Condition: disabled
+		Duration: 300
 		ValidTargets: GroundActor, WaterActor
 		DamageTypes: Prone50Percent, TriggerProne, SmallExplosionDeath

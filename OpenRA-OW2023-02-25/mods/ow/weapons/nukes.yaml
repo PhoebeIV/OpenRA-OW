@@ -787,3 +787,71 @@ MiniNukeRadiation:
 		Size: 5
 		Delay: 800
 		ResourceAmount: 10
+
+JohnCenaNuke:
+	ValidTargets: Ground, Water, Air, GroundActor, WaterActor, AirborneActor
+	Warhead@startsound: CreateEffect
+		ImpactSounds: areyousureaboutthat.wav
+		Explosions: areyousureaboutthat
+		ImpactActors: false
+	Warhead@97Eff_impact: CreateEffect
+		ImpactSounds: kqdetonate.wav
+		ImpactActors: false
+		Delay: 45
+	Warhead@98Eff_impact: CreateEffect
+		ImpactSounds: jericho.wav
+		ImpactActors: false
+		Delay: 45
+	Warhead@99Eff_impact: CreateEffect
+		ImpactSounds: jericho.wav
+		ImpactActors: false
+		Delay: 45
+	Warhead@1Dam_impact: SpreadDamage
+		Spread: 1c0
+		Damage: 10000
+		Falloff: 1000, 368, 135, 50, 18, 7, 0
+		Delay: 45
+		ValidTargets: GroundActor, Trees, WaterActor, Underwater, AirborneActor
+		Versus:
+			Concrete: 25
+		AffectsParent: true
+		DamageTypes: Prone50Percent, TriggerProne, FireDeath, Incendiary
+	Warhead@2Res_impact: DestroyResource
+	Warhead@3Eff_impact: CreateEffect
+		Explosions: nuke
+		ImpactSounds: kaboom1.aud
+		ImpactActors: false
+		Delay: 45
+	Warhead@4Dam_areanuke1: SpreadDamage
+		Spread: 1c512
+		Damage: 6000
+		Falloff: 1000, 600, 400, 250, 150, 100, 0
+		Delay: 50
+		ValidTargets: GroundActor, Trees, WaterActor, Underwater, AirborneActor
+		Versus:
+			Concrete: 25
+		AffectsParent: true
+		DamageTypes: Prone50Percent, TriggerProne, FireDeath, Incendiary
+	Warhead@5Res_areanuke1: DestroyResource
+		Size: 4
+		Delay: 50
+	Warhead@6Eff_areanuke1: CreateEffect
+		ImpactSounds: kaboom22.aud
+		Delay: 50
+		ImpactActors: false
+	Warhead@6Smu_areanuke1: LeaveSmudge
+		SmudgeType: Scorch
+		ValidTargets: Ground, Infantry
+		Size: 4
+		Delay: 50
+	Warhead@TREEKILL: SpreadDamage
+		Spread: 1c0
+		Damage: 12000
+		Falloff: 1000, 600, 400, 250, 150, 100, 0
+		Delay: 50
+		ValidTargets: Trees
+		DamageTypes: Incendiary
+	Warhead@22FlashEffect: FlashPaletteEffect
+		Duration: 20
+		FlashType: Nuke
+		Delay: 50
