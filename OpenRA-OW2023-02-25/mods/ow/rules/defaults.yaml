@@ -178,6 +178,32 @@
 	-WithDecoration@RANK-3:
 	-WithDecoration@RANK-ELITE:
 
+^AcceptsShields:
+	Shielded:
+		MaxStrength: -1
+		RegenAmount: 350
+		RegenInterval: 25
+		RegenDelay: 25
+		SelectionBarColor: AAAAFF
+		ShieldsUpCondition: shielded
+		ShieldsDamagedCondition: damaged_shield
+		RequiresCondition: external_shield
+	ShieldRegenMultiplier:
+		Modifier: 5
+		RequiresCondition: shield_regen
+	ExternalCondition@shieldregen:
+		Condition: shield_regen
+	Targetable@shielddamage:
+		TargetTypes: ShieldRegen
+		RequiresCondition: damaged_shield
+	Armor@shield:
+		RequiresCondition: shielded
+		Type: Shield
+	Armor: 
+		RequiresCondition: !shielded
+	ExternalCondition@extshield:
+		Condition: external_shield
+
 ^Pallyboosted:
 	ExternalCondition@pallyboost:
 		Condition: pallyboost
@@ -545,6 +571,7 @@
 	Inherits@usahold_the_line: ^usaholdtheline
 	Inherits@frenzyboost: ^FrenzyBoostInfantry
 	Inherits@propagandaboost: ^propagandaboostinfantry
+	Inherits@shields: ^AcceptsShields
 	OwnerLostAction:
 		Action: ChangeOwner
 		Owner: Creeps
