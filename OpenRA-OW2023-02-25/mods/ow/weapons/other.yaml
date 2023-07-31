@@ -1771,6 +1771,7 @@ WeatherGrenade:
 	Projectile: Bullet
 		Speed: 2c0
 		Image: BOMB
+		Blockable: false
 	Warhead@1Dam: SpreadDamage
 		Spread: 128
 		Damage: 1
@@ -1860,6 +1861,7 @@ WeatherLightning:
 	ValidTargets: Ground, Water, GroundActor, WaterActor
 	Projectile: Bullet
 		Speed: 5c0
+		Blockable: false
 	Warhead@1Dam: SpreadDamage
 		Delay: 1
 		Spread: 1c512
@@ -2092,27 +2094,45 @@ ShieldBattery:
 		Damage: -1200
 		ValidRelationships: Ally
 		ValidTargets: Heal
+		InvalidTargets: ShieldRegen
 		DebugOverlayColor: 00FF00
 	Warhead@2Dam: SpreadDamage
 		Spread: 213
 		Damage: -600
 		ValidRelationships: Ally
 		ValidTargets: Repair
-		InvalidTargets: AirborneActor
+		InvalidTargets: AirborneActor, ShieldRegen
 		DebugOverlayColor: 00FF00
 	Warhead@3Dam: SpreadDamage
 		Spread: 213
 		Damage: -500
 		ValidRelationships: Ally
 		ValidTargets: StructureRepair
+		InvalidTargets: ShieldRegen
 		DebugOverlayColor: 00FF00
 	Warhead@4Dam: SpreadDamage
 		Spread: 213
 		Damage: -200
 		ValidRelationships: Ally
 		ValidTargets: Repair, AirborneActor
-		InvalidTargets: GroundActor
+		InvalidTargets: GroundActor, ShieldRegen
 		DebugOverlayColor: 00FF00
+
+ShieldBatteryShield:
+	ReloadDelay: 4
+	Range: 6c0
+	ValidTargets: ShieldRegen
+	TargetActorCenter: true
+	Projectile: LaserZap
+		Width: 35
+		Duration: 4
+		TrackTarget: True
+		Color: 00BBFF
+	Warhead@curtain: GrantExternalCondition
+		Condition: shield_regen
+		Range: 213
+		Duration: 6
+		ValidTargets: ShieldRegen
 
 CarrierSpawn:
 	ReloadDelay: 350
