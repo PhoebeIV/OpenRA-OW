@@ -281,6 +281,11 @@ CRATE.FuckYou:
 	ExplodeCrateAction@ChinaCrateNuke:
 		Weapon: ChinaCrateNuke
 		SelectionShares: 5
+	GiveUnitCrateAction@johncena:
+		SelectionShares: 2
+		Units: johncena
+		Sound: bingchilling.wav
+		Owner: Creeps
 	Crate:
 		Duration: 15000
 	Tooltip:
@@ -1309,3 +1314,70 @@ CRATE.Chain:
 		SelectionShares: 90
 		Units: 1tnk.crate
 		Owner: Neutral
+
+JohnCena:
+	Inherits: ^Soldier
+	Inherits: ^EpicUnit
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	-WithInfantryBody:
+	-WithDeathAnimation:
+	Valued:
+		Cost: 10000
+	Tooltip:
+		Name: John Cena (you cant see me)
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 160000
+	Mobile:
+		Speed: 70
+	RevealsShroud:
+		Range: 6c0
+	Passenger:
+		CustomPipType: red
+	AttackFrontal:
+		Armaments: gun1
+    Armament@1:
+        Name: gun1
+        Weapon: bingchilling
+	Armament@GARRISONED:
+		Name: garrisoned
+		Weapon: bingchilling
+		MuzzleSequence: garrison-muzzle
+	Armament@BUS:
+		Name: bus
+		Weapon: bingchilling
+		MuzzleSequence: garrison-muzzle
+	ExternalCondition@PRODUCED:
+		Condition: produced
+	VoiceAnnouncement:
+		RequiresCondition: produced
+		Voice: Build
+	AmbientSound:
+        SoundFiles: johncenasong.aud
+		Delay: 375
+		Interval: 135
+	ProducibleWithLevel:
+		Prerequisites: barracks.upgraded
+	AnnounceOnSeen:
+		PingRader: true
+	-Voiced:
+	AttackWander:
+		WanderMoveRadius: 10
+		MinMoveDelay: 5
+		MaxMoveDelay: 100
+	ChangesHealth:
+		Step: 100
+		Delay: 25
+		StartIfBelow: 50
+		DamageCooldown: 500
+	Explodes:
+		Weapon: JohnCenaNuke
+		EmptyWeapon: JohnCenaNuke
+	Cloak:
+		InitialDelay: 5
+		CloakDelay: 5
+		CloakSound:
+		UncloakSound:
+		UncloakOn:
+		IsPlayerPalette: true
