@@ -1,0 +1,166 @@
+japanantimatterreactor:
+	Inherits: ^PowerPlant
+	Inherits@POWER_OUTAGE: ^DisabledByPowerOutage
+	Inherits@shape: ^3x2Shape
+	Selectable:
+		Bounds: 2048, 2048
+	HitShape:
+		UseTargetableCellsOffsets: false
+		TargetableOffsets: 0,0,0, 640,-384,0, 640,512,0, -710,-512,0, -710,512,0
+	Buildable:
+		Queue: Building
+		BuildPaletteOrder: 1
+		Prerequisites: ~structures.japan, ~!ai.powerout
+		Description: Provides power for other structures.\nCan be deployed to sacrifice itself to provide unlimited power for 30 seconds.
+	Valued:
+		Cost: 800
+	Tooltip:
+		Name: Antimatter Reactor
+	ProvidesPrerequisite:
+		Prerequisite: anypower
+	Building:
+		Footprint: xxx xxx xxx
+		Dimensions: 3,3
+		LocalCenterOffset: 0,-512,0
+	Health:
+		HP: 80000
+	Armor:
+		Type: Wood
+	RevealsShroud:
+		Range: 4c0
+	WithBuildingBib:
+	Power:
+		Amount: 150
+		RequiresCondition: !overcharge && !disabled
+	GrantConditionOnDeploy:
+		MakeAnimationDeployTypes:
+		DeployedCondition: overcharge
+		SkipMakeAnimation: True
+	KillsSelf@overcharged:
+		Delay: 25
+		RequiresCondition: overcharge
+	Explodes@overcharged:
+		Weapon: TinyNuke
+		EmptyWeapon: TinyNuke
+		RequiresCondition: overcharge && !disabled
+	WithIdleOverlay@overcharge:
+		Image: explosion
+		Sequence: bunkerbustersring
+		Offset: 0,0,850
+		Palette: noplayer
+		RequiresCondition: !build-incomplete
+	Targetable:
+		TargetTypes: GroundActor, Structure, C4, DetonateAttack, SpyInfiltrate
+	ScalePowerWithHealth:
+	WithDeathAnimation:
+		DeathSequence: dead
+		UseDeathTypeSuffix: false
+	RenderSprites:
+        Image: japanantimatterreactor
+	SpawnActorOnDeath@overcharged:
+		Actor: AntiMatterPowerActor
+		RequiresCondition: overcharge
+
+AntiMatterPowerActor:
+	Inherits: ^Building
+	-WithMakeAnimation:
+    Targetable: 
+        TargetTypes: Firebasebox
+	RenderSprites:
+		Image: usaairstriplandingspot
+	Power:
+		Amount: 0
+	Health:
+		HP: 10000
+	Armor:
+		Type: Wood
+	Power:
+		Amount: 99999
+    KillsSelf:
+        Delay: 750
+        RemoveInstead: true
+
+japansupplycenter:
+	Inherits: ^Building
+	Buildable:
+		Queue: Building
+		BuildPaletteOrder: 60
+		Prerequisites: ~structures.japan, anypower, ~!ai.boss
+		Description: Refines Ore and Gems\ninto credits.
+	Valued:
+		Cost: 1400
+	Tooltip:
+		Name: Supply Center
+	Building:
+		Footprint: _X_ xxx X== ===
+		Dimensions: 3,4
+		LocalCenterOffset: 0,-512,0
+	Selectable:
+		Bounds: 3072, 2133, 0, 170
+		DecorationBounds: 3072, 2986, 0, -85
+	Targetable:
+		TargetTypes: GroundActor, Structure, C4, DetonateAttack, ThiefInfiltrate, SpyInfiltrate
+	Health:
+		HP: 90000
+	Armor:
+		Type: Wood
+	RevealsShroud:
+		MinRange: 4c0
+		Range: 5c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 4c0
+	Refinery:
+		DockAngle: 256
+		DockOffset: 1,2
+	StoresResources:
+		Capacity: 2000
+	CustomSellValue:
+		Value: 300
+	FreeActor:
+		Actor: HARV
+		SpawnOffset: 1,2
+		Facing: 256
+	InfiltrateForCash:
+		Percentage: 50
+		Types: SpyInfiltrate, ThiefInfiltrate
+		InfiltratedNotification: CreditsStolen
+		InfiltratedTextNotification: Credits stolen.
+	WithBuildingBib:
+	WithIdleOverlay@TOP:
+		RequiresCondition: !build-incomplete
+		Sequence: idle-top
+	Power:
+		Amount: -30
+	WithDeathAnimation:
+		DeathSequence: dead
+		UseDeathTypeSuffix: false
+	ProvidesPrerequisite@buildingname:
+	ProvidesPrerequisite@refinery:
+		Prerequisite: refinery
+	HitShape:
+		Type: Rectangle
+			TopLeft: -1536, -512
+			BottomRight: 1536, 598
+	HitShape@TOP:
+		TargetableOffsets: 1680,0,0
+		Type: Rectangle
+			TopLeft: -512, -1536
+			BottomRight: 512, -512
+	HitShape@BOTTOMLEFT:
+		TargetableOffsets: -1260,-1024,0
+		Type: Rectangle
+			TopLeft: -1536, 598
+			BottomRight: -512, 1280
+	-ActorPreviewPlaceBuildingPreview:
+	SequencePlaceBuildingPreview:
+		Sequence: idle
+		SequenceAlpha: 0.65
+	WithResourceStoragePipsDecoration:
+		Position: BottomLeft
+		Margin: 4, 3
+		RequiresSelection: true
+		PipCount: 17
+		FullSequence: pip-yellow
+	RenderSprites:
+        Image: japansupplycenter
