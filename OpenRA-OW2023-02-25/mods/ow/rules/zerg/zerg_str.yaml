@@ -175,8 +175,6 @@ CreepGenBig:
 	Inherits@shape: ^1x1Shape
 	Targetable:
 		TargetTypes: CreepGenerator
-	Health:
-		HP: 500000
 	ExternalCondition@creep:
 		Condition: creepalive
 	KillsSelf:
@@ -194,6 +192,7 @@ CreepGenBig:
 		ValidRelationships: Neutral, Ally, Enemy
 	ChangesTerrain:
 		TerrainType: Creep
+
 
 CreepGenBig2:
 	Inherits: CreepGenBig
@@ -249,6 +248,34 @@ ZergCloner:
 	-Explodes:
 	-SeedsResource:
 	-ProximityExternalCondition:
+
+HatcheryBib:
+	Inherits: MINE_DUMMY
+	Inherits@shape: ^1x1Shape
+	-Immobile:
+	RenderSprites:
+		Image: zhatchery
+	WithBuildingBib:
+	Building:
+		Footprint: +++ +++
+		Dimensions: 3,2
+	Targetable:
+		TargetTypes: CreepGenerator
+	ExternalCondition@creep:
+		Condition: creepalive
+	KillsSelf:
+		RequiresCondition: !creepalive
+		Delay: 25
+	Explodes:
+		Weapon: CreepRemoveBig
+	SeedsResource:
+		Interval: 3
+		MaxRange: 9
+		ResourceType: ZergCreep
+	ProximityExternalCondition:
+		Condition: creepgen
+		Range: 9c0
+		ValidRelationships: Neutral, Ally, Enemy
 
 ZHATCHERY:
 	Inherits: ^ZergBuilding
@@ -382,6 +409,9 @@ ZHATCHERY:
 		RequiresCondition: hive_upgrade
 		StartSequence: hive-make
 		Sequence: hive-idle
+	FreeActor@creep0:
+		Actor: HatcheryBib
+		SpawnOffset: 0,0
 	FreeActor@creep:
 		Actor: CreepSpawnerBig
 		SpawnOffset: 0,0
@@ -522,6 +552,7 @@ ZHATCHERY:
 		Condition: spawn_wait
 		Duration: 250
 		Actors: zdevouring
+	WithBuildingBib: 
 
 ZergLairComplete:
 	Inherits: SmallZergBuildingComplete
