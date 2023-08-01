@@ -97,9 +97,9 @@
 		Delay: 5
 		StartIfBelow: 101
 		RequiresCondition: defiler_plague && enough_health
-	GrantConditionOnHealth@plague:
-		MinHP: 99
+	GrantConditionOnDamageState@plague:
 		Condition: enough_health
+		ValidDamageStates: Undamaged, Light, Medium, Heavy
 	ExternalCondition@avengermarked:
 		Condition: avengermarked
 	DamageMultiplier@avengermarked:
@@ -459,9 +459,16 @@
 		Prerequisites: ai.all
 
 ^TechCenter:
-	GrantConditionOnPrerequisite@noradio:
-		Prerequisites: !radio.p
-		Condition: noradio
+	GpsPower@global:
+		Prerequisites: radio.p
+		PauseOnCondition: disabled || jammed
+		Icon: gps
+		OneShot: true
+		ChargeInterval: 1500
+		Name: GPS Satellite
+		Description: Reveals map terrain and provides tactical\ninformation.
+		RevealDelay: 375
+		LaunchSound: satlnch1.aud
 	ProvidesPrerequisite:
 		Prerequisite: techcenter
 	Valued:
