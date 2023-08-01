@@ -258,7 +258,7 @@ PNEXUS:
 		PercentageStep: 1
 		Delay: 6
 		StartIfBelow: 101
-		DamageCooldown: 35
+		DamageCooldown: 10
 	KillsSelf:
 		Delay: 30
 		RequiresCondition: rebuild
@@ -706,7 +706,7 @@ PPHOTO.warp:
 		StartIfBelow: 101
 	-WithBuildingBib:
 	Building:
-		Footprint: xx xx
+		Footprint: ++ xx
 		Dimensions: 2,2
 		LocalCenterOffset: 0,0,0
 	WithRangeCircle:
@@ -1168,6 +1168,10 @@ PTEMPL:
 		EffectSequence: piff
 		Weapon: MiniNukeIon
 		DisplayTimerRelationships: Ally, Neutral, Enemy
+	Explodes:
+		Type: CenterPosition
+		Weapon: MiniNuke
+		EmptyWeapon: MiniNuke
 
 ptempl.req:
 	AlwaysVisible:
@@ -1285,12 +1289,20 @@ PSBATT.warp:
 		Description: Heals nearby friendly units and buildings.
 		Icon: icon-battery
 		BuildDuration: 200
+	Selectable:
+		Bounds: 2048, 2048
+	HitShape:
+		Type: Rectangle
+			TopLeft: -768,-512
+			BottomRight: 768,512
 	Tooltip:
 		Name: Warp (Shield Battery)
 	Valued:
-		Cost: 1000
+		Cost: 1200
 	Health:
-		HP: 50000
+		HP: 30000
+	Shielded:
+		MaxStrength: 30000
 	Armor:
 		Type: Wood
 	SpawnActorOnDeath@hole:
@@ -1301,7 +1313,7 @@ PSBATT.warp:
 		StartIfBelow: 101
 	-WithBuildingBib:
 	Building:
-		Footprint: xx xx
+		Footprint: ++ xx
 		Dimensions: 2,2
 		LocalCenterOffset: 0,0,0
 	WithRangeCircle:
@@ -1316,7 +1328,7 @@ PSBATT:
 	Inherits@shape: ^2x2Shape
 	Inherits@protoss: ^ProtossBuilding
 	Selectable:
-		Bounds: 2048, 1152
+		Bounds: 2048, 2048
 	HitShape:
 		Type: Rectangle
 			TopLeft: -768,-512
@@ -1326,12 +1338,12 @@ PSBATT:
 		BuildPaletteOrder: 90000
 		Prerequisites: factory, ~structures.protoss, ~techlevel.medium, ~ai.all
 	Valued:
-		Cost: 1000
+		Cost: 1200
 	Tooltip:
 		Name: Shield Battery
 	Building:
-		Footprint: ++
-		Dimensions: 2,1
+		Footprint: ++ xx
+		Dimensions: 2,2
 	Health:
 		HP: 30000
 	Shielded:
@@ -1367,7 +1379,7 @@ PSBATT:
 		PauseOnCondition: !ammo
 	ProximityExternalCondition@shield:
 		Condition: external_shield
-		Range: 7c0
+		Range: 10c0
 	AttackOmni:
 		RequiresCondition: !build-incomplete
 		PauseOnCondition: disabled || !pylon
@@ -1417,7 +1429,7 @@ PSTARG.warp:
 	Buildable:
 		Queue: Building
 		BuildPaletteOrder: 120
-		Prerequisites: radar, ~structures.protoss, ~techlevel.medium
+		Prerequisites: techcenter, ~structures.protoss, ~techlevel.high
 		Description: Produces aircraft.
 		Icon: icon-stargate
 		BuildDuration: 600
@@ -1450,7 +1462,7 @@ PSTARG:
 	Inherits@prereqs: ^AircraftPrereqs
 	Buildable:
 		Queue: Bot
-		Prerequisites: radar, ~structures.protoss, ~techlevel.medium, ~ai.all
+		Prerequisites: techcenter, ~structures.protoss, ~techlevel.high, ~ai.all
 		BuildLimit: 1
 	Valued:
 		Cost: 1200

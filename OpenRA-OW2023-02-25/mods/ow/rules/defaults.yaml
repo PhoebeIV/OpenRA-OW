@@ -187,7 +187,7 @@
 		SelectionBarColor: AAAAFF
 		ShieldsUpCondition: shielded
 		ShieldsDamagedCondition: damaged_shield
-		RequiresCondition: external_shield
+		RequiresCondition: external_shield && !defiler_plague && !emp_shields
 	ShieldRegenMultiplier:
 		Modifier: 5
 		RequiresCondition: shield_regen
@@ -203,6 +203,11 @@
 		RequiresCondition: !shielded
 	ExternalCondition@extshield:
 		Condition: external_shield
+	ExternalCondition@empshield:
+		Condition: emp_shields
+	DamageMultiplier@shields:
+		RequiresCondition: shielded
+		Modifier: 150
 
 ^Pallyboosted:
 	ExternalCondition@pallyboost:
@@ -1103,6 +1108,7 @@
 
 ^BasicBuilding:
 	Inherits@shape: ^1x1Shape
+	Inherits@shields: ^AcceptsShields
 	Targetable@REPAIR:
 		RequiresCondition: repairtime
 		TargetTypes: StructureRepair
@@ -1228,6 +1234,7 @@
 	Inherits@usasearchanddestroy: ^usasearchanddestroy
 	Inherits@usahold_the_line: ^usaholdtheline
 	Inherits@propagandaboost: ^propagandaboost
+	Inherits@shields: ^AcceptsShields
 	Building:
 		Footprint: +
 	ChangesHealth@Monumentboost:
@@ -1347,6 +1354,7 @@
 	Inherits@usahold_the_line: ^usaholdtheline
 	Inherits@propagandaboost: ^propagandaboost
 	Inherits@frenzyboost: ^FrenzyBoost
+	Inherits@shields: ^AcceptsShields
 	OwnerLostAction:
 		Action: ChangeOwner
 		Owner: Creeps
@@ -1502,6 +1510,7 @@
 	Inherits@usahold_the_line: ^usaholdtheline
 	Inherits@propagandaboost: ^propagandaboost
 	Inherits@frenzyboost: ^FrenzyBoost
+	Inherits@shields: ^AcceptsShields
 	RepairableNear:
 		RepairActors: spen, syrd, gspen, dockmedi, usashipyard
 	RevealOnFire:
@@ -1564,6 +1573,7 @@
 	Inherits@usahold_the_line: ^usaholdtheline
 	Inherits@propagandaboost: ^propagandaboost
 	Inherits@frenzyboost: ^FrenzyBoost
+	Inherits@shields: ^AcceptsShields
 	Repairable:
 		RepairActors: fix, gfix, gfix.boss
 	RevealOnFire:
