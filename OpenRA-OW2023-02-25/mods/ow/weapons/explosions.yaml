@@ -254,7 +254,8 @@ TiberiumExplosion:
 		DamageTypes: Prone50Percent, TriggerProne, TiberiumDeath
 	Warhead@3Res: CreateResource
 		AddsResourceType: Tiberium
-		Size: 1,1
+		Delay: 1
+		Size: 0
 	Warhead@2Eff: CreateEffect
 		Explosions: med_explosion
 		ImpactSounds: kaboom25.aud
@@ -965,6 +966,75 @@ TibTreeExplosion:
 	Inherits: OreMineExplosion
 	Warhead@5Radiation: CreateResource
 		AddsResourceType: Tiberium
+
+TibTreeBurst:
+	ReloadDelay: 100
+	Warhead@1Dam: SpreadDamage
+		Delay: 10
+		Damage: 6000
+		Spread: 1c536
+		DamageTypes: TriggerProne, TiberiumDeath
+		ValidTargets: Infantry
+	Warhead@growth: GrantExternalCondition
+		Delay: 65
+		Condition: growth
+		Range: 256
+		Duration: 0
+		AffectsParent: true
+		ValidTargets: TibTree
+	Warhead@seed: FireCluster
+		Delay: 25
+		Weapon: TibTreeSeed
+		RandomClusterCount: 2
+		Dimensions: 8,8
+		Footprint: xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx
+
+TibTreeBlueBurst:
+	Inherits: TibTreeBurst
+	Warhead@1Dam: SpreadDamage
+		Damage: 10000
+	Warhead@growth: GrantExternalCondition
+		Range: 10c0
+	Warhead@seed: FireCluster
+		Weapon: TibTreeBlueSeed
+
+TibTreeSeed:
+	Range: 8c0
+	Projectile: Bullet
+		Inaccuracy: 7c0
+		Speed: 256
+	Warhead@1Dam: SpreadDamage
+		Damage: 6000
+		Spread: 512
+		DamageTypes: TriggerProne, TiberiumDeath
+		ValidTargets: Infantry
+	Warhead@15Res_areanuke3: DestroyResource
+		Size: 1
+		ResourceTypes: Ore, Gems
+	Warhead@15Res_areanuke4: DestroyResource
+		Size: 2
+		ResourceTypes: Ore, Gems
+		ResourceAmount: 4
+	Warhead@1Resource: CreateResource
+		AddsResourceType: Tiberium
+		Size: 0
+		Delay: 1
+	Warhead@growth: GrantExternalCondition
+		Condition: growth
+		Range: 1c0
+		Duration: 0
+		AffectsParent: false
+		ValidTargets: TibTree
+
+TibTreeBlueSeed:
+	Inherits: TibTreeSeed
+	Warhead@1Dam: SpreadDamage
+		Damage: 10000
+	Warhead@15Res_areanuke3: DestroyResource
+		ResourceTypes: Ore, Gems, Tiberium
+	Warhead@1Resource: CreateResource
+		AddsResourceType: BlueTiberium
+
 
 TomahawkStormExplosion:
 	Inherits: ^Explosion

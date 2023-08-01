@@ -69,6 +69,11 @@ MINE:
 		EmptyWeapon: TibTreeExplosion
 	GrantRandomCondition@tibtree:
 		Conditions: tibtree,none,none,none,none,none,none,none,none,none,none,none,none,none,none,none
+	ExternalCondition@growth:
+		Condition: growth
+	GrantCondition@growth:
+		Condition: tibtree
+		RequiresCondition: growth > 30
 
 GMINE:
 	HitShape:
@@ -181,6 +186,28 @@ SPLIT3:
 		ResourceType: Tiberium
 		Interval: 65
 		MaxRange: 500
+	SeedsResource@burst: 
+		RequiresCondition: burst
+		ResourceType: Tiberium
+		Interval: 2
+		MaxRange: 500
+	GrantPeriodicCondition@burst:
+		Condition: burst
+		CooldownDuration: 750, 1500
+		ActiveDuration: 50, 80
+	WithSpriteBody:
+		RequiresCondition: !burst
+	WithSpriteBody@burst:
+		RequiresCondition: burst
+		StartSequence: active
+	ExternalCondition@stack:
+		Condition: growth
+	ExplodeWeapon@burst:
+		RequiresCondition: burst
+		Weapon: TibTreeBurst
+	TransformOnCondition:
+		RequiresCondition: growth > 45
+		IntoActor: split4
 
 SPLIT3.CR:
 	Inherits: SPLIT3
@@ -207,6 +234,23 @@ SPLIT4:
 		ResourceType: BlueTiberium
 		Interval: 65
 		MaxRange: 500
+	SeedsResource@burst: 
+		RequiresCondition: burst
+		ResourceType: BlueTiberium
+		Interval: 2
+		MaxRange: 500
+	GrantPeriodicCondition@burst:
+		Condition: burst
+		CooldownDuration: 333, 560
+		ActiveDuration: 50, 80
+	WithSpriteBody:
+		RequiresCondition: !burst
+	WithSpriteBody@burst:
+		RequiresCondition: burst
+		StartSequence: active
+	ExplodeWeapon@burst:
+		RequiresCondition: burst
+		Weapon: TibTreeBurst
 
 SPLIT4.CR:
 	Inherits: SPLIT4
