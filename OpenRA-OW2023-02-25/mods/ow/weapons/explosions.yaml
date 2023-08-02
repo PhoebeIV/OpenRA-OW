@@ -950,6 +950,7 @@ VesselExplosion:
 		ImpactSounds: tvedth00.aud
 
 OreMineExplosion:
+	ReloadDelay: 100
 	Warhead@1Dam: SpreadDamage
 		Damage: 100000
 		Spread: 128
@@ -967,6 +968,11 @@ TibTreeExplosion:
 	Warhead@5Radiation: CreateResource
 		AddsResourceType: Tiberium
 
+TibTreeBlueExplosion:
+	Inherits: OreMineExplosion
+	Warhead@5Radiation: CreateResource
+		AddsResourceType: BlueTiberium
+
 TibTreeBurst:
 	ReloadDelay: 100
 	Warhead@1Dam: SpreadDamage
@@ -978,31 +984,40 @@ TibTreeBurst:
 	Warhead@growth: GrantExternalCondition
 		Delay: 65
 		Condition: growth
-		Range: 256
+		Range: 4c0
 		Duration: 0
 		AffectsParent: true
-		ValidTargets: TibTree
+		ValidTargets: TibTree, OreMine, Tree
 	Warhead@seed: FireCluster
 		Delay: 25
 		Weapon: TibTreeSeed
 		RandomClusterCount: 2
-		Dimensions: 8,8
-		Footprint: xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx
+		Dimensions: 15,15
+		Footprint: xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx
+	Warhead@15Res_areanuke4: DestroyResource
+		Size: 1
+		ResourceTypes: Ore
 
 TibTreeBlueBurst:
 	Inherits: TibTreeBurst
 	Warhead@1Dam: SpreadDamage
 		Damage: 10000
 	Warhead@growth: GrantExternalCondition
-		Range: 10c0
+		Range: 5c0
 	Warhead@seed: FireCluster
+		RandomClusterCount: 4
 		Weapon: TibTreeBlueSeed
+	Warhead@15Res_areanuke4: DestroyResource
+		Size: 1
+		ResourceTypes: Tiberium
 
 TibTreeSeed:
-	Range: 8c0
+	Range: 12c0
 	Projectile: Bullet
-		Inaccuracy: 7c0
+		Inaccuracy: 9c0
 		Speed: 256
+		LaunchAngle: 160
+		Blockable: false
 	Warhead@1Dam: SpreadDamage
 		Damage: 6000
 		Spread: 512
@@ -1018,13 +1033,38 @@ TibTreeSeed:
 	Warhead@1Resource: CreateResource
 		AddsResourceType: Tiberium
 		Size: 0
-		Delay: 1
+		Delay: 5
+	Warhead@2Resource: CreateResource
+		AddsResourceType: Tiberium
+		Size: 0
+		Delay: 50
+	Warhead@3Resource: CreateResource
+		AddsResourceType: Tiberium
+		Size: 0
+		Delay: 100
+	Warhead@4Resource: CreateResource
+		AddsResourceType: Tiberium
+		Size: 0
+		Delay: 150
+	Warhead@5Resource: CreateResource
+		AddsResourceType: Tiberium
+		Size: 0
+		Delay: 200
+	Warhead@6Resource: CreateResource
+		AddsResourceType: Tiberium
+		Size: 0
+		Delay: 250
 	Warhead@growth: GrantExternalCondition
 		Condition: growth
-		Range: 1c0
+		Range: 3c0
 		Duration: 0
 		AffectsParent: false
-		ValidTargets: TibTree
+		ValidTargets: TibTree, OreMine, Tree
+	Warhead@seed: FireCluster
+		Weapon: TibTreeGrowthSpread
+		RandomClusterCount: 3
+		Dimensions: 8,8
+		Footprint: xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx
 
 TibTreeBlueSeed:
 	Inherits: TibTreeSeed
@@ -1034,7 +1074,116 @@ TibTreeBlueSeed:
 		ResourceTypes: Ore, Gems, Tiberium
 	Warhead@1Resource: CreateResource
 		AddsResourceType: BlueTiberium
+	Warhead@2Resource: CreateResource
+		AddsResourceType: BlueTiberium
+	Warhead@3Resource: CreateResource
+		AddsResourceType: BlueTiberium
+	Warhead@4Resource: CreateResource
+		AddsResourceType: BlueTiberium
+	Warhead@5Resource: CreateResource
+		AddsResourceType: BlueTiberium
+	Warhead@6Resource: CreateResource
+		AddsResourceType: BlueTiberium
 
+TibTreeGrowthSpread:
+	Range: 12c0
+	Projectile: Bullet
+		Inaccuracy: 16c0
+		Speed: 256
+		LaunchAngle: 160
+		Blockable: false
+	Warhead@growth: GrantExternalCondition
+		Condition: growth
+		Range: 2c0
+		Duration: 0
+		AffectsParent: false
+		ValidTargets: TibTree, OreMine, Tree
+	Warhead@1Dam: SpreadDamage
+		Damage: 6000
+		Spread: 256
+		DamageTypes: TiberiumDeath
+		ValidTargets: Infantry
+
+MonolithShake:
+	ReloadDelay: 50
+	Warhead@1Dam: SpreadDamage
+		Damage: 20000
+		Spread: 256
+		DamageTypes: ExplosionDeath
+		ValidTargets: Ground, GroundActor
+	Warhead@1Shake: ShakeScreen
+		Duration: 15
+		Intensity: 1
+		Multiplier: 1,1
+	Warhead@1Smu: LeaveSmudge
+		SmudgeType: Scorch
+		Size: 1
+		Chance: 25
+		ValidTargets: Ground, Vehicle, Infantry
+	Warhead@1effect: CreateEffect
+		ImpactSounds: kaboom1.aud, baud.aud
+		ValidTargets: Ground, GroundActor, WaterActor, Trees
+	Warhead@seed: FireCluster
+		Weapon: TibTreeSeedNoCluster
+		RandomClusterCount: 1
+		Dimensions: 5,5
+		Footprint: __x__ _xxx_ xxxxx _xxx_ __x__
+
+TibTreeSeedNoCluster:
+	Inherits: TibTreeSeed
+	Projectile: Bullet
+		Inaccuracy: 4c0
+	-Warhead@seed:
+	-Warhead@3Resource: 
+	-Warhead@4Resource: 
+	-Warhead@5Resource: 
+	-Warhead@6Resource: 
+
+MonolithShakeBlue:
+	Inherits: MonolithShake
+	ReloadDelay: 50
+	Warhead@seed: FireCluster
+		Weapon: TibTreeBlueSeedNoCluster
+
+TibTreeBlueSeedNoCluster:
+	Inherits: TibTreeBlueSeed
+	Projectile: Bullet
+		Inaccuracy: 4c0
+	-Warhead@seed:
+	-Warhead@3Resource: 
+	-Warhead@4Resource: 
+	-Warhead@5Resource: 
+	-Warhead@6Resource: 
+
+MonolithSpawner:
+	ReloadDelay: 10000
+	Warhead@growth: GrantExternalCondition
+		Condition: spawned
+		Delay: 100
+		Range: 1c0
+		Duration: 0
+		AffectsParent: true
+		ValidTargets: TibTree, OreMine, Tree
+	Warhead@seed: FireCluster
+		Weapon: MonolithSpawnerCluster
+		RandomClusterCount: 1
+		Dimensions: 7,7
+		Footprint: xxxxxxx x_____x x_____x x_____x x_____x x_____x xxxxxxx
+
+
+MonolithSpawnerCluster:
+	ReloadDelay: 10000
+	Projectile: Bullet
+	Warhead@seed: SpawnActor
+		Delay: 25
+		Actors: 1tnk.monolithblue
+
+TibCrateGrowth:
+	Warhead@1: GrantExternalCondition
+		Condition: tibtree
+		Range: 3c0
+		Duration: 0
+		ValidTargets: TibTree, OreMine, Tree
 
 TomahawkStormExplosion:
 	Inherits: ^Explosion
