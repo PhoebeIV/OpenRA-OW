@@ -2475,6 +2475,11 @@
 ^InfectableTree:
 	Health:
 		HP: 900000
+	Tooltip:
+		RequiresCondition: !tibtree
+	Tooltip@infected:
+		RequiresCondition: tibtree
+		Name: Tree (infected)
 	DamageMultiplier:
 		Modifier: 0
 	Targetable@infectable:
@@ -2483,18 +2488,18 @@
 	GrantRandomCondition@tibtree:
 		Conditions: tibtree,none,none,none,none,none,none,none,none,none,none,none,none,none,none,none,none,none,none,none,none,none,none,none,none,none,none,none,none,none,none,none,none,none,none,none,none,none,none,none,none
 	GrantRandomCondition@infectable:
-		Conditions: infectable,none,none,none
+		Conditions: infectable,lessinfectable,moreinfectable
 	GrantRandomCondition@color:
 		Conditions: green,green,green,blue
 	ExternalCondition@growth:
 		Condition: growth
 	GrantPeriodicCondition@aaa:
-		RequiresCondition: (growth > 45) || tibtree
+		RequiresCondition: (lessinfectable && (growth > 75)) || (infectable && (growth > 50)) || (moreinfectable && (growth > 30)) || tibtree
 		Condition: dotransform
 		CooldownDuration: 750, 1500
 		ActiveDuration: 50
 	AmbientSound:
-		RequiresCondition: (growth > 45) || tibtree
+		RequiresCondition: (lessinfectable && (growth > 75)) || (infectable && (growth > 50)) || (moreinfectable && (growth > 30)) || tibtree
 		SoundFiles: ambtibe2.wav
 		Interval: 500, 1450
 	TransformOnCondition:
@@ -2505,7 +2510,9 @@
 		RequiresCondition: dotransform && blue
 		IntoActor: split4
 		SkipMakeAnims: false
+	ExternalCondition@tibtree:
+		Condition: tibtree
 	ProximityExternalCondition@tree:
-		RequiresCondition: infectable
+		RequiresCondition: infectable || moreinfectable
 		Condition: near_tree
 		Range: 2c0

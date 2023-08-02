@@ -57,10 +57,12 @@ MINE:
 		EmptyWeapon: OreMineExplosion
 	GrantRandomCondition@tibtree:
 		Conditions: tibtree,none,none,none,none,none,none,none,none,none,none,none,none,none
+	GrantRandomCondition@infectable:
+		Conditions: infectable,lessinfectable
 	ExternalCondition@growth:
 		Condition: growth
 	GrantPeriodicCondition@aaa:
-		RequiresCondition: (growth > 45) || tibtree
+		RequiresCondition: (lessinfectable && (growth > 50)) || (infectable && (growth > 30)) || tibtree
 		Condition: dotransform
 		CooldownDuration: 750, 1500
 		ActiveDuration: 50
@@ -68,6 +70,11 @@ MINE:
 		RequiresCondition: dotransform
 		IntoActor: tmonolith
 		SkipMakeAnims: false
+	ExternalCondition@tibtree:
+		Condition: tibtree
+	ProximityExternalCondition@tree:
+		Condition: near_tree
+		Range: 2c0
 
 GMINE:
 	HitShape:
@@ -104,7 +111,7 @@ GMINE:
 	ExternalCondition@growth:
 		Condition: growth
 	GrantPeriodicCondition@aaa:
-		RequiresCondition: (growth > 30) || tibtree
+		RequiresCondition: (growth > 45) || tibtree
 		Condition: dotransform
 		CooldownDuration: 750, 1500
 		ActiveDuration: 50
@@ -112,6 +119,11 @@ GMINE:
 		RequiresCondition: dotransform
 		IntoActor: tmonolith.blue
 		SkipMakeAnims: false
+	ExternalCondition@tibtree:
+		Condition: tibtree
+	ProximityExternalCondition@tree:
+		Condition: near_tree
+		Range: 2c0
 
 MINE.CR:
 	Inherits: MINE
@@ -220,7 +232,7 @@ SPLIT3:
 		RequiresCondition: burst
 		Weapon: TibTreeBurst
 	TransformOnCondition:
-		RequiresCondition: growth > 45
+		RequiresCondition: growth > 60
 		IntoActor: split4
 		SkipMakeAnims: false
 
@@ -324,8 +336,10 @@ TMONOLITH:
 		Condition: growth
 	ExternalCondition@spawned:
 		Condition: spawned
+	GrantRandomCondition@infectable:
+		Conditions: infectable,lessinfectable
 	GrantCondition@growth:
-		RequiresCondition: growth > 45
+		RequiresCondition: (lessinfectable && (growth > 60)) || (infectable && (growth > 40))
 		Condition: spawn_blue
 	ExplodeWeapon@spread:
 		RequiresCondition: spawn_blue && !spawned

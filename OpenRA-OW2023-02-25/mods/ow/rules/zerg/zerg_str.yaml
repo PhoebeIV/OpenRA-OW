@@ -454,6 +454,22 @@ ZHATCHERY:
 		EditorOptions:
 			zlair: Lair
 			zhive: Hive
+	GrantConditionOnPrerequisite@botlair:
+		RequiresCondition: botowner
+		Condition: do_lair
+		Prerequisites: zhatchery, zchamber, ~structures.zerg, ~techlevel.high, ~free_hatchery
+	GrantDelayedCondition@botlair:
+		RequiresCondition: do_lair
+		Condition: lair_upgrade
+		Delay: 750, 1250
+	GrantConditionOnPrerequisite@bothive:
+		RequiresCondition: botowner
+		Condition: do_hive
+		Prerequisites: zlair, znest, ~structures.zerg, ~techlevel.unrestricted, ~!ulttechcenter
+	GrantDelayedCondition@bothive:
+		RequiresCondition: do_hive && lair_upgrade && !hive_upgrade
+		Condition: hive_upgrade
+		Delay: 1500, 3000
 	FreeActor@1:
 		Actor: ZergLairComplete
 		SpawnOffset: 1,1
