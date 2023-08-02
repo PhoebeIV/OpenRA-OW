@@ -164,3 +164,574 @@ japansupplycenter:
 		FullSequence: pip-yellow
 	RenderSprites:
         Image: japansupplycenter
+
+japanbarracks:
+	Inherits: ^DawnBuilding
+	Inherits@prereqs: ^BarracksPrereqs
+	Inherits@shape: ^2x2Shape
+	Selectable:
+		Bounds: 2048, 2048
+	HitShape:
+		UseTargetableCellsOffsets: false
+		TargetableOffsets: 0,0,0, 630,-512,0, 355,512,0, -281,-512,0, -630,512,0
+	Buildable:
+		Queue: Building
+		BuildPaletteOrder: 20
+		Prerequisites: anypower, ~structures.japan
+		Description: Trains infantry.
+	Valued:
+		Cost: 600
+	Tooltip:
+		Name: Barracks
+	Building:
+		Footprint: xx xx ==
+		Dimensions: 2,3
+		LocalCenterOffset: 0,-512,0
+	Health:
+		HP: 70000
+	Armor:
+		Type: Wood
+	RevealsShroud:
+		MinRange: 4c0
+		Range: 5c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 4c0
+	RenderSprites:
+        Image: japanbarracks
+	ActorPreviewPlaceBuildingPreview:
+	Cloak@stealthgen:
+		Palette: dawncloak
+	WithBuildingBib:
+	RallyPoint:
+	Exit@1:
+		RequiresCondition: !being-captured
+		SpawnOffset: -42,810,0
+		ExitCell: 1,2
+		ProductionTypes: Soldier, Infantry
+	Exit@2:
+		RequiresCondition: !being-captured
+		SpawnOffset: -725,640,0
+		ExitCell: 0,2
+		ProductionTypes: Soldier, Infantry
+	Production:
+		Produces: Infantry, Soldier
+	GrantExternalConditionToProduced:
+		Condition: produced
+	PrimaryBuilding:
+		PrimaryCondition: primary
+		SelectionNotification: PrimaryBuildingSelected
+	ProductionBar:
+		ProductionType: Infantry
+	Power:
+		Amount: -20
+	ProvidesPrerequisite@buildingname:
+	InfiltrateForSupportPower:
+		Proxy: barracks.upgraded
+		Types: SpyInfiltrate
+	Targetable:
+		TargetTypes: GroundActor, C4, DetonateAttack, Structure, SpyInfiltrate
+	WithDecoration@primary:
+		RequiresSelection: true
+		Image: pips
+		Sequence: tag-primary
+		Position: Top
+		RequiresCondition: primary
+	ProvidesPrerequisite@zocomupgrade:
+		RequiresPrerequisites: structures.zocom
+		Prerequisite: barracks.upgraded
+	ProvidesPrerequisite@phobosupgrade:
+		RequiresPrerequisites: structures.phobos
+		Prerequisite: barracks.upgraded
+	WithDeathAnimation:
+		DeathSequence: dead
+		UseDeathTypeSuffix: false
+
+japanmechabay:
+	Inherits: ^DawnBuilding
+	Inherits@prereqs: ^FactoryPrereqs
+	Selectable:
+		Bounds: 3072, 3072
+	Buildable:
+		Queue: Building
+		BuildPaletteOrder: 80
+		Prerequisites: japansupplycenter, anypower, ~structures.japan
+		Description: Produces mechas.
+	Valued:
+		Cost: 2000
+	Tooltip:
+		Name: Mecha Bay
+	Building:
+		Footprint: ___ xxx === ===
+		Dimensions: 3,4
+		LocalCenterOffset: 0,-512,0
+	Health:
+		HP: 170000
+	Armor:
+		Type: Wood
+	RevealsShroud:
+		MinRange: 4c0
+		Range: 5c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 4c0
+	WithBuildingBib:
+	WithProductionDoorOverlay:
+		Sequence: build-top
+		RequiresCondition: !build-incomplete
+	RallyPoint:
+		Path: 0,3
+	Exit@1:
+		RequiresCondition: !being-captured
+		SpawnOffset: -341,-341,0
+		ExitCell: 0,2
+		ExitDelay: 3
+	Production:
+		Produces: Vehicle
+	GrantExternalConditionToProduced:
+		Condition: produced
+	PrimaryBuilding:
+		PrimaryCondition: primary
+		SelectionNotification: PrimaryBuildingSelected
+	ProductionBar:
+		ProductionType: Vehicle
+	Power:
+		Amount: -30
+	ProvidesPrerequisite@buildingname:
+	ProvidesPrerequisite@china:
+		Factions: china
+		Prerequisite: vehicles.china
+	Targetable:
+		TargetTypes: GroundActor, C4, DetonateAttack, Structure, SpyInfiltrate
+	InfiltrateForSupportPower:
+		Proxy: vehicles.upgraded
+		Types: SpyInfiltrate
+	WithDecoration@primary:
+		RequiresSelection: true
+		Image: pips
+		Sequence: tag-primary
+		Position: Top
+		RequiresCondition: primary
+	-ActorPreviewPlaceBuildingPreview:
+	SequencePlaceBuildingPreview:
+		Sequence: place
+	RenderSprites:
+        PlayerPalette: dawn
+        Image: japanmechabay
+	HitShape:
+		TargetableOffsets: 0,0,0, 0,1024,0, 0,-1024,0
+		Type: Rectangle
+			TopLeft: -1536, -1024
+			BottomRight: 1536, 512
+	Cloak@stealthgen:
+		Palette: dawncloak
+	WithDeathAnimation:
+		DeathSequence: dead
+		UseDeathTypeSuffix: false
+		DeathSequencePalette: dawn
+
+japanairfield:
+	Inherits: ^Building
+	Inherits@PRIMARY: ^PrimaryBuilding
+	Inherits@prereqs: ^AircraftPrereqs
+	Buildable:
+		Queue: Building
+		BuildPaletteOrder: 130
+		Prerequisites: japansupplycenter, anypower, ~structures.japan
+		Description: Produces and reloads aircraft.\n  Special Ability: Spy Plane\n  Special Ability: Paratroopers
+	Tooltip:
+		Name: Japan Airfield
+	Valued:
+		Cost: 1250
+	Building:
+		Footprint: XXXX xxx= xx==
+		Dimensions: 4,3
+		LocalCenterOffset: 0,-512,0
+	Selectable:
+		Bounds: 4096, 2048
+	HitShape:
+		TargetableOffsets: 0,0,0, 0,-512,256, 0,-1451,384, 0,512,128, 0,1536,85
+		Type: Rectangle
+			TopLeft: -2048, -1024
+			BottomRight: 1536, 1024
+	Health:
+		HP: 170000
+	Armor:
+		Type: Wood
+	RevealsShroud:
+		MinRange: 4c0
+		Range: 5c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 4c0
+	Production:
+		Produces: Aircraft, Plane, Helicopter
+	ProductionBar:
+		ProductionType: Aircraft
+	Power:
+		Amount: -30
+	ProvidesPrerequisite@japan:
+		Factions: japan
+		Prerequisite: aircraft.japan
+	ProvidesPrerequisite@buildingname:
+	Targetable:
+		TargetTypes: GroundActor, C4, DetonateAttack, Structure, SpyInfiltrate
+	InfiltrateForSupportPower:
+		Proxy: vehicles.upgraded
+		Types: SpyInfiltrate
+	WithDecoration@primary:
+		RequiresSelection: true
+		Image: pips
+		Sequence: tag-primary
+		Position: Top
+		RequiresCondition: primary
+	WithIdleOverlay@DISH:
+		Sequence: idle-dish
+	Exit:
+		ProductionTypes: Aircraft, Plane, Helicopter
+	Exit@1:
+		ProductionTypes: Aircraft, Plane
+		SpawnOffset: 512,512,0
+	Exit@2:
+		ExitCell: 1,1
+		Facing: 192
+		SpawnOffset: -1024,0,0
+		ProductionTypes: Aircraft, Plane
+	Exit@3:
+		ExitCell: 1,2
+		Facing: 192
+		SpawnOffset: -1024,544,0
+		ProductionTypes: Aircraft, Plane
+	WithDeathAnimation:
+		DeathSequence: dead
+		UseDeathTypeSuffix: false
+	RenderSprites:
+        Image: japanairfield
+	Reservable:
+	RallyPoint:
+		ForceSetType: Plane, Aircraft
+	ProximityExternalCondition:
+		Condition: reloadnear
+		Range: 7c0
+
+japanshipyard:
+	Inherits: ^Building
+	Inherits@PRIMARY: ^PrimaryBuilding
+	Inherits@prereqs: ^NavalPrereqs
+	Selectable:
+		Bounds: 3072, 2048
+	InfiltrateForSupportPower:
+		Proxy: powerproxy.sonarpulse
+		Types: SpyInfiltrate
+	Buildable:
+		Queue: Building
+		BuildPaletteOrder: 80
+		Prerequisites: anypower, ~structures.japan, japansupplycenter, ~!techlevel.noboats
+		Description: Produces and repairs\nships and transports.
+	Valued:
+		Cost: 1000
+	Tooltip:
+		Name: Imperial Dock
+	Targetable:
+		TargetTypes: WaterActor, Structure, C4, DetonateAttack, SpyInfiltrate
+	Building:
+		Footprint: XXX xxx XXX
+		Dimensions: 3,3
+		TerrainTypes: Water
+	RequiresBuildableArea:
+		Adjacent: 8
+	-GivesBuildableArea:
+	Health:
+		HP: 100000
+	Armor:
+		Type: Wood
+	RevealsShroud:
+		MinRange: 4c0
+		Range: 5c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 4c0
+	Exit@1:
+		RequiresCondition: !being-captured
+		SpawnOffset: -1024,1024,0
+		Facing: 640
+		ExitCell: 0,2
+		ProductionTypes: Ship, Boat
+	Exit@2:
+		RequiresCondition: !being-captured
+		SpawnOffset: 1024,1024,0
+		Facing: 896
+		ExitCell: 2,2
+		ProductionTypes: Ship, Boat
+	Exit@3:
+		RequiresCondition: !being-captured
+		SpawnOffset: -1024,-1024,0
+		Facing: 384
+		ExitCell: 0,0
+		ProductionTypes: Ship, Boat
+	Exit@4:
+		RequiresCondition: !being-captured
+		SpawnOffset: 1024,-1024,0
+		Facing: 128
+		ExitCell: 2,0
+		ProductionTypes: Ship, Boat
+	Production:
+		Produces: Ship, Boat
+	-SpawnActorsOnSell:
+	RepairsUnits:
+		HpPerStep: 1000
+		StartRepairingNotification: Repairing
+		StartRepairingTextNotification: Repairing.
+		FinishRepairingNotification: UnitRepaired
+		FinishRepairingTextNotification: Unit repaired.
+		PlayerExperience: 5
+	RallyPoint:
+		ForceSetType: Ship
+	CommandBarBlacklist:
+		DisableStop: false
+	ProductionBar:
+		ProductionType: Ship
+	Power:
+		Amount: -30
+	DetectCloaked:
+		DetectionTypes: Underwater
+		Range: 10c0
+	RenderDetectionCircle:
+	ProvidesPrerequisite@buildingname:
+	ProvidesPrerequisite@china2:
+		Factions: japan
+		Prerequisite: ships.japan
+	MapEditorData:
+		ExcludeTilesets: INTERIOR
+	HitShape:
+		TargetableOffsets: 768,0,0, 768,-1024,0, 768,1024,0
+		Type: Rectangle
+			TopLeft: -1536, -1152
+			BottomRight: 1536, 598
+	HitShape@BOTTOM:
+		TargetableOffsets: -768,0,0
+		Type: Rectangle
+			TopLeft: -512, 598
+			BottomRight: 512, 1110
+
+japanmainframe:
+	Inherits: ^ScienceBuilding
+	Inherits@IDISABLE: ^DisableOnLowPower
+	Inherits@shape: ^2x2Shape
+	Selectable:
+		Bounds: 2048, 2048
+	Buildable:
+		Queue: Building
+		BuildPaletteOrder: 140
+		Prerequisites: japanmechabay, ~structures.japan, ~techlevel.high
+		Description: Provides Japan advanced technologies.\n  Special Ability: GPS Satellite
+	Valued:
+		Cost: 1500
+	Tooltip:
+		Name: Mainframe
+	Building:
+		Footprint: xx xx ==
+		Dimensions: 2,3
+		LocalCenterOffset: 0,-512,0
+	Health:
+		HP: 60000
+	Armor:
+		Type: Wood
+	RevealsShroud:
+		MinRange: 4c0
+		Range: 5c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 4c0
+	WithBuildingBib:
+	ProvidesRadar:
+		RequiresCondition: !lowpower
+	GpsPower:
+		PauseOnCondition: disabled
+		Icon: gps
+		OneShot: true
+		ChargeInterval: 12000
+		Name: GPS Satellite
+		Description: Reveals map terrain and provides tactical\ninformation. Requires power and active radar.
+		RevealDelay: 375
+		LaunchSpeechNotification: SatelliteLaunched
+		LaunchTextNotification: Satellite launched.
+		DisplayTimerRelationships: Ally, Neutral, Enemy
+		SupportPowerPaletteOrder: 90
+	SupportPowerChargeBar:
+	InfiltrateForSupportPowerReset:
+		Types: SpyInfiltrate
+	Targetable:
+		TargetTypes: GroundActor, C4, DetonateAttack, Structure, SpyInfiltrate
+	Power:
+		Amount: -200
+	ProvidesPrerequisite@buildingname:
+	ProvidesPrerequisite:
+		Prerequisite: techcenter
+	RenderSprites:
+		Image: japanmainframe
+
+japanpsychicdatacenter:
+	Inherits: ^ScienceBuilding
+	Inherits@shape: ^3x2Shape
+	Selectable:
+		Bounds: 3072, 2048
+	HitShape:
+		TargetableOffsets: 420,-768,0, 420,768,0, -770,-768,0, -770,768,0
+	Buildable:
+		Queue: Building
+		BuildPaletteOrder: 150
+		Prerequisites: japanmainframe, ~structures.japan, ~techlevel.high
+		Description: Provides Japan psychic advanced technologies.
+	Valued:
+		Cost: 2000
+	Tooltip:
+		Name: Psychic Data Center
+	ProvidesPrerequisite@buildingname:
+	ProvidesPrerequisite:
+		Prerequisite: techcenter
+	Building:
+		Footprint: XxX XxX ===
+		Dimensions: 3,3
+		LocalCenterOffset: 0,-512,0
+	Health:
+		HP: 80000
+	Armor:
+		Type: Wood
+	RevealsShroud:
+		MinRange: 4c0
+		Range: 5c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 4c0
+	WithBuildingBib:
+	Power:
+		Amount: -200
+	ProvidesPrerequisite@buildingname:
+	RenderSprites:
+		Image: japanpsychicdatacenter
+
+japanlaserbase:
+	Inherits: ^Defense
+	Inherits@AUTOTARGET: ^AutoTargetGround
+	HitShape:
+		UseTargetableCellsOffsets: true
+		Type: Polygon
+			Points: -576,576, -576,1536, -1536,1536, -1536,576, 1536,576, 1536,1536, 576,1536, 576,-1536, 1536,-1536, 1536,-576, -1536,-576, -1536,-1536, -156,-1536
+	Buildable:
+		Queue: Defense
+		BuildPaletteOrder: 70
+		Prerequisites: anypower, ~structures.japan, japanbarracks
+		Description: Firebase defense structure. Long ranged laser.
+	Selectable:
+		Bounds: 2048, 2048
+	Valued:
+		Cost: 1600
+	Tooltip:
+		Name: Laserbase
+	Building:
+        Footprint: x_x _x_ x_x
+        Dimensions: 3,3
+    FreeActor@1:
+        Actor: firebasebunker
+        SpawnOffset: 0,0
+    FreeActor@2:
+        Actor: firebasebunker
+        SpawnOffset: 0,2
+    FreeActor@3:
+        Actor: firebasebunker
+        SpawnOffset: 2,2
+    FreeActor@4:
+        Actor: firebasebunker
+        SpawnOffset: 2,0
+	Health:
+		HP: 100000
+	Armor:
+		Type: Heavy
+	RevealsShroud:
+		MinRange: 5c0
+		Range: 6c512
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 5c0
+	Turreted:
+		TurnSpeed: 48
+		InitialFacing: 192
+		RealignDelay: -1
+		RequiresCondition: !build-incomplete
+	WithSpriteTurret:
+		RequiresCondition: !build-incomplete
+		Recoils: false
+	Armament:
+		Weapon: usafirebaseshot
+		MuzzleSequence: muzzle
+		LocalOffset: 1000,200,60, 1000,0,60, 1000,-200,60
+	AttackTurreted:
+		PauseOnCondition: build-incomplete
+	WithMuzzleOverlay:
+	Power:
+		Amount: -40
+	DetectCloaked:
+		Range: 6c0
+	-BodyOrientation:
+	ClassicFacingBodyOrientation:
+	RenderSprites:
+		Image: japanlaserbase
+        PlayerPalette: dawn
+	Explodes:
+		Weapon: FireBaseExplosion
+		EmptyWeapon: FireBaseExplosion
+
+japandecimator:
+	Inherits: ^Building
+	Inherits@shape: ^2x2Shape
+	Inherits@IDISABLE: ^DisableOnLowPowerOrPowerDown
+	Valued:
+		Cost: 5000
+	Tooltip:
+		Name: Psionic Decimator
+	Buildable:
+		Queue: Tech
+		Prerequisites: techcenter, ~structures.japan
+		BuildLimit: 1
+		Description: Provides the Psionic Decimator support power.
+		BuildPaletteOrder: 500
+	Building:
+		Footprint: xx xx
+		Dimensions: 2,2
+		LocalCenterOffset: 0,-512,0
+	Selectable:
+		Bounds: 2048, 2048
+	Health:
+		HP: 100000
+	Armor:
+		Type: Wood
+	RevealsShroud:
+		Range: 4c0
+	SpawnActorPower:
+		OrderName: ParticleCannonStrike
+		Actor: hack.particle_beam
+		LifeTime: 500
+		ChargeInterval: 15000
+		Icon: particle
+		Name: Particle Cannon
+		Description: Initiates an Particle Cannon strike.
+		EffectSequence: idle
+		DisplayTimerRelationships: Ally, Neutral, Enemy
+		PauseOnCondition: disabled
+		LaunchSound: eulapar.wav
+		EndChargeSound: euparrea.wav
+		DetectedSound: eudepar.wav
+	SupportPowerChargeBar:
+	Power:
+		Amount: -200
+	MustBeDestroyed:
+		RequiredForShortGame: false
+	ProvidesPrerequisite@superweapon:
+		Prerequisite: superweapon
+	RenderSprites:
+		Image: japandecimator
+	Explodes:
+		Type: CenterPosition
+		Weapon: MiniNuke
+		EmptyWeapon: MiniNuke
