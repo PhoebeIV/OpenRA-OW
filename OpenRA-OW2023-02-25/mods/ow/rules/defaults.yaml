@@ -1077,40 +1077,8 @@
 		SpawnOffset: 0,1
 		Facing: 256
 
-^TibTree:
-	Inherits@1: ^SpriteActor
-	Interactable:
-	Tooltip:
-		Name: Blossom Tree
-		ShowOwnerRow: false
-	RenderSprites:
-		Palette: dawn
-	WithSpriteBody:
-	Building:
-		Footprint: x
-		Dimensions: 1,1
-	AppearsOnRadar:
-	RadarColorFromTerrain:
-		Terrain: Tiberium
-	AppearsOnMapPreview:
-		Terrain: Tiberium
-	HiddenUnderShroud:
-	WithMakeAnimation:
-	MapEditorData:
-		Categories: Resource spawn
-	RequiresSpecificOwners:
-		ValidOwnerNames: Neutral
-	ExternalCondition@creep:
-		Condition: creepgen
-	ExplodeWeapon@1:
-		RequiresCondition: creepgen
-		Weapon: CreepPreventer
-	Targetable:
-		TargetTypes: TibTree
-
 ^BasicBuilding:
 	Inherits@shape: ^1x1Shape
-	Inherits@shields: ^AcceptsShields
 	Targetable@REPAIR:
 		RequiresCondition: repairtime
 		TargetTypes: StructureRepair
@@ -1136,6 +1104,7 @@
 	Inherits@corrode: ^CorrodesFromTibWeaps
 	Inherits@CurseCondition: ^CurseDebuff
 	Inherits@DeathKnightAura: ^DeathKnightAuraB
+	Inherits@shields: ^AcceptsShields
 	OwnerLostAction:
 		Action: ChangeOwner
 	Capturable:
@@ -2470,3 +2439,73 @@
 		RequiresCondition: !demoralise && e1of
 	ExternalCondition@demoralise:
 		Condition: demoralise
+
+^TibTree:
+	Inherits@1: ^SpriteActor
+	Interactable:
+	Tooltip:
+		Name: Blossom Tree
+		ShowOwnerRow: false
+	RenderSprites:
+		Palette: dawn
+	WithSpriteBody:
+	Building:
+		Footprint: x
+		Dimensions: 1,1
+	AppearsOnRadar:
+	RadarColorFromTerrain:
+		Terrain: Tiberium
+	AppearsOnMapPreview:
+		Terrain: Tiberium
+	HiddenUnderShroud:
+	WithMakeAnimation:
+		Condition: build-incomplete
+	MapEditorData:
+		Categories: Resource spawn
+	RequiresSpecificOwners:
+		ValidOwnerNames: Neutral
+	ExternalCondition@creep:
+		Condition: creepgen
+	ExplodeWeapon@1:
+		RequiresCondition: creepgen
+		Weapon: CreepPreventer
+	Targetable@tree:
+		TargetTypes: TibTree
+
+^InfectableTree:
+	Health:
+		HP: 900000
+	DamageMultiplier:
+		Modifier: 0
+	Targetable@infectable:
+		RequiresCondition: infectable
+		TargetTypes: OreMine
+	GrantRandomCondition@tibtree:
+		Conditions: tibtree,none,none,none,none,none,none,none,none,none,none,none,none,none,none,none,none,none,none,none,none,none,none,none,none,none,none,none,none,none,none,none,none,none,none,none,none,none,none,none,none
+	GrantRandomCondition@infectable:
+		Conditions: infectable,none,none,none
+	GrantRandomCondition@color:
+		Conditions: green,green,green,blue
+	ExternalCondition@growth:
+		Condition: growth
+	GrantPeriodicCondition@aaa:
+		RequiresCondition: (growth > 45) || tibtree
+		Condition: dotransform
+		CooldownDuration: 750, 1500
+		ActiveDuration: 50
+	AmbientSound:
+		RequiresCondition: (growth > 45) || tibtree
+		SoundFiles: ambtibe2.wav
+		Interval: 500, 1450
+	TransformOnCondition:
+		RequiresCondition: dotransform && green
+		IntoActor: split3
+		SkipMakeAnims: false
+	TransformOnCondition@2:
+		RequiresCondition: dotransform && blue
+		IntoActor: split4
+		SkipMakeAnims: false
+	ProximityExternalCondition@tree:
+		RequiresCondition: infectable
+		Condition: near_tree
+		Range: 2c0

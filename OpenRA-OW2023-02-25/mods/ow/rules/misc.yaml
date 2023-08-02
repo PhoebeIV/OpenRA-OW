@@ -24,7 +24,7 @@ MINE:
 		Type: CenterPosition
 	HitShape:
 	Targetable:
-		TargetTypes: UpgradeThing, Ground
+		TargetTypes: UpgradeThing, Ground, OreMine
 	Health:
 		HP: 9000000
 	RevealsShroud:
@@ -55,25 +55,19 @@ MINE:
 		DeathTypes: gems
 		Weapon: OreMineExplosion
 		EmptyWeapon: OreMineExplosion
-	SpawnActorOnDeath@tibtree:
-		RequiresCondition: tibtree
-		Actor: SPLIT3
-		DeathType: tibtree
-	KillsSelf@tibtree:
-		Delay: 25
-		RequiresCondition: tibtree
-		DamageTypes: tibtree
-	Explodes@tibtree:
-		DeathTypes: tibtree
-		Weapon: TibTreeExplosion
-		EmptyWeapon: TibTreeExplosion
 	GrantRandomCondition@tibtree:
-		Conditions: tibtree,none,none,none,none,none,none,none,none,none,none,none,none,none,none,none
+		Conditions: tibtree,none,none,none,none,none,none,none,none,none,none,none,none,none
 	ExternalCondition@growth:
 		Condition: growth
-	GrantCondition@growth:
-		Condition: tibtree
-		RequiresCondition: growth > 30
+	GrantPeriodicCondition@aaa:
+		RequiresCondition: (growth > 30) || tibtree
+		Condition: dotransform
+		CooldownDuration: 750, 1500
+		ActiveDuration: 50
+	TransformOnCondition:
+		RequiresCondition: dotransform
+		IntoActor: tmonolith
+		SkipMakeAnims: false
 
 GMINE:
 	HitShape:
@@ -81,6 +75,8 @@ GMINE:
 		MaxRange: 8
 	Health:
 		HP: 9000000
+	Targetable:
+		TargetTypes: UpgradeThing, Ground, OreMine
 	ExternalCondition@creep:
 		Condition: creepgen
 	ChangesHealth@1:
@@ -103,16 +99,29 @@ GMINE:
 		ResourceType: Gems
 		Interval: 125
 		MaxRange: 10
+	GrantRandomCondition@tibtree:
+		Conditions: tibtree,none,none,none,none,none,none,none,none,none,none,none,none,none
+	ExternalCondition@growth:
+		Condition: growth
+	GrantPeriodicCondition@aaa:
+		RequiresCondition: (growth > 30) || tibtree
+		Condition: dotransform
+		CooldownDuration: 750, 1500
+		ActiveDuration: 50
+	TransformOnCondition:
+		RequiresCondition: dotransform
+		IntoActor: tmonolith.blue
+		SkipMakeAnims: false
 
 MINE.CR:
 	Inherits: MINE
 	HitShape:
 	RenderSprites:
 		Image: mine
-	Targetable:
+	Targetable@attackable:
 		TargetTypes: GroundActor, C4, DetonateAttack, Structure
 	Health:
-		HP: 100000
+		HP: 500000
 	Armor:
 		Type: Wood
 	ShakeOnDeath:
@@ -126,10 +135,10 @@ GMINE.CR:
 	HitShape:
 	RenderSprites:
 		Image: gmine
-	Targetable:
+	Targetable@attackable:
 		TargetTypes: GroundActor, C4, DetonateAttack, Structure
 	Health:
-		HP: 100000
+		HP: 500000
 	Armor:
 		Type: Wood
 	ShakeOnDeath:
@@ -189,17 +198,22 @@ SPLIT3:
 	SeedsResource@burst: 
 		RequiresCondition: burst
 		ResourceType: Tiberium
-		Interval: 2
+		Interval: 3
 		MaxRange: 500
 	GrantPeriodicCondition@burst:
 		Condition: burst
 		CooldownDuration: 750, 1500
 		ActiveDuration: 50, 80
 	WithSpriteBody:
-		RequiresCondition: !burst
+		RequiresCondition: !burst && !making
 	WithSpriteBody@burst:
 		RequiresCondition: burst
 		StartSequence: active
+	WithSpriteBody@make:
+		RequiresCondition: making
+		StartSequence: make
+	GrantTimedCondition:
+		Condition: making
 	ExternalCondition@stack:
 		Condition: growth
 	ExplodeWeapon@burst:
@@ -208,16 +222,17 @@ SPLIT3:
 	TransformOnCondition:
 		RequiresCondition: growth > 45
 		IntoActor: split4
+		SkipMakeAnims: false
 
 SPLIT3.CR:
 	Inherits: SPLIT3
 	HitShape:
 	RenderSprites:
 		Image: split3
-	Targetable:
+	Targetable@attackable:
 		TargetTypes: GroundActor, C4, DetonateAttack, Structure
 	Health:
-		HP: 100000
+		HP: 500000
 	Armor:
 		Type: Wood
 	ShakeOnDeath:
@@ -237,34 +252,103 @@ SPLIT4:
 	SeedsResource@burst: 
 		RequiresCondition: burst
 		ResourceType: BlueTiberium
-		Interval: 2
+		Interval: 3
 		MaxRange: 500
 	GrantPeriodicCondition@burst:
 		Condition: burst
-		CooldownDuration: 333, 560
+		CooldownDuration: 750, 1500
 		ActiveDuration: 50, 80
 	WithSpriteBody:
-		RequiresCondition: !burst
+		RequiresCondition: !burst && !making
 	WithSpriteBody@burst:
 		RequiresCondition: burst
 		StartSequence: active
+	WithSpriteBody@make:
+		RequiresCondition: making
+		StartSequence: make
+	GrantTimedCondition:
+		Condition: making
 	ExplodeWeapon@burst:
 		RequiresCondition: burst
-		Weapon: TibTreeBurst
+		Weapon: TibTreeBlueBurst
 
 SPLIT4.CR:
 	Inherits: SPLIT4
 	HitShape:
-	Targetable:
+	Targetable@attackable:
 		TargetTypes: GroundActor, C4, DetonateAttack, Structure
 	Health:
-		HP: 100000
+		HP: 500000
 	Armor:
 		Type: Wood
 	ShakeOnDeath:
 	Explodes:
 		Weapon: DemoTrapExplosion2
 		EmptyWeapon: DemoTrapExplosion2
+
+TMONOLITH:
+	Inherits: ^TibTree
+	RenderSprites:
+		Palette: greentiberium
+		Image: bigblue
+	Tooltip:
+		Name: Tiberium Monolith
+	SeedsResource:
+		RequiresCondition: !build-incomplete
+		ResourceType: Tiberium
+		Interval: 50
+		MaxRange: 500
+	SeedsResource@burst: 
+		RequiresCondition: burst
+		ResourceType: Tiberium
+		Interval: 3
+		MaxRange: 500
+	GrantPeriodicCondition@burst:
+		Condition: burst
+		CooldownDuration: 750, 1500
+		ActiveDuration: 35, 80
+	ExplodeWeapon@burst:
+		RequiresCondition: burst
+		Weapon: TibTreeBurst
+	GrantPeriodicCondition@form:
+		RequiresCondition: build-incomplete
+		Condition: form_fire
+		CooldownDuration: 3, 15
+		ActiveDuration: 10
+	ExplodeWeapon@form:
+		RequiresCondition: form_fire
+		Weapon: MonolithShake
+	WithIdleOverlay:
+		RequiresCondition: !build-incomplete
+	ExternalCondition@growth:
+		Condition: growth
+	ExternalCondition@spawned:
+		Condition: spawned
+	GrantCondition@growth:
+		RequiresCondition: growth > 45
+		Condition: spawn_blue
+	ExplodeWeapon@spread:
+		RequiresCondition: spawn_blue && !spawned
+		Weapon: MonolithSpawner
+
+TMONOLITH.BLUE:
+	Inherits: TMONOLITH
+	RenderSprites:
+		Palette: bluetiberium
+	SeedsResource:
+		ResourceType: BlueTiberium
+	SeedsResource@burst: 
+		ResourceType: BlueTiberium
+	GrantPeriodicCondition@burst:
+		CooldownDuration: 500, 900
+		ActiveDuration: 35, 101
+	ExplodeWeapon@form:
+		Weapon: MonolithShakeBlue
+	ExplodeWeapon@burst:
+		Weapon: TibTreeBlueBurst
+	-ExplodeWeapon@spread:
+	-GrantCondition@growth:
+	-ExternalCondition@growth:
 
 VICE:
 	Inherits: ^Viceroid
@@ -348,3 +432,45 @@ camera.particle_cannon:
 CTFLAG:
 	-Targetable@REPAIR:
 	-GrantConditionOnDamageState@DAMAGED:
+
+T01:
+	Inherits@infect: ^InfectableTree
+
+T02:
+	Inherits@infect: ^InfectableTree
+
+T03:
+	Inherits@infect: ^InfectableTree
+
+T05:
+	Inherits@infect: ^InfectableTree
+
+T06:
+	Inherits@infect: ^InfectableTree
+
+T07:
+	Inherits@infect: ^InfectableTree
+
+T10:
+	Inherits@infect: ^InfectableTree
+
+T11:
+	Inherits@infect: ^InfectableTree
+
+T12:
+	Inherits@infect: ^InfectableTree
+
+T13:
+	Inherits@infect: ^InfectableTree
+
+T14:
+	Inherits@infect: ^InfectableTree
+
+T15:
+	Inherits@infect: ^InfectableTree
+
+T16:
+	Inherits@infect: ^InfectableTree
+
+T17:
+	Inherits@infect: ^InfectableTree

@@ -13,6 +13,12 @@ World:
 
 CRATE:
 	-GiveCashCrateAction:
+	ExternalCondition@tree:
+		Condition: near_tree
+	ExplodeCrateAction@neartree:
+		RequiresCondition: near_tree
+		Weapon: TibCrateGrowth
+		SelectionShares: 60
 	LevelUpCrateAction:
 		SelectionShares: 12
 	GiveBaseBuilderCrateAction:
@@ -59,6 +65,12 @@ CRATE:
 	GiveUnitCrateAction@split2:
 		SelectionShares: 2
 		Units: 1tnk.split4
+	GiveUnitCrateAction@mono1:
+		SelectionShares: 3
+		Units: 1tnk.monolith
+	GiveUnitCrateAction@mono2:
+		SelectionShares: 2
+		Units: 1tnk.monolithblue
 	GiveUnitCrateAction@mine:
 		SelectionShares: 3
 		Units: 1tnk.mine
@@ -343,6 +355,18 @@ CRATE.FuckYou:
 	Inherits: 1TNK.MINE
 	SpawnActorOnDeath:
 		Actor: split4.cr
+		SkipMakeAnimations: false
+
+1TNK.MONOLITHBLUE:
+	Inherits: 1TNK.MINE
+	SpawnActorOnDeath:
+		Actor: tmonolith.blue
+		SkipMakeAnimations: false
+
+1TNK.MONOLITH:
+	Inherits: 1TNK.MINE
+	SpawnActorOnDeath:
+		Actor: tmonolith
 		SkipMakeAnimations: false
 
 1TNK.GRAVE:
