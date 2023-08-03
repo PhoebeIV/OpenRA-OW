@@ -13,7 +13,7 @@ japanantimatterreactor:
 		Prerequisites: ~structures.japan, ~!ai.powerout
 		Description: Provides power for other structures.\nCan be deployed to sacrifice itself to provide unlimited power for 30 seconds.
 	Valued:
-		Cost: 800
+		Cost: 900
 	Tooltip:
 		Name: Antimatter Reactor
 	ProvidesPrerequisite:
@@ -23,14 +23,14 @@ japanantimatterreactor:
 		Dimensions: 3,3
 		LocalCenterOffset: 0,-512,0
 	Health:
-		HP: 80000
+		HP: 100000
 	Armor:
 		Type: Wood
 	RevealsShroud:
 		Range: 4c0
 	WithBuildingBib:
 	Power:
-		Amount: 150
+		Amount: 250
 		RequiresCondition: !overcharge && !disabled
 	GrantConditionOnDeploy:
 		MakeAnimationDeployTypes:
@@ -614,6 +614,7 @@ japanpsychicdatacenter:
 japanlaserbase:
 	Inherits: ^Defense
 	Inherits@AUTOTARGET: ^AutoTargetGround
+	Inherits@LOWPOWER: ^DisableOnLowPowerOrPowerDown
 	HitShape:
 		UseTargetableCellsOffsets: true
 		Type: Polygon
@@ -663,14 +664,16 @@ japanlaserbase:
 		RequiresCondition: !build-incomplete
 		Recoils: false
 	Armament:
-		Weapon: usafirebaseshot
+		Weapon: LaserFirebaseShot
+		LocalOffset: 712,0,228
+		FireDelay: 25
+		PauseOnCondition: disabled
 		MuzzleSequence: muzzle
-		LocalOffset: 1000,200,60, 1000,0,60, 1000,-200,60
 	AttackTurreted:
 		PauseOnCondition: build-incomplete
 	WithMuzzleOverlay:
 	Power:
-		Amount: -40
+		Amount: -80
 	DetectCloaked:
 		Range: 6c0
 	-BodyOrientation:
@@ -708,20 +711,25 @@ japandecimator:
 		Type: Wood
 	RevealsShroud:
 		Range: 4c0
-	SpawnActorPower:
-		OrderName: ParticleCannonStrike
-		Actor: hack.particle_beam
-		LifeTime: 500
-		ChargeInterval: 15000
-		Icon: particle
-		Name: Particle Cannon
-		Description: Initiates an Particle Cannon strike.
-		EffectSequence: idle
-		DisplayTimerRelationships: Ally, Neutral, Enemy
+	IonCannonPower:
 		PauseOnCondition: disabled
-		LaunchSound: eulapar.wav
-		EndChargeSound: euparrea.wav
-		DetectedSound: eudepar.wav
+		Icon: ioncannon
+		Cursor: chrono-target
+		ChargeInterval: 19500
+		Name: Psionic Decimator Blast
+		Description: Initiate a Psionic Decimator Blase on a target location.\nApplies instant damage to a small area.
+		SelectTargetSpeechNotification: DawnSelectTarget
+		InsufficientPowerSpeechNotification: InsufficientPower
+		OnFireSound: japandecimatoractivate.wav
+		DisplayRadarPing: True
+		CameraActor: camera.small
+		SupportPowerPaletteOrder: 20
+		WeaponDelay: 0
+		CameraRemoveDelay: 100
+		Effect: explosion
+		EffectSequence: laserhitlarge
+		Weapon: DecimatorNuke
+		DisplayTimerRelationships: Ally, Neutral, Enemy
 	SupportPowerChargeBar:
 	Power:
 		Amount: -200

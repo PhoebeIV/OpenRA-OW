@@ -1,0 +1,341 @@
+japanimperialwarrior:
+	Inherits: ^Soldier
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Buildable:
+		Queue: Infantry
+		BuildAtProductionType: Soldier
+		BuildPaletteOrder: 5
+		Prerequisites: ~infantry.japan
+		Description: Japan Imperial Warrior, equipped with basic machine gun.\nSpeed: 62\n  Strong vs Infantry\n  Weak vs Vehicles
+	Tooltip:
+		Name: Imperial Warrior
+	Valued:
+		Cost: 125
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 9000
+	Mobile:
+		Voice: Move
+	Guard:
+		Voice: Move
+	Passenger:
+		Voice: Move
+	Armament@PRIMARY:
+		Weapon: imperialwarriorshot
+	Armament@GARRISONED:
+		Name: garrisoned
+		Weapon: imperialwarriorshotgarrison
+		MuzzleSequence: garrison-muzzle
+	Armament@BUS:
+		Name: bus
+		Weapon: imperialwarriorshotgarrison
+		MuzzleSequence: garrison-muzzle
+        PauseOnCondition: upgradelasergeneral
+	WithInfantryBody:
+		DefaultAttackSequence: shoot
+		RequiresCondition: !parachute
+	WithInfantryBody@PARACHUTE:
+		StandSequences: parachute
+		RequiresCondition: parachute
+	ProducibleWithLevel:
+		Prerequisites: barracks.upgraded
+	RevealsShroud:
+		Range: 5c0
+	Selectable:
+		Bounds: 768, 853, 0, -256
+		DecorationBounds: 640, 896, 0, -426
+		Class: redguard
+	RenderSprites:
+		Image: japanimperialwarrior
+	Voiced:
+		VoiceSet: ImperialWarriorVoice
+
+japantankbuster:
+	Inherits: ^Soldier
+	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
+	Buildable:
+		Queue: Infantry
+		BuildAtProductionType: Soldier
+		BuildPaletteOrder: 6
+		Prerequisites: ~infantry.japan
+		Description: Armed with a rocket launcher that could reduce armor to scraps in seconds.
+	Tooltip:
+		Name: Tank Buster
+	Valued:
+		Cost: 260
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 10000
+	Mobile:
+		Voice: Move
+	Guard:
+		Voice: Move
+	Passenger:
+		Voice: Move
+	Armament@PRIMARY:
+		Weapon: tankbustershot
+        LocalOffset: 0,0,555
+	Armament@GARRISONED:
+		Name: garrisoned
+		Weapon: tankbustershotgarrison
+		MuzzleSequence: garrison-muzzle
+	Armament@BUS:
+		Name: bus
+		Weapon: tankbustershotgarrison
+		MuzzleSequence: garrison-muzzle
+	WithInfantryBody:
+		DefaultAttackSequence: shoot
+		RequiresCondition: !parachute
+	WithInfantryBody@PARACHUTE:
+		StandSequences: parachute
+		RequiresCondition: parachute
+	ProducibleWithLevel:
+		Prerequisites: barracks.upgraded
+	RevealsShroud:
+		Range: 5c0
+	Selectable:
+		Bounds: 768, 853, 0, -256
+		DecorationBounds: 640, 896, 0, -426
+	RenderSprites:
+		Image: japantankbuster
+	Voiced:
+		VoiceSet: TankBusterVoice
+
+japanrocketangel:
+	Inherits: ^TibSunSoldier
+	Inherits@EXPERIENCE: ^GainsExperience
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Valued:
+		Cost: 500
+	Tooltip:
+		Name: Rocket Angel
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Buildable:
+		Queue: Infantry
+		BuildPaletteOrder: 8
+		Prerequisites: ~infantry.japan
+		Description: Airborne angel.\nSpeed: 71\n  Strong vs Infantry, Vehicles\n  Weak vs Aircraft
+	Mobile:
+		Speed: 71
+		Locomotor: jumpjet
+	Health:
+		HP: 12000
+	Armor:
+		Type: Light
+	Passenger:
+		CustomPipType: green
+	RevealsShroud:
+		Range: 6c0
+	Armament:
+		Weapon: rocketangelshot
+        LocalOffset: 0,0,555
+	Armament@GARRISONED:
+		Name: garrisoned
+		Weapon: rocketangelshot
+		MuzzleSequence: garrison-muzzle
+	Armament@BUS:
+		Name: bus
+		Weapon: rocketangelshot
+		MuzzleSequence: garrison-muzzle
+	-Crushable:
+	AttackFrontal:
+		FacingTolerance: 0
+	-WithInfantryBody:
+	WithInfantryBody:
+		RequiresCondition: !airborne
+		DefaultAttackSequence: shoot
+		IdleSequences: idle1,idle2
+		StandSequences: stand
+	WithInfantryBody:
+	WithInfantryBody@flying:
+		RequiresCondition: airborne
+		DefaultAttackSequence: shoot-air
+		StandSequences: stand-air
+		MoveSequence: run-air
+	-TakeCover:
+	Hovers:
+		RequiresCondition: airborne
+	ChangesHealth@tiberium:
+		RequiresCondition: !airborne && standing_in_tiberium
+	ProducibleWithLevel:
+		Prerequisites: barracks.upgraded
+	WithShadow:
+		Offset: 43, 128, 0
+		ZOffset: -129
+		RequiresCondition: airborne
+	Targetable:
+		RequiresCondition: !airborne
+	Targetable@AIRBORNE:
+		TargetTypes: AirborneActor
+		RequiresCondition: airborne
+	-WithDeathAnimation:
+	GrantConditionOnJumpjetLayer:
+		Condition: airborne
+	Voiced:
+		VoiceSet: RocketAngelVoice
+	Explodes:
+		Weapon: TSInfExplode
+		EmptyWeapon: TSInfExplode
+	-SpawnActorOnDeath@fire:
+	RenderSprites:
+		Image: japanrocketangel
+
+japanarchermaiden:
+	Inherits: ^Infantry
+	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Buildable:
+		Prerequisites: ~infantry.japan
+		Description: Archer Maiden \n  Strong vs Infantry, Aircraft\n Weak vs Vehicles
+		Queue: Infantry
+		BuildPaletteOrder: 7
+	Valued:
+		Cost: 300
+	Tooltip:
+		Name: Archer Maiden
+	Health:
+		HP: 12000
+	WithInfantryBody:
+		IdleSequences: idle1
+		StandSequences: stand
+		DefaultAttackSequence: shoot
+	AttackFrontal:
+		FacingTolerance: 0
+	Selectable:
+		Bounds: 768, 938, 0, -469
+		DecorationBounds: 682, 938, 0, -469
+	WithDeathAnimation:
+		DeathTypes:
+			DefaultDeath: 1
+			BulletDeath: 1
+			SmallExplosionDeath: 1
+			ExplosionDeath: 4
+	TakeCover:
+		SpeedModifier: 130
+		Duration: 75
+		DamageTriggers: TriggerProne
+	Armament:
+		Weapon: archermaidenshot
+		LocalOffset: 427,0,600
+	Armament@GARRISONED:
+		Name: garrisoned
+		Weapon: archermaidenshot
+	Armament@BUS:
+		Name: bus
+		Weapon: archermaidenshot
+	RenderSprites:
+		Image: japanarchermaiden
+        PlayerPalette: tsunit
+	Voiced:
+		VoiceSet: ArcherMaidenVoice
+
+japanwarhorse:
+	Inherits: ^Infantry
+	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
+	Buildable:
+		Prerequisites: ~infantry.japan
+		Description: Archer Maiden riding horse \n  Strong vs Infantry, Aircraft\n Weak vs Vehicles
+		Queue: Infantry
+		BuildPaletteOrder: 8
+	Valued:
+		Cost: 500
+	Tooltip:
+		Name: Warhorse
+	Mobile:
+		Speed: 110
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 15000
+	Armor:
+		Type: Light
+	WithInfantryBody:
+		IdleSequences: idle
+		StandSequences: idle
+		DefaultAttackSequence: shoot
+	RevealsShroud:
+		MinRange: 6c0
+		Range: 7c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 6c0
+	Armament:
+		Weapon: archermaidenshot
+		LocalOffset: 427,0,600
+	WithDeathAnimation:
+		DeathSequence: die
+		UseDeathTypeSuffix: false
+	AttackFrontal:
+		TargetFrozenActors: True
+		ForceFireIgnoresActors: True
+		FacingTolerance: 0
+	RenderSprites:
+		Image: japanwarhorse
+	Voiced:
+		VoiceSet: ArcherMaidenVoice
+	SpawnActorOnDeath:
+		Actor: japanarchermaiden
+
+japanshinobi:
+	Inherits: ^Infantry
+	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Buildable:
+		Prerequisites: ~infantry.japan
+		Description: Shinobi \n  Strong vs Infantry, Aircraft\n Weak vs Vehicles
+		Queue: Infantry
+		BuildPaletteOrder: 9
+	Valued:
+		Cost: 750
+	Mobile:
+		Speed: 70
+	Tooltip:
+		Name: Shinobi
+	Health:
+		HP: 15000
+	WithInfantryBody:
+		IdleSequences: idle1
+		StandSequences: stand
+		DefaultAttackSequence: shoot
+	AttackFrontal:
+		FacingTolerance: 0
+	Selectable:
+		Bounds: 768, 938, 0, -469
+		DecorationBounds: 682, 938, 0, -469
+	WithDeathAnimation:
+		DeathTypes:
+			DefaultDeath: 1
+			BulletDeath: 1
+			SmallExplosionDeath: 1
+			ExplosionDeath: 4
+	TakeCover:
+		SpeedModifier: 130
+		Duration: 75
+		DamageTriggers: TriggerProne
+	Armament:
+		Weapon: shinobishot
+		LocalOffset: 427,0,600
+	Armament@GARRISONED:
+		Name: garrisoned
+		Weapon: shinobishot
+	Armament@BUS:
+		Name: bus
+		Weapon: shinobishot
+	RenderSprites:
+		Image: japanshinobi
+        PlayerPalette: tsunit
+	Cloak:
+		IsPlayerPalette: true
+		InitialDelay: 100
+		CloakDelay: 25
+		CloakType: DarkAssasin
+		CloakSound: tphclo00.aud
+		UncloakSound: tphclo01.aud
+		UncloakOn: Damage
+	Voiced:
+		VoiceSet: ShinobiVoice

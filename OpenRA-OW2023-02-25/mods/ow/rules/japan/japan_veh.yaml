@@ -1,0 +1,122 @@
+japansuddentransport:
+	Inherits: APC
+	Buildable:
+		BuildPaletteOrder: 130
+		Prerequisites: ~vehicles.japan, ~techlevel.low
+		Description: Stealth APC
+	Armament:
+		Weapon: DawnM60mg
+	RenderSprites:
+		Image: japansuddentransport
+	Tooltip:
+		Name: Sudden Transport
+	Cloak:
+		InitialDelay: 40
+		CloakDelay: 40
+		CloakSound: trans1.aud
+		UncloakSound: trans1.aud
+		PauseOnCondition: cloak-force-disabled
+	GrantConditionOnDamageState@UNCLOAK:
+		Condition: cloak-force-disabled
+		ValidDamageStates: Critical
+	Voiced:
+		VoiceSet: SuddenTransportVoice
+
+japantsunamitank:
+	Inherits: ^TrackedVehicle
+	Inherits@GAINSEXPERIENCE: ^GainsExperience
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Buildable:
+		Queue: Vehicle
+		BuildPaletteOrder: 50
+		Prerequisites: ~vehicles.japan, ~techlevel.medium
+		Description: Tsunami Tank.\n  Strong vs Vehicles\n  Weak vs Aircraft
+	Valued:
+		Cost: 950
+	Tooltip:
+		Name: Tsunami Tank
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 40000
+	Armor:
+		Type: Heavy
+	Mobile:
+		Speed: 95
+	RevealsShroud:
+		MinRange: 4c0
+		Range: 6c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 4c0
+	Turreted:
+		TurnSpeed: 24
+	Armament:
+		Weapon: TsunamiTankshot
+		Recoil: 85
+		RecoilRecovery: 25
+		LocalOffset: 768,0,90
+		MuzzleSequence: muzzle
+		PauseOnCondition: disabled
+	AttackTurreted:
+		PauseOnCondition: disabled
+	WithMuzzleOverlay:
+	WithSpriteTurret:
+	ProducibleWithLevel:
+		Prerequisites: vehicles.upgraded
+
+japanmechatransformer:
+	Inherits: ^Vehicle
+	Inherits@GAINSEXPERIENCE: ^GainsExperience
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Buildable:
+		Queue: Vehicle
+		BuildPaletteOrder: 130
+		Prerequisites: ~vehicles.japan, ~techlevel.low
+		Description: Anti-personnel walker.\nSpeed: 99\n  Strong vs Infantry, Light armor\n  Weak vs Vehicles, Aircraft
+	Valued:
+		Cost: 650
+	Tooltip:
+		Name: Mecha Transformer
+	Health:
+		HP: 26000
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Armor:
+		Type: Light
+	Mobile:
+		TurnSpeed: 20
+		Speed: 99
+	RevealsShroud:
+		MinRange: 5c0
+		Range: 6c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 5c0
+	Cargo:
+		Types: Infantry
+		MaxWeight: 1
+		LoadingCondition: notmobile
+		InitialUnits: japantankbuster
+	AttackGarrisoned:
+		Armaments: bus
+		PortOffsets: 384,-256,384, 64,-256,384, -192,-256,384, -448,-256,384, -768,0,384, 384,256,384, 64,256,384, -192,256,384, -448,256,384, -640,-256,384, -640,256,384
+		PortYaws: 48,256,256,256,512,976,768,768,768,256,768
+		PortCones: 112,96,96,96,112,96,96,96,96,96,96
+	QuantizeFacingsFromSequence:
+		Sequence: stand
+	WithFacingSpriteBody:
+		Sequence: stand
+	WithMoveAnimation:
+		MoveSequence: run
+		ValidMovementTypes: Horizontal, Turn
+	ProducibleWithLevel:
+		Prerequisites: vehicles.upgraded
+	Selectable:
+		Bounds: 853, 1365, 0, -341
+	RenderSprites:
+		PlayerPalette: tsunit
+	DeathSounds:
+		Voice: DieTS
+	Cloak@stealthgen:
+		Palette: tscloak

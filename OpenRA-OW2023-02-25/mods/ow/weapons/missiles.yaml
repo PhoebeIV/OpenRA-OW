@@ -2301,3 +2301,112 @@ bingchilling:
 		Duration: 300
 		ValidTargets: GroundActor, WaterActor
 		DamageTypes: Prone50Percent, TriggerProne, SmallExplosionDeath
+
+tankbustershot:
+	ReloadDelay: 45
+	Range: 5c0
+	MinRange: 0c512
+	Report: JUTankB_weapFire1a.aud, JUTankB_weapFire1b.aud, JUTankB_weapFire1c.aud, JUTankB_weapFire1d.aud, JUTankB_weapFire1e.aud, JUTankB_weapFire1f.aud, JUTankB_weapFire1g.aud, JUTankB_weapFire1h.aud
+	ValidTargets: Ground, Water, GroundActor, WaterActor
+	Projectile: Missile
+		Speed: 213
+		Arm: 2
+		Blockable: false
+		ContrailLength: 10
+		ContrailStartColor: 00fbff
+		Inaccuracy: 128
+		Image: PLASMAPROJSMALL
+		Shadow: false
+		HorizontalRateOfTurn: 20
+		RangeLimit: 6c0
+		PointDefenseType: pointdefense
+	Warhead@1Dam: SpreadDamage
+		Spread: 128
+		Damage: 5000
+		ValidTargets: GroundActor, WaterActor, AirborneActor
+		Versus:
+			None: 7
+			Wood: 90
+			Light: 25
+			Heavy: 110
+			Concrete: 50
+		DamageTypes: Prone50Percent, TriggerProne, ExplosionDeath
+	Warhead@2Smu: LeaveSmudge
+		SmudgeType: Scorch
+		ValidTargets: Ground, Infantry
+	Warhead@3Eff: CreateEffect
+		Explosions: laserhitsmall
+		ImpactSounds: PlasmaCannonImpact1.aud, PlasmaCannonImpact2.aud
+		ValidTargets: Ground, Air, GroundActor, AirborneActor, WaterActor, Trees
+		ImpactActors: false
+	Warhead@4EffWater: CreateEffect
+		Explosions: med_splash
+		ImpactSounds: splash9.aud
+		ValidTargets: Water, Underwater
+		InvalidTargets: Bridge
+
+tankbustershotgarrison:
+	Inherits: tankbustershot
+	Range: 6c0
+
+rocketangelshot:
+	Inherits: ^AntiGroundMissile
+	ReloadDelay: 150
+	Burst: 8
+	BurstDelays: 4
+	Range: 7c768
+	MinRange: 2c512
+	Report: JURocke_weapMissa.aud, JURocke_weapMissb.aud, JURocke_weapMissc.aud, JURocke_weapMissd.aud, JURocke_weapMisse.aud, JURocke_weapMissf.aud, JURocke_weapMissg.aud
+	Projectile: Missile
+		Speed: 256
+		Inaccuracy: 1c128
+		CruiseAltitude: 2c0
+		RangeLimit: 12c410
+		ContrailStartColor: 00fbff
+		Image: plasmarocket
+		ContrailWidth: 0c8
+	Warhead@1Dam: SpreadDamage
+		Damage: 4000
+		Spread: 192
+		Versus:
+			None: 120
+			Wood: 10
+			Light: 100
+			Heavy: 50
+			Concrete: 100
+		DamageTypes: Prone50Percent, TriggerProne, SmallExplosionDeath
+	Warhead@3Eff: CreateEffect
+		Explosions: small_explosion
+		ImpactSounds: JURocke_impaMissa.aud, JURocke_impaMissb.aud, JURocke_impaMissc.aud, JURocke_impaMissd.aud, JURocke_impaMisse.aud, JURocke_impaMissf.aud, JURocke_impaMissg.aud
+	Warhead@4EffWater: CreateEffect
+		Explosions: large_splash
+		ImpactSounds: splash9.aud
+
+archermaidenshot:
+	ValidTargets: GroundActor, WaterActor, Ground, Water, Air, AirborneActor
+	ReloadDelay: 60
+	Range: 6c0
+	Report: JUArche_weapFire1a.aud, JUArche_weapFire1b.aud, JUArche_weapFire1c.aud, JUArche_weapFire1d.aud, JUArche_weapFire1e.aud, JUArche_weapFire1f.aud
+	Projectile: Bullet
+		Speed: 450
+		Image: DRAGON
+		ContrailLength: 8
+		Inaccuracy: 128
+	Warhead@GDam: SpreadDamage
+		Spread: 256
+		Damage: 4000
+		ValidTargets: GroundActor, WaterActor
+		Versus:
+			None: 120
+			Wood: 20
+			Light: 50
+			Heavy: 20
+			Concrete: 20
+		DamageTypes: Prone50Percent, TriggerProne, DefaultDeath
+	Warhead@1Dam: SpreadDamage
+		Spread: 256
+		Damage: 1750
+		ValidTargets: Air, AirborneActor
+		DamageTypes: Prone50Percent, TriggerProne, DefaultDeath
+	Warhead@3Eff: CreateEffect
+		ImpactSounds: JUArche_weapImpa1a.aud, JUArche_weapImpa1b.aud, JUArche_weapImpa1c.aud, JUArche_weapImpa1d.aud, JUArche_weapImpa1e.aud
