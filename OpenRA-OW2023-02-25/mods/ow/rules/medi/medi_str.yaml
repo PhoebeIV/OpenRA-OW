@@ -619,6 +619,13 @@ FARMMEDI:
 		RequiresCondition: slaveworkon
 		Condition: slavework
 		Range: 10c0
+	WithDecoration@slavework:
+		Image: pips
+		Sequence: mediorecorruptionpip
+		Palette: effect
+		Position: TopRight
+		ValidRelationships: None,Neutral,Enemy,Ally
+		RequiresCondition: slaveworkon
 	RevealsShroud:
 		Range: 4c0
 		RequiresCondition: ManaBoost
@@ -709,6 +716,21 @@ GoldMine:
 		ResourceType: Gems
 		RequiresCondition: GaryWork >= 17
 		MaxRange: 5
+	Power@D1:
+		Amount: -300
+		RequiresCondition: GaryWork >= 1 && GaryWork <= 4
+	Power@D2:
+		Amount: -500
+		RequiresCondition: GaryWork >= 5 && GaryWork <= 8
+	Power@D3:
+		Amount: -900
+		RequiresCondition: GaryWork >= 9 && GaryWork <= 12
+	Power@D4:
+		Amount: -1300
+		RequiresCondition: GaryWork >= 13 && GaryWork <= 16
+	Power@D5:
+		Amount: -2000
+		RequiresCondition: GaryWork >= 17 && GaryWork <= 20
 
 GoldMineD1:
 	Inherits: GoldMine
@@ -722,15 +744,13 @@ GoldMineD1:
 		Position: BottomLeft
 		RequiresSelection: true
 		PipCount: 2
-	Power:
-		Amount: -300
 	StoresResources:
 		Capacity: 1000
 	Valued:
 		Cost: 5000
 	CustomSellValue@GoldMine:
 		Value: 5000
-		
+
 GoldMineD2:
 	Inherits: GoldMine
 	Tooltip:
@@ -743,15 +763,13 @@ GoldMineD2:
 		Position: BottomLeft
 		RequiresSelection: true
 		PipCount: 4
-	Power:
-		Amount: -500
 	StoresResources:
 		Capacity: 2000
 	Valued:
 		Cost: 7000
 	CustomSellValue@GoldMine:
 		Value: 5000
-	
+
 GoldMineD3:
 	Inherits: GoldMine
 	Tooltip:
@@ -764,15 +782,13 @@ GoldMineD3:
 		Position: BottomLeft
 		RequiresSelection: true
 		PipCount: 6
-	Power:
-		Amount: -900
 	StoresResources:
 		Capacity: 4000
 	Valued:
 		Cost: 10000
 	CustomSellValue@GoldMine:
 		Value: 5000
-		
+
 GoldMineD4:
 	Inherits: GoldMine
 	Tooltip:
@@ -785,15 +801,13 @@ GoldMineD4:
 		Position: BottomLeft
 		RequiresSelection: true
 		PipCount: 8
-	Power:
-		Amount: -1300
 	StoresResources:
 		Capacity: 6000
 	Valued:
 		Cost: 15000
 	CustomSellValue@GoldMine:
 		Value: 5000
-		
+	
 GoldMineD5:
 	Inherits: GoldMine
 	Tooltip:
@@ -806,8 +820,6 @@ GoldMineD5:
 		Position: BottomLeft
 		RequiresSelection: true
 		PipCount: 10
-	Power:
-		Amount: -2000
 	StoresResources:
 		Capacity: 10000
 	Valued:
@@ -819,7 +831,7 @@ GoldMineSpawner:
 	Inherits: GoldMine
 	Buildable:
 		Queue: Tech
-		Prerequisites: ~structures.medi, laborcamp, library, ~techlevel.high, ~!techlevel.noepic
+		Prerequisites: ~structures.medi, laborcamp, library, ~techlevel.high, ~!techlevel.noepic, manasupply
 		Description: Slowly produces money when workers provided
 		BuildPaletteOrder: 31
 	Valued:
@@ -827,31 +839,31 @@ GoldMineSpawner:
 	UpdatesPlayerStatistics:
 		AddToArmyValue: False
 	GrantRandomCondition@DeepGold:
-		Conditions: gmdepth1, gmdepth2, gmdepth3, gmdepth4, gmdepth5
+		Conditions: gmdepth1,gmdepth11,gmdepth12,gmdepth13,gmdepth14,gmdepth15,gmdepth16,gmdepth17,gmdepth18, gmdepth2,gmdepth21,gmdepth22,gmdepth23,gmdepth24, gmdepth3,gmdepth31,gmdepth32, gmdepth4,gmdepth41, gmdepth5,
 	KillsSelf@gmd1:
-		RequiresCondition: gmdepth1
+		RequiresCondition: gmdepth1 || gmdepth11 || gmdepth12 || gmdepth13 || gmdepth14 || gmdepth15 || gmdepth16 || gmdepth17 || gmdepth18
 		delay: 5
 	SpawnActorOnDeath@gmd1:
 		Actor: GoldMineD1
-		RequiresCondition: gmdepth1
+		RequiresCondition: gmdepth1 || gmdepth11 || gmdepth12 || gmdepth13 || gmdepth14 || gmdepth15 || gmdepth16 || gmdepth17 || gmdepth18
 	KillsSelf@gmd2:
-		RequiresCondition: gmdepth2
+		RequiresCondition: gmdepth2 || gmdepth21 || gmdepth22 || gmdepth23 || gmdepth24
 		delay: 5
 	SpawnActorOnDeath@gmd2:
 		Actor: GoldMineD2
-		RequiresCondition: gmdepth2
+		RequiresCondition: gmdepth2 || gmdepth21 || gmdepth22 || gmdepth23 || gmdepth24
 	KillsSelf@gmd3:
-		RequiresCondition: gmdepth3
+		RequiresCondition: gmdepth3 || gmdepth31 || gmdepth32
 		delay: 5
 	SpawnActorOnDeath@gmd3:
 		Actor: GoldMineD3
-		RequiresCondition: gmdepth3
+		RequiresCondition: gmdepth3 || gmdepth31 || gmdepth32
 	KillsSelf@gmd4:
-		RequiresCondition: gmdepth4
+		RequiresCondition: gmdepth4 || gmdepth41
 		delay: 5
 	SpawnActorOnDeath@gmd4:
 		Actor: GoldMineD4
-		RequiresCondition: gmdepth4
+		RequiresCondition: gmdepth4 || gmdepth41
 	KillsSelf@gmd5:
 		RequiresCondition: gmdepth5
 		delay: 5
@@ -916,7 +928,7 @@ BLACKSMITHMEDI:
 		Bounds: 3072, 3072
 	Buildable:
 		Queue: Tech
-		Prerequisites: ~structures.medi, merchantguild, ~techlevel.medium, manasupply
+		Prerequisites: ~structures.medi, advtechcenter, ~techlevel.medium
 		Description: Allows the production of gun-powder based units.
 		BuildPaletteOrder: 7
 	Tooltip:
@@ -934,7 +946,7 @@ BLACKSMITHMEDI:
 	RevealsShroud:
 		Range: 4c0
 	Power:
-		Amount: -50
+		Amount: 0
 	Targetable:
 		TargetTypes: GroundActor, C4, DetonateAttack, Structure, SpyInfiltrate
 	ProvidesPrerequisite@buildingname:
@@ -950,7 +962,7 @@ CHURCHMEDI:
 		Bounds: 2048, 2048
 	Buildable:
 		Queue: Tech
-		Prerequisites: ~structures.medi, merchantguild, advtechcenter, ~techlevel.medium
+		Prerequisites: ~structures.medi, advtechcenter, ~techlevel.medium
 		Description: Unlocks priests that heal infantry.\Provides abilities
 		BuildLimit: 2
 		BuildPaletteOrder: 5
@@ -1096,7 +1108,7 @@ MERCHANTGUILD:
 		Bounds: 3072, 3072
 	Buildable:
 		Queue: Tech
-		Prerequisites: ~structures.medi, techcenter, ~techlevel.low
+		Prerequisites: ~structures.medi, techcenter, ~techlevel.low, manasupply
 		Description: Allows production of Workers.\nAlso provides passive income
 		BuildLimit: 3
 		BuildPaletteOrder: 3
@@ -1237,7 +1249,7 @@ LIBRARY:
 	Buildable:
 		Queue: Tech
 		BuildDuration: 4500
-		Prerequisites: ~structures.medi, manasupply, churchmedi, ~techlevel.unrestricted, ~!ai.boss
+		Prerequisites: ~structures.medi, manasupply, alchemylab, ~techlevel.unrestricted, ~!ai.boss
 		Description: Super Tech Center\nclones infantry units\nUnlocks Super Units
 		BuildLimit: 1
 		BuildPaletteOrder: 11
@@ -1324,7 +1336,7 @@ MANAWELL:
 		Bounds: 2048, 2048
 	Buildable:
 		Queue: Building
-		Prerequisites: ~structures.medi, merchantguild, ~!ai.powerout, ~!ai.boss,  ~techlevel.low
+		Prerequisites: ~structures.medi, techcenter, ~!ai.powerout, ~!ai.boss,  ~techlevel.low
 		Description: Provides Power
 		BuildPaletteOrder: 5
 	Tooltip:
@@ -1369,7 +1381,7 @@ DEEPMANAWELL:
 	Inherits@shape: ^3x3Shape
 	Buildable:
 		Queue: Building
-		Prerequisites: ~structures.medi, manawell, ~!ai.powerout, ~!ai.boss, ~techlevel.medium
+		Prerequisites: ~structures.medi, techcenter, ~!ai.powerout, ~!ai.boss, ~techlevel.medium
 		Description: Provides a large amount of Power
 		BuildPaletteOrder: 6
 	Building:
@@ -1422,7 +1434,7 @@ FireStormMedi:
 		Name: Natures Will
 	Buildable:
 		Queue: Tech
-		Prerequisites: ~structures.medi, manasupply, ~structures.elementalists, ~techlevel.unrestricted
+		Prerequisites: ~structures.medi, manasupply, ~structures.elementalists, ~techlevel.unrestricted, advtechcenter
 		BuildLimit: 1
 		Description: Provides the Natures Will Super Weapon\nDevestates an area with explosive magic
 		BuildPaletteOrder: 10
@@ -1503,7 +1515,7 @@ GATEOFLIGHT:
 		Name: Gate of Light
 	Buildable:
 		Queue: Tech
-		Prerequisites: ~structures.medi, manasupply, ~structures.holy, ~techlevel.unrestricted
+		Prerequisites: ~structures.medi, manasupply, ~structures.holy, ~techlevel.unrestricted, advtechcenter
 		BuildLimit: 1
 		Description: Provides the Gate of Babylon Super Weapon \nRains down swords that destroy an area.
 		BuildPaletteOrder: 10
@@ -1584,7 +1596,7 @@ MediDarkCrystal:
 		Name: Void Crystal
 	Buildable:
 		Queue: Tech
-		Prerequisites: ~structures.medi, manasupply, ~structures.darkness, ~techlevel.unrestricted
+		Prerequisites: ~structures.medi, manasupply, ~structures.darkness, ~techlevel.unrestricted, advtechcenter
 		BuildLimit: 1
 		Description: Provides the Void Rain Super Weapon\nDark energy rains from above to destroy an area
 		BuildPaletteOrder: 10
@@ -1712,7 +1724,7 @@ TheEye:
 		Name: The Eye
 	Buildable:
 		Queue: Tech
-		Prerequisites: ~structures.medi, merchantguild, ~techlevel.medium, manasupply
+		Prerequisites: ~structures.medi, advtechcenter, ~techlevel.medium, manasupply
 		Description: Provides radar
 		BuildLimit: 2
 		BuildPaletteOrder: 6
@@ -1925,7 +1937,7 @@ MonumentToTheGods:
 		Name: Monument To The Gods
 	Buildable:
 		Queue: Defense
-		Prerequisites: ~structures.medi, manasupply, ~structures.holy, ~techlevel.medium
+		Prerequisites: ~structures.medi, manasupply, ~structures.holy, ~techlevel.medium, churchmedi
 		BuildLimit: 5
 		Description: Gives Healing aura to units and structures, /nSmaller Aura that gives larger boost to just Holy Units (Disabled Neer Super units.)
 		BuildPaletteOrder: 15
@@ -2054,7 +2066,7 @@ MageWall:
 	Inherits: ^Wall
 	Buildable:
 		Queue: Wall
-		Prerequisites: ~structures.medi, ~techlevel.low
+		Prerequisites: ~structures.medi, ~techlevel.low, manasupply
 		Description: Magic Wall (Regenrates Health)
 		BuildPaletteOrder: 1
 	Gate:
@@ -2090,7 +2102,7 @@ MageWall:
 		StartIfBelow: 100
 		DamageCooldown: 75
 	Power:
-		Amount: 0
+		Amount: 10
 	Crushable:
 		CrushClasses: heavywall
 	RenderSprites:
@@ -2427,7 +2439,7 @@ ArcaneTower:
 	-SpawnActorsOnSell:
 	Buildable:
 		Queue: Defense
-		Prerequisites: ~structures.medi, merchantguild, ~techlevel.medium
+		Prerequisites: ~structures.medi, advtechcenter, ~techlevel.medium, manasupply
 		Description: Tower that user Mana To fire a constant Beam \nStrong vs Aircraft, Vehicles & Infantry
 		BuildPaletteOrder: 4
 	Building:
@@ -2673,97 +2685,3 @@ MediGarrisonTower:
 	WithCargoPipsDecoration:
 		Position: BottomLeft
 		RequiresSelection: true
-
-
-
-
-
-##Test Building
-Oceanorb:
-	Inherits: ^Defense
-	Inherits@IDISABLE: ^DisableOnLowPowerOrPowerDown
-	Inherits@AUTOTARGET: ^AutoTargetAll
-	-SpawnActorsOnSell:
-	Buildable:
-		Queue: Defense
-		Prerequisites: ~structures.medi, ~!structures.medi
-		Description: Tower that user Mana To fire a constant Beam \nStrong vs Aircraft, Vehicles & Infantry
-		BuildPaletteOrder: 4
-	Building:
-		BuildSounds: medibuild1.aud, medibuildjobdone1.aud, medibuildplace1.aud
-		TerrainTypes: Water
-		Footprint: =
-	Valued:
-		Cost: 1200
-	Tooltip:
-		Name: Arcane Tower
-	Selectable:
-		Bounds: 1024, 1024
-		DecorationBounds: 1024, 1024, 0, 0
-	GrantConditionOnDeploy:
-		UndeployedCondition: underwatercon
-		DeployedCondition: abovewatercon
-	SelectionDecorations:
-	Health:
-		HP: 40000
-	Armor:
-		Type: Heavy
-	WithBuildingBib:
-		HasMinibib: true
-	Turreted:
-		TurnSpeed: 1023
-		Offset: 128,128,384
-	Armament@Floating:
-		Name: AboveWaterWepAA
-		Weapon: ArcaneZapWaterAA
-		LocalOffset: 256,128,0, 256,-128,0
-		LocalYaw: -100,100
-		RequiresCondition: abovewatercon
-	Armament@FloatingBoats:
-		Name: AboveWaterWep
-		Weapon: ArcaneZapBoats
-		LocalOffset: 256,128,0, 256,-128,0
-		LocalYaw: -100,100
-		RequiresCondition: abovewatercon
-	Armament@UnderWater:
-		Name: UnderWaterWep
-		Weapon: ArcaneZapWater
-		LocalOffset: 256,128,0, 256,-128,0
-		LocalYaw: -100,100
-		RequiresCondition: underwatercon
-	AttackTurreted:
-		Armaments: UnderWaterWep, AboveWaterWep, AboveWaterWepAA
-		RequiresCondition: !build-incomplete
-		PauseOnCondition: lowpower || disabled
-	-BodyOrientation:
-	Cloak:
-		CloakType: Underwater
-		RequiresCondition: underwatercon
-		CloakedCondition: underwater
-		CloakDelay: 100
-		UncloakOn: Attack, Demolish, Damage
-	ClassicFacingBodyOrientation:
-		QuantizedFacings: 8
-	Power:
-		Amount: -150
-	DetectCloaked@UNDERWATER:
-		DetectionTypes: Underwater
-		Range: 8c0
-		RequiresCondition: !disabled && underwatercon
-	RevealsShroud@UNDERWATER:
-		Range: 5c0
-		RequiresCondition: !disabled && underwatercon
-	RevealsShroud@Floating:
-		Range: 8c0
-		RequiresCondition: !disabled && abovewatercon
-	Targetable:
-		TargetTypes: GroundActor, WaterActor, Ship, Submarine, Repair
-		RequiresCondition: !underwater
-	Targetable@UNDERWATER:
-		TargetTypes: Underwater, Submarine
-		RequiresCondition: underwater
-	ProvidesPrerequisite@buildingname:
-	RenderSprites:
-		Image: mediarcanetower
-
-
