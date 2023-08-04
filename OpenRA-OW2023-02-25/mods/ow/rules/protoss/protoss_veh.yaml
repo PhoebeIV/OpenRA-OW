@@ -4,21 +4,23 @@
 		Condition: shields
 	DamageMultiplier@shields:
 		RequiresCondition: shields && shielded
-		Modifier: 90
+		Modifier: 80
 	Shielded:
 		MaxStrength: 20000
 		RegenAmount: 350
-		RegenInterval: 25
-		RegenDelay: 25
+		RegenInterval: 35
+		RegenDelay: 50
 		SelectionBarColor: AAAAFF
 		ShieldsUpCondition: shielded
 		ShieldsDamagedCondition: damaged_shield
-		RequiresCondition: external_shield && !defiler_plague && !emp_shields
+		BypassDamageTypes: BypassShield
+		OverrideDamageType: BypassedShield
+		RequiresCondition: external_shield && !emp_shields
 	ShieldRegenMultiplier:
 		Modifier: 5
 		RequiresCondition: shield_regen
 	ShieldRegenMultiplier@shields:
-		Modifier: 80
+		Modifier: 75
 		RequiresCondition: shields
 	ExternalCondition@shieldregen:
 		Condition: shield_regen
@@ -26,11 +28,11 @@
 		Condition: emp_shields
 	Targetable@shielddamage:
 		TargetTypes: ShieldRegen
-		RequiresCondition: damaged_shield
+		RequiresCondition: damaged_shield && !defiler_plague
 	Armor@shield:
 		RequiresCondition: shielded
 		Type: Shield
-	Armor: 
+	Armor:
 		RequiresCondition: !shielded
 	GrantCondition@shields:
 		Condition: external_shield

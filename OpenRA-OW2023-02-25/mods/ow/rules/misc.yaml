@@ -56,7 +56,7 @@ MINE:
 		Weapon: OreMineExplosion
 		EmptyWeapon: OreMineExplosion
 	GrantRandomCondition@tibtree:
-		Conditions: tibtree,none,none,none,none,none,none,none,none,none,none,none,none,none
+		Conditions: tibtree,none,none,none,none,none,none,none,none,none,none,none,none,none,none,none,none,none,none
 	GrantRandomCondition@infectable:
 		Conditions: infectable,lessinfectable
 	ExternalCondition@growth:
@@ -64,7 +64,7 @@ MINE:
 	GrantPeriodicCondition@aaa:
 		RequiresCondition: (lessinfectable && (growth > 50)) || (infectable && (growth > 30)) || tibtree
 		Condition: dotransform
-		CooldownDuration: 750, 1500
+		CooldownDuration: 1500, 4500
 		ActiveDuration: 50
 	TransformOnCondition:
 		RequiresCondition: dotransform
@@ -113,7 +113,7 @@ GMINE:
 	GrantPeriodicCondition@aaa:
 		RequiresCondition: (growth > 45) || tibtree
 		Condition: dotransform
-		CooldownDuration: 750, 1500
+		CooldownDuration: 1500, 4500
 		ActiveDuration: 50
 	TransformOnCondition:
 		RequiresCondition: dotransform
@@ -207,7 +207,7 @@ SPLIT3:
 		ResourceType: Tiberium
 		Interval: 65
 		MaxRange: 500
-	SeedsResource@burst: 
+	SeedsResource@burst:
 		RequiresCondition: burst
 		ResourceType: Tiberium
 		Interval: 3
@@ -261,7 +261,7 @@ SPLIT4:
 		ResourceType: BlueTiberium
 		Interval: 65
 		MaxRange: 500
-	SeedsResource@burst: 
+	SeedsResource@burst:
 		RequiresCondition: burst
 		ResourceType: BlueTiberium
 		Interval: 3
@@ -310,7 +310,7 @@ TMONOLITH:
 		ResourceType: Tiberium
 		Interval: 50
 		MaxRange: 500
-	SeedsResource@burst: 
+	SeedsResource@burst:
 		RequiresCondition: burst
 		ResourceType: Tiberium
 		Interval: 3
@@ -351,7 +351,7 @@ TMONOLITH.BLUE:
 		Palette: bluetiberium
 	SeedsResource:
 		ResourceType: BlueTiberium
-	SeedsResource@burst: 
+	SeedsResource@burst:
 		ResourceType: BlueTiberium
 	GrantPeriodicCondition@burst:
 		CooldownDuration: 500, 900
@@ -470,9 +470,17 @@ T07:
 
 T08:
 	Inherits@infect: ^InfectableTree
+	FreeActor@1:
+		SpawnOffset: 0,0
+	FreeActor@2:
+		SpawnOffset: 0,0
 
 T09:
 	Inherits@infect: ^InfectableTree
+	FreeActor@1:
+		SpawnOffset: 0,0
+	FreeActor@2:
+		SpawnOffset: 0,0
 
 T10:
 	Inherits@infect: ^InfectableTree
@@ -500,3 +508,49 @@ T17:
 
 TC01:
 	Inherits@infect: ^InfectableTree
+	FreeActor@1:
+		SpawnOffset: 1,1
+	FreeActor@2:
+		SpawnOffset: 1,1
+
+1TNK.CRATER:
+	Inherits: 1TNK.MINE
+	-Explodes:
+	SpawnActorOnDeath:
+		Actor: hugecrater
+		Offset: -8,-6
+		SkipMakeAnimations: false
+
+HUGECRATER:
+	Inherits@1: ^SpriteActor
+	Inherits@shape: ^1x1Shape
+	RenderSprites:
+		Palette: terrain
+	HiddenUnderShroud:
+	WithSpriteBody:
+	Building:
+		Footprint: ___xxxxxxxxxx__ _xxxxxxxxxxxxx_ _xx_________xx_ _XX_________XXX XXX__________XX XX____________X XX___________XX XX___________XX XX___________X_ _Xx___________x _XXXXXX__XXXXX_ ______XXXXXXXX_ ________XX_____
+		Dimensions: 15,13
+	AppearsOnRadar:
+	RadarColorFromTerrain:
+		Terrain: Rock
+	Health:
+		HP: 900000
+	Armor:
+		Type: Tree
+	MapEditorData:
+		ExcludeTilesets: INTERIOR
+		Categories: Tree
+	RequiresSpecificOwners:
+		ValidOwnerNames: Neutral
+	WithMakeAnimation:
+	WithDeathAnimation:
+		DeathSequence: dead
+		UseDeathTypeSuffix: false
+	KillsSelf:
+		Delay: 15000
+	ExplodeWeapon:
+		Weapon: SmokingCrater
+	ProximityExternalCondition:
+		Condition: remove_tree
+		Range: 8c0

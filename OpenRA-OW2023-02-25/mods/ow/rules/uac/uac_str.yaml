@@ -162,3 +162,60 @@ HELLGATE.D:
 		Image: hellgate
 	ProvidesPrerequisite@buildingname:
 		Prerequisite: hellgate
+
+BFG10k:
+	Inherits: ^NeutralPlane
+	Health:
+		HP: 200000
+	Aircraft:
+		TurnSpeed: 20
+		Speed: 150
+		CruiseAltitude: 36c0
+		MaximumPitch: 110
+		VTOL: true
+		LandableTerrainTypes: Clear, Road, Creep, Bridge, Water, Ore, Gems, Rough, Tiberium, BlueTiberium, Radiation, Beach
+	WithMuzzleOverlay:
+	-Targetable@GROUND:
+	-Targetable@AIRBORNE:
+	-Targetable@REPAIR:
+	-ActorLostNotification:
+	-GpsDot:
+	Contrail:
+		Offset: 0,0,0
+		StartColor: FFFDCF
+		EndColor: B6FF94
+		TrailLength: 50
+		StartColorUsePlayerColor: false
+		StartWidth: 2c0
+		EndWidth: 256
+	-Selectable:
+	AttackAircraft:
+	Armament:
+		Weapon: DoomBFG
+	Tooltip:
+		Name: BFG10k
+		ShowOwnerRow: false
+	RejectsOrders:
+	-SpawnActorOnDeath:
+	FallsToEarth:
+		Explosion: BFG10kExplosion
+		Moves: true
+		Velocity: 150
+		MaximumSpinSpeed: 0
+	AmbientSound@airborne:
+		RequiresCondition: !spawning
+		SoundFiles: texture5_2.aud
+	-EjectOnDeath:
+	Interactable:
+	ExplodeWeapon:
+		Weapon: BFGZapCluster
+	WithFacingSpriteBody:
+		RequiresCondition: !spawning
+	GrantTimedCondition:
+		Condition: spawning
+	AmbientSound@fire:
+		SoundFiles: debfgfire2.wav
+		Interval: 9000
+	AmbientSound@fire2:
+		SoundFiles: debfgfire2.wav
+		Interval: 9000

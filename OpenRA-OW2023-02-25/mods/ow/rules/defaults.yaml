@@ -96,6 +96,7 @@
 		Step: -101
 		Delay: 5
 		StartIfBelow: 101
+		DamageTypes: BypassShield
 		RequiresCondition: defiler_plague && enough_health
 	GrantConditionOnDamageState@plague:
 		Condition: enough_health
@@ -182,12 +183,14 @@
 	Shielded:
 		MaxStrength: -1
 		RegenAmount: 350
-		RegenInterval: 25
-		RegenDelay: 25
+		RegenInterval: 50
+		RegenDelay: 50
 		SelectionBarColor: AAAAFF
 		ShieldsUpCondition: shielded
 		ShieldsDamagedCondition: damaged_shield
-		RequiresCondition: external_shield && !defiler_plague && !emp_shields
+		BypassDamageTypes: BypassShield
+		OverrideDamageType: BypassedShield
+		RequiresCondition: external_shield && !emp_shields
 	ShieldRegenMultiplier:
 		Modifier: 5
 		RequiresCondition: shield_regen
@@ -199,15 +202,21 @@
 	Armor@shield:
 		RequiresCondition: shielded
 		Type: Shield
-	Armor: 
+	Armor:
 		RequiresCondition: !shielded
 	ExternalCondition@extshield:
 		Condition: external_shield
 	ExternalCondition@empshield:
 		Condition: emp_shields
-	DamageMultiplier@shields:
-		RequiresCondition: shielded
-		Modifier: 150
+	ChangesHealth@plague:
+		Step: -10001
+		RequiresCondition: defiler_plague && enough_health && shielded
+	ChangesHealth@plaguenoshield:
+		Step: -101
+		Delay: 5
+		StartIfBelow: 101
+		DamageTypes: BypassShield
+		RequiresCondition: defiler_plague && enough_health && !shielded
 
 ^Pallyboosted:
 	ExternalCondition@pallyboost:
@@ -323,8 +332,8 @@
 		Step: -100
 		Delay: 5
 		StartIfBelow: 111
-		DamageCooldown: 0	
-	
+		DamageCooldown: 0
+
 ^DeathKnightAuraB:
 	Inherits@DeathKnightAura: ^DeathKnightAura
 	ChangesHealth@DeathKnightAura:
@@ -412,7 +421,7 @@
 	Armor@medishield:
 		RequiresCondition: shielded
 		Type: Shield
-	Armor@mediShields: 
+	Armor@mediShields:
 		RequiresCondition: !shielded
 
 ^GlobalBounty:
@@ -511,7 +520,7 @@
 	SpeedMultiplier@HolyBoostedSpeed:
 		Modifier: 110
 		RequiresCondition: MonumentboostHoly && HolyBoostableOnly && !EpicDenialAura
-	
+
 
 ^MediSoldier:
 	Inherits: ^Infantry
@@ -737,7 +746,13 @@
 		Weapon: GraveyardSpawnerDeath
 		EmptyWeapon: GraveyardSpawnerDeath
 	ChangesHealth@tiberium:
-		RequiresCondition: standing_in_tiberium
+		RequiresCondition: standing_in_tiberium && shielded
+		DamageTypes: TiberiumDeath, BypassShield
+		Step: -20000
+		Delay: 16
+		StartIfBelow: 101
+	ChangesHealth@tiberium_noshield:
+		RequiresCondition: standing_in_tiberium && !shielded
 		DamageTypes: TiberiumDeath
 		Step: -200
 		Delay: 16
@@ -1124,6 +1139,8 @@
 		DamageCooldown: 40
 	RevealOnFire:
 	ChangesHealth@plague:
+		Delay: 3
+	ChangesHealth@plaguenoshield:
 		Delay: 3
 	GrantConditionOnPrerequisite@bar1:
 		Prerequisites: upgrade.buildarmor1
@@ -1645,7 +1662,7 @@
 
 ^Helicopter:
 	-ChangesHealth@landed:
-	Aircraft: 
+	Aircraft:
 		LandableTerrainTypes: Clear, Rough, Road, Ore, Beach, Gems, Creep, Tiberium, BlueTiberium
 
 ^TSPlane:
@@ -2528,9 +2545,33 @@
 	Targetable@tree:
 		TargetTypes: TibTree
 
+^Tree:
+	ExternalCondition@remove: 
+		Condition: remove_tree
+	KillsSelf@remove:
+		RequiresCondition: remove_tree
+		Delay: 5
+
+^TreeHusk:
+	ExternalCondition@remove: 
+		Condition: remove_tree
+	KillsSelf@remove:
+		RequiresCondition: remove_tree
+		RemoveInstead: true
+		Delay: 100
+
 ^InfectableTree:
 	Health:
-		HP: 900000
+		HP: 100000
+	Building:
+		TerrainTypes: Clear,Road
+		BuildSounds: hvydoor1.aud
+	Buildable:
+		Queue: Wall
+		Prerequisites: ~disabled
+		BuildPaletteOrder: 90000
+		Icon: idle
+	ActorPreviewPlaceBuildingPreview:
 	Tooltip:
 		RequiresCondition: !tibtree
 	Tooltip@infected:
@@ -2546,26 +2587,31 @@
 	GrantRandomCondition@infectable:
 		Conditions: infectable,lessinfectable,moreinfectable
 	GrantRandomCondition@color:
-		Conditions: green,green,green,blue
+		Conditions: green,green,green,green,green,blue
 	ExternalCondition@growth:
 		Condition: growth
 	GrantPeriodicCondition@aaa:
 		RequiresCondition: (lessinfectable && (growth > 75)) || (infectable && (growth > 50)) || (moreinfectable && (growth > 30)) || tibtree
 		Condition: dotransform
-		CooldownDuration: 750, 1500
+		CooldownDuration: 1500, 4500
 		ActiveDuration: 50
 	AmbientSound:
 		RequiresCondition: (lessinfectable && (growth > 75)) || (infectable && (growth > 50)) || (moreinfectable && (growth > 30)) || tibtree
 		SoundFiles: ambtibe2.wav
-		Interval: 500, 1450
-	TransformOnCondition:
+		Delay: 250, 3000
+		Interval: 1500, 3000
+	FreeActor@1:
 		RequiresCondition: dotransform && green
-		IntoActor: split3
-		SkipMakeAnims: false
-	TransformOnCondition@2:
+		Actor: split3
+		SpawnOffset: 1,0
+	FreeActor@2:
 		RequiresCondition: dotransform && blue
-		IntoActor: split4
-		SkipMakeAnims: false
+		Actor: split4
+		SpawnOffset: 1,0
+	KillsSelf:
+		RequiresCondition: dotransform
+		RemoveInstead: true
+		Delay: 2
 	ExternalCondition@tibtree:
 		Condition: tibtree
 	ProximityExternalCondition@tree:

@@ -41,20 +41,14 @@ protoss.shields:
 		AreaTypes: pylon
 		Adjacent: 3
 	RepairableBuilding:
-		RepairStep: 200
+		RepairStep: 400
 		PlayerExperience: 2
 		RequiresCondition: pylon
-		RepairPercent: 0
 	ExternalCondition@pylon:
 		Condition: pylon
 	WithColoredOverlay@nopylon:
 		RequiresCondition: !pylon
-		Color: 000000B4
-	ChangesHealth@shield:
-		RequiresCondition: pylon
-	ChangesHealth@trigger_repair:
-		RequiresCondition: trigger_repair && pylon
-		Step: 100
+		Color: 0000005E
 	-ChangesHealth@trigger_repair2:
 
 PNEXUS:
@@ -313,6 +307,8 @@ PGATEW.warp:
 		Cost: 1000
 	Health:
 		HP: 60000
+	Power:
+		Amount: -20
 	SpawnActorOnDeath@hole:
 		Actor: pgatew
 	ChangesHealth@building:
@@ -346,6 +342,8 @@ PGATEW:
 		MaxStrength: 60000
 	Armor:
 		Type: Wood
+	Power:
+		Amount: -20
 	RevealsShroud:
 		MinRange: 4c0
 		Range: 5c0
@@ -441,6 +439,11 @@ PPYLON.warp:
 		Adjacent: 4
 	Selectable:
 		Bounds: 1638, 1638
+	GrantCondition:
+		Condition: alive
+	Power:
+		Amount: 100
+		RequiresCondition: !alive
 
 PPYLON:
 	Inherits: ^ProtossBuilding
@@ -490,7 +493,7 @@ PPYLON:
 	RevealsShroud:
 		Range: 4c0
 	Power:
-		Amount: 0
+		Amount: 100
 	Targetable:
 		TargetTypes: GroundActor, Structure, C4, DetonateAttack, SpyInfiltrate
 	WithIdleOverlay@damage:
@@ -531,6 +534,8 @@ PASSIM.warp:
 		Cost: 1400
 	Health:
 		HP: 90000
+	Power:
+		Amount: -30
 	SpawnActorOnDeath@hole:
 		Actor: passim
 	ChangesHealth@building:
@@ -564,6 +569,8 @@ PASSIM:
 		MaxStrength: 50000
 	Armor:
 		Type: Wood
+	Power:
+		Amount: -30
 	RevealsShroud:
 		MinRange: 4c0
 		Range: 5c0
@@ -624,6 +631,8 @@ PCYBER.warp:
 		Cost: 1200
 	Health:
 		HP: 120000
+	Power:
+		Amount: -60
 	SpawnActorOnDeath@hole:
 		Actor: pcyber
 	ChangesHealth@building:
@@ -660,6 +669,8 @@ PCYBER:
 		MaxStrength: 65000
 	Armor:
 		Type: Wood
+	Power:
+		Amount: -60
 	RevealsShroud:
 		Range: 5c0
 	Targetable:
@@ -695,9 +706,11 @@ PPHOTO.warp:
 	Valued:
 		Cost: 900
 	Health:
-		HP: 40000
+		HP: 30000
 	Armor:
 		Type: Heavy
+	Power:
+		Amount: -40
 	SpawnActorOnDeath@hole:
 		Actor: pphoto
 	ChangesHealth@building:
@@ -738,11 +751,13 @@ PPHOTO:
 		Footprint: ++ xx
 		Dimensions: 2,2
 	Health:
-		HP: 40000
+		HP: 30000
 	Shielded:
-		MaxStrength: 40000
+		MaxStrength: 30000
 	Armor:
 		Type: Heavy
+	Power:
+		Amount: -40
 	RevealsShroud:
 		MinRange: 5c0
 		Range: 8c0
@@ -794,7 +809,7 @@ PPHOTO:
 		Condition: charge
 	RangeMultiplier@charge:
 		RequiresCondition: charge
-		Modifier: 115
+		Modifier: 106
 	RevealsShroudMultiplier@charge:
 		RequiresCondition: charge
 		Modifier: 115
@@ -814,6 +829,8 @@ POBSER.warp:
 		Cost: 1800
 	Health:
 		HP: 100000
+	Power:
+		Amount: -40
 	SpawnActorOnDeath@hole:
 		Actor: pobser
 	ChangesHealth@building:
@@ -853,6 +870,8 @@ POBSER:
 		MaxStrength: 55000
 	Armor:
 		Type: Wood
+	Power:
+		Amount: -40
 	Targetable:
 		TargetTypes: GroundActor, Structure, C4, DetonateAttack, SpyInfiltrate
 	RevealsShroud:
@@ -894,7 +913,9 @@ PSUPOR.warp:
 	Tooltip:
 		Name: Warp (Foundry)
 	Valued:
-		Cost: 2000
+		Cost: 1500
+	Power:
+		Amount: -100
 	Health:
 		HP: 60000
 	SpawnActorOnDeath@hole:
@@ -934,6 +955,8 @@ PSUPOR:
 		MaxStrength: 55000
 	Armor:
 		Type: Wood
+	Power:
+		Amount: -100
 	Targetable:
 		TargetTypes: GroundActor, Structure, C4, DetonateAttack, SpyInfiltrate
 	RevealsShroud:
@@ -998,6 +1021,8 @@ PADUN.warp:
 		Cost: 1500
 	Health:
 		HP: 60000
+	Power:
+		Amount: -100
 	SpawnActorOnDeath@hole:
 		Actor: padun
 	ChangesHealth@building:
@@ -1034,6 +1059,8 @@ PADUN:
 		HP: 50000
 	Shielded:
 		MaxStrength: 50000
+	Power:
+		Amount: -100
 	Armor:
 		Type: Wood
 	RevealsShroud:
@@ -1070,6 +1097,8 @@ PTEMPL.warp:
 		Cost: 3500
 	Health:
 		HP: 80000
+	Power:
+		Amount: -200
 	SpawnActorOnDeath@hole:
 		Actor: ptempl
 	ChangesHealth@building:
@@ -1120,6 +1149,8 @@ PTEMPL:
 		MaxStrength: 60000
 	Armor:
 		Type: Wood
+	Power:
+		Amount: -200
 	RevealsShroud:
 		MinRange: 5c0
 		Range: 7c0
@@ -1194,6 +1225,8 @@ PROBOT.warp:
 		Cost: 2000
 	Health:
 		HP: 150000
+	Power:
+		Amount: -30
 	SpawnActorOnDeath@hole:
 		Actor: probot
 	ChangesHealth@building:
@@ -1234,6 +1267,8 @@ PROBOT:
 		MaxStrength: 80000
 	Armor:
 		Type: Wood
+	Power:
+		Amount: -30
 	RevealsShroud:
 		MinRange: 4c0
 		Range: 5c0
@@ -1305,6 +1340,8 @@ PSBATT.warp:
 		MaxStrength: 30000
 	Armor:
 		Type: Wood
+	Power:
+		Amount: -60
 	SpawnActorOnDeath@hole:
 		Actor: psbatt
 	ChangesHealth@building:
@@ -1350,6 +1387,8 @@ PSBATT:
 		MaxStrength: 30000
 	Armor:
 		Type: Wood
+	Power:
+		Amount: -60
 	RevealsShroud:
 		MinRange: 4c0
 		Range: 5c0
@@ -1370,14 +1409,8 @@ PSBATT:
 		TargetRelationships: Ally
 		ForceTargetRelationships: None
 		PauseOnCondition: !ammo
-	Armament@2:
-		Weapon: ShieldBatteryShield
-		Cursor: repair
-		OutsideRangeCursor: repair
-		TargetRelationships: Ally
-		ForceTargetRelationships: None
-		PauseOnCondition: !ammo
 	ProximityExternalCondition@shield:
+		RequiresCondition: !build-incomplete && !disabled
 		Condition: external_shield
 		Range: 10c0
 	AttackOmni:
@@ -1397,7 +1430,7 @@ PSBATT:
 		AmmoCondition: ammo
 	ReloadAmmoPool:
 		ResetOnFire: true
-		Delay: 15
+		Delay: 14
 	WithAmmoPipsDecoration:
 		Position: BottomLeft
 		Margin: 4, 3
@@ -1420,8 +1453,9 @@ PSBATT:
 		IsPlayerPalette: true
 	AutoTarget:
 		InitialStance: AttackAnything
-		MinimumScanTimeInterval: 49
-		MaximumScanTimeInterval: 51
+		MinimumScanTimeInterval: 20
+		MaximumScanTimeInterval: 25
+		RequiresCondition: ammo > 10
 
 
 PSTARG.warp:
@@ -1439,6 +1473,8 @@ PSTARG.warp:
 		Cost: 1200
 	Health:
 		HP: 120000
+	Power:
+		Amount: -40
 	SpawnActorOnDeath@hole:
 		Actor: pstarg
 	ChangesHealth@building:
@@ -1481,6 +1517,8 @@ PSTARG:
 		MaxStrength: 70000
 	Armor:
 		Type: Wood
+	Power:
+		Amount: -40
 	RevealsShroud:
 		MinRange: 5c0
 		Range: 6c0
@@ -1552,6 +1590,8 @@ PFLEET.warp:
 		Cost: 6000
 	Health:
 		HP: 300000
+	Power:
+		Amount: -400
 	SpawnActorOnDeath@hole:
 		Actor: pfleet
 	ChangesHealth@building:
@@ -1606,6 +1646,8 @@ PFLEET:
 		HP: 80000
 	Shielded:
 		MaxStrength: 80000
+	Power:
+		Amount: -400
 	Armor:
 		Type: Wood
 	RevealsShroud:

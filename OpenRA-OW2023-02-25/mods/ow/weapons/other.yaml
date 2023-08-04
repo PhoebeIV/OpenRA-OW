@@ -259,6 +259,7 @@ Heal:
 		ValidRelationships: Ally
 		ValidTargets: Heal
 		DebugOverlayColor: 00FF00
+		DamageTypes: BypassShield
 	Warhead@cond: GrantExternalCondition
 		Condition: healed
 		Range: 1c0
@@ -1723,14 +1724,14 @@ LightningZap:
 	Warhead@1Dam: SpreadDamage
 		Spread: 84
 		Damage: 20000
-		ValidTargets: GroundActor, WaterActor
+		ValidTargets: GroundActor, WaterActor, Trees
 		Versus:
 			None: 300
 			Wood: 100
 			Light: 100
 			Heavy: 100
 			Concrete: 100
-		DamageTypes: Prone50Percent, TriggerProne, ElectricityDeath
+		DamageTypes: Prone50Percent, TriggerProne, ElectricityDeath, Incendiary
 		AffectsParent: true
 	Warhead@2Eff: CreateEffect
 		Explosions: lightning1, lightning2, lightning3, lightning4, lightning5, lightning6, lightning7, lightning8, lightning9, lightning10
@@ -1743,18 +1744,6 @@ LightningZap:
 	Warhead@2Smu: LeaveSmudge
 		SmudgeType: Scorch
 		InvalidTargets: Structure, Wall
-	Warhead@4Eff: CreateEffect
-		Delay: 1
-		Explosions: lightning1, lightning2, lightning3, lightning4, lightning5, lightning6, lightning7, lightning8, lightning9, lightning10
-		ImpactActors: false
-	Warhead@5Eff: CreateEffect
-		Delay: 2
-		Explosions: lightning1, lightning2, lightning3, lightning4, lightning5, lightning6, lightning7, lightning8, lightning9, lightning10
-		ImpactActors: false
-	Warhead@6Eff: CreateEffect
-		Delay: 3
-		Explosions: lightning1, lightning2, lightning3, lightning4, lightning5, lightning6, lightning7, lightning8, lightning9, lightning10
-		ImpactActors: false
 
 CrateLightningZap:
 	Inherits: LightningZap
@@ -2081,58 +2070,42 @@ ReaverScarab:
 
 ShieldBattery:
 	ReloadDelay: 2
-	Range: 6c0
-	ValidTargets: Heal, Repair, StructureRepair
+	Range: 7c0
+	ValidTargets: ShieldRegen
 	TargetActorCenter: true
 	Projectile: LaserZap
 		Width: 35
 		Duration: 2
 		TrackTarget: True
 		Color: 00BBFF
-	Warhead@1Dam: SpreadDamage
+	Warhead@Infantry: SpreadDamage
 		Spread: 96
-		Damage: -1200
+		Damage: -900
 		ValidRelationships: Ally
-		ValidTargets: Heal
-		InvalidTargets: ShieldRegen
+		ValidTargets: ShieldRegen
+		InvalidTargets: Vehicle, Structure, AirborneActor
 		DebugOverlayColor: 00FF00
-	Warhead@2Dam: SpreadDamage
+	Warhead@Vehicle: SpreadDamage
 		Spread: 213
 		Damage: -600
 		ValidRelationships: Ally
-		ValidTargets: Repair
-		InvalidTargets: AirborneActor, ShieldRegen
+		ValidTargets: ShieldRegen
+		InvalidTargets: Infantry, Structure, AirborneActor
 		DebugOverlayColor: 00FF00
-	Warhead@3Dam: SpreadDamage
+	Warhead@Structure: SpreadDamage
 		Spread: 213
 		Damage: -500
 		ValidRelationships: Ally
-		ValidTargets: StructureRepair
-		InvalidTargets: ShieldRegen
+		ValidTargets: ShieldRegen
+		InvalidTargets: Infantry, Vehicle, AirborneActor
 		DebugOverlayColor: 00FF00
-	Warhead@4Dam: SpreadDamage
+	Warhead@Aircraft: SpreadDamage
 		Spread: 213
 		Damage: -200
 		ValidRelationships: Ally
-		ValidTargets: Repair, AirborneActor
-		InvalidTargets: GroundActor, ShieldRegen
-		DebugOverlayColor: 00FF00
-
-ShieldBatteryShield:
-	ReloadDelay: 6
-	Range: 6c0
-	ValidTargets: ShieldRegen
-	TargetActorCenter: true
-	Projectile: LaserZap
-		Width: 35
-		Duration: 3
-		TrackTarget: True
-		Color: 00BBFF
-	Warhead@curtain: GrantExternalCondition
-		Condition: shield_regen
-		Range: 213
-		Duration: 16
 		ValidTargets: ShieldRegen
+		InvalidTargets: Infantry, Structure, Vehicle
+		DebugOverlayColor: 00FF00
 
 CarrierSpawn:
 	ReloadDelay: 350
@@ -2262,7 +2235,7 @@ TemplarWeather:
 		Weapon: TemplarLightning
 		RandomClusterCount: 1
 		Dimensions: 3,3
-		Footprint: xxx xxx xxx 
+		Footprint: xxx xxx xxx
 	Warhead@lightning1: FireCluster
 		Delay: 100
 		Weapon: TemplarLightning
@@ -2396,16 +2369,13 @@ ArchonBeam1:
 
 TemplarBlade:
 	ReloadDelay: 30
-	Range: 2c0
+	Range: 2c512
 	Report: uzefir00.aud
 	ValidTargets: Ground, Water, GroundActor, WaterActor
-	Projectile: LaserZap
-		Duration: 0
-		Width: 1
-		Color: 000000FF
-	Warhead@1Dam: TargetDamage
-		Spread: 64
+	Projectile: AthenaProjectile
 		Delay: 5
+	Warhead@1Dam: TargetDamage
+		Spread: 128
 		Damage: 15000
 		Versus:
 			None: 100
@@ -2517,11 +2487,11 @@ USAPaladinLaser:
         InvalidTargets: Vehicle, Tank, Structure, Wall
     DamageTypes: Prone50Percent, TriggerProne, FireDeath
 	-Warhead@2Smu:
-    
+
 usakingraptorlaser:
 	Inherits: USAPaladinLaser
 
-    
+
 USAAvengerLaser:
 	ReloadDelay: 1
 	Range: 9c0
@@ -2546,7 +2516,7 @@ USAAvengerLaser:
 		Duration: 15
 		ValidTargets: Ground, GroundActor, Water, WaterActor
 	TargetActorCenter: True
-    
+
 USAAvengerLaserAir:
 	Inherits: ArcaneZap2
 	ReloadDelay: 4
@@ -2567,7 +2537,7 @@ USAAvengerLaserAir:
 			Concrete: 100
 		DamageTypes: Prone50Percent, TriggerProne, ElectricityDeath
 		ValidTargets: AirborneActor, Air
-        
+
 USAMicrowaveLaser:
 	ReloadDelay: 10
 	Range: 6c0
@@ -2594,7 +2564,7 @@ USAMicrowaveLaser:
 		Duration: 50
 		ValidTargets: GroundActor, WaterActor
 	TargetActorCenter: True
-    
+
 USALaserCrusaderLaser:
 	Inherits: ^LaserWeapon
 	ReloadDelay: 35
@@ -2669,7 +2639,7 @@ USAmissiledefendertargetinglaserair:
 		DamageTypes: Prone50Percent, TriggerProne, ElectricityDeath
 		ValidTargets: AirborneActor, Air
 	TargetActorCenter: True
-    
+
 USARangerLaser:
 	Inherits: ^LaserWeapon
 	ReloadDelay: 35
@@ -2687,7 +2657,7 @@ USARangerLaser:
 			Wood: 50
 		DamageTypes: Prone50Percent, TriggerProne, FireDeath
 	-Warhead@2Smu:
-    
+
 USALaserpatriotshot:
 	Inherits: ^LaserWeapon
 	ReloadDelay: 6
@@ -2707,7 +2677,7 @@ USALaserpatriotshot:
 			Concrete: 60
     DamageTypes: Prone50Percent, TriggerProne, FireDeath
 	-Warhead@2Smu:
-    
+
 USALaserpatriotshotair:
 	Inherits: ^LaserWeapon
 	ReloadDelay: 70
@@ -3165,7 +3135,7 @@ DefilerPlague:
 		Delay: 1600
 		Condition: trigger_repair
 		ValidTargets: Structure
-		Duration: 1500
+		Duration: 1000
 
 GuardianSpores:
 	ReloadDelay: 75
@@ -3377,6 +3347,7 @@ FirebatFlamerGarrison2:
 		Damage: 4000
 
 TerranMedicHeal:
+	Inherits: Heal
 	ReloadDelay: 7
 	Range: 3c512
 	Report: tmedheal.aud
@@ -3384,11 +3355,7 @@ TerranMedicHeal:
 	Projectile: Bullet
 		Speed: 1c682
 	Warhead@1Dam: SpreadDamage
-		Spread: 213
 		Damage: -430
-		ValidRelationships: Ally
-		ValidTargets: Heal
-		DebugOverlayColor: 00FF00
 	Warhead@cond: GrantExternalCondition
 		Condition: healed
 		Range: 512
@@ -4219,16 +4186,11 @@ DoomBFGTest:
 	ReloadDelay: 175
 	Range: 12c0
 	ValidTargets: Ground, Water, GroundActor, WaterActor
-	Projectile: WarheadTrailProjectile
-		Speed: 192
-		Offsets: 0,0,0
+	Projectile: Bullet
+		Speed: 250
 		Blockable: true
 		Image: bfg
-		Inaccuracy: 0
-		Weapon: BFGZapCluster
-		ExplosionInterval: 3
-		FireMode: Focus
-		KillProjectilesWhenReachedTargetLocation: true
+		Inaccuracy: 800
 	Warhead@1Dam: SpreadDamage
 		Spread: 256
 		Damage: 25000
@@ -4248,8 +4210,8 @@ DoomBFGTest:
 		Size: 2,2
 	Warhead@frag: FireFragment
 		Delay: 12
-		Weapon: DoomBFG
-		Offsets: 5000,0,256, 4000,0,256, 3000,0,256, 2000,0,256
+		Weapon: BFGZapCluster
+		Offsets: 0,0,0, 0,0,0, 0,0,0, 0,0,0, 0,0,0, 0,0,0, 0,0,0, 0,0,0, 0,0,0, 0,0,0, 0,0,0, 0,0,0, 0,0,0, 0,0,0, 0,0,0, 0,0,0, 0,0,0, 0,0,0
 		Rotate: true
 
 DoomBFGTestFragment:
@@ -4260,24 +4222,168 @@ DoomBFGTestFragment:
 BFGZap:
 	Inherits: ^TeslaWeapon
 	ReloadDelay: 7
-	Range: 7c0
+	Range: 9c0
 	-Report:
+	ValidTargets: Ground, GroundActor, WaterActor, AirborneActor
 	Projectile: ElectricBolt
-		Colors: 99FF99AB, F2FFB0B8, FFFFFF
+		Colors: 99FF99AB, F2FFB0B8
 		Inaccuracy: 1c0
-		Distortion: 256
+		Distortion: 512
 		DistortionAnimation: 64
+		SegmentLength: 440
 		Width: 24
+		Duration: 4
 	Warhead@1Dam: SpreadDamage
-		Damage: 2500
+		Damage: 2800
+		Spread: 256
+		ValidTargets: Ground, GroundActor, WaterActor, AirborneActor
+	Warhead@3Eff: CreateEffect
+		Delay: 0
+		Inaccuracy: 64
+		Explosions: bfgzap
+		ValidTargets: Ground, GroundActor, WaterActor, AirborneActor
+		ImpactActors: true
+	Warhead@4Eff: CreateEffect
+		Delay: 3
+		Inaccuracy: 64
+		Explosions: bfgzap
+		ValidTargets: Ground, GroundActor, WaterActor, AirborneActor
+		ImpactActors: true
+	Warhead@5Eff: CreateEffect
+		Delay: 6
+		Inaccuracy: 64
+		Explosions: bfgzap
+		ValidTargets: Ground, GroundActor, WaterActor, AirborneActor
+		ImpactActors: true
+
+BFGBigZap:
+	Inherits: BFGZap
+	Range: 24c0
 
 BFGZapCluster:
-	Projectile: Missile
-		RangeLimit: 1
+	ReloadDelay: 1
+	ValidTargets: Ground, GroundActor, AirborneActor
+	Projectile: AthenaProjectile
 	Warhead@2cluster: FireShrapnel
+		Amount: 3
+		Weapon: BFGBigZap
+		AimTargetStances: Neutral, Enemy, Ally
+		AimChance: 66
+		AllowDirectHit: true
+		ThrowWithoutTarget: true
+		ValidTargets: Ground, GroundActor, AirborneActor
+
+BFGZapClusterImpact:
+	Inherits: BFGZapCluster
+	Projectile: AthenaProjectile
+		Speed: 16, 64
+	Warhead@2cluster: FireShrapnel
+		Amount: 4
+		Weapon: BFGZap
+		AimTargetStances: Neutral, Enemy, Ally
+		AimChance: 80
+		AllowDirectHit: true
+		ThrowWithoutTarget: true
+		ValidTargets: Ground, GroundActor, AirborneActor
+	Warhead@3cluster: FireShrapnel
+		Delay: 20
 		Amount: 2
 		Weapon: BFGZap
-		AimTargetStances: Neutral, Enemy
-		AimChance: 100
+		AimTargetStances: Neutral, Enemy, Ally
+		AimChance: 60
 		AllowDirectHit: true
-		ThrowWithoutTarget: false
+		ThrowWithoutTarget: true
+		ValidTargets: Ground, GroundActor, AirborneActor
+	Warhead@4cluster: FireShrapnel
+		Delay: 30
+		Amount: 2
+		Weapon: BFGZap
+		AimTargetStances: Neutral, Enemy, Ally
+		AimChance: 60
+		AllowDirectHit: true
+		ThrowWithoutTarget: true
+		ValidTargets: Ground, GroundActor, AirborneActor
+	Warhead@5cluster: FireShrapnel
+		Delay: 40
+		Amount: 2
+		Weapon: BFGZap
+		AimTargetStances: Neutral, Enemy, Ally
+		AimChance: 60
+		AllowDirectHit: true
+		ThrowWithoutTarget: true
+		ValidTargets: Ground, GroundActor, AirborneActor
+	Warhead@6cluster: FireShrapnel
+		Delay: 50
+		Amount: 2
+		Weapon: BFGZap
+		AimTargetStances: Neutral, Enemy, Ally
+		AimChance: 60
+		AllowDirectHit: true
+		ThrowWithoutTarget: true
+		ValidTargets: Ground, GroundActor, AirborneActor
+	Warhead@7cluster: FireShrapnel
+		Delay: 60
+		Amount: 1
+		Weapon: BFGZap
+		AimTargetStances: Neutral, Enemy, Ally
+		AimChance: 60
+		AllowDirectHit: true
+		ThrowWithoutTarget: true
+		ValidTargets: Ground, GroundActor, AirborneActor
+	Warhead@8cluster: FireShrapnel
+		Delay: 70
+		Amount: 1
+		Weapon: BFGZap
+		AimTargetStances: Neutral, Enemy, Ally
+		AimChance: 60
+		AllowDirectHit: true
+		ThrowWithoutTarget: true
+		ValidTargets: Ground, GroundActor, AirborneActor
+	Warhead@9cluster: FireShrapnel
+		Delay: 80
+		Amount: 3
+		Weapon: BFGZap
+		AimTargetStances: Neutral, Enemy, Ally
+		AimChance: 60
+		AllowDirectHit: true
+		ThrowWithoutTarget: true
+		ValidTargets: Ground, GroundActor, AirborneActor
+	Warhead@10cluster: FireShrapnel
+		Delay: 90
+		Amount: 1
+		Weapon: BFGZap
+		AimTargetStances: Neutral, Enemy, Ally
+		AimChance: 60
+		AllowDirectHit: true
+		ThrowWithoutTarget: true
+		ValidTargets: Ground, GroundActor, AirborneActor
+
+DoomBFGTestGlobal:
+	Inherits: DoomBFGTest
+	Warhead@frag: GlobalExplodeWeapon
+		Weapon: CrateLightningZap
+		ValidTargets: Infantry, Vehicle, Ground, Water
+
+TestWeapon:
+	Inherits: ^Cannon
+	ReloadDelay: 16
+	Range: 50c0
+	Report: cannon2.aud
+	Projectile: Bullet
+		Speed: 853
+		Image: 50CAL
+		Inaccuracy: 50c0
+		InaccuracyType: PerCellIncrement
+	Warhead@1Dam: SpreadDamage
+		Damage: 2500
+		Versus:
+			None: 32
+			Wood: 52
+			Light: 116
+			Heavy: 48
+			Concrete: 32
+	-Warhead@2Smu:
+	Warhead@3Eff: CreateEffect
+		-ImpactSounds:
+	Warhead@4EffWater: CreateEffect
+		-ImpactSounds:

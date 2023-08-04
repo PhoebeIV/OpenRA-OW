@@ -92,6 +92,9 @@ EYED:
 	ProvidesPrerequisite@fed:
 		Factions: sword, angels, silver
 		Prerequisite: eyed.fed
+	ProvidesPrerequisite@ion:
+		Factions: steel, zocom, gdi3, sword, angels, silver
+		Prerequisite: eyed.ion
 	ProvidesPrerequisite@buildingname:
 	ProvidesPrerequisite@radar:
 		Prerequisite: radar
@@ -108,6 +111,7 @@ EYED:
 		Weapon: MiniNuke
 		EmptyWeapon: MiniNuke
 	IonCannonPower:
+		Prerequisites: eyed.ion
 		PauseOnCondition: disabled
 		Icon: ioncannon
 		Cursor: chrono-target
@@ -127,6 +131,33 @@ EYED:
 		Effect: explosion
 		EffectSequence: piff
 		Weapon: MiniNukeIon
+		DisplayTimerRelationships: Ally, Neutral, Enemy
+	DropPodsPower:
+		Prerequisites: eyed.uac
+		OrderName: BFG
+		Cursor: chrono-target
+		PauseOnCondition: disabled
+		Icon: bfg10k
+		Name: BFG 10K
+		Description: Call upon an orbital strike with a BFG10k mounted on Phobos.\n Strong vs. Everything
+		BeginChargeSpeechNotification: IonCannonCharge
+		EndChargeSpeechNotification: IonCannonReady
+		SelectTargetSpeechNotification: DawnSelectTarget
+		InsufficientPowerSpeechNotification: InsufficientPower
+		DisplayRadarPing: true
+		DisplayBeacon: True
+		BeaconPoster: bfg10k
+		ChargeInterval: 19500
+		UnitTypes: BFG10k
+		Drops: 1,1
+		PodScatter: 3
+		PodFacing: 480
+		EntryEffect: explosion
+		EntryEffectSequence: redeemerexplosion
+		CameraActor: camera
+		CameraRemoveDelay: 400
+		Weapon: BFGZapCluster
+		WeaponDelay: 5
 		DisplayTimerRelationships: Ally, Neutral, Enemy
 	RenderSprites:
 		PlayerPalette: dawn
