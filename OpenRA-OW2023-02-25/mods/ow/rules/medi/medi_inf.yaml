@@ -284,7 +284,7 @@ PRIEST:
 		Queue: Infantry
 		BuildAtProductionType: Soldier
 		BuildPaletteOrder: 404
-		Prerequisites: ~infantry.medi, churchmedi, ~!infantry.darkness, ~!infantry.holy
+		Prerequisites: ~infantry.medi, churchmedi, ~infantry.holy
 		Description: Heals nearby infantry.\n  The word of god
 	Valued:
 		Cost: 600
@@ -330,45 +330,6 @@ PRIEST:
 	RenderSprites:
 		Image: medipriest
 
-##Better Medic, will die when not neer holy sources
-HOLYMARTYR:
-	Inherits@PRIEST: PRIEST
-	Buildable:
-		Queue: Infantry
-		BuildAtProductionType: Soldier
-		BuildPaletteOrder: 404
-		Prerequisites: ~infantry.medi, churchmedi, ~infantry.holy
-		Description: Heals nearby infantry.\n  The word of god, Dies if it leaves your base, or range of Holy Monuments.
-	ExternalCondition@MartyrBind:
-		Condition: MartyrBind
-	GrantCondition:
-		RequiresCondition: MartyrBind
-		Condition: MartyrBinded
-	GrantCondition@MartyrBindCorrode:
-		Condition: corrode
-		RequiresCondition: !MartyrBinded
-	ChangesHealth@MartyrBindDamage:
-		PercentageStep: -5
-		Delay: 10
-		StartIfBelow: 110
-		RequiresCondition: !MartyrBinded
-	Armament:
-		Weapon: MartyrHeal
-		Cursor: heal
-		OutsideRangeCursor: heal
-		TargetRelationships: Ally
-		ForceTargetRelationships: None
-	Armament@GARRISONED:
-		Name: garrisoned
-		Weapon: MartyrHeal
-		Cursor: heal
-		OutsideRangeCursor: heal
-		TargetRelationships: Ally
-		ForceTargetRelationships: None
-	Explodes:
-		Weapon: SmiteMartyr
-		EmptyWeapon: SmiteMartyr
-	
 ###############################################################################
 #############################   Bombers   #####################################
 ###############################################################################
@@ -419,42 +380,6 @@ SAPPER:
 		DamageTriggers: TriggerProne
 	GrantConditionOnAttack:
 		Condition: triggered
-	Voiced:
-		VoiceSet: TerroristVoice
-	RenderSprites:
-		Image: medisapper
-
-##Suicide Bomber that can keep exploding without death
-FireElemental:
-	Inherits@Sapper: SAPPER
-	Inherits@InfPro: ^AutoTargetVehiclePriority
-	-TakeCover:
-	-KillsSelf:
-	-Cloneable:
-	-Passenger:
-	-Crushable:
-	Buildable:
-		Queue: Infantry
-		BuildPaletteOrder: 401
-		BuildLimit: 8
-		Prerequisites: ~infantry.medi, alchemylab, ~infantry.elementalists
-		Description: Fire Elemental.\nSpeed: 78\n  Strong vs Infantry\n  Weak vs Vehicles, Air
-	Armament@PRIMARY:
-		Name: Primary
-		Weapon: FireElementAttack
-	AttackFrontal:
-		Armaments: Primary
-		FacingTolerance: 200
-	Explodes:
-		Weapon: FireElementalDeath
-		EmptyWeapon: FireElementalDeath
-		DeathTypes: SmallExplosionDeath, ExplosionDeath, FireDeath, TiberiumDeath, ElectricityDeath, Suicide
-	Health:
-		HP: 30000
-	Armor:
-		Type: None
-	Valued:
-		Cost: 500
 	Voiced:
 		VoiceSet: TerroristVoice
 	RenderSprites:
@@ -1120,7 +1045,6 @@ RotElement:
 		Queue: Infantry
 		BuildAtProductionType: Soldier
 		BuildPaletteOrder: 414
-		BuildLimit: 10
 	Valued:
 		Cost: 1200
 	Tooltip:

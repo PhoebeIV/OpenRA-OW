@@ -1047,66 +1047,7 @@ MEDIGolemMini:
 
 ##Strong slow walking Siege unit, Kills most things quite well but costs a lot.
 MetalElemental:
-	Inherits@MediSoldier: ^MediSoldier
-	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
-	-TakeCover:
-	-Cloneable:
-	Buildable:
-		Prerequisites: ~vehicles.elementalists, alchemylab
-		Queue: Vehicle
-		BuildAtProductionType: Soldier
-		BuildPaletteOrder: 417
-		BuildDuration: 1000
-		BuildLimit: 5
-		Description: Metal Elemental
-	-Passenger:
-	-Crushable:
-	Valued:
-		Cost: 2500
-	UpdatesPlayerStatistics:
-		AddToArmyValue: true
-	Tooltip:
-		Name: Metal Elemental
-	Armor:
-		Type: Heavy
-	Health:
-		HP: 40000
-	Mobile:
-		Speed: 60
-		Locomotor: foot2
-	Selectable:
-		Bounds: 1450, 1877, 0, -768
-		DecorationBounds: 1450, 1877, 0, -768
-	SelectionDecorations:
-	RevealsShroud:
-		Range: 8c512
-	Armament@Inf:
-		Name: Secondary
-		Weapon: MetalElementalInfantry
-	Armament@NonInf:
-		Name: Primary
-		Weapon: MetalElementalNonInfantry
-	AttackFrontal:
-		Armaments: Primary, Secondary
-		FacingTolerance: 200
-	AutoTarget:
-		InitialStance: AttackAnything
-		ScanRadius: 8
-	AutoTargetPriority@DEFAULT:
-		ValidTargets: GroundActor, Infantry
-	WithInfantryBody:
-		DefaultAttackSequence: shoot
-	Targetable:
-		TargetTypes: GroundActor, Vehicle
-	RenderSprites:
-		Image: mediabomination
-	ExternalCondition@PRODUCED:
-		Condition: produced
-	VoiceAnnouncement:
-		RequiresCondition: produced
-		Voice: Build
-	Voiced:
-		VoiceSet: AbominationVoice
+	Inherits: MEDIABOMINATION
 
 ##Slow, high HP golem
 MEDIGolem:
@@ -1120,7 +1061,6 @@ MEDIGolem:
 		BuildAtProductionType: Soldier
 		BuildPaletteOrder: 417
 		BuildDuration: 1500
-		BuildLimit: 5
 	Health:
 		HP: 156969
 	SpawnActorOnDeath@Golem:
