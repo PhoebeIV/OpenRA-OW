@@ -30,3 +30,70 @@ RICE:
 OILB:
 	CashTrickler:
 		UseResourceStorage: true
+
+#scientist
+C10:
+	Inherits@2: ^ArmedCivilian
+	GrantRandomCondition@dude:
+		Conditions: none,none,none,none,none,dude
+	KillsSelf@dude:
+		RequiresCondition: dude
+		Delay: 25
+	SpawnActorOnDeath@dude:
+		RequiresCondition: dude
+		Actor: C10.Dr
+		OwnerType: InternalName
+		InternalOwner: Creeps
+		RequiresLobbyCreeps: true
+
+CHAN:
+	GrantRandomCondition@dude:
+		Conditions: none,none,none,none,none,dude
+	KillsSelf@dude:
+		RequiresCondition: dude
+		Delay: 25
+	SpawnActorOnDeath@dude:
+		RequiresCondition: dude
+		Actor: C10.Dr
+		OwnerType: InternalName
+		InternalOwner: Creeps
+		RequiresLobbyCreeps: true
+
+C10.Dr:
+	Inherits: C10
+	-GrantRandomCondition@dude:
+	-KillsSelf@dude:
+	-SpawnActorOnDeath@dude:
+	Tooltip:
+		Name: Dr. Fowl
+	Valued:
+		Cost: 800
+	Health:
+		HP: 20000
+	Voiced:
+		VoiceSet: Scientist2Voice
+	GrantTimedCondition:
+		Condition: spawned
+		Duration: 250
+	AmbientSound:
+		RequiresCondition: spawned
+		SoundFiles: docmake.aud
+		Delay: 10
+		Interval: 5000
+	AmbientSound@2:
+		SoundFiles: docsit1.aud,docsit2.aud,docsit3.aud,docsit4.aud,docsit5.aud,docsit6.aud
+		Delay: 250
+		Interval: 30,400
+	-Wanders:
+	AttackWander:
+		MinMoveDelay: 150
+		MaxMoveDelay: 750
+	Armament:
+		Weapon: PortaTesla
+		LocalOffset: 256,0,512
+	AnnounceOnKill:
+		Interval: 25
+		Voice: Action
+	Targetable@noauto:
+		RequiresCondition: spawned
+		TargetTypes: NoAutoTarget

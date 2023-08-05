@@ -522,6 +522,23 @@ DoomMinigunHeavy:
 			Heavy: 20
 			Concrete: 10
 
+PatchGun: 
+	Inherits: DoomMinigun
+	ReloadDelay: 2
+	Range: 5c0
+	Report: tibgun_loop.aud
+	Warhead@1Dam: SpreadDamage
+		Damage: 800
+		Versus:
+			None: 200
+		DamageTypes: Prone50Percent, TriggerProne, DefaultDeath, TiberiumDeath
+
+PatchGunEnd:
+	ReloadDelay: 9000
+	Warhead@1Dam: CreateEffect
+		ImpactSounds: tibgun_end.aud
+		ImpactActors: false
+
 CyborgVulcan:
 	Inherits: ^HeavyMG
 	ReloadDelay: 40
@@ -718,7 +735,7 @@ WolverineVulcan:
 			Heavy: 20
 		ValidTargets: Barrel, Infantry, Cyborg
 		InvalidTargets: BeingHealed
-		DamageTypes: Prone50Percent, Sniper75Percent, TriggerProne, DefaultDeath
+		DamageTypes: Prone50Percent, Sniper75Percent, TriggerProne, DefaultDeath, Sniper
 	Warhead@2Eff: CreateEffect
 		Explosions: piff
 		ValidTargets: Ground, Ship, Air, Trees
@@ -741,7 +758,7 @@ WolverineVulcan:
 			Heavy: 20
 		ValidTargets: HighHPInfantry
 		InvalidTargets: BeingHealed
-		DamageTypes: Prone50Percent, Sniper75Percent, TriggerProne, DefaultDeath
+		DamageTypes: Prone50Percent, Sniper75Percent, TriggerProne, DefaultDeath, Sniper
 	Warhead@takecover: SpreadDamage
 		Spread: 512
 		Damage: 10
@@ -764,7 +781,7 @@ Colt45:
 		Speed: 1c682
 	Warhead@1Dam: SpreadDamage
 		Damage: 5000
-		DamageTypes: Prone50Percent, TriggerProne, DefaultDeath
+		DamageTypes: Prone50Percent, TriggerProne, DefaultDeath, Sniper
 	Warhead@HighHP: SpreadDamage
 		Damage: 2500
 
@@ -782,6 +799,21 @@ CommandoSniper:
 	Report: psgfire.aud
 	Warhead@1Dam: SpreadDamage
 		Damage: 20000
+
+DeadeyeSniper:
+	Inherits: ^SnipeWeapon
+	ReloadDelay: 80
+	BurstDelays: 25
+	Burst: 4
+	Range: 8c0
+	Report: deadeyesnipfire.aud
+	AfterFireSound: deadeyereload.aud
+	Projectile: LaserZap
+		Color: FFFFFF
+		Width: 12
+		Duration: 10
+	Warhead@1Dam: SpreadDamage
+		Damage: 8000
 
 TanyaSniper:
 	Inherits: ^SnipeWeapon
@@ -832,7 +864,6 @@ FSniper:
 			Light: 50
 			Heavy: 30
 			Concrete: 25
-		DamageTypes: Prone50Percent, TriggerProne, BulletDeath
 
 JarmenSniper:
 	Inherits: ^SnipeWeapon

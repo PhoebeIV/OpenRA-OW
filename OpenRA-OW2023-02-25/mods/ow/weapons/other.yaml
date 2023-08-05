@@ -233,6 +233,91 @@ GoliathZap3:
 		SmudgeType: Scorch
 		ValidTargets: Ground, Infantry
 
+^ElectricBoltWeapon:
+	Inherits: ^TeslaWeapon
+	Projectile: ElectricBolt
+		Colors: A3F0FFB6, D9FCFF
+		Distortion: 512
+		DistortionAnimation: 64
+		SegmentLength: 440
+		Width: 48
+		Duration: 4
+		Inaccuracy: 256
+	Warhead@1Dam: SpreadDamage
+		Spread: 96
+	Warhead@1Smu: LeaveSmudge
+		SmudgeType: Scorch
+		ValidTargets: Ground, Infantry
+
+VoltAutorifle:
+	Inherits: ^ElectricBoltWeapon
+	ReloadDelay: 2
+	Range: 5c0
+	Report: voltgun_loop.aud
+	Warhead@1Dam: SpreadDamage
+		Damage: 1750
+		Versus:
+			None: 180
+			Wood: 73
+			Heavy: 60
+	Warhead@2EffGround: CreateEffect
+		Explosions: plasma
+		ValidTargets: Ground, Air, GroundActor, AirborneActor, WaterActor, Water, Trees
+
+VoltAutorifleEnd:
+	ReloadDelay: 9000
+	Warhead@1Dam: CreateEffect
+		ImpactSounds: voltgun_end.aud
+		ImpactActors: false
+
+HotwireRepairGun:
+	ReloadDelay: 2
+	Range: 5c0
+	Report: repgun_loop.aud
+	ValidTargets: Heal, Repair, ShieldRegen
+	Projectile: ElectricBolt
+		Colors: 004CFF8A, 70F3FF61, 70F3FF5C
+		Distortion: 256
+		DistortionAnimation: 48
+		SegmentLength: 256
+		Width: 24
+		Duration: 4
+		Inaccuracy: 0
+	Warhead@1Dam: SpreadDamage
+		Spread: 213
+		Damage: -250
+		ValidRelationships: Ally
+		ValidTargets: Heal
+		InvalidTargets: ShieldRegen
+		DebugOverlayColor: 00FF00
+		DamageTypes: BypassShield
+	Warhead@2Dam: SpreadDamage
+		Spread: 213
+		Damage: -75
+		ValidRelationships: Ally
+		ValidTargets: Repair
+		InvalidTargets: ShieldRegen
+		DebugOverlayColor: 00FF00
+		DamageTypes: BypassShield
+	Warhead@3Dam: SpreadDamage
+		Spread: 213
+		Damage: -800
+		ValidRelationships: Ally
+		ValidTargets: ShieldRegen
+		DebugOverlayColor: 00FFCC
+	Warhead@cond: GrantExternalCondition
+		Condition: healed
+		Range: 1c0
+		Duration: 375
+		ValidTargets: Infantry
+		InvalidTargets: BeingHealed
+
+HotwireRepairGunEnd:
+	ReloadDelay: 9000
+	Warhead@1Dam: CreateEffect
+		ImpactSounds: repgun_end.aud
+		ImpactActors: false
+
 DogJaw:
 	ValidTargets: Infantry
 	ReloadDelay: 10
@@ -1281,6 +1366,25 @@ DoomSuperBFGSound:
 	ReloadDelay: 200
 	Range: 8c0
 	Report: dsbfg2.aud
+
+DoomSuperBFGZap:
+	ReloadDelay: 200
+	Range: 8c0
+	ValidTargets: Ground, Water, GroundActor, WaterActor, Air
+	Projectile: WarheadTrailProjectile
+		Weapon: BFGZapClusterSmall
+		Offsets: 0,0,0
+		ExplosionInterval: 4
+		KillProjectilesWhenReachedTargetLocation: true
+		FireMode: Focus
+		Speed: 250
+		Blockable: true
+		ForceAtGroundLevel: true
+	Warhead@1Dam: SpreadDamage
+		Spread: 256
+		Damage: 100
+		ValidTargets: GroundActor, WaterActor, Ground, Air
+		DamageTypes: ElectricityDeath
 
 DoomBaronClaw:
 	ReloadDelay: 20
@@ -4253,7 +4357,7 @@ DoomBFGTestFragment:
 		Inaccuracy: 2c0
 
 BFGZap:
-	Inherits: ^TeslaWeapon
+	Inherits: ^ElectricBoltWeapon
 	ReloadDelay: 7
 	Range: 9c0
 	-Report:
@@ -4261,11 +4365,6 @@ BFGZap:
 	Projectile: ElectricBolt
 		Colors: 99FF99AB, F2FFB0B8
 		Inaccuracy: 1c0
-		Distortion: 512
-		DistortionAnimation: 64
-		SegmentLength: 440
-		Width: 24
-		Duration: 4
 	Warhead@1Dam: SpreadDamage
 		Damage: 2800
 		Spread: 256
@@ -4293,18 +4392,54 @@ BFGBigZap:
 	Inherits: BFGZap
 	Range: 24c0
 
+BFGSmallZap:
+	Inherits: BFGZap
+	Range: 5c0
+	Projectile: ElectricBolt
+		Distortion: 400
+		DistortionAnimation: 16
+		SegmentLength: 256
+		Width: 24
+		Duration: 3
+		Inaccuracy: 256
+	Warhead@1Dam: SpreadDamage
+		Damage: 2000
+	-Warhead@4Eff: CreateEffect
+	-Warhead@5Eff: CreateEffect
+
 BFGZapCluster:
 	ReloadDelay: 1
-	ValidTargets: Ground, GroundActor, AirborneActor
+	ValidTargets: Ground, GroundActor, AirborneActor, Air
 	Projectile: AthenaProjectile
 	Warhead@2cluster: FireShrapnel
-		Amount: 3
+		Amount: 2
 		Weapon: BFGBigZap
-		AimTargetStances: Neutral, Enemy, Ally
+		AimTargetStances: Neutral, Enemy, Ally, None
 		AimChance: 66
 		AllowDirectHit: true
 		ThrowWithoutTarget: true
 		ValidTargets: Ground, GroundActor, AirborneActor
+	Warhead@5Eff: CreateEffect
+		Inaccuracy: 64
+		Explosions: bfgzap
+		ValidTargets: Ground, GroundActor, WaterActor, AirborneActor
+		ImpactActors: true
+
+BFGZapClusterSmall:
+	Inherits: BFGZapCluster
+	Range: 7c0
+	Projectile: Missile
+		RangeLimit: 1c0
+		Speed: 600
+		MinimumLaunchSpeed: 600
+		MaximumLaunchSpeed: 600
+		Acceleration: 16
+		Inaccuracy: 1c0
+	Warhead@2cluster: FireShrapnel
+		Amount: 2
+		Weapon: BFGSmallZap
+		AimTargetStances: Neutral, Enemy, None
+		AimChance: 80
 
 BFGZapClusterImpact:
 	Inherits: BFGZapCluster
@@ -4399,7 +4534,7 @@ DoomBFGTestGlobal:
 
 TestWeapon:
 	Inherits: ^Cannon
-	ReloadDelay: 16
+	ReloadDelay: 2
 	Range: 50c0
 	Report: cannon2.aud
 	Projectile: Bullet

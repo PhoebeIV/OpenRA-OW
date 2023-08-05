@@ -296,3 +296,379 @@ TSE5P.GDI:
 	Buildable:
 		BuildPaletteOrder: 135
 		Prerequisites: techcenter, ~infantry.zocom
+
+^DeadSix:
+	ProvidesPrerequisite:
+		Prerequisite: gdi.deadsix
+	ProximityExternalCondition@d6squad:
+		Condition: d6squad
+		AffectsParent: true
+		Range: 8c0
+	ExternalCondition@d6squad:
+		Condition: d6squad
+	GrantCondition@together:
+		RequiresCondition: d6squad == 5
+		Condition: d6together
+	WithDecoration@together:
+		Image: pips
+		Sequence: pip-brick
+		Palette: effect
+		Position: TopRight
+		ValidRelationships: None,Neutral,Enemy,Ally
+		RequiresCondition: d6together
+	DamageMultiplier@together:
+		RequiresCondition: d6together
+		Modifier: 80
+	FirepowerMultiplier@together:
+		RequiresCondition: d6together
+		Modifier: 120
+	SpeedMultiplier@together:
+		RequiresCondition: d6together
+		Modifier: 120
+	RangeMultiplier@together:
+		RequiresCondition: d6together
+		Modifier: 120
+	RevealsShroudMultiplier@together:
+		RequiresCondition: d6together
+		Modifier: 120
+	DamageTypeDamageMultiplier:
+		RequiresCondition: d6together
+		DamageTypes: Sniper
+		Modifier: 60
+
+D6.HAVOC:
+	Inherits: ^Soldier
+	Inherits@D6: ^DeadSix
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Selectable:
+		Class: D6.HAVOC
+	Buildable:
+		Queue: Infantry
+		BuildAtProductionType: Soldier
+		BuildPaletteOrder: 140
+		Prerequisites: ~disabled
+		Description: Elite commando infantry.
+		BuildLimit: 1
+	Valued:
+		Cost: 1000
+	Tooltip:
+		Name: Havoc
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 15000
+	Mobile:
+		Speed: 78
+		Voice: Move
+	Guard:
+		Voice: Move
+	RevealsShroud:
+		Range: 6c0
+	Passenger:
+		CustomPipType: red
+		Voice: Move
+		CargoCondition: passenger
+	Armament@PRIMARY:
+		Weapon: VoltAutorifle
+		LocalOffset: 256,0,512
+		PauseOnCondition: !ammo
+	Armament@GARRISONED:
+		Name: garrisoned
+		Weapon: VoltAutorifle
+		MuzzleSequence: garrison-muzzle
+	Armament@BUS:
+		Name: bus
+		Weapon: VoltAutorifle
+		MuzzleSequence: garrison-muzzle
+	AmmoPool:
+		Ammo: 50
+		AmmoCondition: ammo
+	ReloadAmmoPool:
+		Count: 50
+		Sound: voltauto_reload.aud
+		ResetOnFire: true
+	AmmoPool@hack:
+		InitialAmmo: 0
+		Name: hackammo
+	ReloadAmmoPool@hack:
+		RequiresCondition: firing
+		AmmoPool: hackammo
+		Delay: 1
+	WithInfantryBody:
+		DefaultAttackSequence: shoot
+		StandSequences: stand
+	GrantDelayedCondition@PRODUCED:
+		Condition: produced
+		Delay: 125
+	VoiceAnnouncement:
+		RequiresCondition: produced && !passenger
+		Voice: Build
+	AnnounceOnKill:
+	Voiced:
+		VoiceSet: HavocVoice
+	ProducibleWithLevel:
+		Prerequisites: barracks.upgraded
+	RenderSprites:
+	GrantPeriodicCondition@randomiseattackspeed:
+		ActiveDuration: 2,5
+		CooldownDuration: 2,5
+		Condition: attackspeed
+		RequiresCondition: firing
+	GrantConditionOnAttack@firing:
+		Condition: firing
+		RevokeDelay: 4
+	ExplodeWeapon@endsound:
+		Weapon: VoltAutorifleEnd
+		AmmoPoolName: hackammo
+		RequiresCondition: !firing
+	ReloadDelayMultiplier@randomiseattackspeed:
+		RequiresCondition: attackspeed
+		Modifier: 150
+	-ReloadDelayMultiplier@squadboost:
+	-ReloadDelayMultiplier@RANK-1:
+	-ReloadDelayMultiplier@RANK-2:
+	-ReloadDelayMultiplier@RANK-3:
+	-ReloadDelayMultiplier@RANK-ELITE:
+
+D6.DEADEYE:
+	Inherits: ^Soldier
+	Inherits@D6: ^DeadSix
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Selectable:
+		Class: D6.HAVOC
+	Valued:
+		Cost: 1000
+	Tooltip:
+		Name: Deadeye
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 15000
+	Mobile:
+		Speed: 72
+	Guard:
+	RevealsShroud:
+		Range: 9c0
+	Armament@PRIMARY:
+		Weapon: DeadeyeSniper
+		LocalOffset: 256,0,512
+	WithInfantryBody:
+		DefaultAttackSequence: shoot
+		StandSequences: stand
+	DetectCloaked:
+		Range: 6c0
+	AnnounceOnKill:
+	Voiced:
+		VoiceSet: DeadeyeVoice
+	RenderSprites:
+	ProducibleWithLevel:
+		Prerequisites: barracks.upgraded
+	Explodes@dead:
+		Weapon: GenericDeath
+		EmptyWeapon: GenericDeath
+
+D6.GUNNER:
+	Inherits: ^Soldier
+	Inherits@D6: ^DeadSix
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Selectable:
+		Class: D6.HAVOC
+	Valued:
+		Cost: 1000
+	Tooltip:
+		Name: Gunner
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 15000
+	Mobile:
+		Speed: 72
+	Guard:
+	RevealsShroud:
+		Range: 6c0
+	Armament@PRIMARY:
+		Weapon: GunnerRocket
+		LocalOffset: 128,0,555
+	WithInfantryBody:
+		DefaultAttackSequence: shoot
+		StandSequences: stand
+	AnnounceOnKill:
+	Voiced:
+		VoiceSet: GunnerVoice
+	RenderSprites:
+	ProducibleWithLevel:
+		Prerequisites: barracks.upgraded
+	Explodes@dead:
+		Weapon: GenericDeath
+		EmptyWeapon: GenericDeath
+
+D6.PATCH:
+	Inherits: ^Soldier
+	Inherits@D6: ^DeadSix
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Selectable:
+		Class: D6.HAVOC
+	Valued:
+		Cost: 1000
+	Tooltip:
+		Name: Patch
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 15000
+	Mobile:
+		Speed: 72
+	Guard:
+	RevealsShroud:
+		Range: 6c0
+	WithInfantryBody:
+		DefaultAttackSequence: shoot
+		StandSequences: stand
+		IdleSequences: idle1
+	RenderSprites:
+	Armament@PRIMARY:
+		Weapon: PatchGun
+		LocalOffset: 256,0,512
+		PauseOnCondition: !ammo
+	AmmoPool:
+		Ammo: 50
+		AmmoCondition: ammo
+	ReloadAmmoPool:
+		Count: 50
+		Sound: tibgun_reload.aud
+		ResetOnFire: true
+	AmmoPool@hack:
+		InitialAmmo: 0
+		Name: hackammo
+	ReloadAmmoPool@hack:
+		RequiresCondition: firing
+		AmmoPool: hackammo
+		Delay: 1
+	WithInfantryBody:
+		DefaultAttackSequence: shoot
+		StandSequences: stand
+	ExternalCondition@PRODUCED:
+		Condition: produced
+	AnnounceOnKill:
+	Voiced:
+		VoiceSet: PatchVoice
+	ProducibleWithLevel:
+		Prerequisites: barracks.upgraded
+	RenderSprites:
+	GrantPeriodicCondition@randomiseattackspeed:
+		ActiveDuration: 2,5
+		CooldownDuration: 2,5
+		Condition: attackspeed
+		RequiresCondition: firing
+	GrantConditionOnAttack@firing:
+		Condition: firing
+		RevokeDelay: 4
+	ExplodeWeapon@endsound:
+		Weapon: PatchGunEnd
+		AmmoPoolName: hackammo
+		RequiresCondition: !firing
+	ReloadDelayMultiplier@randomiseattackspeed:
+		RequiresCondition: attackspeed
+		Modifier: 150
+	-ReloadDelayMultiplier@squadboost:
+	-ReloadDelayMultiplier@RANK-1:
+	-ReloadDelayMultiplier@RANK-2:
+	-ReloadDelayMultiplier@RANK-3:
+	-ReloadDelayMultiplier@RANK-ELITE:
+	Explodes@dead:
+		Weapon: GenericDeath
+		EmptyWeapon: GenericDeath
+
+
+D6.HOTWIRE:
+	Inherits: ^Soldier
+	Inherits@D6: ^DeadSix
+	Selectable:
+		Class: D6.HAVOC
+	Valued:
+		Cost: 1000
+	Tooltip:
+		Name: Hotwire
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 20000
+	Mobile:
+		Speed: 72
+	Guard:
+	RevealsShroud:
+		Range: 6c0
+	WithInfantryBody:
+		AttackSequences:
+			primary: shoot-left, shoot-right
+		StandSequences: stand
+		IdleSequences: idle1
+	RenderSprites:
+	Demolition:
+		DetonationDelay: 45
+		Voice: Action
+	Armament@PRIMARY:
+		Weapon: HotwireRepairGun
+		Cursor: heal
+		OutsideRangeCursor: heal
+		TargetRelationships: Ally
+		ForceTargetRelationships: None
+		LocalOffset: 256,-192,512, 256,192,512
+		PauseOnCondition: !ammo
+	AutoTarget:
+	AutoTargetPriority@DEFAULT:
+		ValidTargets: Infantry, Vehicle
+	AmmoPool:
+		Ammo: 80
+		AmmoCondition: ammo
+	ReloadAmmoPool:
+		Count: 30
+		ResetOnFire: true
+		Delay: 25
+	AmmoPool@hack:
+		InitialAmmo: 0
+		Name: hackammo
+	ReloadAmmoPool@hack:
+		RequiresCondition: firing
+		AmmoPool: hackammo
+		Delay: 1
+	WithInfantryBody:
+		DefaultAttackSequence: shoot
+		StandSequences: stand
+	ExternalCondition@PRODUCED:
+		Condition: produced
+	Voiced:
+		VoiceSet: HotwireVoice
+	ProducibleWithLevel:
+		Prerequisites: barracks.upgraded
+	RenderSprites:
+	GrantPeriodicCondition@randomiseattackspeed:
+		ActiveDuration: 2,5
+		CooldownDuration: 2,5
+		Condition: attackspeed
+		RequiresCondition: firing
+	GrantConditionOnAttack@firing:
+		Condition: firing
+		RevokeDelay: 4
+	ExplodeWeapon@endsound:
+		Weapon: HotwireRepairGunEnd
+		AmmoPoolName: hackammo
+		RequiresCondition: !firing
+	ReloadDelayMultiplier@randomiseattackspeed:
+		RequiresCondition: attackspeed
+		Modifier: 150
+	-ReloadDelayMultiplier@squadboost:
+	-ReloadDelayMultiplier@RANK-1:
+	-ReloadDelayMultiplier@RANK-2:
+	-ReloadDelayMultiplier@RANK-3:
+	-ReloadDelayMultiplier@RANK-ELITE:
+	Explodes@dead:
+		Weapon: GenericFemaleDeath
+		EmptyWeapon: GenericFemaleDeath
+	ChangesHealth@ELITE:
+		Step: 0
+		PercentageStep: 5
+		Delay: 100
+		StartIfBelow: 100
+		DamageCooldown: 125
+		-RequiresCondition:
