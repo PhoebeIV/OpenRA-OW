@@ -238,7 +238,7 @@ SCOUTMEDI:
 		VoiceSet: ScoutVoice
 
 ##can only hit infantry is stealth
-Assasin:
+mediassasin:
 	Inherits@Scout: SCOUTMEDI
 	Inherits@InfPro: ^AutoTargetInfantryPriority
 	Buildable:
@@ -248,15 +248,16 @@ Assasin:
 		BuildAtProductionType: Soldier
 		BuildPaletteOrder: 406
 		BuildLimit: 3
+	Valued:
+		Cost: 1000
 	RevealsShroud:
 		Range: 5c512
 	Armament:
-		Weapon: AssasinBlade
-		RequiresCondition: DarkCloakOn
+		Weapon: assasinblade
 	Mobile:
-		Speed: 70
+		Speed: 65
 	Health:
-		HP: 500
+		HP: 20000
 	Targetable:
 		TargetTypes: GroundActor, Infantry, Disguise,
 	Cloak:
@@ -270,6 +271,18 @@ Assasin:
 		CloakedCondition: DarkCloakOn
 	AutoTarget:
 		InitialStance: HoldFire
+
+
+mediassasinswarm:
+	Inherits@Scout: mediassasin
+	-Buildable:
+	Armament:
+		Weapon: assasinbladeswarm
+	Mobile:
+		Speed: 75
+	Health:
+		HP: 5000
+	-Cloak:
 
 ###############################################################################
 ##############################   Medics   #####################################

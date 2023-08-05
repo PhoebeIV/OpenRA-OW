@@ -109,24 +109,38 @@ BladeMasterTornado:
 			Concrete: 50
 		DamageTypes: DefaultDeath
 
-AssasinBlade:
-	ReloadDelay: 300
+assasinblade:
+	ReloadDelay: 50
 	Range: 2c0
 	Report: footmansword1.aud,footmansword2.aud,footmansword3.aud,footmansword4.aud,footmansword5.aud,footmansword6.aud
 	ValidTargets: Ground, Infantry, Cyborg
-	InvalidTargets: Vehicle, Water, Wall, Husk, Mine, EpicUnit
+	InvalidTargets: Vehicle, Water, Wall, Husk, Mine, Structure
 	Projectile: InstantHit
 	Warhead@1Dam: SpreadDamage
-		Damage: 100000
-		ValidTargets: Ground, Infantry, Cyborg
-		InvalidTargets: Vehicle, Water, Wall, Husk, Mine, EpicUnit
+		Spread: 128
+		Damage: 20000
 		Versus:
 			None: 100
-			Wood: 20
-			Light: 40
-			Heavy: 20
-			Concrete: 20
-		DamageTypes: Prone50Percent, TriggerProne, DefaultDeath
+			Wood: 100
+			Light: 100
+			Heavy: 100
+			Concrete: 100
+		ValidTargets: Ground, Infantry, Cyborg
+		DamageTypes: Prone50Percent, TriggerProne, assasindeath
+	Warhead@assasintoxin: GrantExternalCondition
+		Condition: assasintoxin
+		Duration: 200
+		Range: 2c0
+		ValidTargets: Ground, Infantry, Cyborg
+		ValidRelationships: Enemy, Neutral, Ally
+
+assasinbladeswarm:
+	Inherits: assasinblade
+	Range: 2c0
+	Projectile: InstantHit
+	Warhead@1dam: SpreadDamage
+		Damage: 5000
+	
 
 ###############################################################################
 ###########################   Melee Elemental Attacks   #######################

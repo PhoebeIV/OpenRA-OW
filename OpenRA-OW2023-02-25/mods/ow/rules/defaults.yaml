@@ -798,6 +798,11 @@
 		Actor: RotElement
 		OwnerType: Killer
 		DeathType: ElementalDeath
+	SpawnActorOnDeath@assasintoxinspawn:
+		RequiresCondition: assasintoxin
+		Actor: mediassasinswarm
+		OwnerType: Killer
+		DeathType: assasindeath
 	-WithDeathAnimation:
 	WithDeathAnimation:
 		DeathTypes:
@@ -820,6 +825,23 @@
 	DetectCloaked@AssasinDark:
 		DetectionTypes: DarkAssasin
 		Range: 3
+	ExternalCondition@assasintoxin:
+		Condition: assasintoxin
+		TotalCap: 10
+	ChangesHealth@assasintoxin:
+		Step: -1000
+		PercentageStep: -1
+		Delay: 25
+		StartIfBelow: 110
+		DamageTypes: assasindeath
+		RequiresCondition: assasintoxin >= 1 && assasintoxin <= 5
+	ChangesHealth@assasintoxin2:
+		Step: -1000
+		PercentageStep: -3
+		Delay: 25
+		StartIfBelow: 110
+		DamageTypes: assasindeath
+		RequiresCondition: assasintoxin >= 6
 	GainsExperienceMultiplier:
 		Modifier: 25
 		RequiresCondition: disable-experience
