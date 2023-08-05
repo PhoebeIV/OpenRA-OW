@@ -113,7 +113,7 @@ japanmechatransformer:
 	KillsSelf:
 		Delay: 25
 		RequiresCondition: lmaodies
-	Explodes:
+	Explodes@warhorse:
 		Type: CenterPosition
 		Weapon: MiniNuke
 		EmptyWeapon: MiniNuke
@@ -236,13 +236,23 @@ japanmecharaijuu:
 	Turreted:
 		TurnSpeed: 24
 	Armament:
+		Name: primary
 		Weapon: Raijuushot
 		LocalOffset: 1100,150,940, 1100,-150,940
 		Recoil: 171
 		RecoilRecovery: 30
 		MuzzleSequence: muzzle
+		PauseOnCondition: disabled || changelaser
+	Armament@secondary:
+		Name: secondary
+		Weapon: Raijuuflame
+		LocalOffset: 1100,150,940, 1100,-150,940
+		MuzzleSequence: muzzle
+		PauseOnCondition: disabled
+		RequiresCondition: changelaser
 	AttackTurreted:
 		PauseOnCondition: disabled
+		Turrets: primary, secondary
 	WithMuzzleOverlay:
 	WithSpriteTurret:
 	QuantizeFacingsFromSequence:
@@ -262,6 +272,10 @@ japanmecharaijuu:
 		Palette: tscloak
 	Voiced:
 		VoiceSet: RaijuuVoice
+	GrantConditionOnDeploy:
+		MakeAnimationDeployTypes:
+		DeployedCondition: changelaser
+		SkipMakeAnimation: True
 
 japanstrikervx:
 	Inherits: ^Vehicle
