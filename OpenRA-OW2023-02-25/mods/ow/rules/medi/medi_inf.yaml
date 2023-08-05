@@ -241,6 +241,7 @@ SCOUTMEDI:
 mediassasin:
 	Inherits@Scout: SCOUTMEDI
 	Inherits@InfPro: ^AutoTargetInfantryPriority
+	-Transforms:
 	Buildable:
 		Prerequisites: ~infantry.medi, farmmedi, ~infantry.darkness
 		Description: Stealthed Assasin Made for exicuting Infantry./nCan bypass Defenses and only spotable by Infantry./nloses stealth for a long time on attack or damage		
@@ -250,16 +251,39 @@ mediassasin:
 		BuildLimit: 3
 	Valued:
 		Cost: 1000
+	GrantConditionOnDeploy@burrow:
+		UndeployedCondition: Unburrowed
+		DeployedCondition: burrowed
+		SkipMakeAnimation: True
+	AutoTarget:
+		InitialStance: HoldFire
+		HoldFireCondition: HoldingFire
+		ReturnFireCondition: ReturningFire
+		DefendCondition: DefendingFire
+		AttackAnythingCondition: AttackingFire
 	RevealsShroud:
 		Range: 5c512
+	AttackFrontal:
+		 Armaments: assasinbladeD, assasinbladeA, assasinbladeburrow
 	Armament:
+		Name: assasinbladeD
 		Weapon: assasinblade
+		RequiresCondition: Unburrowed && !AttackingFire
+	Armament@AttackingFire:
+		Name: assasinbladeA
+		Weapon: AssasinWeb
+		RequiresCondition: Unburrowed && !DefendingFire
+	Armament@burrowed:
+		Name: assasinbladeburrow
+		Weapon: assasinbladeburrow
+		RequiresCondition: burrowed
 	Mobile:
 		Speed: 65
+		PauseOnCondition: burrowed
 	Health:
 		HP: 20000
 	Targetable:
-		TargetTypes: GroundActor, Infantry, Disguise,
+		TargetTypes: GroundActor, Infantry, Disguise
 	Cloak:
 		IsPlayerPalette: true
 		InitialDelay: 100
@@ -269,8 +293,17 @@ mediassasin:
 		UncloakSound: tphclo01.aud
 		UncloakOn: Attack, Damage
 		CloakedCondition: DarkCloakOn
-	AutoTarget:
-		InitialStance: HoldFire
+		RequiresCondition: Unburrowed
+	Cloak@2:
+		IsPlayerPalette: true
+		InitialDelay: 100
+		CloakDelay: 150
+		CloakType: DarkAssasinBurrow
+		CloakSound: tphclo00.aud
+		UncloakSound: tphclo01.aud
+		UncloakOn: Attack, Damage
+		CloakedCondition: DarkCloakOn
+		RequiresCondition: burrowed
 
 
 mediassasinswarm:
