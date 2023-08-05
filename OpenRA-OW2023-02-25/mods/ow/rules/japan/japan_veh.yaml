@@ -32,7 +32,7 @@ japantsunamitank:
 		Prerequisites: ~vehicles.japan, ~techlevel.medium
 		Description: Tsunami Tank.\n  Strong vs Vehicles\n  Weak vs Aircraft
 	Valued:
-		Cost: 950
+		Cost: 1000
 	Tooltip:
 		Name: Tsunami Tank
 	UpdatesPlayerStatistics:
@@ -64,6 +64,8 @@ japantsunamitank:
 	WithSpriteTurret:
 	ProducibleWithLevel:
 		Prerequisites: vehicles.upgraded
+	Voiced:
+		VoiceSet: TsunamiTankVoice
 
 japanmechatransformer:
 	Inherits: ^Vehicle
@@ -75,11 +77,11 @@ japanmechatransformer:
 		Prerequisites: ~vehicles.japan, ~techlevel.low
 		Description: Anti-personnel walker.\nSpeed: 99\n  Strong vs Infantry, Light armor\n  Weak vs Vehicles, Aircraft
 	Valued:
-		Cost: 650
+		Cost: 900
 	Tooltip:
 		Name: Mecha Transformer
 	Health:
-		HP: 26000
+		HP: 60000
 	UpdatesPlayerStatistics:
 		AddToArmyValue: true
 	Armor:
@@ -93,20 +95,160 @@ japanmechatransformer:
 		RevealGeneratedShroud: False
 	RevealsShroud@GAPGEN:
 		Range: 5c0
+	AttackFrontal:
+		PauseOnCondition: disabled
+		Armaments: primary, secondary, tri, quad, five
+		FacingTolerance: 0
 	Cargo:
 		Types: Infantry
 		MaxWeight: 1
-		LoadingCondition: notmobile
-		InitialUnits: japantankbuster
-	AttackGarrisoned:
-		Armaments: bus
-		PortOffsets: 384,-256,384, 64,-256,384, -192,-256,384, -448,-256,384, -768,0,384, 384,256,384, 64,256,384, -192,256,384, -448,256,384, -640,-256,384, -640,256,384
-		PortYaws: 48,256,256,256,512,976,768,768,768,256,768
-		PortCones: 112,96,96,96,112,96,96,96,96,96,96
+		PassengerConditions:
+			japanimperialwarrior: imperialwarrior
+			japantankbuster: tankbuster
+			japanrocketangel: rocketangel
+			japanarchermaiden: archermaiden
+			japanwarhorse: lmaodies
+			japanshinobi: shinobi
+		InitialUnits: japanimperialwarrior
+	KillsSelf:
+		Delay: 25
+		RequiresCondition: lmaodies
+	Explodes:
+		Type: CenterPosition
+		Weapon: MiniNuke
+		EmptyWeapon: MiniNuke
+		RequiresCondition: lmaodies
+	Cloak:
+		IsPlayerPalette: true
+		InitialDelay: 100
+		CloakDelay: 25
+		CloakType: DarkAssasin
+		CloakSound: tphclo00.aud
+		UncloakSound: tphclo01.aud
+		RequiresCondition: shinobi
+		UncloakOn: Damage
+	WithMuzzleOverlay:
+	Armament@WARRIOR:
+		Name: primary
+		Weapon: WolverineVulcan
+		RequiresCondition: imperialwarrior
+		LocalOffset: 768,0,750
+		MuzzleSequence: muzzle
+		PauseOnCondition: disabled
+	Armament@BUSTER:
+		Name: secondary
+		Weapon: MechaTankBusterShot
+		RequiresCondition: tankbuster
+		LocalOffset: 768,0,750
+		MuzzleSequence: muzzle
+		PauseOnCondition: disabled
+	Armament@ANGEL:
+		Name: tri
+		Weapon: rocketangelshot
+		RequiresCondition: rocketangel
+		LocalOffset: 768,0,750
+		MuzzleSequence: muzzle
+		PauseOnCondition: disabled
+	Armament@MAIDEN:
+		Name: quad
+		Weapon: archermaidenshotmecha
+		RequiresCondition: archermaiden
+		LocalOffset: 768,0,750
+		MuzzleSequence: muzzle
+		PauseOnCondition: disabled
+	Armament@SHINOBI:
+		Name: five
+		Weapon: WolverineVulcan
+		RequiresCondition: shinobi
+		LocalOffset: 768,0,750
+		MuzzleSequence: muzzle
+		PauseOnCondition: disabled
 	QuantizeFacingsFromSequence:
 		Sequence: stand
 	WithFacingSpriteBody:
 		Sequence: stand
+	WithAttackAnimation@1:
+		Sequence: shoot
+		RequiresCondition: imperialwarrior
+		Armament: primary
+	WithAttackAnimation@2:
+		Sequence: shoot
+		RequiresCondition: tankbuster
+		Armament: secondary
+	WithAttackAnimation@3:
+		Sequence: shoot
+		RequiresCondition: rocketangel
+		Armament: tri
+	WithAttackAnimation@4:
+		Sequence: shoot
+		RequiresCondition: archermaiden
+		Armament: quad
+	WithAttackAnimation@5:
+		Sequence: shoot
+		RequiresCondition: shinobi
+		Armament: five
+	WithMoveAnimation:
+		MoveSequence: run
+		ValidMovementTypes: Horizontal, Turn
+	RangeMultiplier@mecha:
+		Modifier: 110
+	ReloadDelayMultiplier@mech:
+		Modifier: 80
+	ProducibleWithLevel:
+		Prerequisites: vehicles.upgraded
+	Selectable:
+		Bounds: 853, 1365, 0, -341
+	RenderSprites:
+		PlayerPalette: tsunit
+	Cloak@stealthgen:
+		Palette: tscloak
+	Voiced:
+		VoiceSet: RaijuuVoice
+
+japanmecharaijuu:
+	Inherits: ^Vehicle
+	Inherits@GAINSEXPERIENCE: ^GainsExperience
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Buildable:
+		Queue: Vehicle
+		BuildPaletteOrder: 131
+		Prerequisites: ~vehicles.japan, techcenter
+		Description: Anti-personnel walker.\nSpeed: 99\n  Strong vs Infantry, Light armor\n  Weak vs Vehicles, Aircraft
+	Valued:
+		Cost: 1750
+	Tooltip:
+		Name: Mecha Raijuu
+	Health:
+		HP: 120000
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Armor:
+		Type: Heavy
+	Mobile:
+		TurnSpeed: 20
+		Speed: 70
+	RevealsShroud:
+		MinRange: 5c0
+		Range: 6c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 5c0
+	Turreted:
+		TurnSpeed: 24
+	Armament:
+		Weapon: Raijuushot
+		LocalOffset: 1100,150,940, 1100,-150,940
+		Recoil: 171
+		RecoilRecovery: 30
+		MuzzleSequence: muzzle
+	AttackTurreted:
+		PauseOnCondition: disabled
+	WithMuzzleOverlay:
+	WithSpriteTurret:
+	QuantizeFacingsFromSequence:
+		Sequence: idle
+	WithFacingSpriteBody:
+		Sequence: idle
 	WithMoveAnimation:
 		MoveSequence: run
 		ValidMovementTypes: Horizontal, Turn
@@ -116,7 +258,204 @@ japanmechatransformer:
 		Bounds: 853, 1365, 0, -341
 	RenderSprites:
 		PlayerPalette: tsunit
-	DeathSounds:
-		Voice: DieTS
 	Cloak@stealthgen:
 		Palette: tscloak
+	Voiced:
+		VoiceSet: RaijuuVoice
+
+japanstrikervx:
+	Inherits: ^Vehicle
+	Inherits@GAINSEXPERIENCE: ^GainsExperience
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Buildable:
+		Queue: Vehicle
+		BuildPaletteOrder: 131
+		Prerequisites: ~vehicles.japan, techcenter
+		Description: Anti-personnel walker.\nSpeed: 99\n  Strong vs Infantry, Light armor\n  Weak vs Vehicles, Aircraft
+	Valued:
+		Cost: 1150
+	Tooltip:
+		Name: Striker VX
+	Health:
+		HP: 70000
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Armor:
+		Type: Light
+	Mobile:
+		TurnSpeed: 20
+		Speed: 70
+	RevealsShroud:
+		MinRange: 5c0
+		Range: 6c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 5c0
+	Turreted:
+		TurnSpeed: 24
+	Armament:
+		Weapon: strikervxshot
+		LocalOffset: 1100,400,940, 1100,0,940
+		Recoil: 171
+		RecoilRecovery: 30
+		MuzzleSequence: muzzle
+	AttackTurreted:
+		PauseOnCondition: disabled
+	WithMuzzleOverlay:
+	WithSpriteTurret:
+	QuantizeFacingsFromSequence:
+		Sequence: idle
+	WithFacingSpriteBody:
+		Sequence: idle
+	WithMoveAnimation:
+		MoveSequence: run
+		ValidMovementTypes: Horizontal, Turn
+	ProducibleWithLevel:
+		Prerequisites: vehicles.upgraded
+	Selectable:
+		Bounds: 853, 1365, 0, -341
+	RenderSprites:
+		PlayerPalette: tsunit
+	Cloak@stealthgen:
+		Palette: tscloak
+	Voiced:
+		VoiceSet: StrikerVXVoice
+	GrantConditionOnDeploy:
+		DeployedCondition: strikervxtransform
+		CanDeployOnRamps: true
+		AllowedTerrainTypes:
+		DeploySounds: JapanSelectTransBase.aud
+	WithMakeAnimation:
+		Sequence: transform
+	TransformOnCondition:
+		RequiresCondition: strikervxtransform
+		IntoActor: japanchoppervx
+
+japanmechatengu:
+	Inherits: ^Vehicle
+	Inherits@GAINSEXPERIENCE: ^GainsExperience
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Buildable:
+		Queue: Vehicle
+		BuildPaletteOrder: 131
+		Prerequisites: ~vehicles.japan, techcenter
+		Description: Anti-personnel walker.\nSpeed: 99\n  Strong vs Infantry, Light armor\n  Weak vs Vehicles, Aircraft
+	Valued:
+		Cost: 1000
+	Tooltip:
+		Name: Mecha Tengu
+	Health:
+		HP: 50000
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Armor:
+		Type: Heavy
+	Mobile:
+		TurnSpeed: 20
+		Speed: 70
+	RevealsShroud:
+		MinRange: 5c0
+		Range: 6c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 5c0
+	Turreted:
+		TurnSpeed: 24
+	Armament:
+		Weapon: mechatengushot
+		LocalOffset: 1100,400,940, 1100,0,940
+		Recoil: 171
+		RecoilRecovery: 30
+		MuzzleSequence: muzzle
+	AttackTurreted:
+		PauseOnCondition: disabled
+	WithMuzzleOverlay:
+	WithSpriteTurret:
+	QuantizeFacingsFromSequence:
+		Sequence: idle
+	WithFacingSpriteBody:
+		Sequence: idle
+	WithMoveAnimation:
+		MoveSequence: run
+		ValidMovementTypes: Horizontal, Turn
+	ProducibleWithLevel:
+		Prerequisites: vehicles.upgraded
+	Selectable:
+		Bounds: 853, 1365, 0, -341
+	RenderSprites:
+		PlayerPalette: tsunit
+	Cloak@stealthgen:
+		Palette: tscloak
+	Voiced:
+		VoiceSet: MechaTenguVoice
+	GrantConditionOnDeploy:
+		DeployedCondition: strikervxtransform
+		CanDeployOnRamps: true
+		AllowedTerrainTypes:
+		DeploySounds: JapanSelectTransBase.aud
+	WithMakeAnimation:
+		Sequence: transform
+	TransformOnCondition:
+		IntoActor: japanjettengu
+		RequiresCondition: strikervxtransform
+
+japanhiroshimawaveforce:
+	Inherits: ^TrackedVehicle
+	Inherits@GAINSEXPERIENCE: ^GainsExperience
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Buildable:
+		Queue: Vehicle
+		BuildPaletteOrder: 135
+		Prerequisites: ~vehicles.japan, techcenter
+		Description: Tsunami Tank.\n  Strong vs Vehicles\n  Weak vs Aircraft
+	Valued:
+		Cost: 2500
+	Tooltip:
+		Name: Hiroshima Waveforce
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 120000
+	Armor:
+		Type: Heavy
+	Mobile:
+		Speed: 45
+		Locomotor: heavytracked
+	RevealsShroud:
+		MinRange: 4c0
+		Range: 6c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 4c0
+	Turreted:
+		TurnSpeed: 24
+	Armament:
+		Weapon: HiroshimaInfantryLaser
+		Recoil: 85
+		RecoilRecovery: 25
+		LocalOffset: 768,0,256
+		MuzzleSequence: muzzle
+		Name: primary
+		PauseOnCondition: disabled || changelaser
+	Armament@Secondary:
+		Weapon: HiroshimaTankLaser
+		Recoil: 85
+		RecoilRecovery: 25
+		LocalOffset: 768,0,256
+		MuzzleSequence: muzzle
+		Name: secondary
+		PauseOnCondition: disabled
+		RequiresCondition: changelaser
+	AttackTurreted:
+		PauseOnCondition: disabled
+		Turrets: primary, secondary
+	WithMuzzleOverlay:
+	WithSpriteTurret:
+	ProducibleWithLevel:
+		Prerequisites: vehicles.upgraded
+	Voiced:
+		VoiceSet: WaveForceVoice
+	GrantConditionOnDeploy:
+		MakeAnimationDeployTypes:
+		DeployedCondition: changelaser
+		SkipMakeAnimation: True

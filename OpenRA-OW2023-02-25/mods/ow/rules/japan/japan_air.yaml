@@ -1,0 +1,202 @@
+japanchoppervx:
+	Inherits: ^Helicopter
+	Inherits@CARGOPIPS: ^CargoPips
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Buildable:
+		Queue: Aircraft
+		BuildAtProductionType: Helicopter
+		BuildPaletteOrder: 20
+		Prerequisites: ~aircraft.japan
+		Description: The Helix helicopter provided China with a highly flexible airborne platform. Armed with a gatling gun & napalm bombs.
+	Valued:
+		Cost: 1800
+	Tooltip:
+		Name: Chopper VX
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 25000
+	RevealsShroud:
+		MinRange: 8c0
+		Range: 10c0
+		Type: GroundPosition
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 8c0
+		Type: GroundPosition
+	Armament@PRIMARY:
+		Weapon: choppervxshot
+		LocalOffset: 85,-213,-85, 85,213,-85
+		MuzzleSequence: muzzle
+		PauseOnCondition: !ammo
+	AttackAircraft:
+		FacingTolerance: 80
+		PersistentTargeting: false
+		AttackType: Hover
+		OpportunityFire: true
+	Aircraft:
+		TurnSpeed: 16
+		Speed: 112
+		Voice: Move
+	Guard:
+		Voice: Move
+	AutoTarget:
+		InitialStance: HoldFire
+		InitialStanceAI: HoldFire
+	WithIdleOverlay@ROTOR1AIR:
+		Offset: 260,0,343
+		Sequence: rotor
+		RequiresCondition: airborne
+	WithIdleOverlay@ROTOR1GROUND:
+		Offset: 260,0,343
+		Sequence: slow-rotor
+		RequiresCondition: !airborne
+	AmmoPool:
+		Ammo: 160
+		ReloadDelay: 8
+		AmmoCondition: ammo
+	WithMuzzleOverlay:
+	SpawnActorOnDeath:
+		Actor: VECHICLECHINOOK.Husk
+	LeavesTrails:
+		Offsets: -427,0,0
+		Image: smokey
+		MovingInterval: 3
+		SpawnAtLastPosition: False
+		Type: CenterPosition
+		RequiresCondition: enable-smoke
+		TrailWhileStationary: True
+		StationaryInterval: 3
+	ProducibleWithLevel:
+		Prerequisites: aircraft.upgraded
+	Selectable:
+		DecorationBounds: 1621, 1365
+	Rearmable:
+		RearmActors: chinaairfield, usaairfield, hpad, usaairstriplandingspot, japanairfield
+	WithAmmoPipsDecoration:
+		Position: BottomLeft
+		Margin: 4, 3
+		RequiresSelection: true
+		PipCount: 10
+	GrantConditionOnDamageState@SmokeTrail:
+		Condition: enable-smoke
+	WithProductionIconOverlay:
+		Types: Veterancy
+		Prerequisites: aircraft.upgraded
+	RenderSprites:
+		Image: japanchoppervx
+	ReloadAmmoPool@reloadnear:
+		RequiresCondition: reloadnear
+		Delay: 500
+        Count: 50
+	Voiced:
+		VoiceSet: StrikerVXVoice
+	GrantConditionOnDeploy:
+		DeployedCondition: strikervxtransform
+		CanDeployOnRamps: true
+		AllowedTerrainTypes:
+		DeploySounds: JapanSelectTransBase.aud
+	WithMakeAnimation:
+		Sequence: transform
+	TransformOnCondition:
+		IntoActor: japanstrikervx
+		RequiresCondition: strikervxtransform
+
+japanjettengu:
+	Inherits: ^Plane
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Buildable:
+		Queue: Aircraft
+		BuildAtProductionType: Plane
+		BuildPaletteOrder: 50
+		Prerequisites: ~aircraft.japan
+		Description: The MiG is armed with two napalm missiles that could be used effectively against ground targets.
+	Valued:
+		Cost: 1500
+	Tooltip:
+		Name: Jet Tengu
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 14000
+	RevealsShroud:
+		MinRange: 11c0
+		Range: 13c0
+		Type: GroundPosition
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 11c0
+		Type: GroundPosition
+	Armament@ground:
+		Weapon: mechatengushotplane
+		LocalOffset: 0,-640,0, 0,640,0
+		LocalYaw: -40, 24
+		PauseOnCondition: !ammo
+	AttackAircraft:
+		FacingTolerance: 20
+	Aircraft:
+		CruiseAltitude: 2560
+		InitialFacing: 192
+		TurnSpeed: 16
+		Speed: 223
+		RepulsionSpeed: 40
+		MaximumPitch: 56
+		Voice: Move
+	Guard:
+		Voice: Move
+	AutoTarget:
+		InitialStance: HoldFire
+		InitialStanceAI: HoldFire
+	AmmoPool:
+		Ammo: 8
+        Reload Delay: 50
+		AmmoCondition: ammo
+	Selectable:
+		Bounds: 1536, 1194, 0, 85
+		DecorationBounds: 1706, 1237, 0, 42
+	Contrail@1:
+		Offset: -598,-683,0
+		StartColorAlpha: 128
+	Contrail@2:
+		Offset: -598,683,0
+		StartColorAlpha: 128
+	SpawnActorOnDeath:
+		Actor: chinamig.Husk
+	LeavesTrails:
+		Offsets: -853,0,171
+		MovingInterval: 2
+		Image: smokey
+		SpawnAtLastPosition: False
+		Type: CenterPosition
+		RequiresCondition: enable-smoke
+	ProducibleWithLevel:
+		Prerequisites: aircraft.upgraded
+	Rearmable:
+		RearmActors: chinaairfield, usaairfield, afld, afld.ukraine, usaairstriplandingspot, japanairfield
+	WithAmmoPipsDecoration:
+		Position: BottomLeft
+		Margin: 4, 3
+		RequiresSelection: true
+	GrantConditionOnDamageState@SmokeTrail:
+		Condition: enable-smoke
+	WithProductionIconOverlay:
+		Types: Veterancy
+		Prerequisites: aircraft.upgraded
+	RenderSprites:
+		Image: japanjettengu
+	ReloadAmmoPool@reloadnear:
+		RequiresCondition: reloadnear
+		Delay: 500
+        Count: 2
+	Voiced:
+		VoiceSet: MechaTenguVoice
+	GrantConditionOnDeploy:
+		DeployedCondition: strikervxtransform
+		CanDeployOnRamps: true
+		AllowedTerrainTypes:
+		DeploySounds: JapanSelectTransBase.aud
+	WithMakeAnimation:
+		Sequence: transform
+	TransformOnCondition:
+		IntoActor: japanmechatengu
+		RequiresCondition: strikervxtransform

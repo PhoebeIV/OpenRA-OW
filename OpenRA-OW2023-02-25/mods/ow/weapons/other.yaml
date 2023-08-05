@@ -4181,6 +4181,39 @@ shinobishot:
 		DamageTypes: DefaultDeath
 		ValidTargets: Infantry
 
+archermaidenshot:
+	ValidTargets: GroundActor, WaterActor, Ground, Water, Air, AirborneActor
+	ReloadDelay: 60
+	Range: 6c0
+	Report: JUArche_weapFire1a.aud, JUArche_weapFire1b.aud, JUArche_weapFire1c.aud, JUArche_weapFire1d.aud, JUArche_weapFire1e.aud, JUArche_weapFire1f.aud
+	Projectile: Bullet
+		Speed: 450
+		Image: DRAGON
+		ContrailLength: 4
+		Inaccuracy: 128
+	Warhead@GDam: SpreadDamage
+		Spread: 256
+		Damage: 4000
+		ValidTargets: GroundActor, WaterActor
+		Versus:
+			None: 120
+			Wood: 40
+			Light: 50
+			Heavy: 40
+			Concrete: 20
+		DamageTypes: Prone50Percent, TriggerProne, DefaultDeath
+	Warhead@1Dam: SpreadDamage
+		Spread: 512
+		Damage: 1500
+		ValidTargets: Air, AirborneActor
+		DamageTypes: Prone50Percent, TriggerProne, DefaultDeath
+	Warhead@3Eff: CreateEffect
+		ImpactSounds: JUArche_weapImpa1a.aud, JUArche_weapImpa1b.aud, JUArche_weapImpa1c.aud, JUArche_weapImpa1d.aud, JUArche_weapImpa1e.aud
+
+archermaidenshotmecha:
+	Inherits: archermaidenshot
+	Burst: 3
+	BurstDelays: 2
 
 DoomBFGTest:
 	ReloadDelay: 175
@@ -4387,3 +4420,59 @@ TestWeapon:
 		-ImpactSounds:
 	Warhead@4EffWater: CreateEffect
 		-ImpactSounds:
+		ThrowWithoutTarget: false
+
+HiroshimaInfantryLaser:
+	ReloadDelay: 45
+	Range: 8c0
+	Report: TantouLaserSound.aud
+	TargetActorCenter: True
+	ValidTargets: Ground, Water, GroundActor, WaterActor
+	Projectile: Railgun
+		Duration: 30
+		BeamColor: f6ff00
+		HelixColor: ffa200
+		BeamWidth: 0c43
+		HelixThickness: 0c16
+		HelixRadius: 0c32
+	Warhead@1Dam: SpreadDamage
+		Damage: 15000
+		Versus:
+			None: 110
+			Wood: 50
+			Light: 110
+			Heavy: 40
+			Concrete: 50
+		DamageTypes: Prone50Percent, TriggerProne, FireDeath
+		ValidTargets: Ground, GroundActor, Water, WaterActor
+	Warhead@3Eff_impact: CreateEffect
+		Explosions: laserhitmed
+		ValidTargets: Ground, Water, GroundActor, WaterActor
+
+HiroshimaTankLaser:
+	ReloadDelay: 90
+	Range: 6c0
+	Report: TantouLaserSound.aud
+	TargetActorCenter: True
+	ValidTargets: Ground, Water, GroundActor, WaterActor
+	Projectile: Railgun
+		Duration: 30
+		BeamColor: 00fbff
+		HelixColor: 0088ff
+	Warhead@1Dam: SpreadDamage
+		Damage: 25000
+		Spread: 512
+		Versus:
+			None: 80
+			Wood: 110
+			Light: 80
+			Heavy: 110
+			Concrete: 50
+		DamageTypes: Prone50Percent, TriggerProne, FireDeath
+		ValidTargets: Ground, GroundActor, Water, WaterActor
+	Warhead@3Eff_impact: CreateEffect
+		Explosions: laserhitmed
+		ValidTargets: Ground, Water, GroundActor, WaterActor
+	Warhead@4Eff_impact: CreateEffect
+		Explosions: japanplasmaring
+		ValidTargets: Ground, Water, GroundActor, WaterActor
