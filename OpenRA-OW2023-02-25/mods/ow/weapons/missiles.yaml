@@ -2409,3 +2409,132 @@ choppervxshot:
 		Damage: 2500
 		ValidTargets: Air, AirborneActor
 		DamageTypes: Prone50Percent, TriggerProne, DefaultDeath
+
+Datenshishot:
+	ValidTargets: Air, AirborneActor
+	ReloadDelay: 165
+	Range: 12c0
+	MinRange: 2c0
+	Report: DatenshiWeaponSound.aud
+	TargetActorCenter: True
+	Projectile: Missile
+		Speed: 500
+		HorizontalRateOfTurn: 60
+		RangeLimit: 18c0
+		Image: datenshiprojectile
+		ContrailLength: 25
+		Inaccuracy: 128
+		ContrailStartColor: 00fbff
+		PointDefenseType: pointdefense
+	Warhead@1Dam: SpreadDamage
+		Spread: 512
+		Damage: 10000
+		ValidTargets: Air, AirborneActor
+		DamageTypes: Prone50Percent, TriggerProne, ExplosionDeath
+	Warhead@3Eff_impact: CreateEffect
+		Explosions: laserhitmed
+		ImpactSounds: PlasmaCannonImpact1.aud, PlasmaCannonImpact2.aud
+		ValidTargets: Air, AirborneActor
+	Warhead@4Eff_impact: CreateEffect
+		Explosions: japanplasmaring
+		ValidTargets: Air, AirborneActor
+
+KitsuneShot:
+	Inherits: ^AntiGroundMissile
+	ReloadDelay: 2
+	Range: 8c768
+	MinRange: 2c512
+	Report: JURocke_weapMissa.aud, JURocke_weapMissb.aud, JURocke_weapMissc.aud, JURocke_weapMissd.aud, JURocke_weapMisse.aud, JURocke_weapMissf.aud, JURocke_weapMissg.aud
+	Projectile: Missile
+		Speed: 256
+		Inaccuracy: 1c128
+		CruiseAltitude: 2c0
+		RangeLimit: 18c410
+		ContrailStartColor: 00fbff
+		Image: plasmarocket
+	Warhead@1Dam: SpreadDamage
+		Damage: 7500
+		Spread: 256
+		Versus:
+			None: 100
+			Wood: 60
+			Light: 100
+			Heavy: 80
+			Concrete: 100
+		DamageTypes: Prone50Percent, TriggerProne, SmallExplosionDeath
+	Warhead@3Eff: CreateEffect
+		Explosions: artillery_explosion
+		ImpactSounds: kaboom15.aud
+	Warhead@4EffWater: CreateEffect
+		Explosions: large_splash
+		ImpactSounds: splash9.aud
+
+youseishot:
+	Inherits: ^AntiGroundMissile
+	ReloadDelay: 5
+	Range: 7c512
+	Report: vmigweaa.wav, vmigweab.wav
+	-Projectile:
+	Projectile: Bullet
+		Speed: 256
+		Inaccuracy: 512
+		TrailImage: smokey
+		TrailInterval: 1
+		Blockable: false
+		Image: moab_bomb
+		Shadow: True
+	Warhead@1Dam: SpreadDamage
+		Delay: 30
+		Spread: 1c0
+		Damage: 40000
+		Versus:
+			None: 110
+			Wood: 20
+			Light: 100
+			Heavy: 110
+			Concrete: 50
+		DamageTypes: Prone50Percent, TriggerProne, SmallExplosionDeath
+	Warhead@2Smu: LeaveSmudge
+		SmudgeType: Crater
+		ValidTargets: Ground, Infantry
+		Delay: 25
+	Warhead@4EffWater: CreateEffect
+		Explosions: large_splash
+		Delay: 25
+	Warhead@1Eff_impact: CreateEffect
+		Explosions: youseistart
+		ImpactSounds: WarpRiftCreate.aud
+		ImpactActors: false
+		ValidTargets: Ground, Water, Air
+	Warhead@1Eff_impacta: CreateEffect
+		Explosions: youseiring
+		ImpactActors: false
+		ValidTargets: Ground, Water, Air
+	Warhead@2Eff_impacta: CreateEffect
+		Explosions: japanyouseiexplosion
+		ImpactSounds: YouseiBombExplode.aud
+		ImpactActors: false
+		Delay: 25
+		ValidTargets: Ground, Water, Air
+	Warhead@2Dama: SpreadDamage
+		Delay: 40
+		Spread: 2c0
+		Damage: 20000
+		Versus:
+			None: 110
+			Wood: 20
+			Light: 100
+			Heavy: 110
+			Concrete: 50
+		DamageTypes: Prone50Percent, TriggerProne, SmallExplosionDeath
+	Warhead@3Dama: SpreadDamage
+		Delay: 50
+		Spread: 3c0
+		Damage: 10000
+		Versus:
+			None: 110
+			Wood: 20
+			Light: 100
+			Heavy: 110
+			Concrete: 50
+		DamageTypes: Prone50Percent, TriggerProne, SmallExplosionDeath
