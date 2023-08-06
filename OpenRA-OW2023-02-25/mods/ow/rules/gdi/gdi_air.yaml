@@ -112,7 +112,7 @@ TSORCA:
 	UpdatesPlayerStatistics:
 		AddToArmyValue: true
 	Health:
-		HP: 15000
+		HP: 17500
 	RevealsShroud:
 		MinRange: 10c0
 		Range: 12c0
@@ -131,11 +131,17 @@ TSORCA:
 		Weapon: OrcaHellfireAG
 		LocalOffset: 0,213,-85, 0,-213,-85
 		PauseOnCondition: !ammo
+	Armament@3:
+		Name: third
+		Weapon: Vulcan_D
+		LocalOffset: 0,-213,-85, 0,213,-85
+		PauseOnCondition: !ammo2
 	AttackAircraft:
 		FacingTolerance: 80
 		PersistentTargeting: false
 		AttackType: Hover
 		OpportunityFire: False
+		Armaments: primary, secondary, third
 	Aircraft:
 		TurnSpeed: 16
 		Speed: 160
@@ -145,6 +151,17 @@ TSORCA:
 	AmmoPool:
 		Ammo: 8
 		AmmoCondition: ammo
+	AmmoPool@gun:
+		Ammo: 16
+		AmmoCondition: ammo2
+		Name: secondary
+		Armaments: third
+	ReloadAmmoPool@main:
+		Delay: 200
+		AmmoPool: primary
+	ReloadAmmoPool@gun:
+		Delay: 100
+		AmmoPool: secondary
 	SelectionDecorations:
 	SpawnActorOnDeath:
 		Actor: TSORCA.Husk
@@ -164,6 +181,12 @@ TSORCA:
 	WithAmmoPipsDecoration:
 		Position: BottomLeft
 		RequiresSelection: true
+		AmmoPools: primary
+	WithAmmoPipsDecoration@2:
+		Position: BottomLeft
+		RequiresSelection: true
+		FullSequence: pip-yellow
+		AmmoPools: secondary
 
 TSORCA.Husk:
 	Inherits: ^TSPlaneHusk
@@ -195,7 +218,7 @@ TSORCAB:
 	UpdatesPlayerStatistics:
 		AddToArmyValue: true
 	Health:
-		HP: 30000
+		HP: 35000
 	RevealsShroud:
 		MinRange: 10c0
 		Range: 12c0
@@ -214,8 +237,8 @@ TSORCAB:
 		PersistentTargeting: false
 		OpportunityFire: False
 	Aircraft:
-		TurnSpeed: 12
-		Speed: 150
+		TurnSpeed: 14
+		Speed: 160
 		TakeoffSounds: orcaup1.aud
 		LandingSounds: orcadwn1.aud
 	AutoTarget:
