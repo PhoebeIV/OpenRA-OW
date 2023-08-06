@@ -255,6 +255,7 @@ BANEBLADE:
 		TurnSpeed: 4
 		Locomotor: heavytracked
 		Voice: Move
+		PauseOnCondition: disabled || firing
 	RevealsShroud:
 		MinRange: 8c0
 		Range: 12c0
@@ -267,13 +268,23 @@ BANEBLADE:
 	Guard:
 		Voice: Move
 	Armament@PRIMARY:
-		Weapon: BanebladeCannon
+		Weapon: BanebladeBFG
 		LocalOffset: 1100,200,800
 		Recoil: 200
-		RecoilRecovery: 100
-		MuzzleSequence: muzzle
+		RecoilRecovery: 25
 		PauseOnCondition: ammo < 10
+		FireDelay: 25
 		AmmoUsage: 10
+	Armament@effect:
+		Weapon: BanebladeBFGSound
+		LocalOffset: 1100,200,800
+		AmmoUsage: 0
+		PauseOnCondition: ammo < 10
+	Armament@zap:
+		Weapon: BanebladeBFGZap
+		LocalOffset: 1100,200,800
+		AmmoUsage: 0
+		PauseOnCondition: ammo < 10
 	AmmoPool:
 		Ammo: 10
 		AmmoCondition: ammo
@@ -288,7 +299,10 @@ BANEBLADE:
 		ValidRelationships: Ally, Enemy, Neutral
 	AttackFrontal:
 		PauseOnCondition: disabled
-		FacingTolerance: 0
+		FacingTolerance: 32
+	GrantConditionOnAttack@attacking:
+		Condition: firing
+		RevokeDelay: 125
 	VoiceAnnouncement:
 		Voice: Build2
 	AnnounceOnKill:
@@ -302,9 +316,10 @@ BANEBLADE:
 	Selectable:
 		Bounds: 2560, 2048, 0, -426
 		DecorationBounds: 2560, 2048, 0, -426
-	ClassicFacingBodyOrientation:
-		QuantizedFacings: 32
-	-WithFacingSpriteBody:
+	BodyOrientation:
+		QuantizedFacings: 64
+	-ClassicFacingBodyOrientation:
+	-WithFacingSpriteBody: 
 	-QuantizeFacingsFromSequence:
 	RenderSprites:
 	RenderVoxels:
@@ -314,8 +329,8 @@ BANEBLADE:
 	WithVoxelTurret:
 	WithVoxelBarrel:
 	Explodes:
-		Weapon: MiniNuke
-		EmptyWeapon: MiniNuke
+		Weapon: BanebladeBFG
+		EmptyWeapon: BanebladeBFG
 	Voiced:
 		VoiceSet: ArnieVoice
 	Explodes@arnie:
