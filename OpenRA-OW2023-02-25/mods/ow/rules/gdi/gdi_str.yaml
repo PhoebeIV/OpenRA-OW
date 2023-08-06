@@ -180,7 +180,7 @@ ATWR:
 		Name: Advanced Guard Tower
 	Buildable:
 		BuildPaletteOrder: 60
-		Prerequisites: radar, ~structures.gdi, ~techlevel.unrestricted
+		Prerequisites: radar, ~structures.gdi, ~techlevel.high
 		Queue: Defense
 		Description: All-purpose defensive structure.\n	Strong vs Aircraft, Tanks\n	Weak vs Infantry
 	Selectable:
@@ -243,3 +243,460 @@ ATWR2:
 		Amount: -60
 	RenderSprites:
 		Image: ATWR
+
+CTWR:
+	Inherits: ^Defense
+	Inherits@IDISABLE: ^DisableOnLowPowerOrPowerDown
+	Inherits@AUTOTARGET: ^AutoTargetAll
+	Buildable:
+		Queue: Defense
+		BuildPaletteOrder: 51
+		Prerequisites: barracks, ~structures.ctwrprereq, ~techlevel.medium
+		Description: Upgradeable static defense.\nCan be placed on Concrete Walls.\n  Unarmed unless upgraded.
+	Building:
+		LocalCenterOffset: 0,0,554
+	Selectable:
+		Bounds: 1024, 1536, 0, 277
+	Replacement:
+		ReplaceableTypes: ConcreteWall
+	LineBuildNode:
+		Types: concrete
+	Tooltip:
+		RequiresCondition: !has_turret && !has_agt && !has_flame && !has_tesla && !has_sam
+		Name: Component Tower
+	Tooltip@0:
+		RequiresCondition: has_turret
+		Name: Vulcan Cannon
+	Tooltip@1:
+		RequiresCondition: has_agt
+		Name: SS-SA Missile Tower
+	Tooltip@2:
+		RequiresCondition: has_flame
+		Name: Flame Tower
+	Tooltip@3:
+		RequiresCondition: has_tesla
+		Name: EMP Tesla Coil
+	Tooltip@4:
+		RequiresCondition: has_sam
+		Name: SAM Site
+	Valued:
+		Cost: 500
+	Health:
+		HP: 60000
+	DamageMultiplier@agt:
+		RequiresCondition: has_agt || has_tesla
+		Modifier: 75
+	Armor:
+		Type: Heavy
+	RevealsShroud:
+		RequiresCondition: has_turret || has_flame
+		MinRange: 5c0
+		Range: 6c0
+		RevealGeneratedShroud: False
+	RevealsShroud@AGT:
+		RequiresCondition: has_agt || has_tesla || has_sam
+		MinRange: 5c0
+		Range: 8c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 5c0
+	WithMakeAnimation:
+	WithBuildingBib:
+		HasMinibib: true
+	AttackTurreted:
+		Armaments: gun, gun_o, agt, agt_o, sam, sam_o, ftur, ftur_o, tsla, tsla_o
+		Turrets: gun, gun_o, agt, agt_o, sam, sam_o, ftur, ftur_o, tsla, tsla_o
+		RequiresCondition: has_turret || has_agt || has_sam || has_flame || has_tesla
+		PauseOnCondition: lowpower || disabled
+	Armament@gun:
+		Weapon: Vulcan_D
+		LocalOffset: 512,0,112
+		MuzzleSequence: muzzle-minigun
+		Name: gun
+		Turret: gun
+		RequiresCondition: has_turret && wallattached
+	Armament@gun_o:
+		Weapon: Vulcan_D
+		LocalOffset: 512,0,112
+		MuzzleSequence: muzzle-minigun
+		Name: gun_o
+		Turret: gun_o
+		RequiresCondition: has_turret && !wallattached
+	Turreted@0:
+		Turret: gun
+		TurnSpeed: 48
+		InitialFacing: 192
+		RealignDelay: -1
+		Offset: 0,-128,-85
+		RequiresCondition: has_turret && wallattached
+	Turreted@0offset:
+		Turret: gun_o
+		TurnSpeed: 48
+		InitialFacing: 192
+		RealignDelay: -1
+		Offset: 0,-43,-85
+		RequiresCondition: has_turret && !wallattached
+	Armament@agt:
+		Weapon: TowerMissile
+		LocalOffset: 256,-128,144,  256,128,144
+		MuzzleSequence: muzzle
+		Name: agt
+		Turret: agt
+		RequiresCondition: has_agt && wallattached
+	Armament@agt_o:
+		Weapon: TowerMissile
+		LocalOffset: 256,-128,144,  256,128,144
+		MuzzleSequence: muzzle
+		Name: agt_o
+		Turret: agt_o
+		RequiresCondition: has_agt && !wallattached
+	Armament@agtAA:
+		Weapon: TowerAAMissile
+		LocalOffset: 256,-128,144,  256,128,144
+		MuzzleSequence: muzzle
+		Name: agt
+		Turret: agt
+		RequiresCondition: has_agt && wallattached
+	Armament@agt_oAA:
+		Weapon: TowerAAMissile
+		LocalOffset: 256,-128,144,  256,128,144
+		MuzzleSequence: muzzle
+		Name: agt_o
+		Turret: agt_o
+		RequiresCondition: has_agt && !wallattached
+	Armament@samAA:
+		Weapon: Nike
+		LocalOffset: 256,-128,144,  256,128,144
+		MuzzleSequence: muzzle
+		Name: agt
+		Turret: agt
+		RequiresCondition: has_sam && wallattached
+	Armament@sam_oAA:
+		Weapon: Nike
+		LocalOffset: 256,-128,144,  256,128,144
+		MuzzleSequence: muzzle
+		Name: agt_o
+		Turret: agt_o
+		RequiresCondition: has_sam && !wallattached
+	Turreted@1:
+		Turret: agt
+		TurnSpeed: 64
+		InitialFacing: 192
+		RealignDelay: -1
+		Offset: 0,-128,43
+		RequiresCondition: (has_agt || has_sam) && wallattached
+	Turreted@1offset:
+		Turret: agt_o
+		TurnSpeed: 64
+		InitialFacing: 192
+		RealignDelay: -1
+		Offset: 0,-43,43
+		RequiresCondition: (has_agt || has_sam) && !wallattached
+	Armament@flamer:
+		Weapon: FireballLauncher
+		LocalOffset: 512,0,0
+		Name: ftur
+		Turret: ftur
+		RequiresCondition: has_flame && wallattached
+	Armament@flamero:
+		Weapon: FireballLauncher
+		LocalOffset: 512,0,0
+		Name: ftur_o
+		Turret: ftur_o
+		RequiresCondition: has_flame && !wallattached
+	Turreted@2:
+		Turret: ftur
+		TurnSpeed: 512
+		Offset: 0,0,0
+		RequiresCondition: has_flame && wallattached
+	Turreted@2offset:
+		Turret: ftur_o
+		TurnSpeed: 512
+		Offset: 0,85,0
+		RequiresCondition: has_flame && !wallattached
+	Armament@tesla:
+		Weapon: TowerTeslaZap
+		LocalOffset: 256,0,256
+		Name: tsla
+		Turret: tsla
+		RequiresCondition: has_tesla && wallattached
+	Armament@teslao:
+		Weapon: TowerTeslaZap
+		LocalOffset: 256,0,256
+		Name: tsla_o
+		Turret: tsla_o
+		RequiresCondition: has_tesla && !wallattached
+	Turreted@3:
+		Turret: tsla
+		TurnSpeed: 512
+		Offset: 0,-85,-43
+		RequiresCondition: has_tesla && wallattached
+	Turreted@3offset:
+		Turret: tsla_o
+		TurnSpeed: 512
+		Offset: 0,0,-43
+		RequiresCondition: has_tesla && !wallattached
+	InstantlyRepairable:
+		RequiresCondition: damaged
+	GrantConditionOnDamageState@DAMAGED:
+		Condition: damaged
+		ValidDamageStates: Light, Medium, Heavy, Critical
+	RenderRangeCircle:
+	Power@base:
+		Amount: -30
+	Power@gun:
+		Amount: -80
+		RequiresCondition: has_agt || has_tsla
+	Power@sam:
+		Amount: -10
+		RequiresCondition: has_sam
+	DetectCloaked:
+		RequiresCondition: has_turret || has_agt || has_sam || has_flame || has_tesla
+		Range: 6c0
+	Sellable:
+		-RequiresCondition:
+	FreeActor@brik:
+		RequiresCondition: wallattached
+		AllowRespawn: true
+		Actor: brik.ctwr
+	ExternalCondition@offset:
+		Condition: wallattached
+	WithSpriteTurret@gun:
+		Turret: gun
+		Sequence: gun
+		RequiresCondition: has_turret && wallattached
+	WithSpriteTurret@Ogun:
+		Turret: gun_o
+		Sequence: gun
+		RequiresCondition: has_turret && !wallattached
+	WithSpriteTurret@agt:
+		Turret: agt
+		Sequence: agt
+		RequiresCondition: (has_agt || has_sam) && wallattached
+	WithSpriteTurret@Oagt:
+		Turret: agt_o
+		Sequence: agt
+		RequiresCondition: (has_agt || has_sam) && !wallattached
+	WithSpriteTurret@ftur:
+		Turret: ftur
+		Sequence: ftur
+		RequiresCondition: has_flame && wallattached
+	WithSpriteTurret@Oftur:
+		Turret: ftur_o
+		Sequence: ftur
+		RequiresCondition: has_flame && !wallattached
+	WithSpriteTurret@tsla:
+		Turret: tsla
+		Sequence: tsla
+		RequiresCondition: has_tesla && wallattached
+	WithSpriteTurret@Otsla:
+		Turret: tsla_o
+		Sequence: tsla
+		RequiresCondition: has_tesla && !wallattached
+	WithSpriteBody:
+		RequiresCondition: wallattached
+	WithIdleOverlay@0:
+		RequiresCondition: wallattached
+		Sequence: overlay-shadow
+	WithIdleOverlay@1:
+		RequiresCondition: wallattached
+		Sequence: overlay-part
+	WithSpriteBody@offset:
+		RequiresCondition: !wallattached
+		Sequence: offset-idle
+	WithIdleOverlay@0offset:
+		RequiresCondition: !wallattached
+		Sequence: offset-shadow
+	WithIdleOverlay@1offset:
+		RequiresCondition: !wallattached
+		Sequence: offset-part
+	WithMuzzleOverlay:
+	Pluggable@1:
+		Conditions:
+			ctwr.gun: has_turret
+			ctwr.agt: has_agt
+			ctwr.ftur: has_flame
+			ctwr.tsla: has_tesla
+			ctwr.sam: has_sam
+		Requirements:
+			ctwr.gun: !has_turret && !has_agt && !has_flame && !has_tesla && !has_sam
+			ctwr.agt: !has_turret && !has_agt && !has_flame && !has_tesla && !has_sam
+			ctwr.ftur: !has_turret && !has_agt && !has_flame && !has_tesla && !has_sam
+			ctwr.tsla: !has_turret && !has_agt && !has_flame && !has_tesla && !has_sam
+			ctwr.sam: !has_turret && !has_agt && !has_flame && !has_tesla && !has_sam
+		EditorOptions:
+			ctwr.gun: Vulcan
+			ctwr.agt: Missile
+			ctwr.ftur: Flamer
+			ctwr.tsla: Tesla
+			ctwr.sam: SAM
+	ProvidesPrerequisite@noupgrade:
+		RequiresCondition: !has_turret && !has_agt
+		Prerequisite: free_ctwr
+	GrantRandomCondition@ai:
+		Conditions: ai_agt, ai_gun
+	GrantRandomCondition@ai_sov:
+		Conditions: ai_ftur,ai_sam,ai_tsla
+	GrantConditionOnFaction@gdi:
+		Factions: gdi, steel, zocom, gdi3
+		Condition: ai_gdi
+	GrantConditionOnFaction@sov:
+		Factions: estonia
+		Condition: ai_sov
+	GrantConditionOnPrerequisite@radar:
+		Prerequisites: radar
+		Condition: radar_tech
+	GrantConditionOnPrerequisite@fact:
+		Prerequisites: factory
+		Condition: factory_tech
+	GrantDelayedCondition@ai:
+		RequiresCondition: botowner && ai_gdi && ai_gun
+		Condition: has_turret
+		Delay: 250, 350
+	GrantDelayedCondition@ai2:
+		RequiresCondition: botowner && ai_gdi && ai_agt && radar_tech
+		Condition: has_agt
+		Delay: 500, 600
+	GrantDelayedCondition@ai3:
+		RequiresCondition: botowner && ai_sov && ai_ftur
+		Condition: has_flame
+		Delay: 250, 350
+	GrantDelayedCondition@ai4:
+		RequiresCondition: botowner && ai_sov && ai_tsla && factory_tech
+		Condition: has_tesla
+		Delay: 500, 600
+	GrantDelayedCondition@ai5:
+		RequiresCondition: botowner && ai_sov && ai_sam && radar_tech
+		Condition: has_sam
+		Delay: 300, 400
+	ProximityExternalCondition@tower:
+		Condition: tower
+		Range: 0c128
+
+BRIK.CTWR:
+	Inherits: BRIK
+	-RenderSprites:
+	RenderSprites:
+		Image: brik2
+	-Buildable:
+	-Interactable:
+	-Tooltip:
+	-Sellable:
+	DamageMultiplier@tower:
+		Modifier: 1
+	ExternalCondition@tower:
+		Condition: tower
+	KillsSelf@tower:
+		Delay: 8
+		RequiresCondition: !tower
+
+CTWR.GUN:
+	Inherits: ^BuildingPlug
+	Valued:
+		Cost: 200
+	Tooltip:
+		Name: Vulcan Cannon attachment
+	Buildable:
+		Queue: Defense
+		BuildPaletteOrder: 52
+		Prerequisites: ~structures.gdi, ~techlevel.medium, ~free_ctwr
+		Description: Place on a free Component Tower. \n Strong vs Infantry
+		Icon: icon-gun
+	Plug:
+		Type: ctwr.gun
+	Building:
+		BuildSounds: hvydoor1.aud
+	RenderSprites:
+		Image: ctwr
+	SequencePlaceBuildingPreview:
+		Sequence: place-agt
+
+CTWR.AGT:
+	Inherits: ^BuildingPlug
+	Valued:
+		Cost: 900
+	Tooltip:
+		Name: Missile rack attachment
+	Buildable:
+		Queue: Defense
+		BuildPaletteOrder: 53
+		Prerequisites: radar, ~structures.gdi, ~techlevel.high, ~free_ctwr
+		Description: Place on a free Component Tower. \n Strong vs Infantry, Vehicles, Aircraft
+		Icon: icon-agt
+	Plug:
+		Type: ctwr.agt
+	Building:
+		BuildSounds: hvydoor1.aud
+	RenderSprites:
+		Image: ctwr
+	SequencePlaceBuildingPreview:
+		Sequence: place-agt
+	Power:
+		Amount: -80
+
+CTWR.FTUR:
+	Inherits: ^BuildingPlug
+	Valued:
+		Cost: 200
+	Tooltip:
+		Name: Flame Turret attachment
+	Buildable:
+		Queue: Defense
+		BuildPaletteOrder: 52
+		Prerequisites: ~structures.estonia, ~techlevel.medium, ~free_ctwr
+		Description: Place on a free Component Tower. \n Strong vs Infantry
+		Icon: icon-ftur
+	Plug:
+		Type: ctwr.ftur
+	Building:
+		BuildSounds: hvydoor1.aud
+	RenderSprites:
+		Image: ctwr
+	SequencePlaceBuildingPreview:
+		Sequence: ftur
+
+CTWR.TSLA:
+	Inherits: ^BuildingPlug
+	Valued:
+		Cost: 900
+	Tooltip:
+		Name: Tesla Coil attachment
+	Buildable:
+		Queue: Defense
+		BuildPaletteOrder: 53
+		Prerequisites: factory, ~structures.estonia, ~techlevel.high, ~free_ctwr
+		Description: Place on a free Component Tower. \n Strong vs Infantry, Vehicles
+		Icon: icon-tsla
+	Plug:
+		Type: ctwr.tsla
+	Building:
+		BuildSounds: hvydoor1.aud
+	RenderSprites:
+		Image: ctwr
+	SequencePlaceBuildingPreview:
+		Sequence: tsla
+	Power:
+		Amount: -80
+
+CTWR.SAM:
+	Inherits: ^BuildingPlug
+	Valued:
+		Cost: 300
+	Tooltip:
+		Name: SAM Site attachment
+	Buildable:
+		Queue: Defense
+		BuildPaletteOrder: 54
+		Prerequisites: radar, ~structures.estonia, ~techlevel.medium, ~free_ctwr
+		Description: Place on a free Component Tower. \n Strong vs Aircraft
+		Icon: icon-sam
+	Plug:
+		Type: ctwr.sam
+	Building:
+		BuildSounds: hvydoor1.aud
+	RenderSprites:
+		Image: ctwr
+	SequencePlaceBuildingPreview:
+		Sequence: place-agt
+	Power:
+		Amount: -40

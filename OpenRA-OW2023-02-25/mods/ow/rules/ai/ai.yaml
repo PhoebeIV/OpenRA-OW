@@ -259,15 +259,16 @@ Player:
 		MinimumConstructionYardCount: 4
 	BaseBuilderBotModule@normal:
 		RequiresCondition: enable-all-ai
-		PlaceDefenseTowardsEnemyChance: 33
+		PlaceDefenseTowardsEnemyChance: 10
 		AdditionalMinimumRefineryCount: 0
+		CheckForWaterRadius: 12
 		MaxBaseRadius: 50
 		MaximumDefenseRadius: 50
-		MinimumExcessPower: 60
-		MaximumExcessPower: 200
+		MinimumExcessPower: 100
+		MaximumExcessPower: 300
 		ExcessPowerIncrement: 40
 		ExcessPowerIncreaseThreshold: 4
-		StructureProductionInactiveDelay: 75
+		StructureProductionInactiveDelay: 100
 		MaximumFailedPlacementAttempts: 5
 		BuildingQueues: Building, Tech, Upgrade, Bot, Wall, Building.ZergColony, Nuke
 		ConstructionYardTypes: fact, factd, gfact, factm, zhatchery, pnexus, tcommand, tcommand.landed, tcommand.ai
@@ -439,6 +440,7 @@ Player:
 			ironball: 10
 			atwr: 10
 			atwr2: 10
+			ctwr: 6
 			oblid: 10
 			agun: 10
 			sam: 10
@@ -569,6 +571,7 @@ Player:
 			ironball: 60
 			atwr: 50
 			atwr2: 50
+			ctwr: 50
 			oblid: 50
 			agun: 50
 			sam: 50
@@ -2431,6 +2434,21 @@ Player:
 					CheckRadius: 8c0
 			ParatankGDI:
 				OrderName: ParatankGDI
+				MinimumAttractiveness: 5
+				Consideration@1:
+					Against: Enemy
+					Types: Structure
+					Attractiveness: 1
+					TargetMetric: None
+					CheckRadius: 8c0
+				Consideration@2:
+					Against: Enemy
+					Types: Water
+					Attractiveness: -5
+					TargetMetric: None
+					CheckRadius: 8c0
+			ParatankGDI2:
+				OrderName: ParamechGDI
 				MinimumAttractiveness: 5
 				Consideration@1:
 					Against: Enemy
