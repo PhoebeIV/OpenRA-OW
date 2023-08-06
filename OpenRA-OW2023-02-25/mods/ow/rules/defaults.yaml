@@ -746,13 +746,13 @@
 		Weapon: GraveyardSpawnerDeath
 		EmptyWeapon: GraveyardSpawnerDeath
 	ChangesHealth@tiberium:
-		RequiresCondition: standing_in_tiberium && shielded
+		RequiresCondition: standing_in_tiberium && shielded && !gdi_suits
 		DamageTypes: TiberiumDeath, BypassShield
 		Step: -20000
 		Delay: 16
 		StartIfBelow: 101
 	ChangesHealth@tiberium_noshield:
-		RequiresCondition: standing_in_tiberium && !shielded
+		RequiresCondition: standing_in_tiberium && !shielded && !gdi_suits
 		DamageTypes: TiberiumDeath
 		Step: -200
 		Delay: 16
@@ -1208,7 +1208,7 @@
 		ActorTypes: chinaredguard2,chinaredguard2,tecn,tecn,tecn
 	SpawnActorsOnSell@terran:
 		Factions: terran
-		ActorTypes: tecn,tecn,tecn,tecn,tmarine
+		ActorTypes: tecn,tecn,tecn,c10,tmarine
 	ActorLostNotification:
 		Notification: StructureLost
 	GrantConditionOnPrerequisite@never_target_me:
@@ -1255,22 +1255,22 @@
 		Factions: england, germany, france, russia, ukraine, estonia, steel, zocom, gdi3, marked, bhand, nod3, hitler, himmler, heydrich
 	SpawnActorsOnSell@uac:
 		Factions: phobos, mars, deimos
-		ActorTypes: dm2,dm2,dm2,dm2,tecn,tecn2,tecn,tecn2,tecn,tecn2,tecn,tecn2,tecn,tecn2,e6,e6,e6,e6,e6,chan,chan,chan,chan
+		ActorTypes: dm2,dm2,dm2,dm2,tecn,tecn2,tecn,tecn2,tecn,tecn2,tecn,tecn2,tecn,tecn2,e6,e6,e6,c10,c10,c10,c10
 	SpawnActorsOnSell@fed:
 		Factions: angels, silver, sword
-		ActorTypes: fe1,fe1,fe1,fe1,tecn,tecn2,tecn,tecn2,tecn,tecn2,tecn,tecn2,tecn,tecn2,fe6,fe6,fe6,fe6,fe6,chan,chan,chan,chan
+		ActorTypes: fe1,fe1,fe1,fe1,tecn,tecn2,tecn,tecn2,tecn,tecn2,tecn,tecn2,tecn,tecn2,fe6,fe6,fe6,c10,c10,c10,c10
 	SpawnActorsOnSell@gla:
 		Factions: demo, kassad, thrax
-		ActorTypes: ge1,ge1,ge1,ge1,tecn,tecn2,tecn,tecn2,tecn,tecn2,tecn,tecn2,tecn,tecn2,gharv,gharv,gharv,gharv,gharv,chan,chan,chan,chan
+		ActorTypes: ge1,ge1,ge1,ge1,tecn,tecn2,tecn,tecn2,tecn,tecn2,tecn,tecn2,tecn,tecn2,gharv,gharv,gharv,c10,c10,c10,c10
 	SpawnActorsOnSell@medi:
 		Factions: darkness, holy, elementalists
 		ActorTypes: slave,slave,slave,slave,slave,slave,slave,slave,slave,slave,slave,slave,slave,slave,slave,slave,slave,slave,slave,slave
 	SpawnActorsOnSell@usa:
 		Factions: usa, granger, alexander, townes
-		ActorTypes: usaranger,usaranger,usaranger,usaranger,usaranger,tecn,tecn2,tecn,tecn2,tecn,tecn2,tecn,tecn2,tecn,tecn2,e6,e6,e6,e6,e6,c10,c10,c10,c10
+		ActorTypes: usaranger,usaranger,usaranger,usaranger,usaranger,tecn,tecn2,tecn,tecn2,tecn,tecn2,tecn,tecn2,tecn,tecn2,e6,e6,e6,c10,c10,c10,c10
 	SpawnActorsOnSell@china:
 		Factions: china, tank, infantry, nuke
-		ActorTypes: chinaredguard2,chinaredguard2,chinaredguard2,chinaredguard2,tecn,tecn2,tecn,tecn2,tecn,tecn2,tecn,tecn2,tecn,tecn2,e6,e6,e6,e6,e6,c10,c10,c10,c10
+		ActorTypes: chinaredguard2,chinaredguard2,chinaredguard2,chinaredguard2,tecn,tecn2,tecn,tecn2,tecn,tecn2,tecn,tecn2,tecn,tecn2,e6,e6,e6,c10,c10,c10,c10
 	Targetable@tech:
 		TargetTypes: Tech
 
@@ -1888,7 +1888,13 @@
 	Selectable:
 		Bounds: 1024, 1024
 	Targetable:
-		TargetTypes: GroundActor, Creep
+		TargetTypes: GroundActor, Vehicle
+	Targetable@noauto:
+		RequiresCondition: spawned
+		TargetTypes: NoAutoTarget
+	GrantTimedCondition:
+		Condition: spawned
+		Duration: 250
 	AutoTarget:
 		ScanRadius: 5
 	AttackMove:

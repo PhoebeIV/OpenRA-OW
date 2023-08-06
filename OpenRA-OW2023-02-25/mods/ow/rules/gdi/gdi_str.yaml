@@ -262,7 +262,7 @@ CTWR:
 	LineBuildNode:
 		Types: concrete
 	Tooltip:
-		RequiresCondition: !has_turret && !has_agt && !has_flame && !has_tesla && !has_sam
+		RequiresCondition: !has_attachment
 		Name: Component Tower
 	Tooltip@0:
 		RequiresCondition: has_turret
@@ -308,7 +308,7 @@ CTWR:
 	AttackTurreted:
 		Armaments: gun, gun_o, agt, agt_o, sam, sam_o, ftur, ftur_o, tsla, tsla_o
 		Turrets: gun, gun_o, agt, agt_o, sam, sam_o, ftur, ftur_o, tsla, tsla_o
-		RequiresCondition: has_turret || has_agt || has_sam || has_flame || has_tesla
+		RequiresCondition: has_attachment
 		PauseOnCondition: lowpower || disabled
 	Armament@gun:
 		Weapon: Vulcan_D
@@ -453,13 +453,15 @@ CTWR:
 		Amount: -10
 		RequiresCondition: has_sam
 	DetectCloaked:
-		RequiresCondition: has_turret || has_agt || has_sam || has_flame || has_tesla
+		RequiresCondition: has_attachment
 		Range: 6c0
 	Sellable:
 		-RequiresCondition:
+	GrantCondition@wall:
+		RequiresCondition: has_turret || has_agt || has_sam || has_flame || has_tesla
+		Condition: has_attachment
 	FreeActor@brik:
-		RequiresCondition: wallattached
-		AllowRespawn: true
+		RequiresCondition: wallattached && has_attachment
 		Actor: brik.ctwr
 	ExternalCondition@offset:
 		Condition: wallattached

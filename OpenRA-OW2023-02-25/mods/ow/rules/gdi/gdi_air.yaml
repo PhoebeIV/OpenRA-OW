@@ -112,7 +112,7 @@ TSORCA:
 	UpdatesPlayerStatistics:
 		AddToArmyValue: true
 	Health:
-		HP: 17500
+		HP: 20000
 	RevealsShroud:
 		MinRange: 10c0
 		Range: 12c0
@@ -133,35 +133,38 @@ TSORCA:
 		PauseOnCondition: !ammo
 	Armament@3:
 		Name: third
-		Weapon: Vulcan_D
+		Weapon: OrcaChainGun
+		MuzzleSequence: muzzle
 		LocalOffset: 0,-213,-85, 0,213,-85
 		PauseOnCondition: !ammo2
 	AttackAircraft:
-		FacingTolerance: 80
+		FacingTolerance: 32
 		PersistentTargeting: false
 		AttackType: Hover
-		OpportunityFire: False
 		Armaments: primary, secondary, third
 	Aircraft:
-		TurnSpeed: 16
+		TurnSpeed: 48
 		Speed: 160
 	AutoTarget:
 		InitialStance: HoldFire
 		InitialStanceAI: HoldFire
 	AmmoPool:
-		Ammo: 8
+		Ammo: 12
 		AmmoCondition: ammo
 	AmmoPool@gun:
-		Ammo: 16
+		Ammo: 20
 		AmmoCondition: ammo2
 		Name: secondary
 		Armaments: third
 	ReloadAmmoPool@main:
 		Delay: 200
 		AmmoPool: primary
+		ResetOnFire: true
 	ReloadAmmoPool@gun:
 		Delay: 100
 		AmmoPool: secondary
+		ResetOnFire: true
+	WithMuzzleOverlay:
 	SelectionDecorations:
 	SpawnActorOnDeath:
 		Actor: TSORCA.Husk
@@ -182,11 +185,25 @@ TSORCA:
 		Position: BottomLeft
 		RequiresSelection: true
 		AmmoPools: primary
+		Margin: 1,3
 	WithAmmoPipsDecoration@2:
 		Position: BottomLeft
 		RequiresSelection: true
-		FullSequence: pip-yellow
+		FullSequence: bar-green
+		EmptySequence: bar-empty
 		AmmoPools: secondary
+		PipCount: 24
+		Margin: 1,0
+
+#is not included in AirUnitTypes, so they will use it for frontline attacks.
+TSORCA.AI:
+	Inherits: TSORCA
+	Buildable:
+		Prerequisites: ~hpad, ~techlevel.medium, ~aircraft.gdi3, ~ai.all
+	RenderSprites:
+		Image: tsorca
+	RenderVoxels:
+		Image: tsorca
 
 TSORCA.Husk:
 	Inherits: ^TSPlaneHusk
@@ -281,6 +298,16 @@ TSORCAB.Husk:
 	RenderVoxels:
 		Image: tsorcab
 
+#is not included in AirUnitTypes, so they will use it for frontline attacks.
+TSORCAB.AI:
+	Inherits: TSORCAB
+	Buildable:
+		Prerequisites: ~hpad, techcenter, ~techlevel.high, ~aircraft.gdi3, ~ai.all
+	RenderSprites:
+		Image: tsorcab
+	RenderVoxels:
+		Image: tsorcab
+
 TSORCATRAN:
 	Inherits: ^TSHelicopter
 	Inherits@CARGOPIPS: ^CargoPips
@@ -314,10 +341,32 @@ TSORCATRAN:
 		AltitudeVelocity: 0c58
 		TakeoffSounds: dropup1.aud
 		LandingSounds: dropdwn1.aud
+	Armament@PRIMARY:
+		Weapon: OrcaTransportDummy
+		PauseOnCondition: !cargo
+	AttackAircraft:
+		FacingTolerance: 512
+		PersistentTargeting: false
+		OpportunityFire: False
+	GrantConditionOnAttack:
+		Condition: attacking
+		RevokeDelay: 24
+	ParachuteCargoOnCondition:
+		ReturnToBase: true
+		RequiresCondition: attacking
+	ParaDrop:
+		ChuteSound: chute1.aud
+	GrantConditionOnTerrain@water:
+		Condition: over_water
+		TerrainTypes: Water
+	RangeMultiplier@water:
+		RequiresCondition: over_water
+		Modifier: 15
 	Cargo:
 		Types: Infantry, Vehicle
 		MaxWeight: 10
 		AfterUnloadDelay: 40
+		LoadedCondition: cargo
 	SpawnActorOnDeath:
 		Actor: TSORCATRAN.Husk
 	SelectionDecorations:
@@ -353,6 +402,60 @@ TSORCATRAN.Husk:
 	RenderVoxels:
 		Image: tsorcatran
 		Scale: 10
+
+# pre-filled transport for AI
+TSORCATRAN.AI:
+	Inherits: TSORCATRAN
+	Inherits@AutoTarget: ^AutoTargetGroundAssaultMove
+	UpdatesPlayerStatistics:
+		OverrideActor: tsorcatran
+	Buildable:
+		Prerequisites: ~hpad, techcenter, ~techlevel.high, ~aircraft.gdi3, ~ai.all
+		BuildDuration: 2400
+		BuildLimit: 2
+	RenderSprites:
+		Image: tsorcatran
+	RenderVoxels:
+		Image: tsorcatran
+	Aircraft:
+		AltitudeVelocity: 256
+	Cargo:
+		InitialUnits: rmbo,e1,e1,e1,e1,e1of,e3,e3,e3,e2
+	RejectsOrders:
+		RequiresCondition: !cargo
+	GrantPeriodicCondition@deploy:
+		Condition: force_deploy
+		RequiresCondition: !cargo
+		CooldownDuration: 250
+		ActiveDuration: 50
+	TransformOnCondition@cargo:
+		IntoActor: TSORCATRAN.Leave
+		RequiresCondition: !cargo && force_deploy
+
+TSORCATRAN.AI2:
+	Inherits: TSORCATRAN.AI
+	Buildable:
+		BuildDuration: 3400
+		BuildLimit: 1
+	Cargo:
+		InitialUnits: htnkd.g,mtnkd.g,mtnkd.g,mtnkd.g
+
+TSORCATRAN.Leave:
+	Inherits: TSORCATRAN
+	UpdatesPlayerStatistics:
+		OverrideActor: tsorcatran
+	-Buildable:
+	RenderSprites:
+		Image: tsorcatran
+	RenderVoxels:
+		Image: tsorcatran
+	Aircraft:
+		CanHover: false
+		IdleBehavior: LeaveMapAtClosestEdge
+	KillsSelf@a:
+		RemoveInstead: true
+		Delay: 500
+	RejectsOrders:
 
 TSKODIAC:
 	Inherits: ^TSHelicopter

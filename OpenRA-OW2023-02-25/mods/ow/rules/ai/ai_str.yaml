@@ -193,6 +193,33 @@ ZPOOL.bot:
 	Production:
 		Produces: Infantry, Soldier, Hatchery
 
+HPAD.bot:
+	Inherits: HPAD
+	Inherits@BotQueue_Aircraft: ^BotQueue_Aircraft
+	RenderSprites:
+		Image: hpad
+	Buildable:
+		Prerequisites: radar, ~techlevel.low, ~structures.hpadprereq, ~structures.bothard, ~!ai.boss 
+		BuildLimit: 3
+	ProvidesPrerequisite@buildingname:
+		Prerequisite: hpad
+	Armament:
+		Weapon: HotwireRepairGun
+		Cursor: repair
+		OutsideRangeCursor: repair
+		TargetRelationships: Ally
+		ForceTargetRelationships: None
+		RequiresCondition: autorep
+	AttackOmni:
+	AutoTarget:
+	AutoTargetPriority@DEFAULT:
+		ValidTargets: Repair
+	Power:
+		Amount: 0
+	GrantConditionOnFaction@gdi:
+		Condition: autorep
+		Factions: gdi3, angels
+
 BARR.boss:
 	Inherits: BARR.bot
 	Buildable:
