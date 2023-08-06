@@ -24,6 +24,43 @@
 		ValidTargets: Water, Underwater
 		InvalidTargets: Bridge
 
+^ShrapnelBase:
+	ValidTargets: Ground, Water, GroundActor, WaterActor
+	Range: 20c0
+	Projectile: Bullet
+		Speed: 64,192
+		Image: debris
+		Sequences: 1,2,3,4,5,6,7,8,9,10
+		Palette: tseffect
+		Shadow: True
+		LaunchAngle: 64, 192
+		Inaccuracy: 1c0
+	Warhead@1Dam: SpreadDamage
+		Spread: 128
+		Damage: 800
+		ValidTargets: GroundActor, WaterActor
+		Versus:
+			None: 100
+			Wood: 80
+			Light: 60
+			Heavy: 40
+			Concrete: 50
+		DamageTypes: Prone50Percent, TriggerProne, ExplosionDeath
+	Warhead@2Smu: LeaveSmudge
+		SmudgeType: Crater
+		Chance: 33
+		ValidTargets: Ground, Infantry
+	Warhead@3Eff: CreateEffect
+		Explosions: small_explosion
+		ImpactSounds: kaboom12.aud, expnew09.aud
+		ValidTargets: Ground, GroundActor, WaterActor, Trees
+		ImpactActors: false
+	Warhead@4EffWater: CreateEffect
+		Explosions: small_splash
+		ImpactSounds: splash9.aud
+		ValidTargets: Water, Underwater
+		InvalidTargets: Bridge
+
 CrateNapalm:
 	Inherits: ^Explosion
 	ValidTargets: Ground, Trees
@@ -1209,6 +1246,94 @@ TibCrateGrowth:
 		AddsResourceType: Tiberium
 		Size: 0
 		Delay: 250
+
+MonolithExplosion:
+	Inherits: DemoTrapExplosion
+	ValidTargets: Ground, Water, GroundActor, WaterActor
+	Projectile: InstantHit
+	Warhead@1Dam: SpreadDamage
+		Spread: 512
+		Damage: 20000
+		Delay: 4
+		Falloff: 250, 250, 175, 150, 0, 0, 0
+		Versus:
+			None: 75
+			Wood: 75
+			Light: 100
+			Heavy: 125
+			Concrete: 25
+		AffectsParent: true
+		ValidRelationships: Neutral, Enemy, Ally
+		DamageTypes: Prone50Percent, TriggerProne, TiberiumDeath
+		ValidTargets: GroundActor, WaterActor
+	Warhead@2Eff: CreateEffect
+		Explosions: building
+		ValidTargets: Ground, Water, Air
+		ImpactSounds: expnew02.aud, expnew03.aud
+		ImpactActors: false
+	Warhead@22Eff: CreateEffect
+		ValidTargets: Ground, Water, Air
+		ImpactSounds: expnew02.aud, expnew03.aud
+		ImpactActors: false
+	Warhead@15Shake: ShakeScreen
+		Duration: 5
+		Intensity: 2
+		Multiplier: 1,1
+	Warhead@condition: GrantExternalCondition
+		Condition: tibtree
+		Delay: 9000
+		Range: 3c0
+		Duration: 0
+		AffectsParent: true
+		ValidTargets: TibTree, OreMine, Tree
+	Warhead@shrapnel: FireShrapnel
+		Delay: 5
+		Weapon: TibShrapnel
+		Amount: 8,15
+	Warhead@shrapne2: FireShrapnel
+		Delay: 8
+		Weapon: TibShrapnelSpread
+		Amount: 5,10
+
+MonolithBlueExplosion:
+	Inherits: MonolithExplosion
+	Warhead@shrapnel: FireShrapnel
+		Weapon: TibShrapnelBlue
+	Warhead@shrapne2: FireShrapnel
+		Weapon: TibShrapnelBlueSpread
+
+TibShrapnel:
+	Inherits: ^ShrapnelBase
+	Range: 7c0
+	Projectile: Bullet
+		Palette: greentiberiumdebris
+	Warhead@1Dam: SpreadDamage
+		Damage: 1000
+		ValidTargets: GroundActor, WaterActor
+		Versus:
+			None: 300
+		DamageTypes: Prone50Percent, TriggerProne, TiberiumDeath
+
+TibShrapnelSpread:
+	Inherits: TibShrapnel
+	Warhead@1Resource: CreateResource
+		AddsResourceType: Tiberium
+		Size: 0
+
+TibShrapnelBlue:
+	Inherits: TibShrapnel
+	Projectile: Bullet
+		Palette: bluetiberiumdebris
+	Warhead@1Dam: SpreadDamage
+		Versus:
+			None: 300
+		DamageTypes: Prone50Percent, TriggerProne, TiberiumDeath
+
+TibShrapnelBlueSpread:
+	Inherits: TibShrapnelBlue
+	Warhead@1Resource: CreateResource
+		AddsResourceType: BlueTiberium
+		Size: 0
 
 TomahawkStormExplosion:
 	Inherits: ^Explosion

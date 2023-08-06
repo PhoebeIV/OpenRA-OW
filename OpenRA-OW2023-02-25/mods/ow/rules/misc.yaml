@@ -300,6 +300,13 @@ SPLIT4.CR:
 
 TMONOLITH:
 	Inherits: ^TibTree
+	Inherits@shape: ^1x1Shape
+	Health:
+		HP: 500000
+	Armor:
+		Type: Wood
+	Targetable: 
+		TargetTypes: GroundActor, Structure, Monolith
 	RenderSprites:
 		Palette: greentiberium
 		Image: bigblue
@@ -319,6 +326,11 @@ TMONOLITH:
 		Condition: burst
 		CooldownDuration: 750, 1500
 		ActiveDuration: 35, 80
+	GrantPeriodicConditionOnEvent@burst:
+		Condition: burst
+		Triggers: Damage
+		CooldownDuration: 100
+		ActiveDuration: 50
 	ExplodeWeapon@burst:
 		RequiresCondition: burst
 		Weapon: TibTreeBurst
@@ -344,6 +356,11 @@ TMONOLITH:
 	ExplodeWeapon@spread:
 		RequiresCondition: spawn_blue && !spawned
 		Weapon: MonolithSpawner
+	Explodes:
+		Weapon: MonolithExplosion
+		EmptyWeapon: MonolithExplosion
+	SpawnActorOnDeath:
+		Actor: MINE
 
 TMONOLITH.BLUE:
 	Inherits: TMONOLITH
@@ -363,6 +380,11 @@ TMONOLITH.BLUE:
 	-ExplodeWeapon@spread:
 	-GrantCondition@growth:
 	-ExternalCondition@growth:
+	Explodes:
+		Weapon: MonolithBlueExplosion
+		EmptyWeapon: MonolithBlueExplosion
+	SpawnActorOnDeath:
+		Actor: GMINE
 
 VICE:
 	Inherits: ^Viceroid
