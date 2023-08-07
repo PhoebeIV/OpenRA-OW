@@ -2574,6 +2574,15 @@
 		Weapon: CreepPreventer
 	Targetable@tree:
 		TargetTypes: TibTree
+	KillsSelf@notib:
+		RequiresCondition: notib
+	FreeActor@notib:
+		RequiresCondition: notib
+		Actor: MINE
+	GrantConditionOnPrerequisite@notib:
+		Prerequisites: techlevel.tibremove
+		Condition: notib
+
 
 ^Tree:
 	ExternalCondition@remove: 
@@ -2603,9 +2612,9 @@
 		Icon: idle
 	ActorPreviewPlaceBuildingPreview:
 	Tooltip:
-		RequiresCondition: !tibtree
+		RequiresCondition: !tibtree || notib
 	Tooltip@infected:
-		RequiresCondition: tibtree
+		RequiresCondition: tibtree && !notib
 		Name: Tree (infected)
 	DamageMultiplier:
 		Modifier: 0
@@ -2621,12 +2630,12 @@
 	ExternalCondition@growth:
 		Condition: growth
 	GrantPeriodicCondition@aaa:
-		RequiresCondition: (lessinfectable && (growth > 75)) || (infectable && (growth > 50)) || (moreinfectable && (growth > 30)) || tibtree
+		RequiresCondition: (lessinfectable && (growth > 75)) || (infectable && (growth > 50)) || (moreinfectable && (growth > 30)) || tibtree && !notib
 		Condition: dotransform
 		CooldownDuration: 1500, 4500
 		ActiveDuration: 50
 	AmbientSound:
-		RequiresCondition: (lessinfectable && (growth > 75)) || (infectable && (growth > 50)) || (moreinfectable && (growth > 30)) || tibtree
+		RequiresCondition: (lessinfectable && (growth > 75)) || (infectable && (growth > 50)) || (moreinfectable && (growth > 30)) || tibtree && !notib
 		SoundFiles: ambtibe2.wav
 		Delay: 250, 3000
 		Interval: 1500, 3000
@@ -2645,6 +2654,9 @@
 	ExternalCondition@tibtree:
 		Condition: tibtree
 	ProximityExternalCondition@tree:
-		RequiresCondition: infectable || moreinfectable
+		RequiresCondition: infectable || moreinfectable && !notib
 		Condition: near_tree
 		Range: 2c0
+	GrantConditionOnPrerequisite@notib:
+		Prerequisites: techlevel.tibremove
+		Condition: notib

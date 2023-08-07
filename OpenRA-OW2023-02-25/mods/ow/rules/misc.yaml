@@ -62,7 +62,7 @@ MINE:
 	ExternalCondition@growth:
 		Condition: growth
 	GrantPeriodicCondition@aaa:
-		RequiresCondition: (lessinfectable && (growth > 50)) || (infectable && (growth > 30)) || tibtree
+		RequiresCondition: (lessinfectable && (growth > 50)) || (infectable && (growth > 30)) || tibtree && !notib
 		Condition: dotransform
 		CooldownDuration: 1500, 4500
 		ActiveDuration: 50
@@ -73,8 +73,12 @@ MINE:
 	ExternalCondition@tibtree:
 		Condition: tibtree
 	ProximityExternalCondition@tree:
+		RequiresCondition: !notib
 		Condition: near_tree
 		Range: 2c0
+	GrantConditionOnPrerequisite@notib:
+		Prerequisites: techlevel.tibremove
+		Condition: notib
 
 GMINE:
 	HitShape:
@@ -111,7 +115,7 @@ GMINE:
 	ExternalCondition@growth:
 		Condition: growth
 	GrantPeriodicCondition@aaa:
-		RequiresCondition: (growth > 45) || tibtree
+		RequiresCondition: (growth > 45) || tibtree && !notib
 		Condition: dotransform
 		CooldownDuration: 1500, 4500
 		ActiveDuration: 50
@@ -122,8 +126,12 @@ GMINE:
 	ExternalCondition@tibtree:
 		Condition: tibtree
 	ProximityExternalCondition@tree:
+		RequiresCondition: !notib
 		Condition: near_tree
 		Range: 2c0
+	GrantConditionOnPrerequisite@notib:
+		Prerequisites: techlevel.tibremove
+		Condition: notib
 
 MINE.CR:
 	Inherits: MINE
@@ -357,8 +365,16 @@ TMONOLITH:
 		RequiresCondition: spawn_blue && !spawned
 		Weapon: MonolithSpawner
 	Explodes:
+		RequiresCondition: !notibresp
 		Weapon: MonolithExplosion
 		EmptyWeapon: MonolithExplosion
+	Explodes@2:
+		RequiresCondition: notibresp
+		Weapon: MonolithExplosion_NoResp
+		EmptyWeapon: MonolithExplosion_NoResp
+	GrantConditionOnPrerequisite@notib:
+		Prerequisites: techlevel.tibresp
+		Condition: notibresp
 	SpawnActorOnDeath:
 		Actor: MINE
 
@@ -383,6 +399,9 @@ TMONOLITH.BLUE:
 	Explodes:
 		Weapon: MonolithBlueExplosion
 		EmptyWeapon: MonolithBlueExplosion
+	Explodes@2:
+		Weapon: MonolithBlueExplosion_NoResp
+		EmptyWeapon: MonolithBlueExplosion_NoResp
 	SpawnActorOnDeath:
 		Actor: GMINE
 
