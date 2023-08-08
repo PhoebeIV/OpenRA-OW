@@ -1,12 +1,87 @@
-DM2:
+# actual base class for Doom marines, unlike "DoomSoldier".
+^DoomGuy:
 	Inherits: ^DoomSoldier
+	GrantConditionOnPrerequisite@berserk:
+		Prerequisites: uac.berserker
+		Condition: uac.berserker
+	GrantConditionOnPrerequisite@Faction:
+		Prerequisites: infantry.phobos
+		Condition: enable_berserk
+	GrantCondition@berserk:
+		RequiresCondition: uac.berserker
+		Condition: no_transform
+	GrantConditionOnDamageState@berserk:
+		Condition: allow_transform
+		ValidDamageStates: Heavy, Critical
+	GrantPeriodicConditionOnEvent@berserk:
+		RequiresCondition: allow_transform && enable_berserk && !no_transform
+		CooldownDuration: 100,150
+		ActiveDuration: 50
+		StartsCharged: false
+		Triggers: Damage
+		Condition: do_transform
+	TransformOnCondition:
+		RequiresCondition: do_transform
+		IntoActor: dm7
+		ForceHealthPercentage: 75
+	SoundOnDamageTransition:
+		DamagedSounds: dsplpain2.aud
+
+^NewDoomGuy:
+	Inherits: ^DoomGuy
+	-WithDeathAnimation:
+	WithDeathAnimation:
+		DeathTypes:
+			DefaultDeath: 1,3
+			BulletDeath: 2
+			SmallExplosionDeath: 2
+			ExplosionDeath: 1,3
+			ElectricityDeath: 6
+		CrushedSequence: die-crushed
+	GrantConditionOnDamage@shot:
+		Condition: injure
+		Duration: 6
+		ValidRelationships: Ally, Enemy, Neutral
+	WithInfantryBody:
+		RequiresCondition: !injure && !aiming
+		IdleSequences: idle,stand,stand2,stand3,stand4
+		StandSequences: stand,stand2,stand3,stand4
+		DefaultAttackSequence: shoot
+	WithInfantryBody@2:
+		RequiresCondition: injure
+		IdleSequences: pain
+		StandSequences: pain
+		DefaultAttackSequence: shoot
+	WithInfantryBody@3:
+		RequiresCondition: aiming && !injure
+		IdleSequences: idle
+		StandSequences: idle
+		DefaultAttackSequence: shoot
+	GrantConditionOnAttack@aiming:
+		Condition: aiming
+		RevokeDelay: 60
+	ProducibleWithLevel:
+		Prerequisites: barracks.upgraded
+	Mobile:
+		Speed: 60
+	TakeCover:
+		DamageModifiers:
+			Prone50Percent: 75
+		DamageTriggers: TriggerProne
+		SpeedModifier: 80
+		Duration: 75
+
+DM2:
+	Inherits: ^NewDoomGuy
 	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
 	Buildable:
 		Queue: Infantry
 		BuildAtProductionType: Soldier
 		BuildPaletteOrder: 20
 		Prerequisites: ~barracks, ~techlevel.infonly, ~infantry.uac
-		Description: General-purpose infantry.\nSpeed: 56\n  Strong vs Infantry\n  Weak vs Vehicles, Aircraft
+		Description: General-purpose infantry.\nSpeed: 60\n  Strong vs Infantry\n  Weak vs Vehicles, Aircraft
+	Selectable:
+		Class: dm2
 	Valued:
 		Cost: 280
 	Tooltip:
@@ -23,26 +98,50 @@ DM2:
 		Name: bus
 		Weapon: M1Minigun_Bus
 		MuzzleSequence: garrison-muzzle
-	WithInfantryBody:
-		DefaultAttackSequence: shoot
-	ProducibleWithLevel:
-		Prerequisites: barracks.upgraded
+	RenderSprites:
+		Image: n_dm1
+	GrantRandomCondition@a:
+		Conditions: none,none,variant_a
+	GrantPeriodicCondition@variantdeploy:
+		Condition: force_deploy
+		RequiresCondition: variant_a
+		CooldownDuration: 25
+		ActiveDuration: 50
+		StartsGranted: false
+	TransformOnCondition@a:
+		RequiresCondition: variant_a && force_deploy
+		IntoActor: dm2a
+	-TakeCover:
+
+DM2A:
+	Inherits: DM2
+	-Buildable:
+	-GrantRandomCondition@a:
+	GrantTimedCondition@move:
+		Condition: wander
+		Duration: 25
+	Wanders@move:
+		RequiresCondition: wander
+	UpdatesPlayerStatistics:
+		OverrideActor: dm2
+	RenderSprites:
+		Image: n_dm1a
 
 DM2OF:
-	Inherits: ^DoomSoldier
+	Inherits: ^NewDoomGuy
 	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
 	Buildable:
 		Queue: Infantry
 		BuildAtProductionType: Soldier
 		BuildPaletteOrder: 24
 		Prerequisites: ~barracks, ~techlevel.infonly, ~infantry.uac
-		Description: Squad leader, boosts nearby troops'\nspeed and firepower.\nSpeed: 62\n  Strong vs Infantry\n  Weak vs Vehicles, Aircraft
+		Description: Squad leader, boosts nearby troops'\nspeed and firepower.\nSpeed: 66\n  Strong vs Infantry\n  Weak vs Vehicles, Aircraft
 	Valued:
 		Cost: 650
 	Tooltip:
 		Name: Officer
 	Health:
-		HP: 32500
+		HP: 28000
 	Armament@PRIMARY:
 		Weapon: DoomSSG
 	Armament@GARRISONED:
@@ -53,10 +152,6 @@ DM2OF:
 		Name: bus
 		Weapon: DoomSSG
 		MuzzleSequence: garrison-muzzle
-	WithInfantryBody:
-		DefaultAttackSequence: shoot
-	ProducibleWithLevel:
-		Prerequisites: barracks.upgraded
 	ProximityExternalCondition:
 		Condition: squadboost
 		Range: 4c0
@@ -68,16 +163,18 @@ DM2OF:
 		Position: TopRight
 		ValidRelationships: None,Neutral,Enemy,Ally
 		RequiresCondition: !demoralise
+	RenderSprites:
+		Image: n_dm2
 
 DM6:
-	Inherits: ^DoomSoldier
+	Inherits: ^NewDoomGuy
 	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
 	Buildable:
 		Queue: Infantry
 		BuildAtProductionType: Soldier
 		BuildPaletteOrder: 21
 		Prerequisites: ~barracks, ~techlevel.infonly, ~infantry.uac, ~!infantry.deimos
-		Description: Anti-Air infantry.\nSpeed: 56\n  Strong vs Infantry\n  Weak vs Tanks
+		Description: Anti-Air infantry.\nSpeed: 60\n  Strong vs Infantry, Aircraft\n  Weak vs Tanks
 	Valued:
 		Cost: 350
 	Tooltip:
@@ -104,31 +201,38 @@ DM6:
 		Name: bus
 		Weapon: DoomMinigunAA
 		MuzzleSequence: garrison-muzzle
-	WithInfantryBody:
-		DefaultAttackSequence: shoot
-	ProducibleWithLevel:
-		Prerequisites: barracks.upgraded
 	RenderSprites:
+		Image: n_dm5
+	GrantPeriodicCondition@randomiseattackspeed:
+		ActiveDuration: 2,5
+		CooldownDuration: 2,5
+		Condition: attackspeed
+		RequiresCondition: aiming
+	ReloadDelayMultiplier@randomiseattackspeed:
+		RequiresCondition: attackspeed
+		Modifier: 150
 	-ReloadDelayMultiplier@RANK-1:
 	-ReloadDelayMultiplier@RANK-2:
 	-ReloadDelayMultiplier@RANK-3:
 	-ReloadDelayMultiplier@RANK-ELITE:
+	-ReloadDelayMultiplier@squadboost:
+	-TakeCover:
 
 DM1:
-	Inherits: ^DoomSoldier
+	Inherits: ^NewDoomGuy
 	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
 	Buildable:
 		Queue: Infantry
 		BuildAtProductionType: Soldier
 		BuildPaletteOrder: 22
 		Prerequisites: ~barracks, ~techlevel.infonly, ~infantry.uac
-		Description: Shoulder-mounted RPG.\nSpeed: 56\n  Strong vs Infantry, Light Vehicles\n  Weak vs Heavy Armor, Aircraft
+		Description: Shoulder-mounted RPG.\nSpeed: 60\n  Strong vs Infantry, Light Vehicles\n  Weak vs Heavy Armor, Aircraft
 	Valued:
 		Cost: 400
 	Tooltip:
 		Name: RPG Marine
 	Health:
-		HP: 17500
+		HP: 15000
 	Armament@PRIMARY:
 		Weapon: DoomRPG
 		LocalOffset: 0,0,700
@@ -138,28 +242,26 @@ DM1:
 	Armament@BUS:
 		Name: bus
 		Weapon: DoomRPG
-	WithInfantryBody:
-		DefaultAttackSequence: shoot
-	ProducibleWithLevel:
-		Prerequisites: barracks.upgraded
+	RenderSprites:
+		Image: n_dm3
 
 DM3:
-	Inherits: ^DoomSoldier
+	Inherits: ^NewDoomGuy
 	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
 	Buildable:
 		Queue: Infantry
 		BuildAtProductionType: Soldier
 		BuildPaletteOrder: 23
 		Prerequisites: radar, ~techlevel.medium, ~infantry.uac, ~!infantry.deimos
-		Description: Heavy anti-infantry and anti-armour marine.\nSpeed: 48\n  Strong vs Infantry, Tanks\n  Weak vs Light Vehicles, Aircraft
+		Description: Heavy anti-infantry and anti-armour marine.\nSpeed: 56\n  Strong vs Infantry, Tanks\n  Weak vs Light Vehicles, Aircraft
 	Valued:
 		Cost: 500
 	Tooltip:
 		Name: Plasma Gunner
 	Health:
-		HP: 25000
+		HP: 22500
 	Mobile:
-		Speed: 48
+		Speed: 56
 	Armament@PRIMARY:
 		Weapon: DoomPlasma
 		LocalOffset: 0,0,555
@@ -169,10 +271,8 @@ DM3:
 	Armament@BUS:
 		Name: bus
 		Weapon: DoomPlasma
-	WithInfantryBody:
-		DefaultAttackSequence: shoot
-	ProducibleWithLevel:
-		Prerequisites: barracks.upgraded
+	RenderSprites:
+		Image: n_dm4
 
 MEDI.DM:
 	Inherits: ^TibSunSoldier
@@ -180,7 +280,7 @@ MEDI.DM:
 		Queue: Infantry
 		BuildAtProductionType: Soldier
 		BuildPaletteOrder: 70
-		Prerequisites: ~techlevel.infonly, ~infantry.uac, ~!infantry.mars
+		Prerequisites: ~techlevel.infonly, ~infantry.phobos
 		Description: Heals nearby infantry.\nSpeed: 56\n  Unarmed
 	Valued:
 		Cost: 350
@@ -219,7 +319,7 @@ MECH.DM:
 		Queue: Infantry
 		BuildAtProductionType: Soldier
 		BuildPaletteOrder: 80
-		Prerequisites: ~techlevel.infonly, ~infantry.uac
+		Prerequisites: ~techlevel.infonly, ~infantry.mars
 		Description: Repairs nearby vehicles and restores\nhusks to working condition by capturing them.\nSpeed: 56\n  Unarmed
 	Valued:
 		Cost: 650
@@ -271,7 +371,7 @@ MECH.DM:
 	-GrantConditionOnTerrain@tiberium:
 
 DM4:
-	Inherits: ^DoomSoldier
+	Inherits: ^DoomGuy
 	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
 	Buildable:
 		Queue: Infantry
@@ -514,6 +614,95 @@ DM5:
 		Weapon: ArnieDeath
 		EmptyWeapon: ArnieDeath
 	RenderSprites:
+
+DM7:
+	Inherits: ^DoomSoldier
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Inherits@Priority: ^AutoTargetInfantryPriority
+	Buildable:
+		Queue: Infantry
+		BuildAtProductionType: Soldier
+		BuildPaletteOrder: 2501
+		Prerequisites: ~disabled
+		Description: Very angry. Sometimes ignores orders.
+	Valued:
+		Cost: 1600
+	Tooltip:
+		Name: Berserker
+	Health:
+		HP: 40000
+	Mobile:
+		Speed: 88
+	TakeCover:
+		Duration: 100
+		SpeedModifier: 150
+		DamageModifiers:
+			Prone50Percent: 80
+		ProneSequencePrefix:
+		DamageTriggers: TriggerProne
+	Armament@PRIMARY:
+		Weapon: DoomBerserkerFist
+		TargetRelationships: Enemy, Neutral
+	ProvidesPrerequisite:
+		Prerequisite: uac.berserker
+	WithInfantryBody:
+		DefaultAttackSequence: shoot
+	ProducibleWithLevel:
+		Prerequisites: barracks.upgraded
+	ConvertsDamageToHealth:
+		DamagePercentConverted: 40
+	GrantConditionOnAttack@fist:
+		Condition: enable_sound
+		RevokeDelay: 250
+	GrantConditionOnDamage@fist:
+		Condition: enable_sound
+		Duration: 250
+	AmbientSound@onlything:
+		SoundFiles: tottfiu.aud
+		RequiresCondition: enable_sound
+	GrantPeriodicCondition@ignore:
+		Condition: ignore_orders
+		CooldownDuration: 75,150
+		ActiveDuration: 150,500
+	Voiced:
+		VoiceSet: DoomBerserker
+	RejectsOrders:
+		RequiresCondition: ignore_orders
+	AttackWander:
+		WanderMoveRadius: 6
+		MaxMoveDelay: 50
+		MinMoveDelay: 25
+	AutoTarget:
+		ScanRadius: 48
+		InitialStance: AttackAnything
+	GrantTimedCondition:
+		Condition: spawn_protection
+		Duration: 125
+	AmbientSound:
+		SoundFiles: dsberserk.aud
+		RequiresCondition: spawn_protection
+		Interval: 250
+	DamageMultiplier:
+		Modifier: 50
+		RequiresCondition: spawn_protection
+	FirepowerMultiplier:
+		Modifier: 110
+		RequiresCondition: ignore_orders
+	ChangesHealth:
+		Step: 0
+		PercentageStep: 5
+		Delay: 100
+		StartIfBelow: 100
+		DamageCooldown: 25
+	-WithDeathAnimation:
+	WithDeathAnimation:
+		DeathTypes:
+			DefaultDeath: 1,3
+			BulletDeath: 2
+			SmallExplosionDeath: 2
+			ExplosionDeath: 1,3
+			ElectricityDeath: 6
+		CrushedSequence: die-crushed
 
 ^LargeDemon:
 	HitShape:

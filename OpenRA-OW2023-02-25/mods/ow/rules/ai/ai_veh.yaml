@@ -136,13 +136,51 @@ STNK.AI2:
 STNK.AI3:
 	Inherits: STNK.AI1
 	Cargo:
+		Prerequisites: ~techlevel.low, ~vehicles.phobos, ~ai.all
 		InitialUnits: medi.dm,medi.dm,dm3,dm3
 
 # UAC d - 1 bfg, 1 offcier, 1 medi
 STNK.AI4:
 	Inherits: STNK.AI1
 	Buildable:
-		Prerequisites: ~techlevel.unrestricted, ~vehicles.uac, ~ai.all
+		Prerequisites: ~techlevel.unrestricted, ~vehicles.phobos, ~ai.all
 		BuildDuration: 1500
 	Cargo:
 		InitialUnits: dm4,dm2of,medi.dm
+
+# Fed a - 4 strike knights, 1 grenade
+RTNK.AI1:
+	Inherits: RTNK
+	UpdatesPlayerStatistics:
+		OverrideActor: rtnk
+	RenderSprites:
+		Image: rtnk
+	Buildable:
+		Prerequisites: ~techlevel.low, ~vehicles.fed, ~ai.all
+		Description: AI prefilled Reaper.
+		BuildDuration: 1500
+		BuildPaletteOrder: 9999
+	Cargo:
+		InitialUnits: fe2,fe2,fe2,fe2,fe3
+	AutoDeployer:
+		DeployTicks: 150
+		UndeployTicks: 150
+		DeployChance: 50
+
+# Fed b - 2 strike knights, 1 heavy, 1 medi, 1 mech
+RTNK.AI2:
+	Inherits: RTNK.AI1
+	Buildable:
+		Prerequisites: fix, ~techlevel.medium, ~vehicles.fed, ~ai.all
+		BuildDuration: 1600
+	Cargo:
+		InitialUnits: fe2,fe2,fe4,fmedi,fmech
+
+# Fed c - 1 justicar, 2 shok, 2 medi
+RTNK.AI3:
+	Inherits: RTNK.AI1
+	Buildable:
+		Prerequisites: techcenter, ~techlevel.high, ~vehicles.fed, ~ai.all
+		BuildDuration: 2000
+	Cargo:
+		InitialUnits: frmbo,fshok,fshok,fmedi,fmedi

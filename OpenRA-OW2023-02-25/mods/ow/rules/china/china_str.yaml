@@ -166,7 +166,7 @@ chinabarracks:
 	Buildable:
 		Queue: Building
 		BuildPaletteOrder: 20
-		Prerequisites: anypower, ~structures.china
+		Prerequisites: anypower, ~structures.china, ~!structures.bothard
 		Description: Trains infantry.
 	Valued:
 		Cost: 600
@@ -237,87 +237,19 @@ chinabarracks:
 		UseDeathTypeSuffix: false
 
 chinawarfactory:
-	Inherits: ^DawnBuilding
-	Inherits@prereqs: ^FactoryPrereqs
+	Inherits: WEAPD
 	Selectable:
 		Bounds: 3072, 3072
 	Buildable:
 		Queue: Building
 		BuildPaletteOrder: 80
-		Prerequisites: chinasupplycenter, anypower, ~structures.china
+		Prerequisites: refinery, anypower, ~structures.china, ~!structures.bothard
 		Description: Produces vehicles.
+		Icon: icon-china
 	Valued:
 		Cost: 2000
 	Tooltip:
 		Name: War Factory
-	Building:
-		Footprint: ___ xxx === ===
-		Dimensions: 3,4
-		LocalCenterOffset: 0,-512,0
-	Health:
-		HP: 170000
-	Armor:
-		Type: Wood
-	RevealsShroud:
-		MinRange: 4c0
-		Range: 5c0
-		RevealGeneratedShroud: False
-	RevealsShroud@GAPGEN:
-		Range: 4c0
-	WithBuildingBib:
-	WithProductionDoorOverlay:
-		Sequence: build-top
-		RequiresCondition: !build-incomplete
-	RallyPoint:
-		Path: 0,3
-	Exit@1:
-		RequiresCondition: !being-captured
-		SpawnOffset: -341,-341,0
-		ExitCell: 0,2
-		ExitDelay: 3
-	Production:
-		Produces: Vehicle
-	GrantExternalConditionToProduced:
-		Condition: produced
-	PrimaryBuilding:
-		PrimaryCondition: primary
-		SelectionNotification: PrimaryBuildingSelected
-	ProductionBar:
-		ProductionType: Vehicle
-	Power:
-		Amount: -30
-	ProvidesPrerequisite@buildingname:
-	ProvidesPrerequisite@china:
-		Factions: china
-		Prerequisite: vehicles.china
-	Targetable:
-		TargetTypes: GroundActor, C4, DetonateAttack, Structure, SpyInfiltrate
-	InfiltrateForSupportPower:
-		Proxy: vehicles.upgraded
-		Types: SpyInfiltrate
-	WithDecoration@primary:
-		RequiresSelection: true
-		Image: pips
-		Sequence: tag-primary
-		Position: Top
-		RequiresCondition: primary
-	-ActorPreviewPlaceBuildingPreview:
-	SequencePlaceBuildingPreview:
-		Sequence: place
-	RenderSprites:
-        PlayerPalette: dawn
-        Image: chinawarfactory
-	HitShape:
-		TargetableOffsets: 0,0,0, 0,1024,0, 0,-1024,0
-		Type: Rectangle
-			TopLeft: -1536, -1024
-			BottomRight: 1536, 512
-	Cloak@stealthgen:
-		Palette: dawncloak
-	WithDeathAnimation:
-		DeathSequence: dead
-		UseDeathTypeSuffix: false
-		DeathSequencePalette: dawn
 
 chinapropagandacenter:
 	Inherits: ^ScienceBuilding
@@ -326,7 +258,7 @@ chinapropagandacenter:
 		Bounds: 3072, 3072
 	Buildable:
 		Queue: Building
-		Prerequisites: chinasupplycenter, chinawarfactory, anypower, ~structures.china
+		Prerequisites: refinery, factory, anypower, ~structures.china
 		Description: Propaganda Center, provides upgrades.
 		BuildPaletteOrder: 150
 	Tooltip:
@@ -650,7 +582,7 @@ chinaairfield:
 	Buildable:
 		Queue: Building
 		BuildPaletteOrder: 130
-		Prerequisites: chinasupplycenter, anypower, ~structures.china
+		Prerequisites: refinery, anypower, ~structures.china
 		Description: Produces and reloads aircraft.\n  Special Ability: Spy Plane.
 	Tooltip:
 		Name: PRC Airfield

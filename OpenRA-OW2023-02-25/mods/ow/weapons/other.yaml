@@ -1286,13 +1286,20 @@ DoomPlasma:
 	Burst: 3
 	BurstDelays: 4
 
+DoomPlasmaFed:
+	Inherits: ^PlasmaWeapon
+	Burst: 2
+	BurstDelays: 5
+	Warhead@1Dam: SpreadDamage
+		ValidRelationships: Enemy, Neutral
+
 DoomPlasmaTank:
 	Inherits: ^PlasmaWeapon
 	Burst: 3
 	BurstDelays: 6
 	Range: 5c0
 	Warhead@1Dam: SpreadDamage
-		Damage: 2500
+		Damage: 2750
 
 DoomSuperPlasma:
 	Inherits: ^PlasmaWeapon
@@ -1496,6 +1503,25 @@ DoomArchvileFire:
 		Explosions: small_napalm
 		ImpactSounds: dsflame.aud
 		ValidTargets: Ground, Air, GroundActor, AirborneActor, WaterActor, Trees
+
+DoomBerserkerFist:
+	Inherits: DoomBaronClaw
+	ReloadDelay: 8
+	Report: dspunch.aud
+	Projectile: InstantHit
+	Warhead@1Dam: SpreadDamage
+		Spread: 64
+		Damage: 6000
+		Versus:
+			None: 100
+			Wood: 20
+			Light: 50
+			Heavy: 20
+			Concrete: 10
+		DamageTypes: ExplosionDeath
+	Warhead@4EffGround: CreateEffect
+		ImpactSounds: gib1.aud, gib2.aud, gib4.aud, ut99dth1.aud
+		ValidTargets: Infantry, Ground
 
 FireballLauncher2:
 	ValidTargets: Ground, Water, GroundActor, WaterActor, Trees

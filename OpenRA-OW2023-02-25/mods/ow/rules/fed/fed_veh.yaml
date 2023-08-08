@@ -296,21 +296,6 @@ RTNK:
 		MaxWeight: 5
 		PassengerFacing: 880
 		LoadingCondition: notmobile
-		PassengerConditions:
-			e1of: e1of
-	ProximityExternalCondition@officer:
-		RequiresCondition: e1of
-		Condition: squadboost
-		Range: 5c0
-	WithDecoration@officer2:
-		Image: pips
-		Sequence: pip-bonus
-		Palette: effect
-		Position: TopRight
-		ValidRelationships: None,Neutral,Enemy,Ally
-		RequiresCondition: !demoralise && e1of
-	ExternalCondition@demoralise:
-		Condition: demoralise
 	ProducibleWithLevel:
 		Prerequisites: vehicles.upgraded
 	Selectable:
@@ -523,6 +508,11 @@ SOLC:
 	TransferTimedExternalConditionOnTransform:
 		Condition: invulnerability
 	-Chronoshiftable:
+	AutoDeployer:
+		DeployTicks: 150
+		UndeployTicks: 150
+		DeployChance: 50
+		DeployTrigger: Attack
 
 SOLCDEPL:
 	Inherits: ^Defense
@@ -599,3 +589,8 @@ SOLCDEPL:
 		Interval: 2000
 	Voiced:
 		VoiceSet: SolCannonVoice
+	AutoDeployer:
+		DeployTicks: 150
+		UndeployTicks: 150
+		DeployChance: 20
+		DeployTrigger: Damage, Attack

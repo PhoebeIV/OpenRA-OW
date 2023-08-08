@@ -92,7 +92,7 @@ usabarracks:
 	Buildable:
 		Queue: Building
 		BuildPaletteOrder: 20
-		Prerequisites: anypower, ~structures.usa
+		Prerequisites: anypower, ~structures.usa, ~!structures.bothard
 		Description: Trains infantry. Patriots. God bless 'em.
 	Valued:
 		Cost: 600
@@ -225,8 +225,7 @@ usasupplycenter:
 		UseDeathTypeSuffix: false
 	ProvidesPrerequisite@buildingname:
 	ProvidesPrerequisite@usa:
-		Factions: usa, townes, granger, alexander
-		Prerequisite: Supply Center
+		Prerequisite: refinery
 	HitShape:
 		Type: Rectangle
 			TopLeft: -1536, -512
@@ -261,90 +260,19 @@ usasupplycenter:
 		RequiresCondition: supplylines
         
 usawarfactory:
-	Inherits: ^DawnBuilding
-	Inherits@prereqs: ^FactoryPrereqs
+	Inherits: WEAPD
 	Selectable:
 		Bounds: 3072, 3072
 	Buildable:
 		Queue: Building
 		BuildPaletteOrder: 80
-		Prerequisites: usasupplycenter, anypower, ~structures.usa
+		Prerequisites: refinery, anypower, ~structures.usa, ~!structures.bothard
 		Description: Produces vehicles.
+		Icon: icon-usa
 	Valued:
 		Cost: 2000
 	Tooltip:
 		Name: War Factory
-	Building:
-		Footprint: ___ xxx === ===
-		Dimensions: 3,4
-		LocalCenterOffset: 0,-512,0
-	Health:
-		HP: 170000
-	Armor:
-		Type: Wood
-	RevealsShroud:
-		MinRange: 4c0
-		Range: 5c0
-		RevealGeneratedShroud: False
-	RevealsShroud@GAPGEN:
-		Range: 4c0
-	WithBuildingBib:
-	WithProductionDoorOverlay:
-		Sequence: build-top
-		RequiresCondition: !build-incomplete
-	RallyPoint:
-		Path: 0,3
-	Exit@1:
-		RequiresCondition: !being-captured
-		SpawnOffset: -341,-341,0
-		ExitCell: 0,2
-		ExitDelay: 3
-	Production:
-		Produces: Vehicle
-	GrantExternalConditionToProduced:
-		Condition: produced
-	PrimaryBuilding:
-		PrimaryCondition: primary
-		SelectionNotification: PrimaryBuildingSelected
-	ProductionBar:
-		ProductionType: Vehicle
-	Power:
-		Amount: -30
-	ProvidesPrerequisite@buildingname:
-	ProvidesPrerequisite@usa:
-		Factions: usa, townes, granger, alexander
-		Prerequisite: War Factory
-	ProvidesPrerequisite@usa2:
-		Factions: usa, townes, granger, alexander
-		Prerequisite: vehicles.usa
-	Targetable:
-		TargetTypes: GroundActor, C4, DetonateAttack, Structure, SpyInfiltrate
-	InfiltrateForSupportPower:
-		Proxy: vehicles.upgraded
-		Types: SpyInfiltrate
-	WithDecoration@primary:
-		RequiresSelection: true
-		Image: pips
-		Sequence: tag-primary
-		Position: Top
-		RequiresCondition: primary
-	-ActorPreviewPlaceBuildingPreview:
-	SequencePlaceBuildingPreview:
-		Sequence: place
-	RenderSprites:
-        PlayerPalette: dawn
-        Image: usawarfactory
-	HitShape:
-		TargetableOffsets: 0,0,0, 0,1024,0, 0,-1024,0
-		Type: Rectangle
-			TopLeft: -1536, -1024
-			BottomRight: 1536, 512
-	Cloak@stealthgen:
-		Palette: dawncloak
-	WithDeathAnimation:
-		DeathSequence: dead
-		UseDeathTypeSuffix: false
-		DeathSequencePalette: dawn
 
 usaairfield:
 	Inherits: ^Building
@@ -353,7 +281,7 @@ usaairfield:
 	Buildable:
 		Queue: Building
 		BuildPaletteOrder: 130
-		Prerequisites: usasupplycenter, anypower, ~structures.usa
+		Prerequisites: refinery, anypower, ~structures.usa
 		Description: Produces and reloads aircraft.\n  Special Ability: Spy Plane\n  Special Ability: Paratroopers
 	Tooltip:
 		Name: USA Airfield
@@ -519,7 +447,7 @@ usastrategycenter:
 		Bounds: 3072, 3072
 	Buildable:
 		Queue: Building
-		Prerequisites: usasupplycenter, usawarfactory, anypower, ~structures.usa
+		Prerequisites: refinery, factory, anypower, ~structures.usa
 		Description: Strategic Center, provides upgrades.
 		BuildPaletteOrder: 150
 	Tooltip:
@@ -982,7 +910,7 @@ usapatriot:
 		BuildPaletteOrder: 4
 		BuildDuration: 625
 		BuildDurationModifier: 100
-		Prerequisites: anypower, ~structures.usa, usabarracks, ~!faction.lasergeneral, ~!faction.superweaponsgeneral
+		Prerequisites: anypower, ~structures.usa, barracks, ~!faction.lasergeneral, ~!faction.superweaponsgeneral
 		Description: Anti-tank & anti-air base defense.
 	Valued:
 		Cost: 1000
@@ -1059,7 +987,7 @@ usapatriotEMP:
 		BuildPaletteOrder: 4
 		BuildDuration: 625
 		BuildDurationModifier: 100
-		Prerequisites: anypower, ~structures.usa, usabarracks, upgrade.superweaponsgeneral, ~!faction.lasergeneral, ~!faction.aircraftgeneral
+		Prerequisites: anypower, ~structures.usa, barracks, upgrade.superweaponsgeneral, ~!faction.lasergeneral, ~!faction.aircraftgeneral
 		Description: Patriot Missile System upgrade with EMP rockets, disabling vehicles.\nProvided by General Alexis Alexander.
 	Valued:
 		Cost: 1200
@@ -1135,7 +1063,7 @@ usalaserpatriot:
 	Buildable:
 		Queue: Defense
 		BuildPaletteOrder: 70
-		Prerequisites: anypower, ~structures.usa, usabarracks, upgrade.lasergeneral, ~!faction.aircraftgeneral, ~!faction.superweaponsgeneral
+		Prerequisites: anypower, ~structures.usa, barracks, upgrade.lasergeneral, ~!faction.aircraftgeneral, ~!faction.superweaponsgeneral
 		Description: Laser Defense Turret.\nProvided by General Townes
 	Valued:
 		Cost: 1400
@@ -1223,7 +1151,7 @@ usafirebase:
 	Buildable:
 		Queue: Defense
 		BuildPaletteOrder: 70
-		Prerequisites: anypower, ~structures.usa, usabarracks
+		Prerequisites: anypower, ~structures.usa, barracks
 		Description: Firebase defense structure. Long ranged artillery.
 	Selectable:
 		Bounds: 2048, 2048

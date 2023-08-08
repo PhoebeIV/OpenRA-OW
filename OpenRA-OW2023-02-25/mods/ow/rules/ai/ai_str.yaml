@@ -193,6 +193,30 @@ ZPOOL.bot:
 	Production:
 		Produces: Infantry, Soldier, Hatchery
 
+chinabarracks.bot:
+	Inherits: chinabarracks
+	Inherits@BotQueue_Infantry: ^BotQueue_Infantry
+	Buildable:
+		Prerequisites: anypower, ~techlevel.infonly, ~structures.china, ~structures.bothard, ~!ai.boss
+	ProvidesPrerequisite@buildingname:
+		Prerequisite: chinabarracks
+
+usabarracks.bot:
+	Inherits: usabarracks
+	Inherits@BotQueue_Infantry: ^BotQueue_Infantry
+	Buildable:
+		Prerequisites: anypower, ~techlevel.infonly, ~structures.usa, ~structures.bothard, ~!ai.boss
+	ProvidesPrerequisite@buildingname:
+		Prerequisite: usabarracks
+
+japanbarracks.bot:
+	Inherits: usabarracks
+	Inherits@BotQueue_Infantry: ^BotQueue_Infantry
+	Buildable:
+		Prerequisites: anypower, ~techlevel.infonly, ~structures.japan, ~structures.bothard, ~!ai.boss
+	ProvidesPrerequisite@buildingname:
+		Prerequisite: japanbarracks
+
 HPAD.bot:
 	Inherits: HPAD
 	Inherits@BotQueue_Aircraft: ^BotQueue_Aircraft
@@ -290,10 +314,8 @@ WEAP.bot:
 WEAPD.bot:
 	Inherits: WEAPD
 	Inherits@BotQueue_Infantry: ^BotQueue_Vehicle
-	RenderSprites:
-		Image: weapd
 	Buildable:
-		Prerequisites: refinery, barracks, ~techlevel.low, ~structures.weapdprereq, ~structures.bothard, ~!ai.boss
+		Prerequisites: refinery, barracks, ~techlevel.low, ~structures.weapdprereq_bot, ~structures.bothard, ~!ai.boss
 	ProvidesPrerequisite@buildingname:
 		Prerequisite: weapd
 
@@ -685,3 +707,118 @@ japanlaserbaseai:
     FreeActor@4:
         Actor: firebasebunker.ai
         SpawnOffset: 2,0
+
+^ConYardPrereqs: 
+	ProvidesPrerequisite@PREFABA: 
+		Factions: allies, england, france, germany, soviet, russia, ukraine, estonia, phobos, deimos, mars, hitler, himmler, heydrich, nod, bhand, marked, nod3, gdi, steel, zocom, gdi3, sword, angels, silver, china,infantry,nuke,tank, usa,townes,granger,alexander, japan
+		Prerequisite: structures.prefaba
+	ProvidesPrerequisite@weapd: # Dawn Weap Factory
+		Factions: gdi, steel, zocom, gdi3, hitler, himmler, heydrich, china,infantry,nuke,tank, usa,townes,granger,alexander, japan
+		Prerequisite: structures.weapdprereq_bot
+
+# a building that when placed is replaced with a power plant and barracks
+PREFAB.A:
+	Inherits: ^Building
+	Buildable:
+		Queue: Wall
+		BuildPaletteOrder: 9000
+		Prerequisites: !anypower, !barracks, ~ai.hard, ~structures.prefaba
+		Description: For AI use: \nPower Plant and a Barracks.
+		Icon: fake-icon
+		BuildDuration: 100
+	RenderSprites:
+		Image: fact
+	Building:
+		Footprint: xxxx xxxx ====
+		Dimensions: 4,3
+	Power:
+		Amount: 200
+	Valued:
+		Cost: 600
+	Health:
+		HP: 5000
+	GrantConditionOnFaction@power_base:
+		Condition: powr_enable
+		Factions: england,germany,france,russia,ukraine,estonia,phobos,deimos,mars,hitler,himmler,heydrich
+	GrantConditionOnFaction@power_dawn:
+		Condition: dpwr_enable
+		Factions: steel,zocom,gdi3,bhand,marked,nod3,angels,sword,silver
+	GrantConditionOnFaction@power_china:
+		Condition: chinapower_enable
+		Factions: china,infantry,nuke,tank
+	GrantConditionOnFaction@power_usa:
+		Condition: usapower_enable
+		Factions: usa,alexander,townes,granger
+	GrantConditionOnFaction@power_jp:
+		Condition: jppower_enable
+		Factions: japan
+	FreeActor@power_base:
+		RequiresCondition: powr_enable
+		Actor: POWR
+		SpawnOffset: 0,0
+	FreeActor@power_dawn:
+		RequiresCondition: dpwr_enable
+		Actor: DPWR
+		SpawnOffset: 0,0
+	FreeActor@power_china:
+		RequiresCondition: chinapower_enable
+		Actor: chinanuclearreactor
+		SpawnOffset: 0,0
+	FreeActor@power_usa:
+		RequiresCondition: usapower_enable
+		Actor: usacoldfusion
+		SpawnOffset: 0,0
+	FreeActor@power_jp:
+		RequiresCondition: jppower_enable
+		Actor: japanantimatterreactor
+		SpawnOffset: 0,0
+	GrantConditionOnFaction@barr_tent:
+		Condition: tent_enable
+		Factions: england,germany,france
+	GrantConditionOnFaction@barr_barr:
+		Condition: barr_enable
+		Factions: russia,ukraine,estonia,angels,sword,silver
+	GrantConditionOnFaction@barr_gbarr:
+		Condition: gbarr_enable
+		Factions: steel,zocom,gdi3,phobos,deimos,mars
+	GrantConditionOnFaction@barr_hand1:
+		Condition: hand_enable
+		Factions: bhand,marked,nod3
+	GrantConditionOnFaction@barr_hand2:
+		Condition: nhand_enable
+		Factions: hitler,himmler,heydrich
+	FreeActor@barr_tent:
+		RequiresCondition: tent_enable
+		Actor: TENT.bot
+		SpawnOffset: 2,0
+	FreeActor@barr_barr:
+		RequiresCondition: barr_enable
+		Actor: BARR.bot
+		SpawnOffset: 2,0
+	FreeActor@barr_gbarr:
+		RequiresCondition: gbarr_enable
+		Actor: PYLED.bot
+		SpawnOffset: 2,0
+	FreeActor@barr_hand1:
+		RequiresCondition: hand_enable
+		Actor: HANDD.bot
+		SpawnOffset: 2,0
+	FreeActor@barr_hand2:
+		RequiresCondition: nhand_enable
+		Actor: NHAND.bot
+		SpawnOffset: 2,0
+	FreeActor@barr_usa:
+		RequiresCondition: usapower_enable
+		Actor: usabarracks
+		SpawnOffset: 2,0
+	FreeActor@barr_china:
+		RequiresCondition: chinapower_enable
+		Actor: chinabarracks.bot
+		SpawnOffset: 2,0
+	FreeActor@barr_japan:
+		RequiresCondition: jppower_enable
+		Actor: japanbarracks.bot
+		SpawnOffset: 2,0
+	KillsSelf@yes:
+		RemoveInstead: true
+		Delay: 1

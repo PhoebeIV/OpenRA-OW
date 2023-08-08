@@ -201,7 +201,7 @@ japanbarracks:
 	Buildable:
 		Queue: Building
 		BuildPaletteOrder: 20
-		Prerequisites: anypower, ~structures.japan
+		Prerequisites: anypower, ~structures.japan, ~!structures.bothard
 		Description: Trains infantry.
 	Valued:
 		Cost: 600
@@ -284,87 +284,20 @@ japanbarracks:
 		Color: 00fbff20
 
 japanmechabay:
-	Inherits: ^DawnBuilding
+	Inherits: WEAPD
 	Inherits@prereqs: ^FactoryPrereqs
 	Selectable:
 		Bounds: 3072, 3072
 	Buildable:
 		Queue: Building
 		BuildPaletteOrder: 80
-		Prerequisites: japansupplycenter, anypower, ~structures.japan
+		Prerequisites: refinery, anypower, ~structures.japan, ~!structures.bothard
 		Description: Produces mechas.
+		Icon: icon-japan
 	Valued:
 		Cost: 2000
 	Tooltip:
 		Name: Mecha Bay
-	Building:
-		Footprint: ___ xxx === ===
-		Dimensions: 3,4
-		LocalCenterOffset: 0,-512,0
-	Health:
-		HP: 170000
-	Armor:
-		Type: Wood
-	RevealsShroud:
-		MinRange: 4c0
-		Range: 5c0
-		RevealGeneratedShroud: False
-	RevealsShroud@GAPGEN:
-		Range: 4c0
-	WithBuildingBib:
-	WithProductionDoorOverlay:
-		Sequence: build-top
-		RequiresCondition: !build-incomplete
-	RallyPoint:
-		Path: 0,3
-	Exit@1:
-		RequiresCondition: !being-captured
-		SpawnOffset: -341,-341,0
-		ExitCell: 0,2
-		ExitDelay: 3
-	Production:
-		Produces: Vehicle
-	GrantExternalConditionToProduced:
-		Condition: produced
-	PrimaryBuilding:
-		PrimaryCondition: primary
-		SelectionNotification: PrimaryBuildingSelected
-	ProductionBar:
-		ProductionType: Vehicle
-	Power:
-		Amount: -30
-	ProvidesPrerequisite@buildingname:
-	ProvidesPrerequisite@china:
-		Factions: china
-		Prerequisite: vehicles.china
-	Targetable:
-		TargetTypes: GroundActor, C4, DetonateAttack, Structure, SpyInfiltrate
-	InfiltrateForSupportPower:
-		Proxy: vehicles.upgraded
-		Types: SpyInfiltrate
-	WithDecoration@primary:
-		RequiresSelection: true
-		Image: pips
-		Sequence: tag-primary
-		Position: Top
-		RequiresCondition: primary
-	-ActorPreviewPlaceBuildingPreview:
-	SequencePlaceBuildingPreview:
-		Sequence: place
-	RenderSprites:
-        PlayerPalette: dawn
-        Image: japanmechabay
-	HitShape:
-		TargetableOffsets: 0,0,0, 0,1024,0, 0,-1024,0
-		Type: Rectangle
-			TopLeft: -1536, -1024
-			BottomRight: 1536, 512
-	Cloak@stealthgen:
-		Palette: dawncloak
-	WithDeathAnimation:
-		DeathSequence: dead
-		UseDeathTypeSuffix: false
-		DeathSequencePalette: dawn
     GrantConditionOnPrerequisite@baseshields:
         Condition: baseshields
         Prerequisites: upgrade.baseshields
@@ -385,7 +318,7 @@ japanairfield:
 	Buildable:
 		Queue: Building
 		BuildPaletteOrder: 130
-		Prerequisites: japansupplycenter, anypower, ~structures.japan
+		Prerequisites: refinery, anypower, ~structures.japan
 		Description: Produces and reloads aircraft.\n  Special Ability: Spy Plane\n  Special Ability: Paratroopers
 	Tooltip:
 		Name: Japan Airfield
@@ -486,7 +419,7 @@ japanshipyard:
 	Buildable:
 		Queue: Building
 		BuildPaletteOrder: 80
-		Prerequisites: anypower, ~structures.japan, japansupplycenter, ~!techlevel.noboats
+		Prerequisites: anypower, ~structures.japan, refinery, ~!techlevel.noboats
 		Description: Produces and repairs\nships and transports.
 	Valued:
 		Cost: 1000
@@ -595,7 +528,7 @@ japanmainframe:
 	Buildable:
 		Queue: Building
 		BuildPaletteOrder: 140
-		Prerequisites: japanmechabay, ~structures.japan, ~techlevel.high
+		Prerequisites: factory, ~structures.japan, ~techlevel.high
 		Description: Provides Japan advanced technologies.\n  Special Ability: GPS Satellite
 	Valued:
 		Cost: 1500
@@ -740,7 +673,7 @@ japanpsychicdatacenter:
 	Buildable:
 		Queue: Building
 		BuildPaletteOrder: 150
-		Prerequisites: japanmainframe, ~structures.japan, ~techlevel.high
+		Prerequisites: techcenter, ~structures.japan, ~techlevel.high
 		Description: Provides Japan psychic advanced technologies.
 	Valued:
 		Cost: 2000
@@ -938,7 +871,7 @@ japanlaserbase:
 	Buildable:
 		Queue: Defense
 		BuildPaletteOrder: 70
-		Prerequisites: anypower, ~structures.japan, japanbarracks
+		Prerequisites: anypower, ~structures.japan, barracks
 		Description: Firebase defense structure. Long ranged laser.
 	Selectable:
 		Bounds: 2048, 2048
