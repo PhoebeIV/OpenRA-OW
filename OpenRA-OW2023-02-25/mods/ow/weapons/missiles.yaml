@@ -2369,6 +2369,40 @@ rocketangelshot:
 		Explosions: large_splash
 		ImpactSounds: splash9.aud
 
+rocketangelshotupgrade:
+	Inherits: rocketangelshot
+	Projectile: Missile
+		Speed: 256
+		Inaccuracy: 1c128
+		CruiseAltitude: 2c0
+		RangeLimit: 18c410
+		ContrailStartColor: ff5eff
+		Image: plasmarocket
+		ContrailWidth: 0c8
+	Warhead@1Dam: SpreadDamage
+		Damage: 6000
+		Spread: 192
+		Versus:
+			None: 120
+			Wood: 20
+			Light: 100
+			Heavy: 75
+			Concrete: 100
+		ValidTargets: GroundActor, WaterActor, Ground, Water
+		DamageTypes: Prone50Percent, TriggerProne, SmallExplosionDeath
+	Warhead@2Dam: SpreadDamage
+		Spread: 192
+		Damage: 1000
+		ValidTargets: Air, AirborneActor
+		DamageTypes: Prone50Percent, TriggerProne, DefaultDeath
+	Warhead@3Eff: CreateEffect
+		ValidTargets: GroundActor, WaterActor, Ground, Water, Air, AirborneActor
+		Explosions: cyrostreamexplosion
+    Warhead@2EMP: GrantExternalCondition
+		Condition: cyrostreameffect
+		Duration: 100
+		ValidTargets: GroundActor, WaterActor, Ground, Water, Air, AirborneActor
+
 strikervxshot:
 	Inherits: rocketangelshot
 	ReloadDelay: 200
@@ -2379,6 +2413,19 @@ strikervxshot:
 		CruiseAltitude: 2c0
 		RangeLimit: 18c410
 		ContrailStartColor: 00fbff
+		Image: plasmarocket
+		ContrailWidth: 0c8
+
+strikervxshotupgrade:
+	Inherits: rocketangelshotupgrade
+	ReloadDelay: 200
+	Burst: 16
+	Projectile: Missile
+		Speed: 256
+		Inaccuracy: 1c256
+		CruiseAltitude: 2c0
+		RangeLimit: 18c410
+		ContrailStartColor: ff5eff
 		Image: plasmarocket
 		ContrailWidth: 0c8
 
@@ -2411,9 +2458,40 @@ choppervxshot:
 		ValidTargets: Air, AirborneActor
 		DamageTypes: Prone50Percent, TriggerProne, DefaultDeath
 
+choppervxshotupgrade:
+	Inherits: choppervxshot
+	Projectile: Missile
+		Speed: 384
+		Inaccuracy: 1c128
+		CruiseAltitude: 2c0
+		RangeLimit: 18c410
+		ContrailStartColor: ff5eff
+		Image: plasmarocket
+		ContrailWidth: 0c8
+	Warhead@1Dam: SpreadDamage
+		Damage: 3000
+		Spread: 192
+		Versus:
+			None: 120
+			Wood: 40
+			Light: 100
+			Heavy: 75
+			Concrete: 100
+		ValidTargets: GroundActor, WaterActor, Ground, Water
+		DamageTypes: Prone50Percent, TriggerProne, SmallExplosionDeath
+	Warhead@2Dam: SpreadDamage
+		Spread: 192
+		Damage: 3500
+		ValidTargets: Air, AirborneActor
+		DamageTypes: Prone50Percent, TriggerProne, DefaultDeath
+    Warhead@2EMP: GrantExternalCondition
+		Condition: cyrostreameffect
+		Duration: 100
+		ValidTargets: GroundActor, WaterActor, Ground, Water, Air, AirborneActor
+
 Datenshishot:
 	ValidTargets: Air, AirborneActor
-	ReloadDelay: 165
+	ReloadDelay: 125
 	Range: 12c0
 	MinRange: 2c0
 	Report: DatenshiWeaponSound.aud
@@ -2429,7 +2507,7 @@ Datenshishot:
 		PointDefenseType: pointdefense
 	Warhead@1Dam: SpreadDamage
 		Spread: 512
-		Damage: 10000
+		Damage: 11000
 		ValidTargets: Air, AirborneActor
 		DamageTypes: Prone50Percent, TriggerProne, ExplosionDeath
 	Warhead@3Eff_impact: CreateEffect
@@ -2624,10 +2702,9 @@ Shogunshot:
 		ContrailLength: 35
 		ContrailStartColor: 00fbff
 		Shadow: True
-		ContrailLength: 30
 	Warhead@1Dam: SpreadDamage
 		Spread: 426
-		Damage: 1800
+		Damage: 2000
 		Falloff: 1000, 368, 135, 50, 18, 7, 0
 		Versus:
 			None: 40
@@ -2646,3 +2723,29 @@ Shogunshot:
 	Warhead@4EffWater: CreateEffect
 		Explosions: large_splash
 		ImpactSounds: splash9.aud
+
+Shogunshotupgrade:
+	Inherits: Shogunshot
+	Projectile: Bullet
+		Speed: 162
+		Blockable: false
+		LaunchAngle: 120
+		Inaccuracy: 1c128
+		Image: datenshiprojectileupgrade
+		ContrailLength: 35
+		ContrailStartColor: ff5eff
+		Shadow: True
+	Warhead@1Dam: SpreadDamage
+		Spread: 426
+		Damage: 3000
+		Falloff: 1000, 368, 135, 50, 18, 7, 0
+		Versus:
+			None: 40
+			Wood: 50
+			Light: 30
+			Heavy: 30
+			Concrete: 100
+		DamageTypes: Prone50Percent, TriggerProne, SmallExplosionDeath
+	Warhead@4Eff_impact: CreateEffect
+		Explosions: japanplasmaringupgrade
+		ValidTargets: GroundActor, WaterActor, Ground, Water

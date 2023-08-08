@@ -210,6 +210,9 @@ T.MISS:
 	ProvidesPrerequisite@china:
 		Factions: china, nuke, infantry, tank
 		Prerequisite: ulttech.china
+	ProvidesPrerequisite@japan:
+		Factions: japan
+		Prerequisite: ulttech.japan
 	ProvidesPrerequisite@evil:
 		Factions: evil
 		Prerequisite: ulttech.evil
@@ -748,9 +751,45 @@ T.MISS:
 		DirectionArrowAnimation: paradirection
 		SupportPowerPaletteOrder: 40
 		DisplayTimerRelationships: None
+	AirstrikePower@antimatterbombdrop:
+		OrderName: AntiMatterBombDrop
+		Prerequisites: ulttech.japan
+		Icon: japanantimatterparadropicon
+		ChargeInterval: 18000
+		Name: Antimatter Parabombs
+		Description: A Stealth Bomber drops a arachuted antimatter bomb\nat the selected location.
+		SelectTargetSpeechNotification: SelectTarget
+		SelectTargetTextNotification: Select target.
+		CameraActor: camera
+		CameraRemoveDelay: 150
+		UnitType: japan.bomber
+		QuantizedFacings: 8
+		DisplayBeacon: true
+		BeaconPoster: japanantimatterparadropbeacon
+		SquadSize: 1
+		SquadOffset: 1792,1792,0
+		ArrowSequence: arrow
+		ClockSequence: clock
+		CircleSequence: circles
+		UseDirectionalTarget: True
+		DirectionArrowAnimation: paradirection
+		SupportPowerPaletteOrder: 40
+		DisplayTimerRelationships: None
 	Production@specialunit:
 		Produces: SpecialUnit
 		RequiresCondition: hive_upgrade
+    GrantConditionOnPrerequisite@baseshields:
+        Condition: baseshields
+        Prerequisites: upgrade.baseshields
+	Shielded@shielded:
+		MaxStrength: 75000
+		RegenDelay: 250
+		RegenAmount: 1000
+		ShieldsUpCondition: baseshieldscolour
+		RequiresCondition: baseshields
+	WithColoredOverlay@shielded:
+		RequiresCondition: baseshieldscolour
+		Color: 00fbff20
 
 HAXOR:
 	Inherits: POWR

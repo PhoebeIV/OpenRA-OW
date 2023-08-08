@@ -60,6 +60,18 @@ japanantimatterreactor:
 	SpawnActorOnDeath@overcharged:
 		Actor: AntiMatterPowerActor
 		RequiresCondition: overcharge
+    GrantConditionOnPrerequisite@baseshields:
+        Condition: baseshields
+        Prerequisites: upgrade.baseshields
+	Shielded@shielded:
+		MaxStrength: 50000
+		RegenDelay: 250
+		RegenAmount: 1000
+		ShieldsUpCondition: baseshieldscolour
+		RequiresCondition: baseshields
+	WithColoredOverlay@shielded:
+		RequiresCondition: baseshieldscolour
+		Color: 00fbff20
 
 AntiMatterPowerActor:
 	Inherits: ^Building
@@ -164,6 +176,18 @@ japansupplycenter:
 		FullSequence: pip-yellow
 	RenderSprites:
         Image: japansupplycenter
+    GrantConditionOnPrerequisite@baseshields:
+        Condition: baseshields
+        Prerequisites: upgrade.baseshields
+	Shielded@shielded:
+		MaxStrength: 45000
+		RegenDelay: 250
+		RegenAmount: 1000
+		ShieldsUpCondition: baseshieldscolour
+		RequiresCondition: baseshields
+	WithColoredOverlay@shielded:
+		RequiresCondition: baseshieldscolour
+		Color: 00fbff20
 
 japanbarracks:
 	Inherits: ^DawnBuilding
@@ -246,6 +270,18 @@ japanbarracks:
 	WithDeathAnimation:
 		DeathSequence: dead
 		UseDeathTypeSuffix: false
+    GrantConditionOnPrerequisite@baseshields:
+        Condition: baseshields
+        Prerequisites: upgrade.baseshields
+	Shielded@shielded:
+		MaxStrength: 35000
+		RegenDelay: 250
+		RegenAmount: 1000
+		ShieldsUpCondition: baseshieldscolour
+		RequiresCondition: baseshields
+	WithColoredOverlay@shielded:
+		RequiresCondition: baseshieldscolour
+		Color: 00fbff20
 
 japanmechabay:
 	Inherits: ^DawnBuilding
@@ -329,6 +365,18 @@ japanmechabay:
 		DeathSequence: dead
 		UseDeathTypeSuffix: false
 		DeathSequencePalette: dawn
+    GrantConditionOnPrerequisite@baseshields:
+        Condition: baseshields
+        Prerequisites: upgrade.baseshields
+	Shielded@shielded:
+		MaxStrength: 85000
+		RegenDelay: 250
+		RegenAmount: 1000
+		ShieldsUpCondition: baseshieldscolour
+		RequiresCondition: baseshields
+	WithColoredOverlay@shielded:
+		RequiresCondition: baseshieldscolour
+		Color: 00fbff20
 
 japanairfield:
 	Inherits: ^Building
@@ -413,6 +461,18 @@ japanairfield:
 	ProximityExternalCondition:
 		Condition: reloadnear
 		Range: 7c0
+    GrantConditionOnPrerequisite@baseshields:
+        Condition: baseshields
+        Prerequisites: upgrade.baseshields
+	Shielded@shielded:
+		MaxStrength: 85000
+		RegenDelay: 250
+		RegenAmount: 1000
+		ShieldsUpCondition: baseshieldscolour
+		RequiresCondition: baseshields
+	WithColoredOverlay@shielded:
+		RequiresCondition: baseshieldscolour
+		Color: 00fbff20
 
 japanshipyard:
 	Inherits: ^Building
@@ -513,6 +573,18 @@ japanshipyard:
 		Type: Rectangle
 			TopLeft: -512, 598
 			BottomRight: 512, 1110
+	GrantConditionOnPrerequisite@baseshields:
+        Condition: baseshields
+        Prerequisites: upgrade.baseshields
+	Shielded@shielded:
+		MaxStrength: 50000
+		RegenDelay: 250
+		RegenAmount: 1000
+		ShieldsUpCondition: baseshieldscolour
+		RequiresCondition: baseshields
+	WithColoredOverlay@shielded:
+		RequiresCondition: baseshieldscolour
+		Color: 00fbff20
 
 japanmainframe:
 	Inherits: ^ScienceBuilding
@@ -596,6 +668,18 @@ japanmainframe:
 		Prerequisite: techcenter
 	RenderSprites:
 		Image: japanmainframe
+    GrantConditionOnPrerequisite@baseshields:
+        Condition: baseshields
+        Prerequisites: upgrade.baseshields
+	Shielded@shielded:
+		MaxStrength: 30000
+		RegenDelay: 250
+		RegenAmount: 1000
+		ShieldsUpCondition: baseshieldscolour
+		RequiresCondition: baseshields
+	WithColoredOverlay@shielded:
+		RequiresCondition: baseshieldscolour
+		Color: 00fbff20
 
 japan.Bomber:
 	Inherits: ^Plane
@@ -689,7 +773,7 @@ japanpsychicdatacenter:
 	InfiltrateForSupportPowerReset:
 		Types: SpyInfiltrate
 	IonCannonPower@JapanCurse:
-		OrderName: CursePower
+		OrderName: JapanCurse
 		Prerequisites: ~structures.japan
 		PauseOnCondition: disabled
 		Icon: japancurseicon
@@ -705,30 +789,6 @@ japanpsychicdatacenter:
 		Effect: explosion
 		EffectSequence: japancurseanim
 		Weapon: JapanCursePower
-		DisplayTimerRelationships: None
-	AirstrikePower@antimatterbombdrop:
-		OrderName: AntiMatterBombDrop
-		Prerequisites: ~structures.japan
-		Icon: japanantimatterparadropicon
-		ChargeInterval: 18000
-		Name: Antimatter Parabombs
-		Description: A Badger drops a load of parachuted antimatter bombs\nat the selected location.
-		SelectTargetSpeechNotification: SelectTarget
-		SelectTargetTextNotification: Select target.
-		CameraActor: camera
-		CameraRemoveDelay: 150
-		UnitType: japan.bomber
-		QuantizedFacings: 8
-		DisplayBeacon: true
-		BeaconPoster: japanantimatterparadropbeacon
-		SquadSize: 1
-		SquadOffset: 1792,1792,0
-		ArrowSequence: arrow
-		ClockSequence: clock
-		CircleSequence: circles
-		UseDirectionalTarget: True
-		DirectionArrowAnimation: paradirection
-		SupportPowerPaletteOrder: 40
 		DisplayTimerRelationships: None
 	AirstrikePower@finalsquadron:
 		OrderName: finalsquadron
@@ -753,6 +813,83 @@ japanpsychicdatacenter:
 		DirectionArrowAnimation: paradirection
 		SupportPowerPaletteOrder: 40
 		DisplayTimerRelationships: None
+	SpawnActorPower@Spacewarpred:
+		OrderName: SpaceWarpRed
+		Actor: JapanWarpPortalRed
+		ChargeInterval: 6000
+		Icon: japanwarpportalredicon
+		Name: Space Warp (Red)
+		Description: Creates a Warp Portal that can transport vehicles. You need to deploy the Blue Space Warp to complete the tunnel.
+		Prerequisites: ~structures.japan
+		LaunchSound: WarpRiftCreate.aud
+	SpawnActorPower@Spacewarpblue:
+		OrderName: SpaceWarpBlue
+		Actor: JapanWarpPortalBlue
+		ChargeInterval: 6000
+		Icon: japanwarpportalblueicon
+		Name: Space Warp (Blue)
+		Description: Creates a Warp Portal that can transport vehicles. You need to deploy the Red Space Warp to complete the tunnel.
+		Prerequisites: ~structures.japan
+		LaunchSound: WarpRiftCreate.aud
+		EndChargeSound: WarpRiftRecharged.aud
+    GrantConditionOnPrerequisite@baseshields:
+        Condition: baseshields
+        Prerequisites: upgrade.baseshields
+	Shielded@shielded:
+		MaxStrength: 40000
+		RegenDelay: 250
+		RegenAmount: 1000
+		ShieldsUpCondition: baseshieldscolour
+		RequiresCondition: baseshields
+	WithColoredOverlay@shielded:
+		RequiresCondition: baseshieldscolour
+		Color: 00fbff20
+
+JapanWarpPortalRed:
+	Inherits: ^Building
+	Inherits@shape: ^2x2Shape
+	RenderSprites:
+		Image: japanwarpportalred
+	Buildable:
+		Queue: Defense
+		Prerequisites: ~disabled
+		BuildPaletteOrder: 90000
+		Description: it warps things
+	Building:
+		Footprint: __ xx __
+		Dimensions: 2,3
+		LocalCenterOffset: 0,-512,0
+	Tooltip:
+		Name: Spacewarp
+	Health:
+		HP: 50000
+	Armor:
+		Type: Wood
+	TeleportNetwork:
+		Type: Teleport
+	TeleportNetworkPrimaryExit:
+	Exit:
+	RallyPoint:
+	WithDecoration@primary:
+		RequiresCondition: primary
+		Position: Top
+		Margin: 0, 4
+		RequiresSelection: true
+		Image: pips
+		Sequence: tag-primary
+	KillsSelf:
+		Delay: 2250
+		RemoveInstead: true
+	AmbientSound:
+		SoundFiles: WarpRiftLoop01.aud, WarpRiftLoop02.aud, WarpRiftLoop03.aud
+		Delay: 20
+		Interval: 20
+
+
+JapanWarpPortalBlue:
+	Inherits: JapanWarpPortalRed
+	RenderSprites:
+		Image: japanwarpportalblue
 
 japan.bomber.divine:
 	Inherits: ^Plane
@@ -846,8 +983,15 @@ japanlaserbase:
 		Weapon: LaserFirebaseShot
 		LocalOffset: 712,0,228
 		FireDelay: 25
-		PauseOnCondition: disabled
 		MuzzleSequence: muzzle
+		PauseOnCondition: disabled || focusedlasers
+	Armament@Upgrade:
+		Weapon: LaserFirebaseShotUpgrade
+		LocalOffset: 712,0,228
+		FireDelay: 25
+		MuzzleSequence: muzzle
+		PauseOnCondition: disabled
+		RequiresCondition: focusedlasers
 	AttackTurreted:
 		PauseOnCondition: build-incomplete
 	WithMuzzleOverlay:
@@ -863,6 +1007,28 @@ japanlaserbase:
 	Explodes:
 		Weapon: FireBaseExplosion
 		EmptyWeapon: FireBaseExplosion
+    GrantConditionOnPrerequisite@basemedkits:
+        Condition: basemedkitsupgrade
+        Prerequisites: upgrade.basemedkits
+	ProximityExternalCondition@basemedkits:
+		Condition: basemedkits
+		RequiresCondition: basemedkitsupgrade
+		Range: 5c0
+    GrantConditionOnPrerequisite@focusedlasers:
+        Condition: focusedlasers
+        Prerequisites: upgrade.focusedlasers
+    GrantConditionOnPrerequisite@baseshields:
+        Condition: baseshields
+        Prerequisites: upgrade.baseshields
+	Shielded@shielded:
+		MaxStrength: 50000
+		RegenDelay: 250
+		RegenAmount: 1000
+		ShieldsUpCondition: baseshieldscolour
+		RequiresCondition: baseshields
+	WithColoredOverlay@shielded:
+		RequiresCondition: baseshieldscolour
+		Color: 00fbff20
 
 japandecimator:
 	Inherits: ^Building
@@ -890,8 +1056,9 @@ japandecimator:
 		Type: Wood
 	RevealsShroud:
 		Range: 4c0
-	IonCannonPower:
+	IonCannonPower@Decimator:
 		PauseOnCondition: disabled
+		OrderName: Decimator
 		Icon: japandecimatorpowericon
 		Cursor: chrono-target
 		ChargeInterval: 19500
@@ -922,6 +1089,18 @@ japandecimator:
 		Type: CenterPosition
 		Weapon: MiniNuke
 		EmptyWeapon: MiniNuke
+    GrantConditionOnPrerequisite@baseshields:
+        Condition: baseshields
+        Prerequisites: upgrade.baseshields
+	Shielded@shielded:
+		MaxStrength: 50000
+		RegenDelay: 250
+		RegenAmount: 1000
+		ShieldsUpCondition: baseshieldscolour
+		RequiresCondition: baseshields
+	WithColoredOverlay@shielded:
+		RequiresCondition: baseshieldscolour
+		Color: 00fbff20
 
 japanmindcontrol:
 	Inherits: ^Defense
@@ -971,6 +1150,18 @@ japanmindcontrol:
 	-QuantizeFacingsFromSequence:
 	BodyOrientation:
 		QuantizedFacings: 8
+    GrantConditionOnPrerequisite@baseshields:
+        Condition: baseshields
+        Prerequisites: upgrade.baseshields
+	Shielded@shielded:
+		MaxStrength: 40000
+		RegenDelay: 250
+		RegenAmount: 1000
+		ShieldsUpCondition: baseshieldscolour
+		RequiresCondition: baseshields
+	WithColoredOverlay@shielded:
+		RequiresCondition: baseshieldscolour
+		Color: 00fbff20
 
 japantransformerbase:
 	Inherits: ^Defense
@@ -1102,6 +1293,18 @@ japantransformerbase:
 		PauseOnCondition: disabled
 	AttackTurreted:
 		PauseOnCondition: build-incomplete
+    GrantConditionOnPrerequisite@baseshields:
+        Condition: baseshields
+        Prerequisites: upgrade.baseshields
+	Shielded@shielded:
+		MaxStrength: 60000
+		RegenDelay: 250
+		RegenAmount: 1000
+		ShieldsUpCondition: baseshieldscolour
+		RequiresCondition: baseshields
+	WithColoredOverlay@shielded:
+		RequiresCondition: baseshieldscolour
+		Color: 00fbff20
 
 japanballoon:
 	Inherits: ^Defense
@@ -1139,7 +1342,12 @@ japanballoon:
 		Weapon: BalloonSentryShot
 		LocalOffset: 512,0,112
 		MuzzleSequence: muzzle
-		PauseOnCondition: disabled
+		PauseOnCondition: disabled || superheatedplasma
+	Armament@PRIMARYupgrade:
+		Weapon: BalloonSentryShotUpgrade
+		LocalOffset: 512,0,112
+		MuzzleSequence: muzzle
+		RequiresCondition: superheatedplasma
 	AttackTurreted:
 		PauseOnCondition: build-incomplete
 	WithRangeCircle:
@@ -1171,3 +1379,40 @@ japanballoon:
 		RequiresCondition: strikervxtransform
 		IntoActor: japanballoonsentryflying
 		SkipMakeAnims: true
+    GrantConditionOnPrerequisite@superheatedplasma:
+        Condition: superheatedplasma
+        Prerequisites: upgrade.superheatedplasma
+
+japanoredrill:
+	Inherits: ^Building
+	Inherits@IDISABLE: ^DisableOnLowPowerOrPowerDown
+	Valued:
+		Cost: 2400
+	Buildable:
+		Queue: Tech
+		BuildPaletteOrder: 190
+		Prerequisites: advtechcenter, ~structures.japan, ~techlevel.unrestricted
+		Description: Generates an ore field, \n  Unarmed
+	Tooltip:
+		Name: Ore Drill
+	Power:
+		Amount: -200
+	Health:
+		HP: 40000
+	Armor:
+		Type: Wood
+	RevealsShroud:
+		MinRange: 3c0
+		Range: 4c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 3c0
+	SeedsResource:
+		Interval: 100
+		MaxRange: 5
+		RequiresCondition: !disabled
+	CashTrickler:
+		Interval: 100
+		Amount: 10
+		RequiresCondition: !disabled
+	-AcceptsDeliveredCash:

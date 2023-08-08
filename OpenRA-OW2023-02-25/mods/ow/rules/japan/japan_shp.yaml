@@ -84,11 +84,28 @@ japannaginata:
 		Recoil: 171
 		RecoilRecovery: 34
 		MuzzleSequence: muzzle
+		PauseOnCondition: disabled || cyrostream
+	Armament@upgradeprimary:
+		Turret: primary
+		Weapon: strikervxshotupgrade
+		LocalOffset: 480,-100,40, 480,100,40
+		Recoil: 171
+		RecoilRecovery: 34
+		MuzzleSequence: muzzle
+		RequiresCondition: cyrostream
 	Armament@SECONDARY:
 		Name: secondary
 		Turret: primary
 		Weapon: strikervxshot
 		LocalOffset: 480,100,40, 480,-100,40
+		PauseOnCondition: disabled || cyrostream
+	Armament@upgradesecondary:
+		Name: secondary
+		Turret: primary
+		Weapon: strikervxshotupgrade
+		LocalOffset: 480,100,40, 480,-100,40
+		MuzzleSequence: muzzle
+		RequiresCondition: cyrostream
 	AttackTurreted:
 		Turrets: primary
 		TargetFrozenActors: True
@@ -100,6 +117,9 @@ japannaginata:
 		DecorationBounds: 1877, 1877
 	Voiced:
 		VoiceSet: NaginataVoice
+    GrantConditionOnPrerequisite@cyrostream:
+        Condition: cyrostream
+        Prerequisites: upgrade.cyrostream
 
 japanshogun:
 	Inherits: ^Ship
@@ -148,6 +168,7 @@ japanshogun:
 		Recoil: 171
 		RecoilRecovery: 34
 		MuzzleSequence: muzzle
+		PauseOnCondition: superheatedplasma || disabled
 	Armament@SECONDARY:
 		Name: secondary
 		Turret: secondary
@@ -156,6 +177,26 @@ japanshogun:
 		Recoil: 171
 		RecoilRecovery: 34
 		MuzzleSequence: muzzle
+		PauseOnCondition: superheatedplasma || disabled
+	Armament@PRIMARYupgrade:
+		Turret: primary
+		Weapon: Shogunshotupgrade
+		LocalOffset: 480,-100,40, 480,100,40
+		Recoil: 171
+		RecoilRecovery: 34
+		MuzzleSequence: muzzle
+		PauseOnCondition: disabled
+		RequiresCondition: superheatedplasma
+	Armament@SECONDARYupgrade:
+		Name: secondary
+		Turret: secondary
+		Weapon: Shogunshotupgrade
+		LocalOffset: 480,-100,40, 480,100,40
+		Recoil: 171
+		RecoilRecovery: 34
+		MuzzleSequence: muzzle
+		PauseOnCondition: disabled
+		RequiresCondition: superheatedplasma
 	AttackTurreted:
 		Turrets: primary, secondary
 		TargetFrozenActors: True
@@ -167,6 +208,9 @@ japanshogun:
 		Turret: secondary
 	Voiced:
 		VoiceSet: ShogunVoice
+    GrantConditionOnPrerequisite@superheatedplasma:
+        Condition: superheatedplasma
+        Prerequisites: upgrade.superheatedplasma
 
 japanhovercraft:
 	Inherits: ^Ship

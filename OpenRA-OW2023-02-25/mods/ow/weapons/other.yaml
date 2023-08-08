@@ -4251,7 +4251,7 @@ RoadRollerSound:
 	Report: roadrollersound.wav
 
 LaserFirebaseShot:
-	ReloadDelay: 125
+	ReloadDelay: 100
 	Range: 8c0
 	Report: laserbaseshoot1.aud, laserbaseshoot2.aud
 	ValidTargets: Ground, Water, GroundActor, WaterActor
@@ -4261,7 +4261,7 @@ LaserFirebaseShot:
 		Color: 00fbff
 	Warhead@1Dam: SpreadDamage
 		Spread: 42
-		Damage: 28000
+		Damage: 30000
 		ValidTargets: GroundActor, WaterActor
 		Versus:
 			None: 220
@@ -4272,6 +4272,20 @@ LaserFirebaseShot:
 	Warhead@3Eff_impact: CreateEffect
 		Explosions: laserhitmed
 		ValidTargets: Ground, Water, GroundActor, WaterActor
+
+LaserFirebaseshotupgrade:
+	Inherits: LaserFirebaseShot
+	Projectile: LaserZap
+		Width: 85
+		ZOffset: 2047
+		Color: ff5eff
+	Warhead@1Dam: SpreadDamage
+		Spread: 42
+		Damage: 40000
+		ValidTargets: GroundActor, WaterActor
+		Versus:
+			None: 220
+		DamageTypes: Prone50Percent, TriggerProne, FireDeath, Incendiary
 
 shinobishot:
 	ReloadDelay: 70
@@ -4319,6 +4333,35 @@ archermaidenshot:
 		DamageTypes: Prone50Percent, TriggerProne, DefaultDeath
 	Warhead@3Eff: CreateEffect
 		ImpactSounds: JUArche_weapImpa1a.aud, JUArche_weapImpa1b.aud, JUArche_weapImpa1c.aud, JUArche_weapImpa1d.aud, JUArche_weapImpa1e.aud
+
+archermaidenshotupgrade:
+	Inherits: archermaidenshot
+	Projectile: Bullet
+		Speed: 450
+		Image: DRAGON
+		ContrailLength: 4
+		Inaccuracy: 128
+		ContrailStartColor: 00fbff
+	Warhead@GDam: SpreadDamage
+		Spread: 256
+		Damage: 6000
+		ValidTargets: GroundActor, WaterActor
+		Versus:
+			None: 120
+			Wood: 60
+			Light: 50
+			Heavy: 60
+			Concrete: 20
+		DamageTypes: Prone50Percent, TriggerProne, DefaultDeath
+	Warhead@1Dam: SpreadDamage
+		Spread: 512
+		Damage: 2500
+		ValidTargets: Air, AirborneActor
+		DamageTypes: Prone50Percent, TriggerProne, DefaultDeath
+	Warhead@4Eff: CreateEffect
+		Explosions: laserhitsmall
+		ValidTargets: Ground, Air, GroundActor, AirborneActor, WaterActor, Trees
+		ImpactActors: false
 
 archermaidenshotmecha:
 	Inherits: archermaidenshot
@@ -4615,6 +4658,27 @@ HiroshimaInfantryLaser:
 		Explosions: laserhitmed
 		ValidTargets: Ground, Water, GroundActor, WaterActor
 
+HiroshimaInfantryLaserUpgrade:
+	Inherits: HiroshimaInfantryLaser
+	Report: JUWavef_weapFired.aud
+	Projectile: Railgun
+		Duration: 30
+		BeamColor: ffffff
+		HelixColor: ff0000
+		BeamWidth: 0c43
+		HelixThickness: 0c16
+		HelixRadius: 0c32
+	Warhead@1Dam: SpreadDamage
+		Damage: 20000
+		Versus:
+			None: 110
+			Wood: 50
+			Light: 110
+			Heavy: 40
+			Concrete: 50
+		DamageTypes: Prone50Percent, TriggerProne, FireDeath
+		ValidTargets: Ground, GroundActor, Water, WaterActo
+
 HiroshimaTankLaser:
 	ReloadDelay: 90
 	Range: 6c0
@@ -4642,6 +4706,25 @@ HiroshimaTankLaser:
 	Warhead@4Eff_impact: CreateEffect
 		Explosions: japanplasmaring
 		ValidTargets: Ground, Water, GroundActor, WaterActor
+
+HiroshimaTankLaserUpgrade:
+	Inherits: HiroshimaTankLaser
+	Report: JUWavef_weapFiredg.aud
+	Projectile: Railgun
+		Duration: 30
+		BeamColor: ffffff
+		HelixColor: ff5eff
+	Warhead@1Dam: SpreadDamage
+		Damage: 35000
+		Spread: 512
+		Versus:
+			None: 80
+			Wood: 110
+			Light: 80
+			Heavy: 110
+			Concrete: 50
+		DamageTypes: Prone50Percent, TriggerProne, FireDeath
+		ValidTargets: Ground, GroundActor, Water, WaterActor
 
 OrcaTransportDummy:
 	ReloadDelay: 25

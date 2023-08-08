@@ -1726,6 +1726,31 @@ tankbustershotgarrison:
 	Inherits: tankbustershot
 	Range: 6c0
 
+tankbustershotupgrade:
+	Inherits: tankbustershot
+	Projectile: Bullet
+		Speed: 342
+		Blockable: false
+		ContrailLength: 10
+		ContrailStartColor: ff5eff
+		Inaccuracy: 128
+		Image: plasmaprojsmallupgrade
+		Shadow: false
+	Warhead@1Dam: SpreadDamage
+		Spread: 128
+		Damage: 7500
+		ValidTargets: GroundActor, WaterActor, AirborneActor
+		Versus:
+			None: 40
+			Wood: 90
+			Light: 40
+			Heavy: 110
+			Concrete: 50
+		DamageTypes: Prone50Percent, TriggerProne, ExplosionDeath
+	Warhead@2Smu: LeaveSmudge
+		SmudgeType: Scorch
+		ValidTargets: Ground, Infantry
+
 TsunamiTankshot:
 	ReloadDelay: 50
 	Range: 5c768
@@ -1757,6 +1782,12 @@ TsunamiTankshot:
 		ImpactSounds: PlasmaCannonImpact1.aud, PlasmaCannonImpact2.aud
 		ValidTargets: Ground, Water, GroundActor, WaterActor
 
+TsunamiTankshotDualCannon:
+	Inherits: TsunamiTankshot
+	ReloadDelay: 70
+	Burst: 2
+	BurstDelays: 6
+
 Raijuushot:
 	Inherits: TsunamiTankshot
 	ReloadDelay: 70
@@ -1764,7 +1795,7 @@ Raijuushot:
 	BurstDelays: 6
 	Warhead@1Dam: SpreadDamage
 		Spread: 512
-		Damage: 6500
+		Damage: 700
 		ValidTargets: GroundActor, WaterActor
 		Versus:
 			None: 60
@@ -1775,6 +1806,30 @@ Raijuushot:
 		DamageTypes: Prone50Percent, TriggerProne, ExplosionDeath
 	Warhead@4Eff_impact: CreateEffect
 		Explosions: japanplasmaring
+		ValidTargets: Ground, Water, GroundActor, WaterActor
+
+Raijuushotupgrade:
+	Inherits: Raijuushot
+	Projectile: Bullet
+		Speed: 682
+		Blockable: false
+		ContrailLength: 10
+		ContrailStartColor: ff5eff
+		Image: plasmaprojsmallupgrade
+		Shadow: false
+	Warhead@1Dam: SpreadDamage
+		Spread: 512
+		Damage: 9000
+		ValidTargets: GroundActor, WaterActor
+		Versus:
+			None: 80
+			Wood: 80
+			Light: 80
+			Heavy: 100
+			Concrete: 50
+		DamageTypes: Prone50Percent, TriggerProne, ExplosionDeath
+	Warhead@4Eff_impact: CreateEffect
+		Explosions: japanplasmaringupgrade
 		ValidTargets: Ground, Water, GroundActor, WaterActor
 
 MechaTankBusterShot:
@@ -1807,7 +1862,7 @@ BalloonSentryShot:
 		Image: PLASMAPROJSMALL
 		Shadow: false
 	Warhead@1Dam: SpreadDamage
-		Spread: 128
+		Spread: 512
 		Damage: 7000
 		ValidTargets: GroundActor, WaterActor
 		Versus:
@@ -1824,6 +1879,52 @@ BalloonSentryShot:
 		Explosions: laserhitmed
 		ImpactSounds: PlasmaCannonImpact1.aud, PlasmaCannonImpact2.aud
 		ValidTargets: Ground, Water, GroundActor, WaterActor, AirborneActor
+	Warhead@1Air: SpreadDamage
+		Spread: 2c0
+		Damage: 5000
+		ValidTargets: AirborneActor
+		Versus:
+			None: 100
+			Wood: 50
+			Light: 100
+			Heavy: 100
+			Concrete: 50
+		DamageTypes: Prone50Percent, TriggerProne, ExplosionDeath
 	Warhead@4Eff_impact: CreateEffect
 		Explosions: japanplasmaring
+		ValidTargets: Ground, Water, GroundActor, WaterActor, AirborneActor
+
+BalloonSentryShotUpgrade:
+	Inherits: BalloonSentryShot
+	Projectile: Bullet
+		Speed: 512
+		Blockable: false
+		ContrailLength: 10
+		ContrailStartColor: ff5eff
+		Image: plasmaprojsmallupgrade
+		Shadow: false
+	Warhead@1Dam: SpreadDamage
+		Spread: 512
+		Damage: 10000
+		ValidTargets: GroundActor, WaterActor
+		Versus:
+			None: 100
+			Wood: 50
+			Light: 100
+			Heavy: 100
+			Concrete: 50
+		DamageTypes: Prone50Percent, TriggerProne, ExplosionDeath
+	Warhead@1Air: SpreadDamage
+		Spread: 2c0
+		Damage: 8000
+		ValidTargets: AirborneActor
+		Versus:
+			None: 100
+			Wood: 50
+			Light: 100
+			Heavy: 100
+			Concrete: 50
+		DamageTypes: Prone50Percent, TriggerProne, ExplosionDeath
+	Warhead@4Eff_impact: CreateEffect
+		Explosions: japanplasmaringupgrade
 		ValidTargets: Ground, Water, GroundActor, WaterActor, AirborneActor

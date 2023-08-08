@@ -14,7 +14,7 @@ japanimperialwarrior:
 	UpdatesPlayerStatistics:
 		AddToArmyValue: true
 	Health:
-		HP: 9000
+		HP: 7000
 	Mobile:
 		Voice: Move
 	Guard:
@@ -67,7 +67,7 @@ japantankbuster:
 	UpdatesPlayerStatistics:
 		AddToArmyValue: true
 	Health:
-		HP: 10000
+		HP: 8000
 	Mobile:
 		Voice: Move
 	Guard:
@@ -77,14 +77,31 @@ japantankbuster:
 	Armament@PRIMARY:
 		Weapon: tankbustershot
         LocalOffset: 0,0,555
+		PauseOnCondition: superheatedplasma
 	Armament@GARRISONED:
 		Name: garrisoned
-		Weapon: tankbustershotgarrison
+		Weapon: tankbustershot
 		MuzzleSequence: garrison-muzzle
+		PauseOnCondition: superheatedplasma
 	Armament@BUS:
 		Name: bus
-		Weapon: tankbustershotgarrison
+		Weapon: tankbustershotg
 		MuzzleSequence: garrison-muzzle
+		PauseOnCondition: superheatedplasma
+	Armament@PRIMARYupgrade:
+		Weapon: tankbustershotupgrade
+        LocalOffset: 0,0,555
+		RequiresCondition: superheatedplasma
+	Armament@GARRISONEDupgrade:
+		Name: garrisoned
+		Weapon: tankbustershotupgrade
+		MuzzleSequence: garrison-muzzle
+		RequiresCondition: superheatedplasma
+	Armament@BUS:
+		Name: bus
+		Weapon: tankbustershotupgrade
+		MuzzleSequence: garrison-muzzle
+		RequiresCondition: superheatedplasma
 	WithInfantryBody:
 		DefaultAttackSequence: shoot
 		RequiresCondition: !parachute
@@ -102,6 +119,9 @@ japantankbuster:
 		Image: japantankbuster
 	Voiced:
 		VoiceSet: TankBusterVoice
+    GrantConditionOnPrerequisite@superheatedplasma:
+        Condition: superheatedplasma
+        Prerequisites: upgrade.superheatedplasma
 
 japanrocketangel:
 	Inherits: ^TibSunSoldier
@@ -116,13 +136,13 @@ japanrocketangel:
 	Buildable:
 		Queue: Infantry
 		BuildPaletteOrder: 8
-		Prerequisites: ~infantry.japan
+		Prerequisites: ~infantry.japan, techcenter
 		Description: Airborne angel.\nSpeed: 71\n  Strong vs Infantry, Vehicles\n  Weak vs Aircraft
 	Mobile:
 		Speed: 71
 		Locomotor: jumpjet
 	Health:
-		HP: 12000
+		HP: 10000
 	Armor:
 		Type: Light
 	Passenger:
@@ -132,14 +152,31 @@ japanrocketangel:
 	Armament:
 		Weapon: rocketangelshot
         LocalOffset: 0,0,555
+		PauseOnCondition: cyrostream
 	Armament@GARRISONED:
 		Name: garrisoned
 		Weapon: rocketangelshot
 		MuzzleSequence: garrison-muzzle
+		PauseOnCondition: cyrostream
 	Armament@BUS:
 		Name: bus
 		Weapon: rocketangelshot
 		MuzzleSequence: garrison-muzzle
+		PauseOnCondition: cyrostream
+	Armament@upgrade:
+		Weapon: rocketangelshotupgrade
+        LocalOffset: 0,0,555
+		RequiresCondition: cyrostream
+	Armament@GARRISONEDupgrade:
+		Name: garrisoned
+		Weapon: rocketangelshotupgrade
+		MuzzleSequence: garrison-muzzle
+		RequiresCondition: cyrostream
+	Armament@BUSupgrade:
+		Name: bus
+		Weapon: rocketangelshotupgrade
+		MuzzleSequence: garrison-muzzle
+		RequiresCondition: cyrostream
 	-Crushable:
 	AttackFrontal:
 		FacingTolerance: 0
@@ -182,6 +219,9 @@ japanrocketangel:
 	-SpawnActorOnDeath@fire:
 	RenderSprites:
 		Image: japanrocketangel
+    GrantConditionOnPrerequisite@cyrostream:
+        Condition: cyrostream
+        Prerequisites: upgrade.cyrostream
 
 japanarchermaiden:
 	Inherits: ^Infantry
@@ -198,7 +238,7 @@ japanarchermaiden:
 	Tooltip:
 		Name: Archer Maiden
 	Health:
-		HP: 12000
+		HP: 8000
 	WithInfantryBody:
 		IdleSequences: idle1
 		StandSequences: stand
@@ -221,23 +261,41 @@ japanarchermaiden:
 	Armament:
 		Weapon: archermaidenshot
 		LocalOffset: 427,0,600
+		PauseOnCondition: explosivearrows
 	Armament@GARRISONED:
 		Name: garrisoned
 		Weapon: archermaidenshot
+		PauseOnCondition: explosivearrows
 	Armament@BUS:
 		Name: bus
 		Weapon: archermaidenshot
+		PauseOnCondition: explosivearrows
+	Armament@upgrade:
+		Weapon: archermaidenshotupgrade
+		LocalOffset: 427,0,600
+		RequiresCondition: explosivearrows
+	Armament@GARRISONEDupgrade:
+		Name: garrisoned
+		Weapon: archermaidenshotupgrade
+		RequiresCondition: explosivearrows
+	Armament@BUSupgrade:
+		Name: bus
+		Weapon: archermaidenshotupgrade
+		RequiresCondition: explosivearrows
 	RenderSprites:
 		Image: japanarchermaiden
         PlayerPalette: tsunit
 	Voiced:
 		VoiceSet: ArcherMaidenVoice
+    GrantConditionOnPrerequisite@explosivearrows:
+        Condition: explosivearrows
+        Prerequisites: upgrade.explosivearrows
 
 japanwarhorse:
 	Inherits: ^Infantry
 	Inherits@AUTOTARGET: ^AutoTargetAll
 	Buildable:
-		Prerequisites: ~infantry.japan
+		Prerequisites: ~infantry.japan, japanmechabay
 		Description: Archer Maiden riding horse \n  Strong vs Infantry, Aircraft\n Weak vs Vehicles
 		Queue: Infantry
 		BuildPaletteOrder: 8
@@ -250,7 +308,7 @@ japanwarhorse:
 	UpdatesPlayerStatistics:
 		AddToArmyValue: true
 	Health:
-		HP: 15000
+		HP: 12000
 	Armor:
 		Type: Light
 	WithInfantryBody:
@@ -266,6 +324,11 @@ japanwarhorse:
 	Armament:
 		Weapon: archermaidenshot
 		LocalOffset: 427,0,600
+		PauseOnCondition: explosivearrows
+	Armament@upgrade:
+		Weapon: archermaidenshotupgrade
+		LocalOffset: 427,0,600
+		RequiresCondition: explosivearrows
 	WithDeathAnimation:
 		DeathSequence: die
 		UseDeathTypeSuffix: false
@@ -279,6 +342,9 @@ japanwarhorse:
 		VoiceSet: ArcherMaidenVoice
 	SpawnActorOnDeath:
 		Actor: japanarchermaiden
+    GrantConditionOnPrerequisite@explosivearrows:
+        Condition: explosivearrows
+        Prerequisites: upgrade.explosivearrows
 
 japanshinobi:
 	Inherits: ^Infantry
@@ -286,7 +352,7 @@ japanshinobi:
 	UpdatesPlayerStatistics:
 		AddToArmyValue: true
 	Buildable:
-		Prerequisites: ~infantry.japan
+		Prerequisites: ~infantry.japan, techcenter
 		Description: Shinobi \n  Strong vs Infantry, Aircraft\n Weak vs Vehicles
 		Queue: Infantry
 		BuildPaletteOrder: 9

@@ -2403,12 +2403,28 @@
 		RequiresCondition: propagandaupgrade
 		IsDecoration: True
 
+
 ^propagandaboostinfantry:
 	Inherits: ^propagandaboost
 	WithIdleOverlay@propagandaboost:
 		Sequence: infantry
 	WithIdleOverlay@propagandaboostupgrade:
 		Sequence: infantryupgrade1
+	ExternalCondition@basemedkits:
+		Condition: basemedkits
+	ChangesHealth@basemedkits:
+		Step: 0
+		PercentageStep: 2
+		Delay: 50
+		StartBelow: 100
+		RequiresCondition: basemedkits
+	WithDecoration@basemedkits:
+		Image: pips
+		Sequence: pip-heal
+		Palette: effect
+		Position: TopRight
+		ValidRelationships: None,Neutral,Enemy,Ally
+		RequiresCondition: basemedkits
 
 ^FrenzyBoost:
 	ExternalCondition@patriotismboost:
@@ -2482,6 +2498,14 @@
 		Palette: effect
 		RequiresCondition: JapanCurseCondition
 		IsDecoration: True
+	ExternalCondition@cyrostream:
+		Condition: cyrostreameffect
+	SpeedMultiplier@cyrostream:
+		RequiresCondition: cyrostreameffect >= 8
+		Modifier: 50
+	WithColoredOverlay@cyrostream:
+		RequiresCondition: cyrostreameffect >= 8
+		Color: 00fbff40
 
 ^FrenzyBoostInfantry:
 	Inherits: ^FrenzyBoost
@@ -2493,6 +2517,12 @@
 		Palette: effect
 		RequiresCondition: JapanCurseCondition
 		IsDecoration: True
+	SpeedMultiplier@cyrostream:
+		RequiresCondition: cyrostreameffect >= 5
+		Modifier: 50
+	WithColoredOverlay@cyrostream:
+		RequiresCondition: cyrostreameffect >= 5
+		Color: 00fbff40
 
 ^Crate:
 	Crate:

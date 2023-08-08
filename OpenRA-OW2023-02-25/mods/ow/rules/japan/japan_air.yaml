@@ -6,7 +6,7 @@ japanchoppervx:
 		Queue: Aircraft
 		BuildAtProductionType: Helicopter
 		BuildPaletteOrder: 20
-		Prerequisites: ~aircraft.japan
+		Prerequisites: ~aircraft.japan, ~upgrade.remoteassembly
 		Description: The Helix helicopter provided China with a highly flexible airborne platform. Armed with a gatling gun & napalm bombs.
 	Valued:
 		Cost: 1800
@@ -28,7 +28,13 @@ japanchoppervx:
 		Weapon: choppervxshot
 		LocalOffset: 85,-213,-85, 85,213,-85
 		MuzzleSequence: muzzle
+		PauseOnCondition: !ammo || cyrostream
+	Armament@PRIMARYupgrade:
+		Weapon: choppervxshotupgrade
+		LocalOffset: 85,-213,-85, 85,213,-85
+		MuzzleSequence: muzzle
 		PauseOnCondition: !ammo
+		RequiresCondition: cyrostream
 	AttackAircraft:
 		FacingTolerance: 80
 		PersistentTargeting: false
@@ -41,8 +47,8 @@ japanchoppervx:
 	Guard:
 		Voice: Move
 	AutoTarget:
-		InitialStance: HoldFire
-		InitialStanceAI: HoldFire
+		InitialStance: Defend
+		InitialStanceAI: Defend
 	WithIdleOverlay@ROTOR1AIR:
 		Offset: 260,0,343
 		Sequence: rotor
@@ -101,6 +107,9 @@ japanchoppervx:
 	TransformOnCondition:
 		IntoActor: japanstrikervx
 		RequiresCondition: strikervxtransform
+    GrantConditionOnPrerequisite@cyrostream:
+        Condition: cyrostream
+        Prerequisites: upgrade.cyrostream
 
 japanjettengu:
 	Inherits: ^Plane
@@ -109,7 +118,7 @@ japanjettengu:
 		Queue: Aircraft
 		BuildAtProductionType: Plane
 		BuildPaletteOrder: 50
-		Prerequisites: ~aircraft.japan
+		Prerequisites: ~aircraft.japan, ~upgrade.remoteassembly
 		Description: The MiG is armed with two napalm missiles that could be used effectively against ground targets.
 	Valued:
 		Cost: 1500
@@ -145,8 +154,8 @@ japanjettengu:
 	Guard:
 		Voice: Move
 	AutoTarget:
-		InitialStance: HoldFire
-		InitialStanceAI: HoldFire
+		InitialStance: Defend
+		InitialStanceAI: Defend
 	AmmoPool:
 		Ammo: 8
         Reload Delay: 50
@@ -208,7 +217,7 @@ japankitsune:
 		Queue: Aircraft
 		BuildAtProductionType: Plane
 		BuildPaletteOrder: 50
-		Prerequisites: ~aircraft.japan, techcenter
+		Prerequisites: ~aircraft.japan
 		Description: Multi-role fighter plane.\nCan deflect enemy missiles with lasers.
         BuildDuration: 2300
 	Valued:
@@ -247,8 +256,8 @@ japankitsune:
 	Guard:
 		Voice: Move
 	AutoTarget:
-		InitialStance: HoldFire
-		InitialStanceAI: HoldFire
+		InitialStance: Defend
+		InitialStanceAI: Defend
 	AmmoPool:
 		Ammo: 9
         Reload Delay: 9
@@ -338,8 +347,8 @@ japanyousei:
 	Guard:
 		Voice: Move
 	AutoTarget:
-		InitialStance: HoldFire
-		InitialStanceAI: HoldFire
+		InitialStance: Defend
+		InitialStanceAI: Defend
 	AmmoPool:
 		Ammo: 1
         ReloadDelay: 125
@@ -395,7 +404,7 @@ japankaminari:
 		Queue: Aircraft
 		BuildAtProductionType: Plane
 		BuildPaletteOrder: 50
-		Prerequisites: ~aircraft.japan, techcenter
+		Prerequisites: ~aircraft.japan, japanpsychicdatacenter
 		Description: Fast fighter plane.\nCan not be damaged while attacking.\nSlows down and becomes vulnerable after attacking.
         BuildDuration: 3300
 	Valued:
@@ -433,8 +442,8 @@ japankaminari:
 	Guard:
 		Voice: Move
 	AutoTarget:
-		InitialStance: HoldFire
-		InitialStanceAI: HoldFire
+		InitialStance: Defend
+		InitialStanceAI: Defend
 	AmmoPool:
 		Ammo: 2
         ReloadDelay: 125
@@ -494,7 +503,7 @@ japanballoonsentryflying:
 	UpdatesPlayerStatistics:
 		AddToArmyValue: true
 	Health:
-		HP: 70000
+		HP: 20000
 	RevealsShroud:
 		MinRange: 8c0
 		Range: 10c0
@@ -507,7 +516,12 @@ japanballoonsentryflying:
 		Weapon: BalloonSentryShot
 		LocalOffset: 512,0,112
 		MuzzleSequence: muzzle
-		PauseOnCondition: disabled
+		PauseOnCondition: disabled || superheatedplasma
+	Armament@PRIMARYupgrade:
+		Weapon: BalloonSentryShotUpgrade
+		LocalOffset: 512,0,112
+		MuzzleSequence: muzzle
+		RequiresCondition: superheatedplasma
 	AttackAircraft:
 		FacingTolerance: 80
 		PersistentTargeting: false
@@ -520,8 +534,8 @@ japanballoonsentryflying:
 	Guard:
 		Voice: Move
 	AutoTarget:
-		InitialStance: HoldFire
-		InitialStanceAI: HoldFire
+		InitialStance: Defend
+		InitialStanceAI: Defend
 	WithMuzzleOverlay:
 	LeavesTrails:
 		Offsets: -427,0,0
@@ -558,6 +572,9 @@ japanballoonsentryflying:
 		Offset: 0,0,850
 	Power:
 		Amount: -100
+    GrantConditionOnPrerequisite@superheatedplasma:
+        Condition: superheatedplasma
+        Prerequisites: upgrade.superheatedplasma
 
 japanfinalsquadron:
 	Inherits: ^Plane

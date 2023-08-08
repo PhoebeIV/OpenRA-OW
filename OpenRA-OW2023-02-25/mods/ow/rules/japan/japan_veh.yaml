@@ -21,6 +21,7 @@ japansuddentransport:
 		ValidDamageStates: Critical
 	Voiced:
 		VoiceSet: SuddenTransportVoice
+	TeleportNetworkTransportable:
 
 japantsunamitank:
 	Inherits: ^TrackedVehicle
@@ -57,15 +58,33 @@ japantsunamitank:
 		RecoilRecovery: 25
 		LocalOffset: 768,0,90
 		MuzzleSequence: muzzle
-		PauseOnCondition: disabled
+		PauseOnCondition: disabled || upgradedualtankbarrels
+	Armament@PrimaryUpgrade1:
+		Weapon: TsunamiTankshotDualCannon
+		LocalOffset: 900,180,340, 900,-180,340
+		Recoil: 85
+		RecoilRecovery: 25
+		MuzzleSequence: muzzle
+        RequiresCondition: upgradedualtankbarrels
+		PauseOnCondition: disabled 
 	AttackTurreted:
 		PauseOnCondition: disabled
 	WithMuzzleOverlay:
 	WithSpriteTurret:
+        Sequence: turret
+        RequiresCondition: !upgradedualtankbarrels
+    WithSpriteTurret@upgrade: 
+        Sequence: turret2
+        RequiresCondition: upgradedualtankbarrels
 	ProducibleWithLevel:
 		Prerequisites: vehicles.upgraded
 	Voiced:
 		VoiceSet: TsunamiTankVoice
+	TeleportNetworkTransportable:
+    GrantConditionOnPrerequisite@upgradedualtankbarrels:
+        Condition: upgradedualtankbarrels
+        Prerequisites: upgrade.upgradedualtankbarrels
+
 
 japanmechatransformer:
 	Inherits: ^Vehicle
@@ -204,6 +223,7 @@ japanmechatransformer:
 		Palette: tscloak
 	Voiced:
 		VoiceSet: RaijuuVoice
+	TeleportNetworkTransportable:
 
 japanmecharaijuu:
 	Inherits: ^Vehicle
@@ -242,7 +262,16 @@ japanmecharaijuu:
 		Recoil: 171
 		RecoilRecovery: 30
 		MuzzleSequence: muzzle
+		PauseOnCondition: disabled || changelaser || superheatedplasma
+	Armament@upgrade:
+		Name: primary
+		Weapon: Raijuushotupgrade
+		LocalOffset: 1100,150,940, 1100,-150,940
+		Recoil: 171
+		RecoilRecovery: 30
+		MuzzleSequence: muzzle
 		PauseOnCondition: disabled || changelaser
+		RequiresCondition: superheatedplasma
 	Armament@secondary:
 		Name: secondary
 		Weapon: Raijuuflame
@@ -276,6 +305,10 @@ japanmecharaijuu:
 		MakeAnimationDeployTypes:
 		DeployedCondition: changelaser
 		SkipMakeAnimation: True
+	TeleportNetworkTransportable:
+    GrantConditionOnPrerequisite@superheatedplasma:
+        Condition: superheatedplasma
+        Prerequisites: upgrade.superheatedplasma
 
 japanstrikervx:
 	Inherits: ^Vehicle
@@ -313,6 +346,15 @@ japanstrikervx:
 		Recoil: 171
 		RecoilRecovery: 30
 		MuzzleSequence: muzzle
+		PauseOnCondition: cyrostream || disabled
+	Armament@upgrade:
+		Weapon: strikervxshotupgrade
+		LocalOffset: 1100,400,940, 1100,0,940
+		Recoil: 171
+		RecoilRecovery: 30
+		MuzzleSequence: muzzle
+		PauseOnCondition: disabled
+		RequiresCondition: cyrostream
 	AttackTurreted:
 		PauseOnCondition: disabled
 	WithMuzzleOverlay:
@@ -344,6 +386,10 @@ japanstrikervx:
 	TransformOnCondition:
 		RequiresCondition: strikervxtransform
 		IntoActor: japanchoppervx
+	TeleportNetworkTransportable:
+    GrantConditionOnPrerequisite@cyrostream:
+        Condition: cyrostream
+        Prerequisites: upgrade.cyrostream
 
 japanmechatengu:
 	Inherits: ^Vehicle
@@ -412,6 +458,7 @@ japanmechatengu:
 	TransformOnCondition:
 		IntoActor: japanjettengu
 		RequiresCondition: strikervxtransform
+	TeleportNetworkTransportable:
 
 japanhiroshimawaveforce:
 	Inherits: ^TrackedVehicle
@@ -450,7 +497,7 @@ japanhiroshimawaveforce:
 		LocalOffset: 768,0,256
 		MuzzleSequence: muzzle
 		Name: primary
-		PauseOnCondition: disabled || changelaser
+		PauseOnCondition: disabled || changelaser || focusedlasers
 	Armament@Secondary:
 		Weapon: HiroshimaTankLaser
 		Recoil: 85
@@ -458,8 +505,26 @@ japanhiroshimawaveforce:
 		LocalOffset: 768,0,256
 		MuzzleSequence: muzzle
 		Name: secondary
-		PauseOnCondition: disabled
+		PauseOnCondition: disabled || focusedlasers
 		RequiresCondition: changelaser
+	Armament@upgrade:
+		Weapon: HiroshimaInfantryLaserUpgrade
+		Recoil: 85
+		RecoilRecovery: 25
+		LocalOffset: 768,0,256
+		MuzzleSequence: muzzle
+		Name: primary
+		PauseOnCondition: disabled || changelaser
+		RequiresCondition: focusedlasers
+	Armament@Secondaryupgrade:
+		Weapon: HiroshimaTankLaserUpgrade
+		Recoil: 85
+		RecoilRecovery: 25
+		LocalOffset: 768,0,256
+		MuzzleSequence: muzzle
+		Name: secondary
+		PauseOnCondition: disabled
+		RequiresCondition: changelaser && focusedlasers
 	AttackTurreted:
 		PauseOnCondition: disabled
 		Turrets: primary, secondary
@@ -473,6 +538,10 @@ japanhiroshimawaveforce:
 		MakeAnimationDeployTypes:
 		DeployedCondition: changelaser
 		SkipMakeAnimation: True
+	TeleportNetworkTransportable:
+    GrantConditionOnPrerequisite@focusedlasers:
+        Condition: focusedlasers
+        Prerequisites: upgrade.focusedlasers
 
 japandatenshi:
 	Inherits: ^TrackedVehicle
@@ -491,8 +560,6 @@ japandatenshi:
 		AddToArmyValue: true
 	Health:
 		HP: 40000
-	Armor:
-		Type: Light
 	Mobile:
 		Speed: 95
 	RevealsShroud:
@@ -518,3 +585,4 @@ japandatenshi:
 		Prerequisites: vehicles.upgraded
 	Voiced:
 		VoiceSet: DatenshiVoice
+	TeleportNetworkTransportable:
