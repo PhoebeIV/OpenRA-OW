@@ -1,7 +1,20 @@
+^JapanBaseShield:
+	Shielded:
+		RegenDelay: 250
+		RegenAmount: 1000
+		RequiresCondition: (baseshields || external_shield) && !emp_shields
+	WithColoredOverlay@shielded:
+		RequiresCondition: shielded
+		Color: 00fbff20
+	GrantConditionOnPrerequisite@baseshields:
+		Condition: baseshields
+		Prerequisites: upgrade.baseshields
+
 japanantimatterreactor:
 	Inherits: ^PowerPlant
 	Inherits@POWER_OUTAGE: ^DisabledByPowerOutage
 	Inherits@shape: ^3x2Shape
+	Inherits@jshield: ^JapanBaseShield
 	Selectable:
 		Bounds: 2048, 2048
 	HitShape:
@@ -60,18 +73,6 @@ japanantimatterreactor:
 	SpawnActorOnDeath@overcharged:
 		Actor: AntiMatterPowerActor
 		RequiresCondition: overcharge
-    GrantConditionOnPrerequisite@baseshields:
-        Condition: baseshields
-        Prerequisites: upgrade.baseshields
-	Shielded@shielded:
-		MaxStrength: 50000
-		RegenDelay: 250
-		RegenAmount: 1000
-		ShieldsUpCondition: baseshieldscolour
-		RequiresCondition: baseshields
-	WithColoredOverlay@shielded:
-		RequiresCondition: baseshieldscolour
-		Color: 00fbff20
 
 AntiMatterPowerActor:
 	Inherits: ^Building
@@ -91,9 +92,11 @@ AntiMatterPowerActor:
     KillsSelf:
         Delay: 750
         RemoveInstead: true
+	-MustBeDestroyed:
 
 japansupplycenter:
 	Inherits: ^Building
+	Inherits@jshield: ^JapanBaseShield
 	Buildable:
 		Queue: Building
 		BuildPaletteOrder: 60
@@ -176,23 +179,12 @@ japansupplycenter:
 		FullSequence: pip-yellow
 	RenderSprites:
         Image: japansupplycenter
-    GrantConditionOnPrerequisite@baseshields:
-        Condition: baseshields
-        Prerequisites: upgrade.baseshields
-	Shielded@shielded:
-		MaxStrength: 45000
-		RegenDelay: 250
-		RegenAmount: 1000
-		ShieldsUpCondition: baseshieldscolour
-		RequiresCondition: baseshields
-	WithColoredOverlay@shielded:
-		RequiresCondition: baseshieldscolour
-		Color: 00fbff20
 
 japanbarracks:
 	Inherits: ^DawnBuilding
 	Inherits@prereqs: ^BarracksPrereqs
 	Inherits@shape: ^2x2Shape
+	Inherits@jshield: ^JapanBaseShield
 	Selectable:
 		Bounds: 2048, 2048
 	HitShape:
@@ -270,22 +262,11 @@ japanbarracks:
 	WithDeathAnimation:
 		DeathSequence: dead
 		UseDeathTypeSuffix: false
-    GrantConditionOnPrerequisite@baseshields:
-        Condition: baseshields
-        Prerequisites: upgrade.baseshields
-	Shielded@shielded:
-		MaxStrength: 35000
-		RegenDelay: 250
-		RegenAmount: 1000
-		ShieldsUpCondition: baseshieldscolour
-		RequiresCondition: baseshields
-	WithColoredOverlay@shielded:
-		RequiresCondition: baseshieldscolour
-		Color: 00fbff20
 
 japanmechabay:
 	Inherits: WEAPD
 	Inherits@prereqs: ^FactoryPrereqs
+	Inherits@jshield: ^JapanBaseShield
 	Selectable:
 		Bounds: 3072, 3072
 	Buildable:
@@ -298,23 +279,12 @@ japanmechabay:
 		Cost: 2000
 	Tooltip:
 		Name: Mecha Bay
-    GrantConditionOnPrerequisite@baseshields:
-        Condition: baseshields
-        Prerequisites: upgrade.baseshields
-	Shielded@shielded:
-		MaxStrength: 85000
-		RegenDelay: 250
-		RegenAmount: 1000
-		ShieldsUpCondition: baseshieldscolour
-		RequiresCondition: baseshields
-	WithColoredOverlay@shielded:
-		RequiresCondition: baseshieldscolour
-		Color: 00fbff20
 
 japanairfield:
 	Inherits: ^Building
 	Inherits@PRIMARY: ^PrimaryBuilding
 	Inherits@prereqs: ^AircraftPrereqs
+	Inherits@jshield: ^JapanBaseShield
 	Buildable:
 		Queue: Building
 		BuildPaletteOrder: 130
@@ -394,23 +364,12 @@ japanairfield:
 	ProximityExternalCondition:
 		Condition: reloadnear
 		Range: 7c0
-    GrantConditionOnPrerequisite@baseshields:
-        Condition: baseshields
-        Prerequisites: upgrade.baseshields
-	Shielded@shielded:
-		MaxStrength: 85000
-		RegenDelay: 250
-		RegenAmount: 1000
-		ShieldsUpCondition: baseshieldscolour
-		RequiresCondition: baseshields
-	WithColoredOverlay@shielded:
-		RequiresCondition: baseshieldscolour
-		Color: 00fbff20
 
 japanshipyard:
 	Inherits: ^Building
 	Inherits@PRIMARY: ^PrimaryBuilding
 	Inherits@prereqs: ^NavalPrereqs
+	Inherits@jshield: ^JapanBaseShield
 	Selectable:
 		Bounds: 3072, 2048
 	InfiltrateForSupportPower:
@@ -506,23 +465,12 @@ japanshipyard:
 		Type: Rectangle
 			TopLeft: -512, 598
 			BottomRight: 512, 1110
-	GrantConditionOnPrerequisite@baseshields:
-        Condition: baseshields
-        Prerequisites: upgrade.baseshields
-	Shielded@shielded:
-		MaxStrength: 50000
-		RegenDelay: 250
-		RegenAmount: 1000
-		ShieldsUpCondition: baseshieldscolour
-		RequiresCondition: baseshields
-	WithColoredOverlay@shielded:
-		RequiresCondition: baseshieldscolour
-		Color: 00fbff20
 
 japanmainframe:
 	Inherits: ^ScienceBuilding
 	Inherits@IDISABLE: ^DisableOnLowPower
 	Inherits@shape: ^2x2Shape
+	Inherits@jshield: ^JapanBaseShield
 	Selectable:
 		Bounds: 2048, 2048
 	Buildable:
@@ -601,18 +549,6 @@ japanmainframe:
 		Prerequisite: techcenter
 	RenderSprites:
 		Image: japanmainframe
-    GrantConditionOnPrerequisite@baseshields:
-        Condition: baseshields
-        Prerequisites: upgrade.baseshields
-	Shielded@shielded:
-		MaxStrength: 30000
-		RegenDelay: 250
-		RegenAmount: 1000
-		ShieldsUpCondition: baseshieldscolour
-		RequiresCondition: baseshields
-	WithColoredOverlay@shielded:
-		RequiresCondition: baseshieldscolour
-		Color: 00fbff20
 
 japan.Bomber:
 	Inherits: ^Plane
@@ -666,6 +602,7 @@ U2.Drop.Tenshi:
 japanpsychicdatacenter:
 	Inherits: ^ScienceBuilding
 	Inherits@shape: ^3x2Shape
+	Inherits@jshield: ^JapanBaseShield
 	Selectable:
 		Bounds: 3072, 2048
 	HitShape:
@@ -765,18 +702,6 @@ japanpsychicdatacenter:
 		Prerequisites: ~structures.japan
 		LaunchSound: WarpRiftCreate.aud
 		EndChargeSound: WarpRiftRecharged.aud
-    GrantConditionOnPrerequisite@baseshields:
-        Condition: baseshields
-        Prerequisites: upgrade.baseshields
-	Shielded@shielded:
-		MaxStrength: 40000
-		RegenDelay: 250
-		RegenAmount: 1000
-		ShieldsUpCondition: baseshieldscolour
-		RequiresCondition: baseshields
-	WithColoredOverlay@shielded:
-		RequiresCondition: baseshieldscolour
-		Color: 00fbff20
 
 JapanWarpPortalRed:
 	Inherits: ^Building
@@ -864,6 +789,7 @@ japanlaserbase:
 	Inherits: ^Defense
 	Inherits@AUTOTARGET: ^AutoTargetGround
 	Inherits@LOWPOWER: ^DisableOnLowPowerOrPowerDown
+	Inherits@jshield: ^JapanBaseShield
 	HitShape:
 		UseTargetableCellsOffsets: true
 		Type: Polygon
@@ -950,23 +876,12 @@ japanlaserbase:
     GrantConditionOnPrerequisite@focusedlasers:
         Condition: focusedlasers
         Prerequisites: upgrade.focusedlasers
-    GrantConditionOnPrerequisite@baseshields:
-        Condition: baseshields
-        Prerequisites: upgrade.baseshields
-	Shielded@shielded:
-		MaxStrength: 50000
-		RegenDelay: 250
-		RegenAmount: 1000
-		ShieldsUpCondition: baseshieldscolour
-		RequiresCondition: baseshields
-	WithColoredOverlay@shielded:
-		RequiresCondition: baseshieldscolour
-		Color: 00fbff20
 
 japandecimator:
 	Inherits: ^Building
 	Inherits@shape: ^2x2Shape
 	Inherits@IDISABLE: ^DisableOnLowPowerOrPowerDown
+	Inherits@jshield: ^JapanBaseShield
 	Valued:
 		Cost: 5000
 	Tooltip:
@@ -1022,23 +937,12 @@ japandecimator:
 		Type: CenterPosition
 		Weapon: MiniNuke
 		EmptyWeapon: MiniNuke
-    GrantConditionOnPrerequisite@baseshields:
-        Condition: baseshields
-        Prerequisites: upgrade.baseshields
-	Shielded@shielded:
-		MaxStrength: 50000
-		RegenDelay: 250
-		RegenAmount: 1000
-		ShieldsUpCondition: baseshieldscolour
-		RequiresCondition: baseshields
-	WithColoredOverlay@shielded:
-		RequiresCondition: baseshieldscolour
-		Color: 00fbff20
 
 japanmindcontrol:
 	Inherits: ^Defense
 	Inherits@AUTOTARGET: ^AutoTargetAll
 	Inherits@IDISABLE: ^DisableOnLowPowerOrPowerDown
+	Inherits@jshield: ^JapanBaseShield
 	Valued:
 		Cost: 2500
 	Tooltip:
@@ -1083,24 +987,13 @@ japanmindcontrol:
 	-QuantizeFacingsFromSequence:
 	BodyOrientation:
 		QuantizedFacings: 8
-    GrantConditionOnPrerequisite@baseshields:
-        Condition: baseshields
-        Prerequisites: upgrade.baseshields
-	Shielded@shielded:
-		MaxStrength: 40000
-		RegenDelay: 250
-		RegenAmount: 1000
-		ShieldsUpCondition: baseshieldscolour
-		RequiresCondition: baseshields
-	WithColoredOverlay@shielded:
-		RequiresCondition: baseshieldscolour
-		Color: 00fbff20
 
 japantransformerbase:
 	Inherits: ^Defense
 	Inherits@SHAPE: ^2x2Shape
 	Inherits@AUTOTARGET: ^AutoTargetAll
 	Inherits@CARGOPIPS: ^CargoPips
+	Inherits@jshield: ^JapanBaseShield
 	Tooltip:
 		Name: Transformer Base
 	Building:
@@ -1226,23 +1119,12 @@ japantransformerbase:
 		PauseOnCondition: disabled
 	AttackTurreted:
 		PauseOnCondition: build-incomplete
-    GrantConditionOnPrerequisite@baseshields:
-        Condition: baseshields
-        Prerequisites: upgrade.baseshields
-	Shielded@shielded:
-		MaxStrength: 60000
-		RegenDelay: 250
-		RegenAmount: 1000
-		ShieldsUpCondition: baseshieldscolour
-		RequiresCondition: baseshields
-	WithColoredOverlay@shielded:
-		RequiresCondition: baseshieldscolour
-		Color: 00fbff20
 
 japanballoon:
 	Inherits: ^Defense
 	Inherits@LOWPOWER: ^DisableOnLowPowerOrPowerDown
 	Inherits@AUTOTARGET: ^AutoTargetAll
+	Inherits@jshield: ^JapanBaseShield
 	Buildable:
 		Queue: Defense
 		BuildPaletteOrder: 70
