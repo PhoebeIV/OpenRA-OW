@@ -2123,7 +2123,7 @@ usafuelairbomb:
 		DamageTypes: TriggerProne, FireDeath
 	Warhead@2Dam_areanuke2: SpreadDamage
 		Falloff: 1000, 368, 135, 50, 18, 7, 0
-		Spread: 4c0
+		Spread: 5c0
 		Damage: 15000
 		Delay: 15
 		ValidTargets: Trees
@@ -2630,8 +2630,30 @@ NuclearParaDrop:
 		Acceleration: 0, 0, 0
 		Shadow: False
 	Warhead@1Dam: SpreadDamage
-		Spread: 768
-		Damage: 75000
+		Spread: 2c0
+		Damage: 60000
+		ValidTargets: GroundActor, WaterActor
+		Versus:
+			None: 50
+			Wood: 75
+			Heavy: 100
+			Light: 100
+			Concrete: 25
+		DamageTypes: Prone50Percent, TriggerProne, ExplosionDeath
+	Warhead@2Dam: SpreadDamage
+		Spread: 4c0
+		Damage: 30000
+		ValidTargets: GroundActor, WaterActor
+		Versus:
+			None: 50
+			Wood: 75
+			Heavy: 100
+			Light: 100
+			Concrete: 25
+		DamageTypes: Prone50Percent, TriggerProne, ExplosionDeath
+	Warhead@2Dam: SpreadDamage
+		Spread: 6c0
+		Damage: 10000
 		ValidTargets: GroundActor, WaterActor
 		Versus:
 			None: 50
@@ -3179,6 +3201,132 @@ BFG10kExplosion:
 		Footprint: xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx
 	Warhead@22Shake: ShakeScreen
 		Delay: 40
+		Duration: 30
+		Intensity: 1
+		Multiplier: 1,1
+
+AntiMatterParaDrop:
+	ReloadDelay: 6
+	Range: 1c0
+	Report: chute1.aud
+	ValidTargets: Ground, Water, GroundActor, WaterActor
+	Projectile: GravityBomb
+		Image: PARABOMB
+		OpenSequence: open
+		Velocity: 0, 0, -40
+		Acceleration: 0, 0, 0
+		Shadow: False
+	Warhead@1Dam: SpreadDamage
+		Delay: 30
+		Spread: 2c0
+		Damage: 80000
+		Versus:
+			None: 80
+			Wood: 50
+			Light: 80
+			Heavy: 80
+			Concrete: 50
+		DamageTypes: Prone50Percent, TriggerProne, SmallExplosionDeath
+		ValidTargets: Ground, Water, GroundActor, WaterActor
+	Warhead@20Smu_areanuke4: LeaveSmudge
+		SmudgeType: Scorch
+		ValidTargets: Ground, Infantry
+		Size: 1
+		Delay: 25
+	Warhead@20Smu_areanuke5: LeaveSmudge
+		SmudgeType: Scorch
+		ValidTargets: Ground, Infantry
+		Size: 2
+		Delay: 35
+	Warhead@20Smu_areanuke6: LeaveSmudge
+		SmudgeType: Scorch
+		ValidTargets: Ground, Infantry
+		Size: 3
+		Delay: 45
+	Warhead@2Smu: LeaveSmudge
+		SmudgeType: Crater
+		ValidTargets: Ground, Infantry
+		Delay: 25
+	Warhead@1Eff_impact: CreateEffect
+		Explosions: youseistartlarge
+		ImpactSounds: WarpRiftCreate.aud
+		ImpactActors: false
+		ValidTargets: Ground, Water, Air
+	Warhead@1Eff_impacta: CreateEffect
+		Explosions: youseiringlarge
+		ImpactActors: false
+		ValidTargets: Ground, Water, Air
+	Warhead@2Eff_impacta: CreateEffect
+		Explosions: japanyouseiexplosionlarge
+		ImpactSounds: JapanAntiMatterExplosion.aud
+		ImpactActors: false
+		Delay: 25
+		ValidTargets: Ground, Water, Air
+	Warhead@2Dama: SpreadDamage
+		Delay: 40
+		Spread: 3c0
+		Damage: 25000
+		Versus:
+			None: 80
+			Wood: 50
+			Light: 80
+			Heavy: 80
+			Concrete: 50
+		DamageTypes: Prone50Percent, TriggerProne, SmallExplosionDeath
+		ValidTargets: Ground, Water, GroundActor, WaterActor
+	Warhead@3Dama: SpreadDamage
+		Delay: 50
+		Spread: 5c0
+		Damage: 10000
+		Versus:
+			None: 80
+			Wood: 50
+			Light: 80
+			Heavy: 80
+			Concrete: 50
+		DamageTypes: Prone50Percent, TriggerProne, SmallExplosionDeath
+		ValidTargets: Ground, Water, GroundActor, WaterActor
+
+DivineInterventionParaDrop:
+	ReloadDelay: 6
+	Range: 1c0
+	Report: chute1.aud
+	ValidTargets: Ground, Water, GroundActor, WaterActor
+	Projectile: GravityBomb
+		Image: PARABOMB
+		OpenSequence: open
+		Velocity: 0, 0, -40
+		Acceleration: 0, 0, 0
+		Shadow: False
+	Warhead@1Eff_impact: CreateEffect
+		Explosions: youseistartlarge
+		ImpactSounds: WarpRiftCreate.aud
+		ImpactActors: false
+		ValidTargets: Ground, Water, Air
+	Warhead@1Eff_impacta: CreateEffect
+		Explosions: youseiringlarge
+		ImpactActors: false
+		ValidTargets: Ground, Water, Air
+	Warhead@2Eff_impacta: CreateEffect
+		Explosions: japanyouseiexplosionlarge
+		ImpactSounds: JapanAntiMatterExplosion.aud
+		ImpactActors: false
+		Delay: 25
+		ValidTargets: Ground, Water, Air
+	Warhead@zappy: FireCluster
+		Delay: 25
+		Weapon: DivineInterventionCluster1
+		RandomClusterCount: 16
+		Dimensions: 12,12
+		Footprint: xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx
+	Warhead@zappy2: FireCluster
+		Delay: 25
+		Weapon: DivineInterventionCluster2
+		RandomClusterCount: 16
+		Dimensions: 12,12
+		Footprint: xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx
+	Warhead@22Shake: ShakeScreen
+		Delay: 25
 		Duration: 30
 		Intensity: 1
 		Multiplier: 1,1

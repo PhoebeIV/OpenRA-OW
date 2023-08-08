@@ -1767,9 +1767,9 @@ Raijuushot:
 		Damage: 6500
 		ValidTargets: GroundActor, WaterActor
 		Versus:
-			None: 80
+			None: 60
 			Wood: 80
-			Light: 80
+			Light: 60
 			Heavy: 100
 			Concrete: 50
 		DamageTypes: Prone50Percent, TriggerProne, ExplosionDeath
@@ -1787,9 +1787,43 @@ MechaTankBusterShot:
 		Damage: 5000
 		ValidTargets: GroundActor, WaterActor
 		Versus:
-			None: 80
+			None: 60
 			Wood: 80
-			Light: 80
+			Light: 60
 			Heavy: 100
 			Concrete: 50
 		DamageTypes: Prone50Percent, TriggerProne, ExplosionDeath
+
+BalloonSentryShot:
+	ReloadDelay: 50
+	Range: 7c768
+	Report: BalloonWeap1.aud, BalloonWeap2.aud, BalloonWeap3.aud
+	ValidTargets: Ground, Water, GroundActor, WaterActor, AirborneActor
+	Projectile: Bullet
+		Speed: 512
+		Blockable: false
+		ContrailLength: 10
+		ContrailStartColor: 00fbff
+		Image: PLASMAPROJSMALL
+		Shadow: false
+	Warhead@1Dam: SpreadDamage
+		Spread: 128
+		Damage: 7000
+		ValidTargets: GroundActor, WaterActor
+		Versus:
+			None: 100
+			Wood: 50
+			Light: 100
+			Heavy: 100
+			Concrete: 50
+		DamageTypes: Prone50Percent, TriggerProne, ExplosionDeath
+	Warhead@2Smu: LeaveSmudge
+		SmudgeType: Scorch
+		InvalidTargets: Structure, Wall, Vehicle
+	Warhead@3Eff_impact: CreateEffect
+		Explosions: laserhitmed
+		ImpactSounds: PlasmaCannonImpact1.aud, PlasmaCannonImpact2.aud
+		ValidTargets: Ground, Water, GroundActor, WaterActor, AirborneActor
+	Warhead@4Eff_impact: CreateEffect
+		Explosions: japanplasmaring
+		ValidTargets: Ground, Water, GroundActor, WaterActor, AirborneActor

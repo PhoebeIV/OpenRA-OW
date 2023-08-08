@@ -1,0 +1,216 @@
+japankappa:
+	Inherits: ^Ship
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Buildable:
+		Queue: Ship
+		BuildPaletteOrder: 20
+		Prerequisites: ~ships.japan
+		Description: Fast scout boat, armed with rockets.
+	Valued:
+		Cost: 750
+	Tooltip:
+		Name: Kappa Boat
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 11000
+	Armor:
+		Type: Light
+	Mobile:
+		TurnSpeed: 40
+		Speed: 113
+	RevealsShroud:
+		MinRange: 4c0
+		Range: 5c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 4c0
+	Armament@PRIMARY:
+		Weapon: mechatengushot
+		LocalOffset: 768,0,90
+		MuzzleSequence: muzzle
+	Armament@SECONDARY:
+		Name: secondary
+		Weapon: DepthCharge
+		MuzzleSequence: muzzle
+	AttackFrontal:
+		FacingTolerance: 0
+	WithMuzzleOverlay:
+	DetectCloaked:
+		DetectionTypes: Underwater
+		Range: 2c0
+	RenderDetectionCircle:
+	Selectable:
+		DecorationBounds: 1536, 1536
+	Voiced:
+		VoiceSet: KappaVoice
+
+japannaginata:
+	Inherits: ^Ship
+	Inherits@AUTOTARGET: ^AutoTargetAll
+	Buildable:
+		Queue: Ship
+		BuildAtProductionType: Boat
+		BuildPaletteOrder: 50
+		Prerequisites: ~ships.japan, techcenter
+		Description: Very slow long-range ship.\n  Strong vs Buildings, Ground units\n  Weak vs Naval units, Aircraft
+	Valued:
+		Cost: 2000
+	Tooltip:
+		Name: Naginata Cruiser
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 80000
+	Armor:
+		Type: Heavy
+	Mobile:
+		TurnSpeed: 12
+		Speed: 44
+	RevealsShroud:
+		MinRange: 5c0
+		Range: 7c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 5c0
+	Turreted@PRIMARY:
+		Turret: primary
+		Offset: 500,0,60
+		TurnSpeed: 12
+	Armament@PRIMARY:
+		Turret: primary
+		Weapon: strikervxshot
+		LocalOffset: 480,-100,40, 480,100,40
+		Recoil: 171
+		RecoilRecovery: 34
+		MuzzleSequence: muzzle
+	Armament@SECONDARY:
+		Name: secondary
+		Turret: primary
+		Weapon: strikervxshot
+		LocalOffset: 480,100,40, 480,-100,40
+	AttackTurreted:
+		Turrets: primary
+		TargetFrozenActors: True
+		ForceFireIgnoresActors: True
+	WithMuzzleOverlay:
+	WithSpriteTurret@PRIMARY:
+		Turret: primary
+	Selectable:
+		DecorationBounds: 1877, 1877
+	Voiced:
+		VoiceSet: NaginataVoice
+
+japanshogun:
+	Inherits: ^Ship
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Buildable:
+		Queue: Ship
+		BuildPaletteOrder: 60
+		Prerequisites: ~ships.japan, advtechcenter
+		Description: Long range battleship.
+	Valued:
+		Cost: 3500
+	Tooltip:
+		Name: Shogun Battleship
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 60000
+	Armor:
+		Type: Heavy
+	RevealsShroud:
+		MinRange: 5c0
+		Range: 7c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 5c0
+	Mobile:
+		TurnSpeed: 16
+		Speed: 31
+	WithIdleOverlay@SPINNER:
+		Sequence: spinner
+		Offset: 30,70,600
+	Selectable:
+		DecorationBounds: 1877, 1877
+	Turreted@PRIMARY:
+		Turret: primary
+		Offset: -896,0,128
+		TurnSpeed: 12
+	Turreted@SECONDARY:
+		Turret: secondary
+		Offset: 768,0,128
+		TurnSpeed: 12
+	Armament@PRIMARY:
+		Turret: primary
+		Weapon: Shogunshot
+		LocalOffset: 480,-100,40, 480,100,40
+		Recoil: 171
+		RecoilRecovery: 34
+		MuzzleSequence: muzzle
+	Armament@SECONDARY:
+		Name: secondary
+		Turret: secondary
+		Weapon: Shogunshot
+		LocalOffset: 480,-100,40, 480,100,40
+		Recoil: 171
+		RecoilRecovery: 34
+		MuzzleSequence: muzzle
+	AttackTurreted:
+		Turrets: primary, secondary
+		TargetFrozenActors: True
+		ForceFireIgnoresActors: True
+	WithMuzzleOverlay:
+	WithSpriteTurret@PRIMARY:
+		Turret: primary
+	WithSpriteTurret@SECONDARY:
+		Turret: secondary
+	Voiced:
+		VoiceSet: ShogunVoice
+
+japanhovercraft:
+	Inherits: ^Ship
+	Inherits@CARGOPIPS: ^CargoPips
+	Buildable:
+		Queue: Ship
+		BuildPaletteOrder: 10
+		Prerequisites: ~ships.japan
+		Description: Amphibious transport.\nCan carry infantry and tanks.\n  Unarmed
+	Valued:
+		Cost: 900
+	Tooltip:
+		Name: Genbu Hovercraft
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 35000
+	Armor:
+		Type: Heavy
+	Mobile:
+		Locomotor: hover
+		Speed: 113
+		TurnSpeed: 16
+		PauseOnCondition: disabled || notmobile
+	RevealsShroud:
+		MinRange: 5c0
+		Range: 6c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 5c0
+	SelectionDecorations:
+	Cargo:
+		Types: Infantry, Vehicle
+		MaxWeight: 10
+		PassengerFacing: 0
+		LoadingCondition: notmobile
+	-Chronoshiftable:
+	RenderSprites:
+		Palette: dawn
+	WithFacingSpriteBody:
+	Selectable:
+		DecorationBounds: 2048, 2048
+	WithCargo:
+		DisplayTypes: Infantry, Vehicle
+		LocalOffset: 390,-256,0, 390,256,0, 0,0,0, -390,-256,0, -390,256,0, 780,-256,0, 780,256,0, 512,0,0, -780,-256,0, -780,256,0
+	Voiced:
+		VoiceSet: GenbuVoice

@@ -4651,3 +4651,59 @@ OrcaTransportDummy:
 	Warhead@1Dam: SpreadDamage
 		Damage: 1
 		ValidTargets: Ground, GroundActor
+
+MindControlShot:
+	Inherits: DarkArchonMindControl
+	Range: 5c0
+	ReloadDelay: 750
+
+JapanCursePower:
+	ReloadDelay: 300
+	Range: 7c0
+	Projectile: InstantHit
+	Warhead@curtain: GrantExternalCondition
+		ValidTargets: GroundActor, Trees, WaterActor, Underwater, AirborneActor
+		ValidRelationships: Enemy, Neutral
+		Condition: JapanCurseCondition
+		Range: 7c0
+		Duration: 375
+
+DivineInterventionCluster1:
+	ReloadDelay: 625
+	Range: 7c0
+	ValidTargets: Ground, Water, GroundActor, WaterActor, AirborneActor
+	Projectile: InstantHit
+	Warhead@1Dam: SpreadDamage
+		Damage: 15000
+		Spread: 2c0
+		Versus:
+			None: 110
+			Wood: 50
+			Light: 110
+			Heavy: 40
+			Concrete: 50
+		DamageTypes: Prone50Percent, TriggerProne, FireDeath
+		ValidTargets: Ground, GroundActor, Water, WaterActor
+	Warhead@4Eff_impact: CreateEffect
+		Explosions: japandivineproj1
+		ValidTargets: Ground, Water, GroundActor, WaterActor
+
+DivineInterventionCluster2:
+	ReloadDelay: 625
+	Range: 7c0
+	ValidTargets: Ground, Water, GroundActor, WaterActor, AirborneActor
+	Projectile: InstantHit
+	Warhead@1Dam: SpreadDamage
+		Damage: 15000
+		Spread: 2c0
+		Versus:
+			None: 110
+			Wood: 50
+			Light: 110
+			Heavy: 40
+			Concrete: 50
+		DamageTypes: Prone50Percent, TriggerProne, FireDeath
+		ValidTargets: Ground, GroundActor, Water, WaterActor
+	Warhead@4Eff_impact: CreateEffect
+		Explosions: japandivineproj2
+		ValidTargets: Ground, Water, GroundActor, WaterActor

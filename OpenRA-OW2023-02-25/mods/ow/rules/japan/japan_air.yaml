@@ -304,7 +304,7 @@ japanyousei:
 		Description: Fast fighter plane.\nCan not be damaged while attacking.\nSlows down and becomes vulnerable after attacking.
         BuildDuration: 3300
 	Valued:
-		Cost: 4000
+		Cost: 3500
 	Tooltip:
 		Name: Yousei
 	UpdatesPlayerStatistics:
@@ -387,3 +387,242 @@ japanyousei:
         Count: 1
 	Voiced:
 		VoiceSet: YouseiVoice
+
+japankaminari:
+	Inherits: ^Plane
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Buildable:
+		Queue: Aircraft
+		BuildAtProductionType: Plane
+		BuildPaletteOrder: 50
+		Prerequisites: ~aircraft.japan, techcenter
+		Description: Fast fighter plane.\nCan not be damaged while attacking.\nSlows down and becomes vulnerable after attacking.
+        BuildDuration: 3300
+	Valued:
+		Cost: 4500
+	Tooltip:
+		Name: Kaminari
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 15000
+	RevealsShroud:
+		MinRange: 11c0
+		Range: 13c0
+		Type: GroundPosition
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 11c0
+		Type: GroundPosition
+	Armament:
+		Weapon: kaminarishot
+		LocalOffset: 0,-640,0, 0,640,0
+		LocalYaw: -40, 24
+		PauseOnCondition: !ammo
+	AttackAircraft:
+		FacingTolerance: 80
+		PersistentTargeting: false
+		OpportunityFire: false
+	Aircraft:
+		CruiseAltitude: 2560
+		TurnSpeed: 16
+		Speed: 223
+		RepulsionSpeed: 40
+		MaximumPitch: 56
+		Voice: Move
+	Guard:
+		Voice: Move
+	AutoTarget:
+		InitialStance: HoldFire
+		InitialStanceAI: HoldFire
+	AmmoPool:
+		Ammo: 2
+        ReloadDelay: 125
+		AmmoCondition: ammo
+	Selectable:
+		Bounds: 1536, 1194, 0, 85
+		DecorationBounds: 1706, 1237, 0, 42
+	Contrail@1:
+		Offset: -598,-683,0
+		StartColorAlpha: 128
+	Contrail@2:
+		Offset: -598,683,0
+		StartColorAlpha: 128
+	SpawnActorOnDeath:
+		Actor: USAAURORA.Husk
+	LeavesTrails:
+		Offsets: -853,0,171
+		MovingInterval: 2
+		Image: smokey
+		SpawnAtLastPosition: False
+		Type: CenterPosition
+		RequiresCondition: enable-smoke
+	ProducibleWithLevel:
+		Prerequisites: aircraft.upgraded
+	Rearmable:
+		RearmActors: usaairfield, afld, afld.ukraine, usaairstriplandingspot, japanairfield
+	WithAmmoPipsDecoration:
+		Position: BottomLeft
+		Margin: 4, 3
+		RequiresSelection: true
+	GrantConditionOnDamageState@SmokeTrail:
+		Condition: enable-smoke
+	WithProductionIconOverlay:
+		Types: Veterancy
+		Prerequisites: aircraft.upgraded
+	RenderSprites:
+		Image: japankaminari
+	JamsMissiles:
+		Range: 2c0
+        Chance: 50
+		DeflectionRelationships: Neutral, Enemy
+	ReloadAmmoPool@reloadnear:
+		RequiresCondition: reloadnear
+		Delay: 1000
+        Count: 1
+	Voiced:
+		VoiceSet: KaminariVoice
+
+japanballoonsentryflying:
+	Inherits: ^Helicopter
+	Inherits@CARGOPIPS: ^CargoPips
+	Inherits@AUTOTARGET: ^AutoTargetAll
+	Valued:
+		Cost: 1800
+	Tooltip:
+		Name: Balloon Sentry
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 70000
+	RevealsShroud:
+		MinRange: 8c0
+		Range: 10c0
+		Type: GroundPosition
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 8c0
+		Type: GroundPosition
+	Armament@PRIMARY:
+		Weapon: BalloonSentryShot
+		LocalOffset: 512,0,112
+		MuzzleSequence: muzzle
+		PauseOnCondition: disabled
+	AttackAircraft:
+		FacingTolerance: 80
+		PersistentTargeting: false
+		AttackType: Hover
+		OpportunityFire: true
+	Aircraft:
+		TurnSpeed: 16
+		Speed: 32
+		Voice: Move
+	Guard:
+		Voice: Move
+	AutoTarget:
+		InitialStance: HoldFire
+		InitialStanceAI: HoldFire
+	WithMuzzleOverlay:
+	LeavesTrails:
+		Offsets: -427,0,0
+		Image: smokey
+		MovingInterval: 3
+		SpawnAtLastPosition: False
+		Type: CenterPosition
+		RequiresCondition: enable-smoke
+		TrailWhileStationary: True
+		StationaryInterval: 3
+	ProducibleWithLevel:
+		Prerequisites: aircraft.upgraded
+	Selectable:
+		DecorationBounds: 1621, 1365
+	GrantConditionOnDamageState@SmokeTrail:
+		Condition: enable-smoke
+	WithProductionIconOverlay:
+		Types: Veterancy
+		Prerequisites: aircraft.upgraded
+	Voiced:
+		VoiceSet: BalloonVoice
+	GrantConditionOnDeploy:
+		DeployedCondition: strikervxtransform
+		CanDeployOnRamps: true
+		AllowedTerrainTypes:
+		DeploySounds: JapanSelectTransBase.aud
+	TransformOnCondition:
+		IntoActor: japanballoon
+		RequiresCondition: strikervxtransform
+		SkipMakeAnims: true
+	-SpawnActorOnDeath:
+	WithIdleOverlay@balloon:
+		Sequence: balloon
+		Offset: 0,0,850
+	Power:
+		Amount: -100
+
+japanfinalsquadron:
+	Inherits: ^Plane
+	Tooltip:
+		Name: Final Squadron
+	Health:
+		HP: 30000
+	Aircraft:
+		TurnSpeed: 4
+		Speed: 180
+		Repulsable: False
+	AttackBomber:
+		Armaments: gun
+	Armament@MISSILES2:
+		Name: gun
+		Weapon: a10shot
+		LocalOffset: 0,-384,0
+		PauseOnCondition: !ammo
+	WithMuzzleOverlay:
+	Contrail@1:
+		Offset: -640,171,0
+		TrailLength: 15
+	Contrail@2:
+		Offset: -640,-171,0
+		TrailLength: 15
+	AmmoPool:
+		Name: gun
+		Armaments: gun
+		Ammo: 6
+		PipCount: 0
+		AmmoCondition: ammo
+	KillsSelf:
+		Delay: 35,50
+		RequiresCondition: !ammo
+	-Selectable:
+	SelectionDecorations:
+		RenderSelectionBars: False
+	RejectsOrders:
+	SpawnActorOnDeath:
+		Actor: japanfinalsquadron.Husk
+	Interactable:
+	RenderSprites:
+		Image: japanfinalsquadron
+
+japanfinalsquadron.Husk:
+	Inherits: ^PlaneHusk
+	Tooltip:
+		Name: Final Squadron
+	Aircraft:
+		TurnSpeed: 20
+		Speed: 128
+	WithDamageOverlay:
+		Offset: -853,0,0
+		Interval: 2
+		MinimumDamageState: Undamaged
+	RevealsShroud:
+		MinRange: 7c0
+		Range: 9c0
+		Type: GroundPosition
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 7c0
+		Type: GroundPosition
+	RenderSprites:
+		Image: japanfinalsquadron
+	Explodes:
+		Weapon: usaaurorashot
+		EmptyWeapon: usaaurorashot
