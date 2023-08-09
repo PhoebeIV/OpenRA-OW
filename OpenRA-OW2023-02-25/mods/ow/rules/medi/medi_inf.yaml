@@ -248,43 +248,36 @@ mediassasin:
 		Queue: Infantry
 		BuildAtProductionType: Soldier
 		BuildPaletteOrder: 406
-		BuildLimit: 3
+	Tooltip:
+		Name: Assasin
 	Valued:
 		Cost: 1000
-	GrantConditionOnDeploy@burrow:
-		UndeployedCondition: Unburrowed
-		DeployedCondition: burrowed
-		SkipMakeAnimation: True
+	Transforms@burrow:
+		IntoActor: assasinambush
 	AutoTarget:
 		InitialStance: HoldFire
-		HoldFireCondition: HoldingFire
-		ReturnFireCondition: ReturningFire
 		DefendCondition: DefendingFire
 		AttackAnythingCondition: AttackingFire
 	RevealsShroud:
 		Range: 5c512
 	AttackFrontal:
-		 Armaments: assasinbladeD, assasinbladeA, assasinbladeburrow
+		 Armaments: assasinbladeD, assasinbladeA
 	Armament:
 		Name: assasinbladeD
 		Weapon: assasinblade
-		RequiresCondition: Unburrowed && !AttackingFire
+		RequiresCondition: !AttackingFire
 	Armament@AttackingFire:
 		Name: assasinbladeA
 		Weapon: AssasinWeb
-		RequiresCondition: Unburrowed && !DefendingFire
-	Armament@burrowed:
-		Name: assasinbladeburrow
-		Weapon: assasinbladeburrow
-		RequiresCondition: burrowed
+		RequiresCondition: !DefendingFire
 	Mobile:
 		Speed: 65
-		PauseOnCondition: burrowed
+		Locomotor: foot2
 	Health:
 		HP: 20000
 	Targetable:
 		TargetTypes: GroundActor, Infantry, Disguise
-	Cloak:
+	Cloak@2:
 		IsPlayerPalette: true
 		InitialDelay: 100
 		CloakDelay: 150
@@ -293,21 +286,41 @@ mediassasin:
 		UncloakSound: tphclo01.aud
 		UncloakOn: Attack, Damage
 		CloakedCondition: DarkCloakOn
-		RequiresCondition: Unburrowed
+
+
+assasinambush:
+	Inherits@Scout: mediassasin
+	Tooltip:
+		Name: Deployed Assasin
 	Cloak@2:
-		IsPlayerPalette: true
-		InitialDelay: 100
-		CloakDelay: 150
 		CloakType: DarkAssasinBurrow
-		CloakSound: tphclo00.aud
-		UncloakSound: tphclo01.aud
-		UncloakOn: Attack, Damage
-		CloakedCondition: DarkCloakOn
-		RequiresCondition: burrowed
+	RevealsShroud:
+		Range: 1c512
+	AttackFrontal:
+		 Armaments: assasinbladeburrow
+	-Armament:
+	-Armament@AttackingFire:
+	Armament@burrowed:
+		Name: assasinbladeburrow
+		Weapon: assasinbladeburrow
+	GrantConditionOnAttack@burrow:
+		Condition: Ambushed
+		ArmamentNames: assasinbladeburrow
+	Transforms@burrow:
+		IntoActor: mediassasin
+	TransformsIntoMobile:
+		Locomotor: foot2
+	Mobile:
+		Speed: 0
+	AutoTarget:
+		ScanRadius: 1
+
 
 
 mediassasinswarm:
 	Inherits@Scout: mediassasin
+	Tooltip:
+		Name: Swarm Assasin
 	-Buildable:
 	Armament:
 		Weapon: assasinbladeswarm
