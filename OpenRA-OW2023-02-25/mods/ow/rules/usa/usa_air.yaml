@@ -1,4 +1,4 @@
- 
+
 usachinook:
 	Inherits: ^Vehicle
 	Inherits@CARGOPIPS: ^CargoPips
@@ -7,7 +7,7 @@ usachinook:
 		Queue: Aircraft
 		BuildAtProductionType: Helicopter
 		BuildPaletteOrder: 10
-		Prerequisites:  ~aircraft.usa, usasupplycenter
+		Prerequisites: ~aircraft.usa, usasupplycenter
 		Description: Collects Ore, Tiberium and Gems for processing.\nSpeed: 96 \n  Unarmed
 	Valued:
 		Cost: 1200
@@ -103,7 +103,8 @@ usachinook:
 	ProductionTimeMultiplier@airforcegeneral:
 		Multiplier: 50
 		Prerequisites: upgrade.cheaperplanes
-        
+		
+	DockClientManager:
 usacombatchinook:
 	Inherits: ^Helicopter
 	Inherits@CARGOPIPS: ^CargoPips
@@ -180,7 +181,7 @@ usacombatchinook:
 	ProductionTimeMultiplier@airforcegeneral:
 		Multiplier: 50
 		Prerequisites: upgrade.cheaperplanes
-        
+		
 usacomanche:
 	Inherits: ^Helicopter
 	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
@@ -197,7 +198,7 @@ usacomanche:
 		RequiresCondition: !upgradeaircraftgeneral
 	Tooltip@upgrade:
 		Name: Stealth Comanche
-        RequiresCondition: upgradeaircraftgeneral
+		RequiresCondition: upgradeaircraftgeneral
 	UpdatesPlayerStatistics:
 		AddToArmyValue: true
 	Health:
@@ -295,15 +296,15 @@ usacomanche:
 	ReloadAmmoPool@reloadnear:
 		RequiresCondition: reloadnear
 		Delay: 500
-        Count: 12
+		Count: 12
 	Voiced:
 		VoiceSet: ComancheVoice
-    GrantConditionOnPrerequisite@1:
-        Condition: upgradeaircraftgeneral
-        Prerequisites: upgrade.aircraftgeneral
-    GrantConditionOnPrerequisite@2:
-        Condition: lasergeneralupgrade
-        Prerequisites: faction.lasergeneral
+	GrantConditionOnPrerequisite@1:
+		Condition: upgradeaircraftgeneral
+		Prerequisites: upgrade.aircraftgeneral
+	GrantConditionOnPrerequisite@2:
+		Condition: lasergeneralupgrade
+		Prerequisites: faction.lasergeneral
 	Cloak:
 		InitialDelay: 125
 		CloakDelay: 60
@@ -323,10 +324,10 @@ usacomanche:
 	ReloadDelayMultiplier@chargedlasers:
 		Modifier: 80
 		RequiresCondition: upgradechargedlasers
-    GrantConditionOnPrerequisite@chargedlasers:
-        Condition: upgradechargedlasers
-        Prerequisites: upgrade.chargedlasers
-        
+	GrantConditionOnPrerequisite@chargedlasers:
+		Condition: upgradechargedlasers
+		Prerequisites: upgrade.chargedlasers
+		
 usaraptor:
 	Inherits: ^Plane
 	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
@@ -379,7 +380,7 @@ usaraptor:
 		InitialStanceAI: HoldFire
 	AmmoPool:
 		Ammo: 4
-        Reload Delay: 50
+		Reload Delay: 50
 		AmmoCondition: ammo
 	Selectable:
 		Bounds: 1536, 1194, 0, 85
@@ -414,12 +415,12 @@ usaraptor:
 		Image: usaraptor
 	JamsMissiles:
 		Range: 2c0
-        Chance: 20
+		Chance: 20
 		DeflectionRelationships: Neutral, Enemy
 	ReloadAmmoPool@reloadnear:
 		RequiresCondition: reloadnear
 		Delay: 500
-        Count: 2
+		Count: 2
 	Voiced:
 		VoiceSet: RaptorVoice
 
@@ -458,7 +459,7 @@ usastealthfighter:
 		LocalOffset: 0,-640,0, 0,640,0
 		LocalYaw: -40, 24
 		PauseOnCondition: !ammo
-        RequiresCondition: upgradelaserguided
+		RequiresCondition: upgradelaserguided
 	AttackAircraft:
 		FacingTolerance: 20
 	Aircraft:
@@ -518,11 +519,11 @@ usastealthfighter:
 		Image: usastealthfighter
 	JamsMissiles:
 		Range: 2c0
-        Chance: 20
+		Chance: 20
 		DeflectionRelationships: Neutral, Enemy
 	JamsMissiles@countermeasures:
 		Range: 3c0
-        Chance: 30
+		Chance: 30
 		DeflectionRelationships: Neutral, Enemy
 		RequiresCondition: upgradecountermeasures
 	Cloak:
@@ -538,7 +539,7 @@ usastealthfighter:
 	ReloadAmmoPool@reloadnear:
 		RequiresCondition: reloadnear
 		Delay: 500
-        Count: 2
+		Count: 2
 	Voiced:
 		VoiceSet: StealthFighterVoice
 	ProductionCostMultiplier@airforcegeneral:
@@ -547,13 +548,13 @@ usastealthfighter:
 	ProductionTimeMultiplier@airforcegeneral:
 		Multiplier: 50
 		Prerequisites: upgrade.cheaperplanes
-    GrantConditionOnPrerequisite@1:
-        Condition: upgradelaserguided
-        Prerequisites: upgrade.laserguided
-    GrantConditionOnPrerequisite@2:
-        Condition: upgradecountermeasures
-        Prerequisites: upgrade.countermeasures
-        
+	GrantConditionOnPrerequisite@1:
+		Condition: upgradelaserguided
+		Prerequisites: upgrade.laserguided
+	GrantConditionOnPrerequisite@2:
+		Condition: upgradecountermeasures
+		Prerequisites: upgrade.countermeasures
+		
 usaaurora:
 	Inherits: ^Plane
 	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
@@ -602,7 +603,7 @@ usaaurora:
 		InitialStanceAI: HoldFire
 	AmmoPool:
 		Ammo: 1
-        ReloadDelay: 125
+		ReloadDelay: 125
 		AmmoCondition: ammo
 	Selectable:
 		Bounds: 1536, 1194, 0, 85
@@ -651,17 +652,17 @@ usaaurora:
 		Image: usaaurora
 	JamsMissiles:
 		Range: 2c0
-        Chance: 40
+		Chance: 40
 		DeflectionRelationships: Neutral, Enemy
 	JamsMissiles@countermeasures:
 		Range: 3c0
-        Chance: 20
+		Chance: 20
 		DeflectionRelationships: Neutral, Enemy
 		RequiresCondition: upgradecountermeasures
 	ReloadAmmoPool@reloadnear:
 		RequiresCondition: reloadnear
 		Delay: 500
-        Count: 1
+		Count: 1
 	Voiced:
 		VoiceSet: AuroraVoice
 	ProductionCostMultiplier@airforcegeneral:
@@ -670,10 +671,10 @@ usaaurora:
 	ProductionTimeMultiplier@airforcegeneral:
 		Multiplier: 50
 		Prerequisites: upgrade.cheaperplanes
-    GrantConditionOnPrerequisite@2:
-        Condition: upgradecountermeasures
-        Prerequisites: upgrade.countermeasures
-        
+	GrantConditionOnPrerequisite@2:
+		Condition: upgradecountermeasures
+		Prerequisites: upgrade.countermeasures
+		
 usakingraptor:
 	Inherits: ^Plane
 	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
@@ -683,7 +684,7 @@ usakingraptor:
 		BuildPaletteOrder: 50
 		Prerequisites: ~aircraft.usa, techcenter, upgrade.aircraftgeneral, ~!faction.lasergeneral, ~!faction.superweaponsgeneral
 		Description: Multi-role fighter plane.\nCan deflect enemy missiles with lasers.
-        BuildDuration: 2300
+		BuildDuration: 2300
 	Valued:
 		Cost: 2500
 	Tooltip:
@@ -715,13 +716,13 @@ usakingraptor:
 		LocalOffset: 0,-640,0, 0,640,0
 		LocalYaw: -40, 24
 		PauseOnCondition: !ammo
-        RequiresCondition: upgradelaserguided
+		RequiresCondition: upgradelaserguided
 	Armament@airupgrade:
 		Weapon: usakingraptorshotairlaserguided
 		LocalOffset: 0,-640,0, 0,640,0
 		LocalYaw: -40, 24
 		PauseOnCondition: !ammo
-        RequiresCondition: upgradelaserguided
+		RequiresCondition: upgradelaserguided
 	AttackAircraft:
 		FacingTolerance: 20
 		PersistentTargeting: false
@@ -741,7 +742,7 @@ usakingraptor:
 		InitialStanceAI: HoldFire
 	AmmoPool:
 		Ammo: 6
-        Reload Delay: 6
+		Reload Delay: 6
 		AmmoCondition: ammo
 	Selectable:
 		Bounds: 1536, 1194, 0, 85
@@ -784,17 +785,17 @@ usakingraptor:
 		Image: usakingraptor
 	JamsMissiles:
 		Range: 2c0
-        Chance: 50
+		Chance: 50
 		DeflectionRelationships: Neutral, Enemy
 	JamsMissiles@countermeasures:
 		Range: 3c0
-        Chance: 25
+		Chance: 25
 		DeflectionRelationships: Neutral, Enemy
 		RequiresCondition: upgradecountermeasures
 	ReloadAmmoPool@reloadnear:
 		RequiresCondition: reloadnear
 		Delay: 500
-        Count: 3
+		Count: 3
 	Voiced:
 		VoiceSet: KingRaptorVoice
 	ProductionCostMultiplier@airforcegeneral:
@@ -803,13 +804,13 @@ usakingraptor:
 	ProductionTimeMultiplier@airforcegeneral:
 		Multiplier: 50
 		Prerequisites: upgrade.cheaperplanes
-    GrantConditionOnPrerequisite@1:
-        Condition: upgradelaserguided
-        Prerequisites: upgrade.laserguided
-    GrantConditionOnPrerequisite@2:
-        Condition: upgradecountermeasures
-        Prerequisites: upgrade.countermeasures
-        
+	GrantConditionOnPrerequisite@1:
+		Condition: upgradelaserguided
+		Prerequisites: upgrade.laserguided
+	GrantConditionOnPrerequisite@2:
+		Condition: upgradecountermeasures
+		Prerequisites: upgrade.countermeasures
+		
 usaauroraalpha:
 	Inherits: ^Plane
 	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
@@ -819,7 +820,7 @@ usaauroraalpha:
 		BuildPaletteOrder: 50
 		Prerequisites: ~aircraft.usa, techcenter, upgrade.superweaponsgeneral, ~!faction.lasergeneral, ~!faction.aircraftgeneral
 		Description: Fast fighter plane.\nCan not be damaged while attacking.\nSlows down and becomes vulnerable after attacking.
-        BuildDuration: 3300
+		BuildDuration: 3300
 	Valued:
 		Cost: 5000
 	Tooltip:
@@ -865,7 +866,7 @@ usaauroraalpha:
 		InitialStanceAI: HoldFire
 	AmmoPool:
 		Ammo: 1
-        ReloadDelay: 125
+		ReloadDelay: 125
 		AmmoCondition: ammo
 	Selectable:
 		Bounds: 1536, 1194, 0, 85
@@ -900,15 +901,15 @@ usaauroraalpha:
 		Image: usaauroraalpha
 	JamsMissiles:
 		Range: 2c0
-        Chance: 50
+		Chance: 50
 		DeflectionRelationships: Neutral, Enemy
 	ReloadAmmoPool@reloadnear:
 		RequiresCondition: reloadnear
 		Delay: 1000
-        Count: 1
+		Count: 1
 	Voiced:
 		VoiceSet: AuroraVoice
-        
+		
 usaspydrone:
 	Inherits: ^Plane
 	Valued:
@@ -933,7 +934,7 @@ usaspydrone:
 		RepulsionSpeed: 80
 		MaximumPitch: 56
 		TakeOffOnCreation: true
-        VTOL: true
+		VTOL: true
 		Voice: Move
 	Guard:
 		Voice: Move
@@ -1008,7 +1009,7 @@ usaa10:
 	SpawnActorOnDeath:
 		Actor: USAA10.Husk
 	Interactable:
-    
+	
 usamoabplane:
 	Inherits: ^Plane
 	Health:
@@ -1119,7 +1120,7 @@ usaspectregunship:
 		Queue: Aircraft
 		BuildAtProductionType: Plane
 		BuildPaletteOrder: 130
-		Prerequisites:  ~aircraft.usa, ulttechcenter, upgrade.aircraftgeneral, ~!faction.lasergeneral, ~!faction.superweaponsgeneral, ~faction.aircraftgeneral
+		Prerequisites: ~aircraft.usa, ulttechcenter, upgrade.aircraftgeneral, ~!faction.lasergeneral, ~!faction.superweaponsgeneral, ~faction.aircraftgeneral
 		Description: The Spectre Gunship was a support aircraft that could be periodically deployed by particularly high-ranking US generals based on the Lockheed AC-130 Spectre.\nSpeed: 120\n  Strong vs Ground Targets\n  Weak vs Anti-Air
 		BuildLimit: 1
 	Valued:

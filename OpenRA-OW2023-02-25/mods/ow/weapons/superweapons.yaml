@@ -1031,6 +1031,143 @@ DoomSpawnCube:
 		ImpactSounds: dstelept.aud
 		ValidTargets: Ground, GroundActor, Water, WaterActor, Trees
 
+SolShellNew:
+	ReloadDelay: 350
+	Range: 14c0
+	MinRange: 6c0
+	ValidTargets: Ground, Water, GroundActor, WaterActor
+	Projectile: LaserZap
+		Width: 768
+		Color: FFFFFF
+		SecondaryBeamColor: 00AEFFD1
+		SecondaryBeam: true
+		SecondaryBeamWidth: 1024
+		SecondaryBeamZOffset: 1024
+		ZOffset: 2503
+		TrackTarget: false
+		Duration: 20
+	Warhead@98Eff_impact: CreateEffect
+		ImpactSounds: jericho.wav
+		ImpactActors: false
+	Warhead@99Eff_impact: CreateEffect
+		ImpactSounds: jericho.wav
+		ImpactActors: false
+	Warhead@1Dam_impact: SpreadDamage
+		Spread: 1c0
+		Delay: 4
+		Damage: 25000
+		Falloff: 1000, 180, 135, 50, 18, 7, 0
+		ValidTargets: GroundActor, WaterActor, Underwater, AirborneActor, Trees
+		Versus:
+			Concrete: 75
+		AffectsParent: true
+		DamageTypes: Prone50Percent, TriggerProne, ElectricityDeath
+	Warhead@3Eff_impact: CreateEffect
+		Delay: 8
+		ImpactActors: false
+	Warhead@2Res_impact: DestroyResource
+		Size: 1
+		Delay: 8
+	Warhead@4Dam_areanuke1: SpreadDamage
+		Spread: 2c0
+		Damage: 3000
+		Falloff: 600, 368, 135, 50, 18, 7, 0
+		Delay: 8
+		ValidTargets: GroundActor, WaterActor, Underwater, AirborneActor, Trees
+		Versus:
+			Concrete: 15
+		AffectsParent: true
+		DamageTypes: Prone50Percent, TriggerProne, ElectricityDeath
+	Warhead@5Res_areanuke1: DestroyResource
+		Size: 2
+		Delay: 13
+	Warhead@7Dam_areanuke2: SpreadDamage
+		Spread: 3c0
+		Damage: 3000
+		Falloff: 500, 368, 135, 50, 18, 7, 0
+		Delay: 13
+		ValidTargets: GroundActor, WaterActor, Underwater, Trees
+		Versus:
+			Concrete: 15
+		AffectsParent: true
+		DamageTypes: Prone50Percent, TriggerProne, ElectricityDeath
+	Warhead@9Dam_areanuke3: SpreadDamage
+		Spread: 4c0
+		Damage: 3000
+		Falloff: 500, 368, 135, 50, 18, 7, 0
+		Delay: 25
+		ValidTargets: GroundActor, WaterActor, Underwater, Trees
+		Versus:
+			None: 50
+			Light: 50
+			Concrete: 15
+		AffectsParent: true
+		ValidRelationships: Enemy, Neutral
+		DamageTypes: Prone50Percent, TriggerProne, ElectricityDeath
+	Warhead@11Smu_areanuke3: LeaveSmudge
+		SmudgeType: Scorch
+		Size: 3
+		Delay: 18
+	Warhead@17Shake: ShakeScreen
+		Duration: 25
+		Intensity: 3
+		Multiplier: 1,1
+	Warhead@22FlashEffect: FlashPaletteEffect
+		Duration: 18
+		FlashType: Nuke
+
+SolShellNewBeam1:
+	ReloadDelay: 350
+	Range: 14c0
+	MinRange: 6c0
+	Report: levfire.aud
+	ValidTargets: Ground, Water, GroundActor, WaterActor
+	Projectile: LaserZap
+		Width: 96
+		Color: A5A5FFAC
+		SecondaryBeamColor: 9BDFFF83
+		SecondaryBeam: true
+		SecondaryBeamWidth: 192
+		SecondaryBeamZOffset: 1024
+		ZOffset: 2500
+		TrackTarget: false
+		Duration: 95
+	Warhead@3Eff: CreateEffect
+		Explosions: solcannon
+		ExplosionPalette: tseffect
+		ImpactSounds: levfire.aud
+		ValidTargets: Ground, GroundActor, WaterActor, Trees, Air
+		ImpactActors: false
+	Warhead@4Eff: CreateEffect
+		ImpactSounds: levfire.aud
+		ValidTargets: Ground, GroundActor, WaterActor, Trees, Air
+		ImpactActors: false
+
+SolShellNewBeam2:
+	Inherits: SolShellNewBeam1
+	Report: 
+	Projectile: LaserZap
+		Width: 192
+		Color: A5A5FFAC
+		SecondaryBeamColor: 9BDFFF83
+		SecondaryBeamWidth: 384
+		SecondaryBeamZOffset: 1024
+		ZOffset: 2501
+		Duration: 70
+	-Warhead@3Eff: 
+	-Warhead@4Eff: 
+
+SolShellNewBeam3:
+	Inherits: SolShellNewBeam2
+	Projectile: LaserZap
+		Width: 384
+		Color: FFFFFFAC
+		SecondaryBeamColor: 0040FF83
+		SecondaryBeamWidth: 768
+		SecondaryBeamZOffset: 1024
+		ZOffset: 2502
+		Duration: 45
+
 Scudstorm:
 	ValidTargets: Ground, Water, GroundActor, WaterActor, Underwater, AirborneActor, Trees
 	Warhead@98Eff_impact: CreateEffect
@@ -2397,6 +2534,23 @@ DeleteNuke:
 		RandomClusterCount: 48
 		Dimensions: 12,12
 		Footprint: xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx
+
+DebugTib:
+	Inherits: DemoTrapExplosion2
+	Warhead@1Dam: SpreadDamage
+		DamageTypes: Prone50Percent, TriggerProne, ExplosionDeath, TiberiumDeath
+	Warhead@2Dam: SpreadDamage
+		DamageTypes: Prone50Percent, TriggerProne, ExplosionDeath, TiberiumDeath
+	Warhead@condition: GrantExternalCondition
+		Condition: tibtree
+		Range: 3c0
+		Duration: 0
+		ValidTargets: TibTree, OreMine, Tree
+	Warhead@condition3: GrantExternalCondition
+		Condition: dotransform
+		Range: 3c0
+		Duration: 0
+		ValidTargets: TibTree, OreMine, Tree
 
 NukeCannonShot:
 	ReloadDelay: 450

@@ -40,9 +40,8 @@ SLAVE:
 	Tooltip:
 		Name: Slave
 	Mobile:
-		Speed: 80
-		Locomotor: foot2
-		TurnsWhileMoving: true
+		Speed: 54
+		Locomotor: foot
 	Health:
 		HP: 3000
 	Passenger:
@@ -59,12 +58,11 @@ SLAVE:
 		DamageTypes: DefaultDeath
 	Harvester:
 		UnblockCell: 0,1
-		Capacity: 5
+		Capacity: 4
 		Resources: Ore,Gems,Tiberium,BlueTiberium,MediGold
 		SearchFromProcRadius: 10
 		SearchFromHarvesterRadius: 10
 		HarvestVoice: Harvest
-		MaxUnloadQueue: 2
 		FullyLoadedSpeed: 75
 	Voiced:
 		VoiceSet: SlaveVoice
@@ -101,6 +99,7 @@ SLAVE:
 		PipCount: 1
 	ExternalCondition@work:
 		Condition: slavework
+	DockClientManager:
 
 ##Like the slave but better in every way
 MEDIWORKER:
@@ -139,7 +138,6 @@ MEDIWORKER:
 		BaleLoadDelay: 5
 		Resources: Ore,Gems,Tiberium,BlueTiberium,MediGold
 		HarvestVoice: Harvest
-		MaxUnloadQueue: 2
 	Voiced:
 		VoiceSet: WorkerVoice
 	GrantConditionOnPrerequisite@workertib:
@@ -156,6 +154,7 @@ MEDIWORKER:
 		PipCount: 4
 	Passenger:
 		CargoType: GaryWorker
+	DockClientManager:
 
 ##Builds Outposts
 SURVEYORMEDI:
@@ -244,40 +243,47 @@ mediassasin:
 	-Transforms:
 	Buildable:
 		Prerequisites: ~infantry.medi, farmmedi, ~infantry.darkness
-		Description: Stealthed Assasin Made for exicuting Infantry./nCan bypass Defenses and only spotable by Infantry./nloses stealth for a long time on attack or damage		
+		Description: Stealthed Assasin Made for exicuting Infantry./nCan bypass Defenses and only spotable by Infantry./nloses stealth for a long time on attack or damage
 		Queue: Infantry
 		BuildAtProductionType: Soldier
 		BuildPaletteOrder: 406
-	Tooltip:
-		Name: Assasin
+		BuildLimit: 3
 	Valued:
 		Cost: 1000
-	Transforms@burrow:
-		IntoActor: assasinambush
+	GrantConditionOnDeploy@burrow:
+		UndeployedCondition: Unburrowed
+		DeployedCondition: burrowed
+		SkipMakeAnimation: True
 	AutoTarget:
 		InitialStance: HoldFire
+		HoldFireCondition: HoldingFire
+		ReturnFireCondition: ReturningFire
 		DefendCondition: DefendingFire
 		AttackAnythingCondition: AttackingFire
 	RevealsShroud:
 		Range: 5c512
 	AttackFrontal:
-		 Armaments: assasinbladeD, assasinbladeA
+		Armaments: assasinbladeD, assasinbladeA, assasinbladeburrow
 	Armament:
 		Name: assasinbladeD
 		Weapon: assasinblade
-		RequiresCondition: !AttackingFire
+		RequiresCondition: Unburrowed && !AttackingFire
 	Armament@AttackingFire:
 		Name: assasinbladeA
 		Weapon: AssasinWeb
-		RequiresCondition: !DefendingFire
+		RequiresCondition: Unburrowed && !DefendingFire
+	Armament@burrowed:
+		Name: assasinbladeburrow
+		Weapon: assasinbladeburrow
+		RequiresCondition: burrowed
 	Mobile:
 		Speed: 65
-		Locomotor: foot2
+		PauseOnCondition: burrowed
 	Health:
 		HP: 20000
 	Targetable:
 		TargetTypes: GroundActor, Infantry, Disguise
-	Cloak@2:
+	Cloak:
 		IsPlayerPalette: true
 		InitialDelay: 100
 		CloakDelay: 150
@@ -286,41 +292,21 @@ mediassasin:
 		UncloakSound: tphclo01.aud
 		UncloakOn: Attack, Damage
 		CloakedCondition: DarkCloakOn
-
-
-assasinambush:
-	Inherits@Scout: mediassasin
-	Tooltip:
-		Name: Deployed Assasin
+		RequiresCondition: Unburrowed
 	Cloak@2:
+		IsPlayerPalette: true
+		InitialDelay: 100
+		CloakDelay: 150
 		CloakType: DarkAssasinBurrow
-	RevealsShroud:
-		Range: 1c512
-	AttackFrontal:
-		 Armaments: assasinbladeburrow
-	-Armament:
-	-Armament@AttackingFire:
-	Armament@burrowed:
-		Name: assasinbladeburrow
-		Weapon: assasinbladeburrow
-	GrantConditionOnAttack@burrow:
-		Condition: Ambushed
-		ArmamentNames: assasinbladeburrow
-	Transforms@burrow:
-		IntoActor: mediassasin
-	TransformsIntoMobile:
-		Locomotor: foot2
-	Mobile:
-		Speed: 0
-	AutoTarget:
-		ScanRadius: 1
-
+		CloakSound: tphclo00.aud
+		UncloakSound: tphclo01.aud
+		UncloakOn: Attack, Damage
+		CloakedCondition: DarkCloakOn
+		RequiresCondition: burrowed
 
 
 mediassasinswarm:
 	Inherits@Scout: mediassasin
-	Tooltip:
-		Name: Swarm Assasin
 	-Buildable:
 	Armament:
 		Weapon: assasinbladeswarm

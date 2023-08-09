@@ -187,6 +187,22 @@ TSENGI.O:
 		Facing: 384
 		TransformSounds: placbldg.aud, build5.aud
 		NoTransformNotification: BuildingCannotPlaceAudio
+	GrantConditionOnPrerequisite@botowner:
+		Condition: botowner
+		Prerequisites: ai.all
+	ExternalCondition@surveyor:
+		Condition: surveyor_near_base
+	AutoDeployer:
+		RequiresCondition: !surveyor_near_base && botowner
+		DeployTicks: 150
+		UndeployTicks: 150
+		DeployChance: 75
+		DeployTrigger: Periodically
+	Wanders@bot:
+		RequiresCondition: botowner && surveyor_near_base
+		MaxMoveDelay: 250
+		MinMoveDelay: 125
+		WanderMoveRadius: 6
 
 # Expended Surveyor
 C1.O:
@@ -273,4 +289,3 @@ E1GOD:
 	WithProductionIconOverlay:
 		Types: Veterancy
 		Prerequisites: techlevel.infonly
-

@@ -463,22 +463,62 @@ SOLC:
 		Speed: 35
 		TurnSpeed: 12
 		Locomotor: heavytracked
+		PauseOnCondition: disabled || firing
 	RevealsShroud:
 		MinRange: 8c0
 		Range: 10c0
 		RevealGeneratedShroud: False
 	RevealsShroud@GAPGEN:
 		Range: 8c0
-	Armament:
-		Weapon: SolShell
-		Recoil: 127
-		RecoilRecovery: 26
-		PauseOnCondition: disabled
+	Armament@PRIMARY:
+		Weapon: SolShellNew
+		Recoil: 200
+		RecoilRecovery: 25
+		PauseOnCondition: ammo < 15
+		FireDelay: 75
+		AmmoUsage: 15
+		LocalOffset: 1024,0,600
+	Armament@effect1:
+		Weapon: SolShellNewBeam1
+		PauseOnCondition: ammo < 15
+		AmmoUsage: 0
+		LocalOffset: 1024,0,600
+	Armament@effect2:
+		Weapon: SolShellNewBeam2
+		PauseOnCondition: ammo < 15
+		FireDelay: 25
+		AmmoUsage: 0
+		LocalOffset: 1024,0,600
+	Armament@effect3:
+		Weapon: SolShellNewBeam3
+		PauseOnCondition: ammo < 15
+		FireDelay: 50
+		AmmoUsage: 0
+		LocalOffset: 1024,0,600
 	AttackTurreted:
 		PauseOnCondition: disabled
 	Turreted:
 		TurnSpeed: 8
+		PauseOnCondition: disabled || firing
 	WithSpriteTurret:
+	GrantConditionOnAttack@attacking:
+		Condition: firing
+		RevokeDelay: 150
+	GrantConditionOnAttack@attacking2:
+		Condition: recently_fired
+		RevokeDelay: 300
+	AmmoPool:
+		Ammo: 15
+		AmmoCondition: ammo
+		InitialAmmo: 5
+	ReloadAmmoPool@normal:
+		Delay: 35
+	WithAmmoPipsDecoration:
+		Position: BottomLeft
+		Margin: 4, 3
+		RequiresSelection: false
+		PipCount: 15
+		ValidRelationships: Ally, Enemy, Neutral
 	Passenger:
 		CargoType: Epic
 		CustomPipType: red
@@ -509,10 +549,17 @@ SOLC:
 		Condition: invulnerability
 	-Chronoshiftable:
 	AutoDeployer:
-		DeployTicks: 150
-		UndeployTicks: 150
-		DeployChance: 50
-		DeployTrigger: Attack
+		RequiresCondition: recently_fired && !firing
+		DeployTicks: 50
+		UndeployTicks: 50
+		DeployChance: 100
+		DeployTrigger: Periodically
+	GrantPeriodicCondition@deploy:
+		Condition: force_deploy
+		RequiresCondition: recently_fired && !firing
+		CooldownDuration: 10
+		ActiveDuration: 25
+		StartsGranted: true
 
 SOLCDEPL:
 	Inherits: ^Defense
@@ -525,7 +572,7 @@ SOLCDEPL:
 	Tooltip:
 		Name: Sol Cannon (Deployed)
 	Building:
-		Footprint: _x_ xxx _x_
+		Footprint: _X_ XxX _X_
 		Dimensions: 3,3
 		TerrainTypes: Clear,Road,Rough,Beach,Ore,Gems,Tiberium,BlueTiberium
 	Selectable:
@@ -590,7 +637,10 @@ SOLCDEPL:
 	Voiced:
 		VoiceSet: SolCannonVoice
 	AutoDeployer:
+		RequiresCondition: !build-incomplete
 		DeployTicks: 150
 		UndeployTicks: 150
 		DeployChance: 20
 		DeployTrigger: Damage, Attack
+	AutoTarget:
+		InitialStance: HoldFire

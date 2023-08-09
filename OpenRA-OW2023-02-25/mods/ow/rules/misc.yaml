@@ -24,7 +24,7 @@ MINE:
 		Type: CenterPosition
 	HitShape:
 	Targetable:
-		TargetTypes: UpgradeThing, Ground, OreMine, NoAITarget
+		TargetTypes: UpgradeThing, Ground, OreMine, NoAITarget, NoAutoTarget
 	Health:
 		HP: 9000000
 	RevealsShroud:
@@ -61,6 +61,8 @@ MINE:
 		Conditions: infectable,lessinfectable
 	ExternalCondition@growth:
 		Condition: growth
+	ExternalCondition@dotransform:
+		Condition: dotransform
 	GrantPeriodicCondition@aaa:
 		RequiresCondition: (lessinfectable && (growth > 50)) || (infectable && (growth > 30)) || tibtree && !notib
 		Condition: dotransform
@@ -87,7 +89,7 @@ GMINE:
 	Health:
 		HP: 9000000
 	Targetable:
-		TargetTypes: UpgradeThing, Ground, OreMine, NoAITarget
+		TargetTypes: UpgradeThing, Ground, OreMine, NoAITarget, NoAutoTarget
 	ExternalCondition@creep:
 		Condition: creepgen
 	ChangesHealth@1:
@@ -236,11 +238,13 @@ SPLIT3:
 		Condition: making
 	ExternalCondition@stack:
 		Condition: growth
+	ExternalCondition@dotransform:
+		Condition: dotransform
 	ExplodeWeapon@burst:
 		RequiresCondition: burst
 		Weapon: TibTreeBurst
 	TransformOnCondition:
-		RequiresCondition: growth > 60
+		RequiresCondition: (growth > 60) || dotransform
 		IntoActor: split4
 		SkipMakeAnims: false
 
@@ -313,15 +317,26 @@ TMONOLITH:
 		HP: 500000
 	Armor:
 		Type: Wood
-	Targetable: 
+	Targetable:
 		TargetTypes: GroundActor, Structure, Monolith
 	RenderSprites:
 		Palette: greentiberium
 		Image: bigblue
+	WithSpriteBody:
+		RequiresCondition: !burst && !making
+	WithSpriteBody@burst:
+		RequiresCondition: burst
+		StartSequence: active
+	WithSpriteBody@make:
+		RequiresCondition: making
+		StartSequence: make
+	GrantTimedCondition:
+		Condition: making
+		Duration: 200
 	Tooltip:
 		Name: Tiberium Monolith
 	SeedsResource:
-		RequiresCondition: !build-incomplete
+		RequiresCondition: !making
 		ResourceType: Tiberium
 		Interval: 50
 		MaxRange: 500
@@ -343,7 +358,7 @@ TMONOLITH:
 		RequiresCondition: burst
 		Weapon: TibTreeBurst
 	GrantPeriodicCondition@form:
-		RequiresCondition: build-incomplete
+		RequiresCondition: making
 		Condition: form_fire
 		CooldownDuration: 3, 15
 		ActiveDuration: 10
@@ -351,15 +366,17 @@ TMONOLITH:
 		RequiresCondition: form_fire
 		Weapon: MonolithShake
 	WithIdleOverlay:
-		RequiresCondition: !build-incomplete
+		RequiresCondition: !making
 	ExternalCondition@growth:
 		Condition: growth
 	ExternalCondition@spawned:
 		Condition: spawned
+	ExternalCondition@dotransform:
+		Condition: dotransform
 	GrantRandomCondition@infectable:
 		Conditions: infectable,lessinfectable
 	GrantCondition@growth:
-		RequiresCondition: (lessinfectable && (growth > 60)) || (infectable && (growth > 40))
+		RequiresCondition: (lessinfectable && (growth > 60)) || (infectable && (growth > 40)) || dotransform
 		Condition: spawn_blue
 	ExplodeWeapon@spread:
 		RequiresCondition: spawn_blue && !spawned
@@ -377,6 +394,13 @@ TMONOLITH:
 		Condition: notibresp
 	SpawnActorOnDeath:
 		Actor: MINE
+
+#	TerrainLightSource:
+#		Range: 7c0
+#		Intensity: 0.2
+#		RedTint: -0.5
+#		GreenTint: -0.2
+#		BlueTint: -0.7
 
 TMONOLITH.BLUE:
 	Inherits: TMONOLITH
@@ -404,6 +428,13 @@ TMONOLITH.BLUE:
 		EmptyWeapon: MonolithBlueExplosion_NoResp
 	SpawnActorOnDeath:
 		Actor: GMINE
+
+#	TerrainLightSource:
+#		Range: 7c0
+#		Intensity: 0.2
+#		RedTint: -0.3
+#		GreenTint: -0.2
+#		BlueTint: 0.0
 
 VICE:
 	Inherits: ^Viceroid

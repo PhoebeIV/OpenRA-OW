@@ -594,7 +594,6 @@ FARMMEDI:
 		Bounds: 2048, 2048
 	-SpawnActorOnDeath:
 	Refinery:
-		DockOffset: 1,1
 	Buildable:
 		Queue: Building
 		Prerequisites: ~structures.medi, laborcamp, ~!ai.boss, ~techlevel.infonly
@@ -637,15 +636,9 @@ FARMMEDI:
 		RequiresSelection: true
 		PipCount: 5
 		FullSequence: pip-yellow
-	FreeActor@a:
-		Actor: FARMMEDI.DropOff
-		SpawnOffset: 0,0
-	FreeActor@c:
-		Actor: FARMMEDI.DropOff
-		SpawnOffset: 1,0
-
-FARMMEDI.DropOff:
-	Inherits: GPROC.DropOff
+	DockHost:
+		Type: Unload
+		DockOffset: 512,512,0
 
 ##GoldMine, Seeds Resources
 GoldMine:
@@ -869,7 +862,7 @@ GoldMineSpawner:
 		delay: 5
 	SpawnActorOnDeath@gmd5:
 		Actor: GoldMineD5
-		RequiresCondition: gmdepth5	
+		RequiresCondition: gmdepth5
 	-Explodes:
 	-ActorLostNotification:
 
@@ -1838,7 +1831,7 @@ TheEye:
 		DamageTypes: DefaultDeath
 	RevealsShroudMultiplier@Step1:
 		Modifier: 125
-		RequiresCondition: step1eye 
+		RequiresCondition: step1eye
 	DetectCloakedMultiplier@Step1:
 		Modifier: 125
 		RequiresCondition: step1eye
@@ -1854,7 +1847,7 @@ TheEye:
 		Delay: 60
 		StartIfBelow: 110
 		DamageCooldown: 0
-		RequiresCondition: step2eye 
+		RequiresCondition: step2eye
 		DamageTypes: DefaultDeath
 	RevealsShroudMultiplier@Step2:
 		Modifier: 130

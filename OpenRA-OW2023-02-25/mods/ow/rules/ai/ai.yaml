@@ -17,26 +17,6 @@
 	GrantConditionOnPrerequisite@botmoney3:
 		Condition: bot_boss
 		Prerequisites: ai.boss
-	CashTrickler@medAI:
-		Interval: 300
-		Amount: 15
-		ShowTicks: false
-		RequiresCondition: bot_med
-	CashTrickler@hardAI:
-		Interval: 250
-		Amount: 30
-		ShowTicks: false
-		RequiresCondition: bot_hard
-	CashTrickler@harderAI:
-		Interval: 250
-		Amount: 20
-		ShowTicks: false
-		RequiresCondition: bot_harder
-	CashTrickler@bossAI:
-		Interval: 250
-		Amount: 75
-		ShowTicks: false
-		RequiresCondition: bot_boss
 	ExternalCondition@trigger_repair:
 		Condition: trigger_repair
 	ChangesHealth@trigger_repair:
@@ -51,14 +31,6 @@
 		StartIfBelow: 100
 
 ^ScienceBuilding:
-	CashTrickler@medAI:
-		Amount: 150
-	CashTrickler@hardAI:
-		Amount: 300
-	CashTrickler@harderAI:
-		Amount: 150
-	CashTrickler@bossAI:
-		Amount: 1000
 	Production@boss:
 		Produces: Structure, Tech, Upgrade
 		PauseOnCondition: !bot_boss
@@ -241,6 +213,26 @@ Player:
 	GrantConditionOnFaction@medi:
 		Condition: enable-medi-ai
 		Factions: darkness, holy, elementalists, zerg, infantry
+	PlayerCashTrickler@med:
+		RequiresCondition: enable-medium-ai
+		Interval: 500
+		InitialDelay: 3000
+		Amount: 2500
+	PlayerCashTrickler@hard:
+		RequiresCondition: enable-hard-ai
+		Interval: 500
+		InitialDelay: 3000
+		Amount: 6000
+	PlayerCashTrickler@harder:
+		RequiresCondition: enable-harder-ai && !enable-hard-ai
+		Interval: 500
+		InitialDelay: 3000
+		Amount: 9000
+	PlayerCashTrickler@boss:
+		RequiresCondition: enable-boss-ai
+		Interval: 500
+		InitialDelay: 1500
+		Amount: 9000
 	HarvesterBotModule:
 		RequiresCondition: enable-all-ai
 		HarvesterTypes: harv, harvd, harvd.bhand, gharv, slave, mediworker, pprobe, zdrone, usachinook, tscv
@@ -868,22 +860,29 @@ Player:
 			upgrade.airfirepower1: 1500
 			upgrade.buildarmor1: 1500
 			upgrade.buildfirepower1: 1500
+	MinelayerBotModule:
+		RequiresCondition: enable-medium-ai || enable-hard-ai
+		MinelayingActorTypes: mnly, mnly.g, lst2, tvult, tvult.raynor
+		IgnoredEnemyTargetTypes: Building, Defense, Air
+		UseEnemyLocationTargetTypes: Building, Defense
+		AwayFromAlliedTargetTypes: Building, Defense
+		AwayFromEnemyTargetTypes: Building, Defense
 	CaptureManagerBotModule:
 		RequiresCondition: enable-all-ai
 		CapturableActorTypes: oilb, miss, fcom, hosp, oreext.g, t.miss, t.missair, t.missinf, gmiss, miss.terran
 		CapturingActorTypes: e6, fe6, tsengi.o, tmedic, gharv, zdrone.eng, surveyormedi, pprobe.eng
-	SquadManagerBotModule@all: 
+	SquadManagerBotModule@all:
 		RequiresCondition: enable-all-ai
-		ExcludeFromSquadsTypes: harv, harvd, harvd.bhand, mcv, mcv.2, mcvd, mcvd.2, gmcv, gmcv.2, gharv, gmgg, dog, mcvm, mcvm.2, mcvm.3, truckmedi, mediworker, slave, surveyormedi, pmcv, pmcv.2, zmcv, zmcv.2, zdrone, zoverlord, pprobe, usachinook, tscv, e6, fe6, tsengi.o, surveyormedi, zdrone.eng, pprobe.eng
+		ExcludeFromSquadsTypes: harv, harvd, harvd.bhand, mcv, mcv.2, mcvd, mcvd.2, gmcv, gmcv.2, gharv, gmgg, dog, mcvm, mcvm.2, mcvm.3, truckmedi, mediworker, slave, surveyormedi, pmcv, pmcv.2, zmcv, zmcv.2, zdrone, zoverlord, pprobe, usachinook, tscv, e6, fe6, tsengi.o, surveyormedi, zdrone.eng, pprobe.eng, mnly, mnly.g, lst2
 		NavalUnitsTypes: ss,msub,dd,ca,lst,pt,dmdd,medicanoe,medimanofwar,medihwachaboat,mediarcaneboat,usaspycarrier,usareconboat,usamlrscarrier,chinainfernoship,japankappa,japannaginata,japanshogun
 		ConstructionYardTypes: fact,factd,gfact,factm,pnexus,zhatchery,tcommand,tcommand.landed
 		NavalProductionTypes: spen,syrd,gspen,dockmedi,usashipyard,chinashipyard,japanshipyard
 		AirUnitsTypes: mig, yak, heli, mh60, n.mig, bf109, do17, do17.shd, orca, a10, tsorca, tsorcab, tsorcatran.ai2, scrin, a10.n3, venom, vanguard, lance, lance.angels, nhwk, nhwk.angels, paladin, c17.f, spectre, spectre.angels, medidragon, medigyro, medigryphonrider, mediicewyvern, medilightningelement, pscout, pcarry, mediLightningelement,usacombatchinookai,usacomanche,usaraptor,usastealthfighter,usaaurora,usakingraptor,usaauroraalpha, zmuta, zqueen, zscourge, chinamig, twraith, chinanukemig, chinahelixgatling, chinahelixspeaker, chinanukehelixgatling, chinanukehelixspeaker, japanchoppervx, japanjettengu, japankitsune, japanyousei, japankaminari, japanballoonsentryflying
-		ProtectionTypes: harv, harvd, harvd.bhand, gharv, slave, mediworker, pprobe, zdrone, usachinook, tscv, foundry.bot, gfoundry.bot, medifoundry.bot, psupor.bot, pyled.bot, barr.bot, tent.bot, handd.bot, nhand.bot, gtent.bot, tentmedi.bot, pgatew.bot, barr.boss, weap.bot, weapd.bot, afldd.bot, gair.bot, stables.bot, armory.bot, probot.bot, weap.boss, atek.bot, advtech, pbox.boss, gfix.boss, harv, mcv, mslo, gap, spen, syrd, iron, pdox, tsla, agun, dome, pbox, hbox, gun, ftur, sam, atek, weap, fact, proc, silo, hpad, afld, afld.ukraine, powr, apwr, stek, barr, kenn, tent, fix, fpwr, tenf, syrf, spef, weaf, domf, fixf, fapw, atef, pdof, mslf, facf, xpwr, dpwr, nuk2, nuk3, mcv.2, mcvd, mcvd.2, harvd, factd, foundry, procd, silod, pyled, weapd, hqd, gtwr, radio.p, atd, xbar, oreext, agate, vgate, bio.a, tsla.est, ironball, nhand, atek.nz, dgun.nz, atek.gdi, eyed, atwr, atwr2, handd, afldd, procd.bhand, stek.nod, tmpld, samd, oblid, pdox.bhand, harvd.bhand, ftek, gap3, dgun, advsam, oregen, gemgen, solcdepl, dmb3, plstur, hellgate, hellgate.d, gfact, gspen, gtent, gproc, gfoundry, gadvtech, atek.gla, gsilo, gair, gfix, gpbox, ghbox, sstorm, gmiss, gblk, gstg, atd.g, oreext.g, gharv, gmcv, gmcv.2, mcvc, fcom.c, hosp.c, v01.c, v02.c, v03.c, v04.c, v05.c, v06.c, v07.c, v08.c, v09.c, v10.c, v11.c, rushouse.c, asianhut.c, v13.c, v12.c, v14.c, v15.c, v16.c, v17.c, v18.c, rice.c, v19.c, oilb.c, barl.c, brl3.c, bio.c, weap.c, lhus.c, windmill.c, powr.c, utilpol1.c, utilpol2.c, ctek, cflarf, airport, syrd.c, civflag, autogara, actek, radio.c, satcntr, c1.c, c2.c, c3.c, c4.c, c5.c, c6.c, scientist, factm, medifoundry, tentmedi, laborcamp, farmmedi, goldmine, stables, stablesinfonly, dockmedi, hatchery, armorymedi, castle, churchmedi, merchantguild, alchemylab, manawell, blacksmithmedi, deepmanawell, library, medigraveyard, firestormmedi, gateoflight, medidarkcrystal, archertower, archertower2, archertower3, archertower4, scouttower, theeye, arcanetower, balistatower, cannontower, magicmine, monumenttothegods, medigarrisontower, effecttester, slave, mediworker, mcvm, mcvm.2, mcvm.3, pnexus, pgatew.warp, pgatew, ppylon.warp, ppylon, ppylon.bot, passim.warp, passim, pcyber.warp, pcyber, pphoto.warp, pphoto, pobser.warp, pobser, psupor.warp, psupor, padun.warp, padun, ptempl.warp, ptempl, probot.warp, probot, psbatt.warp, psbatt, pstarg.warp, pstarg, pprobe, pmcv, pmcv.2, t.miss, t.missair, haxor, zhatchery, zpool, zpool.bot, zccolony, zextrac, zoverlord, zspire, zchamber, zultraden, zhydraden, znest, zmound, usacoldfusion, usabarracks, usabarracks.bot, usasupplycenter, usawarfactory, usaairfield, usastrategycenter, usaparticlecannon, usapatriot, usapatriotemp, usalaserpatriot, usafirebaseai, usashipyard, zmslo, tcommand, tcommand.landed, tcommand.air, tbarr, tbarr.1, tbarr.2, tbarr.3, tbarr.ai, trefinery, tsupply, tacadamy, tenbay, tbunker.bot, tbunker.bot2, tmissile, tfactory, tsport, tscience, tshop, tctrl, tcomsat, tplab, tcops, tsilo, chinanuclearreactor, chinasupplycenter, chinabarracks, chinawarfactory, chinainternetcenter, chinaairfield, chinanuclearsilo, chinasupernuclearsilo, chinapropagandacenter, chinabunkerai, chinafortifiedbunkerai, miss.terran, chinanukecannonai, oilb, miss, fcom, hosp, usasupplydropzone, usatomahawkstorm, usasupportmatrix, t.missair, t.missinf, japanantimatterreactor, japansupplycenter, japanbarracks, japanmechabay, japanairfield, japanshipyard, japanmainframe, japanpsychicdatacenter, japanlaserbaseai, japandecimator, japanmindcontrol, japanballoon
+		ProtectionTypes: harv, harvd, harvd.bhand, gharv, slave, mediworker, pprobe, zdrone, usachinook, tscv, foundry.bot, gfoundry.bot, medifoundry.bot, psupor.bot, pyled.bot, barr.bot, tent.bot, handd.bot, nhand.bot, gtent.bot, tentmedi.bot, pgatew.bot, barr.boss, weap.bot, weapd.bot, afldd.bot, gair.bot, stables.bot, armory.bot, probot.bot, weap.boss, atek.bot, advtech, pbox.boss, gfix.boss, harv, mcv, mslo, gap, spen, syrd, iron, pdox, tsla, agun, dome, pbox, hbox, gun, ftur, sam, atek, weap, fact, proc, silo, hpad, afld, afld.ukraine, powr, apwr, stek, barr, kenn, tent, fix, fpwr, tenf, syrf, spef, weaf, domf, fixf, fapw, atef, pdof, mslf, facf, xpwr, dpwr, nuk2, nuk3, mcv.2, mcvd, mcvd.2, harvd, factd, foundry, procd, silod, pyled, weapd, hqd, gtwr, radio.p, atd, xbar, oreext, agate, vgate, bio.a, tsla.est, ironball, nhand, atek.nz, dgun.nz, atek.gdi, eyed, atwr, atwr2, handd, afldd, procd.bhand, stek.nod, tmpld, samd, oblid, pdox.bhand, harvd.bhand, ftek, gap3, dgun, advsam, oregen, gemgen, solcdepl, dmb3, plstur, hellgate, hellgate.d, gfact, gspen, gtent, gproc, gfoundry, gadvtech, atek.gla, gsilo, gair, gfix, gpbox, ghbox, sstorm, gmiss, gblk, gstg, atd.g, oreext.g, gharv, gmcv, gmcv.2, mcvc, fcom.c, hosp.c, v01.c, v02.c, v03.c, v04.c, v05.c, v06.c, v07.c, v08.c, v09.c, v10.c, v11.c, rushouse.c, asianhut.c, v13.c, v12.c, v14.c, v15.c, v16.c, v17.c, v18.c, rice.c, v19.c, oilb.c, barl.c, brl3.c, bio.c, weap.c, lhus.c, windmill.c, powr.c, utilpol1.c, utilpol2.c, ctek, cflarf, airport, syrd.c, civflag, autogara, actek, radio.c, satcntr, c1.c, c2.c, c3.c, c4.c, c5.c, c6.c, scientist, factm, medifoundry, tentmedi, laborcamp, farmmedi, goldmine, stables, stablesinfonly, dockmedi, hatchery, armorymedi, castle, churchmedi, merchantguild, alchemylab, manawell, blacksmithmedi, deepmanawell, library, medigraveyard, firestormmedi, gateoflight, medidarkcrystal, archertower, archertower2, archertower3, archertower4, scouttower, theeye, arcanetower, balistatower, cannontower, magicmine, monumenttothegods, medigarrisontower, effecttester, slave, mediworker, mcvm, mcvm.2, mcvm.3, pnexus, pgatew.warp, pgatew, ppylon.warp, ppylon, ppylon.bot, passim.warp, passim, pcyber.warp, pcyber, pphoto.warp, pphoto, pobser.warp, pobser, psupor.warp, psupor, padun.warp, padun, ptempl.warp, ptempl, probot.warp, probot, psbatt.warp, psbatt, pstarg.warp, pstarg, pprobe, pmcv, pmcv.2, t.miss, t.missair, haxor, zhatchery, zpool, zpool.bot, zccolony, zextrac, zoverlord, zspire, zchamber, zultraden, zhydraden, znest, zmound, usacoldfusion, usabarracks, usabarracks.bot, usasupplycenter, usawarfactory, usaairfield, usastrategycenter, usaparticlecannon, usapatriot, usapatriotemp, usalaserpatriot, usafirebaseai, usashipyard, zmslo, tcommand, tcommand.landed, tcommand.air, tbarr, tbarr.1, tbarr.2, tbarr.3, tbarr.ai, trefinery, tsupply, tacadamy, tenbay, tbunker.bot, tbunker.bot2, tmissile, tfactory, tsport, tscience, tshop, tctrl, tcomsat, tplab, tcops, tsilo, chinanuclearreactor, chinasupplycenter, chinabarracks, chinawarfactory, chinainternetcenter, chinaairfield, chinanuclearsilo, chinasupernuclearsilo, chinapropagandacenter, chinabunkerai, chinafortifiedbunkerai, miss.terran, chinanukecannonai, oilb, miss, fcom, hosp, usasupplydropzone, usatomahawkstorm, usasupportmatrix, t.missair, t.missinf, japanantimatterreactor, japansupplycenter, japanbarracks, japanmechabay, japanairfield, japanshipyard, japanmainframe, japanpsychicdatacenter, japanlaserbaseai, japandecimator, japanmindcontrol, japanballoon, outpost
 		IgnoredEnemyTargetTypes: Catalyst, UpgradeThing, Underwater, NoAITarget
 	SquadManagerBotModule@normal:
 		RequiresCondition: enable-easy-ai && !enable-medi-ai
-		ExcludeFromSquadsTypes: harv, harvd, harvd.bhand, mcv, mcv.2, mcvd, mcvd.2, gmcv, gmcv.2, gharv, gmgg, dog, mcvm, mcvm.2, mcvm.3, truckmedi, mediworker, slave, surveyormedi, pmcv, pmcv.2, zmcv, zmcv.2, zdrone, zoverlord, pprobe, usachinook, tscv, e6, fe6, tsengi.o, surveyormedi, zdrone.eng, pprobe.eng
+		ExcludeFromSquadsTypes: harv, harvd, harvd.bhand, mcv, mcv.2, mcvd, mcvd.2, gmcv, gmcv.2, gharv, gmgg, dog, mcvm, mcvm.2, mcvm.3, truckmedi, mediworker, slave, surveyormedi, pmcv, pmcv.2, zmcv, zmcv.2, zdrone, zoverlord, pprobe, usachinook, tscv, e6, fe6, tsengi.o, surveyormedi, zdrone.eng, pprobe.eng, mnly, mnly.g, lst2
 		ConstructionYardTypes: fact,factd,gfact,factm,pnexus,zhatchery,tcommand,tcommand.landed
 		SquadSize: 15
 		SquadSizeRandomBonus: 30
@@ -894,7 +893,7 @@ Player:
 		MaxBaseRadius: 50
 	SquadManagerBotModule@medium:
 		RequiresCondition: enable-medium-ai || enable-hard-ai && !enable-medi-ai
-		ExcludeFromSquadsTypes: harv, harvd, harvd.bhand, mcv, mcv.2, mcvd, mcvd.2, gmcv, gmcv.2, gharv, gmgg, dog, mcvm, mcvm.2, mcvm.3, truckmedi, mediworker, slave, surveyormedi, pmcv, pmcv.2, zmcv, zmcv.2, zdrone, zoverlord, pprobe, usachinook, tscv, e6, fe6, tsengi.o, surveyormedi, zdrone.eng, pprobe.eng
+		ExcludeFromSquadsTypes: harv, harvd, harvd.bhand, mcv, mcv.2, mcvd, mcvd.2, gmcv, gmcv.2, gharv, gmgg, dog, mcvm, mcvm.2, mcvm.3, truckmedi, mediworker, slave, surveyormedi, pmcv, pmcv.2, zmcv, zmcv.2, zdrone, zoverlord, pprobe, usachinook, tscv, e6, fe6, tsengi.o, surveyormedi, zdrone.eng, pprobe.eng, mnly, mnly.g, lst2
 		ConstructionYardTypes: fact,factd,gfact,factm,pnexus,zhatchery,tcommand,tcommand.landed
 		SquadSize: 25
 		SquadSizeRandomBonus: 40
@@ -905,7 +904,7 @@ Player:
 		MaxBaseRadius: 50
 	SquadManagerBotModule@boss:
 		RequiresCondition: enable-boss-ai && !enable-medi-ai
-		ExcludeFromSquadsTypes: harv, harvd, harvd.bhand, mcv, mcv.2, mcvd, mcvd.2, gmcv, gmcv.2, gharv, gmgg, dog, mcvm, mcvm.2, mcvm.3, truckmedi, mediworker, slave, surveyormedi, pmcv, pmcv.2, zmcv, zmcv.2, zdrone, zoverlord, pprobe, usachinook, tscv, e6, fe6, tsengi.o, surveyormedi, zdrone.eng, pprobe.eng
+		ExcludeFromSquadsTypes: harv, harvd, harvd.bhand, mcv, mcv.2, mcvd, mcvd.2, gmcv, gmcv.2, gharv, gmgg, dog, mcvm, mcvm.2, mcvm.3, truckmedi, mediworker, slave, surveyormedi, pmcv, pmcv.2, zmcv, zmcv.2, zdrone, zoverlord, pprobe, usachinook, tscv, e6, fe6, tsengi.o, surveyormedi, zdrone.eng, pprobe.eng, mnly, mnly.g, lst2
 		ConstructionYardTypes: fact,factd,gfact,factm,pnexus,zhatchery,tcommand,tcommand.landed
 		SquadSize: 30
 		SquadSizeRandomBonus: 40
@@ -916,7 +915,7 @@ Player:
 		MaxBaseRadius: 100
 	SquadManagerBotModule@mediall:
 		RequiresCondition: enable-all-ai && enable-medi-ai
-		ExcludeFromSquadsTypes: harv, harvd, harvd.bhand, mcv, mcv.2, mcvd, mcvd.2, gmcv, gmcv.2, gharv, gmgg, dog, mcvm, mcvm.2, mcvm.3, truckmedi, mediworker, slave, surveyormedi, pmcv, pmcv.2, zmcv, zmcv.2, zdrone, zoverlord, pprobe, usachinook, tscv, e6, fe6, tsengi.o, surveyormedi, zdrone.eng, pprobe.eng
+		ExcludeFromSquadsTypes: harv, harvd, harvd.bhand, mcv, mcv.2, mcvd, mcvd.2, gmcv, gmcv.2, gharv, gmgg, dog, mcvm, mcvm.2, mcvm.3, truckmedi, mediworker, slave, surveyormedi, pmcv, pmcv.2, zmcv, zmcv.2, zdrone, zoverlord, pprobe, usachinook, tscv, e6, fe6, tsengi.o, surveyormedi, zdrone.eng, pprobe.eng, mnly, mnly.g, lst2
 		ConstructionYardTypes: fact,factd,gfact,factm,pnexus,zhatchery,tcommand,tcommand.landed
 		SquadSize: 60
 		SquadSizeRandomBonus: 80
@@ -1015,6 +1014,9 @@ Player:
 			3tnk: 50
 			4tnk: 25
 			ttnk: 25
+			mnly: 2
+			mnly.g: 2
+			lst2: 2
 			stnk: 5
 			mtnkd.g: 50
 			htnkd.g: 25
@@ -1339,6 +1341,9 @@ Player:
 			dd: 4
 			ca: 2
 			pt: 4
+			mnly: 1
+			mnly.g: 1
+			lst2: 1
 			dmdd: 4
 			dd.f: 4
 			cruisemis: 2

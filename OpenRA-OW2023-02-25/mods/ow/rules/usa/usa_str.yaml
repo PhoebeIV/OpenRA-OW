@@ -17,13 +17,13 @@ usacoldfusion:
 		Cost: 300
 	Tooltip:
 		Name: Cold Fusion Reactor
-        RequiresCondition: !coldfusionup1 && !coldfusionup2
+		RequiresCondition: !coldfusionup1 && !coldfusionup2
 	Tooltip@Extra50:
 		Name: Cold Fusion Reactor (Control Rods)
-        RequiresCondition: coldfusionup1 && !coldfusionup2
+		RequiresCondition: coldfusionup1 && !coldfusionup2
 	Tooltip@Extra150:
 		Name: Cold Fusion Reactor (Nuclear Rods)
-        RequiresCondition: coldfusionup2
+		RequiresCondition: coldfusionup2
 	DamageMultiplier@Extra150:
 		Modifier: 90
 		RequiresCondition: coldfusionup2
@@ -39,7 +39,7 @@ usacoldfusion:
 		Type: Wood
 	Armor@Extra150:
 		Type: Heavy
-        RequiresCondition: coldfusionup2
+		RequiresCondition: coldfusionup2
 	RevealsShroud:
 		Range: 4c0
 	WithBuildingBib:
@@ -47,13 +47,13 @@ usacoldfusion:
 		Amount: 100
 	Power@AI50:
 		Amount: 125
-        RequiresCondition: ai.hard
+		RequiresCondition: ai.hard
 	Power@Extra50:
 		Amount: 50
-        RequiresCondition: coldfusionup1
+		RequiresCondition: coldfusionup1
 	Power@Extra150:
 		Amount: 150
-        RequiresCondition: coldfusionup2
+		RequiresCondition: coldfusionup2
 	Targetable:
 		TargetTypes: GroundActor, Structure, C4, DetonateAttack, SpyInfiltrate
 	ScalePowerWithHealth:
@@ -61,7 +61,7 @@ usacoldfusion:
 		DeathSequence: dead
 		UseDeathTypeSuffix: false
 	RenderSprites:
-        Image: usacoldfusionbuilding
+		Image: usacoldfusionbuilding
 	GrantConditionOnPrerequisite@coldfusionup1:
 		Condition: coldfusionup1
 		Prerequisites: ~upgrade.coldreactor
@@ -72,13 +72,13 @@ usacoldfusion:
 		Type: CenterPosition
 		Weapon: TinyNuke
 		EmptyWeapon: TinyNuke
-        RequiresCondition: coldfusionup2
-    WithSpriteBody@Extra50:
-        RequiresCondition: coldfusionup1 && !build-incomplete
-        Sequence: idle2
-    WithSpriteBody@Extra150:
-        RequiresCondition: coldfusionup2 && !build-incomplete
-        Sequence: idle3
+		RequiresCondition: coldfusionup2
+	WithSpriteBody@Extra50:
+		RequiresCondition: coldfusionup1 && !build-incomplete
+		Sequence: idle2
+	WithSpriteBody@Extra150:
+		RequiresCondition: coldfusionup2 && !build-incomplete
+		Sequence: idle3
 
 usabarracks:
 	Inherits: ^DawnBuilding
@@ -113,8 +113,8 @@ usabarracks:
 	RevealsShroud@GAPGEN:
 		Range: 4c0
 	RenderSprites:
-        PlayerPalette: dawn
-        Image: usabarracksbuilding
+		PlayerPalette: dawn
+		Image: usabarracksbuilding
 	ActorPreviewPlaceBuildingPreview:
 	Cloak@stealthgen:
 		Palette: dawncloak
@@ -163,7 +163,7 @@ usabarracks:
 		DeathSequence: dead
 		UseDeathTypeSuffix: false
 		DeathSequencePalette: dawn
-       
+	
 usasupplycenter:
 	Inherits: ^DawnBuilding
 	Buildable:
@@ -196,11 +196,6 @@ usasupplycenter:
 	RevealsShroud@GAPGEN:
 		Range: 4c0
 	Refinery:
-		DockAngle: 448
-		DockOffset: 1,2
-		IsDragRequired: false
-		DragOffset: -554,512,0
-		DragLength: 0
 	StoresResources:
 		Capacity: 1500
 	DrawLineToTarget:
@@ -216,7 +211,7 @@ usasupplycenter:
 		InfiltratedNotification: CreditsStolen
 		Maximum: 5000
 	RenderSprites:
-        Image: usasupplycenterbuilding
+		Image: usasupplycenterbuilding
 	WithBuildingBib:
 	Power:
 		Amount: -30
@@ -258,7 +253,14 @@ usasupplycenter:
 	ResourceValueMultiplier@supplylines:
 		Modifier: 125
 		RequiresCondition: supplylines
-        
+		
+	DockHost:
+		Type: Unload
+		DockAngle: 448
+		IsDragRequired: false
+		DragOffset: -554,512,0
+		DragLength: 0
+		DockOffset: 0,1024,0
 usawarfactory:
 	Inherits: WEAPD
 	Selectable:
@@ -350,7 +352,7 @@ usaairfield:
 		DeathSequence: dead
 		UseDeathTypeSuffix: false
 	RenderSprites:
-        Image: usaairfieldbuilding
+		Image: usaairfieldbuilding
 	Reservable:
 	RallyPoint:
 		ForceSetType: Plane, Aircraft
@@ -403,27 +405,27 @@ usaairfield:
 		Condition: reloadnear
 		Range: 7c0
 
-    FreeActor@1:
-        Actor: usaairstriplandingspot
-        SpawnOffset: 3,1
-    FreeActor@2:
-        Actor: usaairstriplandingspot
-        SpawnOffset: 0,0
-    FreeActor@3:
-        Actor: usaairstriplandingspot
-        SpawnOffset: 3,0
+	FreeActor@1:
+		Actor: usaairstriplandingspot
+		SpawnOffset: 3,1
+	FreeActor@2:
+		Actor: usaairstriplandingspot
+		SpawnOffset: 0,0
+	FreeActor@3:
+		Actor: usaairstriplandingspot
+		SpawnOffset: 3,0
 	Explodes:
 		Weapon: FireBaseExplosion
 		EmptyWeapon: FireBaseExplosion
-    ProximityExternalCondition@airstriplandingspotthingy:
-        Condition: airstriplandingspotthingy
-        Range: 3c512
+	ProximityExternalCondition@airstriplandingspotthingy:
+		Condition: airstriplandingspotthingy
+		Range: 3c512
 
 usaairstriplandingspot:
 	Inherits: ^Building
 	-WithMakeAnimation:
-    Targetable: 
-        TargetTypes: Firebasebox
+	Targetable:
+		TargetTypes: Firebasebox
 	Reservable:
 	RenderSprites:
 		Image: usaairstriplandingspot
@@ -433,13 +435,13 @@ usaairstriplandingspot:
 		HP: 10000
 	Armor:
 		Type: Wood
-    ExternalCondition: 
-        Condition: airstriplandingspotthingy
-    KillsSelf:
-        RequiresCondition: !airstriplandingspotthingy
-        Delay: 50
-        RemoveInstead: true
-        
+	ExternalCondition:
+		Condition: airstriplandingspotthingy
+	KillsSelf:
+		RequiresCondition: !airstriplandingspotthingy
+		Delay: 50
+		RemoveInstead: true
+		
 usastrategycenter:
 	Inherits: ^ScienceBuilding
 	Inherits@shape: ^3x3Shape
@@ -467,7 +469,7 @@ usastrategycenter:
 		Amount: -100
 	Power@Strategy:
 		Amount: -100
-        RequiresCondition: bombardment || hold_the_line || search_and_destroy
+		RequiresCondition: bombardment || hold_the_line || search_and_destroy
 	RevealsShroud:
 		MinRange: 5c0
 		Range: 7c0
@@ -481,11 +483,11 @@ usastrategycenter:
 		Prerequisite: techcenter
 	RenderSprites:
 		Image: usastrategycenter
-    SpawnActorPower@spydrone:
+	SpawnActorPower@spydrone:
 		OrderName: SpyDrone
-        Name: Spy Drone
-        Actor: USASPYDRONE
-        LifeTime: -1
+		Name: Spy Drone
+		Actor: USASPYDRONE
+		LifeTime: -1
 		ChargeInterval: 3750
 		Icon: usaspydronepower
 		Descriptions: Spy Drone
@@ -585,12 +587,12 @@ usastrategycenter:
 		Condition: usa.search_and_destroy
 		RequiresCondition: search_and_destroy
 		Range: 32c0
- 
+
 #mines move later
 USAMINEDROP:
 	Inherits: 1TNK.MINE
-    Parachutable: 
-        FallRate: 128
+	Parachutable:
+		FallRate: 128
 	Explodes:
 		Weapon: SmallBuildingExplode
 		DeathTypes: TriggerProne
@@ -685,7 +687,7 @@ USAMINEDROPACTOR:
 		DamageSource: Killer
 	RenderSprites:
 		Image: minvs
-        
+		
 usasupplydropzone:
 	Inherits: ^Building
 	Inherits@SHAPE: ^2x2Shape
@@ -716,9 +718,9 @@ usasupplydropzone:
 		Image: usasupplydropzone
 	RevealsShroud@GAPGEN:
 		Range: 5c0
-    GrantConditionOnPrerequisite@1:
-        Condition: upgradesupplylines
-        Prerequisites: upgrade.supplylines
+	GrantConditionOnPrerequisite@1:
+		Condition: upgradesupplylines
+		Prerequisites: upgrade.supplylines
 	ParatroopersPower@SupplyDrop:
 		OrderName: SupplyDrop
 		UnitType: BADR
@@ -766,7 +768,7 @@ usasupplydropzone:
 		AllowMultiple: True
 		PauseOnCondition: disabled
 		RequiresCondition: upgradesupplylines
-        
+		
 usaparticlecannon:
 	Inherits: ^Building
 	Inherits@shape: ^3x3Shape
@@ -866,9 +868,9 @@ hack.particle_beam:
 		EnableStances: false
 	Selectable:
 		DecorationBounds: 2048, 2048
-    GrantConditionOnPrerequisite@1:
-        Condition: upgradesuperweaponsgeneral
-        Prerequisites: upgrade.superweaponsgeneral
+	GrantConditionOnPrerequisite@1:
+		Condition: upgradesuperweaponsgeneral
+		Prerequisites: upgrade.superweaponsgeneral
 	-KillsSelf:
 	KillsSelf@1:
 		RemoveInstead: true
@@ -933,17 +935,17 @@ usapatriot:
 	AttackTurreted:
 		PauseOnCondition: build-incomplete
 		Armaments: primary, primaryair
-    Armament@AG:
-        Name: primary
-        Weapon: usapatriotshot
+	Armament@AG:
+		Name: primary
+		Weapon: usapatriotshot
 		LocalOffset: 0,0,320
 		MuzzleSequence: muzzle
 		PauseOnCondition: disabled
-    GrantConditionOnAttack@1:
-        ArmamentNames: primary
-        Condition: patriotrange
+	GrantConditionOnAttack@1:
+		ArmamentNames: primary
+		Condition: patriotrange
 		RequiredShotsPerInstance: 8
-        RevokeDelay: 55
+		RevokeDelay: 55
 	RangeMultiplier:
 		Modifier: 150
 		RequiresCondition: patriotrangetrue
@@ -976,7 +978,7 @@ usapatriot:
 		Image: usapatriot
 	RevealsShroud@GAPGEN:
 		Range: 5c0
-        
+		
 usapatriotEMP:
 	Inherits: ^Defense
 	Inherits@AUTOTARGET: ^AutoTargetAll
@@ -1010,17 +1012,17 @@ usapatriotEMP:
 	AttackTurreted:
 		PauseOnCondition: build-incomplete
 		Armaments: primary, primaryair
-    Armament@AG:
-        Name: primary
-        Weapon: usapatriotshotemp
+	Armament@AG:
+		Name: primary
+		Weapon: usapatriotshotemp
 		LocalOffset: 0,0,320
 		MuzzleSequence: muzzle
 		PauseOnCondition: disabled
-    GrantConditionOnAttack@1:
-        ArmamentNames: primary
-        Condition: patriotrange
+	GrantConditionOnAttack@1:
+		ArmamentNames: primary
+		Condition: patriotrange
 		RequiredShotsPerInstance: 8
-        RevokeDelay: 55
+		RevokeDelay: 55
 	RangeMultiplier:
 		Modifier: 150
 		RequiresCondition: patriotrangetrue
@@ -1052,10 +1054,10 @@ usapatriotEMP:
 		UseClassicFacingFudge: True
 	RenderSprites:
 		Image: usapatriotemp
-        PlayerPalette: dawn
+		PlayerPalette: dawn
 	RevealsShroud@GAPGEN:
 		Range: 5c0
-        
+		
 usalaserpatriot:
 	Inherits: ^Defense
 	Inherits@AUTOTARGET: ^AutoTargetAll
@@ -1086,7 +1088,7 @@ usalaserpatriot:
 		Ammo: 10
 		AmmoCondition: ammo
 	ReloadAmmoPool:
-	    AmmoPool: primary
+		AmmoPool: primary
 		Delay: 25
 		ResetOnFire: true
 		Count: 1
@@ -1100,7 +1102,7 @@ usalaserpatriot:
 		RequiresCondition: !build-incomplete
 		Recoils: false
 	Armament:
-	    Name: primary
+		Name: primary
 		Weapon: USALaserpatriotshot
 		LocalOffset: 512,0,112
 		MuzzleSequence: muzzle
@@ -1124,23 +1126,23 @@ usalaserpatriot:
 	ClassicFacingBodyOrientation:
 	RenderSprites:
 		Image: usalaserpatriot
-        PlayerPalette: dawn
+		PlayerPalette: dawn
 	ProductionCostMultiplier@lasergeneral:
 		Multiplier: 90
 		Prerequisites: faction.lasergeneral
 	ProductionTimeMultiplier@lasergeneral:
 		Multiplier: 90
 		Prerequisites: faction.lasergeneral
-    GrantConditionOnPrerequisite@improvedbatteries:
-        Condition: upgradeimprovedbatteries
-        Prerequisites: upgrade.improvedbatteries
+	GrantConditionOnPrerequisite@improvedbatteries:
+		Condition: upgradeimprovedbatteries
+		Prerequisites: upgrade.improvedbatteries
 	ReloadDelayMultiplier@chargedlasers:
 		Modifier: 80
 		RequiresCondition: upgradechargedlasers
-    GrantConditionOnPrerequisite@chargedlasers:
-        Condition: upgradechargedlasers
-        Prerequisites: upgrade.chargedlasers
-        
+	GrantConditionOnPrerequisite@chargedlasers:
+		Condition: upgradechargedlasers
+		Prerequisites: upgrade.chargedlasers
+		
 usafirebase:
 	Inherits: ^Defense
 	Inherits@AUTOTARGET: ^AutoTargetGround
@@ -1160,20 +1162,20 @@ usafirebase:
 	Tooltip:
 		Name: Firebase
 	Building:
-        Footprint: x_x _x_ x_x
-        Dimensions: 3,3
-    FreeActor@1:
-        Actor: firebasebunker
-        SpawnOffset: 0,0
-    FreeActor@2:
-        Actor: firebasebunker
-        SpawnOffset: 0,2
-    FreeActor@3:
-        Actor: firebasebunker
-        SpawnOffset: 2,2
-    FreeActor@4:
-        Actor: firebasebunker
-        SpawnOffset: 2,0
+		Footprint: x_x _x_ x_x
+		Dimensions: 3,3
+	FreeActor@1:
+		Actor: firebasebunker
+		SpawnOffset: 0,0
+	FreeActor@2:
+		Actor: firebasebunker
+		SpawnOffset: 0,2
+	FreeActor@3:
+		Actor: firebasebunker
+		SpawnOffset: 2,2
+	FreeActor@4:
+		Actor: firebasebunker
+		SpawnOffset: 2,0
 	Health:
 		HP: 100000
 	Armor:
@@ -1215,17 +1217,17 @@ firebasebunker:
 	Inherits: PBOX
 	-Buildable:
 	-Targetable@carrier:
-    Targetable: 
-        TargetTypes: Firebasebox
-    -Cargo:
-    Cargo:
+	Targetable:
+		TargetTypes: Firebasebox
+	-Cargo:
+	Cargo:
 		Types: Infantry
 		MaxWeight: 1
 	RenderSprites:
 		Image: PBOX
 	Power:
 		Amount: 0
-        
+		
 usasilo:
 	Inherits: ^Building
 	Inherits@IDISABLE: ^DisableOnLowPowerOrPowerDown
@@ -1278,7 +1280,7 @@ usasilo:
 		RequiresSelection: true
 		PipCount: 20
 		FullSequence: pip-yellow
-        
+		
 usashipyard:
 	Inherits: ^Building
 	Inherits@PRIMARY: ^PrimaryBuilding
@@ -1378,7 +1380,7 @@ usashipyard:
 		Type: Rectangle
 			TopLeft: -512, 598
 			BottomRight: 512, 1110
-        
+		
 ##usadeepdrill:
 ##	Inherits: ^Building
 ##	Inherits@IDISABLE: ^DisableOnLowPowerOrPowerDown

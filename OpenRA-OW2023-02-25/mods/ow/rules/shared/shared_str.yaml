@@ -127,9 +127,9 @@ FACTD:
 			sword: factd.fed
 			china: factd.china
 			japan: factd.japan
-    GrantConditionOnPrerequisite@baseshields:
-        Condition: baseshields
-        Prerequisites: upgrade.baseshields
+	GrantConditionOnPrerequisite@baseshields:
+		Condition: baseshields
+		Prerequisites: upgrade.baseshields
 	Shielded@shielded:
 		MaxStrength: 75000
 		RegenDelay: 250
@@ -209,9 +209,9 @@ FOUNDRY:
 		RequiresCondition: !being-captured
 		SpawnOffset: -725,640,0
 		ExitCell: 0,2
-    GrantConditionOnPrerequisite@baseshields:
-        Condition: baseshields
-        Prerequisites: upgrade.baseshields
+	GrantConditionOnPrerequisite@baseshields:
+		Condition: baseshields
+		Prerequisites: upgrade.baseshields
 	Shielded@shielded:
 		MaxStrength: 30000
 		RegenDelay: 250
@@ -254,8 +254,6 @@ PROC:
 	RevealsShroud@GAPGEN:
 		Range: 4c0
 	Refinery:
-		DockAngle: 256
-		DockOffset: 1,2
 	StoresResources:
 		Capacity: 1500
 	DrawLineToTarget:
@@ -295,6 +293,10 @@ PROC:
 		RequiresSelection: true
 		PipCount: 17
 		FullSequence: pip-yellow
+	DockHost:
+		Type: Unload
+		DockAngle: 256
+		DockOffset: 0,512,0
 
 SILO:
 	Buildable:
@@ -335,11 +337,6 @@ PROCD:
 	RevealsShroud@GAPGEN:
 		Range: 4c0
 	Refinery:
-		DockAngle: 448
-		DockOffset: 0,2
-		IsDragRequired: True
-		DragOffset: -554,512,0
-		DragLength: 12
 	StoresResources:
 		Capacity: 1500
 	DrawLineToTarget:
@@ -391,6 +388,13 @@ PROCD:
 	ResourceValueMultiplier@processing:
 		RequiresCondition: processing
 		Modifier: 110
+	DockHost:
+		Type: Unload
+		DockAngle: 448
+		IsDragRequired: True
+		DragOffset: -554,512,0
+		DragLength: 12
+		DockOffset: -1024,1024,0
 
 SILOD:
 	Inherits: ^DawnBuilding
@@ -445,9 +449,9 @@ SILOD:
 		RequiresSelection: true
 		PipCount: 7
 		FullSequence: pip-yellow
-    GrantConditionOnPrerequisite@baseshields:
-        Condition: baseshields
-        Prerequisites: upgrade.baseshields
+	GrantConditionOnPrerequisite@baseshields:
+		Condition: baseshields
+		Prerequisites: upgrade.baseshields
 	Shielded@shielded:
 		MaxStrength: 20000
 		RegenDelay: 250
@@ -1120,6 +1124,10 @@ OUTPOST:
 		PlayerPalette: tsunit
 	Sellable:
 		SkipMakeAnimation: true
+	ProximityExternalCondition@surveyor:
+		RequiresCondition: botowner
+		Condition: surveyor_near_base
+		Range: 8c0
 
 ADVTECH:
 	Inherits: ^ScienceBuilding
@@ -1180,9 +1188,9 @@ ADVTECH:
 	FreeActor@0:
 		RequiresCondition: spawn_coldreactor
 		Actor: upgrade.coldreactor
-    GrantConditionOnPrerequisite@baseshields:
-        Condition: baseshields
-        Prerequisites: upgrade.baseshields
+	GrantConditionOnPrerequisite@baseshields:
+		Condition: baseshields
+		Prerequisites: upgrade.baseshields
 	Shielded@shielded:
 		MaxStrength: 40000
 		RegenDelay: 250

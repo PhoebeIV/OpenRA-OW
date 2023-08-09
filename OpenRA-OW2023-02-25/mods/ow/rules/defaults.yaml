@@ -456,6 +456,10 @@
 	Production@Bot:
 		Produces: Bot
 		RequiresCondition: botowner
+	ProximityExternalCondition@surveyor:
+		RequiresCondition: botowner
+		Condition: surveyor_near_base
+		Range: 22c0
 	Exit:
 	ProductionBar@Building:
 		ProductionType: Building
@@ -992,6 +996,7 @@
 		Position: BottomLeft
 		RequiresSelection: true
 		PipCount: 1
+	DockClientManager:
 
 ^PlayableCivBuilding:
 	Inherits: ^Building
@@ -1074,11 +1079,13 @@
 		SpawnOffset: -725,640,0
 		ExitCell: 0,2
 	Refinery:
-		DockOffset: 1,2
 	FreeActor:
 		Actor: c1.c
 		SpawnOffset: 1,2
 		Facing: 256
+	DockHost:
+		Type: Unload
+		DockOffset: 512,1536,0
 
 ^PlayableCivHouseWide:
 	Inherits: ^PlayableCivHouse
@@ -1092,11 +1099,13 @@
 		SpawnOffset: -725,640,0
 		ExitCell: 0,1
 	Refinery:
-		DockOffset: 1,1
 	FreeActor:
 		Actor: c3.c
 		SpawnOffset: 1,1
 		Facing: 256
+	DockHost:
+		Type: Unload
+		DockOffset: 512,1024,0
 
 ^PlayableCivHouseTall:
 	Inherits: ^PlayableCivHouse
@@ -1107,11 +1116,13 @@
 		SpawnOffset: -725,640,0
 		ExitCell: 0,2
 	Refinery:
-		DockOffset: 0,2
 	FreeActor:
 		Actor: c5.c
 		SpawnOffset: 1,2
 		Facing: 256
+	DockHost:
+		Type: Unload
+		DockOffset: 0,1536,0
 
 ^PlayableCivHouseSmall:
 	Inherits: ^PlayableCivHouse
@@ -1122,11 +1133,13 @@
 		SpawnOffset: -725,640,0
 		ExitCell: 0,1
 	Refinery:
-		DockOffset: 0,1
 	FreeActor:
 		Actor: c2.c
 		SpawnOffset: 0,1
 		Facing: 256
+	DockHost:
+		Type: Unload
+		DockOffset: 0,1024,0
 
 ^BasicBuilding:
 	Inherits@shape: ^1x1Shape
@@ -2317,9 +2330,9 @@
 	Health:
 
 ^advancedtraining:
-    GrantConditionOnPrerequisite@advancedtraining:
-        Condition: advancedtraining
-        Prerequisites: upgrade.usatraining
+	GrantConditionOnPrerequisite@advancedtraining:
+		Condition: advancedtraining
+		Prerequisites: upgrade.usatraining
 	GainsExperienceMultiplier@advancedtraining:
 		RequiresCondition: advancedtraining
 		Modifier: 200
@@ -2646,14 +2659,23 @@
 
 
 ^Tree:
-	ExternalCondition@remove: 
+	ExternalCondition@remove:
 		Condition: remove_tree
 	KillsSelf@remove:
 		RequiresCondition: remove_tree
 		Delay: 5
+	Targetable:
+		TargetTypes: Trees, GroundActor
 
 ^TreeHusk:
-	ExternalCondition@remove: 
+	Inherits@shape: ^1x1Shape
+	Health:
+		HP: 50000
+	Armor:
+		Type: Tree
+	Targetable:
+		TargetTypes: Trees, GroundActor
+	ExternalCondition@remove:
 		Condition: remove_tree
 	KillsSelf@remove:
 		RequiresCondition: remove_tree
@@ -2690,6 +2712,8 @@
 		Conditions: green,green,green,green,green,blue
 	ExternalCondition@growth:
 		Condition: growth
+	ExternalCondition@dotransform:
+		Condition: dotransform
 	GrantPeriodicCondition@aaa:
 		RequiresCondition: (lessinfectable && (growth > 75)) || (infectable && (growth > 50)) || (moreinfectable && (growth > 30)) || tibtree && !notib
 		Condition: dotransform
@@ -2721,3 +2745,6 @@
 	GrantConditionOnPrerequisite@notib:
 		Prerequisites: techlevel.tibremove
 		Condition: notib
+	DamageMultiplier:
+		RequiresCondition: (lessinfectable && (growth > 75)) || (infectable && (growth > 50)) || (moreinfectable && (growth > 30)) || tibtree && !notib
+		Modifier: 0

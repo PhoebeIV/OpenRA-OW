@@ -199,7 +199,7 @@ GFACT.Hole:
 GSPEN:
 	Inherits: SPEN
 	Buildable:
-		Prerequisites: ~structures.gla, gproc, ~techlevel.low, ~!techlevel.noboats
+		Prerequisites: ~structures.gla, refinery, ~techlevel.low, ~!techlevel.noboats
 	ProvidesPrerequisite@buildingname:
 		Prerequisite: spen
 	Power:
@@ -256,15 +256,12 @@ GPROC:
 		Actor: GHARV
 		SpawnOffset: 2,2
 		RequiresCondition: !build-incomplete
-	FreeActor@a:
-		Actor: GPROC.DropOff
-		SpawnOffset: 0,2
-	FreeActor@c:
-		Actor: GPROC.DropOff
-		SpawnOffset: 2,2
 	Refinery:
+	DockHost:
+		Type: Unload
 		DockAngle: 256
-		DockOffset: 1,2
+		DockOffset: 0,512,0
+		MaxQueueLength: 5
 	Power:
 		Amount: 0
 	Selectable:
@@ -278,37 +275,6 @@ GPROC:
 	Explodes:
 		Weapon: FireBaseExplosion
 		EmptyWeapon: FireBaseExplosion
-	ProximityExternalCondition@refinery:
-		Condition: refinery
-		Range: 2c512
-
-GPROC.DropOff:
-	Inherits: ^Building
-	-WithMakeAnimation:
-	-ExternalCondition@carrier:
-	-Targetable@carrier:
-	RenderSprites:
-		Image: usaairstriplandingspot
-	Building:
-		Footprint: +
-	Targetable:
-		TargetTypes: Firebasebox
-	Reservable:
-	Health:
-		HP: 10000
-	Armor:
-		Type: Wood
-	Refinery:
-		DockAngle: 256
-		DockOffset: 0,0
-	StoresResources:
-		Capacity: 250
-	ExternalCondition: 
-		Condition: refinery
-	KillsSelf:
-		RequiresCondition: !refinery
-		Delay: 50
-		RemoveInstead: true
 
 GPROC.Hole:
 	Inherits: ^GLAHole3x3
@@ -414,7 +380,7 @@ GSILO:
 	Inherits@GLA: ^GLABuilding
 	Buildable:
 		Queue: Building
-		Prerequisites: gproc, ~techlevel.infonly, ~structures.gla
+		Prerequisites: refinery, ~techlevel.infonly, ~structures.gla
 	Valued:
 		Cost: 200
 	Power:
@@ -778,7 +744,7 @@ GMISS:
 	Inherits@GLA: ^GLABuilding
 	Buildable:
 		Queue: Tech
-		Prerequisites: advtechcenter, ~structures.gla, ~techlevel.unrestricted, ~!gmiss, ~!techlevel.noepic
+		Prerequisites: advtechcenter, ~structures.gla, ~techlevel.unrestricted, !gmiss, ~!techlevel.noepic
 	Valued:
 		Cost: 7500
 	Power:
@@ -999,10 +965,10 @@ GSTG:
 		RequiresCondition: corrode >= 30
 		Condition: sniped
 	GrantCondition@sniped1:
-		RequiresCondition: snipekill >= 2 
+		RequiresCondition: snipekill >= 2
 		Condition: deadman
 	GrantCondition@sniped2:
-		RequiresCondition: snipekill >= 4 
+		RequiresCondition: snipekill >= 4
 		Condition: sniped
 	Power:
 		Amount: 0
