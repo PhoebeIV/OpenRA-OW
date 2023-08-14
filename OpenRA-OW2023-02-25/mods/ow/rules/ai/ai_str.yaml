@@ -710,8 +710,11 @@ japanlaserbaseai:
 
 ^ConYardPrereqs:
 	ProvidesPrerequisite@PREFABA:
-		Factions: allies, england, france, germany, soviet, russia, ukraine, estonia, phobos, deimos, mars, hitler, himmler, heydrich, nod, bhand, marked, nod3, gdi, steel, zocom, gdi3, sword, angels, silver, china,infantry,nuke,tank, usa,townes,granger,alexander, japan, protoss
+		Factions: allies, england, france, germany, soviet, russia, ukraine, estonia, phobos, deimos, mars, hitler, himmler, heydrich, nod, bhand, marked, nod3, gdi, steel, zocom, gdi3, sword, angels, silver, china,infantry,nuke,tank, usa,townes,granger,alexander, protoss, zerg
 		Prerequisite: structures.prefaba
+	ProvidesPrerequisite@PREFABB:
+		Factions: terran, japan
+		Prerequisite: structures.prefabb
 	ProvidesPrerequisite@weapdiu: # Dawn Weap Factory
 		Factions: gdi, steel, zocom, gdi3, hitler, himmler, heydrich, china,infantry,nuke,tank, usa,townes,granger,alexander, japan
 		Prerequisite: structures.weapdprereq_bot
@@ -726,15 +729,17 @@ japanlaserbaseai:
 		Prerequisite: techcenter
 
 # a building that when placed is replaced with a power plant and barracks
-PREFAB.A:
+^PrefabBuilding:
 	Inherits: ^Building
 	Buildable:
 		Queue: Wall
 		BuildPaletteOrder: 9000
-		Prerequisites: !anypower, !barracks, ~ai.hard, ~structures.prefaba
-		Description: For AI use: \nPower Plant and a Barracks.
+		Prerequisites: !disabled
+		Description: For AI use.
 		Icon: fake-icon
 		BuildDuration: 100
+	Tooltip:
+		Name: Prefab
 	RenderSprites:
 		Image: fact
 	Building:
@@ -746,6 +751,22 @@ PREFAB.A:
 		Cost: 600
 	Health:
 		HP: 5000
+	KillsSelf@yes:
+		RemoveInstead: true
+		Delay: 1
+
+
+PREFAB.A:
+	Inherits: ^PrefabBuilding
+	Buildable:
+		Queue: Wall
+		BuildPaletteOrder: 9000
+		Prerequisites: !anypower, !barracks, ~ai.hard, ~structures.prefaba
+		Description: For AI use: \nPower Plant and a Barracks, 4x3.
+		Icon: fake-icon
+		BuildDuration: 100
+	Tooltip:
+		Name: Prefab: A
 	GrantConditionOnFaction@power_base:
 		Condition: powr_enable
 		Factions: england,germany,france,russia,ukraine,estonia,phobos,deimos,mars,hitler,himmler,heydrich
@@ -758,12 +779,12 @@ PREFAB.A:
 	GrantConditionOnFaction@power_usa:
 		Condition: usapower_enable
 		Factions: usa,alexander,townes,granger
-	GrantConditionOnFaction@power_jp:
-		Condition: jppower_enable
-		Factions: japan
 	GrantConditionOnFaction@power_prot:
 		Condition: prpower_enable
 		Factions: protoss
+	GrantConditionOnFaction@power_zerg:
+		Condition: zepower_enable
+		Factions: zerg
 	FreeActor@power_base:
 		RequiresCondition: powr_enable
 		Actor: POWR
@@ -780,14 +801,18 @@ PREFAB.A:
 		RequiresCondition: usapower_enable
 		Actor: usacoldfusion
 		SpawnOffset: 0,0
-	FreeActor@power_jp:
-		RequiresCondition: jppower_enable
-		Actor: japanantimatterreactor
-		SpawnOffset: 0,0
 	FreeActor@power_pr:
 		RequiresCondition: prpower_enable
 		Actor: ppylon
 		SpawnOffset: 0,0
+	FreeActor@power_zerg:
+		RequiresCondition: zepower_enable
+		Actor: zccolony
+		SpawnOffset: 0,0
+	FreeActor@power_zerg2:
+		RequiresCondition: zepower_enable
+		Actor: zoverlord
+		SpawnOffset: 1,-1
 	GrantConditionOnFaction@barr_tent:
 		Condition: tent_enable
 		Factions: england,germany,france
@@ -831,14 +856,48 @@ PREFAB.A:
 		RequiresCondition: chinapower_enable
 		Actor: chinabarracks.bot
 		SpawnOffset: 2,0
-	FreeActor@barr_japan:
-		RequiresCondition: jppower_enable
-		Actor: japanbarracks.bot
-		SpawnOffset: 3,0
 	FreeActor@barr_protoss:
 		RequiresCondition: prpower_enable
 		Actor: pgatew.bot
 		SpawnOffset: 1,0
-	KillsSelf@yes:
-		RemoveInstead: true
-		Delay: 1
+	FreeActor@barr_zerg:
+		RequiresCondition: zepower_enable
+		Actor: zpool.bot
+		SpawnOffset: 2,0
+
+PREFAB.B:
+	Inherits: ^PrefabBuilding
+	Buildable:
+		Queue: Wall
+		BuildPaletteOrder: 9000
+		Prerequisites: !anypower, !barracks, ~ai.hard, ~structures.prefabb
+		Description: For AI use: \nPower Plant and a Barracks, 5x3
+		Icon: fake-icon
+		BuildDuration: 100
+	Tooltip:
+		Name: Prefab: B
+	Building:
+		Footprint: xxxxx xxxxx =====
+		Dimensions: 5,3
+	GrantConditionOnFaction@power_japan:
+		Condition: japan_enable
+		Factions: japan
+	GrantConditionOnFaction@power_terran:
+		Condition: terran_enable
+		Factions: terran
+	FreeActor@power_japan:
+		RequiresCondition: japan_enable
+		Actor: japanantimatterreactor
+		SpawnOffset: 0,0
+	FreeActor@barr_japan:
+		RequiresCondition: japan_enable
+		Actor: japanbarracks.bot
+		SpawnOffset: 3,0
+	FreeActor@power_terran:
+		RequiresCondition: terran_enable
+		Actor: tsupply
+		SpawnOffset: 0,0
+	FreeActor@barr_terran:
+		RequiresCondition: terran_enable
+		Actor: tbarr
+		SpawnOffset: 2,0

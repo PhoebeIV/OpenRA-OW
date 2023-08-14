@@ -27,7 +27,7 @@
 		Queue: Bot
 		Prerequisites: ~disabled
 		BuildDurationModifier: 70
-		IconPalette: player
+		IconPalette: player-icon
 		IconPaletteIsPlayerPalette: true
 	Building:
 		Dimensions: 1,1
@@ -76,12 +76,6 @@
 
 ^ZergScienceBuilding:
 	Inherits: ^ZergBuilding
-	CashTrickler@medAI:
-		Amount: 150
-	CashTrickler@hardAI:
-		Amount: 300
-	CashTrickler@bossAI:
-		Amount: 1000
 
 ZMCV:
 	Inherits: MCV
@@ -152,7 +146,7 @@ CreepSpawnerStart:
 CreepSpawnerMedium:
 	Inherits: CreepSpawnerBig
 	SpawnActorOnDeath:
-		Actor: CreepGenBig
+		Actor: CreepGenMed
 	Explodes:
 		Weapon: CreepSplashMed
 		EmptyWeapon: CreepSplashMed
@@ -208,13 +202,10 @@ CreepGenBigStart:
 CreepGenMed:
 	Inherits: CreepGenBig
 	Explodes:
-		Weapon: CreepRemoveMed
+		Weapon: CreepRemoveBig
 	SeedsResource:
-		Interval: 2
-		MaxRange: 7
-		ResourceType: ZergCreep
-	ProximityExternalCondition:
-		Range: 7c0
+		Interval: 3
+		MaxRange: 9
 
 SmallZergBuildingComplete:
 	Inherits: CreepSpawnerBig
@@ -257,7 +248,7 @@ HatcheryBib:
 		Image: zhatchery
 	WithBuildingBib:
 	Building:
-		Footprint: +++ +++
+		Footprint: +++ ___
 		Dimensions: 3,2
 	Targetable:
 		TargetTypes: CreepGenerator
@@ -433,7 +424,7 @@ ZHATCHERY:
 		SpawnOffset: 1,1
 		RequiresCondition: !build-incomplete
 	Pluggable@1:
-		Offset: 2,1
+		Offset: 1,1
 		Conditions:
 			zlair: lair_upgrade
 			zhive: hive_upgrade
@@ -444,7 +435,7 @@ ZHATCHERY:
 			zlair: Lair
 			zhive: Hive
 	Pluggable@2:
-		Offset: 2,2
+		Offset: 1,1
 		Conditions:
 			zlair: lair_upgrade
 			zhive: hive_upgrade
@@ -478,10 +469,6 @@ ZHATCHERY:
 		Actor: ZergHiveComplete
 		SpawnOffset: 1,1
 		RequiresCondition: hive_upgrade
-	FreeActor@3:
-		Actor: ZergCloner
-		SpawnOffset: 1,2
-		RequiresCondition: hive_upgrade && botowner
 	DamageMultiplier@lair:
 		Modifier: 75
 		RequiresCondition: lair_upgrade
@@ -594,7 +581,7 @@ ZLAIR.up:
 		Prerequisites: zhatchery, zchamber, ~structures.zerg, ~techlevel.high, ~free_hatchery
 		Description: Evolve a Hatchery to a Lair. \nUnlocks access to Advanced structures and units.
 		Icon: icon-lair
-		IconPalette: player
+		IconPalette: player-icon
 		IconPaletteIsPlayerPalette: true
 	Plug:
 		Type: zlair
@@ -618,7 +605,7 @@ ZHIVE.up:
 		Prerequisites: zlair, znest, ~structures.zerg, ~techlevel.unrestricted, ~!ulttechcenter
 		Description: Evolve a Lair to a Hive. \nUnlocks access to high tier structures and units. \n\nLimit of 1.
 		Icon: icon-hive
-		IconPalette: player
+		IconPalette: player-icon
 		IconPaletteIsPlayerPalette: true
 	Plug:
 		Type: zhive
@@ -727,7 +714,11 @@ ZCCOLONY:
 		EmptyWeapon: SmallZergBuildingExplode
 	FreeActor:
 		Actor: CreepSpawnerMedium
-		SpawnOffset: 1,0
+		SpawnOffset: 0,0
+		RequiresCondition: !build-incomplete
+	FreeActor@2:
+		Actor: CreepSpawnerMedium
+		SpawnOffset: 2,2
 		RequiresCondition: !build-incomplete
 	FreeActor@effect_complete:
 		Actor: SmallZergBuildingComplete
@@ -851,7 +842,7 @@ ZE.SUNKEN:
 		BuildAtProductionType: Building.ZergColony
 		Description: Anti-ground defensive structure. \n Cannot detect cloaked. \n\nStrong vs ground units
 		Prerequisites: barracks, ~techlevel.infonly, ~zccolony
-		IconPalette: player
+		IconPalette: player-icon
 		IconPaletteIsPlayerPalette: true
 	Valued:
 		Cost: 400
@@ -867,7 +858,7 @@ ZE.SPORE:
 		BuildAtProductionType: Building.ZergColony
 		Description: Anti-air defensive structure. \n Detects cloaked units. \n\nStrong vs aircraft
 		Prerequisites: barracks, ~techlevel.infonly, ~zccolony
-		IconPalette: player
+		IconPalette: player-icon
 		IconPaletteIsPlayerPalette: true
 	Valued:
 		Cost: 400
@@ -1382,7 +1373,7 @@ ZGSPIRE.up:
 		Prerequisites: zlair, ~zspire.up, ~structures.zerg, ~techlevel.unrestricted
 		Description: Evolve a Spire into a Greater Spire. \nUnlocks access to advanced air units\n and upgrades.
 		Icon: icon-gspire
-		IconPalette: player
+		IconPalette: player-icon
 		IconPaletteIsPlayerPalette: true
 	Plug:
 		Type: zgspire
