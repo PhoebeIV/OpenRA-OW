@@ -243,8 +243,10 @@ SPLIT3:
 	ExplodeWeapon@burst:
 		RequiresCondition: burst
 		Weapon: TibTreeBurst
+	GrantRandomCondition@infectable:
+		Conditions: infectable,lessinfectable,moreinfectable
 	TransformOnCondition:
-		RequiresCondition: (growth > 60) || dotransform
+		RequiresCondition: (lessinfectable && (growth > 150)) || (infectable && (growth > 120)) || (moreinfectable && (growth > 90)) || dotransform
 		IntoActor: split4
 		SkipMakeAnims: false
 
@@ -376,7 +378,7 @@ TMONOLITH:
 	GrantRandomCondition@infectable:
 		Conditions: infectable,lessinfectable
 	GrantCondition@growth:
-		RequiresCondition: (lessinfectable && (growth > 60)) || (infectable && (growth > 40)) || dotransform
+		RequiresCondition: (lessinfectable && (growth > 180)) || (infectable && (growth > 120)) || dotransform
 		Condition: spawn_blue
 	ExplodeWeapon@spread:
 		RequiresCondition: spawn_blue && !spawned
@@ -469,14 +471,10 @@ T08:
 	Inherits@infect: ^InfectableTree
 	FreeActor@1:
 		SpawnOffset: 0,0
-	FreeActor@2:
-		SpawnOffset: 0,0
 
 T09:
 	Inherits@infect: ^InfectableTree
 	FreeActor@1:
-		SpawnOffset: 0,0
-	FreeActor@2:
 		SpawnOffset: 0,0
 
 T10:
@@ -506,8 +504,6 @@ T17:
 TC01:
 	Inherits@infect: ^InfectableTree
 	FreeActor@1:
-		SpawnOffset: 1,1
-	FreeActor@2:
 		SpawnOffset: 1,1
 
 1TNK.CRATER:

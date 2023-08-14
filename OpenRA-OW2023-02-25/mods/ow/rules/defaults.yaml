@@ -2699,8 +2699,6 @@
 	Tooltip@infected:
 		RequiresCondition: tibtree && !notib
 		Name: Tree (infected)
-	DamageMultiplier:
-		Modifier: 0
 	Targetable@infectable:
 		RequiresCondition: infectable
 		TargetTypes: OreMine
@@ -2708,29 +2706,23 @@
 		Conditions: tibtree,none,none,none,none,none,none,none,none,none,none,none,none,none,none,none,none,none,none,none,none,none,none,none,none,none,none,none,none,none,none,none,none,none,none,none,none,none,none,none,none
 	GrantRandomCondition@infectable:
 		Conditions: infectable,lessinfectable,moreinfectable
-	GrantRandomCondition@color:
-		Conditions: green,green,green,green,green,blue
 	ExternalCondition@growth:
 		Condition: growth
 	ExternalCondition@dotransform:
 		Condition: dotransform
 	GrantPeriodicCondition@aaa:
-		RequiresCondition: (lessinfectable && (growth > 75)) || (infectable && (growth > 50)) || (moreinfectable && (growth > 30)) || tibtree && !notib
+		RequiresCondition: (lessinfectable && (growth > 95)) || (infectable && (growth > 70)) || (moreinfectable && (growth > 45)) || tibtree && !notib
 		Condition: dotransform
 		CooldownDuration: 1500, 4500
 		ActiveDuration: 50
 	AmbientSound:
-		RequiresCondition: (lessinfectable && (growth > 75)) || (infectable && (growth > 50)) || (moreinfectable && (growth > 30)) || tibtree && !notib
+		RequiresCondition: (lessinfectable && (growth > 95)) || (infectable && (growth > 70)) || (moreinfectable && (growth > 45)) || tibtree && !notib
 		SoundFiles: ambtibe2.wav
 		Delay: 250, 3000
 		Interval: 1500, 3000
 	FreeActor@1:
-		RequiresCondition: dotransform && green
+		RequiresCondition: dotransform
 		Actor: split3
-		SpawnOffset: 1,0
-	FreeActor@2:
-		RequiresCondition: dotransform && blue
-		Actor: split4
 		SpawnOffset: 1,0
 	KillsSelf:
 		RequiresCondition: dotransform
@@ -2746,5 +2738,5 @@
 		Prerequisites: techlevel.tibremove
 		Condition: notib
 	DamageMultiplier:
-		RequiresCondition: (lessinfectable && (growth > 75)) || (infectable && (growth > 50)) || (moreinfectable && (growth > 30)) || tibtree && !notib
+		RequiresCondition: (lessinfectable && (growth > 95)) || (infectable && (growth > 70)) || (moreinfectable && (growth > 45)) || tibtree && !notib
 		Modifier: 0

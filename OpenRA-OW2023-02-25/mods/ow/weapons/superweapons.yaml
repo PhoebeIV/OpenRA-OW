@@ -1168,6 +1168,190 @@ SolShellNewBeam3:
 		ZOffset: 2502
 		Duration: 45
 
+SolBarrage:
+	ReloadDelay: 350
+	Range: 25c0
+	MinRange: 10c0
+	ValidTargets: Ground, Water, GroundActor, WaterActor
+	Projectile: GravityBomb
+		Velocity: 0,0,-512
+	Warhead@98Eff_impact: CreateEffect
+		ImpactSounds: jericho.wav
+		ImpactActors: false
+	Warhead@1Dam_impact: SpreadDamage
+		Spread: 128
+		Damage: 5
+		ValidTargets: GroundActor, WaterActor, Underwater, AirborneActor, Trees
+		DamageTypes: Prone50Percent, TriggerProne, ElectricityDeath
+	Warhead@cluster: FireFragment
+		ValidTargets: Air, Ground, Water
+		Weapon: SolBarrageCluster1
+		Offsets: 0,-9216,96, 0,-10240,0, 0,-11264,0, 0,-12288,0, 0,-13312,0, 0,-14336,0, 0,-16384,0, 0,-17408,0, 0,-18432,0, 0,-19456,0, 0,-20480,0, 0,-21504,0, 0,-22528,0, 0,-23552,0, 0,-24576,0
+		Rotate: true
+	Warhead@cluster2: FireFragment
+		ValidTargets: Air, Ground, Water
+		Weapon: SolBarrageCluster2
+		Offsets: 0,-9216,96, 0,-10240,0, 0,-11264,0, 0,-12288,0, 0,-13312,0, 0,-14336,0, 0,-16384,0, 0,-17408,0, 0,-18432,0, 0,-19456,0, 0,-20480,0, 0,-21504,0, 0,-22528,0, 0,-23552,0, 0,-24576,0
+		Rotate: true
+	Warhead@cluster3: FireFragment
+		ValidTargets: Air, Ground, Water
+		Weapon: SolBarrageCluster3
+		Offsets: 0,-9216,96, 0,-10240,0, 0,-11264,0, 0,-12288,0, 0,-13312,0, 0,-14336,0, 0,-16384,0, 0,-17408,0, 0,-18432,0, 0,-19456,0, 0,-20480,0, 0,-21504,0, 0,-22528,0, 0,-23552,0, 0,-24576,0
+		Rotate: true
+	Warhead@22FlashEffect: FlashPaletteEffect
+		Duration: 18
+		FlashType: Nuke
+
+SolBarrageSound:
+	ReloadDelay: 350
+	Range: 25c0
+	MinRange: 10c0
+	Report: solcfire2.aud
+	ValidTargets: Ground, Water, GroundActor, WaterActor
+	Projectile: InstantHit
+	Warhead@3Eff: CreateEffect
+		ImpactSounds: solcfire2.aud
+		ValidTargets: Ground, GroundActor, WaterActor, Trees, Air
+		ImpactActors: false
+	Warhead@4Eff: CreateEffect
+		ImpactSounds: solcfire2.aud
+		ValidTargets: Ground, GroundActor, WaterActor, Trees, Air
+		ImpactActors: false
+	Warhead@22FlashEffect: FlashPaletteEffect
+		Delay: 80
+		Duration: 18
+		FlashType: Nuke
+	Warhead@5Eff: CreateEffect
+		Delay: 80
+		Explosions: pulse_explosion
+		ExplosionPalette: tseffect
+		ValidTargets: Ground, GroundActor, WaterActor, Trees, Air
+		ImpactActors: false
+
+SolBarrageCluster1:
+	Range: 25c0
+	Burst: 20
+	BurstDelays: 1
+	FirstBurstTargetOffset: 512,0,0
+	FollowingBurstTargetOffset: 1024,256,0
+	Projectile: Bullet
+		Speed: 650
+		Inaccuracy: 5c0
+		LaunchAngle: 150
+	Warhead@1Dam: SpreadDamage
+		Delay: 15
+		Spread: 1c0
+		Falloff: 500, 180, 135, 50, 18, 7, 0
+		Damage: 2000
+		ValidTargets: GroundActor, WaterActor
+		Versus:
+			Wood: 60
+			Light: 75
+			Heavy: 75
+			Concrete: 50
+		DamageTypes: Prone50Percent, TriggerProne, ExplosionDeath
+	Warhead@2Dam: SpreadDamage
+		Delay: 20
+		Spread: 2c0
+		Falloff: 500, 180, 135, 50, 18, 7, 0
+		Damage: 1500
+		ValidTargets: GroundActor, WaterActor
+		Versus:
+			Wood: 60
+			Light: 75
+			Heavy: 50
+			Concrete: 50
+		DamageTypes: Prone50Percent, TriggerProne, ExplosionDeath
+	Warhead@2Smu: LeaveSmudge
+		Delay: 15
+		SmudgeType: Scorch
+		ValidTargets: Ground, Infantry
+	Warhead@3Smu: LeaveSmudge
+		Delay: 20
+		SmudgeType: Scorch
+		Size: 2
+		ValidTargets: Ground, Infantry
+	Warhead@3Eff: CreateEffect
+		Delay: 15
+		Explosions: building
+		ValidTargets: Ground, Water, Air
+		ImpactSounds: dsrpgexp.aud, baud.aud, baud.aud
+		ImpactActors: false
+	Warhead@6Shake: ShakeScreen
+		Duration: 10
+		Intensity: 1
+		Multiplier: 1,1
+		Delay: 10
+	Warhead@73Eff: CreateEffect
+		Explosions: bunkerbustersring
+		ImpactSounds: kaboom1.aud, baud.aud, baud.aud
+
+SolBarrageCluster2:
+	Inherits: SolBarrageCluster1
+	FollowingBurstTargetOffset: 1024,-256,0
+	Projectile: Bullet
+		Inaccuracy: 8c0
+
+SolBarrageCluster3:
+	Inherits: SolBarrageCluster1
+	FollowingBurstTargetOffset: 1024,0,0
+	Projectile: Bullet
+		Inaccuracy: 12c0
+
+SolBarrageBeam1:
+	ReloadDelay: 350
+	Range: 25c0
+	MinRange: 10c0
+	ValidTargets: Ground, Water, GroundActor, WaterActor
+	Projectile: LaserZap
+		Width: 1200
+		Color: FFFFFF
+		SecondaryBeamColor: 00AEFFD1
+		SecondaryBeam: true
+		SecondaryBeamWidth: 1624
+		SecondaryBeamZOffset: 1024
+		ZOffset: 2503
+		TrackTarget: false
+		Duration: 60
+	Warhead@1Dam_impact: SpreadDamage
+		Damage: 1
+
+SolBarrageBeam2:
+	Inherits: SolBarrageBeam1
+	Projectile: LaserZap
+		Width: 96
+		Color: A5A5FFAC
+		SecondaryBeamColor: 9BDFFF83
+		SecondaryBeam: true
+		SecondaryBeamWidth: 192
+		SecondaryBeamZOffset: 1024
+		ZOffset: 2500
+		TrackTarget: false
+		Duration: 95
+
+SolBarrageBeam3:
+	Inherits: SolBarrageBeam1
+	Report: 
+	Projectile: LaserZap
+		Width: 192
+		Color: A5A5FFAC
+		SecondaryBeamColor: 9BDFFF83
+		SecondaryBeamWidth: 384
+		SecondaryBeamZOffset: 1024
+		ZOffset: 2501
+		Duration: 70
+
+SolBarrageBeam4:
+	Inherits: SolBarrageBeam1
+	Projectile: LaserZap
+		Width: 384
+		Color: FFFFFFAC
+		SecondaryBeamColor: 0040FF83
+		SecondaryBeamWidth: 768
+		SecondaryBeamZOffset: 1024
+		ZOffset: 2502
+		Duration: 45
+
 Scudstorm:
 	ValidTargets: Ground, Water, GroundActor, WaterActor, Underwater, AirborneActor, Trees
 	Warhead@98Eff_impact: CreateEffect
