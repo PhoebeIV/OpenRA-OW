@@ -479,9 +479,9 @@ PBOX.boss:
 		InitialUnits: e1of
 	RangeMultiplier:
 		Modifier: 120
-	GrantConditionOnBotOwner:
+	GrantConditionOnPrerequisite@harder:
 		Condition: bossai
-		Bots: boss,harder
+		Prerequisites: ai.harder
 	GrantRandomCondition@boss:
 		Conditions: boss1, boss2, boss3, boss4, boss5, boss6, boss7, boss8, boss9, boss10, boss1, boss3, boss4, boss5, boss7, boss8, boss9, boss10, boss11
 	AttackTurreted@boss:
@@ -710,11 +710,20 @@ japanlaserbaseai:
 
 ^ConYardPrereqs:
 	ProvidesPrerequisite@PREFABA:
-		Factions: allies, england, france, germany, soviet, russia, ukraine, estonia, phobos, deimos, mars, hitler, himmler, heydrich, nod, bhand, marked, nod3, gdi, steel, zocom, gdi3, sword, angels, silver, china,infantry,nuke,tank, usa,townes,granger,alexander, japan
+		Factions: allies, england, france, germany, soviet, russia, ukraine, estonia, phobos, deimos, mars, hitler, himmler, heydrich, nod, bhand, marked, nod3, gdi, steel, zocom, gdi3, sword, angels, silver, china,infantry,nuke,tank, usa,townes,granger,alexander, japan, protoss
 		Prerequisite: structures.prefaba
 	ProvidesPrerequisite@weapdiu: # Dawn Weap Factory
 		Factions: gdi, steel, zocom, gdi3, hitler, himmler, heydrich, china,infantry,nuke,tank, usa,townes,granger,alexander, japan
 		Prerequisite: structures.weapdprereq_bot
+	GrantConditionOnBotOwner@superAI:
+		Bots: hard_b
+		Condition: ai.hard_b
+	ProvidesPrerequisite@superAI_1:
+		RequiresCondition: ai.hard_b
+		Prerequisite: advtechcenter
+	ProvidesPrerequisite@superAI_2:
+		RequiresCondition: ai.hard_b
+		Prerequisite: techcenter
 
 # a building that when placed is replaced with a power plant and barracks
 PREFAB.A:
@@ -752,6 +761,9 @@ PREFAB.A:
 	GrantConditionOnFaction@power_jp:
 		Condition: jppower_enable
 		Factions: japan
+	GrantConditionOnFaction@power_prot:
+		Condition: prpower_enable
+		Factions: protoss
 	FreeActor@power_base:
 		RequiresCondition: powr_enable
 		Actor: POWR
@@ -771,6 +783,10 @@ PREFAB.A:
 	FreeActor@power_jp:
 		RequiresCondition: jppower_enable
 		Actor: japanantimatterreactor
+		SpawnOffset: 0,0
+	FreeActor@power_pr:
+		RequiresCondition: prpower_enable
+		Actor: ppylon
 		SpawnOffset: 0,0
 	GrantConditionOnFaction@barr_tent:
 		Condition: tent_enable
@@ -818,7 +834,11 @@ PREFAB.A:
 	FreeActor@barr_japan:
 		RequiresCondition: jppower_enable
 		Actor: japanbarracks.bot
-		SpawnOffset: 2,0
+		SpawnOffset: 3,0
+	FreeActor@barr_protoss:
+		RequiresCondition: prpower_enable
+		Actor: pgatew.bot
+		SpawnOffset: 1,0
 	KillsSelf@yes:
 		RemoveInstead: true
 		Delay: 1

@@ -1892,7 +1892,7 @@ CrateLightningZap:
 MDKLightningZap:
 	Inherits: LightningZap
 	Warhead@1Dam: SpreadDamage
-		Spread: 256
+		Spread: 128
 		Damage: 600000
 		Versus:
 			None: 100
@@ -2613,6 +2613,52 @@ CorsairDisruptor:
 		Duration: 300
 		ValidTargets: Structure
 
+SolOrbEMP:
+	ReloadDelay: 1500
+	Range: 3c0
+	Report: dragbull.aud
+	ValidTargets: Vehicle, Structure, Cyborg
+	Projectile: GravityBomb
+		Velocity: 0,0,-256
+	Warhead@1Dam: SpreadDamage
+		Spread: 1c0
+		Damage: 50
+		ValidTargets: Ground, GroundActor, Water, WaterActor, Trees
+		DamageTypes: Prone50Percent, TriggerProne, SmallExplosionDeath
+	Warhead@3EffGround: CreateEffect
+		Explosions: corsair_disrupt
+		ImpactSounds: pcorweb1.aud
+		ValidTargets: Ground, GroundActor, Water, WaterActor, Trees
+	Warhead@cond: GrantExternalCondition
+		Condition: disabled
+		Range: 3c0
+		Duration: 200
+		ValidTargets: Vehicle, Cyborg, Infantry
+		ValidRelationships: Enemy
+
+SolOrbCondition1:
+	ReloadDelay: 125
+	Warhead@cond: GrantExternalCondition
+		Condition: solc_orb1
+		Range: 2c0
+		Duration: 150
+		ValidTargets: SolCannonOrb
+		AffectsParent: true
+
+SolOrbCondition2:
+	Inherits: SolOrbCondition1
+	Warhead@cond: GrantExternalCondition
+		Condition: solc_orb2
+
+SolOrbCondition3:
+	Inherits: SolOrbCondition1
+	Warhead@cond: GrantExternalCondition
+		Condition: solc_orb3
+
+SolOrbCondition4:
+	Inherits: SolOrbCondition1
+	Warhead@cond: GrantExternalCondition
+		Condition: solc_orb4
 
 USAPaladinLaser:
 	Inherits: ^LaserWeapon

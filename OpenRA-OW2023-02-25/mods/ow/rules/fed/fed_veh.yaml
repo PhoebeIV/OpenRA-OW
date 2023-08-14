@@ -456,7 +456,7 @@ SOLC:
 	ProvidesPrerequisite:
 		Prerequisite: solexists
 	Health:
-		HP: 500000
+		HP: 400000
 	Armor:
 		Type: Heavy
 	Mobile:
@@ -513,6 +513,12 @@ SOLC:
 		InitialAmmo: 5
 	ReloadAmmoPool@normal:
 		Delay: 35
+	ReloadAmmoPool@bot:
+		RequiresCondition: botowner
+		Delay: 75
+	GrantConditionOnPrerequisite@botowner:
+		Condition: botowner
+		Prerequisites: ai.all
 	WithAmmoPipsDecoration:
 		Position: BottomLeft
 		Margin: 4, 3
@@ -560,6 +566,92 @@ SOLC:
 		CooldownDuration: 10
 		ActiveDuration: 25
 		StartsGranted: true
+	TransferTimedExternalConditionOnTransform@1:
+		Condition: solc_orb1
+	TransferTimedExternalConditionOnTransform@2:
+		Condition: solc_orb2
+	TransferTimedExternalConditionOnTransform@3:
+		Condition: solc_orb3
+	TransferTimedExternalConditionOnTransform@4:
+		Condition: solc_orb4
+	ExternalCondition@solorb1:
+		Condition: solc_orb1
+	ExternalCondition@solorb2:
+		Condition: solc_orb2
+	ExternalCondition@solorb3:
+		Condition: solc_orb3
+	ExternalCondition@solorb4:
+		Condition: solc_orb4
+	GrantTimedCondition@produced:
+		RequiresCondition: produced || fixsell
+		Condition: give_orbs
+		Duration: 25
+	ExplodeWeapon@solorbref1:
+		RequiresCondition: solc_orb1 || give_orbs
+		Weapon: SolOrbCondition1
+	ExplodeWeapon@solorbref2:
+		RequiresCondition: solc_orb2 || give_orbs
+		Weapon: SolOrbCondition2
+	ExplodeWeapon@solorbref3:
+		RequiresCondition: solc_orb3 || give_orbs
+		Weapon: SolOrbCondition3
+	ExplodeWeapon@solorbref4:
+		RequiresCondition: solc_orb4 || give_orbs
+		Weapon: SolOrbCondition4
+	WithDecoration@orb1:
+		Image: pips
+		Sequence: pip-yellow
+		Palette: effect
+		Position: TopLeft
+		Margin: 5, 3
+		RequiresCondition: solc_orb1
+	WithDecoration@orb2:
+		Image: pips
+		Sequence: pip-yellow
+		Palette: effect
+		Position: TopLeft
+		Margin: 9, 3
+		RequiresCondition: solc_orb2
+	WithDecoration@orb3:
+		Image: pips
+		Sequence: pip-yellow
+		Palette: effect
+		Position: TopLeft
+		Margin: 13, 3
+		RequiresCondition: solc_orb3
+	WithDecoration@orb4:
+		Image: pips
+		Sequence: pip-yellow
+		Palette: effect
+		Position: TopLeft
+		Margin: 17, 3
+		RequiresCondition: solc_orb4
+	WithDecoration@orb1_empty:
+		Image: pips
+		Sequence: pip-empty
+		Palette: effect
+		Position: TopLeft
+		Margin: 5, 3
+	WithDecoration@orb2_empty:
+		Image: pips
+		Sequence: pip-empty
+		Palette: effect
+		Position: TopLeft
+		Margin: 9, 3
+	WithDecoration@orb3_empty:
+		Image: pips
+		Sequence: pip-empty
+		Palette: effect
+		Position: TopLeft
+		Margin: 13, 3
+	WithDecoration@orb4_empty:
+		Image: pips
+		Sequence: pip-empty
+		Palette: effect
+		Position: TopLeft
+		Margin: 17, 3
+	Targetable@solc:
+		TargetTypes: SolCannonOrb
 
 SOLCDEPL:
 	Inherits: ^Defense
@@ -574,12 +666,12 @@ SOLCDEPL:
 	Building:
 		Footprint: _X_ XxX _X_
 		Dimensions: 3,3
-		TerrainTypes: Clear,Road,Rough,Beach,Ore,Gems,Tiberium,BlueTiberium
+		TerrainTypes: Clear,Road,Rough,Beach,Ore,Gems,Tiberium,BlueTiberium,Creep
 	Selectable:
 		Bounds: 3072, 3072
 		DecorationBounds: 3072, 3072
 	Health:
-		HP: 500000
+		HP: 400000
 	Armor:
 		Type: Heavy
 	RevealsShroud:
@@ -631,6 +723,15 @@ SOLCDEPL:
 		InitialAmmo: 5
 	ReloadAmmoPool@normal:
 		Delay: 50
+	ReloadAmmoPool@bot:
+		RequiresCondition: botowner
+		Delay: 100
+	GrantTimedCondition@bot2:
+		Condition: freeammo
+		Duration: 50
+	ReloadAmmoPool@bot2:
+		RequiresCondition: botowner && freeammo
+		Delay: 5
 	WithAmmoPipsDecoration:
 		Position: BottomLeft
 		Margin: 4, 3
@@ -640,6 +741,7 @@ SOLCDEPL:
 	AttackTurreted:
 		RequiresCondition: !build-incomplete
 		PauseOnCondition: disabled
+		ForceFireIgnoresActors: True
 	RenderRangeCircle:
 	WithRangeCircle:
 		Range: 25c0
@@ -684,3 +786,150 @@ SOLCDEPL:
 		DeployTrigger: Damage, Attack
 	AutoTarget:
 		InitialStance: HoldFire
+	ProximityExternalCondition@orbs:
+		Condition: sol_near
+		Range: 2c0
+	GrantDelayedCondition@spawnorbs:
+		Condition: spawn_orbs
+	FreeActor@1:
+		RequiresCondition: spawn_orbs && solc_orb1
+		Actor: solcorb1
+		SpawnOffset: 0,0
+	FreeActor@2:
+		RequiresCondition: spawn_orbs && solc_orb2
+		Actor: solcorb2
+		SpawnOffset: 0,2
+	FreeActor@3:
+		RequiresCondition: spawn_orbs && solc_orb3
+		Actor: solcorb3
+		SpawnOffset: 2,2
+	FreeActor@4:
+		RequiresCondition: spawn_orbs && solc_orb4
+		Actor: solcorb4
+		SpawnOffset: 2,0
+	TransferTimedExternalConditionOnTransform@1:
+		Condition: solc_orb1
+	TransferTimedExternalConditionOnTransform@2:
+		Condition: solc_orb2
+	TransferTimedExternalConditionOnTransform@3:
+		Condition: solc_orb3
+	TransferTimedExternalConditionOnTransform@4:
+		Condition: solc_orb4
+	ExternalCondition@solorb1:
+		Condition: solc_orb1
+	ExternalCondition@solorb2:
+		Condition: solc_orb2
+	ExternalCondition@solorb3:
+		Condition: solc_orb3
+	ExternalCondition@solorb4:
+		Condition: solc_orb4
+	Targetable@solc:
+		TargetTypes: SolCannonOrb
+	WithDecoration@orb1:
+		Image: pips
+		Sequence: pip-yellow
+		Palette: effect
+		Position: TopLeft
+		Margin: 5, 6
+		RequiresCondition: solc_orb1
+	WithDecoration@orb2:
+		Image: pips
+		Sequence: pip-yellow
+		Palette: effect
+		Position: TopLeft
+		Margin: 9, 6
+		RequiresCondition: solc_orb2
+	WithDecoration@orb3:
+		Image: pips
+		Sequence: pip-yellow
+		Palette: effect
+		Position: TopLeft
+		Margin: 13, 6
+		RequiresCondition: solc_orb3
+	WithDecoration@orb4:
+		Image: pips
+		Sequence: pip-yellow
+		Palette: effect
+		Position: TopLeft
+		Margin: 17, 6
+		RequiresCondition: solc_orb4
+	WithDecoration@orb1_empty:
+		Image: pips
+		Sequence: pip-empty
+		Palette: effect
+		Position: TopLeft
+		Margin: 5, 3
+	WithDecoration@orb2_empty:
+		Image: pips
+		Sequence: pip-empty
+		Palette: effect
+		Position: TopLeft
+		Margin: 9, 3
+	WithDecoration@orb3_empty:
+		Image: pips
+		Sequence: pip-empty
+		Palette: effect
+		Position: TopLeft
+		Margin: 13, 3
+	WithDecoration@orb4_empty:
+		Image: pips
+		Sequence: pip-empty
+		Palette: effect
+		Position: TopLeft
+		Margin: 17, 3
+
+SOLCORB1:
+	Inherits: FTUR
+	-Buildable:
+	-WithMakeAnimation:
+	-WithBuildingBib:
+	-Building:
+	-Valued:
+	-UpdatesPlayerStatistics:
+	-Selectable:
+	-FrozenUnderFog:
+	-FrozenUnderFogUpdatedByGps:
+	-RequiresBuildableArea:
+	-ActorLostNotification: 
+	HiddenUnderFog:
+	Interactable:
+	Tooltip:
+		Name: Sol Orb
+	Mobile:
+		Locomotor: foot
+		Speed: 0
+	RenderSprites:
+		Image: firemace
+	Armament:
+		Weapon: TTankZap
+	Armament@emp:
+		Weapon: SolOrbEMP
+	Hovers:
+		MinHoveringAltitude: 0
+		InitialHeight: 512
+		RiseTicks: 32
+	WithShadow:
+		Offset: 0,0,-512
+	ExternalCondition@orbs:
+		Condition: sol_near
+	KillsSelf@orbs:
+		RequiresCondition: !sol_near
+		Delay: 5
+		RemoveInstead: true
+	ExplodeWeapon:
+		Weapon: SolOrbCondition1
+
+SOLCORB2:
+	Inherits: SOLCORB1
+	ExplodeWeapon:
+		Weapon: SolOrbCondition2
+
+SOLCORB3:
+	Inherits: SOLCORB1
+	ExplodeWeapon:
+		Weapon: SolOrbCondition3
+
+SOLCORB4:
+	Inherits: SOLCORB1
+	ExplodeWeapon:
+		Weapon: SolOrbCondition4
