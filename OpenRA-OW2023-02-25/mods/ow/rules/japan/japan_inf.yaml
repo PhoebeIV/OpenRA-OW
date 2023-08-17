@@ -1,6 +1,52 @@
+^JapanInfantryNanoMachinesShield:
+	Shielded:
+		RegenDelay: 250
+		RegenAmount: 1000
+		RequiresCondition: (nanomachines || external_shield) && !emp_shields
+	WithColoredOverlay@shielded:
+		RequiresCondition: nanomachines
+		Color: 00fbff10
+	GrantConditionOnPrerequisite@baseshields:
+		Condition: nanomachines
+		Prerequisites: upgrade.nanomachines
+	Chronoshiftable:
+
+^japandnastamina:
+	FirepowerMultiplier@dnastamina:
+		Modifier: 120
+		RequiresCondition: nastamina
+	RangeMultiplier@dnastamina:
+		Modifier: 120
+		RequiresCondition: dnastamina
+	ReloadDelayMultiplier@dnastamina:
+		Modifier: 80
+		RequiresCondition: dnastamina
+	RevealsShroudMultiplier@dnastamina:
+		Modifier: 120
+		RequiresCondition: dnastamina
+	SpeedMultiplier@dnastamina:
+		Modifier: 120
+		RequiresCondition: dnastamina
+	GrantConditionOnPrerequisite@dnastamina:
+		Condition: dnastamina
+		Prerequisites: upgrade.dnastamina
+
+^japandnacloning:
+	ProductionCostMultiplier@japandnacloning:
+		Multiplier: 75
+		Prerequisites: upgrade.dnacloning
+		Queue: Infantry
+	ProductionTimeMultiplier@japandnacloning:
+		Multiplier: 75
+		Prerequisites: upgrade.dnacloning
+		Queue: Infantry
+
 japanimperialwarrior:
 	Inherits: ^Soldier
 	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Inherits: ^JapanInfantryNanoMachinesShield
+	Inherits: ^japandnastamina
+	Inherits: ^japandnacloning
 	Buildable:
 		Queue: Infantry
 		BuildAtProductionType: Soldier
@@ -54,6 +100,9 @@ japanimperialwarrior:
 japantankbuster:
 	Inherits: ^Soldier
 	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
+	Inherits: ^JapanInfantryNanoMachinesShield
+	Inherits: ^japandnastamina
+	Inherits: ^japandnacloning
 	Buildable:
 		Queue: Infantry
 		BuildAtProductionType: Soldier
@@ -127,6 +176,9 @@ japanrocketangel:
 	Inherits: ^TibSunSoldier
 	Inherits@EXPERIENCE: ^GainsExperience
 	Inherits@AUTOTARGET: ^AutoTargetAll
+	Inherits: ^JapanInfantryNanoMachinesShield
+	Inherits: ^japandnastamina
+	Inherits: ^japandnacloning
 	Valued:
 		Cost: 500
 	Tooltip:
@@ -226,6 +278,9 @@ japanrocketangel:
 japanarchermaiden:
 	Inherits: ^Infantry
 	Inherits@AUTOTARGET: ^AutoTargetAll
+	Inherits: ^JapanInfantryNanoMachinesShield
+	Inherits: ^japandnastamina
+	Inherits: ^japandnacloning
 	UpdatesPlayerStatistics:
 		AddToArmyValue: true
 	Buildable:
@@ -294,6 +349,9 @@ japanarchermaiden:
 japanwarhorse:
 	Inherits: ^Infantry
 	Inherits@AUTOTARGET: ^AutoTargetAll
+	Inherits: ^JapanInfantryNanoMachinesShield
+	Inherits: ^japandnastamina
+	Inherits: ^japandnacloning
 	Buildable:
 		Prerequisites: ~infantry.japan, japanmechabay
 		Description: Archer Maiden riding horse \n  Strong vs Infantry, Aircraft\n Weak vs Vehicles
@@ -349,6 +407,9 @@ japanwarhorse:
 japanshinobi:
 	Inherits: ^Infantry
 	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
+	Inherits: ^JapanInfantryNanoMachinesShield
+	Inherits: ^japandnastamina
+	Inherits: ^japandnacloning
 	UpdatesPlayerStatistics:
 		AddToArmyValue: true
 	Buildable:
@@ -405,3 +466,161 @@ japanshinobi:
 		UncloakOn: Damage
 	Voiced:
 		VoiceSet: ShinobiVoice
+
+japanbioengineer:
+	Inherits: ^Soldier
+	Inherits: ^JapanInfantryNanoMachinesShield
+	Inherits: ^japandnastamina
+	Inherits: ^japandnacloning
+	Buildable:
+		Icon: icon-bioengineer
+		Queue: Infantry
+		BuildAtProductionType: Soldier
+		BuildPaletteOrder: 40
+		Prerequisites: ~infantry.japan, upgrade.dnaresearch
+		Description: The Science Team!
+	Valued:
+		Cost: 1000
+	Tooltip:
+		Name: Bio Engineer
+	Health:
+		HP: 15000
+	Mobile:
+		Voice: Move
+		PauseOnCondition: !(!deployed)
+	Passenger:
+		CustomPipType: red
+		Voice: Move
+	Armament@PRIMARY:
+		Weapon: BioEngineerHeal
+		Cursor: heal
+		OutsideRangeCursor: heal
+		TargetRelationships: Ally
+		ForceTargetRelationships: None
+		LocalOffset: 256,-192,512, 256,192,512
+	Armament@SECONDARY:
+		Weapon: MobPistol
+	Cloak:
+		InitialDelay: 10
+		CloakDelay: 30
+		UncloakOn: Attack, Unload, Infiltrate, Demolish
+		CloakTypes: Cloak
+		IsPlayerPalette: true
+		RequiresCondition: deployed
+	AttackFrontal:
+		RequiresCondition: !deployed
+	WithInfantryBody:
+		DefaultAttackSequence: hack
+		RequiresCondition: !deployed
+	WithSpriteBody@DEPLOYED:
+		Sequence: hack
+		RequiresCondition: deployed
+	ProducibleWithLevel:
+		Prerequisites: barracks.upgraded
+	Voiced:
+		VoiceSet: BioEngineerVoice
+	VoiceAnnouncement:
+		RequiresCondition: produced
+		Voice: Build
+	-MustBeDestroyed:
+	GrantConditionOnDeploy:
+		DeployedCondition: deployed
+		Facing: 128
+	WithSpriteBody@DEPLOYED:
+		Sequence: hack
+		RequiresCondition: deployed
+	ProximityExternalCondition@deployed:
+		Condition: basemedkits
+		RequiresCondition: deployed
+		Range: 6c0
+	RenderSprites:
+		Image: chinablacklotus
+	AutoTarget:
+	AutoTargetPriority@DEFAULT:
+		ValidTargets: Infantry
+	AnnounceOnKill:
+
+japanmutant:
+	Inherits: ^TibSunSoldier
+	Inherits: ^Cyborg
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Inherits: ^JapanInfantryNanoMachinesShield
+	Inherits: ^japandnastamina
+	Inherits: ^japandnacloning
+	Buildable:
+		Icon: icon-mutant
+		Queue: Infantry
+		BuildAtProductionType: Soldier
+		BuildPaletteOrder: 85
+		Prerequisites: ~infantry.japan, upgrade.dnaresearch
+		Description: Cybernetic infantry unit with a\nmachine gun and rocket launcher.\n  Strong vs Infantry, Light armor\n  Weak vs Vehicles, Aircraft
+	Valued:
+		Cost: 1250
+	Selectable:
+		Bounds: 938, 1024, 0, -213
+		DecorationBounds: 682, 938, 0, -298
+	Tooltip:
+		Name: Mutant
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 40000
+	Armor:
+		Type: Light
+	Targetable:
+		RequiresCondition: !parachute
+		TargetTypes: GroundActor, Cyborg
+	Armament@PRIMARY:
+		Weapon: Raijuushotupgrade
+		LocalOffset: 0,0,555
+	Armament@GARRISONED:
+		Name: garrisoned
+		Weapon: Raijuushotupgrade
+		MuzzleSequence: garrison-muzzle
+	Armament@BUS:
+		Name: bus
+		Weapon: Raijuushotupgrade
+		MuzzleSequence: garrisoned-muzzle
+	ProducibleWithLevel:
+		Prerequisites: barracks.upgraded
+	AttackFrontal:
+		PauseOnCondition: disabled
+		FacingTolerance: 0
+	WithInfantryBody:
+		IdleSequences: idle1,idle2
+		StandSequences: stand
+		DefaultAttackSequence: shoot
+	TakeCover:
+		RequiresCondition: critical
+		Duration: -1
+		DamageModifiers:
+			Prone50Percent: 60
+		ProneOffset: 300,0,0
+		ProneSequencePrefix: crippled-
+	GrantConditionOnDamageState@CRITICAL:
+		Condition: critical
+		ValidDamageStates: Critical
+		GrantPermanently: true
+	ExplosionOnDamageTransition:
+		Weapon: TSInfExplode
+		DamageState: Critical
+		TriggerOnlyOnce: true
+	Explodes:
+		Weapon: TSInfExplode
+		EmptyWeapon: TSInfExplode
+	Mobile:
+		Voice: Move
+	Guard:
+		Voice: Move
+	Passenger:
+		Voice: Move
+	Voiced:
+		VoiceSet: MutantVoice
+	WithDeathAnimation:
+		-CrushedSequence: die-crushed
+	-Crushable:
+	ChangesHealth@tiberium:
+		Step: 100
+	-SpawnActorOnDeath@fire:
+	RenderSprites:
+		Image: TSCYB

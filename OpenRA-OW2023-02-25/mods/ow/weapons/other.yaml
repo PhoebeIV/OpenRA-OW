@@ -4891,3 +4891,31 @@ DivineInterventionCluster2:
 	Warhead@4Eff_impact: CreateEffect
 		Explosions: japandivineproj2
 		ValidTargets: Ground, Water, GroundActor, WaterActor
+
+BioEngineerHeal:
+	ReloadDelay: 3
+	Range: 5c0
+	Report:
+	ValidTargets: Heal
+	Projectile: ElectricBolt
+		Colors: ff1100, b81200, ff2e2e
+		Distortion: 256
+		DistortionAnimation: 48
+		SegmentLength: 256
+		Width: 24
+		Duration: 4
+		Inaccuracy: 0
+	Warhead@1Dam: SpreadDamage
+		Spread: 213
+		Damage: -50
+		ValidRelationships: Ally
+		ValidTargets: Heal
+		InvalidTargets: ShieldRegen
+		DebugOverlayColor: 00FF00
+		DamageTypes: BypassShield
+	Warhead@cond: GrantExternalCondition
+		Condition: healed
+		Range: 1c0
+		Duration: 375
+		ValidTargets: Infantry
+		InvalidTargets: BeingHealed
