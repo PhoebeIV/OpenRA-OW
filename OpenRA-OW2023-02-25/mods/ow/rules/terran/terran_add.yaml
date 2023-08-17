@@ -7,7 +7,7 @@
 		Range: 1c512
 	-ProximityExternalCondition@addons:
 	Selectable:
-		Bounds: 1920, 1280
+		Bounds: 1920, 1536
 	HitShape:
 		UseTargetableCellsOffsets: true
 		Type: Rectangle
@@ -180,6 +180,17 @@ TSHOP:
 		RequiresCondition: fac_addon
 	RevealsShroud:
 		Range: 4c0
+	Building:
+		Footprint: xx_
+		Dimensions: 3,1
+		LocalCenterOffset: -1024,-512,0
+	HitShape:
+		UseTargetableCellsOffsets: false
+		Type: Rectangle
+			TopLeft: -512, -512
+			BottomRight: 1536, 512
+	Selectable:
+		Bounds: 1920, 1536, 512,0
 	Power:
 		Amount: -50
 		RequiresCondition: fac_addon
@@ -197,6 +208,16 @@ TSHOP:
 		RequiresCondition: !build-incomplete && !being-captured && !being-demolished && fac_addon
 	KillsSelf:
 		RequiresCondition: botowner && !fac_addon
+	Reservable:
+	RallyPoint:
+	RepairsUnits:
+		HpPerStep: 1000
+		Interval: 7
+		StartRepairingNotification: Repairing
+		StartRepairingTextNotification: Repairing.
+		FinishRepairingNotification: UnitRepaired
+		FinishRepairingTextNotification: Unit repaired.
+		PlayerExperience: 5
 
 TCTRL.plug:
 	Inherits: ^BuildingPlug

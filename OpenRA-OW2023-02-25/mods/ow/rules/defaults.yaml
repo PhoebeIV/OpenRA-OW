@@ -427,18 +427,41 @@
 ^GlobalBounty:
 	ExternalCondition@GLAbounty: # this allows GLA to gain bounty on kills, but only within range of units/structures.
 		Condition: glabounty
+	GivesBounty:
+		RequiresCondition: global-bounty && !glabounty
 	GivesBounty@GLA:
 		RequiresCondition: !global-bounty && glabounty
 		Percentage: 5
+	GivesBounty@GLAglobal:
+		RequiresCondition: global-bounty && glabounty
+		Percentage: 20
 	GrantConditionOnFaction@glabounty:
 		Factions: thrax, demo, kassad
 		Condition: glabountyexternal
 	ProximityExternalCondition@glabounty:
-		RequiresCondition: !global-bounty && glabountyexternal
+		RequiresCondition: glabountyexternal
 		Condition: glabounty
 		ValidRelationships: Enemy
 		AffectsParent: false
 		Range: 6c0
+	GrantRandomCondition@glabounty:
+		Conditions: crate1, crate2, crate3, crate4, crate4
+	SpawnActorOnDeath@crate1:
+		RequiresCondition: glabounty && crate1 && !cantdropcrate
+		Actor: crate
+		Probability: 1
+	SpawnActorOnDeath@crate2:
+		RequiresCondition: glabounty && crate2 && !cantdropcrate
+		Actor: moneycrate2
+		Probability: 1
+	SpawnActorOnDeath@crate3:
+		RequiresCondition: glabounty && crate3 && !cantdropcrate
+		Actor: crate.fuckyou
+		Probability: 1
+	SpawnActorOnDeath@crate4:
+		RequiresCondition: glabounty && crate4 && !cantdropcrate
+		Actor: moneycratesupplydrop
+		Probability: 5
 
 ^ConYard:
 	Inherits@pips: ^AdvTechPips
@@ -604,6 +627,8 @@
 	Inherits@frenzyboost: ^FrenzyBoostInfantry
 	Inherits@propagandaboost: ^propagandaboostinfantry
 	Inherits@shields: ^AcceptsShields
+	GrantCondition@crate:
+		Condition: cantdropcrate
 	OwnerLostAction:
 		Action: ChangeOwner
 		Owner: Creeps
@@ -1405,6 +1430,9 @@
 	RevealOnFire:
 	Repairable:
 		RepairActors: fix, gfix, gfix.boss
+	RepairableNear:
+		RepairActors: tshop
+		CloseEnough: 2c0
 	GrantConditionOnPrerequisite@var1:
 		Prerequisites: upgrade.veharmor1
 		Condition: var1
@@ -1619,7 +1647,9 @@
 	Inherits@frenzyboost: ^FrenzyBoost
 	Inherits@shields: ^AcceptsShields
 	Repairable:
-		RepairActors: fix, gfix, gfix.boss
+		RepairActors: fix, gfix, gfix.boss, tshop
+	RepairableNear:
+		RepairActors: tshop
 	RevealOnFire:
 	GrantConditionOnPrerequisite@aar1:
 		Prerequisites: upgrade.airarmor1
@@ -1701,8 +1731,6 @@
 		Palette: tscloak
 
 ^Plane:
-	Repairable:
-		RepairActors: fix, gfix, gfix.boss
 	ChangesHealth@landed:
 		PercentageStep: 1
 		Delay: 25
@@ -1715,6 +1743,11 @@
 	-ChangesHealth@landed:
 	Aircraft:
 		LandableTerrainTypes: Clear, Rough, Road, Ore, Beach, Gems, Creep, Tiberium, BlueTiberium
+	Repairable:
+		RepairActors: fix, gfix, gfix.boss
+	RepairableNear:
+		RepairActors: tshop
+		CloseEnough: 2c0
 
 ^TSPlane:
 	Inherits: ^Plane

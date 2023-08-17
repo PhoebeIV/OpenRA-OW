@@ -42,8 +42,8 @@ end
 ticks = 0
 
 Tick = function()
-	ticks = ticks + 1
-
+	if (Creeps.HasPrerequisites({"environment.days"})) then
+		ticks = ticks + 1
 		if (Time >= SunRise) then
 			DayLighting()
 			Time = 0
@@ -53,7 +53,10 @@ Tick = function()
 
 		Time = Time + 1
 
-	if (Creeps.HasPrerequisites({"weather.enabled"})) then
+		AdjustLighting()
+	end
+
+	if (Creeps.HasPrerequisites({"environment.weather"})) then
 			if (Utils.RandomInteger(1, 200) == 10) then
 			local delay = Utils.RandomInteger(1, 10)
 			Lighting.Flash("LightningStrike", delay)
@@ -65,9 +68,7 @@ Tick = function()
 		if (Utils.RandomInteger(1, 200) == 10) then
 			Media.PlaySound("thunder-ambient.aud")
 		end
-
 	end
-	AdjustLighting()
 end
 Time = 0
 
@@ -91,11 +92,13 @@ end
 
 WorldLoaded = function()
 	Creeps = Player.GetPlayer("Creeps")
-	Time = Utils.RandomInteger(0, SunRise)
-	if (Time >= SunSet) then
-		Lighting.Red = 0.75
-		Lighting.Green = 0.85
-		Lighting.Blue = 1.5
-		Lighting.Ambient = 0.75
+	if (Creeps.HasPrerequisites({"environment.days"})) then
+		Time = Utils.RandomInteger(0, SunRise)
+		if (Time >= SunSet) then
+			Lighting.Red = 0.75
+			Lighting.Green = 0.85
+			Lighting.Blue = 1.5
+			Lighting.Ambient = 0.75
+		end
 	end
 end
