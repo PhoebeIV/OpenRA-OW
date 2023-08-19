@@ -476,7 +476,7 @@ japanbioengineer:
 		Icon: icon-bioengineer
 		Queue: Infantry
 		BuildAtProductionType: Soldier
-		BuildPaletteOrder: 40
+		BuildPaletteOrder: 80
 		Prerequisites: ~infantry.japan, upgrade.dnaresearch
 		Description: The Science Team!
 	Valued:
@@ -564,22 +564,22 @@ japanmutant:
 	UpdatesPlayerStatistics:
 		AddToArmyValue: true
 	Health:
-		HP: 40000
+		HP: 30000
 	Armor:
 		Type: Light
 	Targetable:
 		RequiresCondition: !parachute
 		TargetTypes: GroundActor, Cyborg
 	Armament@PRIMARY:
-		Weapon: Raijuushotupgrade
+		Weapon: mutantshot
 		LocalOffset: 0,0,555
 	Armament@GARRISONED:
 		Name: garrisoned
-		Weapon: Raijuushotupgrade
+		Weapon: mutantshot
 		MuzzleSequence: garrison-muzzle
 	Armament@BUS:
 		Name: bus
-		Weapon: Raijuushotupgrade
+		Weapon: mutantshot
 		MuzzleSequence: garrisoned-muzzle
 	ProducibleWithLevel:
 		Prerequisites: barracks.upgraded
@@ -624,3 +624,79 @@ japanmutant:
 	-SpawnActorOnDeath@fire:
 	RenderSprites:
 		Image: TSCYB
+
+japanmatsui:
+	Inherits: ^Soldier
+	Inherits@AUTOTARGET: ^AutoTargetAll
+	Buildable:
+		Queue: Infantry
+		BuildAtProductionType: Soldier
+		BuildPaletteOrder: 70
+		Prerequisites: ~infantry.japan, techcenter
+		BuildLimit: 1
+		Description: anime girl
+	Valued:
+		Cost: 1500
+	Tooltip:
+		Name: Matsui Yuriko
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 35000
+	Mobile:
+		Speed: 68
+		Voice: Move
+	Guard:
+		Voice: Move
+	RevealsShroud:
+		Range: 6c0
+	Passenger:
+		CustomPipType: red
+		Voice: Move
+	Armament@PRIMARY:
+		Weapon: Matsuishot1
+		LocalOffset: 0,0,555, 0,0,555
+	Armament@SECONDARY:
+		Weapon: Matsuishot2
+		LocalOffset: 0,0,555, 0,0,555
+	Armament@GARRISONED:
+		Name: garrisoned
+		Weapon: Matsuishot1
+		MuzzleSequence: garrison-muzzle
+	Armament@GARRISONED2:
+		Name: garrisoned
+		Weapon: Matsuishot2
+		MuzzleSequence: garrison-muzzle
+	Armament@BUS:
+		Name: bus
+		Weapon: Matsuishot1
+		MuzzleSequence: garrisoned-muzzle
+	Armament@BUS2:
+		Name: bus
+		Weapon: Matsuishot2
+		MuzzleSequence: garrisoned-muzzle
+	WithInfantryBody:
+		AttackSequences:
+			primary: shoot-left, shoot-right
+		StandSequences: stand
+		RequiresCondition: !parachute
+	WithInfantryBody@PARACHUTE:
+		RequiresCondition: parachute
+		Palette: player-noshadow
+		IsPlayerPalette: true
+	ExternalCondition@PRODUCED:
+		Condition: produced
+	VoiceAnnouncement:
+		RequiresCondition: produced
+		Voice: Build
+	AnnounceOnKill:
+	Voiced:
+		VoiceSet: MatsuiVoice
+	ProducibleWithLevel:
+		Prerequisites: barracks.upgraded
+	WithProductionIconOverlay:
+		Types: Veterancy
+		Prerequisites: barracks.upgraded
+	Explodes:
+		Weapon: Matsuideath
+		EmptyWeapon: Matsuideath

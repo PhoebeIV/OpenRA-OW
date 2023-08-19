@@ -4946,3 +4946,149 @@ ParticleDummyWeapon:
 		Damage: 1
 		ValidTargets: Ground, GroundActor, Water, WaterActor, Trees
 		DamageTypes: Prone50Percent, TriggerProne, SmallExplosionDeath
+
+Matsuishot1:
+	ReloadDelay: 3
+	Range: 6c0
+	ValidTargets: Ground, Water, GroundActor, WaterActor, AirborneActor
+	Report:
+	Projectile: ElectricBolt
+		Colors: ff1100, b81200, ff2e2e
+		Distortion: 256
+		DistortionAnimation: 48
+		SegmentLength: 256
+		Width: 24
+		Duration: 4
+		Inaccuracy: 512
+	Warhead@1Dam: SpreadDamage
+		Spread: 256
+		Damage: 1000
+		Versus:
+			None: 100
+			Wood: 10
+			Light: 100
+			Heavy: 10
+			Concrete: 50
+		ValidTargets: GroundActor, WaterActor
+		DamageTypes: Prone50Percent, TriggerProne, DefaultDeath
+	Warhead@2Dam: SpreadDamage
+		Spread: 128
+		Damage: 5000
+		ValidTargets: AirborneActor
+	Warhead@2Eff: CreateEffect
+		Explosions: laserhitsmall
+		Inaccuracy: 512
+		ValidTargets: Ground, Air, GroundActor, AirborneActor, WaterActor, Trees
+		ImpactActors: false
+
+Matsuishot2:
+	ReloadDelay: 50
+	Range: 6c0
+	ValidTargets: Ground, Water, GroundActor, WaterActor, AirborneActor
+	Report: JUYurik_psyoLoop1a.aud, JUYurik_psyoLoop2a.aud, JUYurik_psyoLoop2b.aud, JUYurik_psyoLoop2c.aud, JUYurik_psyoLoop2d.aud, JUYurik_psyoLoop2e.aud, JUYurik_psyoLoop3g.aud
+	Projectile: InstantHit
+		Blockable: false
+	Warhead@1Dam: SpreadDamage
+		Spread: 1024
+		Damage: 5000
+		Versus:
+			None: 10
+			Wood: 100
+			Light: 10
+			Heavy: 100
+			Concrete: 50
+		ValidTargets: GroundActor, WaterActor
+		DamageTypes: Prone50Percent, TriggerProne, DefaultDeath
+	Warhead@2Dam: SpreadDamage
+		Spread: 128
+		Damage: 2000
+		ValidTargets: AirborneActor
+	Warhead@2Eff: CreateEffect
+		Explosions: laserhitmed
+		ImpactSounds: PlasmaCannonImpact1.aud, PlasmaCannonImpact2.aud
+		ValidTargets: Ground, Water, GroundActor, WaterActor, AirborneActor, Air
+	Warhead@3Eff: CreateEffect
+		Explosions: japanplasmaringupgrade
+		ValidTargets: Ground, Water, GroundActor, WaterActor, AirborneActor, Air
+
+Matsuideath:
+	ReloadDelay: 6
+	Range: 1c0
+	Report: chute1.aud
+	ValidTargets: Ground, Water, GroundActor, WaterActor
+	Projectile: GravityBomb
+		Image: PARABOMB
+		OpenSequence: open
+		Velocity: 0, 0, -40
+		Acceleration: 0, 0, 0
+		Shadow: False
+	Warhead@1Dam: SpreadDamage
+		Delay: 30
+		Spread: 2c0
+		Damage: 60000
+		Versus:
+			None: 80
+			Wood: 50
+			Light: 80
+			Heavy: 80
+			Concrete: 50
+		DamageTypes: Prone50Percent, TriggerProne, DefaultDeath
+		ValidTargets: Ground, Water, GroundActor, WaterActor
+	Warhead@20Smu_areanuke4: LeaveSmudge
+		SmudgeType: Scorch
+		ValidTargets: Ground, Infantry
+		Size: 1
+		Delay: 25
+	Warhead@20Smu_areanuke5: LeaveSmudge
+		SmudgeType: Scorch
+		ValidTargets: Ground, Infantry
+		Size: 2
+		Delay: 35
+	Warhead@20Smu_areanuke6: LeaveSmudge
+		SmudgeType: Scorch
+		ValidTargets: Ground, Infantry
+		Size: 3
+		Delay: 45
+	Warhead@2Smu: LeaveSmudge
+		SmudgeType: Crater
+		ValidTargets: Ground, Infantry
+		Delay: 25
+	Warhead@1Eff_impact: CreateEffect
+		Explosions: youseistartlarge
+		ImpactSounds: WarpRiftCreate.aud
+		ImpactActors: false
+		ValidTargets: Ground, Water, Air
+	Warhead@1Eff_impacta: CreateEffect
+		Explosions: youseiringlarge
+		ImpactActors: false
+		ValidTargets: Ground, Water, Air
+	Warhead@2Eff_impacta: CreateEffect
+		Explosions: japanyouseiexplosionlarge
+		ImpactSounds: JUYuriko_psychoBurstA.aud, JUYuriko_psychoBurstB.aud, JUYuriko_psychoBurstC.aud, JUYuriko_psychoBurstD.aud, JUYuriko_psychoBurstE.aud, JUYuriko_psychoBurstF.aud
+		ImpactActors: false
+		Delay: 25
+		ValidTargets: Ground, Water, Air
+	Warhead@2Dama: SpreadDamage
+		Delay: 40
+		Spread: 3c0
+		Damage: 20000
+		Versus:
+			None: 80
+			Wood: 50
+			Light: 80
+			Heavy: 80
+			Concrete: 50
+		DamageTypes: Prone50Percent, TriggerProne, DefaultDeath
+		ValidTargets: Ground, Water, GroundActor, WaterActor
+	Warhead@3Dama: SpreadDamage
+		Delay: 50
+		Spread: 5c0
+		Damage: 5000
+		Versus:
+			None: 80
+			Wood: 50
+			Light: 80
+			Heavy: 80
+			Concrete: 50
+		DamageTypes: Prone50Percent, TriggerProne, DefaultDeath
+		ValidTargets: Ground, Water, GroundActor, WaterActor
