@@ -10,7 +10,12 @@ terran.marine:
 	ProvidesPrerequisite@upgradename:
 	Valued:
 		Cost: 5000
-
+	ProductionCostMultiplier@raynor:
+		Prerequisites: structures.raynor
+		Multiplier: 10
+	ProductionTimeMultiplier@raynor:
+		Prerequisites: structures.raynor
+		Multiplier: 5
 
 terran.tank:
 	Inherits: ^UpgradeBaseExt
@@ -23,6 +28,12 @@ terran.tank:
 	ProvidesPrerequisite@upgradename:
 	Valued:
 		Cost: 5000
+	ProductionCostMultiplier@mengsk:
+		Prerequisites: structures.mengsk
+		Multiplier: 10
+	ProductionTimeMultiplier@mengsk:
+		Prerequisites: structures.mengsk
+		Multiplier: 5
 
 terran.ghost:
 	Inherits: ^UpgradeBaseExt
@@ -79,23 +90,31 @@ terran.nuke.AI:
 	ProvidesPrerequisite@upgradename:
 		Prerequisite: terran.nuke
 
-terran.tier1.squadboost:
+raynor.tier1.fastupgrade:
 	Inherits: ^HeroUpgradeBaseTier1
 	Tooltip:
-		Name: Squad Booster
+		Name: Enhanced Training Regime
 	Buildable:
-		Description: Provides a boost to nearby infantry.
-		Prerequisites: structures.terran
+		Description: Gain Infantry Firepower Level 1 instantly.
+		Prerequisites: ~active.raynor
 		BuildPaletteOrder: 1
+	RenderSprites:
+		Image: upgrade.inffirepower1
+	ProvidesPrerequisite@upgradename:
+		Prerequisite: upgrade.inffirepower1
 
-terran.tier1.test2:
+terran.tier1.costcut:
 	Inherits: ^HeroUpgradeBaseTier1
 	Tooltip:
-		Name: Tier 1 Test 2
+		Name: Improved Supply Chain
 	Buildable:
-		Description: Does something.
-		Prerequisites: structures.terran
+		Description: Produce Infantry for cheaper and faster.
+		Prerequisites: ~active.raynor
 		BuildPaletteOrder: 2
+	ProvidesPrerequisite@upgradename:
+		Prerequisite: upgrade.prodcost
+	ProvidesPrerequisite@upgradename2:
+		Prerequisite: upgrade.prodtime
 
 terran.tier1.test3:
 	Inherits: ^HeroUpgradeBaseTier1

@@ -170,6 +170,12 @@ TSPIDER:
 	DamageMultiplier:
 		Modifier: 25
 		RequiresCondition: !armed
+	GrantConditionOnPrerequisite@raynor: 
+		Prerequisites: vehicles.raynor
+		Condition: raynors_raiders
+	FirepowerMultiplier@raynor:
+		Modifier: 150
+		RequiresCondition: raynors_raiders
 	ExternalCondition@ready:
 		Condition: armed
 	ExternalCondition@chase:
@@ -745,11 +751,11 @@ TVULT.RAYNOR:
 	Inherits: TVULT
 	Inherits@epic: ^EpicUnit
 	Valued:
-		Cost: 6000
+		Cost: 4500
 	Buildable:
 		Queue: Vehicle
 		BuildPaletteOrder: 111
-		Prerequisites: ~factory, ulttechcenter, ~techlevel.unrestricted, ~vehicles.terran, !active.raynor
+		Prerequisites: ~factory, ulttechcenter, ~techlevel.unrestricted, ~vehicles.terran, !active.raynor, ~!vehicles.raynor
 		Description: In Vulture.\n\nLeader of Raynor's Raiders armed with a modified\n Grenade launcher.\nSpeed: 172\n  Strong vs Infantry, Aircraft\n  Weak vs Vehicles \n\nEquipped with a squad booster.
 		BuildDurationModifier: 150
 		BuildDuration: 2000
