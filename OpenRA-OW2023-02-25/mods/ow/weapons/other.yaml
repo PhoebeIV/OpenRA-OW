@@ -3795,6 +3795,22 @@ VesselIrradiateSpread:
 		ValidTargets: GroundActor, WaterActor, AirborneActor
 		InvalidTargets: Structure
 
+RaynorStrike:
+	ReloadDelay: 50
+	Range: 7c0
+	Report: traatk01.aud
+	ValidTargets: Ground, Water, GroundActor, WaterActor
+	Projectile: Bullet
+		Speed: 1c0
+		Image: tghostpaint
+	Warhead@3EffGround: CreateEffect
+		Explosions: ghostpaint2
+		ValidTargets: Ground, Water, GroundActor, WaterActor, Trees
+	Warhead@strike: SendAirstrike
+		UnitType: TVALK.Bomber
+		Mode: Position
+		ValidTargets: Ground, Water, GroundActor, WaterActor
+
 DragonTankshot:
 	Inherits: Flamer
 	ReloadDelay: 2
@@ -4919,3 +4935,14 @@ BioEngineerHeal:
 		Duration: 375
 		ValidTargets: Infantry
 		InvalidTargets: BeingHealed
+
+ParticleDummyWeapon:
+	ReloadDelay: 1
+	Range: 1c0
+	ValidTargets: GroundActor, WaterActor
+	Projectile: GravityBomb
+		Velocity: 0,0,-256
+	Warhead@1Dam: SpreadDamage
+		Damage: 1
+		ValidTargets: Ground, GroundActor, Water, WaterActor, Trees
+		DamageTypes: Prone50Percent, TriggerProne, SmallExplosionDeath

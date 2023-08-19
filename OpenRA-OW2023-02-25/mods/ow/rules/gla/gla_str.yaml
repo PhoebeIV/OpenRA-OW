@@ -1020,7 +1020,7 @@ OREEXT.G:
 	Buildable:
 		Prerequisites: techcenter, ~structures.oreextprereq2, ~techlevel.unrestricted
 	Valued:
-		Cost: 2000
+		Cost: 1500
 	Power:
 		Amount: 0
 	RenderSprites:
@@ -1057,7 +1057,7 @@ BADR.DEMO:
 		Image: badr
 
 GAMB:
-	Inherits: ^TechBuilding
+	Inherits: ^Building
 	Inherits@AUTOTARGET: ^AutoTargetAll
 	Targetable:
 		TargetTypes: GroundActor, C4, DetonateAttack, Structure, Defense
@@ -1070,26 +1070,32 @@ GAMB:
 		Type: Wood
 	Selectable:
 		Bounds: 1024, 1024
-	KillsSelf:
-		Delay: 1250
 	FreeActor@1:
 		Actor: GE1R1
 	FreeActor@2:
 		Actor: GE1R1
+		SpawnOffset: -1,-1
 	FreeActor@3:
 		Actor: GE1R1
+		SpawnOffset: 0,-1
 	FreeActor@4:
 		Actor: GE1R1
+		SpawnOffset: 1,-1
 	FreeActor@5:
 		Actor: GE1R1
+		SpawnOffset: -1,0
 	FreeActor@6:
 		Actor: GE1R1
+		SpawnOffset: 1,0
 	FreeActor@7:
 		Actor: GE1R1
+		SpawnOffset: -1,1
 	FreeActor@8:
 		Actor: GE1R1
+		SpawnOffset: 0,1
 	FreeActor@9:
 		Actor: GE1R1
+		SpawnOffset: 1,1
 	FreeActor@10:
 		Actor: GE1R1
 	FreeActor@11:
@@ -1111,6 +1117,10 @@ GAMB:
 	RenderSprites:
 		Image: mine
 		Palette: terrain
+	KillsSelf:
+		Delay: 250
+	-WithMakeAnimation:
+	-ActorLostNotification:
 
 GAMB2:
 	Inherits: GAMB
@@ -1124,13 +1134,227 @@ GAMB2:
 		Actor: GE2R1
 	FreeActor@5:
 		Actor: GE2R1
-	-FreeActor@6:
-	-FreeActor@7:
-	-FreeActor@8:
-	-FreeActor@9:
+	FreeActor@6:
+		Actor: GE2R1
+	FreeActor@7:
+		Actor: GE2R1
+	FreeActor@8:
+		Actor: GE2R1
+	FreeActor@9:
+		Actor: GE2R1
 	-FreeActor@10:
 	-FreeActor@11:
 	FreeActor@12:
 		Actor: GE2R1
 		AllowRespawn: true
 		RequiresCondition: produceunit
+
+GSNEAK:
+	Inherits@def: ^Defense
+	Inherits: ^GLABuilding
+	Inherits@shape: ^1x1Shape
+	-Selectable:
+	-SelectionDecorations:
+	Interactable:
+		Bounds: 64,64
+	Building:
+		Footprint: xxx x_x x__
+		Dimensions: 3,3
+	Buildable:
+		Queue: Tech
+		BuildPaletteOrder: 9091
+		Prerequisites: ~structures.gla, ulttechcenter, ~techlevel.unrestricted, !gla.tunnel
+		Description: Entry point for GLA ground units to \nuse the tunnel network. \n\nAllows you to build a Sneak Attack.
+		BuildLimit: 1
+	Health:
+		HP: 100000
+	Armor:
+		Type: Wood
+	RevealsShroud:
+		MinRange: 4c0
+		Range: 5c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 4c0
+	Valued:
+		Cost: 2000
+	Tooltip:
+		Name: GLA Tunnel Network
+	ProvidesPrerequisite@self:
+	ProvidesPrerequisite@buildingname:
+		Prerequisite: gla.tunnel
+	Explodes:
+		Type: CenterPosition
+		Weapon: DemoTrapExplosion2
+		EmptyWeapon: DemoTrapExplosion2
+	FreeActor@Teleport:
+		Actor: gsneak.teleport
+		SpawnOffset: 1,1
+	ProximityExternalCondition@nydusalive:
+		Condition: nydus_alive
+		Range: 1c0
+	KillsSelf@nydusalive:
+		RequiresCondition: !nydus_alive
+		Delay: 1
+	ExternalCondition@nydus_alive:
+		Condition: nydus_alive
+	-RenderRangeCircle:
+	DamageMultiplier:
+		Modifier: 1
+	SpawnActorOnDeath:
+		Actor: GSNEAK.Hole
+
+GSNEAK.Teleport:
+	Inherits: ^Building
+	Inherits@shape: ^3x3Shape
+	WithSpriteBody:
+	Selectable:
+		Bounds: 3072, 3072
+	WithMakeAnimation:
+	-Explodes:
+	Production:
+		Produces: SneakAttack
+	ProductionBar:
+		ProductionType: SneakAttack
+		Color: FF00FF
+	ProductionQueue@sneakattack:
+		Type: SneakAttack
+		Group: SneakAttack
+		DisplayOrder: 13
+		LowPowerModifier: 100
+		ReadyAudio: ConstructionComplete
+		BlockedAudio: NoBuild
+		LimitedAudio: BuildingInProgress
+		QueuedAudio: Building
+		OnHoldAudio: OnHold
+		CancelledAudio: Cancelled
+		QueueLimit: 1
+	RenderSprites:
+		Image: gsneak
+	Tooltip:
+		Name: GLA Tunnel Network
+	Valued:
+		Cost: 1000
+	Health:
+		HP: 150000
+	KillsSelf@nydusalive:
+		RequiresCondition: !nydus_alive
+		Delay: 1
+		RemoveInstead: true
+	ExternalCondition@nydus_alive:
+		Condition: nydus_alive
+	ProximityExternalCondition@nydusalive:
+		Condition: nydus_alive
+		Range: 1c0
+	RallyPoint:
+		Path: 3,3
+	TeleportNetworkPrimaryExit:
+	TeleportNetwork:
+		Type: Teleport
+	Exit@1:
+		ExitCell: 0,0
+	WithDecoration@primary:
+		RequiresCondition: primary
+		Position: Top
+		Margin: 0, 4
+		RequiresSelection: true
+		Image: pips
+		Sequence: tag-primary
+	GrantConditionWhileProducing: 
+		Condition: producing_sneak
+	GrantPeriodicCondition:
+		RequiresCondition: producing_sneak
+		Condition: produced_sneak
+		CooldownDuration: 8999
+		ActiveDuration: 5000
+	SpawnActorPower@sneak:
+		RequiresCondition: !sneak_placed
+		PauseOnCondition: produced_sneak || !producing_sneak
+		OrderName: SneakHack
+		Cursor: chrono-target
+		Icon: sneak
+		ChargeInterval: 9000
+		LifeTime: 200
+		Name: Sneak Attack
+		Description: Click on your Tunnel Network to place the \n Sneak Attack when it's ready.
+		Actor: camera.spyplane
+		SelectTargetSpeechNotification: SelectTarget
+		DisplayRadarPing: True
+		DeploySound: tcssca00.aud
+		EffectSequence: idle
+		SupportPowerPaletteOrder: 2
+		DisplayTimerRelationships: Enemy, Ally, Neutral
+
+GSNEAK.Hole:
+	Inherits: ^GLAHole3x3
+	Tooltip:
+		Name: GLA Hole (Tunnel Network)
+	Health:
+		HP: 100000
+	ChangesHealth@hole:
+		DamageCooldown: 750
+		Delay: 35
+	SpawnActorOnDeath@hole:
+		Actor: GSNEAK
+		DeathType: hole
+	ProvidesPrerequisite@buildingname:
+		Prerequisite: gla.tunnel
+
+GSNEAK2:
+	Inherits: GSNEAK
+	-Buildable:
+	Buildable:
+		Queue: SneakAttack
+		Prerequisites: gsneak, !gla.sneakactive
+		Description: Exit point for GLA ground units to \nuse the tunnel network. \n\nCan be placed anywhere.\n Lasts 1 minute.
+		BuildDurationModifier: 100
+		BuildDuration: 9000
+		BuildLimit: 1
+	-RequiresBuildableArea:
+	RenderSprites:
+		Image: gsneak
+	Valued:
+		Cost: 2500
+	Tooltip:
+		Name: GLA Sneak Attack
+	ProvidesPrerequisite@buildingname:
+		Prerequisite: gla.sneakactive
+	FreeActor@Teleport:
+		Actor: gsneak2.teleport
+		SpawnOffset: 1,1
+	SpawnActorOnDeath:
+		RequiresCondition: !nohole
+		Actor: GSNEAK2.Hole
+	GrantDelayedCondition:
+		Condition: nohole
+		Delay: 1499
+	KillsSelf:
+		Delay: 1500
+
+GSNEAK2.Hole:
+	Inherits: ^GLAHole3x3
+	Tooltip:
+		Name: GLA Hole (Sneak Attack)
+	Health:
+		HP: 100000
+	ChangesHealth@hole:
+		DamageCooldown: 750
+		Delay: 35
+	SpawnActorOnDeath@hole:
+		Actor: GSNEAK2
+		DeathType: hole
+	ProvidesPrerequisite@buildingname:
+		Prerequisite: gla.sneakactive
+
+GSNEAK2.Teleport:
+	Inherits: GSNEAK.Teleport
+	Health:
+		HP: 250000
+	-Sellable:
+	-Production:
+	-ProductionBar:
+	-ProductionQueue@sneakattack:
+	-GrantConditionWhileProducing:
+	-SpawnActorPower@sneak:
+	KillsSelf:
+		Delay: 1500

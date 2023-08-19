@@ -37,11 +37,14 @@
 		TerrainTypes: Creep
 		RequiresBaseProvider: True
 	RequiresBuildableArea:
-		Adjacent: 6
+		Adjacent: 4
 	RepairableBuilding:
 		RepairStep: 50
 		PlayerExperience: 2
 		RepairPercent: 0
+	ProductionTimeMultiplier@easybuild:
+		Multiplier: 115
+		Prerequisites: zerg.easybuild, !ai.all
 	Explodes:
 		Type: CenterPosition
 		Weapon: LargeZergBuildingExplode
@@ -457,6 +460,13 @@ ZHATCHERY:
 		RequiresCondition: botowner
 		Condition: do_hive
 		Prerequisites: zlair, znest, ~structures.zerg, ~techlevel.unrestricted, ~!ulttechcenter
+	ProvidesPrerequisite@easybuild:
+		RequiresPrerequisites: ai.all
+		Prerequisite: zerg.easybuild
+	ProvidesDelayedPrerequisite:
+		Prerequisite: zerg.ezwindow
+		Delay: 750
+		ShowSelectionBar: false
 	GrantDelayedCondition@bothive:
 		RequiresCondition: do_hive && lair_upgrade && !hive_upgrade
 		Condition: hive_upgrade
@@ -647,9 +657,9 @@ ZCCOLONY:
 	GivesBuildableArea:
 		AreaTypes: building, fake, pylon
 	Buildable:
-		Queue: Wall
-		BuildPaletteOrder: 450
-		Prerequisites: ~structures.zerg, ~techlevel.infonly, ~ai.all
+		Queue: Building
+		BuildPaletteOrder: 100
+		Prerequisites: ~structures.zerg, ~techlevel.infonly, ~zerg.easybuild
 		Description: Spreads creep, can be evolved into \n defensive structures. \n\nMust be placed on creep.
 	Health:
 		HP: 40000
@@ -718,7 +728,7 @@ ZCCOLONY:
 		RequiresCondition: !build-incomplete
 	FreeActor@2:
 		Actor: CreepSpawnerMedium
-		SpawnOffset: 2,2
+		SpawnOffset: 1,1
 		RequiresCondition: !build-incomplete
 	FreeActor@effect_complete:
 		Actor: SmallZergBuildingComplete
@@ -828,10 +838,17 @@ ZCCOLONY2:
 	Buildable:
 		Queue: Defense
 		BuildPaletteOrder: 90
-		Prerequisites: ~structures.zerg, ~techlevel.unrestricted, ~zerg.spawning, ~zhive
+		Prerequisites: ~structures.zerg, ~techlevel.unrestricted, zerg.spawning, ~zhive, !zerg.easybuild
 		BuildDuration: 1000
 	RequiresBuildableArea:
 		Adjacent: 4
+
+ZCCOLONY.bot:
+	Inherits: ZCCOLONY
+	Buildable:
+		Prerequisites: ~structures.zerg, ~techlevel.infonly, ~ai.all
+	RenderSprites:
+		Image: zccolony
 
 ZE.SUNKEN:
 	Inherits: ^ZergEvolve
@@ -871,11 +888,6 @@ ZergColonyComplete:
 		Weapon: SmallZergBuildingSpawn_Delayed
 		EmptyWeapon: SmallZergBuildingSpawn_Delayed
 
-ZCCOLONY.bot:
-	Inherits: ZCCOLONY
-	RenderSprites:
-		Image: zccolony
-
 ZEXTRAC:
 	Inherits: ^ZergBuilding
 	Inherits@shape: ^3x2Shape
@@ -886,11 +898,11 @@ ZEXTRAC:
 	Selectable:
 		Bounds: 3072, 3072, 0, -426
 	Buildable:
-		Queue: Wall
-		BuildPaletteOrder: 450
+		Queue: Building
+		BuildPaletteOrder: 101
 		BuildDuration: 1400
-		Prerequisites: ~structures.zerg, ~techlevel.infonly, ~ai.all, ~!ai.boss
-		Description: Stores and refines resources.
+		Prerequisites: ~structures.zerg, ~techlevel.infonly, ~zerg.easybuild, ~!ai.boss
+		Description: Refines and stores resources. \n\nMust be placed on creep.
 	Health:
 		HP: 90000
 	Armor:
@@ -968,10 +980,10 @@ ZPOOL:
 		Footprint: ++ xx
 		Dimensions: 2,2
 	Buildable:
-		Queue: Wall
-		BuildPaletteOrder: 450
-		Prerequisites: ~structures.zerg, refinery, ~techlevel.infonly, ~ai.all, ~!ai.hard
-		Description: Allows production of zerglings
+		Queue: Building
+		BuildPaletteOrder: 102
+		Prerequisites: ~structures.zerg, refinery, ~techlevel.infonly, ~zerg.easybuild, ~!ai.hard
+		Description: Allows production of Zerglings at\n a Hatchery. \n\nMust be placed on creep.
 	Health:
 		HP: 60000
 	Armor:
@@ -1043,10 +1055,10 @@ ZHYDRADEN:
 	Selectable:
 		Bounds: 3072, 3072, 0, -426
 	Buildable:
-		Queue: Wall
-		BuildPaletteOrder: 450
-		Prerequisites: zpool, ~structures.zerg, ~techlevel.infonly, ~ai.all
-		Description: Allows production of hydralisks
+		Queue: Building
+		BuildPaletteOrder: 103
+		Prerequisites: zpool, ~structures.zerg, ~techlevel.infonly, ~zerg.easybuild
+		Description: Allows production of Hydralisks at\n a Hatchery. \n\nMust be placed on creep.
 	Health:
 		HP: 90000
 	Armor:
@@ -1115,11 +1127,11 @@ ZCHAMBER:
 	Selectable:
 		Bounds: 3072, 3072, 0, -426
 	Buildable:
-		Queue: Wall
-		BuildPaletteOrder: 450
+		Queue: Building
+		BuildPaletteOrder: 104
 		BuildDuration: 2000
-		Prerequisites: zhydraden, ~structures.zerg, ~techlevel.high, ~ai.all
-		Description: Allows Zerg specific upgrades
+		Prerequisites: zhydraden, ~structures.zerg, ~techlevel.high, ~zerg.easybuild
+		Description: Provides access to Zerg-specific upgrades\n and ability to evolve your Hatchery. \n\nMust be placed on creep.
 	Health:
 		HP: 90000
 	Armor:
@@ -1157,59 +1169,6 @@ ZCHAMBER:
 		SpawnOffset: 1,1
 		RequiresCondition: !build-incomplete
 
-ZULTRADEN:
-	Inherits: ^ZergScienceBuilding
-	Inherits@prereqs: ^BarracksPrereqs
-	Inherits@shape: ^3x2Shape
-	Building:
-		Footprint: xxx xxx ===
-		Dimensions: 3,3
-		LocalCenterOffset: 0,-512,0
-	Selectable:
-		Bounds: 3072, 3072, 0, -426
-	Buildable:
-		Queue: Wall
-		BuildPaletteOrder: 450
-		BuildDuration: 2500
-		Prerequisites: ulttechcenter, zpool, ~structures.zerg, ~techlevel.unrestricted, ~ai.all
-		Description: Home of the Ultralisk
-		BuildLimit: 1
-	Health:
-		HP: 120000
-	Armor:
-		Type: Wood
-	RevealsShroud:
-		MinRange: 4c0
-		Range: 5c0
-		RevealGeneratedShroud: False
-	RevealsShroud@GAPGEN:
-		Range: 4c0
-	Valued:
-		Cost: 2000
-	Tooltip:
-		Name: Ultralisk Cavern
-	BaseBuilding:
-	WithDeathAnimation:
-		DeathSequence: dead
-		UseDeathTypeSuffix: false
-	ProvidesPrerequisite@buildingname:
-	WithIdleOverlay@damage:
-		RequiresCondition: damaged
-		Sequence: blood2
-		Offset: 1200,-512,0
-	WithIdleOverlay@damage2:
-		RequiresCondition: damaged2
-		Sequence: blood1
-		Offset: 512,900,700
-	WithIdleOverlay@damage3:
-		RequiresCondition: damaged3
-		Sequence: blood3
-		Offset: 0,-1024,-256
-	FreeActor@effect_complete:
-		Actor: MediumZergBuildingComplete
-		SpawnOffset: 1,1
-		RequiresCondition: !build-incomplete
-
 ZSPIRE:
 	Inherits: ^ZergBuilding
 	Inherits@prereqs: ^AircraftPrereqs
@@ -1218,11 +1177,11 @@ ZSPIRE:
 		Footprint: ++ xx
 		Dimensions: 2,2
 	Buildable:
-		Queue: Wall
-		BuildPaletteOrder: 450
+		Queue: Building
+		BuildPaletteOrder: 105
 		BuildDuration: 2000
-		Prerequisites: ~structures.zerg, techcenter, ~techlevel.high, ~ai.all
-		Description: Allows production of zerg air units
+		Prerequisites: ~structures.zerg, techcenter, ~techlevel.high, ~zerg.easybuild
+		Description: Allows production of basic air units\n at a Spire. \n\nMust be placed on creep.
 		BuildLimit: 2
 	Health:
 		HP: 110000
@@ -1398,11 +1357,11 @@ ZNEST:
 		Footprint: ++ xx
 		Dimensions: 2,2
 	Buildable:
-		Queue: Wall
-		BuildPaletteOrder: 450
+		Queue: Tech
+		BuildPaletteOrder: 199
 		BuildDuration: 2500
-		Prerequisites: advtechcenter, zspire, ~structures.zerg, ~techlevel.high, ~ai.all
-		Description: Home of the Queen
+		Prerequisites: advtechcenter, zspire, ~structures.zerg, ~techlevel.high, ~zerg.easybuild
+		Description: Allows production of a Queen\n at a Spire. \n\nMust be placed on creep.
 		BuildLimit: 1
 	Health:
 		HP: 90000
@@ -1440,247 +1399,6 @@ ZNEST:
 		SpawnOffset: 0,1
 		RequiresCondition: !build-incomplete
 
-ZMOUND:
-	Inherits: ^ZergScienceBuilding
-	Inherits@prereqs: ^BarracksPrereqs
-	Inherits@shape: ^3x2Shape
-	Building:
-		Footprint: ++x xxx
-		Dimensions: 3,2
-	Buildable:
-		Queue: Wall
-		BuildPaletteOrder: 450
-		BuildDuration: 2500
-		Prerequisites: ulttechcenter, zpool, ~structures.zerg, ~techlevel.high, ~ai.all
-		Description: Home of the Defiler
-		BuildLimit: 1
-	Health:
-		HP: 120000
-	Armor:
-		Type: Wood
-	RevealsShroud:
-		MinRange: 6c0
-		Range: 7c0
-		RevealGeneratedShroud: False
-	RevealsShroud@GAPGEN:
-		Range: 6c0
-	Valued:
-		Cost: 1800
-	Tooltip:
-		Name: Defiler Mound
-	BaseBuilding:
-	WithDeathAnimation:
-		DeathSequence: dead
-		UseDeathTypeSuffix: false
-	ProvidesPrerequisite@buildingname:
-	WithIdleOverlay@damage:
-		RequiresCondition: damaged
-		Sequence: blood2
-		Offset: 1500,-512,0
-	WithIdleOverlay@damage2:
-		RequiresCondition: damaged2
-		Sequence: blood1
-		Offset: 512,900,700
-	WithIdleOverlay@damage3:
-		RequiresCondition: damaged3
-		Sequence: blood3
-		Offset: -1500,-1024,-256
-	FreeActor@effect_complete:
-		Actor: MediumZergBuildingComplete
-		SpawnOffset: 0,1
-		RequiresCondition: !build-incomplete
-
-ZNYDUS:
-	Inherits@def: ^Defense
-	Inherits: ^ZergBuilding
-	Inherits@prereqs: ^BarracksPrereqs
-	Inherits@shape: ^2x2Shape
-	Inherits@AUTOTARGET: ^AutoTargetAll
-	-Building:
-	Selectable:
-		Bounds: 2048, 2048
-	Building:
-		Footprint: xx xx
-		Dimensions: 2,2
-		TerrainTypes: Creep,Road,Clear
-		RequiresBaseProvider: false
-	Buildable:
-		Queue: Wall
-		BuildPaletteOrder: 450
-		Prerequisites: ~structures.zerg, ulttechcenter, ~techlevel.unrestricted, ~ai.all
-		BuildLimit: 2
-	Health:
-		HP: 80000
-	Armor:
-		Type: Wood
-	RevealsShroud:
-		MinRange: 4c0
-		Range: 5c0
-		RevealGeneratedShroud: False
-	RevealsShroud@GAPGEN:
-		Range: 4c0
-	Valued:
-		Cost: 1000
-	Tooltip:
-		Name: Nydus Canal
-	BaseBuilding:
-	WithDeathAnimation:
-		DeathSequence: dead
-		UseDeathTypeSuffix: false
-	ProvidesPrerequisite@buildingname:
-	WithIdleOverlay@damage:
-		RequiresCondition: damaged
-		Sequence: blood1
-		Offset: 1200,-512,0
-	WithIdleOverlay@damage2:
-		RequiresCondition: damaged2
-		Sequence: blood3
-		Offset: 512,700,700
-	WithIdleOverlay@damage3:
-		RequiresCondition: damaged3
-		Sequence: blood2
-		Offset: -512,0,0
-	InfiltrateForSupportPower:
-		Proxy: barracks.upgraded
-		Types: SpyInfiltrate
-	Targetable:
-		TargetTypes: GroundActor, C4, DetonateAttack, Structure, Defense, SpyInfiltrate
-	Explodes:
-		Type: CenterPosition
-		Weapon: SmallZergBuildingExplode
-		EmptyWeapon: SmallZergBuildingExplode
-	Exit@1:
-		RequiresCondition: !being-captured
-		SpawnOffset: -42,810,0
-		ExitCell: -1,2
-		ProductionTypes: Soldier, Infantry, Hatchery
-	Exit@2:
-		RequiresCondition: !being-captured
-		SpawnOffset: -725,640,0
-		ExitCell: 0,2
-		ProductionTypes: Soldier, Infantry, Hatchery
-	GrantExternalConditionToProduced:
-		Condition: produced
-	GrantExternalConditionToProduced@zergling:
-		Condition: zerglingdouble
-		Duration: 25
-	FreeActor@effect_complete:
-		Actor: SmallZergBuildingComplete
-		SpawnOffset: 1,1
-		RequiresCondition: !build-incomplete
-	Production@inf:
-		Produces: Hatchery,Infantry
-	GrantConditionOnProduction@busy:
-		Condition: busy
-		Duration: 25
-		ShowSelectionBar: false
-	ProductionQueue@infantry:
-		Type: Infantry
-		DisplayOrder: 0
-		Group: Infantry
-		LowPowerModifier: 300
-		BuildDurationModifier: 100
-		ReadyAudio: UnitReady
-		BlockedAudio: NoBuild
-		LimitedAudio: BuildingInProgress
-		QueuedAudio: Training
-		OnHoldAudio: OnHold
-		CancelledAudio: Cancelled
-	ProductionBar@Inf:
-		ProductionType: Infantry
-		Color: FF0000
-	FreeActor@1:
-		Actor: ZZERGLING
-		RequiresCondition: !build-incomplete
-		SpawnOffset: -1,0
-	FreeActor@2:
-		Actor: ZZERGLING
-		RequiresCondition: !build-incomplete
-		SpawnOffset: -1,0
-	FreeActor@3:
-		Actor: ZZERGLING
-		RequiresCondition: !build-incomplete
-		SpawnOffset: -1,1
-	FreeActor@4:
-		Actor: ZZERGLING
-		RequiresCondition: !build-incomplete
-		SpawnOffset: -1,1
-	FreeActor@5:
-		Actor: ZZERGLING
-		RequiresCondition: !build-incomplete
-		SpawnOffset: 0,2
-	FreeActor@6:
-		Actor: ZZERGLING
-		RequiresCondition: !build-incomplete
-		SpawnOffset: 0,2
-	FreeActor@7:
-		Actor: ZZERGLING
-		RequiresCondition: !build-incomplete
-		SpawnOffset: 1,2
-	FreeActor@8:
-		Actor: ZZERGLING
-		RequiresCondition: !build-incomplete
-		SpawnOffset: 1,2
-	FreeActor@9:
-		Actor: ZHYDRA
-		RequiresCondition: !build-incomplete
-		SpawnOffset: 2,1
-	FreeActor@10:
-		Actor: ZHYDRA
-		RequiresCondition: !build-incomplete
-		SpawnOffset: 2,0
-	FreeActor@11:
-		Actor: ZHYDRA
-		RequiresCondition: !build-incomplete
-		SpawnOffset: 2,2
-	FreeActor@13:
-		Actor: ZZERGLING
-		AllowRespawn: true
-		SpawnOffset: 0,1
-		RequiresCondition: produceunit && !build-incomplete
-	AutoTarget:
-		InitialStance: AttackAnything
-	AttackOmni:
-		PauseOnCondition: !ammo
-	Armament:
-		Weapon: NydusSpawn
-		PauseOnCondition: !ammo
-		RequiresCondition: !build-incomplete
-		ForceTargetRelationships: None
-	ExternalCondition@ambushhole:
-		Condition: produceunit
-	ProximityExternalCondition:
-		Condition: wander
-		Range: 2c0
-	AmmoPool:
-		Ammo: 10
-		AmmoCondition: ammo
-	ReloadAmmoPool@normal:
-		RequiresCondition: !attacking
-		Delay: 500
-	GrantConditionOnAttack@reload:
-		Condition: attacking
-		RevokeDelay: 250
-	Explodes@removecreep:
-		Weapon: CreepRemoveBig
-		EmptyWeapon: CreepRemoveBig
-	AmbientSound@still:
-		SoundFiles: znywht00.aud
-		Interval: 250, 500
-		Delay: 75
-	AmbientSound@busy:
-		SoundFiles: zovtra00.aud,zovtra01.aud
-		Interval: -1
-		Delay: 0
-		RequiresCondition: busy
-	ProximityExternalCondition@2:
-		Condition: creepgen
-		Range: 7c0
-		ValidRelationships: Neutral, Ally, Enemy
-	KillsSelf@player:
-		Delay: 7500
-		RequiresCondition: !botowner
-
 ZMSLO:
 	Inherits: ^ZergBuilding
 	Inherits@IDISABLE: ^DisableOnLowPowerOrPowerDown
@@ -1694,8 +1412,8 @@ ZMSLO:
 	Buildable:
 		Queue: Tech
 		Icon: icon-zerg
-		BuildPaletteOrder: 1003
-		Prerequisites: ~structures.zerg, zlair, ~techlevel.unrestricted
+		BuildPaletteOrder: 200
+		Prerequisites: ~structures.zerg, advtechcenter, ~techlevel.unrestricted
 		BuildLimit: 1
 		Description: Provides an atomic bomb full of plague and corrosion.\nRequires power to operate.\nMaximum 1 can be built.\n  Special Ability: Zerg Atom Bomb
 	Building:
@@ -1782,3 +1500,418 @@ ZMSLO:
 	ProvidesPrerequisite@self:
 	ProvidesPrerequisite@superweapon:
 		Prerequisite: superweapon
+
+ZMOUND:
+	Inherits: ^ZergScienceBuilding
+	Inherits@prereqs: ^BarracksPrereqs
+	Inherits@shape: ^3x2Shape
+	Building:
+		Footprint: ++x xxx
+		Dimensions: 3,2
+	Buildable:
+		Queue: Tech
+		BuildPaletteOrder: 202
+		BuildDuration: 2500
+		Prerequisites: ulttechcenter, zpool, ~structures.zerg, ~techlevel.high, ~zerg.easybuild
+		Description: Allows production of Defilers\n at a Hatchery. \n\nMust be placed on creep.
+		BuildLimit: 1
+	Health:
+		HP: 120000
+	Armor:
+		Type: Wood
+	RevealsShroud:
+		MinRange: 6c0
+		Range: 7c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 6c0
+	Valued:
+		Cost: 1800
+	Tooltip:
+		Name: Defiler Mound
+	BaseBuilding:
+	WithDeathAnimation:
+		DeathSequence: dead
+		UseDeathTypeSuffix: false
+	ProvidesPrerequisite@buildingname:
+	WithIdleOverlay@damage:
+		RequiresCondition: damaged
+		Sequence: blood2
+		Offset: 1500,-512,0
+	WithIdleOverlay@damage2:
+		RequiresCondition: damaged2
+		Sequence: blood1
+		Offset: 512,900,700
+	WithIdleOverlay@damage3:
+		RequiresCondition: damaged3
+		Sequence: blood3
+		Offset: -1500,-1024,-256
+	FreeActor@effect_complete:
+		Actor: MediumZergBuildingComplete
+		SpawnOffset: 0,1
+		RequiresCondition: !build-incomplete
+
+ZULTRADEN:
+	Inherits: ^ZergScienceBuilding
+	Inherits@prereqs: ^BarracksPrereqs
+	Inherits@shape: ^3x2Shape
+	Building:
+		Footprint: xxx xxx ===
+		Dimensions: 3,3
+		LocalCenterOffset: 0,-512,0
+	Selectable:
+		Bounds: 3072, 3072, 0, -426
+	Buildable:
+		Queue: Tech
+		BuildPaletteOrder: 201
+		BuildDuration: 2500
+		Prerequisites: ulttechcenter, zpool, ~structures.zerg, ~techlevel.unrestricted, ~zerg.easybuild
+		Description: Allows production of Ultralisks at \n a Hatchery. \n\nMust be placed on creep.
+		BuildLimit: 1
+	Health:
+		HP: 120000
+	Armor:
+		Type: Wood
+	RevealsShroud:
+		MinRange: 4c0
+		Range: 5c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 4c0
+	Valued:
+		Cost: 2000
+	Tooltip:
+		Name: Ultralisk Cavern
+	BaseBuilding:
+	WithDeathAnimation:
+		DeathSequence: dead
+		UseDeathTypeSuffix: false
+	ProvidesPrerequisite@buildingname:
+	WithIdleOverlay@damage:
+		RequiresCondition: damaged
+		Sequence: blood2
+		Offset: 1200,-512,0
+	WithIdleOverlay@damage2:
+		RequiresCondition: damaged2
+		Sequence: blood1
+		Offset: 512,900,700
+	WithIdleOverlay@damage3:
+		RequiresCondition: damaged3
+		Sequence: blood3
+		Offset: 0,-1024,-256
+	FreeActor@effect_complete:
+		Actor: MediumZergBuildingComplete
+		SpawnOffset: 1,1
+		RequiresCondition: !build-incomplete
+
+ZNYDUS:
+	Inherits@def: ^Defense
+	Inherits: ^ZergBuilding
+	Inherits@prereqs: ^BarracksPrereqs
+	Inherits@shape: ^2x2Shape
+	Inherits@AUTOTARGET: ^AutoTargetAll
+	-Building:
+	Selectable:
+		Bounds: 2048, 2048
+	Building:
+		Footprint: xx xx
+		Dimensions: 2,2
+		TerrainTypes: Creep,Road,Clear
+		RequiresBaseProvider: false
+	Buildable:
+		Queue: Wall
+		BuildPaletteOrder: 450
+		Prerequisites: ~structures.zerg, ulttechcenter, ~techlevel.unrestricted, ~ai.all
+		BuildLimit: 2
+	Health:
+		HP: 120000
+	Armor:
+		Type: Wood
+	RevealsShroud:
+		MinRange: 4c0
+		Range: 5c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 4c0
+	Valued:
+		Cost: 1000
+	Tooltip:
+		Name: Nydus Canal
+	WithDeathAnimation:
+		DeathSequence: dead
+		UseDeathTypeSuffix: false
+	ProvidesPrerequisite@buildingname:
+	WithIdleOverlay@damage:
+		RequiresCondition: damaged
+		Sequence: blood1
+		Offset: 1200,-512,0
+	WithIdleOverlay@damage2:
+		RequiresCondition: damaged2
+		Sequence: blood3
+		Offset: 512,700,700
+	WithIdleOverlay@damage3:
+		RequiresCondition: damaged3
+		Sequence: blood2
+		Offset: -512,0,0
+	InfiltrateForSupportPower:
+		Proxy: barracks.upgraded
+		Types: SpyInfiltrate
+	Targetable:
+		TargetTypes: GroundActor, C4, DetonateAttack, Structure, Defense, SpyInfiltrate
+	Explodes:
+		Type: CenterPosition
+		Weapon: SmallZergBuildingExplode
+		EmptyWeapon: SmallZergBuildingExplode
+	Exit@1:
+		RequiresCondition: !being-captured
+		SpawnOffset: 512,512,0
+		ExitCell: 0,0
+		ProductionTypes: Soldier, Infantry, Hatchery
+	GrantExternalConditionToProduced:
+		Condition: produced
+	GrantExternalConditionToProduced@zergling:
+		Condition: zerglingdouble
+		Duration: 25
+	FreeActor@effect_complete:
+		Actor: SmallZergBuildingComplete
+		SpawnOffset: 1,1
+		RequiresCondition: !build-incomplete
+	Production@inf:
+		RequiresCondition: botowner
+		Produces: Hatchery,Infantry
+	GrantConditionOnProduction@busy:
+		Condition: busy
+		Duration: 25
+		ShowSelectionBar: false
+	ProductionQueue@infantry:
+		Type: Infantry
+		DisplayOrder: 0
+		Group: Infantry
+		LowPowerModifier: 300
+		BuildDurationModifier: 100
+		ReadyAudio: UnitReady
+		BlockedAudio: NoBuild
+		LimitedAudio: BuildingInProgress
+		QueuedAudio: Training
+		OnHoldAudio: OnHold
+		CancelledAudio: Cancelled
+	FreeActor@1:
+		Actor: ZZERGLING
+		RequiresCondition: !build-incomplete
+		SpawnOffset: -1,0
+	FreeActor@2:
+		Actor: ZZERGLING
+		RequiresCondition: !build-incomplete
+		SpawnOffset: -1,0
+	FreeActor@3:
+		Actor: ZZERGLING
+		RequiresCondition: !build-incomplete
+		SpawnOffset: -1,1
+	FreeActor@4:
+		Actor: ZZERGLING
+		RequiresCondition: !build-incomplete
+		SpawnOffset: -1,1
+	FreeActor@5:
+		Actor: ZZERGLING
+		RequiresCondition: !build-incomplete
+		SpawnOffset: 0,2
+	FreeActor@6:
+		Actor: ZZERGLING
+		RequiresCondition: !build-incomplete
+		SpawnOffset: 0,2
+	FreeActor@7:
+		Actor: ZZERGLING
+		RequiresCondition: !build-incomplete
+		SpawnOffset: 1,2
+	FreeActor@8:
+		Actor: ZZERGLING
+		RequiresCondition: !build-incomplete
+		SpawnOffset: 1,2
+	FreeActor@9:
+		Actor: ZHYDRA
+		RequiresCondition: !build-incomplete
+		SpawnOffset: 2,1
+	FreeActor@10:
+		Actor: ZHYDRA
+		RequiresCondition: !build-incomplete
+		SpawnOffset: 2,0
+	FreeActor@11:
+		Actor: ZHYDRA
+		RequiresCondition: !build-incomplete
+		SpawnOffset: 2,2
+	FreeActor@13:
+		Actor: ZZERGLING
+		AllowRespawn: true
+		SpawnOffset: 0,1
+		RequiresCondition: produceunit && !build-incomplete
+	AutoTarget:
+		InitialStance: AttackAnything
+	AttackOmni:
+		PauseOnCondition: !ammo
+		RequiresCondition: botowner
+	Armament:
+		Weapon: NydusSpawn
+		PauseOnCondition: !ammo
+		RequiresCondition: !build-incomplete
+		ForceTargetRelationships: None
+	ExternalCondition@ambushhole:
+		Condition: produceunit
+	ProximityExternalCondition:
+		Condition: wander
+		Range: 2c0
+	AmmoPool:
+		Ammo: 10
+		AmmoCondition: ammo
+	ReloadAmmoPool@normal:
+		RequiresCondition: !attacking
+		Delay: 500
+	GrantConditionOnAttack@reload:
+		Condition: attacking
+		RevokeDelay: 250
+	Explodes@removecreep:
+		Weapon: CreepRemoveBig
+		EmptyWeapon: CreepRemoveBig
+	AmbientSound@still:
+		SoundFiles: znywht00.aud
+		Interval: 250, 500
+		Delay: 75
+	AmbientSound@busy:
+		SoundFiles: zovtra00.aud,zovtra01.aud
+		Interval: -1
+		Delay: 0
+		RequiresCondition: busy
+	ProximityExternalCondition@2:
+		Condition: creepgen
+		Range: 7c0
+		ValidRelationships: Neutral, Ally, Enemy
+	KillsSelf@player:
+		Delay: 7500
+		RequiresCondition: !botowner
+	RallyPoint:
+		Path: 0,3
+	TeleportNetworkPrimaryExit:
+	TeleportNetwork:
+		Type: Teleport
+	WithDecoration@primary:
+		RequiresCondition: primary
+		Position: Top
+		Margin: 0, 4
+		RequiresSelection: true
+		Image: pips
+		Sequence: tag-primary
+	ProximityExternalCondition@nydusalive:
+		Condition: nydus_alive
+		Range: 1c0
+
+ZNYDUS.Entry:
+	Inherits@def: ^Defense
+	Inherits: ^ZergBuilding
+	Inherits@shape: ^1x1Shape
+	-Selectable:
+	-SelectionDecorations:
+	Interactable:
+		Bounds: 64,64
+	RenderSprites:
+		Image: znydus
+	Building:
+		Footprint: xxx x_x x_x
+		Dimensions: 3,3
+	Buildable:
+		Queue: Tech
+		BuildPaletteOrder: 202
+		Prerequisites: ~structures.zerg, ulttechcenter, ~techlevel.unrestricted, ~zerg.easybuild
+		Description: Entry point for Zerg ground units to \nuse the Nydus network. \n\nMust be placed on creep.
+		BuildLimit: 1
+	Health:
+		HP: 100000
+	Armor:
+		Type: Wood
+	RevealsShroud:
+		MinRange: 4c0
+		Range: 5c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 4c0
+	Valued:
+		Cost: 1000
+	Tooltip:
+		Name: Nydus Canal Entry
+	WithDeathAnimation:
+		DeathSequence: dead
+		UseDeathTypeSuffix: false
+	ProvidesPrerequisite@buildingname:
+	Explodes:
+		Type: CenterPosition
+		Weapon: SmallZergBuildingExplode
+		EmptyWeapon: SmallZergBuildingExplode
+	FreeActor@Teleport:
+		Actor: nydus.teleport
+		SpawnOffset: 1,1
+	ProximityExternalCondition@nydusalive:
+		Condition: nydus_alive
+		Range: 1c0
+	KillsSelf@nydusalive:
+		RequiresCondition: !nydus_alive
+		Delay: 1
+	ExternalCondition@nydus_alive:
+		Condition: nydus_alive
+	-RenderRangeCircle:
+	DamageMultiplier:
+		Modifier: 1
+
+NYDUS.Teleport:
+	Inherits: ^ZergBuilding
+	Inherits@shape: ^2x2Shape
+	WithSpriteBody:
+	Selectable:
+		Bounds: 2048, 2048
+	WithMakeAnimation:
+	-Explodes:
+	-Sellable:
+	RenderSprites:
+		Image: ZNYDUS
+	Tooltip:
+		Name: Nydus Canal Entry
+	Valued:
+		Cost: 1000
+	Health:
+		HP: 80000
+	KillsSelf@nydusalive:
+		RequiresCondition: !nydus_alive
+		Delay: 1
+		RemoveInstead: true
+	ExternalCondition@nydus_alive:
+		Condition: nydus_alive
+	ProximityExternalCondition@nydusalive:
+		Condition: nydus_alive
+		Range: 1c0
+	WithIdleOverlay@damage:
+		RequiresCondition: damaged
+		Sequence: blood1
+		Offset: 1200,-512,0
+	WithIdleOverlay@damage2:
+		RequiresCondition: damaged2
+		Sequence: blood3
+		Offset: 512,700,700
+	WithIdleOverlay@damage3:
+		RequiresCondition: damaged3
+		Sequence: blood2
+		Offset: -512,0,0
+	RallyPoint:
+		Path: 0,3
+	TeleportNetworkPrimaryExit:
+	TeleportNetwork:
+		Type: Teleport
+	Exit@1:
+		ExitCell: 0,0
+	WithDecoration@primary:
+		RequiresCondition: primary
+		Position: Top
+		Margin: 0, 4
+		RequiresSelection: true
+		Image: pips
+		Sequence: tag-primary
+	FreeActor@effect_complete:
+		Actor: SmallZergBuildingComplete
+		SpawnOffset: 0,0
+		RequiresCondition: !build-incomplete

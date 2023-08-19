@@ -196,6 +196,12 @@ ZDRONE:
 	TransformOnCondition@mound:
 		IntoActor: ZDRONE.mound
 		RequiresCondition: str_mound && force_deploy
+	GrantConditionOnProduction@nydus:
+		Condition: str_nydus
+		Actors: ZE.NYDUS
+	TransformOnCondition@nydus:
+		IntoActor: ZDRONE.nydus
+		RequiresCondition: str_nydus && force_deploy
 	DockClientManager:
 
 
@@ -286,6 +292,14 @@ ZDRONE.mound:
 	Transforms:
 		IntoActor: zmound
 		Offset: -1,0
+
+ZDRONE.nydus:
+	Inherits@drone: ZDRONE.colony
+	Tooltip:
+		Name: Drone (Nydus Canal)
+	Transforms:
+		IntoActor: znydus.entry
+		Offset: 1,1
 
 ^ZergEvolve:
 	Buildable:
@@ -446,3 +460,17 @@ ZE.MOUND:
 		Cost: 1300
 	RenderSprites:
 		Image: zmound
+
+ZE.NYDUS:
+	Inherits: ^ZergEvolve
+	Tooltip:
+		Name: Evolve into Nydus Canal (Entry)
+	Buildable:
+		Description: Entry point for Zerg ground units to \nuse the Nydus network. \n\nMust be placed on creep.
+		BuildPaletteOrder: 9
+		Prerequisites: ulttechcenter, ~techlevel.unrestricted, ~zdrone, !znydus.entry
+		BuildDuration: 1250
+	Valued:
+		Cost: 1000
+	RenderSprites:
+		Image: znydus

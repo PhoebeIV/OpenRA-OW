@@ -31,7 +31,8 @@ ZOVERLORD:
 	Aircraft:
 		TurnSpeed: 32
 		Speed: 32
-		CanSlide: false
+		CanSlide: true
+		AltitudeVelocity: 96
 	WithFacingSpriteBody:
 		RequiresCondition: !moving
 	WithFacingSpriteBody@moving:
@@ -66,6 +67,15 @@ ZOVERLORD:
 	DetectCloakedMultiplier@shoes:
 		RequiresCondition: shoes
 		Modifier: 125
+	SpeedMultiplier@shoes:
+		RequiresCondition: shoes
+		Modifier: 225
+	PowerMultiplier@shoes:
+		RequiresCondition: shoes
+		Modifier: 125
+	DamageMultiplier@shoes:
+		RequiresCondition: shoes
+		Modifier: 75
 	ProvidesRadar:
 		RequiresCondition: !jammed && !lowpower
 	ExternalCondition@JAMMED:
@@ -76,46 +86,33 @@ ZOVERLORD:
 	PowerMultiplier@botowner:
 		RequiresCondition: botowner
 		Modifier: 200
-	GrantPeriodicCondition@deploy:
-		Condition: force_deploy
-		RequiresCondition: shoes
-		CooldownDuration: 50
-		ActiveDuration: 50
-		StartsGranted: true
-	TransformOnCondition@shoes:
-		IntoActor: ZOVERLORD.Upgraded
-		RequiresCondition: shoes && force_deploy
 	Wanders@creep:
 		RequiresCondition: oncreep
 		MinMoveDelay: 150
 		MaxMoveDelay: 750
 		WanderMoveRadius: 3
+	WithCargoPipsDecoration:
+		Position: BottomLeft
+		RequiresSelection: true
+		RequiresCondition: shoes
+	Cargo:
+		Types: Infantry, Vehicle
+		MaxWeight: 8
+		AfterUnloadDelay: 5
+		RequiresCondition: shoes
 
 ZOVERLORD.Upgraded:
 	Inherits: ZOVERLORD
 	Buildable:
 		Prerequisites: ~structures.zerg, ~techlevel.infonly, ~zerg.overlord
 		Description: [Upgraded]\n Allows control over your swarm.\n Detects cloaked units.\nSpeed: 72 \n\nTransports units.
-	Aircraft:
-		TurnSpeed: 32
-		Speed: 72
-		CanSlide: true
-		AltitudeVelocity: 96
 	Health:
 		HP: 40000
 	RenderSprites:
 		Image: zoverlord
-	WithCargoPipsDecoration:
-		Position: BottomLeft
-		RequiresSelection: true
-	Cargo:
-		Types: Infantry, Vehicle
-		MaxWeight: 8
-		AfterUnloadDelay: 5
+	-PowerMultiplier@shoes:
 	Power:
 		Amount: 100
-	-GrantPeriodicCondition@deploy:
-	-TransformOnCondition@shoes:
 
 ZMUTA:
 	Inherits: ^Helicopter
