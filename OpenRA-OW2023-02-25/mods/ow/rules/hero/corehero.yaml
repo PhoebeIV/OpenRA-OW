@@ -138,246 +138,8 @@
 		RequiresCondition: rank-veteran == 3
 
 #Hero Version of the Infantry Inherit. 
-#(will merge into same file as original later with Inherits and -traits after testing)
-^HeroInfantry:
-	Inherits@1: ^ExistsInWorld
-	Inherits@HeroExp: ^Heroexp
-	Inherits@HLS: ^HeroLevelSender
-	Inherits@4: ^SpriteActor
-	Inherits@bounty: ^GlobalBounty
-	Inherits@selection: ^SelectableCombatUnit
-	Inherits@handicaps: ^PlayerHandicaps
-	Inherits@pallyboost: ^Pallyboosted
-	Inherits@Monumentboost: ^Monumentboosted
-	Inherits@HolyBoostedHolyOnly: ^HolyBoostedHolyOnly
-	Inherits@TotemBoost: ^TotemAffected
-	Inherits@aeiou: ^AEIOUBoosted
-	Inherits@ShieldHero: ^HolySuperBoosted
-	Inherits@gps: ^GPSScramblable
-	Inherits@usabombardment: ^usabombardment
-	Inherits@usasearchanddestroy: ^usasearchanddestroy
-	Inherits@usahold_the_line: ^usaholdtheline
-	Inherits@frenzyboost: ^FrenzyBoostInfantry
-	Inherits@propagandaboost: ^propagandaboostinfantry
-	OwnerLostAction:
-		Action: ChangeOwner
-		Owner: Creeps
-	Health:
-		HP: 10000
-	Armor:
-		Type: None
-	RevealsShroud:
-		Range: 4c0
-	Mobile:
-		Speed: 54
-		AlwaysTurnInPlace: true
-		Locomotor: foot
-	RevealOnFire:
-	Selectable:
-		Bounds: 768, 853, 0, -256
-		DecorationBounds: 512, 768, 0, -341
-	Targetable:
-		TargetTypes: GroundActor, Infantry, Disguise, Hero
-	Targetable@HEAL:
-		RequiresCondition: !parachute && damaged
-		TargetTypes: Heal
-	GrantConditionOnDamageState@DAMAGED:
-		Condition: damaged
-		ValidDamageStates: Light, Medium, Heavy, Critical
-	QuantizeFacingsFromSequence:
-		Sequence: stand
-	WithInfantryBody:
-	WithDeathAnimation:
-		DeathTypes:
-			DefaultDeath: 1
-			BulletDeath: 2
-			SmallExplosionDeath: 3
-			ExplosionDeath: 4
-			FireDeath: 5
-			ElectricityDeath: 6
-		CrushedSequence: die-crushed
-	AttackMove:
-	HiddenUnderFog:
-	ActorLostNotification:
-		TextNotification: Hero lost.
-	GpsDot:
-		String: Biohazard
-	Guard:
-	Guardable:
-	Tooltip:
-		GenericName: Hero Unit (Base Tooltip)
-	ChangesHealth@HOSPITAL:
-		Step: 500
-		Delay: 100
-		StartIfBelow: 100
-		DamageCooldown: 125
-		RequiresCondition: hospitalheal
-	GrantConditionOnPrerequisite@HOSPITAL:
-		Condition: hospital
-		Prerequisites: hosp
-	GrantConditionOnDamageState@HOSPITAL:
-		Condition: damaged
-		ValidDamageStates: Light, Medium, Heavy, Critical
-	GrantCondition@HOSPITAL:
-		RequiresCondition: hospital && damaged
-		Condition: hospitalheal
-	WithDecoration@REDCROSS:
-		Image: pips
-		Sequence: medic
-		Position: BottomRight
-		Margin: 17, 4
-		RequiresCondition: hospitalheal
-		BlinkInterval: 32
-		BlinkPattern: Off, On
-	DeathSounds@NORMAL:
-		DeathTypes: DefaultDeath, BulletDeath, SmallExplosionDeath, ExplosionDeath, SpawnCubeDeath
-	DeathSounds@BURNED:
-		Voice: Burned
-		DeathTypes: FireDeath, TiberiumDeath
-	DeathSounds@ZAPPED:
-		Voice: Die
-		DeathTypes: ElectricityDeath
-	Voiced:
-		VoiceSet: GenericVoice
-	HitShape:
-		Type: Circle
-			Radius: 128
-	MapEditorData:
-		Categories: Infantry
-	DetectCloaked:
-		DetectionTypes: Cloak
-		Range: 3c0
-	ExternalCondition@squadboost:
-		Condition: squadboost
-	SpeedMultiplier@squadboost:
-		RequiresCondition: squadboost
-		Modifier: 110
-	ReloadDelayMultiplier@squadboost:
-		RequiresCondition: squadboost
-		Modifier: 85
-	ExternalCondition@hospitalhealciv:
-		Condition: hospitalhealciv
-	ChangesHealth@HOSPITALCIV:
-		Step: 500
-		Delay: 100
-		StartIfBelow: 100
-		DamageCooldown: 125
-		RequiresCondition: hospitalhealciv
-	ExternalCondition@flagboost:
-		Condition: flagboost
-	FirepowerMultiplier@flagfirepowerboost:
-		RequiresCondition: flagboost
-		Modifier: 130
-	InaccuracyMultiplier@flagaccuracyboost:
-		RequiresCondition: flagboost
-		Modifier: 50
-	ExternalCondition@bioboost:
-		Condition: bioboost
-	SpeedMultiplier@biospeedboost:
-		RequiresCondition: bioboost
-		Modifier: 140
-	ReloadDelayMultiplier@bioreloadboost:
-		RequiresCondition: bioboost
-		Modifier: 75
-	DamageMultiplier@biodefenseboost:
-		RequiresCondition: bioboost
-		Modifier: 75
-	ChangesHealth@TotemDebuf:
-		RequiresCondition: TotemDebuf
-		PercentageStep: -2
-		Delay: 25
-		StartIfBelow: 101
-		DamageCooldown: 0
-	ChangesHealth@aeiouboost:
-		RequiresCondition: aeiouboost
-		PercentageStep: 3
-		Delay: 25
-		StartIfBelow: 90
-		DamageCooldown: 50
-	ChangesHealth@HolySuperBoosted:
-		RequiresCondition: HolySuperBoosted
-		PercentageStep: 3
-		Delay: 75
-		StartIfBelow: 90
-		DamageCooldown: 150
-	ChangesHealth@Monumentboost:
-		RequiresCondition: Monumentboost
-		PercentageStep: 1
-		Delay: 40
-		StartIfBelow: 100
-		DamageCooldown: 40
-	ExternalCondition@demoralise:
-		Condition: demoralise
-	SpeedMultiplier@demoralise:
-		RequiresCondition: demoralise
-		Modifier: 90
-	ReloadDelayMultiplier@demoralise:
-		RequiresCondition: demoralise
-		Modifier: 115
-	WithDecoration@demoralise:
-		Image: pips
-		Sequence: pip-minus
-		Palette: effect
-		Position: TopRight
-		ValidRelationships: None,Neutral,Enemy,Ally
-		RequiresCondition: demoralise && !squadboost
-	Explodes@elec:
-		Weapon: Electro
-		EmptyWeapon: Electro
-		DeathTypes: ElectricityDeath
-	Explodes@tiberium:
-		Weapon: TSInfExplode
-		EmptyWeapon: TSInfExplode
-		DeathTypes: TiberiumDeath, SpawnCubeDeath
-	Explodes@fire:
-		Weapon: InfFireball
-		EmptyWeapon: InfFireball
-		DeathTypes: FireDeath
-	Explodes@GraveyardSpawnerDeath:
-		Weapon: GraveyardSpawnerDeath
-		EmptyWeapon: GraveyardSpawnerDeath
-	ChangesHealth@radiation:
-		RequiresCondition: standing_in_radiation && !gdi_suits
-		DamageTypes: FireDeath, TriggerProne
-		Step: -100
-		Delay: 16
-		StartIfBelow: 101
-	GrantConditionOnTerrain@radiation:
-		Condition: standing_in_radiation
-		TerrainTypes: Radiation
-	SpawnActorOnDeath@cube:
-		Probability: 15
-		Actor: helld6
-		OwnerType: Killer
-		DeathType: SpawnCubeDeath
-		RequiresLobbyCreeps: false
-	SpawnActorOnDeath@fire:
-		Actor: flameguy
-		DeathType: FireDeath
-	SpawnActorOnDeath@RotElement:
-		RequiresCondition: RotElementHitCon
-		Actor: RotElement
-		OwnerType: Killer
-		DeathType: ElementalDeath
-	WithDeathAnimation:
-		DeathTypes:
-			DefaultDeath: 1
-			BulletDeath: 2
-			SmallExplosionDeath: 3
-			ExplosionDeath: 4
-			FireDeath: 5
-			ElectricityDeath: 6
-		CrushedSequence: die-crushed
-	UpdatesPlayerStatistics:
-		AddToArmyValue: true
-	TurnOnIdle:
-	DetectCloaked@GPS:
-		Range: 1c512
-		DetectionTypes: gpsscrambler
-	TemporaryOwnerManager:
-	DetectCloaked@AssasinDark:
-		DetectionTypes: DarkAssasin
-		Range: 6
+# HeroInfantry class not required, can still use base Vehicle/Infantry, etc classes along with ^Hero
+
 
 ## Goes onto Hero, 
 ##Turns Level ups into conditions for each Tier
@@ -787,28 +549,6 @@
 		GrantPermanently: True
 		RequiresCondition: IncomingT5LV5
 
-
-#Spawn these for holding Hero Tiers.
-^HeroTier1:
-	ProvidesPrerequisite@T1:
-		Prerequisite: T1
-
-^HeroTier2:
-	ProvidesPrerequisite@T2:
-		Prerequisite: T2
-
-^HeroTier3:
-	ProvidesPrerequisite@T3:
-		Prerequisite: T3
-
-^HeroTier4:
-	ProvidesPrerequisite@T4:
-		Prerequisite: T4
-
-^HeroTier5:
-	ProvidesPrerequisite@T5:
-		Prerequisite: T5
-
 #Goes onto Hero, Gives Upgrades from Prerequisites.
 ^HeroUpgradeL1OnHero:
 	#T1
@@ -1006,3 +746,533 @@
 	DamageMultiplier@L2T5:
 		Modifier: 95
 		RequiresCondition: T5L2Vision
+
+
+
+## Hero rework
+^Hero:
+	Inherits@XP: ^NoExp
+	ProductionCostMultiplier@1:
+		Multiplier: 20
+		Prerequisites: barracks
+	Valued:
+		Cost: 5000
+	AnnounceOnSeen:
+		PingRadar: True
+		Notification: EnemyUnitsApproaching
+	ExternalCondition@PRODUCED:
+		Condition: produced
+	VoiceAnnouncement:
+		RequiresCondition: produced
+		Voice: Build
+	WithDecoration@elite:
+		Image: pips
+		Sequence: pip-poison
+		Palette: effect
+		ValidRelationships: None,Neutral,Enemy,Ally
+	GpsDot:
+		String: Biohazard
+	Cloneable:
+		Types: Epic
+	ChangesHealth@aeiouboost:
+		RequiresCondition: aeiouboost
+		PercentageStep: 1
+		Delay: 75
+		StartIfBelow: 70
+		DamageCooldown: 100
+	Targetable@epic1:
+		TargetTypes: EpicUnit, Hero
+	ProximityExternalCondition@EpicDenialAura:
+		ValidRelationships: Enemy
+		Condition: EpicDenialAura
+		Range: 20c512
+	DamageMultiplier@iar1:
+		RequiresCondition: iar1 && !iar2
+		Modifier: 96
+	DamageMultiplier@iar2:
+		RequiresCondition: iar2 && !iar3
+		Modifier: 92
+	DamageMultiplier@iar3:
+		RequiresCondition: iar3
+		Modifier: 88
+	FirepowerMultiplier@ifp1:
+		RequiresCondition: ifp1 && !ifp2
+		Modifier: 104
+	FirepowerMultiplier@ifp2:
+		RequiresCondition: ifp2 && !ifp3
+		Modifier: 108
+	FirepowerMultiplier@ifp3:
+		RequiresCondition: ifp3
+		Modifier: 112
+	ShakeOnDeath:
+		Duration: 15
+	ChangesHealth@TotemDebuf:
+		RequiresCondition: TotemDebuf
+		PercentageStep: -2
+		Delay: 50
+		StartIfBelow: 101
+		DamageCooldown: 0
+	ChangesHealth@aeiouboost:
+		RequiresCondition: aeiouboost
+		PercentageStep: 1
+		Delay: 75
+		StartIfBelow: 70
+		DamageCooldown: 100
+	ChangesHealth@HolySuperBoosted:
+		RequiresCondition: HolySuperBoosted
+		PercentageStep: 1
+		Delay: 75
+		StartIfBelow: 90
+		DamageCooldown: 75
+	DamageMultiplier@var1:
+		RequiresCondition: var1 && !var2
+		Modifier: 96
+	DamageMultiplier@var2:
+		RequiresCondition: var2 && !var3
+		Modifier: 92
+	DamageMultiplier@var3:
+		RequiresCondition: var3
+		Modifier: 88
+	FirepowerMultiplier@vfp1:
+		RequiresCondition: vfp1 && !vfp2
+		Modifier: 104
+	FirepowerMultiplier@vfp2:
+		RequiresCondition: vfp2 && !vfp3
+		Modifier: 108
+	FirepowerMultiplier@vfp3:
+		RequiresCondition: vfp3
+		Modifier: 112
+	DamageMultiplier@IRONCURTAIN:
+		RequiresCondition: invulnerability
+		Modifier: 10
+	DamageMultiplier@nar1:
+		RequiresCondition: nar1 && !nar2
+		Modifier: 96
+	DamageMultiplier@nar2:
+		RequiresCondition: nar2 && !nar3
+		Modifier: 92
+	DamageMultiplier@nar3:
+		RequiresCondition: nar3
+		Modifier: 88
+	FirepowerMultiplier@nfp1:
+		RequiresCondition: nfp1 && !nfp2
+		Modifier: 104
+	FirepowerMultiplier@nfp2:
+		RequiresCondition: nfp2 && !nfp3
+		Modifier: 108
+	FirepowerMultiplier@nfp3:
+		RequiresCondition: nfp3
+		Modifier: 112
+	GainsExperience:
+		LevelUpNotification: LevelUp
+		LevelUpTextNotification: Hero gained a level.
+		-Conditions:
+		Conditions:
+			150: hero-level
+			300: hero-level
+			450: hero-level
+			600: hero-level
+			750: hero-level
+		LevelUpImage: crate-effects
+		ExperienceModifier: 1000
+	WithDecoration@level1:
+		Image: pips
+		Sequence: pip-yellow
+		Palette: effect
+		Position: BottomRight
+		Margin: -16, -5
+		RequiresCondition: hero-level >= 1
+	WithDecoration@level2:
+		Image: pips
+		Sequence: pip-yellow
+		Palette: effect
+		Position: BottomRight
+		Margin: -12, -5
+		RequiresCondition: hero-level >= 2
+	WithDecoration@level3:
+		Image: pips
+		Sequence: pip-yellow
+		Palette: effect
+		Position: BottomRight
+		Margin: -8, -5
+		RequiresCondition: hero-level >= 3
+	WithDecoration@level4:
+		Image: pips
+		Sequence: pip-yellow
+		Palette: effect
+		Position: BottomRight
+		Margin: -4, -5
+		RequiresCondition: hero-level >= 4
+	WithDecoration@level5:
+		Image: pips
+		Sequence: pip-gray
+		Palette: effect
+		Position: BottomRight
+		Margin: 0, -5
+		RequiresCondition: hero-level == 5
+	WithDecoration@level1emp:
+		Image: pips
+		Sequence: pip-empty
+		Palette: effect
+		Position: BottomRight
+		Margin: -16, -5
+	WithDecoration@level2emp:
+		Image: pips
+		Sequence: pip-empty
+		Palette: effect
+		Position: BottomRight
+		Margin: -12, -5
+	WithDecoration@level3emp:
+		Image: pips
+		Sequence: pip-empty
+		Palette: effect
+		Position: BottomRight
+		Margin: -8, -5
+	WithDecoration@level4emp:
+		Image: pips
+		Sequence: pip-empty
+		Palette: effect
+		Position: BottomRight
+		Margin: -4, -5
+	WithDecoration@level5emp:
+		Image: pips
+		Sequence: pip-empty
+		Palette: effect
+		Position: BottomRight
+		Margin: 0, -5
+	WithDecoration@tier1emp:
+		Image: pips
+		Sequence: pip-empty
+		Palette: effect
+		Position: BottomRight
+		Margin: -16, -1
+	WithDecoration@tier2emp:
+		Image: pips
+		Sequence: pip-empty
+		Palette: effect
+		Position: BottomRight
+		Margin: -12, -1
+	WithDecoration@tier3emp:
+		Image: pips
+		Sequence: pip-empty
+		Palette: effect
+		Position: BottomRight
+		Margin: -8, -1
+	WithDecoration@tier4emp:
+		Image: pips
+		Sequence: pip-empty
+		Palette: effect
+		Position: BottomRight
+		Margin: -4, -1
+	WithDecoration@tier5emp:
+		Image: pips
+		Sequence: pip-empty
+		Palette: effect
+		Position: BottomRight
+		Margin: 0, -1
+	DamageMultiplier@level1:
+		RequiresCondition: hero-level == 1
+		Modifier: 95
+	DamageMultiplier@level2:
+		RequiresCondition: hero-level == 2
+		Modifier: 90
+	DamageMultiplier@level3:
+		RequiresCondition: hero-level == 3
+		Modifier: 85
+	DamageMultiplier@level4:
+		RequiresCondition: hero-level >= 4
+		Modifier: 80
+	TooltipDescription@0:
+		RequiresCondition: !hero-level
+		Description: Level 0
+		ValidRelationships: Ally, Neutral, Enemy, None
+	TooltipDescription@1:
+		RequiresCondition: hero-level == 1
+		Description: Level 1
+		ValidRelationships: Ally, Neutral, Enemy, None
+	TooltipDescription@2:
+		RequiresCondition: hero-level == 2
+		Description: Level 2
+		ValidRelationships: Ally, Neutral, Enemy, None
+	TooltipDescription@3:
+		RequiresCondition: hero-level == 3
+		Description: Level 3
+		ValidRelationships: Ally, Neutral, Enemy, None
+	TooltipDescription@4:
+		RequiresCondition: hero-level == 4
+		Description: Level 4
+		ValidRelationships: Ally, Neutral, Enemy, None
+	TooltipDescription@5:
+		RequiresCondition: hero-level == 5
+		Description: Level 5
+		ValidRelationships: Ally, Neutral, Enemy, None
+	GrantCondition@milestone:
+		Condition: milestone
+		RequiresCondition: hero-level == 5
+	GrantDelayedCondition@milestone:
+		Condition: milestone_delay
+		Delay: 75
+		RequiresCondition: hero-level == 5
+	GrantTimedCondition@healup:
+		Condition: heal_up
+		Duration: 75
+		RequiresCondition: hero-level == 1
+	GrantTimedCondition@healup2:
+		Condition: heal_up
+		Duration: 75
+		RequiresCondition: hero-level == 3
+	GrantTimedCondition@healup3:
+		Condition: heal_up
+		Duration: 75
+		RequiresCondition: hero-level == 5
+	GrantTimedCondition@levelup:
+		Condition: milestone_timed
+		Duration: 10
+		RequiresCondition: milestone
+	ChangesHealth@healup:
+		RequiresCondition: heal_up
+		PercentageStep: 1
+		DamageCooldown: 0
+		Delay: 1
+		Step: 0
+		StartIfBelow: 100
+	DamageMultiplier@healup:
+		Modifier: 1
+		RequiresCondition: heal_up
+	WithDecoration@milestone:
+		Image: explosion
+		Sequence: bfgred
+		Palette: effect
+		Position: Center
+		ValidRelationships: Ally, Enemy, Neutral, None
+		RequiresCondition: milestone_timed
+	AmbientSound@milestone:
+		SoundFiles: hero_lvl.aud
+		Interval: -1
+		RequiresCondition: milestone
+	GrantPeriodicCondition@deploy:
+		Condition: force_deploy
+		RequiresCondition: milestone_delay
+		CooldownDuration: 5
+		ActiveDuration: 5
+	ExperienceTrickler@passive:
+		RequiresCondition: attacking_passive
+		Amount: 1000
+		Interval: 25
+	GrantConditionOnAttack@passive:
+		Condition: attacking_passive
+		RevokeDelay: 25
+
+^HeroTier1:
+	GrantExternalConditionToOwner:
+		Condition: hero_tier1
+	WithDecoration@tier1emp:
+		Image: pips
+		Sequence: pip-red
+		Palette: effect
+		Position: BottomRight
+		Margin: -16, -1
+	TooltipDescription@tier1:
+		Description: Tier 1
+		ValidRelationships: Ally, Neutral, Enemy, None
+	ProductionQueue@tier:
+		Type: HeroUpgrade1
+		ReadyAudio: UpgradeSuccess
+	Production@tier:
+		Produces: HeroUpgrade1
+		RequiresCondition: !hero_upgraded1
+	GrantConditionOnPrerequisite@tier:
+		Condition: hero_upgraded1
+		Prerequisites: hero.upgraded1
+
+^HeroTier2:
+	Inherits: ^HeroTier1
+	GrantExternalConditionToOwner:
+		Condition: hero_tier2
+	WithDecoration@tier2emp:
+		Image: pips
+		Sequence: pip-red
+		Palette: effect
+		Position: BottomRight
+		Margin: -12, -1
+	TooltipDescription@tier1:
+		Description: Tier 2
+	ProductionQueue@tier:
+		Type: HeroUpgrade2
+	Production@tier:
+		Produces: HeroUpgrade2
+		RequiresCondition: !hero_upgraded2
+	GrantConditionOnPrerequisite@tier:
+		Condition: hero_upgraded2
+		Prerequisites: hero.upgraded2
+
+^HeroTier3:
+	Inherits: ^HeroTier2
+	GrantExternalConditionToOwner:
+		Condition: hero_tier3
+	WithDecoration@tier3emp:
+		Image: pips
+		Sequence: pip-red
+		Palette: effect
+		Position: BottomRight
+		Margin: -8, -1
+	TooltipDescription@tier1:
+		Description: Tier 3
+	ProductionQueue@tier:
+		Type: HeroUpgrade3
+	Production@tier:
+		Produces: HeroUpgrade3
+		RequiresCondition: !hero_upgraded3
+	GrantConditionOnPrerequisite@tier:
+		Condition: hero_upgraded3
+		Prerequisites: hero.upgraded3
+
+^HeroTier4:
+	Inherits: ^HeroTier3
+	GrantExternalConditionToOwner:
+		Condition: hero_tier4
+	WithDecoration@tier4emp:
+		Image: pips
+		Sequence: pip-red
+		Palette: effect
+		Position: BottomRight
+		Margin: -4, -1
+	TooltipDescription@tier1:
+		Description: Tier 4
+	ProductionQueue@tier:
+		Type: HeroUpgrade4
+	Production@tier:
+		Produces: HeroUpgrade4
+		RequiresCondition: !hero_upgraded4
+	GrantConditionOnPrerequisite@tier:
+		Condition: hero_upgraded4
+		Prerequisites: hero.upgraded4
+
+^HeroTier5:
+	Inherits: ^HeroTier4
+	GrantExternalConditionToOwner:
+		Condition: hero_tier5
+	WithDecoration@tier5emp:
+		Image: pips
+		Sequence: pip-red
+		Palette: effect
+		Position: BottomRight
+		Margin: 0, -1
+	TooltipDescription@tier1:
+		Description: Tier 5
+	ProductionQueue@tier:
+		Type: HeroUpgrade5
+	Production@tier:
+		Produces: HeroUpgrade5
+		RequiresCondition: !hero_upgraded5
+	GrantConditionOnPrerequisite@tier:
+		Condition: hero_upgraded5
+		Prerequisites: hero.upgraded5
+	ExperienceTrickler:
+		RequiresCondition: hero-level <= 4
+		Amount: 2000
+		Interval: 25
+	GainsExperience:
+		-LevelUpNotification:
+		-LevelUpTextNotification:
+
+^HeroUpgradeBaseTier1:
+	Buildable:
+		Queue: HeroUpgrade1
+		BuildLimit: 1
+		BuildDurationModifier: 100
+		BuildDuration: 25
+	AlwaysVisible:
+	Interactable:
+	ScriptTriggers:
+	RenderSprites:
+	Valued:
+		Cost: 0
+	ProvidesPrerequisite@upgradename:
+	ProvidesPrerequisite@tier:
+		Prerequisite: hero.upgraded1
+	RenderSprites: 
+		Image: upgrade.infarmor1
+
+^HeroUpgradeBaseTier2:
+	Inherits: ^HeroUpgradeBaseTier1
+	Buildable:
+		Queue: HeroUpgrade2
+	ProvidesPrerequisite@tier:
+		Prerequisite: hero.upgraded2
+	RenderSprites: 
+		Image: upgrade.infarmor2
+
+^HeroUpgradeBaseTier3:
+	Inherits: ^HeroUpgradeBaseTier1
+	Buildable:
+		Queue: HeroUpgrade3
+	ProvidesPrerequisite@tier:
+		Prerequisite: hero.upgraded3
+	RenderSprites: 
+		Image: upgrade.infarmor3
+
+^HeroUpgradeBaseTier4:
+	Inherits: ^HeroUpgradeBaseTier1
+	Buildable:
+		Queue: HeroUpgrade4
+	ProvidesPrerequisite@tier:
+		Prerequisite: hero.upgraded4
+	RenderSprites: 
+		Image: upgrade.infarmor3
+
+^HeroUpgradeBaseTier5:
+	Inherits: ^HeroUpgradeBaseTier1
+	Buildable:
+		Queue: HeroUpgrade5
+	ProvidesPrerequisite@tier:
+		Prerequisite: hero.upgraded5
+	RenderSprites: 
+		Image: upgrade.infarmor3
+
+Player:
+	ExternalCondition@herotier1:
+		Condition: hero_tier1
+	GrantCondition@herotier1:
+		RequiresCondition: hero_tier1
+		Condition: hero_tier1perm
+		GrantPermanently: true
+	ProvidesPrerequisite@herotier1:
+		RequiresCondition: hero_tier1perm
+		Prerequisite: hero.tier1
+	ExternalCondition@herotier2:
+		Condition: hero_tier2
+	GrantCondition@herotier2:
+		RequiresCondition: hero_tier2
+		Condition: hero_tier2perm
+		GrantPermanently: true
+	ProvidesPrerequisite@herotier2:
+		RequiresCondition: hero_tier2perm
+		Prerequisite: hero.tier2
+	ExternalCondition@herotier3:
+		Condition: hero_tier3
+	GrantCondition@herotier3:
+		RequiresCondition: hero_tier3
+		Condition: hero_tier3perm
+		GrantPermanently: true
+	ProvidesPrerequisite@herotier3:
+		RequiresCondition: hero_tier3perm
+		Prerequisite: hero.tier3
+	ExternalCondition@herotier4:
+		Condition: hero_tier4
+	GrantCondition@herotier4:
+		RequiresCondition: hero_tier4
+		Condition: hero_tier4perm
+		GrantPermanently: true
+	ProvidesPrerequisite@herotier4:
+		RequiresCondition: hero_tier4perm
+		Prerequisite: hero.tier4
+	ExternalCondition@herotier5:
+		Condition: hero_tier5
+	GrantCondition@herotier5:
+		RequiresCondition: hero_tier5
+		Condition: hero_tier5perm
+		GrantPermanently: true
+	ProvidesPrerequisite@herotier5:
+		RequiresCondition: hero_tier5perm
+		Prerequisite: hero.tier5

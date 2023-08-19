@@ -943,3 +943,336 @@ active.raynor:
 	Interactable:
 	Tooltip:
 		Name: EpiTech Center
+
+TRAYNOR.Hero0:
+	Inherits: ^DoomSoldier
+	Inherits@Hero: ^Hero
+	Inherits@stimpack: ^CanTakeStimpacks
+	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
+	RenderSprites:
+		Image: traynor
+	Buildable:
+		Queue: Infantry
+		BuildAtProductionType: Soldier
+		BuildPaletteOrder: 50
+		Prerequisites: ~barracks, ~techlevel.unrestricted, !active.raynor, ~!hero.tier1, ~techlevel.hero
+		Description: [HERO]\n\nLeader of Raynor's Raiders armed with a modified\n C-14 Gauss Rifle.\nSpeed: 72\n  Strong vs Infantry, Aircraft\n  Weak vs Vehicles \n\nEquipped with Stimpacks.
+		BuildDurationModifier: 100
+		BuildDuration: 750
+		BuildLimit: 1
+	Selectable:
+		Bounds: 1536, 1536, 0, 0
+		DecorationBounds: 1536, 1536, 0, 0
+	Tooltip:
+		Name: Jim Raynor (Tier 0)
+		RequiresCondition: !in_world
+	Tooltip@real:
+		Name: Jim Raynor
+		RequiresCondition: in_world
+	GrantCondition@real:
+		Condition: in_world
+	Mobile:
+		Speed: 72
+		TurnSpeed: 90
+		Locomotor: foot2
+		Voice: Move
+	Guard:
+		Voice: Move
+	Health:
+		HP: 80000
+	RevealsShroud:
+		MinRange: 6c0
+		Range: 8c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 6c0
+	Passenger:
+		CustomPipType: red
+		Voice: Move
+	Armament@PRIMARY:
+		Weapon: TerranRaynor
+	Armament@GARRISONED:
+		Name: garrisoned
+		Weapon: TerranRaynor
+		MuzzleSequence: garrison-muzzle
+	Armament@BUS:
+		Name: bus
+		Weapon: TerranRaynor
+	WithInfantryBody:
+		DefaultAttackSequence: shoot
+		StandSequences: stand,stand2
+		IdleSequences: stand,stand2,aiming
+		RequiresCondition: !aiming && !shooting
+	WithInfantryBody@aiming:
+		DefaultAttackSequence: shoot
+		StandSequences: aiming
+		IdleSequences: stand,stand2
+		RequiresCondition: aiming && !shooting
+	WithInfantryBody@shooting:
+		DefaultAttackSequence: shoot
+		StandSequences: shoot
+		IdleSequences: shoot
+		RequiresCondition: aiming && shooting
+	GrantConditionOnAttack@aiming:
+		Condition: aiming
+		RevokeDelay: 50
+		ArmamentNames: primary, secondary
+	GrantConditionOnAttack@shooting:
+		Condition: shooting
+		RevokeDelay: 14
+	GrantConditionOnMovement@move:
+		Condition: moving
+	WithDeathAnimation:
+		UseDeathTypeSuffix: false
+		CrushedSequence: die
+		CrushedSequencePalette: player
+		CrushedPaletteIsPlayerPalette: true
+	ProducibleWithLevel:
+		Prerequisites: barracks.upgraded
+	Voiced:
+		VoiceSet: TerranRaynorVoice
+	-DeathSounds@NORMAL:
+	-DeathSounds@ZAPPED:
+	-DeathSounds@BURNED:
+	-SpawnActorOnDeath@fire:
+	Explodes:
+		Weapon: RaynorDeathNoExplosion
+		EmptyWeapon: RaynorDeathNoExplosion
+		RequiresCondition: !force_deploy
+	AmbientSound@talky:
+		SoundFiles: trajuke.aud,baud.aud,baud.aud,baud.aud
+		Delay: 1500, 4500
+		Interval: 3000, 4500
+	GrantConditionOnPrerequisite@upgrade:
+		Prerequisites: terran.marine
+		Condition: marine_upgraded
+	GrantConditionOnAttack@stimpack:
+		Condition: active_stimpack
+		RequiresCondition: stimpack && health_stimpack
+		RevokeDelay: 250
+		RequiredShotsPerInstance: 1,3
+	AmbientSound@stimpack:
+		SoundFiles: traatk00.aud,traatk01.aud,traatk02.aud,traatk03.aud
+		Delay: 50,175
+		Interval: 300,750
+		RequiresCondition: active_stimpack
+	ChangesHealth@stimpack:
+		RequiresCondition: active_stimpack && health_stimpack
+		PercentageStep: -1
+		Delay: 25
+		StartIfBelow: 101
+	GrantConditionOnHealth@stimpack:
+		MinHP: 20000
+		Condition: health_stimpack
+	GrantCondition@stimpacks:
+		-RequiresCondition:
+		Condition: stimpack
+		GrantPermanently: true
+	ChangesHealth@default:
+		PercentageStep: 1
+		Delay: 75
+		StartIfBelow: 101
+		DamageCooldown: 75
+	ExternalCondition@PRODUCED:
+		Condition: produced
+	VoiceAnnouncement:
+		RequiresCondition: produced
+		Voice: Build
+	AnnounceOnKill:
+	-WithDecoration@stimpack:
+	-WithDecoration@stimpack2:
+	-DamageMultiplier@stimpack:
+	ProvidesPrerequisite@inthefield:
+		Prerequisite: active.raynor
+	ExternalCondition@wander:
+		Condition: wander
+	AttackWander:
+		RequiresCondition: wander
+	ActorLostNotification:
+		RequiresCondition: !force_deploy
+	KillsSelf@level:
+		RequiresCondition: force_deploy
+		Delay: 1
+	SpawnActorOnDeath:
+		RequiresCondition: force_deploy
+		Actor: TRAYNOR.Hero1
+	ExperienceTrickler:
+		RequiresCondition: hero-level <= 4
+		Amount: 500
+		Interval: 25
+
+TRAYNOR.Hero1:
+	Inherits: TRAYNOR.Hero0
+	Inherits@heroTier: ^HeroTier1
+	Buildable:
+		Prerequisites: ~barracks, ~techlevel.unrestricted, !active.raynor, ~!hero.tier2, ~hero.tier1, ~techlevel.hero
+		BuildDuration: 1500
+	Tooltip:
+		Name: Jim Raynor (Tier 1)
+	Health:
+		HP: 110000
+	ChangesHealth@stimpack:
+		Delay: 35
+	SpawnActorOnDeath:
+		RequiresCondition: force_deploy
+		Actor: TRAYNOR.Hero2
+	GainsExperienceMultiplier@1:
+		Modifier: 75
+	FirepowerMultiplier@1:
+		Modifier: 110
+	ProximityExternalCondition@squadboost:
+		Condition: squadboost
+		Range: 6c0
+	WithDecoration@officer2:
+		RequiresCondition: !demoralise
+		Image: pips
+		Sequence: pip-bonus
+		Palette: effect
+		Position: TopRight
+		ValidRelationships: None,Neutral,Enemy,Ally
+	-ExperienceTrickler:
+
+TRAYNOR.Hero2:
+	Inherits: TRAYNOR.Hero1
+	Inherits@heroTier: ^HeroTier2
+	Buildable:
+		Prerequisites: ~barracks, ~techlevel.unrestricted, !active.raynor, ~!hero.tier3, ~hero.tier2, ~techlevel.hero
+	Tooltip:
+		Name: Jim Raynor (Tier 2)
+	Health:
+		HP: 130000
+	ChangesHealth@stimpack:
+		Delay: 40
+	SpawnActorOnDeath:
+		RequiresCondition: force_deploy
+		Actor: TRAYNOR.Hero3
+	GainsExperienceMultiplier@1:
+		Modifier: 50
+	FirepowerMultiplier@1:
+		Modifier: 120
+	AmbientSound@talky:
+		SoundFiles: trajuke.aud
+		Delay: 75, 150
+		Interval: 4500, 9000
+	AmmoPool:
+		Ammo: 5
+		InitialAmmo: 5
+	MineImmune:
+	Minelayer:
+		Mine: TSPIDER
+		TileUnknownName: build-valid
+		TerrainTypes: Clear, Road, Beach, Ore, Gems, Rough, Bridge, Creep, Tiberium, BlueTiberium
+	AmmoPool:
+		Ammo: 3
+		InitialAmmo: 3
+		ReloadDelay: 75
+		Armaments: none
+		AmmoCondition: ammo
+	WithAmmoPipsDecoration:
+		Position: BottomLeft
+		Margin: 4, 3
+		RequiresSelection: true
+	Rearmable:
+		RearmActors: fix, gfix, tshop
+	ReloadAmmoPool:
+		Delay: 750
+
+TRAYNOR.Hero3:
+	Inherits: TRAYNOR.Hero2
+	Inherits@heroTier: ^HeroTier3
+	Buildable:
+		Prerequisites: ~barracks, ~techlevel.unrestricted, !active.raynor, ~!hero.tier4, ~hero.tier3, ~techlevel.hero
+	Tooltip:
+		Name: Jim Raynor (Tier 3)
+	Health:
+		HP: 160000
+	ChangesHealth@stimpack:
+		Delay: 50
+	SpawnActorOnDeath:
+		RequiresCondition: force_deploy
+		Actor: TRAYNOR.Hero4
+	GainsExperienceMultiplier@1:
+		Modifier: 35
+	FirepowerMultiplier@1:
+		Modifier: 130
+	SpeedMultiplier@1:
+		Modifier: 120
+	Armament@PRIMARY2:
+		Weapon: RaynorMarineGrenade
+	Armament@GARRISONED2:
+		Name: garrisoned
+		Weapon: RaynorMarineGrenade
+		MuzzleSequence: garrison-muzzle
+	Armament@BUS2:
+		Name: bus
+		Weapon: RaynorMarineGrenade
+	ProximityExternalCondition@squadboost:
+		Range: 8c0
+
+TRAYNOR.Hero4:
+	Inherits: TRAYNOR.Hero3
+	Inherits@heroTier: ^HeroTier4
+	Buildable:
+		Prerequisites: ~barracks, ~techlevel.unrestricted, !active.raynor, ~!hero.tier5, ~hero.tier4, ~techlevel.hero
+		BuildDuration: 2250
+	Tooltip:
+		Name: Jim Raynor (Tier 4)
+	Health:
+		HP: 200000
+	ChangesHealth@stimpack:
+		Delay: 65
+	SpawnActorOnDeath:
+		RequiresCondition: force_deploy
+		Actor: TRAYNOR.Hero5
+	GainsExperienceMultiplier@1:
+		Modifier: 20
+	FirepowerMultiplier@1:
+		Modifier: 140
+	Explodes:
+		Weapon: RaynorDeath
+		EmptyWeapon: RaynorDeath
+
+TRAYNOR.Hero5:
+	Inherits: TRAYNOR.Hero4
+	Inherits@heroTier: ^HeroTier5
+	Buildable:
+		Prerequisites: ~barracks, ~techlevel.unrestricted, !active.raynor, ~hero.tier5, ~techlevel.hero
+		BuildDuration: 3000
+	Tooltip:
+		Name: Jim Raynor (Tier 5)
+	Health:
+		HP: 250000
+	ChangesHealth@stimpack:
+		Delay: 75
+	-KillsSelf@level:
+	-SpawnActorOnDeath:
+	-GrantPeriodicCondition@deploy:
+	-GainsExperienceMultiplier@1:
+	FirepowerMultiplier@1:
+		Modifier: 150
+	Armament@SECONDARY:
+		Name: secondary
+		Weapon: RaynorStrike
+		PauseOnCondition: strike < 60
+		AmmoUsage: 60
+	WithAmmoPipsDecoration:
+		Margin: 4, 7
+		AmmoPools: primary
+	WithAmmoPipsDecoration@2:
+		PipCount: 30
+		FullSequence: bar-blue
+		EmptySequence: bar-empty
+		Position: BottomLeft
+		Margin: 4, 3
+		RequiresSelection: true
+		AmmoPools: secondary
+	AmmoPool@2:
+		Ammo: 60
+		InitialAmmo: 45
+		ReloadDelay: 25
+		Name: secondary
+		Armaments: secondary
+		AmmoCondition: strike
+	ReloadAmmoPool@normal:
+		Delay: 25
+		AmmoPool: secondary
