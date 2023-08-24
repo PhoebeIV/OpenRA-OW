@@ -1942,3 +1942,77 @@ BalloonSentryShotUpgrade:
 	Warhead@4Eff_impact: CreateEffect
 		Explosions: japanplasmaringupgrade
 		ValidTargets: Ground, Water, GroundActor, WaterActor, AirborneActor, Air
+
+chinazhurongcannon:
+	Inherits: ^Cannon
+	Range: 8c0
+	ReloadDelay: 175
+	Burst: 1
+	Report: TBMNormal1.wav
+	Projectile: Bullet
+		Speed: 682
+		Image: 125mm
+		Shadow: True
+	Warhead@1Dam: SpreadDamage
+		Damage: 12000
+		Versus:
+			Heavy: 115
+		InvalidTargets: Air
+	Warhead@3Eff: CreateEffect
+		Explosions: building
+		ImpactSounds: dsrpgexp.aud
+		ValidTargets: Ground, GroundActor, WaterActor, Trees
+	Warhead@fragment1: FireFragment
+		ValidTargets: Ground, Water, GroundActor, WaterActor, AirborneActor, Air
+		Weapon: chinazhurongcannoncluster
+		Offsets: 0,-1024,0, 0,-2048,0, 1024,-2048,0, -1024,-2048,0, 0,-3072,0, 1024,-3072,0, -1024,-3072,0, 2048,-3072,0, -2048,-3072,0
+		Rotate: true
+	Warhead@15Shake: ShakeScreen
+		Duration: 5
+		Intensity: 1
+		Multiplier: 1,1
+
+chinazhurongcannoncluster:
+	Range: 9c0
+	Burst: 20
+	BurstDelays: 1
+	Projectile: Bullet
+		Speed: 650
+		Inaccuracy: 5c0
+		LaunchAngle: 150
+	Warhead@1Dam: SpreadDamage
+		Spread: 1c0
+		Falloff: 500, 180, 135, 50, 18, 7, 0
+		Damage: 1250
+		ValidTargets: Ground, Water, GroundActor, WaterActor, AirborneActor, Air
+		Versus:
+			Wood: 60
+			Light: 75
+			Heavy: 75
+			Concrete: 50
+		DamageTypes: Prone50Percent, TriggerProne, ExplosionDeath
+	Warhead@2Dam: SpreadDamage
+		Spread: 2c0
+		Falloff: 500, 180, 135, 50, 18, 7, 0
+		Damage: 750
+		ValidTargets: Ground, Water, GroundActor, WaterActor, AirborneActor, Air
+		Versus:
+			Wood: 60
+			Light: 75
+			Heavy: 50
+			Concrete: 50
+		DamageTypes: Prone50Percent, TriggerProne, ExplosionDeath
+	Warhead@3Smu: LeaveSmudge
+		SmudgeType: Crater
+		Size: 1
+		ValidTargets: Ground, Infantry
+		Chance: 50
+	Warhead@3Eff: CreateEffect
+		Explosions: building
+		ValidTargets: Ground, Water, GroundActor, WaterActor, AirborneActor, Air
+		ImpactSounds: dsrpgexp.aud, baud.aud, baud.aud
+		ImpactActors: false
+	Warhead@6Shake: ShakeScreen
+		Duration: 10
+		Intensity: 1
+		Multiplier: 1,1

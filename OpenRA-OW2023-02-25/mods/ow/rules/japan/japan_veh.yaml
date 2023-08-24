@@ -586,3 +586,147 @@ japandatenshi:
 	Voiced:
 		VoiceSet: DatenshiVoice
 	TeleportNetworkTransportable:
+
+japanexecutioner:
+	Inherits: ^Vehicle
+	Inherits@GAINSEXPERIENCE: ^GainsExperience
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Buildable:
+		Queue: Vehicle
+		BuildPaletteOrder: 133
+		Prerequisites: ~vehicles.japan, advtechcenter
+		Description: Anti-personnel walker.\nSpeed: 99\n  Strong vs Infantry, Light armor\n  Weak vs Vehicles, Aircraft
+	Valued:
+		Cost: 2500
+	Tooltip:
+		Name: Executioner
+	Health:
+		HP: 100000
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Armor:
+		Type: Heavy
+	Mobile:
+		TurnSpeed: 20
+		Speed: 100
+	RevealsShroud:
+		MinRange: 5c0
+		Range: 6c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 5c0
+	Turreted:
+		TurnSpeed: 24
+	Armament:
+		Weapon: executionerbigattack
+		PauseOnCondition: disabled || phase
+		ReloadingCondition: attack-cooldown
+	AttackTurreted:
+		PauseOnCondition: disabled
+	AttackLeap:
+		PauseOnCondition: disabled || attack-cooldown
+	GrantConditionOnAttack:
+		Condition: phase
+		RevokeDelay: 125
+	Cloak:
+		InitialDelay: 0
+		CloakDelay: 0
+		CloakSound: executionerattack1.wav
+		UncloakSound: executionerattack1.wav
+		RequiresCondition: phase
+	WithMuzzleOverlay:
+	WithSpriteTurret:
+	QuantizeFacingsFromSequence:
+		Sequence: idle
+	WithFacingSpriteBody:
+		Sequence: idle
+	WithMoveAnimation:
+		MoveSequence: run
+		ValidMovementTypes: Horizontal, Turn
+	ProducibleWithLevel:
+		Prerequisites: vehicles.upgraded
+	Selectable:
+		Bounds: 853, 1365, 0, -341
+	RenderSprites:
+		PlayerPalette: tsunit
+	Cloak@stealthgen:
+		Palette: tscloak
+	Voiced:
+		VoiceSet: ExecutionerVoice
+	TeleportNetworkTransportable:
+	ExternalCondition@PRODUCED:
+		Condition: produced
+	VoiceAnnouncement:
+		RequiresCondition: produced
+		Voice: Build
+	SpeedMultiplier@attack:
+		Modifier: 400
+		RequiresCondition: phase
+	Wanders@attack:
+		RequiresCondition: phase
+
+japandominatrix:
+	Inherits: ^Vehicle
+	Inherits@GAINSEXPERIENCE: ^GainsExperience
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Buildable:
+		Queue: Vehicle
+		BuildPaletteOrder: 133
+		Prerequisites: ~vehicles.japan, advtechcenter
+		Description: Anti-personnel walker.\nSpeed: 99\n  Strong vs Infantry, Light armor\n  Weak vs Vehicles, Aircraft
+	Valued:
+		Cost: 1800
+	Tooltip:
+		Name: Dominatrix
+	Health:
+		HP: 80000
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Armor:
+		Type: Heavy
+	Mobile:
+		TurnSpeed: 20
+		Speed: 70
+	RevealsShroud:
+		MinRange: 5c0
+		Range: 6c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 5c0
+	Turreted:
+		TurnSpeed: 24
+	Armament:
+		Weapon: Dominatrixbeam1
+		LocalOffset: 0,0,940
+		PauseOnCondition: disabled
+	Armament@2:
+		Weapon: Dominatrixbeam2
+		LocalOffset: 0,0,940
+		PauseOnCondition: disabled
+	AttackTurreted:
+		PauseOnCondition: disabled
+	WithMuzzleOverlay:
+	WithSpriteTurret:
+	QuantizeFacingsFromSequence:
+		Sequence: idle
+	WithFacingSpriteBody:
+		Sequence: idle
+	WithMoveAnimation:
+		MoveSequence: run
+		ValidMovementTypes: Horizontal, Turn
+	ProducibleWithLevel:
+		Prerequisites: vehicles.upgraded
+	Selectable:
+		Bounds: 853, 1365, 0, -341
+	RenderSprites:
+		PlayerPalette: tsunit
+	Cloak@stealthgen:
+		Palette: tscloak
+	Voiced:
+		VoiceSet: DominatrixVoice
+	TeleportNetworkTransportable:
+	ExternalCondition@PRODUCED:
+		Condition: produced
+	VoiceAnnouncement:
+		RequiresCondition: produced
+		Voice: Build

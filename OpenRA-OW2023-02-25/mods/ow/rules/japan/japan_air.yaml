@@ -643,3 +643,144 @@ japanfinalsquadron.Husk:
 	Explodes:
 		Weapon: usaaurorashot
 		EmptyWeapon: usaaurorashot
+
+japanskyempress:
+	Inherits: ^Helicopter
+	Inherits@NoExp: ^NoExp
+	Inherits@EPIC: ^EpicUnit
+	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
+	-Rearmable:
+	Buildable:
+		Queue: Aircraft
+		BuildAtProductionType: Helicopter
+		BuildPaletteOrder: 900
+		Prerequisites: ulttechcenter, ~techlevel.unrestricted, ~aircraft.japan
+		Description: [EPIC]\nSky Empress armed\nwith devastating plasma cannon.\n  Strong vs Ground\n  Weak vs Air
+		BuildLimit: 1
+	Valued:
+		Cost: 15000
+	Tooltip:
+		Name: Sky Empress
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 220000
+	RevealsShroud:
+		MinRange: 8c0
+		Range: 10c0
+		Type: GroundPosition
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 8c0
+		Type: GroundPosition
+	Armament@PRIMARY:
+		Weapon: SkyEmpressCannon
+		LocalOffset: 1100,200,200
+		Recoil: 200
+		RecoilRecovery: 25
+		PauseOnCondition: ammo < 15
+		FireDelay: 25
+		AmmoUsage: 10
+	Armament@effect:
+		Weapon: SkyEmpressSound
+		LocalOffset: 1100,200,200
+		AmmoUsage: 0
+		PauseOnCondition: ammo < 15
+	Armament@zap:
+		Weapon: SkyEmpressZap
+		LocalOffset: 1100,200,200
+		AmmoUsage: 0
+		PauseOnCondition: ammo < 15
+	AmmoPool:
+		Ammo: 15
+		AmmoCondition: ammo
+		InitialAmmo: 4
+	ReloadAmmoPool@normal:
+		Delay: 35
+	WithAmmoPipsDecoration:
+		Position: BottomLeft
+		Margin: 4, 3
+		RequiresSelection: false
+		PipCount: 10
+		ValidRelationships: Ally, Enemy, Neutral
+	AttackAircraft:
+		FacingTolerance: 80
+		PersistentTargeting: false
+		AttackType: Hover
+		OpportunityFire: true
+	Aircraft:
+		CruiseAltitude: 2560
+		TurnSpeed: 8
+		Speed: 60
+		Voice: Move
+	Guard:
+		Voice: Move
+	AutoTarget:
+		InitialStance: Defend
+		InitialStanceAI: Defend
+	WithMuzzleOverlay:
+	SpawnActorOnDeath:
+		Actor: japanskyempress.Husk
+	LeavesTrails:
+		Offsets: -427,0,0
+		Image: smokey
+		MovingInterval: 3
+		SpawnAtLastPosition: False
+		Type: CenterPosition
+		RequiresCondition: enable-smoke
+		TrailWhileStationary: True
+		StationaryInterval: 3
+	ProducibleWithLevel:
+		Prerequisites: aircraft.upgraded
+	Selectable:
+		Bounds: 2560, 2048, 0, -426
+		DecorationBounds: 2560, 2048, 0, -426
+	GrantConditionOnDamageState@SmokeTrail:
+		Condition: enable-smoke
+	WithProductionIconOverlay:
+		Types: Veterancy
+		Prerequisites: aircraft.upgraded
+	RenderSprites:
+		PlayerPalette: tsunit
+		Image: japanskyempress
+	Voiced:
+		VoiceSet: SkyEmpressVoice
+	ExternalCondition@PRODUCED:
+		Condition: produced
+	VoiceAnnouncement:
+		RequiresCondition: produced
+		Voice: Build
+	AnnounceOnKill:
+
+japanskyempress.Husk:
+	Inherits: ^PlaneHusk
+	Tooltip:
+		Name: Sky Empress
+	Aircraft:
+		TurnSpeed: 16
+		Speed: 60
+	WithDamageOverlay@0:
+		Offset: -432,560,0
+		Interval: 2
+		MinimumDamageState: Undamaged
+	WithDamageOverlay@1:
+		Offset: 0,-256,0
+		Interval: 2
+		MinimumDamageState: Undamaged
+	WithDamageOverlay@2:
+		Offset: 512,100,0
+		Interval: 2
+		MinimumDamageState: Undamaged
+	RevealsShroud:
+		Range: 12c0
+		Type: CenterPosition
+	FallsToEarth:
+		Moves: True
+		Velocity: 35
+		Explosion: SkyEmpressCannon
+		MaximumSpinSpeed: 0
+	RenderSprites:
+		Image: japanskyempress
+		PlayerPalette: tsunit
+	ShakeOnDeath:
+		Duration: 15

@@ -1124,7 +1124,7 @@ chinashenlong:
 	Buildable:
 		Queue: Vehicle
 		BuildPaletteOrder: 2500
-		Prerequisites: ~vehicles.china, advtechcenter, upgrade.tankgeneral, upgrade.infantrygeneral, upgrade.nukegeneral, ~!faction.nukegeneral, ~!faction.tankgeneral, ~!faction.infantrygeneral
+		Prerequisites: ~vehicles.china, ulttechcenter, upgrade.tankgeneral, upgrade.infantrygeneral, upgrade.nukegeneral, ~!faction.nukegeneral, ~!faction.tankgeneral, ~!faction.infantrygeneral
 		Description: [EPIC]\nThe Shenlong Emperor Tank is the most advanced overlord tank ever created.
 		BuildLimit: 1
 	Valued:
@@ -1228,6 +1228,204 @@ chinashenlong:
 		DamageCooldown: 200
 	RenderSprites:
 		Image: chinashenlong
+	ExternalCondition@PRODUCED:
+		Condition: produced
+	VoiceAnnouncement:
+		RequiresCondition: produced
+		Voice: Build
+	AnnounceOnKill:
+		Voice: Kill
+	Explodes:
+		Weapon: MiniNukeRadiation
+		EmptyWeapon: MiniNukeRadiation
+	ProximityExternalCondition@propaganda:
+		Condition: propaganda
+		RequiresCondition: !disabled && !upgrade.propaganda
+		Range: 5c0
+	GrantConditionOnPrerequisite@propagandaupgrade:
+		Condition: upgradepropaganda
+		Prerequisites: upgrade.propaganda
+	ProximityExternalCondition@propagandaupgrade:
+		Condition: propagandaupgrade
+		RequiresCondition: !disabled && upgradepropaganda
+		Range: 5c0
+
+chinafortress:
+	Inherits@EPIC: ^EpicUnit
+	Inherits@EPIC2: ^EpicVehicle
+	Inherits: ^TrackedVehicle
+	Inherits@tankgeneralbuff: ^tankgeneralbuff
+	Inherits@AUTOTARGET: ^AutoTargetAll
+	Inherits@CARGOPIPS: ^CargoPips
+	Buildable:
+		Queue: Vehicle
+		BuildPaletteOrder: 2500
+		Prerequisites: ~vehicles.china, ulttechcenter, ~upgrade.infantrygeneral, ~faction.infantrygeneral
+		Description: [EPIC]\nThe Suan Ni Mobile Battle Fortress is a highly advanced troop carrier.
+		BuildLimit: 1
+	Valued:
+		Cost: 25000
+	Tooltip:
+		Name: Suan Ni Mobile Battle Fortress
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 250000
+	Armor:
+		Type: Heavy
+	Mobile:
+		Speed: 45
+		PauseOnCondition: notmobile || being-captured || disabled
+		Voice: Move
+	Guard:
+		Voice: Move
+	RevealsShroud:
+		MinRange: 4c0
+		Range: 5c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 4c0
+	Turreted:
+		TurnSpeed: 1023
+	Cargo:
+		Types: Infantry
+		MaxWeight: 20
+		LoadingCondition: notmobile
+		InitialUnits: chinaredguard2, chinaredguard2, chinatankhunter, chinatankhunter, chinaminigunner2, chinaminigunner2, chinaredguard2, chinaredguard2, chinamortar, chinamortar, chinadragonbreathers, chinadragonbreathers
+	AttackGarrisoned:
+		Armaments: bus
+		PortOffsets: 384,-256,384, 64,-256,384, -192,-256,384, -448,-256,384, -768,0,384, 384,256,384, 64,256,384, -192,256,384, -448,256,384, -640,-256,384, -640,256,384
+		PortYaws: 48,256,256,256,512,976,768,768,768,256,768
+		PortCones: 112,96,96,96,112,96,96,96,96,96,96
+	ProducibleWithLevel:
+		Prerequisites: vehicles.upgraded
+	ClassicFacingBodyOrientation:
+		QuantizedFacings: 32
+	Selectable:
+		DecorationBounds: 1877, 1621, 0, -170
+	Explodes:
+		Weapon: MiniNukeRadiation
+		EmptyWeapon: MiniNukeRadiation
+	WithCargoPipsDecoration:
+		Position: BottomLeft
+		RequiresSelection: true
+	Voiced:
+		VoiceSet: SuanNiVoice
+	RenderDetectionCircle:
+		DetectionTypes: Cloak
+	DetectCloaked:
+		Range: 3c256
+	ProximityExternalCondition@propaganda:
+		Condition: propaganda
+		RequiresCondition: !disabled && !upgrade.propaganda
+		Range: 5c0
+	GrantConditionOnPrerequisite@propagandaupgrade:
+		Condition: upgradepropaganda
+		Prerequisites: upgrade.propaganda
+	ProximityExternalCondition@propagandaupgrade:
+		Condition: propagandaupgrade
+		RequiresCondition: !disabled && upgradepropaganda
+		Range: 5c0
+	RangeMultiplier@fortress:
+		Modifier: 150
+	ReloadDelayMultiplier@fortress:
+		Modifier: 150
+	ExternalCondition@PRODUCED:
+		Condition: produced
+	AnnounceOnKill:
+		Voice: Kill
+	VoiceAnnouncement:
+		RequiresCondition: produced
+		Voice: Build
+
+chinazhurong:
+	Inherits: ^TrackedVehicle
+	Inherits@EPIC: ^EpicUnit
+	Inherits@EPIC2: ^EpicVehicle
+	Inherits@nuclearvehiclesbuff: ^nuclearvehiclesbuff
+	Inherits@AUTOTARGET: ^AutoTargetAll
+	Buildable:
+		Queue: Vehicle
+		BuildPaletteOrder: 2500
+		Prerequisites:  ~vehicles.china, ulttechcenter, ~upgrade.tankgeneral, ~faction.tankgeneral
+		Description: [EPIC]\nThe Zhu Rong Tank wields a fragmentation cannon.
+		BuildLimit: 1
+	Valued:
+		Cost: 28000
+	Tooltip:
+		Name: Zhu Rong
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 300000
+	Armor:
+		Type: Heavy
+	Mobile:
+		Speed: 35
+		Locomotor: heavytracked
+		Voice: Move
+	Guard:
+		Voice: Move
+	Passenger:
+		Weight: 8
+		CustomPipType: red
+		Voice: Move
+	RevealsShroud:
+		MinRange: 7c0
+		Range: 8c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 7c0
+	Turreted:
+		TurnSpeed: 8
+		Turret: primary
+		Offset: 0,0,256
+	Armament@PRIMARY:
+		Weapon: chinazhurongcannon
+		LocalOffset: 1100,200,200
+		Recoil: 200
+		RecoilRecovery: 25
+		FireDelay: 25
+	AttackTurreted:
+		Turrets: primary, secondary, tri, quad
+		PauseOnCondition: disabled
+	WithMuzzleOverlay:
+	WithSpriteTurret:
+		Sequence: turret
+		Turret: primary
+	Armament@secondary:
+		Weapon: emperorgatlingshot
+		LocalOffset: 512,0,176
+		MuzzleSequence: muzzlegatling
+		Turret: secondary
+	Armament@secondaryair:
+		Weapon: overlordgatlingshotair
+		LocalOffset: 512,0,176
+		MuzzleSequence: muzzlegatling
+		Turret: secondary
+	Turreted@Gatling:
+		Turret: secondary
+		Offset: 0,0,256
+		TurnSpeed: 64
+	WithSpriteTurret@Gatling:
+		Sequence: turretgatling
+		Turret: secondary
+	WithIdleOverlay@SPINNER:
+		Sequence: spinner
+		Offset: -500,0,500
+	SelectionDecorations:
+	Voiced:
+		VoiceSet: ZhuRongVoice
+	Selectable:
+		DecorationBounds: 1877, 1621, 0, -170
+	ShakeOnDeath:
+	ChangesHealth:
+		Step: 500
+		Delay: 25
+		StartIfBelow: 50
+		DamageCooldown: 200
+	ExternalCondition@PRODUCED:
+		Condition: produced
 	VoiceAnnouncement:
 		RequiresCondition: produced
 		Voice: Build
