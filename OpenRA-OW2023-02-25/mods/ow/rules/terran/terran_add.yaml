@@ -181,7 +181,7 @@ TSHOP:
 	RevealsShroud:
 		Range: 4c0
 	Building:
-		Footprint: xx_
+		Footprint: ++_
 		Dimensions: 3,1
 		LocalCenterOffset: -1024,-512,0
 	HitShape:
@@ -276,6 +276,7 @@ TCTRL:
 		RequiresCondition: !build-incomplete && !being-captured && !being-demolished && star_addon
 	SupportPowerChargeBar:
 	DropPodsPower:
+		Prerequisites: !tctrl.mengsk
 		OrderName: OrbitalDrop
 		Cursor: chrono-target
 		PauseOnCondition: disabled
@@ -298,6 +299,29 @@ TCTRL:
 		WeaponDelay: 5
 	KillsSelf:
 		RequiresCondition: botowner && !star_addon
+	ProvidesPrerequisite@mengsk:
+		Factions: mengsk
+		Prerequisite: tctrl.mengsk
+	DropPodsPower@2: 
+		Prerequisites: tctrl.mengsk
+		Name: Forced Conscription
+		Description: Deploy a Supply Bunker with 4 Marines inside it. Lasts until destroyed.
+		OrderName: MengskBunker
+		Icon: bunker
+		Drops: 1,1
+		PodScatter: 1
+		ChargeInterval: 10500
+		UnitTypes: TDROPSHIP.BunkerDropPod
+		SelectTargetSpeechNotification: SelectTarget
+		SelectTargetTextNotification: Select target.
+		CameraActor: camera
+		CameraRemoveDelay: 250
+		EntryEffect: explosion
+		EntryEffectSequence: bunkerbustersring
+		Weapon: TerranGhostPainter
+		WeaponDelay: 5
+		PodFacing: 512
+		PauseOnCondition: disabled
 
 TCOPS.plug:
 	Inherits: ^BuildingPlug

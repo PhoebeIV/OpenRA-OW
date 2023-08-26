@@ -10,12 +10,6 @@ terran.marine:
 	ProvidesPrerequisite@upgradename:
 	Valued:
 		Cost: 5000
-	ProductionCostMultiplier@raynor:
-		Prerequisites: structures.raynor
-		Multiplier: 10
-	ProductionTimeMultiplier@raynor:
-		Prerequisites: structures.raynor
-		Multiplier: 5
 
 terran.tank:
 	Inherits: ^UpgradeBaseExt
@@ -28,12 +22,6 @@ terran.tank:
 	ProvidesPrerequisite@upgradename:
 	Valued:
 		Cost: 5000
-	ProductionCostMultiplier@mengsk:
-		Prerequisites: structures.mengsk
-		Multiplier: 10
-	ProductionTimeMultiplier@mengsk:
-		Prerequisites: structures.mengsk
-		Multiplier: 5
 
 terran.ghost:
 	Inherits: ^UpgradeBaseExt
@@ -46,6 +34,51 @@ terran.ghost:
 	ProvidesPrerequisite@upgradename:
 	Valued:
 		Cost: 2500
+
+terran.resources:
+	Inherits: ^UpgradeBaseExt
+	Tooltip:
+		Name: Research Forced Labor
+	Buildable:
+		Description: Increases yield of reprocessing minerals and\n tiberium by 10%. \nIncreases SCV speed by 50%.
+		BuildPaletteOrder: 10203
+		Prerequisites: ~!upgrade.busy, ~!nod.tiberium, ~structures.mengsk, refinery, ~techlevel.medium
+	ProvidesPrerequisite@upgradename:
+		Prerequisite: nod.tiberium
+	Valued:
+		Cost: 5000
+	RenderSprites:
+		Image: nod.tiberium
+
+terran.armor:
+	Inherits: ^UpgradeBaseExt
+	Tooltip:
+		Name: Research Vanadium Plating
+	Buildable:
+		Description: Increases vehicle and aircraft armor by a further 20%
+		BuildPaletteOrder: 10204
+		Prerequisites: ~!upgrade.busy, ~!terran.armor, ~structures.mengsk, tarmory, ~techlevel.high
+		BuildDuration: 3000
+	ProvidesPrerequisite@upgradename:
+	RenderSprites:
+		Image: upgrade.airarmor3
+	Valued:
+		Cost: 7500
+
+terran.structure:
+	Inherits: ^UpgradeBaseExt
+	Tooltip:
+		Name: Research Fortification
+	Buildable:
+		Description: Increases structure armor by a further 20%
+		BuildPaletteOrder: 10205
+		Prerequisites: ~!upgrade.busy, ~!terran.structure, ~structures.mengsk, tarmory, ~techlevel.high
+		BuildDuration: 3000
+	ProvidesPrerequisite@upgradename:
+	RenderSprites:
+		Image: upgrade.buildarmor3
+	Valued:
+		Cost: 7500
 
 terran.nuke:
 	Inherits@mine: MINE_DUMMY
@@ -66,6 +99,9 @@ terran.nuke:
 		Prerequisites: ~!terran.nuke, ~tsilo, ~structures.terran, ~techlevel.unrestricted
 		BuildDurationModifier: 100
 		BuildDuration: 9000
+	ProductionTimeMultiplier@mengsk:
+		Prerequisites: structures.mengsk
+		Multiplier: 80
 	ProvidesPrerequisite@upgradename:
 	Valued:
 		Cost: 1500
@@ -90,100 +126,137 @@ terran.nuke.AI:
 	ProvidesPrerequisite@upgradename:
 		Prerequisite: terran.nuke
 
-raynor.tier1.fastupgrade:
+raynor.tier1.fastupgrade1:
 	Inherits: ^HeroUpgradeBaseTier1
 	Tooltip:
 		Name: Enhanced Training Regime
 	Buildable:
-		Description: Gain Infantry Firepower Level 1 instantly.
-		Prerequisites: ~active.raynor
+		Description: Gain Infantry Firepower I instantly.
+		Prerequisites: ~active.raynor, !upgrade.inffirepower1
 		BuildPaletteOrder: 1
 	RenderSprites:
 		Image: upgrade.inffirepower1
 	ProvidesPrerequisite@upgradename:
 		Prerequisite: upgrade.inffirepower1
 
-terran.tier1.costcut:
+raynor.tier1.fastupgrade2:
 	Inherits: ^HeroUpgradeBaseTier1
+	Tooltip:
+		Name: Vanadium Plating
+	Buildable:
+		Description: Gain Infantry Armor I instantly.
+		Prerequisites: ~active.raynor, !upgrade.infarmor1
+		BuildPaletteOrder: 2
+	RenderSprites:
+		Image: upgrade.infarmor1
+	ProvidesPrerequisite@upgradename:
+		Prerequisite: upgrade.infarmor1
+
+raynor.tier2.costcut:
+	Inherits: ^HeroUpgradeBaseTier2
 	Tooltip:
 		Name: Improved Supply Chain
 	Buildable:
-		Description: Produce Infantry for cheaper and faster.
+		Description: Produce Infantry for 10% cheaper and 20% faster.
+		Prerequisites: ~active.raynor
+		BuildPaletteOrder: 1
+	ProvidesPrerequisite@upgradename:
+		Prerequisite: infantry.prodcost
+	ProvidesPrerequisite@upgradename2:
+		Prerequisite: infantry.prodtime
+
+raynor.tier2.firespeed:
+	Inherits: ^HeroUpgradeBaseTier2
+	Tooltip:
+		Name: Mercenary Munitions
+	Buildable:
+		Description: Improves Infantry weapon reload speed by 10%.
 		Prerequisites: ~active.raynor
 		BuildPaletteOrder: 2
 	ProvidesPrerequisite@upgradename:
-		Prerequisite: upgrade.prodcost
-	ProvidesPrerequisite@upgradename2:
-		Prerequisite: upgrade.prodtime
+		Prerequisite: infantry.firespeed1
 
-terran.tier2.test1:
-	Inherits: ^HeroUpgradeBaseTier2
-	Tooltip:
-		Name: Tier 2 Test 1
-	Buildable:
-		Description: Does something.
-		Prerequisites: structures.terran
-		BuildPaletteOrder: 1
-
-terran.tier2.test2:
-	Inherits: ^HeroUpgradeBaseTier2
-	Tooltip:
-		Name: Tier 2 Test 2
-	Buildable:
-		Description: Does something.
-		Prerequisites: structures.terran
-		BuildPaletteOrder: 2
-
-terran.tier3.test1:
+raynor.tier3.fastupgrade1:
 	Inherits: ^HeroUpgradeBaseTier3
 	Tooltip:
-		Name: Tier 3 Test 1
+		Name: Enhanced Training Regime II
 	Buildable:
-		Description: Does something.
-		Prerequisites: structures.terran
+		Description: Gain Infantry Firepower II instantly.
+		Prerequisites: ~active.raynor, upgrade.inffirepower1, ~!upgrade.inffirepower2
 		BuildPaletteOrder: 1
+	RenderSprites:
+		Image: upgrade.inffirepower2
+	ProvidesPrerequisite@upgradename:
+		Prerequisite: upgrade.inffirepower2
 
-terran.tier3.test2:
+raynor.tier3.fastupgrade2:
 	Inherits: ^HeroUpgradeBaseTier3
 	Tooltip:
-		Name: Tier 3 Test 2
+		Name: Vanadium Plating II
 	Buildable:
-		Description: Does something.
-		Prerequisites: structures.terran
+		Description: Gain Infantry Armor II instantly.
+		Prerequisites: ~active.raynor, upgrade.infarmor1, ~!upgrade.infarmor2
 		BuildPaletteOrder: 2
+	RenderSprites:
+		Image: upgrade.infarmor2
+	ProvidesPrerequisite@upgradename:
+		Prerequisite: upgrade.infarmor2
 
-terran.tier4.test1:
+raynor.tier3.range:
+	Inherits: ^HeroUpgradeBaseTier3
+	Tooltip:
+		Name: Nano Projectors
+	Buildable:
+		Description: Increase range of Medics, Medivac Dropships and Firebats.
+		Prerequisites: ~active.raynor
+		BuildPaletteOrder: 3
+	RenderSprites:
+		Image: upgrade.inffirepower3
+
+raynor.tier4.support1:
 	Inherits: ^HeroUpgradeBaseTier4
 	Tooltip:
-		Name: Tier 4 Test 1
+		Name: Orbital Bombing
 	Buildable:
-		Description: Does something.
-		Prerequisites: structures.terran
+		Description: Enables Orbital Bombing support power. \n\nInstant artillery strike in small target area.\nCooldown: 6:00
+		Prerequisites: ~active.raynor
 		BuildPaletteOrder: 1
+		Icon: parabombs
+	RenderSprites:
+		Image: icon
 
-terran.tier4.test2:
+raynor.tier4.support2:
 	Inherits: ^HeroUpgradeBaseTier4
 	Tooltip:
-		Name: Tier 4 Test 2
+		Name: Strike Force
 	Buildable:
-		Description: Does something.
-		Prerequisites: structures.terran
+		Description: Enables Strike Force support power. \n\nCall in 2 Dropships to paradrop 12 infantry.\nCooldown: 3:00
+		Prerequisites: ~active.raynor
 		BuildPaletteOrder: 2
+		Icon: paratroopers
+	RenderSprites:
+		Image: icon
 
-terran.tier5.test1:
+raynor.tier5.hyperion1:
 	Inherits: ^HeroUpgradeBaseTier5
 	Tooltip:
-		Name: Tier 5 Test 1
+		Name: Yamato Gun
 	Buildable:
-		Description: Does something.
-		Prerequisites: structures.terran
+		Description: Enables the use of the Yamato Gun,\n which can be fired once by the Hyperion.
+		Prerequisites: ~active.raynor
 		BuildPaletteOrder: 1
+		Icon: ioncannon
+	RenderSprites:
+		Image: icon
 
-terran.tier5.test2:
+raynor.tier5.hyperion2:
 	Inherits: ^HeroUpgradeBaseTier5
 	Tooltip:
-		Name: Tier 5 Test 2
+		Name: Hypercharge
 	Buildable:
-		Description: Does something.
-		Prerequisites: structures.terran
+		Description: Allows the Hyperion to remain in \n combat for an additional 15 seconds.
+		Prerequisites: ~active.raynor
 		BuildPaletteOrder: 2
+		Icon: chrono
+	RenderSprites:
+		Image: icon

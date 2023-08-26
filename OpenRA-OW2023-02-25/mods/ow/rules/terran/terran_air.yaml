@@ -122,7 +122,7 @@ TDROPSHIP:
 		Queue: Aircraft
 		BuildAtProductionType: Helicopter
 		BuildPaletteOrder: 185
-		Prerequisites: tctrl, ~aircraft.terran, ~techlevel.medium
+		Prerequisites: tctrl, ~aircraft.terran, ~techlevel.medium, ~!aircraft.raynor
 		Description: Terran transport ship.\nSpeed: 136\n  Unarmed
 	Valued:
 		Cost: 1000
@@ -170,6 +170,129 @@ TDROPSHIP:
 		Position: BottomLeft
 		RequiresSelection: true
 	-EjectOnDeath:
+
+TDROPSHIP.Raynor:
+	Inherits: TDROPSHIP
+	RenderSprites:
+		Image: tdropship
+	Buildable:
+		Prerequisites: tctrl, ~aircraft.raynor, ~techlevel.medium
+		Description: Raynor's choice of transport ship.\nSpeed: 136\n  Can heal infantry.
+	Valued:
+		Cost: 1200
+	Tooltip:
+		Name: Medivac Dropship
+	AttackAircraft:
+	Armament:
+		Weapon: TerranMedicHealGarrison
+		PauseOnCondition: !ammo
+		Cursor: heal
+		OutsideRangeCursor: heal
+		TargetRelationships: Ally
+		ForceTargetRelationships: None
+	AutoTarget:
+		InitialStance: AttackAnything
+		ScanRadius: 8
+	AutoTargetPriority@DEFAULT:
+		ValidTargets: Infantry
+	AmmoPool:
+		Ammo: 200
+		AmmoCondition: ammo
+		InitialAmmo: 75
+	ReloadAmmoPool:
+		Delay: 9
+		ResetOnFire: true
+	WithAmmoPipsDecoration:
+		PipCount: 24
+		FullSequence: bar-red
+		EmptySequence: bar-empty
+	Voiced:
+		VoiceSet: TerranMedicVoice
+	GrantConditionOnPrerequisite@raynor: 
+		Prerequisites: raynor.tier3.range
+		Condition: rangeupgrade
+	RangeMultiplier@raynor:
+		Modifier: 133
+		RequiresCondition: rangeupgrade
+
+TDROPSHIP.Drop:
+	Inherits: BADR
+	RenderSprites:
+		Image: tdropship
+	Aircraft:
+		Speed: 256
+	GrantConditionOnMovement@scout:
+		Condition: moving
+	SpawnActorOnDeath:
+		Actor: TDROPSHIP.Husk
+	WithFacingSpriteBody@2:
+		Name: engine
+		Sequence: engine
+		RequiresCondition: moving
+		Palette: effect
+	-Contrail@1:
+	-Contrail@2:
+
+TDROPSHIP.ZergDropPod:
+	Inherits: TDROPSHIP.Drop
+	Aircraft:
+		Speed: 256
+		CruiseAltitude: 9c0
+		LandableTerrainTypes: Clear, Road, Creep, Ore, Gems, Tiberium, BlueTiberium
+	FallsToEarth:
+		Explosion: SmallZergBuildingExplode
+		Moves: true
+		Velocity: 256
+		MaximumSpinSpeed: 0
+	-ActorLostNotification:
+	-SpawnActorOnDeath:
+	AmbientSound:
+		SoundFiles: zzerdy00.aud, zzerdy00.aud, baud.aud
+		Interval: -1
+	SpawnActorOnDeath@0:
+		Actor: TDROPSHIP.Leave
+	SpawnActorOnDeath@zerg1:
+		Actor: ZENTHRALLED
+		Offset: -1,-1
+	SpawnActorOnDeath@zerg2:
+		Actor: ZENTHRALLED
+		Offset: 0,-1
+	SpawnActorOnDeath@zerg3:
+		Actor: ZENTHRALLED
+		Offset: 0,1
+	SpawnActorOnDeath@zerg4:
+		Actor: ZENTHRALLED
+		Offset: 1,-1
+	SpawnActorOnDeath@zerg5:
+		Actor: ZENTHRALLED
+		Offset: 1,1
+	SpawnActorOnDeath@zerg6:
+		Actor: ZHYDRA.E
+		Offset: 1,0
+		Probability: 75
+
+TDROPSHIP.BunkerDropPod:
+	Inherits: TDROPSHIP.Drop
+	Aircraft:
+		Speed: 256
+		CruiseAltitude: 9c0
+		LandableTerrainTypes: Clear, Road, Creep, Ore, Gems, Tiberium, BlueTiberium
+	FallsToEarth:
+		Explosion: BuildingExplode
+		Moves: true
+		Velocity: 256
+		MaximumSpinSpeed: 0
+	-ActorLostNotification:
+	-SpawnActorOnDeath:
+	SpawnActorOnDeath@0:
+		Actor: TDROPSHIP.Leave
+	SpawnActorOnDeath@bunker:
+		Actor: TBUNKER.Mengsk.Drop
+
+TDROPSHIP.Leave:
+	Inherits: TDROPSHIP.Drop
+	Aircraft:
+		IdleBehavior: LeaveMapAtClosestEdge
 
 TVESSEL:
 	Inherits: ^Helicopter
@@ -304,7 +427,7 @@ TBATTLE:
 		BuildAtProductionType: Helicopter
 		BuildPaletteOrder: 195
 		Prerequisites: tctrl, tplab, ~aircraft.terran, ~techlevel.unrestricted
-		Description: Terran capital ship.\nSlow but armed to the teeth with lasers.\nSpeed: 160\n  Strong vs Everything\n  Weak vs Nothing
+		Description: Terran capital ship.\nSlow but armed to the teeth with lasers.\nSpeed: 56\n  Strong vs Everything\n  Weak vs Nothing
 		BuildLimit: 2
 	HitShape:
 		Type: Rectangle
@@ -447,18 +570,21 @@ TBATTLE:
 		Sequence: 4
 		IsDecoration: true
 		Offset: 256,512,0
+		Palette: effect
 	WithIdleOverlay@fire2:
 		RequiresCondition: damaged_heavy
 		Image: fire
 		Sequence: 3
 		IsDecoration: true
 		Offset: -128,-640,0
+		Palette: effect
 	WithIdleOverlay@fire3:
 		RequiresCondition: damaged_critical
 		Image: fire
 		Sequence: 2
 		IsDecoration: true
 		Offset: 0,128,0
+		Palette: effect
 	ExternalCondition@PRODUCED:
 		Condition: produced
 	VoiceAnnouncement:
@@ -570,4 +696,278 @@ TVALK.Bomber:
 		Name: engine
 		Sequence: engine
 		Palette: effect
-	-RejectsOrders:
+	RejectsOrders:
+		Except: Attack, ForceAttack
+	SpawnActorOnDeath:
+		Actor: TVALK.Husk
+
+THYPERION:
+	Inherits: TBATTLE
+	Inherits@EPIC: ^EpicUnit
+	Buildable:
+		Queue: Aircraft
+		BuildAtProductionType: Helicopter
+		BuildPaletteOrder: 9000
+		Prerequisites: tctrl, tplab, ~aircraft.raynor, ~techlevel.unrestricted, ~disabled
+		Description: Raynor's capital ship, headed by Matt Horner.\nSlow but armed to the teeth with lasers.\nSpeed: 72\n  Strong vs Everything\n  Weak vs Nothing
+		BuildLimit: 1
+	HitShape:
+		Type: Rectangle
+			TopLeft: -1200, -1500
+			BottomRight: 1200, 1500
+		TargetableOffsets: -1228,0,0, -614,0,0, 0,0,0, 614,0,0, 1228,0,0, 0,-900,0, 0,900,0, -614,-900,0, -614,900,0, -1228,-900,0, -1228,900,0
+	Selectable:
+		DecorationBounds: 3686, 2661
+		Bounds: 3276, 2457
+	Valued:
+		Cost: 20000
+	Tooltip:
+		Name: Hyperion
+	Health:
+		HP: 300000
+	-UpdatesPlayerStatistics:
+	RevealsShroud:
+		MinRange: 9c0
+		Range: 13c0
+		Type: GroundPosition
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 9c0
+		Type: GroundPosition
+	-AttackTurreted:
+	AutoTarget:
+		InitialStance: AttackAnything
+		MinimumScanTimeInterval: 1
+		MaximumScanTimeInterval: 1
+	AttackAircraft:
+		FacingTolerance: 512
+		PersistentTargeting: false
+	Armament@1:
+		Weapon: BattlecruiserRangedShot1
+		LocalOffset: -153,921,0
+		AmmoUsage: 0
+		-PauseOnCondition:
+	Armament@2:
+		Weapon: BattlecruiserRangedShot2
+		LocalOffset: -153,-921,0
+		AmmoUsage: 0
+		-PauseOnCondition:
+	Armament@3:
+		Weapon: BattlecruiserRangedShot3
+		LocalOffset: 614,0,-115
+		AmmoUsage: 0
+		-PauseOnCondition:
+	Armament@4:
+		Weapon: BattlecruiserRangedShot4
+		LocalOffset: -307,-76,-115
+		AmmoUsage: 0
+		-PauseOnCondition:
+	Armament@5:
+		Weapon: BattlecruiserExplosiveShot
+		LocalOffset: -307,76,-115
+		AmmoUsage: 0
+		-PauseOnCondition:
+	Armament@6:
+		Name: secondary
+		Weapon: BattlecruiserYamatoShot
+		LocalOffset: 1024,0,-115
+		RequiresCondition: enable_yamato
+		PauseOnCondition: ammo < 40
+		AmmoUsage: 40
+	Contrail@1:
+		Offset: -1600,256,0
+		StartColorAlpha: 128
+		TrailLength: 100
+		StartWidth: 192
+		StartColorUsePlayerColor: false
+		EndColorUsePlayerColor: true
+	Contrail@2:
+		Offset: -1600,-256,0
+		StartColorAlpha: 128
+		TrailLength: 100
+		StartWidth: 192
+		StartColorUsePlayerColor: false
+		EndColorUsePlayerColor: true
+	Contrail@3:
+		Offset: -1600,0,512
+		StartColorAlpha: 128
+		TrailLength: 100
+		StartWidth: 192
+		StartColorUsePlayerColor: false
+		EndColorUsePlayerColor: true
+	Contrail@4:
+		Offset: -1600,0,-512
+		StartColorAlpha: 128
+		TrailLength: 100
+		StartWidth: 192
+		StartColorUsePlayerColor: false
+		EndColorUsePlayerColor: true
+	-Turreted@1:
+	-Turreted@2:
+	-Turreted@3:
+	-Turreted@4:
+	-Turreted@5:
+	Aircraft:
+		Speed: 72
+		TurnSpeed: 4
+		CanHover: false
+		CanSlide: false
+		IdleBehavior: None
+		Voice: Move
+		CruiseAltitude: 2c512
+		Repulsable: false
+	ReloadAmmoPool@reloadnear:
+		RequiresCondition: !no_reload
+		Delay: 25
+	AmmoPool:
+		Ammo: 40
+		InitialAmmo: 20
+	AmbientSound@yamato:
+		RequiresCondition: enable_yamato && (ammo >= 38)
+		SoundFiles: tbayam01.aud
+		Interval: 9000
+	GrantConditionOnAttack@no_reload:
+		ArmamentNames: secondary
+		RevokeDelay: 1000
+		Condition: no_reload
+	WithAmmoPipsDecoration:
+		RequiresCondition: enable_yamato
+	SpawnActorOnDeath:
+		RequiresCondition: !active
+		Actor: THYPERION.Husk
+	AnnounceOnKill:
+		Voice: Kill
+	-ProducibleWithLevel:
+	Voiced:
+		VoiceSet: TerranHyperionVoice
+	WithIdleOverlay@fire1:
+		Offset: 307,614,0
+	WithIdleOverlay@fire2:
+		Offset: -153,-768,0
+	WithIdleOverlay@fire3:
+		Offset: 0,153,0
+	GrantPeriodicCondition:
+		RequiresCondition: !extend_time
+		Condition: active
+		CooldownDuration: 1125
+		ActiveDuration: 26
+		ShowSelectionBar: true
+		CooldownColor: 97FFFC
+	GrantPeriodicCondition@extended:
+		RequiresCondition: extend_time
+		Condition: active
+		CooldownDuration: 1500
+		ActiveDuration: 26
+		ShowSelectionBar: true
+		CooldownColor: 97FFFC
+	-KillsSelf:
+	GrantCondition:
+		RequiresCondition: active
+		Condition: remove_me
+	KillsSelf@active:
+		RequiresCondition: remove_me
+		Delay: 25
+		DamageTypes: RemoveHyperion
+	SpawnActorOnDeath@flyaway:
+		RequiresCondition: remove_me
+		Actor: THYPERION.Leave
+		DeathType: RemoveHyperion
+	-ActorLostNotification:
+	DeathSounds:
+		RequiresCondition: !active
+	PortableChrono:
+		ChargeDelay: 325
+		HasDistanceLimit: false
+		FlashScreen: true
+		Voice: Move
+	-Targetable@epic1:
+	GrantConditionOnPrerequisite@yamato: 
+		Prerequisites: raynor.tier5.hyperion1
+		Condition: enable_yamato
+	GrantConditionOnPrerequisite@time: 
+		Prerequisites: raynor.tier5.hyperion2
+		Condition: extend_time
+
+THYPERION.Leave:
+	Inherits: THYPERION
+	-Targetable@GROUND:
+	-Targetable@AIRBORNE:
+	-Targetable@REPAIR:
+	-Selectable:
+	-SpawnActorOnDeath:
+	-SpawnActorOnDeath@flyaway:
+	-Buildable:
+	RenderSprites:
+		Image: thyperion
+	Interactable:
+	RejectsOrders:
+	Aircraft:
+		Speed: 256
+		CruiseAltitude: 8c0
+		LandableTerrainTypes: Clear, Road, Creep
+		IdleBehavior: LeaveMap
+		AltitudeVelocity: 72
+	Contrail@1:
+		TrailLength: 150
+		StartWidth: 256
+	Contrail@2:
+		TrailLength: 150
+		StartWidth: 256
+	Contrail@3:
+		TrailLength: 150
+		StartWidth: 256
+	Contrail@4:
+		TrailLength: 150
+		StartWidth: 256
+	-GrantPeriodicCondition:
+	-GrantPeriodicCondition@extended:
+	-DeathSounds:
+	-KillsSelf@active:
+	KillsSelf:
+		Delay: 500
+		RemoveInstead: true
+
+THYPERION.Spawn:
+	Inherits: THYPERION.Leave
+	-AttackAircraft:
+	AttackBomber:
+	Aircraft:
+		Speed: 128
+		CruiseAltitude: 5c0
+		IdleBehavior: None
+	Contrail@1:
+		TrailLength: 100
+		StartWidth: 192
+	Contrail@2:
+		TrailLength: 100
+		StartWidth: 192
+	Contrail@3:
+		TrailLength: 100
+		StartWidth: 192
+	Contrail@4:
+		TrailLength: 100
+		StartWidth: 192
+	Armament@1:
+		Weapon: OrcaTransportDummy
+	Armament@2:
+		Weapon: OrcaTransportDummy
+	Armament@3:
+		Weapon: OrcaTransportDummy
+	Armament@4:
+		Weapon: OrcaTransportDummy
+	Armament@5:
+		Weapon: OrcaTransportDummy
+	-Armament@6:
+	AmmoPool:
+		Ammo: 1
+		InitialAmmo: 1
+	GrantConditionOnAttack:
+		Condition: attack
+	KillsSelf:
+		Delay: 0
+		RequiresCondition: attack
+		RemoveInstead: false
+	SpawnActorOnDeath:
+		Actor: THYPERION
+	GrantCondition@produce:
+		Condition: produced

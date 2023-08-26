@@ -101,6 +101,15 @@ TSCV:
 		CargoCondition: disable-experience
 		CustomPipType: yellow
 		Weight: 1
+	GrantConditionOnPrerequisite@processing:
+		Prerequisites: nod.tiberium
+		Condition: processing
+	SpeedMultiplier@processing:
+		RequiresCondition: processing
+		Modifier: 150
+	DamageMultiplier@processing:
+		RequiresCondition: processing
+		Modifier: 150
 	DockClientManager:
 
 ^CanTakeStimpacks:
@@ -145,7 +154,7 @@ TSCV:
 		RequiresCondition: active_stimpack && health_stimpack
 		Modifier: 80
 	DamageMultiplier@stimpack:
-		RequiresCondition: active_stimpack && health_stimpack
+		RequiresCondition: active_stimpack && health_stimpack && !raynors_raiders
 		Modifier: 125
 	WithIdleOverlay@patriotismboost:
 		Image: patriotism-overlay
@@ -186,7 +195,7 @@ TMARINE:
 		RequiresCondition: !marine_upgraded
 	Armament@GARRISONED:
 		Name: garrisoned
-		Weapon: Vulcan
+		Weapon: TerranMarineGarrisonUp
 		MuzzleSequence: garrison-muzzle
 	Armament@BUS:
 		Name: bus
@@ -324,35 +333,81 @@ TFIREBAT:
 		MuzzleSequence: muzzle
 		MuzzlePalette: dawneffect
 		LocalOffset: 256,200,256
+		RequiresCondition: !rangeupgrade
 	Armament@PRIMARY2:
 		Weapon: FirebatFlamer2
 		MuzzleSequence: muzzle
 		MuzzlePalette: dawneffect
 		LocalOffset: 256,-200,256
+		RequiresCondition: !rangeupgrade
 	Armament@GARRISONED:
 		Name: garrisoned
 		Weapon: FirebatFlamer
 		MuzzlePalette: dawneffect
 		MuzzleSequence: muzzle
 		LocalOffset: 256,200,256
+		RequiresCondition: !rangeupgrade
 	Armament@GARRISONED2:
 		Name: garrisoned
 		Weapon: FirebatFlamer2
 		MuzzlePalette: dawneffect
 		MuzzleSequence: muzzle
 		LocalOffset: 256,-200,256
+		RequiresCondition: !rangeupgrade
 	Armament@BUS:
 		Name: bus
 		Weapon: FirebatFlamer
 		MuzzlePalette: dawneffect
 		MuzzleSequence: muzzle
 		LocalOffset: 256,200,256
+		RequiresCondition: !rangeupgrade
 	Armament@BUS2:
 		Name: bus
 		Weapon: FirebatFlamer2
 		MuzzlePalette: dawneffect
 		MuzzleSequence: muzzle
 		LocalOffset: 256,-200,256
+		RequiresCondition: !rangeupgrade
+	Armament@PRIMARYUp:
+		Weapon: FirebatFlamerUp
+		MuzzleSequence: muzzle2
+		MuzzlePalette: dawneffect
+		LocalOffset: 256,200,256
+		RequiresCondition: rangeupgrade
+	Armament@PRIMARY2Up:
+		Weapon: FirebatFlamerUp2
+		MuzzleSequence: muzzle2
+		MuzzlePalette: dawneffect
+		LocalOffset: 256,-200,256
+		RequiresCondition: rangeupgrade
+	Armament@GARRISONEDUp:
+		Name: garrisoned
+		Weapon: FirebatFlamerUp
+		MuzzlePalette: dawneffect
+		MuzzleSequence: muzzle2
+		LocalOffset: 256,200,256
+		RequiresCondition: rangeupgrade
+	Armament@GARRISONED2Up:
+		Name: garrisoned
+		Weapon: FirebatFlamerUp2
+		MuzzlePalette: dawneffect
+		MuzzleSequence: muzzle2
+		LocalOffset: 256,-200,256
+		RequiresCondition: rangeupgrade
+	Armament@BUSUp:
+		Name: bus
+		Weapon: FirebatFlamerUp
+		MuzzlePalette: dawneffect
+		MuzzleSequence: muzzle2
+		LocalOffset: 256,200,256
+		RequiresCondition: rangeupgrade
+	Armament@BUS2Up:
+		Name: bus
+		Weapon: FirebatFlamerUp2
+		MuzzlePalette: dawneffect
+		MuzzleSequence: muzzle2
+		LocalOffset: 256,-200,256
+		RequiresCondition: rangeupgrade
 	AutoTarget:
 		InitialStance: AttackAnything
 		ScanRadius: 6
@@ -514,6 +569,7 @@ TMEDIC:
 	ReloadAmmoPool@2:
 		Delay: 30
 		RequiresCondition: raynors_raiders
+		ResetOnFire: true
 	WithAmmoPipsDecoration:
 		PipCount: 14
 		FullSequence: bar-red
@@ -582,11 +638,14 @@ TMEDIC:
 		EnterCursor: ability
 		EnterBlockedCursor: move-blocked
 	GrantConditionOnPrerequisite@raynor: 
-		Prerequisites: infantry.raynor
-		Condition: raynors_raiders
+		Prerequisites: raynor.tier3.range
+		Condition: rangeupgrade
 	RangeMultiplier@raynor:
 		Modifier: 145
-		RequiresCondition: raynors_raiders
+		RequiresCondition: rangeupgrade
+	GrantConditionOnPrerequisite@raynor: 
+		Prerequisites: infantry.raynor
+		Condition: raynors_raiders
 
 TGHOST:
 	Inherits: ^DoomSoldier
@@ -1160,6 +1219,12 @@ TRAYNOR.Hero1:
 		Position: TopRight
 		ValidRelationships: None,Neutral,Enemy,Ally
 	-ExperienceTrickler:
+	Armament@PRIMARY:
+		Weapon: TerranRaynorUp
+	Armament@GARRISONED:
+		Weapon: TerranRaynorUp
+	Armament@BUS:
+		Weapon: TerranRaynorUp
 
 TRAYNOR.Hero2:
 	Inherits: TRAYNOR.Hero1
@@ -1260,6 +1325,51 @@ TRAYNOR.Hero4:
 	Explodes:
 		Weapon: RaynorDeath
 		EmptyWeapon: RaynorDeath
+	DropPodsPower: 
+		Prerequisites: raynor.tier4.support1
+		Name: Orbital Bombardment
+		Description: Orders a strike from the Hyperion in orbit to attack the target area.
+		OrderName: RaynorBombardment
+		Icon: parabombs
+		Drops: 12,12
+		PodScatter: 4
+		ChargeInterval: 4500
+		UnitTypes: TSIEGE_SUPPORT1,TSIEGE_SUPPORT2,TSIEGE_SUPPORT3,TSIEGE_SUPPORT4,TSIEGE_SUPPORT5,TSIEGE_SUPPORT6
+		SelectTargetSpeechNotification: SelectTarget
+		SelectTargetTextNotification: Select target.
+		CameraActor: camera
+		CameraRemoveDelay: 250
+		EntryEffect: explosion
+		EntryEffectSequence: bunkerbustersring
+		Weapon: TerranGhostPainter
+		WeaponDelay: 5
+		StartFullyCharged: true
+	ParatroopersPower:
+		Prerequisites: raynor.tier4.support2
+		OrderName: RaynorParadrop
+		Icon: paratroopers
+		ChargeInterval: 9000
+		Name: Strike Force
+		Description: Call in 2 Dropships to paradrop 12 infantry.
+		UnitType: TDROPSHIP.Drop
+		DropItems: TMARINE.b, TMARINE.b, TMARINE.b, TMARINE.b, TMARINE.b, TMARINE.b, TMARINE.b, TFIREBAT.b, TFIREBAT.b, TFIREBAT.b, TMEDIC, TMEDIC
+		SquadSize: 2
+		SquadOffset: -1024,1024,0
+		Cordon: 256
+		ReinforcementsArrivedSpeechNotification: ReinforcementsArrived
+		SelectTargetSpeechNotification: SelectTarget
+		AllowImpassableCells: false
+		QuantizedFacings: 8
+		CameraActor: camera.paradrop
+		DisplayBeacon: true
+		BeaconPoster: pinficon
+		ArrowSequence: arrow
+		ClockSequence: clock
+		CircleSequence: circles
+		UseDirectionalTarget: True
+		DirectionArrowAnimation: paradirection
+		SupportPowerPaletteOrder: 50
+		StartFullyCharged: true
 
 TRAYNOR.Hero5:
 	Inherits: TRAYNOR.Hero4

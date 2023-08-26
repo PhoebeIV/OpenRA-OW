@@ -275,6 +275,7 @@ ZHYDRA:
 	Selectable:
 		Bounds: 800, 800, 0, 0
 		DecorationBounds: 900, 900, 0, 0
+		Class: zhydra
 	Valued:
 		Cost: 550
 	UpdatesPlayerStatistics:
@@ -858,6 +859,51 @@ ZDEVOURING:
 		Palette: effect
 		ValidRelationships: None,Neutral,Enemy,Ally
 
+ZENTHRALLED:
+	Inherits: ZDEVOURING
+	RenderSprites:
+		Image: ZDEVOURING
+	-WithDecoration@elite:
+	-UpdatesPlayerStatistics:
+	-Buildable:
+	ActorLostNotification:
+		RequiresCondition: !active
+	Tooltip:
+		Name: Enthralled Zergling
+	GrantPeriodicCondition:
+		Condition: active
+		CooldownDuration: 1450,1600
+		ActiveDuration: 26
+		ShowSelectionBar: true
+		CooldownColor: 97FFFC
+	KillsSelf:
+		RequiresCondition: active
+		Delay: 5
+		DamageTypes: DefaultDeath
+	Health:
+		HP: 20000
+	FirepowerMultiplier@devouringone:
+		Modifier: 150
+
+ZHYDRA.E:
+	Inherits: ZHYDRA.b
+	-UpdatesPlayerStatistics:
+	-Buildable:
+	-Power:
+	ActorLostNotification:
+		RequiresCondition: !active
+	Tooltip:
+		Name: Enthralled Hydralisk
+	GrantPeriodicCondition:
+		Condition: active
+		CooldownDuration: 1450,1600
+		ActiveDuration: 26
+		ShowSelectionBar: true
+		CooldownColor: 97FFFC
+	KillsSelf:
+		RequiresCondition: active
+		Delay: 5
+		DamageTypes: DefaultDeath
 
 ZKERRIGAN:
 	Inherits: ^EpicInfantryNerf

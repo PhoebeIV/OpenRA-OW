@@ -156,6 +156,10 @@
 	WithColoredOverlay@dominatrix:
 		RequiresCondition: dominatrix
 		Color: 93009e40
+	ExternalCondition@support:
+		Condition: SupportPowerConsiderer
+	Targetable@support:
+		TargetTypes: SupportPowerConsiderer
 
 ^IronCurtainable:
 	WithColoredOverlay@ironshroud:
@@ -686,11 +690,17 @@
 		RequiresCondition: ifp3
 		Modifier: 145
 	ProductionCostMultiplier@upgrade:
-		Prerequisites: upgrade.prodcost
+		Prerequisites: infantry.prodcost
 		Multiplier: 90
 	ProductionTimeMultiplier@upgrade:
-		Prerequisites: upgrade.prodtime
+		Prerequisites: infantry.prodtime
 		Multiplier: 80
+	GrantConditionOnPrerequisite@firespeed1:
+		Prerequisites: infantry.firespeed1
+		Condition: infantry.firespeed1
+	ReloadDelayMultiplier@firespeed1:
+		RequiresCondition: infantry.firespeed1
+		Modifier: 90
 	Targetable@parachute:
 		RequiresCondition: parachute
 		TargetTypes: AirborneActor
@@ -1220,6 +1230,9 @@
 		Action: ChangeOwner
 	Capturable:
 		ValidRelationships: Enemy, Neutral, Ally
+	ProductionTimeMultiplier@upgrade_time:
+		Prerequisites: structures.prodtime
+		Multiplier: 80
 	ChangesHealth@Monumentboost:
 		RequiresCondition: Monumentboost
 		PercentageStep: 1
@@ -1296,6 +1309,9 @@
 		RequiresCondition: !defiler_plague
 	GrantConditionOnPrerequisite@sovietiron:
 		Prerequisites: soviet.iron
+		Condition: soviet_iron
+	GrantConditionOnPrerequisite@terranarmor:
+		Prerequisites: terran.structure
 		Condition: soviet_iron
 	DamageMultiplier@sovietiron:
 		RequiresCondition: soviet_iron
@@ -1455,10 +1471,7 @@
 		Owner: Creeps
 	RevealOnFire:
 	Repairable:
-		RepairActors: fix, gfix, gfix.boss
-	RepairableNear:
-		RepairActors: tshop
-		CloseEnough: 2c0
+		RepairActors: fix, gfix, gfix.boss, tshop
 	GrantConditionOnPrerequisite@var1:
 		Prerequisites: upgrade.veharmor1
 		Condition: var1
@@ -1594,6 +1607,12 @@
 	Targetable@cloaked:
 		RequiresCondition: cloaked
 		TargetTypes: NoAITarget
+	GrantConditionOnPrerequisite@terranarmor:
+		Prerequisites: terran.armor
+		Condition: soviet_iron
+	DamageMultiplier@sovietiron:
+		RequiresCondition: soviet_iron
+		Modifier: 80
 	TeleportNetworkTransportable:
 
 ^TrackedVehicle:
@@ -1603,6 +1622,9 @@
 	SpeedMultiplier@gdi_speed:
 		RequiresCondition: gdi_speed
 		Modifier: 120
+	GrantConditionOnPrerequisite@sovietiron:
+		Prerequisites: soviet.iron
+		Condition: soviet_iron
 
 ^Ship:
 	Inherits@corrode: ^CorrodesFromTibWeaps
@@ -1681,8 +1703,6 @@
 	Inherits@shields: ^AcceptsShields
 	Repairable:
 		RepairActors: fix, gfix, gfix.boss, tshop
-	RepairableNear:
-		RepairActors: tshop
 	RevealOnFire:
 	GrantConditionOnPrerequisite@aar1:
 		Prerequisites: upgrade.airarmor1
@@ -1720,6 +1740,12 @@
 	FirepowerMultiplier@nfp3:
 		RequiresCondition: afp3
 		Modifier: 145
+	GrantConditionOnPrerequisite@terranarmor:
+		Prerequisites: terran.armor
+		Condition: terran_armor
+	DamageMultiplier@terranarmor:
+		RequiresCondition: terran_armor
+		Modifier: 75
 	Aircraft:
 	KillsSelf:
 		RequiresCondition: airborne && disabled
@@ -1777,10 +1803,7 @@
 	Aircraft:
 		LandableTerrainTypes: Clear, Rough, Road, Ore, Beach, Gems, Creep, Tiberium, BlueTiberium
 	Repairable:
-		RepairActors: fix, gfix, gfix.boss
-	RepairableNear:
-		RepairActors: tshop
-		CloseEnough: 2c0
+		RepairActors: fix, gfix, gfix.boss, tshop
 
 ^TSPlane:
 	Inherits: ^Plane
@@ -2367,6 +2390,7 @@
 		Image: fire
 		Sequence: 1
 		IsDecoration: True
+		Palette: effect
 	ChangesHealth:
 		Step: -125
 		StartIfBelow: 101

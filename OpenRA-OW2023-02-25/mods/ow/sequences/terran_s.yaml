@@ -507,11 +507,44 @@ tsilo:
 	icon:
 		Filename: tsiloicon.shp
 
+tarmory:
+	Defaults:
+		Filename: tarmory.shp
+	idle:
+		Length: *
+		Start: 1
+		Tick: 100
+	make:
+		Filename:
+		Length: *
+		Tick: 333
+		Combine:
+			0:
+				Filename: tbuildsml.shp
+				Length: *
+				Offset: 0,8
+			1:
+				Filename: tarmory.shp
+				Length: 2
+	bib:
+		Filename: bib2.tem
+		TilesetFilenames:
+			SNOW: bib2.sno
+			DESERT: bib2.des
+		Length: *
+	dead:
+		Tick: 500
+	icon:
+		Filename: tarmoryicon.shp
+
+
 tbunker:
 	Defaults:
 		Filename: tbunker.shp
 	idle:
 		Start: 1
+	idle2:
+		Start: 11
 	make:
 		Filename:
 		Length: *
@@ -580,6 +613,8 @@ tbunker:
 		Tick: 500
 	icon:
 		Filename: tbunkericon.shp
+	icon-supply:
+		Filename: tbunker2icon.shp
 
 tmissile:
 	Defaults:
@@ -588,6 +623,24 @@ tmissile:
 		Start: 2
 		Offset: 0,-13
 	idle-overlay:
+		Filename:
+		Length: *
+		Tick: 60
+		Offset: 0,-13
+		Combine:
+			0:
+				Filename: tmissile.shp
+				Length: *
+				Frames: 3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19
+			1:
+				Filename: tmissile.shp
+				Length: *
+				Frames: 18,17,16,15,14,13,12,11,10,9,8,7,6,5,4
+				FlipX: true
+	idle2:
+		Start: 20
+		Offset: 0,-13
+	idle2-overlay:
 		Filename:
 		Length: *
 		Tick: 60
@@ -900,7 +953,44 @@ tfirebat:
 				Offset: -7,8
 		Facings: 8
 		Length: 13
-		Scale: 1.4
+		Scale: 1.6
+	muzzle2:
+		Combine:
+			0:
+				Filename: flame-n.shp
+				Length: *
+				Offset: 1,6
+			1:
+				Filename: flame-nw.shp
+				Length: *
+				Offset: 8,7
+			2:
+				Filename: flame-w.shp
+				Length: *
+				Offset: 8,2
+			3:
+				Filename: flame-sw.shp
+				Length: *
+				Offset: 7,-2
+			4:
+				Filename: flame-s.shp
+				Length: *
+				Offset: 1,-2
+			5:
+				Filename: flame-se.shp
+				Length: *
+				Offset: -5,-2
+			6:
+				Filename: flame-e.shp
+				Length: *
+				Offset: -7,2
+			7:
+				Filename: flame-ne.shp
+				Length: *
+				Offset: -7,8
+		Facings: 8
+		Length: 13
+		Scale: 1.75
 	icon:
 		Filename: tfirebaticon.shp
 
@@ -1739,6 +1829,20 @@ tbattle.groundhusk:
 				Frames: 15,14,13,12,11,10,9,8,7,6,5,4,3,2,1
 				FlipX: true
 
+thyperion:
+	Inherits: tbattle
+	idle:
+		Scale: 1.0
+	engine:
+		Scale: 1.0
+	icon:
+		Filename: thyperionicon.shp
+
+thyperion.groundhusk:
+	Inherits: tbattle.groundhusk
+	idle:
+		Scale: 1.0
+
 tvalk:
 	idle:
 		Scale: 0.75
@@ -1841,6 +1945,21 @@ tgrenade:
 twraithshot:
 	idle:
 		Scale: 0.75
+		Facings: -32
+		BlendMode: Additive
+		ZOffset: -512
+		Combine:
+			0:
+				Filename: twraithshot.shp
+				Length: 17
+				Frames: 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16
+			1:
+				Filename: twraithshot.shp
+				Length: 15
+				Frames: 15,14,13,12,11,10,9,8,7,6,5,4,3,2,1
+				FlipX: true
+	idle2:
+		Scale: 1.0
 		Facings: -32
 		BlendMode: Additive
 		ZOffset: -512
@@ -2014,3 +2133,8 @@ tnuke:
 				Filename: tatomic.shp
 				Frames: 1
 				Offset: 0, -32
+
+tnukesmall:
+	Inherits: tnuke
+	idle:
+		Scale: 0.5

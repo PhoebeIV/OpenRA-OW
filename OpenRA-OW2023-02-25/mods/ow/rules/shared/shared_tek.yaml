@@ -222,6 +222,12 @@ T.MISS:
 	ProvidesPrerequisite@terran:
 		Factions: terran
 		Prerequisite: ulttech.terran
+	ProvidesPrerequisite@raynor:
+		Factions: raynor
+		Prerequisite: ulttech.raynor
+	ProvidesPrerequisite@mengsk:
+		Factions: mengsk
+		Prerequisite: ulttech.mengsk
 	ProvidesPrerequisite@protoss:
 		Factions: protoss
 		Prerequisite: ulttech.protoss
@@ -753,6 +759,7 @@ T.MISS:
 		DirectionArrowAnimation: paradirection
 		SupportPowerPaletteOrder: 40
 		DisplayTimerRelationships: None
+		PauseOnCondition: disabled
 	AirstrikePower@antimatterbombdrop:
 		OrderName: AntiMatterBombDrop
 		Prerequisites: ulttech.japan
@@ -777,6 +784,52 @@ T.MISS:
 		DirectionArrowAnimation: paradirection
 		SupportPowerPaletteOrder: 40
 		DisplayTimerRelationships: None
+		PauseOnCondition: disabled
+	AirstrikePower@hyperion:
+		OrderName: Hyperion
+		Prerequisites: ulttech.raynor
+		Icon: hyperion
+		ChargeInterval: 9750
+		Name: Hyperion
+		Description: Call down your Capital Ship to fight for 45 seconds. \n\n Strong vs Everything \nCan teleport deploy.
+		SelectTargetSpeechNotification: SelectTarget
+		SelectTargetTextNotification: Select target.
+		CameraActor: camera
+		CameraRemoveDelay: 25
+		UnitType: thyperion.spawn
+		QuantizedFacings: 8
+		DisplayBeacon: true
+		BeaconPoster: hyperion
+		SquadSize: 1
+		SquadOffset: 1792,1792,0
+		ArrowSequence: arrow
+		ClockSequence: clock
+		CircleSequence: circles
+		UseDirectionalTarget: True
+		DirectionArrowAnimation: paradirection
+		SupportPowerPaletteOrder: 5
+		DisplayTimerRelationships: Ally, Enemy, Neutral
+		PauseOnCondition: disabled
+	IonCannonPower@mengsk:
+		OrderName: MengskStrike
+		Prerequisites: ulttech.mengsk
+		PauseOnCondition: disabled
+		Icon: cstrike
+		Cursor: nuke
+		ChargeInterval: 12000
+		Name: Contaminated Strike
+		Description: Launches a controversial Contaminated Strike \nat a target location. \nPlagues and ensnares victims that survive.
+		SelectTargetSpeechNotification: SelectTarget
+		InsufficientPowerSpeechNotification: InsufficientPower
+		OnFireSound: tnsfir00.aud
+		DisplayRadarPing: True
+		CameraActor: camera.small
+		SupportPowerPaletteOrder: 20
+		CameraRemoveDelay: 250
+		Effect: explosion
+		EffectSequence: ghostpaint2
+		Weapon: ContaminatedStrike
+		DisplayTimerRelationships: Ally, Neutral, Enemy
 	Production@specialunit:
 		Produces: SpecialUnit
 		RequiresCondition: hive_upgrade

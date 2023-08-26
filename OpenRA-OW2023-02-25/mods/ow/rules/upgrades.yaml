@@ -323,6 +323,7 @@ upgrade.levelup:
 
 UpgradeHandler:
 	Inherits@mine: MINE_DUMMY
+	Inherits@upgrades: ^FreeUpgrades
 	-Interactable:
 	Production:
 		Produces: Upgrade
@@ -384,15 +385,20 @@ UpgradeHandler:
 		Actor: UpgradeHandlerBot
 		SpawnOffset: 1,0
 		RequiresCondition: bot_harder
-	ProvidesPrerequisite@estonia:
-		Prerequisite: upgrade.buildarmor1
-		RequiresPrerequisites: structures.estonia
-	GrantConditionOnPrerequisite@estonia:
-		Prerequisites: structures.estonia
-		Condition: spawn_buildarmor1
-	FreeActor@estonia:
-		RequiresCondition: spawn_buildarmor1
-		Actor: upgrade.buildarmor1
+	GrantConditionOnProduction@idle:
+		Condition: idle
+		Duration: 1650
+	GrantPeriodicCondition:
+		RequiresCondition: idle
+		Condition: upgrade_alert
+		CooldownDuration: 500
+		ActiveDuration: 50
+	Voiced:
+		VoiceSet: Upgrade
+	VoiceAnnouncement:
+		RequiresCondition: upgrade_alert
+		ValidRelationships: None
+		Voice: Available
 	OwnerLostAction:
 		Action: Dispose
 
@@ -405,6 +411,32 @@ UpgradeHandlerBot:
 		LowPowerModifier: 300
 		BuildDurationModifier: 175
 	-ExternalCondition@upgrade:
+
+^FreeUpgrades:
+	ProvidesPrerequisite@estonia:
+		Prerequisite: upgrade.buildarmor1
+		RequiresPrerequisites: structures.estonia
+	GrantConditionOnPrerequisite@estonia:
+		Prerequisites: structures.estonia
+		Condition: spawn_buildarmor1
+	FreeActor@estonia:
+		RequiresCondition: spawn_buildarmor1
+		Actor: upgrade.buildarmor1
+	GrantConditionOnPrerequisite@mengsk:
+		Prerequisites: structures.mengsk
+		Condition: mengsk
+	FreeActor@siege:
+		RequiresCondition: mengsk
+		Actor: terran.tank
+	ProvidesPrerequisite@mengsssk:
+		RequiresPrerequisites: structures.mengsk
+		Prerequisite: structures.prodtime
+	GrantConditionOnPrerequisite@raynor:
+		Prerequisites: structures.raynor
+		Condition: raynor
+	FreeActor@raynor:
+		RequiresCondition: raynor
+		Actor: terran.marine
 
 ^UpgradeBase:
 	Buildable:

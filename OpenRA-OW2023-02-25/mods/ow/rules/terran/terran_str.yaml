@@ -21,18 +21,21 @@
 		Sequence: 4
 		IsDecoration: true
 		Offset: 0,-1024,512
+		Palette: effect
 	WithIdleOverlay@fire2:
 		RequiresCondition: damaged_heavy
 		Image: fire
 		Sequence: 3
 		IsDecoration: true
 		Offset: 0,1024,768
+		Palette: effect
 	WithIdleOverlay@fire3:
 		RequiresCondition: damaged_critical
 		Image: fire
 		Sequence: 2
 		IsDecoration: true
 		Offset: 0,0,512
+		Palette: effect
 	RepairableBuilding:
 		RepairCondition: player_repairing
 	ChangesHealth@fire:
@@ -42,6 +45,10 @@
 		RequiresCondition: !player_repairing && !defiler_plague
 	ExternalCondition@roomforaddon:
 		Condition: room_for_addon
+	ProductionTimeMultiplier@bot:
+		Prerequisites: ai.hard
+		Multiplier: 75
+		Queue: Building
 
 ^TerranAddonSpaceReserver:
 	Inherits: ^SpriteActor
@@ -213,10 +220,6 @@ TCOMMAND:
 	ProvidesPrerequisite@pluggable:
 		RequiresCondition: !build-incomplete && !cc_addon_exists && room_for_addon
 		Prerequisite: tcommand.addon
-	ProductionTimeMultiplier@bot:
-		Prerequisites: ai.hard
-		Multiplier: 75
-		Queue: Building
 
 TCOMMAND.addon:
 	AlwaysVisible:
@@ -472,6 +475,12 @@ TREFINERY:
 		Offset: 0,512,256
 	WithIdleOverlay@fire3:
 		Offset: 0,256,512
+	GrantConditionOnPrerequisite@processing:
+		Prerequisites: nod.tiberium
+		Condition: processing
+	ResourceValueMultiplier@processing:
+		RequiresCondition: processing
+		Modifier: 110
 	DockHost:
 		Type: Unload
 		DockAngle: 256
@@ -577,9 +586,6 @@ TBARR:
 	WithDeathAnimation:
 		DeathSequence: dead
 		UseDeathTypeSuffix: false
-	ProvidesPrerequisite@raynor:
-		RequiresPrerequisites: structures.raynor
-		Prerequisite: barracks.upgraded
 	ProvidesPrerequisite@raynor2:
 		RequiresPrerequisites: structures.raynor
 		Prerequisite: techlevel.hero
@@ -758,6 +764,7 @@ TBARR.drop:
 	Inherits: TBARR.air
 	-ProvidesPrerequisite@buildingname:
 	-Transforms:
+	-ActorLostNotification:
 	Aircraft:
 		TurnSpeed: 20
 		Speed: 300
@@ -1079,7 +1086,7 @@ TMISSILE:
 	Buildable:
 		Queue: Defense
 		BuildPaletteOrder: 45
-		Prerequisites: radar, ~structures.terran, ~techlevel.medium
+		Prerequisites: radar, ~structures.terran, ~techlevel.medium, ~!structures.mengsk
 		Description: Anti-Armor base defense.\nCan detect cloaked units.\n  Strong vs Vehicles\n  Weak vs Infantry, Aircraft
 	Valued:
 		Cost: 700
@@ -1131,6 +1138,23 @@ TMISSILE:
 	WithIdleOverlay@fire3:
 		Offset: 0,128,340
 	-SpawnActorsOnSell@terran:
+
+TMISSILE.Mengsk:
+	Inherits: TMISSILE
+	Buildable:
+		Prerequisites: radar, ~structures.mengsk, ~techlevel.medium
+	Tooltip:
+		Name: Fortified Missile Turret
+	RenderSprites:
+		Image: tmissile
+	WithSpriteBody:
+		Sequence: idle2
+	Power:
+		Amount: -30
+	DamageMultiplier@mengsk:
+		Modifier: 75
+	ReloadDelayMultiplier@mengsk:
+		Modifier: 80
 
 TFACTORY:
 	Inherits: ^Building
@@ -1493,9 +1517,53 @@ TSPORT.Husk:
 	RenderSprites:
 		Image: tsport
 
+TARMORY:
+	Inherits: ^Building
+	Inherits@2: ^TerranBuilding
+	Inherits@disable: ^DisableOnLowPower
+	Inherits@shape: ^3x2Shape
+	Selectable:
+		Bounds: 3072, 2048
+	Buildable:
+		Queue: Building
+		BuildPaletteOrder: 35
+		Prerequisites: factory, ~techlevel.high, ~structures.mengsk, !tarmory
+		Description: Allows access to additional vehicle upgrades.
+		BuildLimit: 1
+	Valued:
+		Cost: 1500
+	Tooltip:
+		Name: Armory
+	ProvidesPrerequisite@buildingname:
+	Building:
+		Footprint: === xxx ===
+		Dimensions: 3,3
+		LocalCenterOffset: 0,-512,0
+	Health:
+		HP: 150000
+	Armor:
+		Type: Wood
+	RevealsShroud:
+		Range: 5c0
+	WithBuildingBib:
+	Power:
+		Amount: -50
+	WithSpriteBody:
+		PauseOnCondition: disabled
+	WithDeathAnimation:
+		DeathSequence: dead
+		UseDeathTypeSuffix: false
+	WithIdleOverlay@fire1:
+		Offset: 0,-512,0
+	WithIdleOverlay@fire2:
+		Offset: 0,512,256
+	WithIdleOverlay@fire3:
+		Offset: 0,0,512
+
 TSCIENCE:
 	Inherits: ^ScienceBuilding
 	Inherits@fire: ^TerranBuilding
+	Inherits@IDISABLE: ^DisableOnLowPower
 	Inherits@shape: ^3x3Shape
 	Selectable:
 		Bounds: 3072, 3072
@@ -1586,6 +1654,29 @@ TSCIENCE:
 	ProvidesPrerequisite@pluggable:
 		RequiresCondition: !build-incomplete && !scf_addon_exists && room_for_addon
 		Prerequisite: tscience.addon
+	ProvidesPrerequisite@mengsk:
+		Factions: mengsk
+		Prerequisite: tscience.mengsk
+	DropPodsPower: 
+		Prerequisites: tscience.mengsk
+		Name: Dogs of War
+		Description: Deploy 30 Enthralled Zerglings to fight for 60 seconds.
+		OrderName: MengskDogs
+		Icon: zergling
+		Drops: 6,6
+		PodScatter: 3
+		ChargeInterval: 12000
+		UnitTypes: TDROPSHIP.ZergDropPod
+		SelectTargetSpeechNotification: SelectTarget
+		SelectTargetTextNotification: Select target.
+		CameraActor: camera
+		CameraRemoveDelay: 250
+		EntryEffect: explosion
+		EntryEffectSequence: bunkerbustersring
+		Weapon: TerranGhostPainter
+		WeaponDelay: 5
+		PodFacing: 896
+		PauseOnCondition: disabled
 
 TSCIENCE.addon:
 	AlwaysVisible:
@@ -1664,10 +1755,14 @@ TBUNKER:
 	Buildable:
 		Queue: Defense
 		BuildPaletteOrder: 40
-		Prerequisites: barracks, ~structures.terran, ~techlevel.low, ~!ai.all
+		Prerequisites: barracks, ~structures.terran, ~techlevel.low, ~!ai.all, ~!structures.mengsk
 		Description: Static defense with a fireport for\n garrisoned troops.\nCannot detect cloaked units.\n  Strong vs Infantry, Light armor\n  Weak vs Tanks, Aircraft
 	Valued:
 		Cost: 800
+	CustomSellValue:
+		Value: 600
+	GivesExperience:
+		Experience: 600
 	Health:
 		HP: 60000
 	Armor:
@@ -1692,6 +1787,7 @@ TBUNKER:
 		MaxWeight: 4
 		PassengerConditions:
 			tmarine: tmarine
+			tmarine.b: tmarine
 			tmarine.b2: tmarine
 			tfirebat: tfirebat
 			tfirebat.b: tfirebat
@@ -1700,6 +1796,8 @@ TBUNKER:
 			tghost: tghost
 			e1of: e1of
 			dm2of: e1of
+			e1: tmarine
+			fe1: tmarine
 		InitialUnits: tmarine.b2
 	ProximityExternalCondition@officer:
 		RequiresCondition: e1of
@@ -1743,6 +1841,18 @@ TBUNKER:
 		RequiresCondition: tmarine >= 4
 		Turret: 4
 		PauseOnCondition: marine_upgraded
+	Armament@marine5:
+		Weapon: TerranMarineGarrison
+		MuzzleSequence: muzzle
+		RequiresCondition: tmarine >= 5
+		Turret: 5
+		PauseOnCondition: marine_upgraded
+	Armament@marine6:
+		Weapon: TerranMarineGarrison
+		MuzzleSequence: muzzle
+		RequiresCondition: tmarine >= 6
+		Turret: 6
+		PauseOnCondition: marine_upgraded
 	Armament@marine1b:
 		Weapon: TerranMarineGarrisonUp
 		MuzzleSequence: muzzle
@@ -1766,6 +1876,18 @@ TBUNKER:
 		MuzzleSequence: muzzle
 		RequiresCondition: tmarine >= 4
 		Turret: 4
+		PauseOnCondition: !marine_upgraded
+	Armament@marine5b:
+		Weapon: TerranMarineGarrisonUp
+		MuzzleSequence: muzzle
+		RequiresCondition: tmarine >= 5
+		Turret: 5
+		PauseOnCondition: !marine_upgraded
+	Armament@marine6b:
+		Weapon: TerranMarineGarrisonUp
+		MuzzleSequence: muzzle
+		RequiresCondition: tmarine >= 6
+		Turret: 6
 		PauseOnCondition: !marine_upgraded
 	Armament@firebat1a:
 		Weapon: FirebatFlamerGarrison
@@ -1823,6 +1945,34 @@ TBUNKER:
 		LocalOffset: 512,-260,256
 		RequiresCondition: tfirebat >= 4
 		Turret: 4
+	Armament@firebat5a:
+		Weapon: FirebatFlamerGarrison
+		MuzzleSequence: flame
+		MuzzlePalette: dawneffect
+		LocalOffset: 512,260,256
+		RequiresCondition: tfirebat >= 5
+		Turret: 5
+	Armament@firebat5b:
+		Weapon: FirebatFlamerGarrison2
+		MuzzleSequence: flame
+		MuzzlePalette: dawneffect
+		LocalOffset: 512,-260,256
+		RequiresCondition: tfirebat >= 5
+		Turret: 5
+	Armament@firebat6a:
+		Weapon: FirebatFlamerGarrison
+		MuzzleSequence: flame
+		MuzzlePalette: dawneffect
+		LocalOffset: 512,260,256
+		RequiresCondition: tfirebat >= 6
+		Turret: 6
+	Armament@firebat6b:
+		Weapon: FirebatFlamerGarrison2
+		MuzzleSequence: flame
+		MuzzlePalette: dawneffect
+		LocalOffset: 512,-260,256
+		RequiresCondition: tfirebat >= 6
+		Turret: 6
 	Armament@ghost1:
 		Weapon: TerranGhost
 		MuzzleSequence: muzzle
@@ -1843,6 +1993,16 @@ TBUNKER:
 		MuzzleSequence: muzzle
 		RequiresCondition: tghost >= 4
 		Turret: 4
+	Armament@ghost5:
+		Weapon: TerranGhost
+		MuzzleSequence: muzzle
+		RequiresCondition: tghost >= 5
+		Turret: 5
+	Armament@ghost6:
+		Weapon: TerranGhost
+		MuzzleSequence: muzzle
+		RequiresCondition: tghost >= 6
+		Turret: 6
 	Turreted@1:
 		Turret: 1
 		TurnSpeed: 24
@@ -1863,9 +2023,19 @@ TBUNKER:
 		TurnSpeed: 24
 		InitialFacing: 768
 		RealignDelay: 1
+	Turreted@5:
+		Turret: 5
+		TurnSpeed: 24
+		InitialFacing: 896
+		RealignDelay: 3
+	Turreted@6:
+		Turret: 6
+		TurnSpeed: 24
+		InitialFacing: 128
+		RealignDelay: 2
 	AttackTurreted:
 		Armaments: primary
-		Turrets: 1,2,3,4
+		Turrets: 1,2,3,4,5,6
 	RenderRangeCircle:
 		FallbackRange: 6c0
 	GrantConditionOnPrerequisite@upgrade:
@@ -1928,7 +2098,7 @@ TBUNKER.BOT:
 	Inherits: TBUNKER
 	Buildable:
 		BuildPaletteOrder: 9000
-		Prerequisites: barracks, ~structures.terran, ~techlevel.low, ~ai.all
+		Prerequisites: barracks, ~structures.terran, ~techlevel.low, ~ai.all, ~!structures.mengsk
 		Description: AI-only, contains 3 marines and a firebat. \nAlso has self-heals for Hard difficulty
 	Valued:
 		Cost: 1200
@@ -1947,10 +2117,73 @@ TBUNKER.BOT:
 TBUNKER.BOT2:
 	Inherits: TBUNKER.BOT
 	Buildable:
-		Prerequisites: barracks, tcops, ~structures.terran, ~techlevel.unrestricted, ~ai.all
+		Prerequisites: barracks, tcops, ~structures.terran, ~techlevel.unrestricted, ~ai.all, ~!structures.mengsk
 		Description: AI-only, contains 3 marines and a ghost. \nAlso has self-heals for Hard difficulty
 	Cargo:
 		InitialUnits: tmarine.b2,tmarine.b2,tmarine.b2,tghost
+
+TBUNKER.Mengsk:
+	Inherits: TBUNKER
+	Buildable:
+		Prerequisites: barracks, ~structures.mengsk, ~techlevel.low, ~!ai.all
+		Icon: icon-supply
+	Valued:
+		Cost: 1100
+	CustomSellValue:
+		Value: 600
+	GivesExperience:
+		Experience: 600
+	Cargo:
+		MaxWeight: 6
+		InitialUnits: tmarine.b2,tmarine.b2
+	RenderSprites:
+		Image: tbunker
+	Health:
+		HP: 100000
+	Tooltip:
+		Name: Supply Bunker
+	Power:
+		Amount: 100
+	WithSpriteBody:
+		Sequence: idle2
+	SpawnActorOnDeath@1:
+		Probability: 100
+	SpawnActorOnDeath@2:
+		Probability: 100
+	SpawnActorOnDeath@3:
+		Probability: 90
+
+TBUNKER.Mengsk.BOT:
+	Inherits: TBUNKER.Mengsk
+	Buildable:
+		BuildPaletteOrder: 9000
+		Prerequisites: barracks, ~structures.mengsk, ~techlevel.low, ~ai.all
+		Description: AI-only, contains 4 marines and 2 firebats. \nAlso has self-heals for Hard difficulty
+	Valued:
+		Cost: 1600
+	Cargo:
+		InitialUnits: tmarine.b2,tmarine.b2,tmarine.b2,tmarine.b2,tfirebat.b,tfirebat.b
+	Explodes@2:
+		Weapon: UnitExplodeSmall2
+		EmptyWeapon: UnitExplodeSmall2
+	ChangesHealth@scv:
+		RequiresCondition: bot_hard
+
+TBUNKER.Mengsk.BOT2:
+	Inherits: TBUNKER.Mengsk.BOT
+	Valued:
+		Cost: 2000
+	Buildable:
+		Prerequisites: barracks, tcops, ~structures.mengsk, ~techlevel.unrestricted, ~ai.all
+		Description: AI-only, contains 5 marines and 1 ghost. \nAlso has self-heals for Hard difficulty
+	Cargo:
+		InitialUnits: tmarine.b2,tmarine.b2,tmarine.b2,tmarine.b2,tmarine.b2,tghost
+
+TBUNKER.Mengsk.Drop:
+	Inherits: TBUNKER.Mengsk.BOT
+	-Buildable:
+	Cargo:
+		InitialUnits: tmarine.b2,tmarine.b2,tmarine.b2,tmarine.b2
 
 MISS.TERRAN:
 	Inherits: T.MISS

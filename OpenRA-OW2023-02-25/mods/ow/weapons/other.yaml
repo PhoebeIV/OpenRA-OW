@@ -2452,11 +2452,21 @@ ArchonBeam1:
 	Projectile: TeslaZap
 		TrackTarget: false
 		Duration: 18
-	ValidTargets: Ground, Water, GroundActor, WaterActor
+	ValidTargets: Ground, Water, GroundActor, WaterActor, AirborneActor
 	Warhead@1Dam: SpreadDamage
 		Spread: 192
 		Damage: 12000
 		ValidTargets: GroundActor, WaterActor
+		Versus:
+			None: 125
+			Wood: 50
+			Heavy: 60
+			Concrete: 50
+		DamageTypes: Prone50Percent, ElectricityDeath
+	Warhead@1DamAir: SpreadDamage
+		Spread: 300
+		Damage: 6000
+		ValidTargets: AirborneActor
 		Versus:
 			None: 125
 			Wood: 50
@@ -3537,6 +3547,29 @@ FirebatFlamerGarrison2:
 	Warhead@2Dam: SpreadDamage
 		Damage: 4000
 
+FirebatFlamerUp:
+	Inherits: FirebatFlamer
+	ReloadDelay: 32
+	Range: 5c0
+	Projectile: Bullet
+		Speed: 1c512
+	Warhead@1Dam: SpreadDamage
+		Damage: 7000
+
+FirebatFlamerUp2:
+	Inherits: FirebatFlamer2
+	ReloadDelay: 29
+	Burst: 4
+	Range: 5c0
+	FirstBurstTargetOffset: -2048,0,0
+	FollowingBurstTargetOffset: 450,0,0
+	Projectile: Bullet
+		Speed: 1c512
+	Warhead@2Dam: SpreadDamage
+		Damage: 2500
+	Warhead@3Dam: SpreadDamage
+		Damage: 2500
+
 TerranMedicHeal:
 	Inherits: Heal
 	ReloadDelay: 7
@@ -3556,13 +3589,13 @@ TerranMedicHeal:
 
 TerranMedicHealUpgraded:
 	Inherits: TerranMedicHeal
-	ReloadDelay: 6
+	ReloadDelay: 7
 	Warhead@1Dam: SpreadDamage
 		Spread: 320
 
 TerranMedicRepair:
 	Inherits: Repair
-	ReloadDelay: 8
+	ReloadDelay: 9
 	Range: 3c512
 	Report: tmedheal.aud
 	ValidTargets: Repair
@@ -3573,7 +3606,7 @@ TerranMedicRepair:
 
 TerranMedicHealGarrison:
 	Inherits: TerranMedicHeal
-	Range: 5c512
+	Range: 6c0
 
 #for AI to deploy a unit
 TerranSiegeDeploy:
@@ -3699,6 +3732,89 @@ BattlecruiserShot:
 		ImpactSounds: lasrhit3.aud
 		ValidTargets: Air, AirborneActor
 
+BattlecruiserRangedShot1:
+	Inherits: BattlecruiserShot
+	ReloadDelay: 40
+	Range: 10c0
+
+BattlecruiserRangedShot2:
+	Inherits: BattlecruiserRangedShot1
+	ReloadDelay: 37
+
+BattlecruiserRangedShot3:
+	Inherits: BattlecruiserRangedShot1
+	ReloadDelay: 34
+
+BattlecruiserRangedShot4:
+	Inherits: BattlecruiserRangedShot1
+	ReloadDelay: 30
+
+BattlecruiserExplosiveShot:
+	Inherits: BattlecruiserShot
+	Burst: 3
+	BurstDelays: 18
+	ReloadDelay: 100
+	Range: 10c0
+	Report: voveweaa.wav,voveweab.wav,voveweac.wav,vovewead.wav
+	ValidTargets: Ground, Water, GroundActor, WaterActor, AirborneActor
+	Projectile: Bullet
+		Inaccuracy: 1c0
+		Speed: 896
+	Warhead@0Dam: SpreadDamage
+		Spread: 128
+		Damage: 10000
+		ValidTargets: GroundActor, WaterActor, AirborneActor
+		Versus:
+			None: 120
+			Wood: 50
+			Light: 50
+			Heavy: 50
+			Concrete: 50
+		DamageTypes: SmallExplosionDeath, TriggerProne
+	Warhead@1Dam: SpreadDamage
+		Spread: 256
+		Damage: 10000
+		Versus:
+			None: 100
+			Wood: 50
+			Light: 50
+			Heavy: 80
+			Concrete: 50
+		Delay: 2
+		DamageTypes: Prone50Percent, TriggerProne, SmallExplosionDeath
+	Warhead@2Dam: SpreadDamage
+		Spread: 512
+		Damage: 10000
+		Versus:
+			None: 80
+			Wood: 50
+			Light: 100
+			Concrete: 50
+		Delay: 4
+		DamageTypes: Prone50Percent, TriggerProne, SmallExplosionDeath
+	Warhead@3EffGround: CreateEffect
+		Explosions: dukenukemexplosionsmall
+		ImpactSounds: dsrpgexp.aud
+	Warhead@15Shake: ShakeScreen
+		Duration: 5
+		Intensity: 1
+		Multiplier: 1,1
+
+BattlecruiserYamatoShot:
+	Inherits: BattlecruiserShot
+	ReloadDelay: 900
+	Range: 10c0
+	Report: tbayam02.aud
+	ValidTargets: Ground, Water, GroundActor, WaterActor, AirborneActor
+	Projectile: Bullet
+		Inaccuracy: 256
+		Speed: 512
+		Sequences: idle2
+	Warhead@0Dam: FireCluster
+		Weapon: TerranCrateNuke
+		Dimensions: 1,1
+		Footprint: X
+
 TerranGhostPainter:
 	ReloadDelay: 25
 	Range: 10c0
@@ -3816,16 +3932,21 @@ RaynorStrike:
 	ReloadDelay: 50
 	Range: 7c0
 	Report: traatk01.aud
+	FirstBurstTargetOffset: 4096,0,0
 	ValidTargets: Ground, Water, GroundActor, WaterActor
 	Projectile: Bullet
-		Speed: 1c0
+		Speed: 512
 		Image: tghostpaint
 	Warhead@3EffGround: CreateEffect
 		Explosions: ghostpaint2
 		ValidTargets: Ground, Water, GroundActor, WaterActor, Trees
+		ImpactActors: false
 	Warhead@strike: SendAirstrike
 		UnitType: TVALK.Bomber
 		Mode: Position
+		ValidTargets: Ground, Water, GroundActor, WaterActor
+	Warhead@1Dam: SpreadDamage
+		Damage: 1
 		ValidTargets: Ground, Water, GroundActor, WaterActor
 
 DragonTankshot:

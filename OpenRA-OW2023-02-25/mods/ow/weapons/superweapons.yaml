@@ -897,6 +897,7 @@ BanebladeBFG:
 		Delay: 8
 		ValidTargets: GroundActor, WaterActor, Underwater, AirborneActor, Trees
 		Versus:
+			None: 200
 			Concrete: 15
 		AffectsParent: true
 		DamageTypes: Prone50Percent, TriggerProne, ElectricityDeath
@@ -910,6 +911,7 @@ BanebladeBFG:
 		Delay: 13
 		ValidTargets: GroundActor, WaterActor, Underwater, Trees
 		Versus:
+			None: 200
 			Concrete: 15
 		AffectsParent: true
 		DamageTypes: Prone50Percent, TriggerProne, ElectricityDeath
@@ -920,7 +922,7 @@ BanebladeBFG:
 		Delay: 18
 		ValidTargets: GroundActor, WaterActor, Underwater, Trees
 		Versus:
-			None: 50
+			None: 200
 			Light: 50
 			Concrete: 15
 		AffectsParent: true
@@ -2663,7 +2665,7 @@ PlagueAtomic:
 		Condition: trigger_repair
 		ValidTargets: Structure
 	Warhead@22FlashEffect: FlashPaletteEffect
-		Duration: 40
+		Duration: 15
 		FlashType: Catalyst
 
 DeleteNuke:
@@ -3060,6 +3062,160 @@ TerranNuke:
 		ImpactSounds: tnshit00.aud
 		ImpactActors: false
 		ValidTargets: Ground, Water, Air
+
+ContaminatedStrike:
+	ValidTargets: Ground, Water, GroundActor, WaterActor, Underwater, AirborneActor, Trees
+	Projectile: Bullet
+		Speed: 2c0
+	Warhead@cluster1: FireCluster
+		Delay: 50
+		Weapon: ContaminatedStrikeDown
+		RandomClusterCount: 1
+		Dimensions: 1,1
+		Footprint: X
+	Warhead@cluster2: FireCluster
+		Delay: 75
+		Weapon: ContaminatedStrikeDown
+		RandomClusterCount: 2
+		Dimensions: 9,9
+		Footprint: xxxxxxxxx xxxxxxxxx xxxx_xxxx xxx___xxx xxx___xxx xxx___xxx xxxx_xxxx xxxxxxxxx xxxxxxxxx
+	Warhead@cluster3: FireCluster
+		Delay: 100
+		Weapon: ContaminatedStrikeDown
+		RandomClusterCount: 2
+		Dimensions: 9,9
+		Footprint: xxxxxxxxx xxxxxxxxx xxxx_xxxx xxx___xxx xxx___xxx xxx___xxx xxxx_xxxx xxxxxxxxx xxxxxxxxx
+	Warhead@cluster4: FireCluster
+		Delay: 125
+		Weapon: ContaminatedStrikeDown
+		RandomClusterCount: 1
+		Dimensions: 9,9
+		Footprint: xxxxxxxxx xxxxxxxxx xxxx_xxxx xxx___xxx xxx___xxx xxx___xxx xxxx_xxxx xxxxxxxxx xxxxxxxxx
+	Warhead@22FlashEffect: FlashPaletteEffect
+		Duration: 15
+		Delay: 156
+		FlashType: Catalyst
+	Warhead@98Eff_impact: CreateEffect
+		ImpactSounds: jericho.wav
+		Delay: 156
+		ImpactActors: false
+	Warhead@99Eff_impact: CreateEffect
+		ImpactSounds: jericho.wav
+		Delay: 156
+		ImpactActors: false
+
+ContaminatedStrikeDown:
+	ValidTargets: Ground, Water, GroundActor, WaterActor, Underwater, AirborneActor, Trees
+	Projectile: Bullet
+		Speed: 256
+		Inaccuracy: 0
+	Warhead@1Effect: CreateEffect
+		Delay: 50
+		Explosions: idle
+		ExplosionPalette: player
+		Image: tnukesmall
+		UsePlayerPalette: true
+		ImpactActors: false
+	Warhead@cluster2: FireCluster
+		Delay: 102
+		Weapon: ContaminedStrikeExplosion
+		RandomClusterCount: 1
+		Dimensions: 1,1
+		Footprint: x
+
+ContaminedStrikeExplosion:
+	ValidTargets: Ground, Water, GroundActor, WaterActor, Underwater, AirborneActor, Trees
+	Projectile: Bullet
+		Speed: 2c0
+	Warhead@98Eff_impact: CreateEffect
+		Delay: 5
+		Explosions: blood_explosion_small
+		ImpactSounds: zbldgdth.aud
+		ImpactActors: false
+	Warhead@99Eff_impact: CreateEffect
+		Explosions: building
+		ImpactSounds: dsrpgexp.aud, kaboom22.aud
+		ImpactActors: false
+	Warhead@1Dam_impact: SpreadDamage
+		Delay: 5
+		Spread: 1c0
+		Damage: 6000
+		Falloff: 1000, 368, 135, 50, 18, 7, 0
+		ValidTargets: GroundActor, WaterActor, Underwater, AirborneActor, Trees
+		Versus:
+			Concrete: 25
+			Shield: 200
+		AffectsParent: true
+		DamageTypes: Prone50Percent, TriggerProne, TiberiumDeath, Incendiary
+	Warhead@2Res_impact: DestroyResource
+		Size: 1
+		Delay: 5
+	Warhead@4Dam_areanuke1: SpreadDamage
+		Spread: 1c512
+		Damage: 2500
+		Falloff: 1000, 368, 135, 50, 18, 7, 0
+		Delay: 10
+		ValidTargets: GroundActor, WaterActor, Underwater, AirborneActor, Trees
+		Versus:
+			Wood: 50
+			Concrete: 25
+		AffectsParent: true
+		DamageTypes: Prone50Percent, TriggerProne, TiberiumDeath, Incendiary
+	Warhead@5Res_areanuke1: DestroyResource
+		Size: 2
+		Delay: 10
+	Warhead@7Dam_areanuke2: SpreadDamage
+		Spread: 2c0
+		Damage: 2500
+		Falloff: 1000, 368, 135, 50, 18, 7, 0
+		Delay: 15
+		ValidTargets: GroundActor, WaterActor, Underwater, AirborneActor, Trees
+		Versus:
+			Wood: 50
+			Concrete: 25
+		AffectsParent: true
+		DamageTypes: Prone50Percent, TriggerProne, TiberiumDeath, Incendiary
+	Warhead@8Dam_areanuke2: SpreadDamage
+		Spread: 2c0
+		Damage: 2500
+		Falloff: 1000, 368, 135, 50, 18, 7, 0
+		Delay: 16
+		ValidTargets: Fission
+		DamageTypes: Incendiary
+	Warhead@9Res_areanuke2: DestroyResource
+		Size: 3
+		Delay: 20
+	Warhead@13Smu_areanuke3: LeaveSmudge
+		SmudgeType: Scorch
+		ValidTargets: Ground, Infantry
+		Size: 3
+		Delay: 25
+	Warhead@14Shake: ShakeScreen
+		Duration: 7
+		Intensity: 3
+		Multiplier: 1,1
+	Warhead@poison1: GrantExternalCondition
+		Range: 9c0
+		Condition: queen_ensnare
+		Duration: 1000
+		ValidTargets: WaterActor, GroundActor, AirborneActor
+	Warhead@poison2: GrantExternalCondition
+		Range: 9c0
+		Condition: defiler_plague
+		Duration: 1000
+		ValidTargets: WaterActor, GroundActor, AirborneActor
+	Warhead@reptrigger: GrantExternalCondition
+		Range: 9c0
+		Delay: 1100
+		Duration: 1100
+		Condition: trigger_repair
+		ValidTargets: Structure
+	Warhead@gas: FireCluster
+		Delay: 25
+		Weapon: CatalystShrapnel
+		RandomClusterCount: 1
+		Dimensions: 3,3
+		Footprint: xxx xxx xxx 
 
 ColonyDropExplosion:
 	ValidTargets: Ground, Water, GroundActor, WaterActor, Underwater, AirborneActor, Trees

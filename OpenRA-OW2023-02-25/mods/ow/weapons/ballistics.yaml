@@ -1325,6 +1325,11 @@ RaynorMarineGrenade:
 	Inherits: RaynorVultureGrenade
 	Burst: 2
 	BurstDelays: 3
+	Warhead@condition: GrantExternalCondition
+		Condition: SupportPowerConsiderer
+		Range: 2c0
+		Duration: 250
+		ValidTargets: GroundActor, WaterActor
 
 TerranSiegeCannon:
 	Inherits: ^Cannon
@@ -1360,9 +1365,9 @@ TerranSiegeCannon:
 			Concrete: 50
 		Delay: 5
 		DamageTypes: Prone50Percent, TriggerProne, SmallExplosionDeath
-	Warhead@1Dam: SpreadDamage
+	Warhead@2Dam: SpreadDamage
 		Spread: 512
-		Damage: 25000
+		Damage: 20000
 		Versus:
 			None: 40
 			Wood: 40
@@ -1397,6 +1402,19 @@ TerranSiegeCannonEffect:
 		Explosions: siegeattack
 		ValidTargets: Ground, GroundActor, WaterActor, Trees, Air
 		Delay: 3
+
+TerranSiegeCannonSupport:
+	Inherits: TerranSiegeCannon
+	-Warhead@4Eff: 
+	Warhead@0Dam: SpreadDamage
+		Spread: 256
+		Damage: 20000
+	Warhead@1Dam: SpreadDamage
+		Spread: 400
+		Damage: 18000
+	Warhead@2Dam: SpreadDamage
+		Spread: 800
+		Damage: 20000
 
 TerranCannon:
 	Inherits: ^Cannon
