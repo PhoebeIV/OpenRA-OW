@@ -1,15 +1,15 @@
 T.MISS:
 	Inherits: ^ScienceBuilding
 	Inherits@IDISABLE: ^DisableOnLowPower
-	Inherits@Boss: ^EpicBotPrereqs
 	Inherits@shape: ^3x2Shape
+	Inherits@BIB: ^3xBuildingBib
 	Selectable:
 		Bounds: 3072, 2389
 	Buildable:
 		Queue: Tech
 		BuildPaletteOrder: 9090
 		BuildDuration: 4500
-		Prerequisites: advtechcenter, ~techlevel.unrestricted, ~structures.ultprereq, ~!ai.boss, ~!techlevel.noepic
+		Prerequisites: advtechcenter, ~techlevel.unrestricted, ~structures.ultprereq, ~!techlevel.noepic
 		BuildLimit: 1
 		Description: Provides access to your faction's epic unit or ability.\n\n  Special Ability: Provides money\n Limit of one.
 	Valued:
@@ -48,7 +48,6 @@ T.MISS:
 		RevealGeneratedShroud: False
 	RevealsShroud@GAPGEN:
 		Range: 7c0
-	WithBuildingBib:
 	Power:
 		Amount: -600
 	ProvidesPrerequisite@buildingname:
@@ -836,15 +835,17 @@ T.MISS:
 	GrantConditionOnPrerequisite@baseshields:
 		Condition: baseshields
 		Prerequisites: upgrade.baseshields
-	Shielded@shielded:
-		MaxStrength: 75000
-		RegenDelay: 250
-		RegenAmount: 1000
-		ShieldsUpCondition: baseshieldscolour
-		RequiresCondition: baseshields
+	Shielded:
+		RequiresCondition: (baseshields || external_shield) && !emp_shields
 	WithColoredOverlay@shielded:
-		RequiresCondition: baseshieldscolour
-		Color: 00fbff20
+		RequiresCondition: shielded && baseshields
+		Color: 00FBFF0F
+	ProvidesPrerequisite@ai:
+		RequiresPrerequisites: ai.hard
+		Prerequisite: tcops
+	ProvidesPrerequisite@ai2:
+		RequiresPrerequisites: ai.hard
+		Prerequisite: tplab
 
 HAXOR:
 	Inherits: POWR
@@ -1207,7 +1208,7 @@ T.MISSAIR:
 		Queue: Tech
 		BuildPaletteOrder: 9090
 		BuildDuration: 4500
-		Prerequisites: advtechcenter, ~techlevel.unrestricted, ~structures.airultprereq, ~!ai.boss, ~!techlevel.noepic
+		Prerequisites: advtechcenter, ~techlevel.unrestricted, ~structures.airultprereq, ~!techlevel.noepic
 		BuildLimit: 1
 		Description: Provides access to your faction's epic unit or ability.\n\n  Special Ability: Provides money\n Limit of one.
 	ProductionQueue@2:
@@ -1232,7 +1233,7 @@ T.MISSINF:
 		Queue: Tech
 		BuildPaletteOrder: 9090
 		BuildDuration: 4500
-		Prerequisites: advtechcenter, ~techlevel.unrestricted, ~structures.infultprereq, ~!ai.boss, ~!techlevel.noepic
+		Prerequisites: advtechcenter, ~techlevel.unrestricted, ~structures.infultprereq, ~!techlevel.noepic
 		BuildLimit: 1
 		Description: Provides access to your faction's epic unit or ability.\n\n  Special Ability: Provides money\n Limit of one.
 	ProductionQueue@2:

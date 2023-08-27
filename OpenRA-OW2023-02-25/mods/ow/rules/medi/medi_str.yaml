@@ -12,13 +12,20 @@ FACTM:
 	Inherits@1: ^ConYardPrereqs
 	Inherits@2: ^Building
 	Inherits@3: ^ConYard
+	Inherits@BIB: ^3x4BuildingBib
 	Selectable:
 		Bounds: 3072, 4266
-	Building:
-		Footprint: xxx xxx X== ===
+	-Buildable:
+	D2kBuilding:
+		Footprint: =x= xxx =x= ===
 		Dimensions: 3,4
-		LocalCenterOffset: 0,-512,0
+		TerrainTypes: Clear,Road
+		RequiresBaseProvider: True
 		BuildSounds: medibuild1.aud, medibuildjobdone1.aud, medibuildplace1.aud
+		UndeploySounds: cashturn.aud
+		LocalCenterOffset: 0,-512,0
+		ConcreteTemplate: 1024
+		ConcretePrerequisites: techlevel.pavement
 	Buildable:
 		Queue: Building
 		Prerequisites: ~disabled
@@ -81,7 +88,6 @@ FACTM:
 	BaseProvider:
 		PauseOnCondition: being-captured
 		Range: 16c0
-	WithBuildingBib:
 	WithDeathAnimation:
 		DeathSequence: dead
 		UseDeathTypeSuffix: false
@@ -187,6 +193,7 @@ TENTMEDI:
 	Inherits: ^BarracksPrereqs
 	Inherits: ^Building
 	Inherits@shape: ^2x2Shape
+	Inherits@BIB: ^2xBuildingBib
 	Selectable:
 		Bounds: 2048, 3072, 0, 512
 	HitShape:
@@ -216,7 +223,6 @@ TENTMEDI:
 		RevealGeneratedShroud: False
 	RevealsShroud@GAPGEN:
 		Range: 4c0
-	WithBuildingBib:
 	RallyPoint:
 	Exit@1:
 		RequiresCondition: !being-captured
@@ -257,6 +263,7 @@ STABLES:
 	Inherits: ^FactoryPrereqs
 	Inherits: ^Building
 	Inherits@shape: ^3x3Shape
+	Inherits@BIB: ^3xBuildingBib
 	Selectable:
 		Bounds: 3072, 3072, 0, 512
 		DecorationBounds: 3072, 3072, 0, 512
@@ -287,7 +294,6 @@ STABLES:
 		RevealGeneratedShroud: False
 	RevealsShroud@GAPGEN:
 		Range: 4c0
-	WithBuildingBib:
 	RallyPoint:
 	Exit@1:
 		RequiresCondition: !being-captured
@@ -363,8 +369,7 @@ DOCKMEDI:
 
 ##Air units
 HATCHERY:
-	Inherits: HPAD
-	Inherits: AFLD
+	Inherits: ^Building
 	Inherits@shape: ^3x2Shape
 	Selectable:
 		Bounds: 3072, 2048, 0, 512
@@ -377,11 +382,10 @@ HATCHERY:
 		Prerequisites: armorymedi, ~structures.medi, ~techlevel.medium
 		Description: Allows production of air units.
 		BuildPaletteOrder: 6
-	WithBuildingBib:
 	Valued:
 		Cost: 500
 	Tooltip:
-		Name: Avairy
+		Name: Aviary
 	Building:
 		Footprint: xxx xxx
 		Dimensions: 3,2
@@ -395,7 +399,6 @@ HATCHERY:
 		RevealGeneratedShroud: False
 	RevealsShroud@GAPGEN:
 		Range: 4c0
-	WithBuildingBib:
 	Exit@1:
 		RequiresCondition: !being-captured
 		SpawnOffset: 0,-256,0
@@ -439,6 +442,7 @@ HATCHERY:
 ARMORYMEDI:
 	Inherits: ^Building
 	Inherits@shape: ^3x3Shape
+	Inherits@BIB: ^3xBuildingBib
 	Selectable:
 		Bounds: 3072, 3072, 0, 512
 		DecorationBounds: 3072, 3072, 0, 512
@@ -469,7 +473,6 @@ ARMORYMEDI:
 		RevealGeneratedShroud: False
 	RevealsShroud@GAPGEN:
 		Range: 4c0
-	WithBuildingBib:
 	RallyPoint:
 	Exit@1:
 		RequiresCondition: !being-captured
@@ -513,6 +516,7 @@ ARMORYMEDI:
 LABORCAMP:
 	Inherits: ^Building
 	Inherits@shape: ^3x3Shape
+	Inherits@BIB: ^3xBuildingBib
 	Buildable:
 		Queue: Building
 		Prerequisites: ~structures.medi, ~techlevel.infonly, ~!ai.boss
@@ -572,13 +576,13 @@ LABORCAMP:
 	Targetable:
 		TargetTypes: GroundActor, C4, DetonateAttack, Structure
 	ProvidesPrerequisite@buildingname:
-	WithBuildingBib:
 	RenderSprites:
 		Image: laborcampmedi
 
 ##Resource Drop and silo
 FARMMEDI:
 	Inherits: GPROC
+	Inherits@BIB: ^2xBuildingBib
 	-FreeActor@1:
 	-FreeActor@2:
 	FreeActor:
@@ -661,7 +665,6 @@ GoldMine:
 		TargetTypes: GroundActor, C4, DetonateAttack, Structure
 	ProvidesPrerequisite@GoldMine:
 		Prerequisite: GoldMine
-	WithBuildingBib:
 	RenderSprites:
 		Image: medigoldmine
 	CashTrickler@GoldMine:
@@ -874,6 +877,7 @@ GoldMineSpawner:
 CASTLE:
 	Inherits: ^ScienceBuilding
 	Inherits@shape: ^3x3Shape
+	Inherits@BIB: ^3xBuildingBib
 	Selectable:
 		Bounds: 3072, 3072
 	Buildable:
@@ -904,7 +908,6 @@ CASTLE:
 	ProvidesPrerequisite@buildingname:
 	ProvidesPrerequisite:
 		Prerequisite: techcenter
-	WithBuildingBib:
 	RenderSprites:
 		Image: medicastle
 
@@ -917,6 +920,7 @@ ACADEMYMEDI:
 BLACKSMITHMEDI:
 	Inherits: ^Building
 	Inherits@shape: ^3x3Shape
+	Inherits@BIB: ^3xBuildingBib
 	Selectable:
 		Bounds: 3072, 3072
 	Buildable:
@@ -943,7 +947,6 @@ BLACKSMITHMEDI:
 	Targetable:
 		TargetTypes: GroundActor, C4, DetonateAttack, Structure, SpyInfiltrate
 	ProvidesPrerequisite@buildingname:
-	WithBuildingBib:
 	RenderSprites:
 		Image: mediblacksmith
 
@@ -1087,7 +1090,6 @@ CHURCHMEDI:
 		Description: Bring forth the undead to attack your foes
 		Prerequisites: ~structures.darkness
 		EffectSequence: idle
-	WithBuildingBib:
 	RenderSprites:
 		Image: medichurch
 
@@ -1096,6 +1098,7 @@ MERCHANTGUILD:
 	Inherits: ATEK
 	Inherits@shape: ^3x3Shape
 	Inherits@pips: ^AdvTechPips
+	Inherits@BIB: ^3xBuildingBib
 	-AlwaysVisible:
 	Selectable:
 		Bounds: 3072, 3072
@@ -1129,7 +1132,6 @@ MERCHANTGUILD:
 		Prerequisite: advtechcenter
 	Targetable:
 		TargetTypes: GroundActor, C4, DetonateAttack, Structure, SpyInfiltrate
-	WithBuildingBib:
 	RenderSprites:
 		Image: mediguild
 
@@ -1138,6 +1140,7 @@ ALCHEMYLAB:
 	Inherits: ^Building
 	Inherits@IDISABLE: ^DisableOnLowPowerOrPowerDown
 	Inherits@shape: ^2x2Shape
+	Inherits@BIB: ^2xBuildingBib
 	Selectable:
 		Bounds: 2048, 2048
 	Buildable:
@@ -1229,7 +1232,6 @@ ALCHEMYLAB:
 		ArrowSequence: arrow
 		ClockSequence: clock
 		CircleSequence: circles
-	WithBuildingBib:
 	RenderSprites:
 		Image: medialchemy
 
@@ -1237,6 +1239,7 @@ ALCHEMYLAB:
 LIBRARY:
 	Inherits: ^ScienceBuilding
 	Inherits@shape: ^3x3Shape
+	Inherits@BIB: ^3xBuildingBib
 	Selectable:
 		Bounds: 4096, 3072
 	Buildable:
@@ -1264,7 +1267,6 @@ LIBRARY:
 	Targetable:
 		TargetTypes: GroundActor, C4, DetonateAttack, Structure, SpyInfiltrate
 	ProvidesPrerequisite@buildingname:
-	WithBuildingBib:
 	RenderSprites:
 		Image: medilibrary
 	Production:
@@ -1325,6 +1327,7 @@ MANAWELL:
 	Inherits: ^PowerPlant
 	Inherits@POWER_OUTAGE: ^DisabledByPowerOutage
 	Inherits@shape: ^2x2Shape
+	Inherits@BIB: ^2xBuildingBib
 	Selectable:
 		Bounds: 2048, 2048
 	Buildable:
@@ -1361,17 +1364,23 @@ MANAWELL:
 		Prerequisite: manasupply
 	ProvidesPrerequisite:
 		Prerequisite: anypower
-	WithBuildingBib:
 	RenderSprites:
 		Image: medimanawell
 	PowerMultiplier@hardAI:
 		RequiresCondition: bot_hard
 		Modifier: 200
+	WithIdleOverlay@bibtemp:
+		Image: bib3compiled_terran
+	WithIdleOverlay@bibsnow:
+		Image: bib3compiled_terran
+	WithIdleOverlay@bibdes:
+		Image: bib3compiled_terran
 
 ##Power structure gives mana
 DEEPMANAWELL:
 	Inherits: MANAWELL
 	Inherits@shape: ^3x3Shape
+	Inherits@BIB: ^3xBuildingBib
 	Buildable:
 		Queue: Building
 		Prerequisites: ~structures.medi, techcenter, ~!ai.powerout, ~!ai.boss, ~techlevel.medium
@@ -1982,13 +1991,14 @@ MonumentToTheGods:
 
 ##Graveyard
 MediGraveyard:
+	Inherits: ^ScienceBuilding
+	Inherits@shape: ^3x3Shape
+	Inherits@AUTOTARGET: ^AutoTargetAll
+	Inherits@BIB: ^3xBuildingBib
 	ExternalCondition@GraveyardSouls:
 		Condition: GraveyardSouls
 	WithRangeCircle@gs:
 		Range: 30c0
-	Inherits: ^ScienceBuilding
-	Inherits@shape: ^3x3Shape
-	Inherits@AUTOTARGET: ^AutoTargetAll
 	Targetable:
 		TargetTypes: GroundActor, C4, DetonateAttack, Structure, Defense
 	Selectable:
@@ -2014,7 +2024,6 @@ MediGraveyard:
 	RevealsShroud:
 		Range: 4c0
 	ProvidesPrerequisite@buildingname:
-	WithBuildingBib:
 	FreeActor@1:
 		Actor: MediZombie
 		RequiresCondition: producezomb

@@ -2,6 +2,7 @@ chinanuclearreactor:
 	Inherits: ^PowerPlant
 	Inherits@POWER_OUTAGE: ^DisabledByPowerOutage
 	Inherits@shape: ^2x2Shape
+	Inherits@BIB: ^2xBuildingBib
 	Selectable:
 		Bounds: 2048, 2048
 	HitShape:
@@ -28,7 +29,6 @@ chinanuclearreactor:
 		Type: Wood
 	RevealsShroud:
 		Range: 4c0
-	WithBuildingBib:
 	Power@notovercharged:
 		Amount: 150
 		RequiresCondition: !overcharge && !disabled
@@ -71,6 +71,7 @@ chinanuclearreactor:
 
 chinasupplycenter:
 	Inherits: ^Building
+	Inherits@BIB: ^3x4BuildingBib
 	Buildable:
 		Queue: Building
 		BuildPaletteOrder: 60
@@ -113,7 +114,6 @@ chinasupplycenter:
 		Types: SpyInfiltrate, ThiefInfiltrate
 		InfiltratedNotification: CreditsStolen
 		InfiltratedTextNotification: Credits stolen.
-	WithBuildingBib:
 	WithIdleOverlay@TOP:
 		RequiresCondition: !build-incomplete
 		Sequence: idle-top
@@ -160,6 +160,7 @@ chinabarracks:
 	Inherits: ^DawnBuilding
 	Inherits@prereqs: ^BarracksPrereqs
 	Inherits@shape: ^2x2Shape
+	Inherits@BIB: ^2xBuildingBib
 	Selectable:
 		Bounds: 2048, 2048
 	HitShape:
@@ -193,7 +194,6 @@ chinabarracks:
 	ActorPreviewPlaceBuildingPreview:
 	Cloak@stealthgen:
 		Palette: dawncloak
-	WithBuildingBib:
 	RallyPoint:
 	Exit@1:
 		RequiresCondition: !being-captured

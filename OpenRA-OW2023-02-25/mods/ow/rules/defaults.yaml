@@ -26,6 +26,62 @@
 			TopLeft: -1024, -1536
 			BottomRight: 1024, 1536
 
+^2xBuildingBib:
+	GrantConditionOnTileSet@temp:
+		TileSets: TEMPERAT, INTERIOR
+		Condition: tile_temp
+	GrantConditionOnTileSet@snow:
+		TileSets: SNOW
+		Condition: tile_snow
+	GrantConditionOnTileSet@des:
+		TileSets: DESERT
+		Condition: tile_des
+	GrantConditionOnTerrain@pavement:
+		TerrainTypes: Road
+		Condition: no_bib
+	WithIdleOverlay@bibtemp:
+		RequiresCondition: tile_temp && !no_bib
+		Sequence: temp
+		Image: bib3compiled
+		Palette: terrain
+	WithIdleOverlay@bibsnow:
+		RequiresCondition: tile_snow && !no_bib
+		Sequence: snow
+		Image: bib3compiled
+		Palette: terrain
+	WithIdleOverlay@bibdes:
+		RequiresCondition: tile_des && !no_bib
+		Sequence: des
+		Image: bib3compiled
+		Palette: terrain
+
+^3xBuildingBib:
+	Inherits: ^2xBuildingBib
+	WithIdleOverlay@bibtemp:
+		Image: bib2compiled
+	WithIdleOverlay@bibsnow:
+		Image: bib2compiled
+	WithIdleOverlay@bibdes:
+		Image: bib2compiled
+
+^3x4BuildingBib:
+	Inherits: ^2xBuildingBib
+	WithIdleOverlay@bibtemp:
+		Image: bib2compiled_offset3x4
+	WithIdleOverlay@bibsnow:
+		Image: bib2compiled_offset3x4
+	WithIdleOverlay@bibdes:
+		Image: bib2compiled_offset3x4
+
+^4xBuildingBib:
+	Inherits: ^2xBuildingBib
+	WithIdleOverlay@bibtemp:
+		Image: bib1compiled
+	WithIdleOverlay@bibsnow:
+		Image: bib1compiled
+	WithIdleOverlay@bibdes:
+		Image: bib1compiled
+
 # Applies to infantry and vehicles
 ^GPSScramblable:
 	ExternalCondition@gpsscrambler:
@@ -428,19 +484,6 @@
 		Position: TopRight
 		ValidRelationships: None,Neutral,Enemy,Ally
 		RequiresCondition: HolySuperBoosted
-	Shielded@medi:
-		MaxStrength: 5000
-		RegenAmount: 200
-		RegenInterval: 25
-		RegenDelay: 75
-		SelectionBarColor: AAAAFF
-		ShieldsUpCondition: shielded
-		RequiresCondition: HolySuperBoosted
-	Armor@medishield:
-		RequiresCondition: shielded
-		Type: Shield
-	Armor:
-		RequiresCondition: !shielded
 
 ^GlobalBounty:
 	ExternalCondition@GLAbounty: # this allows GLA to gain bounty on kills, but only within range of units/structures.
@@ -951,6 +994,8 @@
 	TakeCover:
 		SpeedModifier: 90
 		Duration: 125
+	EligibleForRandomActorCrate:
+		Type: soldier
 
 ^TibSunSoldier:
 	Inherits@1: ^Soldier
@@ -1283,7 +1328,7 @@
 		Factions: china, tank, infantry, nuke
 		ActorTypes: chinaredguard2,chinaredguard2,chinaredguard2,tecn,tecn,tecn
 	SpawnActorsOnSell@terran:
-		Factions: terran
+		Factions: terran, raynor, mengsk
 		ActorTypes: tecn,tecn,tecn,c10,tmarine
 	SpawnActorsOnSell@japan:
 		Factions: japan
@@ -1614,6 +1659,8 @@
 		RequiresCondition: soviet_iron
 		Modifier: 80
 	TeleportNetworkTransportable:
+	EligibleForRandomActorCrate:
+		Type: vehicle
 
 ^TrackedVehicle:
 	GrantConditionOnPrerequisite@gdi_speed:
@@ -2142,6 +2189,8 @@
 	DamageMultiplier@defmatrix:
 		RequiresCondition: defense_matrix
 		Modifier: 20
+	EligibleForRandomActorCrate:
+		Type: epic
 
 #Reduces upgrade effectiveness on VERY strong epic infantry units
 ^EpicInfantryNerf:

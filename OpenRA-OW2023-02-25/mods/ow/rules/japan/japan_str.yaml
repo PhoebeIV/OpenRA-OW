@@ -5,7 +5,7 @@
 		RequiresCondition: (baseshields || external_shield) && !emp_shields
 	WithColoredOverlay@shielded:
 		RequiresCondition: shielded
-		Color: 00fbff20
+		Color: 00FBFF0F
 	GrantConditionOnPrerequisite@baseshields:
 		Condition: baseshields
 		Prerequisites: upgrade.baseshields
@@ -15,8 +15,9 @@ japanantimatterreactor:
 	Inherits@POWER_OUTAGE: ^DisabledByPowerOutage
 	Inherits@shape: ^3x2Shape
 	Inherits@jshield: ^JapanBaseShield
+	Inherits@BIB: ^3xBuildingBib
 	Selectable:
-		Bounds: 2048, 2048
+		Bounds: 3072, 2048
 	HitShape:
 		UseTargetableCellsOffsets: false
 		TargetableOffsets: 0,0,0, 640,-384,0, 640,512,0, -710,-512,0, -710,512,0
@@ -41,7 +42,6 @@ japanantimatterreactor:
 		Type: Wood
 	RevealsShroud:
 		Range: 4c0
-	WithBuildingBib:
 	Power:
 		Amount: 250
 		RequiresCondition: !overcharge && !disabled
@@ -97,6 +97,7 @@ AntiMatterPowerActor:
 japansupplycenter:
 	Inherits: ^Building
 	Inherits@jshield: ^JapanBaseShield
+	Inherits@BIB: ^3x4BuildingBib
 	Buildable:
 		Queue: Building
 		BuildPaletteOrder: 60
@@ -139,7 +140,6 @@ japansupplycenter:
 		Types: SpyInfiltrate, ThiefInfiltrate
 		InfiltratedNotification: CreditsStolen
 		InfiltratedTextNotification: Credits stolen.
-	WithBuildingBib:
 	WithIdleOverlay@TOP:
 		RequiresCondition: !build-incomplete
 		Sequence: idle-top
@@ -187,6 +187,7 @@ japanbarracks:
 	Inherits@prereqs: ^BarracksPrereqs
 	Inherits@shape: ^2x2Shape
 	Inherits@jshield: ^JapanBaseShield
+	Inherits@BIB: ^2xBuildingBib
 	Selectable:
 		Bounds: 2048, 2048
 	HitShape:
@@ -220,7 +221,6 @@ japanbarracks:
 	ActorPreviewPlaceBuildingPreview:
 	Cloak@stealthgen:
 		Palette: dawncloak
-	WithBuildingBib:
 	RallyPoint:
 	Exit@1:
 		RequiresCondition: !being-captured
@@ -473,6 +473,7 @@ japanmainframe:
 	Inherits@IDISABLE: ^DisableOnLowPower
 	Inherits@shape: ^2x2Shape
 	Inherits@jshield: ^JapanBaseShield
+	Inherits@BIB: ^2xBuildingBib
 	Selectable:
 		Bounds: 2048, 2048
 	Buildable:
@@ -498,7 +499,6 @@ japanmainframe:
 		RevealGeneratedShroud: False
 	RevealsShroud@GAPGEN:
 		Range: 4c0
-	WithBuildingBib:
 	ProvidesRadar:
 		RequiresCondition: !lowpower
 	SpawnActorPower@Clairvoyance:
@@ -605,6 +605,7 @@ japanpsychicdatacenter:
 	Inherits: ^ScienceBuilding
 	Inherits@shape: ^3x2Shape
 	Inherits@jshield: ^JapanBaseShield
+	Inherits@BIB: ^3xBuildingBib
 	Selectable:
 		Bounds: 3072, 2048
 	HitShape:
@@ -635,7 +636,6 @@ japanpsychicdatacenter:
 		RevealGeneratedShroud: False
 	RevealsShroud@GAPGEN:
 		Range: 4c0
-	WithBuildingBib:
 	Power:
 		Amount: -200
 	ProvidesPrerequisite@buildingname:

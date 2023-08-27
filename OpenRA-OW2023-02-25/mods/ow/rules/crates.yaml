@@ -26,7 +26,7 @@ CRATE:
 		NoBaseSelectionShares: 1000
 		Units: mcv
 	GiveBaseBuilderCrateAction@dawn:
-		ValidFactions: nod, bhand, marked, nod3, gdi, steel, zocom, gdi3, sword, angels, silver, china, nuke, infantry, tank
+		ValidFactions: nod, bhand, marked, nod3, gdi, steel, zocom, gdi3, sword, angels, silver, china, nuke, infantry, tank, japan
 		SelectionShares: 0
 		NoBaseSelectionShares: 1000
 		Units: mcvd
@@ -41,17 +41,17 @@ CRATE:
 		NoBaseSelectionShares: 1000
 		Units: mcvm
 	GiveBaseBuilderCrateAction@protoss:
-		ValidFactions: protoss
+		ValidFactions: protoss, artanis, vorazun
 		SelectionShares: 0
 		NoBaseSelectionShares: 1000
 		Units: pmcv
 	GiveBaseBuilderCrateAction@zerg:
-		ValidFactions: zerg
+		ValidFactions: zerg, kerrigan, zagara
 		SelectionShares: 0
 		NoBaseSelectionShares: 1000
 		Units: zmcv
 	GiveBaseBuilderCrateAction@terran:
-		ValidFactions: terran
+		ValidFactions: terran, raynor, mengsk
 		SelectionShares: 0
 		NoBaseSelectionShares: 1000
 		Units: tcommand.air
@@ -84,19 +84,18 @@ CRATE:
 	GiveUnitCrateAction@xbar:
 		SelectionShares: 6
 		Units: 1tnk.xbar,1tnk.xbar,1tnk.xbar
-	ExplodeCrateAction@lightning:
-		Weapon: CrateLightningZap
-		SelectionShares: 2
 	GrantExternalConditionCrateAction@cloak:
 		Condition: stealthgen
 		SelectionShares: 5
 		MaxExtraCollectors: 4
 		Range: 3c0
+		Sound: invisible.aud
 	GrantExternalConditionCrateAction@shield:
 		Condition: external_shield
 		SelectionShares: 5
 		MaxExtraCollectors: 10
 		Range: 3c0
+		Sound: beltsnd.aud
 	GiveUnitCrateAction@apc:
 		-ValidFactions:
 		Prerequisites: techlevel.low, vehicles.apcprereq
@@ -106,6 +105,18 @@ CRATE:
 	GiveUnitCrateAction@arty:
 		-ValidFactions:
 		Prerequisites: techlevel.medium, radar, vehicles.artyprereq
+	GiveRandomActorCrateAction@1:
+		SelectionShares: 5
+		Prerequisites: techcenter
+		Type: soldier
+	GiveRandomActorCrateAction@2:
+		SelectionShares: 5
+		Prerequisites: techcenter
+		Type: vehicle
+	GiveRandomActorCrateAction@3:
+		SelectionShares: 1
+		Prerequisites: ulttechcenter
+		Type: epic
 	GiveUnitCrateAction@squadlight:
 		ValidFactions: allies, england, france, germany, soviet, russia, ukraine, gdi, gdi3, zocom, steel, nod, nod3, bhand, marked, civ, hitler, himmler, heydrich
 	GiveUnitCrateAction@squadlightfed:
@@ -125,11 +136,15 @@ CRATE:
 		Units: swordman,swordman,swordman,swordman,swordman
 		ValidFactions: darkness, holy, elementalists
 	GiveUnitCrateAction@squadheavysoviet:
+		SelectionShares: 7
 		Units: e1,e1,e4,e4,e3,e3,e3,e6,e1of
 		ValidFactions: soviet, russia, ukraine, nod, nod3, bhand, marked, hitler, himmler, heydrich
+		TimeDelay: 4500
 	GiveUnitCrateAction@squadheavyallies:
+		SelectionShares: 7
 		Units: e1,e1,e1,e1,e3,e3,e3,e6,medi,e1of
 		ValidFactions: allies, england, france, germany, marked, zocom
+		TimeDelay: 4500
 	GiveUnitCrateAction@squadheavyfed:
 		SelectionShares: 7
 		Units: fe1,fe1,fe1,fe1,fe2,fe2,fe4,fmedi
@@ -268,6 +283,7 @@ CRATE.FuckYou:
 	GiveUnitCrateAction@ionbeam:
 		SelectionShares: 9
 		Units: hack.particle_beam
+		TimeDelay: 3000
 		Owner: Creeps
 	GiveUnitCrateAction@dukenukem:
 		SelectionShares: 4
@@ -284,7 +300,8 @@ CRATE.FuckYou:
 		Units: 1tnk.brik,1tnk.brik,1tnk.brik,1tnk.brik,1tnk.brik,1tnk.brik,1tnk.brik,1tnk.brik,1tnk.brik,1tnk.brik
 		Owner: Creeps
 	GiveUnitCrateAction@fakecrate:
-		SelectionShares: 4
+		SelectionShares: 2
+		TimeDelay: 6000
 		Units: fakecrate
 		Owner: Creeps
 	GiveUnitCrateAction@oblid:
@@ -312,6 +329,23 @@ CRATE.FuckYou:
 		SelectionShares: 2
 		Units: johncena
 		Sound: bingchilling.wav
+		Owner: Creeps
+	GiveRandomActorCrateAction@1:
+		SelectionShares: 6
+		TimeDelay: 6000
+		Prerequisites: techcenter
+		Type: soldier
+		Owner: Creeps
+	GiveRandomActorCrateAction@2:
+		SelectionShares: 4
+		TimeDelay: 6000
+		Prerequisites: techcenter
+		Type: vehicle
+		Owner: Creeps
+	GiveRandomActorCrateAction@3:
+		SelectionShares: 1
+		TimeDelay: 6000
+		Type: epic
 		Owner: Creeps
 	Crate:
 		Duration: 15000
@@ -842,8 +876,14 @@ FAKECRATE:
 	ExplosionOnDamageTransition@3:
 		Weapon: ApocIronCurtain
 		DamageState: Critical
-	SpawnActorOnDeath:
+	SpawnActorOnDeath@1:
 		Actor: FakeCrateReward
+	SpawnActorOnDeath@2:
+		Actor: CRATE
+		Offset: 1,0
+	SpawnActorOnDeath@3:
+		Actor: CRATE
+		Offset: -1,1
 	WithDeathAnimation:
 		UseDeathTypeSuffix: false
 	WithFacingSpriteBody:
@@ -887,7 +927,7 @@ FakeCrateReward:
 		NoBaseSelectionShares: 1000
 		Units: mcv
 	GiveBaseBuilderCrateAction@dawn:
-		ValidFactions: nod, bhand, marked, nod3, gdi, steel, zocom, gdi3, sword, angels, silver, china, infantry, tank, nuke
+		ValidFactions: nod, bhand, marked, nod3, gdi, steel, zocom, gdi3, sword, angels, silver, china, infantry, tank, nuke, japan
 		SelectionShares: 10
 		NoBaseSelectionShares: 1000
 		Units: mcvd
@@ -902,17 +942,17 @@ FakeCrateReward:
 		NoBaseSelectionShares: 1000
 		Units: mcvm
 	GiveBaseBuilderCrateAction@protoss:
-		ValidFactions: protoss
+		ValidFactions: protoss, artanis, vorazun
 		SelectionShares: 10
 		NoBaseSelectionShares: 1000
 		Units: pmcv
 	GiveBaseBuilderCrateAction@zerg:
-		ValidFactions: zerg
+		ValidFactions: zerg, kerrigan, zagara
 		SelectionShares: 10
 		NoBaseSelectionShares: 1000
 		Units: zmcv
 	GiveBaseBuilderCrateAction@terran:
-		ValidFactions: terran
+		ValidFactions: terran, raynor, mengsk
 		SelectionShares: 10
 		NoBaseSelectionShares: 1000
 		Units: tcommand.air

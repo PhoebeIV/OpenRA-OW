@@ -31,6 +31,7 @@
 	Inherits: ^Building
 	Inherits@shape: ^2x2Shape
 	Inherits@kassad: ^KassadStealth
+	Inherits@BIB: ^2xBuildingBib
 	Selectable:
 		Bounds: 2048, 2048
 	Targetable:
@@ -74,7 +75,6 @@
 	Demolishable:
 	-CaptureManager:
 	CaptureManager:
-	WithBuildingBib:
 	WithDamageOverlay:
 	-ActorLostNotification:
 	-SoundOnDamageTransition:
@@ -136,14 +136,20 @@
 		Footprint: +
 		Dimensions: 1,1
 		LocalCenterOffset: 0,0,0
-	WithBuildingBib:
-		HasMinibib: true
 	RenderSprites:
 		Image: ghole1x1
+	-GrantConditionOnTileSet@temp:
+	-GrantConditionOnTileSet@snow:
+	-GrantConditionOnTileSet@des:
+	-GrantConditionOnTerrain@pavement:
+	-WithIdleOverlay@bibtemp:
+	-WithIdleOverlay@bibsnow:
+	-WithIdleOverlay@bibdes:
 
 ^GLAHole3x2:
 	Inherits: ^GLAHole
 	Inherits@shape: ^3x2Shape
+	Inherits@BIB: ^3xBuildingBib
 	Selectable:
 		Bounds: 3072, 2048
 	Building:
@@ -156,6 +162,7 @@
 ^GLAHole3x3:
 	Inherits: ^GLAHole
 	Inherits@shape: ^3x3Shape
+	Inherits@BIB: ^3x4BuildingBib
 	Selectable:
 		Bounds: 3072, 3072
 	Building:
@@ -404,6 +411,7 @@ GAIR:
 	Inherits: ^Building
 	Inherits@GLA: ^GLABuilding
 	Inherits@prereqs: ^FactoryPrereqs
+	Inherits@BIB: ^4xBuildingBib
 	Selectable:
 		Bounds: 4096, 2048
 	HitShape:
@@ -434,7 +442,6 @@ GAIR:
 		RevealGeneratedShroud: False
 	RevealsShroud@GAPGEN:
 		Range: 4c0
-	WithBuildingBib:
 	RallyPoint:
 		Path: 4,2
 	Exit@1:
@@ -500,6 +507,7 @@ GAIR:
 
 GAIR.Hole:
 	Inherits: ^GLAHole3x2
+	Inherits@BIB: ^4xBuildingBib
 	Tooltip:
 		Name: GLA Hole (Airstrip)
 	Selectable:
@@ -548,13 +556,19 @@ GFIX.Hole:
 	Building:
 		Dimensions: 3,3
 		LocalCenterOffset: 0,0,0
-	-WithBuildingBib:
 	Selectable:
 		Bounds: 2901, 1450, 0, 128
 		DecorationBounds: 3072, 2048
 	SpawnActorOnDeath@hole:
 		Actor: GFIX
 		DeathType: hole
+	-GrantConditionOnTileSet@temp:
+	-GrantConditionOnTileSet@snow:
+	-GrantConditionOnTileSet@des:
+	-GrantConditionOnTerrain@pavement:
+	-WithIdleOverlay@bibtemp:
+	-WithIdleOverlay@bibsnow:
+	-WithIdleOverlay@bibdes:
 
 GPBOX:
 	Inherits: PBOX
@@ -606,6 +620,7 @@ SSTORM:
 	Inherits: ^ScienceBuilding
 	Inherits@IDISABLE: ^DisableOnLowPowerOrPowerDown
 	Inherits@shape: ^3x3Shape
+	Inherits@BIB: ^3x4BuildingBib
 	Selectable:
 		Bounds: 3584, 3584
 	Valued:
@@ -622,7 +637,6 @@ SSTORM:
 		Footprint: xxx xxx xxx ===
 		Dimensions: 3,4
 		LocalCenterOffset: 0,-512,0
-	WithBuildingBib:
 	Health:
 		HP: 150000
 	Armor:
@@ -774,6 +788,7 @@ GMISS.Hole:
 GBLK:
 	Inherits: ^ScienceBuilding
 	Inherits@GLA: ^GLABuilding
+	Inherits@BIB: ^4xBuildingBib
 	Selectable:
 		Bounds: 4096, 2048
 	HitShape:
@@ -806,7 +821,6 @@ GBLK:
 		RevealGeneratedShroud: False
 	RevealsShroud@GAPGEN:
 		Range: 4c0
-	WithBuildingBib:
 	ProvidesPrerequisite@buildingname:
 	CashTrickler:
 		Interval: 375
@@ -827,6 +841,7 @@ GBLK:
 
 GBLK.Hole:
 	Inherits: ^GLAHole3x2
+	Inherits@BIB: ^4xBuildingBib
 	Tooltip:
 		Name: GLA Hole (Black Market)
 	Selectable:
@@ -979,7 +994,6 @@ GSTG:
 		Actor: GSTG.Hole
 	RenderSprites:
 		Image: gstgnew
-	WithBuildingBib:
 
 GSTG.Death:
 	Inherits: 1TNK.MINE
@@ -991,7 +1005,6 @@ GSTG.Hole:
 	Inherits: ^GLAHole
 	Tooltip:
 		Name: GLA Hole (Stinger Site)
-	-WithBuildingBib:
 	-Building:
 	Building:
 		Footprint: ++ ++
@@ -999,6 +1012,13 @@ GSTG.Hole:
 	SpawnActorOnDeath@hole:
 		Actor: GSTG
 		DeathType: hole
+	-GrantConditionOnTileSet@temp:
+	-GrantConditionOnTileSet@snow:
+	-GrantConditionOnTileSet@des:
+	-GrantConditionOnTerrain@pavement:
+	-WithIdleOverlay@bibtemp:
+	-WithIdleOverlay@bibsnow:
+	-WithIdleOverlay@bibdes:
 
 ATD.G:
 	Inherits: ATD

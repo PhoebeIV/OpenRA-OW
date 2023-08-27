@@ -55,6 +55,7 @@ PNEXUS:
 	Inherits: ^ProtossBuilding
 	Inherits@prereqs: ^ConYardPrereqs
 	Inherits@con: ^ConYard
+	Inherits@BIB: ^3xBuildingBib
 	BaseProvider:
 		Range: 6c0
 		RequiresCondition: !botowner
@@ -75,11 +76,17 @@ PNEXUS:
 		AreaTypes: building, pylon
 	Selectable:
 		Bounds: 3072, 3072
-	Building:
+	-Building:
+	D2kBuilding:
 		Footprint: XxX xxx +++ ===
 		Dimensions: 3,4
-		LocalCenterOffset: 0,-512,0
+		TerrainTypes: Clear,Road
+		RequiresBaseProvider: True
 		BuildSounds: pbldgplc.aud,pcompl.aud
+		UndeploySounds: cashturn.aud
+		LocalCenterOffset: 0,-512,0
+		ConcreteTemplate: 1024
+		ConcretePrerequisites: techlevel.pavement
 	Buildable:
 		Queue: Building
 		BuildPaletteOrder: 1000
@@ -129,7 +136,6 @@ PNEXUS:
 	GrantConditionOnPrerequisite@GLOBALFACTUNDEPLOY:
 		Condition: factundeploy
 		Prerequisites: global-factundeploy
-	WithBuildingBib:
 	WithBuildingPlacedAnimation:
 		RequiresCondition: !build-incomplete && !chrono-vortex
 	Power:
@@ -161,6 +167,7 @@ PNEXUS:
 ^WarpStructure:
 	Inherits: ^Building
 	Inherits@shape: ^2x2Shape
+	Inherits@BIB: ^2xBuildingBib
 	HitShape:
 		UseTargetableCellsOffsets: false
 	Selectable:
@@ -224,7 +231,6 @@ PNEXUS:
 	Demolishable:
 	-CaptureManager:
 	CaptureManager:
-	WithBuildingBib:
 	WithDamageOverlay:
 	-ActorLostNotification:
 	-SoundOnDamageTransition:
@@ -279,6 +285,7 @@ PNEXUS:
 ^WarpStructure3x2:
 	Inherits: ^WarpStructure
 	Inherits@shape: ^3x2Shape
+	Inherits@BIB: ^3xBuildingBib
 	HitShape:
 		UseTargetableCellsOffsets: false
 	Selectable:
@@ -287,8 +294,6 @@ PNEXUS:
 		Footprint: xxx xxx ===
 		Dimensions: 3,3
 		LocalCenterOffset: 0,-512,0
-	WithBuildingBib:
-		Sequence: bib2
 
 PGATEW.warp:
 	Inherits: ^WarpStructure3x2
@@ -323,6 +328,7 @@ PGATEW:
 	Inherits@shape: ^3x2Shape
 	Inherits@PRIMARY: ^PrimaryBuilding
 	Inherits@prereqs: ^BarracksPrereqs
+	Inherits@BIB: ^3xBuildingBib
 	Buildable:
 		Queue: Bot
 		Prerequisites: ~structures.protoss, ~techlevel.infonly, ~ai.all, ~!structures.bothard
@@ -352,7 +358,6 @@ PGATEW:
 		Range: 4c0
 	PrimaryBuilding:
 		ProductionQueues: Infantry
-	WithBuildingBib:
 	RallyPoint:
 	Exit@1:
 		RequiresCondition: !being-captured
@@ -425,7 +430,6 @@ PPYLON.warp:
 		PercentageStep: 2
 		Delay: 5
 		StartIfBelow: 101
-	-WithBuildingBib:
 	Building:
 		Footprint: x
 		Dimensions: 1,1
@@ -444,6 +448,13 @@ PPYLON.warp:
 	Power:
 		Amount: 100
 		RequiresCondition: !alive
+	-GrantConditionOnTileSet@temp:
+	-GrantConditionOnTileSet@snow:
+	-GrantConditionOnTileSet@des:
+	-GrantConditionOnTerrain@pavement:
+	-WithIdleOverlay@bibtemp:
+	-WithIdleOverlay@bibsnow:
+	-WithIdleOverlay@bibdes:
 
 PPYLON:
 	Inherits: ^ProtossBuilding
@@ -551,6 +562,7 @@ PASSIM.warp:
 PASSIM:
 	Inherits: ^ProtossBuilding
 	Inherits@shape: ^3x2Shape
+	Inherits@BIB: ^3xBuildingBib
 	Buildable:
 		Queue: Bot
 		Prerequisites: anypower, ~structures.protoss, ~techlevel.infonly, ~ai.all, ~!ai.boss
@@ -598,7 +610,6 @@ PASSIM:
 		Types: SpyInfiltrate, ThiefInfiltrate
 		InfiltratedNotification: CreditsStolen
 		Maximum: 5000
-	WithBuildingBib:
 	ProvidesPrerequisite@buildingname:
 	ProvidesPrerequisite:
 		Prerequisite: refinery
@@ -654,6 +665,7 @@ PCYBER.warp:
 PCYBER:
 	Inherits: ^ProtossBuilding
 	Inherits@shape: ^2x2Shape
+	Inherits@BIB: ^2xBuildingBib
 	Buildable:
 		Queue: Bot
 		Prerequisites: barracks, refinery, ~structures.protoss, ~techlevel.low, ~ai.all
@@ -680,7 +692,6 @@ PCYBER:
 		Range: 5c0
 	Targetable:
 		TargetTypes: GroundActor, Structure, C4, DetonateAttack, SpyInfiltrate
-	WithBuildingBib:
 	WithIdleOverlay@damage:
 		RequiresCondition: damaged
 		Sequence: fire1
@@ -722,7 +733,6 @@ PPHOTO.warp:
 		PercentageStep: 1
 		Delay: 7
 		StartIfBelow: 101
-	-WithBuildingBib:
 	Building:
 		Footprint: ++ xx
 		Dimensions: 2,2
@@ -731,6 +741,13 @@ PPHOTO.warp:
 		Range: 8c0
 	SequencePlaceBuildingPreview:
 		Sequence: place-photon
+	-GrantConditionOnTileSet@temp:
+	-GrantConditionOnTileSet@snow:
+	-GrantConditionOnTileSet@des:
+	-GrantConditionOnTerrain@pavement:
+	-WithIdleOverlay@bibtemp:
+	-WithIdleOverlay@bibsnow:
+	-WithIdleOverlay@bibdes:
 
 PPHOTO:
 	Inherits: ^Defense
@@ -852,6 +869,7 @@ POBSER.warp:
 POBSER:
 	Inherits: ^ProtossBuilding
 	Inherits@shape: ^2x2Shape
+	Inherits@BIB: ^2xBuildingBib
 	Buildable:
 		Queue: Bot
 		Prerequisites: refinery, ~structures.protoss, ~techlevel.medium, ~ai.all
@@ -890,7 +908,6 @@ POBSER:
 	RevealsShroud@GAPGEN:
 		Range: 6c0
 		RequiresCondition: !disabled && pylon
-	WithBuildingBib:
 	ProvidesRadar:
 		RequiresCondition: !jammed && !disabled && pylon
 	InfiltrateForExploration:
@@ -940,6 +957,7 @@ PSUPOR:
 	Inherits: ^ProtossBuilding
 	Inherits@shape: ^2x2Shape
 	Inherits@prereqs: ^ConYardPrereqs
+	Inherits@BIB: ^2xBuildingBib
 	Buildable:
 		Queue: Tech
 		BuildPaletteOrder: 90000
@@ -967,7 +985,6 @@ PSUPOR:
 	RevealsShroud:
 		MinRange: 2c0
 		Range: 3c0
-	WithBuildingBib:
 	ProvidesPrerequisite@buildingname:
 	GrantConditionOnPrerequisite@conyard:
 		Prerequisites: conyard
@@ -1045,6 +1062,7 @@ PADUN:
 	Inherits: ^ProtossBuilding
 	Inherits@shape: ^2x2Shape
 	Inherits@tech: ^TechCenter
+	Inherits@BIB: ^2xBuildingBib
 	Buildable:
 		Queue: Bot
 		Prerequisites: pcyber, radar, ~structures.protoss, ~techlevel.high, ~ai.all, ~!ai.hard
@@ -1072,7 +1090,6 @@ PADUN:
 		Range: 5c0
 	Targetable:
 		TargetTypes: GroundActor, Structure, C4, DetonateAttack, SpyInfiltrate
-	WithBuildingBib:
 	WithIdleOverlay@damage:
 		RequiresCondition: damaged
 		Sequence: fire1
@@ -1126,6 +1143,7 @@ PTEMPL:
 	Inherits@pips: ^AdvTechPips
 	Inherits@shape: ^3x2Shape
 	Inherits@IDISABLE: ^DisableOnLowPower
+	Inherits@BIB: ^3xBuildingBib
 	-AlwaysVisible:
 	Buildable:
 		Queue: Bot
@@ -1164,7 +1182,6 @@ PTEMPL:
 		Range: 5c0
 	Targetable:
 		TargetTypes: GroundActor, Structure, C4, DetonateAttack, SpyInfiltrate
-	WithBuildingBib:
 	WithIdleOverlay@damage:
 		RequiresCondition: damaged
 		Sequence: fire1
@@ -1252,6 +1269,7 @@ PROBOT:
 	Inherits@prereqs: ^FactoryPrereqs
 	Inherits@shape: ^3x2Shape
 	Inherits@PRIMARY: ^PrimaryBuilding
+	Inherits@BIB: ^3xBuildingBib
 	Buildable:
 		Queue: Bot
 		Prerequisites: refinery, ~structures.protoss, ~techlevel.low, ~ai.all, ~!structures.bothard
@@ -1282,11 +1300,9 @@ PROBOT:
 		Range: 4c0
 	Targetable:
 		TargetTypes: GroundActor, Structure, C4, DetonateAttack, SpyInfiltrate
-	WithBuildingBib:
 	InfiltrateForSupportPower:
 		Proxy: vehicles.upgraded
 		Types: SpyInfiltrate
-		WithBuildingBib:
 	WithIdleOverlay@damage:
 		RequiresCondition: damaged
 		Sequence: fire1
@@ -1353,7 +1369,6 @@ PSBATT.warp:
 		PercentageStep: 1
 		Delay: 6
 		StartIfBelow: 101
-	-WithBuildingBib:
 	Building:
 		Footprint: ++ xx
 		Dimensions: 2,2
@@ -1362,6 +1377,13 @@ PSBATT.warp:
 		Range: 6c0
 	SequencePlaceBuildingPreview:
 		Sequence: place-battery
+	-GrantConditionOnTileSet@temp:
+	-GrantConditionOnTileSet@snow:
+	-GrantConditionOnTileSet@des:
+	-GrantConditionOnTerrain@pavement:
+	-WithIdleOverlay@bibtemp:
+	-WithIdleOverlay@bibsnow:
+	-WithIdleOverlay@bibdes:
 
 PSBATT:
 	Inherits: ^Defense
@@ -1494,7 +1516,13 @@ PSTARG.warp:
 		Bounds: 3072, 3072, 0, -426
 	SequencePlaceBuildingPreview:
 		Sequence: place-stargate
-	-WithBuildingBib:
+	-GrantConditionOnTileSet@temp:
+	-GrantConditionOnTileSet@snow:
+	-GrantConditionOnTileSet@des:
+	-GrantConditionOnTerrain@pavement:
+	-WithIdleOverlay@bibtemp:
+	-WithIdleOverlay@bibsnow:
+	-WithIdleOverlay@bibdes:
 
 PSTARG:
 	Inherits: ^ProtossBuilding
@@ -1535,7 +1563,6 @@ PSTARG:
 	InfiltrateForSupportPower:
 		Proxy: aircraft.upgraded
 		Types: SpyInfiltrate
-		WithBuildingBib:
 	WithIdleOverlay@damage:
 		RequiresCondition: damaged
 		Sequence: fire1
@@ -1619,6 +1646,7 @@ PFLEET:
 	Inherits@Boss: ^EpicBotPrereqs
 	Inherits@shape: ^3x2Shape
 	Inherits@PRIMARY: ^PrimaryBuilding
+	Inherits@BIB: ^3xBuildingBib
 	Buildable:
 		Queue: Bot
 		Prerequisites: advtechcenter, ~structures.protoss, ~techlevel.unrestricted, !pfleet.req, ~!ai.boss, ~!techlevel.noepic
@@ -1663,11 +1691,9 @@ PFLEET:
 		Range: 7c0
 	Targetable:
 		TargetTypes: GroundActor, Structure, C4, DetonateAttack, SpyInfiltrate
-	WithBuildingBib:
 	InfiltrateForSupportPower:
 		Proxy: vehicles.upgraded
 		Types: SpyInfiltrate
-		WithBuildingBib:
 	WithIdleOverlay@damage:
 		RequiresCondition: damaged
 		Sequence: fire1

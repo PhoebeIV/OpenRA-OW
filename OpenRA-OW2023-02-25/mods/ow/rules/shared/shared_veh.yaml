@@ -190,6 +190,35 @@ APC:
 		PauseOnCondition: disabled
 		FacingTolerance: 0
 
+AMAPC:
+	Inherits: APC
+	RenderSprites:
+		Image: AMAPC
+	Buildable:
+		Queue: Ship
+		BuildPaletteOrder: 10
+		Prerequisites: ~techlevel.low, ~ships.newlstprereq
+		Description: Amphibious infantry transport.\nSpeed: 113\n  Strong vs Infantry, Light armor\n  Weak vs Tanks, Aircraft
+	Valued:
+		Cost: 900
+	Mobile:
+		Locomotor: hover
+	Tooltip:
+		Name: Amphibious APC
+	GrantConditionOnTerrain:
+		Condition: water
+		TerrainTypes: Water
+	WithFacingSpriteBody:
+		RequiresCondition: !water
+	WithFacingSpriteBody@2:
+		Sequence: idle-water
+		RequiresCondition: water
+	Cargo:
+		UnloadTerrainTypes: Clear, Rough, Road, Ore, Gems, Beach
+	Targetable@water:
+		RequiresCondition: water
+		TargetTypes: WaterActor, Ship
+
 TRUK:
 	Buildable:
 		Prerequisites: ~techlevel.low, ~vehicles.truk

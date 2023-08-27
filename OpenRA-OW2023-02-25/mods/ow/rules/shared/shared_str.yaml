@@ -2,6 +2,19 @@ FACT:
 	Inherits: ^Building
 	Inherits@con: ^ConYard
 	Inherits@prereqs: ^ConYardPrereqs
+	Inherits@BIB: ^3x4BuildingBib
+	-WithBuildingBib:
+	-Building:
+	D2kBuilding:
+		Footprint: xxX xxx XxX ===
+		Dimensions: 3,4
+		TerrainTypes: Clear,Road
+		RequiresBaseProvider: True
+		BuildSounds: placbldg.aud, build5.aud
+		UndeploySounds: cashturn.aud
+		LocalCenterOffset: 0,-512,0
+		ConcreteTemplate: 1024
+		ConcretePrerequisites: techlevel.pavement
 	ConyardChronoReturn:
 		ReturnOriginalActorOnCondition: build-incomplete
 		Condition: chrono-vortex
@@ -35,10 +48,18 @@ FACTD:
 	Inherits: ^DawnBuilding
 	Inherits@prereqs: ^ConYardPrereqs
 	Inherits@con: ^ConYard
-	Building:
+	Inherits@BIB: ^3xBuildingBib
+	-Building:
+	D2kBuilding:
 		Footprint: xxx xxx ===
 		Dimensions: 3,3
+		TerrainTypes: Clear,Road
+		RequiresBaseProvider: True
+		BuildSounds: placbldg.aud, build5.aud
+		UndeploySounds: cashturn.aud
 		LocalCenterOffset: 0,-512,0
+		ConcreteTemplate: 1024
+		ConcretePrerequisites: techlevel.pavement
 	Buildable:
 		Queue: Building
 		BuildPaletteOrder: 1000
@@ -88,7 +109,6 @@ FACTD:
 	BaseProvider:
 		PauseOnCondition: being-captured
 		Range: 16c0
-	WithBuildingBib:
 	WithBuildingPlacedAnimation:
 		RequiresCondition: !build-incomplete && !chrono-vortex
 	Power:
@@ -145,6 +165,7 @@ FOUNDRY:
 	Inherits: ^Building
 	Inherits@shape: ^2x2Shape
 	Inherits@prereqs: ^ConYardPrereqs
+	Inherits@BIB: ^2xBuildingBib
 	Selectable:
 		Bounds: 2048, 2048
 	HitShape:
@@ -172,7 +193,6 @@ FOUNDRY:
 		Type: Wood
 	RevealsShroud:
 		Range: 3c0
-	WithBuildingBib:
 	Power:
 		Amount: -100
 		RequiresCondition: !botowner
@@ -225,6 +245,8 @@ FOUNDRY:
 
 PROC:
 	Inherits: ^Building
+	Inherits@BIB: ^3x4BuildingBib
+	-WithBuildingBib:
 	Buildable:
 		Queue: Building
 		BuildPaletteOrder: 15
@@ -234,28 +256,13 @@ PROC:
 		Cost: 1400
 	Tooltip:
 		Name: Refinery
-	Building:
-		Footprint: _X_ xxx X== ===
-		Dimensions: 3,4
-	Selectable:
-		Bounds: 3072, 2133, 0, 170
-		DecorationBounds: 3072, 2986, 0, -85
-	SelectionDecorations:
-	Targetable:
-		TargetTypes: GroundActor, Structure, C4, DetonateAttack, ThiefInfiltrate, SpyInfiltrate
-	Health:
-		HP: 90000
-	Armor:
-		Type: Wood
-	RevealsShroud:
-		MinRange: 4c0
-		Range: 5c0
-		RevealGeneratedShroud: False
-	RevealsShroud@GAPGEN:
-		Range: 4c0
 	Refinery:
+	DockHost:
+		Type: Unload
+		DockAngle: 256
+		DockOffset: 0, 1c0, 0
 	StoresResources:
-		Capacity: 1500
+		Capacity: 2000
 	DrawLineToTarget:
 	CustomSellValue:
 		Value: 300
@@ -268,15 +275,6 @@ PROC:
 		Types: SpyInfiltrate, ThiefInfiltrate
 		InfiltratedNotification: CreditsStolen
 		Maximum: 5000
-	WithBuildingBib:
-	WithIdleOverlay@TOP:
-		RequiresCondition: !build-incomplete
-		Sequence: idle-top
-	Power:
-		Amount: -30
-	WithDeathAnimation:
-		DeathSequence: dead
-		UseDeathTypeSuffix: false
 	ProvidesPrerequisite@buildingname:
 	ProvidesPrerequisite:
 		Prerequisite: refinery
@@ -288,15 +286,6 @@ PROC:
 		IsPlayerPalette: true
 		Palette: player
 		RequiresCondition: uac && !build-incomplete
-	WithResourceStoragePipsDecoration:
-		Position: BottomLeft
-		RequiresSelection: true
-		PipCount: 17
-		FullSequence: pip-yellow
-	DockHost:
-		Type: Unload
-		DockAngle: 256
-		DockOffset: 0,512,0
 
 SILO:
 	Buildable:
@@ -307,6 +296,7 @@ SILO:
 
 PROCD:
 	Inherits: ^DawnBuilding
+	Inherits@BIB: ^3x4BuildingBib
 	Buildable:
 		Queue: Building
 		BuildPaletteOrder: 15
@@ -337,8 +327,15 @@ PROCD:
 	RevealsShroud@GAPGEN:
 		Range: 4c0
 	Refinery:
+	DockHost:
+		Type: Unload
+		DockAngle: 448
+		IsDragRequired: True
+		DragOffset: -554,512,0
+		DragLength: 12
+		DockOffset: -1024,1024,0
 	StoresResources:
-		Capacity: 1500
+		Capacity: 2000
 	DrawLineToTarget:
 	CustomSellValue:
 		Value: 300
@@ -351,7 +348,6 @@ PROCD:
 		Types: SpyInfiltrate, ThiefInfiltrate
 		InfiltratedNotification: CreditsStolen
 		Maximum: 5000
-	WithBuildingBib:
 	Power:
 		Amount: -30
 	WithDeathAnimation:
@@ -388,13 +384,6 @@ PROCD:
 	ResourceValueMultiplier@processing:
 		RequiresCondition: processing
 		Modifier: 110
-	DockHost:
-		Type: Unload
-		DockAngle: 448
-		IsDragRequired: True
-		DragOffset: -554,512,0
-		DragLength: 12
-		DockOffset: -1024,1024,0
 
 SILOD:
 	Inherits: ^DawnBuilding
@@ -464,6 +453,8 @@ SILOD:
 
 BARR:
 	Inherits@prereqs: ^BarracksPrereqs
+	Inherits@BIB: ^2xBuildingBib
+	-WithBuildingBib:
 	Buildable:
 		Prerequisites: anypower, ~structures.barrprereq, ~techlevel.infonly, ~!structures.bothard # Fed, Soviet
 	Tooltip:
@@ -473,6 +464,7 @@ PYLED:
 	Inherits: ^DawnBuilding
 	Inherits@prereqs: ^BarracksPrereqs
 	Inherits@shape: ^2x2Shape
+	Inherits@BIB: ^2xBuildingBib
 	Selectable:
 		Bounds: 2048, 2048
 	HitShape:
@@ -506,7 +498,6 @@ PYLED:
 	ActorPreviewPlaceBuildingPreview:
 	Cloak@stealthgen:
 		Palette: dawncloak
-	WithBuildingBib:
 	RallyPoint:
 	Exit@1:
 		RequiresCondition: !being-captured
@@ -556,6 +547,8 @@ WEAP:
 	Inherits: ^Building
 	Inherits@prereqs: ^FactoryPrereqs
 	Inherits@shape: ^3x2Shape
+	Inherits@BIB: ^3xBuildingBib
+	-WithBuildingBib:
 	Selectable:
 		Bounds: 3072, 2048
 	Buildable:
@@ -581,7 +574,6 @@ WEAP:
 		RevealGeneratedShroud: False
 	RevealsShroud@GAPGEN:
 		Range: 4c0
-	WithBuildingBib:
 	WithProductionDoorOverlay:
 		RequiresCondition: !build-incomplete
 		Sequence: build-top
@@ -594,9 +586,6 @@ WEAP:
 		Produces: Vehicle
 	GrantExternalConditionToProduced:
 		Condition: produced
-	PrimaryBuilding:
-		PrimaryCondition: primary
-		SelectionNotification: PrimaryBuildingSelected
 	ProductionBar:
 		ProductionType: Vehicle
 	Power:
@@ -607,18 +596,13 @@ WEAP:
 	InfiltrateForSupportPower:
 		Proxy: vehicles.upgraded
 		Types: SpyInfiltrate
-	WithDecoration@primary:
-		RequiresSelection: true
-		Image: pips
-		Sequence: tag-primary
-		Position: Top
-		RequiresCondition: primary
 	SequencePlaceBuildingPreview:
 		Sequence: place
 
 WEAPD:
 	Inherits: ^DawnBuilding
 	Inherits@prereqs: ^FactoryPrereqs
+	Inherits@BIB: ^3x4BuildingBib
 	Selectable:
 		Bounds: 3072, 3072
 	Buildable:
@@ -644,7 +628,6 @@ WEAPD:
 		RevealGeneratedShroud: False
 	RevealsShroud@GAPGEN:
 		Range: 4c0
-	WithBuildingBib:
 	WithProductionDoorOverlay:
 		Sequence: build-top
 		RequiresCondition: !build-incomplete
@@ -700,6 +683,8 @@ DOME:
 	Inherits: ^Building
 	Inherits@IDISABLE: ^DisableOnLowPowerOrPowerDown
 	Inherits@shape: ^2x2Shape
+	Inherits@BIB: ^2xBuildingBib
+	-WithBuildingBib:
 	Selectable:
 		Bounds: 2048, 2048
 	HitShape:
@@ -735,7 +720,6 @@ DOME:
 	RevealsShroud@GAPGEN:
 		Range: 6c0
 		RequiresCondition: !disabled
-	WithBuildingBib:
 	ProvidesRadar:
 		RequiresCondition: !jammed && !disabled
 	InfiltrateForExploration:
@@ -777,6 +761,7 @@ HQD:
 	Inherits: ^DawnBuilding
 	Inherits@IDISABLE: ^DisableOnLowPowerOrPowerDown
 	Inherits@shape: ^2x2Shape
+	Inherits@BIB: ^2xBuildingBib
 	Selectable:
 		Bounds: 2048, 2048
 	HitShape:
@@ -812,7 +797,6 @@ HQD:
 	RevealsShroud@GAPGEN:
 		Range: 6c0
 		RequiresCondition: !disabled
-	WithBuildingBib:
 	WithSpriteBody:
 		PauseOnCondition: disabled || jammed
 	ProvidesRadar:
@@ -940,10 +924,61 @@ SPEN:
 
 HPAD:
 	Inherits@prereqs: ^AircraftPrereqs
+	Inherits@BIB: ^2xBuildingBib
+	-WithBuildingBib:
 	Buildable:
 		Prerequisites: radar, ~structures.hpadprereq, ~techlevel.medium
+		Description: Produces and reloads\naircraft. \nCan be placed in water.
 	GrantExternalConditionToProduced:
 		Condition: produced
+	Building:
+		TerrainTypes: Clear, Road, Water
+	RequiresBuildableArea:
+		Adjacent: 6
+	GrantConditionOnTerrain:
+		TerrainTypes: Water
+		Condition: water
+	GrantConditionOnTerrain@pavement:
+		TerrainTypes: Road, Water
+	WithResupplyAnimation:
+		RequiresCondition: !water
+	WithResupplyAnimation@water:
+		RequiresCondition: water
+		Sequence: active-water
+		Body: body2
+	WithSpriteBody:
+		RequiresCondition: !water
+		StartSequence: make
+	WithSpriteBody@water:
+		RequiresCondition: water
+		Sequence: idle-water
+		StartSequence: make
+		Name: body2
+	WithMakeAnimation:
+		BodyNames: body, body2
+	Sellable:
+		RequiresCondition: !being-captured && !being-demolished
+	SpawnActorsOnSell:
+		RequiresCondition: !water
+	SpawnActorsOnSell@uac:
+		RequiresCondition: !water
+	SpawnActorsOnSell@fed:
+		RequiresCondition: !water
+	SpawnActorsOnSell@gla:
+		RequiresCondition: !water
+	SpawnActorsOnSell@usa:
+		RequiresCondition: !water
+	SpawnActorsOnSell@medi:
+		RequiresCondition: !water
+	SpawnActorsOnSell@china:
+		RequiresCondition: !water
+	SpawnActorsOnSell@terran:
+		RequiresCondition: !water
+	SpawnActorsOnSell@japan:
+		RequiresCondition: !water
+	Targetable@water:
+		RequiresCondition: water
+		TargetTypes: WaterActor, Ship
 
 AFLD:
 	Inherits@prereqs: ^AircraftPrereqs
@@ -1133,6 +1168,7 @@ ADVTECH:
 	Inherits: ^ScienceBuilding
 	Inherits@IDISABLE: ^DisableOnLowPower
 	Inherits@shape: ^3x3Shape
+	Inherits@BIB: ^3x4BuildingBib
 	Selectable:
 		Bounds: 3072, 3072
 	Buildable:
@@ -1165,7 +1201,6 @@ ADVTECH:
 		RevealGeneratedShroud: False
 	RevealsShroud@GAPGEN:
 		Range: 5c0
-	WithBuildingBib:
 	Power:
 		Amount: -200
 	ProvidesPrerequisite@buildingname:

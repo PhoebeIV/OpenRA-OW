@@ -54,12 +54,12 @@
 	Inherits: ^SpriteActor
 	Inherits@1: ^ExistsInWorld
 	Inherits@shape: ^2x2Shape
+	Inherits@BIB: ^2xBuildingBib
 	RenderSprites:
 		Image: tbunker
 	HiddenUnderShroud:
 	RequiresSpecificOwners:
 		ValidOwnerNames: Neutral
-	WithBuildingBib:
 	HitShape:
 		UseTargetableCellsOffsets: false
 	Targetable:
@@ -85,6 +85,12 @@
 	ProximityExternalCondition@roomforaddon:
 		Condition: room_for_addon
 		Range: 3c0
+	WithIdleOverlay@bibtemp:
+		Image: bib3compiled_terran
+	WithIdleOverlay@bibsnow:
+		Image: bib3compiled_terran
+	WithIdleOverlay@bibdes:
+		Image: bib3compiled_terran
 
 #for falling airborne buildings
 ^TerranBuildingHusk:
@@ -124,6 +130,7 @@ TCOMMAND:
 	Inherits@fire: ^TerranBuilding
 	Inherits@con: ^ConYard
 	Inherits@prereqs: ^ConYardPrereqs
+	Inherits@BIB: ^4xBuildingBib
 	HitShape:
 		Type: Rectangle
 			TopLeft: -2048, -1024
@@ -131,10 +138,17 @@ TCOMMAND:
 	Selectable:
 		Bounds: 4096, 3072
 		Class: TCOMMAND
-	Building:
+	-Building:
+	D2kBuilding:
 		Footprint: =xx= xxxx xxxx
 		Dimensions: 4,3
+		TerrainTypes: Clear,Road
+		RequiresBaseProvider: True
+		BuildSounds: placbldg.aud, build5.aud
+		UndeploySounds: cashturn.aud
 		LocalCenterOffset: 0,0,0
+		ConcreteTemplate: 1024
+		ConcretePrerequisites: techlevel.pavement
 	Buildable:
 		Queue: Building
 		BuildPaletteOrder: 1000
@@ -175,7 +189,6 @@ TCOMMAND:
 	BaseProvider:
 		PauseOnCondition: being-captured
 		Range: 16c0
-	WithBuildingBib:
 	WithBuildingPlacedAnimation:
 		RequiresCondition: !build-incomplete && !chrono-vortex
 	Power:
@@ -312,6 +325,7 @@ TSUPPLY:
 	Inherits@2: ^TerranBuilding
 	Inherits@POWER_OUTAGE: ^DisabledByPowerOutage
 	Inherits@shape: ^2x2Shape
+	Inherits@BIB: ^2xBuildingBib
 	Selectable:
 		Bounds: 2048, 2048
 	HitShape:
@@ -337,7 +351,6 @@ TSUPPLY:
 		Type: Wood
 	RevealsShroud:
 		Range: 4c0
-	WithBuildingBib:
 	Power:
 		Amount: 100
 	ScalePowerWithHealth:
@@ -408,6 +421,7 @@ TREFINERY:
 	Inherits: ^Building
 	Inherits@2: ^TerranBuilding
 	Inherits@shape: ^3x2Shape
+	Inherits@BIB: ^3xBuildingBib
 	Buildable:
 		Queue: Building
 		BuildPaletteOrder: 15
@@ -438,7 +452,7 @@ TREFINERY:
 		Range: 4c0
 	Refinery:
 	StoresResources:
-		Capacity: 1500
+		Capacity: 2000
 	DrawLineToTarget:
 	CustomSellValue:
 		Value: 300
@@ -455,7 +469,6 @@ TREFINERY:
 		Types: SpyInfiltrate, ThiefInfiltrate
 		InfiltratedNotification: CreditsStolen
 		Maximum: 5000
-	WithBuildingBib:
 	Power:
 		Amount: -50
 	WithDeathAnimation:
@@ -491,6 +504,7 @@ TBARR:
 	Inherits@fire: ^TerranBuilding
 	Inherits@shape: ^3x2Shape
 	Inherits@prereqs: ^BarracksPrereqs
+	Inherits@BIB: ^3xBuildingBib
 	Selectable:
 		Bounds: 3072, 3072
 		Class: TBARR
@@ -506,7 +520,7 @@ TBARR:
 	Building:
 		Footprint: +++ xxx ===
 		Dimensions: 3,3
-		LocalCenterOffset: 0,-1024,0
+		LocalCenterOffset: 0,-512,0
 	Health:
 		HP: 100000
 	Armor:
@@ -517,7 +531,6 @@ TBARR:
 		RevealGeneratedShroud: False
 	RevealsShroud@GAPGEN:
 		Range: 5c0
-	WithBuildingBib:
 	RallyPoint:
 		ForceSetType: Infantry
 	CommandBarBlacklist:
@@ -907,6 +920,7 @@ TACADAMY:
 	Inherits: ^Building
 	Inherits@2: ^TerranBuilding
 	Inherits@shape: ^2x2Shape
+	Inherits@BIB: ^2xBuildingBib
 	Selectable:
 		Bounds: 2048, 2048
 	HitShape:
@@ -923,7 +937,8 @@ TACADAMY:
 		Name: Academy
 	TooltipDescription:
 		ValidRelationships: Ally
-		Description: Move Marines or Firebats near this structure to give them stimpacks.
+		Description: Move Marines or Firebats near this\n structure to give them stimpacks.
+		RequiresCondition: allow_ext && !mengsk
 	ProvidesPrerequisite@buildingname:
 	Building:
 		Footprint: xx xx ==
@@ -935,7 +950,6 @@ TACADAMY:
 		Type: Wood
 	RevealsShroud:
 		Range: 5c0
-	WithBuildingBib:
 	Power:
 		Amount: -100
 	WithIdleOverlay:
@@ -952,7 +966,7 @@ TACADAMY:
 	WithIdleOverlay@fire3:
 		Offset: 0,0,512
 	ProximityExternalCondition@stimpack:
-		RequiresCondition: allow_ext
+		RequiresCondition: allow_ext && !mengsk
 		Condition: give_stimpack
 		Range: 5c0
 	GrantConditionOnPrerequisite@tech:
@@ -965,12 +979,16 @@ TACADAMY:
 	WithRangeCircle:
 		Type: Stims
 		Range: 5c0
+	GrantConditionOnPrerequisite@mengsk: 
+		Prerequisites: structures.mengsk
+		Condition: mengsk
 
 TENBAY:
 	Inherits: ^Building
 	Inherits@fire: ^TerranBuilding
 	Inherits@pips: ^AdvTechPips
 	Inherits@con: ^TechCenter
+	Inherits@BIB: ^4xBuildingBib
 	HitShape:
 		TargetableOffsets: 0,0,0, 0,-512,256, 0,-1451,384, 0,512,128, 0,1536,85
 		Type: Rectangle
@@ -1015,7 +1033,6 @@ TENBAY:
 		RequiresCondition: build-incomplete
 	TransferTimedExternalConditionOnTransform:
 		Condition: invulnerability
-	WithBuildingBib:
 	Power:
 		Amount: -200
 	WithDeathAnimation:
@@ -1161,6 +1178,7 @@ TFACTORY:
 	Inherits@fire: ^TerranBuilding
 	Inherits@shape: ^3x3Shape
 	Inherits@prereqs: ^FactoryPrereqs
+	Inherits@BIB: ^3xBuildingBib
 	Selectable:
 		Bounds: 3072, 3072
 		Class: TFACTORY
@@ -1200,7 +1218,6 @@ TFACTORY:
 		RequiresCondition: build-incomplete
 	TransferTimedExternalConditionOnTransform:
 		Condition: invulnerability
-	WithBuildingBib:
 	Power:
 		Amount: -100
 	WithDeathAnimation:
@@ -1347,6 +1364,7 @@ TSPORT:
 	Inherits@fire: ^TerranBuilding
 	Inherits@shape: ^3x3Shape
 	Inherits@prereqs: ^AircraftPrereqs
+	Inherits@BIB: ^3xBuildingBib
 	Selectable:
 		Bounds: 3072, 3072
 		Class: TSPORT
@@ -1386,7 +1404,6 @@ TSPORT:
 		RequiresCondition: build-incomplete
 	TransferTimedExternalConditionOnTransform:
 		Condition: invulnerability
-	WithBuildingBib:
 	Power:
 		Amount: -100
 	WithDeathAnimation:
@@ -1522,6 +1539,7 @@ TARMORY:
 	Inherits@2: ^TerranBuilding
 	Inherits@disable: ^DisableOnLowPower
 	Inherits@shape: ^3x2Shape
+	Inherits@BIB: ^3xBuildingBib
 	Selectable:
 		Bounds: 3072, 2048
 	Buildable:
@@ -1545,7 +1563,6 @@ TARMORY:
 		Type: Wood
 	RevealsShroud:
 		Range: 5c0
-	WithBuildingBib:
 	Power:
 		Amount: -50
 	WithSpriteBody:
@@ -1565,6 +1582,7 @@ TSCIENCE:
 	Inherits@fire: ^TerranBuilding
 	Inherits@IDISABLE: ^DisableOnLowPower
 	Inherits@shape: ^3x3Shape
+	Inherits@BIB: ^3xBuildingBib
 	Selectable:
 		Bounds: 3072, 3072
 		Class: TSCIENCE
@@ -1604,7 +1622,6 @@ TSCIENCE:
 		RequiresCondition: build-incomplete
 	TransferTimedExternalConditionOnTransform:
 		Condition: invulnerability
-	WithBuildingBib:
 	Power:
 		Amount: -100
 	WithDeathAnimation:
@@ -1773,7 +1790,6 @@ TBUNKER:
 		RevealGeneratedShroud: False
 	RevealsShroud@GAPGEN:
 		Range: 5c0
-	WithBuildingBib:
 	-QuantizeFacingsFromSequence:
 	BodyOrientation:
 		QuantizedFacings: 8
@@ -2187,12 +2203,4 @@ TBUNKER.Mengsk.Drop:
 
 MISS.TERRAN:
 	Inherits: T.MISS
-	Buildable:
-		BuildPaletteOrder: 35
-		Prerequisites: advtechcenter, ~structures.terran, ~techlevel.unrestricted
-	ProvidesPrerequisite@ai:
-		RequiresPrerequisites: ai.hard
-		Prerequisite: tcops
-	ProvidesPrerequisite@ai2:
-		RequiresPrerequisites: ai.hard
-		Prerequisite: tplab
+	-Buildable:
