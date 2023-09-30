@@ -15,7 +15,6 @@ TSCV:
 	Selectable:
 		DecorationBounds: 1280, 1280
 	Harvester:
-		Capacity: 8
 		Resources: Ore,Gems,Tiberium,BlueTiberium
 		BaleUnloadDelay: 1
 		BaleUnloadAmount: 10
@@ -68,7 +67,7 @@ TSCV:
 	Explodes@2:
 		Weapon: SCVExplosion
 		EmptyWeapon: SCVExplosion
-	WithHarvesterPipsDecoration:
+	WithStoresResourcesPipsDecoration:
 		Position: BottomLeft
 		Margin: 4, 3
 		RequiresSelection: true
@@ -111,6 +110,9 @@ TSCV:
 		RequiresCondition: processing
 		Modifier: 150
 	DockClientManager:
+	StoresResources:
+		Capacity: 8
+		Resources: Ore,Gems,Tiberium,BlueTiberium
 
 ^CanTakeStimpacks:
 	WithDecoration@stimpack:
@@ -162,10 +164,10 @@ TSCV:
 		Palette: effect
 		RequiresCondition: patriotismboost || active_stimpack
 		IsDecoration: True
-	GrantConditionOnPrerequisite@raynorrr: 
+	GrantConditionOnPrerequisite@raynorrr:
 		Prerequisites: infantry.raynor
 		Condition: raynors_raiders
-	GrantConditionOnPrerequisite@mengsokkk: 
+	GrantConditionOnPrerequisite@mengsokkk:
 		Prerequisites: infantry.mengsk
 		Condition: no_stims
 
@@ -646,13 +648,13 @@ TMEDIC:
 		ConsumedByCapture: False
 		EnterCursor: ability
 		EnterBlockedCursor: move-blocked
-	GrantConditionOnPrerequisite@raynor: 
+	GrantConditionOnPrerequisite@raynor:
 		Prerequisites: raynor.tier3.range
 		Condition: rangeupgrade
 	RangeMultiplier@raynor:
 		Modifier: 145
 		RequiresCondition: rangeupgrade
-	GrantConditionOnPrerequisite@raynor: 
+	GrantConditionOnPrerequisite@raynor:
 		Prerequisites: infantry.raynor
 		Condition: raynors_raiders
 
@@ -1334,7 +1336,7 @@ TRAYNOR.Hero4:
 	Explodes:
 		Weapon: RaynorDeath
 		EmptyWeapon: RaynorDeath
-	DropPodsPower: 
+	DropPodsPower:
 		Prerequisites: raynor.tier4.support1
 		Name: Orbital Bombardment
 		Description: Orders a strike from the Hyperion in orbit to attack the target area.

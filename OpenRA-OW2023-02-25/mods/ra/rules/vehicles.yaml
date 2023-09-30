@@ -320,13 +320,15 @@ HARV:
 	Selectable:
 		DecorationBounds: 1792, 1792
 	Harvester:
-		Capacity: 20
 		Resources: Ore,Gems
 		BaleUnloadDelay: 1
 		SearchFromProcRadius: 15
 		SearchFromHarvesterRadius: 8
 		HarvestFacings: 8
 		EmptyCondition: no-ore
+	StoresResources:
+		Capacity: 20
+		Resources: Ore,Gems
 	DockClientManager:
 	Health:
 		HP: 60000
@@ -357,7 +359,7 @@ HARV:
 	WithHarvesterSpriteBody:
 		ImageByFullness: harvempty, harvhalf, harv
 	-WithFacingSpriteBody:
-	WithHarvesterPipsDecoration:
+	WithStoresResourcesPipsDecoration:
 		Position: BottomLeft
 		Margin: 4, 3
 		RequiresSelection: true
@@ -771,7 +773,7 @@ DTRK:
 		DamageSource: Killer
 	AttackFrontal:
 		FacingTolerance: 512
-	Armament@PRIMARY:
+	Armament:
 		Weapon: DemoTruckTargeting
 	GrantConditionOnAttack:
 		Condition: triggered
@@ -812,14 +814,10 @@ CTNK:
 		RevealGeneratedShroud: False
 	RevealsShroud@GAPGEN:
 		Range: 4c0
-	Armament@PRIMARY:
+	Armament:
 		Weapon: APTusk
-		LocalOffset: -160,-276,232
-		LocalYaw: 60
-	Armament@SECONDARY:
-		Weapon: APTusk
-		LocalOffset: -160,276,232
-		LocalYaw: -60
+		LocalOffset: -160,-276,232, -160,276,232
+		LocalYaw: 60, -60
 	AttackFrontal:
 		FacingTolerance: 0
 	PortableChrono:
