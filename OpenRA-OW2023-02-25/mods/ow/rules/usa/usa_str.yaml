@@ -404,7 +404,6 @@ usaairfield:
 	ProximityExternalCondition:
 		Condition: reloadnear
 		Range: 7c0
-
 	FreeActor@1:
 		Actor: usaairstriplandingspot
 		SpawnOffset: 3,1
@@ -1211,10 +1210,14 @@ usafirebase:
 	Explodes:
 		Weapon: FireBaseExplosion
 		EmptyWeapon: FireBaseExplosion
+	ProximityExternalCondition@firebasespotthingy:
+		Condition: firebasespotthingy
+		Range: 1c512
 
 firebasebunker:
 	Inherits: PBOX
 	-Buildable:
+	-Sellable:
 	-Targetable@carrier:
 	Targetable:
 		TargetTypes: Firebasebox
@@ -1226,6 +1229,11 @@ firebasebunker:
 		Image: PBOX
 	Power:
 		Amount: 0
+	ExternalCondition:
+		Condition: firebasespotthingy
+	KillsSelf:
+		RequiresCondition: !firebasespotthingy
+		Delay: 50
 		
 usasilo:
 	Inherits: ^Building
