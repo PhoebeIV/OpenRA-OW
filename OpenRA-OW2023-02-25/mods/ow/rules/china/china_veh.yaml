@@ -268,7 +268,7 @@ chinalisteningoutpost:
 		Queue: Vehicle
 		BuildPaletteOrder: 120
 		Prerequisites: ~vehicles.china, ~!upgrade.infantrygeneral, ~!faction.infantrygeneral
-		Description: The Listening Outpost can  be deployed on the front lines, detecting unit movements over a wide radius, including stealth units.
+		Description: The Listening Outpost can be deployed on the front lines, detecting unit movements over a wide radius, including stealth units.
 	Valued:
 		Cost: 900
 	Tooltip:
@@ -333,7 +333,7 @@ chinaattackoutpost:
 		Queue: Vehicle
 		BuildPaletteOrder: 120
 		Prerequisites: ~vehicles.china, techcenter, ~upgrade.infantrygeneral, ~!faction.nukegeneral, ~!faction.tankgeneral
-		Description: Like the Listening Outpost, it can detect all types of enemy units over a wide radius. Equipped with a propaganda tower.
+		Description: Like the Listening Outpost, it can detect all types of enemy units over a wide radius.\nEquipped with a propaganda tower.
 	Valued:
 		Cost: 1500
 	Tooltip:
@@ -363,6 +363,7 @@ chinaattackoutpost:
 		Condition: propagandaupgrade
 		RequiresCondition: !disabled && upgradepropaganda
 		Range: 3c0
+	AutoDeployer:
 
 chinatroopcarrier:
 	Inherits: ^TrackedVehicle
@@ -437,7 +438,7 @@ chinaassaulttroopcarrier:
 		Queue: Vehicle
 		BuildPaletteOrder: 120
 		Prerequisites: ~vehicles.china, techcenter, ~upgrade.infantrygeneral, ~!faction.nukegeneral, ~!faction.tankgeneral
-		Description: Like the regular Troop Crawler, it is a reasonably fast wheeled APC, already coming with eight red guard on board upon rolling out of the War Factory, with stealth detection.
+		Description: Like the regular Troop Crawler, it is a reasonably fast wheeled APC.\nAlready coming with eight red guard on board upon rolling out of the War Factory, with stealth detection.\n  Strong vs Infantry, Buildings\n  Weak vs Tanks
 	Valued:
 		Cost: 2250
 	Health:
@@ -453,6 +454,7 @@ chinaassaulttroopcarrier:
 		MaxWeight: 8
 		LoadingCondition: notmobile
 		InitialUnits: chinaredguard2, chinaredguard2, chinatankhunter, chinatankhunter, chinaminigunner2, chinaminigunner2, chinaredguard2, chinaredguard2
+	AutoDeployer:
 
 chinaecm:
 	Inherits: 2TNK
@@ -460,7 +462,7 @@ chinaecm:
 	Buildable:
 		BuildPaletteOrder: 220
 		Prerequisites: ~vehicles.china, advtechcenter
-		Description: A multi-frequency jammer effectively disrupts guided missile and rocket attacks, which can cause them to miss their targets.
+		Description: A multi-frequency jammer effectively disrupts guided missile and rocket attacks, which can cause them to miss their targets.\nEquipped with an ECM Laser that disables vehicles.\n  Strong vs Tanks, Defences\n  Weak vs Infantry, Aircraft
 		BuildDuration: 1200
 	Valued:
 		Cost: 1000
@@ -498,7 +500,7 @@ chinainfernocannon:
 		Queue: Vehicle
 		BuildPaletteOrder: 138
 		Prerequisites: ~vehicles.china, techcenter, ~!faction.tankgeneral
-		Description: Inferno Cannons are self-propelled howitzers, firing napalm shells that explode and burn on impact, doing great damage to softer targets.
+		Description: Inferno Cannons are self-propelled howitzers, firing napalm shells that explode and burn on impact, doing great damage to softer targets.\n  Strong vs Infantry, Buildings\n  Weak vs Tanks, Aircraft
 	Valued:
 		Cost: 1100
 	Tooltip:
@@ -532,7 +534,7 @@ chinanukecannon:
 		Queue: Vehicle
 		BuildPaletteOrder: 140
 		Prerequisites: ~vehicles.china, advtechcenter, upgrade.nukegeneral, ~!faction.tankgeneral, ~!faction.infantrygeneral
-		Description: The Nuke Cannon consists of a large howitzer-like weapon mounted on a tracked vehicle, with a cabin for the crew located at the front, similar to a regular truck.
+		Description: The Nuke Cannon consists of a large howitzer-like weapon mounted on a tracked vehicle, with a cabin for the crew located at the front, similar to a regular truck.\n  Strong vs Everything\n  Weak vs Aircraft
 	Mobile:
 		TurnSpeed: 12
 		Speed: 50
@@ -611,6 +613,9 @@ chinanukecannon:
 	Explodes@nuclearenginesbuff:
 		Weapon: chinabattlemasterexplosion
 		EmptyWeapon: chinabattlemasterexplosion
+	AutoDeployer:
+		DeployChance: 100
+		DeployTicks: 100
 
 chinaoverlord:
 	Inherits: ^TrackedVehicle
@@ -701,7 +706,7 @@ chinaoverlordspeaker:
 		Queue: Vehicle
 		BuildPaletteOrder: 2500
 		Prerequisites: ~vehicles.china, advtechcenter, ~!faction.infantrygeneral
-		Description: Large and slow, the Overlord tank is a battlefield force to be reckoned with. Equipped with a propaganda tower.
+		Description: Large and slow, the Overlord tank is a battlefield force to be reckoned with. Equipped with a propaganda tower.\n  Strong vs Tanks, Buildings\n  Weak vs Aircraft, Infantry
 	Valued:
 		Cost: 3000
 	Tooltip:
@@ -798,7 +803,7 @@ chinaoverlordgatling:
 		Queue: Vehicle
 		BuildPaletteOrder: 2500
 		Prerequisites: ~vehicles.china, advtechcenter, ~!faction.infantrygeneral
-		Description: Large and slow, the Overlord tank is a battlefield force to be reckoned with. Equipped with a Gatling Gun.
+		Description: Large and slow, the Overlord tank is a battlefield force to be reckoned with. Equipped with a Gatling Gun.\n  Strong vs Everything
 	Valued:
 		Cost: 3000
 	Tooltip:
@@ -896,7 +901,7 @@ chinaemperor:
 		Queue: Vehicle
 		BuildPaletteOrder: 2500
 		Prerequisites: ~vehicles.china, advtechcenter, upgrade.tankgeneral, ~!faction.nukegeneral, ~!faction.infantrygeneral, ~!faction.tankgeneral
-		Description: The Emperor Overlord Tank is an improved model of the Overlord tank. Equipped with both Gatling gun and Propaganda Tower. Limit of 2.
+		Description: The Emperor Overlord Tank is an improved model of the Overlord tank. Equipped with both Gatling gun and Propaganda Tower. Limit of 2.\n  Strong vs Everything
 		BuildLimit: 2
 	Valued:
 		Cost: 5500
@@ -1046,7 +1051,7 @@ chinaemperortankgeneral:
 		Queue: Vehicle
 		BuildPaletteOrder: 2500
 		Prerequisites: ~vehicles.china, advtechcenter, ~faction.tankgeneral
-		Description: The Emperor Overlord Tank is an improved model of the Overlord tank. Equipped with both Gatling gun and Propaganda Tower. Limit of 5.
+		Description: The Emperor Overlord Tank is an improved model of the Overlord tank. Equipped with both Gatling gun and Propaganda Tower. Limit of 5.\n  Strong vs Everything
 		BuildLimit: 5
 
 chinahoppertank:
@@ -1125,8 +1130,7 @@ chinashenlong:
 		Queue: Vehicle
 		BuildPaletteOrder: 2500
 		Prerequisites: ~vehicles.china, ulttechcenter, upgrade.tankgeneral, upgrade.infantrygeneral, upgrade.nukegeneral, ~!faction.nukegeneral, ~!faction.tankgeneral, ~!faction.infantrygeneral
-		Description: [EPIC]\nThe Shenlong Emperor Tank is the most advanced overlord tank ever created.
-		BuildLimit: 1
+		Description: [EPIC]\nThe Shenlong Emperor Tank is the most advanced overlord tank ever created.\n  Strong vs Everything
 	Valued:
 		Cost: 25000
 	Tooltip:
@@ -1348,7 +1352,7 @@ chinazhurong:
 		Queue: Vehicle
 		BuildPaletteOrder: 2500
 		Prerequisites: ~vehicles.china, ulttechcenter, ~upgrade.tankgeneral, ~faction.tankgeneral
-		Description: [EPIC]\nThe Zhu Rong Tank wields a fragmentation cannon.
+		Description: [EPIC]\nThe Zhu Rong Tank wields a fragmentation cannon.\n  Strong vs Infantry, Vehicles, Buildings\n  Weak vs Aircraft
 		BuildLimit: 1
 	Valued:
 		Cost: 28000

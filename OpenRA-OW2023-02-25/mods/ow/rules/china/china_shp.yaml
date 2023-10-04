@@ -1,5 +1,6 @@
 chinainfernoship:
 	Inherits: ^Ship
+	Inherits@artillerytrainingbuff: ^artillerytrainingbuff
 	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
 	Buildable:
 		Queue: Ship
@@ -10,7 +11,7 @@ chinainfernoship:
 	Valued:
 		Cost: 3000
 	Tooltip:
-		Name: China Inferno Carrier
+		Name: Inferno Carrier
 	UpdatesPlayerStatistics:
 		AddToArmyValue: true
 	Health:
@@ -49,3 +50,202 @@ chinainfernoship:
 		DecorationBounds: 1877, 1877
 	Voiced:
 		VoiceSet: InfernoCannonVoice
+
+chinadreadnought:
+	Inherits@hordebonus: ^hordebonustank
+	Inherits@nuclearvehiclesbuff: ^nuclearvehiclesbuff
+	Inherits: DD
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Buildable:
+		Queue: Ship
+		BuildPaletteOrder: 200
+		Prerequisites: ~ships.china
+		Description: Anti-armor warship.\nCan detect submarines.\nSpeed:85\n  Strong vs Naval units, Tanks\n  Weak vs Infantry
+	Valued:
+		Cost: 1500
+	Health:
+		HP: 40000
+	Armor:
+		Type: Heavy
+	Tooltip:
+		Name: Dreadnought
+	Turreted:
+		TurnSpeed: 28
+		Offset: 341,0,128
+	-Armament@PRIMARY:
+	-Armament@SECONDARY:
+	-Armament@TERTIARY:
+	Armament:
+		Weapon: 125mm
+		Recoil: 128
+		RecoilRecovery: 38
+		LocalOffset: 720,0,80
+		LocalYaw: 64, -64
+		MuzzleSequence: muzzle
+		PauseOnCondition: upgradeuraniumshells
+	Armament@uraniumshells:
+		Weapon: 125mmuranium
+		Recoil: 128
+		RecoilRecovery: 38
+		LocalOffset: 720,0,80
+		LocalYaw: 64, -64
+		MuzzleSequence: muzzle
+		RequiresCondition: upgradeuraniumshells
+	AutoTarget:
+		InitialStance: HoldFire
+		InitialStanceAI: ReturnFire
+	-DetectCloaked:
+	-RenderDetectionCircle:
+	Voiced:
+		VoiceSet: BattlemasterTankVoice
+	Explodes@nuclearenginesbuff:
+		Weapon: chinabattlemasterexplosion
+		EmptyWeapon: chinabattlemasterexplosion
+		RequiresCondition: upgradeuraniumtanks
+	ThrowsShrapnel:
+		Weapons: chinabattlemasterexplosionturret
+		Pieces: 1,1
+		Range: 2c0, 5c0
+		RequiresCondition: upgradeuraniumtanks
+
+chinaemperorbattlecruiser:
+	Inherits@hordebonus: ^hordebonustank
+	Inherits@nuclearvehiclesbuff: ^nuclearvehiclesbuff
+	Inherits: ^Ship
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Buildable:
+		Queue: Ship
+		BuildPaletteOrder: 60
+		Prerequisites: ~ships.china, advtechcenter, ~!faction.nukegeneral
+		Description: Long range battleship.\nProvides propaganda bonus\nStrong vs Buildings, Ground Units\nWeak vs Aircraft
+	Valued:
+		Cost: 4500
+	Tooltip:
+		Name: Emperor Battlecruiser
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 60000
+	Armor:
+		Type: Heavy
+	RevealsShroud:
+		MinRange: 5c0
+		Range: 7c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 5c0
+	Mobile:
+		TurnSpeed: 16
+		Speed: 31
+	WithIdleOverlay@SPINNER:
+		Sequence: spinner
+		Offset: 30,70,600
+	Selectable:
+		DecorationBounds: 1877, 1877
+	Turreted@PRIMARY:
+		Turret: primary
+		Offset: -896,0,128
+		TurnSpeed: 12
+	Turreted@SECONDARY:
+		Turret: secondary
+		Offset: 768,0,128
+		TurnSpeed: 12
+	Armament@PRIMARY:
+		Turret: primary
+		Weapon: 125mmemperorbattlecruiser
+		LocalOffset: 480,-100,40, 480,100,40
+		Recoil: 171
+		RecoilRecovery: 34
+		MuzzleSequence: muzzle
+		PauseOnCondition: upgradeuraniumshells || disabled
+	Armament@SECONDARY:
+		Name: secondary
+		Turret: secondary
+		Weapon: 125mmemperorbattlecruiser
+		LocalOffset: 480,-100,40, 480,100,40
+		Recoil: 171
+		RecoilRecovery: 34
+		MuzzleSequence: muzzle
+		PauseOnCondition: upgradeuraniumshells || disabled
+	Armament@PRIMARYupgrade:
+		Turret: primary
+		Weapon: 125mmemperorbattlecruiseruranium
+		LocalOffset: 480,-100,40, 480,100,40
+		Recoil: 171
+		RecoilRecovery: 34
+		MuzzleSequence: muzzle
+		PauseOnCondition: disabled
+		RequiresCondition: upgradeuraniumshells
+	Armament@SECONDARYupgrade:
+		Name: secondary
+		Turret: secondary
+		Weapon: 125mmemperorbattlecruiseruranium
+		LocalOffset: 480,-100,40, 480,100,40
+		Recoil: 171
+		RecoilRecovery: 34
+		MuzzleSequence: muzzle
+		PauseOnCondition: disabled
+		RequiresCondition: upgradeuraniumshells
+	AttackTurreted:
+		Turrets: primary, secondary
+		TargetFrozenActors: True
+		ForceFireIgnoresActors: True
+	WithMuzzleOverlay:
+	WithSpriteTurret@PRIMARY:
+		Turret: primary
+	WithSpriteTurret@SECONDARY:
+		Turret: secondary
+	Voiced:
+		VoiceSet: OverlordTankVoice
+	ProximityExternalCondition@propaganda:
+		Condition: propaganda
+		RequiresCondition: !disabled && !upgrade.propaganda
+		Range: 5c0
+	GrantConditionOnPrerequisite@propagandaupgrade:
+		Condition: upgradepropaganda
+		Prerequisites: upgrade.propaganda
+	ProximityExternalCondition@propagandaupgrade:
+		Condition: propagandaupgrade
+		RequiresCondition: !disabled && upgradepropaganda
+		Range: 5c0
+	Explodes@nuclearenginesbuff:
+		Weapon: chinaoverlordexplosion
+		EmptyWeapon: chinaoverlordexplosion
+		RequiresCondition: upgradeuraniumtanks
+
+chinaemperornuclearcruiser:
+	Inherits: chinaemperorbattlecruiser
+	Buildable:
+		Queue: Ship
+		BuildPaletteOrder: 60
+		Prerequisites: ~ships.china, advtechcenter, ~faction.nukegeneral
+		Description: Long range nuclear battleship.\nProvides propaganda bonus.\nExplodes violently.\nStrong vs Buildings, Ground Units\nWeak vs Aircraft
+	Valued:
+		Cost: 6000
+	Tooltip:
+		Name: Emperor Nuclear Battlecruiser
+	Voiced:
+		VoiceSet: NukeCannonVoice
+	Armament@PRIMARY:
+		Turret: primary
+		Weapon: NukeCannonShotBattleship
+		LocalOffset: 480,0,40
+		Recoil: 171
+		RecoilRecovery: 34
+		MuzzleSequence: muzzle
+		PauseOnCondition: disabled
+	Armament@SECONDARY:
+		Name: secondary
+		Turret: secondary
+		Weapon: NukeCannonShotBattleship
+		LocalOffset: 480,0,40
+		Recoil: 171
+		RecoilRecovery: 34
+		MuzzleSequence: muzzle
+		PauseOnCondition: disabled
+	-Armament@PRIMARYupgrade:
+	-Armament@SECONDARYupgrade:
+	-Explodes@nuclearenginesbuff:
+	Explodes:
+		Weapon: MiniNukeRadiation
+		EmptyWeapon: MiniNukeRadiation

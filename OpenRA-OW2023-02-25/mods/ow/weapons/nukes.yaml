@@ -719,7 +719,7 @@ MiniNukeRadiation:
 	Warhead@2Res_impact: DestroyResource
 		Size: 1
 	Warhead@3Eff_impact: CreateEffect
-		Explosions: nuke
+		Explosions: dukenukemexplosionmed
 		ImpactSounds: kaboom1.aud
 		ImpactActors: false
 	Warhead@4Dam_areanuke1: SpreadDamage
@@ -866,3 +866,98 @@ JohnCenaNuke:
 		Duration: 20
 		FlashType: Nuke
 		Delay: 50
+
+TinyNukeChina:
+	ValidTargets: Ground, Water, GroundActor, WaterActor, Underwater, AirborneActor, Trees
+	Warhead@98Eff_impact: CreateEffect
+		ImpactSounds: jericho.wav
+	Warhead@1Dam_impact: SpreadDamage
+		Spread: 1c0
+		Damage: 8000
+		Falloff: 500, 368, 135, 50, 18, 7, 0
+		ValidTargets: GroundActor, WaterActor, Underwater, AirborneActor, Trees
+		Versus:
+			None: 50
+			Wood: 75
+			Concrete: 25
+		AffectsParent: true
+		DamageTypes: Prone50Percent, TriggerProne, FireDeath, Incendiary
+	Warhead@2Res_impact: DestroyResource
+		Size: 1
+	Warhead@3Eff_impact: CreateEffect
+		Explosions: dukenukemexplosionmed
+		ImpactSounds: kaboom1.aud
+		ImpactActors: false
+	Warhead@4Dam_areanuke1: SpreadDamage
+		Spread: 2c0
+		Damage: 2000
+		Falloff: 500, 368, 135, 50, 18, 7, 0
+		Delay: 5
+		ValidTargets: GroundActor, WaterActor, Underwater, AirborneActor, Trees
+		Versus:
+			None: 50
+			Wood: 75
+			Concrete: 25
+		AffectsParent: true
+		DamageTypes: Prone50Percent, TriggerProne, FireDeath, Incendiary
+	Warhead@5Res_areanuke1: DestroyResource
+		Size: 2
+		Delay: 5
+	Warhead@6Eff_areanuke1: CreateEffect
+		ImpactSounds: kaboom22.aud
+		Delay: 5
+		ImpactActors: false
+	Warhead@7Dam_areanuke2: SpreadDamage
+		Spread: 3c0
+		Damage: 2000
+		Falloff: 500, 368, 135, 50, 18, 7, 0
+		Delay: 10
+		ValidTargets: GroundActor, WaterActor, Underwater, AirborneActor, Trees
+		Versus:
+			None: 50
+			Wood: 75
+			Concrete: 25
+		AffectsParent: true
+		DamageTypes: Prone50Percent, TriggerProne, FireDeath, Incendiary
+	Warhead@7Dam_fission: SpreadDamage
+		Spread: 3c0
+		Damage: 15000
+		Falloff: 500, 368, 135, 50, 18, 7, 0
+		Delay: 10
+		ValidTargets: Fission
+		DamageTypes: Prone50Percent, TriggerProne, FireDeath, Incendiary
+	Warhead@8Dam_areanuke2: SpreadDamage
+		Spread: 3c0
+		Damage: 2000
+		Falloff: 500, 368, 135, 50, 18, 7, 0
+		Delay: 10
+		ValidTargets: Trees
+		DamageTypes: Incendiary
+	Warhead@9Res_areanuke2: DestroyResource
+		Size: 3
+		Delay: 10
+	Warhead@10Dam_areanuke3: SpreadDamage
+		Spread: 3c0
+		Damage: 2000
+		Falloff: 500, 368, 135, 50, 18, 7, 0
+		Delay: 15
+		ValidTargets: GroundActor, WaterActor, Underwater, AirborneActor
+		Versus:
+			None: 50
+			Concrete: 25
+		AffectsParent: true
+		DamageTypes: Prone50Percent, TriggerProne, FireDeath, Incendiary
+	Warhead@13Smu_areanuke3: LeaveSmudge
+		SmudgeType: Scorch
+		ValidTargets: Ground, Infantry
+		Size: 3
+		Delay: 15
+	Warhead@23Radiation: CreateResource
+		AddsResourceType: Radiation
+		Delay: 20
+		Size: 3
+	Warhead@Res27: DestroyResource
+		ResourceTypes: Radiation
+		Size: 3
+		Delay: 500
+		ResourceAmount: 10

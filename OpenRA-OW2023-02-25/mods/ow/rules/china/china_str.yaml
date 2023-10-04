@@ -40,8 +40,8 @@ chinanuclearreactor:
 		EmptyWeapon: TinyNuke
 		RequiresCondition: overcharge && !disabled
 	Explodes:
-		Weapon: chinareactionexplode
-		EmptyWeapon: chinareactionexplode
+		Weapon: chinaoverlordexplosion
+		EmptyWeapon: chinaoverlordexplosion
 	GrantConditionOnDeploy:
 		MakeAnimationDeployTypes:
 		DeployedCondition: overcharge
@@ -1210,3 +1210,78 @@ chinasupernuclearsilo:
 		Type: CenterPosition
 		Weapon: ChinaNuke
 		EmptyWeapon: ChinaNuke
+
+chinaadvnuclearreactor:
+	Inherits: XPWR
+	Selectable:
+		Bounds: 3072, 2048
+	Buildable:
+		Prerequisites: advtechcenter, ~techlevel.unrestricted, ~structures.china, ~!ai.powerout
+	Building:
+		Footprint: xxx xxx ===
+		Dimensions: 3,3
+		LocalCenterOffset: 0,-512,0
+	WithIdleOverlay:
+		StartSequence: fire-start
+		Sequence: fire-loop
+	Valued:
+		Cost: 1100
+	Power:
+		Amount: 500
+	Tooltip:
+		Name: Advanced Nuclear Reactor
+	-RenderSprites:
+	RenderSprites:
+		PlayerPalette: dawn
+	Explodes:
+		Type: CenterPosition
+		Weapon: TinyNukeChina
+		EmptyWeapon: TinyNukeChina
+
+chinabreederreactor:
+	Inherits: XPWR
+	Selectable:
+		Bounds: 3072, 2048
+	Buildable:
+		Prerequisites: advtechcenter, ~techlevel.unrestricted, ~structures.china, ~!ai.powerout, ~upgrade.nukegeneral
+		Description: Provides incredible power, but very unstable.\nExplodes violently.
+	Building:
+		Footprint: xxx xxx ===
+		Dimensions: 3,3
+		LocalCenterOffset: 0,-512,0
+	WithIdleOverlay:
+		StartSequence: fire-start
+		Sequence: fire-loop
+	Valued:
+		Cost: 2500
+	Power:
+		Amount: 1000
+	Health:
+		HP: 140000
+	Tooltip:
+		Name: Breeder Reactor
+	-RenderSprites:
+	RenderSprites:
+		PlayerPalette: dawn
+	Explodes:
+		Type: CenterPosition
+		Weapon: MiniNukeRadiation
+		EmptyWeapon: MiniNukeRadiation
+	WithIdleOverlay@1:
+		Image: explosion
+		Sequence: dukenukemexplosiontiny
+		Offset: 0,-802,550
+		RequiresCondition: !build-incomplete
+		Palette: noplayer
+	WithIdleOverlay@2:
+		Image: explosion
+		Sequence: dukenukemexplosiontinyreactor1
+		Offset: 0,0,800
+		RequiresCondition: !build-incomplete
+		Palette: noplayer
+	WithIdleOverlay@3:
+		Image: explosion
+		Sequence: dukenukemexplosiontinyreactor2
+		Offset: 0,1000,0
+		RequiresCondition: !build-incomplete
+		Palette: noplayer
