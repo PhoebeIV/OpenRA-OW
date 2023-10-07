@@ -520,27 +520,6 @@
 		InternalName: thrax
 		Side: Global Liberation Army
 		Description: Dr. Thrax: Chemical Warfare\nSpecial Units: Toxin Scud Launcher, Chem Warrior\nSuperweapon: Toxin Scud Storm\nSuper Ability: Chem Strike\nNo aircraft
-	Faction@medi:
-		Name: Medival
-		InternalName: medi
-		Side: Medieval
-		Description: Medival Faction of knights
-		Selectable: False
-	Faction@darkness:
-		Name: Dark Knights
-		InternalName: darkness
-		Side: Medieval
-		Description: Dark order of knights
-	Faction@holy:
-		Name: The Holy Chapter
-		InternalName: holy
-		Side: Medieval
-		Description: Holy Faction of knights
-	Faction@elementalists:
-		Name: Mages Guild
-		InternalName: elementalists
-		Side: Medieval
-		Description: Elemental Mage order
 	Faction@protoss:
 		Name: Protoss Empire
 		InternalName: protoss
@@ -639,7 +618,7 @@
 	Faction@random1:
 		Name: Any
 		InternalName: Random
-		RandomFactionMembers: RandomAllies, RandomSoviet, RandomGDI, RandomNod, RandomUAC, RandomNazi, RandomGLA, RandomFed, RandomMedi, RandomUSA, RandomChina, RandomTerran, RandomProtoss, RandomZerg, japan
+		RandomFactionMembers: RandomAllies, RandomSoviet, RandomGDI, RandomNod, RandomUAC, RandomNazi, RandomGLA, RandomFed, RandomUSA, RandomChina, RandomTerran, RandomProtoss, RandomZerg, japan
 		Side: Random
 		Description: Random Faction\nA random faction will be chosen when the game starts.
 	Faction@randomallies1:
@@ -684,12 +663,6 @@
 		RandomFactionMembers: hitler, himmler, heydrich
 		Side: Random
 		Description: Random Reich leader\nSpecialty: Firepower.\nUtility: Iron Curtain\nSuperweapon: Atom Bomb\nA random Third Reich leader will be chosen when the game starts.
-	Faction@randommedi:
-		Name: Medieval Order
-		InternalName: RandomMedi
-		RandomFactionMembers: darkness, holy, elementalists
-		Side: Random
-		Description: Random Medieval order.\nSpecialty: Swords and shit, stoneage.\nUtility: Fuk u\nA random Order will be chosen when the game starts.
 	Faction@randomgla:
 		Name: GLA
 		InternalName: RandomGLA
@@ -729,15 +702,15 @@
 	Faction@randomTurtle:
 		Name: Turtle
 		InternalName: RandomTurtle
-		RandomFactionMembers: mengsk, holy, france, estonia
+		RandomFactionMembers: mengsk, france, estonia
 		Side: Playstyle
-		Description: Random faction that focuses on defenses\n Estonia, France, Mengsk, Holy Order
+		Description: Random faction that focuses on defenses\n Estonia, France, Mengsk
 	Faction@randomSwarmer:
 		Name: Swarmer
 		InternalName: RandomSwarmer
-		RandomFactionMembers: dark, elementalists, RandomZerg, RandomGLA
+		RandomFactionMembers: RandomZerg, RandomGLA
 		Side: Playstyle
-		Description: Random faction that focuses on large amounts of units\n Medieval Dark, Elementalists, Zerg Swarm, GLA
+		Description: Random faction that focuses on large amounts of units\n Zerg Swarm, GLA
 	Faction@randomFirepower:
 		Name: Firepower
 		InternalName: RandomFirepower
@@ -759,9 +732,9 @@
 	Faction@randomInfantry:
 		Name: Infantry
 		InternalName: RandomInfantry
-		RandomFactionMembers: infantry, zocom, marked, RandomZerg, raynor, RandomMedi, phobos, deimos
+		RandomFactionMembers: infantry, zocom, marked, RandomZerg, raynor, phobos, deimos
 		Side: Playstyle
-		Description: Random faction that focuses on infantry\n ZOCOM, Marked of Kane, Phobos, Deimos, China Infantry General, Jim Raynor, Medieval
+		Description: Random faction that focuses on infantry\n ZOCOM, Marked of Kane, Phobos, Deimos, China Infantry General, Jim Raynor
 	ResourceRenderer:
 		ResourceTypes:
 			Ore:
@@ -778,10 +751,6 @@
 				Sequences: ti1,ti2,ti3,ti4,ti5,ti6,ti7,ti8,ti9,ti10,ti11,ti12
 			BlueTiberium:
 				Name: Tiberium Vinifera
-				Palette: player
-				Sequences: rtib1,rtib2,rtib3,rtib4,rtib5,rtib6,rtib7,rtib8,rtib9,rtib10,rtib11,rtib12
-			MediGold:
-				Name: Gold
 				Palette: player
 				Sequences: rtib1,rtib2,rtib3,rtib4,rtib5,rtib6,rtib7,rtib8,rtib9,rtib10,rtib11,rtib12
 	ResourceRenderer@2:
@@ -848,11 +817,6 @@ World:
 				TerrainType: BlueTiberium
 				AllowedTerrainTypes: Clear,Road,Creep
 				MaxDensity: 8
-			MediGold:
-				ResourceIndex: 5
-				TerrainType: Ore
-				MaxDensity: 10
-				AllowedTerrainTypes: Clear,Road,Creep
 			ZergCreep:
 				ResourceIndex: 6
 				TerrainType: Creep
@@ -899,12 +863,6 @@ World:
 		ClassName: MCV Only
 		Factions: demo, kassad, thrax
 		BaseActor: gmcv
-		SupportActors: upgrade.spawn
-	StartingUnits@mcvonlymedi:
-		Class: none
-		ClassName: MCV Only
-		Factions: medi, darkness, holy, elementalists
-		BaseActor: mcvm
 		SupportActors: upgrade.spawn
 	StartingUnits@mcvonlyprotoss:
 		Class: none
@@ -996,14 +954,6 @@ World:
 		Factions: civ
 		BaseActor: mcvc
 		SupportActors: c1.c,c2.c,c3.c,c4.c,c5.c,c6.c,police,dog.c,policecar
-		InnerSupportRadius: 3
-		OuterSupportRadius: 5
-	StartingUnits@lightmedi:
-		Class: light
-		ClassName: Light Support
-		Factions: medi, darkness, holy, elementalists
-		BaseActor: mcvm
-		SupportActors: footman,footman,footman,footman,bowman,crossbowman,swordman,scoutmedi,footman,footman,footman,footman,footman,footman,footman,footman,footman,footman,footman,footman,bowman,crossbowman,swordman,scoutmedi,upgrade.spawn
 		InnerSupportRadius: 3
 		OuterSupportRadius: 5
 	StartingUnits@lightprotoss:
@@ -1174,14 +1124,6 @@ World:
 		SupportActors: c1.c,c1.c,c2.c,c2.c,c3.c,c3.c,c4.c,c4.c,c5.c,c5.c,c6.c,c6.c,police,police,dog.c,policecar,policecar
 		InnerSupportRadius: 3
 		OuterSupportRadius: 5
-	StartingUnits@heavymedi:
-		Class: heavy
-		ClassName: Heavy Support
-		Factions: medi, darkness, holy, elementalists
-		BaseActor: mcvm
-		SupportActors: footman,swordman,swordman,swordman,bowman,crossbowman,swordman,swordman,swordman,scoutmedi,catapult,catapult,sapper,ballista,horsecrossbowman,horsecrossbowman,horseswordman,horseswordman,horseswordman,upgrade.spawn
-		InnerSupportRadius: 3
-		OuterSupportRadius: 5
 	StartingUnits@heavyprotoss:
 		Class: heavy
 		ClassName: Heavy Support
@@ -1334,11 +1276,6 @@ EditorWorld:
 				TerrainType: BlueTiberium
 				AllowedTerrainTypes: Clear,Road,Creep,Radiation
 				MaxDensity: 8
-			MediGold:
-				ResourceIndex: 5
-				TerrainType: Ore
-				MaxDensity: 10
-				AllowedTerrainTypes: Clear,Road,Creep,Radiation
 			ZergCreep:
 				ResourceIndex: 6
 				TerrainType: Creep

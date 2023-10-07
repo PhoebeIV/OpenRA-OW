@@ -44,12 +44,6 @@ GFOUNDRY.Hole2:
 	SpawnActorOnDeath@hole:
 		Actor: GFOUNDRY.bot
 
-MEDIFOUNDRY.bot: #additional queues for HARD AI
-	Inherits: FOUNDRY.bot
-	Buildable:
-		Prerequisites: conyard, ~techlevel.medium, ~structures.medi, ~structures.bothard
-	Tooltip:
-		Name: Slave Labor Manufacturing
 
 PSUPOR.bot: #additional queues for HARD AI
 	Inherits: PSUPOR
@@ -151,17 +145,6 @@ GTENT.Hole2:
 	SpawnActorOnDeath@hole:
 		Actor: GTENT.bot
 
-TENTMEDI.bot:
-	Inherits: TENTMEDI
-	Inherits@BotQueue_Infantry: ^BotQueue_Infantry
-	Buildable:
-		Prerequisites: ~structures.medi, ~techlevel.infonly, ~structures.bothard, ~!ai.boss
-	ProvidesPrerequisite@buildingname:
-		Prerequisite: tentmedi
-	Exit@1:
-		ProductionTypes: Soldier, Infantry, Mage, Dog
-	Exit@2:
-		ProductionTypes: Soldier, Infantry, Mage, Dog
 
 PGATEW.bot:
 	Inherits: PGATEW
@@ -255,8 +238,6 @@ BARR.boss:
 		Footprint: ++ xx ==
 		Dimensions: 2,3
 		LocalCenterOffset: 0,-512,0
-	ProvidesPrerequisite@buildingname1:
-		Prerequisite: tentmedi
 	ProvidesPrerequisite@buildingname2:
 		Prerequisite: gtent
 	ProvidesPrerequisite@buildingname3:
@@ -267,8 +248,6 @@ BARR.boss:
 		Prerequisite: tent
 	ProvidesPrerequisite@buildingname6:
 		Prerequisite: pyled
-	ProvidesPrerequisite@buildingname7:
-		Prerequisite: farmmedi
 	ProvidesPrerequisite@buildingname8:
 		Prerequisite: zpool
 	ProvidesPrerequisite@buildingname9:
@@ -281,8 +260,6 @@ BARR.boss:
 		Prerequisite: refinery
 	ProvidesPrerequisite@buildingname13:
 		Prerequisite: proc
-	ProvidesPrerequisite@buildingname14:
-		Prerequisite: laborcamp
 	Power:
 		Amount: 0
 	Exit@1:
@@ -345,30 +322,6 @@ GAIR.Hole2:
 	Inherits: GAIR.Hole
 	SpawnActorOnDeath@hole:
 		Actor: GAIR.bot
-
-STABLES.bot:
-	Inherits: STABLES
-	Inherits@BotQueue_Infantry: ^BotQueue_Vehicle
-	Buildable:
-		Prerequisites: farmmedi, ~structures.medi, ~structures.bothard
-	ProvidesPrerequisite@buildingname:
-		Prerequisite: stables
-	Exit@1:
-		ProductionTypes: Vehicle, Workshop
-	Exit@2:
-		ProductionTypes: Vehicle, Workshop
-
-ARMORY.bot:
-	Inherits: ARMORYMEDI
-	Inherits@BotQueue_Infantry: ^BotQueue_Vehicle
-	Buildable:
-		Prerequisites: stables, ~structures.medi, ~structures.bothard
-	ProvidesPrerequisite@buildingname:
-		Prerequisite: armorymedi
-	Exit@1:
-		ProductionTypes: Vehicle, Workshop
-	Exit@2:
-		ProductionTypes: Vehicle, Workshop
 
 PROBOT.bot:
 	Inherits: PROBOT

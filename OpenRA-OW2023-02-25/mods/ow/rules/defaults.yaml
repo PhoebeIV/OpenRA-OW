@@ -264,7 +264,7 @@
 		ShieldsDamagedCondition: damaged_shield
 		BypassDamageTypes: BypassShield
 		OverrideDamageType: BypassedShield
-		RequiresCondition: external_shield && !emp_shields && !HolySuperBoosted
+		RequiresCondition: external_shield && !emp_shields
 	ShieldRegenMultiplier:
 		Modifier: 5
 		RequiresCondition: shield_regen
@@ -291,132 +291,6 @@
 		StartIfBelow: 101
 		DamageTypes: BypassShield
 		RequiresCondition: defiler_plague && enough_health && !shielded
-
-^Pallyboosted:
-	ExternalCondition@pallyboost:
-		Condition: pallyboost
-	ChangesHealth@pallyboost:
-		RequiresCondition: pallyboost
-		Step: 100
-		Delay: 20
-		StartIfBelow: 75
-		DamageCooldown: 125
-
-^Monumentboosted:
-	ExternalCondition@Monumentboost:
-		Condition: Monumentboost
-	WithDecoration@Monumentboost:
-		Image: pips
-		Sequence: pip-aeiou
-		Palette: effect
-		Position: TopRight
-		ValidRelationships: None,Neutral,Enemy,Ally
-		RequiresCondition: Monumentboost
-
-^DarkWizBoosted:
-	ExternalCondition@DarkWizAura:
-		Condition: DarkWizAura
-
-^RotElementHit:
-	ExternalCondition@RotElementHit:
-		Condition: RotElementHitCon
-
-^TotemAffected:
-	ExternalCondition@TotemDebuf:
-		Condition: TotemDebuf
-	SpeedMultiplier@TotemDebuf:
-		RequiresCondition: TotemDebuf
-		Modifier: 70
-	ChangesHealth@TotemDebuf:
-		RequiresCondition: TotemDebuf
-		Step: -500
-		Delay: 50
-		StartIfBelow: 110
-		DamageCooldown: 0
-	ExternalCondition@TotemBoost:
-		Condition: TotemBoost
-	SpeedMultiplier@TotemBoost:
-		RequiresCondition: TotemBoost
-		Modifier: 130
-	WithDecoration@CurseCondition:
-		Image: pips
-		Sequence: mediorecorruptionpip
-		Palette: effect
-		Position: TopRight
-		ValidRelationships: None,Neutral,Enemy,Ally
-		RequiresCondition: CurseCondition
-
-
-^CurseDebuff:
-	ExternalCondition@CurseCondition:
-		Condition: CurseCondition
-	DamageMultiplier@CurseCondition:
-		RequiresCondition: CurseCondition
-		Modifier: 120
-	FirepowerMultiplier@CurseCondition:
-		RequiresCondition: CurseCondition
-		Modifier: 80
-	ReloadDelayMultiplier@CurseCondition:
-		RequiresCondition: CurseCondition
-		Modifier: 120
-	SpeedMultiplier@CurseCondition:
-		RequiresCondition: CurseCondition
-		Modifier: 80
-	WithDecoration@CurseCondition:
-		Image: pips
-		Sequence: mediorecorruptionpip
-		Palette: effect
-		Position: TopRight
-		ValidRelationships: None,Neutral,Enemy,Ally
-		RequiresCondition: CurseCondition
-
-^DeathKnightAura:
-	ExternalCondition@DeathKnightAura:
-		Condition: DeathKnightAura
-	DamageMultiplier@DeathKnightAura:
-		RequiresCondition: DeathKnightAura
-		Modifier: 110
-	FirepowerMultiplier@DeathKnightAura:
-		RequiresCondition: DeathKnightAura
-		Modifier: 90
-	ReloadDelayMultiplier@DeathKnightAura:
-		RequiresCondition: DeathKnightAura
-		Modifier: 110
-	SpeedMultiplier@DeathKnightAura:
-		RequiresCondition: DeathKnightAura
-		Modifier: 90
-	ChangesHealth@DeathKnightAura:
-		RequiresCondition: DeathKnightAura
-		Step: -150
-		Delay: 5
-		StartIfBelow: 111
-		DamageCooldown: 0
-	WithDecoration@DeathKnightAura:
-		Image: pips
-		Sequence: mediorecorruptionpip
-		Palette: effect
-		Position: TopRight
-		ValidRelationships: None,Neutral,Enemy,Ally
-		RequiresCondition: CurseCondition
-
-^DeathKnightAuraV:
-	Inherits@DeathKnightAura: ^DeathKnightAura
-	ChangesHealth@DeathKnightAura:
-		RequiresCondition: DeathKnightAura
-		Step: -100
-		Delay: 5
-		StartIfBelow: 111
-		DamageCooldown: 0
-
-^DeathKnightAuraB:
-	Inherits@DeathKnightAura: ^DeathKnightAura
-	ChangesHealth@DeathKnightAura:
-		RequiresCondition: DeathKnightAura
-		Step: -100
-		Delay: 5
-		StartIfBelow: 111
-		DamageCooldown: 0
-
 
 ^AEIOUBoosted:
 	ExternalCondition@aeiouboost:
@@ -452,38 +326,6 @@
 	RangeMultiplier@alliesupgrade:
 		RequiresCondition: allies_training
 		Modifier: 110
-	ExternalCondition@ChainsCondition:
-		Condition: ChainsCondition
-	WithDecoration@ChainsCondition:
-		Image: pips
-		Sequence: mediholychainspip
-		Palette: effect
-		Position: TopRight
-		ValidRelationships: None,Neutral,Enemy,Ally
-		RequiresCondition: ChainsCondition
-	SpeedMultiplier@ChainsCondition:
-		RequiresCondition: ChainsCondition
-		Modifier: 0
-
-^HolySuperBoosted:
-	ExternalCondition@HolySuperBoosted:
-		Condition: HolySuperBoosted
-	DamageMultiplier@HolySuperBoosted:
-		RequiresCondition: HolySuperBoosted
-		Modifier: 80
-	FirepowerMultiplier@HolySuperBoosted:
-		RequiresCondition: HolySuperBoosted
-		Modifier: 110
-	ReloadDelayMultiplier@HolySuperBoosted:
-		RequiresCondition: HolySuperBoosted
-		Modifier: 90
-	WithDecoration@HolySuperBoosted:
-		Image: pips
-		Sequence: pip-aeiou
-		Palette: effect
-		Position: TopRight
-		ValidRelationships: None,Neutral,Enemy,Ally
-		RequiresCondition: HolySuperBoosted
 
 ^GlobalBounty:
 	ExternalCondition@GLAbounty: # this allows GLA to gain bounty on kills, but only within range of units/structures.
@@ -592,95 +434,11 @@
 	Building:
 		BuildSounds: constru2.aud, hvydoor1.aud
 
-^HolyBoostedHolyOnly:
-	ExternalCondition@MonumentboostHoly:
-		Condition: MonumentboostHoly
-	ExternalCondition@EpicDenial:
-		Condition: EpicDenialAura
-	GrantConditionOnPrerequisite@HolyOnlyBoost:
-		Condition: HolyBoostableOnly
-		Prerequisites: ~structures.holy
-	DamageMultiplier@HolyBoostedRanged:
-		Modifier: 80
-		RequiresCondition: MonumentboostHoly && HolyBoostableOnly && !EpicDenialAura
-	ReloadDelayMultiplier@HolyBoostedReloadDelay:
-		Modifier: 80
-		RequiresCondition: MonumentboostHoly && HolyBoostableOnly && !EpicDenialAura
-	SpeedMultiplier@HolyBoostedSpeed:
-		Modifier: 110
-		RequiresCondition: MonumentboostHoly && HolyBoostableOnly && !EpicDenialAura
 
-
-^MediSoldier:
-	Inherits: ^Infantry
-	UpdatesPlayerStatistics:
-	MustBeDestroyed:
-	ProximityCaptor:
-		Types: Infantry
-	WithInfantryBody:
-		IdleSequences: idle1
-		StandSequences: stand
-	AttackFrontal:
-		FacingTolerance: 0
-	Selectable:
-		Bounds: 768, 938, 0, -469
-		DecorationBounds: 682, 938, 0, -469
-	WithDeathAnimation:
-		DeathTypes:
-			DefaultDeath: 1
-			BulletDeath: 1
-			SmallExplosionDeath: 1
-			ExplosionDeath: 4
-	TakeCover:
-		SpeedModifier: 130
-		Duration: 75
-		DamageTriggers: TriggerProne
-	GrantConditionOnPrerequisite@elementalweps:
-		Condition: elementalweps
-		Prerequisites: upgrade.elementalwepstech, ~advtechcenter
-	GrantConditionOnPrerequisite@DarkBuffEnabled:
-		Condition: DarkBuffEnabled
-		Prerequisites: ~structures.darkness
-	DamageMultiplier@Rage10:
-		Modifier: 80
-		RequiresCondition: DarkRageStacks >= 10
-	FirepowerMultiplier@Rage40:
-		Modifier: 120
-		RequiresCondition: DarkRageStacks >= 40
-	ReloadDelayMultiplier@Rage30:
-		Modifier: 150
-		RequiresCondition: DarkRageStacks >= 30
-	SpeedMultiplier@Rage20:
-		Modifier: 130
-		RequiresCondition: DarkRageStacks >= 20
-	ChangesHealth@Rage50:
-		PercentageStep: 5
-		Delay: 40
-		RequiresCondition: DarkRageStacksHeal && DarkRageStacks >= 50
-	ExternalCondition@DarkRageStacks:
-		Condition: DarkRageStacks
-		TotalCap: 100
-	ExternalCondition@DarkRageStacksHeal:
-		Condition: DarkRageStacksHeal
-		TotalCap: 1
-	Explodes@DarkRageDeath:
-		Weapon: DarkRageDeathWep
-		EmptyWeapon: DarkRageDeathWep
-		DamageSource: Killer
-		RequiresCondition: DarkBuffEnabled
 
 ^Infantry:
-	Inherits@DarkWizBoosted: ^DarkWizBoosted
-	Inherits@RotElementHit: ^RotElementHit
 	Inherits@corrode: ^CorrodesFromTibWeaps
-	Inherits@pallyboost: ^Pallyboosted
-	Inherits@Monumentboost: ^Monumentboosted
-	Inherits@HolyBoostedHolyOnly: ^HolyBoostedHolyOnly
-	Inherits@TotemBoost: ^TotemAffected
 	Inherits@aeiou: ^AEIOUBoosted
-	Inherits@ShieldHero: ^HolySuperBoosted
-	Inherits@CurseCondition: ^CurseDebuff
-	Inherits@DeathKnightAura: ^DeathKnightAura
 	Inherits@gps: ^GPSScramblable
 	Inherits@advancedtraining: ^advancedtraining
 	Inherits@usabombardment: ^usabombardment
@@ -695,7 +453,6 @@
 		Action: ChangeOwner
 		Owner: Creeps
 	Crushable:
-		RequiresCondition: !HolySuperBoosted
 	RevealOnFire:
 	GrantConditionOnPrerequisite@iar1:
 		Prerequisites: upgrade.infarmor1
@@ -786,30 +543,12 @@
 	DamageMultiplier@biodefenseboost:
 		RequiresCondition: bioboost
 		Modifier: 75
-	ChangesHealth@TotemDebuf:
-		RequiresCondition: TotemDebuf
-		PercentageStep: -2
-		Delay: 25
-		StartIfBelow: 101
-		DamageCooldown: 0
 	ChangesHealth@aeiouboost:
 		RequiresCondition: aeiouboost
 		PercentageStep: 3
 		Delay: 25
 		StartIfBelow: 90
 		DamageCooldown: 50
-	ChangesHealth@HolySuperBoosted:
-		RequiresCondition: HolySuperBoosted
-		PercentageStep: 3
-		Delay: 75
-		StartIfBelow: 90
-		DamageCooldown: 150
-	ChangesHealth@Monumentboost:
-		RequiresCondition: Monumentboost
-		PercentageStep: 1
-		Delay: 40
-		StartIfBelow: 100
-		DamageCooldown: 40
 	ExternalCondition@demoralise:
 		Condition: demoralise
 	SpeedMultiplier@demoralise:
@@ -845,9 +584,6 @@
 		Weapon: InfFireball
 		EmptyWeapon: InfFireball
 		DeathTypes: FireDeath
-	Explodes@GraveyardSpawnerDeath:
-		Weapon: GraveyardSpawnerDeath
-		EmptyWeapon: GraveyardSpawnerDeath
 	ChangesHealth@tiberium:
 		RequiresCondition: standing_in_tiberium && shielded && !gdi_suits
 		DamageTypes: TiberiumDeath, BypassShield
@@ -892,23 +628,6 @@
 		Actor: Zombie
 		OwnerType: Killer
 		DeathType: ZombieDeath
-	SpawnActorOnDeath@Darkwiz:
-		RequiresCondition: DarkWizAura
-		Probability: 30
-		Actor: MediZombie
-	SpawnActorOnDeath@RotElement:
-		RequiresCondition: RotElementHitCon
-		Actor: RotElement
-		OwnerType: Killer
-		DeathType: ElementalDeath
-	SpawnActorOnDeath@assasintoxinspawn:
-		Actor: mediassasinswarm
-		OwnerType: Killer
-		DeathType: assasindeath
-	SpawnActorOnDeath@assasintoxinspawn2:
-		Actor: mediassasinswarm
-		OwnerType: Killer
-		DeathType: assasindeath
 	-WithDeathAnimation:
 	WithDeathAnimation:
 		DeathTypes:
@@ -928,29 +647,6 @@
 		Range: 1c512
 		DetectionTypes: gpsscrambler
 	TemporaryOwnerManager:
-	DetectCloaked@AssasinDark:
-		DetectionTypes: DarkAssasin
-		Range: 3
-	DetectCloaked@DarkAssasinBurrow:
-		DetectionTypes: DarkAssasinBurrow
-		Range: 1
-	ExternalCondition@assasintoxin:
-		Condition: assasintoxin
-		TotalCap: 10
-	ChangesHealth@assasintoxin:
-		Step: -1000
-		PercentageStep: -1
-		Delay: 25
-		StartIfBelow: 110
-		DamageTypes: assasindeath
-		RequiresCondition: assasintoxin >= 1 && assasintoxin <= 5
-	ChangesHealth@assasintoxin2:
-		Step: -1000
-		PercentageStep: -3
-		Delay: 25
-		StartIfBelow: 110
-		DamageTypes: assasindeath
-		RequiresCondition: assasintoxin >= 6
 	GainsExperienceMultiplier:
 		Modifier: 25
 		RequiresCondition: disable-experience
@@ -1269,10 +965,7 @@
 		Adjacent: 3
 
 ^Building:
-	Inherits@Monumentboost: ^Monumentboosted
 	Inherits@corrode: ^CorrodesFromTibWeaps
-	Inherits@CurseCondition: ^CurseDebuff
-	Inherits@DeathKnightAura: ^DeathKnightAuraB
 	Inherits@shields: ^AcceptsShields
 	OwnerLostAction:
 		Action: ChangeOwner
@@ -1281,12 +974,6 @@
 	ProductionTimeMultiplier@upgrade_time:
 		Prerequisites: structures.prodtime
 		Multiplier: 80
-	ChangesHealth@Monumentboost:
-		RequiresCondition: Monumentboost
-		PercentageStep: 1
-		Delay: 40
-		StartIfBelow: 100
-		DamageCooldown: 40
 	RevealOnFire:
 	ChangesHealth@plague:
 		Delay: 3
@@ -1324,9 +1011,6 @@
 	SpawnActorsOnSell@usa:
 		Factions: usa, granger, townes, alexander
 		ActorTypes: usaranger,usaranger,usaranger,tecn,tecn,tecn
-	SpawnActorsOnSell@medi:
-		Factions: darkness, holy, elementalists
-		ActorTypes: slave,slave,slave,slave,slave,slave,slave,slave,slave,slave,slave,slave,slave,slave,slave,slave,slave,slave,slave,slave
 	SpawnActorsOnSell@china:
 		Factions: china, tank, infantry, nuke
 		ActorTypes: chinaredguard2,chinaredguard2,chinaredguard2,tecn,tecn,tecn
@@ -1399,9 +1083,6 @@
 	SpawnActorsOnSell@gla:
 		Factions: demo, kassad, thrax
 		ActorTypes: ge1,ge1,ge1,ge1,tecn,tecn2,tecn,tecn2,tecn,tecn2,tecn,tecn2,tecn,tecn2,gharv,gharv,gharv,c10,c10,c10,c10
-	SpawnActorsOnSell@medi:
-		Factions: darkness, holy, elementalists
-		ActorTypes: slave,slave,slave,slave,slave,slave,slave,slave,slave,slave,slave,slave,slave,slave,slave,slave,slave,slave,slave,slave
 	SpawnActorsOnSell@usa:
 		Factions: usa, granger, alexander, townes
 		ActorTypes: usaranger,usaranger,usaranger,usaranger,usaranger,tecn,tecn2,tecn,tecn2,tecn,tecn2,tecn,tecn2,tecn,tecn2,e6,e6,e6,c10,c10,c10,c10
@@ -1415,9 +1096,6 @@
 		TargetTypes: Tech
 
 ^Defense:
-	Inherits@Monumentboost: ^Monumentboosted
-	Inherits@CurseCondition: ^CurseDebuff
-	Inherits@DeathKnightAura: ^DeathKnightAuraB
 	Inherits@usabombardment: ^usabombardment
 	Inherits@usasearchanddestroy: ^usasearchanddestroy
 	Inherits@usahold_the_line: ^usaholdtheline
@@ -1425,12 +1103,6 @@
 	Inherits@shields: ^AcceptsShields
 	Building:
 		Footprint: +
-	ChangesHealth@Monumentboost:
-		RequiresCondition: Monumentboost
-		PercentageStep: 1
-		Delay: 40
-		StartIfBelow: 100
-		DamageCooldown: 40
 	GivesBuildableArea:
 		AreaTypes: building, fake
 	GrantConditionOnPrerequisite@bfp1:
@@ -1500,11 +1172,6 @@
 ^Vehicle:
 	Inherits@corrode: ^CorrodesFromTibWeaps
 	Inherits@aeiou: ^AEIOUBoosted
-	Inherits@CurseCondition: ^CurseDebuff
-	Inherits@DeathKnightAura: ^DeathKnightAuraV
-	Inherits@HolyBoostedHolyOnly: ^HolyBoostedHolyOnly
-	Inherits@Monumentboost: ^Monumentboosted
-	Inherits@TotemBoost: ^TotemAffected
 	Inherits@glavehicle: ^GLAVehicle # self healing for GLA owned vehicles
 	Inherits@gps: ^GPSScramblable
 	Inherits@advancedtraining: ^advancedtraining
@@ -1598,18 +1265,6 @@
 		Delay: 75
 		StartIfBelow: 70
 		DamageCooldown: 100
-	ChangesHealth@Monumentboost:
-		RequiresCondition: Monumentboost
-		PercentageStep: 1
-		Delay: 40
-		StartIfBelow: 100
-		DamageCooldown: 40
-	ChangesHealth@TotemDebuf:
-		RequiresCondition: TotemDebuf
-		Step: -2000
-		Delay: 50
-		StartIfBelow: 110
-		DamageCooldown: 0
 	ChangesHealth@radiation:
 		RequiresCondition: standing_in_radiation && !gdi_suits
 		Step: -400
@@ -1679,8 +1334,6 @@
 ^Ship:
 	Inherits@corrode: ^CorrodesFromTibWeaps
 	Inherits@GPS: ^GPSScramblable
-	Inherits@CurseCondition: ^CurseDebuff
-	Inherits@DeathKnightAura: ^DeathKnightAuraV
 	Inherits@advancedtraining: ^advancedtraining
 	Inherits@usabombardment: ^usabombardment
 	Inherits@usasearchanddestroy: ^usasearchanddestroy
@@ -1689,7 +1342,7 @@
 	Inherits@frenzyboost: ^FrenzyBoost
 	Inherits@shields: ^AcceptsShields
 	RepairableNear:
-		RepairActors: spen, syrd, gspen, dockmedi, usashipyard
+		RepairActors: spen, syrd, gspen, usashipyard
 	RevealOnFire:
 	GrantConditionOnPrerequisite@nar1:
 		Prerequisites: upgrade.navarmor1
@@ -1740,8 +1393,6 @@
 	TemporaryOwnerManager:
 
 ^NeutralPlane:
-	Inherits@CurseCondition: ^CurseDebuff
-	Inherits@TotemBoost: ^TotemAffected
 	Inherits@corrode: ^CorrodesFromTibWeaps
 	Inherits@GPS: ^GPSScramblable
 	Inherits@advancedtraining: ^advancedtraining
@@ -1912,10 +1563,7 @@
 	Inherits@bounty: ^GlobalBounty
 	Inherits@selection: ^SelectableBuilding
 	Inherits@handicaps: ^PlayerHandicaps
-	Inherits@Monumentboost: ^Monumentboosted
 	Inherits@corrode: ^CorrodesFromTibWeaps
-	Inherits@CurseCondition: ^CurseDebuff
-	Inherits@DeathKnightAura: ^DeathKnightAuraB
 	Inherits@usabombardment: ^usabombardment
 	Inherits@usasearchanddestroy: ^usasearchanddestroy
 	Inherits@usahold_the_line: ^usaholdtheline
@@ -2218,25 +1866,12 @@
 		Modifier: 112
 	ShakeOnDeath:
 		Duration: 15
-	ChangesHealth@TotemDebuf:
-		RequiresCondition: TotemDebuf
-		PercentageStep: -2
-		Delay: 50
-		StartIfBelow: 101
-		DamageCooldown: 0
 	ChangesHealth@aeiouboost:
 		RequiresCondition: aeiouboost
 		PercentageStep: 1
 		Delay: 75
 		StartIfBelow: 70
 		DamageCooldown: 100
-	ChangesHealth@HolySuperBoosted:
-		RequiresCondition: HolySuperBoosted
-		PercentageStep: 1
-		Delay: 75
-		StartIfBelow: 90
-		DamageCooldown: 75
-	-ChangesHealth@Monumentboost:
 	GpsDot:
 		String: Biohazard
 	Cloneable:
@@ -2699,24 +2334,10 @@
 		PassengerConditions:
 			e1of: e1of
 			dm2of: e1of
-			shieldhero: shieldhero
-			medipaladin: medipaladin
 	ProximityExternalCondition@officer:
 		RequiresCondition: e1of
 		Condition: squadboost
 		Range: 5c0
-	ProximityExternalCondition@shieldherobunker:
-		Condition: HolySuperBoosted
-		RequiresCondition: shieldhero
-		Range: 10c0
-	ProximityExternalCondition@pallyboost:
-		Condition: pallyboost
-		Range: 2c512
-		RequiresCondition: medipaladin
-	ProximityExternalCondition:
-		Condition: DarkWizAura
-		Range: 9c0
-		RequiresCondition: darkwizard
 	WithDecoration@officer2:
 		Image: pips
 		Sequence: pip-bonus
@@ -2726,23 +2347,6 @@
 		RequiresCondition: !demoralise && e1of
 	ExternalCondition@demoralise:
 		Condition: demoralise
-	WithDecoration@shieldherobunker:
-		Image: pips
-		Sequence: pip-aeiou
-		Palette: effect
-		Position: TopRight
-		ValidRelationships: None,Neutral,Enemy,Ally
-		RequiresCondition: shieldhero
-	WithDecoration@pallyboost:
-		Image: pips
-		Sequence: pip-heal
-		Palette: effect
-		Position: TopRight
-		ValidRelationships: None,Neutral,Enemy,Ally
-		RequiresCondition: medipaladin
-	WithRangeCircle@shieldherobunker:
-		Range: 10c512
-		RequiresCondition: shieldhero
 
 
 ^AutoTargetInfantryPriority:
