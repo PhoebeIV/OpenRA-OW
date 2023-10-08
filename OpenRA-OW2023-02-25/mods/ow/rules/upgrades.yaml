@@ -358,21 +358,21 @@ UpgradeHandler:
 	Targetable:
 		TargetTypes: UpgradeThing
 	ProvidesPrerequisite@noboats:
-		Factions: zerg, protoss, terran
+		Factions: zerg, zagara, kerrigan, protoss, artanis, vorazun, terran, raynor, mengsk
 		Prerequisite: techlevel.noboats
 	ProvidesPrerequisite@novehicles:
-		Factions: zerg
+		Factions: zerg, zagara, kerrigan
 		Prerequisite: faction.novehicles
 	ProvidesPrerequisite@aiprefer_noveh:
-		Factions: darkness, elementalists, mars, phobos, estonia, heydrich, silver
+		Factions: mars, phobos, estonia, heydrich, silver, granger
 		Prerequisite: faction.novehicles
 		RequiresPrerequisites: ai.all
 	ProvidesPrerequisite@aiprefer_noinf:
-		Factions: steel, gdi3, deimos, estonia, russia, ukraine, hitler, silver
+		Factions: steel, gdi3, deimos, estonia, russia, ukraine, hitler, silver, granger
 		Prerequisite: faction.noinfantry
 		RequiresPrerequisites: ai.all
 	ProvidesPrerequisite@aiprefer_noair:
-		Factions: kassad, demo, thrax, phobos, mars, deimos, zocom, steel
+		Factions: kassad, demo, thrax, phobos, mars, deimos, zocom, steel, infantry
 		Prerequisite: faction.noair
 		RequiresPrerequisites: ai.all
 	ProvidesPrerequisite@ai_noboats:
@@ -429,14 +429,26 @@ UpgradeHandlerBot:
 		RequiresCondition: mengsk
 		Actor: terran.tank
 	ProvidesPrerequisite@mengsssk:
-		RequiresPrerequisites: structures.mengsk
 		Prerequisite: structures.prodtime
+		RequiresPrerequisites: structures.mengsk
 	GrantConditionOnPrerequisite@raynor:
 		Prerequisites: structures.raynor
 		Condition: raynor
 	FreeActor@raynor:
 		RequiresCondition: raynor
 		Actor: terran.marine
+	ProvidesPrerequisite@zagara1:
+		Prerequisite: zerg.easybuild
+		RequiresPrerequisites: structures.zagara
+	ProvidesPrerequisite@zagara2:
+		Prerequisite: infantry.prodtime
+		RequiresPrerequisites: structures.zagara
+	GrantConditionOnPrerequisite@zagara:
+		Prerequisites: structures.zagara
+		Condition: zagara
+	FreeActor@zagara:
+		RequiresCondition: zagara
+		Actor: zerg.easybuild
 
 ^UpgradeBase:
 	Buildable:
