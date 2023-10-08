@@ -330,13 +330,15 @@
 ^GlobalBounty:
 	ExternalCondition@GLAbounty: # this allows GLA to gain bounty on kills, but only within range of units/structures.
 		Condition: glabounty
+	ExternalCondition@kerriganbounty: # same but Kerrigan who doesn't allow crates to drop
+		Condition: zergbounty
 	GivesBounty:
-		RequiresCondition: global-bounty && !glabounty
+		RequiresCondition: global-bounty && (!glabounty || !zergbounty)
 	GivesBounty@GLA:
-		RequiresCondition: !global-bounty && glabounty
+		RequiresCondition: !global-bounty && (glabounty || zergbounty)
 		Percentage: 5
 	GivesBounty@GLAglobal:
-		RequiresCondition: global-bounty && glabounty
+		RequiresCondition: global-bounty && (glabounty || zergbounty)
 		Percentage: 20
 	GrantConditionOnFaction@glabounty:
 		Factions: thrax, demo, kassad
@@ -348,7 +350,7 @@
 		AffectsParent: false
 		Range: 6c0
 	GrantRandomCondition@glabounty:
-		Conditions: crate1, crate2, crate3, crate4, crate4
+		Conditions: crate1, crate2, crate2, crate3, crate4, crate4, crate4
 	SpawnActorOnDeath@crate1:
 		RequiresCondition: glabounty && crate1 && !cantdropcrate
 		Actor: crate

@@ -38,7 +38,12 @@
 		WanderMoveRadius: 4
 		MinMoveDelay: 12
 		MaxMoveDelay: 75
-
+	GrantConditionOnFaction@kerrigan:
+		Factions: kerrigan
+		Condition: kerrigan.health
+	ConvertsDamageToHealth@kerrigan:
+		RequiresCondition: kerrigan.health
+		DamagePercentConverted: 15
 
 ZZERGLING:
 	Inherits: ^Infantry
@@ -605,7 +610,7 @@ ZULTRA:
 	Inherits@zerg: ^ZergUnitWeapon
 	Inherits@autotarget: ^AutoTargetAllAssaultMove
 	Buildable:
-		Prerequisites: zultraden, ~infantry.zerg, ~techlevel.unrestricted
+		Prerequisites: zultraden, ~infantry.zerg, ~techlevel.unrestricted, ~!infantry.kerrigan
 		Description: Powerful ground unit.\n  Speed: 88\n  Strong vs ground units and structures
 		Queue: Infantry
 		BuildDuration: 3000
@@ -676,12 +681,47 @@ ZULTRA:
 		Voice: Build
 	-Cloneable:
 
+ZTORRASQUE:
+	Inherits: ZULTRA
+	RenderSprites:
+		Image: zultra
+	Selectable:
+		Class: zultra
+	Buildable:
+		Prerequisites: zultraden, ~infantry.kerrigan, ~techlevel.unrestricted
+		Description: Powerful ground unit.\n\n Can regenerate after death.\n  Speed: 88\n  Strong vs ground units and structures
+		Icon: icon-torrasque
+	Health:
+		HP: 100000
+	Tooltip:
+		Name: Torrasque
+	Armament@2:
+		Weapon: UltraAttackTorrasque
+	GrantPeriodicCondition@regen:
+		CooldownDuration: 1500
+		ActiveDuration: 2
+		ShowSelectionBar: true
+		Condition: allow_regen
+		RequiresCondition: !regen_allowed
+	GrantCondition@regen:
+		Condition: regen_allowed
+		RequiresCondition: allow_regen
+		GrantPermanently: true
+	SpawnActorOnDeath@regencorpse:
+		RequiresCondition: regen_allowed
+		Actor: ZTORRASQUE
+	Explodes@hole:
+		Weapon: UltraliskDamage
+		EmptyWeapon: UltraliskDamage
+	Targetable@torr:
+		TargetTypes: Torrasque
+
 ZDEFILER:
 	Inherits: ^Infantry
 	Inherits@zerg: ^ZergUnitWeapon
 	Inherits@autotarget: ^AutoTargetAllAssaultMove
 	Buildable:
-		Prerequisites: zmound, ~infantry.zerg, ~techlevel.unrestricted
+		Prerequisites: zmound, ~infantry.zerg, ~techlevel.unrestricted, ~!infantry.kerrigan
 		Description: Ground support unit. Boosts friendly units and\n reduces incoming missile accuracy.\n  Speed: 64\n  Plague: Drains groups of enemies' health.
 		Queue: Infantry
 		BuildAtProductionType: Hatchery
@@ -913,7 +953,7 @@ ZKERRIGAN:
 	-RejectsOrders@freeroam:
 	-AttackWander@freeroam:
 	Buildable:
-		Prerequisites: zhive, ~infantry.zerg, ~techlevel.unrestricted
+		Prerequisites: zhive, ~infantry.zerg, ~techlevel.unrestricted, ~!infantry.kerrigan, ~!infantry.zagara
 		Description: The Queen of the Swarm.\n  Speed: 96\n  Strong vs everything
 		Queue: Infantry
 		BuildAtProductionType: Hatchery
@@ -1008,7 +1048,7 @@ ZKERRIGAN:
 		UncloakOn: Damage, Attack, Move
 		Palette: player
 		IsPlayerPalette: true
-	ProximityExternalCondition:
+	ProximityExternalCondition@wander:
 		Condition: wander
 		Range: 2c0
 	Explodes:
@@ -1028,3 +1068,273 @@ ZKERRIGAN:
 		RequiresCondition: produceunit
 	ExternalCondition@ambushhole:
 		Condition: produceunit
+
+
+ZKERRIGAN.Hero0:
+	Inherits: ^Infantry
+	Inherits@Hero: ^Hero
+	Inherits@zerg: ^ZergUnitWeapon
+	Inherits@autotarget: ^AutoTargetGroundAssaultMove
+	-RejectsOrders@freeroam:
+	-AttackWander@freeroam:
+	RenderSprites:
+		Image: zkerrigan
+	Buildable:
+		Description: [HERO]\n\nThe Queen of the Swarm.\n  Speed: 112\n  Strong vs ground units.
+		Queue: Infantry
+		BuildAtProductionType: Hatchery
+		BuildPaletteOrder: 50
+		Prerequisites: ~barracks, ~techlevel.unrestricted, !active.kerrigan, ~!hero.tier1, ~infantry.kerrigan
+		BuildDurationModifier: 100
+		BuildDuration: 750
+		BuildLimit: 1
+	Selectable:
+		Bounds: 1000, 1000, 0, 0
+		DecorationBounds: 1200, 1200, 0, 0
+	Tooltip:
+		Name: Kerrigan (Tier 0)
+		RequiresCondition: !in_world
+	Tooltip@real:
+		Name: Kerrigan
+		RequiresCondition: in_world
+	GrantCondition@real:
+		Condition: in_world
+	Health:
+		HP: 150000
+	Mobile:
+		Speed: 112
+		TurnSpeed: 128
+		Locomotor: foot2
+	Power:
+		Amount: 50
+	-Crushable:
+	RevealsShroud:
+		Range: 8c512
+	Armament@1:
+		Name: primary
+		Weapon: KerriganMelee
+		LocalOffset: 512,200,256
+	WithInfantryBody:
+		DefaultAttackSequence: shoot
+		IdleSequences: stand
+		StandSequences: stand
+		RequiresCondition: !burrowed
+	WithInfantryBody@down:
+		DefaultAttackSequence: burrowed
+		IdleSequences: burrowed
+		StandSequences: burrowed
+		RequiresCondition: burrowed
+	GrantConditionOnAttack@attacking:
+		Condition: attacking
+		RevokeDelay: 40
+	AutoTarget:
+		HoldFireCondition: burrowing
+	Targetable:
+		TargetTypes: GroundActor, Infantry, Disguise
+	RenderSprites:
+	AnnounceOnKill:
+	Voiced:
+		VoiceSet: ZergKerriganVoice
+	-DeathSounds@NORMAL:
+	-DeathSounds@BURNED:
+	-DeathSounds@ZAPPED:
+	DeathSounds:
+	WithDeathAnimation:
+		UseDeathTypeSuffix: false
+		CrushedSequence: die
+		CrushedSequencePalette: player
+		CrushedPaletteIsPlayerPalette: true
+	-SpawnActorOnDeath@fire:
+	MustBeDestroyed:
+	ProximityCaptor:
+		Types: Infantry
+	AttackFrontal:
+		FacingTolerance: 32
+	Cloak@burrow:
+		RequiresCondition: burrowing
+		InitialDelay: 75
+		CloakDelay: 50
+		CloakSound: burrowdn.aud
+		UncloakSound: burrowup.aud
+		CloakedCondition: burrowed
+		EffectImage: zkerrigan
+		EffectPalette: player
+		EffectPaletteIsPlayerPalette: true
+		CloakEffectSequence: burrow
+		UncloakEffectSequence: unburrow
+		UncloakOn: Damage, Attack, Move
+		Palette: player
+		IsPlayerPalette: true
+	ProximityExternalCondition@wander:
+		Condition: wander
+		Range: 2c0
+	Explodes:
+		Weapon: KerriganDeathNoExplosion
+		EmptyWeapon: KerriganDeathNoExplosion
+		RequiresCondition: !force_deploy
+	ChangesHealth@regen:
+		Delay: 175
+	ChangesHealth@regen2:
+		Delay: 125
+	FreeActor@1:
+		Actor: ZZERGLING2
+		AllowRespawn: true
+		RequiresCondition: produceunit
+	FreeActor@2:
+		Actor: ZZERGLING2
+		AllowRespawn: true
+		RequiresCondition: produceunit
+	ExternalCondition@ambushhole:
+		Condition: produceunit
+	ProvidesPrerequisite@inthefield:
+		Prerequisite: active.kerrigan
+	ActorLostNotification:
+		RequiresCondition: !force_deploy
+	KillsSelf@level:
+		RequiresCondition: force_deploy
+		Delay: 1
+	SpawnActorOnDeath:
+		RequiresCondition: force_deploy
+		Actor: ZKERRIGAN.Hero1
+	ExperienceTrickler:
+		RequiresCondition: hero-level <= 4
+		Amount: 500
+		Interval: 25
+	ProximityExternalCondition@kerriganbounty:
+		Condition: zergbounty
+		ValidRelationships: Enemy
+		AffectsParent: false
+		Range: 6c0
+	ConvertsDamageToHealth@kerrigan:
+		DamagePercentConverted: 20
+
+ZKERRIGAN.Hero1:
+	Inherits: ZKERRIGAN.Hero0
+	Inherits@heroTier: ^HeroTier1
+	Buildable:
+		Prerequisites: ~barracks, ~techlevel.unrestricted, !active.kerrigan, ~!hero.tier2, ~hero.tier1, ~infantry.kerrigan
+		BuildDuration: 1500
+	Tooltip:
+		Name: Kerrigan (Tier 1)
+	Health:
+		HP: 175000
+	Power:
+		Amount: 100
+	SpawnActorOnDeath:
+		RequiresCondition: force_deploy
+		Actor: ZKERRIGAN.Hero2
+	GainsExperienceMultiplier@1:
+		Modifier: 75
+	FirepowerMultiplier@1:
+		Modifier: 110
+	ProximityExternalCondition@squadboost:
+		Condition: squadboost
+		Range: 6c0
+	WithDecoration@officer2:
+		RequiresCondition: !demoralise
+		Image: pips
+		Sequence: pip-bonus
+		Palette: effect
+		Position: TopRight
+		ValidRelationships: None,Neutral,Enemy,Ally
+	-ExperienceTrickler:
+
+
+ZKERRIGAN.Hero2:
+	Inherits: ZKERRIGAN.Hero1
+	Inherits@heroTier: ^HeroTier2
+	Inherits@autotarget: ^AutoTargetAllAssaultMove
+	Buildable:
+		Description: [HERO]\n\nThe Queen of the Swarm\n Now has a ranged attack.\n  Speed: 96\n  Strong vs everything.
+		Prerequisites: ~barracks, ~techlevel.unrestricted, !active.kerrigan, ~!hero.tier3, ~hero.tier2, ~infantry.kerrigan
+	Tooltip:
+		Name: Kerrigan (Tier 2)
+	Health:
+		HP: 150000
+	Mobile:
+		Speed: 96
+	SpawnActorOnDeath:
+		RequiresCondition: force_deploy
+		Actor: ZKERRIGAN.Hero3
+	GainsExperienceMultiplier@1:
+		Modifier: 50
+	FirepowerMultiplier@1:
+		Modifier: 120
+	Armament@1:
+		Weapon: KerriganBeam
+	ConvertsDamageToHealth@kerrigan:
+		DamagePercentConverted: 15
+
+ZKERRIGAN.Hero3:
+	Inherits: ZKERRIGAN.Hero2
+	Inherits@heroTier: ^HeroTier3
+	Buildable:
+		Prerequisites: ~barracks, ~techlevel.unrestricted, !active.kerrigan, ~!hero.tier4, ~hero.tier3, ~infantry.kerrigan
+	Tooltip:
+		Name: Kerrigan (Tier 3)
+	Health:
+		HP: 175000
+	SpawnActorOnDeath:
+		RequiresCondition: force_deploy
+		Actor: ZKERRIGAN.Hero4
+	GainsExperienceMultiplier@1:
+		Modifier: 35
+	FirepowerMultiplier@1:
+		Modifier: 130
+	SpeedMultiplier@1:
+		Modifier: 120
+	ProximityExternalCondition@squadboost:
+		Range: 8c0
+	Armament@2:
+		Name: primary
+		Weapon: KerriganBomb
+		LocalOffset: 512,-200,256
+		FireDelay: 14
+		LocalYaw: 96,-96
+	ChangesHealth@regen:
+		Delay: 125
+	ChangesHealth@regen2:
+		Delay: 80
+
+ZKERRIGAN.Hero4:
+	Inherits: ZKERRIGAN.Hero3
+	Inherits@heroTier: ^HeroTier4
+	Buildable:
+		Prerequisites: ~barracks, ~techlevel.unrestricted, !active.kerrigan, ~!hero.tier5, ~hero.tier4, ~infantry.kerrigan
+		BuildDuration: 2250
+	Tooltip:
+		Name: Kerrigan (Tier 4)
+	Health:
+		HP: 225000
+	SpawnActorOnDeath:
+		RequiresCondition: force_deploy
+		Actor: ZKERRIGAN.Hero4
+	GainsExperienceMultiplier@1:
+		Modifier: 20
+	FirepowerMultiplier@1:
+		Modifier: 140
+	Armament@3:
+		Name: primary
+		Weapon: KerriganPlague
+		LocalOffset: 512,-200,555
+		FireDelay: 25
+
+ZKERRIGAN.Hero5:
+	Inherits: ZKERRIGAN.Hero4
+	Inherits@heroTier: ^HeroTier5
+	Buildable:
+		Prerequisites: ~barracks, ~techlevel.unrestricted, !active.kerrigan, ~hero.tier5, ~infantry.kerrigan
+		BuildDuration: 3000
+	Tooltip:
+		Name: Kerrigan (Tier 5)
+	Health:
+		HP: 300000
+	-KillsSelf@level:
+	-SpawnActorOnDeath:
+	-GrantPeriodicCondition@deploy:
+	-GainsExperienceMultiplier@1:
+	FirepowerMultiplier@1:
+		Modifier: 150
+	Armament@4:
+		Name: primary
+		Weapon: KerriganSpawn

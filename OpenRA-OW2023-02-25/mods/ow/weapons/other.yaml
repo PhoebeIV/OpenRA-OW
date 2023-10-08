@@ -3172,7 +3172,7 @@ UltraAttack:
 		DamageTypes: DefaultDeath
 		ValidTargets: GroundActor, WaterActor
 	Warhead@2StructureDam: SpreadDamage
-		Spread: 128
+		Spread: 192
 		Delay: 4
 		Damage: 6000
 		Versus:
@@ -3190,6 +3190,22 @@ UltraAttack:
 		Delay: 4
 		ImpactSounds: zulhit00.aud, zulhit01.aud
 		ValidTargets: GroundActor, WaterActor, Trees
+
+UltraAttackTorrasque:
+	Inherits: UltraAttack
+	FirstBurstTargetOffset: -256,-1024,0
+	FollowingBurstTargetOffset: 0,2048,0
+	ReloadDelay: 23
+	Burst: 2
+	BurstDelays: 2
+	Range: 2c512
+	-Report:
+	Warhead@1Dam: SpreadDamage
+		Spread: 256
+		Damage: 9000
+	Warhead@2StructureDam: SpreadDamage
+		Spread: 192
+		Damage: 2000
 
 MutaGlaive:
 	ReloadDelay: 50
@@ -3429,6 +3445,40 @@ KerriganBeam:
 		Inaccuracy: 512
 		ValidTargets: Ground, Air, GroundActor, AirborneActor, WaterActor, Water, Trees
 		Delay: 6
+
+KerriganMelee:
+	Inherits: KerriganBeam
+	Range: 2c0
+	Projectile: InstantHit
+	ValidTargets: Ground, Water, GroundActor, WaterActor
+	Warhead@1Dam: SpreadDamage
+		Spread: 256
+		Damage: 12000
+		ValidTargets: GroundActor, WaterActor
+		Versus:
+			None: 80
+			Light: 60
+			Wood: 60
+			Heavy: 70
+			Concrete: 60
+		DamageTypes: Prone50Percent, DefaultDeath
+	-Warhead@1Air:
+	-Warhead@2Smu:
+	Warhead@2Dam: SpreadDamage
+		Delay: 8
+		Spread: 400
+		Damage: 6000
+		ValidTargets: GroundActor, WaterActor
+		Versus:
+			Light: 80
+			Wood: 50
+			Heavy: 60
+			Concrete: 50
+		DamageTypes: Prone50Percent, TriggerProne, DefaultDeath
+	-Warhead@3EffGround: 
+	-Warhead@4EffGround: 
+	-Warhead@5EffGround: 
+	-Warhead@6EffGround: 
 
 KerriganPlague:
 	Inherits: DefilerPlague

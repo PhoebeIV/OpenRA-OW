@@ -189,6 +189,14 @@ CreepGenBig:
 		ValidRelationships: Neutral, Ally, Enemy
 	ChangesTerrain:
 		TerrainType: Creep
+	GrantConditionOnPrerequisite@zagaraenable:
+		Prerequisites: structures.zagara
+		Condition: zagara
+	SeedsResource@zagara:
+		RequiresCondition: zagara
+		Interval: 3
+		MaxRange: 9
+		ResourceType: ZergCreep
 
 
 CreepGenBig2:
@@ -209,6 +217,8 @@ CreepGenMed:
 	SeedsResource:
 		Interval: 3
 		MaxRange: 9
+	SeedsResource@zagara:
+		Interval: 4
 
 SmallZergBuildingComplete:
 	Inherits: CreepSpawnerBig
@@ -343,6 +353,10 @@ ZHATCHERY:
 	Production@inf:
 		Produces: Hatchery,Infantry
 		PauseOnCondition: busy
+		RequiresCondition: !zagara
+	Production@inf2:
+		Produces: Hatchery,Infantry
+		RequiresCondition: zagara
 	ProductionQueue@infantry:
 		Type: Infantry
 		DisplayOrder: 0
@@ -364,6 +378,9 @@ ZHATCHERY:
 		Condition: busy
 		Duration: 100
 		ShowSelectionBar: false
+	GrantConditionOnPrerequisite@zagaraenable:
+		Prerequisites: structures.zagara
+		Condition: zagara
 	ProximityExternalCondition:
 		Condition: wander
 		Range: 3c0
@@ -452,7 +469,7 @@ ZHATCHERY:
 	GrantConditionOnPrerequisite@botlair:
 		RequiresCondition: botowner
 		Condition: do_lair
-		Prerequisites: zhatchery, zchamber, ~structures.zerg, ~techlevel.high, ~free_hatchery
+		Prerequisites: zhatchery, zchamber, ~structures.zerg, ~techlevel.high, ~free_hatchery, ai.all
 	GrantDelayedCondition@botlair:
 		RequiresCondition: do_lair
 		Condition: lair_upgrade
@@ -460,7 +477,7 @@ ZHATCHERY:
 	GrantConditionOnPrerequisite@bothive:
 		RequiresCondition: botowner
 		Condition: do_hive
-		Prerequisites: zlair, znest, ~structures.zerg, ~techlevel.unrestricted, ~!ulttechcenter
+		Prerequisites: zlair, znest, ~structures.zerg, ~techlevel.unrestricted, ~!ulttechcenter, ai.all
 	ProvidesPrerequisite@easybuild:
 		RequiresPrerequisites: ai.all
 		Prerequisite: zerg.easybuild
@@ -567,6 +584,7 @@ ZHATCHERY:
 		Duration: 250
 		Actors: zdevouring
 	WithBuildingBib:
+		Palette: player
 
 ZergLairComplete:
 	Inherits: SmallZergBuildingComplete
@@ -658,7 +676,7 @@ ZCCOLONY:
 	GivesBuildableArea:
 		AreaTypes: building, fake, pylon
 	Buildable:
-		Queue: Building
+		Queue: Defense
 		BuildPaletteOrder: 100
 		Prerequisites: ~structures.zerg, ~techlevel.infonly, ~zerg.easybuild
 		Description: Spreads creep, can be evolved into \n defensive structures. \n\nMust be placed on creep.
@@ -1513,7 +1531,7 @@ ZMOUND:
 		Queue: Tech
 		BuildPaletteOrder: 202
 		BuildDuration: 2500
-		Prerequisites: ulttechcenter, zpool, ~structures.zerg, ~techlevel.high, ~zerg.easybuild
+		Prerequisites: ulttechcenter, zpool, ~structures.zerg, ~techlevel.high, ~zerg.easybuild, ~!structures.kerrigan
 		Description: Allows production of Defilers\n at a Hatchery. \n\nMust be placed on creep.
 		BuildLimit: 1
 	Health:
