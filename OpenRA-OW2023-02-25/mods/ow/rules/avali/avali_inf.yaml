@@ -1,0 +1,97 @@
+^AvaliSoldier:
+	Inherits: ^Soldier
+	Inherits@hordebonus: ^hordebonus
+	-ReloadDelayMultiplier@hordebonus:
+	-ReloadDelayMultiplier@hordebonusupgrade1:
+	-ReloadDelayMultiplier@hordebonusupgrade2:
+	ProximityExternalCondition@hordebonus:
+		Range: 3c0
+	ProximityExternalCondition@hordebonusupgrade1:
+		Range: 3c0
+	ProximityExternalCondition@hordebonusupgrade2:
+		Range: 3c0
+	FirepowerMultiplier@hordebonus:
+		RequiresCondition: hordebonus >= 15 && !upgradenationalism
+		Modifier: 110
+	FirepowerMultiplier@hordebonusupgrade1:
+		RequiresCondition: hordebonusupgrade1 >= 15 && upgradenationalism
+		Modifier: 115
+	FirepowerMultiplier@hordebonusupgrade2:
+		RequiresCondition: hordebonusupgrade2 >= 15
+		Modifier: 120
+	ProducibleWithLevel:
+		Prerequisites: barracks.upgraded
+	WithProductionIconOverlay:
+		Types: Veterancy
+		Prerequisites: barracks.upgraded
+	WithInfantryBody:
+		RequiresCondition: !idle_special
+		DefaultAttackSequence: shoot
+		IdleSequences: idle1,idle2,idle3,idle4,idle5,idle6
+		MinIdleDelay: 30
+		MaxIdleDelay: 175
+	WithInfantryBody@special:
+		RequiresCondition: idle_special
+		DefaultAttackSequence: shoot
+		StandSequences: idles1,idles2
+	WithDeathAnimation:
+		DeathTypes:
+			DefaultDeath: 1,2
+			BulletDeath: 1,2
+			SmallExplosionDeath: 1,2
+			ExplosionDeath: 1,2
+			ElectricityDeath: 6
+		CrushedSequence: die1
+	GrantPeriodicCondition@special:
+		CooldownDuration: 250, 500
+		ActiveDuration: 125
+		Condition: idle_special
+		RequiresCondition: specialfella1 && specialfella2
+	GrantRandomCondition@special1:
+		Conditions: specialfella1,none,none,none,none,none,none,none,none,none,none
+	GrantRandomCondition@special2:
+		Conditions: specialfella2,none,none,none,none
+	GrantConditionOnTileSet@cold:
+		TileSets: SNOW
+		Condition: env_buff
+	SpeedMultiplier@cold:
+		Modifier: 110
+		RequiresCondition: env_buff
+	Voiced:
+		VoiceSet: AvaliGeneric
+
+IAVALI1:
+	Inherits: ^AvaliSoldier
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Buildable:
+		Queue: Infantry
+		BuildAtProductionType: Soldier
+		Prerequisites: ~disabled
+		BuildPaletteOrder: 100
+		Description: General-purpose infantry.\nCan gain Pack boost with a group of\n 15 or more. \n  Strong vs Infantry\n  Weak vs Vehicles, Aircraft
+	Tooltip:
+		Name: Light Infantry
+	Valued:
+		Cost: 100
+	Health:
+		HP: 5000
+	Armament@PRIMARY:
+		Weapon: AvaliLaser
+	Armament@BEAM:
+		Name: secondary
+		Weapon: AvaliBeam
+		LocalOffset: 400,0,380
+	Armament@GARRISONED:
+		Name: garrisoned
+		Weapon: Vulcan
+		MuzzleSequence: garrison-muzzle
+	TakeCover:
+		ProneOffset: 0,0,-331
+	WithInfantryBody:
+		-DefaultAttackSequence:
+		AttackSequences: 
+			primary: shoot
+	WithInfantryBody@special:
+		-DefaultAttackSequence:
+		AttackSequences: 
+			primary: shoot
