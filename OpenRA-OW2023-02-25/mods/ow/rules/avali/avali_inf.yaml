@@ -19,6 +19,12 @@
 	FirepowerMultiplier@hordebonusupgrade2:
 		RequiresCondition: hordebonusupgrade2 >= 15
 		Modifier: 120
+	WithIdleOverlay@hordebonus:
+		RequiresCondition: hordebonus >= 15 && !upgradenationalism
+	WithIdleOverlay@hordebonusupgrade1:
+		RequiresCondition: hordebonusupgrade1 >= 15 && upgradenationalism
+	WithIdleOverlay@hordebonusupgrade2:
+		RequiresCondition: hordebonusupgrade2 >= 15
 	ProducibleWithLevel:
 		Prerequisites: barracks.upgraded
 	WithProductionIconOverlay:
@@ -37,9 +43,9 @@
 	WithDeathAnimation:
 		DeathTypes:
 			DefaultDeath: 1,2
-			BulletDeath: 1,2
-			SmallExplosionDeath: 1,2
-			ExplosionDeath: 1,2
+			BulletDeath: 4
+			SmallExplosionDeath: 3
+			ExplosionDeath: 3
 			ElectricityDeath: 6
 		CrushedSequence: die1
 	GrantPeriodicCondition@special:
@@ -68,30 +74,66 @@ IAVALI1:
 		BuildAtProductionType: Soldier
 		Prerequisites: ~disabled
 		BuildPaletteOrder: 100
-		Description: General-purpose infantry.\nCan gain Pack boost with a group of\n 15 or more. \n  Strong vs Infantry\n  Weak vs Vehicles, Aircraft
+		Description: General-purpose infantry.\nCan gain Pack boost with a group of\n 15 or more. \\n  Strong vs Infantry\n  Weak vs Vehicles, Aircraft
 	Tooltip:
 		Name: Light Infantry
 	Valued:
 		Cost: 100
 	Health:
 		HP: 5000
+	Mobile:
+		PauseOnCondition: taunt_dance
 	Armament@PRIMARY:
 		Weapon: AvaliLaser
-	Armament@BEAM:
-		Name: secondary
-		Weapon: AvaliBeam
 		LocalOffset: 400,0,380
+		PauseOnCondition: ammo == 10
+	Armament@GRENADE:
+		Name: secondary
+		Weapon: Grenade
+		LocalOffset: 400,0,380
+		FireDelay: 10
+		RequiresCondition: ammo == 10
+		AmmoUsage: 10
 	Armament@GARRISONED:
 		Name: garrisoned
 		Weapon: Vulcan
 		MuzzleSequence: garrison-muzzle
+	AmmoPool:
+		Name: secondary
+		Armaments: secondary
+		AmmoCondition: ammo
+		InitialAmmo: 2
+		Ammo: 10
+	ReloadAmmoPool:
+		AmmoPool: secondary
+		Delay: 20
+		RequiresCondition: grenade_tick
+	GrantConditionOnAttack@grenade:
+		ArmamentNames: primary
+		Condition: grenade_tick
+		RevokeDelay: 30
 	TakeCover:
 		ProneOffset: 0,0,-331
 	WithInfantryBody:
 		-DefaultAttackSequence:
 		AttackSequences: 
 			primary: shoot
+			secondary: grenade
+		RequiresCondition: !idle_special && !taunt_dance
 	WithInfantryBody@special:
 		-DefaultAttackSequence:
 		AttackSequences: 
 			primary: shoot
+			secondary: grenade
+		RequiresCondition: idle_special && !taunt_dance
+	WithInfantryBody@taunt:
+		RequiresCondition: taunt_dance
+		StandSequences: idles3
+	GrantTimedCondition@dance:
+		RequiresCondition: rank-veteran && specialfella2
+		Condition: taunt_dance
+		Duration: 150
+	AmbientSound@dance:
+		SoundFiles: dancemoves.aud
+		Interval: 150
+		RequiresCondition: taunt_dance
