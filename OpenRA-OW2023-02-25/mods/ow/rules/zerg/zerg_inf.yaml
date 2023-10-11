@@ -610,7 +610,7 @@ ZULTRA:
 	Inherits@zerg: ^ZergUnitWeapon
 	Inherits@autotarget: ^AutoTargetAllAssaultMove
 	Buildable:
-		Prerequisites: zultraden, ~infantry.zerg, ~techlevel.unrestricted, ~!infantry.kerrigan
+		Prerequisites: zultraden, ~infantry.zerg, ~techlevel.unrestricted, ~!kerrigan.tier4.torrasque
 		Description: Powerful ground unit.\n  Speed: 88\n  Strong vs ground units and structures
 		Queue: Infantry
 		BuildDuration: 3000
@@ -688,11 +688,11 @@ ZTORRASQUE:
 	Selectable:
 		Class: zultra
 	Buildable:
-		Prerequisites: zultraden, ~infantry.kerrigan, ~techlevel.unrestricted
-		Description: Powerful ground unit.\n\n Can regenerate after death.\n  Speed: 88\n  Strong vs ground units and structures
+		Prerequisites: zultraden, ~infantry.zerg, ~techlevel.unrestricted, ~kerrigan.tier4.torrasque
+		Description: Power ground unit. \n Upgraded to have an area-damage\n cleave attack. \n\nWhen killed, can be revived after 10 seconds, \n once every 60 seconds.\n  Speed: 88\n  Strong vs ground units and structures
 		Icon: icon-torrasque
 	Health:
-		HP: 100000
+		HP: 125000
 	Tooltip:
 		Name: Torrasque
 	Armament@2:
@@ -709,12 +709,59 @@ ZTORRASQUE:
 		GrantPermanently: true
 	SpawnActorOnDeath@regencorpse:
 		RequiresCondition: regen_allowed
-		Actor: ZTORRASQUE
+		Actor: ZTORRASQUE.Corpse
+	Targetable@torr:
+		TargetTypes: Torrasque
+	WithDeathAnimation:
+		RequiresCondition: !regen_allowed
+	GrantCondition@produced:
+		Condition: produced
+
+ZTORRASQUE.Corpse:
+	Inherits: ^CivBuilding
+	RenderSprites:
+		Image: zultra
+		Palette: player
+	Tooltip:
+		Name: Corpse (Torrasque)
+	WithSpriteBody:
+		StartSequence: make
+		Sequence: corpse
+	-Selectable:
+	-Targetable:
+	-Demolishable:
+	-Explodes:
+	-Explodes@CIVPANIC:
+	SoundOnDamageTransition:
+		-DamagedSounds:
+		DestroyedSounds: zbldgdth.aud
+	QuantizeFacingsFromSequence:
+		Sequence: corpse
+	Interactable:
+		Bounds: 600, 600, 0, 0
+		DecorationBounds: 1600, 1400, 0, 0
+	Building:
+		Footprint: +
 	Explodes@hole:
 		Weapon: UltraliskDamage
 		EmptyWeapon: UltraliskDamage
-	Targetable@torr:
-		TargetTypes: Torrasque
+	KillsSelf:
+		Delay: 250
+	SpawnActorOnDeath@regencorpse:
+		Actor: ZTORRASQUE
+	ChangesHealth@health:
+		PercentageStep: -99
+		StartIfBelow: 101
+		Delay: 10
+		RequiresCondition: currenthp
+	GrantConditionOnHealth@health:
+		MinHP: 40000
+		Condition: currenthp
+	ChangesHealth@health2:
+		PercentageStep: 10
+		StartIfBelow: 101
+		Delay: 25
+		DamageCooldown: 25
 
 ZDEFILER:
 	Inherits: ^Infantry

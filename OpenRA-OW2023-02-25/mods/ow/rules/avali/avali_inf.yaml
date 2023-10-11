@@ -66,33 +66,33 @@
 	Voiced:
 		VoiceSet: AvaliGeneric
 
-IAVALI1:
+AVINF1:
 	Inherits: ^AvaliSoldier
 	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
 	Buildable:
 		Queue: Infantry
 		BuildAtProductionType: Soldier
-		Prerequisites: ~disabled
+		Prerequisites: ~barracks, ~infantry.avalon, ~techlevel.infonly
 		BuildPaletteOrder: 100
-		Description: General-purpose infantry.\nCan gain Pack boost with a group of\n 15 or more. \\n  Strong vs Infantry\n  Weak vs Vehicles, Aircraft
+		Description: General-purpose infantry.\nCan gain Pack boost with a group of\n 15 or more. \\n  Strong vs Infantry, light vehicles\n  Weak vs Armored vehicles, Aircraft
 	Tooltip:
 		Name: Light Infantry
 	Valued:
-		Cost: 100
+		Cost: 150
 	Health:
-		HP: 5000
+		HP: 6500
 	Mobile:
 		PauseOnCondition: taunt_dance
 	Armament@PRIMARY:
 		Weapon: AvaliLaser
 		LocalOffset: 400,0,380
-		PauseOnCondition: ammo == 10
+		PauseOnCondition: (ammo == 10) || no_shoot
 	Armament@GRENADE:
 		Name: secondary
-		Weapon: Grenade
-		LocalOffset: 400,0,380
-		FireDelay: 10
-		RequiresCondition: ammo == 10
+		Weapon: AvaliGrenade
+		LocalOffset: 256,0,512
+		FireDelay: 14
+		PauseOnCondition: ammo < 10
 		AmmoUsage: 10
 	Armament@GARRISONED:
 		Name: garrisoned
@@ -106,12 +106,21 @@ IAVALI1:
 		Ammo: 10
 	ReloadAmmoPool:
 		AmmoPool: secondary
-		Delay: 20
+		Delay: 12
 		RequiresCondition: grenade_tick
 	GrantConditionOnAttack@grenade:
 		ArmamentNames: primary
-		Condition: grenade_tick
+		Condition: grenade_reload
 		RevokeDelay: 30
+	GrantConditionOnAttack@grenadethrown:
+		ArmamentNames: secondary
+		Condition: no_shoot
+		RevokeDelay: 10
+	GrantPeriodicCondition@grenade:
+		Condition: grenade_tick
+		RequiresCondition: grenade_reload
+		CooldownDuration: 1,6
+		ActiveDuration: 14
 	TakeCover:
 		ProneOffset: 0,0,-331
 	WithInfantryBody:

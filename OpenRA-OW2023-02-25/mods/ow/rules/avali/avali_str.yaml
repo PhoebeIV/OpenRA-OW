@@ -1,0 +1,296 @@
+
+AVFACT:
+	Inherits: FACT
+	Selectable:
+		Bounds: 3072, 3072
+	D2kBuilding:
+		Footprint: xxX xxx XxX ===
+		Dimensions: 3,4
+		TerrainTypes: Clear,Road
+	Tooltip:
+		Name: Construction Command Ship
+	SpawnActorsOnSell:
+		ActorTypes: avinf1,avinf1,avinf1,tecn,tecn2
+		GuaranteedActorTypes: avinf1, e6
+	Transforms:
+		RequiresCondition: factundeploy
+		PauseOnCondition: chrono-vortex || being-captured || being-demolished || build-incomplete
+		IntoActor: avmcv
+		Offset: 1,1
+		Facing: 384
+	-RenderSprites:
+	RenderSprites:
+		Image: fact
+
+^AvaliPowerPlant:
+	Inherits: ^PowerPlant
+	GrantConditionOnTileSet@warm:
+		TileSets: TEMPERAT, INTERIOR, DESERT
+		Condition: env_buff
+	PowerMultiplier@warm:
+		Modifier: 110
+		RequiresCondition: env_buff
+
+AVPOWR1:
+	Inherits: ^AvaliPowerPlant
+	Inherits@POWER_OUTAGE: ^DisabledByPowerOutage
+	Inherits@shape: ^2x2Shape
+	Inherits@BIB: ^2xBuildingBib
+	Selectable:
+		Bounds: 2048, 2048
+	HitShape:
+		UseTargetableCellsOffsets: false
+		TargetableOffsets: 0,0,0, 640,-384,0, 640,512,0, -710,-512,0, -710,512,0
+	Buildable:
+		Queue: Building
+		BuildPaletteOrder: 1
+		Prerequisites: ~structures.avalon, ~techlevel.infonly, ~!ai.powerout
+		Description: Provides power for other structures.\n\n10% boost in warm environments.
+	Valued:
+		Cost: 300
+	Tooltip:
+		Name: Geothermic Generator
+	ProvidesPrerequisite:
+		Prerequisite: anypower
+	Building:
+		Footprint: xX xx ==
+		Dimensions: 2,3
+		LocalCenterOffset: 0,-512,0
+	Health:
+		HP: 40000
+	Armor:
+		Type: Wood
+	RevealsShroud:
+		Range: 4c0
+	Power:
+		Amount: 100
+	Targetable:
+		TargetTypes: GroundActor, Structure, C4, DetonateAttack, SpyInfiltrate
+	ScalePowerWithHealth:
+	WithDeathAnimation:
+		DeathSequence: dead
+		UseDeathTypeSuffix: false
+	RenderSprites: 
+		Image: dpwr
+
+AVPOWR2:
+	Inherits: ^PowerPlant
+	Inherits@POWER_OUTAGE: ^DisabledByPowerOutage
+	Inherits@shape: ^2x2Shape
+	Inherits@BIB: ^2xBuildingBib
+	Selectable:
+		Bounds: 2048, 2048
+	HitShape:
+		UseTargetableCellsOffsets: false
+		TargetableOffsets: 0,0,0, 640,-384,0, 640,512,0, -710,-512,0, -710,512,0
+	Buildable:
+		Queue: Building
+		BuildPaletteOrder: 110
+		Prerequisites: radar, ~techlevel.medium, ~structures.avalon, ~!ai.powerout
+		Description: Provides double the power of\na standard Geothermic Generator.\n\n10% boost in warm environments.
+	Valued:
+		Cost: 600
+	Tooltip:
+		Name: Advanced Geothermic Generator
+	ProvidesPrerequisite:
+		Prerequisite: anypower
+	ProvidesPrerequisite@grade:
+		Prerequisite: power.grade1
+	Building:
+		Footprint: xX xx ==
+		Dimensions: 2,3
+		LocalCenterOffset: 0,-512,0
+	Health:
+		HP: 65000
+	Armor:
+		Type: Wood
+	RevealsShroud:
+		Range: 5c0
+	Power:
+		Amount: 200
+	Targetable:
+		TargetTypes: GroundActor, Structure, C4, DetonateAttack, SpyInfiltrate
+	ScalePowerWithHealth:
+	WithDeathAnimation:
+		DeathSequence: dead
+		UseDeathTypeSuffix: false
+	RenderSprites: 
+		Image: nuk2
+
+AVPOWR3:
+	Inherits: XPWR
+	Selectable:
+		Bounds: 3072, 2048
+	Buildable:
+		Prerequisites: advtechcenter, ~techlevel.unrestricted, ~structures.avalon, ~!ai.boss, ~!ai.powerout
+		Description: Provides huge power, but very unstable.\n	Explodes violently. \n\n10% boost in warm environments.
+	Building:
+		Footprint: xxx xxx ===
+		Dimensions: 3,3
+		LocalCenterOffset: 0,-512,0
+	Tooltip:
+		Name: Uranium-Assisted Geothermic Generator
+	WithIdleOverlay:
+		StartSequence: fire-start
+		Sequence: fire-loop
+	-RenderSprites:
+	RenderSprites:
+		Image: nuk3
+
+AVPROC:
+	Inherits: PROC
+	Buildable:
+		Prerequisites: anypower, ~techlevel.infonly, ~structures.avalon, ~!ai.boss
+	Tooltip:
+		Name: Assimilator
+	FreeActor:
+		Actor: HARV
+	-GrantConditionOnFaction:
+	-WithIdleOverlay@uac:
+	RenderSprites:
+		Image: PROC
+
+AVTENT:
+	Inherits: TENT
+	Inherits@BIB: ^3xBuildingBib
+	Inherits@SHAPE: ^3x2Shape
+	Selectable:
+		Bounds: 3072, 2048
+	HitShape:
+		UseTargetableCellsOffsets: true
+		-TargetableOffsets:
+	Buildable:
+		Prerequisites: anypower, ~structures.avalon, ~techlevel.infonly, ~!structures.bothard
+		Description: Prepares avalis for fighting.
+	Tooltip:
+		Name: Congregation Tent
+	Building:
+		Dimensions: 3,3
+		Footprint: =x= xxx ===
+	-Exit@1:
+	Exit@2:
+		RequiresCondition: !being-captured
+		SpawnOffset: -725,640,0
+		ExitCell: 0,2
+		ProductionTypes: Soldier, Infantry
+	RenderSprites:
+		Image: AVTENT
+	GrantConditionOnDamageState@fire2:
+		Condition: damaged_heavy
+		ValidDamageStates: Heavy, Critical
+	WithIdleOverlay@fire3:
+		RequiresCondition: damaged_heavy
+		Image: fire
+		Sequence: 2
+		IsDecoration: true
+		Offset: 0,0,256
+		Palette: effect
+
+AVWEAP:
+	Inherits: WEAP
+	Buildable:
+		Queue: Building
+		BuildPaletteOrder: 80
+		Prerequisites: refinery, barracks, ~techlevel.low, ~structures.avalon, ~!structures.bothard
+	Tooltip:
+		Name: Armor Factory
+	RenderSprites:
+		Image: WEAP
+
+
+AVRADAR:
+	Inherits: ^Building
+	Inherits@IDISABLE: ^DisableOnLowPowerOrPowerDown
+	Inherits@shape: ^2x2Shape
+	Inherits@BIB: ^2xBuildingBib
+	Selectable:
+		Bounds: 2048, 2048
+	HitShape:
+		UseTargetableCellsOffsets: false
+		TargetableOffsets: 0,0,0, 630,-384,0, 630,384,0, -700,-512,0, -700,512,0
+	Buildable:
+		Queue: Building
+		BuildPaletteOrder: 90
+		Prerequisites: refinery, ~techlevel.medium, ~structures.avalon # GDI, Nod, Fed
+		Description: Provides an overview\nof the battlefield.\nRequires power to operate.
+	Valued:
+		Cost: 1800
+	Tooltip:
+		Name: Communications Center
+	Building:
+		Footprint: x_ xx ==
+		Dimensions: 2,3
+		LocalCenterOffset: 0,-512,0
+	Targetable:
+		TargetTypes: GroundActor, Structure, C4, DetonateAttack, SpyInfiltrate
+	Health:
+		HP: 100000
+	Armor:
+		Type: Wood
+	RevealsShroud:
+		MinRange: 6c0
+		Range: 10c0
+		RequiresCondition: !disabled
+		RevealGeneratedShroud: False
+	RevealsShroud@Offline:
+		Range: 5c0
+		RequiresCondition: disabled
+	RevealsShroud@GAPGEN:
+		Range: 6c0
+		RequiresCondition: !disabled
+	WithSpriteBody:
+		PauseOnCondition: disabled || jammed
+	ProvidesRadar:
+		RequiresCondition: !jammed && !disabled
+	InfiltrateForExploration:
+		Types: SpyInfiltrate
+	Power:
+		Amount: -40
+	ProvidesPrerequisite@buildingname:
+	ProvidesPrerequisite:
+		Prerequisite: radar
+	ExternalCondition@JAMMED:
+		Condition: jammed
+	WithDeathAnimation:
+		DeathSequence: dead
+		UseDeathTypeSuffix: false
+	RenderSprites:
+		Image: HQD
+
+AVTECH:
+	Inherits: ^ScienceBuilding
+	Inherits@TECH: ^TechCenter
+	Inherits@IDISABLE: ^DisableOnLowPower
+	Inherits@shape: ^2x2Shape
+	Inherits@BIB: ^2xBuildingBib
+	Selectable:
+		Bounds: 2048, 2048
+	Buildable:
+		Queue: Building
+		BuildPaletteOrder: 140
+		Prerequisites: factory, radar, ~structures.avalon, ~techlevel.high
+		Description: Provides Avali Illuminate advanced technologies.\n  Special Ability: GPS Satellite
+	Tooltip:
+		Name: Illuminate Tech Center
+	Building:
+		Footprint: xx xx ==
+		Dimensions: 2,3
+		LocalCenterOffset: 0,-512,0
+	Health:
+		HP: 60000
+	Armor:
+		Type: Wood
+	RevealsShroud:
+		MinRange: 4c0
+		Range: 5c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 4c0
+	InfiltrateForSupportPowerReset:
+		Types: SpyInfiltrate
+		PlayerExperience: 10
+	Targetable:
+		TargetTypes: GroundActor, C4, DetonateAttack, Structure, SpyInfiltrate
+	ProvidesPrerequisite@buildingname:
+	RenderSprites:
+		Image: ATEK
