@@ -6,7 +6,8 @@ AVFACT:
 	D2kBuilding:
 		Footprint: xxX xxx XxX ===
 		Dimensions: 3,4
-		TerrainTypes: Clear,Road
+		TerrainTypes: Clear,Road,Creep
+		AllowPlacementOnResources: true
 	Tooltip:
 		Name: Construction Command Ship
 	SpawnActorsOnSell:
@@ -18,6 +19,12 @@ AVFACT:
 		IntoActor: avmcv
 		Offset: 1,1
 		Facing: 384
+	GrantConditionOnTileSet@snow:
+		TileSets: SNOW
+		Condition: no_gen
+	ProvidesPrerequisite@snow:
+		Prerequisite: structures.snowgen
+		RequiresCondition: !no_gen
 	-RenderSprites:
 	RenderSprites:
 		Image: fact
@@ -257,6 +264,28 @@ AVRADAR:
 	RenderSprites:
 		Image: HQD
 
+AVPAD:
+	Inherits: HPAD
+	Selectable:
+		Bounds: 2048, 2048
+	Buildable:
+		Queue: Building
+		BuildPaletteOrder: 120
+		Prerequisites: radar, ~structures.avalon, ~techlevel.medium
+		Description: Produces and reloads\naircraft.
+	Valued:
+		Cost: 500
+	Tooltip:
+		Name: Helipad
+	Building:
+		Footprint: xx xx ==
+		Dimensions: 2,3
+		LocalCenterOffset: 0,-512,0
+	Health:
+		HP: 80000
+	RenderSprites:
+		Image: HPAD
+
 AVTECH:
 	Inherits: ^ScienceBuilding
 	Inherits@TECH: ^TechCenter
@@ -294,3 +323,45 @@ AVTECH:
 	ProvidesPrerequisite@buildingname:
 	RenderSprites:
 		Image: ATEK
+
+AVFROST:
+	Inherits: ^Building
+	Inherits@IDISABLE: ^DisableOnLowPowerOrPowerDown
+	Valued:
+		Cost: 400
+	Buildable:
+		Queue: Wall
+		BuildPaletteOrder: 100
+		Prerequisites: anypower, ~structures.avalon, ~techlevel.low, ~!structures.snowgen
+		Description: Generates snow. \n  Unarmed
+	Tooltip:
+		Name: Frost Generator
+	Power:
+		Amount: -20
+	Health:
+		HP: 40000
+	Armor:
+		Type: Wood
+	RevealsShroud:
+		MinRange: 3c0
+		Range: 4c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 3c0
+	SeedsResource:
+		ResourceType: AvaliSnow
+		Interval: 4
+		MaxRange: 9
+		RequiresCondition: !disabled
+	-AcceptsDeliveredCash:
+	RenderSprites: 
+		Image: OREGEN
+	Explodes:
+		Weapon: FrostRemoveMed
+	ToggleConditionOnOrder@sell:
+		OrderName: Sell
+		Condition: selling
+	FireWarheads:
+		RequiresCondition: selling
+		Weapons: FrostRemoveMed
+		Interval: 50

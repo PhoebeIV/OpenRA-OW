@@ -4,7 +4,7 @@ AVFRIGATE:
 	Buildable:
 		Queue: Aircraft
 		BuildAtProductionType: Helicopter
-		BuildPaletteOrder: 180
+		BuildPaletteOrder: 100
 		Prerequisites: ~aircraft.avalon, ~techlevel.medium
 		Description: Terran gunship armed\nwith Gemini AA missile and \n 25mm burst lasers.\nCan cloak but reduces effectiveness.\nSpeed: 160\n  Strong vs Infantry, Aircraft\n  Weak vs Vehicles, Buildings
 	Valued:
@@ -24,20 +24,29 @@ AVFRIGATE:
 		Range: 7c0
 		Type: GroundPosition
 	Armament@PRIMARY1:
-		Weapon: WraithMissile
+		Weapon: ScoutMissile
 		LocalOffset: 0,-280,-85
 		LocalYaw: 180
 		PauseOnCondition: !ammo
+		AmmoUsage: 3
 	Armament@PRIMARY2:
-		Weapon: WraithMissile
+		Weapon: ScoutMissile
 		LocalOffset: 0,280,-85
 		LocalYaw: -180
 		PauseOnCondition: !ammo
+		AmmoUsage: 3
 	Armament@SECONDARY:
-		Weapon: WraithShot
-		LocalOffset: 384,0,-96
+		Weapon: AvaliFrigateLaser1
+		LocalOffset: 384,-160,-96
 		PauseOnCondition: !ammo
 		MuzzleSequence: muzzle
+	Armament@SECONDARY2:
+		Weapon: AvaliFrigateLaser2
+		LocalOffset: 384,160,-96
+		PauseOnCondition: !ammo
+		MuzzleSequence: muzzle
+		AmmoUsage: 0
+		FireDelay: 12
 	AttackAircraft:
 		FacingTolerance: 32
 		PersistentTargeting: false
@@ -53,8 +62,9 @@ AVFRIGATE:
 	GrantConditionOnMovement@scout:
 		Condition: moving
 	AmmoPool:
-		Ammo: 16
+		Ammo: 36
 		AmmoCondition: ammo
+		ReloadCount: 3
 	WithAmmoPipsDecoration:
 		Position: BottomLeft
 		Margin: 4, 3
@@ -71,7 +81,6 @@ AVFRIGATE:
 	Selectable:
 		DecorationBounds: 1536, 1365
 	Hovers@CRUISING:
-		-RequiresCondition:
 	Voiced:
 		VoiceSet: AvaliGeneric
 	RenderSprites:
@@ -87,36 +96,6 @@ AVFRIGATE:
 	ReloadAmmoPool@reloadnear:
 		RequiresCondition: reloadnear
 		Delay: 75
-	Cloak@arbiterstealth:
-		IsPlayerPalette: true
-		InitialDelay: 25
-		CloakDelay: 25
-		CloakSound: tphclo00.aud
-		UncloakSound: tphclo01.aud
-		RequiresCondition: arbiterstealth && (ammo > 2)
-		CloakedCondition: cloaked
-		UncloakOn: Unload, Infiltrate, Demolish
-	GrantConditionOnDeploy:
-		UndeployedCondition: notstealth
-		DeployedCondition: arbiterstealth
-		SkipMakeAnimation: true
-	DamageMultiplier@stealthed:
-		Modifier: 110
-		RequiresCondition: cloaked
-	FirepowerMultiplier@stealthed:
-		Modifier: 90
-		RequiresCondition: cloaked
-	ReloadDelayMultiplier@stealthed:
-		Modifier: 110
-		RequiresCondition: cloaked
-	SpeedMultiplier@stealthed:
-		Modifier: 90
-		RequiresCondition: cloaked
-	RangeMultiplier@stealthed:
-		Modifier: 77
-		RequiresCondition: cloaked
-	GrantConditionOnPrerequisite@bot:
-		Prerequisites: ai.all
-		Condition: arbiterstealth
+		Count: 3
 	-ClassicFacingBodyOrientation:
 	BodyOrientation:

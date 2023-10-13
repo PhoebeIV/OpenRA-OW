@@ -1598,12 +1598,12 @@ AvaliLaser:
 	FollowingBurstTargetOffset: 0,64,0
 	-Report:
 	Projectile: LaserZap
-		ZOffset: 2047
+		ZOffset: 512
 		Width: 64
-		SecondaryBeamWidth: 48
-		SecondaryBeamZOffset: 2048
-		Color: FFC71FCD
-		SecondaryBeamColor: FFFFFF
+		SecondaryBeamWidth: 32
+		SecondaryBeamZOffset: 513
+		Color: FFC71FAE
+		SecondaryBeamColor: FFFFFFC0
 		SecondaryBeam: true
 		Duration: 4
 		Blockable: true
@@ -1622,19 +1622,45 @@ AvaliLaser:
 		ValidTargets: Ground, Infantry
 		Chance: 1
 
-AvaliBeam:
-	ReloadDelay: 16
+AvaliLaser2:
+	Inherits: AvaliLaser
+	FirstBurstTargetOffset: 0,128,0
+	FollowingBurstTargetOffset: 0,-64,0
+
+AvaliFrigateLaser1:
+	Inherits: AvaliLaser
+	ReloadDelay: 20
 	Burst: 6
-	BurstDelays: 2
-	Range: 5c0
-	ValidTargets: Ground, Water, GroundActor, WaterActor
+	BurstDelays: 3
+	StartBurstReport: blastgn2.aud
+	FirstBurstTargetOffset: -96,-288,0
+	FollowingBurstTargetOffset: 32,96,0
+	Range: 6c512
 	Projectile: LaserZap
-		Width: 64
-		SecondaryBeamWidth: 48
-		SecondaryBeamZOffset: 1
-		Color: FFE494CD
+		Blockable: false
+		ZOffset: -1
+		SecondaryBeamZOffset: 0
+		Color: FFA21FF8
 		SecondaryBeamColor: FFFFFF
-		SecondaryBeam: true
-		Duration: 3
-		Blockable: true
-		Inaccuracy: 256
+	Warhead@1Dam: SpreadDamage
+		Damage: 720
+		Versus:
+			None: 140
+			Wood: 70
+			Light: 90
+			Heavy: 70
+			Concrete: 40
+	Warhead@2Smu: LeaveSmudge
+		SmudgeType: Scorch
+		ValidTargets: Ground, Infantry
+		Chance: 1
+	Warhead@2Eff2: CreateEffect
+		Explosions: med_explosion
+		ValidTargets: Ground, GroundActor, WaterActor, Trees
+		Inaccuracy: 128
+	-Warhead@2Eff3:
+
+AvaliFrigateLaser2:
+	Inherits: AvaliFrigateLaser1
+	FirstBurstTargetOffset: -96,288,0
+	FollowingBurstTargetOffset: 32,-96,0
