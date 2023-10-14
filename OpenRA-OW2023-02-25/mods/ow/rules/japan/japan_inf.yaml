@@ -3,6 +3,17 @@
 		Condition: external_shield
 		Prerequisites: upgrade.nanomachines
 	Chronoshiftable:
+	ExternalCondition@commandobonus:
+		Condition: commandobonus
+	DamageMultiplier@commandobonus:
+		RequiresCondition: commandobonus
+		Modifier: 80
+	WithIdleOverlay@commandobonus:
+		Image: commandobonus-overlay
+		Sequence: infantry
+		Palette: effect
+		RequiresCondition: commandobonus
+		IsDecoration: True
 
 ^japandnastamina:
 	FirepowerMultiplier@dnastamina:
@@ -62,15 +73,31 @@ japanimperialwarrior:
 		Voice: Move
 	Armament@PRIMARY:
 		Weapon: imperialwarriorshot
+		PauseOnCondition: bioengineering
 	Armament@GARRISONED:
 		Name: garrisoned
 		Weapon: imperialwarriorshotgarrison
 		MuzzleSequence: garrison-muzzle
+		PauseOnCondition: bioengineering
 	Armament@BUS:
 		Name: bus
 		Weapon: imperialwarriorshotgarrison
 		MuzzleSequence: garrison-muzzle
-		PauseOnCondition: upgradelasergeneral
+		PauseOnCondition: bioengineering
+	Armament@PRIMARYupgrade:
+		Weapon: imperialwarriorshotupgrade
+		LocalOffset: 256,0,512
+		RequiresCondition: bioengineering
+	Armament@GARRISONEDupgrade:
+		Name: garrisoned
+		Weapon: imperialwarriorshotupgrade
+		MuzzleSequence: garrison-muzzle
+		RequiresCondition: bioengineering
+	Armament@BUSupgrade:
+		Name: bus
+		Weapon: imperialwarriorshotupgrade
+		MuzzleSequence: garrison-muzzle
+		RequiresCondition: bioengineering
 	WithInfantryBody:
 		DefaultAttackSequence: shoot
 		RequiresCondition: !parachute
@@ -89,6 +116,9 @@ japanimperialwarrior:
 		Image: japanimperialwarrior
 	Voiced:
 		VoiceSet: ImperialWarriorVoice
+	GrantConditionOnPrerequisite@bioengineering:
+		Condition: bioengineering
+		Prerequisites: faction.bioengineeringgeneral
 
 japantankbuster:
 	Inherits: ^Soldier
@@ -277,7 +307,7 @@ japanarchermaiden:
 	UpdatesPlayerStatistics:
 		AddToArmyValue: true
 	Buildable:
-		Prerequisites: ~infantry.japan
+		Prerequisites: ~infantry.japan, ~!faction.bioengineeringgeneral
 		Description: Archer Maiden \n  Strong vs Infantry, Aircraft\n Weak vs Vehicles
 		Queue: Infantry
 		BuildPaletteOrder: 7
@@ -346,7 +376,7 @@ japanwarhorse:
 	Inherits: ^japandnastamina
 	Inherits: ^japandnacloning
 	Buildable:
-		Prerequisites: ~infantry.japan, japanmechabay
+		Prerequisites: ~infantry.japan, japanmechabay, ~!faction.bioengineeringgeneral
 		Description: Archer Maiden riding horse \n  Strong vs Infantry, Aircraft\n Weak vs Vehicles
 		Queue: Infantry
 		BuildPaletteOrder: 8
@@ -406,7 +436,7 @@ japanshinobi:
 	UpdatesPlayerStatistics:
 		AddToArmyValue: true
 	Buildable:
-		Prerequisites: ~infantry.japan, techcenter
+		Prerequisites: ~infantry.japan, techcenter, ~!faction.bioengineeringgeneral
 		Description: Shinobi \n  Strong vs Infantry, Aircraft\n Weak vs Vehicles
 		Queue: Infantry
 		BuildPaletteOrder: 9
@@ -466,11 +496,11 @@ japanbioengineer:
 	Inherits: ^japandnastamina
 	Inherits: ^japandnacloning
 	Buildable:
-		Icon: icon-bioengineer
+		Icon: icon-japan
 		Queue: Infantry
 		BuildAtProductionType: Soldier
 		BuildPaletteOrder: 80
-		Prerequisites: ~infantry.japan, upgrade.dnaresearch
+		Prerequisites: ~infantry.japan, upgrade.dnaresearch, japanpsychicdatacenter
 		Description: The Science Team!
 	Valued:
 		Cost: 1000
@@ -541,12 +571,12 @@ japanmutant:
 	Inherits: ^japandnastamina
 	Inherits: ^japandnacloning
 	Buildable:
-		Icon: icon-mutant
+		Icon: icon-japan
 		Queue: Infantry
 		BuildAtProductionType: Soldier
 		BuildPaletteOrder: 85
-		Prerequisites: ~infantry.japan, upgrade.dnaresearch
-		Description: Cybernetic infantry unit with a\nmachine gun and rocket launcher.\n  Strong vs Infantry, Light armor\n  Weak vs Vehicles, Aircraft
+		Prerequisites: ~infantry.japan, upgrade.dnaresearch, techcenter
+		Description: Cybernetic infantry unit with a\ntwin plasma cannon.\n  Strong vs Infantry, Light armor\n  Weak vs Vehicles, Aircraft
 	Valued:
 		Cost: 1250
 	Selectable:
@@ -693,3 +723,208 @@ japanmatsui:
 	Explodes:
 		Weapon: Matsuideath
 		EmptyWeapon: Matsuideath
+
+japancommando:
+	Inherits: ^Soldier
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Inherits: ^JapanInfantryNanoMachinesShield
+	Inherits: ^japandnastamina
+	Inherits: ^japandnacloning
+	Buildable:
+		Queue: Infantry
+		Icon: icon-japan
+		BuildAtProductionType: Soldier
+		BuildPaletteOrder: 190
+		Prerequisites: ~faction.bioengineeringgeneral, japanpsychicdatacenter, ~techlevel.unrestricted, ~infantry.japan
+		Description: Elite infantry armed with a plasma machine gun.\nProvides a defensive buff to nearby infantry.\nSpeed: 72\n  Strong vs Infantry, light vehicles\n  Weak vs Aircraft
+	Valued:
+		Cost: 1400
+	Tooltip:
+		Name: Rikugun-Taisa
+	Health:
+		HP: 80000
+	RevealsShroud:
+		Range: 7c0
+	Armament@PRIMARY:
+		Weapon: mechatengushot
+		LocalOffset: 427,0,341
+	Armament@GARRISONED:
+		Name: garrisoned
+		Weapon: mechatengushot
+		MuzzleSequence: garrison-muzzle
+	Armament@BUS:
+		Name: bus
+		Weapon: mechatengushot
+		MuzzleSequence: garrison-muzzle
+	Mobile:
+		Voice: Move
+	AttackMove:
+		Voice: Move
+	Passenger:
+		Voice: Move
+		CustomPipType: red
+		Weight: 3
+	Guard:
+		Voice: Move
+	ExternalCondition@PRODUCED:
+		Condition: produced
+	Voiced:
+		VoiceSet: ImperialWarriorVoice
+	WithInfantryBody:
+		DefaultAttackSequence: shoot
+		StandSequences: stand
+	ProducibleWithLevel:
+		Prerequisites: barracks.upgraded
+	RenderSprites:
+		Image: e1
+	ProximityExternalCondition@commandobonus:
+		Condition: commandobonus
+		Range: 2c0
+
+		
+japanholotreesniper:
+	Inherits: ^Soldier
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Inherits: ^JapanInfantryNanoMachinesShield
+	Inherits: ^japandnastamina
+	Inherits: ^japandnacloning
+	Buildable:
+		Icon: icon-japan
+		Queue: Infantry
+		BuildAtProductionType: Soldier
+		BuildPaletteOrder: 61
+		Prerequisites: ~faction.bioengineeringgeneral, techcenter, ~techlevel.unrestricted, ~infantry.japan
+		Description: Japan Elite Sniper, equipped with engineered anti-vehicle shinigami rifle \nand ghillie suits for camouflage.\nSpeed: 62\n  Strong vs Infantry, Vehicles\n  Weak vs Aircraft
+	Tooltip:
+		Name: Holotree Sniper
+	Valued:
+		Cost: 1100
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 10000
+	Mobile:
+		Voice: Move
+	Guard:
+		Voice: Move
+	Passenger:
+		Voice: Move
+	Armament@PRIMARY:
+		Weapon: japanholotreeshot
+		LocalOffset: 0,0,555
+	Armament@GARRISONED:
+		Name: garrisoned
+		Weapon: japanholotreeshot
+		MuzzleSequence: garrison-muzzle
+	Armament@BUS:
+		Name: bus
+		Weapon: japanholotreeshot
+		MuzzleSequence: garrison-muzzle
+	WithInfantryBody:
+		DefaultAttackSequence: shoot
+		RequiresCondition: !parachute
+	WithInfantryBody@PARACHUTE:
+		StandSequences: parachute
+		RequiresCondition: parachute
+	ProducibleWithLevel:
+		Prerequisites: barracks.upgraded
+	RevealsShroud:
+		Range: 5c0
+	Selectable:
+		Bounds: 768, 853, 0, -256
+		DecorationBounds: 640, 896, 0, -426
+	Cloak:
+		InitialDelay: 200
+		CloakDelay: 100
+		CloakSound:
+		UncloakSound:
+		UncloakOn: Attack, Unload, Infiltrate, Demolish, Move
+		IsPlayerPalette: true
+		RequiresCondition: !cloak-force-disabled
+	GrantConditionOnDamageState@UNCLOAK:
+		Condition: cloak-force-disabled
+		ValidDamageStates: Critical
+	RenderSprites:
+		Image: usapathfinder
+	Voiced:
+		VoiceSet: PathfinderVoice
+
+
+japanbattlepsychic:
+	Inherits: ^TibSunSoldier
+	Inherits: ^Cyborg
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Inherits: ^JapanInfantryNanoMachinesShield
+	Inherits: ^japandnastamina
+	Inherits: ^japandnacloning
+	Buildable:
+		Queue: Infantry
+		BuildAtProductionType: Soldier
+		BuildPaletteOrder: 85
+		Prerequisites: ~faction.bioengineeringgeneral, ~infantry.japan, upgrade.dnaresearch, japanpsychicdatacenter
+		Description: Cybernetic support unit.\n  Strong vs Infantry, Vehicles\n  Weak vs Vehicles, Aircraft
+	Valued:
+		Cost: 1250
+	Selectable:
+		Bounds: 938, 1024, 0, -213
+		DecorationBounds: 682, 938, 0, -298
+	Tooltip:
+		Name: Battle Psychic
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 30000
+	Armor:
+		Type: Heavy
+	Targetable:
+		RequiresCondition: !parachute
+		TargetTypes: GroundActor, Cyborg
+	Armament@PRIMARY:
+		Weapon: Dominatrixbeam1
+		LocalOffset: 0,-50,555, 0,50,555
+	Armament@GARRISONED:
+		Name: garrisoned
+		Weapon: Dominatrixbeam1
+		MuzzleSequence: garrison-muzzle
+	Armament@BUS:
+		Name: bus
+		Weapon: Dominatrixbeam1
+		MuzzleSequence: garrisoned-muzzle
+	Armament@PRIMARY1:
+		Weapon: Dominatrixbeam2
+		LocalOffset: 0,-50,555, 0,50,555
+	Armament@GARRISONED1:
+		Name: garrisoned
+		Weapon: Dominatrixbeam2
+	Armament@BUS1:
+		Name: bus
+		Weapon: Dominatrixbeam2
+	ProducibleWithLevel:
+		Prerequisites: barracks.upgraded
+	AttackFrontal:
+		PauseOnCondition: disabled
+		FacingTolerance: 0
+	WithInfantryBody:
+		DefaultAttackSequence: shoot
+		IdleSequences: idle, idle2
+		StandSequences: stand, stand2
+	Explodes:
+		Weapon: TSInfExplode
+		EmptyWeapon: TSInfExplode
+	Mobile:
+		Voice: Move
+	Guard:
+		Voice: Move
+	Passenger:
+		Voice: Move
+	Voiced:
+		VoiceSet: MutantVoice
+	WithDeathAnimation:
+		-CrushedSequence: die-crushed
+	-TakeCover:
+	-Crushable:
+	ChangesHealth@tiberium:
+		Step: 100
+	-SpawnActorOnDeath@fire:
+	RenderSprites:
+		Image: japanbattlepsychic

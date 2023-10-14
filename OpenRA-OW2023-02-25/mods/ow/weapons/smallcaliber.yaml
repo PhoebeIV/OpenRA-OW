@@ -1469,6 +1469,76 @@ imperialwarriorshotgarrison:
 	Inherits: imperialwarriorshot
 	Range: 5c0
 
+imperialwarriorshotupgrade:
+	Inherits: ^LightMG
+	ReloadDelay: 25
+	Burst: 5
+	BurstDelays: 3
+	StartBurstReport: PlasmaCannon.aud
+	FirstBurstTargetOffset: 0,-128,0
+	FollowingBurstTargetOffset: 0,64,0
+	-Report:
+	Projectile: LaserZap
+		ZOffset: 2047
+		Width: 64
+		SecondaryBeamWidth: 48
+		SecondaryBeamZOffset: 2048
+		Color: 00fbff
+		SecondaryBeamColor: 0088ff
+		SecondaryBeam: true
+		Duration: 4
+		Blockable: true
+		TrackTarget: false
+		Inaccuracy: 96
+	Warhead@1Dam: SpreadDamage
+		Damage: 300
+		Versus:
+			None: 150
+			Wood: 20
+			Light: 50
+			Heavy: 20
+			Concrete: 20
+	Warhead@2Eff: CreateEffect
+		Explosions: laserhittiny
+		Inaccuracy: 128
+		ValidTargets: Ground, Air, GroundActor, AirborneActor, WaterActor, Trees
+		ImpactActors: false
+
+japanholotreeshot:
+	ReloadDelay: 180
+	Range: 11c0
+	Report: japanholotreeshot.aud
+	TargetActorCenter: True
+	ValidTargets: Ground, Water, GroundActor, WaterActor
+	Projectile: Railgun
+		Duration: 30
+		BeamColor: 00fbff
+		HelixColor: 0088ff
+		BeamWidth: 32
+		HelixThickness: 0c16
+		HelixRadius: 0c32
+	Warhead@1Dam: SpreadDamage
+		Damage: 8800
+		Versus:
+			None: 80
+			Wood: 110
+			Light: 80
+			Heavy: 110
+			Concrete: 50
+		DamageTypes: Prone50Percent, TriggerProne, FireDeath
+		ValidTargets: Ground, GroundActor, Water, WaterActor
+	Warhead@3Eff_impact: CreateEffect
+		Explosions: laserhitmed
+		ValidTargets: Ground, Water, GroundActor, WaterActor
+	Warhead@4Eff_impact: CreateEffect
+		Explosions: japanholotreeproj
+		ValidTargets: Ground, Water, GroundActor, WaterActor
+	Warhead@3Dam: SpreadDamage
+		Spread: 128
+		Damage: 1000
+		ValidTargets: GroundActor, WaterActor
+		DamageTypes: Prone50Percent, TriggerProne, DefaultDeath
+
 mechatengushot:
 	Inherits: ^LightMG
 	ValidTargets: GroundActor, WaterActor, Ground, Water, Air, AirborneActor
@@ -1673,3 +1743,7 @@ AvaliFrigateLaser2:
 	Inherits: AvaliFrigateLaser1
 	FirstBurstTargetOffset: -96,288,0
 	FollowingBurstTargetOffset: 32,-96,0
+		SecondaryBeam: true
+		Duration: 3
+		Blockable: true
+		Inaccuracy: 256
