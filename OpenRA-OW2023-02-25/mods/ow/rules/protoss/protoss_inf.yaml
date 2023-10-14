@@ -27,8 +27,6 @@ PPROBE:
 		EmptyCondition: no-ore
 	Health:
 		HP: 20000
-	Shielded:
-		MaxStrength: 20000
 	Armor:
 		Type: Light
 	Mobile:
@@ -137,8 +135,6 @@ PZEALOT:
 		Name: Zealot
 	Health:
 		HP: 25000
-	Shielded:
-		MaxStrength: 18000
 	Mobile:
 		Speed: 80
 	RevealsShroud:
@@ -220,8 +216,8 @@ PTEMPLAR:
 		Name: High Templar
 	Health:
 		HP: 20000
-	Shielded:
-		MaxStrength: 40000
+	DamageMultiplier@shield:
+		Modifier: 15
 	Mobile:
 		Speed: 80
 		Locomotor: foot2
@@ -324,9 +320,9 @@ PARCHON:
 	Tooltip:
 		Name: Archon
 	Health:
-		HP: 20000
-	Shielded:
-		MaxStrength: 150000
+		HP: 25000
+	DamageMultiplier@shield:
+		Modifier: 2
 	Armor:
 		Type: Heavy
 	Mobile:
@@ -530,10 +526,11 @@ PDARCHON:
 	Tooltip:
 		Name: Dark Archon
 	Health:
-		HP: 20000
-	Shielded:
-		RequiresCondition: !firedweapon
-		MaxStrength: 120000
+		HP: 30000
+	DamageMultiplier@shield:
+		Modifier: 4
+	GrantConditionOnHealthPercentage@shield:
+		RequiresCondition: external_shield && !emp_shields && !firedweapon
 	Armor:
 		Type: Heavy
 	AutoTarget:
@@ -639,7 +636,7 @@ PDARCHON:
 		PauseOnCondition: disabled || firedweapon
 	GrantConditionOnAttack@1:
 		Condition: firedweapon
-		RevokeDelay: 24
+		RevokeDelay: 750
 	VoiceAnnouncement:
 		RequiresCondition: !forming
 		Voice: Build

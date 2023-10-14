@@ -1,4 +1,13 @@
+^ShieldHit:
+	Warhead@3Shield: CreateEffect
+		Explosions: idle1, idle2, idle3, idle4, idle5, idle6, idle7, idle8
+		ImpactSoundChance: 10
+		ImpactSounds: sbelthe2.aud
+		Image: shieldhit1
+		ValidTargets: ShieldHit
+
 ^FireWeapon:
+	Inherits: ^ShieldHit
 	ValidTargets: Ground, Water, GroundActor, WaterActor, Trees
 	ReloadDelay: 70
 	Range: 5c0
@@ -140,6 +149,7 @@ Napalm:
 			Concrete: 50
 
 ^TeslaWeapon:
+	Inherits: ^ShieldHit
 	ReloadDelay: 3
 	Range: 8c0
 	Report: tesla1.aud
@@ -151,6 +161,7 @@ Napalm:
 		ValidTargets: GroundActor, WaterActor
 		Versus:
 			None: 300
+			Shield: 150
 		DamageTypes: Prone50Percent, TriggerProne, ElectricityDeath
 
 TeslaZap:
@@ -251,6 +262,8 @@ GoliathZap3:
 		Inaccuracy: 256
 	Warhead@1Dam: SpreadDamage
 		Spread: 96
+		Versus:
+			Shield: 150
 	Warhead@1Smu: LeaveSmudge
 		SmudgeType: Scorch
 		ValidTargets: Ground, Infantry
@@ -1260,6 +1273,7 @@ ShipRailgun:
 			Light: 40
 			Heavy: 80
 			Concrete: 50
+			Shield: 150
 		DamageTypes: Prone50Percent, TriggerProne, SmallExplosionDeath
 	Warhead@2Smu: LeaveSmudge
 		SmudgeType: Scorch
@@ -2051,6 +2065,7 @@ WeatherMachineDeath:
 	-Warhead@lightning4:
 
 ZealotStab:
+	Inherits: ^ShieldHit
 	ReloadDelay: 35
 	Range: 2c0
 	Report: pzehit00.aud,pzehit01.aud
@@ -2081,6 +2096,7 @@ ZealotStab:
 		ValidTargets: GroundActor, WaterActor
 
 DragoonPlasma:
+	Inherits: ^ShieldHit
 	ReloadDelay: 48
 	Range: 6c0
 	Report: dragbull.aud
@@ -2131,6 +2147,7 @@ DragoonPlasmaAir:
 		Damage: 3000
 
 PhotonPlasma:
+	Inherits: ^ShieldHit
 	ReloadDelay: 25
 	Range: 8c512
 	Report: dragbull.aud
@@ -2219,41 +2236,31 @@ ReaverScarab:
 ShieldBattery:
 	ReloadDelay: 2
 	Range: 7c0
-	ValidTargets: ShieldRegen
+	ValidTargets: Heal, Repair, StructureRepair
 	TargetActorCenter: true
 	Projectile: LaserZap
 		Width: 35
 		Duration: 2
 		TrackTarget: True
 		Color: 00BBFF
-	Warhead@Infantry: SpreadDamage
-		Spread: 96
-		Damage: -900
-		ValidRelationships: Ally
-		ValidTargets: ShieldRegen
-		InvalidTargets: Vehicle, Structure, AirborneActor
-		DebugOverlayColor: 00FF00
-	Warhead@Vehicle: SpreadDamage
-		Spread: 213
-		Damage: -600
-		ValidRelationships: Ally
-		ValidTargets: ShieldRegen
-		InvalidTargets: Infantry, Structure, AirborneActor
-		DebugOverlayColor: 00FF00
-	Warhead@Structure: SpreadDamage
-		Spread: 213
-		Damage: -500
-		ValidRelationships: Ally
-		ValidTargets: ShieldRegen
-		InvalidTargets: Infantry, Vehicle, AirborneActor
-		DebugOverlayColor: 00FF00
-	Warhead@Aircraft: SpreadDamage
-		Spread: 213
+	Warhead@inf: SpreadDamage
+		Spread: 32
 		Damage: -200
 		ValidRelationships: Ally
-		ValidTargets: ShieldRegen
-		InvalidTargets: Infantry, Structure, Vehicle
+		ValidTargets: Heal
 		DebugOverlayColor: 00FF00
+	Warhead@vehstr: SpreadDamage
+		Spread: 32
+		Damage: -125
+		ValidRelationships: Ally
+		ValidTargets: Repair, StructureRepair
+		DebugOverlayColor: 00FF00
+	Warhead@cond: GrantExternalCondition
+		Condition: healed
+		Range: 512
+		Duration: 375
+		ValidTargets: Infantry
+		InvalidTargets: BeingHealed
 
 CarrierSpawn:
 	ReloadDelay: 350
@@ -2526,6 +2533,7 @@ ArchonBeam1:
 		Delay: 18
 
 TemplarBlade:
+	Inherits: ^ShieldHit
 	ReloadDelay: 30
 	Range: 2c512
 	Report: uzefir00.aud
@@ -3528,6 +3536,7 @@ FirebatFlamer:
 		Damage: 6500
 		Versus:
 			Wood: 35
+			Shield: 200
 	-Warhead@3Eff:
 	Warhead@3resource: DestroyResource
 		Size: 1
@@ -3536,7 +3545,7 @@ FirebatFlamer:
 		ResourceTypes: ZergCreep, Tiberium, BlueTiberium
 
 FirebatFlamer2:
-	ReloadDelay: 30
+	ReloadDelay: 32
 	Burst: 3
 	BurstDelays: 0
 	Range: 4c0
@@ -3545,7 +3554,7 @@ FirebatFlamer2:
 	FirstBurstTargetOffset: -1536,0,0
 	FollowingBurstTargetOffset: 380,0,0
 	Projectile: Bullet
-		Speed: 1c0
+		Speed: 600
 	Warhead@2Dam: SpreadDamage
 		Delay: 2
 		Spread: 213
@@ -3558,6 +3567,7 @@ FirebatFlamer2:
 			Light: 60
 			Heavy: 25
 			Concrete: 20
+			Shield: 200
 		DamageTypes: Prone50Percent, TriggerProne, FireDeath, Incendiary
 		ValidRelationships: Enemy, Neutral
 	Warhead@3Dam: SpreadDamage
@@ -3573,6 +3583,7 @@ FirebatFlamer2:
 			Light: 60
 			Heavy: 25
 			Concrete: 20
+			Shield: 200
 		DamageTypes: Prone50Percent, TriggerProne, FireDeath, Incendiary
 		ValidRelationships: Ally
 	Warhead@2Smu: LeaveSmudge

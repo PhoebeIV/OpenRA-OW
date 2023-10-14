@@ -254,47 +254,42 @@
 	-WithDecoration@RANK-ELITE:
 
 ^AcceptsShields:
-	Shielded:
-		MaxStrength: -1
-		RegenAmount: 350
-		RegenInterval: 50
-		RegenDelay: 50
-		SelectionBarColor: AAAAFF
-		ShieldsUpCondition: shielded
-		ShieldsDamagedCondition: damaged_shield
-		BypassDamageTypes: BypassShield
-		OverrideDamageType: BypassedShield
+	GrantConditionOnHealthPercentage@shield:
+		MinHP: 90
+		MaxHP: 101
+		Condition: enable_shield
 		RequiresCondition: external_shield && !emp_shields
-		HideBarWhenFull: true
-	ShieldRegenMultiplier:
-		Modifier: 5
-		RequiresCondition: shield_regen
-	ExternalCondition@shieldregen:
-		Condition: shield_regen
-	Targetable@shielddamage:
-		TargetTypes: ShieldRegen
-		RequiresCondition: damaged_shield
+		DisabledSounds: sbelthe2.aud
+	DamageMultiplier@shield:
+		RequiresCondition: enable_shield
+		Modifier: 20
+	Targetable@shieldup:
+		TargetTypes: ShieldHit
+		RequiresCondition: enable_shield
 	Armor@shield:
-		RequiresCondition: shielded
+		RequiresCondition: enable_shield
 		Type: Shield
 	Armor:
-		RequiresCondition: !shielded
+		RequiresCondition: !enable_shield
 	ExternalCondition@extshield:
 		Condition: external_shield
 	ExternalCondition@empshield:
 		Condition: emp_shields
-	ChangesHealth@plague:
-		Step: -10001
-		RequiresCondition: defiler_plague && enough_health && shielded
-	ChangesHealth@plaguenoshield:
-		Step: -101
-		Delay: 5
-		StartIfBelow: 101
-		DamageTypes: BypassShield
-		RequiresCondition: defiler_plague && enough_health && !shielded
 	WithColoredOverlay@shielded:
-		RequiresCondition: external_shield && shielded && !damaged_shield
-		Color: 00FBFF0A
+		RequiresCondition: enable_shield
+		Color: 00AEFF18
+	ChangesHealth@shregen:
+		PercentageStep: 1
+		Delay: 125
+		StartIfBelow: 91
+		DamageCooldown: 250
+		RequiresCondition: external_shield
+	ChangesHealth@shregen2:
+		PercentageStep: 1
+		Delay: 100
+		StartIfBelow: 100
+		DamageCooldown: 50
+		RequiresCondition: enable_shield
 
 ^AEIOUBoosted:
 	ExternalCondition@aeiouboost:
@@ -671,6 +666,9 @@
 		RequiresCondition: botowner
 		Modifier: 150
 	TeleportNetworkTransportable:
+	Targetable@HEAL:
+		RequiresCondition: !parachute && ((damaged && !external_shield) || (damaged && external_shield && !enable_shield))
+		TargetTypes: Heal
 
 ^Cyborg:
 	Inherits: ^Infantry
@@ -949,7 +947,7 @@
 ^BasicBuilding:
 	Inherits@shape: ^1x1Shape
 	Targetable@REPAIR:
-		RequiresCondition: repairtime
+		RequiresCondition: (repairtime && !external_shield) || (repairtime && external_shield && !enable_shield)
 		TargetTypes: StructureRepair
 	GrantConditionOnDamageState@DAMAGED:
 		Condition: repairtime
@@ -1141,12 +1139,6 @@
 	RevealsShroudMultiplier@commcentre:
 		RequiresCondition: missboost
 		Modifier: 120
-	Targetable@REPAIR:
-		RequiresCondition: repairtime
-		TargetTypes: StructureRepair
-	GrantConditionOnDamageState@DAMAGED:
-		Condition: repairtime
-		ValidDamageStates: Light, Medium, Heavy, Critical
 	ProximityExternalCondition@addons:
 		Condition: kill_addon
 		Range: 1c512
@@ -1334,6 +1326,9 @@
 	TeleportNetworkTransportable:
 	EligibleForRandomActorCrate:
 		Type: vehicle
+	Targetable@REPAIR:
+		RequiresCondition: (damaged && !external_shield) || (damaged && external_shield && !enable_shield)
+		TargetTypes: Repair
 
 ^TrackedVehicle:
 	GrantConditionOnPrerequisite@gdi_speed:
@@ -1466,7 +1461,7 @@
 	KillsSelf:
 		RequiresCondition: airborne && disabled
 	Targetable@REPAIR:
-		RequiresCondition: damaged
+		RequiresCondition: (damaged && !external_shield) || (damaged && external_shield && !enable_shield)
 		TargetTypes: Repair
 	ExternalCondition@reloadnear:
 		Condition: reloadnear
@@ -1607,7 +1602,7 @@
 	Targetable@GROUND:
 		TargetTypes: GroundActor, Structure, C4, DetonateAttack
 	Targetable@REPAIR:
-		RequiresCondition: !airborne && damaged
+		RequiresCondition: (damaged && !external_shield) || (damaged && external_shield && !enable_shield)
 		TargetTypes: Repair
 	GrantConditionOnDamageState@DAMAGED:
 		Condition: damaged

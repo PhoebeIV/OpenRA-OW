@@ -833,13 +833,8 @@ T.MISS:
 		Produces: SpecialUnit
 		RequiresCondition: hive_upgrade
 	GrantConditionOnPrerequisite@baseshields:
-		Condition: baseshields
+		Condition: external_shield
 		Prerequisites: upgrade.baseshields
-	Shielded:
-		RequiresCondition: (baseshields || external_shield) && !emp_shields
-	WithColoredOverlay@shielded:
-		RequiresCondition: shielded && baseshields
-		Color: 00FBFF0F
 	ProvidesPrerequisite@ai:
 		RequiresPrerequisites: ai.hard
 		Prerequisite: tcops
@@ -1007,6 +1002,21 @@ HAXOR:
 		SupportPowerPaletteOrder: 12
 		Dimensions: 1, 1
 		Footprint: x
+	GrantExternalConditionPower@shield:
+		OrderName: GPSScrambler
+		PauseOnCondition: disabled
+		Icon: medismiteicon
+		ChargeInterval: 6000
+		Name: Give Shields
+		Description: Give shields to some selected units.
+		ValidRelationships: Ally, Neutral, Enemy
+		SelectTargetSpeechNotification: SelectTarget
+		InsufficientPowerSpeechNotification: InsufficientPower
+		Condition: external_shield
+		OnFireSound: beltsnd.aud
+		SupportPowerPaletteOrder: 10
+		Dimensions: 3, 3
+		Footprint: xxx xxx xxx
 
 HAXOR.AI1:
 	Inherits: POWR
