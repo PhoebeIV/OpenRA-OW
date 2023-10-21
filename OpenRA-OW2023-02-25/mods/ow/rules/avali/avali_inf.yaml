@@ -65,10 +65,14 @@
 		RequiresCondition: env_buff
 	Voiced:
 		VoiceSet: AvaliGeneric
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
 
 AVINF1:
 	Inherits: ^AvaliSoldier
 	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Selectable:
+		Class: AVINF1
 	Buildable:
 		Queue: Infantry
 		BuildAtProductionType: Soldier
@@ -162,8 +166,6 @@ AVINF2:
 		Speed: 64
 	Tooltip:
 		Name: Engineer
-	UpdatesPlayerStatistics:
-		AddToArmyValue: true
 	WithInfantryBody:
 		RequiresCondition: !parachute
 	WithInfantryBody@PARACHUTE:
@@ -209,3 +211,67 @@ AVINF2:
 		EnterCursor: goldwrench
 		ConsumedByCapture: true
 	-AttackFrontal:
+
+AVINF3:
+	Inherits: AVINF1
+	RenderSprites:
+		Image: AVINF1
+	Buildable:
+		Queue: Infantry
+		BuildAtProductionType: Soldier
+		BuildPaletteOrder: 102
+		Prerequisites: ~barracks, ~techlevel.infonly, ~infantry.avalon
+		Description: Squad leader, boosts nearby troops'\nspeed and firepower.\n Melee. Speed: 80\n  Strong vs Infantry\n  Weak vs Vehicles, Aircraft
+	Tooltip:
+		Name: Pack Leader
+	Valued:
+		Cost: 400
+	Health:
+		HP: 14000
+	TakeCover:
+		SpeedModifier: 100
+		Duration: 100
+		ProneSequencePrefix: 
+	ProximityExternalCondition:
+		Condition: squadboost
+		Range: 4c0
+		AffectsParent: true
+	WithDecoration@officer2:
+		Image: pips
+		Sequence: pip-bonus
+		Palette: effect
+		Position: TopRight
+		ValidRelationships: None,Neutral,Enemy,Ally
+		RequiresCondition: !demoralise
+	Selectable:
+		Bounds: 768, 853, 0, -256
+		DecorationBounds: 640, 896, 0, -426
+	AutoTarget:
+		InitialStance: AttackAnything
+	Armament@PRIMARY:
+		Weapon: AvaliLeaderLaser
+		PauseOnCondition: (ammo == 9) || no_shoot
+	Armament@GRENADE:
+		Name: secondary
+		Weapon: AvaliLeaderSword
+		FireDelay: 0
+		PauseOnCondition: ammo < 9
+		AmmoUsage: 9
+	SpeedMultiplier@melee:
+		RequiresCondition: ammo > 8
+		Modifier: 150
+	DamageMultiplier@melee:
+		RequiresCondition: ammo > 8
+		Modifier: 75
+	AmmoPool:
+		Ammo: 9
+	GrantConditionOnAttack@grenadethrown:
+		RevokeDelay: 15
+	Armament@GARRISONED:
+		Name: garrisoned
+		Weapon: DoomMinigunDK
+		MuzzleSequence: garrison-muzzle
+	WithInfantryBody:
+		AttackSequences: 
+			primary: shoot
+			secondary: grenade

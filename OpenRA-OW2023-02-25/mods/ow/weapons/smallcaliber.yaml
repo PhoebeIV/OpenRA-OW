@@ -1706,6 +1706,28 @@ AvaliLaser2:
 	FirstBurstTargetOffset: 0,128,0
 	FollowingBurstTargetOffset: 0,-64,0
 
+AvaliLeaderLaser:
+	Inherits: AvaliLaser
+	ReloadDelay: 24
+	Burst: 1
+	StartBurstReport: psibolt.aud
+	FirstBurstTargetOffset: 0,0,0
+	FollowingBurstTargetOffset: 0,0,0
+	Projectile: LaserZap
+		Width: 96
+		SecondaryBeamWidth: 32
+		Color: FFE600
+		Duration: 6
+	Warhead@1Dam: SpreadDamage
+		Damage: 2000
+	Warhead@2Smu: LeaveSmudge
+		SmudgeType: Scorch
+		ValidTargets: Ground, Infantry
+		Chance: 1
+	Warhead@2Eff: CreateEffect
+		Explosions: small_explosion
+		ImpactSounds: explomed.aud
+
 AvaliFrigateLaser1:
 	Inherits: AvaliLaser
 	ReloadDelay: 20
@@ -1722,9 +1744,9 @@ AvaliFrigateLaser1:
 		Color: FFA21FF8
 		SecondaryBeamColor: FFFFFF
 	Warhead@1Dam: SpreadDamage
-		Damage: 720
+		Damage: 760
 		Versus:
-			None: 140
+			None: 160
 			Wood: 70
 			Light: 90
 			Heavy: 70
@@ -1743,7 +1765,3 @@ AvaliFrigateLaser2:
 	Inherits: AvaliFrigateLaser1
 	FirstBurstTargetOffset: -96,288,0
 	FollowingBurstTargetOffset: 32,-96,0
-		SecondaryBeam: true
-		Duration: 3
-		Blockable: true
-		Inaccuracy: 256

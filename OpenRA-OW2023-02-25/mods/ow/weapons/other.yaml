@@ -804,6 +804,16 @@ KodiacBomb:
 	Projectile: GravityBomb
 		Velocity: 0, 0, -128
 
+AvaliBomb:
+	Inherits: OrcaBomb
+	Projectile: GravityBomb
+		Image: plse
+	Warhead@2Eff: CreateEffect
+		Explosions: protoss_building
+		ImpactSounds: expnew06.aud, explo1.aud, explomed.aud, explosm.aud
+		ImpactActors: false
+		ValidTargets: Ground, GroundActor, WaterActor, Trees
+
 A10Napalm:
 	ReloadDelay: 3
 	Range: 2c0
@@ -2263,11 +2273,8 @@ ShieldBattery:
 		InvalidTargets: BeingHealed
 
 CarrierSpawn:
-	ReloadDelay: 350
-	Burst: 5
-	BurstDelays: 3
+	ReloadDelay: 6
 	Range: 12c0
-	Report: pinlau00.aud
 	ValidTargets: Ground, Water, GroundActor, WaterActor, AirborneActor
 	Projectile: Missile
 		Speed: 20
@@ -2275,27 +2282,14 @@ CarrierSpawn:
 	Warhead@dam: SpreadDamage
 		Damage: 0
 		ValidTargets: Ground, Water, GroundActor, WaterActor, AirborneActor
-	Warhead@curtain: GrantExternalCondition
-		Condition: produceunit
-		Range: 1c0
-		Duration: 2
-		ValidTargets: Carrier
-		AffectsParent: true
 
 CarrierTarget:
-	ReloadDelay: 2
+	ReloadDelay: 9
 	Range: 12c0
 	ValidTargets: Ground, Water, GroundActor, WaterActor, AirborneActor
-	Projectile: Bullet
-		Speed: 5c0
-		Blockable: false
+	Projectile: InstantHit
 	Warhead@dam: SpreadDamage
 		Damage: 0
-		ValidTargets: Ground, Water, GroundActor, WaterActor, AirborneActor
-	Warhead@curtain: GrantExternalCondition
-		Condition: carriertarget
-		Range: 2c0
-		Duration: 150
 		ValidTargets: Ground, Water, GroundActor, WaterActor, AirborneActor
 
 MothershipSpawn:
@@ -2330,27 +2324,27 @@ InterceptorBlaster:
 	Burst: 2
 	BurstDelay: 10
 	Report: blastcan.aud
-	ValidTargets: CarrierTarget
+	ValidTargets: Ground, Water, GroundActor, WaterActor, AirborneActor
 	Projectile: Missile
 		Speed: 350
 		Blockable: true
 		Inaccuracy: 400
 	Warhead@1Dam: SpreadDamage
-		Damage: 1500
-		ValidTargets: CarrierTarget
+		Damage: 800
+		ValidTargets: GroundActor, WaterActor
 		InvalidTargets: AirborneActor
 		Versus:
-			None: 200
+			None: 100
 			Wood: 80
 			Light: 40
 			Heavy: 80
 			Concrete: 50
 	Warhead@2Dam: SpreadDamage
-		Damage: 1000
-		ValidTargets: AirborneActor, CarrierTarget
+		Damage: 600
+		ValidTargets: AirborneActor
 		InvalidTargets: GroundActor, WaterActor, Interceptor, CarrierReturn, Carrier
 		Versus:
-			None: 200
+			None: 100
 			Wood: 80
 			Light: 40
 			Heavy: 80
@@ -2991,6 +2985,14 @@ ZerglingAttack3Fast:
 	Inherits: ZerglingAttackFast
 	BurstDelays: 10,7,7,9,8
 
+BanelingTargeting:
+	ValidTargets: Ground, GroundActor, Water, WaterActor, Trees
+	Range: 2c0
+	ReloadDelay: 10
+	Projectile: InstantHit
+	Warhead@1Dam: TargetDamage
+		ValidTargets: GroundActor, WaterActor, Trees
+
 SunkenAttack:
 	ReloadDelay: 50
 	Range: 9c512
@@ -3401,7 +3403,7 @@ KerriganBeam:
 	Inherits: ^TeslaWeapon
 	ReloadDelay: 24
 	Report: ukifir00.aud
-	Range: 8c0
+	Range: 7c0
 	Projectile: TeslaZap
 		TrackTarget: false
 		Duration: 6
@@ -3409,7 +3411,7 @@ KerriganBeam:
 	ValidTargets: Ground, Water, GroundActor, WaterActor, AirborneActor
 	Warhead@1Dam: SpreadDamage
 		Spread: 256
-		Damage: 12000
+		Damage: 10000
 		ValidTargets: GroundActor, WaterActor
 		Versus:
 			None: 80
@@ -3420,7 +3422,7 @@ KerriganBeam:
 		DamageTypes: Prone50Percent, TiberiumDeath
 	Warhead@1Air: SpreadDamage
 		Spread: 128
-		Damage: 5000
+		Damage: 4000
 		ValidTargets: AirborneActor
 		DamageTypes: TiberiumDeath
 	Warhead@2Smu: LeaveSmudge
@@ -3429,7 +3431,7 @@ KerriganBeam:
 	Warhead@2Dam: SpreadDamage
 		Delay: 8
 		Spread: 400
-		Damage: 6000
+		Damage: 5000
 		ValidTargets: GroundActor, WaterActor
 		Versus:
 			Light: 75
@@ -3459,7 +3461,7 @@ KerriganBeam:
 
 KerriganMelee:
 	Inherits: KerriganBeam
-	Range: 2c0
+	Range: 2c512
 	Projectile: InstantHit
 	ValidTargets: Ground, Water, GroundActor, WaterActor
 	Warhead@1Dam: SpreadDamage
@@ -4988,7 +4990,7 @@ HiroshimaInfantryLaserUpgrade:
 			Heavy: 40
 			Concrete: 50
 		DamageTypes: Prone50Percent, TriggerProne, FireDeath
-		ValidTargets: Ground, GroundActor, Water, WaterActo
+		ValidTargets: Ground, GroundActor, Water, WaterActor
 	Warhead@3Dam: SpreadDamage
 		Spread: 128
 		Damage: 1000
@@ -5607,3 +5609,53 @@ SkyEmpressClusterSmall:
 		Explosions: laserhitmed
 		ValidTargets: Ground, GroundActor, WaterActor, AirborneActor
 		ImpactActors: true
+
+AvaliLeaderSword:
+	Inherits: TemplarBlade
+	Warhead@1Dam: TargetDamage
+		Damage: 10000
+		Versus:
+			Wood: 50
+			Light: 50
+			Heavy: 40
+			Concrete: 25
+
+AvaliCarrierRepair:
+	Inherits: Repair
+	ReloadDelay: 4
+	Range: 6c0
+	-Report: 
+	ValidTargets: Repair
+	InvalidTargets: GroundActor, AvaliCarrier
+	Projectile: LaserZap
+		Width: 64
+		Duration: 6
+		Color: 00FF00
+	Warhead@1Dam: SpreadDamage
+		Damage: -30
+		ValidRelationships: Ally
+		ValidTargets: Repair
+		InvalidTargets: GroundActor, AvaliCarrier
+	Warhead@3EffGround: CreateEffect
+		Explosions: scvsparks
+		ImpactSounds: edrrep00.aud, edrrep01.aud, edrrep02.aud, edrrep03.aud, edrrep04.aud
+		Inaccuracy: 64
+		ValidTargets: AirborneActor
+		ValidRelationships: Ally
+
+AvaliCarrierSpawn:
+	ReloadDelay: 8
+	Range: 9c512
+	ValidTargets: GroundActor, AirborneActor, WaterActor, Ground, Water
+	Projectile: InstantHit
+	Warhead@1Dam: SpreadDamage
+		ValidRelationships: Enemy, Neutral
+
+AvaliCarrierSpawnRep:
+	ReloadDelay: 8
+	Range: 9c512
+	ValidTargets: Repair
+	InvalidTargets: GroundActor, AvaliCarrier
+	Projectile: InstantHit
+	Warhead@1Dam: SpreadDamage
+		ValidRelationships: Ally

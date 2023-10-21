@@ -6,11 +6,11 @@ AVFRIGATE:
 		BuildAtProductionType: Helicopter
 		BuildPaletteOrder: 100
 		Prerequisites: ~aircraft.avalon, ~techlevel.medium
-		Description: Terran gunship armed\nwith Gemini AA missile and \n 25mm burst lasers.\nCan cloak but reduces effectiveness.\nSpeed: 160\n  Strong vs Infantry, Aircraft\n  Weak vs Vehicles, Buildings
+		Description: Avali gunship armed\nwith air-to-air missiles and \n 30mm burst lasers.\nSpeed: 160\n  Strong vs Infantry, Aircraft\n  Weak vs Vehicles, Buildings
 	Valued:
 		Cost: 1800
 	Tooltip:
-		Name: Frigate
+		Name: Illuminate Frigate
 	UpdatesPlayerStatistics:
 		AddToArmyValue: true
 	Health:
@@ -24,13 +24,13 @@ AVFRIGATE:
 		Range: 7c0
 		Type: GroundPosition
 	Armament@PRIMARY1:
-		Weapon: ScoutMissile
+		Weapon: AvaliFrigateMissile
 		LocalOffset: 0,-280,-85
 		LocalYaw: 180
 		PauseOnCondition: !ammo
 		AmmoUsage: 3
 	Armament@PRIMARY2:
-		Weapon: ScoutMissile
+		Weapon: AvaliFrigateMissile
 		LocalOffset: 0,280,-85
 		LocalYaw: -180
 		PauseOnCondition: !ammo
@@ -58,7 +58,7 @@ AVFRIGATE:
 		LandAltitude: 0
 	AutoTarget:
 		InitialStance: ReturnFire
-		InitialStanceAI: ReturnFire
+		InitialStanceAI: AttackAnything
 	GrantConditionOnMovement@scout:
 		Condition: moving
 	AmmoPool:
@@ -73,7 +73,7 @@ AVFRIGATE:
 		FullSequence: bar-green
 		EmptySequence: bar-empty
 	SpawnActorOnDeath:
-		Actor: TWRAITH.Husk
+		Actor: AVFRIGATE.Husk
 	WithDamageOverlay:
 		Offset: -427,0,0
 	ProducibleWithLevel:
@@ -92,10 +92,296 @@ AVFRIGATE:
 		RequiresCondition: moving
 		Palette: player
 		IsPlayerPalette: true
-	-EjectOnDeath:
+	EjectOnDeath:
+		PilotActor: AVINF1
 	ReloadAmmoPool@reloadnear:
 		RequiresCondition: reloadnear
-		Delay: 75
+		Delay: 125
 		Count: 3
 	-ClassicFacingBodyOrientation:
 	BodyOrientation:
+
+AVBOMBER:
+	Inherits: ^Plane
+	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
+	Buildable:
+		Queue: Aircraft
+		BuildAtProductionType: Helicopter
+		BuildPaletteOrder: 105
+		Prerequisites: techcenter, ~aircraft.avalon, ~techlevel.high
+		Description: Armored bomber with plasma explosives. \nSpeed: 160\n  Strong vs Ground units, structures\n  Weak vs Aircraft
+	Valued:
+		Cost: 2100
+	Tooltip:
+		Name: Illuminate Bomber
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 35000
+	RevealsShroud:
+		MinRange: 7c0
+		Range: 9c0
+		Type: GroundPosition
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 7c0
+		Type: GroundPosition
+	Armament@PRIMARY:
+		Weapon: AvaliBomb
+		PauseOnCondition: !ammo
+	AttackAircraft:
+		FacingTolerance: 512
+		PersistentTargeting: false
+		OpportunityFire: False
+	Aircraft:
+		TurnSpeed: 14
+		Speed: 160
+		LandAltitude: 0
+		RepulsionSpeed: 40
+		CruiseAltitude: 1792
+	AutoTarget:
+		InitialStance: HoldFire
+		InitialStanceAI: AttackAnything
+	GrantConditionOnMovement@scout:
+		Condition: moving
+	AmmoPool:
+		Ammo: 4
+		AmmoCondition: ammo
+	ReloadAmmoPool@near:
+		RequiresCondition: reloadnear
+		Count: 1
+		Delay: 125
+	WithAmmoPipsDecoration:
+		Position: BottomLeft
+		Margin: 4, 3
+		RequiresSelection: true
+		PipCount: 4
+	SpawnActorOnDeath:
+		Actor: AVBOMBER.Husk
+	WithDamageOverlay:
+		Offset: -427,0,0
+	Contrail@1:
+		Offset: -200,-300,0
+	Contrail@2:
+		Offset: -200,300,0
+	ProducibleWithLevel:
+		Prerequisites: aircraft.upgraded
+	Selectable:
+		DecorationBounds: 1536, 1365
+	Voiced:
+		VoiceSet: AvaliGeneric
+	RenderSprites:
+	WithFacingSpriteBody:
+		RequiresCondition: !moving
+	WithFacingSpriteBody@2:
+		Name: engine
+		Sequence: moving
+		RequiresCondition: moving
+		Palette: player
+		IsPlayerPalette: true
+	EjectOnDeath:
+		PilotActor: AVINF1
+	BodyOrientation:
+
+AVCARRIER:
+	Inherits: ^Helicopter
+	Buildable:
+		Queue: Aircraft
+		BuildAtProductionType: Helicopter
+		BuildPaletteOrder: 110
+		Prerequisites: advtechcenter, ~aircraft.avalon, ~techlevel.high
+		Description: Capital ship that repairs and \nrearms nearby friendly aircraft.\n Detects cloaked units. \nSpeed: 50\n  Unarmed.
+	HitShape:
+		Type: Rectangle
+			TopLeft: -1250, -2816
+			BottomRight: 1250, 2816
+		TargetableOffsets: 0,0,0, 2048,-512,0, 1536,-512,0, 1024,-512,0, 512,-512,0, 0,-512,0, -512,-512,0, -1024,-512,0, -1536,-512,0, -2048,-512,0, 2048,512,0, 1536,512,0, 1024,512,0, 512,512,0, 0,512,0, -512,512,0, -1024,512,0, -1536,512,0, -2048,512,0, -2560,-512,0, -1024,1024,-512, -1024,-1024,-512
+	Valued:
+		Cost: 4000
+	Tooltip:
+		Name: Illuminate Warpship Carrier
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 120000
+	RevealsShroud:
+		MinRange: 8c0
+		Range: 12c0
+		Type: GroundPosition
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 8c0
+		Type: GroundPosition
+	Armament:
+		Name: secondary
+		Weapon: AvaliCarrierSpawnRep
+		TargetRelationships: Ally
+		Cursor: repair
+		OutsideRangeCursor: repair
+	AutoTarget:
+	AutoTargetPriority@DEFAULT:
+		ValidTargets: Repair, AirborneActor
+	AttackOmni:
+		TargetFrozenActors: true
+	Aircraft:
+		TurnSpeed: 8
+		Speed: 50
+		LandAltitude: 0
+		CruiseAltitude: 2048
+	GrantConditionOnMovement@scout:
+		Condition: moving
+	SpawnActorOnDeath:
+		Actor: AVCARRIER.Husk
+	WithDamageOverlay:
+		Offset: -427,0,0
+	ProducibleWithLevel:
+		Prerequisites: aircraft.upgraded
+	Selectable:
+		DecorationBounds: 5120, 3072
+		Bounds: 4000,2500
+	Hovers@CRUISING:
+		Ticks: 25
+	Voiced:
+		VoiceSet: AvaliGeneric
+	RenderSprites:
+	WithFacingSpriteBody:
+	EjectOnDeath:
+		PilotActor: AVINF1
+	-ClassicFacingBodyOrientation:
+	BodyOrientation:
+	ProximityExternalCondition@reloadnear:
+		Condition: reloadnear
+		Range: 8c0
+	WithRangeCircle:
+		Range: 8c0
+	DetectCloaked:
+		Range: 8c0
+	-Rearmable:
+	Targetable@avalicarrier:
+		TargetTypes: AvaliCarrier
+	CarrierMaster:
+		Actors: avinter, avinter, avinter, avinter
+		SpawnOffset: 2048,0,128
+		ArmamentNames: secondary
+		RespawnTicks: 250
+		LoadedCondition: loaded
+		RearmTicks: 125
+		MaxSlaveDistance: 10c0
+	WithSpawnerMasterPipsDecoration:
+		Position: BottomLeft
+		Margin: 4, 3
+		RequiresSelection: true	
+	Exit@0:
+		SpawnOffset: 512,0,128
+	Exit@1:
+		SpawnOffset: 1024,0,128
+	Exit@2:
+		SpawnOffset: -512,0,128
+	Exit@3:
+		SpawnOffset: 1024,0,128
+	GrantConditionOnDamageState@fire1:
+		Condition: damaged_light
+		ValidDamageStates: Medium, Heavy, Critical
+	GrantConditionOnDamageState@fire2:
+		Condition: damaged_heavy
+		ValidDamageStates: Heavy, Critical
+	GrantConditionOnDamageState@fire3:
+		Condition: damaged_critical
+		ValidDamageStates: Critical
+	WithIdleOverlay@fire1:
+		RequiresCondition: damaged_light
+		Image: fire
+		Sequence: 4
+		IsDecoration: true
+		Offset: -512,512,0
+		Palette: effect
+	WithIdleOverlay@fire2:
+		RequiresCondition: damaged_heavy
+		Image: fire
+		Sequence: 3
+		IsDecoration: true
+		Offset: -128,-256,0
+		Palette: effect
+	WithIdleOverlay@fire3:
+		RequiresCondition: damaged_critical
+		Image: fire
+		Sequence: 2
+		IsDecoration: true
+		Offset: 512,128,0
+		Palette: effect
+
+AVINTER:
+	Inherits: ^NeutralPlane
+	RenderSprites: 
+		Image: PINTER
+	Valued:
+		Cost: 50
+	Tooltip:
+		Name: Repair Drone
+	Health:
+		HP: 9000
+	-UpdatesPlayerStatistics:
+	Targetable@inter:
+		TargetTypes: Interceptor, AvaliCarrier
+	RevealsShroud:
+		MinRange: 7c0
+		Range: 8c0
+		Type: GroundPosition
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 7c0
+		Type: GroundPosition
+	Armament@3:
+		Name: secondary
+		Weapon: AvaliCarrierRepair
+		Cursor: repair
+		OutsideRangeCursor: repair
+		TargetRelationships: Ally
+		ForceTargetRelationships: Ally
+		LocalOffset: 0,100,0, 0,-100,0
+	AttackAircraft:
+		FacingTolerance: 128
+		PersistentTargeting: true
+		OpportunityFire: false
+		StrafeRunLength: 6c0
+	Aircraft:
+		CruiseAltitude: 1536
+		LandAltitude: 0
+		TurnSpeed: 32
+		Speed: 192
+		RepulsionSpeed: 40
+		MaximumPitch: 56
+		AltitudeVelocity: 256
+		MinAirborneAltitude: 43
+	-Selectable:
+	Interactable:
+	-EjectOnDeath:
+	RejectsOrders:
+	-ActorLostNotification:
+	-SpawnActorOnDeath:
+	Contrail@1:
+		Offset: -598,-300,0
+		RequiresCondition: airborne
+	Contrail@2:
+		Offset: -598,300,0
+		RequiresCondition: airborne
+	WithDamageOverlay:
+		Offset: -853,0,171
+		Interval: 2
+	Explodes:
+		-RequiresCondition:
+		Weapon: UnitExplodeSmall
+		EmptyWeapon: UnitExplodeSmall
+	GrantConditionOnAttack@scout:
+		Condition: shooting
+		RevokeDelay: 5
+	WithFacingSpriteBody@3:
+		Name: shoot
+		Sequence: shoot
+		Palette: player
+		IsPlayerPalette: true
+		RequiresCondition: shooting
+	CarrierSlave:
+		LandingDistance: 4c0
+		DamageTypes: ExplosionDeath
+	-Rearmable:

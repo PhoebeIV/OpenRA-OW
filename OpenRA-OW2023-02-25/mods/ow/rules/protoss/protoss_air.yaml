@@ -416,6 +416,11 @@ PCARRY:
 		AddToArmyValue: true
 	Health:
 		HP: 50000
+	Power:
+		Amount: -50
+	GrantConditionOnPowerState:
+		ValidPowerStates: Low, Critical
+		Condition: no_attack
 	RevealsShroud:
 		MinRange: 7c0
 		Range: 9c0
@@ -424,16 +429,12 @@ PCARRY:
 	RevealsShroud@GAPGEN:
 		Range: 7c0
 		Type: GroundPosition
-	Armament@weap1:
-		Name: weap1
-		Weapon: CarrierSpawn
-		PauseOnCondition: !ammo
 	Armament@painter:
 		Name: painter
 		Weapon: CarrierTarget
-		PauseOnCondition: !ammo
+		PauseOnCondition: no_attack
 	AttackAircraft:
-		Armaments: painter,weap1
+		Armaments: painter
 		FacingTolerance: 512
 		PersistentTargeting: false
 		AttackType: Hover
@@ -449,10 +450,6 @@ PCARRY:
 		InitialStanceAI: AttackAnything
 	GrantConditionOnMovement@scout:
 		Condition: moving
-	WithAmmoPipsDecoration:
-		Position: BottomLeft
-		Margin: 4, 3
-		PipCount: 10
 	SpawnActorOnDeath:
 		Actor: PCARRY.Husk
 	WithDamageOverlay:
@@ -479,27 +476,39 @@ PCARRY:
 	-EjectOnDeath:
 	Targetable@carrier2:
 		TargetTypes: Carrier
-	GrantConditionOnPrerequisite@botowner:
-		Condition: botowner
-		Prerequisites: ai.all
-	ReloadAmmoPool@reloadnear:
-		RequiresCondition: reloadnear
-		Delay: 75
-	AmmoPool@1:
-		Armaments: weap1
-		Ammo: 50
-		AmmoCondition: ammo
-		InitialAmmo: 10
-	ExternalCondition@produce:
-		Condition: produceunit
-	FreeActor@interceptor:
-		Actor: PINTER
-		AllowRespawn: true
-		RequiresCondition: produceunit
+	CarrierMaster:
+		Actors: pinter, pinter, pinter, pinter, pinter, pinter, pinter, pinter
+		SpawnOffset: 2048,0,128
+		ArmamentNames: painter
+		RespawnTicks: 250
+		LoadedCondition: loaded
+		RearmTicks: 125
+		MaxSlaveDistance: 13c0
+		InitialActorCount: -1
+	WithSpawnerMasterPipsDecoration:
+		Position: BottomLeft
+		Margin: 4, 3
+		RequiresSelection: true	
+	Exit@0:
+		SpawnOffset: 128,0,-128
+	Exit@1:
+		SpawnOffset: 0,0,-128
+	Exit@2:
+		SpawnOffset: -128,0,-128
+	Exit@3:
+		SpawnOffset: 0,-128,-128
+	Exit@4:
+		SpawnOffset: 128,-128,-128
+	Exit@5:
+		SpawnOffset: -128,-128,-128
+	Exit@6:
+		SpawnOffset: 128,128,-128
+	Exit@7:
+		SpawnOffset: -128,128,-128
+	-Rearmable:
 
 PINTER:
 	Inherits: ^NeutralPlane
-	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
 	Buildable:
 		Queue: Carrier
 		BuildAtProductionType: Carrier
@@ -511,7 +520,7 @@ PINTER:
 	Tooltip:
 		Name: Interceptor
 	Health:
-		HP: 12500
+		HP: 12000
 	-UpdatesPlayerStatistics:
 	Targetable@inter:
 		TargetTypes: Interceptor
@@ -546,6 +555,12 @@ PINTER:
 		Repulsable: false
 		AltitudeVelocity: 900
 		MinAirborneAltitude: 900
+	GrantCondition@produced:
+		Condition: produced
+	AmbientSound@produced:
+		RequiresCondition: produced
+		SoundFiles: pinlau00.aud
+		Interval: 9000
 	-Selectable:
 	Interactable:
 	-EjectOnDeath:
@@ -562,18 +577,11 @@ PINTER:
 		Offset: -853,0,171
 		Interval: 2
 	RenderSprites:
+		Image: pinter
 	Explodes:
+		-RequiresCondition:
 		Weapon: UnitExplodeSmall
 		EmptyWeapon: UnitExplodeSmall
-	AutoTarget:
-		InitialStance: AttackAnything
-		InitialStanceAI: AttackAnything
-		MaximumScanTimeInterval: 4
-		ScanRadius: 20
-	AutoTargetPriority@ATTACKANYTHING:
-		RequiresCondition: stance-attackanything
-		ValidTargets: Infantry, Vehicle, Ship, Underwater, AirborneActor, Structure, Defense, Mine, CarrierReturn
-		InvalidTargets: NoAutoTarget
 	GrantConditionOnAttack@scout:
 		Condition: shooting
 		RevokeDelay: 5
@@ -583,13 +591,14 @@ PINTER:
 		Palette: player
 		IsPlayerPalette: true
 		RequiresCondition: shooting
-	KillsSelf@timer1:
-		Delay: 500
+	CarrierSlave:
+		LandingDistance: 4c0
+		DamageTypes: ExplosionDeath
+	-Rearmable:
+	GivesExperienceToMaster:
 
 PINTER2:
 	Inherits: PINTER
-	RenderSprites:
-		Image: pinter
 	Voiced:
 		VoiceSet: ProtossMothershipVoice
 	AnnounceOnKill:
@@ -610,7 +619,7 @@ PMOTHER:
 		Description: [EPIC]\nProtoss epic support ship with\nwith area cloak and lasers.\nCan teleport on deploy.\nSpeed: 24\n  Strong vs Everything
 		BuildLimit: 1
 	Valued:
-		Cost: 15000
+		Cost: 18000
 	Tooltip:
 		Name: Protoss Mothership
 	UpdatesPlayerStatistics:
@@ -635,9 +644,8 @@ PMOTHER:
 		PauseOnCondition: ammo < 10
 	Armament@weap1:
 		Name: secondary
-		Weapon: MothershipSpawn
+		Weapon: CarrierTarget
 		Turret: secondary
-		RequiresCondition: shipammo
 	AttackTurreted:
 		Turrets: primary, secondary
 	Turreted:
@@ -690,17 +698,8 @@ PMOTHER:
 		Ammo: 10
 		AmmoCondition: ammo
 		Armaments: primary
-	AmmoPool@ship:
-		Ammo: 3
-		Name: shipammo
-		Armaments: secondary
-		AmmoCondition: shipammo
-		InitialAmmo: 0
 	ReloadAmmoPool@reloadnear:
 		Delay: 225
-	ReloadAmmoPool@shipammo:
-		Delay: 25
-		AmmoPool: shipammo
 	WithAmmoPipsDecoration:
 		Position: BottomLeft
 		Margin: 4, 3
@@ -720,28 +719,8 @@ PMOTHER:
 		StartIfBelow: 80
 		DamageCooldown: 500
 		PauseOnCondition: disabled
-	ExternalCondition@produce:
-		Condition: produceunit
-	ExternalCondition@produce2:
-		Condition: produceunit2
-	FreeActor@interceptor:
-		Actor: PINTER2
-		Facing: 256
-		SpawnOffset: -2,-4
-		AllowRespawn: true
-		RequiresCondition: produceunit
-	FreeActor@interceptor2:
-		Actor: PINTER2
-		Facing: -256
-		SpawnOffset: 2,-4
-		AllowRespawn: true
-		RequiresCondition: produceunit2
 	Targetable@carrier2:
 		TargetTypes: Mothership
-	ProximityExternalCondition@carrier:
-		Condition: carriertarget
-		Range: 15c0
-		ValidRelationships: Enemy, Neutral
 	WithSpriteBody@shadow:
 		Sequence: shadow
 	AmbientSound@moving:
@@ -764,3 +743,32 @@ PMOTHER:
 		Interval: -1
 		Delay: 1
 		RequiresCondition: produced
+	CarrierMaster:
+		Actors: pinter2, pinter2, pinter2, pinter2, pinter2, pinter2, pinter2, pinter2, pinter2, pinter2
+		SpawnOffset: 2048,0,128
+		ArmamentNames: painter
+		RespawnTicks: 250
+		LoadedCondition: loaded
+		RearmTicks: 125
+		MaxSlaveDistance: 13c0
+	WithSpawnerMasterPipsDecoration:
+		Position: BottomLeft
+		Margin: 4, 7
+		RequiresSelection: true	
+	Exit@0:
+		SpawnOffset: 128,0,-128
+	Exit@1:
+		SpawnOffset: 0,0,-128
+	Exit@2:
+		SpawnOffset: -128,0,-128
+	Exit@3:
+		SpawnOffset: 0,-128,-128
+	Exit@4:
+		SpawnOffset: 128,-128,-128
+	Exit@5:
+		SpawnOffset: -128,-128,-128
+	Exit@6:
+		SpawnOffset: 128,128,-128
+	Exit@7:
+		SpawnOffset: -128,128,-128
+	-Rearmable:

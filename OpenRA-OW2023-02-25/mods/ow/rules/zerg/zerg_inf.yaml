@@ -680,6 +680,18 @@ ZULTRA:
 		RequiresCondition: produced
 		Voice: Build
 	-Cloneable:
+	GrantPeriodicCondition@deploy:
+		Condition: force_deploy
+		RequiresCondition: torrasque
+		CooldownDuration: 10
+		ActiveDuration: 25
+		StartsGranted: true
+	GrantConditionOnPrerequisite@torrasque:
+		Condition: torrasque
+		Prerequisites: kerrigan.tier4.torrasque
+	TransformOnCondition@torrasque:
+		IntoActor: ZTORRASQUE
+		RequiresCondition: force_deploy
 
 ZTORRASQUE:
 	Inherits: ZULTRA
@@ -716,6 +728,9 @@ ZTORRASQUE:
 		RequiresCondition: !regen_allowed
 	GrantCondition@produced:
 		Condition: produced
+	-GrantPeriodicCondition@deploy:
+	-GrantConditionOnPrerequisite@torrasque:
+	-TransformOnCondition@torrasque:
 
 ZTORRASQUE.Corpse:
 	Inherits: ^CivBuilding
@@ -992,6 +1007,165 @@ ZHYDRA.E:
 		Delay: 5
 		DamageTypes: DefaultDeath
 
+ZBANELING:
+	Inherits: ^Infantry
+	Inherits@zerg: ^ZergUnitWeapon
+	Inherits@autotarget: ^AutoTargetGroundAssaultMove
+	Buildable:
+		Prerequisites: zpool, ~infantry.zagara, ~techlevel.high
+		Description: Exploding ground unit, powerful in swarms.\nComes in pairs.\n  Speed: 104\n  Strong vs everything
+		Queue: Infantry
+		BuildAtProductionType: Hatchery
+		BuildPaletteOrder: 40
+	Selectable:
+		Bounds: 512, 512, 0, 100
+		DecorationBounds: 512, 512, 0, 100
+		Class: ZBANELING
+	Valued:
+		Cost: 160
+	GivesExperience:
+		Experience: 80
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Tooltip:
+		Name: Baneling
+	Health:
+		HP: 5000
+	Mobile:
+		Speed: 104
+	Power:
+		Amount: -5
+	RevealsShroud:
+		Range: 4c512
+	Armament@1:
+		Name: primary
+		Weapon: TerroristTargeting
+	GrantConditionOnAttack@trigger:
+		Condition: triggered
+	WithInfantryBody:
+		DefaultAttackSequence: shoot
+		IdleSequences: stand
+		StandSequences: stand
+		RequiresCondition: !burrowed
+	WithInfantryBody@down:
+		DefaultAttackSequence: burrowed
+		IdleSequences: burrowed
+		StandSequences: burrowed
+		RequiresCondition: burrowed
+	AutoTarget:
+		InitialStance: AttackAnything
+		ScanRadius: 5
+		HoldFireCondition: burrowing
+	AutoTargetPriority@DEFAULT:
+		ValidTargets: GroundActor, Infantry
+	Targetable:
+		TargetTypes: GroundActor, Infantry, Disguise
+	RenderSprites:
+	Voiced:
+		VoiceSet: ZergZerglingVoice
+	-DeathSounds@NORMAL:
+	-DeathSounds@BURNED:
+	-DeathSounds@ZAPPED:
+	DeathSounds:
+	WithDeathAnimation:
+		UseDeathTypeSuffix: false
+		CrushedSequence: die
+		CrushedSequencePalette: player
+		CrushedPaletteIsPlayerPalette: true
+	TakeCover:
+		SpeedModifier: 110
+		Duration: 75
+		DamageTriggers: TriggerProne
+	-SpawnActorOnDeath@fire:
+	MustBeDestroyed:
+	ProximityCaptor:
+		Types: Infantry
+	AttackFrontal:
+		FacingTolerance: 0
+	GrantConditionOnPrerequisite@shoes:
+		Prerequisites: zerg.zergling
+		Condition: shoes
+	SpeedMultiplier@shoes:
+		RequiresCondition: shoes
+		Modifier: 120
+	ExternalCondition@zergling:
+		Condition: zerglingdouble
+	FreeActor@zergling:
+		RequiresCondition: !zerglingdouble
+		Actor: ZBANELING2
+		SpawnOffset: 0,0
+	FreeActor@zergling_ai:
+		RequiresCondition: botowner && random1
+		Actor: ZBANELING2
+		SpawnOffset: 0,0
+	GrantConditionOnPrerequisite@ai1:
+		Condition: botowner
+		Prerequisites: ai.easy
+	GrantConditionOnPrerequisite@ai2:
+		Condition: botowner
+		Prerequisites: ai.medium
+	GrantConditionOnPrerequisite@ai3:
+		Condition: botowner
+		Prerequisites: ai.hard
+	GrantRandomCondition@ai:
+		Conditions: random1,random2,random3
+	Cloak@burrow:
+		RequiresCondition: burrowing
+		InitialDelay: 75
+		CloakDelay: 50
+		CloakSound: burrowdn.aud
+		UncloakSound: burrowup.aud
+		CloakedCondition: burrowed
+		EffectImage: zzergling
+		EffectPalette: player
+		EffectPaletteIsPlayerPalette: true
+		CloakEffectSequence: burrow
+		UncloakEffectSequence: unburrow
+		UncloakOn: Damage, Attack, Move
+		Palette: player
+		IsPlayerPalette: true
+	ChangesHealth@regen:
+		PercentageStep: 3
+	ChangesHealth@regen2:
+		PercentageStep: 3
+	ChangesHealth@creep:
+		PercentageStep: 4
+	DamageMultiplier@iar1:
+		Modifier: 82
+	DamageMultiplier@iar2:
+		Modifier: 64
+	DamageMultiplier@iar3:
+		Modifier: 50
+	Explodes:
+		Weapon: TerroristBomb
+		EmptyWeapon: TerroristBomb
+		DeathTypes: SmallExplosionDeath, ExplosionDeath, FireDeath, TiberiumDeath, ElectricityDeath, Suicide
+	KillsSelf:
+		Delay: 3
+		RequiresCondition: triggered
+		DamageTypes: Suicide
+	ExternalCondition:
+		Condition: wander
+	AttackWander:
+		RequiresCondition: wander
+
+ZBANELING2:
+	Inherits: ZBANELING
+	RenderSprites:
+		Image: zbaneling
+	-ExternalCondition@zergling:
+	-FreeActor@zergling:
+	-FreeActor@zergling_ai:
+	-Buildable:
+	Valued:
+		Cost: 160
+	-GivesBounty:
+	UpdatesPlayerStatistics:
+		AddToArmyValue: false
+		AddToAssetsValue: false
+		OverrideActor: zbaneling
+	-Power:
+
 ZKERRIGAN:
 	Inherits: ^EpicInfantryNerf
 	Inherits@epic: ^EpicUnit
@@ -1176,6 +1350,7 @@ ZKERRIGAN.Hero0:
 		RevokeDelay: 40
 	AutoTarget:
 		HoldFireCondition: burrowing
+		ScanRadius: 7
 	Targetable:
 		TargetTypes: GroundActor, Infantry, Disguise
 	RenderSprites:
@@ -1219,10 +1394,6 @@ ZKERRIGAN.Hero0:
 		Weapon: KerriganDeathNoExplosion
 		EmptyWeapon: KerriganDeathNoExplosion
 		RequiresCondition: !force_deploy
-	ChangesHealth@regen:
-		Delay: 175
-	ChangesHealth@regen2:
-		Delay: 125
 	FreeActor@1:
 		Actor: ZZERGLING2
 		AllowRespawn: true
@@ -1253,7 +1424,37 @@ ZKERRIGAN.Hero0:
 		AffectsParent: false
 		Range: 6c0
 	ConvertsDamageToHealth@kerrigan:
-		DamagePercentConverted: 20
+		RequiresCondition: !lifesteal
+		DamagePercentConverted: 15
+	ConvertsDamageToHealth@kerrigan2:
+		RequiresCondition: lifesteal
+		DamagePercentConverted: 30
+	GrantConditionOnPrerequisite@lifesteal:
+		Prerequisites: kerrigan.tier1.carapace
+		Condition: lifesteal
+	DamageMultiplier@fortitude:
+		RequiresCondition: fort
+		Modifier: 80
+	GrantConditionOnPrerequisite@fort:
+		Prerequisites: kerrigan.tier1.fortitude
+		Condition: fort
+	ChangesHealth@regen:
+		Delay: 175
+	ChangesHealth@regen2:
+		Delay: 125
+	ChangesHealth@regen_fortitude:
+		RequiresCondition: fort
+		PercentageStep: 1
+		Delay: 175
+		StartIfBelow: 100
+		DamageCooldown: 250
+	ChangesHealth@regen2_fortitude:
+		RequiresCondition: fort
+		PercentageStep: 1
+		Delay: 125
+		StartIfBelow: 40
+		DamageCooldown: 250
+
 
 ZKERRIGAN.Hero1:
 	Inherits: ZKERRIGAN.Hero0
@@ -1309,8 +1510,6 @@ ZKERRIGAN.Hero2:
 		Modifier: 120
 	Armament@1:
 		Weapon: KerriganBeam
-	ConvertsDamageToHealth@kerrigan:
-		DamagePercentConverted: 15
 
 ZKERRIGAN.Hero3:
 	Inherits: ZKERRIGAN.Hero2
@@ -1338,10 +1537,6 @@ ZKERRIGAN.Hero3:
 		LocalOffset: 512,-200,256
 		FireDelay: 14
 		LocalYaw: 96,-96
-	ChangesHealth@regen:
-		Delay: 125
-	ChangesHealth@regen2:
-		Delay: 80
 
 ZKERRIGAN.Hero4:
 	Inherits: ZKERRIGAN.Hero3
