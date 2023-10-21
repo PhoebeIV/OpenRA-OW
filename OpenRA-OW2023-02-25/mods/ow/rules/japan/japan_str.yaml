@@ -642,7 +642,7 @@ japanpsychicdatacenter:
 		Types: SpyInfiltrate
 	IonCannonPower@JapanCurse:
 		OrderName: JapanCurse
-		Prerequisites: ~structures.japan
+		Prerequisites: ~structures.japan, !faction.economicgeneral
 		PauseOnCondition: disabled
 		Icon: japancurseicon
 		Cursor: chrono-target
@@ -657,6 +657,24 @@ japanpsychicdatacenter:
 		Effect: explosion
 		EffectSequence: japancurseanim
 		Weapon: JapanCursePower
+		DisplayTimerRelationships: None
+	IonCannonPower@JapanCurseEconomic:
+		OrderName: JapanCurse
+		Prerequisites: ~structures.japan, faction.economicgeneral
+		PauseOnCondition: disabled
+		Icon: japancurseicon
+		Cursor: chrono-target
+		ChargeInterval: 4500
+		Name: Curse
+		Description: Weakens enemy damage output by 50% for 30 seconds.
+		SelectTargetSpeechNotification: SelectTarget
+		InsufficientPowerSpeechNotification: InsufficientPower
+		OnFireSound: japcurse.aud
+		DisplayRadarPing: True
+		SupportPowerPaletteOrder: 20
+		Effect: explosion
+		EffectSequence: japancurseanim
+		Weapon: JapanCursePowerEconomic
 		DisplayTimerRelationships: None
 	AirstrikePower@finalsquadron:
 		OrderName: finalsquadron
@@ -1234,3 +1252,95 @@ japanoredrill:
 		Amount: 10
 		RequiresCondition: !disabled
 	-AcceptsDeliveredCash:
+
+japanwaveforceturret:
+	Inherits: ^Defense
+	Inherits@LOWPOWER: ^DisableOnLowPowerOrPowerDown
+	Inherits@AUTOTARGET: ^AutoTargetAll
+	Buildable:
+		Queue: Defense
+		BuildPaletteOrder: 70
+		Prerequisites: ~structures.japan, anypower, advtechcenter, ~faction.economicgeneral
+		Description: Anti-Infantry and Air base defense.\nCan detect cloaked units.\n  Strong vs Infantry, Aircraft\n  Weak vs Vehicles
+	Valued:
+		Cost: 1800
+	Tooltip:
+		Name: Waveforce Turret
+	Building:
+	Health:
+		HP: 90000
+	Armor:
+		Type: Heavy
+	RevealsShroud:
+		MinRange: 5c0
+		Range: 6c512
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 5c0
+	WithBuildingBib:
+		HasMinibib: true
+	Turreted:
+		TurnSpeed: 24
+		InitialFacing: 192
+		RealignDelay: -1
+		RequiresCondition: !build-incomplete
+	WithSpriteTurret:
+		RequiresCondition: !build-incomplete
+		Recoils: false
+	Armament:
+		Weapon: HiroshimaInfantryLaser
+		Recoil: 85
+		RecoilRecovery: 25
+		LocalOffset: 768,0,256
+		MuzzleSequence: muzzle
+		Name: primary
+		PauseOnCondition: disabled || changelaser || focusedlasers
+	Armament@Secondary:
+		Weapon: HiroshimaTankLaser
+		Recoil: 85
+		RecoilRecovery: 25
+		LocalOffset: 768,0,256
+		MuzzleSequence: muzzle
+		Name: secondary
+		PauseOnCondition: disabled || focusedlasers
+		RequiresCondition: changelaser
+	Armament@upgrade:
+		Weapon: HiroshimaInfantryLaserUpgrade
+		Recoil: 85
+		RecoilRecovery: 25
+		LocalOffset: 768,0,256
+		MuzzleSequence: muzzle
+		Name: primary
+		PauseOnCondition: disabled || changelaser
+		RequiresCondition: focusedlasers
+	Armament@Secondaryupgrade:
+		Weapon: HiroshimaTankLaserUpgrade
+		Recoil: 85
+		RecoilRecovery: 25
+		LocalOffset: 768,0,256
+		MuzzleSequence: muzzle
+		Name: secondary
+		PauseOnCondition: disabled
+		RequiresCondition: changelaser && focusedlasers
+	AttackTurreted:
+		PauseOnCondition: build-incomplete || disabled
+		Turrets: primary, secondary
+	WithRangeCircle:
+		Range: 6c640
+	RenderDetectionCircle:
+	DetectCloaked:
+		Range: 5c0
+	WithMuzzleOverlay:
+	Power:
+		Amount: -80
+	-BodyOrientation:
+	ClassicFacingBodyOrientation:
+	GrantConditionOnDeploy:
+		MakeAnimationDeployTypes:
+		DeployedCondition: changelaser
+		SkipMakeAnimation: True
+	GrantConditionOnPrerequisite@focusedlasers:
+		Condition: focusedlasers
+		Prerequisites: upgrade.focusedlasers
+	RangeMultiplier@mecha:
+		Modifier: 120

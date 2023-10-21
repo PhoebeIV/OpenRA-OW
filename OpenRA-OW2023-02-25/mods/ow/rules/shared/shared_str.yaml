@@ -1584,6 +1584,55 @@ OREEXT:
 	WithSpriteBody:
 		PauseOnCondition: disabled
 
+OREEXT2:
+	Inherits: ^Building
+	Inherits@IDISABLE: ^DisableOnLowPowerOrPowerDown
+	Valued:
+		Cost: 1250
+	Buildable:
+		Icon: icon-adv
+		Queue: Wall
+		BuildPaletteOrder: 105
+		Prerequisites: techcenter, ~structures.oreextadvprereq, ~techlevel.unrestricted
+		Description: Place on ore mines to increase \n their growth rate. \n  Unarmed
+	Tooltip:
+		Name: Advanced Ore Extractor
+	Building:
+		TerrainTypes: Oremine
+	RequiresBuildableArea:
+		Adjacent: 7
+	Power:
+		Amount: -50
+	Health:
+		HP: 40000
+	Armor:
+		Type: Wood
+	RevealsShroud:
+		Range: 3c0
+	SeedsResource:
+		Interval: 80
+		MaxRange: 10
+		RequiresCondition: !disabled
+	-WithColoredOverlay@IDISABLE:
+	GrantConditionOnDamageState:
+		Condition: disabled
+		ValidDamageStates: critical
+	-AcceptsDeliveredCash:
+	MustBeDestroyed:
+		RequiredForShortGame: false
+	OwnerLostAction:
+		Action: ChangeOwner
+	Explodes:
+		Weapon: DemoTrapExplosion2
+		EmptyWeapon: DemoTrapExplosion2
+	WithSpriteBody:
+		PauseOnCondition: disabled
+	WithIdleOverlay@SPINNER:
+		Sequence: spinner
+		Offset: 0,0,512
+	RenderSprites:
+		Image: OREEXT
+
 AGATE:
 	Inherits: ^Building
 	Inherits@disable: ^DisableOnLowPower
