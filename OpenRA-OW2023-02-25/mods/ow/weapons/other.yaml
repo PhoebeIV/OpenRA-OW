@@ -3233,10 +3233,10 @@ MutaGlaive:
 		HorizontalRateOfTurn: 100
 		Jammable: false
 		ContrailLength: 15
-		AirburstAltitude: 512
+		AirburstAltitude: 32
 	Warhead@1Dam: SpreadDamage
-		Spread: 512
-		Damage: 6000
+		Spread: 256
+		Damage: 5000
 		ValidTargets: Ground, GroundActor, WaterActor, Trees
 		Versus:
 			None: 120
@@ -3245,8 +3245,8 @@ MutaGlaive:
 			Concrete: 25
 		DamageTypes: Prone50Percent, TriggerProne, SmallExplosionDeath
 	Warhead@1DamAir: SpreadDamage
-		Spread: 400
-		Damage: 3000
+		Spread: 300
+		Damage: 2500
 		ValidTargets: Air, AirborneActor
 		Versus:
 			None: 120
@@ -3259,25 +3259,35 @@ MutaGlaive:
 		ImpactSounds: zquhit02.aud
 		ValidTargets: Ground, GroundActor, WaterActor, Trees, Air, AirborneActor
 		Inaccuracy: 128
-	Warhead@4Cluster: FireCluster
+	#Warhead@4Cluster: FireCluster
+		#Weapon: MutaGlaiveBounce1
+		#RandomClusterCount: 2
+		#Dimensions: 3,3
+		#Footprint: xxx xxx xxx
+	Warhead@4Cluster: FireShrapnel
+		Amount: 1
 		Weapon: MutaGlaiveBounce1
-		RandomClusterCount: 2
-		Dimensions: 3,3
-		Footprint: xxx xxx xxx
+		AimTargetStances: Neutral, Enemy
+		AimChance: 100
+		ThrowWithoutTarget: false
+		AroundTarget: true
+		ImpactActors: false
 
 MutaGlaiveBounce1:
-	Range: 6c0
+	Range: 3c0
 	ValidTargets: Ground, Water, GroundActor, WaterActor
-	Projectile: Bullet
-		Speed: 250
+	Projectile: Missile
+		Speed: 350
 		Blockable: true
 		Image: zmutaball
-		Sequence: idle2
-		Inaccuracy: 1c0
-		LaunchAngle: 35,42
+		RangeLimit: 8c0
+		HorizontalRateOfTurn: 100
+		Jammable: false
+		ContrailLength: 15
+		MinimumLaunchAngle: 64
 	Warhead@1Dam: SpreadDamage
 		Spread: 256
-		Damage: 1500
+		Damage: 1250
 		ValidTargets: Ground, GroundActor, WaterActor, Trees, Air, AirborneActor
 		Versus:
 			None: 120
@@ -3290,15 +3300,23 @@ MutaGlaiveBounce1:
 		ImpactSounds: zquhit00.aud, zquhit01.aud
 		ValidTargets: Ground, GroundActor, WaterActor, Trees, Air, AirborneActor
 		Inaccuracy: 128
-	Warhead@4Cluster: FireCluster
+	#Warhead@4Cluster: FireCluster
+		#Weapon: MutaGlaiveBounce2
+		#RandomClusterCount: 1
+		#Dimensions: 3,3
+		#Footprint: xxx xxx xxx
+	Warhead@4Cluster: FireShrapnel
+		Amount: 1
 		Weapon: MutaGlaiveBounce2
-		RandomClusterCount: 1
-		Dimensions: 3,3
-		Footprint: xxx xxx xxx
+		AimTargetStances: Neutral, Enemy
+		AimChance: 100
+		ThrowWithoutTarget: false
+		AroundTarget: true
+		ImpactActors: false
 
 MutaGlaiveBounce2:
 	Inherits: MutaGlaiveBounce1
-	Range: 6c0
+	Range: 3c0
 	Projectile: Bullet
 		Image: zmutaball
 		Sequence: idle3
