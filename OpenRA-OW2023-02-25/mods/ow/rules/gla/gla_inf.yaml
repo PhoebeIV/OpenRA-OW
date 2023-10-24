@@ -241,6 +241,10 @@ GHARV:
 		EnterCursor: goldwrench
 		ConsumedByCapture: true
 	ChangesHealth@tiberium:
+		RequiresCondition: standing_in_tiberium && shielded && !gdi_suits && !shoes
+		Step: -7500
+	ChangesHealth@tiberium_noshield:
+		RequiresCondition: standing_in_tiberium && !shielded && !gdi_suits && !shoes
 		Step: -75
 	GrantConditionOnPrerequisite@shoes:
 		Prerequisites: upgrade.glashoes, advtechcenter
@@ -258,6 +262,8 @@ GHARV:
 	StoresResources:
 		Capacity: 6
 		Resources: Ore,Gems,Tiberium,BlueTiberium
+	Targetable@harvester:
+		TargetTypes: TiberiumImmune
 
 GHIJACK:
 	Inherits: ^TibSunSoldier

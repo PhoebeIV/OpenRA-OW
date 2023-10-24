@@ -265,6 +265,8 @@ SPLIT3.CR:
 	Explodes:
 		Weapon: DemoTrapExplosion2
 		EmptyWeapon: DemoTrapExplosion2
+	TransformOnCondition:
+		IntoActor: split4.cr
 
 SPLIT4:
 	Inherits: ^TibTree
@@ -384,16 +386,8 @@ TMONOLITH:
 		RequiresCondition: spawn_blue && !spawned
 		Weapon: MonolithSpawner
 	Explodes:
-		RequiresCondition: !notibresp
 		Weapon: MonolithExplosion
 		EmptyWeapon: MonolithExplosion
-	Explodes@2:
-		RequiresCondition: notibresp
-		Weapon: MonolithExplosion_NoResp
-		EmptyWeapon: MonolithExplosion_NoResp
-	GrantConditionOnPrerequisite@notib:
-		Prerequisites: techlevel.tibresp
-		Condition: notibresp
 	SpawnActorOnDeath:
 		Actor: MINE
 
@@ -425,9 +419,6 @@ TMONOLITH.BLUE:
 	Explodes:
 		Weapon: MonolithBlueExplosion
 		EmptyWeapon: MonolithBlueExplosion
-	Explodes@2:
-		Weapon: MonolithBlueExplosion_NoResp
-		EmptyWeapon: MonolithBlueExplosion_NoResp
 	SpawnActorOnDeath:
 		Actor: GMINE
 
