@@ -78,7 +78,7 @@ AVINF1:
 		BuildAtProductionType: Soldier
 		Prerequisites: ~barracks, ~infantry.avalon, ~techlevel.infonly
 		BuildPaletteOrder: 100
-		Description: General-purpose infantry.\nCan gain Pack boost with a group of\n 15 or more. \\n  Strong vs Infantry, light vehicles\n  Weak vs Armored vehicles, Aircraft
+		Description: General-purpose infantry.\nCan gain Pack Tactics with a group of\n 15 or more. \n  Strong vs Infantry, light vehicles\n  Weak vs Armored vehicles, Aircraft
 	Tooltip:
 		Name: Light Infantry
 	Valued:
@@ -100,7 +100,16 @@ AVINF1:
 		AmmoUsage: 10
 	Armament@GARRISONED:
 		Name: garrisoned
-		Weapon: Vulcan
+		Weapon: AvaliFrigateLaser1
+		MuzzleSequence: garrison-muzzle
+	Armament@GARRISONED2:
+		Name: garrisoned
+		Weapon: AvaliFrigateLaser2
+		MuzzleSequence: garrison-muzzle
+		FireDelay: 12
+	Armament@BUS:
+		Name: bus
+		Weapon: AvaliLaser
 		MuzzleSequence: garrison-muzzle
 	AmmoPool:
 		Name: secondary
@@ -157,7 +166,7 @@ AVINF2:
 	Buildable:
 		Queue: Infantry
 		BuildAtProductionType: Soldier
-		BuildPaletteOrder: 101
+		BuildPaletteOrder: 102
 		Prerequisites: ~barracks, ~techlevel.infonly, ~infantry.avalon
 		Description: Infiltrates and captures\nenemy structures.\n  Unarmed
 	Valued:
@@ -219,18 +228,20 @@ AVINF3:
 	Buildable:
 		Queue: Infantry
 		BuildAtProductionType: Soldier
-		BuildPaletteOrder: 102
+		BuildPaletteOrder: 103
 		Prerequisites: ~barracks, ~techlevel.infonly, ~infantry.avalon
+		Icon: icon-off
 		Description: Squad leader, boosts nearby troops'\nspeed and firepower.\n Melee. Speed: 80\n  Strong vs Infantry\n  Weak vs Vehicles, Aircraft
 	Tooltip:
 		Name: Pack Leader
 	Valued:
-		Cost: 400
+		Cost: 500
 	Health:
 		HP: 14000
 	TakeCover:
 		SpeedModifier: 100
 		Duration: 100
+		ProneOffset: 0,0,0
 		ProneSequencePrefix: 
 	ProximityExternalCondition:
 		Condition: squadboost
@@ -257,6 +268,10 @@ AVINF3:
 		FireDelay: 0
 		PauseOnCondition: ammo < 9
 		AmmoUsage: 9
+	Armament@BUS:
+		Name: bus
+		Weapon: AvaliLeaderLaser
+		MuzzleSequence: garrison-muzzle
 	SpeedMultiplier@melee:
 		RequiresCondition: ammo > 8
 		Modifier: 150
@@ -271,7 +286,83 @@ AVINF3:
 		Name: garrisoned
 		Weapon: DoomMinigunDK
 		MuzzleSequence: garrison-muzzle
+	-Armament@GARRISONED2:
 	WithInfantryBody:
 		AttackSequences: 
 			primary: shoot
 			secondary: grenade
+
+AVINF4:
+	Inherits: ^AvaliSoldier
+	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
+	Buildable:
+		Queue: Infantry
+		BuildAtProductionType: Soldier
+		Prerequisites: ~barracks, ~infantry.avalon, ~techlevel.infonly
+		BuildPaletteOrder: 101
+		Description: Anti-tank/anti-aircraft infantry.\nCan gain Pack Tactics with a group of\n 15 or more. \n  Strong vs Tanks, Aircraft\n  Weak vs Infantry, light vehicles
+	Tooltip:
+		Name: Heavy Infantry
+	Valued:
+		Cost: 320
+	Health:
+		HP: 6500
+	Mobile:
+		PauseOnCondition: taunt_dance
+	Armament@PRIMARY:
+		Weapon: AvaliBurstGrenade
+		LocalOffset: 400,0,380
+	Armament@SECONDARY:
+		Name: secondary
+		Weapon: AvaliAALaser
+		LocalOffset: 400,0,380
+	Armament@GARRISONED:
+		Name: garrisoned
+		Weapon: AvaliBurstGrenade
+		MuzzleSequence: garrison-muzzle
+	Armament@BUS:
+		Name: bus
+		Weapon: AvaliBurstGrenade
+	TakeCover:
+		ProneOffset: 0,0,-331
+	WithInfantryBody:
+		-DefaultAttackSequence:
+		AttackSequences: 
+			primary: shoot
+			secondary: shoot
+		RequiresCondition: !idle_special && !taunt_dance
+	WithInfantryBody@special:
+		-DefaultAttackSequence:
+		AttackSequences: 
+			primary: shoot
+			secondary: shoot
+		RequiresCondition: idle_special && !taunt_dance
+	WithInfantryBody@taunt:
+		RequiresCondition: taunt_dance
+		StandSequences: idles3
+	GrantTimedCondition@dance:
+		RequiresCondition: rank-veteran && specialfella2
+		Condition: taunt_dance
+		Duration: 150
+	AmbientSound@dance:
+		SoundFiles: dancemoves.aud
+		Interval: 150
+		RequiresCondition: taunt_dance
+	GrantConditionOnAttack@firing:
+		ArmamentNames: secondary
+		Condition: firing
+		RevokeDelay: 6
+	AmbientSound@firing:
+		RequiresCondition: firing
+		SoundFiles: avlasloop.aud
+	AmmoPool@hack:
+		InitialAmmo: 0
+		Name: hackammo
+	ReloadAmmoPool@hack:
+		RequiresCondition: firing
+		AmmoPool: hackammo
+		Delay: 1
+	ExplodeWeapon@endsound:
+		Weapon: AvaliAALaserEnd
+		AmmoPoolName: hackammo
+		RequiresCondition: !firing

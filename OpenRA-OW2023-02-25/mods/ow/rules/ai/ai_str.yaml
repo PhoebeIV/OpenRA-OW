@@ -680,7 +680,7 @@ japanlaserbaseai:
 		Factions: allies, england, france, germany, soviet, russia, ukraine, estonia, phobos, deimos, mars, hitler, himmler, heydrich, nod, bhand, marked, nod3, gdi, steel, zocom, gdi3, sword, angels, silver, china,infantry,nuke,tank, usa,townes,granger,alexander, protoss, zerg
 		Prerequisite: structures.prefaba
 	ProvidesPrerequisite@PREFABB:
-		Factions: terran, raynor, mengsk, japan
+		Factions: terran, raynor, mengsk, japan, avalon
 		Prerequisite: structures.prefabb
 	ProvidesPrerequisite@weapdiu: # Dawn Weap Factory
 		Factions: gdi, steel, zocom, gdi3, hitler, himmler, heydrich, china,infantry,nuke,tank, usa,townes,granger,alexander, japan
@@ -728,7 +728,7 @@ PREFAB.A:
 	Buildable:
 		Queue: Wall
 		BuildPaletteOrder: 9000
-		Prerequisites: !anypower, !barracks, ~ai.hard, ~structures.prefaba
+		Prerequisites: !barracks, ~ai.hard, ~structures.prefaba
 		Description: For AI use: \nPower Plant and a Barracks, 4x3.
 		Icon: fake-icon
 		BuildDuration: 100
@@ -837,7 +837,7 @@ PREFAB.B:
 	Buildable:
 		Queue: Wall
 		BuildPaletteOrder: 9000
-		Prerequisites: !anypower, !barracks, ~ai.hard, ~structures.prefabb
+		Prerequisites: !barracks, ~ai.hard, ~structures.prefabb
 		Description: For AI use: \nPower Plant and a Barracks, 5x3
 		Icon: fake-icon
 		BuildDuration: 100
@@ -852,6 +852,9 @@ PREFAB.B:
 	GrantConditionOnFaction@power_terran:
 		Condition: terran_enable
 		Factions: terran
+	GrantConditionOnFaction@power_avalon:
+		Condition: avalon_enable
+		Factions: avalon
 	FreeActor@power_japan:
 		RequiresCondition: japan_enable
 		Actor: japanantimatterreactor
@@ -867,4 +870,12 @@ PREFAB.B:
 	FreeActor@barr_terran:
 		RequiresCondition: terran_enable
 		Actor: tbarr
+		SpawnOffset: 2,0
+	FreeActor@power_avalon:
+		RequiresCondition: avalon_enable
+		Actor: avpowr1
+		SpawnOffset: 0,0
+	FreeActor@barr_avalon:
+		RequiresCondition: avalon_enable
+		Actor: avtent
 		SpawnOffset: 2,0

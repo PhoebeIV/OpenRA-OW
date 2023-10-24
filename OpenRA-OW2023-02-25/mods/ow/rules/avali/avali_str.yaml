@@ -218,7 +218,7 @@ AVRADAR:
 	Buildable:
 		Queue: Building
 		BuildPaletteOrder: 90
-		Prerequisites: refinery, ~techlevel.medium, ~structures.avalon # GDI, Nod, Fed
+		Prerequisites: refinery, ~techlevel.medium, ~structures.avalon
 		Description: Provides an overview\nof the battlefield.\nRequires power to operate.
 	Valued:
 		Cost: 1800
@@ -263,6 +263,29 @@ AVRADAR:
 		UseDeathTypeSuffix: false
 	RenderSprites:
 		Image: HQD
+	AirstrikePower@avali:
+		PauseOnCondition: disabled
+		OrderName: AvaliAirstrike
+		Prerequisites: techlevel.high
+		Icon: parabombs
+		ChargeInterval: 7500
+		Name: Airstrike
+		Description: An Illuminate squadron drops plasma bombs on your target.
+		SelectTargetSpeechNotification: SelectTarget
+		CameraActor: camera
+		CameraRemoveDelay: 150
+		UnitType: avbomber.bomber
+		QuantizedFacings: 8
+		DisplayBeacon: true
+		BeaconPoster: pbmbicon
+		SquadSize: 2
+		SquadOffset: 1024,1024,0
+		ArrowSequence: arrow
+		ClockSequence: clock
+		CircleSequence: circles
+		UseDirectionalTarget: True
+		DirectionArrowAnimation: paradirection
+		SupportPowerPaletteOrder: 40
 
 AVPAD:
 	Inherits: HPAD
@@ -365,3 +388,118 @@ AVFROST:
 		RequiresCondition: selling
 		Weapons: FrostRemoveMed
 		Interval: 50
+
+AVPBOX:
+	Inherits: PBOX
+	RenderSprites:
+		Image: pbox
+	Tooltip:
+		Name: Pillbox
+	Buildable:
+		Queue: Defense
+		BuildPaletteOrder: 40
+		Prerequisites: barracks, ~structures.avalon, ~techlevel.low
+		Description: Static defense with a fireport for\na garrisoned soldier.\nCan detect cloaked units.\n  Strong vs Infantry, Light armor\n  Weak vs Tanks, Aircraft
+	Cargo:
+		Types: Infantry
+		MaxWeight: 1
+		InitialUnits: avinf1
+
+AVTOWR:
+	Inherits: ^Defense
+	Inherits@IDISABLE: ^DisableOnLowPowerOrPowerDown
+	Inherits@AUTOTARGET: ^AutoTargetAll
+	Valued:
+		Cost: 700
+	Tooltip:
+		Name: Anti-Air Tower
+	Buildable:
+		BuildPaletteOrder: 60
+		Prerequisites: radar, ~structures.avalon, ~techlevel.medium
+		Queue: Defense
+		Description: Anti-Air base defense.\nRequires power to operate.\n  Strong vs Aircraft\n  Weak vs Ground units
+	Selectable:
+		Bounds: 1024, 1024
+		DecorationBounds: 938, 2048, 0, -512
+	SelectionDecorations:
+	Health:
+		HP: 40000
+	Armor:
+		Type: Heavy
+	RevealsShroud:
+		MinRange: 5c0
+		Range: 8c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 5c0
+	WithBuildingBib:
+		HasMinibib: true
+	Turreted:
+		TurnSpeed: 1023
+		Offset: 128,128,384
+	Armament@SECONDARY:
+		Weapon: AvaliTowerAAMissile
+		LocalOffset: 256,128,0, 256,-128,0
+		LocalYaw: -100,100
+	AttackTurreted:
+		RequiresCondition: !build-incomplete
+		PauseOnCondition: lowpower || disabled
+	-BodyOrientation:
+	ClassicFacingBodyOrientation:
+		QuantizedFacings: 8
+	DetectCloaked:
+		Range: 6c0
+		RequiresCondition: !lowpower
+	Power:
+		Amount: -50
+
+AVGUN:
+	Inherits: ^Defense
+	Inherits@AUTOTARGET: ^AutoTargetGround
+	RenderSprites:
+		Image: GUN
+	Buildable:
+		Queue: Defense
+		BuildPaletteOrder: 70
+		Prerequisites: barracks, ~structures.avalon, ~techlevel.medium
+		Description: Anti-Armor base defense.\nCan detect cloaked units.\n  Strong vs Vehicles\n  Weak vs Infantry, Aircraft
+	Valued:
+		Cost: 800
+	Tooltip:
+		Name: Turret
+	Building:
+	Health:
+		HP: 50000
+	Armor:
+		Type: Heavy
+	RevealsShroud:
+		MinRange: 5c0
+		Range: 6c512
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 5c0
+	WithBuildingBib:
+		HasMinibib: true
+	Turreted:
+		TurnSpeed: 48
+		InitialFacing: 192
+		RealignDelay: -1
+		RequiresCondition: !build-incomplete
+	WithSpriteTurret:
+		RequiresCondition: !build-incomplete
+		Recoils: false
+	WithTurretAttackAnimation:
+		Sequence: recoil
+	Armament:
+		Weapon: AvaliTurretGun
+		LocalOffset: 512,0,112
+		MuzzleSequence: avmuzzle
+	AttackTurreted:
+		PauseOnCondition: build-incomplete
+	WithMuzzleOverlay:
+	Power:
+		Amount: -30
+	DetectCloaked:
+		Range: 6c0
+	-BodyOrientation:
+	ClassicFacingBodyOrientation:

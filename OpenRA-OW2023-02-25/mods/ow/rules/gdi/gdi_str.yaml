@@ -95,6 +95,9 @@ EYED:
 	ProvidesPrerequisite@ion:
 		Factions: steel, zocom, gdi3, sword, angels, silver
 		Prerequisite: eyed.ion
+	ProvidesPrerequisite@avali:
+		Factions: avalon
+		Prerequisite: eyed.avali
 	ProvidesPrerequisite@buildingname:
 	ProvidesPrerequisite@radar:
 		Prerequisite: radar
@@ -131,6 +134,29 @@ EYED:
 		Effect: explosion
 		EffectSequence: piff
 		Weapon: MiniNukeIon
+		DisplayTimerRelationships: Ally, Neutral, Enemy
+	IonCannonPower@avali:
+		OrderName: AvaliIonCannon
+		Prerequisites: eyed.avali
+		PauseOnCondition: disabled
+		Icon: ioncannon
+		Cursor: chrono-target
+		ChargeInterval: 19500
+		Name: Illuminator Strike
+		Description: Initiate an orbital Illuminator Strike.\nApplies instant damage to a small area.
+		BeginChargeSpeechNotification: IonCannonCharge
+		EndChargeSpeechNotification: IonCannonReady
+		SelectTargetSpeechNotification: DawnSelectTarget
+		InsufficientPowerSpeechNotification: InsufficientPower
+		OnFireSound: ion_fire2.aud
+		DisplayRadarPing: True
+		CameraActor: camera.small
+		SupportPowerPaletteOrder: 20
+		WeaponDelay: 0
+		CameraRemoveDelay: 100
+		Effect: explosion
+		EffectSequence: piff
+		Weapon: AvaliIonCannon
 		DisplayTimerRelationships: Ally, Neutral, Enemy
 	DropPodsPower:
 		Prerequisites: eyed.uac
@@ -192,7 +218,11 @@ ATWR:
 	Armor:
 		Type: Heavy
 	RevealsShroud:
+		MinRange: 5c0
 		Range: 8c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 5c0
 	WithBuildingBib:
 		HasMinibib: true
 	Turreted:

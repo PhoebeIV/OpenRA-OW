@@ -489,6 +489,9 @@ Player:
 			chinabunkerai: 4
 			chinafortifiedbunkerai: 4
 			chinanukecannonai: 4
+			avpbox: 9
+			avtowr: 10
+			avgun: 10
 			mslo: 1 # SUPERWEAPONS
 			pdox: 1
 			bio.a: 1
@@ -725,6 +728,9 @@ Player:
 			avradar: 5
 			avtech: 5
 			avpad: 5
+			avpbox: 10
+			avtowr: 10
+			avgun: 10
 			upgrade.infarmor1: 10
 			upgrade.infarmor2: 6
 			upgrade.infarmor3: 2
@@ -1288,7 +1294,9 @@ Player:
 			avinf1: 15
 			avinf2: 1
 			avinf3: 5
+			avinf4: 10
 			avdrone: 8
+			av1tnk: 15
 			avfrigate: 5
 			avbomber: 3
 			avcarrier: 1
@@ -1819,6 +1827,34 @@ Player:
 					Attractiveness: -10
 					TargetMetric: Value
 					CheckRadius: 3c0
+			AvaliIonCannon:
+				OrderName: AvaliIonCannon
+				MinimumAttractiveness: 1000
+				FineScanRadius: 2
+				Consideration@0:
+					Against: Enemy
+					Types: EpicUnit
+					Attractiveness: 1000
+					TargetMetric: Value
+					CheckRadius: 2c0
+				Consideration@1:
+					Against: Enemy
+					Types: Vehicle, Infantry, Water
+					Attractiveness: 2
+					TargetMetric: Value
+					CheckRadius: 2c0
+				Consideration@2:
+					Against: Enemy
+					Types: Structure
+					Attractiveness: 1
+					TargetMetric: Value
+					CheckRadius: 2c0
+				Consideration@3:
+					Against: Ally
+					Types: Ground, Water
+					Attractiveness: -10
+					TargetMetric: Value
+					CheckRadius: 3c0
 			EMP:
 				OrderName: EMPPower
 				MinimumAttractiveness: 1000
@@ -2063,6 +2099,15 @@ Player:
 					CheckRadius: 5c0
 			a10strike:
 				OrderName: a10strike
+				MinimumAttractiveness: 1
+				Consideration@1:
+					Against: Enemy
+					Types: Infantry, Vehicle, Structure
+					Attractiveness: 1
+					TargetMetric: None
+					CheckRadius: 5c0
+			AvaliStrike:
+				OrderName: AvaliAirstrike
 				MinimumAttractiveness: 1
 				Consideration@1:
 					Against: Enemy

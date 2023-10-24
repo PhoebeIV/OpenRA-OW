@@ -1270,7 +1270,7 @@ VultureGrenade:
 		Speed: 512
 		Blockable: true
 		Image: tgrenade
-		RangeLimit: 7c0
+		RangeLimit: 10c0
 		HorizontalRateOfTurn: 64
 		VerticalRateOfTurn: 32
 		Jammable: false
@@ -1283,9 +1283,9 @@ VultureGrenade:
 		Damage: 5000
 		ValidTargets: Ground, GroundActor, WaterActor, Trees
 		Versus:
-			None: 115
+			None: 120
 			Wood: 50
-			Light: 75
+			Light: 80
 			Heavy: 30
 			Concrete: 20
 		DamageTypes: Prone50Percent, TriggerProne, SmallExplosionDeath
@@ -2200,17 +2200,64 @@ AvaliGrenade:
 	ReloadDelay: 25
 	Range: 5c0
 
-AvaliLeaderGrenade:
+AvaliBurstGrenade:
 	Inherits: AvaliGrenade
-	Report: psibolt.aud
-	ReloadDelay: 50
+	-Report: 
+	StartBurstReport: avburstfire.aud
+	Burst: 3
+	BurstDelays: 2
+	ReloadDelay: 46
 	Projectile: Bullet
 		Speed: 320
-		Image: plse
+		Image: plse2
+		ContrailLength: 6
+		Inaccuracy: 480
+		TrailImage: smokey
 	Warhead@1Dam: SpreadDamage
+		Spread: 128
+		Damage: 1670
+		ValidTargets: GroundActor, WaterActor, AirborneActor
 		Versus:
-			None: 100
-			Wood: 60
+			None: 10
+			Wood: 74
+			Light: 34
+			Heavy: 100
+			Concrete: 50
+		DamageTypes: Prone50Percent, TriggerProne, ExplosionDeath
+	Warhead@2Smu: LeaveSmudge
+		SmudgeType: Scorch
 	Warhead@3Eff: CreateEffect
+		Explosions: plasma_orange, small_explosion, building_sm2
+		ImpactSounds: explomed.aud, explosm.aud, kaboom25.aud, avbursthit.aud, kaboom12.aud
+
+AvaliPredatorCannon:
+	Inherits: ^Cannon
+	ReloadDelay: 40
+	Range: 4c768
+	Report: BalloonWeap1.aud, BalloonWeap2.aud, BalloonWeap3.aud
+	ValidTargets: Ground, Water, GroundActor, WaterActor
+	Projectile: Bullet
+		Speed: 512
+		Image: plse
+		Shadow: True
+	Warhead@1Dam: SpreadDamage
+		Damage: 3500
+		Versus:
+			Heavy: 110
+	Warhead@2Smu: LeaveSmudge
+		SmudgeType: Scorch
+	Warhead@3Eff: CreateEffect
+		Inaccuracy: 128
 		Explosions: med_explosion2_dragoon
-		ImpactSounds: explomed.aud
+		ImpactSounds: explomed.aud, explosm.aud, kaboom25.aud, avbursthit.aud, kaboom12.aud
+
+AvaliTurretGun:
+	Inherits: AvaliPredatorCannon
+	ReloadDelay: 30
+	Range: 7c0
+	Warhead@1Dam: SpreadDamage
+		Damage: 6000
+		Versus:
+			None: 30
+			Wood: 50
+			Heavy: 100

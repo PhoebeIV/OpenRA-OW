@@ -1,5 +1,28 @@
+^AvaliVehicle:
+	ExternalCondition@hordebonustank:
+		Condition: hordebonus
+	ProximityExternalCondition@hordebonus:
+		Condition: hordebonus
+		Range: 4c0
+	WithIdleOverlay@hordebonus:
+		Image: hordebonus-overlay
+		Sequence: vehicle
+		Palette: effect
+		RequiresCondition: (hordebonus >= 15) || (hordebonusupgrade1 >= 15) || (hordebonusupgrade2 >= 15)
+		IsDecoration: True
+	ReloadDelayMultiplier@hordebonus:
+		RequiresCondition: (hordebonus >= 15) || (hordebonusupgrade1 >= 15) || (hordebonusupgrade2 >= 15)
+		Modifier: 90
+	GrantConditionOnTileSet@cold:
+		TileSets: SNOW
+		Condition: env_buff
+	SpeedMultiplier@cold:
+		Modifier: 110
+		RequiresCondition: env_buff
+
 AVMCV:
 	Inherits: MCV
+	Inherits@avali: ^AvaliVehicle
 	Buildable:
 		BuildPaletteOrder: 90
 		Prerequisites: fix, ~mcv, ~techlevel.medium, ~vehicles.avalon
@@ -26,6 +49,7 @@ AVMCV.2:
 
 AVHARV:
 	Inherits: HARV
+	Inherits@avali: ^AvaliVehicle
 	RenderSprites:
 		Image: HARV
 	Buildable:
@@ -36,6 +60,7 @@ AVHARV:
 
 AVDRONE:
 	Inherits: ^Vehicle
+	Inherits@avali: ^AvaliVehicle
 	Inherits@GAINSEXPERIENCE: ^GainsExperience
 	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
 	Buildable:
@@ -95,3 +120,35 @@ AVDRONE:
 		ZOffset: -129
 	Voiced:
 		VoiceSet: ProtossRobotVoice
+
+AV1TNK:
+	Inherits: 2TNK
+	Inherits@avali: ^AvaliVehicle
+	Buildable:
+		BuildPaletteOrder: 132
+		Prerequisites: fix, ~vehicles.avalon, ~techlevel.medium
+		Description: Illuminate Main Battle Tank.\nCan hover over water.\nSpeed: 82\n  Strong vs Vehicles\n  Weak vs Infantry, Aircraft
+	Valued:
+		Cost: 880
+	Tooltip:
+		Name: Predator Tank
+	Health:
+		HP: 44000
+	Mobile:
+		Speed: 82
+		Locomotor: hover
+	Turreted:
+		TurnSpeed: 16
+	Armament:
+		Weapon: AvaliPredatorCannon
+	SpawnActorOnDeath:
+		Actor: AV1TNK.Husk
+	SelectionDecorations:
+	Voiced:
+		VoiceSet: AvaliGeneric
+	WithShadow:
+		Offset: 43, 128, -64
+		ZOffset: -129
+	Hovers:
+	-ClassicFacingBodyOrientation:
+	BodyOrientation:

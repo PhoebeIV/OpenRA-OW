@@ -814,6 +814,11 @@ AvaliBomb:
 		ImpactActors: false
 		ValidTargets: Ground, GroundActor, WaterActor, Trees
 
+AvaliBomberBomb:
+	ReloadDelay: 6
+	Range: 4c0
+	Inherits: AvaliBomb
+
 A10Napalm:
 	ReloadDelay: 3
 	Range: 2c0
@@ -5815,25 +5820,34 @@ AvaliLeaderSword:
 
 AvaliCarrierRepair:
 	Inherits: Repair
-	ReloadDelay: 4
+	ReloadDelay: 8
 	Range: 6c0
 	-Report: 
 	ValidTargets: Repair
-	InvalidTargets: GroundActor, AvaliCarrier
+	InvalidTargets: AvaliCarrier
 	Projectile: LaserZap
 		Width: 64
-		Duration: 6
+		Duration: 8
 		Color: 00FF00
 	Warhead@1Dam: SpreadDamage
-		Damage: -30
+		Damage: -75
 		ValidRelationships: Ally
 		ValidTargets: Repair
-		InvalidTargets: GroundActor, AvaliCarrier
+		InvalidTargets: AvaliCarrier, GroundActor
+	Warhead@2Dam: SpreadDamage
+		Spread: 213
+		Damage: -150
+		ValidRelationships: Ally
+		ValidTargets: Repair
+		InvalidTargets: AvaliCarrier, AirborneActor
+		DebugOverlayColor: 00FF00
+		DamageTypes: BypassShield
 	Warhead@3EffGround: CreateEffect
 		Explosions: scvsparks
 		ImpactSounds: edrrep00.aud, edrrep01.aud, edrrep02.aud, edrrep03.aud, edrrep04.aud
+		ImpactSoundChance: 20
 		Inaccuracy: 64
-		ValidTargets: AirborneActor
+		ValidTargets: Repair
 		ValidRelationships: Ally
 
 AvaliCarrierSpawn:
@@ -5848,7 +5862,46 @@ AvaliCarrierSpawnRep:
 	ReloadDelay: 8
 	Range: 9c512
 	ValidTargets: Repair
-	InvalidTargets: GroundActor, AvaliCarrier
+	InvalidTargets: AvaliCarrier
 	Projectile: InstantHit
 	Warhead@1Dam: SpreadDamage
 		ValidRelationships: Ally
+
+AvaliAALaser:
+	Inherits: ^LaserWeapon
+	ReloadDelay: 30
+	Burst: 20
+	BurstDelays: 5
+	Range: 7c0
+	-Report:
+	StartBurstReport: avlasfire.aud
+	ValidTargets: Air, AirborneActor
+	Projectile: LaserZap
+		Width: 96
+		SecondaryBeamWidth: 64
+		SecondaryBeamZOffset: 513
+		Color: FFC71FAE
+		SecondaryBeamColor: FFFFFFC0
+		SecondaryBeam: true
+		Duration: 20
+		Blockable: false
+	Warhead@1Dam: SpreadDamage
+		Spread: 128
+		Damage: 350
+		ValidTargets: Air, AirborneActor
+		Versus:
+			None: 100
+			Wood: 90
+			Light: 60
+			Heavy: 40
+			Concrete: 50
+		DamageTypes: SmallExplosionDeath
+	Warhead@3EffGround: CreateEffect
+		Explosions: small_explosion, plasma_orange
+		ValidTargets: Air, AirborneActor
+
+AvaliAALaserEnd:
+	ReloadDelay: 9000
+	Warhead@1Dam: CreateEffect
+		ImpactSounds: avlasend.aud
+		ImpactActors: false
