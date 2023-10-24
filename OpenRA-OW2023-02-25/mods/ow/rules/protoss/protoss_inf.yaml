@@ -61,6 +61,7 @@ PPROBE:
 		CaptureDelay: 200
 		SabotageThreshold: 50
 		SabotageHPRemoval: 60
+		ValidRelationships: Enemy, Ally, Neutral
 	Infiltrates:
 		Types: Husk
 		ValidRelationships: Ally
@@ -223,21 +224,27 @@ PTEMPLAR:
 		Locomotor: foot2
 		TurnSpeed: 72
 	RevealsShroud:
-		Range: 5c512
+		Range: 6c0
 	Passenger:
 		Weight: 2
 	Armament@main:
 		RequiresCondition: !merge
-		PauseOnCondition: ammo < 30
-		Weapon: TemplarWeather
-		AmmoUsage: 30
+		PauseOnCondition: ammo < 16
+		Weapon: LightningSpike
+		AmmoUsage: 15
+	Armament@dummy: # prevents AI from walking unit to their death
+		Name: secondary
+		RequiresCondition: botowner && (ammo < 16)
+		Weapon: TemplarDummy
+		AmmoUsage: 0
 	Armament@merge:
 		RequiresCondition: merge
 		Weapon: TemplarMergeWeapon
 		TargetRelationships: Ally
 		Name: mergeattack
 	WithInfantryBody:
-		DefaultAttackSequence: shoot
+		AttackSequences: 
+			primary: shoot
 		IdleSequences: stand
 		StandSequences: stand
 	Targetable:
@@ -252,7 +259,7 @@ PTEMPLAR:
 		Ammo: 30
 		AmmoCondition: ammo
 	ReloadAmmoPool:
-		Delay: 25
+		Delay: 28
 	WithAmmoPipsDecoration:
 		PipCount: 20
 		FullSequence: bar-blue
@@ -274,7 +281,7 @@ PTEMPLAR:
 	ProximityCaptor:
 		Types: Infantry
 	AttackFrontal:
-		Armaments: primary, mergeattack
+		Armaments: primary, secondary, mergeattack
 		FacingTolerance: 16
 	GrantConditionOnDeploy@1:
 		DeployedCondition: merge
@@ -302,19 +309,19 @@ PTEMPLAR:
 PARCHON:
 	Inherits: ^Infantry
 	Inherits@shield: ^ProtossInfShield
-	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
 	Buildable:
-		Prerequisites: ~infantry.protoss, ~techlevel.unrestricted, ~ai.all, advtechcenter
-		Description: Powerful being of 2 merged High Templar\n The ultimate sacrifice.\nSpeed: 88\n  Strong vs ground units
+		Prerequisites: ~infantry.protoss, ~techlevel.unrestricted, advtechcenter
+		Description: Powerful being of 2 merged High Templar\n The ultimate sacrifice.\nSpeed: 88\n  Strong vs everything
 		Queue: Infantry
 		BuildAtProductionType: Soldier
-		BuildPaletteOrder: 90000
-		BuildLimit: 4
+		BuildPaletteOrder: 43
+		BuildLimit: 5
 	Selectable:
 		Bounds: 1024, 1024
 		DecorationBounds: 1877, 1877, 0, 0
 	Valued:
-		Cost: 4000
+		Cost: 4200
 	UpdatesPlayerStatistics:
 		AddToArmyValue: true
 	Tooltip:
@@ -510,17 +517,17 @@ PDARCHON:
 	Inherits: ^Infantry
 	Inherits@shield: ^ProtossInfShield
 	Buildable:
-		Prerequisites: ~infantry.protoss, ~techlevel.unrestricted, ~ai.all, advtechcenter
+		Prerequisites: ~infantry.protoss, ~techlevel.unrestricted, advtechcenter
 		Description: Powerful being of 2 merged Dark Templar\n The ultimate sacrifice.\nSpeed: 88\n  Mind control ability
 		Queue: Infantry
 		BuildAtProductionType: Soldier
-		BuildPaletteOrder: 90000
-		BuildLimit: 2
+		BuildPaletteOrder: 44
+		BuildLimit: 5
 	Selectable:
 		Bounds: 1024, 1024
 		DecorationBounds: 1877, 1877, 0, 0
 	Valued:
-		Cost: 4000
+		Cost: 4200
 	UpdatesPlayerStatistics:
 		AddToArmyValue: true
 	Tooltip:
@@ -549,6 +556,11 @@ PDARCHON:
 		RequiresCondition: !forming
 		PauseOnCondition: ammo < 180
 		AmmoUsage: 180
+	Armament@dummy: # prevents AI from walking unit to their death
+		Name: secondary
+		RequiresCondition: botowner && (ammo < 180)
+		Weapon: DarkArchonDummy
+		AmmoUsage: 0
 	AmmoPool:
 		Ammo: 180
 		AmmoCondition: ammo
@@ -569,19 +581,12 @@ PDARCHON:
 	Targetable@forming:
 		TargetTypes: ProtWarp
 		RequiresCondition: forming
-	GrantConditionOnPrerequisite@botowner:
-		Condition: botowner
-		Prerequisites: ai.all
 	AutoTarget:
 		RequiresCondition: botowner
 		AttackAnythingCondition: stance-attackanything
 	AutoTargetPriority@DEFAULT:
-		RequiresCondition: !stance-attackanything && !assault-move && botowner
-		ValidTargets: Infantry, Vehicle, Ship, Underwater, AirborneActor, Defense, Mine
-		InvalidTargets: NoAutoTarget
-	AutoTargetPriority@ATTACKANYTHING:
-		RequiresCondition: stance-attackanything || assault-move && botowner
-		ValidTargets: Infantry, Vehicle, Ship, Underwater, AirborneActor, Structure, Defense, Mine
+		RequiresCondition: botowner
+		ValidTargets: Infantry, Vehicle, Ship, Underwater
 		InvalidTargets: NoAutoTarget
 	AttackMove:
 		AssaultMoveCondition: assault-move
@@ -604,7 +609,6 @@ PDARCHON:
 		Types: Infantry
 	AttackFrontal:
 		FacingTolerance: 0
-		RequiresCondition: ammo >= 180
 	WithSpriteBody:
 		Sequence: body
 		Palette: player
