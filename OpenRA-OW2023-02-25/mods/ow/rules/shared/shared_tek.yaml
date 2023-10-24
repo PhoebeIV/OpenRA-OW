@@ -761,7 +761,7 @@ T.MISS:
 		PauseOnCondition: disabled
 	AirstrikePower@antimatterbombdrop:
 		OrderName: AntiMatterBombDrop
-		Prerequisites: ulttech.japan
+		Prerequisites: ulttech.japan, !faction.economicgeneral
 		Icon: japanantimatterparadropicon
 		ChargeInterval: 18000
 		Name: Antimatter Parabombs
@@ -784,6 +784,27 @@ T.MISS:
 		SupportPowerPaletteOrder: 40
 		DisplayTimerRelationships: None
 		PauseOnCondition: disabled
+	IonCannonPower@EMPjapan:
+		OrderName: EMPPowerjapan
+		Prerequisites: faction.economicgeneral
+		PauseOnCondition: disabled
+		Icon: emp
+		Cursor: chrono-target
+		ChargeInterval: 10500
+		Name: E.M. Pulse
+		Description: Initiate an EMP strike.\nInflicts no damage but disables all power plants\nwithin a 16 cell radius for 30 seconds. \nDisables vehicles in a 10 cell radius for 15.
+		SelectTargetSpeechNotification: SelectTarget
+		InsufficientPowerSpeechNotification: InsufficientPower
+		OnFireSound: empsound.wav
+		DisplayRadarPing: True
+		CameraActor: camera.small
+		SupportPowerPaletteOrder: 70
+		CameraRemoveDelay: 100
+		Effect: explosion
+		EffectSequence: pulse_explosion
+		EffectPalette: tseffect
+		Weapon: EMPWeapon
+		DisplayTimerRelationships: Ally, Neutral, Enemy
 	AirstrikePower@hyperion:
 		OrderName: Hyperion
 		Prerequisites: ulttech.raynor

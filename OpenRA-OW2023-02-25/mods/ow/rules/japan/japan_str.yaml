@@ -510,9 +510,27 @@ japanmainframe:
 		DisplayRadarPing: True
 		DeploySound: JapanPsychicReveal.aud
 		EffectSequence: idle
+	IonCannonPower@JapanCurseEconomic:
+		OrderName: JapanCurseEconomic
+		Prerequisites: ~structures.japan, faction.economicgeneral
+		PauseOnCondition: disabled
+		Icon: japancurseicon
+		Cursor: chrono-target
+		ChargeInterval: 4500
+		Name: Curse (Enhanced)
+		Description: Weakens enemy damage output by 50% for 30 seconds.
+		SelectTargetSpeechNotification: SelectTarget
+		InsufficientPowerSpeechNotification: InsufficientPower
+		OnFireSound: japcurse.aud
+		DisplayRadarPing: True
+		SupportPowerPaletteOrder: 21
+		Effect: explosion
+		EffectSequence: japancurseanim
+		Weapon: JapanCursePowerEconomic
+		DisplayTimerRelationships: None
 	ParatroopersPower@tenshidrop:
 		OrderName: tenshidrop
-		Prerequisites: ~structures.japan
+		Prerequisites: ~structures.japan, !faction.economicgeneral
 		Icon: tenshisquadicon
 		ChargeInterval: 13500
 		Name: Tenshi Squad
@@ -658,27 +676,27 @@ japanpsychicdatacenter:
 		EffectSequence: japancurseanim
 		Weapon: JapanCursePower
 		DisplayTimerRelationships: None
-	IonCannonPower@JapanCurseEconomic:
-		OrderName: JapanCurse
+	IonCannonPower@JapanBerserkerPower:
+		OrderName: JapanBerserker
 		Prerequisites: ~structures.japan, faction.economicgeneral
 		PauseOnCondition: disabled
-		Icon: japancurseicon
+		Icon: japanberserkicon
 		Cursor: chrono-target
-		ChargeInterval: 4500
-		Name: Curse
-		Description: Weakens enemy damage output by 50% for 30 seconds.
+		ChargeInterval: 9000
+		Name: Berserk
+		Description: Causes all units in a large area to become berserk and attack anything and everything.
 		SelectTargetSpeechNotification: SelectTarget
 		InsufficientPowerSpeechNotification: InsufficientPower
-		OnFireSound: japcurse.aud
+		OnFireSound: japanberserkactivate.aud
 		DisplayRadarPing: True
-		SupportPowerPaletteOrder: 20
+		SupportPowerPaletteOrder: 22
 		Effect: explosion
-		EffectSequence: japancurseanim
-		Weapon: JapanCursePowerEconomic
+		EffectSequence: japanberserkanim
+		Weapon: JapanBerserkerPower
 		DisplayTimerRelationships: None
 	AirstrikePower@finalsquadron:
 		OrderName: finalsquadron
-		Prerequisites: ~structures.japan
+		Prerequisites: ~structures.japan, !faction.economicgeneral
 		Icon: japanfinalsquadronicon
 		ChargeInterval: 15000
 		Name: Final Squadron
@@ -847,6 +865,7 @@ japanlaserbase:
 		RevealGeneratedShroud: False
 	RevealsShroud@GAPGEN:
 		Range: 5c0
+	RenderRangeCircle:
 	Turreted:
 		TurnSpeed: 48
 		InitialFacing: 192
@@ -964,7 +983,7 @@ japanmindcontrol:
 	Inherits@IDISABLE: ^DisableOnLowPowerOrPowerDown
 	Inherits@jshield: ^JapanBaseShield
 	Valued:
-		Cost: 2500
+		Cost: 2000
 	Tooltip:
 		Name: Mind Control Tower
 	Buildable:
@@ -995,18 +1014,47 @@ japanmindcontrol:
 		Range: 6c0
 		RequiresCondition: !disabled
 	Power:
-		Amount: -250
+		Amount: -200
 	Turreted:
 		TurnSpeed: 512
 		Offset: 0,0,112
-	Armament:
-		Weapon: MindControlShot
-		LocalOffset: 512,0,0
+	Armament@PRIMARY:
+		Weapon: MindControlTowerShot
+		LocalOffset: 0,0,1200
+		Recoil: 200
+		RecoilRecovery: 25
+		PauseOnCondition: ammo < 20
+		FireDelay: 25
+		AmmoUsage: 20
+	Armament@effect:
+		Weapon: MindControlSound
+		LocalOffset: 0,0,1200
+		AmmoUsage: 0
+		PauseOnCondition: ammo < 20
+	Armament@zap:
+		Weapon: MindControlZap
+		LocalOffset: 0,0,1200
+		AmmoUsage: 0
+		PauseOnCondition: ammo < 20
+	AmmoPool:
+		Ammo: 20
+		AmmoCondition: ammo
+		InitialAmmo: 4
+	ReloadAmmoPool@normal:
+		Delay: 35
+	WithAmmoPipsDecoration:
+		Position: BottomLeft
+		Margin: 4, 3
+		RequiresSelection: false
+		PipCount: 10
+		ValidRelationships: Ally, Enemy, Neutral
 	AttackTurreted:
 		PauseOnCondition: build-incomplete
 	-QuantizeFacingsFromSequence:
 	BodyOrientation:
 		QuantizedFacings: 8
+	RenderRangeCircle:
+		Range: 7c0
 
 japantransformerbase:
 	Inherits: ^Defense
@@ -1222,11 +1270,12 @@ japanballoon:
 japanoredrill:
 	Inherits: ^Building
 	Inherits@IDISABLE: ^DisableOnLowPowerOrPowerDown
+	Inherits@jshield: ^JapanBaseShield
 	Valued:
 		Cost: 2400
 	Buildable:
 		Queue: Tech
-		BuildPaletteOrder: 190
+		BuildPaletteOrder: 550
 		Prerequisites: advtechcenter, ~structures.japan, ~techlevel.unrestricted
 		Description: Generates an ore field.
 	Tooltip:
@@ -1257,10 +1306,11 @@ japanwaveforceturret:
 	Inherits: ^Defense
 	Inherits@LOWPOWER: ^DisableOnLowPowerOrPowerDown
 	Inherits@AUTOTARGET: ^AutoTargetAll
+	Inherits@jshield: ^JapanBaseShield
 	Buildable:
 		Queue: Defense
 		BuildPaletteOrder: 70
-		Prerequisites: ~structures.japan, anypower, advtechcenter, ~faction.economicgeneral
+		Prerequisites: ~structures.japan, advtechcenter, ~faction.economicgeneral
 		Description: Anti-Infantry and Air base defense.\nCan detect cloaked units.\n  Strong vs Infantry, Aircraft\n  Weak vs Vehicles
 	Valued:
 		Cost: 1800
@@ -1344,3 +1394,100 @@ japanwaveforceturret:
 		Prerequisites: upgrade.focusedlasers
 	RangeMultiplier@mecha:
 		Modifier: 120
+
+japanberserktower:
+	Inherits: japanmindcontrol
+	Buildable:
+		Icon: icon-berserk
+		Queue: Defense
+		Prerequisites: ~structures.japan, advtechcenter, ~faction.economicgeneral
+		Description: Sends nearby enemies into a berserk state. Consumes lots of power.
+		BuildPaletteOrder: 72
+	Tooltip:
+		Name: Berserker Tower
+	Valued:
+		Cost: 1850
+	Armament@PRIMARY:
+		Weapon: BerserkerTowerShot
+		LocalOffset: 0,0,1200
+		Recoil: 200
+		RecoilRecovery: 25
+		PauseOnCondition: ammo < 20
+		FireDelay: 25
+		AmmoUsage: 20
+	RenderSprites:
+		Image: japanmindcontrol
+
+japanhyperantimatterreactor:
+	Inherits: ^PowerPlant
+	Inherits@POWER_OUTAGE: ^DisabledByPowerOutage
+	Inherits@shape: ^3x2Shape
+	Inherits@jshield: ^JapanBaseShield
+	Inherits@BIB: ^3xBuildingBib
+	Selectable:
+		Bounds: 3072, 2048
+	HitShape:
+		UseTargetableCellsOffsets: false
+		TargetableOffsets: 0,0,0, 640,-384,0, 640,512,0, -710,-512,0, -710,512,0
+	Buildable:
+		Queue: Tech
+			BuildPaletteOrder: 500
+		BuildPaletteOrder: 1
+		Prerequisites: ~structures.japan, techcenter, ~!ai.powerout
+		Description: Advanced Powerplant.\nCan be deployed to sacrifice itself to provide unlimited power for 30 seconds.
+	Valued:
+		Cost: 1600
+	Tooltip:
+		Name: Hyper Antimatter Reactor
+	ProvidesPrerequisite:
+		Prerequisite: anypower
+	Building:
+		Footprint: xxx xxx xxx
+		Dimensions: 3,3
+		LocalCenterOffset: 0,-512,0
+	Health:
+		HP: 120000
+	Armor:
+		Type: Wood
+	RevealsShroud:
+		Range: 4c0
+	Power:
+		Amount: 750
+		RequiresCondition: !overcharge && !disabled
+	GrantConditionOnDeploy:
+		MakeAnimationDeployTypes:
+		DeployedCondition: overcharge
+		SkipMakeAnimation: True
+	KillsSelf@overcharged:
+		Delay: 25
+		RequiresCondition: overcharge
+	Explodes@overcharged:
+		Weapon: MiniNuke
+		EmptyWeapon: MiniNuke
+	WithIdleOverlay@1:
+		Image: explosion
+		Sequence: bunkerbustersringmini1
+		Offset: 0,-1050,550
+		RequiresCondition: !build-incomplete
+		Palette: noplayer
+	WithIdleOverlay@2:
+		Image: explosion
+		Sequence: bunkerbustersringmini2
+		Offset: 0,400,1300
+		RequiresCondition: !build-incomplete
+		Palette: noplayer
+	WithIdleOverlay@3:
+		Image: explosion
+		Sequence: bunkerbustersringmini3
+		Offset: 0,1000,200
+		RequiresCondition: !build-incomplete
+		Palette: noplayer
+	Targetable:
+		TargetTypes: GroundActor, Structure, C4, DetonateAttack, SpyInfiltrate
+	ScalePowerWithHealth:
+	WithDeathAnimation:
+		DeathSequence: dead
+		UseDeathTypeSuffix: false
+	SpawnActorOnDeath@overcharged:
+		Actor: AntiMatterPowerActor
+		RequiresCondition: overcharge

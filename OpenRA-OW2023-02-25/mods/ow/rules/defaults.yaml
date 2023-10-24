@@ -448,6 +448,7 @@
 	Inherits@frenzyboost: ^FrenzyBoostInfantry
 	Inherits@propagandaboost: ^propagandaboostinfantry
 	Inherits@shields: ^AcceptsShields
+	Inherits@japanbuffs: ^japanbuffs_infantry
 	GrantCondition@crate:
 		Condition: cantdropcrate
 	OwnerLostAction:
@@ -971,6 +972,8 @@
 ^Building:
 	Inherits@corrode: ^CorrodesFromTibWeaps
 	Inherits@shields: ^AcceptsShields
+	Inherits@jshield: ^JapanBaseShield
+	Inherits@japanbuffs_refinery: ^japanbuffs_refinery
 	OwnerLostAction:
 		Action: ChangeOwner
 	Capturable:
@@ -1111,6 +1114,8 @@
 	Inherits@usahold_the_line: ^usaholdtheline
 	Inherits@propagandaboost: ^propagandaboost
 	Inherits@shields: ^AcceptsShields
+	Inherits@jshield: ^JapanBaseShield
+	Inherits@japanbuffs_buildings: ^japanbuffs_buildings
 	Building:
 		Footprint: +
 	GivesBuildableArea:
@@ -1185,6 +1190,7 @@
 	Inherits@propagandaboost: ^propagandaboost
 	Inherits@frenzyboost: ^FrenzyBoost
 	Inherits@shields: ^AcceptsShields
+	Inherits@japanbuffs_buildings: ^japanbuffs_buildings
 	OwnerLostAction:
 		Action: ChangeOwner
 		Owner: Creeps
@@ -2235,6 +2241,56 @@
 		ValidRelationships: None,Neutral,Enemy,Ally
 		RequiresCondition: basemedkits
 
+^japanbuffs_infantry:
+	ExternalCondition@commandobonus:
+		Condition: commandobonus
+	DamageMultiplier@commandobonus:
+		RequiresCondition: commandobonus
+		Modifier: 75
+	WithIdleOverlay@commandobonus:
+		Image: commandobonus-overlay
+		Sequence: infantry
+		Palette: effect
+		RequiresCondition: commandobonus
+		IsDecoration: True
+	ExternalCondition@onmyodomark:
+		Condition: onmyodomark
+	WithColoredOverlay@onmyodomark:
+		Color: ffffff50
+		RequiresCondition: onmyodomark
+	Explodes:
+		Weapon: japanonmyodomarkexplode
+		EmptyWeapon: japanonmyodomarkexplode
+		RequiresCondition: onmyodomark
+
+^japanbuffs_buildings:
+	ExternalCondition@komatsubuff:
+		Condition: komatsubuff
+	RangeMultiplier@komatsubuff:
+		Modifier: 125
+		RequiresCondition: komatsubuff
+	ReloadDelayMultiplier@komatsubuff:
+		Modifier: 80
+		RequiresCondition: komatsubuff
+	WithColoredOverlay@komatsubuff:
+		Color: 00fbff50
+		RequiresCondition: komatsubuff
+	ExternalCondition@shishironbuff:
+		Condition: shishironbuff
+	SpeedMultiplier@shishironbuff:
+		Modifier: 140
+		RequiresCondition: shishironbuff
+	WithColoredOverlay@shishironbuff:
+		Color: 00ff8050
+		RequiresCondition: shishironbuff
+
+^japanbuffs_refinery:
+	ExternalCondition@shishironbuff:
+		Condition: shishironbuff
+	ResourceValueMultiplier@shishironbuff:
+		Modifier: 125
+		RequiresCondition: shishironbuff
+
 ^FrenzyBoost:
 	ExternalCondition@patriotismboost:
 		Condition: patriotismboost
@@ -2315,6 +2371,21 @@
 	WithColoredOverlay@cyrostream:
 		RequiresCondition: cyrostreameffect >= 8
 		Color: 00fbff40
+	ExternalCondition@JapanBerserkerPower:
+		Condition: JapanBerserkerCondition
+	Berserkable@JapanBerserkerPower:
+		RequiresCondition: JapanBerserkerCondition
+	WithColoredOverlay@JapanBerserkerPower:
+		RequiresCondition: JapanBerserkerCondition
+		Color: ff000040
+	DamageMultiplier@JapanBerserkerPower:
+		Modifier: 75
+		RequiresCondition: JapanBerserkerCondition
+	ReloadDelayMultiplier@JapanBerserkerPower:
+		Modifier: 120
+		RequiresCondition: JapanBerserkerCondition
+	RejectsOrders@JapanBerserkerPower:
+		RequiresCondition: JapanBerserkerCondition
 
 ^FrenzyBoostInfantry:
 	Inherits: ^FrenzyBoost

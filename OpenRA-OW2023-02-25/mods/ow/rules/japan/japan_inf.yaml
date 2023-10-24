@@ -3,17 +3,6 @@
 		Condition: external_shield
 		Prerequisites: upgrade.nanomachines
 	Chronoshiftable:
-	ExternalCondition@commandobonus:
-		Condition: commandobonus
-	DamageMultiplier@commandobonus:
-		RequiresCondition: commandobonus
-		Modifier: 75
-	WithIdleOverlay@commandobonus:
-		Image: commandobonus-overlay
-		Sequence: infantry
-		Palette: effect
-		RequiresCondition: commandobonus
-		IsDecoration: True
 
 ^japandnastamina:
 	FirepowerMultiplier@dnastamina:
@@ -706,6 +695,7 @@ japanmatsui:
 
 japanonmyodo:
 	Inherits: ^Soldier
+	Inherits@AUTOTARGET: ^AutoTargetAll
 	Inherits: ^JapanInfantryNanoMachinesShield
 	Inherits: ^japandnastamina
 	Inherits: ^japandnacloning
@@ -714,7 +704,7 @@ japanonmyodo:
 		BuildAtProductionType: Soldier
 		BuildPaletteOrder: 71
 		Prerequisites: ~infantry.japan, ~faction.economicgeneral, techcenter
-		Description: hacking the internet dry
+		Description: Provides an armor buff to nearby friendly infantry. Also curses an enemy infantry unit, who will explode into a spirit wolf when killed.
 		BuildLimit: 15
 	Valued:
 		Cost: 1100
@@ -724,6 +714,9 @@ japanonmyodo:
 		HP: 25000
 	Mobile:
 		Voice: Move
+	Armament@Anim:
+		Weapon: japanonmyodomark
+		LocalOffset: 0,0,196
 	AttackFrontal:
 	WithInfantryBody:
 		DefaultAttackSequence: hack
@@ -738,3 +731,71 @@ japanonmyodo:
 	ProximityExternalCondition@commandobonus:
 		Condition: commandobonus
 		Range: 3c0
+
+japaninugami:
+	Inherits: ^Soldier
+	Inherits@AUTOTARGET: ^AutoTargetAll
+	Tooltip:
+		Name: Inugami
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Selectable:
+		Bounds: 512, 725, -42, -170
+		DecorationBounds: 512, 725, -42, -170
+	Health:
+		HP: 15000
+	Mobile:
+		Speed: 100
+		Voice: Move
+		PauseOnCondition: attack-cooldown || eating
+	Guard:
+		Voice: Move
+	Passenger:
+		Voice: Move
+	RevealsShroud:
+		Range: 5c512
+	Armament:
+		Weapon: DogJaw
+		ReloadingCondition: attack-cooldown
+	-AttackFrontal:
+	AttackLeap:
+		Voice: Attack
+		PauseOnCondition: attacking || attack-cooldown
+	AttackMove:
+		Voice: Move
+	GrantConditionOnAttack:
+		Condition: eating
+		RevokeDelay: 20
+	GrantConditionWhileAiming:
+		Condition: run
+	AutoTarget:
+		InitialStance: AttackAnything
+	AutoTargetPriority@DEFAULT:
+		ValidTargets: Infantry
+	Targetable:
+		TargetTypes: GroundActor, Infantry
+	WithInfantryBody:
+		MoveSequence: walk
+		StandSequences: stand
+		DefaultAttackSequence: eat
+		RequiresCondition: !run && !parachute
+	WithInfantryBody@RUN:
+		MoveSequence: run
+		RequiresCondition: run && !parachute
+	WithInfantryBody@PARACHUTE:
+		RequiresCondition: parachute
+		Palette: player-noshadow
+		IsPlayerPalette: true
+	SpeedMultiplier:
+		Modifier: 150
+		RequiresCondition: run
+	IgnoresDisguise:
+	Voiced:
+		VoiceSet: DogVoice
+	-TakeCover:
+	ChangesHealth@spiritdog:
+		Step: 0
+		PercentageStep: -10
+		Delay: 25
+	KillsSelf@spiritdog:
+		Delay: 250

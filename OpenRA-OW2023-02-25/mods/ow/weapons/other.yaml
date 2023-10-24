@@ -2756,6 +2756,7 @@ USAMicrowaveLaser:
 		Color: FFA500
 		Shape: Cylindrical
 	Warhead@1Dam: SpreadDamage
+		Spread: 1
 		Damage: 2000
 		Versus:
 			None: 100
@@ -2766,6 +2767,7 @@ USAMicrowaveLaser:
 		DamageTypes: Prone50Percent, TriggerProne, FireDeath
 		ValidTargets: Ground, GroundActor, Water, WaterActor
 	Warhead@2EMP: GrantExternalCondition
+		Spread: 1
 		Condition: disabled
 		Duration: 50
 		ValidTargets: GroundActor, WaterActor
@@ -4073,6 +4075,7 @@ chinaecmshot:
 		Color: FFA500
 		Shape: Cylindrical
 	Warhead@1Dam: SpreadDamage
+		Spread: 1
 		Damage: 2000
 		Versus:
 			None: 0
@@ -4083,6 +4086,7 @@ chinaecmshot:
 		DamageTypes: Prone50Percent, TriggerProne, FireDeath
 		ValidTargets: Tank, Vehicle
 	Warhead@2EMP: GrantExternalCondition
+		Spread: 1
 		Condition: disabled
 		Duration: 50
 		ValidTargets: Tank, Vehicle
@@ -5088,25 +5092,42 @@ MindControlShot:
 
 JapanCursePower:
 	ReloadDelay: 300
-	Range: 7c0
+	Range: 6c0
 	Projectile: InstantHit
 	Warhead@curtain: GrantExternalCondition
 		ValidTargets: GroundActor, Trees, WaterActor, Underwater, AirborneActor
 		ValidRelationships: Enemy, Neutral
 		Condition: JapanCurseCondition
-		Range: 7c0
+		Range: 6c0
 		Duration: 375
 
 JapanCursePowerEconomic:
 	ReloadDelay: 300
-	Range: 9c0
+	Range: 8c0
 	Projectile: InstantHit
 	Warhead@curtain: GrantExternalCondition
 		ValidTargets: GroundActor, Trees, WaterActor, Underwater, AirborneActor
 		ValidRelationships: Enemy, Neutral
 		Condition: JapanCurseCondition
-		Range: 9c0
+		Range: 8c0
 		Duration: 750
+
+JapanBerserkerPower:
+	ReloadDelay: 300
+	Range: 5c0
+	Projectile: InstantHit
+	ValidTargets: Infantry, Vehicle
+	Warhead@curtain: GrantExternalCondition
+		Delay: 135
+		ValidTargets: GroundActor, Trees, WaterActor, Underwater, AirborneActor
+		ValidRelationships: Enemy, Neutral, Ally
+		Condition: JapanBerserkerCondition
+		Range: 5c0
+		Duration: 375
+	Warhead@curtain2: CreateEffect
+		Delay: 135
+		ImpactSounds: japanberserkexplode.aud
+		ValidTargets: Ground, Water, GroundActor, WaterActor, AirborneActor, Air
 
 DivineInterventionCluster1:
 	ReloadDelay: 625
@@ -5638,6 +5659,149 @@ SkyEmpressClusterSmall:
 		Explosions: laserhitmed
 		ValidTargets: Ground, GroundActor, WaterActor, AirborneActor
 		ImpactActors: true
+
+BerserkerTowerShot:
+	Range: 7c0
+	ReloadDelay: 35
+	Report: japanholotreeshot.aud
+	ValidTargets: Infantry, Vehicle
+	ValidRelationships: Enemy
+	InvalidTargets: Structure
+	Projectile: LaserZap
+	Warhead@curtain: GrantExternalCondition
+		ValidTargets: GroundActor, Trees, WaterActor, Underwater, AirborneActor
+		ValidRelationships: Enemy, Neutral, Ally
+		Condition: JapanBerserkerCondition
+		Spread: 512
+		Duration: 375
+	Warhead@3EffGround: CreateEffect
+		Explosions: bfgred
+		ImpactSounds: mind.aud
+		ValidTargets: Ground, Air, GroundActor, AirborneActor, WaterActor, Water, Trees
+
+MindControlTowerShot:
+	Inherits: DarkArchonMindControl
+	Range: 7c0
+	ReloadDelay: 35
+	Report: japanholotreeshot.aud
+
+MindControlZap:
+	ReloadDelay: 35
+	Burst: 15
+	BurstDelays: 5
+	Range: 7c0
+	ValidTargets: Infantry, Vehicle
+	Projectile: ElectricBolt
+		Colors: ff000050, c4000070, ff303070, ff8a8a80, ffdbdb80
+		Distortion: 128
+		DistortionAnimation: 32
+		SegmentLength: 64
+		Width: 16
+		Duration: 6
+	Warhead@1Dam: SpreadDamage
+		Damage: 1
+		ValidTargets: Ground, Water, GroundActor, WaterActor
+
+MindControlSound:
+	ReloadDelay: 35
+	Range: 7c0
+	Report: MindControlSoundcharge.aud
+	ValidTargets: Infantry, Vehicle
+	Projectile: Missile
+		Speed: 2
+		RangeLimit: 3
+	Warhead@3Eff: CreateEffect
+		Explosions: japanmindcontrolmuzzle1
+		ValidTargets: Ground, GroundActor, WaterActor, Trees, Air
+	Warhead@4Eff: CreateEffect
+		Explosions: japanmindcontrolmuzzle2
+		ValidTargets: Ground, GroundActor, WaterActor, Trees, Air
+
+japanonmyodomark:
+	ReloadDelay: 250
+	Range: 7c768
+	ValidTargets: Infantry
+	TargetActorCenter: true
+	Report: japanonmyodomarksound.aud
+	Projectile: LaserZap
+		Duration: 25
+		Width: 60
+		Color: ffffff70
+		SecondaryBeam: true
+		SecondaryBeamWidth: 90
+		SecondaryBeamColor: 4dd2ff35
+	Warhead@1Dam: GrantExternalCondition
+		Condition: onmyodomark
+		Duration: 175
+		ValidTargets: Infantry
+		Range: 1
+	Warhead@1Eff_impact: CreateEffect
+		Explosions: japanholotreeproj
+		ValidTargets: Ground, Water, GroundActor, WaterActor
+
+japanonmyodomarkexplode:
+	Warhead@2Eff: CreateEffect
+		Explosions: japanonmyodoexplosion
+		ImpactSounds: japanonmyodomarkexplode.aud
+		ImpactActors: false
+	Warhead@3Eff: SpawnActor
+		Delay: 5
+		Range: 5
+		Actors: japaninugami
+
+japankomatsulaser:
+	ReloadDelay: 2
+	Range: 4c0
+	TargetActorCenter: True
+	ValidTargets: Vehicle, Defense
+	Projectile: LaserZap
+		Width: 50
+		Duration: 10
+		Color: 00fbff
+	Warhead@1Dam: SpreadDamage
+		Damage: 50
+		Versus:
+			None: 1
+			Wood: 1
+			Light: 1
+			Heavy: 1
+			Concrete: 1
+		DamageTypes: Prone50Percent, TriggerProne, ElectricityDeath
+		ValidTargets: Ground, GroundActor, Water, WaterActor
+		ValidRelationships: Ally
+	Warhead@2: GrantExternalCondition
+		Condition: komatsubuff
+		Duration: 15
+		ValidTargets: Vehicle, Defense
+		ValidRelationships: Ally
+	TargetActorCenter: True
+
+japanshishironlaser:
+	ReloadDelay: 2
+	Range: 7c0
+	TargetActorCenter: True
+	ValidTargets: Vehicle, Building, Structure
+	Projectile: LaserZap
+		Width: 50
+		Duration: 10
+		Color: 00ff80
+	Warhead@1Dam: SpreadDamage
+		Damage: 50
+		Versus:
+			None: 1
+			Wood: 1
+			Light: 1
+			Heavy: 1
+			Concrete: 1
+		DamageTypes: Prone50Percent, TriggerProne, ElectricityDeath
+		ValidTargets: Ground, GroundActor, Water, WaterActor
+		ValidRelationships: Ally
+	Warhead@2: GrantExternalCondition
+		Condition: shishironbuff
+		Duration: 15
+		ValidTargets: Vehicle, Building, Structure
+		ValidRelationships: Ally
+	TargetActorCenter: True
 
 AvaliLeaderSword:
 	Inherits: TemplarBlade
