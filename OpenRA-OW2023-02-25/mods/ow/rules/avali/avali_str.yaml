@@ -1,13 +1,11 @@
 
 AVFACT:
-	Inherits: FACT
+	Inherits: FACTD
 	Selectable:
 		Bounds: 3072, 3072
 	D2kBuilding:
-		Footprint: xxX xxx XxX ===
-		Dimensions: 3,4
-		TerrainTypes: Clear,Road,Creep
-		AllowPlacementOnResources: true
+		BuildSounds: placbldg.aud, build5.aud
+		LocalCenterOffset: 0,0,0
 	Tooltip:
 		Name: Construction Command Ship
 	SpawnActorsOnSell:
@@ -18,7 +16,7 @@ AVFACT:
 		PauseOnCondition: chrono-vortex || being-captured || being-demolished || build-incomplete
 		IntoActor: avmcv
 		Offset: 1,1
-		Facing: 384
+		Facing: 0
 	GrantConditionOnTileSet@snow:
 		TileSets: SNOW
 		Condition: no_gen
@@ -27,7 +25,10 @@ AVFACT:
 		RequiresCondition: !no_gen
 	-RenderSprites:
 	RenderSprites:
-		Image: fact
+	-WithDeathAnimation:
+	-WithIdleOverlay@soviet:
+	Cloak@stealthgen:
+		Palette: cloak
 
 ^AvaliPowerPlant:
 	Inherits: ^PowerPlant
