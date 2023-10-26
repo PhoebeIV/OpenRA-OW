@@ -212,6 +212,32 @@
 	WithColoredOverlay@dominatrix:
 		RequiresCondition: dominatrix
 		Color: 93009e40
+	ExternalCondition@akuma:
+		Condition: akuma
+	DamageMultiplier@akuma:
+		RequiresCondition: akuma
+		Modifier: 150
+	FirepowerMultiplier@akuma:
+		RequiresCondition: akuma
+		Modifier: 50
+	PowerMultiplier@akuma:
+		RequiresCondition: akuma
+		Modifier: 150
+	WithColoredOverlay@akuma:
+		RequiresCondition: akuma
+		Color: ff000040
+	WithIdleOverlay@akuma:
+		Image: akuma-overlay
+		Sequence: akuma-vehicle
+		Palette: effect
+		RequiresCondition: akuma
+		IsDecoration: True
+	ChangesHealth@akuma:
+		Step: -150
+		Delay: 25
+		StartIfBelow: 101
+		DamageTypes: ElectricityDeath
+		RequiresCondition: akuma
 	ExternalCondition@support:
 		Condition: SupportPowerConsiderer
 	Targetable@support:
@@ -684,6 +710,12 @@
 	Targetable@HEAL:
 		RequiresCondition: !parachute && ((damaged && !external_shield) || (damaged && external_shield && !enable_shield))
 		TargetTypes: Heal
+	WithIdleOverlay@akuma:
+		Image: akuma-overlay
+		Sequence: akuma-infantry
+		Palette: effect
+		RequiresCondition: akuma
+		IsDecoration: True
 
 ^Cyborg:
 	Inherits: ^Infantry
@@ -1094,6 +1126,12 @@
 		Modifier: 0
 	Demolishable:
 		Condition: emp_shields
+	WithIdleOverlay@akuma:
+		Image: akuma-overlay
+		Sequence: akuma-building
+		Palette: effect
+		RequiresCondition: akuma
+		IsDecoration: True
 
 ^ScienceBuilding:
 	SpawnActorsOnSell:
@@ -2230,6 +2268,27 @@
 		Palette: effect
 		RequiresCondition: propagandaupgrade
 		IsDecoration: True
+	ExternalCondition@JapanBerserkerPower:
+		Condition: JapanBerserkerCondition
+	Berserkable@JapanBerserkerPower:
+		RequiresCondition: JapanBerserkerCondition
+	WithColoredOverlay@JapanBerserkerPower:
+		RequiresCondition: JapanBerserkerCondition
+		Color: ff000040
+	WithIdleOverlay@JapanBerserkerPower:
+		Image: berserk-overlay
+		Sequence: berserk-vehicle
+		Palette: effect
+		RequiresCondition: JapanBerserkerCondition
+		IsDecoration: True
+	DamageMultiplier@JapanBerserkerPower:
+		Modifier: 75
+		RequiresCondition: JapanBerserkerCondition
+	ReloadDelayMultiplier@JapanBerserkerPower:
+		Modifier: 120
+		RequiresCondition: JapanBerserkerCondition
+	RejectsOrders@JapanBerserkerPower:
+		RequiresCondition: JapanBerserkerCondition
 
 
 ^propagandaboostinfantry:
@@ -2254,6 +2313,27 @@
 		Position: TopRight
 		ValidRelationships: None,Neutral,Enemy,Ally
 		RequiresCondition: basemedkits
+	ExternalCondition@JapanBerserkerPower:
+		Condition: JapanBerserkerCondition
+	Berserkable@JapanBerserkerPower:
+		RequiresCondition: JapanBerserkerCondition
+	WithColoredOverlay@JapanBerserkerPower:
+		RequiresCondition: JapanBerserkerCondition
+		Color: ff000040
+	WithIdleOverlay@JapanBerserkerPower:
+		Image: berserk-overlay
+		Sequence: berserk-infantry
+		Palette: effect
+		RequiresCondition: JapanBerserkerCondition
+		IsDecoration: True
+	DamageMultiplier@JapanBerserkerPower:
+		Modifier: 75
+		RequiresCondition: JapanBerserkerCondition
+	ReloadDelayMultiplier@JapanBerserkerPower:
+		Modifier: 120
+		RequiresCondition: JapanBerserkerCondition
+	RejectsOrders@JapanBerserkerPower:
+		RequiresCondition: JapanBerserkerCondition
 
 ^japanbuffs_infantry:
 	ExternalCondition@commandobonus:
@@ -2272,10 +2352,11 @@
 	WithColoredOverlay@onmyodomark:
 		Color: ffffff50
 		RequiresCondition: onmyodomark
-	Explodes:
+	Explodes@onmyodomark:
 		Weapon: japanonmyodomarkexplode
 		EmptyWeapon: japanonmyodomarkexplode
 		RequiresCondition: onmyodomark
+		DamageSource: Killer
 
 ^japanbuffs_buildings:
 	ExternalCondition@komatsubuff:
@@ -2385,21 +2466,6 @@
 	WithColoredOverlay@cyrostream:
 		RequiresCondition: cyrostreameffect >= 8
 		Color: 00fbff40
-	ExternalCondition@JapanBerserkerPower:
-		Condition: JapanBerserkerCondition
-	Berserkable@JapanBerserkerPower:
-		RequiresCondition: JapanBerserkerCondition
-	WithColoredOverlay@JapanBerserkerPower:
-		RequiresCondition: JapanBerserkerCondition
-		Color: ff000040
-	DamageMultiplier@JapanBerserkerPower:
-		Modifier: 75
-		RequiresCondition: JapanBerserkerCondition
-	ReloadDelayMultiplier@JapanBerserkerPower:
-		Modifier: 120
-		RequiresCondition: JapanBerserkerCondition
-	RejectsOrders@JapanBerserkerPower:
-		RequiresCondition: JapanBerserkerCondition
 
 ^FrenzyBoostInfantry:
 	Inherits: ^FrenzyBoost

@@ -729,7 +729,6 @@ japankomatsu:
 	Inherits: JEEP
 	Inherits@AUTOTARGET: ^AutoTargetAll
 	Buildable:
-		Icon: icon-komatsu
 		BuildPaletteOrder: 134
 		Prerequisites: ~vehicles.japan, ~faction.economicgeneral, techcenter
 		Description: Support vehicle.\n Can be used to increase the range and fire rate of friendly vehicles and defence structures.
@@ -751,19 +750,16 @@ japankomatsu:
 		Weapon: japankomatsulaser
 		TargetRelationships: Ally
 		ForceTargetRelationships: Ally
-	RenderSprites:
-		Image: usaavenger
 	Voiced:
-		VoiceSet: AvengerVoice
+		VoiceSet: KomatsuVoice
 
 japanshishiron:
 	Inherits: JEEP
 	Inherits@AUTOTARGET: ^AutoTargetAll
 	Buildable:
-		Icon: icon-shishiron
 		BuildPaletteOrder: 134
-		Prerequisites: ~vehicles.japan, ~faction.economicgeneral, techcenter
-		Description: Support vehicle.\n Can be used to increase movement speed and money generation for friendly units.\n Recommended to use on harvesters.
+		Prerequisites: ~vehicles.japan, ~faction.economicgeneral, advtechcenter
+		Description: Support vehicle.\nCan be used to increase movement speed and money generation for friendly units.\nRecommended to use on harvesters.
 	Tooltip:
 		Name: Shishiron
 	Health:
@@ -782,7 +778,117 @@ japanshishiron:
 		Weapon: japanshishironlaser
 		TargetRelationships: Ally
 		ForceTargetRelationships: Ally
-	RenderSprites:
-		Image: usaavenger
 	Voiced:
-		VoiceSet: AvengerVoice
+		VoiceSet: ShishironVoice
+
+japanakuma:
+	Inherits@EPIC: ^EpicUnit
+	Inherits@EPIC2: ^EpicVehicle
+	Inherits: ^TrackedVehicle
+	Inherits@AUTOTARGET: ^AutoTargetAll
+	Buildable:
+		Queue: Vehicle
+		BuildPaletteOrder: 2500
+		Prerequisites: ~vehicles.japan, ulttechcenter, ~faction.economicgeneral
+		Description: [EPIC]\nAkuma is a long ranged artillery debuffer.\nHas to be deployed to fire, it will weaken any units caught in the blast\nand randomly cause some units to go berserk or become under your control.
+		BuildLimit: 1
+	Valued:
+		Cost: 28000
+	Tooltip:
+		Name: Akuma
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 150000
+	Armor:
+		Type: Heavy
+	Mobile:
+		Speed: 35
+		Locomotor: heavytracked
+		PauseOnCondition: deployed
+		Voice: Move
+	Guard:
+		Voice: Move
+	Passenger:
+		Weight: 8
+		CustomPipType: red
+		Voice: Move
+	RevealsShroud:
+		MinRange: 7c0
+		Range: 8c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 7c0
+	Turreted:
+		TurnSpeed: 32
+		Turret: primary
+		Offset: 0,0,256
+	Turreted@deployed:
+		Turret: secondary
+		Offset: 0,0,256
+	Armament@PRIMARY:
+		Weapon: AkumaBeam
+		LocalOffset: 0,0,800
+		PauseOnCondition: ammo < 20
+		FireDelay: 50
+		AmmoUsage: 20
+		RequiresCondition: deployed
+	Armament@effect:
+		Weapon: AkumaSound
+		LocalOffset: 0,0,800
+		AmmoUsage: 0
+		PauseOnCondition: ammo < 20
+		RequiresCondition: deployed
+	AttackTurreted:
+		Turrets: primary, secondary
+		PauseOnCondition: disabled
+	WithSpriteTurret:
+		Sequence: turret
+		Turret: primary
+		RequiresCondition: !deployed
+	WithSpriteTurret@deployed:
+		Sequence: turret2
+		Turret: secondary
+		RequiresCondition: deployed
+	SelectionDecorations:
+	Voiced:
+		VoiceSet: SkyEmpressVoice
+	Selectable:
+		DecorationBounds: 1877, 1621, 0, -170
+	ShakeOnDeath:
+	ChangesHealth:
+		Step: 500
+		Delay: 25
+		StartIfBelow: 50
+		DamageCooldown: 200
+	ExternalCondition@PRODUCED:
+		Condition: produced
+	VoiceAnnouncement:
+		RequiresCondition: produced
+		Voice: Build
+	AnnounceOnKill:
+		Voice: Kill
+	Explodes:
+		Weapon: SkyEmpressCannon
+		EmptyWeapon: SkyEmpressCannon
+	GrantConditionOnDeploy:
+		DeployedCondition: deployed
+		CanDeployOnRamps: true
+		AllowedTerrainTypes:
+		DeploySounds: JapanSelectTransBase.aud
+	AmmoPool:
+		Ammo: 20
+		AmmoCondition: ammo
+		InitialAmmo: 4
+	ReloadAmmoPool@normal:
+		Delay: 50
+	WithAmmoPipsDecoration:
+		Position: BottomLeft
+		Margin: 4, 3
+		RequiresSelection: false
+		PipCount: 10
+		ValidRelationships: Ally, Enemy, Neutral
+	ProximityExternalCondition@propaganda:
+		Condition: patriotismboost
+		RequiresCondition: !disabled && deployed
+		Range: 5c0

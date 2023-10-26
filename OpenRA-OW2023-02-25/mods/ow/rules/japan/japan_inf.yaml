@@ -634,7 +634,9 @@ japanmatsui:
 	UpdatesPlayerStatistics:
 		AddToArmyValue: true
 	Health:
-		HP: 35000
+		HP: 40000
+	Armor:
+		Type: Light
 	Mobile:
 		Speed: 68
 		Voice: Move
@@ -707,11 +709,13 @@ japanonmyodo:
 		Description: Provides an armor buff to nearby friendly infantry. Also curses an enemy infantry unit, who will explode into a spirit wolf when killed.
 		BuildLimit: 15
 	Valued:
-		Cost: 1100
+		Cost: 1250
 	Tooltip:
 		Name: Onmyodo
 	Health:
-		HP: 25000
+		HP: 20000
+	Armor:
+		Type: Light
 	Mobile:
 		Voice: Move
 	Armament@Anim:
@@ -726,11 +730,14 @@ japanonmyodo:
 	ProducibleWithLevel:
 		Prerequisites: barracks.upgraded
 	Voiced:
-		VoiceSet: MatsuiVoice
+		VoiceSet: OnmyodoVoice
 	-MustBeDestroyed:
 	ProximityExternalCondition@commandobonus:
 		Condition: commandobonus
 		Range: 3c0
+	Explodes:
+		Weapon: japanonmyodomarkexplode
+		EmptyWeapon: japanonmyodomarkexplode
 
 japaninugami:
 	Inherits: ^Soldier
@@ -743,7 +750,7 @@ japaninugami:
 		Bounds: 512, 725, -42, -170
 		DecorationBounds: 512, 725, -42, -170
 	Health:
-		HP: 15000
+		HP: 20000
 	Mobile:
 		Speed: 100
 		Voice: Move
@@ -798,4 +805,9 @@ japaninugami:
 		PercentageStep: -10
 		Delay: 25
 	KillsSelf@spiritdog:
-		Delay: 250
+		Delay: 500
+	Wanders:
+	AttackWander:
+	Explodes:
+		Weapon: japanonmyodomarkexplodefake
+		EmptyWeapon: japanonmyodomarkexplodefake

@@ -2710,7 +2710,7 @@ USAAvengerLaser:
 		Duration: 10
 		Color: 0000FF
 	Warhead@1Dam: SpreadDamage
-		Damage: 50
+		Damage: 0
 		Versus:
 			None: 1
 			Wood: 1
@@ -2723,6 +2723,7 @@ USAAvengerLaser:
 		Condition: avengermarked
 		Duration: 15
 		ValidTargets: Ground, GroundActor, Water, WaterActor
+		Spread: 1
 	TargetActorCenter: True
 
 USAAvengerLaserAir:
@@ -5086,7 +5087,7 @@ JapanCursePowerEconomic:
 
 JapanBerserkerPower:
 	ReloadDelay: 300
-	Range: 5c0
+	Range: 6c0
 	Projectile: InstantHit
 	ValidTargets: Infantry, Vehicle
 	Warhead@curtain: GrantExternalCondition
@@ -5094,7 +5095,7 @@ JapanBerserkerPower:
 		ValidTargets: GroundActor, Trees, WaterActor, Underwater, AirborneActor
 		ValidRelationships: Enemy, Neutral, Ally
 		Condition: JapanBerserkerCondition
-		Range: 5c0
+		Range: 6c0
 		Duration: 375
 	Warhead@curtain2: CreateEffect
 		Delay: 135
@@ -5644,7 +5645,7 @@ BerserkerTowerShot:
 		ValidTargets: GroundActor, Trees, WaterActor, Underwater, AirborneActor
 		ValidRelationships: Enemy, Neutral, Ally
 		Condition: JapanBerserkerCondition
-		Spread: 512
+		Spread: 2c0
 		Duration: 375
 	Warhead@3EffGround: CreateEffect
 		Explosions: bfgred
@@ -5721,6 +5722,12 @@ japanonmyodomarkexplode:
 		Range: 5
 		Actors: japaninugami
 
+japanonmyodomarkexplodefake:
+	Warhead@2Eff: CreateEffect
+		Explosions: japanonmyodoexplosion
+		ImpactSounds: japanonmyodomarkexplode.aud
+		ImpactActors: false
+
 japankomatsulaser:
 	ReloadDelay: 2
 	Range: 4c0
@@ -5731,7 +5738,7 @@ japankomatsulaser:
 		Duration: 10
 		Color: 00fbff
 	Warhead@1Dam: SpreadDamage
-		Damage: 50
+		Damage: 0
 		Versus:
 			None: 1
 			Wood: 1
@@ -5746,6 +5753,7 @@ japankomatsulaser:
 		Duration: 15
 		ValidTargets: Vehicle, Defense
 		ValidRelationships: Ally
+		Spread: 1
 	TargetActorCenter: True
 
 japanshishironlaser:
@@ -5758,7 +5766,7 @@ japanshishironlaser:
 		Duration: 10
 		Color: 00ff80
 	Warhead@1Dam: SpreadDamage
-		Damage: 50
+		Damage: 0
 		Versus:
 			None: 1
 			Wood: 1
@@ -5773,7 +5781,251 @@ japanshishironlaser:
 		Duration: 15
 		ValidTargets: Vehicle, Building, Structure
 		ValidRelationships: Ally
+		Spread: 1
 	TargetActorCenter: True
+
+AkumaSound:
+	ReloadDelay: 250
+	Range: 25c0
+	Report: medideathknightbeamcharge.aud
+	ValidTargets: Infantry, Vehicle, Structure
+	Projectile: Missile
+		Speed: 2
+		RangeLimit: 3
+	Warhead@2Eff: CreateEffect
+		Explosions: japanakumaring
+		ValidTargets: Ground, GroundActor, WaterActor, Trees, Air
+	Warhead@3Eff: CreateEffect
+		Explosions: japanakumamuzzle1
+		ValidTargets: Ground, GroundActor, WaterActor, Trees, Air
+	Warhead@4Eff: CreateEffect
+		Explosions: japanakumamuzzle2
+		ValidTargets: Ground, GroundActor, WaterActor, Trees, Air
+	Warhead@4Effect: CreateEffect
+		Delay: 50
+		Explosions: voidionbeam
+		ImpactSounds: akumafire.aud
+		ValidTargets: Ground, GroundActor, WaterActor, Trees, Air
+	Warhead@5Effect: CreateEffect
+		Delay: 51
+		Explosions: voidionbeam2
+		ValidTargets: Ground, GroundActor, WaterActor, Trees, Air
+	Warhead@6Effect: CreateEffect
+		Delay: 52
+		Explosions: voidionbeam3
+		ValidTargets: Ground, GroundActor, WaterActor, Trees, Air
+	Warhead@7Effect: CreateEffect
+		Delay: 53
+		Explosions: voidionbeam4
+		ValidTargets: Ground, GroundActor, WaterActor, Trees, Air
+	Warhead@8Effect: CreateEffect
+		Delay: 54
+		Explosions: voidionbeam5
+		ValidTargets: Ground, GroundActor, WaterActor, Trees, Air
+	Warhead@9Effect: CreateEffect
+		Delay: 55
+		Explosions: voidionbeam6
+		ValidTargets: Ground, GroundActor, WaterActor, Trees, Air
+
+AkumaBeam:
+	ReloadDelay: 250
+	Range: 25c0
+	ValidTargets: Ground, Water, GroundActor, WaterActor
+	Projectile: Bullet
+		Speed: 500
+	Warhead@start: CreateEffect
+		ImpactSounds: japandecimatoractivate.wav
+		ImpactActors: false
+	Warhead@start1: CreateEffect
+		ImpactSounds: akumaincoming.aud
+		ImpactActors: false
+	Warhead@2Eff: CreateEffect
+		Delay: 50
+		Explosions: japanakumaring
+		ValidTargets: Ground, GroundActor, WaterActor, Trees, Air
+	Warhead@4Effect: CreateEffect
+		Delay: 50
+		Explosions: voidionbeam6
+		ImpactActors: false
+	Warhead@5Effect: CreateEffect
+		Delay: 51
+		Explosions: voidionbeam5
+		ImpactActors: false
+	Warhead@6Effect: CreateEffect
+		Delay: 52
+		Explosions: voidionbeam4
+		ImpactActors: false
+	Warhead@7Effect: CreateEffect
+		Delay: 53
+		Explosions: voidionbeam3
+		ImpactActors: false
+	Warhead@8Effect: CreateEffect
+		Delay: 54
+		Explosions: voidionbeam2
+		ImpactActors: false
+	Warhead@9Effect: CreateEffect
+		Delay: 55
+		Explosions: voidionbeam
+		ImpactActors: false
+	Warhead@98Eff_impacta: CreateEffect
+		Delay: 55
+		ImpactSounds: akumaimpact.aud
+		Explosions: japanakumaFlashbig1
+		ImpactActors: false
+	Warhead@98Eff_impactb: CreateEffect
+		Delay: 55
+		ImpactSounds: DMC_FIRE.aud
+		Explosions: japanakumaFlashbig2
+		ImpactActors: false
+	Warhead@3Eff_impact: CreateEffect
+		Delay: 63
+		ImpactSounds: akumaexplode.aud
+		Explosions: japanakumaProjExplosion
+		ImpactActors: false
+	Warhead@akuma: GrantExternalCondition
+		Delay: 63
+		Condition: akuma
+		Range: 7c0
+		Duration: 500
+		ValidTargets: WaterActor, GroundActor, AirborneActor
+	Warhead@11Smu_areanuke3: LeaveSmudge
+		SmudgeType: Scorch
+		Size: 3
+		Delay: 63
+	Warhead@17Shake: ShakeScreen
+		Delay: 60
+		Duration: 25
+		Intensity: 3
+		Multiplier: 1,1
+	Warhead@zappy1: FireCluster
+		Delay: 69
+		Weapon: AkumaClusterSmall
+		RandomClusterCount: 6
+		Dimensions: 3,3
+		Footprint: xxx x_x xxx
+	Warhead@zappy2: FireCluster
+		Delay: 73
+		Weapon: AkumaClusterSmall
+		RandomClusterCount: 6
+		Dimensions: 3,3
+		Footprint: xxx x_x xxx
+	Warhead@zappy3: FireCluster
+		Delay: 77
+		Weapon: AkumaClusterSmall
+		RandomClusterCount: 6
+		Dimensions: 3,3
+		Footprint: xxx x_x xxx
+	Warhead@zappy4: FireCluster
+		Delay: 81
+		Weapon: AkumaClusterSmall
+		RandomClusterCount: 6
+		Dimensions: 3,3
+		Footprint: xxx x_x xxx
+	Warhead@zappy5: FireCluster
+		Delay: 85
+		Weapon: AkumaClusterSmall
+		RandomClusterCount: 6
+		Dimensions: 3,3
+		Footprint: xxx x_x xxx
+
+AkumaZap:
+	Inherits: ^ElectricBoltWeapon
+	ReloadDelay: 7
+	Range: 9c0
+	-Report:
+	ValidTargets: Ground, GroundActor, WaterActor, AirborneActor
+	Projectile: ElectricBolt
+		Colors: ff0000, a30000, ff3b3b
+		Inaccuracy: 1c0
+	Warhead@1Dam: SpreadDamage
+		Damage: 0
+		Spread: 256
+		ValidTargets: Ground, GroundActor, WaterActor, AirborneActor
+	Warhead@3Eff: CreateEffect
+		Delay: 0
+		Inaccuracy: 64
+		Explosions: laserhitmed
+		ValidTargets: Ground, GroundActor, WaterActor, AirborneActor
+		ImpactActors: true
+	Warhead@4Eff: CreateEffect
+		Delay: 3
+		Inaccuracy: 64
+		Explosions: laserhitmed
+		ValidTargets: Ground, GroundActor, WaterActor, AirborneActor
+		ImpactActors: true
+	Warhead@5Eff: CreateEffect
+		Delay: 6
+		Inaccuracy: 64
+		Explosions: laserhitmed
+		ValidTargets: Ground, GroundActor, WaterActor, AirborneActor
+		ImpactActors: true
+
+AkumaSmallZapMind:
+	Inherits: AkumaZap
+	Range: 5c0
+	Projectile: ElectricBolt
+		Distortion: 400
+		DistortionAnimation: 16
+		SegmentLength: 256
+		Width: 24
+		Duration: 3
+		Inaccuracy: 256
+	Warhead@1Dam: SpreadDamage
+		Damage: 0
+	Warhead@4Eff: ChangeOwner
+		Range: 128
+		ValidTargets: Infantry, Vehicle
+		InvalidTargets: EpicUnit
+	Warhead@5Eff: ChangeOwner
+		Range: 128
+		Duration: 375
+		ValidTargets: EpicUnit
+
+AkumaSmallZapBerserk:
+	Inherits: AkumaZap
+	Range: 5c0
+	Projectile: ElectricBolt
+		Distortion: 400
+		DistortionAnimation: 16
+		SegmentLength: 256
+		Width: 24
+		Duration: 3
+		Inaccuracy: 256
+	Warhead@1Dam: GrantExternalCondition
+		ValidTargets: Infantry, Vehicle
+		ValidRelationships: Enemy, Neutral
+		Condition: JapanBerserkerCondition
+		Spread: 1c0
+		Duration: 500
+	-Warhead@4Eff: CreateEffect
+	-Warhead@5Eff: CreateEffect
+
+AkumaClusterSmall:
+	Inherits: BFGZapCluster
+	Range: 7c0
+	Projectile: Missile
+		RangeLimit: 1c0
+		Speed: 600
+		MinimumLaunchSpeed: 600
+		MaximumLaunchSpeed: 600
+		Acceleration: 16
+		Inaccuracy: 1c0
+	Warhead@2cluster: FireShrapnel
+		Amount: 2
+		Weapon: AkumaSmallZapBerserk
+		AimTargetStances: Neutral, Enemy, None, Ally
+		AimChance: 80
+	Warhead@3cluster: FireShrapnel
+		Delay: 5
+		Amount: 1
+		Weapon: AkumaSmallZapMind
+		AimTargetStances: Neutral, Enemy, None
+		AimChance: 10
+	Warhead@5Eff: CreateEffect
+		Inaccuracy: 64
+		Explosions: laserhitmed
+		ValidTargets: Ground, GroundActor, WaterActor, AirborneActor
+		ImpactActors: true
 
 AvaliLeaderSword:
 	Inherits: TemplarBlade
