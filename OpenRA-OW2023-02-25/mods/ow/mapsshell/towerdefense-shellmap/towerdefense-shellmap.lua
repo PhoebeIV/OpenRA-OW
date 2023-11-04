@@ -1,4 +1,4 @@
-AttackerTypes = {"medipaladin","berserker","berserker","footman","footman","footman"}
+AttackerTypes = {"medipaladin","berserker","berserker","footman","footman","footman", "tecn", "tmedic"}
 
 BindActorTriggers = function(a)
 	if a.HasProperty("Hunt") then
