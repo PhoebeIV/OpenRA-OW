@@ -260,6 +260,7 @@ label-notice-container-playtest-available = A preview of the next OpenRA release
 
 ## lobby.yaml
 dropdownbutton-server-lobby-slots = Slot Admin
+button-server-lobby-reset-options = Reset Defaults
 button-skirmish-tabs-players-tab = Players
 button-skirmish-tabs-options-tab = Options
 button-skirmish-tabs-music-tab = Music
@@ -350,6 +351,7 @@ label-update-notice-b = Download the latest version from www.openra.net
 ## map-chooser.yaml
 label-mapchooser-panel-title = Choose Map
 button-mapchooser-panel-system-maps-tab = Official Maps
+button-mapchooser-panel-remote-maps-tab = Server Maps
 button-mapchooser-panel-user-maps-tab = Custom Maps
 label-filter-order-controls-desc = Filter:
 label-filter-order-controls-desc-joiner = in
