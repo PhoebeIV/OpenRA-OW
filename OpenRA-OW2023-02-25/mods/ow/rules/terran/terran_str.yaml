@@ -153,7 +153,7 @@ TCOMMAND:
 		Queue: Building
 		BuildPaletteOrder: 1000
 		Prerequisites: factory, ~structures.terran, ~techlevel.medium, ~!ai.all
-		Description: Produces structures.
+		Description: actor-tcommand.description
 	Health:
 		HP: 150000
 	Armor:
@@ -167,7 +167,7 @@ TCOMMAND:
 	Valued:
 		Cost: 4000
 	Tooltip:
-		Name: Command Center
+		Name: actor-tcommand.name
 	BaseBuilding:
 	RallyPoint:
 		ForceSetType: SCV
@@ -238,7 +238,7 @@ TCOMMAND.addon:
 	AlwaysVisible:
 	Interactable:
 	Tooltip:
-		Name: Command Center with no addon
+		Name: actor-tcommand-addon-name
 
 TCOMMAND.landed:
 	Inherits: TCOMMAND
@@ -259,7 +259,7 @@ TCOMMAND.air:
 		BuildAtProductionType: Helicopter
 		BuildPaletteOrder: 1000
 		Prerequisites: ~!mcv, ~aircraft.terran, ~techlevel.medium
-		Description: Produces structures.
+		Description: actor-tcommand-air.description
 	ProvidesPrerequisite@mcv:
 		Prerequisite: mcv
 	HitShape:
@@ -286,7 +286,7 @@ TCOMMAND.air:
 	Valued:
 		Cost: 2500
 	Tooltip:
-		Name: Command Center
+		Name: actor-tcommand-air.name
 	SpawnActorOnDeath:
 		Actor: tcommand.husk
 	GrantConditionOnPrerequisite@DUMBASS_AI:
@@ -327,7 +327,7 @@ TCOMMAND.addoncaptor:
 TCOMMAND.Husk:
 	Inherits: ^TerranBuildingHusk
 	Tooltip:
-		Name: Command Center
+		Name: actor-tcommand-husk-name
 	RenderSprites:
 		Image: tcommand
 
@@ -346,11 +346,11 @@ TSUPPLY:
 		Queue: Building
 		BuildPaletteOrder: 10
 		Prerequisites: ~techlevel.infonly, ~structures.terran, ~!ai.powerout
-		Description: Provides power for other structures.
+		Description: actor-tsupply.description
 	Valued:
 		Cost: 300
 	Tooltip:
-		Name: Supply Depot
+		Name: actor-tsupply.name
 	ProvidesPrerequisite@buildingname:
 	Building:
 		Footprint: xx xx ==
@@ -406,19 +406,19 @@ TSUPPLY.socket:
 	AlwaysVisible:
 	Interactable:
 	Tooltip:
-		Name: Supply Depot (unupgraded)
+		Name: actor-tsupply-socket-name
 
 TSUPPLY.up:
 	Inherits: ^BuildingPlug
 	Valued:
 		Cost: 400
 	Tooltip:
-		Name: Boost Supply Output
+		Name: actor-tsupply-up.name
 	Buildable:
 		Queue: Wall
 		BuildPaletteOrder: 102
 		Prerequisites: tsupply.socket, ~structures.terran, ~techlevel.medium
-		Description: Place onto a friendly supply depot/n to increase power output by 100%.
+		Description: actor-tsupply-up.description
 		Icon: icon-powr
 		BuildDuration: 800
 	Plug:
@@ -437,11 +437,11 @@ TREFINERY:
 		Queue: Building
 		BuildPaletteOrder: 15
 		Prerequisites: anypower, ~techlevel.infonly, ~structures.terran, ~!ai.boss
-		Description: Refines Ore, Tiberium and Gems\ninto credits.
+		Description: actor-trefinery.description
 	Valued:
 		Cost: 1400
 	Tooltip:
-		Name: Refinery
+		Name: actor-trefinery.name
 	Building:
 		Footprint: xxx =xx ===
 		Dimensions: 3,3
@@ -523,11 +523,11 @@ TBARR:
 		Queue: Building
 		BuildPaletteOrder: 30
 		Prerequisites: anypower, ~structures.terran, ~techlevel.infonly, ~!ai.boss, ~!tbarr
-		Description: Trains infantry. \nEach one has its own production queue.
+		Description: actor-tbarr.description
 	Valued:
 		Cost: 800
 	Tooltip:
-		Name: Terran Barracks
+		Name: actor-tbarr.name
 	Building:
 		Footprint: +++ xxx ===
 		Dimensions: 3,3
@@ -695,7 +695,7 @@ TBARR.AI:
 		Queue: Bot
 		Prerequisites: anypower, ~structures.terran, ~techlevel.high, ~!ai.boss, ~ai.hard
 		BuildLimit: 3
-		Description: Bot only structure to give Hard AI a large advantage.
+		Description: actor-tbarr-ai-description
 	Valued:
 		Cost: 800
 	Power:
@@ -732,7 +732,7 @@ TBARR.air:
 	Valued:
 		Cost: 800
 	Tooltip:
-		Name: Terran Barracks
+		Name: actor-tbarr-air-name
 	SpawnActorOnDeath:
 		Actor: tbarr.husk
 	ProvidesPrerequisite@buildingname:
@@ -774,7 +774,7 @@ TBARR.air.3:
 TBARR.Husk:
 	Inherits: ^TerranBuildingHusk
 	Tooltip:
-		Name: Terran Barracks
+		Name: actor-tbarr-husk-name
 	RenderSprites:
 		Image: tbarr
 	WithIdleOverlay@fire1:
@@ -941,14 +941,14 @@ TACADAMY:
 		Queue: Building
 		BuildPaletteOrder: 31
 		Prerequisites: barracks, ~techlevel.infonly, ~structures.terran
-		Description: Allows access to additional infantry and upgrades.
+		Description: actor-tacadamy.description
 	Valued:
 		Cost: 1200
 	Tooltip:
-		Name: Academy
+		Name: actor-tacadamy.name
 	TooltipDescription:
 		ValidRelationships: Ally
-		Description: Move Marines or Firebats near this\n structure to give them stimpacks.
+		Description: actor-tacadamy.tooltipdescription-description
 		RequiresCondition: allow_ext && !mengsk
 	ProvidesPrerequisite@buildingname:
 	Building:
@@ -1016,7 +1016,7 @@ TENBAY:
 		Queue: Building
 		BuildPaletteOrder: 35
 		Prerequisites: factory, radar, ~techlevel.high, ~structures.terran
-		Description: Produces Terran advanced technologies.
+		Description: actor-tenbay.description
 	Health:
 		HP: 120000
 	Armor:
@@ -1030,7 +1030,7 @@ TENBAY:
 	Valued:
 		Cost: 1500
 	Tooltip:
-		Name: Technology Center
+		Name: actor-tenbay.name
 	Transforms:
 		PauseOnCondition: being-captured || being-demolished || build-incomplete
 		IntoActor: tenbay.air
@@ -1093,7 +1093,7 @@ TENBAY.air:
 	Valued:
 		Cost: 1500
 	Tooltip:
-		Name: Technology Center
+		Name: actor-tenbay-air-name
 	SpawnActorOnDeath:
 		Actor: tenbay.husk
 	Power:
@@ -1102,7 +1102,7 @@ TENBAY.air:
 TENBAY.Husk:
 	Inherits: ^TerranBuildingHusk
 	Tooltip:
-		Name: Technology Center
+		Name: actor-tenbay-husk-name
 	RenderSprites:
 		Image: tenbay
 
@@ -1115,11 +1115,11 @@ TMISSILE:
 		Queue: Defense
 		BuildPaletteOrder: 45
 		Prerequisites: radar, ~structures.terran, ~techlevel.medium, ~!structures.mengsk
-		Description: Anti-Armor base defense.\nCan detect cloaked units.\n  Strong vs Vehicles\n  Weak vs Infantry, Aircraft
+		Description: actor-tmissile.description
 	Valued:
 		Cost: 700
 	Tooltip:
-		Name: Missile Turret
+		Name: actor-tmissile.name
 	Selectable:
 		Bounds: 1024, 1024
 		DecorationBounds: 1024, 2048, 0, -512
@@ -1172,7 +1172,7 @@ TMISSILE.Mengsk:
 	Buildable:
 		Prerequisites: radar, ~structures.mengsk, ~techlevel.medium
 	Tooltip:
-		Name: Fortified Missile Turret
+		Name: actor-tmissile-mengsk-name
 	RenderSprites:
 		Image: tmissile
 	WithSpriteBody:
@@ -1201,7 +1201,7 @@ TFACTORY:
 		Queue: Building
 		BuildPaletteOrder: 32
 		Prerequisites: barracks, refinery, ~structures.terran, ~techlevel.low, ~!ai.boss
-		Description: Produces vehicles.
+		Description: actor-tfactory.description
 	Health:
 		HP: 150000
 	Armor:
@@ -1215,7 +1215,7 @@ TFACTORY:
 	Valued:
 		Cost: 2000
 	Tooltip:
-		Name: Terran Factory
+		Name: actor-tfactory.name
 	Transforms:
 		PauseOnCondition: chrono-vortex || being-captured || being-demolished || build-incomplete
 		IntoActor: tfactory.air
@@ -1314,7 +1314,7 @@ TFACTORY.addon:
 	AlwaysVisible:
 	Interactable:
 	Tooltip:
-		Name: Factory with no addon
+		Name: actor-tfactory-addon-name
 
 TFACTORY.landed:
 	Inherits: TFACTORY
@@ -1349,7 +1349,7 @@ TFACTORY.air:
 	Valued:
 		Cost: 2000
 	Tooltip:
-		Name: Terran Factory
+		Name: actor-tfactory-air-name
 	SpawnActorOnDeath:
 		Actor: tfactory.husk
 
@@ -1366,7 +1366,7 @@ TFACTORY.addoncaptor:
 TFACTORY.Husk:
 	Inherits: ^TerranBuildingHusk
 	Tooltip:
-		Name: Terran Factory
+		Name: actor-tfactory-husk-name
 	RenderSprites:
 		Image: tfactory
 
@@ -1387,7 +1387,7 @@ TSPORT:
 		Queue: Building
 		BuildPaletteOrder: 34
 		Prerequisites: radar, factory, ~structures.terran, ~techlevel.medium, ~!ai.boss
-		Description: Produces aircraft.
+		Description: actor-tsport.description
 	Health:
 		HP: 150000
 	Armor:
@@ -1401,7 +1401,7 @@ TSPORT:
 	Valued:
 		Cost: 2000
 	Tooltip:
-		Name: Starport
+		Name: actor-tsport.name
 	Transforms:
 		PauseOnCondition: chrono-vortex || being-captured || being-demolished || build-incomplete
 		IntoActor: tsport.air
@@ -1489,7 +1489,7 @@ TSPORT.addon:
 	AlwaysVisible:
 	Interactable:
 	Tooltip:
-		Name: Starport with no addon
+		Name: actor-tsport-addon-name
 
 TSPORT.landed:
 	Inherits: TSPORT
@@ -1524,7 +1524,7 @@ TSPORT.air:
 	Valued:
 		Cost: 2000
 	Tooltip:
-		Name: Starport
+		Name: actor-tsport-air-name
 	SpawnActorOnDeath:
 		Actor: tsport.husk
 
@@ -1541,7 +1541,7 @@ TSPORT.addoncaptor:
 TSPORT.Husk:
 	Inherits: ^TerranBuildingHusk
 	Tooltip:
-		Name: Starport
+		Name: actor-tsport-husk-name
 	RenderSprites:
 		Image: tsport
 
@@ -1557,12 +1557,12 @@ TARMORY:
 		Queue: Building
 		BuildPaletteOrder: 35
 		Prerequisites: factory, ~techlevel.high, ~structures.mengsk, !tarmory
-		Description: Allows access to additional vehicle upgrades.
+		Description: actor-tarmory.description
 		BuildLimit: 1
 	Valued:
 		Cost: 1500
 	Tooltip:
-		Name: Armory
+		Name: actor-tarmory.name
 	ProvidesPrerequisite@buildingname:
 	Building:
 		Footprint: === xxx ===
@@ -1605,7 +1605,7 @@ TSCIENCE:
 		Queue: Tech
 		BuildPaletteOrder: 34
 		Prerequisites: tacadamy, techcenter, ~structures.terran, ~techlevel.unrestricted, ~!ai.boss
-		Description: Provides extra advanced technologies and\n upgrades to your forces.\n  Special Ability: Steady income\n\n  Allows access to more Barracks.
+		Description: actor-tscience.description
 	Health:
 		HP: 120000
 	Armor:
@@ -1619,7 +1619,7 @@ TSCIENCE:
 	Valued:
 		Cost: 2000
 	Tooltip:
-		Name: Science Facility
+		Name: actor-tscience.name
 	Transforms:
 		PauseOnCondition: chrono-vortex || being-captured || being-demolished || build-incomplete
 		IntoActor: tscience.air
@@ -1696,7 +1696,7 @@ TSCIENCE:
 		ChargeInterval: 12000
 		UnitTypes: TDROPSHIP.ZergDropPod
 		SelectTargetSpeechNotification: SelectTarget
-		SelectTargetTextNotification: Select target.
+		SelectTargetTextNotification: actor-tscience.droppodspower-select-target-text-notification
 		CameraActor: camera
 		CameraRemoveDelay: 250
 		EntryEffect: explosion
@@ -1710,7 +1710,7 @@ TSCIENCE.addon:
 	AlwaysVisible:
 	Interactable:
 	Tooltip:
-		Name: Science Facility with no addon
+		Name: actor-tscience-addon-name
 
 TSCIENCE.landed:
 	Inherits: TSCIENCE
@@ -1745,7 +1745,7 @@ TSCIENCE.air:
 	Valued:
 		Cost: 3000
 	Tooltip:
-		Name: Science Facility
+		Name: actor-tscience-air-name
 	SpawnActorOnDeath:
 		Actor: tscience.husk
 
@@ -1762,7 +1762,7 @@ TSCIENCE.addoncaptor:
 TSCIENCE.Husk:
 	Inherits: ^TerranBuildingHusk
 	Tooltip:
-		Name: Science Facility
+		Name: actor-tscience-husk-name
 	RenderSprites:
 		Image: tscience
 
@@ -1776,7 +1776,7 @@ TBUNKER:
 		Class: TBUNKER
 		Bounds: 2048,1664
 	Tooltip:
-		Name: Bunker
+		Name: actor-tbunker.name
 	Building:
 		Dimensions: 2,2
 		Footprint: ++ xx
@@ -1784,7 +1784,7 @@ TBUNKER:
 		Queue: Defense
 		BuildPaletteOrder: 40
 		Prerequisites: barracks, ~structures.terran, ~techlevel.low, ~!ai.all, ~!structures.mengsk
-		Description: Static defense with a fireport for\n garrisoned troops.\nCannot detect cloaked units.\n  Strong vs Infantry, Light armor\n  Weak vs Tanks, Aircraft
+		Description: actor-tbunker.description
 	Valued:
 		Cost: 800
 	CustomSellValue:
@@ -2126,7 +2126,7 @@ TBUNKER.BOT:
 	Buildable:
 		BuildPaletteOrder: 9000
 		Prerequisites: barracks, ~structures.terran, ~techlevel.low, ~ai.all, ~!structures.mengsk
-		Description: AI-only, contains 3 marines and a firebat. \nAlso has self-heals for Hard difficulty
+		Description: actor-tbunker-bot-description
 	Valued:
 		Cost: 1200
 	GivesExperience:
@@ -2145,7 +2145,7 @@ TBUNKER.BOT2:
 	Inherits: TBUNKER.BOT
 	Buildable:
 		Prerequisites: barracks, tcops, ~structures.terran, ~techlevel.unrestricted, ~ai.all, ~!structures.mengsk
-		Description: AI-only, contains 3 marines and a ghost. \nAlso has self-heals for Hard difficulty
+		Description: actor-tbunker-bot2-description
 	Cargo:
 		InitialUnits: tmarine.b2,tmarine.b2,tmarine.b2,tghost
 
@@ -2168,7 +2168,7 @@ TBUNKER.Mengsk:
 	Health:
 		HP: 100000
 	Tooltip:
-		Name: Supply Bunker
+		Name: actor-tbunker-mengsk-name
 	Power:
 		Amount: 100
 	WithSpriteBody:
@@ -2185,7 +2185,7 @@ TBUNKER.Mengsk.BOT:
 	Buildable:
 		BuildPaletteOrder: 9000
 		Prerequisites: barracks, ~structures.mengsk, ~techlevel.low, ~ai.all
-		Description: AI-only, contains 4 marines and 2 firebats. \nAlso has self-heals for Hard difficulty
+		Description: actor-tbunker-mengsk-bot-description
 	Valued:
 		Cost: 1600
 	Cargo:
@@ -2202,7 +2202,7 @@ TBUNKER.Mengsk.BOT2:
 		Cost: 2000
 	Buildable:
 		Prerequisites: barracks, tcops, ~structures.mengsk, ~techlevel.unrestricted, ~ai.all
-		Description: AI-only, contains 5 marines and 1 ghost. \nAlso has self-heals for Hard difficulty
+		Description: actor-tbunker-mengsk-bot2-description
 	Cargo:
 		InitialUnits: tmarine.b2,tmarine.b2,tmarine.b2,tmarine.b2,tmarine.b2,tghost
 

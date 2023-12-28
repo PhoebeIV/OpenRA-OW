@@ -6,12 +6,12 @@ TSCV:
 		BuildAtProductionType: Soldier
 		BuildPaletteOrder: 45
 		Prerequisites: refinery, ~infantry.terran, ~techlevel.infonly
-		Description: Collects Ore, Gems and Tiberium for processing.\nSpeed: 96\n  Can repair structures and vehicles.
+		Description: actor-tscv.description
 		BuildDurationModifier: 150
 	Valued:
 		Cost: 400
 	Tooltip:
-		Name: SCV
+		Name: actor-tscv.name
 	Selectable:
 		DecorationBounds: 1280, 1280
 	Harvester:
@@ -180,7 +180,7 @@ TMARINE:
 		BuildAtProductionType: Soldier
 		BuildPaletteOrder: 20
 		Prerequisites: ~barracks, ~techlevel.infonly, ~infantry.terran
-		Description: General-purpose infantry.\nSpeed: 60\n  Strong vs Infantry\n  Weak vs Vehicles, Aircraft \n\nCan attack air with an upgrade.
+		Description: actor-tmarine.description
 		BuildDurationModifier: 150
 	Selectable:
 		Bounds: 768, 938, 0, 0
@@ -189,7 +189,7 @@ TMARINE:
 	Valued:
 		Cost: 300
 	Tooltip:
-		Name: Marine
+		Name: actor-tmarine.name
 	Mobile:
 		Speed: 60
 		TurnSpeed: 90
@@ -313,7 +313,7 @@ TFIREBAT:
 		BuildAtProductionType: Soldier
 		BuildPaletteOrder: 25
 		Prerequisites: tacadamy, ~barracks, ~techlevel.infonly, ~infantry.terran
-		Description: Splash damage flamethrower.\nSpeed: 60\n  Strong vs Infantry, Structures\n  Weak vs Vehicles, Aircraft
+		Description: actor-tfirebat.description
 		BuildDurationModifier: 150
 		BuildDuration: 300
 	Selectable:
@@ -323,7 +323,7 @@ TFIREBAT:
 	Valued:
 		Cost: 400
 	Tooltip:
-		Name: Firebat
+		Name: actor-tfirebat.name
 	Mobile:
 		Speed: 60
 		TurnSpeed: 90
@@ -515,7 +515,7 @@ TMEDIC:
 		BuildAtProductionType: Soldier
 		BuildPaletteOrder: 30
 		Prerequisites: tacadamy, ~barracks, ~techlevel.infonly, ~infantry.terran, ~!infantry.mengsk
-		Description: Heals nearby infantry.\n Infiltrates and captures\nenemy structures.\n  Unarmed
+		Description: actor-tmedic.description
 		BuildDurationModifier: 150
 		BuildDuration: 325
 	Selectable:
@@ -525,7 +525,7 @@ TMEDIC:
 	Valued:
 		Cost: 600
 	Tooltip:
-		Name: Medic
+		Name: actor-tmedic.name
 	Mobile:
 		Speed: 60
 		TurnSpeed: 90
@@ -669,7 +669,7 @@ TGHOST:
 		BuildAtProductionType: Soldier
 		BuildPaletteOrder: 31
 		Prerequisites: tacadamy, tcops, ~barracks, ~techlevel.unrestricted, ~infantry.terran
-		Description: Covert Ops assassin.\nSpeed: 72\n  Strong vs Infantry\n  Weak vs Vehicles, Aircraft \n\nCan use stealth, and launch spot for the Missile Silo.
+		Description: actor-tghost.description
 		BuildDurationModifier: 150
 		BuildDuration: 500
 	Selectable:
@@ -679,16 +679,16 @@ TGHOST:
 	Valued:
 		Cost: 1400
 	Tooltip:
-		GenericName: Ghost
-		Name: Ghost
+		GenericName: actor-tghost.generic-name
+		Name: actor-tghost.name
 		RequiresCondition: !nuke_armed
 	Tooltip@2:
-		GenericName: Ghost
-		Name: Ghost - Target Painting (No Nuke)
+		GenericName: actor-tghost.2--generic-name
+		Name: actor-tghost.2--name
 		RequiresCondition: nuke_armed && (!nuke_built || !nuke_ammo)
 	Tooltip@3:
-		GenericName: Ghost
-		Name: Ghost - Target Painting
+		GenericName: actor-tghost.3--generic-name
+		Name: actor-tghost.3--name
 		RequiresCondition: nuke_armed && nuke_built
 	RevealsShroud:
 		MinRange: 7c0
@@ -893,7 +893,7 @@ TRAYNOR:
 		BuildAtProductionType: Soldier
 		BuildPaletteOrder: 50
 		Prerequisites: ~disabled
-		Description: Leader of Raynor's Raiders armed with a modified\n C-14 Gauss Rifle.\nSpeed: 72\n  Strong vs Infantry, Aircraft\n  Weak vs Vehicles \n\nEquipped with Stimpacks and a squad booster.
+		Description: actor-traynor.description
 		BuildDurationModifier: 150
 		BuildDuration: 2000
 		BuildLimit: 1
@@ -903,7 +903,7 @@ TRAYNOR:
 	Valued:
 		Cost: 3000
 	Tooltip:
-		Name: Jim Raynor
+		Name: actor-traynor.name
 	Mobile:
 		Speed: 72
 		TurnSpeed: 90
@@ -1044,7 +1044,7 @@ active.raynor:
 	AlwaysVisible:
 	Interactable:
 	Tooltip:
-		Name: EpiTech Center
+		Name: actor-active-raynor-name
 
 TRAYNOR.Hero0:
 	Inherits: ^DoomSoldier
@@ -1058,7 +1058,7 @@ TRAYNOR.Hero0:
 		BuildAtProductionType: Soldier
 		BuildPaletteOrder: 50
 		Prerequisites: ~barracks, ~techlevel.unrestricted, !active.raynor, ~!hero.tier1, ~techlevel.hero
-		Description: [HERO]\n\nLeader of Raynor's Raiders armed with a modified\n C-14 Gauss Rifle.\nSpeed: 72\n  Strong vs Infantry, Aircraft\n  Weak vs Vehicles \n\nEquipped with Stimpacks.
+		Description: actor-traynor-hero0.description
 		BuildDurationModifier: 100
 		BuildDuration: 750
 		BuildLimit: 1
@@ -1066,10 +1066,10 @@ TRAYNOR.Hero0:
 		Bounds: 1536, 1536, 0, 0
 		DecorationBounds: 1536, 1536, 0, 0
 	Tooltip:
-		Name: Jim Raynor (Tier 0)
+		Name: actor-traynor-hero0.name
 		RequiresCondition: !in_world
 	Tooltip@real:
-		Name: Jim Raynor
+		Name: actor-traynor-hero0.real--name
 		RequiresCondition: in_world
 	GrantCondition@real:
 		Condition: in_world
@@ -1210,7 +1210,7 @@ TRAYNOR.Hero1:
 		Prerequisites: ~barracks, ~techlevel.unrestricted, !active.raynor, ~!hero.tier2, ~hero.tier1, ~techlevel.hero
 		BuildDuration: 1500
 	Tooltip:
-		Name: Jim Raynor (Tier 1)
+		Name: actor-traynor-hero1-name
 	Health:
 		HP: 110000
 	ChangesHealth@stimpack:
@@ -1246,7 +1246,7 @@ TRAYNOR.Hero2:
 	Buildable:
 		Prerequisites: ~barracks, ~techlevel.unrestricted, !active.raynor, ~!hero.tier3, ~hero.tier2, ~techlevel.hero
 	Tooltip:
-		Name: Jim Raynor (Tier 2)
+		Name: actor-traynor-hero2-name
 	Health:
 		HP: 130000
 	ChangesHealth@stimpack:
@@ -1291,7 +1291,7 @@ TRAYNOR.Hero3:
 	Buildable:
 		Prerequisites: ~barracks, ~techlevel.unrestricted, !active.raynor, ~!hero.tier4, ~hero.tier3, ~techlevel.hero
 	Tooltip:
-		Name: Jim Raynor (Tier 3)
+		Name: actor-traynor-hero3-name
 	Health:
 		HP: 160000
 	ChangesHealth@stimpack:
@@ -1324,7 +1324,7 @@ TRAYNOR.Hero4:
 		Prerequisites: ~barracks, ~techlevel.unrestricted, !active.raynor, ~!hero.tier5, ~hero.tier4, ~techlevel.hero
 		BuildDuration: 2250
 	Tooltip:
-		Name: Jim Raynor (Tier 4)
+		Name: actor-traynor-hero4.name
 	Health:
 		HP: 200000
 	ChangesHealth@stimpack:
@@ -1350,7 +1350,7 @@ TRAYNOR.Hero4:
 		ChargeInterval: 4500
 		UnitTypes: TSIEGE_SUPPORT1,TSIEGE_SUPPORT2,TSIEGE_SUPPORT3,TSIEGE_SUPPORT4,TSIEGE_SUPPORT5,TSIEGE_SUPPORT6
 		SelectTargetSpeechNotification: SelectTarget
-		SelectTargetTextNotification: Select target.
+		SelectTargetTextNotification: actor-traynor-hero4.droppodspower-select-target-text-notification
 		CameraActor: camera
 		CameraRemoveDelay: 250
 		EntryEffect: explosion
@@ -1392,7 +1392,7 @@ TRAYNOR.Hero5:
 		Prerequisites: ~barracks, ~techlevel.unrestricted, !active.raynor, ~hero.tier5, ~techlevel.hero
 		BuildDuration: 3000
 	Tooltip:
-		Name: Jim Raynor (Tier 5)
+		Name: actor-traynor-hero5-name
 	Health:
 		HP: 250000
 	ChangesHealth@stimpack:

@@ -319,7 +319,7 @@ ZHATCHERY:
 		Queue: Building
 		BuildPaletteOrder: 1000
 		Prerequisites: ~zpool, ~ai.hard
-		Description: Produces structures.
+		Description: actor-zhatchery.description
 		BuildLimit: 3
 	Health:
 		HP: 150000
@@ -334,13 +334,13 @@ ZHATCHERY:
 	Valued:
 		Cost: 3000
 	Tooltip:
-		Name: Hatchery
+		Name: actor-zhatchery.name
 		RequiresCondition: !lair_upgrade && !hive_upgrade
 	Tooltip@1:
-		Name: Lair
+		Name: actor-zhatchery.1--name
 		RequiresCondition: lair_upgrade && !hive_upgrade
 	Tooltip@2:
-		Name: Hive
+		Name: actor-zhatchery.2--name
 		RequiresCondition: hive_upgrade
 	BaseBuilding:
 	GrantConditionOnPrerequisite@GLOBALFACTUNDEPLOY:
@@ -570,11 +570,11 @@ ZHATCHERY:
 		Actors: zdevouring,zdevouring,zdevouring,zdevouring,zdevouring,zdevouring,zdevouring,zdevouring,zdevouring,zdevouring,zdevouring,zdevouring
 		Type: SpecialUnit
 		ChargeInterval: 3750
-		EndChargeTextNotification: Devouring Ones ready.
+		EndChargeTextNotification: actor-zhatchery.produceactorpower-devouringone-end-charge-text-notification
 		ReadyAudio: ReinforcementsArrived
-		ReadyTextNotification: Reinforcements have arrived.
+		ReadyTextNotification: actor-zhatchery.produceactorpower-devouringone-ready-text-notification
 		BlockedAudio: NoBuild
-		BlockedTextNotification: No room for new unit.
+		BlockedTextNotification: actor-zhatchery.produceactorpower-devouringone-blocked-text-notification
 		OrderName: SpawnDevouringOne
 	Production@specialunit:
 		Produces: SpecialUnit
@@ -603,12 +603,12 @@ ZLAIR.up:
 	Valued:
 		Cost: 3000
 	Tooltip:
-		Name: Evolve to Lair
+		Name: actor-zlair-up.name
 	Buildable:
 		Queue: Tech
 		BuildPaletteOrder: 1000
 		Prerequisites: zhatchery, zchamber, ~structures.zerg, ~techlevel.high, ~free_hatchery
-		Description: Evolve a Hatchery to a Lair. \nUnlocks access to Advanced structures and units.
+		Description: actor-zlair-up.description
 		Icon: icon-lair
 		IconPalette: player-icon
 		IconPaletteIsPlayerPalette: true
@@ -626,13 +626,13 @@ ZHIVE.up:
 	Valued:
 		Cost: 6000
 	Tooltip:
-		Name: Evolve to Hive
+		Name: actor-zhive-up.name
 	Buildable:
 		Queue: Tech
 		BuildPaletteOrder: 1001
 		BuildDuration: 4500
 		Prerequisites: zlair, znest, ~structures.zerg, ~techlevel.unrestricted, ~!ulttechcenter
-		Description: Evolve a Lair to a Hive. \nUnlocks access to high tier structures and units. \n\nLimit of 1.
+		Description: actor-zhive-up.description
 		Icon: icon-hive
 		IconPalette: player-icon
 		IconPaletteIsPlayerPalette: true
@@ -649,13 +649,13 @@ ZLAIR:
 	AlwaysVisible:
 	Interactable:
 	Tooltip:
-		Name: Lair
+		Name: actor-zlair-name
 
 ZHIVE:
 	AlwaysVisible:
 	Interactable:
 	Tooltip:
-		Name: Hive
+		Name: actor-zhive-name
 
 ZCCOLONY:
 	Inherits: ^ZergBuilding
@@ -679,7 +679,7 @@ ZCCOLONY:
 		Queue: Defense
 		BuildPaletteOrder: 100
 		Prerequisites: ~structures.zerg, ~techlevel.infonly, ~zerg.easybuild
-		Description: Spreads creep, can be evolved into \n defensive structures. \n\nMust be placed on creep.
+		Description: actor-zccolony.description
 	Health:
 		HP: 40000
 	Armor:
@@ -703,13 +703,13 @@ ZCCOLONY:
 	Valued:
 		Cost: 500
 	Tooltip:
-		Name: Creep Colony
+		Name: actor-zccolony.name
 		RequiresCondition: !waiting_to_evolve
 	Tooltip@1:
-		Name: Sunken Colony
+		Name: actor-zccolony.1--name
 		RequiresCondition: str_sunken
 	Tooltip@2:
-		Name: Spore Colony
+		Name: actor-zccolony.2--name
 		RequiresCondition: str_spore
 	BaseBuilding:
 	WithDeathAnimation:
@@ -872,11 +872,11 @@ ZCCOLONY.bot:
 ZE.SUNKEN:
 	Inherits: ^ZergEvolve
 	Tooltip:
-		Name: Evolve into Sunken Colony
+		Name: actor-ze-sunken.name
 	Buildable:
 		Queue: Building.ZergColony
 		BuildAtProductionType: Building.ZergColony
-		Description: Anti-ground defensive structure. \n Cannot detect cloaked. \n\nStrong vs ground units
+		Description: actor-ze-sunken.description
 		Prerequisites: barracks, ~techlevel.infonly, ~zccolony
 		IconPalette: player-icon
 		IconPaletteIsPlayerPalette: true
@@ -888,11 +888,11 @@ ZE.SUNKEN:
 ZE.SPORE:
 	Inherits: ^ZergEvolve
 	Tooltip:
-		Name: Evolve into Spore Colony
+		Name: actor-ze-spore.name
 	Buildable:
 		Queue: Building.ZergColony
 		BuildAtProductionType: Building.ZergColony
-		Description: Anti-air defensive structure. \n Detects cloaked units. \n\nStrong vs aircraft
+		Description: actor-ze-spore.description
 		Prerequisites: barracks, ~techlevel.infonly, ~zccolony
 		IconPalette: player-icon
 		IconPaletteIsPlayerPalette: true
@@ -921,7 +921,7 @@ ZEXTRAC:
 		BuildPaletteOrder: 101
 		BuildDuration: 1400
 		Prerequisites: ~structures.zerg, ~techlevel.infonly, ~zerg.easybuild, ~!ai.boss
-		Description: Refines and stores resources. \n\nMust be placed on creep.
+		Description: actor-zextrac.description
 	Health:
 		HP: 90000
 	Armor:
@@ -938,7 +938,7 @@ ZEXTRAC:
 	Valued:
 		Cost: 800
 	Tooltip:
-		Name: Extractor
+		Name: actor-zextrac.name
 	BaseBuilding:
 	WithDeathAnimation:
 		DeathSequence: dead
@@ -1002,7 +1002,7 @@ ZPOOL:
 		Queue: Building
 		BuildPaletteOrder: 102
 		Prerequisites: ~structures.zerg, refinery, ~techlevel.infonly, ~zerg.easybuild, ~!ai.hard
-		Description: Allows production of Zerglings at\n a Hatchery. \n\nMust be placed on creep.
+		Description: actor-zpool.description
 	Health:
 		HP: 60000
 	Armor:
@@ -1016,7 +1016,7 @@ ZPOOL:
 	Valued:
 		Cost: 500
 	Tooltip:
-		Name: Spawning Pool
+		Name: actor-zpool.name
 	BaseBuilding:
 	WithDeathAnimation:
 		DeathSequence: dead
@@ -1077,7 +1077,7 @@ ZHYDRADEN:
 		Queue: Building
 		BuildPaletteOrder: 103
 		Prerequisites: zpool, ~structures.zerg, ~techlevel.infonly, ~zerg.easybuild
-		Description: Allows production of Hydralisks at\n a Hatchery. \n\nMust be placed on creep.
+		Description: actor-zhydraden.description
 	Health:
 		HP: 90000
 	Armor:
@@ -1091,7 +1091,7 @@ ZHYDRADEN:
 	Valued:
 		Cost: 1200
 	Tooltip:
-		Name: Hydralisk Den
+		Name: actor-zhydraden.name
 	BaseBuilding:
 	WithDeathAnimation:
 		DeathSequence: dead
@@ -1150,7 +1150,7 @@ ZCHAMBER:
 		BuildPaletteOrder: 104
 		BuildDuration: 2000
 		Prerequisites: zhydraden, ~structures.zerg, ~techlevel.high, ~zerg.easybuild
-		Description: Provides access to Zerg-specific upgrades\n and ability to evolve your Hatchery. \n\nMust be placed on creep.
+		Description: actor-zchamber.description
 	Health:
 		HP: 90000
 	Armor:
@@ -1165,7 +1165,7 @@ ZCHAMBER:
 		Cost: 2000
 	-Power:
 	Tooltip:
-		Name: Evolution Chamber
+		Name: actor-zchamber.name
 	BaseBuilding:
 	WithDeathAnimation:
 		DeathSequence: dead
@@ -1200,7 +1200,7 @@ ZSPIRE:
 		BuildPaletteOrder: 105
 		BuildDuration: 2000
 		Prerequisites: ~structures.zerg, techcenter, ~techlevel.high, ~zerg.easybuild
-		Description: Allows production of basic air units\n at a Spire. \n\nMust be placed on creep.
+		Description: actor-zspire.description
 		BuildLimit: 2
 	Health:
 		HP: 110000
@@ -1215,10 +1215,10 @@ ZSPIRE:
 	Valued:
 		Cost: 1500
 	Tooltip:
-		Name: Spire
+		Name: actor-zspire.name
 		RequiresCondition: !spire_upgrade
 	Tooltip@2:
-		Name: Greater Spire
+		Name: actor-zspire.2--name
 		RequiresCondition: spire_upgrade
 	BaseBuilding:
 	WithDeathAnimation:
@@ -1343,13 +1343,13 @@ ZGSPIRE.up:
 	Valued:
 		Cost: 2500
 	Tooltip:
-		Name: Evolve to Greater Spire
+		Name: actor-zgspire-up.name
 	Buildable:
 		Queue: Tech
 		BuildPaletteOrder: 1002
 		BuildDuration: 4500
 		Prerequisites: zlair, ~zspire.up, ~structures.zerg, ~techlevel.unrestricted
-		Description: Evolve a Spire into a Greater Spire. \nUnlocks access to advanced air units\n and upgrades.
+		Description: actor-zgspire-up.description
 		Icon: icon-gspire
 		IconPalette: player-icon
 		IconPaletteIsPlayerPalette: true
@@ -1366,7 +1366,7 @@ ZGSPIRE:
 	AlwaysVisible:
 	Interactable:
 	Tooltip:
-		Name: Greater Spire
+		Name: actor-zgspire-name
 
 ZNEST:
 	Inherits: ^ZergScienceBuilding
@@ -1380,7 +1380,7 @@ ZNEST:
 		BuildPaletteOrder: 199
 		BuildDuration: 2500
 		Prerequisites: advtechcenter, zspire, ~structures.zerg, ~techlevel.high, ~zerg.easybuild
-		Description: Allows production of a Queen\n at a Spire. \n\nMust be placed on creep.
+		Description: actor-znest.description
 		BuildLimit: 1
 	Health:
 		HP: 90000
@@ -1395,7 +1395,7 @@ ZNEST:
 	Valued:
 		Cost: 2000
 	Tooltip:
-		Name: Queen's Nest
+		Name: actor-znest.name
 	BaseBuilding:
 	WithDeathAnimation:
 		DeathSequence: dead
@@ -1427,14 +1427,14 @@ ZMSLO:
 	Valued:
 		Cost: 2500
 	Tooltip:
-		Name: Infested Missile Silo
+		Name: actor-zmslo.name
 	Buildable:
 		Queue: Tech
 		Icon: icon-zerg
 		BuildPaletteOrder: 200
 		Prerequisites: ~structures.zerg, advtechcenter, ~techlevel.unrestricted
 		BuildLimit: 1
-		Description: Provides an atomic bomb full of plague and corrosion.\nRequires power to operate.\nMaximum 1 can be built.\n  Special Ability: Zerg Atom Bomb
+		Description: actor-zmslo.description
 	Building:
 		Footprint: xx
 		Dimensions: 2,1
@@ -1474,11 +1474,11 @@ ZMSLO:
 		SelectTargetSpeechNotification: SelectTarget
 		InsufficientPowerSpeechNotification: InsufficientPower
 		IncomingSpeechNotification: AbombLaunchDetected
-		SelectTargetTextNotification: Select target.
-		InsufficientPowerTextNotification: Insufficient power.
-		BeginChargeTextNotification: A-bomb prepping.
-		EndChargeTextNotification: A-bomb ready.
-		IncomingTextNotification: A-bomb launch detected.
+		SelectTargetTextNotification: actor-zmslo.nukepower-select-target-text-notification
+		InsufficientPowerTextNotification: actor-zmslo.nukepower-insufficient-power-text-notification
+		BeginChargeTextNotification: actor-zmslo.nukepower-begin-charge-text-notification
+		EndChargeTextNotification: actor-zmslo.nukepower-end-charge-text-notification
+		IncomingTextNotification: actor-zmslo.nukepower-incoming-text-notification
 		MissileWeapon: PlagueAtomic
 		MissileImage: atomic.nod3
 		MissileDelay: 5
@@ -1532,7 +1532,7 @@ ZMOUND:
 		BuildPaletteOrder: 202
 		BuildDuration: 2500
 		Prerequisites: ulttechcenter, zpool, ~structures.zerg, ~techlevel.high, ~zerg.easybuild, ~!structures.kerrigan
-		Description: Allows production of Defilers\n at a Hatchery. \n\nMust be placed on creep.
+		Description: actor-zmound.description
 		BuildLimit: 1
 	Health:
 		HP: 120000
@@ -1547,7 +1547,7 @@ ZMOUND:
 	Valued:
 		Cost: 1800
 	Tooltip:
-		Name: Defiler Mound
+		Name: actor-zmound.name
 	BaseBuilding:
 	WithDeathAnimation:
 		DeathSequence: dead
@@ -1585,7 +1585,7 @@ ZULTRADEN:
 		BuildPaletteOrder: 201
 		BuildDuration: 2500
 		Prerequisites: ulttechcenter, zpool, ~structures.zerg, ~techlevel.unrestricted, ~zerg.easybuild
-		Description: Allows production of Ultralisks at \n a Hatchery. \n\nMust be placed on creep.
+		Description: actor-zultraden.description
 		BuildLimit: 1
 	Health:
 		HP: 120000
@@ -1600,7 +1600,7 @@ ZULTRADEN:
 	Valued:
 		Cost: 2000
 	Tooltip:
-		Name: Ultralisk Cavern
+		Name: actor-zultraden.name
 	BaseBuilding:
 	WithDeathAnimation:
 		DeathSequence: dead
@@ -1655,7 +1655,7 @@ ZNYDUS:
 	Valued:
 		Cost: 1000
 	Tooltip:
-		Name: Nydus Canal
+		Name: actor-znydus-name
 	WithDeathAnimation:
 		DeathSequence: dead
 		UseDeathTypeSuffix: false
@@ -1839,7 +1839,7 @@ ZNYDUS.Entry:
 		Queue: Tech
 		BuildPaletteOrder: 202
 		Prerequisites: ~structures.zerg, ulttechcenter, ~techlevel.unrestricted, ~zerg.easybuild
-		Description: Entry point for Zerg ground units to \nuse the Nydus network. \n\nMust be placed on creep.
+		Description: actor-znydus-entry.description
 		BuildLimit: 1
 	Health:
 		HP: 100000
@@ -1854,7 +1854,7 @@ ZNYDUS.Entry:
 	Valued:
 		Cost: 1000
 	Tooltip:
-		Name: Nydus Canal Entry
+		Name: actor-znydus-entry.name
 	WithDeathAnimation:
 		DeathSequence: dead
 		UseDeathTypeSuffix: false
@@ -1890,7 +1890,7 @@ NYDUS.Teleport:
 	RenderSprites:
 		Image: ZNYDUS
 	Tooltip:
-		Name: Nydus Canal Entry
+		Name: actor-nydus-teleport-name
 	Valued:
 		Cost: 1000
 	Health:

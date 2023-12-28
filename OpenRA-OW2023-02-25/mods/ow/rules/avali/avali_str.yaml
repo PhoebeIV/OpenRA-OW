@@ -7,7 +7,7 @@ AVFACT:
 		BuildSounds: placbldg.aud, build5.aud
 		LocalCenterOffset: 0,0,0
 	Tooltip:
-		Name: Construction Command Ship
+		Name: actor-avfact-name
 	SpawnActorsOnSell:
 		ActorTypes: avinf1,avinf1,avinf1,tecn,tecn2
 		GuaranteedActorTypes: avinf1, e6
@@ -53,11 +53,11 @@ AVPOWR1:
 		Queue: Building
 		BuildPaletteOrder: 1
 		Prerequisites: ~structures.avalon, ~techlevel.infonly, ~!ai.powerout
-		Description: Provides power for other structures.\n\n10% boost in warm environments.
+		Description: actor-avpowr1.description
 	Valued:
 		Cost: 300
 	Tooltip:
-		Name: Geothermic Generator
+		Name: actor-avpowr1.name
 	ProvidesPrerequisite:
 		Prerequisite: anypower
 	Building:
@@ -78,7 +78,7 @@ AVPOWR1:
 	WithDeathAnimation:
 		DeathSequence: dead
 		UseDeathTypeSuffix: false
-	RenderSprites: 
+	RenderSprites:
 		Image: dpwr
 
 AVPOWR2:
@@ -95,11 +95,11 @@ AVPOWR2:
 		Queue: Building
 		BuildPaletteOrder: 110
 		Prerequisites: radar, ~techlevel.medium, ~structures.avalon, ~!ai.powerout
-		Description: Provides double the power of\na standard Geothermic Generator.\n\n10% boost in warm environments.
+		Description: actor-avpowr2.description
 	Valued:
 		Cost: 600
 	Tooltip:
-		Name: Advanced Geothermic Generator
+		Name: actor-avpowr2.name
 	ProvidesPrerequisite:
 		Prerequisite: anypower
 	ProvidesPrerequisite@grade:
@@ -122,7 +122,7 @@ AVPOWR2:
 	WithDeathAnimation:
 		DeathSequence: dead
 		UseDeathTypeSuffix: false
-	RenderSprites: 
+	RenderSprites:
 		Image: nuk2
 
 AVPOWR3:
@@ -131,13 +131,13 @@ AVPOWR3:
 		Bounds: 3072, 2048
 	Buildable:
 		Prerequisites: advtechcenter, ~techlevel.unrestricted, ~structures.avalon, ~!ai.boss, ~!ai.powerout
-		Description: Provides huge power, but very unstable.\n	Explodes violently. \n\n10% boost in warm environments.
+		Description: actor-avpowr3.description
 	Building:
 		Footprint: xxx xxx ===
 		Dimensions: 3,3
 		LocalCenterOffset: 0,-512,0
 	Tooltip:
-		Name: Uranium-Assisted Geothermic Generator
+		Name: actor-avpowr3.name
 	WithIdleOverlay:
 		StartSequence: fire-start
 		Sequence: fire-loop
@@ -150,7 +150,7 @@ AVPROC:
 	Buildable:
 		Prerequisites: anypower, ~techlevel.infonly, ~structures.avalon, ~!ai.boss
 	Tooltip:
-		Name: Assimilator
+		Name: actor-avproc-name
 	FreeActor:
 		Actor: HARV
 	-GrantConditionOnFaction:
@@ -169,9 +169,9 @@ AVTENT:
 		-TargetableOffsets:
 	Buildable:
 		Prerequisites: anypower, ~structures.avalon, ~techlevel.infonly, ~!structures.bothard
-		Description: Prepares avalis for fighting.
+		Description: actor-avtent.description
 	Tooltip:
-		Name: Congregation Tent
+		Name: actor-avtent.name
 	Building:
 		Dimensions: 3,3
 		Footprint: =x= xxx ===
@@ -201,7 +201,7 @@ AVWEAP:
 		BuildPaletteOrder: 80
 		Prerequisites: refinery, barracks, ~techlevel.low, ~structures.avalon, ~!structures.bothard
 	Tooltip:
-		Name: Armor Factory
+		Name: actor-avweap-name
 	RenderSprites:
 		Image: WEAP
 
@@ -220,11 +220,11 @@ AVRADAR:
 		Queue: Building
 		BuildPaletteOrder: 90
 		Prerequisites: refinery, ~techlevel.medium, ~structures.avalon
-		Description: Provides an overview\nof the battlefield.\nRequires power to operate.
+		Description: actor-avradar.description
 	Valued:
 		Cost: 1800
 	Tooltip:
-		Name: Communications Center
+		Name: actor-avradar.name
 	Building:
 		Footprint: x_ xx ==
 		Dimensions: 2,3
@@ -296,11 +296,11 @@ AVPAD:
 		Queue: Building
 		BuildPaletteOrder: 120
 		Prerequisites: radar, ~structures.avalon, ~techlevel.medium
-		Description: Produces and reloads\naircraft.
+		Description: actor-avpad.description
 	Valued:
 		Cost: 500
 	Tooltip:
-		Name: Helipad
+		Name: actor-avpad.name
 	Building:
 		Footprint: xx xx ==
 		Dimensions: 2,3
@@ -322,9 +322,9 @@ AVTECH:
 		Queue: Building
 		BuildPaletteOrder: 140
 		Prerequisites: factory, radar, ~structures.avalon, ~techlevel.high
-		Description: Provides Avali Illuminate advanced technologies.\n  Special Ability: GPS Satellite
+		Description: actor-avtech.description
 	Tooltip:
-		Name: Illuminate Tech Center
+		Name: actor-avtech.name
 	Building:
 		Footprint: xx xx ==
 		Dimensions: 2,3
@@ -357,9 +357,9 @@ AVFROST:
 		Queue: Wall
 		BuildPaletteOrder: 100
 		Prerequisites: anypower, ~structures.avalon, ~techlevel.low, ~structures.snowgen
-		Description: Generates snow. \n  Unarmed
+		Description: actor-avfrost.description
 	Tooltip:
-		Name: Frost Generator
+		Name: actor-avfrost.name
 	Power:
 		Amount: -20
 	Health:
@@ -378,7 +378,7 @@ AVFROST:
 		MaxRange: 9
 		RequiresCondition: !disabled
 	-AcceptsDeliveredCash:
-	RenderSprites: 
+	RenderSprites:
 		Image: OREGEN
 	Explodes:
 		Weapon: FrostRemoveMed
@@ -395,12 +395,12 @@ AVPBOX:
 	RenderSprites:
 		Image: pbox
 	Tooltip:
-		Name: Pillbox
+		Name: actor-avpbox.name
 	Buildable:
 		Queue: Defense
 		BuildPaletteOrder: 40
 		Prerequisites: barracks, ~structures.avalon, ~techlevel.low
-		Description: Static defense with a fireport for\na garrisoned soldier.\nCan detect cloaked units.\n  Strong vs Infantry, Light armor\n  Weak vs Tanks, Aircraft
+		Description: actor-avpbox.description
 	Cargo:
 		Types: Infantry
 		MaxWeight: 1
@@ -413,12 +413,12 @@ AVTOWR:
 	Valued:
 		Cost: 700
 	Tooltip:
-		Name: Anti-Air Tower
+		Name: actor-avtowr.name
 	Buildable:
 		BuildPaletteOrder: 60
 		Prerequisites: radar, ~structures.avalon, ~techlevel.medium
 		Queue: Defense
-		Description: Anti-Air base defense.\nRequires power to operate.\n  Strong vs Aircraft\n  Weak vs Ground units
+		Description: actor-avtowr.description
 	Selectable:
 		Bounds: 1024, 1024
 		DecorationBounds: 938, 2048, 0, -512
@@ -463,11 +463,11 @@ AVGUN:
 		Queue: Defense
 		BuildPaletteOrder: 70
 		Prerequisites: barracks, ~structures.avalon, ~techlevel.medium
-		Description: Anti-Armor base defense.\nCan detect cloaked units.\n  Strong vs Vehicles\n  Weak vs Infantry, Aircraft
+		Description: actor-avgun.description
 	Valued:
 		Cost: 800
 	Tooltip:
-		Name: Turret
+		Name: actor-avgun.name
 	Building:
 	Health:
 		HP: 50000

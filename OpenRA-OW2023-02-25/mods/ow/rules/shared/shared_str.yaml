@@ -65,7 +65,7 @@ FACTD:
 		BuildPaletteOrder: 1000
 		Prerequisites: ~disabled
 	Tooltip:
-		Name: Construction Yard
+		Name: actor-factd-name
 	Health:
 		HP: 150000
 	Armor:
@@ -79,7 +79,7 @@ FACTD:
 	Valued:
 		Cost: 2000
 	Tooltip:
-		Name: Construction Yard
+		Name: actor-factd-name
 	SpawnActorsOnSell:
 		ActorTypes: e1,e1,e1,tecn,tecn,e6
 	BaseBuilding:
@@ -167,11 +167,11 @@ FOUNDRY:
 		Queue: Tech
 		BuildPaletteOrder: 25
 		Prerequisites: conyard, ~techlevel.medium, ~structures.foundryprereq, ~!structures.bothard
-		Description: Autonomous building construction. \nIncreases build speed of Structures and\nDefense by 1 stage (max 10).
+		Description: actor-foundry.description
 	Valued:
 		Cost: 1500
 	Tooltip:
-		Name: Foundry
+		Name: actor-foundry.name
 	ProvidesPrerequisite@buildingname:
 	ProvidesPrerequisite@foundry:
 		Prerequisite: foundry
@@ -234,11 +234,11 @@ PROC:
 		Queue: Building
 		BuildPaletteOrder: 15
 		Prerequisites: anypower, ~techlevel.infonly, ~structures.procprereq, ~!ai.boss # Allies, Soviet, Nazi
-		Description: Refines Ore, Tiberium and Gems\ninto credits.
+		Description: actor-proc.description
 	Valued:
 		Cost: 1400
 	Tooltip:
-		Name: Refinery
+		Name: actor-proc.name
 	Refinery:
 	DockHost:
 		Type: Unload
@@ -273,7 +273,7 @@ PROC:
 SILO:
 	Buildable:
 		Prerequisites: refinery, ~techlevel.infonly, ~structures.procprereq # Allies, Soviet, Nazi
-		Description: Stores excess refined\nOre, Tiberium and Gems.\n Capacity: 2500
+		Description: actor-silo-description
 	InfiltrateForCash:
 		Maximum: 5000
 
@@ -284,11 +284,11 @@ PROCD:
 		Queue: Building
 		BuildPaletteOrder: 15
 		Prerequisites: anypower, ~techlevel.infonly, ~structures.procdprereq, ~!ai.boss # GDI, Nod, UAC, Fed
-		Description: Refines Ore, Tiberium and Gems\ninto credits.
+		Description: actor-procd.description
 	Valued:
 		Cost: 1400
 	Tooltip:
-		Name: Refinery
+		Name: actor-procd.name
 	Building:
 		Footprint: _x_ xxx === ===
 		Dimensions: 3,4
@@ -378,7 +378,7 @@ SILOD:
 		Queue: Defense
 		BuildPaletteOrder: 35
 		Prerequisites: refinery, ~techlevel.infonly, ~structures.silodprereq # GDI, Nod, UAC, Fed
-		Description: Stores excess refined\nOre, Tiberium and Gems.\n Capacity: 3500
+		Description: actor-silod.description
 	Building:
 		Footprint: xx
 		Dimensions: 2,1
@@ -387,7 +387,7 @@ SILOD:
 	Targetable:
 		TargetTypes: GroundActor, Structure, C4, DetonateAttack, ThiefInfiltrate
 	Tooltip:
-		Name: Silo
+		Name: actor-silod.name
 	-GivesBuildableArea:
 	Health:
 		HP: 40000
@@ -432,7 +432,7 @@ BARR:
 	Buildable:
 		Prerequisites: anypower, ~structures.barrprereq, ~techlevel.infonly, ~!structures.bothard # Fed, Soviet
 	Tooltip:
-		Name: Barracks
+		Name: actor-barr-name
 
 PYLED:
 	Inherits: ^DawnBuilding
@@ -448,11 +448,11 @@ PYLED:
 		Queue: Building
 		BuildPaletteOrder: 20
 		Prerequisites: anypower, ~techlevel.infonly, ~structures.pyledprereq, ~!structures.bothard # GDI, UAC
-		Description: Trains infantry.
+		Description: actor-pyled.description
 	Valued:
 		Cost: 500
 	Tooltip:
-		Name: Barracks
+		Name: actor-pyled.name
 	Building:
 		Footprint: xx xx ==
 		Dimensions: 2,3
@@ -529,11 +529,11 @@ WEAP:
 		Queue: Building
 		BuildPaletteOrder: 80
 		Prerequisites: refinery, barracks, ~techlevel.low, ~structures.weapprereq, ~!structures.bothard # Allies, Soviet, Fed, UAC
-		Description: Produces vehicles.
+		Description: actor-weap.description
 	Valued:
 		Cost: 2000
 	Tooltip:
-		Name: War Factory
+		Name: actor-weap.name
 	Building:
 		Footprint: xxx xxx ===
 		Dimensions: 3,3
@@ -583,11 +583,11 @@ WEAPD:
 		Queue: Building
 		BuildPaletteOrder: 80
 		Prerequisites: refinery,barracks, ~techlevel.low, ~structures.weapdprereq, ~!structures.bothard # GDI, Nazi
-		Description: Produces vehicles.
+		Description: actor-weapd.description
 	Valued:
 		Cost: 2000
 	Tooltip:
-		Name: Weapons Factory
+		Name: actor-weapd.name
 	Building:
 		Footprint: ___ xxx === ===
 		Dimensions: 3,4
@@ -668,11 +668,11 @@ DOME:
 		Queue: Building
 		BuildPaletteOrder: 90
 		Prerequisites: refinery, ~techlevel.medium, ~structures.domeprereq # Allies, Soviet, UAC, Nazi
-		Description: Provides an overview\nof the battlefield.\nRequires power to operate.
+		Description: actor-dome.description
 	Valued:
 		Cost: 1800
 	Tooltip:
-		Name: Radar Dome
+		Name: actor-dome.name
 	Building:
 		Footprint: xx xx ==
 		Dimensions: 2,3
@@ -745,11 +745,11 @@ HQD:
 		Queue: Building
 		BuildPaletteOrder: 90
 		Prerequisites: refinery, ~techlevel.medium, ~structures.hqdprereq # GDI, Nod, Fed
-		Description: Provides an overview\nof the battlefield.\nRequires power to operate.
+		Description: actor-hqd.description
 	Valued:
 		Cost: 1800
 	Tooltip:
-		Name: Communications Center
+		Name: actor-hqd.name
 	Building:
 		Footprint: x_ xx ==
 		Dimensions: 2,3
@@ -902,7 +902,7 @@ HPAD:
 	-WithBuildingBib:
 	Buildable:
 		Prerequisites: radar, ~structures.hpadprereq, ~techlevel.medium, ~!ai.hard
-		Description: Produces and reloads\naircraft. \nCan be placed in water.
+		Description: actor-hpad-description
 	GrantExternalConditionToProduced:
 		Condition: produced
 	Building:
@@ -1025,7 +1025,7 @@ GTWR:
 	Building:
 		BuildSounds: constru2.aud, hvydoor1.aud
 	Tooltip:
-		Name: Guard Tower
+		Name: actor-gtwr-name
 	Buildable:
 		Prerequisites: barracks, ~structures.gtwrprereq, ~techlevel.low
 	Cargo:
@@ -1104,7 +1104,7 @@ OUTPOST:
 	Targetable:
 		TargetTypes: GroundActor, Structure, C4, DetonateAttack, SpyInfiltrate
 	Tooltip:
-		Name: Outpost
+		Name: actor-outpost-name
 	BaseProvider:
 		Range: 8c0
 	Health:
@@ -1148,11 +1148,11 @@ ADVTECH:
 		BuildPaletteOrder: 9000
 		Prerequisites: techcenter, ~techlevel.unrestricted, ~structures.foundryprereq, ~!ai.boss
 		BuildLimit: 3
-		Description: Provides extra advanced technologies and\n upgrades to your forces.\n  Special Ability: Steady income
+		Description: actor-advtech.description
 	Valued:
 		Cost: 3000
 	Tooltip:
-		Name: Advanced Tech Center
+		Name: actor-advtech.name
 	ProvidesPrerequisite:
 		Prerequisite: techcenter
 	ProvidesPrerequisite@adv:
@@ -1215,10 +1215,10 @@ RADIO.P:
 		Queue: Tech
 		BuildPaletteOrder: 8999
 		Prerequisites: techcenter, ~techlevel.unrestricted, ~structures.radioprereq
-		Description: Provides access to GPS Satellite.\nAlso provides radar.
+		Description: actor-radio-p.description
 		BuildLimit: 1
 	Tooltip:
-		Name: Radio Telescope
+		Name: actor-radio-p.name
 	Valued:
 		Cost: 6000
 	Health:
@@ -1261,11 +1261,11 @@ ATD:
 		Queue: Defense
 		BuildPaletteOrder: 110
 		Prerequisites: shippen, ~techlevel.medium, ~structures.atdprereq, ~!techlevel.noboats # Sov, Nod, Fed
-		Description: Anti-Naval and air defense.\nCan detect cloaked units.\n  Strong vs Vehicles\n  Weak vs Infantry, Aircraft
+		Description: actor-atd.description
 	Valued:
 		Cost: 1000
 	Tooltip:
-		Name: Adv. Torpedo Defense
+		Name: actor-atd.name
 	Building:
 		TerrainTypes: Water
 	RequiresBuildableArea:
@@ -1308,7 +1308,7 @@ XBAR:
 		BuildPaletteOrder: 200
 		Prerequisites: factory, ~structures.all, ~techlevel.medium
 		Icon: icon-demo
-		Description: Highly explosive proximity trap.\n  Strong vs Ground units\n  Weak vs Aircraft
+		Description: actor-xbar.description
 	RequiresBuildableArea:
 		AreaTypes: building, fake
 		Adjacent: 4
@@ -1323,7 +1323,7 @@ XBAR:
 	-CaptureManager:
 	-ActorLostNotification:
 	Tooltip:
-		Name: Demo Trap
+		Name: actor-xbar.name
 	SelectionDecorations:
 	Health:
 		HP: 22500
@@ -1379,7 +1379,7 @@ SEAMINE:
 	Inherits: XBAR
 	-Buildable:
 	Tooltip:
-		Name: Sea Mine
+		Name: actor-seamine-name
 	Cloak:
 		CloakSound: subshow1.aud
 		UncloakSound: subshow1.aud
@@ -1403,13 +1403,13 @@ SBAG:
 		Queue: Wall
 		BuildPaletteOrder: 10
 		Prerequisites: ~techlevel.low, ~!structures.civ
-		Description: Stops infantry and light vehicles.\nCan be crushed by tanks.
+		Description: actor-sbag.description
 	Valued:
 		Cost: 30
 	CustomSellValue:
 		Value: 0
 	Tooltip:
-		Name: Sandbag Wall
+		Name: actor-sbag.name
 	Health:
 		HP: 15000
 	Armor:
@@ -1427,13 +1427,13 @@ FENC:
 		Queue: Wall
 		BuildPaletteOrder: 20
 		Prerequisites: ~techlevel.low
-		Description: Stops infantry and light vehicles.\nCan be crushed by tanks.
+		Description: actor-fenc.description
 	Valued:
 		Cost: 30
 	CustomSellValue:
 		Value: 0
 	Tooltip:
-		Name: Wire Fence
+		Name: actor-fenc.name
 	Health:
 		HP: 15000
 	Armor:
@@ -1451,13 +1451,13 @@ CYCL:
 		Queue: Wall
 		BuildPaletteOrder: 25
 		Prerequisites: ~techlevel.low, ~!structures.estonia, ~!structures.medi
-		Description: Stop units and blocks enemy fire.\nCan be crushed by tanks.
+		Description: actor-cycl.description
 	Valued:
 		Cost: 75
 	CustomSellValue:
 		Value: 0
 	Tooltip:
-		Name: Chain-Link Barrier
+		Name: actor-cycl.name
 	Health:
 		HP: 25000
 	BlocksProjectiles:
@@ -1476,13 +1476,13 @@ BRIK:
 		Queue: Wall
 		BuildPaletteOrder: 30
 		Prerequisites: ~techlevel.medium, ~!structures.estonia, ~!structures.civ
-		Description: Stop units and blocks enemy fire.
+		Description: actor-brik.description
 	Valued:
 		Cost: 200
 	CustomSellValue:
 		Value: 0
 	Tooltip:
-		Name: Concrete Wall
+		Name: actor-brik.name
 	SoundOnDamageTransition:
 		DamagedSounds: crmble2.aud
 		DestroyedSounds: kaboom30.aud
@@ -1508,7 +1508,7 @@ BRIK:
 BARB:
 	Inherits: ^Wall
 	Tooltip:
-		Name: Barbed-Wire Fence
+		Name: actor-barb-name
 	Armor:
 		Type: Wood
 	LineBuild:
@@ -1524,13 +1524,13 @@ WOOD:
 		Queue: Wall
 		BuildPaletteOrder: 5
 		Prerequisites: ~structures.civ, ~techlevel.low
-		Description: Stops infantry and light vehicles.\nCan be crushed by tanks.
+		Description: actor-wood.description
 	Valued:
 		Cost: 30
 	CustomSellValue:
 		Value: 0
 	Tooltip:
-		Name: Wooden Fence
+		Name: actor-wood.name
 	Health:
 		HP: 15000
 	Armor:
@@ -1551,9 +1551,9 @@ OREEXT:
 		Queue: Wall
 		BuildPaletteOrder: 105
 		Prerequisites: techcenter, ~structures.oreextprereq, ~techlevel.unrestricted
-		Description: Place on ore mines to increase \n their growth rate. \n  Unarmed
+		Description: actor-oreext.description
 	Tooltip:
-		Name: Ore Extractor
+		Name: actor-oreext.name
 	Building:
 		TerrainTypes: Oremine
 	RequiresBuildableArea:
@@ -1595,9 +1595,9 @@ OREEXT2:
 		Queue: Wall
 		BuildPaletteOrder: 105
 		Prerequisites: techcenter, ~structures.oreextadvprereq, ~techlevel.unrestricted
-		Description: Place on ore mines to increase \n their growth rate. \n  Unarmed
+		Description: actor-oreext2.description
 	Tooltip:
-		Name: Advanced Ore Extractor
+		Name: actor-oreext2.name
 	Building:
 		TerrainTypes: Oremine
 	RequiresBuildableArea:
@@ -1652,7 +1652,7 @@ AGATE:
 	CustomSellValue:
 		Value: 50
 	Tooltip:
-		Name: Gate
+		Name: actor-agate-name
 		Description: Stops infantry and most tanks.\nBlocks some projectiles.
 	SoundOnDamageTransition:
 		DamagedSounds: crmble2.aud
@@ -1710,8 +1710,8 @@ VGATE:
 		AreaTypes: building
 		Adjacent: 4
 	Tooltip:
-		Name: Pavement
-		GenericName: Cement
+		Name: meta-concrete.name
+		GenericName: meta-concrete.generic-name
 	RenderSprites:
 		Image: pavement
 	KillsSelf:
@@ -1719,7 +1719,7 @@ VGATE:
 	Buildable:
 		Queue: Wall
 		BuildPaletteOrder: 10
-		Description: Pave the ground to increase unit movement speed.
+		Description: meta-concrete.description
 
 concretea:
 	Inherits: ^concrete
@@ -1727,7 +1727,7 @@ concretea:
 		Footprint: xxx xxx xxx
 		Dimensions: 3,3
 	Tooltip:
-		Name: Pavement 3x3
+		Name: actor-concretea-name
 	Valued:
 		Cost: 20
 	Buildable:
@@ -1743,7 +1743,7 @@ concreteb:
 		Footprint: xxxx xxxx xxxx xxxx
 		Dimensions: 4,4
 	Tooltip:
-		Name: Pavement 4x4
+		Name: actor-concreteb-name
 	Valued:
 		Cost: 50
 	Buildable:
@@ -1757,7 +1757,7 @@ concretec:
 		Footprint: xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx
 		Dimensions: 10,10
 	Tooltip:
-		Name: Pavement 10x10
+		Name: actor-concretec-name
 	Valued:
 		Cost: 50
 	Buildable:

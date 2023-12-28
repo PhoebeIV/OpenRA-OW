@@ -1,9 +1,9 @@
 gdi.speed:
 	Inherits: ^UpgradeBaseExt
 	Tooltip:
-		Name: Research Reactor Engines
+		Name: actor-gdi-speed.name
 	Buildable:
-		Description: Increases movement speed of tanks and aircraft.
+		Description: actor-gdi-speed.description
 		BuildPaletteOrder: 12003
 		Prerequisites: ~!upgrade.busy, ~!gdi.speed, ~structures.gdi, techcenter, ~techlevel.high
 	ProvidesPrerequisite@upgradename:
@@ -13,9 +13,9 @@ gdi.speed:
 gdi.suits:
 	Inherits: ^UpgradeBaseExt
 	Tooltip:
-		Name: Supply Hazard Suits
+		Name: actor-gdi-suits.name
 	Buildable:
-		Description: Grants immunity to corrosion and similar effects.
+		Description: actor-gdi-suits.description
 		BuildPaletteOrder: 12004
 		Prerequisites: ~!upgrade.busy, ~!gdi.suits, ~structures.gdi, advtechcenter, ~techlevel.unrestricted
 		BuildDuration: 4000
@@ -31,9 +31,9 @@ ATEK.GDI:
 		Queue: Building
 		BuildPaletteOrder: 140
 		Prerequisites: weapd, hqd, ~structures.gdi, ~techlevel.high, ~!ai.hard
-		Description: Provides GDI advanced technologies.
+		Description: actor-atek-gdi.description
 	Tooltip:
-		Name: GDI Tech Center
+		Name: actor-atek-gdi.name
 	RenderSprites:
 		Image: atek
 
@@ -51,12 +51,12 @@ EYED:
 		Queue: Tech
 		BuildPaletteOrder: 140
 		Prerequisites: techcenter, ~techlevel.unrestricted, ~structures.eyedprereq # GDI, UAC, Fed
-		Description: Provides radar and Orbital Ion Cannon support power.\nRequires power to operate.
+		Description: actor-eyed.description
 		BuildLimit: 1
 	Valued:
 		Cost: 3000
 	Tooltip:
-		Name: Adv. Com. Center
+		Name: actor-eyed.name
 	Building:
 		Footprint: x_ xx ==
 		Dimensions: 2,3
@@ -203,12 +203,12 @@ ATWR:
 	Valued:
 		Cost: 1300
 	Tooltip:
-		Name: Advanced Guard Tower
+		Name: actor-atwr.name
 	Buildable:
 		BuildPaletteOrder: 60
 		Prerequisites: radar, ~structures.gdi, ~techlevel.high
 		Queue: Defense
-		Description: All-purpose defensive structure.\n	Strong vs Aircraft, Tanks\n	Weak vs Infantry
+		Description: actor-atwr.description
 	Selectable:
 		Bounds: 1024, 1024
 		DecorationBounds: 938, 2048, 0, -512
@@ -256,10 +256,10 @@ ATWR2:
 	Valued:
 		Cost: 1000
 	Tooltip:
-		Name: Rocket Tower
+		Name: actor-atwr2.name
 	Buildable:
 		Prerequisites: factory, ~structures.allies, ~techlevel.unrestricted
-		Description: High-explosive defensive structure.\nCannot attack air.\n	Strong vs Vehicles
+		Description: actor-atwr2.description
 	Health:
 		HP: 50000
 	Armor:
@@ -282,7 +282,7 @@ CTWR:
 		Queue: Defense
 		BuildPaletteOrder: 51
 		Prerequisites: barracks, ~structures.ctwrprereq, ~techlevel.medium
-		Description: Upgradeable static defense.\nCan be placed on Concrete Walls.\n  Unarmed unless upgraded.
+		Description: actor-ctwr.description
 	Building:
 		LocalCenterOffset: 0,0,554
 	Selectable:
@@ -293,22 +293,22 @@ CTWR:
 		Types: concrete
 	Tooltip:
 		RequiresCondition: !has_attachment
-		Name: Component Tower
+		Name: actor-ctwr.name
 	Tooltip@0:
 		RequiresCondition: has_turret
-		Name: Vulcan Cannon
+		Name: actor-ctwr.0--name
 	Tooltip@1:
 		RequiresCondition: has_agt
-		Name: SS-SA Missile Tower
+		Name: actor-ctwr.1--name
 	Tooltip@2:
 		RequiresCondition: has_flame
-		Name: Flame Tower
+		Name: actor-ctwr.2--name
 	Tooltip@3:
 		RequiresCondition: has_tesla
-		Name: EMP Tesla Coil
+		Name: actor-ctwr.3--name
 	Tooltip@4:
 		RequiresCondition: has_sam
-		Name: SAM Site
+		Name: actor-ctwr.4--name
 	Valued:
 		Cost: 500
 	Health:
@@ -630,12 +630,12 @@ CTWR.GUN:
 	Valued:
 		Cost: 200
 	Tooltip:
-		Name: Vulcan Cannon attachment
+		Name: actor-ctwr-gun.name
 	Buildable:
 		Queue: Defense
 		BuildPaletteOrder: 52
 		Prerequisites: ~structures.gdi, ~techlevel.medium, ~free_ctwr
-		Description: Place on a free Component Tower. \n Strong vs Infantry
+		Description: actor-ctwr-gun.description
 		Icon: icon-gun
 	Plug:
 		Type: ctwr.gun
@@ -651,12 +651,12 @@ CTWR.AGT:
 	Valued:
 		Cost: 900
 	Tooltip:
-		Name: Missile rack attachment
+		Name: actor-ctwr-agt.name
 	Buildable:
 		Queue: Defense
 		BuildPaletteOrder: 53
 		Prerequisites: radar, ~structures.gdi, ~techlevel.high, ~free_ctwr
-		Description: Place on a free Component Tower. \n Strong vs Infantry, Vehicles, Aircraft
+		Description: actor-ctwr-agt.description
 		Icon: icon-agt
 	Plug:
 		Type: ctwr.agt
@@ -674,12 +674,12 @@ CTWR.FTUR:
 	Valued:
 		Cost: 200
 	Tooltip:
-		Name: Flame Turret attachment
+		Name: actor-ctwr-ftur.name
 	Buildable:
 		Queue: Defense
 		BuildPaletteOrder: 52
 		Prerequisites: ~structures.estonia, ~techlevel.medium, ~free_ctwr
-		Description: Place on a free Component Tower. \n Strong vs Infantry
+		Description: actor-ctwr-ftur.description
 		Icon: icon-ftur
 	Plug:
 		Type: ctwr.ftur
@@ -695,12 +695,12 @@ CTWR.TSLA:
 	Valued:
 		Cost: 900
 	Tooltip:
-		Name: Tesla Coil attachment
+		Name: actor-ctwr-tsla.name
 	Buildable:
 		Queue: Defense
 		BuildPaletteOrder: 53
 		Prerequisites: factory, ~structures.estonia, ~techlevel.high, ~free_ctwr
-		Description: Place on a free Component Tower. \n Strong vs Infantry, Vehicles
+		Description: actor-ctwr-tsla.description
 		Icon: icon-tsla
 	Plug:
 		Type: ctwr.tsla
@@ -718,12 +718,12 @@ CTWR.SAM:
 	Valued:
 		Cost: 300
 	Tooltip:
-		Name: SAM Site attachment
+		Name: actor-ctwr-sam.name
 	Buildable:
 		Queue: Defense
 		BuildPaletteOrder: 54
 		Prerequisites: radar, ~structures.estonia, ~techlevel.medium, ~free_ctwr
-		Description: Place on a free Component Tower. \n Strong vs Aircraft
+		Description: actor-ctwr-sam.description
 		Icon: icon-sam
 	Plug:
 		Type: ctwr.sam

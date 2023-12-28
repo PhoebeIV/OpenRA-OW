@@ -7,17 +7,17 @@ ZDRONE:
 		Queue: Building
 		BuildPaletteOrder: 20
 		Prerequisites: ~structures.zerg, ~techlevel.infonly
-		Description: Collects resources and can also\n evolve into Zerg structures.\nSpeed: 96\n  Unarmed
+		Description: actor-zdrone.description
 	Passenger:
 		Weight: 1
 	Valued:
 		Cost: 500
 	Tooltip:
-		Name: Drone
-		GenericName: Zerg Drone
+		Name: actor-zdrone.name
+		GenericName: actor-zdrone.generic-name
 		RequiresCondition: !str_hatchery
 	Tooltip@1:
-		Name: Drone (Hatchery)
+		Name: actor-zdrone.1--name
 		RequiresCondition: str_hatchery
 	Selectable:
 		DecorationBounds: 1365, 1365
@@ -213,7 +213,7 @@ ZDRONE.colony:
 	-Buildable:
 	-GrantPeriodicCondition@deploy:
 	Tooltip:
-		Name: Drone (Creep Colony)
+		Name: actor-zdrone-colony-name
 	GrantCondition:
 		Condition: waiting_to_evolve
 	Transforms:
@@ -225,7 +225,7 @@ ZDRONE.colony:
 ZDRONE.hatchery:
 	Inherits@drone: ZDRONE.colony
 	Tooltip:
-		Name: Drone (Hatchery)
+		Name: actor-zdrone-hatchery-name
 	Transforms:
 		IntoActor: zhatchery
 		Offset: -1,-1
@@ -233,7 +233,7 @@ ZDRONE.hatchery:
 ZDRONE.extrac:
 	Inherits@drone: ZDRONE.colony
 	Tooltip:
-		Name: Drone (Extractor)
+		Name: actor-zdrone-extrac-name
 	Transforms:
 		IntoActor: zextrac
 		Offset: -1,0
@@ -241,7 +241,7 @@ ZDRONE.extrac:
 ZDRONE.pool:
 	Inherits@drone: ZDRONE.colony
 	Tooltip:
-		Name: Drone (Spawning Pool)
+		Name: actor-zdrone-pool-name
 	GrantCondition:
 		Condition: waiting_to_evolve
 	Transforms:
@@ -251,7 +251,7 @@ ZDRONE.pool:
 ZDRONE.hydra:
 	Inherits@drone: ZDRONE.colony
 	Tooltip:
-		Name: Drone (Hydralisk Den)
+		Name: actor-zdrone-hydra-name
 	Transforms:
 		IntoActor: zhydraden
 		Offset: -1,0
@@ -259,7 +259,7 @@ ZDRONE.hydra:
 ZDRONE.chamber:
 	Inherits@drone: ZDRONE.colony
 	Tooltip:
-		Name: Drone (Evolution Chamber)
+		Name: actor-zdrone-chamber-name
 	Transforms:
 		IntoActor: zchamber
 		Offset: -1,0
@@ -267,7 +267,7 @@ ZDRONE.chamber:
 ZDRONE.ultraden:
 	Inherits@drone: ZDRONE.colony
 	Tooltip:
-		Name: Drone (Ultralisk Cavern)
+		Name: actor-zdrone-ultraden-name
 	Transforms:
 		IntoActor: zultraden
 		Offset: -1,0
@@ -275,7 +275,7 @@ ZDRONE.ultraden:
 ZDRONE.spire:
 	Inherits@drone: ZDRONE.colony
 	Tooltip:
-		Name: Drone (Spire)
+		Name: actor-zdrone-spire-name
 	Transforms:
 		IntoActor: zspire
 		Offset: 0,0
@@ -283,7 +283,7 @@ ZDRONE.spire:
 ZDRONE.nest:
 	Inherits@drone: ZDRONE.colony
 	Tooltip:
-		Name: Drone (Queen's Nest)
+		Name: actor-zdrone-nest-name
 	Transforms:
 		IntoActor: znest
 		Offset: 0,0
@@ -291,7 +291,7 @@ ZDRONE.nest:
 ZDRONE.mound:
 	Inherits@drone: ZDRONE.colony
 	Tooltip:
-		Name: Drone (Defiler Mound)
+		Name: actor-zdrone-mound-name
 	Transforms:
 		IntoActor: zmound
 		Offset: -1,0
@@ -299,7 +299,7 @@ ZDRONE.mound:
 ZDRONE.nydus:
 	Inherits@drone: ZDRONE.colony
 	Tooltip:
-		Name: Drone (Nydus Canal)
+		Name: actor-zdrone-nydus-name
 	Transforms:
 		IntoActor: znydus.entry
 		Offset: 1,1
@@ -320,9 +320,9 @@ ZDRONE.nydus:
 ZE.HATCHERY:
 	Inherits: ^ZergEvolve
 	Tooltip:
-		Name: Evolve into Hatchery
+		Name: actor-ze-hatchery.name
 	Buildable:
-		Description: Zerg's baseline structure. \n\nSpreads creep and doesn't need\n   to be placed on creep.
+		Description: actor-ze-hatchery.description
 		BuildPaletteOrder: 1
 		BuildDuration: 4000
 		Prerequisites: ~mcv, ~techlevel.medium, ~zdrone
@@ -341,9 +341,9 @@ ZE.HATCHERY2:
 ZE.COLONY:
 	Inherits: ^ZergEvolve
 	Tooltip:
-		Name: Evolve into Creep Colony
+		Name: actor-ze-colony.name
 	Buildable:
-		Description: Spreads creep, can be evolved into \n defensive structures. \n\nMust be placed on creep.
+		Description: actor-ze-colony.description
 		BuildPaletteOrder: 2
 		Prerequisites: ~techlevel.infonly, ~zdrone
 		BuildDuration: 300
@@ -355,9 +355,9 @@ ZE.COLONY:
 ZE.EXTRAC:
 	Inherits: ^ZergEvolve
 	Tooltip:
-		Name: Evolve into Extractor
+		Name: actor-ze-extrac.name
 	Buildable:
-		Description: Refines and stores resources. \n\nMust be placed on creep.
+		Description: actor-ze-extrac.description
 		BuildPaletteOrder: 3
 		Prerequisites: ~techlevel.infonly, ~zdrone
 		BuildDuration: 1000
@@ -369,9 +369,9 @@ ZE.EXTRAC:
 ZE.POOL:
 	Inherits: ^ZergEvolve
 	Tooltip:
-		Name: Evolve into Spawning Pool
+		Name: actor-ze-pool.name
 	Buildable:
-		Description: Allows production of Zerglings at\n a Hatchery. \n\nMust be placed on creep.
+		Description: actor-ze-pool.description
 		BuildPaletteOrder: 4
 		Prerequisites: zccolony, ~techlevel.infonly, ~zdrone
 		BuildDuration: 500
@@ -383,9 +383,9 @@ ZE.POOL:
 ZE.HYDRA:
 	Inherits: ^ZergEvolve
 	Tooltip:
-		Name: Evolve into Hydralisk Den
+		Name: actor-ze-hydra.name
 	Buildable:
-		Description: Allows production of Hydralisks at\n a Hatchery. \n\nMust be placed on creep.
+		Description: actor-ze-hydra.description
 		BuildPaletteOrder: 5
 		Prerequisites: zpool, ~techlevel.infonly, ~zdrone
 		BuildDuration: 1000
@@ -397,9 +397,9 @@ ZE.HYDRA:
 ZE.CHAMBER:
 	Inherits: ^ZergEvolve
 	Tooltip:
-		Name: Evolve into Evolution Chamber
+		Name: actor-ze-chamber.name
 	Buildable:
-		Description: Provides access to Zerg-specific upgrades\n and ability to evolve your Hatchery. \n\nMust be placed on creep.
+		Description: actor-ze-chamber.description
 		BuildPaletteOrder: 6
 		Prerequisites: zhydraden, ~techlevel.high, ~zdrone
 		BuildDuration: 2000
@@ -411,9 +411,9 @@ ZE.CHAMBER:
 ZE.ULTRADEN:
 	Inherits: ^ZergEvolve
 	Tooltip:
-		Name: Evolve into Ultralisk Cavern
+		Name: actor-ze-ultraden.name
 	Buildable:
-		Description: Allows production of Ultralisks at \n a Hatchery. \n\nMust be placed on creep.
+		Description: actor-ze-ultraden.description
 		BuildPaletteOrder: 9
 		Prerequisites: ulttechcenter, ~techlevel.unrestricted, ~zdrone
 		BuildDuration: 2500
@@ -425,9 +425,9 @@ ZE.ULTRADEN:
 ZE.SPIRE:
 	Inherits: ^ZergEvolve
 	Tooltip:
-		Name: Evolve into Spire
+		Name: actor-ze-spire.name
 	Buildable:
-		Description: Allows production of basic air units\n at a Spire. \n\nMust be placed on creep.
+		Description: actor-ze-spire.description
 		BuildPaletteOrder: 7
 		Prerequisites: techcenter, ~techlevel.high, ~zdrone
 		BuildDuration: 2000
@@ -439,9 +439,9 @@ ZE.SPIRE:
 ZE.NEST:
 	Inherits: ^ZergEvolve
 	Tooltip:
-		Name: Evolve into Queen's Nest
+		Name: actor-ze-nest.name
 	Buildable:
-		Description: Allows production of a Queen\n at a Spire. \n\nMust be placed on creep.
+		Description: actor-ze-nest.description
 		BuildPaletteOrder: 8
 		Prerequisites: advtechcenter, zspire, ~techlevel.high, ~zdrone
 		BuildDuration: 2000
@@ -453,9 +453,9 @@ ZE.NEST:
 ZE.MOUND:
 	Inherits: ^ZergEvolve
 	Tooltip:
-		Name: Evolve into Defiler Mound
+		Name: actor-ze-mound.name
 	Buildable:
-		Description: Allows production of Defilers\n at a Hatchery. \n\nMust be placed on creep.
+		Description: actor-ze-mound.description
 		BuildPaletteOrder: 8
 		Prerequisites: ulttechcenter, ~techlevel.unrestricted, ~zdrone, ~!structures.kerrigan
 		BuildDuration: 1800
@@ -467,9 +467,9 @@ ZE.MOUND:
 ZE.NYDUS:
 	Inherits: ^ZergEvolve
 	Tooltip:
-		Name: Evolve into Nydus Canal (Entry)
+		Name: actor-ze-nydus.name
 	Buildable:
-		Description: Entry point for Zerg ground units to \nuse the Nydus network. \n\nMust be placed on creep.
+		Description: actor-ze-nydus.description
 		BuildPaletteOrder: 9
 		Prerequisites: ulttechcenter, ~techlevel.unrestricted, ~zdrone, !znydus.entry
 		BuildDuration: 1250

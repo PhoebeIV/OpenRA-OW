@@ -26,6 +26,9 @@ echo Enter --exit to exit
 set /P mod="Please enter a modname: OpenRA.Utility.exe "
 if /I "%mod%" EQU "--exit" (exit /b)
 if /I "%mod%" EQU "ra" (goto help)
+if /I "%mod%" EQU "cnc" (goto help)
+if /I "%mod%" EQU "ts" (goto help)
+if /I "%mod%" EQU "d2k" (goto help)
 if /I "%mod%" EQU "ow" (goto help)
 echo.
 echo Unknown mod: %mod%

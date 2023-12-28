@@ -19,10 +19,10 @@
 	OwnerLostAction:
 		Action: ChangeOwner
 	Tooltip:
-		Name: X with attached Y
+		Name: meta-terranaddon.name
 		RequiresCondition: !in_world
 	Tooltip@in_world:
-		Name: X
+		Name: meta-terranaddon.in_world--name
 		RequiresCondition: in_world
 	Building:
 		Footprint: xx
@@ -55,12 +55,12 @@ TCOMSAT.plug:
 	Valued:
 		Cost: 1500
 	Tooltip:
-		Name: Addon: ComSat Station
+		Name: actor-tcomsat-plug.name
 	Buildable:
 		Queue: Tech
 		BuildPaletteOrder: 9091
 		Prerequisites: refinery, tcommand.addon, ~structures.terran, ~techlevel.medium
-		Description: Attach to Command Center. Provides an overview of the battlefield.\nRequires power to operate. \n\nAbility: Scanner Sweep
+		Description: actor-tcomsat-plug.description
 		IconPalette: player-icon
 		IconPaletteIsPlayerPalette: true
 	Plug:
@@ -84,10 +84,10 @@ TCOMSAT:
 	Valued:
 		Cost: 1500
 	Tooltip:
-		Name: Command Centre with attached ComSat Station
+		Name: actor-tcomsat.name
 		RequiresCondition: !in_world
 	Tooltip@in_world:
-		Name: ComSat Station
+		Name: actor-tcomsat.in_world--name
 		RequiresCondition: in_world
 	ProvidesPrerequisite@buildingname:
 		RequiresCondition: cc_addon
@@ -145,12 +145,12 @@ TSHOP.plug:
 	Valued:
 		Cost: 1000
 	Tooltip:
-		Name: Addon: Machine Shop
+		Name: actor-tshop-plug.name
 	Buildable:
 		Queue: Vehicle
 		BuildPaletteOrder: 115
 		Prerequisites: ~factory, tfactory.addon, ~structures.terran, ~techlevel.medium
-		Description: Attach to Factory. \nAllows access to Siege Tank,\n Goliath and vehicle upgrades. \n\nRepairs vehicles and aircraft. \nRearms Vulture mines.
+		Description: actor-tshop-plug.description
 		IconPalette: player-icon
 		IconPaletteIsPlayerPalette: true
 	Plug:
@@ -173,9 +173,9 @@ TSHOP:
 	Valued:
 		Cost: 1000
 	Tooltip:
-		Name: Factory with attached Machine Shop
+		Name: actor-tshop.name
 	Tooltip@in_world:
-		Name: Machine Shop
+		Name: actor-tshop.in_world--name
 	ProvidesPrerequisite@buildingname:
 		RequiresCondition: fac_addon
 	RevealsShroud:
@@ -214,9 +214,9 @@ TSHOP:
 		HpPerStep: 1000
 		Interval: 7
 		StartRepairingNotification: Repairing
-		StartRepairingTextNotification: Repairing.
+		StartRepairingTextNotification: actor-tshop.repairsunits-start-repairing-text-notification
 		FinishRepairingNotification: UnitRepaired
-		FinishRepairingTextNotification: Unit repaired.
+		FinishRepairingTextNotification: actor-tshop.repairsunits-finish-repairing-text-notification
 		PlayerExperience: 5
 
 TCTRL.plug:
@@ -224,12 +224,12 @@ TCTRL.plug:
 	Valued:
 		Cost: 1000
 	Tooltip:
-		Name: Addon: Control Tower
+		Name: actor-tctrl-plug.name
 	Buildable:
 		Queue: Aircraft
 		BuildPaletteOrder: 200
 		Prerequisites: ~tsport, ~tsport.addon, ~structures.terran, ~techlevel.high
-		Description: Attach to Starport. \nAllows production of Dropship and aircraft upgrades. \nSupport Power: Orbital Drop
+		Description: actor-tctrl-plug.description
 		IconPalette: player-icon
 		IconPaletteIsPlayerPalette: true
 	Plug:
@@ -252,9 +252,9 @@ TCTRL:
 	Valued:
 		Cost: 1000
 	Tooltip:
-		Name: Starport with attached Control Tower
+		Name: actor-tctrl.name
 	Tooltip@in_world:
-		Name: Control Tower
+		Name: actor-tctrl.in_world--name
 	ProvidesPrerequisite@buildingname:
 		RequiresCondition: star_addon
 	RevealsShroud:
@@ -285,7 +285,7 @@ TCTRL:
 		Name: Orbital Drop
 		Description: Orbital drop reinforcements.\nA Terran Barracks drops to target location\n along with some marines.\n\nLasts 1 minute or until destroyed.
 		SelectTargetSpeechNotification: SelectTarget
-		SelectTargetTextNotification: Select target.
+		SelectTargetTextNotification: actor-tctrl.droppodspower-select-target-text-notification
 		DisplayRadarPing: true
 		ChargeInterval: 9000
 		UnitTypes: TBARR.drop
@@ -313,7 +313,7 @@ TCTRL:
 		ChargeInterval: 10500
 		UnitTypes: TDROPSHIP.BunkerDropPod
 		SelectTargetSpeechNotification: SelectTarget
-		SelectTargetTextNotification: Select target.
+		SelectTargetTextNotification: actor-tctrl.droppodspower-2-select-target-text-notification
 		CameraActor: camera
 		CameraRemoveDelay: 250
 		EntryEffect: explosion
@@ -328,12 +328,12 @@ TCOPS.plug:
 	Valued:
 		Cost: 1000
 	Tooltip:
-		Name: Addon: Covert Ops
+		Name: actor-tcops-plug.name
 	Buildable:
 		Queue: Tech
 		BuildPaletteOrder: 9093
 		Prerequisites: ~tscience, tscience.addon, ~structures.terran, ~techlevel.unrestricted
-		Description: Attach to Science Facility. \nAllows access to Ghost and \n missile silo.
+		Description: actor-tcops-plug.description
 		IconPalette: player-icon
 		IconPaletteIsPlayerPalette: true
 	Plug:
@@ -356,9 +356,9 @@ TCOPS:
 	Valued:
 		Cost: 1000
 	Tooltip:
-		Name: Science Facility with attached Covert Ops
+		Name: actor-tcops.name
 	Tooltip@in_world:
-		Name: Covert Ops
+		Name: actor-tcops.in_world--name
 	ProvidesPrerequisite@buildingname:
 		RequiresCondition: scf_addon
 	RevealsShroud:
@@ -391,12 +391,12 @@ TPLAB.plug:
 	Valued:
 		Cost: 1000
 	Tooltip:
-		Name: Addon: Physics Lab
+		Name: actor-tplab-plug.name
 	Buildable:
 		Queue: Tech
 		BuildPaletteOrder: 9094
 		Prerequisites: ~tscience, tscience.addon, ~structures.terran, ~techlevel.unrestricted
-		Description: Attach to Science Facility. \nAllows access to Battlecruiser.
+		Description: actor-tplab-plug.description
 		IconPalette: player-icon
 		IconPaletteIsPlayerPalette: true
 	Plug:
@@ -417,9 +417,9 @@ TPLAB.plugai:
 TPLAB:
 	Inherits: TCOPS
 	Tooltip:
-		Name: Science Facility with attached Physics Lab
+		Name: actor-tplab.name
 	Tooltip@in_world:
-		Name: Physics Lab
+		Name: actor-tplab.in_world--name
 	ProvidesPrerequisite@buildingname:
 		RequiresCondition: scf_addon
 	-WithIdleOverlay:
@@ -430,12 +430,12 @@ TSILO.plug:
 	Valued:
 		Cost: 2000
 	Tooltip:
-		Name: Addon: Missile Silo
+		Name: actor-tsilo-plug.name
 	Buildable:
 		Queue: Tech
 		BuildPaletteOrder: 9092
 		Prerequisites: tcops, ~tcommand.addon, ~structures.terran, ~techlevel.unrestricted, ~!tsilo
-		Description: Attach to Command Center. \nAllows production of a nuclear missile.\nRequires power to operate.
+		Description: actor-tsilo-plug.description
 		IconPalette: player-icon
 		IconPaletteIsPlayerPalette: true
 	Plug:
@@ -452,9 +452,9 @@ TSILO:
 	Valued:
 		Cost: 2000
 	Tooltip:
-		Name: Command Center with attached Missile Silo
+		Name: actor-tsilo.name
 	Tooltip@in_world:
-		Name: Missile Silo
+		Name: actor-tsilo.in_world--name
 	ProvidesPrerequisite@buildingname:
 	RevealsShroud@GAPGEN:
 		Range: 6c0
