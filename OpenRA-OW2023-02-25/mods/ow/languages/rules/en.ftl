@@ -2006,6 +2006,13 @@ actor-japanmechatransformer =
       Weak vs Vehicles, Aircraft
    .name = Mecha Transformer
 
+actor-japantsukumogami =
+   .description = Anti-personnel plasma walker.
+    Speed: 99
+      Strong vs Vehicles
+      Weak vs Aircraft
+   .name = Tsukumogami
+
 actor-japanmecharaijuu =
    .description = Anti-personnel walker.
     Speed: 99

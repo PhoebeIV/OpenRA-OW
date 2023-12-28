@@ -2,7 +2,7 @@ japansuddentransport:
 	Inherits: APC
 	Buildable:
 		BuildPaletteOrder: 130
-		Prerequisites: ~vehicles.japan, ~techlevel.low
+		Prerequisites: ~vehicles.japan, ~techlevel.low, ~!faction.mechageneral
 		Description: actor-japansuddentransport.description
 	Armament:
 		Weapon: DawnM60mg
@@ -30,7 +30,7 @@ japantsunamitank:
 	Buildable:
 		Queue: Vehicle
 		BuildPaletteOrder: 129
-		Prerequisites: ~vehicles.japan, ~techlevel.medium
+		Prerequisites: ~vehicles.japan, ~techlevel.medium, ~!faction.mechageneral
 		Description: actor-japantsunamitank.description
 	Valued:
 		Cost: 900
@@ -467,7 +467,7 @@ japanhiroshimawaveforce:
 	Buildable:
 		Queue: Vehicle
 		BuildPaletteOrder: 135
-		Prerequisites: ~vehicles.japan, advtechcenter, ~!faction.economicgeneral
+		Prerequisites: ~vehicles.japan, advtechcenter, ~!faction.economicgeneral, ~!faction.mechageneral
 		Description: actor-japanhiroshimawaveforce.description
 	Valued:
 		Cost: 2400
@@ -550,7 +550,7 @@ japandatenshi:
 	Buildable:
 		Queue: Vehicle
 		BuildPaletteOrder: 134
-		Prerequisites: ~vehicles.japan, techcenter
+		Prerequisites: ~vehicles.japan, techcenter, ~!faction.mechageneral
 		Description: actor-japandatenshi.description
 	Valued:
 		Cost: 1500
@@ -730,7 +730,7 @@ japankomatsu:
 	Inherits@AUTOTARGET: ^AutoTargetAll
 	Buildable:
 		BuildPaletteOrder: 134
-		Prerequisites: ~vehicles.japan, ~faction.economicgeneral, techcenter
+		Prerequisites: ~vehicles.japan, ~faction.economicgeneral, techcenter, ~!faction.mechageneral
 		Description: actor-japankomatsu.description
 	Tooltip:
 		Name: actor-japankomatsu.name
@@ -758,7 +758,7 @@ japanshishiron:
 	Inherits@AUTOTARGET: ^AutoTargetAll
 	Buildable:
 		BuildPaletteOrder: 134
-		Prerequisites: ~vehicles.japan, ~faction.economicgeneral, advtechcenter
+		Prerequisites: ~vehicles.japan, ~faction.economicgeneral, advtechcenter, ~!faction.mechageneral
 		Description: actor-japanshishiron.description
 	Tooltip:
 		Name: actor-japanshishiron.name
@@ -789,7 +789,7 @@ japanakuma:
 	Buildable:
 		Queue: Vehicle
 		BuildPaletteOrder: 2500
-		Prerequisites: ~vehicles.japan, ulttechcenter, ~faction.economicgeneral
+		Prerequisites: ~vehicles.japan, ulttechcenter, ~faction.economicgeneral, ~!faction.mechageneral
 		Description: actor-japanakuma.description
 		BuildLimit: 1
 	Valued:
@@ -892,3 +892,68 @@ japanakuma:
 		Condition: patriotismboost
 		RequiresCondition: !disabled && deployed
 		Range: 5c0
+
+japantsukumogami:
+	Inherits: ^Vehicle
+	Inherits@GAINSEXPERIENCE: ^GainsExperience
+	Inherits@AUTOTARGET: ^AutoTargetAll
+	Buildable:
+		Queue: Vehicle
+		BuildPaletteOrder: 130
+		Prerequisites: ~vehicles.japan, ~techlevel.low, ~!faction.economicgeneral, ~faction.mechageneral
+		Description: actor-japantsukumogami.description
+	Valued:
+		Cost: 1100
+	Tooltip:
+		Name: actor-japantsukumogami.name
+	Health:
+		HP: 46000
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Armor:
+		Type: Heavy
+	Mobile:
+		TurnSpeed: 20
+		Speed: 99
+	RevealsShroud:
+		MinRange: 5c0
+		Range: 6c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 5c0
+	AttackFrontal:
+		PauseOnCondition: disabled
+		Armaments: primary
+		FacingTolerance: 0
+	WithMuzzleOverlay:
+	Armament@WARRIOR:
+		Name: primary
+		Weapon: TsunamiTankshotDualCannon
+		LocalOffset: 900,180,340, 900,-180,340
+		MuzzleSequence: muzzle
+		PauseOnCondition: disabled
+	QuantizeFacingsFromSequence:
+		Sequence: stand
+	WithFacingSpriteBody:
+		Sequence: stand
+	WithAttackAnimation:
+		Sequence: shoot
+		Armament: primary
+	WithMoveAnimation:
+		MoveSequence: run
+		ValidMovementTypes: Horizontal, Turn
+	RangeMultiplier@mecha:
+		Modifier: 110
+	ReloadDelayMultiplier@mech:
+		Modifier: 80
+	ProducibleWithLevel:
+		Prerequisites: vehicles.upgraded
+	Selectable:
+		Bounds: 853, 1365, 0, -341
+	RenderSprites:
+		PlayerPalette: tsunit
+	Cloak@stealthgen:
+		Palette: tscloak
+	Voiced:
+		VoiceSet: RaijuuVoice
+	TeleportNetworkTransportable:
