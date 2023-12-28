@@ -4534,6 +4534,273 @@ usarailgunattack:
 		ValidTargets: Trees
 		DamageTypes: Incendiary
 
+CcemSound:
+	ReloadDelay: 350
+	Range: 14c0
+	MinRange: 6c0
+	Report: ccemchargesound.wav
+	ValidTargets: Ground, Water, GroundActor, WaterActor
+	Projectile: Missile
+		Speed: 2
+		RangeLimit: 3
+	Warhead@3Eff: CreateEffect
+		Explosions: youseistart
+		ValidTargets: Ground, GroundActor, WaterActor, Trees, Air
+	Warhead@4Eff: CreateEffect
+		Explosions: youseiring
+		ValidTargets: Ground, GroundActor, WaterActor, Trees, Air
+	Warhead@5Eff: CreateEffect
+		Explosions: ccemcharge
+		ValidTargets: Ground, GroundActor, WaterActor, Trees, Air
+	Warhead@zappy: FireCluster
+		Weapon: ccemClusterSmall
+		RandomClusterCount: 2
+		Dimensions: 3,3
+		Footprint: xxx x_x xxx
+	Warhead@zappya: FireCluster
+		Delay: 5
+		Weapon: ccemClusterSmall
+		RandomClusterCount: 2
+		Dimensions: 3,3
+		Footprint: xxx x_x xxx
+	Warhead@zappy1: FireCluster
+		Delay: 15
+		Weapon: ccemClusterSmall
+		RandomClusterCount: 2
+		Dimensions: 3,3
+		Footprint: xxx x_x xxx
+	Warhead@zappy2: FireCluster
+		Delay: 30
+		Weapon: ccemClusterSmall
+		RandomClusterCount: 2
+		Dimensions: 3,3
+		Footprint: xxx x_x xxx
+	Warhead@zappy3: FireCluster
+		Delay: 45
+		Weapon: ccemClusterSmall
+		RandomClusterCount: 3
+		Dimensions: 3,3
+		Footprint: xxx x_x xxx
+	Warhead@zappy4: FireCluster
+		Delay: 60
+		Weapon: ccemClusterSmall
+		RandomClusterCount: 3
+		Dimensions: 3,3
+		Footprint: xxx x_x xxx
+	Warhead@zappy5: FireCluster
+		Delay: 75
+		Weapon: ccemClusterSmall
+		RandomClusterCount: 4
+		Dimensions: 3,3
+		Footprint: xxx x_x xxx
+	Warhead@zappy6: FireCluster
+		Delay: 90
+		Weapon: ccemClusterSmall
+		RandomClusterCount: 4
+		Dimensions: 3,3
+		Footprint: xxx x_x xxx
+	Warhead@zappy7: FireCluster
+		Delay: 105
+		Weapon: ccemClusterSmall
+		RandomClusterCount: 5
+		Dimensions: 3,3
+		Footprint: xxx x_x xxx
+	Warhead@zappy8: FireCluster
+		Delay: 120
+		Weapon: ccemClusterSmall
+		RandomClusterCount: 5
+		Dimensions: 3,3
+		Footprint: xxx x_x xxx
+	Warhead@zappy9: FireCluster
+		Delay: 145
+		Weapon: ccemClusterSmall
+		RandomClusterCount: 6
+		Dimensions: 3,3
+		Footprint: xxx x_x xxx
+
+ccemZap:
+	Inherits: ^ElectricBoltWeapon
+	ReloadDelay: 7
+	Range: 9c0
+	-Report:
+	ValidTargets: Ground, GroundActor, WaterActor, AirborneActor
+	Projectile: ElectricBolt
+		Colors: ff9d00, ff7300, ff7300
+		Inaccuracy: 1c0
+	Warhead@1Dam: SpreadDamage
+		Damage: 1200
+		Spread: 256
+		ValidTargets: Ground, GroundActor, WaterActor, AirborneActor
+	Warhead@3Eff: CreateEffect
+		Delay: 0
+		Inaccuracy: 64
+		Explosions: laserhitsmall
+		ValidTargets: Ground, GroundActor, WaterActor, AirborneActor
+		ImpactActors: true
+	Warhead@4Eff: CreateEffect
+		Delay: 3
+		Inaccuracy: 64
+		Explosions: laserhitsmall
+		ValidTargets: Ground, GroundActor, WaterActor, AirborneActor
+		ImpactActors: true
+	Warhead@5Eff: CreateEffect
+		Delay: 6
+		Inaccuracy: 64
+		Explosions: laserhitsmall
+		ValidTargets: Ground, GroundActor, WaterActor, AirborneActor
+		ImpactActors: true
+
+ccemSmallZap:
+	Inherits: ccemZap
+	Range: 5c0
+	Projectile: ElectricBolt
+		Distortion: 400
+		DistortionAnimation: 16
+		SegmentLength: 128
+		Width: 12
+		Duration: 7
+		Inaccuracy: 256
+	Warhead@1Dam: SpreadDamage
+		Damage: 1000
+	-Warhead@4Eff: CreateEffect
+	-Warhead@5Eff: CreateEffect
+
+ccemClusterSmall:
+	Inherits: BFGZapCluster
+	Range: 7c0
+	Projectile: Missile
+		RangeLimit: 1c0
+		Speed: 600
+		MinimumLaunchSpeed: 600
+		MaximumLaunchSpeed: 600
+		Acceleration: 16
+		Inaccuracy: 1c0
+	Warhead@2cluster: FireShrapnel
+		Amount: 2
+		Weapon: ccemSmallZap
+		AimTargetStances: Neutral, Enemy, None
+		AimChance: 50
+	Warhead@5Eff: CreateEffect
+		Inaccuracy: 64
+		Explosions: laserhittiny
+		ValidTargets: Ground, GroundActor, WaterActor, AirborneActor
+		ImpactActors: true
+
+CcemCannon:
+	ReloadDelay: 350
+	Report: ccemchargefire.wav
+	Range: 14c0
+	MinRange: 6c0
+	ValidTargets: Ground, Water, GroundActor, WaterActor
+	Projectile: Bullet
+		Speed: 900
+		Image: railgunshot
+		Shadow: True
+	Warhead@sound1: CreateEffect
+		ImpactSounds: ccemchargefire.wav
+		ValidTargets: Ground, Air, GroundActor, AirborneActor, WaterActor, Water, Trees
+	Warhead@sound2: CreateEffect
+		ImpactSounds: ccemchargefire.wav
+		Explosions: fuelbomb
+		ValidTargets: Ground, Air, GroundActor, AirborneActor, WaterActor, Water, Trees
+	Warhead@1Dam_impact: SpreadDamage
+		Spread: 128
+		Damage: 5
+		ValidTargets: GroundActor, WaterActor, Underwater, AirborneActor, Trees
+		DamageTypes: Prone50Percent, TriggerProne, ElectricityDeath
+	Warhead@1Dam: SpreadDamage
+		Spread: 512
+		Damage: 25000
+		Versus:
+			None: 100
+			Wood: 100
+			Light: 100
+			Heavy: 100
+			Concrete: 50
+		DamageTypes: Prone50Percent, TriggerProne, SmallExplosionDeath
+	Warhead@cluster: FireFragment
+		ValidTargets: Ground, Air, GroundActor, AirborneActor, WaterActor, Water, Trees
+		Weapon: ccemCluster1
+		Offsets: 0,0,0, 0,1024,0, 0,2048,0, 1024,0,0, 2048,0,0, 0,0,1024, 0,0,2048, 0,-1024,0, 0,-2048,0, -1024,0,0, -2048,0,0, 0,0,-1024, 0,0,-2048
+		Rotate: true
+	Warhead@cluster2: FireFragment
+		ValidTargets: Ground, Air, GroundActor, AirborneActor, WaterActor, Water, Trees
+		Weapon: ccemCluster2
+		Offsets: 0,0,0, 0,1024,0, 0,2048,0, 1024,0,0, 2048,0,0, 0,0,1024, 0,0,2048, 0,-1024,0, 0,-2048,0, -1024,0,0, -2048,0,0, 0,0,-1024, 0,0,-2048
+		Rotate: true
+	Warhead@22FlashEffect: FlashEffect
+		Duration: 18
+		FlashType: Nuke
+
+ccemCluster1:
+	Range: 25c0
+	Burst: 20
+	BurstDelays: 1
+	FirstBurstTargetOffset: 512,0,0
+	FollowingBurstTargetOffset: 1024,256,0
+	Projectile: Bullet
+		Speed: 650
+		Inaccuracy: 5c0
+		LaunchAngle: 150
+	Warhead@1Dam: SpreadDamage
+		Delay: 15
+		Spread: 1c0
+		Falloff: 500, 180, 135, 50, 18, 7, 0
+		Damage: 1000
+		ValidTargets: GroundActor, WaterActor
+		Versus:
+			Wood: 60
+			Light: 75
+			Heavy: 75
+			Concrete: 50
+		DamageTypes: Prone50Percent, TriggerProne, ExplosionDeath
+	Warhead@2Dam: SpreadDamage
+		Delay: 20
+		Spread: 2c0
+		Falloff: 500, 180, 135, 50, 18, 7, 0
+		Damage: 750
+		ValidTargets: GroundActor, WaterActor
+		Versus:
+			Wood: 60
+			Light: 75
+			Heavy: 50
+			Concrete: 50
+		DamageTypes: Prone50Percent, TriggerProne, ExplosionDeath
+	Warhead@2Smu: LeaveSmudge
+		Delay: 15
+		SmudgeType: Scorch
+		ValidTargets: Ground, Infantry
+		Chance: 50
+	Warhead@3Smu: LeaveSmudge
+		Delay: 20
+		SmudgeType: Scorch
+		Size: 2
+		ValidTargets: Ground, Infantry
+		Chance: 50
+	Warhead@3Eff: CreateEffect
+		Delay: 15
+		Explosions: artillery_explosion
+		ValidTargets: Ground, Water, Air
+		ImpactSounds: dsrpgexp.aud, baud.aud, baud.aud
+		ImpactActors: false
+	Warhead@6Shake: ShakeScreen
+		Duration: 10
+		Intensity: 1
+		Multiplier: 1,1
+		Delay: 10
+
+ccemCluster2:
+	Inherits: ccemCluster1
+	FollowingBurstTargetOffset: 1024,-256,0
+	Projectile: Bullet
+		Inaccuracy: 8c0
+
+ccemCluster3:
+	Inherits: ccemCluster1
+	FollowingBurstTargetOffset: 1024,0,0
+	Projectile: Bullet
+		Inaccuracy: 12c0
+
 DisrupterLaser:
 	Inherits: ^LaserWeapon
 	ReloadDelay: 35
@@ -5440,7 +5707,7 @@ SkyEmpressSound:
 	Warhead@4Eff: CreateEffect
 		Explosions: SkyEmpressMuzzleFlash2
 		ValidTargets: Ground, GroundActor, WaterActor, Trees, Air
-	Warhead@4Eff: CreateEffect
+	Warhead@5Eff: CreateEffect
 		Explosions: SkyEmpressMuzzleRing
 		ValidTargets: Ground, GroundActor, WaterActor, Trees, Air
 

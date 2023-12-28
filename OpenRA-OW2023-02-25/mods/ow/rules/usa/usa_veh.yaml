@@ -481,9 +481,10 @@ usarailgun:
 	Armor:
 		Type: Heavy
 	Mobile:
-		Speed: 35
+		Speed: 25
 		Locomotor: heavytracked
 		Voice: Move
+		PauseOnCondition: chargingattack
 	Guard:
 		Voice: Move
 	Passenger:
@@ -502,45 +503,34 @@ usarailgun:
 	AttackTurreted:
 		Turrets: primary
 		PauseOnCondition: disabled
-		Armaments: secondary, gun1, gun2, gun3
-	Armament@1:
-		Name: gun1
-		Weapon: usarailgunchargeattack
-		RequiresCondition: !gun2 && !gun3 && !disabled
-		PauseOnCondition: gun2
-	GrantConditionOnAttack@1:
-		ArmamentNames: gun1
-		Condition: gun2
-		RequiredShotsPerInstance: 1
-		RevokeDelay: 300
-	Armament@2:
-		Name: gun2
-		Weapon: usarailguncharging
-		RequiresCondition: gun2 && !gun3
-		PauseOnCondition: gun3
-	GrantConditionOnAttack@2:
-		ArmamentNames: gun2
-		Condition: gun3
-		RequiredShotsPerInstance: 4
-		RevokeDelay: 300
-		RevokeAll: true
-	Armament@3:
-		Name: gun3
-		Weapon: usarailgunattack
+	Armament@PRIMARY:
+		Weapon: CcemCannon
 		LocalOffset: 1400,0,340
-		MuzzleSequence: muzzle
-		RequiresCondition: gun3
-	GrantConditionOnAttack@3:
-		ArmamentNames: gun3
-		Condition: disabled
-		RequiredShotsPerInstance: 1
-		RevokeDelay: 750
-	Armament@SECONDARY:
-		Weapon: usarailgunlaser
-		LocalOffset: -600,300,200, -600,-300,200
-		PauseOnCondition: disabled
-		Turret: primary
-		Name: secondary
+		Recoil: 200
+		RecoilRecovery: 25
+		PauseOnCondition: ammo < 20
+		FireDelay: 135
+		AmmoUsage: 20
+	GrantConditionOnAttack@charge:
+		Condition: chargingattack
+		RevokeDelay: 100
+	Armament@effect:
+		Weapon: CcemSound
+		LocalOffset: 1400,0,340
+		AmmoUsage: 0
+		PauseOnCondition: ammo < 20
+	AmmoPool:
+		Ammo: 20
+		AmmoCondition: ammo
+		InitialAmmo: 4
+	ReloadAmmoPool@normal:
+		Delay: 50
+	WithAmmoPipsDecoration:
+		Position: BottomLeft
+		Margin: 4, 3
+		RequiresSelection: false
+		PipCount: 10
+		ValidRelationships: Ally, Enemy, Neutral
 	WithMuzzleOverlay:
 	WithSpriteTurret:
 		Sequence: turret
