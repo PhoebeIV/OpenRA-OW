@@ -3365,6 +3365,7 @@ actor-oilb-husk =
    .tooltipdescription-other-description = This structure is being rebuilt.
 
 actor-fcom =
+   .name = Forward Command
    .tooltipdescription-ally-description = Provides buildable area, and Building + Infantry production queues.
    .tooltipdescription-other-description = Capture to give buildable area, and Building + Infantry production queues.
 
@@ -4858,8 +4859,8 @@ actor-zkerrigan-hero5-name = Kerrigan (Tier 5)
 actor-zhatchery =
    .description = Produces structures.
    .name = Hatchery
-   .1--name = Lair
-   .2--name = Hive
+   .lair = Lair
+   .hive = Hive
    .produceactorpower-devouringone-end-charge-text-notification = Devouring Ones ready.
    .produceactorpower-devouringone-ready-text-notification = Reinforcements have arrived.
    .produceactorpower-devouringone-blocked-text-notification = No room for new unit.
