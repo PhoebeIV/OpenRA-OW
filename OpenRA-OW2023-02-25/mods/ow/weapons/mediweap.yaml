@@ -1139,48 +1139,6 @@ ArcherTower:
 			Concrete: 20
 		DamageTypes: Prone50Percent, TriggerProne, DefaultDeath
 
-ArcaneZap:
-	ReloadDelay: 7
-	Range: 8c0
-	TargetActorCenter: True
-	ValidTargets: Ground, Water, GroundActor, WaterActor, Air, AirborneActor
-	Projectile: LaserZap
-		Blockable: False
-		Duration: 20
-		DamageInterval: 10
-		SecondaryBeam: True
-		TrackTarget: True
-		Color: 0033cc
-	Warhead@1Dam: SpreadDamage
-		Spread: 42
-		Damage: 2750
-		Versus:
-			None: 100
-			Wood: 70
-			Light: 50
-			Heavy: 50
-			Concrete: 30
-		DamageTypes: Prone50Percent, TriggerProne, ElectricityDeath
-		ValidTargets: Ground, GroundActor, Water, WaterActor
-	TargetActorCenter: True
-
-ArcaneZap2:
-	Inherits: ArcaneZap
-	ReloadDelay: 10
-	ValidTargets: AirborneActor
-	Projectile: LaserZap
-		Blockable: False
-		Duration: 30
-	Warhead@1Dam: SpreadDamage
-		Spread: 42
-		Damage: 1500
-		Versus:
-			Wood: 100
-			Light: 100
-			Heavy: 100
-			Concrete: 100
-		DamageTypes: Prone50Percent, TriggerProne, ElectricityDeath
-		ValidTargets: AirborneActor
 
 ArcaneZapWaterAA:
 	Inherits: ArcaneZap2
@@ -1904,47 +1862,6 @@ SmitePaladinWep:
 ##############################   Ability Attacks   ############################
 ###############################################################################
 
-SmitePowerWep:
-	ValidTargets: Ground, GroundActor, Trees, Water, WaterActor, Underwater, Air, AirborneActor
-	Warhead@: HealthPercentageDamage
-		Delay: 150
-		Spread: 3c512
-		ValidTargets: Infantry
-		Damage: 70
-		ValidRelationships: Enemy, Neutral
-		DamageTypes: Prone50Percent, TriggerProne, ElectricityDeath
-	Warhead@Eff: CreateEffect
-		Explosions: medismiteproj
-		Image: explosion
-		Delay: 150
-	Warhead@friend: HealthPercentageDamage
-		Delay: 150
-		Spread: 2c0
-		ValidTargets: Infantry
-		Damage: 30
-		ValidRelationships: Ally
-		DamageTypes: Prone50Percent, TriggerProne, ElectricityDeath
-	Warhead@SmiteDam_impact: SpreadDamage
-		Delay: 150
-		Spread: 2c0
-		Damage: 20000
-		Falloff: 100, 75, 50
-		ValidTargets: Infantry
-		ValidRelationships: Enemy, Neutral
-		DamageTypes: Prone50Percent, TriggerProne, ElectricityDeath
-
-ChainsPowerWep:
-	ReloadDelay: 300
-	Range: 5c0
-	Projectile: InstantHit
-	Warhead@curtain: GrantExternalCondition
-		ValidTargets: GroundActor, Trees, WaterActor, Underwater, AirborneActor
-		ValidRelationships: Enemy, Neutral
-		Condition: ChainsCondition
-		Range: 5c0
-		Duration: 300
-	#Reworked for Mind Control weapon#
-
 OreCorrupterWep:
 	ReloadDelay: 300
 	Range: 5c0
@@ -1954,29 +1871,6 @@ OreCorrupterWep:
 		ValidRelationships: Enemy, Neutral
 		Range: 5c0
 		Duration: 500
-
-CursePowerWep:
-	ReloadDelay: 300
-	Range: 5c0
-	Projectile: InstantHit
-	Warhead@curtain: GrantExternalCondition
-		ValidTargets: GroundActor, Trees, WaterActor, Underwater, AirborneActor
-		ValidRelationships: Enemy, Neutral
-		Condition: CurseCondition
-		Range: 5c0
-		Duration: 800
-
-medihealorder:
-	ValidTargets: Ground, GroundActor, Trees, Water, WaterActor, Underwater, Air, AirborneActor
-	Warhead@1heala: HealthPercentageDamage
-		Spread: 5c0
-		Damage: -25
-		ValidTargets: Repair, Heal, StructureRepair
-		ValidRelationships: Ally
-	Warhead@1healb: CreateEffect
-		Explosions: medihealeffect
-		ImpactSounds: mediholyheal.aud
-		ImpactActors: false
 
 DragonGroundBomber:
 	ValidTargets: Ground, Water, GroundActor, WaterActor, Trees
