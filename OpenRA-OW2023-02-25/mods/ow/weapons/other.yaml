@@ -6416,6 +6416,142 @@ AkumaClusterSmall:
 		ValidTargets: Ground, GroundActor, WaterActor, AirborneActor
 		ImpactActors: true
 
+AkumaDeath:
+	ReloadDelay: 250
+	Range: 1c0
+	ValidTargets: Ground, Water, GroundActor, WaterActor
+	Projectile: Bullet
+		Speed: 500
+	Warhead@2Eff: CreateEffect
+		Delay: 5
+		Explosions: japanakumaring
+		ValidTargets: Ground, GroundActor, WaterActor, Trees, Air
+	Warhead@98Eff_impacta: CreateEffect
+		Delay: 5
+		ImpactSounds: akumaimpact.aud
+		Explosions: japanakumaFlashbig1
+		ImpactActors: false
+	Warhead@98Eff_impactb: CreateEffect
+		Delay: 5
+		ImpactSounds: DMC_FIRE.aud
+		Explosions: japanakumaFlashbig2
+		ImpactActors: false
+	Warhead@3Eff_impact: CreateEffect
+		Delay: 5
+		ImpactSounds: akumaexplode.aud
+		Explosions: japanakumaProjExplosion
+		ImpactActors: false
+	Warhead@akuma: GrantExternalCondition
+		Delay: 5
+		Condition: akuma
+		Range: 7c0
+		Duration: 500
+		ValidTargets: WaterActor, GroundActor, AirborneActor
+	Warhead@11Smu_areanuke3: LeaveSmudge
+		SmudgeType: Scorch
+		Size: 3
+		Delay: 63
+	Warhead@17Shake: ShakeScreen
+		Delay: 60
+		Duration: 25
+		Intensity: 3
+		Multiplier: 1,1
+	Warhead@zappy1: FireCluster
+		Delay: 69
+		Weapon: AkumaClusterSmall
+		RandomClusterCount: 6
+		Dimensions: 3,3
+		Footprint: xxx x_x xxx
+	Warhead@zappy2: FireCluster
+		Delay: 73
+		Weapon: AkumaClusterSmall
+		RandomClusterCount: 6
+		Dimensions: 3,3
+		Footprint: xxx x_x xxx
+	Warhead@zappy3: FireCluster
+		Delay: 77
+		Weapon: AkumaClusterSmall
+		RandomClusterCount: 6
+		Dimensions: 3,3
+		Footprint: xxx x_x xxx
+	Warhead@zappy4: FireCluster
+		Delay: 81
+		Weapon: AkumaClusterSmall
+		RandomClusterCount: 6
+		Dimensions: 3,3
+		Footprint: xxx x_x xxx
+	Warhead@zappy5: FireCluster
+		Delay: 85
+		Weapon: AkumaClusterSmall
+		RandomClusterCount: 6
+		Dimensions: 3,3
+		Footprint: xxx x_x xxx
+	Warhead@1Dam_impact: SpreadDamage
+		Spread: 512
+		Delay: 4
+		Damage: 12500
+		Falloff: 1000, 150, 135, 50, 18, 7, 0
+		ValidTargets: GroundActor, WaterActor, Underwater, AirborneActor, Trees
+		Versus:
+			Concrete: 75
+		AffectsParent: true
+		DamageTypes: Prone50Percent, TriggerProne, ElectricityDeath
+	Warhead@2Res_impact: DestroyResource
+		Size: 1
+		Delay: 8
+	Warhead@4Dam_areanuke1: SpreadDamage
+		Spread: 1c512
+		Damage: 2500
+		Falloff: 500, 368, 135, 50, 18, 7, 0
+		Delay: 8
+		ValidTargets: GroundActor, WaterActor, Underwater, AirborneActor, Trees
+		Versus:
+			Concrete: 15
+		AffectsParent: true
+		DamageTypes: Prone50Percent, TriggerProne, ElectricityDeath
+	Warhead@5Res_areanuke1: DestroyResource
+		Size: 2
+		Delay: 13
+	Warhead@7Dam_areanuke2: SpreadDamage
+		Spread: 2c0
+		Damage: 1500
+		Falloff: 500, 368, 135, 50, 18, 7, 0
+		Delay: 13
+		ValidTargets: GroundActor, WaterActor, Underwater, Trees
+		Versus:
+			Concrete: 15
+		AffectsParent: true
+		DamageTypes: Prone50Percent, TriggerProne, ElectricityDeath
+	Warhead@9Dam_areanuke3: SpreadDamage
+		Spread: 2c0
+		Damage: 1500
+		Falloff: 500, 368, 135, 50, 18, 7, 0
+		Delay: 18
+		ValidTargets: GroundActor, WaterActor, Underwater, Trees
+		Versus:
+			None: 50
+			Light: 50
+			Concrete: 15
+		AffectsParent: true
+		ValidRelationships: Enemy, Neutral
+		DamageTypes: Prone50Percent, TriggerProne, ElectricityDeath
+	Warhead@11Smu_areanuke3: LeaveSmudge
+		SmudgeType: Scorch
+		Size: 3
+		Delay: 18
+	Warhead@15Dam_areanuke3: SpreadDamage
+		Spread: 2c512
+		Damage: 1000
+		Falloff: 500, 368, 135, 50, 18, 7, 0
+		Delay: 23
+		ValidTargets: Ground, Water
+		Versus:
+			None: 50
+			Light: 50
+			Concrete: 15
+		AffectsParent: true
+		DamageTypes: Prone50Percent, TriggerProne, ElectricityDeath
+
 AvaliLeaderSword:
 	Inherits: TemplarBlade
 	Warhead@1Dam: TargetDamage
