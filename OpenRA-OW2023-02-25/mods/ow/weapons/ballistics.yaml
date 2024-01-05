@@ -1930,6 +1930,69 @@ tankbustershotupgrade:
 		SmudgeType: Scorch
 		ValidTargets: Ground, Infantry
 
+kusogakishot:
+	Inherits: ^Cannon
+	ReloadDelay: 200
+	Burst: 4
+	BurstDelays: 4
+	MinRange: 6c0
+	Range: 12c0
+	Report: JUTankB_weapFire1a.aud, JUTankB_weapFire1b.aud, JUTankB_weapFire1c.aud, JUTankB_weapFire1d.aud, JUTankB_weapFire1e.aud, JUTankB_weapFire1f.aud, JUTankB_weapFire1g.aud, JUTankB_weapFire1h.aud
+	Projectile: Bullet
+		Speed: 204
+		Blockable: false
+		ContrailLength: 10
+		ContrailStartColor: 00fbff
+		LaunchAngle: 62
+		Inaccuracy: 1c938
+		Image: PLASMAPROJSMALL
+		Shadow: false
+	Warhead@1Dam: SpreadDamage
+		Spread: 426
+		Damage: 3000
+		Versus:
+			None: 40
+			Wood: 50
+			Light: 50
+			Heavy: 70
+			Concrete: 50
+		DamageTypes: Prone50Percent, TriggerProne, SmallExplosionDeath
+	Warhead@2Smu: LeaveSmudge
+		SmudgeType: Scorch
+		ValidTargets: Ground, Infantry
+	Warhead@3Eff: CreateEffect
+		Explosions: laserhitsmall
+		ImpactSounds: PlasmaCannonImpact1.aud, PlasmaCannonImpact2.aud
+		ValidTargets: Ground, Air, GroundActor, AirborneActor, WaterActor, Trees
+		ImpactActors: false
+	Warhead@4EffWater: CreateEffect
+		Explosions: med_splash
+		ImpactSounds: splash9.aud
+		ValidTargets: Water, Underwater
+		InvalidTargets: Bridge
+
+kusogakishotupgrade:
+	Inherits: kusogakishot
+	Projectile: Bullet
+		Speed: 204
+		Blockable: false
+		ContrailLength: 10
+		ContrailStartColor: ff5eff
+		Inaccuracy: 1c938
+		Image: plasmaprojsmallupgrade
+		Shadow: false
+	Warhead@1Dam: SpreadDamage
+		Spread: 426
+		Damage: 4000
+		ValidTargets: GroundActor, WaterActor, AirborneActor
+		Versus:
+			None: 40
+			Wood: 50
+			Light: 50
+			Heavy: 70
+			Concrete: 50
+		DamageTypes: Prone50Percent, TriggerProne, ExplosionDeath
+
 TsunamiTankshot:
 	ReloadDelay: 50
 	Range: 5c768
@@ -1967,6 +2030,31 @@ TsunamiTankshotDualCannon:
 	ReloadDelay: 70
 	Burst: 2
 	BurstDelays: 6
+
+TsunamiTankshotDualCannonUpgrade:
+	Inherits: TsunamiTankshot
+	ReloadDelay: 70
+	Burst: 2
+	BurstDelays: 6
+	Projectile: Bullet
+		Speed: 682
+		Blockable: false
+		ContrailLength: 10
+		ContrailStartColor: ff5eff
+		Inaccuracy: 1c938
+		Image: plasmaprojsmallupgrade
+		Shadow: false
+	Warhead@1Dam: SpreadDamage
+		Spread: 256
+		Damage: 5500
+		ValidTargets: GroundActor, WaterActor
+		Versus:
+			None: 30
+			Wood: 75
+			Light: 75
+			Heavy: 115
+			Concrete: 50
+		DamageTypes: Prone50Percent, TriggerProne, ExplosionDeath
 
 Raijuushot:
 	Inherits: TsunamiTankshot
@@ -2092,6 +2180,87 @@ BalloonSentryShot:
 		Explosions: japanplasmaring
 		ValidTargets: Ground, Water, GroundActor, WaterActor, AirborneActor, Air
 
+kuruttanekoshot:
+	Inherits: BalloonSentryShot
+	ValidTargets: Ground, Water, GroundActor, WaterActor
+	ReloadDelay: 120
+	Burst: 2
+	BurstDelays: 20
+	Range: 6c768
+	Warhead@zap: FireCluster
+		Weapon: kuruttanekoClusterSmall
+		RandomClusterCount: 3
+		Dimensions: 3,3
+		Footprint: xxx x_x xxx
+
+kuruttanekoClusterSmall:
+	Inherits: BFGZapCluster
+	Range: 7c0
+	Projectile: Missile
+		RangeLimit: 1c0
+		Speed: 600
+		MinimumLaunchSpeed: 600
+		MaximumLaunchSpeed: 600
+		Acceleration: 16
+		Inaccuracy: 1c0
+	Warhead@2cluster: FireShrapnel
+		Amount: 1
+		Weapon: kuruttanekoSmallZap
+		AimTargetStances: Neutral, Enemy, None
+		AimChance: 50
+	Warhead@5Eff: CreateEffect
+		Inaccuracy: 64
+		Explosions: laserhitsmall
+		ValidTargets: Ground, GroundActor, WaterActor, AirborneActor
+		ImpactActors: true
+
+kuruttanekoZap:
+	Inherits: ^ElectricBoltWeapon
+	ReloadDelay: 7
+	Range: 9c0
+	-Report:
+	ValidTargets: Ground, GroundActor, WaterActor, AirborneActor
+	Projectile: ElectricBolt
+		Colors: 269db5, 6bf8ff, ffffff
+		Inaccuracy: 1c0
+	Warhead@1Dam: SpreadDamage
+		Damage: 1400
+		Spread: 256
+		ValidTargets: Ground, GroundActor, WaterActor, AirborneActor
+	Warhead@3Eff: CreateEffect
+		Delay: 0
+		Inaccuracy: 64
+		Explosions: laserhitsmall
+		ValidTargets: Ground, GroundActor, WaterActor, AirborneActor
+		ImpactActors: true
+	Warhead@4Eff: CreateEffect
+		Delay: 3
+		Inaccuracy: 64
+		Explosions: laserhitsmall
+		ValidTargets: Ground, GroundActor, WaterActor, AirborneActor
+		ImpactActors: true
+	Warhead@5Eff: CreateEffect
+		Delay: 6
+		Inaccuracy: 64
+		Explosions: laserhitsmall
+		ValidTargets: Ground, GroundActor, WaterActor, AirborneActor
+		ImpactActors: true
+
+kuruttanekoSmallZap:
+	Inherits: kuruttanekoZap
+	Range: 5c0
+	Projectile: ElectricBolt
+		Distortion: 200
+		DistortionAnimation: 16
+		SegmentLength: 128
+		Width: 12
+		Duration: 9
+		Inaccuracy: 256
+	Warhead@1Dam: SpreadDamage
+		Damage: 1000
+	-Warhead@4Eff: CreateEffect
+	-Warhead@5Eff: CreateEffect
+
 BalloonSentryShotUpgrade:
 	Inherits: BalloonSentryShot
 	Projectile: Bullet
@@ -2120,6 +2289,87 @@ BalloonSentryShotUpgrade:
 	Warhead@4Eff_impact: CreateEffect
 		Explosions: japanplasmaringupgrade
 		ValidTargets: Ground, Water, GroundActor, WaterActor, AirborneActor, Air
+
+kuruttanekoshotupgrade:
+	Inherits: BalloonSentryShotUpgrade
+	ValidTargets: Ground, Water, GroundActor, WaterActor
+	ReloadDelay: 120
+	Burst: 2
+	BurstDelays: 20
+	Range: 6c768
+	Warhead@zap: FireCluster
+		Weapon: kuruttanekoClusterSmallupgrade
+		RandomClusterCount: 3
+		Dimensions: 3,3
+		Footprint: xxx x_x xxx
+
+kuruttanekoClusterSmallupgrade:
+	Inherits: BFGZapCluster
+	Range: 7c0
+	Projectile: Missile
+		RangeLimit: 1c0
+		Speed: 600
+		MinimumLaunchSpeed: 600
+		MaximumLaunchSpeed: 600
+		Acceleration: 16
+		Inaccuracy: 1c0
+	Warhead@2cluster: FireShrapnel
+		Amount: 1
+		Weapon: kuruttanekoSmallZapupgrade
+		AimTargetStances: Neutral, Enemy, None
+		AimChance: 50
+	Warhead@5Eff: CreateEffect
+		Inaccuracy: 64
+		Explosions: laserhitsmall
+		ValidTargets: Ground, GroundActor, WaterActor, AirborneActor
+		ImpactActors: true
+
+kuruttanekoZapupgrade:
+	Inherits: ^ElectricBoltWeapon
+	ReloadDelay: 7
+	Range: 9c0
+	-Report:
+	ValidTargets: Ground, GroundActor, WaterActor, AirborneActor
+	Projectile: ElectricBolt
+		Colors: ff0000, a10000, 5c0000
+		Inaccuracy: 1c0
+	Warhead@1Dam: SpreadDamage
+		Damage: 2800
+		Spread: 256
+		ValidTargets: Ground, GroundActor, WaterActor, AirborneActor
+	Warhead@3Eff: CreateEffect
+		Delay: 0
+		Inaccuracy: 64
+		Explosions: laserhitsmall
+		ValidTargets: Ground, GroundActor, WaterActor, AirborneActor
+		ImpactActors: true
+	Warhead@4Eff: CreateEffect
+		Delay: 3
+		Inaccuracy: 64
+		Explosions: laserhitsmall
+		ValidTargets: Ground, GroundActor, WaterActor, AirborneActor
+		ImpactActors: true
+	Warhead@5Eff: CreateEffect
+		Delay: 6
+		Inaccuracy: 64
+		Explosions: laserhitsmall
+		ValidTargets: Ground, GroundActor, WaterActor, AirborneActor
+		ImpactActors: true
+
+kuruttanekoSmallZapupgrade:
+	Inherits: kuruttanekoZapupgrade
+	Range: 5c0
+	Projectile: ElectricBolt
+		Distortion: 200
+		DistortionAnimation: 16
+		SegmentLength: 128
+		Width: 12
+		Duration: 9
+		Inaccuracy: 256
+	Warhead@1Dam: SpreadDamage
+		Damage: 2000
+	-Warhead@4Eff: CreateEffect
+	-Warhead@5Eff: CreateEffect
 
 chinazhurongcannon:
 	Inherits: ^Cannon

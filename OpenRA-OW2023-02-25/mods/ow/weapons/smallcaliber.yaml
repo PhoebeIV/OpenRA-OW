@@ -1656,6 +1656,210 @@ mechatengushot:
 		ValidTargets: Ground, Air, GroundActor, AirborneActor, WaterActor, Trees
 		ImpactActors: false
 
+finalsquadronshot:
+	Inherits: ^HeavyMG
+	Range: 11c128
+	Burst: 12
+	BurstDelays: 2
+	FirstBurstTargetOffset: -2984,0,0
+	FollowingBurstTargetOffset: 746,0,0
+	ReloadDelay: 500
+	Report: hakaimonogatlingshot.wav
+	Projectile: InstantHit
+		Blockable: false
+	Warhead@1Dam_impact: SpreadDamage
+		Spread: 128
+		Damage: 5
+		ValidTargets: GroundActor, WaterActor, Underwater, AirborneActor, Trees
+		DamageTypes: Prone50Percent, TriggerProne, ElectricityDeath
+	Warhead@1Dam: SpreadDamage
+		Spread: 512
+		Damage: 5
+		Versus:
+			None: 100
+			Wood: 100
+			Light: 100
+			Heavy: 100
+			Concrete: 50
+		DamageTypes: Prone50Percent, TriggerProne, SmallExplosionDeath
+	Warhead@cluster: FireFragment
+		ValidTargets: Ground, Air, GroundActor, AirborneActor, WaterActor, Water, Trees
+		Weapon: hakaimonogatlingshotCluster1
+		Offsets: 0,0,0, 0,-512,0, 0,-1024,0, 0,-1536,0, 0,-2048,0, 0,-2560,0
+		Rotate: true
+	Warhead@cluster2: FireFragment
+		Delay: 10
+		ValidTargets: Ground, Air, GroundActor, AirborneActor, WaterActor, Water, Trees
+		Weapon: hakaimonogatlingshotCluster1
+		Offsets: 0,0,0, 0,-512,0, 0,-1024,0, 0,-1536,0, 0,-2048,0, 0,-2560,0
+		Rotate: true
+	Warhead@cluster3: FireFragment
+		Delay: 20
+		ValidTargets: Ground, Air, GroundActor, AirborneActor, WaterActor, Water, Trees
+		Weapon: hakaimonogatlingshotCluster1
+		Offsets: 0,0,0, 0,-512,0, 0,-1024,0, 0,-1536,0, 0,-2048,0, 0,-2560,0
+		Rotate: true
+
+hakaimonogatlingshot:
+	Inherits: ^LightMG
+	ValidTargets: Infantry
+	ReloadDelay: 150
+	Range: 6c384
+	Report: hakaimonogatlingshot.wav
+	Warhead@1Dam_impact: SpreadDamage
+		Spread: 128
+		Damage: 5
+		ValidTargets: GroundActor, WaterActor, Underwater, AirborneActor, Trees
+		DamageTypes: Prone50Percent, TriggerProne, ElectricityDeath
+	Warhead@1Dam: SpreadDamage
+		Spread: 512
+		Damage: 5
+		Versus:
+			None: 100
+			Wood: 100
+			Light: 100
+			Heavy: 100
+			Concrete: 50
+		DamageTypes: Prone50Percent, TriggerProne, SmallExplosionDeath
+	Warhead@cluster: FireFragment
+		ValidTargets: Ground, Air, GroundActor, AirborneActor, WaterActor, Water, Trees
+		Weapon: hakaimonogatlingshotCluster1
+		Offsets: 0,0,0, 0,-512,0, 0,-1024,0, 0,-1536,0, 0,-2048,0, 0,-2560,0
+		Rotate: true
+	Warhead@cluster2: FireFragment
+		Delay: 10
+		ValidTargets: Ground, Air, GroundActor, AirborneActor, WaterActor, Water, Trees
+		Weapon: hakaimonogatlingshotCluster1
+		Offsets: 0,0,0, 0,-512,0, 0,-1024,0, 0,-1536,0, 0,-2048,0, 0,-2560,0
+		Rotate: true
+	Warhead@cluster3: FireFragment
+		Delay: 20
+		ValidTargets: Ground, Air, GroundActor, AirborneActor, WaterActor, Water, Trees
+		Weapon: hakaimonogatlingshotCluster1
+		Offsets: 0,0,0, 0,-512,0, 0,-1024,0, 0,-1536,0, 0,-2048,0, 0,-2560,0
+		Rotate: true
+
+hakaimonogatlingshotCluster1:
+	Range: 6c0
+	Burst: 20
+	BurstDelays: 1
+	FirstBurstTargetOffset: 256,0,0
+	FollowingBurstTargetOffset: 512,128,0
+	Projectile: Bullet
+		Speed: 650
+		Inaccuracy: 5c0
+		LaunchAngle: 150
+	Warhead@1Dam: SpreadDamage
+		Spread: 256
+		Damage: 900
+		ValidTargets: GroundActor, WaterActor
+		Versus:
+			None: 200
+			Wood: 50
+			Light: 50
+			Heavy: 40
+			Concrete: 20
+		DamageTypes: Prone50Percent, TriggerProne, BulletDeath
+	Warhead@2Dam: SpreadDamage
+		Damage: 2500
+		ValidTargets: Air, AirborneActor
+		DamageTypes: Prone50Percent, TriggerProne, DefaultDeath
+	Warhead@4Eff: CreateEffect
+		Explosions: laserhitsmall
+		Inaccuracy: 256
+		ValidTargets: Ground, Air, GroundActor, AirborneActor, WaterActor, Trees
+		ImpactActors: false
+	Warhead@4Dam: SpreadDamage
+		Delay: 2
+		Spread: 256
+		Damage: 900
+		ValidTargets: GroundActor, WaterActor
+		Versus:
+			None: 200
+			Wood: 50
+			Light: 50
+			Heavy: 40
+			Concrete: 20
+		DamageTypes: Prone50Percent, TriggerProne, BulletDeath
+	Warhead@5Eff: CreateEffect
+		Delay: 2
+		Explosions: laserhitsmall
+		Inaccuracy: 256
+		ValidTargets: Ground, Air, GroundActor, AirborneActor, WaterActor, Trees
+		ImpactActors: false
+	Warhead@5Dam: SpreadDamage
+		Delay: 4
+		Spread: 256
+		Damage: 900
+		ValidTargets: GroundActor, WaterActor
+		Versus:
+			None: 200
+			Wood: 50
+			Light: 50
+			Heavy: 40
+			Concrete: 20
+		DamageTypes: Prone50Percent, TriggerProne, BulletDeath
+	Warhead@6Eff: CreateEffect
+		Delay: 4
+		Explosions: laserhitsmall
+		Inaccuracy: 256
+		ValidTargets: Ground, Air, GroundActor, AirborneActor, WaterActor, Trees
+		ImpactActors: false
+	Warhead@6Dam: SpreadDamage
+		Delay: 6
+		Spread: 256
+		Damage: 900
+		ValidTargets: GroundActor, WaterActor
+		Versus:
+			None: 200
+			Wood: 50
+			Light: 50
+			Heavy: 40
+			Concrete: 20
+		DamageTypes: Prone50Percent, TriggerProne, BulletDeath
+	Warhead@7Eff: CreateEffect
+		Delay: 6
+		Explosions: laserhitsmall
+		Inaccuracy: 256
+		ValidTargets: Ground, Air, GroundActor, AirborneActor, WaterActor, Trees
+		ImpactActors: false
+	Warhead@8Dam: SpreadDamage
+		Delay: 8
+		Spread: 256
+		Damage: 900
+		ValidTargets: GroundActor, WaterActor
+		Versus:
+			None: 200
+			Wood: 50
+			Light: 50
+			Heavy: 40
+			Concrete: 20
+		DamageTypes: Prone50Percent, TriggerProne, BulletDeath
+	Warhead@8Eff: CreateEffect
+		Delay: 8
+		Explosions: laserhitsmall
+		Inaccuracy: 256
+		ValidTargets: Ground, Air, GroundActor, AirborneActor, WaterActor, Trees
+		ImpactActors: false
+	Warhead@10Dam: SpreadDamage
+		Delay: 10
+		Spread: 256
+		Damage: 900
+		ValidTargets: GroundActor, WaterActor
+		Versus:
+			None: 200
+			Wood: 50
+			Light: 50
+			Heavy: 40
+			Concrete: 20
+		DamageTypes: Prone50Percent, TriggerProne, BulletDeath
+	Warhead@10Eff: CreateEffect
+		Delay: 10
+		Explosions: laserhitsmall
+		Inaccuracy: 256
+		ValidTargets: Ground, Air, GroundActor, AirborneActor, WaterActor, Trees
+		ImpactActors: false
+
 mechatengushotplane:
 	Inherits: mechatengushot
 	ValidTargets: GroundActor, WaterActor, Ground, Water, Air, AirborneActor

@@ -7,7 +7,7 @@
 ^japandnastamina:
 	FirepowerMultiplier@dnastamina:
 		Modifier: 120
-		RequiresCondition: nastamina
+		RequiresCondition: dnastamina
 	RangeMultiplier@dnastamina:
 		Modifier: 120
 		RequiresCondition: dnastamina
@@ -816,8 +816,194 @@ japanmechatransformermecha:
 	Inherits: japanmechatransformer
 	Buildable:
 		Queue: Infantry
-		BuildPaletteOrder: 130
+		BuildPaletteOrder: 72
 		Prerequisites: ~vehicles.japan, ~techlevel.low, ~!faction.economicgeneral
 		Description: actor-japanmechatransformer.description
 	RenderSprites:
 		Image: japanmechatransformer
+
+japantsukumogami:
+	Inherits: ^Vehicle
+	Inherits@mechabuff: ^mechabuff
+	Inherits@GAINSEXPERIENCE: ^GainsExperience
+	Inherits@AUTOTARGET: ^AutoTargetAll
+	Buildable:
+		Queue: Infantry
+		BuildPaletteOrder: 73
+		Prerequisites: ~vehicles.japan, ~techlevel.low, ~!faction.economicgeneral, ~faction.mechageneral
+		Description: actor-japantsukumogami.description
+	Valued:
+		Cost: 1000
+	Tooltip:
+		Name: actor-japantsukumogami.name
+	Health:
+		HP: 50000
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Armor:
+		Type: Heavy
+	Mobile:
+		TurnSpeed: 20
+		Speed: 99
+	RevealsShroud:
+		MinRange: 5c0
+		Range: 6c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 5c0
+	AttackFrontal:
+		PauseOnCondition: disabled
+		Armaments: primary, secondary
+		FacingTolerance: 0
+	WithMuzzleOverlay:
+	Armament@primary:
+		Name: primary
+		Weapon: TsunamiTankshotDualCannon
+		LocalOffset: 900,180,340, 900,-180,340
+		MuzzleSequence: muzzle
+		PauseOnCondition: disabled || superheatedplasma
+	Armament@primaryupgrade:
+		Name: secondary
+		Weapon: TsunamiTankshotDualCannonUpgrade
+		LocalOffset: 900,180,340, 900,-180,340
+		MuzzleSequence: muzzle
+		RequiresCondition: superheatedplasma
+	QuantizeFacingsFromSequence:
+		Sequence: stand
+	WithFacingSpriteBody:
+		Sequence: stand
+	WithAttackAnimation:
+		Sequence: shoot
+		RequiresCondition: !superheatplasma
+		Armament: primary
+	WithAttackAnimation@2:
+		Sequence: shoot
+		RequiresCondition: superheatplasma
+		Armament: secondary
+	WithMoveAnimation:
+		MoveSequence: run
+		ValidMovementTypes: Horizontal, Turn
+	RangeMultiplier@mecha:
+		Modifier: 110
+	ReloadDelayMultiplier@mech:
+		Modifier: 80
+	ProducibleWithLevel:
+		Prerequisites: vehicles.upgraded
+	Selectable:
+		Bounds: 853, 1365, 0, -341
+	RenderSprites:
+		PlayerPalette: tsunit
+	Cloak@stealthgen:
+		Palette: tscloak
+	Voiced:
+		VoiceSet: KomatsuVoice
+	TeleportNetworkTransportable:
+	GrantConditionOnPrerequisite@superheatedplasma:
+		Condition: superheatedplasma
+		Prerequisites: upgrade.superheatedplasma
+	GrantConditionOnHealth@shinkyo:
+		Condition: shikyostate
+		MinHP: 0
+		MaxHP: 15000
+
+japanmechanic:
+	Inherits: ^Vehicle
+	Inherits@mechabuff: ^mechabuff
+	Inherits@GAINSEXPERIENCE: ^GainsExperience
+	Inherits@AUTOTARGET: ^AutoTargetAll
+	Buildable:
+		Queue: Infantry
+		BuildPaletteOrder: 73
+		Prerequisites: ~vehicles.japan, techcenter, ~!faction.economicgeneral, ~faction.mechageneral
+		Description: actor-japanmechanic.description
+	Valued:
+		Cost: 1000
+	Tooltip:
+		Name: actor-japanmechanic.name
+	Health:
+		HP: 40000
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Armor:
+		Type: Heavy
+	Mobile:
+		TurnSpeed: 20
+		Speed: 99
+	RevealsShroud:
+		MinRange: 5c0
+		Range: 6c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 5c0
+	AttackFrontal:
+		PauseOnCondition: disabled
+		Armaments: primary
+		FacingTolerance: 0
+	WithMuzzleOverlay:
+	Armament@primary:
+		Cursor: heal
+		OutsideRangeCursor: heal
+		TargetRelationships: Ally
+		ForceTargetRelationships: None
+		Name: primary
+		Weapon: HotwireRepairGun
+		LocalOffset: 400,180,340, 400,-180,340
+		PauseOnCondition: disabled
+	AmmoPool:
+		Ammo: 80
+		AmmoCondition: ammo
+	ReloadAmmoPool:
+		Count: 30
+		ResetOnFire: true
+		Delay: 25
+	AmmoPool@hack:
+		InitialAmmo: 0
+		Name: hackammo
+	ReloadAmmoPool@hack:
+		RequiresCondition: firing
+		AmmoPool: hackammo
+		Delay: 1
+	GrantPeriodicCondition@randomiseattackspeed:
+		ActiveDuration: 2,5
+		CooldownDuration: 2,5
+		Condition: attackspeed
+		RequiresCondition: firing
+	GrantConditionOnAttack@firing:
+		Condition: firing
+		RevokeDelay: 4
+	ExplodeWeapon@endsound:
+		Weapon: HotwireRepairGunEnd
+		AmmoPoolName: hackammo
+		RequiresCondition: !firing
+	ReloadDelayMultiplier@randomiseattackspeed:
+		RequiresCondition: attackspeed
+		Modifier: 150
+	QuantizeFacingsFromSequence:
+		Sequence: stand
+	WithFacingSpriteBody:
+		Sequence: stand
+	WithAttackAnimation:
+		Sequence: shoot
+		Armament: primary
+	WithMoveAnimation:
+		MoveSequence: run
+		ValidMovementTypes: Horizontal, Turn
+	RangeMultiplier@mecha:
+		Modifier: 110
+	ReloadDelayMultiplier@mech:
+		Modifier: 80
+	ProducibleWithLevel:
+		Prerequisites: vehicles.upgraded
+	Selectable:
+		Bounds: 853, 1365, 0, -341
+	RenderSprites:
+		PlayerPalette: tsunit
+	Cloak@stealthgen:
+		Palette: tscloak
+	Voiced:
+		VoiceSet: KomatsuVoice
+	TeleportNetworkTransportable:
+	GrantConditionOnHealth@shinkyo:
+		Condition: shikyostate
+		MinHP: 0
+		MaxHP: 12000

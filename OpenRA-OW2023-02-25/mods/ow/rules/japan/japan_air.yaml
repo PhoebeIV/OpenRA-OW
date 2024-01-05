@@ -309,7 +309,7 @@ japanyousei:
 		Queue: Aircraft
 		BuildAtProductionType: Plane
 		BuildPaletteOrder: 50
-		Prerequisites: ~aircraft.japan, techcenter, ~!faction.economicgeneral
+		Prerequisites: ~aircraft.japan, techcenter, ~!faction.economicgeneral, ~!faction.mechageneral
 		Description: actor-japanyousei.description
 		BuildDuration: 3300
 	Valued:
@@ -404,7 +404,7 @@ japankaminari:
 		Queue: Aircraft
 		BuildAtProductionType: Plane
 		BuildPaletteOrder: 50
-		Prerequisites: ~aircraft.japan, japanpsychicdatacenter, ~!faction.economicgeneral
+		Prerequisites: ~aircraft.japan, japanpsychicdatacenter, ~!faction.economicgeneral, ~!faction.mechageneral
 		Description: actor-japankaminari.description
 		BuildDuration: 3300
 	Valued:
@@ -581,7 +581,7 @@ japanfinalsquadron:
 	Tooltip:
 		Name: actor-japanfinalsquadron-name
 	Health:
-		HP: 30000
+		HP: 20000
 	Aircraft:
 		TurnSpeed: 4
 		Speed: 180
@@ -590,7 +590,7 @@ japanfinalsquadron:
 		Armaments: gun
 	Armament@MISSILES2:
 		Name: gun
-		Weapon: a10shot
+		Weapon: finalsquadronshot
 		LocalOffset: 0,-384,0
 		PauseOnCondition: !ammo
 	WithMuzzleOverlay:
@@ -603,11 +603,11 @@ japanfinalsquadron:
 	AmmoPool:
 		Name: gun
 		Armaments: gun
-		Ammo: 6
+		Ammo: 1
 		PipCount: 0
 		AmmoCondition: ammo
 	KillsSelf:
-		Delay: 35,50
+		Delay: 40,55
 		RequiresCondition: !ammo
 	-Selectable:
 	SelectionDecorations:
@@ -655,7 +655,7 @@ japanskyempress:
 		Queue: Aircraft
 		BuildAtProductionType: Helicopter
 		BuildPaletteOrder: 900
-		Prerequisites: ulttechcenter, ~techlevel.unrestricted, ~aircraft.japan, ~!faction.economicgeneral
+		Prerequisites: ulttechcenter, ~techlevel.unrestricted, ~aircraft.japan, ~!faction.economicgeneral, ~!faction.mechageneral
 		Description: actor-japanskyempress.description
 		BuildLimit: 1
 	Valued:
@@ -785,3 +785,168 @@ japanskyempress.Husk:
 		PlayerPalette: tsunit
 	ShakeOnDeath:
 		Duration: 15
+
+japanswarmdrone:
+	Inherits: ^Plane
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Buildable:
+		Queue: Aircraft
+		BuildAtProductionType: Plane
+		BuildPaletteOrder: 50
+		Prerequisites: ~aircraft.japan, techcenter, ~!faction.economicgeneral, ~faction.mechageneral
+		Description: actor-japanswarmdrone.description
+		BuildDuration: 500
+	Valued:
+		Cost: 750
+	Tooltip:
+		Name: actor-japanswarmdrone.name
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 5000
+	RevealsShroud:
+		MinRange: 11c0
+		Range: 13c0
+		Type: GroundPosition
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 11c0
+		Type: GroundPosition
+	Armament:
+		Weapon: DroneSwarmSound
+		LocalOffset: 0,-640,0, 0,640,0
+		LocalYaw: -40, 24
+		PauseOnCondition: !ammo
+	GrantConditionOnAttack@die:
+		Condition: killself
+	KillsSelf@die:
+		RequiresCondition: killself
+	AttackAircraft:
+		FacingTolerance: 80
+		PersistentTargeting: false
+		OpportunityFire: false
+	Aircraft:
+		CruiseAltitude: 2560
+		TurnSpeed: 16
+		Speed: 350
+		RepulsionSpeed: 40
+		MaximumPitch: 56
+		Voice: Move
+	Guard:
+		Voice: Move
+	AutoTarget:
+		InitialStance: Defend
+		InitialStanceAI: Defend
+	AmmoPool:
+		Ammo: 1
+		ReloadDelay: 125
+		AmmoCondition: ammo
+	Selectable:
+		Bounds: 750, 600, 0, 42
+		DecorationBounds: 850, 600, 0, 21
+	Contrail@1:
+		Offset: -300,-341,0
+		StartColorAlpha: 128
+	Contrail@2:
+		Offset: -300,341,0
+		StartColorAlpha: 128
+	-SpawnActorOnDeath:
+	SpawnActorOnDeath:
+		Actor: japanswarmdrone.Husk
+	LeavesTrails:
+		Offsets: -425,0,171
+		MovingInterval: 2
+		Image: smokey
+		SpawnAtLastPosition: False
+		Type: CenterPosition
+		RequiresCondition: enable-smoke
+	ProducibleWithLevel:
+		Prerequisites: aircraft.upgraded
+	Rearmable:
+		RearmActors: usaairfield, afld, afld.ukraine, usaairstriplandingspot, japanairfield
+	WithAmmoPipsDecoration:
+		Position: BottomLeft
+		Margin: 4, 3
+		RequiresSelection: true
+	GrantConditionOnDamageState@SmokeTrail:
+		Condition: enable-smoke
+	WithProductionIconOverlay:
+		Types: Veterancy
+		Prerequisites: aircraft.upgraded
+	Voiced:
+		VoiceSet: SentryDroneVoice
+
+japanswarmdrone.Husk:
+	Inherits: ^PlaneHusk
+	Tooltip:
+		Name: actor-japanfinalsquadron-husk-name
+	Aircraft:
+		TurnSpeed: 20
+		Speed: 128
+	WithDamageOverlay:
+		Offset: -453,0,0
+		Interval: 2
+		MinimumDamageState: Undamaged
+	RevealsShroud:
+		MinRange: 7c0
+		Range: 9c0
+		Type: GroundPosition
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 7c0
+		Type: GroundPosition
+	RenderSprites:
+		Image: japanswarmdrone
+	Explodes:
+		Weapon: usaaurorashot
+		EmptyWeapon: usaaurorashot
+
+japanswarmdronesquad:
+	Inherits: ^Plane
+	Tooltip:
+		Name: actor-japanfinalsquadron-name
+	Health:
+		HP: 2000
+	Aircraft:
+		TurnSpeed: 4
+		Speed: 350
+		Repulsable: False
+	AttackBomber:
+		Armaments: primary
+	Armament@MISSILES2:
+		Name: primary
+		Weapon: DroneSwarmSound
+		LocalOffset: 0,-640,0, 0,640,0
+		LocalYaw: -40, 24
+		PauseOnCondition: !ammo
+	WithMuzzleOverlay:
+	Contrail@1:
+		Offset: -640,171,0
+		TrailLength: 15
+	Contrail@2:
+		Offset: -640,-171,0
+		TrailLength: 15
+	AmmoPool:
+		Name: primary
+		Armaments: primary
+		Ammo: 1
+		ReloadDelay: 125
+		AmmoCondition: ammo
+	GrantConditionOnAttack@die:
+		Condition: killself
+	KillsSelf@1:
+		Delay: 0,10
+		RequiresCondition: killself
+	KillsSelf@2:
+		Delay: 0,10
+		RequiresCondition: !ammo
+	-Selectable:
+	SelectionDecorations:
+		RenderSelectionBars: False
+	RejectsOrders:
+	SpawnActorOnDeath:
+		Actor: japanswarmdrone.Husk
+	Interactable:
+	RenderSprites:
+		Image: japanswarmdrone
+	-MapEditorData:

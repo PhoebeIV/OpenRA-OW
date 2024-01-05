@@ -269,7 +269,7 @@ japanmechabay:
 	Buildable:
 		Queue: Building
 		BuildPaletteOrder: 80
-		Prerequisites: refinery, anypower, ~structures.japan, ~!structures.bothard
+		Prerequisites: refinery, anypower, barracks, ~structures.japan, ~!structures.bothard
 		Description: actor-japanmechabay.description
 		Icon: icon-japan
 	Valued:
@@ -285,7 +285,7 @@ japanairfield:
 	Buildable:
 		Queue: Building
 		BuildPaletteOrder: 130
-		Prerequisites: refinery, anypower, ~structures.japan
+		Prerequisites: refinery, anypower, barracks, ~structures.japan
 		Description: actor-japanairfield.description
 	Tooltip:
 		Name: actor-japanairfield.name
@@ -512,7 +512,7 @@ japanmainframe:
 		EffectSequence: idle
 	IonCannonPower@JapanCurseEconomic:
 		OrderName: JapanCurseEconomic
-		Prerequisites: ~structures.japan, faction.economicgeneral
+		Prerequisites: ~structures.japan, faction.economicgeneral, ~!faction.mechageneral
 		PauseOnCondition: disabled
 		Icon: japancurseicon
 		Cursor: chrono-target
@@ -530,9 +530,9 @@ japanmainframe:
 		DisplayTimerRelationships: None
 	ParatroopersPower@tenshidrop:
 		OrderName: tenshidrop
-		Prerequisites: ~structures.japan, !faction.economicgeneral
+		Prerequisites: ~structures.japan, !faction.economicgeneral, ~!faction.mechageneral
 		Icon: tenshisquadicon
-		ChargeInterval: 13500
+		ChargeInterval: 12500
 		Name: Tenshi Squad
 		Description: A U2 drops a squad of Rocket Angels on a location.
 		UnitType: U2.Drop.Tenshi
@@ -552,6 +552,29 @@ japanmainframe:
 		SupportPowerPaletteOrder: 50
 		SquadSize: 1
 		LaunchSound: AngelDrop_Callout01.aud
+	ParatroopersPower@mechadrop:
+		OrderName: mechadrop
+		Prerequisites: ~structures.japan, !faction.economicgeneral, ~faction.mechageneral
+		Icon: paratank
+		ChargeInterval: 13500
+		Name: Mecha Drop
+		Description: A C17 drops a load of mecha on a location.
+		UnitType: C17
+		DropItems: japantsukumogami, japanmechatengu, japanstrikervx, japanmechatransformer, japanstrikervx, japanmechatengu, japantsukumogami, japanmechatransformer
+		ReinforcementsArrivedSpeechNotification: ReinforcementsArrived
+		SelectTargetSpeechNotification: SelectTarget
+		AllowImpassableCells: false
+		QuantizedFacings: 8
+		CameraActor: camera.paradrop
+		DisplayBeacon: true
+		BeaconPoster: paratank
+		ArrowSequence: arrow
+		ClockSequence: clock
+		CircleSequence: circles
+		UseDirectionalTarget: True
+		DirectionArrowAnimation: paradirection
+		SupportPowerPaletteOrder: 50
+		SquadSize: 2
 	SupportPowerChargeBar:
 	InfiltrateForSupportPowerReset:
 		Types: SpyInfiltrate
@@ -698,7 +721,7 @@ japanpsychicdatacenter:
 		DisplayTimerRelationships: None
 	AirstrikePower@finalsquadron:
 		OrderName: finalsquadron
-		Prerequisites: ~structures.japan, !faction.economicgeneral
+		Prerequisites: ~structures.japan, !faction.economicgeneral, !faction.mechageneral
 		Icon: japanfinalsquadronicon
 		ChargeInterval: 15000
 		Name: Final Squadron
@@ -738,6 +761,29 @@ japanpsychicdatacenter:
 		Prerequisites: ~structures.japan
 		LaunchSound: WarpRiftCreate.aud
 		EndChargeSound: WarpRiftRecharged.aud
+	AirstrikePower@droneswarm:
+		OrderName: droneswarm
+		Prerequisites: ~structures.japan, ~faction.mechageneral
+		Icon: japandroneswarmpowericon
+		ChargeInterval: 15000
+		Name: Final Squadron
+		Description: Send a squadron of kamikaze planes.
+		SelectTargetSpeechNotification: SelectTarget
+		CameraActor: camera
+		CameraRemoveDelay: 150
+		UnitType: japanswarmdronesquad
+		QuantizedFacings: 8
+		DisplayBeacon: true
+		BeaconPoster: japandroneswarmpowerbeacon
+		SquadSize: 10
+		SquadOffset: -900,900,0
+		ArrowSequence: arrow
+		ClockSequence: clock
+		CircleSequence: circles
+		UseDirectionalTarget: True
+		DirectionArrowAnimation: paradirection
+		SupportPowerPaletteOrder: 40
+		DisplayTimerRelationships: None
 
 JapanWarpPortalRed:
 	Inherits: ^Building
@@ -1190,6 +1236,7 @@ japantransformerbase:
 	AttackTurreted:
 		PauseOnCondition: build-incomplete
 
+
 japanballoon:
 	Inherits: ^Defense
 	Inherits@LOWPOWER: ^DisableOnLowPowerOrPowerDown
@@ -1396,6 +1443,9 @@ japanwaveforceturret:
 		Prerequisites: upgrade.focusedlasers
 	RangeMultiplier@mecha:
 		Modifier: 120
+	AutoDeployer:
+		DeployChance: 100
+		DeployTicks: 100
 
 japanberserktower:
 	Inherits: japanmindcontrol

@@ -1988,6 +1988,11 @@ actor-upgrade-dnacloning =
    .name = DNA Cloning
    .description = Decrease infantry cost and allow faster production.
 
+actor-upgrade-shikyo =
+   .name = Shikyo
+   .description = When mecha are below 30% health, will now disable all safety functions.
+   Gaining speed, attack speed, increased damage, reduced damage, but will take damage until killed.
+
 ## japan_veh.yaml
 actor-japansuddentransport =
    .description = Stealth APC
@@ -2076,6 +2081,39 @@ actor-japanakuma =
     Has to be deployed to fire, it will weaken any units caught in the blast
     and randomly cause some units to go berserk or become under your control.
    .name = Akuma
+
+actor-japankingoni =
+   .description = King Oni is a well rounded mech capable of fighting all forms of enemies, at the expense of defence.
+      Strong vs Vehicles, Infantry, Aircraft
+   .name = King Oni
+
+actor-japankusogaki =
+   .description = Plasma barrage artillery walker.
+    Speed: 120
+      Strong vs Infantry, Buildings
+      Weak vs Aircraft, Vehicles
+   .name = Kusogaki
+
+actor-japankuruttaneko =
+   .description = Heavy mecha equipped with a dual rocket barrage salvo and dual plasma cannons.
+    Speed: 120
+      Strong vs Infantry, Buildings
+      Weak vs Aircraft, Vehicles
+   .name = Kurutta Neko
+
+actor-japanhakaimono =
+   .description = [EPIC]
+    Hakaimono is a fully equipped Super Mecha.
+    Armed with a plasma gattling gun, anti matter missiles & laser barrage.
+   .name = Hakaimono
+
+actor-japanmechanic =
+   .description = Repair unit for infantry and vehicles.
+   .name = Mechanic
+
+actor-japanswarmdrone =
+   .description = Fast moving suicide drone.
+   .name = Swarm Drone
 
 ## medi_str.yaml
 actor-meditent =

@@ -5241,6 +5241,12 @@ HiroshimaInfantryLaser:
 		ValidTargets: GroundActor, WaterActor
 		DamageTypes: Prone50Percent, TriggerProne, DefaultDeath
 
+KingOniInfantryLaser:
+	Inherits: HiroshimaInfantryLaser
+	ReloadDelay: 70
+	Burst: 2
+	BurstDelays: 12
+
 HiroshimaInfantryLaserUpgrade:
 	Inherits: HiroshimaInfantryLaser
 	Report: JUWavef_weapFired.aud
@@ -5266,6 +5272,12 @@ HiroshimaInfantryLaserUpgrade:
 		Damage: 1000
 		ValidTargets: GroundActor, WaterActor
 		DamageTypes: Prone50Percent, TriggerProne, DefaultDeath
+
+KingOniInfantryLaserUpgrade:
+	Inherits: HiroshimaInfantryLaserUpgrade
+	ReloadDelay: 70
+	Burst: 2
+	BurstDelays: 12
 
 HiroshimaTankLaser:
 	ReloadDelay: 90
@@ -5300,6 +5312,12 @@ HiroshimaTankLaser:
 		ValidTargets: GroundActor, WaterActor
 		DamageTypes: Prone50Percent, TriggerProne, DefaultDeath
 
+KingOniTankLaser:
+	Inherits: HiroshimaTankLaser
+	ReloadDelay: 135
+	Burst: 2
+	BurstDelays: 12
+
 HiroshimaTankLaserUpgrade:
 	Inherits: HiroshimaTankLaser
 	Report: JUWavef_weapFiredg.aud
@@ -5323,6 +5341,12 @@ HiroshimaTankLaserUpgrade:
 		Damage: 2000
 		ValidTargets: GroundActor, WaterActor
 		DamageTypes: Prone50Percent, TriggerProne, DefaultDeath
+
+KingOniTankLaserUpgrade:
+	Inherits: HiroshimaTankLaserUpgrade
+	ReloadDelay: 135
+	Burst: 2
+	BurstDelays: 12
 
 OrcaTransportDummy:
 	ReloadDelay: 25
@@ -5908,6 +5932,96 @@ SkyEmpressClusterSmall:
 		ValidTargets: Ground, GroundActor, WaterActor, AirborneActor
 		ImpactActors: true
 
+hakaiSound:
+	ReloadDelay: 250
+	Range: 9c0
+	Report: medideathknightbeamcharge.aud
+	ValidTargets: Ground, Water, GroundActor, WaterActor
+	InvalidTargets: Infantry
+	Projectile: Missile
+		Speed: 2
+		RangeLimit: 3
+	Warhead@2Eff: CreateEffect
+		Explosions: japanhakairing
+		ValidTargets: Ground, GroundActor, WaterActor, Trees, Air
+	Warhead@3Eff: CreateEffect
+		Explosions: japanhakaimuzzle1
+		ValidTargets: Ground, GroundActor, WaterActor, Trees, Air
+	Warhead@4Eff: CreateEffect
+		Explosions: japanhakaimuzzle2
+		ValidTargets: Ground, GroundActor, WaterActor, Trees, Air
+
+hakaicannon:
+	ReloadDelay: 350
+	Range: 9c0
+	ValidTargets: Ground, Water, GroundActor, WaterActor
+	InvalidTargets: Infantry
+	Projectile: LaserZap
+		Width: 128
+		Color: fc0303
+		SecondaryBeamColor: b30000
+		SecondaryBeam: true
+		SecondaryBeamWidth: 256
+		SecondaryBeamZOffset: 1024
+		ZOffset: 2500
+		HitAnim: explosion
+		HitAnimSequence: japanplasmaringupgrade
+		TrackTarget: false
+		Duration: 45
+		Inaccuracy: 3c938
+	Warhead@1Dam_impact: SpreadDamage
+		Spread: 512
+		Delay: 4
+		Damage: 7000
+		Falloff: 512, 150, 135, 50, 18, 7, 0
+		ValidTargets: GroundActor, WaterActor, Underwater, AirborneActor, Trees
+		Versus:
+			Concrete: 75
+		AffectsParent: true
+		DamageTypes: Prone50Percent, TriggerProne, ElectricityDeath
+	Warhead@3Eff_impact: CreateEffect
+		Delay: 4
+		Explosions: japanplasmaringupgrade
+		ImpactActors: false
+	Warhead@4Eff_impact: CreateEffect
+		Explosions: laserhitmed
+		ImpactActors: false
+	Warhead@2Res_impact: DestroyResource
+		Size: 1
+		Delay: 8
+	Warhead@zappy1: FireCluster
+		Delay: 12
+		Weapon: kuruttanekoClusterSmallupgrade
+		RandomClusterCount: 3
+		Dimensions: 3,3
+		Footprint: xxx x_x xxx
+
+hakaicannonmax:
+	Inherits: hakaicannon
+	Projectile: LaserZap
+		Width: 128
+		Color: fc0303
+		SecondaryBeamColor: b30000
+		SecondaryBeam: true
+		SecondaryBeamWidth: 256
+		SecondaryBeamZOffset: 1024
+		ZOffset: 2500
+		HitAnim: explosion
+		HitAnimSequence: japanplasmaringupgrade
+		TrackTarget: false
+		Duration: 45
+	Warhead@3Eff_impact: CreateEffect
+		Delay: 4
+		ImpactSounds: akumafire.aud
+		Explosions: japanplasmaringupgrade
+		ImpactActors: false
+	Warhead@zappy1: FireCluster
+		Delay: 6
+		Weapon: kuruttanekoClusterSmallupgrade
+		RandomClusterCount: 3
+		Dimensions: 3,3
+		Footprint: xxx x_x xxx
+
 BerserkerTowerShot:
 	Range: 7c0
 	ReloadDelay: 35
@@ -6486,6 +6600,16 @@ DarkArchonDummy:
 	Range: 9c0
 	ValidTargets: Ground, GroundActor, WaterActor
 	Projectile: InstantHit
+	Warhead@1Dam: SpreadDamage
+		Damage: 1
+		ValidTargets: Ground, GroundActor
+
+DroneSwarmSound:
+	ReloadDelay: 250
+	Range: 2c0
+	ValidTargets: Ground, GroundActor, WaterActor
+	Projectile: InstantHit
+		Blockable: false
 	Warhead@1Dam: SpreadDamage
 		Damage: 1
 		ValidTargets: Ground, GroundActor

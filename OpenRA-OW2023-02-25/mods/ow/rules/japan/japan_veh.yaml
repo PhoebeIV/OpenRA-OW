@@ -1,3 +1,44 @@
+^mechabuff:
+	GrantConditionOnPrerequisite@shikyo:
+		Condition: upgradeshikyo
+		Prerequisites: upgrade.shikyo
+	ChangesHealth@shikyo:
+		RequiresCondition: upgradeshikyo
+		StartIfBelow: 30
+		PercentageStep: -3
+		Delay: 25
+		Step: 0
+	GrantConditionOnHealth@shinkyo:
+		Condition: shikyostate
+		MinHP: 0
+		MaxHP: 30
+	ReloadDelayMultiplier@shinkyo:
+		Modifier: 80
+		RequiresCondition: upgradeshikyo && shikyostate
+	SpeedMultiplier@shinkyo:
+		Modifier: 120
+		RequiresCondition: upgradeshikyo && shikyostate
+	DamageMultiplier@shinkyo:
+		Modifier: 80
+		RequiresCondition: upgradeshikyo && shikyostate
+	FirepowerMultiplier@shinkyo:
+		Modifier: 120
+		RequiresCondition: upgradeshikyo && shikyostate
+	WithColoredOverlay@shinkyo:
+		RequiresCondition: upgradeshikyo && shikyostate
+		Color: 78000080
+	WithIdleOverlay@shinkyo:
+		Image: berserk-overlay
+		Sequence: berserk-vehicle
+		Palette: effect
+		RequiresCondition: upgradeshikyo && shikyostate
+		IsDecoration: True
+	Explodes:
+		Weapon: ArtilleryExplode
+		EmptyWeapon: ArtilleryExplode
+		LoadedChance: 75
+		RequiresCondition: upgradeshikyo
+
 japansuddentransport:
 	Inherits: APC
 	Buildable:
@@ -88,6 +129,7 @@ japantsunamitank:
 
 japanmechatransformer:
 	Inherits: ^Vehicle
+	Inherits@mechabuff: ^mechabuff
 	Inherits@GAINSEXPERIENCE: ^GainsExperience
 	Inherits@AUTOTARGET: ^AutoTargetAll
 	Buildable:
@@ -224,9 +266,14 @@ japanmechatransformer:
 	Voiced:
 		VoiceSet: RaijuuVoice
 	TeleportNetworkTransportable:
+	GrantConditionOnHealth@shinkyo:
+		Condition: shikyostate
+		MinHP: 0
+		MaxHP: 10500
 
 japanmecharaijuu:
 	Inherits: ^Vehicle
+	Inherits@mechabuff: ^mechabuff
 	Inherits@GAINSEXPERIENCE: ^GainsExperience
 	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
 	Buildable:
@@ -258,7 +305,7 @@ japanmecharaijuu:
 	Armament:
 		Name: primary
 		Weapon: Raijuushot
-		LocalOffset: 1100,150,940, 1100,-150,940
+		LocalOffset: 800,150,940, 800,-150,940
 		Recoil: 171
 		RecoilRecovery: 30
 		MuzzleSequence: muzzle
@@ -266,7 +313,7 @@ japanmecharaijuu:
 	Armament@upgrade:
 		Name: primary
 		Weapon: Raijuushotupgrade
-		LocalOffset: 1100,150,940, 1100,-150,940
+		LocalOffset: 800,150,940, 800,-150,940
 		Recoil: 171
 		RecoilRecovery: 30
 		MuzzleSequence: muzzle
@@ -275,7 +322,7 @@ japanmecharaijuu:
 	Armament@secondary:
 		Name: secondary
 		Weapon: Raijuuflame
-		LocalOffset: 1100,150,940, 1100,-150,940
+		LocalOffset: 800,150,940, 800,-150,940
 		MuzzleSequence: muzzle
 		PauseOnCondition: disabled
 		RequiresCondition: changelaser
@@ -309,9 +356,17 @@ japanmecharaijuu:
 	GrantConditionOnPrerequisite@superheatedplasma:
 		Condition: superheatedplasma
 		Prerequisites: upgrade.superheatedplasma
+	GrantConditionOnHealth@shinkyo:
+		Condition: shikyostate
+		MinHP: 0
+		MaxHP: 27000
+	AutoDeployer:
+		DeployChance: 100
+		DeployTicks: 100
 
 japanstrikervx:
 	Inherits: ^Vehicle
+	Inherits@mechabuff: ^mechabuff
 	Inherits@GAINSEXPERIENCE: ^GainsExperience
 	Inherits@AUTOTARGET: ^AutoTargetAll
 	Buildable:
@@ -390,9 +445,14 @@ japanstrikervx:
 	GrantConditionOnPrerequisite@cyrostream:
 		Condition: cyrostream
 		Prerequisites: upgrade.cyrostream
+	GrantConditionOnHealth@shinkyo:
+		Condition: shikyostate
+		MinHP: 0
+		MaxHP: 18000
 
 japanmechatengu:
 	Inherits: ^Vehicle
+	Inherits@mechabuff: ^mechabuff
 	Inherits@GAINSEXPERIENCE: ^GainsExperience
 	Inherits@AUTOTARGET: ^AutoTargetAll
 	Buildable:
@@ -459,6 +519,10 @@ japanmechatengu:
 		IntoActor: japanjettengu
 		RequiresCondition: strikervxtransform
 	TeleportNetworkTransportable:
+	GrantConditionOnHealth@shinkyo:
+		Condition: shikyostate
+		MinHP: 0
+		MaxHP: 18000
 
 japanhiroshimawaveforce:
 	Inherits: ^TrackedVehicle
@@ -542,6 +606,9 @@ japanhiroshimawaveforce:
 	GrantConditionOnPrerequisite@focusedlasers:
 		Condition: focusedlasers
 		Prerequisites: upgrade.focusedlasers
+	AutoDeployer:
+		DeployChance: 100
+		DeployTicks: 100
 
 japandatenshi:
 	Inherits: ^TrackedVehicle
@@ -589,6 +656,7 @@ japandatenshi:
 
 japanexecutioner:
 	Inherits: ^Vehicle
+	Inherits@mechabuff: ^mechabuff
 	Inherits@GAINSEXPERIENCE: ^GainsExperience
 	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
 	Buildable:
@@ -661,9 +729,14 @@ japanexecutioner:
 		RequiresCondition: phase
 	Wanders@attack:
 		RequiresCondition: phase
+	GrantConditionOnHealth@shinkyo:
+		Condition: shikyostate
+		MinHP: 0
+		MaxHP: 30000
 
 japandominatrix:
 	Inherits: ^Vehicle
+	Inherits@mechabuff: ^mechabuff
 	Inherits@GAINSEXPERIENCE: ^GainsExperience
 	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
 	Buildable:
@@ -724,6 +797,10 @@ japandominatrix:
 	TeleportNetworkTransportable:
 	ExternalCondition@PRODUCED:
 		Condition: produced
+	GrantConditionOnHealth@shinkyo:
+		Condition: shikyostate
+		MinHP: 0
+		MaxHP: 24000
 
 japankomatsu:
 	Inherits: JEEP
@@ -894,29 +971,130 @@ japanakuma:
 		Range: 5c0
 	WithRangeCircle:
 		Range: 25c0
+	AutoDeployer:
+		DeployChance: 100
+		DeployTicks: 100
 
-japantsukumogami:
+japankingoni:
 	Inherits: ^Vehicle
+	Inherits@mechabuff: ^mechabuff
 	Inherits@GAINSEXPERIENCE: ^GainsExperience
-	Inherits@AUTOTARGET: ^AutoTargetAll
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
 	Buildable:
 		Queue: Vehicle
-		BuildPaletteOrder: 130
-		Prerequisites: ~vehicles.japan, ~techlevel.low, ~!faction.economicgeneral, ~faction.mechageneral
-		Description: actor-japantsukumogami.description
+		BuildPaletteOrder: 135
+		Prerequisites: ~vehicles.japan, advtechcenter, ~!faction.economicgeneral, ~faction.mechageneral
+		Description: actor-japankingoni.description
 	Valued:
-		Cost: 1100
+		Cost: 2800
 	Tooltip:
-		Name: actor-japantsukumogami.name
-	Health:
-		HP: 46000
+		Name: actor-japankingoni.name
 	UpdatesPlayerStatistics:
 		AddToArmyValue: true
+	Health:
+		HP: 85000
 	Armor:
 		Type: Heavy
 	Mobile:
 		TurnSpeed: 20
-		Speed: 99
+		Speed: 50
+	RevealsShroud:
+		MinRange: 4c0
+		Range: 6c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 4c0
+	Turreted:
+		TurnSpeed: 24
+	Armament:
+		Weapon: KingOniInfantryLaser
+		LocalOffset: 600,350,940, 600,-350,940
+		MuzzleSequence: muzzle
+		Name: primary
+		PauseOnCondition: disabled || changelaser || focusedlasers
+	Armament@Secondary:
+		Weapon: KingOniTankLaser
+		LocalOffset: 600,350,940, 600,-350,940
+		MuzzleSequence: muzzle
+		Name: secondary
+		PauseOnCondition: disabled || focusedlasers
+		RequiresCondition: changelaser
+	Armament@upgrade:
+		Weapon: KingOniInfantryLaserUpgrade
+		LocalOffset: 600,350,940, 600,-350,940
+		MuzzleSequence: muzzle
+		Name: primary
+		PauseOnCondition: disabled || changelaser
+		RequiresCondition: focusedlasers
+	Armament@Secondaryupgrade:
+		Weapon: KingOniTankLaserUpgrade
+		LocalOffset: 600,350,940, 600,-350,940
+		MuzzleSequence: muzzle
+		Name: secondary
+		PauseOnCondition: disabled
+		RequiresCondition: changelaser && focusedlasers
+	Armament@Trinary:
+		Weapon: Datenshishot
+		LocalOffset: 0,150,940
+		MuzzleSequence: muzzle
+		PauseOnCondition: disabled
+	AttackTurreted:
+		PauseOnCondition: disabled
+		Turrets: primary, secondary
+	WithMuzzleOverlay:
+	WithSpriteTurret:
+	QuantizeFacingsFromSequence:
+		Sequence: idle
+	WithFacingSpriteBody:
+		Sequence: idle
+	WithMoveAnimation:
+		MoveSequence: run
+		ValidMovementTypes: Horizontal, Turn
+	ProducibleWithLevel:
+		Prerequisites: vehicles.upgraded
+	Voiced:
+		VoiceSet: WaveForceVoice
+	GrantConditionOnDeploy:
+		MakeAnimationDeployTypes:
+		DeployedCondition: changelaser
+		SkipMakeAnimation: True
+	TeleportNetworkTransportable:
+	GrantConditionOnPrerequisite@focusedlasers:
+		Condition: focusedlasers
+		Prerequisites: upgrade.focusedlasers
+	RenderSprites:
+		PlayerPalette: tsunit
+	GrantConditionOnHealth@shinkyo:
+		Condition: shikyostate
+		MinHP: 0
+		MaxHP: 25500
+	AutoDeployer:
+		DeployChance: 100
+		DeployTicks: 100
+
+japankusogaki:
+	Inherits: ^Vehicle
+	Inherits@mechabuff: ^mechabuff
+	Inherits@GAINSEXPERIENCE: ^GainsExperience
+	Inherits@AUTOTARGET: ^AutoTargetAll
+	Buildable:
+		Queue: Vehicle
+		BuildPaletteOrder: 132
+		Prerequisites: ~vehicles.japan, techcenter, ~!faction.economicgeneral, ~faction.mechageneral
+		Description: actor-japankusogaki.description
+	Valued:
+		Cost: 1150
+	Tooltip:
+		Name: actor-japankusogaki.name
+	Health:
+		HP: 10000
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Armor:
+		Type: Light
+	Mobile:
+		TurnSpeed: 20
+		Speed: 120
 	RevealsShroud:
 		MinRange: 5c0
 		Range: 6c0
@@ -925,22 +1103,45 @@ japantsukumogami:
 		Range: 5c0
 	AttackFrontal:
 		PauseOnCondition: disabled
-		Armaments: primary
+		Armaments: primary, secondary, tri, quad
 		FacingTolerance: 0
 	WithMuzzleOverlay:
-	Armament@WARRIOR:
+	Armament@primary:
+		Weapon: kusogakishot
 		Name: primary
-		Weapon: TsunamiTankshotDualCannon
-		LocalOffset: 900,180,340, 900,-180,340
+		LocalOffset: 100,250,600, 100,-250,600
 		MuzzleSequence: muzzle
-		PauseOnCondition: disabled
+		PauseOnCondition: disabled || superheatedplasma
+	Armament@secondary:
+		Weapon: kusogakishot
+		Name: secondary
+		LocalOffset: 100,-250,600, 100,250,600
+		MuzzleSequence: muzzle
+		PauseOnCondition: disabled || superheatedplasma
+	Armament@primaryUPGRADE:
+		Weapon: kusogakishotupgrade
+		Name: tri
+		LocalOffset: 100,250,600, 100,-250,600
+		MuzzleSequence: muzzle
+		RequiresCondition: superheatedplasma
+	Armament@secondaryUPGRADE:
+		Weapon: kusogakishotupgrade
+		Name: quad
+		LocalOffset: 100,-250,600, 100,250,600
+		MuzzleSequence: muzzle
+		RequiresCondition: superheatedplasma
 	QuantizeFacingsFromSequence:
 		Sequence: stand
 	WithFacingSpriteBody:
 		Sequence: stand
 	WithAttackAnimation:
 		Sequence: shoot
+		RequiresCondition: !superheatplasma
 		Armament: primary
+	WithAttackAnimation@2:
+		Sequence: shoot
+		RequiresCondition: superheatplasma
+		Armament: tri
 	WithMoveAnimation:
 		MoveSequence: run
 		ValidMovementTypes: Horizontal, Turn
@@ -957,5 +1158,246 @@ japantsukumogami:
 	Cloak@stealthgen:
 		Palette: tscloak
 	Voiced:
-		VoiceSet: RaijuuVoice
+		VoiceSet: ShishironVoice
 	TeleportNetworkTransportable:
+	Explodes:
+		Weapon: ArtilleryExplode
+		EmptyWeapon: UnitExplodeSmall
+		LoadedChance: 75
+	GrantConditionOnPrerequisite@superheatedplasma:
+		Condition: superheatedplasma
+		Prerequisites: upgrade.superheatedplasma
+	GrantConditionOnHealth@shinkyo:
+		Condition: shikyostate
+		MinHP: 0
+		MaxHP: 3000
+
+japankuruttaneko:
+	Inherits: ^Vehicle
+	Inherits@mechabuff: ^mechabuff
+	Inherits@GAINSEXPERIENCE: ^GainsExperience
+	Inherits@AUTOTARGET: ^AutoTargetAll
+	Buildable:
+		Queue: Vehicle
+		BuildPaletteOrder: 136
+		Prerequisites: ~vehicles.japan, advtechcenter, ~!faction.economicgeneral
+		Description: actor-japankuruttaneko.description
+	Valued:
+		Cost: 3300
+	Tooltip:
+		Name: actor-japankuruttaneko.name
+	Health:
+		HP: 75000
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Armor:
+		Type: Heavy
+	Mobile:
+		TurnSpeed: 20
+		Speed: 70
+	RevealsShroud:
+		MinRange: 5c0
+		Range: 6c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 5c0
+	Turreted:
+		TurnSpeed: 24
+	Armament@primary:
+		Weapon: strikervxshot
+		LocalOffset: 0,-350,940, 0,350,940
+		MuzzleSequence: muzzle
+		PauseOnCondition: cyrostream || disabled
+	Armament@primary2:
+		Weapon: strikervxshot
+		LocalOffset: 0,350,940, 0,-350,940
+		MuzzleSequence: muzzle
+		PauseOnCondition: cyrostream || disabled
+	Armament@upgrade:
+		Weapon: strikervxshotupgrade
+		LocalOffset: 0,-350,940, 0,350,940
+		MuzzleSequence: muzzle
+		PauseOnCondition: disabled
+		RequiresCondition: cyrostream
+	Armament@upgrade2:
+		Weapon: strikervxshotupgrade
+		LocalOffset: 0,350,940, 0,-350,940
+		MuzzleSequence: muzzle
+		PauseOnCondition: disabled
+		RequiresCondition: cyrostream
+	Armament@secondary:
+		Weapon: kuruttanekoshot
+		LocalOffset: 600,650,940, 600,-650,940
+		MuzzleSequence: muzzle
+		PauseOnCondition: disabled || superheatedplasma
+	Armament@secondaryupgrade:
+		Weapon: kuruttanekoshotupgrade
+		LocalOffset: 600,650,940, 600,-650,940
+		MuzzleSequence: muzzle
+		PauseOnCondition: disabled
+		RequiresCondition: superheatedplasma
+	AttackTurreted:
+		PauseOnCondition: disabled
+	WithMuzzleOverlay:
+	WithSpriteTurret:
+	QuantizeFacingsFromSequence:
+		Sequence: idle
+	WithFacingSpriteBody:
+		Sequence: idle
+	WithMoveAnimation:
+		MoveSequence: run
+		ValidMovementTypes: Horizontal, Turn
+	ProducibleWithLevel:
+		Prerequisites: vehicles.upgraded
+	Selectable:
+		Bounds: 853, 1365, 0, -341
+	RenderSprites:
+		PlayerPalette: tsunit
+	Cloak@stealthgen:
+		Palette: tscloak
+	Voiced:
+		VoiceSet: StrikerVXVoice
+	TeleportNetworkTransportable:
+	GrantConditionOnPrerequisite@cyrostream:
+		Condition: cyrostream
+		Prerequisites: upgrade.cyrostream
+	GrantConditionOnPrerequisite@superheatedplasma:
+		Condition: superheatedplasma
+		Prerequisites: upgrade.superheatedplasma
+	GrantConditionOnHealth@shinkyo:
+		Condition: shikyostate
+		MinHP: 0
+		MaxHP: 22500
+
+japanhakaimono:
+	Inherits@EPIC: ^EpicUnit
+	Inherits@EPIC2: ^EpicVehicle
+	Inherits: ^Vehicle
+	Inherits@GAINSEXPERIENCE: ^GainsExperience
+	Inherits@AUTOTARGET: ^AutoTargetAll
+	Buildable:
+		Queue: Vehicle
+		BuildPaletteOrder: 2500
+		Prerequisites: ~vehicles.japan, ulttechcenter, ~!faction.economicgeneral, ~faction.mechageneral
+		Description: actor-japanhakaimono.description
+	Valued:
+		Cost: 30000
+	Tooltip:
+		Name: actor-japanhakaimono.name
+	Health:
+		HP: 150000
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Armor:
+		Type: Heavy
+	Mobile:
+		TurnSpeed: 20
+		Speed: 20
+	RevealsShroud:
+		MinRange: 5c0
+		Range: 6c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 5c0
+	Turreted:
+		TurnSpeed: 24
+	Armament@primary:
+		Weapon: hakaimonomissileshot
+		LocalOffset: 2000,600,940
+		MuzzleSequence: muzzle
+		PauseOnCondition: disabled
+		AmmoUsage: -1
+	Armament@secondary:
+		Weapon: hakaimonogatlingshot
+		LocalOffset: 600,-650,940
+		MuzzleSequence: muzzle
+		PauseOnCondition: disabled
+		AmmoUsage: -1
+	Armament@PRIMARY2:
+		Weapon: hakaicannon
+		LocalOffset: 1100,0,200
+		PauseOnCondition: ammo < 20
+		FireDelay: 50
+		AmmoUsage: 20
+	Armament@PRIMARY3:
+		Weapon: hakaicannon
+		LocalOffset: 1100,0,200
+		PauseOnCondition: ammo < 20
+		FireDelay: 50
+		AmmoUsage: 20
+	Armament@PRIMARY4:
+		Weapon: hakaicannon
+		LocalOffset: 1100,0,200
+		PauseOnCondition: ammo < 20
+		FireDelay: 50
+		AmmoUsage: 20
+	Armament@PRIMARY5:
+		Weapon: hakaicannon
+		LocalOffset: 1100,0,200
+		PauseOnCondition: ammo < 20
+		FireDelay: 50
+		AmmoUsage: 20
+	Armament@PRIMARY6:
+		Weapon: hakaicannonmax
+		LocalOffset: 1100,0,200
+		PauseOnCondition: ammo < 20
+		FireDelay: 50
+		AmmoUsage: 20
+	Armament@PRIMARY7:
+		Weapon: hakaicannon
+		LocalOffset: 1100,0,200
+		PauseOnCondition: ammo < 20
+		FireDelay: 50
+		AmmoUsage: 20
+	Armament@PRIMARY8:
+		Weapon: hakaicannon
+		LocalOffset: 1100,0,200
+		PauseOnCondition: ammo < 20
+		FireDelay: 50
+		AmmoUsage: 20
+	Armament@effect:
+		Weapon: hakaiSound
+		LocalOffset: 1100,0,200
+		AmmoUsage: 0
+		PauseOnCondition: ammo < 20
+	AmmoPool:
+		Ammo: 20
+		AmmoCondition: ammo
+		InitialAmmo: 4
+	ReloadAmmoPool@normal:
+		Delay: 30
+	WithAmmoPipsDecoration:
+		Position: BottomLeft
+		Margin: 4, 3
+		RequiresSelection: false
+		PipCount: 10
+		ValidRelationships: Ally, Enemy, Neutral
+	AttackTurreted:
+		PauseOnCondition: disabled
+	WithMuzzleOverlay:
+	WithSpriteTurret:
+	QuantizeFacingsFromSequence:
+		Sequence: idle
+	WithFacingSpriteBody:
+		Sequence: idle
+	WithMoveAnimation:
+		MoveSequence: run
+		ValidMovementTypes: Horizontal, Turn
+	ProducibleWithLevel:
+		Prerequisites: vehicles.upgraded
+	Selectable:
+		Bounds: 2560, 2048, 0, -426
+		DecorationBounds: 2560, 2048, 0, -426
+	RenderSprites:
+		PlayerPalette: tsunit
+	Cloak@stealthgen:
+		Palette: tscloak
+	Voiced:
+		VoiceSet: SkyEmpressVoice
+	TeleportNetworkTransportable:
+	GrantConditionOnPrerequisite@cyrostream:
+		Condition: cyrostream
+		Prerequisites: upgrade.cyrostream
+	GrantConditionOnPrerequisite@superheatedplasma:
+		Condition: superheatedplasma
+		Prerequisites: upgrade.superheatedplasma
