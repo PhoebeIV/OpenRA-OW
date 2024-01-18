@@ -1331,11 +1331,11 @@ actor-ctwr =
     Can be placed on Concrete Walls.
       Unarmed unless upgraded.
    .name = Component Tower
-   .0--name = Vulcan Cannon
-   .1--name = SS-SA Missile Tower
-   .2--name = Flame Tower
-   .3--name = EMP Tesla Coil
-   .4--name = SAM Site
+   .0name = Vulcan Cannon
+   .1name = SS-SA Missile Tower
+   .2name = Flame Tower
+   .3name = EMP Tesla Coil
+   .4name = SAM Site
 
 actor-ctwr-gun =
    .name = Vulcan Cannon attachment
@@ -3391,6 +3391,7 @@ actor-u-tnk =
 
 ## techbuildings.yaml
 actor-miss =
+   .name = Communications Center
    .tooltipdescription-ally-description = Increases visual range of all units.
    .tooltipdescription-other-description = Capture to give increase visual range of all units.
 
