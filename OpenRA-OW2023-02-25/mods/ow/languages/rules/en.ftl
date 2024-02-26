@@ -1331,11 +1331,11 @@ actor-ctwr =
     Can be placed on Concrete Walls.
       Unarmed unless upgraded.
    .name = Component Tower
-   .0name = Vulcan Cannon
-   .1name = SS-SA Missile Tower
-   .2name = Flame Tower
-   .3name = EMP Tesla Coil
-   .4name = SAM Site
+   .vulcan = Vulcan Cannon
+   .sssa = SS-SA Missile Tower
+   .flame = Flame Tower
+   .tesla = EMP Tesla Coil
+   .sam = SAM Site
 
 actor-ctwr-gun =
    .name = Vulcan Cannon attachment
@@ -3519,10 +3519,8 @@ actor-tvessel =
     
     Detects cloaked units.
    .name = Science Vessel
-   .1--name = Science Vessel - Irradiate
-   .1--generic-name = Science Vessel
-   .2--name = Science Vessel - Defense Matrix
-   .2--generic-name = Science Vessel
+   .irradiate = Science Vessel - Irradiate
+   .matrix = Science Vessel - Defense Matrix
 
 actor-tbattle =
    .description = Terran capital ship.
