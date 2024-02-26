@@ -2583,6 +2583,8 @@ actor-player =
    .lobbyprerequisitecheckbox-concrete-description = Construction Yards will be placed on concrete.
    .lobbyprerequisitecheckbox-herotest-label = Heroes (Testing)
    .lobbyprerequisitecheckbox-herotest-description = Enables all factions to train the Jim Raynor hero.
+   .lobbyprerequisitecheckbox-badcrates-label = Bad Crates
+   .lobbyprerequisitecheckbox-badcrates-description = Enable the bad crates.
 
 ## prereqdefs.yaml
 actor-barracks =
@@ -4671,10 +4673,10 @@ actor-zqueen =
     
       Unarmed
    .name = Queen
-   .1--name = Queen - Ensnare
-   .1--generic-name = Queen
-   .2--name = Queen - Parasite
-   .2--generic-name = Queen
+   .ensnare = Queen - Ensnare
+   .generic-name = Queen
+   .parasite = Queen - Parasite
+   .2generic-name = Queen
 
 actor-zguardian =
    .description = Long-ranged ground attacker.
@@ -4699,7 +4701,7 @@ actor-zdrone =
       Unarmed
    .name = Drone
    .generic-name = Zerg Drone
-   .1--name = Drone (Hatchery)
+   .hatchery = Drone (Hatchery)
 
 actor-zdrone-colony-name = Drone (Creep Colony)
 actor-zdrone-hatchery-name = Drone (Hatchery)

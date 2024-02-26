@@ -8,8 +8,8 @@ World:
 		WaterChance: 10
 		InitialSpawnDelay: 50
 		CheckboxDisplayOrder: 1
-		CrateActors: crate, moneycrate2, crate.fuckyou
-		CrateActorShares: 53, 35, 12
+		CrateActors: crate, moneycrate2, crate.fuckyou, 1tnk.nukexbar
+		CrateActorShares: 212, 138, 49, 1
 
 CRATE:
 	-GiveCashCrateAction:
@@ -334,6 +334,10 @@ CRATE.FuckYou:
 		TimeDelay: 6000
 		Type: epic
 		Owner: Creeps
+	GiveUnitCrateAction@berserker:
+		SelectionShares: 3
+		Units: dm7
+		Owner: Creeps
 	GiveUnitCrateAction@jarofdirt:
 		SelectionShares: 1
 		Units: jarofdirt
@@ -343,6 +347,16 @@ CRATE.FuckYou:
 	Tooltip:
 		Name: actor-crate-fuckyou.name
 		GenericName: actor-crate-fuckyou.generic-name
+	GrantConditionOnPrerequisite@badcrates:
+		Condition: allow-me
+		Prerequisites: environment.badcrates
+	KillsSelf@badcrates:
+		RequiresCondition: !allow-me && !parachute
+		Delay: 100
+		DamageTypes: Replace
+	SpawnActorOnDeath@badcrates:
+		DeathType: Replace
+		Actor: CRATE
 
 1TNK.MINE:
 	Inherits: 1TNK
@@ -1507,3 +1521,38 @@ JAROFDIRT:
 		Weapon: ChinaSuperNuke
 		EmptyWeapon: ChinaSuperNuke
 		DeathTypes: Suicide
+
+1TNK.NUKEXBAR:
+	Inherits: 1TNK.DEMO
+	KillsSelf:
+		Delay: 5
+	SpawnActorOnDeath@2:
+		Actor: NUKEXBAR
+		OwnerType: InternalName
+		InternalOwner: Creeps
+	Health:
+		HP: 200000
+	Parachutable:
+		FallRate: 512
+	-WithParachute:
+
+NUKEXBAR:
+	Inherits: XBAR
+	-Targetable:
+	Explodes:
+		Weapon: ChinaSuperNuke
+		EmptyWeapon: ChinaSuperNuke
+		DamageSource: Killer
+		DeathTypes: Suicide, DefaultDeath, ExplosionDeath, ElectricityDeath, FireDeath, TiberiumDeath, BulletDeath
+	Cloak:
+		InitialDelay: 1
+	GrantConditionOnPrerequisite@badcrates:
+		Condition: allow-me
+		Prerequisites: environment.badcrates
+	KillsSelf@badcrates:
+		RequiresCondition: !allow-me && !parachute
+		Delay: 100
+		DamageTypes: Replace
+	SpawnActorOnDeath@badcrates:
+		DeathType: Replace
+		Actor: CRATE
