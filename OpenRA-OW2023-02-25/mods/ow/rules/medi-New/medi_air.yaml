@@ -5,12 +5,286 @@
 
 ##burns through infantry, weak against armor
 ##gyro
+gyro:
+	Inherits: ^Helicopter
+	Inherits@MediLowPower: ^MediLowPower
+	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
+	Buildable:
+		Queue: Aircraft
+		BuildAtProductionType: Helicopter
+		BuildPaletteOrder: 20
+		Prerequisites: ~aircraft.medi
+		Description: Helicopter gunship armed\nwith dual chainguns.\n  Strong vs Infantry, Light armor\n  Weak vs Tanks, Aircraft
+	Valued:
+		Cost: 1500
+	Tooltip:
+		Name: Gyro
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 10000
+	RevealsShroud:
+		MinRange: 8c0
+		Range: 10c0
+		MoveRecalculationThreshold: 0
+		Type: GroundPosition
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 8c0
+		MoveRecalculationThreshold: 0
+		Type: GroundPosition
+	Armament@PRIMARY:
+		Weapon: GyroChain
+		LocalOffset: 85,-213,-85, 85,213,-85
+		PauseOnCondition: !ammo
+	Armament@SECONDARY:
+		Name: secondary
+		Weapon: GyroChain
+		LocalOffset: 85,213,-85, 85,-213,-85
+		PauseOnCondition: !ammo
+	AttackAircraft:
+		FacingTolerance: 80
+		PersistentTargeting: false
+		AttackType: Hover
+		OpportunityFire: False
+	Aircraft:
+		TurnSpeed: 16
+		Speed: 112
+	AutoTarget:
+		InitialStance: Defend
+		InitialStanceAI: Defend
+	WithIdleOverlay@ROTORAIR:
+		Sequence: rotor
+		RequiresCondition: airborne
+	WithIdleOverlay@ROTORGROUND:
+		Sequence: slow-rotor
+		RequiresCondition: !airborne
+	AmmoPool:
+		Ammo: 34
+		ReloadDelay: 8
+		AmmoCondition: ammo
+	SelectionDecorations:
+	WithMuzzleOverlay:
+	WithDamageOverlay:
+		Offset: -427,0,0
+	ProducibleWithLevel:
+		Prerequisites: aircraft.upgraded
+	Selectable:
+		DecorationBounds: 1621, 1365
+	SpawnActorOnDeath:
+		Actor: medigyro.Husk
+	WithAmmoPipsDecoration:
+		Position: BottomLeft
+		RequiresSelection: true
+		PipCount: 6
+	EjectOnDeath:
+		PilotActor: footman
 
 ##magic for destroying vehicles, hard time damaging infantry
 ##griffin
+gryphon:
+	Inherits: ^Helicopter
+	Inherits@MediLowPower: ^MediLowPower
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Buildable:
+		Queue: Aircraft
+		BuildAtProductionType: Helicopter
+		BuildPaletteOrder: 20
+		BuildDuration: 1000
+		Prerequisites: ~aircraft.medi
+		Description: Magical Attack Aircraft. \n Regenerates Ammo \n Strong vs Tanks \n  Weak vs Infantry Light armor, Aircraft
+	Valued:
+		Cost: 2000
+	Tooltip:
+		Name: Gryphon Rider
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 11000
+	RevealsShroud:
+		MinRange: 8c0
+		Range: 10c0
+		MoveRecalculationThreshold: 0
+		Type: GroundPosition
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 8c0
+		MoveRecalculationThreshold: 0
+		Type: GroundPosition
+	Armament@PRIMARY:
+		Weapon: GryphonRiderAttack
+		LocalOffset: 85,-213,-85, 85,213,-85
+	Armament@SECONDARY:
+		Name: secondary
+		Weapon: GryphonRiderAttackBurst
+		LocalOffset: 85,-213,-85, 85,213,-85
+		PauseOnCondition: !GryphonAmmo
+		RequiresCondition: !lowpower
+	AmmoPool:
+		Armaments: secondary
+		Ammo: 8
+		ReloadCount: 4
+		ReloadDelay: 200
+		AmmoCondition: GryphonAmmo
+	AttackAircraft:
+		FacingTolerance: 80
+		PersistentTargeting: false
+		AttackType: Hover
+		OpportunityFire: False
+	Aircraft:
+		TurnSpeed: 16
+		Speed: 112
+	AutoTarget:
+		InitialStance: Defend
+		InitialStanceAI: Defend
+	SpawnActorOnDeath:
+		Actor: medigryphonrider.Husk
+	SelectionDecorations:
+	WithMuzzleOverlay:
+	WithDamageOverlay:
+		Offset: -427,0,0
+	ProducibleWithLevel:
+		Prerequisites: aircraft.upgraded
+	Selectable:
+		DecorationBounds: 1621, 1365
+	EjectOnDeath:
+		PilotActor: footman
 
 ##anti armor flying tank
 ##dragon
+MediDragon:
+	Inherits: ^Plane
+	Inherits@MediLowPower: ^MediLowPower
+	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
+	Buildable:
+		Queue: Aircraft
+		BuildAtProductionType: Helicopter
+		BuildPaletteOrder: 65
+		Prerequisites: ~aircraft.medi
+		BuildLimit: 4
+		Description: Airborn Fighter of the Medieval era, \n  Strong vs Infantry, Light armor, Aircraft\n  Weak vs Tanks
+	Valued:
+		Cost: 2500
+	Tooltip:
+		Name: Dragon
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	RenderSprites:
+		Image: medidragon
+	Health:
+		HP: 13000
+	Armament@PRIMARY:
+		Name: primary
+		Weapon: DragonGround
+		RequiresCondition: !lowpower
+		PauseOnCondition: !ammo
+	Armament@SECONDARY:
+		Name: secondary
+		Weapon: DragonAir
+		RequiresCondition: !lowpower
+	AttackAircraft:
+		Armaments: primary, secondary
+		FacingTolerance: 250
+		PersistentTargeting: True
+		AttackType: Strafe
+		OpportunityFire: False
+	Aircraft:
+		TurnSpeed: 15
+		Speed: 130
+	RevealsShroud:
+		MinRange: 6c0
+		Range: 11c0
+		MoveRecalculationThreshold: 0
+		Type: GroundPosition
+		RevealGeneratedShroud: False
+	AutoTarget:
+		InitialStance: Defend
+		InitialStanceAI: Defend
+	AmmoPool:
+		Armaments: primary
+		Ammo: 40
+		ReloadDelay: 0
+		AmmoCondition: ammo
+		Name: DragonAmmo
+	RevealsShroud@GAPGEN:
+		Range: 11c0
+		MoveRecalculationThreshold: 0
+		Type: GroundPosition
+	Selectable:
+		Bounds: 1536, 1194, 0, 85
+		DecorationBounds: 1706, 1237, 0, 42
+	SelectionDecorations:
+	ProducibleWithLevel:
+		Prerequisites: aircraft.upgraded
+	SpawnActorOnDeath:
+		Actor: MediDragon.Husk
+	Rearmable:
+		AmmoPools: DragonAmmo
+	WithAmmoPipsDecoration:
+		Position: BottomLeft
+		RequiresSelection: true
+		PipCount: 6
+	-EjectOnDeath:
+
+##Medi Airstrikes
+MediDragonBomber:
+	Inherits: ^Plane
+	Valued:
+		Cost: 2500
+	Tooltip:
+		Name: Dragon
+	RenderSprites:
+		Image: medidragonbomber
+	Health:
+		HP: 30000
+	AttackBomber:
+		FacingTolerance: 8
+	Armament:
+		Weapon: DragonGroundBomber
+	AmmoPool:
+		Ammo: 7
+	Aircraft:
+		CruiseAltitude: 2560
+		TurnSpeed: 20
+		Speed: 256
+		Repulsable: False
+		MaximumPitch: 56
+	SpawnActorOnDeath:
+		Actor: HIND.Husk
+	-Selectable:
+	SelectionDecorations:
+	-Voiced:
+	Contrail@1:
+		Offset: -553,-256,0
+	Contrail@2:
+		Offset: -553,256,0
+	WithDamageOverlay@1:
+		Offset: -553,-256,0
+		Interval: 2
+	WithDamageOverlay@2:
+		Offset: -553,256,0
+		Interval: 1
+	-EjectOnDeath:
+	-MapEditorData:
+	RejectsOrders:
+	Interactable:
+	WithAmmoPipsDecoration:
+		Position: BottomLeft
+		RequiresSelection: true
+
+##Used for dropping off Medi airdrops
+MediDragonBomberZoomies:
+	Inherits@dragbomb: MediDragonBomber
+	-Armament:
+	-AttackBomber:
+	Aircraft:
+		Speed: 600
+	ParaDrop:
+		DropRange: 3c0
+	Cargo:
+		MaxWeight: 20
+	-Targetable@AIRBORNE:
+
 
 ##flying siege unit
 ##wyvern

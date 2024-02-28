@@ -240,73 +240,6 @@ SCOUTMEDI:
 	Voiced:
 		VoiceSet: ScoutVoice
 
-##can only hit infantry is stealth
-mediassasin:
-	Inherits@Scout: SCOUTMEDI
-	Inherits@InfPro: ^AutoTargetInfantryPriority
-	-Transforms:
-	Buildable:
-		Prerequisites: ~infantry.medi, farmmedi, ~infantry.darkness
-		Description: Stealthed Assasin Made for exicuting Infantry./nCan bypass Defenses and only spotable by Infantry./nloses stealth for a long time on attack or damage
-		Queue: Infantry
-		BuildAtProductionType: Soldier
-		BuildPaletteOrder: 406
-		BuildLimit: 3
-	Valued:
-		Cost: 1000
-	GrantConditionOnDeploy@burrow:
-		UndeployedCondition: Unburrowed
-		DeployedCondition: burrowed
-		SkipMakeAnimation: True
-	AutoTarget:
-		InitialStance: HoldFire
-		HoldFireCondition: HoldingFire
-		ReturnFireCondition: ReturningFire
-		DefendCondition: DefendingFire
-		AttackAnythingCondition: AttackingFire
-	RevealsShroud:
-		Range: 5c512
-	AttackFrontal:
-		Armaments: assasinbladeD, assasinbladeA, assasinbladeburrow
-	Armament:
-		Name: assasinbladeD
-		Weapon: assasinblade
-		RequiresCondition: Unburrowed && !AttackingFire
-	Armament@AttackingFire:
-		Name: assasinbladeA
-		Weapon: AssasinWeb
-		RequiresCondition: Unburrowed && !DefendingFire
-	Armament@burrowed:
-		Name: assasinbladeburrow
-		Weapon: assasinbladeburrow
-		RequiresCondition: burrowed
-	Mobile:
-		Speed: 65
-		PauseOnCondition: burrowed
-	Health:
-		HP: 20000
-	Targetable:
-		TargetTypes: GroundActor, Infantry, Disguise
-	Cloak:
-		IsPlayerPalette: true
-		InitialDelay: 100
-		CloakDelay: 150
-		CloakType: DarkAssasin
-		CloakSound: tphclo00.aud
-		UncloakSound: tphclo01.aud
-		UncloakOn: Attack, Damage
-		CloakedCondition: DarkCloakOn
-		RequiresCondition: Unburrowed
-	Cloak@2:
-		IsPlayerPalette: true
-		InitialDelay: 100
-		CloakDelay: 150
-		CloakType: DarkAssasinBurrow
-		CloakSound: tphclo00.aud
-		UncloakSound: tphclo01.aud
-		UncloakOn: Attack, Damage
-		CloakedCondition: DarkCloakOn
-		RequiresCondition: burrowed
 
 
 mediassasinswarm:
@@ -638,7 +571,7 @@ MEDIPALADIN:
 		StandSequences: stand
 	IgnoresDisguise:
 	ProximityExternalCondition@pallyboost:
-		Condition: pallyboost
+		Condition: MediPalyaura
 		Range: 2c512
 	WithRangeCircle:
 		Range: 2c512
@@ -647,25 +580,6 @@ MEDIPALADIN:
 	Voiced:
 		VoiceSet: PaladinVoiceMedi
 	-Crushable:
-	WithDecoration@pallyboost:
-		Image: pips
-		Sequence: pip-heal
-		Palette: effect
-		Position: TopRight
-		ValidRelationships: None,Neutral,Enemy,Ally
-	GrantConditionOnPrerequisite@HolyOnlyBoost:
-		Condition: HolyBoostableOnly
-		Prerequisites: ~structures.holy, churchmedi
-	ProximityExternalCondition@MartyrBind:
-		RequiresCondition: HolyBoostableOnly
-		Condition: MartyrBind
-		Range: 5c512
-	DamageMultiplier@iar1:
-		Modifier: 85
-	DamageMultiplier@iar2:
-		Modifier: 75
-	DamageMultiplier@iar3:
-		Modifier: 70
 
 MEDIPALADINInjured:
 	Inherits@FOOTMAN: MEDIPALADIN
@@ -765,33 +679,6 @@ BOWMAN:
 		VoiceSet: BowmanVoice
 
 ## Core Ranged Unit
-CROSSBOWMAN:
-	Inherits@BOWMAN: BOWMAN
-	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
-	Buildable:
-		Prerequisites: ~infantry.medi, armorymedi, ~!infantry.elementalists
-		Description: Mediaval Crossbowman \n  Strong vs infantry\n Weak vs anything else
-		Queue: Infantry
-		BuildAtProductionType: Soldier
-		BuildPaletteOrder: 410
-	Valued:
-		Cost: 165
-	Tooltip:
-		Name: Crossbowman
-	Armament:
-		Weapon: Crossbow
-		LocalOffset: 427,0,600
-	Armament@GARRISONED:
-		Name: garrisoned
-		Weapon: Crossbow
-	Armament@BUS:
-		Name: bus
-		Weapon: Crossbow
-	RenderSprites:
-		Image: crossbowman
-	Voiced:
-		VoiceSet: CrossbowmanVoice
-
 ##Stronger Crossbowman
 FireCROSSBOWMAN:
 	Inherits@BOWMAN: CROSSBOWMAN

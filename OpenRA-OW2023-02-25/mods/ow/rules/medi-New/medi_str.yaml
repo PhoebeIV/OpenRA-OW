@@ -13,9 +13,32 @@
 
 ##No Power Foundry
 ##foundrymed
+foundrymedi:
+	Inherits: FOUNDRY
+	Valued:
+		Cost: 2000
+	Buildable:
+		Queue: Tech
+		BuildPaletteOrder: 25
+		Prerequisites: conyard, ~techlevel.medium, ~!structures.medi, ~!structures.bothard
+		Description: Autonomous building construction. \nIncreases build speed of Structures and\nDefense by 1 stage (max 10).
+	Power:
+		Amount: 0
+	RenderSprites:
+		Image: foundry
 
 ##Medi Version of Servayor outpost
 ##outpostmed
+outpostmedi:
+	Inherits: OUTPOST
+	Valued:
+		Cost: 500
+	Building:
+		BuildSounds: medibuild1.aud, medibuildjobdone1.aud, medibuildplace1.aud
+	Tooltip:
+		Name: Outpost
+	RenderSprites:
+		Image: outpostmedi
 
 ###############################################################################
 ##############################   Unit Production   ############################
@@ -36,10 +59,10 @@ meditent:
 		BuildSounds: medibuild1.aud, medibuildjobdone1.aud, medibuildplace1.aud
 	Power:
 		Amount: 0
-##	RenderSprites:
-##		Image: meditent
 	RenderSprites:
-		Image: tent
+		Image: meditent
+	RenderSprites:
+		Image: tentmedi
 
 ##Harvesters
 ##laborcamp
@@ -49,16 +72,44 @@ laborcamp:
 	Buildable:
 		Prerequisites: ~structures.medi, ~techlevel.infonly, ~!ai.boss
 		Description: Allows production of Slaves and Workers
+		BuildPaletteOrder: 2
 	Tooltip:
 		Name: Labor Camp
 	Building:
 		Footprint: === =x= === ===
 		Dimensions: 3,4
 		BuildSounds: medibuild1.aud, medibuildjobdone1.aud, medibuildplace1.aud
+	RallyPoint:
+		Path: 0,2
+	Exit@1:
+		RequiresCondition: !being-captured
+		SpawnOffset: 0,0,0
+		ExitCell: 1,1
+		ProductionTypes: Dog, Infantry
+	Exit@2:
+		RequiresCondition: !being-captured
+		SpawnOffset: 0,0,0
+		ExitCell: 1,1
+		ProductionTypes: Dog, Infantry
+	Production:
+		Produces: Infantry, Dog
+	PrimaryBuilding:
+		PrimaryCondition: primary
+		SelectionNotification: PrimaryBuildingSelected
+	WithDecoration@primary:
+		RequiresSelection: true
+		Image: pips
+		Sequence: tag-primary
+		Position: Top
+		RequiresCondition: primary
+	ProductionBar:
+		ProductionType: Infantry
 	Armor:
 		Type: Wood
 	Valued:
 		Cost: 600
+	Power:
+		Amount: 0
 	Targetable:
 		TargetTypes: GroundActor, C4, DetonateAttack, Structure
 	ProvidesPrerequisite@buildingname:
@@ -70,7 +121,7 @@ laborcamp:
 stables:
 	Inherits: WEAP
 	Buildable:
-		Prerequisites: meditent, ~structures.medi, ~!ai.hard, ~techlevel.low
+		Prerequisites: barracks, ~structures.medi, ~!ai.hard, ~techlevel.low
 		Description: Allows production of horse based,\n Mechanical & Elemental units.
 		BuildPaletteOrder: 4
 	Valued:
@@ -89,7 +140,7 @@ stables:
 dockmedi:
 	Inherits: SYRD
 	Buildable:
-		Prerequisites: stables, ~structures.medi, ~!techlevel.noboats, ~techlevel.low
+		Prerequisites: ~structures.medi, ~!techlevel.noboats
 		Description: Produces and repairs\nships and transports.
 		BuildPaletteOrder: 7
 	Valued:
@@ -108,7 +159,7 @@ dockmedi:
 aviary:
 	Inherits: AFLD
 	Buildable:
-		Prerequisites: stables, ~structures.medi, ~!techlevel.noboats, ~techlevel.low
+		Prerequisites: techcenter, ~structures.medi, ~techlevel.low
 		Description: Allows production of air units.
 		BuildPaletteOrder: 7
 	Valued:
@@ -146,17 +197,6 @@ aviary:
 farmmedi:
 	Inherits: GPROC
 	Inherits@BIB: ^2xBuildingBib
-	FreeActor:
-		Actor: SLAVE
-		SpawnOffset: 1,2
-	FreeActor@1:
-		Actor: SLAVE
-		SpawnOffset: 1,2
-		RequiresCondition: !build-incomplete
-	FreeActor@2:
-		Actor: SLAVE
-		SpawnOffset: 2,2
-		RequiresCondition: !build-incomplete
 	-Power:
 	-WithIdleOverlay@TOP:
 	-WithIdleOverlay@uac:
@@ -169,7 +209,7 @@ farmmedi:
 	-SpawnActorOnDeath:
 	Buildable:
 		Queue: Building
-		Prerequisites: ~structures.medi, laborcamp, ~!ai.boss, ~techlevel.infonly
+		Prerequisites: ~structures.medi, ~laborcamp, ~!ai.boss, ~techlevel.infonly
 		Description: Drop off point for resources gathered by Slaves and Workers.\nAlso acts as a Silo to allow more credits to be held.
 		BuildPaletteOrder: 3
 	Tooltip:
@@ -192,14 +232,378 @@ farmmedi:
 		RequiresSelection: true
 		PipCount: 5
 		FullSequence: pip-yellow
+	FreeActor@Conscripts:
+		Actor: Conscript
+		AllowRespawn: True
+		RequiresCondition: ConscriptAura
+	ExternalCondition@Conscription:
+		Condition: ConscriptAura
+	WithDecoration@ConscriptAura:
+		Image: pips
+		Sequence: mediorecorruptionpip
+		Palette: effect
+		Position: TopRight
+		ValidRelationships: None,Neutral,Enemy,Ally
+		RequiresCondition: ConscriptAura
 
 ##Resource Generation
 ##goldminemedi
+GoldMine:
+	Inherits: ^Building
+	Inherits@shape: ^2x2Shape
+	Selectable:
+		Bounds: 2048, 2048
+	Tooltip:
+		Name: Garison with workers to generate money.
+	Buildable:
+		Queue: Tech
+		Prerequisites: ~structures.medi, refinery, ulttechcenter, ~techlevel.high
+		Description: Slowly produces money when workers provided
+		BuildPaletteOrder: 31
+	Building:
+		Footprint: xx xx
+		Dimensions: 2,2
+		BuildSounds: medibuild1.aud, medibuildjobdone1.aud, medibuildplace1.aud
+	Health:
+		HP: 20000
+	Valued:
+		Cost: 6000
+	Power:
+		Amount: 0
+	Armor:
+		Type: Wood
+	RevealsShroud:
+		Range: 3c0
+	Targetable:
+		TargetTypes: GroundActor, C4, DetonateAttack, Structure
+	ProvidesPrerequisite@GoldMine:
+		Prerequisite: GoldMine
+	RenderSprites:
+		Image: medigoldmine
+	Pluggable@1:
+		Offset: 0,-1
+		Conditions:
+			gmine.l1: has_l
+			gmine.l2: has_2
+			gmine.l3: has_3
+			gmine.l4: has_4
+			gmine.l5: has_5
+		Requirements:
+			gmine.l1: !has_l && !has_2 && !has_3 && !has_4 && !has_5
+			gmine.l2: has_l && !has_2 && !has_3 && !has_4 && !has_5
+			gmine.l3: has_2 && !has_3 && !has_4 && !has_5
+			gmine.l4: has_3 && !has_4 && !has_5
+			gmine.l5: has_4 && !has_5
+		EditorOptions:
+			gmine.l1: Depth 1
+			gmine.l2: Depth 2
+			gmine.l3: Depth 3
+			gmine.l4: Depth 4
+			gmine.l5: Depth 5
+	Cargo:
+		Types: garyslave
+		MaxWeight: 20
+		LoadedCondition: garyslave
+	WithCargoPipsDecoration:
+		Position: BottomLeft
+		RequiresSelection: true
+		PipCount: 10
+	CashTrickler:
+		Interval: 1000
+		Amount: 100
+		InitialDelay: 100
+		RequiresCondition: !disabled
+		UseResourceStorage: true
+	CashTricklerMultiplier@t1:
+		Modifier: 120
+		RequiresCondition: has_1 && garyslave >= 1 && garyslave <= 5
+	CashTricklerMultiplier@t2:
+		Modifier: 140
+		RequiresCondition: has_2 && garyslave >= 6 && garyslave <= 11
+	CashTricklerMultiplier@t3:
+		Modifier: 160
+		RequiresCondition: has_3 && garyslave >= 12 && garyslave <= 17
+	CashTricklerMultiplier@t4:
+		Modifier: 180
+		RequiresCondition: has_4 && garyslave >= 17 && garyslave <= 25
+	CashTricklerMultiplier@t5:
+		Modifier: 200
+		RequiresCondition: has_5 && garyslave >= 26
 
+##GoldMine Plugs
+gmine.l1:
+	Inherits: ^BuildingPlug
+	Valued:
+		Cost: 1000
+	Tooltip:
+		Name: Expand the Mine to Depth 1
+	Buildable:
+		Queue: Wall
+		BuildPaletteOrder: 52
+		Prerequisites: ~structures.medi, ~GoldMine, ulttechcenter, ~techlevel.high
+		Description: Place on a Gold Mine to expand its depths /n (Must be built in sequence)
+		Icon: icon-gun
+	Plug:
+		Type: gmine.l1
+	Building:
+		BuildSounds: medibuild1.aud, medibuildjobdone1.aud, medibuildplace1.aud
+	RenderSprites:
+		Image: medigoldmine
+		
+gmine.l2:
+	Inherits: gmine.l1
+	Valued:
+		Cost: 3000
+	Tooltip:
+		Name: Expand the Mine to Depth 2
+	Buildable:
+		Description: Place on a Gold Mine to expand its depths /n (Must be built in sequence)
+	Plug:
+		Type: gmine.l2
+		
+gmine.l3:
+	Inherits: gmine.l1
+	Valued:
+		Cost: 5000
+	Tooltip:
+		Name: Expand the Mine to Depth 3
+	Buildable:
+		Description: Place on a Gold Mine to expand its depths /n (Must be built in sequence)
+	Plug:
+		Type: gmine.l3
+		
+gmine.l4:
+	Inherits: gmine.l1
+	Valued:
+		Cost: 7000
+	Tooltip:
+		Name: Expand the Mine to Depth 4
+	Buildable:
+		Description: Place on a Gold Mine to expand its depths /n (Must be built in sequence)
+	Plug:
+		Type: gmine.l4
+		
+gmine.l5:
+	Inherits: gmine.l1
+	Valued:
+		Cost: 10000
+	Tooltip:
+		Name: Expand the Mine to Depth 5
+	Buildable:
+		Description: Place on a Gold Mine to expand its depths /n (Must be built in sequence)
+	Plug:
+		Type: gmine.l5
+		
 ##Power Plants
 ##manawell
+manawell:
+	Inherits: ^PowerPlant
+	Inherits@POWER_OUTAGE: ^DisabledByPowerOutage
+	Inherits@shape: ^2x2Shape
+	Inherits@BIB: ^2xBuildingBib
+	Selectable:
+		Bounds: 2048, 2048
+	Buildable:
+		Queue: Building
+		Prerequisites: ~structures.medi, techcenter, ~!ai.powerout, ~!ai.boss,  ~techlevel.low
+		Description: Provides Power
+		BuildPaletteOrder: 6
+	Tooltip:
+		Name: Mana Well
+	Building:
+		Footprint: xx ==
+		Dimensions: 2,2
+		BuildSounds: medibuild1.aud, medibuildjobdone1.aud, medibuildplace1.aud
+	Valued:
+		Cost: 1000
+	Health:
+		HP: 40000
+	Armor:
+		Type: Wood
+	RevealsShroud:
+		Range: 4c0
+	Power:
+		Amount: 100
+	Targetable:
+		TargetTypes: GroundActor, C4, DetonateAttack, Structure
+	ProvidesPrerequisite@buildingname:
+	ProvidesPrerequisite:
+		Prerequisite: anypower
+	RenderSprites:
+		Image: medimanawell
+	PowerMultiplier@hardAI:
+		RequiresCondition: bot_hard
+		Modifier: 200
+	WithIdleOverlay@bibtemp:
+		Image: bib3compiled_terran
+	WithIdleOverlay@bibsnow:
+		Image: bib3compiled_terran
+	WithIdleOverlay@bibdes:
+		Image: bib3compiled_terran
+	PowerMultiplier@t0:
+		RequiresCondition: manaproxboost == 0
+		Modifier: 25
+	PowerMultiplier@t1:
+		RequiresCondition: manaproxboost == 1
+		Modifier: 105
+	PowerMultiplier@t2:
+		RequiresCondition: manaproxboost == 2
+		Modifier: 110
+	PowerMultiplier@t3:
+		RequiresCondition: manaproxboost == 3
+		Modifier: 115
+	PowerMultiplier@t4:
+		RequiresCondition: manaproxboost == 4
+		Modifier: 120
+	PowerMultiplier@t5:
+		RequiresCondition: manaproxboost == 5
+		Modifier: 125
+	PowerMultiplier@t6:
+		RequiresCondition: manaproxboost == 6
+		Modifier: 130
+	PowerMultiplier@t7:
+		RequiresCondition: manaproxboost == 7
+		Modifier: 135
+	PowerMultiplier@t8:
+		RequiresCondition: manaproxboost == 8
+		Modifier: 140
+	PowerMultiplier@t9:
+		RequiresCondition: manaproxboost == 9
+		Modifier: 145
+	PowerMultiplier@t10:
+		RequiresCondition: manaproxboost == 10
+		Modifier: 150
+	PowerMultiplier@t11:
+		RequiresCondition: manaproxboost == 11
+		Modifier: 160
+	PowerMultiplier@t12:
+		RequiresCondition: manaproxboost == 12
+		Modifier: 170
+	PowerMultiplier@t13:
+		RequiresCondition: manaproxboost == 13
+		Modifier: 180
+	PowerMultiplier@t14:
+		RequiresCondition: manaproxboost == 14
+		Modifier: 190
+	PowerMultiplier@t15:
+		RequiresCondition: manaproxboost == 15
+		Modifier: 200
+	PowerMultiplier@t16:
+		RequiresCondition: manaproxboost == 16
+		Modifier: 210
+	PowerMultiplier@t17:
+		RequiresCondition: manaproxboost == 17
+		Modifier: 220
+	PowerMultiplier@t18:
+		RequiresCondition: manaproxboost == 18
+		Modifier: 230
+	PowerMultiplier@t19:
+		RequiresCondition: manaproxboost >= 19
+		Modifier: 300
+	DamageMultiplier@t1:
+		RequiresCondition: manaproxboost >= 2 && manaproxboost <= 3
+		Modifier: 98
+	DamageMultiplier@t2:
+		RequiresCondition: manaproxboost >= 4 && manaproxboost <= 7
+		Modifier: 96
+	DamageMultiplier@t3:
+		RequiresCondition: manaproxboost >= 8 && manaproxboost <= 11
+		Modifier: 94
+	DamageMultiplier@t4:
+		RequiresCondition: manaproxboost >= 12 && manaproxboost <= 15
+		Modifier: 92
+	DamageMultiplier@t5:
+		RequiresCondition: manaproxboost >= 16 && manaproxboost <= 19
+		Modifier: 80
+	DamageMultiplier@t6:
+		RequiresCondition: manaproxboost >= 20
+		Modifier: 85
+	WithRangeCircle@proxboost:
+		Range: 8c512
+		RequiresCondition: manaproxboost
+	ExternalCondition@proxboost:
+		Condition: manaproxboost
 
-##bigmanawell
+##manaconduit
+manaconduit:
+	Inherits: ^PowerPlant
+	Inherits@POWER_OUTAGE: ^DisabledByPowerOutage
+	Inherits@shape: ^2x1Shape
+	Inherits@BIB: ^2xBuildingBib
+	Selectable:
+		Bounds: 1024, 2048
+	Buildable:
+		Queue: Building
+		Prerequisites: ~structures.medi, techcenter, ~!ai.powerout, ~!ai.boss,  ~techlevel.low
+		Description: Empowers mana wells.
+		BuildPaletteOrder: 6
+	Tooltip:
+		Name: Mana Conduit, Empowers mana wells.
+	Building:
+		Footprint: ==
+		Dimensions: 1,2
+		BuildSounds: medibuild1.aud, medibuildjobdone1.aud, medibuildplace1.aud
+	Valued:
+		Cost: 2500
+	Health:
+		HP: 20000
+	Armor:
+		Type: Wood
+	RevealsShroud:
+		Range: 4c0
+	Power:
+		Amount: 10
+	Targetable:
+		TargetTypes: GroundActor, C4, DetonateAttack, Structure
+	ProvidesPrerequisite@buildingname:
+	ProvidesPrerequisite:
+		Prerequisite: anypower
+	RenderSprites:
+		Image: medimanawell
+	WithIdleOverlay@bibtemp:
+		Image: bib3compiled_terran
+	WithIdleOverlay@bibsnow:
+		Image: bib3compiled_terran
+	WithIdleOverlay@bibdes:
+		Image: bib3compiled_terran
+	DamageMultiplier@t1:
+		RequiresCondition: manaproxboost >= 2 && manaproxboost <= 3
+		Modifier: 95
+	DamageMultiplier@t2:
+		RequiresCondition: manaproxboost >= 4 && manaproxboost <= 7
+		Modifier: 90
+	DamageMultiplier@t3:
+		RequiresCondition: manaproxboost >= 8 && manaproxboost <= 11
+		Modifier: 85
+	DamageMultiplier@t4:
+		RequiresCondition: manaproxboost >= 12 && manaproxboost <= 15
+		Modifier: 80
+	DamageMultiplier@t5:
+		RequiresCondition: manaproxboost >= 16 && manaproxboost <= 19
+		Modifier: 75
+	DamageMultiplier@t6:
+		RequiresCondition: manaproxboost >= 20
+		Modifier: 70
+	WithRangeCircle@proxboost:
+		Range: 8c512
+		RequiresCondition: manaproxboost
+	ExternalCondition@proxboost:
+		Condition: manaproxboost
+	ProximityExternalCondition@proxboost:
+		Condition: manaproxboost
+		Range: 8c512
+	ProximityExternalCondition@proxboost2:
+		Condition: manaproxboost
+		Range: 8c512
+	GrantCondition@maxstack:
+		Condition: manamaxstack
+		GrantPermanently: True
+		RequiresCondition: manaproxboost >= 20
+	GrantCondition@midstack:
+		Condition: manamidstack
+		GrantPermanently: True
+		RequiresCondition: manaproxboost >= 8 && manaproxboost <= 19
+
 
 ###############################################################################
 #################################   Tech   ###################################
@@ -207,21 +611,519 @@ farmmedi:
 
 ##Mix of Tech building and a strong defense structure
 ##Castle
+castle:
+	Inherits: ^Defense
+	Inherits@AUTOTARGET: ^AutoTargetAll
+	Inherits: ^ScienceBuilding
+	Inherits@shape: ^3x3Shape
+	Inherits@BIB: ^3xBuildingBib
+	Selectable:
+		Bounds: 3072, 3072
+	Buildable:
+		Queue: Building
+		Prerequisites: ~structures.medi, stables, ~!ai.hard, ~techlevel.infonly
+		Description: Mix of a Tech Center and Defense structure
+		BuildPaletteOrder: 5
+	Tooltip:
+		Name: Medieval Castle (Techcenter)
+	Building:
+		Footprint: xxx xxx x=x
+		Dimensions: 3,3
+		BuildSounds: medibuild1.aud, medibuildjobdone1.aud, medibuildplace1.aud
+	Valued:
+		Cost: 2500
+	Health:
+		HP: 200000
+	Armor:
+		Type: Heavy
+	RevealsShroud:
+		MinRange: 5c0
+		Range: 7c0
+	RevealsShroud@GAPGEN:
+		Range: 5c0
+	Targetable:
+		TargetTypes: GroundActor, C4, DetonateAttack, Structure, SpyInfiltrate
+	ProvidesPrerequisite@buildingname:
+	ProvidesPrerequisite:
+		Prerequisite: techcenter
+	RenderSprites:
+		Image: medicastle
+	Turreted@T1:
+		Turret:	T1
+		TurnSpeed: 1023
+		Offset: -512,-512,384
+	Turreted@T2:
+		Turret:	T2
+		TurnSpeed: 1023
+		Offset: 512,512,384
+	Turreted@T3:
+		Turret:	T3
+		TurnSpeed: 1023
+		Offset: 512,-512,384
+	Turreted@T4:
+		Turret:	T4
+		TurnSpeed: 1023
+		Offset: -512,512,384
+	Turreted@T5:
+		Turret:	T5
+		TurnSpeed: 1023
+		Offset: -512,-512,384
+	Turreted@T6:
+		Turret:	T6
+		TurnSpeed: 1023
+		Offset: 512,512,384
+	Turreted@T7:
+		Turret:	T7
+		TurnSpeed: 1023
+		Offset: 512,-512,384
+	Turreted@T8:
+		Turret:	T8
+		TurnSpeed: 1023
+		Offset: -512,512,384
+	AmmoPool@Arrows:
+		Name: Arrows
+		Armaments: T1,T2,T3,T4
+		Ammo: 100
+		InitialAmmo: 20
+		ReloadCount: 10
+		ReloadDelay: 50
+		AmmoCondition: Arrows
+	AmmoPool@Arrowsb:
+		Name: Arrows
+		Armaments: T5,T6,T7,T8
+		Ammo: 100
+		InitialAmmo: 20
+		ReloadCount: 10
+		ReloadDelay: 50
+		AmmoCondition: Arrows
+	Armament@T1:
+		Name: T1
+		Turret: T1
+		Weapon: Castlearrows
+		LocalOffset: 256,128,0, 256,-128,0
+		LocalYaw: -100,100
+	Armament@T2:
+		Name: T2
+		Turret: T2
+		Weapon: Castlearrows
+		LocalOffset: 256,128,0, 256,-128,0
+		LocalYaw: -100,100
+	Armament@T4:
+		Name: T4
+		Turret: T4
+		Weapon: Castlearrows
+		LocalOffset: 256,128,0, 256,-128,0
+		LocalYaw: -100,100
+	Armament@T4:
+		Name: T4
+		Turret: T4
+		Weapon: Castlearrows
+		LocalOffset: 256,128,0, 256,-128,0
+		LocalYaw: -100,100
+	Armament@T5:
+		Name: T5
+		Turret: T5
+		Weapon: Castlearrowsb
+		LocalOffset: 256,128,0, 256,-128,0
+		LocalYaw: -100,100
+		AmmoUsage: 30
+	Armament@T6:
+		Name: T6
+		Turret: T6
+		Weapon: Castlearrowsb
+		LocalOffset: 256,128,0, 256,-128,0
+		LocalYaw: -100,100
+		AmmoUsage: 30
+	Armament@T7:
+		Name: T7
+		Turret: T7
+		Weapon: Castlearrowsb
+		LocalOffset: 256,128,0, 256,-128,0
+		LocalYaw: -100,100
+		AmmoUsage: 30
+	Armament@T8:
+		Name: T8
+		Turret: T8
+		Weapon: Castlearrowsb
+		LocalOffset: 256,128,0, 256,-128,0
+		LocalYaw: -100,100
+		AmmoUsage: 30
+	AttackTurreted:
+		Turrets: T1,T2,T3,T4,T5,T6,T7,T8
+		Armaments: T1,T2,T3,T4,T5,T6,T7,T8
+		RequiresCondition: !build-incomplete
+		PauseOnCondition: lowpower || disabled
+	-BodyOrientation:
+	ClassicFacingBodyOrientation:
+		QuantizedFacings: 8
+	Power:
+		Amount: 0
+	DetectCloaked:
+		Range: 6c0
+		RequiresCondition: !disabled
+	## Conscription Aura : Deploy aura to spawn Conscripts from neerby farms
+	GrantExternalConditionPower@ConscriptAura:
+		Condition: ConscriptAura
+		Duration: 10
+		Dimensions: 1,1
+		Footprint: x
+		ChargeInterval: 3000
+		Prerequisites: ~structures.medi
+		StartFullyCharged: True
+		Icon: medidragonstrikeicon
+		Name: Conscription
+		Description: Cause farms in area to spawn temporary milita
+		OrderName: Conscription
+	## Airstrike power
+	AirstrikePower@ElementalAirstrike:
+		UnitType: medidragonbomber ##MediDragonBomber
+		SquadSize: 3
+		SquadOffset: 1792,1792,0
+		QuantizedFacings: 8
+		CameraActor: camera
+		CameraRemoveDelay: 150
+		UseDirectionalTarget: True
+		DirectionArrowAnimation: paradirection
+		Icon: medidragonstrikeicon
+		ChargeInterval: 6000
+		Name: Dragon Strike
+		Description: Dragons are sent out to rain fire on an area
+		Prerequisites: ~structures.medi
+		SelectTargetSpeechNotification: SelectTarget
+		BeaconPoster: medidragonstrikebeacon
+		OrderName: ElementalAirstrike
+		SupportPowerPaletteOrder: 40
+		PauseOnCondition: disabled
+		DisplayBeacon: true
+		ArrowSequence: arrow
+		ClockSequence: clock
+		CircleSequence: circles
+	##Need to add a few extra arrow points. maybe hwatcha attack instead of archers?
 
-##TechCenter
-##Academy
 
 ##Advanced Tech
 ##alchlab
+alchlab:
+	Inherits: ^ScienceBuilding
+	Inherits@IDISABLE: ^DisableOnLowPowerOrPowerDown
+	Inherits@shape: ^2x2Shape
+	Inherits@BIB: ^2xBuildingBib
+	Selectable:
+		Bounds: 2048, 2048
+	Buildable:
+		Queue: Tech
+		Prerequisites: ~structures.medi, techcenter, ~techlevel.high, anypower
+		BuildLimit: 1
+		Description: Unlocks spells and provides passive income.\nConsumes lots of power.
+		BuildPaletteOrder: 9
+	Tooltip:
+		Name: Alchemy lab
+	Building:
+		Footprint: xx ==
+		Dimensions: 2,2
+		BuildSounds: medibuild1.aud, medibuildjobdone1.aud, medibuildplace1.aud
+	Valued:
+		Cost: 2000
+	Health:
+		HP: 70000
+	Armor:
+		Type: Wood
+	RevealsShroud:
+		Range: 4c0
+	Power:
+		Amount: -500
+	CashTrickler:
+		Interval: 50
+		Amount: 25
+		PauseOnCondition: disabled
+	ProvidesPrerequisite@buildingname:
+	ProvidesPrerequisite@adv:
+		Prerequisite: advtechcenter
+	Targetable:
+		TargetTypes: GroundActor, C4, DetonateAttack, Structure, SpyInfiltrate
+	RenderSprites:
+		Image: medialchemy
+	## Evil Powers
+	## Zombies
+	SpawnActorPower@Undead:
+		OrderName: Undead Magic
+		Actor: MediZombiehoard
+		LifeTime: 500
+		ChargeInterval: 5000
+		Icon: medivoidportalicon
+		Name: Spawn an undead hoard
+		Description: Bring forth the undead to attack your foes
+		Prerequisites: ~structures.medicult
+		EffectSequence: idle
+	## Neutral Powers
+	## Stealth
+	GrantExternalConditionPower@DarknessStealth:
+		OrderName: ElementalStealth
+		PauseOnCondition: disabled
+		Icon: mediinvisibilityicon
+		Prerequisites: ~structures.medi
+		ChargeInterval: 8000
+		Name: Invisibility
+		Description: Provide invisibility for all units & buildings
+		SelectTargetSpeechNotification: SelectTarget
+		InsufficientPowerSpeechNotification: InsufficientPower
+		Condition: stealthgen
+		OnFireSound: mediinvisibility.wav
+		SupportPowerPaletteOrder: 10
+		DisplayTimerRelationships: None
+		Dimensions: 3, 3
+		Footprint: _x_ xxx _x_
+	## Magic Powers
+	## ElementalPortal
 
 ##Super Tech
 ##Library
+library:
+	Inherits: ^ScienceBuilding
+	Inherits@shape: ^3x3Shape
+	Inherits@BIB: ^3xBuildingBib
+	Selectable:
+		Bounds: 4096, 3072
+	Buildable:
+		Queue: Tech
+		BuildDuration: 4500
+		Prerequisites: ~structures.medi, advtechcenter, ~techlevel.unrestricted, ~!ai.boss, anypower
+		Description: Super Tech Center\nclones infantry units\nUnlocks Super Units
+		BuildLimit: 1
+		BuildPaletteOrder: 11
+	Tooltip:
+		Name: Library (Super Tech)
+	Building:
+		Footprint: xxxx =xx= ====
+		Dimensions: 4,3
+		BuildSounds: medibuild1.aud, medibuildjobdone1.aud, medibuildplace1.aud
+		LocalCenterOffset: 0,-512,0
+	Valued:
+		Cost: 6000
+	Health:
+		HP: 150000
+	Armor:
+		Type: Wood
+	RevealsShroud:
+		Range: 4c0
+	Targetable:
+		TargetTypes: GroundActor, C4, DetonateAttack, Structure, SpyInfiltrate
+	ProvidesPrerequisite@buildingname:
+	RenderSprites:
+		Image: medilibrary
+	Production:
+		Produces: Infantry
+	RallyPoint:
+		Path: 3,3
+	Exit@1:
+		SpawnOffset: 2,2,0
+		ExitCell: 2,2
+	Exit@2:
+		SpawnOffset: 2,2,0
+		ExitCell: 2,1
+	WithDecoration@primary:
+		RequiresSelection: true
+		Image: pips
+		Sequence: tag-primary
+		Position: Top
+		RequiresCondition: primary
+	ProductionQueue@2:
+		Type: Infantry
+		DisplayOrder: 2
+		Group: Infantry
+		LowPowerModifier: 200
+		ReadyAudio: UnitReady
+		BlockedAudio: NoBuild
+		LimitedAudio: BuildingInProgress
+		QueuedAudio: Building
+		OnHoldAudio: OnHold
+		CancelledAudio: Cancelled
+	ProductionBar@2:
+		ProductionType: Infantry
+	ClonesProducedUnits:
+		CloneableTypes: Infantry
+		ProductionType: Infantry
+	ProvidesPrerequisite:
+		Prerequisite: techcenter
+	ProvidesPrerequisite@adv:
+		Prerequisite: advtechcenter
+	ProvidesPrerequisite@adv2:
+		Prerequisite: ulttechcenter
+	CashTrickler:
+		Interval: 750
+		Amount: 100
+		InitialDelay: 325
+		RequiresCondition: !disabled
+		UseResourceStorage: true
+	Explodes:
+		Type: CenterPosition
+		Weapon: EMPExplosion
+		EmptyWeapon: EMPExplosion
 
 ##Grants access to most powers
 ##churchmedi
-
-##Grants access to better more advanced units
-##blacksmith
+churchmedi:
+	Inherits: ^Building
+	Inherits@shape: ^2x2Shape
+	Selectable:
+		Bounds: 2048, 2048
+	Buildable:
+		Queue: Tech
+		Prerequisites: ~structures.medi, advtechcenter, ~techlevel.medium, anypower
+		Description: Grants Magic of the gods
+		BuildLimit: 2
+		BuildPaletteOrder: 5
+	Tooltip:
+		Name: Medieval Church
+	Building:
+		Footprint: xx ==
+		Dimensions: 2,2
+		BuildSounds: medibuild1.aud, medibuildjobdone1.aud, medibuildplace1.aud
+	Valued:
+		Cost: 800
+	Health:
+		HP: 80000
+	Armor:
+		Type: Wood
+	RevealsShroud:
+		Range: 4c0
+	Targetable:
+		TargetTypes: GroundActor, C4, DetonateAttack, Structure, SpyInfiltrate
+	ProvidesPrerequisite@buildingname:
+	RenderSprites:
+		Image: medichurch
+	## Holy Powers ##
+	## HolyLight : Healing Power
+	NukePower@HolyLight:
+		Prerequisites: ~structures.mediholy
+		OrderName: HolyLight
+		PauseOnCondition: disabled
+		Cursor: chrono-target
+		Icon: mediholylighticon
+		ChargeInterval: 3500
+		Name: Holy Light
+		Description: Contantly Heals units over a short time
+		SelectTargetSpeechNotification: SelectTarget
+		InsufficientPowerSpeechNotification: InsufficientPower
+		MissileWeapon: medihealorder
+		MissileDelay: 1
+		SpawnOffset: 0,0,0
+		DisplayTimerRelationships: None
+		DisplayBeacon: True
+		DisplayRadarPing: True
+		BeaconPoster: mediholylightbeacon
+		CameraRange: 0c0
+		ArrowSequence: arrow
+		ClockSequence: clock
+		CircleSequence: circles
+		SupportPowerPaletteOrder: 70
+		SkipAscent: True
+		FlightDelay: 50
+		MissilePalette: player
+		IsPlayerPalette: true
+		MissileImage: medihealorder
+	## Smite : Kills infantry
+	IonCannonPower@SmitePower:
+		OrderName: SmitePower
+		Prerequisites: ~structures.mediholy
+		PauseOnCondition: disabled
+		Icon: medismiteicon
+		Cursor: chrono-target
+		ChargeInterval: 6300
+		Name: Smite
+		Description: Damages infantry in an area
+		SelectTargetSpeechNotification: SelectTarget
+		InsufficientPowerSpeechNotification: InsufficientPower
+		OnFireSound: medismitesound.wav
+		DisplayRadarPing: True
+		SupportPowerPaletteOrder: 20
+		Effect: explosion
+		EffectSequence: medismiteproj
+		Weapon: SmitePowerWep
+		DisplayTimerRelationships: None
+	##Chains : Stuns Enemies
+	IonCannonPower@ChainsPower:
+		OrderName: ChainsPower
+		Prerequisites: ~structures.mediholy
+		PauseOnCondition: disabled
+		Icon: mediholychainsicon
+		Cursor: chrono-target
+		ChargeInterval: 4000
+		Name: Chains of Heaven
+		Description: Stunlocks units in place for a period of time
+		SelectTargetSpeechNotification: SelectTarget
+		InsufficientPowerSpeechNotification: InsufficientPower
+		OnFireSound: mediholychainsound.wav
+		DisplayRadarPing: True
+		SupportPowerPaletteOrder: 20
+		Effect: explosion
+		EffectSequence: mediholychains
+		Weapon: ChainsPowerWep
+		DisplayTimerRelationships: None
+	##Bless : Inverse of Curse, Buffs units
+	## Needs to be updated with its own sprites
+	IonCannonPower@BlessPower:
+		OrderName: BlessPower
+		Prerequisites: ~structures.mediholy
+		PauseOnCondition: disabled
+		Icon: medicurseicon
+		Cursor: chrono-target
+		ChargeInterval: 4000
+		Name: Bless
+		Description: Buffs ally forces
+		SelectTargetSpeechNotification: SelectTarget
+		InsufficientPowerSpeechNotification: InsufficientPower
+		OnFireSound: medicurse.aud
+		DisplayRadarPing: True
+		SupportPowerPaletteOrder: 20
+		Effect: explosion
+		EffectSequence: medicurseproj
+		Weapon: BlessPowerWep
+		DisplayTimerRelationships: None
+	## Evil Powers ##
+	## Curse : Debufs enemies 
+	IonCannonPower@CursePower:
+		OrderName: CursePower
+		Prerequisites: ~structures.medicult
+		PauseOnCondition: disabled
+		Icon: medicurseicon
+		Cursor: chrono-target
+		ChargeInterval: 4000
+		Name: Curse
+		Description: Weakens enemy forces
+		SelectTargetSpeechNotification: SelectTarget
+		InsufficientPowerSpeechNotification: InsufficientPower
+		OnFireSound: medicurse.aud
+		DisplayRadarPing: True
+		SupportPowerPaletteOrder: 20
+		Effect: explosion
+		EffectSequence: medicurseproj
+		Weapon: CursePowerWep
+		DisplayTimerRelationships: None
+	## Insanity : makes units hostile to all
+	## Needs to be updated with its own sprites
+	IonCannonPower@JapanBerserkerPower:
+		OrderName: JapanBerserker
+		Prerequisites: ~structures.medicult
+		PauseOnCondition: disabled
+		Icon: japanberserkicon
+		Cursor: chrono-target
+		ChargeInterval: 9000
+		Name: Berserk
+		Description: Causes all units in a large area to become berserk and attack anything and everything.
+		SelectTargetSpeechNotification: SelectTarget
+		InsufficientPowerSpeechNotification: InsufficientPower
+		OnFireSound: japanberserkactivate.aud
+		DisplayRadarPing: True
+		SupportPowerPaletteOrder: 22
+		Effect: explosion
+		EffectSequence: japanberserkanim
+		Weapon: JapanBerserkerPower
+		DisplayTimerRelationships: None
+	## Mage Powers
+	## MageArmor : Grants an overshield to units
+	## Fireball : like an airstike but much faster
+	## Force Wall : Blocks all movement through an area
 
 ###############################################################################
 ################################   Defences   #################################
@@ -229,30 +1131,509 @@ farmmedi:
 
 ##Archer Tower Base
 ##archertowerbase
+Archertower:
+	ProvidesPrerequisite@AT:
+		Prerequisite: ArchTower
+	Inherits: ^Defense
+	-SpawnActorsOnSell:
+	Inherits@AUTOTARGET: ^AutoTargetAll
+	Building:
+		BuildSounds: medibuild1.aud, medibuildjobdone1.aud, medibuildplace1.aud
+	Valued:
+		Cost: 600
+	Tooltip:
+		Name: Archer Tower
+	Buildable:
+		Queue: Defense
+		Prerequisites: ~structures.medi, ~!upgrade.mediarrow, ~techlevel.low
+		Description: Tower that fires arrows is Upgradable\nStrong vs Infantry
+		BuildPaletteOrder: 2
+	Selectable:
+		Bounds: 1024, 1024
+		DecorationBounds: 1024, 1024, 0, 0
+	SelectionDecorations:
+	Health:
+		HP: 40000
+	Pluggable@1:
+		Offset: 0,0
+		Conditions:
+			archplug.l1: has_l
+			archplug.l2: has_2
+			archplug.l3: has_3
+			archplug.l4: has_4
+		Requirements:
+			archplug.l1: !has_l && !has_2 && !has_3 && !has_4
+			archplug.l2: has_l && !has_2 && !has_3 && !has_4
+			archplug.l3: has_2 && !has_3 && !has_4
+			archplug.l4: has_3 && !has_4
+		EditorOptions:
+			archplug.l1: Archer Plug 1
+			archplug.l2: Archer Plug 2
+			archplug.l3: Archer Plug 3
+			archplug.l4: Archer Plug 4
+	DamageMultiplier@plug1:
+		Modifier: 95
+		RequiresCondition: has_l
+	DamageMultiplier@plug1:
+		Modifier: 95
+		RequiresCondition: has_2
+	DamageMultiplier@plug1:
+		Modifier: 95
+		RequiresCondition: has_3
+	DamageMultiplier@plug1:
+		Modifier: 95
+		RequiresCondition: has_4
+	Armor:
+		Type: Wood
+		RequiresCondition: !has_4
+	Armor:
+		Type: Heavy
+		RequiresCondition: has_4
+	RevealsShroud:
+		Range: 8c0
+	WithBuildingBib:
+		HasMinibib: true
+	Turreted@T1:
+		Turret:	T1
+		TurnSpeed: 1023
+		Offset: 128,128,384
+		HasMinibib: true
+	Turreted@T2:
+		Turret:	T2
+		TurnSpeed: 1023
+		Offset: 128,128,384
+		HasMinibib: true
+	Turreted@T3:
+		Turret:	T2
+		TurnSpeed: 1023
+		Offset: 128,128,384
+		HasMinibib: true
+	Turreted@T4:
+		Turret:	T4
+		TurnSpeed: 1023
+		Offset: 128,128,384
+		HasMinibib: true
+	Turreted@T5:
+		Turret:	T5
+		TurnSpeed: 1023
+		Offset: 128,128,384
+	DetectCloaked:
+		Range: 6c0
+	RenderSprites:
+		Image: mediarrowtower
+	Armament@base:
+		Name: base
+		Turret: T1
+		Weapon: Crossbow
+	Armament@plug1:
+		Name: plug1
+		Turret: T2
+		Weapon: Crossbow
+		RequiresCondition: has_1
+	Armament@plug2:
+		Name: plug2
+		Turret: T3
+		Weapon: Crossbow
+		RequiresCondition: has_2
+	Armament@plug3:
+		Name: plug3
+		Turret: T4
+		Weapon: Crossbow
+		RequiresCondition: has_3
+	Armament@plug4:
+		Name: plug4
+		Turret: T5
+		Weapon: Crossbow
+		RequiresCondition: has_4
+	AttackTurreted:
+		Turrets: T1,T2,T3,T4,T5,T6,T7,T8
+		Armaments: base, plug1, plug2, plug3, plug4
+		RequiresCondition: !build-incomplete
+	-BodyOrientation:
+	ClassicFacingBodyOrientation:
+		QuantizedFacings: 8
 
+
+
+Archertower2:
+	Inherits: Archertower
+	-Buildable:
+	
+Archertower3:
+	Inherits: Archertower
+	-Buildable:
+	
+Archertower4:
+	Inherits: Archertower
+	-Buildable:
+	
 ##Archer Tower Plugs
 ##archerplug1
+archerplug.l1:
+	Inherits: ^BuildingPlug
+	Valued:
+		Cost: 1000
+	Tooltip:
+		Name: Upgrade your archer tower to Level 1
+	Buildable:
+		Queue: Wall
+		BuildPaletteOrder: 52
+		Prerequisites: ~structures.medi, ~upgrade.mediarrowt1, ArchTower
+		Description: Place on archer tower to upgrade it /n (Must be built in sequence)
+		Icon: icon-gun
+	Plug:
+		Type: archplug.l1
+	Building:
+		BuildSounds: medibuild1.aud, medibuildjobdone1.aud, medibuildplace1.aud
+	RenderSprites:
+		Image: mediarrowtower
 
 ##archerplug2
+archerplug.l2:
+	Inherits: archerplug.l1
+	Valued:
+		Cost: 1000
+	Tooltip:
+		Name: Upgrade your archer tower to Level 2
+	Buildable:
+		Description: Place on archer tower to upgrade it /n (Must be built in sequence)
+		Prerequisites: ~structures.medi, ~upgrade.mediarrowt2, ArchTower
+	Plug:
+		Type: archplug.l2
 
 ##archerplug3
+archerplug.l3:
+	Inherits: archerplug.l1
+	Valued:
+		Cost: 1000
+	Tooltip:
+		Name: Upgrade your archer tower to Level 3
+	Buildable:
+		Description: Place on archer tower to upgrade it /n (Must be built in sequence)
+		Prerequisites: ~structures.medi, ~upgrade.mediarrowt3, ArchTower
+	Plug:
+		Type: archplug.l3
 
 ##archerplug4
+archerplug.l4:
+	Inherits: archerplug.l1
+	Valued:
+		Cost: 1000
+	Tooltip:
+		Name: Upgrade your archer tower to Level 4
+	Buildable:
+		Description: Place on archer tower to upgrade it /n (Must be built in sequence)
+		Prerequisites: ~structures.medi, ~upgrade.mediarrowt4, Archertower
+	Plug:
+		Type: archplug.l4
 
 ##Garrison structure
 ##garrison
-
-##Zombie Spawner when hostiles in range
-##graveyard
+MediGarrisonTower:
+	Inherits: ^Defense
+	Inherits@AUTOTARGET: ^AutoTargetAll
+	Inherits@shape: ^2x2Shape
+	Inherits@CARGOPIPS: ^CargoPips
+	Buildable:
+		Queue: Defense
+		Prerequisites: ~structures.medi, barracks, ~techlevel.low, ~!structures.darkness
+		Description: Garison Units for Defence
+		BuildPaletteOrder: 3
+	Building:
+		Dimensions: 2,2
+		Footprint: xx xx
+		BuildSounds: medibuild1.aud, medibuildjobdone1.aud, medibuildplace1.aud
+	Valued:
+		Cost: 1200
+	Tooltip:
+		Name: Garrison Tower
+	Selectable:
+		Bounds: 2048, 2048
+		DecorationBounds: 2048, 2048, 0, 0
+	SelectionDecorations:
+	Health:
+		HP: 120000
+	Armor:
+		Type: Heavy
+	RevealsShroud:
+		Range: 6c0
+	WithBuildingBib:
+		HasMinibib: true
+	Turreted:
+		TurnSpeed: 1023
+	-QuantizeFacingsFromSequence:
+	-BodyOrientation:
+	ClassicFacingBodyOrientation:
+		QuantizedFacings: 8
+	Cargo:
+		Types: Infantry
+		MaxWeight: 4
+	-SpawnActorsOnSell:
+	AttackGarrisoned:
+		RequiresCondition: !build-incomplete
+		Armaments: garrisoned
+		PortOffsets: 384,0,128, 224,-341,128, -224,-341,128, -384,0,128, -224,341,128, 224,341,128
+		PortYaws: 0, 176, 341, 512, 682, 853
+		PortCones: 88, 88, 88, 88, 88, 88
+	RenderRangeCircle:
+		FallbackRange: 6c0
+	ProvidesPrerequisite@buildingname:
+	RenderSprites:
+		Image: medigarrisontower
+	WithCargoPipsDecoration:
+		Position: BottomLeft
+		RequiresSelection: true
 
 ##Holy monument, support structure
 ##monument
+monument:
+	Inherits: ^Building
+	Inherits@IDISABLE: ^DisableOnLowPowerOrPowerDown
+	Inherits@shape: ^2x2Shape
+	-SpawnActorsOnSell:
+	Selectable:
+		Bounds: 2048, 2048
+	Valued:
+		Cost: 2000
+	Tooltip:
+		Name: Monument To The Gods
+	Buildable:
+		Queue: Defense
+		Prerequisites: ~structures.mediholy, ~techlevel.medium, anypower
+		Description: Gives Healing aura to units and structures
+		BuildPaletteOrder: 15
+	Building:
+		Footprint: xx xx
+		Dimensions: 2,2
+		BuildSounds: medibuild1.aud, medibuildjobdone1.aud, medibuildplace1.aud
+	Health:
+		HP: 80000
+	Armor:
+		Type: Wood
+	RevealsShroud:
+		MinRange: 5c0
+		Range: 6c0
+		RequiresCondition: !disabled
+		RevealGeneratedShroud: False
+	RevealsShroud@Offline:
+		Range: 5c0
+		RequiresCondition: disabled
+	RevealsShroud@GAPGEN:
+		Range: 5c0
+		RequiresCondition: !disabled
+	ProximityExternalCondition@Monumentboost:
+		RequiresCondition: !disabled
+		Condition: Monumentboost
+		Range: 11c512
+	WithRangeCircle:
+		Range: 11c512
+	ProximityExternalCondition@MonumentboostHoly:
+		Condition: MonumentboostHoly
+		Range: 8c512
+	ProximityExternalCondition@MartyrBind:
+		Condition: MartyrBind
+		Range: 8c512
+	WithRangeCircle@MonumentboostHoly:
+		Range: 8c512
+	Power:
+		Amount: -100
+	RenderSprites:
+		Image: medimonument
+
+##Users Mana, Like an obilisk but constant beam
+ArcaneTower:
+	Inherits: ^Defense
+	Inherits@IDISABLE: ^DisableOnLowPowerOrPowerDown
+	Inherits@AUTOTARGET: ^AutoTargetAll
+	-SpawnActorsOnSell:
+	Buildable:
+		Queue: Defense
+		Prerequisites: ~structures.medi, techcenter, ~techlevel.medium, anypower
+		Description: Tower that user Mana To fire a constant Beam \nStrong vs Aircraft, Vehicles & Infantry
+		BuildPaletteOrder: 4
+	Building:
+		BuildSounds: medibuild1.aud, medibuildjobdone1.aud, medibuildplace1.aud
+	Valued:
+		Cost: 1500
+	Tooltip:
+		Name: Arcane Tower
+	Selectable:
+		Bounds: 1024, 1024
+		DecorationBounds: 1024, 1024, 0, 0
+	SelectionDecorations:
+	Health:
+		HP: 80000
+	Armor:
+		Type: Heavy
+	RevealsShroud:
+		Range: 8c0
+	WithBuildingBib:
+		HasMinibib: true
+	Turreted@gl1:
+		Turret: gl1
+		TurnSpeed: 1023
+		Offset: 128,128,384
+	Turreted@gl2:
+		Turret: gl2
+		TurnSpeed: 1023
+		Offset: 128,128,384
+	Turreted@gl3:
+		Turret: gl3
+		TurnSpeed: 1023
+		Offset: 128,128,384
+	Turreted@gl4:
+		Turret: gl4
+		TurnSpeed: 1023
+		Offset: 128,128,384
+	Turreted@gl5:
+		Turret: gl5
+		TurnSpeed: 1023
+		Offset: 128,128,384
+	Turreted@gl6:
+		Turret: gl6
+		TurnSpeed: 1023
+		Offset: 128,128,384
+	Turreted@al1:
+		Turret: al1
+		TurnSpeed: 1023
+		Offset: 128,128,384
+	Turreted@al2:
+		Turret: al2
+		TurnSpeed: 1023
+		Offset: 128,128,384
+	Turreted@al3:
+		Turret: al3
+		TurnSpeed: 1023
+		Offset: 128,128,384
+	Armament@gl1:
+		Name: gl1
+		Weapon: ArcaneZap
+		LocalOffset: 256,128,0, 256,-128,0
+		LocalYaw: -100,100
+	Armament@gl2:
+		Name: gl2
+		Weapon: ArcaneZap
+		LocalOffset: 256,128,0, 256,-128,0
+		LocalYaw: -100,100
+	Armament@gl3:
+		Name: gl3
+		Weapon: ArcaneZap
+		LocalOffset: 256,128,0, 256,-128,0
+		LocalYaw: -100,100
+	Armament@gl4:
+		Name: gl4
+		Weapon: ArcaneZap
+		LocalOffset: 256,128,0, 256,-128,0
+		LocalYaw: -100,100
+	Armament@gl5:
+		Name: gl5
+		Weapon: ArcaneZap
+		LocalOffset: 256,128,0, 256,-128,0
+		LocalYaw: -100,100
+	Armament@gl6:
+		Name: gl6
+		Weapon: ArcaneZap
+		LocalOffset: 256,128,0, 256,-128,0
+		LocalYaw: -100,100
+	Armament@al1:
+		Name: al1
+		Weapon: ArcaneZap2
+		LocalOffset: 256,128,0, 256,-128,0
+		LocalYaw: -100,100
+	Armament@al2:
+		Name: al2
+		Weapon: ArcaneZap2
+		LocalOffset: 256,128,0, 256,-128,0
+		LocalYaw: -100,100
+	Armament@al3:
+		Name: al3
+		Weapon: ArcaneZap2
+		LocalOffset: 256,128,0, 256,-128,0
+		LocalYaw: -100,100
+	AttackTurreted:
+		Turrets: gl1, gl2, gl3, gl4, gl5, gl6, al1, al2, al3
+		Armaments: gl1, gl2, gl3, gl4, gl5, gl6, al1, al2, al3
+		RequiresCondition: !build-incomplete
+		PauseOnCondition: lowpower || disabled
+	-BodyOrientation:
+	ClassicFacingBodyOrientation:
+		QuantizedFacings: 8
+	Power:
+		Amount: -75
+	DetectCloaked:
+		Range: 6c0
+		RequiresCondition: !disabled
+	ProvidesPrerequisite@buildingname:
+	RenderSprites:
+		Image: mediarcanetower
 
 ##Balista Tower
 ##balistatower
+BalistaTower:
+	Inherits: ArcaneTower
+	-Power:
+	-DetectCloaked:
+		ProvidesPrerequisite@buildingname:
+	Buildable:
+		Queue: Defense
+		Prerequisites: ~structures.medi, techcenter
+		Description: Tower With a Siege Weapon strapped to the roof \nStrong vs Vehicles
+		BuildPaletteOrder: 5
+	Valued:
+		Cost: 1200
+	Tooltip:
+		Name: Balista Tower
+	Health:
+		HP: 35000
+	AttackTurreted:
+		Armaments: PRIMARY, SECONDARY
+	Armament@PRIMARY:
+		Name: PRIMARY
+		Weapon: Ballistatowershot
+		LocalOffset: 256,128,0, 256,-128,0
+		LocalYaw: -100,100
+		RequiresCondition: !has_l
+	Armament@PRIMARY1:
+		Name: SECONDARY
+		Weapon: Cannontowershot
+		LocalOffset: 256,128,0, 256,-128,0
+		LocalYaw: -100,100
+		RequiresCondition: has_l
+	RenderSprites:
+		Image: medibalistatower
+	Pluggable@1:
+		Offset: 0,0
+		Conditions:
+			Cannon.l1: has_l
+		Requirements:
+			Cannon.l1: !has_l
+		EditorOptions:
+			Cannon.l1: Cannon Plug 1
+
+Cannon.l1:
+	Inherits: ^BuildingPlug
+	Valued:
+		Cost: 1000
+	Tooltip:
+		Name: Upgrade your archer tower to Level 1
+	Buildable:
+		Queue: Wall
+		BuildPaletteOrder: 52
+		Prerequisites: ~structures.medi, ~BalistaTower
+		Description: Place on Balista tower to upgrade it
+		Icon: icon-gun
+	Plug:
+		Type: Cannon.l1
+	Building:
+		BuildSounds: medibuild1.aud, medibuildjobdone1.aud, medibuildplace1.aud
+	RenderSprites:
+		Image: medicannontower
 
 ##Spawns Units when hostile in range
 ##summoning Ring
+
+##Zombie Spawner when hostiles in range
+##graveyard
 
 ###############################################################################
 #################################   Utilities   ###############################
@@ -260,9 +1641,157 @@ farmmedi:
 
 ##radar structure
 ##medieye
+TheEye:
+	Inherits: ^Defense
+	Inherits@IDISABLE: ^DisableOnLowPowerOrPowerDown
+	Inherits@AUTOTARGET: ^AutoTargetAll
+	Valued:
+		Cost: 1400
+	Tooltip:
+		Name: The Eye
+	Buildable:
+		Queue: Tech
+		Prerequisites: ~structures.medi, advtechcenter, ~techlevel.medium, anypower, ~!structures.medicult
+		Description: Provides radar
+		BuildLimit: 2
+		BuildPaletteOrder: 6
+	Building:
+		Footprint: x x x
+		Dimensions: 1,3
+		BuildSounds: medibuild1.aud, medibuildjobdone1.aud, medibuildplace1.aud
+	Selectable:
+		Bounds: 1024, 3072
+		DecorationBounds: 1024, 3072, 0, 0
+	SelectionDecorations:
+	WithBuildingBib:
+		HasMinibib: true
+	Health:
+		HP: 80000
+	Armor:
+		Type: Wood
+	RevealsShroud:
+		MinRange: 4c0
+		Range: 6c0
+		RequiresCondition: !disabled
+		RevealGeneratedShroud: False
+	RevealsShroud@Offline:
+		Range: 2c0
+		RequiresCondition: disabled
+	RevealsShroud@GAPGEN:
+		Range: 6c0
+		RequiresCondition: !disabled
+	DetectCloaked:
+		Range: 6c0
+		RequiresCondition: !disabled
+	ProvidesPrerequisite:
+		Prerequisite: radar
+	ProvidesPrerequisite@buildingname:
+	Power:
+		Amount: -100
+	ProvidesRadar:
+		RequiresCondition: !jammed && !disabled
+	ExternalCondition@JAMMED:
+		Condition: jammed
+	##Vision Power
+	SpawnActorPower@spyvan:
+		PauseOnCondition: disabled || Eyelow
+		OrderName: SeerVision
+		Cursor: chrono-target
+		Icon: spy
+		ChargeInterval: 3000
+		LifeTime: 125
+		Name: Seer
+		Description: Reveal an area on the map for 5 seconds. \nReveals cloaked units.
+		Actor: camera.spyplane
+		SelectTargetSpeechNotification: SelectTarget
+		DisplayRadarPing: True
+		DeploySound: gradarup.aud
+		EffectSequence: idle
+	RenderSprites:
+		Image: medieyetower
+	AutoTarget:
+		InitialStance: AttackAnything
+	AttackOmni:
+	Armament:
+		Name: primary
+		Weapon: CurseEyeWep
 
 ##Same as eye but can debuff
 ##medieyecursed
+TheEvilEye:
+	Inherits: ^Defense
+	Inherits@IDISABLE: ^DisableOnLowPowerOrPowerDown
+	Inherits@AUTOTARGET: ^AutoTargetAll
+	Valued:
+		Cost: 1400
+	Tooltip:
+		Name: The Eye
+	Buildable:
+		Queue: Tech
+		Prerequisites: ~structures.medi, advtechcenter, ~techlevel.medium, anypower, ~structures.medicult
+		Description: Provides radar
+		BuildLimit: 2
+		BuildPaletteOrder: 6
+	Building:
+		Footprint: x x x
+		Dimensions: 1,3
+		BuildSounds: medibuild1.aud, medibuildjobdone1.aud, medibuildplace1.aud
+	Selectable:
+		Bounds: 1024, 3072
+		DecorationBounds: 1024, 3072, 0, 0
+	SelectionDecorations:
+	WithBuildingBib:
+		HasMinibib: true
+	Health:
+		HP: 80000
+	Armor:
+		Type: Wood
+	RevealsShroud:
+		MinRange: 4c0
+		Range: 6c0
+		RequiresCondition: !disabled
+		RevealGeneratedShroud: False
+	RevealsShroud@Offline:
+		Range: 2c0
+		RequiresCondition: disabled
+	RevealsShroud@GAPGEN:
+		Range: 6c0
+		RequiresCondition: !disabled
+	DetectCloaked:
+		Range: 6c0
+		RequiresCondition: !disabled
+	ProvidesPrerequisite:
+		Prerequisite: radar
+	ProvidesPrerequisite@buildingname:
+	Power:
+		Amount: -100
+	ProvidesRadar:
+		RequiresCondition: !jammed && !disabled
+	ExternalCondition@JAMMED:
+		Condition: jammed
+	##Vision Power
+	SpawnActorPower@spyvan:
+		PauseOnCondition: disabled || Eyelow
+		OrderName: SeerVision
+		Cursor: chrono-target
+		Icon: spy
+		ChargeInterval: 3000
+		LifeTime: 125
+		Name: Seer
+		Description: Reveal an area on the map for 5 seconds. \nReveals cloaked units.
+		Actor: camera.spyplane
+		SelectTargetSpeechNotification: SelectTarget
+		DisplayRadarPing: True
+		DeploySound: gradarup.aud
+		EffectSequence: idle
+	RenderSprites:
+		Image: medieyetower
+	AutoTarget:
+		InitialStance: AttackAnything
+	AttackOmni:
+	Armament:
+		Name: primary
+		Weapon: CurseEyeWep
 
 ###############################################################################
 ###################################  Nukes   ##################################
@@ -271,10 +1800,250 @@ farmmedi:
 ##Gate of Babylon, weaker scud storm type attack for AOE
 ##Smites central target with no AOE on 1st hit
 ##gateofbabylon
+## Replace This ? ##
+GATEOFLIGHT:
+	Inherits: ^Building
+	Inherits@IDISABLE: ^DisableOnLowPowerOrPowerDown
+	Inherits@shape: ^3x3Shape
+	Selectable:
+		Bounds: 3072, 3072
+	Valued:
+		Cost: 2500
+	Tooltip:
+		Name: Gate of Light
+	Buildable:
+		Queue: Tech
+		Prerequisites: ~structures.medi, anypower, ~structures.mediholy, ~techlevel.unrestricted, techcenter
+		BuildLimit: 1
+		Description: Provides the Gate of Babylon Super Weapon \nRains down swords that destroy an area.
+		BuildPaletteOrder: 10
+	Building:
+		Footprint: xxx xxx xxx
+		Dimensions: 3,3
+		BuildSounds: medibuild1.aud, medibuildjobdone1.aud, medibuildplace1.aud
+	Health:
+		HP: 100000
+	Armor:
+		Type: Wood
+	RevealsShroud:
+		MinRange: 5c0
+		Range: 6c0
+		RequiresCondition: !disabled
+		RevealGeneratedShroud: False
+	RevealsShroud@Offline:
+		Range: 5c0
+		RequiresCondition: disabled
+	RevealsShroud@GAPGEN:
+		Range: 5c0
+		RequiresCondition: !disabled
+	NukePower:
+		OrderName: GateOfBabylon
+		PauseOnCondition: disabled
+		Cursor: nuke
+		Icon: medigateofbabylonicon
+		ChargeInterval: 20000
+		Name: Gate Of Babylon
+		Description: Gate Of Babylon
+		BeginChargeSpeechNotification: AbombPrepping
+		EndChargeSpeechNotification: AbombReady
+		SelectTargetSpeechNotification: SelectTarget
+		InsufficientPowerSpeechNotification: InsufficientPower
+		IncomingSpeechNotification: AbombLaunchDetected
+		MissileWeapon: mediholyweapon
+		MissileDelay: 5
+		SpawnOffset: 0,0,0
+		DisplayTimerRelationships: Ally, Neutral, Enemy
+		DisplayBeacon: True
+		DisplayRadarPing: True
+		BeaconPoster: medigateofbabylonbeacon
+		CameraRange: 15c0
+		CameraRemoveDelay: 375
+		ArrowSequence: arrow
+		ClockSequence: clock
+		CircleSequence: circles
+		SupportPowerPaletteOrder: 70
+		MissilePalette: player
+		IsPlayerPalette: true
+		MissileImage: mediholyweapon
+	SupportPowerChargeBar:
+	Power:
+		Amount: -150
+	MustBeDestroyed:
+		RequiredForShortGame: false
+	WithSupportPowerActivationAnimation:
+		RequiresCondition: !build-incomplete
+	ProvidesPrerequisite@superweapon:
+		Prerequisite: superweapon
+	RenderSprites:
+		Image: medigateofbabylon
+	Explodes:
+		Type: CenterPosition
+		Weapon: MiniNuke
+		EmptyWeapon: MiniNuke
 
 ##Rains zombies from the sky, weaker than a scud storm 
 ##spawns high HP Low Lifetime zombies from buildings that are hit
 ##darkportal
+## Replace This ?  ##
+MediDarkCrystal:
+	Inherits: ^Building
+	Inherits@IDISABLE: ^DisableOnLowPowerOrPowerDown
+	Inherits@shape: ^3x3Shape
+	Selectable:
+		Bounds: 3072, 3072
+	Valued:
+		Cost: 2500
+	Tooltip:
+		Name: Void Crystal
+	Buildable:
+		Queue: Tech
+		Prerequisites: ~structures.medi, anypower, ~structures.darkness, ~techlevel.unrestricted, techcenter
+		BuildLimit: 1
+		Description: Provides the Void Rain Super Weapon\nDark energy rains from above to destroy an area
+		BuildPaletteOrder: 10
+	Building:
+		Footprint: xxx xxx xxx
+		Dimensions: 3,3
+		BuildSounds: medibuild1.aud, medibuildjobdone1.aud, medibuildplace1.aud
+	Health:
+		HP: 100000
+	Armor:
+		Type: Wood
+	RevealsShroud:
+		MinRange: 5c0
+		Range: 6c0
+		RequiresCondition: !disabled
+		RevealGeneratedShroud: False
+	RevealsShroud@Offline:
+		Range: 5c0
+		RequiresCondition: disabled
+	RevealsShroud@GAPGEN:
+		Range: 5c0
+		RequiresCondition: !disabled
+	NukePower:
+		OrderName: VoidRain
+		PauseOnCondition: disabled
+		Cursor: nuke
+		Icon: voidrainicon
+		ChargeInterval: 20500
+		Name: Void Rain
+		Description: Void Rain
+		BeginChargeSpeechNotification: AbombPrepping
+		EndChargeSpeechNotification: AbombReady
+		SelectTargetSpeechNotification: SelectTarget
+		InsufficientPowerSpeechNotification: InsufficientPower
+		IncomingSpeechNotification: AbombLaunchDetected
+		MissileWeapon: medivoidweapon
+		MissileDelay: 5
+		SpawnOffset: 0,0,0
+		DisplayTimerRelationships: Ally, Neutral, Enemy
+		DisplayBeacon: True
+		DisplayRadarPing: True
+		BeaconPoster: voidrainbeacon
+		CameraRange: 15c0
+		CameraRemoveDelay: 375
+		ArrowSequence: arrow
+		ClockSequence: clock
+		CircleSequence: circles
+		SupportPowerPaletteOrder: 70
+		MissilePalette: player
+		IsPlayerPalette: true
+		MissileImage: medivoidweapon
+	SupportPowerChargeBar:
+	Power:
+		Amount: -150
+	MustBeDestroyed:
+		RequiredForShortGame: false
+	WithSupportPowerActivationAnimation:
+		RequiresCondition: !build-incomplete
+	ProvidesPrerequisite@superweapon:
+		Prerequisite: superweapon
+	RenderSprites:
+		Image: medidarkcrystal
+	Explodes:
+		Type: CenterPosition
+		Weapon: MiniNuke
+		EmptyWeapon: MiniNuke
 
 ##Smaller Meteorites rain from the sky before a bigger main meteor lands direct on target
 ##meteorstorm
+## Replace This ? ##
+FireStormMedi:
+	Inherits: ^Building
+	Inherits@IDISABLE: ^DisableOnLowPowerOrPowerDown
+	Inherits@shape: ^3x3Shape
+	Selectable:
+		Bounds: 3072, 3072
+	Valued:
+		Cost: 2500
+	Tooltip:
+		Name: Natures Will
+	Buildable:
+		Queue: Tech
+		Prerequisites: ~structures.medi, anypower, ~structures.elementalists, ~techlevel.unrestricted, techcenter
+		BuildLimit: 1
+		Description: Provides the Natures Will Super Weapon\nDevestates an area with explosive magic
+		BuildPaletteOrder: 10
+	Building:
+		Footprint: xxx xxx xxx
+		Dimensions: 3,3
+		BuildSounds: medibuild1.aud, medibuildjobdone1.aud, medibuildplace1.aud
+	Health:
+		HP: 100000
+	Armor:
+		Type: Wood
+	RevealsShroud:
+		MinRange: 5c0
+		Range: 6c0
+		RequiresCondition: !disabled
+		RevealGeneratedShroud: False
+	RevealsShroud@Offline:
+		Range: 5c0
+		RequiresCondition: disabled
+	RevealsShroud@GAPGEN:
+		Range: 5c0
+		RequiresCondition: !disabled
+	NukePower:
+		OrderName: medielementalweapon
+		PauseOnCondition: disabled
+		Cursor: nuke
+		Icon: medifirestormicon
+		ChargeInterval: 22000
+		Name: Natures Will
+		Description: Natures Will
+		BeginChargeSpeechNotification: AbombPrepping
+		EndChargeSpeechNotification: AbombReady
+		SelectTargetSpeechNotification: SelectTarget
+		InsufficientPowerSpeechNotification: InsufficientPower
+		IncomingSpeechNotification: AbombLaunchDetected
+		MissileWeapon: MageSuperWeapon
+		MissileDelay: 5
+		SpawnOffset: 0,0,0
+		DisplayTimerRelationships: Ally, Neutral, Enemy
+		DisplayBeacon: True
+		DisplayRadarPing: True
+		BeaconPoster: medifirestormbeacon
+		CameraRange: 15c0
+		CameraRemoveDelay: 375
+		ArrowSequence: arrow
+		ClockSequence: clock
+		CircleSequence: circles
+		SupportPowerPaletteOrder: 70
+		MissilePalette: player
+		IsPlayerPalette: true
+		MissileImage: MageSuperWeapon
+	SupportPowerChargeBar:
+	Power:
+		Amount: -150
+	MustBeDestroyed:
+		RequiredForShortGame: false
+	WithSupportPowerActivationAnimation:
+		RequiresCondition: !build-incomplete
+	ProvidesPrerequisite@superweapon:
+		Prerequisite: superweapon
+	RenderSprites:
+		Image: medifirestorm
+	Explodes:
+		Type: CenterPosition
+		Weapon: MiniNuke
+		EmptyWeapon: MiniNuke

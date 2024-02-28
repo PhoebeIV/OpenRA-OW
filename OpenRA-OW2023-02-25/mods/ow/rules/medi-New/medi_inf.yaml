@@ -3,7 +3,88 @@
 ###############################  Inherits    ##################################
 ###############################################################################
 
+^MediLowPower:
+	GrantConditionOnPowerState@LOWPOWER:
+		Condition: lowpower
+		ValidPowerStates: Low, Critical
 
+^TSMedi:
+	RenderSprites:
+		PlayerPalette: tsunit
+	WithInfantryBody:
+		IdleSequences: idle1, idle2
+	WithDeathAnimation:
+		DeathSequencePalette: tsunit
+		CrushedSequencePalette: tsunit
+
+^MediSoldier:
+	Inherits: ^Infantry
+	UpdatesPlayerStatistics:
+	MustBeDestroyed:
+	ProximityCaptor:
+		Types: Infantry
+	WithInfantryBody:
+		IdleSequences: idle1
+		StandSequences: stand
+	AttackFrontal:
+		FacingTolerance: 0
+	Selectable:
+		Bounds: 768, 938, 0, -469
+		DecorationBounds: 682, 938, 0, -469
+	WithDeathAnimation:
+		DeathTypes:
+			DefaultDeath: 1
+			BulletDeath: 1
+			SmallExplosionDeath: 1
+			ExplosionDeath: 4
+	TakeCover:
+		SpeedModifier: 130
+		Duration: 75
+		DamageTriggers: TriggerProne
+
+^Mediconditionsinfantryonly:
+	ExternalCondition@assasintoxin:
+		Condition: assasintoxin
+	ExternalCondition@swarmlingspawn:
+		Condition: swarmlingspawn
+
+^Mediconditions:
+	ExternalCondition@MediCurseCondition:
+		Condition: MediCurseCondition
+	ExternalCondition@MediBlessCondition:
+		Condition: MediBlessCondition
+	ExternalCondition@ChainsCondition:
+		Condition: ChainsCondition
+	ExternalCondition@thisdoesnothing:
+		Condition: thisdoesnothing
+	ExternalCondition@Medimonument:
+		Condition: Medimonument
+	ExternalCondition@Medimonumentcart:
+		Condition: Medimonumentcart
+	ExternalCondition@MediGraveyard:
+		Condition: MediGraveyard
+	ExternalCondition@Mediwatereleslow:
+		Condition: Mediwatereleslow
+	ExternalCondition@MediRot:
+		Condition: MediRot
+	ExternalCondition@MediBerserkerbuff:
+		Condition: MediBerserkerbuff
+	ExternalCondition@MediPalyaura:
+		Condition: MediPalyaura
+	ExternalCondition@Darkwizardcurse:
+		Condition: Darkwizardcurse
+	ExternalCondition@darkknightaurabuff:
+		Condition: darkknightaurabuff
+	ExternalCondition@darkknightauradebuff:
+		Condition: darkknightauradebuff
+	ExternalCondition@Archmageaurabuff:
+		Condition: Archmageaurabuff
+	ExternalCondition@Archmageauradebuff:
+		Condition: Archmageauradebuff
+	ExternalCondition@medizombieplague:
+		Condition: medizombieplague
+	ExternalCondition@MediLightningstacks:
+		Condition: MediLightningstacks
 
 ###############################################################################
 ##########################   Harvesters and Utility   #########################
@@ -11,21 +92,277 @@
 
 ##starting harvester
 ##medislave
+SLAVE:
+	Inherits: ^Soldier
+	Inherits@selection: ^SelectableEconomicUnit
+	Inherits@sprite: ^TSMedi
+	Buildable:
+		Queue: Infantry
+		BuildAtProductionType: Dog
+		Prerequisites: ~laborcamp
+		Description: Collects Ore, Tiberium and Gems for processing.\nCan repair buildngs and vehicles.\nSpeed: 64\n  Unarmed slave will die on tiberium
+		BuildPaletteOrder: 402
+	Valued:
+		Cost: 300
+	Tooltip:
+		Name: Slave
+	Mobile:
+		Speed: 50
+		Locomotor: foot
+	Health:
+		HP: 3000
+	Passenger:
+		CustomPipType: yellow
+	Harvester:
+		UnblockCell: 0,1
+		Resources: Ore,Gems,Tiberium,BlueTiberium
+		SearchFromProcRadius: 10
+		SearchFromHarvesterRadius: 10
+		HarvestVoice: Harvest
+		FullyLoadedSpeed: 75
+	Voiced:
+		VoiceSet: SlaveVoice
+	Armament:
+		Weapon: RepairWorker
+		Cursor: repair
+		OutsideRangeCursor: repair
+		TargetRelationships: Ally
+		ForceTargetRelationships: None
+	-WithInfantryBody:
+	WithFacingSpriteBody:
+		Sequence: stand
+	BodyOrientation:
+		QuantizedFacings: 8
+	WithMoveAnimation:
+		MoveSequence: run
+	WithAttackAnimation:
+		Sequence: idle1
+	WithDockingAnimation:
+	AttackFrontal:
+		Voice: Repair
+		FacingTolerance: 0
+	AutoTarget:
+	AutoTargetPriority@DEFAULT:
+		ValidTargets: Vehicle, Ship, Structure
+	RepairsBridges:
+	ChangesHealth@tiberium:
+		Step: -75
+	RenderSprites:
+		Image: medislave
+	WithStoresResourcesPipsDecoration:
+		Position: BottomLeft
+		RequiresSelection: true
+		PipCount: 1
+	ExternalCondition@work:
+		Condition: slavework
+	DockClientManager:
+	StoresResources:
+		Capacity: 4
+		Resources: Ore,Gems,Tiberium,BlueTiberium
 
 ##upgraded harvester
 ##worker
+MEDIWORKER:
+	Inherits@SLAVE: SLAVE
+	Buildable:
+		Queue: Infantry
+		BuildAtProductionType: Dog
+		Prerequisites: ~laborcamp, advtechcenter
+		Description: Collects Ore, Tiberium and Gems for processing.\nCan repair buildngs and vehicles.
+		BuildPaletteOrder: 403
+		BuildDuration: 500
+	Valued:
+		Cost: 700
+	Tooltip:
+		Name: Worker
+	Mobile:
+		Speed: 100
+		Locomotor: foot2
+		TurnsWhileMoving: true
+	Health:
+		HP: 10000
+	Armor:
+		Type: Light
+	Harvester:
+		UnblockCell: 0,1
+		BaleLoadDelay: 5
+		Resources: Ore,Gems,Tiberium,BlueTiberium
+		HarvestVoice: Harvest
+	Voiced:
+		VoiceSet: WorkerVoice
+	GrantConditionOnPrerequisite@workertib:
+		Condition: workertib
+		Prerequisites: upgrade.workertib
+	ChangesHealth@tiberium:
+		RequiresCondition: standing_in_tiberium && !workertib
+		Step: -75
+	RenderSprites:
+		Image: mediworker
+	WithStoresResourcesPipsDecoration:
+		Position: BottomLeft
+		RequiresSelection: true
+		PipCount: 4
+	Passenger:
+		CargoType: GaryWorker
+	DockClientManager:
+	StoresResources:
+		Capacity: 12
+		Resources: Ore,Gems,Tiberium,BlueTiberium
 
 ##long vision scout unit, stealth when stationary
 ##scout
+SCOUTMEDI:
+	Inherits@MediLowPower: ^MediLowPower
+	Inherits@MediSoldier: ^MediSoldier
+	Inherits@sprite: ^TSMedi
+	Inherits@InfPro: ^AutoTargetInfantryPriority
+	Buildable:
+		Prerequisites: ~infantry.medi, ~!infantry.darkness
+		Description: Scout with long vision and stealth when stationary.\n  can deploy into a scout tower.
+		Queue: Infantry
+		BuildAtProductionType: Soldier
+		BuildPaletteOrder: 406
+	Valued:
+		Cost: 500
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Tooltip:
+		Name: Scout
+	Health:
+		HP: 2000
+	Mobile:
+		Speed: 110
+	RevealsShroud:
+		Range: 10c512
+	Armament:
+		Weapon: Sword
+	WithInfantryBody:
+		DefaultAttackSequence: shoot
+	AutoTarget:
+		InitialStance: Defend
+	AutoTargetPriority@DEFAULT:
+		ValidTargets: GroundActor, Infantry
+	Targetable:
+		TargetTypes: GroundActor, Infantry, Disguise
+	-GpsDot:
+	-GrantConditionOnTerrain@tiberium:
+	-ExternalCondition@stealthgen:
+	-Cloak@stealthgen:
+	Cloak:
+		InitialDelay: 100
+		CloakDelay: 100
+		CloakSound: gstealon.aud
+		UncloakSound: gstealof.aud
+		UncloakOn: Move, Damage
+		PauseOnCondition: cloak-force-disabled || disabled
+	GrantConditionOnDamageState@UNCLOAK:
+		Condition: cloak-force-disabled
+		ValidDamageStates: Critical
+	RenderSprites:
+		Image: scoutmedi
+	Voiced:
+		VoiceSet: ScoutVoice
 
 ##builds outposts
 ##medisurveyor
+SURVEYORMEDI:
+	Inherits: TSENGI.O
+	Inherits@MediSoldier: ^MediSoldier
+	Buildable:
+		Queue: Infantry
+		BuildAtProductionType: Soldier
+		BuildPaletteOrder: 405
+		Prerequisites: ~infantry.medi, laborcamp
+		Icon: icon
+	Voiced:
+		VoiceSet: WorkerVoice
+	RenderSprites:
+		Image: surveyormedi
+	Transforms:
+		IntoActor: outpostmedi
+		Offset: 0,-1
+		Facing: 384
+		TransformSounds: medibuild1.aud, medibuildplace1.aud, medibuildjobdone1.aud
+		NoTransformNotification: BuildingCannotPlaceAudio
 
 ##heals units
 ##medipriest
+PRIEST:
+	Inherits@MediSoldier: ^MediSoldier
+	Inherits@MediLowPower: ^MediLowPower
+	Inherits@sprite: ^TSMedi
+	Buildable:
+		Queue: Infantry
+		BuildAtProductionType: Soldier
+		BuildPaletteOrder: 404
+		Prerequisites: ~infantry.medi, churchmedi, ~!infantry.medicult
+		Description: Heals nearby infantry.\n  The word of god
+	Valued:
+		Cost: 600
+	Tooltip:
+		Name: Priest
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 10000
+	Armor:
+		Type: Light
+	Mobile:
+		Speed: 60
+	RevealsShroud:
+		Range: 3c0
+	Passenger:
+		CustomPipType: blue
+	Armament:
+		Weapon: Healmedi
+		Cursor: heal
+		OutsideRangeCursor: heal
+		TargetRelationships: Ally
+		ForceTargetRelationships: None
+	Armament@GARRISONED:
+		Name: garrisoned
+		Weapon: Healmedi
+		Cursor: heal
+		OutsideRangeCursor: heal
+		TargetRelationships: Ally
+		ForceTargetRelationships: None
+	WithInfantryBody:
+		IdleSequences: idle1
+		StandSequences: stand
+		DefaultAttackSequence: heal
+	Voiced:
+		VoiceSet: PriestVoice
+	AutoTarget:
+	AutoTargetPriority@DEFAULT:
+		ValidTargets: Infantry, GroundActor
+	RenderSprites:
+		Image: medipriest
 
 ##sacrifice self to heal others
 ##accolyte
+accolyte:
+	Inherits@Priest: PRIEST
+	Buildable:
+		Queue: Infantry
+		BuildAtProductionType: Soldier
+		BuildPaletteOrder: 404
+		Prerequisites: ~infantry.medi, churchmedi, ~infantry.medicult
+		Description: Heals nearby infantry on death.
+	Valued:
+		Cost: 800
+	Tooltip:
+		Name: accolyte
+	Health:
+		HP: 6000
+	ReloadDelayMultiplier:
+		Modifier: 130
+	Explodes:
+		Weapon: Martyrdeath
+		EmptyWeapon: Martyrdeath
+	Voiced:
+		VoiceSet: TerroristVoice
+	RenderSprites:
+		Image: medipriest
 
 ###############################################################################
 ############################### Melee Units ###################################
@@ -33,24 +370,348 @@
 
 ##basic melee unit, more damage than defense
 ##footman
+FOOTMAN:
+	Inherits@MediSoldier: ^MediSoldier
+	Inherits@sprite: ^TSMedi
+	Inherits@InfPro: ^AutoTargetInfantryPriority
+	Buildable:
+		Prerequisites: ~infantry.medi
+		Description: Mediaval knight. \n Strong vs infantry\n Weak vs anything else
+		Queue: Infantry
+		BuildAtProductionType: Soldier
+		BuildPaletteOrder: 408
+		BuildDuration: 140
+	Valued:
+		Cost: 140
+	Tooltip:
+		Name: Mediaval conscript. \n Strong vs infantry\n Weak vs anything else
+	Health:
+		HP: 17000
+	Mobile:
+		Speed: 70
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	RevealsShroud:
+		Range: 6c512
+	WithInfantryBody:
+		DefaultAttackSequence: shoot
+	AutoTarget:
+		InitialStance: AttackAnything
+		ScanRadius: 6
+	AutoTargetPriority@DEFAULT:
+		ValidTargets: GroundActor, Infantry
+	Targetable:
+		TargetTypes: GroundActor, Infantry, Disguise
+	Armament@1:
+		Weapon: Sword
+	RenderSprites:
+		Image: mediswordman
+	Voiced:
+		VoiceSet: SwordmanVoice
+	BlocksProjectiles:
+
 
 ##basic melee unit, more defense focus
 ##knight
+Knight:
+	Inherits@FOOTMAN: FOOTMAN
+	Inherits@HighHPInf: ^HighHPInfantry
+	Buildable:
+		Prerequisites: ~infantry.medi, techcenter
+		Description: Mediaval Shield knight. \n Strong vs infantry\n Weak vs anything else
+		Queue: Infantry
+		BuildAtProductionType: Soldier
+		BuildPaletteOrder: 409
+		BuildDuration: 150
+	Valued:
+		Cost: 160
+	Tooltip:
+		Name: Shield Knight
+	Health:
+		HP: 30000
+	AttackFrontal:
+		Armaments: PRIMARY, SECONDARY
+		FacingTolerance: 0
+	Armament@1:
+		Name: PRIMARY
+		Weapon: Sword2
+	RenderSprites:
+		Image: mediswordman
+	Voiced:
+		VoiceSet: SwordmanVoice
+	-BlocksProjectiles:
+
 
 ##stealthed ambush unit
 ##assasin
+##can only hit infantry is stealth
+mediassasin:
+	Inherits@Scout: SCOUTMEDI
+	Inherits@InfPro: ^AutoTargetInfantryPriority
+	Buildable:
+		Prerequisites: ~infantry.medi, techcenter, ~infantry.darkness
+		Description: Stealthed Assasin Made for exicuting Infantry./nCan bypass Defenses and only spotable by Infantry./nloses stealth for a long time on attack or damage
+		Queue: Infantry
+		BuildAtProductionType: Soldier
+		BuildPaletteOrder: 406
+		BuildLimit: 3
+	Valued:
+		Cost: 1000
+	AutoTarget:
+		InitialStance: HoldFire
+		ScanRadius: 6
+	RevealsShroud:
+		Range: 5c512
+	Armament:
+		Name: Mediassasinblade
+		Weapon: Mediassasinblade
+	AttackLeap:
+		Speed: 200
+		Armaments: Mediassasinblade
+	Mobile:
+		Speed: 70
+	Health:
+		HP: 10000
+	Targetable:
+		TargetTypes: GroundActor, Infantry, Disguise
+	Cloak:
+		IsPlayerPalette: true
+		InitialDelay: 100
+		CloakDelay: 150
+		CloakType: DarkAssasin
+		CloakSound: tphclo00.aud
+		UncloakSound: tphclo01.aud
+		UncloakOn: Attack, Damage
+		CloakedCondition: DarkCloakOn
 
 ##leap attack and high damage
 ##swordmaster
+MEDIBLADEMASTER:
+	Inherits@MEDIPALADIN: FOOTMAN
+	Inherits@MediLowPower: ^MediLowPower
+	Inherits@InfPro: ^AutoTargetVehiclePriority
+	-BlocksProjectiles:
+	-Cloneable:
+	Buildable:
+		Prerequisites: ~infantry.darkness, advtechcenter
+		Description: Master Swordsman can throw tornados with his swings \n Strong vs infantry \n Weak vs Air
+		Queue: Infantry
+		BuildAtProductionType: Soldier
+		BuildPaletteOrder: 418
+		BuildLimit: 5
+	Selectable:
+		Bounds: 1194, 1365, 0, -682
+		DecorationBounds: 1194, 1365, 0, -682
+	Valued:
+		Cost: 1600
+	Tooltip:
+		Name: Blademaster
+	Armor:
+		Type: Light
+	Health:
+		HP: 70000
+	Mobile:
+		Speed: 100
+	AttackFrontal:
+		Armaments: primary, secondary
+	Armament:
+		Name: primary
+		Weapon: Blademastersword
+	Armament@leap:
+		Name: leap
+		Weapon: Blademasterswordleap
+	Armament@02:
+		Name: secondary
+		Weapon: Blademastertornado
+		RequiresCondition: !lowpower
+	Armament@GARRISONED:
+		Name: garrisoned
+		Weapon: Blademastertornado
+		RequiresCondition: !lowpower
+	Armament@BUS:
+		Name: bus
+		Weapon: Blademastertornado
+		RequiresCondition: !lowpower
+	WithInfantryBody:
+		StandSequences: stand
+	AutoTarget:
+		ScanRadius: 10
+	RenderSprites:
+		Image: mediblademaster
+	ExternalCondition@PRODUCED:
+		Condition: produced
+	VoiceAnnouncement:
+		RequiresCondition: produced
+		Voice: Build
+	AnnounceOnKill:
+	Voiced:
+		VoiceSet: BladeMasterVoice
+	AttackLeap:
+		Speed: 200
+		Armaments: leap
+
 
 ##gets stronger as hp gets lower
 ##berserker
+BERSERKER:
+	Inherits@FOOTMAN: FOOTMAN
+	-Crushable:
+	Buildable:
+		Prerequisites: ~infantry.medi, advtechcenter, ~infantry.darkness
+		Description: He carries the anger of a thousand small dwarfs.\n Strong vs infantry, Vehicles\n Weak vs Air, Snipers, Buildings
+		Queue: Infantry
+		BuildAtProductionType: Soldier
+		BuildPaletteOrder: 412
+	Valued:
+		Cost: 600
+	Tooltip:
+		Name: Berserker
+	Armor:
+		Type: Light
+	Health:
+		HP: 22000
+	GrantConditionOnHealth@Move:
+		Condition: BerLowHPM
+		MaxHP: 21000
+	GrantConditionOnHealth@Attack:
+		Condition: BerLowHPA
+		MaxHP: 16000
+	Mobile:
+		Speed: 75
+	SpeedMultiplier:
+		RequiresCondition: BerLowHPM
+		Modifier: 200
+	FirepowerMultiplier:
+		RequiresCondition: BerLowHPA
+		Modifier: 110
+	AttackFrontal:
+		Armaments: primary, primary1
+		FacingTolerance: 0
+	Armament:
+		Name: primary
+		Weapon: BerserkerSword
+		FireDelay: 3
+	Armament@3:
+		Name: primary1
+		Weapon: BerserkerSwordFast
+		FireDelay: 2
+		RequiresCondition: BerLowHPA
+	RenderSprites:
+		Image: mediberserker
+	Voiced:
+		VoiceSet: BerserkerVoice
+	ConvertsDamageToHealth:
+		DamagePercentConverted: 10
 
 ##slow regen in combat, fast regen outside combat
 ##paladin
+MEDIPALADIN:
+	Inherits@FOOTMAN: FOOTMAN
+	Inherits@MediLowPower: ^MediLowPower
+	Inherits@InfPro: ^AutoTargetVehiclePriority
+	Buildable:
+		Prerequisites: ~infantry.holy, advtechcenter, churchmedi
+		Description: He carries a holy sword. Provides a healing aura to nearby troops.\n Strong vs infantry, Light armor \n Weak vs Air, Tanks, Buildings
+		Queue: Infantry
+		BuildAtProductionType: Soldier
+		BuildPaletteOrder: 413
+		BuildDuration: 800
+		BuildLimit: 25
+	Selectable:
+		Bounds: 1194, 1365, 0, -682
+		DecorationBounds: 1194, 1365, 0, -682
+	Valued:
+		Cost: 1200
+	Tooltip:
+		Name: Holy Paladin
+	Health:
+		HP: 56789
+	Armor:
+		Type: Heavy
+	ChangesHealth@pallyboost:
+		PercentageStep: 2
+		Delay: 50
+		StartIfBelow: 50
+		DamageCooldown: 100
+	Armament:
+		Weapon: PaladinSword
+	WithInfantryBody:
+		StandSequences: stand
+	IgnoresDisguise:
+	ProximityExternalCondition@pallyboost:
+		Condition: MediPalyaura
+		Range: 2c512
+	WithRangeCircle:
+		Range: 2c512
+	RenderSprites:
+		Image: medipaladin
+	Voiced:
+		VoiceSet: PaladinVoiceMedi
+	-Crushable:
 
 ##spawned unit comes in batches
 ##swarmling
+swarmling:
+	Inherits: ^Infantry
+	Inherits@autotarget: ^AutoTargetGroundAssaultMove
+	Valued:
+		Cost: 50
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Tooltip:
+		Name: actor-swarmling.name
+	Health:
+		HP: 5500
+	Mobile:
+		Speed: 104
+	RevealsShroud:
+		Range: 4c512
+	Armament@1:
+		Name: primary
+		Weapon: ZerglingAttack
+		RequiresCondition: weap1
+	Armament@2:
+		Name: primary
+		Weapon: ZerglingAttack2
+		RequiresCondition: weap2
+	Armament@3:
+		Name: primary
+		Weapon: ZerglingAttack3
+		RequiresCondition: weap3
+	GrantRandomCondition:
+		Conditions: weap1, weap2, weap3
+	WithInfantryBody:
+		DefaultAttackSequence: shoot
+		IdleSequences: stand
+		StandSequences: stand
+	AutoTarget:
+		InitialStance: AttackAnything
+		ScanRadius: 5
+	AutoTargetPriority@DEFAULT:
+		ValidTargets: GroundActor, Infantry
+	Targetable:
+		TargetTypes: GroundActor, Infantry, Disguise
+	Voiced:
+		VoiceSet: ZergZerglingVoice
+	-DeathSounds@NORMAL:
+	-DeathSounds@BURNED:
+	-DeathSounds@ZAPPED:
+	DeathSounds:
+	WithDeathAnimation:
+		UseDeathTypeSuffix: false
+		CrushedSequence: die
+		CrushedSequencePalette: player
+		CrushedPaletteIsPlayerPalette: true
+	TakeCover:
+		SpeedModifier: 110
+		Duration: 75
+		DamageTriggers: TriggerProne
+	-SpawnActorOnDeath@fire:
+	MustBeDestroyed:
+	ProximityCaptor:
+		Types: Infantry
+	AttackFrontal:
+		FacingTolerance: 0
 
 ###############################################################################
 ################################# Ranged Units ################################
@@ -58,18 +719,240 @@
 
 ##basic ranged unit
 ##crossbow
+CROSSBOWMAN:
+	Inherits@MediSoldier: ^MediSoldier
+	Inherits@sprite: ^TSMedi
+	Inherits@InfPro: ^AutoTargetInfantryPriority
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Buildable:
+		Prerequisites: ~infantry.medi, ~!infantry.elementalists, techcenter
+		Description: Mediaval Crossbowman \n  Strong vs infantry\n Weak vs anything else
+		Queue: Infantry
+		BuildAtProductionType: Soldier
+		BuildPaletteOrder: 410
+	Health:
+		HP: 7500
+	Valued:
+		Cost: 165
+	Mobile:
+		Speed: 70
+	Tooltip:
+		Name: Crossbowman
+	RevealsShroud:
+		Range: 5c512
+	WithInfantryBody:
+		DefaultAttackSequence: shoot
+		StandSequences: stand
+	AutoTarget:
+		InitialStance: Defend
+		ScanRadius: 6
+	AutoTargetPriority@DEFAULT:
+		ValidTargets: GroundActor
+	Targetable:
+		TargetTypes: GroundActor, Infantry, Disguise
+	Armament:
+		Weapon: Infantryarrow
+		LocalOffset: 427,0,600
+	Armament@GARRISONED:
+		Name: garrisoned
+		Weapon: Infantryarrow
+	Armament@BUS:
+		Name: bus
+		Weapon: Infantryarrow
+	RenderSprites:
+		Image: crossbowman
+	Voiced:
+		VoiceSet: CrossbowmanVoice
 
 ##upgraded ranged unit
 ##voidarcher
-
-##AOE anti vehicle
-##firewizard
-
-##anti vehicle, spawns zombies on infantry kills
-##darkwizard
+VOIDARCHER:
+	Inherits@CROSSBOWMAN: CROSSBOWMAN
+	Inherits@MediLowPower: ^MediLowPower
+	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
+	Inherits@InfPro: ^AutoTargetVehiclePriority
+	Buildable:
+		Prerequisites: ~infantry.darkness, advtechcenter
+		Description: Dark magic archer \n Strong vs Light Vehicles, Infantry \n Weak vs Tanks
+		Queue: Infantry
+		BuildAtProductionType: Soldier
+		BuildPaletteOrder: 415
+	RevealsShroud:
+		Range: 7c512
+	Valued:
+		Cost: 800
+	Tooltip:
+		Name: Void Archer
+	Health:
+		HP: 15000
+	Mobile:
+		Speed: 60
+	Armament:
+		Weapon: Voidarchershot
+		PauseOnCondition: elementalweps
+		LocalOffset: 450,0,670
+	Armament@02:
+		Weapon: Voidarchershot2
+	Armament@GARRISONED:
+		Name: garrisoned
+		Weapon: Voidarchershot3
+		PauseOnCondition: elementalweps
+	Armament@BUS:
+		Name: bus
+		Weapon: Voidarchershot3
+		PauseOnCondition: elementalweps
+	Armament@ElementalWepon:
+		RequiresCondition: elementalweps
+		Weapon: Voidarchershot
+		LocalOffset: 450,0,670
+	Armament@GARRISONEDElementalWepon:
+		RequiresCondition: elementalweps
+		Name: garrisoned
+		Weapon: Voidarchershot3
+	Armament@BUSElementalWepon:
+		Name: bus
+		Weapon: Voidarchershot3
+		RequiresCondition: elementalweps
+	AutoTarget:
+		InitialStance: Defend
+		ScanRadius: 9
+	RenderSprites:
+		Image: medivoidarcher
+	Voiced:
+		VoiceSet: VoidArcherVoice
 
 ##sniper unit, chance to miss
 ##musketeer
+MUSKETEER:
+	Inherits@CROSSBOWMAN: CROSSBOWMAN
+	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
+	Buildable:
+		Prerequisites: ~infantry.medi, advtechcenter, ~!infantry.elementalists
+		Description: Slow firing musketeer \n Strong vs infantry, Air \n Weak vs Vehicles, Buildings
+		Queue: Infantry
+		BuildAtProductionType: Soldier
+		BuildPaletteOrder: 411
+	Valued:
+		Cost: 600
+	Tooltip:
+		Name: Musketeer
+	Health:
+		HP: 12000
+	Armament:
+		Weapon: MusketeerShot
+		FireDelay: 3
+	Armament@GARRISONED:
+		Name: garrisoned
+		Weapon: MusketeerShot
+	Armament@BUS:
+		Name: bus
+		Weapon: MusketeerShot
+	AutoTarget:
+		InitialStance: Defend
+		ScanRadius: 10
+	RenderSprites:
+		Image: medimusketeer
+
+
+##AOE anti vehicle
+##arcanewizard
+Arcanewizard:
+	Inherits@BOWMAN: CROSSBOWMAN
+	Inherits@MediLowPower: ^MediLowPower
+	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
+	ReloadDelayMultiplier:
+		Modifier: 150
+		RequiresCondition: lowpower
+	FirepowerMultiplier:
+		Modifier: 50
+		RequiresCondition: lowpower
+	Buildable:
+		Prerequisites: ~infantry.medi, advtechcenter
+		Description: War Mage fires penetrating magic \n Strong vs Vehicles Weak vs Infantry
+		Queue: Infantry
+		BuildAtProductionType: Soldier
+		BuildPaletteOrder: 414
+		BuildDuration: 500
+	Valued:
+		Cost: 1000
+	Tooltip:
+		Name: Arcane Wizard
+	Health:
+		HP: 20000
+	Mobile:
+		Speed: 60
+	Armament:
+		Weapon: WizBall
+	Armament@GARRISONED:
+		Name: garrisoned
+		Weapon: WizBall
+	Armament@BUS:
+		Name: bus
+		Weapon: WizBall
+	RenderSprites:
+		Image: mediswordman
+	Voiced:
+		VoiceSet: SwordmanVoice
+	##RenderSprites:
+		##Image: mediwizardl
+	##Voiced:
+		##VoiceSet: WizardVoice
+
+##AOE anti infantry, chance to EMP on stacks
+##lightningwizard
+LightningWizard:
+	Inherits@BOWMAN: Arcanewizard
+	Buildable:
+		Prerequisites: ~infantry.medi, advtechcenter
+		Description: Elemental Mage uses Lightning magic \n Strong vs Infantry Weak vs Buildings
+		Queue: Infantry
+		BuildAtProductionType: Soldier
+		BuildPaletteOrder: 414
+		BuildDuration: 500
+	Valued:
+		Cost: 1000
+	Tooltip:
+		Name: Lightning Wizard
+	Health:
+		HP: 20000
+	Armament:
+		Weapon: Wizzap
+	Armament@GARRISONED:
+		Name: garrisoned
+		Weapon: Wizzap
+	Armament@BUS:
+		Name: bus
+		Weapon: Wizzap
+
+##AOE anti infantry and buildings
+##Firewizard
+FireWizard:
+	Inherits@BOWMAN: Arcanewizard
+	Buildable:
+		Prerequisites: ~infantry.medi, advtechcenter
+		Description: Elemental Mage Uses Fire magic \n Strong vs Infantry Weak vs Vehicles
+		Queue: Infantry
+		BuildAtProductionType: Soldier
+		BuildPaletteOrder: 414
+		BuildDuration: 500
+	Valued:
+		Cost: 1000
+	Tooltip:
+		Name: Fire Wizard
+	Health:
+		HP: 20000
+	Armament:
+		Weapon: WizFireBall
+	Armament@GARRISONED:
+		Name: garrisoned
+		Weapon: WizFireBall
+	Armament@BUS:
+		Name: bus
+		Weapon: WizFireBall
+
+##anti vehicle, spawns zombies on infantry kills
+##darkwizard
 
 ###############################################################################
 ###############################################################################
