@@ -1781,19 +1781,19 @@ actor-japantankbuster =
 
 actor-japanrocketangel =
    .name = Rocket Angel
-   .description = Airborne angel.
+   .description = Airborne angel. Can fly to go over difficult terrain, armed with a plasma rocket barrage.
     Speed: 71
       Strong vs Infantry, Vehicles
       Weak vs Aircraft
 
 actor-japanarchermaiden =
-   .description = Archer Maiden 
+   .description = Archer Maiden. Armed with a bow, can be upgraded to shot explosive arrows.
       Strong vs Infantry, Aircraft
      Weak vs Vehicles
    .name = Archer Maiden
 
 actor-japanwarhorse =
-   .description = Archer Maiden riding horse 
+   .description = Archer Maiden riding horse. Armed with a bow, can be upgraded to shot explosive arrows.
       Strong vs Infantry, Aircraft
      Weak vs Vehicles
    .name = Warhorse
@@ -1805,7 +1805,7 @@ actor-japanshinobi =
    .name = Shinobi
 
 actor-japanbioengineer =
-   .description = The Science Team!
+   .description = The Science Team! Can heal infantry and defend themself with a pistol.
    .name = Bio Engineer
 
 actor-japanmutant =
@@ -1816,7 +1816,7 @@ actor-japanmutant =
    .name = Titan
 
 actor-japanmatsui =
-   .description = anime girl
+   .description = Yandere anime girl that shots fuckin lasers.
    .name = Matsui Yuriko
 
 actor-japanonmyodo =
@@ -1827,17 +1827,17 @@ actor-japaninugami-name = Inugami
 
 ## japan_shp.yaml
 actor-japankappa =
-   .description = Fast scout boat, armed with rockets.
+   .description = Fast scout boat, armed with plasma gattling gun.
    .name = Kappa Boat
 
 actor-japannaginata =
-   .description = Very slow long-range ship.
+   .description = Very slow long-range ship. Armed with a plasma rocket barrage.
       Strong vs Buildings, Ground units
       Weak vs Naval units, Aircraft
    .name = Naginata Cruiser
 
 actor-japanshogun =
-   .description = Long range battleship.
+   .description = Long range battleship. Armed with long range plasma cruiser missiles.
    .name = Shogun Battleship
 
 actor-japanhovercraft =
@@ -1999,49 +1999,50 @@ actor-japansuddentransport =
    .name = Sudden Transport
 
 actor-japantsunamitank =
-   .description = Tsunami Tank.
+   .description = Tsunami Tank. Armed with a plasma cannon.
       Strong vs Vehicles
       Weak vs Aircraft
    .name = Tsunami Tank
 
 actor-japanmechatransformer =
-   .description = Anti-personnel walker.
+   .description = Light Mecha that can change its weapon depending on what unit is piloting it.
     Speed: 99
       Strong vs Infantry, Light armor
       Weak vs Vehicles, Aircraft
    .name = Mecha Transformer
 
 actor-japantsukumogami =
-   .description = Anti-personnel plasma walker.
+   .description = Light Mecha with dual plasma cannons.
     Speed: 99
-      Strong vs Vehicles
-      Weak vs Aircraft
+      Strong vs Vehicles, Buildings
+      Weak vs Infantry, Aircraft
    .name = Tsukumogami
 
 actor-japanmecharaijuu =
-   .description = Anti-personnel walker.
+   .description = Anti-tank walker. Dual wielding plasma cannons.
     Speed: 99
-      Strong vs Infantry, Light armor
-      Weak vs Vehicles, Aircraft
+      Strong vs Vehicles, Buildings
+      Weak vs Infantry, Aircraft
    .name = Mecha Raijuu
 
 actor-japanstrikervx =
-   .description = Anti-personnel walker.
+   .description = Anti-personnel walker. Armed with a plasma gatling cannon.
     Speed: 99
-      Strong vs Infantry, Light armor
-      Weak vs Vehicles, Aircraft
+      Strong vs Infantry, Aircraft
+      Weak vs Vehicles, Buildings
    .name = Striker VX
 
 actor-japanmechatengu =
-   .description = Anti-personnel walker.
+   .description = Anti-tank walker. Armed with a dual plasma rocket barrage. Strong on groups of light units.
     Speed: 99
-      Strong vs Infantry, Light armor
-      Weak vs Vehicles, Aircraft
+      Weak vs Vehicles, 
+      Strong vs Infantry, Light armor, Aircraft
+      Weak vs Vehicles
    .name = Mecha Tengu
 
 actor-japanhiroshimawaveforce =
-   .description = Tsunami Tank.
-      Strong vs Vehicles
+   .description = Tsunami Tank. Equipped with a Waveforce Cannon that can be deployed to adapt to enemy forces.
+      Strong vs Vehicles, Infantry
       Weak vs Aircraft
    .name = Hiroshima Waveforce
 
@@ -2051,14 +2052,14 @@ actor-japandatenshi =
    .name = Datenshi
 
 actor-japanexecutioner =
-   .description = Anti-personnel walker.
+   .description = Anti-personnel walker. Melee unit that turns invisible after striking.
     Speed: 99
       Strong vs Infantry, Light armor
       Weak vs Vehicles, Aircraft
    .name = Executioner
 
 actor-japandominatrix =
-   .description = Anti-personnel walker.
+   .description = Anti-personnel walker. Long range debuffer.
     Speed: 99
       Strong vs Infantry, Light armor
       Weak vs Vehicles, Aircraft
@@ -2084,6 +2085,7 @@ actor-japanakuma =
 
 actor-japankingoni =
    .description = King Oni is a well rounded mech capable of fighting all forms of enemies, at the expense of defence.
+      Dual-wielding Waveforce Cannons and Anti-air Datenshi Arrow.
       Strong vs Vehicles, Infantry, Aircraft
    .name = King Oni
 
@@ -2104,7 +2106,7 @@ actor-japankuruttaneko =
 actor-japanhakaimono =
    .description = [EPIC]
     Hakaimono is a fully equipped Super Mecha.
-    Armed with a plasma gattling gun, anti matter missiles & laser barrage.
+    Armed with a plasma gattling gun, anti matter missiles & laser barrage. The Ultimate Mecha.
    .name = Hakaimono
 
 actor-japanmechanic =
