@@ -2169,6 +2169,37 @@ DragoonPlasmaAir:
 		Spread: 300
 		Damage: 3000
 
+FenixPlasma:
+	Inherits: DragoonPlasma
+	Range: 7c0
+	ReloadDelay: 40
+	Warhead@1Dam: SpreadDamage
+		Spread: 400
+		Damage: 15000
+		ValidTargets: Ground, GroundActor, WaterActor, Trees
+		Versus:
+			None: 100
+			Wood: 100
+			Light: 80
+			Heavy: 135
+			Concrete: 75
+		DamageTypes: Prone50Percent, TriggerProne, ExplosionDeath
+		ValidRelationships: Neutral, Enemy
+	Warhead@2Dam: SpreadDamage
+		Spread: 400
+		Damage: 2000
+		ValidTargets: Ground, GroundActor, WaterActor, Trees
+		DamageTypes: Prone50Percent, TriggerProne, ExplosionDeath
+		ValidRelationships: Ally
+	Warhead@2Smu: LeaveSmudge
+		SmudgeType: Crater
+		ValidTargets: Ground, Infantry
+	Warhead@3EffGround: CreateEffect
+		Explosions: protoss_building
+		ImpactSounds: explo1.aud
+		ValidTargets: Ground, GroundActor, WaterActor, Trees, Air, AirborneActor
+
+
 PhotonPlasma:
 	Inherits: ^ShieldHit
 	ReloadDelay: 25
@@ -2256,32 +2287,49 @@ ReaverScarab:
 		ImpactSounds: explo1.aud
 		ValidTargets: Ground, GroundActor, WaterActor, Trees, Air, AirborneActor
 
+
 ShieldBattery:
 	ReloadDelay: 2
 	Range: 7c0
-	ValidTargets: Heal, Repair, StructureRepair
+	ValidTargets: ShieldRegen
 	TargetActorCenter: true
 	Projectile: LaserZap
 		Width: 35
 		Duration: 2
 		TrackTarget: True
 		Color: 00BBFF
-	Warhead@inf: SpreadDamage
-		Spread: 32
+	Warhead@Infantry: SpreadDamage
+		Spread: 96
+		Damage: -900
+		ValidRelationships: Ally
+		ValidTargets: ShieldRegen
+		InvalidTargets: Vehicle, Structure, AirborneActor
+		DebugOverlayColor: 00FF00
+	Warhead@Vehicle: SpreadDamage
+		Spread: 213
+		Damage: -600
+		ValidRelationships: Ally
+		ValidTargets: ShieldRegen
+		InvalidTargets: Infantry, Structure, AirborneActor
+		DebugOverlayColor: 00FF00
+	Warhead@Structure: SpreadDamage
+		Spread: 213
+		Damage: -500
+		ValidRelationships: Ally
+		ValidTargets: ShieldRegen
+		InvalidTargets: Infantry, Vehicle, AirborneActor
+		DebugOverlayColor: 00FF00
+	Warhead@Aircraft: SpreadDamage
+		Spread: 213
 		Damage: -200
 		ValidRelationships: Ally
-		ValidTargets: Heal
-		DebugOverlayColor: 00FF00
-	Warhead@vehstr: SpreadDamage
-		Spread: 32
-		Damage: -125
-		ValidRelationships: Ally
-		ValidTargets: Repair, StructureRepair
+		ValidTargets: ShieldRegen
+		InvalidTargets: Infantry, Structure, Vehicle
 		DebugOverlayColor: 00FF00
 	Warhead@cond: GrantExternalCondition
 		Condition: healed
-		Range: 512
-		Duration: 375
+		Range: 64
+		Duration: 125
 		ValidTargets: Infantry
 		InvalidTargets: BeingHealed
 
@@ -3945,7 +3993,7 @@ VesselDefenseMatrix:
 	Range: 9c0
 	Report: tvedef00.aud
 	ValidTargets: GroundActor, AirborneActor
-	InvalidTargets: Structure
+	InvalidTargets: Structure, DefenseMatrix
 	ValidRelationships: Ally
 	Projectile: LaserZap
 		Width: 0
@@ -3969,7 +4017,7 @@ VesselDefenseMatrixAI:
 		ValidTargets: Heal, Repair
 
 VesselIrradiate:
-	ReloadDelay: 100
+	ReloadDelay: 500
 	Range: 9c0
 	Report: tveirr00.aud
 	ValidTargets: GroundActor, WaterActor, AirborneActor

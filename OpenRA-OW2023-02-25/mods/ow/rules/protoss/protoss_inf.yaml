@@ -136,6 +136,8 @@ PZEALOT:
 		Name: actor-pzealot.name
 	Health:
 		HP: 25000
+	Shielded:
+		MaxStrength: 18000
 	Mobile:
 		Speed: 80
 	RevealsShroud:
@@ -217,8 +219,8 @@ PTEMPLAR:
 		Name: actor-ptemplar.name
 	Health:
 		HP: 20000
-	DamageMultiplier@shield:
-		Modifier: 15
+	Shielded:
+		MaxStrength: 40000
 	Mobile:
 		Speed: 80
 		Locomotor: foot2
@@ -327,9 +329,11 @@ PARCHON:
 	Tooltip:
 		Name: actor-parchon.name
 	Health:
-		HP: 25000
-	DamageMultiplier@shield:
-		Modifier: 2
+		HP: 20000
+	Shielded:
+		MaxStrength: 150000
+	Shielded@defmatrix:
+		MaxStrength: 200000
 	Armor:
 		Type: Heavy
 	Mobile:
@@ -413,7 +417,7 @@ PDTEMPLAR:
 	Inherits@shield: ^ProtossInfShield
 	Inherits@Autotarget: ^AutoTargetGroundAssaultMove
 	Buildable:
-		Prerequisites: ~infantry.protoss, advtechcenter, ~techlevel.unrestricted
+		Prerequisites: ~infantry.protoss, advtechcenter, ~techlevel.unrestricted, ~!infantry.artanis
 		Description: actor-pdtemplar.description
 		Queue: Infantry
 		BuildAtProductionType: Soldier
@@ -517,7 +521,7 @@ PDARCHON:
 	Inherits: ^Infantry
 	Inherits@shield: ^ProtossInfShield
 	Buildable:
-		Prerequisites: ~infantry.protoss, ~techlevel.unrestricted, advtechcenter
+		Prerequisites: ~infantry.protoss, ~techlevel.unrestricted, advtechcenter, ~!infantry.artanis
 		Description: actor-pdarchon.description
 		Queue: Infantry
 		BuildAtProductionType: Soldier
@@ -534,10 +538,12 @@ PDARCHON:
 		Name: actor-pdarchon.name
 	Health:
 		HP: 30000
-	DamageMultiplier@shield:
-		Modifier: 4
-	GrantConditionOnHealthPercentage@shield:
-		RequiresCondition: external_shield && !emp_shields && !firedweapon
+	Shielded:
+		RequiresCondition: external_shield && !emp_shields && !firedweapon && !defense_matrix
+		MaxStrength: 120000
+	Shielded@defmatrix:
+		RequiresCondition: defense_matrix && !emp_shields && !firedweapon
+		MaxStrength: 160000
 	Armor:
 		Type: Heavy
 	AutoTarget:
@@ -640,7 +646,7 @@ PDARCHON:
 		PauseOnCondition: disabled || firedweapon
 	GrantConditionOnAttack@1:
 		Condition: firedweapon
-		RevokeDelay: 750
+		RevokeDelay: 24
 	VoiceAnnouncement:
 		RequiresCondition: !forming
 		Voice: Build

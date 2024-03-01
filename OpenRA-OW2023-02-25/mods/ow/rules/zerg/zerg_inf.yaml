@@ -45,6 +45,15 @@
 		RequiresCondition: kerrigan.health
 		DamagePercentConverted: 15
 
+^ZergSpawnBanelings:
+	GrantConditionOnFaction@kerrigan:
+		Factions: zagara
+		Condition: zagara_death
+	SpawnActorOnDeath@baneling:
+		RequiresCondition: zagara_death
+		Actor: ZBANELING2
+		Probability: 66
+
 ZZERGLING:
 	Inherits: ^Infantry
 	Inherits@zerg: ^ZergUnitWeapon
@@ -271,6 +280,7 @@ ZDRONE.ENG:
 ZHYDRA:
 	Inherits: ^Infantry
 	Inherits@zerg: ^ZergUnitWeapon
+	Inherits@zergbaneling: ^ZergSpawnBanelings
 	Inherits@autotarget: ^AutoTargetAllAssaultMove
 	Buildable:
 		Prerequisites: zhydraden, ~infantry.zerg, ~techlevel.infonly
@@ -391,6 +401,7 @@ ZHYDRA.b:
 ZLURKER:
 	Inherits: ^Infantry
 	Inherits@zerg: ^ZergUnitWeapon
+	Inherits@zergbaneling: ^ZergSpawnBanelings
 	Inherits@autotarget: ^AutoTargetGroundAssaultMove
 	Buildable:
 		Prerequisites: zhydraden, ~infantry.zerg, ~techlevel.high, techcenter, ~!ai.all
@@ -497,6 +508,7 @@ ZLURKER:
 ZLURKER.AI:
 	Inherits: ^Infantry
 	Inherits@zerg: ^ZergUnitWeapon
+	Inherits@zergbaneling: ^ZergSpawnBanelings
 	Inherits@autotarget: ^AutoTargetGroundAssaultMove
 	Buildable:
 		Prerequisites: zhydraden, ~infantry.zerg, ~techlevel.high, techcenter, ~ai.all
@@ -609,6 +621,7 @@ ZLURKER.AI:
 ZULTRA:
 	Inherits: ^Infantry
 	Inherits@zerg: ^ZergUnitWeapon
+	Inherits@zergbaneling: ^ZergSpawnBanelings
 	Inherits@autotarget: ^AutoTargetAllAssaultMove
 	Buildable:
 		Prerequisites: zultraden, ~infantry.zerg, ~techlevel.unrestricted, ~!kerrigan.tier4.torrasque
@@ -782,6 +795,7 @@ ZTORRASQUE.Corpse:
 ZDEFILER:
 	Inherits: ^Infantry
 	Inherits@zerg: ^ZergUnitWeapon
+	Inherits@zergbaneling: ^ZergSpawnBanelings
 	Inherits@autotarget: ^AutoTargetAllAssaultMove
 	Buildable:
 		Prerequisites: zmound, ~infantry.zerg, ~techlevel.unrestricted, ~!infantry.kerrigan

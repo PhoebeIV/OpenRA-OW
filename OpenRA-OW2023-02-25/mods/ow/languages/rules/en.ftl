@@ -2856,6 +2856,12 @@ actor-pfleet =
 
 actor-pfleet-req-name = Limited
 
+actor-pzealot-warp =
+   .name = Warp in Zealot
+
+actor-pdrago-warp =
+   .name = Warp in Dragoon
+
 ## protoss_veh.yaml
 actor-pdrago =
    .description = Cybernetic ranged unit.
@@ -2868,6 +2874,13 @@ actor-preaver =
     Speed: 42
       Strong vs Ground units
    .name = Reaver
+
+actor-pfenix =
+   .description = [EPIC]
+   Cybernetic ranged unit.
+    Speed: 108
+      Strong vs everything
+   .name = Fenix
 
 ## shared_air.yaml
 actor-heli-description = Helicopter gunship armed
@@ -5135,3 +5148,6 @@ actor-zagara-tier5-hyperion2 =
    .name = Hypercharge
    .description = Allows the Hyperion to remain in 
      combat for an additional 15 seconds.
+
+notification-shield-projection-charging = Shield projection charging.
+notification-shield-projection-ready = Shield projection ready.

@@ -1,26 +1,45 @@
 ^ProtossShield:
-	GrantConditionOnHealthPercentage@shield:
-		MinHP: 85
 	GrantConditionOnPrerequisite@shields:
 		Prerequisites: protoss.shields
 		Condition: shields
-	DamageMultiplier@shield2:
-		RequiresCondition: enable_shield && shields
+	DamageMultiplier@shields:
+		RequiresCondition: shields && shielded
 		Modifier: 90
-	DamageMultiplier@shield:
-		Modifier: 15
+	Shielded:
+		MaxStrength: -1
+		RegenAmount: 350
+		RegenInterval: 35
+		RegenDelay: 50
+		SelectionBarColor: AAAAFF
+		ShieldsUpCondition: shielded
+		ShieldsDamagedCondition: damaged_shield
+		BypassDamageTypes: BypassShield
+		OverrideDamageType: BypassedShield
+		RequiresCondition: external_shield && !emp_shields && !defense_matrix
+		HideBarWhenFull: true
+	ShieldRegenMultiplier:
+		Modifier: 5
+		RequiresCondition: shield_regen
+	ShieldRegenMultiplier@shields:
+		Modifier: 80
+		RequiresCondition: shields
+	ExternalCondition@shieldregen:
+		Condition: shield_regen
+	ExternalCondition@empshield:
+		Condition: emp_shields
+	Targetable@shielddamage:
+		TargetTypes: ShieldRegen
+		RequiresCondition: damaged_shield && !defiler_plague
+	Armor@shield:
+		RequiresCondition: shielded || defense_matrix_up
+		Type: Shield
+	Armor:
+		RequiresCondition: !shielded
 	GrantCondition@shields:
 		Condition: external_shield
-	ChangesHealth@shregen:
-		PercentageStep: 1
-		Delay: 125
-		StartIfBelow: 91
-		DamageCooldown: 250
-	ChangesHealth@shregen2:
-		PercentageStep: 1
-		Delay: 100
-		StartIfBelow: 100
-		RequiresCondition: enable_shield
+	WithColoredOverlay@shielded:
+		RequiresCondition: shielded && !damaged_shield
+		Color: 00FBFF0A
 
 PMCV:
 	Inherits: MCV
@@ -71,6 +90,8 @@ PDRAGO:
 		Name: actor-pdrago.name
 	Health:
 		HP: 30000
+	Shielded:
+		MaxStrength: 24000
 	Armor:
 		Type: Heavy
 	Mobile:
@@ -158,6 +179,8 @@ PREAVER:
 		Name: actor-preaver.name
 	Health:
 		HP: 30000
+	Shielded:
+		MaxStrength: 24000
 	Armor:
 		Type: Heavy
 	Mobile:
@@ -187,3 +210,84 @@ PREAVER:
 	RenderSprites:
 	Voiced:
 		VoiceSet: ProtossRobotVoice
+
+PFENIX:
+	Inherits: ^EpicVehicle
+	Inherits@EPIC: ^EpicUnit
+	Inherits@shield: ^ProtossInfShield
+	Inherits@AUTOTARGET: ^AutoTargetAll
+	Buildable:
+		Prerequisites: ~infantry.artanis, ~techlevel.unrestricted, pcyber, ulttechcenter
+		Description: actor-pfenix.description
+		Queue: Vehicle
+		BuildAtProductionType: Soldier
+		BuildPaletteOrder: 90
+		BuildLimit: 1
+	Selectable:
+		Bounds: 1600, 1600, 0, 0
+		DecorationBounds: 1600, 1600, 0, 0
+		Class: PDRAGO
+	Valued:
+		Cost: 5000
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Tooltip:
+		Name: actor-pfenix.name
+	Health:
+		HP: 100000
+	Shielded:
+		MaxStrength: 120000
+	Armor:
+		Type: Heavy
+	Mobile:
+		Speed: 108
+		Locomotor: foot2
+		TurnSpeed: 48
+		PauseOnCondition: disabled
+	RevealsShroud:
+		MinRange: 6c0
+		Range: 8c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 5c0
+	Passenger:
+		Weight: 4
+	AttackFrontal:
+		FacingTolerance: 0
+	Armament:
+		Weapon: FenixPlasma
+		FireDelay: 6
+		PauseOnCondition: disabled
+	Armament@aa:
+		Weapon: DragoonPlasmaAir
+		FireDelay: 6
+		PauseOnCondition: disabled
+	-WithFacingSpriteBody:
+	-Explodes:
+	WithInfantryBody:
+		DefaultAttackSequence: shoot
+		IdleSequences: idle
+		StandSequences: idle
+	RenderSprites:
+	Voiced:
+		VoiceSet: ProtossFenixVoice
+	AnnounceOnKill:
+	DeathSounds:
+		Voice: DragoonDie
+	Explodes:
+		Weapon: MiniNukeIonCrate
+		EmptyWeapon: MiniNukeIonCrate
+	WithDeathAnimation:
+		UseDeathTypeSuffix: false
+		CrushedSequence: die
+		CrushedSequencePalette: player
+		CrushedPaletteIsPlayerPalette: true
+	GrantConditionOnPrerequisite@charge:
+		Prerequisites: protoss.dragoon
+		Condition: charge
+	RangeMultiplier@charge:
+		RequiresCondition: charge
+		Modifier: 118
+	RevealsShroudMultiplier@charge:
+		RequiresCondition: charge
+		Modifier: 118

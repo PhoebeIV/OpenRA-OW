@@ -95,6 +95,8 @@ PNEXUS:
 		Description: actor-pnexus.description
 	Health:
 		HP: 80000
+	Shielded:
+		MaxStrength: 80000
 	Armor:
 		Type: Wood
 	RevealsShroud:
@@ -182,7 +184,19 @@ PNEXUS:
 		Adjacent: 4
 	Health:
 		HP: 60000
+	Shielded:
+		MaxStrength: 60000
+		RegenAmount: 400
+		RegenInterval: 100
+		RegenDelay: 50
+		SelectionBarColor: AAAAFF
+		ShieldsUpCondition: shielded
+		RequiresCondition: started
+	Armor@shield:
+		RequiresCondition: shielded
+		Type: Shield
 	Armor:
+		RequiresCondition: !shielded
 		Type: Wood
 	Valued:
 		Cost: 500
@@ -333,6 +347,8 @@ PGATEW:
 		LocalCenterOffset: 0,-512,0
 	Health:
 		HP: 60000
+	Shielded:
+		MaxStrength: 60000
 	Armor:
 		Type: Wood
 	Power:
@@ -487,6 +503,8 @@ PPYLON:
 		Dimensions: 1,1
 	Health:
 		HP: 30000
+	Shielded:
+		MaxStrength: 30000
 	Armor:
 		Type: Wood
 	RevealsShroud:
@@ -568,6 +586,8 @@ PASSIM:
 		TargetTypes: GroundActor, Structure, C4, DetonateAttack, ThiefInfiltrate, SpyInfiltrate
 	Health:
 		HP: 50000
+	Shielded:
+		MaxStrength: 50000
 	Armor:
 		Type: Wood
 	Power:
@@ -668,6 +688,8 @@ PCYBER:
 		LocalCenterOffset: 0,-512,0
 	Health:
 		HP: 65000
+	Shielded:
+		MaxStrength: 65000
 	Armor:
 		Type: Wood
 	Power:
@@ -758,6 +780,8 @@ PPHOTO:
 		Dimensions: 2,2
 	Health:
 		HP: 30000
+	Shielded:
+		MaxStrength: 30000
 	Armor:
 		Type: Heavy
 	Power:
@@ -852,6 +876,7 @@ POBSER:
 	Inherits: ^ProtossBuilding
 	Inherits@shape: ^2x2Shape
 	Inherits@BIB: ^2xBuildingBib
+	Inherits@IDISABLE: ^DisableOnLowPowerOrPowerDown
 	Buildable:
 		Queue: Bot
 		Prerequisites: refinery, ~structures.protoss, ~techlevel.medium, ~ai.all
@@ -871,6 +896,8 @@ POBSER:
 		LocalCenterOffset: 0,-512,0
 	Health:
 		HP: 55000
+	Shielded:
+		MaxStrength: 55000
 	Armor:
 		Type: Wood
 	Power:
@@ -954,6 +981,8 @@ PSUPOR:
 		LocalCenterOffset: 0,-512,0
 	Health:
 		HP: 55000
+	Shielded:
+		MaxStrength: 55000
 	Armor:
 		Type: Wood
 	Power:
@@ -1038,12 +1067,13 @@ PADUN.warp:
 
 PADUN:
 	Inherits: ^ProtossBuilding
+	Inherits@IDISABLE: ^DisableOnLowPower
 	Inherits@shape: ^2x2Shape
 	Inherits@tech: ^TechCenter
 	Inherits@BIB: ^2xBuildingBib
 	Buildable:
 		Queue: Bot
-		Prerequisites: pcyber, radar, ~structures.protoss, ~techlevel.high, ~ai.all, ~!ai.hard
+		Prerequisites: pcyber, radar, ~structures.protoss, ~techlevel.high, ~ai.all
 		BuildLimit: 1
 	Selectable:
 		Bounds: 2048, 2048
@@ -1058,6 +1088,8 @@ PADUN:
 		LocalCenterOffset: 0,-512,0
 	Health:
 		HP: 50000
+	Shielded:
+		MaxStrength: 50000
 	Power:
 		Amount: -100
 	Armor:
@@ -1076,8 +1108,57 @@ PADUN:
 		Offset: 128,-128,0
 	InfiltrateForSupportPowerReset:
 		Types: SpyInfiltrate
-	Power:
-		Amount: 0
+	ProvidesPrerequisite@artanis:
+		Factions: artanis
+		Prerequisite: padun.artanis
+	ProvidesPrerequisite@artanisstructures:
+		RequiresPrerequisites: structures.artanis
+		Prerequisite: padun.artanis
+	GrantExternalConditionPower@shields:
+		OrderName: ProtossShields
+		Name: Shield Projection
+		PauseOnCondition: disabled
+		Icon: protossshields
+		ChargeInterval: 4500
+		Prerequisites: padun.artanis
+		Description: Grants a permanent plasma shield to\ntargeted units and structures.
+		SelectTargetSpeechNotification: SelectTarget
+		InsufficientPowerSpeechNotification: InsufficientPower
+		BeginChargeSpeechNotification: IronCurtainCharging
+		EndChargeSpeechNotification: IronCurtainReady
+		SelectTargetTextNotification: notification-select-target
+		InsufficientPowerTextNotification: notification-insufficient-power
+		BeginChargeTextNotification: notification-shield-projection-charging
+		EndChargeTextNotification: notification-shield-projection-ready
+		DisplayRadarPing: True
+		Condition: external_shield
+		OnFireSound: beltsnd.aud
+		SupportPowerPaletteOrder: 10
+		Dimensions: 5, 5
+		Footprint: _xxx_ xxxxx xxxxx xxxxx _xxx_
+	GrantExternalConditionPower@overshields:
+		OrderName: ProtossShields2
+		Name: Overshield
+		PauseOnCondition: disabled
+		Icon: protossshields2
+		ChargeInterval: 4500
+		Duration: 500
+		Prerequisites: padun.artanis
+		Description: Grants an overcharged shield to\ntargeted units for 20 seconds.
+		SelectTargetSpeechNotification: SelectTarget
+		InsufficientPowerSpeechNotification: InsufficientPower
+		BeginChargeSpeechNotification: IronCurtainCharging
+		EndChargeSpeechNotification: IronCurtainReady
+		SelectTargetTextNotification: notification-select-target
+		InsufficientPowerTextNotification: notification-insufficient-power
+		BeginChargeTextNotification: notification-overshield-charging
+		EndChargeTextNotification: notification-overshield-ready
+		DisplayRadarPing: True
+		Condition: defense_matrix
+		OnFireSound: tvedef00.aud
+		SupportPowerPaletteOrder: 10
+		Dimensions: 5, 5
+		Footprint: _xxx_ xxxxx xxxxx xxxxx _xxx_
 
 PTEMPL.warp:
 	Inherits: ^WarpStructure3x2
@@ -1118,7 +1199,7 @@ PTEMPL:
 	Inherits: ^ProtossBuilding
 	Inherits@pips: ^AdvTechPips
 	Inherits@shape: ^3x2Shape
-	Inherits@IDISABLE: ^DisableOnLowPower
+	Inherits@IDISABLE: ^DisableOnLowPowerOrPowerDown
 	Inherits@BIB: ^3xBuildingBib
 	-AlwaysVisible:
 	Buildable:
@@ -1144,6 +1225,8 @@ PTEMPL:
 		Bounds: 3072, 3072, 0, -426
 	Health:
 		HP: 60000
+	Shielded:
+		MaxStrength: 60000
 	Armor:
 		Type: Wood
 	Power:
@@ -1166,7 +1249,7 @@ PTEMPL:
 		Offset: 128,-128,0
 	CashTrickler:
 		Interval: 750
-		Amount: 75
+		Amount: 250
 		InitialDelay: 325
 		RequiresCondition: !disabled && pylon
 		UseResourceStorage: true
@@ -1174,6 +1257,12 @@ PTEMPL:
 		RequiresCondition: !build-incomplete
 	GrantExternalConditionToProduced:
 		Condition: produced
+	ProvidesPrerequisite@artanis:
+		Factions: artanis
+		Prerequisite: ptempl.artanis
+	ProvidesPrerequisite@artanisstructures:
+		RequiresPrerequisites: structures.artanis
+		Prerequisite: ptempl.artanis
 	IonCannonPower:
 		PauseOnCondition: disabled
 		Icon: ioncannon
@@ -1195,6 +1284,22 @@ PTEMPL:
 		EffectSequence: piff
 		Weapon: MiniNukeIon
 		DisplayTimerRelationships: Ally, Neutral, Enemy
+	SpawnActorPower@pylon:
+		PauseOnCondition: disabled
+		OrderName: ProjectPylon
+		Cursor: chrono-target
+		Icon: pylon
+		ChargeInterval: 9000
+		LifeTime: 1500
+		Name: Pylon Projection
+		Description: Beam down a Pylon anywhere on the map\n for 1 minute.
+		Actor: ppylon.warppower
+		SelectTargetSpeechNotification: SelectTarget
+		DisplayRadarPing: True
+		EffectSequence: idle
+		SupportPowerPaletteOrder: 19
+		AllowUnderShroud: false
+		Terrain: Clear, Road
 	Explodes:
 		Type: CenterPosition
 		Weapon: MiniNuke
@@ -1260,6 +1365,8 @@ PROBOT:
 		Bounds: 3072, 3072, 0, -426
 	Health:
 		HP: 80000
+	Shielded:
+		MaxStrength: 80000
 	Armor:
 		Type: Wood
 	Power:
@@ -1312,7 +1419,7 @@ PSBATT.warp:
 	Inherits: ^WarpStructure
 	Buildable:
 		Queue: Defense
-		BuildPaletteOrder: 10
+		BuildPaletteOrder: 9
 		Prerequisites: factory, ~structures.protoss, ~techlevel.medium
 		Description: actor-psbatt-warp.description
 		Icon: icon-battery
@@ -1380,6 +1487,8 @@ PSBATT:
 		Dimensions: 2,2
 	Health:
 		HP: 30000
+	Shielded:
+		MaxStrength: 30000
 	Armor:
 		Type: Wood
 	Power:
@@ -1514,6 +1623,8 @@ PSTARG:
 		Bounds: 3072, 3072, 0, -426
 	Health:
 		HP: 70000
+	Shielded:
+		MaxStrength: 70000
 	Armor:
 		Type: Wood
 	Power:
@@ -1643,6 +1754,8 @@ PFLEET:
 		Bounds: 3072, 3072, 0, -426
 	Health:
 		HP: 80000
+	Shielded:
+		MaxStrength: 80000
 	Power:
 		Amount: -400
 	Armor:
@@ -1702,6 +1815,8 @@ PFLEET:
 	ClonesProducedUnits:
 		CloneableTypes: Infantry
 		ProductionType: Infantry
+	GrantExternalConditionToProduced:
+		Condition: produced
 	GrantConditionOnPrerequisite@botowner:
 		Condition: botowner
 		Prerequisites: ai.all
@@ -1745,3 +1860,112 @@ pfleet.req:
 	Interactable:
 	Tooltip:
 		Name: actor-pfleet-req-name
+
+PZEALOT.warp:
+	Inherits: ^WarpStructure
+	RenderSprites:
+		Image: pwarpsm
+	Buildable:
+		Queue: Defense
+		BuildPaletteOrder: 30
+		Prerequisites: ~infantry.artanis, barracks, ~techlevel.infonly, padun
+		Description: actor-pzealot.description
+		Icon: icon-zealot
+		BuildDuration: 100
+	Tooltip:
+		Name: actor-pzealot-warp.name
+	Valued:
+		Cost: 400
+	Health:
+		HP: 16000
+	Armor:
+		Type: None
+	SpawnActorOnDeath@hole:
+		Actor: pzealot
+	ChangesHealth@building:
+		PercentageStep: 2
+		Delay: 5
+		StartIfBelow: 101
+	Building:
+		Footprint: x
+		Dimensions: 1,1
+		LocalCenterOffset: 0,0,0
+	SequencePlaceBuildingPreview:
+		Sequence: place-zealot
+	RequiresBuildableArea:
+		AreaTypes: pylon
+		Adjacent: 4
+	Selectable:
+		Bounds: 1024, 1024
+	-Explodes:
+	-GrantConditionOnTileSet@temp:
+	-GrantConditionOnTileSet@snow:
+	-GrantConditionOnTileSet@des:
+	-GrantConditionOnTerrain@pavement:
+	-WithIdleOverlay@bibtemp:
+	-WithIdleOverlay@bibsnow:
+	-WithIdleOverlay@bibdes:
+
+PDRAGO.warp:
+	Inherits: PZEALOT.warp
+	Buildable:
+		Queue: Defense
+		BuildPaletteOrder: 31
+		Prerequisites: ~infantry.artanis, ~techlevel.low, pcyber, padun
+		Description: actor-pdrago.description
+		Icon: icon-dragoon
+		BuildDuration: 100
+	Tooltip:
+		Name: actor-pdrago-warp.name
+	Valued:
+		Cost: 750
+	Health:
+		HP: 25000
+	Armor:
+		Type: Heavy
+	SpawnActorOnDeath@hole:
+		Actor: pdrago
+	ChangesHealth@building:
+		PercentageStep: 2
+		Delay: 7
+		StartIfBelow: 101
+	SequencePlaceBuildingPreview:
+		Sequence: place-dragoon
+	RequiresBuildableArea:
+		AreaTypes: pylon
+		Adjacent: 4
+
+PZEALOT.warpAI:
+	Inherits: PZEALOT.warp
+	Buildable:
+		Prerequisites: ~infantry.artanis, barracks, ~techlevel.infonly, padun, ~ai.all
+		BuildDuration: 450
+		BuildLimit: 1
+
+PDRAGO.warpAI:
+	Inherits: PDRAGO.warp
+	Buildable:
+		Prerequisites: ~infantry.artanis, pcyber, ~techlevel.low, padun, ~ai.all
+		BuildDuration: 600
+		BuildLimit: 1
+
+PPYLON.warppower:
+	Inherits: PPYLON.warp
+	-Buildable:
+	Valued:
+		Cost: 0
+	SpawnActorOnDeath@hole:
+		Actor: ppylon.power
+
+PPYLON.power:
+	Inherits: PPYLON
+	-Buildable:
+	Valued:
+		Cost: 0
+	Explodes:
+		Weapon: EMPExplosion
+		EmptyWeapon: EMPExplosion
+	RenderSprites:
+		Image: PPYLON
+	KillsSelf:
+		Delay: 1500

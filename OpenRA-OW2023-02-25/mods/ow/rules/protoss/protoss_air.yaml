@@ -16,6 +16,8 @@ POBSERVER:
 		AddToArmyValue: true
 	Health:
 		HP: 9000
+	Shielded:
+		MaxStrength: 6000
 	RevealsShroud:
 		MinRange: 9c0
 		Range: 13c0
@@ -69,6 +71,8 @@ PSHUTTLE:
 		AddToArmyValue: true
 	Health:
 		HP: 16000
+	Shielded:
+		MaxStrength: 12000
 	RevealsShroud:
 		MinRange: 7c0
 		Range: 9c0
@@ -126,6 +130,8 @@ PSCOUT:
 		AddToArmyValue: true
 	Health:
 		HP: 12000
+	Shielded:
+		MaxStrength: 12000
 	RevealsShroud:
 		MinRange: 7c0
 		Range: 9c0
@@ -212,7 +218,7 @@ PARBITER:
 		Queue: Aircraft
 		BuildAtProductionType: Helicopter
 		BuildPaletteOrder: 41
-		Prerequisites: ~aircraft.protoss, advtechcenter, ~techlevel.unrestricted
+		Prerequisites: ~aircraft.protoss, advtechcenter, ~techlevel.unrestricted, ~!aircraft.artanis
 		Description: actor-parbiter.description
 	Valued:
 		Cost: 2500
@@ -222,6 +228,8 @@ PARBITER:
 		AddToArmyValue: true
 	Health:
 		HP: 16000
+	Shielded:
+		MaxStrength: 12000
 	RevealsShroud:
 		MinRange: 7c0
 		Range: 9c0
@@ -326,6 +334,8 @@ PCORSAIR:
 		AddToArmyValue: true
 	Health:
 		HP: 12000
+	Shielded:
+		MaxStrength: 16000
 	RevealsShroud:
 		MinRange: 7c0
 		Range: 9c0
@@ -416,6 +426,8 @@ PCARRY:
 		AddToArmyValue: true
 	Health:
 		HP: 50000
+	Shielded:
+		MaxStrength: 40000
 	Power:
 		Amount: -50
 	GrantConditionOnPowerState:
@@ -615,7 +627,7 @@ PMOTHER:
 		Queue: Aircraft
 		BuildAtProductionType: Helicopter
 		BuildPaletteOrder: 900
-		Prerequisites: ~aircraft.protoss, ulttechcenter, ~techlevel.unrestricted
+		Prerequisites: ~aircraft.protoss, ulttechcenter, ~techlevel.unrestricted, ~!aircraft.artanis
 		Description: actor-pmother.description
 		BuildLimit: 1
 	Valued:
@@ -626,8 +638,10 @@ PMOTHER:
 		AddToArmyValue: true
 	Health:
 		HP: 100000
-	DamageMultiplier@shield:
-		Modifier: 10
+	Shielded:
+		MaxStrength: 225000
+	Shielded@defmatrix:
+		MaxStrength: 300000
 	RevealsShroud:
 		MinRange: 6c0
 		Range: 12c0
@@ -650,7 +664,7 @@ PMOTHER:
 		Turret: secondary
 	Aircraft:
 		TurnSpeed: 16
-		Speed: 24
+		Speed: 28
 		CruiseAltitude: 4200
 		LandAltitude: 0
 	AutoTarget:
@@ -662,9 +676,6 @@ PMOTHER:
 		Condition: shooting
 		ArmamentNames: primary
 		RevokeDelay: 25
-	DamageMultiplier@shield:
-		RequiresCondition: shooting
-		Modifier: 10
 	SpawnActorOnDeath:
 		Actor: PMOTHER.Husk
 	WithDamageOverlay:

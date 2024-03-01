@@ -295,42 +295,50 @@
 	-WithDecoration@RANK-ELITE:
 
 ^AcceptsShields:
-	GrantConditionOnHealthPercentage@shield:
-		MinHP: 90
-		MaxHP: 101
-		Condition: enable_shield
-		RequiresCondition: external_shield && !emp_shields
-		DisabledSounds: sbelthe2.aud
-	DamageMultiplier@shield:
-		RequiresCondition: enable_shield
-		Modifier: 20
-	Targetable@shieldup:
+	Shielded:
+		MaxStrength: -1
+		RegenAmount: 350
+		RegenInterval: 50
+		RegenDelay: 50
+		SelectionBarColor: AAAAFF
+		ShieldsUpCondition: shielded
+		ShieldsDamagedCondition: damaged_shield
+		BypassDamageTypes: BypassShield
+		OverrideDamageType: BypassedShield
+		RequiresCondition: external_shield && !emp_shields && !defense_matrix
+		HideBarWhenFull: true
+	ShieldRegenMultiplier:
+		Modifier: 5
+		RequiresCondition: shield_regen
+	ExternalCondition@shieldregen:
+		Condition: shield_regen
+	Targetable@shielddamage:
+		TargetTypes: ShieldRegen
+		RequiresCondition: damaged_shield
+	Targetable@shieldeff:
 		TargetTypes: ShieldHit
-		RequiresCondition: enable_shield
+		RequiresCondition: shielded || defense_matrix_up
 	Armor@shield:
-		RequiresCondition: enable_shield
+		RequiresCondition: shielded || defense_matrix_up
 		Type: Shield
 	Armor:
-		RequiresCondition: !enable_shield
+		RequiresCondition: !shielded && !defense_matrix_up
 	ExternalCondition@extshield:
 		Condition: external_shield
 	ExternalCondition@empshield:
 		Condition: emp_shields
+	ChangesHealth@plague:
+		Step: -10001
+		RequiresCondition: defiler_plague && enough_health && shielded
+	ChangesHealth@plaguenoshield:
+		Step: -101
+		Delay: 5
+		StartIfBelow: 101
+		DamageTypes: BypassShield
+		RequiresCondition: defiler_plague && enough_health && !shielded
 	WithColoredOverlay@shielded:
-		RequiresCondition: enable_shield
-		Color: 00AEFF18
-	ChangesHealth@shregen:
-		PercentageStep: 1
-		Delay: 125
-		StartIfBelow: 91
-		DamageCooldown: 250
-		RequiresCondition: external_shield
-	ChangesHealth@shregen2:
-		PercentageStep: 1
-		Delay: 100
-		StartIfBelow: 100
-		DamageCooldown: 50
-		RequiresCondition: enable_shield
+		RequiresCondition: external_shield && shielded && !damaged_shield
+		Color: 00FBFF0A
 
 ^AEIOUBoosted:
 	ExternalCondition@aeiouboost:
@@ -711,9 +719,6 @@
 		RequiresCondition: botowner
 		Modifier: 150
 	TeleportNetworkTransportable:
-	Targetable@HEAL:
-		RequiresCondition: !parachute && ((damaged && !external_shield) || (damaged && external_shield && !enable_shield))
-		TargetTypes: Heal
 	WithIdleOverlay@akuma:
 		Image: akuma-overlay
 		Sequence: akuma-infantry
@@ -1001,7 +1006,7 @@
 		Name: meta-basicbuilding-generic-name
 		GenericName: meta-basicbuilding-generic-name
 	Targetable@REPAIR:
-		RequiresCondition: (repairtime && !external_shield) || (repairtime && external_shield && !enable_shield)
+		RequiresCondition: repairtime
 		TargetTypes: StructureRepair
 	GrantConditionOnDamageState@DAMAGED:
 		Condition: repairtime
@@ -1401,7 +1406,7 @@
 	EligibleForRandomActorCrate:
 		Type: vehicle
 	Targetable@REPAIR:
-		RequiresCondition: (damaged && !external_shield) || (damaged && external_shield && !enable_shield)
+		RequiresCondition: damaged
 		TargetTypes: Repair
 	GrantCondition@magezaped:
 		Condition: disabled
@@ -1546,7 +1551,7 @@
 	KillsSelf:
 		RequiresCondition: airborne && disabled
 	Targetable@REPAIR:
-		RequiresCondition: (damaged && !external_shield) || (damaged && external_shield && !enable_shield)
+		RequiresCondition: damaged
 		TargetTypes: Repair
 	ExternalCondition@reloadnear:
 		Condition: reloadnear
@@ -1690,7 +1695,7 @@
 	Targetable@GROUND:
 		TargetTypes: GroundActor, Structure, C4, DetonateAttack
 	Targetable@REPAIR:
-		RequiresCondition: (damaged && !external_shield) || (damaged && external_shield && !enable_shield)
+		RequiresCondition: damaged
 		TargetTypes: Repair
 	GrantConditionOnDamageState@DAMAGED:
 		Condition: damaged
@@ -1936,8 +1941,8 @@
 	GainsExperienceMultiplier@epicunit:
 		Modifier: 33
 	DamageMultiplier@defmatrix:
-		RequiresCondition: defense_matrix
-		Modifier: 20
+		RequiresCondition: defense_matrix_up
+		Modifier: 110
 	EligibleForRandomActorCrate:
 		Type: epic
 
@@ -2147,18 +2152,20 @@
 	Building:
 		TerrainTypes: Clear,Road,Creep
 		AllowPlacementOnResources: true
+	Targetable:
+		TargetTypes: GroundActor, DetonateAttack, Wall
 
 ^AutoTargetGround:
 	AutoTargetPriority@DEFAULT:
 		ValidTargets: Infantry, Cyborg, Vehicle, Water, Ship, Underwater, Defense, Mine
 	AutoTargetPriority@ATTACKANYTHING:
-		ValidTargets: Infantry, Cyborg, Vehicle, Water, Ship, Underwater, Structure, Defense, Mine
+		ValidTargets: Infantry, Cyborg, Vehicle, Water, Ship, Underwater, Structure, Defense, Mine, Wall
 
 ^AutoTargetAll:
 	AutoTargetPriority@DEFAULT:
 		ValidTargets: Infantry, Cyborg, Vehicle, Water, Ship, Underwater, AirborneActor, Defense, Mine
 	AutoTargetPriority@ATTACKANYTHING:
-		ValidTargets: Infantry, Cyborg, Vehicle, Water, Ship, Underwater, AirborneActor, Structure, Defense, Mine
+		ValidTargets: Infantry, Cyborg, Vehicle, Water, Ship, Underwater, AirborneActor, Structure, Defense, Mine, Wall
 
 ^AutoTargetAirAssaultMove:
 	Inherits: ^AutoTargetAir
@@ -2457,20 +2464,35 @@
 		Image: tdefense
 		Sequence: front
 		Palette: effect
-		RequiresCondition: defense_matrix
+		RequiresCondition: defense_matrix_up
 		IsDecoration: True
 	WithIdleOverlay@defmatrix2:
 		Image: tdefense
 		Sequence: back
 		Palette: effect
-		RequiresCondition: defense_matrix
+		RequiresCondition: defense_matrix_up
 		IsDecoration: True
 	DamageMultiplier@defmatrix:
-		RequiresCondition: defense_matrix
-		Modifier: 20
+		RequiresCondition: defense_matrix_up
+		Modifier: 60
 	Targetable@defmatrix:
 		RequiresCondition: defense_matrix
 		TargetTypes: DefenseMatrix
+	Shielded@defmatrix:
+		MaxStrength: -1
+		RegenAmount: 1
+		RegenInterval: 500000
+		RegenDelay: 500000
+		SelectionBarColor: FFFFFF
+		ShieldsUpCondition: defense_matrix_up
+		ShieldsDamagedCondition: damaged_shield
+		BypassDamageTypes: BypassShield
+		OverrideDamageType: BypassedShield
+		RequiresCondition: defense_matrix
+		RemoveOnDisable: false
+	TimedConditionBar@defmatrix:
+		Color: CCFFFF
+		Condition: defense_matrix
 	GrantConditionOnAttack@ai_consideration:
 		Condition: frenziable
 		RevokeDelay: 100
