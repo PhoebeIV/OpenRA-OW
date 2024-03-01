@@ -1263,6 +1263,9 @@ PTEMPL:
 	ProvidesPrerequisite@artanisstructures:
 		RequiresPrerequisites: structures.artanis
 		Prerequisite: ptempl.artanis
+	ProvidesPrerequisite@protoss:
+		Factions: protoss, vorazun
+		Prerequisite: ptempl.protoss
 	IonCannonPower:
 		PauseOnCondition: disabled
 		Icon: ioncannon
@@ -1284,6 +1287,30 @@ PTEMPL:
 		EffectSequence: piff
 		Weapon: MiniNukeIon
 		DisplayTimerRelationships: Ally, Neutral, Enemy
+		Prerequisites: ptempl.protoss
+	IonCannonPower@artanis:
+		OrderName: OrbitalBombardment
+		PauseOnCondition: disabled
+		Icon: ioncannon
+		Cursor: chrono-target
+		ChargeInterval: 21000
+		Name: Orbital Bombardment
+		Description: Initiate an Orbital Bombardment strike.\nApplies instant damage to a large area.
+		BeginChargeSpeechNotification: IonCannonCharge
+		EndChargeSpeechNotification: IonCannonReady
+		SelectTargetSpeechNotification: DawnSelectTarget
+		InsufficientPowerSpeechNotification: InsufficientPower
+		OnFireSound: pmoatk00.wav
+		DisplayRadarPing: True
+		CameraActor: camera.small
+		SupportPowerPaletteOrder: 20
+		WeaponDelay: 0
+		CameraRemoveDelay: 100
+		Effect: explosion
+		EffectSequence: piff
+		Weapon: OrbitalBeamBombardment
+		DisplayTimerRelationships: Ally, Neutral, Enemy
+		Prerequisites: ptempl.artanis
 	SpawnActorPower@pylon:
 		PauseOnCondition: disabled
 		OrderName: ProjectPylon
@@ -1300,6 +1327,7 @@ PTEMPL:
 		SupportPowerPaletteOrder: 19
 		AllowUnderShroud: false
 		Terrain: Clear, Road
+		Prerequisites: ptempl.artanis
 	Explodes:
 		Type: CenterPosition
 		Weapon: MiniNuke
