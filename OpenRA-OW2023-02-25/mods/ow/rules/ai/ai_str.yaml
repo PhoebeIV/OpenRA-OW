@@ -435,6 +435,57 @@ ATEK.bot:
 		Dimensions: 7, 7
 		Footprint: _xxxxx_ xxxxxxx xxxxxxx xxxxxxx xxxxxxx xxxxxxx _xxxxx_
 		DisplayTimerRelationships: Ally
+	ProvidesPrerequisite@artanis:
+		Factions: artanis
+		Prerequisite: padun.artanis
+	ProvidesPrerequisite@artanisstructures:
+		RequiresPrerequisites: structures.artanis
+		Prerequisite: padun.artanis
+	GrantExternalConditionPower@shields:
+		OrderName: ProtossShields
+		Name: Shield Projection
+		PauseOnCondition: disabled
+		Icon: protossshields
+		ChargeInterval: 4500
+		Prerequisites: padun.artanis
+		Description: Grants a permanent plasma shield to\ntargeted units and structures.
+		SelectTargetSpeechNotification: SelectTarget
+		InsufficientPowerSpeechNotification: InsufficientPower
+		BeginChargeSpeechNotification: IronCurtainCharging
+		EndChargeSpeechNotification: IronCurtainReady
+		SelectTargetTextNotification: notification-select-target
+		InsufficientPowerTextNotification: notification-insufficient-power
+		BeginChargeTextNotification: notification-shield-projection-charging
+		EndChargeTextNotification: notification-shield-projection-ready
+		DisplayRadarPing: True
+		Condition: external_shield
+		OnFireSound: beltsnd.aud
+		SupportPowerPaletteOrder: 10
+		Dimensions: 5, 5
+		Footprint: _xxx_ xxxxx xxxxx xxxxx _xxx_
+	GrantExternalConditionPower@overshields:
+		OrderName: ProtossShields2
+		Name: Overshield
+		PauseOnCondition: disabled
+		Icon: protossshields2
+		ChargeInterval: 4500
+		Duration: 500
+		Prerequisites: padun.artanis
+		Description: Grants an overcharged shield to\ntargeted units for 20 seconds.
+		SelectTargetSpeechNotification: SelectTarget
+		InsufficientPowerSpeechNotification: InsufficientPower
+		BeginChargeSpeechNotification: IronCurtainCharging
+		EndChargeSpeechNotification: IronCurtainReady
+		SelectTargetTextNotification: notification-select-target
+		InsufficientPowerTextNotification: notification-insufficient-power
+		BeginChargeTextNotification: notification-overshield-charging
+		EndChargeTextNotification: notification-overshield-ready
+		DisplayRadarPing: True
+		Condition: defense_matrix
+		OnFireSound: tvedef00.aud
+		SupportPowerPaletteOrder: 10
+		Dimensions: 5, 5
+		Footprint: _xxx_ xxxxx xxxxx xxxxx _xxx_
 
 # Special structure for Boss AI, comes with a random weapon
 PBOX.boss:
@@ -748,10 +799,10 @@ PREFAB.A:
 		Factions: usa,alexander,townes,granger
 	GrantConditionOnFaction@power_prot:
 		Condition: prpower_enable
-		Factions: protoss
+		Factions: protoss,vorazun,artanis
 	GrantConditionOnFaction@power_zerg:
 		Condition: zepower_enable
-		Factions: zerg
+		Factions: zerg,kerrigan,zagara
 	FreeActor@power_base:
 		RequiresCondition: powr_enable
 		Actor: POWR
@@ -851,7 +902,7 @@ PREFAB.B:
 		Factions: japan, mecha, economic, navy
 	GrantConditionOnFaction@power_terran:
 		Condition: terran_enable
-		Factions: terran
+		Factions: terran,raynor,mengsk
 	GrantConditionOnFaction@power_avalon:
 		Condition: avalon_enable
 		Factions: avalon
