@@ -1557,3 +1557,82 @@ NUKEXBAR:
 	SpawnActorOnDeath@badcrates:
 		DeathType: Replace
 		Actor: CRATE
+
+##Death knight Super Unit
+OLDDK:
+	Inherits@MediSoldier: ^MediSoldier
+	Inherits@NoExp: ^NoExp
+	Inherits@EPIC: ^EpicUnit
+	Inherits@EPIC2: ^EpicInfantryNerf
+	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
+	Inherits@InfPro: ^AutoTargetVehiclePriority
+	Buildable:
+		Prerequisites: ~ai.boss, ulttechcenter
+		Description: Dark Knight Super unit, Practicaly a nuke on legs. \n Strong vs Anything Close \n Weak vs Anything fast or ranged.
+		Queue: Infantry
+		BuildLimit: 1
+		BuildAtProductionType: Soldier
+		BuildPaletteOrder: 419
+	-Passenger:
+	-Crushable:
+	-TakeCover:
+	Valued:
+		Cost: 12000
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Tooltip:
+		Name: Death Knight
+	Armor:
+		Type: Heavy
+	Health:
+		HP: 400000
+	Mobile:
+		Speed: 60
+		Locomotor: foot2
+	Selectable:
+		Bounds: 2133, 4266, 0, -1493
+		DecorationBounds: 2133, 4266, 0, -1493
+	SelectionDecorations:
+	RevealsShroud:
+		Range: 7c512
+	GrantConditionOnAttack@sword:
+		Condition: SwordSwing
+		RevokeDelay: 800
+	Armament@SECONDARY:
+		Name: secondary
+		Weapon: MediDeathKnightAttack1
+		RequiresCondition: SwordSwing
+	Armament:
+		Weapon: MediDeathKnightAttack2
+		LocalOffset: 400,60,2200, 400,-60,2200
+	WithInfantryBody:
+		DefaultAttackSequence: shoot
+		StandSequences: stand
+	AutoTarget:
+		InitialStance: AttackAnything
+		ScanRadius: 10
+	AutoTargetPriority@DEFAULT:
+		ValidTargets: GroundActor, Infantry
+	Targetable:
+		TargetTypes: GroundActor, Infantry, Disguise
+	RenderSprites:
+		Image: medideathknight
+	Explodes:
+		Weapon: MediDeathKnightAttack2
+		EmptyWeapon: MediDeathKnightAttack2
+	ExternalCondition@PRODUCED:
+		Condition: produced
+	VoiceAnnouncement:
+		RequiresCondition: produced
+		Voice: Build
+	ProximityExternalCondition@DeathKnightAura:
+		Condition: DeathKnightAura
+		Range: 7c512
+		ValidRelationships: Enemy, Neutral
+	AnnounceOnKill:
+	Voiced:
+		VoiceSet: MediDeathKnightVoice
+	ConvertsDamageToHealth:
+		DamagePercentConverted: 20
+	RenderSprites:
+		Image: medideathknight
