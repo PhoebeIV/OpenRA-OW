@@ -127,6 +127,17 @@
 		Type: GroundPosition
 		ValidRelationships: Enemy
 		RequiresCondition: queen_parasite
+	ExternalCondition@timestop:
+		Condition: timestop
+	SpeedMultiplier@timestop:
+		RequiresCondition: timestop
+		Modifier: 0
+	RangeMultiplier@timestop:
+		RequiresCondition: timestop
+		Modifier: 1
+	WithColoredOverlay@timestop:
+		RequiresCondition: timestop
+		Color: 806D005A
 
 # Applies to infantry, vehicles, aircraft and structures
 ^CorrodesFromTibWeaps:
@@ -736,8 +747,8 @@
 	Mobile:
 		PauseOnCondition: disabled
 	WithColoredOverlay@IDISABLE:
-		RequiresCondition: disabled
-		Color: 000000B4
+		RequiresCondition: disabled && !timestop
+		Color: 00000067
 	Targetable:
 		RequiresCondition: !parachute
 		TargetTypes: GroundActor, Cyborg, Disguise
@@ -1322,13 +1333,13 @@
 	Mobile:
 		PauseOnCondition: being-captured || disabled
 	WithColoredOverlay@IDISABLE:
-		RequiresCondition: disabled
-		Color: 000000B4
+		RequiresCondition: disabled && !timestop
+		Color: 0000007B
 	WithDecoration@POWERDOWN:
 		Image: poweroff
 		Sequence: offline
 		Palette: chrome
-		RequiresCondition: disabled
+		RequiresCondition: disabled && !timestop
 		Position: Center
 	ExternalCondition@garageboost:
 		Condition: garageboost

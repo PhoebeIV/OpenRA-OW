@@ -2668,6 +2668,14 @@ actor-pcorsair =
       Weak vs Infantry
    .name = Corsair
 
+actor-pvoidray =
+   .description = Protoss artillery ship armed
+    with long range laser beam.
+    Speed: 88
+      Strong vs Aircraft, Vehicles
+      Weak vs Infantry
+   .name = Void Ray
+
 actor-pcarry =
    .description = Protoss gunship armed
     with Anti-matter missiles and 
@@ -3862,20 +3870,11 @@ actor-tspider-name = Spider Mine
 
 actor-tstank =
    .name = Terran Siege Tank
-   .deployed--name = Terran Siege Tank (deployed)
+   .deployed = Terran Siege Tank (deployed)
    .description = Deployable artillery tank.
     Speed: 48
       Strong vs Vehicles, Infantry
       Weak vs Aircraft
-
-actor-tstank-bot =
-   .name = Terran Siege Tank
-   .1--name = Terran Siege Tank (Deployed)
-   .description = Auto-deploys. AI Use only.
-
-actor-tstank-bot-buildable =
-   .description = Deployed Siege Tank for AI use.
-   .name = Terran Siege Tank (deployed)
 
 actor-tgoliath =
    .description = Mech walker. Can attack air.

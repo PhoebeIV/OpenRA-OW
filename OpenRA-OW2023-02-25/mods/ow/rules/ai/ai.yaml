@@ -831,6 +831,7 @@ Player:
 			gla.pay: 100
 			protoss.dragoon: 100
 			protoss.shields: 100
+			protoss.shadows: 100
 			zerg.zergling: 100
 			zerg.hydra: 100
 			terran.marine: 100
@@ -1152,6 +1153,8 @@ Player:
 			pdrago: 15
 			pdrago.b: 15
 			pdrago.b2: 15
+			pstalker.b: 15
+			pstalker: 15
 			ptemplar: 5
 			parchon: 10
 			pdtemplar: 5
@@ -1165,6 +1168,8 @@ Player:
 			pinter: 10
 			parbiter: 5
 			pmother: 5
+			pfenix: 5
+			pvoidray: 5
 			ze.sunken: 100
 			ze.spore: 100
 			zzergling: 40
@@ -1425,8 +1430,9 @@ Player:
 			parchon: 6
 			pdarchon: 2
 			pscout: 8
-			pcarry: 2
+			pcarry: 4
 			pcorsair: 4
+			pvoidray: 2
 			zdrone: 16
 			zlurker.ai: 6
 			zultra: 6
@@ -1927,10 +1933,10 @@ Player:
 				FineScanRadius: 2
 				Consideration@1:
 					Against: Enemy
-					Types: Air, Tank, Vehicle, Infantry
+					Types: AirborneActor, Tank, Vehicle, Cyborg
 					Attractiveness: 2
 					TargetMetric: Value
-					CheckRadius: 2c0
+					CheckRadius: 4c0
 				Consideration@2:
 					Against: Enemy
 					Types: Structure
@@ -1939,10 +1945,32 @@ Player:
 					CheckRadius: 2c0
 				Consideration@3:
 					Against: Ally
-					Types: Ground, Water
+					Types: WaterActor, GroundActor, WaterActor
 					Attractiveness: -10
 					TargetMetric: Value
-					CheckRadius: 3c0
+					CheckRadius: 5c0
+			TimeStop:
+				OrderName: TimeStop
+				MinimumAttractiveness: 1000
+				FineScanRadius: 2
+				Consideration@1:
+					Against: Enemy
+					Types: AirborneActor, Tank, Vehicle, Infantry
+					Attractiveness: 2
+					TargetMetric: Value
+					CheckRadius: 4c0
+				Consideration@2:
+					Against: Enemy
+					Types: Structure
+					Attractiveness: 1
+					TargetMetric: Value
+					CheckRadius: 2c0
+				Consideration@3:
+					Against: Ally
+					Types: AirborneActor, GroundActor, WaterActor
+					Attractiveness: -10
+					TargetMetric: Value
+					CheckRadius: 5c0
 			Catalyst:
 				OrderName: CatalystPower
 				MinimumAttractiveness: 3000

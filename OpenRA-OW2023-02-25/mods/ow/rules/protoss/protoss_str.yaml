@@ -23,6 +23,19 @@ protoss.shields:
 	Valued:
 		Cost: 7500
 
+protoss.shadows:
+	Inherits: ^UpgradeBaseExt
+	Tooltip:
+		Name: actor-protoss-shadows.name
+	Buildable:
+		Description: actor-protoss-shadows.description
+		BuildPaletteOrder: 12006
+		Prerequisites: ~!upgrade.busy, ~!protoss.shadows, ~structures.vorazun, advtechcenter, ~techlevel.unrestricted
+		BuildDuration: 4000
+	ProvidesPrerequisite@upgradename:
+	Valued:
+		Cost: 7500
+
 ^ProtossBuilding:
 	Inherits: ^Building
 	GrantConditionOnDamageState@protossfire:
@@ -164,6 +177,9 @@ PNEXUS:
 		RequiresCondition: damaged
 		Sequence: fire2
 		Offset: 128,128,0
+	RenderSprites:
+		FactionImages:
+			vorazun: pnexus-v
 
 ^WarpStructure:
 	Inherits: ^Building
@@ -411,6 +427,9 @@ PGATEW:
 	GrantConditionOnPrerequisite@botowner:
 		Condition: botowner
 		Prerequisites: ai.all
+	RenderSprites:
+		FactionImages:
+			vorazun: pgatew-v
 
 PPYLON.warp:
 	Inherits: ^WarpStructure
@@ -477,10 +496,10 @@ PPYLON:
 		Prerequisites: ai.all
 	BaseProvider:
 		Range: 6c0
-		RequiresCondition: !botowner
+		RequiresCondition: !botowner && !disabled
 	BaseProvider@bot:
 		Range: 9c0
-		RequiresCondition: botowner
+		RequiresCondition: botowner && !disabled
 	ProximityExternalCondition:
 		Condition: pylon
 		Range: 6c0
@@ -496,6 +515,10 @@ PPYLON:
 		Cost: 500
 	Tooltip:
 		Name: actor-ppylon-name
+		RequiresCondition: !vorazun
+	Tooltip@dark:
+		Name: actor-ppylon-dark
+		RequiresCondition: vorazun
 	ProvidesPrerequisite:
 		Prerequisite: anypower
 	Building:
@@ -529,6 +552,26 @@ PPYLON:
 	Explodes:
 		Weapon: ProtossBuildingExplode
 		EmptyWeapon: ProtossBuildingExplode
+	RenderSprites:
+		FactionImages:
+			vorazun: ppylon-v
+	GrantConditionOnPrerequisite@vorazun:
+		Condition: vorazun
+		Prerequisites: structures.vorazun, ptempl
+	ProximityExternalCondition@cloak:
+		RequiresCondition: !disabled && vorazun
+		Condition: stealthgen
+		Range: 6c0
+		AffectsParent: true
+	Targetable@cloaked:
+		RequiresCondition: !vorazun && cloaked
+	GrantConditionOnPrerequisite@shadows:
+		Condition: protoss.shadows
+		Prerequisites: protoss.shadows
+	ProximityExternalCondition@shadows:
+		RequiresCondition: !disabled && protoss.shadows
+		Condition: dark_pylon
+		Range: 6c0
 
 PPYLON.bot:
 	Inherits: PPYLON
@@ -637,6 +680,10 @@ PASSIM:
 		Type: Unload
 		DockAngle: 0
 		DockOffset: 0,-512,0
+	RenderSprites:
+		FactionImages:
+			vorazun: passim-v
+
 
 PCYBER.warp:
 	Inherits: ^WarpStructure
@@ -713,6 +760,9 @@ PCYBER:
 		PauseOnCondition: disabled || !pylon
 	ProvidesPrerequisite@fix:
 		Prerequisite: fix
+	RenderSprites:
+		FactionImages:
+			vorazun: pcyber-v
 
 PPHOTO.warp:
 	Inherits: ^WarpStructure
@@ -841,6 +891,9 @@ PPHOTO:
 	RevealsShroudMultiplier@charge:
 		RequiresCondition: charge
 		Modifier: 115
+	RenderSprites:
+		FactionImages:
+			vorazun: pphoto-v
 
 POBSER.warp:
 	Inherits: ^WarpStructure
@@ -929,6 +982,9 @@ POBSER:
 		RequiresCondition: damaged
 		Sequence: fire2
 		Offset: 128,128,0
+	RenderSprites:
+		FactionImages:
+			vorazun: pobser-v
 
 PSUPOR.warp:
 	Inherits: ^WarpStructure
@@ -1034,6 +1090,9 @@ PSUPOR:
 		RequiresCondition: damaged
 		Sequence: fire2
 		Offset: 128,128,0
+	RenderSprites:
+		FactionImages:
+			vorazun: psupor-v
 
 PADUN.warp:
 	Inherits: ^WarpStructure
@@ -1159,6 +1218,9 @@ PADUN:
 		SupportPowerPaletteOrder: 10
 		Dimensions: 5, 5
 		Footprint: _xxx_ xxxxx xxxxx xxxxx _xxx_
+	RenderSprites:
+		FactionImages:
+			vorazun: padun-v
 
 PTEMPL.warp:
 	Inherits: ^WarpStructure3x2
@@ -1267,7 +1329,7 @@ PTEMPL:
 		Factions: protoss, vorazun
 		Prerequisite: ptempl.protoss
 	IonCannonPower:
-		PauseOnCondition: disabled
+		PauseOnCondition: disabled || !pylon
 		Icon: ioncannon
 		Cursor: chrono-target
 		ChargeInterval: 19500
@@ -1290,10 +1352,10 @@ PTEMPL:
 		Prerequisites: ptempl.protoss
 	IonCannonPower@artanis:
 		OrderName: OrbitalBombardment
-		PauseOnCondition: disabled
+		PauseOnCondition: disabled || !pylon
 		Icon: ioncannon
 		Cursor: chrono-target
-		ChargeInterval: 21000
+		ChargeInterval: 16500
 		Name: Orbital Bombardment
 		Description: Initiate an Orbital Bombardment strike.\nApplies instant damage to a large area.
 		BeginChargeSpeechNotification: IonCannonCharge
@@ -1312,7 +1374,7 @@ PTEMPL:
 		DisplayTimerRelationships: Ally, Neutral, Enemy
 		Prerequisites: ptempl.artanis
 	SpawnActorPower@pylon:
-		PauseOnCondition: disabled
+		PauseOnCondition: disabled || !pylon
 		OrderName: ProjectPylon
 		Cursor: chrono-target
 		Icon: pylon
@@ -1332,6 +1394,9 @@ PTEMPL:
 		Type: CenterPosition
 		Weapon: MiniNuke
 		EmptyWeapon: MiniNuke
+	RenderSprites:
+		FactionImages:
+			vorazun: ptempl-v
 
 ptempl.req:
 	AlwaysVisible:
@@ -1344,7 +1409,7 @@ PROBOT.warp:
 	Buildable:
 		Queue: Building
 		BuildPaletteOrder: 80
-		Prerequisites: refinery, ~structures.protoss, ~techlevel.low
+		Prerequisites: pcyber, refinery, ~structures.protoss, ~techlevel.low
 		Description: actor-probot-warp.description
 		Icon: icon-robot
 		BuildDuration: 600
@@ -1379,7 +1444,7 @@ PROBOT:
 	Inherits@BIB: ^3xBuildingBib
 	Buildable:
 		Queue: Bot
-		Prerequisites: refinery, ~structures.protoss, ~techlevel.low, ~ai.all, ~!structures.bothard
+		Prerequisites: pcyber, refinery, ~structures.protoss, ~techlevel.low, ~ai.all, ~!structures.bothard
 	Valued:
 		Cost: 2000
 	Tooltip:
@@ -1442,6 +1507,9 @@ PROBOT:
 	GrantConditionOnPrerequisite@botowner:
 		Condition: botowner
 		Prerequisites: ai.all
+	RenderSprites:
+		FactionImages:
+			vorazun: probot-v
 
 PSBATT.warp:
 	Inherits: ^WarpStructure
@@ -1588,6 +1656,9 @@ PSBATT:
 		MinimumScanTimeInterval: 20
 		MaximumScanTimeInterval: 25
 		RequiresCondition: ammo > 10
+	RenderSprites:
+		FactionImages:
+			vorazun: psbatt-v
 
 
 PSTARG.warp:
@@ -1710,6 +1781,9 @@ PSTARG:
 		DisplayRadarPing: True
 		DeploySound: gradarup.aud
 		EffectSequence: idle
+	RenderSprites:
+		FactionImages:
+			vorazun: pstarg-v
 
 PFLEET.warp:
 	Inherits: ^WarpStructure3x2
@@ -1854,6 +1928,12 @@ PFLEET:
 		InitialDelay: 325
 		RequiresCondition: !disabled
 		UseResourceStorage: true
+	ProvidesPrerequisite@vorazun:
+		Factions: vorazun
+		Prerequisite: ulttech.vorazun
+	ProvidesPrerequisite@vorazunstructures:
+		RequiresPrerequisites: structures.vorazun
+		Prerequisite: ulttech.vorazun
 	ChronoshiftPower@advancedchronoshift:
 		OrderName: AdvancedChronoshift2
 		PauseOnCondition: disabled
@@ -1875,6 +1955,24 @@ PFLEET:
 		SupportPowerPaletteOrder: 30
 		Dimensions: 2, 2
 		Footprint: xx xx
+	IonCannonPower@timestop:
+		OrderName: TimeStop
+		Prerequisites: ulttech.vorazun
+		PauseOnCondition: disabled
+		Icon: timestop
+		Cursor: chrono-target
+		ChargeInterval: 10500
+		Name: Time Stop
+		Description: Induce a dark temporal singularity.\nInflicts no damage but disables all \n units in a 10 cell radius for 20 sec.
+		SelectTargetSpeechNotification: SelectTarget
+		InsufficientPowerSpeechNotification: InsufficientPower
+		DisplayRadarPing: True
+		CameraActor: camera.small
+		SupportPowerPaletteOrder: 20
+		CameraRemoveDelay: 100
+		WeaponDelay: 0
+		Weapon: TimeStopWeapon
+		DisplayTimerRelationships: Ally, Neutral, Enemy
 	SupportPowerChargeBar:
 	InfiltrateForSupportPowerReset:
 		Types: SpyInfiltrate
@@ -1882,6 +1980,9 @@ PFLEET:
 		Type: CenterPosition
 		Weapon: EMPExplosion
 		EmptyWeapon: EMPExplosion
+	RenderSprites:
+		FactionImages:
+			vorazun: pfleet-v
 
 pfleet.req:
 	AlwaysVisible:
@@ -1990,11 +2091,13 @@ PPYLON.power:
 	-Buildable:
 	Valued:
 		Cost: 0
+	BaseProvider:
+		Range: 5c0
 	Explodes:
 		Weapon: EMPExplosion
 		EmptyWeapon: EMPExplosion
 	RenderSprites:
-		Image: PPYLON
+		Image: PPYLON-A
 	KillsSelf:
 		Delay: 1500
 	GrantPeriodicCondition@extended:

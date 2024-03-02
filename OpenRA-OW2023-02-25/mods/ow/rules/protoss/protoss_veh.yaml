@@ -3,7 +3,7 @@
 		Prerequisites: protoss.shields
 		Condition: shields
 	DamageMultiplier@shields:
-		RequiresCondition: shields && shielded
+		RequiresCondition: shields && (shielded || defense_matrix_up)
 		Modifier: 90
 	Shielded:
 		MaxStrength: -1
@@ -40,6 +40,14 @@
 	WithColoredOverlay@shielded:
 		RequiresCondition: shielded && !damaged_shield
 		Color: 00FBFF0A
+	Cloak@stealthgen:
+		InitialDelay: 25
+		CloakDelay: 25
+		CloakSound: tphclo00.aud
+		UncloakSound: tphclo01.aud
+		RequiresCondition: stealthgen && !disabled
+		UncloakOn: Attack, Unload, Infiltrate, Demolish, Damage
+		CloakedCondition: cloaked
 
 PMCV:
 	Inherits: MCV
@@ -72,7 +80,7 @@ PDRAGO:
 	Inherits@shield: ^ProtossInfShield
 	Inherits@AUTOTARGET: ^AutoTargetAll
 	Buildable:
-		Prerequisites: ~infantry.protoss, ~techlevel.low, pcyber
+		Prerequisites: ~infantry.protoss, ~techlevel.low, pcyber, ~!infantry.vorazun
 		Description: actor-pdrago.description
 		Queue: Vehicle
 		BuildAtProductionType: Soldier
@@ -111,11 +119,9 @@ PDRAGO:
 		FacingTolerance: 0
 	Armament:
 		Weapon: DragoonPlasma
-		FireDelay: 6
 		PauseOnCondition: disabled
 	Armament@aa:
 		Weapon: DragoonPlasmaAir
-		FireDelay: 6
 		PauseOnCondition: disabled
 	-WithFacingSpriteBody:
 	-Explodes:
@@ -146,7 +152,7 @@ PDRAGO:
 PDRAGO.b:
 	Inherits: PDRAGO
 	Buildable:
-		Prerequisites: ~infantry.protoss, ~techlevel.medium, pcyber, ~ai.all
+		Prerequisites: ~infantry.protoss, ~techlevel.medium, pcyber, ~ai.all, ~!infantry.vorazun
 		BuildPaletteOrder: 90000
 	RenderSprites:
 		Image: pdrago
@@ -163,7 +169,7 @@ PREAVER:
 	Inherits@shield: ^ProtossInfShield
 	Inherits@AUTOTARGET: ^AutoTargetAll
 	Buildable:
-		Prerequisites: ~vehicles.protoss, ~techlevel.medium, factory
+		Prerequisites: ~vehicles.protoss, ~techlevel.high, techcenter, ~!vehicles.vorazun
 		Description: actor-preaver.description
 		Queue: Vehicle
 		BuildAtProductionType: Vehicle
@@ -234,9 +240,11 @@ PFENIX:
 	Tooltip:
 		Name: actor-pfenix.name
 	Health:
-		HP: 100000
+		HP: 120000
 	Shielded:
-		MaxStrength: 120000
+		MaxStrength: 180000
+	Shielded@defmatrix:
+		MaxStrength: 300000
 	Armor:
 		Type: Heavy
 	Mobile:
@@ -275,8 +283,8 @@ PFENIX:
 	DeathSounds:
 		Voice: DragoonDie
 	Explodes:
-		Weapon: MiniNukeIonCrate
-		EmptyWeapon: MiniNukeIonCrate
+		Weapon: CrateNuke
+		EmptyWeapon: CrateNuke
 	WithDeathAnimation:
 		UseDeathTypeSuffix: false
 		CrushedSequence: die
@@ -291,3 +299,126 @@ PFENIX:
 	RevealsShroudMultiplier@charge:
 		RequiresCondition: charge
 		Modifier: 118
+
+PSTALKER:
+	Inherits: ^Vehicle
+	Inherits@shield: ^ProtossInfShield
+	Inherits@AUTOTARGET: ^AutoTargetAll
+	Buildable:
+		Prerequisites: ~infantry.vorazun, ~techlevel.low, pcyber
+		Description: actor-pstalker.description
+		Queue: Vehicle
+		BuildAtProductionType: Soldier
+		BuildPaletteOrder: 55
+		BuildDuration: 600
+	Selectable:
+		Bounds: 1152, 1322, 0, 0
+		DecorationBounds: 1152, 1322, 0, 0
+		Class: PSTALKER
+	Valued:
+		Cost: 750
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Tooltip:
+		Name: actor-pstalker.name
+	Health:
+		HP: 24000
+	Shielded:
+		MaxStrength: 26000
+	Armor:
+		Type: Heavy
+	Mobile:
+		Speed: 96
+		Locomotor: foot2
+		TurnSpeed: 64
+		PauseOnCondition: disabled
+	RevealsShroud:
+		MinRange: 5c0
+		Range: 6c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 5c0
+	Passenger:
+		Weight: 4
+	AttackFrontal:
+		FacingTolerance: 0
+	Armament:
+		Weapon: StalkerPlasma
+		PauseOnCondition: disabled
+	Armament@aa:
+		Weapon: StalkerPlasmaAir
+		PauseOnCondition: disabled
+	-WithFacingSpriteBody:
+	-Explodes:
+	WithInfantryBody:
+		DefaultAttackSequence: shoot
+		IdleSequences: idle
+		StandSequences: idle
+	RenderSprites:
+	Voiced:
+		VoiceSet: ZealotVoice
+	DeathSounds:
+		Voice: DragoonDie
+	WithDeathAnimation:
+		UseDeathTypeSuffix: false
+		CrushedSequence: die
+		CrushedSequencePalette: player
+		CrushedPaletteIsPlayerPalette: true
+	GrantConditionOnPrerequisite@charge:
+		Prerequisites: protoss.dragoon
+		Condition: charge
+	RangeMultiplier@charge:
+		RequiresCondition: charge
+		Modifier: 118
+	RevealsShroudMultiplier@charge:
+		RequiresCondition: charge
+		Modifier: 118
+	PortableChrono:
+		ChargeDelay: 500
+		MaxDistance: 7
+		ChronoshiftSound: pabfol02.aud
+
+PSTALKER.b:
+	Inherits: PSTALKER
+	Buildable:
+		Prerequisites: ~infantry.vorazun, ~techlevel.medium, pcyber, ~ai.all
+		BuildPaletteOrder: 90000
+	RenderSprites:
+		Image: pstalker
+	Cloneable:
+		Types: Infantry
+	Mobile:
+		TurnSpeed: 200
+	UpdatesPlayerStatistics:
+		OverrideActor: pstalker
+	AttackFrontal:
+		RequiresCondition: !phase && !disabled && (attack_stack < 4)
+		PauseOnCondition: phase
+	Armament:
+		RequiresCondition: !phase && !disabled && (attack_stack < 4)
+	Armament@aa:
+		RequiresCondition: !phase && !disabled && (attack_stack < 4)
+	GrantConditionOnAttack:
+		Condition: attack_stack
+		RevokeDelay: 51
+		RevokeAll: true
+		MaximumInstances: 4
+	GrantTimedCondition@phase:
+		Condition: phase
+		RequiresCondition: attack_stack == 4
+		Duration: 14
+	SpeedMultiplier@attack:
+		Modifier: 500
+		RequiresCondition: phase
+	Wanders@attack:
+		RequiresCondition: phase
+		WanderMoveRadius: 3
+	Cloak@attack:
+		InitialDelay: 0
+		CloakDelay: 0
+		CloakSound: pabfol00.aud
+		UncloakSound: pabfol02.aud
+		RequiresCondition: phase
+		CloakedCondition: phasing
+	Targetable:
+		RequiresCondition: !phasing

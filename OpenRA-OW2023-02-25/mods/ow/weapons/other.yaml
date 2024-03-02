@@ -807,9 +807,9 @@ AvaliBomb:
 		ValidTargets: Ground, GroundActor, WaterActor, Trees
 
 AvaliBomberBomb:
+	Inherits: AvaliBomb
 	ReloadDelay: 6
 	Range: 6c0
-	Inherits: AvaliBomb
 	Warhead@1Dam: SpreadDamage
 		Spread: 1024
 		Damage: 22500
@@ -2192,6 +2192,32 @@ FenixPlasma:
 		ValidTargets: Ground, GroundActor, WaterActor, Trees, Air, AirborneActor
 
 
+StalkerPlasma:
+	Inherits: DragoonPlasma
+	ReloadDelay: 50
+	Range: 6c0
+	Report: tphfi100.aud
+	ValidTargets: Ground, Water, GroundActor, WaterActor
+	Projectile: Bullet
+		Speed: 1024
+		Inaccuracy: 256
+		Image: 125mm_bl
+	Warhead@1Dam: SpreadDamage
+		Versus:
+			None: 66
+
+StalkerPlasmaAir:
+	Inherits: StalkerPlasma
+	Range: 7c0
+	ValidTargets: Air, AirborneActor
+	Projectile: Bullet
+		Speed: 2c0
+		Blockable: false
+		Inaccuracy: 256
+	Warhead@1Dam: SpreadDamage
+		Spread: 300
+		Damage: 3000
+
 PhotonPlasma:
 	Inherits: ^ShieldHit
 	ReloadDelay: 25
@@ -2379,7 +2405,7 @@ InterceptorBlaster:
 	Report: blastcan.aud
 	ValidTargets: Ground, Water, GroundActor, WaterActor, AirborneActor
 	Projectile: Missile
-		Speed: 350
+		Speed: 400
 		Blockable: true
 		Inaccuracy: 400
 	Warhead@1Dam: SpreadDamage
@@ -2395,13 +2421,20 @@ InterceptorBlaster:
 	Warhead@2Dam: SpreadDamage
 		Damage: 600
 		ValidTargets: AirborneActor
-		InvalidTargets: GroundActor, WaterActor, Interceptor, CarrierReturn, Carrier
+		InvalidTargets: GroundActor, WaterActor
+		ValidRelationships: Enemy, Neutral
 		Versus:
 			None: 100
 			Wood: 80
 			Light: 40
 			Heavy: 80
 			Concrete: 50
+		DamageTypes: Prone50Percent, TriggerProne, SmallExplosionDeath
+	Warhead@3Dam: SpreadDamage
+		Damage: 50
+		ValidTargets: AirborneActor
+		ValidRelationships: Ally
+		DamageTypes: Prone50Percent, TriggerProne, SmallExplosionDeath
 	Warhead@3EffGround: CreateEffect
 		Explosions: plasma
 		-ImpactSounds:
@@ -2634,10 +2667,11 @@ CorsairFlare:
 		ValidTargets: Air, AirborneActor
 		Versus:
 			None: 150
-			Wood: 90
-			Light: 90
-			Heavy: 40
+			Wood: 60
+			Light: 100
+			Heavy: 75
 			Concrete: 50
+			Shield: 200
 		DamageTypes: SmallExplosionDeath
 	Warhead@3EffGround: CreateEffect
 		Explosions: corsair_blast
@@ -3348,11 +3382,6 @@ MutaGlaiveBounce1:
 		ImpactSounds: zquhit00.aud, zquhit01.aud
 		ValidTargets: Ground, GroundActor, WaterActor, Trees, Air, AirborneActor
 		Inaccuracy: 128
-	#Warhead@4Cluster: FireCluster
-		#Weapon: MutaGlaiveBounce2
-		#RandomClusterCount: 1
-		#Dimensions: 3,3
-		#Footprint: xxx xxx xxx
 	Warhead@4Cluster: FireShrapnel
 		Amount: 1
 		Weapon: MutaGlaiveBounce2
@@ -6788,3 +6817,67 @@ DroneSwarmSound:
 	Warhead@1Dam: SpreadDamage
 		Damage: 1
 		ValidTargets: Ground, GroundActor
+
+VoidRayBeam1:
+	Inherits: ^LaserWeapon
+	ReloadDelay: 3
+	Range: 13c0
+	-Report:
+	ValidTargets: Ground, GroundActor, AirborneActor
+	Projectile: LaserZap
+		Width: 96
+		SecondaryBeamWidth: 64
+		SecondaryBeamZOffset: 513
+		Color: B2FFA5B0
+		SecondaryBeamColor: FFFFFFC0
+		SecondaryBeam: true
+		Duration: 10
+		Blockable: false
+		LaunchEffectImage: explosion
+		LaunchEffectSequence: bfgzap
+	Warhead@1Dam: SpreadDamage
+		Spread: 128
+		Damage: 300
+		ValidTargets: Ground, GroundActor
+		Versus:
+			None: 70
+			Light: 60
+			Concrete: 50
+			Shield: 200
+		DamageTypes: SmallExplosionDeath, TriggerProne
+	Warhead@1DamAir: SpreadDamage
+		Spread: 256
+		Damage: 200
+		ValidTargets: Air, AirborneActor
+		Versus:
+			None: 100
+			Light: 60
+			Concrete: 50
+			Shield: 200
+		DamageTypes: SmallExplosionDeath
+	Warhead@3EffGround: CreateEffect
+		Explosions: bfgzap
+		Inaccuracy: 512
+		ValidTargets: Ground, GroundActor, Air, AirborneActor
+	Warhead@2Smu: LeaveSmudge
+		SmudgeType: Scorch
+		ValidTargets: Ground, Infantry
+		Chance: 1
+
+VoidRayBeam2:
+	Inherits: VoidRayBeam1
+	Projectile: ElectricBolt
+		Colors: 99FF99AB, F2FFB0B8
+		Distortion: 512
+		DistortionAnimation: 64
+		SegmentLength: 380
+		Width: 48
+		Duration: 4
+		Inaccuracy: 256
+	Warhead@1Dam: SpreadDamage
+		Damage: 500
+	Warhead@1DamAir: SpreadDamage
+		Damage: 300
+	Warhead@3EffGround: CreateEffect
+		Explosions: bfgzap
+		ValidTargets: Ground, GroundActor, Air, AirborneActor

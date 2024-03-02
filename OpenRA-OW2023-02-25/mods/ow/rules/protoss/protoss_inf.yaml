@@ -202,7 +202,7 @@ PTEMPLAR:
 	Inherits@shield: ^ProtossInfShield
 	Inherits@autotarget: ^AutoTargetGroundAssaultMove
 	Buildable:
-		Prerequisites: ~infantry.protoss, advtechcenter, ~techlevel.high
+		Prerequisites: ~infantry.protoss, advtechcenter, ~techlevel.high, ~!infantry.vorazun
 		Description: actor-ptemplar.description
 		Queue: Infantry
 		BuildAtProductionType: Soldier
@@ -313,7 +313,7 @@ PARCHON:
 	Inherits@shield: ^ProtossInfShield
 	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
 	Buildable:
-		Prerequisites: ~infantry.protoss, ~techlevel.unrestricted, advtechcenter
+		Prerequisites: ~infantry.protoss, ~techlevel.unrestricted, advtechcenter, ~!infantry.vorazun
 		Description: actor-parchon.description
 		Queue: Infantry
 		BuildAtProductionType: Soldier
@@ -516,6 +516,21 @@ PDTEMPLAR:
 		ValidDamageStates: Critical
 	-Crushable:
 	-Cloneable:
+	GrantConditionOnPrerequisite@vorazun:
+		Condition: vorazun
+		Prerequisites: structures.vorazun
+	GrantConditionOnFaction@vorazun:
+		Condition: vorazun
+		Factions: vorazun
+	SpeedMultiplier@vorazun:
+		Modifier: 120
+		RequiresCondition: vorazun
+	DamageMultiplier@vorazun:
+		Modifier: 90
+		RequiresCondition: vorazun
+	FirepowerMultiplier@vorazun:
+		Modifier: 120
+		RequiresCondition: vorazun
 
 PDARCHON:
 	Inherits: ^Infantry

@@ -580,13 +580,13 @@ PINTER:
 	-ActorLostNotification:
 	-SpawnActorOnDeath:
 	Contrail@1:
-		Offset: -598,-300,0
+		Offset: -450,-300,0
 		RequiresCondition: airborne
 	Contrail@2:
-		Offset: -598,300,0
+		Offset: -450,300,0
 		RequiresCondition: airborne
 	WithDamageOverlay:
-		Offset: -853,0,171
+		Offset: 0,0,171
 		Interval: 2
 	RenderSprites:
 		Image: pinter
@@ -757,3 +757,108 @@ PMOTHER:
 	SpeedMultiplier@botowner:
 		Modifier: 166
 		RequiresCondition: botowner
+
+PVOIDRAY:
+	Inherits: ^Helicopter
+	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
+	Inherits@shield: ^ProtossShield
+	Buildable:
+		Queue: Aircraft
+		BuildAtProductionType: Helicopter
+		BuildPaletteOrder: 43
+		Prerequisites: ~aircraft.vorazun, techcenter, ~techlevel.high
+		Description: actor-pvoidray.description
+	Valued:
+		Cost: 2500
+	Tooltip:
+		Name: actor-pvoidray.name
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 12000
+	Shielded:
+		MaxStrength: 16000
+	RevealsShroud:
+		MinRange: 7c0
+		Range: 9c0
+		Type: GroundPosition
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 7c0
+		Type: GroundPosition
+	Armament@PRIMARY1:
+		Weapon: VoidRayBeam1
+		PauseOnCondition: !ammo
+		LocalOffset: 512,0,0
+	Armament@PRIMARY2:
+		Name: secondary
+		Weapon: VoidRayBeam2
+		RequiresCondition: shooting > 24
+		PauseOnCondition: !ammo
+		LocalOffset: 512,0,0
+		AmmoUsage: 0
+	AttackAircraft:
+		FacingTolerance: 32
+		PersistentTargeting: false
+		AttackType: Hover
+		OpportunityFire: False
+	Aircraft:
+		TurnSpeed: 32
+		Speed: 88
+		LandAltitude: 0
+	AutoTarget:
+		InitialStance: ReturnFire
+		InitialStanceAI: ReturnFire
+	GrantConditionOnMovement@scout:
+		Condition: moving
+	GrantConditionOnAttack@scout:
+		Condition: shooting
+		RevokeDelay: 6
+		RevokeAll: true
+		MaximumInstances: 25
+	GrantConditionOnAttack@cooldown:
+		Condition: cooldown
+		RevokeDelay: 250
+	AmmoPool:
+		Ammo: 150
+		AmmoCondition: ammo
+		ReloadCount: 10
+	WithAmmoPipsDecoration:
+		Position: BottomLeft
+		Margin: 4, 3
+		RequiresSelection: true
+		PipCount: 15
+		FullSequence: bar-green
+		EmptySequence: bar-empty
+	SpawnActorOnDeath:
+		Actor: PVOIDRAY.Husk
+	WithDamageOverlay:
+		Offset: -427,0,0
+	ProducibleWithLevel:
+		Prerequisites: aircraft.upgraded
+	Selectable:
+		DecorationBounds: 1636, 1265
+	Hovers@CRUISING:
+		-RequiresCondition:
+	Voiced:
+		VoiceSet: ProtossScoutVoice
+	RenderSprites:
+	WithFacingSpriteBody@2:
+		Name: engine
+		Sequence: engine
+		RequiresCondition: moving
+		Palette: effect
+	WithFacingSpriteBody@3:
+		Name: shoot
+		Sequence: shoot
+		Palette: player
+		IsPlayerPalette: true
+		RequiresCondition: shooting
+	-EjectOnDeath:
+	ReloadAmmoPool@reloadnear:
+		RequiresCondition: !shooting && !cooldown
+		Delay: 15
+		ResetOnFire: true
+	AmbientSound@firing:
+		RequiresCondition: shooting
+		SoundFiles: pulsebolt.aud
