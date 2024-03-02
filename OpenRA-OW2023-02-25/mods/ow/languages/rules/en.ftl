@@ -1416,6 +1416,7 @@ actor-jugg =
     Speed: 71
       Strong vs Ground units
       Weak vs Aircraft
+   .botdescription = Auto-deploys. AI Use only.
 
 actor-triton =
    .description = Advanced multi-purpose mechanized walker.
@@ -1435,11 +1436,6 @@ actor-direwolf =
       Strong vs Everything
       Weak vs Nothing
    .name = Direwolf
-
-actor-jugg-bot =
-   .name = Juggernaut
-   .1--name = Juggernaut (Deployed)
-   .description = Auto-deploys. AI Use only.
 
 ## gla_inf.yaml
 actor-ge1 =
@@ -2751,6 +2747,11 @@ actor-protoss-shields =
    .description = Increases shield regeneration and armor 
     across all Protoss units and structures.
 
+actor-protoss-shadows =
+   .name = Research Veil of Shadows
+   .description = Increases shield regeneration rate by 100%
+    when near Dark Pylons.
+
 actor-pnexus =
    .description = Produces structures.
    .name = Nexus
@@ -2768,6 +2769,7 @@ actor-ppylon-warp =
    .name = Warp (Pylon)
 
 actor-ppylon-name = Pylon
+actor-ppylon-dark = Dark Pylon
 
 actor-passim-warp =
    .description = Refines resources
@@ -2881,6 +2883,14 @@ actor-pfenix =
     Speed: 108
       Strong vs everything
    .name = Fenix
+
+actor-pstalker =
+   .description = Cybernetic ranged unit.
+    Can teleport a short distance.
+    Slightly more damage vs infantry than Dragoons
+    Speed: 96
+      Strong vs vehicles, aircraft
+   .name = Stalker
 
 ## shared_air.yaml
 actor-heli-description = Helicopter gunship armed
