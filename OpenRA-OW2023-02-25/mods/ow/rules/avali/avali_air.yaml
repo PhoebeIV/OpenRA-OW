@@ -361,7 +361,7 @@ AVCARRIER:
 	Targetable@AIConsider:
 		RequiresCondition: damaged_heavy && botowner
 		TargetTypes: AvaliCarrierConsider
-	Targetable@carrier:
+	Targetable@avalicarrier:
 		TargetTypes: AvaliCarrier
 	IonCannonPower:
 		Icon: warpship
@@ -387,65 +387,10 @@ AVCARRIER:
 		RequiresCondition: trigger_jump
 		Delay: 32
 		RemoveInstead: true
-	SpawnActorOnDeath@trigger_jump:
-		RequiresCondition: trigger_jump
-		Actor: AVCARRIER.Leave
 	FireWarheads@trigger_jump:
 		RequiresCondition: trigger_jump
 		Weapons: WarpshipJump
 		Interval: 100
-
-AVCARRIER.Leave:
-	Inherits: AVCARRIER
-	-Targetable@GROUND:
-	-Targetable@AIRBORNE:
-	-Targetable@REPAIR:
-	-Selectable:
-	-SpawnActorOnDeath:
-	-Buildable:
-	RenderSprites:
-		Image: avcarrier
-	Interactable:
-	RejectsOrders:
-	Aircraft:
-		Speed: 300
-		CruiseAltitude: 2c16
-		CanHover: false
-		CanSlide: false
-		LandableTerrainTypes: Clear, Road, Creep
-		IdleBehavior: LeaveMap
-		AltitudeVelocity: 72
-	Contrail@1:
-		Offset: -1600,256,0
-		StartColorAlpha: 128
-		TrailLength: 150
-		StartWidth: 192
-		StartColorUsePlayerColor: false
-		EndColorUsePlayerColor: true
-	Contrail@2:
-		Offset: -1600,-256,0
-		StartColorAlpha: 128
-		TrailLength: 150
-		StartWidth: 192
-		StartColorUsePlayerColor: false
-		EndColorUsePlayerColor: true
-	Contrail@3:
-		Offset: -1600,0,512
-		StartColorAlpha: 128
-		TrailLength: 150
-		StartWidth: 192
-		StartColorUsePlayerColor: false
-		EndColorUsePlayerColor: true
-	Contrail@4:
-		Offset: -1600,0,-512
-		StartColorAlpha: 128
-		TrailLength: 150
-		StartWidth: 192
-		StartColorUsePlayerColor: false
-		EndColorUsePlayerColor: true
-	KillsSelf:
-		Delay: 500
-		RemoveInstead: true
 
 AVINTER:
 	Inherits: ^NeutralPlane
