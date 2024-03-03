@@ -673,3 +673,119 @@ PDARCHON:
 		Weapon: E100Cannon
 		EmptyWeapon: E100Cannon
 	-Crushable:
+
+PZERATUL:
+	Inherits: ^EpicInfantryNerf
+	Inherits@EPIC: ^EpicUnit
+	Inherits@shield: ^ProtossInfShield
+	Inherits@AUTOTARGET: ^AutoTargetAll
+	Buildable:
+		Prerequisites: ~infantry.vorazun, ulttechcenter, ~techlevel.unrestricted
+		Description: actor-pzeratul.description
+		Queue: Infantry
+		BuildAtProductionType: Soldier
+		BuildPaletteOrder: 45
+		BuildLimit: 1
+	Selectable:
+		Bounds: 1024, 1024, 0, 0
+		DecorationBounds: 1250, 1250, 0, -256
+	Valued:
+		Cost: 5000
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Tooltip:
+		Name: actor-pzeratul.name
+	Health:
+		HP: 30000
+	Mobile:
+		Speed: 96
+		Locomotor: foot2
+		TurnSpeed: 64
+	RevealsShroud:
+		Range: 4c512
+	Passenger:
+		Weight: 2
+	Armament:
+		RequiresCondition: !merge
+		Weapon: TemplarBlade
+	WithInfantryBody:
+		DefaultAttackSequence: shoot
+		IdleSequences: stand
+		StandSequences: stand
+	AutoTarget:
+		ScanRadius: 5
+	Targetable:
+		TargetTypes: GroundActor, Infantry, Disguise
+	AutoTargetPriority@DEFAULT:
+		RequiresCondition: !stance-attackanything && !assault-move && !merge
+	AutoTargetPriority@ATTACKANYTHING:
+		RequiresCondition: stance-attackanything || assault-move && !merge
+	RenderSprites:
+	Voiced:
+		VoiceSet: ProtossZeratulVoice
+	AnnounceOnKill:
+	WithDeathAnimation:
+		UseDeathTypeSuffix: false
+		CrushedSequence: die
+		CrushedSequencePalette: player
+		CrushedPaletteIsPlayerPalette: true
+		RequiresCondition: !kill
+	-SpawnActorOnDeath@fire:
+	ActorLostNotification:
+		RequiresCondition: !kill
+	MustBeDestroyed:
+	ProximityCaptor:
+		Types: Infantry
+	AttackFrontal:
+		FacingTolerance: 0
+	AttackFrontal:
+		Armaments: primary, mergeattack
+		FacingTolerance: 16
+	GrantConditionOnDeploy@1:
+		DeployedCondition: merge
+	GrantConditionOnAttack@1:
+		Condition: kill
+		ArmamentNames: mergeattack
+	ExternalCondition@removeself:
+		Condition: removeself
+	KillsSelf@merge:
+		Delay: 1
+		RequiresCondition: kill
+		DamageTypes: spawnarchon
+	KillsSelf@remove:
+		Delay: 1
+		RequiresCondition: removeself
+		RemoveInstead: true
+	SpawnActorOnDeath@merge:
+		Actor: PDARCHON
+		DeathType: spawnarchon
+		SkipMakeAnimations: false
+	-ExternalCondition@stealthgen:
+	-Cloak@stealthgen:
+	Cloak:
+		IsPlayerPalette: true
+		InitialDelay: 25
+		CloakDelay: 80
+		CloakSound: tphclo00.aud
+		UncloakSound: tphclo01.aud
+		UncloakOn: Demolish
+		PauseOnCondition: cloak-force-disabled || disabled
+	GrantConditionOnDamageState@UNCLOAK:
+		Condition: cloak-force-disabled
+		ValidDamageStates: Critical
+	-Crushable:
+	-Cloneable:
+	SpeedMultiplier@vorazun:
+		Modifier: 125
+	FirepowerMultiplier@vorazun:
+		Modifier: 180
+	ProximityExternalCondition@squadboost:
+		Condition: squadboost
+		Range: 6c0
+	WithDecoration@officer2:
+		Image: pips
+		Sequence: pip-bonus
+		Palette: effect
+		Position: TopRight
+		ValidRelationships: None,Neutral,Enemy,Ally
+		RequiresCondition: !demoralise

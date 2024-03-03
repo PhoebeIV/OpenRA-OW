@@ -2748,6 +2748,13 @@ actor-pdarchon =
       Mind control ability
    .name = Dark Archon
 
+actor-pzeratul =
+   .description = [EPIC]
+   Stealth assassin. Boosts fellow ground units.
+    Speed: 96
+      Strong vs ground units
+   .name = Zeratul
+
 ## protoss_str.yaml
 actor-protoss-dragoon =
    .name = Research Singularity Charge

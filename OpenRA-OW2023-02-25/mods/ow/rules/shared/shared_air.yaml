@@ -16,6 +16,8 @@ TRAN:
 		Prerequisites: ~hpad, ~techlevel.medium, ~aircraft.tranprereq
 		Description: actor-tran-description
 
+U2:
+	-Berserkable@JapanBerserkerPower:
 
 U2.Drop:
 	Inherits: U2
@@ -41,6 +43,7 @@ BADR:
 		DropRange: 5c0
 	Cargo:
 		MaxWeight: 20
+	-Berserkable@JapanBerserkerPower:
 
 
 C17:
@@ -184,3 +187,96 @@ AVBOMBER.Bomber:
 		Weapon: AvaliBomberBomb
 	RenderSprites:
 		Image: avbomber
+
+usaa10:
+	Inherits: ^Plane
+	-Berserkable@JapanBerserkerPower:
+	Tooltip:
+		Name: actor-usaa10-name
+	Health:
+		HP: 60000
+	Valued:
+		Cost: 2000
+	Aircraft:
+		TurnSpeed: 4
+		Speed: 180
+		Repulsable: False
+	AttackBomber:
+		Armaments: gun, missile
+	Armament@GUNS:
+		Name: gun
+		Weapon: a10shot
+		LocalOffset: 1024,0,-85
+	Armament@MISSILES1:
+		Name: missile
+		Weapon: usaa10missile
+		LocalOffset: 0,384,0
+		PauseOnCondition: !ammo
+	Armament@MISSILES2:
+		Name: missile
+		Weapon: usaa10missile
+		LocalOffset: 0,-384,0
+		PauseOnCondition: !ammo
+	WithMuzzleOverlay:
+	Contrail@1:
+		Offset: -640,171,0
+		TrailLength: 15
+	Contrail@2:
+		Offset: -640,-171,0
+		TrailLength: 15
+	AmmoPool:
+		Name: missile
+		Armaments: missile
+		Ammo: 6
+		PipCount: 0
+		AmmoCondition: ammo
+	-Selectable:
+	SelectionDecorations:
+		RenderSelectionBars: False
+	RejectsOrders:
+	SpawnActorOnDeath:
+		Actor: USAA10.Husk
+	Interactable:
+	-MapEditorData:
+
+usamoabplane:
+	Inherits: ^Plane
+	-Berserkable@JapanBerserkerPower:
+	Health:
+		HP: 80000
+	Valued:
+		Cost: 2000
+	Aircraft:
+		TurnSpeed: 4
+		Speed: 220
+		Repulsable: False
+	WithMuzzleOverlay:
+	Contrail@1:
+		Offset: -640,171,0
+		TrailLength: 15
+	Contrail@2:
+		Offset: -640,-171,0
+		TrailLength: 15
+	-Selectable:
+	SelectionDecorations:
+		RenderSelectionBars: False
+	AttackBomber:
+	Armament:
+		Weapon: usamoab
+		PauseOnCondition: !ammo
+	AmmoPool:
+		Ammo: 1
+		AmmoCondition: ammo
+	Tooltip:
+		Name: actor-usamoabplane-name
+	RejectsOrders:
+	RenderSprites:
+		Image: usamoabplane
+	SpawnActorOnDeath:
+		Actor: usamoabplane.Husk.empty
+		RequiresCondition: !ammo
+	SpawnActorOnDeath@2:
+		Actor: usamoabplane.Husk.loaded
+		RequiresCondition: ammo
+	Interactable:
+	-MapEditorData:
