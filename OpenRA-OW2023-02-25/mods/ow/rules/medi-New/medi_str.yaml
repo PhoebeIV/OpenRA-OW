@@ -186,6 +186,15 @@ aviary:
 		Image: medihatchery
 	Power:
 		Amount: 0
+	RallyPoint:
+		ForceSetType: Helicopter
+	CommandBarBlacklist:
+		DisableStop: false
+	Production:
+		Produces: Aircraft, Helicopter, Plane
+	Reservable:
+	ProductionBar:
+		ProductionType: Aircraft
 
 
 ###############################################################################
@@ -847,7 +856,7 @@ alchlab:
 	## Zombies
 	SpawnActorPower@Undead:
 		OrderName: Undead Magic
-		Actor: MediZombiehoard
+		Actor: swarmlingSwarm
 		LifeTime: 500
 		ChargeInterval: 5000
 		Icon: medivoidportalicon
@@ -1221,29 +1230,37 @@ Archertower:
 		Range: 6c0
 	RenderSprites:
 		Image: mediarrowtower
+	GrantConditionOnPrerequisite@wiz:
+		Condition: elementalists
+		Prerequisites: structures.elementalists
 	Armament@base:
 		Name: base
 		Turret: T1
-		Weapon: Crossbow
+		Weapon: Castlearrows
 	Armament@plug1:
 		Name: plug1
 		Turret: T2
-		Weapon: Crossbow
+		Weapon: Castlearrows
 		RequiresCondition: has_1
 	Armament@plug2:
 		Name: plug2
 		Turret: T3
-		Weapon: Crossbow
+		Weapon: HealmediT
 		RequiresCondition: has_2
 	Armament@plug3:
 		Name: plug3
 		Turret: T4
-		Weapon: Crossbow
-		RequiresCondition: has_3
+		Weapon: WizBall
+		RequiresCondition: has_3 && !elementalists
+	Armament@plug31:
+		Name: plug31
+		Turret: T4
+		Weapon: Wizzap
+		RequiresCondition: has_3 && elementalists
 	Armament@plug4:
 		Name: plug4
 		Turret: T5
-		Weapon: Crossbow
+		Weapon: MusketeerShot
 		RequiresCondition: has_4
 	AttackTurreted:
 		Turrets: T1,T2,T3,T4,T5,T6,T7,T8
@@ -1711,10 +1728,14 @@ TheEye:
 		Image: medieyetower
 	AutoTarget:
 		InitialStance: AttackAnything
+	GrantConditionOnPrerequisite:
+		Condition: Holyeye
+		Prerequisites: structures.mediholy
 	AttackOmni:
 	Armament:
 		Name: primary
-		Weapon: CurseEyeWep
+		Weapon: BlessEyeWep
+		RequiresCondition: Holyeye
 
 ##Same as eye but can debuff
 ##medieyecursed

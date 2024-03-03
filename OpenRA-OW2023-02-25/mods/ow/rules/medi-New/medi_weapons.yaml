@@ -3,17 +3,8 @@
 ##################################   Buildings   ##############################
 ###############################################################################
 
-Dummyattacker:CurseEyeWep:
-	ReloadDelay: 999999
-	Range: 1c0
-	Projectile: InstantHit
-	Warhead@curtain: GrantExternalCondition
-		ValidTargets: GroundActor, Trees, WaterActor, Underwater, AirborneActor
-		ValidRelationships: Enemy, Neutral
-		Condition: thisdoesnothing
-		Range: 1c0
-		Duration: 10
-
+Dummyattacker:
+#
 Castlearrows:
 	Inherits: Basicarrow
 	ValidTargets: GroundActor, WaterActor, Ground, Water, Air, AirborneActor
@@ -24,7 +15,7 @@ Castlearrows:
 		Damage: 1000
 		ValidTargets: Air, AirborneActor
 		DamageTypes: Prone50Percent, TriggerProne, DefaultDeath
-
+#
 Castlearrowsb:
 	Inherits: Basicarrow
 	ReloadDelay: 200
@@ -59,7 +50,7 @@ Castlearrowsb:
 			Heavy: 10
 			Concrete: 10
 		DamageTypes: DefaultDeath
-
+#
 ArcaneZap:
 	ReloadDelay: 7
 	Range: 8c0
@@ -84,7 +75,7 @@ ArcaneZap:
 		DamageTypes: Prone50Percent, TriggerProne, ElectricityDeath
 		ValidTargets: Ground, GroundActor, Water, WaterActor
 	TargetActorCenter: True
-
+#
 ArcaneZap2:
 	Inherits: ArcaneZap
 	ReloadDelay: 10
@@ -102,7 +93,7 @@ ArcaneZap2:
 			Concrete: 100
 		DamageTypes: Prone50Percent, TriggerProne, ElectricityDeath
 		ValidTargets: AirborneActor
-
+#
 Ballistatowershot:
 	ValidTargets: Ground, Water, GroundActor, WaterActor
 	ReloadDelay: 150
@@ -142,7 +133,7 @@ Ballistatowershot:
 		ImpactSounds: splash9.aud
 		ValidTargets: Water, Underwater
 		InvalidTargets: Bridge
-
+#
 Cannontowershot:
 	ValidTargets: Ground, Water, GroundActor, WaterActor
 	ReloadDelay: 150
@@ -180,6 +171,7 @@ Cannontowershot:
 ###############################################################################
 ##############################   Infantry Unit Attacks   ######################
 ###############################################################################
+#
 Sword:
 	ReloadDelay: 30
 	Range: 2c0
@@ -197,14 +189,14 @@ Sword:
 			Concrete: 10
 		DamageTypes: DefaultDeath
 		ValidTargets: GroundActor, WaterActor, Structure
-
+#
 Sword2:
 	Inherits: Sword
 	ReloadDelay: 25
 	Report: swordmanattack1.aud,swordmanattack2.aud,swordmanattack3.aud,swordmanattack4.aud,swordmanattack5.aud,swordmanattack6.aud,swordmanattack7.aud,swordmanattack8.aud,swordmanattack9.aud,swordmanattack10.aud,swordmanattack11.aud,swordmanattack12.aud
 	Warhead@1Dam: SpreadDamage
 		Damage: 4000
-
+#
 Mediassasinblade:
 	ReloadDelay: 100
 	Range: 5c0
@@ -234,51 +226,8 @@ Mediassasinblade:
 		Range: 2c0
 		ValidTargets: Ground, Infantry, Cyborg
 		ValidRelationships: Enemy, Neutral, Ally
-
-Mediassasinswarm:
-	ReloadDelay: 12
-	Burst: 6
-	BurstDelays: 13,11,12,10,14
-	Range: 2c0
-	Report: zzeatk00.aud, zzeatk01.aud
-	ValidTargets: Ground, Water, GroundActor, WaterActor
-	Projectile: InstantHit
-	Warhead@1Dam: SpreadDamage
-		Spread: 64
-		Damage: 700
-		Versus:
-			None: 100
-			Wood: 50
-			Light: 60
-			Heavy: 40
-			Concrete: 25
-		DamageTypes: DefaultDeath
-		ValidTargets: GroundActor, WaterActor
-	Warhead@2StructureDam: SpreadDamage
-		Spread: 64
-		Damage: 200
-		Versus:
-			None: 100
-			Wood: 10
-			Light: 10
-			Heavy: 100
-			Concrete: 25
-		DamageTypes: DefaultDeath
-		ValidTargets: Structure
-	Warhead@assasintoxin: GrantExternalCondition
-		Condition: assasintoxin
-		Duration: 500
-		Range: 2c0
-		ValidTargets: Ground, Infantry, Cyborg
-		ValidRelationships: Enemy, Neutral, Ally
-	Warhead@swarmlingspawn: GrantExternalCondition
-		Condition: swarmlingspawn
-		Duration: 500
-		Range: 2c0
-		ValidTargets: Ground, Infantry, Cyborg
-		ValidRelationships: Enemy, Neutral, Ally
-
-Basicarrow: ##is inherited by: Castlearrows
+##is inherited by: Castlearrows
+Basicarrow: 
 	ValidTargets: GroundActor, WaterActor, Ground, Water
 	ReloadDelay: 75
 	Range: 5c0
@@ -303,7 +252,7 @@ Basicarrow: ##is inherited by: Castlearrows
 		Damage: 1000
 		ValidTargets: Air, AirborneActor
 		DamageTypes: Prone50Percent, TriggerProne, DefaultDeath
-
+#
 Infantryarrow:
 	Inherits: Basicarrow
 	ReloadDelay: 75
@@ -311,7 +260,7 @@ Infantryarrow:
 	Warhead@GDam: SpreadDamage
 		Spread: 256
 		Damage: 3000
-
+#
 Healmedi:
 	Inherits: Heal
 	ReloadDelay: 70
@@ -328,7 +277,11 @@ Healmedi:
 		Duration: 375
 		ValidTargets: Infantry
 		InvalidTargets: BeingHealed
-
+#
+HealmediT:
+	Inherits: Healmedi
+	Range: 9c0
+#
 Martyrdeath:
 	Inherits: ^Explosion
 		ValidTargets: Repair, Heal, StructureRepair
@@ -369,7 +322,7 @@ Martyrdeath:
 		Duration: 375
 		ValidTargets: Infantry
 		InvalidTargets: BeingHealed
-
+#
 Voidarchershot:
 	ValidTargets: Ground, Water, GroundActor, WaterActor, AirborneActor
 	ReloadDelay: 120
@@ -404,7 +357,7 @@ Voidarchershot:
 			Heavy: 10
 			Concrete: 20
 		DamageTypes: Prone50Percent, TriggerProne, DefaultDeath, ElectricityDeath
-
+#
 Voidarchershot2:
 	Inherits: Voidarchershot
 	ReloadDelay: 120
@@ -413,11 +366,11 @@ Voidarchershot2:
 	Projectile: Bullet
 		Blockable: False
 		Inaccuracy: 1c200
-
+#
 Voidarchershot3:
 	Inherits: Voidarchershot
 	Range: 9c0
-
+#
 PaladinSword:
 	Inherits: Sword2
 	Range: 3c0
@@ -432,7 +385,7 @@ PaladinSword:
 			Heavy: 60
 			Concrete: 50
 		DamageTypes: DefaultDeath
-
+#
 BerserkerSword:
 	Inherits: Sword2
 	ReloadDelay: 50
@@ -446,11 +399,11 @@ BerserkerSword:
 			Heavy: 100
 			Concrete: 40
 		DamageTypes: DefaultDeath
-
+#
 BerserkerSwordFast:
 	Inherits: BerserkerSword
 	ReloadDelay: 20
-
+#
 Blademastersword:
 	Inherits: Sword2
 	ReloadDelay: 15
@@ -464,13 +417,13 @@ Blademastersword:
 			Heavy: 35
 			Concrete: 20
 		DamageTypes: DefaultDeath
-
+#
 Blademasterswordleap:
 	Inherits: Blademastersword
 	ReloadDelay: 200
 	Warhead@1Dam: SpreadDamage
 		Damage: 15000
-
+#
 BladeMasterTornado:
 	ValidTargets: Ground, GroundActor, Water, WaterActor
 	ReloadDelay: 175
@@ -495,7 +448,7 @@ BladeMasterTornado:
 			Heavy: 40
 			Concrete: 50
 		DamageTypes: DefaultDeath
-
+#
 swarmlingAttack:
 	ReloadDelay: 12
 	Burst: 6
@@ -520,31 +473,66 @@ swarmlingAttack:
 		Damage: 400
 		Versus:
 			None: 100
-			Wood: 0
-			Light: 0
+			Wood: 5
+			Light: 5
 			Heavy: 100
 			Concrete: 25
 		DamageTypes: DefaultDeath
 		ValidTargets: Structure
+	Warhead@assasintoxin: GrantExternalCondition
+		Condition: assasintoxin
+		Duration: 200
+		Range: 2c0
+		ValidTargets: Ground, Infantry, Cyborg
+		ValidRelationships: Enemy, Neutral, Ally
 	Warhead@swarmlingspawn: GrantExternalCondition
 		Condition: swarmlingspawn
 		Duration: 500
 		Range: 2c0
 		ValidTargets: Ground, Infantry, Cyborg
 		ValidRelationships: Enemy, Neutral, Ally
-
+#
+swarmlingAttack1:
+	Inherits: swarmlingAttack
+	BurstDelays: 13,11,12,10,14
+#
 swarmlingAttack2:
 	Inherits: swarmlingAttack
 	BurstDelays: 16,10,13,11,14
-
+#
 swarmlingAttack3:
 	Inherits: swarmlingAttack
 	BurstDelays: 14,13,10,12,15
+#
+MusketeerShot:
+	ReloadDelay: 140
+	Range: 10c0
+	Report: riflemanattack1.aud, riflemanattack2.aud
+	ValidTargets: Ground, Infantry, Cyborg, Structure
+	InvalidTargets: Vehicle, Water, Wall, Husk, Mine
+	Projectile: InstantHit
+	Warhead@1Dam: SpreadDamage
+		Spread: 100
+		Damage: 10000
+		ValidTargets: Ground, Infantry, Cyborg, Structure
+		Versus:
+			None: 100
+			Wood: 20
+			Light: 40
+			Heavy: 20
+			Concrete: 20
+		DamageTypes: Prone50Percent, TriggerProne, DefaultDeath
+	Warhead@2Eff: CreateEffect
+		Explosions: piff
+		Inaccuracy: 171
+	Warhead@3EffWater: CreateEffect
+		Explosions: water_piff
+		Inaccuracy: 171
 
 ###############################################################################
 ##############################   Mage Attacks   ############################
 ###############################################################################
-
+#
 WizBall:
 	ReloadDelay: 50
 	Range: 6c0
@@ -573,7 +561,7 @@ WizBall:
 		Explosions: napalm
 		ImpactSounds: firebl3.aud
 		ValidTargets: Ground, GroundActor, Water, WaterActor, Trees, Air, AirborneActor
-
+#
 WizFireBall:
 	ReloadDelay: 70
 	Range: 6c0
@@ -604,7 +592,7 @@ WizFireBall:
 		RandomClusterCount: 4
 		Dimensions: 3,3
 		Footprint: xxx xxx xxx
-
+#
 WizFireCluster:
 	Inherits: Nazi155mm
 	-Report:
@@ -622,7 +610,7 @@ WizFireCluster:
 		Explosions: napalm
 		ImpactSounds: firebl3.aud
 	-Warhead@cluster:
-
+#
 Wizzap:
 	Inherits: ^ElectricBoltWeapon
 	ReloadDelay: 100
@@ -671,7 +659,7 @@ Wizzap:
 		Condition: zapstack
 		Duration: 200
 		Range: 1c0
-
+#
 wizzapcluster:
 	Inherits: BFGZapCluster
 	Range: 4c0
@@ -696,7 +684,7 @@ wizzapcluster:
 		Condition: zapstack
 		Duration: 200
 		Range: 2c0
-
+#
 wizzapclusterx:
 	Inherits: kuruttanekoZapupgrade
 	Range: 4c0
@@ -744,7 +732,7 @@ ZombieSpawner:
 ###############################################################################
 ##############################   Condition Attacks   ##########################
 ###############################################################################
-
+#
 CurseEyeWep:
 	ReloadDelay: 500
 	Range: 8c0
@@ -755,7 +743,7 @@ CurseEyeWep:
 		Condition: MediCurseCondition
 		Range: 4c0
 		Duration: 600
-		
+#
 BlessEyeWep:
 	ReloadDelay: 500
 	Range: 8c0
@@ -770,7 +758,7 @@ BlessEyeWep:
 ###############################################################################
 ################################   Powers Attacks   ###########################
 ###############################################################################
-
+#
 SmitePowerWep:
 	ValidTargets: Ground, GroundActor, Trees, Water, WaterActor, Underwater, Air, AirborneActor
 	Warhead@: HealthPercentageDamage
@@ -799,7 +787,7 @@ SmitePowerWep:
 		ValidTargets: Infantry
 		ValidRelationships: Enemy, Neutral
 		DamageTypes: Prone50Percent, TriggerProne, ElectricityDeath
-
+#
 medihealorder:
 	ValidTargets: Ground, GroundActor, Trees, Water, WaterActor, Underwater, Air, AirborneActor
 	Warhead@1heala: HealthPercentageDamage
@@ -811,7 +799,7 @@ medihealorder:
 		Explosions: medihealeffect
 		ImpactSounds: mediholyheal.aud
 		ImpactActors: false
-
+#
 ChainsPowerWep:
 	ReloadDelay: 300
 	Range: 5c0
@@ -822,7 +810,7 @@ ChainsPowerWep:
 		Condition: ChainsCondition
 		Range: 5c0
 		Duration: 300
-
+#
 CursePowerWep:
 	ReloadDelay: 500
 	Range: 8c0
@@ -833,7 +821,7 @@ CursePowerWep:
 		Condition: MediCurseCondition
 		Range: 4c0
 		Duration: 600
-		
+#
 BlessPowerWep:
 	ReloadDelay: 500
 	Range: 8c0
@@ -852,6 +840,7 @@ BlessPowerWep:
 ###############################################################################
 #############################   Holy Nuke Attacks   ###########################
 ###############################################################################
+#
 MediHolyWeapon:
 	ValidTargets: Ground, Water, GroundActor, WaterActor, Underwater, AirborneActor, Trees
 	Warhead@99Eff_impact: CreateEffect
@@ -1061,7 +1050,7 @@ MediHolyWeapon:
 		Duration: 20
 		Delay: 90
 		FlashType: Nuke
-
+#
 MediHolyWeaponSmall:
 	ValidTargets: Ground, Water, GroundActor, WaterActor, Underwater, AirborneActor, Trees
 	Projectile: Bullet
@@ -1123,6 +1112,7 @@ MediHolyWeaponSmall:
 ##############################  Evil Nuke Attacks   ###########################
 ###############################################################################
 ##Super Weapon, Missle Up and down, spawns the lasers
+#
 MediVoidWeapon:
 	ValidTargets: Ground, Water, GroundActor, WaterActor, Underwater, AirborneActor, Trees
 	Warhead@99Eff_impact: CreateEffect
@@ -1207,7 +1197,7 @@ MediVoidWeapon:
 		Duration: 50
 		Delay: 138
 		FlashType: Red
-
+#
 ##Damage Ion
 MediVoidWeaponSmall:
 	ValidTargets: Ground, Water, GroundActor, WaterActor, Underwater, AirborneActor, Trees
@@ -1302,7 +1292,7 @@ MediVoidWeaponSmall:
 		Intensity: 3
 		Multiplier: 1,1
 		Delay: 125
-
+#
 ##Marks Targets
 MediVoidWeaponSmallMark:
 	ValidTargets: Ground, Water, GroundActor, WaterActor, Underwater, AirborneActor, Trees
@@ -1332,6 +1322,7 @@ MediVoidWeaponSmallMark:
 ###############################################################################
 ##############################   Mage Nuke Attacks   ##########################
 ###############################################################################
+#
 MageSuperWeapon:
 	ValidTargets: Ground, Water, GroundActor, WaterActor, Underwater, AirborneActor, Trees
 	Warhead@99Eff_impact: CreateEffect
@@ -1424,3 +1415,145 @@ MageSuperWeapon:
 		Duration: 20
 		Delay: 300
 		FlashType: Catalyst
+
+###############################################################################
+##############################   Air Unit Attacks   ######################
+###############################################################################
+#
+GyroChain:
+	ReloadDelay: 10
+	Range: 5c0
+	MinRange: 0c768
+	Report: gun13.aud
+	ValidTargets: Ground, GroundActor, Air, AirborneActor, WaterActor
+	Projectile: InstantHit
+		Blockable: false
+	Warhead@1Dam: SpreadDamage
+		Spread: 128
+		Damage: 2500
+		ValidTargets: Ground, GroundActor, Air, AirborneActor, WaterActor
+		Versus:
+			None: 200
+			Wood: 40
+			Light: 52
+			Heavy: 28
+			Concrete: 28
+		DamageTypes: Prone50Percent, TriggerProne, BulletDeath
+	Warhead@2Eff: CreateEffect
+		Explosions: piffs
+		ValidTargets: Ground, GroundActor, Air, AirborneActor, WaterActor, Trees
+	Warhead@3EffWater: CreateEffect
+		Explosions: water_piffs
+		ValidTargets: Water, Underwater
+		InvalidTargets: Bridge
+#
+GryphonRiderAttack:
+	ReloadDelay: 80
+	Range: 6c0
+	Report: gryphonriderattack1.aud, gryphonriderattack2.aud, gryphonriderattack3.aud
+	ValidTargets: Ground, Water, GroundActor, WaterActor, AirborneActor
+	Projectile: Missile
+		Blockable: False
+		Speed: 200
+		Image: mediwaterelementalshot
+		HorizontalRateOfTurn: 60
+		ContrailLength: 7
+		ContrailStartColor: 2b669c
+		ContrailWidth: 0c128
+	Warhead@ArcBoat1Dam: SpreadDamage
+		Spread: 128
+		Damage: 3000
+		ValidTargets: GroundActor, WaterActor, AirborneActor
+		Versus:
+			None: 40
+			Wood: 30
+			Light: 110
+			Heavy: 95
+			Concrete: 20
+		DamageTypes: Prone50Percent, TriggerProne, ElectricityDeath
+	Warhead@ArcBoat2Smu: LeaveSmudge
+		SmudgeType: Scorch
+	Warhead@ArcBoat3Eff: CreateEffect
+		Explosions: medigryphonriderattack
+		ImpactSounds: gryphonriderhit.aud
+		ValidTargets: Ground, GroundActor, Water, WaterActor, Trees, AirborneActor
+#
+GryphonRiderAttackBurst:
+	Inherits: GryphonRiderAttack
+	ReloadDelay: 10
+#
+DragonGround:
+	ValidTargets: Ground, GroundActor, Water, WaterActor, Trees
+	ReloadDelay: 200
+	Range: 6c0
+	Projectile: Bullet
+		Speed: 345
+		Image: manf
+		Inaccuracy: 2c0
+		ContrailLength: 1
+	Warhead@1Dam: SpreadDamage
+		Spread: 512
+		Damage: 2000
+		ValidTargets: GroundActor, WaterActor
+		Versus:
+			None: 50
+			Wood: 150
+			Light: 150
+			Concrete: 80
+			Heavy: 100
+		DamageTypes: Prone50Percent, TriggerProne, FireDeath, Incendiary
+	Warhead@2Smu: LeaveSmudge
+		SmudgeType: Scorch
+		InvalidTargets: Structure, Wall
+	Warhead@3Eff: CreateEffect
+		Explosions: napalm
+		ImpactSounds: firebl3.aud
+		ImpactActors: false
+		ValidTargets: Ground, GroundActor, Water, WaterActor, Trees
+	Warhead@Cluster1: FireCluster
+		Weapon: DragonGroundCluster
+		RandomClusterCount: 7
+		Dimensions: 4,4
+		Footprint: XxxX xxxx xxxx XxxX
+#
+DragonGroundCluster:
+	Inherits@Dragon: DragonGround
+	Projectile: Bullet
+		Speed: 200
+		Image: fb3
+	Warhead@Cluster2: FireCluster
+		Weapon: DragonGroundCluster2
+		RandomClusterCount: 2
+		Dimensions: 2,2
+		Footprint: xx xx
+	-Warhead@Cluster1: FireCluster
+#
+DragonGroundCluster2:
+	Inherits@Dragon: DragonGroundCluster
+	-Warhead@Cluster2: FireCluster
+#
+DragonAir:
+	Inherits@Dragon: DragonGround
+	ValidTargets: AirborneActor
+	-Warhead@Cluster1: FireCluster
+	ReloadDelay: 10
+	Range: 6c0
+	Projectile: Missile
+		Blockable: False
+		Speed: 1000
+		Image: Plasma
+		ContrailLength: 2
+	Warhead@1Dam: SpreadDamage
+		Spread: 213
+		Damage: 4000
+		ValidTargets: AirborneActor
+		Versus:
+			None: 100
+			Wood: 100
+			Light: 100
+			Heavy: 100
+			Concrete: 100
+
+###############################################################################
+##############################   Boat Unit Attacks   ######################
+###############################################################################

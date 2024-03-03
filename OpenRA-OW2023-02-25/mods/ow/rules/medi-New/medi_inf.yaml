@@ -668,15 +668,15 @@ swarmling:
 		Range: 4c512
 	Armament@1:
 		Name: primary
-		Weapon: ZerglingAttack
+		Weapon: swarmlingAttack1
 		RequiresCondition: weap1
 	Armament@2:
 		Name: primary
-		Weapon: ZerglingAttack2
+		Weapon: swarmlingAttack2
 		RequiresCondition: weap2
 	Armament@3:
 		Name: primary
-		Weapon: ZerglingAttack3
+		Weapon: swarmlingAttack3
 		RequiresCondition: weap3
 	GrantRandomCondition:
 		Conditions: weap1, weap2, weap3
@@ -713,6 +713,44 @@ swarmling:
 	AttackFrontal:
 		FacingTolerance: 0
 
+swarmlingSwarm:
+	Inherits: swarmling
+	SpawnActorOnDeath:
+		OwnerType: InternalName
+		Offset: 0,0
+		InternalOwner: Creeps
+		Actor: swarmling
+	SpawnActorOnDeath@1:
+		OwnerType: InternalName
+		Offset: 1,0
+		InternalOwner: Creeps
+		Actor: swarmling
+	SpawnActorOnDeath@2:
+		OwnerType: InternalName
+		Offset: 0,1
+		InternalOwner: Creeps
+		Actor: swarmling
+	SpawnActorOnDeath@3:
+		OwnerType: InternalName
+		Offset: 1,1
+		InternalOwner: Creeps
+		Actor: swarmling
+	SpawnActorOnDeath@4:
+		OwnerType: InternalName
+		Offset: -1,0
+		InternalOwner: Creeps
+		Actor: swarmling
+	SpawnActorOnDeath@5:
+		OwnerType: InternalName
+		Offset: 0,-1
+		InternalOwner: Creeps
+		Actor: swarmling
+	KillsSelf:
+		Delay: 0
+	Health:
+		HP: 99999000
+	-UpdatesPlayerStatistics:
+	
 ###############################################################################
 ################################# Ranged Units ################################
 ###############################################################################
@@ -790,30 +828,15 @@ VOIDARCHER:
 		Speed: 60
 	Armament:
 		Weapon: Voidarchershot
-		PauseOnCondition: elementalweps
 		LocalOffset: 450,0,670
 	Armament@02:
 		Weapon: Voidarchershot2
 	Armament@GARRISONED:
 		Name: garrisoned
 		Weapon: Voidarchershot3
-		PauseOnCondition: elementalweps
 	Armament@BUS:
 		Name: bus
 		Weapon: Voidarchershot3
-		PauseOnCondition: elementalweps
-	Armament@ElementalWepon:
-		RequiresCondition: elementalweps
-		Weapon: Voidarchershot
-		LocalOffset: 450,0,670
-	Armament@GARRISONEDElementalWepon:
-		RequiresCondition: elementalweps
-		Name: garrisoned
-		Weapon: Voidarchershot3
-	Armament@BUSElementalWepon:
-		Name: bus
-		Weapon: Voidarchershot3
-		RequiresCondition: elementalweps
 	AutoTarget:
 		InitialStance: Defend
 		ScanRadius: 9
