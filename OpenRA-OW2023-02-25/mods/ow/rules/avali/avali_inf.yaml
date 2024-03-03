@@ -68,6 +68,7 @@
 	UpdatesPlayerStatistics:
 		AddToArmyValue: true
 
+# Light infantry
 AVINF1:
 	Inherits: ^AvaliSoldier
 	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
@@ -160,6 +161,7 @@ AVINF1:
 		Interval: 150
 		RequiresCondition: taunt_dance
 
+# Engineer
 AVINF2:
 	Inherits: ^AvaliSoldier
 	Inherits@selection: ^SelectableSupportUnit
@@ -222,6 +224,7 @@ AVINF2:
 		ConsumedByCapture: true
 	-AttackFrontal:
 
+# Pack Leader
 AVINF3:
 	Inherits: AVINF1
 	RenderSprites:
@@ -292,7 +295,7 @@ AVINF3:
 		AttackSequences:
 			primary: shoot
 			secondary: grenade
-
+# Heavy Inf
 AVINF4:
 	Inherits: ^AvaliSoldier
 	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
@@ -302,6 +305,8 @@ AVINF4:
 		Prerequisites: ~barracks, ~infantry.avalon, ~techlevel.infonly
 		BuildPaletteOrder: 101
 		Description: actor-avinf4.description
+	Selectable:
+		Class: AVINF4
 	Tooltip:
 		Name: actor-avinf4.name
 	Valued:
@@ -367,3 +372,34 @@ AVINF4:
 		Weapon: AvaliAALaserEnd
 		AmmoPoolName: hackammo
 		RequiresCondition: !firing
+
+AVINF1.Carrier:
+	Inherits: AVINF1
+	Buildable:
+		Queue: AvaliCarrier
+		-Prerequisites:
+	RenderSprites:
+		Image: avinf1
+	UpdatesPlayerStatistics:
+		OverrideActor: avinf1
+	-Cloneable:
+
+AVINF3.Carrier:
+	Inherits: AVINF3
+	Buildable:
+		Queue: AvaliCarrier
+		-Prerequisites:
+	UpdatesPlayerStatistics:
+		OverrideActor: avinf3
+	-Cloneable:
+
+AVINF4.Carrier:
+	Inherits: AVINF4
+	Buildable:
+		Queue: AvaliCarrier
+		-Prerequisites:
+	RenderSprites:
+		Image: avinf4
+	UpdatesPlayerStatistics:
+		OverrideActor: avinf4
+	-Cloneable:

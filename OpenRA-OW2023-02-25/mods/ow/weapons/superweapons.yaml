@@ -1415,7 +1415,8 @@ SolBarrageCluster1:
 		Delay: 15
 		Explosions: building
 		ValidTargets: Ground, Water, Air
-		ImpactSounds: dsrpgexp.aud, baud.aud, baud.aud
+		ImpactSounds: dsrpgexp.aud
+		ImpactSoundChance: 20
 		ImpactActors: false
 	Warhead@6Shake: ShakeScreen
 		Duration: 10
@@ -1424,7 +1425,8 @@ SolBarrageCluster1:
 		Delay: 10
 	Warhead@73Eff: CreateEffect
 		Explosions: bunkerbustersring
-		ImpactSounds: kaboom1.aud, baud.aud, baud.aud
+		ImpactSounds: kaboom1.aud
+		ImpactSoundChance: 20
 
 SolBarrageCluster2:
 	Inherits: SolBarrageCluster1
@@ -3328,3 +3330,103 @@ ChinaSuperNukeExplosion:
 	Warhead@99Eff_impact1: CreateEffect
 		ImpactSounds: supernukeexplosion.aud
 		ImpactActors: false
+
+WarpshipTrigger:
+	ValidTargets: Ground, Water, GroundActor, WaterActor, Air, AirborneActor
+	Warhead@1Dam: SpreadDamage
+		Spread: 256
+		Damage: 400
+		ValidTargets: AvaliCarrier
+	Warhead@4Cluster: FireShrapnel
+		Amount: 1
+		Weapon: WarpshipTriggerJump
+		AimTargetStances: Ally
+		AimChance: 100
+		ThrowWithoutTarget: true
+		AroundTarget: true
+		ImpactActors: false
+
+WarpshipTriggerJump:
+	Inherits: WarpshipTrigger
+	Range: 6c0
+	ValidTargets: AvaliCarrier
+	Projectile: InstantHit
+	TargetActorCenter: true
+	-Warhead@4Cluster:
+	Warhead@2trigger: GrantExternalCondition
+		Range: 3c0
+		Condition: trigger_jump
+		ValidTargets: AvaliCarrier
+
+WarpshipJump:
+	Warhead@eff1: CreateEffect
+		Explosions: warpship_charge
+		ImpactActors: false
+		ValidTargets: Air, Ground, Clear
+		Inaccuracy: 2c0
+	Warhead@eff2: CreateEffect
+		Delay: 4
+		Explosions: warpship_charge
+		ImpactActors: false
+		ValidTargets: Air, Ground, Clear
+		Inaccuracy: 2c0
+	Warhead@eff3: CreateEffect
+		Delay: 8
+		Explosions: warpship_charge
+		ImpactActors: false
+		ValidTargets: Air, Ground, Clear
+		Inaccuracy: 2c0
+	Warhead@eff4: CreateEffect
+		Delay: 30
+		Explosions: warpship_jump1
+		ImpactSounds: jericho.wav
+		ValidTargets: Air, Ground, Clear
+		ImpactActors: false
+	Warhead@eff5: CreateEffect
+		Delay: 30
+		ImpactSounds: jericho.wav
+		ValidTargets: Air, Ground, Clear
+		ImpactActors: false
+	Warhead@cluster1: FireCluster
+		Delay: 34
+		Weapon: WarpshipJumpDamage
+		Dimensions: 3,3
+		Footprint: _x_ xxx _x_
+	Warhead@cluster2: FireCluster
+		Delay: 38
+		Weapon: WarpshipJumpDamage
+		Dimensions: 5,5
+		RandomClusterCount: 12
+		Footprint: _xxx_ xx_xx x___x xx_xx _xxx_
+	Warhead@cluster3: FireCluster
+		Delay: 42
+		Weapon: WarpshipJumpDamage
+		Dimensions: 7,7
+		RandomClusterCount: 14
+		Footprint: _xxxxx_ xx___xx x_____x x_____x x_____x xx___xx _xxxxx_
+	Warhead@cluster4: FireCluster
+		Delay: 46
+		Weapon: WarpshipJumpDamage
+		Dimensions: 9,9
+		RandomClusterCount: 16
+		Footprint: _xxxxxxx_ xxxxxxxxx xxxx_xxxx xxx___xxx xx_____xx xxx___xxx xxxx_xxxx xxxxxxxxx _xxxxxxx_
+	Warhead@cluster5: FireCluster
+		Delay: 50
+		Weapon: WarpshipJumpDamage
+		Dimensions: 15,15
+		RandomClusterCount: 16
+		Footprint: _xxxxxxxxxxxxx_ xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxx_xxxxxxx xxxxxx___xxxxxx xxxxx_____xxxxx xxxx_______xxxx xxxxx_____xxxxx xxxxxx___xxxxxx xxxxxxx_xxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx _xxxxxxxxxxxxx_
+	Warhead@22FlashEffect: FlashEffect
+		Delay: 28
+		Duration: 30
+		FlashType: Nuke
+
+WarpshipJumpDamage:
+	Inherits: SolBarrageCluster1
+	FollowingBurstTargetOffset: 0,0,0
+	Projectile: Bullet
+		Speed: 512
+		Inaccuracy: 0c800
+	Warhead@3Eff: CreateEffect
+		ImpactSounds: dsrpgexp.aud
+		ImpactSoundChance: 10

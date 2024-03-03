@@ -789,13 +789,13 @@ PVOIDRAY:
 	Armament@PRIMARY1:
 		Weapon: VoidRayBeam1
 		PauseOnCondition: !ammo
-		LocalOffset: 1024,0,0
+		LocalOffset: 1300,0,0
 	Armament@PRIMARY2:
 		Name: secondary
 		Weapon: VoidRayBeam2
 		RequiresCondition: shooting > 24
 		PauseOnCondition: !ammo
-		LocalOffset: 1024,0,0
+		LocalOffset: 1300,0,0
 		AmmoUsage: 0
 	AttackAircraft:
 		FacingTolerance: 32
@@ -857,12 +857,17 @@ PVOIDRAY:
 		Sequence: engine
 		RequiresCondition: moving
 		Palette: effect
-	WithFacingSpriteBody@3:
-		Name: shoot
-		Sequence: shoot
-		Palette: player
-		IsPlayerPalette: true
-		RequiresCondition: shooting
+	Turreted: 
+		Offset: 800,0,0
+	WithSpriteTurret@1:
+		RequiresCondition: !shooting
+		Sequence: crystal-idle
+	WithSpriteTurret@2:
+		RequiresCondition: (shooting < 24) && (shooting > 0)
+		Sequence: crystal-shoot1
+	WithSpriteTurret@3:
+		RequiresCondition: shooting >= 24
+		Sequence: crystal-shoot2
 	-EjectOnDeath:
 	ReloadAmmoPool@reloadnear:
 		RequiresCondition: !shooting && !cooldown

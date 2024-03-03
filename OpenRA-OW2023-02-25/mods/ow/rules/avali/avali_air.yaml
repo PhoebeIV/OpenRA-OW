@@ -185,12 +185,15 @@ AVBOMBER:
 
 AVCARRIER:
 	Inherits: ^Helicopter
+	Inherits@cargo: ^CargoPips
+	Inherits@selection: ^SelectableSupportUnit
 	Buildable:
 		Queue: Aircraft
 		BuildAtProductionType: Helicopter
 		BuildPaletteOrder: 110
 		Prerequisites: advtechcenter, ~aircraft.avalon, ~techlevel.high
 		Description: actor-avcarrier.description
+		BuildLimit: 4
 	HitShape:
 		Type: Rectangle
 			TopLeft: -1250, -2816
@@ -203,7 +206,11 @@ AVCARRIER:
 	UpdatesPlayerStatistics:
 		AddToArmyValue: true
 	Health:
-		HP: 90000
+		HP: 160000
+	Shielded: 
+		MaxStrength: 120000
+		RequiresCondition: !emp_shields && !defense_matrix && !cruising
+		RemoveOnDisable: false
 	RevealsShroud:
 		MinRange: 8c0
 		Range: 12c0
@@ -224,6 +231,7 @@ AVCARRIER:
 	AttackOmni:
 		TargetFrozenActors: true
 	Aircraft:
+		CruisingCondition: cruising
 		TurnSpeed: 8
 		Speed: 50
 		LandAltitude: 0
@@ -232,6 +240,7 @@ AVCARRIER:
 		Condition: moving
 	SpawnActorOnDeath:
 		Actor: AVCARRIER.Husk
+		RequiresCondition: !trigger_jump
 	WithDamageOverlay:
 		Offset: -427,0,0
 	ProducibleWithLevel:
@@ -246,6 +255,7 @@ AVCARRIER:
 	RenderSprites:
 	WithFacingSpriteBody:
 	EjectOnDeath:
+		RequiresCondition: !trigger_jump
 		PilotActor: AVINF1
 	-ClassicFacingBodyOrientation:
 	BodyOrientation:
@@ -257,8 +267,6 @@ AVCARRIER:
 	DetectCloaked:
 		Range: 8c0
 	-Rearmable:
-	Targetable@avalicarrier:
-		TargetTypes: AvaliCarrier
 	CarrierMaster:
 		Actors: avinter, avinter, avinter, avinter
 		SpawnOffset: 2048,0,128
@@ -269,7 +277,7 @@ AVCARRIER:
 		MaxSlaveDistance: 10c0
 	WithSpawnerMasterPipsDecoration:
 		Position: BottomLeft
-		Margin: 4, 3
+		Margin: 4, 6
 		RequiresSelection: true
 	Exit@0:
 		SpawnOffset: 512,0,128
@@ -288,6 +296,16 @@ AVCARRIER:
 	GrantConditionOnDamageState@fire3:
 		Condition: damaged_critical
 		ValidDamageStates: Critical
+	GrantConditionOnMovement@scout:
+		Condition: moving
+	WithFacingSpriteBody:
+		RequiresCondition: !moving
+	WithFacingSpriteBody@2:
+		Name: engine
+		Sequence: move
+		RequiresCondition: moving
+		Palette: player
+		IsPlayerPalette: true
 	WithIdleOverlay@fire1:
 		RequiresCondition: damaged_light
 		Image: fire
@@ -309,6 +327,125 @@ AVCARRIER:
 		IsDecoration: true
 		Offset: 512,128,0
 		Palette: effect
+	Cargo:
+		Types: Infantry, Vehicle
+		MaxWeight: 20
+		PassengerFacing: 0
+		LoadingCondition: notmobile
+		AfterLoadDelay: 50
+		BeforeUnloadDelay: 25
+	GrantConditionOnPrerequisite@botowner:
+		Condition: botowner
+		Prerequisites: ai.hard
+	PeriodicProducer: 
+		RequiresCondition: botowner
+		Actors: av1tnk
+		Type: Special
+		ChargeDuration: 1500
+	PeriodicProducer@2: 
+		RequiresCondition: botowner
+		Actors: avinf1, avinf3, avinf4, avinf1, avinf4
+		Type: Special
+		ChargeDuration: 1000
+	Production:
+		Produces: Special, AvaliCarrier
+	ProductionQueue@player:
+		Type: AvaliCarrier
+		Group: AvaliCarrier
+		LowPowerModifier: 100
+		BuildDurationModifier: 200
+	ProductionBar:
+		ProductionType: AvaliCarrier
+	Exit:
+		SpawnOffset: 0,0,-256
+	Targetable@AIConsider:
+		RequiresCondition: damaged_heavy && botowner
+		TargetTypes: AvaliCarrierConsider
+	Targetable@carrier:
+		TargetTypes: AvaliCarrier
+	IonCannonPower:
+		Icon: warpship
+		Cursor: chrono-target
+		ChargeInterval: 9000
+		OrderName: Warpship
+		Name: Warpship Evacuation Order
+		Description: Order a Warpship to leave the battlefield\n in warp speed, causing a devastating explosion \n in it's wake.\n  Strong vs Everything
+		SelectTargetSpeechNotification: SelectTarget
+		InsufficientPowerSpeechNotification: InsufficientPower
+		DisplayRadarPing: True
+		CameraActor: camera.small
+		SupportPowerPaletteOrder: 20
+		WeaponDelay: 1
+		CameraRemoveDelay: 100
+		Effect: explosion
+		EffectSequence: piff
+		Weapon: WarpshipTrigger
+		DisplayTimerRelationships: Ally, Neutral, Enemy
+	ExternalCondition@trigger_jump:
+		Condition: trigger_jump
+	KillsSelf@trigger_jump:
+		RequiresCondition: trigger_jump
+		Delay: 32
+		RemoveInstead: true
+	SpawnActorOnDeath@trigger_jump:
+		RequiresCondition: trigger_jump
+		Actor: AVCARRIER.Leave
+	FireWarheads@trigger_jump:
+		RequiresCondition: trigger_jump
+		Weapons: WarpshipJump
+		Interval: 100
+
+AVCARRIER.Leave:
+	Inherits: AVCARRIER
+	-Targetable@GROUND:
+	-Targetable@AIRBORNE:
+	-Targetable@REPAIR:
+	-Selectable:
+	-SpawnActorOnDeath:
+	-Buildable:
+	RenderSprites:
+		Image: avcarrier
+	Interactable:
+	RejectsOrders:
+	Aircraft:
+		Speed: 300
+		CruiseAltitude: 2c16
+		CanHover: false
+		CanSlide: false
+		LandableTerrainTypes: Clear, Road, Creep
+		IdleBehavior: LeaveMap
+		AltitudeVelocity: 72
+	Contrail@1:
+		Offset: -1600,256,0
+		StartColorAlpha: 128
+		TrailLength: 150
+		StartWidth: 192
+		StartColorUsePlayerColor: false
+		EndColorUsePlayerColor: true
+	Contrail@2:
+		Offset: -1600,-256,0
+		StartColorAlpha: 128
+		TrailLength: 150
+		StartWidth: 192
+		StartColorUsePlayerColor: false
+		EndColorUsePlayerColor: true
+	Contrail@3:
+		Offset: -1600,0,512
+		StartColorAlpha: 128
+		TrailLength: 150
+		StartWidth: 192
+		StartColorUsePlayerColor: false
+		EndColorUsePlayerColor: true
+	Contrail@4:
+		Offset: -1600,0,-512
+		StartColorAlpha: 128
+		TrailLength: 150
+		StartWidth: 192
+		StartColorUsePlayerColor: false
+		EndColorUsePlayerColor: true
+	KillsSelf:
+		Delay: 500
+		RemoveInstead: true
 
 AVINTER:
 	Inherits: ^NeutralPlane

@@ -82,6 +82,8 @@ AVDRONE:
 		Name: actor-avdrone.name
 	UpdatesPlayerStatistics:
 		AddToArmyValue: true
+	Selectable:
+		Class: AVDRONE
 	Health:
 		HP: 15000
 	Armor:
@@ -171,6 +173,10 @@ AVEMP:
 		DeathTypes: Suicide
 		EmptyWeapon: AvaliEMPSpike
 		Weapon: AvaliEMPSpike
+	Explodes@empbot:
+		RequiresCondition: botowner
+		EmptyWeapon: AvaliEMPSpike
+		Weapon: AvaliEMPSpike
 	Chronoshiftable:
 		ExplodeInstead: true
 	DamageMultiplier@charged:
@@ -179,6 +185,9 @@ AVEMP:
 	SpeedMultiplier@charged:
 		RequiresCondition: ammo == 5
 		Modifier: 125
+	GrantConditionOnPrerequisite@botowner:
+		Condition: botowner
+		Prerequisites: ai.all
 
 AV1TNK:
 	Inherits: 2TNK
@@ -187,6 +196,8 @@ AV1TNK:
 		BuildPaletteOrder: 132
 		Prerequisites: fix, ~vehicles.avalon, ~techlevel.medium
 		Description: actor-av1tnk.description
+	Selectable:
+		Class: AV1TNK
 	Valued:
 		Cost: 880
 	Tooltip:
@@ -212,3 +223,23 @@ AV1TNK:
 		PauseOnCondition: disabled
 	-ClassicFacingBodyOrientation:
 	BodyOrientation:
+
+AV1TNK.Carrier:
+	Inherits: AV1TNK
+	Buildable:
+		Queue: AvaliCarrier
+		Prerequisites: fix
+	RenderSprites:
+		Image: av1tnk
+	UpdatesPlayerStatistics:
+		OverrideActor: av1tnk
+
+AVDRONE.Carrier:
+	Inherits: AVDRONE
+	Buildable:
+		Queue: AvaliCarrier
+		Prerequisites: fix
+	RenderSprites:
+		Image: avdrone
+	UpdatesPlayerStatistics:
+		OverrideActor: avdrone
