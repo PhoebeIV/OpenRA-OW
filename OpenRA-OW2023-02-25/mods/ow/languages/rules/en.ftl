@@ -266,6 +266,10 @@ actor-avdrone =
       Strong vs Infantry
       Weak vs Vehicles, Aircraft
    .name = Drone
+   .name2 = EMP Drone
+   .description2 = EMP suicide drone. Will disable 
+      electronics for 7 seconds.
+      Strong vs Vehicles, Structures
 
 actor-av1tnk =
    .description = Illuminate Main Battle Tank.

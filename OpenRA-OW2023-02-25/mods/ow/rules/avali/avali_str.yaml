@@ -31,7 +31,6 @@ AVFACT:
 		Palette: cloak
 
 ^AvaliPowerPlant:
-	Inherits: ^PowerPlant
 	GrantConditionOnTileSet@warm:
 		TileSets: TEMPERAT, INTERIOR, DESERT
 		Condition: env_buff
@@ -40,15 +39,14 @@ AVFACT:
 		RequiresCondition: env_buff
 
 AVPOWR1:
-	Inherits: ^AvaliPowerPlant
+	Inherits: ^PowerPlant
+	Inherits@power: ^AvaliPowerPlant
 	Inherits@POWER_OUTAGE: ^DisabledByPowerOutage
-	Inherits@shape: ^2x2Shape
-	Inherits@BIB: ^2xBuildingBib
+	Inherits@shape: ^1x1Shape
 	Selectable:
-		Bounds: 2048, 2048
+		Bounds: 1028, 1028
 	HitShape:
 		UseTargetableCellsOffsets: false
-		TargetableOffsets: 0,0,0, 640,-384,0, 640,512,0, -710,-512,0, -710,512,0
 	Buildable:
 		Queue: Building
 		BuildPaletteOrder: 1
@@ -61,11 +59,8 @@ AVPOWR1:
 	ProvidesPrerequisite:
 		Prerequisite: anypower
 	Building:
-		Footprint: xX xx ==
-		Dimensions: 2,3
-		LocalCenterOffset: 0,-512,0
 	Health:
-		HP: 40000
+		HP: 36000
 	Armor:
 		Type: Wood
 	RevealsShroud:
@@ -74,15 +69,47 @@ AVPOWR1:
 		Amount: 100
 	Targetable:
 		TargetTypes: GroundActor, Structure, C4, DetonateAttack, SpyInfiltrate
-	ScalePowerWithHealth:
-	WithDeathAnimation:
-		DeathSequence: dead
-		UseDeathTypeSuffix: false
-	RenderSprites:
-		Image: dpwr
+	Explodes:
+		Weapon: AvaliPowerExplosion
+		EmptyWeapon: AvaliPowerExplosion
+		RequiresCondition: avpowernear < 3
+	Explodes@big:
+		Weapon: DemoTrapExplosion2
+		EmptyWeapon: DemoTrapExplosion2
+		RequiresCondition: avpowernear >= 3
+	ExternalCondition@avpowernear:
+		Condition: avpowernear
+	ProximityExternalCondition@avpowernear:
+		Condition: avpowernear
+		Range: 1c256
+		AffectsParent: false
+	PowerMultiplier@warm:
+		RequiresCondition: env_buff && !avpowernear
+	Power@bonus1:
+		RequiresCondition: (avpowernear == 1) && !env_buff
+		Amount: 10
+	Power@bonus1e:
+		RequiresCondition: (avpowernear == 1) && env_buff
+		Amount: 20
+	Power@bonus2:
+		RequiresCondition: (avpowernear == 2) && !env_buff
+		Amount: 25
+	Power@bonus2e:
+		RequiresCondition: (avpowernear == 2) && env_buff
+		Amount: 30
+	Power@bonus3:
+		RequiresCondition: (avpowernear >= 3) && !env_buff
+		Amount: 40
+	Power@bonus3e:
+		RequiresCondition: (avpowernear >= 3) && env_buff
+		Amount: 50
+	WithBuildingBib:
+		HasMinibib: true
+
 
 AVPOWR2:
 	Inherits: ^PowerPlant
+	Inherits@power: ^AvaliPowerPlant
 	Inherits@POWER_OUTAGE: ^DisabledByPowerOutage
 	Inherits@shape: ^2x2Shape
 	Inherits@BIB: ^2xBuildingBib
@@ -118,15 +145,20 @@ AVPOWR2:
 		Amount: 200
 	Targetable:
 		TargetTypes: GroundActor, Structure, C4, DetonateAttack, SpyInfiltrate
-	ScalePowerWithHealth:
-	WithDeathAnimation:
-		DeathSequence: dead
-		UseDeathTypeSuffix: false
-	RenderSprites:
-		Image: nuk2
+	GrantConditionOnDamageState@fire2:
+		Condition: damaged_heavy
+		ValidDamageStates: Heavy, Critical
+	WithIdleOverlay@fire3:
+		RequiresCondition: damaged_heavy
+		Image: fire
+		Sequence: 2
+		IsDecoration: true
+		Offset: 0,-1024,512
+		Palette: effect
 
 AVPOWR3:
 	Inherits: XPWR
+	Inherits@1: ^AvaliPowerPlant
 	Selectable:
 		Bounds: 3072, 2048
 	Buildable:
@@ -142,8 +174,8 @@ AVPOWR3:
 		StartSequence: fire-start
 		Sequence: fire-loop
 	-RenderSprites:
+	-WithDeathAnimation:
 	RenderSprites:
-		Image: nuk3
 
 AVPROC:
 	Inherits: PROC

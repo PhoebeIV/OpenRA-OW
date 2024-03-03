@@ -129,6 +129,57 @@ AVDRONE:
 	Voiced:
 		VoiceSet: ProtossRobotVoice
 
+AVEMP:
+	Inherits: AVDRONE
+	RenderSprites:
+		Image: AVDRONE
+	Buildable:
+		Queue: Vehicle
+		BuildPaletteOrder: 131
+		Prerequisites: fix, ~vehicles.avalon, ~techlevel.high
+		Description: actor-avdrone.description2
+	Valued:
+		Cost: 900
+	Tooltip:
+		Name: actor-avdrone.name2
+	Armament:
+		Weapon: DemoTruckTargeting
+		RequiresCondition: ammo == 5
+	AmmoPool:
+		Ammo: 5
+		AmmoCondition: ammo
+		InitialAmmo: 0
+	ReloadAmmoPool:
+		Delay: 250
+	WithAmmoPipsDecoration:
+		Position: BottomLeft
+		Margin: 4, 3
+		RequiresSelection: true
+		PipCount: 5
+		FullSequence: pip-blue
+		EmptySequence: pip-empty
+	GrantConditionOnAttack:
+		Condition: triggered
+	GrantConditionOnDeploy:
+		RequiresCondition: ammo == 5
+		DeployedCondition: triggered
+	-DamageMultiplier@IRONCURTAIN:
+	KillsSelf:
+		RequiresCondition: invulnerability || triggered
+		DamageTypes: Suicide
+	Explodes@emp:
+		DeathTypes: Suicide
+		EmptyWeapon: AvaliEMPSpike
+		Weapon: AvaliEMPSpike
+	Chronoshiftable:
+		ExplodeInstead: true
+	DamageMultiplier@charged:
+		RequiresCondition: ammo == 5
+		Modifier: 60
+	SpeedMultiplier@charged:
+		RequiresCondition: ammo == 5
+		Modifier: 125
+
 AV1TNK:
 	Inherits: 2TNK
 	Inherits@avali: ^AvaliVehicle

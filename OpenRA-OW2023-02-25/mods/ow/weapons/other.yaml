@@ -808,8 +808,8 @@ AvaliBomb:
 
 AvaliBomberBomb:
 	Inherits: AvaliBomb
-	ReloadDelay: 6
-	Range: 6c0
+	ReloadDelay: 7
+	Range: 5c0
 	Warhead@1Dam: SpreadDamage
 		Spread: 1024
 		Damage: 22500
@@ -6786,6 +6786,63 @@ LightningSpike3:
 
 LightningSpike4:
 	Inherits: LightningSpike1
+	-Warhead@4Cluster:
+
+AvaliEMPSpike:
+	Inherits: LightningSpike
+	ReloadDelay: 100
+	Range: 10c0
+	Report: wclitning1.aud, wclitning2.aud, wclitning3.aud, wclitning4.aud, wclitning5.aud
+	ValidTargets: Ground, Water, GroundActor, WaterActor
+	Projectile: ElectricBolt
+		Duration: 8
+	Warhead@1Dam: SpreadDamage
+		Damage: 1000
+	Warhead@4Cluster: FireShrapnel
+		Amount: 2
+		Weapon: AvaliEMPSpike1
+	Warhead@2EMP: GrantExternalCondition
+		Duration: 250
+		ValidTargets: Structure
+	Warhead@3EMP: GrantExternalCondition
+		Duration: 175
+		Condition: disabled
+		InvalidTargets: Structure
+		ValidTargets: GroundActor, WaterActor
+
+AvaliEMPSpike1:
+	Inherits: AvaliEMPSpike
+	Range: 3c0
+	-Report:
+	ValidTargets: Ground, Water, GroundActor, WaterActor
+	InvalidTargets: Infantry
+	Warhead@3EffGround: CreateEffect
+		-ImpactSounds:
+	Warhead@4Cluster: FireShrapnel
+		Amount: 1
+		Weapon: LightningSpike2
+		AimTargetStances: Neutral, Enemy
+		AimChance: 100
+		ThrowWithoutTarget: true
+		AroundTarget: true
+		ImpactActors: false
+
+AvaliEMPSpike2:
+	Inherits: AvaliEMPSpike
+	Warhead@4Cluster: FireShrapnel
+		Delay: 1
+		Amount: 1
+		Weapon: AvaliEMPSpike3
+
+AvaliEMPSpike3:
+	Inherits: AvaliEMPSpike1
+	Warhead@4Cluster: FireShrapnel
+		Delay: 1
+		Amount: 1
+		Weapon: AvaliEMPSpike4
+
+AvaliEMPSpike4:
+	Inherits: AvaliEMPSpike1
 	-Warhead@4Cluster:
 
 TemplarDummy:

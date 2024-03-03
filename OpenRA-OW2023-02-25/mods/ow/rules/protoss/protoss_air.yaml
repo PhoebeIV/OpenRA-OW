@@ -120,7 +120,7 @@ PSCOUT:
 		Queue: Aircraft
 		BuildAtProductionType: Helicopter
 		BuildPaletteOrder: 40
-		Prerequisites: ~aircraft.protoss, techcenter, ~techlevel.high
+		Prerequisites: ~aircraft.protoss, ~techlevel.medium
 		Description: actor-pscout.description
 	Valued:
 		Cost: 1800
@@ -789,13 +789,13 @@ PVOIDRAY:
 	Armament@PRIMARY1:
 		Weapon: VoidRayBeam1
 		PauseOnCondition: !ammo
-		LocalOffset: 512,0,0
+		LocalOffset: 1024,0,0
 	Armament@PRIMARY2:
 		Name: secondary
 		Weapon: VoidRayBeam2
 		RequiresCondition: shooting > 24
 		PauseOnCondition: !ammo
-		LocalOffset: 512,0,0
+		LocalOffset: 1024,0,0
 		AmmoUsage: 0
 	AttackAircraft:
 		FacingTolerance: 32
@@ -809,6 +809,15 @@ PVOIDRAY:
 	AutoTarget:
 		InitialStance: ReturnFire
 		InitialStanceAI: ReturnFire
+	AutoTargetPriority@DEFAULT:
+		ValidTargets: Cyborg, Vehicle, Ship, Underwater, AirborneActor, Defense
+		Priority: 10
+	AutoTargetPriority@ATTACKANYTHING:
+		ValidTargets: Cyborg, Vehicle, Ship, Underwater, AirborneActor, Structure, Defense
+		Priority: 10
+	AutoTargetPriority@DEFAULT1:
+		ValidTargets: Infantry, Mine
+		InvalidTargets: NoAutoTarget
 	GrantConditionOnMovement@scout:
 		Condition: moving
 	GrantConditionOnAttack@scout:

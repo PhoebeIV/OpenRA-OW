@@ -1084,7 +1084,7 @@ DoomManc2:
 
 AdvNike:
 	Inherits: Nike
-	ReloadDelay: 10
+	ReloadDelay: 12
 	Range: 12c512
 	Projectile: Missile
 		Arm: 3
@@ -2059,7 +2059,7 @@ HunterSeekerBomb:
 		Acceleration: 5
 		Inaccuracy: 0
 	Warhead@1Dam: SpreadDamage
-		Spread: 762
+		Spread: 512
 		Damage: 300000
 		Falloff: 250, 200, 175, 150, 0, 0, 0
 		Versus:
@@ -2071,9 +2071,10 @@ HunterSeekerBomb:
 		AffectsParent: true
 		ValidRelationships: Neutral, Enemy
 		ValidTargets: GroundActor, WaterActor, AirborneActor
-		InvalidTargets: Infantry
+		DamageTypes: ElectricityDeath
 	Warhead@inf: SpreadDamage
 		Spread: 1c512
+		Delay: 1
 		Damage: 100000
 		AffectsParent: true
 		ValidRelationships: Neutral, Enemy
@@ -2098,6 +2099,10 @@ HunterSeekerBomb:
 		Duration: 5
 		Intensity: 1
 		Multiplier: 1,1
+	Warhead@99Eff_impact: CreateEffect
+		ImpactSounds: jericho.wav
+		Explosions: nuke
+		ImpactActors: false
 
 USASpectreGunshipbunkerbuster:
 	Inherits: ^AntiGroundMissile
