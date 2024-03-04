@@ -706,7 +706,6 @@ PZERATUL:
 	Passenger:
 		Weight: 2
 	Armament:
-		RequiresCondition: !merge
 		Weapon: TemplarBlade
 	WithInfantryBody:
 		DefaultAttackSequence: shoot
@@ -737,25 +736,8 @@ PZERATUL:
 	ProximityCaptor:
 		Types: Infantry
 	AttackFrontal:
-		FacingTolerance: 0
-	AttackFrontal:
-		Armaments: primary, mergeattack
+		Armaments: primary
 		FacingTolerance: 16
-	GrantConditionOnDeploy@1:
-		DeployedCondition: merge
-	GrantConditionOnAttack@1:
-		Condition: kill
-		ArmamentNames: mergeattack
-	ExternalCondition@removeself:
-		Condition: removeself
-	KillsSelf@merge:
-		Delay: 1
-		RequiresCondition: kill
-		DamageTypes: spawnarchon
-	KillsSelf@remove:
-		Delay: 1
-		RequiresCondition: removeself
-		RemoveInstead: true
 	SpawnActorOnDeath@merge:
 		Actor: PDARCHON
 		DeathType: spawnarchon
@@ -789,3 +771,7 @@ PZERATUL:
 		Position: TopRight
 		ValidRelationships: None,Neutral,Enemy,Ally
 		RequiresCondition: !demoralise
+	PortableChrono:
+		ChargeDelay: 500
+		MaxDistance: 8
+		ChronoshiftSound: pabfol02.aud
