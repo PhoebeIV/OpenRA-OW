@@ -6,6 +6,7 @@ Over the years, it has incorporated a number of original factions and ideas, and
 Features:
 
 * 13 new factions, along with subfactions for most of them!
+* Avali faction?!
 * Improvements to both Allies and Soviet, with Allies being given a unique superweapon, the Weather Machine!
 * 2 new tech levels, Advanced Tech and Super Tech, with structures placed into their own unique production queue tab.
 * A new utility production tab for walls, gates and other support buildings.
@@ -35,7 +36,7 @@ Here is a summary of the factions:
 
 ### OW Authors
 
-PhoebeIV, MinesaeHiromu, r34Fletto, Tumbrawolf
+PhoebeIV, MinesaeHiromu, r34Fletto, Tumbrawolf, PolygonBird (artist)
 
 ### Credits
 
