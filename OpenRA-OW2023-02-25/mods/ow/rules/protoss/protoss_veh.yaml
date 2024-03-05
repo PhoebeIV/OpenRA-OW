@@ -375,7 +375,7 @@ PSTALKER:
 		Modifier: 118
 	PortableChrono:
 		ChargeDelay: 500
-		MaxDistance: 7
+		MaxDistance: 8
 		ChronoshiftSound: pabfol02.aud
 
 PSTALKER.b:
@@ -392,13 +392,21 @@ PSTALKER.b:
 	UpdatesPlayerStatistics:
 		OverrideActor: pstalker
 	AttackFrontal:
-		RequiresCondition: !phase && !disabled && (attack_stack < 4)
-		PauseOnCondition: phase
+		RequiresCondition: !phasing && !disabled && (attack_stack < 4)
+		PauseOnCondition: phasing
 	Armament:
-		RequiresCondition: !phase && !disabled && (attack_stack < 4)
+		RequiresCondition: !phasing && !disabled && (attack_stack < 4)
 	Armament@aa:
-		RequiresCondition: !phase && !disabled && (attack_stack < 4)
-	GrantConditionOnAttack:
+		RequiresCondition: !phasing && !disabled && (attack_stack < 4)
+	GrantConditionOnMovement@phase_walk:
+		Condition: phase_walk
+		ValidMovementTypes: Horizontal, Turn
+	GrantPeriodicCondition@phase:
+		PauseOnCondition: !phase_walk
+		Condition: phase
+		CooldownDuration: 100, 250
+		ActiveDuration: 14
+	GrantConditionOnAttack@phase:
 		Condition: attack_stack
 		RevokeDelay: 51
 		RevokeAll: true
@@ -407,16 +415,16 @@ PSTALKER.b:
 		Condition: phase
 		RequiresCondition: attack_stack == 4
 		Duration: 14
-	SpeedMultiplier@attack:
+	SpeedMultiplier@phase:
 		Modifier: 500
-		RequiresCondition: phase
-	Wanders@attack:
-		RequiresCondition: phase
+		RequiresCondition: phasing
+	Wanders@phase:
+		RequiresCondition: phase && (attack_stack == 4)
 		WanderMoveRadius: 3
-	Cloak@attack:
+	Cloak@phase:
 		InitialDelay: 0
 		CloakDelay: 0
-		CloakSound: pabfol00.aud
+		CloakSound: 
 		UncloakSound: pabfol02.aud
 		RequiresCondition: phase
 		CloakedCondition: phasing
