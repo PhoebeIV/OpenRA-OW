@@ -359,10 +359,16 @@ AVCARRIER:
 	Exit:
 		SpawnOffset: 0,0,-256
 	Targetable@AIConsider:
-		RequiresCondition: damaged_heavy && botowner
+		RequiresCondition: damaged_heavy && botowner && !prevent_jump
 		TargetTypes: AvaliCarrierConsider
 	Targetable@avalicarrier:
 		TargetTypes: AvaliCarrier
+	ProximityExternalCondition@aiprevent:
+		Range: 7c0
+		Condition: prevent_jump
+		RequiresCondition: botowner
+	ExternalCondition@aiprevent:
+		Condition: prevent_jump
 	IonCannonPower:
 		Icon: warpship
 		Cursor: chrono-target
