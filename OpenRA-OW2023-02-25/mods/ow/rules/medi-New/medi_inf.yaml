@@ -146,7 +146,11 @@ SLAVE:
 		ValidTargets: Vehicle, Ship, Structure
 	RepairsBridges:
 	ChangesHealth@tiberium:
-		Step: -75
+        RequiresCondition: standing_in_tiberium && shielded && !gdi_suits && !shoes
+        Step: -7500
+  ChangesHealth@tiberium_noshield:
+      RequiresCondition: standing_in_tiberium && !shielded && !gdi_suits && !shoes
+      Step: -75
 	RenderSprites:
 		Image: medislave
 	WithStoresResourcesPipsDecoration:
@@ -192,10 +196,7 @@ MEDIWORKER:
 		VoiceSet: WorkerVoice
 	GrantConditionOnPrerequisite@workertib:
 		Condition: workertib
-		Prerequisites: upgrade.workertib
-	ChangesHealth@tiberium:
-		RequiresCondition: standing_in_tiberium && !workertib
-		Step: -75
+		Prerequisites: ~upgrade.mediworkboot
 	RenderSprites:
 		Image: mediworker
 	WithStoresResourcesPipsDecoration:
@@ -208,6 +209,12 @@ MEDIWORKER:
 	StoresResources:
 		Capacity: 12
 		Resources: Ore,Gems,Tiberium,BlueTiberium
+	ChangesHealth@tiberium:
+        RequiresCondition: standing_in_tiberium && shielded && !gdi_suits && !shoes && !workertib
+        Step: -5500
+  ChangesHealth@tiberium_noshield:
+      RequiresCondition: standing_in_tiberium && !shielded && !gdi_suits && !shoes && !workertib
+      Step: -0
 
 ##long vision scout unit, stealth when stationary
 ##scout
@@ -386,7 +393,7 @@ FOOTMAN:
 	Tooltip:
 		Name: Mediaval conscript. \n Strong vs infantry\n Weak vs anything else
 	Health:
-		HP: 27000
+		HP: 37000
 	Mobile:
 		Speed: 70
 	UpdatesPlayerStatistics:
@@ -428,7 +435,7 @@ Knight:
 	Tooltip:
 		Name: Shield Knight
 	Health:
-		HP: 50000
+		HP: 60000
 	AttackFrontal:
 		Armaments: PRIMARY, SECONDARY
 		FacingTolerance: 0
@@ -458,7 +465,7 @@ mediassasin:
 		Queue: Infantry
 		BuildAtProductionType: Soldier
 		BuildPaletteOrder: 406
-		BuildLimit: 3
+		BuildLimit: 5
 	Valued:
 		Cost: 1000
 	AutoTarget:
@@ -470,10 +477,10 @@ mediassasin:
 		Name: Mediassasinblade
 		Weapon: Mediassasinblade
 	AttackLeap:
-		Speed: 200
+		Speed: 250
 		Armaments: Mediassasinblade
 	Mobile:
-		Speed: 70
+		Speed: 100
 	Health:
 		HP: 10000
 	Targetable:
@@ -728,6 +735,7 @@ swarmling:
 
 swarmlingSwarm:
 	Inherits: swarmling
+	-Buildable:
 	SpawnActorOnDeath:
 		OwnerType: Victim
 		Offset: 0,0
