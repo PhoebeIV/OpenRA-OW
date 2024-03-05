@@ -44,7 +44,8 @@ BADR:
 	Cargo:
 		MaxWeight: 20
 	-Berserkable@JapanBerserkerPower:
-
+	Targetable@npc:
+ 		TargetTypes: NoMindControl
 
 C17:
 	Inherits: BADR
@@ -280,3 +281,82 @@ usamoabplane:
 		RequiresCondition: ammo
 	Interactable:
 	-MapEditorData:
+
+japan.Bomber:
+	Inherits: usamoabplane
+	Armament:
+		Weapon: AntiMatterParaDrop
+	Tooltip:
+		Name: actor-japan-bomber-name
+	-SpawnActorOnDeath:
+	-SpawnActorOnDeath@2:
+	SpawnActorOnDeath:
+		Actor: usamoabplane.Husk.empty
+
+japan.bomber.divine:
+	Inherits: japan.Bomber
+	Armament:
+		Weapon: DivineInterventionParaDrop
+
+DO17.Bomber:
+	Inherits: ^TSNeutralPlane
+	-Berserkable@JapanBerserkerPower:
+	Targetable@npc:
+ 		TargetTypes: NoMindControl
+	AttackBomber:
+		FacingTolerance: 8
+	Armament:
+		Weapon: Do18Bomb
+	Health:
+		HP: 17500
+	Aircraft:
+		CruiseAltitude: 2560
+		TurnSpeed: 20
+		Speed: 212
+		Repulsable: False
+		MaximumPitch: 56
+	AmmoPool:
+		Ammo: 6
+	-Selectable:
+	SelectionDecorations:
+	-Voiced:
+	Tooltip:
+		Name: actor-do17-bomber-name
+	Contrail@1:
+		Offset: -553,-256,0
+	Contrail@2:
+		Offset: -553,256,0
+	SpawnActorOnDeath:
+		Actor: DO17.Husk
+	WithDamageOverlay@1:
+		Offset: -553,-256,0
+		Interval: 2
+	WithDamageOverlay@2:
+		Offset: -553,256,0
+		Interval: 1
+	-EjectOnDeath:
+	-MapEditorData:
+	RejectsOrders:
+	RenderSprites:
+		Image: do17
+	GivesExperience:
+		Experience: 1000
+	Interactable:
+	RenderSprites:
+		Image: do17
+	RenderVoxels:
+		Image: do17
+		Scale: 10
+	SpawnActorOnDeath:
+		Actor: DO17.Husk
+	WithAmmoPipsDecoration:
+		Position: BottomLeft
+		RequiresSelection: true
+
+DO17.Auschwitz:
+	Inherits: DO17.Bomber
+	AmmoPool:
+		Ammo: 16
+	WithAmmoPipsDecoration:
+		Position: BottomLeft
+		RequiresSelection: true

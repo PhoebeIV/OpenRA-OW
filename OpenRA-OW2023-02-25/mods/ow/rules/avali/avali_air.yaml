@@ -211,6 +211,7 @@ AVCARRIER:
 		MaxStrength: 120000
 		RequiresCondition: !emp_shields && !defense_matrix && !cruising
 		RemoveOnDisable: false
+		HideBarWhenFull: false
 	RevealsShroud:
 		MinRange: 8c0
 		Range: 12c0
@@ -359,8 +360,11 @@ AVCARRIER:
 	Exit:
 		SpawnOffset: 0,0,-256
 	Targetable@AIConsider:
-		RequiresCondition: damaged_heavy && botowner && !prevent_jump
+		RequiresCondition: damaged_critical && botowner && !prevent_jump
 		TargetTypes: AvaliCarrierConsider
+	DamageMultiplier@AIConsider:
+		RequiresCondition: damaged_critical && botowner
+		Modifier: 50
 	Targetable@avalicarrier:
 		TargetTypes: AvaliCarrier
 	ProximityExternalCondition@aiprevent:

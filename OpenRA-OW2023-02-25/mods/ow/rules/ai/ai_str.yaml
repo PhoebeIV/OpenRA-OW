@@ -1,3 +1,7 @@
+### This file contains AI specific structures for varying difficulty levels. This was to make bot matches more entertaining and challenging in usually unorthodox or cheaty ways.
+### Such changes and advantages include extra build queues, free money, low power consumption. 
+### Other AI-only changes were implemented to make the AI 'make use' of utility, such as Service Depots and Helipads with a built in repair weapon.
+
 FOUNDRY.bot: #additional queues for HARD AI
 	Inherits: FOUNDRY
 	Inherits@BotQueue_Infantry: ^BotQueue_Infantry
@@ -516,9 +520,9 @@ PBOX.boss:
 		Condition: bossai
 		Prerequisites: ai.harder
 	GrantRandomCondition@boss:
-		Conditions: boss1, boss2, boss3, boss4, boss5, boss6, boss7, boss8, boss9, boss10, boss1, boss3, boss4, boss5, boss7, boss8, boss9, boss10, boss11
+		Conditions: boss1, boss2, boss3, boss4, boss5, boss6, boss7, boss8, boss9, boss10, boss1, boss3, boss4, boss5, boss7, boss8, boss9, boss10, boss11, boss12, boss13
 	AttackTurreted@boss:
-		Armaments: main, boss1, boss2, boss3, boss3b, boss4, boss5, boss6, boss7, boss8, boss9, boss10, boss11
+		Armaments: main, boss1, boss2, boss3, boss3b, boss4, boss5, boss6, boss7, boss8, boss9, boss10, boss11, boss12, boss13
 	Armament@main:
 		Weapon: Vulcan
 		LocalOffset: 256,0,256
@@ -596,6 +600,16 @@ PBOX.boss:
 		LocalOffset: 0,0,256
 		RequiresCondition: boss11 && bossai
 		Name: boss11
+	Armament@boss12:
+		Weapon: MediDeathKnightAttack2
+		LocalOffset: 256,0,256
+		RequiresCondition: boss12 && bossai
+		Name: boss12
+	Armament@boss13:
+		Weapon: KingOniTankLaser
+		LocalOffset: 256,0,256
+		RequiresCondition: boss13 && bossai
+		Name: boss13
 	RenderSprites:
 		Image: pbox
 	Power:
@@ -739,6 +753,7 @@ japanlaserbaseai:
 		Actor: firebasebunker.ai
 		SpawnOffset: 2,0
 
+# Gives bots access to prefab structures
 ^ConYardPrereqs:
 	ProvidesPrerequisite@PREFABA:
 		Factions: allies, england, france, germany, soviet, russia, ukraine, estonia, phobos, deimos, mars, hitler, himmler, heydrich, nod, bhand, marked, nod3, gdi, steel, zocom, gdi3, sword, angels, silver, china,infantry,nuke,tank, usa,townes,granger,alexander, protoss, vorazun, artanis, zerg, kerrigan, zagara
@@ -939,6 +954,18 @@ PREFAB.B:
 		RequiresCondition: avalon_enable
 		Actor: avpowr1
 		SpawnOffset: 0,0
+	FreeActor@power_avalon2:
+		RequiresCondition: avalon_enable
+		Actor: avpowr1
+		SpawnOffset: 1,0
+	FreeActor@power_avalon3:
+		RequiresCondition: avalon_enable
+		Actor: avpowr1
+		SpawnOffset: 0,1
+	FreeActor@power_avalon4:
+		RequiresCondition: avalon_enable
+		Actor: avpowr1
+		SpawnOffset: 1,1
 	FreeActor@barr_avalon:
 		RequiresCondition: avalon_enable
 		Actor: avtent
