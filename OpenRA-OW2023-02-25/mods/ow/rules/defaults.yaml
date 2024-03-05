@@ -503,6 +503,7 @@
 
 
 ^Infantry:
+	Inherits@MediConditions: ^MediConditionsI
 	Inherits@corrode: ^CorrodesFromTibWeaps
 	Inherits@aeiou: ^AEIOUBoosted
 	Inherits@gps: ^GPSScramblable
@@ -1044,6 +1045,7 @@
 		Adjacent: 3
 
 ^Building:
+	Inherits@MediConditions: ^MediConditionsB
 	Inherits@corrode: ^CorrodesFromTibWeaps
 	Inherits@shields: ^AcceptsShields
 	Inherits@jshield: ^JapanBaseShield
@@ -1195,6 +1197,7 @@
 		TargetTypes: Tech
 
 ^Defense:
+	Inherits@MediConditions: ^MediConditionsD
 	Inherits@usabombardment: ^usabombardment
 	Inherits@usasearchanddestroy: ^usasearchanddestroy
 	Inherits@usahold_the_line: ^usaholdtheline
@@ -1265,6 +1268,7 @@
 	RenderSprites:
 
 ^Vehicle:
+	Inherits@MediConditions: ^MediConditionsV
 	Inherits@corrode: ^CorrodesFromTibWeaps
 	Inherits@aeiou: ^AEIOUBoosted
 	Inherits@glavehicle: ^GLAVehicle # self healing for GLA owned vehicles
@@ -1424,11 +1428,6 @@
 	Targetable@REPAIR:
 		RequiresCondition: damaged
 		TargetTypes: Repair
-	GrantCondition@magezaped:
-		Condition: disabled
-		RequiresCondition: zapstack >= 6
-	ExternalCondition@zapstacks:
-		Condition: zapstack
 
 ^TrackedVehicle:
 	GrantConditionOnPrerequisite@gdi_speed:
@@ -2724,49 +2723,17 @@
 ^MediConditions:
 	ExternalCondition@MediCurseCondition:
 		Condition: MediCurseCondition
-	FirepowerMultiplier@MediCurseCondition:
-		RequiresCondition: MediCurseCondition
-		Modifier: 80
-	SpeedMultiplier@MediCurseCondition:
-		RequiresCondition: MediCurseCondition
-		Modifier: 70
-	DamageMultiplier@MediCurseCondition:
-		RequiresCondition: MediCurseCondition
-		Modifier: 120
-	WithIdleOverlay@MediCurseCondition:
-		Image: japancurse-overlay
-		Sequence: vehicle
-		Palette: effect
-		RequiresCondition: MediCurseCondition
-		IsDecoration: True
 	ExternalCondition@Mediblesscondition:
 		Condition: MediBlessCondition
-	FirepowerMultiplier@Mediblesscondition:
-		RequiresCondition: MediBlessCondition
-		Modifier: 80
-	SpeedMultiplier@Mediblesscondition:
-		RequiresCondition: MediBlessCondition
-		Modifier: 70
-	DamageMultiplier@Mediblesscondition:
-		RequiresCondition: MediBlessCondition
-		Modifier: 120
-	WithIdleOverlay@Mediblesscondition:
-		Image: japancurse-overlay
-		Sequence: vehicle
-		Palette: effect
-		RequiresCondition: MediBlessCondition
-		IsDecoration: True
-	ExternalCondition@assasintoxin:
-		Condition: assasintoxin
-	ExternalCondition@MediCurseCondition:
+	ExternalCondition@RotElementHitCon:
 		Condition: RotElementHitCon
-	ExternalCondition@MediCurseCondition:
+	ExternalCondition@DarkRageStacks:
 		Condition: DarkRageStacks
-	ExternalCondition@assasintoxin:
+	ExternalCondition@DarkRageStacksHeal:
 		Condition: DarkRageStacksHeal
-	ExternalCondition@MediCurseCondition:
+	ExternalCondition@producezomb:
 		Condition: producezomb
-	ExternalCondition@MediCurseCondition:
+	ExternalCondition@GraveyardSouls:
 		Condition: GraveyardSouls
 	ExternalCondition@MonumentBoost:
 		Condition: MonumentBoost
@@ -2774,6 +2741,8 @@
 		Condition: WaterElementHit
 	ExternalCondition@DarkWiz:
 		Condition: DarkWiz
+	ExternalCondition@DarkWizAura:
+		Condition: DarkWizAura
 	ExternalCondition@ChainsofGod:
 		Condition: ChainsofGod
 	ExternalCondition@MonumentWagonBoost:
@@ -2786,4 +2755,372 @@
 		Condition: ArchamageAntiShield
 	ExternalCondition@ArchmageAura:
 		Condition: ArchmageAura
+	ExternalCondition@MartyrBind:
+		Condition: MartyrBind
+	ExternalCondition@assasintoxin:
+		Condition: assasintoxin
+	ExternalCondition@swarmlingspawn:
+		Condition: swarmlingspawn
+	ExternalCondition@zapstacks:
+		Condition: zapstack
+
+##Infantry
+^MediConditionsI:
+	Inherits: ^MediConditions
+	FirepowerMultiplier@MediCurseConditionF:
+		RequiresCondition: MediCurseCondition
+		Modifier: 80
+	SpeedMultiplier@MediCurseConditionS:
+		RequiresCondition: MediCurseCondition
+		Modifier: 70
+	DamageMultiplier@MediCurseConditionD:
+		RequiresCondition: MediCurseCondition
+		Modifier: 120
+	WithIdleOverlay@MediCurseCondition:
+		Image: japancurse-overlay
+		Sequence: vehicle
+		Palette: effect
+		RequiresCondition: MediCurseCondition
+		IsDecoration: True
+	FirepowerMultiplier@MediblessconditionF:
+		RequiresCondition: MediBlessCondition
+		Modifier: 120
+	SpeedMultiplier@MediblessconditionS:
+		RequiresCondition: MediBlessCondition
+		Modifier: 130
+	DamageMultiplier@MediblessconditionD:
+		RequiresCondition: MediBlessCondition
+		Modifier: 90
+	WithIdleOverlay@Mediblesscondition:
+		Image: japancurse-overlay
+		Sequence: vehicle
+		Palette: effect
+		RequiresCondition: Mediblesscondition
+		IsDecoration: True
+	DamageMultiplier@assasintoxin:
+		RequiresCondition: assasintoxin
+		Modifier: 120
+	WithIdleOverlay@assasintoxin:
+		Image: japancurse-overlay
+		Sequence: vehicle
+		Palette: effect
+		RequiresCondition: assasintoxin
+		IsDecoration: True
+	ChangesHealth@assasintoxin:
+		Step: -501
+		Delay: 7
+		StartIfBelow: 101
+		RequiresCondition: assasintoxin
+		DamageTypes: BypassShield
+	DamageMultiplier@RotElementHitCon:
+		RequiresCondition: RotElementHitCon
+		Modifier: 120
+	WithIdleOverlay@RotElementHitCon:
+		Image: japancurse-overlay
+		Sequence: vehicle
+		Palette: effect
+		RequiresCondition: RotElementHitCon
+		IsDecoration: True
+	ChangesHealth@RotElementHitCon:
+		Step: -201
+		Delay: 6
+		StartIfBelow: 101
+		DamageTypes: BypassShield
+		RequiresCondition: RotElementHitCon
+	GrantCondition@RotElementHitConcorrode:
+		Condition: corrode
+		RequiresCondition: RotElementHitCon
+	DamageMultiplier@DarkRageStacks:
+		RequiresCondition: DarkRageStacks
+		Modifier: 80
+	ChangesHealth@DarkRageStacksHeal:
+		Step: 101
+		Delay: 1
+		StartIfBelow: 101
+		RequiresCondition: DarkRageStacksHeal
+		DamageTypes: BypassShield
+	GrantConditionOnPrerequisite:
+		Condition: mediinf
+		Prerequisites: ~infantry.medi
+	SpawnActorOnDeath@Mrage:
+		Actor: medirage
+		RequiresCondition: mediinf
+	SpawnActorOnDeath@MediZombie:
+		Actor: Goul
+		OwnerType: Killer
+		RequiresCondition: producezomb
+	SpawnActorOnDeath@DarkWiz:
+		Actor: Goul
+		OwnerType: Killer
+		RequiresCondition: DarkWiz
+		Probability: 50
+	SpawnActorOnDeath@DarkWizAura:
+		Actor: Goul
+		RequiresCondition: DarkWizAura
+		Probability: 40
+	SpawnActorOnDeath@GraveyardSouls:
+		Actor: Goul
+		RequiresCondition: GraveyardSouls
+		Probability: 90
+	SpawnActorOnDeath@DarkKnightAuraHostile:
+		Actor: Goul
+		OwnerType: Killer
+		RequiresCondition: DarkKnightAuraHostile
+		Probability: 30
+	SpawnActorOnDeath@DarkKnightAuraAlly:
+		Actor: Goul
+		RequiresCondition: DarkKnightAuraAlly
+		Probability: 25
+	ChangesHealth@MonumentBoost:
+		Step: 201
+		Delay: 1
+		StartIfBelow: 101
+		RequiresCondition: MonumentBoost
+	FirepowerMultiplier@MonumentBoost:
+		RequiresCondition: MonumentBoost
+		Modifier: 120
+	SpeedMultiplier@MonumentBoost:
+		RequiresCondition: MonumentBoost
+		Modifier: 130
+	DamageMultiplier@MonumentBoost:
+		RequiresCondition: MonumentBoost
+		Modifier: 80
+	ReloadDelayMultiplier@MonumentBoost:
+		RequiresCondition: MonumentBoost
+		Modifier: 80
+	SpeedMultiplier@WaterElementHit:
+		RequiresCondition: WaterElementHit
+		Modifier: 130
+	ReloadDelayMultiplier@WaterElementHit:
+		RequiresCondition: WaterElementHit
+		Modifier: 120
+	SpeedMultiplier@ChainsofGod:
+		RequiresCondition: ChainsofGod
+		Modifier: 0
+	GrantCondition@MonumentBoost:
+		Condition: MonumentWagonBoost
+		RequiresCondition: MonumentBoost
+	WithIdleOverlay@DarkKnightAuraHostile:
+		Image: japancurse-overlay
+		Sequence: vehicle
+		Palette: effect
+		RequiresCondition: DarkKnightAuraHostile
+		IsDecoration: True
+	ChangesHealth@DarkKnightAuraHostile:
+		PercentageStep: 1
+		Delay: 3
+		StartIfBelow: 101
+		RequiresCondition: DarkKnightAuraHostile
+	SpeedMultiplier@DarkKnightAuraAlly:
+		RequiresCondition: DarkKnightAuraAlly
+		Modifier: 130
+	ChangesHealth@ArchamageAntiShield:
+		PercentageStep: 1
+		Delay: 1
+		StartIfBelow: 101
+		RequiresCondition: ArchamageAntiShield && Shielded
+	ChangesHealth@ArchmageAura:
+		PercentageStep: 1
+		Delay: 1
+		StartIfBelow: 101
+		RequiresCondition: ArchmageAura && Shielded
+	SpeedMultiplier@MartyrBind:
+		RequiresCondition: MartyrBind
+		Modifier: 0
+	SpawnActorOnDeath@assasintoxin:
+		Actor: swarmling
+		OwnerType: Killer
+		RequiresCondition: assasintoxin
+	SpawnActorOnDeath@swarmlingspawn:
+		Actor: swarmling
+		OwnerType: Killer
+		RequiresCondition: swarmlingspawn
+
+
+##Vehicles
+^MediConditionsV:
+	Inherits: ^MediConditions
+	FirepowerMultiplier@MediCurseConditionF:
+		RequiresCondition: MediCurseCondition
+		Modifier: 80
+	SpeedMultiplier@MediCurseConditionS:
+		RequiresCondition: MediCurseCondition
+		Modifier: 70
+	DamageMultiplier@MediCurseConditionD:
+		RequiresCondition: MediCurseCondition
+		Modifier: 120
+	WithIdleOverlay@MediCurseCondition:
+		Image: japancurse-overlay
+		Sequence: vehicle
+		Palette: effect
+		RequiresCondition: MediCurseCondition
+		IsDecoration: True
+	FirepowerMultiplier@MediblessconditionF:
+		RequiresCondition: MediBlessCondition
+		Modifier: 80
+	SpeedMultiplier@MediblessconditionS:
+		RequiresCondition: MediBlessCondition
+		Modifier: 70
+	DamageMultiplier@MediblessconditionD:
+		RequiresCondition: MediBlessCondition
+		Modifier: 120
+	WithIdleOverlay@Mediblesscondition:
+		Image: japancurse-overlay
+		Sequence: vehicle
+		Palette: effect
+		RequiresCondition: Mediblesscondition
+		IsDecoration: True
+	DamageMultiplier@RotElementHitCon:
+		RequiresCondition: RotElementHitCon
+		Modifier: 120
+	WithIdleOverlay@RotElementHitCon:
+		Image: japancurse-overlay
+		Sequence: vehicle
+		Palette: effect
+		RequiresCondition: RotElementHitCon
+		IsDecoration: True
+	ChangesHealth@RotElementHitCon:
+		Step: -201
+		Delay: 6
+		StartIfBelow: 101
+		DamageTypes: BypassShield
+		RequiresCondition: RotElementHitCon
+	GrantCondition@RotElementHitCon:
+		Condition: corrode
+		RequiresCondition: RotElementHitCon
+	ChangesHealth@MonumentBoost:
+		Step: 301
+		Delay: 1
+		StartIfBelow: 101
+		RequiresCondition: MonumentBoost
+	FirepowerMultiplier@MonumentBoost:
+		RequiresCondition: MonumentBoost
+		Modifier: 120
+	SpeedMultiplier@MonumentBoost:
+		RequiresCondition: MonumentBoost
+		Modifier: 130
+	DamageMultiplier@MonumentBoost:
+		RequiresCondition: MonumentBoost
+		Modifier: 80
+	ReloadDelayMultiplier@MonumentBoost:
+		RequiresCondition: MonumentBoost
+		Modifier: 80
+	SpeedMultiplier@WaterElementHit:
+		RequiresCondition: WaterElementHit
+		Modifier: 130
+	ReloadDelayMultiplier@WaterElementHit:
+		RequiresCondition: WaterElementHit
+		Modifier: 120
+	SpeedMultiplier@ChainsofGod:
+		RequiresCondition: ChainsofGod
+		Modifier: 0
+	GrantCondition@MonumentBoost:
+		Condition: MonumentWagonBoost
+		RequiresCondition: MonumentBoost
+	WithIdleOverlay@DarkKnightAuraHostile:
+		Image: japancurse-overlay
+		Sequence: vehicle
+		Palette: effect
+		RequiresCondition: DarkKnightAuraHostile
+		IsDecoration: True
+	ChangesHealth@DarkKnightAuraHostile:
+		PercentageStep: 1
+		Delay: 3
+		StartIfBelow: 101
+		RequiresCondition: DarkKnightAuraHostile
+	SpeedMultiplier@DarkKnightAuraAlly:
+		RequiresCondition: DarkKnightAuraAlly
+		Modifier: 130
+	ChangesHealth@ArchamageAntiShield:
+		PercentageStep: 1
+		Delay: 1
+		StartIfBelow: 101
+		RequiresCondition: ArchamageAntiShield && Shielded
+	ChangesHealth@ArchmageAura:
+		PercentageStep: 1
+		Delay: 1
+		StartIfBelow: 101
+		RequiresCondition: ArchmageAura && Shielded
+	SpeedMultiplier@MartyrBind:
+		RequiresCondition: MartyrBind
+		Modifier: 0
+	GrantCondition@magezaped:
+		Condition: disabled
+		RequiresCondition: zapstack >= 6
+	ExternalCondition@zapstacks:
+		Condition: zapstack
 	
+##Buildings
+^MediConditionsB:
+	Inherits: ^MediConditions
+	DamageMultiplier@MediCurseConditionD:
+		RequiresCondition: MediCurseCondition
+		Modifier: 120
+	WithIdleOverlay@MediCurseCondition:
+		Image: japancurse-overlay
+		Sequence: vehicle
+		Palette: effect
+		RequiresCondition: MediCurseCondition
+		IsDecoration: True
+	DamageMultiplier@MediblessconditionD:
+		RequiresCondition: MediBlessCondition
+		Modifier: 120
+	WithIdleOverlay@Mediblesscondition:
+		Image: japancurse-overlay
+		Sequence: vehicle
+		Palette: effect
+		RequiresCondition: Mediblesscondition
+		IsDecoration: True
+	ChangesHealth@MonumentBoost:
+		Step: 201
+		Delay: 1
+		StartIfBelow: 101
+		RequiresCondition: MonumentBoost
+	DamageMultiplier@MonumentBoost:
+		RequiresCondition: MonumentBoost
+		Modifier: 80
+	GrantCondition@MonumentBoost:
+		Condition: MonumentWagonBoost
+		RequiresCondition: MonumentBoost
+	WithIdleOverlay@DarkKnightAuraHostile:
+		Image: japancurse-overlay
+		Sequence: vehicle
+		Palette: effect
+		RequiresCondition: DarkKnightAuraHostile
+		IsDecoration: True
+	ChangesHealth@DarkKnightAuraHostile:
+		PercentageStep: 1
+		Delay: 3
+		StartIfBelow: 101
+		RequiresCondition: DarkKnightAuraHostile
+	ChangesHealth@ArchamageAntiShield:
+		PercentageStep: 1
+		Delay: 1
+		StartIfBelow: 101
+		RequiresCondition: ArchamageAntiShield && Shielded
+	ChangesHealth@ArchmageAura:
+		PercentageStep: 1
+		Delay: 1
+		StartIfBelow: 101
+		RequiresCondition: ArchmageAura && Shielded
+	
+
+##Defenses
+^MediConditionsD:
+	Inherits: ^MediConditionsB
+	FirepowerMultiplier@MediCurseConditionF:
+		RequiresCondition: MediCurseCondition
+		Modifier: 80
+	FirepowerMultiplier@MediblessconditionF:
+		RequiresCondition: MediBlessCondition
+		Modifier: 80
+	FirepowerMultiplier@MonumentBoost:
+		RequiresCondition: MonumentBoost
+		Modifier: 120
+	ReloadDelayMultiplier@MonumentBoost:
+		RequiresCondition: MonumentBoost
+		Modifier: 80
+	ReloadDelayMultiplier@WaterElementHit:
+		RequiresCondition: WaterElementHit
+		Modifier: 120
+

@@ -217,7 +217,7 @@ SCOUTMEDI:
 	Inherits@sprite: ^TSMedi
 	Inherits@InfPro: ^AutoTargetInfantryPriority
 	Buildable:
-		Prerequisites: ~infantry.medi, ~!infantry.darkness
+		Prerequisites: ~infantry.medi, ~!infantry.medicult
 		Description: Scout with long vision and stealth when stationary.\n  can deploy into a scout tower.
 		Queue: Infantry
 		BuildAtProductionType: Soldier
@@ -382,11 +382,11 @@ FOOTMAN:
 		BuildPaletteOrder: 408
 		BuildDuration: 140
 	Valued:
-		Cost: 140
+		Cost: 100
 	Tooltip:
 		Name: Mediaval conscript. \n Strong vs infantry\n Weak vs anything else
 	Health:
-		HP: 17000
+		HP: 27000
 	Mobile:
 		Speed: 70
 	UpdatesPlayerStatistics:
@@ -428,7 +428,7 @@ Knight:
 	Tooltip:
 		Name: Shield Knight
 	Health:
-		HP: 30000
+		HP: 50000
 	AttackFrontal:
 		Armaments: PRIMARY, SECONDARY
 		FacingTolerance: 0
@@ -448,8 +448,12 @@ Knight:
 mediassasin:
 	Inherits@Scout: SCOUTMEDI
 	Inherits@InfPro: ^AutoTargetInfantryPriority
+	-ExternalCondition@assasintoxin:
+	-ExternalCondition@swarmlingspawn:
+	-ExternalCondition@producezomb:
+	-ExternalCondition@GraveyardSouls:
 	Buildable:
-		Prerequisites: ~infantry.medi, techcenter, ~infantry.darkness
+		Prerequisites: ~infantry.medi, techcenter, ~!infantry.mediholy
 		Description: Stealthed Assasin Made for exicuting Infantry./nCan bypass Defenses and only spotable by Infantry./nloses stealth for a long time on attack or damage
 		Queue: Infantry
 		BuildAtProductionType: Soldier
@@ -493,7 +497,7 @@ MEDIBLADEMASTER:
 	-BlocksProjectiles:
 	-Cloneable:
 	Buildable:
-		Prerequisites: ~infantry.darkness, advtechcenter
+		Prerequisites: ~infantry.medicult, advtechcenter
 		Description: Master Swordsman can throw tornados with his swings \n Strong vs infantry \n Weak vs Air
 		Queue: Infantry
 		BuildAtProductionType: Soldier
@@ -610,7 +614,7 @@ MEDIPALADIN:
 	Inherits@MediLowPower: ^MediLowPower
 	Inherits@InfPro: ^AutoTargetVehiclePriority
 	Buildable:
-		Prerequisites: ~infantry.holy, advtechcenter, churchmedi
+		Prerequisites: ~infantry.mediholy, advtechcenter
 		Description: He carries a holy sword. Provides a healing aura to nearby troops.\n Strong vs infantry, Light armor \n Weak vs Air, Tanks, Buildings
 		Queue: Infantry
 		BuildAtProductionType: Soldier
@@ -639,9 +643,7 @@ MEDIPALADIN:
 		StandSequences: stand
 	IgnoresDisguise:
 	ProximityExternalCondition@pallyboost:
-		Condition: MediPalyaura
-		Range: 2c512
-	WithRangeCircle:
+		Condition: MonumentBoost
 		Range: 2c512
 	RenderSprites:
 		Image: medipaladin
@@ -654,8 +656,19 @@ MEDIPALADIN:
 swarmling:
 	Inherits: ^Infantry
 	Inherits@autotarget: ^AutoTargetGroundAssaultMove
+	-ExternalCondition@assasintoxin:
+	-ExternalCondition@swarmlingspawn:
+	-ExternalCondition@producezomb:
+	-ExternalCondition@GraveyardSouls:
+	Buildable:
+		Prerequisites: ~infantry.medi
+		Description: Assasin spawn. \n Strong vs infantry\n Weak vs anything else
+		Queue: Infantry
+		BuildAtProductionType: Soldier
+		BuildPaletteOrder: 408
+		BuildDuration: 50
 	Valued:
-		Cost: 50
+		Cost: 500
 	UpdatesPlayerStatistics:
 		AddToArmyValue: true
 	Tooltip:
@@ -716,34 +729,52 @@ swarmling:
 swarmlingSwarm:
 	Inherits: swarmling
 	SpawnActorOnDeath:
-		OwnerType: InternalName
+		OwnerType: Victim
 		Offset: 0,0
-		InternalOwner: Creeps
 		Actor: swarmling
 	SpawnActorOnDeath@1:
-		OwnerType: InternalName
+		OwnerType: Victim
 		Offset: 1,0
-		InternalOwner: Creeps
 		Actor: swarmling
 	SpawnActorOnDeath@2:
-		OwnerType: InternalName
+		OwnerType: Victim
 		Offset: 0,1
-		InternalOwner: Creeps
 		Actor: swarmling
 	SpawnActorOnDeath@3:
-		OwnerType: InternalName
+		OwnerType: Victim
 		Offset: 1,1
-		InternalOwner: Creeps
 		Actor: swarmling
 	SpawnActorOnDeath@4:
-		OwnerType: InternalName
+		OwnerType: Victim
 		Offset: -1,0
-		InternalOwner: Creeps
 		Actor: swarmling
 	SpawnActorOnDeath@5:
-		OwnerType: InternalName
+		OwnerType: Victim
 		Offset: 0,-1
-		InternalOwner: Creeps
+		Actor: swarmling
+	SpawnActorOnDeath:
+		OwnerType: Victim
+		Offset: -1,-1
+		Actor: swarmling
+	SpawnActorOnDeath@1:
+		OwnerType: Victim
+		Offset: 1,-1
+		Actor: swarmling
+	SpawnActorOnDeath@2:
+		OwnerType: Victim
+		Offset: -1,1
+		Actor: swarmling
+	SpawnActorOnDeath@3:
+		OwnerType: Victim
+		Offset: 2,-1
+		Actor: swarmling
+	SpawnActorOnDeath@4:
+		OwnerType: Victim
+		Offset: 2,0
+		Actor: swarmling
+	SpawnActorOnDeath@5:
+		OwnerType: Victim
+		Offset: 0,2
 		Actor: swarmling
 	KillsSelf:
 		Delay: 0
@@ -764,13 +795,13 @@ CROSSBOWMAN:
 	UpdatesPlayerStatistics:
 		AddToArmyValue: true
 	Buildable:
-		Prerequisites: ~infantry.medi, ~!infantry.elementalists, techcenter
+		Prerequisites: ~infantry.medi, ~!infantry.mediwizards, techcenter
 		Description: Mediaval Crossbowman \n  Strong vs infantry\n Weak vs anything else
 		Queue: Infantry
 		BuildAtProductionType: Soldier
 		BuildPaletteOrder: 410
 	Health:
-		HP: 7500
+		HP: 17500
 	Valued:
 		Cost: 165
 	Mobile:
@@ -811,7 +842,7 @@ VOIDARCHER:
 	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
 	Inherits@InfPro: ^AutoTargetVehiclePriority
 	Buildable:
-		Prerequisites: ~infantry.darkness, advtechcenter
+		Prerequisites: ~infantry.medicult, advtechcenter
 		Description: Dark magic archer \n Strong vs Light Vehicles, Infantry \n Weak vs Tanks
 		Queue: Infantry
 		BuildAtProductionType: Soldier
@@ -851,7 +882,7 @@ MUSKETEER:
 	Inherits@CROSSBOWMAN: CROSSBOWMAN
 	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
 	Buildable:
-		Prerequisites: ~infantry.medi, advtechcenter, ~!infantry.elementalists
+		Prerequisites: ~infantry.medi, advtechcenter, ~!infantry.mediwizards
 		Description: Slow firing musketeer \n Strong vs infantry, Air \n Weak vs Vehicles, Buildings
 		Queue: Infantry
 		BuildAtProductionType: Soldier
@@ -980,3 +1011,126 @@ FireWizard:
 ###############################################################################
 ###############################################################################
 ###############################################################################
+
+
+medirage:
+	Inherits@MediSoldier: ^MediSoldier
+	Inherits@sprite: ^TSMedi
+	Inherits@InfPro: ^AutoTargetInfantryPriority
+	-ExternalCondition@assasintoxin:
+	-ExternalCondition@swarmlingspawn:
+	-ExternalCondition@producezomb:
+	-ExternalCondition@GraveyardSouls:
+	Valued:
+		Cost: 140
+	Tooltip:
+		Name: Mediaval conscript. \n Strong vs infantry\n Weak vs anything else
+	Health:
+		HP: 27000
+	Mobile:
+		Speed: 70
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	RevealsShroud:
+		Range: 6c512
+	WithInfantryBody:
+		DefaultAttackSequence: shoot
+	AutoTarget:
+		InitialStance: AttackAnything
+		ScanRadius: 6
+	AutoTargetPriority@DEFAULT:
+		ValidTargets: GroundActor, Infantry
+	Targetable:
+		TargetTypes: GroundActor, Infantry, Disguise
+	Armament@1:
+		Weapon: Sword
+	RenderSprites:
+		Image: mediswordman
+	Voiced:
+		VoiceSet: SwordmanVoice
+	BlocksProjectiles:
+	KillsSelf:
+		Delay: 0
+	Explodes:
+		Weapon: DarkRageDeathWep
+		EmptyWeapon: DarkRageDeathWep
+	-SpawnActorOnDeath@Mrage:
+
+
+Goul:
+	Inherits@MediSoldier: ^MediSoldier
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Inherits@InfPro: ^AutoTargetInfantryPriority
+	-ExternalCondition@assasintoxin:
+	-ExternalCondition@swarmlingspawn:
+	-ExternalCondition@producezomb:
+	-ExternalCondition@GraveyardSouls:
+	-Selectable:
+	Interactable:
+		Bounds: 768, 938, 0, -469
+		DecorationBounds: 682, 938, 0, -469
+	Valued:
+		Cost: 60
+	Tooltip:
+		Name: Zombie
+	UpdatesPlayerStatistics:
+		AddToArmyValue: false
+	Health:
+		HP: 12000
+	Mobile:
+		Speed: 48
+	RevealsShroud:
+		Range: 3c512
+	AutoTarget:
+		InitialStance: AttackAnything
+		ScanRadius: 256
+	WithInfantryBody:
+		DefaultAttackSequence: bite
+		IdleSequences: idle1
+	AutoTargetPriority@DEFAULT:
+		ValidTargets: GroundActor, Infantry
+	Targetable:
+		TargetTypes: GroundActor, Infantry, Disguise
+	Armament:
+		Weapon: claw
+	Voiced:
+		VoiceSet: ZombieVoice
+	RenderSprites:
+		Image: Zombie
+	AmbientSound:
+		SoundFiles: dsposit1.aud,dsposit2.aud,dsposit3.aud,dsposact.aud
+		Interval: 400, 1200
+		Delay: 400, 1200
+	-ActorLostNotification:
+
+Goulswarm:
+	Inherits: Goul
+	SpawnActorOnDeath:
+		OwnerType: Victim
+		Offset: 0,0
+		Actor: Goul
+	SpawnActorOnDeath@1:
+		OwnerType: Victim
+		Offset: 1,0
+		Actor: Goul
+	SpawnActorOnDeath@2:
+		OwnerType: Victim
+		Offset: 0,1
+		Actor: Goul
+	SpawnActorOnDeath@3:
+		OwnerType: Victim
+		Offset: 1,1
+		Actor: Goul
+	SpawnActorOnDeath@4:
+		OwnerType: Victim
+		Offset: -1,0
+		Actor: Goul
+	SpawnActorOnDeath@5:
+		OwnerType: Victim
+		Offset: 0,-1
+		Actor: Goul
+	KillsSelf:
+		Delay: 0
+	Health:
+		HP: 99999000
+	-UpdatesPlayerStatistics:

@@ -203,17 +203,6 @@ Mediassasinblade:
 	Report: footmansword1.aud,footmansword2.aud,footmansword3.aud,footmansword4.aud,footmansword5.aud,footmansword6.aud
 	ValidTargets: Infantry
 	Projectile: InstantHit
-	Warhead@1Dam: SpreadDamage
-		Spread: 64
-		Damage: 40000
-		Versus:
-			None: 100
-			Wood: 15
-			Light: 60
-			Heavy: 15
-			Concrete: 10
-		DamageTypes: DefaultDeath, Assasindeath
-		ValidTargets: GroundActor, WaterActor, Structure
 	Warhead@assasintoxin: GrantExternalCondition
 		Condition: assasintoxin
 		Duration: 500
@@ -224,8 +213,19 @@ Mediassasinblade:
 		Condition: swarmlingspawn
 		Duration: 500
 		Range: 2c0
-		ValidTargets: Ground, Infantry, Cyborg
-		ValidRelationships: Enemy, Neutral, Ally
+		ValidTargets: Ground, Infantry
+		ValidRelationships: Enemy
+	Warhead@1Dam: SpreadDamage
+		Spread: 64
+		Damage: 20000
+		Versus:
+			None: 100
+			Wood: 15
+			Light: 60
+			Heavy: 15
+			Concrete: 10
+		DamageTypes: DefaultDeath, Assasindeath
+		ValidTargets: GroundActor, WaterActor, Structure
 ##is inherited by: Castlearrows
 Basicarrow: 
 	ValidTargets: GroundActor, WaterActor, Ground, Water
@@ -450,16 +450,28 @@ BladeMasterTornado:
 		DamageTypes: DefaultDeath
 #
 swarmlingAttack:
-	ReloadDelay: 12
+	ReloadDelay: 8
 	Burst: 6
 	BurstDelays: 13,11,12,10,14
 	Range: 2c0
 	Report: zzeatk00.aud, zzeatk01.aud
 	ValidTargets: Ground, Water, GroundActor, WaterActor
 	Projectile: InstantHit
+	Warhead@assasintoxin: GrantExternalCondition
+		Condition: assasintoxin
+		Duration: 200
+		Range: 2c0
+		ValidTargets: Ground, Infantry, Cyborg
+		ValidRelationships: Enemy, Neutral, Ally
+	Warhead@swarmlingspawn: GrantExternalCondition
+		Condition: swarmlingspawn
+		Duration: 500
+		Range: 2c0
+		ValidTargets: Ground, Infantry, Cyborg
+		ValidRelationships: Enemy, Neutral, Ally
 	Warhead@1Dam: SpreadDamage
 		Spread: 64
-		Damage: 925
+		Damage: 425
 		Versus:
 			None: 100
 			Wood: 50
@@ -479,18 +491,6 @@ swarmlingAttack:
 			Concrete: 25
 		DamageTypes: DefaultDeath
 		ValidTargets: Structure
-	Warhead@assasintoxin: GrantExternalCondition
-		Condition: assasintoxin
-		Duration: 200
-		Range: 2c0
-		ValidTargets: Ground, Infantry, Cyborg
-		ValidRelationships: Enemy, Neutral, Ally
-	Warhead@swarmlingspawn: GrantExternalCondition
-		Condition: swarmlingspawn
-		Duration: 500
-		Range: 2c0
-		ValidTargets: Ground, Infantry, Cyborg
-		ValidRelationships: Enemy, Neutral, Ally
 #
 swarmlingAttack1:
 	Inherits: swarmlingAttack
@@ -550,9 +550,9 @@ WizBall:
 		ValidTargets: GroundActor, WaterActor, Air, AirborneActor
 		Versus:
 			None: 20
-			Wood: 50
-			Light: 120
-			Heavy: 110
+			Wood: 60
+			Light: 130
+			Heavy: 120
 			Concrete: 30
 		DamageTypes: Prone50Percent, TriggerProne, ExplosionDeath
 	Warhead@ArcBoat2Smu: LeaveSmudge
@@ -575,7 +575,7 @@ WizFireBall:
 		ContrailLength: 2
 	Warhead@1Dam: SpreadDamage
 		Spread: 256
-		Damage: 9000
+		Damage: 11000
 		ValidTargets: GroundActor, WaterActor
 		Versus:
 			None: 120
@@ -603,7 +603,7 @@ WizFireCluster:
 		Image: fb3
 	Warhead@1Dam: SpreadDamage
 		Spread: 300
-		Damage: 3000
+		Damage: 4000
 	Warhead@2Smu: LeaveSmudge
 		SmudgeType: Scorch
 	Warhead@3Eff: CreateEffect
@@ -754,6 +754,21 @@ BlessEyeWep:
 		Condition: MediBlessCondition
 		Range: 4c0
 		Duration: 600
+
+DarkRageDeathWep:
+	InstantHit:
+	Warhead@DarkRageDeathWar: GrantExternalCondition
+		Condition: DarkRageStacks
+		Duration: 500
+		Range: 10
+		ValidTargets: GroundActor
+		ValidRelationships: Ally
+	Warhead@DarkRageDeathWar1: GrantExternalCondition
+		Condition: DarkRageStacksHeal
+		Duration: 5
+		Range: 10
+		ValidTargets: GroundActor
+		ValidRelationships: Ally
 
 ###############################################################################
 ################################   Powers Attacks   ###########################
@@ -1448,7 +1463,7 @@ GyroChain:
 		InvalidTargets: Bridge
 #
 GryphonRiderAttack:
-	ReloadDelay: 80
+	ReloadDelay: 70
 	Range: 6c0
 	Report: gryphonriderattack1.aud, gryphonriderattack2.aud, gryphonriderattack3.aud
 	ValidTargets: Ground, Water, GroundActor, WaterActor, AirborneActor
@@ -1484,7 +1499,7 @@ GryphonRiderAttackBurst:
 #
 DragonGround:
 	ValidTargets: Ground, GroundActor, Water, WaterActor, Trees
-	ReloadDelay: 200
+	ReloadDelay: 150
 	Range: 6c0
 	Projectile: Bullet
 		Speed: 345
@@ -1493,7 +1508,7 @@ DragonGround:
 		ContrailLength: 1
 	Warhead@1Dam: SpreadDamage
 		Spread: 512
-		Damage: 2000
+		Damage: 4000
 		ValidTargets: GroundActor, WaterActor
 		Versus:
 			None: 50

@@ -310,13 +310,13 @@ GoldMine:
 			gmine.l4: Depth 4
 			gmine.l5: Depth 5
 	Cargo:
-		Types: garyslave
-		MaxWeight: 20
+		Types: GaryWorker
+		MaxWeight: 30
 		LoadedCondition: garyslave
 	WithCargoPipsDecoration:
 		Position: BottomLeft
 		RequiresSelection: true
-		PipCount: 10
+		PipCount: 15
 	CashTrickler:
 		Interval: 1000
 		Amount: 100
@@ -336,7 +336,7 @@ GoldMine:
 		Modifier: 180
 		RequiresCondition: has_4 && garyslave >= 17 && garyslave <= 25
 	CashTricklerMultiplier@t5:
-		Modifier: 200
+		Modifier: 250
 		RequiresCondition: has_5 && garyslave >= 26
 
 ##GoldMine Plugs
@@ -433,7 +433,7 @@ manawell:
 	RevealsShroud:
 		Range: 4c0
 	Power:
-		Amount: 90
+		Amount: 150
 	Targetable:
 		TargetTypes: GroundActor, C4, DetonateAttack, Structure
 	ProvidesPrerequisite@buildingname:
@@ -563,7 +563,7 @@ manaconduit:
 	RevealsShroud:
 		Range: 4c0
 	Power:
-		Amount: 10
+		Amount: 50
 	Targetable:
 		TargetTypes: GroundActor, C4, DetonateAttack, Structure
 	ProvidesPrerequisite@buildingname:
@@ -772,19 +772,7 @@ castle:
 	DetectCloaked:
 		Range: 6c0
 		RequiresCondition: !disabled
-	## Conscription Aura : Deploy aura to spawn Conscripts from neerby farms
-	GrantExternalConditionPower@ConscriptAura:
-		Condition: ConscriptAura
-		Duration: 10
-		Dimensions: 1,1
-		Footprint: x
-		ChargeInterval: 3000
-		Prerequisites: ~structures.medi
-		StartFullyCharged: True
-		Icon: medidragonstrikeicon
-		Name: Conscription
-		Description: Cause farms in area to spawn temporary milita
-		OrderName: Conscription
+	## darkHarvest.ion : warhead that causes buildings to spawn mix of swarmlings units
 	## Airstrike power
 	AirstrikePower@ElementalAirstrike:
 		UnitType: medidragonbomber ##MediDragonBomber
@@ -872,7 +860,7 @@ alchlab:
 		OrderName: ElementalStealth
 		PauseOnCondition: disabled
 		Icon: mediinvisibilityicon
-		Prerequisites: ~structures.medi
+		Prerequisites: ~structures.medicult
 		ChargeInterval: 8000
 		Name: Invisibility
 		Description: Provide invisibility for all units & buildings
@@ -1355,7 +1343,7 @@ MediGarrisonTower:
 	Inherits@CARGOPIPS: ^CargoPips
 	Buildable:
 		Queue: Defense
-		Prerequisites: ~structures.medi, barracks, ~techlevel.low, ~!structures.darkness
+		Prerequisites: ~structures.medi, barracks, ~techlevel.low, ~!structures.medicult
 		Description: Garison Units for Defence
 		BuildPaletteOrder: 3
 	Building:
@@ -1446,14 +1434,10 @@ monument:
 		Range: 11c512
 	WithRangeCircle:
 		Range: 11c512
-	ProximityExternalCondition@MonumentboostHoly:
-		Condition: MonumentboostHoly
-		Range: 8c512
 	ProximityExternalCondition@MartyrBind:
 		Condition: MartyrBind
 		Range: 8c512
-	WithRangeCircle@MonumentboostHoly:
-		Range: 8c512
+		ValidRelationships: Enemy
 	Power:
 		Amount: -100
 	RenderSprites:
@@ -1638,7 +1622,7 @@ Cannon.l1:
 	Buildable:
 		Queue: Wall
 		BuildPaletteOrder: 52
-		Prerequisites: ~structures.medi, ~BalistaTower
+		Prerequisites: ~structures.medi
 		Description: Place on Balista tower to upgrade it
 		Icon: icon-gun
 	Plug:
