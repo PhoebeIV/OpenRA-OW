@@ -26,6 +26,7 @@
 			TopLeft: -1024, -1536
 			BottomRight: 1024, 1536
 
+# Painstakingly added to allow bibs to toggle off. Consequently, this means the coloured overlays (ie. powered off) will change the bib too.
 ^2xBuildingBib:
 	GrantConditionOnTileSet@temp:
 		TileSets: TEMPERAT, INTERIOR
@@ -82,7 +83,9 @@
 	WithIdleOverlay@bibdes:
 		Image: bib1compiled
 
-# Applies to infantry and vehicles
+# Applies to infantry and vehicles. This is used for GLA's GPS Scrambler which enables a cloak
+# Also used for Protoss Arbiter/Mothership/Dark Pylon cloaking field
+# Zerg Queen ensnare effect, and the Protoss Time Stop ability
 ^GPSScramblable:
 	ExternalCondition@gpsscrambler:
 		Condition: gpsscrambler
@@ -139,7 +142,10 @@
 		RequiresCondition: timestop
 		Color: 806D005A
 
-# Applies to infantry, vehicles, aircraft and structures
+# Applies to infantry, vehicles, aircraft and structures. This was primarily used add a damage resistance debuff caused by toxin weapons
+# GDI Suits upgrade grants immunity to some of these debuffs.
+# Used also for the Zerg Defiler plague attack (and superweapon), USA Avenger target painting, Terran Science Vessel irradiate, Nod Fanatics reload speed upgrade
+# Japan Dominatrix debuff/buffs, Akuma effect, and a SupportPowerConsiderer for AI
 ^CorrodesFromTibWeaps:
 	ExternalCondition@corrode:
 		Condition: corrode
@@ -255,6 +261,7 @@
 		RequiresCondition: SupportPowerConsiderer
 		TargetTypes: SupportPowerConsiderer
 
+# Inherited and changed from mods/ra to add support from Estonia's Iron Shroud structure
 ^IronCurtainable:
 	WithColoredOverlay@ironshroud:
 		RequiresCondition: ironshroud
@@ -265,6 +272,7 @@
 	ExternalCondition@ironshroud:
 		Condition: ironshroud
 
+# Inherited and changed from mods/ra to make ranked up actors give more experience when killed.
 ^GainsExperience:
 	GivesExperienceMultiplier@RANK-1:
 		RequiresCondition: rank-veteran == 1
@@ -279,6 +287,7 @@
 		RequiresCondition: rank-elite
 		Modifier: 300
 
+# Given to actors that would normally have the experience traits, but want them removed.
 ^NoExp:
 	Inherits: ^GainsExperience
 	-GainsExperience:
@@ -305,6 +314,7 @@
 	-WithDecoration@RANK-3:
 	-WithDecoration@RANK-ELITE:
 
+# Default actor type to allow the Shielded trait to work properly, this is given to structures, infantry, vehicles and aircraft
 ^AcceptsShields:
 	Shielded:
 		MaxStrength: -1
@@ -356,6 +366,8 @@
 	ExternalCondition@darkpylon:
 		Condition: dark_pylon
 
+# Default actor type to allow boosts received from the France AEIOU unit
+# This also enables the Allied training upgrade to work, and Communications Center tech building passive effect.
 ^AEIOUBoosted:
 	ExternalCondition@aeiouboost:
 		Condition: aeiouboost
@@ -391,6 +403,7 @@
 		RequiresCondition: allies_training
 		Modifier: 110
 
+# Inherited and changed from mods/ra to add special bounty properties for GLA and Zerg Kerrigan factions
 ^GlobalBounty:
 	ExternalCondition@GLAbounty: # this allows GLA to gain bounty on kills, but only within range of units/structures.
 		Condition: glabounty
@@ -432,6 +445,9 @@
 		Actor: moneycratesupplydrop
 		Probability: 5
 
+# Default actor type for Construction Yards. It inherits ^AdvTechPips which shows the player's current upgrade levels.
+# It also provides universal prerequisites that allows for the "emergency" MCV production to work
+# If owned by AI, it emits an aura that AI-controlled surveyors check for. If they're outside the range, they will deploy.
 ^ConYard:
 	Inherits@pips: ^AdvTechPips
 	Inherits@boss: ^ConYardPrereqs_Bot
@@ -476,6 +492,7 @@
 		Condition: botowner
 		Prerequisites: ai.all
 
+# Default actor to be used by Tech Center type buildings. It allows all factions access to the GPS, as long as they also have a Radio Telescope on the field.
 ^TechCenter:
 	GpsPower@global:
 		Prerequisites: radio.p
@@ -495,25 +512,24 @@
 		Amount: -100
 	SupportPowerChargeBar:
 
+# Building except with the Tiberian Dawn build sounds
 ^DawnBuilding:
 	Inherits: ^Building
 	Building:
 		BuildSounds: constru2.aud, hvydoor1.aud
 
 
-
+# Inherited and changed from mods/ra to add upgrade modifiers and numerous other buff/debuff modifiers from support powers
 ^Infantry:
 	Inherits@MediConditions: ^MediConditionsI
 	Inherits@corrode: ^CorrodesFromTibWeaps
 	Inherits@aeiou: ^AEIOUBoosted
 	Inherits@gps: ^GPSScramblable
-	Inherits@advancedtraining: ^advancedtraining
-	Inherits@usabombardment: ^usabombardment
-	Inherits@usasearchanddestroy: ^usasearchanddestroy
-	Inherits@usahold_the_line: ^usaholdtheline
+	Inherits@shields: ^AcceptsShields
+	Inherits@advancedtraining: ^AdvancedTraining
+	Inherits@usabombardment: ^USAStrategyBuffs
 	Inherits@frenzyboost: ^FrenzyBoostInfantry
 	Inherits@propagandaboost: ^propagandaboostinfantry
-	Inherits@shields: ^AcceptsShields
 	Inherits@japanbuffs: ^japanbuffs_infantry
 	GrantCondition@crate:
 		Condition: cantdropcrate
@@ -1017,6 +1033,7 @@
 		Type: Unload
 		DockOffset: 0,1024,0
 
+# Inherited and changed from mods/ra to add generic name if Tooltip is missing on newly defined actors. Also allows to be build on creep.
 ^BasicBuilding:
 	Inherits@shape: ^1x1Shape
 	Tooltip:
@@ -1044,11 +1061,13 @@
 	RequiresBuildableArea:
 		Adjacent: 3
 
+# Inherited and changed from mods/ra to add upgrade modifiers and numerous other buff/debuff modifiers from support powers
 ^Building:
 	Inherits@MediConditions: ^MediConditionsB
 	Inherits@corrode: ^CorrodesFromTibWeaps
 	Inherits@shields: ^AcceptsShields
 	Inherits@jshield: ^JapanBaseShield
+	Inherits@holdtheline: ^USAHoldTheLine
 	Inherits@japanbuffs_refinery: ^japanbuffs_refinery
 	OwnerLostAction:
 		Action: ChangeOwner
@@ -1198,13 +1217,8 @@
 
 ^Defense:
 	Inherits@MediConditions: ^MediConditionsD
-	Inherits@usabombardment: ^usabombardment
-	Inherits@usasearchanddestroy: ^usasearchanddestroy
-	Inherits@usahold_the_line: ^usaholdtheline
+	Inherits@usabombardment: ^USAStrategyBuffs
 	Inherits@propagandaboost: ^propagandaboost
-	Inherits@shields: ^AcceptsShields
-	Inherits@jshield: ^JapanBaseShield
-	Inherits@japanbuffs_buildings: ^japanbuffs_buildings
 	Building:
 		Footprint: +
 	GivesBuildableArea:
@@ -1273,10 +1287,8 @@
 	Inherits@aeiou: ^AEIOUBoosted
 	Inherits@glavehicle: ^GLAVehicle # self healing for GLA owned vehicles
 	Inherits@gps: ^GPSScramblable
-	Inherits@advancedtraining: ^advancedtraining
-	Inherits@usabombardment: ^usabombardment
-	Inherits@usasearchanddestroy: ^usasearchanddestroy
-	Inherits@usahold_the_line: ^usaholdtheline
+	Inherits@advancedtraining: ^AdvancedTraining
+	Inherits@usabombardment: ^USAStrategyBuffs
 	Inherits@propagandaboost: ^propagandaboost
 	Inherits@frenzyboost: ^FrenzyBoost
 	Inherits@shields: ^AcceptsShields
@@ -1443,10 +1455,8 @@
 ^Ship:
 	Inherits@corrode: ^CorrodesFromTibWeaps
 	Inherits@GPS: ^GPSScramblable
-	Inherits@advancedtraining: ^advancedtraining
-	Inherits@usabombardment: ^usabombardment
-	Inherits@usasearchanddestroy: ^usasearchanddestroy
-	Inherits@usahold_the_line: ^usaholdtheline
+	Inherits@advancedtraining: ^AdvancedTraining
+	Inherits@usabombardment: ^USAStrategyBuffs
 	Inherits@propagandaboost: ^propagandaboost
 	Inherits@frenzyboost: ^FrenzyBoost
 	Inherits@shields: ^AcceptsShields
@@ -1504,13 +1514,13 @@
 		SellSounds: UnitSold
 	TemporaryOwnerManager:
 
+# Inherited and changed from mods/ra to add upgrade modifiers and numerous other buff/debuff modifiers from support powers
+# Also adds additional/cross faction rearm structures and a generic name in case a newly defined actor does not have Tooltip/name
 ^NeutralPlane:
 	Inherits@corrode: ^CorrodesFromTibWeaps
 	Inherits@GPS: ^GPSScramblable
-	Inherits@advancedtraining: ^advancedtraining
-	Inherits@usabombardment: ^usabombardment
-	Inherits@usasearchanddestroy: ^usasearchanddestroy
-	Inherits@usahold_the_line: ^usaholdtheline
+	Inherits@advancedtraining: ^AdvancedTraining
+	Inherits@usabombardment: ^USAStrategyBuffs
 	Inherits@propagandaboost: ^propagandaboost
 	Inherits@frenzyboost: ^FrenzyBoost
 	Inherits@shields: ^AcceptsShields
@@ -1590,21 +1600,7 @@
 	Rearmable:
 		RearmActors: hpad, hpad.bot, afld, afld.ukraine, usaairfield, usaairstriplandingspot, chinaairfield, japanairfield, pstarg, tsport, tsport.landed, zspire, zspire.spot, avpad
 
-^TSHelicopter:
-	Inherits: ^Helicopter
-	ClassicFacingBodyOrientation:
-		QuantizedFacings: 32
-	-WithFacingSpriteBody:
-	-QuantizeFacingsFromSequence:
-	-WithShadow:
-	RenderSprites:
-	RenderVoxels:
-		PlayerPalette: tsunit
-		Scale: 9
-	WithVoxelBody:
-	Cloak@stealthgen:
-		Palette: tscloak
-
+# This gives planes a passive, slow repair when landed.
 ^Plane:
 	ChangesHealth@landed:
 		PercentageStep: 1
@@ -1613,7 +1609,7 @@
 		DamageCooldown: 50
 		RequiresCondition: !airborne
 
-
+# Inherited and changed from mods/ra to add a generic name if one was not defined in a new actorn, changes landable terrain and repair buildings.
 ^Helicopter:
 	-ChangesHealth@landed:
 	Tooltip:
@@ -1624,6 +1620,7 @@
 	Repairable:
 		RepairActors: fix, gfix, gfix.boss, tshop
 
+# These are for voxel planes
 ^TSPlane:
 	Inherits: ^Plane
 	ClassicFacingBodyOrientation:
@@ -1640,6 +1637,21 @@
 	Cloak@stealthgen:
 		Palette: tscloak
 	-ChangesHealth@landed:
+
+^TSHelicopter:
+	Inherits: ^Helicopter
+	ClassicFacingBodyOrientation:
+		QuantizedFacings: 32
+	-WithFacingSpriteBody:
+	-QuantizeFacingsFromSequence:
+	-WithShadow:
+	RenderSprites:
+	RenderVoxels:
+		PlayerPalette: tsunit
+		Scale: 9
+	WithVoxelBody:
+	Cloak@stealthgen:
+		Palette: tscloak
 
 ^TSNeutralPlane:
 	Inherits: ^NeutralPlane
@@ -1673,6 +1685,7 @@
 	FallsToEarth:
 		Velocity: 112
 
+# This is used for the Terran buildings that can lift off
 ^FlyingBuilding:
 	Inherits@1: ^ExistsInWorld
 	Inherits@2: ^IronCurtainable
@@ -1682,10 +1695,6 @@
 	Inherits@selection: ^SelectableBuilding
 	Inherits@handicaps: ^PlayerHandicaps
 	Inherits@corrode: ^CorrodesFromTibWeaps
-	Inherits@usabombardment: ^usabombardment
-	Inherits@usasearchanddestroy: ^usasearchanddestroy
-	Inherits@usahold_the_line: ^usaholdtheline
-	Inherits@propagandaboost: ^propagandaboost
 	Huntable:
 	OwnerLostAction:
 		Action: Kill
@@ -1798,7 +1807,8 @@
 		RequiresCondition: bar3 && (!corrode && !defiler_plague)
 		Modifier: 40
 
-
+# Default actor type for the Viceroid. 
+# Anything that would inherit from this will be tiberium immune and not auto targetable for 10 seconds upon spawning
 ^Viceroid:
 	Inherits@1: ^ExistsInWorld
 	Inherits@2: ^SpriteActor
@@ -1881,6 +1891,9 @@
 		Weapon: TiberiumExplosion
 		EmptyWeapon: TiberiumExplosion
 
+# This sets a number of default properties for Epic Units, and nerfs rank up modifiers:
+# Build duration, Epic unit skull decoration, announce to players when seen, GPS dot, nerf to AEIOU booster
+# TargetType for EpicUnit which is used for AI superweapon consideration, and mind control nerf
 ^EpicUnit:
 	Inherits@GAINSEXPERIENCE: ^GainsExperience
 	Buildable:
@@ -1912,10 +1925,6 @@
 		DamageCooldown: 100
 	Targetable@epic1:
 		TargetTypes: EpicUnit
-	ProximityExternalCondition@EpicDenialAura:
-		ValidRelationships: Enemy
-		Condition: EpicDenialAura
-		Range: 20c512
 	GainsExperience:
 	DamageMultiplier@RANK-1:
 		Modifier: 98
@@ -1961,7 +1970,7 @@
 	EligibleForRandomActorCrate:
 		Type: epic
 
-#Reduces upgrade effectiveness on VERY strong epic infantry units
+# Reduces upgrade effectiveness on VERY strong epic infantry units
 ^EpicInfantryNerf:
 	Inherits: ^Infantry
 	DamageMultiplier@iar1:
@@ -1997,6 +2006,7 @@
 	Targetable@epic1:
 		TargetTypes: EpicUnit
 
+# Reduces upgrade effectiveness for any epic vehicle
 ^EpicVehicle:
 	Inherits: ^Vehicle
 	DamageMultiplier@var1:
@@ -2067,7 +2077,7 @@
 	Targetable@epic1:
 		TargetTypes: EpicUnit
 
-#For non-vehicles
+# For select infantry that are also mechanical
 ^TargetRepairable:
 	Targetable@REPAIR:
 		RequiresCondition: !parachute && damaged
@@ -2076,6 +2086,7 @@
 		Condition: damaged
 		ValidDamageStates: Light, Medium, Heavy, Critical
 
+# Default actor for Civilian faction built roads
 ^Road:
 	Inherits@1: ^ExistsInWorld
 	Inherits@2: ^SpriteActor
@@ -2161,6 +2172,8 @@
 	#	Sequence: conwork
 	#	RequiresCondition: undeployed
 
+# Inherited and changed from mods/ra to change the palette, to allow player-coloured walls that inherit from this actor.
+# Also changed allowed terrain type for Zerg Creep
 ^Wall:
 	RenderSprites:
 		Palette: noplayer
@@ -2170,6 +2183,7 @@
 	Targetable:
 		TargetTypes: GroundActor, DetonateAttack, Wall
 
+# Inherited and changed from mods/ra for new target type Cyborg and auto-attack walls (AI)
 ^AutoTargetGround:
 	AutoTargetPriority@DEFAULT:
 		ValidTargets: Infantry, Cyborg, Vehicle, Water, Ship, Underwater, Defense, Mine
@@ -2191,6 +2205,7 @@
 	AttackMove:
 		AssaultMoveCondition: assault-move
 
+# Inherited and changed from mods/ra to increase lifetime and allowed terrain types
 ^Husk:
 	Inherits: ^BasicHusk
 	WithIdleOverlay@Burns:
@@ -2207,6 +2222,7 @@
 	WithColoredOverlay@IDISABLE:
 		Color: 00000080
 
+# Inherited and changed from mods/ra to add a toggle button for destructible bridges
 ^Bridge:
 	GrantConditionOnPrerequisite:
 		Prerequisites: explodebridges
@@ -2218,15 +2234,18 @@
 		StartIfBelow: 100
 		PercentageStep: 100
 
+# Inherited and changed from mods/ra to add a new voice set
 ^CivInfantry:
 	Voiced:
 		VoiceSet: ScientistVoice
 
+# Inherited and changed from mods/ra to make fields destructible
 ^CivField:
 	HitShape:
 	Health:
 
-^advancedtraining:
+# Upgrade from USA
+^AdvancedTraining:
 	GrantConditionOnPrerequisite@advancedtraining:
 		Condition: advancedtraining
 		Prerequisites: upgrade.usatraining
@@ -2234,7 +2253,8 @@
 		RequiresCondition: advancedtraining
 		Modifier: 150
 
-^usabombardment:
+# Buffs from the USA Strategy Center
+^USAStrategyBuffs:
 	ExternalCondition@usa.bombardment:
 		Condition: usa.bombardment
 	FirepowerMultiplier@usa.bombardment:
@@ -2247,8 +2267,6 @@
 		Position: TopLeft
 		ValidRelationships: None,Neutral,Enemy,Ally
 		RequiresCondition: usa.bombardment
-
-^usaholdtheline:
 	ExternalCondition@usa.hold_the_line:
 		Condition: usa.hold_the_line
 	DamageMultiplier@usa.hold_the_line:
@@ -2261,8 +2279,6 @@
 		Position: TopLeft
 		ValidRelationships: None,Neutral,Enemy,Ally
 		RequiresCondition: usa.hold_the_line
-
-^usasearchanddestroy:
 	ExternalCondition@usa.search_and_destroy:
 		Condition: usa.search_and_destroy
 	RangeMultiplier@usa.search_and_destroy:
@@ -2279,10 +2295,27 @@
 		ValidRelationships: None,Neutral,Enemy,Ally
 		RequiresCondition: usa.search_and_destroy
 
+# Used for non-Defense structures only
+^USAHoldTheLine:
+	ExternalCondition@usa.hold_the_line:
+		Condition: usa.hold_the_line
+	DamageMultiplier@usa.hold_the_line:
+		RequiresCondition: usa.hold_the_line
+		Modifier: 90
+	WithDecoration@usa.hold_the_line:
+		Image: pips
+		Sequence: usastrategypipholdtheline
+		Palette: effect
+		Position: TopLeft
+		ValidRelationships: None,Neutral,Enemy,Ally
+		RequiresCondition: usa.hold_the_line
+
+# Inherited and changed from mods/ra to adjust the colour
 ^DisableOnLowPower:
 	WithColoredOverlay@IDISABLE:
 		Color: 00000080
 
+# Used on everything except normal buildings
 ^propagandaboost:
 	ExternalCondition@propagandaboost:
 		Condition: propaganda
@@ -2342,7 +2375,7 @@
 	RejectsOrders@JapanBerserkerPower:
 		RequiresCondition: JapanBerserkerCondition
 
-
+# Used only on infantry - consolidate with japan buffs?
 ^propagandaboostinfantry:
 	Inherits: ^propagandaboost
 	WithIdleOverlay@propagandaboost:
@@ -2387,6 +2420,7 @@
 	RejectsOrders@JapanBerserkerPower:
 		RequiresCondition: JapanBerserkerCondition
 
+# Used only on infantry - consolidate with propaganda boost?
 ^japanbuffs_infantry:
 	ExternalCondition@commandobonus:
 		Condition: commandobonus
@@ -2410,6 +2444,7 @@
 		RequiresCondition: onmyodomark
 		DamageSource: Killer
 
+# Used on vehicles and defense structures
 ^japanbuffs_buildings:
 	ExternalCondition@komatsubuff:
 		Condition: komatsubuff
@@ -2431,6 +2466,7 @@
 		Color: 00ff8050
 		RequiresCondition: shishironbuff
 
+# Used on buildings to receive a resource value multiplier (should be only on Refinery type buildings, not the default ^Building actor - todo)
 ^japanbuffs_refinery:
 	ExternalCondition@shishironbuff:
 		Condition: shishironbuff
@@ -2438,6 +2474,10 @@
 		Modifier: 125
 		RequiresCondition: shishironbuff
 
+# Used for units that can receive Patriot/Frenzy boost, Japan Curse as well as:
+# Defense Matrix from Terran Science Vessel or Protoss (Artanis) support power
+# AI check to use any of the above support powers
+# Cryostream speed debuff
 ^FrenzyBoost:
 	ExternalCondition@patriotismboost:
 		Condition: patriotismboost
@@ -2551,12 +2591,13 @@
 		RequiresCondition: cyrostreameffect >= 5
 		Color: 00fbff40
 
+# Inherited and changed from mods/ra to increase lifetime and allowed terrain types
 ^Crate:
 	Crate:
 		Duration: 6000
 		TerrainTypes: Clear, Rough, Road, Ore, Beach, Water, Gems, Tiberium, BlueTiberium
 
-# unitise effects of officers and other passengers that buff the container.
+# Inherited and changed from mods/ra to unitise effects of officers and other passengers that buff the container.
 ^CargoPips:
 	Cargo:
 		PassengerConditions:
@@ -2593,7 +2634,7 @@
 		ValidTargets: Vehicle
 		Priority: 1
 
-
+# Default actor type for Blossom trees and monoliths
 ^TibTree:
 	Inherits@1: ^SpriteActor
 	Interactable:
@@ -2635,6 +2676,7 @@
 		Condition: notib
 
 
+# Inherited and changed from mods/ra so that the tree can be removed with an external condition, and targeted as a normal GroundActor
 ^Tree:
 	ExternalCondition@remove:
 		Condition: remove_tree
@@ -2644,6 +2686,7 @@
 	Targetable:
 		TargetTypes: Trees, GroundActor
 
+# Inherited and changed from mods/ra so that trees can be 100% destroyed.
 ^TreeHusk:
 	Inherits@shape: ^1x1Shape
 	Health:
@@ -2659,6 +2702,7 @@
 		RemoveInstead: true
 		Delay: 100
 
+# Default actor type for all the tree actor types that can be infected by tiberium
 ^InfectableTree:
 	Health:
 		HP: 100000
@@ -2718,7 +2762,10 @@
 		RequiresCondition: (lessinfectable && (growth > 95)) || (infectable && (growth > 70)) || (moreinfectable && (growth > 45)) || tibtree && !notib
 		Modifier: 0
 
-
+# Give this to units that should not be 100% mind controlled, and instead only temporary
+^MindControlResistant:
+	Targetable@mcresist:
+ 		TargetTypes: HighValueMindControl
 
 ^MediConditions:
 	ExternalCondition@MediCurseCondition:
