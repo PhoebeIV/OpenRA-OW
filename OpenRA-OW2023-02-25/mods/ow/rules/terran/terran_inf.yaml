@@ -1046,6 +1046,26 @@ active.raynor:
 	Tooltip:
 		Name: actor-active-raynor-name
 
+raynor.allpick:
+	Inherits: ^UpgradeBase
+	RenderSprites:
+		Image: traynor
+	Buildable:
+		Queue: Tech
+		BuildPaletteOrder: 1
+		Prerequisites: ~techlevel.hero, ~!hero.chosen
+		Description: actor-traynor-hero0.description
+		BuildDuration: 100
+		BuildLimit: 1
+	Valued:
+		Cost: 0
+	Tooltip:
+		Name: actor-traynor-hero0.name
+	ProvidesPrerequisite@hero:
+		Prerequisite: hero.chosen
+	ProvidesPrerequisite@pickme:
+		Prerequisite: hero.raynor
+
 TRAYNOR.Hero0:
 	Inherits: ^DoomSoldier
 	Inherits@Hero: ^Hero
@@ -1057,7 +1077,7 @@ TRAYNOR.Hero0:
 		Queue: Infantry
 		BuildAtProductionType: Soldier
 		BuildPaletteOrder: 50
-		Prerequisites: ~barracks, ~techlevel.unrestricted, !active.raynor, ~!hero.tier1, ~techlevel.hero
+		Prerequisites: ~barracks, ~techlevel.unrestricted, !active.raynor, ~!hero.tier1, ~hero.raynor
 		Description: actor-traynor-hero0.description
 		BuildDurationModifier: 100
 		BuildDuration: 750
@@ -1207,7 +1227,7 @@ TRAYNOR.Hero1:
 	Inherits: TRAYNOR.Hero0
 	Inherits@heroTier: ^HeroTier1
 	Buildable:
-		Prerequisites: ~barracks, ~techlevel.unrestricted, !active.raynor, ~!hero.tier2, ~hero.tier1, ~techlevel.hero
+		Prerequisites: ~barracks, ~techlevel.unrestricted, !active.raynor, ~!hero.tier2, ~hero.tier1, ~hero.raynor
 		BuildDuration: 1500
 	Tooltip:
 		Name: actor-traynor-hero1-name
@@ -1244,7 +1264,7 @@ TRAYNOR.Hero2:
 	Inherits: TRAYNOR.Hero1
 	Inherits@heroTier: ^HeroTier2
 	Buildable:
-		Prerequisites: ~barracks, ~techlevel.unrestricted, !active.raynor, ~!hero.tier3, ~hero.tier2, ~techlevel.hero
+		Prerequisites: ~barracks, ~techlevel.unrestricted, !active.raynor, ~!hero.tier3, ~hero.tier2, ~hero.raynor
 	Tooltip:
 		Name: actor-traynor-hero2-name
 	Health:
@@ -1289,7 +1309,7 @@ TRAYNOR.Hero3:
 	Inherits: TRAYNOR.Hero2
 	Inherits@heroTier: ^HeroTier3
 	Buildable:
-		Prerequisites: ~barracks, ~techlevel.unrestricted, !active.raynor, ~!hero.tier4, ~hero.tier3, ~techlevel.hero
+		Prerequisites: ~barracks, ~techlevel.unrestricted, !active.raynor, ~!hero.tier4, ~hero.tier3, ~hero.raynor
 	Tooltip:
 		Name: actor-traynor-hero3-name
 	Health:
@@ -1321,8 +1341,8 @@ TRAYNOR.Hero4:
 	Inherits: TRAYNOR.Hero3
 	Inherits@heroTier: ^HeroTier4
 	Buildable:
-		Prerequisites: ~barracks, ~techlevel.unrestricted, !active.raynor, ~!hero.tier5, ~hero.tier4, ~techlevel.hero
-		BuildDuration: 2250
+		Prerequisites: ~barracks, ~techlevel.unrestricted, !active.raynor, ~!hero.tier5, ~hero.tier4, ~hero.raynor
+		BuildDuration: 3000
 	Tooltip:
 		Name: actor-traynor-hero4.name
 	Health:
@@ -1336,9 +1356,6 @@ TRAYNOR.Hero4:
 		Modifier: 20
 	FirepowerMultiplier@1:
 		Modifier: 140
-	Explodes:
-		Weapon: RaynorDeath
-		EmptyWeapon: RaynorDeath
 	DropPodsPower:
 		Prerequisites: raynor.tier4.support1
 		Name: Orbital Bombardment
@@ -1389,8 +1406,8 @@ TRAYNOR.Hero5:
 	Inherits: TRAYNOR.Hero4
 	Inherits@heroTier: ^HeroTier5
 	Buildable:
-		Prerequisites: ~barracks, ~techlevel.unrestricted, !active.raynor, ~hero.tier5, ~techlevel.hero
-		BuildDuration: 3000
+		Prerequisites: ~barracks, ~techlevel.unrestricted, !active.raynor, ~hero.tier5, ~hero.raynor
+		BuildDuration: 6000
 	Tooltip:
 		Name: actor-traynor-hero5-name
 	Health:
@@ -1429,3 +1446,29 @@ TRAYNOR.Hero5:
 	ReloadAmmoPool@normal:
 		Delay: 25
 		AmmoPool: secondary
+	AirstrikePower@hyperion: 
+		OrderName: Hyperion
+		Prerequisites: techlevel.hero
+		Icon: hyperion
+		ChargeInterval: 7500
+		StartFullyCharged: true
+		Name: Hyperion
+		Description: Call down your Capital Ship to fight for 45 seconds. \n\n Strong vs Everything \nCan teleport deploy.
+		SelectTargetSpeechNotification: SelectTarget
+		SelectTargetTextNotification: actor-t-miss.airstrikepower-hyperion-select-target-text-notification
+		CameraActor: camera
+		CameraRemoveDelay: 25
+		UnitType: thyperion.spawn
+		QuantizedFacings: 8
+		DisplayBeacon: true
+		BeaconPoster: hyperion
+		SquadSize: 1
+		SquadOffset: 1792,1792,0
+		ArrowSequence: arrow
+		ClockSequence: clock
+		CircleSequence: circles
+		UseDirectionalTarget: True
+		DirectionArrowAnimation: paradirection
+		SupportPowerPaletteOrder: 5
+		DisplayTimerRelationships: Ally, Enemy, Neutral
+		PauseOnCondition: disabled

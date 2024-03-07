@@ -746,6 +746,13 @@ ZTORRASQUE:
 	-GrantConditionOnPrerequisite@torrasque:
 	-TransformOnCondition@torrasque:
 
+ZTORRASQUE.Hero:
+	Inherits: ZTORRASQUE
+	Buildable:
+		Prerequisites: ~techlevel.hero, ~kerrigan.tier4.torrasque
+		BuildPaletteOrder: 4000
+		BuildAtProductionType: Infantry
+
 ZTORRASQUE.Corpse:
 	Inherits: ^CivBuilding
 	RenderSprites:
@@ -1306,6 +1313,26 @@ ZKERRIGAN:
 		Condition: produceunit
 
 
+kerrigan.allpick:
+	Inherits: ^UpgradeBase
+	RenderSprites:
+		Image: zkerrigan
+	Buildable:
+		Queue: Tech
+		BuildPaletteOrder: 1
+		Prerequisites: ~techlevel.hero, ~!hero.chosen
+		Description: actor-zkerrigan-hero0.description
+		BuildDuration: 100
+		BuildLimit: 1
+	Tooltip:
+		Name: actor-zkerrigan-hero0.name
+	Valued:
+		Cost: 0
+	ProvidesPrerequisite@hero:
+		Prerequisite: hero.chosen
+	ProvidesPrerequisite@pickme:
+		Prerequisite: hero.kerrigan
+
 ZKERRIGAN.Hero0:
 	Inherits: ^Infantry
 	Inherits@Hero: ^Hero
@@ -1318,9 +1345,9 @@ ZKERRIGAN.Hero0:
 	Buildable:
 		Description: actor-zkerrigan-hero0.description
 		Queue: Infantry
-		BuildAtProductionType: Hatchery
+		BuildAtProductionType: Infantry
 		BuildPaletteOrder: 50
-		Prerequisites: ~barracks, ~techlevel.unrestricted, !active.kerrigan, ~!hero.tier1, ~infantry.kerrigan
+		Prerequisites: ~barracks, ~techlevel.unrestricted, !active.kerrigan, ~!hero.tier1, ~hero.kerrigan
 		BuildDurationModifier: 100
 		BuildDuration: 750
 		BuildLimit: 1
@@ -1476,12 +1503,11 @@ ZKERRIGAN.Hero0:
 		StartIfBelow: 40
 		DamageCooldown: 250
 
-
 ZKERRIGAN.Hero1:
 	Inherits: ZKERRIGAN.Hero0
 	Inherits@heroTier: ^HeroTier1
 	Buildable:
-		Prerequisites: ~barracks, ~techlevel.unrestricted, !active.kerrigan, ~!hero.tier2, ~hero.tier1, ~infantry.kerrigan
+		Prerequisites: ~barracks, ~techlevel.unrestricted, !active.kerrigan, ~!hero.tier2, ~hero.tier1, ~hero.kerrigan
 		BuildDuration: 1500
 	Tooltip:
 		Name: actor-zkerrigan-hero1-name
@@ -1515,7 +1541,7 @@ ZKERRIGAN.Hero2:
 	Inherits@autotarget: ^AutoTargetAllAssaultMove
 	Buildable:
 		Description: actor-zkerrigan-hero2.description
-		Prerequisites: ~barracks, ~techlevel.unrestricted, !active.kerrigan, ~!hero.tier3, ~hero.tier2, ~infantry.kerrigan
+		Prerequisites: ~barracks, ~techlevel.unrestricted, !active.kerrigan, ~!hero.tier3, ~hero.tier2, ~hero.kerrigan
 	Tooltip:
 		Name: actor-zkerrigan-hero2.name
 	Health:
@@ -1531,12 +1557,24 @@ ZKERRIGAN.Hero2:
 		Modifier: 120
 	Armament@1:
 		Weapon: KerriganBeam
+	GrantConditionOnPrerequisite@notzerg:
+		Prerequisites: techlevel.hero
+		Condition: not_zerg
+	FirepowerMultiplier@notzerg:
+		RequiresCondition: not_zerg
+		Modifier: 80
+	DamageMultiplier@notzerg:
+		RequiresCondition: not_zerg
+		Modifier: 120
+	RangeMultiplier@notzerg:
+		RequiresCondition: not_zerg
+		Modifier: 80
 
 ZKERRIGAN.Hero3:
 	Inherits: ZKERRIGAN.Hero2
 	Inherits@heroTier: ^HeroTier3
 	Buildable:
-		Prerequisites: ~barracks, ~techlevel.unrestricted, !active.kerrigan, ~!hero.tier4, ~hero.tier3, ~infantry.kerrigan
+		Prerequisites: ~barracks, ~techlevel.unrestricted, !active.kerrigan, ~!hero.tier4, ~hero.tier3, ~hero.kerrigan
 	Tooltip:
 		Name: actor-zkerrigan-hero3-name
 	Health:
@@ -1563,8 +1601,8 @@ ZKERRIGAN.Hero4:
 	Inherits: ZKERRIGAN.Hero3
 	Inherits@heroTier: ^HeroTier4
 	Buildable:
-		Prerequisites: ~barracks, ~techlevel.unrestricted, !active.kerrigan, ~!hero.tier5, ~hero.tier4, ~infantry.kerrigan
-		BuildDuration: 2250
+		Prerequisites: ~barracks, ~techlevel.unrestricted, !active.kerrigan, ~!hero.tier5, ~hero.tier4, ~hero.kerrigan
+		BuildDuration: 3000
 	Tooltip:
 		Name: actor-zkerrigan-hero4-name
 	Health:
@@ -1586,8 +1624,8 @@ ZKERRIGAN.Hero5:
 	Inherits: ZKERRIGAN.Hero4
 	Inherits@heroTier: ^HeroTier5
 	Buildable:
-		Prerequisites: ~barracks, ~techlevel.unrestricted, !active.kerrigan, ~hero.tier5, ~infantry.kerrigan
-		BuildDuration: 3000
+		Prerequisites: ~barracks, ~techlevel.unrestricted, !active.kerrigan, ~hero.tier5, ~hero.kerrigan
+		BuildDuration: 6000
 	Tooltip:
 		Name: actor-zkerrigan-hero5-name
 	Health:
@@ -1601,3 +1639,6 @@ ZKERRIGAN.Hero5:
 	Armament@4:
 		Name: primary
 		Weapon: KerriganSpawn
+	ProvidesPrerequisite@notzerg:
+		RequiresPrerequisites: techlevel.hero
+		Prerequisite: 
