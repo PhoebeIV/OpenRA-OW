@@ -12,23 +12,23 @@ Castlearrows:
 	Range: 9c0
 	Warhead@1Dam: SpreadDamage
 		Spread: 256
-		Damage: 1000
+		Damage: 1500
 		ValidTargets: Air, AirborneActor
 		DamageTypes: Prone50Percent, TriggerProne, DefaultDeath
 #
 Castlearrowsb:
 	Inherits: Basicarrow
-	ReloadDelay: 200
+	ReloadDelay: 500
 	Range: 9c0
 	MinRange: 2c0
-	Burst: 30
+	Burst: 40
 	BurstDelays: 0
 	Projectile: Bullet
 		Speed: 250, 300
 		LaunchAngle: 80, 120
 		Image: DRAGON
 		ContrailLength: 0
-		Inaccuracy: 2c0
+		Inaccuracy: 4c0
 	Warhead@GDam: SpreadDamage
 		Spread: 256
 		InvalidTargets: Structure
@@ -264,10 +264,28 @@ Infantryarrow:
 #
 Healmedi:
 	Inherits: Heal
-	ReloadDelay: 70
+	Range: 4c0
+	ReloadDelay: 150
 	Warhead@1Dam: SpreadDamage
 		Spread: 213
-		Damage: -5000
+		Damage: -500
+		ValidRelationships: Ally
+		ValidTargets: Heal
+		DebugOverlayColor: 00FF00
+		DamageTypes: BypassShield
+	Warhead@cond: GrantExternalCondition
+		Condition: healed
+		Range: 1c0
+		Duration: 375
+		ValidTargets: Infantry
+		InvalidTargets: BeingHealed
+#
+Healmedim:
+	Inherits: Heal
+	ReloadDelay: 350
+	Warhead@1Dam: SpreadDamage
+		Spread: 213
+		Damage: -400
 		ValidRelationships: Ally
 		ValidTargets: Heal
 		DebugOverlayColor: 00FF00
@@ -287,9 +305,9 @@ Martyrdeath:
 	Inherits: ^Explosion
 		ValidTargets: Repair, Heal, StructureRepair
 	Warhead@1Dam: SpreadDamage
-		Delay: 0
+		Delay: 50
 		Spread: 426
-		Damage: -5500
+		Damage: -500
 		Falloff: 250, 250, 175, 150, 0, 0, 0
 		Versus:
 			None: 100
@@ -303,14 +321,14 @@ Martyrdeath:
 	Warhead@2Dam: SpreadDamage
 		Delay: 0
 		Spread: 300
-		Damage: -1000
+		Damage: -500
 		Falloff: 250, 250, 175, 150, 0, 0, 0
 		ValidRelationships: Ally
 		ValidTargets: Repair, Heal, StructureRepair
 		DamageTypes: Prone50Percent, TriggerProne, ExplosionDeath
 	Warhead@1heala: HealthPercentageDamage
 		Spread: 5c0
-		Damage: -25
+		Damage: -10
 		ValidTargets: Repair, Heal, StructureRepair
 		ValidRelationships: Ally
 	Warhead@1healb: CreateEffect
@@ -1464,7 +1482,7 @@ GyroChain:
 		InvalidTargets: Bridge
 #
 GryphonRiderAttack:
-	ReloadDelay: 70
+	ReloadDelay: 60
 	Range: 6c0
 	Report: gryphonriderattack1.aud, gryphonriderattack2.aud, gryphonriderattack3.aud
 	ValidTargets: Ground, Water, GroundActor, WaterActor, AirborneActor
@@ -1496,12 +1514,13 @@ GryphonRiderAttack:
 #
 GryphonRiderAttackBurst:
 	Inherits: GryphonRiderAttack
-	ReloadDelay: 10
+	ReloadDelay: 8
 #
 DragonGround:
 	ValidTargets: Ground, GroundActor, Water, WaterActor, Trees
 	ReloadDelay: 150
 	Range: 6c0
+	Burst: 4
 	Projectile: Bullet
 		Speed: 345
 		Image: manf
@@ -1509,7 +1528,7 @@ DragonGround:
 		ContrailLength: 1
 	Warhead@1Dam: SpreadDamage
 		Spread: 512
-		Damage: 4000
+		Damage: 1000
 		ValidTargets: GroundActor, WaterActor
 		Versus:
 			None: 50
