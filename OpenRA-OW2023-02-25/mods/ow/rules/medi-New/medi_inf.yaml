@@ -38,53 +38,9 @@
 			SmallExplosionDeath: 1
 			ExplosionDeath: 4
 	TakeCover:
-		SpeedModifier: 130
+		SpeedModifier: 140
 		Duration: 75
 		DamageTriggers: TriggerProne
-
-^Mediconditionsinfantryonly:
-	ExternalCondition@assasintoxin:
-		Condition: assasintoxin
-	ExternalCondition@swarmlingspawn:
-		Condition: swarmlingspawn
-
-^Mediconditions:
-	ExternalCondition@MediCurseCondition:
-		Condition: MediCurseCondition
-	ExternalCondition@MediBlessCondition:
-		Condition: MediBlessCondition
-	ExternalCondition@ChainsCondition:
-		Condition: ChainsCondition
-	ExternalCondition@thisdoesnothing:
-		Condition: thisdoesnothing
-	ExternalCondition@Medimonument:
-		Condition: Medimonument
-	ExternalCondition@Medimonumentcart:
-		Condition: Medimonumentcart
-	ExternalCondition@MediGraveyard:
-		Condition: MediGraveyard
-	ExternalCondition@Mediwatereleslow:
-		Condition: Mediwatereleslow
-	ExternalCondition@MediRot:
-		Condition: MediRot
-	ExternalCondition@MediBerserkerbuff:
-		Condition: MediBerserkerbuff
-	ExternalCondition@MediPalyaura:
-		Condition: MediPalyaura
-	ExternalCondition@Darkwizardcurse:
-		Condition: Darkwizardcurse
-	ExternalCondition@darkknightaurabuff:
-		Condition: darkknightaurabuff
-	ExternalCondition@darkknightauradebuff:
-		Condition: darkknightauradebuff
-	ExternalCondition@Archmageaurabuff:
-		Condition: Archmageaurabuff
-	ExternalCondition@Archmageauradebuff:
-		Condition: Archmageauradebuff
-	ExternalCondition@medizombieplague:
-		Condition: medizombieplague
-	ExternalCondition@MediLightningstacks:
-		Condition: MediLightningstacks
 
 ###############################################################################
 ##########################   Harvesters and Utility   #########################
@@ -358,7 +314,7 @@ accolyte:
 		Prerequisites: ~infantry.medi, churchmedi, ~infantry.medicult
 		Description: Heals nearby infantry on death.
 	Valued:
-		Cost: 800
+		Cost: 600
 	Tooltip:
 		Name: accolyte
 	Health:
@@ -383,13 +339,6 @@ FOOTMAN:
 	Inherits@MediSoldier: ^MediSoldier
 	Inherits@sprite: ^TSMedi
 	Inherits@InfPro: ^AutoTargetInfantryPriority
-	Buildable:
-		Prerequisites: ~infantry.medi
-		Description: Mediaval knight. \n Strong vs infantry\n Weak vs anything else
-		Queue: Infantry
-		BuildAtProductionType: Soldier
-		BuildPaletteOrder: 408
-		BuildDuration: 140
 	Valued:
 		Cost: 100
 	Tooltip:
@@ -500,7 +449,7 @@ mediassasin:
 ##leap attack and high damage
 ##swordmaster
 MEDIBLADEMASTER:
-	Inherits@MEDIPALADIN: FOOTMAN
+	Inherits@Knight: Knight
 	Inherits@MediLowPower: ^MediLowPower
 	Inherits@InfPro: ^AutoTargetVehiclePriority
 	-BlocksProjectiles:
@@ -567,7 +516,7 @@ MEDIBLADEMASTER:
 ##gets stronger as hp gets lower
 ##berserker
 BERSERKER:
-	Inherits@FOOTMAN: FOOTMAN
+	Inherits@Knight: Knight
 	-Crushable:
 	Buildable:
 		Prerequisites: ~infantry.medi, advtechcenter, ~infantry.darkness
@@ -582,7 +531,7 @@ BERSERKER:
 	Armor:
 		Type: Light
 	Health:
-		HP: 22000
+		HP: 32000
 	GrantConditionOnHealth@Move:
 		Condition: BerLowHPM
 		MaxHP: 21000
@@ -596,7 +545,7 @@ BERSERKER:
 		Modifier: 200
 	FirepowerMultiplier:
 		RequiresCondition: BerLowHPA
-		Modifier: 110
+		Modifier: 120
 	AttackFrontal:
 		Armaments: primary, primary1
 		FacingTolerance: 0
@@ -619,7 +568,7 @@ BERSERKER:
 ##slow regen in combat, fast regen outside combat
 ##paladin
 MEDIPALADIN:
-	Inherits@FOOTMAN: FOOTMAN
+	Inherits@Knight: Knight
 	Inherits@MediLowPower: ^MediLowPower
 	Inherits@InfPro: ^AutoTargetVehiclePriority
 	Buildable:
@@ -677,7 +626,7 @@ swarmling:
 		BuildPaletteOrder: 408
 		BuildDuration: 50
 	Valued:
-		Cost: 500
+		Cost: 600
 	UpdatesPlayerStatistics:
 		AddToArmyValue: true
 	Tooltip:
@@ -685,7 +634,7 @@ swarmling:
 	Health:
 		HP: 5500
 	Mobile:
-		Speed: 104
+		Speed: 144
 	RevealsShroud:
 		Range: 4c512
 	Armament@1:

@@ -201,14 +201,15 @@ Mediassasinblade:
 	ReloadDelay: 100
 	Range: 5c0
 	Report: footmansword1.aud,footmansword2.aud,footmansword3.aud,footmansword4.aud,footmansword5.aud,footmansword6.aud
-	ValidTargets: Infantry
 	Projectile: InstantHit
+	ValidTargets: Ground, Infantry, Cyborg
+	InvalidTargets: Vehicle, Water, Wall, Husk, Mine, Structure
 	Warhead@assasintoxin: GrantExternalCondition
 		Condition: assasintoxin
 		Duration: 500
 		Range: 2c0
 		ValidTargets: Ground, Infantry, Cyborg
-		ValidRelationships: Enemy, Neutral, Ally
+		ValidRelationships: Enemy, Neutral
 	Warhead@swarmlingspawn: GrantExternalCondition
 		Condition: swarmlingspawn
 		Duration: 500
@@ -455,20 +456,20 @@ swarmlingAttack:
 	BurstDelays: 13,11,12,10,14
 	Range: 2c0
 	Report: zzeatk00.aud, zzeatk01.aud
-	ValidTargets: Ground, Water, GroundActor, WaterActor
+	ValidTargets: Ground, Infantry, Cyborg
 	Projectile: InstantHit
 	Warhead@assasintoxin: GrantExternalCondition
 		Condition: assasintoxin
 		Duration: 200
 		Range: 2c0
 		ValidTargets: Ground, Infantry, Cyborg
-		ValidRelationships: Enemy, Neutral, Ally
+		ValidRelationships: Enemy, Neutral
 	Warhead@swarmlingspawn: GrantExternalCondition
 		Condition: swarmlingspawn
 		Duration: 500
 		Range: 2c0
 		ValidTargets: Ground, Infantry, Cyborg
-		ValidRelationships: Enemy, Neutral, Ally
+		ValidRelationships: Enemy, Neutral
 	Warhead@1Dam: SpreadDamage
 		Spread: 64
 		Damage: 425
@@ -759,7 +760,7 @@ DarkRageDeathWep:
 	InstantHit:
 	Warhead@DarkRageDeathWar: GrantExternalCondition
 		Condition: DarkRageStacks
-		Duration: 500
+		Duration: 5
 		Range: 10
 		ValidTargets: GroundActor
 		ValidRelationships: Ally
@@ -822,7 +823,7 @@ ChainsPowerWep:
 	Warhead@curtain: GrantExternalCondition
 		ValidTargets: GroundActor, Trees, WaterActor, Underwater, AirborneActor
 		ValidRelationships: Enemy, Neutral
-		Condition: ChainsCondition
+		Condition: ChainsofGod
 		Range: 5c0
 		Duration: 300
 #
@@ -1436,7 +1437,7 @@ MageSuperWeapon:
 ###############################################################################
 #
 GyroChain:
-	ReloadDelay: 10
+	ReloadDelay: 5
 	Range: 5c0
 	MinRange: 0c768
 	Report: gun13.aud
@@ -1580,7 +1581,7 @@ DragonGroundBomber:
 		Shadow: False
 	Warhead@1Dam: SpreadDamage
 		Spread: 768
-		Damage: 20000
+		Damage: 10000
 		ValidTargets: GroundActor, WaterActor
 		Versus:
 			None: 50
