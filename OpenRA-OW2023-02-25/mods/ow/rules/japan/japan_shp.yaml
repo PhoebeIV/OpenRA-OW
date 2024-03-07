@@ -1,5 +1,14 @@
+^japanboatbuff:
+	GrantConditionOnPrerequisite@advancedtargetingsystems:
+		Condition: advancedtargetingsystems
+		Prerequisites: upgrade.advancedtargetingsystems
+	RangeMultiplier@advancedtargetingsystems:
+		Modifier: 120
+		RequiresCondition: advancedtargetingsystems
+
 japankappa:
 	Inherits: ^Ship
+	Inherits: ^japanboatbuff
 	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
 	Buildable:
 		Queue: Ship
@@ -47,12 +56,13 @@ japankappa:
 
 japannaginata:
 	Inherits: ^Ship
+	Inherits: ^japanboatbuff
 	Inherits@AUTOTARGET: ^AutoTargetAll
 	Buildable:
 		Queue: Ship
 		BuildAtProductionType: Boat
 		BuildPaletteOrder: 50
-		Prerequisites: ~ships.japan, techcenter, ~!faction.economicgeneral, ~!faction.mechageneral, ~!faction.mechageneral
+		Prerequisites: ~ships.japan, techcenter, ~!faction.economicgeneral, ~!faction.mechageneral
 		Description: actor-japannaginata.description
 	Valued:
 		Cost: 2000
@@ -92,6 +102,7 @@ japannaginata:
 		Recoil: 171
 		RecoilRecovery: 34
 		MuzzleSequence: muzzle
+		PauseOnCondition: disabled
 		RequiresCondition: cyrostream
 	Armament@SECONDARY:
 		Name: secondary
@@ -105,6 +116,7 @@ japannaginata:
 		Weapon: strikervxshotupgrade
 		LocalOffset: 480,100,40, 480,-100,40
 		MuzzleSequence: muzzle
+		PauseOnCondition: disabled
 		RequiresCondition: cyrostream
 	AttackTurreted:
 		Turrets: primary
@@ -123,11 +135,12 @@ japannaginata:
 
 japanshogun:
 	Inherits: ^Ship
+	Inherits: ^japanboatbuff
 	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
 	Buildable:
 		Queue: Ship
 		BuildPaletteOrder: 60
-		Prerequisites: ~ships.japan, advtechcenter, ~!faction.economicgeneral, ~!faction.mechageneral, ~!faction.mechageneral
+		Prerequisites: ~ships.japan, advtechcenter, ~!faction.economicgeneral, ~!faction.mechageneral
 		Description: actor-japanshogun.description
 	Valued:
 		Cost: 3500
@@ -214,6 +227,7 @@ japanshogun:
 
 japanhovercraft:
 	Inherits: ^Ship
+	Inherits: ^japanboatbuff
 	Inherits@CARGOPIPS: ^CargoPips
 	Buildable:
 		Queue: Ship
@@ -258,3 +272,446 @@ japanhovercraft:
 		LocalOffset: 390,-256,0, 390,256,0, 0,0,0, -390,-256,0, -390,256,0, 780,-256,0, 780,256,0, 512,0,0, -780,-256,0, -780,256,0
 	Voiced:
 		VoiceSet: GenbuVoice
+
+japannamiryoku:
+	Inherits: ^Ship
+	Inherits: ^japanboatbuff
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Buildable:
+		Queue: Ship
+		BuildPaletteOrder: 60
+		Prerequisites: ~ships.japan, advtechcenter, ~!faction.economicgeneral, ~!faction.mechageneral, ~faction.navygeneral
+		Description: actor-japannamiryoku.description
+	Valued:
+		Cost: 4000
+	Tooltip:
+		Name: actor-japannamiryoku.name
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 50000
+	Armor:
+		Type: Heavy
+	RevealsShroud:
+		MinRange: 5c0
+		Range: 7c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 5c0
+	Mobile:
+		TurnSpeed: 16
+		Speed: 31
+	WithIdleOverlay@SPINNER:
+		Sequence: spinner
+		Offset: 30,70,600
+	Selectable:
+		DecorationBounds: 1877, 1877
+	Turreted@PRIMARY:
+		Turret: primary
+		Offset: -896,0,128
+		TurnSpeed: 12
+	Turreted@SECONDARY:
+		Turret: secondary
+		Offset: 768,0,128
+		TurnSpeed: 12
+	Armament@PRIMARY:
+		Turret: primary
+		Weapon: HiroshimaInfantryLaser
+		LocalOffset: 480,-100,40, 480,100,40
+		Recoil: 171
+		RecoilRecovery: 34
+		MuzzleSequence: muzzle
+		PauseOnCondition: disabled || changelaser || focusedlasers
+	Armament@SECONDARY:
+		Name: secondary
+		Turret: secondary
+		Weapon: HiroshimaInfantryLaser
+		LocalOffset: 480,-100,40, 480,100,40
+		Recoil: 171
+		RecoilRecovery: 34
+		MuzzleSequence: muzzle
+		PauseOnCondition: disabled || changelaser || focusedlasers
+	Armament@PRIMARYdep:
+		Turret: primary
+		Weapon: HiroshimaTankLaser
+		LocalOffset: 480,-100,40, 480,100,40
+		Recoil: 171
+		RecoilRecovery: 34
+		MuzzleSequence: muzzle
+		PauseOnCondition: disabled || focusedlasers
+		RequiresCondition: changelaser
+	Armament@SECONDARYdep:
+		Name: secondary
+		Turret: secondary
+		Weapon: HiroshimaTankLaser
+		LocalOffset: 480,-100,40, 480,100,40
+		Recoil: 171
+		RecoilRecovery: 34
+		MuzzleSequence: muzzle
+		PauseOnCondition: disabled || focusedlasers
+		RequiresCondition: changelaser
+	Armament@PRIMARYupgrade:
+		Turret: primary
+		Weapon: HiroshimaInfantryLaserUpgrade
+		LocalOffset: 480,-100,40, 480,100,40
+		Recoil: 171
+		RecoilRecovery: 34
+		MuzzleSequence: muzzle
+		PauseOnCondition: disabled || changelaser
+		RequiresCondition: focusedlasers
+	Armament@SECONDARYupgrade:
+		Name: secondary
+		Turret: secondary
+		Weapon: HiroshimaInfantryLaserUpgrade
+		LocalOffset: 480,-100,40, 480,100,40
+		Recoil: 171
+		RecoilRecovery: 34
+		MuzzleSequence: muzzle
+		PauseOnCondition: disabled || changelaser
+		RequiresCondition: focusedlasers
+	Armament@PRIMARYupgradedep:
+		Turret: primary
+		Weapon: HiroshimaTankLaserUpgrade
+		LocalOffset: 480,-100,40, 480,100,40
+		Recoil: 171
+		RecoilRecovery: 34
+		MuzzleSequence: muzzle
+		PauseOnCondition: disabled
+		RequiresCondition: changelaser && focusedlasers
+	Armament@SECONDARYupgradedep:
+		Name: secondary
+		Turret: secondary
+		Weapon: HiroshimaTankLaserUpgrade
+		LocalOffset: 480,-100,40, 480,100,40
+		Recoil: 171
+		RecoilRecovery: 34
+		MuzzleSequence: muzzle
+		PauseOnCondition: disabled
+		RequiresCondition: changelaser && focusedlasers
+	AttackTurreted:
+		Turrets: primary, secondary
+		TargetFrozenActors: True
+		ForceFireIgnoresActors: True
+	WithMuzzleOverlay:
+	WithSpriteTurret@PRIMARY:
+		Turret: primary
+	WithSpriteTurret@SECONDARY:
+		Turret: secondary
+	Voiced:
+		VoiceSet: WaveForceVoice
+	GrantConditionOnDeploy:
+		MakeAnimationDeployTypes:
+		DeployedCondition: changelaser
+		SkipMakeAnimation: True
+	GrantConditionOnPrerequisite@focusedlasers:
+		Condition: focusedlasers
+		Prerequisites: upgrade.focusedlasers
+	AutoDeployer:
+		DeployChance: 100
+		DeployTicks: 100
+
+japanibukiboat:
+	Inherits: ^Ship
+	Inherits: ^japanboatbuff
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Buildable:
+		Queue: Ship
+		BuildPaletteOrder: 20
+		Prerequisites: ~ships.japan, techcenter, ~!faction.economicgeneral, ~!faction.mechageneral, ~faction.navygeneral
+		Description: actor-japanibukiboat.description
+	Valued:
+		Cost: 1500
+	Tooltip:
+		Name: actor-japanibukiboat.name
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 12000
+	Armor:
+		Type: Light
+	Mobile:
+		TurnSpeed: 40
+		Speed: 113
+	RevealsShroud:
+		MinRange: 4c0
+		Range: 5c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 4c0
+	Armament@primary:
+		Weapon: kusogakishot
+		Name: primary
+		LocalOffset: 768,0,90
+		MuzzleSequence: muzzle
+		PauseOnCondition: disabled || superheatedplasma
+	Armament@secondary:
+		Weapon: kusogakishot
+		Name: secondary
+		LocalOffset: 768,0,90
+		MuzzleSequence: muzzle
+		PauseOnCondition: disabled || superheatedplasma
+	Armament@primaryUPGRADE:
+		Weapon: kusogakishotupgrade
+		Name: tri
+		LocalOffset: 768,0,90
+		MuzzleSequence: muzzle
+		RequiresCondition: superheatedplasma
+	Armament@secondaryUPGRADE:
+		Weapon: kusogakishotupgrade
+		Name: quad
+		LocalOffset: 768,0,90
+		MuzzleSequence: muzzle
+		RequiresCondition: superheatedplasma
+	AttackFrontal:
+		FacingTolerance: 0
+	WithMuzzleOverlay:
+	DetectCloaked:
+		DetectionTypes: Underwater
+		Range: 2c0
+	RenderDetectionCircle:
+	Selectable:
+		DecorationBounds: 1536, 1536
+	Voiced:
+		VoiceSet: ShishironVoice
+
+japansanshikidan:
+	Inherits: ^Ship
+	Inherits: ^japanboatbuff
+	Inherits@AUTOTARGET: ^AutoTargetAll
+	Buildable:
+		Queue: Ship
+		BuildAtProductionType: Boat
+		BuildPaletteOrder: 50
+		Prerequisites: ~ships.japan, techcenter, ~!faction.economicgeneral, ~!faction.mechageneral, ~faction.navygeneral
+		Description: actor-japansanshikidan.description
+	Valued:
+		Cost: 2000
+	Tooltip:
+		Name: actor-japansanshikidan.name
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 60000
+	Armor:
+		Type: Heavy
+	Mobile:
+		TurnSpeed: 12
+		Speed: 44
+	RevealsShroud:
+		MinRange: 5c0
+		Range: 7c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 5c0
+	Turreted@PRIMARY:
+		Turret: primary
+		Offset: 500,0,60
+		TurnSpeed: 12
+	Armament@PRIMARY:
+		Turret: primary
+		Weapon: Datenshishot
+		LocalOffset: 480,50,40
+		Recoil: 171
+		RecoilRecovery: 34
+		MuzzleSequence: muzzle
+		PauseOnCondition: disabled
+	AttackTurreted:
+		Turrets: primary
+		TargetFrozenActors: True
+		ForceFireIgnoresActors: True
+	WithMuzzleOverlay:
+	WithSpriteTurret@PRIMARY:
+		Turret: primary
+	Selectable:
+		DecorationBounds: 1877, 1877
+	Voiced:
+		VoiceSet: DatenshiVoice
+
+japankatsuragi:
+	Inherits: ^Ship
+	Inherits: ^japanboatbuff
+	Inherits@AUTOTARGET: ^AutoTargetAll
+	Buildable:
+		Queue: Ship
+		BuildAtProductionType: Boat
+		BuildPaletteOrder: 50
+		Prerequisites: ~ships.japan, advtechcenter, ~!faction.economicgeneral, ~!faction.mechageneral, ~faction.navygeneral
+		Description: actor-japankatsuragi.description
+	Valued:
+		Cost: 2000
+	Tooltip:
+		Name: actor-japankatsuragi.name
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 80000
+	Armor:
+		Type: Heavy
+	Mobile:
+		TurnSpeed: 12
+		Speed: 44
+	RevealsShroud:
+		MinRange: 5c0
+		Range: 7c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 5c0
+	Turreted@PRIMARY:
+		Turret: primary
+		Offset: 551,0,158
+		TurnSpeed: 12
+	Armament@primary:
+		Weapon: japankatsuragishot
+		LocalOffset: 200,0,30
+		MuzzleSequence: muzzle
+		PauseOnCondition: disabled || superheatedplasma
+	Armament@primaryupgrade:
+		Weapon: japankatsuragishotupgrade
+		LocalOffset: 200,0,30
+		MuzzleSequence: muzzle
+		PauseOnCondition: disabled
+		RequiresCondition: superheatedplasma
+	AttackTurreted:
+		Turrets: primary
+		TargetFrozenActors: True
+		ForceFireIgnoresActors: True
+	WithMuzzleOverlay:
+	WithSpriteTurret@PRIMARY:
+		Turret: primary
+	WithIdleOverlay@SPINNER:
+		Sequence: spinner
+		Offset: -90,0,406
+		PauseOnCondition: empdisable || being-warped
+		RequiresCondition: !under-bridge
+	Selectable:
+		DecorationBounds: 1877, 1877
+	Voiced:
+		VoiceSet: StrikerVXVoice
+	GrantConditionOnPrerequisite@superheatedplasma:
+		Condition: superheatedplasma
+		Prerequisites: upgrade.superheatedplasma
+
+
+japankongo:
+	Inherits: ^Ship
+	Inherits: ^japanboatbuff
+	Inherits@AUTOTARGET: ^AutoTargetAll
+	Buildable:
+		Queue: Ship
+		BuildAtProductionType: Boat
+		BuildPaletteOrder: 50
+		Prerequisites: ~ships.japan, advtechcenter, ~!faction.economicgeneral, ~!faction.mechageneral, ~faction.navygeneral
+		Description: actor-japankongo.description
+	Valued:
+		Cost: 2400
+	Tooltip:
+		Name: actor-japankongo.name
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 25000
+	Armor:
+		Type: Heavy
+	Mobile:
+		TurnSpeed: 12
+		Speed: 44
+	RevealsShroud:
+		MinRange: 5c0
+		Range: 7c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 5c0
+	Turreted@PRIMARY:
+		Turret: primary
+		Offset: 551,0,158
+		TurnSpeed: 12
+	Armament@primary:
+		Weapon: japankomatsulaser
+		LocalOffset: 0,0,0
+		PauseOnCondition: disabled
+		TargetRelationships: Ally
+		ForceTargetRelationships: Ally
+	AttackTurreted:
+		Turrets: primary
+		TargetFrozenActors: True
+		ForceFireIgnoresActors: True
+	WithMuzzleOverlay:
+	WithSpriteTurret@PRIMARY:
+		Turret: primary
+	WithIdleOverlay@SPINNER:
+		Sequence: spinner
+		Offset: -256,0,256
+		PauseOnCondition: empdisable || being-warped
+		RequiresCondition: !under-bridge
+	Selectable:
+		DecorationBounds: 1877, 1877
+	Voiced:
+		VoiceSet: KomatsuVoice
+
+japansurveyorboat:
+	Inherits: ^Ship
+	Inherits@selection: ^SelectableSupportUnit
+	Buildable:
+		Queue: Ship
+		BuildPaletteOrder: 20
+		Prerequisites: ~ships.japan, ~!faction.economicgeneral, ~!faction.mechageneral, ~faction.navygeneral
+		Description: actor-japansurveyorboat.description
+	Valued:
+		Cost: 1000
+	Tooltip:
+		Name: actor-japansurveyorboat.name
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 10000
+	Armor:
+		Type: Light
+	Mobile:
+		TurnSpeed: 40
+		Speed: 44
+	RevealsShroud:
+		MinRange: 4c0
+		Range: 5c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 4c0
+	CaptureManager:
+		PreventsAutoTarget: False
+	Captures:
+		CaptureTypes: building
+		PlayerExperience: 25
+		CaptureDelay: 150
+		ConsumedByCapture: False
+		SabotageThreshold: 25
+		SabotageHPRemoval: 30
+		ValidRelationships: Enemy, Ally, Neutral
+	DetectCloaked:
+		DetectionTypes: Underwater
+		Range: 2c0
+	RenderDetectionCircle:
+	Selectable:
+		DecorationBounds: 1536, 1536
+	Voiced:
+		VoiceSet: EngineerVoice
+	Transforms:
+		IntoActor: outpostnavy
+		Offset: 0,-1
+		Facing: 384
+		TransformSounds: placbldg.aud, build5.aud
+		NoTransformNotification: BuildingCannotPlaceAudio
+	GrantConditionOnPrerequisite@botowner:
+		Condition: botowner
+		Prerequisites: ai.all
+	ExternalCondition@surveyor:
+		Condition: surveyor_near_base
+	AutoDeployer:
+		RequiresCondition: !surveyor_near_base && botowner
+		DeployTicks: 150
+		UndeployTicks: 150
+		DeployChance: 75
+		DeployTrigger: Periodically
+	Wanders@bot:
+		RequiresCondition: botowner && surveyor_near_base
+		MaxMoveDelay: 250
+		MinMoveDelay: 125
+		WanderMoveRadius: 6

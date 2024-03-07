@@ -2494,7 +2494,7 @@ Datenshishot:
 	Report: DatenshiWeaponSound.aud
 	TargetActorCenter: True
 	Projectile: Missile
-		Speed: 500
+		Speed: 512
 		HorizontalRateOfTurn: 60
 		RangeLimit: 18c0
 		Image: datenshiprojectile
@@ -2513,6 +2513,64 @@ Datenshishot:
 		ValidTargets: Air, AirborneActor
 	Warhead@4Eff_impact: CreateEffect
 		Explosions: japanplasmaring
+		ValidTargets: Air, AirborneActor
+
+japanaikokushashot:
+	Inherits: ^AntiGroundMissile
+	ValidTargets: Air, AirborneActor
+	ReloadDelay: 150
+	Burst: 16
+	BurstDelays: 2
+	Range: 12c768
+	MinRange: 2c512
+	Report: JURocke_weapMissa.aud, JURocke_weapMissb.aud, JURocke_weapMissc.aud, JURocke_weapMissd.aud, JURocke_weapMisse.aud, JURocke_weapMissf.aud, JURocke_weapMissg.aud
+	Projectile: Missile
+		Speed: 512
+		Inaccuracy: 1c128
+		CruiseAltitude: 2c0
+		RangeLimit: 24c410
+		ContrailStartColor: 00fbff
+		Image: plasmarocket
+		ContrailWidth: 0c8
+	Warhead@1Dam: SpreadDamage
+		Damage: 2000
+		Spread: 1c0
+		ValidTargets: Air, AirborneActor
+		DamageTypes: Prone50Percent, TriggerProne, SmallExplosionDeath
+	Warhead@3Eff: CreateEffect
+		ValidTargets: Air, AirborneActor
+		Explosions: small_explosion
+		ImpactSounds: JURocke_impaMissa.aud, JURocke_impaMissb.aud, JURocke_impaMissc.aud, JURocke_impaMissd.aud, JURocke_impaMisse.aud, JURocke_impaMissf.aud, JURocke_impaMissg.aud
+
+japanaikokushashotupgrade:
+	Inherits: ^AntiGroundMissile
+	ValidTargets: Air, AirborneActor
+	ReloadDelay: 150
+	Burst: 16
+	BurstDelays: 2
+	Range: 12c768
+	MinRange: 2c512
+	Report: JURocke_weapMissa.aud, JURocke_weapMissb.aud, JURocke_weapMissc.aud, JURocke_weapMissd.aud, JURocke_weapMisse.aud, JURocke_weapMissf.aud, JURocke_weapMissg.aud
+	Projectile: Missile
+		Speed: 512
+		Inaccuracy: 1c128
+		CruiseAltitude: 2c0
+		RangeLimit: 24c410
+		ContrailStartColor: ff5eff
+		Image: plasmarocket
+		ContrailWidth: 0c8
+	Warhead@1Dam: SpreadDamage
+		Damage: 3000
+		Spread: 1c0
+		ValidTargets: Air, AirborneActor
+		DamageTypes: Prone50Percent, TriggerProne, SmallExplosionDeath
+	Warhead@3Eff: CreateEffect
+		ValidTargets: Air, AirborneActor
+		Explosions: cyrostreamexplosion
+		ImpactSounds: JURocke_impaMissa.aud, JURocke_impaMissb.aud, JURocke_impaMissc.aud, JURocke_impaMissd.aud, JURocke_impaMisse.aud, JURocke_impaMissf.aud, JURocke_impaMissg.aud
+	Warhead@2EMP: GrantExternalCondition
+		Condition: cyrostreameffect
+		Duration: 100
 		ValidTargets: Air, AirborneActor
 
 KitsuneShot:

@@ -1852,10 +1852,21 @@ actor-japanantimatterreactor =
     Can be deployed to sacrifice itself to provide unlimited power for 30 seconds.
    .name = Antimatter Reactor
 
+actor-japanantimatterreactornavy =
+   .description = Provides power for other structures. Can be built on water.
+    Can be deployed to sacrifice itself to provide unlimited power for 30 seconds.
+   .name = Antimatter Reactor (Navy Edition)
+
 actor-japansupplycenter =
    .description = Refines Ore and Gems
     into credits.
    .name = Supply Center
+   .infiltrateforcash-infiltrated-text-notification = Credits stolen.
+
+actor-japansupplycenternavy =
+   .description = Refines Ore and Gems. Can be built on water. Provides an amphibious harvester.
+    into credits.
+   .name = Supply Center (Navy Edition)
    .infiltrateforcash-infiltrated-text-notification = Credits stolen.
 
 actor-japanbarracks =
@@ -1863,14 +1874,16 @@ actor-japanbarracks =
    .name = Barracks
 
 actor-japanmechabay =
-   .description = Produces mechas.
+   .description = Produces mechas and tanks.
    .name = Mecha Bay
 
 actor-japanairfield =
    .description = Produces and reloads aircraft.
-      Special Ability: Spy Plane
-      Special Ability: Paratroopers
    .name = Japan Airfield
+
+actor-japanairfield =
+   .description = Produces and reloads aircraft. Can be built on water.
+   .name = Japan Airfield (Navy Edition)
 
 actor-japanshipyard =
    .description = Produces and repairs
@@ -1881,14 +1894,36 @@ actor-japanshipyard =
 
 actor-japanmainframe =
    .description = Provides Japan advanced technologies.
-      Special Ability: GPS Satellite
+      Special Ability: Clairvoyance
+      Special Ability: Tenshi Drop
+      Special Ability: Mecha Drop (Mecha General)
    .name = Mainframe
+
+actor-japanmainframenavy =
+   .description = Provides Japan advanced technologies. Can be built on water.
+      Special Ability: Clairvoyance
+      Special Ability: Tenshi Drop
+   .name = Mainframe (Navy Edition)
 
 actor-japan-bomber-name = Stealth Bomber
 
 actor-japanpsychicdatacenter =
    .description = Provides Japan psychic advanced technologies.
+      Special Ability: Curse (Enhanced version if Economic)
+      Special Ability: Berserker (Economic General)
+      Special Ability: Final Squadron
+      Special Ability: Warp Portal
+      Special Ability: Drone Swarm (Mecha General)
    .name = Psychic Data Center
+
+actor-japanpsychicdatacenternavy =
+   .description = Provides Japan psychic advanced technologies. Can be built on water.
+      Special Ability: Curse (Enhanced version if Economic)
+      Special Ability: Berserker (Economic General)
+      Special Ability: Final Squadron
+      Special Ability: Warp Portal
+      Special Ability: Drone Swarm (Mecha General)
+   .name = Psychic Data Center (Navy Edition)
 
 actor-japanwarpportalred =
    .description = it warps things
@@ -1900,13 +1935,25 @@ actor-japanlaserbase =
    .description = Firebase defense structure. Long ranged laser.
    .name = Laserbase
 
+actor-japanlaserbasenavy =
+   .description = Firebase defense structure. Long ranged laser. Can be built on water. Does not provide bunkers if build on water.
+   .name = Laserbase (Navy Edition)
+
 actor-japandecimator =
    .name = Psionic Decimator
    .description = Provides the Psionic Decimator support power.
 
+actor-japandecimatornavy =
+   .name = Psionic Decimator (Navy Edition)
+   .description = Provides the Psionic Decimator support power. Can be built on water.
+
 actor-japanmindcontrol =
    .name = Mind Control Tower
    .description = Mind controls nearby units. Consumes lots of power.
+
+actor-japanmindcontrolnavy =
+   .name = Mind Control Tower (Navy Edition)
+   .description = Mind controls nearby units. Consumes lots of power. Can be built on water.
 
 actor-japantransformerbase =
    .name = Transformer Base
@@ -1938,6 +1985,11 @@ actor-japanhyperantimatterreactor =
    .description = Advanced Powerplant.
     Can be deployed to sacrifice itself to provide unlimited power for 30 seconds.
    .name = Hyper Antimatter Reactor
+
+actor-japanhyperantimatterreactornavy =
+   .description = Advanced Powerplant. Can be built on water.
+    Can be deployed to sacrifice itself to provide unlimited power for 30 seconds.
+   .name = Hyper Antimatter Reactor (Navy Edition)
 
 ## japan_upg.yaml
 actor-upgrade-upgradedualtankbarrels =
@@ -3272,6 +3324,12 @@ actor-mcvd =
 actor-harv-description = Collects Ore, Tiberium and Gems for processing.
     Speed: 100 
       Unarmed
+
+actor-harvnavy-description = Collects Ore, Tiberium and Gems for processing. Amphibious unit.
+    Speed: 100 
+      Unarmed
+   .name = Amphibious Harvester
+   .generic-name = Amphibious Harvester
 
 actor-harvd =
    .description = Collects Ore, Tiberium and Gems for processing.

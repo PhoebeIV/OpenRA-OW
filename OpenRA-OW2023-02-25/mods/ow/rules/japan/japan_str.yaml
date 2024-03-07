@@ -17,7 +17,7 @@ japanantimatterreactor:
 	Buildable:
 		Queue: Building
 		BuildPaletteOrder: 1
-		Prerequisites: ~structures.japan, ~!ai.powerout
+		Prerequisites: ~structures.japan, ~!ai.powerout, ~!faction.navygeneral
 		Description: actor-japanantimatterreactor.description
 	Valued:
 		Cost: 900
@@ -67,6 +67,32 @@ japanantimatterreactor:
 		Actor: AntiMatterPowerActor
 		RequiresCondition: overcharge
 
+japanantimatterreactornavy:
+	Inherits: japanantimatterreactor
+	Buildable:
+		Queue: Building
+		BuildPaletteOrder: 1
+		Prerequisites: ~structures.japan, ~!ai.powerout, ~faction.navygeneral
+		Description: actor-japanantimatterreactornavy.description
+	Building:
+		Footprint: xxx xxx xxx
+		Dimensions: 3,3
+		LocalCenterOffset: 0,-512,0
+		TerrainTypes: Clear, Road, Water
+	Tooltip:
+		Name: actor-japanantimatterreactornavy.name
+	GrantConditionOnTerrain:
+		TerrainTypes: Water
+		Condition: water
+	GrantConditionOnTerrain@pavement:
+		TerrainTypes: Road, Water
+	SpawnActorsOnSell:
+		RequiresCondition: !water
+	WithIdleOverlay@waterbib:
+		RequiresCondition: water && !build-incomplete
+		Sequence: japanantimatterreactornavybib
+		Image: japannavybibs
+
 AntiMatterPowerActor:
 	Inherits: ^Building
 	-WithMakeAnimation:
@@ -94,7 +120,7 @@ japansupplycenter:
 	Buildable:
 		Queue: Building
 		BuildPaletteOrder: 19
-		Prerequisites: ~structures.japan, anypower, ~!ai.boss
+		Prerequisites: ~structures.japan, anypower, ~!ai.boss, ~!faction.navygeneral
 		Description: actor-japansupplycenter.description
 	Valued:
 		Cost: 1400
@@ -174,6 +200,36 @@ japansupplycenter:
 		Type: Unload
 		DockAngle: 256
 		DockOffset: 0,1024,0
+
+japansupplycenternavy:
+	Inherits: japansupplycenter
+	Buildable:
+		Queue: Building
+		BuildPaletteOrder: 19
+		Prerequisites: ~structures.japan, anypower, ~!ai.boss, ~faction.navygeneral
+		Description: actor-japansupplycenternavy.description
+	Tooltip:
+		Name: actor-japansupplycenternavy.name
+	Building:
+		Footprint: _X_ xxx X== ===
+		Dimensions: 3,4
+		LocalCenterOffset: 0,-512,0
+		TerrainTypes: Clear, Road, Water
+	FreeActor:
+		Actor: HARVNAVY
+		SpawnOffset: 1,2
+		Facing: 256
+	GrantConditionOnTerrain:
+		TerrainTypes: Water
+		Condition: water
+	GrantConditionOnTerrain@pavement:
+		TerrainTypes: Road, Water
+	SpawnActorsOnSell:
+		RequiresCondition: !water
+	WithIdleOverlay@waterbib:
+		RequiresCondition: water && !build-incomplete
+		Sequence: japansupplycenternavybib
+		Image: japannavybibs
 
 japanbarracks:
 	Inherits: ^DawnBuilding
@@ -283,7 +339,7 @@ japanairfield:
 	Buildable:
 		Queue: Building
 		BuildPaletteOrder: 130
-		Prerequisites: refinery, anypower, barracks, ~structures.japan
+		Prerequisites: refinery, anypower, barracks, ~structures.japan, ~!faction.navygeneral
 		Description: actor-japanairfield.description
 	Tooltip:
 		Name: actor-japanairfield.name
@@ -359,6 +415,48 @@ japanairfield:
 	ProximityExternalCondition:
 		Condition: reloadnear
 		Range: 7c0
+	FreeActor@1:
+		Actor: usaairstriplandingspot
+		SpawnOffset: 3,1
+	FreeActor@2:
+		Actor: usaairstriplandingspot
+		SpawnOffset: 0,0
+	FreeActor@3:
+		Actor: usaairstriplandingspot
+		SpawnOffset: 3,0
+	Explodes:
+		Weapon: FireBaseExplosion
+		EmptyWeapon: FireBaseExplosion
+	ProximityExternalCondition@airstriplandingspotthingy:
+		Condition: airstriplandingspotthingy
+		Range: 3c512
+
+japanairfieldnavy:
+	Inherits: japanairfield
+	Buildable:
+		Queue: Building
+		BuildPaletteOrder: 130
+		Prerequisites: refinery, anypower, barracks, ~structures.japan, ~faction.navygeneral
+		Description: actor-japanairfieldnavy.description
+	Tooltip:
+		Name: actor-japanairfieldnavy.name
+	Building:
+		Footprint: XXXX xxx= xx==
+		Dimensions: 4,3
+		LocalCenterOffset: 0,-512,0
+		TerrainTypes: Clear, Road, Water
+	GrantConditionOnTerrain:
+		TerrainTypes: Water
+		Condition: water
+	GrantConditionOnTerrain@pavement:
+		TerrainTypes: Road, Water
+		Condition: no_bib
+	SpawnActorsOnSell:
+		RequiresCondition: !water
+	WithIdleOverlay@waterbib:
+		RequiresCondition: water && !build-incomplete
+		Sequence: japanairfieldnavybib
+		Image: japannavybibs
 
 japanshipyard:
 	Inherits: ^Building
@@ -373,7 +471,7 @@ japanshipyard:
 	Buildable:
 		Queue: Building
 		BuildPaletteOrder: 80
-		Prerequisites: anypower, ~structures.japan, refinery, ~!techlevel.noboats
+		Prerequisites: anypower, ~structures.japan, refinery, ~!techlevel.noboats, ~!faction.navygeneral
 		Description: actor-japanshipyard.description
 	Valued:
 		Cost: 1000
@@ -461,6 +559,18 @@ japanshipyard:
 			TopLeft: -512, 598
 			BottomRight: 512, 1110
 
+japanshipyardnavy:
+	Inherits: japanshipyard
+	Buildable:
+		Queue: Building
+		BuildPaletteOrder: 80
+		Prerequisites: anypower, ~structures.japan, refinery, ~!techlevel.noboats, ~faction.navygeneral, ~faction.navygeneral
+		Description: actor-japanshipyard.description
+	Valued:
+		Cost: 750
+	RenderSprites:
+		Image: japanshipyard
+
 japanmainframe:
 	Inherits: ^ScienceBuilding
 	Inherits@IDISABLE: ^DisableOnLowPower
@@ -472,7 +582,7 @@ japanmainframe:
 	Buildable:
 		Queue: Building
 		BuildPaletteOrder: 140
-		Prerequisites: factory, ~structures.japan, ~techlevel.high
+		Prerequisites: factory, ~structures.japan, ~techlevel.high, ~!faction.navygeneral
 		Description: actor-japanmainframe.description
 	Valued:
 		Cost: 1500
@@ -588,6 +698,32 @@ japanmainframe:
 	RenderSprites:
 		Image: japanmainframe
 
+japanmainframenavy:
+	Inherits: japanmainframe
+	Buildable:
+		Queue: Building
+		BuildPaletteOrder: 140
+		Prerequisites: factory, ~structures.japan, ~techlevel.high, ~faction.navygeneral
+		Description: actor-japanmainframenavy.description
+	Tooltip:
+		Name: actor-japanmainframenavy.name
+	Building:
+		Footprint: xx xx ==
+		Dimensions: 2,3
+		LocalCenterOffset: 0,-512,0
+		TerrainTypes: Clear, Road, Water
+	GrantConditionOnTerrain:
+		TerrainTypes: Water
+		Condition: water
+	GrantConditionOnTerrain@pavement:
+		TerrainTypes: Road, Water
+	SpawnActorsOnSell:
+		RequiresCondition: !water
+	WithIdleOverlay@waterbib:
+		RequiresCondition: water && !build-incomplete
+		Sequence: japanmainframenavybib
+		Image: japannavybibs
+
 japanpsychicdatacenter:
 	Inherits: ^ScienceBuilding
 	Inherits@shape: ^3x2Shape
@@ -600,7 +736,7 @@ japanpsychicdatacenter:
 	Buildable:
 		Queue: Building
 		BuildPaletteOrder: 150
-		Prerequisites: techcenter, ~structures.japan, ~techlevel.high
+		Prerequisites: techcenter, ~structures.japan, ~techlevel.high, ~!faction.navygeneral
 		Description: actor-japanpsychicdatacenter.description
 	Valued:
 		Cost: 2000
@@ -733,6 +869,37 @@ japanpsychicdatacenter:
 		SupportPowerPaletteOrder: 40
 		DisplayTimerRelationships: None
 
+japanpsychicdatacenternavy:
+	Inherits: japanpsychicdatacenter
+	Buildable:
+		Queue: Building
+		BuildPaletteOrder: 140
+		Prerequisites: techcenter, ~structures.japan, ~techlevel.high, ~faction.navygeneral
+		Description: actor-japanpsychicdatacenternavy.description
+	Tooltip:
+		Name: actor-japanpsychicdatacenternavy.name
+	ProvidesPrerequisite@buildingname:
+	ProvidesPrerequisite:
+		Prerequisite: techcenter
+	ProvidesPrerequisite@truebuildingname:
+		Prerequisite: japanpsychicdatacenter
+	Building:
+		Footprint: XxX XxX ===
+		Dimensions: 3,3
+		LocalCenterOffset: 0,-512,0
+		TerrainTypes: Clear, Road, Water
+	GrantConditionOnTerrain:
+		TerrainTypes: Water
+		Condition: water
+	GrantConditionOnTerrain@pavement:
+		TerrainTypes: Road, Water
+	SpawnActorsOnSell:
+		RequiresCondition: !water
+	WithIdleOverlay@waterbib:
+		RequiresCondition: water && !build-incomplete
+		Sequence: japanpsychicdatacenternavybib
+		Image: japannavybibs
+
 JapanWarpPortalRed:
 	Inherits: ^Building
 	Inherits@shape: ^2x2Shape
@@ -791,7 +958,7 @@ japanlaserbase:
 	Buildable:
 		Queue: Defense
 		BuildPaletteOrder: 70
-		Prerequisites: anypower, ~structures.japan, barracks
+		Prerequisites: anypower, ~structures.japan, barracks, ~!faction.navygeneral
 		Description: actor-japanlaserbase.description
 	Selectable:
 		Bounds: 2048, 2048
@@ -875,6 +1042,36 @@ japanlaserbase:
 		Condition: firebasespotthingy
 		Range: 1c512
 
+japanlaserbasenavy:
+	Inherits: japanlaserbase
+	Buildable:
+		Queue: Defense
+		BuildPaletteOrder: 70
+		Prerequisites: anypower, ~structures.japan, barracks, ~faction.navygeneral
+		Description: actor-japanlaserbasenavy.description
+	Tooltip:
+		Name: actor-japanlaserbasenavy.name
+	Building:
+		Footprint: x_x _x_ x_x
+		Dimensions: 3,3
+		TerrainTypes: Clear, Road, Water
+	GrantConditionOnTerrain:
+		TerrainTypes: Water
+		Condition: water
+	GrantConditionOnTerrain@pavement:
+		TerrainTypes: Road, Water
+		Condition: no_bib
+	SpawnActorsOnSell:
+		RequiresCondition: !water
+	WithIdleOverlay@waterbib:
+		RequiresCondition: water && !build-incomplete
+		Sequence: japanlaserbasenavybib
+		Image: japannavybibs
+		Palette: dawn
+	Armament@water:
+		Weapon: TorpTube
+		RequiresCondition: water
+
 japandecimator:
 	Inherits: ^Building
 	Inherits@shape: ^2x2Shape
@@ -886,7 +1083,7 @@ japandecimator:
 		Name: actor-japandecimator.name
 	Buildable:
 		Queue: Tech
-		Prerequisites: techcenter, ~structures.japan
+		Prerequisites: techcenter, ~structures.japan, ~!faction.navygeneral
 		BuildLimit: 1
 		Description: actor-japandecimator.description
 		BuildPaletteOrder: 500
@@ -936,6 +1133,34 @@ japandecimator:
 		Weapon: MiniNuke
 		EmptyWeapon: MiniNuke
 
+japandecimatornavy:
+	Inherits: japandecimator
+	Buildable:
+		Queue: Tech
+		Prerequisites: techcenter, ~structures.japan, ~faction.navygeneral
+		BuildLimit: 1
+		Description: actor-japandecimatornavy.description
+		BuildPaletteOrder: 500
+	Tooltip:
+		Name: actor-japandecimatornavy.name
+	Building:
+		Footprint: xx xx
+		Dimensions: 2,2
+		LocalCenterOffset: 0,-512,0
+		TerrainTypes: Clear, Road, Water
+	GrantConditionOnTerrain:
+		TerrainTypes: Water
+		Condition: water
+	GrantConditionOnTerrain@pavement:
+		TerrainTypes: Road, Water
+		Condition: no_bib
+	SpawnActorsOnSell:
+		RequiresCondition: !water
+	WithIdleOverlay@waterbib:
+		RequiresCondition: water && !build-incomplete
+		Sequence: japandecimatornavybib
+		Image: japannavybibs
+
 japanmindcontrol:
 	Inherits: ^Defense
 	Inherits@AUTOTARGET: ^AutoTargetAll
@@ -947,7 +1172,7 @@ japanmindcontrol:
 		Name: actor-japanmindcontrol.name
 	Buildable:
 		Queue: Defense
-		Prerequisites: ~structures.japan, advtechcenter
+		Prerequisites: ~structures.japan, advtechcenter, ~!faction.navygeneral
 		Description: actor-japanmindcontrol.description
 		BuildPaletteOrder: 71
 	Building:
@@ -1014,6 +1239,34 @@ japanmindcontrol:
 		QuantizedFacings: 8
 	RenderRangeCircle:
 		Range: 7c0
+
+japanmindcontrolnavy:
+	Inherits: japanmindcontrol
+	Tooltip:
+		Name: actor-japanmindcontrolnavy.name
+	Buildable:
+		Queue: Defense
+		Prerequisites: ~structures.japan, advtechcenter, ~faction.navygeneral
+		Description: actor-japanmindcontrolnavy.description
+		BuildPaletteOrder: 71
+	Building:
+		Footprint: x
+		Dimensions: 1,1
+		TerrainTypes: Clear, Road, Water
+	GrantConditionOnTerrain:
+		TerrainTypes: Water
+		Condition: water
+	GrantConditionOnTerrain@pavement:
+		TerrainTypes: Road, Water
+		Condition: no_bib
+	SpawnActorsOnSell:
+		RequiresCondition: !water
+	WithIdleOverlay@waterbib:
+		RequiresCondition: water && !build-incomplete
+		Sequence: japanmindcontrolnavybib
+		Image: japannavybibs
+	RenderSprites:
+		Image: japanmindcontrol
 
 japantransformerbase:
 	Inherits: ^Defense
@@ -1236,7 +1489,7 @@ japanoredrill:
 	Buildable:
 		Queue: Tech
 		BuildPaletteOrder: 550
-		Prerequisites: advtechcenter, ~structures.japan, ~techlevel.unrestricted
+		Prerequisites: advtechcenter, ~structures.japan, ~techlevel.unrestricted, ~!faction.navygeneral
 		Description: actor-japanoredrill.description
 	Tooltip:
 		Name: actor-japanoredrill.name
@@ -1396,7 +1649,7 @@ japanhyperantimatterreactor:
 		Queue: Tech
 			BuildPaletteOrder: 500
 		BuildPaletteOrder: 1
-		Prerequisites: ~structures.japan, techcenter, ~!ai.powerout
+		Prerequisites: ~structures.japan, techcenter, ~!ai.powerout, ~!faction.navygeneral
 		Description: actor-japanhyperantimatterreactor.description
 	Valued:
 		Cost: 1600
@@ -1454,3 +1707,149 @@ japanhyperantimatterreactor:
 	SpawnActorOnDeath@overcharged:
 		Actor: AntiMatterPowerActor
 		RequiresCondition: overcharge
+
+japanhyperantimatterreactornavy:
+	Inherits: japanhyperantimatterreactor
+	Buildable:
+		Queue: Tech
+			BuildPaletteOrder: 500
+		BuildPaletteOrder: 1
+		Prerequisites: ~structures.japan, techcenter, ~!ai.powerout, ~faction.navygeneral
+		Description: actor-japanhyperantimatterreactornavy.description
+	Tooltip:
+		Name: actor-japanhyperantimatterreactornavy
+	Building:
+		Footprint: xxx xxx xxx
+		Dimensions: 3,3
+		LocalCenterOffset: 0,-512,0
+		TerrainTypes: Clear, Road, Water
+	GrantConditionOnTerrain:
+		TerrainTypes: Water
+		Condition: water
+	GrantConditionOnTerrain@pavement:
+		TerrainTypes: Road, Water
+		Condition: no_bib
+	SpawnActorsOnSell:
+		RequiresCondition: !water
+	WithIdleOverlay@waterbib:
+		RequiresCondition: water && !build-incomplete
+		Sequence: japanhyperantimatterreactornavybib
+		Image: japannavybibs
+	RenderSprites:
+		Image: japanhyperantimatterreactor
+
+japanoilderrick:
+	Inherits: ^Building
+	Inherits@IDISABLE: ^DisableOnLowPowerOrPowerDown
+	Inherits@SHAPE: ^2x2Shape
+	Inherits@jshield: ^JapanBaseShield
+	Valued:
+		Cost: 2400
+	Buildable:
+		Queue: Tech
+		BuildPaletteOrder: 550
+		Prerequisites: advtechcenter, ~structures.japan, ~techlevel.unrestricted, ~faction.navygeneral
+		Description: actor-japanoilderrick.description
+	Building:
+		Footprint: xx xx
+		Dimensions: 2,2
+		TerrainTypes: Water
+	Tooltip:
+		Name: actor-japanoilderrick.name
+	Power:
+		Amount: -200
+	Health:
+		HP: 40000
+	Armor:
+		Type: Wood
+	RevealsShroud:
+		MinRange: 3c0
+		Range: 4c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 3c0
+	SeedsResource:
+		ResourceType: Oil
+		Interval: 25
+		MaxRange: 2
+		RequiresCondition: !disabled
+	CashTrickler:
+		Interval: 100
+		Amount: 10
+		RequiresCondition: !disabled
+	-AcceptsDeliveredCash:
+	-WithMakeAnimation:
+	WithIdleOverlay:
+		Sequence: japanoilderrickbib
+		Image: japannavybibs
+
+japanaikokusha:
+	Inherits: ^Defense
+	Inherits@AUTOTARGET: ^AutoTargetAll
+	Inherits@LOWPOWER: ^DisableOnLowPowerOrPowerDown
+	Inherits@SHAPE: ^2x1Shape
+	Buildable:
+		Queue: Defense
+		BuildPaletteOrder: 4
+		BuildDuration: 625
+		BuildDurationModifier: 100
+		Prerequisites: techcenter, ~structures.japan, ~techlevel.unrestricted, ~faction.navygeneral
+		Description: actor-japanaikokusha.description
+	Valued:
+		Cost: 1750
+	Tooltip:
+		Name: actor-japanaikokusha.name
+	Building:
+		Footprint: xx
+		Dimensions: 2,1
+		TerrainTypes: Water
+	Health:
+		HP: 75000
+	Armor:
+		Type: Wood
+	Selectable:
+		Bounds: 2048, 1024
+	Turreted:
+		RealignDelay: -1
+		TurnSpeed: 16
+	-WithSpriteBody:
+	WithEmbeddedTurretSpriteBody:
+	AttackTurreted:
+		PauseOnCondition: build-incomplete
+		Armaments: primary, secondary
+	Armament@AG:
+		Name: primary
+		Weapon: japanaikokushashot
+		LocalOffset: 0,0,320
+		MuzzleSequence: muzzle
+		PauseOnCondition: disabled || cyrostream
+	Armament@AGupgrade:
+		Name: primary
+		Weapon: japanaikokushashotupgrade
+		LocalOffset: 0,0,320
+		MuzzleSequence: muzzle
+		PauseOnCondition: disabled
+		RequiresCondition: cyrostream
+	WithRangeCircle:
+		Range: 12c640
+	WithRangeCircle@AA:
+		Type: aa
+		Range: 8c768
+		Color: 00DDDD88
+	WithMuzzleOverlay:
+	Power:
+		Amount: -100
+	RenderDetectionCircle:
+	DetectCloaked:
+		Range: 5c0
+	BodyOrientation:
+		UseClassicFacingFudge: True
+	RevealsShroud@GAPGEN:
+		Range: 5c0
+	WithIdleOverlay:
+		RequiresCondition: !build-incomplete
+		Sequence: japanaikokushabib
+		Image: japannavybibs
+	GrantConditionOnPrerequisite@cyrostream:
+		Condition: cyrostream
+		Prerequisites: upgrade.cyrostream
