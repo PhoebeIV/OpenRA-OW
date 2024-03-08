@@ -577,11 +577,17 @@
 	FirepowerMultiplier@ifp3:
 		RequiresCondition: ifp3
 		Modifier: 145
-	ProductionCostMultiplier@upgrade:
+	ProductionCostMultiplier@upgrade1:
 		Prerequisites: infantry.prodcost
 		Multiplier: 90
-	ProductionTimeMultiplier@upgrade:
+	ProductionTimeMultiplier@upgrade1:
 		Prerequisites: infantry.prodtime
+		Multiplier: 80
+	ProductionCostMultiplier@upgrade2:
+		Prerequisites: infantry.prodcost2
+		Multiplier: 90
+	ProductionTimeMultiplier@upgrade2:
+		Prerequisites: infantry.prodtime2
 		Multiplier: 80
 	GrantConditionOnPrerequisite@firespeed1:
 		Prerequisites: infantry.firespeed1
@@ -1076,6 +1082,9 @@
 	ProductionTimeMultiplier@upgrade_time:
 		Prerequisites: structures.prodtime
 		Multiplier: 80
+	ProductionCostMultiplier@upgrade_cost:
+		Prerequisites: structures.prodcost
+		Multiplier: 90
 	RevealOnFire:
 	ChangesHealth@plague:
 		Delay: 3
@@ -1153,8 +1162,11 @@
 	GrantConditionOnPrerequisite@terranarmor:
 		Prerequisites: terran.structure
 		Condition: soviet_iron
+	GrantConditionOnPrerequisite@zagarafortress:
+		Prerequisites: zagara.tier5.fortress
+		Condition: zagara_fortress
 	DamageMultiplier@sovietiron:
-		RequiresCondition: soviet_iron
+		RequiresCondition: soviet_iron || zagara_fortress
 		Modifier: 80
 	GrantConditionOnPrerequisite@gapgen1:
 		Prerequisites: ulttech.france
@@ -1254,14 +1266,20 @@
 		Prerequisites: allies.training1
 		Condition: allies_training
 	RevealsShroudMultiplier@alliesupgrade:
-		RequiresCondition: allies_training
+		RequiresCondition: allies_training || upgrade_range1
 		Modifier: 110
 	RangeMultiplier@alliesupgrade:
-		RequiresCondition: allies_training
+		RequiresCondition: allies_training || upgrade_range1
 		Modifier: 110
 	DetectCloakedMultiplier@alliesupgrade:
-		RequiresCondition: allies_training
+		RequiresCondition: allies_training || upgrade_range1
 		Modifier: 110
+	GrantConditionOnPrerequisite@attackrange1:
+		Prerequisites: building.attackrange1
+		Condition: upgrade_range1
+	FirepowerMultiplier@zagarafortress:
+		RequiresCondition: zagara_fortress
+		Modifier: 120
 	Targetable@cloaked:
 		RequiresCondition: cloaked
 		TargetTypes: NoAITarget
@@ -1302,6 +1320,18 @@
 	Tooltip:
 		Name: meta-vehicle-generic-name
 		GenericName: meta-vehicle-generic-name
+	ProductionCostMultiplier@upgrade1:
+		Prerequisites: vehicle.prodcost
+		Multiplier: 90
+	ProductionTimeMultiplier@upgrade1:
+		Prerequisites: vehicle.prodtime
+		Multiplier: 80
+	ProductionCostMultiplier@upgrade2:
+		Prerequisites: vehicle.prodcost2
+		Multiplier: 90
+	ProductionTimeMultiplier@upgrade2:
+		Prerequisites: vehicle.prodtime2
+		Multiplier: 80
 	GrantConditionOnPrerequisite@var1:
 		Prerequisites: upgrade.veharmor1
 		Condition: var1
@@ -1531,6 +1561,18 @@
 	Tooltip:
 		Name: meta-neutralplane-generic-name
 		GenericName: meta-neutralplane-generic-name
+	ProductionCostMultiplier@upgrade1:
+		Prerequisites: aircraft.prodcost
+		Multiplier: 90
+	ProductionTimeMultiplier@upgrade1:
+		Prerequisites: aircraft.prodtime
+		Multiplier: 80
+	ProductionCostMultiplier@upgrade2:
+		Prerequisites: aircraft.prodcost2
+		Multiplier: 90
+	ProductionTimeMultiplier@upgrade2:
+		Prerequisites: aircraft.prodtime2
+		Multiplier: 80
 	GrantConditionOnPrerequisite@aar1:
 		Prerequisites: upgrade.airarmor1
 		Condition: aar1
@@ -1968,6 +2010,14 @@
 	DamageMultiplier@defmatrix:
 		RequiresCondition: defense_matrix_up
 		Modifier: 110
+	ExternalCondition@mind:
+		Condition: mindcontrolresist
+	DamageMultiplier@mind:
+		RequiresCondition: mindcontrolresist
+		Modifier: 25
+	FirepowerMultiplier@mind:
+		RequiresCondition: mindcontrolresist
+		Modifier: 50
 	EligibleForRandomActorCrate:
 		Type: epic
 
@@ -2766,7 +2816,18 @@
 # Give this to units that should not be 100% mind controlled, and instead only temporary
 ^MindControlResistant:
 	Targetable@mcresist:
- 		TargetTypes: HighValueMindControl
+		TargetTypes: HighValueMindControl
+	ExternalCondition@mind:
+		Condition: mindcontrolresist
+	DamageMultiplier@mind:
+		RequiresCondition: mindcontrolresist
+		Modifier: 25
+	FirepowerMultiplier@mind:
+		RequiresCondition: mindcontrolresist
+		Modifier: 50
+	Targetable@mcresist2:
+		RequiresCondition: mindcontrolresist
+		TargetTypes: NoAutoTarget
 
 ^MediConditions:
 	ExternalCondition@thisdoesnothing:

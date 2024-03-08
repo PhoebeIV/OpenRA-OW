@@ -382,6 +382,10 @@ Heal:
 	ValidTargets: Heal
 	Projectile: Bullet
 		Speed: 1c682
+	Warhead@1Eff: FlashTargetsInRadius
+		Radius: 1065
+		ValidRelationships: Ally
+		ValidTargets: Heal
 	Warhead@1Dam: SpreadDamage
 		Spread: 213
 		Damage: -5000
@@ -2678,7 +2682,12 @@ DarkArchonMindControl:
 		InvalidTargets: EpicUnit, NoMindControl, HighValueMindControl
 	Warhead@2Dam: ChangeOwner
 		Range: 256
-		Duration: 250
+		Duration: 200
+		ValidTargets: EpicUnit, HighValueMindControl
+	Warhead@cond: GrantExternalCondition
+		Condition: mindcontrolresist
+		Range: 256
+		Duration: 150
 		ValidTargets: EpicUnit, HighValueMindControl
 	Warhead@3EffGround: CreateEffect
 		Explosions: bfgred
@@ -3629,6 +3638,108 @@ KerriganPlague:
 		AffectsParent: false
 		ValidRelationships: Enemy, Neutral
 
+ZagaraAttack:
+	ReloadDelay: 25
+	Range: 4c0
+	Report: zagatk00.aud, zagatk01.aud, zagatk02.aud, zagatk03.aud
+	ValidTargets: Ground, Water, GroundActor, WaterActor, AirborneActor
+	Projectile: InstantHit
+	Warhead@1Dam: SpreadDamage
+		Spread: 64
+		Damage: 9000
+		Versus:
+			None: 115
+			Wood: 50
+			Light: 60
+			Heavy: 80
+			Concrete: 25
+		DamageTypes: BulletDeath
+		ValidTargets: GroundActor, WaterActor
+	Warhead@2StructureDam: SpreadDamage
+		Spread: 192
+		Delay: 3
+		Damage: 4000
+		Versus:
+			None: 100
+			Wood: 50
+			Light: 60
+			Heavy: 40
+			Concrete: 25
+		DamageTypes: DefaultDeath
+		ValidTargets: Structure, AirborneActor
+	Warhead@4EffActor: CreateEffect
+		Delay: 3
+		ImpactSounds: zaghit00.aud, zaghit01.aud, zaghit02aud, zaghit03.aud, zaghit04.aud
+		ValidTargets: GroundActor, WaterActor, Trees
+	Warhead@5EffActor: CreateEffect
+		Delay: 6
+		ImpactSounds: zaghit00.aud, zaghit01.aud, zaghit02aud, zaghit03.aud, zaghit04.aud
+		ValidTargets: GroundActor, WaterActor, Trees
+
+ZagaraMend:
+	Inherits: Heal
+	ReloadDelay: 33
+	Range: 2c0
+	Report: zdrmin00.aud
+	ValidTargets: Heal, StructureRepair
+	TargetActorCenter: true
+	Projectile: Bullet
+		Speed: 1c682
+	-Warhead@1Eff:
+	Warhead@1Dam: HealthPercentageDamage
+		Damage: -2
+		ValidRelationships: Ally
+		ValidTargets: Heal
+		DebugOverlayColor: 00FF00
+		DamageTypes: BypassShield
+	Warhead@2Dam: HealthPercentageDamage
+		Spread: 213
+		Damage: -1
+		ValidRelationships: Ally
+		ValidTargets: StructureRepair
+		DebugOverlayColor: 00FF00
+		DamageTypes: BypassShield
+
+ZagaraAreaHeal:
+	Inherits: Heal
+	Report: zagheal.aud
+	ReloadDelay: 100
+	Range: 5c0
+	Warhead@1Dam: HealthPercentageDamage
+		Spread: 3c0
+		Damage: -25
+		ValidRelationships: Ally
+		ValidTargets: Structure, EpicUnit
+		DamageTypes: BypassShield
+		DebugOverlayColor: 00FF00
+	Warhead@2Dam: HealthPercentageDamage
+		Spread: 3c0
+		Damage: -35
+		ValidRelationships: Ally
+		ValidTargets: Vehicle, AirborneActor, HighHPInfantry
+		InvalidTargets: EpicUnit
+		DamageTypes: BypassShield
+		DebugOverlayColor: 00FF00
+	Warhead@3Dam: HealthPercentageDamage
+		Spread: 3c0
+		Damage: -66
+		ValidRelationships: Ally
+		ValidTargets: Infantry
+		InvalidTargets: EpicUnit, HighHPInfantry
+		DamageTypes: BypassShield
+		DebugOverlayColor: 00FF00
+	Warhead@1Eff: FlashTargetsInRadius
+		Radius: 3000
+		ActorFlashCount: 5
+		ValidRelationships: Ally
+		ValidTargets: Heal, Repair, StructureRepair
+		DebugOverlayColor: FFE100
+	Warhead@5EffActor: CreateEffect
+		ImpactSounds: zagheal.aud
+		ImpactActors: false
+		Explosions: plague_reverse
+		ValidTargets: Ground, Water
+
 RepairSCV:
 	Inherits: RepairWorker
 	Range: 2c0
@@ -3840,7 +3951,7 @@ JuggDeploy:
 	Inherits: TerranSiegeDeploy
 	ReloadDelay: 50
 	Range: 15c0
-	MinRange: 4c0
+	MinRange: 6c0
 
 SpiderMineTargeting:
 	ReloadDelay: 2
@@ -6971,3 +7082,59 @@ VoidRayBeam2:
 	Warhead@3EffGround: CreateEffect
 		Explosions: bfgzap
 		ValidTargets: Ground, GroundActor, Air, AirborneActor
+
+
+AvaliImpalerRailgunEffect:
+	ReloadDelay: 250
+	Range: 15c0
+	MinRange: 5c0
+	Report: hrailgun_charge1.aud
+	ValidTargets: Ground, Water, GroundActor, WaterActor
+	Projectile: Missile
+		Speed: 2
+		RangeLimit: 3
+	Warhead@1Eff: CreateEffect
+		Explosions: lightbringer_charge
+		Inaccuracy: 256
+		ValidTargets: Ground, GroundActor, WaterActor, Trees, Air
+	Warhead@2Eff: CreateEffect
+		Delay: 5
+		Explosions: lightbringer_charge
+		Inaccuracy: 256
+		ValidTargets: Ground, GroundActor, WaterActor, Trees, Air
+
+AvaliImpalerRailgun:
+	Inherits: ^GaussWeapon
+	ReloadDelay: 250
+	Range: 15c0
+	MinRange: 5c0
+	Report: hrailgun_fire1.aud, hrailgun_fire2.aud
+	Projectile: Railgun
+		DamageActorsInLine: true
+		BeamWidth: 128
+		BeamAlphaDeltaPerTick: -3
+		HelixAlphaDeltaPerTick: -3
+		HelixThickness: 48
+		HelixRadius: 196
+		HitAnim: explosion
+		HitAnimSequence: med_explosion
+		Duration: 41
+	Warhead@1Dam: SpreadDamage
+		Damage: 25000
+		Range: 0, 512
+		Falloff: 100,100
+		Versus:
+			None: 50
+			Light: 90
+		ValidRelationships: Enemy, Neutral
+		DamageTypes: Prone50Percent, TriggerProne, BulletDeath
+	Warhead@3Dam: SpreadDamage
+		Spread: 128
+		Damage: 1000
+		ValidTargets: GroundActor, WaterActor
+		DamageTypes: Prone50Percent, TriggerProne, BulletDeath
+	Warhead@5Eff: CreateEffect
+		Inaccuracy: 64
+		Explosions: med_explosion
+		ValidTargets: Ground, GroundActor, WaterActor, AirborneActor
+		ImpactActors: true

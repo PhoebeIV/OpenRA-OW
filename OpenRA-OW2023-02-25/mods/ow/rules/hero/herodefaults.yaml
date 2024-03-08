@@ -752,9 +752,9 @@
 ## Hero rework
 ^Hero:
 	Inherits@XP: ^NoExp
+	Inherits@mc: ^MindControlResistant
 	ProductionCostMultiplier@1:
 		Multiplier: 20
-		Prerequisites: barracks
 	Valued:
 		Cost: 5000
 	AnnounceOnSeen:
@@ -1067,12 +1067,26 @@
 		Condition: botowner
 	GainsExperienceMultiplier@bot:
 		RequiresCondition: botowner
-		Modifier: 225
+		Modifier: 200
 	GrantConditionOnAttack@passive:
 		Condition: attacking_passive
 		RevokeDelay: 25
 
+^HeroTier0:
+	ProductionQueue@ability:
+		Type: HeroAbility
+	Production@ability:
+		Produces: HeroAbility
+	GrantConditionOnPrerequisite@forcelevelup:
+		Prerequisites: hero.tier1
+		Condition: forcelevelup
+	ExperienceTrickler@forcelevelup:
+		RequiresCondition: forcelevelup
+		Amount: 200000
+		Interval: 25
+
 ^HeroTier1:
+	Inherits: ^HeroTier0
 	GrantExternalConditionToOwner:
 		Condition: hero_tier1
 	WithDecoration@tier1emp:
@@ -1093,6 +1107,15 @@
 	GrantConditionOnPrerequisite@tier:
 		Condition: hero_upgraded1
 		Prerequisites: hero.upgraded1
+	ProductionQueue@ability:
+		Type: HeroAbility
+	Production@ability:
+		Produces: HeroAbility
+		RequiresCondition: hero_upgraded1
+	GainsExperienceMultiplier@1:
+		Modifier: 75
+	GrantConditionOnPrerequisite@forcelevelup:
+		Prerequisites: hero.tier2
 
 ^HeroTier2:
 	Inherits: ^HeroTier1
@@ -1111,9 +1134,15 @@
 	Production@tier:
 		Produces: HeroUpgrade2
 		RequiresCondition: !hero_upgraded2
+	Production@ability:
+		RequiresCondition: hero_upgraded2
 	GrantConditionOnPrerequisite@tier:
 		Condition: hero_upgraded2
 		Prerequisites: hero.upgraded2
+	GainsExperienceMultiplier@1:
+		Modifier: 50
+	GrantConditionOnPrerequisite@forcelevelup:
+		Prerequisites: hero.tier3
 
 ^HeroTier3:
 	Inherits: ^HeroTier2
@@ -1132,9 +1161,15 @@
 	Production@tier:
 		Produces: HeroUpgrade3
 		RequiresCondition: !hero_upgraded3
+	Production@ability:
+		RequiresCondition: hero_upgraded3
 	GrantConditionOnPrerequisite@tier:
 		Condition: hero_upgraded3
 		Prerequisites: hero.upgraded3
+	GainsExperienceMultiplier@1:
+		Modifier: 35
+	GrantConditionOnPrerequisite@forcelevelup:
+		Prerequisites: hero.tier4
 
 ^HeroTier4:
 	Inherits: ^HeroTier3
@@ -1153,9 +1188,15 @@
 	Production@tier:
 		Produces: HeroUpgrade4
 		RequiresCondition: !hero_upgraded4
+	Production@ability:
+		RequiresCondition: hero_upgraded4
 	GrantConditionOnPrerequisite@tier:
 		Condition: hero_upgraded4
 		Prerequisites: hero.upgraded4
+	GainsExperienceMultiplier@1:
+		Modifier: 20
+	GrantConditionOnPrerequisite@forcelevelup:
+		Prerequisites: hero.tier5
 
 ^HeroTier5:
 	Inherits: ^HeroTier4
@@ -1174,6 +1215,8 @@
 	Production@tier:
 		Produces: HeroUpgrade5
 		RequiresCondition: !hero_upgraded5
+	Production@ability:
+		RequiresCondition: hero_upgraded5
 	GrantConditionOnPrerequisite@tier:
 		Condition: hero_upgraded5
 		Prerequisites: hero.upgraded5
@@ -1184,6 +1227,7 @@
 	GainsExperience:
 		-LevelUpNotification:
 		-LevelUpTextNotification:
+	-GrantConditionOnPrerequisite@forcelevelup:
 
 ^HeroUpgradeBaseTier1:
 	Buildable:
@@ -1300,3 +1344,21 @@ Player:
 	ProvidesPrerequisite@herotier5:
 		RequiresCondition: hero_tier5perm
 		Prerequisite: hero.tier5
+
+^HeroAbilityCooldown:
+	Inherits@1: ^SpriteActor
+	HitShape:
+	Interactable:
+	HiddenUnderShroud:
+	RenderSprites:
+		Palette: terrain
+		Image: MINE
+	Targetable:
+		TargetTypes: UpgradeThing
+	Health:
+		HP: 9000000
+	Immobile:
+		OccupiesSpace: false
+	ProvidesPrerequisite@buildingname:
+	KillsSelf:
+		Delay: 1500

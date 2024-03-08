@@ -279,6 +279,16 @@ actor-av1tnk =
       Weak vs Infantry, Aircraft
    .name = Predator Tank
 
+actor-avarty =
+   .name = Impaler Mech
+   .deployed = Impaler Mech (deployed)
+   .description = Mobile Artillery Mech.
+    Needs to deploy in order to attack.
+    Speed: 64
+      Strong vs Ground units
+      Weak vs Aircraft
+   .botdescription = Auto-deploys. AI Use only.
+
 ## china_air.yaml
 actor-chinamig =
    .description = The MiG is armed with two napalm missiles that could be used effectively against ground targets.
@@ -4987,6 +4997,42 @@ actor-zkerrigan-hero3-name = Kerrigan (Tier 3)
 actor-zkerrigan-hero4-name = Kerrigan (Tier 4)
 actor-zkerrigan-hero5-name = Kerrigan (Tier 5)
 
+actor-zzagara =
+   .description = [HERO]
+   
+   The Broodmother of the Swarm.
+   Excellent base defense and expansion.
+      Speed: 72
+      Strong vs ground units
+   .name = Zagara
+   .tier0 = Zagara (Tier 0)
+   .tier1 = Zagara (Tier 1)
+   .tier2 = Zagara (Tier 2)
+   .tier3 = Zagara (Tier 3)
+   .tier4 = Zagara (Tier 4)
+   .tier5 = Zagara (Tier 5)
+   .heal = Transfusion
+   .healdesc = Heals units and buildings in target area.
+     60 sec cooldown.
+
+actor-ztumor =
+   .name = Creep Tumor
+   .description = Spreads creep in a small area and 
+   can only be placed near Zagara; ideal 
+   for base expansion.
+      
+     Can detect cloaked units.
+     Boosts nearby units attack speed.
+     
+     60 sec cooldown.
+
+actor-zergegg = Zerg Egg
+
+actor-zegg =
+   .zergling = Spawn Zerglings (45 sec cooldown)
+   .hydra = Spawn Hydralisk (45 sec cooldown)
+   .muta = Spawn Mutalisk (90 sec cooldown)
+
 ## zerg_str.yaml
 actor-zhatchery =
    .description = Produces structures.
@@ -5185,47 +5231,46 @@ actor-zagara-tier1-fastupgrade2 =
 
 actor-zagara-tier2-costcut =
    .name = Accelerated Evolution
-   .description = Produce ground units for 10% cheaper and 20% faster.
+   .description = Produce units for 10% cheaper and 20% faster.
 
 actor-zagara-tier2-firespeed =
    .name = Adrenal Glands
-   .description = Improves ground unit attack speed by 10%.
+   .description = Improves infantry attack speed by 10%.
 
 actor-zagara-tier3-fastupgrade1 =
    .name = Enhanced Muscle Tissue II
-   .description = Gain Infantry Firepower II instantly.
+   .description = Gain Structure Firepower II instantly.
 
 actor-zagara-tier3-fastupgrade2 =
-   .name = Hardened Skeletons II
-   .description = Gain Infantry Armor II instantly.
+   .name = Hardened Epidermis II
+   .description = Gain Structure Armor II instantly.
 
 actor-zagara-tier3-range =
-   .name = Nano Projectors
-   .description = Increase range of Medics, Medivac Dropships and Firebats.
+   .name = Mutate Optical Enhancements
+   .description = Increase view and attack range of defensive
+     structures by 10%.
 
 actor-zagara-tier4-support1 =
-   .name = Orbital Bombing
-   .description = Enables Orbital Bombing support power. 
+   .name = Frenzy
+   .description = Enables Zerg Frenzy support power. 
     
-    Instant artillery strike in small target area.
-    Cooldown: 6:00
+    Boosts a group of units by 20%.
+    Cooldown: 5:00
 
 actor-zagara-tier4-support2 =
-   .name = Strike Force
-   .description = Enables Strike Force support power. 
-    
-    Call in 2 Dropships to paradrop 12 infantry.
-    Cooldown: 3:00
+   .name = Regenerative Cells
+   .description = Increases HP regen of all Zerg units by 100%. 
 
-actor-zagara-tier5-hyperion1 =
-   .name = Yamato Gun
-   .description = Enables the use of the Yamato Gun,
-     which can be fired once by the Hyperion.
+actor-zagara-tier5-option1 =
+   .name = 'Fortress' Mutation 
+   .description = Increases Zagara's HP by 100%.
+   Increases structure armor and damage by a further 20%.
 
-actor-zagara-tier5-hyperion2 =
-   .name = Hypercharge
-   .description = Allows the Hyperion to remain in 
-     combat for an additional 15 seconds.
+actor-zagara-tier5-option2 =
+   .name = Heart of the Swarm
+   .description = Produce units for a further 10% cheaper and 20% faster.
+
+   Totaling 20% and 40%.
 
 notification-shield-projection-charging = Shield projection charging.
 notification-shield-projection-ready = Shield projection ready.

@@ -245,3 +245,336 @@ AVDRONE.Carrier:
 		Image: avdrone
 	UpdatesPlayerStatistics:
 		OverrideActor: avdrone
+
+AVARTY:
+	Inherits: ^TrackedVehicle
+	Inherits@EXPERIENCE: ^GainsExperience
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Valued:
+		Cost: 2500
+	Tooltip:
+		Name: actor-avarty.name
+		RequiresCondition: !deployed
+	Tooltip@DEPLOYED:
+		Name: actor-avarty.deployed
+		RequiresCondition: deployed
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Buildable:
+		Queue: Vehicle
+		BuildPaletteOrder: 225
+		Prerequisites: fix, techcenter, ~vehicles.avalon, ~techlevel.high
+		Description: actor-avarty.description
+	Health:
+		HP: 50000
+	Armor:
+		Type: Light
+	Mobile:
+		Speed: 64
+		TurnSpeed: 20
+		RequireForceMoveCondition: !undeployed
+		ImmovableCondition: !undeployed
+	RevealsShroud:
+		MinRange: 5c0
+		Range: 7c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 5c0
+	RenderVoxels:
+		Image: jugg
+		PlayerPalette: tsunit
+		Scale: 10
+	RenderSprites:
+		Image: jugg
+		PlayerPalette: tsunit
+	-ClassicFacingBodyOrientation:
+	BodyOrientation:
+		QuantizedFacings: 32
+		UseClassicPerspectiveFudge: true
+	WithRangeCircle:
+		Range: 15c0
+	WithMakeAnimation:
+		BodyNames: body, deployedbody
+	WithFacingSpriteBody:
+		Sequence: stand
+		RequiresCondition: undeployed
+	WithMoveAnimation:
+		MoveSequence: walk
+		ValidMovementTypes: Horizontal, Turn
+	GrantConditionOnDeploy:
+		PauseOnCondition: disabled || being-captured
+		DeployedCondition: deployed
+		UndeployedCondition: undeployed
+		UndeployOnMove: true
+		UndeployOnPickup: true
+		Facing: 384
+		AllowedTerrainTypes: Clear, Road, Rough, Ore, Gems, Tiberium, BlueTiberium, Creep
+		DeploySounds: placbldg.aud
+		UndeploySounds: ramenu1.aud
+	Repairable:
+		RequireForceMoveCondition: !undeployed
+	Passenger:
+		RequireForceMoveCondition: !undeployed
+		Weight: 6
+	GrantCondition@PREVIEWWORKAROUND:
+		Condition: real-actor
+	WithSpriteBody@deployed:
+		RequiresCondition: !undeployed && real-actor
+		Name: deployedbody
+	Turreted:
+		Turret: deployed
+		TurnSpeed: 20
+		InitialFacing: 0
+		Offset: -153,-17,256
+		RealignDelay: 125
+	WithVoxelTurret:
+		Turret: deployed
+		Sequence: turret
+		RequiresCondition: deployed
+	AttackTurreted@deployed:
+		Armaments: deployed
+		Turrets: deployed
+		RequiresCondition: deployed
+		PauseOnCondition: disabled
+		TargetFrozenActors: True
+		ForceFireIgnoresActors: True
+		OutsideRangeRequiresForceFire: True
+	Armament@deployedeffect:
+		Name: deployed
+		Turret: deployed
+		Weapon: AvaliImpalerRailgunEffect
+		LocalOffset: 1424,0,512
+		RequiresCondition: deployed
+		MuzzleSequence: muzzle
+		MuzzlePalette: effect
+	Armament@deployed:
+		FireDelay: 24
+		Name: deployed
+		Turret: deployed
+		Weapon: AvaliImpalerRailgun
+		LocalOffset: 1424,0,512
+		RequiresCondition: deployed
+		MuzzleSequence: muzzle
+		MuzzlePalette: effect
+	WithMuzzleOverlay:
+	RevealOnFire:
+		ArmamentNames: deployed
+	SelectionDecorations:
+	Selectable:
+		DecorationBounds: 2048, 1706, 0, -341
+	ProducibleWithLevel:
+		Prerequisites: vehicles.upgraded
+	SpawnActorOnDeath:
+		Actor: AVARTY.Husk
+
+AVARTY.BOT:
+	Inherits: ^TrackedVehicle
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	RenderSprites:
+		Image: JUGG
+		PlayerPalette: tsunit
+	Valued:
+		Cost: 2500
+	Tooltip:
+		Name: actor-avarty.name
+		RequiresCondition: !deploy_tank && !tank_here
+	Tooltip@1:
+		Name: actor-avarty.deployed
+		RequiresCondition: deploy_tank || tank_here
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Buildable:
+		Queue: Vehicle
+		BuildPaletteOrder: 9000
+		Prerequisites: fix, techcenter, ~vehicles.avalon, ~techlevel.high, ~ai.all
+		Description: actor-avarty.botdescription
+		BuildDuration: 2000
+		BuildLimit: 8
+	Mobile:
+		TurnSpeed: 24
+		Speed: 56
+		PauseOnCondition: deploy_tank || tank_here
+	Health:
+		HP: 50000
+	Armor:
+		Type: Light
+	-RevealOnFire:
+	RevealsShroud:
+		MinRange: 5c0
+		Range: 6c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 5c0
+	Armament@deployme:
+		Name: primary
+		Weapon: JuggDeploy
+		Turret: primary
+		LocalOffset: 0,0,0
+		PauseOnCondition: disabled
+		RequiresCondition: !deploy_tank && !tank_here
+	WithMuzzleOverlay:
+	WithMoveAnimation:
+		MoveSequence: walk
+		ValidMovementTypes: Horizontal, Turn
+	Passenger:
+		RequireForceMoveCondition: !undeployed
+		Weight: 4
+	WithFacingSpriteBody:
+		Sequence: stand
+		RequiresCondition: !deploy_tank && !tank_here
+	Turreted@1:
+		TurnSpeed: 128
+		Turret: primary
+		PauseOnCondition: disabled
+	AttackTurreted@deployed:
+		Armaments: primary, deployed
+		Turrets: primary, deployed
+		PauseOnCondition: disabled
+	Voiced:
+		VoiceSet: SeigeVoice
+	Selectable:
+		DecorationBounds: 2048, 1706, 0, -341
+	SpawnActorOnDeath:
+		Actor: AVARTY.Husk
+	ExternalCondition@deploy_tank:
+		Condition: deploy_tank
+	ExternalCondition@tankexists:
+		Condition: tank_here
+	FreeActor@deploy:
+		Actor: AVARTY.BOT.D
+		Facing: 640
+		RequiresCondition: deploy_tank && !tank_here
+		AllowRespawn: true
+	ProximityExternalCondition@not_dead:
+		Condition: tank_alive
+		Range: 256
+
+AVARTY.BOT.D:
+	Inherits: ^TrackedVehicle
+	Inherits@AUTOTARGET: ^AutoTargetGround
+	-SelectionDecorations:
+	-WithSpriteControlGroupDecoration:
+	-Selectable:
+	-Tooltip:
+	-RangeMultiplier@usa.search_and_destroy:
+	GainsExperienceMultiplier:
+		Modifier: 0
+	RenderVoxels:
+		Image: jugg
+		PlayerPalette: tsunit
+		Scale: 10
+	RenderSprites:
+		PlayerPalette: tsunit
+		Image: JUGG
+	UpdatesPlayerStatistics:
+		AddToArmyValue: false
+	Mobile:
+		Speed: 1
+		PauseOnCondition: alive
+	GrantCondition@1:
+		Condition: alive
+	Health:
+		HP: 50000
+	DamageMultiplier:
+		Modifier: 0
+	Armor:
+		Type: Light
+	RevealsShroud:
+		MinRange: 5c0
+		Range: 8c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 5c0
+	Armament@deployedeffect:
+		Name: deployed
+		Turret: deployed
+		Weapon: AvaliImpalerRailgunEffect
+		LocalOffset: 1424,0,512
+		PauseOnCondition: disabled
+		RequiresCondition: !build-incomplete
+		MuzzleSequence: muzzle
+		MuzzlePalette: effect
+	Armament@deployed:
+		FireDelay: 24
+		Name: deployed
+		Turret: deployed
+		Weapon: AvaliImpalerRailgun
+		LocalOffset: 1424,0,512
+		PauseOnCondition: disabled
+		RequiresCondition: !build-incomplete
+		MuzzleSequence: muzzle
+		MuzzlePalette: effect
+	WithMuzzleOverlay:
+	WithMakeAnimation:
+		Condition: build-incomplete
+	-WithFacingSpriteBody:
+	WithSpriteBody:
+		Sequence: idle
+	WithVoxelTurret:
+		Turret: deployed
+		Sequence: turret
+		RequiresCondition: !build-incomplete
+	Turreted@2:
+		TurnSpeed: 24
+		InitialFacing: 512
+		Turret: deployed
+		Offset: -153,-17,256
+		RealignDelay: 125
+		PauseOnCondition: disabled
+		RequiresCondition: !build-incomplete
+	AttackTurreted@deployed:
+		Armaments: primary, deployed
+		Turrets: primary, deployed
+		PauseOnCondition: disabled
+	RevealOnFire:
+		ArmamentNames: deployed
+	Selectable:
+		DecorationBounds: 1877, 1621, 0, -170
+	WithRangeCircle:
+		Range: 15c0
+	ExternalCondition@deploy_tank:
+		Condition: undeploy_tank
+	ExternalCondition@tank_alive:
+		Condition: tank_alive
+	AmbientSound:
+		Delay: 0
+		Interval: -1
+		SoundFiles: ttatra00.aud
+	KillsSelf@deploy:
+		RemoveInstead: true
+		Delay: 1
+		RequiresCondition: undeploy_tank
+	KillsSelf@dead:
+		RemoveInstead: true
+		Delay: 1
+		RequiresCondition: !tank_alive
+	ProximityExternalCondition@imhere:
+		Condition: tank_attacking
+		RequiresCondition: shooting
+		Range: 256
+	ProximityExternalCondition@imhere2:
+		Condition: tank_here
+		Range: 256
+	GrantConditionOnAttack@shooting:
+		ArmamentNames: deployed
+		Condition: shooting
+		RevokeDelay: 250
+	Targetable@deploytype:
+		TargetTypes: SiegeTank
+	FreeActor@checkec:
+		Actor: AVARTY.BOT.Checker
+	-ClassicFacingBodyOrientation:
+	BodyOrientation:
+		QuantizedFacings: 32
+		UseClassicPerspectiveFudge: true
+
+AVARTY.BOT.Checker:
+	Inherits: MINE_DUMMY
+	ExternalCondition@creep:
+		Condition: tank_attacking
+	KillsSelf:
+		Delay: 200
+		RequiresCondition: !tank_attacking
+	Explodes:
+		Weapon: TerranSiegeUndeploy
+		EmptyWeapon: TerranSiegeUndeploy
