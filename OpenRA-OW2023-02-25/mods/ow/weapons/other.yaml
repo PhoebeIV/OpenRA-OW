@@ -567,7 +567,6 @@ Electro:
 ^LaserWeapon:
 	ReloadDelay: 40
 	Range: 8c0
-	Report: obelray1.aud
 	ValidTargets: Ground, Water, GroundActor, WaterActor
 	Projectile: LaserZap
 		Width: 85
@@ -586,6 +585,7 @@ Electro:
 ObeliskLaser:
 	Inherits: ^LaserWeapon
 	Range: 10c0
+	Report: obelray1.aud
 	Warhead@1Dam: SpreadDamage
 		Spread: 128
 		Versus:
@@ -595,6 +595,7 @@ ObeliskLaserHax:
 	Inherits: ^LaserWeapon
 	Range: 15c0
 	ReloadDelay: 3
+	Report: obelray1.aud
 	ValidTargets: Ground, Water, GroundActor, WaterActor, AirborneActor, Air
 	Projectile: InstantHit
 	Warhead@1Dam: SpreadDamage
@@ -690,7 +691,7 @@ BlackHandLaser:
 		Duration: 2
 		UsePlayerColor: true
 	Warhead@1Dam: SpreadDamage
-		Damage: 900
+		Damage: 1000
 		Versus:
 			None: 140
 			Heavy: 60
@@ -701,6 +702,7 @@ ScorpionLaser:
 	Inherits: ^LaserWeapon
 	ReloadDelay: 200
 	Range: 11c0
+	Report: obelray1.aud
 	Projectile: LaserZap
 		UsePlayerColor: true
 	Warhead@1Dam: SpreadDamage
@@ -716,6 +718,7 @@ ScorpionLaser:
 
 PurifierLaser:
 	Inherits: ^LaserWeapon
+	Report: obelray1.aud
 	ReloadDelay: 125
 	Range: 7c0
 	ValidTargets: AirborneActor, Ground, GroundActor, Water, WaterActor
@@ -1089,6 +1092,7 @@ FAirPlasma:
 			Light: 100
 			Heavy: 95
 			Concrete: 45
+			Shield: 100
 		DamageTypes: Prone50Percent, TriggerProne, DefaultDeath
 	Warhead@2Smu: LeaveSmudge
 		SmudgeType: Scorch
@@ -6829,7 +6833,6 @@ AvaliAALaser:
 	Burst: 20
 	BurstDelays: 5
 	Range: 7c0
-	-Report:
 	StartBurstReport: avlasfire.aud
 	ValidTargets: Air, AirborneActor
 	Projectile: LaserZap
@@ -7023,10 +7026,10 @@ VoidRayBeam1:
 	Inherits: ^LaserWeapon
 	ReloadDelay: 3
 	Range: 13c0
-	-Report:
 	ValidTargets: Ground, GroundActor, AirborneActor
 	Projectile: LaserZap
 		Width: 96
+		ZOffset: 512
 		SecondaryBeamWidth: 64
 		SecondaryBeamZOffset: 513
 		Color: B2FFA5B0
@@ -7075,6 +7078,7 @@ VoidRayBeam2:
 		Width: 48
 		Duration: 4
 		Inaccuracy: 256
+		ZOffset: 512
 	Warhead@1Dam: SpreadDamage
 		Damage: 500
 	Warhead@1DamAir: SpreadDamage
@@ -7088,13 +7092,14 @@ AvaliImpalerRailgunEffect:
 	ReloadDelay: 250
 	Range: 15c0
 	MinRange: 5c0
-	Report: hrailgun_charge1.aud
+	Report: hrailgun_charge.aud
 	ValidTargets: Ground, Water, GroundActor, WaterActor
 	Projectile: Missile
 		Speed: 2
 		RangeLimit: 3
 	Warhead@1Eff: CreateEffect
 		Explosions: lightbringer_charge
+		ImpactSounds: hrailgun_charge.aud
 		Inaccuracy: 256
 		ValidTargets: Ground, GroundActor, WaterActor, Trees, Air
 	Warhead@2Eff: CreateEffect
@@ -7120,21 +7125,57 @@ AvaliImpalerRailgun:
 		HitAnimSequence: med_explosion
 		Duration: 41
 	Warhead@1Dam: SpreadDamage
-		Damage: 25000
-		Range: 0, 512
+		Damage: 47000
+		Range: 0, 800
 		Falloff: 100,100
 		Versus:
 			None: 50
-			Light: 90
+			Wood: 60
+			Light: 80
 		ValidRelationships: Enemy, Neutral
 		DamageTypes: Prone50Percent, TriggerProne, BulletDeath
 	Warhead@3Dam: SpreadDamage
 		Spread: 128
-		Damage: 1000
+		Damage: 3000
 		ValidTargets: GroundActor, WaterActor
 		DamageTypes: Prone50Percent, TriggerProne, BulletDeath
 	Warhead@5Eff: CreateEffect
-		Inaccuracy: 64
+		Inaccuracy: 256
 		Explosions: med_explosion
-		ValidTargets: Ground, GroundActor, WaterActor, AirborneActor
+		ValidTargets: Ground, GroundActor, WaterActor
 		ImpactActors: true
+	Warhead@6Eff: CreateEffect
+		Inaccuracy: 512
+		Explosions: med_explosion
+		ValidTargets: Ground, GroundActor, WaterActor
+		InvalidTargets: Infantry
+		ImpactActors: true
+	Warhead@7Eff: CreateEffect
+		ImpactSounds: hrailgun_fire1.aud, hrailgun_fire2.aud
+		ImpactActors: true
+
+AvaliImpalerRailgunHit:
+	ReloadDelay: 250
+	Range: 15c0
+	MinRange: 5c0
+	Projectile: InstantHit
+	ValidTargets: Ground, Water, GroundActor, WaterActor
+	Warhead@7Eff: CreateEffect
+		ImpactSounds: hrailgun_fire1.aud, hrailgun_fire2.aud
+		ImpactActors: false
+
+AvaliMinerLaser:
+	Inherits: ^LaserWeapon
+	ReloadDelay: 50
+	Range: 2c0
+	Projectile: InstantHit
+	Warhead@1Dam: SpreadDamage
+		Damage: 1000
+		Versus:
+			None: 140
+		DamageTypes: DefaultDeath
+	-Warhead@2Smu:
+	Warhead@3EffGround: CreateEffect
+		ImpactSounds: edrrep00.aud, edrrep01.aud, edrrep02.aud, edrrep03.aud, edrrep04.aud
+		Inaccuracy: 128
+		ImpactActors: false

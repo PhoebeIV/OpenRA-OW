@@ -19,6 +19,8 @@
 	SpeedMultiplier@cold:
 		Modifier: 110
 		RequiresCondition: env_buff
+	Voiced:
+		VoiceSet: AvaliGeneric
 
 AVMCV:
 	Inherits: MCV
@@ -60,12 +62,39 @@ AVMCV.2:
 AVHARV:
 	Inherits: HARV
 	Inherits@avali: ^AvaliVehicle
-	RenderSprites:
-		Image: HARV
+	Inherits@autotarget: ^AutoTargetGroundAssaultMove
 	Buildable:
 		Queue: Vehicle
 		BuildPaletteOrder: 110
 		Prerequisites: refinery, ~vehicles.avalon, ~techlevel.infonly
+	Tooltip:
+		Name: actor-avharv-name
+	Turreted:
+	AttackFrontal:
+		FacingTolerance: 0
+	Armament: 
+		Weapon: AvaliMinerLaser
+	GrantConditionOnMovement:
+		Condition: moving
+		ValidMovementTypes: Horizontal, Turn
+	GrantConditionOnTerrain@harvest:
+		TerrainTypes: Ore, Gems, Tiberium, BlueTiberium
+		Condition: on_ore
+	-WithHarvesterSpriteBody:
+	QuantizeFacingsFromSequence:
+		Sequence: run
+	WithFacingSpriteBody:
+	WithMoveAnimation:
+		MoveSequence: run
+		ValidMovementTypes: Horizontal, Turn
+	WithSpriteTurret@full: 
+		RequiresCondition: !moving && !no-ore
+		Sequence: ores
+	WithSpriteTurret@full1: 
+		RequiresCondition: moving && !no-ore
+		Sequence: oresrun
+	WithAttackAnimation:
+		Sequence: harvest
 
 
 AVDRONE:
@@ -216,8 +245,6 @@ AV1TNK:
 	SpawnActorOnDeath:
 		Actor: AV1TNK.Husk
 	SelectionDecorations:
-	Voiced:
-		VoiceSet: AvaliGeneric
 	WithShadow:
 		Offset: 43, 128, -64
 		ZOffset: -129
@@ -248,6 +275,7 @@ AVDRONE.Carrier:
 
 AVARTY:
 	Inherits: ^TrackedVehicle
+	Inherits@avali: ^AvaliVehicle
 	Inherits@EXPERIENCE: ^GainsExperience
 	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
 	Valued:
@@ -339,14 +367,6 @@ AVARTY:
 		TargetFrozenActors: True
 		ForceFireIgnoresActors: True
 		OutsideRangeRequiresForceFire: True
-	Armament@deployedeffect:
-		Name: deployed
-		Turret: deployed
-		Weapon: AvaliImpalerRailgunEffect
-		LocalOffset: 1424,0,512
-		RequiresCondition: deployed
-		MuzzleSequence: muzzle
-		MuzzlePalette: effect
 	Armament@deployed:
 		FireDelay: 24
 		Name: deployed
@@ -356,6 +376,20 @@ AVARTY:
 		RequiresCondition: deployed
 		MuzzleSequence: muzzle
 		MuzzlePalette: effect
+	Armament@deployedeffect:
+		Name: deployed
+		Turret: deployed
+		Weapon: AvaliImpalerRailgunEffect
+		LocalOffset: 1424,0,512
+		RequiresCondition: deployed
+		MuzzleSequence: muzzle
+		MuzzlePalette: effect
+	Armament@deployedeffect2:
+		FireDelay: 24
+		Name: deployed
+		Turret: deployed
+		Weapon: AvaliImpalerRailgunHit
+		RequiresCondition: deployed
 	WithMuzzleOverlay:
 	RevealOnFire:
 		ArmamentNames: deployed
@@ -485,25 +519,29 @@ AVARTY.BOT.D:
 		RevealGeneratedShroud: False
 	RevealsShroud@GAPGEN:
 		Range: 5c0
-	Armament@deployedeffect:
-		Name: deployed
-		Turret: deployed
-		Weapon: AvaliImpalerRailgunEffect
-		LocalOffset: 1424,0,512
-		PauseOnCondition: disabled
-		RequiresCondition: !build-incomplete
-		MuzzleSequence: muzzle
-		MuzzlePalette: effect
 	Armament@deployed:
 		FireDelay: 24
 		Name: deployed
 		Turret: deployed
 		Weapon: AvaliImpalerRailgun
 		LocalOffset: 1424,0,512
-		PauseOnCondition: disabled
 		RequiresCondition: !build-incomplete
 		MuzzleSequence: muzzle
 		MuzzlePalette: effect
+	Armament@deployedeffect:
+		Name: deployed
+		Turret: deployed
+		Weapon: AvaliImpalerRailgunEffect
+		LocalOffset: 1424,0,512
+		RequiresCondition: !build-incomplete
+		MuzzleSequence: muzzle
+		MuzzlePalette: effect
+	Armament@deployedeffect2:
+		FireDelay: 24
+		Name: deployed
+		Turret: deployed
+		Weapon: AvaliImpalerRailgunHit
+		RequiresCondition: !build-incomplete
 	WithMuzzleOverlay:
 	WithMakeAnimation:
 		Condition: build-incomplete

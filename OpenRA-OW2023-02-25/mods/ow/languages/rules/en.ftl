@@ -261,6 +261,8 @@ actor-avmcv =
       Unarmed
    .name = Mobile Command Ship
 
+actor-avharv-name = Miner Mech
+
 actor-avdrone =
    .description = Fast scout & anti-infantry vehicle.
       Strong vs Infantry
@@ -5064,8 +5066,8 @@ actor-zccolony =
     
     Must be placed on creep.
    .name = Creep Colony
-   .1--name = Sunken Colony
-   .2--name = Spore Colony
+   .sunken = Sunken Colony
+   .spore = Spore Colony
 
 actor-ze-sunken =
    .name = Evolve into Sunken Colony
