@@ -9,6 +9,7 @@ zagara.tier1.fastupgrade1:
 		BuildPaletteOrder: 1
 	RenderSprites:
 		Image: upgrade.buildfirepower1
+	ProvidesPrerequisite@buildingname:
 	ProvidesPrerequisite@upgradename:
 		Prerequisite: upgrade.buildfirepower1
 
@@ -23,6 +24,7 @@ zagara.tier1.fastupgrade2:
 		BuildPaletteOrder: 2
 	RenderSprites:
 		Image: upgrade.buildarmor1
+	ProvidesPrerequisite@buildingname:
 	ProvidesPrerequisite@upgradename:
 		Prerequisite: upgrade.buildarmor1
 
@@ -35,6 +37,7 @@ zagara.tier2.costcut:
 		Description: actor-zagara-tier2-costcut.description
 		Prerequisites: ~active.zagara
 		BuildPaletteOrder: 1
+	ProvidesPrerequisite@buildingname:
 	ProvidesPrerequisite@upgradename:
 		Prerequisite: infantry.prodcost
 	ProvidesPrerequisite@upgradename2:
@@ -57,6 +60,7 @@ zagara.tier2.firespeed:
 		Description: actor-zagara-tier2-firespeed.description
 		Prerequisites: ~active.zagara
 		BuildPaletteOrder: 2
+	ProvidesPrerequisite@buildingname:
 	ProvidesPrerequisite@upgradename:
 		Prerequisite: infantry.firespeed1
 	ProvidesPrerequisite@upgradename2:
@@ -73,6 +77,7 @@ zagara.tier3.fastupgrade1:
 		BuildPaletteOrder: 1
 	RenderSprites:
 		Image: upgrade.buildfirepower2
+	ProvidesPrerequisite@buildingname:
 	ProvidesPrerequisite@upgradename:
 		Prerequisite: upgrade.buildfirepower2
 
@@ -87,6 +92,7 @@ zagara.tier3.fastupgrade2:
 		BuildPaletteOrder: 2
 	RenderSprites:
 		Image: upgrade.buildarmor2
+	ProvidesPrerequisite@buildingname:
 	ProvidesPrerequisite@upgradename:
 		Prerequisite: upgrade.buildarmor2
 
@@ -101,6 +107,7 @@ zagara.tier3.range:
 		BuildPaletteOrder: 3
 	RenderSprites:
 		Image: upgrade.buildfirepower3
+	ProvidesPrerequisite@buildingname:
 	ProvidesPrerequisite@upgradename:
 		Prerequisite: building.attackrange1
 
@@ -153,6 +160,7 @@ zagara.tier5.heartoftheswarm:
 		BuildPaletteOrder: 2
 	-RenderSprites:
 	RenderSprites:
+	ProvidesPrerequisite@buildingname:
 	ProvidesPrerequisite@upgradename:
 		Prerequisite: infantry.prodcost2
 	ProvidesPrerequisite@upgradename2:
@@ -438,7 +446,7 @@ ZZAGARA.Hero4:
 	Power:
 		Amount: 150
 	SpawnActorOnDeath:
-		Actor: ZZAGARA.Hero4
+		Actor: ZZAGARA.Hero5
 	FirepowerMultiplier@1:
 		Modifier: 140
 	GrantExternalConditionPower@Frenzy:
@@ -478,7 +486,7 @@ ZZAGARA.Hero5:
 		Modifier: 150
 	DamageMultiplier@fortitude:
 		RequiresCondition: fort
-		Modifier: 80
+		Modifier: 75
 	GrantConditionOnPrerequisite@fort:
 		Prerequisites: zagara.tier5.fortress
 		Condition: fort
@@ -549,6 +557,25 @@ ZTUMOR:
 		Position: TopRight
 		ValidRelationships: None,Neutral,Enemy,Ally
 	-AmbientSound@completed:
+
+ZTUMOR.BOT:
+	Inherits: ZTUMOR
+	Buildable:
+		Queue: Defense
+		BuildPaletteOrder: 9000
+		Prerequisites: ~active.zagara, !ztumor.cooldown, ~ai.all
+		BuildLimit: 8
+	RenderSprites: 
+		Image: ztumor
+	RequiresBuildableArea:
+		Adjacent: 2
+		AreaTypes: defense, zagara
+	Explodes@1:
+		Weapon: CreepRemoveMed
+	SeedsResource:
+		Interval: 4
+		MaxRange: 7
+		ResourceType: ZergCreep
 
 # 60 seconds
 ztumor.cooldown:

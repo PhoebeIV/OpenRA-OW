@@ -77,22 +77,13 @@ AVHARV:
 	GrantConditionOnMovement:
 		Condition: moving
 		ValidMovementTypes: Horizontal, Turn
-	GrantConditionOnTerrain@harvest:
-		TerrainTypes: Ore, Gems, Tiberium, BlueTiberium
-		Condition: on_ore
-	-WithHarvesterSpriteBody:
+	WithHarvesterSpriteBody:
+		ImageByFullness: avharv, avharv2, avharv3
 	QuantizeFacingsFromSequence:
 		Sequence: run
-	WithFacingSpriteBody:
 	WithMoveAnimation:
 		MoveSequence: run
 		ValidMovementTypes: Horizontal, Turn
-	WithSpriteTurret@full: 
-		RequiresCondition: !moving && !no-ore
-		Sequence: ores
-	WithSpriteTurret@full1: 
-		RequiresCondition: moving && !no-ore
-		Sequence: oresrun
 	WithAttackAnimation:
 		Sequence: harvest
 
@@ -354,42 +345,176 @@ AVARTY:
 		TurnSpeed: 20
 		InitialFacing: 0
 		Offset: -153,-17,256
-		RealignDelay: 125
+		RealignDelay: 260
 	WithVoxelTurret:
 		Turret: deployed
 		Sequence: turret
 		RequiresCondition: deployed
 	AttackTurreted@deployed:
-		Armaments: deployed
+		Armaments: deployed, deployed_a, deployed_b, dummyweapon
 		Turrets: deployed
 		RequiresCondition: deployed
-		PauseOnCondition: disabled
+		PauseOnCondition: disabled 
 		TargetFrozenActors: True
 		ForceFireIgnoresActors: True
 		OutsideRangeRequiresForceFire: True
-	Armament@deployed:
+	Armament@deployed_a:
 		FireDelay: 24
-		Name: deployed
+		Name: deployed_a
 		Turret: deployed
 		Weapon: AvaliImpalerRailgun
-		LocalOffset: 1424,0,512
-		RequiresCondition: deployed
+		LocalOffset: 1424,-800,512
+		RequiresCondition: deployed && ammo_a
+		PauseOnCondition: attack_cooldown
 		MuzzleSequence: muzzle
 		MuzzlePalette: effect
-	Armament@deployedeffect:
-		Name: deployed
+	Armament@deployed_b:
+		FireDelay: 24
+		Name: deployed_b
+		Turret: deployed
+		Weapon: AvaliImpalerRailgun
+		LocalOffset: 1424,800,512
+		RequiresCondition: deployed && ammo_b
+		PauseOnCondition: attack_cooldown
+		MuzzleSequence: muzzle
+		MuzzlePalette: effect
+	Armament@deployedeffect_a:
+		Name: deployed_a
 		Turret: deployed
 		Weapon: AvaliImpalerRailgunEffect
-		LocalOffset: 1424,0,512
-		RequiresCondition: deployed
+		LocalOffset: 1424,-800,512
+		RequiresCondition: deployed && ammo_a
+		PauseOnCondition: attack_cooldown
 		MuzzleSequence: muzzle
 		MuzzlePalette: effect
+		AmmoUsage: 0
+	Armament@deployedeffect_b:
+		Name: deployed_b
+		Turret: deployed
+		Weapon: AvaliImpalerRailgunEffect
+		LocalOffset: 1424,800,512
+		RequiresCondition: deployed && ammo_b
+		PauseOnCondition: attack_cooldown
+		MuzzleSequence: muzzle
+		MuzzlePalette: effect
+		AmmoUsage: 0
 	Armament@deployedeffect2:
-		FireDelay: 24
+		FireDelay: 23
 		Name: deployed
 		Turret: deployed
 		Weapon: AvaliImpalerRailgunHit
+		RequiresCondition: deployed && (ammo_a || ammo_b)
+		PauseOnCondition: attack_cooldown
+	Armament@deployedeffectpowered:
+		FireDelay: 23
+		Name: deployed
+		Turret: deployed
+		Weapon: AvaliImpalerRailgunHitPowered
+		RequiresCondition: deployed && (ammo_a || ammo_b) && powered_active
+		PauseOnCondition: attack_cooldown
+	Armament@keeptarget:
+		Name: dummyweapon
+		Weapon: JuggDeploy
+		Turret: deployed
+		PauseOnCondition: disabled
 		RequiresCondition: deployed
+	GrantConditionOnAttack@cooldown:
+		RequiresCondition: !powered
+		ArmamentNames: deployed_a, deployed_b
+		Condition: attack_cooldown
+		RevokeDelay: 250
+	GrantConditionOnAttack@reload_a:
+		RequiresCondition: !powered
+		ArmamentNames: deployed_a
+		Condition: reload_b
+		RevokeDelay: 250
+	GrantConditionOnAttack@reload_b:
+		RequiresCondition: !powered
+		ArmamentNames: deployed_b
+		Condition: reload_a
+		RevokeDelay: 250
+	GrantConditionOnAttack@cooldown_powered:
+		RequiresCondition: powered
+		ArmamentNames: deployed_a, deployed_b
+		Condition: attack_cooldown
+		RevokeDelay: 150
+	GrantConditionOnAttack@reload_a_powered:
+		RequiresCondition: powered
+		ArmamentNames: deployed_a
+		Condition: reload_b
+		RevokeDelay: 150
+	GrantConditionOnAttack@reload_b_powered:
+		RequiresCondition: powered
+		ArmamentNames: deployed_b
+		Condition: reload_a
+		RevokeDelay: 150
+	AmmoPool@a:
+		Name: ammo_a
+		Armaments: deployed_a
+		AmmoCondition: ammo_a
+	AmmoPool@b:
+		Name: ammo_b
+		Armaments: deployed_b
+		AmmoCondition: ammo_b
+		InitialAmmo: 0
+	ReloadAmmoPool@a:
+		RequiresCondition: reload_a && !powered_active
+		AmmoPool: ammo_a
+		Delay: 249
+	ReloadAmmoPool@b:
+		RequiresCondition: reload_b && !powered_active
+		AmmoPool: ammo_b
+		Delay: 249
+	ReloadAmmoPool@a_powered:
+		RequiresCondition: reload_a && powered_active
+		AmmoPool: ammo_a
+		Delay: 149
+	ReloadAmmoPool@b_powered:
+		RequiresCondition: reload_b && powered_active
+		AmmoPool: ammo_b
+		Delay: 149
+	ReloadAmmoPool@reset: #reset ammo if something breaks
+		RequiresCondition: !attack_cooldown && !ammo_a && !ammo_b
+		AmmoPool: ammo_a
+		Delay: 300
+		ResetOnFire: true
+	WithAmmoPipsDecoration@a:
+		Position: BottomLeft
+		Margin: 4, 3
+		RequiresSelection: true
+		PipCount: 2
+		FullSequence: pip-red
+		AmmoPools: ammo_a
+	WithAmmoPipsDecoration@b:
+		Position: BottomRight
+		Margin: 4, 3
+		RequiresSelection: true
+		PipCount: 2
+		FullSequence: pip-blue
+		AmmoPools: ammo_b
+	ExternalCondition@powerplant:
+		Condition: powered
+	GrantCondition@powered:
+		Condition: powered_active
+		RequiresCondition: powered && !lowpower
+	Power:
+		RequiresCondition: deployed && powered
+		Amount: -50
+	GrantConditionOnPowerState: 
+		ValidPowerStates: Low, Critical
+		Condition: lowpower
+	WithDecoration@powered:
+		Image: pips
+		Sequence: pip-aeiou
+		Palette: effect
+		Position: TopRight
+		RequiresCondition: powered_active
+	WithDecoration@powered2:
+		Image: pips
+		Sequence: pip-minus
+		Palette: effect
+		Position: TopRight
+		RequiresCondition: powered && lowpower
 	WithMuzzleOverlay:
 	RevealOnFire:
 		ArmamentNames: deployed
@@ -507,6 +632,8 @@ AVARTY.BOT.D:
 		PauseOnCondition: alive
 	GrantCondition@1:
 		Condition: alive
+	GrantCondition@2:
+		Condition: deployed
 	Health:
 		HP: 50000
 	DamageMultiplier:
@@ -519,29 +646,157 @@ AVARTY.BOT.D:
 		RevealGeneratedShroud: False
 	RevealsShroud@GAPGEN:
 		Range: 5c0
-	Armament@deployed:
+	Armament@deployed_a:
 		FireDelay: 24
-		Name: deployed
+		Name: deployed_a
 		Turret: deployed
 		Weapon: AvaliImpalerRailgun
-		LocalOffset: 1424,0,512
-		RequiresCondition: !build-incomplete
+		LocalOffset: 1424,-800,512
+		RequiresCondition: deployed && ammo_a
+		PauseOnCondition: attack_cooldown
 		MuzzleSequence: muzzle
 		MuzzlePalette: effect
-	Armament@deployedeffect:
-		Name: deployed
+	Armament@deployed_b:
+		FireDelay: 24
+		Name: deployed_b
+		Turret: deployed
+		Weapon: AvaliImpalerRailgun
+		LocalOffset: 1424,800,512
+		RequiresCondition: deployed && ammo_b
+		PauseOnCondition: attack_cooldown
+		MuzzleSequence: muzzle
+		MuzzlePalette: effect
+	Armament@deployedeffect_a:
+		Name: deployed_a
 		Turret: deployed
 		Weapon: AvaliImpalerRailgunEffect
-		LocalOffset: 1424,0,512
-		RequiresCondition: !build-incomplete
+		LocalOffset: 1424,-800,512
+		RequiresCondition: deployed && ammo_a
+		PauseOnCondition: attack_cooldown
 		MuzzleSequence: muzzle
 		MuzzlePalette: effect
+		AmmoUsage: 0
+	Armament@deployedeffect_b:
+		Name: deployed_b
+		Turret: deployed
+		Weapon: AvaliImpalerRailgunEffect
+		LocalOffset: 1424,800,512
+		RequiresCondition: deployed && ammo_b
+		PauseOnCondition: attack_cooldown
+		MuzzleSequence: muzzle
+		MuzzlePalette: effect
+		AmmoUsage: 0
 	Armament@deployedeffect2:
-		FireDelay: 24
+		FireDelay: 23
 		Name: deployed
 		Turret: deployed
 		Weapon: AvaliImpalerRailgunHit
-		RequiresCondition: !build-incomplete
+		RequiresCondition: deployed && (ammo_a || ammo_b)
+		PauseOnCondition: attack_cooldown
+	Armament@deployedeffectpowered:
+		FireDelay: 23
+		Name: deployed
+		Turret: deployed
+		Weapon: AvaliImpalerRailgunHitPowered
+		RequiresCondition: deployed && (ammo_a || ammo_b) && powered_active
+		PauseOnCondition: attack_cooldown
+	GrantConditionOnAttack@cooldown:
+		RequiresCondition: !powered
+		ArmamentNames: deployed_a, deployed_b
+		Condition: attack_cooldown
+		RevokeDelay: 250
+	GrantConditionOnAttack@reload_a:
+		RequiresCondition: !powered
+		ArmamentNames: deployed_a
+		Condition: reload_b
+		RevokeDelay: 250
+	GrantConditionOnAttack@reload_b:
+		RequiresCondition: !powered
+		ArmamentNames: deployed_b
+		Condition: reload_a
+		RevokeDelay: 250
+	GrantConditionOnAttack@cooldown_powered:
+		RequiresCondition: powered
+		ArmamentNames: deployed_a, deployed_b
+		Condition: attack_cooldown
+		RevokeDelay: 150
+	GrantConditionOnAttack@reload_a_powered:
+		RequiresCondition: powered
+		ArmamentNames: deployed_a
+		Condition: reload_b
+		RevokeDelay: 150
+	GrantConditionOnAttack@reload_b_powered:
+		RequiresCondition: powered
+		ArmamentNames: deployed_b
+		Condition: reload_a
+		RevokeDelay: 150
+	AmmoPool@a:
+		Name: ammo_a
+		Armaments: deployed_a
+		AmmoCondition: ammo_a
+	AmmoPool@b:
+		Name: ammo_b
+		Armaments: deployed_b
+		AmmoCondition: ammo_b
+		InitialAmmo: 0
+	ReloadAmmoPool@a:
+		RequiresCondition: reload_a && !powered_active
+		AmmoPool: ammo_a
+		Delay: 249
+	ReloadAmmoPool@b:
+		RequiresCondition: reload_b && !powered_active
+		AmmoPool: ammo_b
+		Delay: 249
+	ReloadAmmoPool@a_powered:
+		RequiresCondition: reload_a && powered_active
+		AmmoPool: ammo_a
+		Delay: 149
+	ReloadAmmoPool@b_powered:
+		RequiresCondition: reload_b && powered_active
+		AmmoPool: ammo_b
+		Delay: 149
+	ReloadAmmoPool@reset: #reset ammo if something breaks
+		RequiresCondition: !attack_cooldown && !ammo_a && !ammo_b
+		AmmoPool: ammo_a
+		Delay: 300
+		ResetOnFire: true
+	WithAmmoPipsDecoration@a:
+		Position: BottomLeft
+		Margin: 4, 3
+		RequiresSelection: true
+		PipCount: 2
+		FullSequence: pip-red
+		AmmoPools: ammo_a
+	WithAmmoPipsDecoration@b:
+		Position: BottomRight
+		Margin: 4, 3
+		RequiresSelection: true
+		PipCount: 2
+		FullSequence: pip-blue
+		AmmoPools: ammo_b
+	ExternalCondition@powerplant:
+		Condition: powered
+	GrantCondition@powered:
+		Condition: powered_active
+		RequiresCondition: powered && !lowpower
+	Power:
+		RequiresCondition: deployed && powered
+		Amount: -50
+	GrantConditionOnPowerState: 
+		ValidPowerStates: Low, Critical
+		Condition: lowpower
+	WithDecoration@powered:
+		Image: pips
+		Sequence: pip-aeiou
+		Palette: effect
+		Position: TopRight
+		RequiresCondition: powered_active
+	WithDecoration@powered2:
+		Image: pips
+		Sequence: pip-minus
+		Palette: effect
+		Position: TopRight
+		RequiresCondition: powered && lowpower
 	WithMuzzleOverlay:
 	WithMakeAnimation:
 		Condition: build-incomplete
@@ -557,15 +812,16 @@ AVARTY.BOT.D:
 		InitialFacing: 512
 		Turret: deployed
 		Offset: -153,-17,256
-		RealignDelay: 125
+		RealignDelay: 260
 		PauseOnCondition: disabled
 		RequiresCondition: !build-incomplete
 	AttackTurreted@deployed:
-		Armaments: primary, deployed
+		Armaments: primary, deployed, deployed_a, deployed_b
 		Turrets: primary, deployed
+		RequiresCondition: !build-incomplete
 		PauseOnCondition: disabled
 	RevealOnFire:
-		ArmamentNames: deployed
+		ArmamentNames: deployed, deployed_a, deployed_b
 	Selectable:
 		DecorationBounds: 1877, 1621, 0, -170
 	WithRangeCircle:
@@ -596,7 +852,7 @@ AVARTY.BOT.D:
 	GrantConditionOnAttack@shooting:
 		ArmamentNames: deployed
 		Condition: shooting
-		RevokeDelay: 250
+		RevokeDelay: 275
 	Targetable@deploytype:
 		TargetTypes: SiegeTank
 	FreeActor@checkec:
@@ -611,7 +867,7 @@ AVARTY.BOT.Checker:
 	ExternalCondition@creep:
 		Condition: tank_attacking
 	KillsSelf:
-		Delay: 200
+		Delay: 360
 		RequiresCondition: !tank_attacking
 	Explodes:
 		Weapon: TerranSiegeUndeploy

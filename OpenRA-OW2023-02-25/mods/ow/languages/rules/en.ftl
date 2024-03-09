@@ -1111,6 +1111,12 @@ actor-silverlining =
    .name = Silver Lining
 
 ## fed_str.yaml
+actor-fedupgrades =
+   .shields = Energy Shields
+   .shieldsdesc = Provides Federation forces with shields.
+   .nanites = Nanites
+   .nanitedesc = Enables self-healing on Federation forces.
+
 actor-ftek =
    .description = Provides Federation advanced technologies.
    .name = Federation Tech Center
