@@ -147,10 +147,10 @@ TSORCA:
 		InitialStance: HoldFire
 		InitialStanceAI: AttackAnything
 	AmmoPool:
-		Ammo: 12
+		Ammo: 10
 		AmmoCondition: ammo
 	AmmoPool@gun:
-		Ammo: 20
+		Ammo: 18
 		AmmoCondition: ammo2
 		Name: secondary
 		Armaments: third
@@ -190,7 +190,7 @@ TSORCA:
 		FullSequence: bar-green
 		EmptySequence: bar-empty
 		AmmoPools: secondary
-		PipCount: 24
+		PipCount: 18
 		Margin: 1,0
 
 #is not included in AirUnitTypes, so they will use it for frontline attacks.
@@ -414,19 +414,18 @@ TSORCATRAN.AI:
 	RenderVoxels:
 		Image: tsorcatran
 	Aircraft:
-		AltitudeVelocity: 256
 	Cargo:
 		InitialUnits: rmbo,e1,e1,e1,e1,e1of,e3,e3,e3,e2
-	RejectsOrders:
+	KillsSelf@active:
 		RequiresCondition: !cargo
-	GrantPeriodicCondition@deploy:
-		Condition: force_deploy
+		Delay: 100
+		DamageTypes: RemoveOrca
+	SpawnActorOnDeath:
+		RequiresCondition: cargo
+	SpawnActorOnDeath@flyaway:
 		RequiresCondition: !cargo
-		CooldownDuration: 250
-		ActiveDuration: 50
-	TransformOnCondition@cargo:
-		IntoActor: TSORCATRAN.Leave
-		RequiresCondition: !cargo && force_deploy
+		Actor: TSORCATRAN.Leave
+		DeathType: RemoveOrca
 
 TSORCATRAN.AI2:
 	Inherits: TSORCATRAN.AI
@@ -441,17 +440,27 @@ TSORCATRAN.Leave:
 	UpdatesPlayerStatistics:
 		OverrideActor: tsorcatran
 	-Buildable:
+	-Selectable:
+	Interactable:
 	RenderSprites:
 		Image: tsorcatran
 	RenderVoxels:
 		Image: tsorcatran
 	Aircraft:
+		CruiseAltitude: 1281
 		CanHover: false
-		IdleBehavior: LeaveMapAtClosestEdge
+		IdleBehavior: LeaveMap
+		VTOL: false
+		CanSlide: false
 	KillsSelf@a:
 		RemoveInstead: true
 		Delay: 500
 	RejectsOrders:
+		RemoveOrders: true
+	-Armament@PRIMARY:
+	-AttackAircraft:
+	-Rearmable:
+	-ParachuteCargoOnCondition:
 
 TSKODIAC:
 	Inherits: ^TSHelicopter

@@ -1154,7 +1154,8 @@ MonolithShake:
 		Chance: 25
 		ValidTargets: Ground, Vehicle, Infantry
 	Warhead@1effect: CreateEffect
-		ImpactSounds: kaboom1.aud, baud.aud
+		ImpactSounds: kaboom1.aud
+		ImpactSoundChance: 50
 		ValidTargets: Ground, GroundActor, WaterActor, Trees
 	Warhead@seed: FireCluster
 		Weapon: TibTreeSeedNoCluster
@@ -1559,3 +1560,9 @@ FrostRemoveMed:
 		ResourceTypes: AvaliSnow
 		Size: 3,1
 		Delay: 1500
+
+AmbushShake:
+	Inherits: MonolithShake
+	Warhead@1Dam: SpreadDamage
+		Damage: 500
+	-Warhead@seed:

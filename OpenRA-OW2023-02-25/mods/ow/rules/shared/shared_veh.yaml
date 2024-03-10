@@ -99,7 +99,7 @@ HARV:
 	GrantConditionOnPrerequisite@chrono:
 		Condition: pdox
 		Prerequisites: pdox
-	ChronoResourceDelivery:
+	ChronoResourceDelivery: # appears to be broken since Harvester update
 		RequiresCondition: pdox
 		WarpInSound: chrono2.aud
 		WarpOutSound: chrono2.aud
@@ -114,6 +114,31 @@ HARV:
 	DockClientManager:
 	StoresResources:
 		Resources: Ore,Gems,Tiberium,BlueTiberium
+	GrantConditionOnMovement@phase_walk: # using this hack to have harvesters "teleport"
+		RequiresCondition: pdox
+		Condition: phase_walk
+		ValidMovementTypes: Horizontal
+	GrantPeriodicCondition@phase:
+		RequiresCondition: pdox
+		PauseOnCondition: !phase_walk && no-ore
+		Condition: phase
+		CooldownDuration: 150
+		ActiveDuration: 25
+	SpeedMultiplier@phase:
+		Modifier: 500
+		RequiresCondition: phasing
+	Cloak@phase:
+		InitialDelay: 0
+		CloakDelay: 0
+		CloakSound: 
+		UncloakSound: chrono2.aud
+		RequiresCondition: phase
+		CloakedCondition: phasing
+		CloakEffectSequence: bunkerbustersring
+		EffectImage: explosion
+		CloakedColor: 0000000C
+	Targetable:
+		RequiresCondition: !phasing
 
 HARVNAVY:
 	Inherits: HARV

@@ -89,8 +89,19 @@ DoStrike = function()
 	Reinforcements.Reinforce(Creeps, {"1tnk.lightning"}, {Map.RandomCell()}, 1)
 end
 
+SpawnWaterDerricks = function(amount)
+	local i = 0;
+	while (i < amount) do
+		NewCell = Map.RandomCell()
+		if(Map.TerrainType(NewCell) == "Water") then
+			Reinforcements.Reinforce(Neutral, {"1tnk.oil2"}, {NewCell}, 1)
+		end
+		i = i+1
+	end
+end
 
 WorldLoaded = function()
+	Neutral = Player.GetPlayer("Neutral")
 	Creeps = Player.GetPlayer("Creeps")
 	if (Creeps.HasPrerequisites({"environment.days"})) then
 		Time = Utils.RandomInteger(0, SunRise)
@@ -100,5 +111,8 @@ WorldLoaded = function()
 			Lighting.Blue = 1.5
 			Lighting.Ambient = 0.75
 		end
+	end
+	if (not Creeps.HasPrerequisites({"techlevel.noboats"})) then
+		SpawnWaterDerricks(12)
 	end
 end

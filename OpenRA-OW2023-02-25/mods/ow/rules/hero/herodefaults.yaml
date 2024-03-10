@@ -1080,14 +1080,18 @@
 	GrantConditionOnPrerequisite@forcelevelup:
 		Prerequisites: hero.tier1
 		Condition: forcelevelup
+		RequiresCondition: !mc_protect
 	ExperienceTrickler@forcelevelup:
 		RequiresCondition: forcelevelup
 		Amount: 200000
 		Interval: 25
+	ExternalCondition@mcprotect:
+		Condition: mc_protect
 
 ^HeroTier1:
 	Inherits: ^HeroTier0
 	GrantExternalConditionToOwner:
+		RequiresCondition: !mc_protect
 		Condition: hero_tier1
 	WithDecoration@tier1emp:
 		Image: pips

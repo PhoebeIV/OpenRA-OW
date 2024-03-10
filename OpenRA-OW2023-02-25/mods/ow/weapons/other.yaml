@@ -2677,14 +2677,16 @@ DarkArchonMindControl:
 	ReloadDelay: 100
 	Range: 9c0
 	Report: mind.aud
-	ValidTargets: Infantry, Vehicle, AirborneActor
+	ValidTargets: Infantry, Vehicle, AirborneActor, WaterActor
 	InvalidTargets: Structure, NoMindControl
 	Projectile: LaserZap
+	TargetActorCenter: true
 	Warhead@1Dam: ChangeOwner
 		Range: 256
 		ValidTargets: Infantry, Vehicle, AirborneActor
 		InvalidTargets: EpicUnit, NoMindControl, HighValueMindControl
 	Warhead@2Dam: ChangeOwner
+		Delay: 1
 		Range: 256
 		Duration: 200
 		ValidTargets: EpicUnit, HighValueMindControl
@@ -2693,6 +2695,11 @@ DarkArchonMindControl:
 		Range: 256
 		Duration: 150
 		ValidTargets: EpicUnit, HighValueMindControl
+	Warhead@condhero: GrantExternalCondition
+		Condition: mc_protect
+		Range: 256
+		Duration: 250
+		ValidTargets: EpicUnit
 	Warhead@3EffGround: CreateEffect
 		Explosions: bfgred
 		ImpactSounds: mind.aud
@@ -6268,7 +6275,9 @@ MindControlZap:
 	Burst: 15
 	BurstDelays: 5
 	Range: 7c0
-	ValidTargets: Infantry, Vehicle
+	ValidTargets: Infantry, Vehicle, AirborneActor, WaterActor
+	InvalidTargets: NoMindControl
+	TargetActorCenter: true
 	Projectile: ElectricBolt
 		Colors: ff000050, c4000070, ff303070, ff8a8a80, ffdbdb80
 		Distortion: 128
@@ -6284,7 +6293,8 @@ MindControlSound:
 	ReloadDelay: 35
 	Range: 7c0
 	Report: MindControlSoundcharge.aud
-	ValidTargets: Infantry, Vehicle
+	ValidTargets: Infantry, Vehicle, AirborneActor, WaterActor
+	InvalidTargets: NoMindControl
 	Projectile: Missile
 		Speed: 2
 		RangeLimit: 3

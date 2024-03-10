@@ -1077,13 +1077,42 @@ BADR.DEMO:
 	RenderSprites:
 		Image: badr
 
+1TNK.GAMB:
+	Inherits: 1TNK.MINE
+	Explodes:
+		DeathTypes: TriggerProne
+	WithSpriteBody:
+	Tooltip:
+		Name: actor-gamb-name
+		ShowOwnerRow: False
+	RenderSprites:
+		Image: mine
+	FireWarheads:
+		Weapons: AmbushShake
+		Interval: 25
+	KillsSelf:
+		Delay: 100
+		DamageTypes: replace
+	SpawnActorOnDeath:
+		Actor: gamb
+		OwnerType: Victim
+		DeathType: replace
+	Health:
+		HP: 80000
+
+1TNK.GAMB2:
+	Inherits: 1TNK.GAMB
+	SpawnActorOnDeath:
+		Actor: gamb2
+		OwnerType: Victim
+
 GAMB:
 	Inherits: ^Building
 	Inherits@AUTOTARGET: ^AutoTargetAll
 	Targetable:
 		TargetTypes: GroundActor, C4, DetonateAttack, Structure, Defense
 	Health:
-		HP: 90000
+		HP: 60000
 	Tooltip:
 		Name: actor-gamb-name
 		ShowOwnerRow: False
