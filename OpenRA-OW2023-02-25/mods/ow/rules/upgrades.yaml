@@ -995,7 +995,7 @@
 		RequiresSelection: true
 	GrantConditionOnPrerequisite@zagara.tier4.frenzy:
 		Condition: zagara.tier4.frenzy
-		Prerequisites: zagara.tier4.frenzy
+		Prerequisites: zagara.tier4.support1
 	WithDecoration@zagara.tier4.frenzy:
 		Image: upgradeicons
 		Sequence: zagara.tier4.frenzy
@@ -1219,14 +1219,14 @@ UpgradeHandler:
 	Production@5:
 		Produces: Upgrade
 		RequiresCondition: conyard && upgradelevel >= 5
+	Production@6:
+		Produces: UpgradeBot
+		PauseOnCondition: !conyard
 	GrantConditionOnPrerequisite@conyard:
 		Condition: conyard
 		Prerequisites: conyard
 	ExternalCondition@upgrade:
 		Condition: upgradelevel
-	GrantConditionOnProduction@busy:
-		Condition: busy
-		Duration: 25
 	FreeActor:
 		AllowRespawn: true
 		Actor: upgrade.levelup
@@ -1360,7 +1360,11 @@ UpgradeHandlerBot:
 ^UpgradeBaseExt:
 	Inherits: ^UpgradeBase
 	Buildable:
+		Queue: Upgrade, UpgradeBot
 		BuildDuration: 2000
+	ProductionCostMultiplier@bot:
+		Prerequisites: ai.all
+		Multiplier: 50
 
 ^UpgradeBase2:
 	Inherits: ^UpgradeBase
@@ -1379,7 +1383,7 @@ upgrade.buildarmor1:
 	Buildable:
 		Description: actor-upgrade-buildarmor1.description
 		BuildPaletteOrder: 9998
-		Prerequisites: ~!upgrade.busy, ~!upgrade.buildarmor1, ~!techlevel.noupgrades
+		Prerequisites: ~!upgrade.buildarmor1, ~!techlevel.noupgrades
 	ProvidesPrerequisite@upgradename:
 
 upgrade.buildarmor2:
@@ -1389,7 +1393,7 @@ upgrade.buildarmor2:
 	Buildable:
 		Description: actor-upgrade-buildarmor2.description
 		BuildPaletteOrder: 9998
-		Prerequisites: ~!upgrade.busy, ~upgrade.buildarmor1, ~!upgrade.buildarmor2
+		Prerequisites: ~upgrade.buildarmor1, ~!upgrade.buildarmor2
 	ProvidesPrerequisite@upgradename:
 
 upgrade.buildarmor3:
@@ -1399,7 +1403,7 @@ upgrade.buildarmor3:
 	Buildable:
 		Description: actor-upgrade-buildarmor3.description
 		BuildPaletteOrder: 9998
-		Prerequisites: ~!upgrade.busy, ~upgrade.buildarmor2, ~!upgrade.buildarmor3
+		Prerequisites: ~upgrade.buildarmor2, ~!upgrade.buildarmor3
 	ProvidesPrerequisite@upgradename:
 
 upgrade.buildfirepower1:
@@ -1409,7 +1413,7 @@ upgrade.buildfirepower1:
 	Buildable:
 		Description: actor-upgrade-buildfirepower1.description
 		BuildPaletteOrder: 9999
-		Prerequisites: ~!upgrade.busy, ~!upgrade.buildfirepower1, ~!techlevel.noupgrades
+		Prerequisites: ~!upgrade.buildfirepower1, ~!techlevel.noupgrades
 	ProvidesPrerequisite@upgradename:
 
 upgrade.buildfirepower2:
@@ -1419,7 +1423,7 @@ upgrade.buildfirepower2:
 	Buildable:
 		Description: actor-upgrade-buildfirepower2.description
 		BuildPaletteOrder: 9999
-		Prerequisites: ~!upgrade.busy, ~upgrade.buildfirepower1, ~!upgrade.buildfirepower2
+		Prerequisites: ~upgrade.buildfirepower1, ~!upgrade.buildfirepower2
 	ProvidesPrerequisite@upgradename:
 
 upgrade.buildfirepower3:
@@ -1429,7 +1433,7 @@ upgrade.buildfirepower3:
 	Buildable:
 		Description: actor-upgrade-buildfirepower3.description
 		BuildPaletteOrder: 9999
-		Prerequisites: ~!upgrade.busy, ~upgrade.buildfirepower2, ~!upgrade.buildfirepower3
+		Prerequisites: ~upgrade.buildfirepower2, ~!upgrade.buildfirepower3
 	ProvidesPrerequisite@upgradename:
 
 ###########################
@@ -1441,7 +1445,7 @@ upgrade.infarmor1:
 	Buildable:
 		Description: actor-upgrade-infarmor1.description
 		BuildPaletteOrder: 10000
-		Prerequisites: ~!upgrade.busy, ~!upgrade.infarmor1, ~!faction.noinfantry, ~!techlevel.noupgrades
+		Prerequisites: ~!upgrade.infarmor1, ~!faction.noinfantry, ~!techlevel.noupgrades
 	ProvidesPrerequisite@upgradename:
 
 upgrade.infarmor2:
@@ -1451,7 +1455,7 @@ upgrade.infarmor2:
 	Buildable:
 		Description: actor-upgrade-infarmor2.description
 		BuildPaletteOrder: 10000
-		Prerequisites: ~!upgrade.busy, ~upgrade.infarmor1, ~!upgrade.infarmor2
+		Prerequisites: ~upgrade.infarmor1, ~!upgrade.infarmor2
 	ProvidesPrerequisite@upgradename:
 
 upgrade.infarmor3:
@@ -1461,7 +1465,7 @@ upgrade.infarmor3:
 	Buildable:
 		Description: actor-upgrade-infarmor3.description
 		BuildPaletteOrder: 10000
-		Prerequisites: ~!upgrade.busy, ~upgrade.infarmor2, ~!upgrade.infarmor3
+		Prerequisites: ~upgrade.infarmor2, ~!upgrade.infarmor3
 	ProvidesPrerequisite@upgradename:
 
 upgrade.inffirepower1:
@@ -1471,7 +1475,7 @@ upgrade.inffirepower1:
 	Buildable:
 		Description: actor-upgrade-inffirepower1.description
 		BuildPaletteOrder: 10001
-		Prerequisites: ~!upgrade.busy, ~!upgrade.inffirepower1, ~!faction.noinfantry, ~!techlevel.noupgrades
+		Prerequisites: ~!upgrade.inffirepower1, ~!faction.noinfantry, ~!techlevel.noupgrades
 	ProvidesPrerequisite@upgradename:
 
 upgrade.inffirepower2:
@@ -1481,7 +1485,7 @@ upgrade.inffirepower2:
 	Buildable:
 		Description: actor-upgrade-inffirepower2.description
 		BuildPaletteOrder: 10001
-		Prerequisites: ~!upgrade.busy, ~upgrade.inffirepower1, ~!upgrade.inffirepower2
+		Prerequisites: ~upgrade.inffirepower1, ~!upgrade.inffirepower2
 	ProvidesPrerequisite@upgradename:
 
 upgrade.inffirepower3:
@@ -1491,7 +1495,7 @@ upgrade.inffirepower3:
 	Buildable:
 		Description: actor-upgrade-inffirepower3.description
 		BuildPaletteOrder: 10001
-		Prerequisites: ~!upgrade.busy, ~upgrade.inffirepower2, ~!upgrade.inffirepower3
+		Prerequisites: ~upgrade.inffirepower2, ~!upgrade.inffirepower3
 	ProvidesPrerequisite@upgradename:
 
 ###########################
@@ -1503,7 +1507,7 @@ upgrade.veharmor1:
 	Buildable:
 		Description: actor-upgrade-veharmor1.description
 		BuildPaletteOrder: 10002
-		Prerequisites: ~!upgrade.busy, ~!upgrade.veharmor1, ~!faction.novehicles, ~!techlevel.noupgrades
+		Prerequisites: ~!upgrade.veharmor1, ~!faction.novehicles, ~!techlevel.noupgrades
 	ProvidesPrerequisite@upgradename:
 
 upgrade.veharmor2:
@@ -1513,7 +1517,7 @@ upgrade.veharmor2:
 	Buildable:
 		Description: actor-upgrade-veharmor2.description
 		BuildPaletteOrder: 10002
-		Prerequisites: ~!upgrade.busy, ~upgrade.veharmor1, ~!upgrade.veharmor2
+		Prerequisites: ~upgrade.veharmor1, ~!upgrade.veharmor2
 	ProvidesPrerequisite@upgradename:
 
 upgrade.veharmor3:
@@ -1523,7 +1527,7 @@ upgrade.veharmor3:
 	Buildable:
 		Description: actor-upgrade-veharmor3.description
 		BuildPaletteOrder: 10002
-		Prerequisites: ~!upgrade.busy, ~upgrade.veharmor2, ~!upgrade.veharmor3
+		Prerequisites: ~upgrade.veharmor2, ~!upgrade.veharmor3
 	ProvidesPrerequisite@upgradename:
 
 upgrade.vehfirepower1:
@@ -1533,7 +1537,7 @@ upgrade.vehfirepower1:
 	Buildable:
 		Description: actor-upgrade-vehfirepower1.description
 		BuildPaletteOrder: 10003
-		Prerequisites: ~!upgrade.busy, ~!upgrade.vehfirepower1, ~!faction.novehicles, ~!techlevel.noupgrades
+		Prerequisites: ~!upgrade.vehfirepower1, ~!faction.novehicles, ~!techlevel.noupgrades
 	ProvidesPrerequisite@upgradename:
 
 upgrade.vehfirepower2:
@@ -1543,7 +1547,7 @@ upgrade.vehfirepower2:
 	Buildable:
 		Description: actor-upgrade-vehfirepower2.description
 		BuildPaletteOrder: 10003
-		Prerequisites: ~!upgrade.busy, ~upgrade.vehfirepower1, ~!upgrade.vehfirepower2
+		Prerequisites: ~upgrade.vehfirepower1, ~!upgrade.vehfirepower2
 	ProvidesPrerequisite@upgradename:
 
 upgrade.vehfirepower3:
@@ -1553,7 +1557,7 @@ upgrade.vehfirepower3:
 	Buildable:
 		Description: actor-upgrade-vehfirepower3.description
 		BuildPaletteOrder: 10003
-		Prerequisites: ~!upgrade.busy, ~upgrade.vehfirepower2, ~!upgrade.vehfirepower3
+		Prerequisites: ~upgrade.vehfirepower2, ~!upgrade.vehfirepower3
 	ProvidesPrerequisite@upgradename:
 
 ###########################
@@ -1565,7 +1569,7 @@ upgrade.airarmor1:
 	Buildable:
 		Description: actor-upgrade-airarmor1.description
 		BuildPaletteOrder: 10004
-		Prerequisites: ~!upgrade.busy, ~!upgrade.airarmor1, ~!faction.noair, ~!techlevel.noupgrades, ~techlevel.medium
+		Prerequisites: ~!upgrade.airarmor1, ~!faction.noair, ~!techlevel.noupgrades, ~techlevel.medium
 	ProvidesPrerequisite@upgradename:
 
 upgrade.airarmor2:
@@ -1575,7 +1579,7 @@ upgrade.airarmor2:
 	Buildable:
 		Description: actor-upgrade-airarmor2.description
 		BuildPaletteOrder: 10004
-		Prerequisites: ~!upgrade.busy, ~upgrade.airarmor1, ~!upgrade.airarmor2
+		Prerequisites: ~upgrade.airarmor1, ~!upgrade.airarmor2
 	ProvidesPrerequisite@upgradename:
 
 upgrade.airarmor3:
@@ -1585,7 +1589,7 @@ upgrade.airarmor3:
 	Buildable:
 		Description: actor-upgrade-airarmor3.description
 		BuildPaletteOrder: 10004
-		Prerequisites: ~!upgrade.busy, ~upgrade.airarmor2, ~!upgrade.airarmor3
+		Prerequisites: ~upgrade.airarmor2, ~!upgrade.airarmor3
 	ProvidesPrerequisite@upgradename:
 
 upgrade.airfirepower1:
@@ -1595,7 +1599,7 @@ upgrade.airfirepower1:
 	Buildable:
 		Description: actor-upgrade-airfirepower1.description
 		BuildPaletteOrder: 10005
-		Prerequisites: ~!upgrade.busy, ~!upgrade.airfirepower1, ~!faction.noair, ~!techlevel.noupgrades, ~techlevel.medium
+		Prerequisites: ~!upgrade.airfirepower1, ~!faction.noair, ~!techlevel.noupgrades, ~techlevel.medium
 	ProvidesPrerequisite@upgradename:
 
 upgrade.airfirepower2:
@@ -1605,7 +1609,7 @@ upgrade.airfirepower2:
 	Buildable:
 		Description: actor-upgrade-airfirepower2.description
 		BuildPaletteOrder: 10005
-		Prerequisites: ~!upgrade.busy, ~upgrade.airfirepower1, ~!upgrade.airfirepower2
+		Prerequisites: ~upgrade.airfirepower1, ~!upgrade.airfirepower2
 	ProvidesPrerequisite@upgradename:
 
 upgrade.airfirepower3:
@@ -1615,7 +1619,7 @@ upgrade.airfirepower3:
 	Buildable:
 		Description: actor-upgrade-airfirepower3.description
 		BuildPaletteOrder: 10005
-		Prerequisites: ~!upgrade.busy, ~upgrade.airfirepower2, ~!upgrade.airfirepower3
+		Prerequisites: ~upgrade.airfirepower2, ~!upgrade.airfirepower3
 	ProvidesPrerequisite@upgradename:
 
 ###########################
@@ -1627,7 +1631,7 @@ upgrade.navarmor1:
 	Buildable:
 		Description: actor-upgrade-navarmor1.description
 		BuildPaletteOrder: 10005
-		Prerequisites: ~!upgrade.busy, ~!upgrade.navarmor1, ~!techlevel.noboats, ~!techlevel.noupgrades, ~!faction.noboats
+		Prerequisites: ~!upgrade.navarmor1, ~!techlevel.noboats, ~!techlevel.noupgrades, ~!faction.noboats
 	ProvidesPrerequisite@upgradename:
 
 upgrade.navarmor2:
@@ -1637,7 +1641,7 @@ upgrade.navarmor2:
 	Buildable:
 		Description: actor-upgrade-navarmor2.description
 		BuildPaletteOrder: 10005
-		Prerequisites: ~!upgrade.busy, ~upgrade.navarmor1, ~!upgrade.navarmor2
+		Prerequisites: ~upgrade.navarmor1, ~!upgrade.navarmor2
 	ProvidesPrerequisite@upgradename:
 
 upgrade.navarmor3:
@@ -1647,7 +1651,7 @@ upgrade.navarmor3:
 	Buildable:
 		Description: actor-upgrade-navarmor3.description
 		BuildPaletteOrder: 10005
-		Prerequisites: ~!upgrade.busy, ~upgrade.navarmor2, ~!upgrade.navarmor3
+		Prerequisites: ~upgrade.navarmor2, ~!upgrade.navarmor3
 	ProvidesPrerequisite@upgradename:
 
 upgrade.navfirepower1:
@@ -1657,7 +1661,7 @@ upgrade.navfirepower1:
 	Buildable:
 		Description: actor-upgrade-navfirepower1.description
 		BuildPaletteOrder: 10006
-		Prerequisites: ~!upgrade.busy, ~!upgrade.navfirepower1, ~!techlevel.noboats, ~!techlevel.noupgrades, ~!faction.noboats
+		Prerequisites: ~!upgrade.navfirepower1, ~!techlevel.noboats, ~!techlevel.noupgrades, ~!faction.noboats
 	ProvidesPrerequisite@upgradename:
 
 upgrade.navfirepower2:
@@ -1667,7 +1671,7 @@ upgrade.navfirepower2:
 	Buildable:
 		Description: actor-upgrade-navfirepower2.description
 		BuildPaletteOrder: 10006
-		Prerequisites: ~!upgrade.busy, ~upgrade.navfirepower1, ~!upgrade.navfirepower2
+		Prerequisites: ~upgrade.navfirepower1, ~!upgrade.navfirepower2
 	ProvidesPrerequisite@upgradename:
 
 upgrade.navfirepower3:
@@ -1677,5 +1681,5 @@ upgrade.navfirepower3:
 	Buildable:
 		Description: actor-upgrade-navfirepower3.description
 		BuildPaletteOrder: 10006
-		Prerequisites: ~!upgrade.busy, ~upgrade.navfirepower2, ~!upgrade.navfirepower3
+		Prerequisites: ~upgrade.navfirepower2, ~!upgrade.navfirepower3
 	ProvidesPrerequisite@upgradename:

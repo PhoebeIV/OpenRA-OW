@@ -167,7 +167,7 @@
 	Selectable:
 		Bounds: 3072, 3072
 	Building:
-		Footprint: +++ +++ +++ ===
+		Footprint: +++ +x+ +++ ===
 		Dimensions: 3,4
 		LocalCenterOffset: 0,-512,0
 	RenderSprites:
@@ -1082,6 +1082,8 @@ BADR.DEMO:
 	Explodes:
 		DeathTypes: TriggerProne
 	WithSpriteBody:
+	Interactable:
+		Bounds: 1024,1024
 	Tooltip:
 		Name: actor-gamb-name
 		ShowOwnerRow: False
@@ -1217,7 +1219,7 @@ GSNEAK:
 		Description: actor-gsneak.description
 		BuildLimit: 1
 	Health:
-		HP: 100000
+		HP: 150000
 	Armor:
 		Type: Wood
 	RevealsShroud:
@@ -1253,6 +1255,23 @@ GSNEAK:
 		Modifier: 1
 	SpawnActorOnDeath:
 		Actor: GSNEAK.Hole
+	ParatroopersPower@sneakattack:
+		PauseOnCondition: disabled
+		OrderName: SneakAttack
+		Cursor: chrono-target
+		Icon: sneak
+		ChargeInterval: 10500
+		Name: Sneak Attack
+		Description: Creates an exit for your Tunnel Network.
+		DropItems: 1tnk.gsneak2
+		UnitType: U2.Invis
+		SelectTargetSpeechNotification: SelectTarget
+		InsufficientPowerSpeechNotification: InsufficientPower
+		DisplayRadarPing: True
+		DisplayTimerRelationships: Ally, Neutral, Enemy
+		CameraActor: camera.paradrop
+		DisplayBeacon: false
+		UseDirectionalTarget: false
 
 GSNEAK.Teleport:
 	Inherits: ^Building
@@ -1262,23 +1281,6 @@ GSNEAK.Teleport:
 		Bounds: 3072, 3072
 	WithMakeAnimation:
 	-Explodes:
-	Production:
-		Produces: SneakAttack
-	ProductionBar:
-		ProductionType: SneakAttack
-		Color: FF00FF
-	ProductionQueue@sneakattack:
-		Type: SneakAttack
-		Group: SneakAttack
-		DisplayOrder: 13
-		LowPowerModifier: 100
-		ReadyAudio: ConstructionComplete
-		BlockedAudio: NoBuild
-		LimitedAudio: BuildingInProgress
-		QueuedAudio: Building
-		OnHoldAudio: OnHold
-		CancelledAudio: Cancelled
-		QueueLimit: 1
 	RenderSprites:
 		Image: gsneak
 	Tooltip:
@@ -1310,30 +1312,6 @@ GSNEAK.Teleport:
 		RequiresSelection: true
 		Image: pips
 		Sequence: tag-primary
-	GrantConditionWhileProducing:
-		Condition: producing_sneak
-	GrantPeriodicCondition:
-		RequiresCondition: producing_sneak
-		Condition: produced_sneak
-		CooldownDuration: 8999
-		ActiveDuration: 5000
-	SpawnActorPower@sneak:
-		RequiresCondition: !sneak_placed
-		PauseOnCondition: produced_sneak || !producing_sneak
-		OrderName: SneakHack
-		Cursor: chrono-target
-		Icon: sneak
-		ChargeInterval: 9000
-		LifeTime: 200
-		Name: Sneak Attack
-		Description: Click on your Tunnel Network to place the \n Sneak Attack when it's ready.
-		Actor: camera.spyplane
-		SelectTargetSpeechNotification: SelectTarget
-		DisplayRadarPing: True
-		DeploySound: tcssca00.aud
-		EffectSequence: idle
-		SupportPowerPaletteOrder: 2
-		DisplayTimerRelationships: Enemy, Ally, Neutral
 
 GSNEAK.Hole:
 	Inherits: ^GLAHole3x3
@@ -1401,10 +1379,114 @@ GSNEAK2.Teleport:
 	Health:
 		HP: 250000
 	-Sellable:
-	-Production:
-	-ProductionBar:
-	-ProductionQueue@sneakattack:
-	-GrantConditionWhileProducing:
-	-SpawnActorPower@sneak:
 	KillsSelf:
 		Delay: 1500
+	FreeActor@1:
+		RequiresCondition: botowner
+		Actor: GE1R1
+	FreeActor@2:
+		RequiresCondition: botowner
+		Actor: GE1R1
+		SpawnOffset: -1,-1
+	FreeActor@3:
+		RequiresCondition: botowner
+		Actor: GE1R1
+		SpawnOffset: 0,-1
+	FreeActor@4:
+		RequiresCondition: botowner
+		Actor: GE1R1
+		SpawnOffset: 1,-1
+	FreeActor@5:
+		RequiresCondition: botowner
+		Actor: GE1R1
+		SpawnOffset: -1,0
+	FreeActor@6:
+		RequiresCondition: botowner
+		Actor: GE1R1
+		SpawnOffset: 1,0
+	FreeActor@7:
+		RequiresCondition: botowner
+		Actor: GE1R1
+		SpawnOffset: -1,1
+	FreeActor@8:
+		RequiresCondition: botowner
+		Actor: GE1R1
+		SpawnOffset: 0,1
+	FreeActor@9:
+		RequiresCondition: botowner
+		Actor: GE1R1
+		SpawnOffset: 1,1
+	FreeActor@10:
+		RequiresCondition: botowner
+		Actor: GE2R1
+	FreeActor@11:
+		RequiresCondition: botowner
+		Actor: GE2R1
+	FreeActor@12:
+		Actor: 1TNK.RandomGLAUnit
+		AllowRespawn: true
+		RequiresCondition: produceunit
+	GrantPeriodicCondition@produceunit:
+		Condition: produceunit
+		ActiveDuration: 25
+		CooldownDuration: 60
+		RequiresCondition: botowner
+	ProximityExternalCondition:
+		Condition: wander
+		Range: 2c0
+	GrantConditionOnPrerequisite@botowner:
+		Condition: botowner
+		Prerequisites: ai.all
+
+1TNK.GSNEAK2:
+	Inherits: 1TNK.GAMB
+	Health:
+		HP: 150000
+	SpawnActorOnDeath:
+		Actor: gsneak2
+		OwnerType: Victim
+	AmbientSound:
+		Interval: 9000
+		SoundFiles: ssneakat.wav
+
+1TNK.RandomGLAUnit:
+	Inherits: 1TNK.MINE
+	-Explodes:
+	GrantRandomCondition:
+		Conditions: r1,r2,r1,r2,r1,r2,r3,r4,r5,r6,r7,r8,r9
+	SpawnActorOnDeath:
+		RequiresCondition: r1
+		Actor: ge1r1
+	SpawnActorOnDeath@1b:
+		RequiresCondition: r1
+		Actor: ge3
+	SpawnActorOnDeath@1c:
+		RequiresCondition: r1
+		Actor: ge1r1
+	SpawnActorOnDeath@2a:
+		RequiresCondition: r2
+		Actor: ge2r1
+	SpawnActorOnDeath@2b:
+		RequiresCondition: r2
+		Actor: ge2r1
+	SpawnActorOnDeath@3:
+		RequiresCondition: r3
+		Actor: c1.master
+	SpawnActorOnDeath@4:
+		RequiresCondition: r4
+		Actor: gbike
+	SpawnActorOnDeath@5:
+		RequiresCondition: r5
+		Actor: gftrk
+	SpawnActorOnDeath@6:
+		RequiresCondition: r6
+		Actor: 1tnk.g
+	SpawnActorOnDeath@7:
+		RequiresCondition: r7
+		Actor: bggyd.g
+	SpawnActorOnDeath@8:
+		RequiresCondition: r8
+		Actor: dtrk.g
+	SpawnActorOnDeath@9:
+		RequiresCondition: r9
+		Actor: bbus.bot

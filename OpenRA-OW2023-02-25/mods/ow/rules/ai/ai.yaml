@@ -281,7 +281,7 @@ Player:
 		ExcessPowerIncreaseThreshold: 4
 		StructureProductionInactiveDelay: 100
 		MaximumFailedPlacementAttempts: 5
-		BuildingQueues: Building, Tech, Upgrade, Bot, Wall, Building.ZergColony, Nuke, HeroUpgrade1, HeroUpgrade2, HeroUpgrade3, HeroUpgrade4, HeroUpgrade5, HeroAbility
+		BuildingQueues: Building, Tech, Upgrade, UpgradeBot, Bot, Wall, Building.ZergColony, Nuke, HeroUpgrade1, HeroUpgrade2, HeroUpgrade3, HeroUpgrade4, HeroUpgrade5, HeroAbility
 		ConstructionYardTypes: fact, factd, gfact, zhatchery, pnexus, tcommand, tcommand.landed, tcommand.ai, avfact
 		RefineryTypes: proc, procd, procd.bhand, gproc, passim, zextrac, usasupplycenter, trefinery, chinasupplycenter, barr.boss, japansupplycenter, avproc, japansupplycenternavy
 		PowerTypes: powr, apwr, dpwr, nuk2, xpwr, nuk3, zoverlord, usacoldfusion, tsupply, upgrade.coldreactor, chinanuclearreactor, chinaadvnuclearreactor, chinabreederreactor, ppylon, ppylon.bot, prefab.a, prefab.b, japanantimatterreactor, japanhyperantimatterreactor, avpowr1, avpowr2, avpowr3, japanantimatterreactornavy, japanhyperantimatterreactornavy
@@ -591,6 +591,7 @@ Player:
 			gstg: 50
 			gtwr: 100
 			gblk: 5
+			gsneak: 1
 			gun: 70
 			dgun: 100
 			dgun.nz: 100
@@ -884,6 +885,7 @@ Player:
 			kerrigan.tier2.fastupgrade2: 1
 			kerrigan.tier3.carapace: 1
 			kerrigan.tier4.torrasque: 1
+			kerrigan.tier5.frenzy: 1
 			zagara.tier1.fastupgrade1: 1
 			zagara.tier1.fastupgrade2: 1
 			zagara.tier2.firespeed: 1
@@ -891,9 +893,9 @@ Player:
 			zagara.tier3.fastupgrade2: 1
 			zagara.tier3.range: 1
 			zagara.tier4.support1: 1
-			zagara.tier4.support2: 1
-			zagara.tier5.hyperion1: 1
-			zagara.tier5.hyperion2: 1
+			zagara.tier4.regen: 1
+			zagara.tier5.fortress: 1
+			zagara.tier5.heartoftheswarm: 1
 			kerrigan.allpick: 1
 			raynor.allpick: 1
 			zagara.allpick: 1
@@ -2516,7 +2518,7 @@ Player:
 					CheckRadius: 5c0
 			rebelambush:
 				OrderName: RebelAmbush
-				MinimumAttractiveness: 1
+				MinimumAttractiveness: 1000
 				Consideration@1:
 					Against: Enemy
 					Types: Structure
@@ -2525,13 +2527,13 @@ Player:
 					CheckRadius: 5c0
 				Consideration@2:
 					Against: Enemy
-					Types: Water, Defense
+					Types: Water, Defense, Infantry, Vehicle
 					Attractiveness: -5
 					TargetMetric: None
 					CheckRadius: 5c0
 			terrambush:
 				OrderName: BombAmbush
-				MinimumAttractiveness: 1
+				MinimumAttractiveness: 1000
 				Consideration@1:
 					Against: Enemy
 					Types: Structure
@@ -2540,7 +2542,7 @@ Player:
 					CheckRadius: 5c0
 				Consideration@2:
 					Against: Enemy
-					Types: Water, Defense
+					Types: Water, Defense, Infantry, Vehicle
 					Attractiveness: -5
 					TargetMetric: None
 					CheckRadius: 5c0
@@ -2556,7 +2558,34 @@ Player:
 				Consideration@2:
 					Against: Enemy
 					Types: Infantry, Vehicle
-					Attractiveness: 2
+					Attractiveness: -2
+					TargetMetric: None
+					CheckRadius: 8c0
+				Consideration@3:
+					Against: Enemy
+					Types: Water
+					Attractiveness: -5
+					TargetMetric: None
+					CheckRadius: 8c0
+			SneakAttack:
+				OrderName: SneakAttack
+				MinimumAttractiveness: 5
+				Consideration@1:
+					Against: Enemy
+					Types: Structure
+					Attractiveness: 1
+					TargetMetric: Value
+					CheckRadius: 8c0
+				Consideration@2:
+					Against: Enemy
+					Types: Water, Defense, Infantry, Vehicle
+					Attractiveness: -2
+					TargetMetric: Value
+					CheckRadius: 5c0
+				Consideration@3:
+					Against: Enemy
+					Types: Water
+					Attractiveness: -5
 					TargetMetric: None
 					CheckRadius: 8c0
 			HolyLightPower:

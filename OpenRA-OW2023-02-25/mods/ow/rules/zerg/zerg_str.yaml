@@ -1877,9 +1877,18 @@ ZNYDUS.Entry:
 	FreeActor@Teleport:
 		Actor: nydus.teleport
 		SpawnOffset: 1,1
+	FreeActor@Teleport2:
+		Actor: nydus.wall
+		SpawnOffset: 1,2
+		RequiresCondition: nydus_wall
+		AllowRespawn: true
 	ProximityExternalCondition@nydusalive:
 		Condition: nydus_alive
-		Range: 1c0
+		Range: 2c0
+	GrantPeriodicCondition:
+		Condition: nydus_wall
+		CooldownDuration: 12
+		ActiveDuration: 13
 	KillsSelf@nydusalive:
 		RequiresCondition: !nydus_alive
 		Delay: 1
@@ -1903,7 +1912,7 @@ NYDUS.Teleport:
 	Tooltip:
 		Name: actor-nydus-teleport-name
 	Valued:
-		Cost: 1000
+		Cost: 0
 	Health:
 		HP: 80000
 	KillsSelf@nydusalive:
@@ -1914,7 +1923,7 @@ NYDUS.Teleport:
 		Condition: nydus_alive
 	ProximityExternalCondition@nydusalive:
 		Condition: nydus_alive
-		Range: 1c0
+		Range: 2c0
 	WithIdleOverlay@damage:
 		RequiresCondition: damaged
 		Sequence: blood1
@@ -1945,3 +1954,12 @@ NYDUS.Teleport:
 		Actor: SmallZergBuildingComplete
 		SpawnOffset: 0,0
 		RequiresCondition: !build-incomplete
+
+NYDUS.Wall:
+	Inherits: MINE_DUMMY
+	-Immobile:
+	Building:
+		Footprint: x
+	KillsSelf@nydusalive:
+		Delay: 13
+		RemoveInstead: true

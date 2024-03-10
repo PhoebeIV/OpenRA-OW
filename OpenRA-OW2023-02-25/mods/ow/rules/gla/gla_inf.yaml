@@ -41,10 +41,6 @@ GE1R1:
 		Weapon: M1Carbine_G2
 	AutoTarget:
 		InitialStance: HoldFire
-	ExternalCondition:
-		Condition: wander
-	Wanders:
-		RequiresCondition: wander
 	Cloak:
 		IsPlayerPalette: true
 		InitialDelay: 0
@@ -126,8 +122,7 @@ GE2R1:
 	Inherits: GE2
 	-Buildable:
 	-TakeCover:
-	ExternalCondition:
-		Condition: wander
+	-Wanders@default:
 	AttackWander:
 		RequiresCondition: wander
 	WithInfantryBody:
@@ -411,6 +406,287 @@ TSE5.G:
 C1.Master:
 	Inherits: C1
 	UpdatesPlayerStatistics:
+	Tooltip:
+		Name: actor-c1-master.name
+	Health:
+		HP: 6500
+	Buildable:
+		Queue: Infantry
+		BuildAtProductionType: Soldier
+		BuildPaletteOrder: 240
+		Prerequisites: techcenter, ~infantry.gla
+		Icon: icon-mob
+		Description: actor-c1-master.description
+	Selectable:
+		Class: C1.Master
+	ProductionCostMultiplier:
+		Multiplier: 1800
+	Valued:
+		Cost: 50
+	Armament:
+		Weapon: MobPistol
+	RenderSprites:
+		Image: c1
+	Voiced:
+		VoiceSet: AngryMobMaleVoice
+	AmbientSound@1:
+		RequiresCondition: mob_near > 5
+		SoundFiles: ianglo2a.aud,ianglo2b.aud,ianglo2c.aud,ianglo2d.aud
+		Delay: 25
+		Interval: 47,50
+	ScaredyCat:
+		PanicChance: 35
+		PanicDuration: 75
+		PanicSpeedModifier: 125
+		AttackPanicChance: 10
+	Armament:
+		Weapon: MobPistol
+		RequiresCondition: none || has_grenade
+	Armament@2:
+		Weapon: MobGrenade
+		LocalOffset: 0,0,555
+		FireDelay: 15
+		RequiresCondition: has_grenade
+	GrantRandomCondition@weapon:
+		Conditions: none,none,has_grenade
+	GrantRandomCondition@randombuff:
+		Conditions: buff1,buff2,buff3,buff4,buff5
+	ReloadDelayMultiplier@buff1:
+		RequiresCondition: buff1
+		Modifier: 95
+	ReloadDelayMultiplier@buff2:
+		RequiresCondition: buff2
+		Modifier: 90
+	ReloadDelayMultiplier@buff3:
+		RequiresCondition: buff3
+		Modifier: 105
+	ReloadDelayMultiplier@buff4:
+		RequiresCondition: buff4
+		Modifier: 110
+	ReloadDelayMultiplier@buff5:
+		RequiresCondition: buff5
+		Modifier: 115
+	SpeedMultiplier@buff1:
+		RequiresCondition: buff1
+		Modifier: 95
+	SpeedMultiplier@buff2:
+		RequiresCondition: buff2
+		Modifier: 97
+	SpeedMultiplier@buff3:
+		RequiresCondition: buff3
+		Modifier: 100
+	SpeedMultiplier@buff4:
+		RequiresCondition: buff4
+		Modifier: 103
+	SpeedMultiplier@buff5:
+		RequiresCondition: buff5
+		Modifier: 106
+	RangeMultiplier@buff1:
+		RequiresCondition: buff1 || buff2
+		Modifier: 85
+	RangeMultiplier@buff3:
+		RequiresCondition: buff3 || buff4
+		Modifier: 100
+	RangeMultiplier@buff5:
+		RequiresCondition: buff5
+		Modifier: 115
+	SpeedMultiplier@hurt:
+		RequiresCondition: hurt
+		Modifier: 90
+	SpeedMultiplier@hurt2:
+		RequiresCondition: hurt > 1
+		Modifier: 80
+	GrantConditionOnDamageState@hurt:
+		Condition: hurt
+		ValidDamageStates: Heavy
+	GrantConditionOnDamageState@hurt2:
+		Condition: hurt
+		ValidDamageStates: Heavy, Critical
+	ProximityExternalCondition@mob_near:
+		Condition: mob_near
+		AffectsParent: false
+		Range: 8c0
+	ExternalCondition@mob_near:
+		Condition: mob_near
+	KillsSelf@mob_near:
+		Delay: 50, 125
+		RequiresCondition: !mob_near
+		DamageTypes: DefaultDeath
+	FreeActor@spawnmob:
+		Actor: 1tnk.mob
+	FreeActor@spawnmobreinforce:
+		Actor: 1tnk.mobreinforce
+		AllowRespawn: true
+		RequiresCondition: reinforce
+	GrantPeriodicCondition@reinforce:
+		Condition: reinforce
+		CooldownDuration: 250,300
+		ActiveDuration: 5
+		RequiresCondition: (mob_near < 20) && !no_spawn
+	GrantConditionOnDamage: 
+		Condition: no_spawn
+	-Wanders:
+	AttackWander@wander:
+		RequiresCondition: wander
+
+1TNK.Mob:
+	Inherits: 1TNK.MINE
+	-Explodes:
+	-SpawnActorOnDeath:
+	FreeActor@1:
+		Actor: c2.mob
+	FreeActor@2:
+		Actor: c3.mob
+	FreeActor@3:
+		Actor: c4.mob
+	FreeActor@4:
+		Actor: c5.mob
+	FreeActor@5:
+		Actor: c6.mob
+	FreeActor@6:
+		Actor: c7.mob
+	FreeActor@7:
+		Actor: c8.mob
+	FreeActor@8:
+		Actor: c9.mob
+	FreeActor@9:
+		Actor: c10.mob
+	FreeActor@10:
+		Actor: c1.mob
+	KillsSelf:
+		Delay: 25
+	ProximityExternalCondition@wander:
+		Range: 2c0
+		Condition: wander
+
+1TNK.MobReinforce:
+	Inherits: 1TNK.Mob
+	ExternalCondition@mob_near:
+		Condition: mob_near
+	AmbientSound@2:
+		RequiresCondition: mob_near > 5
+		SoundFiles: iangsela.aud,iangselb.aud,iangselc.aud,iangseld.aud
+		Interval: 9000
+	GrantRandomCondition:
+		Conditions: r1,r2,r3,r4,r5,r6,r7,r8,r9,r10
+	FreeActor@1:
+		RequiresCondition: r1
+	FreeActor@2:
+		RequiresCondition: r2
+	FreeActor@3:
+		RequiresCondition: r3
+	FreeActor@4:
+		RequiresCondition: r4
+	FreeActor@5:
+		RequiresCondition: r5
+	FreeActor@6:
+		RequiresCondition: r6
+	FreeActor@7:
+		RequiresCondition: r7
+	FreeActor@8:
+		RequiresCondition: r8
+	FreeActor@9:
+		RequiresCondition: r9
+	FreeActor@10:
+		RequiresCondition: r10
+
+C1.MasterBot:
+	Inherits: C1.Master
+	Buildable:
+		BuildPaletteOrder: 9000
+		Prerequisites: techcenter, ~infantry.gla, ~ai.all, ~!c1.masterbot
+		BuiltLimit: 1
+	-Cloneable:
+	ProvidesPrerequisite@self:
+	GrantPeriodicCondition@reinforce:
+		RequiresCondition: (mob_near < 10) && !no_spawn
+
+C1.Mob:
+	Inherits: C1.Master
+	-Buildable:
+	-FreeActor@spawnmob:
+	-FreeActor@spawnmobreinforce:
+	-AmbientSound@1:
+
+C2.Mob:
+	Inherits: C1.Mob
+	WithInfantryBody:
+		Palette: civilian2
+	WithDeathAnimation:
+		DeathSequencePalette: civilian2
+		DeathPaletteIsPlayerPalette: false
+
+C3.Mob:
+	Inherits: C1.Mob
+	Voiced:
+		VoiceSet: AngryMobFemaleVoice
+	RenderSprites:
+		Image: C2
+
+C4.Mob:
+	Inherits: C3.Mob
+	WithInfantryBody:
+		Palette: civilian4
+	WithDeathAnimation:
+		DeathSequencePalette: civilian4
+		DeathPaletteIsPlayerPalette: false
+
+C5.Mob:
+	Inherits: C3.Mob
+	WithInfantryBody:
+		Palette: civilian5
+	WithDeathAnimation:
+		DeathSequencePalette: civilian5
+		DeathPaletteIsPlayerPalette: false
+
+C6.Mob:
+	Inherits: C1.Mob
+	WithInfantryBody:
+		Palette: civilian6
+	WithDeathAnimation:
+		DeathSequencePalette: civilian6
+		DeathPaletteIsPlayerPalette: false
+
+C7.Mob:
+	Inherits: C1.Mob
+	WithInfantryBody:
+		Palette: civilian7
+	WithDeathAnimation:
+		DeathSequencePalette: civilian7
+		DeathPaletteIsPlayerPalette: false
+
+C8.Mob:
+	Inherits: C1.Mob
+	WithInfantryBody:
+		Palette: civilian8
+	WithDeathAnimation:
+		DeathSequencePalette: civilian8
+		DeathPaletteIsPlayerPalette: false
+
+C9.Mob:
+	Inherits: C1.Mob
+	WithInfantryBody:
+		Palette: civilian9
+	WithDeathAnimation:
+		DeathSequencePalette: civilian9
+		DeathPaletteIsPlayerPalette: false
+
+C10.Mob:
+	Inherits: C1.Mob
+	Tooltip:
+		Name: actor-c10-g-name
+	Voiced:
+		VoiceSet: ScientistVoice
+	WithInfantryBody:
+		Palette: civilian10
+	WithDeathAnimation:
+		DeathSequencePalette: civilian10
+		DeathPaletteIsPlayerPalette: false
+
+
+C1.Master.N:
+	Inherits: C1
+	UpdatesPlayerStatistics:
 	-ScaredyCat:
 	Tooltip:
 		Name: actor-c1-master.name
@@ -426,8 +702,8 @@ C1.Master:
 	Buildable:
 		Queue: Infantry
 		BuildAtProductionType: Soldier
-		BuildPaletteOrder: 240
-		Prerequisites: techcenter, ~infantry.gla
+		BuildPaletteOrder: 24000
+		Prerequisites: ~disabled
 		Icon: icon-mob
 		Description: actor-c1-master.description
 	Valued:
@@ -475,12 +751,6 @@ C1.Master:
 		RequiresCondition: slave_near > 5
 		SoundFiles: iangsela.aud,iangselb.aud,iangselc.aud,iangseld.aud
 		Interval: 250, 600
-
-C1.MasterBot:
-	Inherits: C1.Master
-	Buildable:
-		Prerequisites: techcenter, ~infantry.gla, ~ai.all
-		BuildLimit: 3
 
 C1.G:
 	Inherits@1: ^CivInfantry
