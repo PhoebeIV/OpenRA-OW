@@ -40,8 +40,11 @@
 	GrantConditionOnTerrain@pavement:
 		TerrainTypes: Road
 		Condition: no_bib
+	GrantConditionOnTerrain@snow:
+		TerrainTypes: ClearSnow
+		Condition: tile_snow
 	WithIdleOverlay@bibtemp:
-		RequiresCondition: tile_temp && !no_bib
+		RequiresCondition: tile_temp && !no_bib && !tile_snow
 		Sequence: temp
 		Image: bib3compiled
 		Palette: terrain
@@ -1063,7 +1066,7 @@
 	CaptureNotification:
 		LoseNotification: StructureLost
 	Building:
-		TerrainTypes: Clear,Road,Creep
+		TerrainTypes: Clear,ClearSnow,Road,Creep,ClearSnow
 		AllowPlacementOnResources: true
 	ProximityExternalCondition@addons:
 		Condition: kill_addon
@@ -1672,7 +1675,7 @@
 		Name: meta-helicopter-generic-name
 		GenericName: meta-helicopter-generic-name
 	Aircraft:
-		LandableTerrainTypes: Clear, Rough, Road, Ore, Beach, Gems, Creep, Tiberium, BlueTiberium
+		LandableTerrainTypes: Clear, ClearSnow, Rough, Road, Ore, Beach, Gems, Creep, Tiberium, BlueTiberium
 	Repairable:
 		RepairActors: fix, gfix, gfix.boss, tshop
 
@@ -1769,7 +1772,7 @@
 		CanHover: True
 		CanSlide: True
 		CruisingCondition: cruising
-		LandableTerrainTypes: Clear, Road
+		LandableTerrainTypes: Clear, ClearSnow, Road, Creep
 		Crushes: crate, mine, infantry
 		VTOL: true
 	Targetable@GROUND:
@@ -2164,7 +2167,7 @@
 		Footprint: =
 		Dimensions: 1,1
 		BuildSounds: placbldg.aud
-		TerrainTypes: Clear,Road
+		TerrainTypes: Clear,ClearSnow,Road
 		UndeploySounds: cashturn.aud
 		#RequiresCondition: !deployed
 		#RequiresBaseProvider: False
@@ -2229,7 +2232,7 @@
 	#GrantConditionOnDeploy:
 	#	DeployedCondition: deployed
 	#	UndeployedCondition: undeployed
-	#	AllowedTerrainTypes: Clear, Road, Rough
+	#	AllowedTerrainTypes: Clear, ClearSnow, Road, Rough
 	#	DeploySounds: placbldg.aud
 	#	UndeploySounds: ramenu1.aud
 	#WithIdleOverlay:
@@ -2242,7 +2245,7 @@
 	RenderSprites:
 		Palette: noplayer
 	Building:
-		TerrainTypes: Clear,Road,Creep
+		TerrainTypes: Clear,ClearSnow,Road,Creep
 		AllowPlacementOnResources: true
 	Targetable:
 		TargetTypes: GroundActor, DetonateAttack, Wall
@@ -2282,7 +2285,7 @@
 		StartIfBelow: 101
 		Delay: 8
 	Husk:
-		AllowedTerrain: Clear, Rough, Road, Ore, Gems, Beach, Tiberium, BlueTiberium, Creep, Radiation
+		AllowedTerrain: Clear, ClearSnow, Rough, Road, Ore, Gems, Beach, Tiberium, BlueTiberium, Creep, Radiation
 	WithColoredOverlay@IDISABLE:
 		Color: 00000080
 
@@ -2659,7 +2662,7 @@
 ^Crate:
 	Crate:
 		Duration: 6000
-		TerrainTypes: Clear, Rough, Road, Ore, Beach, Water, Gems, Tiberium, BlueTiberium
+		TerrainTypes: Clear, ClearSnow, Creep, Rough, Road, Ore, Beach, Water, Gems, Tiberium, BlueTiberium
 
 # Inherited and changed from mods/ra to unitise effects of officers and other passengers that buff the container.
 ^CargoPips:
@@ -2771,7 +2774,7 @@
 	Health:
 		HP: 100000
 	Building:
-		TerrainTypes: Clear,Road
+		TerrainTypes: Clear,ClearSnow,Road
 		BuildSounds: hvydoor1.aud
 	Buildable:
 		Queue: Wall

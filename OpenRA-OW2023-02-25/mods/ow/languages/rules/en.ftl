@@ -2691,7 +2691,7 @@ actor-player =
    .lobbyprerequisitecheckbox-concrete-label = Concrete
    .lobbyprerequisitecheckbox-concrete-description = Construction Yards will be placed on concrete.
    .lobbyprerequisitecheckbox-herotest-label = Heroes
-   .lobbyprerequisitecheckbox-herotest-description = Enables all factions to train the Jim Raynor hero.
+   .lobbyprerequisitecheckbox-herotest-description = Enables all factions to train Heroes.
    .lobbyprerequisitecheckbox-badcrates-label = Bad Crates
    .lobbyprerequisitecheckbox-badcrates-description = Enable the bad crates.
 

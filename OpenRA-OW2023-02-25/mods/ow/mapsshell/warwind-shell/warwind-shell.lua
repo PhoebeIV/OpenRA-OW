@@ -10,8 +10,21 @@ Tick = function()
 
 end
 
+InitPlayers = function()
+	GDI = Player.GetPlayer("GDI")
+	Nod = Player.GetPlayer("Nod")
+
+	GDI.GrantCondition("enable-medium-ai",0)
+	GDI.GrantCondition("enable-all-ai",0)
+	Nod.GrantCondition("enable-medium-ai",0)
+	Nod.GrantCondition("enable-all-ai",0)
+
+	Nod.Cash = 10000
+	GDI.Cash = 10000
+end
 
 WorldLoaded = function()
 	viewportOrigin = Camera.Position
 
+	InitPlayers()
 end

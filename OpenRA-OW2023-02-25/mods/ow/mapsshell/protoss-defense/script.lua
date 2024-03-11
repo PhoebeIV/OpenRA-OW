@@ -184,7 +184,7 @@ ChronoshiftAlliedUnits = function()
 end
 
 ticks = 0
-speed = 3
+speed = 5
 
 Tick = function()
 	ticks = ticks + 1

@@ -31,12 +31,15 @@ AVFACT:
 		Palette: cloak
 
 ^AvaliPowerPlant:
+	GrantConditionOnTerrain@snow:
+		TerrainTypes: ClearSnow
+		Condition: env_buffsnow
 	GrantConditionOnTileSet@warm:
 		TileSets: TEMPERAT, INTERIOR, DESERT
 		Condition: env_buff
 	PowerMultiplier@warm:
 		Modifier: 110
-		RequiresCondition: env_buff
+		RequiresCondition: env_buff && !env_buffsnow
 
 AVPOWR1:
 	Inherits: ^PowerPlant
