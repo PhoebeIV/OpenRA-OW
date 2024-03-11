@@ -420,11 +420,11 @@ japanibukiboat:
 		Queue: Ship
 		BuildPaletteOrder: 20
 		Prerequisites: ~ships.japan, techcenter, ~!faction.economicgeneral, ~!faction.mechageneral, ~faction.navygeneral
-		Description: actor-japanibukiboat.description
+		Description: actor-japanibuki.description
 	Valued:
 		Cost: 1500
 	Tooltip:
-		Name: actor-japanibukiboat.name
+		Name: actor-japanibuki.name
 	UpdatesPlayerStatistics:
 		AddToArmyValue: true
 	Health:
@@ -475,6 +475,9 @@ japanibukiboat:
 		DecorationBounds: 1536, 1536
 	Voiced:
 		VoiceSet: ShishironVoice
+	GrantConditionOnPrerequisite@superheatedplasma:
+		Condition: superheatedplasma
+		Prerequisites: upgrade.superheatedplasma
 
 japansanshikidan:
 	Inherits: ^Ship
@@ -517,6 +520,8 @@ japansanshikidan:
 		RecoilRecovery: 34
 		MuzzleSequence: muzzle
 		PauseOnCondition: disabled
+	Armament@water:
+		Weapon: TorpTube
 	AttackTurreted:
 		Turrets: primary
 		TargetFrozenActors: True
@@ -717,3 +722,69 @@ japansurveyorboat:
 		MaxMoveDelay: 250
 		MinMoveDelay: 125
 		WanderMoveRadius: 6
+
+japankaga:
+	Inherits: ^Ship
+	Inherits@NoExp: ^NoExp
+	Inherits@EPIC: ^EpicUnit
+	Buildable:
+		Queue: Ship
+		BuildPaletteOrder: 60
+		Prerequisites: ~ships.japan, ulttechcenter, ~!faction.economicgeneral, ~!faction.mechageneral, ~faction.navygeneral
+		Description: actor-japankaga.description
+	Valued:
+		Cost: 15000
+	Tooltip:
+		Name: actor-japankaga.name
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 220000
+	Armor:
+		Type: Heavy
+	RevealsShroud:
+		MinRange: 5c0
+		Range: 8c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 8c0
+	Mobile:
+		TurnSpeed: 16
+		Speed: 31
+	Selectable:
+		DecorationBounds: 3600, 1877
+	DetectCloaked:
+		Range: 6c0
+	DetectCloaked@2:
+		DetectionTypes: Underwater
+		Range: 6c0
+	ProductionQueue@3:
+		Type: Aircraft
+		DisplayOrder: 2
+		Group: Aircraft
+		LowPowerModifier: 200
+		ReadyAudio: UnitReady
+		BlockedAudio: NoBuild
+		LimitedAudio: BuildingInProgress
+		QueuedAudio: Building
+		OnHoldAudio: OnHold
+		CancelledAudio: Cancelled
+	ProductionBar@2:
+		ProductionType: Aircraft
+	Production:
+		Produces: Aircraft, Plane, Helicopter
+	Exit:
+		ProductionTypes: Aircraft, Plane, Helicopter
+	ProximityExternalCondition@reloadthing:
+		Condition: reloadnear
+		Range: 7c0
+	Voiced:
+		VoiceSet: SkyEmpressVoice
+	Explodes:
+		Weapon: SkyEmpressCannon
+		EmptyWeapon: SkyEmpressCannon
+	Cargo:
+		Types: Infantry, Vehicle
+		MaxWeight: 50
+		PassengerFacing: 0
+		LoadingCondition: notmobile

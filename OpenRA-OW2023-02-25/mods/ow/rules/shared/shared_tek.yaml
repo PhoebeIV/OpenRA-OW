@@ -1306,3 +1306,51 @@ T.MISSINF:
 		ProductionType: Infantry
 	Production:
 		Produces: Infantry, Soldier
+
+T.MISSNAVY:
+	Inherits: T.MISS
+	Buildable:
+		Queue: Tech
+		BuildPaletteOrder: 9090
+		BuildDuration: 4500
+		Prerequisites: advtechcenter, ~techlevel.unrestricted, ~structures.navyultprereq, ~!techlevel.noepic
+		BuildLimit: 1
+		Description: actor-t-missnavy-description
+	ProductionQueue@2:
+		Type: Ship
+		DisplayOrder: 2
+		Group: Ship
+		LowPowerModifier: 200
+		ReadyAudio: UnitReady
+		BlockedAudio: NoBuild
+		LimitedAudio: BuildingInProgress
+		QueuedAudio: Building
+		OnHoldAudio: OnHold
+		CancelledAudio: Cancelled
+	ProductionBar@2:
+		ProductionType: Ship
+	Production:
+		Produces: Ship
+	Building:
+		Footprint: xxx xxx ===
+		Dimensions: 3,3
+		LocalCenterOffset: 0,-512,0
+		TerrainTypes: Clear, Road, Water
+	GrantConditionOnTerrain:
+		TerrainTypes: Water
+		Condition: water
+	GrantConditionOnTerrain@pavement:
+		TerrainTypes: Road, Water
+		Condition: no_bib
+	SpawnActorsOnSell:
+		RequiresCondition: !water
+	WithIdleOverlay@waterbib:
+		RequiresCondition: water && !build-incomplete
+		Sequence: ulttechcenternavybib
+		Image: japannavybibs
+	ClonesProducedUnits:
+		CloneableTypes: Ship
+		ProductionType: Ship
+	ProximityExternalCondition@reloadthing:
+		Condition: reloadnear
+		Range: 7c0

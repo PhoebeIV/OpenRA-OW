@@ -1864,6 +1864,38 @@ actor-japanhovercraft =
       Unarmed
    .name = Genbu Hovercraft
 
+actor-japannamiryoku =
+   .description = Waveforce battleship. Slow but powerful ship.
+   .name = Namiryoku
+
+actor-japanibuki =
+   .description = Long range plasma barrage ship.
+   .name = Ibuki
+
+actor-japansanshikidan =
+   .description = Anti-air cruiser.
+   .name = Sanshikidan
+
+actor-japankatsuragi =
+   .description = Medium battleship armed with a plasma cannon.
+   .name = Katsuragi
+
+actor-japankongo =
+   .description = Light support ship. Can increase fire rate and range of friendly ships.
+   .name = Kongo
+
+actor-japansurveyorboat =
+   .description = Deploys an outpost for further 
+    base expansion.
+    Also behaves as normal engineer.
+   .name = Surveyor Boat
+
+actor-japankaga =
+   .description = Japan's finest Aircraft Carrier.
+   Can produce and rearm aircraft.
+   Also has a large cargo to transport multiple units.
+   .name = Kaga
+
 ## japan_str.yaml
 actor-japanantimatterreactor =
    .description = Provides power for other structures.
@@ -1899,7 +1931,7 @@ actor-japanairfield =
    .description = Produces and reloads aircraft.
    .name = Japan Airfield
 
-actor-japanairfield =
+actor-japanairfieldnavy =
    .description = Produces and reloads aircraft. Can be built on water.
    .name = Japan Airfield (Navy Edition)
 
@@ -2008,6 +2040,11 @@ actor-japanhyperantimatterreactornavy =
    .description = Advanced Powerplant. Can be built on water.
     Can be deployed to sacrifice itself to provide unlimited power for 30 seconds.
    .name = Hyper Antimatter Reactor (Navy Edition)
+
+actor-japanaikokusha =
+   .description = Anti-air rocket defence. Can only be placed on water.
+   Can be upgraded with Cyro-Stream rockets.
+   .name = Aikokusha
 
 ## japan_upg.yaml
 actor-upgrade-upgradedualtankbarrels =
@@ -3171,6 +3208,7 @@ actor-hpad-description = Produces and reloads
     Can be placed in water.
 actor-gtwr-name = Guard Tower
 actor-outpost-name = Outpost
+actor-outpostnavy-name = Buoy
 
 actor-advtech =
    .description = Provides extra advanced technologies and

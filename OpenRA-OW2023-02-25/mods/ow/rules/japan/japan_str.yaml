@@ -412,7 +412,7 @@ japanairfield:
 	Reservable:
 	RallyPoint:
 		ForceSetType: Plane, Aircraft
-	ProximityExternalCondition:
+	ProximityExternalCondition@reloadthing:
 		Condition: reloadnear
 		Range: 7c0
 	FreeActor@1:
@@ -570,6 +570,8 @@ japanshipyardnavy:
 		Cost: 750
 	RenderSprites:
 		Image: japanshipyard
+	BaseProvider:
+		Range: 4c0
 
 japanmainframe:
 	Inherits: ^ScienceBuilding
@@ -835,6 +837,7 @@ japanpsychicdatacenter:
 		Description: Creates a Warp Portal that can transport vehicles. You need to deploy the Blue Space Warp to complete the tunnel.
 		Prerequisites: ~structures.japan
 		LaunchSound: WarpRiftCreate.aud
+		LifeTime: 1500
 	SpawnActorPower@Spacewarpblue:
 		OrderName: SpaceWarpBlue
 		Actor: JapanWarpPortalBlue
@@ -845,6 +848,7 @@ japanpsychicdatacenter:
 		Prerequisites: ~structures.japan
 		LaunchSound: WarpRiftCreate.aud
 		EndChargeSound: WarpRiftRecharged.aud
+		LifeTime: 1500
 	AirstrikePower@droneswarm:
 		OrderName: droneswarm
 		Prerequisites: ~structures.japan, ~faction.mechageneral
@@ -932,9 +936,6 @@ JapanWarpPortalRed:
 		RequiresSelection: true
 		Image: pips
 		Sequence: tag-primary
-	KillsSelf:
-		Delay: 2250
-		RemoveInstead: true
 	AmbientSound:
 		SoundFiles: WarpRiftLoop01.aud, WarpRiftLoop02.aud, WarpRiftLoop03.aud
 		Delay: 20
