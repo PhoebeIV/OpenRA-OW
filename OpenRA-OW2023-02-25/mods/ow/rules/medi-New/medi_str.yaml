@@ -91,6 +91,9 @@ laborcamp:
 		SpawnOffset: 0,0,0
 		ExitCell: 1,1
 		ProductionTypes: Dog, Infantry
+	-FreeActor:
+	-FreeActor@1:
+	-FreeActor@2:
 	Production:
 		Produces: Infantry, Dog
 	PrimaryBuilding:
@@ -107,7 +110,7 @@ laborcamp:
 	Armor:
 		Type: Wood
 	Valued:
-		Cost: 600
+		Cost: 1600
 	Power:
 		Amount: 0
 	Targetable:
@@ -234,6 +237,17 @@ farmmedi:
 	Health:
 		HP: 15000
 	ProvidesPrerequisite@buildingname:
+	FreeActor:
+		Actor: GHARV
+		SpawnOffset: 1,2
+	FreeActor@1:
+		Actor: GHARV
+		SpawnOffset: 1,2
+		RequiresCondition: !build-incomplete
+	FreeActor@2:
+		Actor: GHARV
+		SpawnOffset: 2,2
+		RequiresCondition: !build-incomplete
 	RenderSprites:
 		Image: farmmedi
 	WithResourceStoragePipsDecoration:
@@ -1123,7 +1137,7 @@ Archertower:
 		DecorationBounds: 1024, 1024, 0, 0
 	SelectionDecorations:
 	Health:
-		HP: 40000
+		HP:55000
 	Pluggable@1:
 		Offset: 0,0
 		Conditions:
@@ -1174,7 +1188,12 @@ Archertower:
 		Offset: 128,128,384
 		HasMinibib: true
 	Turreted@T3:
-		Turret:	T2
+		Turret:	T3
+		TurnSpeed: 1023
+		Offset: 128,128,384
+		HasMinibib: true
+	Turreted@T3:
+		Turret:	T3
 		TurnSpeed: 1023
 		Offset: 128,128,384
 		HasMinibib: true
@@ -1212,7 +1231,7 @@ Archertower:
 		Name: plug3
 		Turret: T4
 		Weapon: WizBall
-		RequiresCondition: has_3 && !elementalists
+		RequiresCondition: has_3
 	Armament@plug31:
 		Name: plug31
 		Turret: T4
@@ -1224,8 +1243,8 @@ Archertower:
 		Weapon: MusketeerShot
 		RequiresCondition: has_4
 	AttackTurreted:
-		Turrets: T1,T2,T3,T4,T5,T6,T7,T8
-		Armaments: base, plug1, plug2, plug3, plug4
+		Turrets: T1,T2,T3,T31,T4,T5
+		Armaments: base, plug1, plug2, plug3, plug31, plug4
 		RequiresCondition: !build-incomplete
 	-BodyOrientation:
 	ClassicFacingBodyOrientation:
@@ -1344,7 +1363,7 @@ MediGarrisonTower:
 	ClassicFacingBodyOrientation:
 		QuantizedFacings: 8
 	Cargo:
-		Types: Infantry
+		Types: Infantry, arcanewizard, firewizard, lightningwizard
 		MaxWeight: 4
 	-SpawnActorsOnSell:
 	AttackGarrisoned:
@@ -1443,92 +1462,85 @@ ArcaneTower:
 		Range: 8c0
 	WithBuildingBib:
 		HasMinibib: true
-	Turreted@gl1:
-		Turret: gl1
+	Turreted@arc1:
+		Turret: arc1
 		TurnSpeed: 1023
 		Offset: 128,128,384
-	Turreted@gl2:
-		Turret: gl2
+	Turreted@arc2:
+		Turret: arc2
 		TurnSpeed: 1023
 		Offset: 128,128,384
-	Turreted@gl3:
-		Turret: gl3
+	Turreted@arc3:
+		Turret: arc3
 		TurnSpeed: 1023
 		Offset: 128,128,384
-	Turreted@gl4:
-		Turret: gl4
+	Turreted@arc4:
+		Turret: arc4
 		TurnSpeed: 1023
 		Offset: 128,128,384
-	Turreted@gl5:
-		Turret: gl5
+	Turreted@arc5:
+		Turret: arc5
 		TurnSpeed: 1023
 		Offset: 128,128,384
-	Turreted@gl6:
-		Turret: gl6
+	Turreted@arc6:
+		Turret: arc6
 		TurnSpeed: 1023
 		Offset: 128,128,384
-	Turreted@al1:
-		Turret: al1
-		TurnSpeed: 1023
-		Offset: 128,128,384
-	Turreted@al2:
-		Turret: al2
-		TurnSpeed: 1023
-		Offset: 128,128,384
-	Turreted@al3:
-		Turret: al3
-		TurnSpeed: 1023
-		Offset: 128,128,384
-	Armament@gl1:
-		Name: gl1
+	Armament@arc1:
+		Name: arc1
 		Weapon: ArcaneZap
 		LocalOffset: 256,128,0, 256,-128,0
 		LocalYaw: -100,100
-	Armament@gl2:
-		Name: gl2
+		Turret: arc1
+	Armament@arc2:
+		Name: arc2
 		Weapon: ArcaneZap
 		LocalOffset: 256,128,0, 256,-128,0
 		LocalYaw: -100,100
-	Armament@gl3:
-		Name: gl3
-		Weapon: ArcaneZap
-		LocalOffset: 256,128,0, 256,-128,0
-		LocalYaw: -100,100
-	Armament@gl4:
-		Name: gl4
-		Weapon: ArcaneZap
-		LocalOffset: 256,128,0, 256,-128,0
-		LocalYaw: -100,100
-	Armament@gl5:
-		Name: gl5
-		Weapon: ArcaneZap
-		LocalOffset: 256,128,0, 256,-128,0
-		LocalYaw: -100,100
-	Armament@gl6:
-		Name: gl6
-		Weapon: ArcaneZap
-		LocalOffset: 256,128,0, 256,-128,0
-		LocalYaw: -100,100
-	Armament@al1:
-		Name: al1
+		Turret: arc2
+	Armament@arc3:
+		Name: arc3
 		Weapon: ArcaneZap2
 		LocalOffset: 256,128,0, 256,-128,0
 		LocalYaw: -100,100
-	Armament@al2:
-		Name: al2
-		Weapon: ArcaneZap2
+		Turret: arc
+	Armament@arc4:
+		Name: arc4
+		Weapon: WizBallBuilding
 		LocalOffset: 256,128,0, 256,-128,0
 		LocalYaw: -100,100
-	Armament@al3:
-		Name: al3
-		Weapon: ArcaneZap2
+		RequiresCondition: arcanewizard
+		Turret: arc4
+	Armament@arc5:
+		Name: arc5
+		Weapon: WizFireBallBuilding
 		LocalOffset: 256,128,0, 256,-128,0
 		LocalYaw: -100,100
+		RequiresCondition: firewizard
+		Turret: arc5
+	Armament@arc6:
+		Name: arc6
+		Weapon: Wizzap
+		LocalOffset: 256,128,0, 256,-128,0
+		LocalYaw: -100,100
+		RequiresCondition: lightningwizard
+		Turret: arc6
 	AttackTurreted:
-		Turrets: gl1, gl2, gl3, gl4, gl5, gl6, al1, al2, al3
-		Armaments: gl1, gl2, gl3, gl4, gl5, gl6, al1, al2, al3
+		Turrets: arc1, arc2, arc3, arc4, arc5, arc6
+		Armaments: arc1, arc2, arc3, arc4, arc5, arc6
 		RequiresCondition: !build-incomplete
 		PauseOnCondition: lowpower || disabled
+	Cargo:
+		Types: arcanewizard, firewizard, lightningwizard
+		MaxWeight: 1
+		PassengerConditions:
+			firewizard: firewizard
+			lightningwizard: lightningwizard
+			arcanewizard: arcanewizard
+	WithCargoPipsDecoration:
+		Position: BottomLeft
+		RequiresSelection: true
+		PipCount: 1
 	-BodyOrientation:
 	ClassicFacingBodyOrientation:
 		QuantizedFacings: 8
@@ -1644,8 +1656,8 @@ TheEye:
 	Armor:
 		Type: Wood
 	RevealsShroud:
-		MinRange: 4c0
-		Range: 6c0
+		MinRange: 8c0
+		Range: 12c0
 		RequiresCondition: !disabled
 		RevealGeneratedShroud: False
 	RevealsShroud@Offline:
@@ -1725,8 +1737,8 @@ TheEvilEye:
 	Armor:
 		Type: Wood
 	RevealsShroud:
-		MinRange: 4c0
-		Range: 6c0
+		MinRange: 8c0
+		Range: 12c0
 		RequiresCondition: !disabled
 		RevealGeneratedShroud: False
 	RevealsShroud@Offline:
