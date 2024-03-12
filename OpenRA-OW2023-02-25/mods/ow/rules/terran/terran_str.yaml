@@ -38,6 +38,8 @@
 		Palette: effect
 	RepairableBuilding:
 		RepairCondition: player_repairing
+	ExternalCondition@playerrepair: 
+		Condition: player_repairing
 	ChangesHealth@fire:
 		Step: -350
 		StartIfBelow: 26
@@ -1815,26 +1817,13 @@ TBUNKER:
 			tfirebat: tfirebat
 			tfirebat.b: tfirebat
 			tscv: tscv
-			tmedic: tmedic
+			tmedic: medic
 			tghost: tghost
 			e1of: e1of
 			dm2of: e1of
 			e1: tmarine
 			fe1: tmarine
 		InitialUnits: tmarine.b2
-	ProximityExternalCondition@officer:
-		RequiresCondition: e1of
-		Condition: squadboost
-		Range: 5c0
-	WithDecoration@officer2:
-		Image: pips
-		Sequence: pip-bonus
-		Palette: effect
-		Position: TopRight
-		ValidRelationships: None,Neutral,Enemy,Ally
-		RequiresCondition: !demoralise && e1of
-	ExternalCondition@demoralise:
-		Condition: demoralise
 	-SpawnActorsOnSell:
 	GrantConditionOnAttack@shooting:
 		Condition: shooting
@@ -2090,7 +2079,7 @@ TBUNKER:
 	SpawnActorOnDeath@6:
 		Actor: tmedic
 		Offset: 1,1
-		RequiresCondition: tmedic
+		RequiresCondition: medic
 	SpawnActorOnDeath@7:
 		Actor: tscv
 		Offset: 1,1
@@ -2100,13 +2089,8 @@ TBUNKER:
 		Offset: 1,1
 		RequiresCondition: tghost >= 1
 	ChangesHealth@scv:
-		Step: 500
-		StartIfBelow: 101
 		Delay: 25
-		RequiresCondition: tscv
-	DamageMultiplier@scv:
-		Modifier: 90
-		RequiresCondition: tscv
+		DamageCooldown: 0
 	WithIdleOverlay@fire1:
 		Offset: 0,-512,128
 	WithIdleOverlay@fire2:
@@ -2128,7 +2112,8 @@ TBUNKER.BOT:
 	GivesExperience:
 		Experience: 600
 	Cargo:
-		InitialUnits: tmarine.b2,tmarine.b2,tmarine.b2,tfirebat.b
+		MaxWeight: 5
+		InitialUnits: tmarine.b2,tmarine.b2,tmarine.b2,tfirebat.b,tmedic
 	RenderSprites:
 		Image: tbunker
 	Explodes@2:
@@ -2185,7 +2170,8 @@ TBUNKER.Mengsk.BOT:
 	Valued:
 		Cost: 1600
 	Cargo:
-		InitialUnits: tmarine.b2,tmarine.b2,tmarine.b2,tmarine.b2,tfirebat.b,tfirebat.b
+		MaxWeight: 7
+		InitialUnits: tmarine.b2,tmarine.b2,tmarine.b2,tmarine.b2,tfirebat.b,tfirebat.b,tscv
 	Explodes@2:
 		Weapon: UnitExplodeSmall2
 		EmptyWeapon: UnitExplodeSmall2
@@ -2200,7 +2186,7 @@ TBUNKER.Mengsk.BOT2:
 		Prerequisites: barracks, tcops, ~structures.mengsk, ~techlevel.unrestricted, ~ai.all
 		Description: actor-tbunker-mengsk-bot2-description
 	Cargo:
-		InitialUnits: tmarine.b2,tmarine.b2,tmarine.b2,tmarine.b2,tmarine.b2,tghost
+		InitialUnits: tmarine.b2,tmarine.b2,tmarine.b2,tmarine.b2,tmarine.b2,tghost,tscv
 
 TBUNKER.Mengsk.Drop:
 	Inherits: TBUNKER.Mengsk.BOT

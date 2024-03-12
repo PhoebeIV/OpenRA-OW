@@ -623,6 +623,8 @@
 		StartIfBelow: 100
 		DamageCooldown: 125
 		RequiresCondition: hospitalhealciv
+	ExternalCondition@hospitalheal:
+		Condition: hospital
 	ExternalCondition@flagboost:
 		Condition: flagboost
 	FirepowerMultiplier@flagfirepowerboost:
@@ -2665,11 +2667,28 @@
 		TerrainTypes: Clear, ClearSnow, Creep, Rough, Road, Ore, Beach, Water, Gems, Tiberium, BlueTiberium
 
 # Inherited and changed from mods/ra to unitise effects of officers and other passengers that buff the container.
+# e1of = orange cross, officer squad boost, boosts movement speed and attack speed (infantry only)
+# tscv = blue cross, container gains self repair
+# medic = red cross, container gains infantry heal radius
 ^CargoPips:
 	Cargo:
 		PassengerConditions:
 			e1of: e1of
 			dm2of: e1of
+			avinf3: e1of
+			tscv: tscv
+			mech: tscv
+			e6: tscv
+			fmech: tscv
+			fe6: tscv
+			mech.dm: tscv
+			tmedic: medic
+			medi: medic
+			medi.dm: medic
+			fmedi: medic
+			japanbioengineer: medic
+			priest: medic
+			acolyte: medic
 	ProximityExternalCondition@officer:
 		RequiresCondition: e1of
 		Condition: squadboost
@@ -2683,6 +2702,35 @@
 		RequiresCondition: !demoralise && e1of
 	ExternalCondition@demoralise:
 		Condition: demoralise
+	ChangesHealth@scv:
+		Step: 500
+		StartIfBelow: 100
+		Delay: 50
+		RequiresCondition: tscv
+		DamageCooldown: 125
+	DamageMultiplier@scv:
+		Modifier: 90
+		RequiresCondition: tscv
+	ProximityExternalCondition@hospital:
+		RequiresCondition: medic
+		Condition: hospital
+		Range: 5c0
+	WithDecoration@hospital:
+		Image: pips
+		Sequence: pip-heal
+		Palette: effect
+		Position: TopRight
+		Margin: 0,8
+		ValidRelationships: None,Neutral,Enemy,Ally
+		RequiresCondition: medic
+	WithDecoration@scv:
+		Image: pips
+		Sequence: pip-aeiou
+		Palette: effect
+		Position: TopRight
+		Margin: 8,0
+		ValidRelationships: None,Neutral,Enemy,Ally
+		RequiresCondition: tscv
 
 
 ^AutoTargetInfantryPriority:

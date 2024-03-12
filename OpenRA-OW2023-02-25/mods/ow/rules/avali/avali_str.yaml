@@ -31,7 +31,7 @@ AVFACT:
 		Palette: cloak
 
 ^AvaliPowerPlant:
-	GrantConditionOnTerrain@snow:
+	GrantConditionOnTerrain@buffsnow:
 		TerrainTypes: ClearSnow
 		Condition: env_buffsnow
 	GrantConditionOnTileSet@warm:
@@ -87,24 +87,24 @@ AVPOWR1:
 		Range: 1c256
 		AffectsParent: false
 	PowerMultiplier@warm:
-		RequiresCondition: env_buff && !avpowernear
+		RequiresCondition: env_buff && !avpowernear && !env_buffsnow
 	Power@bonus1:
 		RequiresCondition: (avpowernear == 1) && !env_buff
 		Amount: 10
 	Power@bonus1e:
-		RequiresCondition: (avpowernear == 1) && env_buff
+		RequiresCondition: (avpowernear == 1) && env_buff && !env_buffsnow
 		Amount: 20
 	Power@bonus2:
 		RequiresCondition: (avpowernear == 2) && !env_buff
 		Amount: 25
 	Power@bonus2e:
-		RequiresCondition: (avpowernear == 2) && env_buff
+		RequiresCondition: (avpowernear == 2) && env_buff && !env_buffsnow
 		Amount: 30
 	Power@bonus3:
 		RequiresCondition: (avpowernear >= 3) && !env_buff
 		Amount: 40
 	Power@bonus3e:
-		RequiresCondition: (avpowernear >= 3) && env_buff
+		RequiresCondition: (avpowernear >= 3) && env_buff && !env_buffsnow
 		Amount: 50
 	WithBuildingBib:
 		HasMinibib: true
