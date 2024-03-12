@@ -73,6 +73,7 @@ laborcamp:
 		Prerequisites: ~structures.medi, ~techlevel.infonly, ~!ai.boss
 		Description: Allows production of Slaves and Workers
 		BuildPaletteOrder: 2
+		BuildDuration: 800
 	Tooltip:
 		Name: Labor Camp
 	Building:
@@ -224,6 +225,7 @@ farmmedi:
 		Prerequisites: ~structures.medi, ~laborcamp, ~!ai.boss, ~techlevel.infonly
 		Description: Drop off point for resources gathered by Slaves and Workers.\nAlso acts as a Silo to allow more credits to be held.
 		BuildPaletteOrder: 3
+		BuildDuration: 500
 	Tooltip:
 		Name: Farm
 	Building:
@@ -1486,6 +1488,18 @@ ArcaneTower:
 		Turret: arc6
 		TurnSpeed: 1023
 		Offset: 128,128,384
+	Turreted@arc7:
+		Turret: arc7
+		TurnSpeed: 1023
+		Offset: 128,128,384
+	Turreted@arc8:
+		Turret: arc8
+		TurnSpeed: 1023
+		Offset: 128,128,384
+	Turreted@arc9:
+		Turret: arc9
+		TurnSpeed: 1023
+		Offset: 128,128,384
 	Armament@arc1:
 		Name: arc1
 		Weapon: ArcaneZap
@@ -1525,9 +1539,27 @@ ArcaneTower:
 		LocalYaw: -100,100
 		RequiresCondition: lightningwizard
 		Turret: arc6
+	Armament@arc7:
+		Name: arc7
+		Weapon: ArcaneZap
+		LocalOffset: 256,128,0, 256,-128,0
+		LocalYaw: -100,100
+		Turret: arc7
+	Armament@arc8:
+		Name: arc8
+		Weapon: ArcaneZap
+		LocalOffset: 256,128,0, 256,-128,0
+		LocalYaw: -100,100
+		Turret: arc8
+	Armament@arc9:
+		Name: arc9
+		Weapon: ArcaneZap2
+		LocalOffset: 256,128,0, 256,-128,0
+		LocalYaw: -100,100
+		Turret: arc9
 	AttackTurreted:
-		Turrets: arc1, arc2, arc3, arc4, arc5, arc6
-		Armaments: arc1, arc2, arc3, arc4, arc5, arc6
+		Turrets: arc1, arc2, arc3, arc4, arc5, arc6, arc6, arc7, arc8, arc9
+		Armaments: arc1, arc2, arc3, arc4, arc5, arc6, arc7, arc8, arc9
 		RequiresCondition: !build-incomplete
 		PauseOnCondition: lowpower || disabled
 	Cargo:
@@ -1566,7 +1598,7 @@ BalistaTower:
 		Description: Tower With a Siege Weapon strapped to the roof \nStrong vs Vehicles
 		BuildPaletteOrder: 5
 	Valued:
-		Cost: 1200
+		Cost: 1000
 	Tooltip:
 		Name: Balista Tower
 	Health:
