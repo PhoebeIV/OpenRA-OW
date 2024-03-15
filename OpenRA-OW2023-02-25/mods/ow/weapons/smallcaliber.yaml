@@ -1,24 +1,20 @@
 ^AACannon:
+	Inherits: ^ShieldHit
 	ReloadDelay: 10
 	Range: 8c0
 	Report: aacanon3.aud
 	ValidTargets: AirborneActor
 	Projectile: InstantHit
-		Blockable: false
 	Warhead@1Dam: SpreadDamage
 		Spread: 213
-		Damage: 2000
+		Damage: 900
 		ValidTargets: AirborneActor
-		Versus:
-			None: 40
-			Wood: 10
-			Light: 60
-			Heavy: 10
-			Concrete: 20
 		DamageTypes: Prone50Percent, TriggerProne, DefaultDeath
 	Warhead@2Eff: CreateEffect
 		Explosions: small_explosion_air
 		ValidTargets: Air, Ground, Water, Trees
+	Warhead@3Shield: CreateEffect
+		ImpactSoundChance: 20
 
 ZSU-23:
 	Inherits: ^AACannon
@@ -26,19 +22,11 @@ ZSU-23:
 	BurstDelays: 0
 	ReloadDelay: 6
 	Range: 10c0
-	Warhead@1Dam: SpreadDamage
-		Damage: 1200
-		Versus:
-			None: 25
-			Wood: 75
-			Light: 75
-			Heavy: 100
-			Concrete: 50
 
 FLAK-23-AA:
 	Inherits: ^AACannon
 	Warhead@1Dam: SpreadDamage
-		ValidTargets: AirborneActor, GroundActor, WaterActor
+		Damage: 1200
 
 FLAK-23-AG:
 	Inherits: ^AACannon
@@ -47,9 +35,10 @@ FLAK-23-AG:
 	Projectile: InstantHit
 		Blockable: true
 	Warhead@1Dam: SpreadDamage
+		Damage: 2000
 		Versus:
-			None: 80
-			Light: 75
+			None: 60
+			Light: 60
 			Heavy: 20
 		ValidTargets: AirborneActor, GroundActor, WaterActor
 	Warhead@2Eff: CreateEffect
@@ -100,6 +89,7 @@ DoomSpiderAA:
 		Damage: 600
 
 ^HeavyMG:
+	Inherits: ^ShieldHit
 	ReloadDelay: 35
 	Range: 6c0
 	Report: gun13.aud
@@ -125,12 +115,6 @@ DoomSpiderAA:
 		Explosions: water_piffs
 		ValidTargets: Water, Underwater
 		InvalidTargets: Bridge
-	Warhead@3Shield: CreateEffect
-		Explosions: idle1, idle2, idle3, idle4, idle5, idle6, idle7, idle8
-		ImpactSoundChance: 10
-		ImpactSounds: sbelthe2.aud
-		Image: shieldhit1
-		ValidTargets: ShieldHit
 
 ^LightMG:
 	Inherits: ^HeavyMG

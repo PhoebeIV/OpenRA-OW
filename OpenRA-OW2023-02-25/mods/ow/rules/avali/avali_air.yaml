@@ -360,22 +360,11 @@ AVCARRIER:
 		ProductionType: AvaliCarrier
 	Exit:
 		SpawnOffset: 0,0,-256
-	Targetable@AIConsider:
-		RequiresCondition: damaged_critical && botowner && !prevent_jump
-		TargetTypes: AvaliCarrierConsider
-	DamageMultiplier@AIConsider:
-		RequiresCondition: damaged_critical && botowner
-		Modifier: 50
 	Targetable@avalicarrier:
 		TargetTypes: AvaliCarrier
-	ProximityExternalCondition@aiprevent:
-		Range: 7c0
-		Condition: prevent_jump
-		RequiresCondition: botowner
-	ExternalCondition@aiprevent:
-		Condition: prevent_jump
 	IonCannonPower:
 		Icon: warpship
+		Prerequisites: !ai.all
 		Cursor: chrono-target
 		ChargeInterval: 9000
 		OrderName: Warpship
@@ -391,6 +380,30 @@ AVCARRIER:
 		Effect: explosion
 		EffectSequence: piff
 		Weapon: WarpshipTrigger
+		DisplayTimerRelationships: Ally, Neutral, Enemy
+	AirstrikePower@parabombs:
+		OrderName: WarpshipBot
+		Prerequisites: ai.all
+		Icon: warpship
+		ChargeInterval: 10500
+		Name: Warpship Evacuation Order
+		Description: Bot version of Warpship Evacution Order acts more like an airstrike
+		SelectTargetSpeechNotification: SelectTarget
+		SelectTargetTextNotification: notification-select-target
+		CameraActor: camera
+		CameraRemoveDelay: 150
+		UnitType: avcarrier.ai
+		QuantizedFacings: 8
+		DisplayBeacon: true
+		BeaconPoster: pbmbicon
+		SquadSize: 1
+		SquadOffset: 1792,1792,0
+		ArrowSequence: arrow
+		ClockSequence: clock
+		CircleSequence: circles
+		UseDirectionalTarget: True
+		DirectionArrowAnimation: paradirection
+		SupportPowerPaletteOrder: 40
 		DisplayTimerRelationships: Ally, Neutral, Enemy
 	ExternalCondition@trigger_jump:
 		Condition: trigger_jump
@@ -476,3 +489,48 @@ AVINTER:
 		LandingDistance: 4c0
 		DamageTypes: ExplosionDeath
 	-Rearmable:
+
+
+AVCARRIER.AI:
+	Inherits: AVCARRIER
+	-Targetable@GROUND:
+	-Targetable@AIRBORNE:
+	-Targetable@REPAIR:
+	-Selectable:
+	-SpawnActorOnDeath:
+	-Buildable:
+	RenderSprites:
+		Image: avcarrier
+	Interactable:
+	RejectsOrders:
+	Aircraft:
+		Speed: 80
+		CruiseAltitude: 2c16
+		CanHover: false
+		CanSlide: false
+		LandableTerrainTypes: Clear, Road, Creep
+		IdleBehavior: LeaveMap
+		AltitudeVelocity: 72
+		VTOL: false
+	Health:
+		HP: 100000
+	Shielded: 
+		MaxStrength: 60000
+	-PeriodicProducer: 
+	-PeriodicProducer@2: 
+	-Production:
+	-ProductionQueue@player:
+	-ProductionBar:
+	-Exit:
+	-Armament:
+	-IonCannonPower:
+	-AirstrikePower@parabombs:
+	SpeedMultiplier@triggered:
+		RequiresCondition: trigger_jump
+		Modifier: 40
+	AttackBomber:
+		FacingTolerance: 8
+	AmmoPool:
+		Ammo: 1
+	Armament:
+		Weapon: WarpshipTrigger

@@ -923,6 +923,7 @@ Player:
 			upgrade.buildfirepower2: 10000
 			dome: 4500
 			hqd: 4500
+			pbox.boss: 6000
 	MinelayerBotModule:
 		RequiresCondition: enable-medium-ai || enable-hard-ai
 		MinelayingActorTypes: mnly, mnly.g, lst2, tvult, tvult.raynor
@@ -2978,27 +2979,18 @@ Player:
 					Attractiveness: 1
 					TargetMetric: None
 					CheckRadius: 4c0
-			Warpship:
-				OrderName: Warpship
-				MinimumAttractiveness: 105
-				MinimumScanTimeInterval: 50
-				MaximumScanTimeInterval: 60
-				CoarseScanRadius: 7
+			WarpshipBot:
+				OrderName: WarpshipBot
+				MinimumAttractiveness: 2000
 				Consideration@1:
-					Against: Ally
-					Types: AvaliCarrierConsider
-					Attractiveness: 104
-					TargetMetric: None
-					CheckRadius: 3c0
+					Against: Enemy
+					Types: Structure
+					Attractiveness: 2
+					TargetMetric: Value
+					CheckRadius: 5c0
 				Consideration@2:
 					Against: Enemy
-					Types: GroundActor
+					Types: Vehicle, Infantry
 					Attractiveness: 1
-					TargetMetric: None
-					CheckRadius: 3c0
-				Consideration@3:
-					Against: Ally
-					Types: Structure
-					Attractiveness: -50
-					TargetMetric: None
-					CheckRadius: 3c0
+					TargetMetric: Value
+					CheckRadius: 5c0
