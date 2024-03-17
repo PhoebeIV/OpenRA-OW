@@ -38,7 +38,7 @@ MISS.Husk:
 	Tooltip:
 		Name: actor-miss-husk.name
 	TooltipDescription@other:
-		Description: actor-miss-husk.tooltipdescription-other-description
+		Description: actor-techhusk-description
 	WithSpriteBody:
 		Sequence: dead
 	KillsSelf:
@@ -88,7 +88,7 @@ OILB.Husk:
 	Tooltip:
 		Name: actor-oilb-husk.name
 	TooltipDescription@other:
-		Description: actor-oilb-husk.tooltipdescription-other-description
+		Description: actor-techhusk-description
 	WithSpriteBody:
 		Sequence: damaged-idle
 	Explodes:
@@ -170,7 +170,7 @@ FCOM.Husk:
 	Tooltip:
 		Name: actor-fcom-husk.name
 	TooltipDescription@other:
-		Description: actor-fcom-husk.tooltipdescription-other-description
+		Description: actor-techhusk-description
 	WithSpriteBody:
 		Sequence: damaged-idle
 	KillsSelf:
@@ -219,13 +219,77 @@ HOSP.Husk:
 	Tooltip:
 		Name: actor-hosp-husk.name
 	TooltipDescription@other:
-		Description: actor-hosp-husk.tooltipdescription-other-description
+		Description: actor-techhusk-description
 	WithSpriteBody:
 		Sequence: dead
 	KillsSelf:
 		Delay: 4500
 	SpawnActorOnDeath:
 		Actor: HOSP
+	ChangesHealth@health:
+		PercentageStep: -90
+		StartIfBelow: 101
+		Delay: 10
+		RequiresCondition: currenthp
+	GrantConditionOnHealth@health:
+		MinHP: 100000
+		Condition: currenthp
+
+BIO:
+	Health:
+		HP: 200000
+	RepairableBuilding:
+		RepairStep: 100
+		RepairCondition: repairing
+	WithBuildingRepairDecoration:
+		Image: allyrepair
+		Sequence: repair
+		Position: Center
+		Palette: player
+		IsPlayerPalette: True
+	SpawnActorOnDeath:
+		Actor: BIO.Husk
+		SkipMakeAnimations: true
+		OwnerType: InternalName
+		RequiresCondition: respawnable
+	GrantConditionOnPrerequisite@respawnable:
+		Prerequisites: techlevel.techrespamn
+		Condition: respawnable
+	ClonesProducedUnits:
+		CloneableTypes: Infantry
+		ProductionType: Infantry
+	Production:
+		Produces: Infantry
+	Exit@1:
+		RequiresCondition: !being-captured
+		SpawnOffset: -170,810,0
+		ExitCell: 1,2
+	Exit@2:
+		RequiresCondition: !being-captured
+		SpawnOffset: -725,640,0
+		ExitCell: 0,2
+	RallyPoint: 
+
+
+BIO.Husk:
+	Inherits: BIO
+	RenderSprites:
+		Image: bio
+	-Capturable:
+	-Targetable:
+	-CapturableProgressBar:
+	-CapturableProgressBlink:
+	-CaptureManager:
+	Tooltip:
+		Name: actor-bio.husk
+	TooltipDescription@other:
+		Description: actor-techhusk-description
+	WithSpriteBody:
+		Sequence: dead
+	KillsSelf:
+		Delay: 4500
+	SpawnActorOnDeath:
+		Actor: BIO
 	ChangesHealth@health:
 		PercentageStep: -90
 		StartIfBelow: 101

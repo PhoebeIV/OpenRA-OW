@@ -146,6 +146,7 @@ actor-avcarrier =
     Speed: 50
       Unarmed.
    .name = Illuminate Warpship Carrier
+   .botdesc = Secondary unit type for AI to use with attack forces
 
 actor-avinter-name = Repair Drone
 
@@ -3574,7 +3575,15 @@ actor-fcom-husk =
 
 actor-hosp-husk =
    .name = Hostipal (Dead)
-   .tooltipdescription-other-description = This structure is being rebuilt.
+
+actor-techhusk-description = This structure is being rebuilt.
+
+
+actor-bio =
+   .name = Biolab
+   .husk = Biolab (Dead)
+   .captured-desc = Provides prerequisite for Bio-Lab units. Clones infantry.
+   .capturable-desc = Capture to produce Bio-Lab units. Clones infantry.
 
 ## terran_add.yaml
 meta-terranaddon =
@@ -3765,7 +3774,9 @@ actor-active-raynor-name = EpiTech Center
 
 actor-traynor-hero0 =
    .description = [HERO]
-    
+
+    Role: Infantry support
+
     Leader of Raynor's Raiders armed with a modified
      C-14 Gauss Rifle.
     Speed: 72
@@ -5021,6 +5032,8 @@ actor-zkerrigan =
 
 actor-zkerrigan-hero0 =
    .description = [HERO]
+
+    Role: Damage dealer, Infantry support
     
     The Queen of the Swarm.
       Speed: 112
@@ -5045,6 +5058,8 @@ actor-zkerrigan-hero5-name = Kerrigan (Tier 5)
 
 actor-zzagara =
    .description = [HERO]
+
+    Role: Base support, healing
    
    The Broodmother of the Swarm.
    Excellent base defense and expansion.

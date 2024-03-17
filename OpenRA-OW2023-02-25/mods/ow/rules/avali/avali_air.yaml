@@ -188,6 +188,8 @@ AVCARRIER:
 	Inherits@cargo: ^CargoPips
 	Inherits@selection: ^SelectableSupportUnit
 	Inherits@mindcontrol: ^MindControlResistant
+	RenderSprites:
+		Image: avcarrier
 	Buildable:
 		Queue: Aircraft
 		BuildAtProductionType: Helicopter
@@ -415,6 +417,8 @@ AVCARRIER:
 		RequiresCondition: trigger_jump
 		Weapons: WarpshipJump
 		Interval: 100
+	Selectable:
+		Class: AVCARRIER
 
 AVINTER:
 	Inherits: ^NeutralPlane
@@ -490,18 +494,21 @@ AVINTER:
 		DamageTypes: ExplosionDeath
 	-Rearmable:
 
+#secondary unit type for AI to use with attack forces
+AVCARRIER.BOT:
+	Inherits: AVCARRIER
+	UpdatesPlayerStatistics:
+		OverrideActor: avcarrier
+	Buildable:
+		Prerequisites: advtechcenter, ~aircraft.avalon, ~techlevel.high, ~ai.all
+		BuildLimit: 2
+		Description: actor-avcarrier-botdesc
 
 AVCARRIER.AI:
 	Inherits: AVCARRIER
-	-Targetable@GROUND:
-	-Targetable@AIRBORNE:
-	-Targetable@REPAIR:
-	-Selectable:
-	-SpawnActorOnDeath:
 	-Buildable:
 	RenderSprites:
 		Image: avcarrier
-	Interactable:
 	RejectsOrders:
 	Aircraft:
 		Speed: 80
