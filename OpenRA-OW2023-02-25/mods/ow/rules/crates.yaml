@@ -162,6 +162,10 @@ CRATE:
 		SelectionShares: 2
 		Units: judgedredd
 		Sound: dredd1.aud
+	GiveUnitCrateAction@corvus:
+		SelectionShares: 2
+		Units: corvus
+		Sound: WPNUP.wav
 	GiveUnitCrateAction@hunterkiller:
 		SelectionShares: 5
 		Units: hunter
@@ -185,6 +189,10 @@ CRATE:
 		Proxy: powerproxy.lightning
 		Sound: thunder-ambient.wav
 		SelectionShares: 2
+	SupportPowerCrateAction@acolytestrike:
+		Proxy: powerproxy.acolytestrike
+		Sound: strifestrike.wav
+		SelectionShares: 8
 	Crate:
 		Duration: 6000
 
@@ -290,6 +298,11 @@ CRATE.FuckYou:
 		SelectionShares: 4
 		Units: judgedredd
 		Sound: dredd1.aud
+		Owner: Creeps
+	GiveUnitCrateAction@corvus:
+		SelectionShares: 4
+		Units: corvus
+		Sound: WPNUP.wav
 		Owner: Creeps
 	GiveUnitCrateAction@wall:
 		SelectionShares: 10
@@ -608,6 +621,10 @@ DukeNukem:
 	Inherits: ^Soldier
 	Inherits: ^EpicUnit
 	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Buildable:
+		Queue: Infantry
+		BuildPaletteOrder: 0
+		Prerequisites: ~OBL.CratePowers
 	Valued:
 		Cost: 10000
 	Tooltip:
@@ -624,92 +641,51 @@ DukeNukem:
 		CustomPipType: red
 	AttackFrontal:
 		Armaments: gun1, gun2, gun3, gun4, gun5, gun6, gun7, gun8, gun9
+	GrantRandomPeriodicCondition:
+		Conditions: gun1, gun2, gun3, gun4, gun5, gun6, gun7, gun8, gun9
+        CooldownDuration: 1
+		ActiveDuration: 250
 	Armament@1:
 		Name: gun1
 		Weapon: dukenukempistol
-		RequiresCondition: !gun2
-	GrantConditionOnAttack@1:
-		ArmamentNames: gun1
-		Condition: gun2
-		RequiredShotsPerInstance: 14
-		RevokeDelay: 1000
+		RequiresCondition: gun1
 	Armament@2:
 		Name: gun2
 		Weapon: dukenukemmg
-		RequiresCondition: gun2 && !gun3
-	GrantConditionOnAttack@2:
-		ArmamentNames: gun2
-		Condition: gun3
-		RequiredShotsPerInstance: 30
-		RevokeDelay: 1000
+		RequiresCondition: gun2
 	Armament@3:
 		Name: gun3
 		Weapon: dukenukemshotgun
-		RequiresCondition: gun3 && !gun4
-	GrantConditionOnAttack@3:
-		ArmamentNames: gun3
-		Condition: gun4
-		RequiredShotsPerInstance: 5
-		RevokeDelay: 1000
+		RequiresCondition: gun3
 	Armament@4:
 		Name: gun4
 		Weapon: dukenukempipebomb
 		LocalOffset: 0,0,555
-		RequiresCondition: gun4 && !gun5
-	GrantConditionOnAttack@4:
-		ArmamentNames: gun4
-		Condition: gun5
-		RequiredShotsPerInstance: 5
-		RevokeDelay: 1000
+		RequiresCondition: gun4
 	Armament@5:
 		Name: gun5
 		Weapon: dukenukemrpg
 		LocalOffset: 0,0,555
-		RequiresCondition: gun5 && !gun6
-	GrantConditionOnAttack@5:
-		ArmamentNames: gun5
-		Condition: gun6
-		RequiredShotsPerInstance: 5
-		RevokeDelay: 1000
+		RequiresCondition: gun5
 	Armament@6:
 		Name: gun6
 		Weapon: dukenukemshrink
 		LocalOffset: 0,0,555
-		RequiresCondition: gun6 && !gun7
-	GrantConditionOnAttack@6:
-		ArmamentNames: gun6
-		Condition: gun7
-		RequiredShotsPerInstance: 7
-		RevokeDelay: 1000
+		RequiresCondition: gun6
 	Armament@7:
 		Name: gun7
 		Weapon: dukenukemexpand
-		RequiresCondition: gun7 && !gun8
-	GrantConditionOnAttack@7:
-		ArmamentNames: gun7
-		Condition: gun8
-		RequiredShotsPerInstance: 25
-		RevokeDelay: 1000
+		RequiresCondition: gun7
 	Armament@8:
 		Name: gun8
 		Weapon: dukenukemfreezer
 		LocalOffset: 0,0,555
-		RequiresCondition: gun8 && !gun9
-	GrantConditionOnAttack@8:
-		ArmamentNames: gun8
-		Condition: gun9
-		RequiredShotsPerInstance: 40
-		RevokeDelay: 1000
+		RequiresCondition: gun8
 	Armament@9:
 		Name: gun9
 		Weapon: dukenukemdevestator
 		LocalOffset: 0,0,555
-		RequiresCondition: gun9 && !gun10
-	GrantConditionOnAttack@9:
-		ArmamentNames: gun9
-		Condition: gun10
-		RequiredShotsPerInstance: 80
-		RevokeDelay: 1000
+		RequiresCondition: gun9
 	Armament@GARRISONED:
 		Name: garrisoned
 		Weapon: dukenukempistol
@@ -754,6 +730,10 @@ JudgeDredd:
 	Inherits: ^Soldier
 	Inherits: ^EpicUnit
 	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Buildable:
+		Queue: Infantry
+		BuildPaletteOrder: 0
+		Prerequisites: ~OBL.CratePowers
 	Valued:
 		Cost: 10000
 	Tooltip:
@@ -770,53 +750,32 @@ JudgeDredd:
 		CustomPipType: red
 	AttackFrontal:
 		Armaments: gun1, gun2, gun3, gun4, gun5, gun6, gun7, gun8, gun9
+	GrantRandomPeriodicCondition:
+		Conditions: gun1, gun2, gun3, gun4, gun5
+        CooldownDuration: 1
+		ActiveDuration: 250
 	Armament@1:
 		Name: gun1
 		Weapon: judgedreddpistol1
-		RequiresCondition: !gun2
-	GrantConditionOnAttack@1:
-		ArmamentNames: gun1
-		Condition: gun2
-		RequiredShotsPerInstance: 15
-		RevokeDelay: 600
+		RequiresCondition: gun1
 	Armament@2:
 		Name: gun2
 		Weapon: judgedreddpistol2
-		RequiresCondition: gun2 && !gun3
-	GrantConditionOnAttack@2:
-		ArmamentNames: gun2
-		Condition: gun3
-		RequiredShotsPerInstance: 20
-		RevokeDelay: 600
+		RequiresCondition: gun2
 	Armament@3:
 		Name: gun3
 		Weapon: judgedreddpistol3
-		RequiresCondition: gun3 && !gun4
-	GrantConditionOnAttack@3:
-		ArmamentNames: gun3
-		Condition: gun4
-		RequiredShotsPerInstance: 10
-		RevokeDelay: 600
+		RequiresCondition: gun3
 	Armament@4:
 		Name: gun4
 		Weapon: judgedreddpistol4
 		LocalOffset: 0,0,555
-		RequiresCondition: gun4 && !gun5
-	GrantConditionOnAttack@4:
-		ArmamentNames: gun4
-		Condition: gun5
-		RequiredShotsPerInstance: 10
-		RevokeDelay: 600
+		RequiresCondition: gun4
 	Armament@5:
 		Name: gun5
 		Weapon: judgedreddpistol5
 		LocalOffset: 0,0,555
-		RequiresCondition: gun5 && !gun6
-	GrantConditionOnAttack@5:
-		ArmamentNames: gun5
-		Condition: gun6
-		RequiredShotsPerInstance: 25
-		RevokeDelay: 600
+		RequiresCondition: gun5
 	Armament@GARRISONED:
 		Name: garrisoned
 		Weapon: judgedreddpistol2
@@ -1672,3 +1631,234 @@ OLDDK:
 		DamagePercentConverted: 20
 	RenderSprites:
 		Image: medideathknight
+
+^NewStrifeGuy:
+	Inherits: ^DoomGuy
+	-WithDeathAnimation:
+	WithDeathAnimation:
+		DeathTypes:
+			DefaultDeath: 1
+			BulletDeath: 2
+			SmallExplosionDeath: 3
+			ExplosionDeath: 3
+			ElectricityDeath: 6
+		CrushedSequence: die-crushed
+	GrantConditionOnDamage@shot:
+		Condition: injure
+		Duration: 6
+		ValidRelationships: Ally, Enemy, Neutral
+	WithInfantryBody:
+		RequiresCondition: !injure && !aiming
+		IdleSequences: idle,stand
+		StandSequences: stand
+		DefaultAttackSequence: shoot
+	WithInfantryBody@2:
+		RequiresCondition: injure
+		IdleSequences: pain
+		StandSequences: pain
+		DefaultAttackSequence: shoot
+	WithInfantryBody@3:
+		RequiresCondition: aiming && !injure
+		IdleSequences: idle
+		StandSequences: idle
+		DefaultAttackSequence: shoot
+	GrantConditionOnAttack@aiming:
+		Condition: aiming
+		RevokeDelay: 60
+	ProducibleWithLevel:
+		Prerequisites: barracks.upgraded
+	Mobile:
+		Speed: 60
+	TakeCover:
+		DamageModifiers:
+			Prone50Percent: 75
+		DamageTriggers: TriggerProne
+		SpeedModifier: 80
+		Duration: 75
+	SoundOnDamageTransition:
+		DamagedSounds: DSAGRDPN.wav
+	DeathSounds@ZAPPED:
+		Voice: Zapped
+	DeathSounds@BURNED:
+		Voice: Burned
+		DeathTypes: FireDeath, TiberiumDeath
+	SpawnActorOnDeath@fire:
+		Actor: strifeflameguy
+		DeathType: FireDeath
+
+strifeflameguy:
+	Inherits@1: ^ExistsInWorld
+	Inherits@2: ^SpriteActor
+	Mobile:
+		Speed: 26
+		Locomotor: foot
+	HiddenUnderFog:
+	WithInfantryBody:
+		IdleSequences: run
+	Health:
+		HP: 8000
+	ChangesHealth:
+		Step: -1250
+		StartIfBelow: 101
+	ScaredyCat:
+		PanicSequencePrefix:
+	WithDeathAnimation:
+		DeathPaletteIsPlayerPalette: false
+		FallbackSequence: die
+		UseDeathTypeSuffix: false
+	HitShape:
+	MapEditorData:
+		Categories: System
+	AmbientSound@scream:
+		SoundFiles: DSBURNME.wav
+		Interval: 250
+
+
+strifeacolytebasic:
+	Inherits: ^NewStrifeGuy
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Valued:
+		Cost: 1000
+	Tooltip:
+		Name: actor-strifeacolytebasic-name
+	Health:
+		HP: 25000
+	Mobile:
+		Speed: 48
+	Armament@PRIMARY:
+		Weapon: strifeacolytebasicmg
+		LocalOffset: 0,0,555
+	Armament@GARRISONED:
+		Name: garrisoned
+		Weapon: strifeacolytebasicmg
+	Armament@BUS:
+		Name: bus
+		Weapon: strifeacolytebasicmg
+	RenderSprites:
+		Image: strifeacolytebasic
+	Voiced:
+		VoiceSet: StrifeAcolyte
+	WithParachute:
+		Image: explosion
+		Sequence: strifeteleport
+		OpeningSequence: strifeteleport
+		ShadowImage: parach-shadow
+		ShadowSequence: idle
+		RequiresCondition: parachute
+	Wanders:
+		WanderMoveRadius: 2
+		RequiresCondition: roam
+	GrantTimedCondition@roam:
+		Condition: roam
+		Duration: 25
+
+powerproxy.acolytestrike:
+	AlwaysVisible:
+	AirstrikePower:
+		OrderName: acolytestrike
+		PauseOnCondition: disabled
+		Icon: acolytestrikeicon
+		Cursor: chrono-target
+		ChargeInterval: 4500
+		Name: Acolyte Strike
+		Description: A sudden swarm of Strife Acolytes spawn in targeted area.
+		SelectTargetSpeechNotification: SelectTarget
+		InsufficientPowerSpeechNotification: InsufficientPower
+		DisplayRadarPing: True
+		CameraActor: camera.spyplane
+		SupportPowerPaletteOrder: 20
+		WeaponDelay: 0
+		CameraRemoveDelay: 450
+		DisplayTimerRelationships: Ally, Neutral, Enemy
+		AllowMultiple: true
+		OneShot: true
+		IncomingSound: DSTELEPT.wav
+		UnitType: u2.acolytestrike
+
+hereticcorvus:
+	Inherits: ^NewStrifeGuy
+	Inherits: ^EpicUnit
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Buildable:
+		Queue: Infantry
+		BuildPaletteOrder: 0
+		Prerequisites: ~OBL.CratePowers
+	Valued:
+		Cost: 10000
+	Tooltip:
+		Name: actor-hereticcorvus-name
+	Health:
+		HP: 150000
+	Mobile:
+		Speed: 90
+	Voiced:
+		VoiceSet: Corvus
+	AnnounceOnSeen:
+		PingRader: true
+	AttackWander:
+		WanderMoveRadius: 10
+		MinMoveDelay: 5
+		MaxMoveDelay: 100
+	ChangesHealth:
+		Step: 100
+		Delay: 25
+		StartIfBelow: 50
+		DamageCooldown: 500
+	SoundOnDamageTransition:
+		DamagedSounds: PLRPAI.wav
+	AmbientSound:
+		SoundFiles: WPNUP.wav
+		Delay: 0
+		Interval: 125
+	AttackFrontal:
+		Armaments: gun1, gun2, gun3, gun4, gun5, gun6, gun7, gun8, gun9
+	GrantRandomPeriodicCondition:
+		Conditions: gun1, gun2, gun3, gun4, gun5, gun6
+        CooldownDuration: 1
+		ActiveDuration: 250
+	Armament@1:
+		Name: gun1
+		Weapon: corvuselvenwand
+		RequiresCondition: gun1
+	Armament@2:
+		Name: gun2
+		Weapon: corvusetherealcrossbowmain
+		RequiresCondition: gun2
+	Armament@2a:
+		Name: gun8
+		Weapon: corvusetherealcrossbowside
+		RequiresCondition: gun2
+	Armament@2b:
+		Name: gun9
+		Weapon: corvusetherealcrossbowside
+		RequiresCondition: gun2
+	Armament@3:
+		Name: gun3
+		Weapon: corvusdragonclaw
+		RequiresCondition: gun3
+	Armament@4:
+		Name: gun4
+		Weapon: corvusphoenixrod
+		LocalOffset: 0,0,555
+		RequiresCondition: gun4
+	Armament@5:
+		Name: gun5
+		Weapon: corvushellstaff
+		LocalOffset: 0,0,555
+		RequiresCondition: gun5
+	Armament@6:
+		Name: gun6
+		Weapon: corvusfiremace1
+		LocalOffset: 0,0,555
+		RequiresCondition: gun6
+	Armament@7:
+		Name: gun7
+		Weapon: corvusfiremace2
+		LocalOffset: 0,0,555
+		RequiresCondition: gun6
+	Armament@GARRISONED:
+		Name: garrisoned
+		Weapon: corvusdragonclaw
+	Armament@BUS:
+		Name: bus
+		Weapon: corvusdragonclaw

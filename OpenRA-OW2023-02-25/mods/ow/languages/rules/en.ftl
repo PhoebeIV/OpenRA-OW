@@ -933,6 +933,8 @@ actor-zombie =
    .description = Slow undead. Attacks in close combat.
 
 actor-dukenukem-name = Duke Nukem
+actor-strifeacolytebasic-name = Acolyte
+actor-hereticcorvus-name = Corvus
 actor-judgedredd-name = Judge Dredd
 actor-fakecrate-name = Crate
 actor-amogus-name = Sussy Baka
@@ -3357,6 +3359,10 @@ actor-obl-haxsmallexplosion =
 actor-obl-haxtiberium =
    .description = Tiberium Debug
    .name = Tiberium Debug
+
+actor-obl-cratepowers =
+   .description = Crate Powers
+   .name = Crate Powers
 
 actor-t-missair-description = Provides access to your faction's epic unit or ability.
     
