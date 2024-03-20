@@ -2783,7 +2783,7 @@ ColonyDropExplosion:
 		ImpactActors: false
 	Warhead@9Dam_areanuke2: SpreadDamage
 		Spread: 4c0
-		Damage: 75000
+		Damage: 90000
 		Falloff: 512, 368, 135, 50, 18, 7, 0
 		Delay: 25
 		ValidTargets: GroundActor, Trees, WaterActor, Underwater, AirborneActor
@@ -2794,7 +2794,7 @@ ColonyDropExplosion:
 		DamageTypes: Prone50Percent, TriggerProne, FireDeath, Incendiary
 	Warhead@17Dam_areanuke4: SpreadDamage
 		Spread: 8c0
-		Damage: 40000
+		Damage: 60000
 		Falloff: 512, 368, 135, 50, 18, 7
 		Delay: 35
 		ValidTargets: GroundActor, Trees, WaterActor, Underwater, AirborneActor
@@ -2916,7 +2916,7 @@ ChinaSuperNuke:
 		ImpactActors: false
 	Warhead@9Dam_areanuke2: SpreadDamage
 		Spread: 3c0
-		Damage: 50000
+		Damage: 70000
 		Falloff: 512, 368, 135, 50, 18, 7, 0
 		Delay: 10
 		ValidTargets: GroundActor, Trees, WaterActor, Underwater, AirborneActor
@@ -2927,7 +2927,7 @@ ChinaSuperNuke:
 		DamageTypes: Prone50Percent, TriggerProne, FireDeath, Incendiary
 	Warhead@17Dam_areanuke4: SpreadDamage
 		Spread: 7c0
-		Damage: 20000
+		Damage: 40000
 		Falloff: 512, 368, 135, 50, 18, 7, 0
 		Delay: 25
 		ValidTargets: GroundActor, Trees, WaterActor, Underwater, AirborneActor
@@ -3531,3 +3531,50 @@ AIChronoCluster:
 	Warhead@1b: SpawnRandomActor
 		Range: 0
 		RandomActors: 1tnk,1tnk,2tnk,2tnk,2tnk,arty,arty,arty,ctnk,e7,apc,jeep
+
+MinecraftNuke:
+	ValidTargets: Ground, Water, GroundActor, WaterActor, Underwater, AirborneActor, Trees
+	Warhead@1: CreateEffect
+		ImpactSounds: mcplace1.wav, mcplace2.wav, mcplace3.wav
+		Explosions: minecraftanimation
+		ImpactActors: false
+	Warhead@2: CreateEffect
+		ImpactSounds: mctntignite.wav
+		Delay: 50
+		ImpactActors: false
+	Warhead@3: ShakeScreen
+		Duration: 10
+		Intensity: 5
+		Multiplier: 1,1
+		Delay: 125
+	Warhead@4: CreateEffect
+		Explosions: minecraftexplosion
+		ImpactSounds: mctntexplode1.wav, mctntexplode2.wav, mctntexplode3.wav ,mctntexplode4.wav ,mctntexplode5.wav, mctntexplode6.wav
+		ImpactActors: false
+		Delay: 125
+	Warhead@5: SpawnActor
+		Delay: 125
+		Range: 4
+		Actors: 1tnk.crater
+		OwnerType: InternalName
+	Warhead@6: SpreadDamage
+		Spread: 2c0
+		Damage: 70000
+		Falloff: 512, 368, 135, 50, 18, 7, 0
+		Delay: 125
+		ValidTargets: GroundActor, Trees, WaterActor, Underwater, AirborneActor
+		Versus:
+			Wood: 50
+			Tree: 200
+			Concrete: 25
+		DamageTypes: Prone50Percent, TriggerProne, FireDeath, Incendiary
+	Warhead@7: SpreadDamage
+		Spread: 4c0
+		Damage: 40000
+		Falloff: 512, 368, 135, 50, 18, 7, 0
+		Delay: 130
+		ValidTargets: GroundActor, Trees, WaterActor, Underwater, AirborneActor
+		Versus:
+			Tree: 200
+			Concrete: 25
+		DamageTypes: Prone50Percent, TriggerProne, FireDeath, Incendiary

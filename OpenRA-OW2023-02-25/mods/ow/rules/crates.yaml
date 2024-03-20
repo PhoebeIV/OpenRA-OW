@@ -196,8 +196,12 @@ CRATE:
 		SelectionShares: 2
 	SupportPowerCrateAction@acolytestrike:
 		Proxy: powerproxy.acolytestrike
-		Sound: strifestrike.wav
+		Sound: DSRADIO.wav
 		SelectionShares: 8
+	SupportPowerCrateAction@metalnuke:
+		Proxy: powerproxy.metalnuke
+		Sound: DSRADIO.wav
+		SelectionShares: 2
 	Crate:
 		Duration: 6000
 
@@ -378,6 +382,14 @@ CRATE.FuckYou:
 		SelectionShares: 2
 		Weapon: RedeemerNukeDelayed
 		Sound: nggyu.wav
+	GiveUnitCrateAction@ae86:
+		SelectionShares: 3
+		Units: ae86
+		Sound: ae86_build.wav
+		Owner: Creeps
+	ExplodeCrateAction@MinecraftNuke:
+		Weapon: MinecraftNuke
+		SelectionShares: 5
 	Crate:
 		Duration: 15000
 	Tooltip:
@@ -979,6 +991,10 @@ FakeCrateReward:
 
 amogus:
 	Inherits: ^Soldier
+	Buildable:
+		Queue: Infantry
+		BuildPaletteOrder: 0
+		Prerequisites: ~OBL.CratePowers
 	Valued:
 		Cost: 1000
 	Tooltip:
@@ -1068,7 +1084,7 @@ amogus5:
 ColonyDrop:
 	Inherits: ^Plane
 	Health:
-		HP: 200000
+		HP: 500000
 	Aircraft:
 		TurnSpeed: 20
 		Speed: 125
@@ -1425,6 +1441,10 @@ JohnCena:
 	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
 	-WithInfantryBody:
 	-WithDeathAnimation:
+	Buildable:
+		Queue: Infantry
+		BuildPaletteOrder: 0
+		Prerequisites: ~OBL.CratePowers
 	Valued:
 		Cost: 10000
 	Tooltip:
@@ -1722,6 +1742,10 @@ strifeflameguy:
 strifeacolytebasic:
 	Inherits: ^NewStrifeGuy
 	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Buildable:
+		Queue: Infantry
+		BuildPaletteOrder: 0
+		Prerequisites: ~OBL.CratePowers
 	Valued:
 		Cost: 1000
 	Tooltip:
@@ -1874,3 +1898,127 @@ hereticcorvus:
 	Explodes:
 		Weapon: CivPanicExplosionBig
 		EmptyWeapon: CivPanicExplosionBig
+
+cratemetal:
+	Inherits: ^Plane
+	RenderSprites:
+		Image: metalnuke
+	Targetable:
+		TargetTypes: Firebasebox
+	Health:
+		HP: 500000
+	Valued:
+		Cost: 1
+	-UpdatesPlayerStatistics:
+	Aircraft:
+		TurnSpeed: 20
+		Speed: 25
+		CruiseAltitude: 32c0
+		MaximumPitch: 110
+		VTOL: true
+		LandableTerrainTypes: Clear, ClearSnow, Road, Creep, Bridge, Water, Ore, Gems, Rough, Tiberium, BlueTiberium, Radiation, Beach
+	WithMuzzleOverlay:
+	-ActorLostNotification:
+	Contrail:
+		Offset: 0,0,0
+		StartColor: ff5eff
+		TrailLength: 35
+	-Selectable:
+	AttackAircraft:
+	Armament:
+		Weapon: MetalNuke
+	Tooltip:
+		Name: actor-chinaartillerypower-name
+	RejectsOrders:
+	-SpawnActorOnDeath:
+	FallsToEarth:
+		Explosion: MetalNuke
+		Moves: true
+		Velocity: 50
+		MaximumSpinSpeed: 0
+	-EjectOnDeath:
+	Interactable:
+
+powerproxy.metalnuke:
+	AlwaysVisible:
+	DropPodsPower:
+		Icon: metalnukeicon
+		Name: ???
+		OrderName: metalnuke
+		Description: Drops ??? onto an area.mp3
+		UnitTypes: cratemetal
+		Cursor: chrono-target
+		Drops: 1,1
+		PodScatter: 3
+		PodFacing: 704
+		PauseOnCondition: disabled
+		CameraActor: camera
+		CameraRemoveDelay: 750
+		Weapon: usarailguncharging
+		WeaponDelay: 5
+		ChargeInterval: 7500
+		EntryEffect: explosion
+		EntryEffectSequence: redeemerexplosion
+		LaunchSound: colonydropentry.wav
+		SelectTargetSpeechNotification: SelectTarget
+		SelectTargetTextNotification: actor-powerproxy-colonydrop-droppodspower-colonydrop-select-target-text-notification
+		DisplayRadarPing: true
+		DisplayTimerRelationships: Ally, Enemy, Neutral
+		BeaconPoster: artillerybarragebeacon
+		OneShot: true
+		AllowMultiple: true
+
+ae86:
+	Inherits: ^TrackedVehicle
+	Buildable:
+		Queue: Vehicle
+		BuildPaletteOrder: 0
+		Prerequisites: ~OBL.CratePowers
+	Valued:
+		Cost: 10000
+	Tooltip:
+		Name: actor-usacrusader.name
+	Health:
+		HP: 250000
+	Mobile:
+		Locomotor: bike
+		Speed: 256
+		TurnsWhileMoving: true
+		CanMoveBackward: true
+	SelectionDecorations:
+	RenderSprites:
+		Image: usacrusadertank
+	WithVoxelBody:
+	RenderVoxels:
+		Palette: tsunit
+		Image: ae86
+		LightAmbientColor: 1.0,1.0,1.0
+		LightDiffuseColor: 0.7,0.7,0.7
+	AmbientSound:
+		SoundFiles: ae86_mov.wav
+		Delay: 0
+		Interval: 150
+	-WithFacingSpriteBody:
+	Explodes:
+		Weapon: CrateNuke
+		EmptyWeapon: CrateNuke
+	SpawnActorOnDeath@1:
+		Actor: FakeCrateReward
+	SpawnActorOnDeath@2:
+		Actor: CRATE
+		Offset: 1,0
+	SpawnActorOnDeath@3:
+		Actor: CRATE
+		Offset: -1,1
+	Wanders:
+		WanderMoveRadius: 10
+	-Voiced:
+
+ae68testexplosion:
+	Inherits: ae86
+	Explodes:
+		Weapon: MinecraftNuke
+		EmptyWeapon: MinecraftNuke
+	Mobile:
+		Locomotor: bike
+		Speed: 64
