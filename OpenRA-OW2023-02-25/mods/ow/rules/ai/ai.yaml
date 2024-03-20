@@ -232,15 +232,18 @@ Player:
 		InitialDelay: 3000
 		Amount: 7500
 	PlayerCashTrickler@boss:
-		RequiresCondition: enable-boss-ai
+		RequiresCondition: enable-boss-ai || bossmodemoney
 		Interval: 500
 		InitialDelay: 1500
 		Amount: 9000
 	PlayerCashTrickler@boss2:
-		RequiresCondition: enable-boss-ai
+		RequiresCondition: enable-boss-ai || bossmodemoney
 		Interval: 500
 		InitialDelay: 6000
 		Amount: 9000
+	GrantConditionOnPrerequisite@bossmodemoney:
+		Prerequisites: techlevel.boss
+		Condition: bossmodemoney
 	HarvesterBotModule:
 		RequiresCondition: enable-all-ai
 		HarvesterTypes: harv, harvd, harvd.bhand, gharv, pprobe, zdrone, usachinook, tscv, avharv
