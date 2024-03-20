@@ -1223,6 +1223,13 @@ UpgradeHandler:
 	Production@6:
 		Produces: UpgradeBot
 		PauseOnCondition: !conyard
+		RequiresCondition: botowner
+	GrantConditionOnPrerequisite@botowner:
+		Condition: botowner
+		Prerequisites: ai.all
+	GrantConditionOnProduction@busy:
+		Condition: busy
+		Duration: 25
 	GrantConditionOnPrerequisite@conyard:
 		Condition: conyard
 		Prerequisites: conyard
@@ -1254,7 +1261,7 @@ UpgradeHandler:
 		RequiresPrerequisites: ai.all
 	ProvidesPrerequisite@ai_noboats:
 		Prerequisite: faction.noboats
-		RequiresPrerequisites: ai.all, !structures.silver
+		RequiresPrerequisites: ai.all, !structures.silver, !structures.navy
 	GrantConditionOnPrerequisite@extraupgrade:
 		Condition: bot_harder
 		Prerequisites: ai.harder

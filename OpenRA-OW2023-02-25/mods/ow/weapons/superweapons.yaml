@@ -3081,7 +3081,7 @@ DecimatorNuke:
 		Intensity: 4
 		Multiplier: 1,1
 	Warhead@22FlashEffect: FlashEffect
-		Duration: 50
+		Duration: 20
 		Delay: 58
 		FlashType: Red
 
@@ -3491,3 +3491,43 @@ StrifeTeleportFake:
 		Actors: strifeacolytebasic,strifeacolytebasic,strifeacolytebasic,strifeacolytebasic,strifeacolytebasic
 		Image: explosion
 		Sequence: strifeteleport
+
+AIChrono:
+	ReloadDelay: 375
+	Range: 10c0
+	ValidTargets: Ground, Water, GroundActor, WaterActor, Underwater, AirborneActor, Air
+	Projectile: Bullet
+		Speed: 1c0
+		Blockable: false
+	Warhead@1a: CreateEffect
+		ImpactSounds: chrono2.aud
+		ValidTargets: Ground, GroundActor, WaterActor
+		ImpactActors: false
+	Warhead@1b: FireCluster
+		Weapon: AIChronoCluster
+		Footprint: _X_ XXX _X_
+		Dimensions: 3,3
+	Warhead@1c: FlashEffect
+		FlashType: Chrono
+		Duration: 20
+
+AIChronoAdvanced:
+	Inherits: AIChrono
+	Warhead@1b: FireCluster
+		Footprint: __X__ _XXX_ XXXXX _XXX_ __X__
+		Dimensions: 5,5
+
+AIChronoCluster:
+	ReloadDelay: 375
+	Range: 10c0
+	ValidTargets: Ground, Water, GroundActor, WaterActor, Underwater, AirborneActor, Air
+	Projectile: Bullet
+		Speed: 1c0
+		Blockable: false
+	Warhead@1a: CreateEffect
+		ImpactSounds: chrono2.aud
+		ValidTargets: Ground, GroundActor, WaterActor
+		ImpactActors: false
+	Warhead@1b: SpawnRandomActor
+		Range: 0
+		RandomActors: 1tnk,1tnk,2tnk,2tnk,2tnk,arty,arty,arty,ctnk,e7,apc,jeep

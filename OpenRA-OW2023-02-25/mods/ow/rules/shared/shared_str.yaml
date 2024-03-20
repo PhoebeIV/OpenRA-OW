@@ -1781,3 +1781,160 @@ concretec:
 		BuildPaletteOrder: 210
 		BuildDuration: 94
 		BuildDurationModifier: 100
+
+EYED:
+	Inherits: ^DawnBuilding
+	Inherits@IDISABLE: ^DisableOnLowPowerOrPowerDown
+	Inherits@shape: ^2x2Shape
+	Inherits@BIB: ^2xBuildingBib
+	Selectable:
+		Bounds: 2048, 2048
+	HitShape:
+		UseTargetableCellsOffsets: false
+		TargetableOffsets: 0,0,0, 630,-384,0, 630,384,0, -700,-512,0, -700,512,0
+	Buildable:
+		Queue: Tech
+		BuildPaletteOrder: 140
+		Prerequisites: techcenter, ~techlevel.unrestricted, ~structures.eyedprereq # GDI, UAC, Fed, Avalon
+		Description: actor-eyed.description
+		BuildLimit: 1
+	Valued:
+		Cost: 3000
+	Tooltip:
+		Name: actor-eyed.name
+	Building:
+		Footprint: x_ xx ==
+		Dimensions: 2,3
+		LocalCenterOffset: 0,-512,0
+	Targetable:
+		TargetTypes: GroundActor, Structure, C4, DetonateAttack, SpyInfiltrate
+	Health:
+		HP: 150000
+	Armor:
+		Type: Wood
+	RevealsShroud:
+		MinRange: 6c0
+		Range: 10c0
+		RequiresCondition: !disabled
+		RevealGeneratedShroud: False
+	RevealsShroud@Offline:
+		Range: 5c0
+		RequiresCondition: disabled
+	RevealsShroud@GAPGEN:
+		Range: 6c0
+		RequiresCondition: !disabled
+	WithSpriteBody:
+		PauseOnCondition: disabled || jammed
+	ProvidesRadar:
+		RequiresCondition: !jammed && !disabled
+	InfiltrateForExploration:
+		Types: SpyInfiltrate
+	Power:
+		Amount: -250
+	ProvidesPrerequisite@uac:
+		Factions: phobos, deimos, mars
+		Prerequisite: eyed.uac
+	ProvidesPrerequisite@fed:
+		Factions: sword, angels, silver
+		Prerequisite: eyed.fed
+	ProvidesPrerequisite@ion:
+		Factions: steel, zocom, gdi3, sword, angels, silver
+		Prerequisite: eyed.ion
+	ProvidesPrerequisite@avali:
+		Factions: avalon
+		Prerequisite: eyed.avali
+	ProvidesPrerequisite@buildingname:
+	ProvidesPrerequisite@radar:
+		Prerequisite: radar
+	ProvidesPrerequisite@dome:
+		Prerequisite: dome
+	ProvidesPrerequisite@hqd:
+		Prerequisite: hqd
+	ProvidesPrerequisite@superweapon:
+		Prerequisite: superweapon
+	ExternalCondition@JAMMED:
+		Condition: jammed
+	Explodes:
+		Type: CenterPosition
+		Weapon: MiniNuke
+		EmptyWeapon: MiniNuke
+	IonCannonPower:
+		Prerequisites: eyed.ion
+		PauseOnCondition: disabled
+		Icon: ioncannon
+		Cursor: chrono-target
+		ChargeInterval: 19500
+		Name: Ion Cannon
+		Description: Initiate an Ion Cannon strike.\nApplies instant damage to a small area.
+		BeginChargeSpeechNotification: IonCannonCharge
+		EndChargeSpeechNotification: IonCannonReady
+		SelectTargetSpeechNotification: DawnSelectTarget
+		InsufficientPowerSpeechNotification: InsufficientPower
+		OnFireSound: ion_fire2.aud
+		DisplayRadarPing: True
+		CameraActor: camera.small
+		SupportPowerPaletteOrder: 20
+		WeaponDelay: 0
+		CameraRemoveDelay: 100
+		Effect: explosion
+		EffectSequence: piff
+		Weapon: MiniNukeIon
+		DisplayTimerRelationships: Ally, Neutral, Enemy
+	IonCannonPower@avali:
+		OrderName: AvaliIonCannon
+		Prerequisites: eyed.avali
+		PauseOnCondition: disabled
+		Icon: ioncannon
+		Cursor: chrono-target
+		ChargeInterval: 19500
+		Name: Illuminator Strike
+		Description: Initiate an orbital Illuminator Strike.\nApplies instant damage to a small area.
+		BeginChargeSpeechNotification: IonCannonCharge
+		EndChargeSpeechNotification: IonCannonReady
+		SelectTargetSpeechNotification: DawnSelectTarget
+		InsufficientPowerSpeechNotification: InsufficientPower
+		OnFireSound: ion_fire2.aud
+		DisplayRadarPing: True
+		CameraActor: camera.small
+		SupportPowerPaletteOrder: 20
+		WeaponDelay: 0
+		CameraRemoveDelay: 100
+		Effect: explosion
+		EffectSequence: piff
+		Weapon: AvaliIonCannon
+		DisplayTimerRelationships: Ally, Neutral, Enemy
+	DropPodsPower:
+		Prerequisites: eyed.uac
+		OrderName: BFG
+		Cursor: chrono-target
+		PauseOnCondition: disabled
+		Icon: bfg10k
+		Name: BFG 10K
+		Description: Call upon an orbital strike with a BFG10k mounted on Phobos.\n Strong vs. Everything
+		BeginChargeSpeechNotification: IonCannonCharge
+		EndChargeSpeechNotification: IonCannonReady
+		SelectTargetSpeechNotification: DawnSelectTarget
+		InsufficientPowerSpeechNotification: InsufficientPower
+		DisplayRadarPing: true
+		DisplayBeacon: True
+		BeaconPoster: bfg10k
+		ChargeInterval: 19500
+		UnitTypes: BFG10k
+		Drops: 1,1
+		PodScatter: 3
+		PodFacing: 480
+		EntryEffect: explosion
+		EntryEffectSequence: redeemerexplosion
+		CameraActor: camera
+		CameraRemoveDelay: 400
+		Weapon: BFGZapCluster
+		WeaponDelay: 5
+		DisplayTimerRelationships: Ally, Neutral, Enemy
+	RenderSprites:
+		PlayerPalette: dawn
+	ActorPreviewPlaceBuildingPreview:
+	Cloak@stealthgen:
+		Palette: dawncloak
+	WithDeathAnimation:
+		DeathSequence: dead
+		UseDeathTypeSuffix: false
