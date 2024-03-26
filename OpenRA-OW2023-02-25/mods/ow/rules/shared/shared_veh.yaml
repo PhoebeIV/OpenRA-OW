@@ -139,6 +139,14 @@ HARV:
 		CloakedColor: 0000000C
 	Targetable:
 		RequiresCondition: !phasing
+	Cloak@stealthgen:
+		PauseOnCondition: cloak-force-disabled
+	GrantConditionOnDamageState@UNCLOAK:
+		Condition: cloak-force-disabled
+		ValidDamageStates: Critical
+	GrantConditionOnPrerequisite@bhand:
+		Prerequisites: vehicles.bhand
+		Condition: stealthgen
 
 HARVNAVY:
 	Inherits: HARV
@@ -222,6 +230,17 @@ HARVD:
 	StoresResources:
 		Capacity: 20
 		Resources: Ore,Gems,Tiberium,BlueTiberium
+	Cloak@stealthgen:
+		Palette: dawncloak
+		CloakSound: trans1.aud
+		UncloakSound: trans1.aud
+		PauseOnCondition: cloak-force-disabled
+	GrantConditionOnDamageState@UNCLOAK:
+		Condition: cloak-force-disabled
+		ValidDamageStates: Critical
+	GrantConditionOnPrerequisite@bhand:
+		Prerequisites: vehicles.bhand
+		Condition: stealthgen
 
 ARTY:
 	Buildable:

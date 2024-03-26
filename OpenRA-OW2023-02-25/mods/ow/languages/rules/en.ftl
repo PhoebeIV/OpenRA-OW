@@ -1330,6 +1330,14 @@ actor-gdi-suits =
    .name = Supply Hazard Suits
    .description = Grants immunity to corrosion and similar effects.
 
+actor-gdi-faction =
+   .name1 = ZOCOM Tech
+   .description1 = Enables the ZOCOM subfaction
+   .name2 = Mech Tech
+   .description2 = Enables the Steel Talons subfaction
+   .name3 = Aerospace Tech
+   .description3 = Enables the Aerospace subfaction
+
 actor-atek-gdi =
    .description = Provides GDI advanced technologies.
    .name = GDI Tech Center
@@ -2545,6 +2553,14 @@ actor-nod-fanatic =
    .description = Increases attack speed by 10%. 
     
     In the name of Kane.
+
+actor-nod-faction =
+   .name1 = Cyborg Tech
+   .description1 = Enables the Marked of Kane subfaction
+   .name2 = Stealth Tech
+   .description2 = Enables the Black Hand subfaction
+   .name3 = Tiberium Tech
+   .description3 = Enables the Separatists subfaction
 
 actor-handd =
    .description = Trains infantry.
