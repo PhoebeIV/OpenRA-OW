@@ -1,22 +1,3 @@
-HARVD.BHAND:
-	Inherits: HARVD
-	-ExternalCondition@stealthgen:
-	-Cloak@stealthgen:
-	Cloak:
-		IsPlayerPalette: true
-		Palette: dawncloak
-		InitialDelay: 125
-		CloakDelay: 175
-		CloakSound: trans1.aud
-		UncloakSound: trans1.aud
-		UncloakOn: Damage
-		PauseOnCondition: cloak-force-disabled
-	GrantConditionOnDamageState@UNCLOAK:
-		Condition: cloak-force-disabled
-		ValidDamageStates: Critical
-	Buildable:
-		Prerequisites: refinery, ~vehicles.bhand
-
 1TNK.N:
 	Inherits: ^TrackedVehicle
 	Inherits@GAINSEXPERIENCE: ^GainsExperience
@@ -157,7 +138,7 @@ STNKD:
 	Buildable:
 		Queue: Vehicle
 		BuildPaletteOrder: 140
-		Prerequisites: advtechcenter, ~vehicles.bhand, ~techlevel.unrestricted
+		Prerequisites: advtechcenter, ~vehicles.stnkdprereq, ~techlevel.unrestricted
 		Description: actor-stnkd.description
 	Valued:
 		Cost: 950
@@ -215,7 +196,7 @@ FTNKD:
 	Buildable:
 		Queue: Vehicle
 		BuildPaletteOrder: 55
-		Prerequisites: radar, ~vehicles.marked, ~techlevel.medium
+		Prerequisites: radar, ~vehicles.ftnkdprereq, ~!vehicles.nod3, ~techlevel.medium
 		Description: actor-ftnkd.description
 	Mobile:
 		TurnSpeed: 28

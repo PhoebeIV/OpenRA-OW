@@ -23,6 +23,72 @@ nod.fanatic:
 	Valued:
 		Cost: 7500
 
+nod.marked:
+	Inherits: ^UpgradeBaseExt
+	Tooltip:
+		Name: actor-nod-faction.name1
+	Buildable:
+		Description: actor-nod-faction.description1
+		BuildPaletteOrder: 30000
+		Queue: Wall
+		Prerequisites: ~!nod.marked, ~structures.nodbase, advtechcenter, ~techlevel.unrestricted
+		BuildDuration: 10000
+	ProvidesPrerequisite@upgradename:
+	ProvidesPrerequisite@special:
+		Prerequisite: structures.marked
+	ProvidesPrerequisite@special2:
+		Prerequisite: infantry.marked
+	ProvidesPrerequisite@special3:
+		Prerequisite: aircraft.marked
+	ProvidesPrerequisite@special4:
+		Prerequisite: vehicles.marked
+	Valued:
+		Cost: 25000
+
+nod.bhand:
+	Inherits: ^UpgradeBaseExt
+	Tooltip:
+		Name: actor-nod-faction.name2
+	Buildable:
+		Description: actor-nod-faction.description2
+		BuildPaletteOrder: 30000
+		Queue: Wall
+		Prerequisites: ~!nod.bhand, ~structures.nodbase, advtechcenter, ~techlevel.unrestricted
+		BuildDuration: 10000
+	ProvidesPrerequisite@upgradename:
+	ProvidesPrerequisite@special:
+		Prerequisite: structures.bhand
+	ProvidesPrerequisite@special2:
+		Prerequisite: infantry.bhand
+	ProvidesPrerequisite@special3:
+		Prerequisite: aircraft.bhand
+	ProvidesPrerequisite@special4:
+		Prerequisite: vehicles.bhand
+	Valued:
+		Cost: 25000
+
+nod.separatist:
+	Inherits: ^UpgradeBaseExt
+	Tooltip:
+		Name: actor-nod-faction.name3
+	Buildable:
+		Description: actor-nod-faction.description3
+		BuildPaletteOrder: 30000
+		Queue: Wall
+		Prerequisites: ~!nod.separatist, ~structures.nodbase, advtechcenter, ~techlevel.unrestricted
+		BuildDuration: 10000
+	ProvidesPrerequisite@upgradename:
+	ProvidesPrerequisite@special:
+		Prerequisite: structures.nod3
+	ProvidesPrerequisite@special2:
+		Prerequisite: infantry.nod3
+	ProvidesPrerequisite@special3:
+		Prerequisite: aircraft.nod3
+	ProvidesPrerequisite@special4:
+		Prerequisite: vehicles.nod3
+	Valued:
+		Cost: 25000
+
 HANDD:
 	Inherits: ^DawnBuilding
 	Inherits@prereqs: ^BarracksPrereqs
@@ -173,23 +239,6 @@ AFLDD:
 		DeathSequence: dead
 		UseDeathTypeSuffix: false
 		DeathSequencePalette: dawn
-
-PROCD.BHAND:
-	Inherits: PROCD
-	Buildable:
-		Prerequisites: anypower, ~techlevel.infonly, ~structures.bhand, ~!ai.boss
-	FreeActor:
-		Actor: HARVD.BHAND
-		SpawnOffset: 1,2
-		Facing: 256
-	RenderSprites:
-		Image: PROCD
-	ProvidesPrerequisite@buildingname:
-		Prerequisite: procd
-	ProvidesPrerequisite:
-		Prerequisite: refinery
-	ProvidesPrerequisite@usa:
-		Prerequisite: Supply Center
 
 STEK.NOD:
 	Inherits: STEK
@@ -471,7 +520,7 @@ PDOX.BHAND:
 	Buildable:
 		Queue: Tech
 		BuildPaletteOrder: 9001
-		Prerequisites: advtechcenter, ~techlevel.unrestricted, ~structures.pdoxbhandprereq
+		Prerequisites: advtechcenter, ~techlevel.unrestricted, ~structures.bhand
 		Icon: icon-sgen
 		Description: actor-pdox-bhand.description
 	Valued:
