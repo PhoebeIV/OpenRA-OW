@@ -1093,6 +1093,28 @@ dukenukempistol:
 			Concrete: 20
 		DamageTypes: Prone50Percent, TriggerProne, BulletDeath
 
+dukenukempistolfake:
+	Inherits: dukenukempistol
+	Warhead@1Dam: SpreadDamage
+		Spread: 128
+		Damage: 0
+		ValidTargets: GroundActor, WaterActor
+		Versus:
+			None: 120
+			Wood: 60
+			Light: 72
+			Heavy: 28
+			Concrete: 28
+		DamageTypes: Prone50Percent, TriggerProne, BulletDeath
+	Warhead@2Eff: CreateEffect
+		Explosions: piffs
+		ValidTargets: Ground, GroundActor, Air, AirborneActor, WaterActor, Trees
+		ImpactActors: false
+	Warhead@3EffWater: CreateEffect
+		Explosions: water_piffs
+		ValidTargets: Water, Underwater
+		InvalidTargets: Bridge
+
 dukenukemmg:
 	Inherits: ^LightMG
 	Range: 8c0
@@ -1115,13 +1137,13 @@ dukenukemshotgun:
 	Report: dukeshotgun.wav
 	AfterFireSound: dukeshotgunrack.wav
 	Warhead@1Dam: SpreadDamage
-		Spread: 350
-		Damage: 5000
+		Spread: 512
+		Damage: 11000
 		Versus:
 			None: 120
-			Wood: 40
-			Light: 70
-			Heavy: 40
+			Wood: 50
+			Light: 80
+			Heavy: 50
 			Concrete: 20
 		DamageTypes: Prone50Percent, TriggerProne, BulletDeath
 
@@ -1131,18 +1153,15 @@ dukenukemexpand:
 	Range: 6c0
 	Report: dukenukemexpand.wav
 	Warhead@1Dam: SpreadDamage
-		Damage: 7000
+		Damage: 3000
 		Versus:
 			None: 120
 			Wood: 20
 			Light: 40
 			Heavy: 20
 			Concrete: 20
-		DamageTypes: Prone50Percent, TriggerProne, BulletDeath
+		DamageTypes: Prone50Percent, TriggerProne, ElectricityDeath
 	Warhead@2Eff: CreateEffect
-		Explosions: dukenukemexpand
-		Inaccuracy: 171
-	Warhead@3EffWater: CreateEffect
 		Explosions: dukenukemexpand
 		Inaccuracy: 171
 
