@@ -1,4 +1,4 @@
-# Enhanced Training Regime
+# EDF Military Training (Firepower 1)
 dukenukem.tier1.fastupgrade1:
 	Inherits: ^HeroUpgradeBaseTier1
 	Tooltip:
@@ -13,7 +13,7 @@ dukenukem.tier1.fastupgrade1:
 	ProvidesPrerequisite@upgradename:
 		Prerequisite: upgrade.inffirepower1
 
-# Vanadium Plating
+# EDF Advanced Power Armor (Armour 1)
 dukenukem.tier1.fastupgrade2:
 	Inherits: ^HeroUpgradeBaseTier1
 	Tooltip:
@@ -28,7 +28,7 @@ dukenukem.tier1.fastupgrade2:
 	ProvidesPrerequisite@upgradename:
 		Prerequisite: upgrade.infarmor1
 
-# Improved Supply Chain
+# Super-Soldier DNA Program
 dukenukem.tier2.costcut:
 	Inherits: ^HeroUpgradeBaseTier2
 	Tooltip:
@@ -42,7 +42,7 @@ dukenukem.tier2.costcut:
 	ProvidesPrerequisite@upgradename2:
 		Prerequisite: infantry.prodtime
 
-# Mercenary Munitions
+# EDF Improved Weapon Systems
 dukenukem.tier2.firespeed:
 	Inherits: ^HeroUpgradeBaseTier2
 	Tooltip:
@@ -55,7 +55,7 @@ dukenukem.tier2.firespeed:
 	ProvidesPrerequisite@upgradename:
 		Prerequisite: infantry.firespeed1
 
-# Enhanced Training Regime II
+# EDF Military Training (Firepower 2)
 dukenukem.tier3.fastupgrade1:
 	Inherits: ^HeroUpgradeBaseTier3
 	Tooltip:
@@ -70,7 +70,7 @@ dukenukem.tier3.fastupgrade1:
 	ProvidesPrerequisite@upgradename:
 		Prerequisite: upgrade.inffirepower2
 
-# Vanadium Plating II
+# EDF Advanced Power Armor (Armour 2)
 dukenukem.tier3.fastupgrade2:
 	Inherits: ^HeroUpgradeBaseTier3
 	Tooltip:
@@ -85,7 +85,7 @@ dukenukem.tier3.fastupgrade2:
 	ProvidesPrerequisite@upgradename:
 		Prerequisite: upgrade.infarmor2
 
-# Nano Projectors
+# EDF Advanced Weapon Attachments
 dukenukem.tier3.range:
 	Inherits: ^HeroUpgradeBaseTier3
 	Tooltip:
@@ -97,7 +97,7 @@ dukenukem.tier3.range:
 	RenderSprites:
 		Image: upgrade.inffirepower3
 
-# Orbital Bomb
+# Duke's Patriotism'
 dukenukem.tier4.support1:
 	Inherits: ^HeroUpgradeBaseTier4
 	Tooltip:
@@ -110,7 +110,7 @@ dukenukem.tier4.support1:
 	RenderSprites:
 		Image: icon
 
-# Strike Force
+# Earth Defense Force Paratroopers
 dukenukem.tier4.support2:
 	Inherits: ^HeroUpgradeBaseTier4
 	Tooltip:
@@ -123,31 +123,32 @@ dukenukem.tier4.support2:
 	RenderSprites:
 		Image: icon
 
-# Yamato Gun
-dukenukem.tier5.hyperion1:
+# Cycloid Emperor 
+dukenukem.tier5.unit1:
 	Inherits: ^HeroUpgradeBaseTier5
 	Tooltip:
-		Name: actor-dukenukem-tier5-hyperion1.name
+		Name: actor-dukenukem-tier5-unit1.name
 	Buildable:
-		Description: actor-dukenukem-tier5-hyperion1.description
+		Description: actor-dukenukem-tier5-unit1.description
 		Prerequisites: ~active.dukenukem
 		BuildPaletteOrder: 1
-		Icon: ioncannon
+		Icon: icon
 	RenderSprites:
-		Image: icon
+		Image: dukenukemcycloidemperor
+	ProvidesPrerequisite@buildingname:
 
-# Hypercharge
-dukenukem.tier5.hyperion2:
+# Battlelord
+dukenukem.tier5.unit2:
 	Inherits: ^HeroUpgradeBaseTier5
 	Tooltip:
-		Name: actor-dukenukem-tier5-hyperion2.name
+		Name: actor-dukenukem-tier5-unit2.name
 	Buildable:
-		Description: actor-dukenukem-tier5-hyperion2.description
+		Description: actor-dukenukem-tier5-unit2.description
 		Prerequisites: ~active.dukenukem
 		BuildPaletteOrder: 2
-		Icon: chrono
+		Icon: icon
 	RenderSprites:
-		Image: icon
+		Image: dukenukembattlelord
 
 active.dukenukem:
 	AlwaysVisible:
@@ -398,8 +399,6 @@ dukenukem.Hero3:
 		Name: actor-dukenukem-hero3-name
 	Health:
 		HP: 160000
-	ChangesHealth@stimpack:
-		Delay: 50
 	SpawnActorOnDeath:
 		RequiresCondition: force_deploy
 		Actor: dukenukem.Hero4
@@ -421,7 +420,7 @@ dukenukem.Hero3:
 		Weapon: dukenukemmg
 		RequiresCondition: gun3
 	Armament@QUAD:
-		Weapon: dukenukemrpg
+		Weapon: dukenukempipebomb
 		RequiresCondition: gun4
 	Armament@FICE:
 		Weapon: dukenukemrpg
@@ -444,8 +443,6 @@ dukenukem.Hero4:
 		Name: actor-dukenukem-hero4.name
 	Health:
 		HP: 200000
-	ChangesHealth@stimpack:
-		Delay: 65
 	SpawnActorOnDeath:
 		RequiresCondition: force_deploy
 		Actor: dukenukem.Hero5
@@ -454,10 +451,10 @@ dukenukem.Hero4:
 	GrantExternalConditionPower:
 		PauseOnCondition: disabled
 		Icon: patriotismicon
-		ChargeInterval: 7500
+		ChargeInterval: 9000
 		Prerequisites: dukenukem.tier4.support1
-		Name: Patriotism
-		OrderName: patriotism
+		Name: Duke's Patriotism
+		OrderName: dukespatriotism
 		Description: Duke Nukem motivates him and his country to fight harder!
 		Duration: 750
 		SelectTargetSpeechNotification: SelectTarget
@@ -496,7 +493,7 @@ dukenukem.Hero4:
 		StartFullyCharged: true
 		LaunchSound: dukenukemabilty.aud
 	GrantRandomPeriodicCondition:
-		Conditions: gun1, gun2, gun3, gun4, gun5
+		Conditions: gun1, gun2, gun3, gun4, gun5, gun6
         CooldownDuration: 1
 		ActiveDuration: 125
 	Armament@PRIMARY:
@@ -509,11 +506,14 @@ dukenukem.Hero4:
 		Weapon: dukenukemfreezer
 		RequiresCondition: gun3
 	Armament@QUAD:
-		Weapon: dukenukemfreezer
+		Weapon: dukenukemshrink
 		RequiresCondition: gun4
 	Armament@FICE:
 		Weapon: dukenukemexpand
 		RequiresCondition: gun5
+	Armament@SIX:
+		Weapon: dukenukempipebomb
+		RequiresCondition: gun6
 	Armament@GARRISONED:
 		Name: garrisoned
 		Weapon: dukenukemrpg
@@ -532,39 +532,38 @@ dukenukem.Hero5:
 		Name: actor-dukenukem-hero5-name
 	Health:
 		HP: 250000
-	ChangesHealth@stimpack:
-		Delay: 75
 	-KillsSelf@level:
 	-SpawnActorOnDeath:
 	-GrantPeriodicCondition@deploy:
 	-GainsExperienceMultiplier@1:
 	FirepowerMultiplier@1:
 		Modifier: 150
-	AirstrikePower@hyperion: 
+	DropPodsPower@dukesship:
+		Icon: dukesshipicon
 		Prerequisites: !structures.dukenukem
-		OrderName: Hyperion2
-		Icon: hyperion
-		ChargeInterval: 7500
-		StartFullyCharged: true
-		Name: Hyperion
-		Description: Call down your Capital Ship to fight for 45 seconds. \n\n Strong vs Everything \nCan teleport deploy.
-		SelectTargetSpeechNotification: SelectTarget
-		SelectTargetTextNotification: actor-t-miss.airstrikepower-hyperion-select-target-text-notification
+		Name: Duke's Ship
+		OrderName: dukesship
+		Description: Those alien bastards are gonna pay for screwing up my ride!
+		UnitTypes: dukenukemship
+		Cursor: chrono-target
+		Drops: 1,1
+		PodScatter: 2
+		PodFacing: 704
+		PauseOnCondition: disabled
 		CameraActor: camera
-		CameraRemoveDelay: 25
-		UnitType: thyperion.spawn
-		QuantizedFacings: 8
-		DisplayBeacon: true
-		BeaconPoster: hyperion
-		SquadSize: 1
-		SquadOffset: 1792,1792,0
-		ArrowSequence: arrow
-		ClockSequence: clock
-		CircleSequence: circles
-		UseDirectionalTarget: True
-		DirectionArrowAnimation: paradirection
-		SupportPowerPaletteOrder: 5
+		CameraRemoveDelay: 750
+		Weapon: usarailguncharging
+		WeaponDelay: 5
+		ChargeInterval: 7500
+		EntryEffect: explosion
+		EntryEffectSequence: redeemerexplosion
+		LaunchSound: dukenukemshipfly.aud
+		SelectTargetSpeechNotification: SelectTarget
+		SelectTargetTextNotification: actor-powerproxy-colonydrop-droppodspower-colonydrop-select-target-text-notification
+		DisplayRadarPing: true
 		DisplayTimerRelationships: Ally, Enemy, Neutral
+		BeaconPoster: artillerybarragebeacon
+		StartFullyCharged: true
 	GrantRandomPeriodicCondition:
 		Conditions: gun1, gun2, gun3, gun4, gun5
         CooldownDuration: 1
@@ -572,11 +571,14 @@ dukenukem.Hero5:
 	Armament@PRIMARY:
 		Weapon: dukenukemdevestator
 		RequiresCondition: gun1
+	Armament@PRIMARY2:
+		Weapon: dukenukemdevestator2
+		RequiresCondition: gun1
 	Armament@SECONDARY:
 		Weapon: dukenukemrpg
 		RequiresCondition: gun2
 	Armament@TRI:
-		Weapon: dukenukempipebomb
+		Weapon: dukenukemshrink
 		RequiresCondition: gun3
 	Armament@QUAD:
 		Weapon: dukenukemfreezer
@@ -651,3 +653,226 @@ FakeDukeNukem:
 	KillsSelf:
 		Delay: 750
 		DamageTypes: ElectricityDeath
+
+dukenukemship:
+	Inherits: ^Plane
+	RenderSprites:
+		Image: dukenukemship
+	Targetable:
+		TargetTypes: Firebasebox
+	Health:
+		HP: 500000
+	Valued:
+		Cost: 1
+	-UpdatesPlayerStatistics:
+	Aircraft:
+		TurnSpeed: 20
+		Speed: 192
+		CruiseAltitude: 32c0
+		MaximumPitch: 110
+		VTOL: true
+		LandableTerrainTypes: Clear, ClearSnow, Road, Creep, Bridge, Water, Ore, Gems, Rough, Tiberium, BlueTiberium, Radiation, Beach
+	WithMuzzleOverlay:
+	-ActorLostNotification:
+	-Selectable:
+	AttackAircraft:
+	Armament:
+		Weapon: DukeShipWeapon
+	FloatingSpriteEmitter:
+		Image: explosion
+		Sequences: dukenukemexplosionsmall
+		Lifetime: 30
+		SpawnFrequency: 2,10
+		Offset: 0,0,32
+		Duration: -1
+	FloatingSpriteEmitter@1:
+		Image: explosion
+		Sequences: dukenukemexplosionsmall
+		Lifetime: 30
+		SpawnFrequency: 2,10
+		Offset: -800,0,256
+		Duration: -1
+	FloatingSpriteEmitter@2:
+		Image: explosion
+		Sequences: dukenukemexplosionsmall
+		Lifetime: 30
+		SpawnFrequency: 2,10
+		Offset: 800,0,-128
+		Duration: -1
+	Tooltip:
+		Name: actor-chinaartillerypower-name
+	RejectsOrders:
+	-SpawnActorOnDeath:
+	FallsToEarth:
+		Explosion: TerranCrateNuke
+		Moves: true
+		Velocity: 192
+		MaximumSpinSpeed: 0
+	-EjectOnDeath:
+	Interactable:
+	AmbientSound@airborne:
+		SoundFiles: dukeexplosion.wav
+		Interval: 5,15
+		Delay: 25
+	AmbientSound@airborne1:
+		SoundFiles: dukeexplosion.wav
+		Interval: 11,24
+		Delay: 5
+
+dukenukemcycloidemperor:
+	Inherits: ^Soldier
+	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
+	Inherits@HITBOX: ^LargeDemon
+	Inherits@EPIC: ^EpicUnit
+	Buildable:
+		Queue: Infantry
+		BuildAtProductionType: Soldier
+		BuildPaletteOrder: 415
+		Prerequisites: ~barracks, ~techlevel.unrestricted, ~dukenukem.tier5.unit1
+		Description: actor-dukenukemcycloidemperor.description
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Valued:
+		Cost: 7500
+	Tooltip:
+		Name: actor-dukenukemcycloidemperor.name
+	Health:
+		HP: 175000
+	Armor:
+		Type: Heavy
+	Mobile:
+		Speed: 65
+		Locomotor: tracked
+	Targetable:
+		TargetTypes: GroundActor, Vehicle, Tank
+	RevealsShroud:
+		Range: 6c0
+	Repairable:
+		RepairActors: fix
+	Passenger:
+		Weight: 5
+		CustomPipType: red
+	-Crushable:
+	RevealsShroud:
+		MinRange: 4c0
+		Range: 6c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 4c0
+	Armament@PRIMARY:
+		Weapon: cycloidemperor1
+		LocalOffset: 400,0,850
+	Armament@PRIMARY2:
+		Weapon: cycloidemperor2
+		LocalOffset: 400,0,850
+	Armament@PRIMARY3:
+		Weapon: cycloidemperor2
+		LocalOffset: 400,0,850
+	Armament@SECONDARY:
+		Weapon: cycloidemperoralien1
+		LocalOffset: 400,0,850
+	Armament@SECONDARY1:
+		Weapon: cycloidemperoralien2
+		LocalOffset: 400,0,850
+	AttackFrontal:
+		FacingTolerance: 0
+	ExternalCondition@PRODUCED:
+		Condition: produced
+	VoiceAnnouncement:
+		RequiresCondition: produced
+		Voice: Build
+	Voiced:
+		VoiceSet: CycloidEmperor
+	WithInfantryBody:
+		DefaultAttackSequence: shoot
+	ProducibleWithLevel:
+		Prerequisites: pdox.upgraded
+	Selectable:
+		Bounds: 1450, 1877, 0, -768
+		DecorationBounds: 1450, 1877, 0, -768
+	Explodes:
+		Weapon: CyberExplode
+		EmptyWeapon: CyberExplode
+	AmbientSound:
+		SoundFiles: B2REC03.wav, B2ATK01.wav, B2ATK02.wav
+		Interval: 500, 1500
+		Delay: 500, 1500
+	-SpawnActorOnDeath@fire:
+
+dukenukembattlelord:
+	Inherits: ^Soldier
+	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
+	Inherits@HITBOX: ^LargeDemon
+	Inherits@EPIC: ^EpicUnit
+	Buildable:
+		Queue: Infantry
+		BuildAtProductionType: Soldier
+		BuildPaletteOrder: 415
+		Prerequisites: ~barracks, ~techlevel.unrestricted, ~dukenukem.tier5.unit2
+		Description: actor-dukenukembattlelord.description
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Valued:
+		Cost: 7500
+	Tooltip:
+		Name: actor-dukenukembattlelord.name
+	Health:
+		HP: 150000
+	Armor:
+		Type: Heavy
+	Mobile:
+		Speed: 85
+		Locomotor: tracked
+	Targetable:
+		TargetTypes: GroundActor, Vehicle, Tank
+	RevealsShroud:
+		Range: 6c0
+	Repairable:
+		RepairActors: fix
+	Passenger:
+		Weight: 5
+		CustomPipType: red
+	-Crushable:
+	RevealsShroud:
+		MinRange: 4c0
+		Range: 6c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 4c0
+	GrantRandomPeriodicCondition:
+		Conditions: gun1, gun2, gun3
+        CooldownDuration: 1
+		ActiveDuration: 125
+	Armament@PRIMARY:
+		Weapon: battlelordmmg
+		RequiresCondition: gun1
+	Armament@SECONDARY:
+		Weapon: battlelordbomb
+		RequiresCondition: gun2
+	Armament@tri:
+		Weapon: battlelordbombinstant
+		RequiresCondition: gun3
+	AttackFrontal:
+		FacingTolerance: 0
+	ExternalCondition@PRODUCED:
+		Condition: produced
+	VoiceAnnouncement:
+		RequiresCondition: produced
+		Voice: Build
+	Voiced:
+		VoiceSet: Battlelord
+	WithInfantryBody:
+		DefaultAttackSequence: shoot
+	ProducibleWithLevel:
+		Prerequisites: pdox.upgraded
+	Selectable:
+		Bounds: 1450, 1877, 0, -768
+		DecorationBounds: 1450, 1877, 0, -768
+	Explodes:
+		Weapon: CyberExplode
+		EmptyWeapon: CyberExplode
+	AmbientSound:
+		SoundFiles: BOS1RM.wav, BOS1RG.wav
+		Interval: 500, 1500
+		Delay: 500, 1500
+	-SpawnActorOnDeath@fire:

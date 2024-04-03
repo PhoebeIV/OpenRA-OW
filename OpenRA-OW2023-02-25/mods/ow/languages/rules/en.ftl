@@ -5357,3 +5357,94 @@ actor-zagara-tier5-option2 =
 
 notification-shield-projection-charging = Shield projection charging.
 notification-shield-projection-ready = Shield projection ready.
+
+actor-dukenukem-hero0 =
+   .description = [HERO]
+
+    Role: Infantry attack
+
+    Special Agent for the Earth Defense Forces.
+     Equipped with his mighty Duke Pistol.
+     Tier 1 unlocks the shotgun.
+     Tier 2 unlocks the machine gun.
+     Tier 3 unlocks the RPG.
+     Tier 4 unlocks the Freezer and Shrinker/Expander
+     Tier 5 unlocks the Devestator.
+    Speed: 72
+      Strong vs Infantry, Vehicles
+      Weak vs Aircraft
+      
+    Equipped with a Medikit (Tier 0), Steroids (Tier 1), Holoduke (Tier 2).
+   .name = Duke Nukem (Tier 0)
+   .real--name = Duke Nukem
+
+actor-dukenukem-hero1-name = Duke Nukem (Tier 1)
+actor-dukenukem-hero2-name = Duke Nukem (Tier 2)
+actor-dukenukem-hero3-name = Duke Nukem (Tier 3)
+
+actor-dukenukem-hero4 =
+   .name = Duke Nukem (Tier 4)
+   .droppodspower-select-target-text-notification = Select target.
+
+actor-dukenukem-hero5-name = Duke Nukem (Tier 5)
+
+actor-dukenukem-tier1-fastupgrade1 =
+   .name = EDF Military Training
+   .description = Gain Infantry Firepower I instantly.
+
+actor-dukenukem-tier1-fastupgrade2 =
+   .name = EDF Advanced Power Armor
+   .description = Gain Infantry Armor I instantly.
+
+actor-dukenukem-tier2-costcut =
+   .name = Super-Soldier DNA Program
+   .description = Produce Infantry for 10% cheaper and 20% faster.
+
+actor-dukenukem-tier2-firespeed =
+   .name = EDF Improved Weapon Systems
+   .description = Improves Infantry weapon reload speed by 10%.
+
+actor-dukenukem-tier3-fastupgrade1 =
+   .name = EDF Military Training II
+   .description = Gain Infantry Firepower II instantly.
+
+actor-dukenukem-tier3-fastupgrade2 =
+   .name = EDF Advanced Power Armor II
+   .description = Gain Infantry Armor II instantly.
+
+actor-dukenukem-tier3-range =
+   .name = EDF Advanced Weapon Attachments
+   .description = Increase range of Medics, Medivac Dropships and Firebats.
+
+actor-dukenukem-tier4-support1 =
+   .name = Duke's Patriotism
+   .description = Enables Duke's Patriotism support power. 
+    
+    Duke Nukem motivates him and his country to fight harder!
+    Cooldown: 6:00
+
+actor-dukenukem-tier4-support2 =
+   .name = Earth Defense Force Paradrop
+   .description = Enables Earth Defense Force support power. 
+    
+    Call in 3 U2s to paradrop 15 infantry.
+    Cooldown: 6:00
+
+actor-dukenukem-tier5-unit1 =
+   .name = Cycloid Emperor
+   .description = Enables the training of the Cycloid Emperor.
+
+actor-dukenukem-tier5-unit2 =
+   .name = Battlelord
+   .description = Enables the training of the Battlelord.
+
+actor-dukenukemcycloidemperor =
+   .description = [EPIC]
+   The Cycloid Emperor is the leader of the alien invaders.
+   Armed with a triple spread RPG.
+   .name = Cycloid Emperor
+
+actor-dukenukembattlelord =
+   .description = [EPIC]
+   The Battlelord wields a large Minigun with a built-in mortar launcher. 
+   .name = Battlelord

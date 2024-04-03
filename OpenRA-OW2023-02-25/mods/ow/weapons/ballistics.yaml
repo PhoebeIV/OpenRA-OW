@@ -2767,11 +2767,13 @@ corvusfiremace1:
 	Range: 5c0
 	Report: LOBSHT.wav
 	Projectile: Bullet
-		Speed: 64
+		Speed: 96
 		Inaccuracy: 2c0
 		Image: firemaceproj1
-		BounceCount: 4
+		BounceCount: 5
 		BounceSound: BOUNCE.wav
+		BounceRangeModifier: 70
+		LaunchAngle: -5
 	Warhead@1Dam: SpreadDamage
 		Spread: 256
 		Damage: 4000
@@ -2791,11 +2793,13 @@ corvusfiremace2:
 	Range: 5c0
 	Report: LOBSHT.wav
 	Projectile: Bullet
-		Speed: 64
+		Speed: 96
 		Inaccuracy: 2c0
 		Image: firemaceproj2
-		BounceCount: 4
+		BounceCount: 5
 		BounceSound: BOUNCE.wav
+		BounceRangeModifier: 70
+		LaunchAngle: -8
 	Warhead@1Dam: SpreadDamage
 		Spread: 512
 		Damage: 8000
@@ -2808,3 +2812,40 @@ corvusfiremace2:
 	Warhead@3Eff: CreateEffect
 		Explosions: corvusfiremacepiff
 		ImpactSounds: LOBHIT.wav
+
+cycloidemperoralien1:
+	Inherits: ^ShieldHit
+	ReloadDelay: 500
+	Range: 10c0
+	ValidTargets: Ground, Water, GroundActor, WaterActor
+	Report: OCTAAT1.wav
+	Projectile: Bullet
+		Speed: 128
+		Image: dukenukemalienproj
+		Shadow: True
+	Warhead@1Dam: SpreadDamage
+		Spread: 256
+		Damage: 3000
+		ValidTargets: GroundActor, WaterActor
+		Versus:
+			None: 100
+			Wood: 50
+			Light: 50
+			Concrete: 50
+		DamageTypes: Prone50Percent, TriggerProne, ExplosionDeath
+	Warhead@3Eff: CreateEffect
+		Explosions: dukenukemalienexplosion
+		ValidTargets: Ground, GroundActor, WaterActor, Trees
+		ImpactActors: false
+	Warhead@4EffWater: CreateEffect
+		Explosions: dukenukemalienexplosion
+		ValidTargets: Water, Underwater
+		InvalidTargets: Bridge
+
+cycloidemperoralien2:
+	Inherits: cycloidemperoralien1
+	Burst: 12
+	BurstDelays: 0
+	Projectile: Bullet
+		Inaccuracy: 3c0
+	-Report:

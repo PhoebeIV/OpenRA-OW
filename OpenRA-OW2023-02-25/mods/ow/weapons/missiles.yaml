@@ -1682,7 +1682,7 @@ dukenukemrpg:
 		Speed: 384
 	Warhead@1Dam: SpreadDamage
 		Damage: 10000
-		Spread: 512
+		Spread: 768
 		Versus:
 			None: 50
 			Wood: 80
@@ -1693,6 +1693,12 @@ dukenukemrpg:
 	Warhead@3Eff: CreateEffect
 		Explosions: dukenukemexplosionsmall
 		ImpactSounds: dukeexplosion.wav
+		ValidTargets: Ground, Air, GroundActor, AirborneActor, WaterActor, Trees
+	Warhead@4EffWater: CreateEffect
+		Explosions: small_splash
+		ImpactSounds: splash9.aud
+		ValidTargets: Water, Underwater
+		InvalidTargets: Bridge
 
 dukenukempipebomb:
 	Inherits: ^Artillery
@@ -1705,9 +1711,10 @@ dukenukempipebomb:
 		BounceCount: 2
 		BounceSound: dukenukempipebombbounce.aud
 		Shadow: true
+		BounceRangeModifier: 70
 	Warhead@1Dam: SpreadDamage
-		Spread: 512
-		Damage: 15000
+		Spread: 1024
+		Damage: 12500
 		Versus:
 			None: 120
 			Wood: 60
@@ -1717,6 +1724,12 @@ dukenukempipebomb:
 	Warhead@3Eff: CreateEffect
 		Explosions: dukenukemexplosionsmall
 		ImpactSounds: dukeexplosion.wav
+		ValidTargets: Ground, Air, GroundActor, AirborneActor, WaterActor, Trees
+	Warhead@4EffWater: CreateEffect
+		Explosions: small_splash
+		ImpactSounds: splash9.aud
+		ValidTargets: Water, Underwater
+		InvalidTargets: Bridge
 
 dukenukemshrink:
 	Inherits: ^AntiGroundMissile
@@ -1733,7 +1746,7 @@ dukenukemshrink:
 		ContrailLength: 0
 		Speed: 384
 	Warhead@1Dam: SpreadDamage
-		Damage: 6000
+		Damage: 5000
 		Spread: 512
 		Versus:
 			None: 100
@@ -1744,6 +1757,7 @@ dukenukemshrink:
 		DamageTypes: Prone50Percent, TriggerProne, SmallExplosionDeath
 	Warhead@3Eff: CreateEffect
 		Explosions: dukenukemshrinkexplosion
+		ValidTargets: Ground, Air, GroundActor, AirborneActor, WaterActor, Trees, Water, Underwater
 
 dukenukemfreezer:
 	Inherits: ^AntiGroundMissile
@@ -1758,30 +1772,28 @@ dukenukemfreezer:
 		MinimumLaunchAngle: 62
 		MaximumLaunchAngle: 62
 		ContrailLength: 0
-		Inaccuracy: 1c128
 		Speed: 384
 	Warhead@1Dam: SpreadDamage
-		Damage: 1500
-		Spread: 512
+		Damage: 2000
+		Spread: 256
 		Versus:
 			None: 100
-			Wood: 40
+			Wood: 50
 			Light: 70
-			Heavy: 40
+			Heavy: 50
 			Concrete: 100
 		DamageTypes: Prone50Percent, TriggerProne, SmallExplosionDeath
 	Warhead@3Eff: CreateEffect
 		Explosions: dukenukemfreezeexplosion
+		ValidTargets: Ground, Air, GroundActor, AirborneActor, WaterActor, Trees, Water, Underwater
 	Warhead@4Eff: GrantExternalCondition
 		Condition: cyrostreameffect
 		Duration: 250
-		ValidTargets: GroundActor, WaterActor, Ground, Water, Air, AirborneActor
+		ValidTargets: Ground, Air, GroundActor, AirborneActor, WaterActor, Trees, Water, Underwater
 
 dukenukemdevestator:
 	Inherits: ^AntiGroundMissile
 	ReloadDelay: 6
-	Burst: 2
-	BurstDelays: 0
 	Range: 7c0
 	Report: dukenukemdevestator.aud
 	Projectile: Missile
@@ -1803,6 +1815,16 @@ dukenukemdevestator:
 	Warhead@3Eff: CreateEffect
 		Explosions: dukenukemexplosiontiny
 		ImpactSounds: dukeexplosion.wav
+		ValidTargets: Ground, Air, GroundActor, AirborneActor, WaterActor, Trees
+	Warhead@4EffWater: CreateEffect
+		Explosions: small_splash
+		ImpactSounds: splash9.aud
+		ValidTargets: Water, Underwater
+		InvalidTargets: Bridge
+
+dukenukemdevestator2:
+	Inherits: dukenukemdevestator
+	-Report:
 
 KerriganBomb:
 	Inherits: ^AntiGroundMissile
@@ -2841,3 +2863,90 @@ AvaliFrigateMissile:
 		-TrailImage:
 	Warhead@1Dam: SpreadDamage
 		Damage: 3500
+
+cycloidemperor1:
+	ReloadDelay: 98
+	Range: 10c0
+	Report: dukerpg.wav
+	Burst: 3
+	BurstDelays: 18
+	ValidTargets: Ground, Water, GroundActor, WaterActor
+	Projectile: Missile
+		Arm: 3
+		Image: dukenukemrocket
+		HorizontalRateOfTurn: 25
+		RangeLimit: 12c512
+		MinimumLaunchAngle: 62
+		MaximumLaunchAngle: 62
+		Speed: 384
+		Inaccuracy: 1c256
+	Warhead@1Dam: SpreadDamage
+		Damage: 7000
+		Spread: 768
+		Versus:
+			None: 60
+			Wood: 80
+			Light: 80
+			Heavy: 100
+			Concrete: 100
+		DamageTypes: Prone50Percent, TriggerProne, SmallExplosionDeath
+		ValidTargets: Ground, Air, GroundActor, AirborneActor, WaterActor, Trees
+	Warhead@3Eff: CreateEffect
+		Explosions: dukenukemexplosionsmall
+		ImpactSounds: dukeexplosion.wav
+		ValidTargets: Ground, Air, GroundActor, AirborneActor, WaterActor, Trees
+	Warhead@2Smu: LeaveSmudge
+		SmudgeType: Crater
+		ValidTargets: Ground, Infantry
+	Warhead@4EffWater: CreateEffect
+		Explosions: small_splash
+		ImpactSounds: splash9.aud
+		ValidTargets: Water, Underwater
+		InvalidTargets: Bridge
+
+cycloidemperor2:
+	Inherits: cycloidemperor1
+	-Report:
+
+battlelordbomb:
+	Inherits: ^Artillery
+	ReloadDelay: 20
+	Range: 10c0
+	Report: dukerpg.wav
+	Projectile: Bullet
+		Speed: 128
+		Image: battlelordbombproj
+		BounceCount: 2
+		BounceSound: dukenukempipebombbounce.aud
+		Shadow: true
+		BounceRangeModifier: 70
+		LaunchAngle: 120
+		ContrailLength: 5
+	Warhead@1Dam: SpreadDamage
+		Spread: 768
+		Damage: 15000
+		Versus:
+			None: 120
+			Wood: 60
+			Light: 80
+			Heavy: 60
+			Concrete: 100
+	Warhead@3Eff: CreateEffect
+		Explosions: dukenukemexplosionsmall
+		ImpactSounds: dukeexplosion.wav
+		ValidTargets: Ground, Air, GroundActor, AirborneActor, WaterActor, Trees
+	Warhead@4EffWater: CreateEffect
+		Explosions: small_splash
+		ImpactSounds: splash9.aud
+		ValidTargets: Water, Underwater
+		InvalidTargets: Bridge
+
+battlelordbombinstant:
+	Inherits: battlelordbomb
+	Projectile: Bullet
+		Speed: 128
+		Image: battlelordbombproj
+		Shadow: true
+		BounceRangeModifier: 70
+		LaunchAngle: 120
+		ContrailLength: 5
