@@ -3438,6 +3438,33 @@ WarpshipJumpDamage:
 		ImpactSounds: dsrpgexp.aud
 		ImpactSoundChance: 10
 
+WarpshipJumpAI:
+	Inherits: WarpshipJump
+	Warhead@cluster1: FireCluster
+		Weapon: WarpshipJumpDamageAI
+	Warhead@cluster2: FireCluster
+		Weapon: WarpshipJumpDamageAI
+	Warhead@cluster3: FireCluster
+		Weapon: WarpshipJumpDamageAI
+	Warhead@cluster4: FireCluster
+		Weapon: WarpshipJumpDamageAI
+	Warhead@cluster5: FireCluster
+		Weapon: WarpshipJumpDamageAI
+
+WarpshipJumpDamageAI:
+	Inherits: SolBarrageCluster1
+	FollowingBurstTargetOffset: 0,0,0
+	Projectile: Bullet
+		Speed: 512
+		Inaccuracy: 0c800
+	Warhead@3Eff: CreateEffect
+		ImpactSounds: dsrpgexp.aud
+		ImpactSoundChance: 10
+	Warhead@1Dam: SpreadDamage
+		Damage: 1000
+	Warhead@2Dam: SpreadDamage
+		Damage: 1000
+
 StrifeTeleportFake:
 	ReloadDelay: 375
 	Range: 10c0
