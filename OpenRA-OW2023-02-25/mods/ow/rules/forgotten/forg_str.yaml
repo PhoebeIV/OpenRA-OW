@@ -1,0 +1,67 @@
+# Promotes tiberium mutation of trees or mines
+TREEPRO:
+	Inherits: ^Building
+	Inherits@IDISABLE: ^DisableOnLowPowerOrPowerDown
+	RenderSprites:
+		Image: oregen
+	Valued:
+		Cost: 1000
+	Buildable:
+		Queue: Tech
+		BuildPaletteOrder: 26
+		Prerequisites: refinery, ~structures.forgotten, ~techlevel.medium
+		Description: actor-treepro.description
+		BuildLimit: 1
+	Building:
+		TerrainTypes: Clear,ClearSnow,Road,Creep,ClearSnow,Oremine
+	RequiresBuildableArea:
+		Adjacent: 7
+	Tooltip:
+		Name: actor-treepro.name
+	Power:
+		Amount: -100
+	Health:
+		HP: 20000
+	Armor:
+		Type: Wood
+	RevealsShroud:
+		MinRange: 3c0
+		Range: 4c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 3c0
+	-AcceptsDeliveredCash:
+	GrantPeriodicCondition:
+		CooldownDuration: 7500
+		ActiveDuration: 50
+		PauseOnCondition: disabled
+		Condition: expire
+		ShowSelectionBar: true
+		CooldownColor: 9DFF00
+	KillsSelf:
+		Delay: 25
+		RequiresCondition: expire
+	Explodes@tiberium:
+		RequiresCondition: expire
+		Weapon: DebugTib
+
+# Promotes tiberium mutation of trees or mines
+TREEPRO.Bot:
+	Inherits: TREEPRO
+	Buildable:
+		Queue: Tech
+		BuildPaletteOrder: 2600
+		Prerequisites: refinery, ~structures.forgotten, ~techlevel.medium, ~ai.all
+		BuildLimit: 1
+	Building:
+		TerrainTypes: Oremine
+
+FORGTEK:
+	Inherits: STEK
+	Buildable:
+		Prerequisites: factory, radar, ~structures.forgotten, ~techlevel.high, ~!ai.hard
+		Description: actor-forgtek.description
+	Tooltip:
+		Name: actor-forgtek.name
+	RenderSprites:
+		Image: stek

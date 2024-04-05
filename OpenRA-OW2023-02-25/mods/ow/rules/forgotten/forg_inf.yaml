@@ -1,0 +1,279 @@
+# All Forgotten soldiers heal in Tiberium, and are *buffed* by corrosion weapons
+^ForgottenSoldier:
+	Inherits: ^Soldier
+	Mobile:
+		Locomotor: tibfoot
+	ChangesHealth@tiberium2:
+		RequiresCondition: standing_in_tiberium
+		PercentageStep: 5
+		Step: 100
+		Delay: 50
+		StartIfBelow: 100
+		DamageCooldown: 50
+	DamageMultiplier@corrode:
+		RequiresCondition: corrode
+		Modifier: 98
+	GrantCondition@corroded:
+		RequiresCondition: corrode
+		Condition: standing_in_tiberium
+	DamageMultiplier@tiberium:
+		RequiresCondition: standing_in_tiberium || tree_forgotten_aura
+		Modifier: 80
+	SpeedMultiplier@squadboost:
+		RequiresCondition: squadboost || tree_forgotten_aura
+		Modifier: 110
+	ExternalCondition@tree:
+		Condition: tree_forgotten_aura
+	Targetable@tibimmume:
+		TargetTypes: TiberiumImmune
+	WithDecoration@tiberiumboost:
+		Image: pips
+		Sequence: pip-tib
+		Palette: effect
+		Position: TopRight
+		ValidRelationships: None,Neutral,Enemy,Ally
+		RequiresCondition: standing_in_tiberium || tree_forgotten_aura
+
+FRGE1:
+	Inherits: E1
+	Inherits@forgotten: ^ForgottenSoldier
+	-ChangesHealth@tiberium:
+	-ChangesHealth@tiberium_noshield:
+	Buildable:
+		Prerequisites: ~barracks, ~techlevel.infonly, ~infantry.forgotten
+		Description: actor-frge1.description
+		Icon: icon
+	Tooltip:
+		Name: actor-frge1.name
+	Health:
+		HP: 4500
+	Mobile:
+		Speed: 62
+	Armament@DAWN:
+		Weapon: M1Carbine_D
+	Armament@PRIMARY:
+		Weapon: M1Carbine_D
+	Armament@BUS:
+		Name: bus
+		Weapon: M1Carbine_D
+		MuzzleSequence: garrison-muzzle
+	Armament@GARRISONED:
+		Weapon: Vulcan_D
+	RenderSprites:
+		Image: tsm1
+		PlayerPalette: tsunit
+	WithDeathAnimation:
+		DeathSequencePalette: tsunit
+		CrushedSequencePalette: tsunit
+		CrushedPaletteIsPlayerPalette: true
+
+FRGE1OF:
+	Inherits: E1OF
+	Inherits@forgotten: ^ForgottenSoldier
+	-ChangesHealth@tiberium:
+	-ChangesHealth@tiberium_noshield:
+	Buildable:
+		Prerequisites: ~barracks, ~techlevel.infonly, ~infantry.forgotten
+		Description: actor-frge1of.description
+	Tooltip:
+		Name: actor-frge1of.name
+	Health:
+		HP: 12000
+	Voiced:
+		VoiceSet: ForgottenOfficerVoice
+	RenderSprites:
+		Image: tsm2
+		PlayerPalette: tsunit
+	WithDeathAnimation:
+		DeathSequencePalette: tsunit
+		CrushedSequencePalette: tsunit
+		CrushedPaletteIsPlayerPalette: true
+	-WithDecoration@tiberiumboost:
+
+FRGE3:
+	Inherits: E3
+	Inherits@forgotten: ^ForgottenSoldier
+	-ChangesHealth@tiberium:
+	-ChangesHealth@tiberium_noshield:
+	Buildable:
+		Prerequisites: ~barracks, ~techlevel.infonly, ~infantry.forgotten
+		Description: actor-frge3.description
+		Icon: icon
+	Tooltip:
+		Name: actor-frge3.name
+	Armament@SECONDARY:
+		Name: secondary
+		Weapon: Dragon_F
+		LocalOffset: 0,0,555
+	Armament@GARRISONEDSECONDARY:
+		Name: garrisoned
+		Weapon: Dragon_F
+	Armament@BUS:
+		Weapon: Dragon_F
+	RenderSprites:
+		Image: tse3
+
+FRGDOG:
+	Inherits: ^ForgottenSoldier
+	-ChangesHealth@tiberium:
+	-ChangesHealth@tiberium_noshield:
+	Buildable:
+		Queue: Infantry
+		BuildAtProductionType: Dog
+		BuildPaletteOrder: 50
+		Prerequisites: ~kenn, ~dog.forgotten, ~techlevel.infonly
+		Description: actor-frgdog.description
+	Valued:
+		Cost: 600
+	Tooltip:
+		Name: actor-frgdog.name
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Selectable:
+		Bounds: 512, 725, -42, -170
+		DecorationBounds: 512, 725, -42, -170
+	Health:
+		HP: 25000
+	Mobile:
+		Speed: 100
+		Voice: Move
+	Guard:
+		Voice: Move
+	Passenger:
+		Voice: Move
+	RevealsShroud:
+		Range: 5c512
+	Armament:
+		Weapon: FiendShard
+	AttackFrontal:
+		Voice: Attack
+	AttackMove:
+		Voice: Move
+	GrantConditionWhileAiming:
+		Condition: run
+	AutoTarget:
+		InitialStance: AttackAnything
+	AutoTargetPriority@DEFAULT:
+		ValidTargets: Infantry
+	Targetable:
+		TargetTypes: GroundActor, Infantry
+	WithInfantryBody:
+		MoveSequence: run
+		StandSequences: stand
+		DefaultAttackSequence: attack
+		IdleSequences: idle1
+		RequiresCondition: !parachute
+	WithInfantryBody@PARACHUTE:
+		RequiresCondition: parachute
+		Palette: tsunit
+		IsPlayerPalette: true
+	SpeedMultiplier:
+		Modifier: 150
+		RequiresCondition: run
+	IgnoresDisguise:
+	Voiced:
+		VoiceSet: DogVoice
+	-TakeCover:
+	WithDeathAnimation:
+		DeathTypes:
+			DefaultDeath: 1
+			BulletDeath: 2
+			SmallExplosionDeath: 3
+			ExplosionDeath: 4
+			FireDeath: 5
+			ElectricityDeath: 6
+		CrushedSequence: die-crushed
+		DeathSequencePalette: tsunit
+		CrushedSequencePalette: tsunit
+		CrushedPaletteIsPlayerPalette: true
+	-SpawnActorOnDeath@fire:
+	-SpawnActorOnDeath@zombie:
+	RenderSprites:
+		Image: doggie
+		PlayerPalette: tsunit
+	GrantConditionOnOwnerName:
+		PlayerName: Creeps
+		Condition: spawnsound
+	AmbientSound:
+		RequiresCondition: spawnsound
+		Interval: 1500,4500
+		Delay: 25
+		SoundFiles: fiend1.aud
+	Wanders:
+		RequiresCondition: spawnsound
+		MinMoveDelay: 150
+		MaxMoveDelay: 750
+	Cloak@stealthgen:
+		IsPlayerPalette: true
+		InitialDelay: 5
+		CloakDelay: 30
+		-CloakSound:
+		RequiresCondition: standing_in_tiberium
+		UncloakOn: Attack
+		CloakedCondition: cloaked
+
+FRGGHOST:
+	Inherits: ^ForgottenSoldier
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	-ChangesHealth@tiberium:
+	-ChangesHealth@tiberium_noshield:
+	Buildable:
+		Queue: Infantry
+		BuildAtProductionType: Soldier
+		BuildPaletteOrder: 130
+		Prerequisites: techcenter, ~barr, ~techlevel.unrestricted, ~infantry.forgotten
+		Icon: icon
+		Description: actor-frgghost.description
+	Valued:
+		Cost: 1500
+	Tooltip:
+		Name: actor-frgghost.name
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 25000
+	Mobile:
+		Speed: 71
+	RevealsShroud:
+		Range: 7c0
+	Passenger:
+		CustomPipType: red
+	Armament@PRIMARY:
+		Weapon: CommandoGauss
+		LocalOffset: 427,0,341
+	Armament@GARRISONED:
+		Name: garrisoned
+		Weapon: CommandoGauss
+		MuzzleSequence: garrison-muzzle
+	Armament@BUS:
+		Name: bus
+		Weapon: CommandoGauss
+	WithInfantryBody:
+		DefaultAttackSequence: shoot
+		StandSequences: stand
+	ExternalCondition@PRODUCED:
+		Condition: produced
+	Voiced:
+		VoiceSet: GhostStalkerVoice
+	ProducibleWithLevel:
+		Prerequisites: barracks.upgraded
+	ExternalCondition@PRODUCED:
+		Condition: produced
+	VoiceAnnouncement:
+		RequiresCondition: produced
+		Voice: Build
+	AmbientSound:
+		SoundFiles: 14-i004.aud, 14-i002.aud
+		Interval: 500, 1500
+		Delay: 500, 1500
+		RequiresCondition: !ismoving
+	GrantConditionOnMovement:
+		Condition: ismoving
+	-Cloneable:
+	RenderSprites:
+		Image: tsghost2
+		PlayerPalette: tsunit
+	WithDeathAnimation:
+		DeathSequencePalette: tsunit
+		CrushedSequencePalette: tsunit
+		CrushedPaletteIsPlayerPalette: true

@@ -2031,3 +2031,32 @@ corvusdragonclaw:
 battlelordmmg:
 	Inherits: dukenukemmg
 	Range: 10c0
+
+FiendShard:
+	ReloadDelay: 30
+	Burst: 3
+	Range: 5c0
+	Report: fiend2.aud
+	ValidTargets: GroundActor, WaterActor, Ground, Water
+	Projectile: Bullet
+		Speed: 400
+		Image: debris
+		Sequences: 1,2,3,4,5,6,7,8,9,10
+		Inaccuracy: 512
+		Shadow: true
+		LaunchAngle: 60
+		Palette: greentiberiumdebris
+	Warhead@1Dam: SpreadDamage
+		Damage: 2500
+		Versus:
+			Wood: 25
+			Light: 60
+			Heavy: 25
+			Concrete: 20
+		DamageTypes: Prone100Percent, TriggerProne, BulletDeath
+		ValidTargets: GroundActor, WaterActor
+	Warhead@3EffWater: CreateEffect
+		Explosions: small_splash
+		ImpactSounds: splash9.aud
+		ValidTargets: Water, Underwater
+		InvalidTargets: Bridge

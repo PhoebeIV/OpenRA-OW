@@ -1401,7 +1401,7 @@ actor-mtnkd-g =
     Speed: 85
       Strong vs Vehicles
       Weak vs Infantry, Aircraft
-   .name = GDI Medium Tank
+   .name = Medium Tank
 
 actor-htnkd-g =
    .description = Big and slow tank, with anti-air capability.
@@ -1409,7 +1409,7 @@ actor-htnkd-g =
     Speed: 50
       Strong vs Vehicles, Infantry, Aircraft
       Weak vs Nothing
-   .name = GDI Mammoth Tank
+   .name = Mammoth Tank
    .generic-name = Tank
 
 actor-jeepd =
@@ -2608,7 +2608,7 @@ actor-1tnk-n =
     Speed: 98
       Strong vs Light armor
       Weak vs Infantry, Tanks, Aircraft
-   .name = Nod Light Tank
+   .name = Light Tank
    .generic-name = Tank
 
 actor-bggyd =
@@ -2616,7 +2616,7 @@ actor-bggyd =
     Speed: 170
       Strong vs Infantry
       Weak vs Vehicles, Aircraft
-   .name = Nod Buggy
+   .name = Buggy
 
 actor-bike =
    .description = Fast scout vehicle, armed with rockets.
@@ -5465,3 +5465,57 @@ actor-dukenukemalienqueen =
 
 actor-dukenukemalienqueendrone =
    .name = Predator Drone
+
+## forgotten
+actor-frge1 =
+   .description = Light infantry. Heals in Tiberium.
+    Speed: 62
+      Strong vs Infantry
+      Weak vs Vehicles, Aircraft
+   .name = Mutant Soldier
+
+actor-frge1of =
+   .description = Squad leader, boosts nearby troops'
+    speed and firepower. Heals in Tiberium.
+    Speed: 62
+      Strong vs Infantry
+      Weak vs Vehicles, Aircraft
+   .name = Mutant Officer
+
+actor-frge3 =
+   .description = Anti-tank/Anti-aircraft infantry.
+   Heals in Tiberium.
+    Speed: 54
+      Strong vs Vehicles, Aircraft
+      Weak vs Infantry
+   .name = Rocket Soldier
+
+actor-frgdog =
+   .description = Anti-infantry unit.
+    Can detect spies. 
+    Heals and hides in Tiberium.
+     Speed: 100
+      Strong vs Infantry
+      Weak vs Vehicles, Aircraft
+   .name = Tiberium Fiend
+   .generic-name = Dog
+
+actor-frgghost =
+   .description = Anti-ground elite infantry with a railgun.
+   Heals in Tiberium.
+    Speed: 71
+      Strong vs Everything
+      Weak vs Aircraft
+   .name = Ghost Stalker
+
+actor-treepro =
+   .description = Place near a tree or on a Mine to 
+   promote tiberium mutation.
+
+   Takes 5 minutes.
+   Max of 1 active at a time.
+   .name = Tiberium Mutator
+
+actor-forgtek =
+   .description = Provides stolen advanced technologies.
+   .name = Forgotten Tech Center
