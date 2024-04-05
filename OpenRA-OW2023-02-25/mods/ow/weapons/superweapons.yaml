@@ -3576,3 +3576,40 @@ MinecraftNuke:
 			Tree: 200
 			Concrete: 25
 		DamageTypes: Prone50Percent, TriggerProne, FireDeath, Incendiary
+
+TibSeedDrop:
+	ReloadDelay: 5
+	Range: 2c0
+	ValidTargets: Ground, Water, GroundActor, WaterActor
+	Projectile: GravityBomb
+		OpenSequence: open
+		Velocity: 0, 0, -128
+		Acceleration: 0, 0, 0
+		Shadow: False
+	Warhead@1Dam: SpreadDamage
+		Spread: 768
+		Damage: 2500
+		ValidTargets: GroundActor, WaterActor
+		Versus:
+			None: 175
+			Wood: 75
+			Light: 50
+			Concrete: 25
+			Heavy: 25
+		DamageTypes: Prone50Percent, TriggerProne, TiberiumDeath
+	Warhead@2Smu: LeaveSmudge
+		SmudgeType: Crater
+		ValidTargets: Ground, Infantry
+	Warhead@3Eff: CreateEffect
+		Explosions: artillery_explosion
+		ImpactSounds: kaboom15.aud
+		ValidTargets: Ground, GroundActor, WaterActor, Trees
+	Warhead@4EffWater: CreateEffect
+		Explosions: small_splash
+		ImpactSounds: splash9.aud
+		ValidTargets: Water, Underwater
+	Warhead@cluster: FireCluster
+		Dimensions: 5,5
+		RandomClusterCount: 10
+		Footprint: _xxx_ xxxxx xxxxx xxxxx _xxx_
+		Weapon: TibSupportSeed

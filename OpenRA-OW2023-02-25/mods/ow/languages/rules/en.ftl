@@ -1675,7 +1675,10 @@ actor-bbus =
     Speed: 88 
       Strong vs Infantry, Light armor
       Weak vs Tanks, Aircraft
+   .botdesc = AI only, comes pre-filled
    .name = Battle Bus
+   .forgotten = Fortified Bus
+   .husk = Husk (Fortified Bus)
 
 ## husks.yaml
 actor-mcvd-husk-name = Husk (Mobile Construction Vehicle)
@@ -2575,9 +2578,13 @@ actor-stek-nod =
    .name = Nod Tech Center
 
 actor-tmpld =
-   .description = Provides GPS and atomic bomb.
+   .description = Provides hunter seeker and atomic bomb.
     Requires power to operate.
    .name = Temple of Nod
+   .fdescription = A repurposed Temple of Nod.
+    Provides the Atomic bomb.
+    Requires power to operate.
+   .forgotten = Temple of the Fallen
 
 actor-samd =
    .name = SAM Site
@@ -3064,12 +3071,28 @@ actor-e1of =
       Weak vs Vehicles, Aircraft
    .name = Officer
 
+actor-e6 =
+   .description = Infiltrates and captures
+    enemy structures.
+      Unarmed
+   .name = Engineer
+   .fdescription = Infiltrates and captures
+    enemy structures. Heals in Tiberium
+      Unarmed
+   .fname = Mutated Engineer
+
 actor-tsengi-o =
    .description = Deploys an outpost for further 
     base expansion.
     Also behaves as normal engineer.
       Unarmed
    .name = Surveyor
+   .fdescription = Deploys an outpost for further 
+    base expansion.
+    Also behaves as normal engineer.
+    Heals in Tiberium
+      Unarmed
+   .fname = Mutated Surveyor
 
 actor-c1-o-name = Retired Surveyor
 actor-e1-tester-name = Testman

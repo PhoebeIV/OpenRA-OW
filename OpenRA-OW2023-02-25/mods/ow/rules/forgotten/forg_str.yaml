@@ -65,3 +65,44 @@ FORGTEK:
 		Name: actor-forgtek.name
 	RenderSprites:
 		Image: stek
+
+FTEMPLE:
+	Inherits: TMPLD
+	Buildable:
+		Queue: Tech
+		Prerequisites: techcenter, ~techlevel.unrestricted, ~structures.forgotten
+		Description: actor-tmpld.fdescription
+	Valued:
+		Cost: 3000
+	Tooltip:
+		Name: actor-tmpld.forgotten
+	WithSpriteBody:
+		Sequence: idle2
+	RenderSprites:
+		Image: TMPLD
+	-ProduceActorPower:
+	WithSupportPowerActivationAnimation:
+		Sequence: active2
+		RequiresCondition: !build-incomplete
+	AirstrikePower@tibseed:
+		PauseOnCondition: disabled
+		OrderName: ForgottenTibStrike
+		Icon: a10chem
+		ChargeInterval: 9000
+		Name: Seed Tiberium
+		Description: An A-10 seeds tiberium at the target location.
+		SelectTargetSpeechNotification: SelectTarget
+		CameraActor: camera
+		CameraRemoveDelay: 150
+		UnitType: a10.seed
+		QuantizedFacings: 8
+		DisplayBeacon: true
+		BeaconPoster: napalm
+		SquadSize: 1
+		SquadOffset: -1792,1792,0
+		ArrowSequence: arrow
+		ClockSequence: clock
+		CircleSequence: circles
+		UseDirectionalTarget: True
+		DirectionArrowAnimation: paradirection
+		SupportPowerPaletteOrder: 40

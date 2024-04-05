@@ -1,0 +1,28 @@
+
+FBUS:
+	Inherits: BBUS
+	Buildable:
+		Queue: Vehicle
+		BuildPaletteOrder: 120
+		Prerequisites: barracks, ~vehicles.forgotten
+	Tooltip:
+		Name: actor-bbus.forgotten
+	RenderVoxels:
+		Image: fbus
+	RenderSprites:
+		Image: bbus
+	SpawnActorOnDeath:
+		Actor: fbus.husk
+
+FBUS.Bot:
+	Inherits: FBUS
+	Buildable:
+		Prerequisites: barracks, ~vehicles.forgotten, ~vehicles.botonly
+		Description: actor-bbus.botdesc
+	Cargo:
+		InitialUnits: frge1,frge1,frge3,frge1of,frge3
+	Valued:
+		Cost: 1250
+	SpawnActorOnDeath@dog:
+		Actor: frgdog
+		Probability: 60
