@@ -257,19 +257,6 @@ farmmedi:
 		RequiresSelection: true
 		PipCount: 5
 		FullSequence: pip-yellow
-	FreeActor@Conscripts:
-		Actor: SLAVE
-		AllowRespawn: True
-		RequiresCondition: ConscriptAura
-	ExternalCondition@Conscription:
-		Condition: ConscriptAura
-	WithDecoration@ConscriptAura:
-		Image: pips
-		Sequence: mediorecorruptionpip
-		Palette: effect
-		Position: TopRight
-		ValidRelationships: None,Neutral,Enemy,Ally
-		RequiresCondition: ConscriptAura
 
 ##Resource Generation
 ##goldminemedi
@@ -285,6 +272,7 @@ GoldMine:
 		Prerequisites: ~structures.medi, refinery, ulttechcenter, ~techlevel.high
 		Description: Slowly produces money when workers provided
 		BuildPaletteOrder: 31
+		BuildLimit: 4
 	Building:
 		Footprint: xx xx
 		Dimensions: 2,2
@@ -294,7 +282,7 @@ GoldMine:
 	Valued:
 		Cost: 6000
 	Power:
-		Amount: 0
+		Amount: 200
 	Armor:
 		Type: Wood
 	RevealsShroud:
@@ -334,11 +322,10 @@ GoldMine:
 		RequiresSelection: true
 		PipCount: 15
 	CashTrickler:
-		Interval: 1000
-		Amount: 100
+		Interval: 800
+		Amount: 150
 		InitialDelay: 100
 		RequiresCondition: !disabled
-		UseResourceStorage: true
 	CashTricklerMultiplier@t1:
 		Modifier: 120
 		RequiresCondition: has_1 && garyslave >= 1 && garyslave <= 5
@@ -622,6 +609,7 @@ castle:
 		Prerequisites: ~structures.medi, stables, ~!ai.hard, ~techlevel.infonly
 		Description: Mix of a Tech Center and Defense structure
 		BuildPaletteOrder: 5
+		BuildLimit: 4
 	Tooltip:
 		Name: Medieval Castle (Techcenter)
 	Building:
@@ -1426,10 +1414,6 @@ monument:
 		Range: 11c512
 	WithRangeCircle:
 		Range: 11c512
-	ProximityExternalCondition@MartyrBind:
-		Condition: MartyrBind
-		Range: 8c512
-		ValidRelationships: Enemy
 	Power:
 		Amount: -100
 	RenderSprites:

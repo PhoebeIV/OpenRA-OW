@@ -41,6 +41,30 @@
 		SpeedModifier: 140
 		Duration: 75
 		DamageTriggers: TriggerProne
+	SpawnActorOnDeath@Mrage:
+		OwnerType: Victim
+		Offset: 0,0
+		Actor: medirage
+
+^Wizards:
+	DamageMultiplier@ArchmageAuraD:
+		RequiresCondition: ArchmageAura
+		Modifier: 90
+	RangeMultiplier@ArchmageAuraR:
+		RequiresCondition: ArchmageAura
+		Modifier: 110
+	FirepowerMultiplier@ArchmageAuraF:
+		RequiresCondition: ArchmageAura
+		Modifier: 125
+	Shielded:
+		MaxStrength: 25000
+		RequiresCondition: external_shield && !emp_shields && !defense_matrix
+	GrantCondition@WizArch:
+		Condition: external_shield
+		RequiresCondition: ArchmageAura
+	GrantCondition@MonumentWagonBoost:
+		Condition: external_shield
+		RequiresCondition: MonumentWagonBoost
 
 ###############################################################################
 ##########################   Harvesters and Utility   #########################
@@ -59,14 +83,14 @@ SLAVE:
 		Description: Collects Ore, Tiberium and Gems for processing.\nCan repair buildngs and vehicles.\nSpeed: 64\n  Unarmed slave will die on tiberium
 		BuildPaletteOrder: 402
 	Valued:
-		Cost: 300
+		Cost: 100
 	Tooltip:
 		Name: Slave
 	Mobile:
-		Speed: 50
+		Speed: 40
 		Locomotor: foot
 	Health:
-		HP: 3000
+		HP: 2000
 	Passenger:
 		CustomPipType: yellow
 	Harvester:
@@ -115,8 +139,6 @@ SLAVE:
 		Position: BottomLeft
 		RequiresSelection: true
 		PipCount: 1
-	ExternalCondition@work:
-		Condition: slavework
 	DockClientManager:
 	StoresResources:
 		Capacity: 4
@@ -142,7 +164,7 @@ MEDIWORKER:
 		Locomotor: foot2
 		TurnsWhileMoving: true
 	Health:
-		HP: 10000
+		HP: 15000
 	Armor:
 		Type: Light
 	Harvester:
@@ -182,11 +204,31 @@ SCOUTMEDI:
 	Inherits@sprite: ^TSMedi
 	Inherits@InfPro: ^AutoTargetInfantryPriority
 	Buildable:
-		Prerequisites: ~infantry.medi, ~!infantry.medicult
-		Description: Scout with long vision and stealth when stationary.\n  can deploy into a scout tower.
+		Prerequisites: ~infantry.medi
+		Description: Scout with long vision and stealth
 		Queue: Infantry
 		BuildAtProductionType: Soldier
 		BuildPaletteOrder: 406
+		BuildLimit: 3
+	Disguise:
+		DisguisedCondition: disguise
+	WithDecoration@disguise:
+		Position: Top
+		Margin: 0, -6
+		Image: pips
+		Sequence: tag-spy
+		Palette: effect
+		RequiresCondition: disguise
+	WithDisguisingInfantryBody:
+		DefaultAttackSequence: shoot
+		IdleSequences: idle1,idle2
+		StandSequences: stand,stand2
+		RequiresCondition: !parachute
+	WithDisguisingInfantryBody@PARACHUTE:
+		RequiresCondition: parachute
+		Palette: player-noshadow
+		IsPlayerPalette: true
+	-WithInfantryBody:
 	Valued:
 		Cost: 500
 	UpdatesPlayerStatistics:
@@ -196,13 +238,9 @@ SCOUTMEDI:
 	Health:
 		HP: 2000
 	Mobile:
-		Speed: 110
+		Speed: 125
 	RevealsShroud:
-		Range: 10c512
-	Armament:
-		Weapon: Sword
-	WithInfantryBody:
-		DefaultAttackSequence: shoot
+		Range: 13c512
 	AutoTarget:
 		InitialStance: Defend
 	AutoTargetPriority@DEFAULT:
@@ -306,19 +344,13 @@ PRIEST:
 ##sacrifice self to heal others
 ##accolyte
 accolyte:
-	Inherits@Priest: PRIEST
+	Inherits@Knight: Knight
 	Buildable:
 		Queue: Infantry
 		BuildAtProductionType: Soldier
 		BuildPaletteOrder: 404
 		Prerequisites: ~infantry.medi, churchmedi, ~infantry.medicult
 		Description: Heals nearby infantry on death.
-	Armament:
-		Weapon: Healmedim
-		Cursor: heal
-		OutsideRangeCursor: heal
-		TargetRelationships: Ally
-		ForceTargetRelationships: None
 	Valued:
 		Cost: 500
 	Tooltip:
@@ -412,10 +444,6 @@ Knight:
 mediassasin:
 	Inherits@Scout: SCOUTMEDI
 	Inherits@InfPro: ^AutoTargetInfantryPriority
-	-ExternalCondition@assasintoxin:
-	-ExternalCondition@swarmlingspawn:
-	-ExternalCondition@producezomb:
-	-ExternalCondition@GraveyardSouls:
 	Buildable:
 		Prerequisites: ~infantry.medi, techcenter, ~!infantry.mediholy
 		Description: Stealthed Assasin Made for exicuting Infantry./nCan bypass Defenses and only spotable by Infantry./nloses stealth for a long time on attack or damage
@@ -605,9 +633,6 @@ MEDIPALADIN:
 	WithInfantryBody:
 		StandSequences: stand
 	IgnoresDisguise:
-	ProximityExternalCondition@pallyboost:
-		Condition: MonumentBoost
-		Range: 2c512
 	RenderSprites:
 		Image: medipaladin
 	Voiced:
@@ -619,10 +644,6 @@ MEDIPALADIN:
 swarmling:
 	Inherits: ^Infantry
 	Inherits@autotarget: ^AutoTargetGroundAssaultMove
-	-ExternalCondition@assasintoxin:
-	-ExternalCondition@swarmlingspawn:
-	-ExternalCondition@producezomb:
-	-ExternalCondition@GraveyardSouls:
 	Buildable:
 		Prerequisites: ~infantry.medi
 		Description: Assasin spawn. \n Strong vs infantry\n Weak vs anything else
@@ -766,7 +787,7 @@ CROSSBOWMAN:
 	Health:
 		HP: 17500
 	Valued:
-		Cost: 150
+		Cost: 200
 	Mobile:
 		Speed: 80
 	Tooltip:
@@ -987,20 +1008,16 @@ medirage:
 	Inherits@MediSoldier: ^MediSoldier
 	Inherits@sprite: ^TSMedi
 	Inherits@InfPro: ^AutoTargetInfantryPriority
-	-ExternalCondition@assasintoxin:
-	-ExternalCondition@swarmlingspawn:
-	-ExternalCondition@producezomb:
-	-ExternalCondition@GraveyardSouls:
 	Valued:
 		Cost: 0
 	Tooltip:
 		Name: wut
 	Health:
-		HP: 999999
+		HP: 999999999
 	Mobile:
 		Speed: 0
 	UpdatesPlayerStatistics:
-		AddToArmyValue: true
+		AddToArmyValue: false
 	RevealsShroud:
 		Range: 6c512
 	WithInfantryBody:
@@ -1030,10 +1047,6 @@ Goul:
 	Inherits@MediSoldier: ^MediSoldier
 	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
 	Inherits@InfPro: ^AutoTargetInfantryPriority
-	-ExternalCondition@assasintoxin:
-	-ExternalCondition@swarmlingspawn:
-	-ExternalCondition@producezomb:
-	-ExternalCondition@GraveyardSouls:
 	-Selectable:
 	Interactable:
 		Bounds: 768, 938, 0, -469

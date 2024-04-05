@@ -12,7 +12,7 @@ Castlearrows:
 	Range: 9c0
 	Warhead@1Dam: SpreadDamage
 		Spread: 256
-		Damage: 1500
+		Damage: 2500
 		ValidTargets: Air, AirborneActor
 		DamageTypes: Prone50Percent, TriggerProne, DefaultDeath
 #
@@ -220,18 +220,6 @@ Mediassasinblade:
 	Projectile: InstantHit
 	ValidTargets: Ground, Infantry, Cyborg
 	InvalidTargets: Vehicle, Water, Wall, Husk, Mine, Structure
-	Warhead@assasintoxin: GrantExternalCondition
-		Condition: assasintoxin
-		Duration: 500
-		Range: 2c0
-		ValidTargets: Ground, Infantry, Cyborg
-		ValidRelationships: Enemy, Neutral
-	Warhead@swarmlingspawn: GrantExternalCondition
-		Condition: swarmlingspawn
-		Duration: 500
-		Range: 2c0
-		ValidTargets: Ground, Infantry
-		ValidRelationships: Enemy
 	Warhead@1Dam: SpreadDamage
 		Spread: 64
 		Damage: 20000
@@ -246,7 +234,7 @@ Mediassasinblade:
 ##is inherited by: Castlearrows
 Basicarrow: 
 	ValidTargets: GroundActor, WaterActor, Ground, Water
-	ReloadDelay: 75
+	ReloadDelay: 150
 	Range: 5c0
 	Report: crossbowmanshoot1.aud,crossbowmanshoot2.aud,crossbowmanshoot3.aud
 	Projectile: Bullet
@@ -255,7 +243,7 @@ Basicarrow:
 		ContrailLength: 8
 	Warhead@GDam: SpreadDamage
 		Spread: 256
-		Damage: 2500
+		Damage: 7000
 		ValidTargets: GroundActor, WaterActor
 		Versus:
 			None: 120
@@ -266,25 +254,31 @@ Basicarrow:
 		DamageTypes: Prone50Percent, TriggerProne, DefaultDeath
 	Warhead@1Dam: SpreadDamage
 		Spread: 256
-		Damage: 1000
+		Damage: 2000
 		ValidTargets: Air, AirborneActor
 		DamageTypes: Prone50Percent, TriggerProne, DefaultDeath
 #
 Infantryarrow:
 	Inherits: Basicarrow
-	ReloadDelay: 75
+	ReloadDelay: 150
 	Range: 5c0
 	Warhead@GDam: SpreadDamage
 		Spread: 256
-		Damage: 3000
+		Damage: 7000
+		Versus:
+			None: 125
+			Wood: 90
+			Light: 40
+			Heavy: 35
+			Concrete: 70
 #
 Healmedi:
 	Inherits: Heal
 	Range: 4c0
 	ReloadDelay: 150
 	Warhead@1Dam: SpreadDamage
-		Spread: 213
-		Damage: -500
+		Spread: 2c0
+		Damage: -3000
 		ValidRelationships: Ally
 		ValidTargets: Heal
 		DebugOverlayColor: 00FF00
@@ -300,7 +294,7 @@ Healmedim:
 	Inherits: Heal
 	ReloadDelay: 350
 	Warhead@1Dam: SpreadDamage
-		Spread: 213
+		Spread: 2c0
 		Damage: -400
 		ValidRelationships: Ally
 		ValidTargets: Heal
@@ -357,10 +351,22 @@ Martyrdeath:
 		Duration: 375
 		ValidTargets: Infantry
 		InvalidTargets: BeingHealed
+	Warhead@mtr: GrantExternalCondition
+		Condition: martyhot
+		Range: 5c0
+		Duration: 375
+		ValidTargets: Infantry
+		ValidRelationships:	Ally
+	Warhead@crs: GrantExternalCondition
+		Condition: MediCurseCondition
+		Range: 5c0
+		Duration: 375
+		ValidRelationships:	Enemy
 #
 Voidarchershot:
 	ValidTargets: Ground, Water, GroundActor, WaterActor, AirborneActor
-	ReloadDelay: 120
+	ReloadDelay: 100
+	Burst: 2
 	Range: 6c0
 	Report: voidarchershot.aud
 	TargetActorCenter: True
@@ -372,14 +378,14 @@ Voidarchershot:
 		ContrailStartColor: 9f18b0
 	Warhead@1Dam: SpreadDamage
 		Spread: 256
-		Damage: 5000
+		Damage: 7500
 		ValidTargets: GroundActor, WaterActor
 		Versus:
 			None: 120
 			Wood: 30
 			Light: 80
 			Heavy: 80
-			Concrete: 80
+			Concrete: 30
 		DamageTypes: Prone50Percent, TriggerProne, DefaultDeath, ElectricityDeath
 	Warhead@2DamAir: SpreadDamage
 		Spread: 256
@@ -395,8 +401,8 @@ Voidarchershot:
 #
 Voidarchershot2:
 	Inherits: Voidarchershot
-	ReloadDelay: 120
-	Burst: 2
+	ReloadDelay: 150
+	Burst: 3
 	BurstDelays: 0
 	Projectile: Bullet
 		Blockable: False
@@ -492,18 +498,6 @@ swarmlingAttack:
 	Report: zzeatk00.aud, zzeatk01.aud
 	ValidTargets: Ground, Infantry, Cyborg
 	Projectile: InstantHit
-	Warhead@assasintoxin: GrantExternalCondition
-		Condition: assasintoxin
-		Duration: 200
-		Range: 2c0
-		ValidTargets: Ground, Infantry, Cyborg
-		ValidRelationships: Enemy, Neutral
-	Warhead@swarmlingspawn: GrantExternalCondition
-		Condition: swarmlingspawn
-		Duration: 500
-		Range: 2c0
-		ValidTargets: Ground, Infantry, Cyborg
-		ValidRelationships: Enemy, Neutral
 	Warhead@1Dam: SpreadDamage
 		Spread: 64
 		Damage: 425
@@ -1476,6 +1470,7 @@ GyroChain:
 	MinRange: 0c768
 	Report: gun13.aud
 	ValidTargets: Ground, GroundActor, Air, AirborneActor, WaterActor
+	InvalidTargets: Vehicle
 	Projectile: InstantHit
 		Blockable: false
 	Warhead@1Dam: SpreadDamage
@@ -1536,7 +1531,7 @@ DragonGround:
 	ValidTargets: Ground, GroundActor, Water, WaterActor, Trees
 	ReloadDelay: 150
 	Range: 6c0
-	Burst: 4
+	Burst: 5
 	Projectile: Bullet
 		Speed: 345
 		Image: manf
@@ -1547,7 +1542,7 @@ DragonGround:
 		Damage: 1000
 		ValidTargets: GroundActor, WaterActor
 		Versus:
-			None: 50
+			None: 100
 			Wood: 150
 			Light: 150
 			Concrete: 80
