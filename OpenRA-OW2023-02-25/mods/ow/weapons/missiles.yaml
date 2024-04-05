@@ -1708,10 +1708,10 @@ dukenukempipebomb:
 	Projectile: Bullet
 		Speed: 128
 		Image: dukenukempipebombproj
-		BounceCount: 2
+		BounceCount: 3
 		BounceSound: dukenukempipebombbounce.aud
 		Shadow: true
-		BounceRangeModifier: 70
+		BounceRangeModifier: 40
 	Warhead@1Dam: SpreadDamage
 		Spread: 1024
 		Damage: 12500
@@ -2950,3 +2950,31 @@ battlelordbombinstant:
 		BounceRangeModifier: 70
 		LaunchAngle: 120
 		ContrailLength: 5
+
+alienqueendroneattack:
+	Inherits: ^AntiGroundMissile
+	ReloadDelay: 35
+	Range: 7c0
+	Report: BLSPIT1A.wav
+	Projectile: Missile
+		Arm: 3
+		Image: dukenukemshrinkproj
+		HorizontalRateOfTurn: 25
+		RangeLimit: 12c512
+		MinimumLaunchAngle: 62
+		MaximumLaunchAngle: 62
+		ContrailLength: 0
+		Speed: 384
+	Warhead@1Dam: SpreadDamage
+		Damage: 5000
+		Spread: 512
+		Versus:
+			None: 100
+			Wood: 40
+			Light: 80
+			Heavy: 40
+			Concrete: 100
+		DamageTypes: Prone50Percent, TriggerProne, SmallExplosionDeath
+	Warhead@3Eff: CreateEffect
+		Explosions: dukenukemshrinkexplosion
+		ValidTargets: Ground, Air, GroundActor, AirborneActor, WaterActor, Trees, Water, Underwater

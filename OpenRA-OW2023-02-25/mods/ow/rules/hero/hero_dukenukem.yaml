@@ -150,6 +150,19 @@ dukenukem.tier5.unit2:
 	RenderSprites:
 		Image: dukenukembattlelord
 
+# Alien Queen
+dukenukem.tier5.unit3:
+	Inherits: ^HeroUpgradeBaseTier5
+	Tooltip:
+		Name: actor-dukenukem-tier5-unit3.name
+	Buildable:
+		Description: actor-dukenukem-tier5-unit3.description
+		Prerequisites: ~active.dukenukem
+		BuildPaletteOrder: 3
+		Icon: icon
+	RenderSprites:
+		Image: dukenukemalienqueen
+
 active.dukenukem:
 	AlwaysVisible:
 	Interactable:
@@ -287,7 +300,9 @@ dukenukem.Hero0:
 		Amount: 500
 		Interval: 25
 	SoundOnDamageTransition:
-		DamagedSounds: dukeheropain-01.aud, dukeheropain-02.aud, dukeheropain-03.aud, dukeheropain-04.aud, dukeheropain-05.aud, dukeheropain-06.aud, dukeheropain-07.aud, dukeheropain-08.aud,
+		DamagedSounds: dukeheropain-01.aud, dukeheropain-02.aud, dukeheropain-03.aud, dukeheropain-04.aud, dukeheropain-05.aud, dukeheropain-06.aud, dukeheropain-07.aud, dukeheropain-08.aud
+	TakeCover:
+		Prone50Percent: 90
 
 dukenukem.Hero1:
 	Inherits: dukenukem.Hero0
@@ -653,6 +668,7 @@ FakeDukeNukem:
 	KillsSelf:
 		Delay: 750
 		DamageTypes: ElectricityDeath
+	-ActorLostNotification:
 
 dukenukemship:
 	Inherits: ^Plane
@@ -839,19 +855,10 @@ dukenukembattlelord:
 		RevealGeneratedShroud: False
 	RevealsShroud@GAPGEN:
 		Range: 4c0
-	GrantRandomPeriodicCondition:
-		Conditions: gun1, gun2, gun3
-        CooldownDuration: 1
-		ActiveDuration: 125
 	Armament@PRIMARY:
 		Weapon: battlelordmmg
-		RequiresCondition: gun1
 	Armament@SECONDARY:
 		Weapon: battlelordbomb
-		RequiresCondition: gun2
-	Armament@tri:
-		Weapon: battlelordbombinstant
-		RequiresCondition: gun3
 	AttackFrontal:
 		FacingTolerance: 0
 	ExternalCondition@PRODUCED:
@@ -876,3 +883,108 @@ dukenukembattlelord:
 		Interval: 500, 1500
 		Delay: 500, 1500
 	-SpawnActorOnDeath@fire:
+
+dukenukemalienqueen:
+	Inherits: ^Soldier
+	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
+	Inherits@HITBOX: ^LargeDemon
+	Inherits@EPIC: ^EpicUnit
+	Buildable:
+		Queue: Infantry
+		BuildAtProductionType: Soldier
+		BuildPaletteOrder: 415
+		Prerequisites: ~barracks, ~techlevel.unrestricted, ~dukenukem.tier5.unit3
+		Description: actor-dukenukemalienqueen.description
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Valued:
+		Cost: 7500
+	Tooltip:
+		Name: actor-dukenukemalienqueen.name
+	Health:
+		HP: 200000
+	Armor:
+		Type: Heavy
+	Mobile:
+		Speed: 65
+		Locomotor: tracked
+	Targetable:
+		TargetTypes: GroundActor, Vehicle, Tank
+	RevealsShroud:
+		Range: 6c0
+	Repairable:
+		RepairActors: fix
+	Passenger:
+		Weight: 5
+		CustomPipType: red
+	-Crushable:
+	RevealsShroud:
+		MinRange: 4c0
+		Range: 6c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 4c0
+	Armament@PRIMARY:
+		Weapon: LightningSpike
+		LocalOffset: 400,0,850
+	Armament@SECONDARY:
+		Weapon: FakeQueenWeapon
+		LocalOffset: 400,0,850
+	AttackFrontal:
+		FacingTolerance: 0
+	ExternalCondition@PRODUCED:
+		Condition: produced
+	VoiceAnnouncement:
+		RequiresCondition: produced
+		Voice: Build
+	Voiced:
+		VoiceSet: AlienQueen
+	WithInfantryBody:
+		DefaultAttackSequence: shoot
+	ProducibleWithLevel:
+		Prerequisites: pdox.upgraded
+	Selectable:
+		Bounds: 1450, 1877, 0, -768
+		DecorationBounds: 1450, 1877, 0, -768
+	Explodes:
+		Weapon: CyberExplode
+		EmptyWeapon: CyberExplode
+	AmbientSound:
+		SoundFiles: BLREC4B.wav, BLROAM2A.wav
+		Interval: 500, 1500
+		Delay: 500, 1500
+	-SpawnActorOnDeath@fire:
+
+dukenukemalienqueendrone:
+	Inherits: ^Soldier
+	Inherits@AUTOTARGET: ^AutoTargetAll
+	Tooltip:
+		Name: actor-dukenukemalienqueendrone.name
+	Valued:
+		Cost: 500
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 25000
+	Armament@PRIMARY:
+		Weapon: alienqueendroneattack
+	WithInfantryBody:
+		DefaultAttackSequence: shoot
+	ProducibleWithLevel:
+		Prerequisites: barracks.upgraded
+	RevealsShroud:
+		Range: 5c0
+	Selectable:
+		Bounds: 768, 853, 0, -256
+		DecorationBounds: 640, 896, 0, -426
+	RenderSprites:
+		Image: dukenukemalienqueendrone
+	Voiced:
+		VoiceSet: AlienQueen
+	AttackWander:
+		WanderMoveRadius: 10
+		MinMoveDelay: 5
+		MaxMoveDelay: 100
+	KillsSelf:
+		Delay: 750
+		DamageTypes: DefaultDeath

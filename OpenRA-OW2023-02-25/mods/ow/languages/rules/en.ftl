@@ -5438,6 +5438,14 @@ actor-dukenukem-tier5-unit2 =
    .name = Battlelord
    .description = Enables the training of the Battlelord.
 
+actor-dukenukem-tier5-unit3 =
+   .name = Alien Queen
+   .description = Enables the training of the Alien Queen.
+
+actor-dukenukem-tier5-unit4 =
+   .name = Overlord
+   .description = Enables the training of the Overlord.
+
 actor-dukenukemcycloidemperor =
    .description = [EPIC]
    The Cycloid Emperor is the leader of the alien invaders.
@@ -5448,3 +5456,12 @@ actor-dukenukembattlelord =
    .description = [EPIC]
    The Battlelord wields a large Minigun with a built-in mortar launcher. 
    .name = Battlelord
+
+actor-dukenukemalienqueen =
+   .description = [EPIC]
+   The queen of the alien invaders.
+   Has an electric attack and spawns protector drones.
+   .name = Alien Queen
+
+actor-dukenukemalienqueendrone =
+   .name = Predator Drone
