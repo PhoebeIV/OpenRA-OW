@@ -392,14 +392,19 @@ TMONOLITH:
 	GrantCondition@growth:
 		RequiresCondition: (lessinfectable && (growth > 180)) || (infectable && (growth > 120)) || dotransform
 		Condition: spawn_blue
-	ExplodeWeapon@spread:
-		RequiresCondition: spawn_blue && !spawned
-		Weapon: MonolithSpawner
 	Explodes:
 		Weapon: MonolithExplosion
 		EmptyWeapon: MonolithExplosion
 	SpawnActorOnDeath:
+		RequiresCondition: !spawn_blue
 		Actor: MINE
+	SpawnActorOnDeath@spread:
+		RequiresCondition: spawn_blue
+		Actor: tmonolith.blue
+		SkipMakeAnimations: false
+	KillsSelf@transform:
+		RequiresCondition: spawn_blue
+		Delay: 1
 	ChangesTerrain:
 		TerrainType: TibMonolith
 
@@ -418,14 +423,11 @@ TMONOLITH.BLUE:
 		ResourceType: BlueTiberium
 	SeedsResource@burst:
 		ResourceType: BlueTiberium
-	GrantPeriodicCondition@burst:
-		CooldownDuration: 500, 900
-		ActiveDuration: 35, 101
 	ExplodeWeapon@form:
 		Weapon: MonolithShakeBlue
 	ExplodeWeapon@burst:
 		Weapon: TibTreeBlueBurst
-	-ExplodeWeapon@spread:
+	-SpawnActorOnDeath@spread:
 	-GrantCondition@growth:
 	-ExternalCondition@growth:
 	Explodes:
