@@ -4,10 +4,15 @@ MIG:
 		Description: actor-mig-description
 	Aircraft:
 		Speed: 256
+	Health:
+		HP: 12000
+
 YAK:
 	Buildable:
 		Prerequisites: ~afld, ~techlevel.medium, ~aircraft.soviet
 		Description: actor-yak-description
+	Health:
+		HP: 8000
 
 N.MIG:
 	Inherits: MIG
@@ -26,7 +31,7 @@ N.MIG:
 	RenderSprites:
 		Image: MIG
 	Health:
-		HP: 12000
+		HP: 16000
 	Armament:
 		Weapon: NukeMaverick
 		LocalOffset: 0,-640,0, 0,640,0
@@ -36,7 +41,7 @@ N.MIG:
 		Ammo: 1
 		ReloadDelay: 350
 	Aircraft:
-		Speed: 190
+		Speed: 215
 	RevealsShroud:
 		MinRange: 5c0
 		Range: 8c0
@@ -58,3 +63,179 @@ N.MIG:
 	WithAmmoPipsDecoration:
 		Position: BottomLeft
 		RequiresSelection: true
+
+ZEP:
+	Inherits: ^TSHelicopter
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Buildable:
+		Queue: Aircraft
+		BuildPaletteOrder: 64
+		Prerequisites: ~afld, advtechcenter, ~techlevel.unrestricted, ~aircraft.soviet
+		BuildLimit: 4
+		Description: actor-hind.description
+	Valued:
+		Cost: 4000
+	Tooltip:
+		Name: actor-zep.name
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 100000
+	RevealsShroud:
+		MinRange: 6c0
+		Range: 8c0
+		Type: GroundPosition
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 8c0
+		Type: GroundPosition
+	Armament:
+		Weapon: KirovBomb
+		PauseOnCondition: ammo == 1
+	Armament@low:
+		Weapon: KirovBombLow
+		RequiresCondition: ammo == 1
+		AmmoUsage: 0
+	AttackAircraft:
+		FacingTolerance: 512
+		PersistentTargeting: false
+		AttackType: Hover
+		OpportunityFire: False
+	Aircraft:
+		TurnSpeed: 16
+		Speed: 48
+		CruiseAltitude: 2048
+	AutoTarget:
+		InitialStance: HoldFire
+		InitialStanceAI: HoldFire
+	AmmoPool:
+		Ammo: 16
+		ReloadDelay: 25
+		AmmoCondition: ammo
+	SpawnActorOnDeath:
+		Actor: ZEP.Husk
+	LeavesTrails:
+		Offsets: -427,0,0
+		Image: smokey
+		MovingInterval: 3
+		SpawnAtLastPosition: False
+		Type: CenterPosition
+		RequiresCondition: enable-smoke
+		TrailWhileStationary: True
+		StationaryInterval: 3
+	ProducibleWithLevel:
+		Prerequisites: aircraft.upgraded
+	Selectable:
+		DecorationBounds: 3072, 2218
+		Bounds: 2730, 2048
+	WithAmmoPipsDecoration:
+		Position: BottomLeft
+		Margin: 4, 3
+		RequiresSelection: true
+		PipCount: 16
+	GrantConditionOnDamageState@SmokeTrail:
+		Condition: enable-smoke
+	WithProductionIconOverlay:
+		Types: Veterancy
+		Prerequisites: aircraft.upgraded
+	GrantConditionOnAttack@cooldown:
+		Condition: attack-cooldown
+		RevokeDelay: 125
+	ReloadAmmoPool:
+		RequiresCondition: !attack-cooldown
+		Delay: 250
+	ReloadAmmoPool@reloadnear:
+		RequiresCondition: reloadnear
+		Delay: 125
+	RenderSprites:
+		Image: zep
+	RenderVoxels:
+		Image: zep
+		PlayerPalette: ra2
+		Scale: 9
+		LightAmbientColor: 0.9,0.9,0.9
+	Cloak@stealthgen:
+		Palette: ra2
+	GrantConditionOnPrerequisite@bot:
+		Prerequisites: ai.all
+		Condition: reloadnear
+
+ZEP.Bot:
+	Inherits: ZEP
+	Buildable:
+		Queue: Aircraft
+		BuildPaletteOrder: 64
+		Prerequisites: ~afld, advtechcenter, ~techlevel.unrestricted, ~aircraft.soviet, ~ai.all
+		BuildLimit: 1
+
+ZEP.Husk:
+	Inherits: ^TSPlaneHusk
+	Tooltip:
+		Name: actor-zep.husk
+	Aircraft:
+		Speed: 36
+	FallsToEarth:
+		Velocity: 32
+		Explosion: BattlecruiserExplosion
+	SpawnActorOnDeath:
+		Actor: ZEP.GroundHusk
+	WithDamageOverlay:
+		Offset: -427,0,0
+		MinimumDamageState: Undamaged
+	RevealsShroud:
+		Range: 8c0
+		Type: CenterPosition
+	RenderSprites:
+		Image: zep
+	RenderVoxels:
+		Image: zep
+		Scale: 9
+
+ZEP.GroundHusk:
+	Inherits: ^Husk
+	Tooltip:
+		Name: actor-zep.husk
+	TransformOnCapture:
+		IntoActor: zep
+	InfiltrateForTransform:
+		IntoActor: zep
+	Explodes:
+		Weapon: E100Cannon
+		EmptyWeapon: E100Cannon
+	WithDamageOverlay:
+		Offset: -427,0,0
+		MinimumDamageState: Undamaged
+	WithDamageOverlay@2:
+		Offset: -720,-256,0
+		MinimumDamageState: Undamaged
+	WithDamageOverlay@3:
+		Offset: 256,256,0
+		MinimumDamageState: Undamaged
+	WithIdleOverlay@fire1:
+		Image: fire
+		Sequence: 1
+		IsDecoration: true
+		Offset: 512,512,0
+	WithIdleOverlay@fire2:
+		Image: fire
+		Sequence: 2
+		IsDecoration: true
+		Offset: -256,-640,0
+	WithIdleOverlay@fire3:
+		Image: fire
+		Sequence: 3
+		IsDecoration: true
+		Offset: 0,128,0
+	ShakeOnDeath:
+	WithVoxelBody:
+	RenderSprites:
+		Image: zep
+	RenderVoxels:
+		Image: zep
+		Scale: 9
+		LightAmbientColor: 0.3,0.3,0.3
+		LightDiffuseColor: 0.3,0.3,0.2
+	-QuantizeFacingsFromSequence:
+	ClassicFacingBodyOrientation:
+		QuantizedFacings: 32
+	-WithFacingSpriteBody:

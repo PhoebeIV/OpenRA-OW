@@ -3496,6 +3496,17 @@ actor-n-mig =
       Weak vs Aircraft
    .name = Nuke MiG
 
+actor-zep  =
+   .description = Zeppelin bomber, heavily armored
+    but slow.
+
+    Limit of 4
+    Speed: 48
+      Strong vs Ground units, Structures
+      Weak vs Aircraft
+   .name = Kirov Airship
+   .husk = Kirov (Husk)
+
 ## soviet_inf.yaml
 actor-shok-description = Elite infantry with portable Tesla coils.
     Speed: 56
@@ -5552,3 +5563,4 @@ actor-treepro =
 actor-forgtek =
    .description = Provides stolen advanced technologies.
    .name = Forgotten Tech Center
+
