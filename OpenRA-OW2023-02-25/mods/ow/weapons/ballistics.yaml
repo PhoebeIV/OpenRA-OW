@@ -613,6 +613,8 @@ TurretGunHellfire:
 		ImpactSounds: kaboom15.aud
 	Warhead@4EffWater: CreateEffect
 		Explosions: med_splash
+	Warhead@resource: DestroyResource
+		ResourceAmount: 3
 
 155mm:
 	Inherits: ^Artillery
@@ -892,6 +894,7 @@ Grenade:
 		ImpactSounds: kaboom25.aud
 	Warhead@4EffWater: CreateEffect
 		Explosions: small_splash
+	-Warhead@resource:
 
 FGrenade:
 	Inherits: Grenade
@@ -958,7 +961,7 @@ TanyaGrenadeCluster:
 	Projectile: Bullet
 		Speed: 512
 		Inaccuracy: 1c0
-		LaunchAngle: 254
+		LaunchAngle: 64,400
 	Warhead@1Dam: SpreadDamage
 		Damage: 10000
 
@@ -1161,11 +1164,12 @@ KodiacNuke:
 	Warhead@13Eff_impact: CreateEffect
 		ImpactSounds: kqdetonate.wav
 	Warhead@1Dam: SpreadDamage
-		Spread: 500
+		Spread: 1c512
 		Damage: 5000
-		Falloff: 1000, 368, 135, 50, 18, 7, 0
+		Falloff: 1000, 500, 100, 25, 5
 		ValidTargets: GroundActor, Trees, WaterActor, Underwater, AirborneActor
 		Versus:
+			None: 50
 			Concrete: 15
 		AffectsParent: true
 		DamageTypes: Prone50Percent, TriggerProne, FireDeath, Incendiary
@@ -1180,7 +1184,7 @@ KodiacNuke:
 		Delay: 5
 		ValidTargets: Ground, GroundActor, Trees, Water, WaterActor
 	Warhead@4Dam_areanuke1: SpreadDamage
-		Spread: 750
+		Spread: 800
 		Damage: 3000
 		Falloff: 500, 368, 135, 50, 18, 7, 0
 		Delay: 10
@@ -1195,7 +1199,7 @@ KodiacNuke:
 		ImpactSounds: kaboom22.aud
 		Delay: 10
 	Warhead@7Dam_areanuke2: SpreadDamage
-		Spread: 1000
+		Spread: 1200
 		Damage: 2500
 		Falloff: 500, 368, 135, 50, 18, 7, 0
 		Delay: 15
@@ -1208,7 +1212,7 @@ KodiacNuke:
 		DamageTypes: Prone50Percent, TriggerProne, FireDeath, Incendiary
 		ValidRelationships: Enemy, Neutral
 	Warhead@9Dam_areanuke3: SpreadDamage
-		Spread: 1250
+		Spread: 1750
 		Damage: 2000
 		Falloff: 500, 368, 135, 50, 18, 7, 0
 		Delay: 15
