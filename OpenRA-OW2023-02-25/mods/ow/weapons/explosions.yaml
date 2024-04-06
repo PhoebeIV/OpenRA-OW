@@ -1080,7 +1080,7 @@ TibTreeBurst:
 		Weapon: TibTreeSeed
 		RandomClusterCount: 2
 		Dimensions: 15,15
-		Footprint: xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx
+		Footprint: xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxx_xxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx
 	Warhead@15Res_areanuke4: DestroyResource
 		Size: 1
 		ResourceTypes: Ore
@@ -1151,8 +1151,8 @@ TibTreeSeed:
 	Warhead@seed: FireCluster
 		Weapon: TibTreeGrowthSpread
 		RandomClusterCount: 3
-		Dimensions: 8,8
-		Footprint: xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx
+		Dimensions: 7,7
+		Footprint: xxxxxxx xxxxxxx xxxxxxx xxx_xxx xxxxxxx xxxxxxx xxxxxxx 
 	Warhead@dog: SpawnActor
 		InternalOwner: Creeps
 		OwnerType: InternalName
@@ -1207,6 +1207,16 @@ TibTreeGrowthSpread:
 		DamageTypes: TiberiumDeath
 		ValidTargets: Infantry
 
+TibTreeGrowthExtractor:
+	Projectile: Bullet
+		Speed: 256
+	Warhead@growth: GrantExternalCondition
+		Condition: growth
+		Range: 2c0
+		Duration: 0
+		AffectsParent: false
+		ValidTargets: TibTree, OreMine, Tree
+
 MonolithShake:
 	ReloadDelay: 50
 	Warhead@1Dam: SpreadDamage
@@ -1231,7 +1241,7 @@ MonolithShake:
 		Weapon: TibTreeSeedNoCluster
 		RandomClusterCount: 1
 		Dimensions: 5,5
-		Footprint: __x__ _xxx_ xxxxx _xxx_ __x__
+		Footprint: __x__ _xxx_ xx_xx _xxx_ __x__
 
 TibTreeSeedNoCluster:
 	Inherits: TibTreeSeed

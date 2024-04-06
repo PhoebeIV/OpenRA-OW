@@ -1,6 +1,5 @@
 # All Forgotten soldiers heal in Tiberium, and are *buffed* by corrosion weapons
 ^ForgottenSoldier:
-	Inherits: ^Soldier
 	Mobile:
 		Locomotor: tibfoot
 	ChangesHealth@tiberium2:
@@ -114,7 +113,8 @@ FRGE3:
 		Image: tse3
 
 FRGDOG:
-	Inherits: ^ForgottenSoldier
+	Inherits: ^Soldier
+	Inherits@forgotten: ^ForgottenSoldier
 	-ChangesHealth@tiberium:
 	-ChangesHealth@tiberium_noshield:
 	Buildable:
@@ -208,12 +208,13 @@ FRGDOG:
 		InitialDelay: 5
 		CloakDelay: 30
 		-CloakSound:
-		RequiresCondition: standing_in_tiberium
+		RequiresCondition: standing_in_tiberium || (cloaked && !disabled)
 		UncloakOn: Attack
 		CloakedCondition: cloaked
 
 FRGGHOST:
-	Inherits: ^ForgottenSoldier
+	Inherits: ^Soldier
+	Inherits@forgotten: ^ForgottenSoldier
 	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
 	-ChangesHealth@tiberium:
 	-ChangesHealth@tiberium_noshield:
@@ -222,7 +223,6 @@ FRGGHOST:
 		BuildAtProductionType: Soldier
 		BuildPaletteOrder: 130
 		Prerequisites: techcenter, ~barr, ~techlevel.unrestricted, ~infantry.forgotten
-		Icon: icon
 		Description: actor-frgghost.description
 	Valued:
 		Cost: 1500
@@ -302,3 +302,24 @@ FRGSURV:
 	Buildable:
 		Prerequisites: ~barr, ~techlevel.infonly, ~infantry.forgotten
 		Description: actor-tsengi-o.fdescription
+
+FRGHIJACK:
+	Inherits: GHIJACK
+	Inherits@forgotten: ^ForgottenSoldier
+	Inherits@selection: ^SelectableSupportUnit
+	-ChangesHealth@tiberium:
+	-ChangesHealth@tiberium_noshield:
+	Buildable:
+		Prerequisites: ~infantry.forgotten, factory, ~barracks, ~techlevel.medium
+		Description: actor-ghijack.fdescription
+		Icon: icon-mutant
+	Tooltip:
+		Name: actor-ghijack.fname
+	Cloak@stealthgen:
+		IsPlayerPalette: true
+		InitialDelay: 5
+		CloakDelay: 4
+		-CloakSound:
+		RequiresCondition: standing_in_tiberium || (cloaked && !disabled)
+		UncloakOn: Move
+		CloakedCondition: cloaked

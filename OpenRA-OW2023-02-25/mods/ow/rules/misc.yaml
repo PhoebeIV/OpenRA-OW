@@ -68,10 +68,13 @@ MINE:
 		Condition: dotransform
 		CooldownDuration: 1500, 4500
 		ActiveDuration: 50
-	TransformOnCondition:
+	SpawnActorOnDeath:
 		RequiresCondition: dotransform
-		IntoActor: tmonolith
-		SkipMakeAnims: false
+		Actor: tmonolith
+		SkipMakeAnimations: false
+	KillsSelf@transform:
+		RequiresCondition: dotransform
+		Delay: 1
 	ExternalCondition@tibtree:
 		Condition: tibtree
 	ProximityExternalCondition@tree:
@@ -245,10 +248,15 @@ SPLIT3:
 		Weapon: TibTreeBurst
 	GrantRandomCondition@infectable:
 		Conditions: infectable,lessinfectable,moreinfectable
-	TransformOnCondition:
+	SpawnActorOnDeath:
 		RequiresCondition: (lessinfectable && (growth > 150)) || (infectable && (growth > 120)) || (moreinfectable && (growth > 90)) || dotransform
-		IntoActor: split4
-		SkipMakeAnims: false
+		Actor: split4
+		SkipMakeAnimations: false
+	KillsSelf@transform:
+		RequiresCondition: (lessinfectable && (growth > 150)) || (infectable && (growth > 120)) || (moreinfectable && (growth > 90)) || dotransform
+		Delay: 1
+	ChangesTerrain:
+		TerrainType: TibTree
 
 SPLIT3.CR:
 	Inherits: SPLIT3
@@ -265,8 +273,8 @@ SPLIT3.CR:
 	Explodes:
 		Weapon: DemoTrapExplosion2
 		EmptyWeapon: DemoTrapExplosion2
-	TransformOnCondition:
-		IntoActor: split4.cr
+	SpawnActorOnDeath:
+		Actor: split4.cr
 
 SPLIT4:
 	Inherits: ^TibTree
@@ -299,6 +307,8 @@ SPLIT4:
 	ExplodeWeapon@burst:
 		RequiresCondition: burst
 		Weapon: TibTreeBlueBurst
+	ChangesTerrain:
+		TerrainType: TibTreeBlue
 
 SPLIT4.CR:
 	Inherits: SPLIT4
@@ -390,6 +400,8 @@ TMONOLITH:
 		EmptyWeapon: MonolithExplosion
 	SpawnActorOnDeath:
 		Actor: MINE
+	ChangesTerrain:
+		TerrainType: TibMonolith
 
 #	TerrainLightSource:
 #		Range: 7c0
@@ -421,6 +433,8 @@ TMONOLITH.BLUE:
 		EmptyWeapon: MonolithBlueExplosion
 	SpawnActorOnDeath:
 		Actor: GMINE
+	ChangesTerrain:
+		TerrainType: TibMonolithBlue
 
 #	TerrainLightSource:
 #		Range: 7c0

@@ -1665,6 +1665,50 @@ OREEXT2:
 	RenderSprites:
 		Image: OREEXT
 
+TREEEXT:
+	Inherits: OREEXT
+	Inherits@IDISABLE: ^DisableOnLowPowerOrPowerDown
+	Valued:
+		Cost: 1000
+	Buildable:
+		Queue: Wall
+		BuildPaletteOrder: 106
+		Prerequisites: techcenter, ~structures.treeextprereq, ~techlevel.unrestricted
+		Description: actor-oreext.tdescription
+	Tooltip:
+		Name: actor-oreext.tname
+	Building:
+		TerrainTypes: TibTree, TibTreeBlue, TibMonolith, TibMonolithBlue
+	GrantConditionOnTerrain@green:
+		Condition: green
+		TerrainTypes: TibTree, TibMonolith
+	GrantConditionOnTerrain@blue:
+		Condition: blue
+		TerrainTypes: TibTreeBlue, TibMonolithBlue
+	GrantConditionOnTerrain@monolith:
+		Condition: monolith
+		TerrainTypes: TibMonolith, TibMonolithBlue
+	SeedsResource@green:
+		Interval: 100
+		MaxRange: 8
+		ResourceType: Tiberium
+		RequiresCondition: !disabled && green
+	SeedsResource@blue:
+		Interval: 150
+		MaxRange: 8
+		ResourceType: BlueTiberium
+		RequiresCondition: !disabled && blue
+	WithSpriteBody:
+		StartSequence: make
+		RequiresCondition: !monolith
+	WithSpriteBody@mono:
+		RequiresCondition: monolith
+		Sequence: idle-mono
+	FireWarheads@green:
+		RequiresCondition: green
+		Weapons: TibTreeGrowthExtractor
+		Interval: 2250
+
 AGATE:
 	Inherits: ^Building
 	Inherits@disable: ^DisableOnLowPower

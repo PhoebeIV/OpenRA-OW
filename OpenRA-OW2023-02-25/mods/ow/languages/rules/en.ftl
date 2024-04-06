@@ -1509,6 +1509,12 @@ actor-ghijack =
     Unarmed.
     Speed: 72
    .name = Hijacker
+   .fdescription = Steals enemy credits.
+    Hijacks enemy vehicles.
+    Hides and heals in Tiberium
+    Unarmed.
+    Speed: 72
+   .fname = Mutant Hijacker
 
 actor-tse5-g =
    .description = Stealth sniper.
@@ -3309,6 +3315,10 @@ actor-oreext =
      their growth rate. 
       Unarmed
    .name = Ore Extractor
+   .tdescription = Place on blossom trees or monoliths 
+     to increase their growth rate. 
+      Unarmed
+   .tname = Growth Accelerator
 
 actor-oreext2 =
    .description = Place on ore mines to increase 
@@ -5535,7 +5545,7 @@ actor-treepro =
    .description = Place near a tree or on a Mine to 
    promote tiberium mutation.
 
-   Takes 5 minutes.
+   Takes 4 minutes.
    Max of 1 active at a time.
    .name = Tiberium Mutator
 
