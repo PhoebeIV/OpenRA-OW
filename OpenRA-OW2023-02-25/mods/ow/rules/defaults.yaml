@@ -1640,6 +1640,21 @@
 		TargetTypes: Repair
 	ExternalCondition@reloadnear:
 		Condition: reloadnear
+	GrantConditionOnPrerequisite@bot:
+		Prerequisites: ai.all
+		Condition: botowner
+	AmmoPool:
+	ReloadAmmoPool@bot:
+		RequiresCondition: botowner && !attack-cooldown
+		Delay: 1500
+		Count: 90
+	ReloadAmmoPool@reloadnear:
+		RequiresCondition: reloadnear
+		Delay: 125
+		Count: 2
+	GrantConditionOnAttack@botcooldown:
+		Condition: attack-cooldown
+		RevokeDelay: 125
 	TemporaryOwnerManager:
 	ExternalCondition@arbiterstealth:
 		Condition: arbiterstealth
@@ -1703,6 +1718,7 @@
 	Cloak@stealthgen:
 		Palette: tscloak
 	-ChangesHealth@landed:
+	-WithColoredOverlay@shielded:
 
 ^TSHelicopter:
 	Inherits: ^Helicopter
@@ -1718,6 +1734,7 @@
 	WithVoxelBody:
 	Cloak@stealthgen:
 		Palette: tscloak
+	-WithColoredOverlay@shielded:
 
 ^TSNeutralPlane:
 	Inherits: ^NeutralPlane
@@ -1734,6 +1751,7 @@
 	WithVoxelBody:
 	Cloak@stealthgen:
 		Palette: tscloak
+	-WithColoredOverlay@shielded:
 
 ^TSPlaneHusk:
 	Inherits: ^PlaneHusk
