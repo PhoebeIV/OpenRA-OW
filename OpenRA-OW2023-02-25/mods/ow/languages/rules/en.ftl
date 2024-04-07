@@ -3085,7 +3085,7 @@ actor-e6 =
    .fdescription = Infiltrates and captures
     enemy structures. Heals in Tiberium
       Unarmed
-   .fname = Mutated Engineer
+   .fname = Mutant Engineer
 
 actor-tsengi-o =
    .description = Deploys an outpost for further 
@@ -3098,7 +3098,7 @@ actor-tsengi-o =
     Also behaves as normal engineer.
     Heals in Tiberium
       Unarmed
-   .fname = Mutated Surveyor
+   .fname = Mutant Surveyor
 
 actor-c1-o-name = Retired Surveyor
 actor-e1-tester-name = Testman
@@ -4347,6 +4347,18 @@ actor-upgrade-buildarmor2 =
 actor-upgrade-buildarmor3 =
    .name = Structural Integrity Upgrade III
    .description = Improve structure health by 60%
+
+actor-upgrade-buildrepair1 =
+   .name = Structural Servicing Upgrade I
+   .description = Enables structure auto-repair.
+
+actor-upgrade-buildrepair2 =
+   .name = Structural Servicing Upgrade II
+   .description = Improves structure auto-repair.
+
+actor-upgrade-buildrepair3 =
+   .name = Structural Servicing Upgrade III
+   .description = Further improves structure auto-repair.
 
 actor-upgrade-buildfirepower1 =
    .name = Structure Weapons Upgrade I

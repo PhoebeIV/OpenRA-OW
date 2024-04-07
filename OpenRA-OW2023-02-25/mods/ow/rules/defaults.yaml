@@ -1120,7 +1120,7 @@
 		RequiresCondition: bar3 && (!corrode && !defiler_plague)
 		Modifier: 40
 	SpawnActorsOnSell:
-		Factions: england, germany, france, russia, ukraine, estonia, steel, zocom, gdi3, marked, bhand, nod3, hitler, himmler, heydrich
+		Factions: england, germany, france, russia, ukraine, estonia, gdi, steel, zocom, gdi3, nod, marked, bhand, nod3, hitler, himmler, heydrich
 	SpawnActorsOnSell@uac:
 		Factions: phobos, mars, deimos
 		ActorTypes: dm2,tecn,tecn,tecn,tecn
@@ -1130,6 +1130,9 @@
 	SpawnActorsOnSell@gla:
 		Factions: demo, kassad, thrax
 		ActorTypes: ge1,ge1,ge1,tecn,tecn
+	SpawnActorsOnSell@forgotten:
+		Factions: forgotten
+		ActorTypes: frge1,frge1,frge1,tecn,tecn
 	SpawnActorsOnSell@usa:
 		Factions: usa, granger, townes, alexander
 		ActorTypes: usaranger,usaranger,usaranger,tecn,tecn,tecn
@@ -1140,14 +1143,14 @@
 		Factions: terran, raynor, mengsk
 		ActorTypes: tecn,tecn,tecn,c10,tmarine
 	SpawnActorsOnSell@japan:
-		Factions: japan
+		Factions: japan, navy, mecha, economic
 		ActorTypes: japanimperialwarrior,japanimperialwarrior,japanimperialwarrior,tecn,tecn,tecn
 	SpawnActorsOnSell@medi:
 		Factions: medi
 		ActorTypes: usaranger
 	SpawnActorsOnSell@avalon:
 		Factions: avalon
-		ActorTypes: avinf1,avinf1,avinf1
+		ActorTypes: avinf1,avinf1,avinf1,tecn
 	ActorLostNotification:
 		Notification: StructureLost
 	GrantConditionOnPrerequisite@never_target_me:
@@ -1207,11 +1210,53 @@
 		Palette: effect
 		RequiresCondition: akuma
 		IsDecoration: True
+	GrantConditionOnPrerequisite@service1:
+		Prerequisites: upgrade.buildrepair1
+		Condition: brep1
+	GrantConditionOnPrerequisite@service2:
+		Prerequisites: upgrade.buildrepair2
+		Condition: brep2
+	GrantConditionOnPrerequisite@service3:
+		Prerequisites: upgrade.buildrepair3
+		Condition: brep3
+	ChangesHealth@service1:
+		PercentageStep: 1
+		Delay: 75
+		StartIfBelow: 100
+		DamageCooldown: 500
+		RequiresCondition: brep1
+	ChangesHealth@service2:
+		PercentageStep: 1
+		Delay: 125
+		StartIfBelow: 100
+		DamageCooldown: 500
+		RequiresCondition: brep2
+	ChangesHealth@service3:
+		PercentageStep: 1
+		Delay: 175
+		StartIfBelow: 100
+		DamageCooldown: 500
+		RequiresCondition: brep3
+	GrantCondition@service:
+		RequiresCondition: brep1 && repairtime
+		Condition: wrench
+	WithDecoration@service:
+		Image: pips
+		Sequence: wrench
+		Position: BottomLeft
+		Margin: 8, 8
+		RequiresCondition: wrench && !damage-cooldown
+		BlinkInterval: 35
+		BlinkPattern: Off, On
+	GrantConditionOnDamage@service: 
+		Condition: damage-cooldown
+		ValidRelationships: Ally, Enemy, Neutral
+		Duration: 500
 	-GrantConditionOnPrerequisite@fedshields:
 
 ^ScienceBuilding:
 	SpawnActorsOnSell:
-		Factions: england, germany, france, russia, ukraine, estonia, steel, zocom, gdi3, marked, bhand, nod3, hitler, himmler, heydrich
+		Factions: england, germany, france, russia, ukraine, estonia, gdi, steel, zocom, gdi3, nod, marked, bhand, nod3, hitler, himmler, heydrich
 	SpawnActorsOnSell@uac:
 		Factions: phobos, mars, deimos
 		ActorTypes: dm2,dm2,dm2,dm2,tecn,tecn2,tecn,tecn2,tecn,tecn2,tecn,tecn2,tecn,tecn2,e6,e6,e6,c10,c10,c10,c10
@@ -1228,11 +1273,14 @@
 		Factions: china, tank, infantry, nuke
 		ActorTypes: chinaredguard2,chinaredguard2,chinaredguard2,chinaredguard2,tecn,tecn2,tecn,tecn2,tecn,tecn2,tecn,tecn2,tecn,tecn2,e6,e6,e6,c10,c10,c10,c10
 	SpawnActorsOnSell@japan:
-		Factions: japan
+		Factions: japan, navy, mecha, economic
 		ActorTypes: japanimperialwarrior,japanimperialwarrior,japanimperialwarrior,japanimperialwarrior,tecn,tecn2,tecn,tecn2,tecn,tecn2,tecn,tecn2,tecn,tecn2,e6,e6,e6,c10,c10,c10,c10
 	SpawnActorsOnSell@avalon:
 		Factions: avalon
 		ActorTypes: avinf1,avinf1,avinf1,c10,c10,c10,c10,tecn,tecn2,tecn,tecn2,tecn,tecn2,tecn,tecn2,tecn,tecn2
+	SpawnActorsOnSell@forgotten:
+		Factions: forgotten
+		ActorTypes: frge1,frge1,frge1,frge1,c10,c10,c10,c10,tecn,tecn2,tecn,tecn2,tecn,tecn2,tecn,tecn2,tecn,tecn2,frge6,frge6,frge6
 	SpawnActorsOnSell@medi:
 		Factions: medi
 		ActorTypes: usaranger
@@ -1311,6 +1359,32 @@
 	KillsSelf:
 		RemoveInstead: true
 	RenderSprites:
+
+^GLAVehicle:
+	GrantConditionOnPrerequisite@service:
+		Prerequisites: gfix
+		Condition: glavehicle
+	ChangesHealth@service:
+		PercentageStep: 1
+		Delay: 50
+		StartIfBelow: 100
+		DamageCooldown: 250
+		RequiresCondition: glavehicle
+	GrantCondition@service:
+		RequiresCondition: glavehicle && damaged
+		Condition: wrench
+	WithDecoration@service:
+		Image: pips
+		Sequence: wrench
+		Position: BottomLeft
+		Margin: 8, 8
+		RequiresCondition: wrench && !damage-cooldown
+		BlinkInterval: 35
+		BlinkPattern: Off, On
+	GrantConditionOnDamage@service: 
+		Condition: damage-cooldown
+		ValidRelationships: Ally, Enemy, Neutral
+		Duration: 250
 
 ^Vehicle:
 	Inherits@MediConditions: ^MediConditionsV

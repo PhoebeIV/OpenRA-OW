@@ -30,6 +30,15 @@
 	GrantConditionOnPrerequisite@bfp3:
 		Prerequisites: upgrade.buildfirepower3
 		Condition: bfp3
+	GrantConditionOnPrerequisite@service1:
+		Prerequisites: upgrade.buildrepair1
+		Condition: brep1
+	GrantConditionOnPrerequisite@service2:
+		Prerequisites: upgrade.buildrepair2
+		Condition: brep2
+	GrantConditionOnPrerequisite@service3:
+		Prerequisites: upgrade.buildrepair3
+		Condition: brep3
 	GrantConditionOnPrerequisite@iar1:
 		Prerequisites: upgrade.infarmor1
 		Condition: iar1
@@ -136,6 +145,24 @@
 		Image: adpip
 		Sequence: bfp3
 		RequiresCondition: bfp3
+		ValidRelationships: Ally, Enemy, Neutral, None
+		RequiresSelection: true
+	WithDecoration@brep1:
+		Image: adpip
+		Sequence: brep1
+		RequiresCondition: brep1 && !brep2
+		ValidRelationships: Ally, Enemy, Neutral, None
+		RequiresSelection: true
+	WithDecoration@brep2:
+		Image: adpip
+		Sequence: brep2
+		RequiresCondition: brep2 && !brep3
+		ValidRelationships: Ally, Enemy, Neutral, None
+		RequiresSelection: true
+	WithDecoration@brep3:
+		Image: adpip
+		Sequence: brep3
+		RequiresCondition: brep3
 		ValidRelationships: Ally, Enemy, Neutral, None
 		RequiresSelection: true
 	WithDecoration@iar1:
@@ -1252,11 +1279,11 @@ UpgradeHandler:
 		Prerequisite: faction.novehicles
 		RequiresPrerequisites: ai.all
 	ProvidesPrerequisite@aiprefer_noinf:
-		Factions: steel, gdi3, deimos, estonia, russia, ukraine, hitler, silver, granger
+		Factions: steel, gdi3, deimos, estonia, russia, ukraine, hitler, silver, granger, navy
 		Prerequisite: faction.noinfantry
 		RequiresPrerequisites: ai.all
 	ProvidesPrerequisite@aiprefer_noair:
-		Factions: kassad, demo, thrax, phobos, mars, deimos, zocom, steel, infantry
+		Factions: kassad, demo, thrax, phobos, mars, deimos, zocom, steel, infantry, forgotten
 		Prerequisite: faction.noair
 		RequiresPrerequisites: ai.all
 	ProvidesPrerequisite@ai_noboats:
@@ -1306,6 +1333,9 @@ UpgradeHandlerBot:
 	FreeActor@estonia:
 		RequiresCondition: spawn_buildarmor1
 		Actor: upgrade.buildarmor1
+	FreeActor@estonia2:
+		RequiresCondition: spawn_buildarmor1
+		Actor: upgrade.buildrepair1
 	GrantConditionOnPrerequisite@mengsk:
 		Prerequisites: structures.mengsk
 		Condition: mengsk
@@ -1390,7 +1420,7 @@ upgrade.buildarmor1:
 		Name: actor-upgrade-buildarmor1.name
 	Buildable:
 		Description: actor-upgrade-buildarmor1.description
-		BuildPaletteOrder: 9998
+		BuildPaletteOrder: 9997
 		Prerequisites: ~!upgrade.buildarmor1, ~!techlevel.noupgrades
 	ProvidesPrerequisite@upgradename:
 
@@ -1400,7 +1430,7 @@ upgrade.buildarmor2:
 		Name: actor-upgrade-buildarmor2.name
 	Buildable:
 		Description: actor-upgrade-buildarmor2.description
-		BuildPaletteOrder: 9998
+		BuildPaletteOrder: 9997
 		Prerequisites: ~upgrade.buildarmor1, ~!upgrade.buildarmor2
 	ProvidesPrerequisite@upgradename:
 
@@ -1410,8 +1440,38 @@ upgrade.buildarmor3:
 		Name: actor-upgrade-buildarmor3.name
 	Buildable:
 		Description: actor-upgrade-buildarmor3.description
-		BuildPaletteOrder: 9998
+		BuildPaletteOrder: 9997
 		Prerequisites: ~upgrade.buildarmor2, ~!upgrade.buildarmor3
+	ProvidesPrerequisite@upgradename:
+
+upgrade.buildrepair1:
+	Inherits: ^UpgradeBase
+	Tooltip:
+		Name: actor-upgrade-buildrepair1.name
+	Buildable:
+		Description: actor-upgrade-buildrepair1.description
+		BuildPaletteOrder: 9998
+		Prerequisites: ~!upgrade.buildrepair1, ~!techlevel.noupgrades
+	ProvidesPrerequisite@upgradename:
+
+upgrade.buildrepair2:
+	Inherits: ^UpgradeBase2
+	Tooltip:
+		Name: actor-upgrade-buildrepair2.name
+	Buildable:
+		Description: actor-upgrade-buildrepair2.description
+		BuildPaletteOrder: 9998
+		Prerequisites: ~upgrade.buildrepair1, ~!upgrade.buildrepair2
+	ProvidesPrerequisite@upgradename:
+
+upgrade.buildrepair3:
+	Inherits: ^UpgradeBase3
+	Tooltip:
+		Name: actor-upgrade-buildrepair3.name
+	Buildable:
+		Description: actor-upgrade-buildrepair3.description
+		BuildPaletteOrder: 9998
+		Prerequisites: ~upgrade.buildrepair2, ~!upgrade.buildrepair3
 	ProvidesPrerequisite@upgradename:
 
 upgrade.buildfirepower1:
