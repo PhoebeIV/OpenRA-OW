@@ -153,10 +153,10 @@
 	ExternalCondition@corrode:
 		Condition: corrode
 	DamageMultiplier@corrode:
-		RequiresCondition: corrode && !gdi_suits
+		RequiresCondition: corrode && !gdi_suits && !medishield
 		Modifier: 110
 	WithColoredOverlay@corrode:
-		RequiresCondition: corrode && !gdi_suits
+		RequiresCondition: corrode && !gdi_suits && !medishield
 		Color: 00800040
 	ExternalCondition@carrier:
 		Condition: carriertarget
@@ -189,7 +189,7 @@
 		Prerequisites: gdi.suits
 		Condition: gdi_suits
 	DamageMultiplier@corrode:
-		RequiresCondition: corrode && gdi_suits
+		RequiresCondition: corrode && gdi_suits && !medishield
 		Modifier: 75
 	GrantConditionOnPrerequisite@fanatics:
 		Prerequisites: nod.fanatic
@@ -3017,24 +3017,37 @@
 	### Bless Condition heals units and grants damage resistance
 	ExternalCondition@Mediblesscondition:
 		Condition: MediBlessCondition
-	### Rage Stacks, more attack and move speed on stacks
-	ExternalCondition@DarkRageStacks:
-		Condition: DarkRageStacks
-	###Rage stacks heal units over the duration of the buff
-	ExternalCondition@DarkRageStacksHeal:
-		Condition: DarkRageStacksHeal
 	###Monumnet heals, buffs defense, attack speed and damage done
 	ExternalCondition@MonumentBoost:
 		Condition: MonumentBoost
 	###Monumnet heals, buffs defense, attack speed and damage done, wagon version gives faster move speed too
 	ExternalCondition@MonumentWagonBoost:
 		Condition: MonumentWagonBoost
+	##Weaker Monumnet heal from paladin
+	ExternalCondition@PallyBoost:
+		Condition: PallyBoost
 	###Generates shields on Wizards and buffs stats
 	ExternalCondition@ArchmageAura:
 		Condition: ArchmageAura
 	###Heal over time condition from martyr
 	ExternalCondition@martyhot:
 		Condition: martyhot
+	##Non Magic units get bonus Vehicle Damage
+	GrantConditionOnPrerequisite@medimagicwep:
+		Prerequisites: upgrade.medimagicwep
+		Condition: medimagicwep
+##Buildings get shields, very small regen
+	GrantConditionOnPrerequisite@medimagiclogs:
+		Prerequisites: upgrade.medimagiclogs
+		Condition: medimagiclogs
+##units can see stealth from longer
+	GrantConditionOnPrerequisite@mediblessed:
+		Prerequisites: upgrade.medibless
+		Condition: mediblessed
+##units get imunity to debuffs when neer paladin or monuments
+	GrantConditionOnPrerequisite@medishield:
+		Prerequisites: upgrade.medishield
+		Condition: medishield
 	
 ^MediConditionsnegative:
 	###blank
@@ -3081,7 +3094,7 @@
 		Modifier: 90
 	ChangesHealth@MediBlessCondition:
 		Step: 250
-		Delay: 5
+		Delay: 15
 		StartIfBelow: 101
 		RequiresCondition: MediBlessCondition
 		DamageTypes: BypassShield
@@ -3091,51 +3104,16 @@
 		Palette: effect
 		RequiresCondition: MediBlessCondition
 		IsDecoration: True
-	### Rage Stacks, more attack and move speed on stacks
-	FirepowerMultiplier@DarkRageStacksF:
-		RequiresCondition: DarkRageStacks >= 5
-		Modifier: 120
-	SpeedMultiplier@DarkRageStacksS:
-		RequiresCondition: DarkRageStacks >= 6
-		Modifier: 130
-	DamageMultiplier@DarkRageStacksD:
-		RequiresCondition: DarkRageStacks >= 4
-		Modifier: 90
-	WithIdleOverlay@DarkRageStacks:
-		Image: japancurse-overlay
-		Sequence: vehicle
-		Palette: effect
-		RequiresCondition: DarkRageStacks >= 3
-		IsDecoration: True
-	###Rage stacks heal units over the duration of the buff
-	ChangesHealth@DarkRageStacksCH:
-		Step: 250
-		Delay: 5
-		StartIfBelow: 101
-		RequiresCondition: DarkRageStacksHeal >= 3
-		DamageTypes: BypassShield
-	ChangesHealth@DarkRageStacksCH1:
-		Step: 350
-		Delay: 5
-		StartIfBelow: 101
-		RequiresCondition: DarkRageStacksHeal >= 6
-		DamageTypes: BypassShield
-	WithIdleOverlay@DarkRageStacks:
-		Image: japancurse-overlay
-		Sequence: vehicle
-		Palette: effect
-		RequiresCondition: DarkRageStacksHeal >= 3
-		IsDecoration: True
 	###Monumnet heals, buffs defense, attack speed and damage done
 	DamageMultiplier@MonumentBoostD:
 		RequiresCondition: MonumentBoost
-		Modifier: 95
+		Modifier: 90
 	FirepowerMultiplier@MonumentBoostF:
 		RequiresCondition: MonumentBoost
 		Modifier: 120
 	ChangesHealth@MonumentBoost:
 		Step: 250
-		Delay: 5
+		Delay: 50
 		StartIfBelow: 101
 		RequiresCondition: MonumentBoost
 		DamageTypes: BypassShield
@@ -3160,7 +3138,7 @@
 		Modifier: 120
 	ChangesHealth@MonumentWagonBoost:
 		Step: 300
-		Delay: 5
+		Delay: 50
 		StartIfBelow: 101
 		RequiresCondition: MonumentWagonBoost
 		DamageTypes: BypassShield
@@ -3173,7 +3151,7 @@
 	###Heal over time condition from martyr
 	ChangesHealth@martyhot:
 		Step: 600
-		Delay: 5
+		Delay: 15
 		StartIfBelow: 101
 		RequiresCondition: martyhot
 		DamageTypes: BypassShield
@@ -3206,7 +3184,7 @@
 		Modifier: 115
 	### % DoT and slows
 	ChangesHealth@DarkWiz:
-		PercentageStep: 1
+		PercentageStep: -1
 		Delay: 20
 		StartIfBelow: 101
 		RequiresCondition: DarkWiz
@@ -3226,17 +3204,57 @@
 		RequiresCondition: DarkKnightAuraHostile
 		Modifier: 95
 	ChangesHealth@DarkKnightAuraHostile:
-		PercentageStep: 1
+		PercentageStep: -1
 		Delay: 100
 		StartIfBelow: 101
 		RequiresCondition: DarkKnightAuraHostile
 		DamageTypes: BypassShield
 	###Drains shields over time
 	ChangesHealth@ArchamageAntiShield:
-		PercentageStep: 1
+		PercentageStep: -1
 		Delay: 1
 		StartIfBelow: 101
 		RequiresCondition: ArchamageAntiShield && shielded
+	##Non Magic units get bonus Vehicle Damage
+	GrantConditionOnPrerequisite@medimagicwep:
+		Prerequisites: upgrade.medimagicwep
+		Condition: medimagicwep
+##units can see stealth from longer
+	DetectCloakedMultiplier@mediblessed:
+		Modifier: 150
+		Condition: mediblessed
+##units get imunity to debuffs when neer paladin or monuments
+	GrantConditionOnPrerequisite@medishield:
+		Prerequisites: upgrade.medishield
+		Condition: medishieldreq
+	GrantCondition@medishield:
+		Condition: medishield
+		RequiresCondition: medishieldreq && MonumentBoost
+	GrantCondition@medishield2:
+		Condition: medishield
+		RequiresCondition: medishieldreq && MonumentWagonBoost
+	GrantCondition@medishield3:
+		Condition: medishield
+		RequiresCondition: medishieldreq && PallyBoost
+	##Pally heals, buffs defense and damage done
+	DamageMultiplier@PallyBoostD:
+		RequiresCondition: PallyBoost
+		Modifier: 95
+	FirepowerMultiplier@PallyBoostF:
+		RequiresCondition: PallyBoost
+		Modifier: 115
+	ChangesHealth@PallyBoost:
+		Step: 150
+		Delay: 50
+		StartIfBelow: 101
+		RequiresCondition: PallyBoost
+		DamageTypes: BypassShield
+	WithIdleOverlay@PallyBoost:
+		Image: japancurse-overlay
+		Sequence: vehicle
+		Palette: effect
+		RequiresCondition: PallyBoost
+		IsDecoration: True
 
 
 
@@ -3256,7 +3274,7 @@
 		Modifier: 90
 	ChangesHealth@MediBlessCondition:
 		Step: 250
-		Delay: 5
+		Delay: 15
 		StartIfBelow: 101
 		RequiresCondition: MediBlessCondition
 		DamageTypes: BypassShield
@@ -3275,7 +3293,7 @@
 		Modifier: 120
 	ChangesHealth@MonumentBoost:
 		Step: 250
-		Delay: 5
+		Delay: 50
 		StartIfBelow: 101
 		RequiresCondition: MonumentBoost
 		DamageTypes: BypassShield
@@ -3300,7 +3318,7 @@
 		Modifier: 120
 	ChangesHealth@MonumentWagonBoost:
 		Step: 300
-		Delay: 5
+		Delay: 50
 		StartIfBelow: 101
 		RequiresCondition: MonumentWagonBoost
 		DamageTypes: BypassShield
@@ -3346,7 +3364,7 @@
 		Modifier: 125
 	### % DoT
 	ChangesHealth@DarkWiz:
-		PercentageStep: 1
+		PercentageStep: -1
 		Delay: 10
 		StartIfBelow: 101
 		RequiresCondition: DarkWiz
@@ -3366,17 +3384,57 @@
 		RequiresCondition: DarkKnightAuraHostile
 		Modifier: 95
 	ChangesHealth@DarkKnightAuraHostile:
-		PercentageStep: 1
+		PercentageStep: -1
 		Delay: 100
 		StartIfBelow: 101
 		RequiresCondition: DarkKnightAuraHostile
 		DamageTypes: BypassShield
 	###Drains shields over time
 	ChangesHealth@ArchamageAntiShield:
-		PercentageStep: 1
+		PercentageStep: -1
 		Delay: 1
 		StartIfBelow: 101
 		RequiresCondition: ArchamageAntiShield && shielded
+	##Non Magic units get bonus Vehicle Damage
+	GrantConditionOnPrerequisite@medimagicwep:
+		Prerequisites: upgrade.medimagicwep
+		Condition: medimagicwep
+##units can see stealth from longer
+	DetectCloakedMultiplier@mediblessed:
+		Modifier: 150
+		Condition: mediblessed
+##units get imunity to debuffs when neer paladin or monuments
+	GrantConditionOnPrerequisite@medishield:
+		Prerequisites: upgrade.medishield
+		Condition: medishieldreq
+	GrantCondition@medishield:
+		Condition: medishield
+		RequiresCondition: medishieldreq && MonumentBoost
+	GrantCondition@medishield2:
+		Condition: medishield
+		RequiresCondition: medishieldreq && MonumentWagonBoost
+	GrantCondition@medishield3:
+		Condition: medishield
+		RequiresCondition: medishieldreq && PallyBoost
+	##Pally heals, buffs defense and damage done
+	DamageMultiplier@PallyBoostD:
+		RequiresCondition: PallyBoost
+		Modifier: 95
+	FirepowerMultiplier@PallyBoostF:
+		RequiresCondition: PallyBoost
+		Modifier: 115
+	ChangesHealth@PallyBoost:
+		Step: 150
+		Delay: 15
+		StartIfBelow: 101
+		RequiresCondition: PallyBoost
+		DamageTypes: BypassShield
+	WithIdleOverlay@PallyBoost:
+		Image: japancurse-overlay
+		Sequence: vehicle
+		Palette: effect
+		RequiresCondition: PallyBoost
+		IsDecoration: True
 	
 ##Buildings
 ^MediConditionsB:
@@ -3388,7 +3446,7 @@
 		Modifier: 90
 	ChangesHealth@MediBlessCondition:
 		Step: 250
-		Delay: 5
+		Delay: 15
 		StartIfBelow: 101
 		RequiresCondition: MediBlessCondition
 		DamageTypes: BypassShield
@@ -3404,7 +3462,7 @@
 		Modifier: 95
 	ChangesHealth@MonumentBoost:
 		Step: 500
-		Delay: 5
+		Delay: 50
 		StartIfBelow: 101
 		RequiresCondition: MonumentBoost
 		DamageTypes: BypassShield
@@ -3420,7 +3478,7 @@
 		Modifier: 85
 	ChangesHealth@MonumentWagonBoost:
 		Step: 800
-		Delay: 5
+		Delay: 50
 		StartIfBelow: 101
 		RequiresCondition: MonumentWagonBoost
 		DamageTypes: BypassShield
@@ -3440,7 +3498,7 @@
 		RequiresCondition: RotElementHitCon
 	### % DoT
 	ChangesHealth@DarkWiz:
-		PercentageStep: 1
+		PercentageStep: -1
 		Delay: 10
 		StartIfBelow: 101
 		RequiresCondition: DarkWiz
@@ -3451,13 +3509,41 @@
 		RequiresCondition: DarkKnightAuraHostile
 	###Drains shields over time
 	ChangesHealth@ArchamageAntiShield:
-		PercentageStep: 1
+		PercentageStep: -1
 		Delay: 1
 		StartIfBelow: 101
 		RequiresCondition: ArchamageAntiShield && shielded
+##units can see stealth from longer
+	DetectCloakedMultiplier@mediblessed:
+		Modifier: 150
+		Condition: mediblessed
+##units get imunity to debuffs when neer paladin or monuments
+	GrantConditionOnPrerequisite@medishield:
+		Prerequisites: upgrade.medishield
+		Condition: medishieldreq
+	GrantCondition@medishield:
+		Condition: medishield
+		RequiresCondition: medishieldreq && MonumentBoost
+	GrantCondition@medishield2:
+		Condition: medishield
+		RequiresCondition: medishieldreq && MonumentWagonBoost
+	GrantCondition@medishield3:
+		Condition: medishield
+		RequiresCondition: medishieldreq && PallyBoost
+##Buildings get shields, very small regen
+	GrantConditionOnPrerequisite@medimagiclogs:
+		Prerequisites: upgrade.medimagiclogs
+		Condition: medimagiclogs
+	GrantConditionOnPrerequisite@medimagiclogsshield:
+		Prerequisites: upgrade.medimagiclogs
+		Condition: external_shield
 	
 
 ##Defenses
 ^MediConditionsD:
 	Inherits: ^MediConditionsB
+	##Non Magic units get bonus Vehicle Damage
+	GrantConditionOnPrerequisite@medimagicwep:
+		Prerequisites: upgrade.medimagicwep
+		Condition: medimagicwep
 

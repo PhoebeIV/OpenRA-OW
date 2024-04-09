@@ -1709,6 +1709,26 @@ TheEye:
 		DisplayRadarPing: True
 		DeploySound: gradarup.aud
 		EffectSequence: idle
+		RequiresCondition: !medivision
+	##Vision Power
+	SpawnActorPower@spyvan2:
+		PauseOnCondition: disabled || Eyelow
+		OrderName: SeerVision
+		Cursor: chrono-target
+		Icon: spy
+		ChargeInterval: 2000
+		LifeTime: 200
+		Name: Seer
+		Description: Reveal an area on the map for 5 seconds. \nReveals cloaked units.
+		Actor: camera.spyplane
+		SelectTargetSpeechNotification: SelectTarget
+		DisplayRadarPing: True
+		DeploySound: gradarup.aud
+		EffectSequence: idle
+		RequiresCondition: medivision
+	GrantConditionOnPrerequisite@medivision:
+		Condition: medivision
+		Prerequisites: upgrade.medivision
 	RenderSprites:
 		Image: medieyetower
 	AutoTarget:
@@ -1790,6 +1810,23 @@ TheEvilEye:
 		DisplayRadarPing: True
 		DeploySound: gradarup.aud
 		EffectSequence: idle
+		RequiresCondition: !medivision
+	##Vision Power
+	SpawnActorPower@spyvan2:
+		PauseOnCondition: disabled || Eyelow
+		OrderName: SeerVision
+		Cursor: chrono-target
+		Icon: spy
+		ChargeInterval: 2000
+		LifeTime: 200
+		Name: Seer
+		Description: Reveal an area on the map for 5 seconds. \nReveals cloaked units.
+		Actor: camera.spyplane
+		SelectTargetSpeechNotification: SelectTarget
+		DisplayRadarPing: True
+		DeploySound: gradarup.aud
+		EffectSequence: idle
+		RequiresCondition: medivision
 	RenderSprites:
 		Image: medieyetower
 	AutoTarget:
@@ -1798,6 +1835,9 @@ TheEvilEye:
 	Armament:
 		Name: primary
 		Weapon: CurseEyeWep
+	GrantConditionOnPrerequisite@medivision:
+		Condition: medivision
+		Prerequisites: upgrade.medivision
 
 ###############################################################################
 ###################################  Nukes   ##################################

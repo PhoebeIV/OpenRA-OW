@@ -41,10 +41,6 @@
 		SpeedModifier: 140
 		Duration: 75
 		DamageTriggers: TriggerProne
-	SpawnActorOnDeath@Mrage:
-		OwnerType: Victim
-		Offset: 0,0
-		Actor: medirage
 
 ^Wizards:
 	DamageMultiplier@ArchmageAuraD:
@@ -55,7 +51,7 @@
 		Modifier: 110
 	FirepowerMultiplier@ArchmageAuraF:
 		RequiresCondition: ArchmageAura
-		Modifier: 125
+		Modifier: 115
 	Shielded:
 		MaxStrength: 25000
 		RequiresCondition: external_shield && !emp_shields && !defense_matrix
@@ -65,6 +61,13 @@
 	GrantCondition@MonumentWagonBoost:
 		Condition: external_shield
 		RequiresCondition: MonumentWagonBoost
+##magic units get bonus damage
+	GrantConditionOnPrerequisite@medipure:
+		Prerequisites: upgrade.medipure
+		Condition: medipure
+	FirepowerMultiplier@medipure:
+		RequiresCondition: medipure
+		Modifier: 110
 
 ###############################################################################
 ##########################   Harvesters and Utility   #########################
@@ -79,7 +82,7 @@ SLAVE:
 	Buildable:
 		Queue: Infantry
 		BuildAtProductionType: Dog
-		Prerequisites: ~laborcamp
+		Prerequisites: ~laborcamp, ~!upgrade.mediabolish
 		Description: Collects Ore, Tiberium and Gems for processing.\nCan repair buildngs and vehicles.\nSpeed: 64\n  Unarmed slave will die on tiberium
 		BuildPaletteOrder: 402
 	Valued:
@@ -151,7 +154,7 @@ MEDIWORKER:
 	Buildable:
 		Queue: Infantry
 		BuildAtProductionType: Dog
-		Prerequisites: ~laborcamp, advtechcenter
+		Prerequisites: ~laborcamp, advtechcenter, ~!upgrade.mediabolish
 		Description: Collects Ore, Tiberium and Gems for processing.\nCan repair buildngs and vehicles.
 		BuildPaletteOrder: 403
 		BuildDuration: 400
@@ -195,6 +198,14 @@ MEDIWORKER:
 	ChangesHealth@tiberium_noshield:
 		RequiresCondition: standing_in_tiberium && !shielded && !gdi_suits && !shoes && !workertib
 		Step: -0
+
+MEDIWORKER2:
+	Inherits@MEDIWORKER: MEDIWORKER
+	Buildable:
+		Prerequisites: ~laborcamp, ~upgrade.mediabolish
+		BuildDuration: 250
+	Valued:
+		Cost: 500
 
 ##long vision scout unit, stealth when stationary
 ##scout
@@ -298,7 +309,7 @@ PRIEST:
 		Queue: Infantry
 		BuildAtProductionType: Soldier
 		BuildPaletteOrder: 404
-		Prerequisites: ~infantry.medi, churchmedi, ~!infantry.medicult
+		Prerequisites: ~infantry.medi, churchmedi
 		Description: Heals nearby infantry.\n  The word of god
 	Valued:
 		Cost: 600
@@ -413,14 +424,14 @@ Knight:
 	Inherits@FOOTMAN: FOOTMAN
 	Inherits@HighHPInf: ^HighHPInfantry
 	Buildable:
-		Prerequisites: ~infantry.medi, techcenter
+		Prerequisites: techcenter ~infantry.mediholy
 		Description: Mediaval Shield knight. \n Strong vs infantry\n Weak vs anything else
 		Queue: Infantry
 		BuildAtProductionType: Soldier
 		BuildPaletteOrder: 409
 		BuildDuration: 150
 	Valued:
-		Cost: 150
+		Cost: 200
 	Tooltip:
 		Name: Shield Knight
 	Health:
@@ -436,49 +447,6 @@ Knight:
 	Voiced:
 		VoiceSet: SwordmanVoice
 	-BlocksProjectiles:
-
-
-##stealthed ambush unit
-##assasin
-##can only hit infantry is stealth
-mediassasin:
-	Inherits@Scout: SCOUTMEDI
-	Inherits@InfPro: ^AutoTargetInfantryPriority
-	Buildable:
-		Prerequisites: ~infantry.medi, techcenter, ~!infantry.mediholy
-		Description: Stealthed Assasin Made for exicuting Infantry./nCan bypass Defenses and only spotable by Infantry./nloses stealth for a long time on attack or damage
-		Queue: Infantry
-		BuildAtProductionType: Soldier
-		BuildPaletteOrder: 406
-		BuildLimit: 5
-	Valued:
-		Cost: 1000
-	AutoTarget:
-		InitialStance: HoldFire
-		ScanRadius: 6
-	RevealsShroud:
-		Range: 5c512
-	Armament:
-		Name: Mediassasinblade
-		Weapon: Mediassasinblade
-	AttackLeap:
-		Speed: 250
-		Armaments: Mediassasinblade
-	Mobile:
-		Speed: 120
-	Health:
-		HP: 10000
-	Targetable:
-		TargetTypes: GroundActor, Infantry, Disguise
-	Cloak:
-		IsPlayerPalette: true
-		InitialDelay: 100
-		CloakDelay: 150
-		CloakType: DarkAssasin
-		CloakSound: tphclo00.aud
-		UncloakSound: tphclo01.aud
-		UncloakOn: Attack, Damage
-		CloakedCondition: DarkCloakOn
 
 ##leap attack and high damage
 ##swordmaster
@@ -552,13 +520,13 @@ BERSERKER:
 	Inherits@Knight: Knight
 	-Crushable:
 	Buildable:
-		Prerequisites: ~infantry.medi, advtechcenter, ~infantry.darkness
+		Prerequisites: ~infantry.medi, advtechcenter, ~infantry.mediwizards
 		Description: He carries the anger of a thousand small dwarfs.\n Strong vs infantry, Vehicles\n Weak vs Air, Snipers, Buildings
 		Queue: Infantry
 		BuildAtProductionType: Soldier
 		BuildPaletteOrder: 412
 	Valued:
-		Cost: 2000
+		Cost: 1500
 	Tooltip:
 		Name: Berserker
 	Armor:
@@ -638,6 +606,11 @@ MEDIPALADIN:
 	Voiced:
 		VoiceSet: PaladinVoiceMedi
 	-Crushable:
+	ProximityExternalCondition@PallyBoost:
+		Condition: PallyBoost
+		Range: 10c512
+	WithRangeCircle@PallyBoost:
+		Range: 10c512
 
 ##spawned unit comes in batches
 ##swarmling
@@ -645,19 +618,19 @@ swarmling:
 	Inherits: ^Infantry
 	Inherits@autotarget: ^AutoTargetGroundAssaultMove
 	Buildable:
-		Prerequisites: ~infantry.medi
+		Prerequisites: ~infantry.mediwizards
 		Description: Assasin spawn. \n Strong vs infantry\n Weak vs anything else
 		Queue: Infantry
 		BuildAtProductionType: Soldier
 		BuildPaletteOrder: 408
 	Valued:
-		Cost: 300
+		Cost: 150
 	UpdatesPlayerStatistics:
 		AddToArmyValue: true
 	Tooltip:
 		Name: actor-swarmling.name
 	Health:
-		HP: 5500
+		HP: 40000
 	Mobile:
 		Speed: 104
 	RevealsShroud:
@@ -779,7 +752,7 @@ CROSSBOWMAN:
 	UpdatesPlayerStatistics:
 		AddToArmyValue: true
 	Buildable:
-		Prerequisites: ~infantry.medi, ~!infantry.mediwizards, techcenter
+		Prerequisites: ~infantry.medi, ~!infantry.mediholy, techcenter
 		Description: Mediaval Crossbowman \n  Strong vs infantry\n Weak vs anything else
 		Queue: Infantry
 		BuildAtProductionType: Soldier
@@ -826,7 +799,7 @@ VOIDARCHER:
 	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
 	Inherits@InfPro: ^AutoTargetVehiclePriority
 	Buildable:
-		Prerequisites: ~infantry.medicult, advtechcenter
+		Prerequisites: ~infantry.mediwizards, advtechcenter
 		Description: Dark magic archer \n Strong vs Light Vehicles, Infantry \n Weak vs Tanks
 		Queue: Infantry
 		BuildAtProductionType: Soldier
@@ -895,6 +868,7 @@ MUSKETEER:
 ##arcanewizard
 arcanewizard:
 	Inherits@BOWMAN: CROSSBOWMAN
+	Inherits@Wizards: ^Wizards
 	Inherits@MediLowPower: ^MediLowPower
 	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
 	ReloadDelayMultiplier:
@@ -904,14 +878,14 @@ arcanewizard:
 		Modifier: 50
 		RequiresCondition: lowpower
 	Buildable:
-		Prerequisites: ~infantry.medi, advtechcenter
+		Prerequisites: ~infantry.mediholy, advtechcenter
 		Description: War Mage fires penetrating magic \n Strong vs Vehicles Weak vs Infantry
 		Queue: Infantry
 		BuildAtProductionType: Soldier
 		BuildPaletteOrder: 414
 		BuildDuration: 1000
 	Valued:
-		Cost: 2000
+		Cost: 1500
 	Tooltip:
 		Name: Arcane Wizard
 	Health:
@@ -943,7 +917,7 @@ arcanewizard:
 lightningwizard:
 	Inherits@BOWMAN: arcanewizard
 	Buildable:
-		Prerequisites: ~infantry.medi, advtechcenter
+		Prerequisites: ~infantry.mediwizards, advtechcenter
 		Description: Elemental Mage uses Lightning magic \n Strong vs Infantry Weak vs Buildings
 		Queue: Infantry
 		BuildAtProductionType: Soldier
@@ -972,7 +946,7 @@ lightningwizard:
 firewizard:
 	Inherits@BOWMAN: arcanewizard
 	Buildable:
-		Prerequisites: ~infantry.medi, advtechcenter
+		Prerequisites: ~infantry.mediwizards, advtechcenter
 		Description: Elemental Mage Uses Fire magic \n Strong vs Infantry Weak vs Vehicles
 		Queue: Infantry
 		BuildAtProductionType: Soldier
@@ -996,52 +970,9 @@ firewizard:
 		CargoType: firewizard
 		CargoCondition: firewizard
 
-##anti vehicle, spawns zombies on infantry kills
-##darkwizard
-
 ###############################################################################
 ###############################################################################
 ###############################################################################
-
-
-medirage:
-	Inherits@MediSoldier: ^MediSoldier
-	Inherits@sprite: ^TSMedi
-	Inherits@InfPro: ^AutoTargetInfantryPriority
-	Valued:
-		Cost: 0
-	Tooltip:
-		Name: wut
-	Health:
-		HP: 999999999
-	Mobile:
-		Speed: 0
-	UpdatesPlayerStatistics:
-		AddToArmyValue: false
-	RevealsShroud:
-		Range: 6c512
-	WithInfantryBody:
-		DefaultAttackSequence: shoot
-	AutoTarget:
-		InitialStance: AttackAnything
-		ScanRadius: 6
-	AutoTargetPriority@DEFAULT:
-		ValidTargets: GroundActor, Infantry
-	Targetable:
-		TargetTypes: GroundActor, Infantry, Disguise
-	Armament@1:
-		Weapon: Sword
-	RenderSprites:
-		Image: mediswordman
-	Voiced:
-		VoiceSet: SwordmanVoice
-	KillsSelf:
-		Delay: 0
-	Explodes:
-		Weapon: DarkRageDeathWep
-		EmptyWeapon: DarkRageDeathWep
-	-SpawnActorOnDeath@Mrage:
-
 
 Goul:
 	Inherits@MediSoldier: ^MediSoldier
@@ -1058,7 +989,7 @@ Goul:
 	UpdatesPlayerStatistics:
 		AddToArmyValue: false
 	Health:
-		HP: 20000
+		HP: 30000
 	Mobile:
 		Speed: 50
 	RevealsShroud:

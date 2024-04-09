@@ -3,6 +3,22 @@
 ##################################   Vehicles   ###############################
 ###############################################################################
 
+##Inherit for Horse units, makes the targetable as infantry.
+^Horse:
+	Mobile:
+		TurnSpeed: 160
+		Speed: 160
+		Locomotor: wheeled
+	Armor:
+		Type: Light
+
+^MediSiege:
+	Mobile:
+		TurnSpeed: 12
+		Speed: 60
+		Locomotor: heavywheeled
+	Armor:
+		Type: Light
 
 ###############################################################################
 ###################################   MCV   ###################################
@@ -15,8 +31,99 @@
 ##############################   Utility and Misc   ###########################
 ###############################################################################
 
+##Sends Money to others
+TRUKMedi:
+	Inherits: ^TrackedVehicle
+	Inherits: ^Horse
+	Inherits@selection: ^SelectableSupportUnit
+	Buildable:
+		Queue: Vehicle
+		BuildPaletteOrder: 410
+		Prerequisites: ~vehicles.medi, techcenter
+		Description: Transports cash to other players.\n  Unarmed
+	Valued:
+		Cost: 500
+	WithMoveAnimation:
+		MoveSequence: run
+	Tooltip:
+		Name: Supply Truck
+	Health:
+		HP: 11000
+	Armor:
+		Type: Light
+	Mobile:
+		Speed: 130
+	RevealsShroud:
+		Range: 4c0
+	DeliversCash:
+		Payload: 500
+		PlayerExperience: 50
+	SpawnActorOnDeath:
+		Actor: moneycrate
+	Selectable:
+		Bounds: 1280, 1280
+		DecorationBounds: 1280, 1280
+	RenderSprites:
+		Image: medicarriage
+
 ##medical wagon for healing infantry, high hp and armor
 ##carriage
+Carriage:
+	Inherits: ^TrackedVehicle
+	Inherits: ^Horse
+	Inherits@GAINSEXPERIENCE: ^GainsExperience
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Buildable:
+		Queue: Vehicle
+		BuildPaletteOrder: 120
+		Prerequisites: ~vehicles.mediwizards, ulttechcenter
+		Description: medical wagon for healing infantry, high hp and armor, Holds a Monument for blessing your army
+	Valued:
+		Cost: 9000
+	Tooltip:
+		Name: Monument Wagon
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 200000
+	Armor:
+		Type: Heavy
+	WithMoveAnimation:
+		MoveSequence: run
+	AutoTarget:
+		InitialStance: Defend
+		ScanRadius: 7
+	RevealsShroud:
+		MinRange: 8c0
+		Range: 9c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 4c0
+	Armament:
+		Weapon: Healmedi
+		Cursor: heal
+		OutsideRangeCursor: heal
+		TargetRelationships: Ally
+		ForceTargetRelationships: None
+	ClassicFacingBodyOrientation:
+		QuantizedFacings: 32
+	AttackFrontal:
+		FacingTolerance: 0
+	WithMuzzleOverlay:
+	Selectable:
+		Bounds: 1280, 1280
+		DecorationBounds: 1280, 1280
+	ProducibleWithLevel:
+		Prerequisites: vehicles.upgraded
+	RenderSprites:
+		Image: medicarriage
+	Voiced:
+		VoiceSet: ScoutVoice
+	ProximityExternalCondition@MonumentWagonBoost:
+		RequiresCondition: !disabled
+		Condition: MonumentWagonBoost
+		Range: 11c512
+
 
 ###############################################################################
 ##############################   Horse Units   ################################
@@ -31,25 +138,359 @@
 
 ##short range spread shot
 ##catapult
+catapult:
+	Inherits: ^TrackedVehicle
+	Inherits@Msiege: ^MediSiege
+	Inherits@GAINSEXPERIENCE: ^GainsExperience
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Buildable:
+		Queue: Vehicle
+		Prerequisites: ~vehicles.medi
+		BuildPaletteOrder: 401
+		BuildDuration: 400
+		Description: medium ranged artillery.\n  Strong vs Infantry, Buildings\n  Weak vs Vehicles, Aircraft
+	Valued:
+		Cost: 400
+	Tooltip:
+		Name: Catapult
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 15000
+	WithMoveAnimation:
+		MoveSequence: run
+	AutoTarget:
+		InitialStance: Defend
+		ScanRadius: 10
+	RevealsShroud:
+		MinRange: 4c0
+		Range: 5c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 4c0
+	Armament:
+		Weapon: catapult
+		LocalOffset: 624,0,208
+	Armament@1:
+		Name: primary1
+		Weapon: catapult
+		LocalOffset: 624,0,208
+	Armament@2:
+		Name: primary2
+		Weapon: catapult
+		LocalOffset: 624,0,208
+	Armament@3:
+		Name: primary3
+		Weapon: catapult
+		LocalOffset: 624,0,208
+	Armament@4:
+		Name: primary4
+		Weapon: catapult
+		LocalOffset: 624,0,208
+	WithAttackAnimation:
+		Sequence: shoot
+	WithDeathAnimation:
+		DeathSequence: die
+	AttackFrontal:
+		Armaments: primary , primary1 , primary2 , primary3 , primary4
+		TargetFrozenActors: True
+		FacingTolerance: 0
+	ProducibleWithLevel:
+		Prerequisites: vehicles.upgraded
+	RenderSprites:
+		Image: catapult
+	Voiced:
+		VoiceSet: SiegeWeaponVoice
+
 
 ##long range, needs to deploy
 ##trebuchet
+Trebuchet:
+	Inherits: ^TrackedVehicle
+	Inherits@Msiege: ^MediSiege
+	Inherits@GAINSEXPERIENCE: ^GainsExperience
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Buildable:
+		Queue: Vehicle
+		Prerequisites: ~vehicles.medi, advtechcenter
+		BuildPaletteOrder: 401
+		Description: Long-range artillery.\n  Strong vs Infantry, Buildings\n  Weak vs Vehicles, Aircraft
+	Valued:
+		Cost: 1300
+	Tooltip:
+		Name: Trebuchet
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 10000
+	WithMoveAnimation:
+		MoveSequence: run
+	AutoTarget:
+		InitialStance: Defend
+		ScanRadius: 13
+	RevealsShroud:
+		MinRange: 4c0
+		Range: 5c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 4c0
+	Armament:
+		Weapon: trebuchet
+		LocalOffset: 624,0,208
+	WithAttackAnimation:
+		Sequence: shoot
+	WithDeathAnimation:
+		DeathSequence: die
+	AttackFrontal:
+		TargetFrozenActors: True
+		ForceFireIgnoresActors: True
+		FacingTolerance: 0
+	ProducibleWithLevel:
+		Prerequisites: vehicles.upraded
+	RenderSprites:
+		Image: trebuchet
+	Voiced:
+		VoiceSet: SiegeWeaponVoice
+
 
 ##long range, large aoe, very low damage to armor
 ##hwacha
+Hwacha:
+	Inherits: ^TrackedVehicle
+	Inherits@Msiege: ^MediSiege
+	Inherits@GAINSEXPERIENCE: ^GainsExperience
+	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
+	Buildable:
+		Queue: Vehicle
+		BuildPaletteOrder: 420
+		Prerequisites: ~vehicles.medi
+		Description: Long-range arrow artillery.\n  Strong vs Infantry, Light armor\n  Weak vs Tanks
+	Valued:
+		Cost: 600
+	Tooltip:
+		Name: Hwacha
+	Health:
+		HP: 10000
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	WithMoveAnimation:
+		MoveSequence: run
+	WithAttackAnimation:
+		Sequence: shoot
+	AutoTarget:
+		InitialStance: Defend
+		ScanRadius: 11
+	RevealsShroud:
+		MinRange: 4c0
+		Range: 5c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 4c0
+	Armament:
+		Weapon: hwachaarrow
+		LocalOffset: 213,160,0, 213,-160,0
+	Turreted:
+		TurnSpeed: 1023
+		Offset: -256,0,128
+	AttackFrontal:
+		Armaments: primary
+		PauseOnCondition: disabled
+		FacingTolerance: 0
+	Selectable:
+		DecorationBounds: 1194, 1194
+	Explodes:
+		Weapon: V2Explode
+	ProducibleWithLevel:
+		Prerequisites: vehicles.upgraded
+	RenderSprites:
+		Image: medihwacha
+	Voiced:
+		VoiceSet: SiegeWeaponVoice
 
-##railgun like attack, kills 
+
+##railgun like attack 
 ##ballista
+Ballista:
+	Inherits: ^TrackedVehicle
+	Inherits@Msiege: ^MediSiege
+	Inherits@GAINSEXPERIENCE: ^GainsExperience
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Buildable:
+		Queue: Vehicle
+		Prerequisites: ~vehicles.medi, techcenter
+		BuildPaletteOrder: 401
+		BuildDuration: 900
+		Description: Long-range Sniper artillery.\n  Strong vs Infantry, Vehicles\n  Weak vs Aircraft
+	Valued:
+		Cost: 800
+	Tooltip:
+		Name: Ballista
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 15000
+	AutoTarget:
+		InitialStance: Defend
+		ScanRadius: 12
+	RevealsShroud:
+		MinRange: 4c0
+		Range: 5c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 4c0
+	Armament:
+		Weapon: Ballistashot
+		LocalOffset: 624,0,208
+	Armament@Shot2:
+		Name: secondary
+		Weapon: Ballistashotrail
+		LocalOffset: 624,0,208
+	WithAttackAnimation:
+		Sequence: shoot
+	AttackFrontal:
+		TargetFrozenActors: True
+		ForceFireIgnoresActors: True
+		FacingTolerance: 0
+	ProducibleWithLevel:
+		Prerequisites: vehicles.upgraded
+	RenderSprites:
+		Image: mediballista
+	Voiced:
+		VoiceSet: SiegeWeaponVoice
 
 ##Explosive shots
 ##cannon
+Cannon:
+	Inherits: ^TrackedVehicle
+	Inherits@Msiege: ^MediSiege
+	Inherits@GAINSEXPERIENCE: ^GainsExperience
+	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
+	Buildable:
+		Queue: Vehicle
+		Prerequisites: ~vehicles.medi, advtechcenter
+		BuildPaletteOrder: 401
+		Description: Long-range artillery.\n  Strong vs Vehicles, Buildings\n  Weak vs Infantry
+	Valued:
+		Cost: 900
+	Tooltip:
+		Name: Cannon
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 20000
+	Armor:
+		Type: Heavy
+	WithMoveAnimation:
+		MoveSequence: run
+	AutoTarget:
+		InitialStance: Defend
+		ScanRadius: 11
+	RevealsShroud:
+		MinRange: 4c0
+		Range: 5c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 4c0
+	Armament:
+		Weapon: CannonShot
+		LocalOffset: 624,0,208
+	WithAttackAnimation:
+		Sequence: shoot
+	WithDeathAnimation:
+		DeathSequence: die
+	AttackFrontal:
+		Armaments: primary
+		FacingTolerance: 0
+	ProducibleWithLevel:
+		Prerequisites: vehicles.upgraded
+	RenderSprites:
+		Image: medicannon
+	Voiced:
+		VoiceSet: SiegeWeaponVoice
 
 ###############################################################################
 #################################   Transport Units   #########################
 ###############################################################################
 
-##Slow Armored transport
 ##siege tower
+##Slow Armored Transport
+SiegeTower:
+	Inherits: ^TrackedVehicle
+	Inherits@GAINSEXPERIENCE: ^GainsExperience
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Inherits@CARGOPIPS: ^CargoPips
+	Buildable:
+		Queue: Vehicle
+		BuildPaletteOrder: 120
+		Prerequisites: ~vehicles.medi, advtechcenter, ~techlevel.high
+		Description: Tough infantry transport.\n  Can Fire while moving \nStrength varies with occupants
+	Selectable:
+		Bounds: 2986, 2474
+		DecorationBounds: 2986, 2474
+	Valued:
+		Cost: 2500
+	Tooltip:
+		Name: Siege Tower
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 150000
+	Armor:
+		Type: Heavy
+	Mobile:
+		Speed: 42
+		PauseOnCondition: notmobile || being-captured
+	AutoTarget:
+		InitialStance: Defend
+		ScanRadius: 10
+	RevealsShroud:
+		MinRange: 4c0
+		Range: 5c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 4c0
+	Armament:
+		Weapon: SiegeTower
+		LocalOffset: 85,0,171
+	AttackGarrisoned:
+		Armaments: bus
+		PortOffsets: 384,-256,384, 64,-256,384, -192,-256,384, -448,-256,384, -768,0,384, 384,256,384, 64,256,384, -192,256,384, -448,256,384, -640,-256,384, -640,256,384
+		PortYaws: 48,256,256,256,512,976,768,768,768,256,768
+		PortCones: 112,96,96,96,112,96,96,96,96,96,96
+	ClassicFacingBodyOrientation:
+		QuantizedFacings: 32
+	AttackFrontal:
+		FacingTolerance: 0
+	WithMuzzleOverlay:
+	Cargo:
+		Types: Infantry
+		MaxWeight: 10
+		LoadingCondition: notmobile
+		PassengerConditions:
+			e1of: e1of
+			dm2of: e1of
+	ProducibleWithLevel:
+		Prerequisites: vehicles.upgraded
+	RenderSprites:
+		Image: medisiegetower
+	Voiced:
+		VoiceSet: SiegeWeaponVoice
+	WithCargoPipsDecoration:
+		Position: BottomLeft
+		RequiresSelection: true
+	ProximityExternalCondition@officer:
+		RequiresCondition: e1of
+		Condition: squadboost
+		Range: 6c0
+	WithDecoration@officer2:
+		Image: pips
+		Sequence: pip-bonus
+		Palette: effect
+		Position: TopRight
+		ValidRelationships: None,Neutral,Enemy,Ally
+		RequiresCondition: !demoralise && e1of
+	ExternalCondition@demoralise:
+		Condition: demoralise
 
 ###############################################################################
 #################################   Elemental Units  ##########################
@@ -63,6 +504,59 @@
 
 ##Siege unit slow melee golem
 ##earthelement
+earthelement:
+	Inherits@MediSoldier: ^MediSoldier
+	Inherits@Msiege: ^MediSiege
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	-Cloneable:
+	ChangesHealth:
+		PercentageStep: 10
+		Delay: 40
+		StartIfBelow: 80
+		DamageCooldown: 70
+		RequiresCondition: lowpower
+	-Passenger:
+	-Crushable:
+	Valued:
+		Cost: 3000
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Tooltip:
+		Name: Abomination
+	Armor:
+		Type: Heavy
+	Health:
+		HP: 106969
+	Mobile:
+		Speed: 50
+		Locomotor: foot2
+	Selectable:
+		Bounds: 1450, 1877, 0, -768
+		DecorationBounds: 1450, 1877, 0, -768
+	SelectionDecorations:
+	RevealsShroud:
+		Range: 5c512
+	Armament:
+		Weapon: Abominationsmash
+	AutoTarget:
+		InitialStance: AttackAnything
+		ScanRadius: 6
+	AutoTargetPriority@DEFAULT:
+		ValidTargets: GroundActor, Infantry
+	WithInfantryBody:
+		DefaultAttackSequence: shoot
+	Targetable:
+		TargetTypes: GroundActor, Vehicle
+	RenderSprites:
+		Image: mediabomination
+	ExternalCondition@PRODUCED:
+		Condition: produced
+	VoiceAnnouncement:
+		RequiresCondition: produced
+		Voice: Build
+	Voiced:
+		VoiceSet: AbominationVoice
+
 
 ##causes a damage over time on enemies, high damage low HP, spawns swarmlings on death
 ##rotelement

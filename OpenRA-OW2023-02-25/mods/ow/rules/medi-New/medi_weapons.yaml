@@ -233,7 +233,7 @@ Mediassasinblade:
 		ValidTargets: GroundActor, WaterActor, Structure
 ##is inherited by: Castlearrows
 Basicarrow: 
-	ValidTargets: GroundActor, WaterActor, Ground, Water
+	ValidTargets: GroundActor, WaterActor, Ground, Water, AirborneActor
 	ReloadDelay: 150
 	Range: 5c0
 	Report: crossbowmanshoot1.aud,crossbowmanshoot2.aud,crossbowmanshoot3.aud
@@ -254,7 +254,7 @@ Basicarrow:
 		DamageTypes: Prone50Percent, TriggerProne, DefaultDeath
 	Warhead@1Dam: SpreadDamage
 		Spread: 256
-		Damage: 2000
+		Damage: 3000
 		ValidTargets: Air, AirborneActor
 		DamageTypes: Prone50Percent, TriggerProne, DefaultDeath
 #
@@ -317,7 +317,7 @@ Martyrdeath:
 	Warhead@1Dam: SpreadDamage
 		Delay: 50
 		Spread: 426
-		Damage: -500
+		Damage: -300
 		Falloff: 250, 250, 175, 150, 0, 0, 0
 		Versus:
 			None: 100
@@ -331,14 +331,14 @@ Martyrdeath:
 	Warhead@2Dam: SpreadDamage
 		Delay: 0
 		Spread: 300
-		Damage: -500
+		Damage: -300
 		Falloff: 250, 250, 175, 150, 0, 0, 0
 		ValidRelationships: Ally
 		ValidTargets: Repair, Heal, StructureRepair
 		DamageTypes: Prone50Percent, TriggerProne, ExplosionDeath
 	Warhead@1heala: HealthPercentageDamage
 		Spread: 5c0
-		Damage: -10
+		Damage: -2
 		ValidTargets: Repair, Heal, StructureRepair
 		ValidRelationships: Ally
 	Warhead@1healb: CreateEffect
@@ -491,7 +491,7 @@ BladeMasterTornado:
 		DamageTypes: DefaultDeath
 #
 swarmlingAttack:
-	ReloadDelay: 8
+	ReloadDelay: 13
 	Burst: 6
 	BurstDelays: 13,11,12,10,14
 	Range: 2c0
@@ -503,10 +503,10 @@ swarmlingAttack:
 		Damage: 425
 		Versus:
 			None: 100
-			Wood: 50
+			Wood: 15
 			Light: 60
-			Heavy: 40
-			Concrete: 25
+			Heavy: 15
+			Concrete: 10
 		DamageTypes: DefaultDeath
 		ValidTargets: GroundActor, WaterActor
 	Warhead@2StructureDam: SpreadDamage
@@ -514,10 +514,10 @@ swarmlingAttack:
 		Damage: 400
 		Versus:
 			None: 100
-			Wood: 5
-			Light: 5
-			Heavy: 100
-			Concrete: 25
+			Wood: 15
+			Light: 60
+			Heavy: 15
+			Concrete: 10
 		DamageTypes: DefaultDeath
 		ValidTargets: Structure
 #
@@ -564,7 +564,7 @@ MusketeerShot:
 #
 WizBall:
 	ReloadDelay: 50
-	Range: 6c0
+	Range: 7c512
 	Report: plasma1.aud
 	ValidTargets: Ground, Water, GroundActor, WaterActor, Air, AirborneActor
 	Projectile: Missile
@@ -575,14 +575,14 @@ WizBall:
 		ContrailLength: 2
 	Warhead@ArcBoat1Dam: SpreadDamage
 		Spread: 256
-		Damage: 9000
+		Damage: 7000
 		ValidTargets: GroundActor, WaterActor, Air, AirborneActor
 		Versus:
-			None: 20
-			Wood: 60
-			Light: 130
+			None: 36
+			Wood: 88
+			Light: 88
 			Heavy: 120
-			Concrete: 30
+			Concrete: 60
 		DamageTypes: Prone50Percent, TriggerProne, ExplosionDeath
 	Warhead@ArcBoat2Smu: LeaveSmudge
 		SmudgeType: Scorch
@@ -604,14 +604,14 @@ WizFireBall:
 		ContrailLength: 2
 	Warhead@1Dam: SpreadDamage
 		Spread: 256
-		Damage: 11000
+		Damage: 6000
 		ValidTargets: GroundActor, WaterActor
 		Versus:
-			None: 130
-			Wood: 60
-			Light: 40
-			Heavy: 10
-			Concrete: 30
+			None: 50
+			Wood: 88
+			Light: 88
+			Heavy: 120
+			Concrete: 60
 		DamageTypes: Prone50Percent, TriggerProne, ExplosionDeath
 	Warhead@3Eff: CreateEffect
 		Explosions: large_napalm
@@ -632,7 +632,7 @@ WizFireCluster:
 		Image: fb3
 	Warhead@1Dam: SpreadDamage
 		Spread: 300
-		Damage: 4500
+		Damage: 5500
 	Warhead@2Smu: LeaveSmudge
 		SmudgeType: Scorch
 	Warhead@3Eff: CreateEffect
@@ -647,11 +647,11 @@ Wizzap:
 	Report: plasma1.aud
 	ValidTargets: Ground, Water, GroundActor, WaterActor, Air, AirborneActor
 	Projectile: ElectricBolt
-		Duration: 15
+		Duration: 20
 		Blockable: True
 	Warhead@1Dam: SpreadDamage
 		Spread: 256
-		Damage: 1000
+		Damage: 2000
 		ValidTargets: GroundActor, WaterActor
 		Versus:
 			None: 100
@@ -717,6 +717,8 @@ wizzapcluster:
 wizzapclusterx:
 	Inherits: kuruttanekoZapupgrade
 	Range: 4c0
+	ValidTargets: Infantry, WaterActor, Air, AirborneActor
+	InvalidTargets: Vehicle
 	Projectile: ElectricBolt
 		Distortion: 200
 		DistortionAnimation: 16
@@ -725,7 +727,8 @@ wizzapclusterx:
 		Duration: 15
 	Warhead@1Dam: SpreadDamage
 		Damage: 500
-		ValidTargets: GroundActor, WaterActor, Air, AirborneActor
+		ValidTargets: Infantry, WaterActor, Air, AirborneActor
+		InvalidTargets: Vehicle
 		Versus:
 			None: 100
 			Wood: 10
@@ -784,21 +787,6 @@ BlessEyeWep:
 		Range: 4c0
 		Duration: 600
 
-DarkRageDeathWep:
-	InstantHit:
-	Warhead@DarkRageDeathWar: GrantExternalCondition
-		Condition: DarkRageStacks
-		Duration: 5
-		Range: 10
-		ValidTargets: GroundActor
-		ValidRelationships: Ally
-	Warhead@DarkRageDeathWar1: GrantExternalCondition
-		Condition: DarkRageStacksHeal
-		Duration: 5
-		Range: 10
-		ValidTargets: GroundActor
-		ValidRelationships: Ally
-
 ###############################################################################
 ################################   Powers Attacks   ###########################
 ###############################################################################
@@ -840,7 +828,7 @@ medihealorder:
 		ValidTargets: Repair, Heal, StructureRepair
 		ValidRelationships: Ally
 	Warhead@1healb: CreateEffect
-		Explosions: medihealeffect
+		Explosions: Heal
 		ImpactSounds: mediholyheal.aud
 		ImpactActors: false
 #
@@ -1634,3 +1622,232 @@ DragonGroundBomber:
 ###############################################################################
 ##############################   Boat Unit Attacks   ######################
 ###############################################################################
+
+
+
+###############################################################################
+##############################   Vehicle Unit Attacks   ######################
+###############################################################################
+
+##short range spread shot
+Catapult:
+	Inherits: ^Artillery
+	ReloadDelay: 60
+	Burst: 3
+	BurstDelay: 0
+	Range: 7c0
+	MinRange: 2c0
+	Report: stonethrowerattack1.aud,stonethrowerattack2.aud,stonethrowerattack3.aud,stonethrowerattack4.aud,stonethrowerattack5.aud
+	Projectile: Bullet
+		Inaccuracy: 3c0
+		Blockable: False
+		Speed: 170
+		Image: catapultshot
+		Shadow: True
+	Warhead@1Dam: SpreadDamage
+		Spread: 426
+		Damage: 2000
+		Versus:
+			None: 90
+			Wood: 70
+			Light: 40
+			Heavy: 75
+			Concrete: 130
+		DamageTypes: Prone50Percent, TriggerProne, DefaultDeath
+	Warhead@3Eff: CreateEffect
+		ImpactSounds: CatapultMissile1.aud,CatapultMissile2.aud,CatapultMissile3.aud,CatapultMissile4.aud
+
+##long range, needs to deploy
+Trebuchet:
+	Inherits: Catapult
+	ReloadDelay: 200
+	Burst: 1
+	Range: 12c0
+	MinRange: 4c0
+	Projectile: Bullet
+		Speed: 150
+		LaunchAngle: 150
+		Inaccuracy: 2c0
+		Image: trebuchetshot
+		Shadow: True
+	Warhead@1Dam: SpreadDamage
+		Spread: 652
+		Damage: 24000
+		Versus:
+			None: 90
+			Wood: 70
+			Light: 40
+			Heavy: 75
+			Concrete: 100
+
+##long range, large aoe, very low damage to armor
+Hwachaarrow:
+	Inherits: Basicarrow
+	ValidTargets: GroundActor, WaterActor, Ground, Water
+	InvalidTargets: AirborneActor
+	ReloadDelay: 150
+	Range: 10c0
+	MinRange: 2c0
+	Burst: 45
+	BurstDelays: 1
+	Projectile: Bullet
+		Speed: 150, 200
+		LaunchAngle: 100, 150
+		Image: DRAGON
+		ContrailLength: 0
+		Inaccuracy: 4c0
+	Warhead@GDam: SpreadDamage
+		Spread: 256
+		InvalidTargets: Structure
+		Versus:
+			None: 110
+			Wood: 45
+			Light: 20
+			Heavy: 25
+			Concrete: 20
+		DamageTypes: DefaultDeath
+	Warhead@bDam: SpreadDamage
+		Spread: 256
+		ValidTargets: Structure
+		Damage: 1000
+		Versus:
+			None: 10
+			Wood: 10
+			Light: 10
+			Heavy: 10
+			Concrete: 10
+		DamageTypes: DefaultDeath
+
+##railgun like attack 
+Ballistashot:
+	ValidTargets: Ground, Water, GroundActor, WaterActor
+	ReloadDelay: 135
+	Range: 8c0
+	MinRange: 2c0
+	Report: stonethrowerattack1.aud,stonethrowerattack2.aud,stonethrowerattack3.aud,stonethrowerattack4.aud,stonethrowerattack5.aud
+	TargetActorCenter: True
+	Projectile: Bullet
+		Speed: 400
+		HorizontalRateOfTurn: 60
+		RangeLimit: 12c0
+		Image: V2
+		ContrailLength: 7
+		Inaccuracy: 756
+	Warhead@1Dam: SpreadDamage
+		Spread: 100
+		Damage: 4000
+		Falloff: 1000, 368, 135, 50, 18, 7, 0
+		ValidTargets: GroundActor, WaterActor
+		Versus:
+			None: 20
+			Wood: 30
+			Light: 90
+			Heavy: 55
+			Concrete: 80
+		DamageTypes: Prone50Percent, TriggerProne, ExplosionDeath
+	Warhead@2Smu: LeaveSmudge
+		SmudgeType: Crater
+		ValidTargets: Ground, Infantry
+	Warhead@3Eff: CreateEffect
+		Explosions: artillery_explosion
+		ImpactSounds: CatapultMissile1.aud,CatapultMissile2.aud,CatapultMissile3.aud,CatapultMissile4.aud
+		ValidTargets: Ground, GroundActor, WaterActor, Trees
+	Warhead@4EffWater: CreateEffect
+		Explosions: small_splash
+		ImpactSounds: splash9.aud
+		ValidTargets: Water, Underwater
+		InvalidTargets: Bridge
+
+Ballistashotrail:
+	Inherits: Ballistashot
+	-Report:
+	-Projectile: Bullet
+	Projectile: Railgun
+		DamageActorsInLine: True
+		Inaccuracy: 1
+		Duration: 20
+		BeamAlphaDeltaPerTick: 25
+	Warhead@1Dam: SpreadDamage
+		Versus:
+			None: 50
+			Wood: 30
+			Light: 90
+			Heavy: 55
+			Concrete: 80
+	-Warhead@2Smu: LeaveSmudge
+	-Warhead@3Eff: CreateEffect
+	-Warhead@4EffWater: CreateEffect
+
+##Explosive shots
+CannonShot:
+	ValidTargets: Ground, Water, GroundActor, WaterActor
+	ReloadDelay: 180
+	Range: 10c0
+	MinRange: 1c0
+	Report: cannonattack1.aud
+	TargetActorCenter: True
+	Projectile: Bullet
+		Speed: 500
+		Blockable: false
+		LaunchAngle: 62
+		Image: catapultshot
+		Shadow: True
+		ContrailLength: 7
+	Warhead@1Dam: SpreadDamage
+		Spread: 150
+		Damage: 14000
+		Falloff: 1000, 368, 135, 50, 18, 7, 0
+		ValidTargets: GroundActor, WaterActor, Trees
+		Versus:
+			None: 40
+			Wood: 45
+			Light: 100
+			Heavy: 70
+			Concrete: 30
+		DamageTypes: Prone50Percent, TriggerProne, SmallExplosionDeath
+	Warhead@2Smu: LeaveSmudge
+		SmudgeType: Crater
+		InvalidTargets: Vehicle, Structure, Wall, Husk, Trees
+	Warhead@3Eff: CreateEffect
+		Explosions: artillery_explosion
+		ImpactSounds: CatapultMissile1.aud,CatapultMissile2.aud,CatapultMissile3.aud,CatapultMissile4.aud
+
+##Slow Armored transport
+SiegeTower:
+	Inherits: Sword
+	ReloadDelay: 100
+	Report: swordmanattack1.aud,swordmanattack2.aud,swordmanattack3.aud,swordmanattack4.aud,swordmanattack5.aud,swordmanattack6.aud,swordmanattack7.aud,swordmanattack8.aud,swordmanattack9.aud,swordmanattack10.aud,swordmanattack11.aud,swordmanattack12.aud
+	Warhead@1Dam: SpreadDamage
+		Damage: 10000
+		Versus:
+			None: 100
+			Wood: 50
+			Light: 80
+			Heavy: 50
+			Concrete: 130
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
