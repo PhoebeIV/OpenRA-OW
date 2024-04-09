@@ -2609,8 +2609,8 @@ AvaliLightbringerCannonEffect:
 
 corvusetherealcrossbowmain:
 	Inherits: ^ShieldHit
-	ReloadDelay: 23
-	Range: 6c768
+	ReloadDelay: 25
+	Range: 7c768
 	Report: BOWSHT.wav
 	ValidTargets: Ground, Water, GroundActor, WaterActor
 	Projectile: Bullet
@@ -2619,13 +2619,14 @@ corvusetherealcrossbowmain:
 		Shadow: True
 	Warhead@1Dam: SpreadDamage
 		Spread: 1c0
-		Damage: 8000
+		Damage: 5000
 		ValidTargets: GroundActor, WaterActor
 		Versus:
-			None: 50
-			Wood: 75
-			Light: 75
-			Concrete: 50
+			None: 100
+			Wood: 25
+			Light: 40
+			Heavy: 50
+			Concrete: 20
 		DamageTypes: Prone50Percent, TriggerProne, ExplosionDeath
 	Warhead@2Smu: LeaveSmudge
 		SmudgeType: Crater
@@ -2643,8 +2644,8 @@ corvusetherealcrossbowmain:
 
 corvusetherealcrossbowside:
 	Inherits: ^ShieldHit
-	ReloadDelay: 23
-	Range: 6c768
+	ReloadDelay: 25
+	Range: 7c768
 	ValidTargets: Ground, Water, GroundActor, WaterActor
 	Projectile: Bullet
 		Speed: 256
@@ -2653,13 +2654,14 @@ corvusetherealcrossbowside:
 		Inaccuracy: 2c0
 	Warhead@1Dam: SpreadDamage
 		Spread: 256
-		Damage: 4000
+		Damage: 2000
 		ValidTargets: GroundActor, WaterActor
 		Versus:
-			None: 50
-			Wood: 75
-			Light: 75
-			Concrete: 50
+			None: 100
+			Wood: 25
+			Light: 40
+			Heavy: 50
+			Concrete: 20
 		DamageTypes: Prone50Percent, TriggerProne, ExplosionDeath
 	Warhead@3Eff: CreateEffect
 		Explosions: corvusetherealcrossbowsidehit
@@ -2684,18 +2686,18 @@ corvusphoenixrod:
 		Shadow: True
 	Warhead@1Dam: SpreadDamage
 		Spread: 256
-		Damage: 12000
+		Damage: 9000
 		ValidTargets: GroundActor, WaterActor
 		Versus:
-			None: 60
-			Wood: 80
-			Light: 60
-			Heavy: 80
+			None: 120
+			Wood: 50
+			Light: 100
+			Heavy: 100
 			Concrete: 50
 		DamageTypes: Prone50Percent, TriggerProne, FireDeath
 	Warhead@2Dam: SpreadDamage
 		Spread: 1c0
-		Damage: 8000
+		Damage: 2500
 		ValidTargets: AirborneActor
 		Versus:
 			None: 10
@@ -2721,7 +2723,7 @@ corvusphoenixrod:
 corvushellstaff:
 	Inherits: ^ShieldHit
 	ReloadDelay: 3
-	Range: 5c0
+	Range: 7c0
 	Report: HRNSHT.wav
 	ValidTargets: Ground, Water, GroundActor, WaterActor, AirborneActor
 	Projectile: Bullet
@@ -2731,7 +2733,7 @@ corvushellstaff:
 		Image: corvushellstaffproj
 	Warhead@1Dam: SpreadDamage
 		Spread: 256
-		Damage: 3000
+		Damage: 2000
 		ValidTargets: GroundActor, WaterActor
 		Versus:
 			None: 120
@@ -2743,15 +2745,8 @@ corvushellstaff:
 		DamageTypes: Prone50Percent, TriggerProne, ElectricityDeath
 	Warhead@2Dam: SpreadDamage
 		Spread: 256
-		Damage: 1000
+		Damage: 500
 		ValidTargets: AirborneActor
-		Versus:
-			None: 120
-			Wood: 80
-			Light: 40
-			Heavy: 80
-			Concrete: 50
-			Shield: 150
 		DamageTypes: Prone50Percent, TriggerProne, ElectricityDeath
 	Warhead@2Smu: LeaveSmudge
 		SmudgeType: Scorch
@@ -2770,18 +2765,18 @@ corvushellstaff:
 corvusfiremace1:
 	Inherits: ^Artillery
 	ReloadDelay: 2
-	Range: 5c0
+	Range: 7c0
 	Report: LOBSHT.wav
 	Projectile: Bullet
-		Speed: 96
+		Speed: 192
 		Inaccuracy: 1c0
 		Image: firemaceproj1
 		BounceCount: 5
+		BounceRangeModifier: 40
 		BounceSound: BOUNCE.wav
-		LaunchAngle: -3
 	Warhead@1Dam: SpreadDamage
 		Spread: 256
-		Damage: 2000
+		Damage: 1000
 		Versus:
 			None: 100
 			Wood: 40
@@ -2795,18 +2790,17 @@ corvusfiremace1:
 corvusfiremace2:
 	Inherits: ^Artillery
 	ReloadDelay: 14
-	Range: 5c0
+	Range: 7c0
 	Report: LOBSHT.wav
 	Projectile: Bullet
-		Speed: 96
-		Inaccuracy: 1c0
+		Speed: 192
 		Image: firemaceproj2
 		BounceCount: 5
+		BounceRangeModifier: 50
 		BounceSound: BOUNCE.wav
-		LaunchAngle: -3
 	Warhead@1Dam: SpreadDamage
 		Spread: 512
-		Damage: 5000
+		Damage: 2000
 		Versus:
 			None: 40
 			Wood: 100
@@ -2853,3 +2847,346 @@ cycloidemperoralien2:
 	Projectile: Bullet
 		Inaccuracy: 3c0
 	-Report:
+
+battlelordbomb:
+	Inherits: ^Artillery
+	ReloadDelay: 20
+	Range: 10c0
+	Report: dukerpg.wav
+	Projectile: Bullet
+		Speed: 128
+		Image: battlelordbombproj
+		BounceCount: 2
+		BounceSound: dukenukempipebombbounce.aud
+		Shadow: true
+		BounceRangeModifier: 40
+		LaunchAngle: 120
+		ContrailLength: 5
+	Warhead@1Dam: SpreadDamage
+		Spread: 768
+		Damage: 15000
+		Versus:
+			None: 120
+			Wood: 60
+			Light: 80
+			Heavy: 60
+			Concrete: 100
+	Warhead@3Eff: CreateEffect
+		Explosions: dukenukemexplosionsmall
+		ImpactSounds: dukeexplosion.wav
+		ValidTargets: Ground, Air, GroundActor, AirborneActor, WaterActor, Trees
+	Warhead@4EffWater: CreateEffect
+		Explosions: small_splash
+		ImpactSounds: splash9.aud
+		ValidTargets: Water, Underwater
+		InvalidTargets: Bridge
+
+battlelordbombinstant:
+	Inherits: battlelordbomb
+	Projectile: Bullet
+		Speed: 128
+		Image: battlelordbombproj
+		Shadow: true
+		BounceRangeModifier: 70
+		LaunchAngle: 120
+		ContrailLength: 5
+
+corvustimebomb:
+	Inherits: ^Artillery
+	ReloadDelay: 125
+	Range: 7c0
+	Report: ARTIUSE.wav
+	Projectile: Bullet
+		Speed: 128
+		Image: corvustimebombproj
+		Shadow: true
+		LaunchAngle: 120
+		Inaccuracy: 1c0
+	Warhead@1Dam: SpreadDamage
+		Spread: 512
+		Damage: 7500
+		ValidTargets: GroundActor, WaterActor
+		Versus:
+			None: 100
+			Wood: 50
+			Light: 100
+			Heavy: 100
+			Concrete: 50
+		DamageTypes: Prone50Percent, TriggerProne, FireDeath
+	Warhead@3Eff: CreateEffect
+		Explosions: corvustimebombexplosion
+		ImpactSounds: PHOHIT.wav
+		ValidTargets: Ground, Air, GroundActor, AirborneActor, WaterActor, Trees
+	Warhead@4EffWater: CreateEffect
+		Explosions: small_splash
+		ImpactSounds: splash9.aud
+		ValidTargets: Water, Underwater
+		InvalidTargets: Bridge
+
+corvuselvenwandpoweredside:
+	Inherits: ^ShieldHit
+	ReloadDelay: 7
+	Range: 7c768
+	ValidTargets: Ground, Water, GroundActor, WaterActor, Air, AirborneActor
+	Projectile: Bullet
+		Speed: 256
+		Image: corvuselvenwandpoweredproj
+		Shadow: True
+		Inaccuracy: 2c0
+	Warhead@1Dam: SpreadDamage
+		Spread: 512
+		Damage: 3000
+		ValidTargets: GroundActor, WaterActor
+		Versus:
+			None: 100
+			Wood: 25
+			Light: 40
+			Heavy: 50
+			Concrete: 20
+		DamageTypes: Prone50Percent, TriggerProne, ExplosionDeath
+	Warhead@3Eff: CreateEffect
+		Explosions: corvuselvenwandpoweredpiff
+		ValidTargets: Ground, Water, GroundActor, WaterActor, Air, AirborneActor
+		ImpactActors: false
+	Warhead@4EffWater: CreateEffect
+		Explosions: small_splash
+		ImpactSounds: splash9.aud
+		ValidTargets: Water, Underwater
+		InvalidTargets: Bridge
+
+corvusetherealcrossbowpowered:
+	Inherits: ^ShieldHit
+	ReloadDelay: 20
+	Range: 7c768
+	Report: BOWSHT.wav
+	ValidTargets: Ground, Water, GroundActor, WaterActor
+	Projectile: Bullet
+		Speed: 256
+		Image: etherealcrossbowarrowmain
+		Shadow: True
+		ContrailLength: 5
+		ContrailStartColor: 80ff00
+		TrailImage: corvusetherealcrossbowspark
+	Warhead@1Dam: SpreadDamage
+		Damage: 8000
+		ValidTargets: GroundActor, WaterActor
+		Versus:
+			None: 100
+			Wood: 25
+			Light: 40
+			Heavy: 50
+			Concrete: 20
+		DamageTypes: Prone50Percent, TriggerProne, ExplosionDeath
+	Warhead@2Smu: LeaveSmudge
+		SmudgeType: Crater
+		ValidTargets: Ground, Infantry
+	Warhead@3Eff: CreateEffect
+		Explosions: corvusetherealcrossbowmainhit
+		ImpactSounds: HRNHIT.wav
+		ValidTargets: Ground, GroundActor, WaterActor, Trees
+		ImpactActors: false
+	Warhead@4EffWater: CreateEffect
+		Explosions: small_splash
+		ImpactSounds: splash9.aud
+		ValidTargets: Water, Underwater
+		InvalidTargets: Bridge
+
+corvusetherealcrossbowpoweredside:
+	Inherits: corvusetherealcrossbowpowered
+	Projectile: Bullet
+		Inaccuracy: 2c0
+
+corvusetherealcrossbowpoweredsideside:
+	Inherits: corvusetherealcrossbowside
+	ReloadDelay: 20
+
+corvusdragonclawpoweredball:
+	Inherits: ^Artillery
+	ReloadDelay: 20
+	Range: 5c0
+	-Report:
+	Projectile: Bullet
+		Speed: 128
+		Image: corvusdragonclawpoweredballproj
+		Shadow: true
+		ContrailLength: 5
+		ContrailStartColor: 404040
+	Warhead@1Dam: SpreadDamage
+		Spread: 512
+		Damage: 2500
+		Versus:
+			None: 100
+			Wood: 25
+			Light: 40
+			Heavy: 50
+			Concrete: 20
+	Warhead@3Eff: CreateEffect
+		Explosions: corvusdragonclawpoweredballexplosion
+		ImpactSounds: HRNHIT.wav
+		ValidTargets: Ground, Air, GroundActor, AirborneActor, WaterActor, Trees
+	Warhead@4EffWater: CreateEffect
+		Explosions: small_splash
+		ImpactSounds: splash9.aud
+		ValidTargets: Water, Underwater
+		InvalidTargets: Bridge
+
+corvushellstaffpowered:
+	Inherits: ^ShieldHit
+	ReloadDelay: 15
+	Range: 7c0
+	Report: HRNPOW.wav
+	ValidTargets: Ground, Water, GroundActor, WaterActor
+	Projectile: Bullet
+		Speed: 350
+		Blockable: true
+		Inaccuracy: 1c256
+		Image: corvushellstaffpoweredproj
+	Warhead@1Dam: SpreadDamage
+		Spread: 512
+		Damage: 5000
+		ValidTargets: GroundActor, WaterActor
+		Versus:
+			None: 100
+			Wood: 25
+			Light: 40
+			Heavy: 50
+			Concrete: 20
+			Shield: 150
+		DamageTypes: Prone50Percent, TriggerProne, ElectricityDeath
+	Warhead@2Smu: LeaveSmudge
+		SmudgeType: Scorch
+		ValidTargets: Ground, Infantry
+	Warhead@3Eff: CreateEffect
+		Explosions: corvushellstaffpiffbig
+		ImpactSounds: RAMPHIT.wav
+		ValidTargets: Ground, Air, GroundActor, AirborneActor, WaterActor, Trees
+		ImpactActors: false
+	Warhead@4EffWater: CreateEffect
+		Explosions: med_splash
+		ImpactSounds: splash9.aud
+		ValidTargets: Water, Underwater
+		InvalidTargets: Bridge
+	Warhead@4Eff: FireShrapnel
+		Weapon: hellstaffrainexplosion
+		Amount: 3
+	Warhead@5Eff: FireShrapnel
+		Weapon: hellstaffrainexplosion
+		Amount: 3
+		Delay: 3
+	Warhead@6Eff: FireShrapnel
+		Weapon: hellstaffrainexplosion
+		Amount: 3
+		Delay: 6
+	Warhead@7Eff: FireShrapnel
+		Weapon: hellstaffrainexplosion
+		Amount: 3
+		Delay: 9
+	Warhead@8Eff: FireShrapnel
+		Weapon: hellstaffrainexplosion
+		Amount: 3
+		Delay: 12
+	Warhead@9Eff: FireShrapnel
+		Weapon: hellstaffrainexplosion
+		Amount: 3
+		Delay: 15
+
+hellstaffrainexplosion:
+	Range: 3c0
+	MinRange: 1c0
+	ValidTargets: Ground, Water, GroundActor, WaterActor, Underwater, AirborneActor, Air
+	Projectile: Bullet
+		Speed: 2c0
+		Image: acolytestrikeactordumb
+		Blockable: false
+	Warhead@5Effect: CreateEffect
+		Explosions: hellstaffrain1
+		ValidTargets: Ground, GroundActor, WaterActor, Trees, Air
+	Warhead@6Effect: CreateEffect
+		Delay: 3
+		Explosions: hellstaffrain2
+		ValidTargets: Ground, GroundActor, WaterActor, Trees, Air
+	Warhead@7Effect: CreateEffect
+		Delay: 6
+		Explosions: hellstaffrain3
+		ValidTargets: Ground, GroundActor, WaterActor, Trees, Air
+	Warhead@8Effect: CreateEffect
+		Delay: 9
+		Explosions: hellstaffrain4
+		ValidTargets: Ground, GroundActor, WaterActor, Trees, Air
+	Warhead@9Effect: CreateEffect
+		Delay: 12
+		Explosions: hellstaffrain5
+		ValidTargets: Ground, GroundActor, WaterActor, Trees, Air
+	Warhead@10Effect: CreateEffect
+		Delay: 15
+		Explosions: hellstaffrain6
+		ValidTargets: Ground, GroundActor, WaterActor, Trees, Air
+	Warhead@11Effect: CreateEffect
+		Delay: 18
+		Explosions: hellstaffrain7
+		ValidTargets: Ground, GroundActor, WaterActor, Trees, Air
+	Warhead@12Effect: CreateEffect
+		Delay: 21
+		Explosions: hellstaffrain8
+		ValidTargets: Ground, GroundActor, WaterActor, Trees, Air
+	Warhead@13Effect: CreateEffect
+		Delay: 24
+		Explosions: hellstaffrain9
+		ValidTargets: Ground, GroundActor, WaterActor, Trees, Air
+	Warhead@14Effect: CreateEffect
+		Delay: 27
+		Explosions: hellstaffrain10
+		ValidTargets: Ground, GroundActor, WaterActor, Trees, Air
+	Warhead@1Dam: SpreadDamage
+		Delay: 30
+		Spread: 256
+		Damage: 3000
+		ValidTargets: GroundActor, WaterActor
+		Versus:
+			None: 100
+			Wood: 25
+			Light: 40
+			Heavy: 50
+			Concrete: 20
+			Shield: 150
+		DamageTypes: Prone50Percent, TriggerProne, ElectricityDeath
+	Warhead@2Smu: LeaveSmudge
+		Delay: 30
+		SmudgeType: Scorch
+		ValidTargets: Ground, Infantry
+	Warhead@3Eff: CreateEffect
+		Delay: 30
+		Explosions: hellstaffrainpiff
+		ValidTargets: Ground, Air, GroundActor, AirborneActor, WaterActor, Trees
+		ImpactActors: false
+	Warhead@4EffWater: CreateEffect
+		Delay: 30
+		Explosions: med_splash
+		ImpactSounds: splash9.aud
+		ValidTargets: Water, Underwater
+		InvalidTargets: Bridge
+
+corvusfiremacepowered:
+	Inherits: ^Artillery
+	ReloadDelay: 10
+	Range: 7c0
+	Report: LOBSHT.wav
+	Projectile: Bullet
+		Speed: 128
+		Image: firemaceprojbig
+		BounceCount: 5
+		BounceRangeModifier: 50
+		BounceSound: PSTOP.wav
+		Inaccuracy: 32
+	Warhead@1Dam: SpreadDamage
+		Spread: 512
+		Damage: 10000
+		Versus:
+			None: 100
+			Wood: 100
+			Light: 100
+			Heavy: 100
+			Concrete: 50
+	Warhead@3Eff: CreateEffect
+		Explosions: corvusfiremacepiffbig
+		ImpactSounds: PHOHIT.wav

@@ -5522,6 +5522,79 @@ actor-dukenukemalienqueen =
 actor-dukenukemalienqueendrone =
    .name = Predator Drone
 
+actor-corvus-hero0 =
+   .description = [HERO]
+
+    Role: Powerful Infantry Unit
+
+    The hero of Heretic, Corvus is a member of the tribe of Sidhe Elves on the world of Parthoris.
+    Starts with his Elven Wand.
+     Tier 1 unlocks the Ethereal Crossbow.
+     Tier 2 unlocks the Dragon Claw.
+     Tier 3 unlocks the Phoenix rod.
+     Tier 4 unlocks the Hellstaff.
+     Tier 5 unlocks the Firemace.
+    Speed: 90
+      Strong vs Infantry, Vehicles, Aircraft
+      
+    Equipped with a Medikit (Tier 0), Steroids (Tier 1), Holoduke (Tier 2).
+   .name = Duke Nukem (Tier 0)
+   .real--name = Duke Nukem
+
+actor-corvus-hero1-name = Corvus (Tier 1)
+actor-corvus-hero2-name = Corvus (Tier 2)
+actor-corvus-hero3-name = Corvus (Tier 3)
+
+actor-corvus-hero4 =
+   .name = Corvus (Tier 4)
+   .droppodspower-select-target-text-notification = Select target.
+
+actor-corvus-hero5-name = Corvus (Tier 5)
+
+actor-corvus-tier1-scroll =
+   .name = Map scroll
+   .description = Extends Corvus' sightrange by 25% and range by 20%
+
+actor-corvus-tier1-timebomb =
+   .name = Time Bomb of the Ancients
+   .description = Corvus will now throw Timebombs while attacking enemies.
+
+actor-corvus-tier2-crystalvial =
+   .name = Crystal Vial
+   .description = Increases Corvus' health regeneration by 200%
+
+actor-corvus-tier2-silvershield =
+   .name = Silver Shield
+   .description = Provides Corvus with a shield.
+
+actor-corvus-tier3-quartzflask =
+   .name = Silver Shield
+   .description = Increases Corvus' health regeneration by another 150%
+
+actor-corvus-tier3-magicshield =
+   .name = Magic Shield
+   .description = Corvus will now jam incoming missiles.
+
+actor-corvus-tier4-invincibility =
+   .name = Ring of Invincibility
+   .description = Corvus will now be granted 15 seconds of invincibility when attacking.
+
+actor-corvus-tier4-shadowsphere =
+   .name = Shadowsphere
+   .description = Corvus will now have the ability to go invisible when not attacking.
+
+actor-corvus-tier5-shadowsphere =
+   .name = Enhanced Shadowsphere
+   .description = Corvus will now grant invisibility to nearby friendly units.
+
+actor-corvus-tier5-chaos =
+   .name = Chaos Device
+   .description = Corvus will now be able to teleport to nearby locations.
+
+actor-corvus-tier5-mystic =
+   .name = Mystic Urn
+   .description = Upon death, Corvus will respawn as a ghost with an active Tome of Power and fight for a further 30 seconds.
+
 ## forgotten
 actor-frge1 =
    .description = Light infantry. Heals in Tiberium.

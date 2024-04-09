@@ -6602,6 +6602,39 @@ AkumaBeam:
 		Dimensions: 3,3
 		Footprint: xxx x_x xxx
 
+AkumaBeamAI:
+	Inherits: AkumaBeam
+	Warhead@zappy1: FireCluster
+		Delay: 69
+		Weapon: AkumaClusterSmallAI
+		RandomClusterCount: 6
+		Dimensions: 3,3
+		Footprint: xxx x_x xxx
+	Warhead@zappy2: FireCluster
+		Delay: 73
+		Weapon: AkumaClusterSmallAI
+		RandomClusterCount: 6
+		Dimensions: 3,3
+		Footprint: xxx x_x xxx
+	Warhead@zappy3: FireCluster
+		Delay: 77
+		Weapon: AkumaClusterSmallAI
+		RandomClusterCount: 6
+		Dimensions: 3,3
+		Footprint: xxx x_x xxx
+	Warhead@zappy4: FireCluster
+		Delay: 81
+		Weapon: AkumaClusterSmallAI
+		RandomClusterCount: 6
+		Dimensions: 3,3
+		Footprint: xxx x_x xxx
+	Warhead@zappy5: FireCluster
+		Delay: 85
+		Weapon: AkumaClusterSmallAI
+		RandomClusterCount: 6
+		Dimensions: 3,3
+		Footprint: xxx x_x xxx
+
 AkumaZap:
 	Inherits: ^ElectricBoltWeapon
 	ReloadDelay: 7
@@ -6700,6 +6733,44 @@ AkumaClusterSmall:
 		Explosions: laserhitmed
 		ValidTargets: Ground, GroundActor, WaterActor, AirborneActor
 		ImpactActors: true
+
+AkumaClusterSmallAI:
+	Inherits: AkumaClusterSmall
+	Warhead@2cluster: FireShrapnel
+		Amount: 2
+		Weapon: AkumaSmallZapBerserkAI
+		AimTargetStances: Neutral, Enemy, None, Ally
+		AimChance: 80
+	Warhead@3cluster: FireShrapnel
+		Delay: 5
+		Amount: 1
+		Weapon: AkumaSmallZapBerserkAI
+		AimTargetStances: Neutral, Enemy, None
+		AimChance: 10
+	Warhead@5Eff: CreateEffect
+		Inaccuracy: 64
+		Explosions: laserhitmed
+		ValidTargets: Ground, GroundActor, WaterActor, AirborneActor
+		ImpactActors: true
+
+AkumaSmallZapBerserkAI:
+	Inherits: AkumaZap
+	Range: 5c0
+	Projectile: ElectricBolt
+		Distortion: 400
+		DistortionAnimation: 16
+		SegmentLength: 256
+		Width: 24
+		Duration: 3
+		Inaccuracy: 256
+	Warhead@1Dam: GrantExternalCondition
+		ValidTargets: Infantry, Vehicle
+		ValidRelationships: Enemy, Neutral
+		Condition: JapanBerserkerCondition
+		Spread: 1c0
+		Duration: 125
+	-Warhead@4Eff: CreateEffect
+	-Warhead@5Eff: CreateEffect
 
 AkumaDeath:
 	ReloadDelay: 250
@@ -7319,3 +7390,60 @@ FakeQueenWeapon:
 		Image: explosion
 		Sequence: dukenukemteleport
 		ValidTargets: Ground, GroundActor, WaterActor
+
+alienqueendroneattack:
+	Inherits: ^AntiGroundMissile
+	ReloadDelay: 35
+	Range: 7c0
+	Report: BLSPIT1A.wav
+	Projectile: Missile
+		Arm: 3
+		Image: dukenukemshrinkproj
+		HorizontalRateOfTurn: 25
+		RangeLimit: 12c512
+		MinimumLaunchAngle: 62
+		MaximumLaunchAngle: 62
+		ContrailLength: 0
+		Speed: 384
+	Warhead@1Dam: SpreadDamage
+		Damage: 5000
+		Spread: 512
+		Versus:
+			None: 100
+			Wood: 40
+			Light: 80
+			Heavy: 40
+			Concrete: 100
+		DamageTypes: Prone50Percent, TriggerProne, SmallExplosionDeath
+	Warhead@3Eff: CreateEffect
+		Explosions: dukenukemshrinkexplosion
+		ValidTargets: Ground, Air, GroundActor, AirborneActor, WaterActor, Trees, Water, Underwater
+
+corvusphoenixrodpowered:
+	Inherits: Flamer
+	ReloadDelay: 2
+	Burst: 1
+	BurstDelays: 1
+	Range: 5c0
+	FirstBurstTargetOffset: 0,0,0
+	FollowingBurstTargetOffset: 0,0,0
+	Projectile: Bullet
+		Inaccuracy: 1024
+		Image: corvusphoenixfireproj
+		TrailImage: corvusphoenixfireproj
+		TrailSequences: idle
+	Warhead@1Dam: SpreadDamage
+		Spread: 400
+		Damage: 3000
+		Versus:
+			Light: 90
+			Wood: 50
+			Heavy: 25
+			Concrete: 20
+	Warhead@3Eff: CreateEffect
+		Explosions: corvusphoenixfirehit
+
+corvusphoenixrodpoweredsound:
+	Inherits: corvusphoenixrodpowered
+	Report: PHOPOW.wav
+	ReloadDelay: 25
