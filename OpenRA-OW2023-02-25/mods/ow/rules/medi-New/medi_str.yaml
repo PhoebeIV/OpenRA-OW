@@ -240,16 +240,24 @@ farmmedi:
 		HP: 15000
 	ProvidesPrerequisite@buildingname:
 	FreeActor:
-		Actor: GHARV
+		Actor: SLAVE
 		SpawnOffset: 1,2
+		RequiresCondition: !build-incomplete && !mediabolish
 	FreeActor@1:
-		Actor: GHARV
+		Actor: SLAVE
 		SpawnOffset: 1,2
-		RequiresCondition: !build-incomplete
+		RequiresCondition: !build-incomplete && !mediabolish
 	FreeActor@2:
-		Actor: GHARV
+		Actor: SLAVE
 		SpawnOffset: 2,2
-		RequiresCondition: !build-incomplete
+		RequiresCondition: !build-incomplete && !mediabolish
+	FreeActor3:
+		Actor: MEDIWORKER
+		SpawnOffset: 1,2
+		RequiresCondition: mediabolish
+	GrantConditionOnPrerequisite@mediabolish:
+		Condition: mediabolish
+		Prerequisites: ~!upgrade.mediabolish
 	RenderSprites:
 		Image: farmmedi
 	WithResourceStoragePipsDecoration:
