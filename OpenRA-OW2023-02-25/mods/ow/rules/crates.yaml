@@ -1851,50 +1851,60 @@ hereticcorvus:
 	Armament@1:
 		Weapon: corvuselvenwand
 		RequiresCondition: gun1
+		PauseOnCondition: tomeofpower
 	Armament@2:
 		Weapon: corvusetherealcrossbowmain
 		RequiresCondition: gun2
+		PauseOnCondition: tomeofpower
 	Armament@2a:
 		Weapon: corvusetherealcrossbowside
 		RequiresCondition: gun2
+		PauseOnCondition: tomeofpower
 	Armament@2b:
 		Weapon: corvusetherealcrossbowside
 		RequiresCondition: gun2
+		PauseOnCondition: tomeofpower
 	Armament@3:
 		Weapon: corvusdragonclaw
 		RequiresCondition: gun3
+		PauseOnCondition: tomeofpower
 	Armament@4:
 		Weapon: corvusphoenixrod
 		LocalOffset: 0,0,555
 		RequiresCondition: gun4
+		PauseOnCondition: tomeofpower
 	Armament@5:
 		Weapon: corvushellstaff
 		LocalOffset: 0,0,555
 		RequiresCondition: gun5
+		PauseOnCondition: tomeofpower
 	Armament@6:
 		Weapon: corvusfiremace1
 		LocalOffset: 0,0,256
 		RequiresCondition: gun6
+		PauseOnCondition: tomeofpower
 	Armament@7:
 		Weapon: corvusfiremace2
 		LocalOffset: 0,0,256
 		RequiresCondition: gun6
+		PauseOnCondition: tomeofpower
 	Armament@GARRISONED:
 		Name: garrisoned
 		Weapon: corvusdragonclaw
 	Armament@BUS:
 		Name: bus
 		Weapon: corvusdragonclaw
-
-hereticcorvusurn:
-	Inherits: hereticcorvus
-	RenderSprites:
-		Image: hereticcorvus
-	-GrantRandomPeriodicCondition:
+	GrantPeriodicConditionOnEvent@tomeofpower:
+		Condition: tomeofpower
+		CooldownDuration: 6000
+		ActiveDuration: 1500
+		Triggers: Attack
+		StartsCharged: True
 	GrantRandomPeriodicCondition@tomeofpower:
 		Conditions: gun1a, gun2a, gun3a, gun4a, gun5a, gun6a
-        CooldownDuration: 25
+        CooldownDuration: 1
 		ActiveDuration: 1500
+		RequiresCondition: tomeofpower
 	Armament@tomeofpower1a:
 		Weapon: corvuselvenwandpowered
 		LocalOffset: 427,0,600
@@ -1947,6 +1957,11 @@ hereticcorvusurn:
 		Weapon: corvusfiremacepowered
 		LocalOffset: 427,0,600
 		RequiresCondition: gun6a
+
+hereticcorvusurn:
+	Inherits: hereticcorvus
+	RenderSprites:
+		Image: hereticcorvus
 	KillsSelf:
 		Delay: 750
 		DamageTypes: ElectricityDeath
