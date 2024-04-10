@@ -1828,6 +1828,9 @@ NukeCannonShotBattleship:
 USASpectreGunshipcannon:
 	Inherits: 125mmemperor
 	Range: 12c768
+	ReloadDelay: 75
+	Burst: 4
+	BurstDelays: 8
 	Projectile: Bullet
 		Speed: 682
 		Image: 125mm
@@ -2190,7 +2193,7 @@ BalloonSentryShot:
 kuruttanekoshot:
 	Inherits: BalloonSentryShot
 	ValidTargets: Ground, Water, GroundActor, WaterActor
-	ReloadDelay: 100
+	ReloadDelay: 50
 	Burst: 2
 	BurstDelays: 20
 	Range: 7c768
@@ -2203,7 +2206,7 @@ kuruttanekoshot:
 japankatsuragishot:
 	Inherits: kuruttanekoshot
 	Burst: 1
-	ReloadDelay: 50
+	ReloadDelay: 25
 
 kuruttanekoClusterSmall:
 	Inherits: BFGZapCluster
@@ -2305,7 +2308,7 @@ BalloonSentryShotUpgrade:
 kuruttanekoshotupgrade:
 	Inherits: BalloonSentryShotUpgrade
 	ValidTargets: Ground, Water, GroundActor, WaterActor
-	ReloadDelay: 90
+	ReloadDelay: 40
 	Burst: 2
 	BurstDelays: 20
 	Range: 7c768
@@ -2318,7 +2321,7 @@ kuruttanekoshotupgrade:
 japankatsuragishotupgrade:
 	Inherits: kuruttanekoshotupgrade
 	Burst: 1
-	ReloadDelay: 45
+	ReloadDelay: 20
 
 kuruttanekoClusterSmallupgrade:
 	Inherits: BFGZapCluster
@@ -2393,7 +2396,7 @@ chinazhurongcannon:
 	Range: 6c0
 	ReloadDelay: 175
 	Burst: 1
-	Report: TBMNormal1.wav
+	Report: shenlongfire.wav
 	Projectile: Bullet
 		Speed: 682
 		Image: 125mm
@@ -2405,7 +2408,7 @@ chinazhurongcannon:
 		InvalidTargets: Air
 	Warhead@3Eff: CreateEffect
 		Explosions: building
-		ImpactSounds: dsrpgexp.aud
+		ImpactSounds: shenlongexplosion.aud
 		ValidTargets: Ground, GroundActor, WaterActor, Trees
 	Warhead@fragment1: FireFragment
 		ValidTargets: Ground, Water, GroundActor, WaterActor, AirborneActor, Air
@@ -2903,7 +2906,7 @@ corvustimebomb:
 		LaunchAngle: 120
 		Inaccuracy: 1c0
 	Warhead@1Dam: SpreadDamage
-		Spread: 512
+		Spread: 1c0
 		Damage: 7500
 		ValidTargets: GroundActor, WaterActor
 		Versus:
@@ -3107,9 +3110,8 @@ hellstaffrainexplosion:
 	MinRange: 1c0
 	ValidTargets: Ground, Water, GroundActor, WaterActor, Underwater, AirborneActor, Air
 	Projectile: Bullet
-		Speed: 2c0
+		Speed: 256
 		Image: acolytestrikeactordumb
-		Blockable: false
 	Warhead@5Effect: CreateEffect
 		Explosions: hellstaffrain1
 		ValidTargets: Ground, GroundActor, WaterActor, Trees, Air
@@ -3202,3 +3204,93 @@ corvusfiremacepowered:
 	Warhead@3Eff: CreateEffect
 		Explosions: corvusfiremacepiffbig
 		ImpactSounds: PHOHIT.wav
+
+chinashenlongattack:
+	ReloadDelay: 125
+	Report: shenlongfire.aud
+	Range: 7c0
+	ValidTargets: Ground, Water, GroundActor, WaterActor, Trees
+	Projectile: Bullet
+		Speed: 682
+		Image: railgunshot
+		Shadow: True
+	Warhead@3Eff: CreateEffect
+		Explosions: dukenukemexplosionsmall
+		ImpactSounds: shenlongexplosion.aud
+		ValidTargets: Ground, Water, GroundActor, WaterActor, Trees
+	Warhead@1Dam: SpreadDamage
+		Spread: 2c0
+		Damage: 20000
+		Falloff: 100, 50, 18, 7, 0
+		Versus:
+			None: 100
+			Wood: 100
+			Light: 100
+			Heavy: 100
+			Concrete: 50
+		DamageTypes: Prone50Percent, TriggerProne, SmallExplosionDeath
+		ValidTargets: Ground, Water, GroundActor, WaterActor, Trees
+	Warhead@Res7: DestroyResource
+		Size: 3
+		ResourceAmount: 10
+	Warhead@4Radiation: CreateResource
+		AddsResourceType: Radiation
+		Delay: 1
+		Size: 2
+	Warhead@15Shake: ShakeScreen
+		Duration: 5
+		Intensity: 2
+		Multiplier: 1,1
+	Warhead@Res7: DestroyResource
+		ResourceTypes: Radiation
+		Size: 3
+		Delay: 625
+		ResourceAmount: 10
+	Warhead@4Eff: FireShrapnel
+		Weapon: chinashenlongattackexplosions
+		Amount: 15
+		AimChance: 25
+		AroundTarget: true
+		AllowDirectHit: true
+		ValidTargets: Ground, Water, GroundActor, WaterActor, Trees
+
+chinashenlongattackexplosions:
+	Range: 3c0
+	MinRange: 1c0
+	ValidTargets: Ground, Water, GroundActor, WaterActor, Underwater, AirborneActor, Air
+	Projectile: Bullet
+		Speed: 256
+		Image: battlelordbombproj
+		LaunchAngle: 120
+		ContrailLength: 3
+	Warhead@1Dam: SpreadDamage
+		Spread: 256
+		Damage: 5000
+		ValidTargets: GroundActor, WaterActor
+		Versus:
+			None: 100
+			Wood: 25
+			Light: 40
+			Heavy: 50
+			Concrete: 20
+		DamageTypes: Prone50Percent, TriggerProne, ElectricityDeath
+	Warhead@2Smu: LeaveSmudge
+		SmudgeType: Scorch
+		ValidTargets: Ground, Infantry
+	Warhead@3Eff: CreateEffect
+		Explosions: dukenukemexplosiontiny
+		ValidTargets: Ground, GroundActor, WaterActor, Trees
+		ImpactActors: false
+	Warhead@4EffWater: CreateEffect
+		Explosions: med_splash
+		ImpactSounds: splash9.aud
+		ValidTargets: Water, Underwater
+		InvalidTargets: Bridge
+	Warhead@4Radiation: CreateResource
+		AddsResourceType: Radiation
+		Size: 1
+	Warhead@Res7: DestroyResource
+		ResourceTypes: Radiation
+		Size: 2
+		Delay: 375
+		ResourceAmount: 10

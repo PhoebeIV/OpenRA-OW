@@ -1764,28 +1764,23 @@ actor-av1tnk-husk-name = Husk (Predator Tank)
 
 ## japan_air.yaml
 actor-japanchoppervx =
-   .description = The Helix helicopter provided China with a highly flexible airborne platform. Armed with a gatling gun & napalm bombs.
+   .description = Chopper-VX is the aircraft form of the Striker-VX. Armed with a plasma rocket barrage. Can be deployed to transform into a Striker-VX
    .name = Chopper VX
 
 actor-japanjettengu =
-   .description = The MiG is armed with two napalm missiles that could be used effectively against ground targets.
+   .description = Jet Tengu is the aircraft form of the Mecha Tengu. Armed with a plasma minigun. Can be deployed to transform into a Striker-VX
    .name = Jet Tengu
 
 actor-japankitsune =
-   .description = Multi-role fighter plane.
-    Can deflect enemy missiles with lasers.
+   .description = Multi-role fighter plane. Armed with 9 plasma rocket barrage.
    .name = Kitsune
 
 actor-japanyousei =
-   .description = Fast fighter plane.
-    Can not be damaged while attacking.
-    Slows down and becomes vulnerable after attacking.
+   .description = Bomber plane that drops a anti-matter bomb.
    .name = Yousei
 
 actor-japankaminari =
-   .description = Fast fighter plane.
-    Can not be damaged while attacking.
-    Slows down and becomes vulnerable after attacking.
+   .description = Fast fighter plane. Drops a portable lightning storm missile.
    .name = Kaminari
 
 actor-japanballoonsentryflying-name = Balloon Sentry
@@ -1837,7 +1832,7 @@ actor-japanwarhorse =
    .name = Warhorse
 
 actor-japanshinobi =
-   .description = Shinobi, stealth unit.
+   .description = Shinobi, stealth unit. Melee attacks infantry.
      Strong vs Infantry, Aircraft
      Weak vs Vehicles
    .name = Shinobi
@@ -1854,7 +1849,7 @@ actor-japanmutant =
    .name = Titan
 
 actor-japanmatsui =
-   .description = Yandere anime girl that shots fuckin lasers.
+   .description = Yandere anime girl that shoots fuckin lasers.
    .name = Matsui Yuriko
 
 actor-japanonmyodo =
@@ -2153,14 +2148,14 @@ actor-japanmecharaijuu =
    .name = Mecha Raijuu
 
 actor-japanstrikervx =
-   .description = Anti-personnel walker. Armed with a plasma gatling cannon.
+   .description = Striker-VX is the vehicle form of the Chopper-VX. Armed with a plasma rocket barrage. Can be deployed to transform into a Chopper-VX.
     Speed: 99
       Strong vs Infantry, Aircraft
       Weak vs Vehicles, Buildings
    .name = Striker VX
 
 actor-japanmechatengu =
-   .description = Anti-tank walker. Armed with a dual plasma rocket barrage. Strong on groups of light units.
+   .description = Mecha Tengu is the vehicle form of the Jet Tengu. Armed with a plasma minigun. Can be deployed to transform into a Jet Tengu.
     Speed: 99
       Weak vs Vehicles, 
       Strong vs Infantry, Light armor, Aircraft
@@ -2168,7 +2163,7 @@ actor-japanmechatengu =
    .name = Mecha Tengu
 
 actor-japanhiroshimawaveforce =
-   .description = Tsunami Tank. Equipped with a Waveforce Cannon that can be deployed to adapt to enemy forces.
+   .description = Hiroshima Waveforce. Equipped with a Waveforce Cannon that can be deployed to adapt to enemy forces.
       Strong vs Vehicles, Infantry
       Weak vs Aircraft
    .name = Hiroshima Waveforce
@@ -5536,10 +5531,10 @@ actor-corvus-hero0 =
      Tier 5 unlocks the Firemace.
     Speed: 90
       Strong vs Infantry, Vehicles, Aircraft
-      
-    Equipped with a Medikit (Tier 0), Steroids (Tier 1), Holoduke (Tier 2).
-   .name = Duke Nukem (Tier 0)
-   .real--name = Duke Nukem
+
+      Unlocks Tome Of Power at Tier 5
+   .name = Corvus (Tier 0)
+   .real--name = Corvus
 
 actor-corvus-hero1-name = Corvus (Tier 1)
 actor-corvus-hero2-name = Corvus (Tier 2)
