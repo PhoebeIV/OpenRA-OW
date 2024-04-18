@@ -1296,6 +1296,10 @@ UpgradeHandler:
 		Actor: UpgradeHandlerBot
 		SpawnOffset: 1,0
 		RequiresCondition: bot_harder
+	FreeActor@resources:
+		Actor: UpgradeHandlerResources
+		SpawnOffset: 1,0
+		RequiresCondition: botowner
 	GrantConditionOnProduction@idle:
 		Condition: idle
 		Duration: 1650
@@ -1316,12 +1320,18 @@ UpgradeHandler:
 UpgradeHandlerBot:
 	Inherits@mine: UpgradeHandler
 	-FreeActor@harderbot:
+	-FreeActor@resources:
 	ProductionQueue@Upgrade:
 		Type: Upgrade
 		DisplayOrder: 9
 		LowPowerModifier: 300
 		BuildDurationModifier: 175
 	-ExternalCondition@upgrade:
+
+UpgradeHandlerResources:
+	Inherits@mine: MINE_DUMMY
+	StoresPlayerResources:
+		Capacity: 10000
 
 ^FreeUpgrades:
 	ProvidesPrerequisite@estonia:

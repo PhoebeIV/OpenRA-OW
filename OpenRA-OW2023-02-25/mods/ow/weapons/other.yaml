@@ -1443,6 +1443,7 @@ DoomBFG:
 		ValidTargets: GroundActor, WaterActor
 		Versus:
 			Wood: 60
+			Shield: 200
 		DamageTypes: Prone50Percent, TriggerProne, ElectricityDeath
 	Warhead@2Smu: LeaveSmudge
 		SmudgeType: Scorch
@@ -1451,7 +1452,7 @@ DoomBFG:
 		ImpactSounds: dsrxplod.aud
 		ValidTargets: Ground, Air, GroundActor, AirborneActor, WaterActor, Water, Trees
 	Warhead@4Dam: SpreadDamage
-		Delay: 12
+		Delay: 10
 		Spread: 1c256
 		Damage: 1250
 		Falloff: 1000, 250, 100, 75, 50, 25, 5
@@ -1461,11 +1462,18 @@ DoomBFG:
 			Light: 65
 			Heavy: 60
 			Concrete: 30
+			Shield: 200
 		DamageTypes: Prone50Percent, ElectricityDeath
 	Warhead@5Smu: LeaveSmudge
-		Delay: 12
+		Delay: 10
 		SmudgeType: Scorch
 		Size: 2,2
+	Warhead@zappy1: FireCluster
+		Delay: 10
+		Weapon: BFGZapClusterSmall2
+		RandomClusterCount: 3
+		Dimensions: 1,1
+		Footprint: x
 
 DoomBFGSound:
 	ReloadDelay: 175
@@ -1491,6 +1499,8 @@ DoomSuperBFG:
 			None: 50
 	Warhead@3EffGround: CreateEffect
 		ImpactSounds: dsrxplo2.aud
+	Warhead@zappy1: FireCluster
+		RandomClusterCount: 6
 
 DoomSuperBFGSound:
 	Inherits: DoomBFGSound
@@ -1514,8 +1524,250 @@ DoomSuperBFGZap:
 	Warhead@1Dam: SpreadDamage
 		Spread: 256
 		Damage: 100
+		Versus:
+			Shield: 200
 		ValidTargets: GroundActor, WaterActor, Ground, Air
 		DamageTypes: ElectricityDeath
+
+DoomBFGTest:
+	ReloadDelay: 175
+	Range: 12c0
+	ValidTargets: Ground, Water, GroundActor, WaterActor
+	Projectile: Bullet
+		Speed: 250
+		Blockable: true
+		Image: bfg
+		Inaccuracy: 800
+	Warhead@1Dam: SpreadDamage
+		Spread: 256
+		Damage: 25000
+		ValidTargets: GroundActor, WaterActor
+		Versus:
+			Wood: 60
+		DamageTypes: Prone50Percent, TriggerProne, ElectricityDeath
+	Warhead@2Smu: LeaveSmudge
+		SmudgeType: Scorch
+	Warhead@3EffGround: CreateEffect
+		Explosions: bfg
+		ImpactSounds: dsrxplod.aud
+		ValidTargets: Ground, Air, GroundActor, AirborneActor, WaterActor, Water, Trees
+	Warhead@5Smu: LeaveSmudge
+		Delay: 12
+		SmudgeType: Scorch
+		Size: 2,2
+	Warhead@frag: FireFragment
+		Delay: 12
+		Weapon: BFGZapCluster
+		Offsets: 0,0,0, 0,0,0, 0,0,0, 0,0,0, 0,0,0, 0,0,0, 0,0,0, 0,0,0, 0,0,0, 0,0,0, 0,0,0, 0,0,0, 0,0,0, 0,0,0, 0,0,0, 0,0,0, 0,0,0, 0,0,0
+		Rotate: true
+
+DoomBFGTestFragment:
+	Inherits: DoomBFG
+	Projectile:
+		Inaccuracy: 2c0
+
+BFGZapCluster:
+	ReloadDelay: 1
+	ValidTargets: Ground, GroundActor, AirborneActor, Air
+	Projectile: AthenaProjectile
+	Warhead@2cluster: FireShrapnel
+		Amount: 2
+		Weapon: BFGBigZap
+		AimTargetStances: Neutral, Enemy, Ally, None
+		AimChance: 66
+		AllowDirectHit: true
+		ThrowWithoutTarget: true
+		ValidTargets: Ground, GroundActor, AirborneActor
+	Warhead@5Eff: CreateEffect
+		Inaccuracy: 64
+		Explosions: bfgzap
+		ValidTargets: Ground, GroundActor, WaterActor, AirborneActor
+		ImpactActors: true
+
+BFGZapClusterSmall:
+	Inherits: BFGZapCluster
+	Range: 7c0
+	Projectile: Missile
+		RangeLimit: 1c0
+		Speed: 600
+		MinimumLaunchSpeed: 600
+		MaximumLaunchSpeed: 600
+		Acceleration: 16
+		Inaccuracy: 1c0
+	Warhead@2cluster: FireShrapnel
+		Amount: 2
+		Weapon: BFGSmallZap
+		AimTargetStances: Neutral, Enemy, None
+		AimChance: 80
+
+BFGZapClusterSmall2:
+	Inherits: BFGZapClusterSmall
+	Warhead@2cluster: FireShrapnel
+		Weapon: BFGSmallZap2
+		AimChance: 100
+
+BFGZapClusterImpact:
+	Inherits: BFGZapCluster
+	Projectile: AthenaProjectile
+		Speed: 16, 64
+	Warhead@2cluster: FireShrapnel
+		Amount: 4
+		Weapon: BFGZap
+		AimTargetStances: Neutral, Enemy, Ally
+		AimChance: 80
+		AllowDirectHit: true
+		ThrowWithoutTarget: true
+		ValidTargets: Ground, GroundActor, AirborneActor
+	Warhead@3cluster: FireShrapnel
+		Delay: 20
+		Amount: 2
+		Weapon: BFGZap
+		AimTargetStances: Neutral, Enemy, Ally
+		AimChance: 60
+		AllowDirectHit: true
+		ThrowWithoutTarget: true
+		ValidTargets: Ground, GroundActor, AirborneActor
+	Warhead@4cluster: FireShrapnel
+		Delay: 30
+		Amount: 2
+		Weapon: BFGZap
+		AimTargetStances: Neutral, Enemy, Ally
+		AimChance: 60
+		AllowDirectHit: true
+		ThrowWithoutTarget: true
+		ValidTargets: Ground, GroundActor, AirborneActor
+	Warhead@5cluster: FireShrapnel
+		Delay: 40
+		Amount: 2
+		Weapon: BFGZap
+		AimTargetStances: Neutral, Enemy, Ally
+		AimChance: 60
+		AllowDirectHit: true
+		ThrowWithoutTarget: true
+		ValidTargets: Ground, GroundActor, AirborneActor
+	Warhead@6cluster: FireShrapnel
+		Delay: 50
+		Amount: 2
+		Weapon: BFGZap
+		AimTargetStances: Neutral, Enemy, Ally
+		AimChance: 60
+		AllowDirectHit: true
+		ThrowWithoutTarget: true
+		ValidTargets: Ground, GroundActor, AirborneActor
+	Warhead@7cluster: FireShrapnel
+		Delay: 60
+		Amount: 1
+		Weapon: BFGZap
+		AimTargetStances: Neutral, Enemy, Ally
+		AimChance: 60
+		AllowDirectHit: true
+		ThrowWithoutTarget: true
+		ValidTargets: Ground, GroundActor, AirborneActor
+	Warhead@8cluster: FireShrapnel
+		Delay: 70
+		Amount: 1
+		Weapon: BFGZap
+		AimTargetStances: Neutral, Enemy, Ally
+		AimChance: 60
+		AllowDirectHit: true
+		ThrowWithoutTarget: true
+		ValidTargets: Ground, GroundActor, AirborneActor
+	Warhead@9cluster: FireShrapnel
+		Delay: 80
+		Amount: 3
+		Weapon: BFGZap
+		AimTargetStances: Neutral, Enemy, Ally
+		AimChance: 60
+		AllowDirectHit: true
+		ThrowWithoutTarget: true
+		ValidTargets: Ground, GroundActor, AirborneActor
+	Warhead@10cluster: FireShrapnel
+		Delay: 90
+		Amount: 1
+		Weapon: BFGZap
+		AimTargetStances: Neutral, Enemy, Ally
+		AimChance: 60
+		AllowDirectHit: true
+		ThrowWithoutTarget: true
+		ValidTargets: Ground, GroundActor, AirborneActor
+
+DoomBFGTestGlobal:
+	Inherits: DoomBFGTest
+	Warhead@frag: GlobalExplodeWeapon
+		Weapon: CrateLightningZap
+		ValidTargets: Infantry, Vehicle, Ground, Water
+
+BFGZap:
+	Inherits: ^ElectricBoltWeapon
+	ReloadDelay: 7
+	Range: 9c0
+	-Report:
+	ValidTargets: Ground, GroundActor, WaterActor, AirborneActor
+	Projectile: ElectricBolt
+		Colors: 99FF99AB, F2FFB0B8
+		Inaccuracy: 1c0
+	Warhead@1Dam: SpreadDamage
+		Damage: 2800
+		Spread: 256
+		ValidTargets: Ground, GroundActor, WaterActor, AirborneActor
+	Warhead@3Eff: CreateEffect
+		Delay: 0
+		Inaccuracy: 64
+		Explosions: bfgzap
+		ValidTargets: Ground, GroundActor, WaterActor, AirborneActor
+		ImpactActors: true
+	Warhead@4Eff: CreateEffect
+		Delay: 3
+		Inaccuracy: 64
+		Explosions: bfgzap
+		ValidTargets: Ground, GroundActor, WaterActor, AirborneActor
+		ImpactActors: true
+	Warhead@5Eff: CreateEffect
+		Delay: 6
+		Inaccuracy: 64
+		Explosions: bfgzap
+		ValidTargets: Ground, GroundActor, WaterActor, AirborneActor
+		ImpactActors: true
+
+BFGBigZap:
+	Inherits: BFGZap
+	Range: 24c0
+
+BFGSmallZap:
+	Inherits: BFGZap
+	Range: 5c0
+	Projectile: ElectricBolt
+		Distortion: 400
+		DistortionAnimation: 16
+		SegmentLength: 256
+		Width: 24
+		Duration: 3
+		Inaccuracy: 256
+	Warhead@1Dam: SpreadDamage
+		Damage: 2000
+		Versus:
+			Shield: 200
+	-Warhead@4Eff: CreateEffect
+	-Warhead@5Eff: CreateEffect
+
+BFGSmallZap2:
+	Inherits: BFGSmallZap
+	Range: 5c0
+	Projectile: InstantHit
+	Warhead@1Dam: SpreadDamage
+		Damage: 5000
+		Versus:
+			Light: 75
+			Heavy: 50
+			Wood: 50
+			Shield: 200
+	Warhead@3Eff: CreateEffect
+		Inaccuracy: 32
+		Explosions: bfgzap2
+		ValidTargets: GroundActor, WaterActor, AirborneActor
+	Warhead@1Smu: LeaveSmudge
+		SmudgeType: Scorch
+		ValidTargets: GroundActor
 
 DoomBaronClaw:
 	ReloadDelay: 20
@@ -5247,219 +5499,6 @@ archermaidenshotmecha:
 	Burst: 3
 	BurstDelays: 2
 
-DoomBFGTest:
-	ReloadDelay: 175
-	Range: 12c0
-	ValidTargets: Ground, Water, GroundActor, WaterActor
-	Projectile: Bullet
-		Speed: 250
-		Blockable: true
-		Image: bfg
-		Inaccuracy: 800
-	Warhead@1Dam: SpreadDamage
-		Spread: 256
-		Damage: 25000
-		ValidTargets: GroundActor, WaterActor
-		Versus:
-			Wood: 60
-		DamageTypes: Prone50Percent, TriggerProne, ElectricityDeath
-	Warhead@2Smu: LeaveSmudge
-		SmudgeType: Scorch
-	Warhead@3EffGround: CreateEffect
-		Explosions: bfg
-		ImpactSounds: dsrxplod.aud
-		ValidTargets: Ground, Air, GroundActor, AirborneActor, WaterActor, Water, Trees
-	Warhead@5Smu: LeaveSmudge
-		Delay: 12
-		SmudgeType: Scorch
-		Size: 2,2
-	Warhead@frag: FireFragment
-		Delay: 12
-		Weapon: BFGZapCluster
-		Offsets: 0,0,0, 0,0,0, 0,0,0, 0,0,0, 0,0,0, 0,0,0, 0,0,0, 0,0,0, 0,0,0, 0,0,0, 0,0,0, 0,0,0, 0,0,0, 0,0,0, 0,0,0, 0,0,0, 0,0,0, 0,0,0
-		Rotate: true
-
-DoomBFGTestFragment:
-	Inherits: DoomBFG
-	Projectile:
-		Inaccuracy: 2c0
-
-BFGZap:
-	Inherits: ^ElectricBoltWeapon
-	ReloadDelay: 7
-	Range: 9c0
-	-Report:
-	ValidTargets: Ground, GroundActor, WaterActor, AirborneActor
-	Projectile: ElectricBolt
-		Colors: 99FF99AB, F2FFB0B8
-		Inaccuracy: 1c0
-	Warhead@1Dam: SpreadDamage
-		Damage: 2800
-		Spread: 256
-		ValidTargets: Ground, GroundActor, WaterActor, AirborneActor
-	Warhead@3Eff: CreateEffect
-		Delay: 0
-		Inaccuracy: 64
-		Explosions: bfgzap
-		ValidTargets: Ground, GroundActor, WaterActor, AirborneActor
-		ImpactActors: true
-	Warhead@4Eff: CreateEffect
-		Delay: 3
-		Inaccuracy: 64
-		Explosions: bfgzap
-		ValidTargets: Ground, GroundActor, WaterActor, AirborneActor
-		ImpactActors: true
-	Warhead@5Eff: CreateEffect
-		Delay: 6
-		Inaccuracy: 64
-		Explosions: bfgzap
-		ValidTargets: Ground, GroundActor, WaterActor, AirborneActor
-		ImpactActors: true
-
-BFGBigZap:
-	Inherits: BFGZap
-	Range: 24c0
-
-BFGSmallZap:
-	Inherits: BFGZap
-	Range: 5c0
-	Projectile: ElectricBolt
-		Distortion: 400
-		DistortionAnimation: 16
-		SegmentLength: 256
-		Width: 24
-		Duration: 3
-		Inaccuracy: 256
-	Warhead@1Dam: SpreadDamage
-		Damage: 2000
-	-Warhead@4Eff: CreateEffect
-	-Warhead@5Eff: CreateEffect
-
-BFGZapCluster:
-	ReloadDelay: 1
-	ValidTargets: Ground, GroundActor, AirborneActor, Air
-	Projectile: AthenaProjectile
-	Warhead@2cluster: FireShrapnel
-		Amount: 2
-		Weapon: BFGBigZap
-		AimTargetStances: Neutral, Enemy, Ally, None
-		AimChance: 66
-		AllowDirectHit: true
-		ThrowWithoutTarget: true
-		ValidTargets: Ground, GroundActor, AirborneActor
-	Warhead@5Eff: CreateEffect
-		Inaccuracy: 64
-		Explosions: bfgzap
-		ValidTargets: Ground, GroundActor, WaterActor, AirborneActor
-		ImpactActors: true
-
-BFGZapClusterSmall:
-	Inherits: BFGZapCluster
-	Range: 7c0
-	Projectile: Missile
-		RangeLimit: 1c0
-		Speed: 600
-		MinimumLaunchSpeed: 600
-		MaximumLaunchSpeed: 600
-		Acceleration: 16
-		Inaccuracy: 1c0
-	Warhead@2cluster: FireShrapnel
-		Amount: 2
-		Weapon: BFGSmallZap
-		AimTargetStances: Neutral, Enemy, None
-		AimChance: 80
-
-BFGZapClusterImpact:
-	Inherits: BFGZapCluster
-	Projectile: AthenaProjectile
-		Speed: 16, 64
-	Warhead@2cluster: FireShrapnel
-		Amount: 4
-		Weapon: BFGZap
-		AimTargetStances: Neutral, Enemy, Ally
-		AimChance: 80
-		AllowDirectHit: true
-		ThrowWithoutTarget: true
-		ValidTargets: Ground, GroundActor, AirborneActor
-	Warhead@3cluster: FireShrapnel
-		Delay: 20
-		Amount: 2
-		Weapon: BFGZap
-		AimTargetStances: Neutral, Enemy, Ally
-		AimChance: 60
-		AllowDirectHit: true
-		ThrowWithoutTarget: true
-		ValidTargets: Ground, GroundActor, AirborneActor
-	Warhead@4cluster: FireShrapnel
-		Delay: 30
-		Amount: 2
-		Weapon: BFGZap
-		AimTargetStances: Neutral, Enemy, Ally
-		AimChance: 60
-		AllowDirectHit: true
-		ThrowWithoutTarget: true
-		ValidTargets: Ground, GroundActor, AirborneActor
-	Warhead@5cluster: FireShrapnel
-		Delay: 40
-		Amount: 2
-		Weapon: BFGZap
-		AimTargetStances: Neutral, Enemy, Ally
-		AimChance: 60
-		AllowDirectHit: true
-		ThrowWithoutTarget: true
-		ValidTargets: Ground, GroundActor, AirborneActor
-	Warhead@6cluster: FireShrapnel
-		Delay: 50
-		Amount: 2
-		Weapon: BFGZap
-		AimTargetStances: Neutral, Enemy, Ally
-		AimChance: 60
-		AllowDirectHit: true
-		ThrowWithoutTarget: true
-		ValidTargets: Ground, GroundActor, AirborneActor
-	Warhead@7cluster: FireShrapnel
-		Delay: 60
-		Amount: 1
-		Weapon: BFGZap
-		AimTargetStances: Neutral, Enemy, Ally
-		AimChance: 60
-		AllowDirectHit: true
-		ThrowWithoutTarget: true
-		ValidTargets: Ground, GroundActor, AirborneActor
-	Warhead@8cluster: FireShrapnel
-		Delay: 70
-		Amount: 1
-		Weapon: BFGZap
-		AimTargetStances: Neutral, Enemy, Ally
-		AimChance: 60
-		AllowDirectHit: true
-		ThrowWithoutTarget: true
-		ValidTargets: Ground, GroundActor, AirborneActor
-	Warhead@9cluster: FireShrapnel
-		Delay: 80
-		Amount: 3
-		Weapon: BFGZap
-		AimTargetStances: Neutral, Enemy, Ally
-		AimChance: 60
-		AllowDirectHit: true
-		ThrowWithoutTarget: true
-		ValidTargets: Ground, GroundActor, AirborneActor
-	Warhead@10cluster: FireShrapnel
-		Delay: 90
-		Amount: 1
-		Weapon: BFGZap
-		AimTargetStances: Neutral, Enemy, Ally
-		AimChance: 60
-		AllowDirectHit: true
-		ThrowWithoutTarget: true
-		ValidTargets: Ground, GroundActor, AirborneActor
-
-DoomBFGTestGlobal:
-	Inherits: DoomBFGTest
-	Warhead@frag: GlobalExplodeWeapon
-		Weapon: CrateLightningZap
-		ValidTargets: Infantry, Vehicle, Ground, Water
-
 Raijuuflame:
 	Inherits: Flamer
 	ReloadDelay: 2
@@ -7006,7 +7045,7 @@ AvaliAALaserEnd:
 
 LightningSpike:
 	Inherits: ^ElectricBoltWeapon
-	ReloadDelay: 100
+	ReloadDelay: 175
 	Range: 10c0
 	Report: wclitning1.aud, wclitning2.aud, wclitning3.aud, wclitning4.aud, wclitning5.aud
 	ValidTargets: Ground, Water, GroundActor, WaterActor
@@ -7014,7 +7053,7 @@ LightningSpike:
 		Duration: 8
 	Warhead@1Dam: SpreadDamage
 		Spread: 256
-		Damage: 3250
+		Damage: 3000
 		Versus:
 			None: 200
 			Shield: 300
@@ -7037,7 +7076,7 @@ LightningSpike:
 	Warhead@2EMP: GrantExternalCondition
 		Range: 1c0
 		Condition: disabled
-		Duration: 25
+		Duration: 18
 		ValidTargets: GroundActor, WaterActor
 
 LightningSpike1:
@@ -7058,13 +7097,15 @@ LightningSpike1:
 
 LightningSpike2:
 	Inherits: LightningSpike1
+	Range: 3c0
 	Warhead@4Cluster: FireShrapnel
 		Delay: 1
-		Amount: 2
+		Amount: 1
 		Weapon: LightningSpike3
 
 LightningSpike3:
 	Inherits: LightningSpike1
+	Range: 2c0
 	Warhead@4Cluster: FireShrapnel
 		Delay: 1
 		Amount: 2
@@ -7072,6 +7113,7 @@ LightningSpike3:
 
 LightningSpike4:
 	Inherits: LightningSpike1
+	Range: 2c0
 	-Warhead@4Cluster:
 
 AvaliEMPSpike:
@@ -7264,7 +7306,7 @@ AvaliImpalerRailgun:
 		HitAnimSequence: med_explosion
 		Duration: 41
 	Warhead@1Dam: SpreadDamage
-		Damage: 44000
+		Damage: 40000
 		Range: 0, 800
 		Falloff: 100,100
 		Versus:

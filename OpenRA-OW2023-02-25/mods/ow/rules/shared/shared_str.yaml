@@ -230,6 +230,7 @@ FOUNDRY:
 
 PROC:
 	Inherits: ^Building
+	Inherits@ref: ^Refinery
 	Inherits@BIB: ^3x4BuildingBib
 	-WithBuildingBib:
 	Buildable:
@@ -261,8 +262,6 @@ PROC:
 		InfiltratedNotification: CreditsStolen
 		Maximum: 5000
 	ProvidesPrerequisite@buildingname:
-	ProvidesPrerequisite:
-		Prerequisite: refinery
 	GrantConditionOnFaction:
 		Condition: uac
 		Factions: phobos, deimos, mars
@@ -281,6 +280,7 @@ SILO:
 
 PROCD:
 	Inherits: ^DawnBuilding
+	Inherits@ref: ^Refinery
 	Inherits@BIB: ^3x4BuildingBib
 	Buildable:
 		Queue: Building
@@ -339,8 +339,6 @@ PROCD:
 		DeathSequence: dead
 		UseDeathTypeSuffix: false
 	ProvidesPrerequisite@buildingname:
-	ProvidesPrerequisite:
-		Prerequisite: refinery
 	HitShape:
 		Type: Rectangle
 			TopLeft: -1536, -512
@@ -363,12 +361,6 @@ PROCD:
 		RequiresSelection: true
 		PipCount: 17
 		FullSequence: pip-yellow
-	GrantConditionOnPrerequisite@processing:
-		Prerequisites: nod.tiberium
-		Condition: processing
-	ResourceValueMultiplier@processing:
-		RequiresCondition: processing
-		Modifier: 110
 
 SILOD:
 	Inherits: ^DawnBuilding

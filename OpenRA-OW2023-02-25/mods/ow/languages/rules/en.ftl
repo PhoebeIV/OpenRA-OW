@@ -5395,6 +5395,14 @@ actor-zagara-tier4-support2 =
    .name = Regenerative Cells
    .description = Increases HP regen of all Zerg units by 100%. 
 
+actor-zagara-tier4-fastupgrade1 =
+   .name = Enhanced Muscle Tissue III
+   .description = Gain Structure Firepower III instantly.
+
+actor-zagara-tier4-fastupgrade2 =
+   .name = Hardened Epidermis III
+   .description = Gain Structure Armor III instantly.
+
 actor-zagara-tier5-option1 =
    .name = 'Fortress' Mutation 
    .description = Increases Zagara's HP by 100%.

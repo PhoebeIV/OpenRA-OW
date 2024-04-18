@@ -497,6 +497,46 @@
 		Condition: botowner
 		Prerequisites: ai.all
 
+# Default actor for refineries, provides the "refinery" prerequisite
+^Refinery:
+	GrantConditionOnPrerequisite@botowner:
+		Condition: botowner
+		Prerequisites: ai.all
+	GrantConditionOnPrerequisite@medAI:
+		Condition: ai.medium
+		Prerequisites: ai.medium
+	GrantConditionOnPrerequisite@hardAI:
+		Condition: ai.hard
+		Prerequisites: ai.hard
+	GrantConditionOnPrerequisite@harderAI:
+		Condition: ai.harder
+		Prerequisites: ai.harder
+	ResourceValueMultiplier@medAI:
+		RequiresCondition: ai.medium
+		Modifier: 200
+	ResourceValueMultiplier@hardAI:
+		RequiresCondition: ai.hard && !ai.harder
+		Modifier: 300
+	ResourceValueMultiplier@harderAI:
+		RequiresCondition: ai.harder
+		Modifier: 450
+	GrantConditionOnPrerequisite@processing:
+		Prerequisites: nod.tiberium
+		Condition: processing
+	ResourceValueMultiplier@processing:
+		RequiresCondition: processing
+		Modifier: 110
+	ProductionCostMultiplier@ainoref: 
+		Prerequisites: ai.all, !refinery
+		Multiplier: 10
+		Queue: Building
+	ProductionTimeMultiplier@ainoref: 
+		Prerequisites: ai.all, !refinery
+		Multiplier: 900
+		Queue: Building
+	ProvidesPrerequisite:
+		Prerequisite: refinery
+
 # Default actor to be used by Tech Center type buildings. It allows all factions access to the GPS, as long as they also have a Radio Telescope on the field.
 ^TechCenter:
 	GpsPower@global:
@@ -593,6 +633,9 @@
 		Multiplier: 90
 	ProductionTimeMultiplier@upgrade2:
 		Prerequisites: infantry.prodtime2
+		Multiplier: 80
+	ProductionTimeMultiplier@glapower: 
+		Prerequisites: anypower, infantry.gla
 		Multiplier: 80
 	GrantConditionOnPrerequisite@firespeed1:
 		Prerequisites: infantry.firespeed1
@@ -840,9 +883,9 @@
 ^DoomSoldier:
 	Inherits@1: ^Soldier
 	DeathSounds@NORMAL:
-		Voice: DieTS
+		Voice: DieDoom
 	DeathSounds@ZAPPED:
-		Voice: DieTS
+		Voice: DieDoom
 	Explodes@fire:
 		Weapon: TSInfExplode
 		EmptyWeapon: TSInfExplode
@@ -1096,6 +1139,9 @@
 	ProductionCostMultiplier@upgrade_cost:
 		Prerequisites: structures.prodcost
 		Multiplier: 90
+	ProductionTimeMultiplier@glapower: 
+		Prerequisites: anypower, structures.gla
+		Multiplier: 80
 	RevealOnFire:
 	ChangesHealth@plague:
 		Delay: 3
@@ -1419,6 +1465,9 @@
 	ProductionTimeMultiplier@upgrade2:
 		Prerequisites: vehicle.prodtime2
 		Multiplier: 80
+	ProductionTimeMultiplier@glapower: 
+		Prerequisites: anypower, vehicles.gla
+		Multiplier: 80
 	GrantConditionOnPrerequisite@var1:
 		Prerequisites: upgrade.veharmor1
 		Condition: var1
@@ -1588,6 +1637,21 @@
 	Tooltip:
 		Name: meta-ship-generic-name
 		GenericName: meta-ship-generic-name
+	ProductionCostMultiplier@upgrade1:
+		Prerequisites: ships.prodcost
+		Multiplier: 90
+	ProductionTimeMultiplier@upgrade1:
+		Prerequisites: ships.prodtime
+		Multiplier: 80
+	ProductionCostMultiplier@upgrade2:
+		Prerequisites: ships.prodcost2
+		Multiplier: 90
+	ProductionTimeMultiplier@upgrade2:
+		Prerequisites: ships.prodtime2
+		Multiplier: 80
+	ProductionTimeMultiplier@glapower: 
+		Prerequisites: anypower, ships.gla
+		Multiplier: 80
 	GrantConditionOnPrerequisite@nar1:
 		Prerequisites: upgrade.navarmor1
 		Condition: nar1
@@ -1663,6 +1727,9 @@
 		Multiplier: 90
 	ProductionTimeMultiplier@upgrade2:
 		Prerequisites: aircraft.prodtime2
+		Multiplier: 80
+	ProductionTimeMultiplier@glapower: 
+		Prerequisites: anypower, aircraft.gla
 		Multiplier: 80
 	GrantConditionOnPrerequisite@aar1:
 		Prerequisites: upgrade.airarmor1

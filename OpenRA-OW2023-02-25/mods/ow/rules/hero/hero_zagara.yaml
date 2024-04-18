@@ -50,6 +50,10 @@ zagara.tier2.costcut:
 		Prerequisite: aircraft.prodcost
 	ProvidesPrerequisite@upgradename6:
 		Prerequisite: aircraft.prodtime
+	ProvidesPrerequisite@upgradename7:
+		Prerequisite: ships.prodcost
+	ProvidesPrerequisite@upgradename8:
+		Prerequisite: ships.prodtime
 
 # Adrenal Glands, Improves ground unit attack speed by 10%.
 zagara.tier2.firespeed:
@@ -131,11 +135,41 @@ zagara.tier4.regen:
 		Name: actor-zagara-tier4-support2.name
 	Buildable:
 		Description: actor-zagara-tier4-support2.description
-		Prerequisites: ~active.zagara
+		Prerequisites: ~active.zagara, ~structures.zerg
 		BuildPaletteOrder: 2
 		Icon: transfusion
 	RenderSprites:
 		Image: icon
+
+# Enhanced Muscle Tissue, building firepower 3
+zagara.tier4.fastupgrade1:
+	Inherits: ^HeroUpgradeBaseTier3
+	Tooltip:
+		Name: actor-zagara-tier4-fastupgrade1.name
+	Buildable:
+		Description: actor-zagara-tier4-fastupgrade1.description
+		Prerequisites: ~active.zagara, upgrade.buildfirepower2, ~!upgrade.buildfirepower3, ~!structures.zerg
+		BuildPaletteOrder: 3
+	RenderSprites:
+		Image: upgrade.buildfirepower3
+	ProvidesPrerequisite@buildingname:
+	ProvidesPrerequisite@upgradename:
+		Prerequisite: upgrade.buildfirepower3
+
+# Hardened epidermis, building armor 3
+zagara.tier4.fastupgrade2:
+	Inherits: ^HeroUpgradeBaseTier3
+	Tooltip:
+		Name: actor-zagara-tier4-fastupgrade2.name
+	Buildable:
+		Description: actor-zagara-tier4-fastupgrade2.description
+		Prerequisites: ~active.zagara, upgrade.buildarmor2, ~!upgrade.buildarmor3, ~!structures.zerg
+		BuildPaletteOrder: 4
+	RenderSprites:
+		Image: upgrade.buildarmor3
+	ProvidesPrerequisite@buildingname:
+	ProvidesPrerequisite@upgradename:
+		Prerequisite: upgrade.buildarmor3
 
 # Fortress
 zagara.tier5.fortress:
@@ -173,6 +207,10 @@ zagara.tier5.heartoftheswarm:
 		Prerequisite: aircraft.prodcost2
 	ProvidesPrerequisite@upgradename6:
 		Prerequisite: aircraft.prodtime2
+	ProvidesPrerequisite@upgradename7:
+		Prerequisite: ships.prodcost2
+	ProvidesPrerequisite@upgradename8:
+		Prerequisite: ships.prodtime2
 
 zagara.allpick:
 	Inherits: ^UpgradeBase
