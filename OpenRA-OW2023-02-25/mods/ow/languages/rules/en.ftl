@@ -5136,6 +5136,8 @@ actor-zzagara =
    
    The Broodmother of the Swarm.
    Excellent base defense and expansion.
+   Is more powerful when standing on Creep.
+   Creep speed bonus to all units while alive.
       Speed: 72
       Strong vs ground units
    .name = Zagara
