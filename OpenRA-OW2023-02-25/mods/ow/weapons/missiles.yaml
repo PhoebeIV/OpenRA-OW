@@ -306,6 +306,7 @@ MammothTusk:
 			Heavy: 40
 			Concrete: 50
 		DamageTypes: Prone50Percent, TriggerProne, SmallExplosionDeath
+		ValidTargets: GroundActor, WaterActor, AirborneActor
 	Warhead@2Dam: SpreadDamage
 		Spread: 256
 		Damage: 3000
@@ -354,6 +355,7 @@ DireMissile:
 			Heavy: 100
 			Concrete: 65
 		DamageTypes: Prone50Percent, TriggerProne, SmallExplosionDeath
+		ValidTargets: GroundActor, WaterActor, AirborneActor
 	Warhead@3Eff: CreateEffect
 		ImpactSounds: kaboom12.aud
 		ValidTargets: Ground, GroundActor, AirborneActor, WaterActor, Trees
@@ -571,10 +573,12 @@ SubMissile:
 
 SubMissileAA:
 	Inherits: ^SubMissileDefault
-	ValidTargets: Air
+	ValidTargets: AirborneActor
 	Warhead@1Dam: SpreadDamage
-		Damage: 1500
-
+		ValidTargets: AirborneActor
+		Damage: 450
+		Versus:
+			Light: 100
 SCUD:
 	Inherits: ^AntiGroundMissile
 	ReloadDelay: 240
