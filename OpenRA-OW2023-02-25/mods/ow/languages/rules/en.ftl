@@ -933,6 +933,7 @@ actor-zombie =
    .description = Slow undead. Attacks in close combat.
 
 actor-dukenukem-name = Duke Nukem
+actor-hartman-name = Sgt. Hartman
 actor-strifeacolytebasic-name = Acolyte
 actor-hereticcorvus-name = Corvus
 actor-judgedredd-name = Judge Dredd

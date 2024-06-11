@@ -171,9 +171,19 @@ CRATE:
 		SelectionShares: 2
 		Units: hereticcorvus
 		Sound: WPNUP.wav
+	GiveUnitCrateAction@hartman:
+		SelectionShares: 2000
+		Units: hartman
+		Sound: hartmanrdy1.aud
 	GiveUnitCrateAction@hunterkiller:
 		SelectionShares: 6
 		Units: hunter
+	GiveUnitCrateAction@bitconnect:
+		SelectionShares: 2
+		Units: 1tnk.bitconnect
+		Sound: bitconnect.aud
+		Sequence: idle
+		Image: bitconnect
 	GiveUnitCrateAction@civvies:
 		SelectionShares: 4
 		Units: c1,c2,c3,c4,c5,c6,c7,c8,c9,c10,c1,c2,c3,c4,c5,c10,1tnk.cpanic
@@ -226,11 +236,11 @@ MONEYCRATE2:
 		UseCashTick: true
 	GiveCashCrateAction@4:
 		Amount: 5000
-		SelectionShares: 5
+		SelectionShares: 6
 		UseCashTick: true
 	GiveCashCrateAction@5:
 		Amount: 6990
-		SelectionShares: 1
+		SelectionShares: 3
 		UseCashTick: true
 	Crate:
 		Duration: 6000
@@ -308,6 +318,11 @@ CRATE.FuckYou:
 		SelectionShares: 4
 		Units: dukenukem
 		Sound: dukenukembuild5.aud
+		Owner: Creeps
+	GiveUnitCrateAction@hartman:
+		SelectionShares: 4
+		Units: hartman
+		Sound: hartmanrdy1.aud
 		Owner: Creeps
 	GiveUnitCrateAction@judgedredd:
 		SelectionShares: 4
@@ -395,7 +410,13 @@ CRATE.FuckYou:
 		Owner: Creeps
 	ExplodeCrateAction@MinecraftNuke:
 		Weapon: MinecraftNuke
-		SelectionShares: 5
+		SelectionShares: 3
+	GiveUnitCrateAction@bitconnect:
+		SelectionShares: 2
+		Units: 1tnk.bitconnect
+		Sound: bitconnect.aud
+		Sequence: idle
+		Image: bitconnect
 	Crate:
 		Duration: 15000
 	Tooltip:
@@ -499,6 +520,12 @@ CRATE.FuckYou:
 		OwnerType: InternalName
 		InternalOwner: Creeps
 		RequiresLobbyCreeps: true
+
+1TNK.BITCONNECT:
+	Inherits: 1TNK.MINE
+	SpawnActorOnDeath:
+		Actor: bitconnect
+		OwnerType: Victim
 
 1TNK.BRIK:
 	Inherits: 1TNK.MINE
@@ -748,6 +775,34 @@ DukeNukem:
 		Delay: 25
 		StartIfBelow: 50
 		DamageCooldown: 500
+
+HARTMAN:
+	Inherits: DukeNukem
+	Tooltip:
+		Name: actor-hartman-name
+	RenderSprites:
+		Image: d6.havoc
+	Voiced:
+		VoiceSet: HartmanVoice
+	AmbientSound:
+		SoundFiles: hartmanwht1.aud,hartmanwht2.aud,hartmanwht3.aud,hartmanwht4.aud,hartmanwht5.aud,hartmanwht6.aud,hartmanwht7.aud,hartmanwht8.aud,hartmanwht9.aud,hartmanwht10.aud,hartmanyes1.aud,hartmanyes2.aud,hartmanyes3.aud
+		Delay: 250
+		Interval: 500, 750
+	ProximityExternalCondition@boost:
+		Condition: squadboost
+		Range: 7c0
+		AffectsParent: true
+	WithDecoration@officer2:
+		Image: pips
+		Sequence: pip-bonus
+		Palette: effect
+		Position: TopRight
+		ValidRelationships: None,Neutral,Enemy,Ally
+	ProximityExternalCondition@demoralise:
+		Condition: demoralise
+		Range: 8c0
+		AffectsParent: false
+		ValidRelationships: Enemy
 
 JudgeDredd:
 	Inherits: ^Soldier
@@ -2099,3 +2154,25 @@ ae68testexplosion:
 	Mobile:
 		Locomotor: bike
 		Speed: 64
+
+BITCONNECT:
+	Inherits: XBAR
+	-Targetable:
+	-Buildable:
+	-Cloak:
+	AmbientSound:
+		-RequiresCondition:
+		SoundFiles: bitconnect.aud
+		Interval: 900
+	Explodes:
+		Weapon: Redeemernuke
+		EmptyWeapon: Redeemernuke
+	KillsSelf@badcrates:
+		-RequiresCondition:
+		Delay: 75
+	CashTrickler:
+		InitialDelay: 25
+		Interval: 1
+		Amount: 100
+	RenderSprites:
+		Image: bitconnect
