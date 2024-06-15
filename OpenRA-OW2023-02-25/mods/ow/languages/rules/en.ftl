@@ -292,6 +292,13 @@ actor-avarty =
       Weak vs Aircraft
    .botdescription = Auto-deploys. AI Use only.
 
+actor-avqtnk =
+   .description = Creates a cold environment in the surrounding
+    area when deployed.
+
+      Unarmed
+   .name = Weather Control Platform
+
 ## china_air.yaml
 actor-chinamig =
    .description = The MiG is armed with two napalm missiles that could be used effectively against ground targets.
@@ -3637,6 +3644,12 @@ actor-fcom-husk =
 
 actor-hosp-husk =
    .name = Hostipal (Dead)
+
+actor-weapgarage =
+   .name = Garage
+   .husk = Garage (Dead)
+   .captured-desc = Provides vehicles with self-healing.
+   .capturable-desc = Capture to enable self-healing for vehicles.
 
 actor-techhusk-description = This structure is being rebuilt.
 

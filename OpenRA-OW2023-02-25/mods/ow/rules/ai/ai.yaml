@@ -992,7 +992,7 @@ Player:
 		AwayFromEnemyTargetTypes: Structure, Defense
 	CaptureManagerBotModule:
 		RequiresCondition: enable-all-ai
-		CapturableActorTypes: oilb, miss, fcom, hosp, bio, oreext.g, t.miss, t.missair, t.missinf, gmiss, miss.terran, avcarrier.groundhusk, pcarry.groundhusk, tbattle.groundhusk, dmgtnk.m.husk, maus.husk, fcru.husk, t.missnavy, zep.groundhusk, spectre.groundhusk
+		CapturableActorTypes: oilb, miss, fcom, hosp.real, bio, weapgarage, oreext.g, t.miss, t.missair, t.missinf, gmiss, miss.terran, avcarrier.groundhusk, pcarry.groundhusk, tbattle.groundhusk, dmgtnk.m.husk, maus.husk, fcru.husk, t.missnavy, zep.groundhusk, spectre.groundhusk, chinaemperor.Husk, chinaoverlord.Husk
 		CapturingActorTypes: e6, fe6, tsengi.o, tmedic, gharv, zdrone.eng, pprobe.eng, avinf2, frge6, frgsurv
 	SquadManagerBotModule@all:
 		RequiresCondition: enable-all-ai
@@ -2103,6 +2103,28 @@ Player:
 					Attractiveness: -10
 					TargetMetric: Value
 					CheckRadius: 3c0
+			CrateSmite:
+				OrderName: CrateSmite
+				MinimumAttractiveness: 2500
+				FineScanRadius: 1
+				Consideration@0:
+					Against: Enemy
+					Types: EpicUnit
+					Attractiveness: 1000
+					TargetMetric: Value
+					CheckRadius: 1c0
+				Consideration@2:
+					Against: Enemy
+					Types: Structure
+					Attractiveness: 1
+					TargetMetric: Value
+					CheckRadius: 1c0
+				Consideration@3:
+					Against: Ally
+					Types: Ground, Water
+					Attractiveness: -10
+					TargetMetric: Value
+					CheckRadius: 1c0
 			EMP:
 				OrderName: EMPPower
 				MinimumAttractiveness: 1000

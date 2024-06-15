@@ -1711,6 +1711,13 @@ DoomBFGTestGlobal:
 		Weapon: CrateLightningZap
 		ValidTargets: Infantry, Vehicle, Ground, Water
 
+ExplodeSuperweapons:
+	Inherits: DoomBFGTest
+	Warhead@frag: GlobalExplodeWeapon
+		Weapon: MDKLightningZap2
+		ValidTargets: Superweapon, Ground, Water
+		InvalidTargets: UpgradeThing
+
 BFGZap:
 	Inherits: ^ElectricBoltWeapon
 	ReloadDelay: 7
@@ -2292,11 +2299,36 @@ CrateLightningZap:
 MDKLightningZap:
 	Inherits: LightningZap
 	Warhead@1Dam: SpreadDamage
-		Spread: 128
+		Spread: 256
 		Damage: 600000
 		Versus:
 			None: 100
 		DamageTypes: Prone50Percent, TriggerProne, ElectricityDeath, Incendiary, BypassShield
+	Warhead@22FlashEffect: FlashEffect
+		Duration: 15
+		FlashType: Nuke
+	Warhead@15Shake: ShakeScreen
+		Duration: 20
+		Intensity: 4
+		Multiplier: 1,1
+	Warhead@97Eff_impact: CreateEffect
+		ImpactSounds: jericho.wav
+		ImpactActors: false
+	Warhead@98Eff_impact: CreateEffect
+		ImpactSounds: dsrxplo2.aud
+		ImpactActors: false
+	Warhead@99Eff_impact: CreateEffect
+		ImpactSounds: dsrxplo2.aud
+		ImpactActors: false
+	Warhead@100Eff: CreateEffect
+		Explosions: ionring
+		ExplosionPalette: tseffect
+		ImpactActors: false
+
+MDKLightningZap2:
+	Inherits: MDKLightningZap
+	-Warhead@15Shake:
+	-Warhead@98Eff_impact:
 
 WeatherGrenade:
 	ReloadDelay: 375
@@ -7517,3 +7549,39 @@ corvusphoenixrodpoweredsound:
 	Inherits: corvusphoenixrodpowered
 	Report: PHOPOW.wav
 	ReloadDelay: 25
+
+WeatherTankCondition:
+	Warhead@condition1: GrantExternalCondition
+		ValidRelationships: Enemy, Neutral
+		ValidTargets: GroundActor, AirborneActor
+		Condition: cyrostreameffect
+		Duration: 250
+		Range: 12c512
+	Warhead@condition2: GrantExternalCondition
+		ValidTargets: Infantry
+		Condition: env_snow_buff
+		Duration: 250
+		Range: 12c512
+
+WeatherTankCloud:
+	Warhead@clust1: FireCluster
+		Weapon: WeatherTankCloudCluster
+		RandomClusterCount: 2
+		Dimensions: 12,12
+		Footprint: _xxxxxxxxxx_ xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx _xxxxxxxxxx_
+
+WeatherTankCloudCluster:
+	Range: 10c0
+	ValidTargets: Ground, Water, GroundActor, WaterActor
+	Projectile: Bullet
+		Speed: 2c0
+		Inaccuracy: 960
+		Blockable: false
+	Warhead@1Eff: CreateEffect
+		ExplosionPalette: ra2
+		Explosions: wccloud1_alpha, wccloud2_alpha, wccloud3_alpha
+		ImpactActors: false
+	Warhead@shadow: CreateEffect
+		ExplosionPalette: cloud
+		Explosions: wccloud1s, wccloud2s, wccloud3s
+		ImpactActors: false

@@ -187,6 +187,29 @@ FCOM.Husk:
 		Condition: currenthp
 
 HOSP:
+	EditorOnlyTooltip:
+		Name: 50/50 Hospital or Garage
+	GrantRandomCondition:
+		Conditions: hosp, garage
+	FreeActor@hosp:
+		Actor: HOSP.Real
+		RequiresCondition: hosp
+	FreeActor@garage:
+		Actor: WEAPGARAGE
+		RequiresCondition: garage
+	KillsSelf@spawn:
+		Delay: 1
+		RemoveInstead: true
+
+HOSP.Real:
+	Inherits: HOSP
+	-EditorOnlyTooltip:
+	-GrantRandomCondition:
+	-FreeActor@hosp:
+	-FreeActor@garage:
+	-KillsSelf@spawn:
+	RenderSprites:
+		Image: hosp
 	Health:
 		HP: 200000
 	RepairableBuilding:
@@ -208,7 +231,7 @@ HOSP:
 		Condition: respawnable
 
 HOSP.Husk:
-	Inherits: HOSP
+	Inherits: HOSP.Real
 	RenderSprites:
 		Image: hosp
 	-Capturable:
@@ -225,7 +248,96 @@ HOSP.Husk:
 	KillsSelf:
 		Delay: 4500
 	SpawnActorOnDeath:
-		Actor: HOSP
+		Actor: HOSP.Real
+	ChangesHealth@health:
+		PercentageStep: -90
+		StartIfBelow: 101
+		Delay: 10
+		RequiresCondition: currenthp
+	GrantConditionOnHealth@health:
+		MinHP: 100000
+		Condition: currenthp
+
+WEAPGARAGE:
+	Inherits: ^TechBuilding
+	Inherits@shape: ^2x2Shape
+	RenderSprites:
+		Image: weap
+	WithIdleOverlay:
+		Sequence: garage
+	WithProductionDoorOverlay:
+		RequiresCondition: !build-incomplete
+		Sequence: build-top
+	OwnerLostAction:
+		Action: ChangeOwner
+	Selectable:
+		Priority: 0
+		Bounds: 3072, 2048
+	Building:
+		Footprint: xxx xxx
+		Dimensions: 3,2
+	Health:
+		HP: 200000
+	CaptureManager:
+	Capturable:
+		Types: building
+	CapturableProgressBar:
+	CapturableProgressBlink:
+	InstantlyRepairable:
+	Tooltip:
+		Name: actor-weapgarage.name
+	TooltipDescription@ally:
+		Description: actor-weapgarage.captured-desc
+		ValidRelationships: Ally
+	TooltipDescription@other:
+		Description: actor-weapgarage.capturable-desc
+		ValidRelationships: Neutral, Enemy
+	RevealsShroud:
+		Range: 4c0
+	WithBuildingBib:
+		HasMinibib: true
+	ProvidesPrerequisite@buildingname:
+	AppearsOnMapPreview:
+	GpsDot:
+		String: Hospital
+	RepairableBuilding:
+		RepairStep: 100
+		RepairCondition: repairing
+	WithBuildingRepairDecoration:
+		Image: allyrepair
+		Sequence: repair
+		Position: Center
+		Palette: player
+		IsPlayerPalette: True
+	SpawnActorOnDeath:
+		Actor: WEAPGARAGE.Husk
+		SkipMakeAnimations: true
+		OwnerType: InternalName
+		RequiresCondition: respawnable
+	GrantConditionOnPrerequisite@respawnable:
+		Prerequisites: techlevel.techrespamn
+		Condition: respawnable
+
+WEAPGARAGE.Husk:
+	Inherits: WEAPGARAGE
+	RenderSprites:
+		Image: weap
+	-Capturable:
+	-Targetable:
+	-CapturableProgressBar:
+	-CapturableProgressBlink:
+	-CaptureManager:
+	Tooltip:
+		Name: actor-weapgarage.husk
+	TooltipDescription@other:
+		Description: actor-techhusk-description
+	WithProductionDoorOverlay:
+		RequiresCondition: !build-incomplete
+		Sequence: damaged-build-top
+	KillsSelf:
+		Delay: 4500
+	SpawnActorOnDeath:
+		Actor: WEAPGARAGE
 	ChangesHealth@health:
 		PercentageStep: -90
 		StartIfBelow: 101

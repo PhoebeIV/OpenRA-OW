@@ -1333,6 +1333,10 @@
 	Targetable@tech:
 		TargetTypes: Tech
 
+^Superweapon:
+	Targetable@superweapon:
+		TargetTypes: Superweapon
+
 ^Defense:
 	Inherits@MediConditions: ^MediConditionsD
 	Inherits@usabombardment: ^USAStrategyBuffs
@@ -1409,6 +1413,9 @@
 ^GLAVehicle:
 	GrantConditionOnPrerequisite@service:
 		Prerequisites: gfix
+		Condition: glavehicle
+	GrantConditionOnPrerequisite@garage:
+		Prerequisites: weapgarage
 		Condition: glavehicle
 	ChangesHealth@service:
 		PercentageStep: 1
@@ -2806,6 +2813,9 @@
 	WithColoredOverlay@cyrostream:
 		RequiresCondition: cyrostreameffect >= 8
 		Color: 00fbff40
+	WithColoredOverlay@cyrostream@2:
+		RequiresCondition: (cyrostreameffect >= 1) && (cyrostreameffect < 8)
+		Color: 00FBFF11
 	ExternalCondition@cyrostrike:
 		Condition: cyrostrikeeffect
 	SpeedMultiplier@cyrostrike:

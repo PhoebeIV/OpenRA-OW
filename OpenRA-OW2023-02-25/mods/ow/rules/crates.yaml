@@ -217,6 +217,10 @@ CRATE:
 		Proxy: powerproxy.metalnuke
 		Sound: DSRADIO.wav
 		SelectionShares: 2
+	SupportPowerCrateAction@smite:
+		Proxy: powerproxy.smite
+		Sound: thunder-ambient.wav
+		SelectionShares: 2
 	Crate:
 		Duration: 6000
 
@@ -353,6 +357,9 @@ CRATE.FuckYou:
 	ExplodeCrateAction@nukedrop:
 		Weapon: TerranCrateNukeDrop
 		SelectionShares: 6
+	ExplodeCrateAction@superweapons:
+		Weapon: ExplodeSuperweapons
+		SelectionShares: 1
 	GiveUnitCrateAction@amogus:
 		SelectionShares: 2
 		Units: amogus,amogus2,amogus3,amogus4,amogus5,amogus2,amogus3,amogus4,amogus5,amogus2,amogus3,amogus4,amogus5,amogus,amogus2,amogus3,amogus4,amogus5,amogus2,amogus3,amogus4,amogus5,amogus2,amogus3,amogus4,amogus5
@@ -1469,12 +1476,48 @@ powerproxy.lightning:
 		DisplayRadarPing: True
 		CameraActor: camera.spyplane
 		SupportPowerPaletteOrder: 20
-		WeaponDelay: 0
 		CameraRemoveDelay: 450
 		DisplayTimerRelationships: Ally, Neutral, Enemy
 		AllowMultiple: true
 		OneShot: true
 		UnitType: u2.lightning
+
+powerproxy.smite:
+	AlwaysVisible:
+	SpawnActorPower:
+		OrderName: CrateSmite
+		PauseOnCondition: disabled
+		Icon: medismiteicon
+		Cursor: chrono-target
+		ChargeInterval: 4500
+		Name: Smite
+		Description: Instantly kills the targeted object.
+		BeginChargeSpeechNotification: IonCannonCharge
+		EndChargeSpeechNotification: IonCannonReady
+		SelectTargetSpeechNotification: DawnSelectTarget
+		InsufficientPowerSpeechNotification: InsufficientPower
+		DisplayRadarPing: True
+		SupportPowerPaletteOrder: 20
+		DisplayTimerRelationships: Ally, Neutral, Enemy
+		AllowMultiple: true
+		OneShot: true
+		Actor: powerproxy.smiteactor
+
+powerproxy.smiteactor:
+	Inherits: 1TNK.MINE
+	Explodes:
+		Weapon: MDKLightningZap
+	KillsSelf:
+		Delay: 2
+	FreeActor:
+		Actor: camera.5sec
+	-SpawnActorOnDeath:
+
+camera.5sec:
+	Inherits: CAMERA
+	KillsSelf:
+		RemoveInstead: true
+		Delay: 125
 
 1TNK.CRATE:
 	Inherits: 1TNK.MINE

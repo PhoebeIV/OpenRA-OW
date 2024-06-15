@@ -855,3 +855,67 @@ AVARTY.BOT.Checker:
 	Explodes:
 		Weapon: JuggUndeploy
 		EmptyWeapon: JuggUndeploy
+
+AVQTNK:
+	Inherits: ^TrackedVehicle
+	Buildable:
+		Queue: Vehicle
+		BuildPaletteOrder: 420
+		Prerequisites: fix, avtech, ~vehicles.avalon, ~techlevel.high
+		Description: actor-avqtnk.description
+	Valued:
+		Cost: 2000
+	Tooltip:
+		Name: actor-avqtnk.name
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 90000
+	Armor:
+		Type: Heavy
+	Mobile:
+		RequiresCondition: !deployed
+		PauseOnCondition: being-captured
+		Speed: 46
+	Chronoshiftable:
+		RequiresCondition: !deployed && !being-captured
+	RevealsShroud:
+		MinRange: 4c0
+		Range: 6c0
+		RevealGeneratedShroud: False
+	Voiced:
+		VoiceSet: AvaliGeneric
+		RequiresCondition: !deployed
+	RevealsShroud@GAPGEN:
+		Range: 4c0
+	MadTank:
+		DeployedCondition: deployed
+		ThumpDamageWeapon: WeatherTankCondition
+		ThumpInterval: 25
+		ChargeDelay: 7458
+		DriverActor: avinf1
+	AmbientSound:
+		RequiresCondition: deployed
+		Interval: 100,300
+		Delay: 25
+		SoundFiles: dukenukemfreezer.wav
+	TimedConditionBar:
+		Condition: lifetime
+		Color: FBFF92
+	GrantTimedCondition: 
+		Condition: lifetime
+		RequiresCondition: deployed
+		Duration: 7500
+	FireWarheads:
+		RequiresCondition: deployed
+		Weapons: WeatherTankCloud
+		Interval: 50
+	WithRangeCircle:
+		Color: FFFF0080
+		Range: 12c0
+	Targetable:
+		TargetTypes: GroundActor, MADTank, Vehicle
+	Selectable:
+		DecorationBounds: 1877, 1621, 0, -170
+	RenderSprites:
+		Image: qtnk
