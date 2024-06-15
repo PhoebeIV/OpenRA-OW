@@ -5601,6 +5601,87 @@ actor-corvus-tier5-mystic =
    .name = Mystic Urn
    .description = Upon death, Corvus will respawn as a ghost with an active Tome of Power and fight for a further 30 seconds.
 
+actor-doomguy-hero0 =
+   .description = [HERO]
+
+    Role: Powerful Infantry Unit
+
+    The Doom Slayer. Starts with basic pistol.
+
+     Tier 1 unlocks the Super Shotgun.
+     Tier 2 unlocks the Chaingun.
+     Tier 3 unlocks the Rocket Launcher.
+     Tier 4 unlocks the Plasma Gun.
+     Tier 5 unlocks the BFG + Plasma Gun.
+    Speed: 90
+      Strong vs Infantry, Vehicles
+
+   .name = Doom Guy  (Tier 0)
+   .real--name = Doom Guy 
+
+actor-doomguy-hero1-name = Doom Guy  (Tier 1)
+actor-doomguy-hero2-name = Doom Guy  (Tier 2)
+actor-doomguy-hero3-name = Doom Guy  (Tier 3)
+actor-doomguy-hero4-name = Doom Guy  (Tier 4)
+actor-doomguy-hero5-name = Doom Guy  (Tier 5)
+
+actor-doomguy-tier1-greenarmor =
+   .name = Green Armor
+   .description = Provides 10% damage reduction. This can be stacked with the Blue Armor.
+
+actor-doomguy-tier1-fraggrenade =
+   .name = Frag Grenade
+   .description = Doom Guy will now throw frag grenades while attacking enemies.
+
+actor-doomguy-tier2-medikit =
+   .name = Medikit
+   .description = Increases Doom Guy's health regeneration by 200%
+
+actor-doomguy-tier2-computer =
+   .name = Computer
+   .description = Provides Doom Guy with a 25% attack range and vision range.
+
+actor-doomguy-tier3-radiationsuit =
+   .name = Radiation Suit
+   .description = Doom Guy becomes immune to toxins and other debuffs.
+
+actor-doomguy-tier3-paradrop =
+   .name = UAC Paradrop
+   .description = Doom Guy can call in a UAC paradrop.
+
+actor-doomguy-tier3-hellportal =
+   .name = Hell Portal
+   .description = Doom Guy can now call in a Hell Portal.
+
+actor-doomguy-tier4-bluearmor =
+   .name = Blue Armor
+   .description = Provides 15% damage reduction. This can be stacked with the Green Armor.
+
+actor-doomguy-tier4-blursphere =
+   .name = Blue Sphere
+   .description = Doom Guy will now become invisible when not attacking.
+
+actor-doomguy-tier4-doomslayer =
+   .name = The Doom Slayer
+   .description = Doom Guy's presence will now motivate nearby infantry.
+
+actor-doomguy-tier5-invulnerability =
+   .name = Invulnerability
+   .description = Doom Guy will become invincible for 15 seconds when attacked.
+
+actor-doomguy-tier5-chainsaw =
+   .name = Chainsaw
+   .description = Upon death, Doom Guy will revive as a berserker wielding a chainsaw.
+   RIP AND TEAR TILL THE JOB IS DONE!
+
+actor-doomguy-tier5-berserk =
+   .name = Berserk
+   .description = Upon death, Doom Guy will revive as a beserker and punch things until he dies.
+
+actor-doomguy-tier5-overdrive =
+   .name = Overdrive
+   .description = Doom Guy will have increased firerate and movement speed for 30 seconds.
+
 ## forgotten
 actor-frge1 =
    .description = Light infantry. Heals in Tiberium.
