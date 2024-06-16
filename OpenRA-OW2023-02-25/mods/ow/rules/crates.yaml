@@ -2,8 +2,8 @@ World:
 	CrateSpawner:
 		DeliveryAircraft: badr
 		QuantizedFacings: 16
-		Minimum: 3
-		Maximum: 6
+		Minimum: 4
+		Maximum: 8
 		SpawnInterval: 3000
 		WaterChance: 10
 		InitialSpawnDelay: 50
@@ -221,6 +221,10 @@ CRATE:
 		Proxy: powerproxy.smite
 		Sound: thunder-ambient.wav
 		SelectionShares: 2
+	GiveUnitCrateAction@korone:
+		SelectionShares: 2
+		Units: korone
+		Sound: koronetaunt4.wav
 	Crate:
 		Duration: 6000
 
@@ -2219,3 +2223,50 @@ BITCONNECT:
 		Amount: 100
 	RenderSprites:
 		Image: bitconnect
+
+korone:
+	Inherits: ^NewStrifeGuy
+	Inherits: ^EpicUnit
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Buildable:
+		Queue: Infantry
+		BuildPaletteOrder: 0
+		Prerequisites: ~OBL.CratePowers
+	Valued:
+		Cost: 10000
+	Tooltip:
+		Name: actor-korone-name
+	Selectable:
+		Bounds: 1536, 1536, 0, 0
+		DecorationBounds: 1536, 1536, 0, 0
+	Health:
+		HP: 180000
+	Mobile:
+		Speed: 90
+	Voiced:
+		VoiceSet: Korone
+	AnnounceOnSeen:
+		PingRader: true
+	AttackWander:
+		WanderMoveRadius: 10
+		MinMoveDelay: 5
+		MaxMoveDelay: 100
+	ChangesHealth:
+		Step: 100
+		Delay: 25
+		StartIfBelow: 50
+		DamageCooldown: 500
+	SoundOnDamageTransition:
+		DamagedSounds: koronepain1.wav
+	AmbientSound:
+		SoundFiles: koronetaunt1.wav, koronetaunt2.wav, koronetaunt3.wav, koronetaunt4.wav, koronetaunt5.wav, koronetaunt6.wav, koronetaunt7.wav, koronetaunt8.wav, koronetaunt9.wav, koronetaunt10.wav, koronetaunt11.wav, koronetaunt12.wav, koronetaunt13.wav, koronetaunt14.wav, koronetaunt15.wav, koronetaunt16.wav, koronetaunt17.wav, koronetaunt18.wav, koronetaunt19.wav, koronetaunt20.wav, koronetaunt21.wav, koronetaunt22.wav
+		Delay: 0
+		Interval: 250, 500
+	Armament@1:
+		Weapon: DoomGuyPlasma
+	Armament@GARRISONED:
+		Name: garrisoned
+		Weapon: DoomGuyPlasma
+	Armament@BUS:
+		Name: bus
+		Weapon: DoomGuyPlasma

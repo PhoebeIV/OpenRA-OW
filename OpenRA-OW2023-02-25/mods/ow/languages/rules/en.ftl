@@ -955,6 +955,7 @@ actor-roadroller-leave-name = Road Roller
 actor-oblid-cr-name = Obelisk of Creeps
 actor-johncena-name = John Cena (you cant see me)
 actor-jarofdirt-name = Captain Jack Sparrow
+actor-korone-name = Inugami Korone
 
 ## defaults.yaml
 meta-flyingbuilding =
