@@ -194,3 +194,57 @@ LST2:
 	WithAmmoPipsDecoration:
 		Position: BottomLeft
 		RequiresSelection: true
+
+LST.HARV:
+	Inherits: ^Ship
+	Buildable:
+		Queue: Ship
+		BuildPaletteOrder: 10
+		Prerequisites: refinery
+		Description: actor-lstharv.description
+	Valued:
+		Cost: 1000
+	Tooltip:
+		Name: actor-lstharv.name
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 35000
+	Mobile:
+		Speed: 100
+	Armor:
+		Type: Heavy
+	RevealsShroud:
+		MinRange: 5c0
+		Range: 6c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 5c0
+	Harvester:
+		Type: Oil
+		Resources: Oil
+		BaleUnloadDelay: 1
+		SearchFromProcRadius: 15
+		SearchFromHarvesterRadius: 8
+		HarvestFacings: 8
+		EmptyCondition: no-ore
+	StoresResources:
+		Capacity: 10
+		Resources: Oil
+	DockClientManager:
+	WithStoresResourcesPipsDecoration:
+		Position: BottomLeft
+		Margin: 4, 3
+		RequiresSelection: true
+		PipCount: 10
+		ResourceSequences:
+			Oil: pip-gray
+	WithHarvestAnimation:
+	WithDockingAnimation:
+	Selectable:
+		DecorationBounds: 1536, 1536
+	Explodes@ores:
+		RequiresCondition: !no-ore
+		Weapon: OilExplosion
+	RenderSprites:
+		Image: lst

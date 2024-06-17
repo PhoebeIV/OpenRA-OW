@@ -84,6 +84,11 @@ actor-allies-training2 =
    .name = Advanced Training
    .description = All units will now be trained as rank 1.
 
+actor-allies-pointdefense =
+   .name = Point Defense Systems
+   .description = Equips Pillboxes with laser point-defense
+   against missiles.
+
 actor-atek-description = Provides Allied advanced technologies.
 
 actor-bio-a =
@@ -297,7 +302,7 @@ actor-avqtnk =
     area when deployed.
 
       Unarmed
-   .name = Weather Control Platform
+   .name = Illuminate Terraformer
 
 ## china_air.yaml
 actor-chinamig =
@@ -1864,6 +1869,10 @@ actor-japanmatsui =
 actor-japanonmyodo =
    .description = Provides an armor buff to nearby friendly infantry. Also curses an enemy infantry unit, who will explode into a spirit wolf when killed.
    .name = Onmyodo
+
+actor-japanoilderrick =
+   .description = Extracts crude oil from the Ocean depths.
+   .name = Oil Derrick
 
 actor-japaninugami-name = Inugami
 
@@ -5750,3 +5759,8 @@ actor-forgtek =
    .description = Provides stolen advanced technologies.
    .name = Forgotten Tech Center
 
+actor-lstharv =
+   .name = Oil Collector
+   .description = Collects oil processing.
+    Speed: 100 
+      Unarmed

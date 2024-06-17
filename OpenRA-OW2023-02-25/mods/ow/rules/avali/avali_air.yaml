@@ -1,5 +1,26 @@
+^AvaliAircraft:
+	Targetable@weatherimmune:
+		TargetTypes: WeatherTankImmume
+	SpeedMultiplier@cyrostream:
+		RequiresCondition: cyrostreameffect >= 8
+		Modifier: 110
+	SpeedMultiplier@cyrostream2:
+		RequiresCondition: (cyrostreameffect >= 3) && (cyrostreameffect < 8)
+		Modifier: 100
+	GrantConditionOnTileSet@cold:
+		TileSets: SNOW
+		Condition: env_snow_buff
+	SpeedMultiplier@cold:
+		Modifier: 110
+		RequiresCondition: env_snow_buff
+	ExternalCondition@cold:
+		Condition: env_snow_buff
+	Targetable@weatherimmune:
+		TargetTypes: WeatherTankImmume
+
 AVFRIGATE:
 	Inherits: ^Helicopter
+	Inherits@aircraft: ^AvaliAircraft
 	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
 	Buildable:
 		Queue: Aircraft
@@ -103,6 +124,7 @@ AVFRIGATE:
 
 AVBOMBER:
 	Inherits: ^Plane
+	Inherits@aircraft: ^AvaliAircraft
 	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
 	Buildable:
 		Queue: Aircraft
@@ -185,6 +207,7 @@ AVBOMBER:
 
 AVCARRIER:
 	Inherits: ^Helicopter
+	Inherits@aircraft: ^AvaliAircraft
 	Inherits@cargo: ^CargoPips
 	Inherits@selection: ^SelectableSupportUnit
 	Inherits@mindcontrol: ^MindControlResistant
@@ -424,6 +447,7 @@ AVCARRIER:
 
 AVINTER:
 	Inherits: ^NeutralPlane
+	Inherits@aircraft: ^AvaliAircraft
 	RenderSprites:
 		Image: PINTER
 	Valued:

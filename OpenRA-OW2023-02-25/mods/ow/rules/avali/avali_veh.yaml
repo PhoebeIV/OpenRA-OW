@@ -15,13 +15,23 @@
 		Modifier: 90
 	GrantConditionOnTerrain@snow:
 		TerrainTypes: ClearSnow
-		Condition: env_buff
+		Condition: env_snow_buff
 	GrantConditionOnTileSet@cold:
 		TileSets: SNOW
-		Condition: env_buff
+		Condition: env_snow_buff
 	SpeedMultiplier@cold:
+		Modifier: 115
+		RequiresCondition: env_snow_buff
+	SpeedMultiplier@cyrostream:
+		RequiresCondition: cyrostreameffect >= 8
 		Modifier: 110
-		RequiresCondition: env_buff
+	SpeedMultiplier@cyrostream2:
+		RequiresCondition: (cyrostreameffect >= 3) && (cyrostreameffect < 8)
+		Modifier: 100
+	ExternalCondition@cold:
+		Condition: env_snow_buff
+	Targetable@weatherimmune:
+		TargetTypes: WeatherTankImmume
 	Voiced:
 		VoiceSet: AvaliGeneric
 
@@ -43,7 +53,7 @@ AVMCV:
 		Prerequisite: mcv
 	Transforms:
 		IntoActor: avfact
-		Facing: 0
+		Facing: 1
 		TransformSounds: land.aud
 	Selectable:
 		Bounds: 1536, 1536
@@ -858,13 +868,16 @@ AVARTY.BOT.Checker:
 
 AVQTNK:
 	Inherits: ^TrackedVehicle
+	Inherits@2: ^AvaliVehicle
+	Inherits@autotarget: ^AutoTargetGroundAssaultMove
 	Buildable:
 		Queue: Vehicle
 		BuildPaletteOrder: 420
-		Prerequisites: fix, avtech, ~vehicles.avalon, ~techlevel.high
+		Prerequisites: fix, advtechcenter, ~vehicles.avalon, ~techlevel.high
+		BuildLimit: 2
 		Description: actor-avqtnk.description
 	Valued:
-		Cost: 2000
+		Cost: 3000
 	Tooltip:
 		Name: actor-avqtnk.name
 	UpdatesPlayerStatistics:
@@ -891,7 +904,7 @@ AVQTNK:
 	MadTank:
 		DeployedCondition: deployed
 		ThumpDamageWeapon: WeatherTankCondition
-		ThumpInterval: 25
+		ThumpInterval: 35
 		ChargeDelay: 7458
 		DriverActor: avinf1
 	AmbientSound:
@@ -917,5 +930,36 @@ AVQTNK:
 		TargetTypes: GroundActor, MADTank, Vehicle
 	Selectable:
 		DecorationBounds: 1877, 1621, 0, -170
+	Explodes:
+		Weapon: E100Cannon
+		EmptyWeapon: E100Cannon
+	Explodes@snow:
+		Weapon: FrostRemoveMed
+		EmptyWeapon: FrostRemoveMed
+		RequiresCondition: deployed
+	SeedsResource:
+		ResourceType: AvaliSnow
+		Interval: 4
+		MaxRange: 9
+		RequiresCondition: deployed
+	FireWarheads@snow:
+		Weapons: WeatherTankSmall
+		Interval: 5
+		RequiresCondition: !deployed
+	AttackFrontal:
+		RequiresCondition: !deployed && botowner
+	Armament@deployme:
+		Name: primary
+		Weapon: TerranSiegeDeploy
+		RequiresCondition: !deployed && botowner
+	GrantConditionOnAttack:
+		Condition: force_deploy
+	GrantConditionOnPrerequisite@botowner:
+		Condition: botowner
+		Prerequisites: ai.all
+	AutoDeployer:
+		RequiresCondition: !deployed && botowner && force_deploy
+		DeployTrigger: Attack
+		DeployChance: 100
 	RenderSprites:
 		Image: qtnk

@@ -751,6 +751,9 @@
 	GrantConditionOnTerrain@radiation:
 		Condition: standing_in_radiation
 		TerrainTypes: Radiation
+	Targetable@radationsuit:
+		RequiresCondition: gdi_suits
+		TargetTypes: NewRadiationImmune
 	SpawnActorOnDeath@tiberium:
 		Actor: vice
 		Probability: 5
@@ -2809,11 +2812,14 @@
 		Condition: cyrostreameffect
 	SpeedMultiplier@cyrostream:
 		RequiresCondition: cyrostreameffect >= 8
-		Modifier: 50
+		Modifier: 60
+	SpeedMultiplier@cyrostream2:
+		RequiresCondition: (cyrostreameffect >= 3) && (cyrostreameffect < 8)
+		Modifier: 80
 	WithColoredOverlay@cyrostream:
 		RequiresCondition: cyrostreameffect >= 8
 		Color: 00fbff40
-	WithColoredOverlay@cyrostream@2:
+	WithColoredOverlay@cyrostream2:
 		RequiresCondition: (cyrostreameffect >= 1) && (cyrostreameffect < 8)
 		Color: 00FBFF11
 	ExternalCondition@cyrostrike:

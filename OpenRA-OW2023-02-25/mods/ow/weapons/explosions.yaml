@@ -25,6 +25,9 @@
 		ImpactSounds: splash9.aud
 		ValidTargets: Water, Underwater
 		InvalidTargets: Bridge
+	Warhead@4Resource: DestroyResource
+		ResourceTypes: AvaliSnow
+		Size: 0
 
 ^ShrapnelBase:
 	ValidTargets: Ground, Water, GroundActor, WaterActor
@@ -199,6 +202,9 @@ BuildingExplode:
 		SmudgeType: Crater
 		ValidTargets: GroundActor
 		InvalidTargets: Wall
+	Warhead@4Resource: DestroyResource
+		ResourceTypes: AvaliSnow
+		Size: 0
 
 SmallBuildingExplode:
 	Inherits: BuildingExplode
@@ -294,6 +300,12 @@ OreExplosion:
 		Explosions: med_explosion
 		ImpactSounds: kaboom25.aud
 		ImpactActors: false
+
+OilExplosion:
+	Inherits: OreExplosion
+	Warhead@3Res: CreateResource
+		AddsResourceType: Oil
+		Size: 1,1
 
 TiberiumExplosion:
 	Warhead@1Dam: SpreadDamage
@@ -1638,7 +1650,7 @@ FrostRemoveMed:
 		ResourceAmount: 1
 	Warhead@Res11: DestroyResource
 		ResourceTypes: AvaliSnow
-		Size: 3,1
+		Size: 3,0
 		Delay: 1500
 
 AmbushShake:

@@ -34,7 +34,7 @@
 		Size: 1
 		Delay: 3
 		ResourceAmount: 1
-		ResourceTypes: ZergCreep, Tiberium, BlueTiberium
+		ResourceTypes: ZergCreep, Tiberium, BlueTiberium, AvaliSnow
 
 FireballLauncher:
 	Inherits: ^FireWeapon
@@ -904,6 +904,8 @@ SpectreBomb:
 		ValidTargets: GroundActor, WaterActor
 		ValidRelationships: Ally
 		DamageTypes: Prone50Percent, TriggerProne, ExplosionDeath
+	Warhead@2Eff2: CreateEffect
+		Explosions: protoss_building
 
 A10Napalm:
 	ReloadDelay: 3
@@ -1081,7 +1083,7 @@ ScrinPlasma:
 		ImpactActors: false
 
 FAirPlasma:
-	ReloadDelay: 5
+	ReloadDelay: 4
 	Range: 8c0
 	MinRange: 2c0
 	Burst: 6
@@ -1106,11 +1108,12 @@ FAirPlasma:
 		Damage: 4000
 		ValidTargets: GroundActor, WaterActor, AirborneActor
 		Versus:
-			None: 100
-			Wood: 100
+			None: 150
+			Wood: 90
 			Light: 120
 			Heavy: 150
 			Concrete: 80
+			Shield: 300
 		DamageTypes: Prone50Percent, TriggerProne, ExplosionDeath
 	Warhead@2Smu: LeaveSmudge
 		SmudgeType: Scorch
@@ -3193,6 +3196,27 @@ USAPaladinLaser:
 usakingraptorlaser:
 	Inherits: USAPaladinLaser
 
+PointDefenseLaser:
+	Inherits: ^LaserWeapon
+	ReloadDelay: 33
+	Range: 2c0
+	Report: USAPaladinLasershot.aud
+	ValidTargets: Ground, Water, Air
+	Projectile: LaserZap
+		ZOffset: 2047
+		Duration: 6
+		Width: 36
+		Color: FF00008B
+	Warhead@1Dam:
+		Damage: 1
+		ValidTargets: GroundActor, Ground, Air, AirborneActor, Water, WaterActor
+	-Warhead@2Smu:
+
+PointDefenseLaserAEIOU:
+	Inherits: PointDefenseLaser
+	Burst: 3
+	BurstDelays: 6
+	Range: 3c0
 
 USAAvengerLaser:
 	ReloadDelay: 2
@@ -4896,6 +4920,7 @@ NewRadiationCloud:
 		Spread: 256
 		Damage: 300
 		ValidTargets: GroundActor, WaterActor
+		InvalidTargets: NewRadiationImmune
 		Versus:
 			None: 100
 			Wood: 15
@@ -4907,6 +4932,7 @@ NewRadiationCloud:
 		Spread: 256
 		Damage: 300
 		ValidTargets: GroundActor, WaterActor
+		InvalidTargets: NewRadiationImmune
 		Versus:
 			None: 100
 			Wood: 15
@@ -4918,6 +4944,7 @@ NewRadiationCloud:
 		Spread: 256
 		Damage: 300
 		ValidTargets: GroundActor, WaterActor
+		InvalidTargets: NewRadiationImmune
 		Versus:
 			None: 100
 			Wood: 15
@@ -4929,6 +4956,7 @@ NewRadiationCloud:
 		Spread: 256
 		Damage: 300
 		ValidTargets: GroundActor, WaterActor
+		InvalidTargets: NewRadiationImmune
 		Versus:
 			None: 100
 			Wood: 15
@@ -4940,6 +4968,7 @@ NewRadiationCloud:
 		Spread: 256
 		Damage: 300
 		ValidTargets: GroundActor, WaterActor
+		InvalidTargets: NewRadiationImmune
 		Versus:
 			None: 100
 			Wood: 15
@@ -4951,6 +4980,7 @@ NewRadiationCloud:
 		Spread: 256
 		Damage: 300
 		ValidTargets: GroundActor, WaterActor
+		InvalidTargets: NewRadiationImmune
 		Versus:
 			None: 100
 			Wood: 15
@@ -4962,6 +4992,7 @@ NewRadiationCloud:
 		Spread: 256
 		Damage: 300
 		ValidTargets: GroundActor, WaterActor
+		InvalidTargets: NewRadiationImmune
 		Versus:
 			None: 100
 			Wood: 15
@@ -4973,6 +5004,7 @@ NewRadiationCloud:
 		Spread: 256
 		Damage: 300
 		ValidTargets: GroundActor, WaterActor
+		InvalidTargets: NewRadiationImmune
 		Versus:
 			None: 100
 			Wood: 15
@@ -7553,22 +7585,35 @@ corvusphoenixrodpoweredsound:
 WeatherTankCondition:
 	Warhead@condition1: GrantExternalCondition
 		ValidRelationships: Enemy, Neutral
-		ValidTargets: GroundActor, AirborneActor
+		ValidTargets: GroundActor, AirborneActor, WaterActor
+		InvalidTargets: WeatherTankImmume
 		Condition: cyrostreameffect
-		Duration: 250
+		Duration: 300
 		Range: 12c512
 	Warhead@condition2: GrantExternalCondition
 		ValidTargets: Infantry
 		Condition: env_snow_buff
-		Duration: 250
+		Duration: 100
 		Range: 12c512
 
 WeatherTankCloud:
 	Warhead@clust1: FireCluster
 		Weapon: WeatherTankCloudCluster
-		RandomClusterCount: 2
+		RandomClusterCount: 1
 		Dimensions: 12,12
 		Footprint: _xxxxxxxxxx_ xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx _xxxxxxxxxx_
+	Warhead@clust2: FireCluster
+		Weapon: WeatherTankSnowCluster
+		RandomClusterCount: 4
+		Dimensions: 9,9
+		Footprint: _xxxxxxx_ xxxxxxxxx xxxx_xxxx xxx___xxx xx__x__xx xxx___xxx xxxx_xxxx xxxxxxxxx _xxxxxxx_
+
+WeatherTankSmall:
+	Warhead@clust2: FireCluster
+		Weapon: WeatherTankSnowCluster
+		RandomClusterCount: 1
+		Dimensions: 3,3
+		Footprint: xxx xxx xxx
 
 WeatherTankCloudCluster:
 	Range: 10c0
@@ -7585,3 +7630,28 @@ WeatherTankCloudCluster:
 		ExplosionPalette: cloud
 		Explosions: wccloud1s, wccloud2s, wccloud3s
 		ImpactActors: false
+
+WeatherTankSnowCluster:
+	Range: 12c0
+	Projectile: Bullet
+		Speed: 256
+		LaunchAngle: 160
+		Blockable: false
+	Warhead@1Resource: CreateResource
+		AddsResourceType: AvaliSnow
+		Size: 0
+	Warhead@2Resource: DestroyResource
+		ResourceTypes: AvaliSnow
+		ResourceAmount: 1
+		Size: 0,1
+		Delay: 250
+	Warhead@3Resource: DestroyResource
+		ResourceTypes: AvaliSnow
+		ResourceAmount: 1
+		Size: 0
+		Delay: 550
+	Warhead@4Resource: DestroyResource
+		ResourceTypes: AvaliSnow
+		ResourceAmount: 1
+		Size: 0
+		Delay: 800

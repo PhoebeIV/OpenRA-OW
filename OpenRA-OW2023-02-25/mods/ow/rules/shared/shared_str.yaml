@@ -888,6 +888,11 @@ SYRD:
 		ProductionTypes: Ship, Boat, Submarine
 	Exit@4:
 		ProductionTypes: Ship, Boat, Submarine
+	Refinery:
+	DockHost:
+		Type: Oil
+		DockAngle: 256
+		DockOffset: 0, 0, 0
 
 SPEN:
 	Inherits@prereqs: ^NavalPrereqs
@@ -906,6 +911,11 @@ SPEN:
 	Reservable:
 	Production:
 		Produces: Ship, Boat, Submarine
+	Refinery:
+	DockHost:
+		Type: Oil
+		DockAngle: 256
+		DockOffset: 0, 0, 0
 
 HPAD:
 	Inherits@prereqs: ^AircraftPrereqs
@@ -1025,11 +1035,33 @@ FTUR:
 PBOX:
 	Buildable:
 		Prerequisites: barracks, ~techlevel.low, ~structures.pboxprereq, ~!ai.boss
+	GrantConditionOnPrerequisite:
+		Prerequisites: allies.pointdefense
+		Condition: pointdefense
+	PointDefense: 
+		PointDefenseTypes: pointdefense
+		Armament: laser
+		RequiresCondition: pointdefense
+	Armament@laser:
+		Name: laser
+		Weapon: PointDefenseLaser
+		RequiresCondition: pointdefense
 
 # Buildable by allies and UAC
 HBOX:
 	Buildable:
 		Prerequisites: barracks, ~techlevel.medium, ~structures.pboxprereq, ~!ai.boss
+	GrantConditionOnPrerequisite:
+		Prerequisites: allies.pointdefense
+		Condition: pointdefense
+	PointDefense: 
+		PointDefenseTypes: pointdefense
+		Armament: laser
+		RequiresCondition: pointdefense
+	Armament@laser:
+		Name: laser
+		Weapon: PointDefenseLaser
+		RequiresCondition: pointdefense
 
 # Buildable by GDI and Fed
 GTWR:

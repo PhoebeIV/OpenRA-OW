@@ -91,12 +91,16 @@ end
 
 SpawnWaterDerricks = function(amount)
 	local i = 0;
-	while (i < amount) do
+	local attempts = 0;
+	local count;
+	while (i < amount and attempts < 100) do
 		NewCell = Map.RandomCell()
 		if(Map.TerrainType(NewCell) == "Water") then
-			Reinforcements.Reinforce(Neutral, {"1tnk.oil2"}, {NewCell}, 1)
+			Reinforcements.Reinforce(Neutral, {"japanoilderrick.cr"}, {NewCell}, 1)
+			i = i+1;
 		end
-		i = i+1
+		print(i..amount)
+		attempts = attempts+1;
 	end
 end
 
