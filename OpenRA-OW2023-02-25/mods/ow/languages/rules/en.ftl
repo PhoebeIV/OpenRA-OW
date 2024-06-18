@@ -2257,6 +2257,10 @@ actor-japanswarmdrone =
    .description = Fast moving suicide drone.
    .name = Swarm Drone
 
+actor-japanharuna =
+   .description = Fast fighter plane. Drops a portable lightning storm missile.
+   .name = "Haruna" Kongou-class fast battleship 
+
 ## medi_str.yaml
 actor-meditent =
    .description = Allows production of infantry units.

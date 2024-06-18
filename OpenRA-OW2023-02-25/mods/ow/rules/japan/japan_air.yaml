@@ -950,3 +950,304 @@ japanswarmdronesquad:
 	RenderSprites:
 		Image: japanswarmdrone
 	-MapEditorData:
+
+japanharuna:
+	Inherits@EPIC: ^EpicUnit
+	Inherits: ^Plane
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Buildable:
+		Queue: Aircraft
+		BuildAtProductionType: Plane
+		BuildPaletteOrder: 50
+		Prerequisites: ~OBL.CratePowers
+		Description: actor-japanharuna.description
+		BuildDuration: 3300
+	Valued:
+		Cost: 20000
+	Tooltip:
+		Name: actor-japanharuna.name
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 300000
+	RevealsShroud:
+		MinRange: 11c0
+		Range: 13c0
+		Type: GroundPosition
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 11c0
+		Type: GroundPosition
+	Armament@1:
+		Weapon: KingOniInfantryLaserUpgrade
+		LocalOffset: -153,921,0
+		AmmoUsage: 0
+	Armament@2:
+		Weapon: KingOniTankLaserUpgrade
+		LocalOffset: -153,-921,0
+		AmmoUsage: 0
+	Armament@3:
+		Weapon: kusogakishot
+		LocalOffset: 614,0,-115
+		AmmoUsage: 0
+	Armament@4:
+		Weapon: kusogakishot
+		LocalOffset: -307,-76,-115
+		AmmoUsage: 0
+	Armament@5:
+		Weapon: kuruttanekoshotupgrade
+		LocalOffset: -307,76,-115
+		AmmoUsage: 0
+	Armament@6:
+		Weapon: strikervxshotupgrade
+		LocalOffset: 1024,0,-115
+		AmmoUsage: 0
+	Armament@7:
+		Weapon: strikervxshotupgrade
+		LocalOffset: 1024,0,-115
+		AmmoUsage: 0
+	Aircraft:
+		Speed: 72
+		TurnSpeed: 4
+		CanHover: false
+		CanSlide: false
+		IdleBehavior: None
+		Voice: Move
+		CruiseAltitude: 2c512
+		Repulsable: false
+	Guard:
+		Voice: Move
+	AutoTarget:
+		InitialStance: AttackAnything
+		MinimumScanTimeInterval: 1
+		MaximumScanTimeInterval: 1
+	AttackAircraft:
+		FacingTolerance: 512
+		PersistentTargeting: false
+	AmmoPool:
+		Ammo: 40
+		InitialAmmo: 20
+	Selectable:
+		DecorationBounds: 3686, 2661
+		Bounds: 3276, 2457
+	Contrail@1:
+		Offset: -1600,256,0
+		StartColorAlpha: 128
+		TrailLength: 100
+		StartWidth: 192
+		StartColorUsePlayerColor: false
+		EndColorUsePlayerColor: true
+	Contrail@2:
+		Offset: -1600,-256,0
+		StartColorAlpha: 128
+		TrailLength: 100
+		StartWidth: 192
+		StartColorUsePlayerColor: false
+		EndColorUsePlayerColor: true
+	Contrail@3:
+		Offset: -1600,0,512
+		StartColorAlpha: 128
+		TrailLength: 100
+		StartWidth: 192
+		StartColorUsePlayerColor: false
+		EndColorUsePlayerColor: true
+	Contrail@4:
+		Offset: -1600,0,-512
+		StartColorAlpha: 128
+		TrailLength: 100
+		StartWidth: 192
+		StartColorUsePlayerColor: false
+		EndColorUsePlayerColor: true
+	LeavesTrails:
+		Offsets: -853,0,171
+		MovingInterval: 2
+		Image: smokey
+		SpawnAtLastPosition: False
+		Type: CenterPosition
+		RequiresCondition: enable-smoke
+	ProducibleWithLevel:
+		Prerequisites: aircraft.upgraded
+	Rearmable:
+		RearmActors: usaairfield, afld, afld.ukraine, usaairstriplandingspot, japanairfield, japanairfieldnavy
+	GrantConditionOnDamageState@SmokeTrail:
+		Condition: enable-smoke
+	WithProductionIconOverlay:
+		Types: Veterancy
+		Prerequisites: aircraft.upgraded
+	RenderSprites:
+		Image: japanharuna
+	ReloadAmmoPool@reloadnear:
+		RequiresCondition: !no_reload
+		Delay: 25
+	Voiced:
+		VoiceSet: SkyEmpressVoice
+	AmbientSound@yamato:
+		RequiresCondition: enable_yamato && (ammo >= 38)
+		SoundFiles: tbayam01.aud
+		Interval: 9000
+	GrantConditionOnAttack@no_reload:
+		ArmamentNames: secondary
+		RevokeDelay: 1000
+		Condition: no_reload
+	WithAmmoPipsDecoration:
+		RequiresCondition: enable_yamato
+	SpawnActorOnDeath:
+		RequiresCondition: !active
+		Actor: japanharuna.Husk
+	AnnounceOnKill:
+		Voice: Kill
+	GrantPeriodicCondition:
+		RequiresCondition: !extend_time
+		Condition: active
+		CooldownDuration: 1125
+		ActiveDuration: 26
+		ShowSelectionBar: true
+		CooldownColor: 97FFFC
+	GrantPeriodicCondition@extended:
+		RequiresCondition: extend_time
+		Condition: active
+		CooldownDuration: 1500
+		ActiveDuration: 26
+		ShowSelectionBar: true
+		CooldownColor: 97FFFC
+	GrantCondition:
+		RequiresCondition: active
+		Condition: remove_me
+	KillsSelf@active:
+		RequiresCondition: remove_me
+		Delay: 25
+		DamageTypes: RemoveHyperion
+	SpawnActorOnDeath@flyaway:
+		RequiresCondition: remove_me
+		Actor: japanharuna.Leave
+		DeathType: RemoveHyperion
+	DeathSounds:
+		RequiresCondition: !active
+	PortableChrono:
+		ChargeDelay: 325
+		HasDistanceLimit: false
+		FlashScreen: true
+		Voice: Move
+	GrantConditionOnPrerequisite@yamato:
+		Prerequisites: raynor.tier5.hyperion1
+		Condition: enable_yamato
+	GrantConditionOnPrerequisite@time:
+		Prerequisites: raynor.tier5.hyperion2
+		Condition: extend_time
+	GrantConditionOnPrerequisite@botowner:
+		Condition: botowner
+		Prerequisites: ai.all
+	DamageMultiplier@botowner:
+		Modifier: 75
+		RequiresCondition: botowner
+	Targetable@nomind:
+		TargetTypes: NoMindControl
+
+japanharuna.Husk:
+	Inherits: ^PlaneHusk
+	Tooltip:
+		Name: actor-japanharuna-husk-name
+	Aircraft:
+		TurnSpeed: 16
+		Speed: 60
+	WithDamageOverlay@0:
+		Offset: -432,560,0
+		Interval: 2
+		MinimumDamageState: Undamaged
+	WithDamageOverlay@1:
+		Offset: 0,-256,0
+		Interval: 2
+		MinimumDamageState: Undamaged
+	WithDamageOverlay@2:
+		Offset: 512,100,0
+		Interval: 2
+		MinimumDamageState: Undamaged
+	RevealsShroud:
+		Range: 12c0
+		Type: CenterPosition
+	FallsToEarth:
+		Moves: True
+		Velocity: 35
+		Explosion: SkyEmpressCannon
+		MaximumSpinSpeed: 0
+	RenderSprites:
+		Image: japanharuna
+	ShakeOnDeath:
+		Duration: 15
+
+japanharuna.Leave:
+	Inherits: japanharuna
+	RenderSprites:
+		Image: japanharuna
+	RejectsOrders:
+	Aircraft:
+		Speed: 256
+		CruiseAltitude: 8c0
+		LandableTerrainTypes: Clear, ClearSnow, Road, Creep
+		IdleBehavior: LeaveMap
+		AltitudeVelocity: 72
+	Contrail@1:
+		TrailLength: 150
+		StartWidth: 256
+	Contrail@2:
+		TrailLength: 150
+		StartWidth: 256
+	Contrail@3:
+		TrailLength: 150
+		StartWidth: 256
+	Contrail@4:
+		TrailLength: 150
+		StartWidth: 256
+	-GrantPeriodicCondition:
+	-GrantPeriodicCondition@extended:
+	-DeathSounds:
+	-KillsSelf@active:
+	KillsSelf:
+		Delay: 500
+		RemoveInstead: true
+
+japanharuna.Spawn:
+	Inherits: japanharuna.Leave
+	-AttackAircraft:
+	AttackBomber:
+	Aircraft:
+		Speed: 128
+		CruiseAltitude: 2c512
+		IdleBehavior: None
+	Contrail@1:
+		TrailLength: 100
+		StartWidth: 192
+	Contrail@2:
+		TrailLength: 100
+		StartWidth: 192
+	Contrail@3:
+		TrailLength: 100
+		StartWidth: 192
+	Contrail@4:
+		TrailLength: 100
+		StartWidth: 192
+	Armament@1:
+		Weapon: kuruttanekoshot
+	Armament@2:
+		Weapon: strikervxshot
+	Armament@3:
+		Weapon: KingOniInfantryLaser
+	Armament@4:
+		Weapon: KingOniTankLaser
+	Armament@5:
+		Weapon: kusogakishot
+	-Armament@6:
+	AmmoPool:
+		Ammo: 10
+		InitialAmmo: 10
+	GrantConditionOnAttack:
+		Condition: attack
+		RevokeDelay: 9000
+	KillsSelf:
+		Delay: 0
+		RequiresCondition: attack
+		RemoveInstead: false
+	SpawnActorOnDeath:
+		Actor: japanharuna
+	GrantCondition@produce:
+		Condition: produced
