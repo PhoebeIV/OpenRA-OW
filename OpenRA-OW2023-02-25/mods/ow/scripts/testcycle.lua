@@ -80,12 +80,12 @@ Tick = function()
 				local chosenCrate;
 
 				if(pickCrate < 212) then
-					chosenCrate = Powerproxy1 end
-				if(pickCrate > 212 and pickCrate < 351) then
-					chosenCrate = Powerproxy2 end
-				if(pickCrate > 351 and pickCrate < 399) then
-					chosenCrate = Powerproxy3 end
-				if(pickCrate == 400) then
+					chosenCrate = Powerproxy1
+				elseif(pickCrate > 212 and pickCrate < 351) then
+					chosenCrate = Powerproxy2
+				elseif(pickCrate > 351 and pickCrate < 399) then
+					chosenCrate = Powerproxy3
+				else
 					chosenCrate = Powerproxy4 end
 
 				local lz = Map.RandomCell()
