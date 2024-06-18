@@ -26,6 +26,10 @@ actor-prefab-b =
     Power Plant and a Barracks, 5x3
    .name = Prefab: B
 
+actor-bossfaction = 
+   .description = Enables a new faction.
+   .name = Faction
+
 ## ai_veh.yaml
 actor-apc-ai1-description = AI prefilled APC.
 actor-stnk-ai1-description = AI prefilled Raider.
@@ -2723,26 +2727,34 @@ actor-player =
    .providestechprerequisite-boss-name = Boss Mode
    .lobbyprerequisitecheckbox-noboats-label = No Boats
    .lobbyprerequisitecheckbox-noboats-description = Check to disable boats.
+      Naval factions will get access to a different subfaction.
    .lobbyprerequisitecheckbox-bridges-label = Indestructible Bridges
    .lobbyprerequisitecheckbox-bridges-description = Check to disable bridge destruction.
-   .lobbyprerequisitecheckbox-weather-label = Weather (Incomplete)
-   .lobbyprerequisitecheckbox-weather-description = This is incomplete and just enables a permanent lightning storm.
-   .lobbyprerequisitecheckbox-daynight-label = Day/Night Cycle
-   .lobbyprerequisitecheckbox-daynight-description = Enable day/night cycle.
    .lobbyprerequisitecheckbox-noupg-label = No Upgrades
    .lobbyprerequisitecheckbox-noupg-description = Check to disable generalised upgrades. Faction upgrades will remain.
    .lobbyprerequisitecheckbox-gems-label = Gems Everywhere
-   .lobbyprerequisitecheckbox-gems-description = Check to replace Ore mines with Gem mines.
+   .lobbyprerequisitecheckbox-gems-description = Check to replace Ore mines with Gem mines. 
+      Do NOT use with Monoliths Everywhere.
+   .lobbyprerequisitecheckbox-monoliths-label = Monoliths Everywhere
+   .lobbyprerequisitecheckbox-monoliths-description = Check to replace Ore and Gem mines with Monoliths. 
+      Do NOT use with Gems Everywhere.
    .lobbyprerequisitecheckbox-techbuildings-label = Perm Tech Buildings
    .lobbyprerequisitecheckbox-techbuildings-description = Check to allow Tech Buidings to respawn.
    .lobbyprerequisitecheckbox-notib-label = No Tiberium
-   .lobbyprerequisitecheckbox-notib-description = This displeases Kane.
+   .lobbyprerequisitecheckbox-notib-description = Check to disable all Tiberium.
+      This displeases Kane.
    .lobbyprerequisitecheckbox-concrete-label = Concrete
    .lobbyprerequisitecheckbox-concrete-description = Construction Yards will be placed on concrete.
    .lobbyprerequisitecheckbox-herotest-label = Heroes
    .lobbyprerequisitecheckbox-herotest-description = Enables all factions to train Heroes.
    .lobbyprerequisitecheckbox-badcrates-label = Bad Crates
    .lobbyprerequisitecheckbox-badcrates-description = Enable the bad crates.
+   .lobbyprerequisitecheckbox-morecrates-label = More Crates
+   .lobbyprerequisitecheckbox-morecrates-description = Enable more crates to spawn. Uses LUA script.
+   .lobbyprerequisitecheckbox-weather-label = Weather (Incomplete)
+   .lobbyprerequisitecheckbox-weather-description = This is incomplete and just enables a permanent lightning storm. Uses LUA script.
+   .lobbyprerequisitecheckbox-daynight-label = Day/Night Cycle
+   .lobbyprerequisitecheckbox-daynight-description = Enable day/night cycle. Uses LUA script.
 
 ## prereqdefs.yaml
 actor-barracks =
@@ -3370,9 +3382,9 @@ actor-t-miss =
    .airstrikepower-hyperion-select-target-text-notification = Select target.
 
 actor-haxor =
-   .description = Become the Boss, makes your 
+   .description = Become the God AI, makes your 
      structures never targeted by AI.
-   .name = Boss Mode
+   .name = God Mode
    .chronoshiftpower-chronoshift-select-target-text-notification = Select target.
    .chronoshiftpower-chronoshift-insufficient-power-text-notification = Insufficient power.
    .chronoshiftpower-chronoshift-begin-charge-text-notification = Chronosphere charging.
@@ -3385,6 +3397,14 @@ actor-haxor-ai1 =
 actor-haxor-ai2 =
    .description = Debug Mode for AI
    .name = Enable AI Prereqs: Hard
+
+actor-haxor-ai3 =
+   .description = Debug Mode for AI (Faction Upgrades)
+   .name = Enable AI Prereqs: Boss 
+
+actor-haxor-ai3b =
+   .description = Debug Mode for AI (Subfaction Upgrades)
+   .name = Enable AI Prereqs: Boss 
 
 actor-pbox-teleport =
    .description = For testing purposes
@@ -4490,6 +4510,25 @@ actor-upgrade-navfirepower2 =
 actor-upgrade-navfirepower3 =
    .name = Naval Weapons Upgrade III
    .description = Improve naval weapon damage by 45%
+
+actor-upgrade-shieldarmor1 =
+   .name = Plasma Shields Upgrade I
+   .description = Improve shield health 15% and
+      regeneration by 33%
+
+actor-upgrade-shieldarmor2 =
+   .name = Plasma Shields Upgrade II
+   .description = Improve shield health 30% and
+      regeneration by 66%
+
+actor-upgrade-shieldarmor3 =
+   .name = Plasma Shields Upgrade III
+   .description = Improve shield health 45% and
+      regeneration by 100%
+
+actor-techlevelshields =
+   .name = Tech: Shields
+   .description = An upgrade that enables or upgrades shields.
 
 ## usa_air.yaml
 actor-usachinook =

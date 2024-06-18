@@ -1228,15 +1228,6 @@ HAXOR.AI1:
 		Name: actor-haxor-ai1.name
 	RenderSprites:
 		Image: POWR
-	GrantConditionOnDeploy@ai:
-		DeployedCondition: enable_ai
-		UndeployedCondition:
-	ProvidesPrerequisite@aienable:
-		RequiresCondition: enable_ai
-		Prerequisite: ai.enable
-	ProvidesPrerequisite@aienable2:
-		RequiresCondition: enable_ai
-		Prerequisite: ai.enable_med
 	-ProvidesPrerequisite:
 
 HAXOR.AI2:
@@ -1257,18 +1248,46 @@ HAXOR.AI2:
 		Name: actor-haxor-ai2.name
 	RenderSprites:
 		Image: POWR
-	GrantConditionOnDeploy@ai:
-		DeployedCondition: enable_ai
-		UndeployedCondition:
-	ProvidesPrerequisite@aienable:
-		RequiresCondition: enable_ai
-		Prerequisite: ai.enable
-	ProvidesPrerequisite@aienable2:
-		RequiresCondition: enable_ai
-		Prerequisite: ai.enable_hard
 	-ProvidesPrerequisite:
 
 
+HAXOR.AI3:
+	Inherits: POWR
+	Buildable:
+		Prerequisites: ~disabled
+		Queue: Wall
+		BuildPaletteOrder: 3
+		Description: actor-haxor-ai3.description
+	ProvidesPrerequisite@bossmode:
+		Prerequisite: ai.realboss
+	ProvidesPrerequisite@bossmode2:
+		Prerequisite: ai.all
+	Tooltip:
+		Name: actor-haxor-ai3.name
+	RenderSprites:
+		Image: POWR
+	ProductionQueue:
+		Type: BossFaction
+		Group: Upgrade
+		DisplayOrder: 10
+		LowPowerModifier: 100
+	Production:
+		Produces: BossFaction
+	-ProvidesPrerequisite:
+
+HAXOR.AI3b:
+	Inherits: HAXOR.AI3
+	Buildable:
+		Description: actor-haxor-ai3b.description
+	Tooltip:
+		Name: actor-haxor-ai3b.name
+	ProductionQueue:
+		Type: UpgradeBot
+		Group: Upgrade
+		DisplayOrder: 10
+		LowPowerModifier: 100
+	Production:
+		Produces: UpgradeBot
 
 PBOX.Teleport:
 	Inherits: ^Building

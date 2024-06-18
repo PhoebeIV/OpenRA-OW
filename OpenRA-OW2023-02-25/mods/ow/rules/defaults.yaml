@@ -323,7 +323,7 @@
 		MaxStrength: -1
 		RegenAmount: 350
 		RegenInterval: 20
-		RegenDelay: 125
+		RegenDelay: 100
 		SelectionBarColor: AAAAFF
 		ShieldsUpCondition: shielded
 		ShieldsDamagedCondition: damaged_shield
@@ -371,6 +371,33 @@
 	GrantConditionOnPrerequisite@fedshields:
 		Prerequisites: fed.shields, ulttechcenter
 		Condition: external_shield
+	GrantConditionOnPrerequisite@sar1:
+		Prerequisites: upgrade.shieldarmor1
+		Condition: sar1
+	GrantConditionOnPrerequisite@sar2:
+		Prerequisites: upgrade.shieldarmor2
+		Condition: sar2
+	GrantConditionOnPrerequisite@sar3:
+		Prerequisites: upgrade.shieldarmor3
+		Condition: sar3
+	DamageMultiplier@sar1:
+		RequiresCondition: sar1 && (!sar2 && shielded)
+		Modifier: 85
+	DamageMultiplier@sar2:
+		RequiresCondition: sar2 && (!sar3 && shielded)
+		Modifier: 70
+	DamageMultiplier@sar3:
+		RequiresCondition: sar3 && shielded
+		Modifier: 55
+	ShieldRegenMultiplier@sar1:
+		Modifier: 90
+		RequiresCondition: sar1 && !sar2
+	ShieldRegenMultiplier@sar2:
+		Modifier: 80
+		RequiresCondition: sar2 && !sar3
+	ShieldRegenMultiplier@sar3:
+		Modifier: 70
+		RequiresCondition: sar3
 
 # Default actor type to allow boosts received from the France AEIOU unit
 # This also enables the Allied training upgrade to work, and Communications Center tech building passive effect.
@@ -1160,13 +1187,13 @@
 		Prerequisites: upgrade.buildarmor3
 		Condition: bar3
 	DamageMultiplier@bar1:
-		RequiresCondition: bar1 && (!bar2 && !corrode && !defiler_plague)
+		RequiresCondition: bar1 && (!bar2 && !corrode && !defiler_plague && !shielded)
 		Modifier: 80
 	DamageMultiplier@bar2:
-		RequiresCondition: bar2 && (!bar3 && !corrode && !defiler_plague)
+		RequiresCondition: bar2 && (!bar3 && !corrode && !defiler_plague && !shielded)
 		Modifier: 60
 	DamageMultiplier@bar3:
-		RequiresCondition: bar3 && (!corrode && !defiler_plague)
+		RequiresCondition: bar3 && (!corrode && !defiler_plague && !shielded)
 		Modifier: 40
 	SpawnActorsOnSell:
 		Factions: england, germany, france, russia, ukraine, estonia, gdi, steel, zocom, gdi3, nod, marked, bhand, nod3, hitler, himmler, heydrich
@@ -1229,7 +1256,7 @@
 		Prerequisites: zagara.tier5.fortress
 		Condition: zagara_fortress
 	DamageMultiplier@sovietiron:
-		RequiresCondition: soviet_iron || zagara_fortress
+		RequiresCondition: (soviet_iron || zagara_fortress) && !shielded
 		Modifier: 80
 	GrantConditionOnPrerequisite@gapgen1:
 		Prerequisites: ulttech.france
@@ -1497,13 +1524,13 @@
 		Prerequisites: upgrade.vehfirepower3
 		Condition: vfp3
 	DamageMultiplier@var1:
-		RequiresCondition: var1 && (!var2 && !corrode && !defiler_plague)
+		RequiresCondition: var1 && (!var2 && !corrode && !defiler_plague && !shielded)
 		Modifier: 85
 	DamageMultiplier@var2:
-		RequiresCondition: var2 && (!var3 && !corrode && !defiler_plague)
+		RequiresCondition: var2 && (!var3 && !corrode && !defiler_plague && !shielded)
 		Modifier: 70
 	DamageMultiplier@var3:
-		RequiresCondition: var3 && (!corrode && !defiler_plague)
+		RequiresCondition: var3 && (!corrode && !defiler_plague && !shielded)
 		Modifier: 55
 	FirepowerMultiplier@vfp1:
 		RequiresCondition: vfp1 && !vfp2
@@ -1607,8 +1634,11 @@
 	GrantConditionOnPrerequisite@terranarmor:
 		Prerequisites: terran.armor
 		Condition: soviet_iron
+	GrantConditionOnPrerequisite@sovietarmor:
+		Prerequisites: soviet.iron
+		Condition: soviet_iron
 	DamageMultiplier@sovietiron:
-		RequiresCondition: soviet_iron
+		RequiresCondition: soviet_iron && !shielded
 		Modifier: 80
 	TeleportNetworkTransportable:
 	EligibleForRandomActorCrate:
@@ -1681,13 +1711,13 @@
 		Prerequisites: upgrade.navfirepower3
 		Condition: nfp3
 	DamageMultiplier@nar1:
-		RequiresCondition: nar1 && (!nar2 && !corrode && !defiler_plague)
+		RequiresCondition: nar1 && (!nar2 && !corrode && !defiler_plague && !shielded)
 		Modifier: 85
 	DamageMultiplier@nar2:
-		RequiresCondition: nar2 && (!nar3 && !corrode && !defiler_plague)
+		RequiresCondition: nar2 && (!nar3 && !corrode && !defiler_plague && !shielded)
 		Modifier: 70
 	DamageMultiplier@nar3:
-		RequiresCondition: nar3 && (!corrode && !defiler_plague)
+		RequiresCondition: nar3 && (!corrode && !defiler_plague && !shielded)
 		Modifier: 55
 	FirepowerMultiplier@nfp1:
 		RequiresCondition: nfp1 && !nfp2
@@ -1720,6 +1750,8 @@
 	Inherits@propagandaboost: ^propagandaboost
 	Inherits@frenzyboost: ^FrenzyBoost
 	Inherits@shields: ^AcceptsShields
+	Shielded:
+		RegenInterval: 15
 	Repairable:
 		RepairActors: fix, gfix, gfix.boss, tshop
 	RevealOnFire:
@@ -1760,13 +1792,13 @@
 		Prerequisites: upgrade.airfirepower3
 		Condition: afp3
 	DamageMultiplier@aar1:
-		RequiresCondition: aar1 && !aar2
+		RequiresCondition: aar1 && (!aar2 && !corrode && !defiler_plague && !shielded)
 		Modifier: 82
 	DamageMultiplier@nar2:
-		RequiresCondition: aar2 && !aar3
+		RequiresCondition: aar2 && (!aar3 && !corrode && !defiler_plague && !shielded)
 		Modifier: 64
 	DamageMultiplier@nar3:
-		RequiresCondition: aar3
+		RequiresCondition: aar3 && (!corrode && !defiler_plague && !shielded)
 		Modifier: 48
 	FirepowerMultiplier@nfp1:
 		RequiresCondition: afp1 && !afp2
@@ -1827,8 +1859,9 @@
 		Prerequisites: soviet.iron
 		Condition: soviet_iron
 	DamageMultiplier@sovietiron:
-		RequiresCondition: soviet_iron
+		RequiresCondition: soviet_iron && !shielded
 		Modifier: 75
+	-SpeedMultiplier@creep:
 	Rearmable:
 		RearmActors: hpad, hpad.bot, afld, afld.ukraine, usaairfield, usaairstriplandingspot, chinaairfield, japanairfield, japanairfieldnavy, pstarg, tsport, tsport.landed, zspire, zspire.spot, avpad
 
@@ -3001,6 +3034,12 @@
 	HiddenUnderShroud:
 		AlwaysVisibleRelationships: Ally, Enemy, Neutral
 		Type: CenterPosition
+	GrantConditionOnPrerequisite@tiberim:
+		Prerequisites: techlevel.monoliths
+		Condition: monoliths
+	DamageMultiplier@tiberium:
+		RequiresCondition: monoliths
+		Modifier: 1
 
 
 # Inherited and changed from mods/ra so that the tree can be removed with an external condition, and targeted as a normal GroundActor

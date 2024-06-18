@@ -22,6 +22,8 @@
 ^ZergBuilding:
 	Inherits: ^Building
 	Inherits@regen: ^ZergRegen
+	Targetable@REPAIR:
+		TargetTypes: StructureRepair, Heal
 	GrantConditionOnDamageState@blood1:
 		Condition: damaged
 		ValidDamageStates: Medium, Heavy, Critical
@@ -325,7 +327,7 @@ ZHATCHERY:
 	Buildable:
 		Queue: Building
 		BuildPaletteOrder: 1000
-		Prerequisites: zhydraden, ~ai.hard
+		Prerequisites: factory, ~structures.zerg, ~ai.hard
 		Description: actor-zhatchery.description
 		BuildLimit: 3
 	Health:
@@ -1105,6 +1107,9 @@ ZHYDRADEN:
 		DeathSequence: dead
 		UseDeathTypeSuffix: false
 	ProvidesPrerequisite@buildingname:
+	ProvidesPrerequisite@factory:
+		Prerequisite: factory
+		RequiresPrerequisites: ai.hard
 	WithIdleOverlay@damage:
 		RequiresCondition: damaged
 		Sequence: blood2

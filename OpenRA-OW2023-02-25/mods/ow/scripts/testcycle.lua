@@ -69,6 +69,33 @@ Tick = function()
 			Media.PlaySound("thunder-ambient.aud")
 		end
 	end
+
+	if (Creeps.HasPrerequisites({"environment.morecrates"})) then
+		CrateTicks = CrateTicks+1
+		if(CrateTicks > CrateTimer) then
+			local i = 0
+			local crateCount = Utils.RandomInteger(2, 5)
+			while(i < crateCount) do
+				local pickCrate = Utils.RandomInteger(1, 400)
+				local chosenCrate;
+
+				if(pickCrate < 212) then
+					chosenCrate = Powerproxy1
+				elseif(pickCrate > 212 and pickCrate < 351) then
+					chosenCrate = Powerproxy2
+				elseif(pickCrate > 351 and pickCrate < 399) then
+					chosenCrate = Powerproxy3
+				else
+					chosenCrate = Powerproxy4 end
+
+				local lz = Map.RandomCell()
+				chosenCrate.TargetParatroopers(Map.CenterOfCell(lz))
+				i=i+1
+			end
+			CrateTicks = 0
+			print("Paradropping "..crateCount.." extra crates...")
+		end
+	end
 end
 Time = 0
 
@@ -85,6 +112,9 @@ DaylightAmbient = 1.0
 SunRise = 30000
 SunSet = 15000
 
+CrateTicks = 0
+CrateTimer = 3000
+
 DoStrike = function()
 	Reinforcements.Reinforce(Creeps, {"1tnk.lightning"}, {Map.RandomCell()}, 1)
 end
@@ -92,21 +122,26 @@ end
 SpawnWaterDerricks = function(amount)
 	local i = 0;
 	local attempts = 0;
-	local count;
 	while (i < amount and attempts < 100) do
 		NewCell = Map.RandomCell()
 		if(Map.TerrainType(NewCell) == "Water") then
 			Reinforcements.Reinforce(Neutral, {"japanoilderrick.cr"}, {NewCell}, 1)
 			i = i+1;
 		end
-		print(i..amount)
 		attempts = attempts+1;
 	end
+	print("Placed "..i.." oil derricks after "..attempts.." attempts")
 end
 
 WorldLoaded = function()
 	Neutral = Player.GetPlayer("Neutral")
 	Creeps = Player.GetPlayer("Creeps")
+
+	Powerproxy1 = Actor.Create("powerproxy.cratedrop1", false, { Owner = Neutral })
+	Powerproxy2 = Actor.Create("powerproxy.cratedrop2", false, { Owner = Neutral })
+	Powerproxy3 = Actor.Create("powerproxy.cratedrop3", false, { Owner = Neutral })
+	Powerproxy4 = Actor.Create("powerproxy.cratedrop4", false, { Owner = Neutral })
+
 	if (Creeps.HasPrerequisites({"environment.days"})) then
 		Time = Utils.RandomInteger(0, SunRise)
 		if (Time >= SunSet) then

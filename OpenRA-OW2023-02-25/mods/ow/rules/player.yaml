@@ -110,11 +110,16 @@ Player:
 		OnHoldAudio: OnHold
 		CancelledAudio: Cancelled
 		SpeedUp: True
-		BuildTimeSpeedReduction: 100, 100, 100, 150, 175, 200
+		BuildTimeSpeedReduction: 100, 100, 100, 125, 150, 175, 200
 	ClassicProductionQueue@UpgradeBot:
 		Type: UpgradeBot
 		DisplayOrder: 10
 		LowPowerModifier: 300
+		SpeedUp: False
+	ClassicProductionQueue@BossFaction:
+		Type: BossFaction
+		DisplayOrder: 10
+		LowPowerModifier: 100
 		SpeedUp: False
 	ClassicProductionQueue@Bot:
 		Type: Bot
@@ -154,69 +159,83 @@ Player:
 		Enabled: False
 		DisplayOrder: 10
 		Prerequisites: explodebridges
-	LobbyPrerequisiteCheckbox@weather:
-		ID: enviro1
-		Label: actor-player.lobbyprerequisitecheckbox-weather-label
-		Description: actor-player.lobbyprerequisitecheckbox-weather-description
-		Enabled: false
-		DisplayOrder: 12
-		Prerequisites: environment.weather
-	LobbyPrerequisiteCheckbox@daynight:
-		ID: enviro2
-		Label: actor-player.lobbyprerequisitecheckbox-daynight-label
-		Description: actor-player.lobbyprerequisitecheckbox-daynight-description
-		Enabled: true
-		DisplayOrder: 13
-		Prerequisites: environment.days
 	LobbyPrerequisiteCheckbox@noupg:
 		ID: noupgrades
 		Label: actor-player.lobbyprerequisitecheckbox-noupg-label
 		Description: actor-player.lobbyprerequisitecheckbox-noupg-description
 		Enabled: False
-		DisplayOrder: 14
+		DisplayOrder: 11
 		Prerequisites: techlevel.noupgrades
+	LobbyPrerequisiteCheckbox@herotest:
+		ID: herotest
+		Label: actor-player.lobbyprerequisitecheckbox-herotest-label
+		Description: actor-player.lobbyprerequisitecheckbox-herotest-description
+		Enabled: true
+		DisplayOrder: 12
+		Prerequisites: techlevel.hero
 	LobbyPrerequisiteCheckbox@gems:
 		ID: upgrademines
 		Label: actor-player.lobbyprerequisitecheckbox-gems-label
 		Description: actor-player.lobbyprerequisitecheckbox-gems-description
 		Enabled: False
-		DisplayOrder: 15
+		DisplayOrder: 13
 		Prerequisites: techlevel.gems
+	LobbyPrerequisiteCheckbox@monoliths:
+		ID: upgrademines2
+		Label: actor-player.lobbyprerequisitecheckbox-monoliths-label
+		Description: actor-player.lobbyprerequisitecheckbox-monoliths-description
+		Enabled: False
+		DisplayOrder: 14
+		Prerequisites: techlevel.monoliths
 	LobbyPrerequisiteCheckbox@techbuildings:
 		ID: techbuildings
 		Label: actor-player.lobbyprerequisitecheckbox-techbuildings-label
 		Description: actor-player.lobbyprerequisitecheckbox-techbuildings-description
 		Enabled: True
-		DisplayOrder: 16
+		DisplayOrder: 15
 		Prerequisites: techlevel.techrespamn
 	LobbyPrerequisiteCheckbox@notib:
 		ID: notib
 		Label: actor-player.lobbyprerequisitecheckbox-notib-label
 		Description: actor-player.lobbyprerequisitecheckbox-notib-description
 		Enabled: false
-		DisplayOrder: 17
+		DisplayOrder: 16
 		Prerequisites: techlevel.tibremove
 	LobbyPrerequisiteCheckbox@concrete:
 		ID: concrete
 		Label: actor-player.lobbyprerequisitecheckbox-concrete-label
 		Description: actor-player.lobbyprerequisitecheckbox-concrete-description
 		Enabled: false
-		DisplayOrder: 18
+		DisplayOrder: 17
 		Prerequisites: techlevel.pavement
-	LobbyPrerequisiteCheckbox@herotest:
-		ID: herotest
-		Label: actor-player.lobbyprerequisitecheckbox-herotest-label
-		Description: actor-player.lobbyprerequisitecheckbox-herotest-description
-		Enabled: true
-		DisplayOrder: 19
-		Prerequisites: techlevel.hero
 	LobbyPrerequisiteCheckbox@badcrates:
 		ID: badcrates
 		Label: actor-player.lobbyprerequisitecheckbox-badcrates-label
 		Description: actor-player.lobbyprerequisitecheckbox-badcrates-description
 		Enabled: true
-		DisplayOrder: 20
+		DisplayOrder: 18
 		Prerequisites: environment.badcrates
+	LobbyPrerequisiteCheckbox@morecrates:
+		ID: morecrates
+		Label: actor-player.lobbyprerequisitecheckbox-morecrates-label
+		Description: actor-player.lobbyprerequisitecheckbox-morecrates-description
+		Enabled: false
+		DisplayOrder: 19
+		Prerequisites: environment.morecrates
+	LobbyPrerequisiteCheckbox@weather:
+		ID: enviro1
+		Label: actor-player.lobbyprerequisitecheckbox-weather-label
+		Description: actor-player.lobbyprerequisitecheckbox-weather-description
+		Enabled: false
+		DisplayOrder: 20
+		Prerequisites: environment.weather
+	LobbyPrerequisiteCheckbox@daynight:
+		ID: enviro2
+		Label: actor-player.lobbyprerequisitecheckbox-daynight-label
+		Description: actor-player.lobbyprerequisitecheckbox-daynight-description
+		Enabled: true
+		DisplayOrder: 21
+		Prerequisites: environment.days
 	PlayerResources:
 		SelectableCash: 5000, 10000, 20000, 25000, 30000, 40000, 50000, 100000, 10000000
 		DefaultCash: 10000

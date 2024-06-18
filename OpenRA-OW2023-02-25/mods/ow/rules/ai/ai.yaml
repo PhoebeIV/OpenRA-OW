@@ -1,7 +1,7 @@
 ^Building:
 	GrantConditionOnBotOwner@bot:
 		Condition: botowner
-		Bots: easy,medium,hard,hard_b,harder,boss
+		Bots: easy,medium,hard,hard_b,harder,boss,boss2
 	GrantConditionOnPrerequisite@botowner:
 		Condition: botowner
 		Prerequisites: ai.all
@@ -159,8 +159,11 @@ Player:
 	ModularBot@HarderAI:
 		Name: Harder
 		Type: harder
-	ModularBot@BossAI:
+	ModularBot@RealBossAI:
 		Name: Boss
+		Type: boss2
+	ModularBot@BossAI:
+		Name: God
 		Type: boss
 	ModularBot@Hard1AI:
 		Name: Tech Rusher
@@ -180,6 +183,9 @@ Player:
 	ProvidesPrerequisite@harder:
 		RequiresCondition: enable-harder-ai || enable-boss-ai
 		Prerequisite: ai.harder
+	ProvidesPrerequisite@realboss:
+		RequiresCondition: enable-realboss-ai
+		Prerequisite: ai.realboss
 	ProvidesPrerequisite@boss:
 		RequiresCondition: enable-boss-ai
 		Prerequisite: ai.boss
@@ -203,16 +209,19 @@ Player:
 		Bots: easy
 	GrantConditionOnBotOwner@hard:
 		Condition: enable-hard-ai
-		Bots: hard,harder,hard_b
+		Bots: hard,harder,hard_b,boss2
 	GrantConditionOnBotOwner@harder:
 		Condition: enable-harder-ai
-		Bots: harder
+		Bots: harder,boss2
 	GrantConditionOnBotOwner@boss:
 		Condition: enable-boss-ai
 		Bots: boss
+	GrantConditionOnBotOwner@realboss:
+		Condition: enable-realboss-ai
+		Bots: boss2
 	GrantConditionOnBotOwner@all:
 		Condition: enable-all-ai
-		Bots: easy, medium, hard, harder, boss, hard_b
+		Bots: easy, medium, hard, harder, boss, boss2, hard_b
 	GrantConditionOnFaction@medi:
 		Condition: enable-medi-ai
 		Factions: zerg, infantry, zagara, kerrigan
@@ -285,7 +294,7 @@ Player:
 		ExcessPowerIncreaseThreshold: 4
 		StructureProductionInactiveDelay: 100
 		MaximumFailedPlacementAttempts: 5
-		BuildingQueues: Building, Tech, Upgrade, UpgradeBot, Bot, Wall, Building.ZergColony, Nuke, HeroUpgrade1, HeroUpgrade2, HeroUpgrade3, HeroUpgrade4, HeroUpgrade5, HeroAbility, AvaliCarrier
+		BuildingQueues: Building, Tech, Upgrade, UpgradeBot, BossFaction, Bot, Wall, Building.ZergColony, Nuke, HeroUpgrade1, HeroUpgrade2, HeroUpgrade3, HeroUpgrade4, HeroUpgrade5, HeroAbility, AvaliCarrier
 		DefenseQueues: Defense, HeroAbility
 		ConstructionYardTypes: fact, factd, gfact, zhatchery, pnexus, tcommand, tcommand.landed, tcommand.ai, avfact
 		RefineryTypes: proc, procd, gproc, passim, zextrac, usasupplycenter, trefinery, chinasupplycenter, barr.boss, japansupplycenter, avproc, japansupplycenternavy
@@ -819,6 +828,9 @@ Player:
 			upgrade.buildfirepower1: 10
 			upgrade.buildfirepower2: 6
 			upgrade.buildfirepower3: 2
+			upgrade.shieldarmor1: 10
+			upgrade.shieldarmor2: 6
+			upgrade.shieldarmor3: 2
 			upgrade.coldreactor: 15
 			upgrade.coldreactoradvanced: 4
 			upgrade.aircraftgeneral: 10
@@ -893,6 +905,49 @@ Player:
 			terran.armor: 200
 			terran.structure: 200
 			fed.shields: 200
+			bossfaction.gdi: 1
+			bossfaction.nod: 1
+			bossfaction.usa: 1
+			bossfaction.china: 1
+			bossfaction.uac: 1
+			bossfaction.phobos: 1
+			bossfaction.deimos: 1
+			bossfaction.mars: 1
+			bossfaction.soviet: 1
+			bossfaction.russia: 1
+			bossfaction.ukraine: 1
+			bossfaction.estonia: 1
+			bossfaction.allies: 1
+			bossfaction.england: 1
+			bossfaction.france: 1
+			bossfaction.germany: 1
+			bossfaction.forgotten: 1
+			bossfaction.nazi: 1
+			bossfaction.himmler: 1
+			bossfaction.hitler: 1
+			bossfaction.heydrich: 1
+			bossfaction.fed: 1
+			bossfaction.angels: 1
+			bossfaction.sword: 1
+			bossfaction.silver: 1
+			bossfaction.gla: 1
+			bossfaction.kassad: 1
+			bossfaction.thrax: 1
+			bossfaction.demo: 1
+			bossfaction.japan: 1
+			bossfaction.mecha: 1
+			bossfaction.economic: 1
+			bossfaction.navy: 1
+			bossfaction.avalon: 1
+			bossfaction.protoss: 1
+			bossfaction.artanis: 1
+			bossfaction.vorazun: 1
+			bossfaction.terran: 1
+			bossfaction.mengsk: 1
+			bossfaction.raynor: 1
+			bossfaction.zerg: 1
+			bossfaction.kerrigan: 1
+			bossfaction.zagara: 1
 			raynor.tier1.fastupgrade1: 1
 			raynor.tier1.fastupgrade2: 1
 			raynor.tier2.firespeed: 1
@@ -983,7 +1038,7 @@ Player:
 			upgrade.buildfirepower2: 10000
 			dome: 4500
 			hqd: 4500
-			pbox.boss: 6000
+			pbox.boss: 9000
 	MinelayerBotModule:
 		RequiresCondition: enable-medium-ai || enable-hard-ai
 		MinelayingActorTypes: mnly, mnly.g, lst2, tvult, tvult.raynor
