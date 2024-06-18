@@ -26,3 +26,173 @@ FBUS.Bot:
 	SpawnActorOnDeath@dog:
 		Actor: frgdog
 		Probability: 60
+
+MLRSD:
+	Inherits: ^Vehicle
+	Inherits@EXPERIENCE: ^GainsExperience
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Tooltip:
+		Name: actor-mlrs.name
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Buildable:
+		BuildPaletteOrder: 115
+		Prerequisites: radar, ~vehicles.forgotten, ~techlevel.medium
+		Queue: Vehicle
+		Description: actor-mlrs.description
+	Valued:
+		Cost: 950
+	Mobile:
+		Speed: 92
+		TurnSpeed: 28
+	Health:
+		HP: 18000
+	Armor:
+		Type: Light
+	RevealsShroud:
+		MinRange: 4c0
+		Range: 5c0
+		RevealGeneratedShroud: False
+	Turreted:
+		TurnSpeed: 32
+		Offset: -128,0,128
+		RealignDelay: 0
+	Armament:
+		Weapon: MLRSMissile
+		FireDelay: 2
+		LocalOffset: 0,-171,0, 0,171,0
+	AmmoPool:
+		Ammo: 2
+		AmmoCondition: ammo
+	AttackTurreted:
+		PauseOnCondition: disabled
+	WithSpriteTurret:
+		RequiresCondition: ammo > 1
+	WithSpriteTurret@OneMissile:
+		RequiresCondition: ammo == 1
+		Sequence: turret1
+	WithSpriteTurret@NoMissiles:
+		RequiresCondition: !ammo
+		Sequence: turret0
+	AutoTarget:
+		InitialStanceAI: Defend
+	RenderRangeCircle:
+	SpawnActorOnDeath:
+		Actor: MLRSD.Husk
+		OwnerType: InternalName
+		EffectiveOwnerFromOwner: true
+	ReloadAmmoPool:
+		Delay: 125
+		Count: 1
+
+FMETEOR.1:
+	Inherits: ^NeutralPlane
+	-Targetable@GROUND:
+	-Targetable@AIRBORNE:
+	-Targetable@REPAIR:
+	Health:
+		HP: 5
+	Aircraft:
+		TurnSpeed: 20
+		Speed: 50
+		CruiseAltitude: 32c0
+		AltitudeVelocity: 128
+		MaximumPitch: 110
+		VTOL: true
+		LandableTerrainTypes: Rock, River, Clear, ClearSnow, Road, Creep, Bridge, Water, Ore, Gems, Rough, Tiberium, BlueTiberium, Radiation, Beach
+		Crushes: crate, mine, infantry, wall
+	WithMuzzleOverlay:
+	-ActorLostNotification:
+	-UpdatesPlayerStatistics:
+	-AppearsOnRadar:
+	-Selectable:
+	AttackAircraft:
+	Armament:
+		Weapon: TerranGoliath
+	RejectsOrders:
+	-SpawnActorOnDeath:
+	FallsToEarth:
+		Explosion: MeteorExplosionLarge
+		Moves: true
+		Velocity: 256
+		MaximumSpinSpeed: 0
+	AmbientSound@airborne:
+		SoundFiles: meteor1.aud, meteor2.aud, baud.aud
+		Interval: 9000
+		Delay: 0,50
+	-EjectOnDeath:
+	-WithFacingSpriteBody:
+	-SelectionDecorations:
+	-Tooltip:
+	WithSpriteBody:
+		RequiresCondition: !random_delay
+	ThrowsShrapnel:
+		Weapons: MeteorShrapnel
+		Pieces: 5,9
+		Range: 3c0, 9c0
+	LeavesTrails:
+		Offsets: -256,0,171, -172,0,171, -128,0,171, -64,0,171, -256,-128,171, -172,-64,171, -128,64,171, -64,128,171
+		MovingInterval: 2
+		Image: smokey
+		SpawnAtLastPosition: False
+		Type: CenterPosition
+	RenderSprites:
+		Image: metlarge
+		Palette: tseffect
+
+FMETEOR.2:
+	Inherits: FMETEOR.1
+	FallsToEarth:
+		Velocity: 288
+
+FMETEOR.3:
+	Inherits: FMETEOR.1
+	FallsToEarth:
+		Velocity: 320
+
+FMETEOR.4:
+	Inherits: FMETEOR.1
+	FallsToEarth:
+		Velocity: 352
+	RenderSprites:
+		Image: metsmall
+	FallsToEarth:
+		Explosion: MeteorExplosionSmall
+	ThrowsShrapnel:
+		Weapons: MeteorShrapnel
+		Pieces: 1,5
+
+FMETEOR.5:
+	Inherits: FMETEOR.4
+	FallsToEarth:
+		Velocity: 384
+
+FMETEOR.6:
+	Inherits: FMETEOR.4
+	FallsToEarth:
+		Velocity: 416
+
+FMETEOR.7:
+	Inherits: FMETEOR.4
+	FallsToEarth:
+		Velocity: 448
+
+FMETEOR.8:
+	Inherits: FMETEOR.4
+	FallsToEarth:
+		Velocity: 480
+
+FMETEOR.9:
+	Inherits: FMETEOR.4
+	FallsToEarth:
+		Velocity: 512
+
+FMETEOR.10:
+	Inherits: FMETEOR.4
+	FallsToEarth:
+		Velocity: 544
+
+FMETEOR.11:
+	Inherits: FMETEOR.4
+	FallsToEarth:
+		Velocity: 576

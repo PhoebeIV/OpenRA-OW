@@ -1585,7 +1585,7 @@ actor-sstorm =
       Special Ability: Scud Storm
 
 actor-sstorm-hole-name = GLA Hole (Scud Storm)
-actor-gmiss-hole-name = GLA Hole (EpiTech Centre)
+actor-gmiss-hole-name = GLA Hole (Super Tech Centre)
 
 actor-gblk =
    .description = Provides steady income for the GLA.
@@ -3879,7 +3879,7 @@ actor-traynor =
     Equipped with Stimpacks and a squad booster.
    .name = Jim Raynor
 
-actor-active-raynor-name = EpiTech Center
+actor-active-raynor-name = Super Tech Center
 
 actor-traynor-hero0 =
    .description = [HERO]
@@ -5801,6 +5801,11 @@ actor-treepro =
 actor-forgtek =
    .description = Provides stolen advanced technologies.
    .name = Forgotten Tech Center
+
+actor-mlrs =
+   .name = S.S.M. Launcher
+   .description = Artillery.
+    Strong vs ground units, defenses.
 
 actor-lstharv =
    .name = Oil Collector

@@ -233,6 +233,9 @@ T.MISS:
 	ProvidesPrerequisite@vorazun:
 		Factions: vorazun
 		Prerequisite: ulttech.vorazun
+	ProvidesPrerequisite@forgotten:
+		Factions: forgotten
+		Prerequisite: ulttech.forgotten
 	ProvidesPrerequisite@structuresallies:
 		RequiresPrerequisites: structures.allies
 		Prerequisite: ulttech.allies
@@ -359,6 +362,9 @@ T.MISS:
 	ProvidesPrerequisite@structuresvorazun:
 		RequiresPrerequisites: structures.vorazun
 		Prerequisite: ulttech.vorazun
+	ProvidesPrerequisite@structuresforgotten:
+		RequiresPrerequisites: structures.forgotten
+		Prerequisite: ulttech.forgotten
 	AirstrikePower@himmlerbomb:
 		PauseOnCondition: disabled
 		OrderName: EpicHimmler1
@@ -574,7 +580,6 @@ T.MISS:
 		CircleSequence: circles
 		UseDirectionalTarget: True
 		DirectionArrowAnimation: paradirection
-		SupportPowerPaletteOrder: 50
 	ParatroopersPower@alliestanks:
 		OrderName: ParatankAllies
 		Prerequisites: ulttech.allies
@@ -596,7 +601,6 @@ T.MISS:
 		CircleSequence: circles
 		UseDirectionalTarget: True
 		DirectionArrowAnimation: paradirection
-		SupportPowerPaletteOrder: 50
 		SquadSize: 2
 	ParatroopersPower@gditanks:
 		OrderName: ParatankGDI
@@ -619,7 +623,6 @@ T.MISS:
 		CircleSequence: circles
 		UseDirectionalTarget: True
 		DirectionArrowAnimation: paradirection
-		SupportPowerPaletteOrder: 50
 	ParatroopersPower@gdimechs:
 		OrderName: ParamechGDI
 		Prerequisites: ulttech.steel
@@ -641,7 +644,6 @@ T.MISS:
 		CircleSequence: circles
 		UseDirectionalTarget: True
 		DirectionArrowAnimation: paradirection
-		SupportPowerPaletteOrder: 50
 	ParatroopersPower@deadsix:
 		OrderName: DeadSix
 		Prerequisites: ulttech.gdi, !gdi.deadsix
@@ -685,7 +687,6 @@ T.MISS:
 		CircleSequence: circles
 		UseDirectionalTarget: True
 		DirectionArrowAnimation: paradirection
-		SupportPowerPaletteOrder: 50
 		SquadSize: 2
 	ParatroopersPower@fedtanks:
 		OrderName: ParatankFed
@@ -708,7 +709,6 @@ T.MISS:
 		CircleSequence: circles
 		UseDirectionalTarget: True
 		DirectionArrowAnimation: paradirection
-		SupportPowerPaletteOrder: 50
 		SquadSize: 2
 	ParatroopersPower@uactanks:
 		OrderName: ParatankUAC
@@ -731,7 +731,6 @@ T.MISS:
 		CircleSequence: circles
 		UseDirectionalTarget: True
 		DirectionArrowAnimation: paradirection
-		SupportPowerPaletteOrder: 50
 	ParatroopersPower@nazitanks:
 		OrderName: ParatankNazi
 		Prerequisites: ulttech.nazi
@@ -753,7 +752,6 @@ T.MISS:
 		CircleSequence: circles
 		UseDirectionalTarget: True
 		DirectionArrowAnimation: paradirection
-		SupportPowerPaletteOrder: 50
 	ParatroopersPower@glatanks:
 		OrderName: ParatankGLA
 		Prerequisites: ulttech.gla
@@ -775,7 +773,6 @@ T.MISS:
 		CircleSequence: circles
 		UseDirectionalTarget: True
 		DirectionArrowAnimation: paradirection
-		SupportPowerPaletteOrder: 50
 		SquadSize: 2
 	AirstrikePower@MOAB:
 		OrderName: Motherofallbombs
@@ -1021,6 +1018,26 @@ T.MISS:
 		CameraRemoveDelay: 100
 		WeaponDelay: 0
 		Weapon: TimeStopWeapon
+		DisplayTimerRelationships: Ally, Neutral, Enemy
+	DropPodsPower@meteor:
+		Prerequisites: ulttech.forgotten
+		Name: Meteor Shower
+		Description: Manipulate orbiting meteors to land in target area, dealing massive damage.
+		OrderName: MeteorShower
+		Icon: meteor
+		Drops: 15,15
+		PodScatter: 2
+		SupportPowerPaletteOrder: 20
+		ChargeInterval: 9000
+		UnitTypes: FMETEOR.1,FMETEOR.2,FMETEOR.3,FMETEOR.4,FMETEOR.5,FMETEOR.6,FMETEOR.7,FMETEOR.8,FMETEOR.9,FMETEOR.10,FMETEOR.11
+		SelectTargetSpeechNotification: SelectTarget
+		SelectTargetTextNotification: actor-traynor-hero4.droppodspower-select-target-text-notification
+		CameraActor: camera
+		CameraRemoveDelay: 250
+		EntryEffect: explosion
+		EntryEffectSequence: bunkerbustersring
+		Weapon: DarkArchonDummy
+		WeaponDelay: 5
 		DisplayTimerRelationships: Ally, Neutral, Enemy
 	Production@specialunit:
 		Produces: SpecialUnit

@@ -1702,3 +1702,66 @@ AmbushShake:
 	Warhead@1Dam: SpreadDamage
 		Damage: 500
 	-Warhead@seed:
+
+MeteorExplosionSmall:
+	Inherits: DemoTrapExplosion
+	ValidTargets: Ground, Water, GroundActor, WaterActor
+	Projectile: InstantHit
+	Warhead@1Dam: SpreadDamage
+		Spread: 650
+		Damage: 6000
+		Delay: 4
+		Falloff: 250, 250, 175, 150, 0, 0, 0
+		Versus:
+			None: 60
+			Wood: 60
+			Light: 80
+			Heavy: 100
+			Concrete: 10
+		AffectsParent: true
+		ValidRelationships: Neutral, Enemy, Ally
+		DamageTypes: Prone50Percent, TriggerProne, ExplosionDeath
+		ValidTargets: GroundActor, WaterActor
+	Warhead@22Eff: CreateEffect
+		Explosions: self_destruct
+		ValidTargets: Ground, Water, Air
+		ImpactSounds: expnew09.aud, expnew06.aud
+		ImpactActors: false
+	-Warhead@2Eff: CreateEffect
+	-Warhead@15Shake: ShakeScreen
+	Warhead@shrapnel: FireCluster
+		Delay: 5
+		Weapon: MeteorShrapnel
+		RandomClusterCount: 3
+		Dimensions: 7,7
+		Footprint: xxxxxxx xxxxxxx xxx_xxx xx___xx xxx_xxx xxxxxxx xxxxxxx
+
+MeteorExplosionLarge:
+	Inherits: MeteorExplosionSmall
+	ValidTargets: Ground, Water, GroundActor, WaterActor
+	Projectile: InstantHit
+	Warhead@1Dam: SpreadDamage
+		Spread: 1c0
+		Damage: 25000
+	Warhead@2Eff: CreateEffect
+		Explosions: building, artillery_explosion
+		ValidTargets: Ground, Water, Air
+		ImpactSounds: expnew02.aud, expnew03.aud
+		ImpactActors: false
+	Warhead@22Eff: CreateEffect
+		ValidTargets: Ground, Water, Air
+		ImpactSounds: dsbigexp.aud, dsrpgexp.aud
+		ImpactActors: false
+	Warhead@15Shake: ShakeScreen
+		Duration: 5
+		Intensity: 2
+		Multiplier: 1,1
+	Warhead@shrapnel: FireCluster
+		RandomClusterCount: 8
+
+MeteorShrapnel:
+	Inherits: ^ShrapnelBase
+	Range: 7c0
+	Projectile: Bullet
+		Inaccuracy: 1c0
+		Speed: 90,300
