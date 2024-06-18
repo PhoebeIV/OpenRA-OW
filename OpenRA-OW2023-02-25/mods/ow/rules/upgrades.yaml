@@ -111,6 +111,18 @@
 	GrantConditionOnPrerequisite@nfp3:
 		Prerequisites: upgrade.navfirepower3
 		Condition: nfp3
+	GrantConditionOnPrerequisite@sar0:
+		Prerequisites: techlevel.shields
+		Condition: sar0
+	GrantConditionOnPrerequisite@sar1:
+		Prerequisites: upgrade.shieldarmor1
+		Condition: sar1
+	GrantConditionOnPrerequisite@sar2:
+		Prerequisites: upgrade.shieldarmor2
+		Condition: sar2
+	GrantConditionOnPrerequisite@sar3:
+		Prerequisites: upgrade.shieldarmor3
+		Condition: sar3
 	WithDecoration@bar1:
 		Image: adpip
 		Sequence: bar1
@@ -307,6 +319,34 @@
 		Image: adpip
 		Sequence: nfp3
 		RequiresCondition: nfp3
+		ValidRelationships: Ally, Enemy, Neutral, None
+		RequiresSelection: true
+	WithDecoration@sar0:
+		Image: adpip
+		Sequence: sar0
+		Palette: effect
+		RequiresCondition: sar0 && !sar1
+		ValidRelationships: Ally, Enemy, Neutral, None
+		RequiresSelection: true
+	WithDecoration@sar1:
+		Image: adpip
+		Sequence: sar1
+		Palette: effect
+		RequiresCondition: sar1 && !sar2
+		ValidRelationships: Ally, Enemy, Neutral, None
+		RequiresSelection: true
+	WithDecoration@sar2:
+		Image: adpip
+		Sequence: sar2
+		Palette: effect
+		RequiresCondition: sar2 && !sar3
+		ValidRelationships: Ally, Enemy, Neutral, None
+		RequiresSelection: true
+	WithDecoration@sar3:
+		Image: adpip
+		Sequence: sar3
+		Palette: effect
+		RequiresCondition: sar3
 		ValidRelationships: Ally, Enemy, Neutral, None
 		RequiresSelection: true
 	GrantConditionOnPrerequisite@gla_shoes:
@@ -1226,7 +1266,7 @@ upgrade.levelup:
 
 UpgradeHandler:
 	Inherits@mine: MINE_DUMMY
-	Inherits@upgrades: ^FreeUpgrades
+	Inherits@upgrades: FreeUpgrades
 	Inherits@boss: ^ConYardPrereqs_Bot
 	-Interactable:
 	Production:
@@ -1251,9 +1291,15 @@ UpgradeHandler:
 		Produces: UpgradeBot
 		PauseOnCondition: !conyard
 		RequiresCondition: botowner
+	Production@7:
+		Produces: BossFaction
+		RequiresCondition: bossowner
 	GrantConditionOnPrerequisite@botowner:
 		Condition: botowner
 		Prerequisites: ai.all
+	GrantConditionOnPrerequisite@bossowner:
+		Condition: bossowner
+		Prerequisites: ai.realboss
 	GrantConditionOnProduction@busy:
 		Condition: busy
 		Duration: 25
@@ -1333,7 +1379,7 @@ UpgradeHandlerResources:
 	StoresPlayerResources:
 		Capacity: 10000
 
-^FreeUpgrades:
+FreeUpgrades:
 	ProvidesPrerequisite@estonia:
 		Prerequisite: upgrade.buildarmor1
 		RequiresPrerequisites: structures.estonia
@@ -1761,3 +1807,48 @@ upgrade.navfirepower3:
 		BuildPaletteOrder: 10006
 		Prerequisites: ~upgrade.navfirepower2, ~!upgrade.navfirepower3
 	ProvidesPrerequisite@upgradename:
+
+####################################
+
+
+upgrade.shieldarmor1:
+	Inherits: ^UpgradeBase
+	Tooltip:
+		Name: actor-upgrade-shieldarmor1.name
+	Buildable:
+		Description: actor-upgrade-shieldarmor1.description
+		Queue: Upgrade, UpgradeBot
+		BuildDuration: 4500
+		BuildPaletteOrder: 10007
+		Prerequisites: ~!upgrade.shieldarmor1, ~!techlevel.noupgrades, techlevel.shields
+	ProvidesPrerequisite@upgradename:
+
+upgrade.shieldarmor2:
+	Inherits: ^UpgradeBase2
+	Tooltip:
+		Name: actor-upgrade-shieldarmor2.name
+	Buildable:
+		Description: actor-upgrade-shieldarmor2.description
+		BuildDuration: 4500
+		BuildPaletteOrder: 10007
+		Prerequisites: ~upgrade.shieldarmor1, ~!upgrade.shieldarmor2
+	ProvidesPrerequisite@upgradename:
+
+upgrade.shieldarmor3:
+	Inherits: ^UpgradeBase3
+	Tooltip:
+		Name: actor-upgrade-shieldarmor3.name
+	Buildable:
+		Description: actor-upgrade-shieldarmor3.description
+		BuildDuration: 4500
+		BuildPaletteOrder: 10007
+		Prerequisites: ~upgrade.shieldarmor2, ~!upgrade.shieldarmor3
+	ProvidesPrerequisite@upgradename:
+
+techlevel.shields:
+	AlwaysVisible:
+	Tooltip:
+		Name: actor-techlevelshields.name
+	Interactable:
+	Buildable:
+		Description: actor-techlevelshields.description

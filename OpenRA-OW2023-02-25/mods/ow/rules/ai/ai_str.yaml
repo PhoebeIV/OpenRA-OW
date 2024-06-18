@@ -506,7 +506,7 @@ ATEK.bot:
 		Dimensions: 5, 5
 		Footprint: _xxx_ xxxxx xxxxx xxxxx _xxx_
 
-# Special structure for Boss AI, comes with a random weapon
+# Special structure for Boss AI, comes with a random weapon. DEATH BOX
 PBOX.boss:
 	Inherits: PBOX
 	Tooltip:
@@ -1129,3 +1129,1019 @@ PREFAB.B:
 		RequiresCondition: avalon_enable
 		Actor: avtent
 		SpawnOffset: 2,0
+
+# 1 faction per 5 minutes
+^BossFactionBase:
+	Inherits: ^UpgradeBase
+	Buildable:
+		Queue: BossFaction
+		Icon: icon-hax
+		BuildDuration: 7500
+		Description: actor-bossfaction.description
+		Prerequisites: ~ai.realboss
+	Tooltip:
+		Name: actor-bossfaction.name
+	RenderSprites:
+		Image: e1
+	ProvidesPrerequisite@upgradename:
+	ProvidesPrerequisite@techstuff1:
+		Prerequisite: structures.foundryprereq
+	ProvidesPrerequisite@techstuff2:
+		Prerequisite: structures.oreextprereq
+	ProvidesPrerequisite@techstuff3:
+		Prerequisite: structures.foundryprereq
+	ProvidesPrerequisite@techstuff4:
+		Prerequisite: structures.all
+	ProvidesPrerequisite@techstuff5:
+		Prerequisite: structures.generatorprereq
+	ProvidesPrerequisite@techstuff6:
+		Prerequisite: structures.spenprereq
+	ProvidesPrerequisite@techstuff7:
+		Prerequisite: structures.syrdprereq
+	ProvidesPrerequisite@infantrymain1:
+		Prerequisite: infantry.surveyorprereq
+	ProvidesPrerequisite@vehiclemain1:
+		Prerequisite: vehicle.truk
+	ProvidesPrerequisite@vehiclemain2:
+		Prerequisite: vehicle.all
+
+^BossSubfactionBase:
+	Inherits: ^BossFactionBase
+	Buildable:
+		Queue: UpgradeBot
+		BuildDuration: 5000
+
+bossfaction.gdi:
+	Inherits: ^BossFactionBase
+	Tooltip:
+		Name: GDI
+	ProvidesPrerequisite@structures:
+		Prerequisite: structures.gdi
+	ProvidesPrerequisite@infantry:
+		Prerequisite: infantry.gdi
+	ProvidesPrerequisite@vehicles:
+		Prerequisite: vehicles.gdi
+	ProvidesPrerequisite@aircraft:
+		Prerequisite: aircraft.gdi
+	ProvidesPrerequisite@ships:
+		Prerequisite: ships.gdi
+	ProvidesPrerequisite@extra1:
+		Prerequisite: structures.dawn
+	ProvidesPrerequisite@extra2:
+		Prerequisite: infantry.dawn
+	ProvidesPrerequisite@extra3:
+		Prerequisite: vehicles.dawn
+	ProvidesPrerequisite@extra4:
+		Prerequisite: structures.gdibase
+	ProvidesPrerequisite@extra5:
+		Prerequisite: structures.eyedprereq
+	ProvidesPrerequisite@extra6:
+		Prerequisite: structures.procdprereq
+	ProvidesPrerequisite@extra7:
+		Prerequisite: structures.weapdprereq
+	ProvidesPrerequisite@extra8:
+		Prerequisite: structures.hqdprereq
+	ProvidesPrerequisite@extra9:
+		Prerequisite: structures.ctwrprereq
+	ProvidesPrerequisite@extra10:
+		Prerequisite: structures.hpadprereqbot
+	ProvidesPrerequisite@extra11:
+		Prerequisite: structures.pyledprereq
+	ProvidesPrerequisite@extra12:
+		Prerequisite: structures.gtwrprereq
+	ProvidesPrerequisite@infantrystuff1:
+		Prerequisite: infantry.e1ofprereq
+	ProvidesPrerequisite@infantrystuff2:
+		Prerequisite: infantry.e1e3prereq
+	ProvidesPrerequisite@infantrystuff3:
+		Prerequisite: infantry.e2prereq
+	ProvidesPrerequisite@vehiclestuff1:
+		Prerequisite: vehicles.htnkdgprereq
+	ProvidesPrerequisite@vehiclestuff2:
+		Prerequisite: vehicles.gdi_aero_zocom
+	ProvidesPrerequisite@vehiclestuff3:
+		Prerequisite: vehicles.gdi_aero
+
+bossfaction.nod:
+	Inherits: ^BossFactionBase
+	Tooltip:
+		Name: Nod
+	ProvidesPrerequisite@structures:
+		Prerequisite: structures.nod
+	ProvidesPrerequisite@infantry:
+		Prerequisite: infantry.nod
+	ProvidesPrerequisite@vehicles:
+		Prerequisite: vehicles.nod
+	ProvidesPrerequisite@aircraft:
+		Prerequisite: aircraft.nod
+	ProvidesPrerequisite@ships:
+		Prerequisite: ships.nod
+	ProvidesPrerequisite@extra1:
+		Prerequisite: structures.dawn
+	ProvidesPrerequisite@extra2:
+		Prerequisite: infantry.dawn
+	ProvidesPrerequisite@extra3:
+		Prerequisite: vehicles.dawn
+	ProvidesPrerequisite@extra4:
+		Prerequisite: structures.nodbase
+	ProvidesPrerequisite@extra5:
+		Prerequisite: structures.procdprereq
+	ProvidesPrerequisite@extra6:
+		Prerequisite: structures.radioprereq
+	ProvidesPrerequisite@extra7:
+		Prerequisite: structures.oblidprereq
+	ProvidesPrerequisite@extra8:
+		Prerequisite: structures.hqdprereq
+	ProvidesPrerequisite@extra9:
+		Prerequisite: upgrade.nodtiberium
+	ProvidesPrerequisite@extra10:
+		Prerequisite: structures.hpadprereqbot
+	ProvidesPrerequisite@extra11:
+		Prerequisite: structures.atdprereq
+	ProvidesPrerequisite@extra12:
+		Prerequisite: structures.samdprereq
+	ProvidesPrerequisite@extra13:
+		Prerequisite: structures.gunprereq
+	ProvidesPrerequisite@infantrystuff1:
+		Prerequisite: infantry.e1ofprereq
+	ProvidesPrerequisite@infantrystuff2:
+		Prerequisite: infantry.e1e3prereq
+	ProvidesPrerequisite@infantrystuff3:
+		Prerequisite: infantry.e4prereq
+	ProvidesPrerequisite@vehiclestuff1:
+		Prerequisite: vehicles.artyprereq
+	ProvidesPrerequisite@vehiclestuff2:
+		Prerequisite: vehicles.1tnknprereq
+
+bossfaction.usa:
+	Inherits: ^BossFactionBase
+	Tooltip:
+		Name: USA
+	ProvidesPrerequisite@structures:
+		Prerequisite: structures.usa
+	ProvidesPrerequisite@infantry:
+		Prerequisite: infantry.usa
+	ProvidesPrerequisite@vehicles:
+		Prerequisite: vehicles.usa
+	ProvidesPrerequisite@aircraft:
+		Prerequisite: aircraft.usa
+	ProvidesPrerequisite@ships:
+		Prerequisite: ships.usa
+
+bossfaction.china:
+	Inherits: ^BossFactionBase
+	Tooltip:
+		Name: China
+	ProvidesPrerequisite@structures:
+		Prerequisite: structures.china
+	ProvidesPrerequisite@infantry:
+		Prerequisite: infantry.china
+	ProvidesPrerequisite@vehicles:
+		Prerequisite: vehicles.china
+	ProvidesPrerequisite@aircraft:
+		Prerequisite: aircraft.china
+	ProvidesPrerequisite@ships:
+		Prerequisite: ships.china
+
+bossfaction.uac:
+	Inherits: ^BossFactionBase
+	Tooltip:
+		Name: UAC
+	ProvidesPrerequisite@structures:
+		Prerequisite: structures.uac
+	ProvidesPrerequisite@infantry:
+		Prerequisite: infantry.uac
+	ProvidesPrerequisite@vehicles:
+		Prerequisite: vehicles.uac
+	ProvidesPrerequisite@aircraft:
+		Prerequisite: aircraft.uac
+	ProvidesPrerequisite@ships:
+		Prerequisite: ships.uac
+	ProvidesPrerequisite@extra1:
+		Prerequisite: structures.eyedprereq
+	ProvidesPrerequisite@extra2:
+		Prerequisite: structures.procdprereq
+	ProvidesPrerequisite@extra3:
+		Prerequisite: structures.weapprereq
+	ProvidesPrerequisite@extra4:
+		Prerequisite: structures.domeprereq
+	ProvidesPrerequisite@extra5:
+		Prerequisite: structures.hpadprereqbot
+	ProvidesPrerequisite@extra6:
+		Prerequisite: structures.pyledprereq
+	ProvidesPrerequisite@extra7:
+		Prerequisite: structures.samdprereq
+	ProvidesPrerequisite@extra8:
+		Prerequisite: structures.pboxprereq
+	ProvidesPrerequisite@vehiclestuff1:
+		Prerequisite: vehicles.artyprereq
+
+bossfaction.phobos:
+	Inherits: ^BossSubfactionBase
+	Tooltip:
+		Name: Phobos
+	Buildable:
+		Prerequisites: ~bossfaction.uac
+	ProvidesPrerequisite@special:
+		Prerequisite: structures.phobos
+	ProvidesPrerequisite@special2:
+		Prerequisite: infantry.phobos
+	ProvidesPrerequisite@special3:
+		Prerequisite: aircraft.phobos
+	ProvidesPrerequisite@special4:
+		Prerequisite: vehicles.phobos
+	ProvidesPrerequisite@ships:
+		Prerequisite: ships.phobos
+	ProvidesPrerequisite@infantrystuff1:
+		Prerequisite: infantry.mediprereq
+
+bossfaction.deimos:
+	Inherits: ^BossSubfactionBase
+	Tooltip:
+		Name: Deimos
+	Buildable:
+		Prerequisites: ~bossfaction.uac
+	ProvidesPrerequisite@special:
+		Prerequisite: structures.deimos
+	ProvidesPrerequisite@special2:
+		Prerequisite: infantry.deimos
+	ProvidesPrerequisite@special3:
+		Prerequisite: aircraft.deimos
+	ProvidesPrerequisite@special4:
+		Prerequisite: vehicles.deimos
+	ProvidesPrerequisite@ships:
+		Prerequisite: ships.deimos
+
+bossfaction.mars:
+	Inherits: ^BossSubfactionBase
+	Tooltip:
+		Name: Mars
+	Buildable:
+		Prerequisites: ~bossfaction.uac
+	ProvidesPrerequisite@special:
+		Prerequisite: structures.mars
+	ProvidesPrerequisite@special2:
+		Prerequisite: infantry.mars
+	ProvidesPrerequisite@special3:
+		Prerequisite: aircraft.mars
+	ProvidesPrerequisite@special4:
+		Prerequisite: vehicles.mars
+	ProvidesPrerequisite@ships:
+		Prerequisite: ships.mars
+
+bossfaction.soviet:
+	Inherits: ^BossFactionBase
+	Tooltip:
+		Name: Soviet
+	ProvidesPrerequisite@structures:
+		Prerequisite: structures.soviet
+	ProvidesPrerequisite@infantry:
+		Prerequisite: infantry.soviet
+	ProvidesPrerequisite@vehicles:
+		Prerequisite: vehicles.soviet
+	ProvidesPrerequisite@aircraft:
+		Prerequisite: aircraft.soviet
+	ProvidesPrerequisite@ships:
+		Prerequisite: ships.soviet
+	ProvidesPrerequisite@extra1:
+		Prerequisite: structures.ra
+	ProvidesPrerequisite@extra2:
+		Prerequisite: infantry.ra
+	ProvidesPrerequisite@extra3:
+		Prerequisite: vehicles.ra
+	ProvidesPrerequisite@extra4:
+		Prerequisite: aircraft.ra
+	ProvidesPrerequisite@extra5:
+		Prerequisite: ships.ra
+	ProvidesPrerequisite@extra6:
+		Prerequisite: structures.msloprereq
+	ProvidesPrerequisite@extra7:
+		Prerequisite: structures.ironprereq
+	ProvidesPrerequisite@extra8:
+		Prerequisite: structures.procprereq
+	ProvidesPrerequisite@extra9:
+		Prerequisite: structures.weapprereq
+	ProvidesPrerequisite@extra10:
+		Prerequisite: structures.domeprereq
+	ProvidesPrerequisite@extra11:
+		Prerequisite: structures.samprereq
+	ProvidesPrerequisite@extra12:
+		Prerequisite: structures.afldprereq
+	ProvidesPrerequisite@extra13:
+		Prerequisite: structures.barrprereq
+	ProvidesPrerequisite@extra14:
+		Prerequisite: structures.samprereq
+	ProvidesPrerequisite@extra15:
+		Prerequisite: structures.kennprereq
+	ProvidesPrerequisite@extra16:
+		Prerequisite: structures.atdprereq
+	ProvidesPrerequisite@infantrystuff1:
+		Prerequisite: infantry.e1ofprereq
+	ProvidesPrerequisite@infantrystuff2:
+		Prerequisite: infantry.e1e3prereq
+	ProvidesPrerequisite@infantrystuff3:
+		Prerequisite: infantry.e2prereq
+	ProvidesPrerequisite@infantrystuff4:
+		Prerequisite: infantry.e4prereq
+	ProvidesPrerequisite@vehiclestuff1:
+		Prerequisite: vehicles.apcprereq
+	ProvidesPrerequisite@vehiclestuff2:
+		Prerequisite: vehicles.ftrkprereq
+
+bossfaction.russia:
+	Inherits: ^BossSubfactionBase
+	Tooltip:
+		Name: Russia
+	Buildable:
+		Prerequisites: ~bossfaction.soviet
+	ProvidesPrerequisite@special:
+		Prerequisite: structures.russia
+	ProvidesPrerequisite@special2:
+		Prerequisite: infantry.russia
+	ProvidesPrerequisite@special3:
+		Prerequisite: aircraft.russia
+	ProvidesPrerequisite@special4:
+		Prerequisite: vehicles.russia
+	ProvidesPrerequisite@ships:
+		Prerequisite: ships.russia
+
+bossfaction.ukraine:
+	Inherits: ^BossSubfactionBase
+	Tooltip:
+		Name: Ukraine
+	Buildable:
+		Prerequisites: ~bossfaction.soviet
+	ProvidesPrerequisite@special:
+		Prerequisite: structures.ukraine
+	ProvidesPrerequisite@special2:
+		Prerequisite: infantry.ukraine
+	ProvidesPrerequisite@special3:
+		Prerequisite: aircraft.ukraine
+	ProvidesPrerequisite@special4:
+		Prerequisite: vehicles.ukraine
+	ProvidesPrerequisite@ships:
+		Prerequisite: ships.ukraine
+	ProvidesPrerequisite@vehiclestuff2:
+		Prerequisite: vehicles.dtrkprereq
+
+bossfaction.estonia:
+	Inherits: ^BossSubfactionBase
+	Tooltip:
+		Name: Estonia
+	Buildable:
+		Prerequisites: ~bossfaction.soviet
+	ProvidesPrerequisite@special:
+		Prerequisite: structures.estonia
+	ProvidesPrerequisite@special2:
+		Prerequisite: infantry.estonia
+	ProvidesPrerequisite@special3:
+		Prerequisite: aircraft.estonia
+	ProvidesPrerequisite@special4:
+		Prerequisite: vehicles.estonia
+	ProvidesPrerequisite@ships:
+		Prerequisite: ships.estonia
+	ProvidesPrerequisite@extra1:
+		Prerequisite: structures.ctwrprereq
+	ProvidesPrerequisite@extra2:
+		Prerequisite: structures.gunprereq
+	ProvidesPrerequisite@extra3:
+		Prerequisite: infantry.mechprereq
+
+bossfaction.allies:
+	Inherits: ^BossFactionBase
+	Tooltip:
+		Name: Allies
+	ProvidesPrerequisite@structures:
+		Prerequisite: structures.allies
+	ProvidesPrerequisite@infantry:
+		Prerequisite: infantry.allies
+	ProvidesPrerequisite@vehicles:
+		Prerequisite: vehicles.allies
+	ProvidesPrerequisite@aircraft:
+		Prerequisite: aircraft.allies
+	ProvidesPrerequisite@ships:
+		Prerequisite: ships.allies
+	ProvidesPrerequisite@extra1:
+		Prerequisite: structures.ra
+	ProvidesPrerequisite@extra2:
+		Prerequisite: infantry.ra
+	ProvidesPrerequisite@extra3:
+		Prerequisite: vehicles.ra
+	ProvidesPrerequisite@extra4:
+		Prerequisite: aircraft.ra
+	ProvidesPrerequisite@extra5:
+		Prerequisite: ships.ra
+	ProvidesPrerequisite@extra6:
+		Prerequisite: structures.weatherprereq
+	ProvidesPrerequisite@extra7:
+		Prerequisite: structures.procprereq
+	ProvidesPrerequisite@extra8:
+		Prerequisite: structures.radioprereq
+	ProvidesPrerequisite@extra9:
+		Prerequisite: structures.weapprereq
+	ProvidesPrerequisite@extra10:
+		Prerequisite: structures.domeprereq
+	ProvidesPrerequisite@extra11:
+		Prerequisite: structures.hpadprereqbot
+	ProvidesPrerequisite@extra12:
+		Prerequisite: structures.pboxprereq
+	ProvidesPrerequisite@extra13:
+		Prerequisite: structures.gunprereq
+	ProvidesPrerequisite@infantrystuff1:
+		Prerequisite: infantry.e1ofprereq
+	ProvidesPrerequisite@infantrystuff2:
+		Prerequisite: infantry.e1e3prereq
+	ProvidesPrerequisite@infantrystuff3:
+		Prerequisite: infantry.mediprereq
+	ProvidesPrerequisite@infantrystuff4:
+		Prerequisite: infantry.mechprereq
+	ProvidesPrerequisite@vehiclestuff1:
+		Prerequisite: vehicles.artyprereq
+	ProvidesPrerequisite@vehiclestuff2:
+		Prerequisite: vehicles.apcprereq
+
+bossfaction.england:
+	Inherits: ^BossSubfactionBase
+	Tooltip:
+		Name: England
+	Buildable:
+		Prerequisites: ~bossfaction.allies
+	ProvidesPrerequisite@special:
+		Prerequisite: structures.england
+	ProvidesPrerequisite@special2:
+		Prerequisite: infantry.england
+	ProvidesPrerequisite@special3:
+		Prerequisite: aircraft.england
+	ProvidesPrerequisite@special4:
+		Prerequisite: vehicles.england
+	ProvidesPrerequisite@ships:
+		Prerequisite: ships.england
+
+bossfaction.germany:
+	Inherits: ^BossSubfactionBase
+	Tooltip:
+		Name: Germany
+	Buildable:
+		Prerequisites: ~bossfaction.allies
+	ProvidesPrerequisite@special:
+		Prerequisite: structures.germany
+	ProvidesPrerequisite@special2:
+		Prerequisite: infantry.germany
+	ProvidesPrerequisite@special3:
+		Prerequisite: aircraft.germany
+	ProvidesPrerequisite@special4:
+		Prerequisite: vehicles.germany
+	ProvidesPrerequisite@ships:
+		Prerequisite: ships.germany
+
+bossfaction.france:
+	Inherits: ^BossSubfactionBase
+	Tooltip:
+		Name: France
+	Buildable:
+		Prerequisites: ~bossfaction.allies
+	ProvidesPrerequisite@special:
+		Prerequisite: structures.france
+	ProvidesPrerequisite@special2:
+		Prerequisite: infantry.france
+	ProvidesPrerequisite@special3:
+		Prerequisite: aircraft.france
+	ProvidesPrerequisite@special4:
+		Prerequisite: vehicles.france
+	ProvidesPrerequisite@ships:
+		Prerequisite: ships.france
+
+bossfaction.forgotten:
+	Inherits: ^BossFactionBase
+	Tooltip:
+		Name: Forgotten
+	ProvidesPrerequisite@structures:
+		Prerequisite: structures.forgotten
+	ProvidesPrerequisite@infantry:
+		Prerequisite: infantry.forgotten
+	ProvidesPrerequisite@vehicles:
+		Prerequisite: vehicles.forgotten
+	ProvidesPrerequisite@aircraft:
+		Prerequisite: aircraft.forgotten
+	ProvidesPrerequisite@ships:
+		Prerequisite: ships.forgotten
+	ProvidesPrerequisite@extra1:
+		Prerequisite: structures.procdprereq
+	ProvidesPrerequisite@extra2:
+		Prerequisite: structures.radioprereq
+	ProvidesPrerequisite@extra3:
+		Prerequisite: structures.oblidprereq
+	ProvidesPrerequisite@extra4:
+		Prerequisite: structures.weapdprereq
+	ProvidesPrerequisite@extra5:
+		Prerequisite: structures.hqdprereq
+	ProvidesPrerequisite@extra6:
+		Prerequisite: upgrade.nodtiberium
+	ProvidesPrerequisite@extra7:
+		Prerequisite: structures.hpadprereqbot
+	ProvidesPrerequisite@extra8:
+		Prerequisite: structures.barrprereq
+	ProvidesPrerequisite@extra9:
+		Prerequisite: structures.kennprereq
+	ProvidesPrerequisite@extra10:
+		Prerequisite: structures.gtwrprereq
+	ProvidesPrerequisite@vehiclestuff1:
+		Prerequisite: vehicles.artyprereq
+	ProvidesPrerequisite@vehiclestuff2:
+		Prerequisite: vehicles.ftrkprereq
+	ProvidesPrerequisite@vehiclestuff3:
+		Prerequisite: vehicles.htnkdgprereq
+	ProvidesPrerequisite@vehiclestuff4:
+		Prerequisite: vehicles.1tnknprereq
+
+bossfaction.nazi:
+	Inherits: ^BossFactionBase
+	Tooltip:
+		Name: Third Reich
+	ProvidesPrerequisite@structures:
+		Prerequisite: structures.nazi
+	ProvidesPrerequisite@infantry:
+		Prerequisite: infantry.nazi
+	ProvidesPrerequisite@vehicles:
+		Prerequisite: vehicles.nazi
+	ProvidesPrerequisite@aircraft:
+		Prerequisite: aircraft.nazi
+	ProvidesPrerequisite@ships:
+		Prerequisite: ships.nazi
+	ProvidesPrerequisite@extra1:
+		Prerequisite: structures.msloprereq
+	ProvidesPrerequisite@extra2:
+		Prerequisite: structures.ironprereq
+	ProvidesPrerequisite@extra3:
+		Prerequisite: structures.procprereq
+	ProvidesPrerequisite@extra4:
+		Prerequisite: structures.weapdprereq
+	ProvidesPrerequisite@extra5:
+		Prerequisite: structures.domeprereq
+	ProvidesPrerequisite@extra6:
+		Prerequisite: structures.afldprereq
+	ProvidesPrerequisite@extra7:
+		Prerequisite: structures.samdprereq
+	ProvidesPrerequisite@infantrystuff1:
+		Prerequisite: infantry.e1ofprereq
+	ProvidesPrerequisite@infantrystuff2:
+		Prerequisite: infantry.e1e3prereq
+	ProvidesPrerequisite@vehiclestuff1:
+		Prerequisite: vehicles.artyprereq
+	ProvidesPrerequisite@vehiclestuff2:
+		Prerequisite: vehicles.apcprereq
+	ProvidesPrerequisite@vehiclestuff3:
+		Prerequisite: vehicles.ftrkprereq
+	ProvidesPrerequisite@vehiclestuff4:
+		Prerequisite: vehicles.destprereq
+
+bossfaction.hitler:
+	Inherits: ^BossSubfactionBase
+	Tooltip:
+		Name: Hitler
+	Buildable:
+		Prerequisites: ~bossfaction.nazi
+	ProvidesPrerequisite@special:
+		Prerequisite: structures.hitler
+	ProvidesPrerequisite@special2:
+		Prerequisite: infantry.hitler
+	ProvidesPrerequisite@special3:
+		Prerequisite: aircraft.hitler
+	ProvidesPrerequisite@special4:
+		Prerequisite: vehicles.hitler
+	ProvidesPrerequisite@ships:
+		Prerequisite: ships.hitler
+
+bossfaction.himmler:
+	Inherits: ^BossSubfactionBase
+	Tooltip:
+		Name: Himmler
+	Buildable:
+		Prerequisites: ~bossfaction.nazi
+	ProvidesPrerequisite@special:
+		Prerequisite: structures.himmler
+	ProvidesPrerequisite@special2:
+		Prerequisite: infantry.himmler
+	ProvidesPrerequisite@special3:
+		Prerequisite: aircraft.himmler
+	ProvidesPrerequisite@special4:
+		Prerequisite: vehicles.himmler
+	ProvidesPrerequisite@ships:
+		Prerequisite: ships.himmler
+
+bossfaction.heydrich:
+	Inherits: ^BossSubfactionBase
+	Tooltip:
+		Name: Heydrich
+	Buildable:
+		Prerequisites: ~bossfaction.nazi
+	ProvidesPrerequisite@special:
+		Prerequisite: structures.heydrich
+	ProvidesPrerequisite@special2:
+		Prerequisite: infantry.heydrich
+	ProvidesPrerequisite@special3:
+		Prerequisite: aircraft.heydrich
+	ProvidesPrerequisite@special4:
+		Prerequisite: vehicles.heydrich
+	ProvidesPrerequisite@ships:
+		Prerequisite: ships.heydrich
+	ProvidesPrerequisite@extra3:
+		Prerequisite: structures.radioprereq
+
+bossfaction.fed:
+	Inherits: ^BossFactionBase
+	Tooltip:
+		Name: Federation
+	ProvidesPrerequisite@structures:
+		Prerequisite: structures.fed
+	ProvidesPrerequisite@infantry:
+		Prerequisite: infantry.fed
+	ProvidesPrerequisite@vehicles:
+		Prerequisite: vehicles.fed
+	ProvidesPrerequisite@aircraft:
+		Prerequisite: aircraft.fed
+	ProvidesPrerequisite@ships:
+		Prerequisite: ships.fed
+	ProvidesPrerequisite@extra1:
+		Prerequisite: structures.eyedprereq
+	ProvidesPrerequisite@extra2:
+		Prerequisite: structures.procdprereq
+	ProvidesPrerequisite@extra3:
+		Prerequisite: structures.radioprereq
+	ProvidesPrerequisite@extra4:
+		Prerequisite: structures.weapprereq
+	ProvidesPrerequisite@extra5:
+		Prerequisite: structures.hqdprereq
+	ProvidesPrerequisite@extra6:
+		Prerequisite: structures.samprereq
+	ProvidesPrerequisite@extra7:
+		Prerequisite: structures.hpadprereqbot
+	ProvidesPrerequisite@extra8:
+		Prerequisite: structures.afldprereq
+	ProvidesPrerequisite@extra9:
+		Prerequisite: structures.barrprereq
+	ProvidesPrerequisite@extra10:
+		Prerequisite: structures.samprereq
+	ProvidesPrerequisite@extra11:
+		Prerequisite: structures.atdprereq
+	ProvidesPrerequisite@extra12:
+		Prerequisite: structures.gtwrprereq
+
+bossfaction.angels:
+	Inherits: ^BossSubfactionBase
+	Tooltip:
+		Name: Lunar Angels
+	Buildable:
+		Prerequisites: ~bossfaction.fed
+	ProvidesPrerequisite@special:
+		Prerequisite: structures.angels
+	ProvidesPrerequisite@special2:
+		Prerequisite: infantry.angels
+	ProvidesPrerequisite@special3:
+		Prerequisite: aircraft.angels
+	ProvidesPrerequisite@special4:
+		Prerequisite: vehicles.angels
+	ProvidesPrerequisite@ships:
+		Prerequisite: ships.angels
+
+bossfaction.sword:
+	Inherits: ^BossSubfactionBase
+	Tooltip:
+		Name: Ardent Sword
+	Buildable:
+		Prerequisites: ~bossfaction.fed
+	ProvidesPrerequisite@special:
+		Prerequisite: structures.sword
+	ProvidesPrerequisite@special2:
+		Prerequisite: infantry.sword
+	ProvidesPrerequisite@special3:
+		Prerequisite: aircraft.sword
+	ProvidesPrerequisite@special4:
+		Prerequisite: vehicles.sword
+	ProvidesPrerequisite@ships:
+		Prerequisite: ships.sword
+
+bossfaction.silver:
+	Inherits: ^BossSubfactionBase
+	Tooltip:
+		Name: Silver Lining
+	Buildable:
+		Prerequisites: ~bossfaction.fed
+	ProvidesPrerequisite@special:
+		Prerequisite: structures.silver
+	ProvidesPrerequisite@special2:
+		Prerequisite: infantry.silver
+	ProvidesPrerequisite@special3:
+		Prerequisite: aircraft.silver
+	ProvidesPrerequisite@special4:
+		Prerequisite: vehicles.silver
+	ProvidesPrerequisite@ships:
+		Prerequisite: ships.silver
+
+bossfaction.gla:
+	Inherits: ^BossFactionBase
+	Tooltip:
+		Name: GLA
+	ProvidesPrerequisite@structures:
+		Prerequisite: structures.gla
+	ProvidesPrerequisite@infantry:
+		Prerequisite: infantry.gla
+	ProvidesPrerequisite@vehicles:
+		Prerequisite: vehicles.gla
+	ProvidesPrerequisite@aircraft:
+		Prerequisite: aircraft.gla
+	ProvidesPrerequisite@ships:
+		Prerequisite: ships.gla
+	ProvidesPrerequisite@infantrystuff1:
+		Prerequisite: infantry.e1ofprereq
+	ProvidesPrerequisite@vehiclestuff1:
+		Prerequisite: vehicles.ftrkprereq
+
+bossfaction.kassad:
+	Inherits: ^BossSubfactionBase
+	Tooltip:
+		Name: Prince Kassad
+	Buildable:
+		Prerequisites: ~bossfaction.gla
+	ProvidesPrerequisite@special:
+		Prerequisite: structures.kassad
+	ProvidesPrerequisite@special2:
+		Prerequisite: infantry.kassad
+	ProvidesPrerequisite@special3:
+		Prerequisite: aircraft.kassad
+	ProvidesPrerequisite@special4:
+		Prerequisite: vehicles.kassad
+	ProvidesPrerequisite@ships:
+		Prerequisite: ships.kassad
+
+bossfaction.demo:
+	Inherits: ^BossSubfactionBase
+	Tooltip:
+		Name: Rodall Juhziz
+	Buildable:
+		Prerequisites: ~bossfaction.gla
+	ProvidesPrerequisite@special:
+		Prerequisite: structures.demo
+	ProvidesPrerequisite@special2:
+		Prerequisite: infantry.demo
+	ProvidesPrerequisite@special3:
+		Prerequisite: aircraft.demo
+	ProvidesPrerequisite@special4:
+		Prerequisite: vehicles.demo
+	ProvidesPrerequisite@ships:
+		Prerequisite: ships.demo
+	ProvidesPrerequisite@vehiclestuff1:
+		Prerequisite: vehicles.dtrkprereq
+
+bossfaction.thrax:
+	Inherits: ^BossSubfactionBase
+	Tooltip:
+		Name: Dr. Thrax
+	Buildable:
+		Prerequisites: ~bossfaction.gla
+	ProvidesPrerequisite@special:
+		Prerequisite: structures.thrax
+	ProvidesPrerequisite@special2:
+		Prerequisite: infantry.thrax
+	ProvidesPrerequisite@special3:
+		Prerequisite: aircraft.thrax
+	ProvidesPrerequisite@special4:
+		Prerequisite: vehicles.thrax
+	ProvidesPrerequisite@ships:
+		Prerequisite: ships.thrax
+	ProvidesPrerequisite@extra3:
+		Prerequisite: infantry.e5prereq
+
+bossfaction.japan:
+	Inherits: ^BossFactionBase
+	Tooltip:
+		Name: Japan
+	ProvidesPrerequisite@structures:
+		Prerequisite: structures.japan
+	ProvidesPrerequisite@infantry:
+		Prerequisite: infantry.japan
+	ProvidesPrerequisite@vehicles:
+		Prerequisite: vehicles.japan
+	ProvidesPrerequisite@aircraft:
+		Prerequisite: aircraft.japan
+	ProvidesPrerequisite@ships:
+		Prerequisite: ships.japan
+
+bossfaction.navy:
+	Inherits: ^BossSubfactionBase
+	Tooltip:
+		Name: Navy General
+	Buildable:
+		Prerequisites: ~bossfaction.japan
+	ProvidesPrerequisite@special:
+		Prerequisite: structures.navy
+	ProvidesPrerequisite@special2:
+		Prerequisite: infantry.navy
+	ProvidesPrerequisite@special3:
+		Prerequisite: aircraft.navy
+	ProvidesPrerequisite@special4:
+		Prerequisite: vehicles.navy
+	ProvidesPrerequisite@ships:
+		Prerequisite: ships.navy
+
+bossfaction.economic:
+	Inherits: ^BossSubfactionBase
+	Tooltip:
+		Name: Economic General
+	Buildable:
+		Prerequisites: ~bossfaction.japan
+	ProvidesPrerequisite@special:
+		Prerequisite: structures.economic
+	ProvidesPrerequisite@special2:
+		Prerequisite: infantry.economic
+	ProvidesPrerequisite@special3:
+		Prerequisite: aircraft.economic
+	ProvidesPrerequisite@special4:
+		Prerequisite: vehicles.economic
+	ProvidesPrerequisite@ships:
+		Prerequisite: ships.economic
+	ProvidesPrerequisite@extra1:
+		Prerequisite: infantry.mechprereq
+
+
+bossfaction.mecha:
+	Inherits: ^BossSubfactionBase
+	Tooltip:
+		Name: Mecha General
+	Buildable:
+		Prerequisites: ~bossfaction.japan
+	ProvidesPrerequisite@special:
+		Prerequisite: structures.mecha
+	ProvidesPrerequisite@special2:
+		Prerequisite: infantry.mecha
+	ProvidesPrerequisite@special3:
+		Prerequisite: aircraft.mecha
+	ProvidesPrerequisite@special4:
+		Prerequisite: vehicles.mecha
+	ProvidesPrerequisite@ships:
+		Prerequisite: ships.mecha
+
+bossfaction.avalon:
+	Inherits: ^BossFactionBase
+	Tooltip:
+		Name: Avali Adventure Corps
+	ProvidesPrerequisite@structures:
+		Prerequisite: structures.avalon
+	ProvidesPrerequisite@infantry:
+		Prerequisite: infantry.avalon
+	ProvidesPrerequisite@vehicles:
+		Prerequisite: vehicles.avalon
+	ProvidesPrerequisite@aircraft:
+		Prerequisite: aircraft.avalon
+	ProvidesPrerequisite@ships:
+		Prerequisite: ships.avalon
+	ProvidesPrerequisite@extra1:
+		Prerequisite: structures.hpadprereqbot
+
+bossfaction.protoss:
+	Inherits: ^BossFactionBase
+	Tooltip:
+		Name: Protoss Empire
+	ProvidesPrerequisite@structures:
+		Prerequisite: structures.protoss
+	ProvidesPrerequisite@infantry:
+		Prerequisite: infantry.protoss
+	ProvidesPrerequisite@vehicles:
+		Prerequisite: vehicles.protoss
+	ProvidesPrerequisite@aircraft:
+		Prerequisite: aircraft.protoss
+	ProvidesPrerequisite@ships:
+		Prerequisite: ships.protoss
+
+bossfaction.artanis:
+	Inherits: ^BossSubfactionBase
+	Tooltip:
+		Name: Artanis
+	Buildable:
+		Prerequisites: ~bossfaction.protoss
+	ProvidesPrerequisite@special:
+		Prerequisite: structures.artanis
+	ProvidesPrerequisite@special2:
+		Prerequisite: infantry.artanis
+	ProvidesPrerequisite@special3:
+		Prerequisite: aircraft.artanis
+	ProvidesPrerequisite@special4:
+		Prerequisite: vehicles.artanis
+	ProvidesPrerequisite@ships:
+		Prerequisite: ships.artanis
+
+bossfaction.vorazun:
+	Inherits: ^BossSubfactionBase
+	Tooltip:
+		Name: Vorazun
+	Buildable:
+		Prerequisites: ~bossfaction.protoss
+	ProvidesPrerequisite@special:
+		Prerequisite: structures.vorazun
+	ProvidesPrerequisite@special2:
+		Prerequisite: infantry.vorazun
+	ProvidesPrerequisite@special3:
+		Prerequisite: aircraft.vorazun
+	ProvidesPrerequisite@special4:
+		Prerequisite: vehicles.vorazun
+	ProvidesPrerequisite@ships:
+		Prerequisite: ships.vorazun
+
+bossfaction.terran:
+	Inherits: ^BossFactionBase
+	Tooltip:
+		Name: terran Empire
+	ProvidesPrerequisite@structures:
+		Prerequisite: structures.terran
+	ProvidesPrerequisite@infantry:
+		Prerequisite: infantry.terran
+	ProvidesPrerequisite@vehicles:
+		Prerequisite: vehicles.terran
+	ProvidesPrerequisite@aircraft:
+		Prerequisite: aircraft.terran
+	ProvidesPrerequisite@ships:
+		Prerequisite: ships.terran
+
+bossfaction.raynor:
+	Inherits: ^BossSubfactionBase
+	Tooltip:
+		Name: Jim Raynor
+	Buildable:
+		Prerequisites: ~bossfaction.terran
+	ProvidesPrerequisite@special:
+		Prerequisite: structures.raynor
+	ProvidesPrerequisite@special2:
+		Prerequisite: infantry.raynor
+	ProvidesPrerequisite@special3:
+		Prerequisite: aircraft.raynor
+	ProvidesPrerequisite@special4:
+		Prerequisite: vehicles.raynor
+	ProvidesPrerequisite@ships:
+		Prerequisite: ships.raynor
+
+bossfaction.mengsk:
+	Inherits: ^BossSubfactionBase
+	Tooltip:
+		Name: Arcturus Mengsk
+	Buildable:
+		Prerequisites: ~bossfaction.terran
+	ProvidesPrerequisite@special:
+		Prerequisite: structures.mengsk
+	ProvidesPrerequisite@special2:
+		Prerequisite: infantry.mengsk
+	ProvidesPrerequisite@special3:
+		Prerequisite: aircraft.mengsk
+	ProvidesPrerequisite@special4:
+		Prerequisite: vehicles.mengsk
+	ProvidesPrerequisite@ships:
+		Prerequisite: ships.mengsk
+
+
+bossfaction.zerg:
+	Inherits: ^BossFactionBase
+	Tooltip:
+		Name: Zerg Swarm
+	ProvidesPrerequisite@structures:
+		Prerequisite: structures.zerg
+	ProvidesPrerequisite@infantry:
+		Prerequisite: infantry.zerg
+	ProvidesPrerequisite@vehicles:
+		Prerequisite: vehicles.zerg
+	ProvidesPrerequisite@aircraft:
+		Prerequisite: aircraft.zerg
+	ProvidesPrerequisite@ships:
+		Prerequisite: ships.zerg
+
+bossfaction.kerrigan:
+	Inherits: ^BossSubfactionBase
+	Tooltip:
+		Name: Kerrigan
+	Buildable:
+		Prerequisites: ~bossfaction.zerg
+	ProvidesPrerequisite@special:
+		Prerequisite: structures.kerrigan
+	ProvidesPrerequisite@special2:
+		Prerequisite: infantry.kerrigan
+	ProvidesPrerequisite@special3:
+		Prerequisite: aircraft.kerrigan
+	ProvidesPrerequisite@special4:
+		Prerequisite: vehicles.kerrigan
+	ProvidesPrerequisite@ships:
+		Prerequisite: ships.kerrigan
+
+bossfaction.zagara:
+	Inherits: ^BossSubfactionBase
+	Tooltip:
+		Name: Zagara
+	Buildable:
+		Prerequisites: ~bossfaction.zerg
+	ProvidesPrerequisite@special:
+		Prerequisite: structures.zagara
+	ProvidesPrerequisite@special2:
+		Prerequisite: infantry.zagara
+	ProvidesPrerequisite@special3:
+		Prerequisite: aircraft.zagara
+	ProvidesPrerequisite@special4:
+		Prerequisite: vehicles.zagara
+	ProvidesPrerequisite@ships:
+		Prerequisite: ships.zagara
