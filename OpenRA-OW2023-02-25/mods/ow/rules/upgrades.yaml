@@ -1360,6 +1360,12 @@ UpgradeHandler:
 		RequiresCondition: upgrade_alert
 		ValidRelationships: None
 		Voice: Available
+	GrantDelayedCondition@aaoe:
+		Condition: spawn_hack
+		Delay: 25
+	FreeActor@hack:
+		RequiresCondition: spawn_hack && conyard
+		Actor: BuildQueueHandler
 	OwnerLostAction:
 		Action: Dispose
 
@@ -1369,6 +1375,7 @@ UpgradeHandlerBot:
 	-FreeActor@resources:
 	ProductionQueue@Upgrade:
 		Type: Upgrade
+		Group: Upgrade
 		DisplayOrder: 9
 		LowPowerModifier: 300
 		BuildDurationModifier: 175
@@ -1378,6 +1385,28 @@ UpgradeHandlerResources:
 	Inherits@mine: MINE_DUMMY
 	StoresPlayerResources:
 		Capacity: 10000
+
+BuildQueueHandler:
+	Inherits@mine: MINE_DUMMY
+	ProductionQueue@ability:
+		Type: Hack
+		Group: Upgrade
+	Production@ability:
+		Produces: Hack
+	GrantDelayedCondition@aaoe:
+		Condition: spawn_hack
+		Delay: 25
+	FreeActor@hack:
+		RequiresCondition: spawn_hack
+		Actor: BuildQueueHandler2
+	KillsSelf@11:
+		Delay: 100
+
+BuildQueueHandler2:
+	Inherits@mine: BuildQueueHandler
+	-FreeActor@hack:
+	KillsSelf@11:
+		Delay: 5
 
 FreeUpgrades:
 	ProvidesPrerequisite@estonia:
