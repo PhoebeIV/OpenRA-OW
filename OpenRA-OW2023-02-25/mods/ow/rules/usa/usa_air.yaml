@@ -329,6 +329,14 @@ usacomanche:
 	GrantConditionOnPrerequisite@chargedlasers:
 		Condition: upgradechargedlasers
 		Prerequisites: upgrade.chargedlasers
+	PointDefense: 
+		PointDefenseTypes: pointdefense
+		Armament: laser
+		RequiresCondition: lasergeneralupgrade
+	Armament@laser:
+		Name: laser
+		Weapon: PointDefenseLaser
+		RequiresCondition: lasergeneralupgrade
 		
 usaraptor:
 	Inherits: ^Plane
@@ -415,16 +423,18 @@ usaraptor:
 		Prerequisites: aircraft.upgraded
 	RenderSprites:
 		Image: usaraptor
-	JamsMissiles:
-		Range: 2c0
-		Chance: 20
-		DeflectionRelationships: Neutral, Enemy
 	ReloadAmmoPool@reloadnear:
 		RequiresCondition: reloadnear
 		Delay: 500
 		Count: 2
 	Voiced:
 		VoiceSet: RaptorVoice
+	PointDefense: 
+		PointDefenseTypes: pointdefense
+		Armament: laser
+	Armament@laser:
+		Name: laser
+		Weapon: PointDefenseLaser
 
 usastealthfighter:
 	Inherits: ^Plane
@@ -519,13 +529,9 @@ usastealthfighter:
 		Prerequisites: aircraft.upgraded
 	RenderSprites:
 		Image: usastealthfighter
-	JamsMissiles:
-		Range: 2c0
-		Chance: 20
-		DeflectionRelationships: Neutral, Enemy
 	JamsMissiles@countermeasures:
-		Range: 3c0
-		Chance: 30
+		Range: 2c0
+		Chance: 40
 		DeflectionRelationships: Neutral, Enemy
 		RequiresCondition: upgradecountermeasures
 	Cloak:
@@ -556,6 +562,20 @@ usastealthfighter:
 	GrantConditionOnPrerequisite@2:
 		Condition: upgradecountermeasures
 		Prerequisites: upgrade.countermeasures
+	PointDefense: 
+		PointDefenseTypes: pointdefense
+		Armament: laser
+	Armament@laser:
+		Name: laser
+		Weapon: PointDefenseLaser
+	PointDefense@2: 
+		PointDefenseTypes: pointdefense
+		Armament: laser
+		RequiresCondition: upgradecountermeasures
+	Armament@laser2:
+		Name: laser
+		Weapon: PointDefenseLaser
+		RequiresCondition: upgradecountermeasures
 		
 usaaurora:
 	Inherits: ^Plane
@@ -565,7 +585,7 @@ usaaurora:
 		Queue: Aircraft
 		BuildAtProductionType: Plane
 		BuildPaletteOrder: 50
-		Prerequisites: ~aircraft.usa, ~techcenter, ~!upgrade.superweaponsgeneral
+		Prerequisites: ~aircraft.usa, advtechcenter, ~!upgrade.superweaponsgeneral
 		Description: actor-usaaurora.description
 	Valued:
 		Cost: 3500
@@ -653,15 +673,6 @@ usaaurora:
 		Prerequisites: aircraft.upgraded
 	RenderSprites:
 		Image: usaaurora
-	JamsMissiles:
-		Range: 2c0
-		Chance: 40
-		DeflectionRelationships: Neutral, Enemy
-	JamsMissiles@countermeasures:
-		Range: 3c0
-		Chance: 20
-		DeflectionRelationships: Neutral, Enemy
-		RequiresCondition: upgradecountermeasures
 	ReloadAmmoPool@reloadnear:
 		RequiresCondition: reloadnear
 		Delay: 500
@@ -677,6 +688,20 @@ usaaurora:
 	GrantConditionOnPrerequisite@2:
 		Condition: upgradecountermeasures
 		Prerequisites: upgrade.countermeasures
+	PointDefense: 
+		PointDefenseTypes: pointdefense
+		Armament: laser
+	Armament@laser:
+		Name: laser
+		Weapon: PointDefenseLaser
+	PointDefense@2: 
+		PointDefenseTypes: pointdefense
+		Armament: laser
+		RequiresCondition: upgradecountermeasures
+	Armament@laser2:
+		Name: laser
+		Weapon: PointDefenseLaser
+		RequiresCondition: upgradecountermeasures
 		
 usakingraptor:
 	Inherits: ^Plane
@@ -685,7 +710,7 @@ usakingraptor:
 		Queue: Aircraft
 		BuildAtProductionType: Plane
 		BuildPaletteOrder: 50
-		Prerequisites: ~aircraft.usa, techcenter, upgrade.aircraftgeneral, ~!faction.lasergeneral, ~!faction.superweaponsgeneral
+		Prerequisites: ~aircraft.usa, upgrade.aircraftgeneral, ~!faction.lasergeneral, ~!faction.superweaponsgeneral
 		Description: actor-usakingraptor.description
 		BuildDuration: 2300
 	Valued:
@@ -786,13 +811,9 @@ usakingraptor:
 		Prerequisites: aircraft.upgraded
 	RenderSprites:
 		Image: usakingraptor
-	JamsMissiles:
-		Range: 2c0
-		Chance: 50
-		DeflectionRelationships: Neutral, Enemy
 	JamsMissiles@countermeasures:
-		Range: 3c0
-		Chance: 25
+		Range: 2c0
+		Chance: 40
 		DeflectionRelationships: Neutral, Enemy
 		RequiresCondition: upgradecountermeasures
 	ReloadAmmoPool@reloadnear:
@@ -813,6 +834,20 @@ usakingraptor:
 	GrantConditionOnPrerequisite@2:
 		Condition: upgradecountermeasures
 		Prerequisites: upgrade.countermeasures
+	PointDefense: 
+		PointDefenseTypes: pointdefense
+		Armament: laser
+	Armament@laser:
+		Name: laser
+		Weapon: PointDefenseLaser
+	PointDefense@2: 
+		PointDefenseTypes: pointdefense
+		Armament: laser
+		RequiresCondition: upgradecountermeasures
+	Armament@laser2:
+		Name: laser
+		Weapon: PointDefenseLaser
+		RequiresCondition: upgradecountermeasures
 		
 usaauroraalpha:
 	Inherits: ^Plane
@@ -822,7 +857,7 @@ usaauroraalpha:
 		Queue: Aircraft
 		BuildAtProductionType: Plane
 		BuildPaletteOrder: 50
-		Prerequisites: ~aircraft.usa, techcenter, upgrade.superweaponsgeneral, ~!faction.lasergeneral, ~!faction.aircraftgeneral
+		Prerequisites: ~aircraft.usa, advtechcenter, upgrade.superweaponsgeneral, ~!faction.lasergeneral, ~!faction.aircraftgeneral
 		Description: actor-usaauroraalpha.description
 		BuildDuration: 3300
 	Valued:
@@ -913,6 +948,20 @@ usaauroraalpha:
 		Count: 1
 	Voiced:
 		VoiceSet: AuroraVoice
+	PointDefense: 
+		PointDefenseTypes: pointdefense
+		Armament: laser
+	Armament@laser:
+		Name: laser
+		Weapon: PointDefenseLaser
+	PointDefense@2: 
+		PointDefenseTypes: pointdefense
+		Armament: laser
+		RequiresCondition: upgradecountermeasures
+	Armament@laser2:
+		Name: laser
+		Weapon: PointDefenseLaser
+		RequiresCondition: upgradecountermeasures
 		
 usaspydrone:
 	Inherits: ^Plane
@@ -1112,6 +1161,23 @@ usaspectregunship:
 		LightDiffuseColor: 0.7,0.7,0.7
 	Voiced:
 		VoiceSet: SpectreGunShipVoice
+	GrantConditionOnPrerequisite@2:
+		Condition: upgradecountermeasures
+		Prerequisites: upgrade.countermeasures
+	PointDefense: 
+		PointDefenseTypes: pointdefense
+		Armament: laser
+	Armament@laser:
+		Name: laser
+		Weapon: PointDefenseLaser
+	PointDefense@2: 
+		PointDefenseTypes: pointdefense
+		Armament: laser
+		RequiresCondition: upgradecountermeasures
+	Armament@laser2:
+		Name: laser
+		Weapon: PointDefenseLaser
+		RequiresCondition: upgradecountermeasures
 
 USASpectreGunship.Husk:
 	Inherits: ^TSPlaneHusk

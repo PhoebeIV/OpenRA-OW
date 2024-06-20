@@ -41,7 +41,7 @@ USAPALADIN:
 	Inherits: 2TNK
 	Buildable:
 		BuildPaletteOrder: 230
-		Prerequisites: ~vehicles.usa, techcenter, ~!faction.lasergeneral, ~!faction.aircraftgeneral
+		Prerequisites: ~vehicles.usa, advtechcenter, ~!faction.lasergeneral, ~!faction.aircraftgeneral
 		Description: actor-usapaladin.description
 		BuildDuration: 1400
 	Valued:
@@ -53,7 +53,7 @@ USAPALADIN:
 		Name: actor-usapaladin.upgrade--name
 		RequiresCondition: upgradesuperweaponsgeneral
 	Health:
-		HP: 70000
+		HP: 85000
 	Mobile:
 		Speed: 85
 		Voice: Move
@@ -72,6 +72,7 @@ USAPALADIN:
 		MuzzleSequence: muzzle
 		PauseOnCondition: upgradesuperweaponsgeneral
 	Armament@Secondary:
+		Name: laser
 		Weapon: USAPaladinLaser
 	Armament@PrimaryUpgrade1:
 		Weapon: 120mmpaladinupgrade
@@ -80,10 +81,6 @@ USAPALADIN:
 		RecoilRecovery: 30
 		MuzzleSequence: muzzle
 		RequiresCondition: upgradesuperweaponsgeneral
-	JamsMissiles:
-		Range: 3c0
-		Chance: 25
-		DeflectionRelationships: Neutral, Enemy
 	SpawnActorOnDeath:
 		Actor: usapaladin.Husk
 	WithSpriteTurret:
@@ -100,6 +97,9 @@ USAPALADIN:
 		Prerequisites: upgrade.superweaponsgeneral
 	Voiced:
 		VoiceSet: PaladinTankVoice
+	PointDefense: 
+		PointDefenseTypes: pointdefense
+		Armament: laser
 
 USAHUMVEE:
 	Inherits: JEEP
@@ -333,6 +333,14 @@ USASENTRYDRONE:
 	GrantConditionOnPrerequisite@chargedlasers:
 		Condition: upgradechargedlasers
 		Prerequisites: upgrade.chargedlasers
+	PointDefense: 
+		PointDefenseTypes: pointdefense
+		Armament: laser
+		RequiresCondition: upgradelasergeneral
+	Armament@laser:
+		Name: laser
+		Weapon: PointDefenseLaser
+		RequiresCondition: upgradelasergeneral
 		
 USAAVENGER:
 	Inherits: JEEP
@@ -375,6 +383,12 @@ USAAVENGER:
 	GrantConditionOnPrerequisite@chargedlasers:
 		Condition: upgradechargedlasers
 		Prerequisites: upgrade.chargedlasers
+	PointDefense: 
+		PointDefenseTypes: pointdefense
+		Armament: laser
+	Armament@laser:
+		Name: laser
+		Weapon: PointDefenseLaser
 
 
 USAMICROWAVE:
@@ -460,6 +474,12 @@ USALASERCRUSADER:
 	GrantConditionOnPrerequisite@chargedlasers:
 		Condition: upgradechargedlasers
 		Prerequisites: upgrade.chargedlasers
+	PointDefense: 
+		PointDefenseTypes: pointdefense
+		Armament: laser
+	Armament@laser:
+		Name: laser
+		Weapon: PointDefenseLaser
 
 usarailgun:
 	Inherits: ^TrackedVehicle
@@ -562,6 +582,12 @@ usarailgun:
 		DecorationBounds: 1877, 1621, 0, -170
 	RenderSprites:
 		Image: usarailgun
+	PointDefense: 
+		PointDefenseTypes: pointdefense
+		Armament: laser
+	Armament@laser:
+		Name: laser
+		Weapon: PointDefenseLaser
 
 usadisrupter:
 	Inherits: 2TNK
@@ -646,3 +672,9 @@ usadisrupter:
 	WithIdleOverlay@SPINNER:
 		Sequence: spinner
 		Offset: -500,0,500
+	PointDefense: 
+		PointDefenseTypes: pointdefense
+		Armament: laser
+	Armament@laser:
+		Name: laser
+		Weapon: PointDefenseLaser
