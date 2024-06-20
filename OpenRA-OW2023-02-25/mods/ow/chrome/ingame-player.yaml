@@ -423,7 +423,7 @@ Container@PLAYER_WIDGETS:
 		Container@SIDEBAR_PRODUCTION:
 			Logic: ClassicProductionLogic
 			X: WINDOW_RIGHT - 250
-			Y: 300
+			Y: 325
 			Width: 238
 			Height: 250
 			Children:
@@ -489,7 +489,7 @@ Container@PLAYER_WIDGETS:
 									ImageCollection: production-icons
 						ProductionTypeButton@DEFENSE:
 							Logic: AddFactionSuffixLogic
-							Y: 31
+							Y: 30
 							Width: 28
 							Height: 28
 							VisualHeight: 0
@@ -505,7 +505,7 @@ Container@PLAYER_WIDGETS:
 									ImageCollection: production-icons
 						ProductionTypeButton@WALL:
 							Logic: AddFactionSuffixLogic
-							Y: 62
+							Y: 60
 							Width: 28
 							Height: 28
 							VisualHeight: 0
@@ -521,7 +521,7 @@ Container@PLAYER_WIDGETS:
 									ImageCollection: production-icons
 						ProductionTypeButton@TECH:
 							Logic: AddFactionSuffixLogic
-							Y: 93
+							Y: 90
 							Width: 28
 							Height: 28
 							VisualHeight: 0
@@ -537,7 +537,7 @@ Container@PLAYER_WIDGETS:
 									ImageCollection: production-icons
 						ProductionTypeButton@INFANTRY:
 							Logic: AddFactionSuffixLogic
-							Y: 124
+							Y: 120
 							Width: 28
 							Height: 28
 							VisualHeight: 0
@@ -553,7 +553,7 @@ Container@PLAYER_WIDGETS:
 									ImageCollection: production-icons
 						ProductionTypeButton@VEHICLE:
 							Logic: AddFactionSuffixLogic
-							Y: 155
+							Y: 150
 							Width: 28
 							Height: 28
 							VisualHeight: 0
@@ -569,7 +569,7 @@ Container@PLAYER_WIDGETS:
 									ImageCollection: production-icons
 						ProductionTypeButton@AIRCRAFT:
 							Logic: AddFactionSuffixLogic
-							Y: 186
+							Y: 180
 							Width: 28
 							Height: 28
 							VisualHeight: 0
@@ -585,7 +585,7 @@ Container@PLAYER_WIDGETS:
 									ImageCollection: production-icons
 						ProductionTypeButton@NAVAL:
 							Logic: AddFactionSuffixLogic
-							Y: 217
+							Y: 210
 							Width: 28
 							Height: 28
 							VisualHeight: 0
@@ -601,7 +601,7 @@ Container@PLAYER_WIDGETS:
 									ImageCollection: production-icons
 						ProductionTypeButton@UPGRADES:
 							Logic: AddFactionSuffixLogic
-							Y: 248
+							Y: 240
 							Width: 28
 							Height: 28
 							VisualHeight: 0
@@ -615,9 +615,40 @@ Container@PLAYER_WIDGETS:
 									X: 6
 									Y: 6
 									ImageCollection: production-icons
+						ProductionTypeButton@SPECIAL:
+							Logic: AddFactionSuffixLogic
+							Y: 270
+							Width: 28
+							Height: 28
+							VisualHeight: 0
+							Background: sidebar-button
+							TooltipText: Special
+							TooltipContainer: TOOLTIP_CONTAINER
+							ProductionGroup: Special
+							Key: ProductionTypeSpecial
+							Children:
+								Image@ICON:
+									X: 6
+									Y: 6
+									ImageCollection: production-icons
+						ProductionTypeButton@BOT:
+							Logic: AddFactionSuffixLogic
+							Y: 350
+							Width: 28
+							Height: 28
+							VisualHeight: 0
+							Background:
+							TooltipText: Bot Queue (for debug)
+							TooltipContainer: TOOLTIP_CONTAINER
+							ProductionGroup: Bot
+							Children:
+								Image@ICON:
+									X: 6
+									Y: 6
+									ImageCollection: production-icons
 						Button@SCROLL_UP_BUTTON:
 							Logic: AddFactionSuffixLogic
-							Y: 279
+							Y: 300
 							Width: 28
 							Height: 22
 							VisualHeight: 0
@@ -632,7 +663,7 @@ Container@PLAYER_WIDGETS:
 									ImageName: up
 						Button@SCROLL_DOWN_BUTTON:
 							Logic: AddFactionSuffixLogic
-							Y: 314
+							Y: 322
 							Width: 28
 							Height: 22
 							VisualHeight: 0
@@ -645,21 +676,29 @@ Container@PLAYER_WIDGETS:
 									Y: 3
 									ImageCollection: scrollpanel-decorations
 									ImageName: down
-						ProductionTypeButton@BOT:
-							Logic: AddFactionSuffixLogic
-							Y: 339
-							Width: 28
-							Height: 28
-							VisualHeight: 0
-							Background:
-							TooltipText: Bot Queue (for debug)
-							TooltipContainer: TOOLTIP_CONTAINER
-							ProductionGroup: Bot
-							Children:
-								Image@ICON:
-									X: 6
-									Y: 6
-									ImageCollection: production-icons
+		Container@PRODUCTION_BACKGROUND:
+			X: WINDOW_RIGHT
+			Y: 300
+			Children:
+				Background@ICON_TEMPLATE:
+					Logic: AddFactionSuffixLogic
+					Width: 28
+					Height: 28
+					Background: panel-black-nothing
+		ProductionTabs@PRODUCTION_TABS:
+			Logic: AddFactionSuffixLogic, ProductionTabsLogic
+			PaletteWidget: PRODUCTION_PALETTE
+			TypesContainer: PRODUCTION_TYPES
+			BackgroundContainer: PRODUCTION_BACKGROUND
+			PreviousProductionTabKey: PreviousProductionTab
+			NextProductionTabKey: NextProductionTab
+			TabWidth: 28
+			TabButton: sidebar-button
+			ArrowButton: sidebar-button
+			X: WINDOW_RIGHT - 250
+			Y: 298
+			Width: 237
+			Height: 28
 		Image@SIDEBAR_MONEYBIN:
 			Logic: AddFactionSuffixLogic
 			X: WINDOW_RIGHT - 250
