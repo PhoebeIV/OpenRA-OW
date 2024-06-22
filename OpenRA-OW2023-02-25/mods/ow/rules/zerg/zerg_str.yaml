@@ -53,8 +53,11 @@
 		PlayerExperience: 2
 		RepairPercent: 0
 	ProductionTimeMultiplier@easybuild:
-		Multiplier: 115
-		Prerequisites: zerg.easybuild, !ai.all, !structures.zagara
+		Multiplier: 110
+		Prerequisites: zerg.easybuild, !structures.zagara
+	ProductionTimeMultiplier@aibuild:
+		Multiplier: 110
+		Prerequisites: ai.all
 	Explodes:
 		Type: CenterPosition
 		Weapon: LargeZergBuildingExplode
@@ -356,9 +359,12 @@ ZHATCHERY:
 		Condition: factundeploy
 		Prerequisites: global-factundeploy
 	Power:
-		Amount: 10
+		Amount: 15
 	Production:
-		Produces: Building,Defense,Tech,Wall
+		Produces: Building,Tech,Wall
+	Production@def:
+		Produces: Defense
+		RequiresCondition: zagara || botowner || easybuild_enabled
 	Production@inf:
 		Produces: Hatchery,Infantry
 		PauseOnCondition: busy
@@ -366,9 +372,15 @@ ZHATCHERY:
 	Production@inf2:
 		Produces: Hatchery,Infantry
 		RequiresCondition: zagara
+	GrantConditionOnPrerequisite@ezbuildcondition:
+		Prerequisites: zerg.easybuild
+		Condition: easybuild_enabled
+	GrantConditionOnPrerequisite@ezbuildcondition2:
+		Prerequisites: zerg.spawning
+		Condition: easybuild_enabled
 	ProductionQueue@infantry:
 		Type: Infantry
-		DisplayOrder: 0
+		DisplayOrder: 4
 		Group: Infantry
 		LowPowerModifier: 300
 		BuildDurationModifier: 100
@@ -385,7 +397,7 @@ ZHATCHERY:
 		Condition: produced
 	GrantConditionOnProduction@busy:
 		Condition: busy
-		Duration: 100
+		Duration: 50
 		ShowSelectionBar: false
 	GrantConditionOnPrerequisite@zagaraenable:
 		Prerequisites: structures.zagara
@@ -394,6 +406,13 @@ ZHATCHERY:
 		Condition: wander
 		Range: 3c0
 		RequiresCondition: busy
+	StoresPlayerResources:
+		Capacity: 600
+	Refinery:
+	DockHost:
+		Type: Unload
+		DockAngle: 256
+		DockOffset: 0, 1c0, 0
 	WithDeathAnimation:
 		DeathSequence: dead
 		UseDeathTypeSuffix: false
@@ -1230,7 +1249,7 @@ ZSPIRE:
 		Name: actor-zspire.name
 		RequiresCondition: !spire_upgrade
 	Tooltip@2:
-		Name: actor-zspire.2--name
+		Name: actor-zgspire-name
 		RequiresCondition: spire_upgrade
 	WithDeathAnimation:
 		DeathSequence: dead
