@@ -1,3 +1,39 @@
+
+ROAD:
+	Inherits: BRIK
+	-BlocksProjectiles:
+	-Building:
+	Buildable:
+		Prerequisites: ~structures.civ
+	EnergyWall:
+		TerrainTypes: Clear,ClearSnow,Road,Creep
+		AllowPlacementOnResources: true
+		Weapon: E100Cannon
+		ActiveCondition: never
+	FreeActor:
+		Actor: ROAD.Terrain
+	ProximityExternalCondition:
+		Condition: road_alive
+		Range: 900
+	Targetable:
+		TargetTypes: GroundActor, Wall, NoAutoTarget
+	LineBuild:
+		NodeTypes: road
+	LineBuildNode:
+		Types: road
+
+ROAD.Terrain:
+	Inherits@1: MINE_DUMMY
+	-RevealsShroud:
+	ChangesTerrain:
+		TerrainType: Road
+	ExternalCondition:
+		Condition: road_alive
+	KillsSelf:
+		Delay: 5
+		RequiresCondition: !road_alive
+		RemoveInstead: true
+
 ROADVER1:
 	Inherits: ^Road
 	Buildable:
