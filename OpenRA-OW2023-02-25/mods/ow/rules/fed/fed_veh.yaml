@@ -446,6 +446,8 @@ SOLC:
 	Inherits@EPIC: ^EpicUnit
 	Inherits@EPIC2: ^EpicVehicle
 	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
+	AutoTarget:
+		InitialStance: HoldFire
 	Buildable:
 		Queue: Vehicle
 		BuildPaletteOrder: 9000
@@ -669,6 +671,7 @@ SOLCDEPL:
 	Inherits@AUTOTARGET: ^AutoTargetGround
 	ProvidesPrerequisite:
 		Prerequisite: solexists
+	-RepairableBuilding:
 	Valued:
 		Cost: 25000
 	Tooltip:
@@ -695,8 +698,8 @@ SOLCDEPL:
 	Turreted:
 		TurnSpeed: 4
 		InitialFacing: 128
-		RealignDelay: -1
-		RequiresCondition: !build-incomplete
+		RealignDelay: 200
+		PauseOnCondition: build-incomplete
 	-WithSpriteBody:
 	WithEmbeddedTurretSpriteBody:
 	Armament@1:
@@ -751,7 +754,6 @@ SOLCDEPL:
 		PipCount: 15
 		ValidRelationships: Ally, Enemy, Neutral
 	AttackTurreted:
-		RequiresCondition: !build-incomplete
 		PauseOnCondition: disabled
 		ForceFireIgnoresActors: True
 	RenderRangeCircle:

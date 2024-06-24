@@ -186,7 +186,7 @@ Player:
 	ProvidesPrerequisite@realboss:
 		RequiresCondition: enable-realboss-ai
 		Prerequisite: ai.realboss
-	ProvidesPrerequisite@boss:
+	ProvidesPrerequisite@god:
 		RequiresCondition: enable-boss-ai
 		Prerequisite: ai.boss
 	GrantConditionOnPrerequisite@ai_enable1:
@@ -894,6 +894,7 @@ Player:
 			upgrade.glashoes: 100
 			gla.beta: 100
 			gla.pay: 100
+			gla.aprockets: 100
 			protoss.dragoon: 100
 			protoss.shields: 100
 			protoss.shadows: 100
@@ -948,6 +949,7 @@ Player:
 			bossfaction.zerg: 1
 			bossfaction.kerrigan: 1
 			bossfaction.zagara: 1
+			bossfaction.battletech: 1
 			raynor.tier1.fastupgrade1: 1
 			raynor.tier1.fastupgrade2: 1
 			raynor.tier2.firespeed: 1
@@ -1239,12 +1241,14 @@ Player:
 			gmgg: 100
 			arty.ss: 10
 			gbike: 25
+			gbiket: 25
 			gscud: 25
 			gscud.t: 25
 			gftrk: 35
 			bbus.bot: 30
 			1tnk.g: 40
 			bggyd.g: 25
+			gtechnical: 25
 			aaty: 10
 			btnk: 40
 			btnk.sword: 60
@@ -1535,7 +1539,9 @@ Player:
 			frge6: 5
 			frgsurv: 5
 			fbus.bot: 5
+			bulldozer: 1
 			mlrsd: 5
+			btraven: 5
 			corvus.hero0: 50
 			corvus.hero1: 50
 			corvus.hero2: 50
@@ -2084,15 +2090,21 @@ Player:
 				OrderName: IonCannonPowerInfoOrder
 				MinimumAttractiveness: 1000
 				FineScanRadius: 2
+				Consideration@00:
+					Against: Enemy
+					Types: Superweapon
+					Attractiveness: 1500
+					TargetMetric: Value
+					CheckRadius: 1c0
 				Consideration@0:
 					Against: Enemy
 					Types: EpicUnit
-					Attractiveness: 1000
+					Attractiveness: 500
 					TargetMetric: Value
-					CheckRadius: 2c0
+					CheckRadius: 1c0
 				Consideration@1:
 					Against: Enemy
-					Types: Vehicle, Infantry, Water
+					Types: Vehicle, Infantry, WaterActor
 					Attractiveness: 2
 					TargetMetric: Value
 					CheckRadius: 2c0
@@ -2112,15 +2124,21 @@ Player:
 				OrderName: AvaliIonCannon
 				MinimumAttractiveness: 1000
 				FineScanRadius: 2
+				Consideration@00:
+					Against: Enemy
+					Types: Superweapon
+					Attractiveness: 1500
+					TargetMetric: Value
+					CheckRadius: 1c0
 				Consideration@0:
 					Against: Enemy
 					Types: EpicUnit
-					Attractiveness: 1000
+					Attractiveness: 500
 					TargetMetric: Value
-					CheckRadius: 2c0
+					CheckRadius: 1c0
 				Consideration@1:
 					Against: Enemy
-					Types: Vehicle, Infantry, Water
+					Types: Vehicle, Infantry, WaterActor
 					Attractiveness: 2
 					TargetMetric: Value
 					CheckRadius: 2c0
@@ -2140,12 +2158,18 @@ Player:
 				OrderName: OrbitalBombardment
 				MinimumAttractiveness: 1000
 				FineScanRadius: 2
+				Consideration@00:
+					Against: Enemy
+					Types: Superweapon
+					Attractiveness: 1500
+					TargetMetric: Value
+					CheckRadius: 1c0
 				Consideration@0:
 					Against: Enemy
 					Types: EpicUnit
-					Attractiveness: 1000
+					Attractiveness: 500
 					TargetMetric: Value
-					CheckRadius: 2c0
+					CheckRadius: 1c0
 				Consideration@1:
 					Against: Enemy
 					Types: Vehicle, Infantry, Water
@@ -2168,10 +2192,16 @@ Player:
 				OrderName: CrateSmite
 				MinimumAttractiveness: 2500
 				FineScanRadius: 1
+				Consideration@00:
+					Against: Enemy
+					Types: Superweapon
+					Attractiveness: 1500
+					TargetMetric: Value
+					CheckRadius: 1c0
 				Consideration@0:
 					Against: Enemy
 					Types: EpicUnit
-					Attractiveness: 1000
+					Attractiveness: 500
 					TargetMetric: Value
 					CheckRadius: 1c0
 				Consideration@2:
@@ -2182,7 +2212,7 @@ Player:
 					CheckRadius: 1c0
 				Consideration@3:
 					Against: Ally
-					Types: Ground, Water
+					Types: GroundActor, WaterActor
 					Attractiveness: -10
 					TargetMetric: Value
 					CheckRadius: 1c0

@@ -331,3 +331,28 @@ RaynorDeathNoExplosion:
 		Delay: 50
 		ImpactSounds: gib1.aud, gib2.aud, gib4.aud, ut99dth1.aud
 		ImpactActors: false
+
+TechnicalTurret:
+	Inherits: GenericDeath
+	ValidTargets: Ground, Water, GroundActor, WaterActor
+	Range: 10c0
+	Projectile: Bullet
+		Speed: 96,172
+		Image: e1turretdie
+		Palette: player
+		IsPlayerPalette: true
+		Shadow: True
+		LaunchAngle: 64, 192
+		Inaccuracy: 1c0
+	Warhead@3Eff: CreateEffect
+		Explosions: die
+		Image: e1turretdie
+		UsePlayerPalette: true
+		ExplosionPalette: player
+		ValidTargets: Ground, GroundActor, WaterActor, Trees
+		ImpactActors: false
+	Warhead@4EffWater: CreateEffect
+		Explosions: small_splash
+		ImpactSounds: splash9.aud
+		ValidTargets: Water, Underwater
+		InvalidTargets: Bridge

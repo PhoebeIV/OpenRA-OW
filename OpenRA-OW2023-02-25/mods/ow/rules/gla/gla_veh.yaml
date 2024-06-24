@@ -85,7 +85,7 @@ GMGG:
 GBIKE:
 	Inherits: BIKE
 	Buildable:
-		Prerequisites: ~vehicles.gla, ~techlevel.low
+		Prerequisites: ~vehicles.gbikeprereq, ~techlevel.low
 		Description: actor-gbike-description
 	Health:
 		HP: 14000
@@ -101,6 +101,31 @@ GBIKE:
 	WithMuzzleOverlay:
 	RenderSprites:
 		Image: bike
+
+GBIKET:
+	Inherits: GBIKE
+	Buildable:
+		Prerequisites: ~vehicles.demo, ~techlevel.low
+		Description: actor-gbiket.description
+	Tooltip:
+		Name: actor-gbiket.name
+	Voiced:
+		VoiceSet: TerroristVoice
+	Explodes:
+		Weapon: TerroristBomb
+		EmptyWeapon: TerroristBomb
+		DeathTypes: SmallExplosionDeath, ExplosionDeath, FireDeath, TiberiumDeath, ElectricityDeath, Suicide
+	KillsSelf:
+		RequiresCondition: triggered
+		DamageTypes: Suicide
+	-Armament:
+	Armament:
+		Weapon: TerroristTargeting
+	AttackFrontal:
+		Voice: Attack
+		FacingTolerance: 512
+	GrantConditionOnAttack:
+		Condition: triggered
 
 GSCUD:
 	Inherits: V2RL
@@ -150,7 +175,7 @@ GFTRK:
 	Buildable:
 		Queue: Vehicle
 		BuildPaletteOrder: 130
-		Prerequisites: ~vehicles.gla, ~!vehicles.demo, ~techlevel.medium
+		Prerequisites: ~vehicles.gbikeprereq, ~techlevel.medium
 		Icon: gla-icon
 		Description: actor-gftrk.description
 	Valued:
@@ -242,7 +267,12 @@ BGGYD.G:
 		TurnSpeed: 20
 		Offset: -256,0,96
 	Armament:
+		RequiresCondition: !aprockets
 		Weapon: BuggyRockets
+		LocalOffset: 171,-192,64, 171,0,-64, 171,192,64, 171,-192,-64, 171,0,64, 171,192,-64
+	Armament@upgraded:
+		RequiresCondition: aprockets
+		Weapon: BuggyRocketsAP
 		LocalOffset: 171,-192,64, 171,0,-64, 171,192,64, 171,-192,-64, 171,0,64, 171,192,-64
 	AttackTurreted:
 		PauseOnCondition: disabled
@@ -250,6 +280,9 @@ BGGYD.G:
 		Sequence: pod
 	ProducibleWithLevel:
 		Prerequisites: vehicles.upgraded
+	GrantConditionOnPrerequisite@aprockets:
+		Condition: aprockets
+		Prerequisites: gla.aprockets
 	RenderSprites:
 		Image: bggyd
 
@@ -446,3 +479,35 @@ BBUS.BOT:
 		Image: bbus
 	RenderSprites:
 		Image: bbus
+
+GTECHNICAL:
+	Inherits: BGGYD
+	Inherits@GAINSEXPERIENCE: ^GainsExperience
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Buildable:
+		Queue: Vehicle
+		BuildPaletteOrder: 30
+		Prerequisites: ~vehicles.gla, ~techlevel.low
+		Description: actor-gtechnical.description
+	Valued:
+		Cost: 350
+	Tooltip:
+		Name: actor-gtechnical.name
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 12000
+	Turreted:
+		TurnSpeed: 40
+		Offset: -298,0,212
+	Armament:
+		Weapon: DawnM60mg
+		LocalOffset: 171,0,256
+	AttackTurreted:
+		PauseOnCondition: disabled
+	ThrowsShrapnel:
+		Weapons: TechnicalTurret
+		Pieces: 1,1
+		Range: 1c0, 3c0
+	SpawnActorOnDeath:
+		Actor: GTECHNICAL.Husk

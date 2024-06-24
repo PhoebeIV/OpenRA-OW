@@ -936,6 +936,7 @@ meta-herotier4-tooltipdescription-tier1-description = Tier 4
 meta-herotier5-tooltipdescription-tier1-description = Tier 5
 
 ## crates.yaml
+actor-crate-gla = Salvage
 actor-moneycratesupplydrop-name = Supply Drop Money Crate
 
 actor-crate-fuckyou =
@@ -1637,6 +1638,11 @@ actor-gla-pay =
    .description = Pays your workers more, and in turn this
      increases GLA Hole resilience.
 
+actor-gla-aprockets =
+   .name = AP Rockets
+   .description = Upgrade rocket buggies and RPG troops
+     with increased damage.
+
 ## gla_veh.yaml
 actor-gmgg =
    .name = Radar Van
@@ -1649,6 +1655,14 @@ actor-gbike-description = Fast scout vehicle, armed with dual machine guns.
     Speed: 213
       Strong vs Infantry
       Weak vs Vehicles
+
+actor-gbiket =
+   .description = Fast scout vehicle, armed with a suicide bomb.
+    Can attack Aircraft.
+    Speed: 213
+      Strong vs Infantry, Vehicles
+      Weak vs Long range
+   .name = Bomb Bike
 
 actor-gscud =
    .description = Long-range rocket artillery.
@@ -1703,6 +1717,13 @@ actor-bbus =
    .name = Battle Bus
    .forgotten = Fortified Bus
    .husk = Husk (Fortified Bus)
+
+actor-gtechnical =
+   .description = Fast scout & anti-infantry vehicle.
+   Speed: 170
+      Strong vs Infantry
+      Weak vs Vehicles, Aircraft
+    .name = Technical
 
 ## husks.yaml
 actor-mcvd-husk-name = Husk (Mobile Construction Vehicle)
@@ -2723,7 +2744,7 @@ actor-novan-m =
 ## player.yaml
 actor-player =
    .providestechprerequisite-noepic-name = Advanced Tech
-   .providestechprerequisite-unrestricted-name = Epic Tech
+   .providestechprerequisite-unrestricted-name = Super Tech
    .providestechprerequisite-boss-name = Boss Mode
    .lobbyprerequisitecheckbox-noboats-label = No Boats
    .lobbyprerequisitecheckbox-noboats-description = Check to disable boats.
@@ -5807,8 +5828,30 @@ actor-mlrs =
    .description = Artillery.
     Strong vs ground units, defenses.
 
+actor-bulldozer =
+   .description = [EPIC]
+    Heavily armored siege vehicle.
+
+    Gains armor boost when approaching enemy defenses.
+    Speed: 42
+      Strong vs Buildings
+      Weak vs Aircraft
+   .name = Deathdozer
+
 actor-lstharv =
    .name = Oil Collector
    .description = Collects oil processing.
     Speed: 100 
       Unarmed
+
+## BattleTech
+actor-mechhusk = Going critical!
+
+actor-btraven =
+   .description = Light 'Mech scout. Can attack air.
+    
+    Speed: 96
+      Strong vs Infantry, Aircraft
+      Weak vs Tanks
+   .name = Raven
+   .husk = Husk (Raven)

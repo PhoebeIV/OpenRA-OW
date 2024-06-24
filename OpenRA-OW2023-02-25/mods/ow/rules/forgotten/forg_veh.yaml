@@ -87,6 +87,107 @@ MLRSD:
 		Delay: 125
 		Count: 1
 
+
+BULLDOZER:
+	Inherits: ^TrackedVehicle
+	Inherits@EPIC: ^EpicUnit
+	Inherits@EPIC2: ^EpicVehicle
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Buildable:
+		Queue: Vehicle
+		BuildPaletteOrder: 2500
+		Prerequisites: ulttechcenter, fix, ~vehicles.forgotten, ~techlevel.unrestricted
+		Description: actor-bulldozer.description
+	Valued:
+		Cost: 10000
+	Tooltip:
+		Name: actor-bulldozer.name
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 900000
+	Armor:
+		Type: Heavy
+	Mobile:
+		Speed: 42
+		TurnSpeed: 12
+		Locomotor: heavytracked
+		Voice: Move
+		PauseOnCondition: attacking
+	Guard:
+		Voice: Move
+	Passenger:
+		Weight: 8
+		CustomPipType: red
+		Voice: Move
+	RevealsShroud:
+		MinRange: 7c0
+		Range: 8c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 7c0
+	Armament@PRIMARY:
+		Weapon: BulldozerGrinder
+	Armament@SECONDARY:
+		Weapon: BulldozerGrinderEffect
+		LocalOffset: 1500,256,340, 1500,-256,340, 1500,0,340
+	GrantConditionOnAttack@sound:
+		Condition: attacking
+		RevokeDelay: 26
+	AmbientSound@sound:
+		RequiresCondition: attacking
+		SoundFiles: bulldozer_loop.aud
+	AttackFrontal:
+		PauseOnCondition: disabled
+		FacingTolerance: 64
+	ChangesHealth:
+		Step: 650
+		Delay: 25
+		StartIfBelow: 50
+		DamageCooldown: 150
+	SelectionDecorations:
+	Voiced:
+		VoiceSet: BulldozerVoice
+	AnnounceOnKill:
+	Selectable:
+		DecorationBounds: 1877, 1621, 0, -170
+	RenderSprites:
+	RenderVoxels:
+		PlayerPalette: tsunit
+		LightAmbientColor: 0.7,0.7,0.7
+		LightDiffuseColor: 0.5,0.5,0.5
+		Scale: 1.2
+	WithVoxelBody:
+	-ClassicFacingBodyOrientation:
+	-WithFacingSpriteBody: 
+	-QuantizeFacingsFromSequence:
+	BodyOrientation:
+		QuantizedFacings: 32
+		UseClassicPerspectiveFudge: true
+	AutoTargetPriority@Structure:
+		ValidTargets: Structure, Defense, Wall
+		Priority: 5
+	AutoTarget:
+		ScanRadius: 6
+	ResourceCrusher:
+		ResourceType: Ore
+	ExternalCondition:
+		Condition: near_defense
+	DamageMultiplier@near_defense:
+		RequiresCondition: near_defense
+		Modifier: 80
+	SpeedMultiplier@near_defense:
+		RequiresCondition: near_defense
+		Modifier: 133
+	DamageMultiplier@bot:
+		RequiresCondition: botowner
+		Modifier: 80
+	SoundOnDamageTransition:
+		DamagedSounds: ra3guard_selundb.aud,ra3guard_selundc.aud,ra3guard_selundd.aud
+	Explodes:
+		Weapon: CrateNuke
+		EmptyWeapon: CrateNuke
+
 FMETEOR.1:
 	Inherits: ^NeutralPlane
 	-Targetable@GROUND:

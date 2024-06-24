@@ -1,0 +1,545 @@
+
+# tester
+E1.tester:
+	Inherits: E1
+	Buildable:
+		Prerequisites: ~disabled
+		Icon: icon-hax
+		BuildPaletteOrder: 90000
+	Tooltip:
+		Name: actor-e1-tester-name
+	DamageMultiplier@god:
+		Modifier: 1
+	Armament@PRIMARY:
+		Weapon: ExplodeSuperweapons
+		RequiresCondition: !weapon1
+	-Armament@DAWN:
+	Armament@newgun:
+		Weapon: DoomBFGTestGlobal
+		RequiresCondition: weapon1
+	GrantConditionOnDeploy@1:
+		DeployedCondition: weapon1
+	RenderSprites:
+		Image: e1
+	-EligibleForRandomActorCrate:
+
+# invulnerable
+E1GOD:
+	Inherits: E1
+	RenderSprites:
+		Image: E1
+	UpdatesPlayerStatistics:
+		OverrideActor: e1
+	Tooltip:
+		Name: actor-e1god-name
+	Buildable:
+		Prerequisites: ~disabled
+		Icon: icon-hax
+		BuildPaletteOrder: 90000
+	DamageMultiplier@god:
+		Modifier: 0
+	WithProductionIconOverlay:
+		Types: Veterancy
+		Prerequisites: techlevel.infonly
+	-EligibleForRandomActorCrate:
+
+
+HAXOR:
+	Inherits: POWR
+	Inherits@conyard: ^ConYard
+	Buildable:
+		Prerequisites: ~disabled
+		BuildPaletteOrder: 3
+		Description: actor-haxor.description
+		Queue: Wall
+	ProvidesPrerequisite@bossmode:
+		Prerequisite: ai.boss
+	ProvidesPrerequisite@bossmode2:
+		Prerequisite: ai.all
+	Tooltip:
+		Name: actor-haxor.name
+	Power:
+		Amount: 5000
+	-ExternalCondition@stealthgen:
+	-Cloak@stealthgen:
+	Cloak:
+		IsPlayerPalette: true
+		Palette: dawncloak
+		InitialDelay: 125
+		CloakDelay: 175
+		CloakSound: trans1.aud
+		UncloakSound: trans1.aud
+		UncloakOn: Damage
+		PauseOnCondition: cloak-force-disabled
+	GrantConditionOnDamageState@UNCLOAK:
+		Condition: cloak-force-disabled
+		ValidDamageStates: Critical
+	RenderSprites:
+		Image: POWR
+	Targetable:
+		TargetTypes: UpgradeThing
+	GrantConditionOnDeploy@cheats:
+		DeployedCondition: cheats_off
+		UndeployedCondition: cheats_on
+	ProvidesPrerequisite@cheats:
+		RequiresCondition: cheats_on
+		Prerequisite: never_target_me
+	WithDecoration@cheatson:
+		Image: rank
+		Sequence: rank-elite
+		Palette: effect
+		Position: BottomRight
+		Margin: 5, 6
+		ValidRelationships: Ally, Enemy, Neutral
+		RequiresCondition: cheats_on
+	IonCannonPower@SmitePower:
+		OrderName: DeleteNuke
+		PauseOnCondition: disabled
+		Icon: medismiteicon
+		Cursor: chrono-target
+		ChargeInterval: 25
+		Name: Smite the World
+		Description: Kills everything in a massive area
+		SelectTargetSpeechNotification: SelectTarget
+		InsufficientPowerSpeechNotification: InsufficientPower
+		OnFireSound: medismitesound.wav
+		DisplayRadarPing: True
+		SupportPowerPaletteOrder: 25
+		Effect: explosion
+		EffectSequence: medismiteproj
+		Weapon: DeleteNuke
+		DisplayTimerRelationships: None
+	IonCannonPower@DebugTib:
+		OrderName: DebugTib
+		PauseOnCondition: disabled
+		Icon: chemprim
+		Cursor: chrono-target
+		ChargeInterval: 25
+		Name: Promote Tiberium Transformation
+		Description: Forces mines/trees to transform.
+		SelectTargetSpeechNotification: SelectTarget
+		InsufficientPowerSpeechNotification: InsufficientPower
+		DisplayRadarPing: True
+		SupportPowerPaletteOrder: 24
+		Effect: explosion
+		EffectSequence: chemexplo
+		Weapon: DebugTib
+		DisplayTimerRelationships: None
+	IonCannonPower@kill:
+		OrderName: DebugKill
+		PauseOnCondition: disabled
+		Icon: medismiteicon
+		Cursor: chrono-target
+		ChargeInterval: 25
+		Name: MDK
+		Description: Kills anything in the target cell
+		SelectTargetSpeechNotification: SelectTarget
+		InsufficientPowerSpeechNotification: InsufficientPower
+		DisplayRadarPing: True
+		SupportPowerPaletteOrder: 23
+		Effect: explosion
+		EffectSequence: large_explosion
+		Weapon: MDKLightningZap
+		WeaponDelay: 1
+		DisplayTimerRelationships: None
+	ParatroopersPower@crates:
+		OrderName: Crates
+		Icon: paradoom
+		ChargeInterval: 25
+		Name: Crates
+		UnitType: U2.UAC
+		Description: A Badger drops a bunch of crates.
+		DropItems: crate,crate,crate,crate,crate
+		ReinforcementsArrivedSpeechNotification: ReinforcementsArrived
+		SelectTargetSpeechNotification: SelectTarget
+		AllowImpassableCells: false
+		QuantizedFacings: 8
+		CameraActor: camera.paradrop
+		DisplayBeacon: true
+		BeaconPoster: pinficon
+		ArrowSequence: arrow
+		ClockSequence: clock
+		CircleSequence: circles
+		UseDirectionalTarget: True
+		DirectionArrowAnimation: paradirection
+		SupportPowerPaletteOrder: 10
+	ParatroopersPower@crates2:
+		OrderName: Crates2
+		Icon: paradoom
+		ChargeInterval: 25
+		Name: Crates
+		UnitType: U2.UAC
+		Description: A Badger drops a bunch of fuck you crates.
+		DropItems: crate.fuckyou,crate.fuckyou,crate.fuckyou,crate.fuckyou,crate.fuckyou
+		ReinforcementsArrivedSpeechNotification: ReinforcementsArrived
+		SelectTargetSpeechNotification: SelectTarget
+		AllowImpassableCells: false
+		QuantizedFacings: 8
+		CameraActor: camera.paradrop
+		DisplayBeacon: true
+		BeaconPoster: pinficon
+		ArrowSequence: arrow
+		ClockSequence: clock
+		CircleSequence: circles
+		UseDirectionalTarget: True
+		DirectionArrowAnimation: paradirection
+		SupportPowerPaletteOrder: 11
+	ChronoshiftPower@chronoshift:
+		OrderName: ChronoshiftHax
+		PauseOnCondition: disabled
+		Icon: chrono
+		ChargeInterval: 3000
+		Name: Chronoshift
+		Description: Teleports a unit across\nthe map almost permanently.
+		SelectTargetSpeechNotification: SelectTarget
+		InsufficientPowerSpeechNotification: InsufficientPower
+		BeginChargeSpeechNotification: ChronosphereCharging
+		EndChargeSpeechNotification: ChronosphereReady
+		SelectTargetTextNotification: actor-haxor.chronoshiftpower-chronoshift-select-target-text-notification
+		InsufficientPowerTextNotification: actor-haxor.chronoshiftpower-chronoshift-insufficient-power-text-notification
+		BeginChargeTextNotification: actor-haxor.chronoshiftpower-chronoshift-begin-charge-text-notification
+		EndChargeTextNotification: actor-haxor.chronoshiftpower-chronoshift-end-charge-text-notification
+		Duration: 30000
+		KillCargo: true
+		DisplayRadarPing: True
+		SupportPowerPaletteOrder: 12
+		Dimensions: 1, 1
+		Footprint: x
+	GrantExternalConditionPower@shield:
+		OrderName: GPSScrambler
+		PauseOnCondition: disabled
+		Icon: medismiteicon
+		ChargeInterval: 6000
+		Name: Give Shields
+		Description: Give shields to some selected units.
+		ValidRelationships: Ally, Neutral, Enemy
+		SelectTargetSpeechNotification: SelectTarget
+		InsufficientPowerSpeechNotification: InsufficientPower
+		Condition: external_shield
+		OnFireSound: beltsnd.aud
+		SupportPowerPaletteOrder: 10
+		Dimensions: 3, 3
+		Footprint: xxx xxx xxx
+
+HAXOR.AI1:
+	Inherits: POWR
+	Inherits@conyard: ^ConYard
+	Buildable:
+		Prerequisites: ~disabled
+		Queue: Wall
+		BuildPaletteOrder: 1
+		Description: actor-haxor-ai1.description
+	ProvidesPrerequisite@bossmode:
+		Prerequisite: ai.medium
+	ProvidesPrerequisite@bossmode2:
+		Prerequisite: ai.all
+	Tooltip:
+		Name: actor-haxor-ai1.name
+	RenderSprites:
+		Image: POWR
+	-ProvidesPrerequisite:
+
+HAXOR.AI2:
+	Inherits: POWR
+	Inherits@conyard: ^ConYard
+	Buildable:
+		Prerequisites: ~disabled
+		Queue: Wall
+		BuildPaletteOrder: 2
+		Description: actor-haxor-ai2.description
+	ProvidesPrerequisite@bossmode:
+		Prerequisite: ai.hard
+	ProvidesPrerequisite@bossmode2:
+		Prerequisite: ai.all
+	ProvidesPrerequisite@bossmode3:
+		Prerequisite: structures.bothard
+	Tooltip:
+		Name: actor-haxor-ai2.name
+	RenderSprites:
+		Image: POWR
+	-ProvidesPrerequisite:
+
+
+HAXOR.AI3:
+	Inherits: POWR
+	Buildable:
+		Prerequisites: ~disabled
+		Queue: Wall
+		BuildPaletteOrder: 3
+		Description: actor-haxor-ai3.description
+	ProvidesPrerequisite@bossmode:
+		Prerequisite: ai.realboss
+	ProvidesPrerequisite@bossmode2:
+		Prerequisite: ai.all
+	Tooltip:
+		Name: actor-haxor-ai3.name
+	RenderSprites:
+		Image: POWR
+	ProductionQueue:
+		Type: BossFaction
+		Group: Upgrade
+		DisplayOrder: 10
+		LowPowerModifier: 100
+	Production:
+		Produces: BossFaction
+	-ProvidesPrerequisite:
+
+HAXOR.AI3b:
+	Inherits: HAXOR.AI3
+	Buildable:
+		Description: actor-haxor-ai3b.description
+	Tooltip:
+		Name: actor-haxor-ai3b.name
+	ProductionQueue:
+		Type: UpgradeBot
+		Group: Upgrade
+		DisplayOrder: 10
+		LowPowerModifier: 100
+	Production:
+		Produces: UpgradeBot
+
+PBOX.Teleport:
+	Inherits: ^Building
+	RenderSprites:
+		Image: PBOX
+	Buildable:
+		Queue: Defense
+		Prerequisites: ~disabled
+		BuildPaletteOrder: 90000
+		Description: actor-pbox-teleport.description
+	Tooltip:
+		Name: actor-pbox-teleport.name
+	Health:
+		HP: 50000
+	Armor:
+		Type: Wood
+	TeleportNetwork:
+		Type: Teleport
+	TeleportNetworkPrimaryExit:
+	Exit:
+	RallyPoint:
+	WithDecoration@primary:
+		RequiresCondition: primary
+		Position: Top
+		Margin: 0, 4
+		RequiresSelection: true
+		Image: pips
+		Sequence: tag-primary
+
+
+###############
+# Test Lasers #
+###############
+
+OBLID.HAX:
+	Inherits: OBLID
+	Inherits@AUTOTARGET: ^AutoTargetAll
+	Buildable:
+		Queue: Defense
+		BuildPaletteOrder: 90000
+		Prerequisites: ~disabled
+		Description: actor-oblid-hax.description
+	Valued:
+		Cost: 5
+	Tooltip:
+		Name: actor-oblid-hax.name
+	Health:
+		HP: 500000
+	Armament:
+		Weapon: ObeliskLaserHax
+	-AttackCharges:
+	-WithChargeSpriteBody:
+	WithSpriteBody:
+	AttackOmni:
+	Power:
+		Amount: 0
+	DetectCloaked:
+		Range: 12c0
+		RequiresCondition: !disabled
+	ProvidesPrerequisite@buildingname:
+	RevealsShroud:
+		MinRange: 6c0
+		Range: 15c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 6c0
+	RenderSprites:
+		Image: OBLID
+
+OBL.HaxDefault:
+	Inherits: OBLID.HAX
+	Buildable:
+		Description: actor-obl-haxdefault.description
+	Tooltip:
+		Name: actor-obl-haxdefault.name
+	Armament:
+		Weapon: GodDefaultLaser
+
+OBL.HaxFire:
+	Inherits: OBLID.HAX
+	Buildable:
+		Description: actor-obl-haxfire.description
+	Tooltip:
+		Name: actor-obl-haxfire.name
+	Armament:
+		Weapon: GodFireLaser
+
+OBL.HaxZap:
+	Inherits: OBLID.HAX
+	Buildable:
+		Description: actor-obl-haxzap.description
+	Tooltip:
+		Name: actor-obl-haxzap.name
+	Armament:
+		Weapon: GodZapLaser
+
+OBL.HaxBullet:
+	Inherits: OBLID.HAX
+	Buildable:
+		Description: actor-obl-haxbullet.description
+	Tooltip:
+		Name: actor-obl-haxbullet.name
+	Armament:
+		Weapon: GodBulletLaser
+
+OBL.HaxZombie:
+	Inherits: OBLID.HAX
+	Buildable:
+		Description: actor-obl-haxzombie.description
+	Tooltip:
+		Name: actor-obl-haxzombie.name
+	Armament:
+		Weapon: GodZombieLaser
+
+OBL.HaxExplosion:
+	Inherits: OBLID.HAX
+	Buildable:
+		Description: actor-obl-haxexplosion.description
+	Tooltip:
+		Name: actor-obl-haxexplosion.name
+	Armament:
+		Weapon: GodExplosionLaser
+
+OBL.HaxSmallExplosion:
+	Inherits: OBLID.HAX
+	Buildable:
+		Description: actor-obl-haxsmallexplosion.description
+	Tooltip:
+		Name: actor-obl-haxsmallexplosion.name
+	Armament:
+		Weapon: GodSmallExplosionLaser
+
+OBL.HaxTiberium:
+	Inherits: OBLID.HAX
+	Buildable:
+		Description: actor-obl-haxtiberium.description
+	Tooltip:
+		Name: actor-obl-haxtiberium.name
+	Armament:
+		Weapon: GodTiberiumLaser
+
+OBL.CratePowers:
+	Inherits: OBLID.HAX
+	Buildable:
+		Description: actor-obl-cratepowers.description
+	Tooltip:
+		Name: actor-obl-cratepowers.name
+	Armament:
+		Weapon: GodTiberiumLaser
+	AirstrikePower@1:
+		OrderName: acolytestrike
+		PauseOnCondition: disabled
+		Icon: acolytestrikeicon
+		Cursor: chrono-target
+		ChargeInterval: 4500
+		Name: Acolyte Strike
+		Description: A sudden swarm of Strife Acolytes spawn in targeted area.
+		SelectTargetSpeechNotification: SelectTarget
+		InsufficientPowerSpeechNotification: InsufficientPower
+		DisplayRadarPing: True
+		CameraActor: camera.spyplane
+		SupportPowerPaletteOrder: 20
+		WeaponDelay: 0
+		CameraRemoveDelay: 450
+		DisplayTimerRelationships: Ally, Neutral, Enemy
+		AllowMultiple: true
+		OneShot: false
+		IncomingSound: DSTELEPT.wav
+		UnitType: u2.acolytestrike
+	DropPodsPower@colonydrop:
+		Icon: colonydropicon
+		Name: Colony Drop
+		OrderName: colonydrop
+		Description: Drops a colony onto targeted area.
+		UnitTypes: ColonyDrop
+		Cursor: chrono-target
+		Drops: 1,1
+		PodScatter: 2
+		PodFacing: 704
+		PauseOnCondition: disabled
+		CameraActor: camera
+		CameraRemoveDelay: 750
+		Weapon: usarailguncharging
+		WeaponDelay: 5
+		ChargeInterval: 45000
+		EntryEffect: explosion
+		EntryEffectSequence: redeemerexplosion
+		LaunchSound: colonydropentry.wav
+		SelectTargetSpeechNotification: SelectTarget
+		SelectTargetTextNotification: actor-powerproxy-colonydrop-droppodspower-colonydrop-select-target-text-notification
+		DisplayRadarPing: true
+		DisplayTimerRelationships: Ally, Enemy, Neutral
+		BeaconPoster: artillerybarragebeacon
+		OneShot: false
+		AllowMultiple: true
+	DropPodsPower@roadroller:
+		Icon: roadrollericon
+		Name: Road Roller
+		OrderName: roadroller
+		Description: ROAD ROLLA DAAAAAAAAAA
+		UnitTypes: roadroller
+		Cursor: chrono-target
+		Drops: 1,1
+		PodScatter: 1
+		PodFacing: 704
+		PauseOnCondition: disabled
+		CameraActor: camera
+		CameraRemoveDelay: 750
+		Weapon: usarailguncharging
+		WeaponDelay: 5
+		ChargeInterval: 1250
+		EntryEffect: explosion
+		EntryEffectSequence: redeemerexplosion
+		LaunchSound: roadrollerenter.wav
+		SelectTargetSpeechNotification: SelectTarget
+		SelectTargetTextNotification: actor-powerproxy-roadroller-droppodspower-roadroller-select-target-text-notification
+		DisplayRadarPing: true
+		BeaconPoster: artillerybarragebeacon
+		OneShot: false
+		AllowMultiple: true
+	DropPodsPower@metalnuke:
+		Icon: metalnukeicon
+		Name: ???
+		OrderName: metalnuke
+		Description: Drops ??? onto an area.mp3
+		UnitTypes: cratemetal
+		Cursor: chrono-target
+		Drops: 1,1
+		PodScatter: 3
+		PodFacing: 704
+		PauseOnCondition: disabled
+		CameraActor: camera
+		CameraRemoveDelay: 750
+		Weapon: usarailguncharging
+		WeaponDelay: 5
+		ChargeInterval: 7500
+		EntryEffect: explosion
+		EntryEffectSequence: redeemerexplosion
+		LaunchSound: colonydropentry.wav
+		SelectTargetSpeechNotification: SelectTarget
+		SelectTargetTextNotification: actor-powerproxy-colonydrop-droppodspower-colonydrop-select-target-text-notification
+		DisplayRadarPing: true
+		DisplayTimerRelationships: Ally, Enemy, Neutral
+		BeaconPoster: artillerybarragebeacon
+		OneShot: false
+		AllowMultiple: true

@@ -1542,7 +1542,7 @@ AVHARV.Husk:
 MLRSD.Husk:
 	Inherits: ^Husk
 	Tooltip:
-		Name: actor-mlrsd-name
+		Name: actor-mlrsd.name
 	TransformOnCapture:
 		IntoActor: mlrsd
 	InfiltrateForTransform:
@@ -1551,3 +1551,67 @@ MLRSD.Husk:
 		Image: mlrsd
 	ThrowsParticle@turret:
 		Anim: turret0
+
+GTECHNICAL.Husk:
+	Inherits: ^Husk
+	Tooltip:
+		Name: actor-gtechnical.name
+	TransformOnCapture:
+		IntoActor: gtechnical
+	InfiltrateForTransform:
+		IntoActor: gtechnical
+	Health:
+		HP: 3000
+	ChangesHealth:
+		Step: -200
+	RenderSprites:
+		Image: gtechnical
+
+#Just makes an overlay overtime as the core goes critical, also can't be destroyed normally
+^MechHusk:
+	Inherits: ^Husk
+	-TransformOnCapture:
+	-InfiltrateForTransform:
+	-ChangesHealth:
+	Health:
+		HP: 900000
+	TooltipDescription:
+		Description: actor-mechhusk
+	KillsSelf:
+		Delay: 300
+	GrantDelayedCondition@1:
+		Delay: 75
+		Condition: overlay
+	GrantDelayedCondition@2:
+		Delay: 150
+		Condition: overlay
+	GrantDelayedCondition@3:
+		Delay: 225
+		Condition: overlay
+	WithColoredOverlay@heat1:
+		RequiresCondition: !overlay
+		Color: FF370008
+	WithColoredOverlay@heat2:
+		RequiresCondition: (overlay == 1) && (overlay < 2)
+		Color: FF37001A
+	WithColoredOverlay@heat3:
+		RequiresCondition: (overlay == 2) && (overlay < 3)
+		Color: FF37002B
+	WithColoredOverlay@heat4:
+		RequiresCondition: overlay == 3
+		Color: FF370044
+	WithIdleOverlay@heat1:
+		RequiresCondition: overlay
+		Image: smoke_m
+		StartSequence: idle
+		Sequence: loop
+		Offset: 0,0,768
+
+BTRAVEN.Husk:
+	Inherits: ^MechHusk
+	Tooltip:
+		Name: actor-btraven.husk
+	RenderSprites:
+		Image: btraven
+	ThrowsParticle@turret:
+		Anim: turret

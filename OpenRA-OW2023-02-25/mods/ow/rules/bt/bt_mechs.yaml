@@ -1,0 +1,287 @@
+
+^MechBase:
+	Inherits: ^Vehicle
+	WithDecoration@frame:
+		Image: btheatbar
+		Sequence: frame
+		ValidRelationships: Ally, Enemy, Neutral, None
+		Palette: effect
+		RequiresSelection: true
+		Position: BottomLeft
+		Margin: 3,10
+	WithDecoration@heat1:
+		Image: btheatbar
+		Sequence: 1
+		ValidRelationships: Ally, Enemy, Neutral, None
+		RequiresSelection: true
+		RequiresCondition: (mech_heat > 0) && (mech_heat < 9)
+		Position: BottomLeft
+		Margin: 3,10
+	WithDecoration@heat2:
+		Image: btheatbar
+		Sequence: 2
+		ValidRelationships: Ally, Enemy, Neutral, None
+		RequiresSelection: true
+		RequiresCondition: (mech_heat >= 10) && (mech_heat < 20)
+		Position: BottomLeft
+		Margin: 3,10
+	WithDecoration@heat3:
+		Image: btheatbar
+		Sequence: 3
+		ValidRelationships: Ally, Enemy, Neutral, None
+		RequiresSelection: true
+		RequiresCondition: (mech_heat >= 20) && (mech_heat < 30)
+		Position: BottomLeft
+		Margin: 3,10
+	WithDecoration@heat4:
+		Image: btheatbar
+		Sequence: 4
+		ValidRelationships: Ally, Enemy, Neutral, None
+		RequiresSelection: true
+		RequiresCondition: (mech_heat >= 30) && (mech_heat < 40)
+		Position: BottomLeft
+		Margin: 3,10
+	WithDecoration@heat5:
+		Image: btheatbar
+		Sequence: 5
+		ValidRelationships: Ally, Enemy, Neutral, None
+		RequiresSelection: true
+		RequiresCondition: (mech_heat >= 40) && (mech_heat < 50)
+		Position: BottomLeft
+		Margin: 3,10
+	WithDecoration@heat6:
+		Image: btheatbar
+		Sequence: 6
+		ValidRelationships: Ally, Enemy, Neutral, None
+		RequiresSelection: true
+		RequiresCondition: (mech_heat >= 50) && (mech_heat < 60)
+		Position: BottomLeft
+		Margin: 3,10
+	WithDecoration@heat7:
+		Image: btheatbar
+		Sequence: 7
+		ValidRelationships: Ally, Enemy, Neutral, None
+		RequiresSelection: true
+		RequiresCondition: (mech_heat >= 60) && (mech_heat < 70)
+		Position: BottomLeft
+		Margin: 3,10
+	WithDecoration@heat8:
+		Image: btheatbar
+		Sequence: 8
+		ValidRelationships: Ally, Enemy, Neutral, None
+		RequiresSelection: true
+		RequiresCondition: (mech_heat >= 70) && (mech_heat < 80)
+		Position: BottomLeft
+		Margin: 3,10
+	WithDecoration@heat9:
+		Image: btheatbar
+		Sequence: 9
+		ValidRelationships: Ally, Enemy, Neutral, None
+		RequiresSelection: true
+		RequiresCondition: (mech_heat >= 80) && (mech_heat < 90)
+		Position: BottomLeft
+		Margin: 3,10
+	WithDecoration@heat10:
+		Image: btheatbar
+		Sequence: 10
+		ValidRelationships: Ally, Enemy, Neutral, None
+		RequiresSelection: true
+		RequiresCondition: mech_heat >= 90
+		Position: BottomLeft
+		Margin: 3,10
+	WithIdleOverlay@heat1:
+		RequiresCondition: mech_heat > 90
+		Image: smoke_m
+		StartSequence: idle
+		Sequence: loop
+		Offset: 0,0,768
+	WithColoredOverlay@heat1:
+		RequiresCondition: (mech_heat > 20) && (mech_heat < 40)
+		Color: FF370008
+	WithColoredOverlay@heat2:
+		RequiresCondition: (mech_heat >= 40) && (mech_heat < 60)
+		Color: FF37001A
+	WithColoredOverlay@heat3:
+		RequiresCondition: (mech_heat >= 60) && (mech_heat < 80)
+		Color: FF37002B
+	WithColoredOverlay@heat4:
+		RequiresCondition: mech_heat >= 80
+		Color: FF370044
+	ChangesHealth@overheating:
+		RequiresCondition: (mech_heat > 100) || mech_overheat
+		PercentageStep: -1
+		StartIfBelow: 101
+		Delay: 25
+	ReloadDelayMultiplier@overheating:
+		RequiresCondition: mech_heat > 90
+		Modifier: 125
+	FireWarheads@shutdown:
+		RequiresCondition: mech_heat > 110
+		Interval: 250
+		Weapons: MechShutdown
+	Selectable:
+		DecorationBounds: 1500,1800
+	Explodes:
+		Weapon: MechExplode
+		EmptyWeapon: MechExplode
+
+BTRAVEN:
+	Inherits: ^MechBase
+	Inherits@GAINSEXPERIENCE: ^GainsExperience
+	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
+	Valued:
+		Cost: 2000
+	Buildable:
+		Queue: Vehicle
+		BuildPaletteOrder: 110
+		Prerequisites: ~vehicles.houseliao, ~techlevel.low
+		Description: actor-btraven.description
+		BuildDurationModifier: 150
+		BuildDuration: 400
+	Tooltip:
+		Name: actor-btraven.name
+	Mobile:
+		TurnSpeed: 48
+		Speed: 112
+		Locomotor: medmech
+	Health:
+		HP: 80000
+	Armor:
+		Type: Heavy
+	RevealsShroud:
+		MinRange: 4c0
+		Range: 6c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 4c0
+	Armament@ppc1a:
+		Name: primary1
+		Weapon: LightPPC
+		LocalOffset: 0,512,512
+		Recoil: 80
+		PauseOnCondition: !ppc1 || disabled
+		AmmoUsage: 0
+	Armament@ppc1c:
+		Name: primary1
+		Weapon: LightPPCZap
+		LocalOffset: 0,512,512
+		FireDelay: 3
+		PauseOnCondition: !ppc1 || disabled
+	Armament@ppc2a:
+		Name: primary2
+		Weapon: LightPPC
+		LocalOffset: 0,512,750
+		Recoil: 80
+		PauseOnCondition: !ppc2 || disabled
+		AmmoUsage: 0
+	Armament@ppc2c:
+		Name: primary2
+		Weapon: LightPPCZap
+		LocalOffset: 0,512,750
+		FireDelay: 3
+		PauseOnCondition: !ppc2 || disabled
+	Armament@ppc3a:
+		Name: primary3
+		Weapon: LightPPC
+		LocalOffset: -64,378,600
+		Recoil: 80
+		PauseOnCondition: !ppc3 || disabled
+		AmmoUsage: 0
+	Armament@ppc3c:
+		Name: primary3
+		Weapon: LightPPCZap
+		LocalOffset: -64,378,600
+		FireDelay: 3
+		PauseOnCondition: !ppc3 || disabled
+	Armament@2:
+		Name: secondary
+		Weapon: TerranHK
+		LocalOffset: -384,-384,640, -384,384,640
+		LocalYaw: 192,-192
+		PauseOnCondition: disabled
+	AmmoPool@ppc1:
+		Name: ppc1
+		Armaments: primary1
+		AmmoCondition: ppc1
+	AmmoPool@ppc2:
+		Name: ppc2
+		Armaments: primary2
+		AmmoCondition: ppc2
+	AmmoPool@ppc3:
+		Name: ppc3
+		Armaments: primary3
+		AmmoCondition: ppc3
+	ReloadAmmoPool@ppc1: 
+		AmmoPool: ppc1
+		Delay: 100
+	ReloadAmmoPool@ppc2: 
+		AmmoPool: ppc2
+		Delay: 107
+	ReloadAmmoPool@ppc3: 
+		AmmoPool: ppc3
+		Delay: 114
+	GrantConditionOnAttack@heat1:
+		ArmamentNames: primary1, primary2, primary3
+		Condition: mech_heat
+		RevokeDelay: 25
+		MaximumInstances: 150
+	GrantConditionOnAttack@heat2:
+		ArmamentNames: primary1, primary2, primary3
+		Condition: mech_heat
+		RevokeDelay: 25
+		MaximumInstances: 150
+	GrantConditionOnAttack@heat3:
+		ArmamentNames: primary1, primary2, primary3
+		Condition: mech_heat
+		RevokeDelay: 25
+		MaximumInstances: 150
+	GrantConditionOnAttack@heat4:
+		ArmamentNames: primary1, primary2, primary3
+		Condition: mech_heat
+		RevokeDelay: 25
+		MaximumInstances: 150
+	GrantConditionOnAttack@heat5:
+		ArmamentNames: primary1, primary2, primary3
+		Condition: mech_heat
+		RevokeDelay: 25
+		MaximumInstances: 150
+	GrantConditionOnAttack@overheat1:
+		RequiresCondition: mech_heat > 100
+		ArmamentNames: primary1, primary2, primary3
+		Condition: mech_heat
+		RevokeDelay: 50
+		MaximumInstances: 150
+	GrantConditionOnAttack@overheat2:
+		RequiresCondition: mech_heat > 105
+		ArmamentNames: primary1, primary2, primary3
+		Condition: mech_heat
+		RevokeDelay: 50
+		MaximumInstances: 150
+	AttackTurreted:
+		Armaments: primary1, primary2, primary3, secondary
+		Turrets: primary
+		PauseOnCondition: disabled
+	Turreted:
+		TurnSpeed: 40
+		RequiresCondition: !disabled
+	GrantConditionOnMovement@moving:
+		Condition: moving
+	WithFacingSpriteBody:
+		RequiresCondition: !moving
+	WithFacingSpriteBody@move:
+		RequiresCondition: moving
+		Sequence: move
+	WithSpriteTurret@main:
+		RequiresCondition: !moving
+	WithSpriteTurret@move:
+		RequiresCondition: moving
+		Sequence: turret-move
+	SpawnActorOnDeath:
+		Actor: BTRAVEN.Husk
+	Voiced:
+		VoiceSet: TerranGoliathVoice
+	GrantCondition@stealthgen:
+		Condition: stealthgen
+	Cloak@stealthgen:
+		CloakSound: gstealof.aud
+		UncloakOn: Attack, Damage, Move

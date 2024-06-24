@@ -1418,6 +1418,8 @@ DoomGuyPlasma:
 	ReloadDelay: 55
 	Burst: 15
 	BurstDelays: 3
+	Warhead@3EffGround: CreateEffect
+		ImpactSounds: dsfirxpl.aud
 
 DoomPlasmaFed:
 	Inherits: ^PlasmaWeapon
@@ -7676,3 +7678,227 @@ WeatherTankSnowCluster:
 		ResourceAmount: 1
 		Size: 0
 		Delay: 800
+
+BulldozerGrinder:
+	ReloadDelay: 15
+	Range: 3c0
+	Projectile: InstantHit
+	ValidTargets: Ground, Water, GroundActor, WaterActor
+	Warhead@1Dam: SpreadDamage
+		Spread: 334
+		Damage: 6000
+		ValidTargets: GroundActor, WaterActor
+		Versus:
+			None: 200
+			Wood: 200
+			Heavy: 85
+			Concrete: 150
+			Shield: 200
+		DamageTypes: BulletDeath
+	Warhead@2DamStructure: SpreadDamage
+		Spread: 334
+		Damage: 6000
+		ValidTargets: Defense
+		DamageTypes: DefaultDeath
+	Warhead@2EffActor: CreateEffect
+		ImpactSounds: gib1.aud, gib2.aud, gib4.aud
+		ValidTargets: Infantry
+	Warhead@3EffActor: CreateEffect
+		ImpactSounds: dozer_concretesm1.aud,dozer_concretesm2.aud
+		ValidTargets: Vehicle, Structure
+	Warhead@4EffActor: CreateEffect
+		ImpactSounds: dozer_concretebig1.aud,dozer_concretebig2.aud
+		ValidTargets: Structure
+	Warhead@1Spark: CreateEffect
+		Explosions: laserhitsmall
+		Inaccuracy: 512
+		ImpactActors: false
+	Warhead@2Spark: CreateEffect
+		Explosions: laserhitsmall
+		Inaccuracy: 512
+		Delay: 3
+		ImpactActors: false
+	Warhead@3Spark: CreateEffect
+		Explosions: laserhitsmall
+		Inaccuracy: 512
+		Delay: 6
+		ImpactActors: false
+	Warhead@4Spark: CreateEffect
+		Explosions: laserhitsmall
+		Inaccuracy: 512
+		Delay: 9
+		ImpactActors: false
+	Warhead@5Spark: CreateEffect
+		Explosions: laserhitsmall
+		Inaccuracy: 512
+		Delay: 12
+		ImpactActors: false
+	Warhead@2Eff: CreateEffect
+		Explosions: self_destruct
+		Inaccuracy: 512
+		ImpactActors: false
+	Warhead@3Eff: CreateEffect
+		Explosions: self_destructsm
+		Inaccuracy: 768
+		ImpactActors: false
+	Warhead@4Eff: CreateEffect
+		Explosions: self_destructsm
+		Inaccuracy: 768
+		ImpactActors: false
+		Delay: 5
+	Warhead@5Eff: CreateEffect
+		Explosions: self_destructsm
+		Inaccuracy: 768
+		ImpactActors: false
+		Delay: 10
+	Warhead@15Shake: ShakeScreen
+		Duration: 16
+		Intensity: 1
+		Multiplier: 1, 0.5
+
+BulldozerGrinderEffect:
+	ReloadDelay: 15
+	Range: 3c0
+	Projectile: Missile
+		RangeLimit: 1
+	ValidTargets: Ground, Water, GroundActor, WaterActor
+	Warhead@1Spark: CreateEffect
+		Explosions: laserhitsmall
+		Inaccuracy: 256
+		ImpactActors: false
+		ValidTargets: Ground, Air
+	Warhead@2Spark: CreateEffect
+		Explosions: laserhitsmall
+		Inaccuracy: 256
+		Delay: 3
+		ImpactActors: false
+		ValidTargets: Ground, Air
+	Warhead@3Spark: CreateEffect
+		Explosions: laserhitsmall
+		Inaccuracy: 256
+		Delay: 6
+		ImpactActors: false
+		ValidTargets: Ground, Air
+	Warhead@4Spark: CreateEffect
+		Explosions: laserhitsmall
+		Inaccuracy: 256
+		Delay: 9
+		ImpactActors: false
+		ValidTargets: Ground, Air
+	Warhead@5Spark: CreateEffect
+		Explosions: laserhitsmall
+		Inaccuracy: 256
+		Delay: 12
+		ImpactActors: false
+		ValidTargets: Ground, Air
+
+#use in conjunction with LightPPCZap for nice effects
+LightPPC:
+	Inherits: ^PlasmaWeapon
+	ReloadDelay: 100
+	Range: 9c0
+	MinRange: 2c0
+	Report: bt_lppcfire1.aud, bt_lppcfire2.aud
+	ValidTargets: Ground, Water, WaterActor, GroundActor, AirborneActor
+	Projectile: Bullet
+		Speed: 1c0
+		Blockable: false
+		Image: ppc
+		Inaccuracy: 256
+		TrailInterval: 1
+		TrailImage: explosion
+		TrailSequences: plasma
+		TrailDelay: 1
+		ContrailLength: 8
+		ContrailStartColor: B3FEFF
+		ContrailEndColor: FFFFFF00
+	Warhead@1Dam: SpreadDamage
+		Spread: 256
+		Damage: 8000
+		ValidTargets: GroundActor, WaterActor
+		DamageTypes: Prone50Percent, ElectricityDeath
+	Warhead@1DamAir: SpreadDamage
+		Spread: 512
+		Damage: 3000
+		ValidTargets: AirborneActor
+		Versus:
+			None: 125
+			Wood: 50
+			Heavy: 60
+			Concrete: 50
+		DamageTypes: Prone50Percent, ElectricityDeath
+	Warhead@2Smu: LeaveSmudge
+		SmudgeType: Scorch
+		ValidTargets: Ground, Infantry
+	Warhead@1EffTarget: CreateEffect
+		Explosions: laserhitmed
+		ImpactSounds: bt_ppchit1.aud, bt_ppchit2.aud, bt_ppchit3.aud, bt_ppchit4.aud
+		ValidTargets: GroundActor, AirborneActor
+		InvalidTargets: Infantry
+	Warhead@3EffGround: CreateEffect
+		Explosions: laserhitmed
+		ImpactSounds: bt_ppcimp1.aud, bt_ppcimp2.aud, bt_ppcimp3.aud, bt_ppcimp4.aud, bt_ppcimp5.aud
+		ValidTargets: Ground, Air, Infantry, WaterActor, Water, Trees
+	Warhead@2EffGround: CreateEffect
+		Explosions: plasma
+		Inaccuracy: 256
+		ValidTargets: Ground, Air, GroundActor, AirborneActor, WaterActor, Water, Trees
+	Warhead@4EffGround: CreateEffect
+		Explosions: plasma
+		Inaccuracy: 512
+		ValidTargets: Ground, Air, GroundActor, AirborneActor, WaterActor, Water, Trees
+		Delay: 2
+	Warhead@5EffGround: CreateEffect
+		Explosions: plasma
+		Inaccuracy: 768
+		ValidTargets: Ground, Air, GroundActor, AirborneActor, WaterActor, Water, Trees
+		Delay: 4
+	Warhead@6EffGround: CreateEffect
+		Explosions: plasma
+		Inaccuracy: 1024
+		ValidTargets: Ground, Air, GroundActor, AirborneActor, WaterActor, Water, Trees
+		Delay: 6
+	Warhead@7EffGround: CreateEffect
+		Explosions: plasma
+		Inaccuracy: 768
+		ValidTargets: Ground, Air, GroundActor, AirborneActor, WaterActor, Water, Trees
+		Delay: 8
+	Warhead@8EffGround: CreateEffect
+		Explosions: plasma
+		Inaccuracy: 512
+		ValidTargets: Ground, Air, GroundActor, AirborneActor, WaterActor, Water, Trees
+		Delay: 10
+	Warhead@9EffGround: CreateEffect
+		Explosions: plasma
+		Inaccuracy: 512
+		ValidTargets: Ground, Air, GroundActor, AirborneActor, WaterActor, Water, Trees
+		Delay: 12
+
+LightPPCZap:
+	ReloadDelay: 100
+	Burst: 1
+	BurstDelays: 2
+	Range: 9c0
+	MinRange: 2c0
+	StartBurstReport: bt_ppccharge.aud
+	ValidTargets: Ground, Water, GroundActor, WaterActor
+	Projectile: ElectricBolt
+		Colors: 4AFFEAAB, 99FFF3AB, 52C5FFAB, FFFFFF8A
+		Distortion: 32
+		DistortionAnimation: 128
+		SegmentLength: 256
+		Width: 48
+		Duration: 8
+		TrackTarget: false
+	Warhead@1Dam: SpreadDamage
+		Damage: 1
+		ValidTargets: Ground, Water, GroundActor, WaterActor
+
+MechShutdown:
+	Projectile: InstantHit
+	Warhead@2EMP: GrantExternalCondition
+		Range: 900
+		Condition: disabled
+		Duration: 250
+		ValidTargets: GroundActor, WaterActor
+		AffectsParent: true

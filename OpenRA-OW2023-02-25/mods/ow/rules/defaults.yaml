@@ -460,7 +460,7 @@
 		AffectsParent: false
 		Range: 6c0
 	GrantRandomCondition@glabounty:
-		Conditions: crate1, crate2, crate2, crate3, crate4, crate4, crate4
+		Conditions: crate1, crate2, crate2, crate3, crate4, crate4, crate4, crate4, crate4, crate4, crate4, crate4, crate4
 	SpawnActorOnDeath@crate1:
 		RequiresCondition: glabounty && crate1 && !cantdropcrate
 		Actor: crate
@@ -475,7 +475,7 @@
 		Probability: 1
 	SpawnActorOnDeath@crate4:
 		RequiresCondition: glabounty && crate4 && !cantdropcrate
-		Actor: moneycratesupplydrop
+		Actor: crate.gla
 		Probability: 5
 
 # Default actor type for Construction Yards. It inherits ^AdvTechPips which shows the player's current upgrade levels.
@@ -1368,6 +1368,9 @@
 ^Superweapon:
 	Targetable@superweapon:
 		TargetTypes: Superweapon
+	Explodes@superweapon:
+		Weapon: CrateNuke
+		EmptyWeapon: CrateNuke
 
 ^Defense:
 	Inherits@MediConditions: ^MediConditionsD
@@ -1426,6 +1429,10 @@
 	Targetable@cloaked:
 		RequiresCondition: cloaked
 		TargetTypes: NoAITarget
+	ProximityExternalCondition@neardefense:
+		Condition: near_defense
+		Range: 10c0
+		ValidRelationships: Enemy
 
 ^BuildingPlug:
 	Interactable:
@@ -1752,6 +1759,8 @@
 	Inherits@propagandaboost: ^propagandaboost
 	Inherits@frenzyboost: ^FrenzyBoost
 	Inherits@shields: ^AcceptsShields
+	GrantCondition@crate:
+		Condition: cantdropcrate
 	Shielded:
 		RegenInterval: 15
 	Repairable:
@@ -2247,6 +2256,15 @@
 		Modifier: 50
 	EligibleForRandomActorCrate:
 		Type: epic
+	GrantConditionOnPrerequisite@botowner:
+		Prerequisites: ai.all
+		Condition: botowner
+	SpeedMultiplier@botowner:
+		RequiresCondition: botowner
+		Modifier: 133
+	ReloadDelayMultiplier@botowner:
+		RequiresCondition: botowner
+		Modifier: 90
 
 # Reduces upgrade effectiveness on VERY strong epic infantry units
 ^EpicInfantryNerf:
@@ -2497,6 +2515,7 @@
 		Delay: 8
 	Husk:
 		AllowedTerrain: Clear, ClearSnow, Rough, Road, Ore, Gems, Beach, Tiberium, BlueTiberium, Creep, Radiation
+		Locomotor: husk
 	WithColoredOverlay@IDISABLE:
 		Color: 00000080
 
