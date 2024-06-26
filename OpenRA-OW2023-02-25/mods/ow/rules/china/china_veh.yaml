@@ -1457,3 +1457,106 @@ chinazhurong:
 		Condition: propagandaupgrade
 		RequiresCondition: !disabled && upgradepropaganda
 		Range: 5c0
+
+chinadeathhand:
+	Inherits: ^TrackedVehicle
+	Inherits@EPIC: ^EpicUnit
+	Inherits@EPIC2: ^EpicVehicle
+	Inherits@EXPERIENCE: ^GainsExperience
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Valued:
+		Cost: 25000
+	Tooltip:
+		Name: actor-chinadeathhand.name
+		RequiresCondition: !deployed
+	Tooltip@DEPLOYED:
+		Name: actor-chinadeathhand.deployed--name
+		RequiresCondition: deployed
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Buildable:
+		Queue: Vehicle
+		BuildPaletteOrder: 2500
+		Prerequisites: ~vehicles.china, ulttechcenter, faction.nukegeneral, ~!faction.tankgeneral, ~!faction.infantrygeneral
+		Description: actor-chinadeathhand.description
+	Mobile:
+		TurnSpeed: 12
+		Speed: 35
+		RequireForceMoveCondition: !undeployed
+		ImmovableCondition: !undeployed
+		Voice: Move
+	Guard:
+		Voice: Move
+	Health:
+		HP: 75000
+	Armor:
+		Type: Heavy
+	RevealsShroud:
+		MinRange: 5c0
+		Range: 6c0
+		RevealGeneratedShroud: False
+		RequiresCondition: undeployed
+	RevealsShroud@DEPLOYED:
+		MinRange: 5c0
+		Range: 9c0
+		RevealGeneratedShroud: False
+		RequiresCondition: deployed
+	RevealsShroud@GAPGEN:
+		Range: 5c0
+	Armament@PRIMARY:
+		Name: deployed
+		Weapon: DeathHandShot
+		LocalOffset: 1200,0,112
+		MuzzleSequence: muzzle
+		RequiresCondition: deployed
+		PauseOnCondition: disabled
+	WithMuzzleOverlay:
+	WithMakeAnimation:
+		BodyNames: deployedbody
+	GrantConditionOnDeploy:
+		PauseOnCondition: disabled || being-captured
+		DeployedCondition: deployed
+		UndeployedCondition: undeployed
+		UndeployOnMove: true
+		UndeployOnPickup: true
+		Facing: 128
+		AllowedTerrainTypes: Clear, ClearSnow, Road, Rough
+		DeploySounds: seigedeploy.aud
+		UndeploySounds: cashturn.aud
+		Voice: Action
+	Repairable:
+		RequireForceMoveCondition: !undeployed
+	Passenger:
+		RequireForceMoveCondition: !undeployed
+		Weight: 4
+	GrantCondition@PREVIEWWORKAROUND:
+		Condition: real-actor
+	WithFacingSpriteBody:
+		Sequence: idle2
+		RequiresCondition: undeployed
+	WithSpriteBody:
+		Sequence: idle
+		RequiresCondition: !undeployed && real-actor
+		Name: deployedbody
+	WithSpriteTurret:
+	Turreted:
+		TurnSpeed: 8
+	AttackTurreted@deployed:
+		Armaments: deployed
+		RequiresCondition: deployed
+		PauseOnCondition: disabled
+		OutsideRangeRequiresForceFire: True
+	RevealOnFire:
+		ArmamentNames: deployed
+	Voiced:
+		VoiceSet: DeathHandVoice
+	Selectable:
+		DecorationBounds: 1877, 1621, 0, -170
+	WithRangeCircle:
+		Range: 48c0
+	Explodes:
+		Weapon: MiniNukeRadiation
+		EmptyWeapon: MiniNukeRadiation
+	AutoDeployer:
+		DeployChance: 100
+		DeployTicks: 100

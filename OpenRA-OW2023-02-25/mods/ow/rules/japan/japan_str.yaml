@@ -840,7 +840,7 @@ japanpsychicdatacenter:
 		Icon: japanwarpportalredicon
 		Name: Space Warp (Red)
 		Description: Creates a Warp Portal that can transport vehicles. You need to deploy the Blue Space Warp to complete the tunnel.
-		Prerequisites: ~structures.japan
+		Prerequisites: ~structures.japan, !ai.all
 		LaunchSound: WarpRiftCreate.aud
 		LifeTime: 1500
 	SpawnActorPower@Spacewarpblue:
@@ -859,7 +859,7 @@ japanpsychicdatacenter:
 		Prerequisites: ~structures.japan, ~faction.mechageneral
 		Icon: japandroneswarmpowericon
 		ChargeInterval: 15000
-		Name: Final Squadron
+		Name: Drone Swarm
 		Description: Send a squadron of kamikaze planes.
 		SelectTargetSpeechNotification: SelectTarget
 		CameraActor: camera
@@ -877,6 +877,36 @@ japanpsychicdatacenter:
 		DirectionArrowAnimation: paradirection
 		SupportPowerPaletteOrder: 40
 		DisplayTimerRelationships: None
+	SpawnActorPower@Spacewarpred.AI.Japan:
+		OrderName: SpaceWarpRedAI
+		Actor: JapanWarpPortalRed.AI.japan
+		ChargeInterval: 6000
+		Icon: japanwarpportalredicon
+		Name: Space Warp (Red) (Normal) AI ONLY WHY DO YOU HAVE THIS?!?!
+		Description: Creates a Warp Portal that can transport vehicles. You need to deploy the Blue Space Warp to complete the tunnel.
+		Prerequisites: ~structures.japan, ~ai.all, !faction.mechageneral, !faction.navygeneral
+		LaunchSound: WarpRiftCreate.aud
+		LifeTime: 1500
+	SpawnActorPower@Spacewarpred.AI.Mecha:
+		OrderName: SpaceWarpRedAIMecha
+		Actor: JapanWarpPortalRed.AI.mecha
+		ChargeInterval: 6000
+		Icon: japanwarpportalredicon
+		Name: Space Warp (Red) (Mecha) AI ONLY WHY DO YOU HAVE THIS?!?!
+		Description: Creates a Warp Portal that can transport vehicles. You need to deploy the Blue Space Warp to complete the tunnel.
+		Prerequisites: ~structures.japan, ~ai.all, ~faction.mechageneral
+		LaunchSound: WarpRiftCreate.aud
+		LifeTime: 1500
+	SpawnActorPower@Spacewarpred.AI.Navy:
+		OrderName: SpaceWarpRedAINavy
+		Actor: JapanWarpPortalRed.AI.Navy
+		ChargeInterval: 6000
+		Icon: japanwarpportalredicon
+		Name: Space Warp (Red) (Navy) AI ONLY WHY DO YOU HAVE THIS?!?!
+		Description: Creates a Warp Portal that can transport vehicles. You need to deploy the Blue Space Warp to complete the tunnel.
+		Prerequisites: ~structures.japan, ~ai.all, ~faction.navygeneral
+		LaunchSound: WarpRiftCreate.aud
+		LifeTime: 1500
 
 japanpsychicdatacenternavy:
 	Inherits: japanpsychicdatacenter
@@ -926,7 +956,7 @@ JapanWarpPortalRed:
 	Tooltip:
 		Name: actor-japanwarpportalred.name
 	Health:
-		HP: 50000
+		HP: 150000
 	Armor:
 		Type: Wood
 	TeleportNetwork:
@@ -945,6 +975,129 @@ JapanWarpPortalRed:
 		SoundFiles: WarpRiftLoop01.aud, WarpRiftLoop02.aud, WarpRiftLoop03.aud
 		Delay: 20
 		Interval: 20
+
+JapanWarpPortalRed.AI.japan:
+	Inherits: JapanWarpPortalRed
+	Inherits@target: ^AutoTargetAll
+	-ActorLostNotification:
+	FreeActor@5:
+		Actor: japantsunamitank
+		SpawnOffset: 1,3
+	FreeActor@6:
+		Actor: japantsunamitank
+		SpawnOffset: 0,3
+	FreeActor@7:
+		Actor: japanrocketangel
+		SpawnOffset: 0,0
+	FreeActor@8:
+		Actor: japanrocketangel
+		SpawnOffset: 0,1
+	FreeActor@9:
+		Actor: japantankbuster
+		SpawnOffset: 0,2
+	FreeActor@10:
+		Actor: japantankbuster
+		SpawnOffset: 1,2
+	FreeActor@11:
+		Actor: japanmechatransformer
+		SpawnOffset: 2,2
+	FreeActor@12:
+		Actor: japanimperialwarrior
+		SpawnOffset: 0,0
+		AllowRespawn: true
+		RequiresCondition: produceunit
+	ExternalCondition@ambushhole:
+		Condition: produceunit
+	ProximityExternalCondition:
+		Condition: wander
+		Range: 3c0
+	AutoTarget:
+		InitialStance: AttackAnything
+	AttackOmni:
+	Armament:
+		Weapon: JapanWarpPortalSpawn
+
+JapanWarpPortalRed.AI.mecha:
+	Inherits: JapanWarpPortalRed
+	Inherits@target: ^AutoTargetAll
+	-ActorLostNotification:
+	FreeActor@5:
+		Actor: japanmechatransformer
+		SpawnOffset: 1,3
+	FreeActor@6:
+		Actor: japanmecharaijuu
+		SpawnOffset: 0,3
+	FreeActor@7:
+		Actor: japanmechanic
+		SpawnOffset: 0,0
+	FreeActor@8:
+		Actor: japanmechatengu
+		SpawnOffset: 0,1
+	FreeActor@9:
+		Actor: japanstrikervx
+		SpawnOffset: 0,2
+	FreeActor@10:
+		Actor: japanmechanic
+		SpawnOffset: 1,2
+	FreeActor@11:
+		Actor: japanmechatransformer
+		SpawnOffset: 2,2
+	FreeActor@12:
+		Actor: japantsukumogami
+		SpawnOffset: 0,0
+		AllowRespawn: true
+		RequiresCondition: produceunit
+	ExternalCondition@ambushhole:
+		Condition: produceunit
+	ProximityExternalCondition:
+		Condition: wander
+		Range: 3c0
+	AutoTarget:
+		InitialStance: AttackAnything
+	AttackOmni:
+	Armament:
+		Weapon: JapanWarpPortalSpawn2
+
+JapanWarpPortalRed.AI.navy:
+	Inherits: JapanWarpPortalRed
+	Inherits@target: ^AutoTargetAll
+	-ActorLostNotification:
+	FreeActor@5:
+		Actor: japankappa
+		SpawnOffset: 1,3
+	FreeActor@6:
+		Actor: japannaginata
+		SpawnOffset: 0,3
+	FreeActor@7:
+		Actor: japannaginata
+		SpawnOffset: 0,0
+	FreeActor@8:
+		Actor: japanibukiboat
+		SpawnOffset: 0,1
+	FreeActor@9:
+		Actor: japanibukiboat
+		SpawnOffset: 0,2
+	FreeActor@10:
+		Actor: japansanshikidan
+		SpawnOffset: 1,2
+	FreeActor@11:
+		Actor: japankatsuragi
+		SpawnOffset: 2,2
+	FreeActor@12:
+		Actor: japankappa
+		SpawnOffset: 0,0
+		AllowRespawn: true
+		RequiresCondition: produceunit
+	ExternalCondition@ambushhole:
+		Condition: produceunit
+	ProximityExternalCondition:
+		Condition: wander
+		Range: 3c0
+	AutoTarget:
+		InitialStance: AttackAnything
+	AttackOmni:
+	Armament:
+		Weapon: JapanWarpPortalSpawn2
 
 
 JapanWarpPortalBlue:

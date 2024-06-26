@@ -3256,7 +3256,7 @@ chinashenlongattack:
 	Warhead@Res7: DestroyResource
 		ResourceTypes: Radiation
 		Size: 3
-		Delay: 625
+		Delay: 300
 		ResourceAmount: 10
 	Warhead@4Eff: FireShrapnel
 		Weapon: chinashenlongattackexplosions
@@ -3304,5 +3304,137 @@ chinashenlongattackexplosions:
 	Warhead@Res7: DestroyResource
 		ResourceTypes: Radiation
 		Size: 2
-		Delay: 375
+		Delay: 750
 		ResourceAmount: 10
+
+DeathHandShot:
+	ReloadDelay: 1125
+	Range: 48c0
+	MinRange: 10c0
+	Report: mechnuke.aud
+	ValidTargets: Ground, Water, GroundActor, WaterActor
+	Projectile: Bullet
+		LaunchAngle: 120
+		Speed: 128
+		Image: deathhandshell
+		Inaccuracy: 0
+		ContrailLength: 50
+		ContrailStartWidth: 0c128
+		ContrailStartColor: ff7700
+		ContrailEndWidth: 0c64
+		Blockable: false
+		AirburstAltitude: 2c0
+		Shadow: true
+	Warhead@1Dam: SpreadDamage
+		Spread: 256
+		Damage: 5000
+		ValidTargets: GroundActor, WaterActor, Ground, Water, Air, AirborneActor
+		Versus:
+			None: 100
+			Wood: 25
+			Light: 40
+			Heavy: 50
+			Concrete: 20
+		DamageTypes: Prone50Percent, TriggerProne, ElectricityDeath
+	Warhead@98Eff_impact: CreateEffect
+		ImpactSounds: jericho.wav
+		ImpactActors: false
+		ValidTargets: GroundActor, WaterActor, Ground, Water, Air, AirborneActor
+	Warhead@3Eff_impact: CreateEffect
+		Explosions: deathhandexplosion
+		ImpactSounds: deathhandexplosion.aud
+		ImpactActors: false
+		ValidTargets: GroundActor, WaterActor, Ground, Water, Air, AirborneActor
+	Warhead@10Eff_areanuke1: CreateEffect
+		Explosions: deathhandflare
+		ImpactActors: false
+		ValidTargets: GroundActor, WaterActor, Ground, Water, Air, AirborneActor
+	Warhead@11Smu_areanuke3: LeaveSmudge
+		SmudgeType: Scorch
+		Size: 3
+		Delay: 15
+		ValidTargets: GroundActor, WaterActor, Ground, Water, Air, AirborneActor
+	Warhead@17Shake: ShakeScreen
+		Duration: 10
+		Intensity: 3
+		Multiplier: 1,1
+		ValidTargets: GroundActor, WaterActor, Ground, Water, Air, AirborneActor
+	Warhead@Res7: DestroyResource
+		Size: 5
+		ResourceAmount: 10
+		ValidTargets: GroundActor, WaterActor, Ground, Water, Air, AirborneActor
+	Warhead@4Radiation: CreateResource
+		AddsResourceType: Radiation
+		Delay: 1
+		Size: 5
+		ValidTargets: GroundActor, WaterActor, Ground, Water, Air, AirborneActor
+	Warhead@15Shake: ShakeScreen
+		Duration: 5
+		Intensity: 2
+		Multiplier: 1,1
+		ValidTargets: GroundActor, WaterActor, Ground, Water, Air, AirborneActor
+	Warhead@Res8: DestroyResource
+		ResourceTypes: Radiation
+		Size: 5
+		Delay: 750
+		ResourceAmount: 10
+		ValidTargets: GroundActor, WaterActor, Ground, Water, Air, AirborneActor
+	Warhead@4Eff: FireShrapnel
+		Weapon: deathhandshotcluster
+		Amount: 35
+		AimChance: 10
+		AroundTarget: true
+		AllowDirectHit: true
+		ValidTargets: GroundActor, WaterActor, Ground, Water, Air, AirborneActor
+
+deathhandshotcluster:
+	Range: 9c0
+	MinRange: 1c0
+	ValidTargets: Ground, Water, GroundActor, WaterActor, Underwater, AirborneActor, Air
+	Projectile: Bullet
+		Speed: 128
+		Image: battlelordbombproj
+		LaunchAngle: 120
+		ContrailLength: 3
+	Warhead@1Dam: SpreadDamage
+		Spread: 256
+		Damage: 5000
+		ValidTargets: GroundActor, WaterActor
+		Versus:
+			None: 100
+			Wood: 25
+			Light: 40
+			Heavy: 50
+			Concrete: 20
+		DamageTypes: Prone50Percent, TriggerProne, FireDeath
+	Warhead@2Smu: LeaveSmudge
+		SmudgeType: Scorch
+		ValidTargets: Ground, Infantry
+	Warhead@3Eff: CreateEffect
+		Explosions: dukenukemexplosiontiny
+		ValidTargets: Ground, GroundActor, WaterActor, Trees
+		ImpactActors: false
+	Warhead@4EffWater: CreateEffect
+		Explosions: med_splash
+		ImpactSounds: splash9.aud
+		ValidTargets: Water, Underwater
+		InvalidTargets: Bridge
+	Warhead@4Radiation: CreateResource
+		AddsResourceType: Radiation
+		Size: 1
+	Warhead@Res7: DestroyResource
+		ResourceTypes: Radiation
+		Size: 3
+		Delay: 750
+		ResourceAmount: 10
+	Warhead@radiation: FireCluster
+		Weapon: NewRadiationCloud
+		Delay: 3
+		RandomClusterCount: 7
+		Dimensions: 5,5
+		Footprint: xxxxx xxXxx xXXXx xxXxx xxxxx
+	Warhead@radiation2: FireCluster
+		Weapon: NewRadiationCloud
+		RandomClusterCount: 2
+		Dimensions: 1,1
+		Footprint: x

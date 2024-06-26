@@ -24,6 +24,11 @@ usachinook:
 		SearchFromProcRadius: 15
 		SearchFromHarvesterRadius: 8
 		EmptyCondition: no-ore
+	WithHarvestOverlay:
+		Sequence: collect
+		LocalOffset: 0,0,0
+	WithDockingOverlay:
+		Sequence: deliver
 	ChangesHealth:
 		Step: 100
 		Delay: 25
@@ -102,6 +107,12 @@ usachinook:
 	ProductionTimeMultiplier@airforcegeneral:
 		Multiplier: 75
 		Prerequisites: upgrade.cheaperplanes
+	ProductionCostMultiplier@AIairforcegeneral:
+		Multiplier: 30
+		Prerequisites: ai.all && upgrade.aircraftgeneral
+	ProductionTimeMultiplier@AIairforcegeneral:
+		Multiplier: 30
+		Prerequisites: ai.all && upgrade.aircraftgeneral
 	DockClientManager:
 	StoresResources:
 		Capacity: 20
@@ -183,6 +194,12 @@ usacombatchinook:
 	ProductionTimeMultiplier@airforcegeneral:
 		Multiplier: 75
 		Prerequisites: upgrade.cheaperplanes
+	ProductionCostMultiplier@AIairforcegeneral:
+		Multiplier: 30
+		Prerequisites: ai.all && upgrade.aircraftgeneral
+	ProductionTimeMultiplier@AIairforcegeneral:
+		Multiplier: 30
+		Prerequisites: ai.all && upgrade.aircraftgeneral
 		
 usacomanche:
 	Inherits: ^Helicopter
@@ -318,11 +335,17 @@ usacomanche:
 		Condition: cloak-force-disabled
 		ValidDamageStates: Critical
 	ProductionCostMultiplier@airforcegeneral:
-		Multiplier: 50
+		Multiplier: 75
 		Prerequisites: upgrade.cheaperplanes
 	ProductionTimeMultiplier@airforcegeneral:
-		Multiplier: 50
+		Multiplier: 75
 		Prerequisites: upgrade.cheaperplanes
+	ProductionCostMultiplier@AIairforcegeneral:
+		Multiplier: 30
+		Prerequisites: ai.all && upgrade.aircraftgeneral
+	ProductionTimeMultiplier@AIairforcegeneral:
+		Multiplier: 30
+		Prerequisites: ai.all && upgrade.aircraftgeneral
 	ReloadDelayMultiplier@chargedlasers:
 		Modifier: 80
 		RequiresCondition: upgradechargedlasers
@@ -556,6 +579,12 @@ usastealthfighter:
 	ProductionTimeMultiplier@airforcegeneral:
 		Multiplier: 75
 		Prerequisites: upgrade.cheaperplanes
+	ProductionCostMultiplier@AIairforcegeneral:
+		Multiplier: 30
+		Prerequisites: ai.all && upgrade.aircraftgeneral
+	ProductionTimeMultiplier@AIairforcegeneral:
+		Multiplier: 30
+		Prerequisites: ai.all && upgrade.aircraftgeneral
 	GrantConditionOnPrerequisite@1:
 		Condition: upgradelaserguided
 		Prerequisites: upgrade.laserguided
@@ -685,6 +714,12 @@ usaaurora:
 	ProductionTimeMultiplier@airforcegeneral:
 		Multiplier: 75
 		Prerequisites: upgrade.cheaperplanes
+	ProductionCostMultiplier@AIairforcegeneral:
+		Multiplier: 30
+		Prerequisites: ai.all && upgrade.aircraftgeneral
+	ProductionTimeMultiplier@AIairforcegeneral:
+		Multiplier: 30
+		Prerequisites: ai.all && upgrade.aircraftgeneral
 	GrantConditionOnPrerequisite@2:
 		Condition: upgradecountermeasures
 		Prerequisites: upgrade.countermeasures
@@ -823,11 +858,17 @@ usakingraptor:
 	Voiced:
 		VoiceSet: KingRaptorVoice
 	ProductionCostMultiplier@airforcegeneral:
-		Multiplier: 50
+		Multiplier: 75
 		Prerequisites: upgrade.cheaperplanes
 	ProductionTimeMultiplier@airforcegeneral:
-		Multiplier: 50
+		Multiplier: 75
 		Prerequisites: upgrade.cheaperplanes
+	ProductionCostMultiplier@AIairforcegeneral:
+		Multiplier: 30
+		Prerequisites: ai.all && upgrade.aircraftgeneral
+	ProductionTimeMultiplier@AIairforcegeneral:
+		Multiplier: 30
+		Prerequisites: ai.all && upgrade.aircraftgeneral
 	GrantConditionOnPrerequisite@1:
 		Condition: upgradelaserguided
 		Prerequisites: upgrade.laserguided
@@ -986,9 +1027,11 @@ usaspydrone:
 		Speed: 65
 		RepulsionSpeed: 80
 		MaximumPitch: 56
-		TakeOffOnCreation: true
 		VTOL: true
+		MinAirborneAltitude: 1280
 		Voice: Move
+	Hovers:
+		InitialHeight: 1536
 	Guard:
 		Voice: Move
 	SelectionDecorations:
@@ -1095,7 +1138,7 @@ usaspectregunship:
 	UpdatesPlayerStatistics:
 		AddToArmyValue: true
 	Health:
-		HP: 160000
+		HP: 250000
 	RevealsShroud:
 		MinRange: 9c0
 		Range: 11c0
@@ -1214,3 +1257,192 @@ USASpectreGunship.Husk:
 		Velocity: 50
 		Explosion: MiniNuke
 		MaximumSpinSpeed: 0
+
+USASpectreGunship.ability:
+	Inherits: usaspectregunship
+	Inherits@EPIC: ^EpicUnit
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	RenderSprites:
+		Image: usaspectregunship
+	Buildable:
+		Queue: Aircraft
+		BuildAtProductionType: Plane
+		BuildPaletteOrder: 130
+		Prerequisites: ~aircraft.usa, ulttechcenter, upgrade.aircraftgeneral, ~!faction.lasergeneral, ~!faction.superweaponsgeneral, ~faction.aircraftgeneral
+		Description: actor-usaspectregunship.description
+		BuildLimit: 1
+	Valued:
+		Cost: 20000
+	Tooltip:
+		Name: actor-usaspectregunship.name
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 300000
+	RevealsShroud:
+		MinRange: 11c0
+		Range: 13c0
+		Type: GroundPosition
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 11c0
+		Type: GroundPosition
+	AutoTarget:
+		InitialStance: AttackAnything
+		MinimumScanTimeInterval: 1
+		MaximumScanTimeInterval: 1
+	Armament@PRIMARY:
+		Name: primary
+		Weapon: GAU-12
+		LocalOffset: 256,-213,0
+		MuzzleSequence: muzzle
+	Armament@SECONDARY:
+		Name: secondary
+		Weapon: USASpectreGunshipbunkerbuster
+		LocalOffset: 256,213,0
+		MuzzleSequence: muzzle
+	Armament@TERTIARY:
+		Name: tertiary
+		Weapon: USASpectreGunshipcannon
+		LocalOffset: 256,213,0
+		MuzzleSequence: muzzle
+	VoiceAnnouncement:
+		RequiresCondition: produced
+		Voice: Build
+	AmbientSound@yamato:
+		RequiresCondition: enable_yamato && (ammo >= 38)
+		SoundFiles: tbayam01.aud
+		Interval: 9000
+	SpawnActorOnDeath:
+		RequiresCondition: !active
+		Actor: USASpectreGunship.Husk
+	AnnounceOnKill:
+		Voice: Kill
+	GrantPeriodicCondition:
+		RequiresCondition: !extend_time
+		Condition: active
+		CooldownDuration: 1125
+		ActiveDuration: 26
+		ShowSelectionBar: true
+		CooldownColor: 97FFFC
+	GrantPeriodicCondition@extended:
+		RequiresCondition: extend_time
+		Condition: active
+		CooldownDuration: 1500
+		ActiveDuration: 26
+		ShowSelectionBar: true
+		CooldownColor: 97FFFC
+	GrantCondition:
+		RequiresCondition: active
+		Condition: remove_me
+	KillsSelf@active:
+		RequiresCondition: remove_me
+		Delay: 25
+		DamageTypes: RemoveHyperion
+	SpawnActorOnDeath@flyaway:
+		RequiresCondition: remove_me
+		Actor: USASpectreGunship.Leave
+		DeathType: RemoveHyperion
+	DeathSounds:
+		RequiresCondition: !active
+	GrantConditionOnPrerequisite@yamato:
+		Prerequisites: raynor.tier5.hyperion1
+		Condition: enable_yamato
+	GrantConditionOnPrerequisite@time:
+		Prerequisites: raynor.tier5.hyperion2
+		Condition: extend_time
+	GrantConditionOnPrerequisite@botowner:
+		Condition: botowner
+		Prerequisites: ai.all
+	DamageMultiplier@botowner:
+		Modifier: 75
+		RequiresCondition: botowner
+	Targetable@nomind:
+		TargetTypes: NoMindControl
+	-ActorLostNotification:
+	RenderVoxels:
+		Image: usaspectregunship
+		Scale: 1.25
+		LightAmbientColor: 1.0,1.0,1.0
+		LightDiffuseColor: 0.7,0.7,0.7
+	Aircraft:
+		CruiseAltitude: 2560
+		InitialFacing: 768
+		TurnSpeed: 8
+		Speed: 150
+		RepulsionSpeed: 40
+		MaximumPitch: 56
+
+USASpectreGunship.Leave:
+	Inherits: USASpectreGunship.ability
+	RenderSprites:
+		Image: usaspectregunship
+	RejectsOrders:
+	Aircraft:
+		Speed: 256
+		CruiseAltitude: 8c0
+		LandableTerrainTypes: Clear, ClearSnow, Road, Creep
+		IdleBehavior: LeaveMap
+		AltitudeVelocity: 72
+	Contrail@1:
+		Offset: -98,-683,256
+	Contrail@2:
+		Offset: -98,683,256
+	Contrail@3:
+		Offset: -98,1283,256
+	Contrail@4:
+		Offset: -98,-1283,256
+	-GrantPeriodicCondition:
+	-GrantPeriodicCondition@extended:
+	-DeathSounds:
+	-KillsSelf@active:
+	KillsSelf:
+		Delay: 500
+		RemoveInstead: true
+	RenderVoxels:
+		Image: usaspectregunship
+		Scale: 1.25
+		LightAmbientColor: 1.0,1.0,1.0
+		LightDiffuseColor: 0.7,0.7,0.7
+
+usaspectregunship.spawn:
+	Inherits: USASpectreGunship.Leave
+	-AttackAircraft:
+	AttackBomber:
+	Aircraft:
+		Speed: 128
+		CruiseAltitude: 2c512
+		IdleBehavior: None
+	Contrail@1:
+		Offset: -98,-683,256
+	Contrail@2:
+		Offset: -98,683,256
+	Contrail@3:
+		Offset: -98,1283,256
+	Contrail@4:
+		Offset: -98,-1283,256
+	Armament@PRIMARY:
+		Weapon: USASpectreGunshipbunkerbuster
+	Armament@SECONDARY:
+		Weapon: USASpectreGunshipcannon
+	Armament@TERTIARY:
+		Weapon: GAU-12
+	AmmoPool:
+		Ammo: 10
+		InitialAmmo: 10
+	GrantConditionOnAttack:
+		Condition: attack
+		RevokeDelay: 9000
+	KillsSelf:
+		Delay: 0
+		RequiresCondition: attack
+		RemoveInstead: false
+	SpawnActorOnDeath:
+		Actor: USASpectreGunship.ability
+	GrantCondition@produce:
+		Condition: produced
+	RenderVoxels:
+		Image: usaspectregunship
+		Scale: 1.25
+		LightAmbientColor: 1.0,1.0,1.0
+		LightDiffuseColor: 0.7,0.7,0.7

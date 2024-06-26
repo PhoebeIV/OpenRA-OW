@@ -742,6 +742,8 @@ Player:
 			usasupportmatrix: 50
 			usashipyard: 100
 			usasupplydropzone: 10
+			controlrods.up: 5
+			advancedcontrolrods.up: 5
 			chinabarracks: 100
 			chinabarracks.bot: 100
 			chinawarfactory: 100
@@ -1458,6 +1460,7 @@ Player:
 			chinashenlong: 1
 			chinafortress: 1
 			chinazhurong: 1
+			chinadeathhand: 1
 			japanimperialwarrior: 15
 			japantankbuster: 10
 			japanrocketangel: 10
@@ -1718,6 +1721,7 @@ Player:
 			chinashenlong: 1
 			chinafortress: 1
 			chinazhurong: 1
+			chinadeathhand: 1
 			japanrocketangel: 20
 			japanwarhorse: 10
 			japanshinobi: 5
@@ -3342,6 +3346,27 @@ Player:
 					Against: Enemy
 					Types: Vehicle, Infantry, Water
 					Attractiveness: 5
+					CheckRadius: 5c0
+			SpectreGunShip:
+				OrderName: SpectreGunShip
+				MinimumAttractiveness: 1000
+				FineScanRadius: 2
+				Consideration@0:
+					Against: Enemy
+					Types: EpicUnit
+					Attractiveness: 1000
+					TargetMetric: Value
+					CheckRadius: 2c0
+				Consideration@00:
+					Against: Enemy
+					Types: SupportPowerConsiderer
+					Attractiveness: 1000
+					TargetMetric: Value
+					CheckRadius: 2c0
+				Consideration@1:
+					Against: Enemy
+					Types: Vehicle, Infantry, Water
+					Attractiveness: 5
 			MeteorShower:
 				OrderName: MeteorShower
 				MinimumAttractiveness: 1000
@@ -3363,4 +3388,52 @@ Player:
 					Types: Ground, Water
 					Attractiveness: -10
 					TargetMetric: Value
+					CheckRadius: 3c0
+			SpaceWarpBlue:
+				OrderName: SpaceWarpBlue
+				MinimumAttractiveness: 1000
+				Consideration@1:
+					Against: Ally
+					Types: Vehicle
+					Attractiveness: 2
+					TargetMetric: Value
+					CheckRadius: 2c0
+				Consideration@2:
+					Against: Ally
+					Types: Vehicle
+					Attractiveness: -1
+					TargetMetric: Health
+					CheckRadius: 2c0
+			SpaceWarpRedAI:
+				OrderName: SpaceWarpRedAI
+				MinimumAttractiveness: 1000
+				Consideration@1:
+					Against: Enemy
+					Types: Structure
+					Attractiveness: 5
+					TargetMetric: Value
+					CheckRadius: 5c0
+				Consideration@2:
+					Against: Enemy
+					Types: Defense, Infantry, Vehicle
+					Attractiveness: -5
+					TargetMetric: None
+					CheckRadius: 5c0
+			SpaceWarpRedAIMecha:
+				OrderName: SpaceWarpRedAIMecha
+				MinimumAttractiveness: 1000
+				Consideration@1:
+					Against: Enemy
+					Types: Defense, Infantry, Vehicle
+					Attractiveness: -5
+					TargetMetric: None
+					CheckRadius: 5c0
+			SpaceWarpRedAINavy:
+				OrderName: SpaceWarpRedAINavy
+				MinimumAttractiveness: 1000
+				Consideration@1:
+					Against: Enemy
+					Types: Water, WaterActor
+					Attractiveness: 5
+					TargetMetric: None
 					CheckRadius: 3c0

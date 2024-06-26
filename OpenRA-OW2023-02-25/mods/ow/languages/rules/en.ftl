@@ -672,10 +672,20 @@ actor-chinafortress =
 
 actor-chinazhurong =
    .description = [EPIC]
-    The Zhu Rong Tank wields a fragmentation cannon.
+   The Zhu Rong Tank wields a fragmentation cannon.
       Strong vs Infantry, Vehicles, Buildings
       Weak vs Aircraft
    .name = Zhu Rong
+
+actor-chinadeathhand =
+   .deployed--name = Death Hand (deployed)
+   .description = [EPIC]
+    The Death Hand is General Tsing Shi Tao's mobile super weapon.
+    It's an artillery cannon armed with tactical nuclear shells, capable of striking any position on the map.
+    It's heavy ballistic shell airbursts above enemy forces and forms a radioactive area.
+      Strong vs Infantry, Vehicles, Buildings
+      Weak vs Aircraft
+   .name = Death Hand
 
 ## civ_inf.yaml
 actor-c1-c =
@@ -4668,7 +4678,16 @@ actor-usacoldfusion =
     Can be upgraded to provide more power.
    .name = Cold Fusion Reactor
    .extra50--name = Cold Fusion Reactor (Control Rods)
-   .extra150--name = Cold Fusion Reactor (Nuclear Rods)
+   .extra150--name = Cold Fusion Reactor (Advanced Control Rods)
+
+actor-controlrods-up =
+   .name = Control Rods
+   .description = Doubles the reactor's output.
+
+actor-advancedcontrolrods-up =
+   .name = Advanced Control Rods
+   .description = Quadruples the reactor's output.
+   Caution: Energy becomes unstable if building is destroyed.
 
 actor-usabarracks =
    .description = Trains infantry. Patriots. God bless 'em.

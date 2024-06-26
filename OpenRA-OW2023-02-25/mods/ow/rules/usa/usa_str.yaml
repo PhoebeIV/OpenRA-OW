@@ -47,12 +47,12 @@ usacoldfusion:
 		Amount: 100
 	Power@AI50:
 		Amount: 125
-		RequiresCondition: ai.hard
+		RequiresCondition: ai.all
 	Power@Extra50:
-		Amount: 50
+		Amount: 100
 		RequiresCondition: coldfusionup1
-	Power@Extra150:
-		Amount: 150
+	Power@Extra200:
+		Amount: 200
 		RequiresCondition: coldfusionup2
 	Targetable:
 		TargetTypes: GroundActor, Structure, C4, DetonateAttack, SpyInfiltrate
@@ -64,7 +64,7 @@ usacoldfusion:
 		Image: usacoldfusionbuilding
 	GrantConditionOnPrerequisite@coldfusionup1:
 		Condition: coldfusionup1
-		Prerequisites: ~upgrade.coldreactor
+		Prerequisites: ~upgrade.superweaponsgeneral
 	GrantConditionOnPrerequisite@coldfusionup2:
 		Condition: coldfusionup2
 		Prerequisites: ~upgrade.coldreactoradvanced
@@ -79,6 +79,62 @@ usacoldfusion:
 	WithSpriteBody@Extra150:
 		RequiresCondition: coldfusionup2 && !build-incomplete
 		Sequence: idle3
+	Pluggable@1:
+		Offset: 0,0
+		Conditions:
+			controlrods.up: coldfusionup1
+		Requirements:
+			controlrods.up: !build-incomplete && !coldfusionup1 && !coldfusionup2 && !estoniabuff
+		EditorOptions:
+			controlrods.up: Control Rods Upgraded
+	Pluggable@2:
+		Offset: 0,0
+		Conditions:
+			advancedcontrolrods.up: coldfusionup2
+		Requirements:
+			advancedcontrolrods.up: !build-incomplete && coldfusionup1 && !coldfusionup2 && !estoniabuff
+		EditorOptions:
+			advancedcontrolrods.up: Advanced Control Rods Upgraded
+
+controlrods.up:
+	Inherits: ^BuildingPlug
+	Valued:
+		Cost: 500
+	Tooltip:
+		Name: actor-controlrods-up.name
+	Buildable:
+		Queue: Wall
+		BuildPaletteOrder: 102
+		Prerequisites: ~structures.usa, ~anypower, !upgrade.superweaponsgeneral
+		Description: actor-controlrods-up.description
+		Icon: icon-controlrods
+		BuildDuration: 800
+	Plug:
+		Type: controlrods.up
+	RenderSprites:
+		Image: oregen
+	SequencePlaceBuildingPreview:
+		Sequence: idle
+
+advancedcontrolrods.up:
+	Inherits: ^BuildingPlug
+	Valued:
+		Cost: 500
+	Tooltip:
+		Name: actor-advancedcontrolrods-up.name
+	Buildable:
+		Queue: Wall
+		BuildPaletteOrder: 102
+		Prerequisites: ~structures.usa, ~anypower, ~upgrade.superweaponsgeneral
+		Description: actor-advancedcontrolrods-up.description
+		Icon: icon-advancedcontrolrods
+		BuildDuration: 800
+	Plug:
+		Type: advancedcontrolrods.up
+	RenderSprites:
+		Image: oregen
+	SequencePlaceBuildingPreview:
+		Sequence: idle
 
 usabarracks:
 	Inherits: ^DawnBuilding
@@ -269,7 +325,7 @@ usawarfactory:
 	Buildable:
 		Queue: Building
 		BuildPaletteOrder: 80
-		Prerequisites: refinery, anypower, ~structures.usa, ~!structures.bothard
+		Prerequisites: refinery, anypower, usabarracks, ~structures.usa, ~!structures.bothard
 		Description: actor-usawarfactory.description
 		Icon: icon-usa
 	Valued:
