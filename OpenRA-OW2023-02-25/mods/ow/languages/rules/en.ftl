@@ -1735,6 +1735,8 @@ actor-gtechnical =
       Weak vs Vehicles, Aircraft
     .name = Technical
 
+actor-gquad = Quad Cannon
+
 ## husks.yaml
 actor-mcvd-husk-name = Husk (Mobile Construction Vehicle)
 actor-mcvm-husk-name = Husk (Mobile Construction Vehicle)
@@ -5874,3 +5876,5 @@ actor-btraven =
       Weak vs Tanks
    .name = Raven
    .husk = Husk (Raven)
+
+actor-btdropship = Union Class Dropship

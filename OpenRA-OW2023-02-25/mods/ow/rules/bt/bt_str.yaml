@@ -1,0 +1,112 @@
+AFLDD.Test:
+	Inherits: AFLDD
+	Inherits@prereqs: ^FactoryPrereqs
+	Inherits@BIB: ^4xBuildingBib
+	RenderSprites:
+		Image: AFLDD
+	Selectable:
+		Bounds: 4096, 2048
+	HitShape:
+		TargetableOffsets: 0,0,0, 0,-512,256, 0,-1451,384, 0,512,128, 0,1536,85
+		Type: Rectangle
+			TopLeft: -2048, -1024
+			BottomRight: 2048, 1024
+	Buildable:
+		Queue: Wall
+		BuildPaletteOrder: 1
+		Prerequisites: ~structures.innersphere
+		Description: actor-afldd.description
+	Valued:
+		Cost: 2000
+	Tooltip:
+		Name: Launch Terminal
+	Building:
+		Footprint: XXXX xxxx ====
+		Dimensions: 4,3
+		LocalCenterOffset: 0,-512,0
+	Health:
+		HP: 175000
+	Armor:
+		Type: Wood
+	RevealsShroud:
+		MinRange: 4c0
+		Range: 5c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 4c0
+	RenderSprites:
+		PlayerPalette: dawn
+	ActorPreviewPlaceBuildingPreview:
+	WithIdleOverlay@DISH:
+		RequiresCondition: !build-incomplete
+		Sequence: idle-dish
+		Palette: dawn
+	WithDeliveryAnimation:
+		RequiresCondition: !build-incomplete
+	RallyPoint:
+		Path: 4,2
+	Exit@1:
+		SpawnOffset: -1024,0,0
+		ExitCell: 3,1
+	ProductionAirdrop:
+		Produces: Vehicle
+		ReadyAudio: ReinforcementsArrived
+		ActorType: btdropship
+		BaselineSpawn: true
+		WaitTickAfterProduce: 50
+		WaitTickBeforeProduce: 50
+	GrantExternalConditionToProduced:
+		Condition: produced
+	PrimaryBuilding:
+		PrimaryCondition: primary
+		SelectionNotification: PrimaryBuildingSelected
+	ProductionBar:
+		ProductionType: Vehicle
+	Power:
+		Amount: -30
+	ProvidesPrerequisite@buildingname:
+	Targetable:
+		TargetTypes: GroundActor, C4, DetonateAttack, Structure, SpyInfiltrate
+	InfiltrateForSupportPower:
+		Proxy: vehicles.upgraded
+		Types: SpyInfiltrate
+	WithDecoration@primary:
+		RequiresSelection: true
+		Image: pips
+		Sequence: tag-primary
+		Position: Top
+		RequiresCondition: primary
+	Cloak@stealthgen:
+		Palette: dawncloak
+	WithDeathAnimation:
+		DeathSequence: dead
+		UseDeathTypeSuffix: false
+		DeathSequencePalette: dawn
+
+BTDROPSHIP:
+	Inherits: ^Helicopter
+	Tooltip:
+		RequiresCondition: !cruising
+		Name: actor-btdropship
+	-Targetable@AIRBORNE:
+	-Targetable@GROUND:
+	Health:
+		HP: 14000
+	AmbientSound@landing:
+		RequiresCondition: !cruising && airborne
+		SoundFiles: bt_dropship.aud
+	Aircraft:
+		TurnSpeed: 20
+		Repulsable: false
+		Speed: 512
+		AltitudeVelocity: 64
+		CruiseAltitude: 20c0
+		CruisingCondition: cruising
+	WithFacingSpriteBody:
+		RequiresCondition: !cruising
+	SpawnActorOnDeath:
+		Actor: TRAN.Husk
+	RenderSprites:
+		Image: tbattle
+	-Selectable:
+	Interactable:

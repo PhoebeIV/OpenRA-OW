@@ -12,7 +12,8 @@
 		DamageTypes: Prone50Percent, TriggerProne, DefaultDeath
 	Warhead@2Eff: CreateEffect
 		Explosions: small_explosion_air
-		ValidTargets: Air, Ground, Water, Trees
+		Inaccuracy: 256
+		ValidTargets: Air, Ground, Water, Trees, AirborneActor
 	Warhead@3Shield: CreateEffect
 		ImpactSoundChance: 20
 
@@ -52,6 +53,21 @@ FLAK-23-AG:
 		Explosions: small_splash
 		ValidTargets: Water, Underwater
 		InvalidTargets: Bridge
+
+GLAQuadCannonAA:
+	Inherits: FLAK-23-AA
+	ReloadDelay: 4
+	Report: vquaweaa.aud,vquaweab.aud,vquaweac.aud,vquawead.aud,vquaweae.aud,vquaweaf.aud
+	Warhead@1Dam: SpreadDamage
+		Damage: 480
+
+GLAQuadCannonAG:
+	Inherits: FLAK-23-AG
+	ReloadDelay: 4
+	Report: vquaweaa.aud,vquaweab.aud,vquaweac.aud,vquawead.aud,vquaweae.aud,vquaweaf.aud
+	Warhead@1Dam: SpreadDamage
+		Damage: 800
+
 
 # UAC Minigun Marine
 DoomMinigunAA:
@@ -751,6 +767,11 @@ M60mg:
 DawnM60mg:
 	Inherits: M60mg
 	Report: mgun11.aud
+
+DawnM60mgTechnical:
+	Inherits: DawnM60mg
+	ReloadDelay: 5
+	Range: 5c0
 
 WolverineVulcan:
 	ReloadDelay: 55

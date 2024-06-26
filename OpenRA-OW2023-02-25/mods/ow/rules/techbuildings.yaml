@@ -108,6 +108,8 @@ OILB.Husk:
 
 FCOM:
 	Inherits@BotQueue_Infantry: ^BotQueue_Infantry
+	ProductionQueue@hardAI:
+		Sticky: false
 	Health:
 		HP: 200000
 	TooltipDescription@ally:
@@ -130,6 +132,8 @@ FCOM:
 		SkipMakeAnimations: true
 		OwnerType: InternalName
 		RequiresCondition: respawnable
+	ProvidesPrerequisite@buildingname:
+		ResetOnOwnerChange: true
 	GrantConditionOnPrerequisite@respawnable:
 		Prerequisites: techlevel.techrespamn
 		Condition: respawnable
@@ -145,8 +149,6 @@ FCOM:
 	BaseProvider:
 		PauseOnCondition: being-captured
 		Range: 12c0
-	ProvidesPrerequisite@foundry:
-		Prerequisite: foundry
 	Exit@1:
 		RequiresCondition: !being-captured
 		SpawnOffset: -42,810,0

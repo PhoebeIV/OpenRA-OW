@@ -501,8 +501,31 @@ GTECHNICAL:
 		TurnSpeed: 40
 		Offset: -298,0,212
 	Armament:
+		RequiresCondition: !rank-veteran
 		Weapon: DawnM60mg
 		LocalOffset: 171,0,256
+	Armament@0:
+		RequiresCondition: rank-veteran == 1
+		Weapon: DawnM60mgTechnical
+		MuzzleSequence: muzzle
+		LocalOffset: 171,0,256
+	Armament@1:
+		RequiresCondition: rank-veteran == 2
+		Weapon: Vulcan_D
+		MuzzleSequence: muzzle
+		LocalOffset: 171,0,256
+	Armament@2:
+		RequiresCondition: rank-veteran == 3
+		Weapon: CyberRPG
+		MuzzleSequence: muzzle
+		LocalOffset: 171,0,256
+		Recoil: 80
+	Armament@3:
+		RequiresCondition: rank-elite
+		Weapon: TurretGunTechnical
+		MuzzleSequence: muzzle
+		LocalOffset: 171,0,256
+		Recoil: 128
 	AttackTurreted:
 		PauseOnCondition: disabled
 	ThrowsShrapnel:
@@ -511,3 +534,94 @@ GTECHNICAL:
 		Range: 1c0, 3c0
 	SpawnActorOnDeath:
 		Actor: GTECHNICAL.Husk
+	DamageMultiplier@RANK-1:
+		Modifier: 90
+	DamageMultiplier@RANK-2:
+		Modifier: 80
+	DamageMultiplier@RANK-3:
+		Modifier: 70
+	DamageMultiplier@RANK-ELITE:
+		Modifier: 60
+	AmbientSound@RANK-1:
+		RequiresCondition: rank-veteran == 1
+		SoundFiles: gsalvage.aud
+		Interval: -1
+	AmbientSound@RANK-2:
+		RequiresCondition: rank-veteran == 2
+		SoundFiles: gsalvage.aud
+		Interval: -1
+	AmbientSound@RANK-3:
+		RequiresCondition: rank-veteran == 3
+		SoundFiles: gsalvage.aud
+		Interval: -1
+	AmbientSound@RANK-ELITE:
+		RequiresCondition: rank-elite
+		SoundFiles: gsalvage.aud
+		Interval: -1
+
+GQUAD:
+	Inherits: ^Vehicle
+	Inherits@GAINSEXPERIENCE: ^GainsExperience
+	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
+	Buildable:
+		Queue: Vehicle
+		BuildPaletteOrder: 130
+		Icon: gla-quad-icon
+		Prerequisites: ~vehicles.gla, ~techlevel.low
+		Description: actor-ftrk.description
+	Valued:
+		Cost: 600
+	Tooltip:
+		Name: actor-gquad
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 15000
+	Armor:
+		Type: Light
+	Mobile:
+		TurnSpeed: 40
+		Speed: 113
+	RevealsShroud:
+		MinRange: 4c0
+		Range: 6c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 4c0
+	Turreted:
+		TurnSpeed: 40
+		Offset: -298,0,298
+	Armament@AA:
+		Weapon: GLAQuadCannonAA
+		Recoil: 85
+		LocalOffset: 462,-72,360, 462,72,360, 462,-72,288, 462,72,288
+		MuzzleSequence: muzzle
+	Armament@AG:
+		Weapon: GLAQuadCannonAG
+		Recoil: 85
+		LocalOffset: 462,-72,360, 462,72,360, 462,-72,288, 462,72,288
+		MuzzleSequence: muzzle
+	RenderSprites:
+		Image: ftrk
+	AttackTurreted:
+	WithMuzzleOverlay:
+	RenderVoxels:
+		PlayerPalette: tsunit
+		LightAmbientColor: 0.7,0.7,0.7
+		LightDiffuseColor: 0.5,0.5,0.5
+		Scale: 1.2
+	WithVoxelBody:
+	-ClassicFacingBodyOrientation:
+	-WithFacingSpriteBody: 
+	-QuantizeFacingsFromSequence:
+	BodyOrientation:
+		QuantizedFacings: 32
+		UseClassicPerspectiveFudge: true
+	WithVoxelTurret:
+	ProducibleWithLevel:
+		Prerequisites: vehicles.upgraded
+	Selectable:
+		DecorationBounds: 1194, 1194
+	WithProductionIconOverlay:
+		Types: Veterancy
+		Prerequisites: vehicles.upgraded
