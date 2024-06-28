@@ -1,0 +1,133 @@
+# Defaults specific to all the BT factions, 
+# this includes debuffs/buffs depending on which faction you are playing, probably.
+^BTBase:
+	AlwaysVisible:
+
+# Basis for mechs which include heat management and explosions
+^MechBase:
+	Inherits: ^Vehicle
+	Mobile:
+		Locomotor: medmech
+	WithDecoration@frame:
+		Image: btheatbar
+		Sequence: frame
+		ValidRelationships: Ally, Enemy, Neutral, None
+		Palette: effect
+		RequiresSelection: true
+		Position: BottomLeft
+		Margin: 3,10
+	WithDecoration@heat1:
+		Image: btheatbar
+		Sequence: 1
+		ValidRelationships: Ally, Enemy, Neutral, None
+		RequiresSelection: true
+		RequiresCondition: (mech_heat > 0) && (mech_heat < 9)
+		Position: BottomLeft
+		Margin: 3,10
+	WithDecoration@heat2:
+		Image: btheatbar
+		Sequence: 2
+		ValidRelationships: Ally, Enemy, Neutral, None
+		RequiresSelection: true
+		RequiresCondition: (mech_heat >= 10) && (mech_heat < 20)
+		Position: BottomLeft
+		Margin: 3,10
+	WithDecoration@heat3:
+		Image: btheatbar
+		Sequence: 3
+		ValidRelationships: Ally, Enemy, Neutral, None
+		RequiresSelection: true
+		RequiresCondition: (mech_heat >= 20) && (mech_heat < 30)
+		Position: BottomLeft
+		Margin: 3,10
+	WithDecoration@heat4:
+		Image: btheatbar
+		Sequence: 4
+		ValidRelationships: Ally, Enemy, Neutral, None
+		RequiresSelection: true
+		RequiresCondition: (mech_heat >= 30) && (mech_heat < 40)
+		Position: BottomLeft
+		Margin: 3,10
+	WithDecoration@heat5:
+		Image: btheatbar
+		Sequence: 5
+		ValidRelationships: Ally, Enemy, Neutral, None
+		RequiresSelection: true
+		RequiresCondition: (mech_heat >= 40) && (mech_heat < 50)
+		Position: BottomLeft
+		Margin: 3,10
+	WithDecoration@heat6:
+		Image: btheatbar
+		Sequence: 6
+		ValidRelationships: Ally, Enemy, Neutral, None
+		RequiresSelection: true
+		RequiresCondition: (mech_heat >= 50) && (mech_heat < 60)
+		Position: BottomLeft
+		Margin: 3,10
+	WithDecoration@heat7:
+		Image: btheatbar
+		Sequence: 7
+		ValidRelationships: Ally, Enemy, Neutral, None
+		RequiresSelection: true
+		RequiresCondition: (mech_heat >= 60) && (mech_heat < 70)
+		Position: BottomLeft
+		Margin: 3,10
+	WithDecoration@heat8:
+		Image: btheatbar
+		Sequence: 8
+		ValidRelationships: Ally, Enemy, Neutral, None
+		RequiresSelection: true
+		RequiresCondition: (mech_heat >= 70) && (mech_heat < 80)
+		Position: BottomLeft
+		Margin: 3,10
+	WithDecoration@heat9:
+		Image: btheatbar
+		Sequence: 9
+		ValidRelationships: Ally, Enemy, Neutral, None
+		RequiresSelection: true
+		RequiresCondition: (mech_heat >= 80) && (mech_heat < 90)
+		Position: BottomLeft
+		Margin: 3,10
+	WithDecoration@heat10:
+		Image: btheatbar
+		Sequence: 10
+		ValidRelationships: Ally, Enemy, Neutral, None
+		RequiresSelection: true
+		RequiresCondition: mech_heat >= 90
+		Position: BottomLeft
+		Margin: 3,10
+	WithIdleOverlay@heat1:
+		RequiresCondition: mech_heat > 90
+		Image: smoke_m
+		StartSequence: idle
+		Sequence: loop
+		Offset: 0,0,768
+	WithColoredOverlay@heat1:
+		RequiresCondition: (mech_heat > 20) && (mech_heat < 40)
+		Color: FF370008
+	WithColoredOverlay@heat2:
+		RequiresCondition: (mech_heat >= 40) && (mech_heat < 60)
+		Color: FF37001A
+	WithColoredOverlay@heat3:
+		RequiresCondition: (mech_heat >= 60) && (mech_heat < 80)
+		Color: FF37002B
+	WithColoredOverlay@heat4:
+		RequiresCondition: mech_heat >= 80
+		Color: FF370044
+	ChangesHealth@overheating:
+		RequiresCondition: (mech_heat > 100) || mech_overheat
+		PercentageStep: -1
+		StartIfBelow: 101
+		Delay: 25
+	ReloadDelayMultiplier@overheating:
+		RequiresCondition: mech_heat > 90
+		Modifier: 125
+	FireWarheads@shutdown:
+		RequiresCondition: mech_heat > 110
+		Interval: 250
+		Weapons: MechShutdown
+	Selectable:
+		DecorationBounds: 1500,1800
+	Explodes:
+		Weapon: MechExplode
+		EmptyWeapon: MechExplode

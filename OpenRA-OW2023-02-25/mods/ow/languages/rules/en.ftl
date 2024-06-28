@@ -5868,6 +5868,15 @@ actor-lstharv =
 ## BattleTech
 actor-mechhusk = Going critical!
 
+actor-bttruelove =
+   .description = Light 'Mech scout. Can attack air.
+    
+    Speed: 96
+      Strong vs Infantry, Aircraft
+      Weak vs Tanks
+   .name = True Love
+   .husk = Husk (TL)
+
 actor-btraven =
    .description = Light 'Mech scout. Can attack air.
     
