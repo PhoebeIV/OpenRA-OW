@@ -225,6 +225,11 @@ TRAYNOR.Hero0:
 		Weight: 2
 	Armament@PRIMARY:
 		Weapon: TerranRaynor
+	Armament@TRACER:
+		Name: secondary
+		Weapon: TerranRaynorTracer
+		LocalOffset: 512,96,128
+		RequiresCondition: shooting
 	Armament@GARRISONED:
 		Name: garrisoned
 		Weapon: TerranRaynor
@@ -243,7 +248,8 @@ TRAYNOR.Hero0:
 		IdleSequences: stand,stand2
 		RequiresCondition: aiming && !shooting
 	WithInfantryBody@shooting:
-		DefaultAttackSequence: shoot
+		AttackSequences: 
+			primary: shoot
 		StandSequences: shoot
 		IdleSequences: shoot
 		RequiresCondition: aiming && shooting
@@ -252,6 +258,7 @@ TRAYNOR.Hero0:
 		RevokeDelay: 50
 		ArmamentNames: primary, secondary
 	GrantConditionOnAttack@shooting:
+		ArmamentNames: primary
 		Condition: shooting
 		RevokeDelay: 14
 	GrantConditionOnMovement@move:
@@ -304,9 +311,9 @@ TRAYNOR.Hero0:
 		GrantPermanently: true
 	ChangesHealth@default:
 		PercentageStep: 1
-		Delay: 75
+		Delay: 50
 		StartIfBelow: 101
-		DamageCooldown: 75
+		DamageCooldown: 125
 	ExternalCondition@PRODUCED:
 		Condition: produced
 	VoiceAnnouncement:
@@ -363,6 +370,8 @@ TRAYNOR.Hero1:
 	-ExperienceTrickler:
 	Armament@PRIMARY:
 		Weapon: TerranRaynorUp
+	Armament@TRACER:
+		Weapon: TerranRaynorTracerUp
 	Armament@GARRISONED:
 		Weapon: TerranRaynorUp
 	Armament@BUS:
@@ -431,6 +440,7 @@ TRAYNOR.Hero3:
 		Modifier: 120
 	Armament@PRIMARY2:
 		Weapon: RaynorMarineGrenade
+		LocalOffset: 512,96,128
 	Armament@GARRISONED2:
 		Name: garrisoned
 		Weapon: RaynorMarineGrenade

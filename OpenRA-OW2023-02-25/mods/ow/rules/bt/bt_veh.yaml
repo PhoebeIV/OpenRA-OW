@@ -1,39 +1,156 @@
-
-E1:
-	Inherits: ^Soldier
-	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+BTDEMOLISHER:
+	Inherits: ^TrackedVehicle
+	Inherits@BT: ^BTBase
+	Inherits@GAINSEXPERIENCE: ^GainsExperience
+	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
 	Buildable:
-		Queue: Infantry
-		BuildAtProductionType: Soldier
-		BuildPaletteOrder: 10
-		Prerequisites: ~barracks, ~techlevel.infonly
-		Description: actor-e1.description
-	Selectable:
-		Class: E1
+		Queue: Vehicle
+		BuildPaletteOrder: 111
+		BuildLimit: 3
+		Prerequisites: ~vehicles.battletech, ~techlevel.high
+		Description: actor-btdemolisher.description
 	Valued:
-		Cost: 100
+		Cost: 4000
 	Tooltip:
-		Name: actor-e1.name
+		Name: actor-btdemolisher.name
 	UpdatesPlayerStatistics:
 		AddToArmyValue: true
 	Health:
-		HP: 5000
+		HP: 180000
+	Armor:
+		Type: Heavy
+	Mobile:
+		Speed: 43
+		Locomotor: heavytracked
+	RevealsShroud:
+		MinRange: 4c0
+		Range: 6c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 4c0
+	Turreted:
+		TurnSpeed: 8
 	Armament@PRIMARY:
-		Weapon: M1Carbine
-	Armament@GARRISONED:
-		Name: garrisoned
-		Weapon: Vulcan
-		MuzzleSequence: garrison-muzzle
-	WithInfantryBody:
-		DefaultAttackSequence: shoot
-		RequiresCondition: !parachute
-	WithInfantryBody@PARACHUTE:
-		StandSequences: parachute
-		RequiresCondition: parachute
-		Palette: player-noshadow
-		IsPlayerPalette: true
+		Weapon: AC20
+		LocalOffset: 1200,0,0
+		Recoil: 230
+		RecoilRecovery: 10
+		MuzzleSequence: muzzle
+		FireDelay: 2
+	Armament@SECONDARY:
+		Name: secondary
+		Weapon: AC20
+		LocalOffset: 1024,180,0
+		MuzzleSequence: muzzle
+		ReloadingCondition: reloading
+		FireDelay: 2
+	AmbientSound@reloading:
+		RequiresCondition: reloading
+		SoundFiles: bt_shelleject.aud
+		Interval: 250
+	AmbientSound@reloading2:
+		RequiresCondition: reloading
+		SoundFiles: bt_reload3.aud
+		Interval: 250
+		Delay: 190, 205
+	AttackTurreted:
+	WithMuzzleOverlay:
+	WithSpriteTurret:
+	SpawnActorOnDeath:
+		Actor: 4TNK.Husk
+	ChangesHealth:
+		Step: 100
+		Delay: 3
+		StartIfBelow: 50
+		DamageCooldown: 150
 	ProducibleWithLevel:
-		Prerequisites: barracks.upgraded
+		Prerequisites: vehicles.upgraded
+	Selectable:
+		DecorationBounds: 1877, 1621, 0, -170
 	WithProductionIconOverlay:
 		Types: Veterancy
-		Prerequisites: barracks.upgraded
+		Prerequisites: vehicles.upgraded
+
+BTMANTICORE:
+	Inherits: ^TrackedVehicle
+	Inherits@BT: ^BTBase
+	Inherits@GAINSEXPERIENCE: ^GainsExperience
+	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
+	Buildable:
+		Queue: Vehicle
+		BuildPaletteOrder: 112
+		BuildLimit: 3
+		Prerequisites: ~vehicles.battletech, ~techlevel.high
+		Description: actor-btmanticore.description
+	Valued:
+		Cost: 3600
+	Tooltip:
+		Name: actor-btmanticore.name
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 125000
+	Armor:
+		Type: Heavy
+	Mobile:
+		Speed: 48
+		Locomotor: heavytracked
+	RevealsShroud:
+		MinRange: 4c0
+		Range: 6c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 4c0
+	Turreted@1:
+		TurnSpeed: 8
+	Armament@PPCa:
+		Weapon: BigPPC
+		LocalOffset: 1250,0,0
+		Recoil: 230
+		RecoilRecovery: 10
+		MuzzleSequence: muzzle
+		FireDelay: 2
+	Armament@PPCb:
+		Weapon: BigPPCZap
+		LocalOffset: 1250,0,0
+		MuzzleSequence: muzzle
+		ReloadingCondition: reloading
+	Armament@SRM:
+		Weapon: SRM6
+		LocalOffset: -512,380,0
+		MuzzleSequence: muzzle2
+	Armament@LRM:
+		Weapon: LRM10_5
+		LocalOffset: -600,-128,0
+		Recoil: 34
+		MuzzleSequence: muzzle2
+	Armament@LRMb:
+		Weapon: LRM10_5
+		LocalOffset: -600,128,0
+		MuzzleSequence: muzzle2
+	Armament@Laser:
+		Weapon: BTMedLaser_Single
+		LocalOffset: 0,480,0
+	AmbientSound@reloading:
+		RequiresCondition: reloading
+		SoundFiles: bt_ppccharge.aud
+		Interval: 200
+		Delay: 115, 135
+	AttackTurreted:
+	WithMuzzleOverlay:
+	WithSpriteTurret:
+	SpawnActorOnDeath:
+		Actor: 4TNK.Husk
+	ChangesHealth:
+		Step: 100
+		Delay: 3
+		StartIfBelow: 50
+		DamageCooldown: 150
+	ProducibleWithLevel:
+		Prerequisites: vehicles.upgraded
+	Selectable:
+		DecorationBounds: 1877, 1621, 0, -170
+	WithProductionIconOverlay:
+		Types: Veterancy
+		Prerequisites: vehicles.upgraded
+

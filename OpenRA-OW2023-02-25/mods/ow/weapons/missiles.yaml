@@ -324,7 +324,7 @@ MammothTusk:
 		Versus:
 			None: 100
 			Light: 80
-			Heavy: 40
+			Heavy: 100
 			Concrete: 50
 		DamageTypes: Prone50Percent, TriggerProne, SmallExplosionDeath
 		ValidTargets: GroundActor, WaterActor, AirborneActor
@@ -693,12 +693,12 @@ GLASCUD:
 		Shadow: True
 		LaunchAngle: 150
 	Warhead@1Dam: SpreadDamage
-		Spread: 768
+		Spread: 600
 		Damage: 22500
 		ValidTargets: GroundActor, WaterActor, Trees
-		Falloff: 100, 80, 60, 40, 20, 10, 0
+		Falloff: 150, 80, 60, 40, 20, 10, 0
 		Versus:
-			None: 50
+			None: 35
 			Wood: 75
 			Light: 90
 			Heavy: 110
@@ -715,10 +715,10 @@ GLASCUD:
 ToxinSCUD:
 	Inherits: GLASCUD
 	Warhead@1Dam: SpreadDamage
-		Spread: 1c0
+		Spread: 768
 		Damage: 12500
 		Versus:
-			None: 90
+			None: 60
 			Wood: 45
 			Light: 45
 			Heavy: 45
@@ -3001,3 +3001,66 @@ cycloidemperor1:
 cycloidemperor2:
 	Inherits: cycloidemperor1
 	-Report:
+
+SRM6:
+	Inherits: ^AntiGroundMissile
+	ReloadDelay: 125
+	Range: 5c512
+	Burst: 6
+	BurstDelays: 1
+	-Report:
+	StartBurstReport: bt_srm.aud
+	Projectile: Bullet
+		Speed: 512
+		Blockable: true
+		ContrailLength: 4
+		Inaccuracy: 512
+		Image: DRAGON
+	Warhead@1Dam: SpreadDamage
+		Spread: 128
+		Damage: 5000
+		ValidTargets: GroundActor, WaterActor
+		Versus:
+			None: 80
+			Heavy: 60
+	Warhead@3Eff: CreateEffect
+		Explosions: med_explosion
+		ImpactSounds: bt_explo1.aud, bt_explo2.aud, bt_explo3.aud
+
+LRM10_5:
+	Inherits: ^AntiGroundMissile
+	ReloadDelay: 150
+	Range: 10c0
+	MinRange: 6c0
+	Burst: 5
+	BurstDelays: 2
+	ValidTargets: Ground, Water, WaterActor, GroundActor, AirborneActor
+	-Report:
+	StartBurstReport: bt_lrm15.aud
+	Projectile: Missile
+		Speed: 341
+		HorizontalRateOfTurn: 60
+		RangeLimit: 13c0
+		HomingActivationDelay: 5
+		Inaccuracy: 360
+		MinimumLaunchAngle: 160
+		MaximumLaunchAngle: 192
+		VerticalRateOfTurn: 16
+	Warhead@1Dam: SpreadDamage
+		Spread: 256
+		Damage: 2000
+		Versus:
+			None: 36
+			Wood: 70
+			Light: 60
+			Heavy: 100
+			Concrete: 65
+		DamageTypes: Prone50Percent, TriggerProne, SmallExplosionDeath
+		ValidTargets: GroundActor, WaterActor, AirborneActor
+	Warhead@3Eff: CreateEffect
+		ImpactSounds: bt_explo1.aud, bt_explo2.aud, bt_explo3.aud
+		ValidTargets: Ground, GroundActor, AirborneActor, WaterActor, Trees
+	Warhead@5EffAir: CreateEffect
+		Explosions: med_explosion_air
+		ImpactSounds: kaboom25.aud
+		ValidTargets: Air, AirborneActor

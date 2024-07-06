@@ -1,28 +1,100 @@
-E1:
-	Inherits: ^Soldier
+BTE1:
+	Inherits: ^TibSunSoldier
+	Inherits@BT: ^BTBase
 	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	RenderSprites:
+		Image: e1
 	Buildable:
 		Queue: Infantry
 		BuildAtProductionType: Soldier
 		BuildPaletteOrder: 10
-		Prerequisites: ~barracks, ~techlevel.infonly
+		Prerequisites: ~barracks, ~infantry.battletech
 		Description: actor-e1.description
 	Selectable:
 		Class: E1
 	Valued:
-		Cost: 100
+		Cost: 200
 	Tooltip:
 		Name: actor-e1.name
 	UpdatesPlayerStatistics:
 		AddToArmyValue: true
 	Health:
-		HP: 5000
+		HP: 10000
 	Armament@PRIMARY:
-		Weapon: M1Carbine
+		Weapon: M1Minigun
 	Armament@GARRISONED:
 		Name: garrisoned
 		Weapon: Vulcan
 		MuzzleSequence: garrison-muzzle
+	Armament@BUS:
+		Name: bus
+		Weapon: M1Minigun_Bus
+	WithInfantryBody:
+		DefaultAttackSequence: shoot
+		RequiresCondition: !parachute
+	WithInfantryBody@PARACHUTE:
+		StandSequences: parachute
+		RequiresCondition: parachute
+		Palette: player-noshadow
+		IsPlayerPalette: true
+	ProducibleWithLevel:
+		Prerequisites: barracks.upgraded
+	WithProductionIconOverlay:
+		Types: Veterancy
+		Prerequisites: barracks.upgraded
+
+BTE2:
+	Inherits: ^TibSunSoldier
+	Inherits@BT: ^BTBase
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	RenderSprites:
+		Image: tse1b
+		PlayerPalette: tsunit
+	WithDeathAnimation:
+		DeathSequencePalette: tsunit
+		CrushedSequencePalette: tseffect
+	Buildable:
+		Queue: Infantry
+		BuildAtProductionType: Soldier
+		BuildPaletteOrder: 11
+		Prerequisites: ~barracks, ~infantry.battletech
+		Description: actor-bte2.description
+	Valued:
+		Cost: 400
+	Tooltip:
+		Name: actor-bte2.name
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 15000
+	RevealsShroud:
+		MinRange: 4c0
+		Range: 6c0
+		RevealGeneratedShroud: False
+	RevealsShroud:
+		Range: 4c0
+	Armament@PRIMARY:
+		Weapon: BTSupressionGun
+	Armament@PRIMARY2:
+		Name: secondary
+		Weapon: BTSupressionTracer
+		LocalOffset: 256,0,448
+		RequiresCondition: shooting
+	Armament@GARRISONED:
+		Name: garrisoned
+		Weapon: DoomMinigunDK
+		MuzzleSequence: garrison-muzzle
+	Armament@BUS:
+		Name: bus
+		Weapon: BTSupressionGun
+	Armament@BUS2:
+		Name: bus
+		Weapon: BTSupressionTracer
+	GrantConditionOnAttack@shoot:
+		Condition: shooting
+		RevokeDelay: 10
+	TakeCover:
+		ProneOffset: 256,0,-448
 	WithInfantryBody:
 		DefaultAttackSequence: shoot
 		RequiresCondition: !parachute

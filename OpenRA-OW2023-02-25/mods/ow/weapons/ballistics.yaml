@@ -1060,6 +1060,9 @@ E100Cannon:
 	Warhead@3Eff: CreateEffect
 		Explosions: building
 		ImpactSounds: gexpcara.aud,gexpcarb.aud,gexpcarc.aud,gexpcard.aud
+	Warhead@55Eff: CreateEffect
+		ImpactSounds: xplobig8.aud
+		ImpactActors: false
 	Warhead@Res7: DestroyResource
 		Size: 2
 		Delay: 8
@@ -1108,8 +1111,11 @@ EliteNuke:
 		Inaccuracy: 512
 		Image: 120MM
 		ContrailLength: 25
+		Shadow: true
 	Warhead@13Eff_impact: CreateEffect
 		ImpactSounds: kqdetonate.wav
+		ImpactActors: false
+		ValidTargets: Ground, Water, Air
 	Warhead@1Dam: SpreadDamage
 		Spread: 500
 		Delay: 40
@@ -1137,7 +1143,7 @@ EliteNuke:
 		Damage: 3000
 		Falloff: 500, 368, 135, 50, 18, 7, 0
 		Delay: 45
-		ValidTargets: Ground, Water, Air
+		ValidTargets: GroundActor, Trees, WaterActor, Underwater, AirborneActor
 		Versus:
 			Concrete: 15
 		AffectsParent: true
@@ -1174,6 +1180,56 @@ EliteNuke:
 		Delay: 40
 		Duration: 15
 		FlashType: Nuke
+
+JohnFootball:
+	Inherits: EliteNuke
+	ReloadDelay: 900
+	Range: 50c0
+	MinRange: 10c0
+	Report: football.aud, football2.aud
+	Projectile: Bullet
+		Speed: 128
+		Blockable: false
+		LaunchAngle: 180
+		Inaccuracy: 1c0
+		Image: 120mm_tiny
+		ContrailLength: 125
+		BounceCount: 3
+		BounceRangeModifier: 33
+		BounceSound: football.aud
+	Warhead@13Eff_impact: CreateEffect
+		ImpactSounds: johnaeiou.aud
+	Warhead@1Dam: SpreadDamage
+		Spread: 1c0
+		Damage: 10000
+	Warhead@4Dam_areanuke1: SpreadDamage
+		Spread: 1c512
+		Damage: 5000
+	Warhead@7Dam_areanuke2: SpreadDamage
+		Spread: 2c0
+		Damage: 2500
+	Warhead@9Dam_areanuke3: SpreadDamage
+		Spread: 2c512
+		Damage: 1500
+	Warhead@actor: SpawnActor
+		Delay: 55
+		Actors: JOHNMADDEN
+		Range: 3
+		ImpactActors: false
+		ValidTargets: Ground, Water, Air
+	Warhead@frag: GlobalExplodeWeapon
+		Delay: 54
+		Weapon: JohnFootballRemove
+		ValidTargets: JohnMadden, Ground, Air
+		AffectsParent: true
+
+JohnFootballRemove:
+	Warhead@condition: GrantExternalCondition
+		Range: 1c0
+		Condition: remove_self
+		AffectsParent: true
+		ValidRelationships: Ally
+		ValidTargets: JohnMadden
 
 KodiacNuke:
 	ReloadDelay: 500
@@ -3453,3 +3509,33 @@ deathhandshotcluster:
 		RandomClusterCount: 2
 		Dimensions: 1,1
 		Footprint: x
+
+AC20:
+	Inherits: ^Cannon
+	ReloadDelay: 250
+	Range: 5c768
+	MinRange: 1c0
+	Report: bt_ac20.aud
+	Projectile: Bullet
+		Speed: 1c0
+		Image: 120MM
+		ContrailLength: 15
+		Inaccuracy: 256
+	Warhead@1Dam: SpreadDamage
+		Delay: 2
+		Spread: 1c0
+		Damage: 45000
+		Falloff: 100, 25, 20
+		Versus:
+			None: 30
+			Wood: 100
+			Light: 60
+			Concrete: 50
+		DamageTypes: Prone50Percent, TriggerProne, ExplosionDeath
+	Warhead@3Eff: CreateEffect
+		Explosions: building
+		ImpactSounds: gexpcara.aud,gexpcarb.aud,gexpcarc.aud,gexpcard.aud
+	Warhead@Res7: DestroyResource
+		Size: 2
+		Delay: 8
+		ResourceAmount: 6

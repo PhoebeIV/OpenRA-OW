@@ -1,4 +1,153 @@
-AFLDD.Test:
+#Solar Panel
+BTPANEL:
+	Inherits: ^PowerPlant
+	Inherits@POWER_OUTAGE: ^DisabledByPowerOutage
+	Inherits@shape: ^1x1Shape
+	Selectable:
+		Bounds: 1024, 1024
+	Buildable:
+		Queue: Building
+		BuildPaletteOrder: 1
+		Prerequisites: ~structures.battletech, ~techlevel.infonly, ~!ai.powerout
+		Description: actor-btpanel.description
+	Valued:
+		Cost: 160
+	Tooltip:
+		Name: actor-btpanel.name
+	ProvidesPrerequisite:
+		Prerequisite: anypower
+	Building:
+		Footprint: +
+	Health:
+		HP: 25000
+	Armor:
+		Type: Wood
+	RevealsShroud:
+		Range: 4c0
+	Power:
+		Amount: 60
+	-ScalePowerWithHealth: 
+	PowerMultiplier@damaged:
+		RequiresCondition: damaged_heavy
+		Modifier: 50
+	GrantConditionOnDamageState:
+		ValidDamageStates: Critical, Heavy
+		Condition: damaged_heavy
+	Targetable:
+		TargetTypes: GroundActor, Structure, C4, DetonateAttack, SpyInfiltrate
+
+
+BTPROC:
+	Inherits: ^Building
+	Inherits@ref: ^Refinery
+	Inherits@bib: ^4xBuildingBib
+	Inherits@IDISABLE: ^DisableOnLowPowerOrPowerDown
+	HitShape: 
+		UseTargetableCellsOffsets: true
+		Type: Rectangle
+			TopLeft: -2048, -2048
+			BottomRight: 2048, 2048
+	WithIdleOverlay@bibtemp:
+		Image: bib1compiled_offset4x5
+	WithIdleOverlay@bibsnow:
+		Image: bib1compiled_offset4x5
+	WithIdleOverlay@bibdes:
+		Image: bib1compiled_offset4x5
+	Buildable:
+		Queue: Building
+		BuildPaletteOrder: 60
+		Prerequisites: anypower, ~structures.battletech, ~techlevel.infonly
+		Description: actor-btproc.description
+	Tooltip:
+		Name: actor-btproc.name
+	Valued:
+		Cost: 1400
+	Building:
+		Footprint: xx== x__x x__x ==++ ====
+		Dimensions: 4,5
+		LocalCenterOffset: 0,-512,0
+	Selectable:
+		Bounds: 2048, 2048, 1024,1024
+		DecorationBounds: 4096, 4096,0,0
+	Targetable:
+		TargetTypes: GroundActor, Structure, C4, DetonateAttack, ThiefInfiltrate, SpyInfiltrate
+	Health:
+		HP: 120000
+	Armor:
+		Type: Wood
+	RevealsShroud:
+		MinRange: 4c0
+		Range: 6c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 4c0
+	Refinery:
+	DockHost:
+		Type: Unload
+		DockAngle: 256
+		DockOffset: 768, 1c512, 0
+	StoresPlayerResources:
+		Capacity: 3000
+	CustomSellValue:
+		Value: 300
+	FreeActor:
+		Actor: HARV
+		SpawnOffset: 3,4
+		Facing: 256
+	InfiltrateForCash:
+		Percentage: 50
+		PlayerExperience: 5
+		PlayerExperiencePercentage: 1
+		Types: SpyInfiltrate, ThiefInfiltrate
+		InfiltratedNotification: CreditsStolen
+		InfiltratedTextNotification: notification-credits-stolen
+	Power:
+		Amount: -50
+	ResourceValueMultiplier:
+		Modifier: 80
+		RequiresCondition: disabled
+	WithResourceStoragePipsDecoration:
+		Position: BottomLeft
+		Margin: 4, 3
+		RequiresSelection: true
+		PipCount: 17
+		FullSequence: pip-yellow
+	WithIdleOverlay: 
+		Image: oreext
+		Sequence: idle
+		Offset: 1536,-1024,0
+		RequiresCondition: !build-incomplete
+		PauseOnCondition: disabled
+		StartSequence: make
+	FreeActor@3:
+		Actor: BTPROC.MINE
+		SpawnOffset: 1,1
+		RequiresCondition: !build-incomplete
+	ProximityExternalCondition@disabled:
+		Condition: proc_disabled
+		RequiresCondition: disabled
+		Range: 2c512
+	ProximityExternalCondition@alive:
+		Condition: proc_alive
+		Range: 2c512
+
+BTPROC.MINE:
+	Inherits: MINE_DUMMY
+	ExternalCondition@1: 
+		Condition: proc_disabled
+	ExternalCondition@2: 
+		Condition: proc_alive
+	SeedsResource: 
+		RequiresCondition: !proc_disabled || !proc_alive
+		ResourceType: Ore
+		MaxRange: 2
+		Interval: 175
+	KillsSelf:
+		RequiresCondition: !proc_alive
+		Delay: 5
+		RemoveInstead: true
+
+BTTERMINAL:
 	Inherits: AFLDD
 	Inherits@prereqs: ^FactoryPrereqs
 	Inherits@BIB: ^4xBuildingBib
@@ -12,14 +161,14 @@ AFLDD.Test:
 			TopLeft: -2048, -1024
 			BottomRight: 2048, 1024
 	Buildable:
-		Queue: Wall
-		BuildPaletteOrder: 1
-		Prerequisites: ~structures.innersphere
+		Queue: Building
+		BuildPaletteOrder: 90
+		Prerequisites: barracks, refinery, ~techlevel.low, ~structures.battletech
 		Description: actor-afldd.description
 	Valued:
 		Cost: 2000
 	Tooltip:
-		Name: Launch Terminal
+		Name: Interstellar Terminal
 	Building:
 		Footprint: XXXX xxxx ====
 		Dimensions: 4,3
@@ -83,30 +232,37 @@ AFLDD.Test:
 		UseDeathTypeSuffix: false
 		DeathSequencePalette: dawn
 
+BTRADAR:
+	Inherits: HQD
+	Buildable:
+		Queue: Building
+		BuildPaletteOrder: 90
+		Prerequisites: refinery, ~techlevel.medium, ~structures.battletech
+	RenderSprites:
+		Image: HQD
+
 BTDROPSHIP:
 	Inherits: ^Helicopter
+	RenderSprites:
+		Image: btleopard
 	Tooltip:
 		RequiresCondition: !cruising
 		Name: actor-btdropship
 	-Targetable@AIRBORNE:
 	-Targetable@GROUND:
 	Health:
-		HP: 14000
+		HP: 140000
 	AmbientSound@landing:
-		RequiresCondition: !cruising && airborne
+		RequiresCondition: airborne
 		SoundFiles: bt_dropship.aud
 	Aircraft:
 		TurnSpeed: 20
 		Repulsable: false
 		Speed: 512
 		AltitudeVelocity: 64
-		CruiseAltitude: 20c0
+		CruiseAltitude: 8c0
 		CruisingCondition: cruising
 	WithFacingSpriteBody:
-		RequiresCondition: !cruising
-	SpawnActorOnDeath:
-		Actor: TRAN.Husk
-	RenderSprites:
-		Image: tbattle
+	-SpawnActorOnDeath:
 	-Selectable:
 	Interactable:

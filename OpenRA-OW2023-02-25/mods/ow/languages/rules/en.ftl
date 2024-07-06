@@ -5886,4 +5886,36 @@ actor-btraven =
    .name = Raven
    .husk = Husk (Raven)
 
-actor-btdropship = Union Class Dropship
+actor-btpanel =
+   .description = Turns the sun's light
+    into power. 
+
+    Loses half power at half health.
+   .name = Solar Panel
+
+actor-btproc =
+   .description = Refines resources
+    into credits. Also generates Ore.
+   .name = Mining Quarry
+
+actor-btdropship = Leopard Class Dropship
+
+actor-bte2 =
+   .description = Long range surpression fire.
+      Strong vs Infantry
+      Weak vs Vehicles, Aircraft
+   .name = Heavy Infantry
+
+actor-btdemolisher =
+   .description = Super heavy tank, immense firepower.
+    Can crush concrete walls.
+      Strong vs Vehicles, Infantry
+      Weak vs Aircraft
+   .name = Demolisher
+
+actor-btmanticore =
+   .description = Very heavy, long range tank.
+    Can crush concrete walls.
+      Strong vs Everything
+      Weak vs Nothing
+   .name = Manticore

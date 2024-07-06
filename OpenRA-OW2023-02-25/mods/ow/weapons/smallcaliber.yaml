@@ -573,6 +573,26 @@ DoomMinigunHeavy:
 			Light: 30
 			Heavy: 20
 			Concrete: 10
+#Terminator
+TerminatorMinigun:
+	Inherits: DoomMinigun
+	-Report: 
+	Range: 8c0
+	ValidTargets: Ground, Water, GroundActor, WaterActor, AirborneActor
+	Warhead@1Dam: SpreadDamage
+		Damage: 1500
+		Versus:
+			None: 150
+			Wood: 40
+			Light: 50
+			Heavy: 40
+		ValidTargets: GroundActor, WaterActor, AirborneActor
+
+TerminatorMinigunEnd:
+	ReloadDelay: 9000
+	Warhead@1Dam: CreateEffect
+		ImpactSounds: ut2k4minigundown.aud
+		ImpactActors: false
 
 PatchGun:
 	Inherits: DoomMinigun
@@ -721,6 +741,16 @@ TerranRaynor:
 
 TerranRaynorUp:
 	Inherits: TerranRaynor
+	Range: 7c0
+
+TerranRaynorTracer:
+	Inherits: ^TracerRound
+	ReloadDelay: 12
+	Range: 6c0
+	ValidTargets: Ground, Water, GroundActor, WaterActor, AirborneActor
+
+TerranRaynorTracerUp:
+	Inherits: TerranRaynorTracer
 	Range: 7c0
 
 TerranGoliath:
@@ -2197,3 +2227,48 @@ DoomGuyPistol:
 		Damage: 1750
 		Versus:
 			None: 150
+
+^TracerRound:
+	ValidTargets: Ground, Water, GroundActor, WaterActor
+	Projectile: Bullet
+		Speed: 1c0
+		Inaccuracy: 256
+		Image: btracer
+	Warhead@2Eff2: CreateEffect
+		Explosions: piff
+		ValidTargets: Ground, GroundActor, Air, AirborneActor, WaterActor, Trees
+		Inaccuracy: 171
+	Warhead@3EffWater2: CreateEffect
+		ValidTargets: Water, Underwater
+		InvalidTargets: Bridge
+		Explosions: water_piff
+		Inaccuracy: 171
+
+BTSupressionGun:
+	Inherits: M1Carbine
+	ReloadDelay: 175
+	Range: 8c0
+	MinRange: 2c0
+	Burst: 50
+	BurstDelays: 7
+	Report: vteclo1a.aud,vteclo1b.aud,vteclo1c.aud,vteclo1d.aud
+	Projectile: InstantHit
+		Inaccuracy: 2c512
+	Warhead@1Dam: SpreadDamage
+		Damage: 1200
+
+BTSupressionTracer:
+	Inherits: ^TracerRound
+	ReloadDelay: 14
+	Range: 8c0
+	MinRange: 2c0
+	Projectile: Bullet
+		Inaccuracy: 2c512
+
+TerminatorMinigunTracer:
+	Inherits: ^TracerRound
+	ValidTargets: Ground, Water, GroundActor, WaterActor, AirborneActor
+	ReloadDelay: 5
+	Range: 8c0
+	Projectile: Bullet
+		Inaccuracy: 1c0

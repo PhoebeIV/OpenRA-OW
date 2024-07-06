@@ -175,6 +175,10 @@ CRATE:
 		SelectionShares: 2
 		Units: hartman
 		Sound: hartmanrdy1.aud
+	GiveUnitCrateAction@terminator:
+		SelectionShares: 2
+		Units: terminator
+		Sound: arniekil2.aud
 	GiveUnitCrateAction@hunterkiller:
 		SelectionShares: 6
 		Units: hunter
@@ -189,11 +193,8 @@ CRATE:
 		Units: c1,c2,c3,c4,c5,c6,c7,c8,c9,c10,c1,c2,c3,c4,c5,c10,1tnk.cpanic
 		Owner: Neutral
 		Sound: iangsela.aud
-	GiveUnitCrateAction@raven:
-		SelectionShares: 3
-		Units: btraven
 	RevealMapCrateAction:
-		SelectionShares: 3
+		SelectionShares: 4
 	GrantExternalConditionCrateAction@invuln:
 		SelectionShares: 5
 		Sequence: invuln
@@ -224,6 +225,10 @@ CRATE:
 		Proxy: powerproxy.smite
 		Sound: thunder-ambient.wav
 		SelectionShares: 2
+	SupportPowerCrateAction@earthquake:
+		Proxy: powerproxy.earthquake
+		Sound: johnaeiou.aud
+		SelectionShares: 6
 	GiveUnitCrateAction@korone:
 		SelectionShares: 2
 		Units: korone
@@ -264,6 +269,8 @@ CRATE.GLA:
 		Amount: 200
 		SelectionShares: 1
 		UseCashTick: true
+	LevelUpCrateAction:
+		SelectionShares: 1
 
 MONEYCRATESUPPLYDROP:
 	Inherits: ^Crate
@@ -367,6 +374,20 @@ CRATE.FuckYou:
 		SelectionShares: 5
 		Units: 1tnk.oblid
 		Owner: Creeps
+	GiveUnitCrateAction@madden:
+		SelectionShares: 3
+		Units: johnmadden
+		Sound: johnmadden.aud
+		Owner: Creeps
+	GiveUnitCrateAction@terminator:
+		SelectionShares: 4
+		Units: terminator
+		Sound: arniekil2.aud
+		Owner: Creeps
+	GiveUnitCrateAction@quake:
+		SelectionShares: 7
+		Units: 1tnk.earthquake
+		Owner: Creeps
 	ExplodeCrateAction@redeemernuke:
 		Weapon: Redeemernuke
 		SelectionShares: 7
@@ -421,6 +442,7 @@ CRATE.FuckYou:
 	GiveUnitCrateAction@jarofdirt:
 		SelectionShares: 1
 		Units: jarofdirt
+		Sound: jardirt.aud
 		Owner: Creeps
 	ExplodeCrateAction@nggyu:
 		SelectionShares: 2
@@ -557,6 +579,12 @@ CRATE.FuckYou:
 	-Explodes:
 	SpawnActorOnDeath:
 		Actor: brik
+		OwnerType: Victim
+
+1TNK.EARTHQUAKE:
+	Inherits: 1TNK.MINE
+	SpawnActorOnDeath:
+		Actor: CHINESEEARTHQUAKE
 		OwnerType: Victim
 
 U.TNKcrate:
@@ -2285,6 +2313,150 @@ korone:
 		Name: bus
 		Weapon: DoomGuyPlasma
 
+#inherits from Fed grenadier
+JOHNMADDEN:
+	Inherits: FE3
+	Buildable:
+		Prerequisites: ~disabled
+		BuildPaletteOrder: 9000
+	Tooltip:
+		Name: JOHN MADDEN
+	Health:
+		HP: 60000
+	Mobile:
+		Speed: 114
+	Valued:
+		Cost: 5000
+	AttackWander:
+		MaxMoveDelay: 75
+		MinMoveDelay: 25
+		WanderMoveRadius: 5
+	AmbientSound:
+		SoundFiles: johnmadden.aud, johnmadden2.aud, johnmadden3.aud, johnmadden4.aud, football.aud, football2.aud, johnaeiou.aud, john999a.aud, john999b.aud, john972.aud, johnlaughing.aud, johnmark1.aud, johnmark2.aud, johnsnake.aud, johnmaddena.aud
+		Interval: 17,31
+	AmbientSound@2:
+		SoundFiles: johnmadden.aud, johnmadden2.aud, johnmadden3.aud, johnmadden4.aud, football.aud, football2.aud, johnaeiou.aud, john999a.aud, john999b.aud, john972.aud, johnlaughing.aud, johnmark1.aud, johnmark2.aud, johnsnake.aud, johnmaddena.aud
+		Interval: 25,50
+		Delay: 25
+	GrantDelayedCondition: 
+		Delay: 175
+		Condition: allow_attack
+	Armament@PRIMARY:
+		Weapon: JohnFootball
+		ReloadingCondition: reload
+		RequiresCondition: allow_attack
+	AttackFrontal:
+		RequiresCondition: !reload && allow_attack
+	-Voiced:
+	RevealsShroud:
+		MinRange: 0
+		Range: 32c0
+		RevealGeneratedShroud: true
+	Explodes@bomb:
+		Weapon: CrateNuke
+		EmptyWeapon: CrateNuke
+	Targetable@me:
+		TargetTypes: JohnMadden
+	ExternalCondition:
+		Condition: remove_self
+	KillsSelf:
+		RequiresCondition: remove_self
+		Delay: 5
+		RemoveInstead: true
+
+CHINESEEARTHQUAKE:
+	Inherits: XBAR
+	-Targetable:
+	-Buildable:
+	-Cloak:
+	-WithSpriteBody:
+	-WithMakeAnimation:
+	AmbientSound:
+		-RequiresCondition:
+		SoundFiles: chineseearthquake.wav
+		Interval: 900
+	-KillsSelf:
+	Tooltip:
+		Name: EARTHQUAKE
+	KillsSelf@badcrates:
+		-RequiresCondition:
+		Delay: 155
+	GrantDelayedCondition: 
+		Delay: 53
+		Condition: allow_attack
+	GrantConditionOnOwnerName:
+		Condition: damage_nerf
+		PlayerName: Creeps
+	FirepowerMultiplier:
+		RequiresCondition: !damage_nerf
+		Modifier: 200
+	FireWarheads: 
+		RequiresCondition: allow_attack
+		Interval: 4
+		Weapons: ChineseEarthquake
+
+TERMINATOR:
+	Inherits: TSCYBCOM
+	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
+	Buildable:
+		Prerequisites: ~disabled
+	AttackWander: 
+		MaxMoveDelay: 75
+		MinMoveDelay: 25
+		WanderMoveRadius: 5
+	RenderSprites:
+		Image: tscybcom
+	Tooltip:
+		Name: Terminator Model 800
+	Health:
+		HP: 500000
+	Armament@PRIMARY:
+		Weapon: TerminatorMinigun
+		LocalOffset: 300,150,683
+		LocalYaw: 0
+	Armament@TRACER:
+		Weapon: TerminatorMinigunTracer
+		LocalOffset: 300,150,683
+		LocalYaw: 0
+	Armament@GARRISONED:
+		Name: garrisoned
+		Weapon: TerminatorMinigun
+	Armament@BUS:
+		Name: bus
+		Weapon: TerminatorMinigun
+	GrantConditionOnAttack@firing:
+		Condition: firing
+		RevokeDelay: 4
+	AmmoPool@hack:
+		InitialAmmo: 0
+		Name: hackammo
+	ReloadAmmoPool@hack:
+		RequiresCondition: firing
+		AmmoPool: hackammo
+		Delay: 1
+	AmbientSound@minigun:
+		SoundFiles: ut2k4minigun.aud
+		RequiresCondition: firing
+	AmbientSound:
+		SoundFiles: arniekil7.aud, arniekil2.aud
+		Interval: 500, 1500
+		Delay: 500, 1500
+	ExplodeWeapon@endsound:
+		Weapon: TerminatorMinigunEnd
+		AmmoPoolName: hackammo
+		RequiresCondition: !firing
+	Voiced:
+		VoiceSet: ArnieVoice
+	VoiceAnnouncement:
+		RequiresCondition: produced
+		Voice: Build3
+	SoundOnDamageTransition:
+		DamagedSounds: arniecrit1.wav,arniecrit2.wav,arniecrit3.wav
+	Explodes@arnie:
+		Weapon: ArnieDeathTerminator
+		EmptyWeapon: ArnieDeathTerminator
+
+
 powerproxy.cratedrop1:
 	Inherits: powerproxy.paratroopers
 	ParatroopersPower:
@@ -2305,3 +2477,20 @@ powerproxy.cratedrop4:
 	Inherits: powerproxy.cratedrop1
 	ParatroopersPower:
 		DropItems: 1tnk.nukexbar
+
+powerproxy.earthquake:
+	AlwaysVisible:
+	SpawnActorPower:
+		OrderName: CrateEarthquake
+		PauseOnCondition: disabled
+		Icon: sneak
+		Cursor: chrono-target
+		ChargeInterval: 4500
+		Name: Earthquake
+		Description: Does an earthquake at the location. Useless vs Infantry
+		DisplayRadarPing: True
+		SupportPowerPaletteOrder: 20
+		DisplayTimerRelationships: Ally, Neutral, Enemy
+		AllowMultiple: true
+		OneShot: true
+		Actor: 1tnk.earthquake
