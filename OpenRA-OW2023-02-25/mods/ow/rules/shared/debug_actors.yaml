@@ -49,15 +49,35 @@ HAXOR:
 	Inherits@conyard: ^ConYard
 	Buildable:
 		Prerequisites: ~disabled
-		BuildPaletteOrder: 3
+		BuildPaletteOrder: 1
 		Description: actor-haxor.description
 		Queue: Wall
 	ProvidesPrerequisite@bossmode:
+		RequiresCondition: cheats_on
 		Prerequisite: ai.boss
 	ProvidesPrerequisite@bossmode2:
+		RequiresCondition: cheats_on
 		Prerequisite: ai.all
 	ProvidesPrerequisite@disabled:
+		RequiresCondition: cheats_on
 		Prerequisite: disabled
+	ProductionQueue@tier1:
+		Type: HeroUpgrade1
+		Group: Special
+	ProductionQueue@tier2:
+		Type: HeroUpgrade2
+		Group: Special
+	ProductionQueue@tier3:
+		Type: HeroUpgrade3
+		Group: Special
+	ProductionQueue@tier4:
+		Type: HeroUpgrade4
+		Group: Special
+	ProductionQueue@tier5:
+		Type: HeroUpgrade5
+		Group: Special
+	Production@herotiers:
+		Produces: HeroUpgrade1,HeroUpgrade2,HeroUpgrade3,HeroUpgrade4,HeroUpgrade5
 	Tooltip:
 		Name: actor-haxor.name
 	Power:
@@ -81,8 +101,8 @@ HAXOR:
 	Targetable:
 		TargetTypes: UpgradeThing
 	GrantConditionOnDeploy@cheats:
-		DeployedCondition: cheats_off
-		UndeployedCondition: cheats_on
+		DeployedCondition: cheats_on
+		UndeployedCondition: cheats_off
 	ProvidesPrerequisite@cheats:
 		RequiresCondition: cheats_on
 		Prerequisite: never_target_me
@@ -106,7 +126,7 @@ HAXOR:
 		InsufficientPowerSpeechNotification: InsufficientPower
 		OnFireSound: medismitesound.wav
 		DisplayRadarPing: True
-		SupportPowerPaletteOrder: 25
+		SupportPowerPaletteOrder: 50
 		Effect: explosion
 		EffectSequence: medismiteproj
 		Weapon: DeleteNuke
@@ -122,7 +142,7 @@ HAXOR:
 		SelectTargetSpeechNotification: SelectTarget
 		InsufficientPowerSpeechNotification: InsufficientPower
 		DisplayRadarPing: True
-		SupportPowerPaletteOrder: 24
+		SupportPowerPaletteOrder: 20
 		Effect: explosion
 		EffectSequence: chemexplo
 		Weapon: DebugTib
@@ -138,7 +158,7 @@ HAXOR:
 		SelectTargetSpeechNotification: SelectTarget
 		InsufficientPowerSpeechNotification: InsufficientPower
 		DisplayRadarPing: True
-		SupportPowerPaletteOrder: 23
+		SupportPowerPaletteOrder: 49
 		Effect: explosion
 		EffectSequence: large_explosion
 		Weapon: MDKLightningZap
@@ -164,7 +184,7 @@ HAXOR:
 		CircleSequence: circles
 		UseDirectionalTarget: True
 		DirectionArrowAnimation: paradirection
-		SupportPowerPaletteOrder: 10
+		SupportPowerPaletteOrder: 1
 	ParatroopersPower@crates2:
 		OrderName: Crates2
 		Icon: paradoom
@@ -185,7 +205,28 @@ HAXOR:
 		CircleSequence: circles
 		UseDirectionalTarget: True
 		DirectionArrowAnimation: paradirection
-		SupportPowerPaletteOrder: 11
+		SupportPowerPaletteOrder: 2
+	ParatroopersPower@crates3:
+		OrderName: Crates3
+		Icon: paradoom
+		ChargeInterval: 25
+		Name: Crates
+		UnitType: U2.UAC
+		Description: A Badger drops a bunch of level up crates.
+		DropItems: crate.level,crate.level,crate.level,crate.level,crate.level
+		ReinforcementsArrivedSpeechNotification: ReinforcementsArrived
+		SelectTargetSpeechNotification: SelectTarget
+		AllowImpassableCells: false
+		QuantizedFacings: 8
+		CameraActor: camera.paradrop
+		DisplayBeacon: true
+		BeaconPoster: pinficon
+		ArrowSequence: arrow
+		ClockSequence: clock
+		CircleSequence: circles
+		UseDirectionalTarget: True
+		DirectionArrowAnimation: paradirection
+		SupportPowerPaletteOrder: 3
 	ChronoshiftPower@chronoshift:
 		OrderName: ChronoshiftHax
 		PauseOnCondition: disabled
@@ -229,7 +270,7 @@ HAXOR.AI1:
 	Buildable:
 		Prerequisites: ~disabled
 		Queue: Wall
-		BuildPaletteOrder: 1
+		BuildPaletteOrder: 2
 		Description: actor-haxor-ai1.description
 	ProvidesPrerequisite@bossmode:
 		Prerequisite: ai.medium
@@ -247,7 +288,7 @@ HAXOR.AI2:
 	Buildable:
 		Prerequisites: ~disabled
 		Queue: Wall
-		BuildPaletteOrder: 2
+		BuildPaletteOrder: 3
 		Description: actor-haxor-ai2.description
 	ProvidesPrerequisite@bossmode:
 		Prerequisite: ai.hard
@@ -267,7 +308,7 @@ HAXOR.AI3:
 	Buildable:
 		Prerequisites: ~disabled
 		Queue: Wall
-		BuildPaletteOrder: 3
+		BuildPaletteOrder: 4
 		Description: actor-haxor-ai3.description
 	ProvidesPrerequisite@bossmode:
 		Prerequisite: ai.realboss

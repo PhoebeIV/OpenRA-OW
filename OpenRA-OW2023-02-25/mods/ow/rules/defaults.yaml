@@ -99,8 +99,11 @@
 		CloakSound: cloak5.aud
 		RequiresCondition: gpsscrambler && !disabled
 		UncloakOn: Attack, Unload, Infiltrate, Demolish, Damage
-		DetectionType: gpsscrambler
+		CloakType: gpsscrambler
 		CloakedCondition: cloaked
+	Targetable@gpsscrambler:
+		RequiresCondition: gpsscrambler
+		TargetTypes: NoAITarget
 	ExternalCondition@arbiterstealth:
 		Condition: arbiterstealth
 	Cloak@arbiterstealth:
@@ -289,6 +292,18 @@
 	GivesExperienceMultiplier@RANK-ELITE:
 		RequiresCondition: rank-elite
 		Modifier: 300
+	ReloadAmmoDelayMultiplier@RANK-1:
+		RequiresCondition: rank-veteran == 1
+		Modifier: 95
+	ReloadAmmoDelayMultiplier@RANK-2:
+		RequiresCondition: rank-veteran == 2
+		Modifier: 90
+	ReloadAmmoDelayMultiplier@RANK-3:
+		RequiresCondition: rank-veteran == 3
+		Modifier: 85
+	ReloadAmmoDelayMultiplier@RANK-ELITE:
+		RequiresCondition: rank-elite
+		Modifier: 75
 
 # Given to actors that would normally have the experience traits, but want them removed.
 ^NoExp:
@@ -1377,6 +1392,7 @@
 	Inherits@usabombardment: ^USAStrategyBuffs
 	Inherits@propagandaboost: ^propagandaboost
 	Inherits@japanbuffs_buildings: ^japanbuffs_buildings
+	RevealOnDeath: 
 	Building:
 		Footprint: +
 	GivesBuildableArea:
@@ -1490,6 +1506,7 @@
 	Inherits@frenzyboost: ^FrenzyBoost
 	Inherits@shields: ^AcceptsShields
 	Inherits@japanbuffs_buildings: ^japanbuffs_buildings
+	RevealOnDeath: 
 	OwnerLostAction:
 		Action: ChangeOwner
 		Owner: Creeps
@@ -1640,6 +1657,9 @@
 	Targetable@cloaked:
 		RequiresCondition: cloaked
 		TargetTypes: NoAITarget
+	GrantConditionOnPrerequisite@raearmor:
+		Prerequisites: raeven.armor
+		Condition: soviet_iron
 	GrantConditionOnPrerequisite@terranarmor:
 		Prerequisites: terran.armor
 		Condition: soviet_iron
@@ -1659,14 +1679,20 @@
 		Condition: wander
 	Wanders@default:
 		RequiresCondition: wander
-
-^TrackedVehicle:
 	GrantConditionOnPrerequisite@gdi_speed:
 		Prerequisites: gdi.speed
 		Condition: gdi_speed
 	SpeedMultiplier@gdi_speed:
 		RequiresCondition: gdi_speed
 		Modifier: 120
+	GrantConditionOnPrerequisite@rae_speed:
+		Prerequisites: vehicle.speed10
+		Condition: upgrade_speed10
+	SpeedMultiplier@rae_speed:
+		RequiresCondition: upgrade_speed10
+		Modifier: 110
+
+^TrackedVehicle:
 	GrantConditionOnPrerequisite@sovietiron:
 		Prerequisites: soviet.iron
 		Condition: soviet_iron
@@ -1680,6 +1706,7 @@
 	Inherits@frenzyboost: ^FrenzyBoost
 	Inherits@shields: ^AcceptsShields
 	Inherits@japanbuffs_buildings: ^japanbuffs_buildings
+	RevealOnDeath: 
 	RepairableNear:
 		RepairActors: spen, syrd, gspen, usashipyard, chinashipyard, japanshipyard, japanshipyardnavy
 	RevealOnFire:

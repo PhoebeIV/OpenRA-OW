@@ -751,8 +751,10 @@
 
 ## Hero rework
 ^Hero:
-	Inherits@XP: ^NoExp
 	Inherits@mc: ^MindControlResistant
+	RevealOnDeath: 
+		Duration: 50
+		Radius: 2c512
 	ProductionCostMultiplier@1:
 		Multiplier: 20
 	Valued:
@@ -766,8 +768,8 @@
 		RequiresCondition: produced
 		Voice: Build
 	WithDecoration@elite:
-		Image: pips
-		Sequence: pip-poison
+		Image: rank
+		Sequence: rank-elite
 		Palette: effect
 		ValidRelationships: None,Neutral,Enemy,Ally
 	GpsDot:
@@ -866,7 +868,6 @@
 	GainsExperience:
 		LevelUpNotification: LevelUp
 		LevelUpTextNotification: meta-hero.gainsexperience-level-up-text-notification
-		-Conditions:
 		Conditions:
 			200: hero-level
 			400: hero-level
@@ -1081,6 +1082,9 @@
 		Group: Special
 	Production@ability:
 		Produces: HeroAbility
+	Exit@ability:
+		ProductionTypes: HeroAbility
+		SpawnOffset: 0,0,1024
 	GrantConditionOnPrerequisite@forcelevelup:
 		Prerequisites: hero.tier1
 		Condition: forcelevelup
@@ -1125,6 +1129,8 @@
 		Modifier: 75
 	GrantConditionOnPrerequisite@forcelevelup:
 		Prerequisites: hero.tier2
+	GivesExperienceMultiplier@i:
+		Modifier: 150
 
 ^HeroTier2:
 	Inherits: ^HeroTier1
@@ -1152,6 +1158,8 @@
 		Modifier: 50
 	GrantConditionOnPrerequisite@forcelevelup:
 		Prerequisites: hero.tier3
+	GivesExperienceMultiplier@i:
+		Modifier: 200
 
 ^HeroTier3:
 	Inherits: ^HeroTier2
@@ -1179,6 +1187,8 @@
 		Modifier: 35
 	GrantConditionOnPrerequisite@forcelevelup:
 		Prerequisites: hero.tier4
+	GivesExperienceMultiplier@i:
+		Modifier: 250
 
 ^HeroTier4:
 	Inherits: ^HeroTier3
@@ -1206,6 +1216,8 @@
 		Modifier: 20
 	GrantConditionOnPrerequisite@forcelevelup:
 		Prerequisites: hero.tier5
+	GivesExperienceMultiplier@i:
+		Modifier: 300
 
 ^HeroTier5:
 	Inherits: ^HeroTier4
@@ -1237,6 +1249,8 @@
 		-LevelUpNotification:
 		-LevelUpTextNotification:
 	-GrantConditionOnPrerequisite@forcelevelup:
+	GivesExperienceMultiplier@i:
+		Modifier: 400
 
 ^HeroUpgradeBaseTier1:
 	Buildable:
@@ -1255,6 +1269,9 @@
 		Prerequisite: hero.upgraded1
 	RenderSprites:
 		Image: upgrade.infarmor1
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+		AddToAssetsValue: false
 
 ^HeroUpgradeBaseTier2:
 	Inherits: ^HeroUpgradeBaseTier1

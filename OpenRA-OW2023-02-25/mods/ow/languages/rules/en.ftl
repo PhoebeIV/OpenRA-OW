@@ -3417,7 +3417,9 @@ actor-t-miss =
 actor-haxor =
    .description = Become the God AI, makes your 
      structures never targeted by AI.
-   .name = God Mode
+
+   Also gives access to a bunch of support powers.
+   .name = God / Debug Mode
    .chronoshiftpower-chronoshift-select-target-text-notification = Select target.
    .chronoshiftpower-chronoshift-insufficient-power-text-notification = Insufficient power.
    .chronoshiftpower-chronoshift-begin-charge-text-notification = Chronosphere charging.
@@ -5912,6 +5914,7 @@ actor-btdemolisher =
       Strong vs Vehicles, Infantry
       Weak vs Aircraft
    .name = Demolisher
+   .husk = Demolisher (Husk)
 
 actor-btmanticore =
    .description = Very heavy, long range tank.
@@ -5919,3 +5922,86 @@ actor-btmanticore =
       Strong vs Everything
       Weak vs Nothing
    .name = Manticore
+   .husk = Manticore (Husk)
+
+actor-btrae-hero =
+   .description = [HERO]
+
+   Role: Vehicle Support or Damage Dealer
+   
+
+     Veteran MechWarrior from the Free Worlds League.
+     Can be leveled to support your vehicles,
+     or further her firepower.
+
+
+     Has 4 weapons that can be replaced or upgraded.
+
+     Tier 1 unlocks 2nd attack.
+     Tier 2 unlocks anti-missile system and UAV.
+     Tier 3 unlocks stealth detection and 3rd attack.
+     Tier 4 unlocks area vehicle boosting.
+     Tier 5 unlocks 4th attack.
+
+     Speed: 112
+     Strong vs Everything
+   .name = Rae Ven 3L
+   .tier0 = Rae Ven 3L (Tier 0)
+   .tier1 = Rae Ven 3L (Tier 1)
+   .tier2 = Rae Ven 3L (Tier 2)
+   .tier3 = Rae Ven 3L (Tier 3)
+   .tier4 = Rae Ven 3L (Tier 4)
+   .tier5 = Rae Ven 3L (Tier 5)
+   .husk = Rae Ven 3L (Dead)
+
+actor-btrae-upgrade =
+   .t1u1name = Polished Barrels
+   .t1u1desc = Gain Vehicle Firepower I instantly.
+   .t1u2name = Reactive Plating
+   .t1u2desc = Gain Vehicle Armor I instantly.
+   .t1u3name = Rae: Improved Cycles
+   .t1u3desc = Increase Rae's fire rate by 20%.
+      But will generate more heat.
+   .t2u1name = Driving Courses
+   .t2u1desc = Increase vehicle movement speed by 10%.
+   .t2u3name = Rae: SRM 6
+   .t2u3desc = Install a 6-salvo short range missile pack on Rae.
+   Also increases health a small amount.
+      Slot: 3 (replaces a laser)
+      Generates low heat.
+   .t2u4name = Rae: Large Laser
+   .t2u4desc = Install a long range Large laser on Rae.
+      Slot: 3 (replaces a laser)
+      Generates high heat.
+   .t3u1name = Polished Barrels II
+   .t3u1desc = Gain Vehicle Firepower II instantly.
+   .t3u2name = Reactive Plating II
+   .t3u2desc = Gain Vehicle Armor II instantly.
+   .t3u3name = Rae: Anti-Missile System
+   .t3u3desc = Install a Point Defense system on Rae.
+      Destroys incoming missiles. Increases health slightly.
+   .t3u4name = Rae: Beagle Active Probe
+   .t3u4desc = Install a Beagle Active Probe on Rae.
+      Largely increases vision and detection range.
+   .t4u1name = Regenerative Plating
+   .t4u1desc = Enables self-repair on all vehicles.
+   .t4u2name = Rae: LRM-10
+   .t4u2desc = Install a 10-salvo long range missile pack on Rae.
+      Slot: 2 (replaces a laser)
+      Generates moderate heat. Increases vision range.
+   .t4u4name = Rae: Light PPC
+   .t4u4desc = Install a long range PPC on Rae.
+      Slot: 2 (replaces a laser)
+      Generates high heat. Increases vision range.
+   .t5u1name = Construction Bots
+   .t5u1desc = Produce vehicles for 10% cheaper and 20% faster. 
+   .t5u2name = Layered Armor
+   .t5u2desc = Increases vehicle armor by a further 20%.
+   .t5u3name = Rae: Nuke
+   .t5u3desc = Install a tactical nuke artillery on Rae.
+      Slot: 4 (replaces SRM4)
+      Generates huge heat. Reduces movement speed.
+
+actor-btrae-uav = 
+   .name = UAV
+   .desc = Launch a UAV for 2 minutes.
