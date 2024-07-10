@@ -751,7 +751,20 @@
 
 ## Hero rework
 ^Hero:
+	Inherits@XP: ^GainsExperience # this exists to just be removed
 	Inherits@mc: ^MindControlResistant
+	-GainsExperience:
+	GainsExperience@1:
+		LevelUpNotification: LevelUp
+		LevelUpTextNotification: meta-hero.gainsexperience-level-up-text-notification
+		Conditions:
+			200: hero-level
+			400: hero-level
+			600: hero-level
+			800: hero-level
+			1000: hero-level
+		LevelUpImage: crate-effects
+		ExperienceModifier: 1000
 	RevealOnDeath: 
 		Duration: 50
 		Radius: 2c512
@@ -865,17 +878,6 @@
 	FirepowerMultiplier@nfp3:
 		RequiresCondition: nfp3
 		Modifier: 112
-	GainsExperience:
-		LevelUpNotification: LevelUp
-		LevelUpTextNotification: meta-hero.gainsexperience-level-up-text-notification
-		Conditions:
-			200: hero-level
-			400: hero-level
-			600: hero-level
-			800: hero-level
-			1000: hero-level
-		LevelUpImage: crate-effects
-		ExperienceModifier: 1000
 	WithDecoration@level1:
 		Image: pips
 		Sequence: pip-yellow
@@ -1245,7 +1247,7 @@
 		RequiresCondition: hero-level <= 4
 		Amount: 200000
 		Interval: 25
-	GainsExperience:
+	GainsExperience@1:
 		-LevelUpNotification:
 		-LevelUpTextNotification:
 	-GrantConditionOnPrerequisite@forcelevelup:
