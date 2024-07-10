@@ -2056,7 +2056,7 @@ AvaliFrigateLaser2:
 	FirstBurstTargetOffset: -96,288,0
 	FollowingBurstTargetOffset: 32,-96,0
 
-strifeacolytebasicmg:
+strifeguymg:
 	Inherits: ^LightMG
 	ReloadDelay: 35
 	Range: 6c0
@@ -2064,12 +2064,88 @@ strifeacolytebasicmg:
 	BurstDelays: 3
 	Report: acolyteshot.wav
 	Warhead@1Dam: SpreadDamage
-		Damage: 2500
+		Damage: 3000
 		Versus:
-			None: 120
-			Wood: 20
+			None: 100
+			Wood: 25
 			Light: 40
-			Heavy: 20
+			Heavy: 50
+			Concrete: 20
+		DamageTypes: Prone50Percent, TriggerProne, BulletDeath
+
+strifeguymgauto:
+	Inherits: ^LightMG
+	ReloadDelay: 35
+	Range: 6c0
+	Burst: 30
+	BurstDelays: 3
+	Report: acolyteshot.wav
+	Projectile: InstantHit
+		Blockable: true
+		Inaccuracy: 128
+	Warhead@1Dam: SpreadDamage
+		Damage: 3000
+		Versus:
+			None: 100
+			Wood: 25
+			Light: 40
+			Heavy: 50
+			Concrete: 20
+		DamageTypes: Prone50Percent, TriggerProne, BulletDeath
+
+strifeguymgautoinf:
+	Inherits: strifeguymgauto
+	ValidTargets: Infantry, Ground, Water
+
+strifeguytemplar:
+	Inherits: ^ShieldHit
+	ReloadDelay: 60
+	Range: 4c0
+	Report: strifetemplarfire.aud
+	Burst: 5
+	BurstDelays: 0
+	ValidTargets: Ground, Water, GroundActor, WaterActor
+	Projectile: InstantHit
+		Blockable: true
+		Inaccuracy: 1c0
+	Warhead@1Dam: SpreadDamage
+		Spread: 128
+		Damage: 3000
+		ValidTargets: GroundActor, WaterActor
+		Versus:
+			None: 100
+			Wood: 30
+			Light: 40
+			Heavy: 30
+			Concrete: 28
+		DamageTypes: Prone50Percent, TriggerProne, BulletDeath
+	Warhead@2Eff: CreateEffect
+		Explosions: strifeguytemplarpuff
+		ValidTargets: Ground, GroundActor, Air, AirborneActor, WaterActor, Trees
+		ImpactActors: false
+	Warhead@2Smu: LeaveSmudge
+		SmudgeType: Scorch
+	Warhead@3EffWater: CreateEffect
+		Explosions: water_piffs
+		ValidTargets: Water, Underwater
+		InvalidTargets: Bridge
+
+strifeguytemplar2:
+	Inherits: strifeguytemplar
+	-Report:
+	Projectile: InstantHit
+		Inaccuracy: 2c0
+		Blockable: true
+
+strifeacolytebasicmg:
+	Inherits: strifeguymg
+	Warhead@1Dam: SpreadDamage
+		Damage: 1750
+		Versus:
+			None: 100
+			Wood: 25
+			Light: 40
+			Heavy: 50
 			Concrete: 20
 		DamageTypes: Prone50Percent, TriggerProne, BulletDeath
 

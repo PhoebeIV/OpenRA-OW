@@ -3064,3 +3064,69 @@ LRM10_5:
 		Explosions: med_explosion_air
 		ImpactSounds: kaboom25.aud
 		ValidTargets: Air, AirborneActor
+
+strifeguymissile:
+	Inherits: ^ShieldHit
+	ReloadDelay: 50
+	Range: 7c0
+	MinRange: 0c512
+	Report: strifeguymissilefire.wav
+	ValidTargets: AirborneActor
+	Projectile: Missile
+		Speed: 213
+		Arm: 2
+		Blockable: false
+		ContrailLength: 10
+		Inaccuracy: 128
+		Image: strifeguymissile
+		Shadow: True
+		HorizontalRateOfTurn: 20
+		RangeLimit: 6c0
+		PointDefenseType: pointdefense
+	Warhead@1Dam: SpreadDamage
+		Spread: 128
+		Damage: 10000
+		ValidTargets: AirborneActor, Air
+		Versus:
+			None: 10
+			Wood: 74
+			Light: 34
+			Heavy: 100
+			Concrete: 50
+		DamageTypes: Prone50Percent, TriggerProne, ExplosionDeath
+	Warhead@2Smu: LeaveSmudge
+		SmudgeType: Crater
+		ValidTargets: Ground, Infantry
+	Warhead@3Eff: CreateEffect
+		Explosions: strifeguymissileexplosion
+		ImpactSounds: strifeguymissileexplosion.wav
+		ImpactActors: false
+		ValidTargets: AirborneActor, Air
+	Warhead@4EffWater: CreateEffect
+		Explosions: med_splash
+		ImpactSounds: splash9.aud
+		ValidTargets: Water, Underwater
+		InvalidTargets: Bridge
+
+strifeguycrusadermissile:
+	Inherits: strifeguymissile
+	Burst: 3
+	BurstDelays: 16
+	Range: 6c0
+	ValidTargets: Vehicle, Structure, AirborneActor, Trees, Wall, Ground
+	Warhead@2Dam: SpreadDamage
+		Spread: 128
+		Damage: 7500
+		ValidTargets: Ground, GroundActor, WaterActor, Trees
+		Versus:
+			None: 10
+			Wood: 74
+			Light: 34
+			Heavy: 100
+			Concrete: 50
+		DamageTypes: Prone50Percent, TriggerProne, ExplosionDeath
+	Warhead@3Eff: CreateEffect
+		Explosions: strifeguymissileexplosion
+		ImpactSounds: strifeguymissileexplosion.wav
+		ImpactActors: false
+		ValidTargets: Ground, GroundActor, AirborneActor, Air, WaterActor, Trees

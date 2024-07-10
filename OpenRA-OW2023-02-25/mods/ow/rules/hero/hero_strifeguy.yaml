@@ -1,0 +1,719 @@
+# Enhanced Training Regime
+strifeguy.tier1.fastupgrade1:
+	Inherits: ^HeroUpgradeBaseTier1
+	Tooltip:
+		Name: actor-strifeguy-tier1-fastupgrade1.name
+	Buildable:
+		Description: actor-strifeguy-tier1-fastupgrade1.description
+		Prerequisites: ~active.strifeguy, !upgrade.inffirepower1
+		BuildPaletteOrder: 1
+	RenderSprites:
+		Image: upgrade.inffirepower1
+	ProvidesPrerequisite@buildingname:
+	ProvidesPrerequisite@upgradename:
+		Prerequisite: upgrade.inffirepower1
+
+# Vanadium Plating
+strifeguy.tier1.fastupgrade2:
+	Inherits: ^HeroUpgradeBaseTier1
+	Tooltip:
+		Name: actor-strifeguy-tier1-fastupgrade2.name
+	Buildable:
+		Description: actor-strifeguy-tier1-fastupgrade2.description
+		Prerequisites: ~active.strifeguy, !upgrade.infarmor1
+		BuildPaletteOrder: 2
+	RenderSprites:
+		Image: upgrade.infarmor1
+	ProvidesPrerequisite@buildingname:
+	ProvidesPrerequisite@upgradename:
+		Prerequisite: upgrade.infarmor1
+
+# Acolyte training
+strifeguy.tier2.acolyte:
+	Inherits: ^HeroUpgradeBaseTier2
+	Tooltip:
+		Name: actor-strifeguy-tier2-acolyte.name
+	Buildable:
+		Description: actor-strifeguy-tier2-acolyte.description
+		Prerequisites: ~active.strifeguy
+		BuildPaletteOrder: 1
+		Icon: acolytestrikeicon
+	RenderSprites:
+		Image: icon
+	ProvidesPrerequisite@buildingname:
+
+# Targeter - marks nearby infantry for extra damage + cash
+strifeguy.tier2.targeter:
+	Inherits: ^HeroUpgradeBaseTier2
+	Tooltip:
+		Name: actor-strifeguy-tier2-marker.name
+	Buildable:
+		Description: actor-strifeguy-tier2-marker.description
+		Prerequisites: ~active.strifeguy
+		BuildPaletteOrder: 2
+		Icon: strifeguytargetericon
+	RenderSprites:
+		Image: icon
+	ProvidesPrerequisite@buildingname:
+
+# phosphorous grenade - allows firing of a phosphorous grenade at infantry
+# strifeguy passively gets grenade launcher for vehicles, MG is now only used on infantry
+strifeguy.tier3.phosphorous:
+	Inherits: ^HeroUpgradeBaseTier3
+	Tooltip:
+		Name: actor-strifeguy-tier3-phosphorous.name
+	Buildable:
+		Description: actor-strifeguy-tier3-phosphorous.description
+		Prerequisites: ~active.strifeguy
+		BuildPaletteOrder: 1
+		Icon: strifeguyphosphorousicon
+	RenderSprites:
+		Image: icon
+	ProvidesPrerequisite@buildingname:
+
+# Templar - allows training of heavy templar units
+strifeguy.tier3.templar:
+	Inherits: ^HeroUpgradeBaseTier3
+	Tooltip:
+		Name: actor-strifeguy-tier3-templar.name
+	Buildable:
+		Description: actor-strifeguy-tier3-templar.description
+		Prerequisites: ~active.strifeguy
+		BuildPaletteOrder: 2
+		Icon: strifeguytemplaricon
+	RenderSprites:
+		Image: icon
+	ProvidesPrerequisite@buildingname:
+
+# Templar - allows training of heavy templar units
+strifeguy.tier4.crusader:
+	Inherits: ^HeroUpgradeBaseTier4
+	Tooltip:
+		Name: actor-strifeguy-tier4-crusader.name
+	Buildable:
+		Description: actor-strifeguy-tier4-crusader.description
+		Prerequisites: ~active.strifeguy
+		BuildPaletteOrder: 3
+		Icon: icon
+	RenderSprites:
+		Image: strifeguycrusader
+	ProvidesPrerequisite@buildingname:
+
+# reinforcements
+strifeguy.tier4.reinforcements:
+	Inherits: ^HeroUpgradeBaseTier4
+	Tooltip:
+		Name: actor-strifeguy-tier4-reinforcements.name
+	Buildable:
+		Description: actor-strifeguy-tier4-reinforcements.description
+		Prerequisites: ~active.strifeguy
+		BuildPaletteOrder: 1
+		Icon: strifereinforcementsicon
+	RenderSprites:
+		Image: icon
+
+
+# Enhanced shadowsphere
+strifeguy.tier5.shadowsphere:
+	Inherits: ^HeroUpgradeBaseTier5
+	Tooltip:
+		Name: actor-strifeguy-tier5-shadowsphere.name
+	Buildable:
+		Description: actor-strifeguy-tier5-shadowsphere.description
+		Prerequisites: ~active.strifeguy, strifeguy.tier4.shadowsphere
+		BuildPaletteOrder: 1
+		Icon: corvusenhancedshadowsphereicon
+	RenderSprites:
+		Image: icon
+	ProvidesPrerequisite@buildingname:
+
+# Chaos Device (chronosphere)
+strifeguy.tier5.chaos:
+	Inherits: ^HeroUpgradeBaseTier5
+	Tooltip:
+		Name: actor-strifeguy-tier5-chaos.name
+	Buildable:
+		Description: actor-strifeguy-tier5-chaos.description
+		Prerequisites: ~active.strifeguy
+		BuildPaletteOrder: 2
+		Icon: corvuschaosdeviceicon
+	RenderSprites:
+		Image: icon
+
+# Mystic Urn
+strifeguy.tier5.mystic:
+	Inherits: ^HeroUpgradeBaseTier5
+	Tooltip:
+		Name: actor-strifeguy-tier5-mystic.name
+	Buildable:
+		Description: actor-strifeguy-tier5-mystic.description
+		Prerequisites: ~active.strifeguy
+		BuildPaletteOrder: 3
+		Icon: corvusmysticurnicon
+	RenderSprites:
+		Image: icon
+
+active.strifeguy:
+	AlwaysVisible:
+	Interactable:
+	Tooltip:
+		Name: actor-active-strifeguy-name
+
+strifeguy.allpick:
+	Inherits: ^UpgradeBase
+	RenderSprites:
+		Image: strifeguy
+	Buildable:
+		Queue: Tech
+		BuildPaletteOrder: 1
+		Prerequisites: ~techlevel.hero, ~!hero.chosen
+		Description: actor-strifeguy-hero0.description
+		BuildDuration: 100
+		BuildLimit: 1
+	Valued:
+		Cost: 0
+	Tooltip:
+		Name: actor-strifeguy-hero0.name
+	ProvidesPrerequisite@hero:
+		Prerequisite: hero.chosen
+	ProvidesPrerequisite@pickme:
+		Prerequisite: hero.strifeguy
+
+strifeguy.Hero0:
+	Inherits: ^NewStrifeGuy
+	Inherits@Hero: ^Hero
+	Inherits@heroTier: ^HeroTier0
+	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
+	RenderSprites:
+		Image: strifeguy
+	Buildable:
+		Queue: Infantry
+		BuildAtProductionType: Soldier
+		BuildPaletteOrder: 50
+		Prerequisites: ~barracks, ~techlevel.unrestricted, !active.strifeguy, ~!hero.tier1, ~hero.strifeguy
+		Description: actor-strifeguy-hero0.description
+		BuildDurationModifier: 100
+		BuildDuration: 750
+		BuildLimit: 1
+	Selectable:
+		Bounds: 1536, 1536, 0, 0
+		DecorationBounds: 1536, 1536, 0, 0
+	Tooltip:
+		Name: actor-strifeguy-hero0.name
+		RequiresCondition: !in_world
+	Tooltip@real:
+		Name: actor-strifeguy-hero0.real--name
+		RequiresCondition: in_world
+	GrantCondition@real:
+		Condition: in_world
+	Mobile:
+		Speed: 90
+		TurnSpeed: 90
+		Locomotor: foot2
+		Voice: Move
+	Guard:
+		Voice: Move
+	Health:
+		HP: 80000
+	RevealsShroud:
+		MinRange: 6c0
+		Range: 8c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 6c0
+	-ExternalCondition@wander:
+	Passenger:
+		CustomPipType: red
+		Voice: Move
+		Weight: 2
+	Armament@PRIMARY:
+		Weapon: strifeguymg
+	Armament@GARRISONED:
+		Name: garrisoned
+		Weapon: strifeguymg
+		MuzzleSequence: garrison-muzzle
+	Armament@BUS:
+		Name: bus
+		Weapon: strifeguymg
+	WithInfantryBody:
+		DefaultAttackSequence: shoot
+		StandSequences: stand
+	GrantConditionOnMovement@move:
+		Condition: moving
+	ProducibleWithLevel:
+		Prerequisites: barracks.upgraded
+	Voiced:
+		VoiceSet: StrifeGuy
+	AmbientSound@talky:
+		SoundFiles: STRIFENO.wav
+		Delay: 0
+		Interval: 500, 750
+	ExternalCondition@PRODUCED:
+		Condition: produced
+	VoiceAnnouncement:
+		RequiresCondition: produced
+		Voice: Build
+	AnnounceOnKill:
+	ProvidesPrerequisite@inthefield:
+		Prerequisite: active.strifeguy
+	ActorLostNotification:
+		RequiresCondition: !force_deploy
+	KillsSelf@level:
+		RequiresCondition: force_deploy
+		Delay: 1
+	SpawnActorOnDeath:
+		RequiresCondition: force_deploy
+		Actor: strifeguy.Hero1
+	ExperienceTrickler:
+		RequiresCondition: hero-level <= 4
+		Amount: 500
+		Interval: 25
+	SoundOnDamageTransition:
+		DamagedSounds: STRIFEPAIN.wav
+	ChangesHealth@default:
+		PercentageStep: 1
+		Delay: 75
+		StartIfBelow: 101
+		DamageCooldown: 75
+	GrantConditionOnPrerequisite@targeter:
+		Condition: targeterupgrade
+		Prerequisites: strifeguy.tier2.targeter
+	ProximityExternalCondition@targeter:
+		Condition: strifeguytargeter
+		RequiresCondition: targeterupgrade
+		ValidRelationships: Enemy
+		Range: 7c0
+
+strifeguy.Hero1:
+	Inherits: strifeguy.Hero0
+	Inherits@heroTier: ^HeroTier1
+	Buildable:
+		Prerequisites: ~barracks, ~techlevel.unrestricted, !active.strifeguy, ~!hero.tier2, ~hero.tier1, ~hero.strifeguy
+		BuildDuration: 1500
+	Tooltip:
+		Name: actor-strifeguy-hero1-name
+	Health:
+		HP: 110000
+	SpawnActorOnDeath:
+		RequiresCondition: force_deploy
+		Actor: strifeguy.Hero2
+	FirepowerMultiplier@1:
+		Modifier: 110
+	-ExperienceTrickler:
+	Armament@PRIMARY:
+		Weapon: strifeguymg
+	Armament@GARRISONED:
+		Weapon: strifeguymg
+	Armament@BUS:
+		Weapon: strifeguymg
+
+strifeguy.Hero2:
+	Inherits: strifeguy.Hero1
+	Inherits@heroTier: ^HeroTier2
+	Buildable:
+		Prerequisites: ~barracks, ~techlevel.unrestricted, !active.strifeguy, ~!hero.tier3, ~hero.tier2, ~hero.strifeguy
+	Tooltip:
+		Name: actor-strifeguy-hero2-name
+	Health:
+		HP: 130000
+	SpawnActorOnDeath:
+		RequiresCondition: force_deploy
+		Actor: strifeguy.Hero3
+	FirepowerMultiplier@1:
+		Modifier: 120
+	AttackFrontal:
+		Armaments: primary, item
+	Armament@PRIMARY:
+		Weapon: strifeguymgauto
+	Armament@GARRISONED:
+		Weapon: strifeguymgauto
+	Armament@BUS:
+		Weapon: strifeguymgauto
+	GrantConditionOnAttack@fullauto:
+		Condition: fullauto
+		RequiredShotsPerInstance: 1
+		MaximumInstances: 10
+		RevokeDelay: 25
+		RevokeAll: true
+		IsCyclic: false
+	InaccuracyMultiplier@disrupter6:
+		RequiresCondition: fullauto >= 3
+		Modifier: 600
+	InaccuracyMultiplier@disrupter7:
+		RequiresCondition: fullauto >= 9
+		Modifier: 200
+
+strifeguy.Hero3:
+	Inherits: strifeguy.Hero2
+	Inherits@heroTier: ^HeroTier3
+	Buildable:
+		Prerequisites: ~barracks, ~techlevel.unrestricted, !active.strifeguy, ~!hero.tier4, ~hero.tier3, ~hero.strifeguy
+	Tooltip:
+		Name: actor-strifeguy-hero3-name
+	Health:
+		HP: 160000
+	SpawnActorOnDeath:
+		RequiresCondition: force_deploy
+		Actor: strifeguy.Hero4
+	FirepowerMultiplier@1:
+		Modifier: 130
+	SpeedMultiplier@1:
+		Modifier: 120
+	Armament@PRIMARY:
+		Weapon: strifeguymgautoinf
+	Armament@SECONDARY:
+		Weapon: strifeguygrenade
+	Armament@TRI:
+		Weapon: strifeguyfiregrenade
+		RequiresCondition: phosphorousupgrade
+	Armament@GARRISONED:
+		Weapon: strifeguymgauto
+	Armament@BUS:
+		Weapon: strifeguymgauto
+	GrantConditionOnAttack@fullauto:
+		Condition: fullauto
+		ArmamentNames: primary
+		RequiredShotsPerInstance: 1
+		MaximumInstances: 10
+		RevokeDelay: 25
+		RevokeAll: true
+		IsCyclic: false
+	InaccuracyMultiplier@disrupter6:
+		RequiresCondition: fullauto >= 3
+		Modifier: 600
+	InaccuracyMultiplier@disrupter7:
+		RequiresCondition: fullauto >= 9
+		Modifier: 200
+	GrantConditionOnPrerequisite@phosphorous:
+		Condition: phosphorousupgrade
+		Prerequisites: strifeguy.tier3.phosphorous
+
+strifeguy.Hero4:
+	Inherits: strifeguy.Hero3
+	Inherits@heroTier: ^HeroTier4
+	Buildable:
+		Prerequisites: ~barracks, ~techlevel.unrestricted, !active.strifeguy, ~!hero.tier5, ~hero.tier4, ~hero.strifeguy
+		BuildDuration: 3000
+	Tooltip:
+		Name: actor-strifeguy-hero4-name
+	Health:
+		HP: 200000
+	SpawnActorOnDeath:
+		RequiresCondition: force_deploy
+		Actor: strifeguy.Hero5
+	FirepowerMultiplier@1:
+		Modifier: 140
+	Armament@PRIMARY:
+		Weapon: strifeguymgautoinf
+	Armament@SECONDARY:
+		Weapon: strifeguygrenade
+	Armament@TRI:
+		Weapon: strifeguyfiregrenade
+		RequiresCondition: phosphorousupgrade
+	Armament@QUAD:
+		Weapon: strifeguymissile
+	Armament@GARRISONED:
+		Weapon: strifeguymgauto
+	Armament@BUS:
+		Weapon: strifeguymgauto
+	GrantConditionOnAttack@fullauto:
+		Condition: fullauto
+		ArmamentNames: primary
+		RequiredShotsPerInstance: 1
+		MaximumInstances: 10
+		RevokeDelay: 25
+		RevokeAll: true
+		IsCyclic: false
+	InaccuracyMultiplier@disrupter6:
+		RequiresCondition: fullauto >= 3
+		Modifier: 600
+	InaccuracyMultiplier@disrupter7:
+		RequiresCondition: fullauto >= 9
+		Modifier: 200
+	GrantConditionOnPrerequisite@phosphorous:
+		Condition: phosphorousupgrade
+		Prerequisites: strifeguy.tier3.phosphorous
+	AirstrikePower@strifereinforcements:
+		OrderName: strifereinforcements
+		PauseOnCondition: disabled
+		Prerequisites: strifeguy.tier4.reinforcements
+		Icon: strifereinforcementsicon
+		Cursor: chrono-target
+		ChargeInterval: 4500
+		Name: Reinforcements
+		Description: Teleports units from The Front to fight along side Strife Guy.
+		SelectTargetSpeechNotification: SelectTarget
+		InsufficientPowerSpeechNotification: InsufficientPower
+		DisplayRadarPing: True
+		CameraActor: camera.spyplane
+		SupportPowerPaletteOrder: 20
+		WeaponDelay: 0
+		CameraRemoveDelay: 450
+		IncomingSound: DSTELEPT.wav
+		UnitType: u2.reinforcements
+
+strifeguy.Hero5:
+	Inherits: strifeguy.Hero4
+	Inherits@heroTier: ^HeroTier5
+	Buildable:
+		Prerequisites: ~barracks, ~techlevel.unrestricted, !active.strifeguy, ~hero.tier5, ~hero.strifeguy
+		BuildDuration: 6000
+	Tooltip:
+		Name: actor-strifeguy-hero5-name
+	Health:
+		HP: 250000
+	-KillsSelf@level:
+	-SpawnActorOnDeath:
+	-GrantPeriodicCondition@deploy:
+	-GainsExperienceMultiplier@1:
+	FirepowerMultiplier@1:
+		Modifier: 150
+	Armament@PRIMARY:
+		Weapon: strifeguymgautoinf
+	Armament@SECONDARY:
+		Weapon: strifeguygrenade
+	Armament@TRI:
+		Weapon: strifeguyfiregrenade
+		RequiresCondition: phosphorousupgrade
+	Armament@QUAD:
+		Weapon: strifeguymissile
+	Armament@GARRISONED:
+		Weapon: strifeguymgauto
+	Armament@BUS:
+		Weapon: strifeguymgauto
+
+strifeguyacolyte:
+	Inherits: strifeacolytebasic
+	Buildable:
+		Queue: Infantry
+		BuildPaletteOrder: 0
+		Prerequisites: ~strifeguy.tier2.acolyte
+	Valued:
+		Cost: 600
+	Tooltip:
+		Name: actor-strifeacolytebasic-name
+	Health:
+		HP: 30000
+	Armor:
+		Type: Light
+	Mobile:
+		Speed: 48
+	Armament@PRIMARY:
+		Weapon: strifeacolytebasicmg
+	Armament@GARRISONED:
+		Name: garrisoned
+		Weapon: strifeacolytebasicmg
+	Armament@BUS:
+		Name: bus
+		Weapon: strifeacolytebasicmg
+	RenderSprites:
+		Image: strifeacolytebasic
+	Voiced:
+		VoiceSet: StrifeAcolyte
+	WithParachute:
+		Image: explosion
+		Sequence: strifeteleport
+		OpeningSequence: strifeteleport
+		ShadowImage: parach-shadow
+		ShadowSequence: idle
+		RequiresCondition: parachute
+	-Wanders:
+	-GrantTimedCondition@roam:
+
+strifeguytemplar:
+	Inherits: ^NewStrifeGuy
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Buildable:
+		Queue: Infantry
+		BuildPaletteOrder: 0
+		Prerequisites: ~strifeguy.tier3.templar
+	Valued:
+		Cost: 1000
+	Tooltip:
+		Name: actor-strifetemplar-name
+	Health:
+		HP: 50000
+	Armor:
+		Type: Heavy
+	Mobile:
+		Speed: 48
+	Armament@PRIMARY:
+		Weapon: strifeguytemplar
+		LocalOffset: 0,0,555
+	Armament@PRIMARY2:
+		Weapon: strifeguytemplar2
+		LocalOffset: 0,0,555
+	Armament@GARRISONED:
+		Name: garrisoned
+		Weapon: strifeguytemplar
+	Armament@BUS:
+		Name: bus
+		Weapon: strifeguytemplar
+	RenderSprites:
+		Image: strifeguytemplar
+	Voiced:
+		VoiceSet: StrifeTemplar
+	SoundOnDamageTransition:
+		DamagedSounds: strifetemplarpain.wav
+	DeathSounds@ZAPPED:
+		Voice: Zapped
+	DeathSounds@BURNED:
+		Voice: Burned
+		DeathTypes: FireDeath, TiberiumDeath
+	-SpawnActorOnDeath@fire:
+
+strifeguycrusader:
+	Inherits: ^Vehicle
+	Inherits@GAINSEXPERIENCE: ^GainsExperience
+	Inherits@AUTOTARGET: ^AutoTargetAll
+	Buildable:
+		Queue: Vehicle
+		BuildPaletteOrder: 0
+		Prerequisites: ~strifeguy.tier4.crusader
+	Valued:
+		Cost: 1600
+	Tooltip:
+		Name: actor-strifeguycrusader-name
+	Health:
+		HP: 70000
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Armor:
+		Type: Heavy
+	Mobile:
+		TurnSpeed: 20
+		Speed: 48
+	RevealsShroud:
+		MinRange: 5c0
+		Range: 6c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 5c0
+	AttackFrontal:
+		PauseOnCondition: disabled
+		Armaments: primary, secondary
+		FacingTolerance: 0
+	WithMuzzleOverlay:
+	Armament@PRIMARY:
+		Weapon: strifeguycrusadermissile
+		LocalOffset: 0,-350,940
+		PauseOnCondition: disabled
+		Name: primary
+	Armament@secondary:
+		Weapon: strifeguycrusaderfire
+		LocalOffset: 0,-350,940
+		PauseOnCondition: disabled
+		Name: secondary
+	QuantizeFacingsFromSequence:
+		Sequence: stand
+	WithFacingSpriteBody:
+		Sequence: stand
+	WithAttackAnimation@1:
+		Sequence: shoot
+		Armament: primary
+	WithAttackAnimation@2:
+		Sequence: shoot
+		Armament: secondary
+	WithMoveAnimation:
+		MoveSequence: run
+		ValidMovementTypes: Horizontal, Turn
+	ProducibleWithLevel:
+		Prerequisites: vehicles.upgraded
+	Selectable:
+		Bounds: 853, 1365, 0, -341
+	Voiced:
+		VoiceSet: RaijuuVoice
+	Explodes:
+		Weapon: strifeguycrusaderexplosion
+		EmptyWeapon: strifeguycrusaderexplosion
+
+strifeguyweapon1:
+	Inherits: strifeacolytebasic
+	Valued:
+		Cost: 600
+	Tooltip:
+		Name: actor-strifeguybasic-name
+	Health:
+		HP: 30000
+	Armor:
+		Type: Light
+	Mobile:
+		Speed: 48
+	Armament@PRIMARY:
+		Weapon: strifeacolytebasicmg
+	Armament@GARRISONED:
+		Name: garrisoned
+		Weapon: strifeacolytebasicmg
+	Armament@BUS:
+		Name: bus
+		Weapon: strifeacolytebasicmg
+	RenderSprites:
+		Image: strifeguy
+	Voiced:
+		VoiceSet: StrifeGuy
+	SoundOnDamageTransition:
+		DamagedSounds: STRIFEPAIN.wav
+	WithParachute:
+		Image: explosion
+		Sequence: strifeteleport
+		OpeningSequence: strifeteleport
+		ShadowImage: parach-shadow
+		ShadowSequence: idle
+		RequiresCondition: parachute
+
+strifeguyweapon2:
+	Inherits: strifeguyweapon1
+	Armament@PRIMARY:
+		Weapon: strifeguytemplar
+	Armament@PRIMARY2:
+		Weapon: strifeguytemplar2
+	Armament@GARRISONED:
+		Name: garrisoned
+		Weapon: strifeguytemplar
+	Armament@BUS:
+		Name: bus
+		Weapon: strifeguytemplar
+
+strifeguyweapon3:
+	Inherits: strifeguyweapon1
+	Armament@PRIMARY:
+		Weapon: strifeguygrenade
+	Armament@GARRISONED:
+		Name: garrisoned
+		Weapon: strifeguygrenade
+	Armament@BUS:
+		Name: bus
+		Weapon: strifeguygrenade
+
+strifeguyweapon4:
+	Inherits: strifeguyweapon1
+	Armament@PRIMARY:
+		Weapon: strifeguycrusadermissile
+	Armament@GARRISONED:
+		Name: garrisoned
+		Weapon: strifeguycrusadermissile
+	Armament@BUS:
+		Name: bus
+		Weapon: strifeguycrusadermissile
+
+strifeguyweapon5:
+	Inherits: strifeguyweapon1
+	Armament@PRIMARY:
+		Weapon: strifeguycrusaderfire
+	Armament@GARRISONED:
+		Name: garrisoned
+		Weapon: strifeguycrusaderfire
+	Armament@BUS:
+		Name: bus
+		Weapon: strifeguycrusaderfire
+
+U2.reinforcements:
+	Inherits: U2.Invis
+	-ParaDrop:
+	-Cargo:
+	AttackBomber:
+		FacingTolerance: 8
+	AmmoPool:
+		Ammo: 1
+	Armament:
+		Weapon: ReinforcementsFake

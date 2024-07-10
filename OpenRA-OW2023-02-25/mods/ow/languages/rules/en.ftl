@@ -5792,6 +5792,82 @@ actor-doomguy-tier5-overdrive =
    .name = Overdrive
    .description = Doom Guy will have increased firerate and movement speed for 30 seconds.
 
+actor-strifeguy-hero0 =
+   .description = [HERO]
+
+    Role: Infantry unit that provides either a powerful army or powerful weaponry.
+
+    The Strife Guy from The Front
+
+     Tier 2 upgrades the machine gun to become fully automatic.
+     Tier 3 unlocks the Grenade Launcher.
+     Tier 4 unlocks the Mini Missile Launcher (Anti-Air).
+     Tier 5 unlocks the Sigil.
+    Speed: 90
+      Strong vs Infantry, Vehicles, Aircraft
+
+   .name = Strife Guy  (Tier 0)
+   .real--name = Strife Guy 
+
+actor-strifeguy-hero1-name = Strife Guy  (Tier 1)
+actor-strifeguy-hero2-name = Strife Guy  (Tier 2)
+actor-strifeguy-hero3-name = Strife Guy  (Tier 3)
+actor-strifeguy-hero4-name = Strife Guy  (Tier 4)
+actor-strifeguy-hero5-name = Strife Guy  (Tier 5)
+
+actor-strifeguy-tier1-fastupgrade1 =
+   .name = Infantry Damage Level 1
+   .description = Infantry Damage Level 1
+
+actor-strifeguy-tier1-fastupgrade2 =
+   .name = Infantry Armor Level 1
+   .description = Infantry Armor Level 1
+
+actor-strifeguy-tier2-acolyte =
+   .name = Acolyte Training
+   .description = Allows training of Acolyte units.
+
+actor-strifeguy-tier2-targeter =
+   .name = Targeter
+   .description = Nearby enemy infantry get marked for death and provide credits when killed.
+
+actor-strifeguy-tier3-phosphorous =
+   .name = Phosphorous Grenades
+   .description = Strife Guy will now shoot phosphorous grenades at enemy infantry
+
+actor-strifeguy-tier3-templar =
+   .name = Templar Training
+   .description = Allows training of Templar units.
+
+actor-strifeguy-tier4-reinforcements =
+   .name = Reinforcements
+   .description = Call in a squad of friendly units from The Front.
+
+actor-strifeguy-tier4-crusader =
+   .name = Crusader Construction
+   .description = Allows construction of Crusader units.
+
+actor-strifeguy-tier5-invulnerability =
+   .name = Invulnerability
+   .description = Doom Guy will become invincible for 15 seconds when attacked.
+
+actor-strifeguy-tier5-chainsaw =
+   .name = Chainsaw
+   .description = Upon death, Doom Guy will revive as a berserker wielding a chainsaw.
+   RIP AND TEAR TILL THE JOB IS DONE!
+
+actor-strifeguy-tier5-berserk =
+   .name = Berserk
+   .description = Upon death, Doom Guy will revive as a beserker and punch things until he dies.
+
+actor-strifeguy-tier5-overdrive =
+   .name = Overdrive
+   .description = Doom Guy will have increased firerate and movement speed for 30 seconds.
+
+actor-strifetemplar-name = Templar
+actor-strifeguycrusader-name = Crusader
+actor-strifeguybasic-name = Front Soldier
+
 ## forgotten
 actor-frge1 =
    .description = Light infantry. Heals in Tiberium.

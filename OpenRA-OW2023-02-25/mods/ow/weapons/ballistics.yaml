@@ -3539,3 +3539,106 @@ AC20:
 		Size: 2
 		Delay: 8
 		ResourceAmount: 6
+
+strifeguygrenade:
+	Inherits: ^Artillery
+	ReloadDelay: 15
+	Range: 6c0
+	Report: strifeguygrenade.wav
+	ValidTargets: Structure, Vehicle, Ground, Water, Trees, Wall
+	Projectile: Bullet
+		Speed: 128
+		Image: strifeguygrenade
+		BounceCount: 2
+		BounceSound: strifeguygrenade.wav
+		Shadow: true
+		BounceRangeModifier: 40
+		LaunchAngle: 120
+		Inaccuracy: 0
+	Warhead@1Dam: SpreadDamage
+		Spread: 250
+		Damage: 4000
+		ValidTargets: GroundActor, WaterActor
+		Versus:
+			None: 50
+			Wood: 50
+			Light: 120
+			Heavy: 90
+			Concrete: 50
+		DamageTypes: Prone50Percent, TriggerProne, SmallExplosionDeath
+	Warhead@3Eff: CreateEffect
+		Explosions: strifeguyexplosion
+		ImpactSounds: strifeguygrenadeexplode.wav
+		ValidTargets: Ground, Air, GroundActor, AirborneActor, WaterActor, Trees
+	Warhead@4EffWater: CreateEffect
+		Explosions: small_splash
+		ImpactSounds: splash9.aud
+		ValidTargets: Water, Underwater
+		InvalidTargets: Bridge
+
+strifeguyfiregrenade:
+	Inherits: ^Artillery
+	ReloadDelay: 125
+	Range: 6c0
+	Report: strifeguygrenade.wav
+	ValidTargets: Infantry, Ground, Water, Trees
+	Projectile: Bullet
+		Speed: 128
+		Image: strifeguyfiregrenade
+		BounceCount: 2
+		BounceSound: strifeguygrenade.wav
+		Shadow: true
+		BounceRangeModifier: 40
+		LaunchAngle: 120
+		Inaccuracy: 0
+	Warhead@1Dam: SpreadDamage
+		Spread: 250
+		Damage: 4000
+		ValidTargets: GroundActor, WaterActor
+		Versus:
+			None: 50
+			Wood: 50
+			Light: 120
+			Heavy: 90
+			Concrete: 50
+		DamageTypes: Prone50Percent, TriggerProne, SmallExplosionDeath
+	Warhead@3Eff: CreateEffect
+		Explosions: strifeguyfireexplosion
+		ImpactSounds: strifeguygrenadeexplode.wav
+		ValidTargets: Ground, Air, GroundActor, AirborneActor, WaterActor, Trees
+	Warhead@cluster: FireFragment
+		Delay: 4
+		Weapon: strifeguyfiregrenadecluster
+		Chance: 100
+		Offsets: 0,0,0, 0,-512,0, 0,512,0, 512,0,0, -512,0,0, 0,0,512, 0,0,-512
+		ValidTargets: Ground, Air, GroundActor, AirborneActor, WaterActor, Trees
+	Warhead@cluster2: FireFragment
+		Delay: 25
+		Weapon: strifeguyfiregrenadecluster
+		Chance: 100
+		Offsets: 0,0,0, 0,-512,0, 0,512,0, 512,0,0, -512,0,0, 0,0,512, 0,0,-512
+		ValidTargets: Ground, Air, GroundActor, AirborneActor, WaterActor, Trees
+	Warhead@cluster3: FireFragment
+		Delay: 50
+		Weapon: strifeguyfiregrenadecluster
+		Chance: 100
+		Offsets: 0,0,0, 0,-512,0, 0,512,0, 512,0,0, -512,0,0, 0,0,512, 0,0,-512
+		ValidTargets: Ground, Air, GroundActor, AirborneActor, WaterActor, Trees
+
+strifeguyfiregrenadecluster:
+	Inherits: Nazi155mm
+	-Report:
+	Projectile: Bullet
+		Inaccuracy: 1c0
+		ContrailLength: 0
+		TrailImage: acolytestrikeactordumb
+		Image: acolytestrikeactordumb
+	Warhead@1Dam: SpreadDamage
+		Spread: 300
+		Damage: 2500
+	Warhead@2Smu: LeaveSmudge
+		SmudgeType: Scorch
+	Warhead@3Eff: CreateEffect
+		Explosions: strifeguyfire
+		ImpactSounds: strifeguyfire.wav
+	-Warhead@cluster:

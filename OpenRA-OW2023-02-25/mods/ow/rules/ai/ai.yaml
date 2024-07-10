@@ -1029,6 +1029,14 @@ Player:
 			doomguy.tier5.chainsaw: 1
 			doomguy.tier5.berserk: 1
 			doomguy.tier5.overdrive: 1
+			strifeguy.tier1.fastupgrade1: 1
+			strifeguy.tier1.fastupgrade2: 1
+			strifeguy.tier2.acolyte: 1
+			strifeguy.tier2.targeter: 1
+			strifeguy.tier3.phosphorous: 1
+			strifeguy.tier3.templar: 1
+			strifeguy.tier4.crusader: 1
+			strifeguy.tier4.reinforcements: 1
 		BuildingDelays:
 			zccolony.bot: 6000
 			zhatchery: 4500
@@ -1571,6 +1579,15 @@ Player:
 			doomguy.hero3: 50
 			doomguy.hero4: 50
 			doomguy.hero5: 50
+			strifeguy.hero0: 50
+			strifeguy.hero1: 50
+			strifeguy.hero2: 50
+			strifeguy.hero3: 50
+			strifeguy.hero4: 50
+			strifeguy.hero5: 50
+			strifeguyacolyte: 10
+			strifeguytemplar: 5
+			strifeguycrusader: 5
 		UnitLimits:
 			e6: 1
 			fe6: 1
@@ -1782,6 +1799,9 @@ Player:
 			frge6: 1
 			frgsurv: 1
 			fbus.bot: 5
+			strifeguyacolyte: 20
+			strifeguytemplar: 10
+			strifeguycrusader: 10
 		UnitDelays:
 			pzealot.b: 9000
 			pzealot.b2: 18000
@@ -2091,19 +2111,22 @@ Player:
 					CheckRadius: 5c0
 			acolytestrike:
 				OrderName: acolytestrike
+				MinimumAttractiveness: 1
+				Consideration@1:
+					Against: Ally
+					Types: Vehicle, Infantry
+					Attractiveness: 5
+					TargetMetric: None
+					CheckRadius: 3c0
+			reinforcements:
+				OrderName: strifereinforcements
 				MinimumAttractiveness: 5
 				Consideration@1:
-					Against: Enemy
-					Types: Structure
+					Against: Ally
+					Types: Vehicle, Infantry
 					Attractiveness: 1
 					TargetMetric: None
-					CheckRadius: 8c0
-				Consideration@2:
-					Against: Enemy
-					Types: Water
-					Attractiveness: -5
-					TargetMetric: None
-					CheckRadius: 8c0
+					CheckRadius: 3c0
 			metalnuke:
 				OrderName: metalnuke
 				MinimumAttractiveness: 1
