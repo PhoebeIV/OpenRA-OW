@@ -41,7 +41,7 @@ FireballLauncher:
 	Burst: 2
 	BurstDelays: 8
 	ReloadDelay: 25
-	Range: 6c0
+	Range: 5c512
 	Projectile: Bullet
 		Speed: 250
 		TrailImage: fb2
@@ -57,7 +57,7 @@ ChemFireballLauncher:
 		TrailImage: fbc_4
 		Image: fbc_3
 	Warhead@1Dam: SpreadDamage
-		Damage: 16500
+		Damage: 12500
 	Warhead@poison1: GrantExternalCondition
 		Delay: 1
 		Condition: corrode
@@ -1373,6 +1373,7 @@ ShipRailgun:
 		Blockable: true
 		Inaccuracy: 256
 		Image: plse
+		JammedDiversionRange: 5
 	Warhead@1Dam: SpreadDamage
 		Spread: 256
 		Damage: 2000
@@ -7814,7 +7815,7 @@ LightPPC:
 	Report: bt_lppcfire1.aud, bt_lppcfire2.aud
 	ValidTargets: Ground, Water, WaterActor, GroundActor, AirborneActor
 	Projectile: Bullet
-		Speed: 1c0
+		Speed: 1c512
 		Blockable: false
 		Image: ppc
 		Inaccuracy: 256
@@ -7828,6 +7829,10 @@ LightPPC:
 	Warhead@1Dam: SpreadDamage
 		Spread: 256
 		Damage: 8000
+		Versus:
+			None: 150
+			Light: 125
+			Heavy: 100
 		ValidTargets: GroundActor, WaterActor
 		DamageTypes: Prone50Percent, ElectricityDeath
 	Warhead@1DamAir: SpreadDamage
@@ -7913,8 +7918,9 @@ BigPPC:
 	Range: 10c0
 	MinRange: 2c0
 	ValidTargets: Ground, Water, WaterActor, GroundActor, AirborneActor
+	Projectile: Bullet
+		Speed: 2c512
 	Warhead@1Dam: SpreadDamage
-		Speed: 1c768
 		Spread: 384
 		Damage: 12000
 		ValidTargets: GroundActor, WaterActor
@@ -7950,36 +7956,49 @@ BigPPCZap:
 
 ^BTLaserWeapon:
 	Inherits: ^LaserWeapon
-	ReloadDelay: 100
+	ReloadDelay: 10
 	Range: 6c512
-	ValidTargets: Ground, Water, GroundActor, WaterActor
+	ValidTargets: Ground, Water, GroundActor, WaterActor, AirborneActor
 	Projectile: LaserZap
 		Width: 24
 		SecondaryBeamWidth: 48
-		Duration: 20
+		Duration: 24
 		DamageDuration: 20
-		DamageInterval: 5
+		DamageInterval: 4
 		Color: FFFFFFFF
 		SecondaryBeamColor: FF0000FF
 		SecondaryBeam: true
 	Warhead@1Dam: SpreadDamage
 		Spread: 65
-		Damage: 1500
+		Damage: 1250
 		Versus:
 			None: 200
+			Light: 80
+			Heavy: 75
+			Wood: 65
+			Concrete: 50
+			Shield: 150
+		ValidTargets: Ground, Water, GroundActor, WaterActor, Trees
+	Warhead@1DamAir: SpreadDamage
+		Spread: 65
+		Damage: 750
+		ValidTargets: AirborneActor
 	Warhead@1EffTarget: CreateEffect
 		Explosions: small_explosion
 		ImpactSounds: bt_mlaserhit1.aud, bt_mlaserhit2.aud, bt_mlaserhit3.aud, bt_mlaserhit4.aud
-		ValidTargets: GroundActor, AirborneActor, Trees
+		ImpactSoundChance: 25
+		Inaccuracy: 128
+		ValidTargets: AirborneActor, GroundActor, AirborneActor, Trees
 		InvalidTargets: Infantry
 	Warhead@3EffGround: CreateEffect
 		Explosions: small_explosion
 		ImpactSounds: bt_mlaserimp1.aud, bt_mlaserimp2.aud, bt_mlaserimp3.aud, bt_mlaserimp4.aud
+		ImpactSoundChance: 25
+		Inaccuracy: 128
 		ValidTargets: Ground, Air, Infantry, WaterActor, Water
 
 BTMedLaser_Single:
 	Inherits: ^BTLaserWeapon
-	ReloadDelay: 100
 	Range: 6c0
 	Report: bt_mlaser1.aud
 	Projectile: LaserZap
@@ -7987,7 +8006,28 @@ BTMedLaser_Single:
 		SecondaryBeamWidth: 86
 		SecondaryBeamColor: 3CFF00
 	Warhead@1Dam: SpreadDamage
-		Damage: 2500
+		Damage: 2000
+	Warhead@1DamAir: SpreadDamage
+		Spread: 128
+		Damage: 1250
+
+BTLargeLaser_Single:
+	Inherits: ^BTLaserWeapon
+	Range: 9c512
+	Report: bt_lrglaser1.aud, bt_lrglaser2.aud
+	Projectile: LaserZap
+		Width: 72
+		SecondaryBeamWidth: 112
+		SecondaryBeamColor: 0073FF
+		Duration: 29
+		DamageDuration: 25
+		DamageInterval: 4
+	Warhead@1Dam: SpreadDamage
+		Spread: 128
+		Damage: 3000
+	Warhead@1DamAir: SpreadDamage
+		Spread: 128
+		Damage: 1750
 
 MechShutdown:
 	Projectile: InstantHit
@@ -7997,6 +8037,62 @@ MechShutdown:
 		Duration: 250
 		ValidTargets: GroundActor, WaterActor
 		AffectsParent: true
+
+# RAE VEN AMS
+PointDefenseLaserRae:
+	Inherits: PointDefenseLaser
+	Burst: 5
+	BurstDelays: 4
+	ReloadDelay: 100
+	Range: 4c512
+	Report: bt_ams.aud
+	Projectile: Bullet
+		Speed: 1c0
+		Inaccuracy: 256
+		Image: btracer
+	Warhead@2Eff: CreateEffect
+		Explosions: small_explosion_air
+		Inaccuracy: 256
+		ValidTargets: Air, Ground, Water, Trees, AirborneActor
+
+# RAE VEN HACKY AREA BOOST
+AEIOUBoostRae:
+	ReloadDelay: 50
+	Range: 1c0
+	ValidTargets: Ground, Water, GroundActor, WaterActor, AirborneActor
+	Projectile: GravityBomb
+		OpenSequence: idle
+		Velocity: 0, 0, -256
+		Acceleration: 0, 0, 0
+	Warhead@boost: GrantExternalCondition
+		Condition: aeiouboost
+		Range: 6c0
+		Duration: 55
+		AffectsParent: false
+		ValidTargets: Vehicle
+		ValidRelationships: Ally
+
+# RAE VEN STEALTH IDLE BOOST
+SurpriseAttackBoost:
+	Inherits: AEIOUBoostRae
+	Warhead@boost: GrantExternalCondition
+		Condition: surprise_attack
+		Range: 1c0
+		Duration: 100
+		AffectsParent: true
+		ValidTargets: Vehicle
+		ValidRelationships: Ally
+
+# RAE VEN BOT AI KITING HACK
+RaeDummy:
+	ReloadDelay: 1500
+	MinRange: 5c0
+	Range: 6c0
+	ValidTargets: Ground, GroundActor, WaterActor
+	Projectile: InstantHit
+	Warhead@1Dam: SpreadDamage
+		Damage: 1
+		ValidTargets: Ground, GroundActor
 
 strifeguycrusaderfire:
 	Inherits: Flamer

@@ -30,6 +30,7 @@ BTDEMOLISHER:
 		Range: 4c0
 	Turreted:
 		TurnSpeed: 8
+		RequiresCondition: !disabled
 	Armament@PRIMARY:
 		Weapon: AC20
 		LocalOffset: 1200,0,0
@@ -54,10 +55,11 @@ BTDEMOLISHER:
 		Interval: 250
 		Delay: 190, 205
 	AttackTurreted:
+		RequiresCondition: !disabled
 	WithMuzzleOverlay:
 	WithSpriteTurret:
 	SpawnActorOnDeath:
-		Actor: 4TNK.Husk
+		Actor: BTDEMOLISHER.Husk
 	ChangesHealth:
 		Step: 100
 		Delay: 3
@@ -103,6 +105,7 @@ BTMANTICORE:
 		Range: 4c0
 	Turreted@1:
 		TurnSpeed: 8
+		RequiresCondition: !disabled
 	Armament@PPCa:
 		Weapon: BigPPC
 		LocalOffset: 1250,0,0
@@ -116,9 +119,11 @@ BTMANTICORE:
 		MuzzleSequence: muzzle
 		ReloadingCondition: reloading
 	Armament@SRM:
+		Name: srm
 		Weapon: SRM6
 		LocalOffset: -512,380,0
 		MuzzleSequence: muzzle2
+		PauseOnCondition: !ammo_srm
 	Armament@LRM:
 		Weapon: LRM10_5
 		LocalOffset: -600,-128,0
@@ -129,18 +134,38 @@ BTMANTICORE:
 		LocalOffset: -600,128,0
 		MuzzleSequence: muzzle2
 	Armament@Laser:
+		Name: laser
 		Weapon: BTMedLaser_Single
 		LocalOffset: 0,480,0
+		PauseOnCondition: !ammo_laser
 	AmbientSound@reloading:
 		RequiresCondition: reloading
 		SoundFiles: bt_ppccharge.aud
 		Interval: 200
 		Delay: 115, 135
+	AmmoPool@laser:
+		Name: ammo_laser
+		Armaments: laser
+		AmmoCondition: ammo_laser
+	AmmoPool@srm:
+		Name: ammo_srm
+		Armaments: srm
+		AmmoCondition: ammo_srm
+		Ammo: 6
+	ReloadAmmoPool@laser:
+		AmmoPool: ammo_laser
+		Delay: 100
+	ReloadAmmoPool@srm:
+		AmmoPool: ammo_srm
+		Delay: 80
+		Count: 6
 	AttackTurreted:
+		Armaments: primary, secondary, laser, srm
+		RequiresCondition: !disabled
 	WithMuzzleOverlay:
 	WithSpriteTurret:
 	SpawnActorOnDeath:
-		Actor: 4TNK.Husk
+		Actor: BTMANTICORE.Husk
 	ChangesHealth:
 		Step: 100
 		Delay: 3

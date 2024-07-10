@@ -316,7 +316,7 @@ ZHATCHERY:
 	Exit@2:
 		SpawnOffset: 0,1500,0
 		ExitCell: 2,3
-		ProductionTypes: Infantry, Hatchery, SpecialUnit
+		ProductionTypes: Infantry, Hatchery, SpecialUnit, Vehicle
 	RallyPoint:
 	Selectable:
 		Bounds: 3072, 3072
@@ -372,12 +372,18 @@ ZHATCHERY:
 	Production@inf2:
 		Produces: Hatchery,Infantry
 		RequiresCondition: zagara
+	Production@veh:
+		Produces: Vehicle
+		RequiresCondition: raechosen
 	GrantConditionOnPrerequisite@ezbuildcondition:
 		Prerequisites: zerg.easybuild
 		Condition: easybuild_enabled
 	GrantConditionOnPrerequisite@ezbuildcondition2:
 		Prerequisites: zerg.spawning
 		Condition: easybuild_enabled
+	GrantConditionOnPrerequisite@rae:
+		Prerequisites: hero.rae
+		Condition: raechosen
 	ProductionQueue@infantry:
 		Type: Infantry
 		DisplayOrder: 4
