@@ -6,7 +6,6 @@ btrae.tier1.fastupgrade1:
 	Buildable:
 		Description: actor-btrae-upgrade.t1u1desc
 		Prerequisites: ~active.rae, !upgrade.vehfirepower1, !faction.novehicles
-		BuildPaletteOrder: 1
 	RenderSprites:
 		Image: upgrade.vehfirepower1
 	ProvidesPrerequisite@upgradename:
@@ -20,7 +19,6 @@ btrae.tier1.fastupgrade2:
 	Buildable:
 		Description: actor-btrae-upgrade.t1u2desc
 		Prerequisites: ~active.rae, !upgrade.veharmor1, !faction.novehicles
-		BuildPaletteOrder: 2
 	RenderSprites:
 		Image: upgrade.veharmor1
 	ProvidesPrerequisite@upgradename:
@@ -34,7 +32,6 @@ btrae.tier1.cycles:
 	Buildable:
 		Description: actor-btrae-upgrade.t1u3desc
 		Prerequisites: ~active.rae
-		BuildPaletteOrder: 100
 	RenderSprites:
 		Image: upgrade.airfirepower1
 	ProvidesPrerequisite@upgradename:
@@ -47,7 +44,6 @@ btrae.tier2.fastupgrade1:
 	Buildable:
 		Description: actor-btrae-upgrade.t2u1desc
 		Prerequisites: ~active.rae, !gdi.speed
-		BuildPaletteOrder: 1
 	RenderSprites:
 		Image: gdi.speed
 	ProvidesPrerequisite@upgradename:
@@ -61,7 +57,6 @@ btrae.tier2.srm6:
 	Buildable:
 		Description: actor-btrae-upgrade.t2u3desc
 		Prerequisites: ~active.rae
-		BuildPaletteOrder: 100
 	RenderSprites:
 		Image: gla.aprockets
 	ProvidesPrerequisite@upgradename:
@@ -74,7 +69,6 @@ btrae.tier2.laser:
 	Buildable:
 		Description: actor-btrae-upgrade.t2u4desc
 		Prerequisites: ~active.rae
-		BuildPaletteOrder: 101
 	RenderSprites:
 		Image: upgrade.chargedlasers
 	ProvidesPrerequisite@upgradename:
@@ -87,7 +81,6 @@ btrae.tier3.fastupgrade1:
 	Buildable:
 		Description: actor-btrae-upgrade.t3u1desc
 		Prerequisites: ~active.rae, upgrade.vehfirepower1, ~!upgrade.vehfirepower2
-		BuildPaletteOrder: 1
 	RenderSprites:
 		Image: upgrade.vehfirepower2
 	ProvidesPrerequisite@upgradename:
@@ -101,7 +94,6 @@ btrae.tier3.fastupgrade2:
 	Buildable:
 		Description: actor-btrae-upgrade.t3u2desc
 		Prerequisites: ~active.rae, upgrade.veharmor1, ~!upgrade.veharmor2
-		BuildPaletteOrder: 2
 	RenderSprites:
 		Image: upgrade.veharmor2
 	ProvidesPrerequisite@upgradename:
@@ -116,7 +108,6 @@ btrae.tier3.bap:
 		Description: actor-btrae-upgrade.t3u4desc
 		Prerequisites: ~active.rae
 		Icon: scramble
-		BuildPaletteOrder: 100
 	RenderSprites:
 		Image: icon
 	ProvidesPrerequisite@upgradename:
@@ -129,7 +120,6 @@ btrae.tier3.ecm:
 	Buildable:
 		Description: actor-btrae-upgrade.t3u3desc
 		Prerequisites: ~active.rae
-		BuildPaletteOrder: 101
 	RenderSprites:
 		Image: mrj
 	ProvidesPrerequisite@upgradename:
@@ -142,7 +132,6 @@ btrae.tier4.service:
 	Buildable:
 		Description: actor-btrae-upgrade.t4u1desc
 		Prerequisites: ~active.rae, ~!vehicles.gla, !faction.novehicles
-		BuildPaletteOrder: 1
 	RenderSprites:
 		Image: fix
 	ProvidesPrerequisite@upgradename:
@@ -156,7 +145,6 @@ btrae.tier4.lrm:
 	Buildable:
 		Description: actor-btrae-upgrade.t4u2desc
 		Prerequisites: ~active.rae
-		BuildPaletteOrder: 100
 	RenderSprites:
 		Image: msam
 	ProvidesPrerequisite@upgradename:
@@ -170,7 +158,6 @@ btrae.tier4.ppc:
 		Description: actor-btrae-upgrade.t4u4desc
 		Prerequisites: ~active.rae
 		Icon: ioncannon
-		BuildPaletteOrder: 101
 	RenderSprites:
 		Image: icon
 	ProvidesPrerequisite@upgradename:
@@ -183,7 +170,6 @@ btrae.tier5.build:
 	Buildable:
 		Description: actor-btrae-upgrade.t5u1desc
 		Prerequisites: ~active.rae, !faction.novehicles
-		BuildPaletteOrder: 1
 	RenderSprites:
 		Image: weap
 	ProvidesPrerequisite@upgradename1:
@@ -199,7 +185,6 @@ btrae.tier5.iron:
 	Buildable:
 		Description: actor-btrae-upgrade.t5u2desc
 		Prerequisites: ~active.rae, ~!terran.armor, ~!soviet.iron, !faction.novehicles
-		BuildPaletteOrder: 2
 	RenderSprites:
 		Image: soviet.iron
 	ProvidesPrerequisite@upgradename:
@@ -214,22 +199,17 @@ btrae.tier5.nuke:
 		Description: actor-btrae-upgrade.t5u3desc
 		Prerequisites: ~active.rae
 		Icon: abomb
-		BuildPaletteOrder: 100
 	RenderSprites:
 		Image: icon
 	ProvidesPrerequisite@upgradename:
 
 btrae.allpick:
-	Inherits: ^UpgradeBase
+	Inherits: ^HeroPickBase
 	RenderSprites:
 		Image: btrae
 	Buildable:
-		Queue: Tech
-		BuildPaletteOrder: 1
 		Prerequisites: ~techlevel.hero, ~!hero.chosen
 		Description: actor-btrae-hero.description
-		BuildDuration: 100
-		BuildLimit: 1
 	Valued:
 		Cost: 0
 	Tooltip:
@@ -735,6 +715,13 @@ BTRAE.Hero2:
 	PointDefense: 
 		PointDefenseTypes: pointdefense
 		Armament: ams
+	GrantDelayedCondition@UAV:
+		RequiresCondition: botowner
+		Delay: 125
+		Condition: spawnuav
+	FreeActor@UAV:
+		RequiresCondition: spawnuav
+		Actor: BTRAE.UAV
 	PeriodicProducer@UAV:
 		RequiresCondition: botowner
 		Actors: BTRAE.UAV
@@ -836,7 +823,7 @@ BTRAE.UAV:
 	Inherits: usaspydrone
 	Buildable:
 		Queue: HeroAbility
-		BuildPaletteOrder: 1
+		BuildPaletteOrder: 12500
 		BuildDuration: 1
 		Prerequisites: ~active.rae, ~hero.tier2, !btrae.uav, !ztumor.cooldown
 		Description: actor-btrae-uav.desc

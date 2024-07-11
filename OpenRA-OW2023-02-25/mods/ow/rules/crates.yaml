@@ -13,6 +13,9 @@ World:
 
 CRATE:
 	-GiveCashCrateAction:
+	-ExplodeCrateAction@fire:
+	-ExplodeCrateAction@boom:
+	-HideMapCrateAction:
 	ExternalCondition@tree:
 		Condition: near_tree
 	ExplodeCrateAction@neartree:
@@ -255,6 +258,10 @@ CRATE:
 		SelectionShares: 2
 		Units: korone
 		Sound: koronetaunt4.wav
+	GiveUnitCrateAction@gamecube:
+		SelectionShares: 2
+		Units: gamecube
+		Sound: gamecube.wav
 	Crate:
 		Duration: 6000
 
@@ -307,6 +314,9 @@ MONEYCRATESUPPLYDROP:
 
 CRATE.FuckYou:
 	Inherits: ^Crate
+	HideMapCrateAction:
+		SelectionShares: 5
+		Sequence: hide-map
 	ExternalCondition@tree:
 		Condition: near_tree
 	ExplodeCrateAction@neartree:
@@ -484,8 +494,12 @@ CRATE.FuckYou:
 		Sound: bitconnect.aud
 		Sequence: idle
 		Image: bitconnect
+	GiveUnitCrateAction@gamecube:
+		SelectionShares: 2
+		Units: gamecube
+		Sound: gamecube.wav
 	Crate:
-		Duration: 15000
+		Duration: 6000
 	Tooltip:
 		Name: actor-crate-fuckyou.name
 		GenericName: actor-crate-fuckyou.generic-name
@@ -2487,6 +2501,120 @@ TERMINATOR:
 		Weapon: ArnieDeathTerminator
 		EmptyWeapon: ArnieDeathTerminator
 
+GAMECUBE:
+	Inherits: ^Crate
+	Crate:
+		CrushClass: uncrushable
+	-WithCrateBody:
+	KillsSelf:
+		Delay: 89
+		RemoveInstead: true
+	ProvidesDelayedPrerequisite@gamecube:
+		Delay: 8
+		Prerequisite: gamecube
+	GrantRandomCondition:
+		Conditions: c1,c2,c3,c4,c5,c6,c7,c8
+	FreeActor@1:
+		RequiresCondition: c1
+		SpawnOffset: 0,-1
+		Actor: GAMECUBE.Chain
+	FreeActor@2:
+		RequiresCondition: c2
+		SpawnOffset: 1,-1
+		Actor: GAMECUBE.Chain
+	FreeActor@3:
+		RequiresCondition: c3
+		SpawnOffset: 1,0
+		Actor: GAMECUBE.Chain
+	FreeActor@4:
+		RequiresCondition: c4
+		SpawnOffset: 1,1
+		Actor: GAMECUBE.Chain
+	FreeActor@5:
+		RequiresCondition: c5
+		SpawnOffset: 0,1
+		Actor: GAMECUBE.Chain
+	FreeActor@6:
+		RequiresCondition: c6
+		SpawnOffset: -1,1
+		Actor: GAMECUBE.Chain
+	FreeActor@7:
+		RequiresCondition: c7
+		SpawnOffset: -1,0
+		Actor: GAMECUBE.Chain
+	FreeActor@8:
+		RequiresCondition: c8
+		SpawnOffset: -1,-1
+		Actor: GAMECUBE.Chain
+
+GAMECUBE.Chain:
+	Inherits: ^Crate
+	RenderSprites:
+		Image: wcrate
+	Crate:
+		CrushClass: uncrushable
+	GrantConditionOnPrerequisite:
+		Condition: gamecube
+		Prerequisites: gamecube
+	GrantRandomPeriodicCondition:
+		RequiresCondition: gamecube
+		ActiveDuration: 150
+		CooldownDuration: 3
+		Conditions: c1,c2,c3,c4,c5,c6,c7,c8
+	GrantDelayedCondition: 
+		RequiresCondition: !gamecube && (good || nuke)
+		Condition: wait
+		Delay: 12
+	GrantRandomCondition:
+		Conditions: nuke,good,good
+	KillsSelf:
+		Delay: 4
+		RemoveInstead: true
+		RequiresCondition: gamecube
+	FreeActor@1:
+		RequiresCondition: c1
+		SpawnOffset: 0,-1
+		Actor: GAMECUBE.Chain
+	FreeActor@2:
+		RequiresCondition: c2
+		SpawnOffset: 1,-1
+		Actor: GAMECUBE.Chain
+	FreeActor@3:
+		RequiresCondition: c3
+		SpawnOffset: 1,0
+		Actor: GAMECUBE.Chain
+	FreeActor@4:
+		RequiresCondition: c4
+		SpawnOffset: 1,1
+		Actor: GAMECUBE.Chain
+	FreeActor@5:
+		RequiresCondition: c5
+		SpawnOffset: 0,1
+		Actor: GAMECUBE.Chain
+	FreeActor@6:
+		RequiresCondition: c6
+		SpawnOffset: -1,1
+		Actor: GAMECUBE.Chain
+	FreeActor@7:
+		RequiresCondition: c7
+		SpawnOffset: -1,0
+		Actor: GAMECUBE.Chain
+	FreeActor@8:
+		RequiresCondition: c8
+		SpawnOffset: -1,-1
+		Actor: GAMECUBE.Chain
+	FreeActor@good:
+		RequiresCondition: good && wait
+		SpawnOffset: 0,0
+		Actor: CRATE
+	KillsSelf@nuke:
+		RequiresCondition: (nuke && wait) || (good && wait)
+		RemoveInstead: true
+		Delay: 3
+	FireWarheads:
+		RequiresCondition: nuke && wait
+		Weapons: CrateNuke
+		Interval: 1
 
 powerproxy.cratedrop1:
 	Inherits: powerproxy.paratroopers
