@@ -114,42 +114,29 @@ strifeguy.tier4.reinforcements:
 
 
 # Enhanced shadowsphere
-strifeguy.tier5.shadowsphere:
+strifeguy.tier5.inquisitor:
 	Inherits: ^HeroUpgradeBaseTier5
 	Tooltip:
-		Name: actor-strifeguy-tier5-shadowsphere.name
+		Name: actor-strifeguy-tier5-inquisitor.name
 	Buildable:
-		Description: actor-strifeguy-tier5-shadowsphere.description
-		Prerequisites: ~active.strifeguy, strifeguy.tier4.shadowsphere
+		Description: actor-strifeguy-tier5-inquisitor.description
+		Prerequisites: ~active.strifeguy
 		BuildPaletteOrder: 1
-		Icon: corvusenhancedshadowsphereicon
+		Icon: icon
 	RenderSprites:
-		Image: icon
+		Image: strifeguyinquisitor
 	ProvidesPrerequisite@buildingname:
 
 # Chaos Device (chronosphere)
-strifeguy.tier5.chaos:
+strifeguy.tier5.sigil:
 	Inherits: ^HeroUpgradeBaseTier5
 	Tooltip:
-		Name: actor-strifeguy-tier5-chaos.name
+		Name: actor-strifeguy-tier5-sigil.name
 	Buildable:
-		Description: actor-strifeguy-tier5-chaos.description
+		Description: actor-strifeguy-tier5-sigil.description
 		Prerequisites: ~active.strifeguy
 		BuildPaletteOrder: 2
-		Icon: corvuschaosdeviceicon
-	RenderSprites:
-		Image: icon
-
-# Mystic Urn
-strifeguy.tier5.mystic:
-	Inherits: ^HeroUpgradeBaseTier5
-	Tooltip:
-		Name: actor-strifeguy-tier5-mystic.name
-	Buildable:
-		Description: actor-strifeguy-tier5-mystic.description
-		Prerequisites: ~active.strifeguy
-		BuildPaletteOrder: 3
-		Icon: corvusmysticurnicon
+		Icon: strifeguysigilicon
 	RenderSprites:
 		Image: icon
 
@@ -482,12 +469,23 @@ strifeguy.Hero5:
 		Weapon: strifeguymgauto
 	Armament@BUS:
 		Weapon: strifeguymgauto
+	GrantConditionOnPrerequisite@targeter:
+		Condition: sigil
+		Prerequisites: strifeguy.tier5.sigil
+	GrantRandomPeriodicCondition@sigil:
+		Conditions: gun1
+        CooldownDuration: 1
+		ActiveDuration: 1500
+		RequiresCondition: sigil
+	Armament@sigil1:
+		Weapon: strifeguysigil1
+		RequiresCondition: gun1
 
 strifeguyacolyte:
 	Inherits: strifeacolytebasic
 	Buildable:
 		Queue: Infantry
-		BuildPaletteOrder: 0
+		BuildPaletteOrder: 999
 		Prerequisites: ~strifeguy.tier2.acolyte
 	Valued:
 		Cost: 600
@@ -498,7 +496,7 @@ strifeguyacolyte:
 	Armor:
 		Type: Light
 	Mobile:
-		Speed: 48
+		Speed: 60
 	Armament@PRIMARY:
 		Weapon: strifeacolytebasicmg
 	Armament@GARRISONED:
@@ -526,7 +524,7 @@ strifeguytemplar:
 	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
 	Buildable:
 		Queue: Infantry
-		BuildPaletteOrder: 0
+		BuildPaletteOrder: 997
 		Prerequisites: ~strifeguy.tier3.templar
 	Valued:
 		Cost: 1000
@@ -537,7 +535,7 @@ strifeguytemplar:
 	Armor:
 		Type: Heavy
 	Mobile:
-		Speed: 48
+		Speed: 60
 	Armament@PRIMARY:
 		Weapon: strifeguytemplar
 		LocalOffset: 0,0,555
@@ -569,7 +567,7 @@ strifeguycrusader:
 	Inherits@AUTOTARGET: ^AutoTargetAll
 	Buildable:
 		Queue: Vehicle
-		BuildPaletteOrder: 0
+		BuildPaletteOrder: 998
 		Prerequisites: ~strifeguy.tier4.crusader
 	Valued:
 		Cost: 1600
@@ -583,7 +581,7 @@ strifeguycrusader:
 		Type: Heavy
 	Mobile:
 		TurnSpeed: 20
-		Speed: 48
+		Speed: 60
 	RevealsShroud:
 		MinRange: 5c0
 		Range: 6c0
@@ -621,9 +619,10 @@ strifeguycrusader:
 	ProducibleWithLevel:
 		Prerequisites: vehicles.upgraded
 	Selectable:
-		Bounds: 853, 1365, 0, -341
+		Bounds: 1536, 1536, 0, 0
+		DecorationBounds: 1536, 1536, 0, 0
 	Voiced:
-		VoiceSet: RaijuuVoice
+		VoiceSet: StrifeCrusader
 	Explodes:
 		Weapon: strifeguycrusaderexplosion
 		EmptyWeapon: strifeguycrusaderexplosion
@@ -718,3 +717,109 @@ U2.reinforcements:
 		Ammo: 1
 	Armament:
 		Weapon: ReinforcementsFake
+
+strifeguyinquisitor:
+	Inherits: ^Vehicle
+	Inherits@GAINSEXPERIENCE: ^GainsExperience
+	Inherits@AUTOTARGET: ^AutoTargetAll
+	Buildable:
+		Queue: Vehicle
+		BuildPaletteOrder: 999
+		Prerequisites: ~strifeguy.tier5.inquisitor
+	Valued:
+		Cost: 3000
+	Tooltip:
+		Name: actor-strifeguyinquisitor-name
+	Health:
+		HP: 120000
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Armor:
+		Type: Heavy
+	Mobile:
+		TurnSpeed: 20
+		Speed: 50
+	RevealsShroud:
+		MinRange: 5c0
+		Range: 6c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 5c0
+	AttackFrontal:
+		PauseOnCondition: disabled
+		Armaments: primary, secondary
+		FacingTolerance: 0
+	WithMuzzleOverlay:
+	Armament@PRIMARY:
+		Weapon: strifeguyinquisitorgrenade
+		LocalOffset: 0,-350,940, 0,350,940
+		PauseOnCondition: disabled
+		Name: primary
+	Armament@secondary:
+		Weapon: strifeguyinquisitormg
+		LocalOffset: 0,-350,940
+		PauseOnCondition: disabled
+		Name: secondary
+	QuantizeFacingsFromSequence:
+		Sequence: stand
+	WithFacingSpriteBody:
+		Sequence: stand
+	WithAttackAnimation@1:
+		Sequence: shoot
+		Armament: primary
+	WithAttackAnimation@2:
+		Sequence: shoot2
+		Armament: secondary
+	WithMoveAnimation:
+		MoveSequence: run
+		ValidMovementTypes: Horizontal, Turn
+	ProducibleWithLevel:
+		Prerequisites: vehicles.upgraded
+	Selectable:
+		Bounds: 1936, 1936, 0, 0
+		DecorationBounds: 1936, 1936, 0, 0
+	Voiced:
+		VoiceSet: StrifeInquisitor
+	SpawnActorOnDeath:
+		Actor: strifeguyinquisitordeathactor
+
+strifeguyinquisitordeathactor:
+	Inherits: ^Vehicle
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Tooltip:
+		Name: actor-dtrk.name
+	Health:
+		HP: 60000
+	Armor:
+		Type: Light
+	Mobile:
+		Speed: 120
+		TurnSpeed: 60
+		Locomotor: hover
+	RevealsShroud:
+		Range: 4c0
+	Explodes:
+		Weapon: strifeguyinquisitorexplosion
+		EmptyWeapon: strifeguyinquisitorexplosion
+		DamageSource: Killer
+	AttackFrontal:
+		FacingTolerance: 512
+	Armament:
+		Weapon: TerroristTargeting
+	AutoTarget:
+		InitialStance: AttackAnything
+		ScanRadius: 10
+	GrantConditionOnAttack:
+		Condition: triggered
+	GrantConditionOnDeploy:
+		DeployedCondition: triggered
+	KillsSelf:
+		RequiresCondition: triggered
+	KillsSelf@2:
+		Delay: 105
+	RenderSprites:
+		Image: strifeguyinquisitor
+	Selectable:
+		Bounds: 1936, 1936, 0, 0
+		DecorationBounds: 1936, 1936, 0, 0
+	AttackWander:

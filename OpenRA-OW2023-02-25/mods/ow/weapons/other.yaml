@@ -1422,6 +1422,8 @@ DoomGuyPlasma:
 	BurstDelays: 3
 	Warhead@3EffGround: CreateEffect
 		ImpactSounds: dsfirxpl.aud
+	Warhead@1Dam: SpreadDamage
+		Damage: 4000
 
 DoomPlasmaFed:
 	Inherits: ^PlasmaWeapon
@@ -8125,3 +8127,171 @@ strifeguycrusaderfire:
 			Concrete: 20
 	Warhead@3Eff: CreateEffect
 		Explosions: strifeguycrusaderfirehit
+
+strifeguysigil1:
+	ReloadDelay: 175
+	Range: 6c0
+	Report: strifeguysigilfire.wav
+	ValidTargets: Ground, Air, GroundActor, AirborneActor, WaterActor, Trees, Water
+	Projectile: InstantHit
+		Blockable: true
+		Inaccuracy: 1c0
+	Warhead@3Eff: CreateEffect
+		Inaccuracy: 32
+		Explosions: strifeguysigilmarker
+		ValidTargets: Ground, Air, GroundActor, AirborneActor, WaterActor, Trees, Water
+	Warhead@1Dam: SpreadDamage
+		Delay: 25
+		Spread: 512
+		Damage: 3000
+		Versus:
+			Light: 90
+			Heavy: 50
+			Wood: 50
+			Shield: 200
+		DamageTypes: Prone50Percent, ElectricityDeath
+		ValidTargets: Ground, Air, GroundActor, AirborneActor, WaterActor, Trees, Water
+	Warhead@4Eff: CreateEffect
+		Delay: 25
+		Inaccuracy: 32
+		Explosions: strifeguysigillightning
+		ImpactSounds: strifeguysigilhit.wav
+		ValidTargets: Ground, Air, GroundActor, AirborneActor, WaterActor, Trees, Water
+	Warhead@1Smu: LeaveSmudge
+		Delay: 25
+		SmudgeType: Scorch
+		ValidTargets: GroundActor
+	Warhead@zappy1: FireCluster
+		Delay: 10
+		Weapon: strifeguysigil1ClusterSmall2
+		RandomClusterCount: 1
+		Dimensions: 1,1
+		Footprint: x
+	Warhead@zappy2: FireCluster
+		Delay: 14
+		Weapon: strifeguysigil1ClusterSmall2
+		RandomClusterCount: 1
+		Dimensions: 1,1
+		Footprint: x
+	Warhead@zappy3: FireCluster
+		Delay: 18
+		Weapon: strifeguysigil1ClusterSmall2
+		RandomClusterCount: 1
+		Dimensions: 1,1
+		Footprint: x
+
+strifeguysigil1Zap:
+	Inherits: ^ElectricBoltWeapon
+	ReloadDelay: 7
+	Range: 3c0
+	-Report:
+	ValidTargets: Ground, Air, GroundActor, AirborneActor, WaterActor, Trees, Water
+	Projectile: InstantHit
+		Blockable: true
+		Inaccuracy: 1c0
+	Warhead@3Eff: CreateEffect
+		Inaccuracy: 32
+		Explosions: strifeguysigilmarker
+		ValidTargets: Ground, Air, GroundActor, AirborneActor, WaterActor, Trees, Water
+	Warhead@1Dam: SpreadDamage
+		Delay: 25
+		Spread: 512
+		Damage: 3000
+		Versus:
+			Light: 90
+			Heavy: 50
+			Wood: 50
+			Shield: 200
+		DamageTypes: Prone50Percent, ElectricityDeath
+		ValidTargets: Ground, Air, GroundActor, AirborneActor, WaterActor, Trees, Water
+	Warhead@4Eff: CreateEffect
+		Delay: 25
+		Inaccuracy: 32
+		Explosions: strifeguysigillightning
+		ImpactSounds: strifeguysigilhit.wav
+		ValidTargets: Ground, Air, GroundActor, AirborneActor, WaterActor, Trees, Water
+	Warhead@1Smu: LeaveSmudge
+		Delay: 25
+		SmudgeType: Scorch
+		ValidTargets: GroundActor
+
+strifeguysigil1BigZap:
+	Inherits: strifeguysigil1Zap
+	Range: 3c0
+
+strifeguysigil1SmallZap:
+	Inherits: strifeguysigil1Zap
+	Range: 3c0
+	Projectile: InstantHit
+		Blockable: true
+		Inaccuracy: 1c0
+	Warhead@1Dam: SpreadDamage
+		Spread: 512
+		Damage: 2000
+		Versus:
+			Shield: 200
+
+strifeguysigil1SmallZap2:
+	Inherits: strifeguysigil1SmallZap
+	Range: 3c0
+	Projectile: InstantHit
+
+strifeguysigil1Cluster:
+	ReloadDelay: 1
+	ValidTargets: Ground, Air, GroundActor, AirborneActor, WaterActor, Trees, Water
+	Projectile: AthenaProjectile
+	Warhead@2cluster: FireShrapnel
+		Amount: 2
+		Weapon: strifeguysigil1BigZap
+		AimTargetStances: Neutral, Enemy, Ally, None
+		AimChance: 66
+		AllowDirectHit: true
+		ThrowWithoutTarget: true
+		ValidTargets: Ground, Air, GroundActor, AirborneActor, WaterActor, Trees, Water
+	Warhead@3Eff: CreateEffect
+		Inaccuracy: 32
+		Explosions: strifeguysigilmarker
+		ValidTargets: Ground, Air, GroundActor, AirborneActor, WaterActor, Trees, Water
+	Warhead@1Dam: SpreadDamage
+		Delay: 25
+		Spread: 512
+		Damage: 3000
+		Versus:
+			Light: 90
+			Heavy: 50
+			Wood: 50
+			Shield: 200
+		DamageTypes: Prone50Percent, ElectricityDeath
+		ValidTargets: Ground, Air, GroundActor, AirborneActor, WaterActor, Trees, Water
+	Warhead@4Eff: CreateEffect
+		Delay: 25
+		Inaccuracy: 32
+		Explosions: strifeguysigillightning
+		ImpactSounds: strifeguysigilhit.wav
+		ValidTargets: Ground, Air, GroundActor, AirborneActor, WaterActor, Trees, Water
+	Warhead@1Smu: LeaveSmudge
+		Delay: 25
+		SmudgeType: Scorch
+		ValidTargets: GroundActor
+
+strifeguysigil1ClusterSmall:
+	Inherits: strifeguysigil1Cluster
+	Range: 3c0
+	Projectile: Missile
+		RangeLimit: 1c0
+		Speed: 600
+		MinimumLaunchSpeed: 600
+		MaximumLaunchSpeed: 600
+		Acceleration: 16
+		Inaccuracy: 1c0
+	Warhead@2cluster: FireShrapnel
+		Amount: 2
+		Weapon: strifeguysigil1SmallZap
+		AimTargetStances: Neutral, Enemy, None
+		AimChance: 80
+
+strifeguysigil1ClusterSmall2:
+	Inherits: strifeguysigil1ClusterSmall
+	Warhead@2cluster: FireShrapnel
+		Weapon: strifeguysigil1SmallZap2
+		AimChance: 100
