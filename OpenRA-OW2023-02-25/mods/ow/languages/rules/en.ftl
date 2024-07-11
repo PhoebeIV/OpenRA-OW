@@ -6010,16 +6010,17 @@ actor-btrae-hero =
      Can be leveled to support your vehicles,
      or further her firepower.
 
+      When standing still, she cloaks and gains an ambush buff.
 
-     Has 4 weapons that can be replaced or upgraded.
+      Has 4 weapons that can be replaced or upgraded.
 
-     Tier 1 unlocks 2nd attack.
-     Tier 2 unlocks anti-missile system and UAV.
-     Tier 3 unlocks stealth detection and 3rd attack.
-     Tier 4 unlocks area vehicle boosting.
-     Tier 5 unlocks 4th attack.
+   Tier 1 unlocks 2nd attack.
+   Tier 2 unlocks anti-missile system and UAV.
+   Tier 3 unlocks stealth detection and 3rd attack.
+   Tier 4 unlocks area vehicle boosting.
+   Tier 5 unlocks 4th attack and emergency airdrop.
 
-     Speed: 112
+     Speed: 100
      Strong vs Everything
    .name = Rae Ven 3L
    .tier0 = Rae Ven 3L (Tier 0)
@@ -6042,9 +6043,8 @@ actor-btrae-upgrade =
    .t2u1desc = Increase vehicle movement speed by 10%.
    .t2u3name = Rae: SRM 6
    .t2u3desc = Install a 6-salvo short range missile pack on Rae.
-   Also increases health a small amount.
       Slot: 3 (replaces a laser)
-      Generates low heat.
+      Generates low heat. Increases health.
    .t2u4name = Rae: Large Laser
    .t2u4desc = Install a long range Large laser on Rae.
       Slot: 3 (replaces a laser)
@@ -6053,9 +6053,9 @@ actor-btrae-upgrade =
    .t3u1desc = Gain Vehicle Firepower II instantly.
    .t3u2name = Reactive Plating II
    .t3u2desc = Gain Vehicle Armor II instantly.
-   .t3u3name = Rae: Anti-Missile System
-   .t3u3desc = Install a Point Defense system on Rae.
-      Destroys incoming missiles. Increases health slightly.
+   .t3u3name = Rae: Electronic Countermeasures
+   .t3u3desc = Install an ECM on Rae.
+      Jams nearby radars and generates shroud.
    .t3u4name = Rae: Beagle Active Probe
    .t3u4desc = Install a Beagle Active Probe on Rae.
       Largely increases vision and detection range.
@@ -6073,11 +6073,13 @@ actor-btrae-upgrade =
    .t5u1desc = Produce vehicles for 10% cheaper and 20% faster. 
    .t5u2name = Layered Armor
    .t5u2desc = Increases vehicle armor by a further 20%.
-   .t5u3name = Rae: Nuke
-   .t5u3desc = Install a tactical nuke artillery on Rae.
+   .t5u3name = Rae: Artillery
+   .t5u3desc = Install a high-explosive artillery on Rae.
       Slot: 4 (replaces SRM4)
       Generates huge heat. Reduces movement speed.
 
 actor-btrae-uav = 
-   .name = UAV
+   .name = Rae's UAV
    .desc = Launch a UAV for 2 minutes.
+      Receives Rae's BAP or ECM upgrades.
+      Detects cloaked units.

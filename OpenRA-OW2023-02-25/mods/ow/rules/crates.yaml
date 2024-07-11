@@ -90,15 +90,25 @@ CRATE:
 	GrantExternalConditionCrateAction@cloak:
 		Condition: stealthgen
 		SelectionShares: 5
+		Sequence: stealth
 		MaxExtraCollectors: 4
 		Range: 3c0
 		Sound: invisible.aud
 	GrantExternalConditionCrateAction@shield:
 		Condition: external_shield
 		SelectionShares: 5
+		Sequence: armor
 		MaxExtraCollectors: 10
 		Range: 3c0
 		Sound: beltsnd.aud
+	GrantExternalConditionCrateAction@frenzy:
+		SelectionShares: 7
+		Duration: 500
+		Condition: frenzyboost
+		Sound: sfrenzya.wav
+		Sequence: speed
+		Range: 7c512
+		MaxExtraCollectors: -1
 	GiveUnitCrateAction@apc:
 		-ValidFactions:
 		Prerequisites: techlevel.low, vehicles.apcprereq
@@ -204,30 +214,42 @@ CRATE:
 	SupportPowerCrateAction@colonydrop:
 		Proxy: powerproxy.colonydrop
 		Sound: colonydroppickup.wav
+		Sequence: tquake
 		SelectionShares: 1
 	SupportPowerCrateAction@roadroller:
 		Proxy: powerproxy.roadroller
 		Sound: roadrollerpickup.wav
+		Sequence: armor
 		SelectionShares: 2
 	SupportPowerCrateAction@lightning:
 		Proxy: powerproxy.lightning
 		Sound: thunder-ambient.wav
+		Sequence: speed
 		SelectionShares: 2
 	SupportPowerCrateAction@acolytestrike:
 		Proxy: powerproxy.acolytestrike
 		Sound: DSRADIO.wav
+		Sequence: fpower
 		SelectionShares: 6
 	SupportPowerCrateAction@metalnuke:
 		Proxy: powerproxy.metalnuke
 		Sound: DSRADIO.wav
+		Sequence: armor
 		SelectionShares: 2
 	SupportPowerCrateAction@smite:
 		Proxy: powerproxy.smite
 		Sound: thunder-ambient.wav
+		Sequence: speed
 		SelectionShares: 2
 	SupportPowerCrateAction@earthquake:
 		Proxy: powerproxy.earthquake
 		Sound: johnaeiou.aud
+		Sequence: tquake
+		SelectionShares: 3
+	SupportPowerCrateAction@emergencyairdrop:
+		Proxy: powerproxy.emergencyairdrop
+		Sound: dsitemup.aud
+		Sequence: parabombs
 		SelectionShares: 3
 	GiveUnitCrateAction@korone:
 		SelectionShares: 2
@@ -2503,3 +2525,26 @@ powerproxy.earthquake:
 		AllowMultiple: true
 		OneShot: true
 		Actor: 1tnk.earthquake
+
+powerproxy.emergencyairdrop:
+	ParatroopersPower:
+		OrderName: CrateAirdrop
+		Icon: cratedrop
+		ChargeInterval: 5000
+		Name: Emergency Airdrop
+		Description: Call in a Badger to deliver health and level up crates.
+		UnitType: BADR
+		DropItems: BTRAE.Crate1, BTRAE.Crate2, BTRAE.Crate3, BTRAE.Crate2, BTRAE.Crate2
+		Cordon: 256
+		ReinforcementsArrivedSpeechNotification: ReinforcementsArrived
+		SelectTargetSpeechNotification: SelectTarget
+		QuantizedFacings: 8
+		CameraActor: camera.paradrop
+		DisplayBeacon: true
+		BeaconPoster: pinficon
+		ArrowSequence: arrow
+		ClockSequence: clock
+		CircleSequence: circles
+		UseDirectionalTarget: True
+		DirectionArrowAnimation: paradirection
+		SupportPowerPaletteOrder: 50

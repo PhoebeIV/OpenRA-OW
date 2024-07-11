@@ -116,9 +116,22 @@ btrae.tier3.bap:
 		Description: actor-btrae-upgrade.t3u4desc
 		Prerequisites: ~active.rae
 		Icon: scramble
-		BuildPaletteOrder: 101
+		BuildPaletteOrder: 100
 	RenderSprites:
 		Image: icon
+	ProvidesPrerequisite@upgradename:
+
+# Rae: ECM
+btrae.tier3.ecm:
+	Inherits: ^HeroUpgradeBaseTier3
+	Tooltip:
+		Name: actor-btrae-upgrade.t3u3name
+	Buildable:
+		Description: actor-btrae-upgrade.t3u3desc
+		Prerequisites: ~active.rae
+		BuildPaletteOrder: 101
+	RenderSprites:
+		Image: mrj
 	ProvidesPrerequisite@upgradename:
 
 # Regenerative Plating
@@ -262,7 +275,7 @@ BTRAE.Hero0:
 	Armament@botkiter:
 		Name: primary1
 		Weapon: RaeDummy
-		RequiresCondition: botowner
+		RequiresCondition: botowner && !laser1
 	Armament@hp1_mlaser:
 		Name: primary1
 		Weapon: BTMedLaser_Single
@@ -531,10 +544,21 @@ BTRAE.Hero0:
 		Condition: rae_bap
 	RevealsShroudMultiplier@bap:
 		RequiresCondition: rae_bap
-		Modifier: 150
+		Modifier: 135
 	DetectCloakedMultiplier@bap:
 		RequiresCondition: rae_bap
-		Modifier: 150
+		Modifier: 135
+	GrantConditionOnPrerequisite@ecm:
+		Prerequisites: btrae.tier3.ecm
+		Condition: rae_ecm
+	CreatesShroud@ecm: 
+		RequiresCondition: rae_ecm
+		Range: 7c0
+	ProximityExternalCondition@ecm:
+		RequiresCondition: rae_ecm
+		Range: 18c0
+		ValidRelationships: Enemy, Neutral
+		Condition: jammed
 	GrantConditionOnPrerequisite@lrm:
 		Prerequisites: btrae.tier4.lrm
 		Condition: rae_lrm
@@ -585,10 +609,10 @@ BTRAE.Hero0:
 	GrantPeriodicCondition@idling: # idle animation controller
 		Condition: idling
 		RequiresCondition: !shooting && !moving
-		CooldownDuration: 200, 500
+		CooldownDuration: 150, 250
 		ActiveDuration: 93
 	GrantRandomPeriodicCondition@idleanim: # anim chooser!
-		Conditions: idle_1,idle_2
+		Conditions: idle_1,idle_2,idle_3,idle_4
 		RequiresCondition: idling
 		CooldownDuration: 1
 		ActiveDuration: 94
@@ -599,6 +623,12 @@ BTRAE.Hero0:
 	WithFacingSpriteBody@idle2: # ITCHY!!
 		RequiresCondition: idle_2 && !shooting
 		Sequence: idle2
+	WithFacingSpriteBody@idle3: # LOOKING AGAIN
+		RequiresCondition: idle_3 && !shooting
+		Sequence: idle3
+	WithFacingSpriteBody@idle4: # BOUNCY
+		RequiresCondition: idle_4 && !shooting
+		Sequence: idle4
 	SpawnActorOnDeath@husk:
 		Actor: BTRAE.Husk
 		RequiresCondition: !force_deploy
@@ -608,13 +638,20 @@ BTRAE.Hero0:
 		CloakSound: gstealof.aud
 		UncloakOn: Attack, Damage, Move
 		CloakedCondition: cloaked
-		CloakedAlpha: 0.8
+		CloakedAlpha: 1.0
 	RangeMultiplier@cloaked: # Rae's attack range is shorter when cloaked
 		RequiresCondition: cloaked
 		Modifier: 80
 	RevealsShroudMultiplier@cloaked: # but she can see farther!
 		RequiresCondition: cloaked
 		Modifier: 110
+	WithDecoration@cloaked: # indicator that she is stealthed
+		Position: Top
+		Margin: 0, -6
+		Image: pips
+		Sequence: pip-disguise
+		Palette: effect
+		RequiresCondition: cloaked
 	FireWarheads@cloaked: # this gives Rae a buff when cloaked for long enough
 		RequiresCondition: cloaked
 		Interval: 25
@@ -637,6 +674,8 @@ BTRAE.Hero0:
 		Palette: effect
 		Position: TopRight
 		RequiresCondition: surprise_attack
+	DamageMultiplier@sovietiron: # reduces health bonus from the soviet iron blanket / layered plating upgrades
+		Modifier: 90
 	Explodes:
 		RequiresCondition: !force_deploy
 	ProvidesPrerequisite@inthefield:
@@ -692,7 +731,7 @@ BTRAE.Hero2:
 	Tooltip:
 		Name: actor-btrae-hero.tier2
 	Health:
-		HP: 125000
+		HP: 115000
 	PointDefense: 
 		PointDefenseTypes: pointdefense
 		Armament: ams
@@ -715,7 +754,7 @@ BTRAE.Hero3:
 	Tooltip:
 		Name: actor-btrae-hero.tier3
 	Health:
-		HP: 140000
+		HP: 130000
 	AttackTurreted:
 		Armaments: primary1, primary2, primary3, upg_largelaser, upg_srm6, upg_lrm, upg_ppc
 	DetectCloaked:
@@ -734,7 +773,7 @@ BTRAE.Hero4:
 	Tooltip:
 		Name: actor-btrae-hero.tier4
 	Health:
-		HP: 160000
+		HP: 145000
 	FireWarheads@boost:
 		Weapons: AEIOUBoostRae
 		Interval: 50
@@ -759,13 +798,39 @@ BTRAE.Hero5:
 	Tooltip:
 		Name: actor-btrae-hero.tier5
 	Health:
-		HP: 175000
+		HP: 160000
 	AttackTurreted:
 		Armaments: primary1, primary2, primary3, primary4, upg_largelaser, upg_srm6, upg_lrm, upg_ppc, upg_nuke
 	-SpawnActorOnDeath:
 	-KillsSelf@level:
 	-GrantPeriodicCondition@deploy:
 	-GainsExperienceMultiplier@1:
+	Targetable@rae: # used for AI when using this support power
+		TargetTypes: RaeHero
+	ParatroopersPower:
+		OrderName: RaeAirdrop
+		Icon: cratedrop
+		ChargeInterval: 7500
+		Name: Emergency Airdrop
+		Description: Call in a Badger to deliver health and level up crates.
+		UnitType: BADR
+		DropItems: BTRAE.Crate1, BTRAE.Crate2, BTRAE.Crate3, BTRAE.Crate2, BTRAE.Crate2
+		Cordon: 256
+		ReinforcementsArrivedSpeechNotification: ReinforcementsArrived
+		SelectTargetSpeechNotification: SelectTarget
+		QuantizedFacings: 8
+		CameraActor: camera.paradrop
+		DisplayBeacon: true
+		BeaconPoster: pinficon
+		ArrowSequence: arrow
+		ClockSequence: clock
+		CircleSequence: circles
+		UseDirectionalTarget: True
+		DirectionArrowAnimation: paradirection
+		SupportPowerPaletteOrder: 50
+	DamageMultiplier@nuke: # if the Artillery upgrade wasn't chosen, give Rae extra health
+		RequiresCondition: !rae_nuke
+		Modifier: 90
 
 BTRAE.UAV:
 	Inherits: usaspydrone
@@ -791,7 +856,63 @@ BTRAE.UAV:
 	Aircraft:
 		LandAltitude: 512
 		VTOL: false
+		AltitudeVelocity: 128
 	ProvidesPrerequisite@self:
 	-Hovers:
 	FreeActor@cooldown:
 		Actor: ztumor.cooldown # 60 seconds
+	GrantConditionOnPrerequisite@bap:
+		Prerequisites: btrae.tier3.bap
+		Condition: rae_bap
+	RevealsShroudMultiplier@bap:
+		RequiresCondition: rae_bap
+		Modifier: 135
+	DetectCloakedMultiplier@bap:
+		RequiresCondition: rae_bap
+		Modifier: 135
+	GrantConditionOnPrerequisite@ecm:
+		Prerequisites: btrae.tier3.ecm
+		Condition: rae_ecm
+	CreatesShroud@ecm: 
+		RequiresCondition: rae_ecm
+		Range: 5c0
+	ProximityExternalCondition@ecm:
+		RequiresCondition: rae_ecm
+		Range: 12c0
+		ValidRelationships: Enemy, Neutral
+		Condition: jammed
+	Interactable:
+		Bounds: 512,512
+
+BTRAE.Crate1:
+	Inherits: ^Crate
+	WithCrateBody:
+		IdleSequence: idle-health
+		LandSequence: land-health
+	Crate:
+		Duration: 3000
+	HealActorsCrateAction:
+		Sound: heal2.aud
+		Sequence: heal
+
+BTRAE.Crate2:
+	Inherits: ^Crate
+	WithCrateBody:
+		IdleSequence: idle-level
+		LandSequence: land-level
+	Crate:
+		Duration: 3000
+	LevelUpCrateAction:
+		Levels: 2
+
+BTRAE.Crate3:
+	Inherits: ^Crate
+	Crate:
+		Duration: 3000
+	GrantExternalConditionCrateAction:
+		Duration: 375
+		Condition: frenzyboost
+		Sound: sfrenzya.wav
+		Sequence: speed
+		Range: 7c512
+		MaxExtraCollectors: -1
