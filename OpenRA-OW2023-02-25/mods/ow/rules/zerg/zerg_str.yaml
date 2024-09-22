@@ -58,7 +58,7 @@
 	ProductionTimeMultiplier@aibuild:
 		Multiplier: 110
 		Prerequisites: ai.all
-	Explodes:
+	FireWarheadsOnDeath:
 		Type: CenterPosition
 		Weapon: LargeZergBuildingExplode
 		EmptyWeapon: LargeZergBuildingExplode
@@ -144,7 +144,7 @@ CreepSpawnerBig:
 	SpawnActorOnDeath:
 		Actor: CreepGenBig
 		OwnerType: Victim
-	Explodes:
+	FireWarheadsOnDeath:
 		Weapon: CreepSplashBig
 		EmptyWeapon: CreepSplashBig
 
@@ -162,7 +162,7 @@ CreepSpawnerMedium:
 	Inherits: CreepSpawnerBig
 	SpawnActorOnDeath:
 		Actor: CreepGenMed
-	Explodes:
+	FireWarheadsOnDeath:
 		Weapon: CreepSplashMed
 		EmptyWeapon: CreepSplashMed
 
@@ -171,10 +171,10 @@ NydusSpawner:
 	SpawnActorOnDeath:
 		Actor: ZNYDUS
 		SkipMakeAnimations: false
-	Explodes:
+	FireWarheadsOnDeath:
 		Weapon: CreepSplashMed
 		EmptyWeapon: CreepSplashMed
-	Explodes@2:
+	FireWarheadsOnDeath@2:
 		Weapon: CreepSplashBig
 		EmptyWeapon: CreepSplashBig
 
@@ -189,7 +189,7 @@ CreepGenBig:
 	KillsSelf:
 		RequiresCondition: !creepalive
 		Delay: 25
-	Explodes:
+	FireWarheadsOnDeath:
 		Weapon: CreepRemoveBig
 	SeedsResource:
 		Interval: 2
@@ -213,7 +213,7 @@ CreepGenBig:
 
 CreepGenBig2:
 	Inherits: CreepGenBig
-	-Explodes:
+	-FireWarheadsOnDeath:
 
 CreepGenBigStart:
 	Inherits: CreepGenBig
@@ -224,7 +224,7 @@ CreepGenBigStart:
 
 CreepGenMed:
 	Inherits: CreepGenBig
-	Explodes:
+	FireWarheadsOnDeath:
 		Weapon: CreepRemoveBig
 	SeedsResource:
 		Interval: 3
@@ -235,19 +235,19 @@ CreepGenMed:
 SmallZergBuildingComplete:
 	Inherits: CreepSpawnerBig
 	-SpawnActorOnDeath:
-	Explodes:
+	FireWarheadsOnDeath:
 		Weapon: SmallZergBuildingSpawn
 		EmptyWeapon: SmallZergBuildingSpawn
 
 MediumZergBuildingComplete:
 	Inherits: SmallZergBuildingComplete
-	Explodes:
+	FireWarheadsOnDeath:
 		Weapon: MediumZergBuildingSpawn
 		EmptyWeapon: MediumZergBuildingSpawn
 
 LargeZergBuildingComplete:
 	Inherits: SmallZergBuildingComplete
-	Explodes:
+	FireWarheadsOnDeath:
 		Weapon: LargeZergBuildingSpawn
 		EmptyWeapon: LargeZergBuildingSpawn
 
@@ -256,12 +256,12 @@ ClonerSpawner:
 	SpawnActorOnDeath:
 		Actor: ZergCloner
 		OwnerType: Victim
-	-Explodes:
+	-FireWarheadsOnDeath:
 
 ZergCloner:
 	Inherits: CreepGenBig
 	Inherits@Boss: ^EpicBotPrereqs
-	-Explodes:
+	-FireWarheadsOnDeath:
 	-SeedsResource:
 	-ProximityExternalCondition:
 
@@ -283,7 +283,7 @@ HatcheryBib:
 	KillsSelf:
 		RequiresCondition: !creepalive
 		Delay: 25
-	Explodes:
+	FireWarheadsOnDeath:
 		Weapon: CreepRemoveBig
 	SeedsResource:
 		Interval: 3
@@ -317,7 +317,6 @@ ZHATCHERY:
 		SpawnOffset: 0,1500,0
 		ExitCell: 2,3
 		ProductionTypes: Infantry, Hatchery, SpecialUnit, Vehicle
-	RallyPoint:
 	Selectable:
 		Bounds: 3072, 3072
 	Building:
@@ -561,7 +560,7 @@ ZHATCHERY:
 	ProvidesPrerequisite@hero:
 		RequiresPrerequisites: structures.kerrigan
 		Prerequisite: hero.kerrigan
-	Explodes@emp:
+	FireWarheadsOnDeath@emp:
 		RequiresCondition: hive_upgrade
 		Type: CenterPosition
 		Weapon: EMPExplosion
@@ -625,13 +624,13 @@ ZHATCHERY:
 
 ZergLairComplete:
 	Inherits: SmallZergBuildingComplete
-	Explodes:
+	FireWarheadsOnDeath:
 		Weapon: MediumZergBuildingSpawn_Lair
 		EmptyWeapon: MediumZergBuildingSpawn_Lair
 
 ZergHiveComplete:
 	Inherits: SmallZergBuildingComplete
-	Explodes:
+	FireWarheadsOnDeath:
 		Weapon: LargeZergBuildingSpawn_Hive
 		EmptyWeapon: LargeZergBuildingSpawn_Hive
 
@@ -774,7 +773,7 @@ ZCCOLONY:
 		RequiresCondition: damaged3
 		Sequence: blood4
 		Offset: -256,0,0
-	Explodes:
+	FireWarheadsOnDeath:
 		Type: CenterPosition
 		Weapon: SmallZergBuildingExplode
 		EmptyWeapon: SmallZergBuildingExplode
@@ -940,7 +939,7 @@ ZE.SPORE:
 
 ZergColonyComplete:
 	Inherits: SmallZergBuildingComplete
-	Explodes:
+	FireWarheadsOnDeath:
 		Weapon: SmallZergBuildingSpawn_Delayed
 		EmptyWeapon: SmallZergBuildingSpawn_Delayed
 
@@ -1075,7 +1074,7 @@ ZPOOL:
 		Types: SpyInfiltrate
 	Targetable:
 		TargetTypes: GroundActor, C4, DetonateAttack, Structure, SpyInfiltrate
-	Explodes:
+	FireWarheadsOnDeath:
 		Type: CenterPosition
 		Weapon: SmallZergBuildingExplode
 		EmptyWeapon: SmallZergBuildingExplode
@@ -1291,7 +1290,7 @@ ZSPIRE:
 		RequiresCondition: spire_upgrade
 		StartSequence: greater-make
 		Sequence: greater-idle
-	Explodes:
+	FireWarheadsOnDeath:
 		Type: CenterPosition
 		Weapon: SmallZergBuildingExplode
 		EmptyWeapon: SmallZergBuildingExplode
@@ -1489,7 +1488,7 @@ ZMSLO:
 	RevealsShroud@GAPGEN:
 		Range: 5c0
 		RequiresCondition: !disabled
-	Explodes@plague:
+	FireWarheadsOnDeath@plague:
 		Weapon: DefilerPlague
 		EmptyWeapon: DefilerPlague
 	NukePower:
@@ -1706,7 +1705,7 @@ ZNYDUS:
 		Types: SpyInfiltrate
 	Targetable:
 		TargetTypes: GroundActor, C4, DetonateAttack, Structure, Defense, SpyInfiltrate
-	Explodes:
+	FireWarheadsOnDeath:
 		Type: CenterPosition
 		Weapon: SmallZergBuildingExplode
 		EmptyWeapon: SmallZergBuildingExplode
@@ -1816,7 +1815,7 @@ ZNYDUS:
 	GrantConditionOnAttack@reload:
 		Condition: attacking
 		RevokeDelay: 250
-	Explodes@removecreep:
+	FireWarheadsOnDeath@removecreep:
 		Weapon: CreepRemoveBig
 		EmptyWeapon: CreepRemoveBig
 	AmbientSound@still:
@@ -1888,7 +1887,7 @@ ZNYDUS.Entry:
 		DeathSequence: dead
 		UseDeathTypeSuffix: false
 	ProvidesPrerequisite@buildingname:
-	Explodes:
+	FireWarheadsOnDeath:
 		Type: CenterPosition
 		Weapon: SmallZergBuildingExplode
 		EmptyWeapon: SmallZergBuildingExplode
@@ -1923,7 +1922,7 @@ NYDUS.Teleport:
 	Selectable:
 		Bounds: 2048, 2048
 	WithMakeAnimation:
-	-Explodes:
+	-FireWarheadsOnDeath:
 	-Sellable:
 	RenderSprites:
 		Image: ZNYDUS

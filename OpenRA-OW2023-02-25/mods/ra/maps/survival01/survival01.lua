@@ -272,7 +272,7 @@ TimerExpired = function()
 	Reinforcements.Reinforce(Allies, FrenchReinforcements, { SovietEntryPoint7.Location, Alliesbase.Location })
 
 	if DestroyObj then
-		KillObj = AddPrimaryObjective(Allies, "control-reinforcements-kill-remaining-soviet-forces")
+		KillObj = AddPrimaryObjective(Allies, "takeover-reinforcements-kill-remaining-soviet-forces")
 	else
 		DestroyObj = AddPrimaryObjective(Allies, "takeover-reinforcements-dismantle-soviet-base")
 	end
@@ -304,7 +304,7 @@ AddObjectives = function()
 	InitObjectives(Allies)
 
 	SurviveObj = AddPrimaryObjective(Allies, "enforce-position-hold-until-reinforcements")
-	KillSams = AddSecondaryObjective(Allies, "destroy-two-sames-before-reinforcements")
+	KillSams = AddSecondaryObjective(Allies, "destroy-two-sams-before-reinforcements")
 	Media.DisplayMessage(UserInterface.Translate("soviets-blocking-gps"))
 	CaptureAirfields = AddSecondaryObjective(Allies, "capture-hold-soviet-airbase-northeast")
 	SovietObj = AddPrimaryObjective(Soviets, "")

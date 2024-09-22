@@ -220,7 +220,7 @@ SendSpy = function()
 	end
 
 	Trigger.AfterDelay(DateTime.Seconds(3), function()
-		Media.DisplayMessage(UserInterface.Translate("disguise-spy"), "Spy")
+		Media.DisplayMessage(UserInterface.Translate("disguise-spy"), UserInterface.Translate("spy"))
 	end)
 end
 
@@ -374,7 +374,7 @@ end
 AddObjectives = function()
 	USSRobjective = AddPrimaryObjective(USSR, "")
 	RescueTanyaObjective = AddPrimaryObjective(Greece, "rescue-tanya")
-	KillAll = AddPrimaryObjective(Greece, "elminate-soviet-units")
+	KillAll = AddPrimaryObjective(Greece, "eliminate-soviet-units")
 	InfiltrateWarfactoryObjective = AddSecondaryObjective(Greece, "infiltrate-warfactory")
 end
 

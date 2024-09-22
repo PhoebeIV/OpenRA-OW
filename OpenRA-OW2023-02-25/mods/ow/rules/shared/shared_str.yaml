@@ -16,6 +16,8 @@ FACT:
 		LocalCenterOffset: 0,-512,0
 		ConcreteTemplate: 1024
 		ConcretePrerequisites: techlevel.pavement
+	Buildable:
+		BuildPaletteOrder: 7500
 	ConyardChronoReturn:
 		ReturnOriginalActorOnCondition: build-incomplete
 		Condition: chrono-vortex
@@ -64,7 +66,7 @@ FACTD:
 		ConcretePrerequisites: techlevel.pavement
 	Buildable:
 		Queue: Building
-		BuildPaletteOrder: 1000
+		BuildPaletteOrder: 7501
 		Prerequisites: ~disabled
 	Tooltip:
 		Name: actor-factd-name
@@ -175,7 +177,7 @@ FOUNDRY:
 		TargetableOffsets: 0,0,0, 640,-384,0, 640,512,0, -710,-512,0, -710,512,0
 	Buildable:
 		Queue: Tech
-		BuildPaletteOrder: 25
+		BuildPaletteOrder: 501
 		Prerequisites: conyard, ~techlevel.medium, ~structures.foundryprereq, ~!structures.bothard
 		Description: actor-foundry.description
 	Valued:
@@ -243,7 +245,7 @@ PROC:
 	-WithBuildingBib:
 	Buildable:
 		Queue: Building
-		BuildPaletteOrder: 15
+		BuildPaletteOrder: 101
 		Prerequisites: anypower, ~techlevel.infonly, ~structures.procprereq, ~!ai.boss # Allies, Soviet, Nazi
 		Description: actor-proc.description
 	Valued:
@@ -283,6 +285,7 @@ SILO:
 	Buildable:
 		Prerequisites: refinery, ~techlevel.infonly, ~structures.procprereq # Allies, Soviet, Nazi
 		Description: actor-silo-description
+		BuildPaletteOrder: 701
 	InfiltrateForCash:
 		Maximum: 5000
 
@@ -292,7 +295,7 @@ PROCD:
 	Inherits@BIB: ^3x4BuildingBib
 	Buildable:
 		Queue: Building
-		BuildPaletteOrder: 15
+		BuildPaletteOrder: 102
 		Prerequisites: anypower, ~techlevel.infonly, ~structures.procdprereq, ~!ai.boss # GDI, Nod, UAC, Fed
 		Description: actor-procd.description
 	Valued:
@@ -378,7 +381,7 @@ SILOD:
 		DecorationBounds: 2090, 1280
 	Buildable:
 		Queue: Defense
-		BuildPaletteOrder: 35
+		BuildPaletteOrder: 702
 		Prerequisites: refinery, ~techlevel.infonly, ~structures.silodprereq # GDI, Nod, UAC, Fed
 		Description: actor-silod.description
 	Building:
@@ -412,7 +415,7 @@ SILOD:
 	-SpawnActorsOnSell:
 	Power:
 		Amount: -15
-	Explodes:
+	FireWarheadsOnDeath:
 		Weapon: SmallBuildingExplode
 		EmptyWeapon: SmallBuildingExplode
 	WithDeathAnimation:
@@ -433,6 +436,7 @@ BARR:
 	-WithBuildingBib:
 	Buildable:
 		Prerequisites: anypower, ~structures.barrprereq, ~techlevel.infonly, ~!structures.bothard # Fed, Soviet
+		BuildPaletteOrder: 103
 	Tooltip:
 		Name: actor-barr-name
 
@@ -448,7 +452,7 @@ PYLED:
 		TargetableOffsets: 0,0,0, 630,-512,0, 355,512,0, -281,-512,0, -630,512,0
 	Buildable:
 		Queue: Building
-		BuildPaletteOrder: 20
+		BuildPaletteOrder: 104
 		Prerequisites: anypower, ~techlevel.infonly, ~structures.pyledprereq, ~!structures.bothard # GDI, UAC
 		Description: actor-pyled.description
 	Valued:
@@ -529,7 +533,7 @@ WEAP:
 		Bounds: 3072, 2048
 	Buildable:
 		Queue: Building
-		BuildPaletteOrder: 80
+		BuildPaletteOrder: 107
 		Prerequisites: refinery, barracks, ~techlevel.low, ~structures.weapprereq, ~!structures.bothard # Allies, Soviet, Fed, UAC
 		Description: actor-weap.description
 	Valued:
@@ -583,7 +587,7 @@ WEAPD:
 		Bounds: 3072, 3072
 	Buildable:
 		Queue: Building
-		BuildPaletteOrder: 80
+		BuildPaletteOrder: 108
 		Prerequisites: refinery,barracks, ~techlevel.low, ~structures.weapdprereq, ~!structures.bothard # GDI, Nazi
 		Description: actor-weapd.description
 	Valued:
@@ -668,7 +672,7 @@ DOME:
 		TargetableOffsets: 0,0,0, 630,-384,0, 630,384,0, -700,-512,0, -700,512,0
 	Buildable:
 		Queue: Building
-		BuildPaletteOrder: 90
+		BuildPaletteOrder: 109
 		Prerequisites: refinery, ~techlevel.medium, ~structures.domeprereq # Allies, Soviet, UAC, Nazi
 		Description: actor-dome.description
 	Valued:
@@ -745,7 +749,7 @@ HQD:
 		TargetableOffsets: 0,0,0, 630,-384,0, 630,384,0, -700,-512,0, -700,512,0
 	Buildable:
 		Queue: Building
-		BuildPaletteOrder: 90
+		BuildPaletteOrder: 110
 		Prerequisites: refinery, ~techlevel.medium, ~structures.hqdprereq # GDI, Nod, Fed
 		Description: actor-hqd.description
 	Valued:
@@ -845,6 +849,7 @@ HQD:
 FIX:
 	Buildable:
 		Prerequisites: factory, ~techlevel.medium, ~structures.foundryprereq, ~!ai.boss
+		BuildPaletteOrder: 113
 	ProximityExternalCondition:
 		Condition: fixsell
 		Range: 2c0
@@ -869,6 +874,7 @@ SYRD:
 	Inherits@prereqs: ^NavalPrereqs
 	Buildable:
 		Prerequisites: anypower, ~structures.syrdprereq, ~techlevel.low, ~!techlevel.noboats # Allies, GDI, Fed, UAC
+		BuildPaletteOrder: 105
 	GrantExternalConditionToProduced:
 		Condition: produced
 	Building:
@@ -900,6 +906,7 @@ SPEN:
 	Inherits@prereqs: ^NavalPrereqs
 	Buildable:
 		Prerequisites: anypower, ~structures.spenprereq, ~techlevel.low, ~!techlevel.noboats # Soviet, Nod, Nazis
+		BuildPaletteOrder: 106
 	GrantExternalConditionToProduced:
 		Condition: produced
 	Building:
@@ -926,6 +933,7 @@ HPAD:
 	Buildable:
 		Prerequisites: radar, ~structures.hpadprereq, ~techlevel.medium, ~!ai.hard
 		Description: actor-hpad-description
+		BuildPaletteOrder: 111
 	GrantExternalConditionToProduced:
 		Condition: produced
 	Building:
@@ -1162,7 +1170,7 @@ OUTPOST:
 		Range: 4c0
 	-SpawnActorsOnSell:
 	-AcceptsDeliveredCash:
-	Explodes:
+	FireWarheadsOnDeath:
 		Weapon: SmallBuildingExplode
 		EmptyWeapon: SmallBuildingExplode
 	HitShape:
@@ -1429,7 +1437,7 @@ XBAR:
 	DamageMultiplier@die:
 		RequiresCondition: triggered
 		Modifier: 0
-	Explodes:
+	FireWarheadsOnDeath:
 		Weapon: DemoTrapExplosion2
 		EmptyWeapon: DemoTrapExplosion2
 		DamageSource: Killer
@@ -1447,7 +1455,7 @@ SEAMINE:
 	DetectCloaked:
 		DetectionTypes: Underwater
 		Range: 3c0
-	Explodes:
+	FireWarheadsOnDeath:
 		Weapon: SeaMineExplosion
 		EmptyWeapon: SeaMineExplosion
 		DamageSource: Killer
@@ -1640,7 +1648,7 @@ OREEXT:
 		RequiredForShortGame: false
 	OwnerLostAction:
 		Action: ChangeOwner
-	Explodes:
+	FireWarheadsOnDeath:
 		Weapon: DemoTrapExplosion2
 		EmptyWeapon: DemoTrapExplosion2
 	WithSpriteBody:
@@ -1684,7 +1692,7 @@ OREEXT2:
 		RequiredForShortGame: false
 	OwnerLostAction:
 		Action: ChangeOwner
-	Explodes:
+	FireWarheadsOnDeath:
 		Weapon: DemoTrapExplosion2
 		EmptyWeapon: DemoTrapExplosion2
 	WithSpriteBody:

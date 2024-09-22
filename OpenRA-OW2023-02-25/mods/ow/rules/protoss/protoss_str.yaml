@@ -63,7 +63,7 @@ protoss.shadows:
 		RequiresCondition: !pylon
 		Color: 0000005E
 	-ChangesHealth@trigger_repair2:
-	Explodes:
+	FireWarheadsOnDeath:
 		Weapon: ProtossBuildingExplode
 		EmptyWeapon: ProtossBuildingExplode
 
@@ -253,7 +253,7 @@ PNEXUS:
 	WithDamageOverlay:
 	-ActorLostNotification:
 	-SoundOnDamageTransition:
-	Explodes:
+	FireWarheadsOnDeath:
 		Type: CenterPosition
 		DeathTypes: warp
 		Weapon: WarpExplode
@@ -395,12 +395,8 @@ PGATEW:
 		SpawnOffset: -170,810,0
 		ExitCell: 1,2
 		ProductionTypes: Vehicle
-	Production@vec:
-		RequiresCondition: cybercore
-		Produces: Vehicle
-		PauseOnCondition: !pylon
 	Production:
-		Produces: Infantry, Soldier
+		Produces: Infantry, Soldier, Vehicle
 		PauseOnCondition: !pylon
 	GrantConditionOnPrerequisite@vec:
 		Condition: cybercore
@@ -551,7 +547,7 @@ PPYLON:
 		Adjacent: 4
 	-ExternalCondition@pylon:
 	-WithColoredOverlay@nopylon:
-	Explodes:
+	FireWarheadsOnDeath:
 		Weapon: ProtossBuildingExplode
 		EmptyWeapon: ProtossBuildingExplode
 	RenderSprites:
@@ -1976,7 +1972,7 @@ PFLEET:
 	SupportPowerChargeBar:
 	InfiltrateForSupportPowerReset:
 		Types: SpyInfiltrate
-	Explodes:
+	FireWarheadsOnDeath:
 		Type: CenterPosition
 		Weapon: EMPExplosion
 		EmptyWeapon: EMPExplosion
@@ -2026,7 +2022,7 @@ PZEALOT.warp:
 		Adjacent: 4
 	Selectable:
 		Bounds: 1024, 1024
-	-Explodes:
+	-FireWarheadsOnDeath:
 	-GrantConditionOnTileSet@temp:
 	-GrantConditionOnTileSet@snow:
 	-GrantConditionOnTileSet@des:
@@ -2093,7 +2089,7 @@ PPYLON.power:
 		Cost: 0
 	BaseProvider:
 		Range: 5c0
-	Explodes:
+	FireWarheadsOnDeath:
 		Weapon: EMPExplosion
 		EmptyWeapon: EMPExplosion
 	RenderSprites:

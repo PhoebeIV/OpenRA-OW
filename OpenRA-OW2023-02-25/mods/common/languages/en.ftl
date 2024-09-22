@@ -349,7 +349,7 @@ options-slot-admin =
 button-general-chat = All
 button-team-chat = Team
 
-## LobbyOptionsLogic
+## LobbyOptionsLogic, MissionBrowserLogic
 label-not-available = Not Available
 
 ## LobbyUtils
@@ -860,3 +860,14 @@ notification-desync-compare-logs = Out of sync in frame { $frame }.
 
 ## SupportPowerTimerWidget
 support-power-timer = { $player }'s { $support-power }: { $time }
+
+## WidgetUtils
+label-win-state-won = Won
+label-win-state-lost = Lost
+
+## Player
+enumerated-bot-name =
+    { $name } { $number ->
+       *[zero] {""}
+        [other] { $number }
+    }

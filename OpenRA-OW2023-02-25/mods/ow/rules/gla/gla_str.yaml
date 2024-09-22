@@ -1,6 +1,6 @@
 
 ^GLABuilding:
-	Explodes@hole:
+	FireWarheadsOnDeath@hole:
 		Weapon: HoleDamage
 		EmptyWeapon: HoleDamage
 	ExternalCondition@tempheal:
@@ -100,13 +100,13 @@
 	DamageMultiplier@pay:
 		RequiresCondition: hazard_pay
 		Modifier: 90
-	Explodes:
+	FireWarheadsOnDeath:
 		DeathTypes: DefaultDeath, BulletDeath, SmallExplosionDeath, ExplosionDeath, FireDeath, TiberiumDeath, ElectricityDeath
-	Explodes@sound:
+	FireWarheadsOnDeath@sound:
 		DeathTypes: DefaultDeath, BulletDeath, SmallExplosionDeath, ExplosionDeath, FireDeath, TiberiumDeath, ElectricityDeath
 		Weapon: UnitExplode
 		EmptyWeapon: UnitExplode
-	Explodes@hole:
+	FireWarheadsOnDeath@hole:
 		DeathTypes: hole
 		Weapon: HoleBuild
 		EmptyWeapon: HoleBuild
@@ -180,9 +180,6 @@ GFACT:
 		ActorTypes: ge1,ge1,ge1,tecn,tecn,gharv
 	Transforms:
 		IntoActor: gmcv
-	Production@power:
-		Produces: Structure, Defense, Tech, Wall
-		PauseOnCondition: !power
 	GrantConditionOnPrerequisite:
 		Prerequisites: anypower
 		Condition: power
@@ -224,9 +221,6 @@ GTENT:
 		Name: actor-gtent-name
 	Power:
 		Amount: 0
-	Production@power:
-		Produces: Infantry, Soldier
-		PauseOnCondition: !power
 	GrantConditionOnPrerequisite:
 		Prerequisites: anypower
 		Condition: power
@@ -280,7 +274,7 @@ GPROC:
 		Image: proc
 	StoresPlayerResources:
 		Capacity: 1500
-	Explodes:
+	FireWarheadsOnDeath:
 		Weapon: FireBaseExplosion
 		EmptyWeapon: FireBaseExplosion
 
@@ -966,7 +960,7 @@ GSTG:
 		Actor: GSTG.Death
 		SpawnOffset: 1, 0
 		AllowRespawn: true
-	Explodes@man:
+	FireWarheadsOnDeath@man:
 		Weapon: GSTGDeath
 		EmptyWeapon: GSTGDeath
 	ExternalCondition@sniped:
@@ -996,7 +990,7 @@ GSTG:
 GSTG.Death:
 	Inherits: 1TNK.MINE
 	-SpawnActorOnDeath:
-	Explodes:
+	FireWarheadsOnDeath:
 		Weapon: GSTGDeath
 
 GSTG.Hole:
@@ -1047,7 +1041,7 @@ OREEXT.G:
 #This is the actor that's dropped by the demo trap paradrop, that becomes the demo trap a few seconds after landing
 1TNK.DEMO:
 	Inherits: 1TNK.MINE
-	Explodes:
+	FireWarheadsOnDeath:
 		Weapon: SmallBuildingExplode
 		DeathTypes: TriggerProne
 	KillsSelf:
@@ -1076,7 +1070,7 @@ BADR.DEMO:
 
 1TNK.GAMB:
 	Inherits: 1TNK.MINE
-	Explodes:
+	FireWarheadsOnDeath:
 		DeathTypes: TriggerProne
 	WithSpriteBody:
 	Interactable:
@@ -1232,7 +1226,7 @@ GSNEAK:
 	ProvidesPrerequisite@self:
 	ProvidesPrerequisite@buildingname:
 		Prerequisite: gla.tunnel
-	Explodes:
+	FireWarheadsOnDeath:
 		Type: CenterPosition
 		Weapon: DemoTrapExplosion2
 		EmptyWeapon: DemoTrapExplosion2
@@ -1277,7 +1271,7 @@ GSNEAK.Teleport:
 	Selectable:
 		Bounds: 3072, 3072
 	WithMakeAnimation:
-	-Explodes:
+	-FireWarheadsOnDeath:
 	RenderSprites:
 		Image: gsneak
 	Tooltip:
@@ -1448,7 +1442,7 @@ GSNEAK2.Teleport:
 
 1TNK.RandomGLAUnit:
 	Inherits: 1TNK.MINE
-	-Explodes:
+	-FireWarheadsOnDeath:
 	GrantRandomCondition:
 		Conditions: r1,r2,r1,r2,r1,r2,r3,r4,r5,r6,r7,r8,r9
 	SpawnActorOnDeath:

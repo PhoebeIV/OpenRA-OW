@@ -34,6 +34,58 @@ options-starting-units =
 
 resource-minerals = Valuable Minerals
 
+## Faction
+faction-allies =
+    .name = Allies
+
+faction-england =
+    .name = England
+    .description = England: Counterintelligence
+     Special Unit: British Spy
+     Special Unit: Mobile Gap Generator
+
+faction-france =
+    .name = France
+    .description = France: Deception
+     Special Ability: Can build fake structures
+     Special Unit: Phase Transport
+
+faction-germany =
+    .name = Germany
+    .description = Germany: Technology
+     Special Ability: Advanced Chronoshift
+     Special Unit: Chrono Tank
+
+faction-soviet =
+    .name = Soviet
+
+faction-russia =
+    .name = Russia
+    .description = Russia: Tesla Weapons
+     Special Unit: Tesla Tank
+     Special Unit: Shock Trooper
+
+faction-ukraine =
+    .name = Ukraine
+    .description = Ukraine: Demolitions
+     Special Ability: Parabombs
+     Special Unit: Demolition Truck
+
+faction-random =
+    .name = Any
+    .description = Random Country
+     A random country will be chosen when the game starts.
+
+faction-randomallies =
+    .name = Allies
+    .description = Random Allied Country
+     A random Allied country will be chosen when the game starts.
+
+faction-randomsoviet =
+    .name = Soviet
+    .description = Random Soviet Country
+     A random Soviet country will be chosen when the game starts.
+
 ## aircraft.yaml
 actor-badr-name = Badger
 
@@ -123,8 +175,8 @@ meta-ammobox-name = Ammo Box
 meta-civfield-name = Field
 
 meta-civhaystackorigloo =
-   .winter--name = Igloo
-   .summer--name = Haystacks
+   .winter-name = Igloo
+   .summer-name = Haystacks
 
 meta-tree-name = Tree
 meta-treehusk-name = Tree (Burnt)
@@ -414,7 +466,7 @@ notification-chronosphere-charging = Chronosphere charging.
 notification-chronosphere-ready = Chronosphere ready.
 notification-satellite-launched = Satellite launched.
 notification-credits-stolen = Credits stolen.
-notifcation-spy-plane-ready = Spy plane ready.
+notification-spy-plane-ready = Spy plane ready.
 
 actor-mslo =
    .name = Missile Silo
@@ -797,3 +849,16 @@ actor-powerproxy-paratroopers =
    .name = Paratroopers
    .description = A Badger drops a squad of infantry
     anywhere on the map.
+
+## ai.yaml
+bot-rush-ai =
+   .name = Rush AI
+
+bot-normal-ai =
+   .name = Normal AI
+
+bot-turtle-ai =
+   .name = Turtle AI
+
+bot-naval-ai =
+   .name = Naval AI
