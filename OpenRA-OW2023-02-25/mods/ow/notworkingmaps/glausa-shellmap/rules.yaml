@@ -1,0 +1,53 @@
+Player:
+	-ConquestVictoryConditions:
+	LobbyPrerequisiteCheckbox@GLOBALBOUNTY:
+		Enabled: False
+		Locked: True
+	PlayerResources:
+		ResourceValues:
+			Ore: 0
+			Gems: 0
+			Tiberium: 0
+	Shroud:
+		FogCheckboxEnabled: false
+		ExploredMapCheckboxEnabled: true
+
+World:
+	-CrateSpawner:
+	-SpawnStartingUnits:
+	-MapStartingLocations:
+	MusicPlaylist:
+		BackgroundMusic: bigfoot
+	TintPostProcessEffect:
+		Red: 1 # 1.5
+		Green: 1 # 1.1
+		Blue: 1 # 0.8
+		Ambient: 1 # 0.8
+	LuaScript:
+		Scripts: script.lua
+	-StartGameNotification:
+
+^ExistsInWorld:
+	GivesExperience:
+		ActorExperienceModifier: 0
+	DamageMultiplier@UNKILLABLE:
+		RequiresCondition: unkillable
+		Modifier: 0
+	FirepowerMultiplier@UNKILLABLE:
+		RequiresCondition: unkillable
+		Modifier: 200
+	ReloadDelayMultiplier@UNKILLABLE:
+		RequiresCondition: unkillable
+		Modifier: 75
+	RangeMultiplier@UNKILLABLE:
+		RequiresCondition: defender
+		Modifier: 120
+	ExternalCondition@UNKILLABLE:
+		Condition: unkillable
+	ExternalCondition@defender:
+		Condition: defender
+	DetectCloaked:
+		DetectionTypes: Cloak
+		Range: 10c0
+	RevealsShroudMultiplier:
+		Modifier: 200
