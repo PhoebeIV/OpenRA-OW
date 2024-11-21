@@ -30,10 +30,24 @@ actor-player =
    .lobbyprerequisitecheckbox-badcrates-description = Enable the bad crates.
    .lobbyprerequisitecheckbox-morecrates-label = More Crates
    .lobbyprerequisitecheckbox-morecrates-description = Enable more crates to spawn. Uses LUA script.
+   .lobbyprerequisitecheckbox-upkeep-label = Upkeep
+   .lobbyprerequisitecheckbox-upkeep-description = The higher your army value, the less money you earn.
+      $30,000: -30% resource, -15% build speed
+      $50,000: -50% resource, -30% build speed
+      $70,000: -70% resource, -50% build speed
    .lobbyprerequisitecheckbox-weather-label = Weather (Incomplete)
    .lobbyprerequisitecheckbox-weather-description = This is incomplete and just enables a permanent lightning storm. Uses LUA script.
    .lobbyprerequisitecheckbox-daynight-label = Day/Night Cycle
    .lobbyprerequisitecheckbox-daynight-description = Enable day/night cycle. Uses LUA script.
+   .upkeep-warning1 = WARNING: Low Upkeep
+   .upkeep-warning2 = ALERT: Medium Upkeep
+   .upkeep-warning3 = CRITICAL: High Upkeep
+   .upkeep-desc1 = Army value is above $30,000, which reduces your build time by 15% and earned resources by 30% 
+      (This support power does nothing)
+   .upkeep-desc2 = Army value is above $50,000, which reduces your build time by 30% and earned resources by 50% 
+      (This support power does nothing)
+   .upkeep-desc3 = Army value is above $70,000, which reduces your build time by 50% and earned resources by 70% 
+      (This support power does nothing)
 
 options-tech-level =
     .infantry-only = Infantry Only

@@ -234,19 +234,26 @@ Player:
 		Enabled: false
 		DisplayOrder: 19
 		Prerequisites: environment.morecrates
+	LobbyPrerequisiteCheckbox@upkeep:
+		ID: upkeep
+		Label: actor-player.lobbyprerequisitecheckbox-upkeep-label
+		Description: actor-player.lobbyprerequisitecheckbox-upkeep-description
+		Enabled: false
+		DisplayOrder: 20
+		Prerequisites: techlevel.upkeep
 	LobbyPrerequisiteCheckbox@weather:
 		ID: enviro1
 		Label: actor-player.lobbyprerequisitecheckbox-weather-label
 		Description: actor-player.lobbyprerequisitecheckbox-weather-description
 		Enabled: false
-		DisplayOrder: 20
+		DisplayOrder: 21
 		Prerequisites: environment.weather
 	LobbyPrerequisiteCheckbox@daynight:
 		ID: enviro2
 		Label: actor-player.lobbyprerequisitecheckbox-daynight-label
 		Description: actor-player.lobbyprerequisitecheckbox-daynight-description
 		Enabled: true
-		DisplayOrder: 21
+		DisplayOrder: 22
 		Prerequisites: environment.days
 	PlayerResources:
 		SelectableCash: 5000, 10000, 20000, 25000, 30000, 40000, 50000, 100000, 10000000
@@ -259,6 +266,27 @@ Player:
 			Oil: 30
 	ProximityCaptor:
 		Types: Player
+	GrantConditionOnPlayerArmyValue@1:
+		Condition: upkeep
+		Threshold: 30000
+	GrantConditionOnPlayerArmyValue@2:
+		Condition: upkeep
+		Threshold: 50000
+	GrantConditionOnPlayerArmyValue@3:
+		Condition: upkeep
+		Threshold: 70000
+	ProvidesPrerequisite@upkeep1:
+		RequiresCondition: (upkeep == 1) && upkeep_enabled
+		Prerequisite: upkeep.low
+	ProvidesPrerequisite@upkeep2:
+		RequiresCondition: (upkeep == 2) && upkeep_enabled
+		Prerequisite: upkeep.medium
+	ProvidesPrerequisite@upkeep3:
+		RequiresCondition: (upkeep == 3) && upkeep_enabled
+		Prerequisite: upkeep.high
+	GrantConditionOnPrerequisite@upkeep:
+		Condition: upkeep_enabled
+		Prerequisites: techlevel.upkeep
 	AutoDeployManager:
 	TeleportNetworkManager:
 		Type: Teleport

@@ -1363,6 +1363,51 @@ UpgradeHandler:
 	GrantDelayedCondition@aaoe:
 		Condition: spawn_hack
 		Delay: 25
+	GrantConditionOnPrerequisite@upkeep1:
+		Condition: upkeep.low
+		Prerequisites: upkeep.low
+	GrantConditionOnPrerequisite@upkeep2:
+		Condition: upkeep.medium
+		Prerequisites: upkeep.medium
+	GrantConditionOnPrerequisite@upkeep3:
+		Condition: upkeep.high
+		Prerequisites: upkeep.high
+	ProduceActorPower@1:
+		Name: Low Upkeep
+		Description: actor-player.upkeep-desc1
+		Icon: usasupplydroppower
+		RequiresCondition: upkeep.low
+		Actors: c1
+		Type: SpecialUnit
+		ChargeInterval: 900000
+		BeginChargeTextNotification: actor-player.upkeep-warning1
+		EndChargeTextNotification: actor-player.upkeep-warning1
+		OrderName: Upkeep1
+		SupportPowerPaletteOrder: 1
+	ProduceActorPower@2:
+		Name: Medium Upkeep
+		Description: actor-player.upkeep-desc2
+		Icon: usasupplydroppower
+		RequiresCondition: upkeep.medium
+		Actors: c1
+		Type: SpecialUnit
+		ChargeInterval: 900000
+		BeginChargeTextNotification: actor-player.upkeep-warning2
+		EndChargeTextNotification: actor-player.upkeep-warning2
+		OrderName: Upkeep2
+		SupportPowerPaletteOrder: 1
+	ProduceActorPower@3:
+		Name: High Upkeep
+		Description: actor-player.upkeep-desc3
+		Icon: usasupplydroppower
+		RequiresCondition: upkeep.high
+		Actors: c1
+		Type: SpecialUnit
+		ChargeInterval: 900000
+		BeginChargeTextNotification: actor-player.upkeep-warning3
+		EndChargeTextNotification: actor-player.upkeep-warning3
+		OrderName: Upkeep3
+		SupportPowerPaletteOrder: 1
 	FreeActor@hack:
 		RequiresCondition: spawn_hack && conyard
 		Actor: BuildQueueHandler
@@ -1492,6 +1537,8 @@ FreeUpgrades:
 	ProductionCostMultiplier@bot:
 		Prerequisites: ai.all
 		Multiplier: 50
+	Valued:
+		Cost: 100
 
 ^UpgradeBase2:
 	Inherits: ^UpgradeBase

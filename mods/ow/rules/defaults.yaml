@@ -492,6 +492,15 @@
 		RequiresCondition: glabounty && crate4 && !cantdropcrate
 		Actor: crate.gla
 		Probability: 5
+	ProductionTimeMultiplier@upkeep1:
+		Prerequisites: upkeep.low
+		Multiplier: 115
+	ProductionTimeMultiplier@upkeep2:
+		Prerequisites: upkeep.medium
+		Multiplier: 130
+	ProductionTimeMultiplier@upkeep3:
+		Prerequisites: upkeep.high
+		Multiplier: 150
 
 # Default actor type for Construction Yards. It inherits ^AdvTechPips which shows the player's current upgrade levels.
 # It also provides universal prerequisites that allows for the "emergency" MCV production to work
@@ -576,6 +585,27 @@
 		Prerequisites: ai.all, !refinery
 		Multiplier: 900
 		Queue: Building
+	GrantConditionOnPrerequisite@upkeep1:
+		RequiresCondition: !botowner
+		Condition: upkeep.low
+		Prerequisites: upkeep.low
+	GrantConditionOnPrerequisite@upkeep2:
+		RequiresCondition: !botowner
+		Condition: upkeep.medium
+		Prerequisites: upkeep.medium
+	GrantConditionOnPrerequisite@upkeep3:
+		RequiresCondition: !botowner
+		Condition: upkeep.high
+		Prerequisites: upkeep.high
+	ResourceValueMultiplier@upkeep1:
+		RequiresCondition: upkeep.low
+		Modifier: 70
+	ResourceValueMultiplier@upkeep2:
+		RequiresCondition: upkeep.medium
+		Modifier: 50
+	ResourceValueMultiplier@upkeep3:
+		RequiresCondition: upkeep.high
+		Modifier: 30
 	ProvidesPrerequisite:
 		Prerequisite: refinery
 
