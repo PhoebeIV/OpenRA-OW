@@ -31,11 +31,12 @@ Here is a summary of the factions:
 * C&C Generals: the USA, GLA and China factions, along with their sub factions.
 * Medieval: a faction based on middle ages with plenty of fantasy elements like dragons and magic. 
 * StarCraft 1: the Zerg, Protoss and the Terrans, with no sub factions at this stage. We did our best to mimic their unique build and play styles as well, with Zerg requiring the most micro management! You have an option to change it back to traditional build mode, too.
+* Avali! Based on the species created by ryuujinZERO, art/sprites is mostly done by PolygonBird and is also partially inspired by ToddAvali's work on their version of the lore.
 * Civilians: a support faction, designed to help other players with their abundance of resource gathering and other utilities. Think of it as like you're just chillin', playin' SimCity... that is, until the AI decides that your nice little houses are too valuable, and nukes them.
 
 ### OW Authors
 
-PhoebeIV, MinesaeHiromu, r34Fletto, Tumbrawolf
+PhoebeIV, MinesaeHiromu, r34Fletto, Tumbrawolf, PolygonBird
 
 ### Credits
 
