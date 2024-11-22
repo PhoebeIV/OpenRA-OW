@@ -70,20 +70,20 @@ Tick = function()
 		end
 	end
 
-	if (Creeps.HasPrerequisites({"environment.morecrates"})) then
+	if (ExtraCrates) then
 		CrateTicks = CrateTicks+1
 		if(CrateTicks > CrateTimer) then
 			local i = 0
-			local crateCount = Utils.RandomInteger(2, 5)
+			local crateCount = Utils.RandomInteger(MinExtraCrates, MaxExtraCrates)
 			while(i < crateCount) do
-				local pickCrate = Utils.RandomInteger(1, 400)
+				local pickCrate = Utils.RandomInteger(1, 404)
 				local chosenCrate;
 
 				if(pickCrate < 212) then
 					chosenCrate = Powerproxy1
 				elseif(pickCrate > 212 and pickCrate < 351) then
 					chosenCrate = Powerproxy2
-				elseif(pickCrate > 351 and pickCrate < 399) then
+				elseif(pickCrate > 351 and pickCrate < 400) then
 					chosenCrate = Powerproxy3
 				else
 					chosenCrate = Powerproxy4 end
@@ -142,6 +142,20 @@ WorldLoaded = function()
 	Powerproxy3 = Actor.Create("powerproxy.cratedrop3", false, { Owner = Neutral })
 	Powerproxy4 = Actor.Create("powerproxy.cratedrop4", false, { Owner = Neutral })
 
+	if (Creeps.HasPrerequisites({"environment.morecrates"})) then
+		MinExtraCrates = 2
+		MaxExtraCrates = 5
+		ExtraCrates = true
+	elseif (Creeps.HasPrerequisites({"environment.morecrates2"})) then
+		MinExtraCrates = 6
+		MaxExtraCrates = 10
+		ExtraCrates = true
+	elseif (Creeps.HasPrerequisites({"environment.morecrates3"})) then
+		MinExtraCrates = 11
+		MaxExtraCrates = 20
+		ExtraCrates = true
+	end
+
 	if (Creeps.HasPrerequisites({"environment.days"})) then
 		Time = Utils.RandomInteger(0, SunRise)
 		if (Time >= SunSet) then
@@ -154,4 +168,5 @@ WorldLoaded = function()
 	if (not Creeps.HasPrerequisites({"techlevel.noboats"})) then
 		SpawnWaterDerricks(12)
 	end
+
 end

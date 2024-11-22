@@ -56,8 +56,6 @@ T.MISS:
 		Condition: produced
 	Production:
 		Produces: Vehicle, Infantry, Soldier, Hatchery, SpecialUnit
-	#RallyPoint:
-	#	Path: 3,2
 	Exit@1:
 		SpawnOffset: -170,810,0
 		ExitCell: 1,2
@@ -65,6 +63,7 @@ T.MISS:
 		SpawnOffset: -725,640,0
 		ExitCell: 0,2
 	PrimaryBuilding:
+		ProductionQueues: Vehicle
 		PrimaryCondition: primary
 		SelectionNotification: PrimaryBuildingSelected
 	WithDecoration@primary:
@@ -1098,6 +1097,8 @@ T.MISSAIR:
 		ProductionType: Aircraft
 	Production:
 		Produces: Aircraft, Plane, Helicopter, Infantry, Soldier
+	PrimaryBuilding:
+		ProductionQueues: Aircraft
 
 T.MISSINF:
 	Inherits: T.MISS
@@ -1119,10 +1120,23 @@ T.MISSINF:
 		QueuedAudio: Building
 		OnHoldAudio: OnHold
 		CancelledAudio: Cancelled
+	ProductionQueue@3:
+		Type: Infantry
+		DisplayOrder: 4
+		Group: Infantry
+		LowPowerModifier: 200
+		ReadyAudio: UnitReady
+		BlockedAudio: NoBuild
+		LimitedAudio: BuildingInProgress
+		QueuedAudio: Building
+		OnHoldAudio: OnHold
+		CancelledAudio: Cancelled
 	ProductionBar@2:
 		ProductionType: Infantry
 	Production:
 		Produces: Infantry, Soldier
+	PrimaryBuilding:
+		ProductionQueues: Infantry
 
 T.MISSNAVY:
 	Inherits: T.MISS
@@ -1147,6 +1161,9 @@ T.MISSNAVY:
 	ProductionBar@2:
 		ProductionType: Ship
 	Production:
+		RequiresCondition: !water
+	Production@ship:
+		RequiresCondition: water
 		Produces: Ship
 	Building:
 		Footprint: xxx xxx ===
@@ -1166,8 +1183,9 @@ T.MISSNAVY:
 		Sequence: ulttechcenternavybib
 		Image: japannavybibs
 	ClonesProducedUnits:
-		CloneableTypes: Ship
-		ProductionType: Ship
+		RequiresCondition: !water
 	ProximityExternalCondition@reloadthing:
 		Condition: reloadnear
 		Range: 7c0
+	PrimaryBuilding:
+		ProductionQueues: Ship

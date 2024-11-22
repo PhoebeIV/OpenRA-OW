@@ -5373,6 +5373,11 @@ CcemCannon:
 	Warhead@22FlashEffect: FlashEffect
 		Duration: 18
 		FlashType: Nuke
+	Warhead@6Shake: ShakeScreen
+		Duration: 15
+		Intensity: 5
+		Multiplier: 1,1
+		Delay: 10
 
 ccemCluster1:
 	Range: 25c0
@@ -5398,7 +5403,7 @@ ccemCluster1:
 		DamageTypes: Prone50Percent, TriggerProne, ExplosionDeath
 	Warhead@2Dam: SpreadDamage
 		Delay: 20
-		Spread: 2c0
+		Spread: 1c128
 		Falloff: 500, 180, 135, 50, 18, 7, 0
 		Damage: 750
 		ValidTargets: GroundActor, WaterActor
@@ -5425,11 +5430,6 @@ ccemCluster1:
 		ValidTargets: Ground, Water, Air
 		ImpactSounds: dsrpgexp.aud, baud.aud, baud.aud
 		ImpactActors: false
-	Warhead@6Shake: ShakeScreen
-		Duration: 10
-		Intensity: 1
-		Multiplier: 1,1
-		Delay: 10
 
 ccemCluster2:
 	Inherits: ccemCluster1
@@ -6771,6 +6771,7 @@ AkumaBeam:
 
 AkumaBeamAI:
 	Inherits: AkumaBeam
+	ValidTargets: Infantry, Vehicle, Ship
 	Warhead@zappy1: FireCluster
 		Delay: 69
 		Weapon: AkumaClusterSmallAI
@@ -6801,6 +6802,10 @@ AkumaBeamAI:
 		RandomClusterCount: 6
 		Dimensions: 3,3
 		Footprint: xxx x_x xxx
+
+AkumaSoundAI:
+	Inherits: AkumaSound
+	ValidTargets: Infantry, Vehicle, Ship
 
 AkumaZap:
 	Inherits: ^ElectricBoltWeapon

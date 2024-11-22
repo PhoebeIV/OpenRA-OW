@@ -8,8 +8,8 @@ World:
 		WaterChance: 12
 		InitialSpawnDelay: 50
 		CheckboxDisplayOrder: 1
-		CrateActors: crate, moneycrate2, crate.fuckyou
-		CrateActorShares: 212, 138, 49
+		CrateActors: crate, moneycrate2, crate.fuckyou, crate.big
+		CrateActorShares: 212, 138, 49, 4
 
 CRATE:
 	-GiveCashCrateAction:
@@ -514,6 +514,7 @@ CRATE.FuckYou:
 		DeathType: Replace
 		Actor: CRATE
 
+
 1TNK.MINE:
 	Inherits: 1TNK
 	-Buildable:
@@ -543,6 +544,49 @@ CRATE.FuckYou:
 		OwnerType: InternalName
 	Targetable@nomind:
 		TargetTypes: NoMindControl
+
+CRATE.Big:
+	Inherits: 1TNK.DEMO
+	KillsSelf:
+		Delay: 1
+	FireWarheadsOnDeath:
+		Weapon: E100Cannon
+		DeathTypes: replace
+	SpawnActorOnDeath@2:
+		Actor: CRATE.BigLanded
+		OwnerType: InternalName
+		InternalOwner: Creeps
+	Health:
+		HP: 200000
+	Parachutable:
+		FallRate: 32
+	RenderSprites:
+		Image: scrate.big
+	WithSpriteBody:
+
+CRATE.BigLanded:
+	Inherits: XBAR
+	-Buildable:
+	-Armament:
+	DamageMultiplier@0:
+		RequiresCondition: !delay
+		Modifier: 0
+	GrantDelayedCondition@delay:
+		Condition: delay
+	Tooltip:
+		Name: meta-crate2.big
+	Selectable:
+		Bounds: 2048,2048
+	Health:
+		HP: 300000
+	FireWarheadsOnDeath:
+		Weapon: CrateRewardExplosion
+		EmptyWeapon: CrateRewardExplosion
+		DamageSource: Killer
+		DeathTypes: Suicide, DefaultDeath, ExplosionDeath, ElectricityDeath, FireDeath, TiberiumDeath, BulletDeath
+	-Cloak:
+	RenderSprites:
+		Image: scrate.big
 
 CRATE.LEVEL:
 	Inherits: MONEYCRATE
@@ -2633,7 +2677,7 @@ powerproxy.cratedrop3:
 powerproxy.cratedrop4:
 	Inherits: powerproxy.cratedrop1
 	ParatroopersPower:
-		DropItems: 1tnk.nukexbar
+		DropItems: crate.big
 
 powerproxy.earthquake:
 	AlwaysVisible:

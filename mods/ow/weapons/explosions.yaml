@@ -1852,3 +1852,50 @@ ChineseEarthquake:
 		ImpactSounds: kaboom1.aud, dsrpgexp.aud, gexpcara.aud, gexpcarb.aud. gexpcarc.aud, gexpcard.aud
 		ImpactSoundChance: 50
 		ValidTargets: Ground, GroundActor, WaterActor, Trees
+
+CrateRewardExplosion:
+	Inherits: DemoTrapExplosion
+	ValidTargets: Ground, Water, GroundActor, WaterActor
+	Projectile: InstantHit
+	Warhead@1Dam: SpreadDamage
+		Spread: 512
+		Damage: 20000
+		Delay: 4
+		Falloff: 250, 250, 175, 150, 0, 0, 0
+		Versus:
+			None: 75
+			Wood: 75
+			Light: 100
+			Heavy: 125
+			Concrete: 25
+		AffectsParent: true
+		ValidRelationships: Neutral, Enemy, Ally
+		DamageTypes: Prone50Percent, TriggerProne, TiberiumDeath
+		ValidTargets: GroundActor, WaterActor
+	Warhead@15Shake: ShakeScreen
+		Duration: 5
+		Intensity: 2
+		Multiplier: 1,1
+	Warhead@shrapnel: FireShrapnel
+		Delay: 5
+		Weapon: CrateShrapnel
+		Amount: 6
+
+CrateShrapnel:
+	Inherits: ^ShrapnelBase
+	Range: 5c0
+	Projectile: Bullet
+		Image: scrate
+		Sequences: idle
+		Palette: player
+	Warhead@1Dam: SpreadDamage
+		Damage: 3000
+		ValidTargets: GroundActor, WaterActor
+		Versus:
+			None: 300
+		DamageTypes: Prone50Percent, TriggerProne, ExplosionDeath
+	Warhead@1actor: SpawnRandomActor
+		Range: 1
+		RandomActors: crate,crate,crate,crate.fuckyou,moneycrate2
+		Image: explosion
+		Sequence: strifeteleport

@@ -28,8 +28,12 @@ actor-player =
    .lobbyprerequisitecheckbox-herotest-description = Enables all factions to train Heroes.
    .lobbyprerequisitecheckbox-badcrates-label = Bad Crates
    .lobbyprerequisitecheckbox-badcrates-description = Enable the bad crates.
+   .lobbyprerequisitecheckbox-morecrates-dropdown = Crates
+   .lobbyprerequisitecheckbox-morecrates-description = Change the amount of crates. Uses LUA script.
    .lobbyprerequisitecheckbox-morecrates-label = More Crates
-   .lobbyprerequisitecheckbox-morecrates-description = Enable more crates to spawn. Uses LUA script.
+   .lobbyprerequisitecheckbox-morecrates-label2 = Even More Crates
+   .lobbyprerequisitecheckbox-morecrates-label3 = Maximum Crates
+   .lobbyprerequisitecheckbox-morecrates-label4 = Normal Crates
    .lobbyprerequisitecheckbox-upkeep-label = Upkeep
    .lobbyprerequisitecheckbox-upkeep-description = The higher your army value, the less money you earn.
       $30,000: -30% resource, -15% build speed
@@ -3436,6 +3440,12 @@ meta-concrete =
    .name = Pavement
    .generic-name = Cement
    .description = Pave the ground to increase unit movement speed.
+
+meta-crate2 =
+   .heal = Heal Crate
+   .level = Rank Crate
+   .frenzy = Frenzy Crate
+   .big = BIG CRATE
 
 actor-concretea-name = Pavement 3x3
 actor-concreteb-name = Pavement 4x4
