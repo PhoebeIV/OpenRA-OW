@@ -1408,6 +1408,27 @@ UpgradeHandler:
 		EndChargeTextNotification: actor-player.upkeep-warning3
 		OrderName: Upkeep3
 		SupportPowerPaletteOrder: 1
+	GrantConditionOnPlayerArmyValue@1:
+		Condition: upkeep
+		Threshold: 30000
+	GrantConditionOnPlayerArmyValue@2:
+		Condition: upkeep
+		Threshold: 50000
+	GrantConditionOnPlayerArmyValue@3:
+		Condition: upkeep
+		Threshold: 70000
+	ProvidesPrerequisite@upkeep1:
+		RequiresCondition: (upkeep == 1) && upkeep_enabled
+		Prerequisite: upkeep.low
+	ProvidesPrerequisite@upkeep2:
+		RequiresCondition: (upkeep == 2) && upkeep_enabled
+		Prerequisite: upkeep.medium
+	ProvidesPrerequisite@upkeep3:
+		RequiresCondition: (upkeep == 3) && upkeep_enabled
+		Prerequisite: upkeep.high
+	GrantConditionOnPrerequisite@upkeep:
+		Condition: upkeep_enabled
+		Prerequisites: techlevel.upkeep
 	FreeActor@hack:
 		RequiresCondition: spawn_hack && conyard
 		Actor: BuildQueueHandler
