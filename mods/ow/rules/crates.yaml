@@ -262,6 +262,7 @@ CRATE:
 		SelectionShares: 2
 		Units: gamecube
 		Sound: gamecube.wav
+		Prerequisites: !gamecube.bugged
 	Crate:
 		Duration: 6000
 
@@ -498,6 +499,7 @@ CRATE.FuckYou:
 		SelectionShares: 2
 		Units: gamecube
 		Sound: gamecube.wav
+		Prerequisites: !gamecube.bugged
 	Crate:
 		Duration: 6000
 	Tooltip:
@@ -2653,10 +2655,17 @@ GAMECUBE.Chain:
 		RequiresCondition: (nuke && wait) || (good && wait)
 		RemoveInstead: true
 		Delay: 3
-	FireWarheads:
+	GrantTimedCondition@nuke:
 		RequiresCondition: nuke && wait
+		Condition: explode
+		Duration: 50
+	FireWarheads:
+		RequiresCondition: explode
 		Weapons: CrateNuke
-		Interval: 1
+		Interval: 10000
+	ProvidesDelayedPrerequisite@5:
+		Delay: 100
+		Prerequisite: gamecube.bugged
 
 powerproxy.cratedrop1:
 	Inherits: powerproxy.paratroopers

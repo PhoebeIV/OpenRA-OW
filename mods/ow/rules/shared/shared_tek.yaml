@@ -83,6 +83,7 @@ T.MISS:
 		QueuedAudio: Building
 		OnHoldAudio: OnHold
 		CancelledAudio: Cancelled
+		BuildDurationModifier: 80
 	ProductionBar@2:
 		ProductionType: Vehicle
 	ClonesProducedUnits:
@@ -1082,6 +1083,8 @@ T.MISSAIR:
 		Prerequisites: advtechcenter, ~techlevel.unrestricted, ~structures.airultprereq, ~!techlevel.noepic
 		BuildLimit: 1
 		Description: actor-t-missair-description
+	Tooltip:
+		Name: actor-t-miss.air
 	ProductionQueue@2:
 		Type: Aircraft
 		DisplayOrder: 6
@@ -1093,6 +1096,8 @@ T.MISSAIR:
 		QueuedAudio: Building
 		OnHoldAudio: OnHold
 		CancelledAudio: Cancelled
+		InfiniteBuildLimit: 100
+		BuildDurationModifier: 75
 	ProductionBar@2:
 		ProductionType: Aircraft
 	Production:
@@ -1109,6 +1114,8 @@ T.MISSINF:
 		Prerequisites: advtechcenter, ~techlevel.unrestricted, ~structures.infultprereq, ~!techlevel.noepic
 		BuildLimit: 1
 		Description: actor-t-missinf-description
+	Tooltip:
+		Name: actor-t-miss.inf
 	ProductionQueue@2:
 		Type: Infantry
 		DisplayOrder: 4
@@ -1117,23 +1124,18 @@ T.MISSINF:
 		ReadyAudio: UnitReady
 		BlockedAudio: NoBuild
 		LimitedAudio: BuildingInProgress
-		QueuedAudio: Building
+		QueuedAudio: Training
 		OnHoldAudio: OnHold
 		CancelledAudio: Cancelled
-	ProductionQueue@3:
-		Type: Infantry
-		DisplayOrder: 4
-		Group: Infantry
-		LowPowerModifier: 200
-		ReadyAudio: UnitReady
-		BlockedAudio: NoBuild
-		LimitedAudio: BuildingInProgress
-		QueuedAudio: Building
-		OnHoldAudio: OnHold
-		CancelledAudio: Cancelled
+		InfiniteBuildLimit: 100
+		BuildDurationModifier: 75
 	ProductionBar@2:
 		ProductionType: Infantry
 	Production:
+		Produces: Infantry, Soldier
+	Production@2:
+		Produces: Infantry, Soldier
+	Production@3:
 		Produces: Infantry, Soldier
 	PrimaryBuilding:
 		ProductionQueues: Infantry
@@ -1147,6 +1149,8 @@ T.MISSNAVY:
 		Prerequisites: advtechcenter, ~techlevel.unrestricted, ~structures.navyultprereq, ~!techlevel.noepic
 		BuildLimit: 1
 		Description: actor-t-missnavy-description
+	Tooltip:
+		Name: actor-t-miss.navy
 	ProductionQueue@2:
 		Type: Ship
 		DisplayOrder: 7
@@ -1158,6 +1162,8 @@ T.MISSNAVY:
 		QueuedAudio: Building
 		OnHoldAudio: OnHold
 		CancelledAudio: Cancelled
+		InfiniteBuildLimit: 100
+		BuildDurationModifier: 75
 	ProductionBar@2:
 		ProductionType: Ship
 	Production:

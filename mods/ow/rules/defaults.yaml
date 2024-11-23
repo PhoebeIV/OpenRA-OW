@@ -492,7 +492,7 @@
 		RequiresCondition: glabounty && crate4 && !cantdropcrate
 		Actor: crate.gla
 		Probability: 5
-	ProductionTimeMultiplier@upkeep1:
+	ProductionTimeMultiplier@upkeep1: # when in upkeep lengthen build times unless I am Harder or higher bot
 		Prerequisites: upkeep.low, !ai.harder, !ai.realboss
 		Multiplier: 115
 	ProductionTimeMultiplier@upkeep2:
@@ -501,6 +501,51 @@
 	ProductionTimeMultiplier@upkeep3:
 		Prerequisites: upkeep.high, !ai.harder, !ai.realboss
 		Multiplier: 150
+	GrantConditionOnPrerequisite@lobbyhp1: # lobby option for HP scaling
+		Prerequisites: hpscale.more
+		Condition: lobbyhp1
+	GrantConditionOnPrerequisite@lobbyhp2:
+		Prerequisites: hpscale.extra
+		Condition: lobbyhp2
+	GrantConditionOnPrerequisite@lobbyhp3:
+		Prerequisites: hpscale.insane
+		Condition: lobbyhp3
+	GrantConditionOnPrerequisite@lobbyhp4:
+		Prerequisites: hpscale.less
+		Condition: lobbyhp4
+	GrantConditionOnPrerequisite@lobbyhp5:
+		Prerequisites: hpscale.lesser
+		Condition: lobbyhp5
+	GrantConditionOnPrerequisite@lobbyhp6:
+		Prerequisites: hpscale.stupid
+		Condition: lobbyhp6
+	DamageMultiplier@lobbyhp1:
+		RequiresCondition: lobbyhp1
+		Modifier: 75
+	DamageMultiplier@lobbyhp2:
+		RequiresCondition: lobbyhp2
+		Modifier: 50
+	DamageMultiplier@lobbyhp3:
+		RequiresCondition: lobbyhp3
+		Modifier: 25
+	DamageMultiplier@lobbyhp4:
+		RequiresCondition: lobbyhp4
+		Modifier: 125
+	DamageMultiplier@lobbyhp5:
+		RequiresCondition: lobbyhp5
+		Modifier: 200
+	DamageMultiplier@lobbyhp6:
+		RequiresCondition: lobbyhp6
+		Modifier: 400
+	ProductionTimeMultiplier@lobbyprodspeed1: # lobby option to change production time
+		Prerequisites: prodspeed.fast
+		Multiplier: 75
+	ProductionTimeMultiplier@lobbyprodspeed2:
+		Prerequisites: prodspeed.faster
+		Multiplier: 50
+	ProductionTimeMultiplier@lobbyprodspeed3:
+		Prerequisites: prodspeed.fastest
+		Multiplier: 25
 
 # Default actor type for Construction Yards. It inherits ^AdvTechPips which shows the player's current upgrade levels.
 # It also provides universal prerequisites that allows for the "emergency" MCV production to work
@@ -562,7 +607,7 @@
 	GrantConditionOnPrerequisite@harderAI:
 		Condition: ai.harder
 		Prerequisites: ai.harder
-	ResourceValueMultiplier@medAI:
+	ResourceValueMultiplier@medAI: # bots will get higher income based on their difficulty.
 		RequiresCondition: ai.medium
 		Modifier: 150
 	ResourceValueMultiplier@hardAI:
@@ -577,15 +622,15 @@
 	ResourceValueMultiplier@processing:
 		RequiresCondition: processing
 		Modifier: 110
-	ProductionCostMultiplier@ainoref: 
+	ProductionCostMultiplier@ainoref: # if the bot doesn't have a refinery, reduce the cost of getting a new one
 		Prerequisites: ai.all, !refinery
 		Multiplier: 10
 		Queue: Building
-	ProductionTimeMultiplier@ainoref: 
+	ProductionTimeMultiplier@ainoref: # but keep the normal build speed
 		Prerequisites: ai.all, !refinery
 		Multiplier: 900
 		Queue: Building
-	GrantConditionOnPrerequisite@upkeep1:
+	GrantConditionOnPrerequisite@upkeep1: # if upkeep is enabled, reduce how much income we can receive (unless we are a bot)
 		RequiresCondition: !botowner
 		Condition: upkeep.low
 		Prerequisites: upkeep.low
@@ -1465,19 +1510,45 @@
 	DetectCloakedMultiplier@alliesupgrade:
 		RequiresCondition: allies_training || upgrade_range1
 		Modifier: 110
-	GrantConditionOnPrerequisite@attackrange1:
+	GrantConditionOnPrerequisite@attackrange1: # Zagara's attack range upgrade or Allies training upgrade
 		Prerequisites: building.attackrange1
 		Condition: upgrade_range1
-	FirepowerMultiplier@zagarafortress:
+	FirepowerMultiplier@zagarafortress: # Zagara's Fortress upgrade
 		RequiresCondition: zagara_fortress
 		Modifier: 120
 	Targetable@cloaked:
 		RequiresCondition: cloaked
 		TargetTypes: NoAITarget
-	ProximityExternalCondition@neardefense:
+	ProximityExternalCondition@neardefense: # Death Dozer buff
 		Condition: near_defense
 		Range: 10c0
 		ValidRelationships: Enemy
+	GrantConditionOnPrerequisite@turtledebuff: # Turtle Debuff lobby option
+		Prerequisites: techlevel.turtledebuff
+		Condition: turtledebuff
+	ExternalCondition@turtledebuff:
+		Condition: turtledebuff_near
+	ProximityExternalCondition@turtledebuff: 
+		Condition: turtledebuff_near
+		Range: 5c0
+	FirepowerMultiplier@turtledebuff:
+		RequiresCondition: (turtledebuff_near > 4) && !botowner
+		Modifier: 80
+	FirepowerMultiplier@turtledebuff2:
+		RequiresCondition: (turtledebuff_near > 5) && !botowner
+		Modifier: 90
+	FirepowerMultiplier@turtledebuff3:
+		RequiresCondition: (turtledebuff_near > 6) && !botowner
+		Modifier: 90
+	DamageMultiplier@turtledebuff:
+		RequiresCondition: (turtledebuff_near > 4) && !botowner
+		Modifier: 125
+	ReloadDelayMultiplier@turtledebuff:
+		RequiresCondition: (turtledebuff_near > 4) && !botowner
+		Modifier: 125
+	GrantConditionOnPrerequisite@botowner:
+		Condition: botowner
+		Prerequisites: ai.harder
 
 ^BuildingPlug:
 	Interactable:
@@ -2233,7 +2304,7 @@
 	Inherits@GAINSEXPERIENCE: ^GainsExperience
 	Buildable:
 		BuildDuration: 10000
-		BuildDurationModifier: 55
+		BuildDurationModifier: 65
 		BuildLimit: 1
 	AnnounceOnSeen:
 		PingRadar: True

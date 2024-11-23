@@ -47,11 +47,34 @@ actor-player =
    .upkeep-warning2 = ALERT: Medium Upkeep
    .upkeep-warning3 = CRITICAL: High Upkeep
    .upkeep-desc1 = Army value is above $30,000, which reduces your build time by 15% and earned resources by 30% 
+
       (This support power does nothing)
    .upkeep-desc2 = Army value is above $50,000, which reduces your build time by 30% and earned resources by 50% 
+
       (This support power does nothing)
    .upkeep-desc3 = Army value is above $70,000, which reduces your build time by 50% and earned resources by 70% 
+
       (This support power does nothing)
+   .lobbyprerequisitecheckbox-turtledebuff-label = Turtle Debuff
+   .lobbyprerequisitecheckbox-turtledebuff-description = Reduces effectiveness of grouped defensive structures
+      within 5 cells of each other, starts taking effect when there is 3 or more.
+
+      Harder AI is unaffected.
+   .lobbyprerequisitecheckbox-hpscale-dropdown = HP Scaling
+   .lobbyprerequisitecheckbox-hpscale-description = Change the HP scaling to every actor.
+   .lobbyprerequisitecheckbox-hpscale-label1 = Paperthin
+   .lobbyprerequisitecheckbox-hpscale-label2 = Plastic
+   .lobbyprerequisitecheckbox-hpscale-label3 = Squishy
+   .lobbyprerequisitecheckbox-hpscale-label4 = Normal
+   .lobbyprerequisitecheckbox-hpscale-label5 = Hardened
+   .lobbyprerequisitecheckbox-hpscale-label6 = Bullet Sponge
+   .lobbyprerequisitecheckbox-hpscale-label7 = "This is taking forever"
+   .lobbyprerequisitecheckbox-prodspeed-dropdown = Production Speed
+   .lobbyprerequisitecheckbox-prodspeed-description = Change overall production speed.
+   .lobbyprerequisitecheckbox-prodspeed-label1 = Normal
+   .lobbyprerequisitecheckbox-prodspeed-label2 = Fast
+   .lobbyprerequisitecheckbox-prodspeed-label3 = Faster
+   .lobbyprerequisitecheckbox-prodspeed-label4 = Fastest
 
 options-tech-level =
     .infantry-only = Infantry Only
@@ -3455,9 +3478,12 @@ actor-concretec-name = Pavement 10x10
 actor-t-miss =
    .description = Provides access to your faction's epic unit or ability.
     
-      Special Ability: Provides money
+      Special Ability: Provides money. Clones infantry.
      Limit of one.
    .name = Super Tech Center
+   .navy = Navy Super Tech Center
+   .inf = Infantry Super Tech Center
+   .air = Aircraft Super Tech Center
    .produceactorpower-devouringone-end-charge-text-notification = Devouring Ones ready.
    .produceactorpower-devouringone-ready-text-notification = Reinforcements have arrived.
    .produceactorpower-devouringone-blocked-text-notification = No room for new unit.
