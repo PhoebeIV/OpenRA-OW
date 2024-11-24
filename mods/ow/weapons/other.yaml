@@ -3412,7 +3412,7 @@ USALaserpatriotshot:
 	Inherits: ^LaserWeapon
 	ReloadDelay: 6
 	Range: 7c0
-	Report: USAPaladinLasershot.aud
+	Report: vcrlweaa.aud,vcrlweab.aud
 	Projectile: LaserZap
 		Width: 60
 		ZOffset: 2047
@@ -3434,7 +3434,7 @@ USALaserpatriotshotair:
 	Burst: 4
 	BurstDelays: 6
 	Range: 9c0
-	Report: USAPaladinLasershot.aud
+	Report: vcrlweaa.aud,vcrlweab.aud
 	ValidTargets: AirborneActor, Air
 	Projectile: LaserZap
 		Width: 60
@@ -4865,7 +4865,7 @@ amogusknife:
 chinablacklotusanim:
 	ReloadDelay: 15
 	Range: 14c768
-	ValidTargets: Tank, Vehicle, Structure
+	ValidTargets: Tank, Vehicle
 	TargetActorCenter: true
 	Report: ucapture.aud
 	Projectile: LaserZap
@@ -4875,12 +4875,12 @@ chinablacklotusanim:
 		SecondaryBeamWidth: 90
 		SecondaryBeamColor: FF000035
 	Warhead@1Dam: TargetDamage
-		ValidTargets: Tank, Vehicle, Structure
+		ValidTargets: Tank, Vehicle
 
 chinablacklotusend:
 	ReloadDelay: 25
 	Range: 14c768
-	ValidTargets: Tank, Vehicle, Structure
+	ValidTargets: Tank, Vehicle
 	TargetActorCenter: true
 	Report: ucapture.aud
 	Projectile: LaserZap
@@ -4889,19 +4889,29 @@ chinablacklotusend:
 		SecondaryBeam: true
 		SecondaryBeamWidth: 90
 		SecondaryBeamColor: FF000035
-	Warhead@1Dam: TargetDamage
-		Damage: 2000
-		Versus:
-			None: 0
-			Wood: 0
-			Light: 0
-			Heavy: 0
-			Concrete: 0
-		ValidTargets: Tank, Vehicle, Structure
-	Warhead@2EMP: GrantExternalCondition
-		Condition: disabled
-		Duration: 350
-		ValidTargets: Tank, Vehicle, Structure
+	Warhead@1Dam: ChangeOwner
+		Range: 256
+		ValidTargets: Infantry, Vehicle, AirborneActor
+		InvalidTargets: EpicUnit, NoMindControl, HighValueMindControl
+	Warhead@2Dam: ChangeOwner
+		Delay: 1
+		Range: 256
+		Duration: 200
+		ValidTargets: EpicUnit, HighValueMindControl
+	Warhead@cond: GrantExternalCondition
+		Condition: mindcontrolresist
+		Range: 256
+		Duration: 150
+		ValidTargets: EpicUnit, HighValueMindControl
+	Warhead@condhero: GrantExternalCondition
+		Condition: mc_protect
+		Range: 256
+		Duration: 250
+		ValidTargets: EpicUnit
+	Warhead@3EffGround: CreateEffect
+		Explosions: bfgred
+		ImpactSounds: mind.aud
+		ValidTargets: Ground, Air, GroundActor, AirborneActor, WaterActor, Water, Trees
 
 DesolatorSpread:
 	ReloadDelay: 5

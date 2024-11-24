@@ -512,6 +512,11 @@ CRATE.FuckYou:
 		Units: gamecube
 		Sound: gamecube.wav
 		Prerequisites: !gamecube.bugged
+	GiveUnitCrateAction@jesus:
+		SelectionShares: 3
+		Units: jesus
+		Sound: jesusspawn.aud
+		Owner: Creeps
 	Crate:
 		Duration: 6000
 	Tooltip:
@@ -2830,3 +2835,83 @@ powerproxy.emergencyairdrop:
 		DirectionArrowAnimation: paradirection
 		SupportPowerPaletteOrder: 50
 		OneShot: true
+
+jesus:
+	Inherits: ^NBOS
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Buildable:
+		Queue: Infantry
+		BuildPaletteOrder: 0
+		Prerequisites: ~OBL.CratePowers
+	Tooltip:
+		Name: actor-jesus.name
+	Health:
+		HP: 200000
+	Mobile:
+		Speed: 48
+		Locomotor: floater
+		PauseOnCondition: chargingattack
+	RevealsShroud:
+		MinRange: 4c0
+		Range: 6c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 4c0
+	Passenger:
+		Weight: 1
+	Armament@PRIMARY:
+		Weapon: CcemCannon
+		LocalOffset: 0,0,0
+		Recoil: 200
+		RecoilRecovery: 25
+		PauseOnCondition: ammo < 10
+		FireDelay: 135
+		AmmoUsage: 20
+	GrantConditionOnAttack@charge:
+		Condition: chargingattack
+		RevokeDelay: 100
+	Armament@effect:
+		Weapon: CcemSound
+		LocalOffset: 1400,0,340
+		AmmoUsage: 0
+		PauseOnCondition: ammo < 10
+	AmmoPool:
+		Ammo: 10
+		AmmoCondition: ammo
+		InitialAmmo: 10
+	ReloadAmmoPool@normal:
+		Delay: 70
+	WithAmmoPipsDecoration:
+		Position: BottomLeft
+		Margin: 4, 3
+		RequiresSelection: false
+		PipCount: 10
+		ValidRelationships: Ally, Enemy, Neutral
+	Turreted:
+	AttackTurreted:
+	WithInfantryBody:
+		DefaultAttackSequence: shoot
+	ProducibleWithLevel:
+		Prerequisites: barracks.upgraded
+	RenderSprites:
+	Selectable:
+		Bounds: 1877, 1621, 0, -170
+		DecorationBounds: 1877, 1621, 0, -170
+	Hovers:
+	AttackWander:
+		WanderMoveRadius: 10
+		MinMoveDelay: 5
+		MaxMoveDelay: 100
+	ChangesHealth:
+		Step: 100
+		Delay: 25
+		StartIfBelow: 50
+		DamageCooldown: 500
+	FireWarheadsOnDeath:
+		Weapon: CrateNuke
+		EmptyWeapon: CrateNuke
+	Voiced:
+		VoiceSet: Jesus
+	VoiceAnnouncement:
+		RequiresCondition: produced
+		Voice: Build

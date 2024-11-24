@@ -446,17 +446,55 @@ chinablacklotus:
 		Weapon: chinablacklotusanim
 		LocalOffset: 0,0,196
 		RequiresCondition: enddisable == 0 && !deployed
+		AmmoUsage: 0
+		PauseOnCondition: ammo < 5
 	Armament@End:
 		Weapon: chinablacklotusend
 		LocalOffset: 0,0,196
 		RequiresCondition: enddisable == 1 && !deployed
+		AmmoUsage: 5
+		PauseOnCondition: ammo < 5
 	GrantConditionOnAttack@End:
 		Condition: enddisable
-		RequiredShotsPerInstance: 13
+		RequiredShotsPerInstance: 20
 		MaximumInstances: 2
 		RevokeDelay: 20
 		RevokeAll: true
 		IsCyclic: false
+	GrantConditionOnAttack@speedhack:
+		Condition: speedhack
+		RequiredShotsPerInstance: 2
+		MaximumInstances: 10
+		RevokeDelay: 40
+		RevokeAll: true
+		IsCyclic: false
+	ReloadDelayMultiplier@speedhack1:
+		RequiresCondition: speedhack >= 1
+		Modifier: 75
+	ReloadDelayMultiplier@speedhack2:
+		RequiresCondition: speedhack >= 2
+		Modifier: 75
+	ReloadDelayMultiplier@speedhack3:
+		RequiresCondition: speedhack >= 3
+		Modifier: 75
+	ReloadDelayMultiplier@speedhack4:
+		RequiresCondition: speedhack >= 4
+		Modifier: 75
+	ReloadDelayMultiplier@speedhack5:
+		RequiresCondition: speedhack >= 5
+		Modifier: 75
+	AmmoPool:
+		Ammo: 5
+		AmmoCondition: ammo
+		InitialAmmo: 5
+	ReloadAmmoPool@normal:
+		Delay: 150
+	WithAmmoPipsDecoration:
+		Position: BottomLeft
+		Margin: 4, 3
+		RequiresSelection: false
+		PipCount: 5
+		ValidRelationships: Ally, Enemy, Neutral
 	AttackFrontal:
 		RequiresCondition: !deployed
 	WithInfantryBody:

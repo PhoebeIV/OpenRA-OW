@@ -1081,6 +1081,7 @@ actor-oblid-cr-name = Obelisk of Creeps
 actor-johncena-name = John Cena (you cant see me)
 actor-jarofdirt-name = Captain Jack Sparrow
 actor-korone-name = Inugami Korone
+actor-jesus-name = Jesus
 
 ## defaults.yaml
 meta-flyingbuilding =
@@ -2274,6 +2275,10 @@ actor-upgrade-shikyo =
    .name = Shikyo
    .description = When mecha are below 30% health, will now disable all safety functions.
    Gaining speed, attack speed, increased damage, reduced damage, but will take damage until killed.
+
+actor-upgrade-advancedtargetingsystems =
+   .name = Advanced Targeting Systems
+   .description = Advances in targeting system technology allows all naval units to attack at 20% increased range.
 
 ## japan_veh.yaml
 actor-japansuddentransport =
