@@ -277,6 +277,15 @@
 		Modifier: 40
 	ExternalCondition@ironshroud:
 		Condition: ironshroud
+	GrantConditionOnAttack@ai_consideration_iron:
+		Condition: ironable
+		RevokeDelay: 100
+	GrantConditionOnDamage@ai_consideration_iron:
+		Condition: ironable
+		Duration: 100
+	Targetable@ai_consideration_iron:
+		RequiresCondition: ironable
+		TargetTypes: IronCurtainMe
 
 # Inherited and changed from mods/ra to make ranked up actors give more experience when killed.
 ^GainsExperience:
@@ -552,6 +561,7 @@
 # If owned by AI, it emits an aura that AI-controlled surveyors check for. If they're outside the range, they will deploy.
 ^ConYard:
 	Inherits@pips: ^AdvTechPips
+	Inherits@target: ^BotCaptureTarget
 	-AlwaysVisible:
 	WithDecoration@frame:
 		RequiresCondition: !build-incomplete
@@ -3842,4 +3852,43 @@
 	GrantConditionOnPrerequisite@medimagicwep:
 		Prerequisites: upgrade.medimagicwep
 		Condition: medimagicwep
+
+# For an insanely hacky way of allowing bots to capture stuff without using the Capture bot module
+^EngineerBehaviour:
+	GrantConditionOnPrerequisite@botcapture:
+		Prerequisites: ai.all
+		Condition: botcapture
+	AutoTarget:
+		RequiresCondition: botcapture
+		EnableStances: false
+		ScanRadius: 100
+		MaximumScanTimeInterval: 500
+		MinimumScanTimeInterval: 250
+		InitialStance: AttackAnything
+	AutoTargetPriority@1: 
+		RequiresCondition: botcapture
+		ValidTargets: BotCaptureTarget, BotCaptureTargetHusk
+	AttackFrontal:
+		RequiresCondition: botcapture
+	Armament:
+		RequiresCondition: botcapture
+		Weapon: HackyCaptureAttack
+		TargetRelationships: Enemy, Neutral
+		FireDelay: 125
+	Armament@2:
+		RequiresCondition: botcapture
+		Weapon: HackyCaptureAttackHusk
+		TargetRelationships: Enemy, Neutral, Ally
+		FireDelay: 125
+		Name: secondary
+	GrantConditionOnAttack@die:
+		Condition: killme
+		ArmamentNames: primary, secondary
+	KillsSelf@capture:
+		RequiresCondition: killme
+		RemoveInstead: true
+
+^BotCaptureTarget:
+	Targetable@botcapture:
+		TargetTypes: BotCaptureTarget
 

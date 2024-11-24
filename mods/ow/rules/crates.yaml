@@ -2,8 +2,8 @@ World:
 	CrateSpawner:
 		DeliveryAircraft: badr
 		QuantizedFacings: 16
-		Minimum: 6
-		Maximum: 8
+		Minimum: 3
+		Maximum: 5
 		SpawnInterval: 3000
 		WaterChance: 12
 		InitialSpawnDelay: 50
@@ -63,25 +63,25 @@ CRATE:
 		MaxAmount: 10
 		MaxDuplicateValue: 4000
 	GiveUnitCrateAction@split:
-		SelectionShares: 3
+		SelectionShares: 2
 		Units: 1tnk.split3
 	GiveUnitCrateAction@split2:
-		SelectionShares: 2
+		SelectionShares: 1
 		Units: 1tnk.split4
 	GiveUnitCrateAction@mono1:
-		SelectionShares: 3
+		SelectionShares: 2
 		Units: 1tnk.monolith
 	GiveUnitCrateAction@mono2:
-		SelectionShares: 2
+		SelectionShares: 1
 		Units: 1tnk.monolithblue
 	GiveUnitCrateAction@mine:
-		SelectionShares: 3
+		SelectionShares: 2
 		Units: 1tnk.mine
 	GiveUnitCrateAction@gmine:
-		SelectionShares: 2
+		SelectionShares: 1
 		Units: 1tnk.gmine
 	GiveUnitCrateAction@oil:
-		SelectionShares: 3
+		SelectionShares: 4
 		Units: 1tnk.oil
 	GiveUnitCrateAction@dtrk:
 		SelectionShares: 2
@@ -421,6 +421,10 @@ CRATE.FuckYou:
 		SelectionShares: 5
 		Units: 1tnk.earthquake
 		Owner: Creeps
+	GiveUnitCrateAction@thx:
+		SelectionShares: 3
+		Units: 1tnk.earthquake.thx
+		Owner: Creeps
 	ExplodeCrateAction@redeemernuke:
 		Weapon: Redeemernuke
 		SelectionShares: 7
@@ -473,7 +477,7 @@ CRATE.FuckYou:
 		Units: dm7
 		Owner: Creeps
 	GiveUnitCrateAction@jarofdirt:
-		SelectionShares: 1
+		SelectionShares: 2
 		Units: jarofdirt
 		Sound: jardirt.aud
 		Owner: Creeps
@@ -674,6 +678,12 @@ CRATE.LEVEL:
 	Inherits: 1TNK.MINE
 	SpawnActorOnDeath:
 		Actor: CHINESEEARTHQUAKE
+		OwnerType: Victim
+
+1TNK.EARTHQUAKE.THX:
+	Inherits: 1TNK.MINE
+	SpawnActorOnDeath:
+		Actor: THXEARTHQUAKE
 		OwnerType: Victim
 
 U.TNKcrate:
@@ -1756,7 +1766,7 @@ JAROFDIRT:
 	UpdatesPlayerStatistics:
 		AddToArmyValue: true
 	Health:
-		HP: 150000
+		HP: 900000
 	Mobile:
 		Speed: 96
 	RevealsShroud:
@@ -2483,6 +2493,77 @@ CHINESEEARTHQUAKE:
 		RequiresCondition: allow_attack
 		Interval: 4
 		Weapons: ChineseEarthquake
+
+THXEARTHQUAKE:
+	Inherits: XBAR
+	-Targetable:
+	-Buildable:
+	-Cloak:
+	-WithSpriteBody:
+	-WithMakeAnimation:
+	AmbientSound:
+		-RequiresCondition:
+		SoundFiles: thx.wav
+		Interval: 9000
+	-KillsSelf:
+	Tooltip:
+		Name: THX
+	KillsSelf@badcrates:
+		Delay: 410
+		RemoveInstead: true
+	GrantDelayedCondition@1: 
+		Delay: 53
+		Condition: allow_attack
+	GrantDelayedCondition@2: 
+		Delay: 100
+		Condition: allow_attack
+	GrantDelayedCondition@3: 
+		Delay: 150
+		Condition: allow_attack
+	GrantDelayedCondition@4: 
+		Delay: 200
+		Condition: allow_attack
+	GrantDelayedCondition@5: 
+		Delay: 250
+		Condition: allow_attack
+	GrantDelayedCondition@6: 
+		Delay: 350
+		Condition: cease
+	GrantConditionOnOwnerName:
+		Condition: damage_nerf
+		PlayerName: Creeps
+	FirepowerMultiplier:
+		RequiresCondition: !damage_nerf
+		Modifier: 200
+	FireWarheads@1: 
+		RequiresCondition: !cease
+		Interval: 25
+		StartCooldown: 53
+		Weapons: THXQuake1
+	FireWarheads@2: 
+		RequiresCondition: !cease
+		Interval: 25
+		StartCooldown: 100
+		Weapons: THXQuake2
+	FireWarheads@3: 
+		RequiresCondition: !cease
+		Interval: 25
+		StartCooldown: 150
+		Weapons: THXQuake3
+	FireWarheads@4: 
+		RequiresCondition: !cease
+		Interval: 25
+		StartCooldown: 200
+		Weapons: THXQuake4
+	FireWarheads@5: 
+		RequiresCondition: !cease
+		Interval: 25
+		StartCooldown: 250
+		Weapons: THXQuake5
+	FireWarheads@6: 
+		Interval: 5000
+		StartCooldown: 350
+		Weapons: THXNuke
 
 TERMINATOR:
 	Inherits: TSCYBCOM

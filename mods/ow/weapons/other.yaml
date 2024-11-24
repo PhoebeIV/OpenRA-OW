@@ -8297,3 +8297,27 @@ strifeguysigil1ClusterSmall2:
 	Warhead@2cluster: FireShrapnel
 		Weapon: strifeguysigil1SmallZap2
 		AimChance: 100
+
+HackyCaptureAttack:
+	ReloadDelay: 100
+	Range: 2c0
+	Report: fixit1.aud
+	ValidTargets: BotCaptureTarget
+	Projectile: InstantHit
+	TargetActorCenter: true
+	Warhead@1Dam: ChangeOwner
+		Range: 256
+		ValidTargets: BotCaptureTarget
+
+HackyCaptureAttackHusk:
+	Inherits: HackyCaptureAttack
+	ValidTargets: BotCaptureTargetHusk
+	Warhead@1Dam: ChangeOwner
+		ValidTargets: BotCaptureTargetHusk
+	Warhead@transform: GrantExternalCondition
+		Condition: bot_capture
+		Delay: 1
+		Range: 256
+		Duration: 0
+		AffectsParent: false
+		ValidTargets: BotCaptureTargetHusk

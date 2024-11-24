@@ -3687,6 +3687,48 @@ MinecraftNuke:
 			Concrete: 25
 		DamageTypes: Prone50Percent, TriggerProne, FireDeath, Incendiary
 
+THXNuke:
+	ValidTargets: Ground, Water, GroundActor, WaterActor, Underwater, AirborneActor, Trees
+	Warhead@98Eff_impact: CreateEffect
+		ImpactSounds: jericho.wav
+		ImpactActors: false
+		Explosions: nuke
+		ValidTargets: Ground, Water, Air
+	Warhead@99Eff_impact: CreateEffect
+		ImpactSounds: jericho.wav
+		ImpactActors: false
+	Warhead@21Shake: ShakeScreen
+		Duration: 20
+		Intensity: 5
+		Multiplier: 1,1
+	Warhead@22FlashEffect: FlashEffect
+		Duration: 20
+		FlashType: Nuke
+	Warhead@5: SpawnActor
+		Range: 4
+		Actors: 1tnk.crater
+		OwnerType: InternalName
+	Warhead@6: SpreadDamage
+		Spread: 1c512
+		Damage: 40000
+		Falloff: 512, 368, 135, 50, 18, 7, 0
+		ValidTargets: GroundActor, Trees, WaterActor, Underwater, AirborneActor
+		Versus:
+			Wood: 50
+			Tree: 200
+			Concrete: 25
+		DamageTypes: Prone50Percent, TriggerProne, FireDeath, Incendiary
+	Warhead@7: SpreadDamage
+		Spread: 3c0
+		Damage: 30000
+		Falloff: 512, 368, 135, 50, 18, 7, 0
+		Delay: 5
+		ValidTargets: GroundActor, Trees, WaterActor, Underwater, AirborneActor
+		Versus:
+			Tree: 200
+			Concrete: 25
+		DamageTypes: Prone50Percent, TriggerProne, FireDeath, Incendiary
+
 TibSeedDrop:
 	ReloadDelay: 5
 	Range: 2c0

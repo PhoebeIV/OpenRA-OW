@@ -1,5 +1,19 @@
 ^BotCapturableHusk:
 	Inherits: ^Husk
+	Health:
+		HP: 60000
+	Targetable@botcapture:
+		TargetTypes: BotCaptureTargetHusk
+	ExternalCondition@capture:
+		Condition: bot_capture
+	GrantPeriodicCondition@botcapture:
+		RequiresCondition: bot_capture
+		ActiveDuration: 1
+		CooldownDuration: 1
+		Condition: do_transform
+	TransformOnCondition:
+		RequiresCondition: do_transform
+		ForceHealthPercentage: 10
 
 MCVD.Husk:
 	Inherits: ^Husk
@@ -240,6 +254,8 @@ DMGTNK.M.Husk:
 		IntoActor: DMGTNK.M
 	InfiltrateForTransform:
 		IntoActor: DMGTNK.M
+	TransformOnCondition:
+		IntoActor: DMGTNK.M
 	RenderSprites:
 		Image: dmgtnk.husk
 	FireWarheadsOnDeath:
@@ -252,10 +268,6 @@ DMGTNK.M.Husk:
 		Image: fire
 		Sequence: 1
 		IsDecoration: True
-	ChangesHealth:
-		Step: -500
-		StartIfBelow: 101
-		Delay: 8
 
 BTNK.Husk:
 	Inherits: ^Husk
@@ -293,6 +305,8 @@ MAUS.Husk:
 		IntoActor: MAUS
 	InfiltrateForTransform:
 		IntoActor: MAUS
+	TransformOnCondition:
+		IntoActor: MAUS
 	RenderSprites:
 		Image: maus
 	WithVoxelBody:
@@ -315,10 +329,6 @@ MAUS.Husk:
 		Image: fire
 		Sequence: 1
 		IsDecoration: True
-	ChangesHealth:
-		Step: -500
-		StartIfBelow: 101
-		Delay: 8
 
 BBUS.Husk:
 	Inherits: ^Husk
@@ -375,6 +385,8 @@ FCRU.husk:
 		IntoActor: FCRU
 	InfiltrateForTransform:
 		IntoActor: FCRU
+	TransformOnCondition:
+		IntoActor: FCRU
 	ThrowsParticle@turret:
 		Anim: turret
 	RenderSprites:
@@ -388,10 +400,6 @@ FCRU.husk:
 		Image: fire
 		Sequence: 1
 		IsDecoration: True
-	ChangesHealth:
-		Step: -500
-		StartIfBelow: 101
-		Delay: 8
 
 JUGG.Husk:
 	Inherits: ^Husk
@@ -426,10 +434,6 @@ NOVAN.husk:
 		Image: fire
 		Sequence: 1
 		IsDecoration: True
-	ChangesHealth:
-		Step: -500
-		StartIfBelow: 101
-		Delay: 8
 
 HARVD.Husk:
 	Inherits: ^Husk
@@ -571,6 +575,8 @@ PCARRY.GroundHusk:
 		IntoActor: pcarry
 	InfiltrateForTransform:
 		IntoActor: pcarry
+	TransformOnCondition:
+		IntoActor: PCARRY
 	FireWarheadsOnDeath:
 		Weapon: E100Cannon
 		EmptyWeapon: E100Cannon
@@ -1095,6 +1101,8 @@ TBATTLE.GroundHusk:
 		IntoActor: tbattle
 	InfiltrateForTransform:
 		IntoActor: tbattle
+	TransformOnCondition:
+		IntoActor: TBATTLE
 	FireWarheadsOnDeath:
 		Weapon: E100Cannon
 		EmptyWeapon: E100Cannon
@@ -1179,6 +1187,8 @@ chinaoverlord.Husk:
 		IntoActor: chinaoverlord
 	InfiltrateForTransform:
 		IntoActor: chinaoverlord
+	TransformOnCondition:
+		IntoActor: chinaoverlord
 
 chinaemperor.Husk:
 	Inherits: ^BotCapturableHusk
@@ -1187,6 +1197,8 @@ chinaemperor.Husk:
 	TransformOnCapture:
 		IntoActor: chinaemperor
 	InfiltrateForTransform:
+		IntoActor: chinaemperor
+	TransformOnCondition:
 		IntoActor: chinaemperor
 
 chinanukemig.Husk.empty:
@@ -1407,6 +1419,8 @@ AVCARRIER.GroundHusk:
 	TransformOnCapture:
 		IntoActor: avcarrier
 	InfiltrateForTransform:
+		IntoActor: avcarrier
+	TransformOnCondition:
 		IntoActor: avcarrier
 	FireWarheadsOnDeath:
 		Weapon: E100Cannon
@@ -1648,10 +1662,6 @@ BTDEMOLISHER.Husk:
 		Image: fire
 		Sequence: 1
 		IsDecoration: True
-	ChangesHealth:
-		Step: -500
-		StartIfBelow: 101
-		Delay: 8
 
 BTMANTICORE.Husk:
 	Inherits: ^Husk
@@ -1675,7 +1685,171 @@ BTMANTICORE.Husk:
 		Image: fire
 		Sequence: 1
 		IsDecoration: True
-	ChangesHealth:
-		Step: -500
-		StartIfBelow: 101
-		Delay: 8
+
+ZEP.Husk:
+	Inherits: ^TSPlaneHusk
+	Tooltip:
+		Name: actor-zep.husk
+	Aircraft:
+		Speed: 36
+	FallsToEarth:
+		Velocity: 32
+		Explosion: BattlecruiserExplosion
+	SpawnActorOnDeath:
+		Actor: ZEP.GroundHusk
+	WithDamageOverlay:
+		Offset: -427,0,0
+		MinimumDamageState: Undamaged
+	RevealsShroud:
+		Range: 8c0
+		Type: CenterPosition
+	RenderSprites:
+		Image: zep
+	RenderVoxels:
+		Image: zep
+		Scale: 9
+
+ZEP.GroundHusk:
+	Inherits: ^BotCapturableHusk
+	Tooltip:
+		Name: actor-zep.husk
+	TransformOnCapture:
+		IntoActor: zep
+	InfiltrateForTransform:
+		IntoActor: zep
+	TransformOnCondition:
+		IntoActor: zep
+	FireWarheadsOnDeath:
+		Weapon: E100Cannon
+		EmptyWeapon: E100Cannon
+	WithDamageOverlay:
+		Offset: -427,0,0
+		MinimumDamageState: Undamaged
+	WithDamageOverlay@2:
+		Offset: -720,-256,0
+		MinimumDamageState: Undamaged
+	WithDamageOverlay@3:
+		Offset: 256,256,0
+		MinimumDamageState: Undamaged
+	WithIdleOverlay@fire1:
+		Image: fire
+		Sequence: 1
+		IsDecoration: true
+		Offset: 512,512,0
+	WithIdleOverlay@fire2:
+		Image: fire
+		Sequence: 2
+		IsDecoration: true
+		Offset: -256,-640,0
+	WithIdleOverlay@fire3:
+		Image: fire
+		Sequence: 3
+		IsDecoration: true
+		Offset: 0,128,0
+	ShakeOnDeath:
+	WithVoxelBody:
+	RenderSprites:
+		Image: zep
+	RenderVoxels:
+		Image: zep
+		Scale: 9
+		LightAmbientColor: 0.3,0.3,0.3
+		LightDiffuseColor: 0.3,0.3,0.2
+	-QuantizeFacingsFromSequence:
+	ClassicFacingBodyOrientation:
+		QuantizedFacings: 32
+	-WithFacingSpriteBody:
+
+SPECTRE.Husk:
+	Inherits: ^TSPlaneHusk
+	Tooltip:
+		Name: actor-spectre-husk-name
+	Contrail@1:
+		Offset: -598,-683,0
+	Contrail@2:
+		Offset: -598,683,0
+	Aircraft:
+		TurnSpeed: 8
+		Speed: 125
+	WithDamageOverlay:
+		Offset: -853,0,171
+		Interval: 2
+	RevealsShroud:
+		MinRange: 9c0
+		Range: 11c0
+		Type: GroundPosition
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 9c0
+		Type: GroundPosition
+	RenderSprites:
+		Image: ac130
+	RenderVoxels:
+		Image: ac130
+		Scale: 5
+		LightAmbientColor: 0.9,0.9,0.9
+		LightDiffuseColor: 0.7,0.7,0.7
+	RevealOnDeath:
+	FallsToEarth:
+		Velocity: 32
+		Explosion: BattlecruiserExplosion
+	SpawnActorOnDeath:
+		Actor: SPECTRE.GroundHusk
+
+SPECTRE.HuskEpic:
+	Inherits: SPECTRE.Husk
+	FallsToEarth:
+		Explosion: TerranCrateNuke
+	-SpawnActorOnDeath:
+
+SPECTRE.GroundHusk:
+	Inherits: ^Husk
+	Inherits: ^BotCapturableHusk
+	Tooltip:
+		Name: actor-spectre-husk-name
+	TransformOnCapture:
+		IntoActor: spectre
+	InfiltrateForTransform:
+		IntoActor: spectre
+	TransformOnCondition:
+		IntoActor: spectre
+	FireWarheadsOnDeath:
+		Weapon: E100Cannon
+		EmptyWeapon: E100Cannon
+	WithDamageOverlay:
+		Offset: -427,0,0
+		MinimumDamageState: Undamaged
+	WithDamageOverlay@2:
+		Offset: -720,-256,0
+		MinimumDamageState: Undamaged
+	WithDamageOverlay@3:
+		Offset: 256,256,0
+		MinimumDamageState: Undamaged
+	WithIdleOverlay@fire1:
+		Image: fire
+		Sequence: 1
+		IsDecoration: true
+		Offset: 512,512,0
+	WithIdleOverlay@fire2:
+		Image: fire
+		Sequence: 2
+		IsDecoration: true
+		Offset: -256,-640,0
+	WithIdleOverlay@fire3:
+		Image: fire
+		Sequence: 3
+		IsDecoration: true
+		Offset: 0,128,0
+	ShakeOnDeath:
+	WithVoxelBody:
+	RenderSprites:
+		Image: ac130
+	RenderVoxels:
+		Image: ac130
+		Scale: 5
+		LightAmbientColor: 0.5,0.5,0.5
+		LightDiffuseColor: 0.3,0.3,0.2
+	-QuantizeFacingsFromSequence:
+	ClassicFacingBodyOrientation:
+		QuantizedFacings: 32
+	-WithFacingSpriteBody:
