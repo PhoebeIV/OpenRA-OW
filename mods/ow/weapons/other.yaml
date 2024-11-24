@@ -7426,22 +7426,22 @@ AvaliImpalerRailgunEffect:
 
 AvaliImpalerRailgun:
 	Inherits: ^GaussWeapon
-	ReloadDelay: 1
+	ReloadDelay: 25
 	Range: 15c0
 	MinRange: 5c0
 	Report: hrailgun_fire1.aud, hrailgun_fire2.aud
 	Projectile: Railgun
 		DamageActorsInLine: true
-		BeamWidth: 128
+		BeamWidth: 0
 		BeamAlphaDeltaPerTick: -3
 		HelixAlphaDeltaPerTick: -3
-		HelixThickness: 48
+		HelixThickness: 32
 		HelixRadius: 196
 		HitAnim: explosion
 		HitAnimSequence: med_explosion
 		Duration: 41
 	Warhead@1Dam: SpreadDamage
-		Damage: 40000
+		Damage: 10
 		Range: 0, 800
 		Falloff: 100,100
 		Versus:
@@ -7473,7 +7473,7 @@ AvaliImpalerRailgun:
 		ImpactActors: true
 
 AvaliImpalerRailgunHit:
-	ReloadDelay: 1
+	ReloadDelay: 25
 	Range: 15c0
 	MinRange: 5c0
 	Projectile: InstantHit
@@ -7484,7 +7484,7 @@ AvaliImpalerRailgunHit:
 		ImpactActors: false
 
 AvaliImpalerRailgunHitPowered:
-	ReloadDelay: 1
+	ReloadDelay: 25
 	Range: 15c0
 	MinRange: 5c0
 	Report: wclitning1.aud, wclitning2.aud, wclitning3.aud, wclitning4.aud, wclitning5.aud
@@ -7494,6 +7494,69 @@ AvaliImpalerRailgunHitPowered:
 		Delay: 1
 		ImpactSounds: wclitning1.aud, wclitning2.aud, wclitning3.aud, wclitning4.aud, wclitning5.aud
 		ImpactActors: false
+
+AvaliImpalerRailgunBolt:
+	ReloadDelay: 25
+	Range: 15c0
+	MinRange: 5c0
+	ValidTargets: Ground, Water, GroundActor, WaterActor, Trees
+	FirstBurstTargetOffset: -512,0,0
+	Projectile: Bullet
+		Speed: 2c512
+		Image: 125mm_bl
+	Warhead@1Dam: SpreadDamage
+		Damage: 40000
+		Range: 0, 1000
+		Falloff: 100,100
+		Versus:
+			None: 40
+			Wood: 40
+			Light: 80
+			Heavy: 95
+			Concrete: 45
+			Shield: 100
+		DamageTypes: Prone50Percent, TriggerProne, SmallExplosionDeath
+		ValidTargets: Ground, Water, GroundActor, WaterActor, Trees
+	Warhead@3Eff: CreateEffect
+		Explosions: building
+		ImpactSounds: dsrpgexp.aud
+		ValidTargets: Ground, GroundActor, Water, WaterActor, Trees
+	Warhead@fragment1: FireFragment
+		ValidTargets: Ground, Water, GroundActor, WaterActor, AirborneActor, Air
+		Weapon: AvaliImpalerRailgunBoltShrapnel
+		Offsets: 0,-512,0, 0,-1024,0, 512,-1024,0, -512,-1024,0, 0,-1536,0, 512,-1536,0, -512,-1536,0, 1024,-1536,0, -1024,-1536,0
+		Rotate: true
+	Warhead@15Shake: ShakeScreen
+		Duration: 6
+		Intensity: 1
+		Multiplier: 1,1
+
+AvaliImpalerRailgunBoltShrapnel:
+	Inherits: chinazhurongcannoncluster
+	Range: 9c0
+	Burst: 20
+	BurstDelays: 1
+	Projectile: Bullet
+		Speed: 650
+		Inaccuracy: 5c0
+		LaunchAngle: 150
+	Warhead@1Dam: SpreadDamage
+		Spread: 256
+		Damage: 1500
+		ValidTargets: Ground, Water, GroundActor, WaterActor
+		Versus:
+			None: 75
+			Wood: 60
+			Light: 75
+			Heavy: 95
+			Concrete: 50
+		DamageTypes: Prone50Percent, TriggerProne, ExplosionDeath
+	-Warhead@2Dam:
+	Warhead@3Eff: CreateEffect
+		Explosions: med_explosion
+		ImpactSounds: dsrpgexp
+		ImpactSoundChance: 25
+	-Warhead@6Shake:
 
 AvaliMinerLaser:
 	Inherits: ^LaserWeapon

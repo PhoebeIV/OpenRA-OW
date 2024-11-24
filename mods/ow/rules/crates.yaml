@@ -105,13 +105,21 @@ CRATE:
 		Range: 3c0
 		Sound: beltsnd.aud
 	GrantExternalConditionCrateAction@frenzy:
-		SelectionShares: 7
-		Duration: 500
+		SelectionShares: 5
+		Duration: 750
 		Condition: frenzyboost
 		Sound: sfrenzya.wav
 		Sequence: speed
 		Range: 7c512
 		MaxExtraCollectors: -1
+	GrantExternalConditionCrateAction@overshield:
+		SelectionShares: 5
+		Condition: defense_matrix
+		Duration: 750
+		Sequence: armor
+		MaxExtraCollectors: -1
+		Range: 5c0
+		Sound: tvedef00.aud
 	GiveUnitCrateAction@apc:
 		-ValidFactions:
 		Prerequisites: techlevel.low, vehicles.apcprereq
@@ -194,7 +202,7 @@ CRATE:
 		Sound: arniekil2.aud
 	GiveUnitCrateAction@hunterkiller:
 		SelectionShares: 6
-		Units: hunter
+		Units: 1tnk.hunter
 	GiveUnitCrateAction@bitconnect:
 		SelectionShares: 2
 		Units: 1tnk.bitconnect
@@ -591,6 +599,12 @@ CRATE.BigLanded:
 		DamageSource: Killer
 		DeathTypes: Suicide, DefaultDeath, ExplosionDeath, ElectricityDeath, FireDeath, TiberiumDeath, BulletDeath
 	-Cloak:
+	-WithSpriteBody:
+	-WithMakeAnimation:
+	WithCrateBody:
+		XmasImages: scrate.big
+		LandSequence: land
+		WaterSequence: water
 	RenderSprites:
 		Image: scrate.big
 
@@ -628,6 +642,13 @@ CRATE.LEVEL:
 	FireWarheadsOnDeath:
 		Weapon: LightningZap
 	-SpawnActorOnDeath:
+
+1TNK.HUNTER:
+	Inherits: 1TNK.MINE
+	-FireWarheadsOnDeath:
+	SpawnActorOnDeath:
+		Actor: hunter
+		OwnerType: Victim
 
 1TNK.SPLIT3:
 	Inherits: 1TNK.MINE

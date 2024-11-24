@@ -349,10 +349,10 @@ AVARTY:
 		Sequence: turret
 		RequiresCondition: deployed
 	AttackTurreted@deployed:
-		Armaments: deployed, deployed_a, deployed_b, dummyweapon
+		Armaments: deployed, deployed_a, dummyweapon
 		Turrets: deployed
 		RequiresCondition: deployed
-		PauseOnCondition: disabled 
+		PauseOnCondition: disabled
 		TargetFrozenActors: True
 		ForceFireIgnoresActors: True
 		OutsideRangeRequiresForceFire: True
@@ -361,38 +361,29 @@ AVARTY:
 		Name: deployed_a
 		Turret: deployed
 		Weapon: AvaliImpalerRailgun
-		LocalOffset: 1424,-800,512
-		RequiresCondition: deployed && ammo_a
-		PauseOnCondition: attack_cooldown
+		LocalOffset: 1424,0,512, 1424,-300,512, 1424,300,512
+		RequiresCondition: deployed
+		PauseOnCondition: !ammo_a
 		MuzzleSequence: muzzle
 		MuzzlePalette: effect
 	Armament@deployed_b:
-		FireDelay: 24
-		Name: deployed_b
+		FireDelay: 22
+		Name: deployed_a
 		Turret: deployed
-		Weapon: AvaliImpalerRailgun
-		LocalOffset: 1424,800,512
-		RequiresCondition: deployed && ammo_b
-		PauseOnCondition: attack_cooldown
-		MuzzleSequence: muzzle
+		Weapon: AvaliImpalerRailgunBolt
+		LocalOffset: 1424,0,512, 1424,-300,512, 1424,300,512
+		RequiresCondition: deployed
+		PauseOnCondition: !ammo_a
+		MuzzleSequence: siegeattack
 		MuzzlePalette: effect
+		AmmoUsage: 0
 	Armament@deployedeffect_a:
 		Name: deployed_a
 		Turret: deployed
 		Weapon: AvaliImpalerRailgunEffect
-		LocalOffset: 1424,-800,512
-		RequiresCondition: deployed && ammo_a
-		PauseOnCondition: attack_cooldown
-		MuzzleSequence: muzzle
-		MuzzlePalette: effect
-		AmmoUsage: 0
-	Armament@deployedeffect_b:
-		Name: deployed_b
-		Turret: deployed
-		Weapon: AvaliImpalerRailgunEffect
-		LocalOffset: 1424,800,512
-		RequiresCondition: deployed && ammo_b
-		PauseOnCondition: attack_cooldown
+		LocalOffset: 1424,0,512, 1424,-300,512, 1424,300,512
+		RequiresCondition: deployed
+		PauseOnCondition: !ammo_a
 		MuzzleSequence: muzzle
 		MuzzlePalette: effect
 		AmmoUsage: 0
@@ -401,81 +392,31 @@ AVARTY:
 		Name: deployed
 		Turret: deployed
 		Weapon: AvaliImpalerRailgunHit
-		RequiresCondition: deployed && (ammo_a || ammo_b)
-		PauseOnCondition: attack_cooldown
+		RequiresCondition: deployed
+		PauseOnCondition: !ammo_a
 	Armament@deployedeffectpowered:
 		FireDelay: 23
 		Name: deployed
 		Turret: deployed
 		Weapon: AvaliImpalerRailgunHitPowered
-		RequiresCondition: deployed && (ammo_a || ammo_b) && powered_active
-		PauseOnCondition: attack_cooldown
+		RequiresCondition: deployed && powered_active
+		PauseOnCondition: !ammo_a
 	Armament@keeptarget:
 		Name: dummyweapon
 		Weapon: JuggDeploy
 		Turret: deployed
 		PauseOnCondition: disabled
 		RequiresCondition: deployed
-	GrantConditionOnAttack@cooldown:
-		RequiresCondition: !powered
-		ArmamentNames: deployed_a, deployed_b
-		Condition: attack_cooldown
-		RevokeDelay: 250
-	GrantConditionOnAttack@reload_a:
-		RequiresCondition: !powered
-		ArmamentNames: deployed_a
-		Condition: reload_b
-		RevokeDelay: 250
-	GrantConditionOnAttack@reload_b:
-		RequiresCondition: !powered
-		ArmamentNames: deployed_b
-		Condition: reload_a
-		RevokeDelay: 250
-	GrantConditionOnAttack@cooldown_powered:
-		RequiresCondition: powered
-		ArmamentNames: deployed_a, deployed_b
-		Condition: attack_cooldown
-		RevokeDelay: 150
-	GrantConditionOnAttack@reload_a_powered:
-		RequiresCondition: powered
-		ArmamentNames: deployed_a
-		Condition: reload_b
-		RevokeDelay: 150
-	GrantConditionOnAttack@reload_b_powered:
-		RequiresCondition: powered
-		ArmamentNames: deployed_b
-		Condition: reload_a
-		RevokeDelay: 150
 	AmmoPool@a:
 		Name: ammo_a
 		Armaments: deployed_a
 		AmmoCondition: ammo_a
-	AmmoPool@b:
-		Name: ammo_b
-		Armaments: deployed_b
-		AmmoCondition: ammo_b
-		InitialAmmo: 0
 	ReloadAmmoPool@a:
-		RequiresCondition: reload_a && !powered_active
 		AmmoPool: ammo_a
-		Delay: 249
-	ReloadAmmoPool@b:
-		RequiresCondition: reload_b && !powered_active
-		AmmoPool: ammo_b
-		Delay: 249
-	ReloadAmmoPool@a_powered:
-		RequiresCondition: reload_a && powered_active
-		AmmoPool: ammo_a
-		Delay: 149
-	ReloadAmmoPool@b_powered:
-		RequiresCondition: reload_b && powered_active
-		AmmoPool: ammo_b
-		Delay: 149
-	ReloadAmmoPool@reset: #reset ammo if something breaks
-		RequiresCondition: !attack_cooldown && !ammo_a && !ammo_b
-		AmmoPool: ammo_a
-		Delay: 300
-		ResetOnFire: true
+		Delay: 250
+	ReloadAmmoDelayMultiplier@a:
+		RequiresCondition: powered
+		Modifier: 66
 	WithAmmoPipsDecoration@a:
 		Position: BottomLeft
 		Margin: 4, 3
@@ -483,13 +424,6 @@ AVARTY:
 		PipCount: 2
 		FullSequence: pip-red
 		AmmoPools: ammo_a
-	WithAmmoPipsDecoration@b:
-		Position: BottomRight
-		Margin: 4, 3
-		RequiresSelection: true
-		PipCount: 2
-		FullSequence: pip-blue
-		AmmoPools: ammo_b
 	ExternalCondition@powerplant:
 		Condition: powered
 	GrantCondition@powered:
@@ -649,38 +583,29 @@ AVARTY.BOT.D:
 		Name: deployed_a
 		Turret: deployed
 		Weapon: AvaliImpalerRailgun
-		LocalOffset: 1424,-800,512
-		RequiresCondition: deployed && ammo_a
-		PauseOnCondition: attack_cooldown
+		LocalOffset: 1424,0,512, 1424,-300,512, 1424,300,512
+		RequiresCondition: deployed
+		PauseOnCondition: !ammo_a
 		MuzzleSequence: muzzle
 		MuzzlePalette: effect
 	Armament@deployed_b:
-		FireDelay: 24
-		Name: deployed_b
+		FireDelay: 22
+		Name: deployed_a
 		Turret: deployed
-		Weapon: AvaliImpalerRailgun
-		LocalOffset: 1424,800,512
-		RequiresCondition: deployed && ammo_b
-		PauseOnCondition: attack_cooldown
-		MuzzleSequence: muzzle
+		Weapon: AvaliImpalerRailgunBolt
+		LocalOffset: 1424,0,512, 1424,-300,512, 1424,300,512
+		RequiresCondition: deployed
+		PauseOnCondition: !ammo_a
+		MuzzleSequence: siegeattack
 		MuzzlePalette: effect
+		AmmoUsage: 0
 	Armament@deployedeffect_a:
 		Name: deployed_a
 		Turret: deployed
 		Weapon: AvaliImpalerRailgunEffect
-		LocalOffset: 1424,-800,512
-		RequiresCondition: deployed && ammo_a
-		PauseOnCondition: attack_cooldown
-		MuzzleSequence: muzzle
-		MuzzlePalette: effect
-		AmmoUsage: 0
-	Armament@deployedeffect_b:
-		Name: deployed_b
-		Turret: deployed
-		Weapon: AvaliImpalerRailgunEffect
-		LocalOffset: 1424,800,512
-		RequiresCondition: deployed && ammo_b
-		PauseOnCondition: attack_cooldown
+		LocalOffset: 1424,0,512, 1424,-300,512, 1424,300,512
+		RequiresCondition: deployed
+		PauseOnCondition: !ammo_a
 		MuzzleSequence: muzzle
 		MuzzlePalette: effect
 		AmmoUsage: 0
@@ -689,75 +614,31 @@ AVARTY.BOT.D:
 		Name: deployed
 		Turret: deployed
 		Weapon: AvaliImpalerRailgunHit
-		RequiresCondition: deployed && (ammo_a || ammo_b)
-		PauseOnCondition: attack_cooldown
+		RequiresCondition: deployed
+		PauseOnCondition: !ammo_a
 	Armament@deployedeffectpowered:
 		FireDelay: 23
 		Name: deployed
 		Turret: deployed
 		Weapon: AvaliImpalerRailgunHitPowered
-		RequiresCondition: deployed && (ammo_a || ammo_b) && powered_active
-		PauseOnCondition: attack_cooldown
-	GrantConditionOnAttack@cooldown:
-		RequiresCondition: !powered
-		ArmamentNames: deployed_a, deployed_b
-		Condition: attack_cooldown
-		RevokeDelay: 250
-	GrantConditionOnAttack@reload_a:
-		RequiresCondition: !powered
-		ArmamentNames: deployed_a
-		Condition: reload_b
-		RevokeDelay: 250
-	GrantConditionOnAttack@reload_b:
-		RequiresCondition: !powered
-		ArmamentNames: deployed_b
-		Condition: reload_a
-		RevokeDelay: 250
-	GrantConditionOnAttack@cooldown_powered:
-		RequiresCondition: powered
-		ArmamentNames: deployed_a, deployed_b
-		Condition: attack_cooldown
-		RevokeDelay: 150
-	GrantConditionOnAttack@reload_a_powered:
-		RequiresCondition: powered
-		ArmamentNames: deployed_a
-		Condition: reload_b
-		RevokeDelay: 150
-	GrantConditionOnAttack@reload_b_powered:
-		RequiresCondition: powered
-		ArmamentNames: deployed_b
-		Condition: reload_a
-		RevokeDelay: 150
+		RequiresCondition: deployed && powered_active
+		PauseOnCondition: !ammo_a
+	Armament@keeptarget:
+		Name: dummyweapon
+		Weapon: JuggDeploy
+		Turret: deployed
+		PauseOnCondition: disabled
+		RequiresCondition: deployed
 	AmmoPool@a:
 		Name: ammo_a
 		Armaments: deployed_a
 		AmmoCondition: ammo_a
-	AmmoPool@b:
-		Name: ammo_b
-		Armaments: deployed_b
-		AmmoCondition: ammo_b
-		InitialAmmo: 0
 	ReloadAmmoPool@a:
-		RequiresCondition: reload_a && !powered_active
 		AmmoPool: ammo_a
-		Delay: 249
-	ReloadAmmoPool@b:
-		RequiresCondition: reload_b && !powered_active
-		AmmoPool: ammo_b
-		Delay: 249
-	ReloadAmmoPool@a_powered:
-		RequiresCondition: reload_a && powered_active
-		AmmoPool: ammo_a
-		Delay: 149
-	ReloadAmmoPool@b_powered:
-		RequiresCondition: reload_b && powered_active
-		AmmoPool: ammo_b
-		Delay: 149
-	ReloadAmmoPool@reset: #reset ammo if something breaks
-		RequiresCondition: !attack_cooldown && !ammo_a && !ammo_b
-		AmmoPool: ammo_a
-		Delay: 300
-		ResetOnFire: true
+		Delay: 250
+	ReloadAmmoDelayMultiplier@a:
+		RequiresCondition: powered
+		Modifier: 66
 	WithAmmoPipsDecoration@a:
 		Position: BottomLeft
 		Margin: 4, 3
