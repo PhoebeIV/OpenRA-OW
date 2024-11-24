@@ -1054,7 +1054,7 @@ ScrinPlasma:
 	Range: 7c0
 	MinRange: 2c0
 	Burst: 6
-	BurstDelays: 2
+	BurstDelays: 1,2,1,2,1
 	Report: plasma1.aud
 	ValidTargets: Ground, GroundActor, Water, WaterActor, Tree
 	Projectile: Missile
@@ -1071,7 +1071,7 @@ ScrinPlasma:
 		Inaccuracy: 512
 	Warhead@1Dam: SpreadDamage
 		Spread: 128
-		Damage: 2000
+		Damage: 2250
 		ValidTargets: GroundActor, WaterActor
 		Versus:
 			None: 100
@@ -1084,46 +1084,6 @@ ScrinPlasma:
 		SmudgeType: Scorch
 	Warhead@3Eff: CreateEffect
 		Explosions: small_napalm
-		ImpactSounds: firebl3.aud
-		ImpactActors: false
-
-FAirPlasma:
-	ReloadDelay: 4
-	Range: 8c0
-	MinRange: 2c0
-	Burst: 6
-	BurstDelays: 6
-	Report: plasma1.aud
-	ValidTargets: Ground, GroundActor, Water, WaterActor, AirborneActor
-	Projectile: Missile
-		MaximumLaunchSpeed: 150
-		MinimumLaunchSpeed: 150
-		Image: Plasma
-		Speed: 582
-		Acceleration: 64
-		Shadow: true
-		Jammable: false
-		HorizontalRateOfTurn: 60
-		VerticalRateOfTurn: 60
-		RangeLimit: 14c0
-		Inaccuracy: 512
-		ContrailLength: 2
-	Warhead@1Dam: SpreadDamage
-		Spread: 128
-		Damage: 4000
-		ValidTargets: GroundActor, WaterActor, AirborneActor
-		Versus:
-			None: 150
-			Wood: 90
-			Light: 120
-			Heavy: 150
-			Concrete: 80
-			Shield: 300
-		DamageTypes: Prone50Percent, TriggerProne, ExplosionDeath
-	Warhead@2Smu: LeaveSmudge
-		SmudgeType: Scorch
-	Warhead@3Eff: CreateEffect
-		Explosions: napalm
 		ImpactSounds: firebl3.aud
 		ImpactActors: false
 
@@ -1408,6 +1368,47 @@ FPlasma:
 	Warhead@3EffGround: CreateEffect
 		Explosions: napalm
 		ImpactSounds: firebl3.aud
+
+FAirPlasma:
+	Inherits: ^PlasmaWeapon
+	ReloadDelay: 4
+	Range: 8c0
+	MinRange: 2c0
+	Burst: 6
+	BurstDelays: 4
+	Report: plasma1.aud
+	ValidTargets: Ground, GroundActor, Water, WaterActor, AirborneActor
+	Projectile: Missile
+		MaximumLaunchSpeed: 150
+		MinimumLaunchSpeed: 150
+		Image: plse
+		Speed: 582
+		Acceleration: 64
+		Shadow: true
+		Jammable: false
+		HorizontalRateOfTurn: 60
+		VerticalRateOfTurn: 60
+		RangeLimit: 14c0
+		Inaccuracy: 512
+		ContrailLength: 2
+	Warhead@1Dam: SpreadDamage
+		Spread: 128
+		Damage: 5000
+		ValidTargets: GroundActor, WaterActor, AirborneActor
+		Versus:
+			None: 150
+			Wood: 90
+			Light: 120
+			Heavy: 150
+			Concrete: 80
+			Shield: 300
+		DamageTypes: Prone50Percent, TriggerProne, ExplosionDeath
+	Warhead@2Smu: LeaveSmudge
+		SmudgeType: Scorch
+	Warhead@3Eff: CreateEffect
+		Explosions: napalm
+		ImpactSounds: firebl3.aud
+		ImpactActors: false
 
 DoomPlasma:
 	Inherits: ^PlasmaWeapon
