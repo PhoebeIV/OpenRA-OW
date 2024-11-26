@@ -6486,88 +6486,88 @@ player-factions =
      Super Tech Ability: Mass Supply Drop
    .random = Random Faction
      A random faction will be chosen when the game starts.
-   .random.allies = Random Allied Country
+   .random-allies = Random Allied Country
      Specialty: Intelligence and logistics.
      Utility: Chronosphere, GPS Satellite
      Superweapon: Atom Bomb
      A random Allied country will be chosen when the game starts.
-   .random.soviet = Random Soviet Country
+   .random-soviet = Random Soviet Country
      Specialty: Heavy weapons.
      Utility: Iron Curtain, Spy Plane, Paratroopers
      Superweapon: Atom Bomb
      A random Soviet country will be chosen when the game starts.
-   .random.gdi = Random GDI faction
+   .random-gdi = Random GDI faction
      Specialty: Heavy weapons.
      Utility: Napalm Strike
      Superweapon: Ion Cannon
      A random GDI faction will be chosen when the game starts.
-   .random.nod = Random Nod faction
+   .random-nod = Random Nod faction
      Specialty: Speed and stealth.
      Utility: Napalm Strike
      Superweapon: Atom Bomb
      A random Nod faction will be chosen when the game starts.
-   .random.fed = Random Federation branch
+   .random-fed = Random Federation branch
      Specialty: Extreme firepower and logistics.
      Utility: GPS Satellite
      Superweapon: Ion Cannon
      A random Federation branch will be chosen when the game starts.
-   .random.uac = Random UAC division
+   .random-uac = Random UAC division
      Specialty: Firepower and versatility.
      Utility: Hellgate, Paradoom
      Superweapon: Ion Cannon
      A random UAC corporation will be chosen when the game starts.
-   .random.nazi = Random Reich leader
+   .random-nazi = Random Reich leader
      Specialty: Firepower.
      Utility: Iron Curtain
      Superweapon: Atom Bomb
      A random Third Reich leader will be chosen when the game starts.
-   .random.gla = Random GLA general
+   .random-gla = Random GLA general
      Specialty: Guerilla warfare, low tech.
      Doesn't use power.
      Utility: Radar Van Sweep, kill bounties
      Superweapon: SCUD Storm
      A random GLA general will be chosen when the game starts.
-   .random.usa = Random USA General.
+   .random-usa = Random USA General.
      Specialty: MURICA'!
      FUCK YEAH!
      COMIN' AGAIN TO SAVE THE MOTHER FUCKIN' DAY YEAH!
      A random yank will be chosen when the game starts.
-   .random.china = Random China General.
+   .random-china = Random China General.
      Specialty: bing chilling
      A random Chinesium faction will be chosen when the game starts.
-   .random.japan = Random Japan General.
+   .random-japan = Random Japan General.
      Specialty: omae wa mo shinderu
      A random anime faction will be chosen when the game starts.
-   .random.protoss = Random Protoss faction.
+   .random-protoss = Random Protoss faction.
      Specialty: Shields, bulky units
      Utility: Scanner Sweep
      Superweapon: Orbital Beam Cannon
      A random Protoss faction will be chosen when the game starts.
-   .random.zerg = Random Zerg swarm.
+   .random-zerg = Random Zerg swarm.
      Specialty: Infantry only, regenerating health and burrowing
      Utility: Early radar, Nydus networks
      Superweapon: Plague Bomb
      A random Zerg swarm will be chosen when the game starts.
-   .random.terran = Random Terran faction.
+   .random-terran = Random Terran faction.
      Specialty: Mobile buildings, per-building production queues
      Utility: Scanner Sweep, Toggle cloak units
      Superweapon: Nuke
      A random Terran faction will be chosen when the game starts.
-   .random.def = Random faction that focuses on defenses
+   .random-def = Random faction that focuses on defenses
       Estonia, France, Mengsk, Zagara
-   .random.spam = Random faction that focuses on large amounts of units
+   .random-spam = Random faction that focuses on large amounts of units
       Zerg Swarm, GLA, China Infantry
-   .random.firepower = Random faction that focuses on overwhelming firepower
+   .random-firepower = Random faction that focuses on overwhelming firepower
       UAC, Federation, Protoss, Artanis, China, Adolf Hitler, Japan, Avalon, Marked of Kane
-   .random.stealth = Random faction that focuses on being invisible
+   .random-stealth = Random faction that focuses on being invisible
       France, Black Hand, Prince Kassad, Heydrich Himmler, Vorazun
-   .random.air = Random faction that focuses on aircraft
+   .random-air = Random faction that focuses on aircraft
       GDI Aerospace, Lunar Angels, USA Airforce General
-   .random.inf = Random faction that focuses on infantry
+   .random-inf = Random faction that focuses on infantry
       ZOCOM, Marked of Kane, Phobos, Deimos, China Infantry General, Jim Raynor, Kerrigan
-   .random.veh = Random faction that focuses on vehicles
+   .random-veh = Random faction that focuses on vehicles
       Steel Talons, UAC Mars, China Tank, Fed Ardent Sword, Ukraine, Japan Mecha
-   .random.support = Random faction that focuses on support
+   .random-support = Random faction that focuses on support
       Estonia, Artanis, Japan Economic
-   .random.navy = Random faction that focuses on navy
+   .random-navy = Random faction that focuses on navy
       Allies, Japan Navy, Fed Silver Lining
