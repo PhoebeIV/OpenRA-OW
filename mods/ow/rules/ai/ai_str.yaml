@@ -520,19 +520,23 @@ PBOX.boss:
 	Buildable:
 		Prerequisites: barracks, ~ai.harder
 	-AttackGarrisoned:
+	Health:
+		HP: 75000
 	Cargo:
 		InitialUnits: e1of
 	RangeMultiplier:
 		Modifier: 120
+	GivesExperienceMultiplier@a:
+		Modifier: 200
 	GrantConditionOnPrerequisite@harder:
 		Condition: bossai
 		Prerequisites: ai.harder
 	GrantRandomPeriodicCondition:
-		Conditions: boss1, boss2, boss3, boss4, boss5, boss6, boss7, boss8, boss9, boss10, boss1, boss3, boss4, boss5, boss7, boss8, boss9, boss10, boss11, boss12, boss13, boss14, boss15, boss16, boss17, boss18, boss19, boss20, boss21, boss22, boss23, boss23, boss24, boss25, boss26, boss27, boss28, boss29, boss30, boss31, boss32, boss33, boss34, boss35, boss36, boss37, boss38
+		Conditions: boss1, boss2, boss3, boss4, boss5, boss6, boss7, boss8, boss9, boss10, boss1, boss3, boss4, boss5, boss7, boss8, boss9, boss10, boss11, boss12, boss13, boss14, boss15, boss16, boss17, boss18, boss19, boss20, boss21, boss22, boss23, boss23, boss24, boss25, boss26, boss27, boss28, boss29, boss30, boss31, boss32, boss33, boss34, boss35, boss36, boss37, boss38, boss39, boss40
 		CooldownDuration: 125
 		ActiveDuration: 125
 	AttackTurreted@boss:
-		Armaments: main, boss1, boss2, boss3, boss3b, boss4, boss5, boss6, boss7, boss8, boss9, boss10, boss11, boss12, boss13, boss14, boss15, boss16, boss17, boss18, boss19, boss20, boss21, boss22, boss23, boss23, boss24, boss25, boss26, boss27, boss28, boss29, boss30, boss31, boss32, boss33, boss34, boss35, boss36, boss37, boss38
+		Armaments: main, boss1, boss2, boss3, boss3b, boss4, boss5, boss6, boss7, boss8, boss9, boss10, boss11, boss12, boss13, boss14, boss15, boss16, boss17, boss18, boss19, boss20, boss21, boss22, boss23, boss23, boss24, boss25, boss26, boss27, boss28, boss29, boss30, boss31, boss32, boss33, boss34, boss35, boss36, boss37, boss38, boss39, boss40
 	Armament@main:
 		Weapon: Vulcan
 		LocalOffset: 256,0,256
@@ -803,6 +807,60 @@ PBOX.boss:
 		Weapon: BanebladeBFGZap
 		RequiresCondition: boss38 && bossai
 		Name: boss38
+	Armament@boss39a:
+		FireDelay: 26
+		Name: boss39
+		LocalOffset: 256,0,256
+		Weapon: AvaliImpalerRailgun
+		RequiresCondition: boss39 && bossai
+		PauseOnCondition: !ammo_a
+	Armament@boss39b:
+		FireDelay: 24
+		Name: boss39
+		LocalOffset: 256,0,256
+		Weapon: AvaliImpalerRailgunBolt
+		RequiresCondition: boss39 && bossai
+		PauseOnCondition: !ammo_a
+		AmmoUsage: 0
+	Armament@boss39c:
+		Name: boss39
+		LocalOffset: 256,0,256
+		Weapon: AvaliImpalerRailgunEffect
+		RequiresCondition: boss39 && bossai
+		PauseOnCondition: !ammo_a
+		AmmoUsage: 0
+	Armament@boss39d:
+		FireDelay: 25
+		Name: boss39
+		LocalOffset: 256,0,256
+		Weapon: AvaliImpalerRailgunHit
+		RequiresCondition: boss39 && bossai
+		PauseOnCondition: !ammo_a
+	Armament@boss39e:
+		FireDelay: 25
+		Name: boss39
+		LocalOffset: 256,0,256
+		Weapon: AvaliImpalerRailgunHitPowered
+		RequiresCondition: boss39 && bossai
+		PauseOnCondition: !ammo_a
+	Armament@boss40a:
+		FireDelay: 50
+		Weapon: BattlecruiserYamatoShot
+		LocalOffset: 256,0,256
+		RequiresCondition: boss40 && bossai
+		Name: boss40
+	Armament@boss40b:
+		Weapon: BattlecruiserYamatoSound
+		LocalOffset: 256,0,256
+		RequiresCondition: boss40 && bossai
+		Name: boss40
+	AmmoPool@a:
+		Name: ammo_a
+		Armaments: boss39
+		AmmoCondition: ammo_a
+	ReloadAmmoPool@a:
+		AmmoPool: ammo_a
+		Delay: 65
 	RenderSprites:
 		Image: pbox
 	Power:
