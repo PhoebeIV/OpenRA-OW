@@ -3702,3 +3702,36 @@ RaeNuke:
 			Heavy: 100
 			Concrete: 25
 		ValidRelationships: Neutral, Enemy, Ally
+
+SonicRing:
+	Inherits: ^Artillery
+	ReloadDelay: 2
+	Range: 6c0
+	-Report:
+	Projectile: Bullet
+		Speed: 96,192
+		Inaccuracy: 2c0
+		Image: sonicring
+		LaunchAngle: 61,192
+		BounceCount: 6
+		BounceRangeModifier: 60
+	-Warhead@1Dam: SpreadDamage
+	Warhead@1flash: FlashTargetsInRadius
+		Radius: 256
+		ValidTargets: Heal, Repair, StructureRepair
+	Warhead@1Dam: SpreadDamage
+		Spread: 256
+		Damage: -250
+		ValidTargets: Heal, Repair, StructureRepair
+	-Warhead@2Smu: LeaveSmudge
+	Warhead@3Eff: CreateEffect
+		Explosions: sonicring
+		-ImpactSounds:
+		ValidTargets: Ground, GroundActor, WaterActor, Water, Underwater, Trees
+		ImpactActors: false
+	Warhead@4Eff: CreateEffect
+		ImpactSounds: sonicring.ogg
+		ValidTargets: GroundActor, WaterActor
+		ImpactActors: true
+	-Warhead@4EffWater: 
+	-Warhead@4Resource: 
