@@ -1,0 +1,79 @@
+Player:
+	-ConquestVictoryConditions:
+	LobbyPrerequisiteCheckbox@GLOBALBOUNTY:
+		Enabled: False
+		Locked: True
+	PlayerResources:
+		ResourceValues:
+			Ore: 0
+			Gems: 0
+			Tiberium: 0
+	Shroud:
+		FogCheckboxEnabled: false
+		ExploredMapCheckboxEnabled: true
+
+World:
+	-CrateSpawner:
+	-SpawnStartingUnits:
+	-MapStartingLocations:
+	MusicPlaylist:
+		BackgroundMusic: sctitle
+	TintPostProcessEffect:
+		Red: 1 # 1.5
+		Green: 1 # 1.1
+		Blue: 1 # 0.8
+		Ambient: 1 # 0.8
+	LuaScript:
+		Scripts: script.lua
+	-StartGameNotification:
+
+^ExistsInWorld:
+	GivesExperience:
+		ActorExperienceModifier: 0
+	DamageMultiplier@UNKILLABLE:
+		RequiresCondition: unkillable
+		Modifier: 20
+	FirepowerMultiplier@UNKILLABLE:
+		RequiresCondition: unkillable
+		Modifier: 300
+	ReloadDelayMultiplier@UNKILLABLE:
+		RequiresCondition: unkillable
+		Modifier: 75
+	RangeMultiplier@UNKILLABLE:
+		RequiresCondition: defender
+		Modifier: 110
+	ExternalCondition@UNKILLABLE:
+		Condition: unkillable
+	ExternalCondition@defender:
+		Condition: defender
+	DetectCloaked:
+		DetectionTypes: Cloak
+		Range: 10c0
+	RevealsShroudMultiplier:
+		Modifier: 200
+
+TRAYNOR:
+    Health:
+        HP: 30000
+	-ProvidesPrerequisite@inthefield:
+	-ProximityExternalCondition@squadboost:
+	-WithDecoration@officer2:
+	-WithDecoration@elite:
+	FireWarheadsOnDeath:
+        Chance: 50
+        LoadedChance: 50
+	AmbientSound@talky:
+		Delay: 80, 4500
+	GrantPeriodicCondition@rings:
+		CooldownDuration: 5, 1000
+		ActiveDuration: 1,125
+
+TRAYNOR.Map:
+    Inherits: TRAYNOR
+    KillsSelf@map:
+        Delay: 100, 200
+    RenderSprites:
+        Image: traynor
+	FireWarheadsOnDeath:
+        Chance: 100
+        LoadedChance: 100
