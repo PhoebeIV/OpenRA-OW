@@ -113,16 +113,19 @@ ZDRONE:
 		Palette: player
 		IsPlayerPalette: true
 		Position: Top
+	GrantDelayedCondition@zergstructure:
+		Delay: 5
+		Condition: enableme
 	ProductionBar@zergstructure:
-		ProductionType: Building.Zerg
+		ProductionType: DroneEvolve
 		RequiresCondition: !waiting_to_evolve
 	Production@zergstructure:
-		Produces: Building.Zerg
-		RequiresCondition: !waiting_to_evolve
+		Produces: DroneEvolve
+		RequiresCondition: !waiting_to_evolve && enableme
 	ProductionQueue@zergstructure:
-		Type: Building.Zerg
+		Type: DroneEvolve
 		Group: Building
-		DisplayOrder: 2
+		DisplayOrder: 1
 		ReadyAudio: ConstructionComplete
 		BlockedAudio: NoBuild
 		LimitedAudio: BuildingInProgress
@@ -306,9 +309,8 @@ ZDRONE.nydus:
 
 ^ZergEvolve:
 	Buildable:
-		Queue: Building.Zerg
+		Queue: DroneEvolve
 		BuildDurationModifier: 60
-		BuildAtProductionType: Building.Zerg
 		IconPalette: player-icon
 		IconPaletteIsPlayerPalette: true
 	AlwaysVisible:
