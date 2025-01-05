@@ -517,6 +517,12 @@ CRATE.FuckYou:
 		Units: jesus
 		Sound: jesusspawn.aud
 		Owner: Creeps
+	GiveUnitCrateAction@timspace:
+		SelectionShares: 3
+		Units: timspace
+		Sound: timspace.ogg
+		Prerequisites: techlevel.unrestricted
+		Owner: Creeps
 	Crate:
 		Duration: 6000
 	Tooltip:
@@ -1500,7 +1506,7 @@ roadroller.dropped:
 	Valued:
 		Cost: 1000
 	Health:
-		HP: 100000
+		HP: 300000
 	Tooltip:
 		Name: actor-roadroller-dropped-name
 	AutoTarget:
@@ -1566,6 +1572,11 @@ roadroller.leave:
 	RejectsOrders:
 	Tooltip:
 		Name: actor-roadroller-leave-name
+	GrantTimedCondition@leave:
+		Duration: 5
+		Condition: leavetimer
+	Wanders@leave:
+		RequiresCondition: leavetimer
 	Aircraft:
 		Speed: 128
 		CruiseAltitude: 16c0
@@ -2454,7 +2465,7 @@ JOHNMADDEN:
 	Tooltip:
 		Name: JOHN MADDEN
 	Health:
-		HP: 60000
+		HP: 45000
 	Mobile:
 		Speed: 114
 	Valued:
@@ -2471,7 +2482,7 @@ JOHNMADDEN:
 		Interval: 25,50
 		Delay: 25
 	GrantDelayedCondition: 
-		Delay: 175
+		Delay: 250
 		Condition: allow_attack
 	Armament@PRIMARY:
 		Weapon: JohnFootball
@@ -2921,3 +2932,77 @@ jesus:
 	VoiceAnnouncement:
 		RequiresCondition: produced
 		Voice: Build
+
+TIMSPACE:
+	Inherits: 2TNK
+	-Buildable:
+	-ActorLostNotification:
+	-Selectable:
+	Interactable:
+	Health:
+		HP: 300000
+	Tooltip:
+		Name: Escaping Capitalism
+	AttackTurreted:
+		RequiresCondition: disabled
+	Mobile:
+		Speed: 0
+	Turreted:
+		TurnSpeed: 16
+	SpawnActorOnDeath:
+		Actor: TIMSPACE.Leave
+	KillsSelf:
+		Delay: 325
+	FireWarheads@space: 
+		Weapons: TimSpaceWeapon
+		Interval: 9000
+	FireWarheadsOnDeath@roadroller:
+		Weapon: WarpshipJump
+		EmptyWeapon: WarpshipJump
+	RenderSprites:
+		Image: sputnik_big
+	-WithSpriteTurret:
+	WithFacingSpriteBody:
+		Sequence: ground
+
+TIMSPACE.Leave:
+	Inherits: TBARR.air
+	-ProvidesPrerequisite@buildingname:
+	-Transforms:
+	-Targetable@GROUND:
+	-Targetable@REPAIR:
+	-UpdatesPlayerStatistics:
+	-Buildable:
+	RenderSprites:
+		Image: sputnik_big
+	RejectsOrders:
+	Tooltip:
+		Name: Escaping Capitalism (escaping)
+	GrantTimedCondition@leave:
+		Duration: 35
+		Condition: leavetimer
+	GrantDelayedCondition@Leave:
+		Condition: leavetimer2
+		Delay: 33
+	Wanders@leave:
+		RequiresCondition: leavetimer
+	Aircraft:
+		Speed: 192
+		CruiseAltitude: 32c0
+		LandableTerrainTypes: Clear, ClearSnow, Road, Creep
+		IdleBehavior: LeaveMap
+		AltitudeVelocity: 192
+		VTOL: true
+		CanHover: True
+		CanSlide: True
+		PauseOnCondition: leavetimer2
+	FreeActor:
+		Actor: 1tnk.crater
+		RequiresCondition: leavetimer2
+	KillsSelf:
+		Delay: 250
+		RemoveInstead: true
+	WithSpriteBody:
+		Sequence: idle
+		StartSequence: idle
+	-WithMakeAnimation:
