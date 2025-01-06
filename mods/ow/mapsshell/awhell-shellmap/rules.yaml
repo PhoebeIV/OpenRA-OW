@@ -53,15 +53,16 @@ World:
 		Modifier: 200
 
 TRAYNOR:
-    Health:
-        HP: 30000
+	Health:
+		HP: 30000
 	-ProvidesPrerequisite@inthefield:
 	-ProximityExternalCondition@squadboost:
 	-WithDecoration@officer2:
 	-WithDecoration@elite:
+	-FireWarheadsOnDeath@fire:
 	FireWarheadsOnDeath:
-        Chance: 50
-        LoadedChance: 50
+		Chance: 50
+		LoadedChance: 50
 	AmbientSound@talky:
 		Delay: 80, 4500
 	GrantPeriodicCondition@rings:
@@ -69,11 +70,14 @@ TRAYNOR:
 		ActiveDuration: 1,125
 
 TRAYNOR.Map:
-    Inherits: TRAYNOR
-    KillsSelf@map:
-        Delay: 100, 200
-    RenderSprites:
-        Image: traynor
+	Inherits: TRAYNOR
+	KillsSelf@map:
+		Delay: 100, 200
+		DamageTypes: BulletDeath
+	RenderSprites:
+		Image: traynor
 	FireWarheadsOnDeath:
-        Chance: 100
-        LoadedChance: 100
+		Chance: 100
+		LoadedChance: 100
+	DeathSounds:
+		Voice: Die
