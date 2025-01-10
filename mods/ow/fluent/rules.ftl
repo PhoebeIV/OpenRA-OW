@@ -1082,6 +1082,7 @@ actor-johncena-name = John Cena (you cant see me)
 actor-jarofdirt-name = Captain Jack Sparrow
 actor-korone-name = Inugami Korone
 actor-jesus-name = Jesus
+actor-garbageman-name = GARBAGE DAY
 
 ## defaults.yaml
 meta-flyingbuilding =
