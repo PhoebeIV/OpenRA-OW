@@ -3782,3 +3782,31 @@ SeriousPunch:
 		Damage: 100
 		ValidTargets: GroundActor, WaterActor, Ground, Air
 		DamageTypes: ElectricityDeath
+
+FakeNukeProjectileBomb:
+	Inherits: UnitExplode
+	Warhead@clust1: FireCluster
+		Weapon: FakeNukeProjectile
+		RandomClusterCount: 1
+		Dimensions: 7,7
+		Footprint: xxxxxxx xxxxxxx xxx_xxx xx___xx xxx_xxx xxxxxxx xxxxxxx
+
+
+FakeNukeProjectile:
+	Inherits: ^Artillery
+	ReloadDelay: 2
+	Range: 6c0
+	Report: bonk.ogg
+	Projectile: Bullet
+		Speed: 96
+		Inaccuracy: 2c0
+		Image: atomicdud
+		Sequences: air
+		LaunchAngle: 192
+		BounceCount: 2
+		BounceRangeModifier: 60
+		BounceSound: bonk.ogg
+	Warhead@building: SpawnActor
+		Range: 3
+		Actors: 1tnk.fakenuke
+		OwnerType: InternalName

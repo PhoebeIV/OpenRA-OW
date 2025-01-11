@@ -268,6 +268,11 @@ CRATE:
 		Sound: dsitemup.aud
 		Sequence: parabombs
 		SelectionShares: 3
+	SupportPowerCrateAction@fakenuke:
+		Proxy: powerproxy.fakenuke
+		Sound: aprep1.aud
+		Sequence: fpower
+		SelectionShares: 3
 	GiveUnitCrateAction@korone:
 		SelectionShares: 2
 		Units: korone
@@ -508,7 +513,7 @@ CRATE.FuckYou:
 		Weapon: MinecraftNuke
 		SelectionShares: 2
 	GiveUnitCrateAction@bitconnect:
-		SelectionShares: 3
+		SelectionShares: 4
 		Units: 1tnk.bitconnect
 		Sound: bitconnect.aud
 		Sequence: idle
@@ -533,6 +538,16 @@ CRATE.FuckYou:
 		SelectionShares: 3
 		Units: garbageman
 		Prerequisites: techlevel.unrestricted
+		Owner: Creeps
+	GiveUnitCrateAction@creepparadrop:
+		SelectionShares: 3
+		Units: 1tnk.creepparadrop
+		Prerequisites: techlevel.unrestricted
+		Owner: Creeps
+		Sequence: timequake
+	GiveUnitCrateAction@allyourbase:
+		SelectionShares: 2
+		Units: e6.cunt
 		Owner: Creeps
 	Crate:
 		Duration: 6000
@@ -567,6 +582,7 @@ CRATE.FuckYou:
 	-SelectionDecorations:
 	-Tooltip:
 	-RevealsShroud:
+	-EligibleForRandomActorCrate:
 	RenderSprites:
 		Image: 1tnk
 	KillsSelf:
@@ -1410,6 +1426,9 @@ ColonyDrop:
 		Moves: true
 		Velocity: 80
 		MaximumSpinSpeed: 0
+	FireWarheadsOnDeath@1:
+		Weapon: WeatherGrenade
+		EmptyWeapon: WeatherGrenade
 	AmbientSound@airborne:
 		SoundFiles: gshescre.wav, gshescrf.wav, gshescreg.wav, gshescrh.wav, gshescri.wav, gshescrj.wav, gshescrk.wav
 		Interval: 25, 75
@@ -3095,3 +3114,242 @@ GARBAGEMAN:
 		Delay: 25
 		StartIfBelow: 50
 		DamageCooldown: 500
+
+
+1TNK.CREEPPARADROP:
+	Inherits: 1TNK.MINE
+	-FireWarheadsOnDeath:
+	Mobile:
+		Locomotor: floater
+	SpawnActorOnDeath:
+		Actor: CREEPPARADROP
+		OwnerType: Victim
+
+CREEPPARADROP:
+	Inherits: XBAR
+	-Targetable:
+	-Buildable:
+	-Cloak:
+	-WithSpriteBody:
+	-WithMakeAnimation:
+	-AmbientSound:
+	-KillsSelf:
+	-Selectable:
+	Interactable:
+	Tooltip:
+		Name: ???
+	KillsSelf@badcrates:
+		Delay: 250
+		RemoveInstead: true
+	ProvidesPrerequisite@enablecreepdrops:
+		Prerequisite: crate.paradrops
+
+powerproxy.creepdrop1:
+	Inherits: powerproxy.cratedrop1
+	ParatroopersPower:
+		SquadSize: 2
+		DropItems: e1,e1,e1,e1,e1,e1,e1,e1,e1,e1,e1,e1,e1,e1,e1,e1,e1,e1,e1,e1
+
+powerproxy.creepdrop2:
+	Inherits: powerproxy.creepdrop1
+	ParatroopersPower:
+		DropItems: e1of,e1of,medi,e1,e1,e1,e1,e1,e1,e1,e1,e1,e1,e1,e1,e1of,e1of,medi
+
+powerproxy.creepdrop3:
+	Inherits: powerproxy.creepdrop1
+	ParatroopersPower:
+		DropItems: ge1,ge1,ge1,ge1,ge1,ge2,ge2,ge2,ge2,ge2,ge2,ge2,ge2,ge2,ge2,ge2
+
+powerproxy.creepdrop4:
+	Inherits: powerproxy.creepdrop1
+	ParatroopersPower:
+		DropItems: fe2,fe2,fe2,fe2,fe3,fmedi,fe3,fshok,fshok,fe4,fe4,frmbo
+
+powerproxy.creepdrop5:
+	Inherits: powerproxy.creepdrop1
+	ParatroopersPower:
+		SquadSize: 1
+		UnitType: U2.D6
+		DropItems: d6.patch,d6.deadeye,d6.havoc,d6.gunner,d6.hotwire
+
+powerproxy.creepdrop6:
+	Inherits: powerproxy.creepdrop1
+	ParatroopersPower:
+		DropItems: pzealot,pzealot,pzealot,pzealot,pzealot,pzealot,pzealot,pzealot,pzealot,pzealot,pzealot
+
+powerproxy.creepdrop7:
+	Inherits: powerproxy.creepdrop1
+	ParatroopersPower:
+		UnitType: TDROPSHIP.Drop
+		DropItems: TMARINE.b, TMARINE.b, TMARINE.b, TMARINE.b, TMARINE.b, TMARINE.b, TMARINE.b, TFIREBAT.b, TFIREBAT.b, TFIREBAT.b, TMEDIC, TMEDIC
+		SquadSize: 2
+		SquadOffset: -1024,1024,0
+		Cordon: 256
+
+powerproxy.creepdrop8:
+	Inherits: powerproxy.creepdrop1
+	ParatroopersPower:
+		UnitType: U2.D6
+		DropItems: japanrocketangel, japanrocketangel, japanrocketangel, japanrocketangel, japanrocketangel
+		SquadSize: 1
+		LaunchSound: AngelDrop_Callout01.aud
+
+powerproxy.fakenuke:
+	AlwaysVisible:
+	DropPodsPower:
+		OrderName: CrateABomb
+		Icon: abomb
+		Cursor: nuke
+		ChargeInterval: 19500
+		Name: actor-mslo.nukepower-name
+		Description: actor-proxynuke-description
+		BeginChargeSpeechNotification: AbombPrepping
+		EndChargeSpeechNotification: AbombReady
+		SelectTargetSpeechNotification: SelectTarget
+		InsufficientPowerSpeechNotification: InsufficientPower
+		IncomingSpeechNotification: AbombLaunchDetected
+		SelectTargetTextNotification: notification-select-target
+		InsufficientPowerTextNotification: notification-insufficient-power
+		BeginChargeTextNotification: notification-abomb-prepping
+		EndChargeTextNotification: notification-abomb-ready
+		IncomingTextNotification: notification-abomb-launch-detected
+		DisplayRadarPing: True
+		CameraActor: camera.spyplane
+		SupportPowerPaletteOrder: 71
+		CameraRemoveDelay: 450
+		DisplayTimerRelationships: Ally, Neutral, Enemy
+		AllowMultiple: true
+		OneShot: true
+		UnitTypes: FAKENUKE
+		Drops: 1,1
+		PodScatter: 2
+		PodFacing: 512
+		Weapon: M1Carbine
+		WeaponDelay: 5
+		ArrowSequence: arrow
+		ClockSequence: clock
+		CircleSequence: circles
+		BeaconPoster: atomicon
+		EntryEffect: explosion
+		EntryEffectSequence: bunkerbustersring
+
+FAKENUKE:
+	Inherits: ^Plane
+	-Targetable@GROUND:
+	-Targetable@AIRBORNE:
+	-ActorLostNotification:
+	-Selectable:
+	-WithShadow:
+	Interactable:
+	Health:
+		HP: 900000
+	Aircraft:
+		TurnSpeed: 20
+		Speed: 512
+		AltitudeVelocity: 512
+		CruiseAltitude: 40c0
+		MaximumPitch: 256
+		VTOL: true
+		LandableTerrainTypes: Clear, ClearSnow, Road, Creep, Bridge, Water, Ore, Gems, Rough, Tiberium, BlueTiberium, Radiation, Beach
+	WithFacingSpriteBody:
+		Sequence: down
+	WithMuzzleOverlay:
+	AttackAircraft:
+	Armament:
+		Weapon: colonydropsharpnel
+	Tooltip:
+		Name: bomb
+	RejectsOrders:
+	-SpawnActorOnDeath:
+	FallsToEarth:
+		Moves: true
+		Velocity: 80
+		MaximumSpinSpeed: 0
+	FireWarheadsOnDeath@explode:
+		EmptyWeapon: FakeNukeProjectileBomb
+		Weapon: FakeNukeProjectileBomb
+	-EjectOnDeath:
+	VoiceAnnouncement:
+		Voice: AbombLaunchDetected
+		ValidRelationships: None, Ally, Neutral, Enemy
+	Voiced:
+		VoiceSet: EVANotification
+	RenderSprites:
+		Image: atomic
+
+1TNK.FAKENUKE:
+	Inherits: 1TNK.MINE
+	-FireWarheadsOnDeath:
+	Mobile:
+		Locomotor: floater
+	SpawnActorOnDeath:
+		Actor: FAKENUKELANDED
+		OwnerType: Victim
+
+FAKENUKELANDED:
+	Inherits: ^Building
+	Inherits@1: ^Superweapon
+	Tooltip:
+		Name: Intentionally Failed Nuke
+	RenderSprites:
+		Image: atomicdud
+	-WithMakeAnimation:
+	GrantConditionOnHealth: 
+		MaxHP: 45000
+		Condition: die
+	Health:
+		HP: 100000
+	KillsSelf:
+		RequiresCondition: die
+		Delay: 20,66
+	FireWarheadsOnDeath@superweapon:
+		Weapon: Atomic
+		EmptyWeapon: Atomic
+		Chance: 50
+	SoundOnDamageTransition:
+		DamagedSounds: nuyell21.aud
+
+E6.CUNT:
+	Inherits: E6
+	Tooltip:
+		Name: CATS
+	WithDecoration@elite:
+		Image: pips
+		Sequence: pip-poison
+		Palette: effect
+		ValidRelationships: None,Neutral,Enemy,Ally
+	RenderSprites:
+		Image: e6
+	RevealsShroud:
+		Range: 32c0
+	-Buildable:
+	Valued:
+		Cost: 800
+	Health:
+		HP: 20000
+	GrantTimedCondition:
+		Condition: spawned
+		Duration: 3000
+	Targetable@noauto:
+		RequiresCondition: spawned
+		TargetTypes: NoAutoTarget, NoAITarget
+	GrantCondition@botcapture:
+		Condition: botcapture
+	AutoTargetPriority@1: 
+		ValidTargets: Structure
+	Armament:
+		RequiresCondition: botcapture
+		Weapon: HackyCaptureAttackCrate
+		TargetRelationships: Enemy
+		FireDelay: 125
+	-Armament@2:
+	GrantConditionOnAttack@die:
+		Condition: waiting
+		RevokeDelay: 300
+	Mobile:
+		PauseOnCondition: waiting
+	AmbientSound@allbase:
+		SoundFiles: allbase.ogg
+	KillsSelf@kill:
+		Delay: 5300
+		DamageTypes: ElectricityDeath

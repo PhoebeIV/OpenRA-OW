@@ -1084,6 +1084,10 @@ actor-korone-name = Inugami Korone
 actor-jesus-name = Jesus
 actor-garbageman-name = GARBAGE DAY
 
+actor-proxynuke-description = Launches a dud atomic bomb
+    at the target location to 
+    strike fear in your enemies.
+
 ## defaults.yaml
 meta-flyingbuilding =
    .actorlostnotification-text-notification = Structure lost.

@@ -96,7 +96,42 @@ Tick = function()
 			print("Paradropping "..crateCount.." extra crates...")
 		end
 	end
+
+	if (Creeps.HasPrerequisites({"crate.paradrops"})) then
+		CrateParadropTicks = CrateParadropTicks+1
+		if(CrateParadropTicks > CrateParadropTimer) then
+			local i = 0
+			local dropCount = 10
+			while(i < dropCount) do
+				local pickCrate = Utils.RandomInteger(0, 125)
+				local chosenCrate;
+
+				if(pickCrate < 20) then
+					chosenCrate = ProxyCreepPara8
+				elseif(pickCrate > 20 and pickCrate < 40) then
+					chosenCrate = ProxyCreepPara2
+				elseif(pickCrate > 40 and pickCrate < 60) then
+					chosenCrate = ProxyCreepPara3
+				elseif(pickCrate > 60 and pickCrate < 80) then
+					chosenCrate = ProxyCreepPara4
+				elseif(pickCrate > 80 and pickCrate < 85) then
+					chosenCrate = ProxyCreepPara5
+				elseif(pickCrate > 85 and pickCrate < 105) then
+					chosenCrate = ProxyCreepPara6
+				elseif(pickCrate > 105 and pickCrate < 125) then
+					chosenCrate = ProxyCreepPara7
+				else
+					chosenCrate = ProxyCreepPara1 end
+
+				local lz = Map.RandomCell()
+				chosenCrate.TargetParatroopers(Map.CenterOfCell(lz))
+				i=i+1
+			end
+			CrateParadropTicks = 0
+		end
+	end
 end
+
 Time = 0
 
 TargetRed = 0.0
@@ -114,6 +149,9 @@ SunSet = 15000
 
 CrateTicks = 0
 CrateTimer = 3000
+
+CrateParadropTicks = 0
+CrateParadropTimer = 249
 
 DoStrike = function()
 	Reinforcements.Reinforce(Creeps, {"1tnk.lightning"}, {Map.RandomCell()}, 1)
@@ -141,6 +179,14 @@ WorldLoaded = function()
 	Powerproxy2 = Actor.Create("powerproxy.cratedrop2", false, { Owner = Neutral })
 	Powerproxy3 = Actor.Create("powerproxy.cratedrop3", false, { Owner = Neutral })
 	Powerproxy4 = Actor.Create("powerproxy.cratedrop4", false, { Owner = Neutral })
+	ProxyCreepPara1 = Actor.Create("powerproxy.creepdrop1", false, { Owner = Creeps })
+	ProxyCreepPara2 = Actor.Create("powerproxy.creepdrop2", false, { Owner = Creeps })
+	ProxyCreepPara3 = Actor.Create("powerproxy.creepdrop3", false, { Owner = Creeps })
+	ProxyCreepPara4 = Actor.Create("powerproxy.creepdrop4", false, { Owner = Creeps })
+	ProxyCreepPara5 = Actor.Create("powerproxy.creepdrop5", false, { Owner = Creeps })
+	ProxyCreepPara6 = Actor.Create("powerproxy.creepdrop6", false, { Owner = Creeps })
+	ProxyCreepPara7 = Actor.Create("powerproxy.creepdrop7", false, { Owner = Creeps })
+	ProxyCreepPara8 = Actor.Create("powerproxy.creepdrop8", false, { Owner = Creeps })
 
 	if (Creeps.HasPrerequisites({"environment.morecrates"})) then
 		MinExtraCrates = 2
