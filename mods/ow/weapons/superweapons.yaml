@@ -79,7 +79,7 @@ Atomic:
 		Versus:
 			Wood: 25
 			Concrete: 25
-			Shield: 200
+			Shield: 300
 		DamageTypes: Prone50Percent, TriggerProne, FireDeath, Incendiary
 	Warhead@2Res_impact: DestroyResource
 		Size: 1
@@ -101,6 +101,7 @@ Atomic:
 		Versus:
 			Wood: 25
 			Concrete: 25
+			Shield: 200
 		DamageTypes: Prone50Percent, TriggerProne, FireDeath, Incendiary
 	Warhead@6Res_areanuke1: DestroyResource
 		Size: 2
@@ -124,6 +125,7 @@ Atomic:
 			Wood: 50
 			Tree: 200
 			Concrete: 25
+			Shield: 200
 		DamageTypes: Prone50Percent, TriggerProne, FireDeath, Incendiary
 	Warhead@9Dam_areanukefission: SpreadDamage
 		Spread: 3c0
@@ -149,6 +151,7 @@ Atomic:
 		Versus:
 			Tree: 200
 			Concrete: 25
+			Shield: 200
 		DamageTypes: Prone50Percent, TriggerProne, FireDeath, Incendiary
 	Warhead@15Res_areanuke3: DestroyResource
 		Size: 4
@@ -167,6 +170,7 @@ Atomic:
 		Versus:
 			Tree: 200
 			Concrete: 25
+			Shield: 200
 		DamageTypes: Prone50Percent, TriggerProne, FireDeath, Incendiary
 	Warhead@19Res_areanuke4: DestroyResource
 		Size: 5
@@ -1385,28 +1389,30 @@ SolBarrageCluster1:
 		LaunchAngle: 150
 	Warhead@1Dam: SpreadDamage
 		Delay: 15
-		Spread: 1c0
-		Falloff: 500, 180, 135, 50, 18, 7, 0
+		Spread: 512
+		Falloff: 600, 450, 300, 100, 75, 50
 		Damage: 2000
 		ValidTargets: GroundActor, WaterActor
 		Versus:
-			Wood: 60
+			None: 75
+			Wood: 50
 			Light: 75
 			Heavy: 75
 			Concrete: 50
 		DamageTypes: Prone50Percent, TriggerProne, ExplosionDeath
 	Warhead@2Dam: SpreadDamage
 		Delay: 20
-		Spread: 2c0
-		Falloff: 500, 180, 135, 50, 18, 7, 0
+		Spread: 768
+		Falloff: 600, 450, 250, 100, 25
 		Damage: 1500
 		ValidTargets: GroundActor, WaterActor
 		Versus:
-			Wood: 60
+			None: 75
+			Wood: 50
 			Light: 75
 			Heavy: 50
 			Concrete: 50
-		DamageTypes: Prone50Percent, TriggerProne, ExplosionDeath
+		DamageTypes: Prone50Percent, TriggerProne, ElectricityDeath
 	Warhead@2Smu: LeaveSmudge
 		Delay: 15
 		SmudgeType: Scorch
@@ -3810,3 +3816,262 @@ FakeNukeProjectile:
 		Range: 3
 		Actors: 1tnk.fakenuke
 		OwnerType: InternalName
+
+
+LightningZap:
+	Warhead@1Dam: SpreadDamage
+		Spread: 84
+		Damage: 20000
+		ValidTargets: GroundActor, WaterActor, Trees
+		Versus:
+			None: 300
+			Wood: 100
+			Light: 100
+			Heavy: 100
+			Concrete: 100
+		DamageTypes: Prone50Percent, TriggerProne, ElectricityDeath, Incendiary
+		AffectsParent: true
+	Warhead@2Eff: CreateEffect
+		Explosions: lightning1, lightning2, lightning3, lightning4, lightning5, lightning6, lightning7, lightning8, lightning9, lightning10
+		ImpactSounds: expnew10.aud, expnew16.aud, expnew17.aud, expnew18.aud, expnew19.aud
+		ImpactActors: false
+	Warhead@3Eff: CreateEffect
+		Explosions: large_explosion, artillery_explosion, large_napalm
+		ImpactSounds: expnew10.aud, expnew16.aud, expnew17.aud, expnew18.aud, expnew19.aud
+		ImpactActors: false
+	Warhead@2Smu: LeaveSmudge
+		SmudgeType: Scorch
+		InvalidTargets: Structure, Wall
+
+CrateLightningZap:
+	Inherits: LightningZap
+	Warhead@1Dam: SpreadDamage
+		Spread: 42
+		Damage: 30000
+		Versus:
+			None: 500
+
+MDKLightningZap:
+	Inherits: LightningZap
+	Warhead@1Dam: SpreadDamage
+		Spread: 256
+		Damage: 600000
+		Versus:
+			None: 100
+		DamageTypes: Prone50Percent, TriggerProne, ElectricityDeath, Incendiary, BypassShield
+	Warhead@22FlashEffect: FlashEffect
+		Duration: 15
+		FlashType: Nuke
+	Warhead@15Shake: ShakeScreen
+		Duration: 20
+		Intensity: 4
+		Multiplier: 1,1
+	Warhead@97Eff_impact: CreateEffect
+		ImpactSounds: jericho.wav
+		ImpactActors: false
+	Warhead@98Eff_impact: CreateEffect
+		ImpactSounds: dsrxplo2.aud
+		ImpactActors: false
+	Warhead@99Eff_impact: CreateEffect
+		ImpactSounds: dsrxplo2.aud
+		ImpactActors: false
+	Warhead@100Eff: CreateEffect
+		Explosions: ionring
+		ExplosionPalette: tseffect
+		ImpactActors: false
+
+MDKLightningZap2:
+	Inherits: MDKLightningZap
+	-Warhead@15Shake:
+	-Warhead@98Eff_impact:
+
+WeatherGrenade:
+	ReloadDelay: 375
+	Range: 10c0
+	ValidTargets: Ground, Water, GroundActor, WaterActor
+	Projectile: Bullet
+		Speed: 2c0
+		Image: BOMB
+		Blockable: false
+	Warhead@1Dam: SpreadDamage
+		Spread: 128
+		Damage: 1
+		ValidTargets: GroundActor, WaterActor
+	Warhead@1Eff: CreateEffect
+		ExplosionPalette: ra2
+		Explosions: wccloud1, wccloud2, wccloud3
+		ImpactSounds: thunder2.aud, thunder3.aud, thunder4.aud, thunder5.aud
+		ImpactActors: false
+	Warhead@shadow: CreateEffect
+		ExplosionPalette: cloud
+		Explosions: wccloud1s, wccloud2s, wccloud3s
+		ImpactActors: false
+	Warhead@lightning: FireCluster
+		Delay: 125
+		Weapon: WeatherLightning
+		RandomClusterCount: 1
+		Dimensions: 1,1
+		Footprint: x
+	Warhead@lightning2: FireCluster
+		Delay: 175
+		Weapon: WeatherLightning
+		RandomClusterCount: 2
+		Dimensions: 4,4
+		Footprint: xxxx xxxx xxxx xxxx
+	Warhead@lightning3: FireCluster
+		Delay: 225
+		Weapon: WeatherLightning
+		RandomClusterCount: 2
+		Dimensions: 4,4
+		Footprint: xxxx xxxx xxxx xxxx
+	Warhead@lightning4: FireCluster
+		Delay: 275
+		Weapon: WeatherLightning
+		RandomClusterCount: 2
+		Dimensions: 4,4
+		Footprint: xxxx xxxx xxxx xxxx
+	Warhead@clouds1: FireCluster
+		Weapon: WeatherCluster
+		RandomClusterCount: 3
+		Dimensions: 7,7
+		Footprint: xxxxxxx xxxxxxx xxxxxxx xxxxxxx xxxxxxx xxxxxxx xxxxxxx
+	Warhead@clouds2: FireCluster
+		Delay: 75
+		Weapon: WeatherCluster
+		RandomClusterCount: 3
+		Dimensions: 12,12
+		Footprint: xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx
+	Warhead@clouds3: FireCluster
+		Delay: 150
+		Weapon: WeatherCluster
+		RandomClusterCount: 4
+		Dimensions: 12,12
+		Footprint: xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx
+	Warhead@clouds4: FireCluster
+		Delay: 225
+		Weapon: WeatherCluster
+		RandomClusterCount: 6
+		Dimensions: 12,12
+		Footprint: xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx
+	Warhead@clouds5: FireCluster
+		Delay: 300
+		Weapon: WeatherCluster
+		RandomClusterCount: 8
+		Dimensions: 16,16
+		Footprint: xxxxxxxxxxxxxxxx xxxxxxxxxxxxxxxx xxxxxxxxxxxxxxxx xxxxxxxxxxxxxxxx xxxxxxxxxxxxxxxx xxxxxxxxxxxxxxxx xxxxxxxxxxxxxxxx xxxxxxxxxxxxxxxx xxxxxxxxxxxxxxxx xxxxxxxxxxxxxxxx xxxxxxxxxxxxxxxx xxxxxxxxxxxxxxxx xxxxxxxxxxxxxxxx xxxxxxxxxxxxxxxx xxxxxxxxxxxxxxxx xxxxxxxxxxxxxxxx
+
+WeatherCluster:
+	Inherits: WeatherGrenade
+	Projectile: Bullet
+		Speed: 128
+		Inaccuracy: 3c0
+		-Image:
+	-Warhead@clouds1:
+	-Warhead@clouds2:
+	-Warhead@clouds3:
+	-Warhead@clouds4:
+	-Warhead@clouds5:
+	-Warhead@lightning2:
+	-Warhead@lightning3:
+	-Warhead@lightning4:
+
+WeatherLightning:
+	Inherits: LightningZap
+	Range: 12c0
+	ReloadDelay: 250
+	ValidTargets: Ground, Water, GroundActor, WaterActor
+	Projectile: Bullet
+		Speed: 5c0
+		Blockable: false
+	Warhead@1Dam: SpreadDamage
+		Delay: 1
+		Spread: 1c512
+		Falloff: 150, 70, 30, 15, 5
+		Versus:
+			None: 100
+			Wood: 70
+			Light: 60
+			Heavy: 70
+			Concrete: 30
+	Warhead@2EMP: GrantExternalCondition
+		Range: 2c0
+		Condition: disabled
+		Duration: 225
+		ValidTargets: GroundActor, WaterActor
+
+WeatherLightningDeathBox:
+	Inherits: WeatherLightning
+	Range: 11c0
+	ReloadDelay: 300
+	Warhead@1Dam: SpreadDamage
+		Delay: 1
+		Spread: 750
+		Falloff: 150, 50, 20, 10, 5
+		Versus:
+			None: 100
+			Wood: 70
+			Light: 60
+			Heavy: 70
+			Concrete: 30
+	Warhead@2EMP: GrantExternalCondition
+		Range: 1c0
+		Condition: disabled
+		Duration: 150
+		ValidTargets: GroundActor, WaterActor
+
+WeatherMachineDeath:
+	Inherits: WeatherGrenade
+	Projectile: Bullet
+		-Image:
+	-Warhead@clouds3:
+	-Warhead@clouds4:
+	-Warhead@clouds5:
+	Warhead@lightning3: FireCluster
+		Delay: 0
+		Weapon: WeatherLightning
+		RandomClusterCount: 1
+		Dimensions: 1,1
+		Footprint: x
+	-Warhead@lightning4:
+
+FakeWeatherGrenade:
+	Inherits: WeatherGrenade
+	Warhead@1Dam: SpreadDamage
+		Spread: 128
+		Damage: 1
+		ValidTargets: GroundActor, WaterActor
+	Warhead@1Eff: CreateEffect
+		ExplosionPalette: ra2
+		Explosions: wccloud1, wccloud2, wccloud3
+		ImpactSounds: thunder2.aud, thunder3.aud, thunder4.aud, thunder5.aud
+		ImpactActors: false
+	Warhead@shadow: CreateEffect
+		ExplosionPalette: cloud
+		Explosions: wccloud1s, wccloud2s, wccloud3s
+		ImpactActors: false
+	-Warhead@lightning: 
+	-Warhead@lightning2: 
+	-Warhead@lightning3: 
+	-Warhead@lightning4: 
+	Warhead@clouds1: FireCluster
+		Weapon: FakeWeatherCluster
+	Warhead@clouds2: FireCluster
+		Weapon: FakeWeatherCluster
+	Warhead@clouds3: FireCluster
+		Weapon: FakeWeatherCluster
+	Warhead@clouds4: FireCluster
+		Weapon: FakeWeatherCluster
+	Warhead@clouds5: FireCluster
+		Weapon: FakeWeatherCluster
+
+FakeWeatherCluster:
+	Inherits: FakeWeatherGrenade
+	Projectile: Bullet
+		Speed: 128
+		Inaccuracy: 3c0
+		-Image:
+	-Warhead@clouds1:
+	-Warhead@clouds2:
+	-Warhead@clouds3:
+	-Warhead@clouds4:
+	-Warhead@clouds5:

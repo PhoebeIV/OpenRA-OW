@@ -205,7 +205,19 @@ actor-bio-a =
    .description = Can generate a deadly lightning storm.
     Requires power to operate.
     Maximum 1 can be built.
-      Special Ability: Lighting Storm
+      Special Ability: Lightning Storm
+   .supportname = Lightning Storm
+   .supportdesc = Create a deadly lightning storm.
+   Applies gradual damage to a large area.
+   .supportfake = Makes the area all cloudy and miserable.
+   Does no damage.
+
+actor-bio-afake =
+   .name = Fake Weather Machine
+   .generic-name = Weather Machine
+   .description =
+    Looks like a Weather Machine.
+    Maximum of one can be built.
 
 ## allies_veh.yaml
 actor-1tnk-description = Fast tank, good for scouting.
@@ -412,6 +424,12 @@ actor-avqtnk =
 
       Unarmed
    .name = Illuminate Terraformer
+
+## avali_upg.yaml
+actor-avalon-carrier =
+   .name = Doubled Repair Cycles
+   .description = Increases Carrier repair amount.
+
 
 ## china_air.yaml
 actor-chinamig =

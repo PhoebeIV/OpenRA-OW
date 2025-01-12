@@ -463,14 +463,29 @@ AVINTER:
 	RevealsShroud@GAPGEN:
 		Range: 7c0
 		Type: GroundPosition
-	Armament@3:
+	Armament:
+		Name: primary
+		Weapon: AvaliCarrierRepair
+		Cursor: repair
+		OutsideRangeCursor: repair
+		TargetRelationships: Ally
+		ForceTargetRelationships: Ally
+		LocalOffset: 0,-212,0, 0,212,0
+	Armament@2:
+		RequiresCondition: avalon.carrier
 		Name: secondary
 		Weapon: AvaliCarrierRepair
 		Cursor: repair
 		OutsideRangeCursor: repair
 		TargetRelationships: Ally
 		ForceTargetRelationships: Ally
-		LocalOffset: 0,100,0, 0,-100,0
+		LocalOffset: 0,212,0, 0,-212,0
+	GrantConditionOnPrerequisite@carrier:
+		Prerequisites: avalon.carrier
+		Condition: avalon.carrier
+	ReloadDelayMultiplier@upgrade:
+		RequiresCondition: avalon.carrier
+		Modifier: 80
 	AttackAircraft:
 		FacingTolerance: 128
 		PersistentTargeting: true
