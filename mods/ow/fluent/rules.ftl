@@ -5974,6 +5974,139 @@ actor-strifetemplar-name = Templar
 actor-strifeguycrusader-name = Crusader
 actor-strifeguybasic-name = Front Soldier
 
+actor-maverick-hero0 =
+   .description = [HERO]
+
+    Role: Aircraft unit that provides heavy weapons support at the cost of health and speed.
+
+    Comes with a vulcan gun, missile barrage and a para bomb.
+
+     Tier 1 unlocks an upgrade to the vulcan gun.
+     Tier 2 unlocks a passive upgrade.
+     Tier 3 unlocks an upgrade for the missiles.
+     Tier 4 unlocks a passive upgrade.
+     Tier 5 unlocks an upgrade for the parabomb.
+    Speed: 90
+      Strong vs Infantry, Vehicles, Aircraft
+
+   .name = Maverick  (Tier 0)
+   .real--name = Maverick 
+
+actor-maverick-hero1-name = Maverick  (Tier 1)
+actor-maverick-hero2-name = Maverick  (Tier 2)
+actor-maverick-hero3-name = Maverick  (Tier 3)
+actor-maverick-hero4-name = Maverick  (Tier 4)
+actor-maverick-hero5-name = Maverick  (Tier 5)
+
+actor-maverick-tier1-machinegun1 =
+   .name = Energy Machine Gun
+   .description = Replaces the vulcan gun with an energy machine gun.
+   This allows Maverick to target air units.
+
+actor-maverick-tier1-machinegun2 =
+   .name = Laser Cannon
+   .description = Replaces the vulcan gun with a laser cannon.
+   Although damage is increased, the weight of the weapon slows down Maverick by 10%
+
+actor-maverick-tier1-machinegun3 =
+   .name = GAU-12 Equalizer
+   .description = Replaces the vulcan gun with tghe 5 barreled GAU-12 gatling cannon.
+   Fire rate and damage is increased but can only target infantry.
+
+actor-maverick-tier2-upgrade1 =
+   .name = Boosters
+   .description = Grants the ability to push the jet engines to the limit.
+   Maverick will move at high speeds for a short time. Also creates a sonic boom when activated damaging nearby units.
+   The extra fuel puts an risk of taking more damage by 25%
+
+actor-maverick-tier2-upgrade2 =
+   .name = Countermeasures
+   .description = Maverick will gain an additional point defense laser.
+   The extra defense laser slows down Maverick by 10%
+
+actor-maverick-tier2-upgrade3 =
+   .name = Inspiration
+   .description = Maverick will provide an inspiration boost to nearby friendly units.
+   This increases firerate and provides light healing.
+
+actor-maverick-tier2-upgrade4 =
+   .name = Extra Ammo
+   .description = Extra ammo allows Maverick to fire his primary weapon at a faster rate.
+   The extra ammo slows down Maverick by 20%
+
+actor-maverick-tier2-upgrade5 =
+   .name = Reactive Armor
+   .description = Maverick gains a shield.
+   The weight of the shields power system slows down Maverick by 20%
+
+actor-maverick-tier2-upgrade6 =
+   .name = Ballistic Cannon
+   .description = Adds an additional ballistic cannon to Mavericks Arsenal.
+   The extra weapon slows down Maverick by 35%
+
+actor-maverick-tier3-missiles1 =
+   .name = Bunker Buster Missiles
+   .description = Replaces the standard missiles with Bunker busters.
+
+actor-maverick-tier3-missiles2 =
+   .name = Toxin Missiles
+   .description = Replaces the standard missiles with missiles filled with Anthrax gas.
+   The weight of the toxin missiles reduces Mavericks speed by 25%
+
+actor-maverick-tier3-missiles3 =
+   .name = Nuclear Missiles
+   .description = Replaces the standard missiles with nuclear missiles.
+   The weight of the nukes reduces Mavericks speed by 25%.
+   The risk of nuclear weapons increases damage taken by 25%
+
+actor-maverick-tier3-missiles4 =
+   .name = Shrapnel Missiles
+   .description = Replaces the standard missiles with shrapnel filled missiles.
+
+actor-maverick-tier3-missiles5 =
+   .name = EMP Missiles
+   .description = Replaces the standard missiles with EMP missiles.
+   EMP missiles have reduced damage output but will disable the target.
+
+actor-maverick-tier5-parabomb1 =
+   .name = Napalm Bombs
+   .description = Replaces the standard parabomb with a napalm bomb.
+
+actor-maverick-tier5-parabomb2 =
+   .name = Anti-matter Bombs
+   .description = Replaces the standard parabomb with an anti-matter bomb.
+   This weapon takes a long time to reload.
+
+actor-maverick-tier5-parabomb3 =
+   .name = Nuclear Bombs
+   .description = Replaces the standard parabomb with nuclear bombs.
+   This weapon takes a long time to reload.
+   The weight of the nukes reduces Mavericks speed by 25%.
+   The risk of nuclear weapons increases damage taken by 25%
+
+actor-maverick-tier5-parabomb4 =
+   .name = Toxin Bombs
+   .description = Replaces the standard parabomb with anthrax filled bombs.
+   This weapon takes a long time to reload.
+   The weight of the bombs reduces Mavericks speed by 10%
+
+actor-maverick-tier5-parabomb5 =
+   .name = EMP Bombs
+   .description = Replaces the standard parabomb with an EMP bomb.
+   This weapon takes a long time to reload.
+   The weight of the bombs reduces Mavericks speed by 20%
+
+actor-maverick-tier5-parabomb6 =
+   .name = Fuel-Air Bomb
+   .description = Replaces the standard parabomb with a Fuel-air bomb.
+   This weapon takes a long time to reload.
+
+actor-maverick-tier5-parabomb7 =
+   .name = Berserker Bomb
+   .description = Replaces the standard parabomb with a hate filled bomb.
+   This weapon causes enemy units to turn against everyone and everything.
+   The risk of carrying such a experimental weapon causes Maverick to take an extra 25% damage.
+
 ## forgotten
 actor-frge1 =
    .description = Light infantry. Heals in Tiberium.
