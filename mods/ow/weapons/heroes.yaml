@@ -1,0 +1,392 @@
+#####---MAVERICK---#####
+
+MaverickGAU-12:
+	Inherits: GAU-12
+	Range: 8c0
+
+MaverickGAU-12Extra:
+	Inherits: MaverickGAU-12
+	ReloadDelay: 7
+
+MaverickLaser:
+	Inherits: USALaserCrusaderLaser
+	ReloadDelay: 40
+	Range: 8c0
+	Warhead@1Dam: SpreadDamage
+		Damage: 8000
+		Spread: 256
+		Versus:
+			None: 100
+			Wood: 70
+			Light: 70
+			Heavy: 70
+			Concrete: 70
+		DamageTypes: Prone50Percent, TriggerProne, FireDeath
+
+MaverickLaserExtra:
+	Inherits: MaverickLaser
+	ReloadDelay: 20
+
+mechatengushotplaneextra:
+	Inherits: mechatengushot
+	ValidTargets: GroundActor, WaterActor, Ground, Water, Air, AirborneActor
+	ReloadDelay: 12
+	Range: 10c384
+	Report: JUMecha_mgBurstA.aud, JUMecha_mgBurstB.aud, JUMecha_mgBurstC.aud, JUMecha_mgBurstD.aud, JUMecha_mgBurstE.aud, JUMecha_mgBurstF.aud
+	Warhead@2Dam: SpreadDamage
+		Damage: 3500
+		ValidTargets: Air, AirborneActor
+		DamageTypes: Prone50Percent, TriggerProne, DefaultDeath
+
+MaverickToxinRocket:
+	Inherits: ^AntiGroundMissile
+	ReloadDelay: 5
+	Range: 8c768
+	MinRange: 2c512
+	Report: vmigweaa.wav, vmigweab.wav
+	Projectile: Missile
+		Speed: 256
+		Inaccuracy: 2c128
+		CruiseAltitude: 2c0
+		RangeLimit: 12c410
+	Warhead@1Dam: SpreadDamage
+		Damage: 12500
+		Spread: 192
+		Versus:
+			None: 40
+			Wood: 40
+			Light: 60
+			Heavy: 60
+			Concrete: 100
+		DamageTypes: Prone50Percent, TriggerProne, SmallExplosionDeath
+	Warhead@3Eff: CreateEffect
+		Explosions: artillery_explosion
+		ImpactSounds: kaboom15.aud
+	Warhead@4EffWater: CreateEffect
+		Explosions: large_splash
+		ImpactSounds: splash9.aud
+	Warhead@gas: FireCluster
+		Delay: 4
+		Weapon: A10Gas
+		RandomClusterCount: 5
+		Dimensions: 4,4
+		Footprint: xxxx xxxx xxxx xxxx
+
+MaverickShrapnelRocket:
+	Inherits: ^AntiGroundMissile
+	ReloadDelay: 15
+	Range: 8c512
+	Report: vmigweaa.wav, vmigweab.wav
+	-Projectile:
+	Projectile: Bullet
+		Speed: 256
+		Inaccuracy: 2c128
+		TrailImage: smokey
+		TrailInterval: 1
+		Blockable: false
+		Image: moab_bomb
+		Shadow: True
+	Warhead@1Dam: SpreadDamage
+		Spread: 512
+		Damage: 10000
+		Versus:
+			None: 80
+			Wood: 100
+			Light: 100
+			Heavy: 100
+			Concrete: 50
+		DamageTypes: Prone50Percent, TriggerProne, SmallExplosionDeath
+	Warhead@3Eff: CreateEffect
+		Explosions: building
+		ImpactSounds: dsbigexp.aud
+	Warhead@fragment1: FireFragment
+		ValidTargets: Ground, Water, GroundActor, WaterActor, AirborneActor, Air
+		Weapon: AvaliImpalerRailgunBoltShrapnel
+		Offsets: 0,-512,0, 0,-1024,0, 512,-1024,0, -512,-1024,0, 0,-1536,0, 512,-1536,0, -512,-1536,0, 1024,-1536,0, -1024,-1536,0
+		Rotate: true
+	Warhead@15Shake: ShakeScreen
+		Duration: 6
+		Intensity: 1
+		Multiplier: 1,1
+
+MaverickEMPRocket:
+	Inherits: ^AntiGroundMissile
+	ReloadDelay: 4
+	Range: 8c512
+	Report: vmigweaa.wav, vmigweab.wav
+	-Projectile:
+	Projectile: Bullet
+		Speed: 256
+		Inaccuracy: 2c128
+		Blockable: false
+		ContrailLength: 10
+		ContrailStartColor: 00fbff
+		Image: MISSILE
+		Shadow: true
+	Warhead@1Dam: SpreadDamage
+		Damage: 4000
+		Spread: 1c0
+		ValidTargets: Ground, GroundActor, Air, AirborneActor, WaterActor, Trees
+	Warhead@2EMP: GrantExternalCondition
+		Condition: disabled
+		Duration: 75
+		ValidTargets: GroundActor, WaterActor
+		DamageTypes: Prone50Percent, TriggerProne, SmallExplosionDeath
+	Warhead@3Eff: CreateEffect
+		Explosions: laserhitmed
+		ImpactSounds: PlasmaCannonImpact1.aud, PlasmaCannonImpact2.aud
+		ValidTargets: Ground, Water, GroundActor, WaterActor, AirborneActor
+	Warhead@4Eff_impact: CreateEffect
+		Explosions: japanplasmaring
+		ValidTargets: Ground, Water, GroundActor, WaterActor, AirborneActor, Air
+
+MaverickNukeRocket:
+	Inherits: ^AntiGroundMissile
+	ReloadDelay: 8
+	Range: 10c0
+	Report: vmigweaa.wav, vmigweab.wav
+	Projectile: Missile
+		Arm: 3
+		Image: moab_bomb
+		TrailImage: smokey
+		HorizontalRateOfTurn: 25
+		RangeLimit: 12c512
+		MinimumLaunchAngle: 62
+		MaximumLaunchAngle: 62
+		Speed: 384
+		Shadow: True
+		Inaccuracy: 2c128
+	Warhead@1Dam: SpreadDamage
+		Spread: 2c0
+		Damage: 25000
+		ValidTargets: GroundActor, WaterActor
+		Versus:
+			None: 80
+			Wood: 80
+			Heavy: 80
+			Light: 80
+			Concrete: 25
+		DamageTypes: Prone50Percent, TriggerProne, ExplosionDeath
+	Warhead@3Eff: CreateEffect
+		Explosions: dukenukemexplosionsmallchina
+		ValidTargets: Ground, Air, GroundActor, AirborneActor, WaterActor, Trees
+		ImpactSounds: dukeexplosion.wav
+	Warhead@Res7: DestroyResource
+		Size: 3
+		ResourceAmount: 10
+	Warhead@4Radiation: CreateResource
+		AddsResourceType: Radiation
+		Delay: 1
+		Size: 2
+	Warhead@15Shake: ShakeScreen
+		Duration: 5
+		Intensity: 2
+		Multiplier: 1,1
+	Warhead@Res7: DestroyResource
+		ResourceTypes: Radiation
+		Size: 3
+		Delay: 625
+		ResourceAmount: 10
+
+MaverickBunkerMissile:
+	Inherits: ^AntiGroundMissile
+	ReloadDelay: 5
+	Range: 8c768
+	MinRange: 2c512
+	Report: vmigweaa.wav, vmigweab.wav
+	Projectile: Missile
+		Speed: 256
+		Inaccuracy: 1c0
+		CruiseAltitude: 2c0
+		RangeLimit: 12c410
+	Warhead@1Dam: SpreadDamage
+		Spread: 192
+		Damage: 12500
+		ValidTargets: GroundActor, WaterActor
+		Versus:
+			None: 100
+			Wood: 60
+			Light: 50
+			Heavy: 80
+			Concrete: 50
+	Warhead@3Eff: CreateEffect
+		Explosions: artillery_explosion
+		ImpactSounds: kaboom15.aud
+	Warhead@4Smu: LeaveSmudge
+		SmudgeType: Crater
+		Size: 1
+		Delay: 50
+	Warhead@5Dam: SpreadDamage
+		Spread: 512
+		Damage: 13500
+		Delay: 50
+		Versus:
+			None: 100
+			Wood: 30
+			Light: 30
+			Heavy: 50
+			Concrete: 100
+		DamageTypes: Prone50Percent, TriggerProne, SmallExplosionDeath
+		ValidTargets: GroundActor, WaterActor
+	Warhead@6Shake: ShakeScreen
+		Duration: 10
+		Intensity: 1
+		Multiplier: 1,1
+		Delay: 50
+	Warhead@73Eff: CreateEffect
+		Delay: 50
+		Explosions: bunkerbustersring
+		ImpactSounds: kaboom1.aud
+
+MaverickBallisticCannon:
+	Inherits: 125mmemperor
+	Range: 12c768
+	Burst: 1
+	ReloadDelay: 75
+	Projectile: Bullet
+		Speed: 682
+		Image: 125mm
+		Shadow: True
+	Warhead@1Dam: SpreadDamage
+		Damage: 15000
+		Versus:
+			None: 70
+			Light: 70
+			Heavy: 115
+		InvalidTargets: Air
+
+ParaBombMaverick:
+	Inherits: ParaBomb
+	ReloadDelay: 50
+	Range: 1c0
+
+ParaBombMaverickNapalm:
+	Inherits: NapalmBomb
+	ReloadDelay: 5
+	Range: 2c0
+
+ParaBombMaverickAntiMatter:
+	Inherits: AntiMatterParaDrop
+	ReloadDelay: 625
+	Range: 1c0
+
+ParaBombMaverickNuke:
+	Inherits: NuclearParaDrop
+	ReloadDelay: 500
+	Range: 1c0
+
+ParaBombMaverickToxic:
+	Inherits: A10Chem
+	ReloadDelay: 625
+	BurstDelays: 5
+	Burst: 3
+	Range: 2c0
+
+ParaBombMaverickEMP:
+	ReloadDelay: 1125
+	Range: 1c0
+	Report: chute1.aud
+	ValidTargets: Ground, Water, GroundActor, WaterActor
+	Projectile: GravityBomb
+		Image: PARABOMB
+		OpenSequence: open
+		Velocity: 0, 0, -30
+		Acceleration: 0, 0, 0
+		Shadow: False
+	Warhead@1Dam: SpreadDamage
+		Spread: 1000
+		Damage: 0
+		ValidTargets: GroundActor, WaterActor
+		Versus:
+			None: 40
+			Wood: 60
+			Light: 75
+			Concrete: 25
+		DamageTypes: Prone50Percent, TriggerProne, ExplosionDeath
+	Warhead@2Smu: LeaveSmudge
+		SmudgeType: Crater
+		ValidTargets: Ground, Infantry
+	Warhead@4Effect: CreateEffect
+		ImpactSounds: empexplosion.wav
+		Explosions: pulse_explosion
+		ExplosionPalette: tseffect
+		ImpactActors: false
+		ValidTargets: Ground, Water, GroundActor, WaterActor, Underwater, AirborneActor, Air
+	Warhead@4EffWater: CreateEffect
+		Explosions: small_splash
+		ImpactSounds: splash9.aud
+		ValidTargets: Water, Underwater
+	Warhead@emp1: GrantExternalCondition
+		Range: 2c0
+		Duration: 500
+		Condition: disabled
+		ValidTargets: GroundActor, WaterActor, Underwater, AirborneActor, Air
+		InvalidTargets: Structure
+	Warhead@emp2: GrantExternalCondition
+		Delay: 7
+		Range: 5c0
+		Duration: 500
+		Condition: disabled
+		ValidTargets: GroundActor, WaterActor, Underwater, AirborneActor, Air
+		InvalidTargets: Structure
+	Warhead@emp3: GrantExternalCondition
+		Delay: 14
+		Range: 7c0
+		Duration: 500
+		Condition: disabled
+		ValidTargets: GroundActor, WaterActor, Underwater, AirborneActor, Air
+		InvalidTargets: Structure
+	Warhead@emppwrplant: GrantExternalCondition
+		Delay: 21
+		Range: 9c0
+		Duration: 500
+		Condition: disabled
+		ValidTargets: Structure
+		InvalidTargets: Vehicle, Infantry
+	Warhead@emppwrplant2: GrantExternalCondition
+		Delay: 21
+		Range: 9c0
+		Duration: 500
+		Condition: emp
+		ValidTargets: Structure
+		InvalidTargets: Vehicle, Infantry
+	Warhead@empshield: GrantExternalCondition
+		Delay: 5
+		Range: 9c0
+		Duration: 500
+		Condition: emp_shields
+		ValidTargets: GroundActor, AirborneActor
+
+ParaBombMaverickFuelAirBomb:
+	Inherits: usamoab
+	ReloadDelay: 1125
+	Range: 1c0
+
+ParaBombMaverickBerserker:
+	ReloadDelay: 1125
+	Range: 1c0
+	Report: chute1.aud
+	ValidTargets: Ground, Water, GroundActor, WaterActor
+	Projectile: GravityBomb
+		Image: PARABOMB
+		OpenSequence: open
+		Velocity: 0, 0, -20
+		Acceleration: 0, 0, 0
+		Shadow: False
+	Warhead@curtain: GrantExternalCondition
+		ValidTargets: GroundActor, Trees, WaterActor, Underwater, AirborneActor
+		ValidRelationships: Enemy, Neutral, Ally
+		Condition: JapanBerserkerCondition
+		Range: 6c0
+		Duration: 375
+	Warhead@curtain2: CreateEffect
+		ImpactSounds: japanberserkexplode.aud
+		ValidTargets: Ground, Water, GroundActor, WaterActor, AirborneActor, Air
+	Warhead@MediVoid5Effect: CreateEffect
+		Explosions: medideathknightflash
+		ImpactActors: false
+		ValidTargets: Ground, Water, GroundActor, WaterActor, AirborneActor, Air
+	Warhead@4EffWater: CreateEffect
+		Explosions: small_splash
+		ImpactSounds: splash9.aud
+		ValidTargets: Water, Underwater
