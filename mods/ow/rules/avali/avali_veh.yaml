@@ -297,10 +297,6 @@ AVARTY:
 		RevealGeneratedShroud: False
 	RevealsShroud@GAPGEN:
 		Range: 5c0
-	RenderVoxels:
-		Image: jugg
-		PlayerPalette: tsunit
-		Scale: 10
 	RenderSprites:
 		Image: avarty
 	-ClassicFacingBodyOrientation:
@@ -325,8 +321,8 @@ AVARTY:
 		UndeployOnPickup: true
 		Facing: 384
 		AllowedTerrainTypes: Clear, ClearSnow, Road, Rough, Ore, Gems, Tiberium, BlueTiberium, Creep
-		DeploySounds: placbldg.aud
-		UndeploySounds: ramenu1.aud
+		DeploySounds: ttatra00.aud
+		UndeploySounds: ttatra01.aud
 	Repairable:
 		RequireForceMoveCondition: !undeployed
 	Passenger:
@@ -341,14 +337,18 @@ AVARTY:
 		Turret: deployed
 		TurnSpeed: 20
 		InitialFacing: 0
-		Offset: -153,-17,256
 		RealignDelay: 260
-	WithVoxelTurret:
+	WithSpriteTurret@1:
 		Turret: deployed
 		Sequence: turret
 		RequiresCondition: deployed
+	WithTurretAttackAnimation@1:
+		Turret: deployed
+		Armament: deployed_effect
+		Sequence: turret-fire
+		RequiresCondition: deployed
 	AttackTurreted@deployed:
-		Armaments: deployed, deployed_a, dummyweapon
+		Armaments: deployed, deployed_a, deployed_effect, dummyweapon
 		Turrets: deployed
 		RequiresCondition: deployed
 		PauseOnCondition: disabled
@@ -356,45 +356,45 @@ AVARTY:
 		ForceFireIgnoresActors: True
 		OutsideRangeRequiresForceFire: True
 	Armament@deployed_a:
-		FireDelay: 26
+		FireDelay: 30
 		Name: deployed_a
 		Turret: deployed
 		Weapon: AvaliImpalerRailgun
-		LocalOffset: 1424,0,512, 1424,-300,512, 1424,300,512
+		LocalOffset: 1024,0,512
 		RequiresCondition: deployed
 		PauseOnCondition: !ammo_a
 		MuzzleSequence: muzzle
 		MuzzlePalette: effect
 	Armament@deployed_b:
-		FireDelay: 24
+		FireDelay: 28
 		Name: deployed_a
 		Turret: deployed
 		Weapon: AvaliImpalerRailgunBolt
-		LocalOffset: 1424,0,512, 1424,-300,512, 1424,300,512
+		LocalOffset: 1024,0,512
 		RequiresCondition: deployed
 		PauseOnCondition: !ammo_a
 		MuzzleSequence: siegeattack
 		MuzzlePalette: effect
+		Recoil: 150
+		RecoilRecovery: 10
 		AmmoUsage: 0
 	Armament@deployedeffect_a:
-		Name: deployed_a
+		Name: deployed_effect
 		Turret: deployed
 		Weapon: AvaliImpalerRailgunEffect
-		LocalOffset: 1424,0,512, 1424,-300,512, 1424,300,512
+		LocalOffset: 1024,0,512
 		RequiresCondition: deployed
 		PauseOnCondition: !ammo_a
-		MuzzleSequence: muzzle
-		MuzzlePalette: effect
 		AmmoUsage: 0
 	Armament@deployedeffect2:
-		FireDelay: 25
+		FireDelay: 29
 		Name: deployed
 		Turret: deployed
 		Weapon: AvaliImpalerRailgunHit
 		RequiresCondition: deployed
 		PauseOnCondition: !ammo_a
 	Armament@deployedeffectpowered:
-		FireDelay: 25
+		FireDelay: 29
 		Name: deployed
 		Turret: deployed
 		Weapon: AvaliImpalerRailgunHitPowered
@@ -406,6 +406,15 @@ AVARTY:
 		Turret: deployed
 		PauseOnCondition: disabled
 		RequiresCondition: deployed
+	GrantConditionOnAttack@fire:
+		Condition: firing
+		ArmamentNames: deployed_effect
+		RevokeDelay: 80
+	AmbientSound@ejectshell:
+		RequiresCondition: firing
+		SoundFiles: bt_shelleject.aud
+		Delay: 31
+		Interval: 250
 	AmmoPool@a:
 		Name: ammo_a
 		Armaments: deployed_a
@@ -413,6 +422,7 @@ AVARTY:
 	ReloadAmmoPool@a:
 		AmmoPool: ammo_a
 		Delay: 250
+		Sound: bt_reload3.aud
 	ReloadAmmoDelayMultiplier@a:
 		RequiresCondition: powered
 		Modifier: 66
@@ -478,10 +488,10 @@ AVARTY:
 
 AVARTY.BOT:
 	Inherits: ^TrackedVehicle
+	Inherits@avali: ^AvaliVehicle
 	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
 	RenderSprites:
-		Image: JUGG
-		PlayerPalette: tsunit
+		Image: avarty
 	Valued:
 		Cost: 2500
 	Tooltip:
@@ -566,17 +576,12 @@ AVARTY.BOT.D:
 	-Selectable:
 	-Tooltip:
 	-RangeMultiplier@usa.search_and_destroy:
+	-EligibleForRandomActorCrate:
 	GainsExperienceMultiplier:
 		Modifier: 0
-	RenderVoxels:
-		Image: jugg
-		PlayerPalette: tsunit
-		Scale: 10
 	RenderSprites:
-		PlayerPalette: tsunit
-		Image: JUGG
-	UpdatesPlayerStatistics:
-		AddToArmyValue: false
+		Image: avarty
+	-UpdatesPlayerStatistics:
 	Mobile:
 		Speed: 1
 		PauseOnCondition: alive
@@ -596,46 +601,59 @@ AVARTY.BOT.D:
 		RevealGeneratedShroud: False
 	RevealsShroud@GAPGEN:
 		Range: 5c0
+	WithSpriteTurret@1:
+		Turret: deployed
+		Sequence: turret
+		RequiresCondition: !build-incomplete
+	WithTurretAttackAnimation@1:
+		Turret: deployed
+		Armament: deployed_effect
+		Sequence: turret-fire
+	AttackTurreted@deployed:
+		Armaments: deployed, deployed_a, deployed_effect, dummyweapon
+		Turrets: deployed
+		RequiresCondition: !build-incomplete
+		PauseOnCondition: disabled
 	Armament@deployed_a:
-		FireDelay: 26
+		FireDelay: 30
 		Name: deployed_a
 		Turret: deployed
 		Weapon: AvaliImpalerRailgun
-		LocalOffset: 1424,0,512, 1424,-300,512, 1424,300,512
+		LocalOffset: 1024,0,512
 		RequiresCondition: deployed
 		PauseOnCondition: !ammo_a
 		MuzzleSequence: muzzle
 		MuzzlePalette: effect
 	Armament@deployed_b:
-		FireDelay: 24
+		FireDelay: 28
 		Name: deployed_a
 		Turret: deployed
 		Weapon: AvaliImpalerRailgunBolt
-		LocalOffset: 1424,0,512, 1424,-300,512, 1424,300,512
+		LocalOffset: 1024,0,512
 		RequiresCondition: deployed
 		PauseOnCondition: !ammo_a
 		MuzzleSequence: siegeattack
 		MuzzlePalette: effect
+		Recoil: 150
+		RecoilRecovery: 10
 		AmmoUsage: 0
 	Armament@deployedeffect_a:
-		Name: deployed_a
+		Name: deployed_effect
 		Turret: deployed
 		Weapon: AvaliImpalerRailgunEffect
-		LocalOffset: 1424,0,512, 1424,-300,512, 1424,300,512
+		LocalOffset: 1024,0,512
 		RequiresCondition: deployed
 		PauseOnCondition: !ammo_a
-		MuzzleSequence: muzzle
-		MuzzlePalette: effect
 		AmmoUsage: 0
 	Armament@deployedeffect2:
-		FireDelay: 25
+		FireDelay: 29
 		Name: deployed
 		Turret: deployed
 		Weapon: AvaliImpalerRailgunHit
 		RequiresCondition: deployed
 		PauseOnCondition: !ammo_a
 	Armament@deployedeffectpowered:
-		FireDelay: 25
+		FireDelay: 29
 		Name: deployed
 		Turret: deployed
 		Weapon: AvaliImpalerRailgunHitPowered
@@ -647,6 +665,15 @@ AVARTY.BOT.D:
 		Turret: deployed
 		PauseOnCondition: disabled
 		RequiresCondition: deployed
+	GrantConditionOnAttack@fire:
+		Condition: firing
+		ArmamentNames: deployed_effect
+		RevokeDelay: 80
+	AmbientSound@ejectshell:
+		RequiresCondition: firing
+		SoundFiles: bt_shelleject.aud
+		Delay: 31
+		Interval: 250
 	AmmoPool@a:
 		Name: ammo_a
 		Armaments: deployed_a
@@ -654,6 +681,7 @@ AVARTY.BOT.D:
 	ReloadAmmoPool@a:
 		AmmoPool: ammo_a
 		Delay: 250
+		Sound: bt_reload3.aud
 	ReloadAmmoDelayMultiplier@a:
 		RequiresCondition: powered
 		Modifier: 66
@@ -700,23 +728,13 @@ AVARTY.BOT.D:
 	-WithFacingSpriteBody:
 	WithSpriteBody:
 		Sequence: idle
-	WithVoxelTurret:
-		Turret: deployed
-		Sequence: turret
-		RequiresCondition: !build-incomplete
 	Turreted@2:
 		TurnSpeed: 24
-		InitialFacing: 512
+		InitialFacing: 768
 		Turret: deployed
-		Offset: -153,-17,256
 		RealignDelay: 260
 		PauseOnCondition: disabled
 		RequiresCondition: !build-incomplete
-	AttackTurreted@deployed:
-		Armaments: primary, deployed, deployed_a, deployed_b
-		Turrets: primary, deployed
-		RequiresCondition: !build-incomplete
-		PauseOnCondition: disabled
 	RevealOnFire:
 		ArmamentNames: deployed, deployed_a, deployed_b
 	Selectable:
@@ -754,6 +772,10 @@ AVARTY.BOT.D:
 	BodyOrientation:
 		QuantizedFacings: 32
 		UseClassicPerspectiveFudge: true
+	AmbientSound:
+		Delay: 0
+		Interval: -1
+		SoundFiles: ttatra00.aud
 
 AVARTY.BOT.Checker:
 	Inherits: MINE_DUMMY
@@ -765,6 +787,170 @@ AVARTY.BOT.Checker:
 	FireWarheadsOnDeath:
 		Weapon: JuggUndeploy
 		EmptyWeapon: JuggUndeploy
+
+AVARTY.BOT.BUILDABLE:
+	Inherits: ^Defense
+	Buildable:
+		Queue: Defense
+		BuildPaletteOrder: 9000
+		Prerequisites: advtechcenter, ~vehicles.avalon, ~techlevel.high, ~ai.all
+		Description: actor-avarty.botdescription2
+		BuildLimit: 5
+	RenderSprites:
+		Image: avarty
+	Valued:
+		Cost: 2500
+	Tooltip:
+		Name: actor-avarty.deployed
+	Health:
+		HP: 50000
+	Armor:
+		Type: Light
+	RevealsShroud:
+		MinRange: 5c0
+		Range: 6c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 5c0
+	MapEditorData:
+		Categories: Defense
+	WithSpriteTurret@1:
+		Turret: deployed
+		Sequence: turret
+		RequiresCondition: !build-incomplete
+	WithTurretAttackAnimation@1:
+		Turret: deployed
+		Armament: deployed_effect
+		Sequence: turret-fire
+	AttackTurreted@deployed:
+		Armaments: deployed, deployed_a, deployed_effect
+		Turrets: deployed
+		RequiresCondition: !build-incomplete
+		PauseOnCondition: disabled
+	Armament@deployed_a:
+		FireDelay: 30
+		Name: deployed_a
+		Turret: deployed
+		Weapon: AvaliImpalerRailgun
+		LocalOffset: 1024,0,512
+		PauseOnCondition: !ammo_a
+		MuzzleSequence: muzzle
+		MuzzlePalette: effect
+	Armament@deployed_b:
+		FireDelay: 28
+		Name: deployed_a
+		Turret: deployed
+		Weapon: AvaliImpalerRailgunBolt
+		LocalOffset: 1024,0,512
+		PauseOnCondition: !ammo_a
+		MuzzleSequence: siegeattack
+		MuzzlePalette: effect
+		Recoil: 150
+		RecoilRecovery: 10
+		AmmoUsage: 0
+	Armament@deployedeffect_a:
+		Name: deployed_effect
+		Turret: deployed
+		Weapon: AvaliImpalerRailgunEffect
+		LocalOffset: 1024,0,512
+		PauseOnCondition: !ammo_a
+		AmmoUsage: 0
+	Armament@deployedeffect2:
+		FireDelay: 29
+		Name: deployed
+		Turret: deployed
+		Weapon: AvaliImpalerRailgunHit
+		PauseOnCondition: !ammo_a
+	Armament@deployedeffectpowered:
+		FireDelay: 29
+		Name: deployed
+		Turret: deployed
+		Weapon: AvaliImpalerRailgunHitPowered
+		RequiresCondition: powered_active
+		PauseOnCondition: !ammo_a
+	GrantConditionOnAttack@fire:
+		Condition: firing
+		ArmamentNames: deployed_effect
+		RevokeDelay: 80
+	AmbientSound@ejectshell:
+		RequiresCondition: firing
+		SoundFiles: bt_shelleject.aud
+		Delay: 31
+		Interval: 250
+	AmmoPool@a:
+		Name: ammo_a
+		Armaments: deployed_a
+		AmmoCondition: ammo_a
+	ReloadAmmoPool@a:
+		AmmoPool: ammo_a
+		Delay: 250
+		Sound: bt_reload3.aud
+	ReloadAmmoDelayMultiplier@a:
+		RequiresCondition: powered
+		Modifier: 66
+	WithAmmoPipsDecoration@a:
+		Position: BottomLeft
+		Margin: 4, 3
+		RequiresSelection: true
+		PipCount: 2
+		FullSequence: pip-red
+		AmmoPools: ammo_a
+	WithAmmoPipsDecoration@b:
+		Position: BottomRight
+		Margin: 4, 3
+		RequiresSelection: true
+		PipCount: 2
+		FullSequence: pip-blue
+		AmmoPools: ammo_b
+	ExternalCondition@powerplant:
+		Condition: powered
+	GrantCondition@powered:
+		Condition: powered_active
+		RequiresCondition: powered && !lowpower
+	Power:
+		RequiresCondition: powered
+		Amount: -50
+	GrantConditionOnPowerState: 
+		ValidPowerStates: Low, Critical
+		Condition: lowpower
+	WithDecoration@powered:
+		Image: pips
+		Sequence: pip-aeiou
+		Palette: effect
+		Position: TopRight
+		RequiresCondition: powered_active
+	WithDecoration@powered2:
+		Image: pips
+		Sequence: pip-minus
+		Palette: effect
+		Position: TopRight
+		RequiresCondition: powered && lowpower
+	WithMuzzleOverlay:
+	WithMakeAnimation:
+		Condition: build-incomplete
+	WithSpriteBody:
+	Turreted@2:
+		TurnSpeed: 24
+		InitialFacing: 256
+		Turret: deployed
+		RealignDelay: 260
+		PauseOnCondition: disabled
+		RequiresCondition: !build-incomplete
+	RevealOnFire:
+		ArmamentNames: deployed, deployed_a, deployed_b
+	Selectable:
+		DecorationBounds: 1877, 1621, 0, -170
+	WithRangeCircle:
+		Range: 15c0
+	BodyOrientation:
+		QuantizedFacings: 32
+		UseClassicPerspectiveFudge: true
+	AmbientSound:
+		Delay: 0
+		Interval: -1
+		SoundFiles: ttatra00.aud
+	SpawnActorOnDeath:
+		Actor: AVARTY.Husk
 
 AVQTNK:
 	Inherits: ^TrackedVehicle

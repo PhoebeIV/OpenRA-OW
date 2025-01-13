@@ -417,6 +417,7 @@ actor-avarty =
       Strong vs Ground units
       Weak vs Aircraft
    .botdescription = Auto-deploys. AI Use only.
+   .botdescription2 = Placeable, static defense. AI Use only.
 
 actor-avqtnk =
    .description = Creates a cold environment in the surrounding
