@@ -669,32 +669,40 @@ USAMINEDROP:
 		Type: Wood
 
 USAMINEDROPACTOR:
-	Inherits: ^Defense
+	Inherits@1: ^ExistsInWorld
+	Inherits@4: ^SpriteActor
 	Inherits@AUTOTARGET: ^AutoTargetGround
-	Building:
-		Footprint: x
-		Dimensions: 1,1
-	Buildable:
-		Queue: Defense
-		BuildPaletteOrder: 200
-		Prerequisites: ~structures.usa, !structures.usa
-		Description: actor-usaminedropactor.description
-	RequiresBuildableArea:
-		AreaTypes: building, fake
-		Adjacent: 4
-	-GivesBuildableArea:
+	Inherits@selection: ^SelectableCombatBuilding
+	Huntable:
+	HiddenUnderFog:
+	Guardable:
+	HitShape:
+		Type: Circle
+			Radius: 427
+	WithSpriteBody:
+	Selectable:
+		Bounds: 1024,1024
+	SelectionDecorations:
+	Targetable:
+		TargetTypes: GroundActor, C4, DetonateAttack, Structure, Defense
+	Crushable:
+		CrushClasses: mine
+		RequiresCondition: exists
+	RejectsOrders:
+		RequiresCondition: !exists
+	GrantDelayedCondition@exist:
+		Condition: exists
+		Delay: 45
+	Mobile:
+		Speed: 96
+		Locomotor: foot
+		RequiresCondition: !exists
+	MapEditorData:
+		Categories: Defense
 	Valued:
 		Cost: 600
-	-Sellable:
-	-Demolishable:
-	-Capturable:
-	-CapturableProgressBar:
-	-CapturableProgressBlink:
-	-CaptureManager:
-	-ActorLostNotification:
 	Tooltip:
 		Name: actor-usaminedropactor.name
-	SelectionDecorations:
 	Health:
 		HP: 22500
 	Armor:
@@ -716,15 +724,12 @@ USAMINEDROPACTOR:
 		Interval: 100
 	Cloak:
 		InitialDelay: 20
-		CloakDelay: 20
+		CloakDelay: 50
 		UncloakOn: Attack
 		Palette: cloak
 		DetectionTypes: Mine
 		IsPlayerPalette: true
 		PauseOnCondition: triggered
-	ProvidesPrerequisite@buildingname:
-	DamageMultiplier@IRONCURTAIN:
-		RequiresCondition: triggered
 	GrantConditionOnDeploy:
 		DeployedCondition: triggered
 		RequiresCondition: !triggered
@@ -744,7 +749,7 @@ USAMINEDROPACTOR:
 		DamageSource: Killer
 	RenderSprites:
 		Image: minvs
-		
+
 usasupplydropzone:
 	Inherits: ^Building
 	Inherits@SHAPE: ^2x2Shape

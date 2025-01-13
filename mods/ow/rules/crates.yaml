@@ -357,6 +357,20 @@ CRATE.FuckYou:
 		SelectionShares: 12
 		Units: vice
 		Owner: Creeps
+	GiveUnitCrateAction@cratetrap:
+		SelectionShares: 10
+		Units: cratetrap
+		Owner: Creeps
+	ExplodeCrateAction@bfgexplode:
+		Weapon: DoomSuperBFG
+		SelectionShares: 10
+		Sound: dsbfg2.aud
+	ExplodeCrateAction@bfgexplode2:
+		Weapon: BanebladeBFG
+		SelectionShares: 5
+	ExplodeCrateAction@warpshipweap:
+		Weapon: WarpshipJump
+		SelectionShares: 3
 	ExplodeCrateAction@ion:
 		Weapon: MiniNukeIonCrate
 		SelectionShares: 10
@@ -585,6 +599,8 @@ CRATE.FuckYou:
 	-EligibleForRandomActorCrate:
 	RenderSprites:
 		Image: 1tnk
+	Mobile:
+		Speed: 1
 	KillsSelf:
 	-UpdatesPlayerStatistics:
 	-ActorLostNotification:
@@ -3340,7 +3356,7 @@ E6.CUNT:
 	Armament:
 		RequiresCondition: botcapture
 		Weapon: HackyCaptureAttackCrate
-		TargetRelationships: Enemy
+		TargetRelationships: Enemy, Neutral
 		FireDelay: 125
 	-Armament@2:
 	GrantConditionOnAttack@die:
@@ -3353,3 +3369,76 @@ E6.CUNT:
 	KillsSelf@kill:
 		Delay: 5300
 		DamageTypes: ElectricityDeath
+	-Wanders@creeps:
+	AttackWander:
+		MinMoveDelay: 20
+		MaxMoveDelay: 25
+		WanderMoveRadius: 4
+
+
+CRATETRAP:
+	Inherits: 1TNK.MINE
+	KillsSelf:
+		Delay: 150
+	-SpawnActorOnDeath:
+	-Targetable:
+	FireWarheadsOnDeath:
+		Weapon: BuildingExplode
+		EmptyWeapon: BuildingExplode
+	RenderSprites:
+		Image: fakecrate
+	WithSpriteBody:
+		Sequence: shootspin
+		StartSequence: make
+	GrantRandomCondition:
+		Conditions: weap1, weap2, weap3, weap4, weap5, weap6, weap7, weap8, weap9
+	FireWarheads@1: 
+		RequiresCondition: weap1
+		StartCooldown: 13
+		Interval: 3
+		Weapons: CrateTrap.Plasma
+	FireWarheads@2: 
+		RequiresCondition: weap2
+		StartCooldown: 13
+		Interval: 2
+		Weapons: CrateTrap.Firemace
+	FireWarheads@3: 
+		RequiresCondition: weap3
+		StartCooldown: 13
+		Interval: 6
+		Weapons: CrateTrap.DoomRPG
+	FireWarheads@4: 
+		RequiresCondition: weap4
+		StartCooldown: 13
+		Interval: 5
+		Weapons: CrateTrap.Vulcan
+	FireWarheads@5: 
+		RequiresCondition: weap5
+		StartCooldown: 13
+		Interval: 3
+		Weapons: CrateTrap.CrateCannon
+	FireWarheads@6: 
+		RequiresCondition: weap6
+		StartCooldown: 13
+		Interval: 7
+		Weapons: CrateTrap.Zap
+	FireWarheads@6b: 
+		RequiresCondition: weap6
+		StartCooldown: 13
+		Interval: 2
+		Weapons: GoliathZapCluster
+	FireWarheads@7: 
+		RequiresCondition: weap7
+		StartCooldown: 13
+		Interval: 2
+		Weapons: CrateTrap.Cannon
+	FireWarheads@8: 
+		RequiresCondition: weap8
+		StartCooldown: 13
+		Interval: 5
+		Weapons: CrateTrap.Vulture
+	FireWarheads@9: 
+		RequiresCondition: weap9
+		StartCooldown: 13
+		Interval: 5
+		Weapons: CrateTrap.Flame
