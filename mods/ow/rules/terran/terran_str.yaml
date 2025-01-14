@@ -350,6 +350,9 @@ TSUPPLY:
 		Description: actor-tsupply.description
 	Valued:
 		Cost: 300
+	GivesExperienceMultiplier@supply:
+		RequiresCondition: power_upgrade
+		Modifier: 200
 	Tooltip:
 		Name: actor-tsupply.name
 	ProvidesPrerequisite@buildingname:
@@ -402,6 +405,29 @@ TSUPPLY:
 	StoresPlayerResources:
 		RequiresCondition: power_upgrade
 		Capacity: 500
+	ProductionBar@zergstructure:
+		ProductionType: Building.SupplyDepot
+		RequiresCondition: !supply_upgrade
+	Production@zergstructure:
+		Produces: Building.SupplyDepot
+		RequiresCondition: !supply_upgrade
+	ProductionQueue@zergstructure:
+		Type: Building.SupplyDepot
+		Group: Wall
+		DisplayOrder: 2
+		BlockedAudio: NoBuild
+		LimitedAudio: BuildingInProgress
+		QueuedAudio: Building
+		OnHoldAudio: OnHold
+		CancelledAudio: Cancelled
+		QueueLimit: 1
+	GrantConditionOnProduction@supply_upgrade:
+		Condition: supply_upgrade
+	GrantConditionOnProduction@supply_upgrade2:
+		Condition: power_upgrade
+	GrantConditionOnPrerequisite@supply:
+		Prerequisites: ai.all
+		Condition: power_upgrade
 
 TSUPPLY.socket:
 	AlwaysVisible:
@@ -410,24 +436,20 @@ TSUPPLY.socket:
 		Name: actor-tsupply-socket-name
 
 TSUPPLY.up:
-	Inherits: ^BuildingPlug
+	Inherits: ^ZergEvolve
 	Valued:
-		Cost: 400
+		Cost: 500
 	Tooltip:
 		Name: actor-tsupply-up.name
 	Buildable:
-		Queue: Wall
-		BuildPaletteOrder: 102
-		Prerequisites: tsupply.socket, ~structures.terran, ~techlevel.medium
+		Queue: Building.SupplyDepot
+		BuildPaletteOrder: 1
+		Prerequisites: ~tsupply.socket, ~tsupply, ~structures.terran, ~techlevel.medium
 		Description: actor-tsupply-up.description
 		Icon: icon-powr
-		BuildDuration: 800
-	Plug:
-		Type: tsupply.up
+		BuildDuration: 1500
 	RenderSprites:
 		Image: oregen
-	SequencePlaceBuildingPreview:
-		Sequence: idle
 
 TREFINERY:
 	Inherits: ^Building
