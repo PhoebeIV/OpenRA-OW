@@ -563,6 +563,9 @@ CRATE.FuckYou:
 		SelectionShares: 2
 		Units: e6.cunt
 		Owner: Creeps
+	GiveUnitCrateAction@rmbo:
+		SelectionShares: 6
+		Units: rmbo.left
 	Crate:
 		Duration: 6000
 	Tooltip:
@@ -3442,3 +3445,84 @@ CRATETRAP:
 		StartCooldown: 13
 		Interval: 5
 		Weapons: CrateTrap.Flame
+
+RMBO.Left:
+	Inherits: ^Soldier
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Buildable:
+		Queue: Infantry
+		BuildAtProductionType: Soldier
+		BuildPaletteOrder: 12000
+		Prerequisites: ~disabled
+		Description: actor-rmbo.description
+	Valued:
+		Cost: 1200
+	Tooltip:
+		Name: actor-rmbo.name2
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 60000
+	Mobile:
+		Speed: 71
+		Voice: Move
+	Guard:
+		Voice: Move
+	RevealsShroud:
+		Range: 6c0
+	Demolition:
+		DetonationDelay: 45
+		Voice: Demolish
+	Passenger:
+		CustomPipType: red
+		Voice: Move
+	Armament@PRIMARY:
+		Weapon: CommandoSniperLeft
+		ForceTargetRelationships: Enemy
+	Armament@GARRISONED:
+		Name: garrisoned
+		Weapon: CommandoSniperLeft
+		MuzzleSequence: garrison-muzzle
+	Armament@BUS:
+		Name: bus
+		Weapon: CommandoSniperLeft
+		MuzzleSequence: garrison-muzzle
+	WithInfantryBody:
+		DefaultAttackSequence: shoot
+		StandSequences: stand,stand2
+		IdleSequences: idle1,idle2,idle3
+		MoveSequence: run
+	GrantDelayedCondition@produced:
+		Condition: announce
+		Delay: 2
+	VoiceAnnouncement:
+		RequiresCondition: announce
+		Voice: Build
+	GrantDelayedCondition@left:
+		RequiresCondition: attacking
+		Condition: announcehit
+		Delay: 4
+		RevokeOnDisabled: true
+		RevokeOnPaused: true
+	VoiceAnnouncement@left:
+		RequiresCondition: announcehit
+		Voice: Kill2
+	Voiced:
+		VoiceSet: CommandoVoice
+	ProducibleWithLevel:
+		Prerequisites: barracks.upgraded
+	RenderSprites:
+	AmbientSound:
+		SoundFiles: ccmon1.aud
+		Interval: 500, 1500
+		Delay: 500, 1500
+		RequiresCondition: attacking
+	GrantConditionOnAttack@attack:
+		Condition: attacking
+		RevokeDelay: 40
+	AttackWander:
+		WanderMoveRadius: 4
+		MinMoveDelay: 25
+		MaxMoveDelay: 75
+	RenderSprites:
+		Image: RMBO

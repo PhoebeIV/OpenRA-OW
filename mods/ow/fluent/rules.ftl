@@ -1447,6 +1447,7 @@ actor-rmbo =
       Weak vs Vehicles, Aircraft
       Special Ability: Destroy Building with C4
    .name = Commando
+   .name2 = Overconfident Commando
 
 actor-tsghost =
    .description = Anti-ground elite infantry with a railgun.

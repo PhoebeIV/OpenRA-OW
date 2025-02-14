@@ -40,15 +40,33 @@ RMBO:
 		MuzzleSequence: garrison-muzzle
 	WithInfantryBody:
 		DefaultAttackSequence: shoot
-		StandSequences: stand
+		StandSequences: stand,stand2
+		IdleSequences: idle1,idle2,idle3
+		MoveSequence: run
+		RequiresCondition: x
+	WithInfantryBody@fps:
+		DefaultAttackSequence: fpsshoot
+		StandSequences: fpsstand,fpsstand2
+		IdleSequences: fpsidle1,fpsidle2,fpsidle3
+		MoveSequence: fpsrun
+		RequiresCondition: fpsdoug
 	ExternalCondition@PRODUCED:
 		Condition: produced
-	VoiceAnnouncement:
+	GrantDelayedCondition@produced:
 		RequiresCondition: produced
+		Condition: announce
+		Delay: 25
+	VoiceAnnouncement:
+		RequiresCondition: announce
 		Voice: Build
 	AnnounceOnKill:
+		Interval: 1000
 	Voiced:
 		VoiceSet: CommandoVoice
+		RequiresCondition: x
+	Voiced@2:
+		VoiceSet: CommandoFPSVoice
+		RequiresCondition: fpsdoug
 	ProducibleWithLevel:
 		Prerequisites: barracks.upgraded
 	RenderSprites:
@@ -56,9 +74,17 @@ RMBO:
 		SoundFiles: ccmon1.aud
 		Interval: 500, 1500
 		Delay: 500, 1500
-		RequiresCondition: !ismoving
+		RequiresCondition: !ismoving && !fpsdoug
+	AmbientSound@2:
+		SoundFiles: fpsidle1.aud,fpsidle2.aud,fpsidle3.aud
+		Interval: 500, 1500
+		Delay: 125, 250
+		RequiresCondition: !ismoving && fpsdoug
 	GrantConditionOnMovement:
 		Condition: ismoving
+	GrantRandomCondition@fpsdoug:
+		Conditions: x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,fpsdoug
+
 
 TSGHOST:
 	Inherits: ^TibSunSoldier
