@@ -42,13 +42,19 @@ OILB:
 C10:
 	Inherits@2: ^ArmedCivilian
 	GrantRandomCondition@dude:
-		Conditions: none,none,none,none,none,dude
+		Conditions: none,none,none,none,none,dude,dude2
 	KillsSelf@dude:
-		RequiresCondition: dude
+		RequiresCondition: dude || dude2
 		Delay: 25
 	SpawnActorOnDeath@dude:
 		RequiresCondition: dude
 		Actor: C10.Dr
+		OwnerType: InternalName
+		InternalOwner: Creeps
+		RequiresLobbyCreeps: true
+	SpawnActorOnDeath@dude2:
+		RequiresCondition: dude2
+		Actor: C10.Scot
 		OwnerType: InternalName
 		InternalOwner: Creeps
 		RequiresLobbyCreeps: true
@@ -71,8 +77,14 @@ C10.Dr:
 	-GrantRandomCondition@dude:
 	-KillsSelf@dude:
 	-SpawnActorOnDeath@dude:
+	-ScaredyCat:
 	Tooltip:
 		Name: actor-c10-dr-name
+	Buildable:
+		Prerequisites: ~disabled
+		BuildPaletteOrder: 90000
+		Queue: Infantry
+		Icon: stand
 	Valued:
 		Cost: 800
 	Health:
@@ -108,6 +120,37 @@ C10.Dr:
 		TargetTypes: NoAutoTarget
 	SpawnActorOnDeath:
 		Actor: drfowlcrate
+
+C10.Scot:
+	Inherits: C10.Dr
+	Tooltip:
+		Name: actor-c10-scot-name
+	Health:
+		HP: 35000
+	Mobile:
+		Speed: 72
+	Voiced:
+		VoiceSet: ScotsmanVoice
+	Armament:
+		Weapon: DoomBerserkerFist
+	AmbientSound:
+		RequiresCondition: spawned
+		SoundFiles: scotsman1.aud
+		Delay: 10
+		Interval: 5000
+	AmbientSound@2:
+		SoundFiles: scotsman2.aud,scotsman3.aud,scotsman4.aud,scotsman5.aud,scotsman6.aud,scotsman7.aud,scotsman8.aud,scotsman9.aud,scotsman10.aud,scotsman11.aud,scotsman12.aud,scotsman13.aud,scotsman14.aud,scotsman15.aud
+		Delay: 34
+		Interval: 30,400
+	ConvertsDamageToHealth:
+		DamagePercentConverted: 40
+	AttackWander:
+		WanderMoveRadius: 6
+		MaxMoveDelay: 50
+		MinMoveDelay: 25
+	AutoTarget:
+		ScanRadius: 48
+		InitialStance: AttackAnything
 
 DRFOWLCRATE:
 	Inherits: ^Crate

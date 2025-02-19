@@ -1050,6 +1050,7 @@ actor-mcvc =
 
 ## civilian.yaml
 actor-c10-dr-name = Dr. Fowl
+actor-c10-scot-name = Dr. Scotsman
 
 ## corehero.yaml
 meta-heroexp-gainsexperience-hero-level-up-text-notification = Unit promoted.
