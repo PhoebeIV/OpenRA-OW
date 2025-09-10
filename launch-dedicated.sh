@@ -1,5 +1,5 @@
 #!/bin/sh
-# example launch script, see https://github.com/OpenRA/OpenRA/wiki/Dedicated for details
+# example launch script, see https://github.com/OpenRA/OpenRA/wiki/Dedicated-Server for details
 
 # Usage:
 #  $ ./launch-dedicated.sh # Launch a dedicated server with default settings
@@ -9,16 +9,13 @@
 set -o errexit || exit $?
 
 ENGINEDIR=$(dirname "$0")
-if command -v mono >/dev/null 2>&1 && [ "$(grep -c .NETCoreApp,Version= "${ENGINEDIR}/bin/OpenRA.Server.dll")" = "0" ]; then
-	RUNTIME_LAUNCHER="mono --debug"
-else
-	RUNTIME_LAUNCHER="dotnet"
-fi
 
 Name="${Name:-"Dedicated Server"}"
 Mod="${Mod:-"ra"}"
+Map="${Map:-""}"
 ListenPort="${ListenPort:-"1234"}"
 AdvertiseOnline="${AdvertiseOnline:-"True"}"
+AdvertiseOnLocalNetwork="${AdvertiseOnLocalNetwork:-"True"}"
 Password="${Password:-""}"
 RecordReplays="${RecordReplays:-"False"}"
 
@@ -32,15 +29,17 @@ EnableGeoIP="${EnableGeoIP:-"True"}"
 EnableLintChecks="${EnableLintChecks:-"True"}"
 ShareAnonymizedIPs="${ShareAnonymizedIPs:-"True"}"
 
-JoinChatDelay="${JoinChatDelay:-"5000"}"
+FloodLimitJoinCooldown="${FloodLimitJoinCooldown:-"5000"}"
 
 SupportDir="${SupportDir:-""}"
 
 while true; do
-     ${RUNTIME_LAUNCHER} "${ENGINEDIR}/bin/OpenRA.Server.dll" Engine.EngineDir=".." Game.Mod="$Mod" \
+     dotnet "${ENGINEDIR}/bin/OpenRA.Server.dll" Engine.EngineDir=".." Game.Mod="$Mod" \
      Server.Name="$Name" \
+     Server.Map="$Map" \
      Server.ListenPort="$ListenPort" \
      Server.AdvertiseOnline="$AdvertiseOnline" \
+     Server.AdvertiseOnLocalNetwork="$AdvertiseOnLocalNetwork" \
      Server.EnableSingleplayer="$EnableSingleplayer" \
      Server.Password="$Password" \
      Server.RecordReplays="$RecordReplays" \
@@ -51,6 +50,6 @@ while true; do
      Server.EnableGeoIP="$EnableGeoIP" \
      Server.EnableLintChecks="$EnableLintChecks" \
      Server.ShareAnonymizedIPs="$ShareAnonymizedIPs" \
-     Server.JoinChatDelay="$JoinChatDelay" \
+     Server.FloodLimitJoinCooldown="$FloodLimitJoinCooldown" \
      Engine.SupportDir="$SupportDir" || :
 done

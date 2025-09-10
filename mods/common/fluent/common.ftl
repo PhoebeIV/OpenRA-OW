@@ -17,7 +17,6 @@ notification-insufficient-enabled-spawn-points = Unable to start the game until 
 notification-malformed-command = Malformed { $command } command.
 notification-state-unchanged-ready = Cannot change state when marked as ready.
 notification-invalid-faction-selected = Invalid faction selected: { $faction }.
-notification-supported-factions = Supported values: { $factions }.
 notification-state-unchanged-game-started = State cannot be changed once the game has started ({ $command }).
 notification-requires-host = Only the host can do that.
 notification-invalid-bot-slot = Cannot add bots to a slot with another client.
@@ -206,6 +205,9 @@ label-chat-availability =
        *[other] Chat available in { $seconds } seconds...
     }
 
+## LobbyLogic, ServerListLogic
+label-bot-player = AI Player
+
 ## IngameMenuLogic
 menu-ingame =
     .leave = Leave
@@ -292,40 +294,6 @@ options-observer-stats =
 
 ## WorldTooltipLogic
 label-unrevealed-terrain = Unrevealed Terrain
-
-## DownloadPackageLogic
-label-downloading = Downloading { $title }
-label-fetching-mirror-list = Fetching list of mirrors...
-label-downloading-from = Downloading from { $host } { $received } { $suffix }
-label-downloading-from-progress = Downloading from { $host } { $received } / { $total } { $suffix } ({ $progress }%)
-label-unknown-host = unknown host
-label-download-failed = Download failed
-label-verifying-archive = Verifying archive...
-label-archive-validation-failed = Archive validation failed
-label-extracting-archive = Extracting...
-label-extracting-archive-entry = Extracting { $entry }
-label-archive-extraction-failed = Archive extraction failed
-label-mirror-selection-failed = Online mirror is not available. Please install from an original disc.
-
-## InstallFromSourceLogic
-label-detecting-sources = Detecting drives
-label-checking-sources = Checking Sources
-label-searching-source-for = Searching for { $title }
-label-content-package-installation = Select which content packages you want to install:
-label-game-sources = Game Sources
-label-digital-installs = Digital Installs
-label-game-content-not-found = Game Content Not Found
-label-alternative-content-sources = Please insert or install one of the following content sources:
-label-installing-content = Installing Content
-label-copying-filename = Copying { $filename }
-label-copying-filename-progress = Copying { $filename } ({ $progress }%)
-label-installation-failed = Installation Failed
-label-check-install-log = Refer to install.log in the logs directory for details.
-label-extracting-filename = Extracting { $filename }
-label-extracting-filename-progress = Extracting { $filename } ({ $progress }%)
-
-## ModContentLogic
-button-manual-install = Manual Install
 
 ## KickClientLogic
 dialog-kick-client =
@@ -510,10 +478,10 @@ label-player-count =
         [one] { $players } Player
        *[other] { $players } Players
     }
-label-map-size-huge = (Huge)
-label-map-size-large = (Large)
-label-map-size-medium = (Medium)
-label-map-size-small = (Small)
+label-map-size-huge = Huge
+label-map-size-large = Large
+label-map-size-medium = Medium
+label-map-size-small = Small
 label-map-searching-count =
     { $count ->
         [one] Searching the OpenRA Resource Center for { $count } map...
@@ -542,6 +510,11 @@ options-order-maps =
     .title = Title
     .date = Date
     .size = Size
+
+button-mapchooser-system-maps-tab = Official Maps
+button-mapchooser-remote-maps-tab = Server Maps
+button-mapchooser-user-maps-tab = Custom Maps
+button-mapchooser-generated-maps-tab = Generate Map
 
 ## MissionBrowserLogic
 dialog-no-video =
@@ -776,9 +749,6 @@ description-custom-terrain-debug-overlay = toggles the custom terrain debug over
 ## CellTriggerOverlay
 description-cell-triggers-overlay = toggles the script triggers overlay.
 
-## ExitsDebugOverlay
-description-exits-overlay = Displays exits for factories.
-
 ## HierarchicalPathFinderOverlay
 description-hpf-debug-overlay = toggles the hierarchical pathfinder overlay.
 
@@ -872,9 +842,6 @@ notification-player-is-defeated = { $player } is defeated.
 ## OrderManager
 notification-desync-compare-logs = Out of sync in frame { $frame }.
     Compare syncreport.log with other players.
-
-## SupportPowerTimerWidget
-support-power-timer = { $player }'s { $support-power }: { $time }
 
 ## WidgetUtils
 label-win-state-won = Won
@@ -1140,5 +1107,10 @@ keycode =
 ## MapGeneratorToolLogic
 label-map-generator-failed-cancel = Dismiss
 notification-map-generator-generated = Generated using { $name }
-notification-map-generator-bad-option = Option "{ $option }" is invalid
 notification-map-generator-failed = Map generation failed
+
+## EditorTilingPathBrush
+notification-tiling-path-started = Started tiling path
+notification-tiling-path-updated = Updated tiling path
+notification-tiling-path-reset = Discarded tiling path
+notification-tiling-path-painted = Painted tiling path

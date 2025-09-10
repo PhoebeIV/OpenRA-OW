@@ -479,6 +479,10 @@
 	Wanders:
 		MinMoveDelay: 150
 		MaxMoveDelay: 750
+	WithInfantryBody:
+		IdleSequences: idle1
+		MinIdleDelay: 60
+		MaxIdleDelay: 220
 	MapEditorData:
 		Categories: Civilian infantry
 
@@ -492,6 +496,7 @@
 	AttackFrontal:
 		FacingTolerance: 0
 	WithInfantryBody:
+		IdleSequences: idle1,idle2
 		DefaultAttackSequence: shoot
 
 ^Ship:
@@ -1146,6 +1151,16 @@
 		Duration: 15
 		Intensity: 6
 
+^ExplosiveBridge:
+	ExplosionOnDamageTransition@DAMAGED:
+		DamageState: Heavy
+		Weapon: BridgeExplode
+	ExplosionOnDamageTransition@COLLAPSED:
+		DamageState: Dead
+		Weapon: BridgeExplode
+	SoundOnDamageTransition:
+		DestroyedSounds: crmble2.aud
+
 ^Rock:
 	Inherits@1: ^SpriteActor
 	Interactable:
@@ -1225,6 +1240,8 @@
 	Health:
 		HP: 5000
 		NotifyAppliedDamage: false
+	FireWarheadsOnDeath:
+		DamageSource: Parent
 	Armor:
 		Type: Light
 	Cloak:

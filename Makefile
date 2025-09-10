@@ -3,20 +3,17 @@
 # to compile, run:
 #   make
 #
-# to compile using Mono (version 6.4 or greater) instead of .NET 6, run:
-#   make RUNTIME=mono
-#
 # to compile using system libraries for native dependencies, run:
-#   make [RUNTIME=net6] TARGETPLATFORM=unix-generic
+#   make TARGETPLATFORM=unix-generic
 #
 # to check the official mods for erroneous yaml files, run:
-#   make [RUNTIME=net6] test
+#   make test
 #
 # to check the engine and official mod dlls for code style violations, run:
-#   make [RUNTIME=net6] check
+#   make check
 #
 # to compile and install Red Alert, Tiberian Dawn, and Dune 2000, run:
-#   make [RUNTIME=net6] [prefix=/foo] [bindir=/bar/bin] install
+#   make [prefix=/foo] [bindir=/bar/bin] install
 #
 # to compile and install Red Alert, Tiberian Dawn, and Dune 2000
 # using system libraries for native dependencies, run:
@@ -48,15 +45,12 @@ gameinstalldir ?= $(libdir)/openra
 
 # Toolchain
 CWD = $(shell pwd)
-MSBUILD = msbuild -verbosity:m -nologo
 DOTNET = dotnet
-MONO = mono
 RM = rm
 RM_R = $(RM) -r
 RM_F = $(RM) -f
 RM_RF = $(RM) -rf
 
-RUNTIME ?= net6
 CONFIGURATION ?= Release
 DOTNET_RID = $(shell ${DOTNET} --info | grep RID: | cut -w -f3)
 ARCH_X64 = $(shell echo ${DOTNET_RID} | grep x64)
@@ -91,18 +85,12 @@ endif
 #
 all:
 	@echo "Compiling in ${CONFIGURATION} mode..."
-ifeq ($(RUNTIME), mono)
-	@command -v $(firstword $(MSBUILD)) >/dev/null || (echo "OpenRA requires the '$(MSBUILD)' tool provided by Mono >= 6.4."; exit 1)
-	@$(MSBUILD) -t:Build -restore -p:Configuration=${CONFIGURATION} -p:TargetPlatform=$(TARGETPLATFORM)
-else
 	@$(DOTNET) build -c ${CONFIGURATION} -nologo -p:TargetPlatform=$(TARGETPLATFORM)
-endif
 ifeq ($(TARGETPLATFORM), unix-generic)
 	@./configure-system-libraries.sh
 endif
 	@./fetch-geoip.sh
 
-# dotnet clean and msbuild -t:Clean leave files that cause problems when switching between mono/dotnet
 # Deleting the intermediate / output directories ensures the build directory is actually clean
 clean:
 	@-$(RM_RF) ./bin ./*/obj
@@ -111,13 +99,8 @@ clean:
 check:
 	@echo
 	@echo "Compiling in Debug mode..."
-ifeq ($(RUNTIME), mono)
-# Enabling EnforceCodeStyleInBuild and GenerateDocumentationFile as a workaround for some code style rules (in particular IDE0005) being bugged and not reporting warnings/errors otherwise.
-	@$(MSBUILD) -t:build -restore -p:Configuration=Debug -warnaserror -p:TargetPlatform=$(TARGETPLATFORM) -p:EnforceCodeStyleInBuild=true -p:GenerateDocumentationFile=true
-else
-# Enabling EnforceCodeStyleInBuild and GenerateDocumentationFile as a workaround for some code style rules (in particular IDE0005) being bugged and not reporting warnings/errors otherwise.
-	@$(DOTNET) build -c Debug -nologo -warnaserror -p:TargetPlatform=$(TARGETPLATFORM) -p:EnforceCodeStyleInBuild=true -p:GenerateDocumentationFile=true
-endif
+	@$(DOTNET) clean -c Debug --nologo --verbosity minimal
+	@$(DOTNET) build -c Debug -nologo -warnaserror -p:TargetPlatform=$(TARGETPLATFORM)
 ifeq ($(TARGETPLATFORM), unix-generic)
 	@./configure-system-libraries.sh
 endif
@@ -131,33 +114,42 @@ endif
 check-scripts:
 	@echo
 	@echo "Checking for Lua syntax errors..."
-	@find lua/ mods/*/{maps,scripts}/ -iname "*.lua" -print0 | xargs -0n1 luac -p
+	@find mods/*/maps/ mods/*/scripts/ -iname "*.lua" -print0 | xargs -0n1 luac -p
 
 test: all
 	@echo
 	@echo "Testing Tiberian Sun mod MiniYAML..."
+	@./utility.sh ts-content --check-yaml
 	@./utility.sh ts --check-yaml
 	@echo
 	@echo "Testing Dune 2000 mod MiniYAML..."
+	@./utility.sh d2k-content --check-yaml
 	@./utility.sh d2k --check-yaml
 	@echo
 	@echo "Testing Tiberian Dawn mod MiniYAML..."
+	@./utility.sh cnc-content --check-yaml
 	@./utility.sh cnc --check-yaml
 	@echo
 	@echo "Testing Red Alert mod MiniYAML..."
+	@./utility.sh ra-content --check-yaml
 	@./utility.sh ra --check-yaml
+
+tests:
+	@dotnet build OpenRA.Test/OpenRA.Test.csproj -c Debug --nologo -p:TargetPlatform=$(TARGETPLATFORM)
+	@echo
+	@dotnet test bin/OpenRA.Test.dll --test-adapter-path:.
 
 ############# LOCAL INSTALLATION AND DOWNSTREAM PACKAGING ##############
 #
-version: VERSION mods/ra/mod.yaml mods/cnc/mod.yaml mods/d2k/mod.yaml mods/ts/mod.yaml mods/modcontent/mod.yaml mods/all/mod.yaml
+version: VERSION mods/*/mod.yaml
 ifeq ($(VERSION),)
 	$(error Unable to determine new version (requires git or override of variable VERSION))
 endif
 	@sh -c '. ./packaging/functions.sh; set_engine_version "$(VERSION)" .'
-	@sh -c '. ./packaging/functions.sh; set_mod_version "$(VERSION)" mods/ra/mod.yaml mods/cnc/mod.yaml mods/d2k/mod.yaml mods/ts/mod.yaml mods/modcontent/mod.yaml mods/all/mod.yaml'
+	@sh -c '. ./packaging/functions.sh; set_mod_version "$(VERSION)" mods/*/mod.yaml'
 
 install:
-	@sh -c '. ./packaging/functions.sh; install_assemblies $(CWD) $(DESTDIR)$(gameinstalldir) $(TARGETPLATFORM) $(RUNTIME) True True True'
+	@sh -c '. ./packaging/functions.sh; install_assemblies $(CWD) $(DESTDIR)$(gameinstalldir) $(TARGETPLATFORM) True True True'
 	@sh -c '. ./packaging/functions.sh; install_data $(CWD) $(DESTDIR)$(gameinstalldir) cnc d2k ra'
 
 install-linux-shortcuts:
@@ -174,24 +166,21 @@ help:
 	@echo 'to compile, run:'
 	@echo '  make'
 	@echo
-	@echo 'to compile using Mono (version 6.4 or greater) instead of .NET 6, run:'
-	@echo '  make RUNTIME=mono'
-	@echo
 	@echo 'to compile using system libraries for native dependencies, run:'
-	@echo '  make [RUNTIME=net6] TARGETPLATFORM=unix-generic'
+	@echo '  make TARGETPLATFORM=unix-generic'
 	@echo
 	@echo 'to check the official mods for erroneous yaml files, run:'
-	@echo '  make [RUNTIME=net6] test'
+	@echo '  make [TREAT_WARNINGS_AS_ERRORS=false] test'
 	@echo
 	@echo 'to check the engine and official mod dlls for code style violations, run:'
-	@echo '  make [RUNTIME=net6] check'
+	@echo '  make check'
 	@echo
 	@echo 'to compile and install Red Alert, Tiberian Dawn, and Dune 2000 run:'
-	@echo '  make [RUNTIME=net6] [prefix=/foo] [TARGETPLATFORM=unix-generic] install'
+	@echo '  make [prefix=/foo] [TARGETPLATFORM=unix-generic] install'
 	@echo
 	@echo 'to compile and install Red Alert, Tiberian Dawn, and Dune 2000'
 	@echo 'using system libraries for native dependencies, run:'
-	@echo '   make [RUNTIME=net6] [prefix=/foo] [bindir=/bar/bin] TARGETPLATFORM=unix-generic install'
+	@echo '   make [prefix=/foo] [bindir=/bar/bin] TARGETPLATFORM=unix-generic install'
 	@echo
 	@echo 'to install FreeDesktop startup scripts, desktop files, icons, and MIME metadata'
 	@echo '  make install-linux-shortcuts'

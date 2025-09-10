@@ -74,7 +74,7 @@ function Version-Command
 	if ($version -ne $null)
 	{
 		$version | out-file ".\VERSION"
-		$mods = @("mods/ra/mod.yaml", "mods/cnc/mod.yaml", "mods/d2k/mod.yaml", "mods/ts/mod.yaml", "mods/modcontent/mod.yaml", "mods/all/mod.yaml")
+		$mods = Get-ChildItem ./mods/*/mod.yaml | Select-Object -Expand FullName
 		foreach ($mod in $mods)
 		{
 			$replacement = (gc $mod) -Replace "Version:.*", ("Version: {0}" -f $version)
@@ -100,22 +100,34 @@ function Test-Command
 	}
 
 	Write-Host "Testing mods..." -ForegroundColor Cyan
-	Write-Host "Testing Tiberian Sun mod MiniYAML..." -ForegroundColor Cyan
+	Write-Host "`nTesting Tiberian Sun mod MiniYAML..." -ForegroundColor Cyan
+	InvokeCommand "$utilityPath ts-content --check-yaml"
 	InvokeCommand "$utilityPath ts --check-yaml"
-	Write-Host "Testing Dune 2000 mod MiniYAML..." -ForegroundColor Cyan
+	Write-Host "`nTesting Dune 2000 mod MiniYAML..." -ForegroundColor Cyan
+	InvokeCommand "$utilityPath d2k-content --check-yaml"
 	InvokeCommand "$utilityPath d2k --check-yaml"
-	Write-Host "Testing Tiberian Dawn mod MiniYAML..." -ForegroundColor Cyan
+	Write-Host "`nTesting Tiberian Dawn mod MiniYAML..." -ForegroundColor Cyan
+	InvokeCommand "$utilityPath cnc-content --check-yaml"
 	InvokeCommand "$utilityPath cnc --check-yaml"
-	Write-Host "Testing Red Alert mod MiniYAML..." -ForegroundColor Cyan
+	Write-Host "`nTesting Red Alert mod MiniYAML..." -ForegroundColor Cyan
+	InvokeCommand "$utilityPath ra-content --check-yaml"
 	InvokeCommand "$utilityPath ra --check-yaml"
+}
+
+function Tests-Command
+{
+	Write-Host "Running unit tests..." -ForegroundColor Cyan
+	dotnet build OpenRA.Test\OpenRA.Test.csproj -c Debug --nologo -p:TargetPlatform=win-x64
+	dotnet test bin\OpenRA.Test.dll --test-adapter-path:.
 }
 
 function Check-Command
 {
 	Write-Host "Compiling in Debug configuration..." -ForegroundColor Cyan
 
-	# Enabling EnforceCodeStyleInBuild and GenerateDocumentationFile as a workaround for some code style rules (in particular IDE0005) being bugged and not reporting warnings/errors otherwise.
-	dotnet build -c Debug --nologo -warnaserror -p:TargetPlatform=win-x64 -p:EnforceCodeStyleInBuild=true -p:GenerateDocumentationFile=true
+	dotnet clean -c Debug --nologo --verbosity minimal
+	dotnet build -c Debug --nologo -warnaserror -p:TargetPlatform=win-x64
+
 	if ($lastexitcode -ne 0)
 	{
 		Write-Host "Build failed." -ForegroundColor Red
@@ -137,10 +149,6 @@ function Check-Scripts-Command
 	{
 		Write-Host "Testing Lua scripts..." -ForegroundColor Cyan
 		foreach ($script in ls "mods/*/maps/*/*.lua")
-		{
-			luac -p $script
-		}
-		foreach ($script in ls "lua/*.lua")
 		{
 			luac -p $script
 		}
@@ -256,6 +264,7 @@ switch ($execute)
 	{"version",       "v"  -contains $_} { Version-Command }
 	{"clean",         "c"  -contains $_} { Clean-Command }
 	{"test",          "t"  -contains $_} { Test-Command }
+	{"tests",         "ut" -contains $_} { Tests-Command }
 	{"check",         "ck" -contains $_} { Check-Command }
 	{"check-scripts", "cs" -contains $_} { Check-Scripts-Command }
 	Default { Write-Host ("Invalid command '{0}'" -f $command) }
