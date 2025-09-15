@@ -7,3 +7,6 @@ loadscreen-loading = Activating Time Machine..., Merging Worlds..., Cloning Eins
 
 hotkey-description-nextproductiontab = Next tab
 hotkey-description-previousproductiontab = Previous tab
+
+## SupportPowerTimerWidget
+support-power-timer = { $player }'s { $support-power }: { $time }
