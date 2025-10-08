@@ -149,16 +149,19 @@ Player:
 		Threshold: 95
 	PowerManager:
 		AdviceInterval: 40000
+	-ProvidesTechPrerequisite@unrestricted:
 	ProvidesTechPrerequisite@noepic:
 		Name: actor-player.providestechprerequisite-noepic-name
 		Prerequisites: techlevel.infonly, techlevel.low, techlevel.medium, techlevel.high, techlevel.unrestricted, techlevel.noepic
 		Id: noepic
 	ProvidesTechPrerequisite@unrestricted:
 		Name: actor-player.providestechprerequisite-unrestricted-name
-	ProvidesTechPrerequisite@boss:
-		Name: actor-player.providestechprerequisite-boss-name
-		Prerequisites: techlevel.infonly, techlevel.low, techlevel.medium, techlevel.high, techlevel.unrestricted, techlevel.boss, ai.all, ai.realboss, ai.hard, ai.harder, structures.botonly
-		Id: bossmode
+		Prerequisites: techlevel.infonly, techlevel.low, techlevel.medium, techlevel.high, techlevel.unrestricted
+		Id: unrestricted
+	#ProvidesTechPrerequisite@boss:
+	#	Name: actor-player.providestechprerequisite-boss-name
+	#	Prerequisites: techlevel.infonly, techlevel.low, techlevel.medium, techlevel.high, techlevel.unrestricted, techlevel.boss, ai.all, ai.realboss, ai.hard, ai.harder, structures.botonly
+	#	Id: bossmode
 	LobbyPrerequisiteCheckbox@noboats:
 		ID: noboats
 		Label: actor-player.lobbyprerequisitecheckbox-noboats-label
@@ -243,19 +246,26 @@ Player:
 		Enabled: false
 		DisplayOrder: 21
 		Prerequisites: techlevel.turtledebuff
+	LobbyPrerequisiteCheckbox@deathboxes:
+		ID: deathbox
+		Label: actor-player.lobbyprerequisitecheckbox-deathbox-label
+		Description: actor-player.lobbyprerequisitecheckbox-deathbox-description
+		Enabled: false
+		DisplayOrder: 22
+		Prerequisites: techlevel.deathbox
 	LobbyPrerequisiteCheckbox@weather:
 		ID: enviro1
 		Label: actor-player.lobbyprerequisitecheckbox-weather-label
 		Description: actor-player.lobbyprerequisitecheckbox-weather-description
 		Enabled: false
-		DisplayOrder: 22
+		DisplayOrder: 23
 		Prerequisites: environment.weather
 	LobbyPrerequisiteCheckbox@daynight:
 		ID: enviro2
 		Label: actor-player.lobbyprerequisitecheckbox-daynight-label
 		Description: actor-player.lobbyprerequisitecheckbox-daynight-description
 		Enabled: true
-		DisplayOrder: 23
+		DisplayOrder: 24
 		Prerequisites: environment.days
 	LobbyPrerequisiteDropdown@morecrates:
 		ID: morecratesdropdown

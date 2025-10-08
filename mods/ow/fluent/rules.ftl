@@ -75,7 +75,9 @@ actor-player =
    .lobbyprerequisitecheckbox-prodspeed-label2 = Fast
    .lobbyprerequisitecheckbox-prodspeed-label3 = Faster
    .lobbyprerequisitecheckbox-prodspeed-label4 = Fastest
-
+   .lobbyprerequisitecheckbox-deathbox-label = Death Box
+   .lobbyprerequisitecheckbox-deathbox-description = Allows players to build up to 4 Death Boxes.
+ 
 options-tech-level =
     .infantry-only = Infantry Only
     .low = Low
@@ -115,6 +117,8 @@ actor-atek-bot =
    .name = Boss Tech Center
 
 actor-pbox-boss-name = Death Box
+actor-pbox-boss-desc = A pillbox armed with 
+               a random arsenal of overpowered weapons.
 actor-gfix-hole2-name = GLA Hole (Service Depot)
 
 meta-prefabbuilding =
