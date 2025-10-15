@@ -13,6 +13,13 @@ NightLighting = function()
 	DaylightAmbient = 0.55
 end
 
+StormLighting = function()
+	DaylightRed = 0.6
+	DaylightGreen = 0.6
+	DaylightBlue = 1.25
+	DaylightAmbient = 0.8
+end
+
 AdjustLighting = function()
 	if (Lighting.Red < DaylightRed + TargetRed) then
 		Lighting.Red = Lighting.Red + 0.0001
@@ -42,7 +49,7 @@ end
 ticks = 0
 
 Tick = function()
-	if (Creeps.HasPrerequisites({"environment.days"})) then
+	if (Creeps.HasPrerequisites({"environment.days"}) and not Neutral.HasPrerequisites({"environment.weather"})) then
 		ticks = ticks + 1
 		if (Time >= SunRise) then
 			DayLighting()
@@ -54,9 +61,21 @@ Tick = function()
 		Time = Time + 1
 
 		AdjustLighting()
+	elseif (Neutral.HasPrerequisites({"environment.weather"})) then
+		ticks = ticks + 1
+		if (Time >= SunRise) then
+			StormLighting()
+			Time = 0
+		elseif (Time == SunSet) then
+			StormLighting()
+		end
+
+		Time = Time + 1
+
+		AdjustLighting()
 	end
 
-	if (Creeps.HasPrerequisites({"environment.weather"})) then
+	if (Neutral.HasPrerequisites({"environment.weather"})) then
 			if (Utils.RandomInteger(1, 200) == 10) then
 			local delay = Utils.RandomInteger(1, 10)
 			Lighting.Flash("LightningStrike", delay)
