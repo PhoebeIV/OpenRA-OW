@@ -1,7 +1,7 @@
 if DateTime.IsHalloween then
 	UnitTypes = { "ant", "ant", "ant" }
 	BeachUnitTypes = { "ant", "ant" }
-	ProxyType = "powerproxy.parazombies"
+	ProxyType = "PowerProxy.parazombies"
 	ProducedUnitTypes =
 	{
 		{ factory = AlliedBarracks1, types = { "e1", "e3" } },
@@ -17,18 +17,19 @@ else
 	UnitTypes2 = { "helld6", "helld6", "helld6", "helld6", "helld6", "helld6", "helld6", "helld6", "helld6", "helld6", "helld5", "helld5", "helld5", "helld9", "helld3" }
 	UnitTypes3 = { "maus", "dmgtnk.m", "dmgtnk.m", "nbos4", "nbos1", "nbos1", "nbos1", "e1of" }
 	BeachUnitTypes = { "e1", "e2", "e3", "e4", "e1of", "e2", "e3", "e4", "e1", "e2", "e3", "e4", "e1", "e2", "e3", "e4", "dm5" }
-	ProxyType = "powerproxy.paratroopers"
-	ChronoshiftSpawns = { "2tnk", "2tnk.g", "tscyb", "mmch", "smech", "btnk" }
-	ChronoshiftSpawns2 = { "dm2", "dm6", "helld4", "helld6", "fe1", "tscyb", "dm3" }
-	ChronoshiftSpawns3 = { "tscybcom", "e.e7", "g.e7", "tselite", "frmbo", "nbos6", "nbos7", "supertank", "baneblade", "novan", "direwolf", "dm5", "u.tnk", "ztnk", "solc", "helld8" }
+	ProxyType = "PowerProxy.paratroopers"
+	HyperionType = "PowerProxy.hyperion"
+	ChronoshiftSpawns = { "2tnk", "mtnkd.g", "tscyb", "mmch", "smech", "btnk" }
+	ChronoshiftSpawns2 = { "dm2", "dm6", "helld4", "helld6", "fe1", "tscyb", "dm3", "c10.dr", "c10.scot", "pzealot", "parchon", "zultra", "dm7" }
+	ChronoshiftSpawns3 = { "terminator", "tscybcom", "e7.e", "e7.g", "tselite", "frmbo", "nbos6", "nbos7", "baneblade", "novan", "direwolf", "dm5", "u.tnk", "ztnk", "solc", "helld8", "dukenukem", "hartman", "judgedredd", "tvult.raynor", "usarailgun", "usadisrupter", "chinadeathhand", "chinazhurong", "chinafortress", "japanhakaimono", "japankuruttaneko", "japanskyempress", "zkerrigan", "olddk", "strifeguy.hero5", "btrae.hero5", "hereticcorvus" }
 	ProducedUnitTypes =
 	{
-		{ factory = AlliedBarracks1, types = { "e1", "e3", "dm2", "e1of", "e3", "tscybcom", "e1of", "e3", "tselite" } },
-		{ factory = AlliedBarracks2, types = { "dm6", "dm3", "dm2", "e1of", "tscyb", "tscyb", "e1of", "tse5p.dm", "tselite" } },
+		{ factory = AlliedBarracks1, types = { "e1", "e3", "dm2", "e1of", "e3", "tscybcom", "e1of", "e3", "tselite", "c10.dr", "c10.scot", "c1.masterbot" } },
+		{ factory = AlliedBarracks2, types = { "dm6", "dm3", "dm2", "e1of", "tscyb", "tscyb", "e1of", "tse5p.dm", "tselite", "c10.dr", "c10.scot" } },
 		{ factory = Actor434, types = { "e1", "e3", "dm2", "e1of", "e3", "dm2", "e1of", "e3", "tselite" } },
-		{ factory = SovietBarracks1, types = { "nbos1", "e1", "e2", "e3", "e4", "shok", "dm5" } },
-		{ factory = SovietBarracks2, types = { "nbos1", "e1", "e2", "e3", "e4", "shok", "nbos7" } },
-		{ factory = SovietBarracks3, types = { "frmbo", "nbos1", "e1of", "e3", "e4", "shok", "nbos6" } },
+		{ factory = SovietBarracks1, types = { "nbos1", "e1", "e2", "e3", "e4", "shok", "dm5", "c10.dr", "c10.scot", "c1.masterbot" } },
+		{ factory = SovietBarracks2, types = { "nbos1", "e1", "e2", "e3", "e4", "shok", "nbos7", "c10.dr", "c10.scot" } },
+		{ factory = SovietBarracks3, types = { "frmbo", "nbos1", "e1of", "e3", "e4", "shok", "nbos6", "c10.dr", "c10.scot", "c1.masterbot" } },
 		{ factory = Actor428, types = { "helld7", "helld5", "helld6", "helld9", "helld7" } },
 		{ factory = Actor429, types = { "helld5", "helld5", "helld5", "helld5", "helld5", "helld8" } },
 		{ factory = AlliedWarFactory1, types = { "jeep", "1tnk", "2tnk", "arty", "ctnk", "direwolf" } },
@@ -46,7 +47,7 @@ ChronoshiftWaypoints = { Paradrop7, Paradrop9, ChronoshiftLocation }
 
 BindActorTriggers = function(a)
 	if a.HasProperty("Hunt") then
-		if a.Owner == allies then
+		if a.Owner == Allies then
 			Trigger.OnIdle(a, function(a)
 				if a.IsInWorld then
 					a.Hunt()
@@ -73,7 +74,7 @@ end
 
 BindActorTriggers2 = function(a)
 	if a.HasProperty("Hunt") then
-		if a.Owner == allies then
+		if a.Owner == Allies then
 			Trigger.OnIdle(a, function(a)
 				if a.IsInWorld then
 					a.Hunt()
@@ -96,13 +97,13 @@ BindActorTriggers2 = function(a)
 			end
 		end)
 	end
-	if a.HasProperty("AcceptsUpgrade") and a.AcceptsUpgrade("killable") then
-		a.GrantUpgrade("killable")
+	if a.HasProperty("AcceptsCondition") and a.AcceptsCondition("killable") then
+		a.GrantCondition("killable")
 	end
 end
 
 SendSovietUnits = function(entryCell, unitTypes, interval)
-	local units = Reinforcements.Reinforce(soviets, unitTypes, { entryCell }, interval)
+	local units = Reinforcements.Reinforce(Soviets, unitTypes, { entryCell }, interval)
 	Utils.Do(units, function(unit)
 		BindActorTriggers(unit)
 	end)
@@ -110,18 +111,18 @@ SendSovietUnits = function(entryCell, unitTypes, interval)
 end
 
 ShipAlliedUnits = function()
-	local units = Reinforcements.ReinforceWithTransport(allies, "lst",
+	local units = Reinforcements.ReinforceWithTransport(Allies, "lst",
 		ShipUnitTypes, { LstEntry.Location, LstUnload.Location }, { LstEntry.Location })[2]
 
 	Utils.Do(units, function(unit)
 		BindActorTriggers(unit)
 	end)
 
-	Trigger.AfterDelay(DateTime.Seconds(60), ShipAlliedUnits)
+
 end
 
 InsertAlliedChinookReinforcements = function(entry, hpad)
-	local units = Reinforcements.ReinforceWithTransport(allies, "tran",
+	local units = Reinforcements.ReinforceWithTransport(Allies, "tran",
 		HelicopterUnitTypes, { entry.Location, hpad.Location + CVec.New(1, 2) }, { entry.Location })[2]
 
 	Utils.Do(units, function(unit)
@@ -133,7 +134,7 @@ end
 
 ParadropSovietUnits = function()
 	local lz = Utils.Random(ParadropWaypoints)
-	local units = powerproxy.SendParatroopers(lz.CenterPosition)
+	local units = PowerProxy.TargetParatroopers(lz.CenterPosition)
 
 	Utils.Do(units, function(a)
 		BindActorTriggers(a)
@@ -154,8 +155,8 @@ end
 
 SetupAlliedUnits = function()
 	Utils.Do(Map.NamedActors, function(a)
-		if a.Owner == allies and a.HasProperty("AcceptsUpgrade") and a.AcceptsUpgrade("unkillable") then
-			a.GrantUpgrade("unkillable")
+		if a.Owner == Allies and a.HasProperty("AcceptsCondition") and a.AcceptsCondition("unkillable") then
+			a.GrantCondition("unkillable")
 			a.Stance = "Defend"
 		end
 	end)
@@ -163,8 +164,8 @@ end
 
 SetupSovietUnits = function()
 	Utils.Do(Map.NamedActors, function(a)
-		if a.Owner == soviets and a.HasProperty("AcceptsUpgrade") and a.AcceptsUpgrade("unkillable") and a.Type ~= "nbos6" then
-			a.GrantUpgrade("unkillable")
+		if a.Owner == Soviets and a.HasProperty("AcceptsCondition") and a.AcceptsCondition("unkillable") and a.Type ~= "nbos6" then
+			a.GrantCondition("unkillable")
 			a.Stance = "Defend"
 		end
 	end)
@@ -182,7 +183,7 @@ ChronoshiftAlliedUnits = function()
 	local cells = Utils.ExpandFootprint({ lz.Location }, false)
 	local units = { }
 	for i = 1, #cells do
-		local unit = Actor.Create(spawn, true, { Owner = allies, Facing = 0 })
+		local unit = Actor.Create(spawn, true, { Owner = Allies, Facing = Angle.North })
 		BindActorTriggers(unit)
 		units[unit] = cells[i]
 	end
@@ -196,12 +197,12 @@ ChronoshiftAlliedUnits2 = function()
 	local cells = Utils.ExpandFootprint({ lz.Location }, true)
 	local units = { }
 	for i = 1, #cells do
-		local unit = Actor.Create(spawn, true, { Owner = allies, Facing = 0 })
+		local unit = Actor.Create(spawn, true, { Owner = Allies, Facing = Angle.North })
 		BindActorTriggers(unit)
 		units[unit] = cells[i]
 	end
 	Actor435.Chronoshift(units)
-	Trigger.AfterDelay(DateTime.Seconds(20), ChronoshiftAlliedUnits2)
+	Trigger.AfterDelay(DateTime.Seconds(30), ChronoshiftAlliedUnits2)
 end
 
 ChronoshiftAlliedUnits3 = function()
@@ -210,12 +211,12 @@ ChronoshiftAlliedUnits3 = function()
     local cells = Utils.ExpandFootprint({ lz.Location }, false)
 	local units = { }
 	for i = 1, #cells do
-		local unit = Actor.Create(spawn, true, { Owner = allies, Facing = 0 })
+		local unit = Actor.Create(spawn, true, { Owner = Allies, Facing = Angle.North })
 		BindActorTriggers2(unit)
 		units[unit] = cells[i]
 	end
 	Actor435.Chronoshift(units)
-	Trigger.AfterDelay(DateTime.Seconds(50), ChronoshiftAlliedUnits3)
+	Trigger.AfterDelay(DateTime.Seconds(60), ChronoshiftAlliedUnits3)
 end
 
 ChronoshiftSovietUnits = function()
@@ -223,7 +224,7 @@ ChronoshiftSovietUnits = function()
 	local cells = Utils.ExpandFootprint({ lz.Location }, true)
 	local units = { }
 	for i = 1, #cells do
-		local unit = Actor.Create("helld6", true, { Owner = soviets, Facing = 0 })
+		local unit = Actor.Create("helld6", true, { Owner = Soviets, Facing = Angle.North })
 		BindActorTriggers(unit)
 		units[unit] = cells[i]
 	end
@@ -237,28 +238,35 @@ ChronoshiftSovietUnits2 = function()
 	local cells = Utils.ExpandFootprint({ lz.Location }, false)
 	local units = { }
 	for i = 1, #cells do
-		local unit = Actor.Create(spawn, true, { Owner = soviets, Facing = 0 })
+		local unit = Actor.Create(spawn, true, { Owner = Soviets, Facing = Angle.North })
 		BindActorTriggers2(unit)
 		units[unit] = cells[i]
 	end
 	Actor435.Chronoshift(units)
-	Trigger.AfterDelay(DateTime.Seconds(50), ChronoshiftSovietUnits2)
+	Trigger.AfterDelay(DateTime.Seconds(60), ChronoshiftSovietUnits2)
 end
 
-ticks = 0
-speed = 5
+SendAC130 = function()
+	local lz = AlliedTechnologyCenterWaypoint
+	AC130.TargetAirstrike(lz.CenterPosition, Angle.SouthWest)
 
-Tick = function()
-	ticks = ticks + 1
+	Trigger.AfterDelay(DateTime.Seconds(90), SendAC130)
+end
 
-	local t = (ticks + 45) % (360 * speed) * (math.pi / 180) / speed;
-	Camera.Position = viewportOrigin + WVec.New(19200 * math.sin(t), 20480 * math.cos(t), 0)
+SendHyperion = function()
+	local lz = HyperionWaypoint
+
+	HyperionPower.TargetAirstrike(lz.CenterPosition, Angle.NorthEast)
+
+	Trigger.AfterDelay(DateTime.Seconds(90), SendHyperion)
 end
 
 WorldLoaded = function()
-	allies = Player.GetPlayer("Allies")
-	soviets = Player.GetPlayer("Soviets")
-	viewportOrigin = Camera.Position
+	Allies = Player.GetPlayer("Allies")
+	Soviets = Player.GetPlayer("Soviets")
+
+	HyperionPower = Actor.Create("powerproxy.hyperion", false, { Owner = Allies })
+	AC130 = Actor.Create("powerproxy.ac130", false, { Owner = Soviets })
 
 	SetupAlliedUnits()
 	SetupSovietUnits()
@@ -266,34 +274,35 @@ WorldLoaded = function()
 	ShipAlliedUnits()
 	InsertAlliedChinookReinforcements(Chinook1Entry, Paradrop7)
 	InsertAlliedChinookReinforcements(Chinook2Entry, AttackDest)
-	powerproxy = Actor.Create(ProxyType, false, { Owner = soviets })
+	PowerProxy = Actor.Create(ProxyType, false, { Owner = Soviets })
+	RandomSupport1 = Actor.Create("powerproxy.metalnuke", false, { Owner = Soviets })
+	RandomSupport2 = Actor.Create("powerproxy.earthquake", false, { Owner = Soviets })
 	ParadropSovietUnits()
-	Trigger.AfterDelay(DateTime.Seconds(5), ChronoshiftAlliedUnits)
-	Trigger.AfterDelay(DateTime.Seconds(8), ChronoshiftAlliedUnits2)
-	Trigger.AfterDelay(DateTime.Seconds(12), ChronoshiftAlliedUnits2)
-	Trigger.AfterDelay(DateTime.Seconds(16), ChronoshiftAlliedUnits3)
+	Trigger.AfterDelay(DateTime.Seconds(15), ChronoshiftAlliedUnits)
+	Trigger.AfterDelay(DateTime.Seconds(20), ChronoshiftAlliedUnits2)
+	Trigger.AfterDelay(DateTime.Seconds(30), ChronoshiftAlliedUnits3)
 	Trigger.AfterDelay(DateTime.Seconds(20), ChronoshiftSovietUnits)
-	Trigger.AfterDelay(DateTime.Seconds(21), ChronoshiftSovietUnits)
-	Trigger.AfterDelay(DateTime.Seconds(22), ChronoshiftSovietUnits)
-	Trigger.AfterDelay(DateTime.Seconds(23), ChronoshiftSovietUnits)
-	Trigger.AfterDelay(DateTime.Seconds(24), ChronoshiftSovietUnits)
-	Trigger.AfterDelay(DateTime.Seconds(17), ChronoshiftSovietUnits2)
+	Trigger.AfterDelay(DateTime.Seconds(30), ChronoshiftSovietUnits)
+	Trigger.AfterDelay(DateTime.Seconds(40), ChronoshiftSovietUnits)
+	Trigger.AfterDelay(DateTime.Seconds(55), ChronoshiftSovietUnits2)
+	Trigger.AfterDelay(DateTime.Seconds(30), SendAC130)
+	Trigger.AfterDelay(DateTime.Seconds(45), SendHyperion)
 	Utils.Do(ProducedUnitTypes, ProduceUnits)
 	Utils.Do(ProducedUnitTypes, ProduceUnits)
 
-	SendSovietUnits(Entry1.Location, UnitTypes, 30)
-	SendSovietUnits(Entry2.Location, UnitTypes, 30)
-	SendSovietUnits(Entry3.Location, UnitTypes, 30)
-	SendSovietUnits(Entry4.Location, UnitTypes, 30)
-	SendSovietUnits(Entry5.Location, UnitTypes, 30)
-	SendSovietUnits(Entry6.Location, UnitTypes, 30)
-	SendSovietUnits(Entry2.Location, UnitTypes2, 40)
-	SendSovietUnits(Entry4.Location, UnitTypes2, 20)
-	SendSovietUnits(Entry5.Location, UnitTypes2, 45)
-	SendSovietUnits(Entry6.Location, UnitTypes2, 50)
-	SendSovietUnits(Entry6.Location, UnitTypes3, 60)
-	SendSovietUnits(Entry7.Location, BeachUnitTypes, 15)
-	SendSovietUnits(Entry8.Location, BeachUnitTypes, 15)
-	SendSovietUnits(Entry8.Location, UnitTypes2, 20)
-	SendSovietUnits(Entry7.Location, UnitTypes2, 20)
+	SendSovietUnits(Entry1.Location, UnitTypes, 50)
+	SendSovietUnits(Entry2.Location, UnitTypes, 50)
+	SendSovietUnits(Entry3.Location, UnitTypes, 50)
+	SendSovietUnits(Entry4.Location, UnitTypes, 50)
+	SendSovietUnits(Entry5.Location, UnitTypes, 50)
+	SendSovietUnits(Entry6.Location, UnitTypes, 50)
+	SendSovietUnits(Entry2.Location, UnitTypes2, 60)
+	SendSovietUnits(Entry4.Location, UnitTypes2, 60)
+	SendSovietUnits(Entry5.Location, UnitTypes2, 60)
+	SendSovietUnits(Entry6.Location, UnitTypes2, 60)
+	SendSovietUnits(Entry6.Location, UnitTypes3, 75)
+	SendSovietUnits(Entry7.Location, BeachUnitTypes, 25)
+	SendSovietUnits(Entry8.Location, BeachUnitTypes, 25)
+	SendSovietUnits(Entry8.Location, UnitTypes2, 30)
+	SendSovietUnits(Entry7.Location, UnitTypes2, 30)
 end

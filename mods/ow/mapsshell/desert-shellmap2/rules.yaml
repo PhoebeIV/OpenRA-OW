@@ -1,0 +1,204 @@
+Player:
+	-ConquestVictoryConditions:
+	LobbyPrerequisiteCheckbox@GLOBALBOUNTY:
+		Enabled: False
+		Locked: True
+	PlayerResources:
+		ResourceValues:
+			Ore: 0
+			Gems: 0
+
+World:
+	-CrateSpawner:
+	-AutoSave:
+	-SpawnStartingUnits:
+	-MapStartingLocations:
+	MusicPlaylist:
+		BackgroundMusic: eve_rock_05
+		AllowMuteBackgroundMusic: true
+		DisableWorldSounds: false
+	LuaScript:
+		Scripts: script.lua
+	-StartGameNotification:
+	CameraOvalMover:
+		OvalRadius: 20480, 16480, 0
+
+^Palettes:
+	-MenuPostProcessEffect:
+
+^ExistsInWorld:
+	GivesExperience:
+		ActorExperienceModifier: 0
+	ExternalCondition@killable:
+		Condition: killable
+	ExternalCondition@unkillable:
+		Condition: unkillable
+
+^Bridge:
+	DamageMultiplier:
+		Modifier: 0
+
+^Wall:
+	DamageMultiplier:
+		Modifier: 1
+
+^Vehicle:
+	GivesBounty:
+		Percentage: 0
+	GivesExperience:
+		Experience: 1
+	DamageMultiplier@UNKILLABLE:
+		RequiresCondition: unkillable
+		Modifier: 10
+	DamageMultiplier@KILLABLE:
+		RequiresCondition: killable
+		Modifier: 500
+	FirepowerMultiplier@KILLABLE:
+		RequiresCondition: killable
+		Modifier: 40
+	RangeMultiplier@KILLABLE:
+		RequiresCondition: killable
+		Modifier: 75
+
+^Tank:
+	GivesBounty:
+		Percentage: 0
+	GivesExperience:
+		Experience: 1
+	DamageMultiplier@UNKILLABLE:
+		RequiresCondition: unkillable
+		Modifier: 10
+	DamageMultiplier@KILLABLE:
+		RequiresCondition: killable
+		Modifier: 500
+	FirepowerMultiplier@KILLABLE:
+		RequiresCondition: killable
+		Modifier: 40
+	RangeMultiplier@KILLABLE:
+		RequiresCondition: killable
+		Modifier: 75
+
+^Infantry:
+	GivesBounty:
+		Percentage: 0
+	GivesExperience:
+		Experience: 1
+	DamageMultiplier@UNKILLABLE:
+		RequiresCondition: unkillable
+		Modifier: 20
+	DamageMultiplier@KILLABLE:
+		RequiresCondition: killable
+		Modifier: 200
+	FirepowerMultiplier@KILLABLE:
+		RequiresCondition: killable
+		Modifier: 25
+	RangeMultiplier@KILLABLE:
+		RequiresCondition: killable
+		Modifier: 75
+	Chronoshiftable:
+
+^Building:
+	GivesBounty:
+		Percentage: 0
+	DamageMultiplier@UNKILLABLE:
+		RequiresCondition: unkillable
+		Modifier: 8
+
+OILB:
+	CashTrickler:
+		ShowTicks: false
+
+APC:
+	Cargo:
+		InitialUnits: e1of, e1, e1, e2, e3, e4, e5, e5, SBH,SBH
+		MaxWeight: 10
+
+
+BRIK:
+	Health:
+		HP: 3000
+
+		
+powerproxy.paratroopers:
+	ParatroopersPower:
+		DisplayBeacon: false
+		DropItems: DM4,E1,E1,E1,E1OF,E2,E3
+
+powerproxy.parazombies:
+	ParatroopersPower:
+		DropItems: ZOMBIE,ZOMBIE,ZOMBIE,ZOMBIE,ZOMBIE
+		QuantizedFacings: 8
+		DisplayBeacon: false
+
+powerproxy.hyperion:
+	AirstrikePower:
+		OrderName: Hyperion
+		Prerequisites: ulttech.raynor
+		Icon: hyperion
+		ChargeInterval: 9750
+		Name: Hyperion
+		Description: Call down your Capital Ship to fight for 45 seconds. \n\n Strong vs Everything \nCan teleport deploy.
+		SelectTargetSpeechNotification: SelectTarget
+		SelectTargetTextNotification: actor-t-miss.airstrikepower-hyperion-select-target-text-notification
+		CameraActor: camera
+		CameraRemoveDelay: 25
+		UnitType: thyperion.spawn
+		QuantizedFacings: 8
+		DisplayBeacon: false
+		BeaconPoster: hyperion
+		SquadSize: 1
+		SquadOffset: 1792,1792,0
+		ArrowSequence: arrow
+		ClockSequence: clock
+		CircleSequence: circles
+		UseDirectionalTarget: True
+		DirectionArrowAnimation: paradirection
+		SupportPowerPaletteOrder: 5
+		DisplayTimerRelationships: Ally, Enemy, Neutral
+		PauseOnCondition: disabled
+
+powerproxy.ac130:
+	AirstrikePower:
+		OrderName: SpectreGunShip
+		Prerequisites: ulttech.usa, faction.superweaponsgeneral
+		Icon: usaspectregunshipicon
+		ChargeInterval: 9750
+		Name: Spectre Gunship
+		Description: Call upon the Spectre Gunship to fight for 45 seconds. \n\n Strong vs Everything
+		SelectTargetSpeechNotification: SelectTarget
+		SelectTargetTextNotification: actor-t-miss.airstrikepower-hyperion-select-target-text-notification
+		CameraActor: camera
+		CameraRemoveDelay: 25
+		UnitType: usaspectregunship.spawn
+		QuantizedFacings: 8
+		DisplayBeacon: false
+		BeaconPoster: hyperion
+		SquadSize: 1
+		SquadOffset: 1792,1792,0
+		ArrowSequence: arrow
+		ClockSequence: clock
+		CircleSequence: circles
+		UseDirectionalTarget: True
+		DirectionArrowAnimation: paradirection
+		SupportPowerPaletteOrder: 5
+		DisplayTimerRelationships: Ally, Enemy, Neutral
+		PauseOnCondition: disabled
+
+THYPERION:
+	FirepowerMultiplier:
+		Modifier: 33
+	DamageMultiplier:
+		Modifier: 150
+
+usaspectregunship:
+	FirepowerMultiplier:
+		Modifier: 33
+
+MISS:
+	FireWarheadsOnDeath:
+		Type: CenterPosition
+		Weapon: MetalNuke
+		EmptyWeapon: MetalNuke
+	-SpawnActorOnDeath:
+	Health:
+		HP: 600000
