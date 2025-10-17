@@ -77,7 +77,13 @@ actor-player =
    .lobbyprerequisitecheckbox-prodspeed-label4 = Fastest
    .lobbyprerequisitecheckbox-deathbox-label = Death Box
    .lobbyprerequisitecheckbox-deathbox-description = Allows players to build up to 4 Death Boxes.
- 
+   .lobbyprerequisitecheckbox-heroxp-dropdown = Hero XP Rate
+   .lobbyprerequisitecheckbox-heroxp-description = Change Hero XP rate.
+   .lobbyprerequisitecheckbox-heroxp-label1 = Slow
+   .lobbyprerequisitecheckbox-heroxp-label2 = Normal
+   .lobbyprerequisitecheckbox-heroxp-label3 = Fast
+   .lobbyprerequisitecheckbox-heroxp-label4 = Faster
+
 options-tech-level =
     .infantry-only = Infantry Only
     .low = Low
@@ -4200,10 +4206,12 @@ actor-terran-nuke =
 actor-raynor-tier1-fastupgrade1 =
    .name = Enhanced Training Regime
    .description = Gain Infantry Firepower I instantly.
+    Increase infantry attack range by 10%
 
 actor-raynor-tier1-fastupgrade2 =
    .name = Vanadium Plating
    .description = Gain Infantry Armor I instantly.
+    Increase infantry movement speed by 20%
 
 actor-raynor-tier2-costcut =
    .name = Improved Supply Chain
@@ -4216,28 +4224,36 @@ actor-raynor-tier2-firespeed =
 actor-raynor-tier3-fastupgrade1 =
    .name = Enhanced Training Regime II
    .description = Gain Infantry Firepower II instantly.
+    Infantry are now trained at rank 1.
 
 actor-raynor-tier3-fastupgrade2 =
    .name = Vanadium Plating II
    .description = Gain Infantry Armor II instantly.
+    Unlock Combat Hospital building.
 
 actor-raynor-tier3-range =
-   .name = Nano Projectors
-   .description = Increase range of Medics, Medivac Dropships and Firebats.
+   .name = Nano Projectors + Training+Plating II
+   .description = Exclusive to Terran factions.
+   
+    Gain Infantry Firepower II instantly.
+    Gain Infantry Armor II instantly.
+    Increase range of Medics, Medivac Dropships and Firebats.
+    Infantry are now trained at rank 1.
+    Academy now provides infantry self-healing.
 
 actor-raynor-tier4-support1 =
    .name = Orbital Bombing
    .description = Enables Orbital Bombing support power. 
     
     Instant artillery strike in small target area.
-    Cooldown: 6:00
+    Cooldown: 3:00
 
 actor-raynor-tier4-support2 =
    .name = Strike Force
    .description = Enables Strike Force support power. 
     
     Call in 2 Dropships to paradrop 12 infantry.
-    Cooldown: 3:00
+    Cooldown: 5:00
 
 actor-raynor-tier5-hyperion1 =
    .name = Yamato Gun
@@ -4248,6 +4264,28 @@ actor-raynor-tier5-hyperion2 =
    .name = Hypercharge
    .description = Allows the Hyperion to remain in 
      combat for an additional 15 seconds.
+
+actor-raynor-tier5-fastupgrade1 =
+   .name = Enhanced Training Regime III
+   .description = Gain Infantry Firepower III instantly.
+    Improves Infantry weapon reload speed by a further 10%.
+    Totaling a maximum 20% bonus attack speed.
+
+actor-raynor-tier5-fastupgrade2 =
+   .name = Vanadium Plating III
+   .description = Gain Infantry Armor III instantly.
+    Enable Shield tech for Infantry.
+
+actor-raynor-tier5-fastupgrade2a =
+   .name = Vanadium Plating III
+   .description = Gain Infantry Armor III instantly.
+    Increase infantry movement speed by a further 10%.
+    Totaling a maximum 30% bonus movement speed.
+
+actor-raynor-hosp =
+    .name = Combat Hospital
+    .desc = Provides infantry with self-healing.
+
 
 ## terran_veh.yaml
 actor-tvult =

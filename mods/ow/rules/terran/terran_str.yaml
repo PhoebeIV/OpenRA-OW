@@ -173,12 +173,14 @@ TCOMMAND:
 		Name: actor-tcommand.name
 	BaseBuilding:
 	Transforms:
+		RequiresCondition: !bot_undeploy_block
 		PauseOnCondition: chrono-vortex || being-captured || being-demolished || build-incomplete
 		IntoActor: tcommand.air
 		Offset: 1,1
 		Facing: 0
 		NoTransformNotification: BuildingCannotPlaceAudio
 	TransformsIntoMobile:
+		RequiresCondition: !bot_undeploy_block
 		Locomotor: heavywheeled
 		RequiresForceMove: true
 	TransformsIntoTransforms:
@@ -1007,6 +1009,9 @@ TACADAMY:
 	GrantConditionOnPrerequisite@mengsk:
 		Prerequisites: structures.mengsk
 		Condition: mengsk
+	ProvidesPrerequisite@hosp: # enable hospital for Raynor
+		Prerequisite: hosp
+		RequiresPrerequisites: raynor.hospitalacademy
 
 TENBAY:
 	Inherits: ^Building

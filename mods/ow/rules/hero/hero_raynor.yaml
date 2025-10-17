@@ -5,13 +5,15 @@ raynor.tier1.fastupgrade1:
 		Name: actor-raynor-tier1-fastupgrade1.name
 	Buildable:
 		Description: actor-raynor-tier1-fastupgrade1.description
-		Prerequisites: ~active.raynor, !upgrade.inffirepower1
+		Prerequisites: ~active.raynor
 		BuildPaletteOrder: 1
 	RenderSprites:
 		Image: upgrade.inffirepower1
 	ProvidesPrerequisite@buildingname:
 	ProvidesPrerequisite@upgradename:
 		Prerequisite: upgrade.inffirepower1
+	ProvidesPrerequisite@upgradename2:
+		Prerequisite: infantry.range1
 
 # Vanadium Plating
 raynor.tier1.fastupgrade2:
@@ -20,12 +22,14 @@ raynor.tier1.fastupgrade2:
 		Name: actor-raynor-tier1-fastupgrade2.name
 	Buildable:
 		Description: actor-raynor-tier1-fastupgrade2.description
-		Prerequisites: ~active.raynor, !upgrade.infarmor1
+		Prerequisites: ~active.raynor
 	RenderSprites:
 		Image: upgrade.infarmor1
 	ProvidesPrerequisite@buildingname:
 	ProvidesPrerequisite@upgradename:
 		Prerequisite: upgrade.infarmor1
+	ProvidesPrerequisite@upgradename2:
+		Prerequisite: infantry.speed1
 
 # Improved Supply Chain
 raynor.tier2.costcut:
@@ -59,12 +63,16 @@ raynor.tier3.fastupgrade1:
 		Name: actor-raynor-tier3-fastupgrade1.name
 	Buildable:
 		Description: actor-raynor-tier3-fastupgrade1.description
-		Prerequisites: ~active.raynor, upgrade.inffirepower1, ~!upgrade.inffirepower2
+		Prerequisites: ~active.raynor, ~!structures.terran
 	RenderSprites:
 		Image: upgrade.inffirepower2
 	ProvidesPrerequisite@buildingname:
 	ProvidesPrerequisite@upgradename:
+		Prerequisite: upgrade.inffirepower1
+	ProvidesPrerequisite@upgradename1:
 		Prerequisite: upgrade.inffirepower2
+	ProvidesPrerequisite@upgradename2:
+		Prerequisite: barracks.upgraded
 
 # Vanadium Plating II
 raynor.tier3.fastupgrade2:
@@ -73,12 +81,16 @@ raynor.tier3.fastupgrade2:
 		Name: actor-raynor-tier3-fastupgrade2.name
 	Buildable:
 		Description: actor-raynor-tier3-fastupgrade2.description
-		Prerequisites: ~active.raynor, upgrade.infarmor1, ~!upgrade.infarmor2
+		Prerequisites: ~active.raynor, ~!structures.terran
 	RenderSprites:
 		Image: upgrade.infarmor2
 	ProvidesPrerequisite@buildingname:
 	ProvidesPrerequisite@upgradename:
+		Prerequisite: upgrade.infarmor1
+	ProvidesPrerequisite@upgradename1:
 		Prerequisite: upgrade.infarmor2
+	ProvidesPrerequisite@upgradename2:
+		Prerequisite: raynor.hospital
 
 # Nano Projectors
 raynor.tier3.range:
@@ -90,6 +102,18 @@ raynor.tier3.range:
 		Prerequisites: ~active.raynor, ~structures.terran
 	RenderSprites:
 		Image: upgrade.inffirepower3
+	ProvidesPrerequisite@upgradename:
+		Prerequisite: upgrade.inffirepower1
+	ProvidesPrerequisite@upgradename2:
+		Prerequisite: upgrade.infarmor1
+	ProvidesPrerequisite@upgradename3:
+		Prerequisite: upgrade.inffirepower2
+	ProvidesPrerequisite@upgradename4:
+		Prerequisite: upgrade.infarmor2
+	ProvidesPrerequisite@upgradename5:
+		Prerequisite: barracks.upgraded
+	ProvidesPrerequisite@upgradename6:
+		Prerequisite: raynor.hospitalacademy
 
 # Orbital Bomb
 raynor.tier4.support1:
@@ -134,10 +158,64 @@ raynor.tier5.hyperion2:
 		Name: actor-raynor-tier5-hyperion2.name
 	Buildable:
 		Description: actor-raynor-tier5-hyperion2.description
-		Prerequisites: ~active.raynor
+		Prerequisites: ~active.raynor, ~disabled
 		Icon: chrono
 	RenderSprites:
 		Image: icon
+
+# Enhanced Training Regime III
+raynor.tier5.fastupgrade1:
+	Inherits: ^HeroUpgradeBaseTier5
+	Tooltip:
+		Name: actor-raynor-tier5-fastupgrade1.name
+	Buildable:
+		Description: actor-raynor-tier5-fastupgrade1.description
+		Prerequisites: ~active.raynor, upgrade.inffirepower2
+	RenderSprites:
+		Image: upgrade.inffirepower3
+	ProvidesPrerequisite@buildingname:
+	ProvidesPrerequisite@upgradename:
+		Prerequisite: upgrade.inffirepower3
+	ProvidesPrerequisite@upgradename2:
+		Prerequisite: infantry.firespeed2
+
+# Vanadium Plating III
+raynor.tier5.fastupgrade2:
+	Inherits: ^HeroUpgradeBaseTier5
+	Tooltip:
+		Name: actor-raynor-tier5-fastupgrade2.name
+	Buildable:
+		Description: actor-raynor-tier5-fastupgrade2.description
+		Prerequisites: ~active.raynor, upgrade.infarmor2, ~!techlevel.shields
+	RenderSprites:
+		Image: upgrade.infarmor3
+	ProvidesPrerequisite@buildingname:
+	ProvidesPrerequisite@upgradename:
+		Prerequisite: upgrade.infarmor3
+	ProvidesPrerequisite@upgradename2:
+		Prerequisite: infantry.shields
+	ProvidesPrerequisite@upgradename3:
+		Prerequisite: techlevel.shields
+
+# Vanadium Plating IIIb (if already have shield tech)
+raynor.tier5.fastupgrade2a:
+	Inherits: ^HeroUpgradeBaseTier5
+	Tooltip:
+		Name: actor-raynor-tier5-fastupgrade2a.name
+	Buildable:
+		Description: actor-raynor-tier5-fastupgrade2a.description
+		Prerequisites: ~active.raynor, upgrade.infarmor2, ~techlevel.shields
+	RenderSprites:
+		Image: upgrade.infarmor3
+	ProvidesPrerequisite@buildingname:
+	ProvidesPrerequisite@upgradename:
+		Prerequisite: upgrade.infarmor3
+	ProvidesPrerequisite@upgradename2:
+		Prerequisite: infantry.shields
+	ProvidesPrerequisite@upgradename3:
+		Prerequisite: techlevel.shields
+	ProvidesPrerequisite@upgradename4:
+		Prerequisite: infantry.speed2
 
 active.raynor:
 	Interactable:
@@ -476,7 +554,7 @@ TRAYNOR.Hero4:
 		Prerequisites: raynor.tier4.support2
 		OrderName: RaynorParadrop
 		Icon: paratroopers
-		ChargeInterval: 9000
+		ChargeInterval: 7500
 		Name: Strike Force
 		Description: Call in 2 Dropships to paradrop 12 infantry.
 		UnitType: TDROPSHIP.Drop
@@ -540,3 +618,40 @@ TRAYNOR.Hero5:
 		DirectionArrowAnimation: paradirection
 		SupportPowerPaletteOrder: 5
 		DisplayTimerRelationships: Ally, Enemy, Neutral
+
+RAYNOR.HOSP:
+	Inherits: ^Building
+	Inherits@shape: ^2x2Shape
+	Selectable:
+		Priority: 0
+		Bounds: 2048, 2048
+	Buildable:
+		Queue: Building
+		BuildPaletteOrder: 900
+		Prerequisites: anypower, ~raynor.hospital, ~techlevel.infonly
+		Description: actor-raynor-hosp.desc
+		BuildLimit: 1
+	Valued:
+		Cost: 2500
+	Building:
+		Footprint: xx xx
+		Dimensions: 2,2
+	Health:
+		HP: 80000
+	Armor:
+		Type: Wood
+	Tooltip:
+		Name: actor-raynor-hosp.name
+	RevealsShroud:
+		Range: 4c0
+	WithBuildingBib:
+		HasMinibib: true
+	WithDeathAnimation:
+		DeathSequence: dead
+		UseDeathTypeSuffix: false
+	ProvidesPrerequisite@buildingname:
+		Prerequisite: hosp
+	GpsDot:
+		String: Hospital
+	RenderSprites:
+		Image: hosp

@@ -601,6 +601,10 @@
 	GrantConditionOnPrerequisite@botowner:
 		Condition: botowner
 		Prerequisites: ai.all
+	GrantDelayedCondition@noundeploy:
+		Condition: bot_undeploy_block
+		RequiresCondition: botowner
+		Delay: 10000
 	FreeActor@hack:
 		Actor: BuildQueueHandler2
 
@@ -733,13 +737,13 @@
 		Prerequisites: upgrade.inffirepower3
 		Condition: ifp3
 	DamageMultiplier@iar1:
-		RequiresCondition: iar1 && (!iar2 && !corrode && !defiler_plague)
+		RequiresCondition: iar1 && (!iar2 && !corrode && !defiler_plague && !shielded)
 		Modifier: 85
 	DamageMultiplier@iar2:
-		RequiresCondition: iar2 && (!iar3 && !corrode && !defiler_plague)
+		RequiresCondition: iar2 && (!iar3 && !corrode && !defiler_plague && !shielded)
 		Modifier: 70
 	DamageMultiplier@iar3:
-		RequiresCondition: iar3 && (!corrode && !defiler_plague)
+		RequiresCondition: iar3 && (!corrode && !defiler_plague && !shielded)
 		Modifier: 55
 	FirepowerMultiplier@ifp1:
 		RequiresCondition: ifp1 && !ifp2
@@ -768,9 +772,36 @@
 	GrantConditionOnPrerequisite@firespeed1:
 		Prerequisites: infantry.firespeed1
 		Condition: infantry.firespeed1
+	GrantConditionOnPrerequisite@firespeed2:
+		Prerequisites: infantry.firespeed2
+		Condition: infantry.firespeed2
 	ReloadDelayMultiplier@firespeed1:
-		RequiresCondition: infantry.firespeed1
+		RequiresCondition: infantry.firespeed1 && !infantry.firespeed2
 		Modifier: 90
+	ReloadDelayMultiplier@firespeed2:
+		RequiresCondition: infantry.firespeed2
+		Modifier: 80
+	GrantConditionOnPrerequisite@range1:
+		Prerequisites: infantry.range1
+		Condition: infantry.range1
+	RangeMultiplier@range1:
+		RequiresCondition: infantry.range1
+		Modifier: 110
+	GrantConditionOnPrerequisite@speed1:
+		Prerequisites: infantry.speed1
+		Condition: infantry.speed1
+	GrantConditionOnPrerequisite@speed2:
+		Prerequisites: infantry.speed2
+		Condition: infantry.speed2
+	SpeedMultiplier@speed1:
+		RequiresCondition: infantry.speed1 && !infantry.speed2
+		Modifier: 120
+	SpeedMultiplier@speed2:
+		RequiresCondition: infantry.speed2
+		Modifier: 130
+	GrantConditionOnPrerequisite@raynorshield:
+		Prerequisites: infantry.shields, active.raynor
+		Condition: external_shield
 	Targetable@parachute:
 		RequiresCondition: parachute
 		TargetTypes: AirborneActor

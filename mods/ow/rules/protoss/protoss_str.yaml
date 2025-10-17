@@ -128,25 +128,25 @@ PNEXUS:
 		ActorTypes: pprobe
 	BaseBuilding:
 	Transforms:
-		RequiresCondition: factundeploy
+		RequiresCondition: factundeploy && !bot_undeploy_block
 		PauseOnCondition: chrono-vortex || being-captured || being-demolished || build-incomplete
 		IntoActor: pmcv
 		Offset: 1,1
 		Facing: 384
 	TransformsIntoMobile:
-		RequiresCondition: factundeploy
+		RequiresCondition: factundeploy && !bot_undeploy_block
 		Locomotor: heavywheeled
 		RequiresForceMove: true
 	TransformsIntoPassenger:
-		RequiresCondition: factundeploy
+		RequiresCondition: factundeploy && !bot_undeploy_block
 		CargoType: Vehicle
 		RequiresForceMove: true
 	TransformsIntoRepairable:
-		RequiresCondition: factundeploy
+		RequiresCondition: factundeploy && !bot_undeploy_block
 		RepairActors: fix
 		RequiresForceMove: true
 	TransformsIntoTransforms:
-		RequiresCondition: factundeploy && build-incomplete
+		RequiresCondition: factundeploy && build-incomplete && !bot_undeploy_block
 	Sellable:
 		RequiresCondition: !build-incomplete && !chrono-vortex && !being-captured && !being-demolished
 	GrantConditionOnPrerequisite@GLOBALFACTUNDEPLOY:
