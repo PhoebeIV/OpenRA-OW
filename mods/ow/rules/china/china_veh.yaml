@@ -568,6 +568,30 @@ chinanukecannon:
 		MuzzleSequence: muzzle
 		RequiresCondition: deployed
 		PauseOnCondition: disabled
+	Armament@deployme:
+		Name: primary
+		Weapon: JuggDeploy
+		PauseOnCondition: disabled
+		RequiresCondition: botowner
+	GrantConditionOnAttack@deployattack:
+		ArmamentNames: primary, deployed
+		RequiresCondition: botowner
+		RevokeDelay: 500
+		Condition: deployme
+	GrantConditionOnAttack@deployattackstay:
+		ArmamentNames: deployed
+		RequiresCondition: botowner && deployed
+		RevokeDelay: 500
+		Condition: still_attacking
+	AutoDeployer@deployme:
+		RequiresCondition: deployme && !still_attacking
+		DeployChance: 100
+		DeployTicks: 150
+		UndeployTicks: 200
+		DeployTrigger: Periodically
+	GrantConditionOnPrerequisite@botowner:
+		Condition: botowner
+		Prerequisites: ai.all
 	WithMuzzleOverlay:
 	WithMakeAnimation:
 		BodyNames: deployedbody
@@ -600,8 +624,8 @@ chinanukecannon:
 	Turreted:
 		TurnSpeed: 8
 	AttackTurreted@deployed:
-		Armaments: deployed
-		RequiresCondition: deployed
+		Armaments: primary, deployed
+		RequiresCondition: deployed || botowner
 		PauseOnCondition: disabled
 		OutsideRangeRequiresForceFire: True
 	RevealOnFire:
@@ -1510,6 +1534,30 @@ chinadeathhand:
 		MuzzleSequence: muzzle
 		RequiresCondition: deployed
 		PauseOnCondition: disabled
+	Armament@deployme:
+		Name: primary
+		Weapon: DeathHandDeploy
+		PauseOnCondition: disabled
+		RequiresCondition: botowner
+	GrantConditionOnAttack@deployattack:
+		ArmamentNames: primary, deployed
+		RequiresCondition: botowner
+		RevokeDelay: 1200
+		Condition: deployme
+	GrantConditionOnAttack@deployattackstay:
+		ArmamentNames: deployed
+		RequiresCondition: botowner && deployed
+		RevokeDelay: 1200
+		Condition: still_attacking
+	AutoDeployer@deployme:
+		RequiresCondition: deployme && !still_attacking
+		DeployChance: 100
+		DeployTicks: 200
+		UndeployTicks: 500
+		DeployTrigger: Periodically
+	GrantConditionOnPrerequisite@botowner:
+		Condition: botowner
+		Prerequisites: ai.all
 	WithMuzzleOverlay:
 	WithMakeAnimation:
 		BodyNames: deployedbody
@@ -1543,7 +1591,7 @@ chinadeathhand:
 		TurnSpeed: 8
 	AttackTurreted@deployed:
 		Armaments: deployed
-		RequiresCondition: deployed
+		RequiresCondition: deployed || botowner
 		PauseOnCondition: disabled
 		OutsideRangeRequiresForceFire: True
 	RevealOnFire:

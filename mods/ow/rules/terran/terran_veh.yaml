@@ -222,7 +222,7 @@ TSTANK:
 	Buildable:
 		Queue: Vehicle
 		BuildPaletteOrder: 105
-		Prerequisites: tshop, ~vehicles.terran, ~techlevel.medium, ~!ai.all
+		Prerequisites: tshop, ~vehicles.terran, ~techlevel.medium
 		Description: actor-tstank.description
 		BuildDuration: 2000
 	Mobile:
@@ -271,6 +271,30 @@ TSTANK:
 		LocalOffset: 818,0,256
 		RequiresCondition: deployed
 		PauseOnCondition: disabled
+	Armament@deployme:
+		Name: primary
+		Weapon: TerranSiegeDeploy
+		PauseOnCondition: disabled
+		RequiresCondition: botowner
+	GrantConditionOnAttack@deployattack:
+		ArmamentNames: primary, deployed
+		RequiresCondition: botowner
+		RevokeDelay: 250
+		Condition: deployme
+	GrantConditionOnAttack@deployattackstay:
+		ArmamentNames: deployed
+		RequiresCondition: botowner && deployed
+		RevokeDelay: 250
+		Condition: still_attacking
+	AutoDeployer@deployme:
+		RequiresCondition: deployme && !still_attacking
+		DeployChance: 100
+		DeployTicks: 150
+		UndeployTicks: 200
+		DeployTrigger: Periodically
+	GrantConditionOnPrerequisite@botowner:
+		Condition: botowner
+		Prerequisites: ai.all
 	WithMuzzleOverlay:
 	WithMakeAnimation:
 		BodyNames: deployedbody

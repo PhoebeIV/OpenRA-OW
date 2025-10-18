@@ -121,6 +121,37 @@ SEIGE:
 		MuzzleSequence: muzzle
 		RequiresCondition: deployed
 		PauseOnCondition: disabled
+	Armament@PRIMARY2:
+		Name: deployed
+		Weapon: TerranSiegeCannonEffect
+		LocalOffset: 1200,0,112
+		MuzzleSequence: muzzle
+		RequiresCondition: deployed
+		PauseOnCondition: disabled
+	Armament@deployme:
+		Name: primary
+		Weapon: TerranSiegeDeploy
+		PauseOnCondition: disabled
+		RequiresCondition: botowner
+	GrantConditionOnAttack@deployattack:
+		ArmamentNames: primary, deployed
+		RequiresCondition: botowner
+		RevokeDelay: 250
+		Condition: deployme
+	GrantConditionOnAttack@deployattackstay:
+		ArmamentNames: deployed
+		RequiresCondition: botowner && deployed
+		RevokeDelay: 250
+		Condition: still_attacking
+	AutoDeployer@deployme:
+		RequiresCondition: deployme && !still_attacking
+		DeployChance: 100
+		DeployTicks: 150
+		UndeployTicks: 200
+		DeployTrigger: Periodically
+	GrantConditionOnPrerequisite@botowner:
+		Condition: botowner
+		Prerequisites: ai.all
 	WithMuzzleOverlay:
 	WithMakeAnimation:
 		BodyNames: deployedbody
@@ -153,8 +184,8 @@ SEIGE:
 	Turreted:
 		TurnSpeed: 8
 	AttackTurreted@deployed:
-		Armaments: deployed
-		RequiresCondition: deployed
+		Armaments: deployed, primary
+		RequiresCondition: deployed || botowner
 		PauseOnCondition: disabled
 		OutsideRangeRequiresForceFire: True
 	RevealOnFire:
@@ -164,7 +195,7 @@ SEIGE:
 	Selectable:
 		DecorationBounds: 1877, 1621, 0, -170
 	WithRangeCircle:
-		Range: 15c0
+		Range: 13c0
 
 ARTY.SS:
 	Inherits: ^TrackedVehicle

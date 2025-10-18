@@ -350,7 +350,7 @@ AVARTY:
 	AttackTurreted@deployed:
 		Armaments: deployed, deployed_a, deployed_effect, dummyweapon
 		Turrets: deployed
-		RequiresCondition: deployed
+		RequiresCondition: deployed || botowner
 		PauseOnCondition: disabled
 		TargetFrozenActors: True
 		ForceFireIgnoresActors: True
@@ -405,7 +405,26 @@ AVARTY:
 		Weapon: JuggDeploy
 		Turret: deployed
 		PauseOnCondition: disabled
-		RequiresCondition: deployed
+		RequiresCondition: deployed || botowner
+	GrantConditionOnAttack@deployattack:
+		ArmamentNames: dummyweapon, deployed
+		RequiresCondition: botowner
+		RevokeDelay: 250
+		Condition: deployme
+	GrantConditionOnAttack@deployattackstay:
+		ArmamentNames: deployed
+		RequiresCondition: botowner && deployed
+		RevokeDelay: 250
+		Condition: still_attacking
+	AutoDeployer@deployme:
+		RequiresCondition: deployme && !still_attacking
+		DeployChance: 100
+		DeployTicks: 150
+		UndeployTicks: 200
+		DeployTrigger: Periodically
+	GrantConditionOnPrerequisite@botowner:
+		Condition: botowner
+		Prerequisites: ai.all
 	GrantConditionOnAttack@fire:
 		Condition: firing
 		ArmamentNames: deployed_effect
