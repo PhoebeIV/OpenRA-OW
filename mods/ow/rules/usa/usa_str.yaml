@@ -443,7 +443,7 @@ usaairfield:
 		ChargeInterval: 7500
 		Name: Mines Airdrop
 		Description: A C17 drops a line of mine anywhere on the map.
-		DropItems: USAMINEDROP, USAMINEDROP, USAMINEDROP, USAMINEDROP, USAMINEDROP
+		DropItems: USAMINEDROP, USAMINEDROP, USAMINEDROP, USAMINEDROP, USAMINEDROP, USAMINEDROP, USAMINEDROP, USAMINEDROP
 		ReinforcementsArrivedSpeechNotification: ReinforcementsArrived
 		SelectTargetSpeechNotification: SelectTarget
 		AllowImpassableCells: false
@@ -695,7 +695,7 @@ USAMINEDROPACTOR:
 		Delay: 45
 	Mobile:
 		Speed: 96
-		Locomotor: foot
+		Locomotor: foot2
 		RequiresCondition: !exists
 	Mine:
 		CrushClasses: mine
@@ -717,7 +717,7 @@ USAMINEDROPACTOR:
 	Targetable:
 		RequiresCondition: !triggered
 	Armament:
-		Weapon: DemoTrapTargeting
+		Weapon: USAMineTargeting
 	AttackCharges:
 		RequiresCondition: !build-incomplete
 		ChargeLevel: 100
@@ -740,18 +740,17 @@ USAMINEDROPACTOR:
 		RequiresCondition: !triggered
 	KillsSelf:
 		RequiresCondition: invulnerability || triggered
-		Delay: 5
+		Delay: 25
 		DamageTypes: Suicide
 	GrantConditionOnDamageState:
 		Condition: triggered
 		ValidDamageStates: critical
 	DamageMultiplier@die:
 		RequiresCondition: triggered
-		Modifier: 0
+		Modifier: 1
 	FireWarheadsOnDeath:
 		Weapon: USATrapExplosion
 		EmptyWeapon: USATrapExplosion
-		DamageSource: Killer
 	RenderSprites:
 		Image: minvs
 
