@@ -202,25 +202,17 @@
 		Modifier: 90
 	ExternalCondition@irradiate:
 		Condition: irradiate
-	ChangesHealth@irradiate:
-		Step: -200
-		Delay: 5
-		StartIfBelow: 101
-		DamageTypes: FireDeath
+	WithIdleOverlay@irradiate:
 		RequiresCondition: irradiate
-	ExplosionOnDamageTransition@irrad2:
+		Image: explosion
+		Sequence: cloud
+	Targetable@irradiated: # prevents stacking of the effect
 		RequiresCondition: irradiate
-		DamageState: Medium
-		Weapon: VesselIrradiateDamage
-	ExplosionOnDamageTransition@irrad3:
-		RequiresCondition: irradiate
-		DamageState: Heavy
-		Weapon: VesselIrradiateDamage
-	ExplosionOnDamageTransition@irrad4:
-		RequiresCondition: irradiate
-		DamageState: Critical
-		Weapon: VesselIrradiateSpread
-		TriggerOnlyOnce: true
+		TargetTypes: Irradiated
+#	FireWarheads@irradiate:
+#		RequiresCondition: irradiate
+#		Weapons: IrradiateAreaDamage
+#		Interval: 50
 	ExternalCondition@dominatrix:
 		Condition: dominatrix
 	DamageMultiplier@dominatrix:

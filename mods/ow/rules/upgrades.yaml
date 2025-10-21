@@ -428,6 +428,12 @@ UpgradeHandler:
 	ProvidesPrerequisite@ai_noboats:
 		Prerequisite: faction.noboats
 		RequiresPrerequisites: ai.all, !structures.silver, !structures.navy
+	GrantConditionOnPrerequisite@colony:
+		Condition: colony
+		Prerequisites: techlevel.colonydrop
+	FreeActor@colony:
+		RequiresCondition: colony
+		Actor: powerproxy.colonydrop
 	GrantConditionOnPrerequisite@extraupgrade:
 		Condition: bot_harder
 		Prerequisites: ai.harder
@@ -524,6 +530,7 @@ UpgradeHandlerBot:
 	Inherits@mine: UpgradeHandler
 	-FreeActor@harderbot:
 	-FreeActor@resources:
+	-FreeActor@colony:
 	ProductionQueue@Upgrade:
 		Type: Upgrade
 		Group: Upgrade

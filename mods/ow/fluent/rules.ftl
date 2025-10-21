@@ -77,6 +77,8 @@ actor-player =
    .lobbyprerequisitecheckbox-prodspeed-label4 = Fastest
    .lobbyprerequisitecheckbox-deathbox-label = Death Box
    .lobbyprerequisitecheckbox-deathbox-description = Allows players to build up to 4 Death Boxes.
+   .lobbyprerequisitecheckbox-colony-label = Colony Drop
+   .lobbyprerequisitecheckbox-colony-description = Colony Drops for everyone!
    .lobbyprerequisitecheckbox-heroxp-dropdown = Hero XP Rate
    .lobbyprerequisitecheckbox-heroxp-description = Change Hero XP rate.
    .lobbyprerequisitecheckbox-heroxp-label1 = Slow
@@ -4188,7 +4190,8 @@ actor-terran-resources =
    .name = Research Forced Labor
    .description = Increases yield of reprocessing minerals and
      tiberium by 10%. 
-    Increases SCV speed by 50%.
+    Increases SCV speed by 25%.
+    Reduces SCV health by 50%.
 
 actor-terran-armor =
    .name = Research Vanadium Plating

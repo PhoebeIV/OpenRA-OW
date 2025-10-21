@@ -4399,6 +4399,7 @@ VesselDefenseMatrix:
 	ValidTargets: GroundActor, AirborneActor
 	InvalidTargets: Structure, DefenseMatrix
 	ValidRelationships: Ally
+	TargetActorCenter: true
 	Projectile: LaserZap
 		Width: 0
 	Warhead@condition: GrantExternalCondition
@@ -4425,59 +4426,86 @@ VesselIrradiate:
 	Range: 9c0
 	Report: tveirr00.aud
 	ValidTargets: GroundActor, WaterActor, AirborneActor
+	InvalidTargets: Structure, Irradiated
+	Projectile: LaserZap
+		Width: 0
+		Duration: 1500
+		DamageDuration: 1500
+		DamageInterval: 25
+	Warhead@1poison: GrantExternalCondition
+		Range: 1c512
+		Condition: corrode
+		Duration: 250
+		ValidTargets: GroundActor, WaterActor, AirborneActor
+		InvalidTargets: Structure, Mine
+	Warhead@2poison: GrantExternalCondition
+		Range: 1c512
+		Condition: irradiate
+		Duration: 250
+		ValidTargets: GroundActor, WaterActor, AirborneActor
+		InvalidTargets: Structure, Mine
+	Warhead@1Dam: SpreadDamage
+		Spread: 768
+		Damage: 1000
+		Falloff: 50, 125, 75, 40, 20, 10
+		ValidTargets: GroundActor, WaterActor, AirborneActor
+		InvalidTargets: Structure, Mine, Husk
+		Versus:
+			Heavy: 80
+			Concrete: 80
+		DamageTypes: FireDeath, BypassShield
+	Warhead@7Eff: CreateEffect
+		ValidTargets: Ground, Water, Air
+		Explosions: cloud
+		ImpactActors: false
+
+VesselIrradiate_Old:
+	ReloadDelay: 500
+	Range: 9c0
+	Report: tveirr00.aud
+	ValidTargets: GroundActor, WaterActor, AirborneActor
 	InvalidTargets: Structure
 	Projectile: InstantHit
 		Width: 0
 	Warhead@condition1: GrantExternalCondition
 		Condition: irradiate
 		Range: 2c0
-		Duration: 900
+		Duration: 1500
 		ValidTargets: GroundActor, WaterActor, AirborneActor
 		InvalidTargets: Structure
 	Warhead@condition2: GrantExternalCondition
 		Condition: corrode
 		Range: 2c0
-		Duration: 900
+		Duration: 1500
 		ValidTargets: GroundActor, WaterActor, AirborneActor
 		InvalidTargets: Structure
 	Warhead@0Eff: CreateEffect
 		ImpactSounds: tveirr00.aud
 
-VesselIrradiateDamage:
-	Inherits: VesselIrradiate
-	-Report:
+IrradiateAreaDamage:
+	Warhead@1poison: GrantExternalCondition
+		Range: 2c0
+		Condition: corrode
+		Duration: 750
+		ValidTargets: GroundActor, WaterActor, AirborneActor
+		InvalidTargets: Structure
 	Warhead@1Dam: SpreadDamage
 		Spread: 512
-		Delay: 25
 		Damage: 1000
-		ValidTargets: Ground, GroundActor, WaterActor, Trees
+		ValidTargets: GroundActor, WaterActor, AirborneActor
 		InvalidTargets: Structure
 		Versus:
-			None: 100
-			Wood: 70
-			Light: 175
-			Heavy: 250
-			Concrete: 40
-		DamageTypes: FireDeath
-	-Warhead@condition1: GrantExternalCondition
-	-Warhead@condition2: GrantExternalCondition
-	-Warhead@0Eff: CreateEffect
-
-VesselIrradiateSpread:
-	Inherits: VesselIrradiate
-	-Report:
-	Warhead@condition1: GrantExternalCondition
-		Condition: irradiate
-		Range: 2c0
-		Duration: 250
+			Wood: 80
+			Heavy: 80
+			Concrete: 80
+		DamageTypes: FireDeath, BypassShield
+	Warhead@2Self: SpreadDamage
+		Spread: 64
+		Damage: 500
 		ValidTargets: GroundActor, WaterActor, AirborneActor
 		InvalidTargets: Structure
-	Warhead@condition2: GrantExternalCondition
-		Condition: corrode
-		Range: 2c0
-		Duration: 250
-		ValidTargets: GroundActor, WaterActor, AirborneActor
-		InvalidTargets: Structure
+		DamageTypes: FireDeath, BypassShield
+		AffectsParent: true
 
 RaynorStrike:
 	ReloadDelay: 50

@@ -416,13 +416,16 @@ TVESSEL:
 	GrantConditionOnPrerequisite@bot:
 		Prerequisites: ai.all
 		Condition: botowner
-	GrantRandomCondition:
+	GrantRandomPeriodicCondition@bot:
+		RequiresCondition: botowner
 		Conditions: random1,random1,random2
+		CooldownDuration: 1
+		ActiveDuration: 250,500
 	GrantCondition@bot1:
-		RequiresCondition: botowner && random1
+		RequiresCondition: random1
 		Condition: irradiate_equipped
 	GrantCondition@bot2:
-		RequiresCondition: botowner && random2
+		RequiresCondition: random2
 		Condition: dm_equipped
 
 TBATTLE:
