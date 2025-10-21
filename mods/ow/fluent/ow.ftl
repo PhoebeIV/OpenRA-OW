@@ -10,3 +10,14 @@ hotkey-description-previousproductiontab = Previous tab
 
 ## SupportPowerTimerWidget
 support-power-timer = { $player }'s { $support-power }: { $time }
+
+
+## MapOptions, MissionBrowserLogic
+options-game-speed =
+    .slowest = Slowest
+    .slower = Slower
+    .normal = Normal
+    .fast = Fast
+    .faster = Faster
+    .fastest = Fastest
+    .fasterest = Mach 5

@@ -2975,7 +2975,7 @@ ChinaSuperNuke:
 	Warhead@crater: SpawnActor
 		Delay: 50
 		Range: 4
-		Actors: 1tnk.crater
+		Actors: 1tnk.crater2
 		OwnerType: InternalName
 	Warhead@cluster1: FireCluster
 		Delay: 75
@@ -3833,6 +3833,8 @@ LightningZap:
 	Warhead@2Smu: LeaveSmudge
 		SmudgeType: Scorch
 		InvalidTargets: Structure, Wall
+	Warhead@3Resource: DestroyResource
+		Size: 2
 
 CrateLightningZap:
 	Inherits: LightningZap
@@ -3841,6 +3843,51 @@ CrateLightningZap:
 		Damage: 30000
 		Versus:
 			None: 500
+
+CrateLightningZap2:
+	Inherits: CrateLightningZap
+	Warhead@22FlashEffect: FlashEffect
+		Duration: 30
+		FlashType: LightningStrike
+
+CrateLightningZap3:
+	Inherits: LightningZap
+	Warhead@2cluster: FireShrapnel
+		Amount: 2
+		Weapon: CrateLightningZap3Shrapnel
+		AimTargetStances: Neutral, Enemy, Ally
+		AimChance: 13
+
+CrateLightningZap3Shrapnel:
+	Inherits: LightningZap
+	Range: 128c0
+	ValidTargets: GroundActor, WaterActor, AirborneActor
+	Projectile: InstantHit
+	Warhead@1Dam: SpreadDamage
+		Spread: 84
+		Damage: 10000
+		ValidTargets: GroundActor, WaterActor, AirborneActor, Trees
+		Versus:
+			None: 100
+			Wood: 100
+			Light: 100
+			Heavy: 80
+			Concrete: 100
+	Warhead@2EMP: GrantExternalCondition
+		Range: 1c0
+		Condition: disabled
+		Duration: 125
+		ValidTargets: GroundActor, WaterActor, AirborneActor
+	Warhead@3EMP: GrantExternalCondition
+		Range: 1c0
+		Condition: emp
+		Duration: 250
+		ValidTargets: Structure
+	Warhead@4EMP: GrantExternalCondition
+		Range: 1c0
+		Condition: emp_shields
+		Duration: 125
+		ValidTargets: GroundActor, WaterActor, AirborneActor
 
 MDKLightningZap:
 	Inherits: LightningZap

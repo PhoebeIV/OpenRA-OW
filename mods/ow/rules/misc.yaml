@@ -555,8 +555,6 @@ HUGECRATER:
 		UseDeathTypeSuffix: false
 	KillsSelf:
 		Delay: 15000
-	ProvidesPrerequisite@weather:
-		Prerequisite: environment.weather
 	FireWarheads@smoke:
 		Weapons: SmokingCrater
 		Interval: 25
@@ -577,6 +575,12 @@ HUGECRATER.colony:
 		StartCooldown: 200
 		Interval: 475
 		Weapons: WeatherGrenade
+	ProvidesPrerequisite@weather:
+		RequiresCondition: !prereq
+		Prerequisite: environment.weather
+	GrantDelayedCondition@prereq:
+		Condition: prereq
+		Delay: 7500
 
 SNIPER:
 	Inherits: USAPATHFINDER

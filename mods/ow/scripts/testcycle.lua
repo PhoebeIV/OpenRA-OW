@@ -17,7 +17,7 @@ StormLighting = function()
 	DaylightRed = 0.6
 	DaylightGreen = 0.6
 	DaylightBlue = 1.25
-	DaylightAmbient = 0.8
+	DaylightAmbient = 0.55
 end
 
 AdjustLighting = function()
@@ -62,6 +62,7 @@ Tick = function()
 
 		AdjustLighting()
 	elseif (Neutral.HasPrerequisites({"environment.weather"})) then
+		--[[
 		ticks = ticks + 1
 		if (Time >= SunRise) then
 			StormLighting()
@@ -73,19 +74,36 @@ Tick = function()
 		Time = Time + 1
 
 		AdjustLighting()
+		--]]
+		Lighting.Red = 1.25
+		Lighting.Green = 0.9
+		Lighting.Blue = 0.7
+		Lighting.Ambient = 0.55
+
 	end
 
 	if (Neutral.HasPrerequisites({"environment.weather"})) then
-			if (Utils.RandomInteger(1, 200) == 10) then
+			if (Utils.RandomInteger(1, 300) < 10) then
 			local delay = Utils.RandomInteger(1, 10)
-			Lighting.Flash("LightningStrike", delay)
+			if (Utils.RandomInteger(1, 5) == 1) then Lighting.Flash("LightningStrike", delay) end
 			DoStrike()
-			Trigger.AfterDelay(delay, function()
+			Trigger.AfterDelay(delay+5, function()
 				Media.PlaySound("thunder" .. Utils.RandomInteger(1,6) .. ".aud")
 			end)
 		end
 		if (Utils.RandomInteger(1, 200) == 10) then
 			Media.PlaySound("thunder-ambient.aud")
+		end
+	end
+
+	if (Neutral.HasPrerequisites({"environment.weather2"})) then
+			if (Utils.RandomInteger(1, 300) < 5) then
+			local delay = Utils.RandomInteger(1, 10)
+			if (Utils.RandomInteger(1, 5) == 1) then Lighting.Flash("LightningStrike", delay) end
+			DoStrike()
+			Trigger.AfterDelay(delay+5, function()
+				Media.PlaySound("thunder" .. Utils.RandomInteger(1,6) .. ".aud")
+			end)
 		end
 	end
 
@@ -179,13 +197,17 @@ end
 SpawnWaterDerricks = function(amount)
 	local i = 0;
 	local attempts = 0;
-	while (i < amount and attempts < 100) do
+
+	while (i < amount) do
 		NewCell = Map.RandomCell()
 		if(Map.TerrainType(NewCell) == "Water") then
 			Reinforcements.Reinforce(Neutral, {"japanoilderrick.cr"}, {NewCell}, 1)
 			i = i+1;
 		end
 		attempts = attempts+1;
+		if (attempts > 500) then
+			i = amount;
+		end
 	end
 	print("Placed "..i.." oil derricks after "..attempts.." attempts")
 end
@@ -230,8 +252,20 @@ WorldLoaded = function()
 			Lighting.Ambient = 0.75
 		end
 	end
+
+	local attempts = 200;
+	local i = 0;
+	local watercount = 0;
+
 	if (not Creeps.HasPrerequisites({"techlevel.noboats"})) then
-		SpawnWaterDerricks(12)
+		while (i < attempts) do
+			NewCell = Map.RandomCell()
+			if(Map.TerrainType(NewCell) == "Water") then
+				watercount = watercount + 1;
+			end
+			i = i + 1;
+		end
+		SpawnWaterDerricks(watercount / 5)
 	end
 
 end

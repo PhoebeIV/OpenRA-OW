@@ -30,6 +30,11 @@ CRATE:
 		SelectionShares: 300
 	LevelUpCrateAction:
 		SelectionShares: 12
+		RequiresCondition: !hero
+	LevelUpCrateAction@hero:
+		SelectionShares: 5
+		RequiresCondition: hero
+		Levels: 5
 	GiveBaseBuilderCrateAction:
 		ValidFactions: england, france, germany, russia, ukraine, estonia, phobos, deimos, mars, hitler, himmler, heydrich, usa, townes, granger, alexander
 		NoBaseSelectionShares: 1000
@@ -217,8 +222,6 @@ CRATE:
 		SelectionShares: 2
 		Units: 1tnk.bitconnect
 		Sound: bitconnect.aud
-		Sequence: idle
-		Image: bitconnect
 	GiveUnitCrateAction@civvies:
 		SelectionShares: 3
 		Units: c1,c2,c3,c4,c5,c6,c7,c8,c9,c10,c1,c2,c3,c4,c5,c10,1tnk.cpanic
@@ -570,6 +573,11 @@ CRATE.FuckYou:
 	GiveUnitCrateAction@rmbo:
 		SelectionShares: 6
 		Units: rmbo.left
+	GiveUnitCrateAction@ionstorm:
+		SelectionShares: 2
+		Units: 1tnk.ionstorm
+		Owner: Neutral
+		Sequence: timequake
 	Crate:
 		Duration: 6000
 	Tooltip:
@@ -701,7 +709,7 @@ CRATE.LEVEL:
 1TNK.LIGHTNING:
 	Inherits: 1TNK.MINE
 	FireWarheadsOnDeath:
-		Weapon: LightningZap
+		Weapon: CrateLightningZap3
 	-SpawnActorOnDeath:
 
 1TNK.HUNTER:
@@ -770,6 +778,12 @@ CRATE.LEVEL:
 		Locomotor: floater
 	SpawnActorOnDeath:
 		Actor: THXEARTHQUAKE
+		OwnerType: Victim
+
+1TNK.IONSTORM:
+	Inherits: 1TNK.MINE
+	SpawnActorOnDeath:
+		Actor: ionstorm
 		OwnerType: Victim
 
 U.TNKcrate:
@@ -3524,3 +3538,33 @@ RMBO.Left:
 		MaxMoveDelay: 75
 	RenderSprites:
 		Image: RMBO
+
+IONSTORM:
+	Inherits: XBAR
+	-Targetable:
+	-Buildable:
+	-Cloak:
+	-WithSpriteBody:
+	-WithMakeAnimation:
+	-AmbientSound:
+	-KillsSelf:
+	-Selectable:
+	Interactable:
+	Tooltip:
+		Name: ???
+	KillsSelf@badcrates:
+		Delay: 7500
+		RemoveInstead: true
+	GrantDelayedCondition@ionstorm:
+		Delay: 15
+		Condition: prereq
+	ProvidesPrerequisite@ionstorm:
+		RequiresCondition: prereq
+		Prerequisite: environment.weather
+	ProvidesPrerequisite@ionstorm2:
+		RequiresCondition: prereq
+		Prerequisite: environment.weather2
+	FireWarheads@ionstorm:
+		Interval: 5000
+		Weapons: CrateLightningZap2
+		RequiresCondition: !prereq
