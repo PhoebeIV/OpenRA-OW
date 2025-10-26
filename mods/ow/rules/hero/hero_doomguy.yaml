@@ -277,14 +277,10 @@ doomguy.Hero0:
 		Prerequisite: active.doomguy
 	AttackWander:
 		RequiresCondition: wander
-	ActorLostNotification:
-		RequiresCondition: !force_deploy
-	KillsSelf@level:
+	TransformOnCondition@level:
 		RequiresCondition: force_deploy
-		Delay: 1
-	SpawnActorOnDeath:
-		RequiresCondition: force_deploy
-		Actor: doomguy.Hero1
+		IntoActor: doomguy.Hero1
+		ForceHealthPercentage: 100
 	ExperienceTrickler:
 		RequiresCondition: hero-level <= 4
 		Amount: 500
@@ -462,9 +458,8 @@ doomguy.Hero1:
 		Name: actor-doomguy-hero1-name
 	Health:
 		HP: 110000
-	SpawnActorOnDeath:
-		RequiresCondition: force_deploy
-		Actor: doomguy.Hero2
+	TransformOnCondition@level:
+		IntoActor: doomguy.Hero2
 	FirepowerMultiplier@1:
 		Modifier: 110
 	-ExperienceTrickler:
@@ -484,9 +479,8 @@ doomguy.Hero2:
 		Name: actor-doomguy-hero2-name
 	Health:
 		HP: 130000
-	SpawnActorOnDeath:
-		RequiresCondition: force_deploy
-		Actor: doomguy.Hero3
+	TransformOnCondition@level:
+		IntoActor: doomguy.Hero3
 	FirepowerMultiplier@1:
 		Modifier: 120
 	AttackFrontal:
@@ -507,9 +501,8 @@ doomguy.Hero3:
 		Name: actor-doomguy-hero3-name
 	Health:
 		HP: 150000
-	SpawnActorOnDeath:
-		RequiresCondition: force_deploy
-		Actor: doomguy.Hero4
+	TransformOnCondition@level:
+		IntoActor: doomguy.Hero4
 	FirepowerMultiplier@1:
 		Modifier: 130
 	SpeedMultiplier@1:
@@ -535,9 +528,8 @@ doomguy.Hero4:
 		Name: actor-doomguy-hero4-name
 	Health:
 		HP: 180000
-	SpawnActorOnDeath:
-		RequiresCondition: force_deploy
-		Actor: doomguy.Hero5
+	TransformOnCondition@level:
+		IntoActor: doomguy.Hero5
 	FirepowerMultiplier@1:
 		Modifier: 140
 	Armament@PRIMARY:
@@ -561,8 +553,7 @@ doomguy.Hero5:
 		Name: actor-doomguy-hero5-name
 	Health:
 		HP: 200000
-	-KillsSelf@level:
-	-SpawnActorOnDeath:
+	-TransformOnCondition@level:
 	-GrantPeriodicCondition@deploy:
 	-GainsExperienceMultiplier@1:
 	FirepowerMultiplier@1:

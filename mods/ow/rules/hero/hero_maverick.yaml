@@ -606,8 +606,7 @@ maverick.Hero0:
 		EndColor: ADD8E6
 		TrailLength: 35
 		StartColorUsePlayerColor: false
-	SpawnActorOnDeath@corpse:
-		PauseOnCondition: force_deploy
+	SpawnActorOnDeath:
 		Actor: USAKINGRAPTOR.Husk
 	LeavesTrails:
 		Offsets: -853,0,171
@@ -630,14 +629,10 @@ maverick.Hero0:
 	AnnounceOnKill:
 	ProvidesPrerequisite@inthefield:
 		Prerequisite: active.maverick
-	ActorLostNotification:
-		RequiresCondition: !force_deploy
-	KillsSelf@level:
+	TransformOnCondition@level:
 		RequiresCondition: force_deploy
-		Delay: 1
-	SpawnActorOnDeath:
-		RequiresCondition: force_deploy
-		Actor: maverick.Hero1
+		IntoActor: maverick.Hero1
+		ForceHealthPercentage: 100
 	ExperienceTrickler:
 		RequiresCondition: hero-level <= 4
 		Amount: 500
@@ -790,9 +785,8 @@ maverick.Hero1:
 		Ammo: 6
 		ReloadDelay: 2
 		AmmoCondition: ammo
-	SpawnActorOnDeath:
-		RequiresCondition: force_deploy
-		Actor: maverick.Hero2
+	TransformOnCondition@level:
+		IntoActor: maverick.Hero2
 	FirepowerMultiplier@1:
 		Modifier: 110
 	-ExperienceTrickler:
@@ -818,9 +812,8 @@ maverick.Hero2:
 		Ammo: 8
 		ReloadDelay: 2
 		AmmoCondition: ammo
-	SpawnActorOnDeath:
-		RequiresCondition: force_deploy
-		Actor: maverick.Hero3
+	TransformOnCondition@level:
+		IntoActor: maverick.Hero3
 	FirepowerMultiplier@1:
 		Modifier: 120
 
@@ -845,9 +838,8 @@ maverick.Hero3:
 		Ammo: 10
 		ReloadDelay: 2
 		AmmoCondition: ammo
-	SpawnActorOnDeath:
-		RequiresCondition: force_deploy
-		Actor: maverick.Hero4
+	TransformOnCondition@level:
+		IntoActor: maverick.Hero4
 	FirepowerMultiplier@1:
 		Modifier: 130
 
@@ -874,9 +866,8 @@ maverick.Hero4:
 		Ammo: 12
 		ReloadDelay: 2
 		AmmoCondition: ammo
-	SpawnActorOnDeath:
-		RequiresCondition: force_deploy
-		Actor: maverick.Hero5
+	TransformOnCondition@level:
+		IntoActor: maverick.Hero5
 	FirepowerMultiplier@1:
 		Modifier: 140
 
@@ -902,8 +893,7 @@ maverick.Hero5:
 		Ammo: 16
 		ReloadDelay: 2
 		AmmoCondition: ammo
-	-KillsSelf@level:
-	-SpawnActorOnDeath:
+	-TransformOnCondition@level:
 	-GrantPeriodicCondition@deploy:
 	-GainsExperienceMultiplier@1:
 	FirepowerMultiplier@1:

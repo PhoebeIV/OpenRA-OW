@@ -270,14 +270,10 @@ dukenukem.Hero0:
 		Prerequisite: active.dukenukem
 	AttackWander:
 		RequiresCondition: wander
-	ActorLostNotification:
-		RequiresCondition: !force_deploy
-	KillsSelf@level:
+	TransformOnCondition@level:
 		RequiresCondition: force_deploy
-		Delay: 1
-	SpawnActorOnDeath:
-		RequiresCondition: force_deploy
-		Actor: dukenukem.Hero1
+		IntoActor: dukenukem.Hero1
+		ForceHealthPercentage: 100
 	ExperienceTrickler:
 		RequiresCondition: hero-level <= 4
 		Amount: 500
@@ -297,9 +293,8 @@ dukenukem.Hero1:
 		Name: actor-dukenukem-hero1-name
 	Health:
 		HP: 90000
-	SpawnActorOnDeath:
-		RequiresCondition: force_deploy
-		Actor: dukenukem.Hero2
+	TransformOnCondition@level:
+		IntoActor: dukenukem.Hero2
 	FirepowerMultiplier@1:
 		Modifier: 110
 	-ExperienceTrickler:
@@ -346,9 +341,8 @@ dukenukem.Hero2:
 		Name: actor-dukenukem-hero2-name
 	Health:
 		HP: 110000
-	SpawnActorOnDeath:
-		RequiresCondition: force_deploy
-		Actor: dukenukem.Hero3
+	TransformOnCondition@level:
+		IntoActor: dukenukem.Hero3
 	FirepowerMultiplier@1:
 		Modifier: 120
 	Armament@FakeDuke:
@@ -385,9 +379,8 @@ dukenukem.Hero3:
 		Name: actor-dukenukem-hero3-name
 	Health:
 		HP: 130000
-	SpawnActorOnDeath:
-		RequiresCondition: force_deploy
-		Actor: dukenukem.Hero4
+	TransformOnCondition@level:
+		IntoActor: dukenukem.Hero4
 	FirepowerMultiplier@1:
 		Modifier: 130
 	SpeedMultiplier@1:
@@ -447,9 +440,8 @@ dukenukem.Hero4:
 		Name: actor-dukenukem-hero4.name
 	Health:
 		HP: 150000
-	SpawnActorOnDeath:
-		RequiresCondition: force_deploy
-		Actor: dukenukem.Hero5
+	TransformOnCondition@level:
+		IntoActor: dukenukem.Hero5
 	FirepowerMultiplier@1:
 		Modifier: 140
 	GrantExternalConditionPower:
@@ -534,8 +526,7 @@ dukenukem.Hero5:
 		Name: actor-dukenukem-hero5-name
 	Health:
 		HP: 200000
-	-KillsSelf@level:
-	-SpawnActorOnDeath:
+	-TransformOnCondition@level:
 	-GrantPeriodicCondition@deploy:
 	-GainsExperienceMultiplier@1:
 	FirepowerMultiplier@1:

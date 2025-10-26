@@ -225,14 +225,10 @@ ZKERRIGAN.Hero0:
 		Condition: produceunit
 	ProvidesPrerequisite@inthefield:
 		Prerequisite: active.kerrigan
-	ActorLostNotification:
-		RequiresCondition: !force_deploy
-	KillsSelf@level:
+	TransformOnCondition@level:
 		RequiresCondition: force_deploy
-		Delay: 1
-	SpawnActorOnDeath:
-		RequiresCondition: force_deploy
-		Actor: ZKERRIGAN.Hero1
+		IntoActor: ZKERRIGAN.Hero1
+		ForceHealthPercentage: 100
 	ExperienceTrickler:
 		RequiresCondition: hero-level <= 4
 		Amount: 500
@@ -292,9 +288,8 @@ ZKERRIGAN.Hero1:
 		HP: 150000
 	Power:
 		Amount: 100
-	SpawnActorOnDeath:
-		RequiresCondition: force_deploy
-		Actor: ZKERRIGAN.Hero2
+	TransformOnCondition@level:
+		IntoActor: ZKERRIGAN.Hero2
 	FirepowerMultiplier@1:
 		Modifier: 110
 	ProximityExternalCondition@squadboost:
@@ -323,9 +318,8 @@ ZKERRIGAN.Hero2:
 		HP: 130000
 	Mobile:
 		Speed: 96
-	SpawnActorOnDeath:
-		RequiresCondition: force_deploy
-		Actor: ZKERRIGAN.Hero3
+	TransformOnCondition@level:
+		IntoActor: ZKERRIGAN.Hero3
 	FirepowerMultiplier@1:
 		Modifier: 120
 	Armament@1:
@@ -352,9 +346,8 @@ ZKERRIGAN.Hero3:
 		Name: actor-zkerrigan-hero3-name
 	Health:
 		HP: 160000
-	SpawnActorOnDeath:
-		RequiresCondition: force_deploy
-		Actor: ZKERRIGAN.Hero4
+	TransformOnCondition@level:
+		IntoActor: ZKERRIGAN.Hero4
 	FirepowerMultiplier@1:
 		Modifier: 130
 	SpeedMultiplier@1:
@@ -378,9 +371,8 @@ ZKERRIGAN.Hero4:
 		Name: actor-zkerrigan-hero4-name
 	Health:
 		HP: 200000
-	SpawnActorOnDeath:
-		RequiresCondition: force_deploy
-		Actor: ZKERRIGAN.Hero5
+	TransformOnCondition@level:
+		IntoActor: ZKERRIGAN.Hero5
 	FirepowerMultiplier@1:
 		Modifier: 140
 	Armament@3:
@@ -399,8 +391,7 @@ ZKERRIGAN.Hero5:
 		Name: actor-zkerrigan-hero5-name
 	Health:
 		HP: 225000
-	-KillsSelf@level:
-	-SpawnActorOnDeath:
+	-TransformOnCondition@level:
 	-GrantPeriodicCondition@deploy:
 	-GainsExperienceMultiplier@1:
 	FirepowerMultiplier@1:

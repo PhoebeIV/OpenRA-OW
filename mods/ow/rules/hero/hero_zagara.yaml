@@ -370,14 +370,10 @@ ZZAGARA.Hero0:
 		AreaTypes: zagara
 	ProvidesPrerequisite@inthefield:
 		Prerequisite: active.zagara
-	ActorLostNotification:
-		RequiresCondition: !force_deploy
-	KillsSelf@level:
+	TransformOnCondition@level:
 		RequiresCondition: force_deploy
-		Delay: 1
-	SpawnActorOnDeath:
-		RequiresCondition: force_deploy
-		Actor: ZZAGARA.Hero1
+		IntoActor: ZZAGARA.Hero1
+		ForceHealthPercentage: 100
 	ExperienceTrickler:
 		RequiresCondition: hero-level <= 4
 		Amount: 500
@@ -412,8 +408,8 @@ ZZAGARA.Hero1:
 		HP: 180000
 	Power:
 		Amount: 75
-	SpawnActorOnDeath:
-		Actor: ZZAGARA.Hero2
+	TransformOnCondition@level:
+		IntoActor: ZZAGARA.Hero2
 	FirepowerMultiplier@1:
 		Modifier: 110
 	ProximityExternalCondition@squadboost:
@@ -439,8 +435,8 @@ ZZAGARA.Hero2:
 		HP: 220000
 	Power:
 		Amount: 100
-	SpawnActorOnDeath:
-		Actor: ZZAGARA.Hero3
+	TransformOnCondition@level:
+		IntoActor: ZZAGARA.Hero3
 	FirepowerMultiplier@1:
 		Modifier: 120
 
@@ -455,8 +451,8 @@ ZZAGARA.Hero3:
 		HP: 260000
 	Power:
 		Amount: 125
-	SpawnActorOnDeath:
-		Actor: ZZAGARA.Hero4
+	TransformOnCondition@level:
+		IntoActor: ZZAGARA.Hero4
 	FirepowerMultiplier@1:
 		Modifier: 130
 
@@ -471,8 +467,8 @@ ZZAGARA.Hero4:
 		HP: 300000
 	Power:
 		Amount: 150
-	SpawnActorOnDeath:
-		Actor: ZZAGARA.Hero5
+	TransformOnCondition@level:
+		IntoActor: ZZAGARA.Hero5
 	FirepowerMultiplier@1:
 		Modifier: 140
 	GrantExternalConditionPower@Frenzy:
@@ -504,8 +500,7 @@ ZZAGARA.Hero5:
 		HP: 360000
 	Power:
 		Amount: 200
-	-KillsSelf@level:
-	-SpawnActorOnDeath:
+	-TransformOnCondition@level:
 	-GrantPeriodicCondition@deploy:
 	-GainsExperienceMultiplier@1:
 	FirepowerMultiplier@1:

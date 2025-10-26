@@ -391,14 +391,10 @@ TRAYNOR.Hero0:
 		Prerequisite: active.raynor
 	AttackWander:
 		RequiresCondition: wander
-	ActorLostNotification:
-		RequiresCondition: !force_deploy
-	KillsSelf@level:
+	TransformOnCondition@level:
 		RequiresCondition: force_deploy
-		Delay: 1
-	SpawnActorOnDeath:
-		RequiresCondition: force_deploy
-		Actor: TRAYNOR.Hero1
+		IntoActor: TRAYNOR.Hero1
+		ForceHealthPercentage: 100
 	ExperienceTrickler:
 		RequiresCondition: hero-level <= 4
 		Amount: 500
@@ -416,9 +412,8 @@ TRAYNOR.Hero1:
 		HP: 110000
 	ChangesHealth@stimpack:
 		Delay: 35
-	SpawnActorOnDeath:
-		RequiresCondition: force_deploy
-		Actor: TRAYNOR.Hero2
+	TransformOnCondition@level:
+		IntoActor: TRAYNOR.Hero2
 	FirepowerMultiplier@1:
 		Modifier: 110
 	ProximityExternalCondition@squadboost:
@@ -452,9 +447,8 @@ TRAYNOR.Hero2:
 		HP: 130000
 	ChangesHealth@stimpack:
 		Delay: 40
-	SpawnActorOnDeath:
-		RequiresCondition: force_deploy
-		Actor: TRAYNOR.Hero3
+	TransformOnCondition@level:
+		IntoActor: TRAYNOR.Hero3
 	FirepowerMultiplier@1:
 		Modifier: 120
 	AmbientSound@talky:
@@ -495,9 +489,8 @@ TRAYNOR.Hero3:
 		HP: 160000
 	ChangesHealth@stimpack:
 		Delay: 50
-	SpawnActorOnDeath:
-		RequiresCondition: force_deploy
-		Actor: TRAYNOR.Hero4
+	TransformOnCondition@level:
+		IntoActor: TRAYNOR.Hero4
 	FirepowerMultiplier@1:
 		Modifier: 130
 	SpeedMultiplier@1:
@@ -527,9 +520,8 @@ TRAYNOR.Hero4:
 		HP: 200000
 	ChangesHealth@stimpack:
 		Delay: 65
-	SpawnActorOnDeath:
-		RequiresCondition: force_deploy
-		Actor: TRAYNOR.Hero5
+	TransformOnCondition@level:
+		IntoActor: TRAYNOR.Hero5
 	FirepowerMultiplier@1:
 		Modifier: 140
 	DropPodsPower:
@@ -588,8 +580,7 @@ TRAYNOR.Hero5:
 		HP: 250000
 	ChangesHealth@stimpack:
 		Delay: 75
-	-KillsSelf@level:
-	-SpawnActorOnDeath:
+	-TransformOnCondition@level:
 	-GrantPeriodicCondition@deploy:
 	-GainsExperienceMultiplier@1:
 	FirepowerMultiplier@1:

@@ -662,14 +662,10 @@ BTRAE.Hero0:
 		RequiresCondition: !force_deploy
 	ProvidesPrerequisite@inthefield:
 		Prerequisite: active.rae
-	ActorLostNotification:
-		RequiresCondition: !force_deploy
-	KillsSelf@level:
+	TransformOnCondition@level:
 		RequiresCondition: force_deploy
-		Delay: 1
-	SpawnActorOnDeath:
-		RequiresCondition: force_deploy
-		Actor: BTRAE.Hero1
+		IntoActor: BTRAE.Hero1
+		ForceHealthPercentage: 100
 	ExperienceTrickler:
 		RequiresCondition: hero-level <= 4
 		Amount: 500
@@ -701,8 +697,8 @@ BTRAE.Hero1:
 	AttackTurreted:
 		Armaments: primary1, primary3, upg_largelaser, upg_srm6
 	-ExperienceTrickler:
-	SpawnActorOnDeath:
-		Actor: BTRAE.Hero2
+	TransformOnCondition@level:
+		IntoActor: BTRAE.Hero2
 
 BTRAE.Hero2:
 	Inherits: BTRAE.Hero1
@@ -731,8 +727,8 @@ BTRAE.Hero2:
 		Type: HeroAbility
 	FirepowerMultiplier@1:
 		Modifier: 100
-	SpawnActorOnDeath:
-		Actor: BTRAE.Hero3
+	TransformOnCondition@level:
+		IntoActor: BTRAE.Hero3
 
 BTRAE.Hero3:
 	Inherits: BTRAE.Hero2
@@ -750,8 +746,8 @@ BTRAE.Hero3:
 		DetectionTypes: Cloak
 		Range: 5c0
 	RenderDetectionCircle:
-	SpawnActorOnDeath:
-		Actor: BTRAE.Hero4
+	TransformOnCondition@level:
+		IntoActor: BTRAE.Hero4
 
 BTRAE.Hero4:
 	Inherits: BTRAE.Hero3
@@ -775,8 +771,8 @@ BTRAE.Hero4:
 		-RequiresCondition:
 	FirepowerMultiplier@1:
 		Modifier: 110
-	SpawnActorOnDeath:
-		Actor: BTRAE.Hero5
+	TransformOnCondition@level:
+		IntoActor: BTRAE.Hero5
 
 BTRAE.Hero5:
 	Inherits: BTRAE.Hero4
@@ -790,8 +786,7 @@ BTRAE.Hero5:
 		HP: 160000
 	AttackTurreted:
 		Armaments: primary1, primary2, primary3, primary4, upg_largelaser, upg_srm6, upg_lrm, upg_ppc, upg_nuke
-	-SpawnActorOnDeath:
-	-KillsSelf@level:
+	-TransformOnCondition@level:
 	-GrantPeriodicCondition@deploy:
 	-GainsExperienceMultiplier@1:
 	Targetable@rae: # used for AI when using this support power

@@ -229,14 +229,10 @@ strifeguy.Hero0:
 	AnnounceOnKill:
 	ProvidesPrerequisite@inthefield:
 		Prerequisite: active.strifeguy
-	ActorLostNotification:
-		RequiresCondition: !force_deploy
-	KillsSelf@level:
+	TransformOnCondition@level:
 		RequiresCondition: force_deploy
-		Delay: 1
-	SpawnActorOnDeath:
-		RequiresCondition: force_deploy
-		Actor: strifeguy.Hero1
+		IntoActor: strifeguy.Hero1
+		ForceHealthPercentage: 100
 	ExperienceTrickler:
 		RequiresCondition: hero-level <= 4
 		Amount: 500
@@ -267,9 +263,8 @@ strifeguy.Hero1:
 		Name: actor-strifeguy-hero1-name
 	Health:
 		HP: 110000
-	SpawnActorOnDeath:
-		RequiresCondition: force_deploy
-		Actor: strifeguy.Hero2
+	TransformOnCondition@level:
+		IntoActor: strifeguy.Hero2
 	FirepowerMultiplier@1:
 		Modifier: 110
 	-ExperienceTrickler:
@@ -289,9 +284,8 @@ strifeguy.Hero2:
 		Name: actor-strifeguy-hero2-name
 	Health:
 		HP: 130000
-	SpawnActorOnDeath:
-		RequiresCondition: force_deploy
-		Actor: strifeguy.Hero3
+	TransformOnCondition@level:
+		IntoActor: strifeguy.Hero3
 	FirepowerMultiplier@1:
 		Modifier: 120
 	AttackFrontal:
@@ -325,9 +319,8 @@ strifeguy.Hero3:
 		Name: actor-strifeguy-hero3-name
 	Health:
 		HP: 160000
-	SpawnActorOnDeath:
-		RequiresCondition: force_deploy
-		Actor: strifeguy.Hero4
+	TransformOnCondition@level:
+		IntoActor: strifeguy.Hero4
 	FirepowerMultiplier@1:
 		Modifier: 130
 	SpeedMultiplier@1:
@@ -371,9 +364,8 @@ strifeguy.Hero4:
 		Name: actor-strifeguy-hero4-name
 	Health:
 		HP: 200000
-	SpawnActorOnDeath:
-		RequiresCondition: force_deploy
-		Actor: strifeguy.Hero5
+	TransformOnCondition@level:
+		IntoActor: strifeguy.Hero5
 	FirepowerMultiplier@1:
 		Modifier: 140
 	Armament@PRIMARY:
@@ -435,8 +427,7 @@ strifeguy.Hero5:
 		Name: actor-strifeguy-hero5-name
 	Health:
 		HP: 250000
-	-KillsSelf@level:
-	-SpawnActorOnDeath:
+	-TransformOnCondition@level:
 	-GrantPeriodicCondition@deploy:
 	-GainsExperienceMultiplier@1:
 	FirepowerMultiplier@1:

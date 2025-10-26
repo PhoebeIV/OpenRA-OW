@@ -240,14 +240,10 @@ corvus.Hero0:
 		Prerequisite: active.corvus
 	AttackWander:
 		RequiresCondition: wander
-	ActorLostNotification:
-		RequiresCondition: !force_deploy
-	KillsSelf@level:
+	TransformOnCondition@level:
 		RequiresCondition: force_deploy
-		Delay: 1
-	SpawnActorOnDeath:
-		RequiresCondition: force_deploy
-		Actor: corvus.Hero1
+		IntoActor: corvus.Hero1
+		ForceHealthPercentage: 100
 	ExperienceTrickler:
 		RequiresCondition: hero-level <= 4
 		Amount: 500
@@ -371,9 +367,8 @@ corvus.Hero1:
 		Name: actor-corvus-hero1-name
 	Health:
 		HP: 90000
-	SpawnActorOnDeath:
-		RequiresCondition: force_deploy
-		Actor: corvus.Hero2
+	TransformOnCondition@level:
+		IntoActor: corvus.Hero2
 	FirepowerMultiplier@1:
 		Modifier: 110
 	-ExperienceTrickler:
@@ -400,9 +395,8 @@ corvus.Hero2:
 		Name: actor-corvus-hero2-name
 	Health:
 		HP: 110000
-	SpawnActorOnDeath:
-		RequiresCondition: force_deploy
-		Actor: corvus.Hero3
+	TransformOnCondition@level:
+		IntoActor: corvus.Hero3
 	FirepowerMultiplier@1:
 		Modifier: 120
 	AttackFrontal:
@@ -425,9 +419,8 @@ corvus.Hero3:
 		Name: actor-corvus-hero3-name
 	Health:
 		HP: 130000
-	SpawnActorOnDeath:
-		RequiresCondition: force_deploy
-		Actor: corvus.Hero4
+	TransformOnCondition@level:
+		IntoActor: corvus.Hero4
 	FirepowerMultiplier@1:
 		Modifier: 130
 	SpeedMultiplier@1:
@@ -453,9 +446,8 @@ corvus.Hero4:
 		Name: actor-corvus-hero4.name
 	Health:
 		HP: 150000
-	SpawnActorOnDeath:
-		RequiresCondition: force_deploy
-		Actor: corvus.Hero5
+	TransformOnCondition@level:
+		IntoActor: corvus.Hero5
 	FirepowerMultiplier@1:
 		Modifier: 140
 	Armament@PRIMARY:
@@ -479,8 +471,7 @@ corvus.Hero5:
 		Name: actor-corvus-hero5-name
 	Health:
 		HP: 180000
-	-KillsSelf@level:
-	-SpawnActorOnDeath:
+	-TransformOnCondition@level:
 	-GrantPeriodicCondition@deploy:
 	-GainsExperienceMultiplier@1:
 	FirepowerMultiplier@1:

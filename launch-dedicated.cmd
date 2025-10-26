@@ -2,10 +2,10 @@
 
 @echo on
 
-set Name="Dedicated Server"
-set Mod=ra
-set Map=""
-set ListenPort=1234
+set Name="PHEBE DEDI"
+set Mod=ow
+set Map="(6) Butterfly Island"
+set ListenPort=10668
 set AdvertiseOnline=True
 set AdvertiseOnLocalNetwork=True
 set Password=""
