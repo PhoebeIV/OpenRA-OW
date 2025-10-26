@@ -1344,6 +1344,24 @@
 	RenderSprites:
 		Image: upgrade.infarmor3
 
+^HeroAbilityCooldown:
+	Inherits@1: ^SpriteActor
+	HitShape:
+	Interactable:
+	HiddenUnderShroud:
+	RenderSprites:
+		Palette: terrain
+		Image: MINE
+	Targetable:
+		TargetTypes: UpgradeThing
+	Health:
+		HP: 9000000
+	Immobile:
+		OccupiesSpace: false
+	ProvidesPrerequisite@buildingname:
+	KillsSelf:
+		Delay: 1500
+
 Player:
 	GrantDelayedCondition@herotier1:
 		Delay: 15000
@@ -1405,21 +1423,6 @@ Player:
 	ProvidesPrerequisite@herotier5:
 		RequiresCondition: hero_tier5perm
 		Prerequisite: hero.tier5
-
-^HeroAbilityCooldown:
-	Inherits@1: ^SpriteActor
-	HitShape:
-	Interactable:
-	HiddenUnderShroud:
-	RenderSprites:
-		Palette: terrain
-		Image: MINE
-	Targetable:
-		TargetTypes: UpgradeThing
-	Health:
-		HP: 9000000
-	Immobile:
-		OccupiesSpace: false
-	ProvidesPrerequisite@buildingname:
-	KillsSelf:
-		Delay: 1500
+	PlayerExperienceLevels:
+		LevelXpRequirements: 250,750,1500,2500,4000
+		LevelPrerequisites: hero.tier1, hero.tier2, hero.tier3, hero.tier4, hero.tier5
