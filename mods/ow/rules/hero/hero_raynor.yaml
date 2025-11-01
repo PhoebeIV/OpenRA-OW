@@ -345,19 +345,37 @@ TRAYNOR.Hero0:
 		EmptyWeapon: RaynorDeathNoExplosion
 		RequiresCondition: !force_deploy
 	AmbientSound@talky:
-		SoundFiles: trajuke.aud,baud.aud,baud.aud,baud.aud
+		RequiresCondition: !healed
+		SoundFiles: trajuke.aud,baud.aud,baud.aud,baud.aud,traidle1.aud,traidle2.aud,traidle3.aud,traidle4.aud
 		Delay: 1500, 4500
 		Interval: 3000, 4500
+	AmbientSound@healing:
+		RequiresCondition: healed && !fullhealth && !active_stimpack
+		SoundFiles: traheal1.aud,traheal2.aud,traheal4.aud
+		Delay: 25, 50
+		Interval: 1000
+	AmbientSound@healing2:
+		RequiresCondition: healed && fullhealth && !active_stimpack
+		SoundFiles: traheal3.aud,traheal5.aud
+		Delay: 15
+		Interval: 1000
+	GrantConditionOnHealthPercentage:
+		MaxHP: 101
+		MinHP: 100
+		RequiresCondition: healed
+		Condition: fullhealth
+	SoundOnDamageTransition:
+		DamagedSounds: baud.aud, baud.aud, trapain1.aud, trapain2.aud, trapain3.aud, dsplpain2.aud
 	GrantConditionOnPrerequisite@upgrade:
 		Prerequisites: terran.marine
 		Condition: marine_upgraded
 	GrantConditionOnAttack@stimpack:
 		Condition: active_stimpack
 		RequiresCondition: stimpack && health_stimpack
-		RevokeDelay: 250
+		RevokeDelay: 100
 		RequiredShotsPerInstance: 1,3
 	AmbientSound@stimpack:
-		SoundFiles: traatk00.aud,traatk01.aud,traatk02.aud,traatk03.aud
+		SoundFiles: traatk00.aud,traatk01.aud,traatk02.aud,traatk03.aud,traatk04.aud,traatk05.aud
 		Delay: 50,175
 		Interval: 300,750
 		RequiresCondition: active_stimpack
@@ -383,7 +401,10 @@ TRAYNOR.Hero0:
 	VoiceAnnouncement:
 		RequiresCondition: produced
 		Voice: Build
-	AnnounceOnKill:
+	AnnounceOnKillOW:
+	AnnounceOnKillOW@ally:
+		ValidStances: Ally
+		Voice: FriendlyFire
 	-WithDecoration@stimpack:
 	-WithDecoration@stimpack2:
 	-DamageMultiplier@stimpack:
@@ -399,6 +420,10 @@ TRAYNOR.Hero0:
 		RequiresCondition: hero-level <= 4
 		Amount: 500
 		Interval: 25
+	AmbientSound@raynorlevel:
+		SoundFiles: tralevel.aud
+		Interval: 9000
+		RequiresCondition: milestone
 
 TRAYNOR.Hero1:
 	Inherits: TRAYNOR.Hero0
@@ -452,7 +477,8 @@ TRAYNOR.Hero2:
 	FirepowerMultiplier@1:
 		Modifier: 120
 	AmbientSound@talky:
-		SoundFiles: trajuke.aud
+		-RequiresCondition:
+		SoundFiles: trajuke.aud,traidle1.aud,traidle2.aud,traidle3.aud,traidle4.aud
 		Delay: 75, 150
 		Interval: 4500, 9000
 	AmmoPool:
@@ -583,6 +609,7 @@ TRAYNOR.Hero5:
 	-TransformOnCondition@level:
 	-GrantPeriodicCondition@deploy:
 	-GainsExperienceMultiplier@1:
+	-AmbientSound@raynorlevel:
 	FirepowerMultiplier@1:
 		Modifier: 150
 	AirstrikePower@hyperion:

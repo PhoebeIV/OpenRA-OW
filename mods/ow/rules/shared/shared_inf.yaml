@@ -129,6 +129,46 @@ E6:
 		EnterCursor: goldwrench
 		ConsumedByCapture: true
 
+MEDI:
+	Buildable:
+		Prerequisites: barracks, ~infantry.mediprereq, ~techlevel.infonly
+	Valued:
+		Cost: 400
+	AutoTarget:
+		InitialStance: AttackAnything
+		ScanRadius: 6
+	GrantConditionOnAttack@healXP:
+		Condition: give_xp
+		RevokeDelay: 51
+	ExperienceTrickler:
+		RequiresCondition: give_xp
+		Amount: 3000
+		Interval: 50
+
+MECH:
+	Buildable:
+		Prerequisites: barracks, fix, ~techlevel.medium, ~infantry.mechprereq
+		Description: actor-mech-description
+	Valued:
+		Cost: 600
+	Captures@husk:
+		CaptureTypes: husk
+		PlayerExperience: 25
+		CaptureDelay: 25
+		ConsumedByCapture: true
+		EnterCursor: goldwrench
+	AutoTarget:
+		InitialStance: AttackAnything
+		ScanRadius: 6
+	GrantConditionOnAttack@healXP:
+		Condition: give_xp
+		RevokeDelay: 51
+	ExperienceTrickler:
+		RequiresCondition: give_xp
+		Amount: 4000
+		Interval: 50
+
+#Officer
 E1OF:
 	Inherits: ^Soldier
 	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
