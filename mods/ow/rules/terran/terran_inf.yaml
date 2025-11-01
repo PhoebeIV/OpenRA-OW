@@ -987,10 +987,27 @@ TRAYNOR:
 		Weapon: RaynorDeath
 		EmptyWeapon: RaynorDeath
 	AmbientSound@talky:
-		SoundFiles: trajuke.aud,baud.aud,baud.aud,baud.aud
+		RequiresCondition: !healed
+		SoundFiles: trajuke.aud,baud.aud,baud.aud,baud.aud,traidle1.aud,traidle2.aud,traidle3.aud,traidle4.aud
 		Delay: 1500, 4500
 		Interval: 3000, 4500
-		RequiresCondition: !moving && !aiming
+	AmbientSound@healing:
+		RequiresCondition: healed && !fullhealth && !active_stimpack
+		SoundFiles: traheal1.aud,traheal2.aud,traheal4.aud
+		Delay: 25, 50
+		Interval: 1000
+	AmbientSound@healing2:
+		RequiresCondition: healed && fullhealth && !active_stimpack
+		SoundFiles: traheal3.aud,traheal5.aud
+		Delay: 15
+		Interval: 1000
+	GrantConditionOnHealthPercentage:
+		MaxHP: 101
+		MinHP: 100
+		RequiresCondition: healed
+		Condition: fullhealth
+	SoundOnDamageTransition:
+		DamagedSounds: baud.aud, baud.aud, trapain1.aud, trapain2.aud, trapain3.aud, dsplpain2.aud
 	GrantConditionOnPrerequisite@upgrade:
 		Prerequisites: terran.marine
 		Condition: marine_upgraded
@@ -1021,7 +1038,10 @@ TRAYNOR:
 	VoiceAnnouncement:
 		RequiresCondition: produced
 		Voice: Build
-	AnnounceOnKill:
+	AnnounceOnKillOW:
+	AnnounceOnKillOW@ally:
+		ValidStances: Ally
+		Voice: FriendlyFire
 	-WithDecoration@stimpack:
 	-WithDecoration@stimpack2:
 	-ExternalCondition@squadboost:

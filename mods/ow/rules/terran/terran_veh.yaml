@@ -854,7 +854,32 @@ TVULT.RAYNOR:
 	VoiceAnnouncement:
 		RequiresCondition: produced
 		Voice: Build
-	AnnounceOnKill:
+	AnnounceOnKillOW:
+	AnnounceOnKillOW@ally:
+		ValidStances: Ally
+		Voice: FriendlyFire
+	AmbientSound@talky:
+		RequiresCondition: !healed
+		SoundFiles: trajuke.aud,baud.aud,baud.aud,baud.aud,traidle1.aud,traidle2.aud,traidle3.aud
+		Delay: 75, 150
+		Interval: 3000, 4500
+	AmbientSound@healing:
+		RequiresCondition: healed && !fullhealth && !active_stimpack
+		SoundFiles: traheal1.aud,traheal2.aud,traheal4.aud
+		Delay: 25, 50
+		Interval: 1000
+	AmbientSound@healing2:
+		RequiresCondition: healed && fullhealth && !active_stimpack
+		SoundFiles: traheal3.aud
+		Delay: 15
+		Interval: 1000
+	GrantConditionOnHealthPercentage:
+		MaxHP: 101
+		MinHP: 100
+		RequiresCondition: healed
+		Condition: fullhealth
+	SoundOnDamageTransition:
+		DamagedSounds: baud.aud, baud.aud, trapain1.aud, trapain2.aud, trapain3.aud, dsplpain2.aud
 	GrantConditionOnAttack@bot:
 		RequiresCondition: minelayer && botowner && !nomines
 		Condition: shoot
@@ -877,17 +902,22 @@ TVULT.RAYNOR:
 		RequiresCondition: !demoralise
 	ProvidesPrerequisite@inthefield:
 		Prerequisite: active.raynor
-	AmbientSound@talky:
-		SoundFiles: trajuke.aud
-		Delay: 75, 150
-		Interval: 4500, 9000
 	FireWarheadsOnDeath@marine:
 		Weapon: VultureRaynorDeath
 		EmptyWeapon: VultureRaynorDeath
+		RequiresCondition: !water
 	SpawnActorOnDeath:
 		Actor: TVULT.RAYNOR.Husk
 	SpawnActorOnDeath@raynor:
 		Actor: TRAYNOR
+		RequiresCondition: !water
+	FireWarheadsOnDeath@water:
+		Weapon: RaynorDeath
+		EmptyWeapon: RaynorDeath
+		RequiresCondition: water
+	GrantConditionOnTerrain:
+		TerrainTypes: Water, River
+		Condition: water
 
 TVULT.RAYNOR.Recapture:
 	Inherits: TVULT.RAYNOR

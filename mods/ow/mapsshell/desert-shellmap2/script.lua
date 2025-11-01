@@ -4,8 +4,8 @@ if DateTime.IsHalloween then
 	ProxyType = "PowerProxy.parazombies"
 	ProducedUnitTypes =
 	{
-		{ factory = AlliedBarracks1, types = { "e1", "e3" } },
-		{ factory = AlliedBarracks2, types = { "e1", "e3" } },
+		{ factory = AlliedBarracks1, types = { "e1", "e3", "medi", "mech", "rmbo", "tselite" } },
+		{ factory = AlliedBarracks2, types = { "e1", "e3", "medi", "mech", "rmbo" } },
 		{ factory = SovietBarracks1, types = { "ant" } },
 		{ factory = SovietBarracks2, types = { "ant" } },
 		{ factory = SovietBarracks3, types = { "ant" } },
@@ -16,7 +16,7 @@ else
 	UnitTypes = { "3tnk", "ftrk", "ttnk", "apc", "3tnk", "3tnk", "4tnk" }
 	UnitTypes2 = { "helld6", "helld6", "helld6", "helld6", "helld6", "helld6", "helld6", "helld6", "helld6", "helld6", "helld5", "helld5", "helld5", "helld9", "helld3" }
 	UnitTypes3 = { "maus", "dmgtnk.m", "dmgtnk.m", "nbos4", "nbos1", "nbos1", "nbos1", "e1of" }
-	BeachUnitTypes = { "e1", "e2", "e3", "e4", "e1of", "e2", "e3", "e4", "e1", "e2", "e3", "e4", "e1", "e2", "e3", "e4", "dm5" }
+	BeachUnitTypes = { "e1", "e2", "e3", "e4", "e1of", "e2", "e3", "e4", "e1", "e2", "e3", "e4", "e1", "e2", "e3", "e4", "dm5", "rmbo", "dm6", "dm1", "dm2", "dm3" }
 	ProxyType = "PowerProxy.paratroopers"
 	HyperionType = "PowerProxy.hyperion"
 	ChronoshiftSpawns = { "2tnk", "mtnkd.g", "tscyb", "mmch", "smech", "btnk" }
@@ -24,15 +24,15 @@ else
 	ChronoshiftSpawns3 = { "terminator", "tscybcom", "e7.e", "e7.g", "tselite", "frmbo", "nbos6", "nbos7", "baneblade", "novan", "direwolf", "dm5", "u.tnk", "ztnk", "solc", "helld8", "dukenukem", "hartman", "judgedredd", "tvult.raynor", "usarailgun", "usadisrupter", "chinadeathhand", "chinazhurong", "chinafortress", "japanhakaimono", "japankuruttaneko", "japanskyempress", "zkerrigan", "olddk", "strifeguy.hero5", "btrae.hero5", "hereticcorvus" }
 	ProducedUnitTypes =
 	{
-		{ factory = AlliedBarracks1, types = { "e1", "e3", "dm2", "e1of", "e3", "tscybcom", "e1of", "e3", "tselite", "c10.dr", "c10.scot", "c1.masterbot" } },
-		{ factory = AlliedBarracks2, types = { "dm6", "dm3", "dm2", "e1of", "tscyb", "tscyb", "e1of", "tse5p.dm", "tselite", "c10.dr", "c10.scot" } },
-		{ factory = Actor434, types = { "e1", "e3", "dm2", "e1of", "e3", "dm2", "e1of", "e3", "tselite" } },
-		{ factory = SovietBarracks1, types = { "nbos1", "e1", "e2", "e3", "e4", "shok", "dm5", "c10.dr", "c10.scot", "c1.masterbot" } },
-		{ factory = SovietBarracks2, types = { "nbos1", "e1", "e2", "e3", "e4", "shok", "nbos7", "c10.dr", "c10.scot" } },
-		{ factory = SovietBarracks3, types = { "frmbo", "nbos1", "e1of", "e3", "e4", "shok", "nbos6", "c10.dr", "c10.scot", "c1.masterbot" } },
+		{ factory = AlliedBarracks1, types = { "e1", "e3", "dm2", "e1of", "e3", "tscybcom", "e1of", "e3", "tselite", "c10.dr", "c10.scot", "c1.masterbot", "rmbo" } },
+		{ factory = AlliedBarracks2, types = { "dm6", "dm3", "dm2", "dm2of", "e1of", "tscyb", "tscyb", "e1of", "tse5p.dm", "tselite", "c10.dr", "c10.scot", "rmbo" } },
+		{ factory = Actor434, types = { "e1", "e3", "dm2", "dm2of", "e1of", "e3", "dm2", "e1of", "e3", "tselite" } },
+		{ factory = SovietBarracks1, types = { "nbos1", "e1", "e2", "e3", "e4", "shok", "dm5", "c10.dr", "c10.scot", "c1.masterbot", "rmbo" } },
+		{ factory = SovietBarracks2, types = { "nbos1", "e1", "e2", "e3", "e4", "shok", "nbos7", "c10.dr", "c10.scot", "rmbo", "japanmatsui" } },
+		{ factory = SovietBarracks3, types = { "frmbo", "nbos1", "e1of", "e3", "e4", "shok", "nbos6", "c10.dr", "c10.scot", "c1.masterbot", "rmbo" } },
 		{ factory = Actor428, types = { "helld7", "helld5", "helld6", "helld9", "helld7" } },
 		{ factory = Actor429, types = { "helld5", "helld5", "helld5", "helld5", "helld5", "helld8" } },
-		{ factory = AlliedWarFactory1, types = { "jeep", "1tnk", "2tnk", "arty", "ctnk", "direwolf" } },
+		{ factory = AlliedWarFactory1, types = { "jeep", "1tnk", "2tnk", "arty", "ctnk", "direwolf", "japankuruttaneko" } },
 		{ factory = Actor413, types = { "bike", "1tnk", "btnk", "aaty", "ctnk", "novan" } },
 		{ factory = SovietWarFactory1, types = { "3tnk", "4tnk", "v2rl", "ttnk", "apc", "maus", "ztnk", "u.tnk", "nbos6" } },
 		{ factory = Actor412, types = { "3tnk.nz", "mmch", "fcru", "2tnk.nz", "dmgtnk.m", "baneblade" } }
@@ -107,7 +107,9 @@ SendSovietUnits = function(entryCell, unitTypes, interval)
 	Utils.Do(units, function(unit)
 		BindActorTriggers(unit)
 	end)
-	Trigger.OnAllKilled(units, function() SendSovietUnits(entryCell, unitTypes, interval) end)
+
+	if not AlliedTechnologyCenter.IsDead then
+		Trigger.OnAllKilled(units, function() SendSovietUnits(entryCell, unitTypes, interval) end) end
 end
 
 ShipAlliedUnits = function()
@@ -129,7 +131,8 @@ InsertAlliedChinookReinforcements = function(entry, hpad)
 		BindActorTriggers(unit)
 	end)
 
-	Trigger.AfterDelay(DateTime.Seconds(30), function() InsertAlliedChinookReinforcements(entry, hpad) end)
+	if not AlliedTechnologyCenter.IsDead then
+		Trigger.AfterDelay(DateTime.Seconds(30), function() InsertAlliedChinookReinforcements(entry, hpad) end) end
 end
 
 ParadropSovietUnits = function()
@@ -140,14 +143,15 @@ ParadropSovietUnits = function()
 		BindActorTriggers(a)
 	end)
 
-	Trigger.AfterDelay(DateTime.Seconds(20), ParadropSovietUnits)
+	if not AlliedTechnologyCenter.IsDead then
+		Trigger.AfterDelay(DateTime.Seconds(20), ParadropSovietUnits) end
 end
 
 ProduceUnits = function(t)
 	local factory = t.factory
-	if not factory.IsDead then
+	if not factory.IsDead and not AlliedTechnologyCenter.IsDead then
 		local unitType = t.types[Utils.RandomInteger(1, #t.types + 1)]
-		factory.Wait(Actor.BuildTime(unitType))
+		factory.Wait(Actor.BuildTime(unitType) * 0.33)
 		factory.Produce(unitType)
 		factory.CallFunc(function() ProduceUnits(t) end)
 	end
@@ -188,7 +192,8 @@ ChronoshiftAlliedUnits = function()
 		units[unit] = cells[i]
 	end
 	Actor435.Chronoshift(units)
-	Trigger.AfterDelay(DateTime.Seconds(30), ChronoshiftAlliedUnits)
+	if not AlliedTechnologyCenter.IsDead then
+		Trigger.AfterDelay(DateTime.Seconds(30), ChronoshiftAlliedUnits) end
 end
 
 ChronoshiftAlliedUnits2 = function()
@@ -202,7 +207,8 @@ ChronoshiftAlliedUnits2 = function()
 		units[unit] = cells[i]
 	end
 	Actor435.Chronoshift(units)
-	Trigger.AfterDelay(DateTime.Seconds(30), ChronoshiftAlliedUnits2)
+	if not AlliedTechnologyCenter.IsDead then
+		Trigger.AfterDelay(DateTime.Seconds(30), ChronoshiftAlliedUnits2) end
 end
 
 ChronoshiftAlliedUnits3 = function()
@@ -216,7 +222,8 @@ ChronoshiftAlliedUnits3 = function()
 		units[unit] = cells[i]
 	end
 	Actor435.Chronoshift(units)
-	Trigger.AfterDelay(DateTime.Seconds(60), ChronoshiftAlliedUnits3)
+	if not AlliedTechnologyCenter.IsDead then
+		Trigger.AfterDelay(DateTime.Seconds(60), ChronoshiftAlliedUnits3) end
 end
 
 ChronoshiftSovietUnits = function()
@@ -229,7 +236,8 @@ ChronoshiftSovietUnits = function()
 		units[unit] = cells[i]
 	end
 	Actor435.Chronoshift(units)
-	Trigger.AfterDelay(DateTime.Seconds(30), ChronoshiftSovietUnits)
+	if not AlliedTechnologyCenter.IsDead then
+		Trigger.AfterDelay(DateTime.Seconds(30), ChronoshiftSovietUnits) end
 end
 
 ChronoshiftSovietUnits2 = function()
@@ -243,14 +251,16 @@ ChronoshiftSovietUnits2 = function()
 		units[unit] = cells[i]
 	end
 	Actor435.Chronoshift(units)
-	Trigger.AfterDelay(DateTime.Seconds(60), ChronoshiftSovietUnits2)
+	if not AlliedTechnologyCenter.IsDead then
+		Trigger.AfterDelay(DateTime.Seconds(60), ChronoshiftSovietUnits2) end
 end
 
 SendAC130 = function()
 	local lz = AlliedTechnologyCenterWaypoint
 	AC130.TargetAirstrike(lz.CenterPosition, Angle.SouthWest)
 
-	Trigger.AfterDelay(DateTime.Seconds(90), SendAC130)
+	if not AlliedTechnologyCenter.IsDead then
+		Trigger.AfterDelay(DateTime.Seconds(90), SendAC130) end
 end
 
 SendHyperion = function()
@@ -258,7 +268,30 @@ SendHyperion = function()
 
 	HyperionPower.TargetAirstrike(lz.CenterPosition, Angle.NorthEast)
 
-	Trigger.AfterDelay(DateTime.Seconds(90), SendHyperion)
+	if not AlliedTechnologyCenter.IsDead then
+		Trigger.AfterDelay(DateTime.Seconds(90), SendHyperion) end
+end
+
+DoColonyDrop = function()
+
+	ColonyProxy.TargetDropPodsOW(Paradrop1.Location)
+	ColonyProxy.TargetDropPodsOW(Paradrop2.Location)
+	ColonyProxy.TargetDropPodsOW(Paradrop3.Location)
+	ColonyProxy.TargetDropPodsOW(Paradrop4.Location)
+	ColonyProxy.TargetDropPodsOW(Paradrop5.Location)
+	ColonyProxy.TargetDropPodsOW(Paradrop6.Location)
+	ColonyProxy.TargetDropPodsOW(Paradrop7.Location)
+	ColonyProxy.TargetDropPodsOW(Paradrop8.Location)
+	ColonyProxy.TargetDropPodsOW(Paradrop9.Location)
+	ColonyProxy.TargetDropPodsOW(AttackDest.Location)
+
+	Trigger.AfterDelay(425, function()
+		Lighting.Red = 1.25
+		Lighting.Green = 0.9
+		Lighting.Blue = 0.7
+		Lighting.Ambient = 0.55
+	end)
+
 end
 
 WorldLoaded = function()
@@ -275,6 +308,7 @@ WorldLoaded = function()
 	InsertAlliedChinookReinforcements(Chinook1Entry, Paradrop7)
 	InsertAlliedChinookReinforcements(Chinook2Entry, AttackDest)
 	PowerProxy = Actor.Create(ProxyType, false, { Owner = Soviets })
+	ColonyProxy = Actor.Create("powerproxy.colonydrop", false, { Owner = Soviets })
 	RandomSupport1 = Actor.Create("powerproxy.metalnuke", false, { Owner = Soviets })
 	RandomSupport2 = Actor.Create("powerproxy.earthquake", false, { Owner = Soviets })
 	ParadropSovietUnits()
@@ -305,4 +339,6 @@ WorldLoaded = function()
 	SendSovietUnits(Entry8.Location, BeachUnitTypes, 25)
 	SendSovietUnits(Entry8.Location, UnitTypes2, 30)
 	SendSovietUnits(Entry7.Location, UnitTypes2, 30)
+
+	Trigger.OnKilled(AlliedTechnologyCenter, DoColonyDrop)
 end
