@@ -1008,6 +1008,25 @@
 	GrantConditionOnOwnerName@creeps:
 		PlayerName: Creeps
 		Condition: creepowner
+	ExternalCondition@INVULNERABILITY:
+		Condition: invulnerability
+	ChangesHealth@INVULNERABILITY:
+		RequiresCondition: invulnerability && shielded
+		DamageTypes: FireDeath, BypassShield
+		PercentageStep: -500
+		Delay: 1
+		StartIfBelow: 101
+	ChangesHealth@INVULNERABILITY_noshield:
+		RequiresCondition: invulnerability && !shielded
+		DamageTypes: FireDeath
+		PercentageStep: -5
+		Delay: 1
+		StartIfBelow: 101
+	WithColoredOverlay@IRONCURTAIN:
+		RequiresCondition: invulnerability
+	Chronoshiftable:
+		ExplodeInstead: true
+		DamageTypes: BulletDeath
 
 ^Cyborg:
 	Inherits: ^Infantry

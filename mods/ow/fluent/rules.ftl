@@ -2597,6 +2597,8 @@ actor-nbos3 =
 actor-nbos4 =
    .description = Elite super soldier, heavily armoured.
     Special ability: Squad boost. Demoralise enemy troops.
+
+    Can be Iron Curtained.
     Speed: 42
       Strong vs Everything
       Weak vs Nothing
@@ -2605,13 +2607,17 @@ actor-nbos4 =
 actor-nbos6 =
    .description = The Fuhrer in super mecha armour.
     Hitler ejects on death to fight more.
+    
+    Can be Chronoshifted and Iron Curtained.
     Speed: 60
       Strong vs Everything
       Weak vs Nothing
-   .name = Hitler
+   .name = Mecha Hitler
 
 actor-nbos7 =
    .description = The Fuhrer fights on the frontlines.
+
+    Can be Iron Curtained.
     Speed: 76
       Strong vs Infantry, Light Vehicles
       Weak vs Nothing
