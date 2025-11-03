@@ -79,12 +79,16 @@ actor-player =
    .lobbyprerequisitecheckbox-deathbox-description = Allows players to build up to 4 Death Boxes.
    .lobbyprerequisitecheckbox-colony-label = Colony Drop
    .lobbyprerequisitecheckbox-colony-description = Colony Drops for everyone!
+   .lobbyprerequisitecheckbox-pipe-label = Metal Pipe
+   .lobbyprerequisitecheckbox-pipe-description = Metal Pipes for everyone!
    .lobbyprerequisitecheckbox-heroxp-dropdown = Hero XP Rate
    .lobbyprerequisitecheckbox-heroxp-description = Change Hero XP rate.
    .lobbyprerequisitecheckbox-heroxp-label1 = Slow
    .lobbyprerequisitecheckbox-heroxp-label2 = Normal
    .lobbyprerequisitecheckbox-heroxp-label3 = Fast
    .lobbyprerequisitecheckbox-heroxp-label4 = Faster
+   .lobbyprerequisitecheckbox-alltech-label = All Tech
+   .lobbyprerequisitecheckbox-alltech-description = Tech and Adv Tech from the get go
 
 options-tech-level =
     .infantry-only = Infantry Only

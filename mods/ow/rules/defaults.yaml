@@ -38,7 +38,7 @@
 		TileSets: DESERT
 		Condition: tile_des
 	GrantConditionOnTerrain@pavement:
-		TerrainTypes: Road
+		TerrainTypes: Road, Creep
 		Condition: no_bib
 	GrantConditionOnTerrain@snow:
 		TerrainTypes: ClearSnow
@@ -593,12 +593,21 @@
 	GrantConditionOnPrerequisite@botowner:
 		Condition: botowner
 		Prerequisites: ai.all
+	GrantConditionOnPrerequisite@hardbot:
+		Condition: hardbotowner
+		Prerequisites: ai.hard
 	GrantDelayedCondition@noundeploy:
 		Condition: bot_undeploy_block
 		RequiresCondition: botowner
 		Delay: 10000
 	FreeActor@hack:
 		Actor: BuildQueueHandler2
+	Power:
+		Amount: 1000
+		RequiresCondition: alltech || hardbotowner
+	GrantConditionOnPrerequisite@alltech:
+		Condition: alltech
+		Prerequisites: techlevel.alltech
 
 # Default actor for refineries, provides the "refinery" prerequisite
 ^Refinery:
