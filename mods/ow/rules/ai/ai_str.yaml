@@ -536,15 +536,15 @@ PBOX.boss:
 		Condition: bossai
 		Prerequisites: ai.harder
 	GrantRandomPeriodicCondition:
-		Conditions: boss1, boss2, boss3, boss4, boss5, boss6, boss7, boss8, boss9, boss10, boss1, boss3, boss4, boss5, boss7, boss8, boss9, boss10, boss11, boss12, boss13, boss14, boss15, boss16, boss17, boss18, boss19, boss20, boss21, boss22, boss23, boss23, boss24, boss25, boss26, boss27, boss28, boss29, boss30, boss31, boss32, boss33, boss34, boss35, boss36, boss37, boss38, boss39, boss40, boss41, boss42, boss43, boss44
-		CooldownDuration: 25
-		ActiveDuration: 125
+		Conditions: boss1, boss2, boss3, boss4, boss5, boss6, boss7, boss8, boss9, boss10, boss1, boss3, boss4, boss5, boss7, boss8, boss9, boss10, boss11, boss12, boss13, boss14, boss15, boss16, boss17, boss18, boss19, boss20, boss21, boss22, boss23, boss23, boss24, boss25, boss26, boss27, boss28, boss29, boss30, boss31, boss32, boss33, boss34, boss35, boss36, boss37, boss38, boss39, boss40, boss41, boss42, boss43, boss44, boss45, boss46, boss47
+		CooldownDuration: 250,750
+		ActiveDuration: 250
 	GrantRandomPeriodicCondition@2nd:
-		Conditions: boss1, boss2, boss3, boss4, boss5, boss6, boss7, boss8, boss9, boss10, boss1, boss3, boss4, boss5, boss7, boss8, boss9, boss10, boss11, boss12, boss13, boss14, boss15, boss16, boss17, boss18, boss19, boss20, boss21, boss22, boss23, boss23, boss24, boss25, boss26, boss27, boss28, boss29, boss30, boss31, boss32, boss33, boss34, boss35, boss36, boss37, boss38, boss39, boss40, boss41, boss42, boss43, boss44
-		CooldownDuration: 750
-		ActiveDuration: 125
+		Conditions: boss1, boss2, boss3, boss4, boss5, boss6, boss7, boss8, boss9, boss10, boss1, boss3, boss4, boss5, boss7, boss8, boss9, boss10, boss11, boss12, boss13, boss14, boss15, boss16, boss17, boss18, boss19, boss20, boss21, boss22, boss23, boss23, boss24, boss25, boss26, boss27, boss28, boss29, boss30, boss31, boss32, boss33, boss34, boss35, boss36, boss37, boss38, boss39, boss40, boss41, boss42, boss43, boss44, boss45, boss46, boss47, boss48, boss49
+		CooldownDuration: 250,750
+		ActiveDuration: 250
 	AttackTurreted@boss:
-		Armaments: main, boss1, boss2, boss3, boss3b, boss4, boss5, boss6, boss7, boss8, boss9, boss10, boss11, boss12, boss13, boss14, boss15, boss16, boss17, boss18, boss19, boss20, boss21, boss22, boss23, boss23, boss24, boss25, boss26, boss27, boss28, boss29, boss30, boss31, boss32, boss33, boss34, boss35, boss36, boss37, boss38, boss39, boss40, boss41, boss42, boss43, boss44
+		Armaments: main, boss1, boss2, boss3, boss3b, boss4, boss5, boss6, boss7, boss8, boss9, boss10, boss11, boss12, boss13, boss14, boss15, boss16, boss17, boss18, boss19, boss20, boss21, boss22, boss23, boss23, boss24, boss25, boss26, boss27, boss28, boss29, boss30, boss31, boss32, boss33, boss34, boss35, boss36, boss37, boss38, boss39, boss40, boss41, boss42, boss43, boss44, boss46, boss47, boss48, boss49
 	Armament@main:
 		Weapon: Vulcan
 		LocalOffset: 256,0,256
@@ -649,13 +649,7 @@ PBOX.boss:
 		RequiresCondition: boss14 && bossai
 		Name: boss14
 	Armament@boss15a:
-		FireDelay: 50
-		Weapon: AkumaBeamAI
-		LocalOffset: 256,0,256
-		RequiresCondition: boss15 && bossai
-		Name: boss15
-	Armament@boss15b:
-		Weapon: AkumaSoundAI
+		Weapon: VesselIrradiate
 		LocalOffset: 256,0,256
 		RequiresCondition: boss15 && bossai
 		Name: boss15
@@ -892,13 +886,135 @@ PBOX.boss:
 		LocalOffset: 256,0,256
 		RequiresCondition: boss44 && bossai
 		Name: boss44
+	AmbientSound@boss45:
+		RequiresCondition: boss45
+		Interval: 100,300
+		Delay: 25
+		SoundFiles: dukenukemfreezer.wav
+	FireWarheads@boss45:
+		RequiresCondition: boss45
+		Weapons: WeatherTankCloud
+		Interval: 50
+	FireWarheads@boss45b:
+		RequiresCondition: boss45
+		Weapons: WeatherTankCondition
+		Interval: 35
+	FireWarheadsOnDeath@boss45:
+		Weapon: FrostRemoveMed
+		EmptyWeapon: FrostRemoveMed
+	SeedsResource@boss45:
+		ResourceType: AvaliSnow
+		Interval: 3
+		MaxRange: 9
+		RequiresCondition: boss45
+	ProximityExternalCondition@boss45:
+		Condition: creepgen
+		RequiresCondition: boss45
+		Range: 8c0
+		ValidRelationships: Neutral, Ally, Enemy
+	Armament@boss46:
+		Weapon: d155mm
+		LocalOffset: 256,0,256
+		RequiresCondition: boss46 && bossai
+		Name: boss46
+	Armament@boss47:
+		Weapon: ObeliskLaser
+		LocalOffset: 256,0,256
+		RequiresCondition: boss47 && bossai
+		Name: boss47
+	Armament@boss48a:
+		Weapon: SolShellNew
+		Recoil: 200
+		RecoilRecovery: 25
+		PauseOnCondition: ammo_b < 15
+		RequiresCondition: boss48 && bossai
+		FireDelay: 75
+		AmmoUsage: 15
+		LocalOffset: 256,0,256
+		Name: boss48
+	Armament@boss48b:
+		Weapon: SolShellNewBeam1
+		PauseOnCondition: ammo_b < 15
+		RequiresCondition: boss48 && bossai
+		AmmoUsage: 0
+		LocalOffset: 256,0,256
+		Name: boss48
+	Armament@boss48c:
+		Weapon: SolShellNewBeam2
+		PauseOnCondition: ammo_b < 15
+		RequiresCondition: boss48 && bossai
+		FireDelay: 25
+		AmmoUsage: 0
+		LocalOffset: 256,0,256
+		Name: boss48
+	Armament@boss48d:
+		Weapon: SolShellNewBeam3
+		PauseOnCondition: ammo_b < 15
+		RequiresCondition: boss48 && bossai
+		FireDelay: 50
+		AmmoUsage: 0
+		LocalOffset: 256,0,256
+		Name: boss48
+	Armament@boss49a:
+		Weapon: SolBarrage
+		PauseOnCondition: ammo_b < 15
+		RequiresCondition: boss49 && bossai
+		LocalOffset: 0,0,1024
+		FireDelay: 97
+		AmmoUsage: 15
+		Name: boss49
+	Armament@boss49b:
+		Weapon: SolBarrageSound
+		PauseOnCondition: ammo_b < 15
+		RequiresCondition: boss49 && bossai
+		AmmoUsage: 0
+		Name: boss49
+	Armament@boss49c:
+		Weapon: SolBarrageBeam1
+		PauseOnCondition: ammo_b < 15
+		RequiresCondition: boss49 && bossai
+		FireDelay: 97
+		AmmoUsage: 0
+		Name: boss49
+	Armament@boss49d:
+		Weapon: SolBarrageBeam2
+		PauseOnCondition: ammo_b < 15
+		RequiresCondition: boss49 && bossai
+		FireDelay: 25
+		AmmoUsage: 0
+		Name: boss49
+	Armament@boss49e:
+		Weapon: SolBarrageBeam3
+		PauseOnCondition: ammo_b < 15
+		RequiresCondition: boss49 && bossai
+		FireDelay: 50
+		AmmoUsage: 0
+		Name: boss49
+	Armament@boss49f:
+		Weapon: SolBarrageBeam4
+		PauseOnCondition: ammo_b < 15
+		RequiresCondition: boss49 && bossai
+		FireDelay: 75
+		AmmoUsage: 0
+		Name: boss49
+	FirepowerMultiplier@boss49:
+		RequiresCondition: boss49
+		Modifier: 50
 	AmmoPool@a:
 		Name: ammo_a
 		Armaments: boss39
 		AmmoCondition: ammo_a
+	AmmoPool@b:
+		Name: ammo_b
+		Ammo: 15
+		Armaments: boss48, boss49
+		AmmoCondition: ammo_b
 	ReloadAmmoPool@a:
 		AmmoPool: ammo_a
 		Delay: 65
+	ReloadAmmoPool@b:
+		AmmoPool: ammo_b
+		Delay: 35
 	RenderSprites:
 		Image: pbox
 	Power:

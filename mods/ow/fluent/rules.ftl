@@ -4217,12 +4217,12 @@ actor-terran-nuke =
     Strong vs Everything
 
 actor-raynor-tier1-fastupgrade1 =
-   .name = Enhanced Training Regime
+   .name = Enhanced Training Regime I
    .description = Gain Infantry Firepower I instantly.
     Increase infantry attack range by 10%
 
 actor-raynor-tier1-fastupgrade2 =
-   .name = Vanadium Plating
+   .name = Vanadium Plating I
    .description = Gain Infantry Armor I instantly.
     Increase infantry movement speed by 20%
 
@@ -4236,20 +4236,18 @@ actor-raynor-tier2-firespeed =
 
 actor-raynor-tier3-fastupgrade1 =
    .name = Enhanced Training Regime II
-   .description = Gain Infantry Firepower II instantly.
-    Infantry are now trained at rank 1.
+   .description = Infantry are now trained at rank 1
+     and earn XP more easily.
 
 actor-raynor-tier3-fastupgrade2 =
    .name = Vanadium Plating II
-   .description = Gain Infantry Armor II instantly.
-    Unlock Combat Hospital building.
+   .description = Unlock Combat Hospital building.
 
 actor-raynor-tier3-range =
    .name = Nano Projectors + Training+Plating II
    .description = Exclusive to Terran factions.
    
-    Gain Infantry Firepower II instantly.
-    Gain Infantry Armor II instantly.
+    Gain Infantry Firepower I + Armor I instantly.
     Increase range of Medics, Medivac Dropships and Firebats.
     Infantry are now trained at rank 1.
     Academy now provides infantry self-healing.
@@ -4269,31 +4267,32 @@ actor-raynor-tier4-support2 =
     Cooldown: 5:00
 
 actor-raynor-tier5-hyperion1 =
-   .name = Yamato Gun
+   .name = Yamato Protocol
    .description = Enables the use of the Yamato Gun,
      which can be fired once by the Hyperion.
 
-actor-raynor-tier5-hyperion2 =
-   .name = Hypercharge
-   .description = Allows the Hyperion to remain in 
-     combat for an additional 15 seconds.
+     Allows the Hyperion to remain in 
+      combat for an additional 15 seconds.
+
+     The Hyperion will also occasionally paradrop Marines.
 
 actor-raynor-tier5-fastupgrade1 =
    .name = Enhanced Training Regime III
-   .description = Gain Infantry Firepower III instantly.
-    Improves Infantry weapon reload speed by a further 10%.
-    Totaling a maximum 20% bonus attack speed.
+   .description = Improves Infantry weapon reload speed by 10%.
+    Stackable with Mercenary Munitions, totaling 20%.
 
 actor-raynor-tier5-fastupgrade2 =
    .name = Vanadium Plating III
-   .description = Gain Infantry Armor III instantly.
-    Enable Shield tech for Infantry.
+   .description = Enable Shields for Infantry.
+
+   Unlocks Shield upgrades.
 
 actor-raynor-tier5-fastupgrade2a =
    .name = Vanadium Plating III
-   .description = Gain Infantry Armor III instantly.
-    Increase infantry movement speed by a further 10%.
-    Totaling a maximum 30% bonus movement speed.
+   .description = Increase infantry movement speed by 20%.
+
+    Can stack with Vanadium Plating I,
+    totaling 30% bonus movement speed.
 
 actor-raynor-hosp =
     .name = Combat Hospital
