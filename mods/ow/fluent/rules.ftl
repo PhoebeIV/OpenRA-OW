@@ -6784,3 +6784,18 @@ player-factions =
       Estonia, Artanis, Japan Economic
    .random-navy = Random faction that focuses on navy
       Allies, Japan Navy, Fed Silver Lining
+
+actor-iron =
+    .name = Iron Curtain
+    .description =
+    Grants a group of units temporary
+    invulnerability.
+    Requires power to operate.
+    Maximum of one can be built.
+      Special Ability: Invulnerability
+    .grantexternalconditionpower-ironcurtain-name = Invulnerability
+    .grantexternalconditionpower-ironcurtain-name2 = Advanced Invulnerability
+    .grantexternalconditionpower-ironcurtain-description = Grants invulnerability to a group of units
+    for 20 seconds.
+    .grantexternalconditionpower-ironcurtain-description2 = Grants invulnerability to a large group of units
+    for 20 seconds.

@@ -1146,27 +1146,48 @@ IRON:
 	ProvidesPrerequisite@estonia:
 		Factions: estonia
 		Prerequisite: iron.estonia
-	GrantExternalConditionPower@IRONCURTAIN:
+	-GrantExternalConditionPower@IRONCURTAIN:
+	GrantExternalConditionPowerOW@IRONCURTAIN:
 		Prerequisites: !iron.estonia
 		ChargeInterval: 3750
+		ValidRelationships: Ally, Enemy, Neutral
+		PauseOnCondition: disabled
+		Icon: invuln
+		Name: actor-iron.grantexternalconditionpower-ironcurtain-name
+		Description: actor-iron.grantexternalconditionpower-ironcurtain-description
+		Duration: 500
+		SelectTargetSpeechNotification: SelectTarget
+		InsufficientPowerSpeechNotification: InsufficientPower
+		BeginChargeSpeechNotification: IronCurtainCharging
+		EndChargeSpeechNotification: IronCurtainReady
+		SelectTargetTextNotification: notification-select-target
+		InsufficientPowerTextNotification: notification-insufficient-power
+		BeginChargeTextNotification: notification-iron-curtain-charging
+		EndChargeTextNotification: notification-iron-curtain-ready
+		DisplayRadarPing: True
+		Condition: invulnerability
+		NegativeCondition: invuln_kill
+		OnFireSound: ironcur9.aud
+		SupportPowerPaletteOrder: 10
 		Dimensions: 3, 3
 		Footprint: _x_ xxx _x_
-		ValidRelationships: Ally, Enemy, Neutral
-	GrantExternalConditionPower@ESTONIA:
+		BlockedCursor: move-blocked
+	GrantExternalConditionPowerOW@ESTONIA:
 		OrderName: IronEst
 		PauseOnCondition: disabled
 		Prerequisites: iron.estonia
 		Icon: invuln
 		ChargeInterval: 4500
-		Name: Advanced Invulnerability
-		Description: Makes a large group of units invulnerable\nfor 20 seconds.
-		Duration: 400
+		Name: actor-iron.grantexternalconditionpower-ironcurtain-name2
+		Description: actor-iron.grantexternalconditionpower-ironcurtain-description2
+		Duration: 500
 		SelectTargetSpeechNotification: SelectTarget
 		InsufficientPowerSpeechNotification: InsufficientPower
 		BeginChargeSpeechNotification: IronCurtainCharging
 		EndChargeSpeechNotification: IronCurtainReady
 		DisplayRadarPing: True
 		Condition: invulnerability
+		NegativeCondition: invuln_kill
 		OnFireSound: ironcur9.aud
 		SupportPowerPaletteOrder: 10
 		Dimensions: 5, 5
