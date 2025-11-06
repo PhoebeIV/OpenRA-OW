@@ -1913,8 +1913,9 @@ DoomArchvileFire:
 DoomBerserkerFist:
 	Inherits: DoomBaronClaw
 	ReloadDelay: 8
-	Report: dspunch.aud
-	Projectile: InstantHit
+	-Report: 
+	InvalidTargets: OreMine, UpgradeThing, Ground
+	Projectile: 
 	Warhead@1Dam: SpreadDamage
 		Spread: 64
 		Damage: 6000
@@ -1924,10 +1925,18 @@ DoomBerserkerFist:
 			Light: 50
 			Heavy: 20
 			Concrete: 10
-		DamageTypes: ExplosionDeath
+			Tree: 20
+		DamageTypes: TreePunch, ExplosionDeath
 	Warhead@4EffGround: CreateEffect
 		ImpactSounds: gib1.aud, gib2.aud, gib4.aud, ut99dth1.aud
-		ValidTargets: Infantry, Ground
+		ValidTargets: Infantry
+	Warhead@5EffGround: CreateEffect
+		ImpactSounds: dspunch.aud
+		ValidTargets: GroundActor, WaterActor, Ground
+		InvalidTargets: Trees
+	Warhead@6EffGround: CreateEffect
+		ImpactSounds: woodhit1.ogg, woodhit2.ogg, woodhit3.ogg, woodhit4.ogg, woodhit5.ogg, woodhit6.ogg 
+		ValidTargets: Trees
 
 DoomGuyChainsaw:
 	Inherits: DoomBaronClaw
@@ -4711,6 +4720,7 @@ chinablacklotusend:
 	ValidTargets: Tank, Vehicle
 	TargetActorCenter: true
 	Report: ucapture.aud
+	InvalidTargets: NoMindControl
 	Projectile: LaserZap
 		Width: 60
 		Color: 00FF0070
@@ -6692,11 +6702,12 @@ AkumaSmallZapMind:
 	Warhead@4Eff: ChangeOwner
 		Range: 128
 		ValidTargets: Infantry, Vehicle
-		InvalidTargets: EpicUnit
+		InvalidTargets: EpicUnit, NoMindControl
 	Warhead@5Eff: ChangeOwner
 		Range: 128
 		Duration: 375
 		ValidTargets: EpicUnit
+		InvalidTargets: NoMindControl
 
 AkumaSmallZapBerserk:
 	Inherits: AkumaZap

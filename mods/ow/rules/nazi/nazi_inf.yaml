@@ -279,7 +279,7 @@ NBOS6:
 		Queue: Infantry
 		BuildAtProductionType: Soldier
 		BuildPaletteOrder: 9100
-		Prerequisites: ulttechcenter, ~techlevel.unrestricted, ~vehicles.hitler, ~!hitler
+		Prerequisites: ulttechcenter, ~techlevel.unrestricted, ~vehicles.hitler, !hitler
 		Description: actor-nbos6.description
 		BuildLimit: 1
 	ProvidesPrerequisite:
@@ -300,14 +300,14 @@ NBOS6:
 		Range: 7c0
 	Armament@PRIMARY:
 		Weapon: CommanderRPG
-		LocalOffset: 0,-456,756, 0,-456,656
+		LocalOffset: 0,-550,756, 0,-550,656
 	Armament@PRIMARY2:
 		Weapon: HitlerGrenade
-		LocalOffset: 0,456,756, 0,456,756, 0,456,756
+		LocalOffset: 0,550,756, 0,550,756, 0,550,756
 		LocalYaw: -180,0,180
 	Armament@PRIMARY3:
 		Weapon: HitlerRPG
-		LocalOffset: 0,456,656
+		LocalOffset: 0,550,656
 	Armament@SECONDARY:
 		Weapon: DoomMinigunDK
 	Armament@TERTIARY:
@@ -341,18 +341,23 @@ NBOS6:
 	WithInfantryBody:
 		DefaultAttackSequence: shoot
 	Selectable:
-		Bounds: 1792, 1792, 0, -853
-		DecorationBounds: 1792, 1792, 0, -853
+		Bounds: 1792, 1792, 0, -1053
+		DecorationBounds: 1792, 1792, 0, -1053
 	FireWarheadsOnDeath@def:
 		Weapon: MechaHitlerCorpse
 		EmptyWeapon: MechaHitlerCorpse
 	ShakeOnDeath:
 	SoundOnDamageTransition:
 		DestroyedSounds: xplobig6.aud
-	SpawnActorOnDeath:
+	-SpawnActorOnDeath@fire:
+	SpawnActorOnDeathCA:
 		Actor: NBOS7
+		InheritsSelection: true
+		InheritsControlGroup: true
+		InheritsStance: true
+		InheritsExperience: true
 	Targetable:
-		TargetTypes: GroundActor, Vehicle, Tank
+		TargetTypes: GroundActor, Vehicle
 	Chronoshiftable:
 		ExplodeInstead: false
 	ChangesHealth:
@@ -360,6 +365,14 @@ NBOS6:
 		Delay: 3
 		StartIfBelow: 50
 		DamageCooldown: 150
+	WithDeathAnimation:
+		DeathTypes:
+			DefaultDeath: 1
+			BulletDeath: 1
+			SmallExplosionDeath: 1
+			ExplosionDeath: 1
+			FireDeath: 1
+			ElectricityDeath: 1
 	-ChangesHealth@INVULNERABILITY:
 	-ChangesHealth@INVULNERABILITY_noshield:
 
@@ -373,7 +386,7 @@ NBOS7:
 		Queue: Infantry
 		BuildAtProductionType: Soldier
 		BuildPaletteOrder: 215
-		Prerequisites: iron, advtechcenter, ~techlevel.unrestricted, ~infantry.nazi, ~!hitler, ~!ai.epichitleronly
+		Prerequisites: advtechcenter, ~techlevel.unrestricted, ~infantry.nazi, !hitler, ~!ai.epichitleronly
 		BuildLimit: 1
 		BuildDuration: 5000
 		Description: actor-nbos7.description
@@ -381,6 +394,13 @@ NBOS7:
 		Prerequisite: hitler
 	Valued:
 		Cost: 3500
+	GainsExperience:
+		-Conditions:
+		Conditions:
+			456: rank-veteran
+			912: rank-veteran
+			1824: rank-veteran
+			3648: rank-veteran
 	Tooltip:
 		Name: actor-nbos7.name
 	Health:
@@ -397,10 +417,10 @@ NBOS7:
 		Range: 6c0
 	Armament@PRIMARY:
 		Weapon: CommanderRPG
-		LocalOffset: 0,-356,756
+		LocalOffset: 0,-420,756
 	Armament@PRIMARY2:
 		Weapon: CommanderRPG
-		LocalOffset: 0,356,756
+		LocalOffset: 0,420,756
 		FireDelay: 5
 	Armament@SECONDARY:
 		Weapon: DoomMinigunDK
@@ -438,8 +458,8 @@ NBOS7:
 	ProducibleWithLevel:
 		Prerequisites: barracks.upgraded
 	Selectable:
-		Bounds: 1578, 1578, 0, -725
-		DecorationBounds: 1578, 1578, 0, -725
+		Bounds: 1578, 1578, 0, -880
+		DecorationBounds: 1578, 1578, 0, -880
 	FireWarheadsOnDeath@def:
 		Weapon: HitlerCorpse
 		EmptyWeapon: HitlerCorpse
@@ -451,6 +471,14 @@ NBOS7:
 	VoiceAnnouncement:
 		RequiresCondition: produced
 		Voice: Build
+	WithDeathAnimation:
+		DeathTypes:
+			DefaultDeath: 1
+			BulletDeath: 1
+			SmallExplosionDeath: 1
+			ExplosionDeath: 1
+			FireDeath: 1
+			ElectricityDeath: 1
 	-Cloneable:
 	-ChangesHealth@INVULNERABILITY:
 	-ChangesHealth@INVULNERABILITY_noshield:

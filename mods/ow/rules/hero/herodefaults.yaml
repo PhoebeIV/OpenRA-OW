@@ -1,755 +1,3 @@
-##
-
-#Goes on Hero
-#Manages Hero Exp and level gains
-^Heroexp:
-	GainsExperience@Hero:
-		LevelUpNotification: LevelUp
-		LevelUpTextNotification: meta-heroexp-gainsexperience-hero-level-up-text-notification
-		Conditions:
-			1000: rank-veteran
-			3000: rank-veteran
-			6000: rank-veteran
-			10000: rank-veteran
-		LevelUpImage: crate-effects
-	ExperienceModifier: 1
-	GrantCondition@Level1:
-		RequiresCondition: rank-veteran == 1
-		Condition: LV1
-	GrantCondition@Level2:
-		RequiresCondition: rank-veteran == 2
-		Condition: LV2
-	GrantCondition@Level3:
-		RequiresCondition: rank-veteran == 3
-		Condition: LV3
-	GrantCondition@Level4:
-		RequiresCondition: rank-veteran == 4
-		Condition: LV4
-	GrantCondition@Level4:
-		RequiresCondition: rank-veteran >= 5
-		Condition: LV5
-	DamageMultiplier@Level1:
-		RequiresCondition: rank-veteran == 1
-		Modifier: 95
-	DamageMultiplier@Level2:
-		RequiresCondition: rank-veteran == 2
-		Modifier: 90
-	DamageMultiplier@Level3:
-		RequiresCondition: rank-veteran == 3
-		Modifier: 85
-	DamageMultiplier@Level4:
-		RequiresCondition: LV4
-		Modifier: 75
-	FirepowerMultiplier@Level1:
-		RequiresCondition: rank-veteran == 1
-		Modifier: 105
-	FirepowerMultiplier@Level2:
-		RequiresCondition: rank-veteran == 2
-		Modifier: 110
-	FirepowerMultiplier@Level3:
-		RequiresCondition: rank-veteran == 3
-		Modifier: 115
-	FirepowerMultiplier@Level4:
-		RequiresCondition: LV4
-		Modifier: 120
-	SpeedMultiplier@Level1:
-		RequiresCondition: rank-veteran == 1
-		Modifier: 105
-	SpeedMultiplier@Level2:
-		RequiresCondition: rank-veteran == 2
-		Modifier: 110
-	SpeedMultiplier@Level3:
-		RequiresCondition: rank-veteran == 3
-		Modifier: 115
-	SpeedMultiplier@Level4:
-		RequiresCondition: LV4
-		Modifier: 120
-	ReloadDelayMultiplier@Level1:
-		RequiresCondition: rank-veteran == 1
-		Modifier: 95
-	ReloadDelayMultiplier@Level2:
-		RequiresCondition: rank-veteran == 2
-		Modifier: 90
-	ReloadDelayMultiplier@Level3:
-		RequiresCondition: rank-veteran == 3
-		Modifier: 85
-	ReloadDelayMultiplier@Level4:
-		RequiresCondition: LV4
-		Modifier: 80
-	WithDecoration@Level1:
-		Image: rank
-		Sequence: rank-veteran-1
-		Palette: effect
-		Position: BottomRight
-		Margin: 5, 6
-		ValidRelationships: Ally, Enemy, Neutral
-		RequiresCondition: rank-veteran == 1
-	WithDecoration@Level2:
-		Image: rank
-		Sequence: rank-veteran-2
-		Palette: effect
-		Position: BottomRight
-		Margin: 5, 6
-		ValidRelationships: Ally, Enemy, Neutral
-		RequiresCondition: rank-veteran == 2
-	WithDecoration@Level3:
-		Image: rank
-		Sequence: rank-veteran-3
-		Palette: effect
-		Position: BottomRight
-		Margin: 5, 6
-		ValidRelationships: Ally, Enemy, Neutral
-		RequiresCondition: rank-veteran == 3
-	WithDecoration@Level4:
-		Image: rank
-		Sequence: rank-elite
-		Palette: effect
-		Position: BottomRight
-		Margin: 5, 6
-		ValidRelationships: Ally, Enemy, Neutral
-		RequiresCondition: LV4
-	ChangesHealth@Level4:
-		Step: 0
-		PercentageStep: 6
-		Delay: 100
-		StartIfBelow: 100
-		DamageCooldown: 50
-		RequiresCondition: LV4
-	ChangesHealth@Level1:
-		Step: 0
-		PercentageStep: 2
-		Delay: 400
-		StartIfBelow: 60
-		DamageCooldown: 325
-		RequiresCondition: rank-veteran == 1
-	ChangesHealth@Level2:
-		Step: 0
-		PercentageStep: 3
-		Delay: 300
-		StartIfBelow: 75
-		DamageCooldown: 225
-		RequiresCondition: rank-veteran == 2
-	ChangesHealth@Level3:
-		Step: 0
-		PercentageStep: 4
-		Delay: 200
-		StartIfBelow: 90
-		DamageCooldown: 125
-		RequiresCondition: rank-veteran == 3
-
-#Hero Version of the Infantry Inherit. 
-# HeroInfantry class not required, can still use base Vehicle/Infantry, etc classes along with ^Hero
-
-
-## Goes onto Hero, 
-##Turns Level ups into conditions for each Tier
-^HeroLevelSender:
-	ProvidesPrerequisite@T1LV1:
-		Prerequisite: T1LV1
-		RequiresPrerequisites: T1
-		RequiresCondition: LV1
-	ProvidesPrerequisite@T1LV2:
-		Prerequisite: T1LV2
-		RequiresPrerequisites: T1
-		RequiresCondition: LV2
-	ProvidesPrerequisite@T1LV3:
-		Prerequisite: T1LV3
-		RequiresPrerequisites: T1
-		RequiresCondition: LV3
-	ProvidesPrerequisite@T1LV4:
-		Prerequisite: T1LV4
-		RequiresPrerequisites: T1
-		RequiresCondition: LV4
-	ProvidesPrerequisite@T1LV5:
-		Prerequisite: T1LV5
-		RequiresPrerequisites: T1
-		RequiresCondition: LV5
-	#T2
-	ProvidesPrerequisite@T2LV1:
-		Prerequisite: T2LV1
-		RequiresPrerequisites: T2
-		RequiresCondition: LV1
-	ProvidesPrerequisite@T2LV2:
-		Prerequisite: T2LV2
-		RequiresPrerequisites: T2
-		RequiresCondition: LV2
-	ProvidesPrerequisite@T2LV3:
-		Prerequisite: T2LV3
-		RequiresPrerequisites: T2
-		RequiresCondition: LV3
-	ProvidesPrerequisite@T2LV4:
-		Prerequisite: T2LV4
-		RequiresPrerequisites: T2
-		RequiresCondition: LV4
-	ProvidesPrerequisite@T2LV5:
-		Prerequisite: T2LV5
-		RequiresPrerequisites: T2
-		RequiresCondition: LV5
-	#T3
-	ProvidesPrerequisite@T3LV1:
-		Prerequisite: T3LV1
-		RequiresPrerequisites: T3
-		RequiresCondition: LV1
-	ProvidesPrerequisite@T3LV2:
-		Prerequisite: T3LV2
-		RequiresPrerequisites: T3
-		RequiresCondition: LV2
-	ProvidesPrerequisite@T3LV3:
-		Prerequisite: T3LV3
-		RequiresPrerequisites: T3
-		RequiresCondition: LV3
-	ProvidesPrerequisite@T3LV4:
-		Prerequisite: T3LV4
-		RequiresPrerequisites: T3
-		RequiresCondition: LV4
-	ProvidesPrerequisite@T3LV5:
-		Prerequisite: T3LV5
-		RequiresPrerequisites: T3
-		RequiresCondition: LV5
-	#T4
-	ProvidesPrerequisite@T4LV1:
-		Prerequisite: T4LV1
-		RequiresPrerequisites: T4
-		RequiresCondition: LV1
-	ProvidesPrerequisite@T4LV2:
-		Prerequisite: T4LV2
-		RequiresPrerequisites: T4
-		RequiresCondition: LV2
-	ProvidesPrerequisite@T4LV3:
-		Prerequisite: T4LV3
-		RequiresPrerequisites: T4
-		RequiresCondition: LV3
-	ProvidesPrerequisite@T4LV4:
-		Prerequisite: T4LV4
-		RequiresPrerequisites: T4
-		RequiresCondition: LV4
-	ProvidesPrerequisite@T4LV5:
-		Prerequisite: T4LV5
-		RequiresPrerequisites: T4
-		RequiresCondition: LV5
-	#T5
-	ProvidesPrerequisite@T5LV1:
-		Prerequisite: T5LV1
-		RequiresPrerequisites: T5
-		RequiresCondition: LV1
-	ProvidesPrerequisite@T5LV2:
-		Prerequisite: T5LV2
-		RequiresPrerequisites: T5
-		RequiresCondition: LV2
-	ProvidesPrerequisite@T5LV3:
-		Prerequisite: T5LV3
-		RequiresPrerequisites: T5
-		RequiresCondition: LV3
-	ProvidesPrerequisite@T5LV4:
-		Prerequisite: T5LV4
-		RequiresPrerequisites: T5
-		RequiresCondition: LV4
-	ProvidesPrerequisite@T5LV5:
-		Prerequisite: T5LV5
-		RequiresPrerequisites: T5
-		RequiresCondition: LV5
-
-#Goes on upgrades Holds Tiers and Levels
-^HeroLvLHolder:
-	#Provides Tier Prerequisites (Tier1 condition = T1 Prereq)
-	ProvidesPrerequisite@Tier1:
-		Prerequisite: T1
-		RequiresCondition: Tier1
-	ProvidesPrerequisite@Tier2:
-		Prerequisite: T2
-		RequiresCondition: Tier2
-	ProvidesPrerequisite@Tier3:
-		Prerequisite: T3
-		RequiresCondition: Tier3
-	ProvidesPrerequisite@Tier4:
-		Prerequisite: T4
-		RequiresCondition: Tier4
-	ProvidesPrerequisite@Tier5:
-		Prerequisite: T5
-		RequiresCondition: Tier5
-	#Provides a prerequisite for showing that the level is stored.
-	ProvidesPrerequisite@T1L1:
-		Prerequisite: T1LV1Stored
-		RequiresCondition: T1LV1
-	#Takes Incoming Prereq from Hero and makes a condition on the holder
-	GrantConditionOnPrerequisite@T1LV1:
-		Condition: IncomingT1LV1
-		Prerequisites: T1LV1
-	#Takes Incomingcondition and turns into a perminant stored condition
-	GrantCondition@T1LV1:
-		Condition: T1LV1
-		GrantPermanently: True
-		RequiresCondition: IncomingT1LV1
-	#Level 2
-	ProvidesPrerequisite@T1L2:
-		Prerequisite: T1LV2Stored
-		RequiresCondition: T1LV2
-	GrantConditionOnPrerequisite@T1LV2:
-		Condition: IncomingT1LV2
-		Prerequisites: T1LV2
-	GrantCondition@T1LV2:
-		Condition: T1LV2
-		GrantPermanently: True
-		RequiresCondition: IncomingT1LV2
-	#Level 3
-	ProvidesPrerequisite@T1L3:
-		Prerequisite: T1LV3Stored
-		RequiresCondition: T1LV3
-	GrantConditionOnPrerequisite@T1LV3:
-		Condition: IncomingT1LV3
-		Prerequisites: T1LV3
-	GrantCondition@T1LV3:
-		Condition: T1LV3
-		GrantPermanently: True
-		RequiresCondition: IncomingT1LV3
-	#Level 4
-	ProvidesPrerequisite@T1L4:
-		Prerequisite: T1LV4Stored
-		RequiresCondition: T1LV4
-	GrantConditionOnPrerequisite@T1LV4:
-		Condition: IncomingT1LV4
-		Prerequisites: T1LV4
-	GrantCondition@T1LV4:
-		Condition: T1LV4
-		GrantPermanently: True
-		RequiresCondition: IncomingT1LV4
-	#Level 5
-	ProvidesPrerequisite@T1L5:
-		Prerequisite: T1LV5Stored
-		RequiresCondition: T1LV5
-	GrantConditionOnPrerequisite@T1LV5:
-		Condition: IncomingT1LV5
-		Prerequisites: T1LV5
-	GrantCondition@T1LV5:
-		Condition: T1LV5
-		GrantPermanently: True
-		RequiresCondition: IncomingT1LV5
-	#Tier 2
-	#Level 1
-	ProvidesPrerequisite@T2L1:
-		Prerequisite: T2LV1Stored
-		RequiresCondition: T2LV1
-	GrantConditionOnPrerequisite@T2LV1:
-		Condition: IncomingT2LV1
-		Prerequisites: T2LV1
-	GrantCondition@T2LV1:
-		Condition: T2LV1
-		GrantPermanently: True
-		RequiresCondition: IncomingT2LV1
-	#Level 2
-	ProvidesPrerequisite@T2L2:
-		Prerequisite: T2LV2Stored
-		RequiresCondition: T2LV2
-	GrantConditionOnPrerequisite@T2LV2:
-		Condition: IncomingT2LV2
-		Prerequisites: T2LV2
-	GrantCondition@T2LV2:
-		Condition: T2LV2
-		GrantPermanently: True
-		RequiresCondition: IncomingT2LV2
-	#Level 3
-	ProvidesPrerequisite@T2L3:
-		Prerequisite: T2LV3Stored
-		RequiresCondition: T2LV3
-	GrantConditionOnPrerequisite@T2LV3:
-		Condition: IncomingT2LV3
-		Prerequisites: T2LV3
-	GrantCondition@T2LV3:
-		Condition: T2LV3
-		GrantPermanently: True
-		RequiresCondition: IncomingT2LV3
-	#Level 4
-	ProvidesPrerequisite@T2L4:
-		Prerequisite: T2LV4Stored
-		RequiresCondition: T2LV4
-	GrantConditionOnPrerequisite@T2LV4:
-		Condition: IncomingT2LV4
-		Prerequisites: T2LV4
-	GrantCondition@T2LV4:
-		Condition: T2LV4
-		GrantPermanently: True
-		RequiresCondition: IncomingT2LV4
-	#Level 5
-	ProvidesPrerequisite@T2L5:
-		Prerequisite: T2LV5Stored
-		RequiresCondition: T2LV5
-	GrantConditionOnPrerequisite@T2LV5:
-		Condition: IncomingT2LV5
-		Prerequisites: T2LV5
-	GrantCondition@T2LV5:
-		Condition: T2LV5
-		GrantPermanently: True
-		RequiresCondition: IncomingT2LV5
-	#Tier 3
-	#Level 1
-	ProvidesPrerequisite@T3L1:
-		Prerequisite: T3LV1Stored
-		RequiresCondition: T3LV1
-	GrantConditionOnPrerequisite@T3LV1:
-		Condition: IncomingT3LV1
-		Prerequisites: T3LV1
-	GrantCondition@T3LV1:
-		Condition: T3LV1
-		GrantPermanently: True
-		RequiresCondition: IncomingT3LV1
-	#Level 2
-	ProvidesPrerequisite@T3L2:
-		Prerequisite: T3LV2Stored
-		RequiresCondition: T3LV2
-	GrantConditionOnPrerequisite@T3LV2:
-		Condition: IncomingT3LV2
-		Prerequisites: T3LV2
-	GrantCondition@T3LV2:
-		Condition: T3LV2
-		GrantPermanently: True
-		RequiresCondition: IncomingT3LV2
-	#Level 3
-	ProvidesPrerequisite@T3L3:
-		Prerequisite: T3LV3Stored
-		RequiresCondition: T3LV3
-	GrantConditionOnPrerequisite@T3LV3:
-		Condition: IncomingT3LV3
-		Prerequisites: T3LV3
-	GrantCondition@T3LV3:
-		Condition: T3LV3
-		GrantPermanently: True
-		RequiresCondition: IncomingT3LV3
-	#Level 4
-	ProvidesPrerequisite@T3L4:
-		Prerequisite: T3LV4Stored
-		RequiresCondition: T3LV4
-	GrantConditionOnPrerequisite@T3LV4:
-		Condition: IncomingT3LV4
-		Prerequisites: T3LV4
-	GrantCondition@T3LV4:
-		Condition: T3LV4
-		GrantPermanently: True
-		RequiresCondition: IncomingT3LV4
-	#Level 5
-	ProvidesPrerequisite@T3L5:
-		Prerequisite: T3LV5Stored
-		RequiresCondition: T3LV5
-	GrantConditionOnPrerequisite@T3LV5:
-		Condition: IncomingT3LV5
-		Prerequisites: T3LV5
-	GrantCondition@T3LV5:
-		Condition: T3LV5
-		GrantPermanently: True
-		RequiresCondition: IncomingT3LV5
-	#Tier 4
-	#Level 1
-	ProvidesPrerequisite@T4L1:
-		Prerequisite: T4LV1Stored
-		RequiresCondition: T4LV1
-	GrantConditionOnPrerequisite@T4LV1:
-		Condition: IncomingT4LV1
-		Prerequisites: T4LV1
-	GrantCondition@T4LV1:
-		Condition: T4LV1
-		GrantPermanently: True
-		RequiresCondition: IncomingT4LV1
-	#Level 2
-	ProvidesPrerequisite@T4L2:
-		Prerequisite: T4LV2Stored
-		RequiresCondition: T4LV2
-	GrantConditionOnPrerequisite@T4LV2:
-		Condition: IncomingT4LV2
-		Prerequisites: T4LV2
-	GrantCondition@T4LV2:
-		Condition: T4LV2
-		GrantPermanently: True
-		RequiresCondition: IncomingT4LV2
-	#Level 3
-	ProvidesPrerequisite@T4L3:
-		Prerequisite: T4LV3Stored
-		RequiresCondition: T4LV3
-	GrantConditionOnPrerequisite@T4LV3:
-		Condition: IncomingT4LV3
-		Prerequisites: T4LV3
-	GrantCondition@T4LV3:
-		Condition: T4LV3
-		GrantPermanently: True
-		RequiresCondition: IncomingT4LV3
-	#Level 4
-	ProvidesPrerequisite@T4L4:
-		Prerequisite: T4LV4Stored
-		RequiresCondition: T4LV4
-	GrantConditionOnPrerequisite@T4LV4:
-		Condition: IncomingT4LV4
-		Prerequisites: T4LV4
-	GrantCondition@T4LV4:
-		Condition: T4LV4
-		GrantPermanently: True
-		RequiresCondition: IncomingT4LV4
-	#Level 5
-	ProvidesPrerequisite@T4L5:
-		Prerequisite: T4LV5Stored
-		RequiresCondition: T4LV5
-	GrantConditionOnPrerequisite@T4LV5:
-		Condition: IncomingT4LV5
-		Prerequisites: T4LV5
-	GrantCondition@T4LV5:
-		Condition: T4LV5
-		GrantPermanently: True
-		RequiresCondition: IncomingT4LV5
-	#Tier 5
-	#Level 1
-	ProvidesPrerequisite@T5L1:
-		Prerequisite: T5LV1Stored
-		RequiresCondition: T5LV1
-	GrantConditionOnPrerequisite@T5LV1:
-		Condition: IncomingT5LV1
-		Prerequisites: T5LV1
-	GrantCondition@T5LV1:
-		Condition: T5LV1
-		GrantPermanently: True
-		RequiresCondition: IncomingT5LV1
-	#Level 2
-	ProvidesPrerequisite@T5L2:
-		Prerequisite: T5LV2Stored
-		RequiresCondition: T5LV2
-	GrantConditionOnPrerequisite@T5LV2:
-		Condition: IncomingT5LV2
-		Prerequisites: T5LV2
-	GrantCondition@T5LV2:
-		Condition: T5LV2
-		GrantPermanently: True
-		RequiresCondition: IncomingT5LV2
-	#Level 3
-	ProvidesPrerequisite@T5L3:
-		Prerequisite: T5LV3Stored
-		RequiresCondition: T5LV3
-	GrantConditionOnPrerequisite@T5LV3:
-		Condition: IncomingT5LV3
-		Prerequisites: T5LV3
-	GrantCondition@T5LV3:
-		Condition: T5LV3
-		GrantPermanently: True
-		RequiresCondition: IncomingT5LV3
-	#Level 4
-	ProvidesPrerequisite@T5L4:
-		Prerequisite: T5LV4Stored
-		RequiresCondition: T5LV4
-	GrantConditionOnPrerequisite@T5LV4:
-		Condition: IncomingT5LV4
-		Prerequisites: T5LV4
-	GrantCondition@T5LV4:
-		Condition: T5LV4
-		GrantPermanently: True
-		RequiresCondition: IncomingT5LV4
-	#Level 5
-	ProvidesPrerequisite@T5L5:
-		Prerequisite: T5LV5Stored
-		RequiresCondition: T5LV5
-	GrantConditionOnPrerequisite@T5LV5:
-		Condition: IncomingT5LV5
-		Prerequisites: T5LV5
-	GrantCondition@T5LV5:
-		Condition: T5LV5
-		GrantPermanently: True
-		RequiresCondition: IncomingT5LV5
-
-#Goes onto Hero, Gives Upgrades from Prerequisites.
-^HeroUpgradeL1OnHero:
-	#T1
-	GrantConditionOnPrerequisite@T1L1UpgradeRange:
-		Condition: T1L1Range
-		Prerequisites: T1L1RangeHero
-	RangeMultiplier@L1T1:
-		Modifier: 110
-		RequiresCondition: T1L1Range
-	GrantConditionOnPrerequisite@T1L1UpgradeSpeed:
-		Condition: T1L1Speed
-		Prerequisites: T1L1SpeedHero
-	SpeedMultiplier@L1T1:
-		Modifier: 105
-		RequiresCondition: T1L1Speed
-	GrantConditionOnPrerequisite@T1L1UpgradeVision:
-		Condition: T1L1Vision
-		Prerequisites: T1L1VisionHero
-	RevealsShroudMultiplier@L1T1:
-		Modifier: 105
-		RequiresCondition: T1L1Vision
-	#T2
-	GrantConditionOnPrerequisite@T2L1UpgradeRange:
-		Condition: T2L1Range
-		Prerequisites: T2L1RangeHero
-	RangeMultiplier@L1T2:
-		Modifier: 110
-		RequiresCondition: T2L1Range
-	GrantConditionOnPrerequisite@T2L1UpgradeSpeed:
-		Condition: T2L1Speed
-		Prerequisites: T2L1SpeedHero
-	SpeedMultiplier@L1T2:
-		Modifier: 105
-		RequiresCondition: T2L1Speed
-	GrantConditionOnPrerequisite@T2L1UpgradeVision:
-		Condition: T2L1Vision
-		Prerequisites: T2L1VisionHero
-	RevealsShroudMultiplier@L1T2:
-		Modifier: 105
-		RequiresCondition: T2L1Vision
-	#T3
-	GrantConditionOnPrerequisite@T3L1UpgradeRange:
-		Condition: T3L1Range
-		Prerequisites: T3L1RangeHero
-	RangeMultiplier@L1T3:
-		Modifier: 110
-		RequiresCondition: T3L1Range
-	GrantConditionOnPrerequisite@T3L1UpgradeSpeed:
-		Condition: T3L1Speed
-		Prerequisites: T3L1SpeedHero
-	SpeedMultiplier@L1T3:
-		Modifier: 105
-		RequiresCondition: T3L1Speed
-	GrantConditionOnPrerequisite@T3L1UpgradeVision:
-		Condition: T3L1Vision
-		Prerequisites: T3L1VisionHero
-	RevealsShroudMultiplier@L1T3:
-		Modifier: 105
-		RequiresCondition: T3L1Vision
-	#T4
-	GrantConditionOnPrerequisite@T4L1UpgradeRange:
-		Condition: T4L1Range
-		Prerequisites: T4L1RangeHero
-	RangeMultiplier@L1T4:
-		Modifier: 110
-		RequiresCondition: T4L1Range
-	GrantConditionOnPrerequisite@T4L1UpgradeSpeed:
-		Condition: T4L1Speed
-		Prerequisites: T4L1SpeedHero
-	SpeedMultiplier@L1T4:
-		Modifier: 105
-		RequiresCondition: T4L1Speed
-	GrantConditionOnPrerequisite@T4L1UpgradeVision:
-		Condition: T4L1Vision
-		Prerequisites: T4L1VisionHero
-	RevealsShroudMultiplier@L1T4:
-		Modifier: 105
-		RequiresCondition: T4L1Vision
-	#T5
-	GrantConditionOnPrerequisite@T5L1UpgradeRange:
-		Condition: T5L1Range
-		Prerequisites: T5L1RangeHero
-	RangeMultiplier@L1T5:
-		Modifier: 110
-		RequiresCondition: T5L1Range
-	GrantConditionOnPrerequisite@T5L1UpgradeSpeed:
-		Condition: T5L1Speed
-		Prerequisites: T5L1SpeedHero
-	SpeedMultiplier@L1T5:
-		Modifier: 105
-		RequiresCondition: T5L1Speed
-	GrantConditionOnPrerequisite@T5L1UpgradeVision:
-		Condition: T5L1Vision
-		Prerequisites: T5L1VisionHero
-	RevealsShroudMultiplier@L1T5:
-		Modifier: 105
-		RequiresCondition: T5L1Vision
-
-
-
-#Goes onto Hero, Gives Upgrades from Prerequisites.
-^HeroUpgradeL2OnHero:
-	#T1
-	GrantConditionOnPrerequisite@T1L2UpgradeReloadDelay:
-		Condition: T1L2ReloadDelay
-		Prerequisites: T1L2ReloadDelayHero
-	ReloadDelayMultiplier@L2T1:
-		Modifier: 90
-		RequiresCondition: T1L2ReloadDelay
-	GrantConditionOnPrerequisite@T1L2UpgradeFirepower:
-		Condition: T1L2Firepower
-		Prerequisites: T1L2FirepowerHero
-	FirepowerMultiplier@L2T1:
-		Modifier: 105
-		RequiresCondition: T1L2Firepower
-	GrantConditionOnPrerequisite@T1L2UpgradeVision:
-		Condition: T1L2Vision
-		Prerequisites: T1L2VisionHero
-	DamageMultiplier@L2T1:
-		Modifier: 95
-		RequiresCondition: T1L2Vision
-	#T2
-	GrantConditionOnPrerequisite@T2L2UpgradeReloadDelay:
-		Condition: T2L2ReloadDelay
-		Prerequisites: T2L2ReloadDelayHero
-	ReloadDelayMultiplier@L2T2:
-		Modifier: 90
-		RequiresCondition: T2L2ReloadDelay
-	GrantConditionOnPrerequisite@T2L2UpgradeFirepower:
-		Condition: T2L2Firepower
-		Prerequisites: T2L2FirepowerHero
-	FirepowerMultiplier@L2T2:
-		Modifier: 105
-		RequiresCondition: T2L2Firepower
-	GrantConditionOnPrerequisite@T2L2UpgradeVision:
-		Condition: T2L2Vision
-		Prerequisites: T2L2VisionHero
-	DamageMultiplier@L2T2:
-		Modifier: 95
-		RequiresCondition: T2L2Vision
-	#T3
-	GrantConditionOnPrerequisite@T3L2UpgradeReloadDelay:
-		Condition: T3L2ReloadDelay
-		Prerequisites: T3L2ReloadDelayHero
-	ReloadDelayMultiplier@L2T3:
-		Modifier: 90
-		RequiresCondition: T3L2ReloadDelay
-	GrantConditionOnPrerequisite@T3L2UpgradeFirepower:
-		Condition: T3L2Firepower
-		Prerequisites: T3L2FirepowerHero
-	FirepowerMultiplier@L2T3:
-		Modifier: 105
-		RequiresCondition: T3L2Firepower
-	GrantConditionOnPrerequisite@T3L2UpgradeVision:
-		Condition: T3L2Vision
-		Prerequisites: T3L2VisionHero
-	DamageMultiplier@L2T3:
-		Modifier: 95
-		RequiresCondition: T3L2Vision
-	#T4
-	GrantConditionOnPrerequisite@T4L2UpgradeReloadDelay:
-		Condition: T4L2ReloadDelay
-		Prerequisites: T4L2ReloadDelayHero
-	ReloadDelayMultiplier@L2T4:
-		Modifier: 90
-		RequiresCondition: T4L2ReloadDelay
-	GrantConditionOnPrerequisite@T4L2UpgradeFirepower:
-		Condition: T4L2Firepower
-		Prerequisites: T4L2FirepowerHero
-	FirepowerMultiplier@L2T4:
-		Modifier: 105
-		RequiresCondition: T4L2Firepower
-	GrantConditionOnPrerequisite@T4L2UpgradeVision:
-		Condition: T4L2Vision
-		Prerequisites: T4L2VisionHero
-	DamageMultiplier@L2T4:
-		Modifier: 95
-		RequiresCondition: T4L2Vision
-	#T5
-	GrantConditionOnPrerequisite@T5L2UpgradeReloadDelay:
-		Condition: T5L2ReloadDelay
-		Prerequisites: T5L2ReloadDelayHero
-	ReloadDelayMultiplier@L2T5:
-		Modifier: 90
-		RequiresCondition: T5L2ReloadDelay
-	GrantConditionOnPrerequisite@T5L2UpgradeFirepower:
-		Condition: T5L2Firepower
-		Prerequisites: T5L2FirepowerHero
-	FirepowerMultiplier@L2T5:
-		Modifier: 105
-		RequiresCondition: T5L2Firepower
-	GrantConditionOnPrerequisite@T5L2UpgradeVision:
-		Condition: T5L2Vision
-		Prerequisites: T5L2VisionHero
-	DamageMultiplier@L2T5:
-		Modifier: 95
-		RequiresCondition: T5L2Vision
-
-
-
-## Hero rework
 ^HeroPickBase:
 	Inherits: ^UpgradeBase
 	Buildable:
@@ -760,7 +8,6 @@
 
 ^Hero:
 	Inherits@XP: ^GainsExperience # this exists to just be removed
-	Inherits@mc: ^MindControlResistant
 	-GainsExperience:
 	GainsExperience@1:
 		LevelUpNotification: LevelUp
@@ -807,15 +54,15 @@
 		StartIfBelow: 70
 		DamageCooldown: 100
 	Targetable@epic1:
-		TargetTypes: EpicUnit, Hero
+		TargetTypes: EpicUnit, Hero, NoMindControl
 	DamageMultiplier@iar1:
-		RequiresCondition: iar1 && !iar2
+		RequiresCondition: iar1 && (!iar2 && !corrode && !defiler_plague && !shielded)
 		Modifier: 96
 	DamageMultiplier@iar2:
-		RequiresCondition: iar2 && !iar3
+		RequiresCondition: iar2 && (!iar3 && !corrode && !defiler_plague && !shielded)
 		Modifier: 92
 	DamageMultiplier@iar3:
-		RequiresCondition: iar3
+		RequiresCondition: iar3 && (!corrode && !defiler_plague && !shielded)
 		Modifier: 88
 	FirepowerMultiplier@ifp1:
 		RequiresCondition: ifp1 && !ifp2
@@ -847,13 +94,13 @@
 		StartIfBelow: 90
 		DamageCooldown: 75
 	DamageMultiplier@var1:
-		RequiresCondition: var1 && !var2
+		RequiresCondition: var1 && (!var2 && !corrode && !defiler_plague && !shielded)
 		Modifier: 96
 	DamageMultiplier@var2:
-		RequiresCondition: var2 && !var3
+		RequiresCondition: var2 && (!var3 && !corrode && !defiler_plague && !shielded)
 		Modifier: 92
 	DamageMultiplier@var3:
-		RequiresCondition: var3
+		RequiresCondition: var3 && (!corrode && !defiler_plague && !shielded)
 		Modifier: 88
 	FirepowerMultiplier@vfp1:
 		RequiresCondition: vfp1 && !vfp2
@@ -865,16 +112,16 @@
 		RequiresCondition: vfp3
 		Modifier: 112
 	DamageMultiplier@IRONCURTAIN:
-		RequiresCondition: invulnerability
+		RequiresCondition: invulnerability && !invuln_kill
 		Modifier: 10
 	DamageMultiplier@nar1:
-		RequiresCondition: nar1 && !nar2
+		RequiresCondition: nar1 && (!nar2 && !corrode && !defiler_plague && !shielded)
 		Modifier: 96
 	DamageMultiplier@nar2:
-		RequiresCondition: nar2 && !nar3
+		RequiresCondition: nar2 && (!nar3 && !corrode && !defiler_plague && !shielded)
 		Modifier: 92
 	DamageMultiplier@nar3:
-		RequiresCondition: nar3
+		RequiresCondition: nar3 && (!corrode && !defiler_plague && !shielded)
 		Modifier: 88
 	FirepowerMultiplier@nfp1:
 		RequiresCondition: nfp1 && !nfp2
@@ -884,6 +131,24 @@
 		Modifier: 108
 	FirepowerMultiplier@nfp3:
 		RequiresCondition: nfp3
+		Modifier: 112
+	DamageMultiplier@aar1:
+		RequiresCondition: aar1 && (!aar2 && !corrode && !defiler_plague && !shielded)
+		Modifier: 90
+	DamageMultiplier@aar2:
+		RequiresCondition: aar2 && (!aar3 && !corrode && !defiler_plague && !shielded)
+		Modifier: 80
+	DamageMultiplier@aar3:
+		RequiresCondition: aar3 && (!corrode && !defiler_plague && !shielded)
+		Modifier: 70
+	FirepowerMultiplier@afp1:
+		RequiresCondition: afp1 && !afp2
+		Modifier: 104
+	FirepowerMultiplier@afp2:
+		RequiresCondition: afp2 && !afp3
+		Modifier: 108
+	FirepowerMultiplier@afp3:
+		RequiresCondition: afp3
 		Modifier: 112
 	WithDecoration@level1:
 		Image: pips
@@ -1105,6 +370,7 @@
 	ProximityExternalCondition@hero: #for duplicate actor crate
 		Condition: hero
 		Range: 1c0
+		ValidRelationships: Enemy, Ally, Neutral
 	TransferTimedExternalConditionOnTransformOW@1:
 		Condition: frenzyboost
 	TransferTimedExternalConditionOnTransformOW@2:
@@ -1112,17 +378,7 @@
 	TransferTimedExternalConditionOnTransformOW@3:
 		Condition: defense_matrix
 	TransferTimedExternalConditionOnTransformOW@4:
-		Condition: JapanCurseCondition
-	TransferTimedExternalConditionOnTransformOW@5:
 		Condition: invulnerability
-	TransferTimedExternalConditionOnTransformOW@6:
-		Condition: cyrostreameffect
-	TransferTimedExternalConditionOnTransformOW@7:
-		Condition: defiler_plague
-	TransferTimedExternalConditionOnTransformOW@8:
-		Condition: corrode
-	TransferTimedExternalConditionOnTransformOW@9:
-		Condition: akuma
 
 ^HeroTier0:
 	ProductionQueue@ability:

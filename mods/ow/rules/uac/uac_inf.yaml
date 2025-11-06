@@ -13,12 +13,14 @@
 	GrantConditionOnDamageState@berserk:
 		Condition: allow_transform
 		ValidDamageStates: Heavy, Critical
-	GrantPeriodicConditionOnEvent@berserk:
-		RequiresCondition: allow_transform && enable_berserk && !no_transform
-		CooldownDuration: 100,150
+	GrantConditionOnDamage@berserk:
+		Condition: in_combat
+		ValidRelationships: Enemy
+		Duration: 150
+	GrantPeriodicCondition@berserk: ## only triggers if: berserker does not already exist, or does but is off cooldown (10 sec), is in combat, and is with the Phobos faction
+		RequiresCondition: allow_transform && enable_berserk && in_combat && !no_transform
+		CooldownDuration: 25,125
 		ActiveDuration: 50
-		StartsCharged: false
-		Triggers: Damage
 		Condition: do_transform
 	TransformOnCondition:
 		RequiresCondition: do_transform
@@ -26,6 +28,24 @@
 		ForceHealthPercentage: 75
 	SoundOnDamageTransition:
 		DamagedSounds: dsplpain2.aud
+	TransferTimedExternalConditionOnTransformOW@1:
+		Condition: frenzyboost
+	TransferTimedExternalConditionOnTransformOW@2:
+		Condition: patriotismboost
+	TransferTimedExternalConditionOnTransformOW@3:
+		Condition: defense_matrix
+	TransferTimedExternalConditionOnTransformOW@4:
+		Condition: ensnare
+	TransferTimedExternalConditionOnTransformOW@5:
+		Condition: JapanCurseCondition
+	TransferTimedExternalConditionOnTransformOW@6:
+		Condition: cyrostreameffect
+	TransferTimedExternalConditionOnTransformOW@7:
+		Condition: defiler_plague
+	TransferTimedExternalConditionOnTransformOW@8:
+		Condition: corrode
+	TransferTimedExternalConditionOnTransformOW@9:
+		Condition: akuma
 
 ^NewDoomGuy:
 	Inherits: ^DoomGuy
@@ -642,11 +662,11 @@ DM7:
 		Prerequisites: ~disabled
 		Description: actor-dm7.description
 	Valued:
-		Cost: 1600
+		Cost: 700
 	Tooltip:
 		Name: actor-dm7.name
 	Health:
-		HP: 40000
+		HP: 50000
 	Mobile:
 		Speed: 88
 	TakeCover:
@@ -656,10 +676,12 @@ DM7:
 			Prone50Percent: 80
 		ProneSequencePrefix:
 		DamageTriggers: TriggerProne
+	AttackFrontal:
 	Armament@PRIMARY:
 		Weapon: DoomBerserkerFist
 		TargetRelationships: Enemy, Neutral
 	ProvidesPrerequisite:
+		RequiresCondition: !no_prereq
 		Prerequisite: uac.berserker
 	WithInfantryBody:
 		DefaultAttackSequence: shoot
@@ -673,6 +695,8 @@ DM7:
 	GrantConditionOnDamage@fist:
 		Condition: enable_sound
 		Duration: 250
+	GrantConditionWhileAiming@fist:
+		Condition: enable_sound
 	AmbientSound@onlything:
 		SoundFiles: tottfiu.aud
 		RequiresCondition: enable_sound
@@ -691,6 +715,16 @@ DM7:
 	AutoTarget:
 		ScanRadius: 48
 		InitialStance: AttackAnything
+	AutoTargetPriority@Tree:
+		ValidTargets: Tree
+		InvalidTargets: NoAutoTarget, UpgradeThing, Ground, OreMine
+		Priority: 1
+	AutoTargetPriority@DEFAULT:
+		ValidTargets: Vehicle, Water, Ship, Underwater, Structure Defense, Mine, Wall
+		Priority: 2
+	AutoTargetPriority@ATTACKANYTHING:
+		ValidTargets: Vehicle, Water, Ship, Underwater, Structure, Defense, Mine, Wall
+		Priority: 2
 	GrantTimedCondition:
 		Condition: spawn_protection
 		Duration: 125
@@ -705,11 +739,20 @@ DM7:
 		Modifier: 110
 		RequiresCondition: ignore_orders
 	ChangesHealth:
+		RequiresCondition: enable_sound
 		Step: 0
 		PercentageStep: 5
 		Delay: 100
 		StartIfBelow: 100
 		DamageCooldown: 25
+	ChangesHealth@kill:
+		RequiresCondition: !enable_sound
+		Step: 0
+		PercentageStep: -2
+		Delay: 25
+		StartIfBelow: 101
+		DamageCooldown: 50
+		DamageTypes: DefaultDeath
 	-WithDeathAnimation:
 	WithDeathAnimation:
 		DeathTypes:
@@ -719,6 +762,9 @@ DM7:
 			ExplosionDeath: 1,3
 			ElectricityDeath: 6
 		CrushedSequence: die-crushed
+	GrantDelayedCondition@prereq:
+		Condition: no_prereq
+		Delay: 250
 
 ^LargeDemon:
 	HitShape:

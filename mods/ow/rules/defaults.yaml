@@ -102,7 +102,7 @@
 		CloakType: gpsscrambler
 		CloakedCondition: cloaked
 	Targetable@gpsscrambler:
-		RequiresCondition: gpsscrambler
+		RequiresCondition: gpsscrambler && cloaked
 		TargetTypes: NoAITarget
 	ExternalCondition@arbiterstealth:
 		Condition: arbiterstealth
@@ -153,6 +153,22 @@
 	WithColoredOverlay@timestop:
 		RequiresCondition: timestop
 		Color: 806D005A
+	ExternalCondition@treecloak:
+		Condition: treecloak
+	Cloak@treecloak:
+		CloakSound: gstealof.aud
+		UncloakOn: Attack, Damage, Move
+		RequiresCondition: treecloak && (!gpsscrambler && !stealthgen)
+		CloakedAlpha: 0.75
+		InitialDelay: 100
+		CloakDelay: 100
+		CloakedCondition: cloaked
+	RangeMultiplier@treecloak: # When hiding behind a tree and cloaked, attack range is reduced
+		RequiresCondition: treecloak && cloaked
+		Modifier: 80
+	RevealsShroudMultiplier@treecloak: # but these units can see further!
+		RequiresCondition: treecloak && cloaked
+		Modifier: 110
 
 # Applies to infantry, vehicles, aircraft and structures. This was primarily used add a damage resistance debuff caused by toxin weapons
 # GDI Suits upgrade grants immunity to some of these debuffs.
@@ -275,17 +291,17 @@
 		Color: 80000040
 	DamageMultiplier@ironshroud:
 		RequiresCondition: ironshroud
-		Modifier: 40
+		Modifier: 20
 	ExternalCondition@ironshroud:
 		Condition: ironshroud
 	GrantConditionOnAttack@ai_consideration_iron:
 		Condition: ironable
 		RevokeDelay: 100
 	GrantConditionOnDamage@ai_consideration_iron:
-		Condition: ironable
+		Condition: ironable_combat
 		Duration: 100
 	Targetable@ai_consideration_iron:
-		RequiresCondition: ironable
+		RequiresCondition: ironable && ironable_combat
 		TargetTypes: IronCurtainMe
 
 # Inherited and changed from mods/ra to make ranked up actors give more experience when killed.
@@ -1037,16 +1053,19 @@
 		Condition: invuln_kill
 	ExternalCondition@INVULNERABILITY2:
 		Condition: invulnerability
+	GrantCondition@INVULNERABILITY:
+		Condition: invuln_kill
+		RequiresCondition: invulnerability
 	ChangesHealth@INVULNERABILITY:
 		RequiresCondition: invuln_kill && shielded
 		DamageTypes: FireDeath, BypassShield
-		PercentageStep: -500
+		PercentageStep: -200
 		Delay: 1
 		StartIfBelow: 101
 	ChangesHealth@INVULNERABILITY_noshield:
 		RequiresCondition: invuln_kill && !shielded
 		DamageTypes: FireDeath
-		PercentageStep: -5
+		PercentageStep: -2
 		Delay: 1
 		StartIfBelow: 101
 	WithColoredOverlay@IRONCURTAIN:
@@ -2763,27 +2782,6 @@
 	Targetable:
 		TargetTypes: GroundActor, DetonateAttack, Wall
 
-# Inherited and changed from mods/ra for new target type Cyborg and auto-attack walls (AI)
-^AutoTargetGround:
-	AutoTargetPriority@DEFAULT:
-		ValidTargets: Infantry, Cyborg, Vehicle, Water, Ship, Underwater, Defense, Mine
-	AutoTargetPriority@ATTACKANYTHING:
-		ValidTargets: Infantry, Cyborg, Vehicle, Water, Ship, Underwater, Structure, Defense, Mine, Wall
-
-^AutoTargetAll:
-	AutoTargetPriority@DEFAULT:
-		ValidTargets: Infantry, Cyborg, Vehicle, Water, Ship, Underwater, AirborneActor, Defense, Mine
-	AutoTargetPriority@ATTACKANYTHING:
-		ValidTargets: Infantry, Cyborg, Vehicle, Water, Ship, Underwater, AirborneActor, Structure, Defense, Mine, Wall
-
-^AutoTargetAirAssaultMove:
-	Inherits: ^AutoTargetAir
-	AutoTargetPriority@DEFAULT:
-		RequiresCondition: !stance-attackanything && !assault-move
-	AutoTargetPriority@ATTACKANYTHING:
-		RequiresCondition: stance-attackanything || assault-move
-	AttackMove:
-		AssaultMoveCondition: assault-move
 
 # Inherited and changed from mods/ra to increase lifetime and allowed terrain types
 ^Husk:
@@ -3316,26 +3314,62 @@
 		ValidRelationships: None,Neutral,Enemy,Ally
 		RequiresCondition: tscv
 
+# Inherited and changed from mods/ra for new target type Cyborg and auto-attack walls (AI)
+^AutoTargetGround:
+	AutoTargetPriority@DEFAULT:
+		ValidTargets: Infantry, Cyborg, Vehicle, Water, Ship, Underwater, Defense, Mine
+		InvalidTargets: NoAutoTarget, UpgradeThing, Ground, OreMine
+		Priority: 1
+	AutoTargetPriority@ATTACKANYTHING:
+		ValidTargets: Infantry, Cyborg, Vehicle, Water, Ship, Underwater, Structure, Defense, Mine, Wall
+		InvalidTargets: NoAutoTarget, UpgradeThing, Ground, OreMine
+		Priority: 1
+
+^AutoTargetAll:
+	AutoTargetPriority@DEFAULT:
+		ValidTargets: Infantry, Cyborg, Vehicle, Water, Ship, Underwater, AirborneActor, Defense, Mine
+		InvalidTargets: NoAutoTarget, UpgradeThing, Ground, OreMine
+		Priority: 1
+	AutoTargetPriority@ATTACKANYTHING:
+		ValidTargets: Infantry, Cyborg, Vehicle, Water, Ship, Underwater, AirborneActor, Structure, Defense, Mine, Wall
+		InvalidTargets: NoAutoTarget, UpgradeThing, Ground, OreMine
+		Priority: 1
+
+^AutoTargetAirAssaultMove:
+	Inherits: ^AutoTargetAir
+	AutoTargetPriority@DEFAULT:
+		RequiresCondition: !stance-attackanything && !assault-move
+	AutoTargetPriority@ATTACKANYTHING:
+		RequiresCondition: stance-attackanything || assault-move
+	AttackMove:
+		AssaultMoveCondition: assault-move
+
+^AutoTargetAir:
+	AutoTarget:
+	AutoTargetPriority@DEFAULT:
+		ValidTargets: AirborneActor
+		InvalidTargets: NoAutoTarget, UpgradeThing, Ground, OreMine
+
+^AutoTargetAllAssaultMove:
+	Inherits: ^AutoTargetAll
+	AutoTargetPriority@DEFAULT:
+		RequiresCondition: !stance-attackanything && !assault-move
+	AutoTargetPriority@ATTACKANYTHING:
+		RequiresCondition: stance-attackanything || assault-move
+	AttackMove:
+		AssaultMoveCondition: assault-move
 
 ^AutoTargetInfantryPriority:
 	AutoTargetPriority@Infantry:
 		ValidTargets: Infantry
-		InvalidTargets: NoAutoTarget
-		Priority: 2
-	AutoTargetPriority@Vehicle:
-		ValidTargets: Vehicle
-		InvalidTargets: NoAutoTarget
-		Priority: 1
+		InvalidTargets: NoAutoTarget, UpgradeThing, Ground, OreMine
+		Priority: 3
 
 ^AutoTargetVehiclePriority:
-	AutoTargetPriority@Infantry:
-		ValidTargets: Infantry
-		InvalidTargets: NoAutoTarget
-		Priority: 2
 	AutoTargetPriority@Vehicle:
 		ValidTargets: Vehicle
-		InvalidTargets: NoAutoTarget
-		Priority: 1
+		InvalidTargets: NoAutoTarget, UpgradeThing, Ground, OreMine
+		Priority: 3
 
 # Default actor type for Blossom trees and monoliths
 ^TibTree:
@@ -3394,6 +3428,10 @@
 
 # Inherited and changed from mods/ra so that the tree can be removed with an external condition, and targeted as a normal GroundActor
 ^Tree:
+	HitShape:
+		UseTargetableCellsOffsets: false
+		Type: Circle
+			Radius: 426
 	ExternalCondition@remove:
 		Condition: remove_tree
 	KillsSelf@remove:
@@ -3401,10 +3439,17 @@
 		Delay: 5
 	Targetable:
 		TargetTypes: Trees, GroundActor
+	ProximityExternalCondition@treecloak:
+		Condition: neartreecloak
+		Range: 2c512
+	SoundOnDamageTransition:
+		DamageTypes: TreePunch
+		DamagedSounds: wooddig1.ogg, wooddig2.ogg, wooddig3.ogg, wooddig4.ogg
+		DestroyedSounds: wooddig1.ogg, wooddig2.ogg, wooddig3.ogg, wooddig4.ogg
 
 # Inherited and changed from mods/ra so that trees can be 100% destroyed.
 ^TreeHusk:
-	Inherits@shape: ^1x1Shape
+	HitShape:
 	Health:
 		HP: 50000
 	Armor:
@@ -3417,6 +3462,10 @@
 		RequiresCondition: remove_tree
 		RemoveInstead: true
 		Delay: 100
+	SoundOnDamageTransition:
+		DamageTypes: TreePunch
+		DamagedSounds: wooddig1.ogg, wooddig2.ogg, wooddig3.ogg, wooddig4.ogg
+		DestroyedSounds: wooddig1.ogg, wooddig2.ogg, wooddig3.ogg, wooddig4.ogg
 
 # Default actor type for all the tree actor types that can be infected by tiberium
 ^InfectableTree:
@@ -3457,7 +3506,7 @@
 		SoundFiles: ambtibe2.wav
 		Delay: 250, 3000
 		Interval: 1500, 3000
-	FreeActor@1:
+	FreeActor@tibtree:
 		RequiresCondition: dotransform
 		Actor: split3.cr
 		SpawnOffset: 0,0
