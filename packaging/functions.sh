@@ -3,15 +3,14 @@
 
 ####
 # This file must stay /bin/sh and POSIX compliant for macOS and BSD portability.
-# Copy-paste the entire script into http://shellcheck.net to check.
+# Copy-paste the entire script into https://shellcheck.net to check.
 ####
 
 # Compile and publish the core engine and specified mod assemblies to the target directory
 # Arguments:
 #   SRC_PATH: Path to the root OpenRA directory
 #   DEST_PATH: Path to the root of the install destination (will be created if necessary)
-#   TARGETPLATFORM: Platform type (win-x86, win-x64, osx-x64, osx-arm64, linux-x64, linux-arm64, unix-generic)
-#   RUNTIME: Runtime type (net6, mono)
+#   TARGETPLATFORM: Platform type (win-x64, osx-x64, osx-arm64, linux-x64, linux-arm64, unix-generic)
 #   COPY_GENERIC_LAUNCHER: If set to True the OpenRA.exe will also be copied (True, False)
 #   COPY_CNC_DLL: If set to True the OpenRA.Mods.Cnc.dll will also be copied (True, False)
 #   COPY_D2K_DLL: If set to True the OpenRA.Mods.D2k.dll will also be copied (True, False)
@@ -29,59 +28,14 @@ install_assemblies() (
 	SRC_PATH="${1}"
 	DEST_PATH="${2}"
 	TARGETPLATFORM="${3}"
-	RUNTIME="${4}"
-	COPY_GENERIC_LAUNCHER="${5}"
-	COPY_CNC_DLL="${6}"
-	COPY_D2K_DLL="${7}"
+	COPY_GENERIC_LAUNCHER="${4}"
+	COPY_CNC_DLL="${5}"
+	COPY_D2K_DLL="${6}"
 
 	ORIG_PWD=$(pwd)
 	cd "${SRC_PATH}"
 
-	if [ "${RUNTIME}" = "mono" ]; then
-		echo "Building assemblies"
-		rm -rf "${SRC_PATH}/OpenRA."*/obj || :
-		rm -rf "${SRC_PATH:?}/bin" || :
-
-		msbuild -verbosity:m -nologo -t:Build -restore -p:Configuration=Release -p:TargetPlatform="${TARGETPLATFORM}"
-		if [ "${TARGETPLATFORM}" = "unix-generic" ]; then
-			./configure-system-libraries.sh
-		fi
-
-		if [ "${COPY_GENERIC_LAUNCHER}" != "True" ]; then
-			rm "${SRC_PATH}/bin/OpenRA.dll"
-		fi
-
-		if [ "${COPY_CNC_DLL}" != "True" ]; then
-			rm "${SRC_PATH}/bin/OpenRA.Mods.Cnc.dll"
-		fi
-
-		if [ "${COPY_D2K_DLL}" != "True" ]; then
-			rm "${SRC_PATH}/bin/OpenRA.Mods.D2k.dll"
-		fi
-
-		cd "${ORIG_PWD}"
-
-		echo "Installing engine to ${DEST_PATH}"
-		install -d "${DEST_PATH}"
-
-		for LIB in "${SRC_PATH}/bin/"*.dll "${SRC_PATH}/bin/"*.dll.config; do
-			install -m644 "${LIB}" "${DEST_PATH}"
-		done
-
-		if [ "${TARGETPLATFORM}" = "linux-x64" ] || [ "${TARGETPLATFORM}" = "linux-arm64" ]; then
-			for LIB in "${SRC_PATH}/bin/"*.so; do
-				install -m755 "${LIB}" "${DEST_PATH}"
-			done
-		fi
-
-		if [ "${TARGETPLATFORM}" = "osx-x64" ] || [ "${TARGETPLATFORM}" = "osx-arm64" ]; then
-			for LIB in "${SRC_PATH}/bin/"*.dylib; do
-				install -m755 "${LIB}" "${DEST_PATH}"
-			done
-		fi
-	else
-		dotnet publish -c Release -p:TargetPlatform="${TARGETPLATFORM}" -p:CopyGenericLauncher="${COPY_GENERIC_LAUNCHER}" -p:CopyCncDll="${COPY_CNC_DLL}" -p:CopyD2kDll="${COPY_D2K_DLL}" -r "${TARGETPLATFORM}" -p:PublishDir="${DEST_PATH}" --self-contained true
-	fi
+    dotnet publish -c Release -p:TargetPlatform="${TARGETPLATFORM}" -p:CopyGenericLauncher="${COPY_GENERIC_LAUNCHER}" -p:CopyCncDll="${COPY_CNC_DLL}" -p:CopyD2kDll="${COPY_D2K_DLL}" -r "${TARGETPLATFORM}" -p:PublishDir="${DEST_PATH}" --self-contained true
 	cd "${ORIG_PWD}"
 )
 
@@ -113,7 +67,6 @@ install_data() (
 	done
 
 	cp -r "${SRC_PATH}/glsl" "${DEST_PATH}"
-	cp -r "${SRC_PATH}/lua" "${DEST_PATH}"
 
 	echo "Installing common mod files to ${DEST_PATH}"
 	install -d "${DEST_PATH}/mods"
@@ -124,18 +77,19 @@ install_data() (
 		if [ "${MOD_ID}" = "ra" ] || [ "${MOD_ID}" = "cnc" ] || [ "${MOD_ID}" = "d2k" ]; then
 			echo "Installing mod ${MOD_ID} to ${DEST_PATH}"
 			cp -r "${SRC_PATH}/mods/${MOD_ID}" "${DEST_PATH}/mods/"
-			cp -r "${SRC_PATH}/mods/modcontent" "${DEST_PATH}/mods/"
+			cp -r "${SRC_PATH}/mods/common-content" "${DEST_PATH}/mods/"
+			cp -r "${SRC_PATH}/mods/${MOD_ID}-content" "${DEST_PATH}/mods/"
 		fi
 
 		shift
 	done
 )
 
-# Compile and publish (using Mono) a windows launcher with the specified mod details to the target directory
+# Compile and publish a windows launcher with the specified mod details to the target directory
 # Arguments:
 #   SRC_PATH: Path to the root OpenRA directory
 #   DEST_PATH: Path to the root of the install destination (will be created if necessary)
-#   TARGETPLATFORM: Platform type (win-x86, win-x64)
+#   TARGETPLATFORM: Platform type (win-x64)
 #   MOD_ID: Mod id to launch (e.g. "ra")
 #   LAUNCHER_NAME: Filename (without the .exe extension) for the launcher
 #   MOD_NAME: Human-readable mod name to show in the crash dialog (e.g. "Red Alert")
@@ -154,11 +108,18 @@ install_windows_launcher() (
 	LAUNCHER_NAME="${5}"
 	MOD_NAME="${6}"
 	FAQ_URL="${7}"
+	VERSION="${8}"
 
 	rm -rf "${SRC_PATH}/OpenRA.WindowsLauncher/obj" || :
-	dotnet publish "${SRC_PATH}/OpenRA.WindowsLauncher/OpenRA.WindowsLauncher.csproj" -c Release -r "${TARGETPLATFORM}" -p:LauncherName="${LAUNCHER_NAME}" -p:TargetPlatform="${TARGETPLATFORM}" -p:ModID="${MOD_ID}" -p:DisplayName="${MOD_NAME}" -p:FaqUrl="${FAQ_URL}" -p:PublishDir="${DEST_PATH}" --self-contained true
 
-	# NET 6 is unable to customize the application host for windows when compiling from Linux,
+	# See https://learn.microsoft.com/en-us/dotnet/core/tools/dotnet-publish for details.
+	# Unfortunately there doesn't seem to be a way to set FileDescription and it uses the value of -p:LauncherName.
+	# -p:Product sets the "Product name" field.
+	# -p:InformationalVersion seems to set the "Product version" field.
+	# -p:DisplayName doesn't seem to have a visible effect?
+	dotnet publish "${SRC_PATH}/OpenRA.WindowsLauncher/OpenRA.WindowsLauncher.csproj" -c Release -r "${TARGETPLATFORM}" -p:LauncherName="${LAUNCHER_NAME}",TargetPlatform="${TARGETPLATFORM}",ModID="${MOD_ID}",PublishDir="${DEST_PATH}",FaqUrl="${FAQ_URL}",InformationalVersion="${VERSION}" --self-contained true
+
+	# NET 8 is unable to customize the application host for windows when compiling from Linux,
 	# so we must patch the properties we need in the PE header.
 	# Setting the application icon requires an external tool, so is left to the calling code
 	python3 "${SRC_PATH}/packaging/windows/fixlauncher.py" "${DEST_PATH}/${LAUNCHER_NAME}.exe"
