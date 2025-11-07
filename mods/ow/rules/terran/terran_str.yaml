@@ -1210,7 +1210,7 @@ TFACTORY:
 	Inherits: ^Building
 	Inherits@fire: ^TerranBuilding
 	Inherits@shape: ^3x3Shape
-	Inherits@prereqs: ^FactoryPrereqs
+	Inherits@prereqs: ^WeaponsFactory
 	Inherits@BIB: ^3xBuildingBib
 	Selectable:
 		Bounds: 3072, 3072
@@ -1505,6 +1505,21 @@ TSPORT:
 	ProvidesPrerequisite@pluggable:
 		RequiresCondition: !build-incomplete && !star_addon_exists && room_for_addon
 		Prerequisite: tsport.addon
+	GrantConditionOnPrerequisite@botowner:
+		Prerequisites: ai.all
+		Condition: botowner
+	GrantConditionOnPrerequisite@nomcv:
+		Prerequisites: !mcv
+		Condition: nomcv
+	GrantPeriodicCondition@nomcv:
+		RequiresCondition: nomcv && botowner
+		Condition: build_mcv
+		CooldownDuration: 2750, 3250
+	PeriodicProducer@nomcv5:
+		RequiresCondition: build_mcv
+		Type: Aircraft
+		ChargeDuration: 99
+		Actors: TCOMMAND.air
 
 TSPORT.addon:
 	Interactable:

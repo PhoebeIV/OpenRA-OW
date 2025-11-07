@@ -210,7 +210,19 @@ ZDRONE:
 		Capacity: 8
 		Resources: Ore,Gems,Tiberium,BlueTiberium,Oil
 	TransferResourcesOnTransform:
-
+	GrantConditionOnPrerequisite@botowner:
+		Prerequisites: ai.all
+		Condition: botowner
+	GrantConditionOnPrerequisite@nomcv:
+		Prerequisites: !mcv
+		Condition: nomcv
+	GrantPeriodicCondition@nomcv:
+		RequiresCondition: nomcv && botowner
+		Condition: str_mcv
+		CooldownDuration: 2750, 3250
+	TransformOnCondition@mcv:
+		IntoActor: ZMCV
+		RequiresCondition: str_mcv
 
 ZDRONE.colony:
 	Inherits@drone: ZDRONE
@@ -233,6 +245,8 @@ ZDRONE.hatchery:
 	Transforms:
 		IntoActor: zhatchery
 		Offset: -1,-1
+	MustBeDestroyed:
+		RequiredForShortGame: true
 
 ZDRONE.extrac:
 	Inherits@drone: ZDRONE.colony
@@ -241,6 +255,8 @@ ZDRONE.extrac:
 	Transforms:
 		IntoActor: zextrac
 		Offset: -1,0
+	MustBeDestroyed:
+		RequiredForShortGame: true
 
 ZDRONE.pool:
 	Inherits@drone: ZDRONE.colony
@@ -251,6 +267,8 @@ ZDRONE.pool:
 	Transforms:
 		IntoActor: zpool
 		Offset: 0,0
+	MustBeDestroyed:
+		RequiredForShortGame: true
 
 ZDRONE.hydra:
 	Inherits@drone: ZDRONE.colony
@@ -259,6 +277,8 @@ ZDRONE.hydra:
 	Transforms:
 		IntoActor: zhydraden
 		Offset: -1,0
+	MustBeDestroyed:
+		RequiredForShortGame: true
 
 ZDRONE.chamber:
 	Inherits@drone: ZDRONE.colony
@@ -267,6 +287,8 @@ ZDRONE.chamber:
 	Transforms:
 		IntoActor: zchamber
 		Offset: -1,0
+	MustBeDestroyed:
+		RequiredForShortGame: true
 
 ZDRONE.ultraden:
 	Inherits@drone: ZDRONE.colony
@@ -275,6 +297,8 @@ ZDRONE.ultraden:
 	Transforms:
 		IntoActor: zultraden
 		Offset: -1,0
+	MustBeDestroyed:
+		RequiredForShortGame: true
 
 ZDRONE.spire:
 	Inherits@drone: ZDRONE.colony
@@ -283,6 +307,8 @@ ZDRONE.spire:
 	Transforms:
 		IntoActor: zspire
 		Offset: 0,0
+	MustBeDestroyed:
+		RequiredForShortGame: true
 
 ZDRONE.nest:
 	Inherits@drone: ZDRONE.colony
@@ -291,6 +317,8 @@ ZDRONE.nest:
 	Transforms:
 		IntoActor: znest
 		Offset: 0,0
+	MustBeDestroyed:
+		RequiredForShortGame: true
 
 ZDRONE.mound:
 	Inherits@drone: ZDRONE.colony
@@ -299,6 +327,8 @@ ZDRONE.mound:
 	Transforms:
 		IntoActor: zmound
 		Offset: -1,0
+	MustBeDestroyed:
+		RequiredForShortGame: true
 
 ZDRONE.nydus:
 	Inherits@drone: ZDRONE.colony

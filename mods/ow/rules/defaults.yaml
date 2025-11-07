@@ -663,7 +663,7 @@
 		Modifier: 250
 	ResourceValueMultiplier@harderAI:
 		RequiresCondition: ai.harder
-		Modifier: 400
+		Modifier: 350
 	GrantConditionOnPrerequisite@processing:
 		Prerequisites: nod.tiberium
 		Condition: processing
@@ -728,6 +728,58 @@
 	Building:
 		BuildSounds: constru2.aud, hvydoor1.aud
 
+^WeaponsFactory:
+	Inherits: ^FactoryPrereqs
+	GrantConditionOnPrerequisite@botowner:
+		Prerequisites: ai.all
+		Condition: botowner
+	GrantConditionOnPrerequisite@nomcv:
+		Prerequisites: !mcv
+		Condition: nomcv
+	GrantPeriodicCondition@nomcv:
+		RequiresCondition: nomcv && botowner
+		Condition: build_mcv
+		CooldownDuration: 2750, 3250
+	GrantConditionOnPrerequisite@mcv1:
+		Prerequisites: vehicles.mcvprereq
+		Condition: mcv1
+	GrantConditionOnPrerequisite@mcv2:
+		Prerequisites: vehicles.mcvdprereq
+		Condition: mcv2
+	GrantConditionOnPrerequisite@mcv3:
+		Prerequisites: vehicles.gla
+		Condition: mcv3
+	GrantConditionOnPrerequisite@mcv4:
+		Prerequisites: vehicles.protoss
+		Condition: mcv4
+	GrantConditionOnPrerequisite@mcv5:
+		Prerequisites: vehicles.avalon
+		Condition: mcv5
+	PeriodicProducer@nomcv1:
+		RequiresCondition: build_mcv && mcv1
+		Type: Vehicle
+		ChargeDuration: 99
+		Actors: MCV
+	PeriodicProducer@nomcv2:
+		RequiresCondition: build_mcv && mcv2
+		Type: Vehicle
+		ChargeDuration: 99
+		Actors: MCVD
+	PeriodicProducer@nomcv3:
+		RequiresCondition: build_mcv && mcv3
+		Type: Vehicle
+		ChargeDuration: 99
+		Actors: GMCV
+	PeriodicProducer@nomcv4:
+		RequiresCondition: build_mcv && mcv4
+		Type: Vehicle
+		ChargeDuration: 99
+		Actors: PMCV
+	PeriodicProducer@nomcv5:
+		RequiresCondition: build_mcv && mcv5
+		Type: Vehicle
+		ChargeDuration: 99
+		Actors: AVMCV
 
 # Inherited and changed from mods/ra to add upgrade modifiers and numerous other buff/debuff modifiers from support powers
 ^Infantry:
