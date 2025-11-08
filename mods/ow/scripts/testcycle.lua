@@ -241,6 +241,10 @@ WorldLoaded = function()
 		MinExtraCrates = 11
 		MaxExtraCrates = 20
 		ExtraCrates = true
+	elseif (Creeps.HasPrerequisites({"environment.morecrates4"})) then
+		MinExtraCrates = 20
+		MaxExtraCrates = 30
+		ExtraCrates = true
 	end
 
 	if (Creeps.HasPrerequisites({"environment.days"})) then
@@ -257,7 +261,7 @@ WorldLoaded = function()
 	local i = 0;
 	local watercount = 0;
 
-	if (not Creeps.HasPrerequisites({"techlevel.noboats"})) then
+	if (not Creeps.HasPrerequisites({"techlevel.noboats"}) and not Neutral.HasPrerequisites({"japanoilderrick.cr"})) then
 		while (i < attempts) do
 			NewCell = Map.RandomCell()
 			if(Map.TerrainType(NewCell) == "Water") then
@@ -266,6 +270,7 @@ WorldLoaded = function()
 			i = i + 1;
 		end
 		SpawnWaterDerricks(watercount / 5)
-	end
+	elseif Neutral.HasPrerequisites({"japanoilderrick.cr"}) then print("Map already has oil derricks!")
+	elseif Creeps.HasPrerequisites({"techlevel.noboats"}) then print("Boats are disabled!") end
 
 end

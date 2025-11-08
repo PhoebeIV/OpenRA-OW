@@ -34,6 +34,7 @@ actor-player =
    .lobbyprerequisitecheckbox-morecrates-label2 = Even More Crates
    .lobbyprerequisitecheckbox-morecrates-label3 = Maximum Crates
    .lobbyprerequisitecheckbox-morecrates-label4 = Normal Crates
+   .lobbyprerequisitecheckbox-morecrates-label5 = Maximum+ Crates
    .lobbyprerequisitecheckbox-upkeep-label = Upkeep
    .lobbyprerequisitecheckbox-upkeep-description = The higher your army value, the less money you earn.
       $30,000: -30% resource, -15% build speed
