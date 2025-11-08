@@ -1441,6 +1441,7 @@
 	Inherits@jshield: ^JapanBaseShield
 	Inherits@holdtheline: ^USAHoldTheLine
 	Inherits@japanbuffs_refinery: ^japanbuffs_refinery
+	Inherits@frost: ^GenerateFrost
 	OwnerLostAction:
 		Action: ChangeOwner
 	Capturable:
@@ -1767,6 +1768,11 @@
 	GrantConditionOnPrerequisite@botowner:
 		Condition: botowner
 		Prerequisites: ai.harder
+	-GrantConditionOnPrerequisite@frost:
+	-SeedsResource@frost:
+	-FireWarheadsOnDeath@frost:
+	-FireWarheads@frost:
+	-ProximityExternalCondition@frost:
 
 ^BuildingPlug:
 	Interactable:
@@ -4180,3 +4186,29 @@
 	Selectable:
 		Priority: 9
 		PriorityModifiers: Ctrl
+
+# Attached to structures, Avali upgrade makes all non-Zerg buildings generate snow.
+^GenerateFrost:
+	GrantConditionOnPrerequisite@frost:
+		Prerequisites: avalon.terra
+		Condition: enable_snow
+	SeedsResource@frost:
+		ResourceType: AvaliSnow
+		Interval: 25
+		MaxRange: 9
+		RequiresCondition: !disabled && enable_snow
+	FireWarheadsOnDeath@frost:
+		Weapon: FrostRemoveMed
+		RequiresCondition: enable_snow
+	ToggleConditionOnOrder@sell:
+		OrderName: Sell
+		Condition: selling
+	FireWarheads@frost:
+		RequiresCondition: selling && enable_snow
+		Weapons: FrostRemoveMed
+		Interval: 50
+	ProximityExternalCondition@frost:
+		RequiresCondition: enable_snow
+		Condition: creepgen
+		Range: 9c0
+		ValidRelationships: Neutral, Ally, Enemy

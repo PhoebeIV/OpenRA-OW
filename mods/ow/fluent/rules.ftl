@@ -447,6 +447,10 @@ actor-avalon-carrier =
    .name = Doubled Repair Cycles
    .description = Increases Carrier repair amount.
 
+actor-avalon-terra =
+   .name = Terraformer Modules
+   .description = Avalon-owned structures will now generate frost.
+
 
 ## china_air.yaml
 actor-chinamig =

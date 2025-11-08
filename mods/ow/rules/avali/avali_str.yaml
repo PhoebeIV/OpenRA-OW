@@ -1,4 +1,3 @@
-
 AVFACT:
 	Inherits: FACTD
 	Selectable:
@@ -408,7 +407,7 @@ AVFROST:
 		RevealGeneratedShroud: False
 	RevealsShroud@GAPGEN:
 		Range: 3c0
-	SeedsResource:
+	SeedsResource@frost:
 		ResourceType: AvaliSnow
 		Interval: 4
 		MaxRange: 9
@@ -416,16 +415,15 @@ AVFROST:
 	-AcceptsDeliveredCash:
 	RenderSprites:
 		Image: OREGEN
-	FireWarheadsOnDeath:
+	FireWarheadsOnDeath@frost:
 		Weapon: FrostRemoveMed
-	ToggleConditionOnOrder@sell:
-		OrderName: Sell
-		Condition: selling
+		-RequiresCondition:
 	FireWarheads:
 		RequiresCondition: selling
 		Weapons: FrostRemoveMed
 		Interval: 50
 	ProximityExternalCondition:
+		RequiresCondition: !disabled
 		Condition: creepgen
 		Range: 9c0
 		ValidRelationships: Neutral, Ally, Enemy
