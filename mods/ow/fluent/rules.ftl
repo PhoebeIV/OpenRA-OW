@@ -524,6 +524,21 @@ actor-chinamortar =
    .name = Mortar
    .hordebonus--name = Mortar (Nationalism)
 
+actor-chinaecmtroop =
+   .description = The ECM Trooper is a Chinese support infantry unit who can disable enemy vehicles.
+   .name = ECM Trooper
+   .hordebonus--name = ECM Trooper (Nationalism)
+
+actor-chinasniper =
+   .description = The Chinese Sniper uses a QBU-88 sniper rifle that was modified to shoot both anti-personel and armor-piercing bullets.
+   .name = Red Hat
+   .hordebonus--name = Red Hat (Nationalism)
+
+actor-chinaofficer =
+   .description =  The Officer is a Chinese support infantry unit that provides frenzy for nearby troops.
+   .name = Officer
+   .hordebonus--name = Officer (Nationalism)
+
 ## china_shp.yaml
 actor-chinainfernoship =
    .description = Very slow long-range ship.
@@ -709,6 +724,10 @@ actor-upgrade-autoloader =
 actor-upgrade-firstaidkits =
    .name = First Aid Kits
    .description = Allows infantry to heal in between battles if they have been critically injured.
+
+actor-upgrade-unethicaltesting =
+   .name = Unethical Testing
+   .description = Top Secret "Ethical" testing has allowed infantry to become 33% faster and damage resistant.
 
 ## china_veh.yaml
 actor-chinabattlemaster =
