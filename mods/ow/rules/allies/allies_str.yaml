@@ -4,7 +4,7 @@ allies.training1:
 		Name: actor-allies-training1.name
 	Buildable:
 		Description: actor-allies-training1.description
-		BuildPaletteOrder: 12002
+		BuildPaletteOrder: 12003
 		Prerequisites: ~!allies.training1, ~structures.allies, techcenter, ~techlevel.unrestricted
 	ProvidesPrerequisite@upgradename:
 	ProductionCostMultiplier@upgrade:
@@ -16,7 +16,7 @@ allies.training2:
 		Name: actor-allies-training2.name
 	Buildable:
 		Description: actor-allies-training2.description
-		BuildPaletteOrder: 12003
+		BuildPaletteOrder: 12005
 		Prerequisites: ~!allies.training2, ~structures.allies, advtechcenter, ~techlevel.unrestricted
 		BuildDuration: 4000
 	ProvidesPrerequisite@upgradename:
@@ -37,13 +37,27 @@ allies.pointdefense:
 		Name: actor-allies-pointdefense.name
 	Buildable:
 		Description: actor-allies-pointdefense.description
-		BuildPaletteOrder: 12004
+		BuildPaletteOrder: 12002
 		Prerequisites: ~!allies.pointdefense, ~structures.allies, factory, ~techlevel.unrestricted
 	ProvidesPrerequisite@upgradename:
 	RenderSprites:
 		Image: upgrade.laserguided
 	ProductionCostMultiplier@upgrade:
 		Multiplier: 3000
+
+allies.rockets:
+	Inherits: ^UpgradeBaseExt
+	Tooltip:
+		Name: actor-allies-rockets.name
+	Buildable:
+		Description: actor-allies-rockets.description
+		BuildPaletteOrder: 12004
+		Prerequisites: ~!allies.rockets, ~structures.allies, techcenter, ~techlevel.unrestricted
+	ProvidesPrerequisite@upgradename:
+	RenderSprites:
+		Image: gla.aprockets
+	ProductionCostMultiplier@upgrade:
+		Multiplier: 4500
 
 TENT:
 	Inherits@prereqs: ^BarracksPrereqs
@@ -130,6 +144,17 @@ AGUN:
 	DetectCloaked:
 		Range: 5c0
 		RequiresCondition: !disabled
+	GrantConditionOnPrerequisite:
+		Prerequisites: allies.pointdefense
+		Condition: pointdefense
+	PointDefense:
+		PointDefenseTypes: pointdefense
+		Armament: laser
+		RequiresCondition: pointdefense
+	Armament@laser:
+		Name: laser
+		Weapon: PointDefenseLaser
+		RequiresCondition: pointdefense
 
 BIO.A:
 	Inherits: ^ScienceBuilding

@@ -212,8 +212,15 @@ actor-allies-training2 =
 
 actor-allies-pointdefense =
    .name = Point Defense Systems
-   .description = Equips Pillboxes with laser point-defense
-   against missiles.
+   .description = Equips Pillboxes, AA-Guns and Turrets with 
+    laser point-defense against missiles.
+
+actor-allies-rockets =
+   .name = Turret Rocket Packs
+   .description = Equips Turrets with anti-infantry
+    and anti-vehicle rockets.
+
+    Increases power draw to 50. Increases health by 20%.
 
 actor-atek-description = Provides Allied advanced technologies.
 

@@ -1136,6 +1136,45 @@ GUN:
 		HP: 50000
 	Power:
 		Amount: -30
+	Power@rockets:
+		RequiresCondition: rockets
+		Amount: -20
+	GrantConditionOnPrerequisite:
+		Prerequisites: allies.pointdefense
+		Condition: pointdefense
+	PointDefense:
+		PointDefenseTypes: pointdefense
+		Armament: laser
+		RequiresCondition: pointdefense
+	Armament@laser:
+		Name: laser
+		Weapon: PointDefenseLaser
+		RequiresCondition: pointdefense
+	GrantConditionOnPrerequisite@rockets:
+		Prerequisites: allies.rockets
+		Condition: rockets
+	WithSpriteTurret@rocket:
+		RequiresCondition: rockets && !build-incomplete
+		Sequence: turret2
+	Turreted@rocket:
+		RequiresCondition: rockets && !build-incomplete
+		Turret: rocketpack
+		TurnSpeed: 32
+		InitialFacing: 192
+		RealignDelay: -1
+		Offset: 0,-128,384
+	Armament@rocket:
+		Turret: rocketpack
+		Name: rocketpack
+		Weapon: TowerMissileTurret
+		RequiresCondition: rockets && !build-incomplete
+	AttackTurreted:
+		Turrets: rocketpack, primary
+		Armaments: rocketpack, primary
+	DamageMultiplier@rockets:
+		Modifier: 80
+		RequiresCondition: rockets
+	-WithTurretAttackAnimation:
 
 # Buildable by soviet and nazi
 IRON:
