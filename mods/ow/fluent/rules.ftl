@@ -6411,6 +6411,11 @@ actor-btrae-uav =
       Receives Rae's BAP or ECM upgrades.
       Detects cloaked units.
 
+actor-maningauze =
+   .description = Obnoxious record player. RETURN THE SLAB!
+   .name = Record Player
+   .rock = Suspiciously Loud Rock
+
 player-factions =
    .england = England: Espionage
      Special Units: Super Spy, Phase Transport,

@@ -31,6 +31,7 @@
 
 ^ShrapnelBase:
 	ValidTargets: Ground, Water, GroundActor, WaterActor
+	MinRange: 2c0
 	Range: 20c0
 	Projectile: Bullet
 		Speed: 64,192
@@ -1888,3 +1889,49 @@ BridgeExplode:
 	Warhead@2Eff: CreateEffect
 		Explosions: large_napalm
 		ValidTargets: Bridge, Ground, Water
+
+ManInGauzeExplosion:
+	Inherits: DemoTrapExplosion
+	ValidTargets: Ground, Water, GroundActor, WaterActor
+	Projectile: InstantHit
+	Warhead@1Dam: SpreadDamage
+		Spread: 512
+		Damage: 5000
+		Delay: 4
+		Falloff: 250, 250, 175, 150, 0, 0, 0
+		Versus:
+			None: 75
+			Wood: 75
+			Light: 100
+			Heavy: 125
+			Concrete: 25
+		AffectsParent: true
+		ValidRelationships: Neutral, Enemy, Ally
+		DamageTypes: Prone50Percent, TriggerProne, TiberiumDeath
+		ValidTargets: GroundActor, WaterActor
+	Warhead@shrapnel: FireShrapnel
+		Delay: 5
+		Weapon: ManInGauzeShrapnel
+		Amount: 1
+
+ManInGauzeShrapnel:
+	Inherits: ^ShrapnelBase
+	MinRange: 5c0
+	Range: 32c0
+	InvalidTargets: GroundActor, WaterActor
+	Projectile: Bullet
+		Image: scrate
+		Sequences: idle
+		Palette: player
+		Speed: 390
+	Warhead@1Dam: SpreadDamage
+		Damage: 3000
+		ValidTargets: GroundActor, WaterActor
+		Versus:
+			None: 300
+		DamageTypes: Prone50Percent, TriggerProne, ExplosionDeath
+	Warhead@1actor: SpawnRandomActor
+		Range: 0
+		RandomActors: 1tnk.maningauze
+		Image: explosion
+		Sequence: strifeteleport

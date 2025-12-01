@@ -573,23 +573,26 @@ CRATE.FuckYou:
 		Prerequisites: techlevel.unrestricted
 		Owner: Creeps
 	GiveUnitCrateAction@creepparadrop:
-		SelectionShares: 3
+		SelectionShares: 2
 		Units: 1tnk.creepparadrop
 		Prerequisites: techlevel.unrestricted
 		Owner: Creeps
 		Sequence: timequake
 	GiveUnitCrateAction@allyourbase:
-		SelectionShares: 2
+		SelectionShares: 3
 		Units: e6.cunt
 		Owner: Creeps
 	GiveUnitCrateAction@rmbo:
-		SelectionShares: 6
+		SelectionShares: 4
 		Units: rmbo.left
 	GiveUnitCrateAction@ionstorm:
 		SelectionShares: 2
 		Units: 1tnk.ionstorm
 		Owner: Neutral
 		Sequence: timequake
+	ExplodeCrateAction@maningauze:
+		SelectionShares: 4
+		Weapon: ManInGauzeExplosion
 	Crate:
 		Duration: 6000
 	Tooltip:
@@ -3573,6 +3576,12 @@ RMBO.Left:
 		MaxMoveDelay: 75
 	RenderSprites:
 		Image: RMBO
+	GrantTimedCondition:
+		Condition: spawned
+		Duration: 375
+	Targetable@noauto:
+		RequiresCondition: spawned
+		TargetTypes: NoAutoTarget
 
 IONSTORM:
 	Inherits: XBAR
@@ -3603,3 +3612,150 @@ IONSTORM:
 		Interval: 5000
 		Weapons: CrateLightningZap2
 		RequiresCondition: !prereq
+
+
+1TNK.MANINGAUZE:
+	Inherits: 1TNK.MINE
+	SpawnActorOnDeath:
+		Actor: maningauze
+		OwnerType: InternalName
+		InternalOwner: Creeps
+	SpawnActorOnDeath@2:
+		Actor: maningauze.rock
+		OwnerType: InternalName
+		InternalOwner: Creeps
+	SpawnActorOnDeath@3:
+		Actor: maningauze.prereq
+		OwnerType: Victim
+		InternalOwner: Creeps
+
+MANINGAUZE:
+	Inherits: ^Building
+	Inherits@AUTOTARGET: ^AutoTargetGround
+	Targetable@AI:
+		TargetTypes: NoAITarget, Defense
+	Tooltip:
+		Name: actor-maningauze.name
+		RequiresCondition: !hidden_by_rock
+	Tooltip@rock:
+		Name: actor-maningauze.rock
+		RequiresCondition: hidden_by_rock
+	Building:
+	Buildable:
+		Queue: Wall
+		BuildPaletteOrder: 15000
+		Prerequisites: ~disabled
+		Description: actor-maningauze.description
+	Valued:
+		Cost: 5000
+	Health:
+		HP: 200000
+	Armor:
+		Type: Heavy
+	RevealsShroud:
+		MinRange: 8c0
+		Range: 10c0
+		RevealGeneratedShroud: False
+		ValidRelationships: Neutral, Enemy, Ally
+		RequiresCondition: !hidden_by_rock
+	RevealsShroud@GAPGEN:
+		Range: 8c0
+		ValidRelationships: Neutral, Enemy, Ally
+		RequiresCondition: !hidden_by_rock
+	RevealsShroud@GAUZE:
+		Range: 32c0
+	-SpawnActorsOnSell:
+	-WithMakeAnimation:
+	-Sellable:
+	FreeActor@rock:
+		Actor: MANINGAUZE.Rock
+	DamageMultiplier@rock:
+		RequiresCondition: hidden_by_rock
+		Modifier: 0
+	WithSpriteBody:
+		RequiresCondition: !hidden_by_rock
+	ExternalCondition@rock:
+		Condition: hidden_by_rock
+	AmbientSound@1:
+		SoundFiles: ramsesintro.ogg
+		Interval: 90000
+	AmbientSound@2:
+		SoundFiles: maningauze.ogg
+		Delay: 286
+	AmbientSound@3:
+		SoundFiles: maningauzem.ogg
+		Delay: 286
+	FireWarheadsOnDeath:
+		Weapon: CrateRewardExplosion
+		EmptyWeapon: CrateRewardExplosion
+		DamageSource: Killer
+		DeathTypes: DefaultDeath, ExplosionDeath, ElectricityDeath, FireDeath, TiberiumDeath, BulletDeath
+	ProximityExternalCondition@rock:
+		Condition: hidden_by_player
+		Range: 1c0
+		ValidRelationships: Neutral, Enemy, Ally
+	Armament:
+		Weapon: CommandoSniperLeftNoSound
+		TargetRelationships: Neutral, Enemy, Ally
+	AttackTurreted:
+	Turreted:
+
+MANINGAUZE.Rock:
+	Inherits: ^Building
+	Targetable:
+		TargetTypes: GroundActor, C4, DetonateAttack, Structure, Defense
+	Targetable@AI:
+		RequiresCondition: spawned
+		TargetTypes: NoAITarget
+	GrantTimedCondition:
+		Condition: spawned
+		Duration: 1500
+	Tooltip:
+		Name: actor-maningauze.rock
+	Building:
+	Valued:
+		Cost: 2500
+	Health:
+		HP: 300000
+	Armor:
+		Type: Heavy
+	WithBuildingBib:
+		HasMinibib: true
+	-SpawnActorsOnSell:
+	-WithMakeAnimation:
+	ProximityExternalCondition@rock:
+		Condition: hidden_by_rock
+		Range: 1c0
+		ValidRelationships: Neutral, Enemy, Ally
+	FireWarheads@1:
+		Weapons: CommandoSniperLeftNoSound
+		Interval: 50
+
+MANINGAUZE.Prereq:
+	Inherits: ^Building
+	Targetable@AI:
+		TargetTypes: NoAITarget, Defense
+	Tooltip:
+		Name: actor-maningauze.rock
+	Building:
+	Valued:
+		Cost: 0
+	Health:
+		HP: 150000
+	DamageMultiplier@rock:
+		Modifier: 0
+	Armor:
+		Type: Heavy
+	-SpawnActorsOnSell:
+	-WithMakeAnimation:
+	-WithSpriteBody:
+	-Sellable:
+	ExternalCondition@rock:
+		Condition: hidden_by_player
+	KillsSelf@rock:
+		Delay: 5
+		RequiresCondition: !hidden_by_player
+	ProvidesPrerequisite@buildingname:
+		Prerequisite: slab.exist
+	RenderSprites:
+		Image: maningauze
