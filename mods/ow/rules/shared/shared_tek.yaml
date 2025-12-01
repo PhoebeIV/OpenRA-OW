@@ -1,22 +1,4 @@
-T.MISS:
-	Inherits: ^ScienceBuilding
-	Inherits@target: ^BotCaptureTarget
-	Inherits@IDISABLE: ^DisableOnLowPower
-	Inherits@shape: ^3x2Shape
-	Inherits@BIB: ^3xBuildingBib
-	Selectable:
-		Bounds: 3072, 2389
-	Buildable:
-		Queue: Tech
-		BuildPaletteOrder: 9090
-		BuildDuration: 4500
-		Prerequisites: advtechcenter, ~techlevel.unrestricted, ~structures.ultprereq, ~!techlevel.noepic
-		BuildLimit: 1
-		Description: actor-t-miss.description
-	Valued:
-		Cost: 6000
-	Tooltip:
-		Name: actor-t-miss.name
+^SuperTechPowers:
 	ProvidesPrerequisite:
 		Prerequisite: techcenter
 	ProvidesPrerequisite@adv:
@@ -34,76 +16,7 @@ T.MISS:
 		Prerequisite: ai.epichitleronly
 	ProductionCostMultiplier@alltech: # reduce cost for All Tech lobby option
 		Prerequisites: techlevel.alltech
-		Multiplier: 10
-	FireWarheadsOnDeath:
-		Type: CenterPosition
-		Weapon: EMPExplosion
-		EmptyWeapon: EMPExplosion
-	Building:
-		Footprint: xxx xxx ===
-		Dimensions: 3,3
-		LocalCenterOffset: 0,-512,0
-	Health:
-		HP: 150000
-	Armor:
-		Type: Wood
-	RenderSprites:
-		Image: miss
-	RevealsShroud:
-		MinRange: 7c0
-		Range: 8c0
-		RevealGeneratedShroud: False
-	RevealsShroud@GAPGEN:
-		Range: 7c0
-	Power:
-		Amount: -600
-	ProvidesPrerequisite@buildingname:
-		Prerequisite: t.miss
-	GrantExternalConditionToProduced:
-		Condition: produced
-	Production:
-		Produces: Vehicle, Infantry, Soldier, Hatchery, SpecialUnit
-	RallyPoint:
-		Path: 2,3
-	Exit@1:
-		SpawnOffset: -170,810,0
-		ExitCell: 1,2
-	Exit@2:
-		SpawnOffset: -725,640,0
-		ExitCell: 0,2
-	PrimaryBuilding:
-		ProductionQueues: Vehicle
-		PrimaryCondition: primary
-		SelectionNotification: PrimaryBuildingSelected
-	WithDecoration@primary:
-		RequiresSelection: true
-		Image: pips
-		Sequence: tag-primary
-		Position: Top
-		RequiresCondition: primary
-	ProductionQueue@2:
-		Type: Vehicle
-		DisplayOrder: 5
-		Group: Vehicle
-		LowPowerModifier: 200
-		ReadyAudio: UnitReady
-		BlockedAudio: NoBuild
-		LimitedAudio: BuildingInProgress
-		QueuedAudio: Building
-		OnHoldAudio: OnHold
-		CancelledAudio: Cancelled
-		BuildDurationModifier: 80
-	ProductionBar@2:
-		ProductionType: Vehicle
-	ClonesProducedUnits:
-		CloneableTypes: Infantry
-		ProductionType: Infantry
-	CashTrickler:
-		Interval: 750
-		Amount: 250
-		InitialDelay: 325
-		RequiresCondition: !disabled
-		UseResourceStorage: true
+		Multiplier: 50
 	ProvidesPrerequisite@allies:
 		Factions: allies, england, france, germany
 		Prerequisite: ulttech.allies
@@ -1078,6 +991,89 @@ T.MISS:
 		Weapon: DarkArchonDummy
 		WeaponDelay: 5
 		DisplayTimerRelationships: Ally, Neutral, Enemy
+
+T.MISS:
+	Inherits: ^ScienceBuilding
+	Inherits@target: ^BotCaptureTarget
+	Inherits@IDISABLE: ^DisableOnLowPower
+	Inherits@shape: ^3x2Shape
+	Inherits@BIB: ^3xBuildingBib
+	Inherits@supertech: ^SuperTechPowers
+	Selectable:
+		Bounds: 3072, 2389
+	Buildable:
+		Queue: Tech
+		BuildPaletteOrder: 9090
+		BuildDuration: 4500
+		Prerequisites: advtechcenter, ~techlevel.unrestricted, ~!techlevel.noepic, !ulttechcenter, ~!faction.onlyboats, ~!structures.zerg
+		BuildLimit: 1
+		Description: actor-t-miss.description
+	Valued:
+		Cost: 6000
+	Tooltip:
+		Name: actor-t-miss.name
+	FireWarheadsOnDeath:
+		Type: CenterPosition
+		Weapon: EMPExplosion
+		EmptyWeapon: EMPExplosion
+	Building:
+		Footprint: xxx xxx ===
+		Dimensions: 3,3
+		LocalCenterOffset: 0,-512,0
+		TerrainTypes: Clear, ClearSnow, Road, Water, Creep
+	GrantConditionOnTerrain:
+		TerrainTypes: Water
+		Condition: water
+	GrantConditionOnTerrain@pavement:
+		TerrainTypes: Road, Water, Creep
+		Condition: no_bib
+	Targetable@water:
+		RequiresCondition: water
+		TargetTypes: WaterActor, Ship
+	WithIdleOverlay@waterbib:
+		RequiresCondition: water && !build-incomplete
+		Sequence: ulttechcenternavybib
+		Image: japannavybibs
+	Health:
+		HP: 150000
+	Armor:
+		Type: Wood
+	RenderSprites:
+		Image: miss
+	RevealsShroud:
+		MinRange: 7c0
+		Range: 8c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 7c0
+	Power:
+		Amount: -600
+		RequiresCondition: !glaowner
+	ProvidesPrerequisite@buildingname:
+	GrantExternalConditionToProduced:
+		Condition: produced
+	Production:
+		Produces: Vehicle, Infantry, Soldier, Hatchery, SpecialUnit, Ship, Plane
+	RallyPoint:
+		Path: 2,3
+	Exit@1:
+		SpawnOffset: -170,810,0
+		ExitCell: 1,2
+	Exit@2:
+		SpawnOffset: -725,640,0
+		ExitCell: 0,2
+	CashTrickler:
+		Interval: 750
+		Amount: 250
+		InitialDelay: 325
+		RequiresCondition: !disabled
+		UseResourceStorage: true
+	WithDecoration@primary:
+		RequiresSelection: true
+		Image: pips
+		Sequence: tag-primary
+		Position: Top
+		RequiresCondition: primary
 	GrantConditionOnPrerequisite@baseshields:
 		Condition: external_shield
 		Prerequisites: upgrade.baseshields
@@ -1087,17 +1083,130 @@ T.MISS:
 	ProvidesPrerequisite@ai2:
 		RequiresPrerequisites: ai.hard
 		Prerequisite: tplab
+	ProvidesPrerequisite@water:
+		Prerequisite: t.miss.water
+		RequiresCondition: water
+	ProvidesPrerequisite@land:
+		Prerequisite: t.miss.land
+		RequiresCondition: !water
+	GrantConditionOnPrerequisite@gla:
+		Prerequisites: structures.gla
+		Condition: glaowner
+	GrantConditionOnFaction@gla:
+		Factions: kassad, thrax, demo
+		Condition: glaowner
+	SpawnActorOnDeath:
+		Actor: T.MISS.Hole
+		RequiresCondition: glaowner
+	ProductionBar@transformstructure:
+		ProductionType: SuperTechChoice
+	Production@transformstructure:
+		Produces: SuperTechChoice
+	ProductionQueue@transformstructure:
+		Type: SuperTechChoice
+		Group: Tech
+		DisplayOrder: 1
+		ReadyAudio: ConstructionComplete
+		BlockedAudio: NoBuild
+		LimitedAudio: BuildingInProgress
+		QueuedAudio: Building
+		OnHoldAudio: OnHold
+		CancelledAudio: Cancelled
+		QueueLimit: 1
+	GrantConditionOnProduction@vehicle:
+		Condition: miss_veh
+		Actors: C.MISS.VEH
+	GrantConditionOnProduction@inf:
+		Condition: miss_inf
+		Actors: C.MISS.INF
+	GrantConditionOnProduction@air:
+		Condition: miss_air
+		Actors: C.MISS.AIR
+	GrantConditionOnProduction@navy:
+		Condition: miss_navy
+		Actors: C.MISS.NAVY
+	GrantConditionOnProduction@str:
+		Condition: miss_str
+		Actors: C.MISS.STR
+	TransformOnCondition@vehicle:
+		RequiresCondition: miss_veh
+		IntoActor: T.MISSVEH
+	TransformOnCondition@inf:
+		RequiresCondition: miss_inf
+		IntoActor: T.MISSINF
+	TransformOnCondition@air:
+		RequiresCondition: miss_air
+		IntoActor: T.MISSAIR
+	TransformOnCondition@navy:
+		RequiresCondition: miss_navy
+		IntoActor: T.MISSNAVY
+	TransformOnCondition@str:
+		RequiresCondition: miss_str
+		IntoActor: T.MISSSTR
+	TransformOnCapture@captured:
+		IntoActor: T.MISS
+	ProvidesPrerequisite@socket:
+		Prerequisite: t.miss.socket
+
+^SuperTechRevert:
+	ToggleConditionOnOrder@sell:
+		OrderName: Sell
+		Condition: sell_me
+	TransformOnCondition@sell:
+		RequiresCondition: sell_me
+		IntoActor: T.MISS
+
+T.MISSVEH:
+	Inherits: T.MISS
+	Inherits@Sell: ^SuperTechRevert
+	-Buildable:
+	Tooltip: 
+		Name: actor-t-miss.veh
+	PrimaryBuilding:
+		ProductionQueues: Vehicle
+		PrimaryCondition: primary
+		SelectionNotification: PrimaryBuildingSelected
+	ProductionQueue@2:
+		Type: Vehicle
+		DisplayOrder: 5
+		Group: Vehicle
+		LowPowerModifier: 200
+		ReadyAudio: UnitReady
+		BlockedAudio: NoBuild
+		LimitedAudio: BuildingInProgress
+		QueuedAudio: Building
+		OnHoldAudio: OnHold
+		CancelledAudio: Cancelled
+		BuildDurationModifier: 80
+	ProductionBar@2:
+		ProductionType: Vehicle
+	ClonesProducedUnits:
+		RequiresCondition: !water
+		CloneableTypes: Vehicle
+		ProductionType: Vehicle
+	SpawnActorOnDeath:
+		Actor: T.MISSVEH.Hole
+	-ProductionBar@transformstructure:
+	-Production@transformstructure:
+	-ProductionQueue@transformstructure:
+	-GrantConditionOnProduction@vehicle:
+	-GrantConditionOnProduction@inf:
+	-GrantConditionOnProduction@air:
+	-GrantConditionOnProduction@navy:
+	-GrantConditionOnProduction@str:
+	-TransformOnCondition@vehicle:
+	-TransformOnCondition@inf:
+	-TransformOnCondition@air:
+	-TransformOnCondition@navy:
+	-TransformOnCondition@str:
+	-ProvidesPrerequisite@socket:
 
 T.MISSAIR:
 	Inherits: T.MISS
+	Inherits@Sell: ^SuperTechRevert
 	Buildable:
-		Queue: Tech
-		BuildPaletteOrder: 9090
-		BuildDuration: 4500
-		Prerequisites: advtechcenter, ~techlevel.unrestricted, ~structures.airultprereq, ~!techlevel.noepic
-		BuildLimit: 1
-		Description: actor-t-missair-description
-	Tooltip:
+		Prerequisites: ~disabled
+	Tooltip: 
 		Name: actor-t-miss.air
 	ProductionQueue@2:
 		Type: Aircraft
@@ -1115,20 +1224,39 @@ T.MISSAIR:
 	ProductionBar@2:
 		ProductionType: Aircraft
 	Production:
-		Produces: Aircraft, Plane, Helicopter, Infantry, Soldier
+		Produces: Aircraft, Plane, Helicopter
 	PrimaryBuilding:
 		ProductionQueues: Aircraft
+	ClonesProducedUnits:
+		CloneableTypes: Aircraft
+		ProductionType: Aircraft
+	ProximityExternalCondition@reloadthing:
+		Condition: reloadnear
+		Range: 7c0
+	SpawnActorOnDeath:
+		Actor: T.MISSAIR.Hole
+	-ProductionBar@transformstructure:
+	-Production@transformstructure:
+	-ProductionQueue@transformstructure:
+	-GrantConditionOnProduction@vehicle:
+	-GrantConditionOnProduction@inf:
+	-GrantConditionOnProduction@air:
+	-GrantConditionOnProduction@navy:
+	-GrantConditionOnProduction@str:
+	-TransformOnCondition@vehicle:
+	-TransformOnCondition@inf:
+	-TransformOnCondition@air:
+	-TransformOnCondition@navy:
+	-TransformOnCondition@str:
+	-ProvidesPrerequisite@socket:
 
 T.MISSINF:
 	Inherits: T.MISS
+	Inherits@Sell: ^SuperTechRevert
 	Buildable:
-		Queue: Tech
-		BuildPaletteOrder: 9090
-		BuildDuration: 4500
-		Prerequisites: advtechcenter, ~techlevel.unrestricted, ~structures.infultprereq, ~!techlevel.noepic
-		BuildLimit: 1
+		Prerequisites: ~disabled
 		Description: actor-t-missinf-description
-	Tooltip:
+	Tooltip: 
 		Name: actor-t-miss.inf
 	ProductionQueue@2:
 		Type: Infantry
@@ -1153,17 +1281,38 @@ T.MISSINF:
 		Produces: Infantry, Soldier
 	PrimaryBuilding:
 		ProductionQueues: Infantry
+	ClonesProducedUnits:
+		RequiresCondition: !water
+		CloneableTypes: Infantry
+		ProductionType: Infantry
+	SpawnActorOnDeath:
+		Actor: T.MISSINF.Hole
+	-ProductionBar@transformstructure:
+	-Production@transformstructure:
+	-ProductionQueue@transformstructure:
+	-GrantConditionOnProduction@vehicle:
+	-GrantConditionOnProduction@inf:
+	-GrantConditionOnProduction@air:
+	-GrantConditionOnProduction@navy:
+	-GrantConditionOnProduction@str:
+	-TransformOnCondition@vehicle:
+	-TransformOnCondition@inf:
+	-TransformOnCondition@air:
+	-TransformOnCondition@navy:
+	-TransformOnCondition@str:
+	-ProvidesPrerequisite@socket:
 
 T.MISSNAVY:
 	Inherits: T.MISS
+	Inherits@Sell: ^SuperTechRevert
 	Buildable:
 		Queue: Tech
 		BuildPaletteOrder: 9090
 		BuildDuration: 4500
-		Prerequisites: advtechcenter, ~techlevel.unrestricted, ~structures.navyultprereq, ~!techlevel.noepic
+		Prerequisites: advtechcenter, ~techlevel.unrestricted, ~faction.onlyboats
 		BuildLimit: 1
 		Description: actor-t-missnavy-description
-	Tooltip:
+	Tooltip: 
 		Name: actor-t-miss.navy
 	ProductionQueue@2:
 		Type: Ship
@@ -1185,27 +1334,261 @@ T.MISSNAVY:
 	Production@ship:
 		RequiresCondition: water
 		Produces: Ship
-	Building:
-		Footprint: xxx xxx ===
-		Dimensions: 3,3
-		LocalCenterOffset: 0,-512,0
-		TerrainTypes: Clear, ClearSnow, Road, Water
-	GrantConditionOnTerrain:
-		TerrainTypes: Water
-		Condition: water
-	GrantConditionOnTerrain@pavement:
-		TerrainTypes: Road, Water
-		Condition: no_bib
-	SpawnActorsOnSell:
-		RequiresCondition: !water
-	WithIdleOverlay@waterbib:
-		RequiresCondition: water && !build-incomplete
-		Sequence: ulttechcenternavybib
-		Image: japannavybibs
-	ClonesProducedUnits:
-		RequiresCondition: !water
 	ProximityExternalCondition@reloadthing:
 		Condition: reloadnear
 		Range: 7c0
 	PrimaryBuilding:
 		ProductionQueues: Ship
+	ClonesProducedUnits:
+		CloneableTypes: Ship
+		ProductionType: Ship
+		RequiresCondition: water
+	SpawnActorOnDeath:
+		Actor: T.MISSNAVY.Hole
+	-ProductionBar@transformstructure:
+	-Production@transformstructure:
+	-ProductionQueue@transformstructure:
+	-GrantConditionOnProduction@vehicle:
+	-GrantConditionOnProduction@inf:
+	-GrantConditionOnProduction@air:
+	-GrantConditionOnProduction@navy:
+	-GrantConditionOnProduction@str:
+	-TransformOnCondition@vehicle:
+	-TransformOnCondition@inf:
+	-TransformOnCondition@air:
+	-TransformOnCondition@navy:
+	-TransformOnCondition@str:
+	-ProvidesPrerequisite@socket:
+
+T.MISSSTR:
+	Inherits: T.MISS
+	Inherits@Sell: ^SuperTechRevert
+	Buildable:
+		Prerequisites: ~disabled
+		Description: actor-t-missstr-description
+	Tooltip: 
+		Name: actor-t-miss.str
+	ProductionQueue@Building:
+		Type: Building
+		Group: Building
+		DisplayOrder: 1
+		LowPowerModifier: 300
+		ReadyAudio: ConstructionComplete
+		BlockedAudio: NoBuild
+		LimitedAudio: BuildingInProgress
+		QueuedAudio: Building
+		OnHoldAudio: OnHold
+		CancelledAudio: Cancelled
+	ProductionQueue@Defense:
+		Type: Defense
+		Group: Defense
+		DisplayOrder: 2
+		LowPowerModifier: 300
+		ReadyAudio: ConstructionComplete
+		BlockedAudio: NoBuild
+		LimitedAudio: BuildingInProgress
+		QueuedAudio: Building
+		OnHoldAudio: OnHold
+		CancelledAudio: Cancelled
+	ProductionQueue@Wall:
+		Type: Wall
+		Group: Wall
+		DisplayOrder: 8
+		LowPowerModifier: 300
+		ReadyAudio: ConstructionComplete
+		BlockedAudio: NoBuild
+		LimitedAudio: BuildingInProgress
+		QueuedAudio: Building
+		OnHoldAudio: OnHold
+		CancelledAudio: Cancelled
+	ProductionQueue@Tech:
+		Type: Tech
+		Group: Tech
+		DisplayOrder: 3
+		LowPowerModifier: 400
+		ReadyAudio: ConstructionComplete
+		BlockedAudio: NoBuild
+		LimitedAudio: BuildingInProgress
+		QueuedAudio: Building
+		OnHoldAudio: OnHold
+		CancelledAudio: Cancelled
+		BuildDurationModifier: 150
+	ProductionQueue@Upgrade:
+		Type: Upgrade
+		Group: Upgrade
+		DisplayOrder: 0
+		LowPowerModifier: 300
+		ReadyAudio: UpgradeSuccess
+		BlockedAudio: NoBuild
+		LimitedAudio: BuildingInProgress
+		QueuedAudio: Upgrading
+		OnHoldAudio: OnHold
+		CancelledAudio: Cancelled
+		BuildDurationModifier: 150
+	ProductionBar@Building:
+		ProductionType: Building
+	ProductionBar@Defense:
+		ProductionType: Defense
+		Color: FF8C00
+	ProductionBar@Tech:
+		ProductionType: Tech
+		Color: 9FFF42
+	ProductionBar@Wall:
+		ProductionType: Wall
+		Color: EEE9FF
+	ProductionBar@Upgrade:
+		ProductionType: Upgrade
+		Color: DB00FF
+	Production:
+		Produces: Building, Defense, Tech, Wall, Upgrade
+	SpawnActorOnDeath:
+		Actor: T.MISSINF.Hole
+	-ProductionBar@transformstructure:
+	-Production@transformstructure:
+	-ProductionQueue@transformstructure:
+	-GrantConditionOnProduction@vehicle:
+	-GrantConditionOnProduction@inf:
+	-GrantConditionOnProduction@air:
+	-GrantConditionOnProduction@navy:
+	-GrantConditionOnProduction@str:
+	-TransformOnCondition@vehicle:
+	-TransformOnCondition@inf:
+	-TransformOnCondition@air:
+	-TransformOnCondition@navy:
+	-TransformOnCondition@str:
+	-ProvidesPrerequisite@socket:
+
+T.MISS.Hole:
+	Inherits: ^GLAHole3x2
+	Tooltip:
+		Name: actor-gmiss-hole-name
+	Health:
+		HP: 150000
+	ChangesHealth@hole:
+		DamageCooldown: 500
+		Delay: 55
+	KillsSelf:
+		Delay: 250
+	ProvidesPrerequisite@self:
+		Prerequisite: ulttechcenter
+	SpawnActorOnDeath@hole:
+		Actor: T.MISS
+		DeathType: hole
+
+T.MISSINF.Hole:
+	Inherits: T.MISS.Hole
+	Tooltip:
+		Name: actor-gmiss-hole-name
+	SpawnActorOnDeath@hole:
+		Actor: T.MISSINF
+		DeathType: hole
+
+T.MISSNAVY.Hole:
+	Inherits: T.MISS.Hole
+	Tooltip:
+		Name: actor-gmiss-hole-name
+	SpawnActorOnDeath@hole:
+		Actor: T.MISSNAVY
+		DeathType: hole
+
+T.MISSAIR.Hole:
+	Inherits: T.MISS.Hole
+	Tooltip:
+		Name: actor-gmiss-hole-name
+	SpawnActorOnDeath@hole:
+		Actor: T.MISSAIR
+		DeathType: hole
+
+T.MISSVEH.Hole:
+	Inherits: T.MISS.Hole
+	Tooltip:
+		Name: actor-gmiss-hole-name
+	SpawnActorOnDeath@hole:
+		Actor: T.MISSVEH
+		DeathType: hole
+
+T.MISSSTR.Hole:
+	Inherits: T.MISS.Hole
+	Tooltip:
+		Name: actor-gmiss-hole-name
+	SpawnActorOnDeath@hole:
+		Actor: T.MISSSTR
+		DeathType: hole
+
+^SuperTechUpgrade:
+	Buildable:
+		Queue: SuperTechChoice
+		BuildDurationModifier: 60
+		BuildPaletteOrder: 1
+		BuildDuration: 1500
+		Prerequisites: ~t.miss.socket
+	Interactable:
+	ScriptTriggers:
+	KillsSelf:
+		RemoveInstead: true
+	Valued:
+		Cost: 100
+
+T.MISS.socket:
+	Interactable:
+	Tooltip:
+		Name: actor-t-miss.socket
+
+T.MISS.water:
+	Interactable:
+	Tooltip:
+		Name: actor-t-miss.water
+
+T.MISS.land:
+	Interactable:
+	Tooltip:
+		Name: actor-t-miss.land
+
+C.MISS.VEH:
+	Inherits: ^SuperTechUpgrade
+	Buildable:
+		Description: actor-cmiss.vehdesc
+		Prerequisites: !faction.novehicles, t.miss.land
+	Tooltip:
+		Name: actor-cmiss.veh
+	RenderSprites:
+		Image: weap
+
+C.MISS.INF:
+	Inherits: ^SuperTechUpgrade
+	Buildable:
+		Description: actor-cmiss.infdesc
+		Prerequisites: !faction.noinfantry, t.miss.land
+	Tooltip:
+		Name: actor-cmiss.inf
+	RenderSprites:
+		Image: barr
+
+C.MISS.AIR:
+	Inherits: ^SuperTechUpgrade
+	Buildable:
+		Description: actor-cmiss.airdesc
+		Prerequisites: !faction.noair
+	Tooltip:
+		Name: actor-cmiss.air
+	RenderSprites:
+		Image: afld
+
+C.MISS.NAVY:
+	Inherits: ^SuperTechUpgrade
+	Buildable:
+		Description: actor-cmiss.navydesc
+		Prerequisites: t.miss.water, !techlevel.noboats
+	Tooltip:
+		Name: actor-cmiss.navy
+	RenderSprites:
+		Image: spen
+
+C.MISS.STR:
+	Inherits: ^SuperTechUpgrade
+	Buildable:
+		Description: actor-cmiss.strdesc
+	Tooltip:
+		Name: actor-cmiss.str
+	RenderSprites:
+		Image: fact

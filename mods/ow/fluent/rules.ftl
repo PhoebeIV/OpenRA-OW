@@ -3567,12 +3567,19 @@ actor-concretec-name = Pavement 10x10
 actor-t-miss =
    .description = Provides access to your faction's epic unit or ability.
     
-      Special Ability: Provides money. Clones infantry.
+      Special Ability: Provides money. Choose what type of unit to clone.
      Limit of one.
+   
+      Sell with an chosen cloning type, to remove the type and choose another.
    .name = Super Tech Center
+   .veh = Vehicle Super Tech Center
    .navy = Navy Super Tech Center
    .inf = Infantry Super Tech Center
    .air = Aircraft Super Tech Center
+   .str = Structure Super Tech Center
+   .socket = Unchosen Super Tech Type
+   .water = placement in Water
+   .land = placement on Land
    .produceactorpower-devouringone-end-charge-text-notification = Devouring Ones ready.
    .produceactorpower-devouringone-ready-text-notification = Reinforcements have arrived.
    .produceactorpower-devouringone-blocked-text-notification = No room for new unit.
@@ -3580,6 +3587,28 @@ actor-t-miss =
    .airstrikepower-nuclearparabombs-select-target-text-notification = Select target.
    .airstrikepower-antimatterbombdrop-select-target-text-notification = Select target.
    .airstrikepower-hyperion-select-target-text-notification = Select target.
+
+actor-cmiss =
+   .veh = Vehicle Duplication
+   .vehdesc = Enables 2nd vehicle queue, and duplicates produced vehicles.
+   .navy = Navy Duplication
+   .navydesc = Enables 2nd navy queue, and duplicates produced naval units.
+   .inf = Infantry Cloning
+   .infdesc = Enables 2nd infantry queue, and clones produced infantry.
+   .air = Aircraft Duplication
+   .airdesc = Enables 2nd aircraft queue, and duplicates produced aircraft.
+   .str = Structure Duplication
+   .strdesc = Enables 2nd building, defense, utility, tech and upgrade queues.
+   .none = Duplication Not Chosen
+
+actor-t-missair-description = Provides access to your faction's epic unit or ability.
+    
+      Special Ability: Provides money
+     Limit of one.
+actor-t-missinf-description = Provides access to your faction's epic unit or ability.
+    
+      Special Ability: Provides money
+     Limit of one.
 
 actor-haxor =
    .description = Become the God AI, makes your 
@@ -3651,15 +3680,6 @@ actor-obl-haxtiberium =
 actor-obl-cratepowers =
    .description = Crate Powers
    .name = Crate Powers
-
-actor-t-missair-description = Provides access to your faction's epic unit or ability.
-    
-      Special Ability: Provides money
-     Limit of one.
-actor-t-missinf-description = Provides access to your faction's epic unit or ability.
-    
-      Special Ability: Provides money
-     Limit of one.
 
 ## shared_veh.yaml
 actor-mcv-description = Deploys into another Construction Yard.
