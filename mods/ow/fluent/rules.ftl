@@ -724,6 +724,10 @@ actor-upgrade-isotopes =
    .name = Isotopes Stability
    .description = Isotope stability prevents the collateral damage from harming friendly units with radiation.
 
+actor-upgrade-nukerockets =
+   .name = Nuke Rockets
+   .description = Tank Hunters will now shoot nuclear rockets spreading radiation.
+
 actor-upgrade-autoloader =
    .name = Autoloader
    .description = Increases firerate of Battlemasters & Hopper Tanks by 20%.
@@ -1150,6 +1154,7 @@ actor-jarofdirt-name = Captain Jack Sparrow
 actor-korone-name = Inugami Korone
 actor-jesus-name = Jesus
 actor-garbageman-name = GARBAGE DAY
+actor-shoopdawhoop-cr-name = SHOOP DA WHOOP
 
 actor-proxynuke-description = Launches a dud atomic bomb
     at the target location to 

@@ -593,6 +593,10 @@ CRATE.FuckYou:
 	ExplodeCrateAction@maningauze:
 		SelectionShares: 4
 		Weapon: ManInGauzeExplosion
+	GiveUnitCrateAction@shoopdawhoop:
+		SelectionShares: 5
+		Units: 1tnk.shoopdawhoop
+		Owner: Creeps
 	Crate:
 		Duration: 6000
 	Tooltip:
@@ -3759,3 +3763,84 @@ MANINGAUZE.Prereq:
 		Prerequisite: slab.exist
 	RenderSprites:
 		Image: maningauze
+
+1TNK.shoopdawhoop:
+	Inherits: 1TNK.MINE
+	SpawnActorOnDeath:
+		Actor: shoopdawhoop
+		SkipMakeAnimations: false
+		OwnerType: Victim
+
+shoopdawhoop:
+	Inherits: OBLID
+	Inherits@AUTOTARGET: ^AutoTargetAll
+	Buildable:
+		BuildPaletteOrder: 0
+		Prerequisites: ~OBL.CratePowers
+	Valued:
+		Cost: 2000
+	Tooltip:
+		Name: actor-shoopdawhoop-cr-name
+	Health:
+		HP: 1000000
+	Power:
+		Amount: 0
+	DetectCloaked:
+		Range: 12c0
+		RequiresCondition: !disabled
+	ProvidesPrerequisite@buildingname:
+	RevealsShroud:
+		MinRange: 6c0
+		Range: 15c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 6c0
+	RenderSprites:
+		Image: shoopdawhoop
+	RangeMultiplier@1:
+		Modifier: 120
+	Armament:
+		Weapon: SolBarrageShoop
+		PauseOnCondition: ammo < 15
+		LocalOffset: 0,0,1024
+		FireDelay: 97
+		AmmoUsage: 15
+	Armament@1:
+		Weapon: ShoopDaWhoopSound
+		PauseOnCondition: ammo < 15
+		AmmoUsage: 0
+	Armament@2:
+		Weapon: SolBarrageSoundShoop
+		PauseOnCondition: ammo < 15
+		AmmoUsage: 0
+	Armament@3:
+		Weapon: SolBarrageBeam1Shoop
+		PauseOnCondition: ammo < 15
+		FireDelay: 97
+		AmmoUsage: 0
+	Armament@4:
+		Weapon: SolBarrageBeam2Shoop
+		PauseOnCondition: ammo < 15
+		FireDelay: 25
+		AmmoUsage: 0
+	Armament@5:
+		Weapon: SolBarrageBeam3Shoop
+		PauseOnCondition: ammo < 15
+		FireDelay: 50
+		AmmoUsage: 0
+	Armament@6:
+		Weapon: SolBarrageBeam4Shoop
+		PauseOnCondition: ammo < 15
+		FireDelay: 75
+		AmmoUsage: 0
+	AmmoPool:
+		Ammo: 15
+		ReloadDelay: 150
+		AmmoCondition: ammo
+		InitialAmmo: 15
+	KillsSelf:
+		Delay: 50
+		RequiresCondition: !ammo
+	FireWarheadsOnDeath:
+		Weapon: SkyEmpressCannon
+		EmptyWeapon: SkyEmpressCannon
