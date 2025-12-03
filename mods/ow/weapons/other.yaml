@@ -3129,6 +3129,26 @@ USALaserCrusaderLaser:
 		DamageTypes: Prone50Percent, TriggerProne, FireDeath
 	-Warhead@2Smu:
 
+USALaserPaladinLaser:
+	Inherits: ^LaserWeapon
+	ReloadDelay: 30
+	Range: 7c0
+	Report: laserpaladinfire.aud
+	Projectile: LaserZap
+		Width: 80
+		ZOffset: 2047
+		Color: 690000
+	Warhead@1Dam: SpreadDamage
+		Damage: 10000
+		Versus:
+			None: 100
+			Wood: 70
+			Light: 70
+			Heavy: 70
+			Concrete: 70
+		DamageTypes: Prone50Percent, TriggerProne, FireDeath
+	-Warhead@2Smu:
+
 UpgradeHack:
 	ValidTargets: Ground, Water, GroundActor, WaterActor, UpgradeThing
 	Projectile: GravityBomb
@@ -8264,3 +8284,83 @@ HackyCaptureAttackCrate:
 		Duration: 0
 		AffectsParent: false
 		ValidTargets: Structure
+
+LibraAttackEffect:
+	ReloadDelay: 31
+	Range: 12c0
+	MinRange: 5c0
+	Report: libracharge.aud
+	ValidTargets: Ground, Water, GroundActor, WaterActor
+	Projectile: Missile
+		Speed: 2
+		RangeLimit: 3
+	Warhead@1Eff: CreateEffect
+		Explosions: lightbringer_charge
+		ImpactSounds: libracharge.aud
+		Inaccuracy: 256
+		ValidTargets: Ground, GroundActor, WaterActor, Trees, Air
+	Warhead@2Eff: CreateEffect
+		Delay: 5
+		Explosions: lightbringer_charge
+		Inaccuracy: 256
+		ValidTargets: Ground, GroundActor, WaterActor, Trees, Air
+
+LibraAttackLaser:
+	Inherits: ^GaussWeapon
+	ReloadDelay: 40
+	Range: 12c0
+	MinRange: 5c0
+	Report: librafire.aud
+	Projectile: Railgun
+		DamageActorsInLine: false
+		BeamWidth: 32
+		BeamColor: ff0000
+		BeamAlphaDeltaPerTick: -3
+		HelixAlphaDeltaPerTick: -3
+		HelixThickness: 32
+		HelixRadius: 196
+		HitAnim: explosion
+		HitAnimSequence: japanplasmaringupgrade
+		Duration: 41
+	Warhead@1Dam: SpreadDamage
+		Spread: 426
+		Damage: 28000
+		Versus:
+			None: 90
+			Wood: 40
+			Light: 60
+			Heavy: 25
+		DamageTypes: Prone50Percent, TriggerProne, FireDeath, Incendiary
+	Warhead@2Dam: SpreadDamage
+		Spread: 426
+		Damage: 28000
+		Versus:
+			None: 90
+			Wood: 40
+			Light: 60
+			Heavy: 25
+		DamageTypes: Prone50Percent, TriggerProne, FireDeath, Incendiary
+	Warhead@3Eff_impact: CreateEffect
+		Delay: 4
+		Explosions: japanplasmaringupgrade
+		ImpactActors: false
+	Warhead@4Eff_impact: CreateEffect
+		Explosions: laserhitmed
+		ImpactActors: false
+	Warhead@7Eff: CreateEffect
+		ImpactSounds: librafire.aud
+		ImpactActors: true
+
+LibraAttackLaserHit:
+	ReloadDelay: 40
+	Range: 12c0
+	MinRange: 5c0
+	Projectile: InstantHit
+	ValidTargets: Ground, Water, GroundActor, WaterActor
+	Warhead@3Eff_impact: CreateEffect
+		Delay: 4
+		Explosions: japanplasmaringupgrade
+		ImpactActors: false
+	Warhead@4Eff_impact: CreateEffect
+		Explosions: laserhitmed
+		ImpactActors: false

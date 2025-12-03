@@ -3774,6 +3774,7 @@ MANINGAUZE.Prereq:
 shoopdawhoop:
 	Inherits: OBLID
 	Inherits@AUTOTARGET: ^AutoTargetAll
+	-AmbientSound:
 	Buildable:
 		BuildPaletteOrder: 0
 		Prerequisites: ~OBL.CratePowers
@@ -3844,3 +3845,55 @@ shoopdawhoop:
 	FireWarheadsOnDeath:
 		Weapon: SkyEmpressCannon
 		EmptyWeapon: SkyEmpressCannon
+
+1TNK.dinnerblaster:
+	Inherits: 1TNK.MINE
+	SpawnActorOnDeath:
+		Actor: dinnerblaster
+		SkipMakeAnimations: false
+		OwnerType: Victim
+
+dinnerblaster:
+	Inherits: OBLID
+	Inherits@AUTOTARGET: ^AutoTargetAll
+	Buildable:
+		BuildPaletteOrder: 0
+		Prerequisites: ~OBL.CratePowers
+	Valued:
+		Cost: 2000
+	Tooltip:
+		Name: actor-dinnerblaster-cr-name
+	Health:
+		HP: 1000000
+	Power:
+		Amount: 0
+	DetectCloaked:
+		Range: 12c0
+		RequiresCondition: !disabled
+	ProvidesPrerequisite@buildingname:
+	RevealsShroud:
+		MinRange: 6c0
+		Range: 15c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 6c0
+	RenderSprites:
+		Image: dinnerblaster
+	RangeMultiplier@1:
+		Modifier: 120
+	AmbientSound:
+		RequiresCondition: charging
+		SoundFiles: obelpowr.aud
+		Interval: 30, 40
+	Armament:
+		Weapon: strifeguycrusadermissile
+		LocalOffset: 0,0,1024
+	FireWarheadsOnDeath:
+		Weapon: Redeemernuke
+		EmptyWeapon: Redeemernuke
+	WithAttackAnimation:
+		Sequence: firing
+	WithAttackOverlay:
+		Sequence: firing
+	WithSpriteBody:
+	-WithChargeSpriteBody:

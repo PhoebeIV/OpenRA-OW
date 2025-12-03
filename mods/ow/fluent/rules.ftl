@@ -1965,6 +1965,7 @@ actor-usamoabplane-husk-empty-name = Stealth Bomber
 actor-usamoabplane-husk-loaded-name = Stealth Bomber
 actor-vechiclechinook-husk-name = Halo
 actor-usalasercrusader-husk-name = Husk (Laser Crusader)
+actor-usalaserpaladintank-husk-name = Husk (Laser Paladin)
 actor-supplychinook-husk-name = Chinook
 actor-tvult-husk-name = Husk (Vulture)
 actor-tstank-husk-name = Husk (Siege Tank)
@@ -5085,6 +5086,28 @@ actor-usapaladin =
    .name = Paladin Tank
    .upgrade--name = Paladin Tank (Upgraded)
 
+actor-usalaserpaladin =
+   .description = USA main battle tank.
+    Equipped with an laser cannon
+    and point defense laser.
+    Vehicle is affected by Low and Critical power levels.
+    Power Usage: 6
+    Speed: 85
+      Strong vs Vehicles
+      Weak vs Infantry, Aircraft
+   .name = Laser Paladin Tank
+
+actor-usalibra =
+   .description = USA laser artillery tank.
+    Equipped with a large oval-shaped cannon that fires a beam at very high precision
+    and point defense laser.
+    Vehicle is affected by Low and Critical power levels.
+    Power Usage: 8
+    Speed: 45
+      Strong vs Vehicles
+      Weak vs Infantry, Aircraft
+   .name = Libra
+
 actor-usahumvee =
    .description = Lightly armed infantry transport.
     Armed with a machine gun, tow missile launcher and 5 gun ports.
@@ -5129,6 +5152,8 @@ actor-usamicrowave =
 actor-usalasercrusader =
    .description = USA main battle tank.
     Equipped with a High-energy directed pulse laser cannon.
+    Vehicle is affected by Low and Critical power levels.
+    Power Usage: 4
     Speed: 85
       Strong vs Vehicles
       Weak vs Infantry, Aircraft
@@ -5141,6 +5166,8 @@ actor-usarailgun =
 
 actor-usadisrupter =
    .description = General Townes personal project. The ultimate laser equipped tank.
+    Vehicle is affected by Low and Critical power levels.
+    Power Usage: 30
     Speed: 35
       Strong vs Vehicles
       Weak vs Infantry, Aircraft

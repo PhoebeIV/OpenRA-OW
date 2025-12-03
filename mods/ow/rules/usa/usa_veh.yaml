@@ -438,23 +438,25 @@ USALASERCRUSADER:
 		Description: actor-usalasercrusader.description
 		BuildDuration: 1200
 	Valued:
-		Cost: 1600
+		Cost: 1000
 	Tooltip:
 		Name: actor-usalasercrusader.name
 	Health:
-		HP: 55000
+		HP: 65000
 	Mobile:
 		Speed: 85
 		Voice: Move
+		PauseOnCondition: critical
 	Guard:
 		Voice: Move
 	Passenger:
 		Voice: Move
 	Turreted:
 		TurnSpeed: 16
+		PauseOnCondition: critical
 	Armament:
 		Weapon: USALaserCrusaderLaser
-		LocalOffset: 511,200,113, 511,-200,113
+		PauseOnCondition: critical
 	SpawnActorOnDeath:
 		Actor: USALASERCRUSADER.Husk
 	SelectionDecorations:
@@ -480,6 +482,214 @@ USALASERCRUSADER:
 	Armament@laser:
 		Name: laser
 		Weapon: PointDefenseLaser
+	Power:
+		Amount: -4
+	GrantConditionOnPowerState@low:
+		ValidPowerStates: Low
+		Condition: low
+	GrantConditionOnPowerState@critical:
+		ValidPowerStates: Critical
+		Condition: critical
+	ReloadDelayMultiplier@low:
+		Modifier: 150
+		RequiresCondition: low
+	SpeedMultiplier@low:
+		Modifier: 50
+		RequiresCondition: low
+	WithColoredOverlay@low:
+		RequiresCondition: low
+		Color: 0000007B
+	WithColoredOverlay@critical:
+		RequiresCondition: critical
+		Color: 0000007B
+	WithDecoration@critical:
+		Image: poweroff
+		Sequence: offline
+		Palette: chrome
+		RequiresCondition: critical
+		Position: Center
+
+usalaserpaladintank:
+	Inherits: 2TNK
+	Buildable:
+		BuildPaletteOrder: 230
+		Prerequisites: ~vehicles.usa, advtechcenter, faction.lasergeneral, ~!faction.aircraftgeneral, ~!faction.superweaponsgeneral
+		Description: actor-usalaserpaladin.description
+		BuildDuration: 1400
+	Valued:
+		Cost: 1600
+	Tooltip:
+		Name: actor-usalaserpaladin.name
+		RequiresCondition: !upgradesuperweaponsgeneral
+	Tooltip@upgrade:
+		Name: actor-usalaserpaladin.upgrade--name
+		RequiresCondition: upgradesuperweaponsgeneral
+	Health:
+		HP: 100000
+	Mobile:
+		Speed: 85
+		Voice: Move
+		PauseOnCondition: critical
+	Guard:
+		Voice: Move
+	Passenger:
+		Voice: Move
+	Turreted:
+		TurnSpeed: 16
+		PauseOnCondition: critical
+	-Armament:
+	Armament@Primary:
+		Weapon: USALaserPaladinLaser
+		Recoil: 128
+		RecoilRecovery: 38
+		LocalOffset: 720,0,80
+		MuzzleSequence: muzzle
+		PauseOnCondition: critical
+	Armament@Secondary:
+		Name: laser
+		Weapon: USAPaladinLaser
+		PauseOnCondition: critical
+	SpawnActorOnDeath:
+		Actor: usalaserpaladintank.Husk
+	WithSpriteTurret:
+		Sequence: turret
+	SelectionDecorations:
+	RenderSprites:
+		Image: usalaserpaladintank
+	Voiced:
+		VoiceSet: PaladinTankVoice
+	PointDefense:
+		PointDefenseTypes: pointdefense
+		Armament: laser
+	Power:
+		Amount: -6
+	GrantConditionOnPowerState@low:
+		ValidPowerStates: Low
+		Condition: low
+	GrantConditionOnPowerState@critical:
+		ValidPowerStates: Critical
+		Condition: critical
+	ReloadDelayMultiplier@low:
+		Modifier: 150
+		RequiresCondition: low
+	SpeedMultiplier@low:
+		Modifier: 50
+		RequiresCondition: low
+	WithColoredOverlay@low:
+		RequiresCondition: low
+		Color: 0000007B
+	WithColoredOverlay@critical:
+		RequiresCondition: critical
+		Color: 0000007B
+	WithDecoration@critical:
+		Image: poweroff
+		Sequence: offline
+		Palette: chrome
+		RequiresCondition: critical
+		Position: Center
+
+usalibra:
+	Inherits: 2TNK
+	Buildable:
+		BuildPaletteOrder: 229
+		Prerequisites: ~vehicles.usa, techcenter, faction.lasergeneral, ~!faction.aircraftgeneral, ~!faction.superweaponsgeneral
+		Description: actor-usalibra.description
+		BuildDuration: 1200
+	Valued:
+		Cost: 1400
+	Tooltip:
+		Name: actor-usalibra.name
+	Health:
+		HP: 30000
+	Mobile:
+		Speed: 45
+		Voice: Move
+		PauseOnCondition: critical
+	Guard:
+		Voice: Move
+	Passenger:
+		Voice: Move
+	Turreted:
+		TurnSpeed: 16
+		PauseOnCondition: critical
+	Armament:
+		Weapon: LibraAttackEffect
+		LocalOffset: 720,0,80
+		PauseOnCondition: critical || !ammo
+		AmmoUsage: 0
+	Armament@2:
+		FireDelay: 30
+		Weapon: LibraAttackLaser
+		LocalOffset: 720,0,80
+		PauseOnCondition: critical || !ammo
+	Armament@3:
+		FireDelay: 29
+		Weapon: LibraAttackLaserHit
+		PauseOnCondition: critical || !ammo
+		AmmoUsage: 0
+	AmmoPool@a:
+		Name: ammo
+		AmmoCondition: ammo
+	ReloadAmmoPool@a:
+		AmmoPool: ammo
+		Delay: 200
+	WithAmmoPipsDecoration@a:
+		Position: BottomLeft
+		Margin: 4, 3
+		RequiresSelection: true
+		PipCount: 1
+		FullSequence: pip-red
+		AmmoPools: ammo
+	SelectionDecorations:
+	RenderSprites:
+		Image: usalibra
+	Voiced:
+		VoiceSet: LibraVoice
+	ProductionCostMultiplier@lasergeneral:
+		Multiplier: 80
+		Prerequisites: faction.lasergeneral
+	ProductionTimeMultiplier@lasergeneral:
+		Multiplier: 80
+		Prerequisites: faction.lasergeneral
+	ReloadDelayMultiplier@chargedlasers:
+		Modifier: 80
+		RequiresCondition: upgradechargedlasers
+	GrantConditionOnPrerequisite@chargedlasers:
+		Condition: upgradechargedlasers
+		Prerequisites: upgrade.chargedlasers
+	PointDefense:
+		PointDefenseTypes: pointdefense
+		Armament: laser
+	Armament@laser:
+		Name: laser
+		Weapon: PointDefenseLaser
+	Power:
+		Amount: -8
+	GrantConditionOnPowerState@low:
+		ValidPowerStates: Low
+		Condition: low
+	GrantConditionOnPowerState@critical:
+		ValidPowerStates: Critical
+		Condition: critical
+	ReloadDelayMultiplier@low:
+		Modifier: 150
+		RequiresCondition: low
+	SpeedMultiplier@low:
+		Modifier: 50
+		RequiresCondition: low
+	WithColoredOverlay@low:
+		RequiresCondition: low
+		Color: 0000007B
+	WithColoredOverlay@critical:
+		RequiresCondition: critical
+		Color: 0000007B
+	WithDecoration@critical:
+		Image: poweroff
+		Sequence: offline
+		Palette: chrome
+		RequiresCondition: critical
+		Position: Center
+	-SpawnActorOnDeath:
 
 usarailgun:
 	Inherits: ^TrackedVehicle
@@ -603,12 +813,13 @@ usadisrupter:
 	Tooltip:
 		Name: actor-usadisrupter.name
 	Health:
-		HP: 350000
+		HP: 450000
 	Armor:
 		Type: Heavy
 	Mobile:
 		Speed: 35
 		Voice: Move
+		PauseOnCondition: critical
 	UpdatesPlayerStatistics:
 		AddToArmyValue: true
 	Guard:
@@ -617,15 +828,17 @@ usadisrupter:
 		Voice: Move
 	Turreted:
 		TurnSpeed: 32
+		PauseOnCondition: critical
 	-Armament:
 	Armament:
 		Weapon: DisrupterLaser
 		LocalOffset: 600,0,250
+		PauseOnCondition: critical
 	GrantConditionOnAttack@disrupter:
 		Condition: disrupter
 		RequiredShotsPerInstance: 2
 		MaximumInstances: 10
-		RevokeDelay: 40
+		RevokeDelay: 150
 		RevokeAll: true
 		IsCyclic: false
 	ReloadDelayMultiplier@disrupter1:
@@ -678,3 +891,30 @@ usadisrupter:
 	Armament@laser:
 		Name: laser
 		Weapon: PointDefenseLaser
+		PauseOnCondition: critical
+	Power:
+		Amount: -30
+	GrantConditionOnPowerState@low:
+		ValidPowerStates: Low
+		Condition: low
+	GrantConditionOnPowerState@critical:
+		ValidPowerStates: Critical
+		Condition: critical
+	ReloadDelayMultiplier@low:
+		Modifier: 150
+		RequiresCondition: low
+	SpeedMultiplier@low:
+		Modifier: 50
+		RequiresCondition: low
+	WithColoredOverlay@low:
+		RequiresCondition: low
+		Color: 0000007B
+	WithColoredOverlay@critical:
+		RequiresCondition: critical
+		Color: 0000007B
+	WithDecoration@critical:
+		Image: poweroff
+		Sequence: offline
+		Palette: chrome
+		RequiresCondition: critical
+		Position: Center
