@@ -37,9 +37,10 @@ MINE:
 		TerrainType: Oremine
 	ExternalCondition@creep:
 		Condition: creepgen
-	ExplodeWeapon@1:
+	FireWarheads@1:
 		RequiresCondition: creepgen
-		Weapon: CreepPreventer
+		Weapons: CreepPreventer
+		Interval: 50
 	Interactable:
 		Bounds: 1024, 1024
 	GrantConditionOnPrerequisite@gems:
@@ -100,19 +101,10 @@ GMINE:
 		TargetTypes: UpgradeThing, Ground, OreMine, NoAITarget, NoAutoTarget
 	ExternalCondition@creep:
 		Condition: creepgen
-	ChangesHealth@1:
-		PercentageStep: -25
-		StartIfBelow: 101
-		Delay: 10
+	FireWarheads@1:
 		RequiresCondition: creepgen
-	ChangesHealth@2:
-		PercentageStep: 100
-		StartIfBelow: 74
-		Delay: 10
-		RequiresCondition: creepgen
-	ExplosionOnDamageTransition:
-		Weapon: CreepPreventer
-		DamageState: Medium
+		Weapons: CreepPreventer
+		Interval: 50
 	GrantConditionOnPrerequisite@gems:
 		Prerequisites: techlevel.gems
 		Condition: gems
@@ -407,6 +399,8 @@ TMONOLITH:
 	SpawnActorOnDeath:
 		RequiresCondition: !spawn_blue
 		Actor: MINE
+		OwnerType: InternalName
+		InternalOwner: Neutral
 	SpawnActorOnDeath@spread:
 		RequiresCondition: spawn_blue
 		Actor: tmonolith.blue

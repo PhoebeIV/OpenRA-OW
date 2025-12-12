@@ -1260,6 +1260,15 @@ actor-fe6 =
       Unarmed
    .name = Tech Knight
 
+actor-fe6pl =
+   .description = Infiltrates and captures
+    enemy structures.
+ 
+   Also fixes nearby vehicles and 
+    doesn't afraid of anything. 
+      Unarmed
+   .name = Tech Knight
+
 actor-fe7 =
    .description = Elite stealth infantry, armed with 
     a sniper rifle.

@@ -191,8 +191,8 @@ FE6:
 		Queue: Infantry
 		BuildAtProductionType: Soldier
 		BuildPaletteOrder: 28
-		Prerequisites: ~infantry.fed, ~techlevel.infonly
-		Icon: icon-fed
+		Prerequisites: ~infantry.fed, ~techlevel.infonly, ~ai.all
+		Icon: icon-eng
 		Description: actor-fe6.description
 	Valued:
 		Cost: 500
@@ -236,7 +236,87 @@ FE6:
 	Voiced:
 		VoiceSet: EngineerVoice
 	RenderSprites:
-		Image: TSENGIB
+		Image: TSMECH
+
+FE6.PL:
+	Inherits: ^TibSunSoldier
+	Inherits@2: ^FedHealing
+	Inherits@selection: ^SelectableSupportUnit
+	Buildable:
+		Queue: Infantry
+		BuildAtProductionType: Soldier
+		BuildPaletteOrder: 28
+		Prerequisites: ~infantry.fed, ~techlevel.infonly
+		Icon: icon-eng
+		Description: actor-fe6pl.description
+	Valued:
+		Cost: 1000
+	Tooltip:
+		Name: actor-fe6pl.name
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Shielded:
+		MaxStrength: 10000
+	Health:
+		HP: 14000
+	RevealsShroud:
+		Range: 3c0
+	Passenger:
+		CustomPipType: yellow
+	WithInfantryBody:
+		RequiresCondition: !parachute
+	WithInfantryBody@PARACHUTE:
+		StandSequences: parachute
+		RequiresCondition: parachute
+	InstantlyRepairs:
+	RepairsBridges:
+	CaptureManager:
+	GrantConditionOnPrerequisite@GLOBALREUSABLEENGINEER:
+		Condition: global-reusable-engineers
+		Prerequisites: global-reusable-engineers
+	Captures:
+		RequiresCondition: !global-reusable-engineers
+		CaptureTypes: building
+		PlayerExperience: 25
+		CaptureDelay: 200
+		ValidRelationships: Enemy, Ally, Neutral
+	Captures@REUSABLE:
+		RequiresCondition: global-reusable-engineers
+		CaptureTypes: building
+		PlayerExperience: 25
+		CaptureDelay: 375
+		ConsumedByCapture: False
+		EnterCursor: ability
+		EnterBlockedCursor: move-blocked
+	Captures@husk:
+		CaptureTypes: husk
+		PlayerExperience: 25
+		CaptureDelay: 100
+		EnterCursor: goldwrench
+		ConsumedByCapture: true
+	Voiced:
+		VoiceSet: EngineerVoice
+	RenderSprites:
+		Image: TSMECH
+	AutoTarget:
+		InitialStance: AttackAnything
+		ScanRadius: 6
+	GrantConditionOnAttack@healXP:
+		Condition: give_xp
+		RevokeDelay: 51
+	ExperienceTrickler:
+		RequiresCondition: give_xp
+		Amount: 4000
+		Interval: 50
+	Armament:
+		Weapon: Repair
+		Cursor: repair
+		OutsideRangeCursor: repair
+		TargetRelationships: Ally
+		ForceTargetRelationships: None
+	AttackFrontal:
+		Voice: Action
+		FacingTolerance: 0
 
 FE7:
 	Inherits: ^TibSunSoldier
@@ -508,7 +588,7 @@ FMECH:
 		Queue: Infantry
 		BuildAtProductionType: Soldier
 		BuildPaletteOrder: 35
-		Prerequisites: fix, ~infantry.fed, ~techlevel.medium
+		Prerequisites: fix, ~infantry.fed, ~techlevel.medium, ~ai.all
 		Icon: icon-fed
 		Description: actor-fmech.description
 	Valued:
