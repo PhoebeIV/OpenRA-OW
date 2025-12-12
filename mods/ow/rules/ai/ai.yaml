@@ -253,6 +253,32 @@ Player:
 	GrantConditionOnPrerequisite@bossmodemoney:
 		Prerequisites: techlevel.boss
 		Condition: bossmodemoney
+	GrantRandomCondition@surveyor:
+		Conditions: surveyor1, surveyor2
+	GrantCondition@surveyor1:
+		Condition: enable-surveyor
+		RequiresCondition: surveyor1 && enable-all-ai
+	GrantConditionOnFaction@surveyorrush:
+		Factions: economy, forgotten, nod3, heydrich, estonia
+		Condition: enable-surveyor
+		RequiresCondition: enable-all-ai
+	GrantDelayedCondition@surveyor2:
+		Condition: enable-surveyor
+		RequiresCondition: surveyor2 && enable-all-ai
+		Delay: 4500,9000
+	GrantRandomCondition@hatestib:
+		Conditions: hatetib,liketib
+	ProvidesPrerequisite@hatestib:
+		RequiresCondition: (hatetib && enable-all-ai && !liketib) || (override_hatetib && enable-all-ai)
+		Prerequisite: ai.hatetib
+	GrantConditionOnFaction@likestib:
+		Factions: forgotten, nod, marked, bhand, nod3
+		Condition: liketib
+		RequiresCondition: enable-all-ai
+	GrantConditionOnFaction@hatestib:
+		Factions: infantry, gdi, steel, zocom, gdi3
+		Condition: override_hatetib
+		RequiresCondition: enable-all-ai
 	HarvesterBotModule:
 		RequiresCondition: enable-all-ai
 		HarvesterTypes: harv, harvd,  gharv, pprobe, zdrone, usachinook, tscv, avharv, lst.harv
@@ -299,10 +325,10 @@ Player:
 		MinimumConstructionYardCount: 4
 		AdditionalConstructionYardCount: 2
 	McvExpansionManagerBotModule@surveyor:
-		RequiresCondition: enable-all-ai
-		McvTypes: tsengi.o
-		ConstructionYardTypes: outpost
-		McvFactoryTypes: barr, tent, handd, pyled, nhand, gtent, foundry, gfoundry, barr.bot, barr.boss, tent.bot, handd.bot, pyled.bot, nhand.bot, gtent.bot, foundry.bot, gfoundry.bot, pgatew, pgatew.bot, psupor, psupor.bot, zpool, zpool.bot, zhydraden, usabarracks, usabarracks.bot, zhatchery, znydus, tbarr, tbarr.1, tbarr.2, tbarr.3, tbarr.ai, chinabarracks,chinabarracks.bot, t.missinf, japanbarracks, japanbarracks.bot, japanbarracks, avtent, avtent.bot, avcarrier
+		RequiresCondition: enable-all-ai && enable-surveyor
+		McvTypes: tsengi.o, japansurveyorboat
+		ConstructionYardTypes: outpost, outpostnavy
+		McvFactoryTypes: barr, tent, handd, pyled, nhand, gtent, foundry, gfoundry, barr.bot, barr.boss, tent.bot, handd.bot, pyled.bot, nhand.bot, gtent.bot, foundry.bot, gfoundry.bot, pgatew, pgatew.bot, psupor, psupor.bot, zpool, zpool.bot, zhydraden, usabarracks, usabarracks.bot, zhatchery, znydus, tbarr, tbarr.1, tbarr.2, tbarr.3, tbarr.ai, chinabarracks,chinabarracks.bot, t.missinf, japanbarracks, japanbarracks.bot, japanbarracks, avtent, avtent.bot, avcarrier, japanshipyard
 		MoveOldConyardFirst: false
 		BuildMcvInterval: 250
 		BuildAdditionalMCVCashAmount: 500

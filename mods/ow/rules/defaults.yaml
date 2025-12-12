@@ -1169,6 +1169,16 @@
 	EligibleForRandomActorCrate:
 		Type: soldier
 
+^InfantryVoiceSwitch:
+	GrantRandomCondition@voice:
+		Conditions: voice1, voice1, voice1, voice1, voice2
+	Voiced:
+		RequiresCondition: voice1
+		VoiceSet: GenericVoice
+	Voiced@woman:
+		RequiresCondition: voice2
+		VoiceSet: ForgottenOfficerVoice
+
 ^TibSunSoldier:
 	Inherits@1: ^Soldier
 	RenderSprites:
@@ -3475,14 +3485,25 @@
 	MapEditorData:
 		Categories: Resource spawn
 	RequiresSpecificOwners:
-		ValidOwnerNames: Neutral
+		ValidOwnerNames: Neutral, Creeps
 	ExternalCondition@creep:
 		Condition: creepgen
-	ExplodeWeapon@1:
+	FireWarheads@1:
 		RequiresCondition: creepgen
-		Weapon: CreepPreventer
+		Weapons: CreepPreventer
+		Interval: 50
+	GrantConditionOnOwnerName@creeps:
+		PlayerName: Creeps
+		Condition: creeps
 	Targetable@tree:
-		TargetTypes: TibTree, Ground, UpgradeThing, Ground, OreMine, NoAITarget, NoAutoTarget
+		RequiresCondition: !creeps
+		TargetTypes: TibTree, Ground, UpgradeThing, OreMine, NoAITarget, NoAutoTarget
+	Targetable@creeps:
+		RequiresCondition: creeps
+		TargetTypes: TibTree, Defense, Structure, GroundActor
+	DamageMultiplier@creeps:
+		RequiresCondition: creeps
+		Modifier: 150
 	KillsSelf@notib:
 		RequiresCondition: notib
 	FreeActor@notib:
@@ -3504,7 +3525,25 @@
 	DamageMultiplier@tiberium:
 		RequiresCondition: monoliths
 		Modifier: 1
-
+	ExternalCondition@hatetib:
+		Condition: makecreeps
+	ExternalCondition@hatetib2:
+		Condition: no_attack_node
+	FireWarheads@changeowner: # if AI hates Tiberium, nearby harvesters will turn this node Hostile, prevented by mutators and accelerators
+		RequiresCondition: makecreeps && !creeps && !no_attack_node
+		StartCooldown: 125
+		Interval: 100
+		Weapons: TibTreeOwnerCreeps
+	FireWarheads@changeownerback: # if no harvester is nearby, revert the node to Neutral.
+		RequiresCondition: !makecreeps && creeps
+		StartCooldown: 750
+		Interval: 100
+		Weapons: TibTreeOwnerNeutral
+	FireWarheads@changeownerbackstructure: # if an accelerator or mutator is here, revert the node to Neutral.
+		RequiresCondition: no_attack_node
+		Interval: 100
+		Weapons: TibTreeOwnerNeutral
+	TemporaryOwnerManager:
 
 # Inherited and changed from mods/ra so that the tree can be removed with an external condition, and targeted as a normal GroundActor
 ^Tree:
@@ -4240,3 +4279,39 @@
 		Condition: creepgen
 		Range: 9c0
 		ValidRelationships: Neutral, Ally, Enemy
+
+# Base actor for harvesters, not fully universal as of yet
+^Harvester:
+	GrantConditionOnPrerequisite@hatetib:
+		Prerequisites: ai.hatetib
+		Condition: ai.hatetib
+	ProximityExternalCondition@hatetib:
+		Range: 8c0
+		RequiresCondition: ai.hatetib
+		Condition: makecreeps
+		ValidRelationships: Neutral, Enemy
+	GrantConditionOnPrerequisite@chrono:
+		Condition: pdox
+		Prerequisites: pdox
+	ChronoResourceDelivery:
+		RequiresCondition: pdox
+		WarpInSound: chrono2.aud
+		WarpOutSound: chrono2.aud
+		WarpInSequence: bunkerbustersring
+		WarpOutSequence: bunkerbustersring
+		AudibleThroughFog: false
+		SoundVolume: 0.33
+		CheckTeleportDelay: 30
+		Image: explosion
+	DockClientManager:
+	StoresResources:
+		Capacity: 20
+		Resources: Ore,Gems,Tiberium,BlueTiberium
+	Cloak@stealthgen:
+		PauseOnCondition: cloak-force-disabled
+	GrantConditionOnDamageState@UNCLOAK:
+		Condition: cloak-force-disabled
+		ValidDamageStates: Critical
+	GrantConditionOnPrerequisite@bhand:
+		Prerequisites: vehicles.bhand
+		Condition: stealthgen

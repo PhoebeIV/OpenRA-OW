@@ -78,6 +78,7 @@ MCVD.2:
 		Image: mcvd
 
 HARV:
+	Inherits@harv: ^Harvester
 	Buildable:
 		Prerequisites: refinery, ~techlevel.infonly, ~vehicles.harvprereq
 		Description: actor-harv-description
@@ -93,32 +94,8 @@ HARV:
 			Gems: pip-red
 			Tiberium: pip-green
 			BlueTiberium: pip-blue
-	GrantConditionOnPrerequisite@chrono:
-		Condition: pdox
-		Prerequisites: pdox
-	ChronoResourceDelivery:
-		RequiresCondition: pdox
-		WarpInSound: chrono2.aud
-		WarpOutSound: chrono2.aud
-		WarpInSequence: bunkerbustersring
-		WarpOutSequence: bunkerbustersring
-		AudibleThroughFog: false
-		SoundVolume: 0.33
-		CheckTeleportDelay: 30
-		Image: explosion
 	Mobile:
 		Speed: 100
-	DockClientManager:
-	StoresResources:
-		Resources: Ore,Gems,Tiberium,BlueTiberium
-	Cloak@stealthgen:
-		PauseOnCondition: cloak-force-disabled
-	GrantConditionOnDamageState@UNCLOAK:
-		Condition: cloak-force-disabled
-		ValidDamageStates: Critical
-	GrantConditionOnPrerequisite@bhand:
-		Prerequisites: vehicles.bhand
-		Condition: stealthgen
 	Valued:
 		Cost: 550
 	GivesExperienceMultiplier@value:
@@ -148,6 +125,7 @@ HARVNAVY:
 HARVD:
 	Inherits: ^Vehicle
 	Inherits@selection: ^SelectableEconomicUnit
+	Inherits@harv: ^Harvester
 	Buildable:
 		Queue: Vehicle
 		BuildPaletteOrder: 110
@@ -198,30 +176,11 @@ HARVD:
 	RenderSprites:
 		PlayerPalette: dawn
 		Image: harvd
-	WithStoresResourcesPipsDecoration:
-		Position: BottomLeft
-		RequiresSelection: true
-		PipCount: 7
-		ResourceSequences:
-			Ore: pip-yellow
-			Gems: pip-red
-			Tiberium: pip-green
-			BlueTiberium: pip-blue
-	DockClientManager:
-	StoresResources:
-		Capacity: 20
-		Resources: Ore,Gems,Tiberium,BlueTiberium
 	Cloak@stealthgen:
 		Palette: dawncloak
 		CloakSound: trans1.aud
 		UncloakSound: trans1.aud
 		PauseOnCondition: cloak-force-disabled
-	GrantConditionOnDamageState@UNCLOAK:
-		Condition: cloak-force-disabled
-		ValidDamageStates: Critical
-	GrantConditionOnPrerequisite@bhand:
-		Prerequisites: vehicles.bhand
-		Condition: stealthgen
 
 ARTY:
 	Buildable:
