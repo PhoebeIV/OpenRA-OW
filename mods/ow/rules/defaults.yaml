@@ -8,6 +8,7 @@
 		InitialDelay: 25
 		CloakDelay: 100
 		CloakSound: cloak5.aud
+		DetectionTypes: Cloak
 		RequiresCondition: stealthgen && !disabled
 		UncloakOn: Attack, Unload, Infiltrate, Demolish, Damage
 		CloakedCondition: cloaked
@@ -637,7 +638,7 @@
 		Delay: 10000
 	FreeActor@hack:
 		Actor: BuildQueueHandler2
-	Power:
+	Power@1:
 		Amount: 1000
 		RequiresCondition: alltech || hardbotowner
 	GrantConditionOnPrerequisite@alltech:
@@ -857,6 +858,12 @@
 	ProductionTimeMultiplier@glapower:
 		Prerequisites: anypower, infantry.gla
 		Multiplier: 80
+	ProductionTimeMultiplier@missdiscount1:
+		Prerequisites: prodcost.missinf
+		Multiplier: 75
+	ProductionCostMultiplier@missdiscount2:
+		Prerequisites: prodcost.missinf
+		Multiplier: 75
 	GrantConditionOnPrerequisite@firespeed1:
 		Prerequisites: infantry.firespeed1
 		Condition: infantry.firespeed1
@@ -1427,6 +1434,12 @@
 # Inherited and changed from mods/ra to add generic name if Tooltip is missing on newly defined actors. Also allows to be build on creep.
 ^BasicBuilding:
 	Inherits@shape: ^1x1Shape
+	ProductionTimeMultiplier@missdiscount1:
+		Prerequisites: prodcost.missstr
+		Multiplier: 75
+	ProductionCostMultiplier@missdiscount2:
+		Prerequisites: prodcost.missstr
+		Multiplier: 75
 	Tooltip:
 		Name: meta-basicbuilding-generic-name
 		GenericName: meta-basicbuilding-generic-name
@@ -1882,6 +1895,12 @@
 	ProductionTimeMultiplier@glapower:
 		Prerequisites: anypower, vehicles.gla
 		Multiplier: 80
+	ProductionTimeMultiplier@missdiscount1:
+		Prerequisites: prodcost.missveh
+		Multiplier: 75
+	ProductionCostMultiplier@missdiscount2:
+		Prerequisites: prodcost.missveh
+		Multiplier: 75
 	GrantConditionOnPrerequisite@var1:
 		Prerequisites: upgrade.veharmor1
 		Condition: var1
@@ -2081,6 +2100,12 @@
 	ProductionTimeMultiplier@glapower:
 		Prerequisites: anypower, ships.gla
 		Multiplier: 80
+	ProductionTimeMultiplier@missdiscount1:
+		Prerequisites: prodcost.missship
+		Multiplier: 75
+	ProductionCostMultiplier@missdiscount2:
+		Prerequisites: prodcost.missship
+		Multiplier: 75
 	GrantConditionOnPrerequisite@nar1:
 		Prerequisites: upgrade.navarmor1
 		Condition: nar1
@@ -2166,6 +2191,12 @@
 	ProductionTimeMultiplier@glapower:
 		Prerequisites: anypower, aircraft.gla
 		Multiplier: 80
+	ProductionTimeMultiplier@missdiscount1:
+		Prerequisites: prodcost.missair
+		Multiplier: 75
+	ProductionCostMultiplier@missdiscount2:
+		Prerequisites: prodcost.missair
+		Multiplier: 75
 	GrantConditionOnPrerequisite@aar1:
 		Prerequisites: upgrade.airarmor1
 		Condition: aar1
@@ -2233,16 +2264,6 @@
 		Condition: attack-cooldown
 		RevokeDelay: 125
 	TemporaryOwnerManager:
-	ExternalCondition@arbiterstealth:
-		Condition: arbiterstealth
-	Cloak@arbiterstealth:
-		IsPlayerPalette: true
-		InitialDelay: 25
-		CloakDelay: 25
-		CloakSound: tphclo00.aud
-		UncloakSound: tphclo01.aud
-		RequiresCondition: arbiterstealth && !disabled
-		UncloakOn: Attack, Unload, Infiltrate, Demolish
 	GrantConditionOnPrerequisite@gdi_speed:
 		Prerequisites: gdi.speed
 		Condition: gdi_speed
@@ -2260,6 +2281,10 @@
 		RearmActors: hpad, hpad.bot, afld, afld.ukraine, usaairfield, usaairstriplandingspot, chinaairfield, japanairfield, japanairfieldnavy, pstarg, tsport, tsport.landed, zspire, zspire.spot, avpad
 	Cloneable:
 		Types: Plane
+	Cloak@stealthgen:
+		DetectionTypes: AirCloak
+	Cloak@arbiterstealth:
+		DetectionTypes: AirCloak
 
 # This gives planes a passive, slow repair when landed.
 ^Plane:
@@ -2658,6 +2683,13 @@
 	ReloadDelayMultiplier@botowner:
 		RequiresCondition: botowner
 		Modifier: 90
+	ProductionTimeMultiplier@missdiscount1:
+		Prerequisites: never.give
+		Multiplier: 100
+	ProductionCostMultiplier@missdiscount2:
+		Prerequisites: never.give
+		Multiplier: 100
+
 
 # Reduces upgrade effectiveness on VERY strong epic infantry units
 ^EpicInfantryNerf:
@@ -4315,3 +4347,6 @@
 	GrantConditionOnPrerequisite@bhand:
 		Prerequisites: vehicles.bhand
 		Condition: stealthgen
+	ProximityExternalCondition@harv:
+		Condition: harvester
+		ValidRelationships: Neutral

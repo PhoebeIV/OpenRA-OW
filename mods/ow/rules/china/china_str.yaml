@@ -76,7 +76,7 @@ chinasupplycenter:
 	Buildable:
 		Queue: Building
 		BuildPaletteOrder: 60
-		Prerequisites: ~structures.china, anypower, ~!ai.boss
+		Prerequisites: ~structures.china, anypower, ~!ai.god
 		Description: actor-chinasupplycenter.description
 	Valued:
 		Cost: 1400
@@ -597,7 +597,7 @@ chinaairfield:
 	Buildable:
 		Queue: Building
 		BuildPaletteOrder: 130
-		Prerequisites: refinery, anypower, ~structures.china, ~!ai.boss
+		Prerequisites: refinery, anypower, ~structures.china, ~!ai.god
 		Description: actor-chinaairfield.description
 	Tooltip:
 		Name: actor-chinaairfield.name
@@ -874,6 +874,8 @@ chinagatlinggun:
 	RenderDetectionCircle:
 	DetectCloaked:
 		Range: 5c0
+		DetectionTypes: Cloak, AirCloak
+		RequiresCondition: !disabled
 	WithMuzzleOverlay:
 	Power:
 		Amount: -40
@@ -913,6 +915,7 @@ chinaspeakertower:
 		Range: 5c0
 	DetectCloaked:
 		Range: 6c0
+		DetectionTypes: Cloak, AirCloak
 		RequiresCondition: !disabled
 	Power:
 		Amount: -100
@@ -1159,6 +1162,8 @@ chinashipyard:
 		Type: Oil
 		DockAngle: 256
 		DockOffset: 0, 0, 0
+	StoresPlayerResources:
+		Capacity: 1000
 
 chinasupernuclearsilo:
 	Inherits: ^Building

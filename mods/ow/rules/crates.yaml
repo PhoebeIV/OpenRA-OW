@@ -74,9 +74,16 @@ CRATE:
 		MaxAmount: 10
 		MaxDuplicateValue: 6000
 		Sound: clonesnd.aud
-		RequiresCondition: !hero
+		RequiresCondition: !hero || !harvester
+	DuplicateUnitCrateAction@harv:
+		SelectionShares: 15
+		MaxAmount: 4
+		Sound: clonesnd.aud
+		RequiresCondition: !hero && harvester
 	ExternalCondition@hero:
 		Condition: hero
+	ExternalCondition@harvester:
+		Condition: harvester
 	GiveUnitCrateAction@split:
 		SelectionShares: 2
 		Units: 1tnk.split3
@@ -1963,7 +1970,7 @@ OLDDK:
 	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
 	Inherits@InfPro: ^AutoTargetVehiclePriority
 	Buildable:
-		Prerequisites: ~ai.boss, ulttechcenter
+		Prerequisites: ~ai.god, ulttechcenter
 		Description: Dark Knight Super unit, Practicaly a nuke on legs. \n Strong vs Anything Close \n Weak vs Anything fast or ranged.
 		Queue: Infantry
 		BuildLimit: 1
@@ -3689,6 +3696,9 @@ MANINGAUZE:
 		SoundFiles: maningauze.ogg
 		Delay: 286
 	AmbientSound@3:
+		SoundFiles: maningauze.ogg
+		Delay: 286
+	AmbientSound@4:
 		SoundFiles: maningauzem.ogg
 		Delay: 286
 	FireWarheadsOnDeath:

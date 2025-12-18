@@ -70,7 +70,7 @@ laborcamp:
 	Inherits: GPROC
 	-SpawnActorsOnSell:
 	Buildable:
-		Prerequisites: ~structures.medi, ~techlevel.infonly, ~!ai.boss
+		Prerequisites: ~structures.medi, ~techlevel.infonly, ~!ai.god
 		Description: Allows production of Slaves and Workers
 		BuildPaletteOrder: 2
 		BuildDuration: 800
@@ -222,7 +222,7 @@ farmmedi:
 	-SpawnActorOnDeath:
 	Buildable:
 		Queue: Building
-		Prerequisites: ~structures.medi, ~laborcamp, ~!ai.boss, ~techlevel.infonly
+		Prerequisites: ~structures.medi, ~laborcamp, ~!ai.god, ~techlevel.infonly
 		Description: Drop off point for resources gathered by Slaves and Workers.\nAlso acts as a Silo to allow more credits to be held.
 		BuildPaletteOrder: 3
 		BuildDuration: 500
@@ -426,7 +426,7 @@ manawell:
 		Bounds: 2048, 2048
 	Buildable:
 		Queue: Building
-		Prerequisites: ~structures.medi, techcenter, ~!ai.powerout, ~!ai.boss,  ~techlevel.low
+		Prerequisites: ~structures.medi, techcenter, ~!ai.powerout, ~!ai.god,  ~techlevel.low
 		Description: Provides Power
 		BuildPaletteOrder: 6
 		BuildDuration: 1000
@@ -529,7 +529,7 @@ manaconduit:
 		Bounds: 1024, 2048
 	Buildable:
 		Queue: Building
-		Prerequisites: ~structures.medi, techcenter, ~!ai.powerout, ~!ai.boss,  ~techlevel.low
+		Prerequisites: ~structures.medi, techcenter, ~!ai.powerout, ~!ai.god,  ~techlevel.low
 		Description: Empowers mana wells.
 		BuildPaletteOrder: 6
 		BuildDuration: 500
@@ -754,6 +754,7 @@ castle:
 		Amount: 0
 	DetectCloaked:
 		Range: 6c0
+		DetectionTypes: Cloak, AirCloak
 		RequiresCondition: !disabled
 	## darkHarvest.ion : warhead that causes buildings to spawn mix of swarmlings units
 	## Airstrike power
@@ -869,7 +870,7 @@ library:
 	Buildable:
 		Queue: Tech
 		BuildDuration: 4500
-		Prerequisites: ~structures.medi, advtechcenter, ~techlevel.unrestricted, ~!ai.boss, anypower
+		Prerequisites: ~structures.medi, advtechcenter, ~techlevel.unrestricted, ~!ai.god, anypower
 		Description: Super Tech Center\nclones infantry units\nUnlocks Super Units
 		BuildLimit: 1
 		BuildPaletteOrder: 11
@@ -1205,6 +1206,7 @@ Archertower:
 		TurnSpeed: 1023
 		Offset: 128,128,384
 	DetectCloaked:
+		DetectionTypes: Cloak, AirCloak
 		Range: 6c0
 	RenderSprites:
 		Image: mediarrowtower
@@ -1572,6 +1574,7 @@ ArcaneTower:
 		Amount: -75
 	DetectCloaked:
 		Range: 6c0
+		DetectionTypes: Cloak, AirCloak
 		RequiresCondition: !disabled
 	ProvidesPrerequisite@buildingname:
 	RenderSprites:
@@ -1692,6 +1695,7 @@ TheEye:
 		RequiresCondition: !disabled
 	DetectCloaked:
 		Range: 6c0
+		DetectionTypes: Cloak, AirCloak, Underwater
 		RequiresCondition: !disabled
 	ProvidesPrerequisite:
 		Prerequisite: radar
@@ -1793,6 +1797,7 @@ TheEvilEye:
 		RequiresCondition: !disabled
 	DetectCloaked:
 		Range: 6c0
+		DetectionTypes: Cloak, AirCloak, Underwater
 		RequiresCondition: !disabled
 	ProvidesPrerequisite:
 		Prerequisite: radar

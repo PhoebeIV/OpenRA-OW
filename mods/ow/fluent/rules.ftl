@@ -3600,15 +3600,24 @@ actor-t-miss =
 
 actor-cmiss =
    .veh = Vehicle Duplication
-   .vehdesc = Enables 2nd vehicle queue, and duplicates produced vehicles.
+   .vehdesc = Enables 2nd vehicle queue. 
+   Provides discount and increased 
+   build speed to vehicles.
    .navy = Navy Duplication
-   .navydesc = Enables 2nd navy queue, and duplicates produced naval units.
+   .navydesc = Enables 2nd navy queue. 
+   Provides discount and increased 
+   build speed to naval units.
    .inf = Infantry Cloning
-   .infdesc = Enables 2nd infantry queue, and clones produced infantry.
+   .infdesc = Enables 2nd infantry queue. 
+   Provides discount and increased 
+   build speed to infantry.
    .air = Aircraft Duplication
-   .airdesc = Enables 2nd aircraft queue, and duplicates produced aircraft.
+   .airdesc = Enables 2nd aircraft queue. 
+   Provides discount and increased 
+   build speed to aircraft.
    .str = Structure Duplication
    .strdesc = Enables 2nd building, defense, utility, tech and upgrade queues.
+     Provides discount and increased build speed to vehicles  
    .none = Duplication Not Chosen
 
 actor-t-missair-description = Provides access to your faction's epic unit or ability.
@@ -3888,8 +3897,10 @@ actor-u-tnk =
 ## techbuildings.yaml
 actor-miss =
    .name = Communications Center
-   .tooltipdescription-ally-description = Increases visual range of all units.
-   .tooltipdescription-other-description = Capture to give increase visual range of all units.
+   .tooltipdescription-ally-description = Increases vision range of all units.
+   Deploys spy drones, and has a radar scan ability.
+   .tooltipdescription-other-description = Capture to increase vision range of all units.
+   Also deploys spy drones, and has a radar scan ability.
 
 actor-miss-husk =
    .name = Communications Center (Dead)

@@ -26,7 +26,48 @@ MISS:
 	GrantConditionOnPrerequisite@respawnable:
 		Prerequisites: techlevel.techrespamn
 		Condition: respawnable
-
+	SpawnActorPower@spyvan:
+		OrderName: VanSweep
+		Cursor: chrono-target
+		Icon: spy
+		ChargeInterval: 1500
+		LifeTime: 200
+		Name: Scanner Sweep
+		Description: Reveal an area on the map for 5 seconds. \nReveals cloaked units.
+		Actor: camera.spyplane
+		SelectTargetSpeechNotification: SelectTarget
+		DisplayRadarPing: True
+		DeploySound: tcssca00.aud
+		EffectSequence: idle
+		AllowMultiple: true
+		SupportPowerPaletteOrder: 2
+	GrantConditionIfOwnerIsNeutral:
+		Condition: neutral
+	GrantConditionOnCapture:
+		Condition: spawnspy
+	FreeActor@1:
+		RequiresCondition: spawnspy || newspawn
+		Actor: MISSPLANE
+		AllowRespawn: true
+	FreeActor@2:
+		RequiresCondition: spawnspy || newspawn
+		Actor: MISSPLANE
+		AllowRespawn: true
+	FreeActor@3:
+		RequiresCondition: spawnspy || newspawn
+		Actor: MISSPLANE
+		AllowRespawn: true
+	GrantPeriodicCondition:
+		RequiresCondition: !neutral
+		Condition: newspawn
+		CooldownDuration: 4500
+		ActiveDuration: 5
+	ProvidesRadar:
+		RequiresCondition: !jammed
+	ExternalCondition@JAMMED:
+		Condition: jammed
+	ProvidesPrerequisite@radar:
+		Prerequisite: radar
 
 MISS.Husk:
 	Inherits: MISS

@@ -519,7 +519,7 @@ LABORCAMP:
 	Inherits@BIB: ^3xBuildingBib
 	Buildable:
 		Queue: Building
-		Prerequisites: ~structures.medi, ~techlevel.infonly, ~!ai.boss
+		Prerequisites: ~structures.medi, ~techlevel.infonly, ~!ai.god
 		Description: Allows production  of slave units.\nWorker units will also produce from this building.
 		BuildPaletteOrder: 2
 		BuildLimit: 3
@@ -600,7 +600,7 @@ FARMMEDI:
 	Refinery:
 	Buildable:
 		Queue: Building
-		Prerequisites: ~structures.medi, laborcamp, ~!ai.boss, ~techlevel.infonly
+		Prerequisites: ~structures.medi, laborcamp, ~!ai.god, ~techlevel.infonly
 		Description: Drop off point for resources gathered by Slaves and Workers.\nAlso acts as a Silo to allow more credits to be held.
 		BuildPaletteOrder: 3
 	Tooltip:
@@ -1245,7 +1245,7 @@ LIBRARY:
 	Buildable:
 		Queue: Tech
 		BuildDuration: 4500
-		Prerequisites: ~structures.medi, manasupply, alchemylab, ~techlevel.unrestricted, ~!ai.boss
+		Prerequisites: ~structures.medi, manasupply, alchemylab, ~techlevel.unrestricted, ~!ai.god
 		Description: Super Tech Center\nclones infantry units\nUnlocks Super Units
 		BuildLimit: 1
 		BuildPaletteOrder: 11
@@ -1332,7 +1332,7 @@ MANAWELL:
 		Bounds: 2048, 2048
 	Buildable:
 		Queue: Building
-		Prerequisites: ~structures.medi, techcenter, ~!ai.powerout, ~!ai.boss,  ~techlevel.low
+		Prerequisites: ~structures.medi, techcenter, ~!ai.powerout, ~!ai.god,  ~techlevel.low
 		Description: Provides Power
 		BuildPaletteOrder: 5
 	Tooltip:
@@ -1383,7 +1383,7 @@ DEEPMANAWELL:
 	Inherits@BIB: ^3xBuildingBib
 	Buildable:
 		Queue: Building
-		Prerequisites: ~structures.medi, techcenter, ~!ai.powerout, ~!ai.boss, ~techlevel.medium
+		Prerequisites: ~structures.medi, techcenter, ~!ai.powerout, ~!ai.god, ~techlevel.medium
 		Description: Provides a large amount of Power
 		BuildPaletteOrder: 6
 	Building:
@@ -1758,6 +1758,7 @@ TheEye:
 	DetectCloaked:
 		Range: 6c0
 		RequiresCondition: !disabled
+		DetectionTypes: Cloak, AirCloak
 	ProvidesPrerequisite:
 		Prerequisite: radar
 	ProvidesPrerequisite@buildingname:
@@ -2232,6 +2233,7 @@ ARCHERTOWER:
 		RequiresCondition: elementalweps
 	DetectCloaked:
 		Range: 6c0
+		DetectionTypes: Cloak, AirCloak
 	RenderSprites:
 		Image: mediarrowtower
 	GrantConditionOnPrerequisite@medidefenceup1:
@@ -2420,6 +2422,7 @@ SCOUTTOWER:
 		Range: 10c512
 	DetectCloaked:
 		Range: 8c0
+		DetectionTypes: Cloak, AirCloak, Underwater
 	-GpsDot:
 	-ExternalCondition@stealthgen:
 	-Cloak@stealthgen:
@@ -2490,6 +2493,7 @@ ArcaneTower:
 		Amount: -50
 	DetectCloaked:
 		Range: 6c0
+		DetectionTypes: Cloak, AirCloak
 		RequiresCondition: !disabled
 	ProvidesPrerequisite@buildingname:
 	RenderSprites:

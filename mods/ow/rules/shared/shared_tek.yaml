@@ -441,7 +441,7 @@
 		UseDirectionalTarget: false
 	ParatroopersPower@terrambush:
 		PauseOnCondition: disabled
-		Prerequisites: ulttech.demo
+		Prerequisites: ulttech.demo, !ai.god
 		OrderName: BombAmbush
 		Cursor: chrono-target
 		Icon: ge2icon
@@ -483,7 +483,7 @@
 		DisplayTimerRelationships: Ally, Neutral, Enemy
 	ParatroopersPower@soviettanks:
 		OrderName: ParatankSoviet
-		Prerequisites: ulttech.soviet
+		Prerequisites: ulttech.soviet, !ai.god
 		Icon: paratank
 		ChargeInterval: 9000
 		Name: Paratanks
@@ -526,7 +526,7 @@
 		SquadSize: 2
 	ParatroopersPower@gditanks:
 		OrderName: ParatankGDI
-		Prerequisites: ulttech.gdi, !ulttech.steel
+		Prerequisites: ulttech.gdi, !ulttech.steel, !ai.god
 		Icon: paratank
 		ChargeInterval: 9000
 		Name: Paratanks
@@ -547,7 +547,7 @@
 		DirectionArrowAnimation: paradirection
 	ParatroopersPower@gdimechs:
 		OrderName: ParamechGDI
-		Prerequisites: ulttech.steel
+		Prerequisites: ulttech.steel, !ai.god
 		Icon: paratank
 		ChargeInterval: 9000
 		Name: Paramechs
@@ -594,7 +594,7 @@
 		SupportPowerPaletteOrder: 5
 	ParatroopersPower@nodtanks:
 		OrderName: ParatankNod
-		Prerequisites: ulttech.nod
+		Prerequisites: ulttech.nod, !ai.god
 		Icon: paratank
 		ChargeInterval: 9000
 		Name: Paratanks
@@ -616,7 +616,7 @@
 		SquadSize: 2
 	ParatroopersPower@fedtanks:
 		OrderName: ParatankFed
-		Prerequisites: ulttech.fed
+		Prerequisites: ulttech.fed, !ai.god
 		Icon: paratank
 		ChargeInterval: 9000
 		Name: Paratanks
@@ -638,7 +638,7 @@
 		SquadSize: 2
 	ParatroopersPower@uactanks:
 		OrderName: ParatankUAC
-		Prerequisites: ulttech.uac
+		Prerequisites: ulttech.uac, !ai.god
 		Icon: paratank
 		ChargeInterval: 9000
 		Name: Paratanks
@@ -659,7 +659,7 @@
 		DirectionArrowAnimation: paradirection
 	ParatroopersPower@nazitanks:
 		OrderName: ParatankNazi
-		Prerequisites: ulttech.nazi
+		Prerequisites: ulttech.nazi, !ai.god
 		Icon: paratank
 		ChargeInterval: 9000
 		Name: Paratanks
@@ -680,7 +680,7 @@
 		DirectionArrowAnimation: paradirection
 	ParatroopersPower@glatanks:
 		OrderName: ParatankGLA
-		Prerequisites: ulttech.gla
+		Prerequisites: ulttech.gla, !ai.god
 		Icon: paratank
 		ChargeInterval: 9000
 		Name: Paratanks
@@ -991,6 +991,46 @@
 		Weapon: DarkArchonDummy
 		WeaponDelay: 5
 		DisplayTimerRelationships: Ally, Neutral, Enemy
+	ChronoshiftPower@advancedchronoshiftprotoss:
+		OrderName: AdvancedChronoshift2
+		Prerequisites: ulttech.protoss
+		PauseOnCondition: disabled
+		Icon: chrono
+		ChargeInterval: 6000
+		Name: Mass Recall
+		Description: Teleports a group of units across\nthe map for 20 seconds.
+		SelectTargetSpeechNotification: SelectTarget
+		InsufficientPowerSpeechNotification: InsufficientPower
+		BeginChargeSpeechNotification: ChronosphereCharging
+		EndChargeSpeechNotification: ChronosphereReady
+		SelectTargetTextNotification: actor-pfleet.chronoshiftpower-advancedchronoshift-select-target-text-notification
+		InsufficientPowerTextNotification: actor-pfleet.chronoshiftpower-advancedchronoshift-insufficient-power-text-notification
+		BeginChargeTextNotification: actor-pfleet.chronoshiftpower-advancedchronoshift-begin-charge-text-notification
+		EndChargeTextNotification: actor-pfleet.chronoshiftpower-advancedchronoshift-end-charge-text-notification
+		Duration: 400
+		KillCargo: true
+		DisplayRadarPing: True
+		SupportPowerPaletteOrder: 30
+		Dimensions: 2, 2
+		Footprint: xx xx
+	IonCannonPower@timestopprotoss:
+		OrderName: TimeStop
+		Prerequisites: ulttech.vorazun
+		PauseOnCondition: disabled
+		Icon: timestop
+		Cursor: chrono-target
+		ChargeInterval: 10500
+		Name: Time Stop
+		Description: Induce a dark temporal singularity.\nInflicts no damage but disables all \n units in a 10 cell radius for 20 sec.
+		SelectTargetSpeechNotification: SelectTarget
+		InsufficientPowerSpeechNotification: InsufficientPower
+		DisplayRadarPing: True
+		CameraActor: camera.small
+		SupportPowerPaletteOrder: 20
+		CameraRemoveDelay: 100
+		WeaponDelay: 0
+		Weapon: TimeStopWeapon
+		DisplayTimerRelationships: Ally, Neutral, Enemy
 
 T.MISS:
 	Inherits: ^ScienceBuilding
@@ -1143,8 +1183,6 @@ T.MISS:
 	TransformOnCondition@str:
 		RequiresCondition: miss_str
 		IntoActor: T.MISSSTR
-	TransformOnCapture@captured:
-		IntoActor: T.MISS
 	ProvidesPrerequisite@socket:
 		Prerequisite: t.miss.socket
 
@@ -1177,13 +1215,13 @@ T.MISSVEH:
 		QueuedAudio: Building
 		OnHoldAudio: OnHold
 		CancelledAudio: Cancelled
-		BuildDurationModifier: 80
+		BuildDurationModifier: 60
 	ProductionBar@2:
 		ProductionType: Vehicle
-	ClonesProducedUnits:
-		RequiresCondition: !water
-		CloneableTypes: Vehicle
-		ProductionType: Vehicle
+	Production:
+		Produces: Vehicle
+	ProvidesPrerequisite@missdiscount:
+		Prerequisite: prodcost.missveh
 	SpawnActorOnDeath:
 		Actor: T.MISSVEH.Hole
 	-ProductionBar@transformstructure:
@@ -1220,16 +1258,15 @@ T.MISSAIR:
 		OnHoldAudio: OnHold
 		CancelledAudio: Cancelled
 		InfiniteBuildLimit: 100
-		BuildDurationModifier: 75
+		BuildDurationModifier: 60
 	ProductionBar@2:
 		ProductionType: Aircraft
 	Production:
 		Produces: Aircraft, Plane, Helicopter
 	PrimaryBuilding:
 		ProductionQueues: Aircraft
-	ClonesProducedUnits:
-		CloneableTypes: Aircraft
-		ProductionType: Aircraft
+	ProvidesPrerequisite@missdiscount:
+		Prerequisite: prodcost.missair
 	ProximityExternalCondition@reloadthing:
 		Condition: reloadnear
 		Range: 7c0
@@ -1270,7 +1307,7 @@ T.MISSINF:
 		OnHoldAudio: OnHold
 		CancelledAudio: Cancelled
 		InfiniteBuildLimit: 100
-		BuildDurationModifier: 75
+		BuildDurationModifier: 60
 	ProductionBar@2:
 		ProductionType: Infantry
 	Production:
@@ -1281,10 +1318,8 @@ T.MISSINF:
 		Produces: Infantry, Soldier
 	PrimaryBuilding:
 		ProductionQueues: Infantry
-	ClonesProducedUnits:
-		RequiresCondition: !water
-		CloneableTypes: Infantry
-		ProductionType: Infantry
+	ProvidesPrerequisite@missdiscount:
+		Prerequisite: prodcost.missinf
 	SpawnActorOnDeath:
 		Actor: T.MISSINF.Hole
 	-ProductionBar@transformstructure:
@@ -1328,7 +1363,7 @@ T.MISSNAVY:
 		OnHoldAudio: OnHold
 		CancelledAudio: Cancelled
 		InfiniteBuildLimit: 100
-		BuildDurationModifier: 75
+		BuildDurationModifier: 60
 	ProductionBar@2:
 		ProductionType: Ship
 	Production:
@@ -1341,10 +1376,8 @@ T.MISSNAVY:
 		Range: 7c0
 	PrimaryBuilding:
 		ProductionQueues: Ship
-	ClonesProducedUnits:
-		CloneableTypes: Ship
-		ProductionType: Ship
-		RequiresCondition: water
+	ProvidesPrerequisite@missdiscount:
+		Prerequisite: prodcost.missship
 	SpawnActorOnDeath:
 		Actor: T.MISSNAVY.Hole
 	-ProductionBar@transformstructure:
@@ -1414,7 +1447,7 @@ T.MISSSTR:
 		QueuedAudio: Building
 		OnHoldAudio: OnHold
 		CancelledAudio: Cancelled
-		BuildDurationModifier: 150
+		BuildDurationModifier: 125
 	ProductionQueue@Upgrade:
 		Type: Upgrade
 		Group: Upgrade
@@ -1426,7 +1459,7 @@ T.MISSSTR:
 		QueuedAudio: Upgrading
 		OnHoldAudio: OnHold
 		CancelledAudio: Cancelled
-		BuildDurationModifier: 150
+		BuildDurationModifier: 125
 	ProductionBar@Building:
 		ProductionType: Building
 	ProductionBar@Defense:
@@ -1443,6 +1476,10 @@ T.MISSSTR:
 		Color: DB00FF
 	Production:
 		Produces: Building, Defense, Tech, Wall, Upgrade
+	Production@2:
+		Produces: Building, Defense, Tech, Wall, Upgrade
+	ProvidesPrerequisite@missdiscount:
+		Prerequisite: prodcost.missstr
 	SpawnActorOnDeath:
 		Actor: T.MISSINF.Hole
 	-ProductionBar@transformstructure:

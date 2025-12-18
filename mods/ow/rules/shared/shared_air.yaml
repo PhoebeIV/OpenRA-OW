@@ -406,3 +406,63 @@ DO17.Auschwitz:
 	WithAmmoPipsDecoration:
 		Position: BottomLeft
 		RequiresSelection: true
+
+MISSPLANE:
+	Inherits: ^NeutralPlane
+	RenderSprites:
+		Image: usaspydrone
+	Valued:
+		Cost: 50
+	Tooltip:
+		Name: actor-usaspydrone-name
+	Health:
+		HP: 9000
+	-UpdatesPlayerStatistics:
+	Aircraft:
+		CruiseAltitude: 920
+		LandAltitude: 0
+		TurnSpeed: 8
+		Speed: 64
+		RepulsionSpeed: 40
+		MaximumPitch: 56
+		Repulsable: false
+		AltitudeVelocity: 900
+		MinAirborneAltitude: 900
+	Targetable@inter:
+		TargetTypes: Interceptor, AvaliCarrier
+	RevealsShroud:
+		MinRange: 5c0
+		Range: 6c0
+		Type: GroundPosition
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 5c0
+		Type: GroundPosition
+	-Selectable:
+	Interactable:
+	-EjectOnDeath:
+	RejectsOrders:
+	-ActorLostNotification:
+	-SpawnActorOnDeath:
+	Contrail@1:
+		Offset: -598,0,0
+		RequiresCondition: airborne
+		TrailLength: 13
+	WithDamageOverlay:
+		Offset: -853,0,171
+		Interval: 2
+	FireWarheadsOnDeath:
+		-RequiresCondition:
+		Weapon: UnitExplodeSmall
+		EmptyWeapon: UnitExplodeSmall
+	DetectCloaked:
+		Range: 6c0
+		DetectionTypes: Cloak, AirCloak, Underwater
+	GrantCondition@cloak:
+		Condition: stealthgen
+	Wanders@1:
+		WanderMoveRadius: 10
+	-Rearmable:
+	KillsSelf@1:
+		RemoveInstead: true
+		Delay: 3000

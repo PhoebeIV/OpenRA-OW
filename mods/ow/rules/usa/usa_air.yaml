@@ -336,6 +336,7 @@ usacomanche:
 		InitialDelay: 125
 		CloakDelay: 60
 		UncloakOn: Attack, Unload, Infiltrate, Demolish
+		DetectionTypes: AirCloak
 		CloakTypes: Cloak
 		IsPlayerPalette: true
 		RequiresCondition: !cloak-force-disabled && upgradeaircraftgeneral
@@ -568,6 +569,7 @@ usastealthfighter:
 	Cloak:
 		InitialDelay: 125
 		CloakDelay: 60
+		DetectionTypes: AirCloak
 		UncloakOn: Attack, Unload, Infiltrate, Demolish
 		CloakTypes: Cloak
 		IsPlayerPalette: true
@@ -1050,9 +1052,10 @@ usaspydrone:
 		Voice: Move
 	SelectionDecorations:
 	Cloak:
-		InitialDelay: 35
+		InitialDelay: 0
 		CloakDelay: 50
 		UncloakOn: Attack, Unload, Infiltrate, Demolish
+		DetectionTypes: AirCloak
 		CloakTypes: Cloak
 		IsPlayerPalette: true
 		RequiresCondition: !cloak-force-disabled
@@ -1062,9 +1065,9 @@ usaspydrone:
 	Contrail:
 		Offset: -511,0,0
 	RenderDetectionCircle:
-		DetectionTypes: Cloak, Underwater
 	DetectCloaked:
 		Range: 6c256
+		DetectionTypes: Cloak, AirCloak, Underwater
 	-Selectable:
 	-SpawnActorOnDeath:
 	-MustBeDestroyed:
@@ -1072,6 +1075,13 @@ usaspydrone:
 	RejectsOrders:
 	Interactable:
 		Bounds: 128,128
+	Targetable@GROUND:
+		RequiresCondition: !airborne && spawned
+	Targetable@AIRBORNE:
+		RequiresCondition: airborne && spawned
+	GrantTimedCondition:
+		Condition: spawned
+		Duration: 250
 
 usatransportchinook:
 	Inherits: ^Helicopter

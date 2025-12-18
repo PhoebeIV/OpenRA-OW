@@ -121,7 +121,7 @@ japansupplycenter:
 	Buildable:
 		Queue: Building
 		BuildPaletteOrder: 19
-		Prerequisites: ~structures.japan, anypower, ~!ai.boss, ~!faction.navygeneral
+		Prerequisites: ~structures.japan, anypower, ~!ai.god, ~!faction.navygeneral
 		Description: actor-japansupplycenter.description
 	Valued:
 		Cost: 1400
@@ -207,7 +207,7 @@ japansupplycenternavy:
 	Buildable:
 		Queue: Building
 		BuildPaletteOrder: 19
-		Prerequisites: ~structures.japan, anypower, ~!ai.boss, ~faction.navygeneral
+		Prerequisites: ~structures.japan, anypower, ~!ai.god, ~faction.navygeneral
 		Description: actor-japansupplycenternavy.description
 	Tooltip:
 		Name: actor-japansupplycenternavy.name
@@ -340,7 +340,7 @@ japanairfield:
 	Buildable:
 		Queue: Building
 		BuildPaletteOrder: 130
-		Prerequisites: refinery, anypower, barracks, ~structures.japan, ~!faction.navygeneral, ~!ai.boss
+		Prerequisites: refinery, anypower, barracks, ~structures.japan, ~!faction.navygeneral, ~!ai.god
 		Description: actor-japanairfield.description
 	Tooltip:
 		Name: actor-japanairfield.name
@@ -436,7 +436,7 @@ japanairfieldnavy:
 	Buildable:
 		Queue: Building
 		BuildPaletteOrder: 130
-		Prerequisites: refinery, anypower, barracks, ~structures.japan, ~faction.navygeneral, ~!ai.boss
+		Prerequisites: refinery, anypower, barracks, ~structures.japan, ~faction.navygeneral, ~!ai.god
 		Description: actor-japanairfieldnavy.description
 	Tooltip:
 		Name: actor-japanairfieldnavy.name
@@ -563,6 +563,8 @@ japanshipyard:
 		Type: Oil
 		DockAngle: 256
 		DockOffset: 0, 0, 0
+	StoresPlayerResources:
+		Capacity: 1000
 
 japanshipyardnavy:
 	Inherits: japanshipyard
@@ -940,7 +942,7 @@ japanpsychicdatacenternavy:
 		Image: japannavybibs
 
 JapanWarpPortalRed:
-	Inherits: ^Building
+	Inherits: ^Defense
 	Inherits@shape: ^2x2Shape
 	RenderSprites:
 		Image: japanwarpportalred
@@ -1179,6 +1181,7 @@ japanlaserbase:
 		Amount: -80
 	DetectCloaked:
 		Range: 6c0
+		DetectionTypes: Cloak, AirCloak
 	-BodyOrientation:
 	ClassicFacingBodyOrientation:
 	RenderSprites:
@@ -1608,6 +1611,7 @@ japanballoon:
 	RenderDetectionCircle:
 	DetectCloaked:
 		Range: 5c0
+		DetectionTypes: Cloak, AirCloak
 	WithMuzzleOverlay:
 	-WithSpriteBody:
 	-WithMakeAnimation:
@@ -1674,7 +1678,7 @@ japanoredrill:
 japanwaveforceturret:
 	Inherits: ^Defense
 	Inherits@LOWPOWER: ^DisableOnLowPowerOrPowerDown
-	Inherits@AUTOTARGET: ^AutoTargetAll
+	Inherits@AUTOTARGET: ^AutoTargetGround
 	Inherits@jshield: ^JapanBaseShield
 	Buildable:
 		Queue: Defense
@@ -1998,6 +2002,7 @@ japanaikokusha:
 	RenderDetectionCircle:
 	DetectCloaked:
 		Range: 5c0
+		DetectionTypes: Cloak, AirCloak
 	BodyOrientation:
 		UseClassicFacingFudge: True
 	RevealsShroud@GAPGEN:

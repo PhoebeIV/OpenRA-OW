@@ -266,7 +266,7 @@ PROC:
 	Buildable:
 		Queue: Building
 		BuildPaletteOrder: 60
-		Prerequisites: anypower, ~techlevel.infonly, ~structures.procprereq, ~!ai.boss # Allies, Soviet, Nazi
+		Prerequisites: anypower, ~techlevel.infonly, ~structures.procprereq, ~!ai.god # Allies, Soviet, Nazi
 		Description: actor-proc.description
 	Valued:
 		Cost: 1400
@@ -316,7 +316,7 @@ PROCD:
 	Buildable:
 		Queue: Building
 		BuildPaletteOrder: 61
-		Prerequisites: anypower, ~techlevel.infonly, ~structures.procdprereq, ~!ai.boss # GDI, Nod, UAC, Fed
+		Prerequisites: anypower, ~techlevel.infonly, ~structures.procdprereq, ~!ai.god # GDI, Nod, UAC, Fed
 		Description: actor-procd.description
 	Valued:
 		Cost: 1400
@@ -894,7 +894,7 @@ HQD:
 
 FIX:
 	Buildable:
-		Prerequisites: factory, ~techlevel.medium, ~structures.foundryprereq, ~!ai.boss
+		Prerequisites: factory, ~techlevel.medium, ~structures.foundryprereq, ~!ai.god
 		BuildPaletteOrder: 113
 	ProximityExternalCondition:
 		Condition: fixsell
@@ -947,6 +947,8 @@ SYRD:
 		Type: Oil
 		DockAngle: 256
 		DockOffset: 0, 0, 0
+	StoresPlayerResources:
+		Capacity: 1000
 
 SPEN:
 	Inherits@prereqs: ^NavalPrereqs
@@ -971,6 +973,8 @@ SPEN:
 		Type: Oil
 		DockAngle: 256
 		DockOffset: 0, 0, 0
+	StoresPlayerResources:
+		Capacity: 1000
 
 HPAD:
 	Inherits@prereqs: ^AircraftPrereqs
@@ -1071,7 +1075,7 @@ FTUR:
 # Buildable by allies and UAC
 PBOX:
 	Buildable:
-		Prerequisites: barracks, ~techlevel.low, ~structures.pboxprereq, ~!ai.boss
+		Prerequisites: barracks, ~techlevel.low, ~structures.pboxprereq, ~!ai.god
 	GrantConditionOnPrerequisite:
 		Prerequisites: allies.pointdefense
 		Condition: pointdefense
@@ -1087,7 +1091,7 @@ PBOX:
 # Buildable by allies and UAC
 HBOX:
 	Buildable:
-		Prerequisites: barracks, ~techlevel.medium, ~structures.pboxprereq, ~!ai.boss
+		Prerequisites: barracks, ~techlevel.medium, ~structures.pboxprereq, ~!ai.god
 	GrantConditionOnPrerequisite:
 		Prerequisites: allies.pointdefense
 		Condition: pointdefense
@@ -1124,6 +1128,7 @@ SAM:
 		Footprint: ++
 	DetectCloaked:
 		Range: 5c0
+		DetectionTypes: Cloak, AirCloak
 		RequiresCondition: !disabled
 
 # Buildable by allies, estonia, nod
@@ -1306,7 +1311,7 @@ ADVTECH:
 	Buildable:
 		Queue: Tech
 		BuildPaletteOrder: 9000
-		Prerequisites: techcenter, ~techlevel.unrestricted, ~structures.foundryprereq, ~!ai.boss
+		Prerequisites: techcenter, ~techlevel.unrestricted, ~structures.foundryprereq, ~!ai.god
 		BuildLimit: 3
 		Description: actor-advtech.description
 	Valued:
@@ -1453,7 +1458,7 @@ ATD:
 		Amount: -60
 	DetectCloaked:
 		RequiresCondition: !disabled
-		DetectionTypes: Underwater
+		DetectionTypes: Underwater, AirCloak
 		Range: 6c0
 	-SpawnActorsOnSell:
 	-SpawnActorsOnSell@uac:

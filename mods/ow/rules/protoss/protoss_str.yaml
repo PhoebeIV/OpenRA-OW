@@ -625,7 +625,7 @@ PASSIM:
 	Inherits@BIB: ^3xBuildingBib
 	Buildable:
 		Queue: Bot
-		Prerequisites: anypower, ~structures.protoss, ~techlevel.infonly, ~ai.all, ~!ai.boss
+		Prerequisites: anypower, ~structures.protoss, ~techlevel.infonly, ~ai.all, ~!ai.god
 	Valued:
 		Cost: 1400
 	Tooltip:
@@ -891,7 +891,7 @@ PPHOTO:
 		Sequence: fire2
 		Offset: 128,128,0
 	DetectCloaked:
-		DetectionTypes: Cloak
+		DetectionTypes: Cloak, AirCloak
 		Range: 6c0
 	GrantConditionOnPrerequisite@charge:
 		Prerequisites: protoss.dragoon
@@ -1832,28 +1832,18 @@ PFLEET:
 	Inherits@shape: ^3x2Shape
 	Inherits@PRIMARY: ^PrimaryBuilding
 	Inherits@BIB: ^3xBuildingBib
+	Inherits@supertech: ^SuperTechPowers
 	Buildable:
 		Queue: Bot
-		Prerequisites: advtechcenter, ~structures.protoss, ~techlevel.unrestricted, !pfleet.req, ~!ai.boss, ~!techlevel.noepic
+		Prerequisites: advtechcenter, ~structures.protoss, ~techlevel.unrestricted, !pfleet.req, ~!ai.god, ~!techlevel.noepic
 		BuildLimit: 1
 		BuildDuration: 4500
 	Valued:
 		Cost: 6000
 	Tooltip:
 		Name: actor-pfleet.name
-	ProvidesPrerequisite@buildingname:
-	ProvidesPrerequisite:
-		Prerequisite: techcenter
-	ProvidesPrerequisite@adv:
-		Prerequisite: advtechcenter
-	ProvidesPrerequisite@adv2:
-		Prerequisite: ulttechcenter
-	ProvidesPrerequisite@adv3:
-		Prerequisite: library
 	ProvidesPrerequisite@fleet:
 		Prerequisite: pfleet.req
-	ProvidesPrerequisite@adv6:
-		Prerequisite: zhive
 	Building:
 		Footprint: +++ xxx ===
 		Dimensions: 3,3
@@ -1940,45 +1930,6 @@ PFLEET:
 	ProvidesPrerequisite@vorazunstructures:
 		RequiresPrerequisites: structures.vorazun
 		Prerequisite: ulttech.vorazun
-	ChronoshiftPower@advancedchronoshift:
-		OrderName: AdvancedChronoshift2
-		PauseOnCondition: disabled
-		Icon: chrono
-		ChargeInterval: 6000
-		Name: Mass Recall
-		Description: Teleports a group of units across\nthe map for 20 seconds.
-		SelectTargetSpeechNotification: SelectTarget
-		InsufficientPowerSpeechNotification: InsufficientPower
-		BeginChargeSpeechNotification: ChronosphereCharging
-		EndChargeSpeechNotification: ChronosphereReady
-		SelectTargetTextNotification: actor-pfleet.chronoshiftpower-advancedchronoshift-select-target-text-notification
-		InsufficientPowerTextNotification: actor-pfleet.chronoshiftpower-advancedchronoshift-insufficient-power-text-notification
-		BeginChargeTextNotification: actor-pfleet.chronoshiftpower-advancedchronoshift-begin-charge-text-notification
-		EndChargeTextNotification: actor-pfleet.chronoshiftpower-advancedchronoshift-end-charge-text-notification
-		Duration: 400
-		KillCargo: true
-		DisplayRadarPing: True
-		SupportPowerPaletteOrder: 30
-		Dimensions: 2, 2
-		Footprint: xx xx
-	IonCannonPower@timestop:
-		OrderName: TimeStop
-		Prerequisites: ulttech.vorazun
-		PauseOnCondition: disabled
-		Icon: timestop
-		Cursor: chrono-target
-		ChargeInterval: 10500
-		Name: Time Stop
-		Description: Induce a dark temporal singularity.\nInflicts no damage but disables all \n units in a 10 cell radius for 20 sec.
-		SelectTargetSpeechNotification: SelectTarget
-		InsufficientPowerSpeechNotification: InsufficientPower
-		DisplayRadarPing: True
-		CameraActor: camera.small
-		SupportPowerPaletteOrder: 20
-		CameraRemoveDelay: 100
-		WeaponDelay: 0
-		Weapon: TimeStopWeapon
-		DisplayTimerRelationships: Ally, Neutral, Enemy
 	SupportPowerChargeBar:
 	InfiltrateForSupportPowerReset:
 		Types: SpyInfiltrate
