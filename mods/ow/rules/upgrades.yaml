@@ -396,9 +396,9 @@ UpgradeHandler:
 	GrantConditionOnPrerequisite@godowner:
 		Condition: bossowner
 		Prerequisites: ai.god
-	ProvidesPrerequisite@god1:
-		RequiresPrerequisites: ai.god
-		Prerequisite: techcenter
+	GrantConditionOnPrerequisite@godowner2:
+		Condition: godowner
+		Prerequisites: ai.god
 	GrantConditionOnProduction@busy:
 		Condition: busy
 		Duration: 25
@@ -442,7 +442,7 @@ UpgradeHandler:
 		Condition: colony
 		Prerequisites: techlevel.colonydrop
 	FreeActor@colony:
-		RequiresCondition: colony
+		RequiresCondition: colony || godowner
 		Actor: powerproxy.colonydrop
 	GrantConditionOnPrerequisite@pipe:
 		Condition: pipe

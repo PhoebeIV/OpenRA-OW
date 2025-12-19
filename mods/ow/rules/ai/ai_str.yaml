@@ -305,6 +305,47 @@ BARR.boss:
 		DockWait: 0
 	ResourceValueMultiplier@boss:
 		Modifier: 500
+	FreeActor:
+		Actor: GHARV
+		SpawnOffset: 1,2
+	FreeActor@1:
+		Actor: GHARV
+		SpawnOffset: 1,2
+		RequiresCondition: !build-incomplete
+	FreeActor@2:
+		Actor: GHARV
+		SpawnOffset: 2,2
+		RequiresCondition: !build-incomplete
+	GrantConditionOnPrerequisite@herotier1:
+		Prerequisites: hero.tier1
+		Condition: herotier1
+	GrantConditionOnPrerequisite@herotier2:
+		Prerequisites: hero.tier2
+		Condition: herotier2
+	GrantConditionOnPrerequisite@herotier3:
+		Prerequisites: hero.tier3
+		Condition: herotier3
+	GrantConditionOnPrerequisite@herotier4:
+		Prerequisites: hero.tier4
+		Condition: herotier4
+	GrantConditionOnPrerequisite@herotier5:
+		Prerequisites: hero.tier5
+		Condition: herotier5
+	Production@herotier1:
+		Produces: HeroUpgrade1
+		RequiresCondition: herotier1
+	Production@herotier2:
+		Produces: HeroUpgrade2
+		RequiresCondition: herotier2
+	Production@herotier3:
+		Produces: HeroUpgrade3
+		RequiresCondition: herotier3
+	Production@herotier4:
+		Produces: HeroUpgrade4
+		RequiresCondition: herotier4
+	Production@herotier5:
+		Produces: HeroUpgrade5
+		RequiresCondition: herotier5
 
 WEAP.bot:
 	Inherits: WEAP
@@ -1092,7 +1133,8 @@ usafirebaseai:
 usafirebaseaiboss:
 	Inherits: usafirebase
 	Buildable:
-		Prerequisites: ~ai.god, ~structures.usa, usawarfactory
+		Prerequisites: ~ai.god, factory
+		BuildLimit: 4
 	FreeActor@1:
 		Actor: PBOX.boss
 		SpawnOffset: 0,0
@@ -1173,6 +1215,11 @@ japanlaserbaseai:
 		Actor: firebasebunker.ai
 		SpawnOffset: 2,0
 
+GOD.MISS:
+	Inherits: T.MISS
+	Buildable:
+		Prerequisites: ~ai.god, advtechcenter, !ulttechcenter
+
 # Gives bots access to prefab structures
 ^ConYardPrereqs:
 	ProvidesPrerequisite@PREFABA:
@@ -1193,6 +1240,17 @@ japanlaserbaseai:
 	ProvidesPrerequisite@superAI_2:
 		RequiresCondition: ai.hard_b
 		Prerequisite: techcenter
+	GrantConditionOnBotOwner@godAI:
+		Bots: boss
+		Condition: godowner
+	FreeActor@creep0:
+		RequiresCondition: godowner
+		Actor: HatcheryBib
+		SpawnOffset: 0,0
+	ProximityExternalCondition@creepalive:
+		RequiresCondition: godowner
+		Condition: creepalive
+		Range: 4c0
 
 # a building that when placed is replaced with a power plant and barracks
 ^PrefabBuilding:

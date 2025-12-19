@@ -626,24 +626,27 @@ usastrategycenter:
 		RequiresCondition: bombardment && !build-incomplete
 	GrantConditionOnPrerequisite@bombardment:
 		Condition: bombardment
-		Prerequisites: ~upgrade.bombardment
+		Prerequisites: upgrade.bombardment
 	GrantConditionOnPrerequisite@holdtheline:
 		Condition: hold_the_line
-		Prerequisites: ~upgrade.holdtheline
+		Prerequisites: upgrade.holdtheline
 	GrantConditionOnPrerequisite@searchanddestroy:
 		Condition: search_and_destroy
-		Prerequisites: ~upgrade.searchanddestroy
+		Prerequisites: upgrade.searchanddestroy
+	GrantConditionOnPrerequisite@godowner:
+		Condition: godowner
+		Prerequisites: ai.god
 	ProximityExternalCondition@bombardment:
 		Condition: usa.bombardment
-		RequiresCondition: bombardment
+		RequiresCondition: bombardment || godowner
 		Range: 32c0
 	ProximityExternalCondition@holdtheline:
 		Condition: usa.hold_the_line
-		RequiresCondition: hold_the_line
+		RequiresCondition: hold_the_line || godowner
 		Range: 32c0
 	ProximityExternalCondition@searchanddestroy:
 		Condition: usa.search_and_destroy
-		RequiresCondition: search_and_destroy
+		RequiresCondition: search_and_destroy || godowner
 		Range: 32c0
 
 #mines move later
@@ -1186,7 +1189,7 @@ usafirebase:
 	Buildable:
 		Queue: Defense
 		BuildPaletteOrder: 70
-		Prerequisites: anypower, ~structures.usa, barracks
+		Prerequisites: anypower, ~structures.usa, barracks, ~!ai.god
 		Description: actor-usafirebase.description
 	Selectable:
 		Bounds: 2048, 2048
