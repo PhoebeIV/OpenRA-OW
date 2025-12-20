@@ -319,6 +319,11 @@ MiniNukeIonCrate:
 	Warhead@1Dam_impact: SpreadDamage
 		Damage: 15000
 
+MiniNukeIonCrateSound:
+	Inherits: MiniNukeIon
+	Warhead@4Effect: CreateEffect
+		ImpactSounds: ion_fire2.aud
+
 AvaliIonCannon:
 	Inherits: MiniNukeIon
 	Warhead@4Effect: CreateEffect
@@ -434,6 +439,7 @@ EMPExplosion:
 		ValidTargets: Ground, Water, GroundActor, WaterActor, Underwater, AirborneActor, Air
 	Warhead@emp1: GrantExternalCondition
 		Range: 2c0
+		AffectsParent: true
 	Warhead@emp2: GrantExternalCondition
 		Range: 4c0
 	Warhead@emp3: GrantExternalCondition
@@ -442,6 +448,16 @@ EMPExplosion:
 		Range: 10c0
 	Warhead@emppwrplant2: GrantExternalCondition
 		Range: 10c0
+		AffectsParent: true
+
+EMPExplosionCrate:
+	Inherits: EMPWeapon
+	Warhead@4Effect: CreateEffect
+		ImpactSounds: empsound.wav
+		Explosions: pulse_explosion
+		ExplosionPalette: tseffect
+		ImpactActors: false
+		ValidTargets: Ground, Water, GroundActor, WaterActor, Underwater, AirborneActor, Air
 
 TimeStopWeapon:
 	Inherits: EMPWeapon

@@ -1143,6 +1143,7 @@ actor-judgedredd-name = Judge Dredd
 actor-fakecrate-name = Crate
 actor-amogus-name = Sussy Baka
 actor-colonydrop-name = why the fuck are you mousing over this, you have more important things to do if this is coming down
+actor-iondrop-name = Ion Cannon Satellite?!
 actor-powerproxy-colonydrop-droppodspower-colonydrop-select-target-text-notification = Select target.
 actor-powerproxy-roadroller-droppodspower-roadroller-select-target-text-notification = Select target.
 actor-roadroller-name = KONO DIO DA!
@@ -1568,6 +1569,16 @@ actor-eyed =
    .description = Provides radar and Orbital Ion Cannon support power.
     Requires power to operate.
    .name = Adv. Com. Center
+   .iondesc = Initiate an Ion Cannon strike.
+   
+    Applies instant damage to a small area.
+   .illumdesc = Initiate an orbital Illuminator Strike.
+   
+    Applies instant damage to a small area.
+   .bfgdesc = Call upon an orbital strike with a BFG10k mounted on Phobos.
+   
+    Strong vs. Everything
+
 
 actor-atwr =
    .name = Advanced Guard Tower
@@ -3597,6 +3608,12 @@ actor-t-miss =
    .airstrikepower-nuclearparabombs-select-target-text-notification = Select target.
    .airstrikepower-antimatterbombdrop-select-target-text-notification = Select target.
    .airstrikepower-hyperion-select-target-text-notification = Select target.
+   .empdesc = Initiate an EMP strike. Inflicts no damage but disables all power plants
+    within a 16 cell radius for 40 seconds. 
+
+    Disables vehicles in a 10 cell radius for 20.
+
+    Airborne aircraft are destroyed.
 
 actor-cmiss =
    .veh = Vehicle Duplication
