@@ -2346,6 +2346,9 @@ EYED.Lvl2:
 		RequiresCondition: ioncannon.lvl1fired
 		IntoActor: EYED
 		SkipMakeAnims: false
+	FreeActor@firingdummy:
+		Actor: EYED.Dummy
+		RequiresCondition: ioncannon.pause
 
 EYED.Lvl3:
 	Inherits: EYED.Lvl2
@@ -2657,3 +2660,37 @@ IONACTOR.Lvl6Attack:
 		Delay: 280
 	FreeActor:
 		Actor: camera.20sec
+
+EYED.Dummy:
+	Inherits: ^DawnBuilding
+	Inherits@IDISABLE: ^DisableOnLowPowerOrPowerDown
+	Inherits@shape: ^2x2Shape
+	Inherits@BIB: ^2xBuildingBib
+	-Selectable:
+	Interactable:
+		Bounds: 2048, 2048
+	HitShape:
+		UseTargetableCellsOffsets: false
+		TargetableOffsets: 0,0,0, 630,-384,0, 630,384,0, -700,-512,0, -700,512,0
+	RenderSprites:
+		Image: EYED
+		PlayerPalette: dawn
+	Tooltip:
+		Name: actor-eyed.name
+	Building:
+		Footprint: x_ xx ==
+		Dimensions: 2,3
+		LocalCenterOffset: 0,-512,0
+	KillsSelf@0:
+		RemoveInstead: true
+		Delay: 50
+	Health:
+		HP: 100000
+	DamageMultiplier:
+		Modifier: 0
+	-Sellable:
+	-WithMakeAnimation:
+	-MapEditorData:
+	-UpdatesPlayerStatistics:
+	-RepairableBuilding:
+	-WithBuildingRepairDecoration:
