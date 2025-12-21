@@ -324,6 +324,103 @@ MiniNukeIonCrateSound:
 	Warhead@4Effect: CreateEffect
 		ImpactSounds: ion_fire2.aud
 
+MiniNukeIonNew:
+	Inherits: MiniNukeIon
+	Warhead@4Effect: CreateEffect
+		ImpactSounds: ion1.aud
+	Warhead@1Dam_impact: SpreadDamage
+		Spread: 256
+		Damage: 2500
+	Warhead@4Dam_areanuke1: SpreadDamage
+		Spread: 512
+	Warhead@7Dam_areanuke2: SpreadDamage
+		Spread: 768
+	Warhead@8Dam_areanuke2: SpreadDamage
+		Spread: 768
+	Warhead@14Dam_impact: SpreadDamage
+		Spread: 128
+		Damage: 2500
+	-Warhead@97Eff_impact:
+
+IonCannonSparkle:
+	Warhead@seed: FireCluster
+		Weapon: IonCannonSparkleCluster
+		RandomClusterCount: 6
+		Dimensions: 3,3
+		Footprint: xxx _x_ xxx
+
+IonCannonSparkle2:
+	Warhead@seed: FireCluster
+		Weapon: IonCannonSparkleCluster2
+		RandomClusterCount: 2
+		Dimensions: 3,3
+		Footprint: xxx _x_ xxx
+
+IonCannonSparkleCluster:
+	Range: 12c0
+	Projectile: Bullet
+		Inaccuracy: 7c0
+		InaccuracyType: PerCellIncrement
+		Speed: 256
+		LaunchAngle: 160
+		Blockable: false
+	Warhead@Effect: CreateEffect
+		Explosions: lightbringer_charge, ionsparkle1, ionsparkle2, ionsparkle3, ionsparkle4
+		ImpactActors: false
+
+IonCannonSparkleCluster2:
+	Inherits: IonCannonSparkleCluster
+	Projectile: Bullet
+		Inaccuracy: 2c0
+
+IonCannonMaxBeamSmall:
+	ReloadDelay: 25
+	Warhead@4Effect: CreateEffect
+		Explosions: ionbeam6
+		ExplosionPalette: tseffect
+		ImpactActors: false
+	Warhead@5Effect: CreateEffect
+		Explosions: ionbeam5
+		ExplosionPalette: tseffect
+		ImpactActors: false
+	Warhead@6Effect: CreateEffect
+		Explosions: ionbeam4
+		ExplosionPalette: tseffect
+		ImpactActors: false
+	Warhead@7Effect: CreateEffect
+		Explosions: ionbeam3
+		ExplosionPalette: tseffect
+		ImpactActors: false
+	Warhead@8Effect: CreateEffect
+		Explosions: ionbeam2
+		ExplosionPalette: tseffect
+		ImpactActors: false
+	Warhead@9Effect: CreateEffect
+		Explosions: ionbeam
+		ExplosionPalette: tseffect
+		ImpactActors: false
+
+IonCannonMaxBeam:
+	Inherits: IonCannonMaxBeamSmall
+	Warhead@4Effect: CreateEffect
+		Explosions: ionbeam6fat
+	Warhead@5Effect: CreateEffect
+		Explosions: ionbeam5fat
+	Warhead@6Effect: CreateEffect
+		Explosions: ionbeam4fat
+	Warhead@7Effect: CreateEffect
+		Explosions: ionbeam3fat
+	Warhead@8Effect: CreateEffect
+		Explosions: ionbeam2fat
+	Warhead@9Effect: CreateEffect
+		Explosions: ionbeam1fat
+
+IonCannonMaxBeamRing:
+	Warhead@4Effect: CreateEffect
+		Explosions: ionringfat
+		ExplosionPalette: tseffect
+		ImpactActors: false
+
 AvaliIonCannon:
 	Inherits: MiniNukeIon
 	Warhead@4Effect: CreateEffect
@@ -2998,6 +3095,20 @@ ChinaSuperNuke:
 		Weapon: WeatherGrenade
 		Dimensions: 1,1
 		Footprint: x
+
+IonSuperNuke:
+	Inherits: ChinaSuperNuke
+	Warhead@colonyflash1: FlashEffect
+		FlashType: Chrono
+	-Warhead@1Radiation: 
+	-Warhead@2Radiation: 
+	-Warhead@3Radiation: 
+	-Warhead@4Radiation: 
+	-Warhead@5Radiation: 
+	-Warhead@98Eff_impact1:
+	-Warhead@98Eff_impact2:
+	Warhead@98Eff_impact: CreateEffect
+		ImpactSounds: nuke_strike_fire.ogg
 
 DecimatorNuke:
 	ReloadDelay: 50

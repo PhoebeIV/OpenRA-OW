@@ -90,6 +90,8 @@ actor-player =
    .lobbyprerequisitecheckbox-heroxp-label4 = Faster
    .lobbyprerequisitecheckbox-alltech-label = All Tech
    .lobbyprerequisitecheckbox-alltech-description = Tech and Adv Tech from the get go
+   .lobbyprerequisitecheckbox-debugspeed-label = Debug Bot Speed
+   .lobbyprerequisitecheckbox-debugspeed-description = Allows bots to build structures in record time
 
 options-tech-level =
     .infantry-only = Infantry Only
@@ -1566,7 +1568,12 @@ actor-atek-gdi =
    .name = GDI Tech Center
 
 actor-eyed =
-   .description = Provides radar and Orbital Ion Cannon support power.
+   .description = Provides radar and access to your faction's superweapon.
+
+    GDI & Federation: Ion Cannon
+    Avalon: Illuminator Strike
+    UAC: BFG10K
+
     Requires power to operate.
    .name = Adv. Com. Center
    .iondesc = Initiate an Ion Cannon strike.
@@ -1578,6 +1585,14 @@ actor-eyed =
    .bfgdesc = Call upon an orbital strike with a BFG10k mounted on Phobos.
    
     Strong vs. Everything
+   .iondesc2 = Initiate an Ion Cannon strike.
+   
+    Level I: Moderate damage in a small area.
+    Level II: Massive damage in a small area.
+    Level III: Massive damage in a larger area.
+    Level IV: Inflicts a large EMP effect.
+    Level V: Creates a 5 minute Ion Storm.
+    Level Maximum: Desecrate the target area for 10 minutes.
 
 
 actor-atwr =

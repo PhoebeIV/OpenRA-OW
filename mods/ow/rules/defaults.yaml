@@ -1487,6 +1487,9 @@
 	ProductionTimeMultiplier@glapower:
 		Prerequisites: anypower, structures.gla
 		Multiplier: 80
+	ProductionCostMultiplier@lobbyprodspeed4:
+		Prerequisites: prodspeed.bot, ai.all
+		Multiplier: 10
 	RevealOnFire:
 	ChangesHealth@plague:
 		Delay: 3
@@ -4350,3 +4353,16 @@
 	ProximityExternalCondition@harv:
 		Condition: harvester
 		ValidRelationships: Neutral
+
+^MCVBehaviour:
+	GrantConditionOnPrerequisite@botowner:
+		Condition: botowner
+		Prerequisites: ai.all, !conyard
+	ExternalCondition@surveyor:
+		Condition: surveyor_near_base
+	AutoDeployer:
+		RequiresCondition: !surveyor_near_base && botowner
+		DeployTicks: 150
+		UndeployTicks: 150
+		DeployChance: 75
+		DeployTrigger: Periodically
