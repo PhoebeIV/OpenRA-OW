@@ -2148,6 +2148,7 @@ EYED:
 	Inherits@BIB: ^2xBuildingBib
 	Selectable:
 		Bounds: 2048, 2048
+		Class: EYED
 	HitShape:
 		UseTargetableCellsOffsets: false
 		TargetableOffsets: 0,0,0, 630,-384,0, 630,384,0, -700,-512,0, -700,512,0
@@ -2241,7 +2242,7 @@ EYED:
 		CameraRemoveDelay: 100
 		Effect: explosion
 		EffectSequence: piff
-		Weapon: AvaliIonCannon
+		Weapon: AvaliBeamBombardment
 		DisplayTimerRelationships: Ally, Neutral, Enemy
 	DropPodsPowerOW:
 		Prerequisites: eyed.uac
@@ -2302,10 +2303,17 @@ EYED:
 	GrantDelayedCondition@upgradedebug:
 		RequiresCondition: haxor
 		Condition: upgrade_eye
-		Delay: 75
+		Delay: 2
+	GrantDelayedCondition@upgradedebugbot:
+		RequiresCondition: botfast
+		Condition: upgrade_eye
+		Delay: 3000
 	GrantConditionOnPrerequisite@debug:
 		Prerequisites: haxor
 		Condition: haxor
+	GrantConditionOnPrerequisite@debugbot:
+		Prerequisites: debug.prodspeedbot, ai.all
+		Condition: botfast
 	TransformOnCondition@upgrade:
 		RequiresCondition: upgrade_eye
 		IntoActor: EYED.Lvl2
@@ -2318,6 +2326,8 @@ EYED.Lvl2:
 	SpawnActorPower@1:
 		Prerequisites: eyed.ion, !ioncannon.pause
 		ChargeInterval: 50
+		-BeginChargeSpeechNotification:
+		-EndChargeSpeechNotification:
 		AllowMultiple: true
 		DisplayTimerRelationships: None
 	SpawnActorPower@2:
@@ -2361,6 +2371,8 @@ EYED.Lvl3:
 	SpawnActorPower@2:
 		Prerequisites: eyed.ion, !ioncannon.pause
 		ChargeInterval: 50
+		-BeginChargeSpeechNotification:
+		-EndChargeSpeechNotification:
 		AllowMultiple: true
 		DisplayTimerRelationships: None
 	SpawnActorPower@3:
@@ -2405,6 +2417,8 @@ EYED.Lvl4:
 	SpawnActorPower@3:
 		Prerequisites: eyed.ion, !ioncannon.pause
 		ChargeInterval: 50
+		-BeginChargeSpeechNotification:
+		-EndChargeSpeechNotification:
 		AllowMultiple: true
 		DisplayTimerRelationships: None
 	SpawnActorPower@4:
@@ -2449,6 +2463,8 @@ EYED.Lvl5:
 	SpawnActorPower@4:
 		Prerequisites: eyed.ion, !ioncannon.pause
 		ChargeInterval: 50
+		-BeginChargeSpeechNotification:
+		-EndChargeSpeechNotification:
 		AllowMultiple: true
 		DisplayTimerRelationships: None
 	SpawnActorPower@5:
@@ -2491,9 +2507,13 @@ EYED.Lvl6:
 	Health:
 		HP: 400000
 	-TransformOnCondition@upgrade:
+	ProvidesPrerequisite@buildingname2:
+		Prerequisite: eyed.lvl6
 	SpawnActorPower@5:
 		Prerequisites: eyed.ion, !ioncannon.pause
 		ChargeInterval: 50
+		-BeginChargeSpeechNotification:
+		-EndChargeSpeechNotification:
 		AllowMultiple: true
 		DisplayTimerRelationships: None
 	SpawnActorPower@6:
@@ -2545,6 +2565,8 @@ IONACTOR.Pause:
 	Inherits: 1TNK.MINE
 	-FireWarheadsOnDeath:
 	-Targetable:
+	Targetable:
+		TargetTypes: Ground
 	KillsSelf:
 		RemoveInstead: true
 		Delay: 50
@@ -2556,7 +2578,7 @@ IONACTOR.Lvl1:
 	Inherits: 1TNK.MINE
 	FireWarheads:
 		Interval: 9000
-		Weapons: MiniNukeIonNew
+		Weapons: IonCannonWeak
 	-FireWarheadsOnDeath:
 	-Targetable:
 	KillsSelf:
@@ -2601,7 +2623,7 @@ IONACTOR.Lvl4:
 
 IONACTOR.Lvl5:
 	Inherits: IONACTOR.Lvl4
-	FireWarheads@4:
+	FireWarheads@5:
 		Interval: 9000
 		Weapons: WeatherGrenade
 	ProvidesPrerequisite@ion:
@@ -2610,6 +2632,7 @@ IONACTOR.Lvl5:
 		RemoveInstead: false
 	SpawnActorOnDeath:
 		Actor: IONSTORM
+		OwnerType: InternalName
 
 IONACTOR.Lvl6:
 	Inherits: IONACTOR.Lvl1
@@ -2625,6 +2648,12 @@ IONACTOR.Lvl6Attack:
 	-FireWarheadsOnDeath:
 	-SpawnActorOnDeath:
 	AmbientSound:
+		Interval: 9000
+		SoundFiles: ion_warmup.ogg
+	AmbientSound@2:
+		Interval: 9000
+		SoundFiles: ion_warmup.ogg
+	AmbientSound@3:
 		Interval: 9000
 		SoundFiles: ion_warmup.ogg
 	FireWarheads@0:
@@ -2645,7 +2674,7 @@ IONACTOR.Lvl6Attack:
 		Weapons: IonCannonMaxBeam
 	FireWarheads@0e:
 		Interval: 9000
-		StartCooldown: 273
+		StartCooldown: 265
 		Weapons: IonCannonMaxBeamRing
 	FireWarheads@1:
 		Interval: 9000

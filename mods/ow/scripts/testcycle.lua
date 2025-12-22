@@ -167,6 +167,24 @@ Tick = function()
 			CrateParadropTicks = 0
 		end
 	end
+
+	if (Neutral.HasPrerequisites({"debug.listactors"})) then
+		DebugTicks = DebugTicks+1
+		if(DebugTicks == 7500) then
+			GetActorList()
+			DebugTicks = 0
+		end
+	end
+end
+
+GetActorList = function(player)
+	local buildings = Utils.Where(Map.ActorsInWorld, function(b) return b.HasProperty("AcceptsCondition") and b.AcceptsCondition("DevActorList") end)
+
+	Utils.Do(buildings, function(a)
+		print(tostring(a))
+	end)
+
+	print(DateTime.GameTime / 25 .. " seconds elapsed")
 end
 
 Time = 0
@@ -186,6 +204,8 @@ SunSet = 15000
 
 CrateTicks = 0
 CrateTimer = 3000
+
+DebugTicks = 7400
 
 CrateParadropTicks = 0
 CrateParadropTimer = 249

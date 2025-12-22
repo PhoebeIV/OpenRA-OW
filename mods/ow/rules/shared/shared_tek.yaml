@@ -572,7 +572,7 @@
 	ParatroopersPower@deadsix:
 		OrderName: DeadSix
 		Prerequisites: ulttech.gdi
-		PauseOnCondition: disabled || gdi.deadsix
+		PauseOnCondition: disabled || pause_deadsix
 		Icon: deadsix
 		ChargeInterval: 7500
 		Name: Dead Six
@@ -1193,6 +1193,13 @@ T.MISS:
 	TransformOnCondition@sell:
 		RequiresCondition: sell_me
 		IntoActor: T.MISS
+	GrantConditionOnPrerequisite@botowner:
+		Prerequisites: ai.all
+		Condition: botowner
+	GrantDelayedCondition@botreset:
+		RequiresCondition: botowner
+		Delay: 9000, 15000
+		Condition: sell_me
 
 T.MISSVEH:
 	Inherits: T.MISS
@@ -1403,6 +1410,9 @@ T.MISSSTR:
 		Description: actor-t-missstr-description
 	Tooltip: 
 		Name: actor-t-miss.str
+	GrantDelayedCondition@botreset:
+		RequiresCondition: botowner
+		Delay: 10500, 16000
 	ProductionQueue@Building:
 		Type: Building
 		Group: Building

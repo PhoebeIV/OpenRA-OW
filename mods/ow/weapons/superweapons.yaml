@@ -324,13 +324,23 @@ MiniNukeIonCrateSound:
 	Warhead@4Effect: CreateEffect
 		ImpactSounds: ion_fire2.aud
 
-MiniNukeIonNew:
+IonCannonWeak:
 	Inherits: MiniNukeIon
+	-Warhead@5Effect: 
+	-Warhead@6Effect: 
+	-Warhead@7Effect: 
+	-Warhead@8Effect: 
+	-Warhead@9Effect: 
+	-Warhead@2Eff:
 	Warhead@4Effect: CreateEffect
 		ImpactSounds: ion1.aud
+		Explosions: ionbeamdawn
+		ExplosionPalette: dawneffect
+		ImpactActors: false
 	Warhead@1Dam_impact: SpreadDamage
 		Spread: 256
-		Damage: 2500
+		Delay: 3
+		Damage: 3250
 	Warhead@4Dam_areanuke1: SpreadDamage
 		Spread: 512
 	Warhead@7Dam_areanuke2: SpreadDamage
@@ -416,7 +426,13 @@ IonCannonMaxBeam:
 		Explosions: ionbeam1fat
 
 IonCannonMaxBeamRing:
-	Warhead@4Effect: CreateEffect
+	Warhead@1Effect: CreateEffect
+		Delay: 5
+		Explosions: pulse_explosion2
+		ExplosionPalette: tseffect
+		ImpactActors: false
+	Warhead@2Effect: CreateEffect
+		Delay: 30
 		Explosions: ionringfat
 		ExplosionPalette: tseffect
 		ImpactActors: false
@@ -437,6 +453,51 @@ AvaliIonCannon:
 		Explosions: avaliionbeam
 	Warhead@2Eff: CreateEffect
 		Explosions: avaliionring
+
+AvaliBeamBombardment:
+	Inherits: AvaliIonCannon
+	Warhead@4Dam_areanuke1: SpreadDamage
+		Damage: 2000
+	Warhead@7Dam_areanuke2: SpreadDamage
+		Damage: 2000
+	Warhead@8Dam_areanuke2: SpreadDamage
+		Damage: 2000
+	Warhead@clust1: FireCluster
+		Delay: 15
+		Weapon: AvaliBeamBombardmentCluster
+		RandomClusterCount: 2
+		Dimensions: 7,7
+		Footprint: xxxxxxx xxxxxxx xxx_xxx xx___xx xxx_xxx xxxxxxx xxxxxxx
+	Warhead@clust2: FireCluster
+		Delay: 30
+		Weapon: AvaliBeamBombardmentCluster
+		RandomClusterCount: 1
+		Dimensions: 7,7
+		Footprint: xxxxxxx xxxxxxx xxx_xxx xx___xx xxx_xxx xxxxxxx xxxxxxx
+	Warhead@clust3: FireCluster
+		Delay: 45
+		Weapon: AvaliBeamBombardmentCluster
+		RandomClusterCount: 1
+		Dimensions: 7,7
+		Footprint: xxxxxxx xxxxxxx xxx_xxx xx___xx xxx_xxx xxxxxxx xxxxxxx
+
+AvaliBeamBombardmentCluster:
+	Inherits: AvaliIonCannon
+	Projectile: Bullet
+		Speed: 512
+	Warhead@6Eff_areanuke1: CreateEffect
+		ImpactSounds: dsrpgexp.aud, explomed.aud, explo1.aud, explosm.aud
+	Warhead@1Dam_impact: SpreadDamage
+		Damage: 9000
+	Warhead@4Dam_areanuke1: SpreadDamage
+		Damage: 1500
+	Warhead@7Dam_areanuke2: SpreadDamage
+		Damage: 1500
+		Spread: 2c0
+	Warhead@8Dam_areanuke2: SpreadDamage
+		Damage: 1500
+		Spread: 2c0
+	-Warhead@22FlashEffect:
 
 OrbitalBeamBombardment:
 	Inherits: MiniNukeIon
@@ -3098,7 +3159,16 @@ ChinaSuperNuke:
 
 IonSuperNuke:
 	Inherits: ChinaSuperNuke
+	Warhead@9Dam_areanuke2: SpreadDamage
+		DamageTypes: Prone50Percent, TriggerProne, ElectricityDeath, Incendiary
+	Warhead@17Dam_areanuke4: SpreadDamage
+		DamageTypes: Prone50Percent, TriggerProne, ElectricityDeath, Incendiary
 	Warhead@colonyflash1: FlashEffect
+		Duration: 40
+		FlashType: White
+	Warhead@colonyflash4: FlashEffect
+		Duration: 60
+		Delay: 30
 		FlashType: Chrono
 	-Warhead@1Radiation: 
 	-Warhead@2Radiation: 
@@ -3107,6 +3177,7 @@ IonSuperNuke:
 	-Warhead@5Radiation: 
 	-Warhead@98Eff_impact1:
 	-Warhead@98Eff_impact2:
+	-Warhead@7Eff_impact:
 	Warhead@98Eff_impact: CreateEffect
 		ImpactSounds: nuke_strike_fire.ogg
 

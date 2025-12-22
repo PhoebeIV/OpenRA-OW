@@ -1697,6 +1697,7 @@ Player:
 			avbomber: 3
 			avcarrier: 1
 			avcarrier.bot: 1
+			avmother: 5
 			olddk: 1
 			dukenukem.hero0: 50
 			dukenukem.hero1: 50
@@ -3781,24 +3782,18 @@ Player:
 					Attractiveness: 2
 					TargetMetric: Value
 					CheckRadius: 1c0
-				Consideration@0:
-					Against: Enemy
-					Types: EpicUnit
-					Attractiveness: 1
-					TargetMetric: Value
-					CheckRadius: 1c0
 				Consideration@1:
 					Against: Enemy
 					Types: Structure
 					Attractiveness: 1
 					TargetMetric: Value
-					CheckRadius: 5c0
+					CheckRadius: 8c0
 				Consideration@1b:
 					Against: Enemy
 					Types: Vehicle, Infantry
 					Attractiveness: 2
 					TargetMetric: Value
-					CheckRadius: 10c0
+					CheckRadius: 7c0
 				Consideration@2:
 					Against: Ally
 					Types: Air, Ground, Water
@@ -3808,8 +3803,11 @@ Player:
 	GrantConditionOnPrerequisite@ion:
 		Prerequisites: eyed.ion
 		Condition: enable-ion
+	GrantConditionOnPrerequisite@ion2:
+		Prerequisites: eyed.lvl6
+		Condition: disable-ion
 	GrantRandomPeriodicCondition@iondecision: # this should allow the AI to let their Ion Cannon build up in power, probably won't work well
-		RequiresCondition: enable-ion
+		RequiresCondition: enable-ion && !disable-ion
 		CooldownDuration: 5500
 		ActiveDuration: 500
 		Conditions: iondecision1, iondecision2, iondecision3, iondecision3, iondecision4, iondecision4, iondecision5,x,x,x,x

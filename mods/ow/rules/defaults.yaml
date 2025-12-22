@@ -1487,8 +1487,8 @@
 	ProductionTimeMultiplier@glapower:
 		Prerequisites: anypower, structures.gla
 		Multiplier: 80
-	ProductionCostMultiplier@lobbyprodspeed4:
-		Prerequisites: prodspeed.bot, ai.all
+	ProductionCostMultiplier@prodspeedbot:
+		Prerequisites: debug.prodspeedbot, ai.all
 		Multiplier: 10
 	RevealOnFire:
 	ChangesHealth@plague:
@@ -1662,6 +1662,8 @@
 		Duration: 500
 	GrantConditionOnCapture: # for bots - attempt to recapture stolen buildings
 		Condition: bot_recapture
+	GrantConditionIfOwnerIsNeutral@cap: # for bots - steal neutral structures
+		Condition: bot_recapture
 	ExternalCondition@bot_recapture:
 		Condition: bot_recapture
 	Targetable@bot_recapture:
@@ -1815,6 +1817,10 @@
 	-FireWarheadsOnDeath@frost:
 	-FireWarheads@frost:
 	-ProximityExternalCondition@frost:
+
+^CivBuilding:
+	SpawnActorOnDeath@c1:
+		Actor: C1
 
 ^BuildingPlug:
 	Interactable:
@@ -3686,10 +3692,6 @@
 	DamageMultiplier:
 		RequiresCondition: (lessinfectable && (growth > 95)) || (infectable && (growth > 70)) || (moreinfectable && (growth > 45)) || tibtree && !notib
 		Modifier: 0
-
-^CivBuilding:
-	SpawnActorOnDeath@c1:
-		Actor: C1
 
 # Give this to units that should not be 100% mind controlled, and instead only temporary
 ^MindControlResistant:

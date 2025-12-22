@@ -92,6 +92,8 @@ actor-player =
    .lobbyprerequisitecheckbox-alltech-description = Tech and Adv Tech from the get go
    .lobbyprerequisitecheckbox-debugspeed-label = Debug Bot Speed
    .lobbyprerequisitecheckbox-debugspeed-description = Allows bots to build structures in record time
+   .lobbyprerequisitecheckbox-debuglistactors-label = Debug Hidden Actors
+   .lobbyprerequisitecheckbox-debuglistactors-description = Writes to LUA log every 5 minutes
 
 options-tech-level =
     .infantry-only = Infantry Only
@@ -301,6 +303,15 @@ actor-avcarrier =
    .botdesc = Secondary unit type for AI to use with attack forces
 
 actor-avinter-name = Repair Drone
+
+actor-avmother =
+   .description = [EPIC]
+    Avalonian epic support ship with
+    with area cloak and lasers.
+    Can teleport on deploy.
+    Speed: 24
+      Strong vs Everything
+   .name = Illuminate Mothership
 
 ## avali_inf.yaml
 actor-avinf1 =
@@ -3633,23 +3644,24 @@ actor-t-miss =
 actor-cmiss =
    .veh = Vehicle Duplication
    .vehdesc = Enables 2nd vehicle queue. 
-   Provides discount and increased 
-   build speed to vehicles.
+    Provides discount and increased 
+    build speed to vehicles.
    .navy = Navy Duplication
    .navydesc = Enables 2nd navy queue. 
-   Provides discount and increased 
-   build speed to naval units.
+    Provides discount and increased 
+    build speed to naval units.
    .inf = Infantry Cloning
    .infdesc = Enables 2nd infantry queue. 
-   Provides discount and increased 
-   build speed to infantry.
+    Provides discount and increased 
+    build speed to infantry.
    .air = Aircraft Duplication
    .airdesc = Enables 2nd aircraft queue. 
-   Provides discount and increased 
-   build speed to aircraft.
+    Provides discount and increased 
+    build speed to aircraft.
    .str = Structure Duplication
    .strdesc = Enables 2nd building, defense, utility, tech and upgrade queues.
-     Provides discount and increased build speed to vehicles  
+    Provides discount and increased 
+    build speed to structures.  
    .none = Duplication Not Chosen
 
 actor-t-missair-description = Provides access to your faction's epic unit or ability.
@@ -6572,8 +6584,6 @@ player-factions =
      Special Ability: Cheaper Aircraft
      Special Units: Orca Gunship, Orca Bomber, Orca Carryall
      Super Unit: Flagship Kodiak
-     
-     No Cruiser or Destroyer
    .nod = Nod: Hit & Run Tactics, Tiberium
      Utility: GPS Satellite
      Superweapons: Hunter-Seeker, Atomic Bomb
