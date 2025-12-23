@@ -558,3 +558,43 @@ LANCE.Bomber:
 		Scale: 0.7
 		LightAmbientColor: 1.0,1.0,1.0
 		LightDiffuseColor: 0.7,0.7,0.7
+
+TRAN.G:
+	Inherits: ^Helicopter
+	RenderSprites:
+		Image: tran
+	Tooltip:
+		RequiresCondition: !cruising
+		Name: actor-tran.name
+	WithIdleOverlay@ROTOR1AIR:
+		Offset: 597,0,213
+		Sequence: rotor
+		RequiresCondition: airborne
+	WithIdleOverlay@ROTOR1GROUND:
+		Offset: 597,0,213
+		Sequence: slow-rotor
+		RequiresCondition: !airborne
+	WithIdleOverlay@ROTOR2AIR:
+		Offset: -597,0,341
+		Sequence: rotor2
+		RequiresCondition: airborne
+	WithIdleOverlay@ROTOR2GROUND:
+		Offset: -597,0,341
+		Sequence: slow-rotor2
+		RequiresCondition: !airborne
+	-Targetable@AIRBORNE:
+	-Targetable@GROUND:
+	Health:
+		HP: 140000
+	Aircraft:
+		TurnSpeed: 20
+		Repulsable: false
+		Speed: 192
+		AltitudeVelocity: 64
+		CruiseAltitude: 1c256
+		CruisingCondition: cruising
+	WithFacingSpriteBody:
+	-SpawnActorOnDeath:
+	-Selectable:
+	RejectsOrders:
+	Interactable:

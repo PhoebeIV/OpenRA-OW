@@ -5,7 +5,7 @@
 set Name="Phoebe's"
 set Mod=ow
 set Map=""
-set ListenPort=1234
+set ListenPort=34840
 set AdvertiseOnline=True
 set AdvertiseOnLocalNetwork=True
 set Password=""

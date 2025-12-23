@@ -268,8 +268,11 @@ Player:
 		Delay: 4500,9000
 	GrantRandomCondition@hatestib:
 		Conditions: hatetib,liketib
+	GrantConditionOnPrerequisite@alltiboverride:
+		Prerequisites: techlevel.monoliths
+		Condition: lobbytib
 	ProvidesPrerequisite@hatestib:
-		RequiresCondition: (hatetib && enable-all-ai && !liketib) || (override_hatetib && enable-all-ai)
+		RequiresCondition: ((hatetib && enable-all-ai && !liketib) || (override_hatetib && enable-all-ai)) && !lobbytib
 		Prerequisite: ai.hatetib
 	GrantConditionOnFaction@likestib:
 		Factions: forgotten, nod, marked, bhand, nod3
