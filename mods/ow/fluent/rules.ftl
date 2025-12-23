@@ -4849,17 +4849,17 @@ actor-upgrade-navfirepower3 =
 
 actor-upgrade-shieldarmor1 =
    .name = Plasma Shields Upgrade I
-   .description = Improve shield health 15% and
+   .description = Improve shield health 10% and
       regeneration by 33%
 
 actor-upgrade-shieldarmor2 =
    .name = Plasma Shields Upgrade II
-   .description = Improve shield health 30% and
+   .description = Improve shield health 20% and
       regeneration by 66%
 
 actor-upgrade-shieldarmor3 =
    .name = Plasma Shields Upgrade III
-   .description = Improve shield health 45% and
+   .description = Improve shield health 30% and
       regeneration by 100%
 
 actor-techlevelshields =
