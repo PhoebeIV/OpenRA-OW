@@ -15,7 +15,7 @@ set RequireAuthentication=False
 set ProfileIDBlacklist=""
 set ProfileIDWhitelist=""
 
-set EnableSingleplayer=False
+set EnableSingleplayer=True
 set EnableSyncReports=False
 set EnableGeoIP=True
 set EnableLintChecks=True
