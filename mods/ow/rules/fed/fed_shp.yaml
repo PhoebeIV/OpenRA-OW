@@ -225,9 +225,14 @@ SILVERLINING:
 		Turret: quinary
 		Weapon: StingerAA
 		LocalOffset: 480,-100,40, 480,100,40
+	Armament@OCTONARY:
+		Name: octonary
+		Turret: quinary
+		Weapon: SilverCruiseMissile
+		LocalOffset: 480,-100,512, 480,100,512
 	AttackTurreted:
 		PersistentTargeting: false
-		Armaments: primary, secondary, tertiary, quarternary, quinary, senary, septenary
+		Armaments: primary, secondary, tertiary, quarternary, quinary, senary, septenary, octonary
 	WithSpriteTurret@PRIMARY:
 		Turret: primary
 	WithSpriteTurret@SECONDARY:
@@ -269,8 +274,21 @@ SILVERLINING:
 	JamsMissiles:
 		Range: 5c0
 		DeflectionRelationships: Neutral, Enemy
+	WithRangeCircle@nuke:
+		Color: FF3C3C41
+		Range: 28c0
 	RenderJammerCircle:
 	DetectCloaked:
 		Range: 8c0
 		DetectionTypes: Cloak, AirCloak, Underwater
 	RenderSprites:
+	RevealOnFire:
+		Radius: 2c512
+		Duration: 75
+		ArmamentNames: primary, octonary
+	GrantConditionOnPrerequisite@botowner:
+		Condition: botowner
+		Prerequisites: ai.all
+	RangeMultiplier@botowner:
+		RequiresCondition: botowner
+		Modifier: 120

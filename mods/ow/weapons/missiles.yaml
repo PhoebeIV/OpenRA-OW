@@ -3215,3 +3215,94 @@ strifeguycrusadermissile:
 		ImpactSounds: strifeguymissileexplosion.wav
 		ImpactActors: false
 		ValidTargets: Ground, GroundActor, AirborneActor, Air, WaterActor, Trees
+
+SilverCruiseMissile:
+	ReloadDelay: 500
+	Range: 28c0
+	MinRange: 8c0
+	Burst: 2
+	BurstDelays: 150
+	Report: bt_lrm15.aud
+	ValidTargets: Vehicle, Structure, Ground, Water, WaterActor
+	Projectile: Missile
+		Speed: 1c0
+		Image: V2
+		Shadow: True
+		LaunchAngle: 150
+		Blockable: false
+		TrailImage: smokey
+		TrailDelay: 4
+		RangeLimit: 30c0
+		ExplodeWhenEmpty: false
+		CruiseAltitude: 5c0
+		MinimumLaunchAngle: 256
+		MinimumLaunchSpeed: 1
+		MaximumLaunchSpeed: 1
+		Acceleration: 3
+		Inaccuracy: 2c0
+	Warhead@1Dam: SpreadDamage
+		Spread: 1c0
+		Damage: 10000
+		Falloff: 750, 368, 135, 50, 18, 7, 0
+		ValidTargets: GroundActor, Trees, WaterActor, Underwater, AirborneActor
+		Versus:
+			Concrete: 15
+		AffectsParent: true
+		DamageTypes: Prone50Percent, TriggerProne, FireDeath, Incendiary
+	Warhead@98Eff_impact: CreateEffect
+		ImpactSounds: jericho.wav
+		ImpactActors: false
+	Warhead@2Res_impact: DestroyResource
+		Size: 1
+		Delay: 5
+	Warhead@3Eff_impact: CreateEffect
+		Explosions: nuke
+		ImpactSounds: kaboom1.aud
+		Delay: 5
+		ValidTargets: Ground, GroundActor, Trees, Water, WaterActor, Air
+		ImpactActors: false
+	Warhead@4Dam_areanuke1: SpreadDamage
+		Spread: 800
+		Damage: 3000
+		Falloff: 500, 368, 135, 50, 18, 7, 0
+		Delay: 10
+		ValidTargets: GroundActor, Trees, WaterActor, Underwater, AirborneActor
+		Versus:
+			Heavy: 60
+			Concrete: 15
+		AffectsParent: true
+		DamageTypes: Prone50Percent, TriggerProne, FireDeath, Incendiary
+	Warhead@6Eff_areanuke1: CreateEffect
+		ImpactSounds: kaboom22.aud
+		Delay: 10
+	Warhead@7Dam_areanuke2: SpreadDamage
+		Spread: 1200
+		Damage: 2500
+		Falloff: 500, 368, 135, 50, 18, 7, 0
+		Delay: 15
+		ValidTargets: GroundActor, Trees, WaterActor, Underwater, AirborneActor
+		Versus:
+			Heavy: 60
+			Concrete: 15
+		AffectsParent: true
+		DamageTypes: Prone50Percent, TriggerProne, FireDeath, Incendiary
+		ValidRelationships: Enemy, Neutral
+	Warhead@9Dam_areanuke3: SpreadDamage
+		Spread: 1750
+		Damage: 2000
+		Falloff: 500, 368, 135, 50, 18, 7, 0
+		Delay: 15
+		ValidTargets: GroundActor, Trees, WaterActor, Underwater, AirborneActor
+		Versus:
+			Heavy: 60
+			Concrete: 15
+		AffectsParent: false
+		DamageTypes: Prone50Percent, TriggerProne, FireDeath, Incendiary
+		ValidRelationships: Enemy, Neutral
+	Warhead@11Smu_areanuke3: LeaveSmudge
+		SmudgeType: Scorch
+		Size: 2
+		Delay: 15
+	Warhead@22FlashEffect: FlashEffect
+		Duration: 15
+		FlashType: Nuke

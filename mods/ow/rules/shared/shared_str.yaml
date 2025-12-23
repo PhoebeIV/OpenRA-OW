@@ -816,13 +816,19 @@ HQD:
 	ProvidesPrerequisite@nod3:
 		Factions: nod3
 		Prerequisite: radar.nod3
+	ProvidesPrerequisite@gdi:
+		Factions: gdi, gdi3, steel
+		Prerequisite: radar.zocom
 	ProvidesPrerequisite@zocom:
 		Factions: zocom
 		Prerequisite: radar.zocom
+	ProvidesPrerequisite@fed1:
+		Factions: lunar
+		Prerequisite: radar.lunar
 	AirstrikePower@gdinapalm:
 		PauseOnCondition: disabled
 		OrderName: GDINapalmStrike
-		Prerequisites: techlevel.high, !radar.nod
+		Prerequisites: techlevel.high, radar.gdi
 		Icon: napalm
 		ChargeInterval: 7500
 		Name: Napalm Strike
@@ -888,6 +894,29 @@ HQD:
 		UseDirectionalTarget: True
 		DirectionArrowAnimation: paradirection
 		SupportPowerPaletteOrder: 50
+	AirstrikePower@fed2:
+		PauseOnCondition: disabled
+		OrderName: FedNapalmStrike
+		Prerequisites: techlevel.high, radar.lunar
+		Icon: napalm
+		ChargeInterval: 7500
+		Name: Napalm Strike
+		Description: A Lance squadron drops napalm on your target.
+		SelectTargetSpeechNotification: SelectTarget
+		CameraActor: camera
+		CameraRemoveDelay: 150
+		UnitType: lance.bomber
+		QuantizedFacings: 8
+		DisplayBeacon: true
+		BeaconPoster: napalm
+		SquadSize: 3
+		SquadOffset: 1792,1792,0
+		ArrowSequence: arrow
+		ClockSequence: clock
+		CircleSequence: circles
+		UseDirectionalTarget: True
+		DirectionArrowAnimation: paradirection
+		SupportPowerPaletteOrder: 40
 	WithDeathAnimation:
 		DeathSequence: dead
 		UseDeathTypeSuffix: false
@@ -1363,6 +1392,60 @@ ADVTECH:
 	GrantConditionOnPrerequisite@baseshields:
 		Condition: external_shield
 		Prerequisites: upgrade.baseshields
+	ProvidesPrerequisite@fed:
+		Factions: sword, lunar, silver
+		Prerequisite: advtech.fed
+	ProvidesPrerequisite@sword:
+		Factions: sword
+		Prerequisite: advtech.sword
+	AirstrikePower@fed1:
+		PauseOnCondition: disabled
+		OrderName: FedAirstrike
+		Prerequisites: advtech.fed
+		Icon: parabombs
+		ChargeInterval: 7500
+		Name: Paladin Strike
+		Description: A Paladin drops plasma bombs on your target.
+		SelectTargetSpeechNotification: SelectTarget
+		CameraActor: camera
+		CameraRemoveDelay: 150
+		UnitType: paladin.bomber
+		QuantizedFacings: 8
+		DisplayBeacon: true
+		BeaconPoster: pbmbicon
+		SquadSize: 1
+		ArrowSequence: arrow
+		ClockSequence: clock
+		CircleSequence: circles
+		UseDirectionalTarget: True
+		DirectionArrowAnimation: paradirection
+		SupportPowerPaletteOrder: 40
+	DropPodsPowerOW@fed2:
+		Icon: artillerybarrageicon
+		Prerequisites: advtech.sword
+		Name: Artillery Strike
+		OrderName: artillerybarrage2
+		Description: Launches an artillery strike on the targeted area.
+		UnitTypes: chinaartillerypower, chinaartillerypower1, chinaartillerypower2, chinaartillerypower3, chinaartillerypower4, chinaartillerypower5, chinaartillerypower6, chinaartillerypower7, chinaartillerypower8
+		Cursor: chrono-target
+		Drops: 16,16
+		PodScatter: 9
+		PodFacing: 704
+		PauseOnCondition: disabled
+		CameraActor: camera
+		CameraRemoveDelay: 300
+		Weapon: ArtilleryPowerMarker
+		WeaponDelay: 5
+		ChargeInterval: 12000
+		EntryEffect: explosion
+		EntryEffectSequence: bunkerbustersring
+		LaunchSound: sartweaa.wav
+		IncomingSpeechNotification: ArtilleryBarrageSound
+		SelectTargetSpeechNotification: SelectTarget
+		SelectTargetTextNotification: actor-t-miss.droppodspower-artillery-select-target-text-notification
+		DisplayRadarPing: true
+		DisplayTimerRelationships: Ally, Enemy, Neutral
+		BeaconPoster: artillerybarragebeacon
 
 # Buildable by allies, fed, nod, heydrich
 RADIO.P:

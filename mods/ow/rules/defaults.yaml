@@ -1840,6 +1840,9 @@
 	GrantConditionOnPrerequisite@service:
 		Prerequisites: gfix
 		Condition: glavehicle
+	GrantConditionOnPrerequisite@junkrepair:
+		Prerequisites: gla.junk
+		Condition: junkrepair
 	GrantConditionOnPrerequisite@garage:
 		Prerequisites: weapgarage
 		Condition: glavehicle
@@ -1851,8 +1854,14 @@
 		StartIfBelow: 100
 		DamageCooldown: 250
 		RequiresCondition: glavehicle
+	ChangesHealth@junkrepair:
+		PercentageStep: 1
+		Delay: 37
+		StartIfBelow: 100
+		DamageCooldown: 125
+		RequiresCondition: junkrepair
 	GrantCondition@service:
-		RequiresCondition: glavehicle && damaged
+		RequiresCondition: (glavehicle || junkrepair) && damaged
 		Condition: wrench
 	WithDecoration@service:
 		Image: pips
@@ -1863,9 +1872,15 @@
 		BlinkInterval: 35
 		BlinkPattern: Off, On
 	GrantConditionOnDamage@service:
+		RequiresCondition: glavehicle && !junkrepair
 		Condition: damage-cooldown
 		ValidRelationships: Ally, Enemy, Neutral
 		Duration: 250
+	GrantConditionOnDamage@junkrepair:
+		RequiresCondition: junkrepair
+		Condition: damage-cooldown
+		ValidRelationships: Ally, Enemy, Neutral
+		Duration: 128
 
 ^Vehicle:
 	Inherits@MediConditions: ^MediConditionsV
@@ -2329,8 +2344,6 @@
 		PlayerPalette: tsunit
 		Scale: 9
 	WithVoxelBody:
-	Cloak@stealthgen:
-		Palette: tscloak
 	-ChangesHealth@landed:
 	-WithColoredOverlay@shielded:
 

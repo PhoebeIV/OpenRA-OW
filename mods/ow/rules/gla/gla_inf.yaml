@@ -3,7 +3,6 @@ GE1:
 	Buildable:
 		Prerequisites: ~barracks, ~techlevel.infonly, ~infantry.gla, ~!ai.god
 		Description: actor-ge1.description
-		Icon: icon-gla
 	Tooltip:
 		Name: actor-ge1.name
 	Health:
@@ -18,10 +17,34 @@ GE1:
 		Name: bus
 		Weapon: M1Carbine_GBus
 		MuzzleSequence: garrison-muzzle
+	AttackFrontal:
+		Voice: Attack
+	AttackMove:
+		Voice: Attack
 	RenderSprites:
-		Image: tse4
+		Image: ge1
+	GrantTimedCondition@taunt:
+		RequiresCondition: rank-veteran
+		Condition: taunt
+		Duration: 150
+	AmbientSound@taunt:
+		SoundFiles: ireblaa.aud,ireblab.aud,ireblac.aud,baud.aud,baud.aud
+		Interval: 165
+		RequiresCondition: taunt
+	AmbientSound@hurt:
+		SoundFiles: irebfea.aud,irebfeb.aud,irebfec.aud,irebfed.aud,irebfee.aud,irebfef.aud,baud.aud,baud.aud,baud.aud,baud.aud,baud.aud,baud.aud,baud.aud,baud.aud,baud.aud,baud.aud,baud.aud,baud.aud,baud.aud,baud.aud,baud.aud
+		Interval: 9000
+		RequiresCondition: low_health
+	GrantConditionOnHealthPercentage:
+		MaxHP: 49
+		Condition: low_health
+	-GrantRandomCondition@voice:
+	-Voiced@woman:
+	Voiced:
+		-RequiresCondition:
+		VoiceSet: RebelVoice
 
-#sbeve
+#elite
 
 GE1R1:
 	Inherits: GE1
@@ -32,7 +55,7 @@ GE1R1:
 	Tooltip:
 		Name: actor-ge1r1-name
 	Health:
-		HP: 10000
+		HP: 11500
 	Valued:
 		Cost: 250
 	Armament@DAWN:
@@ -194,7 +217,6 @@ GHARV:
 		BuildAtProductionType: Infantry
 		BuildPaletteOrder: 11
 		Prerequisites: gproc, ~techlevel.infonly, ~infantry.gla
-		Icon: icon-gla
 		Description: actor-gharv.description
 	Valued:
 		Cost: 350
@@ -278,13 +300,19 @@ GHARV:
 		RequiresCondition: standing_in_tiberium && !shielded && !gdi_suits && !shoes
 		Step: -50
 	GrantConditionOnPrerequisite@shoes:
-		Prerequisites: upgrade.glashoes, advtechcenter
+		Prerequisites: gla.shoes
 		Condition: shoes
 	SpeedMultiplier@shoes:
 		RequiresCondition: shoes
 		Modifier: 120
+	GrantConditionOnPrerequisite@pay:
+		Prerequisites: gla.pay
+		Condition: hazard_pay
+	DamageMultiplier@pay:
+		RequiresCondition: hazard_pay
+		Modifier: 50
 	RenderSprites:
-		Image: e6
+		Image: gharv
 	WithStoresResourcesPipsDecoration:
 		Position: BottomLeft
 		RequiresSelection: true
@@ -309,6 +337,74 @@ GHARV:
 		ValidRelationships: Neutral, Enemy
 		Range: 8c0
 		Condition: makecreeps
+
+GHARV.Hole:
+	Inherits: GHARV
+	Inherits@stealth: ^KassadStealth
+	-Buildable:
+	Valued:
+		Cost: 100
+	Tooltip:
+		Name: actor-gharv.hole
+	Health:
+		HP: 9000
+	Mobile:
+		Locomotor: glahole
+	-Harvester:
+	-Selectable:
+	Interactable:
+	RejectsOrders:
+	WithIdleAnimation:
+		Sequences: idle1, idle2, stand3
+	-WithAttackAnimation:
+	-Armament:
+	-WithDockingAnimation:
+	-AttackFrontal:
+	-AutoTarget:
+	-AutoTargetPriority@DEFAULT:
+	-RepairsBridges:
+	-CaptureManager:
+	-GrantConditionOnPrerequisite@GLOBALREUSABLEENGINEER:
+	-Captures:
+	-Captures@REUSABLE:
+	-Infiltrates:
+	-Captures@husk:
+	-WithStoresResourcesPipsDecoration:
+	-DockClientManager:
+	-StoresResources:
+	-GrantConditionOnPrerequisite@hatetib:
+	-ProximityExternalCondition@hatetib:
+	AmbientSound@1:
+		Interval: 90000
+		Delay: 1, 125
+		SoundFiles: iworrea.aud, iworreb.aud, iworrec.aud, iworred.aud, iworree.aud, iworref.aud, iworsee.aud, iworseg.aud, iworseh.aud
+	AmbientSound@2:
+		Interval: 750,2000
+		Delay: 1250,2000
+		SoundFiles: iwormoc.aud, iwormod.aud, iworspc.aud, iworsef.aud
+	ExternalCondition: 
+		Condition: hole_active
+	KillsSelf:
+		RequiresCondition: !hole_active
+		RemoveInstead: true
+		Delay: 25
+	ProximityExternalCondition:
+		Condition: worker_active
+		Range: 1c750
+	Wanders:
+		MinMoveDelay: 25
+		MaxMoveDelay: 50
+		AvoidTerrainTypes: Clear, Road, ClearSnow, Creep
+
+GHARV.Hole2:
+	Inherits: GHARV.Hole
+	ProximityExternalCondition:
+		Range: 750
+
+GHARV.Hole3:
+	Inherits: GHARV.Hole
+	ProximityExternalCondition:
+		Range: 2c512
 
 GHIJACK:
 	Inherits: ^TibSunSoldier

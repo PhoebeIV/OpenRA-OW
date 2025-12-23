@@ -982,10 +982,11 @@ Player:
 			nod.separatist: 100
 			ttr.fuel: 100
 			ttr.fanatic: 100
-			upgrade.glashoes: 100
+			gla.shoes: 100
 			gla.beta: 100
 			gla.pay: 100
 			gla.aprockets: 100
+			gla.junk: 100
 			protoss.dragoon: 100
 			protoss.shields: 100
 			protoss.shadows: 100
@@ -2774,10 +2775,31 @@ Player:
 				MinimumAttractiveness: 1
 				Consideration@1:
 					Against: Enemy
+					Types: Infantry
+					Attractiveness: 1
+					TargetMetric: Value
+					CheckRadius: 6c0
+				Consideration@2:
+					Against: Enemy
 					Types: Structure
 					Attractiveness: 1
-					TargetMetric: None
-					CheckRadius: 5c0
+					TargetMetric: Value
+					CheckRadius: 3c0
+			NapalmStrike2:
+				OrderName: FedNapalmStrike
+				MinimumAttractiveness: 1
+				Consideration@1:
+					Against: Enemy
+					Types: Infantry
+					Attractiveness: 1
+					TargetMetric: Value
+					CheckRadius: 6c0
+				Consideration@2:
+					Against: Enemy
+					Types: Structure
+					Attractiveness: 1
+					TargetMetric: Value
+					CheckRadius: 3c0
 			Do17Strike:
 				OrderName: Do17Strike
 				MinimumAttractiveness: 1
@@ -2823,6 +2845,15 @@ Player:
 					Attractiveness: 1
 					TargetMetric: None
 					CheckRadius: 5c0
+			FedAirstrike:
+				OrderName: FedAirstrike
+				MinimumAttractiveness: 1
+				Consideration@1:
+					Against: Enemy
+					Types: Infantry, Vehicle, Structure
+					Attractiveness: 1
+					TargetMetric: None
+					CheckRadius: 5c0
 			USAMines:
 				OrderName: USAMines
 				MinimumAttractiveness: 1
@@ -2858,10 +2889,25 @@ Player:
 					CheckRadius: 8c0
 			ChinaArtillery:
 				OrderName: artillerybarrage
-				MinimumAttractiveness: 5
+				MinimumAttractiveness: 1000
 				Consideration@1:
 					Against: Enemy
 					Types: Structure
+					Attractiveness: 1
+					TargetMetric: None
+					CheckRadius: 8c0
+			FedArtillery:
+				OrderName: artillerybarrage2
+				MinimumAttractiveness: 1000
+				Consideration@0:
+					Against: Enemy
+					Types: Structure
+					Attractiveness: 2
+					TargetMetric: None
+					CheckRadius: 8c0
+				Consideration@1:
+					Against: Enemy
+					Types: Vehicle, Infantry, Defense
 					Attractiveness: 1
 					TargetMetric: None
 					CheckRadius: 8c0

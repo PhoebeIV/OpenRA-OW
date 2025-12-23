@@ -21,16 +21,16 @@
 # shoes aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 # shoes aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 # shoes aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-upgrade.glashoes:
+gla.shoes:
 	Inherits: ^UpgradeBaseExt
 	Tooltip:
 		Name: actor-upgrade-glashoes.name
 	Buildable:
 		Description: actor-upgrade-glashoes.description
 		BuildPaletteOrder: 10007
-		Prerequisites: ~infantry.gla, advtechcenter, ~!upgrade.glashoes
+		Prerequisites: ~infantry.gla, refinery, ~!gla.shoes
 	ProductionCostMultiplier@upgrade:
-		Multiplier: 2500
+		Multiplier: 4000
 	ProvidesPrerequisite@upgradename:
 	Voiced:
 		VoiceSet: Worker2Voice
@@ -51,7 +51,7 @@ gla.beta:
 		BuildDuration: 6000
 	ProvidesPrerequisite@upgradename:
 	ProductionCostMultiplier@upgrade:
-		Multiplier: 10000
+		Multiplier: 7500
 
 gla.pay:
 	Inherits: ^UpgradeBaseExt
@@ -78,3 +78,18 @@ gla.aprockets:
 	ProvidesPrerequisite@upgradename:
 	ProductionCostMultiplier@upgrade:
 		Multiplier: 5000
+
+gla.junk:
+	Inherits: ^UpgradeBaseExt
+	Tooltip:
+		Name: actor-gla-junk.name
+	Buildable:
+		Description: actor-gla-junk.description
+		BuildPaletteOrder: 10011
+		Prerequisites: ~!gla.junk, ~structures.gla, fix, ~techlevel.medium
+		BuildDuration: 4000
+	ProvidesPrerequisite@upgradename:
+	ProductionCostMultiplier@upgrade:
+		Multiplier: 5000
+	RenderSprites:
+		Image: fix

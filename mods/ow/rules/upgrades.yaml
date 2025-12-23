@@ -585,6 +585,9 @@ BuildQueueHandler2:
 		Delay: 5
 
 FreeUpgrades:
+	GrantConditionOnPrerequisite@gla:
+		Prerequisites: structures.gla
+		Condition: spawn_buildrepair1
 	ProvidesPrerequisite@estonia:
 		Prerequisite: upgrade.buildarmor1
 		RequiresPrerequisites: structures.estonia
@@ -595,7 +598,7 @@ FreeUpgrades:
 		RequiresCondition: spawn_buildarmor1
 		Actor: upgrade.buildarmor1
 	FreeActor@estonia2:
-		RequiresCondition: spawn_buildarmor1
+		RequiresCondition: spawn_buildarmor1 || spawn_buildrepair1
 		Actor: upgrade.buildrepair1
 	GrantConditionOnPrerequisite@mengsk:
 		Prerequisites: structures.mengsk

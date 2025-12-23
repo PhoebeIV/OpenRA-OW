@@ -1761,6 +1761,7 @@ actor-gharv =
     Speed: 64
       Unarmed
    .name = Worker
+   .hole = Hole Worker
 
 actor-ghijack =
    .description = Steals enemy credits.
@@ -1882,6 +1883,10 @@ actor-gla-aprockets =
    .name = AP Rockets
    .description = Upgrade rocket buggies and RPG troops
      with increased damage.
+
+actor-gla-junk =
+   .name = Junk Repair
+   .description = Improves self-repair for vehicles.
 
 ## gla_veh.yaml
 actor-gmgg =
@@ -3268,9 +3273,11 @@ actor-pstarg-warp =
 actor-pstarg-name = Stargate
 
 actor-pfleet-warp =
-   .description = Provides access to your faction's epic unit or ability.
+   .description = Provides access to the Protoss Carrier.
     
       Special Ability: Provides money
+       and clones basic Infantry.
+   
      Limit of one.
    .name = Warp (Fleet Beacon)
 
@@ -3595,6 +3602,15 @@ actor-oreext2 =
 
 actor-agate-name = Gate
 
+actor-fix =
+    .name = Service Depot
+    .description =
+    Repairs vehicles for credits.
+
+    .gladesc = 
+    Repairs vehicles for credits.
+
+    Also enables self-repair for GLA vehicles.
 meta-concrete =
    .name = Pavement
    .generic-name = Cement
@@ -3619,6 +3635,7 @@ actor-t-miss =
    
       Sell with an chosen cloning type, to remove the type and choose another.
    .name = Super Tech Center
+   .warpname = (Warp) Super Tech Centre
    .veh = Vehicle Super Tech Center
    .navy = Navy Super Tech Center
    .inf = Infantry Super Tech Center
