@@ -1,0 +1,97 @@
+Player:
+	-ConquestVictoryConditions:
+	LobbyPrerequisiteCheckbox@GLOBALBOUNTY:
+		Enabled: False
+		Locked: True
+	PlayerResources:
+		ResourceValues:
+			Ore: 0
+			Gems: 0
+
+World:
+	-CrateSpawner:
+	-AutoSave:
+	-SpawnStartingUnits:
+	-MapStartingLocations:
+	MusicPlaylist:
+		BackgroundMusic: gen_gla_04
+		AllowMuteBackgroundMusic: true
+		DisableWorldSounds: false
+	LuaScript:
+		Scripts: script.lua
+	-StartGameNotification:
+	Locomotor@TRACKED:
+		Name: tracked
+		TerrainSpeeds:
+			Clear: 100
+				PathingCost: 20
+			ClearSnow: 70
+			Rough: 70
+			Road: 100
+				PathingCost: 1
+			Bridge: 70
+			Ore: 70
+			Gems: 70
+			Tiberium: 70
+			BlueTiberium: 70
+			Creep: 70
+			Beach: 70
+			Radiation: 70
+
+^Palettes:
+	-MenuPostProcessEffect:
+
+^ExistsInWorld:
+	ExternalCondition@unkillable: 
+		Condition: unkillable
+	DamageMultiplier@unkillable:
+		RequiresCondition: unkillable
+		Modifier: 0
+	RevealsShroudMultiplier@unkillable:
+		Modifier: 400
+	ExternalCondition@bus:
+		Condition: nearbus
+	SpeedMultiplier@bus1:
+		RequiresCondition: !nearbus
+		Modifier: 200
+	SpeedMultiplier@bus2:
+		RequiresCondition: nearbus == 1
+		Modifier: 150
+
+BGGYD.G:
+	Mobile:
+		Speed: 88
+		Locomotor: tracked
+	RangeMultiplier@all:
+		Modifier: 200
+
+BBUS.BOT:
+	ProximityExternalCondition@bus:
+		Range: 4c0
+		Condition: nearbus
+	ProximityExternalCondition@bus2:
+		Range: 8c0
+		Condition: nearbus
+	-SpeedMultiplier@bus1:
+	-SpeedMultiplier@bus2:
+
+XBAR:
+	Cloak:
+		RequiresCondition: never
+	GrantConditionOnDamage:
+		Condition: triggered
+		Duration: 1000
+	FireWarheadsOnDeath@2:
+		Weapon: BarrelExplode
+		EmptyWeapon: BarrelExplode
+		DamageSource: Killer
+
+XBAR3:
+	Cloak:
+		RequiresCondition: never
+
+SPECTRE:
+	AmmoPool:
+		Ammo: 90000
+		ReloadDelay: 20
+		AmmoCondition: ammo

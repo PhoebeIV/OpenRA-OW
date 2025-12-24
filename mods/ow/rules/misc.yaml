@@ -258,8 +258,6 @@ SPLIT3:
 	KillsSelf@transform:
 		RequiresCondition: (lessinfectable && (growth > 150)) || (infectable && (growth > 120)) || (moreinfectable && (growth > 90)) || dotransform
 		Delay: 1
-	ChangesTerrain:
-		TerrainType: TibTree
 	-FireWarheads@changeowner: 
 	-FireWarheads@changeownerback:
 	-FireWarheads@changeownerbackstructure:
@@ -272,6 +270,7 @@ SPLIT3.CR:
 	HitShape:
 	RenderSprites:
 		Image: split3
+		PlayerPalette: dawn
 	Targetable@attackable:
 		TargetTypes: GroundActor, Structure
 	Health:
@@ -284,12 +283,11 @@ SPLIT3.CR:
 		EmptyWeapon: DemoTrapExplosion2
 	SpawnActorOnDeath:
 		Actor: split4.cr
+	ChangesTerrain:
+		TerrainType: TibTree
 
 SPLIT4:
 	Inherits: SPLIT4.CR
-	RenderSprites:
-		Image: split3
-		PlayerPalette: dawn
 	SeedsResource:
 		ResourceType: BlueTiberium
 		Interval: 65
@@ -316,8 +314,6 @@ SPLIT4:
 	ExplodeWeapon@burst:
 		RequiresCondition: burst
 		Weapon: TibTreeBlueBurst
-	ChangesTerrain:
-		TerrainType: TibTreeBlue
 	-FireWarheads@changeowner: 
 	-FireWarheads@changeownerback:
 	-FireWarheads@changeownerbackstructure:
@@ -328,6 +324,9 @@ SPLIT4:
 SPLIT4.CR:
 	Inherits: ^TibTree
 	HitShape:
+	RenderSprites:
+		Image: split3
+		PlayerPalette: dawn
 	Targetable@attackable:
 		TargetTypes: GroundActor, C4, DetonateAttack, Structure
 	Health:
@@ -338,6 +337,8 @@ SPLIT4.CR:
 	FireWarheadsOnDeath:
 		Weapon: DemoTrapExplosion2
 		EmptyWeapon: DemoTrapExplosion2
+	ChangesTerrain:
+		TerrainType: TibTreeBlue
 
 TMONOLITH:
 	Inherits: ^TibTree

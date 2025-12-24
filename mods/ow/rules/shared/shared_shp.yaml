@@ -156,10 +156,14 @@ LST2:
 	Buildable:
 		Queue: Ship
 		BuildPaletteOrder: 10
-		Prerequisites: fix, ~techlevel.medium, ~ships.lst2prereq
+		Prerequisites: fix, ~techlevel.medium, ~ships.lst2prereq, ~!ai.all
 		Description: actor-lst2.description
 	Valued:
-		Cost: 800
+		Cost: 400
+	GivesExperienceMultiplier@value:
+		Modifier: 200
+	ProductionCostMultiplier@value:
+		Multiplier: 200
 	Tooltip:
 		Name: actor-lst2.name
 	UpdatesPlayerStatistics:
@@ -195,6 +199,14 @@ LST2:
 		Position: BottomLeft
 		RequiresSelection: true
 
+LST2.Bot:
+	Inherits: LST2
+	Buildable:
+		Prerequisites: fix, ~techlevel.medium, ~ships.lst2prereq, ~ai.all
+		BuildLimit: 3
+	RenderSprites:
+		Image: LST2
+
 LST.HARV:
 	Inherits: ^Ship
 	Inherits@selection: ^SelectableSupportUnit
@@ -204,7 +216,11 @@ LST.HARV:
 		Description: actor-lstharv.description
 		Icon: icon-oil
 	Valued:
-		Cost: 1000
+		Cost: 100
+	GivesExperienceMultiplier@value:
+		Modifier: 1000
+	ProductionCostMultiplier@value:
+		Multiplier: 1000
 	Tooltip:
 		Name: actor-lstharv.name
 	UpdatesPlayerStatistics:

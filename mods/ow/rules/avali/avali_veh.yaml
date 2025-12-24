@@ -3,7 +3,19 @@
 		Condition: hordebonus
 	ProximityExternalCondition@hordebonus:
 		Condition: hordebonus
-		Range: 4c0
+		Range: 6c0
+	ProximityExternalCondition@hordebonus2:
+		RequiresCondition: (hordebonus >= 15) || (hordebonusupgrade1 >= 15) || (hordebonusupgrade2 >= 15)
+		Condition: hordebonus
+		Range: 8c0
+	ProximityExternalCondition@hordebonus3:
+		RequiresCondition: (hordebonus >= 15) || (hordebonusupgrade1 >= 15) || (hordebonusupgrade2 >= 15)
+		Condition: hordebonus
+		Range: 8c0
+	ProximityExternalCondition@hordebonus4:
+		RequiresCondition: (hordebonus >= 15) || (hordebonusupgrade1 >= 15) || (hordebonusupgrade2 >= 15)
+		Condition: hordebonus
+		Range: 8c0
 	WithIdleOverlay@hordebonus:
 		Image: hordebonus-overlay
 		Sequence: vehicle
@@ -12,12 +24,20 @@
 		IsDecoration: True
 	ReloadDelayMultiplier@hordebonus:
 		RequiresCondition: (hordebonus >= 15) || (hordebonusupgrade1 >= 15) || (hordebonusupgrade2 >= 15)
+		Modifier: 80
+	ReloadAmmoDelayMultiplier@hordebonus:
+		RequiresCondition: (hordebonus >= 15) || (hordebonusupgrade1 >= 15) || (hordebonusupgrade2 >= 15)
+		Modifier: 90
+	DamageMultiplier@hordebonus:
+		RequiresCondition: (hordebonus >= 15) || (hordebonusupgrade1 >= 15) || (hordebonusupgrade2 >= 15)
 		Modifier: 90
 	GrantConditionOnTerrain@snow:
 		TerrainTypes: ClearSnow
 		Condition: env_snow_buff
 	GrantConditionOnTileSet@cold:
 		TileSets: SNOW
+		Condition: env_snow_buff
+	ExternalCondition@cold:
 		Condition: env_snow_buff
 	SpeedMultiplier@cold:
 		Modifier: 115
@@ -28,8 +48,15 @@
 	SpeedMultiplier@cyrostream2:
 		RequiresCondition: (cyrostreameffect >= 3) && (cyrostreameffect < 8)
 		Modifier: 100
-	ExternalCondition@cold:
-		Condition: env_snow_buff
+	SpeedMultiplier@cyrostrike:
+		Modifier: 100
+	ReloadDelayMultiplier@cyrostrike:
+		Modifier: 100
+	ReloadAmmoDelayMultiplier@cyrostrike:
+		Modifier: 100
+	WithColoredOverlay@cyrostrike:
+		RequiresCondition: cyrostrikeeffect
+		Color: 00FBFF00
 	Targetable@weatherimmune:
 		TargetTypes: WeatherTankImmume
 	Voiced:
@@ -983,8 +1010,12 @@ AVQTNK:
 		Prerequisites: fix, advtechcenter, ~vehicles.avalon, ~techlevel.high
 		BuildLimit: 2
 		Description: actor-avqtnk.description
-	Valued:
-		Cost: 3000
+	Valued: # 3000
+		Cost: 1000
+	GivesExperienceMultiplier@value:
+		Modifier: 300
+	ProductionCostMultiplier@value:
+		Multiplier: 300
 	Tooltip:
 		Name: actor-avqtnk.name
 	UpdatesPlayerStatistics:

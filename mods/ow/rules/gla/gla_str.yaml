@@ -23,15 +23,15 @@
 
 ^KassadStealth:
 	Cloak@stealthgen:
-		RequiresCondition: stealthgen && !disabled && !kassadstealth
+		RequiresCondition: stealthgen && !disabled && !kassadstealth && !no_owner
 	Cloak@kassad:
 		IsPlayerPalette: true
 		InitialDelay: 75
 		CloakDelay: 150
 		CloakSound: gstealon.aud
 		UncloakSound: gstealof.aud
-		RequiresCondition: kassadstealth && !stealthgen && !disabled
-		UncloakOn: Attack, Unload, Infiltrate, Demolish, Damage
+		RequiresCondition: kassadstealth && !stealthgen && !disabled && !no_owner
+		UncloakOn: Attack, Unload, Infiltrate, Demolish, Damage, SupportPower
 	GrantConditionOnFaction@kassad:
 		Factions: kassad
 		Condition: kassadstealth

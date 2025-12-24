@@ -219,12 +219,18 @@ Player:
 	GrantConditionOnBotOwner@realboss:
 		Condition: enable-realboss-ai
 		Bots: boss2
+	GrantConditionOnBotOwner@bossgod:
+		Condition: enable-godboss-ai
+		Bots: boss,boss2
 	GrantConditionOnBotOwner@all:
 		Condition: enable-all-ai
 		Bots: easy, medium, hard, harder, boss, boss2, hard_b
 	GrantConditionOnFaction@medi:
 		Condition: enable-medi-ai
 		Factions: zerg, infantry, zagara, kerrigan
+	GrantConditionOnFaction@smallharv:
+		Condition: enable-smallharv-ai
+		Factions: zerg, zagara, kerrigan, kassad, demo, thrax, protoss, artanis, vorazun, terran, raynor, mengsk
 	PlayerCashTrickler@med:
 		RequiresCondition: enable-medium-ai
 		Interval: 750
@@ -282,10 +288,19 @@ Player:
 		Factions: infantry, gdi, steel, zocom, gdi3
 		Condition: override_hatetib
 		RequiresCondition: enable-all-ai
-	HarvesterBotModule:
+	HarvesterBotModule@base:
 		RequiresCondition: enable-all-ai
-		HarvesterTypes: harv, harvd,  gharv, pprobe, zdrone, usachinook, tscv, avharv, lst.harv
-		RefineryTypes: proc, procd, gproc, passim, zextrac, trefinery, usasupplycenter, chinasupplycenter, japansupplycenter, avproc, japansupplycenternavy
+		HarvesterTypes: harv, harvd, usachinook, avharv, lst.harv
+		RefineryTypes: proc, procd, gproc, passim, zextrac, trefinery, usasupplycenter, chinasupplycenter, japansupplycenter, avproc, japansupplycenternavy, barr.boss
+		ScanForIdleHarvestersInterval: 250
+		HarvesterEnemyAvoidanceRadius: 16c0
+	HarvesterBotModule@smallharv: # for infantry-sized harvesters
+		RequiresCondition: enable-smallharv-ai
+		HarvesterTypes: gharv, pprobe, zdrone, tscv
+		RefineryTypes: proc, procd, gproc, passim, zextrac, trefinery, usasupplycenter, chinasupplycenter, japansupplycenter, avproc, japansupplycenternavy, barr.boss
+		ScanForIdleHarvestersInterval: 250
+		HarvesterEnemyAvoidanceRadius: 16c0
+		InitialHarvesters: 30
 	ResourceMapBotModule:
 		RequiresCondition: enable-all-ai
 		ResourceCreatorTypes: mine, gmine, mine.cr, gmine.cr, split3, split3.cr, split4, split4.cr, tmonolith, tmonolith.blue, japanoilderrick.cr
@@ -293,6 +308,7 @@ Player:
 		HarvesterTypes: harv, harvd,  gharv, pprobe, zdrone, usachinook, tscv, avharv, lst.harv
 		RefineryTypes: proc, procd, gproc, passim, zextrac, usasupplycenter, trefinery, chinasupplycenter, barr.boss, japansupplycenter, avproc, japansupplycenternavy, btproc, syrd, spen, gspen, usashipyard, chinashipyard, japanshipyard, japanshipyardnavy
 		EnemyBaseBuildingTypes: syrd, spen, gspen, usashipyard, chinashipyard, japanshipyard, japanshipyardnavy, pbox.boss, gfix.boss, tsla, agun, pbox, hbox, gun, ftur, sam, gtwr, atd, xbar, tsla.est, ironball, dgun.nz, atwr, atwr2, samd, oblid, dgun, advsam, solcdepl, plstur, gpbox, ghbox, gstg, atd.g, pphoto, psbatt, zccolony, usapatriot, usapatriotemp, usalaserpatriot, usafirebaseai, tbunker.bot, tbunker.bot2, tbunker.mengsk.bot, tbunker.mengsk.bot2, tmissile, tmissile.mengsk, tstank.bot.buildable, avarty.bot.buildable, chinaspeakertower, chinagatlinggun, chinabunkerai, chinafortifiedbunkerai, ppylon.bot, chinanukecannonai, usasupportmatrix, japanlaserbaseai, japanmindcontrol, japanballoon, japanberserktower, japanwaveforceturret, avfact, avtent, avtent.bot, avweap, avweap.bot, avproc, pstarg.bot, hpad.bot, japanmindcontrolnavy, japanaikokusha, pdrago.warpai, pzealot.warpai, zegg.zergling, zegg.hydra, zegg.muta, zegg.ultra, ztumor, ztumor.bot, silo, silod, gsilo, usasilo, fact, factd, gfact, zhatchery, pnexus, tcommand, tcommand.landed, tcommand.ai, avfact, powr, apwr, dpwr, nuk2, xpwr, nuk3, zoverlord, usacoldfusion, tsupply, upgrade.coldreactor, chinanuclearreactor, chinaadvnuclearreactor, chinabreederreactor, ppylon, ppylon.bot, prefab.a, prefab.b, japanantimatterreactor, japanhyperantimatterreactor, avpowr1, avpowr2, avpowr3, japanantimatterreactornavy, japanhyperantimatterreactornavy, btpanel, barr, tent, weap, afld, hpad, hpad.bot, pstarg, handd, pyled, nhand, gtent, foundry, gfoundry, weapd, afldd, gair, upgradehandler, aeiou, barr.bot, barr.boss, tent.bot, handd.bot, pyled.bot, nhand.bot, gtent.bot, foundry.bot, gfoundry.bot, weap.bot, weap.boss, weapd.bot, afldd.bot, gair.bot, pgatew, pgatew.bot, psupor, psupor.bot, ptempl, probot, probot.bot, pcarry, zhatchery, zpool, zpool.bot, zccolony, zhydraden, zspire, usaairfield, usawarfactory, usastrategycenter, usabarracks, usashipyard, znydus, tcommand, tcommand.landed, tbarr, tbarr.1, tbarr.2, tbarr.3, tsilo, tfactory, tsport, chinabarracks, chinawarfactory, chinaairfield, chinashipyard, japanbarracks, japanmechabay, japanairfield, japanshipyard, japanshipyardnavy, japanairfieldnavy, avtent, avtent.bot, avweap, avweap.bot, avpad, pstarg.bot, hpad.bot
+		UpdateResourceMapInverval: 250
 		ResourceMapStrideRadius: 30
 	BuildingRepairBotModule:
 		RequiresCondition: enable-all-ai
@@ -323,10 +339,14 @@ Player:
 		ConstructionYardTypes: fact, factd, gfact, v01.c, pnexus, zhatchery, tcommand, tcommand.landed, tcommand.ai, avfact
 		McvFactoryTypes: weap, weapd, afldd, gair, probot, weap.bot, weapd.bot, afldd.bot, gair.bot, usawarfactory, zhatchery, chinawarfactory, japanmechabay, avweap, japanmechabaynavy, tsport
 		MoveOldConyardFirst: false
-		BuildMcvInterval: 250
+		BuildMcvInterval: 500
 		BuildAdditionalMCVCashAmount: 2500
 		MinimumConstructionYardCount: 4
 		AdditionalConstructionYardCount: 2
+		ScanForNewMcvInterval: 250
+		CBmodeMinDeployRadius: 8
+		CBmodeMaxDeployRadius: 30
+		InitialExpansionMode: CheckBase
 	McvExpansionManagerBotModule@surveyor:
 		RequiresCondition: enable-all-ai && enable-surveyor
 		McvTypes: tsengi.o, japansurveyorboat
@@ -339,6 +359,7 @@ Player:
 		AdditionalConstructionYardCount: 4
 		CRmodeMinDeployRadius: 10
 		CBmodeMinDeployRadius: 15
+		ScanForNewMcvInterval: 250
 	GrantDelayedCondition@mcvexp:
 		Delay: 15000
 		Condition: enable-mcv-exp
@@ -1203,90 +1224,137 @@ Player:
 			dome: 4500
 			hqd: 4500
 			pbox.boss: 9000
-	MinelayerBotModule:
-		RequiresCondition: enable-medium-ai || enable-hard-ai
-		MinelayingActorTypes: mnly, mnly.g, lst2, tvult, tvult.raynor
+	GrantRandomCondition@mineai:
+		Conditions: enable-mines-normal, enable-mines-turtle
+	MinelayerBotModule@normal:
+		RequiresCondition: enable-all-ai && enable-mines-normal
+		MinelayingActorTypes: mnly, mnly.g, lst2.bot, tvult, tvult.raynor
 		IgnoredEnemyTargetTypes: Structure, Defense, AirborneActor, Trees
 		UseEnemyLocationTargetTypes: Structure, Defense
 		AwayFromAlliedTargetTypes: Structure, Defense
 		AwayFromEnemyTargetTypes: Structure, Defense
+	MinelayerBotModule@turtle:
+		RequiresCondition: enable-all-ai && enable-mines-turtle
+		MinelayingActorTypes: mnly, mnly.g, lst2.bot, tvult, tvult.raynor
+		IgnoredEnemyTargetTypes: Structure, Defense, AirborneActor, Trees
+		UseEnemyLocationTargetTypes: Structure, Defense
+		AwayFromAlliedTargetTypes: Structure, Defense
+		AwayFromEnemyTargetTypes: Structure, Defense
+		MineFieldRadius: 3
+		MaxPerAssign: 3
+	GrantRandomCondition@squadai:
+		Conditions: enable-squad-annoying, enable-squad-simple, enable-squad-moderate, enable-squad-large, enable-squad-huge
 	SquadManagerBotModule@all:
-		RequiresCondition: never
-		ExcludeFromSquadsTypes: harv, harvd,  mcv, mcv.2, mcvd, mcvd.2, gmcv, gmcv.2, gharv, gmgg, dog, mcvm, mcvm.2, mcvm.3, pmcv, pmcv.2, zmcv, zmcv.2, avmcv, avmcv.2, zdrone, zoverlord, pprobe, usachinook, tscv, e6, fe6, tsengi.o, surveyormedi, zdrone.eng, pprobe.eng, mnly, mnly.g, lst2, tvalk.bomber, avinf2, avcarrier, harvnavy, japansurveyorboat, zzagara.hero0, zzagara.hero1, zzagara.hero2, zzagara.hero3, zzagara.hero4, zzagara.hero5, avharv, frge6, frgsurv, lst.harv, usaminedropactor, tspider
+		RequiresCondition: enable-all-ai && enable-squad-annoying
+		ExcludeFromSquadsTypes: harv, harvd,  mcv, mcv.2, mcvd, mcvd.2, gmcv, gmcv.2, gharv, gmgg, dog, mcvm, mcvm.2, mcvm.3, pmcv, pmcv.2, zmcv, zmcv.2, avmcv, avmcv.2, zdrone, zoverlord, pprobe, usachinook, tscv, e6, fe6, tsengi.o, surveyormedi, zdrone.eng, pprobe.eng, mnly, mnly.g, lst2.bot, tvalk.bomber, avinf2, avcarrier, harvnavy, japansurveyorboat, zzagara.hero0, zzagara.hero1, zzagara.hero2, zzagara.hero3, zzagara.hero4, zzagara.hero5, avharv, frge6, frgsurv, lst.harv, usaminedropactor, tspider
 		NavalUnitsTypes: ss,msub,dd,ca,lst,pt,dmdd,eyeship,dd.f,cruisemis,cruisemis.silver,dd.r,silverlining,usaspycarrier,usareconboat,usamlrscarrier,chinainfernoship,chinadreadnought,chinaemperorbattlecruiser,chinaemperornuclearcruiser,japankappa,japannaginata,japanshogun
 		ConstructionYardTypes: fact,factd,gfact,factm,pnexus,zhatchery,tcommand,tcommand.landed,avfact
 		NavalProductionTypes: spen,syrd,gspen,usashipyard,chinashipyard,japanshipyard,japanshipyardnavy
 		AirUnitsTypes: mig, yak, heli, mh60, n.mig, bf109, do17, do17.shd, orca, a10, tsorca, tsorcab, tsorcatran.ai2, scrin, a10.n3, venom, vanguard, lance, lance.angels, nhwk, nhwk.angels, paladin, c17.f, spectre, spectre.angels, pscout, pcarry,usacombatchinookai,usacomanche,usaraptor,usastealthfighter,usaaurora,usakingraptor,usaauroraalpha, zmuta, zqueen, zscourge, chinamig, twraith, chinanukemig, chinahelixgatling, chinahelixspeaker, chinanukehelixgatling, chinanukehelixspeaker, japanchoppervx, japanjettengu, japankitsune, japanyousei, japankaminari, japanballoonsentryflying, japanswarmdrone, avfrigate, zep
-		ProtectionTypes: harv, harvd,  gharv, pprobe, zdrone, usachinook, tscv, gharv
-		SquadSize: 15
-		SquadSizeRandomBonus: 30
-		AttackForceInterval: 150
-		AssignRolesInterval: 125
-		MinimumAttackForceDelay: 250
-		IgnoredEnemyTargetTypes: Catalyst, UpgradeThing, Underwater, NoAITarget, Trees
-	SquadManagerBotModule@normal:
-		RequiresCondition: enable-easy-ai && !enable-medi-ai
-		ExcludeFromSquadsTypes: harv, harvd,  mcv, mcv.2, mcvd, mcvd.2, gmcv, gmcv.2, gharv, gmgg, dog, mcvm, mcvm.2, mcvm.3, pmcv, pmcv.2, zmcv, zmcv.2, avmcv, avmcv.2, zdrone, zoverlord, pprobe, usachinook, tscv, e6, fe6, tsengi.o, surveyormedi, zdrone.eng, pprobe.eng, mnly, mnly.g, lst2, tvalk.bomber, avinf2, avcarrier, harvnavy, japansurveyorboat, zzagara.hero0, zzagara.hero1, zzagara.hero2, zzagara.hero3, zzagara.hero4, zzagara.hero5, avharv, frge6, frgsurv, lst.harv, usaminedropactor, tspider
-		NavalUnitsTypes: ss,msub,dd,ca,lst,pt,dmdd,eyeship,dd.f,cruisemis,cruisemis.silver,dd.r,silverlining,usaspycarrier,usareconboat,usamlrscarrier,chinainfernoship,chinadreadnought,chinaemperorbattlecruiser,chinaemperornuclearcruiser,japankappa,japannaginata,japanshogun
-		ConstructionYardTypes: fact,factd,gfact,factm,pnexus,zhatchery,tcommand,tcommand.landed,avfact
-		NavalProductionTypes: spen,syrd,gspen,usashipyard,chinashipyard,japanshipyard,japanshipyardnavy
-		AirUnitsTypes: mig, yak, heli, mh60, n.mig, bf109, do17, do17.shd, orca, a10, tsorca, tsorcab, tsorcatran.ai2, scrin, a10.n3, venom, vanguard, lance, lance.angels, nhwk, nhwk.angels, paladin, c17.f, spectre, spectre.angels, pscout, pcarry,usacombatchinookai,usacomanche,usaraptor,usastealthfighter,usaaurora,usakingraptor,usaauroraalpha, zmuta, zqueen, zscourge, chinamig, twraith, chinanukemig, chinahelixgatling, chinahelixspeaker, chinanukehelixgatling, chinanukehelixspeaker, japanchoppervx, japanjettengu, japankitsune, japanyousei, japankaminari, japanballoonsentryflying, japanswarmdrone, avfrigate, zep
-		ProtectionTypes: harv, harvd,  gharv, pprobe, zdrone, usachinook, tscv, gharv
+		ProtectionTypes: harv, harvd,  gharv, pprobe, zdrone, usachinook, tscv, gharv, fact,factd,gfact,factm,pnexus,zhatchery,tcommand,tcommand.landed,avfact,proc, procd, gproc, passim, zextrac, usasupplycenter, trefinery, chinasupplycenter, barr.boss, japansupplycenter, avproc, japansupplycenternavy, btproc, syrd, spen, gspen, usashipyard, chinashipyard, japanshipyard, japanshipyardnavy, pbox.boss, pbox.boss2, gfix.boss, tsla, agun, pbox, hbox, gun, ftur, sam, gtwr, atd, xbar, tsla.est, ironball, dgun.nz, atwr, atwr2, samd, oblid, dgun, advsam, solcdepl, plstur, gpbox, ghbox, gstg, atd.g, pphoto, psbatt, zccolony, usapatriot, usapatriotemp, usalaserpatriot, usafirebaseai, tbunker.bot, tbunker.bot2, tbunker.mengsk.bot, tbunker.mengsk.bot2, tmissile, tmissile.mengsk, tstank.bot.buildable, avarty.bot.buildable, chinaspeakertower, chinagatlinggun, chinabunkerai, chinafortifiedbunkerai, ppylon.bot, chinanukecannonai, usasupportmatrix, japanlaserbaseai, japanmindcontrol, japanballoon, japanberserktower, japanwaveforceturret, japanmindcontrolnavy, japanaikokusha, traynor.hero0, traynor.hero1, traynor.hero2, traynor.hero3, traynor.hero4, traynor.hero5, btrae.hero0, btrae.hero1, btrae.hero2, btrae.hero3, btrae.hero4, btrae.hero5, dukenukem.hero0, dukenukem.hero1, dukenukem.hero2, dukenukem.hero3, dukenukem.hero4, dukenukem.hero5, strifeguy.hero0, strifeguy.hero1, strifeguy.hero2, strifeguy.hero3, strifeguy.hero4, strifeguy.hero5,  traynor.hero0, corvus.hero1, corvus.hero2, corvus.hero3, corvus.hero4, corvus.hero5, zkerrigan.hero0, zkerrigan.hero1, zkerrigan.hero2, zkerrigan.hero3, zkerrigan.hero4, zkerrigan.hero5, zzagara.hero0, zzagara.hero1, zzagara.hero2, zzagara.hero3, zzagara.hero4, zzagara.hero5, doomguy.hero0, doomguy.hero1, doomguy.hero2, doomguy.hero3, doomguy.hero4, doomguy.hero5
 		AircraftTargetType: AirborneActor
-		SquadSize: 15
-		SquadSizeRandomBonus: 30
-		AttackForceInterval: 150
-		AssignRolesInterval: 125
-		MinimumAttackForceDelay: 250
+		SquadSize: 5
+		SquadSizeRandomBonus: 15
+		AttackForceInterval: 75
+		AssignRolesInterval: 50
+		MinimumAttackForceDelay: 0
+		RushAttackScanRadius: 30
+		RushInterval: 250
+		IdleScanRadius: 15
+		ProtectionScanRadius: 20
 		IgnoredEnemyTargetTypes: Catalyst, UpgradeThing, Underwater, NoAITarget, Trees
 		MaxBaseRadius: 50
-	SquadManagerBotModule@medium:
-		RequiresCondition: enable-medium-ai || enable-hard-ai && !enable-medi-ai
-		ExcludeFromSquadsTypes: harv, harvd,  mcv, mcv.2, mcvd, mcvd.2, gmcv, gmcv.2, gharv, gmgg, dog, mcvm, mcvm.2, mcvm.3, pmcv, pmcv.2, zmcv, zmcv.2, avmcv, avmcv.2, zdrone, zoverlord, pprobe, usachinook, tscv, e6, fe6, tsengi.o, surveyormedi, zdrone.eng, pprobe.eng, mnly, mnly.g, lst2, tvalk.bomber, avinf2, avcarrier, harvnavy, japansurveyorboat, zzagara.hero0, zzagara.hero1, zzagara.hero2, zzagara.hero3, zzagara.hero4, zzagara.hero5, avharv, frge6, frgsurv, lst.harv, usaminedropactor, tspider
+	SquadManagerBotModule@easy:
+		RequiresCondition: enable-all-ai && enable-squad-simple
+		ExcludeFromSquadsTypes: harv, harvd,  mcv, mcv.2, mcvd, mcvd.2, gmcv, gmcv.2, gharv, gmgg, dog, mcvm, mcvm.2, mcvm.3, pmcv, pmcv.2, zmcv, zmcv.2, avmcv, avmcv.2, zdrone, zoverlord, pprobe, usachinook, tscv, e6, fe6, tsengi.o, surveyormedi, zdrone.eng, pprobe.eng, mnly, mnly.g, lst2.bot, tvalk.bomber, avinf2, avcarrier, harvnavy, japansurveyorboat, zzagara.hero0, zzagara.hero1, zzagara.hero2, zzagara.hero3, zzagara.hero4, zzagara.hero5, avharv, frge6, frgsurv, lst.harv, usaminedropactor, tspider
 		NavalUnitsTypes: ss,msub,dd,ca,lst,pt,dmdd,eyeship,dd.f,cruisemis,cruisemis.silver,dd.r,silverlining,usaspycarrier,usareconboat,usamlrscarrier,chinainfernoship,chinadreadnought,chinaemperorbattlecruiser,chinaemperornuclearcruiser,japankappa,japannaginata,japanshogun
 		ConstructionYardTypes: fact,factd,gfact,factm,pnexus,zhatchery,tcommand,tcommand.landed,avfact
 		NavalProductionTypes: spen,syrd,gspen,usashipyard,chinashipyard,japanshipyard,japanshipyardnavy
 		AirUnitsTypes: mig, yak, heli, mh60, n.mig, bf109, do17, do17.shd, orca, a10, tsorca, tsorcab, tsorcatran.ai2, scrin, a10.n3, venom, vanguard, lance, lance.angels, nhwk, nhwk.angels, paladin, c17.f, spectre, spectre.angels, pscout, pcarry,usacombatchinookai,usacomanche,usaraptor,usastealthfighter,usaaurora,usakingraptor,usaauroraalpha, zmuta, zqueen, zscourge, chinamig, twraith, chinanukemig, chinahelixgatling, chinahelixspeaker, chinanukehelixgatling, chinanukehelixspeaker, japanchoppervx, japanjettengu, japankitsune, japanyousei, japankaminari, japanballoonsentryflying, japanswarmdrone, avfrigate, zep
-		ProtectionTypes: harv, harvd,  gharv, pprobe, zdrone, usachinook, tscv, gharv
+		ProtectionTypes: harv, harvd,  gharv, pprobe, zdrone, usachinook, tscv, gharv, fact,factd,gfact,factm,pnexus,zhatchery,tcommand,tcommand.landed,avfact,proc, procd, gproc, passim, zextrac, usasupplycenter, trefinery, chinasupplycenter, barr.boss, japansupplycenter, avproc, japansupplycenternavy, btproc, syrd, spen, gspen, usashipyard, chinashipyard, japanshipyard, japanshipyardnavy, pbox.boss, pbox.boss2, gfix.boss, tsla, agun, pbox, hbox, gun, ftur, sam, gtwr, atd, xbar, tsla.est, ironball, dgun.nz, atwr, atwr2, samd, oblid, dgun, advsam, solcdepl, plstur, gpbox, ghbox, gstg, atd.g, pphoto, psbatt, zccolony, usapatriot, usapatriotemp, usalaserpatriot, usafirebaseai, tbunker.bot, tbunker.bot2, tbunker.mengsk.bot, tbunker.mengsk.bot2, tmissile, tmissile.mengsk, tstank.bot.buildable, avarty.bot.buildable, chinaspeakertower, chinagatlinggun, chinabunkerai, chinafortifiedbunkerai, ppylon.bot, chinanukecannonai, usasupportmatrix, japanlaserbaseai, japanmindcontrol, japanballoon, japanberserktower, japanwaveforceturret, japanmindcontrolnavy, japanaikokusha, traynor.hero0, traynor.hero1, traynor.hero2, traynor.hero3, traynor.hero4, traynor.hero5, btrae.hero0, btrae.hero1, btrae.hero2, btrae.hero3, btrae.hero4, btrae.hero5, dukenukem.hero0, dukenukem.hero1, dukenukem.hero2, dukenukem.hero3, dukenukem.hero4, dukenukem.hero5, strifeguy.hero0, strifeguy.hero1, strifeguy.hero2, strifeguy.hero3, strifeguy.hero4, strifeguy.hero5,  traynor.hero0, corvus.hero1, corvus.hero2, corvus.hero3, corvus.hero4, corvus.hero5, zkerrigan.hero0, zkerrigan.hero1, zkerrigan.hero2, zkerrigan.hero3, zkerrigan.hero4, zkerrigan.hero5, zzagara.hero0, zzagara.hero1, zzagara.hero2, zzagara.hero3, zzagara.hero4, zzagara.hero5, doomguy.hero0, doomguy.hero1, doomguy.hero2, doomguy.hero3, doomguy.hero4, doomguy.hero5
 		AircraftTargetType: AirborneActor
-		SquadSize: 25
-		SquadSizeRandomBonus: 40
+		SquadSize: 10
+		SquadSizeRandomBonus: 15
+		AttackForceInterval: 150
+		AssignRolesInterval: 125
+		MinimumAttackForceDelay: 250
+		RushAttackScanRadius: 30
+		RushInterval: 750
+		IdleScanRadius: 15
+		ProtectionScanRadius: 20
+		IgnoredEnemyTargetTypes: Catalyst, UpgradeThing, Underwater, NoAITarget, Trees
+		MaxBaseRadius: 50
+	SquadManagerBotModule@mediumhard:
+		RequiresCondition: enable-all-ai && enable-squad-moderate
+		ExcludeFromSquadsTypes: harv, harvd,  mcv, mcv.2, mcvd, mcvd.2, gmcv, gmcv.2, gharv, gmgg, dog, mcvm, mcvm.2, mcvm.3, pmcv, pmcv.2, zmcv, zmcv.2, avmcv, avmcv.2, zdrone, zoverlord, pprobe, usachinook, tscv, e6, fe6, tsengi.o, surveyormedi, zdrone.eng, pprobe.eng, mnly, mnly.g, lst2.bot, tvalk.bomber, avinf2, avcarrier, harvnavy, japansurveyorboat, zzagara.hero0, zzagara.hero1, zzagara.hero2, zzagara.hero3, zzagara.hero4, zzagara.hero5, avharv, frge6, frgsurv, lst.harv, usaminedropactor, tspider
+		NavalUnitsTypes: ss,msub,dd,ca,lst,pt,dmdd,eyeship,dd.f,cruisemis,cruisemis.silver,dd.r,silverlining,usaspycarrier,usareconboat,usamlrscarrier,chinainfernoship,chinadreadnought,chinaemperorbattlecruiser,chinaemperornuclearcruiser,japankappa,japannaginata,japanshogun
+		ConstructionYardTypes: fact,factd,gfact,factm,pnexus,zhatchery,tcommand,tcommand.landed,avfact
+		NavalProductionTypes: spen,syrd,gspen,usashipyard,chinashipyard,japanshipyard,japanshipyardnavy
+		AirUnitsTypes: mig, yak, heli, mh60, n.mig, bf109, do17, do17.shd, orca, a10, tsorca, tsorcab, tsorcatran.ai2, scrin, a10.n3, venom, vanguard, lance, lance.angels, nhwk, nhwk.angels, paladin, c17.f, spectre, spectre.angels, pscout, pcarry,usacombatchinookai,usacomanche,usaraptor,usastealthfighter,usaaurora,usakingraptor,usaauroraalpha, zmuta, zqueen, zscourge, chinamig, twraith, chinanukemig, chinahelixgatling, chinahelixspeaker, chinanukehelixgatling, chinanukehelixspeaker, japanchoppervx, japanjettengu, japankitsune, japanyousei, japankaminari, japanballoonsentryflying, japanswarmdrone, avfrigate, zep
+		ProtectionTypes: harv, harvd,  gharv, pprobe, zdrone, usachinook, tscv, gharv, fact,factd,gfact,factm,pnexus,zhatchery,tcommand,tcommand.landed,avfact,proc, procd, gproc, passim, zextrac, usasupplycenter, trefinery, chinasupplycenter, barr.boss, japansupplycenter, avproc, japansupplycenternavy, btproc, syrd, spen, gspen, usashipyard, chinashipyard, japanshipyard, japanshipyardnavy, pbox.boss, pbox.boss2, gfix.boss, tsla, agun, pbox, hbox, gun, ftur, sam, gtwr, atd, xbar, tsla.est, ironball, dgun.nz, atwr, atwr2, samd, oblid, dgun, advsam, solcdepl, plstur, gpbox, ghbox, gstg, atd.g, pphoto, psbatt, zccolony, usapatriot, usapatriotemp, usalaserpatriot, usafirebaseai, tbunker.bot, tbunker.bot2, tbunker.mengsk.bot, tbunker.mengsk.bot2, tmissile, tmissile.mengsk, tstank.bot.buildable, avarty.bot.buildable, chinaspeakertower, chinagatlinggun, chinabunkerai, chinafortifiedbunkerai, ppylon.bot, chinanukecannonai, usasupportmatrix, japanlaserbaseai, japanmindcontrol, japanballoon, japanberserktower, japanwaveforceturret, japanmindcontrolnavy, japanaikokusha, traynor.hero0, traynor.hero1, traynor.hero2, traynor.hero3, traynor.hero4, traynor.hero5, btrae.hero0, btrae.hero1, btrae.hero2, btrae.hero3, btrae.hero4, btrae.hero5, dukenukem.hero0, dukenukem.hero1, dukenukem.hero2, dukenukem.hero3, dukenukem.hero4, dukenukem.hero5, strifeguy.hero0, strifeguy.hero1, strifeguy.hero2, strifeguy.hero3, strifeguy.hero4, strifeguy.hero5,  traynor.hero0, corvus.hero1, corvus.hero2, corvus.hero3, corvus.hero4, corvus.hero5, zkerrigan.hero0, zkerrigan.hero1, zkerrigan.hero2, zkerrigan.hero3, zkerrigan.hero4, zkerrigan.hero5, zzagara.hero0, zzagara.hero1, zzagara.hero2, zzagara.hero3, zzagara.hero4, zzagara.hero5, doomguy.hero0, doomguy.hero1, doomguy.hero2, doomguy.hero3, doomguy.hero4, doomguy.hero5
+		AircraftTargetType: AirborneActor
+		SquadSize: 20
+		SquadSizeRandomBonus: 30
 		AttackForceInterval: 125
 		AssignRolesInterval: 100
-		MinimumAttackForceDelay: 150
+		MinimumAttackForceDelay: 250
+		RushAttackScanRadius: 30
+		RushInterval: 1500
+		IdleScanRadius: 15
+		ProtectionScanRadius: 20
 		IgnoredEnemyTargetTypes: Catalyst, UpgradeThing, Underwater, NoAITarget, Trees
 		MaxBaseRadius: 75
 	SquadManagerBotModule@boss:
-		RequiresCondition: enable-boss-ai && !enable-medi-ai
-		ExcludeFromSquadsTypes: harv, harvd,  mcv, mcv.2, mcvd, mcvd.2, gmcv, gmcv.2, gharv, gmgg, dog, mcvm, mcvm.2, mcvm.3, pmcv, pmcv.2, zmcv, zmcv.2, avmcv, avmcv.2, zdrone, zoverlord, pprobe, usachinook, tscv, e6, fe6, tsengi.o, surveyormedi, zdrone.eng, pprobe.eng, mnly, mnly.g, lst2, tvalk.bomber, avinf2, avcarrier, harvnavy, japansurveyorboat, zzagara.hero0, zzagara.hero1, zzagara.hero2, zzagara.hero3, zzagara.hero4, zzagara.hero5, avharv, frge6, frgsurv, lst.harv, usaminedropactor, tspider
+		RequiresCondition: enable-all-ai && enable-squad-large
+		ExcludeFromSquadsTypes: harv, harvd,  mcv, mcv.2, mcvd, mcvd.2, gmcv, gmcv.2, gharv, gmgg, dog, mcvm, mcvm.2, mcvm.3, pmcv, pmcv.2, zmcv, zmcv.2, avmcv, avmcv.2, zdrone, zoverlord, pprobe, usachinook, tscv, e6, fe6, tsengi.o, surveyormedi, zdrone.eng, pprobe.eng, mnly, mnly.g, lst2.bot, tvalk.bomber, avinf2, avcarrier, harvnavy, japansurveyorboat, zzagara.hero0, zzagara.hero1, zzagara.hero2, zzagara.hero3, zzagara.hero4, zzagara.hero5, avharv, frge6, frgsurv, lst.harv, usaminedropactor, tspider
 		NavalUnitsTypes: ss,msub,dd,ca,lst,pt,dmdd,eyeship,dd.f,cruisemis,cruisemis.silver,dd.r,silverlining,usaspycarrier,usareconboat,usamlrscarrier,chinainfernoship,chinadreadnought,chinaemperorbattlecruiser,chinaemperornuclearcruiser,japankappa,japannaginata,japanshogun
 		ConstructionYardTypes: fact,factd,gfact,factm,pnexus,zhatchery,tcommand,tcommand.landed,avfact
 		NavalProductionTypes: spen,syrd,gspen,usashipyard,chinashipyard,japanshipyard,japanshipyardnavy
 		AirUnitsTypes: mig, yak, heli, mh60, n.mig, bf109, do17, do17.shd, orca, a10, tsorca, tsorcab, tsorcatran.ai2, scrin, a10.n3, venom, vanguard, lance, lance.angels, nhwk, nhwk.angels, paladin, c17.f, spectre, spectre.angels, pscout, pcarry,usacombatchinookai,usacomanche,usaraptor,usastealthfighter,usaaurora,usakingraptor,usaauroraalpha, zmuta, zqueen, zscourge, chinamig, twraith, chinanukemig, chinahelixgatling, chinahelixspeaker, chinanukehelixgatling, chinanukehelixspeaker, japanchoppervx, japanjettengu, japankitsune, japanyousei, japankaminari, japanballoonsentryflying, japanswarmdrone, avfrigate, zep
-		ProtectionTypes: harv, harvd,  gharv, pprobe, zdrone, usachinook, tscv, gharv
+		ProtectionTypes: harv, harvd,  gharv, pprobe, zdrone, usachinook, tscv, gharv, fact,factd,gfact,factm,pnexus,zhatchery,tcommand,tcommand.landed,avfact,proc, procd, gproc, passim, zextrac, usasupplycenter, trefinery, chinasupplycenter, barr.boss, japansupplycenter, avproc, japansupplycenternavy, btproc, syrd, spen, gspen, usashipyard, chinashipyard, japanshipyard, japanshipyardnavy, pbox.boss, pbox.boss2, gfix.boss, tsla, agun, pbox, hbox, gun, ftur, sam, gtwr, atd, xbar, tsla.est, ironball, dgun.nz, atwr, atwr2, samd, oblid, dgun, advsam, solcdepl, plstur, gpbox, ghbox, gstg, atd.g, pphoto, psbatt, zccolony, usapatriot, usapatriotemp, usalaserpatriot, usafirebaseai, tbunker.bot, tbunker.bot2, tbunker.mengsk.bot, tbunker.mengsk.bot2, tmissile, tmissile.mengsk, tstank.bot.buildable, avarty.bot.buildable, chinaspeakertower, chinagatlinggun, chinabunkerai, chinafortifiedbunkerai, ppylon.bot, chinanukecannonai, usasupportmatrix, japanlaserbaseai, japanmindcontrol, japanballoon, japanberserktower, japanwaveforceturret, japanmindcontrolnavy, japanaikokusha, traynor.hero0, traynor.hero1, traynor.hero2, traynor.hero3, traynor.hero4, traynor.hero5, btrae.hero0, btrae.hero1, btrae.hero2, btrae.hero3, btrae.hero4, btrae.hero5, dukenukem.hero0, dukenukem.hero1, dukenukem.hero2, dukenukem.hero3, dukenukem.hero4, dukenukem.hero5, strifeguy.hero0, strifeguy.hero1, strifeguy.hero2, strifeguy.hero3, strifeguy.hero4, strifeguy.hero5,  traynor.hero0, corvus.hero1, corvus.hero2, corvus.hero3, corvus.hero4, corvus.hero5, zkerrigan.hero0, zkerrigan.hero1, zkerrigan.hero2, zkerrigan.hero3, zkerrigan.hero4, zkerrigan.hero5, zzagara.hero0, zzagara.hero1, zzagara.hero2, zzagara.hero3, zzagara.hero4, zzagara.hero5, doomguy.hero0, doomguy.hero1, doomguy.hero2, doomguy.hero3, doomguy.hero4, doomguy.hero5
 		AircraftTargetType: AirborneActor
 		SquadSize: 30
 		SquadSizeRandomBonus: 40
 		AttackForceInterval: 450
 		AssignRolesInterval: 100
-		MinimumAttackForceDelay: 200
-		RushInterval: 750
+		MinimumAttackForceDelay: 50
+		RushAttackScanRadius: 30
+		RushInterval: 1500
+		IdleScanRadius: 15
+		ProtectionScanRadius: 20
 		IgnoredEnemyTargetTypes: Catalyst, UpgradeThing, Underwater, NoAITarget, Trees
 		MaxBaseRadius: 100
 	SquadManagerBotModule@mediall:
-		RequiresCondition: enable-all-ai && enable-medi-ai
-		ExcludeFromSquadsTypes: harv, harvd,  mcv, mcv.2, mcvd, mcvd.2, gmcv, gmcv.2, gharv, gmgg, dog, mcvm, mcvm.2, mcvm.3, pmcv, pmcv.2, zmcv, zmcv.2, avmcv, avmcv.2, zdrone, zoverlord, pprobe, usachinook, tscv, e6, fe6, tsengi.o, surveyormedi, zdrone.eng, pprobe.eng, mnly, mnly.g, lst2, tvalk.bomber, avinf2, avcarrier, harvnavy, japansurveyorboat, zzagara.hero0, zzagara.hero1, zzagara.hero2, zzagara.hero3, zzagara.hero4, zzagara.hero5, avharv, frge6, frgsurv, lst.harv, usaminedropactor, tspider
+		RequiresCondition: enable-all-ai && enable-squad-huge
+		ExcludeFromSquadsTypes: harv, harvd,  mcv, mcv.2, mcvd, mcvd.2, gmcv, gmcv.2, gharv, gmgg, dog, mcvm, mcvm.2, mcvm.3, pmcv, pmcv.2, zmcv, zmcv.2, avmcv, avmcv.2, zdrone, zoverlord, pprobe, usachinook, tscv, e6, fe6, tsengi.o, surveyormedi, zdrone.eng, pprobe.eng, mnly, mnly.g, lst2.bot, tvalk.bomber, avinf2, avcarrier, harvnavy, japansurveyorboat, zzagara.hero0, zzagara.hero1, zzagara.hero2, zzagara.hero3, zzagara.hero4, zzagara.hero5, avharv, frge6, frgsurv, lst.harv, usaminedropactor, tspider
+		NavalUnitsTypes: ss,msub,dd,ca,lst,pt,dmdd,eyeship,dd.f,cruisemis,cruisemis.silver,dd.r,silverlining,usaspycarrier,usareconboat,usamlrscarrier,chinainfernoship,chinadreadnought,chinaemperorbattlecruiser,chinaemperornuclearcruiser,japankappa,japannaginata,japanshogun
 		ConstructionYardTypes: fact,factd,gfact,factm,pnexus,zhatchery,tcommand,tcommand.landed,avfact
+		NavalProductionTypes: spen,syrd,gspen,usashipyard,chinashipyard,japanshipyard,japanshipyardnavy
+		AirUnitsTypes: mig, yak, heli, mh60, n.mig, bf109, do17, do17.shd, orca, a10, tsorca, tsorcab, tsorcatran.ai2, scrin, a10.n3, venom, vanguard, lance, lance.angels, nhwk, nhwk.angels, paladin, c17.f, spectre, spectre.angels, pscout, pcarry,usacombatchinookai,usacomanche,usaraptor,usastealthfighter,usaaurora,usakingraptor,usaauroraalpha, zmuta, zqueen, zscourge, chinamig, twraith, chinanukemig, chinahelixgatling, chinahelixspeaker, chinanukehelixgatling, chinanukehelixspeaker, japanchoppervx, japanjettengu, japankitsune, japanyousei, japankaminari, japanballoonsentryflying, japanswarmdrone, avfrigate, zep
+		ProtectionTypes: harv, harvd,  gharv, pprobe, zdrone, usachinook, tscv, gharv, fact,factd,gfact,factm,pnexus,zhatchery,tcommand,tcommand.landed,avfact,proc, procd, gproc, passim, zextrac, usasupplycenter, trefinery, chinasupplycenter, barr.boss, japansupplycenter, avproc, japansupplycenternavy, btproc, syrd, spen, gspen, usashipyard, chinashipyard, japanshipyard, japanshipyardnavy, pbox.boss, pbox.boss2, gfix.boss, tsla, agun, pbox, hbox, gun, ftur, sam, gtwr, atd, xbar, tsla.est, ironball, dgun.nz, atwr, atwr2, samd, oblid, dgun, advsam, solcdepl, plstur, gpbox, ghbox, gstg, atd.g, pphoto, psbatt, zccolony, usapatriot, usapatriotemp, usalaserpatriot, usafirebaseai, tbunker.bot, tbunker.bot2, tbunker.mengsk.bot, tbunker.mengsk.bot2, tmissile, tmissile.mengsk, tstank.bot.buildable, avarty.bot.buildable, chinaspeakertower, chinagatlinggun, chinabunkerai, chinafortifiedbunkerai, ppylon.bot, chinanukecannonai, usasupportmatrix, japanlaserbaseai, japanmindcontrol, japanballoon, japanberserktower, japanwaveforceturret, japanmindcontrolnavy, japanaikokusha, traynor.hero0, traynor.hero1, traynor.hero2, traynor.hero3, traynor.hero4, traynor.hero5, btrae.hero0, btrae.hero1, btrae.hero2, btrae.hero3, btrae.hero4, btrae.hero5, dukenukem.hero0, dukenukem.hero1, dukenukem.hero2, dukenukem.hero3, dukenukem.hero4, dukenukem.hero5, strifeguy.hero0, strifeguy.hero1, strifeguy.hero2, strifeguy.hero3, strifeguy.hero4, strifeguy.hero5,  traynor.hero0, corvus.hero1, corvus.hero2, corvus.hero3, corvus.hero4, corvus.hero5, zkerrigan.hero0, zkerrigan.hero1, zkerrigan.hero2, zkerrigan.hero3, zkerrigan.hero4, zkerrigan.hero5, zzagara.hero0, zzagara.hero1, zzagara.hero2, zzagara.hero3, zzagara.hero4, zzagara.hero5, doomguy.hero0, doomguy.hero1, doomguy.hero2, doomguy.hero3, doomguy.hero4, doomguy.hero5
 		AircraftTargetType: AirborneActor
 		SquadSize: 60
 		SquadSizeRandomBonus: 80
 		AttackForceInterval: 250
 		AssignRolesInterval: 100
 		MinimumAttackForceDelay: 150
+		RushAttackScanRadius: 30
+		RushInterval: 1500
+		IdleScanRadius: 15
+		ProtectionScanRadius: 20
 		IgnoredEnemyTargetTypes: Catalyst, UpgradeThing, Underwater, NoAITarget, Trees
 		MaxBaseRadius: 60
+	GrantConditionOnPlayerArmyValue@slowai1:
+		Condition: upkeep_bot
+		Threshold: 100000
+	ProvidesPrerequisite@slowai1:
+		RequiresCondition: upkeep_bot && enable-all-ai
+		Prerequisite: prodspeed.botupkeep
+	GrantConditionOnPlayerArmyValue@slowai2:
+		Condition: disable-unitbuilder
+		Threshold: 150000
 	UnitBuilderBotModule@normal:
-		RequiresCondition: enable-all-ai
+		RequiresCondition: (enable-all-ai && !disable-unitbuilder) || (enable-godboss-ai)
 		UnitsToBuild:
 			e1: 30
 			e1of: 20
@@ -1378,7 +1446,7 @@ Player:
 			mgg: 10
 			mnly: 2
 			mnly.g: 2
-			lst2: 2
+			lst2.bot: 2
 			stnk: 5
 			mtnkd.g: 50
 			htnkd.g: 25
@@ -1808,7 +1876,7 @@ Player:
 			pt: 4
 			mnly: 1
 			mnly.g: 1
-			lst2: 1
+			lst2.bot: 1
 			dmdd: 4
 			dd.f: 4
 			cruisemis: 2
@@ -1983,6 +2051,7 @@ Player:
 			strifeguyacolyte: 20
 			strifeguytemplar: 10
 			strifeguycrusader: 10
+			amapc: 5
 		UnitDelays:
 			pzealot.b: 9000
 			pzealot.b2: 18000

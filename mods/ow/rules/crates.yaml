@@ -74,7 +74,7 @@ CRATE:
 		MaxAmount: 10
 		MaxDuplicateValue: 6000
 		Sound: clonesnd.aud
-		RequiresCondition: !hero || !harvester
+		RequiresCondition: !hero && !harvester
 	DuplicateUnitCrateAction@harv:
 		SelectionShares: 15
 		MaxAmount: 4
@@ -1327,10 +1327,20 @@ FakeCrateReward:
 		NoBaseSelectionShares: 1000
 		Units: tcommand.air
 	DuplicateUnitCrateAction:
-		SelectionShares: 10
+		SelectionShares: 15
 		MaxAmount: 10
-		MinAmount: 1
-		MaxDuplicateValue: 5000
+		MaxDuplicateValue: 6000
+		Sound: clonesnd.aud
+		RequiresCondition: !hero && !harvester
+	DuplicateUnitCrateAction@harv:
+		SelectionShares: 15
+		MaxAmount: 4
+		Sound: clonesnd.aud
+		RequiresCondition: !hero && harvester
+	ExternalCondition@hero:
+		Condition: hero
+	ExternalCondition@harvester:
+		Condition: harvester
 	GiveUnitCrateAction@split:
 		SelectionShares: 10
 		Units: 1tnk.split3
@@ -2160,6 +2170,7 @@ strifeflameguy:
 
 strifeacolytebasic:
 	Inherits: ^NewStrifeGuy
+	Inherits@highHP: ^HighHPInfantry
 	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
 	Buildable:
 		Queue: Infantry
@@ -2765,7 +2776,7 @@ TERMINATOR:
 	Tooltip:
 		Name: Terminator Model 800
 	Health:
-		HP: 500000
+		HP: 400000
 	Armament@PRIMARY:
 		Weapon: TerminatorMinigun
 		LocalOffset: 300,150,683

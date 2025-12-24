@@ -310,6 +310,9 @@
 
 # Inherited and changed from mods/ra to make ranked up actors give more experience when killed.
 ^GainsExperience:
+	ProductionTimeMultiplier@aiupkeep: # for slowing bots down if they have too much money?
+		Prerequisites: prodspeed.botupkeep
+		Multiplier: 150
 	GivesExperienceMultiplier@RANK-1:
 		RequiresCondition: rank-veteran == 1
 		Modifier: 150
@@ -4356,7 +4359,7 @@
 	DockClientManager:
 	StoresResources:
 		Capacity: 20
-		Resources: Ore,Gems,Tiberium,BlueTiberium
+		Resources: Ore,Gems,Tiberium,BlueTiberium,Oil
 	Cloak@stealthgen:
 		PauseOnCondition: cloak-force-disabled
 	GrantConditionOnDamageState@UNCLOAK:
