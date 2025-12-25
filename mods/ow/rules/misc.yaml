@@ -217,8 +217,19 @@ CAMERA.small:
 
 SPLIT3:
 	Inherits: SPLIT3.CR
-	RenderSprites:
-		PlayerPalette: dawn
+	-FireWarheads@changeowner: 
+	-FireWarheads@changeownerback:
+	-FireWarheads@changeownerbackstructure:
+	-Targetable@tree:
+	-Targetable@creeps:
+	Targetable@attackable:
+		TargetTypes: TibTree, Ground, UpgradeThing, OreMine, NoAITarget, NoAutoTarget
+	DamageMultiplier@invince:
+		Modifier: 0
+
+SPLIT3.CR:
+	Inherits: ^TibTree
+	HitShape:
 	SeedsResource:
 		ResourceType: Tiberium
 		Interval: 65
@@ -258,16 +269,6 @@ SPLIT3:
 	KillsSelf@transform:
 		RequiresCondition: (lessinfectable && (growth > 150)) || (infectable && (growth > 120)) || (moreinfectable && (growth > 90)) || dotransform
 		Delay: 1
-	-FireWarheads@changeowner: 
-	-FireWarheads@changeownerback:
-	-FireWarheads@changeownerbackstructure:
-	-Targetable@tree:
-	-Targetable@creeps:
-	-Targetable@attackable:
-
-SPLIT3.CR:
-	Inherits: ^TibTree
-	HitShape:
 	RenderSprites:
 		Image: split3
 		PlayerPalette: dawn
@@ -288,6 +289,19 @@ SPLIT3.CR:
 
 SPLIT4:
 	Inherits: SPLIT4.CR
+	-FireWarheads@changeowner: 
+	-FireWarheads@changeownerback:
+	-FireWarheads@changeownerbackstructure:
+	-Targetable@tree:
+	-Targetable@creeps:
+	Targetable@attackable:
+		TargetTypes: TibTree, Ground, UpgradeThing, OreMine, NoAITarget, NoAutoTarget
+	DamageMultiplier@invince:
+		Modifier: 0
+
+SPLIT4.CR:
+	Inherits: ^TibTree
+	HitShape:
 	SeedsResource:
 		ResourceType: BlueTiberium
 		Interval: 65
@@ -314,21 +328,11 @@ SPLIT4:
 	ExplodeWeapon@burst:
 		RequiresCondition: burst
 		Weapon: TibTreeBlueBurst
-	-FireWarheads@changeowner: 
-	-FireWarheads@changeownerback:
-	-FireWarheads@changeownerbackstructure:
-	-Targetable@tree:
-	-Targetable@creeps:
-	-Targetable@attackable:
-
-SPLIT4.CR:
-	Inherits: ^TibTree
-	HitShape:
 	RenderSprites:
 		Image: split3
 		PlayerPalette: dawn
 	Targetable@attackable:
-		TargetTypes: GroundActor, C4, DetonateAttack, Structure
+		TargetTypes: GroundActor, Structure
 	Health:
 		HP: 500000
 	Armor:

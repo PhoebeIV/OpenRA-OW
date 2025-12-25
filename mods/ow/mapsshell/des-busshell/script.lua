@@ -1,13 +1,20 @@
-AttackerTypes = {"medipaladin","berserker","berserker","footman","footman","footman", "tecn", "tmedic"}
+GLATypes = {"medipaladin","berserker","berserker","footman","footman","footman", "tecn", "tmedic"}
+	ProducedUnitTypes =
+{
+	{ factory = WarFactory1, types = { "usacrusader", "usahumvee" } },
+	{ factory = WarFactory2, types = { "usacrusader", "usahumvee" } },
+}
 
 BindActorTriggers = function(a)
 	if a.HasProperty("Hunt") then
 		Trigger.OnIdle(a, function(a)
 			if a.IsInWorld then
-					a.Hunt()
+				a.Move(BusWaypoint.Location)
 			end
 		end)
 	end
+
+
 
 	if a.HasProperty("HasPassengers") then
 		Trigger.OnDamaged(a, function()
@@ -39,29 +46,79 @@ BindActorTriggersTarget = function(a,t)
 	end
 end
 
+SetupFactories = function()
+	Utils.Do(ProducedUnitTypes, function(production)
+		Trigger.OnProduction(production.factory, function(_, a) BindActorTriggers(a) end)
+	end)
+end
+
 SendSoldiers = function(entryCell, unitTypes, interval, target)
-	local units = Reinforcements.Reinforce(attacker, unitTypes, { entryCell }, interval)
+	local units = Reinforcements.Reinforce(GLA, unitTypes, { entryCell }, interval)
 	Utils.Do(units, function(unit)
 		BindActorTriggersTarget(unit, target)
 	end)
 	Trigger.AfterDelay(DateTime.Seconds(5), function() SendSoldiers(entryCell, unitTypes, interval, target) end)
 end
 
-SetupAttackerUnits = function()
+SetupGLAUnits = function()
 	Utils.Do(Map.NamedActors, function(a)
-		if a.Owner == attacker and a.HasProperty("AcceptsCondition") then
+		if a.Owner == GLA and a.HasProperty("AcceptsCondition") then
 			a.GrantCondition("unkillable")
-			a.Stance = "AttackAnything"
-			a.Move(BusWaypoint.Location)
+			a.Stance = "Defend"
+		end
+	end)
+	Utils.Do(Map.NamedActors, function(a)
+		if a.Owner == GLA and a.Type == "BGGYD.G" or a.Type == "BBUS.BOT" then
+			Trigger.OnDamaged(a, function()
+				if a.Owner == GLA then
+					SetupGLAMove()
+				end
+			end)
 		end
 	end)
 end
 
-SetupDefenderUnits = function()
+SetupGLAMove = function()
+	TheBus.Move(BusWaypoint.Location)
+	TheBuggy1.Move(BusWaypoint.Location)
+	TheBuggy2.Move(BusWaypoint.Location)
+end
+
+SetupUSAUnits = function()
 	Utils.Do(Map.NamedActors, function(a)
-		if a.Owner == defender and a.HasProperty("AcceptsCondition") then
+		if a.Owner == USA and a.HasProperty("AcceptsCondition") then
 			a.Stance = "Defend"
 		end
+	end)
+	Airfield.RallyPoint = AirfieldWaypoint.Location
+end
+
+ProduceUnits = function(t)
+	local factory = t.factory
+	if not factory.IsDead then
+		local unitType = t.types[Utils.RandomInteger(1, #t.types + 1)]
+		factory.Wait(50)
+		factory.Produce(unitType)
+	end
+end
+
+DoAttackOnGLA = function()
+	local plane = Reinforcements.Reinforce(USA, {"usaraptor"} , { AttackVillageSpawn.Location })
+	Utils.Do(plane, function(s)
+		s.Attack(VillageTarget, true)
+	end)
+
+	Trigger.OnKilled(VillageTarget, function(a)
+		Utils.Do(plane, function(s)
+			s.Attack(VillageTarget, true)
+		end)
+
+		Trigger.OnEnteredProximityTrigger(AttackVillageSpawn.CenterPosition, WDist.New(1024 * 3), function(a, id)
+			if a == plane then
+				Trigger.RemoveProximityTrigger(id)
+				a.Destroy()
+			end
+		end)
 	end)
 end
 
@@ -141,8 +198,8 @@ SunRise = 30000
 SunSet = 15000
 
 WorldLoaded = function()
-	defender = Player.GetPlayer("USA")
-	attacker = Player.GetPlayer("GLA")
+	USA = Player.GetPlayer("USA")
+	GLA = Player.GetPlayer("GLA")
 	viewportOrigin = Camera.Position
 
 	Time = Utils.RandomInteger(0, SunRise)
@@ -153,9 +210,43 @@ WorldLoaded = function()
 		Lighting.Ambient = 0.75
 	end
 	
-	SetupAttackerUnits()
-	SetupDefenderUnits()
+	SetupGLAUnits()
+	SetupGLAMove()
+	SetupUSAUnits()
+	SetupFactories()
 	
-	-- SendSoldiers(NorthEntrance1.Location, AttackerTypes, 5, SouthExit1)
-	-- SendSoldiers(NorthEntrance2.Location, AttackerTypes, 5, SouthExit2)
+	-- SendSoldiers(NorthEntrance1.Location, GLATypes, 5, SouthExit1)
+	-- SendSoldiers(NorthEntrance2.Location, GLATypes, 5, SouthExit2)
+
+	Trigger.OnEnteredProximityTrigger(BusWaypoint.CenterPosition, WDist.New(1024 * 3), function(a, id)
+		if a.Owner == GLA then
+			TheBus.Teleport(BusWaypointStart.Location)
+			TheBuggy1.Teleport(BuggySpot1.Location)
+			TheBuggy2.Teleport(BuggySpot2.Location)
+			SetupGLAMove()
+		elseif a.Owner == USA then
+			a.Teleport(BusWaypointStart.Location)
+			a.AttackMove(BusWaypoint.Location)
+		end
+	end)
+
+	Trigger.OnEnteredProximityTrigger(ProdPoint1.CenterPosition, WDist.New(1024 * 3), function(a, id)
+		if a.Owner == GLA then
+			Utils.Do(ProducedUnitTypes, ProduceUnits)
+		end
+	end)
+
+	Trigger.OnEnteredProximityTrigger(ProdPoint2.CenterPosition, WDist.New(1024 * 3), function(a, id)
+		if a.Owner == GLA then
+			Utils.Do(ProducedUnitTypes, ProduceUnits)
+		end
+	end)
+
+	Trigger.OnEnteredProximityTrigger(ProdPoint1.CenterPosition, WDist.New(1024 * 3), function(a, id)
+		if a.Type == "BBUS.BOT" then
+			Trigger.RemoveProximityTrigger(id)
+			DoAttackOnGLA()
+		end
+	end)
+
 end

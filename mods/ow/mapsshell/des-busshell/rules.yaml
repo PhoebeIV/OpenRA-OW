@@ -20,8 +20,8 @@ World:
 	LuaScript:
 		Scripts: script.lua
 	-StartGameNotification:
-	Locomotor@TRACKED:
-		Name: tracked
+	Locomotor@SPECIAL:
+		Name: special
 		TerrainSpeeds:
 			Clear: 100
 				PathingCost: 20
@@ -37,6 +37,20 @@ World:
 			Creep: 70
 			Beach: 70
 			Radiation: 70
+	Locomotor@TRACKED:
+		Name: tracked
+		TerrainSpeeds:
+			Clear: 100
+				PathingCost: 1
+			Road: 100
+				PathingCost: 20
+	Locomotor@WHEELED:
+		Name: wheeled
+		TerrainSpeeds:
+			Clear: 100
+				PathingCost: 1
+			Road: 100
+				PathingCost: 20
 
 ^Palettes:
 	-MenuPostProcessEffect:
@@ -48,30 +62,62 @@ World:
 		RequiresCondition: unkillable
 		Modifier: 0
 	RevealsShroudMultiplier@unkillable:
-		Modifier: 400
+		Modifier: 200
+	GainsExperienceMultiplier@0:
+		Modifier: 0
 	ExternalCondition@bus:
 		Condition: nearbus
 	SpeedMultiplier@bus1:
 		RequiresCondition: !nearbus
-		Modifier: 200
+		Modifier: 150
 	SpeedMultiplier@bus2:
 		RequiresCondition: nearbus == 1
-		Modifier: 150
-
-BGGYD.G:
-	Mobile:
-		Speed: 88
-		Locomotor: tracked
+		Modifier: 125
 	RangeMultiplier@all:
 		Modifier: 200
 
+^Building:
+	DamageMultiplier@a:
+		Modifier: 50
+
+^Wall:
+	Targetable:
+		TargetTypes: GroundActor, DetonateAttack, Wall, NoAutoTarget
+
+^DisableOnLowPower:
+	WithColoredOverlay@IDISABLE:
+		Color: 00000000
+
+^PowerPlant:
+	WithColoredOverlay@lowpower:
+		Color: 00000000
+
+BGGYD.G:
+	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
+	SpeedMultiplier@TEST:
+		Modifier: 100
+	Mobile:
+		Speed: 96
+		Locomotor: special
+
 BBUS.BOT:
+	SpeedMultiplier@TEST:
+		Modifier: 100
 	ProximityExternalCondition@bus:
-		Range: 4c0
-		Condition: nearbus
-	ProximityExternalCondition@bus2:
 		Range: 8c0
 		Condition: nearbus
+		ValidRelationships: Ally, Neutral, Enemy
+	ProximityExternalCondition@bus2:
+		Range: 14c0
+		Condition: nearbus
+		ValidRelationships: Ally, Neutral, Enemy
+	Mobile:
+		Speed: 96
+		Locomotor: special
+	RevealsShroud:
+		ValidRelationships: Ally, Enemy
+	RevealsShroud@GAPGEN:
+		ValidRelationships: Ally, Enemy
 	-SpeedMultiplier@bus1:
 	-SpeedMultiplier@bus2:
 
@@ -90,8 +136,39 @@ XBAR3:
 	Cloak:
 		RequiresCondition: never
 
+NUKEXBAR:
+	Targetable:
+		TargetTypes: GroundActor, C4, DetonateAttack, Structure, Defense
+
 SPECTRE:
 	AmmoPool:
-		Ammo: 90000
+		Ammo: 10
 		ReloadDelay: 20
 		AmmoCondition: ammo
+	RangeMultiplier@all:
+		Modifier: 100
+	DamageMultiplier@unkillable2:
+		Modifier: 0
+
+OREEXT.G:
+	KillsSelf@2:
+
+usawarfactory:
+	DamageMultiplier@a:
+		Modifier: 0
+
+usasupplycenter:
+	DamageMultiplier@a:
+		Modifier: 0
+
+usachinook:
+	DamageMultiplier@a:
+		Modifier: 0
+
+usacoldfusion:
+	DamageMultiplier@a:
+		Modifier: 0
+
+usaraptor:
+	Aircraft:
+		Speed: 256
