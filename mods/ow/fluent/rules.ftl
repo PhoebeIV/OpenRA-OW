@@ -6113,26 +6113,24 @@ actor-strifeguy-tier4-crusader =
    .name = Crusader Construction
    .description = Allows construction of Crusader units.
 
-actor-strifeguy-tier5-invulnerability =
-   .name = Invulnerability
-   .description = Doom Guy will become invincible for 15 seconds when attacked.
+actor-strifeguy-tier5-inquisitor =
+   .name = Inquisitor Construction
+   .description = Allows construction of Inquisitor units.
 
-actor-strifeguy-tier5-chainsaw =
-   .name = Chainsaw
-   .description = Upon death, Doom Guy will revive as a berserker wielding a chainsaw.
-   RIP AND TEAR TILL THE JOB IS DONE!
+actor-strifeguy-tier5-sigil =
+   .name = Sigil
+   .description = Wield the ultimate sentient weapon, The Sigil of the One God.
 
-actor-strifeguy-tier5-berserk =
-   .name = Berserk
-   .description = Upon death, Doom Guy will revive as a beserker and punch things until he dies.
-
-actor-strifeguy-tier5-overdrive =
-   .name = Overdrive
-   .description = Doom Guy will have increased firerate and movement speed for 30 seconds.
-
-actor-strifetemplar-name = Templar
-actor-strifeguycrusader-name = Crusader
+actor-strifeguytemplar =
+    .name = Templar 
+    .description = The Templar are men in big, heavy suits with life support devices equipped with a Mauler and with nothing to lose.
+actor-strifeguycrusader =
+    .name = Crusader
+    .description = The Crusader is a constructed bipedal robot equipped with a flamethrower.
 actor-strifeguybasic-name = Front Soldier
+actor-strifeguyinquisitor =
+    .name = Inquisitor
+    .description = The Inquisitor is a powerful bipedal robot equipped with a grenade launcher and a Mauler blaster.
 
 actor-maverick-hero0 =
    .description = [HERO]
