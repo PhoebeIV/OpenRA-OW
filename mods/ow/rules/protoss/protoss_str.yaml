@@ -288,15 +288,21 @@ PNEXUS:
 		StartCooldown: 27
 		RequiresCondition: rebuild
 		Weapons: WarpExplode
-	GrantConditionOnPrerequisite@warpspeed:
+	GrantConditionOnPrerequisite@warpspeed1:
 		Prerequisites: prodcost.missstr
 		Condition: warpspeedmod
+	GrantConditionOnPrerequisite@warpspeed2:
+		Prerequisites: psupor
+		Condition: warpspeedmod2
 	GrantConditionOnPowerState@warpslow:
 		ValidPowerStates: Low, Critical
 		Condition: warpslow
-	PeriodicConditionCooldownMultiplier:
+	PeriodicConditionCooldownMultiplier@1:
 		RequiresCondition: warpspeedmod
-		CooldownModifier: 50
+		CooldownModifier: 80
+	PeriodicConditionCooldownMultiplier@2:
+		RequiresCondition: warpspeedmod2
+		CooldownModifier: 80
 	PeriodicConditionCooldownMultiplier@slov:
 		RequiresCondition: warpslow
 		CooldownModifier: 200
@@ -987,9 +993,10 @@ PSUPOR.warp:
 	Buildable:
 		Queue: Tech
 		BuildPaletteOrder: 25
-		Prerequisites: conyard, ~structures.protoss, ~techlevel.medium
+		Prerequisites: conyard, ~structures.protoss, ~techlevel.medium, !psupor
 		Description: actor-psupor-warp.description
 		Icon: icon-support
+		BuildLimit: 1
 		BuildDuration: 600
 	Tooltip:
 		Name: actor-psupor-warp.name
@@ -1018,6 +1025,7 @@ PSUPOR:
 	Buildable:
 		Queue: Tech
 		BuildPaletteOrder: 90000
+		BuildLimit: 1
 		Prerequisites: conyard, ~structures.protoss, ~techlevel.medium, ~ai.all, ~!structures.bothard
 	Selectable:
 		Bounds: 2048, 2048
@@ -1661,7 +1669,7 @@ PSTARG.warp:
 	GrantPeriodicConditionOW@startrebuild:
 		CooldownDuration: 1000
 	TransformOnCondition:
-		IntoActor: pgatew
+		IntoActor: pstarg
 	Building:
 		Footprint: === =X= ===
 		Dimensions: 3,3
@@ -1803,7 +1811,7 @@ PFLEET:
 	Inherits@BIB: ^3xBuildingBib
 	Buildable:
 		Queue: Bot
-		Prerequisites: advtechcenter, ~structures.protoss, ~techlevel.unrestricted, !pfleet.req, ~!ai.god, ~!techlevel.noepic
+		Prerequisites: advtechcenter, pstarg, ~structures.protoss, ~techlevel.unrestricted, !pfleet.req, ~!ai.god, ~!techlevel.noepic
 		BuildLimit: 1
 		BuildDuration: 4500
 	Valued:
@@ -1947,7 +1955,7 @@ PZEALOT.warp:
 		Prerequisites: ~infantry.artanis, barracks, ~techlevel.infonly, padun
 		Description: actor-pzealot.description
 		Icon: icon-zealot
-		BuildDuration: 100
+		BuildDuration: 25
 	Tooltip:
 		Name: actor-pzealot-warp.name
 	Valued:
@@ -1988,19 +1996,19 @@ PDRAGO.warp:
 		Prerequisites: ~infantry.artanis, ~techlevel.low, pcyber, padun
 		Description: actor-pdrago.description
 		Icon: icon-dragoon
-		BuildDuration: 100
+		BuildDuration: 25
 	Tooltip:
 		Name: actor-pdrago-warp.name
 	Valued:
-		Cost: 750
+		Cost: 800
 	Health:
 		HP: 25000
 	Armor:
 		Type: Heavy
 	GrantPeriodicConditionOW@startrebuild:
-		CooldownDuration: 350
+		CooldownDuration: 300
 	TransformOnCondition:
-		IntoActor: pzealot
+		IntoActor: pdrago
 	SequencePlaceBuildingPreview:
 		Sequence: place-dragoon
 	RequiresBuildableArea:

@@ -3231,8 +3231,7 @@ actor-pobser-name = Observatory
 
 actor-psupor-warp =
    .description = Autonomous building construction. 
-    Increases build speed of Structures and
-    Defense by 1 stage (max 10).
+    Increases warp in time for Protoss structures.
    .name = Warp (Foundry)
 
 actor-psupor-name = Protoss Foundry
