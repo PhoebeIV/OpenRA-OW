@@ -310,6 +310,9 @@
 
 # Inherited and changed from mods/ra to make ranked up actors give more experience when killed.
 ^GainsExperience:
+	ProductionTimeMultiplier@aiupkeep: # for slowing bots down if they have too much money?
+		Prerequisites: prodspeed.botupkeep
+		Multiplier: 150
 	GivesExperienceMultiplier@RANK-1:
 		RequiresCondition: rank-veteran == 1
 		Modifier: 150
@@ -431,13 +434,13 @@
 		Condition: sar3
 	DamageMultiplier@sar1:
 		RequiresCondition: sar1 && (!sar2 && shielded)
-		Modifier: 85
+		Modifier: 90
 	DamageMultiplier@sar2:
 		RequiresCondition: sar2 && (!sar3 && shielded)
-		Modifier: 70
+		Modifier: 80
 	DamageMultiplier@sar3:
 		RequiresCondition: sar3 && shielded
-		Modifier: 55
+		Modifier: 70
 	ShieldRegenMultiplier@sar1:
 		Modifier: 90
 		RequiresCondition: sar1 && !sar2
@@ -1487,6 +1490,9 @@
 	ProductionTimeMultiplier@glapower:
 		Prerequisites: anypower, structures.gla
 		Multiplier: 80
+	ProductionCostMultiplier@prodspeedbot:
+		Prerequisites: debug.prodspeedbot, ai.all
+		Multiplier: 10
 	RevealOnFire:
 	ChangesHealth@plague:
 		Delay: 3
@@ -1659,6 +1665,8 @@
 		Duration: 500
 	GrantConditionOnCapture: # for bots - attempt to recapture stolen buildings
 		Condition: bot_recapture
+	GrantConditionIfOwnerIsNeutral@cap: # for bots - steal neutral structures
+		Condition: bot_recapture
 	ExternalCondition@bot_recapture:
 		Condition: bot_recapture
 	Targetable@bot_recapture:
@@ -1813,6 +1821,10 @@
 	-FireWarheads@frost:
 	-ProximityExternalCondition@frost:
 
+^CivBuilding:
+	SpawnActorOnDeath@c1:
+		Actor: C1
+
 ^BuildingPlug:
 	Interactable:
 	Building:
@@ -1831,6 +1843,9 @@
 	GrantConditionOnPrerequisite@service:
 		Prerequisites: gfix
 		Condition: glavehicle
+	GrantConditionOnPrerequisite@junkrepair:
+		Prerequisites: gla.junk
+		Condition: junkrepair
 	GrantConditionOnPrerequisite@garage:
 		Prerequisites: weapgarage
 		Condition: glavehicle
@@ -1842,8 +1857,14 @@
 		StartIfBelow: 100
 		DamageCooldown: 250
 		RequiresCondition: glavehicle
+	ChangesHealth@junkrepair:
+		PercentageStep: 1
+		Delay: 37
+		StartIfBelow: 100
+		DamageCooldown: 125
+		RequiresCondition: junkrepair
 	GrantCondition@service:
-		RequiresCondition: glavehicle && damaged
+		RequiresCondition: (glavehicle || junkrepair) && damaged
 		Condition: wrench
 	WithDecoration@service:
 		Image: pips
@@ -1854,9 +1875,15 @@
 		BlinkInterval: 35
 		BlinkPattern: Off, On
 	GrantConditionOnDamage@service:
+		RequiresCondition: glavehicle && !junkrepair
 		Condition: damage-cooldown
 		ValidRelationships: Ally, Enemy, Neutral
 		Duration: 250
+	GrantConditionOnDamage@junkrepair:
+		RequiresCondition: junkrepair
+		Condition: damage-cooldown
+		ValidRelationships: Ally, Enemy, Neutral
+		Duration: 128
 
 ^Vehicle:
 	Inherits@MediConditions: ^MediConditionsV
@@ -2320,8 +2347,6 @@
 		PlayerPalette: tsunit
 		Scale: 9
 	WithVoxelBody:
-	Cloak@stealthgen:
-		Palette: tscloak
 	-ChangesHealth@landed:
 	-WithColoredOverlay@shielded:
 
@@ -3684,10 +3709,6 @@
 		RequiresCondition: (lessinfectable && (growth > 95)) || (infectable && (growth > 70)) || (moreinfectable && (growth > 45)) || tibtree && !notib
 		Modifier: 0
 
-^CivBuilding:
-	SpawnActorOnDeath@c1:
-		Actor: C1
-
 # Give this to units that should not be 100% mind controlled, and instead only temporary
 ^MindControlResistant:
 	Targetable@mcresist:
@@ -4338,7 +4359,7 @@
 	DockClientManager:
 	StoresResources:
 		Capacity: 20
-		Resources: Ore,Gems,Tiberium,BlueTiberium
+		Resources: Ore,Gems,Tiberium,BlueTiberium,Oil
 	Cloak@stealthgen:
 		PauseOnCondition: cloak-force-disabled
 	GrantConditionOnDamageState@UNCLOAK:
@@ -4350,3 +4371,16 @@
 	ProximityExternalCondition@harv:
 		Condition: harvester
 		ValidRelationships: Neutral
+
+^MCVBehaviour:
+	GrantConditionOnPrerequisite@botowner:
+		Condition: botowner
+		Prerequisites: ai.all, !conyard
+	ExternalCondition@surveyor:
+		Condition: surveyor_near_base
+	AutoDeployer:
+		RequiresCondition: !surveyor_near_base && botowner
+		DeployTicks: 150
+		UndeployTicks: 150
+		DeployChance: 75
+		DeployTrigger: Periodically

@@ -169,7 +169,7 @@ FRkt:
 
 BikeRockets:
 	Inherits: ^AntiGroundMissile
-	Range: 6c0
+	Range: 7c0
 	Burst: 2
 	BurstDelays: 6
 	ValidTargets: Ground, Water, GroundActor, WaterActor, Air, AirborneActor
@@ -243,7 +243,7 @@ MonMis:
 	Warhead@3Smu: LeaveSmudge
 		SmudgeType: Crater
 	Warhead@4EffGround: CreateEffect
-		Explosions: artillery_explosion
+		Explosions: med_explosion
 		ImpactSounds: kaboom25.aud
 		ValidTargets: Ground, GroundActor, WaterActor, Trees
 	Warhead@5EffWater: CreateEffect
@@ -1357,11 +1357,19 @@ tomahawkmissile:
 	Report: btunweaa.wav, btunweab.wav, btunweac.wav, btunwead.wav
 	Projectile: Missile
 		Speed: 200
-		HorizontalRateOfTurn: 60
+		HorizontalRateOfTurn: 20
 		RangeLimit: 15c0
 		Image: V2
 		TrailImage: smokey
 		ContrailLength: 0
+		Gravity: 1
+		MinimumLaunchAngle: 48
+		MinimumLaunchSpeed: 8
+		MaximumLaunchSpeed: 8
+		HomingActivationDelay: 3
+		Acceleration: 10
+		CruiseAltitude: 3c0
+		PointDefenseType: cruisemissile
 	Warhead@1Dam: SpreadDamage
 		Spread: 426
 		Damage: 2500
@@ -1374,7 +1382,7 @@ tomahawkmissile:
 			Concrete: 100
 		DamageTypes: Prone50Percent, TriggerProne, SmallExplosionDeath
 	Warhead@3Eff: CreateEffect
-		Explosions: artillery_explosion
+		Explosions: self_destruct
 		ImpactSounds: kaboom15.aud
 	Warhead@4EffWater: CreateEffect
 		Explosions: large_splash
@@ -1388,11 +1396,19 @@ tomahawkmissileair:
 	Report: btunweaa.wav, btunweab.wav, btunweac.wav, btunwead.wav
 	Projectile: Missile
 		Speed: 300
-		HorizontalRateOfTurn: 60
+		HorizontalRateOfTurn: 20
 		RangeLimit: 15c0
 		Image: V2
 		TrailImage: smokey
 		ContrailLength: 0
+		Gravity: 1
+		MinimumLaunchAngle: 48
+		MinimumLaunchSpeed: 8
+		MaximumLaunchSpeed: 8
+		HomingActivationDelay: 3
+		Acceleration: 10
+		CruiseAltitude: 2c0
+		PointDefenseType: cruisemissile
 	Warhead@1Dam: SpreadDamage
 		Spread: 426
 		Damage: 700
@@ -1405,7 +1421,7 @@ tomahawkmissileair:
 			Concrete: 100
 		DamageTypes: Prone50Percent, TriggerProne, SmallExplosionDeath
 	Warhead@3Eff: CreateEffect
-		Explosions: artillery_explosion
+		Explosions: self_destruct
 		ImpactSounds: kaboom15.aud
 	Warhead@4EffWater: CreateEffect
 		Explosions: large_splash
@@ -3215,3 +3231,102 @@ strifeguycrusadermissile:
 		ImpactSounds: strifeguymissileexplosion.wav
 		ImpactActors: false
 		ValidTargets: Ground, GroundActor, AirborneActor, Air, WaterActor, Trees
+
+SilverCruiseMissile:
+	ReloadDelay: 500
+	Range: 28c0
+	MinRange: 8c0
+	Burst: 2
+	BurstDelays: 150
+	Report: bt_mrm40.ogg
+	ValidTargets: Vehicle, Structure, Ground, Water, WaterActor, EpicUnit, Hero, HighHPInfantry
+	Projectile: Missile
+		Speed: 1c0
+		Image: V2
+		Shadow: True
+		LaunchAngle: 150
+		Blockable: false
+		TrailImage: smokey
+		TrailDelay: 4
+		RangeLimit: 30c0
+		ExplodeWhenEmpty: false
+		CruiseAltitude: 7c0
+		MinimumLaunchAngle: 256
+		MinimumLaunchSpeed: 256
+		MaximumLaunchSpeed: 256
+		HorizontalRateOfTurn: 8
+		VerticalRateOfTurn: 32
+		Gravity: 10
+		Acceleration: 3
+		HomingActivationDelay: 9
+		Inaccuracy: 2c0
+		ContrailLength: 50
+		ContrailStartWidth: 128
+		ContrailZOffset: 1021
+		PointDefenseType: cruisemissile
+	Warhead@1Dam: SpreadDamage
+		Spread: 1c0
+		Damage: 10000
+		Falloff: 750, 368, 135, 50, 18, 7, 0
+		ValidTargets: GroundActor, Trees, WaterActor, Underwater, AirborneActor
+		Versus:
+			Concrete: 15
+		AffectsParent: true
+		DamageTypes: Prone50Percent, TriggerProne, FireDeath, Incendiary
+	Warhead@98Eff_impact: CreateEffect
+		ImpactSounds: jericho.wav
+		ImpactActors: false
+	Warhead@2Res_impact: DestroyResource
+		Size: 1
+		Delay: 5
+	Warhead@3Eff_impact: CreateEffect
+		Explosions: nuke
+		ImpactSounds: kaboom1.aud
+		Delay: 5
+		ValidTargets: Ground, GroundActor, Trees, Water, WaterActor, Air
+		ImpactActors: false
+	Warhead@4Dam_areanuke1: SpreadDamage
+		Spread: 800
+		Damage: 3000
+		Falloff: 500, 368, 135, 50, 18, 7, 0
+		Delay: 10
+		ValidTargets: GroundActor, Trees, WaterActor, Underwater, AirborneActor
+		Versus:
+			Heavy: 60
+			Concrete: 15
+		AffectsParent: true
+		DamageTypes: Prone50Percent, TriggerProne, FireDeath, Incendiary
+	Warhead@6Eff_areanuke1: CreateEffect
+		ImpactSounds: kaboom22.aud
+		Delay: 10
+	Warhead@7Dam_areanuke2: SpreadDamage
+		Spread: 1200
+		Damage: 2500
+		Falloff: 500, 368, 135, 50, 18, 7, 0
+		Delay: 15
+		ValidTargets: GroundActor, Trees, WaterActor, Underwater, AirborneActor
+		Versus:
+			Heavy: 60
+			Concrete: 15
+		AffectsParent: true
+		DamageTypes: Prone50Percent, TriggerProne, FireDeath, Incendiary
+		ValidRelationships: Enemy, Neutral
+	Warhead@9Dam_areanuke3: SpreadDamage
+		Spread: 1750
+		Damage: 2000
+		Falloff: 500, 368, 135, 50, 18, 7, 0
+		Delay: 15
+		ValidTargets: GroundActor, Trees, WaterActor, Underwater, AirborneActor
+		Versus:
+			Heavy: 60
+			Concrete: 15
+		AffectsParent: false
+		DamageTypes: Prone50Percent, TriggerProne, FireDeath, Incendiary
+		ValidRelationships: Enemy, Neutral
+	Warhead@11Smu_areanuke3: LeaveSmudge
+		SmudgeType: Scorch
+		Size: 2
+		Delay: 15
+	Warhead@22FlashEffect: FlashEffect
+		Duration: 15
+		FlashType: Nuke

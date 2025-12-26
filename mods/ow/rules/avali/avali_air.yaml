@@ -226,8 +226,12 @@ AVCARRIER:
 			TopLeft: -1250, -2816
 			BottomRight: 1250, 2816
 		TargetableOffsets: 0,0,0, 2048,-512,0, 1536,-512,0, 1024,-512,0, 512,-512,0, 0,-512,0, -512,-512,0, -1024,-512,0, -1536,-512,0, -2048,-512,0, 2048,512,0, 1536,512,0, 1024,512,0, 512,512,0, 0,512,0, -512,512,0, -1024,512,0, -1536,512,0, -2048,512,0, -2560,-512,0, -1024,1024,-512, -1024,-1024,-512
-	Valued:
-		Cost: 4000
+	Valued: # 4000
+		Cost: 2000
+	GivesExperienceMultiplier@value:
+		Modifier: 200
+	ProductionCostMultiplier@value:
+		Multiplier: 200
 	Tooltip:
 		Name: actor-avcarrier.name
 	UpdatesPlayerStatistics:
@@ -393,7 +397,7 @@ AVCARRIER:
 		InsufficientPowerSpeechNotification: InsufficientPower
 		DisplayRadarPing: True
 		CameraActor: camera.small
-		SupportPowerPaletteOrder: 20
+		SupportPowerPaletteOrder: 19
 		WeaponDelay: 1
 		CameraRemoveDelay: 100
 		Effect: explosion
@@ -582,3 +586,14 @@ AVCARRIER.AI:
 		RequiresCondition: trigger_jump
 		Weapons: WarpshipJumpAI
 		Interval: 100
+
+AVMOTHER:
+	Inherits: PMOTHER
+	Inherits@avali: ^AvaliAircraft
+	Buildable:
+		Prerequisites: ~aircraft.avalon, ulttechcenter, ~techlevel.unrestricted
+		Description: actor-avmother.description
+	Tooltip:
+		Name: actor-avmother.name
+	RenderSprites:
+		Image: pmother

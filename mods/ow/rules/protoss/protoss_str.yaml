@@ -253,11 +253,7 @@ PNEXUS:
 	WithDamageOverlay:
 	-ActorLostNotification:
 	-SoundOnDamageTransition:
-	FireWarheadsOnDeath:
-		Type: CenterPosition
-		DeathTypes: warp
-		Weapon: WarpExplode
-		EmptyWeapon: WarpExplode
+	-FireWarheadsOnDeath:
 	WithDeathAnimation:
 		DeathTypes:
 			DefaultDeath: 1
@@ -268,52 +264,53 @@ PNEXUS:
 			ElectricityDeath: 1
 			TiberiumDeath: 1
 			warp: 2
-	ChangesHealth@start:
-		PercentageStep: -90
-		Delay: 250000
-		StartIfBelow: 101
-		DamageCooldown: 0
-	ChangesHealth@building:
-		PercentageStep: 1
-		Delay: 6
-		StartIfBelow: 101
-		DamageCooldown: 10
-	KillsSelf:
-		Delay: 30
-		RequiresCondition: rebuild
-		DamageTypes: warp
-	GrantConditionOnDamageState:
+	GrantDelayedCondition@hole:
+		Delay: 25
+		Condition: enable_hole
+	GrantPeriodicConditionOW@startrebuild:
+		RequiresCondition: enable_hole
 		Condition: rebuild
-		ValidDamageStates: Undamaged
-	SpawnActorOnDeath@hole:
-		Actor: pnexus
-		DeathType: warp
-		SkipMakeAnimations: false
+		ShowSelectionBar: true
+		ActiveDuration: 50
+		CooldownColor: FFF200
+		ActiveColor: FFFBB400
+		CooldownDuration: 1000
+	TransformOnCondition:
+		RequiresCondition: complete_warp
+		SkipMakeAnims: false
+		IntoActor: pnexus
+	GrantDelayedCondition@rebuild:
+		RequiresCondition: rebuild
+		Condition: complete_warp
+		Delay: 25
+	FireWarheads:
+		Interval: 30
+		StartCooldown: 27
+		RequiresCondition: rebuild
+		Weapons: WarpExplode
+	GrantConditionOnPrerequisite@warpspeed:
+		Prerequisites: prodcost.missstr
+		Condition: warpspeedmod
+	GrantConditionOnPowerState@warpslow:
+		ValidPowerStates: Low, Critical
+		Condition: warpslow
+	PeriodicConditionCooldownMultiplier:
+		RequiresCondition: warpspeedmod
+		CooldownModifier: 50
+	PeriodicConditionCooldownMultiplier@slov:
+		RequiresCondition: warpslow
+		CooldownModifier: 200
+	AmbientSound:
+		SoundFiles: pwarp.aud
+		Interval: 90000
 	Building:
-		BuildSounds: pbldgplc.aud,pwarp.aud
+		BuildSounds: pbldgplc.aud
+		-UndeploySounds:
 	RenderSprites:
 		Image: pwarp
 	SequencePlaceBuildingPreview:
 		Sequence: place-pylon
 	-ActorPreviewPlaceBuildingPreview:
-	-Targetable@REPAIR:
-	-DamageMultiplier@bar1:
-	-DamageMultiplier@bar2:
-	-DamageMultiplier@bar3:
-	-ExternalCondition@extshield:
-	-ExternalCondition@empshield:
-	-GrantConditionOnPrerequisite@lobbyhp1: # lobby option for HP scaling
-	-GrantConditionOnPrerequisite@lobbyhp2:
-	-GrantConditionOnPrerequisite@lobbyhp3:
-	-GrantConditionOnPrerequisite@lobbyhp4:
-	-GrantConditionOnPrerequisite@lobbyhp5:
-	-GrantConditionOnPrerequisite@lobbyhp6:
-	-DamageMultiplier@lobbyhp1:
-	-DamageMultiplier@lobbyhp2:
-	-DamageMultiplier@lobbyhp3:
-	-DamageMultiplier@lobbyhp4:
-	-DamageMultiplier@lobbyhp5:
-	-DamageMultiplier@lobbyhp6:
 
 ^WarpStructure3x2:
 	Inherits: ^WarpStructure
@@ -347,12 +344,10 @@ PGATEW.warp:
 		HP: 60000
 	Power:
 		Amount: -20
-	SpawnActorOnDeath@hole:
-		Actor: pgatew
-	ChangesHealth@building:
-		PercentageStep: 1
-		Delay: 5
-		StartIfBelow: 101
+	GrantPeriodicConditionOW@startrebuild:
+		CooldownDuration: 750
+	TransformOnCondition:
+		IntoActor: pgatew
 	SequencePlaceBuildingPreview:
 		Sequence: place-gateway
 
@@ -453,15 +448,13 @@ PPYLON.warp:
 	Tooltip:
 		Name: actor-ppylon-warp.name
 	Valued:
-		Cost: 500
+		Cost: 300
 	Health:
 		HP: 45000
-	SpawnActorOnDeath@hole:
-		Actor: ppylon
-	ChangesHealth@building:
-		PercentageStep: 2
-		Delay: 5
-		StartIfBelow: 101
+	GrantPeriodicConditionOW@startrebuild:
+		CooldownDuration: 225
+	TransformOnCondition:
+		IntoActor: ppylon
 	Building:
 		Footprint: x
 		Dimensions: 1,1
@@ -522,7 +515,7 @@ PPYLON:
 		RequiresCondition: botowner
 		Modifier: 200
 	Valued:
-		Cost: 500
+		Cost: 300
 	Tooltip:
 		Name: actor-ppylon-name
 		RequiresCondition: !vorazun
@@ -609,12 +602,10 @@ PASSIM.warp:
 		HP: 90000
 	Power:
 		Amount: -30
-	SpawnActorOnDeath@hole:
-		Actor: passim
-	ChangesHealth@building:
-		PercentageStep: 1
-		Delay: 6
-		StartIfBelow: 101
+	GrantPeriodicConditionOW@startrebuild:
+		CooldownDuration: 900
+	TransformOnCondition:
+		IntoActor: passim
 	SequencePlaceBuildingPreview:
 		Sequence: place-assimilator
 
@@ -713,12 +704,10 @@ PCYBER.warp:
 		HP: 120000
 	Power:
 		Amount: -60
-	SpawnActorOnDeath@hole:
-		Actor: pcyber
-	ChangesHealth@building:
-		PercentageStep: 1
-		Delay: 10
-		StartIfBelow: 101
+	GrantPeriodicConditionOW@startrebuild:
+		CooldownDuration: 800
+	TransformOnCondition:
+		IntoActor: pcyber
 	Building:
 		Footprint: xx xx ==
 		Dimensions: 2,3
@@ -794,12 +783,10 @@ PPHOTO.warp:
 		Type: Heavy
 	Power:
 		Amount: -40
-	SpawnActorOnDeath@hole:
-		Actor: pphoto
-	ChangesHealth@building:
-		PercentageStep: 1
-		Delay: 7
-		StartIfBelow: 101
+	GrantPeriodicConditionOW@startrebuild:
+		CooldownDuration: 1000
+	TransformOnCondition:
+		IntoActor: pphoto
 	Building:
 		Footprint: ++ xx
 		Dimensions: 2,2
@@ -923,12 +910,10 @@ POBSER.warp:
 		HP: 100000
 	Power:
 		Amount: -40
-	SpawnActorOnDeath@hole:
-		Actor: pobser
-	ChangesHealth@building:
-		PercentageStep: 1
-		Delay: 12
-		StartIfBelow: 101
+	GrantPeriodicConditionOW@startrebuild:
+		CooldownDuration: 1500
+	TransformOnCondition:
+		IntoActor: pobser
 	Building:
 		Footprint: xx xx ==
 		Dimensions: 2,3
@@ -1014,12 +999,10 @@ PSUPOR.warp:
 		Amount: -100
 	Health:
 		HP: 60000
-	SpawnActorOnDeath@hole:
-		Actor: psupor
-	ChangesHealth@building:
-		PercentageStep: 1
-		Delay: 12
-		StartIfBelow: 101
+	GrantPeriodicConditionOW@startrebuild:
+		CooldownDuration: 1000
+	TransformOnCondition:
+		IntoActor: psupor
 	Building:
 		Footprint: xx xx ==
 		Dimensions: 2,3
@@ -1057,7 +1040,6 @@ PSUPOR:
 	Targetable:
 		TargetTypes: GroundActor, Structure, C4, DetonateAttack, SpyInfiltrate
 	RevealsShroud:
-		MinRange: 2c0
 		Range: 3c0
 	ProvidesPrerequisite@buildingname:
 	GrantConditionOnPrerequisite@conyard:
@@ -1122,12 +1104,10 @@ PADUN.warp:
 		HP: 60000
 	Power:
 		Amount: -100
-	SpawnActorOnDeath@hole:
-		Actor: padun
-	ChangesHealth@building:
-		PercentageStep: 1
-		Delay: 12
-		StartIfBelow: 101
+	GrantPeriodicConditionOW@startrebuild:
+		CooldownDuration: 1500
+	TransformOnCondition:
+		IntoActor: padun
 	Building:
 		Footprint: xx xx ==
 		Dimensions: 2,3
@@ -1251,12 +1231,10 @@ PTEMPL.warp:
 		HP: 80000
 	Power:
 		Amount: -200
-	SpawnActorOnDeath@hole:
-		Actor: ptempl
-	ChangesHealth@building:
-		PercentageStep: 1
-		Delay: 15
-		StartIfBelow: 101
+	GrantPeriodicConditionOW@startrebuild:
+		CooldownDuration: 3000
+	TransformOnCondition:
+		IntoActor: ptempl
 	Building:
 		Footprint: +++ xxx ===
 		Dimensions: 3,3
@@ -1353,7 +1331,7 @@ PTEMPL:
 		OnFireSound: pmoatk00.wav
 		DisplayRadarPing: True
 		CameraActor: camera.small
-		SupportPowerPaletteOrder: 20
+		SupportPowerPaletteOrder: 19
 		WeaponDelay: 0
 		CameraRemoveDelay: 100
 		Effect: explosion
@@ -1376,7 +1354,7 @@ PTEMPL:
 		OnFireSound: pmoatk00.wav
 		DisplayRadarPing: True
 		CameraActor: camera.small
-		SupportPowerPaletteOrder: 20
+		SupportPowerPaletteOrder: 19
 		WeaponDelay: 0
 		CameraRemoveDelay: 100
 		Effect: explosion
@@ -1427,12 +1405,10 @@ PROBOT.warp:
 		HP: 150000
 	Power:
 		Amount: -30
-	SpawnActorOnDeath@hole:
-		Actor: probot
-	ChangesHealth@building:
-		PercentageStep: 1
-		Delay: 13
-		StartIfBelow: 101
+	GrantPeriodicConditionOW@startrebuild:
+		CooldownDuration: 2000
+	TransformOnCondition:
+		IntoActor: probot
 	Building:
 		Footprint: +++ xxx ===
 		Dimensions: 3,3
@@ -1542,12 +1518,10 @@ PSBATT.warp:
 		Type: Wood
 	Power:
 		Amount: -60
-	SpawnActorOnDeath@hole:
-		Actor: psbatt
-	ChangesHealth@building:
-		PercentageStep: 1
-		Delay: 6
-		StartIfBelow: 101
+	GrantPeriodicConditionOW@startrebuild:
+		CooldownDuration: 1000
+	TransformOnCondition:
+		IntoActor: psbatt
 	Building:
 		Footprint: ++ xx
 		Dimensions: 2,2
@@ -1684,12 +1658,10 @@ PSTARG.warp:
 		HP: 120000
 	Power:
 		Amount: -40
-	SpawnActorOnDeath@hole:
-		Actor: pstarg
-	ChangesHealth@building:
-		PercentageStep: 1
-		Delay: 13
-		StartIfBelow: 101
+	GrantPeriodicConditionOW@startrebuild:
+		CooldownDuration: 1000
+	TransformOnCondition:
+		IntoActor: pgatew
 	Building:
 		Footprint: === =X= ===
 		Dimensions: 3,3
@@ -1798,23 +1770,21 @@ PFLEET.warp:
 		Prerequisites: advtechcenter, ~structures.protoss, ~techlevel.unrestricted, !pfleet.req
 		Description: actor-pfleet-warp.description
 		Icon: icon-fleet
-		BuildPaletteOrder: 9090
+		BuildPaletteOrder: 9089
 		BuildDuration: 1500
 		BuildLimit: 1
 	Tooltip:
 		Name: actor-pfleet-warp.name
 	Valued:
-		Cost: 6000
+		Cost: 4000
 	Health:
 		HP: 300000
 	Power:
-		Amount: -400
-	SpawnActorOnDeath@hole:
-		Actor: pfleet
-	ChangesHealth@building:
-		PercentageStep: 1
-		Delay: 50
-		StartIfBelow: 101
+		Amount: -200
+	GrantPeriodicConditionOW@startrebuild:
+		CooldownDuration: 2250
+	TransformOnCondition:
+		IntoActor: pfleet
 	Building:
 		Footprint: +++ xxx ===
 		Dimensions: 3,3
@@ -1828,18 +1798,16 @@ PFLEET.warp:
 
 PFLEET:
 	Inherits: ^ProtossBuilding
-	Inherits@Boss: ^EpicBotPrereqs
 	Inherits@shape: ^3x2Shape
 	Inherits@PRIMARY: ^PrimaryBuilding
 	Inherits@BIB: ^3xBuildingBib
-	Inherits@supertech: ^SuperTechPowers
 	Buildable:
 		Queue: Bot
 		Prerequisites: advtechcenter, ~structures.protoss, ~techlevel.unrestricted, !pfleet.req, ~!ai.god, ~!techlevel.noepic
 		BuildLimit: 1
 		BuildDuration: 4500
 	Valued:
-		Cost: 6000
+		Cost: 4000
 	Tooltip:
 		Name: actor-pfleet.name
 	ProvidesPrerequisite@fleet:
@@ -1853,9 +1821,9 @@ PFLEET:
 	Health:
 		HP: 80000
 	Shielded:
-		MaxStrength: 80000
+		MaxStrength: 100000
 	Power:
-		Amount: -400
+		Amount: -200
 	Armor:
 		Type: Wood
 	RevealsShroud:
@@ -1878,15 +1846,19 @@ PFLEET:
 		Sequence: fire2
 		Offset: 128,-128,0
 	Production:
-		Produces: Vehicle, Infantry, Soldier
+		Produces: Infantry, Soldier, ProtossCarrier
 		PauseOnCondition: !pylon
 	RallyPoint:
 		Path: 4,2
+	Exit@0:
+		RequiresCondition: !being-captured
+		ExitCell: 1,2
+		ProductionTypes: ProtossCarrier
 	Exit@1:
 		RequiresCondition: !being-captured
 		SpawnOffset: -170,810,0
 		ExitCell: 1,2
-		ProductionTypes: Vehicle
+		ProductionTypes: Infantry
 	Exit@2:
 		RequiresCondition: !being-captured
 		SpawnOffset: -725,640,0
@@ -1897,20 +1869,8 @@ PFLEET:
 		SpawnOffset: -170,810,0
 		ExitCell: 1,2
 		ProductionTypes: Infantry, Soldier
-	ProductionQueue@2:
-		Type: Vehicle
-		DisplayOrder: 2
-		Group: Vehicle
-		LowPowerModifier: 200
-		ReadyAudio: UnitReady
-		BlockedAudio: NoBuild
-		LimitedAudio: BuildingInProgress
-		QueuedAudio: Building
-		OnHoldAudio: OnHold
-		CancelledAudio: Cancelled
-	ProductionBar@Building:
-		ProductionType: Vehicle
 	ClonesProducedUnits:
+		RequiresCondition: pylon
 		CloneableTypes: Infantry
 		ProductionType: Infantry
 	GrantExternalConditionToProduced:
@@ -1933,18 +1893,49 @@ PFLEET:
 	SupportPowerChargeBar:
 	InfiltrateForSupportPowerReset:
 		Types: SpyInfiltrate
-	FireWarheadsOnDeath:
-		Type: CenterPosition
-		Weapon: EMPExplosion
-		EmptyWeapon: EMPExplosion
+	ChronoshiftPower@advancedchronoshiftprotoss:
+		OrderName: AdvancedChronoshift2
+		Prerequisites: ulttech.protoss
+		PauseOnCondition: disabled
+		Icon: chrono
+		ChargeInterval: 6000
+		Name: Mass Recall
+		Description: Teleports a group of units across\nthe map for 20 seconds.
+		SelectTargetSpeechNotification: SelectTarget
+		InsufficientPowerSpeechNotification: InsufficientPower
+		BeginChargeSpeechNotification: ChronosphereCharging
+		EndChargeSpeechNotification: ChronosphereReady
+		SelectTargetTextNotification: actor-pfleet.chronoshiftpower-advancedchronoshift-select-target-text-notification
+		InsufficientPowerTextNotification: actor-pfleet.chronoshiftpower-advancedchronoshift-insufficient-power-text-notification
+		BeginChargeTextNotification: actor-pfleet.chronoshiftpower-advancedchronoshift-begin-charge-text-notification
+		EndChargeTextNotification: actor-pfleet.chronoshiftpower-advancedchronoshift-end-charge-text-notification
+		Duration: 400
+		KillCargo: true
+		DisplayRadarPing: True
+		SupportPowerPaletteOrder: 30
+		Dimensions: 3, 3
+		Footprint: _x_ xxx _x_
+	IonCannonPower@timestopprotoss:
+		OrderName: TimeStop
+		Prerequisites: ulttech.vorazun
+		PauseOnCondition: disabled
+		Icon: timestop
+		Cursor: chrono-target
+		ChargeInterval: 10500
+		Name: Time Stop
+		Description: Induce a dark temporal singularity.\nInflicts no damage but disables all \n units in a 10 cell radius for 20 sec.
+		SelectTargetSpeechNotification: SelectTarget
+		InsufficientPowerSpeechNotification: InsufficientPower
+		DisplayRadarPing: True
+		CameraActor: camera.small
+		SupportPowerPaletteOrder: 19
+		CameraRemoveDelay: 100
+		WeaponDelay: 0
+		Weapon: TimeStopWeapon
+		DisplayTimerRelationships: Ally, Neutral, Enemy
 	RenderSprites:
 		FactionImages:
 			vorazun: pfleet-v
-
-pfleet.req:
-	Interactable:
-	Tooltip:
-		Name: actor-pfleet-req-name
 
 PZEALOT.warp:
 	Inherits: ^WarpStructure
@@ -1965,12 +1956,10 @@ PZEALOT.warp:
 		HP: 16000
 	Armor:
 		Type: None
-	SpawnActorOnDeath@hole:
-		Actor: pzealot
-	ChangesHealth@building:
-		PercentageStep: 2
-		Delay: 5
-		StartIfBelow: 101
+	GrantPeriodicConditionOW@startrebuild:
+		CooldownDuration: 150
+	TransformOnCondition:
+		IntoActor: pzealot
 	Building:
 		Footprint: x
 		Dimensions: 1,1
@@ -1982,7 +1971,7 @@ PZEALOT.warp:
 		Adjacent: 4
 	Selectable:
 		Bounds: 1024, 1024
-	-FireWarheadsOnDeath:
+	-FireWarheads:
 	-GrantConditionOnTileSet@temp:
 	-GrantConditionOnTileSet@snow:
 	-GrantConditionOnTileSet@des:
@@ -2008,12 +1997,10 @@ PDRAGO.warp:
 		HP: 25000
 	Armor:
 		Type: Heavy
-	SpawnActorOnDeath@hole:
-		Actor: pdrago
-	ChangesHealth@building:
-		PercentageStep: 2
-		Delay: 7
-		StartIfBelow: 101
+	GrantPeriodicConditionOW@startrebuild:
+		CooldownDuration: 350
+	TransformOnCondition:
+		IntoActor: pzealot
 	SequencePlaceBuildingPreview:
 		Sequence: place-dragoon
 	RequiresBuildableArea:
@@ -2062,3 +2049,38 @@ PPYLON.power:
 		ActiveDuration: 26
 		ShowSelectionBar: true
 		CooldownColor: 97FFFC
+
+T.MISS.warp:
+	Inherits: ^WarpStructure3x2
+	Buildable:
+		Queue: Tech
+		Prerequisites: advtechcenter, ~structures.protoss, ~techlevel.unrestricted, !ulttechcenter
+		Description: actor-t-miss.description
+		Icon: icon-miss
+		BuildPaletteOrder: 9090
+		BuildDuration: 1500
+		BuildLimit: 1
+	Tooltip:
+		Name: actor-t-miss.warpname
+	Valued:
+		Cost: 6000
+	Health:
+		HP: 200000
+	Shielded:
+		MaxStrength: 200000
+	Power:
+		Amount: -600
+	GrantPeriodicConditionOW@startrebuild:
+		CooldownDuration: 2500
+	TransformOnCondition:
+		IntoActor: t.miss
+	Building:
+		Footprint: +++ xxx ===
+		Dimensions: 3,3
+		LocalCenterOffset: 0,-512,0
+	Selectable:
+		Bounds: 3072, 3072, 0, -426
+	SequencePlaceBuildingPreview:
+		Sequence: place-miss
+	ProvidesPrerequisite@fleet:
+		Prerequisite: ulttechwarp

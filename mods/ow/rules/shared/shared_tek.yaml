@@ -408,13 +408,13 @@
 		Cursor: chrono-target
 		ChargeInterval: 10500
 		Name: E.M. Pulse
-		Description: Initiate an EMP strike.\nInflicts no damage but disables all power plants\nwithin a 16 cell radius for 30 seconds. \nDisables vehicles in a 10 cell radius for 15.
+		Description: actor-t-miss.empdesc
 		SelectTargetSpeechNotification: SelectTarget
 		InsufficientPowerSpeechNotification: InsufficientPower
 		OnFireSound: empsound.wav
 		DisplayRadarPing: True
 		CameraActor: camera.small
-		SupportPowerPaletteOrder: 20
+		SupportPowerPaletteOrder: 19
 		CameraRemoveDelay: 100
 		Effect: explosion
 		EffectSequence: pulse_explosion
@@ -572,7 +572,7 @@
 	ParatroopersPower@deadsix:
 		OrderName: DeadSix
 		Prerequisites: ulttech.gdi
-		PauseOnCondition: disabled || gdi.deadsix
+		PauseOnCondition: disabled || pause_deadsix
 		Icon: deadsix
 		ChargeInterval: 7500
 		Name: Dead Six
@@ -947,7 +947,7 @@
 		OnFireSound: tnsfir00.aud
 		DisplayRadarPing: True
 		CameraActor: camera.small
-		SupportPowerPaletteOrder: 20
+		SupportPowerPaletteOrder: 19
 		CameraRemoveDelay: 250
 		Effect: explosion
 		EffectSequence: ghostpaint2
@@ -966,7 +966,7 @@
 		InsufficientPowerSpeechNotification: InsufficientPower
 		DisplayRadarPing: True
 		CameraActor: camera.small
-		SupportPowerPaletteOrder: 20
+		SupportPowerPaletteOrder: 19
 		CameraRemoveDelay: 100
 		WeaponDelay: 0
 		Weapon: TimeStopWeapon
@@ -979,7 +979,7 @@
 		Icon: meteor
 		Drops: 15,15
 		PodScatter: 4
-		SupportPowerPaletteOrder: 20
+		SupportPowerPaletteOrder: 19
 		ChargeInterval: 9000
 		UnitTypes: FMETEOR.1,FMETEOR.2,FMETEOR.3,FMETEOR.4,FMETEOR.5,FMETEOR.6,FMETEOR.7,FMETEOR.8,FMETEOR.9,FMETEOR.10,FMETEOR.11
 		SelectTargetSpeechNotification: SelectTarget
@@ -990,46 +990,6 @@
 		EntryEffectSequence: bunkerbustersring
 		Weapon: DarkArchonDummy
 		WeaponDelay: 5
-		DisplayTimerRelationships: Ally, Neutral, Enemy
-	ChronoshiftPower@advancedchronoshiftprotoss:
-		OrderName: AdvancedChronoshift2
-		Prerequisites: ulttech.protoss
-		PauseOnCondition: disabled
-		Icon: chrono
-		ChargeInterval: 6000
-		Name: Mass Recall
-		Description: Teleports a group of units across\nthe map for 20 seconds.
-		SelectTargetSpeechNotification: SelectTarget
-		InsufficientPowerSpeechNotification: InsufficientPower
-		BeginChargeSpeechNotification: ChronosphereCharging
-		EndChargeSpeechNotification: ChronosphereReady
-		SelectTargetTextNotification: actor-pfleet.chronoshiftpower-advancedchronoshift-select-target-text-notification
-		InsufficientPowerTextNotification: actor-pfleet.chronoshiftpower-advancedchronoshift-insufficient-power-text-notification
-		BeginChargeTextNotification: actor-pfleet.chronoshiftpower-advancedchronoshift-begin-charge-text-notification
-		EndChargeTextNotification: actor-pfleet.chronoshiftpower-advancedchronoshift-end-charge-text-notification
-		Duration: 400
-		KillCargo: true
-		DisplayRadarPing: True
-		SupportPowerPaletteOrder: 30
-		Dimensions: 2, 2
-		Footprint: xx xx
-	IonCannonPower@timestopprotoss:
-		OrderName: TimeStop
-		Prerequisites: ulttech.vorazun
-		PauseOnCondition: disabled
-		Icon: timestop
-		Cursor: chrono-target
-		ChargeInterval: 10500
-		Name: Time Stop
-		Description: Induce a dark temporal singularity.\nInflicts no damage but disables all \n units in a 10 cell radius for 20 sec.
-		SelectTargetSpeechNotification: SelectTarget
-		InsufficientPowerSpeechNotification: InsufficientPower
-		DisplayRadarPing: True
-		CameraActor: camera.small
-		SupportPowerPaletteOrder: 20
-		CameraRemoveDelay: 100
-		WeaponDelay: 0
-		Weapon: TimeStopWeapon
 		DisplayTimerRelationships: Ally, Neutral, Enemy
 
 T.MISS:
@@ -1045,7 +1005,7 @@ T.MISS:
 		Queue: Tech
 		BuildPaletteOrder: 9090
 		BuildDuration: 4500
-		Prerequisites: advtechcenter, ~techlevel.unrestricted, ~!techlevel.noepic, !ulttechcenter, ~!faction.onlyboats, ~!structures.zerg, ~!ai.god
+		Prerequisites: advtechcenter, ~techlevel.unrestricted, ~structures.ultprereq, ~!techlevel.noepic, !ulttechcenter, !ulttechwarp, ~!faction.onlyboats, ~!ai.god
 		BuildLimit: 1
 		Description: actor-t-miss.description
 	Valued:
@@ -1093,7 +1053,7 @@ T.MISS:
 	GrantExternalConditionToProduced:
 		Condition: produced
 	Production:
-		Produces: Vehicle, Infantry, Soldier, Hatchery, SpecialUnit, Ship, Plane
+		Produces: Vehicle, Infantry, Soldier, Hatchery, SpecialUnit, Ship, Aircraft, Plane, Helicopter, ProtossCarrier
 	RallyPoint:
 		Path: 2,3
 	Exit@1:
@@ -1135,9 +1095,15 @@ T.MISS:
 	GrantConditionOnFaction@gla:
 		Factions: kassad, thrax, demo
 		Condition: glaowner
+	GrantConditionOnPrerequisite@protoss:
+		Prerequisites: structures.protoss
+		Condition: external_shield
+	GrantConditionOnFaction@protoss:
+		Factions: protoss, artanis, vorazun
+		Condition: external_shield
 	SpawnActorOnDeath:
 		Actor: T.MISS.Hole
-		RequiresCondition: glaowner
+		RequiresCondition: glaowner && !water
 	ProductionBar@transformstructure:
 		ProductionType: SuperTechChoice
 	Production@transformstructure:
@@ -1193,11 +1159,20 @@ T.MISS:
 	TransformOnCondition@sell:
 		RequiresCondition: sell_me
 		IntoActor: T.MISS
+	GrantConditionOnPrerequisite@botowner:
+		Prerequisites: ai.all
+		Condition: botowner
+	GrantDelayedCondition@botreset:
+		RequiresCondition: botowner
+		Delay: 9000, 15000
+		Condition: sell_me
 
 T.MISSVEH:
 	Inherits: T.MISS
 	Inherits@Sell: ^SuperTechRevert
-	-Buildable:
+	Buildable:
+		Prerequisites: ~disabled
+		Description: actor-cmiss.vehdesc
 	Tooltip: 
 		Name: actor-t-miss.veh
 	PrimaryBuilding:
@@ -1244,6 +1219,7 @@ T.MISSAIR:
 	Inherits@Sell: ^SuperTechRevert
 	Buildable:
 		Prerequisites: ~disabled
+		Description: actor-t-missair-description
 	Tooltip: 
 		Name: actor-t-miss.air
 	ProductionQueue@2:
@@ -1262,7 +1238,7 @@ T.MISSAIR:
 	ProductionBar@2:
 		ProductionType: Aircraft
 	Production:
-		Produces: Aircraft, Plane, Helicopter
+		Produces: Aircraft, Plane, Helicopter, ProtossCarrier
 	PrimaryBuilding:
 		ProductionQueues: Aircraft
 	ProvidesPrerequisite@missdiscount:
@@ -1344,7 +1320,7 @@ T.MISSNAVY:
 		Queue: Tech
 		BuildPaletteOrder: 9090
 		BuildDuration: 4500
-		Prerequisites: advtechcenter, ~techlevel.unrestricted, ~faction.onlyboats
+		Prerequisites: advtechcenter, ~techlevel.unrestricted, ~faction.onlyboats, !ulttechcenter
 		BuildLimit: 1
 		Description: actor-t-missnavy-description
 	Building:
@@ -1400,9 +1376,12 @@ T.MISSSTR:
 	Inherits@Sell: ^SuperTechRevert
 	Buildable:
 		Prerequisites: ~disabled
-		Description: actor-t-missstr-description
+		Description: actor-cmiss.strdesc
 	Tooltip: 
 		Name: actor-t-miss.str
+	GrantDelayedCondition@botreset:
+		RequiresCondition: botowner
+		Delay: 10500, 16000
 	ProductionQueue@Building:
 		Type: Building
 		Group: Building
@@ -1503,11 +1482,8 @@ T.MISS.Hole:
 		Name: actor-gmiss-hole-name
 	Health:
 		HP: 150000
-	ChangesHealth@hole:
-		DamageCooldown: 500
-		Delay: 55
-	KillsSelf:
-		Delay: 250
+	GrantPeriodicConditionOW@startrebuild:
+		CooldownDuration: 6000
 	ProvidesPrerequisite@self:
 		Prerequisite: ulttechcenter
 	SpawnActorOnDeath@hole:

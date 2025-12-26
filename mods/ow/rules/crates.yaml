@@ -74,7 +74,7 @@ CRATE:
 		MaxAmount: 10
 		MaxDuplicateValue: 6000
 		Sound: clonesnd.aud
-		RequiresCondition: !hero || !harvester
+		RequiresCondition: !hero && !harvester
 	DuplicateUnitCrateAction@harv:
 		SelectionShares: 15
 		MaxAmount: 4
@@ -258,11 +258,25 @@ CRATE:
 		Sound: thunder-ambient.aud
 		Sequence: speed
 		SelectionShares: 2
+	SupportPowerCrateAction@ioncannon:
+		Proxy: powerproxy.ioncannon
+		Sound: ionchrg1.aud
+		Sequence: speed
+		SelectionShares: 2
+	SupportPowerCrateAction@iondrop:
+		Proxy: powerproxy.iondrop
+		Sound: ionchrg1.aud
+		Sequence: speed
+		SelectionShares: 2
+	SupportPowerCrateAction@emp:
+		Proxy: powerproxy.emp
+		Sequence: speed
+		SelectionShares: 2
 	SupportPowerCrateAction@acolytestrike:
 		Proxy: powerproxy.acolytestrike
 		Sound: DSRADIO.wav
 		Sequence: fpower
-		SelectionShares: 6
+		SelectionShares: 4
 	SupportPowerCrateAction@metalnuke:
 		Proxy: powerproxy.metalnuke
 		Sound: DSRADIO.wav
@@ -646,6 +660,8 @@ CRATE.FuckYou:
 	-UpdatesPlayerStatistics:
 	-ActorLostNotification:
 	-MapEditorData:
+	Valued:
+		Cost: 0
 	FireWarheadsOnDeath:
 		Weapon: DemoTrapExplosion2
 	SpawnActorOnDeath:
@@ -658,6 +674,8 @@ CRATE.Big:
 	Inherits: 1TNK.DEMO
 	KillsSelf:
 		Delay: 1
+	Mobile:
+		Locomotor: hover
 	FireWarheadsOnDeath:
 		Weapon: E100Cannon
 		DeathTypes: replace
@@ -688,6 +706,8 @@ CRATE.BigLanded:
 		Bounds: 2048,2048
 	Health:
 		HP: 300000
+	Building:
+		TerrainTypes: Clear,ClearSnow,Road,Creep,Water,Beach,Bridge
 	FireWarheadsOnDeath:
 		Weapon: CrateRewardExplosion
 		EmptyWeapon: CrateRewardExplosion
@@ -1307,10 +1327,20 @@ FakeCrateReward:
 		NoBaseSelectionShares: 1000
 		Units: tcommand.air
 	DuplicateUnitCrateAction:
-		SelectionShares: 10
+		SelectionShares: 15
 		MaxAmount: 10
-		MinAmount: 1
-		MaxDuplicateValue: 5000
+		MaxDuplicateValue: 6000
+		Sound: clonesnd.aud
+		RequiresCondition: !hero && !harvester
+	DuplicateUnitCrateAction@harv:
+		SelectionShares: 15
+		MaxAmount: 4
+		Sound: clonesnd.aud
+		RequiresCondition: !hero && harvester
+	ExternalCondition@hero:
+		Condition: hero
+	ExternalCondition@harvester:
+		Condition: harvester
 	GiveUnitCrateAction@split:
 		SelectionShares: 10
 		Units: 1tnk.split3
@@ -1498,6 +1528,10 @@ ColonyDrop:
 		Delay: 50
 	-EjectOnDeath:
 	Interactable:
+	Valued:
+		Cost: 100
+	GainsExperienceMultiplier:
+		Modifier: 0
 
 powerproxy.colonydrop:
 	GrantDelayedCondition:
@@ -1757,7 +1791,7 @@ powerproxy.lightning:
 		InsufficientPowerSpeechNotification: InsufficientPower
 		DisplayRadarPing: True
 		CameraActor: camera.spyplane
-		SupportPowerPaletteOrder: 20
+		SupportPowerPaletteOrder: 2
 		CameraRemoveDelay: 450
 		DisplayTimerRelationships: Ally, Neutral, Enemy
 		AllowMultiple: true
@@ -1778,7 +1812,7 @@ powerproxy.smite:
 		SelectTargetSpeechNotification: DawnSelectTarget
 		InsufficientPowerSpeechNotification: InsufficientPower
 		DisplayRadarPing: True
-		SupportPowerPaletteOrder: 20
+		SupportPowerPaletteOrder: 1
 		DisplayTimerRelationships: Ally, Neutral, Enemy
 		AllowMultiple: true
 		OneShot: true
@@ -1799,6 +1833,14 @@ camera.5sec:
 	KillsSelf:
 		RemoveInstead: true
 		Delay: 125
+
+camera.20sec:
+	Inherits: CAMERA
+	KillsSelf:
+		RemoveInstead: true
+		Delay: 500
+	RevealsShroud:
+		Range: 15c0
 
 1TNK.CRATE:
 	Inherits: 1TNK.MINE
@@ -2128,6 +2170,7 @@ strifeflameguy:
 
 strifeacolytebasic:
 	Inherits: ^NewStrifeGuy
+	Inherits@highHP: ^HighHPInfantry
 	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
 	Buildable:
 		Queue: Infantry
@@ -2183,7 +2226,7 @@ powerproxy.acolytestrike:
 		InsufficientPowerSpeechNotification: InsufficientPower
 		DisplayRadarPing: True
 		CameraActor: camera.spyplane
-		SupportPowerPaletteOrder: 20
+		SupportPowerPaletteOrder: 1
 		WeaponDelay: 0
 		CameraRemoveDelay: 450
 		DisplayTimerRelationships: Ally, Neutral, Enemy
@@ -2733,7 +2776,7 @@ TERMINATOR:
 	Tooltip:
 		Name: Terminator Model 800
 	Health:
-		HP: 500000
+		HP: 400000
 	Armament@PRIMARY:
 		Weapon: TerminatorMinigun
 		LocalOffset: 300,150,683
@@ -2933,7 +2976,7 @@ powerproxy.earthquake:
 		Name: Earthquake
 		Description: Does an earthquake at the location. Useless vs Infantry
 		DisplayRadarPing: True
-		SupportPowerPaletteOrder: 20
+		SupportPowerPaletteOrder: 2
 		DisplayTimerRelationships: Ally, Neutral, Enemy
 		AllowMultiple: true
 		OneShot: true
@@ -3912,3 +3955,104 @@ dinnerblaster:
 		Sequence: firing
 	WithSpriteBody:
 	-WithChargeSpriteBody:
+
+powerproxy.iondrop:
+	DropPodsPowerOW:
+		Icon: ioncannon
+		SupportPowerPaletteOrder: 1
+		Name: Crate Ion Cannon
+		OrderName: colonydrop
+		Description: actor-eyed.iondesc
+		UnitTypes: IONDROP
+		Cursor: chrono-target
+		Drops: 1,1
+		PodScatter: 1
+		PodFacing: 512
+		CameraActor: camera
+		CameraRemoveDelay: 750
+		Weapon: usarailguncharging
+		WeaponDelay: 5
+		ChargeInterval: 7500
+		EntryEffect: explosion
+		EntryEffectSequence: redeemerexplosion
+		LaunchSound: colonydropentry.wav
+		SelectTargetTextNotification: actor-powerproxy-colonydrop-droppodspower-colonydrop-select-target-text-notification
+		BeginChargeSpeechNotification: IonCannonCharge
+		EndChargeSpeechNotification: IonCannonReady
+		SelectTargetSpeechNotification: DawnSelectTarget
+		InsufficientPowerSpeechNotification: InsufficientPower
+		IncomingSpeechNotification: ColonyDropSound
+		DisplayRadarPing: true
+		DisplayTimerRelationships: Ally, Enemy, Neutral
+		BeaconPoster: artillerybarragebeacon
+		OneShot: true
+		AllowMultiple: true
+
+IONDROP:
+	Inherits: ColonyDrop
+	Tooltip:
+		Name: actor-iondrop-name
+	FallsToEarth:
+		Explosion: TerranNuke
+		Moves: true
+		Velocity: 80
+		MaximumSpinSpeed: 0
+	FireWarheadsOnDeath@1:
+		Weapon: EMPExplosion
+		EmptyWeapon: EMPExplosion
+
+powerproxy.ioncannon:
+	SpawnActorPower:
+		OrderName: CrateSmite
+		Icon: ioncannon
+		Cursor: chrono-target
+		ChargeInterval: 7500
+		Name: Crate Ion Cannon
+		Description: actor-eyed.iondesc
+		BeginChargeSpeechNotification: IonCannonCharge
+		EndChargeSpeechNotification: IonCannonReady
+		SelectTargetSpeechNotification: DawnSelectTarget
+		InsufficientPowerSpeechNotification: InsufficientPower
+		DisplayRadarPing: True
+		SupportPowerPaletteOrder: 1
+		DisplayTimerRelationships: Ally, Neutral, Enemy
+		AllowMultiple: true
+		OneShot: true
+		Actor: powerproxy.ionactor
+
+powerproxy.ionactor:
+	Inherits: 1TNK.MINE
+	FireWarheadsOnDeath:
+		Weapon: MiniNukeIonCrateSound
+	KillsSelf:
+		Delay: 2
+	FreeActor:
+		Actor: camera.5sec
+	-SpawnActorOnDeath:
+
+powerproxy.emp:
+	SpawnActorPower:
+		OrderName: EMPPower2
+		Icon: emp
+		Cursor: chrono-target
+		ChargeInterval: 10500
+		Name: Crate E.M. Pulse
+		Description: actor-t-miss.empdesc
+		SelectTargetSpeechNotification: SelectTarget
+		InsufficientPowerSpeechNotification: InsufficientPower
+		DisplayRadarPing: True
+		SupportPowerPaletteOrder: 1
+		DisplayTimerRelationships: Ally, Neutral, Enemy
+		AllowMultiple: true
+		OneShot: true
+		Actor: powerproxy.empactor
+
+powerproxy.empactor:
+	Inherits: 1TNK.MINE
+	FireWarheadsOnDeath:
+		Weapon: EMPExplosionCrate
+	KillsSelf:
+		Delay: 2
+	FreeActor:
+		Actor: camera.5sec
+	-SpawnActorOnDeath:

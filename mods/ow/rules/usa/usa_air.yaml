@@ -1,16 +1,26 @@
-
 usachinook:
 	Inherits: ^Vehicle
 	Inherits@CARGOPIPS: ^CargoPips
 	Inherits@selection: ^SelectableEconomicUnit
+	-HitShape:
+	HitShape: 
+		TargetableOffsets: 0,0,1536
+		Type: Circle
+			Radius: 426
+			VerticalTopOffset: 1600
+			VerticalBottomOffset: 1400
 	Buildable:
 		Queue: Aircraft
 		BuildAtProductionType: Helicopter
 		BuildPaletteOrder: 10
 		Prerequisites: ~aircraft.usa, usasupplycenter
 		Description: actor-usachinook.description
-	Valued:
-		Cost: 1200
+	Valued: # 1200
+		Cost: 400
+	GivesExperienceMultiplier@value: 
+		Modifier: 300
+	ProductionCostMultiplier@value:
+		Multiplier: 300
 	Tooltip:
 		Name: actor-usachinook.name
 	UpdatesPlayerStatistics:
@@ -18,7 +28,7 @@ usachinook:
 	Health:
 		HP: 40000
 	Harvester:
-		Resources: Ore,Gems,Tiberium,BlueTiberium
+		Resources: Ore,Gems,Tiberium,BlueTiberium,Oil
 		BaleUnloadDelay: 3
 		BaleLoadDelay: 9
 		SearchFromProcRadius: 15
@@ -84,6 +94,7 @@ usachinook:
 			Gems: pip-red
 			Tiberium: pip-green
 			BlueTiberium: pip-blue
+			Oil: pip-oil
 	RenderSprites:
 		Image: usachinook
 	Hovers:
@@ -116,7 +127,7 @@ usachinook:
 	DockClientManager:
 	StoresResources:
 		Capacity: 20
-		Resources: Ore,Gems,Tiberium,BlueTiberium
+		Resources: Ore,Gems,Tiberium,BlueTiberium,Oil
 	GrantConditionOnPrerequisite@hatetib:
 		Prerequisites: ai.hatetib
 		Condition: ai.hatetib

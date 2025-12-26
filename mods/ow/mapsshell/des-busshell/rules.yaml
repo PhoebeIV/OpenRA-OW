@@ -1,0 +1,174 @@
+Player:
+	-ConquestVictoryConditions:
+	LobbyPrerequisiteCheckbox@GLOBALBOUNTY:
+		Enabled: False
+		Locked: True
+	PlayerResources:
+		ResourceValues:
+			Ore: 0
+			Gems: 0
+
+World:
+	-CrateSpawner:
+	-AutoSave:
+	-SpawnStartingUnits:
+	-MapStartingLocations:
+	MusicPlaylist:
+		BackgroundMusic: gen_gla_04
+		AllowMuteBackgroundMusic: true
+		DisableWorldSounds: false
+	LuaScript:
+		Scripts: script.lua
+	-StartGameNotification:
+	Locomotor@SPECIAL:
+		Name: special
+		TerrainSpeeds:
+			Clear: 100
+				PathingCost: 20
+			ClearSnow: 70
+			Rough: 70
+			Road: 100
+				PathingCost: 1
+			Bridge: 70
+			Ore: 70
+			Gems: 70
+			Tiberium: 70
+			BlueTiberium: 70
+			Creep: 70
+			Beach: 70
+			Radiation: 70
+	Locomotor@TRACKED:
+		Name: tracked
+		TerrainSpeeds:
+			Clear: 100
+				PathingCost: 1
+			Road: 100
+				PathingCost: 20
+	Locomotor@WHEELED:
+		Name: wheeled
+		TerrainSpeeds:
+			Clear: 100
+				PathingCost: 1
+			Road: 100
+				PathingCost: 20
+
+^Palettes:
+	-MenuPostProcessEffect:
+
+^ExistsInWorld:
+	ExternalCondition@unkillable: 
+		Condition: unkillable
+	DamageMultiplier@unkillable:
+		RequiresCondition: unkillable
+		Modifier: 0
+	RevealsShroudMultiplier@unkillable:
+		Modifier: 200
+	GainsExperienceMultiplier@0:
+		Modifier: 0
+	ExternalCondition@bus:
+		Condition: nearbus
+	SpeedMultiplier@bus1:
+		RequiresCondition: !nearbus
+		Modifier: 150
+	SpeedMultiplier@bus2:
+		RequiresCondition: nearbus == 1
+		Modifier: 125
+	RangeMultiplier@all:
+		Modifier: 200
+
+^Building:
+	DamageMultiplier@a:
+		Modifier: 50
+
+^Wall:
+	Targetable:
+		TargetTypes: GroundActor, DetonateAttack, Wall, NoAutoTarget
+
+^DisableOnLowPower:
+	WithColoredOverlay@IDISABLE:
+		Color: 00000000
+
+^PowerPlant:
+	WithColoredOverlay@lowpower:
+		Color: 00000000
+
+BGGYD.G:
+	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
+	SpeedMultiplier@TEST:
+		Modifier: 100
+	Mobile:
+		Speed: 96
+		Locomotor: special
+
+BBUS.BOT:
+	SpeedMultiplier@TEST:
+		Modifier: 100
+	ProximityExternalCondition@bus:
+		Range: 8c0
+		Condition: nearbus
+		ValidRelationships: Ally, Neutral, Enemy
+	ProximityExternalCondition@bus2:
+		Range: 14c0
+		Condition: nearbus
+		ValidRelationships: Ally, Neutral, Enemy
+	Mobile:
+		Speed: 96
+		Locomotor: special
+	RevealsShroud:
+		ValidRelationships: Ally, Enemy
+	RevealsShroud@GAPGEN:
+		ValidRelationships: Ally, Enemy
+	-SpeedMultiplier@bus1:
+	-SpeedMultiplier@bus2:
+
+XBAR:
+	Cloak:
+		RequiresCondition: never
+	GrantConditionOnDamage:
+		Condition: triggered
+		Duration: 1000
+	FireWarheadsOnDeath@2:
+		Weapon: BarrelExplode
+		EmptyWeapon: BarrelExplode
+		DamageSource: Killer
+
+XBAR3:
+	Cloak:
+		RequiresCondition: never
+
+NUKEXBAR:
+	Targetable:
+		TargetTypes: GroundActor, C4, DetonateAttack, Structure, Defense
+
+SPECTRE:
+	AmmoPool:
+		Ammo: 10
+		ReloadDelay: 20
+		AmmoCondition: ammo
+	RangeMultiplier@all:
+		Modifier: 100
+	DamageMultiplier@unkillable2:
+		Modifier: 0
+
+OREEXT.G:
+	KillsSelf@2:
+
+usawarfactory:
+	DamageMultiplier@a:
+		Modifier: 0
+
+usasupplycenter:
+	DamageMultiplier@a:
+		Modifier: 0
+
+usachinook:
+	DamageMultiplier@a:
+		Modifier: 0
+
+usacoldfusion:
+	DamageMultiplier@a:
+		Modifier: 0
+
+usaraptor:
+	Aircraft:
+		Speed: 256

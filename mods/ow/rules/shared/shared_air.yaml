@@ -57,6 +57,8 @@ U2.D6:
 		ChuteSound: chute1.aud
 
 BADR:
+	Health:
+		HP: 50000
 	ParaDrop:
 		DropRange: 5c0
 	Cargo:
@@ -466,3 +468,133 @@ MISSPLANE:
 	KillsSelf@1:
 		RemoveInstead: true
 		Delay: 3000
+
+PALADIN.Bomber:
+	Inherits: BADR.Bomber
+	ClassicFacingBodyOrientation:
+		QuantizedFacings: 32
+	-BodyOrientation:
+	-WithFacingSpriteBody:
+	-QuantizeFacingsFromSequence:
+	-WithShadow:
+	WithVoxelBody:
+	-WithColoredOverlay@shielded:
+	Health:
+		HP: 45000
+	Shielded:
+		MaxStrength: 30000
+	Aircraft:
+		Speed: 220
+	Contrail@1:
+		Offset: -598,-583,0
+	Contrail@2:
+		Offset: -598,583,0
+	WithDamageOverlay:
+		Offset: -853,0,171
+		Interval: 2
+	SpawnActorOnDeath:
+		Actor: PALADIN.Husk
+	EjectOnDeath:
+		PilotActor: FE2
+		SuccessRate: 50
+	Tooltip:
+		Name: actor-paladin.name
+	AttackBomber:
+		FacingTolerance: 8
+	AmmoPool:
+		Ammo: 16
+	Armament:
+		Weapon: PaladinBomberBomb
+	RenderSprites:
+		Image: burningb
+	RenderVoxels:
+		Image: burningb
+		PlayerPalette: tsunit
+		Scale: 0.7
+		LightAmbientColor: 1.0,1.0,1.0
+		LightDiffuseColor: 0.7,0.7,0.7
+
+LANCE.Bomber:
+	Inherits: BADR.Bomber
+	ClassicFacingBodyOrientation:
+		QuantizedFacings: 32
+	-BodyOrientation:
+	-WithFacingSpriteBody:
+	-QuantizeFacingsFromSequence:
+	-WithShadow:
+	WithVoxelBody:
+	-WithColoredOverlay@shielded:
+	Health:
+		HP: 45000
+	Shielded:
+		MaxStrength: 30000
+	Aircraft:
+		Speed: 230
+	Contrail@1:
+		Offset: -598,-583,0
+	Contrail@2:
+		Offset: -598,583,0
+	WithDamageOverlay:
+		Offset: -853,0,171
+		Interval: 2
+	SpawnActorOnDeath:
+		Actor: LANCE.Husk
+	EjectOnDeath:
+		PilotActor: FE2
+		SuccessRate: 50
+	Tooltip:
+		Name: actor-lance.name
+	AttackBomber:
+		FacingTolerance: 8
+	AmmoPool:
+		Ammo: 10
+	Armament:
+		Weapon: NapalmBomb
+	RenderSprites:
+		Image: burninge
+	RenderVoxels:
+		Image: burninge
+		PlayerPalette: tsunit
+		Scale: 0.7
+		LightAmbientColor: 1.0,1.0,1.0
+		LightDiffuseColor: 0.7,0.7,0.7
+
+TRAN.G:
+	Inherits: ^Helicopter
+	RenderSprites:
+		Image: tran
+	Tooltip:
+		RequiresCondition: !cruising
+		Name: actor-tran.name
+	WithIdleOverlay@ROTOR1AIR:
+		Offset: 597,0,213
+		Sequence: rotor
+		RequiresCondition: airborne
+	WithIdleOverlay@ROTOR1GROUND:
+		Offset: 597,0,213
+		Sequence: slow-rotor
+		RequiresCondition: !airborne
+	WithIdleOverlay@ROTOR2AIR:
+		Offset: -597,0,341
+		Sequence: rotor2
+		RequiresCondition: airborne
+	WithIdleOverlay@ROTOR2GROUND:
+		Offset: -597,0,341
+		Sequence: slow-rotor2
+		RequiresCondition: !airborne
+	-Targetable@AIRBORNE:
+	-Targetable@GROUND:
+	Health:
+		HP: 140000
+	Aircraft:
+		TurnSpeed: 20
+		Repulsable: false
+		Speed: 192
+		AltitudeVelocity: 64
+		CruiseAltitude: 1c256
+		CruisingCondition: cruising
+	WithFacingSpriteBody:
+	-SpawnActorOnDeath:
+	-Selectable:
+	RejectsOrders:
+	Interactable:

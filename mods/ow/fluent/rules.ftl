@@ -37,9 +37,9 @@ actor-player =
    .lobbyprerequisitecheckbox-morecrates-label5 = Maximum+ Crates
    .lobbyprerequisitecheckbox-upkeep-label = Upkeep
    .lobbyprerequisitecheckbox-upkeep-description = The higher your army value, the less money you earn.
-      $30,000: -30% resource, -15% build speed
-      $50,000: -50% resource, -30% build speed
-      $70,000: -70% resource, -50% build speed
+      $40,000: -30% resource, -15% build speed
+      $70,000: -50% resource, -30% build speed
+      $100,000: -70% resource, -50% build speed
    .lobbyprerequisitecheckbox-weather-label = Weather (Incomplete)
    .lobbyprerequisitecheckbox-weather-description = This is incomplete and just enables a permanent lightning storm. Uses LUA script.
    .lobbyprerequisitecheckbox-daynight-label = Day/Night Cycle
@@ -47,13 +47,13 @@ actor-player =
    .upkeep-warning1 = WARNING: Low Upkeep
    .upkeep-warning2 = ALERT: Medium Upkeep
    .upkeep-warning3 = CRITICAL: High Upkeep
-   .upkeep-desc1 = Army value is above $30,000, which reduces your build time by 15% and earned resources by 30% 
+   .upkeep-desc1 = Army value is above $40,000, which reduces your build time by 15% and earned resources by 30% 
 
       (This support power does nothing)
-   .upkeep-desc2 = Army value is above $50,000, which reduces your build time by 30% and earned resources by 50% 
+   .upkeep-desc2 = Army value is above $70,000, which reduces your build time by 30% and earned resources by 50% 
 
       (This support power does nothing)
-   .upkeep-desc3 = Army value is above $70,000, which reduces your build time by 50% and earned resources by 70% 
+   .upkeep-desc3 = Army value is above $100,000, which reduces your build time by 50% and earned resources by 70% 
 
       (This support power does nothing)
    .lobbyprerequisitecheckbox-turtledebuff-label = Turtle Debuff
@@ -90,6 +90,10 @@ actor-player =
    .lobbyprerequisitecheckbox-heroxp-label4 = Faster
    .lobbyprerequisitecheckbox-alltech-label = All Tech
    .lobbyprerequisitecheckbox-alltech-description = Tech and Adv Tech from the get go
+   .lobbyprerequisitecheckbox-debugspeed-label = Debug Bot Speed
+   .lobbyprerequisitecheckbox-debugspeed-description = Allows bots to build structures in record time
+   .lobbyprerequisitecheckbox-debuglistactors-label = Debug Hidden Actors
+   .lobbyprerequisitecheckbox-debuglistactors-description = Writes to LUA log every 5 minutes
 
 options-tech-level =
     .infantry-only = Infantry Only
@@ -299,6 +303,15 @@ actor-avcarrier =
    .botdesc = Secondary unit type for AI to use with attack forces
 
 actor-avinter-name = Repair Drone
+
+actor-avmother =
+   .description = [EPIC]
+    Avalonian epic support ship with
+    with area cloak and lasers.
+    Can teleport on deploy.
+    Speed: 24
+      Strong vs Everything
+   .name = Illuminate Mothership
 
 ## avali_inf.yaml
 actor-avinf1 =
@@ -1143,6 +1156,7 @@ actor-judgedredd-name = Judge Dredd
 actor-fakecrate-name = Crate
 actor-amogus-name = Sussy Baka
 actor-colonydrop-name = why the fuck are you mousing over this, you have more important things to do if this is coming down
+actor-iondrop-name = Ion Cannon Satellite?!
 actor-powerproxy-colonydrop-droppodspower-colonydrop-select-target-text-notification = Select target.
 actor-powerproxy-roadroller-droppodspower-roadroller-select-target-text-notification = Select target.
 actor-roadroller-name = KONO DIO DA!
@@ -1565,9 +1579,32 @@ actor-atek-gdi =
    .name = GDI Tech Center
 
 actor-eyed =
-   .description = Provides radar and Orbital Ion Cannon support power.
+   .description = Provides radar and access to your faction's superweapon.
+
+    GDI & Federation: Ion Cannon
+    Avalon: Illuminator Strike
+    UAC: BFG10K
+
     Requires power to operate.
    .name = Adv. Com. Center
+   .iondesc = Initiate an Ion Cannon strike.
+   
+    Applies instant damage to a small area.
+   .illumdesc = Initiate an orbital Illuminator Strike.
+   
+    Applies instant damage to a small area.
+   .bfgdesc = Call upon an orbital strike with a BFG10k mounted on Phobos.
+   
+    Strong vs. Everything
+   .iondesc2 = Initiate an Ion Cannon strike.
+   
+    Level I: Moderate damage in a small area.
+    Level II: Massive damage in a small area.
+    Level III: Massive damage in a larger area.
+    Level IV: Inflicts a large EMP effect.
+    Level V: Creates a 5 minute Ion Storm.
+    Level Maximum: Desecrate the target area for 10 minutes.
+
 
 actor-atwr =
    .name = Advanced Guard Tower
@@ -1724,6 +1761,7 @@ actor-gharv =
     Speed: 64
       Unarmed
    .name = Worker
+   .hole = Hole Worker
 
 actor-ghijack =
    .description = Steals enemy credits.
@@ -1845,6 +1883,10 @@ actor-gla-aprockets =
    .name = AP Rockets
    .description = Upgrade rocket buggies and RPG troops
      with increased damage.
+
+actor-gla-junk =
+   .name = Junk Repair
+   .description = Improves self-repair for vehicles.
 
 ## gla_veh.yaml
 actor-gmgg =
@@ -3231,9 +3273,11 @@ actor-pstarg-warp =
 actor-pstarg-name = Stargate
 
 actor-pfleet-warp =
-   .description = Provides access to your faction's epic unit or ability.
+   .description = Provides access to the Protoss Carrier.
     
       Special Ability: Provides money
+       and clones basic Infantry.
+   
      Limit of one.
    .name = Warp (Fleet Beacon)
 
@@ -3558,6 +3602,15 @@ actor-oreext2 =
 
 actor-agate-name = Gate
 
+actor-fix =
+    .name = Service Depot
+    .description =
+    Repairs vehicles for credits.
+
+    .gladesc = 
+    Repairs vehicles for credits.
+
+    Also enables self-repair for GLA vehicles.
 meta-concrete =
    .name = Pavement
    .generic-name = Cement
@@ -3582,6 +3635,7 @@ actor-t-miss =
    
       Sell with an chosen cloning type, to remove the type and choose another.
    .name = Super Tech Center
+   .warpname = (Warp) Super Tech Centre
    .veh = Vehicle Super Tech Center
    .navy = Navy Super Tech Center
    .inf = Infantry Super Tech Center
@@ -3597,27 +3651,34 @@ actor-t-miss =
    .airstrikepower-nuclearparabombs-select-target-text-notification = Select target.
    .airstrikepower-antimatterbombdrop-select-target-text-notification = Select target.
    .airstrikepower-hyperion-select-target-text-notification = Select target.
+   .empdesc = Initiate an EMP strike. Inflicts no damage but disables all power plants
+    within a 16 cell radius for 40 seconds. 
+
+    Disables vehicles in a 10 cell radius for 20.
+
+    Airborne aircraft are destroyed.
 
 actor-cmiss =
    .veh = Vehicle Duplication
    .vehdesc = Enables 2nd vehicle queue. 
-   Provides discount and increased 
-   build speed to vehicles.
+    Provides discount and increased 
+    build speed to vehicles.
    .navy = Navy Duplication
    .navydesc = Enables 2nd navy queue. 
-   Provides discount and increased 
-   build speed to naval units.
+    Provides discount and increased 
+    build speed to naval units.
    .inf = Infantry Cloning
    .infdesc = Enables 2nd infantry queue. 
-   Provides discount and increased 
-   build speed to infantry.
+    Provides discount and increased 
+    build speed to infantry.
    .air = Aircraft Duplication
    .airdesc = Enables 2nd aircraft queue. 
-   Provides discount and increased 
-   build speed to aircraft.
+    Provides discount and increased 
+    build speed to aircraft.
    .str = Structure Duplication
    .strdesc = Enables 2nd building, defense, utility, tech and upgrade queues.
-     Provides discount and increased build speed to vehicles  
+    Provides discount and increased 
+    build speed to structures.  
    .none = Duplication Not Chosen
 
 actor-t-missair-description = Provides access to your faction's epic unit or ability.
@@ -4788,17 +4849,17 @@ actor-upgrade-navfirepower3 =
 
 actor-upgrade-shieldarmor1 =
    .name = Plasma Shields Upgrade I
-   .description = Improve shield health 15% and
+   .description = Improve shield health 10% and
       regeneration by 33%
 
 actor-upgrade-shieldarmor2 =
    .name = Plasma Shields Upgrade II
-   .description = Improve shield health 30% and
+   .description = Improve shield health 20% and
       regeneration by 66%
 
 actor-upgrade-shieldarmor3 =
    .name = Plasma Shields Upgrade III
-   .description = Improve shield health 45% and
+   .description = Improve shield health 30% and
       regeneration by 100%
 
 actor-techlevelshields =
@@ -6538,8 +6599,6 @@ player-factions =
      Special Ability: Cheaper Aircraft
      Special Units: Orca Gunship, Orca Bomber, Orca Carryall
      Super Unit: Flagship Kodiak
-     
-     No Cruiser or Destroyer
    .nod = Nod: Hit & Run Tactics, Tiberium
      Utility: GPS Satellite
      Superweapons: Hunter-Seeker, Atomic Bomb

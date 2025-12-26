@@ -168,6 +168,11 @@ Napalm:
 			None: 300
 			Shield: 150
 		DamageTypes: Prone50Percent, TriggerProne, ElectricityDeath
+	Warhead@1Flash: FlashTargetsInRadius
+		Radius: 128
+		ActorFlashCount: 1
+		ActorFlashInterval: 2
+		ValidTargets: GroundActor, WaterActor
 
 TeslaZap:
 	Inherits: ^TeslaWeapon
@@ -272,6 +277,11 @@ GoliathZap3:
 	Warhead@1Smu: LeaveSmudge
 		SmudgeType: Scorch
 		ValidTargets: Ground, Infantry
+	Warhead@1Flash: FlashTargetsInRadius
+		Radius: 128
+		ActorFlashCount: 1
+		ActorFlashInterval: 2
+		ValidTargets: GroundActor, WaterActor
 
 VoltAutorifle:
 	Inherits: ^ElectricBoltWeapon
@@ -864,9 +874,23 @@ AvaliBomberBomb:
 		Damage: 22500
 		Versus:
 			None: 30
-			Wood: 30
+			Wood: 60
 			Light: 75
 			Concrete: 25
+
+PaladinBomberBomb:
+	Inherits: AvaliBomberBomb
+	ReloadDelay: 5
+	Range: 7c0
+	Report: plasma1.aud
+	Projectile: GravityBomb
+		Image: plasma
+	Warhead@1Dam: SpreadDamage
+		Spread: 1c128
+		Damage: 25000
+		Versus:
+			None: 50
+			Heavy: 75
 
 KirovBomb:
 	Inherits: OrcaBomb
@@ -2827,6 +2851,11 @@ ArchonBeam1:
 		Inaccuracy: 512
 		ValidTargets: Ground, Air, GroundActor, AirborneActor, WaterActor, Water, Trees
 		Delay: 18
+	Warhead@1Flash: FlashTargetsInRadius
+		Radius: 128
+		ActorFlashCount: 3
+		ActorFlashInterval: 2
+		ValidTargets: Airborne, GroundActor, WaterActor
 
 TemplarBlade:
 	Inherits: ^ShieldHit
