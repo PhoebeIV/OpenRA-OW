@@ -1153,6 +1153,9 @@ T.MISS:
 		Prerequisite: t.miss.socket
 
 ^SuperTechRevert:
+	TooltipDescription:
+		Description: actor-t-miss.sell
+		ValidRelationships: None, Ally
 	ToggleConditionOnOrder@sell:
 		OrderName: Sell
 		Condition: sell_me
@@ -1265,6 +1268,7 @@ T.MISSAIR:
 
 T.MISSINF:
 	Inherits: T.MISS
+	Inherits@infantry: ^InfantryExtras
 	Inherits@Sell: ^SuperTechRevert
 	Buildable:
 		Prerequisites: ~disabled
@@ -1563,7 +1567,7 @@ C.MISS.VEH:
 	Inherits: ^SuperTechUpgrade
 	Buildable:
 		Description: actor-cmiss.vehdesc
-		Prerequisites: !faction.novehicles, t.miss.land
+		Prerequisites: !faction.novehicles, t.miss.land, ~t.miss.socket
 	Tooltip:
 		Name: actor-cmiss.veh
 	RenderSprites:
@@ -1573,7 +1577,7 @@ C.MISS.INF:
 	Inherits: ^SuperTechUpgrade
 	Buildable:
 		Description: actor-cmiss.infdesc
-		Prerequisites: !faction.noinfantry, t.miss.land
+		Prerequisites: !faction.noinfantry, t.miss.land, ~t.miss.socket
 	Tooltip:
 		Name: actor-cmiss.inf
 	RenderSprites:
@@ -1583,7 +1587,7 @@ C.MISS.AIR:
 	Inherits: ^SuperTechUpgrade
 	Buildable:
 		Description: actor-cmiss.airdesc
-		Prerequisites: !faction.noair
+		Prerequisites: !faction.noair, ~t.miss.socket
 	Tooltip:
 		Name: actor-cmiss.air
 	RenderSprites:
@@ -1593,7 +1597,7 @@ C.MISS.NAVY:
 	Inherits: ^SuperTechUpgrade
 	Buildable:
 		Description: actor-cmiss.navydesc
-		Prerequisites: t.miss.water, !techlevel.noboats
+		Prerequisites: t.miss.water, !techlevel.noboats, ~t.miss.socket
 	Tooltip:
 		Name: actor-cmiss.navy
 	RenderSprites:

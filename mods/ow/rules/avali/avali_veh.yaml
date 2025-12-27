@@ -266,7 +266,7 @@ AV1TNK:
 	Selectable:
 		Class: AV1TNK
 	Valued:
-		Cost: 880
+		Cost: 800
 	Tooltip:
 		Name: actor-av1tnk.name
 	Health:
@@ -278,8 +278,50 @@ AV1TNK:
 		TurnSpeed: 16
 	Armament:
 		Weapon: AvaliPredatorCannon
+	GrantConditionOnTerrain@water:
+		TerrainTypes: Water
+		Condition: water
 	SpawnActorOnDeath:
 		Actor: AV1TNK.Husk
+		RequiresCondition: !water
+	SelectionDecorations:
+	WithShadow:
+		Offset: 43, 128, -64
+		ZOffset: -129
+	Hovers:
+		PauseOnCondition: disabled
+	-ClassicFacingBodyOrientation:
+	BodyOrientation:
+
+AV2TNK:
+	Inherits: 2TNK
+	Inherits@avali: ^AvaliVehicle
+	Buildable:
+		Queue: Vehicle, AvaliCarrier
+		BuildPaletteOrder: 133
+		Prerequisites: fix, techcenter, ~vehicles.avalon, ~techlevel.high
+		Description: actor-av2tnk.description
+	Selectable:
+		Class: AV1TNK
+	Valued:
+		Cost: 900
+	Tooltip:
+		Name: actor-av2tnk.name
+	Health:
+		HP: 44000
+	Mobile:
+		Speed: 82
+		Locomotor: hover
+	Turreted:
+		TurnSpeed: 16
+	Armament:
+		Weapon: AvaliRefractorCannon
+	GrantConditionOnTerrain@water:
+		TerrainTypes: Water
+		Condition: water
+	SpawnActorOnDeath:
+		Actor: AV2TNK.Husk
+		RequiresCondition: !water
 	SelectionDecorations:
 	WithShadow:
 		Offset: 43, 128, -64
@@ -307,7 +349,7 @@ AVARTY:
 		AddToArmyValue: true
 	Buildable:
 		Queue: Vehicle
-		BuildPaletteOrder: 225
+		BuildPaletteOrder: 134
 		Prerequisites: fix, techcenter, ~vehicles.avalon, ~techlevel.high
 		Description: actor-avarty.description
 	Health:

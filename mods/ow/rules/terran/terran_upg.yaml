@@ -6,10 +6,13 @@ terran.marine:
 	Buildable:
 		Description: actor-terran-marine.description
 		BuildPaletteOrder: 10200
-		Prerequisites: ~!terran.marine, ~structures.terran, tacadamy
+		Prerequisites: ~structures.terran, tacadamy
 	ProvidesPrerequisite@upgradename:
 	ProductionCostMultiplier@upgrade:
 		Multiplier: 5000
+	WithProductionIconOverlay:
+		Types: UpgradeComplete
+		Prerequisites: terran.marine
 
 terran.tank:
 	Inherits: ^UpgradeBaseExt
@@ -18,10 +21,13 @@ terran.tank:
 	Buildable:
 		Description: actor-terran-tank.description
 		BuildPaletteOrder: 10201
-		Prerequisites: ~!terran.tank, ~structures.terran, tshop, ~techlevel.high
+		Prerequisites: ~structures.terran, tshop, ~techlevel.high
 	ProvidesPrerequisite@upgradename:
 	ProductionCostMultiplier@upgrade:
 		Multiplier: 5000
+	WithProductionIconOverlay:
+		Types: UpgradeComplete
+		Prerequisites: terran.tank
 
 
 terran.ghost:
@@ -31,10 +37,13 @@ terran.ghost:
 	Buildable:
 		Description: actor-terran-ghost.description
 		BuildPaletteOrder: 10202
-		Prerequisites: ~!terran.ghost, ~structures.terran, tcops, ~techlevel.unrestricted
+		Prerequisites: ~structures.terran, tcops, ~techlevel.unrestricted
 	ProvidesPrerequisite@upgradename:
 	ProductionCostMultiplier@upgrade:
 		Multiplier: 2500
+	WithProductionIconOverlay:
+		Types: UpgradeComplete
+		Prerequisites: terran.ghost
 
 
 terran.resources:
@@ -44,13 +53,16 @@ terran.resources:
 	Buildable:
 		Description: actor-terran-resources.description
 		BuildPaletteOrder: 10203
-		Prerequisites: ~!nod.tiberium, ~structures.mengsk, refinery, ~techlevel.medium
+		Prerequisites: ~structures.mengsk, refinery, ~techlevel.medium
 	ProvidesPrerequisite@upgradename:
 		Prerequisite: nod.tiberium
 	ProductionCostMultiplier@upgrade:
 		Multiplier: 5000
 	RenderSprites:
 		Image: nod.tiberium
+	WithProductionIconOverlay:
+		Types: UpgradeComplete
+		Prerequisites: nod.tiberium
 
 terran.armor:
 	Inherits: ^UpgradeBaseExt
@@ -59,13 +71,16 @@ terran.armor:
 	Buildable:
 		Description: actor-terran-armor.description
 		BuildPaletteOrder: 10204
-		Prerequisites: ~!terran.armor, ~structures.mengsk, tarmory, ~techlevel.high
+		Prerequisites: ~structures.mengsk, tarmory, ~techlevel.high
 		BuildDuration: 3000
 	ProvidesPrerequisite@upgradename:
 	RenderSprites:
 		Image: upgrade.airarmor3
 	ProductionCostMultiplier@upgrade:
 		Multiplier: 7500
+	WithProductionIconOverlay:
+		Types: UpgradeComplete
+		Prerequisites: terran.armor
 
 terran.structure:
 	Inherits: ^UpgradeBaseExt
@@ -74,13 +89,16 @@ terran.structure:
 	Buildable:
 		Description: actor-terran-structure.description
 		BuildPaletteOrder: 10205
-		Prerequisites: ~!terran.structure, ~structures.mengsk, tarmory, ~techlevel.high
+		Prerequisites: ~structures.mengsk, tarmory, ~techlevel.high
 		BuildDuration: 3000
 	ProvidesPrerequisite@upgradename:
 	RenderSprites:
 		Image: upgrade.buildarmor3
 	ProductionCostMultiplier@upgrade:
 		Multiplier: 7500
+	WithProductionIconOverlay:
+		Types: UpgradeComplete
+		Prerequisites: terran.structure
 
 terran.nuke:
 	Inherits@mine: MINE_DUMMY
@@ -98,7 +116,7 @@ terran.nuke:
 		BuildLimit: 1
 		Description: actor-terran-nuke.description
 		BuildPaletteOrder: 1
-		Prerequisites: ~!terran.nuke, ~tsilo, ~structures.terran, ~techlevel.unrestricted
+		Prerequisites: ~tsilo, ~structures.terran, ~techlevel.unrestricted
 		BuildDurationModifier: 100
 		BuildDuration: 9000
 	ProductionTimeMultiplier@mengsk:
@@ -119,6 +137,9 @@ terran.nuke:
 		Action: Dispose
 	UpdatesPlayerStatistics:
 		AddToArmyValue: true
+	WithProductionIconOverlay:
+		Types: UpgradeComplete
+		Prerequisites: terran.nuke
 
 terran.nuke.AI:
 	Inherits@mine: terran.nuke

@@ -5,10 +5,13 @@ allies.training1:
 	Buildable:
 		Description: actor-allies-training1.description
 		BuildPaletteOrder: 12003
-		Prerequisites: ~!allies.training1, ~structures.allies, techcenter, ~techlevel.unrestricted
+		Prerequisites: ~structures.allies, techcenter, ~techlevel.unrestricted
 	ProvidesPrerequisite@upgradename:
 	ProductionCostMultiplier@upgrade:
 		Multiplier: 5000
+	WithProductionIconOverlay:
+		Types: UpgradeComplete
+		Prerequisites: allies.training1
 
 allies.training2:
 	Inherits: ^UpgradeBaseExt
@@ -17,7 +20,7 @@ allies.training2:
 	Buildable:
 		Description: actor-allies-training2.description
 		BuildPaletteOrder: 12005
-		Prerequisites: ~!allies.training2, ~structures.allies, advtechcenter, ~techlevel.unrestricted
+		Prerequisites: ~structures.allies, advtechcenter, ~techlevel.unrestricted
 		BuildDuration: 4000
 	ProvidesPrerequisite@upgradename:
 	ProvidesPrerequisite@1:
@@ -30,6 +33,9 @@ allies.training2:
 		Prerequisite: ships.upgraded
 	ProductionCostMultiplier@upgrade:
 		Multiplier: 5000
+	WithProductionIconOverlay:
+		Types: UpgradeComplete
+		Prerequisites: allies.training2
 
 allies.pointdefense:
 	Inherits: ^UpgradeBaseExt
@@ -38,12 +44,15 @@ allies.pointdefense:
 	Buildable:
 		Description: actor-allies-pointdefense.description
 		BuildPaletteOrder: 12002
-		Prerequisites: ~!allies.pointdefense, ~structures.allies, factory, ~techlevel.unrestricted
+		Prerequisites: ~structures.allies, factory, ~techlevel.unrestricted
 	ProvidesPrerequisite@upgradename:
 	RenderSprites:
 		Image: upgrade.laserguided
 	ProductionCostMultiplier@upgrade:
 		Multiplier: 3000
+	WithProductionIconOverlay:
+		Types: UpgradeComplete
+		Prerequisites: allies.pointdefense
 
 allies.rockets:
 	Inherits: ^UpgradeBaseExt
@@ -52,12 +61,32 @@ allies.rockets:
 	Buildable:
 		Description: actor-allies-rockets.description
 		BuildPaletteOrder: 12004
-		Prerequisites: ~!allies.rockets, ~structures.allies, techcenter, ~techlevel.unrestricted
+		Prerequisites: ~structures.allies, techcenter, ~techlevel.unrestricted
 	ProvidesPrerequisite@upgradename:
 	RenderSprites:
 		Image: gla.aprockets
 	ProductionCostMultiplier@upgrade:
 		Multiplier: 4500
+	WithProductionIconOverlay:
+		Types: UpgradeComplete
+		Prerequisites: allies.rockets
+
+allies.prism:
+	Inherits: ^UpgradeBaseExt
+	Tooltip:
+		Name: actor-allies-prism.name
+	Buildable:
+		Description: actor-allies-prism.description
+		BuildPaletteOrder: 12006
+		Prerequisites: ~structures.allies, advtechcenter, ~techlevel.unrestricted
+	ProvidesPrerequisite@upgradename:
+	RenderSprites:
+		Image: allies.prism
+	ProductionCostMultiplier@upgrade:
+		Multiplier: 4500
+	WithProductionIconOverlay:
+		Types: UpgradeComplete
+		Prerequisites: allies.prism
 
 TENT:
 	Inherits@prereqs: ^BarracksPrereqs
@@ -241,7 +270,7 @@ BIO.A:
 		UseDeathTypeSuffix: false
 
 BIO.AFake:
-	Inherits: ^FakeBuilding
+	Inherits: ^FakeSuperweapon
 	Inherits@infiltrate: ^InfiltratableFake
 	Inherits@IDISABLE: ^DisableOnLowPower
 	Inherits@shape: ^2x2Shape
@@ -304,10 +333,19 @@ BIO.AFake:
 	SupportPowerChargeBar:
 	InfiltrateForSupportPowerReset:
 		Types: SpyInfiltrate
-	Targetable@superweapon:
-		TargetTypes: Superweapon
+
+ATEF:
+	Inherits@capture: ^BotCaptureTarget
+
+PDOF:
+	Inherits: ^FakeSuperweapon
+	Inherits@capture: ^BotCaptureTarget
+
+FACF:
+	Inherits@capture: ^BotCaptureTarget
 
 MSLF:
+	Inherits: ^FakeSuperweapon
 	Buildable:
 		Prerequisites: ~structures.heydrich, ~techlevel.unrestricted, techcenter
 	NukePower:
@@ -344,5 +382,129 @@ MSLF:
 	SupportPowerChargeBar:
 	InfiltrateForSupportPowerReset:
 		Types: SpyInfiltrate
-	Targetable@superweapon:
-		TargetTypes: Superweapon
+
+PRISM:
+	Inherits: ^Defense
+	Inherits@IDISABLE: ^DisableOnLowPowerOrPowerDown
+	Inherits@AUTOTARGET: ^AutoTargetGround
+	Buildable:
+		Queue: Defense
+		BuildPaletteOrder: 75
+		Prerequisites: allies.prism, weap, ~structures.allies, ~techlevel.unrestricted
+		Description: actor-prism.description
+	Valued:
+		Cost: 1200
+	Tooltip:
+		Name: actor-prism.name
+	Selectable:
+		Bounds: 1024, 1024
+		DecorationBounds: 1024, 2048, 0, -512
+	Health:
+		HP: 40000
+	Armor:
+		Type: Heavy
+	RevealsShroud:
+		MinRange: 6c0
+		Range: 7c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 6c0
+	WithBuildingBib:
+		HasMinibib: true
+	AutoTarget:
+		MaximumScanTimeInterval: 4
+		MinimumScanTimeInterval: 2
+	AutoTargetPriority@support:
+		ValidTargets: PrismTowerSupport
+		Priority: 10
+	Armament@main:
+		RequiresCondition: charged
+		PauseOnCondition: ammo < 5
+		Weapon: PrismTowerCannon
+		LocalOffset: 0,0,896
+		AmmoUsage: 5
+	Armament@sound:
+		Name: sound
+		PauseOnCondition: ammo < 5
+		Weapon: PrismTowerSound
+		AmmoUsage: 0
+	Armament@support:
+		Name: secondary
+		PauseOnCondition: (ammo < 5) || charging
+		Weapon: PrismTowerSupport
+		TargetRelationships: Ally
+		ForceTargetRelationships: None
+		LocalOffset: 0,0,896
+		AmmoUsage: 4
+		FireDelay: 1
+	Armament@support2:
+		Name: secondary
+		PauseOnCondition: (ammo < 5) || charging
+		Weapon: PrismTowerSupportReal
+		TargetRelationships: Ally
+		ForceTargetRelationships: None
+		LocalOffset: 0,0,896
+		AmmoUsage: 0
+	GrantConditionOnAttack@charge:
+		ArmamentNames: sound
+		RevokeDelay: 40
+		Condition: charging
+	GrantDelayedCondition@charge:
+		RequiresCondition: charging
+		Condition: charged
+		Delay: 35
+		RevokeOnDisabled: true
+	Targetable@charge:
+		RequiresCondition: charging
+		TargetTypes: PrismTowerSupport
+	ExternalCondition@support:
+		Condition: prism_support
+	FirepowerMultiplier@support1:
+		RequiresCondition: prism_support == 1
+		Modifier: 150
+	FirepowerMultiplier@support2:
+		RequiresCondition: prism_support == 2
+		Modifier: 200
+	FirepowerMultiplier@support3:
+		RequiresCondition: prism_support == 3
+		Modifier: 250
+	FirepowerMultiplier@support4:
+		RequiresCondition: prism_support == 4
+		Modifier: 300
+	FirepowerMultiplier@support5:
+		RequiresCondition: prism_support > 4
+		Modifier: 400
+	WithColoredOverlay@support1:
+		RequiresCondition: (prism_support == 1) && (ammo == 5)
+		Color: 85F3FF24
+	WithColoredOverlay@support2:
+		RequiresCondition: (prism_support == 2) && (ammo == 5)
+		Color: 85F3FF49
+	WithColoredOverlay@support3:
+		RequiresCondition: (prism_support == 3) && (ammo == 5)
+		Color: 85F3FF7B
+	WithColoredOverlay@support4:
+		RequiresCondition: (prism_support == 4) && (ammo == 5)
+		Color: 85F3FFB6
+	WithColoredOverlay@support5:
+		RequiresCondition: (prism_support > 4) && (ammo == 5)
+		Color: A9F6FFC9
+	AmmoPool:
+		Ammo: 5
+		Armaments: primary, secondary, sound
+		AmmoCondition: ammo
+	ReloadAmmoPool:
+		Delay: 22
+	AttackTurreted:
+		Armaments: primary, secondary, sound
+		PauseOnCondition: disabled || build-incomplete
+	Turreted:
+	Power:
+		Amount: -75
+	ProvidesPrerequisite@buildingname:
+	WithSpriteBody:
+		PauseOnCondition: disabled || charging
+	RenderRangeCircle: 
+		FallbackRange: 9c0
+		RangeCircleType: Prism
+		Color: 83FBFF85

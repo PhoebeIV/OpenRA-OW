@@ -226,6 +226,10 @@ actor-allies-rockets =
 
     Increases power draw to 50. Increases health by 20%.
 
+actor-allies-prism =
+   .name = Prism Technology
+   .description = Unlocks the Prism Tower.
+
 actor-atek-description = Provides Allied advanced technologies.
 
 actor-bio-a =
@@ -246,6 +250,18 @@ actor-bio-afake =
    .description =
     Looks like a Weather Machine.
     Maximum of one can be built.
+
+actor-prism =
+   .name = Prism Tower
+   .description = 
+   Advanced base defense.
+   Requires power to operate.
+
+   Towers placed near one another will 
+    boost damage when attacking.
+      Strong vs Vehicles and Infantry
+      Weak vs Aircraft
+
 
 ## allies_veh.yaml
 actor-1tnk-description = Fast tank, good for scouting.
@@ -438,12 +454,22 @@ actor-avdrone =
       Strong vs Vehicles, Structures
 
 actor-av1tnk =
-   .description = Illuminate Main Battle Tank.
+   .description = Illuminate Main Battle tank.
     Can hover over water.
     Speed: 82
       Strong vs Vehicles
       Weak vs Infantry, Aircraft
    .name = Predator Tank
+   .husk = Husk (Predator Tank)
+
+actor-av2tnk =
+   .description = Illuminate Medium range tank.
+    Can hover over water.
+    Speed: 82
+      Strong vs Infantry, Light armor
+      Weak vs Tanks, Aircraft
+   .name = Refractor Tank
+   .husk = Husk (Refractor Tank)
 
 actor-avarty =
    .name = Impaler Mech
@@ -2047,7 +2073,6 @@ actor-avfrigate-husk-name = Illuminate Frigate
 actor-avbomber-husk-name = Illuminate Bomber
 actor-avcarrier-husk-name = Illuminate Warpship Carrier
 actor-avcarrier-groundhusk-name = Husk (Carrier)
-actor-av1tnk-husk-name = Husk (Predator Tank)
 
 ## japan_air.yaml
 actor-japanchoppervx =
@@ -3643,6 +3668,8 @@ actor-t-miss =
    .socket = Unchosen Super Tech Type
    .water = placement in Water
    .land = placement on Land
+   .sell = 
+   Sell to change Super Tech type.
    .produceactorpower-devouringone-end-charge-text-notification = Devouring Ones ready.
    .produceactorpower-devouringone-ready-text-notification = Reinforcements have arrived.
    .produceactorpower-devouringone-blocked-text-notification = No room for new unit.
@@ -5015,6 +5042,9 @@ actor-usaairfield =
 actor-usastrategycenter =
    .description = Strategic Center, provides upgrades.
    .name = Strategy Center
+   .socket = Unchosen Strategy
+   .sell = 
+   Sell to change Strategy
 
 actor-usaminedropactor =
    .description = Highly explosive proximity trap.
@@ -5135,17 +5165,27 @@ actor-upgrade-lasergeneral =
 actor-upgrade-searchanddestroy =
    .name = Search and Destroy
    .description = Increases weapon range & sight range of all friendly ground units by 10%.
-    Installs sensors that enabled the detection of stealthed units within a large radius around the strategy center.
+    
+    Installs sensors that enabled the detection of 
+    stealthed units within a large radius around the Strategy Center.
+
+    Costs additional power.
 
 actor-upgrade-holdtheline =
    .name = Hold the Line
    .description = Increases armor of all friendly ground units by 10%.
-    Reinforces the strategy center with sandbags to increase its resilience.
+    
+    Reinforces the Strategy Center with sandbags to increase its resilience.
+
+    Costs additional power.
 
 actor-upgrade-bombardment =
    .name = Bombardment
    .description = Increases damage of all friendly ground units by 10%.
-    Deploys an artillery piece from the strategy center for defense.
+    
+    Deploys an artillery piece for the Strategy Center for defense.
+
+    Costs additional power.
 
 ## usa_veh.yaml
 actor-usacrusader =

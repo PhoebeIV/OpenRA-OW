@@ -566,14 +566,9 @@ UpgradeHandlerResources:
 
 BuildQueueHandler:
 	Inherits@mine: MINE_DUMMY
-	ProductionQueue@ability:
-		Type: DroneEvolve
-		Group: Building
-	Production@ability:
-		Produces: DroneEvolve
 	GrantDelayedCondition@aaoe:
 		Condition: spawn_hack
-		Delay: 25
+		Delay: 1
 	FreeActor@hack:
 		RequiresCondition: spawn_hack
 		Actor: BuildQueueHandler2
@@ -584,8 +579,9 @@ BuildQueueHandler:
 BuildQueueHandler2:
 	Inherits@mine: BuildQueueHandler
 	-FreeActor@hack:
+	ProvidesPrerequisite:
 	KillsSelf@11:
-		Delay: 5
+		Delay: 0
 
 FreeUpgrades:
 	GrantConditionOnPrerequisite@gla:
@@ -728,9 +724,12 @@ upgrade.buildarmor3:
 	Buildable:
 		Description: actor-upgrade-buildarmor3.description
 		BuildPaletteOrder: 9997
-		Prerequisites: ~upgrade.buildarmor2, ~!upgrade.buildarmor3, ~!techlevel.noupgrades, ~!ai.realboss
+		Prerequisites: ~upgrade.buildarmor2, !upgrade.buildarmor3, ~!techlevel.noupgrades, ~!ai.realboss
 	UpdatesPlayerStatistics:
 		OverrideActor: upgrade.buildarmor1
+	WithProductionIconOverlay:
+		Types: UpgradeComplete
+		Prerequisites: upgrade.buildarmor3
 	ProvidesPrerequisite@upgradename:
 
 upgrade.buildrepair1:
@@ -762,9 +761,12 @@ upgrade.buildrepair3:
 	Buildable:
 		Description: actor-upgrade-buildrepair3.description
 		BuildPaletteOrder: 9998
-		Prerequisites: ~upgrade.buildrepair2, ~!upgrade.buildrepair3, ~!techlevel.noupgrades
+		Prerequisites: ~upgrade.buildrepair2, !upgrade.buildrepair3, ~!techlevel.noupgrades
 	UpdatesPlayerStatistics:
 		OverrideActor: upgrade.buildrepair1
+	WithProductionIconOverlay:
+		Types: UpgradeComplete
+		Prerequisites: upgrade.buildrepair3
 	ProvidesPrerequisite@upgradename:
 
 upgrade.buildfirepower1:
@@ -796,9 +798,12 @@ upgrade.buildfirepower3:
 	Buildable:
 		Description: actor-upgrade-buildfirepower3.description
 		BuildPaletteOrder: 9999
-		Prerequisites: ~upgrade.buildfirepower2, ~!upgrade.buildfirepower3, ~!techlevel.noupgrades
+		Prerequisites: ~upgrade.buildfirepower2, !upgrade.buildfirepower3, ~!techlevel.noupgrades
 	UpdatesPlayerStatistics:
 		OverrideActor: upgrade.buildfirepower1
+	WithProductionIconOverlay:
+		Types: UpgradeComplete
+		Prerequisites: upgrade.buildfirepower3
 	ProvidesPrerequisite@upgradename:
 
 ###########################
@@ -832,9 +837,12 @@ upgrade.infarmor3:
 	Buildable:
 		Description: actor-upgrade-infarmor3.description
 		BuildPaletteOrder: 10000
-		Prerequisites: ~upgrade.infarmor2, ~!upgrade.infarmor3, ~!faction.noinfantry, ~!techlevel.noupgrades, ~!ai.realboss
+		Prerequisites: ~upgrade.infarmor2, !upgrade.infarmor3, ~!faction.noinfantry, ~!techlevel.noupgrades, ~!ai.realboss
 	UpdatesPlayerStatistics:
 		OverrideActor: upgrade.infarmor1
+	WithProductionIconOverlay:
+		Types: UpgradeComplete
+		Prerequisites: upgrade.infarmor3
 	ProvidesPrerequisite@upgradename:
 
 upgrade.inffirepower1:
@@ -866,9 +874,12 @@ upgrade.inffirepower3:
 	Buildable:
 		Description: actor-upgrade-inffirepower3.description
 		BuildPaletteOrder: 10001
-		Prerequisites: ~upgrade.inffirepower2, ~!upgrade.inffirepower3, ~!faction.noinfantry, ~!techlevel.noupgrades
+		Prerequisites: ~upgrade.inffirepower2, !upgrade.inffirepower3, ~!faction.noinfantry, ~!techlevel.noupgrades
 	UpdatesPlayerStatistics:
 		OverrideActor: upgrade.inffirepower1
+	WithProductionIconOverlay:
+		Types: UpgradeComplete
+		Prerequisites: upgrade.inffirepower3
 	ProvidesPrerequisite@upgradename:
 
 ###########################
@@ -902,9 +913,12 @@ upgrade.veharmor3:
 	Buildable:
 		Description: actor-upgrade-veharmor3.description
 		BuildPaletteOrder: 10002
-		Prerequisites: ~upgrade.veharmor2, ~!upgrade.veharmor3, ~!faction.novehicles, ~!techlevel.noupgrades, ~!ai.realboss
+		Prerequisites: ~upgrade.veharmor2, !upgrade.veharmor3, ~!faction.novehicles, ~!techlevel.noupgrades, ~!ai.realboss
 	UpdatesPlayerStatistics:
 		OverrideActor: upgrade.veharmor1
+	WithProductionIconOverlay:
+		Types: UpgradeComplete
+		Prerequisites: upgrade.veharmor3
 	ProvidesPrerequisite@upgradename:
 
 upgrade.vehfirepower1:
@@ -936,9 +950,12 @@ upgrade.vehfirepower3:
 	Buildable:
 		Description: actor-upgrade-vehfirepower3.description
 		BuildPaletteOrder: 10003
-		Prerequisites: ~upgrade.vehfirepower2, ~!upgrade.vehfirepower3, ~!faction.novehicles, ~!techlevel.noupgrades
+		Prerequisites: ~upgrade.vehfirepower2, !upgrade.vehfirepower3, ~!faction.novehicles, ~!techlevel.noupgrades
 	UpdatesPlayerStatistics:
 		OverrideActor: upgrade.vehfirepower1
+	WithProductionIconOverlay:
+		Types: UpgradeComplete
+		Prerequisites: upgrade.vehfirepower3
 	ProvidesPrerequisite@upgradename:
 
 ###########################
@@ -972,9 +989,12 @@ upgrade.airarmor3:
 	Buildable:
 		Description: actor-upgrade-airarmor3.description
 		BuildPaletteOrder: 10004
-		Prerequisites: ~upgrade.airarmor2, ~!upgrade.airarmor3, ~!faction.noair, ~!techlevel.noupgrades, ~techlevel.medium
+		Prerequisites: ~upgrade.airarmor2, !upgrade.airarmor3, ~!faction.noair, ~!techlevel.noupgrades, ~techlevel.medium
 	UpdatesPlayerStatistics:
 		OverrideActor: upgrade.airarmor1
+	WithProductionIconOverlay:
+		Types: UpgradeComplete
+		Prerequisites: upgrade.airarmor3
 	ProvidesPrerequisite@upgradename:
 
 upgrade.airfirepower1:
@@ -1006,9 +1026,12 @@ upgrade.airfirepower3:
 	Buildable:
 		Description: actor-upgrade-airfirepower3.description
 		BuildPaletteOrder: 10005
-		Prerequisites: ~upgrade.airfirepower2, ~!upgrade.airfirepower3, ~!faction.noair, ~!techlevel.noupgrades, ~techlevel.medium
+		Prerequisites: ~upgrade.airfirepower2, !upgrade.airfirepower3, ~!faction.noair, ~!techlevel.noupgrades, ~techlevel.medium
 	UpdatesPlayerStatistics:
 		OverrideActor: upgrade.airfirepower1
+	WithProductionIconOverlay:
+		Types: UpgradeComplete
+		Prerequisites: upgrade.airfirepower3
 	ProvidesPrerequisite@upgradename:
 
 ###########################
@@ -1042,9 +1065,12 @@ upgrade.navarmor3:
 	Buildable:
 		Description: actor-upgrade-navarmor3.description
 		BuildPaletteOrder: 10005
-		Prerequisites: ~upgrade.navarmor2, ~!upgrade.navarmor3, ~!techlevel.noboats, ~!techlevel.noupgrades
+		Prerequisites: ~upgrade.navarmor2, !upgrade.navarmor3, ~!techlevel.noboats, ~!techlevel.noupgrades
 	UpdatesPlayerStatistics:
 		OverrideActor: upgrade.navarmor1
+	WithProductionIconOverlay:
+		Types: UpgradeComplete
+		Prerequisites: upgrade.navarmor3
 	ProvidesPrerequisite@upgradename:
 
 upgrade.navfirepower1:
@@ -1076,9 +1102,12 @@ upgrade.navfirepower3:
 	Buildable:
 		Description: actor-upgrade-navfirepower3.description
 		BuildPaletteOrder: 10006
-		Prerequisites: ~upgrade.navfirepower2, ~!upgrade.navfirepower3, ~!techlevel.noboats, ~!techlevel.noupgrades
+		Prerequisites: ~upgrade.navfirepower2, !upgrade.navfirepower3, ~!techlevel.noboats, ~!techlevel.noupgrades
 	UpdatesPlayerStatistics:
 		OverrideActor: upgrade.navfirepower1
+	WithProductionIconOverlay:
+		Types: UpgradeComplete
+		Prerequisites: upgrade.navfirepower3
 	ProvidesPrerequisite@upgradename:
 
 ####################################
@@ -1117,9 +1146,12 @@ upgrade.shieldarmor3:
 		Description: actor-upgrade-shieldarmor3.description
 		BuildDuration: 4500
 		BuildPaletteOrder: 10007
-		Prerequisites: ~upgrade.shieldarmor2, ~!upgrade.shieldarmor3, ~!techlevel.noupgrades, techlevel.shields, ~!ai.realboss
+		Prerequisites: ~upgrade.shieldarmor2, !upgrade.shieldarmor3, ~!techlevel.noupgrades, techlevel.shields, ~!ai.realboss
 	UpdatesPlayerStatistics:
 		OverrideActor: upgrade.shieldarmor1
+	WithProductionIconOverlay:
+		Types: UpgradeComplete
+		Prerequisites: upgrade.shieldarmor3
 	ProvidesPrerequisite@upgradename:
 
 techlevel.shields:

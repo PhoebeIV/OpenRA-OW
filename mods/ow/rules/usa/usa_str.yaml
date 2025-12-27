@@ -496,12 +496,13 @@ usaairstriplandingspot:
 		
 usastrategycenter:
 	Inherits: ^ScienceBuilding
+	Inherits@IDISABLE: ^DisableOnLowPowerOrPowerDown
 	Inherits@shape: ^3x3Shape
 	Selectable:
 		Bounds: 3072, 3072
 	Buildable:
 		Queue: Building
-		Prerequisites: refinery, factory, anypower, ~structures.usa
+		Prerequisites: refinery, factory, anypower, ~structures.usa, !usastrategycenter.exists
 		Description: actor-usastrategycenter.description
 		BuildPaletteOrder: 150
 	Tooltip:
@@ -596,13 +597,15 @@ usastrategycenter:
 		Offset: -416, -576, 0
 	RenderDetectionCircle:
 	DetectCloaked:
-		Range: 12c512
+		Range: 16c0
 		DetectionTypes: Cloak, AirCloak
 		RequiresCondition: search_and_destroy && !disabled
 	Armament:
 		Weapon: usafirebaseshot
 		LocalOffset: 520,0,450
 		RequiresCondition: bombardment
+	RangeMultiplier@default:
+		Modifier: 200
 	WithIdleOverlay@HOLD_THE_LINE:
 		Sequence: hold_the_line
 		Palette: effect
@@ -635,16 +638,160 @@ usastrategycenter:
 		Prerequisites: ai.god
 	ProximityExternalCondition@bombardment:
 		Condition: usa.bombardment
-		RequiresCondition: bombardment || godowner
+		RequiresCondition: (bombardment || godowner) && !disabled
 		Range: 32c0
 	ProximityExternalCondition@holdtheline:
 		Condition: usa.hold_the_line
-		RequiresCondition: hold_the_line || godowner
+		RequiresCondition: (hold_the_line || godowner) && !disabled
 		Range: 32c0
 	ProximityExternalCondition@searchanddestroy:
 		Condition: usa.search_and_destroy
-		RequiresCondition: search_and_destroy || godowner
+		RequiresCondition: (search_and_destroy || godowner) && !disabled
 		Range: 32c0
+	ProvidesPrerequisite@botowner:
+		Prerequisite: usastrategycenter.exists
+	ProductionBar@transformstructure:
+		ProductionType: StrategyChoice
+	Production@transformstructure:
+		Produces: StrategyChoice
+	ProductionQueue@transformstructure:
+		Type: StrategyChoice
+		Group: Tech
+		DisplayOrder: 1
+		BlockedAudio: NoBuild
+		LimitedAudio: BuildingInProgress
+		QueuedAudio: Building
+		OnHoldAudio: OnHold
+		CancelledAudio: Cancelled
+		QueueLimit: 1
+	GrantConditionOnProduction@bom:
+		Condition: usabom
+		Actors: usastrat.bom
+	GrantConditionOnProduction@htl:
+		Condition: usahtl
+		Actors: usastrat.htl
+	GrantConditionOnProduction@snd:
+		Condition: usasnd
+		Actors: usastrat.snd
+	TransformOnCondition@bom:
+		RequiresCondition: usabom
+		IntoActor: usastrategycenter.bom
+	TransformOnCondition@htl:
+		RequiresCondition: usahtl
+		IntoActor: usastrategycenter.htl
+	TransformOnCondition@snd:
+		RequiresCondition: usasnd
+		IntoActor: usastrategycenter.snd
+	ProvidesPrerequisite@socket:
+		Prerequisite: usastrat.socket
+
+^USAStrategyCenterRevert:
+	TooltipDescription:
+		Description: actor-usastrategycenter.sell
+		ValidRelationships: None, Ally
+	ToggleConditionOnOrder@sell:
+		OrderName: Sell
+		Condition: sell_me
+	TransformOnCondition@sell:
+		RequiresCondition: sell_me
+		IntoActor: usastrategycenter
+	GrantConditionOnPrerequisite@botowner:
+		Prerequisites: ai.all
+		Condition: botowner
+	GrantDelayedCondition@botreset:
+		RequiresCondition: botowner
+		Delay: 9000, 15000
+		Condition: sell_me
+
+usastrategycenter.bom:
+	Inherits: usastrategycenter
+	Inherits@strat: ^USAStrategyCenterRevert
+	-Buildable:
+	ProvidesPrerequisite@strat:
+		RequiresCondition: !disabled
+		Prerequisite: upgrade.bombardment
+	-ProductionBar@transformstructure:
+	-Production@transformstructure:
+	-ProductionQueue@transformstructure:
+	-ProvidesPrerequisite@socket:
+	Voiced:
+		VoiceSet: StrategyCentre
+	GrantTimedCondition@announce:
+		Condition: announce
+		Duration: 125
+	VoiceAnnouncement:
+		RequiresCondition: announce
+		Voice: BOM
+	RevealsShroud@everyone:
+		RequiresCondition: announce
+		Range: 3c0
+		ValidRelationships: Ally, Neutral, Enemy
+
+usastrategycenter.htl:
+	Inherits: usastrategycenter.bom
+	ProvidesPrerequisite@strat:
+		Prerequisite: upgrade.holdtheline
+	VoiceAnnouncement:
+		Voice: HTL
+
+usastrategycenter.snd:
+	Inherits: usastrategycenter.bom
+	ProvidesPrerequisite@strat:
+		Prerequisite: upgrade.searchanddestroy
+	VoiceAnnouncement:
+		RequiresCondition: announce
+		Voice: SND
+
+^USAStratChoice:
+	Buildable:
+		Queue: StrategyChoice
+		BuildDurationModifier: 60
+		BuildPaletteOrder: 1
+		BuildDuration: 750
+		Prerequisites: ~usastrat.socket
+	Interactable:
+	ScriptTriggers:
+	KillsSelf:
+		RemoveInstead: true
+	Valued:
+		Cost: 100
+	Power:
+		Amount: -100
+		RequiresCondition: i_dont_exist
+	GrantDelayedCondition@1:
+		Condition: i_dont_exist
+
+usastrat.socket:
+	Interactable:
+	Tooltip:
+		Name: actor-usastrategycenter.socket
+
+usastrat.bom:
+	Inherits: ^USAStratChoice
+	Buildable:
+		Description: actor-upgrade-bombardment.description
+	Tooltip:
+		Name: actor-upgrade-bombardment.name
+	RenderSprites:
+		Image: upgrade.bombardment
+
+usastrat.htl:
+	Inherits: ^USAStratChoice
+	Buildable:
+		Description: actor-upgrade-holdtheline.description
+	Tooltip:
+		Name: actor-upgrade-holdtheline.name
+	RenderSprites:
+		Image: upgrade.holdtheline
+
+usastrat.snd:
+	Inherits: ^USAStratChoice
+	Buildable:
+		Description: actor-upgrade-searchanddestroy.description
+	Tooltip:
+		Name: actor-upgrade-searchanddestroy.name
+	RenderSprites:
+		Image: upgrade.searchanddestroy
 
 #mines move later
 USAMINEDROP:

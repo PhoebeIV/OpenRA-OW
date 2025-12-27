@@ -1500,6 +1500,21 @@ RADIO.P:
 	Sellable:
 		RequiresCondition: !being-captured && !being-demolished
 		SellSounds: cashturn.aud
+	ProduceActorPower:
+		PauseOnCondition: disabled
+		OrderName: Intelligence
+		Name: Intelligence
+		Description: Reveals all Superweapons on the map to all players.
+		Icon: spy
+		Actors: hunter.spy
+		Type: HunterSpy
+		ChargeInterval: 12000
+		DisplayTimerRelationships: Ally, Neutral, Enemy
+		LaunchSound: satlnch1.aud
+	Production:
+		Produces: HunterSpy
+		PauseOnCondition: disabled
+	Exit@1:
 
 ATD:
 	Inherits: ^Defense
@@ -1647,7 +1662,7 @@ SEAMINE:
 		EmptyWeapon: SeaMineExplosion
 		DamageSource: Killer
 	Targetable:
-		TargetTypes: Submarine, Underwater
+		TargetTypes: Submarine, Underwater, Seamine
 	WithSpriteBody:
 		Sequence: water
 	RenderSprites:

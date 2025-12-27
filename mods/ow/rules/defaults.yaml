@@ -717,8 +717,8 @@
 		Icon: gps
 		OneShot: true
 		ChargeInterval: 1500
-		Name: GPS Satellite
-		Description: Reveals map terrain and provides tactical\ninformation.
+		Name: actor-atek.gpspower-name
+		Description: actor-atek.gpspower-description
 		RevealDelay: 375
 		LaunchSound: satlnch1.aud
 	ProvidesPrerequisite:
@@ -1721,11 +1721,47 @@
 		TargetTypes: Tech
 
 ^Superweapon:
+	Inherits@botcap: ^BotCaptureTarget
 	Targetable@superweapon:
 		TargetTypes: Superweapon
 	FireWarheadsOnDeath@superweapon:
 		Weapon: CrateNuke
 		EmptyWeapon: CrateNuke
+	ExternalCondition@reveal:
+		Condition: reveal_me
+	RevealsShroud@reveal:
+		RequiresCondition: reveal_me
+		Range: 2c0
+		ValidRelationships: Enemy
+
+^FakeBuilding:
+	FireWarheadsOnDeath@2:
+		Type: CenterPosition
+		Weapon: FakeBuildingExplosion
+		DamageThreshold: 50
+	ExternalCondition@botcapture:
+		Condition: bot_capture
+	GrantCondition@captured:
+		RequiresCondition: bot_capture
+		Condition: explode
+	GrantConditionOnCapture@explode:
+		Condition: explode
+		Duration: 250
+	KillsSelf@explode:
+		RequiresCondition: explode
+		Delay: 100
+
+^FakeSuperweapon:
+	Inherits: ^FakeBuilding
+	Inherits@botcap: ^BotCaptureTarget
+	Targetable@superweapon:
+		TargetTypes: Superweapon
+	ExternalCondition@reveal:
+		Condition: reveal_me
+	RevealsShroud@reveal:
+		RequiresCondition: reveal_me
+		Range: 2c0
+		ValidRelationships: Enemy
 
 ^Defense:
 	Inherits@MediConditions: ^MediConditionsD
@@ -2996,6 +3032,15 @@
 
 # Buffs from the USA Strategy Center
 ^USAStrategyBuffs:
+	GrantConditionOnPrerequisite@bombardment:
+		Condition: usa.bombardment
+		Prerequisites: upgrade.bombardment
+	GrantConditionOnPrerequisite@holdtheline:
+		Condition: usa.hold_the_line
+		Prerequisites: upgrade.holdtheline
+	GrantConditionOnPrerequisite@searchanddestroy:
+		Condition: usa.search_and_destroy
+		Prerequisites: upgrade.searchanddestroy
 	ExternalCondition@usa.bombardment:
 		Condition: usa.bombardment
 	FirepowerMultiplier@usa.bombardment:

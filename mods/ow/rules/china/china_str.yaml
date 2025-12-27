@@ -898,8 +898,8 @@ chinaspeakertower:
 		Footprint: x
 		Dimensions: 1,1
 	Selectable:
-		Bounds: 1024, 3072
-		DecorationBounds: 1024, 3072, 0, 0
+		Bounds: 1024, 1024
+		DecorationBounds: 1024, 2048, 0, -512
 	SelectionDecorations:
 	WithBuildingBib:
 		HasMinibib: true
@@ -919,6 +919,17 @@ chinaspeakertower:
 		RequiresCondition: !disabled
 	Power:
 		Amount: -100
+	WithIdleOverlay@1:
+		RequiresCondition: !upgradepropaganda && !disabled && !build-incomplete
+		Sequence: overlay1
+	WithIdleOverlay@2:
+		RequiresCondition: upgradepropaganda && !disabled && !build-incomplete
+		Sequence: overlay2
+	AmbientSound:
+		RequiresCondition: !disabled
+		Delay: 50, 100
+		Interval: 1500, 4500
+		SoundFiles: bspesela.wav, bspeselb.wav, bspeselc.wav
 	ProximityExternalCondition@propaganda:
 		Condition: propaganda
 		RequiresCondition: !disabled && !upgrade.propaganda

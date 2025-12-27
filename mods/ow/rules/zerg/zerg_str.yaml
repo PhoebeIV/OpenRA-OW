@@ -72,6 +72,11 @@
 	ToggleConditionOnOrder@explode:
 		OrderName: Sell
 		Condition: sell_me
+	Sellable: 
+		SkipMakeAnimation: true
+	FireWarheads@sell:
+		RequiresCondition: sell_me
+		Weapons: LargeZergBuildingExplode
 	KillsSelf@explode:
 		RequiresCondition: sell_me
 		Delay: 5
@@ -184,11 +189,13 @@ CreepGenBig:
 	Inherits@shape: ^1x1Shape
 	Targetable:
 		TargetTypes: CreepGenerator
+	OwnerLostAction:
+		Action: ChangeOwner
 	ExternalCondition@creep:
 		Condition: creepalive
 	KillsSelf:
 		RequiresCondition: !creepalive
-		Delay: 25
+		Delay: 50
 	FireWarheadsOnDeath:
 		Weapon: CreepRemoveBig
 	SeedsResource:
@@ -282,7 +289,7 @@ HatcheryBib:
 		Condition: creepalive
 	KillsSelf:
 		RequiresCondition: !creepalive
-		Delay: 25
+		Delay: 50
 	FireWarheadsOnDeath:
 		Weapon: CreepRemoveBig
 	SeedsResource:
@@ -297,6 +304,7 @@ HatcheryBib:
 ZHATCHERY:
 	Inherits: ^ZergBuilding
 	Inherits@prereqs: ^ConYardPrereqs
+	Inherits@infantry: ^InfantryExtras
 	Inherits@con: ^ConYard
 	Inherits@PRIMARY: ^PrimaryBuilding
 	HitShape:
@@ -342,6 +350,15 @@ ZHATCHERY:
 		RevealGeneratedShroud: False
 	RevealsShroud@GAPGEN:
 		Range: 4c0
+	SeedsResource:
+		Interval: 2
+		MaxRange: 9
+		ResourceType: ZergCreep
+	SeedsResource@large:
+		RequiresCondition: hive_upgrade
+		Interval: 2
+		MaxRange: 12
+		ResourceType: ZergCreep
 	Valued:
 		Cost: 3000
 	Tooltip:
@@ -366,7 +383,6 @@ ZHATCHERY:
 		RequiresCondition: zagara || botowner || easybuild_enabled
 	Production@inf:
 		Produces: Hatchery,Infantry
-		PauseOnCondition: busy
 		RequiresCondition: !zagara
 	Production@inf2:
 		Produces: Hatchery,Infantry
@@ -398,6 +414,9 @@ ZHATCHERY:
 	ProductionBar@Inf:
 		ProductionType: Infantry
 		Color: FF0000
+	RallyPoint:
+	FireWarheadsOnDeath@creep:
+		Weapon: CreepRemoveBig
 	GrantExternalConditionToProduced:
 		Condition: produced
 	GrantConditionOnProduction@busy:
@@ -477,6 +496,12 @@ ZHATCHERY:
 		Actor: MediumZergBuildingComplete
 		SpawnOffset: 1,1
 		RequiresCondition: !build-incomplete
+	FireWarheads@creep:
+		RequiresCondition: !build-incomplete && !no-explode
+		Weapons: CreepSplashBig
+		Interval: 5000
+	GrantDelayedCondition@creep:
+		Condition: no-explode
 	Pluggable@1:
 		Offset: 1,1
 		Conditions:
@@ -572,6 +597,7 @@ ZHATCHERY:
 		RequiresCondition: hive_upgrade
 		UseResourceStorage: true
 	ProximityExternalCondition@creepalive:
+		-RequiresCondition:
 		Condition: creepalive
 		Range: 4c0
 	ParatroopersPower@rebelambush:

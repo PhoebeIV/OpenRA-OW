@@ -385,6 +385,7 @@
 
 
 ^BarracksPrereqs:
+	Inherits@extras: ^InfantryExtras
 	ProvidesPrerequisite:
 		Prerequisite: barracks
 	ProvidesPrerequisite@surv: # Surveyor (all but civ/medi)
@@ -759,6 +760,42 @@
 	ProvidesPrerequisite@botonly:
 		Prerequisite: infantry.botonly
 		RequiresPrerequisites: ai.all
+
+# used for infantry that are produced in pairs
+^InfantryExtras:
+	GrantConditionOnProduction@chinaredguard:
+		Actors: chinaredguard
+		Condition: produce_redguard
+		Duration: 4
+		ShowSelectionBar: false
+	PeriodicProducer@chinaredguard: 
+		RequiresCondition: produce_redguard
+		Actors: chinaredguard2
+		Type: Infantry
+		ResetTraitOnEnable: true
+		ChargeDuration: 3
+	GrantConditionOnProduction@zergling:
+		Actors: zzergling
+		Condition: produce_zergling
+		Duration: 4
+		ShowSelectionBar: false
+	PeriodicProducer@zergling: 
+		RequiresCondition: produce_zergling
+		Actors: zzergling2
+		Type: Infantry
+		ResetTraitOnEnable: true
+		ChargeDuration: 3
+	GrantConditionOnProduction@baneling:
+		Actors: zbaneling
+		Condition: produce_baneling
+		Duration: 4
+		ShowSelectionBar: false
+	PeriodicProducer@baneling: 
+		RequiresCondition: produce_baneling
+		Actors: zbaneling2
+		Type: Infantry
+		ResetTraitOnEnable: true
+		ChargeDuration: 3
 
 ^FactoryPrereqs:
 	ProvidesPrerequisite@fact:

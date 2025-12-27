@@ -422,7 +422,7 @@ DemoTrapExplosion:
 		Falloff: 250, 250, 175, 150, 0, 0, 0
 		ValidRelationships: Ally
 		DamageTypes: Prone50Percent, TriggerProne, ExplosionDeath
-		ValidTargets: Ground, Water
+		ValidTargets: GroundActor, WaterActor
 	Warhead@2Eff: CreateEffect
 		Explosions: building
 		ValidTargets: Ground, Water, Air
@@ -442,6 +442,15 @@ DemoTrapExplosion2:
 	Warhead@2Dam: SpreadDamage
 		Damage: 8000
 		ValidRelationships: Neutral, Enemy, Ally
+
+FakeBuildingExplosion:
+	Inherits: DemoTrapExplosion
+	Warhead@1Dam: SpreadDamage
+		Damage: 7500
+		ValidRelationships: Neutral, Enemy
+	Warhead@2Dam: SpreadDamage
+		Damage: 7500
+		ValidRelationships: Neutral, Enemy
 
 AvaliPowerExplosion:
 	Inherits: DemoTrapExplosion
@@ -505,14 +514,12 @@ SeaMineExplosion:
 	Inherits: DemoTrapExplosion
 	Warhead@1Dam: SpreadDamage
 		Damage: 15000
-		ValidTargets: Underwater, WaterActor, Submarine, GroundActor
+		ValidTargets: Underwater, WaterActor, Submarine, Ship
 	Warhead@2Dam: SpreadDamage
-		Damage: 8000
-		ValidTargets: Underwater, WaterActor, Submarine, GroundActor
-	Warhead@3Dam: SpreadDamage
 		Delay: 4
-		Damage: 15000
-		ValidTargets: Underwater, Submarine, Ship
+		Damage: 5000
+		ValidTargets: Underwater, WaterActor, Submarine, Ship
+		InvalidTargets: SeaMine
 	-Warhead@Smu:
 	Warhead@2Eff: CreateEffect
 		Explosions: large_splash
@@ -1020,7 +1027,7 @@ TibTreeSeed:
 		Inaccuracy: 9c0
 		Speed: 256
 		LaunchAngle: 160
-		Blockable: false
+		Blockable: true
 	Warhead@1Dam: SpreadDamage
 		Damage: 6000
 		Spread: 512

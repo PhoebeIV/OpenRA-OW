@@ -148,7 +148,11 @@ chinaredguard:
 		Name: actor-chinaredguard.hordebonus--name
 		RequiresCondition: hordebonus >= 10
 	Valued:
-		Cost: 300
+		Cost: 150
+	ProductionCostMultiplier@default:
+		Multiplier: 200
+	GainsExperienceMultiplier@default:
+		Modifier: 50
 	UpdatesPlayerStatistics:
 		AddToArmyValue: true
 	Health:
@@ -184,9 +188,9 @@ chinaredguard:
 		Bounds: 768, 853, 0, -256
 		DecorationBounds: 640, 896, 0, -426
 		Class: redguard
-	FreeActor@extraredguard:
-		Actor: chinaredguard2
-		SpawnOffset: -1,-1
+	#FreeActor@extraredguard: # now handled by Barracks themselves!
+	#	Actor: chinaredguard2
+	#	SpawnOffset: 0,0
 	RenderSprites:
 		Image: chinaredguard
 	Voiced:
@@ -199,11 +203,13 @@ chinaredguard2:
 		Bounds: 768, 853, 0, -256
 		DecorationBounds: 640, 896, 0, -426
 		Class: redguard
-	-FreeActor@extraredguard:
+	#-FreeActor@extraredguard:
 	-Buildable:
+	GrantTimedCondition@wander:
+		Duration: 24
+		Condition: wander
 	UpdatesPlayerStatistics:
-		AddToArmyValue: false
-		AddToAssetsValue: false
+		OverrideActor: chinaredguard
 
 chinatankhunter:
 	Inherits: ^Soldier

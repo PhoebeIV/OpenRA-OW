@@ -368,10 +368,11 @@ Player:
 		PowerDownTypes: hellgate,hellgate.d,dome,tsla,mslo,agun,sam,chinanuclearsilo,iron,chinasupernuclearsilo,japandecimator,gateoflight,medidarkcrystal,firestormmedi,tmpld,ptempl,eyed,tsilo,usaparticlecannon,zmslo,atd,tsla.est,ironball,atwr,atwr2,oblid,samd,advsam,plstur,pphoto,psbatt,usapatriot,usapatriotemp,tmissile,tmissile.mengsk,chinagatlinggun,usasupportmatrix, japanlaserbaseai, japanmindcontrol, japanballoon, japanberserktower, japanwaveforceturret,ftemple
 	BaseBuilderBotModule@normal:
 		RequiresCondition: enable-all-ai
-		PlaceDefenseTowardsEnemyChance: 20
+		PlaceDefenseTowardsEnemyChance: 40
 		InititalMinimumRefineryCount: 0
 		AdditionalMinimumRefineryCount: 1
-		ExpansionTolerate: 1,2
+		ExpansionTolerate: 0,1
+		ForceExpansionTolerate: 0
 		CheckForWaterRadius: 12
 		MaxBaseRadius: 50
 		MaximumDefenseRadius: 50
@@ -384,7 +385,7 @@ Player:
 		StructureProductionActiveDelay: 45
 		MaximumFailedPlacementAttempts: 8
 		AssignRallyPointsInterval: 250
-		BuildingQueues: Building, Tech, Upgrade, UpgradeBot, BossFaction, Bot, Wall, Building.ZergColony, Nuke, HeroUpgrade1, HeroUpgrade2, HeroUpgrade3, HeroUpgrade4, HeroUpgrade5, HeroAbility, AvaliCarrier, SuperTechChoice
+		BuildingQueues: Building, Tech, Upgrade, UpgradeBot, BossFaction, Bot, Wall, Building.ZergColony, Nuke, HeroUpgrade1, HeroUpgrade2, HeroUpgrade3, HeroUpgrade4, HeroUpgrade5, HeroAbility, AvaliCarrier, SuperTechChoice, StrategyChoice
 		DefenseQueues: Defense, HeroAbility
 		ConstructionYardTypes: fact, factd, gfact, zhatchery, pnexus, tcommand, tcommand.landed, tcommand.ai, avfact, t.missstr
 		RefineryTypes: proc, procd, gproc, passim, zextrac, usasupplycenter, trefinery, chinasupplycenter, barr.boss, japansupplycenter, avproc, japansupplycenternavy, btproc
@@ -571,6 +572,7 @@ Player:
 			gun: 12
 			hbox: 9
 			pbox: 9
+			prism: 10
 			dgun: 8
 			dgun.nz: 10
 			ftur: 12
@@ -706,6 +708,7 @@ Player:
 			gblk: 5
 			gsneak: 1
 			gun: 70
+			prism: 50
 			dgun: 100
 			dgun.nz: 100
 			ftur: 100
@@ -951,9 +954,9 @@ Player:
 			upgrade.superweaponsgeneral: 10
 			upgrade.lasergeneral: 10
 			upgrade.usatraining: 5
-			upgrade.searchanddestroy: 33
-			upgrade.holdtheline: 33
-			upgrade.bombardment: 33
+			usastrat.searchanddestroy: 33
+			usastrat.holdtheline: 33
+			usastrat.bom: 33
 			upgrade.cheaperplanes: 10
 			upgrade.laserguided: 10
 			upgrade.countermeasures: 10
@@ -996,6 +999,7 @@ Player:
 			allies.training2: 100
 			allies.pointdefense: 100
 			allies.rockets: 100
+			allies.prism: 100
 			gdi.speed: 100
 			gdi.suits: 100
 			gdi.steel: 100
@@ -1765,6 +1769,7 @@ Player:
 			avdrone: 8
 			avemp: 5
 			av1tnk: 15
+			av2tnk: 15
 			avarty: 15
 			avqtnk: 15
 			avfrigate: 5
@@ -2837,6 +2842,15 @@ Player:
 					CheckRadius: 4c0
 			hunterseeker:
 				OrderName: HunterSeeker
+				MinimumAttractiveness: 5
+				Consideration@1:
+					Against: Ally
+					Types: Vehicle, Infantry, Structure
+					Attractiveness: 1
+					TargetMetric: Health
+					CheckRadius: 4c0
+			hunterseeker2:
+				OrderName: Intelligence
 				MinimumAttractiveness: 5
 				Consideration@1:
 					Against: Ally

@@ -4752,6 +4752,7 @@ chinablacklotusanim:
 	ReloadDelay: 15
 	Range: 14c768
 	ValidTargets: Tank, Vehicle
+	InvalidTargets: NoMindControl
 	TargetActorCenter: true
 	Report: ucapture.aud
 	Projectile: LaserZap
@@ -4778,23 +4779,26 @@ chinablacklotusend:
 		SecondaryBeamColor: FF000035
 	Warhead@1Dam: ChangeOwner
 		Range: 256
-		ValidTargets: Infantry, Vehicle, AirborneActor
+		ValidTargets: Vehicle, AirborneActor
 		InvalidTargets: EpicUnit, NoMindControl, HighValueMindControl
 	Warhead@2Dam: ChangeOwner
 		Delay: 1
 		Range: 256
 		Duration: 200
 		ValidTargets: EpicUnit, HighValueMindControl
+		InvalidTargets: Infantry
 	Warhead@cond: GrantExternalCondition
 		Condition: mindcontrolresist
 		Range: 256
 		Duration: 150
 		ValidTargets: EpicUnit, HighValueMindControl
+		InvalidTargets: Infantry
 	Warhead@condhero: GrantExternalCondition
 		Condition: mc_protect
 		Range: 256
 		Duration: 250
 		ValidTargets: EpicUnit
+		InvalidTargets: Infantry
 	Warhead@3EffGround: CreateEffect
 		Explosions: bfgred
 		ImpactSounds: mind.aud
@@ -8268,20 +8272,25 @@ HackyCaptureAttack:
 	Projectile: InstantHit
 	TargetActorCenter: true
 	Warhead@1Dam: ChangeOwner
+		Delay: 1
 		Range: 256
+		ValidTargets: BotCaptureTarget
+	Warhead@transform: GrantExternalCondition
+		Condition: bot_capture
+		Delay: 0
+		Range: 256
+		Duration: 0
+		AffectsParent: false
 		ValidTargets: BotCaptureTarget
 
 HackyCaptureAttackHusk:
 	Inherits: HackyCaptureAttack
 	ValidTargets: BotCaptureTargetHusk
 	Warhead@1Dam: ChangeOwner
+		Delay: 0
 		ValidTargets: BotCaptureTargetHusk
 	Warhead@transform: GrantExternalCondition
-		Condition: bot_capture
 		Delay: 1
-		Range: 256
-		Duration: 0
-		AffectsParent: false
 		ValidTargets: BotCaptureTargetHusk
 
 HackyCaptureAttackCrate:
@@ -8393,3 +8402,26 @@ LibraAttackLaserHit:
 	Warhead@4Eff_impact: CreateEffect
 		Explosions: laserhitmed
 		ImpactActors: false
+
+RevealSuperweapons:
+	Inherits: DoomBFGTest
+	ValidTargets: Ground, Water, GroundActor, WaterActor
+	-Warhead@frag:
+	Warhead@global: GlobalExplodeWeapon
+		Weapon: RevealSuperweaponsCondition
+		ValidTargets: Superweapon
+		ValidRelationships: Enemy, Neutral
+
+RevealSuperweaponsCondition:
+	Warhead@1Dam: SpreadDamage
+		Spread: 128
+		Damage: 1
+		DamageTypes: DefaultDeath
+		ValidTargets: Superweapon
+	Warhead@condition: GrantExternalCondition
+		Condition: reveal_me
+		Range: 6c0
+		Duration: 250
+		AffectsParent: false
+		ValidTargets: Superweapon
+		ValidRelationships: Enemy, Neutral
