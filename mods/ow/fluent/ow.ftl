@@ -23,3 +23,8 @@ options-game-speed =
     .fasterest = Mach 5
 
 label-bot-player = Clanker
+
+
+## Player
+enumerated-bot-name =
+    { $name }
