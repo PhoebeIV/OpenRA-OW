@@ -21,3 +21,5 @@ options-game-speed =
     .faster = Faster
     .fastest = Fastest
     .fasterest = Mach 5
+
+label-bot-player = Clanker

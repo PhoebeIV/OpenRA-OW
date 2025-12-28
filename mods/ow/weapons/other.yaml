@@ -8403,16 +8403,176 @@ LibraAttackLaserHit:
 		Explosions: laserhitmed
 		ImpactActors: false
 
+
+AvaliRefractorCannon:
+	Inherits: ^Cannon
+	ReloadDelay: 100
+	Range: 7c0
+	Report: bt_slaserb1.ogg, bt_slaserb2.ogg, bt_slaserb3.ogg, bt_slaserb4.ogg
+	ValidTargets: Ground, Water, GroundActor, WaterActor
+	Projectile: LaserZap
+		Color: FFF183
+		Width: 96
+		SecondaryBeamWidth: 48
+		SecondaryBeam: true
+		SecondaryBeamColor: FFFFFF
+		ZOffset: 1024
+		SecondaryBeamZOffset: 1023
+	Warhead@1Dam: SpreadDamage
+		Damage: 7000
+		Spread: 192
+		Versus:
+			None: 125
+			Light: 80
+			Wood: 50
+			Heavy: 50
+			Concrete: 20
+	Warhead@2Smu: LeaveSmudge
+		SmudgeType: Scorch
+	Warhead@3Eff: CreateEffect
+		Explosions: med_explosion2
+		ImpactSounds: explomed.aud, explosm.aud, kaboom25.aud, avbursthit.aud, kaboom12.aud
+	Warhead@4Cluster: FireShrapnel
+		Amount: 3
+		Weapon: AvaliRefractorCluster
+		AimTargetStances: Neutral, Enemy, Ally
+		AimChance: 25
+		ThrowWithoutTarget: true
+		AroundTarget: true
+		ImpactActors: false
+
+AvaliRefractorCluster:
+	Inherits: ^Cannon
+	MinRange: 1c0
+	Range: 3c0
+	Report: baud.aud
+	ValidTargets: Ground, Water, GroundActor, WaterActor
+	Projectile: LaserZap
+		Color: FFF183
+		Width: 64
+		SecondaryBeamWidth: 32
+		SecondaryBeam: true
+		SecondaryBeamColor: FFFFFF
+		ZOffset: 1024
+		SecondaryBeamZOffset: 1023
+	Warhead@1Dam: SpreadDamage
+		Damage: 3000
+		Spread: 256
+		Versus:
+			None: 110
+			Light: 80
+			Wood: 50
+			Heavy: 33
+			Concrete: 20
+	Warhead@2Smu: LeaveSmudge
+		SmudgeType: Scorch
+		Chance: 33
+	Warhead@3Eff: CreateEffect
+		Inaccuracy: 128
+		Explosions: small_explosion
+		-ImpactSounds: 
+
+PrismTowerSound:
+	ReloadDelay: 50
+	MinRange: 1c0
+	Range: 9c0
+	Report: bt_prism.ogg
+	ValidTargets: Ground, Water, GroundActor, WaterActor
+	InvalidTargets: PrismTowerSupport
+	Projectile: InstantHit
+	Warhead@1Dam: SpreadDamage
+		Damage: 0
+
+PrismTowerCannon:
+	Inherits: AvaliRefractorCannon
+	ReloadDelay: 1
+	MinRange: 1c0
+	Range: 9c0
+	Report: bt_lrglaserb1.ogg, bt_lrglaserb2.ogg, bt_lrglaserb3.ogg, bt_lrglaserb4.ogg
+	ValidTargets: Ground, Water, GroundActor, WaterActor
+	Projectile: LaserZap
+		Color: 83EAFF
+		Width: 128
+		SecondaryBeamWidth: 72
+		Duration: 14
+		Blockable: false
+	Warhead@1Dam: SpreadDamage
+		Damage: 20000
+		Spread: 256
+		Versus:
+			None: 125
+			Light: 80
+			Wood: 50
+			Heavy: 100
+			Concrete: 20
+	Warhead@3Eff: CreateEffect
+		Inaccuracy: 128
+		Explosions: med_explosion2
+		ImpactSounds: explomed.aud
+	Warhead@4Cluster: FireShrapnel
+		Weapon: PrismTowerCluster
+		AimTargetStances: Neutral, Enemy
+		AimChance: 50
+
+PrismTowerCluster:
+	Inherits: AvaliRefractorCluster
+	Range: 4c0
+	Projectile: LaserZap
+		Color: 83EAFF
+		Width: 96
+		SecondaryBeamWidth: 48
+		Duration: 14
+	Warhead@1Dam: SpreadDamage
+		Damage: 2500
+	Warhead@2Smu: LeaveSmudge
+		SmudgeType: Scorch
+		Chance: 50
+	Warhead@4Cluster: FireShrapnel
+		Weapon: PrismTowerCluster
+		Amount: 1
+		AimTargetStances: Neutral, Enemy
+		AimChance: 25
+		ValidTargets: GroundActor
+		InvalidTargets: Infantry
+
+PrismTowerSupport:
+	Range: 10c0
+	ReloadDelay: 75
+	FirstBurstTargetOffset: 0,0,1024
+	ValidTargets: PrismTowerSupport
+	Projectile: LaserZap
+		Color: 83EAFF
+		Width: 64
+		SecondaryBeamWidth: 32
+		SecondaryBeam: true
+		SecondaryBeamColor: FFFFFF
+		Duration: 75
+		TrackTarget: false
+
+PrismTowerSupportReal:
+	Range: 10c0
+	ReloadDelay: 50
+	ValidTargets: PrismTowerSupport
+	Projectile: InstantHit
+	Warhead@0Condition: GrantExternalCondition
+		Range: 512
+		ValidTargets: PrismTowerSupport
+		ValidRelationships: Ally
+		Condition: prism_support
+		Duration: 40
+
 RevealSuperweapons:
 	Inherits: DoomBFGTest
 	ValidTargets: Ground, Water, GroundActor, WaterActor
 	-Warhead@frag:
 	Warhead@global: GlobalExplodeWeapon
 		Weapon: RevealSuperweaponsCondition
-		ValidTargets: Superweapon
+		ValidTargets: Superweapon, Air, Ground, Water
 		ValidRelationships: Enemy, Neutral
+		ImpactActors: false
 
 RevealSuperweaponsCondition:
+	ValidTargets: Superweapon
 	Warhead@1Dam: SpreadDamage
 		Spread: 128
 		Damage: 1

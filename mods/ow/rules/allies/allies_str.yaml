@@ -412,10 +412,8 @@ PRISM:
 	WithBuildingBib:
 		HasMinibib: true
 	AutoTarget:
-		MaximumScanTimeInterval: 4
-		MinimumScanTimeInterval: 2
-	AutoTargetPriority@support:
-		ValidTargets: PrismTowerSupport
+	AutoTargetPriority@vehicle:
+		ValidTargets: Vehicle
 		Priority: 10
 	Armament@main:
 		RequiresCondition: charged
@@ -428,34 +426,21 @@ PRISM:
 		PauseOnCondition: ammo < 5
 		Weapon: PrismTowerSound
 		AmmoUsage: 0
-	Armament@support:
-		Name: secondary
-		PauseOnCondition: (ammo < 5) || charging
-		Weapon: PrismTowerSupport
-		TargetRelationships: Ally
-		ForceTargetRelationships: None
-		LocalOffset: 0,0,896
-		AmmoUsage: 4
-		FireDelay: 1
-	Armament@support2:
-		Name: secondary
-		PauseOnCondition: (ammo < 5) || charging
-		Weapon: PrismTowerSupportReal
-		TargetRelationships: Ally
-		ForceTargetRelationships: None
-		LocalOffset: 0,0,896
-		AmmoUsage: 0
 	GrantConditionOnAttack@charge:
-		ArmamentNames: sound
+		ArmamentNames: sound, secondary
 		RevokeDelay: 40
 		Condition: charging
+	GrantConditionOnAttack@main:
+		ArmamentNames: primary
+		RevokeDelay: 100
+		Condition: full_cooldown
 	GrantDelayedCondition@charge:
 		RequiresCondition: charging
 		Condition: charged
 		Delay: 35
 		RevokeOnDisabled: true
 	Targetable@charge:
-		RequiresCondition: charging
+		RequiresCondition: charging && (prism_support < 5)
 		TargetTypes: PrismTowerSupport
 	ExternalCondition@support:
 		Condition: prism_support
@@ -491,20 +476,121 @@ PRISM:
 		Color: A9F6FFC9
 	AmmoPool:
 		Ammo: 5
-		Armaments: primary, secondary, sound
+		Armaments: primary, secondary, secondary1, secondary2, secondary3, secondary4, secondary5, sound
 		AmmoCondition: ammo
 	ReloadAmmoPool:
-		Delay: 22
+		Delay: 18
 	AttackTurreted:
-		Armaments: primary, secondary, sound
-		PauseOnCondition: disabled || build-incomplete
+		Armaments: primary, secondary, secondary1, secondary2, secondary3, secondary4, secondary5, sound
+		PauseOnCondition: disabled || build-incomplete || full_cooldown || charging_support
 	Turreted:
 	Power:
 		Amount: -75
 	ProvidesPrerequisite@buildingname:
+	ProximityExternalCondition@prism1:
+		Condition: prism_alive
+		Range: 512
+	ProximityExternalCondition@prism2:
+		RequiresCondition: disabled
+		Range: 512
+		Condition: disabled
+	ProximityExternalCondition@prism3:
+		RequiresCondition: charging
+		Range: 512
+		Condition: charging_dummy
+	ExternalCondition@charging:
+		Condition: charging_support
 	WithSpriteBody:
 		PauseOnCondition: disabled || charging
 	RenderRangeCircle: 
 		FallbackRange: 9c0
 		RangeCircleType: Prism
 		Color: 83FBFF85
+	FreeActor@dummy:
+		Actor: PRISM.Dummy
+
+PRISM.Dummy:
+	Inherits: MINE_DUMMY
+	Inherits@IDISABLE: ^DisableOnLowPower
+	Inherits@USASTRAT: ^USAStrategyBuffs
+	DamageMultiplier@0:
+		Modifier: 0
+	Targetable:
+		TargetTypes: Defense, GroundActor, Structure
+	KillsSelf@prism:
+		RequiresCondition: !prism_alive
+		Delay: 25
+		RemoveInstead: true
+	ExternalCondition@prism1:
+		Condition: prism_alive
+	ExternalCondition@prism2:
+		Condition: disabled
+	ExternalCondition@prism3:
+		Condition: charging_dummy
+	AutoTarget:
+		MaximumScanTimeInterval: 8
+		MinimumScanTimeInterval: 6
+	AutoTargetPriority@DEFAULT:
+		ValidTargets: PrismTowerSupport
+	Armament@support:
+		Name: secondary
+		PauseOnCondition: (ammo < 5) || charging || charging_dummy
+		Weapon: PrismTowerSupport
+		TargetRelationships: Ally
+		ForceTargetRelationships: None
+		LocalOffset: 0,0,896
+		AmmoUsage: 1
+		FireDelay: 1
+	Armament@support_real1:
+		Name: secondary1
+		PauseOnCondition: (ammo < 5) || charging || charging_dummy
+		Weapon: PrismTowerSupportReal
+		TargetRelationships: Ally
+		ForceTargetRelationships: None
+		AmmoUsage: 1
+	Armament@support_real2:
+		Name: secondary2
+		RequiresCondition: prism_support > 0
+		Weapon: PrismTowerSupportReal
+		TargetRelationships: Ally
+		ForceTargetRelationships: None
+		AmmoUsage: 1
+	Armament@support_real3:
+		Name: secondary3
+		RequiresCondition: prism_support > 1
+		Weapon: PrismTowerSupportReal
+		TargetRelationships: Ally
+		ForceTargetRelationships: None
+		AmmoUsage: 1
+	Armament@support_real4:
+		Name: secondary4
+		RequiresCondition: prism_support > 2
+		Weapon: PrismTowerSupportReal
+		TargetRelationships: Ally
+		ForceTargetRelationships: None
+		AmmoUsage: 1
+	Armament@support_real5:
+		Name: secondary5
+		RequiresCondition: prism_support > 3
+		Weapon: PrismTowerSupportReal
+		TargetRelationships: Ally
+		ForceTargetRelationships: None
+		AmmoUsage: 1
+	AmmoPool:
+		Ammo: 5
+		Armaments: primary, secondary, secondary1, secondary2, secondary3, secondary4, secondary5, sound
+		AmmoCondition: ammo
+	ReloadAmmoPool:
+		Delay: 18
+	Turreted:
+	AttackTurreted:
+		Armaments: primary, secondary, secondary1, secondary2, secondary3, secondary4, secondary5, sound
+		PauseOnCondition: disabled || build-incomplete || full_cooldown || charging_dummy
+	GrantConditionOnAttack@charge:
+		ArmamentNames: secondary
+		RevokeDelay: 90
+		Condition: charging
+	ProximityExternalCondition@prism3:
+		RequiresCondition: charging
+		Range: 512
+		Condition: charging_support

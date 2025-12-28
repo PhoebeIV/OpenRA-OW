@@ -496,8 +496,8 @@ usaairstriplandingspot:
 		
 usastrategycenter:
 	Inherits: ^ScienceBuilding
-	Inherits@IDISABLE: ^DisableOnLowPowerOrPowerDown
 	Inherits@shape: ^3x3Shape
+	Inherits@AUTOTARGET: ^AutoTargetGround
 	Selectable:
 		Bounds: 3072, 3072
 	Buildable:
@@ -508,7 +508,7 @@ usastrategycenter:
 	Tooltip:
 		Name: actor-usastrategycenter.name
 	ProvidesRadar:
-		RequiresCondition: !lowpower
+		RequiresCondition: !disabled
 	Building:
 		Footprint: xxx xxx x=x
 		Dimensions: 3,3
@@ -520,9 +520,6 @@ usastrategycenter:
 		Type: Heavy
 	Power:
 		Amount: -100
-	Power@Strategy:
-		Amount: -100
-		RequiresCondition: bombardment || hold_the_line || search_and_destroy
 	RevealsShroud:
 		MinRange: 5c0
 		Range: 7c0
@@ -604,7 +601,12 @@ usastrategycenter:
 		Weapon: usafirebaseshot
 		LocalOffset: 520,0,450
 		RequiresCondition: bombardment
+		PauseOnCondition: disabled
 	RangeMultiplier@default:
+		Modifier: 200
+	ReloadDelayMultiplier@default:
+		Modifier: 200
+	FirepowerMultiplier@default:
 		Modifier: 200
 	WithIdleOverlay@HOLD_THE_LINE:
 		Sequence: hold_the_line
@@ -617,11 +619,7 @@ usastrategycenter:
 		Sequence: search_and_destroy
 		RequiresCondition: search_and_destroy
 	AttackTurreted:
-		PauseOnCondition: build-incomplete || emp || hacked || lowpower || disabled
-	WithRangeCircle:
-		Range: 10c0
-		Color: DDDD0088
-		RequiresCondition: bombardment
+		PauseOnCondition: build-incomplete || emp || hacked || disabled
 	WithSpriteTurret:
 		RequiresCondition: bombardment && !build-incomplete
 	GrantConditionOnPrerequisite@bombardment:
@@ -702,6 +700,8 @@ usastrategycenter:
 		RequiresCondition: botowner
 		Delay: 9000, 15000
 		Condition: sell_me
+	Power:
+		Amount: -200
 
 usastrategycenter.bom:
 	Inherits: usastrategycenter
@@ -726,6 +726,8 @@ usastrategycenter.bom:
 		RequiresCondition: announce
 		Range: 3c0
 		ValidRelationships: Ally, Neutral, Enemy
+	RenderRangeCircle:
+	-CommandBarBlacklist:
 
 usastrategycenter.htl:
 	Inherits: usastrategycenter.bom
@@ -733,6 +735,8 @@ usastrategycenter.htl:
 		Prerequisite: upgrade.holdtheline
 	VoiceAnnouncement:
 		Voice: HTL
+	-RenderRangeCircle:
+	CommandBarBlacklist:
 
 usastrategycenter.snd:
 	Inherits: usastrategycenter.bom
@@ -741,6 +745,8 @@ usastrategycenter.snd:
 	VoiceAnnouncement:
 		RequiresCondition: announce
 		Voice: SND
+	-RenderRangeCircle:
+	CommandBarBlacklist:
 
 ^USAStratChoice:
 	Buildable:

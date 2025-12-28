@@ -405,6 +405,10 @@ UpgradeHandler:
 	GrantConditionOnPrerequisite@conyard:
 		Condition: conyard
 		Prerequisites: conyard
+	Production@hack:
+		RequiresCondition: !conyard
+		PauseOnCondition: !never
+		Produces: Building, Defense, Tech, Wall, Upgrade
 	ExternalCondition@upgrade:
 		Condition: upgradelevel
 	FreeActor:
@@ -578,6 +582,11 @@ BuildQueueHandler:
 
 BuildQueueHandler2:
 	Inherits@mine: BuildQueueHandler
+	ProductionQueue@ability:
+		Type: DroneEvolve
+		Group: Building
+	Production@ability:
+		Produces: DroneEvolve
 	-FreeActor@hack:
 	ProvidesPrerequisite:
 	KillsSelf@11:
