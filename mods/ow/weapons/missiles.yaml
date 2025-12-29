@@ -682,22 +682,38 @@ GLASCUD:
 	ReloadDelay: 350
 	Range: 14c0
 	MinRange: 5c0
-	Report: samshot1.aud
-	-Projectile:
-	Projectile: Bullet
-		Speed: 70
-		Blockable: false
-		TrailImage: smokey
-		TrailDelay: 4
-		Inaccuracy: 213
+	Report: vscuweaa.wav
+	Projectile: Missile
+		Speed: 400
 		Image: V2
 		Shadow: True
 		LaunchAngle: 150
+		Blockable: false
+		TrailImage: smokey
+		TrailDelay: 4
+		RangeLimit: 30c0
+		ExplodeWhenEmpty: false
+		CruiseAltitude: 4c0
+		MinimumLaunchAngle: 256
+		MinimumLaunchSpeed: 64
+		MaximumLaunchSpeed: 64
+		HorizontalRateOfTurn: 8
+		VerticalRateOfTurn: 8
+		Gravity: 0
+		Acceleration: 3
+		HomingActivationDelay: 12
+		LockOnProbability: 0
+		Inaccuracy: 1c0
+		ContrailLength: 33
+		ContrailStartWidth: 72
+		ContrailZOffset: 1021
+		Jammable: false
+		PointDefenseType: cruisemissile
 	Warhead@1Dam: SpreadDamage
 		Spread: 600
 		Damage: 22500
 		ValidTargets: GroundActor, WaterActor, Trees
-		Falloff: 150, 80, 60, 40, 20, 10, 0
+		Falloff: 225, 75, 60, 40, 20, 10, 0
 		Versus:
 			None: 35
 			Wood: 75
@@ -707,14 +723,20 @@ GLASCUD:
 		AffectsParent: true
 		DamageTypes: Prone50Percent, TriggerProne, SmallExplosionDeath, Incendiary
 	Warhead@3Eff: CreateEffect
-		Explosions: building
-		ImpactSounds: dsbigexp.aud
+		Explosions: dukenukemexplosionmed2
+		ImpactSounds: gexpcara.aud, gexpcarb.aud, gexpcarc.aud, gexpcard.aud
 	Warhead@4EffWater: CreateEffect
 		Explosions: large_splash
+	Warhead@5shake: ShakeScreen
+		Duration: 5
+		Intensity: 1
+		Multiplier: 1,1
 
 
 ToxinSCUD:
 	Inherits: GLASCUD
+	Projectile: Missile
+		ContrailStartColor: 60FF60
 	Warhead@1Dam: SpreadDamage
 		Spread: 768
 		Damage: 12500
@@ -726,28 +748,25 @@ ToxinSCUD:
 			Concrete: 20
 		AffectsParent: true
 	Warhead@gas: FireCluster
-		Delay: 4
 		Weapon: A10Gas
 		RandomClusterCount: 5
-		Dimensions: 4,4
-		Footprint: xxxx xxxx xxxx xxxx
+		Dimensions: 5,5
+		Footprint: _xxx_ xx_xx x_x_x xx_xx _xxx_
+	Warhead@3Eff: CreateEffect
+		Explosions: dukenukemexplosion_green
 
 ToxinSCUD_Beta:
 	Inherits: ToxinSCUD
+	Projectile: Missile
+		ContrailStartColor: 6098FF
 	Warhead@1Dam: SpreadDamage
-		Damage: 13300
+		Versus:
+			None: 80
 	Warhead@gas: FireCluster
-		Delay: 4
-		Weapon: A10Gas_Beta
-		RandomClusterCount: 3
-		Dimensions: 3,3
-		Footprint: xxx xxx xxx
-	Warhead@gas2: FireCluster
-		Delay: 8
 		Weapon: A10Gas_Beta
 		RandomClusterCount: 6
-		Dimensions: 6,6
-		Footprint: xxxxxx xxxxxx xxxxxx xxxxxx xxxxxx xxxxxx
+	Warhead@3Eff: CreateEffect
+		Explosions: dukenukemexplosion_blue
 
 TowerMissile:
 	Inherits: ^AntiGroundMissile
@@ -1354,7 +1373,7 @@ tomahawkmissile:
 	Inherits: ^AntiGroundMissile
 	ReloadDelay: 250
 	Range: 13c0
-	Report: btunweaa.wav, btunweab.wav, btunweac.wav, btunwead.wav
+	Report: vtomweaa.wav
 	Projectile: Missile
 		Speed: 200
 		HorizontalRateOfTurn: 20

@@ -5045,6 +5045,9 @@ actor-usastrategycenter =
    .socket = Unchosen Strategy
    .sell = 
    Sell to change Strategy
+   .bom = Strategy Center - Bombardment
+   .htl = Strategy Center - Hold the Line
+   .snd = Strategy Center - Search and Destroy
 
 actor-usaminedropactor =
    .description = Highly explosive proximity trap.

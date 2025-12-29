@@ -947,13 +947,14 @@ MSLO:
 
 SYRD:
 	Inherits@prereqs: ^NavalPrereqs
+	Inherits@Navyspot: ^NavalYardSpot
 	Buildable:
 		Prerequisites: anypower, ~structures.syrdprereq, ~techlevel.low, ~!techlevel.noboats # Allies, GDI, Fed, UAC
 		BuildPaletteOrder: 105
 	GrantExternalConditionToProduced:
 		Condition: produced
 	Building:
-		Footprint: =x= x=x =x=
+		Footprint: =x= x=x ===
 	-SpawnActorsOnSell@uac:
 	-SpawnActorsOnSell@fed:
 	-SpawnActorsOnSell@gla:
@@ -971,23 +972,17 @@ SYRD:
 		ProductionTypes: Ship, Boat, Submarine
 	Exit@4:
 		ProductionTypes: Ship, Boat, Submarine
-	Refinery:
-	DockHost:
-		Type: Oil
-		DockAngle: 256
-		DockOffset: 0, 0, 0
-	StoresPlayerResources:
-		Capacity: 1000
 
 SPEN:
 	Inherits@prereqs: ^NavalPrereqs
+	Inherits@Navyspot: ^NavalYardSpot
 	Buildable:
 		Prerequisites: anypower, ~structures.spenprereq, ~techlevel.low, ~!techlevel.noboats # Soviet, Nod, Nazis
 		BuildPaletteOrder: 106
 	GrantExternalConditionToProduced:
 		Condition: produced
 	Building:
-		Footprint: =x= x=x =x=
+		Footprint: =x= x=x ===
 	-SpawnActorsOnSell@uac:
 	-SpawnActorsOnSell@fed:
 	-SpawnActorsOnSell@gla:
@@ -997,13 +992,25 @@ SPEN:
 	Reservable:
 	Production:
 		Produces: Ship, Boat, Submarine
-	Refinery:
-	DockHost:
-		Type: Oil
-		DockAngle: 256
-		DockOffset: 0, 0, 0
-	StoresPlayerResources:
-		Capacity: 1000
+
+SYRD.Spot:
+	Inherits: MINE_DUMMY
+	WithSpriteBody:
+	RenderSprites:
+		Image: usaairstriplandingspot
+	Targetable:
+		TargetTypes: Water, NoAutoTarget, NoAITarget, UpgradeThing
+	Reservable:
+	Health:
+		HP: 10000
+	Armor:
+		Type: Wood
+	ExternalCondition:
+		Condition: spen_alive
+	KillsSelf:
+		RequiresCondition: !spen_alive
+		Delay: 50
+		RemoveInstead: true
 
 HPAD:
 	Inherits@prereqs: ^AircraftPrereqs

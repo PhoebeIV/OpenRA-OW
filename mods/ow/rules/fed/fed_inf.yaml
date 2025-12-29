@@ -270,23 +270,20 @@ FE6.PL:
 	InstantlyRepairs:
 	RepairsBridges:
 	CaptureManager:
-	GrantConditionOnPrerequisite@GLOBALREUSABLEENGINEER:
-		Condition: global-reusable-engineers
-		Prerequisites: global-reusable-engineers
-	Captures:
-		RequiresCondition: !global-reusable-engineers
-		CaptureTypes: building
-		PlayerExperience: 25
-		CaptureDelay: 200
-		ValidRelationships: Enemy, Ally, Neutral
 	Captures@REUSABLE:
-		RequiresCondition: global-reusable-engineers
 		CaptureTypes: building
 		PlayerExperience: 25
-		CaptureDelay: 375
+		CaptureDelay: 150
 		ConsumedByCapture: False
 		EnterCursor: ability
 		EnterBlockedCursor: move-blocked
+		SabotageThreshold: 25
+		SabotageHPRemoval: 30
+	Infiltrates:
+		Types: Husk
+		ValidRelationships: Ally
+		EnterCursor: goldwrench
+		PlayerExperience: 25
 	Captures@husk:
 		CaptureTypes: husk
 		PlayerExperience: 25
@@ -300,6 +297,8 @@ FE6.PL:
 	AutoTarget:
 		InitialStance: AttackAnything
 		ScanRadius: 6
+	AutoTargetPriority:
+		ValidTargets: Repair
 	GrantConditionOnAttack@healXP:
 		Condition: give_xp
 		RevokeDelay: 51

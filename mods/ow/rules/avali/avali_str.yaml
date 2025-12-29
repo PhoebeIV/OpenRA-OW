@@ -1,3 +1,7 @@
+^AvaliBuilding:
+	Building:
+		BuildSounds: pbldgplc.aud, constru2.aud
+
 AVFACT:
 	Inherits: FACTD
 	Selectable:
@@ -9,7 +13,7 @@ AVFACT:
 		Name: actor-avfact-name
 	SpawnActorsOnSell:
 		ActorTypes: avinf1,avinf1,avinf1,tecn,tecn2
-		GuaranteedActorTypes: avinf1, e6
+		GuaranteedActorTypes: avinf1, avinf2
 	Transforms:
 		RequiresCondition: factundeploy
 		PauseOnCondition: chrono-vortex || being-captured || being-demolished || build-incomplete
@@ -30,6 +34,7 @@ AVFACT:
 		Palette: cloak
 
 ^AvaliPowerPlant:
+	Inherits@avali: ^AvaliBuilding
 	GrantConditionOnTerrain@buffsnow:
 		TerrainTypes: ClearSnow
 		Condition: env_buffsnow
@@ -183,6 +188,7 @@ AVPOWR3:
 
 AVPROC:
 	Inherits: PROC
+	Inherits@avali: ^AvaliBuilding
 	Buildable:
 		Prerequisites: anypower, ~techlevel.infonly, ~structures.avalon, ~!ai.god
 	Tooltip:
@@ -191,11 +197,10 @@ AVPROC:
 		Actor: AVHARV
 	-GrantConditionOnFaction:
 	-WithIdleOverlay@uac:
-	RenderSprites:
-		Image: PROC
 
 AVTENT:
 	Inherits: TENT
+	Inherits@avali: ^AvaliBuilding
 	Inherits@BIB: ^3xBuildingBib
 	Inherits@SHAPE: ^3x2Shape
 	Selectable:
@@ -232,17 +237,16 @@ AVTENT:
 
 AVWEAP:
 	Inherits: WEAP
+	Inherits@avali: ^AvaliBuilding
 	Buildable:
 		Queue: Building
 		Prerequisites: refinery, barracks, ~techlevel.low, ~structures.avalon, ~!structures.bothard
 	Tooltip:
 		Name: actor-avweap-name
-	RenderSprites:
-		Image: WEAP
-
 
 AVRADAR:
 	Inherits: ^Building
+	Inherits@avali: ^AvaliBuilding
 	Inherits@IDISABLE: ^DisableOnLowPowerOrPowerDown
 	Inherits@shape: ^2x2Shape
 	Inherits@BIB: ^2xBuildingBib
@@ -297,8 +301,6 @@ AVRADAR:
 	WithDeathAnimation:
 		DeathSequence: dead
 		UseDeathTypeSuffix: false
-	RenderSprites:
-		Image: HQD
 	AirstrikePower@avali:
 		PauseOnCondition: disabled
 		OrderName: AvaliAirstrike
@@ -325,6 +327,7 @@ AVRADAR:
 
 AVPAD:
 	Inherits: HPAD
+	Inherits@avali: ^AvaliBuilding
 	Selectable:
 		Bounds: 2048, 2048
 	Buildable:
@@ -342,12 +345,11 @@ AVPAD:
 		LocalCenterOffset: 0,-512,0
 	Health:
 		HP: 80000
-	RenderSprites:
-		Image: HPAD
 
 AVTECH:
 	Inherits: ^ScienceBuilding
 	Inherits@TECH: ^TechCenter
+	Inherits@avali: ^AvaliBuilding
 	Inherits@IDISABLE: ^DisableOnLowPower
 	Inherits@shape: ^2x2Shape
 	Inherits@BIB: ^2xBuildingBib
@@ -380,11 +382,10 @@ AVTECH:
 	Targetable:
 		TargetTypes: GroundActor, C4, DetonateAttack, Structure, SpyInfiltrate
 	ProvidesPrerequisite@buildingname:
-	RenderSprites:
-		Image: ATEK
 
 AVFROST:
 	Inherits: ^Building
+	Inherits@avali: ^AvaliBuilding
 	Inherits@IDISABLE: ^DisableOnLowPowerOrPowerDown
 	Valued:
 		Cost: 400
@@ -413,8 +414,6 @@ AVFROST:
 		MaxRange: 9
 		RequiresCondition: !disabled
 	-AcceptsDeliveredCash:
-	RenderSprites:
-		Image: OREGEN
 	FireWarheadsOnDeath@frost:
 		Weapon: FrostRemoveMed
 		-RequiresCondition:
@@ -430,8 +429,7 @@ AVFROST:
 
 AVPBOX:
 	Inherits: PBOX
-	RenderSprites:
-		Image: pbox
+	Inherits@avali: ^AvaliBuilding
 	Tooltip:
 		Name: actor-avpbox.name
 	Buildable:
@@ -446,6 +444,7 @@ AVPBOX:
 
 AVTOWR:
 	Inherits: ^Defense
+	Inherits@avali: ^AvaliBuilding
 	Inherits@IDISABLE: ^DisableOnLowPowerOrPowerDown
 	Inherits@AUTOTARGET: ^AutoTargetAll
 	Valued:
@@ -495,9 +494,8 @@ AVTOWR:
 
 AVGUN:
 	Inherits: ^Defense
+	Inherits@avali: ^AvaliBuilding
 	Inherits@AUTOTARGET: ^AutoTargetGround
-	RenderSprites:
-		Image: GUN
 	Buildable:
 		Queue: Defense
 		BuildPaletteOrder: 70
