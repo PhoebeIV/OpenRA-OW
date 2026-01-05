@@ -286,7 +286,7 @@ label-mainmenu-system-info-prompt-text-a = We would like to collect some system 
 label-mainmenu-system-info-prompt-text-b = With your permission, the following anonymous data will be sent each game launch:
 checkbox-mainmenu-system-info-prompt-sysinfo = Send System Information
 
-## mainmenu-prompts.yaml, settings-display.yaml
+## mainmenu-prompts.yaml, settings-display.yaml, settings-gameplay.yaml
 label-profile-section-header = Profile
 label-player-container = Player Name:
 label-playercolor-container-color = Preferred Color:
@@ -300,6 +300,7 @@ label-input-section-header = Input
 label-mouse-control-container = Control Scheme:
 label-mouse-control-desc-classic-selection = - Select units using the <Left> mouse button
 label-mouse-control-desc-classic-commands = - Command units using the <Left> mouse button
+label-mouse-control-desc-classic-orders = - Confirm orders using the <Left> mouse button
 label-mouse-control-desc-classic-buildings = - Place structures using the <Left> mouse button
 label-mouse-control-desc-classic-support = - Target support powers using the <Left> mouse button
 label-mouse-control-desc-classic-zoom = - Zoom the battlefield using the <Scroll Wheel>
@@ -307,8 +308,19 @@ label-mouse-control-desc-classic-zoom-modifier = - Zoom the battlefield using <M
 label-mouse-control-desc-classic-scroll-right = - Pan the battlefield using the <Right> mouse button
 label-mouse-control-desc-classic-scroll-middle = - Pan the battlefield using the <Middle> mouse button
 label-mouse-control-desc-classic-edgescroll = or by moving the cursor to the edge of the screen
+label-mouse-control-desc-otherrts-selection = - Select units using the <Left> mouse button
+label-mouse-control-desc-otherrts-commands = - Command units using the <Right> mouse button
+label-mouse-control-desc-otherrts-orders = - Confirm orders using the <Left> mouse button
+label-mouse-control-desc-otherrts-buildings = - Place structures using the <Left> mouse button
+label-mouse-control-desc-otherrts-support = - Target support powers using the <Left> mouse button
+label-mouse-control-desc-otherrts-zoom = - Zoom the battlefield using the <Scroll Wheel>
+label-mouse-control-desc-otherrts-zoom-modifier = - Zoom the battlefield using <MODIFIER + Scroll Wheel>
+label-mouse-control-desc-otherrts-scroll-right = - Pan the battlefield using the <Right> mouse button
+label-mouse-control-desc-otherrts-scroll-middle = - Pan the battlefield using the <Middle> mouse button
+label-mouse-control-desc-otherrts-edgescroll = or by moving the cursor to the edge of the screen
 label-mouse-control-desc-modern-selection = - Select units using the <Left> mouse button
 label-mouse-control-desc-modern-commands = - Command units using the <Right> mouse button
+label-mouse-control-desc-modern-orders = - Confirm orders using the <Right> mouse button
 label-mouse-control-desc-modern-buildings = - Place structures using the <Left> mouse button
 label-mouse-control-desc-modern-support = - Target support powers using the <Left> mouse button
 label-mouse-control-desc-modern-zoom = - Zoom the battlefield using the <Scroll Wheel>
@@ -494,9 +506,10 @@ label-video-volume-container = Video Volume:
 label-restart-required-container-audio-desc = Device changes will be applied after the game is restarted
 
 ## settings-gameplay.yaml
-label-game-play-section-header = Auto-save
-auto-save-interval-label = Auto-save frequency:
-auto-save-nr-label = Auto-save limit:
+label-gameplay-section-header = Gameplay
+label-auto-save-interval = Auto-save frequency:
+label-auto-save-max-file-number = Auto-save limit:
+checkbox-hide-replay-chat-container = Hide Chat in Replays
 
 ## settings-display.yaml
 label-target-lines-dropdown-container = Target Lines:
@@ -515,7 +528,6 @@ checkbox-transients-container =
     .tooltip = Show transient text notifications for game events
 
 checkbox-pause-shellmap-container = Pause Menu Background
-checkbox-hide-replay-chat-container = Hide Chat in Replays
 label-video-section-header = Video
 label-video-mode-dropdown-container = Video Mode:
 dropdownbutton-video-mode-dropdown-container = Windowed
@@ -565,6 +577,12 @@ label-ui-scrollspeed-slider-container-scroll-speed = UI Scroll Speed:
 
 ## settings.yaml
 button-settings-panel-reset = Reset
+button-panel-gameplay = Gameplay
+button-panel-input = Input
+button-panel-display = Display
+button-panel-audio = Audio
+button-panel-hotkeys = Hotkeys
+button-panel-advanced = Advanced
 
 ## tooltips.yaml
 label-latency-tooltip-prefix = Latency:

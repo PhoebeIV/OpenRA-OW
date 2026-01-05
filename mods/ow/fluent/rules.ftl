@@ -122,6 +122,16 @@ notification-base-under-attack = Base under attack.
 notification-ally-under-attack = Our ally is under attack.
 notification-silos-needed = Silos needed.
 
+## ai.yaml
+bot-name =
+    .easy = Easy
+    .medium = Medium
+    .hard = Hard
+    .harder = Harder
+    .boss = Boss
+    .god = God
+    .tech = Tech Rusher
+
 ## ai_str.yaml
 actor-foundry-bot-name = Automation Facility
 actor-gfoundry-bot-name = Automation Facility - Hole Edition

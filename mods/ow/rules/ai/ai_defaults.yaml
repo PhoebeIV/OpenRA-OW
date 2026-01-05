@@ -1,0 +1,147 @@
+^Building:
+	GrantConditionOnBotOwner@bot:
+		Condition: botowner
+		Bots: easy,medium,hard,hard_b,harder,boss,boss2
+	GrantConditionOnPrerequisite@botowner:
+		Condition: botowner
+		Prerequisites: ai.all
+	GrantConditionOnPrerequisite@botmoney:
+		Condition: bot_med
+		Prerequisites: ai.medium
+	GrantConditionOnPrerequisite@botmoney2:
+		Condition: bot_hard
+		Prerequisites: ai.hard
+	GrantConditionOnPrerequisite@botmoney4:
+		Condition: bot_harder
+		Prerequisites: ai.harder
+	GrantConditionOnPrerequisite@botmoney3:
+		Condition: bot_boss
+		Prerequisites: ai.god
+	ExternalCondition@trigger_repair:
+		Condition: trigger_repair
+	ChangesHealth@trigger_repair:
+		RequiresCondition: trigger_repair && botowner
+		Step: 700
+		Delay: 24
+		StartIfBelow: 100
+	ChangesHealth@trigger_repair2:
+		RequiresCondition: trigger_repair && !botowner
+		Step: 300
+		Delay: 24
+		StartIfBelow: 100
+
+^ScienceBuilding:
+	Production@boss:
+		Produces: Structure, Tech, Upgrade
+		PauseOnCondition: !bot_boss
+	BaseProvider@boss:
+		Range: 8c0
+		RequiresCondition: bot_boss
+
+^Defense:
+	PowerMultiplier@medAI:
+		RequiresCondition: bot_med
+		Modifier: 75
+	PowerMultiplier@hardAI:
+		RequiresCondition: bot_hard
+		Modifier: 50
+	PowerMultiplier@bossAI:
+		RequiresCondition: bot_boss || bot_harder
+		Modifier: 10
+	RangeMultiplier@harderAI:
+		RequiresCondition: bot_harder && !bot_boss
+		Modifier: 125
+	DamageMultiplier@harderAI:
+		RequiresCondition: bot_harder && !bot_boss
+		Modifier: 75
+	FirepowerMultiplier@harderAI:
+		RequiresCondition: bot_harder && !bot_boss
+		Modifier: 110
+	ReloadDelayMultiplier@harderAI:
+		RequiresCondition: bot_harder && !bot_boss
+		Modifier: 80
+
+^PowerPlant:
+	PowerMultiplier@medAI:
+		RequiresCondition: bot_med
+		Modifier: 125
+	PowerMultiplier@hardAI:
+		RequiresCondition: bot_hard
+		Modifier: 150
+	PowerMultiplier@harderAI:
+		RequiresCondition: bot_harder
+		Modifier: 110
+	PowerMultiplier@bossAI:
+		RequiresCondition: bot_boss
+		Modifier: 400
+	ProvidesPrerequisite@poweroutage:
+		RequiresCondition: power-outage
+		Prerequisite: ai.powerout
+		RequiresPrerequisites: ai.hard
+
+^BotQueue_Infantry:
+	ProductionQueue@hardAI:
+		Type: Infantry
+		DisplayOrder: 2
+		Group: Infantry
+		LowPowerModifier: 100
+		BuildDurationModifier: 200
+
+^BotQueue_Vehicle:
+	ProductionQueue@hardAI:
+		Type: Vehicle
+		DisplayOrder: 3
+		Group: Vehicle
+		LowPowerModifier: 100
+		BuildDurationModifier: 200
+	BaseProvider@boss:
+		Range: 12c0
+		RequiresCondition: bot_boss
+
+^BotQueue_Aircraft:
+	ProductionQueue@hardAI:
+		Type: Aircraft
+		DisplayOrder: 3
+		Group: Aircraft
+		LowPowerModifier: 100
+		BuildDurationModifier: 200
+	BaseProvider@boss:
+		Range: 12c0
+		RequiresCondition: bot_boss
+
+^ConYard:
+	ProvidesPrerequisite@ai1:
+		RequiresPrerequisites: ai.god
+		Prerequisite: upgrade.buildarmor1
+	ProvidesPrerequisite@ai2:
+		RequiresPrerequisites: ai.god
+		Prerequisite: upgrade.buildfirepower1
+	ProvidesPrerequisite@ai3:
+		RequiresPrerequisites: ai.god
+		Prerequisite: upgrade.infarmor1
+	ProvidesPrerequisite@ai4:
+		RequiresPrerequisites: ai.god
+		Prerequisite: upgrade.veharmor1
+	ProvidesPrerequisite@ai5:
+		RequiresPrerequisites: ai.god
+		Prerequisite: upgrade.navalarmor1
+	ProvidesPrerequisite@ai6:
+		RequiresPrerequisites: ai.god
+		Prerequisite: upgrade.airarmor1
+
+^GlobalBounty:
+	ExternalCondition@AIbounty: # this allows players to gain bounty off boss AI kills
+		Condition: bossbounty
+	GivesBounty@boss:
+		RequiresCondition: !global-bounty && bossbounty
+		Percentage: 5
+	GrantConditionOnPrerequisite@bossbounty:
+		Condition: bossbountyexternal
+		Prerequisites: ai.god
+	ProximityExternalCondition@bossbounty:
+		RequiresCondition: !global-bounty && bossbountyexternal
+		Condition: bossbounty
+		ValidRelationships: Ally, Enemy, Neutral
+		AffectsParent: true
+		Range: 6c0
+

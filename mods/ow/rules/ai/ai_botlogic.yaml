@@ -1,172 +1,25 @@
-^Building:
-	GrantConditionOnBotOwner@bot:
-		Condition: botowner
-		Bots: easy,medium,hard,hard_b,harder,boss,boss2
-	GrantConditionOnPrerequisite@botowner:
-		Condition: botowner
-		Prerequisites: ai.all
-	GrantConditionOnPrerequisite@botmoney:
-		Condition: bot_med
-		Prerequisites: ai.medium
-	GrantConditionOnPrerequisite@botmoney2:
-		Condition: bot_hard
-		Prerequisites: ai.hard
-	GrantConditionOnPrerequisite@botmoney4:
-		Condition: bot_harder
-		Prerequisites: ai.harder
-	GrantConditionOnPrerequisite@botmoney3:
-		Condition: bot_boss
-		Prerequisites: ai.god
-	ExternalCondition@trigger_repair:
-		Condition: trigger_repair
-	ChangesHealth@trigger_repair:
-		RequiresCondition: trigger_repair && botowner
-		Step: 700
-		Delay: 24
-		StartIfBelow: 100
-	ChangesHealth@trigger_repair2:
-		RequiresCondition: trigger_repair && !botowner
-		Step: 300
-		Delay: 24
-		StartIfBelow: 100
-
-^ScienceBuilding:
-	Production@boss:
-		Produces: Structure, Tech, Upgrade
-		PauseOnCondition: !bot_boss
-	BaseProvider@boss:
-		Range: 8c0
-		RequiresCondition: bot_boss
-
-^Defense:
-	PowerMultiplier@medAI:
-		RequiresCondition: bot_med
-		Modifier: 75
-	PowerMultiplier@hardAI:
-		RequiresCondition: bot_hard
-		Modifier: 50
-	PowerMultiplier@bossAI:
-		RequiresCondition: bot_boss || bot_harder
-		Modifier: 10
-	RangeMultiplier@harderAI:
-		RequiresCondition: bot_harder && !bot_boss
-		Modifier: 125
-	DamageMultiplier@harderAI:
-		RequiresCondition: bot_harder && !bot_boss
-		Modifier: 75
-	FirepowerMultiplier@harderAI:
-		RequiresCondition: bot_harder && !bot_boss
-		Modifier: 110
-	ReloadDelayMultiplier@harderAI:
-		RequiresCondition: bot_harder && !bot_boss
-		Modifier: 80
-
-^PowerPlant:
-	PowerMultiplier@medAI:
-		RequiresCondition: bot_med
-		Modifier: 125
-	PowerMultiplier@hardAI:
-		RequiresCondition: bot_hard
-		Modifier: 150
-	PowerMultiplier@harderAI:
-		RequiresCondition: bot_harder
-		Modifier: 110
-	PowerMultiplier@bossAI:
-		RequiresCondition: bot_boss
-		Modifier: 400
-	ProvidesPrerequisite@poweroutage:
-		RequiresCondition: power-outage
-		Prerequisite: ai.powerout
-		RequiresPrerequisites: ai.hard
-
-^BotQueue_Infantry:
-	ProductionQueue@hardAI:
-		Type: Infantry
-		DisplayOrder: 2
-		Group: Infantry
-		LowPowerModifier: 100
-		BuildDurationModifier: 200
-
-^BotQueue_Vehicle:
-	ProductionQueue@hardAI:
-		Type: Vehicle
-		DisplayOrder: 3
-		Group: Vehicle
-		LowPowerModifier: 100
-		BuildDurationModifier: 200
-	BaseProvider@boss:
-		Range: 12c0
-		RequiresCondition: bot_boss
-
-^BotQueue_Aircraft:
-	ProductionQueue@hardAI:
-		Type: Aircraft
-		DisplayOrder: 3
-		Group: Aircraft
-		LowPowerModifier: 100
-		BuildDurationModifier: 200
-	BaseProvider@boss:
-		Range: 12c0
-		RequiresCondition: bot_boss
-
-^ConYard:
-	ProvidesPrerequisite@ai1:
-		RequiresPrerequisites: ai.god
-		Prerequisite: upgrade.buildarmor1
-	ProvidesPrerequisite@ai2:
-		RequiresPrerequisites: ai.god
-		Prerequisite: upgrade.buildfirepower1
-	ProvidesPrerequisite@ai3:
-		RequiresPrerequisites: ai.god
-		Prerequisite: upgrade.infarmor1
-	ProvidesPrerequisite@ai4:
-		RequiresPrerequisites: ai.god
-		Prerequisite: upgrade.veharmor1
-	ProvidesPrerequisite@ai5:
-		RequiresPrerequisites: ai.god
-		Prerequisite: upgrade.navalarmor1
-	ProvidesPrerequisite@ai6:
-		RequiresPrerequisites: ai.god
-		Prerequisite: upgrade.airarmor1
-
-^GlobalBounty:
-	ExternalCondition@AIbounty: # this allows players to gain bounty off boss AI kills
-		Condition: bossbounty
-	GivesBounty@boss:
-		RequiresCondition: !global-bounty && bossbounty
-		Percentage: 5
-	GrantConditionOnPrerequisite@bossbounty:
-		Condition: bossbountyexternal
-		Prerequisites: ai.god
-	ProximityExternalCondition@bossbounty:
-		RequiresCondition: !global-bounty && bossbountyexternal
-		Condition: bossbounty
-		ValidRelationships: Ally, Enemy, Neutral
-		AffectsParent: true
-		Range: 6c0
-
 
 Player:
 	ModularBot@NormalAI:
-		Name: Medium
+		Name: bot-name.medium
 		Type: medium
 	ModularBot@EasyAI:
-		Name: Easy
+		Name: bot-name.easy
 		Type: easy
 	ModularBot@HardAI:
-		Name: Hard
+		Name: bot-name.hard
 		Type: hard
 	ModularBot@HarderAI:
-		Name: Harder
+		Name: bot-name.harder
 		Type: harder
 	ModularBot@RealBossAI:
-		Name: Boss
+		Name: bot-name.boss
 		Type: boss2
 	ModularBot@BossAI:
-		Name: God
+		Name: bot-name.god
 		Type: boss
 	ModularBot@Hard1AI:
-		Name: Tech Rusher
+		Name: bot-name.tech
 		Type: hard_b
 	ProvidesPrerequisite@all:
 		RequiresCondition: enable-all-ai
@@ -374,8 +227,8 @@ Player:
 		ExpansionTolerate: 0,1
 		ForceExpansionTolerate: 0
 		CheckForWaterRadius: 12
-		MaxBaseRadius: 50
-		MaximumDefenseRadius: 50
+		MaxBaseRadius: 25
+		MaximumDefenseRadius: 25
 		MinimumExcessPower: 100
 		MaximumExcessPower: 600
 		ExcessPowerIncrement: 40
@@ -383,7 +236,7 @@ Player:
 		StructureProductionInactiveDelay: 100
 		StructureProductionRandomBonusDelay: 50
 		StructureProductionActiveDelay: 45
-		MaximumFailedPlacementAttempts: 8
+		MaximumFailedPlacementAttempts: 3
 		AssignRallyPointsInterval: 250
 		BuildingQueues: Building, Tech, Upgrade, UpgradeBot, BossFaction, Bot, Wall, Building.ZergColony, Nuke, HeroUpgrade1, HeroUpgrade2, HeroUpgrade3, HeroUpgrade4, HeroUpgrade5, HeroAbility, AvaliCarrier, SuperTechChoice, StrategyChoice
 		DefenseQueues: Defense, HeroAbility
@@ -549,18 +402,6 @@ Player:
 			avweap.bot: 3
 			btterminal: 4
 			btterminal.bot: 2
-			hpad: 4 # AIRCRAFT PRODUCTION
-			hpad.bot: 3
-			afld: 6
-			afld.ukraine: 6
-			pstarg: 2
-			usaairfield: 2
-			zspire: 2
-			tsport: 2
-			chinaairfield: 2
-			japanairfield: 2
-			japanairfieldnavy: 2
-			avpad: 4
 			spen: 2 # NAVAL PRODUCTION
 			syrd: 2
 			gspen: 2
@@ -1268,9 +1109,9 @@ Player:
 		RushAttackScanRadius: 30
 		RushInterval: 250
 		IdleScanRadius: 15
-		ProtectionScanRadius: 20
+		ProtectionScanRadius: 8
 		IgnoredEnemyTargetTypes: Catalyst, UpgradeThing, Underwater, NoAITarget, Trees
-		MaxBaseRadius: 50
+		MaxBaseRadius: 20
 	SquadManagerBotModule@easy:
 		RequiresCondition: enable-all-ai && enable-squad-simple
 		ExcludeFromSquadsTypes: harv, harvd,  mcv, mcv.2, mcvd, mcvd.2, gmcv, gmcv.2, gharv, gmgg, dog, mcvm, mcvm.2, mcvm.3, pmcv, pmcv.2, zmcv, zmcv.2, avmcv, avmcv.2, zdrone, zoverlord, pprobe, usachinook, tscv, e6, fe6, tsengi.o, surveyormedi, zdrone.eng, pprobe.eng, mnly, mnly.g, lst2.bot, tvalk.bomber, avinf2, avcarrier, harvnavy, japansurveyorboat, zzagara.hero0, zzagara.hero1, zzagara.hero2, zzagara.hero3, zzagara.hero4, zzagara.hero5, avharv, frge6, frgsurv, lst.harv, usaminedropactor, tspider
@@ -1288,9 +1129,9 @@ Player:
 		RushAttackScanRadius: 30
 		RushInterval: 750
 		IdleScanRadius: 15
-		ProtectionScanRadius: 20
+		ProtectionScanRadius: 8
 		IgnoredEnemyTargetTypes: Catalyst, UpgradeThing, Underwater, NoAITarget, Trees
-		MaxBaseRadius: 50
+		MaxBaseRadius: 20
 	SquadManagerBotModule@mediumhard:
 		RequiresCondition: enable-all-ai && enable-squad-moderate
 		ExcludeFromSquadsTypes: harv, harvd,  mcv, mcv.2, mcvd, mcvd.2, gmcv, gmcv.2, gharv, gmgg, dog, mcvm, mcvm.2, mcvm.3, pmcv, pmcv.2, zmcv, zmcv.2, avmcv, avmcv.2, zdrone, zoverlord, pprobe, usachinook, tscv, e6, fe6, tsengi.o, surveyormedi, zdrone.eng, pprobe.eng, mnly, mnly.g, lst2.bot, tvalk.bomber, avinf2, avcarrier, harvnavy, japansurveyorboat, zzagara.hero0, zzagara.hero1, zzagara.hero2, zzagara.hero3, zzagara.hero4, zzagara.hero5, avharv, frge6, frgsurv, lst.harv, usaminedropactor, tspider
@@ -1308,9 +1149,9 @@ Player:
 		RushAttackScanRadius: 30
 		RushInterval: 1500
 		IdleScanRadius: 15
-		ProtectionScanRadius: 20
+		ProtectionScanRadius: 8
 		IgnoredEnemyTargetTypes: Catalyst, UpgradeThing, Underwater, NoAITarget, Trees
-		MaxBaseRadius: 75
+		MaxBaseRadius: 20
 	SquadManagerBotModule@boss:
 		RequiresCondition: enable-all-ai && enable-squad-large
 		ExcludeFromSquadsTypes: harv, harvd,  mcv, mcv.2, mcvd, mcvd.2, gmcv, gmcv.2, gharv, gmgg, dog, mcvm, mcvm.2, mcvm.3, pmcv, pmcv.2, zmcv, zmcv.2, avmcv, avmcv.2, zdrone, zoverlord, pprobe, usachinook, tscv, e6, fe6, tsengi.o, surveyormedi, zdrone.eng, pprobe.eng, mnly, mnly.g, lst2.bot, tvalk.bomber, avinf2, avcarrier, harvnavy, japansurveyorboat, zzagara.hero0, zzagara.hero1, zzagara.hero2, zzagara.hero3, zzagara.hero4, zzagara.hero5, avharv, frge6, frgsurv, lst.harv, usaminedropactor, tspider
@@ -1328,9 +1169,9 @@ Player:
 		RushAttackScanRadius: 30
 		RushInterval: 1500
 		IdleScanRadius: 15
-		ProtectionScanRadius: 20
+		ProtectionScanRadius: 8
 		IgnoredEnemyTargetTypes: Catalyst, UpgradeThing, Underwater, NoAITarget, Trees
-		MaxBaseRadius: 100
+		MaxBaseRadius: 20
 	SquadManagerBotModule@mediall:
 		RequiresCondition: enable-all-ai && enable-squad-huge
 		ExcludeFromSquadsTypes: harv, harvd,  mcv, mcv.2, mcvd, mcvd.2, gmcv, gmcv.2, gharv, gmgg, dog, mcvm, mcvm.2, mcvm.3, pmcv, pmcv.2, zmcv, zmcv.2, avmcv, avmcv.2, zdrone, zoverlord, pprobe, usachinook, tscv, e6, fe6, tsengi.o, surveyormedi, zdrone.eng, pprobe.eng, mnly, mnly.g, lst2.bot, tvalk.bomber, avinf2, avcarrier, harvnavy, japansurveyorboat, zzagara.hero0, zzagara.hero1, zzagara.hero2, zzagara.hero3, zzagara.hero4, zzagara.hero5, avharv, frge6, frgsurv, lst.harv, usaminedropactor, tspider
@@ -1348,9 +1189,9 @@ Player:
 		RushAttackScanRadius: 30
 		RushInterval: 1500
 		IdleScanRadius: 15
-		ProtectionScanRadius: 20
+		ProtectionScanRadius: 8
 		IgnoredEnemyTargetTypes: Catalyst, UpgradeThing, Underwater, NoAITarget, Trees
-		MaxBaseRadius: 60
+		MaxBaseRadius: 20
 	GrantConditionOnPlayerArmyValue@slowai1:
 		Condition: upkeep_bot
 		Threshold: 100000

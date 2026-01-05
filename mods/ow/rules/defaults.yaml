@@ -184,11 +184,6 @@
 	WithColoredOverlay@corrode:
 		RequiresCondition: corrode && !gdi_suits && !medishield
 		Color: 00800040
-	ExternalCondition@carrier:
-		Condition: carriertarget
-	Targetable@carrier:
-		RequiresCondition: carriertarget
-		TargetTypes: CarrierTarget
 	ExternalCondition@plague:
 		Condition: defiler_plague
 	WithColoredOverlay@plague:
@@ -1083,19 +1078,19 @@
 		Palette: effect
 		RequiresCondition: akuma
 		IsDecoration: True
-	GrantPeriodicCondition@rings:
-		Condition: die_with_rings
-		CooldownDuration: 5, 10000
-		ActiveDuration: 1,75
+	GrantRandomCondition@rings:
+		Conditions: die_with_rings1,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x
+	GrantRandomCondition@rings2:
+		Conditions: die_with_rings2,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x
 	FireWarheadsOnDeath@rings:
 		Weapon: RingExplosion
 		EmptyWeapon: RingExplosion
-		RequiresCondition: die_with_rings
+		RequiresCondition: die_with_rings1 && die_with_rings2
 	FireProjectilesOnDeath@rings:
 		Weapons: SonicRing
 		Pieces: 10, 50
 		Range: 1c0, 5c0
-		RequiresCondition: die_with_rings
+		RequiresCondition: die_with_rings1 && die_with_rings2
 	ToggleConditionOnOrder@scatter:
 		Condition: scattering
 		OrderName: Scatter
