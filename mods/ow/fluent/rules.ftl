@@ -1219,6 +1219,8 @@ actor-korone-name = Inugami Korone
 actor-jesus-name = Jesus
 actor-garbageman-name = GARBAGE DAY
 actor-shoopdawhoop-cr-name = SHOOP DA WHOOP
+actor-powerproxy-holyhandgrenade-droppodspower-holyhandgrenade-select-target-text-notification = Select target.
+actor-holyhandgrenade-name = Holy Hand Grenade
 
 actor-proxynuke-description = Launches a dud atomic bomb
     at the target location to 
