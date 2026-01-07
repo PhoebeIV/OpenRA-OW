@@ -196,6 +196,14 @@ ToxinSCUDExplode:
 		Dimensions: 1,1
 		Footprint: x
 
+ToxinSCUDExplodeBeta:
+	Inherits: ToxinSCUD_Beta
+	Report: baud.aud
+	Warhead@gas: FireCluster
+		RandomClusterCount: 2
+		Dimensions: 2,2
+		Footprint: xx xx
+
 BuildingExplode:
 	Projectile: InstantHit
 	Warhead@2Eff: CreateEffect
@@ -367,7 +375,7 @@ TerroristBomb:
 	Inherits: ^Explosion
 	ValidTargets: Ground, GroundActor, Water, WaterActor
 	Warhead@1Dam: SpreadDamage
-		Delay: 3
+		Delay: 0
 		Spread: 426
 		Damage: 7500
 		Falloff: 250, 250, 175, 150, 0, 0, 0
@@ -441,6 +449,18 @@ DemoTrapExplosion2:
 		ValidRelationships: Neutral, Enemy, Ally
 	Warhead@2Dam: SpreadDamage
 		Damage: 8000
+		ValidRelationships: Neutral, Enemy, Ally
+
+DemoTrapExplosionBuilding:
+	Inherits: DemoTrapExplosion
+	Warhead@1Dam: SpreadDamage
+		Delay: 0
+		Spread: 1c0
+		Damage: 10000
+		ValidRelationships: Neutral, Enemy
+	Warhead@2Dam: SpreadDamage
+		Spread: 1c0
+		Damage: 3000
 		ValidRelationships: Neutral, Enemy, Ally
 
 FakeBuildingExplosion:

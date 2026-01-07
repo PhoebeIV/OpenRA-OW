@@ -414,7 +414,7 @@ UpgradeHandler:
 	FreeActor:
 		AllowRespawn: true
 		Actor: upgrade.levelup
-		RequiresCondition: busy
+		RequiresCondition: busy && !noupgrades
 	Targetable:
 		TargetTypes: UpgradeThing
 	ProvidesPrerequisite@noboats:
@@ -546,6 +546,21 @@ UpgradeHandler:
 	GrantConditionOnPrerequisite@upkeep:
 		Condition: upkeep_enabled
 		Prerequisites: techlevel.upkeep
+	GrantConditionOnPrerequisite@noupgrades: # if general upgrades are removed, remove the mechanic that slows upgrades the more you have
+		Condition: noupgrades
+		Prerequisites: techlevel.noupgrades
+	GrantConditionOnPrerequisite@glatech1:
+		Condition: advtechcenter
+		Prerequisites: advtechcenter
+	GrantConditionOnPrerequisite@glatech2:
+		Condition: ulttechcenter
+		Prerequisites: ulttechcenter
+	GrantConditionOnFaction@glatech: # if player is GLA, use a hack to provide 600 power when they are at Adv Tech level.
+		Condition: glaowner
+		Factions: kassad, demo, thrax
+	Power@gla: # the power provided is now removed as the Super Tech is set to not use power if the owner is GLA
+		RequiresCondition: glaowner && advtechcenter && !ulttechcenter
+		Amount: 600
 	OwnerLostAction:
 		Action: Dispose
 
@@ -676,6 +691,9 @@ FreeUpgrades:
 	ProductionTimeMultiplier@lobbyprodspeed3:
 		Prerequisites: prodspeed.fastest
 		Multiplier: 55
+	ProductionTimeMultiplier@lobbyprodspeed4:
+		Prerequisites: prodspeed.firesale
+		Multiplier: 25
 	ProductionCostMultiplier@boss:
 		Prerequisites: ai.god
 		Multiplier: 10
@@ -691,6 +709,9 @@ FreeUpgrades:
 	ProductionCostMultiplier@bot:
 		Prerequisites: ai.all
 		Multiplier: 50
+	ProductionTimeMultiplier@noupgrades: # if general upgrades are removed, increase build time
+		Prerequisites: techlevel.noupgrades
+		Multiplier: 150
 	Valued:
 		Cost: 100
 
@@ -748,7 +769,7 @@ upgrade.buildrepair1:
 	Buildable:
 		Description: actor-upgrade-buildrepair1.description
 		BuildPaletteOrder: 9998
-		Prerequisites: ~!upgrade.buildrepair1, ~!techlevel.noupgrades, ~!techlevel.noupgrades
+		Prerequisites: ~!upgrade.buildrepair1, ~!techlevel.noupgrades
 	ProvidesPrerequisite@upgradename:
 
 upgrade.buildrepair2:
@@ -814,6 +835,60 @@ upgrade.buildfirepower3:
 		Types: UpgradeComplete
 		Prerequisites: upgrade.buildfirepower3
 	ProvidesPrerequisite@upgradename:
+
+upgrade.buildarmor1b:
+	Inherits: ^UpgradeBaseExt
+	Tooltip:
+		Name: actor-upgrade-buildarmor1.name
+	Buildable:
+		Description: actor-upgrade-buildarmor1.description
+		BuildPaletteOrder: 9997
+		Prerequisites: !upgrade.buildarmor1, ~techlevel.noupgrades, ~techlevel.low, hero.tier1
+	ProductionCostMultiplier@upgrade:
+		Multiplier: 2500
+	ProvidesPrerequisite@upgradename:
+		Prerequisite: upgrade.buildarmor1
+	WithProductionIconOverlay:
+		Types: UpgradeComplete
+		Prerequisites: upgrade.buildarmor1
+	RenderSprites:
+		Image: upgrade.buildarmor1
+
+upgrade.buildrepair1b:
+	Inherits: ^UpgradeBaseExt
+	Tooltip:
+		Name: actor-upgrade-buildrepair1.name
+	Buildable:
+		Description: actor-upgrade-buildrepair1.description
+		BuildPaletteOrder: 9998
+		Prerequisites: !upgrade.buildrepair1, ~techlevel.noupgrades, ~techlevel.low, hero.tier1
+	ProductionCostMultiplier@upgrade:
+		Multiplier: 2500
+	ProvidesPrerequisite@upgradename:
+		Prerequisite: upgrade.buildrepair1
+	WithProductionIconOverlay:
+		Types: UpgradeComplete
+		Prerequisites: upgrade.buildrepair1
+	RenderSprites:
+		Image: upgrade.buildrepair1
+
+upgrade.buildfirepower1b:
+	Inherits: ^UpgradeBaseExt
+	Tooltip:
+		Name: actor-upgrade-buildfirepower1.name
+	Buildable:
+		Description: actor-upgrade-buildfirepower1.description
+		BuildPaletteOrder: 9999
+		Prerequisites: !upgrade.buildfirepower1, ~techlevel.noupgrades, ~techlevel.low, hero.tier1
+	ProductionCostMultiplier@upgrade:
+		Multiplier: 2500
+	ProvidesPrerequisite@upgradename:
+		Prerequisite: upgrade.buildfirepower1
+	WithProductionIconOverlay:
+		Types: UpgradeComplete
+		Prerequisites: upgrade.buildfirepower1
+	RenderSprites:
+		Image: upgrade.buildfirepower1
 
 ###########################
 

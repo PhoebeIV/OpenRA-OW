@@ -1,8 +1,6 @@
 
 ## player.yaml
 actor-player =
-   .providestechprerequisite-noepic-name = Advanced Tech
-   .providestechprerequisite-unrestricted-name = Super Tech
    .providestechprerequisite-boss-name = Boss Mode
    .lobbyprerequisitecheckbox-noboats-label = No Boats
    .lobbyprerequisitecheckbox-noboats-description = Check to disable boats.
@@ -90,6 +88,14 @@ actor-player =
    .lobbyprerequisitecheckbox-heroxp-label4 = Faster
    .lobbyprerequisitecheckbox-alltech-label = All Tech
    .lobbyprerequisitecheckbox-alltech-description = Tech and Adv Tech from the get go
+   .lobbyprerequisitecheckbox-gradualtech-label = Gradual Tech
+   .lobbyprerequisitecheckbox-gradualtech-description = Use with Infantry Only tech level. 
+     
+     Tech Levels are gained by your Hero's level
+     Gained by either player score, levelling the hero directly,
+     or by waiting 10 minutes.
+
+     Can be used without Heroes enabled.
    .lobbyprerequisitecheckbox-debugspeed-label = Debug Bot Speed
    .lobbyprerequisitecheckbox-debugspeed-description = Allows bots to build structures in record time
    .lobbyprerequisitecheckbox-debuglistactors-label = Debug Hidden Actors
@@ -99,8 +105,9 @@ options-tech-level =
     .infantry-only = Infantry Only
     .low = Low
     .medium = Medium
-    .no-superweapons = No Superweapons
-    .unrestricted = Unrestricted
+    .no-superweapons = High (No Superweapons)
+    .noepic = Advanced Tech
+    .unrestricted = Super Tech
 
 checkbox-kill-bounties =
     .label = Kill Bounties
@@ -1170,6 +1177,13 @@ meta-herotier3-tooltipdescription-tier1-description = Tier 3
 meta-herotier4-tooltipdescription-tier1-description = Tier 4
 meta-herotier5-tooltipdescription-tier1-description = Tier 5
 
+actor-herotier = 
+   .tier1 = Player score of 250, or Tier 1 Hero
+   .tier2 = Player score of 750, or Tier 2 Hero
+   .tier3 = Player score of 1500, or Tier 3 Hero
+   .tier4 = Player score of 2500, or Tier 4 Hero
+   .tier5 = Player score of 4000, or Tier 5 Hero
+
 ## crates.yaml
 actor-crate-gla = Salvage
 actor-moneycratesupplydrop-name = Supply Drop Money Crate
@@ -1209,6 +1223,10 @@ actor-shoopdawhoop-cr-name = SHOOP DA WHOOP
 actor-proxynuke-description = Launches a dud atomic bomb
     at the target location to 
     strike fear in your enemies.
+
+actor-firesale = 
+   .name = fire sale!
+   .desc = Build speed increased by 85% !
 
 ## defaults.yaml
 meta-flyingbuilding =
@@ -1917,8 +1935,25 @@ actor-gla-pay =
 
 actor-gla-aprockets =
    .name = AP Rockets
-   .description = Upgrade rocket buggies and RPG troops
+   .description = Upgrade all rocket weapons
      with increased damage.
+
+actor-gla-scorprockets =
+   .name = Scorpion Rocket
+   .description = Upgrade Scorpion tanks with 
+     a high-explosive, slow reload rocket.
+
+   Increases cost of the tank by 10%.
+
+actor-gla-demotraps =
+   .name = Demolition
+   .description = All units and structures will
+    explode violently on death, with reduced
+    damage to friendly units.
+
+actor-gla-marauder =
+   .name = Marauder Tank
+   .description = Enable production of the Marauder Tank.
 
 actor-gla-junk =
    .name = Junk Repair
@@ -1965,7 +2000,29 @@ actor-gftrk =
       Weak vs Tanks
    .name = Toxin Truck
 
-actor-1tnk-g-name = GLA Light Tank
+actor-1tnk-g =
+   .description = Fast tank, good for scouting.
+
+   Can be upgraded with Scorpion rockets.
+
+   Ranking this unit up upgrades their weapons.
+   Can collect salvage.
+    Speed: 112
+      Strong vs Light armor
+      Weak vs Infantry, Tanks, Aircraft
+   .name = Scorpion Tank
+   .husk = Husk (Scorpion Tank)
+
+actor-2tnk-g =
+   .description = Fast medium tank.
+
+   Ranking this unit up upgrades their weapons.
+   Can collect salvage.
+    Speed: 112
+      Strong vs Vehicles
+      Weak vs Infantry, Aircraft
+   .name = Marauder Tank
+   .husk = Husk (Marauder Tank)
 
 actor-bggyd-g =
    .description = Fast anti-armour buggy.
@@ -1991,9 +2048,9 @@ actor-mnly-g =
 actor-bbus =
    .description = Unarmed infantry transport.
     Infantry can fire from inside.
-    Speed: 88 
-      Strong vs Infantry, Light armor
-      Weak vs Tanks, Aircraft
+
+    Can collect salvage.
+    Speed: 96
    .botdesc = AI only, comes pre-filled
    .name = Battle Bus
    .forgotten = Fortified Bus
@@ -2001,6 +2058,9 @@ actor-bbus =
 
 actor-gtechnical =
    .description = Fast scout & anti-infantry vehicle.
+
+   Ranking this unit up upgrades their weapons.
+   Can collect salvage.
    Speed: 170
       Strong vs Infantry
       Weak vs Vehicles, Aircraft

@@ -1,3 +1,25 @@
+^GLASalvageUpgrade:
+	ProximityExternalCondition@glacrate:
+		RequiresCondition: !rank-elite
+		Condition: salvage_upgrade
+		ValidRelationships: Neutral, Ally
+		Range: 1c0
+	AmbientSound@RANK-1:
+		RequiresCondition: rank-veteran == 1
+		SoundFiles: gsalvage.aud
+		Interval: -1
+	AmbientSound@RANK-2:
+		RequiresCondition: rank-veteran == 2
+		SoundFiles: gsalvage.aud
+		Interval: -1
+	AmbientSound@RANK-3:
+		RequiresCondition: rank-veteran == 3
+		SoundFiles: gsalvage.aud
+		Interval: -1
+	AmbientSound@RANK-ELITE:
+		RequiresCondition: rank-elite
+		SoundFiles: gsalvage.aud
+		Interval: -1
 
 GMCV:
 	Inherits: MCV
@@ -87,8 +109,6 @@ GBIKE:
 	Buildable:
 		Prerequisites: ~vehicles.gbikeprereq, ~techlevel.low
 		Description: actor-gbike-description
-	Health:
-		HP: 14000
 	Mobile:
 		TurnSpeed: 40
 		Speed: 213
@@ -115,6 +135,7 @@ GBIKET:
 		Weapon: TerroristBomb
 		EmptyWeapon: TerroristBomb
 		DeathTypes: SmallExplosionDeath, ExplosionDeath, FireDeath, TiberiumDeath, ElectricityDeath, Suicide
+		DamageSource: Killer
 	KillsSelf:
 		RequiresCondition: triggered
 		DamageTypes: Suicide
@@ -132,8 +153,10 @@ GSCUD:
 	Buildable:
 		Queue: Vehicle
 		BuildPaletteOrder: 230
-		Prerequisites: techcenter, ~vehicles.demo, ~techlevel.medium
+		Prerequisites: advtechcenter, ~vehicles.demo, ~techlevel.unrestricted
 		Description: actor-gscud.description
+	Mobile:
+		Locomotor: wheeled_salvage
 	Tooltip:
 		Name: actor-gscud.name
 	Valued:
@@ -141,8 +164,14 @@ GSCUD:
 	Armament:
 		Weapon: GLASCUD
 		LocalOffset: -512, 0, 512
-	-AutoTarget:
 	AutoTarget:
+		ScanRadius: 14
+	GrantConditionOnPrerequisite@aprockets:
+		Condition: aprockets
+		Prerequisites: gla.aprockets
+	FirepowerMultiplier@aprockets:
+		RequiresCondition: aprockets
+		Modifier: 120
 	RenderSprites:
 		Image: v2rl
 
@@ -151,8 +180,10 @@ GSCUD.T:
 	Buildable:
 		Queue: Vehicle
 		BuildPaletteOrder: 230
-		Prerequisites: techcenter, ~vehicles.thrax, ~techlevel.medium
+		Prerequisites: advtechcenter, ~vehicles.thrax, ~techlevel.medium
 		Description: actor-gscud-t.description
+	Mobile:
+		Locomotor: wheeled_salvage
 	Tooltip:
 		Name: actor-gscud-t.name
 	Valued:
@@ -166,15 +197,18 @@ GSCUD.T:
 		LocalOffset: -512, 0, 512
 		RequiresCondition: beta
 		ReloadingCondition: reloading
-	-AutoTarget:
 	AutoTarget:
+		ScanRadius: 14
 	FireWarheadsOnDeath:
 		Weapon: ToxinSCUDExplode
-	RenderSprites:
-		Image: v2rl
 	GrantConditionOnPrerequisite@beta:
 		Prerequisites: gla.beta
 		Condition: beta
+	FirepowerMultiplier@aprockets:
+		RequiresCondition: aprockets
+		Modifier: 120
+	RenderSprites:
+		Image: v2rl
 
 GFTRK:
 	Inherits: ^Vehicle
@@ -197,6 +231,7 @@ GFTRK:
 	Armor:
 		Type: Light
 	Mobile:
+		Locomotor: wheeled_salvage
 		TurnSpeed: 36
 		Speed: 98
 	RevealsShroud:
@@ -235,20 +270,13 @@ GFTRK:
 		Prerequisites: gla.beta
 		Condition: beta
 
-1TNK.G:
-	Inherits: 1TNK.N
-	Buildable:
-		Prerequisites: ~vehicles.gla, ~techlevel.low
-	Tooltip:
-		Name: actor-1tnk-g-name
-
 BGGYD.G:
 	Inherits: ^Vehicle
 	Inherits@GAINSEXPERIENCE: ^GainsExperience
 	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
 	Buildable:
 		Queue: Vehicle
-		BuildPaletteOrder: 240
+		BuildPaletteOrder: 225
 		Prerequisites: techcenter, ~vehicles.gla, ~techlevel.high
 		Icon: icon-gla
 		Description: actor-bggyd-g.description
@@ -263,6 +291,7 @@ BGGYD.G:
 	Armor:
 		Type: Light
 	Mobile:
+		Locomotor: wheeled_salvage
 		TurnSpeed: 32
 		Speed: 135
 	RevealsShroud:
@@ -291,6 +320,8 @@ BGGYD.G:
 	GrantConditionOnPrerequisite@aprockets:
 		Condition: aprockets
 		Prerequisites: gla.aprockets
+	GainsExperienceMultiplier@gla:
+		Modifier: 150
 	RenderSprites:
 		Image: bggyd
 
@@ -298,7 +329,7 @@ DTRK.G:
 	Inherits: ^Vehicle
 	Buildable:
 		Queue: Vehicle
-		BuildPaletteOrder: 330
+		BuildPaletteOrder: 329
 		Prerequisites: techcenter, ~vehicles.gla, ~techlevel.high
 		Icon: icon-gla
 		Description: actor-dtrk-g.description
@@ -403,6 +434,7 @@ BBUS:
 	Inherits@GAINSEXPERIENCE: ^GainsExperience
 	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
 	Inherits@CARGOPIPS: ^CargoPips
+	Inherits@GLASalvage: ^GLASalvageUpgrade
 	Buildable:
 		Queue: Vehicle
 		BuildPaletteOrder: 120
@@ -419,7 +451,8 @@ BBUS:
 	Armor:
 		Type: Heavy
 	Mobile:
-		Speed: 88
+		Locomotor: tracked_salvage
+		Speed: 96
 		PauseOnCondition: notmobile || being-captured || disabled
 	RevealsShroud:
 		MinRange: 4c0
@@ -470,6 +503,14 @@ BBUS:
 	WithCargoPipsDecoration:
 		Position: BottomLeft
 		RequiresSelection: true
+	DamageMultiplier@RANK-1:
+		Modifier: 90
+	DamageMultiplier@RANK-2:
+		Modifier: 80
+	DamageMultiplier@RANK-3:
+		Modifier: 65
+	DamageMultiplier@RANK-ELITE:
+		Modifier: 50
 	SpawnActorOnDeath:
 		Actor: bbus.husk
 
@@ -496,6 +537,7 @@ GTECHNICAL:
 	Inherits: BGGYD
 	Inherits@GAINSEXPERIENCE: ^GainsExperience
 	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Inherits@GLASalvage: ^GLASalvageUpgrade
 	Buildable:
 		Queue: Vehicle
 		BuildPaletteOrder: 30
@@ -503,6 +545,8 @@ GTECHNICAL:
 		Description: actor-gtechnical.description
 	Valued:
 		Cost: 350
+	Mobile:
+		Locomotor: wheeled_salvage
 	Tooltip:
 		Name: actor-gtechnical.name
 	UpdatesPlayerStatistics:
@@ -547,29 +591,15 @@ GTECHNICAL:
 	SpawnActorOnDeath:
 		Actor: GTECHNICAL.Husk
 	DamageMultiplier@RANK-1:
-		Modifier: 90
-	DamageMultiplier@RANK-2:
 		Modifier: 80
-	DamageMultiplier@RANK-3:
-		Modifier: 70
-	DamageMultiplier@RANK-ELITE:
+	DamageMultiplier@RANK-2:
 		Modifier: 60
-	AmbientSound@RANK-1:
-		RequiresCondition: rank-veteran == 1
-		SoundFiles: gsalvage.aud
-		Interval: -1
-	AmbientSound@RANK-2:
-		RequiresCondition: rank-veteran == 2
-		SoundFiles: gsalvage.aud
-		Interval: -1
-	AmbientSound@RANK-3:
-		RequiresCondition: rank-veteran == 3
-		SoundFiles: gsalvage.aud
-		Interval: -1
-	AmbientSound@RANK-ELITE:
-		RequiresCondition: rank-elite
-		SoundFiles: gsalvage.aud
-		Interval: -1
+	DamageMultiplier@RANK-3:
+		Modifier: 45
+	DamageMultiplier@RANK-ELITE:
+		Modifier: 30
+	GainsExperienceMultiplier@gla:
+		Modifier: 150
 
 GQUAD:
 	Inherits: ^Vehicle
@@ -579,10 +609,12 @@ GQUAD:
 		Queue: Vehicle
 		BuildPaletteOrder: 130
 		Icon: gla-quad-icon
-		Prerequisites: ~vehicles.gla, ~techlevel.low
+		Prerequisites: ~vehicles.gla, ~techlevel.medium
 		Description: actor-ftrk.description
 	Valued:
 		Cost: 600
+	Mobile:
+		Locomotor: wheeled_salvage
 	Tooltip:
 		Name: actor-gquad
 	UpdatesPlayerStatistics:
@@ -637,3 +669,289 @@ GQUAD:
 	WithProductionIconOverlay:
 		Types: Veterancy
 		Prerequisites: vehicles.upgraded
+
+G1TNK:
+	Inherits: ^TrackedVehicle
+	Inherits@GAINSEXPERIENCE: ^GainsExperience
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Inherits@GLASalvage: ^GLASalvageUpgrade
+	Buildable:
+		Queue: Vehicle
+		BuildPaletteOrder: 50
+		Prerequisites: ~vehicles.gla, ~techlevel.low
+		Description: actor-1tnk-g.description
+		Icon: icon-gla
+	Valued:
+		Cost: 700
+	ProductionCostMultiplier@rockets:
+		Prerequisites: gla.scorprockets
+		Multiplier: 110
+	Tooltip:
+		Name: actor-1tnk-g.name
+		GenericName: actor-1tnk-n.generic-name
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 22500
+	Armor:
+		Type: Heavy
+	Mobile:
+		Locomotor: tracked_salvage
+		Speed: 112
+	RevealsShroud:
+		MinRange: 4c0
+		Range: 5c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 4c0
+	Turreted:
+		TurnSpeed: 24
+	Turreted@rockets:
+		TurnSpeed: 24
+		Turret: secondary
+		Offset: 0,0,128
+	Armament:
+		Weapon: 25mm
+		Recoil: 85
+		RecoilRecovery: 25
+		LocalOffset: 768,0,90
+		MuzzleSequence: muzzle
+	Armament@b:
+		RequiresCondition: rank-veteran >= 1 || rank-elite
+		Weapon: Scorpion25mm
+		Recoil: 85
+		RecoilRecovery: 25
+		LocalOffset: 768,128,90, 768,-128,90
+		FireDelay: 3
+		MuzzleSequence: muzzle
+	Armament@c:
+		RequiresCondition: rank-veteran >= 2 || rank-elite
+		Weapon: Scorpion25mm
+		Recoil: 85
+		RecoilRecovery: 25
+		LocalOffset: 768,-128,90, 768,128,90
+		FireDelay: 6
+		MuzzleSequence: muzzle
+	Armament@rockets1:
+		Name: secondary_a
+		Weapon: ScorpionRocket
+		LocalOffset: 512,-171,0
+		FireDelay: 10
+		RequiresCondition: rockets && !rank-elite && !aprockets
+		PauseOnCondition: !ammo_a
+		Turret: secondary
+	Armament@rockets2:
+		Name: secondary_b
+		Weapon: ScorpionRocket
+		LocalOffset: 512,-171,400, 512,171,400
+		FireDelay: 10
+		RequiresCondition: rockets && rank-elite && !aprockets
+		PauseOnCondition: !ammo_b
+		Turret: secondary
+	Armament@rockets1ap:
+		Name: secondary_a
+		Weapon: ScorpionRocket
+		LocalOffset: 512,-171,400
+		FireDelay: 10
+		RequiresCondition: rockets && !rank-elite && aprockets
+		PauseOnCondition: !ammo_a
+		Turret: secondary
+	Armament@rockets2ap:
+		Name: secondary_b
+		Weapon: ScorpionRocket
+		LocalOffset: 512,-171,400, 512,171,400
+		FireDelay: 10
+		RequiresCondition: rockets && rank-elite && aprockets
+		PauseOnCondition: !ammo_b
+		Turret: secondary
+	AttackTurreted:
+		Armaments: primary, secondary_a, secondary_b
+		PauseOnCondition: disabled
+		Turrets: primary, secondary
+	WithMuzzleOverlay:
+	WithSpriteTurret:
+	WithSpriteTurret@1:
+		RequiresCondition: (rockets && !rank-elite && (ammo_a == 1)) || (rockets && rank-elite && (ammo_b == 1))
+		Turret: secondary
+		Sequence: turret-1
+	WithSpriteTurret@2:
+		RequiresCondition: rockets && rank-elite && (ammo_b == 2)
+		Turret: secondary
+		Sequence: turret-2
+	GrantConditionOnPrerequisite@rockets:
+		Condition: rockets
+		Prerequisites: gla.scorprockets
+	GrantConditionOnPrerequisite@aprockets:
+		Condition: aprockets
+		Prerequisites: gla.aprockets
+	AmmoPool@1:
+		Ammo: 1
+		AmmoCondition: ammo_a
+		Armaments: secondary_a
+	AmmoPool@2:
+		Ammo: 2
+		AmmoCondition: ammo_b
+		Name: elite_ammo
+		Armaments: secondary_b
+	ReloadAmmoPool:
+		Delay: 375
+	ReloadAmmoPool@2:
+		AmmoPool: elite_ammo
+		Delay: 375
+		Count: 2
+	SpawnActorOnDeath:
+		Actor: G1TNK.Husk
+	ProducibleWithLevel:
+		Prerequisites: vehicles.upgraded
+	ReloadDelayMultiplier@RANK-2:
+		Modifier: 80
+	ReloadDelayMultiplier@RANK-3:
+		Modifier: 65
+	ReloadDelayMultiplier@RANK-ELITE:
+		Modifier: 65
+	DamageMultiplier@RANK-1:
+		Modifier: 80
+	DamageMultiplier@RANK-2:
+		Modifier: 65
+	DamageMultiplier@RANK-3:
+		Modifier: 40
+	DamageMultiplier@RANK-ELITE:
+		Modifier: 25
+	FirepowerMultiplier@RANK-3:
+		Modifier: 150
+	FirepowerMultiplier@RANK-ELITE:
+		Modifier: 150
+	InaccuracyMultiplier@RANK-2:
+		RequiresCondition: rank-veteran >= 2 || rank-elite
+		Modifier: 150
+	GainsExperienceMultiplier@gla:
+		Modifier: 150
+	RenderSprites:
+		Image: ltnkd
+
+G2TNK:
+	Inherits: ^TrackedVehicle
+	Inherits@GAINSEXPERIENCE: ^GainsExperience
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Inherits@GLASalvage: ^GLASalvageUpgrade
+	Buildable:
+		Queue: Vehicle
+		BuildPaletteOrder: 51
+		Prerequisites: ~vehicles.gla, gla.marauder, fix, ~techlevel.medium, ~!vehicles.kassad
+		Description: actor-2tnk-g.description
+		Icon: icon-gla
+	Valued:
+		Cost: 850
+	Tooltip:
+		Name: actor-2tnk-g.name
+		GenericName: actor-1tnk-n.generic-name
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 46000
+	Armor:
+		Type: Heavy
+	Mobile:
+		Locomotor: tracked_salvage
+		Speed: 112
+	RevealsShroud:
+		MinRange: 4c0
+		Range: 6c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 4c0
+	Turreted:
+		RequiresCondition: (rank-veteran < 3) && !rank-elite
+	Turreted@2:
+		RequiresCondition: (rank-veteran == 3) || rank-elite
+		Offset: 0,0,-256
+		Turret: second
+	AttackFrontal:
+		FacingTolerance: 0
+	Armament:
+		RequiresCondition: !rank-veteran && !rank-elite
+		Weapon: 90mm
+		Recoil: 128
+		RecoilRecovery: 38
+		LocalOffset: 720,0,80
+		MuzzleSequence: muzzle
+	Armament@b:
+		RequiresCondition: rank-veteran == 1
+		Weapon: GDI120mm
+		Recoil: 128
+		RecoilRecovery: 38
+		LocalOffset: 720,0,80
+		MuzzleSequence: muzzle
+	Armament@c:
+		RequiresCondition: rank-veteran == 2
+		Weapon: 105mm
+		Recoil: 128
+		RecoilRecovery: 38
+		LocalOffset: 768,85,90, 768,-85,90
+		MuzzleSequence: muzzle
+	Armament@d:
+		RequiresCondition: rank-veteran == 3 || rank-elite
+		Weapon: 120mm_b
+		Recoil: 171
+		RecoilRecovery: 30
+		LocalOffset: 900,180,340, 900,-180,340
+		MuzzleSequence: muzzle
+		Turret: second
+	Armament@e:
+		RequiresCondition: rank-elite
+		Weapon: MarauderTusk
+		Name: secondary
+		LocalOffset: -85,384,340, -85,-384,340
+		LocalYaw: -100,100
+		Recoil: 43
+		MuzzleSequence: muzzle
+		Turret: second
+	WithSpriteTurret:
+		RequiresCondition: !rank-veteran && !rank-elite
+		Sequence: turret-0
+	WithSpriteTurret@b:
+		RequiresCondition: rank-veteran == 1
+		Sequence: turret
+	WithSpriteTurret@c:
+		RequiresCondition: rank-veteran == 2
+		Sequence: turret-1
+	WithSpriteTurret@d:
+		RequiresCondition: rank-veteran == 3
+		Sequence: turret-2
+		Turret: second
+	WithSpriteTurret@e:
+		RequiresCondition: rank-elite
+		Sequence: turret-3
+		Turret: second
+	SpawnActorOnDeath:
+		Actor: G2TNK.Husk
+	ReloadDelayMultiplier@RANK-1:
+		Modifier: 70
+	ReloadDelayMultiplier@RANK-2:
+		Modifier: 70
+	ReloadDelayMultiplier@RANK-3:
+		Modifier: 65
+	ReloadDelayMultiplier@RANK-ELITE:
+		Modifier: 60
+	DamageMultiplier@RANK-1:
+		Modifier: 85
+	DamageMultiplier@RANK-2:
+		Modifier: 70
+	DamageMultiplier@RANK-3:
+		Modifier: 55
+	DamageMultiplier@RANK-ELITE:
+		Modifier: 40
+	FirepowerMultiplier@RANK-1:
+		Modifier: 120
+	FirepowerMultiplier@RANK-2:
+		Modifier: 120
+	FirepowerMultiplier@RANK-3:
+		Modifier: 130
+	FirepowerMultiplier@RANK-ELITE:
+		Modifier: 140
+	GainsExperienceMultiplier@gla:
+		Modifier: 133
+	ProducibleWithLevel:
+		Prerequisites: vehicles.upgraded
+	RenderSprites:
+		Image: mtnkd

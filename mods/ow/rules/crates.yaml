@@ -70,13 +70,13 @@ CRATE:
 		NoBaseSelectionShares: 1000
 		Units: avmcv
 	DuplicateUnitCrateAction:
-		SelectionShares: 15
+		SelectionShares: 10
 		MaxAmount: 10
 		MaxDuplicateValue: 6000
 		Sound: clonesnd.aud
 		RequiresCondition: !hero && !harvester
 	DuplicateUnitCrateAction@harv:
-		SelectionShares: 15
+		SelectionShares: 10
 		MaxAmount: 4
 		Sound: clonesnd.aud
 		RequiresCondition: !hero && harvester
@@ -227,12 +227,12 @@ CRATE:
 		SelectionShares: 6
 		Units: 1tnk.hunter
 	GiveUnitCrateAction@bitconnect:
-		SelectionShares: 2
+		SelectionShares: 1
 		Units: 1tnk.bitconnect
 		Sound: bitconnect.aud
 	GiveUnitCrateAction@civvies:
 		SelectionShares: 3
-		Units: c1,c2,c3,c4,c5,c6,c7,c8,c9,c10,c1,c2,c3,c4,c5,c10,1tnk.cpanic
+		Units: 1tnk.cpanic,c1,c2,c3,c4,c5,c6,c7,c8,c9,c10,c1,c2,c3,c4,c5,c10
 		Owner: Neutral
 		Sound: iangsela.aud
 	RevealMapCrateAction:
@@ -311,6 +311,14 @@ CRATE:
 		Units: gamecube
 		Sound: gamecube.wav
 		Prerequisites: !gamecube.bugged
+	GiveUnitCrateAction@firesale:
+		SelectionShares: 4
+		Units: 1tnk.firesale
+		Sequence: dollar
+	GiveUnitCrateAction@glasalvage:
+		SelectionShares: 6
+		Units: crate.gla, crate.gla, crate.gla, crate.gla, crate.gla, crate.gla
+		Prerequisites: structures.gla
 	Crate:
 		Duration: 6000
 
@@ -343,12 +351,25 @@ CRATE.GLA:
 	Inherits: MONEYCRATE
 	Tooltip:
 		Name: actor-crate-gla
+	Crate:
+		Duration: 1500
+		CrushClass: salvage
 	GiveCashCrateAction:
-		Amount: 200
+		Amount: 100
 		SelectionShares: 1
 		UseCashTick: true
+	ExternalCondition@gla:
+		Condition: salvage_upgrade
 	LevelUpCrateAction:
-		SelectionShares: 1
+		SelectionShares: 1000
+		RequiresCondition: salvage_upgrade
+	RenderSprites:
+		Palette: player
+		Image: ammobox3
+	WithCrateBody:
+		XmasImages: idle
+		LandSequence: idle
+		WaterSequence: idle
 
 MONEYCRATESUPPLYDROP:
 	Inherits: ^Crate
@@ -532,7 +553,7 @@ CRATE.FuckYou:
 		Type: soldier
 		Owner: Creeps
 	GiveRandomActorCrateAction@2:
-		SelectionShares: 6
+		SelectionShares: 5
 		TimeDelay: 6000
 		Prerequisites: techcenter
 		Type: vehicle
@@ -543,11 +564,11 @@ CRATE.FuckYou:
 		Type: epic
 		Owner: Creeps
 	GiveUnitCrateAction@berserker:
-		SelectionShares: 4
+		SelectionShares: 3
 		Units: dm7
 		Owner: Creeps
 	GiveUnitCrateAction@jarofdirt:
-		SelectionShares: 3
+		SelectionShares: 2
 		Units: jarofdirt
 		Sound: jardirt.ogg
 		Owner: Creeps
@@ -576,13 +597,13 @@ CRATE.FuckYou:
 		Sound: gamecube.wav
 		Prerequisites: !gamecube.bugged
 	GiveUnitCrateAction@jesus:
-		SelectionShares: 3
+		SelectionShares: 2
 		TimeDelay: 6000
 		Units: jesus
 		Sound: jesusspawn.aud
 		Owner: Creeps
 	GiveUnitCrateAction@timspace:
-		SelectionShares: 3
+		SelectionShares: 2
 		TimeDelay: 6000
 		Units: timspace
 		Sound: timspace.ogg
@@ -612,10 +633,10 @@ CRATE.FuckYou:
 		Owner: Neutral
 		Sequence: timequake
 	ExplodeCrateAction@maningauze:
-		SelectionShares: 4
+		SelectionShares: 3
 		Weapon: ManInGauzeExplosion
 	GiveUnitCrateAction@shoopdawhoop:
-		SelectionShares: 5
+		SelectionShares: 3
 		Units: 1tnk.shoopdawhoop
 		Owner: Creeps
 	Crate:
@@ -729,7 +750,7 @@ CRATE.LEVEL:
 	-GiveCashCrateAction:
 	LevelUpCrateAction:
 		SelectionShares: 1
-		Levels: 3
+		Levels: 1
 
 1TNK.GMINE:
 	Inherits: 1TNK.MINE
@@ -935,9 +956,26 @@ Zombie:
 		Prerequisites: ~barracks, ~bio
 		Description: actor-zombie.description
 	Health:
-		HP: 25000
+		HP: 30000
 	Mobile:
 		Speed: 42
+	GrantRandomCondition@speed:
+		Conditions: 1,2,3,4,5,6
+	SpeedMultiplier@1:
+		RequiresCondition: 1
+		Modifier: 90
+	SpeedMultiplier@2:
+		RequiresCondition: 2
+		Modifier: 95
+	SpeedMultiplier@3:
+		RequiresCondition: 3
+		Modifier: 105
+	SpeedMultiplier@4:
+		RequiresCondition: 4
+		Modifier: 110
+	SpeedMultiplier@5:
+		RequiresCondition: 5
+		Modifier: 115
 	AutoTarget:
 		InitialStance: AttackAnything
 		ScanRadius: 256
@@ -1696,6 +1734,7 @@ roadroller.leave:
 	-Targetable@REPAIR:
 	-UpdatesPlayerStatistics:
 	-Buildable:
+	-Power:
 	RejectsOrders:
 	Tooltip:
 		Name: actor-roadroller-leave-name
@@ -4063,3 +4102,54 @@ powerproxy.empactor:
 	FreeActor:
 		Actor: camera.5sec
 	-SpawnActorOnDeath:
+
+1TNK.firesale:
+	Inherits: 1TNK.MINE
+	-FireWarheadsOnDeath:
+	SpawnActorOnDeath:
+		Actor: FIRESALE.Dummy
+		SkipMakeAnimations: false
+		OwnerType: Victim
+
+FIRESALE.Dummy:
+	Inherits: MINE_DUMMY
+	ProduceActorPower:
+		Name: actor-firesale.name
+		PauseOnCondition: never
+		Description: actor-firesale.desc
+		Icon: firesale
+		Actors: c1
+		Type: NoType
+		ChargeInterval: 500
+		BeginChargeSound: firesale.ogg
+		BeginChargeTextNotification: actor-firesale.name
+		OrderName: Firesale
+		SupportPowerPaletteOrder: 1
+		DisplayTimerRelationships: Ally, Enemy, Neutral
+	ProduceActorPower@1:
+		Name: actor-firesale.name
+		PauseOnCondition: never
+		Description: actor-firesale.desc
+		Icon: firesale
+		Actors: c1
+		Type: NoType
+		ChargeInterval: 500
+		BeginChargeTextNotification: actor-firesale.name
+		OrderName: Firesale2
+		SupportPowerPaletteOrder: 1
+	ProduceActorPower@2:
+		Name: actor-firesale.name
+		PauseOnCondition: never
+		Description: actor-firesale.desc
+		Icon: firesale
+		Actors: c1
+		Type: NoType
+		ChargeInterval: 500
+		BeginChargeTextNotification: actor-firesale.name
+		OrderName: Firesale3
+		SupportPowerPaletteOrder: 1
+	ProvidesPrerequisite:
+		Prerequisite: prodspeed.firesale
+	KillsSelf:
+		RemoveInstead: true
+		Delay: 500

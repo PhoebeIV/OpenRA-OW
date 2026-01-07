@@ -349,7 +349,7 @@
 	GrantConditionOnAttack@passive:
 		Condition: attacking_passive
 		RevokeDelay: 25
-	GrantConditionOnPrerequisite@heroexp.slow:
+	GrantConditionOnPrerequisite@heroexp.slow: # Hero XP rate lobby option
 		Prerequisites: heroxp.slow
 		Condition: heroxp.slow
 	GainsExperienceMultiplier@heroexp.slow:
@@ -367,6 +367,42 @@
 	GainsExperienceMultiplier@heroexp.faster:
 		RequiresCondition: heroxp.faster
 		Modifier: 300
+	GrantConditionOnPrerequisite@tech1: # nerf Hero damage/armor for lower tech levels
+		Condition: tech.infonly
+		Prerequisites: techlevel.infonly, !techlevel.low
+	GrantConditionOnPrerequisite@tech2:
+		Condition: tech.low
+		Prerequisites: techlevel.low, !techlevel.medium
+	GrantConditionOnPrerequisite@tech3:
+		Condition: tech.medium
+		Prerequisites: techlevel.medium, !techlevel.high
+	GrantConditionOnPrerequisite@tech4:
+		Condition: tech.high
+		Prerequisites: techlevel.high, !techlevel.unrestricted
+	DamageMultiplier@tech1:
+		RequiresCondition: tech.infonly
+		Modifier: 200
+	FirepowerMultiplier@tech1:
+		RequiresCondition: tech.infonly
+		Modifier: 50
+	DamageMultiplier@tech2:
+		RequiresCondition: tech.low
+		Modifier: 175
+	FirepowerMultiplier@tech2:
+		RequiresCondition: tech.low
+		Modifier: 65
+	DamageMultiplier@tech3:
+		RequiresCondition: tech.medium
+		Modifier: 150
+	FirepowerMultiplier@tech3:
+		RequiresCondition: tech.medium
+		Modifier: 75
+	DamageMultiplier@tech4:
+		RequiresCondition: tech.high
+		Modifier: 125
+	FirepowerMultiplier@tech4:
+		RequiresCondition: tech.high
+		Modifier: 90
 	ProximityExternalCondition@hero: #for duplicate actor crate
 		Condition: hero
 		Range: 1c0
@@ -562,7 +598,7 @@
 		Queue: HeroUpgrade1
 		BuildLimit: 1
 		BuildDurationModifier: 100
-		BuildDuration: 25
+		BuildDuration: 100
 		BuildPaletteOrder: 12000
 	Interactable:
 	ScriptTriggers:
@@ -700,3 +736,57 @@ Player:
 	PlayerExperienceLevels:
 		LevelXpRequirements: 250,750,1500,2500,4000
 		LevelPrerequisites: hero.tier1, hero.tier2, hero.tier3, hero.tier4, hero.tier5
+	GrantConditionOnPrerequisite@gradualtech:
+		Condition: gradualtech
+		Prerequisites: techlevel.gradualtech
+	GrantConditionOnPrerequisite@herotier1tech:
+		Condition: hero_tier1
+		Prerequisites: techlevel.gradualtech, hero.tier1
+	GrantConditionOnPrerequisite@herotier2tech:
+		Condition: hero_tier2
+		Prerequisites: techlevel.gradualtech, hero.tier2
+	GrantConditionOnPrerequisite@herotier3tech:
+		Condition: hero_tier3
+		Prerequisites: techlevel.gradualtech, hero.tier3
+	GrantConditionOnPrerequisite@herotier4tech:
+		Condition: hero_tier4
+		Prerequisites: techlevel.gradualtech, hero.tier4
+	GrantConditionOnPrerequisite@herotier5tech:
+		Condition: hero_tier5
+		Prerequisites: techlevel.gradualtech, hero.tier5
+	ProvidesPrerequisite@herotier1tech:
+		RequiresCondition: hero_tier1 && gradualtech
+		Prerequisite: techlevel.low
+	ProvidesPrerequisite@herotier2tech:
+		RequiresCondition: hero_tier2 && gradualtech
+		Prerequisite: techlevel.medium
+	ProvidesPrerequisite@herotier3tech:
+		RequiresCondition: hero_tier3 && gradualtech
+		Prerequisite: techlevel.high
+	ProvidesPrerequisite@herotier4tech:
+		RequiresCondition: hero_tier4 && !hero_tier5 && gradualtech
+		Prerequisite: techlevel.noepic
+	ProvidesPrerequisite@herotier5tech:
+		RequiresCondition: (hero_tier4 || hero_tier5) && gradualtech
+		Prerequisite: techlevel.unrestricted
+
+hero.tier1:
+	Interactable:
+	Tooltip:
+		Name: actor-herotier.tier1
+hero.tier2:
+	Interactable:
+	Tooltip:
+		Name: actor-herotier.tier2
+hero.tier3:
+	Interactable:
+	Tooltip:
+		Name: actor-herotier.tier3
+hero.tier4:
+	Interactable:
+	Tooltip:
+		Name: actor-herotier.tier4
+hero.tier5:
+	Interactable:
+	Tooltip:
+		Name: actor-herotier.tier5

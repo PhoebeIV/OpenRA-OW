@@ -510,7 +510,7 @@
 		AffectsParent: false
 		Range: 6c0
 	GrantRandomCondition@glabounty:
-		Conditions: crate1, crate2, crate2, crate3, crate4, crate4, crate4, crate4, crate4, crate4, crate4, crate4, crate4
+		Conditions: crate1, crate2, crate3, crate4, crate4, crate4, crate4, crate4, crate4, crate4, crate4, crate4
 	SpawnActorOnDeath@crate1:
 		RequiresCondition: glabounty && crate1 && !cantdropcrate
 		Actor: crate
@@ -526,7 +526,7 @@
 	SpawnActorOnDeath@crate4:
 		RequiresCondition: glabounty && crate4 && !cantdropcrate
 		Actor: crate.gla
-		Probability: 5
+		Probability: 25
 	ProductionTimeMultiplier@upkeep1: # when in upkeep lengthen build times unless I am Harder or higher bot
 		Prerequisites: upkeep.low, !ai.harder, !ai.realboss
 		Multiplier: 115
@@ -581,6 +581,9 @@
 	ProductionTimeMultiplier@lobbyprodspeed3:
 		Prerequisites: prodspeed.fastest
 		Multiplier: 25
+	ProductionTimeMultiplier@lobbyprodspeed4:
+		Prerequisites: prodspeed.firesale
+		Multiplier: 15
 
 # Default actor type for Construction Yards. It inherits ^AdvTechPips which shows the player's current upgrade levels.
 # It also provides universal prerequisites that allows for the "emergency" MCV production to work
@@ -605,6 +608,11 @@
 		RequiresCondition: botowner
 		Condition: surveyor_near_base
 		Range: 22c0
+	ExternalCondition@surveyor:
+		Condition: surveyor_near_base
+	GrantCondition@bot_undeploy_block:
+		RequiresCondition: !surveyor_near_base
+		Condition: bot_undeploy_block
 	Exit:
 	ProductionBar@Building:
 		ProductionType: Building
@@ -1667,6 +1675,13 @@
 	Targetable@bot_recapture:
 		RequiresCondition: bot_recapture
 		TargetTypes: BotCaptureTarget
+	GrantConditionOnPrerequisite@demobuilding:
+		Prerequisites: gla.demotraps
+		Condition: demotraps
+	FireWarheadsOnDeath@demobuilding:
+		RequiresCondition: demotraps
+		Weapon: DemoTrapExplosionBuilding
+		EmptyWeapon: DemoTrapExplosionBuilding
 	-GrantConditionOnPrerequisite@fedshields:
 
 ^ScienceBuilding:
@@ -1886,13 +1901,13 @@
 		PercentageStep: 1
 		Delay: 50
 		StartIfBelow: 100
-		DamageCooldown: 250
+		DamageCooldown: 100
 		RequiresCondition: glavehicle
 	ChangesHealth@junkrepair:
 		PercentageStep: 1
 		Delay: 37
 		StartIfBelow: 100
-		DamageCooldown: 125
+		DamageCooldown: 25
 		RequiresCondition: junkrepair
 	GrantCondition@service:
 		RequiresCondition: (glavehicle || junkrepair) && damaged
@@ -1909,12 +1924,12 @@
 		RequiresCondition: glavehicle && !junkrepair
 		Condition: damage-cooldown
 		ValidRelationships: Ally, Enemy, Neutral
-		Duration: 250
+		Duration: 100
 	GrantConditionOnDamage@junkrepair:
 		RequiresCondition: junkrepair
 		Condition: damage-cooldown
 		ValidRelationships: Ally, Enemy, Neutral
-		Duration: 128
+		Duration: 25
 
 ^Vehicle:
 	Inherits@MediConditions: ^MediConditionsV
@@ -2964,6 +2979,8 @@
 # Inherited and changed from mods/ra to increase lifetime and allowed terrain types
 ^Husk:
 	Inherits: ^BasicHusk
+	Health:
+		HP: 32000
 	WithIdleOverlay@Burns:
 		Image: fire
 		Sequence: 1
@@ -2973,6 +2990,8 @@
 		Step: -125
 		StartIfBelow: 101
 		Delay: 8
+	Crushable:
+		CrushClasses: heavywall, salvage
 	Husk:
 		AllowedTerrain: Clear, ClearSnow, Rough, Road, Ore, Gems, Beach, Tiberium, BlueTiberium, Creep, Radiation
 		Locomotor: husk
@@ -3453,13 +3472,13 @@
 			frgsurv: tscv
 			tsengi.o: tscv
 			avinf2: tscv
+			gharv: tscv
 			tmedic: medic
 			medi: medic
 			medi.dm: medic
 			fmedi: medic
 			japanbioengineer: medic
 			priest: medic
-			acolyte: medic
 	ProximityExternalCondition@officer:
 		RequiresCondition: e1of
 		Condition: squadboost

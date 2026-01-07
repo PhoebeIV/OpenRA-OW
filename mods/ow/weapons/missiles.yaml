@@ -106,6 +106,30 @@ StingerMissile:
 		Versus:
 			None: 40
 
+StingerMissileAA:
+	Inherits: Nike
+	ReloadDelay: 50
+	Range: 8c0
+	Report: bstiweaa.aud,bstiweab.aud,bstiweac.aud
+	Projectile: Missile
+		Image: DRAGON
+	Warhead@1Dam: SpreadDamage
+		Damage: 4500
+
+StingerMissileAP:
+	Inherits: StingerMissile
+	Projectile: Missile
+		ContrailStartColor: FFF3BE
+	Warhead@1Dam: SpreadDamage
+		Damage: 7750
+
+StingerMissileAPAA:
+	Inherits: StingerMissileAA
+	Projectile: Missile
+		ContrailStartColor: FFF3BE
+	Warhead@1Dam: SpreadDamage
+		Damage: 4500
+
 BuggyRockets:
 	Inherits: Dragon
 	ReloadDelay: 150
@@ -137,7 +161,7 @@ BuggyRocketsAP:
 	Warhead@1Dam: SpreadDamage
 		Damage: 3000
 		Versus:
-			None: 33
+			None: 40
 			Light: 80
 			Heavy: 110
 
@@ -355,6 +379,11 @@ TritonTusk:
 	Warhead@2Dam: SpreadDamage
 		Damage: 1200
 
+MarauderTusk:
+	Inherits: MammothTusk
+	Range: 5c0
+	ValidTargets: Infantry, Cyborg
+
 DireMissile:
 	Inherits: ^AntiGroundMissile
 	ReloadDelay: 70
@@ -430,16 +459,6 @@ TerranHK:
 		Acceleration: 64
 	Warhead@1Dam: SpreadDamage
 		Damage: 3000
-
-StingerMissileAA:
-	Inherits: Nike
-	ReloadDelay: 50
-	Range: 8c0
-	Report: bstiweaa.aud,bstiweab.aud,bstiweac.aud
-	Projectile: Missile
-		Image: DRAGON
-	Warhead@1Dam: SpreadDamage
-		Damage: 3200
 
 DawnNike:
 	Inherits: Nike
@@ -3349,3 +3368,42 @@ SilverCruiseMissile:
 	Warhead@22FlashEffect: FlashEffect
 		Duration: 15
 		FlashType: Nuke
+
+ScorpionRocket:
+	Inherits: ^AntiGroundMissile
+	ReloadDelay: 75
+	Range: 4c768
+	Report: btunweaa.wav, btunweab.wav, btunweac.wav, btunwead.wav
+	Projectile: Missile
+		Speed: 200
+		HorizontalRateOfTurn: 20
+		RangeLimit: 15c0
+		Gravity: 1
+		MinimumLaunchAngle: 48
+		MinimumLaunchSpeed: 16
+		MaximumLaunchSpeed: 16
+		HomingActivationDelay: 2
+		Acceleration: 12
+		CruiseAltitude: 2c0
+		Inaccuracy: 512
+		LockOnProbability: 0
+		Image: patriot
+	Warhead@1Dam: SpreadDamage
+		Damage: 7500
+		Spread: 512
+		Versus:
+			None: 100
+			Wood: 50
+			Light: 75
+			Heavy: 75
+			Concrete: 50
+	Warhead@3Eff: CreateEffect
+		Explosions: artillery_explosion
+		ImpactSounds: kaboom15.aud
+
+ScorpionRocketAP:
+	Inherits: ScorpionRocket
+	Projectile: Missile
+		ContrailStartColor: FFF3BE
+	Warhead@1Dam: SpreadDamage
+		Damage: 8750

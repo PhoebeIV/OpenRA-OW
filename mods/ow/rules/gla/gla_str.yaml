@@ -17,9 +17,6 @@
 		BlinkInterval: 35
 		BlinkPattern: Off, On
 		RequiresCondition: (wrench && !damage-cooldown) || tempheal
-	# FireWarheadsOnDeath@hole:
-	#	Weapon: HoleDamage
-	#	EmptyWeapon: HoleDamage
 
 ^KassadStealth:
 	Cloak@stealthgen:
@@ -266,6 +263,17 @@ GFACT:
 		Actor: GFACT.Hole
 	RenderSprites:
 		Image: fact
+	Production@maverick:
+		RequiresCondition: maverick && gotfactory
+		Produces: Aircraft
+	Exit@0:
+		ProductionTypes: Aircraft
+	GrantConditionOnPrerequisite@maverick:
+		Condition: maverick
+		Prerequisites: hero.maverick
+	GrantConditionOnPrerequisite@aircraft:
+		Condition: gotfactory
+		Prerequisites: factory
 
 GFACT.Hole:
 	Inherits: ^GLAHole3x3
@@ -1014,18 +1022,21 @@ GSTG:
 		Sequence: tarp
 		PauseOnCondition: !build-incomplete
 	Armament@1:
+		RequiresCondition: !aprockets
 		Weapon: StingerMissile
 		LocalOffset: 0,0,512
 		MuzzleSequence: shoot
 		MuzzlePalette: player
 		PauseOnCondition: sniped
 	Armament@1AA:
+		RequiresCondition: !aprockets
 		Weapon: StingerMissileAA
 		LocalOffset: 0,0,512
 		MuzzleSequence: shoot
 		MuzzlePalette: player
 		PauseOnCondition: sniped
 	Armament@2:
+		RequiresCondition: !aprockets
 		Turret: secondary
 		Weapon: StingerMissile
 		LocalOffset: 0,0,512
@@ -1033,8 +1044,39 @@ GSTG:
 		MuzzlePalette: player
 		PauseOnCondition: deadman
 	Armament@2AA:
+		RequiresCondition: !aprockets
 		Turret: secondary
 		Weapon: StingerMissileAA
+		LocalOffset: 0,0,512
+		MuzzleSequence: shoot
+		MuzzlePalette: player
+		PauseOnCondition: deadman
+	Armament@1AP:
+		RequiresCondition: aprockets
+		Weapon: StingerMissileAP
+		LocalOffset: 0,0,512
+		MuzzleSequence: shoot
+		MuzzlePalette: player
+		PauseOnCondition: sniped
+	Armament@1AAAP:
+		RequiresCondition: aprockets
+		Weapon: StingerMissileAPAA
+		LocalOffset: 0,0,512
+		MuzzleSequence: shoot
+		MuzzlePalette: player
+		PauseOnCondition: sniped
+	Armament@2AP:
+		RequiresCondition: aprockets
+		Turret: secondary
+		Weapon: StingerMissileAP
+		LocalOffset: 0,0,512
+		MuzzleSequence: shoot
+		MuzzlePalette: player
+		PauseOnCondition: deadman
+	Armament@2AAAP:
+		RequiresCondition: aprockets
+		Turret: secondary
+		Weapon: StingerMissileAPAA
 		LocalOffset: 0,0,512
 		MuzzleSequence: shoot
 		MuzzlePalette: player
@@ -1086,6 +1128,9 @@ GSTG:
 		DetectionTypes: Cloak, AirCloak
 	SpawnActorOnDeath:
 		Actor: GSTG.Hole
+	GrantConditionOnPrerequisite@aprockets:
+		Condition: aprockets
+		Prerequisites: gla.aprockets
 	RenderSprites:
 		Image: gstgnew
 
@@ -1571,7 +1616,7 @@ GSNEAK2.Teleport:
 		Actor: gftrk
 	SpawnActorOnDeath@6:
 		RequiresCondition: r6
-		Actor: 1tnk.g
+		Actor: g1tnk
 	SpawnActorOnDeath@7:
 		RequiresCondition: r7
 		Actor: bggyd.g
