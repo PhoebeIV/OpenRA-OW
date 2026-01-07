@@ -224,8 +224,11 @@ CRATE:
 		Units: terminator
 		Sound: arniekil2.aud
 	GiveUnitCrateAction@hunterkiller:
-		SelectionShares: 6
+		SelectionShares: 4
 		Units: 1tnk.hunter
+	GiveUnitCrateAction@hunterkillercrate:
+		SelectionShares: 2
+		Units: 1tnk.huntercrate
 	GiveUnitCrateAction@bitconnect:
 		SelectionShares: 1
 		Units: 1tnk.bitconnect
@@ -777,6 +780,13 @@ CRATE.LEVEL:
 	-FireWarheadsOnDeath:
 	SpawnActorOnDeath:
 		Actor: hunter
+		OwnerType: Victim
+
+1TNK.HUNTERCRATE:
+	Inherits: 1TNK.MINE
+	-FireWarheadsOnDeath:
+	SpawnActorOnDeath:
+		Actor: hunter.crate
 		OwnerType: Victim
 
 1TNK.SPLIT3:
@@ -4153,3 +4163,11 @@ FIRESALE.Dummy:
 	KillsSelf:
 		RemoveInstead: true
 		Delay: 500
+
+HUNTER.Crate:
+	Inherits: HUNTER
+	RenderSprites:
+		Palette: effect
+		Image: scrate
+	Armament@PRIMARY:
+		Weapon: HunterSeekerBombCrate
