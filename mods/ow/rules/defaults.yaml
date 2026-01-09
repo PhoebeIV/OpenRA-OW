@@ -302,6 +302,8 @@
 	Targetable@ai_consideration_iron:
 		RequiresCondition: ironable && ironable_combat
 		TargetTypes: IronCurtainMe
+	Targetable@ironcurtained:
+		TargetTypes: Invulnerable
 
 # Inherited and changed from mods/ra to make ranked up actors give more experience when killed.
 ^GainsExperience:
@@ -591,8 +593,6 @@
 ^ConYard:
 	Inherits@pips: ^AdvTechPips
 	Inherits@target: ^BotCaptureTarget
-	WithDecoration@frame:
-		RequiresCondition: !build-incomplete
 	BaseProvider:
 		Range: 16c0
 		RequiresCondition: !botowner
@@ -611,7 +611,7 @@
 	ExternalCondition@surveyor:
 		Condition: surveyor_near_base
 	GrantCondition@bot_undeploy_block:
-		RequiresCondition: !surveyor_near_base
+		RequiresCondition: !surveyor_near_base && botowner
 		Condition: bot_undeploy_block
 	Exit:
 	ProductionBar@Building:
@@ -650,6 +650,29 @@
 	GrantConditionOnPrerequisite@alltech:
 		Condition: alltech
 		Prerequisites: techlevel.alltech
+	ProductionQueue@ConYardPerimeter:
+		Type: ConYardPerimeter
+		Group: Upgrade
+		DisplayOrder: 2
+		BlockedAudio: NoBuild
+		LimitedAudio: BuildingInProgress
+		QueuedAudio: Building
+		OnHoldAudio: OnHold
+		CancelledAudio: Cancelled
+		QueueLimit: 1
+	Production@ConYardPerimeter:
+		Produces: ConYardPerimeter
+		RequiresCondition: !supply_upgrade
+	ProvidesPrerequisite@allowperimeter:
+		RequiresCondition: !build-incomplete
+		Prerequisite: conyard.perimeter
+	GrantConditionOnProduction@supply_upgrade:
+		Actors: upgrade.aiperimeter
+		Condition: perimeter1
+	FreeActor@perimeter1:
+		RequiresCondition: perimeter1
+		Actor: AIPerimeterSpawner
+		SpawnOffset: 1,1
 
 # Default actor for refineries, provides the "refinery" prerequisite
 ^Refinery:
@@ -1743,6 +1766,8 @@
 		RequiresCondition: reveal_me
 		Range: 2c0
 		ValidRelationships: Enemy
+	ProvidesPrerequisite@superweapon:
+		Prerequisite: superweapon
 
 ^FakeBuilding:
 	FireWarheadsOnDeath@2:
@@ -2105,9 +2130,6 @@
 		Condition: soviet_iron
 	GrantConditionOnPrerequisite@terranarmor:
 		Prerequisites: terran.armor
-		Condition: soviet_iron
-	GrantConditionOnPrerequisite@sovietarmor:
-		Prerequisites: soviet.iron
 		Condition: soviet_iron
 	DamageMultiplier@sovietiron:
 		RequiresCondition: soviet_iron && !shielded

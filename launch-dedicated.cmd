@@ -5,7 +5,7 @@
 set Name="Phoebe's"
 set Mod=ow
 set Map=""
-set ListenPort=34840
+set ListenPort=10668
 set AdvertiseOnline=True
 set AdvertiseOnLocalNetwork=True
 set Password=""
@@ -16,7 +16,7 @@ set ProfileIDBlacklist=""
 set ProfileIDWhitelist=""
 
 set EnableSingleplayer=True
-set EnableSyncReports=False
+set EnableSyncReports=True
 set EnableGeoIP=True
 set EnableLintChecks=True
 set ShareAnonymizedIPs=True

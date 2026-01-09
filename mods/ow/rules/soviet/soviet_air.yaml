@@ -174,3 +174,83 @@ ZEP.Bot:
 		BuildPaletteOrder: 64
 		Prerequisites: ~afld, advtechcenter, ~techlevel.unrestricted, ~aircraft.soviet, ~ai.all
 		BuildLimit: 1
+
+
+BADR.DroneStrike:
+	Inherits: BADR.Bomber
+	Health:
+		HP: 7500
+	Aircraft:
+		Speed: 192
+	-Contrail@1:
+	-Contrail@2:
+	-LeavesTrails@0:
+	-LeavesTrails@1:
+	Tooltip:
+		Name: actor-avbomber-bomber-name
+	AttackBomber:
+		FacingTolerance: 8
+	AmmoPool:
+		Ammo: 1
+	Armament:
+		Weapon: DroneSwarmSound
+	FireWarheadsOnDeath:
+		Weapon: UnitExplode
+		RequiresCondition: !killself
+	SpawnActorOnDeath:
+		RequiresCondition: killself
+		Actor: HUNTER.DroneStrike
+	ActorLostNotification:
+		RequiresCondition: !killself
+	GrantConditionOnAttack@die:
+		Condition: killself
+	KillsSelf@die:
+		RequiresCondition: killself
+		DamageTypes: Suicide
+	RenderSprites:
+		Image: usaspydrone
+	GrantRandomCondition@sound:
+		Conditions: sound,x
+	AmbientSound:
+		RequiresCondition: sound
+		SoundFiles: dronesound.ogg
+
+HUNTER.DroneStrike:
+	Inherits: HUNTER
+	Health:
+		HP: 12500
+	Aircraft:
+		Speed: 192
+		TurnSpeed: 16
+		Repulsable: false
+	Targetable:
+		TargetTypes: AirborneActor
+	RenderSprites:
+		Image: usaspydrone
+		PlayerPalette: player
+	AttackWander:
+		WanderMoveRadius: 5
+	GrantDelayedCondition: 
+		Condition: armed
+		Delay: 25, 50
+	RevealsShroud:
+		Range: 4c0
+	AttackTurreted:
+		RequiresCondition: armed
+	AutoTarget:
+		InitialStance: AttackAnything
+		ScanRadius: 16
+	KillsSelf@2:
+		RequiresCondition: armed
+		Delay: 150,200
+	-ActorLostNotification:
+	Contrail@1:
+		Offset: 0,-256,0
+		StartColorAlpha: 128
+	Armament@PRIMARY:
+		Weapon: DroneStrikeBomb
+	GrantRandomCondition@sound:
+		Conditions: sound,x
+	AmbientSound:
+		RequiresCondition: sound
+		SoundFiles: dronesound.ogg

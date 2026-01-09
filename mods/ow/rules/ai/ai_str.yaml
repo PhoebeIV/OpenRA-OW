@@ -2486,3 +2486,409 @@ bossfaction.battletech:
 		Prerequisite: vehicles.battletech
 	ProvidesPrerequisite@infantry:
 		Prerequisite: infantry.battletech
+
+upgrade.aiperimeter:
+	Inherits: ^ZergEvolve
+	Tooltip:
+		Name: actor-perimeterupgrade.name
+	Buildable:
+		Queue: ConYardPerimeter
+		Description: actor-perimeterupgrade.desc
+		BuildDuration: 125
+		Prerequisites: ~ai.all, ~techlevel.medium, ~conyard.perimeter, ~ai.perimeter
+		IconPaletteIsPlayerPalette: false
+		IconPalette: chrome
+	RenderSprites:
+		Image: brik
+
+AIPerimeterPlaceholder:
+	Inherits: ^Building
+	RenderSprites:
+		Image: usaairstriplandingspot
+	-WithMakeAnimation:
+	-GivesBuildableArea:
+	Building:
+		Dimensions: 21,21
+		Footprint: x==================== =___________________= =___________________= =___________________= =___________________= =___________________= =___________________= =___________________= =___________________= =___________________= =___________________= =___________________= =___________________= =___________________= =___________________= =___________________= =___________________= =___________________= =___________________= =___________________= =====================
+	KillsSelf:
+		RequiresCondition: !wall_placed
+		Delay: 25
+	GrantConditionOnPrerequisite:
+		Prerequisites: aiperimeterspawner
+		Condition: wall_placed
+	Health:
+		HP: 1000
+	DamageMultiplier@1:
+		Modifier: 0
+
+BRIK.Spawn:
+	Inherits: 1TNK.MINE
+	-FireWarheadsOnDeath:
+	KillsSelf:
+		Delay: 2
+	GrantConditionOnTerrain:
+		TerrainTypes: Water, Rock, Beach, Oremine, TibTree, TibTreeBlue, TibMonolith, TibMonolithBlue, River, Brush, Tree, Wall
+		Condition: invalid
+	GrantConditionOnTerrain@resource:
+		TerrainTypes: Ore, Gems, Tiberium, BlueTiberium
+		Condition: destroy_resource
+	GrantConditionOnPrerequisite@estonia:
+		Prerequisites: structures.estonia
+		Condition: estonia
+	FireWarheadsOnDeath@resource:
+		RequiresCondition: destroy_resource
+		Weapon: DestroyResource1x1
+	SpawnActorOnDeath:
+		RequiresCondition: !invalid && !estonia
+		Actor: brik
+		OwnerType: Victim
+	SpawnActorOnDeath@estonia:
+		RequiresCondition: !invalid && estonia
+		Actor: brik.est
+		OwnerType: Victim
+
+AGATE.Spawn:
+	Inherits: BRIK.Spawn
+	-GrantConditionOnPrerequisite@estonia:
+	-SpawnActorOnDeath@estonia:
+	FireWarheadsOnDeath@resource1:
+		RequiresCondition: destroy_resource
+		Weapon: DestroyResource1x1
+		Offset: -1024,0,0
+	FireWarheadsOnDeath@resource2:
+		RequiresCondition: destroy_resource
+		Weapon: DestroyResource1x1
+		Offset: 1024,0,0
+	SpawnActorOnDeath:
+		Actor: agate
+
+VGATE.Spawn:
+	Inherits: AGATE.Spawn
+	FireWarheadsOnDeath@resource1:
+		Offset: 0,-1024,0
+	FireWarheadsOnDeath@resource2:
+		Offset: 0,1024,0
+	SpawnActorOnDeath:
+		Actor: vgate
+
+AIPerimeterSpawner:
+	Inherits: MINE_DUMMY
+	ProvidesPrerequisite@name:
+	KillsSelf:
+		RequiresCondition: place_wall == 31
+		Delay: 1
+		RemoveInstead: true
+	Targetable@self:
+		TargetTypes: AIPerimeterSpawner
+	ExternalCondition@wall:
+		Condition: place_wall
+	FireWarheads@wall:
+		Weapons: AIPerimeterCondition
+		Interval: 25
+	FreeActor@0:
+		Actor: AIPerimeterPlaceholder
+		SpawnOffset: -10,-10
+	FreeActor@1:
+		RequiresCondition: place_wall == 1
+		Actor: BRIK.Spawn
+		SpawnOffset: -10,-10
+	FreeActor@2:
+		RequiresCondition: place_wall == 2
+		Actor: BRIK.Spawn
+		SpawnOffset: -9,-10
+	FreeActor@3:
+		RequiresCondition: place_wall == 2
+		Actor: BRIK.Spawn
+		SpawnOffset: -8,-10
+	FreeActor@4:
+		RequiresCondition: place_wall == 2
+		Actor: BRIK.Spawn
+		SpawnOffset: -7,-10
+	FreeActor@5:
+		RequiresCondition: place_wall == 3
+		Actor: BRIK.Spawn
+		SpawnOffset: -6,-10
+	FreeActor@6:
+		RequiresCondition: place_wall == 3
+		Actor: BRIK.Spawn
+		SpawnOffset: -5,-10
+	FreeActor@7:
+		RequiresCondition: place_wall == 3
+		Actor: BRIK.Spawn
+		SpawnOffset: -4,-10
+	FreeActor@8:
+		RequiresCondition: place_wall == 4
+		Actor: BRIK.Spawn
+		SpawnOffset: -3,-10
+	FreeActor@9:
+		RequiresCondition: place_wall == 4
+		Actor: BRIK.Spawn
+		SpawnOffset: -2,-10
+	FreeActor@10:
+		RequiresCondition: place_wall == 4
+		Actor: BRIK.Spawn
+		SpawnOffset: 2,-10
+	FreeActor@11:
+		RequiresCondition: place_wall == 5
+		Actor: AGATE.Spawn
+		SpawnOffset: -1,-10
+	FreeActor@12:
+		RequiresCondition: place_wall == 6
+		Actor: BRIK.Spawn
+		SpawnOffset: 3,-10
+	FreeActor@13:
+		RequiresCondition: place_wall == 6
+		Actor: BRIK.Spawn
+		SpawnOffset: 4,-10
+	FreeActor@14:
+		RequiresCondition: place_wall == 6
+		Actor: BRIK.Spawn
+		SpawnOffset: 5,-10
+	FreeActor@15:
+		RequiresCondition: place_wall == 7
+		Actor: BRIK.Spawn
+		SpawnOffset: 6,-10
+	FreeActor@16:
+		RequiresCondition: place_wall == 7
+		Actor: BRIK.Spawn
+		SpawnOffset: 7,-10
+	FreeActor@17:
+		RequiresCondition: place_wall == 7
+		Actor: BRIK.Spawn
+		SpawnOffset: 8,-10
+	FreeActor@18:
+		RequiresCondition: place_wall == 8
+		Actor: BRIK.Spawn
+		SpawnOffset: 9,-10
+	FreeActor@19:
+		RequiresCondition: place_wall == 8
+		Actor: BRIK.Spawn
+		SpawnOffset: 10,-10
+	FreeActor@20:
+		RequiresCondition: place_wall == 8
+		Actor: BRIK.Spawn
+		SpawnOffset: 10,-9
+	FreeActor@21:
+		RequiresCondition: place_wall == 9
+		Actor: BRIK.Spawn
+		SpawnOffset: 10,-8
+	FreeActor@22:
+		RequiresCondition: place_wall == 9
+		Actor: BRIK.Spawn
+		SpawnOffset: 10,-7
+	FreeActor@23:
+		RequiresCondition: place_wall == 9
+		Actor: BRIK.Spawn
+		SpawnOffset: 10,-6
+	FreeActor@24:
+		RequiresCondition: place_wall == 10
+		Actor: BRIK.Spawn
+		SpawnOffset: 10,-5
+	FreeActor@25:
+		RequiresCondition: place_wall == 10
+		Actor: BRIK.Spawn
+		SpawnOffset: 10,-4
+	FreeActor@26:
+		RequiresCondition: place_wall == 10
+		Actor: BRIK.Spawn
+		SpawnOffset: 10,-3
+	FreeActor@27:
+		RequiresCondition: place_wall == 11
+		Actor: BRIK.Spawn
+		SpawnOffset: 10,-2
+	FreeActor@28:
+		RequiresCondition: place_wall == 11
+		Actor: BRIK.Spawn
+		SpawnOffset: 10,2
+	FreeActor@29:
+		RequiresCondition: place_wall == 11
+		Actor: BRIK.Spawn
+		SpawnOffset: 10,3
+	FreeActor@30:
+		RequiresCondition: place_wall == 12
+		Actor: VGATE.Spawn
+		SpawnOffset: 10,-1
+	FreeActor@31:
+		RequiresCondition: place_wall == 13
+		Actor: BRIK.Spawn
+		SpawnOffset: 10,4
+	FreeActor@32:
+		RequiresCondition: place_wall == 13
+		Actor: BRIK.Spawn
+		SpawnOffset: 10,5
+	FreeActor@33:
+		RequiresCondition: place_wall == 13
+		Actor: BRIK.Spawn
+		SpawnOffset: 10,6
+	FreeActor@34:
+		RequiresCondition: place_wall == 14
+		Actor: BRIK.Spawn
+		SpawnOffset: 10,7
+	FreeActor@35:
+		RequiresCondition: place_wall == 14
+		Actor: BRIK.Spawn
+		SpawnOffset: 10,8
+	FreeActor@36:
+		RequiresCondition: place_wall == 14
+		Actor: BRIK.Spawn
+		SpawnOffset: 10,9
+	FreeActor@37:
+		RequiresCondition: place_wall == 15
+		Actor: BRIK.Spawn
+		SpawnOffset: 10,10
+	FreeActor@38:
+		RequiresCondition: place_wall == 15
+		Actor: BRIK.Spawn
+		SpawnOffset: 9,10
+	FreeActor@39:
+		RequiresCondition: place_wall == 15
+		Actor: BRIK.Spawn
+		SpawnOffset: 8,10
+	FreeActor@40:
+		RequiresCondition: place_wall == 16
+		Actor: BRIK.Spawn
+		SpawnOffset: 7,10
+	FreeActor@41:
+		RequiresCondition: place_wall == 16
+		Actor: BRIK.Spawn
+		SpawnOffset: 6,10
+	FreeActor@42:
+		RequiresCondition: place_wall == 16
+		Actor: BRIK.Spawn
+		SpawnOffset: 5,10
+	FreeActor@43:
+		RequiresCondition: place_wall == 17
+		Actor: BRIK.Spawn
+		SpawnOffset: 4,10
+	FreeActor@44:
+		RequiresCondition: place_wall == 17
+		Actor: BRIK.Spawn
+		SpawnOffset: 3,10
+	FreeActor@45:
+		RequiresCondition: place_wall == 17
+		Actor: BRIK.Spawn
+		SpawnOffset: 2,10
+	FreeActor@46:
+		RequiresCondition: place_wall == 18
+		Actor: AGATE.Spawn
+		SpawnOffset: -1,10
+	FreeActor@47:
+		RequiresCondition: place_wall == 19
+		Actor: BRIK.Spawn
+		SpawnOffset: -2,10
+	FreeActor@48:
+		RequiresCondition: place_wall == 19
+		Actor: BRIK.Spawn
+		SpawnOffset: -3,10
+	FreeActor@49:
+		RequiresCondition: place_wall == 19
+		Actor: BRIK.Spawn
+		SpawnOffset: -4,10
+	FreeActor@49b:
+		RequiresCondition: place_wall == 20
+		Actor: BRIK.Spawn
+		SpawnOffset: -5,10
+	FreeActor@50:
+		RequiresCondition: place_wall == 20
+		Actor: BRIK.Spawn
+		SpawnOffset: -6,10
+	FreeActor@51:
+		RequiresCondition: place_wall == 20
+		Actor: BRIK.Spawn
+		SpawnOffset: -7,10
+	FreeActor@52:
+		RequiresCondition: place_wall == 21
+		Actor: BRIK.Spawn
+		SpawnOffset: -8,10
+	FreeActor@53:
+		RequiresCondition: place_wall == 21
+		Actor: BRIK.Spawn
+		SpawnOffset: -9,10
+	FreeActor@54:
+		RequiresCondition: place_wall == 21
+		Actor: BRIK.Spawn
+		SpawnOffset: -10,10
+	FreeActor@55:
+		RequiresCondition: place_wall == 22
+		Actor: BRIK.Spawn
+		SpawnOffset: -10,9
+	FreeActor@56:
+		RequiresCondition: place_wall == 22
+		Actor: BRIK.Spawn
+		SpawnOffset: -10,8
+	FreeActor@57:
+		RequiresCondition: place_wall == 22
+		Actor: BRIK.Spawn
+		SpawnOffset: -10,7
+	FreeActor@58:
+		RequiresCondition: place_wall == 23
+		Actor: BRIK.Spawn
+		SpawnOffset: -10,6
+	FreeActor@59:
+		RequiresCondition: place_wall == 23
+		Actor: BRIK.Spawn
+		SpawnOffset: -10,5
+	FreeActor@60:
+		RequiresCondition: place_wall == 23
+		Actor: BRIK.Spawn
+		SpawnOffset: -10,4
+	FreeActor@61:
+		RequiresCondition: place_wall == 24
+		Actor: BRIK.Spawn
+		SpawnOffset: -10,3
+	FreeActor@62:
+		RequiresCondition: place_wall == 24
+		Actor: BRIK.Spawn
+		SpawnOffset: -10,2
+	FreeActor@63:
+		RequiresCondition: place_wall == 24
+		Actor: BRIK.Spawn
+		SpawnOffset: -10,1
+	FreeActor@64:
+		RequiresCondition: place_wall == 25
+		Actor: VGATE.Spawn
+		SpawnOffset: -10,-2
+	FreeActor@65:
+		RequiresCondition: place_wall == 26
+		Actor: BRIK.Spawn
+		SpawnOffset: -10,-3
+	FreeActor@66:
+		RequiresCondition: place_wall == 26
+		Actor: BRIK.Spawn
+		SpawnOffset: -10,-4
+	FreeActor@67:
+		RequiresCondition: place_wall == 26
+		Actor: BRIK.Spawn
+		SpawnOffset: -10,-5
+	FreeActor@68:
+		RequiresCondition: place_wall == 27
+		Actor: BRIK.Spawn
+		SpawnOffset: -10,-6
+	FreeActor@69:
+		RequiresCondition: place_wall == 27
+		Actor: BRIK.Spawn
+		SpawnOffset: -10,-7
+	FreeActor@70:
+		RequiresCondition: place_wall == 27
+		Actor: BRIK.Spawn
+		SpawnOffset: -10,-8
+	FreeActor@71:
+		RequiresCondition: place_wall == 27
+		Actor: BRIK.Spawn
+		SpawnOffset: -10,-9
+	FreeActor@72:
+		RequiresCondition: place_wall == 28
+		Actor: BRIK.Spawn
+		SpawnOffset: -9,-9
+	FreeActor@73:
+		RequiresCondition: place_wall == 29
+		Actor: BRIK.Spawn
+		SpawnOffset: 9,9
+	FreeActor@74:
+		RequiresCondition: place_wall == 30
+		Actor: BRIK.Spawn
+		SpawnOffset: -9,9
+	FreeActor@75:
+		RequiresCondition: place_wall == 31
+		Actor: BRIK.Spawn
+		SpawnOffset: 9,-9

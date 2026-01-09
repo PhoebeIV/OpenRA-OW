@@ -732,6 +732,9 @@ DOME:
 	ProvidesPrerequisite@nazi:
 		Factions: heydrich, himmler
 		Prerequisite: radar.nazi
+	ProvidesPrerequisite@ukraine:
+		Factions: ukraine
+		Prerequisite: radar.ukraine
 	ExternalCondition@JAMMED:
 		Condition: jammed
 	AirstrikePower@do17bomb:
@@ -750,6 +753,29 @@ DOME:
 		BeaconPoster: pbmbicon
 		SquadSize: 3
 		SquadOffset: 1792,1792,0
+		ArrowSequence: arrow
+		ClockSequence: clock
+		CircleSequence: circles
+		UseDirectionalTarget: True
+		DirectionArrowAnimation: paradirection
+		SupportPowerPaletteOrder: 40
+	AirstrikePower@dronestrike:
+		OrderName: UkraineDroneStrike
+		Prerequisites: radar.ukraine, soviet.drones
+		Icon: dronestrike
+		ChargeInterval: 10500
+		Name: actor-soviet-drones.name
+		Description: actor-soviet-drones.power
+		SelectTargetSpeechNotification: SelectTarget
+		SelectTargetTextNotification: notification-select-target
+		CameraActor: camera
+		CameraRemoveDelay: 150
+		UnitType: badr.dronestrike
+		QuantizedFacings: 8
+		DisplayBeacon: true
+		BeaconPoster: pbmbicon
+		SquadSize: 15
+		SquadOffset: -768,1024,0
 		ArrowSequence: arrow
 		ClockSequence: clock
 		CircleSequence: circles
@@ -1987,6 +2013,8 @@ TREEEXT:
 AGATE:
 	Inherits: ^Building
 	Inherits@disable: ^DisableOnLowPower
+	Selectable:
+		Class: GATE
 	Buildable:
 		Queue: Wall
 		BuildPaletteOrder: 45
@@ -2015,6 +2043,9 @@ AGATE:
 		CrushClasses: heavywall
 	BlocksProjectiles:
 	-WithSpriteBody:
+	-WithMakeAnimation:
+	-MustBeDestroyed:
+	-GivesBuildableArea:
 	LineBuildNode:
 		Types: concrete
 		Connections: -1,0, 1,0

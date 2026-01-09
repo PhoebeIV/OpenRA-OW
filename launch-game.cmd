@@ -5,7 +5,7 @@ for /F "delims==\ " %%x in ("%*") do (
 )
 
 cd %~dp0%
-bin\OpenRA.exe Engine.EngineDir=".." Engine.LaunchPath="%~dpf0" Game.Mod=ow Debug.DisplayDeveloperSettings=false
+bin\OpenRA.exe Engine.EngineDir=".." Engine.LaunchPath="%~dpf0" Game.Mod=ow Debug.DisplayDeveloperSettings=false Server.EnableSyncReports=true
 
 :end
 if %errorlevel% neq 0 goto crashdialog

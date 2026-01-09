@@ -1,18 +1,75 @@
+soviet.teslabomb:
+	Inherits: ^UpgradeBaseExt
+	Tooltip:
+		Name: actor-soviet-teslabomb.name
+	Buildable:
+		Description: actor-soviet-teslabomb.description
+		BuildPaletteOrder: 12000
+		Prerequisites: ~structures.uktraine, ~techlevel.medium, hero.tier1
+	ProvidesPrerequisite@upgradename:
+	ProductionCostMultiplier@upgrade:
+		Multiplier: 3000
+	WithProductionIconOverlay:
+		Types: UpgradeComplete
+		Prerequisites: soviet.teslabomb
+
+soviet.iron1:
+	Inherits: ^UpgradeBaseExt
+	Tooltip:
+		Name: actor-soviet-iron1.name
+	Buildable:
+		Description: actor-soviet-iron1.description
+		BuildPaletteOrder: 12001
+		Prerequisites: ~structures.soviet, ~techlevel.medium, hero.tier2, ~!soviet.ironestonia
+		BuildDuration: 4000
+	ProvidesPrerequisite@upgradename:
+	ProvidesPrerequisite@vehicles1:
+		Prerequisite: upgrade.veharmor1
+		RequiresPrerequisites: !soviet.iron1
+	ProvidesPrerequisite@estonia:
+		RequiresPrerequisites: structures.estonia
+		Prerequisite: soviet.ironestonia
+		Factions: estonia
+	ProductionCostMultiplier@upgrade:
+		Multiplier: 5000
+	WithProductionIconOverlay:
+		Types: UpgradeComplete
+		Prerequisites: soviet.iron1
+
 soviet.iron:
 	Inherits: ^UpgradeBaseExt
 	Tooltip:
 		Name: actor-soviet-iron.name
 	Buildable:
 		Description: actor-soviet-iron.description
-		BuildPaletteOrder: 12000
-		Prerequisites: ~structures.soviet, advtechcenter, ~techlevel.unrestricted
-		BuildDuration: 4000
+		BuildPaletteOrder: 12001
+		Prerequisites: ~soviet.iron1, ~structures.estonia, ~techlevel.high, hero.tier3
+		BuildDuration: 5000
 	ProvidesPrerequisite@upgradename:
+	ProvidesPrerequisite@vehicles1:
+		Prerequisite: gfix
+	ProvidesPrerequisite@structures1:
+		Prerequisite: upgrade.buildingrepair2
 	ProductionCostMultiplier@upgrade:
 		Multiplier: 7500
 	WithProductionIconOverlay:
 		Types: UpgradeComplete
 		Prerequisites: soviet.iron
+
+soviet.teslapower:
+	Inherits: ^UpgradeBaseExt
+	Tooltip:
+		Name: actor-soviet-teslapower.name
+	Buildable:
+		Description: actor-soviet-teslapower.description
+		BuildPaletteOrder: 12002
+		Prerequisites: ~structures.russia, tsla, ~techlevel.medium
+	ProvidesPrerequisite@upgradename:
+	ProductionCostMultiplier@upgrade:
+		Multiplier: 2500
+	WithProductionIconOverlay:
+		Types: UpgradeComplete
+		Prerequisites: soviet.teslapower
 
 soviet.tesla:
 	Inherits: ^UpgradeBaseExt
@@ -20,14 +77,44 @@ soviet.tesla:
 		Name: actor-soviet-tesla.name
 	Buildable:
 		Description: actor-soviet-tesla.description
-		BuildPaletteOrder: 12001
-		Prerequisites: ~structures.soviet, techcenter, ~techlevel.high
+		BuildPaletteOrder: 12003
+		Prerequisites: ~structures.russia, tsla, ~techlevel.high
 	ProvidesPrerequisite@upgradename:
 	ProductionCostMultiplier@upgrade:
 		Multiplier: 5000
 	WithProductionIconOverlay:
 		Types: UpgradeComplete
 		Prerequisites: soviet.tesla
+
+soviet.training:
+	Inherits: allies.training2
+	Tooltip:
+		Name: actor-soviet-training.name
+	RenderSprites:
+		Image: allies.training2
+	Buildable:
+		Description: actor-soviet-training.description
+		Prerequisites: ~structures.ukraine, hero.tier2, ~techlevel.low
+	ProvidesPrerequisite@upgradename:
+		Prerequisites: allies.training2
+	WithProductionIconOverlay:
+		Types: UpgradeComplete
+		Prerequisites: soviet.training
+
+soviet.drones:
+	Inherits: ^UpgradeBaseExt
+	Tooltip:
+		Name: actor-soviet-drones.name
+	Buildable:
+		Description: actor-soviet-drones.description
+		BuildPaletteOrder: 12003
+		Prerequisites: ~structures.ukraine, ~techlevel.medium, hero.tier3
+	ProvidesPrerequisite@upgradename:
+	ProductionCostMultiplier@upgrade:
+		Multiplier: 2500
+	WithProductionIconOverlay:
+		Types: UpgradeComplete
+		Prerequisites: soviet.drones
 
 KENN:
 	Inherits: ^Building
@@ -48,16 +135,41 @@ KENN:
 
 TSLA:
 	Buildable:
-		Prerequisites: weap, ~structures.soviet, ~!structures.estonia, ~techlevel.medium
+		Prerequisites: weap, ~structures.soviet, ~!structures.estonia, ~techlevel.medium, ~!soviet.teslabomb
+	ProvidesPrerequisite@buildingname:
+		Prerequisite: tsla
 	GrantConditionOnPrerequisite@upgrade2:
 		Prerequisites: soviet.tesla
 		Condition: tesla_upgrade
+	GrantConditionOnPrerequisite@upgrade3:
+		Prerequisites: soviet.teslapower
+		Condition: teslapower_upgrade
+	GrantConditionOnPrerequisite@upgrade4:
+		Prerequisites: soviet.teslabomb
+		Condition: teslabomb_upgrade
+	TransformOnCondition@upgrade4:
+		RequiresCondition: teslabomb_upgrade
+		IntoActor: TSLA.UKR
+	TransferTimedExternalConditionOnTransformOW@invuln:
+		Condition: invulnerability
 	RangeMultiplier@upgrade2:
 		RequiresCondition: tesla_upgrade
 		Modifier: 110
 	FirepowerMultiplier@upgrade2:
 		RequiresCondition: tesla_upgrade
-		Modifier: 120
+		Modifier: 125
+	ReloadDelayMultiplier@upgrade2:
+		RequiresCondition: tesla_upgrade
+		Modifier: 80
+	PowerMultiplier@upgrade3:
+		RequiresCondition: teslapower_upgrade
+		Modifier: 75
+	-AttackTesla:
+	AttackTeslaOW:
+		PauseOnCondition: disabled || build-incomplete
+		ChargeAudio: tslachg2.aud
+		MaxCharges: 3
+		ReloadDelay: 120
 
 TSLA.EST:
 	Inherits: TSLA
@@ -68,8 +180,22 @@ TSLA.EST:
 		Name: actor-tsla-est.name
 	Armament:
 		Weapon: TeslaZapEMP
-	AttackTesla:
-		ReloadDelay: 135
+	RenderSprites:
+		Image: TSLA
+
+TSLA.UKR:
+	Inherits: TSLA
+	Buildable:
+		Prerequisites: ~soviet.teslabomb, ~techlevel.medium
+		Description: actor-tsla-ukr.description
+		Icon: icon-bomb
+	Tooltip:
+		Name: actor-tsla-ukr.name
+	-GrantConditionOnPrerequisite@upgrade4:
+	-TransformOnCondition@upgrade4:
+	-TransferTimedExternalConditionOnTransformOW@invuln:
+	Armament:
+		Weapon: TeslaZapExplosive
 	RenderSprites:
 		Image: TSLA
 

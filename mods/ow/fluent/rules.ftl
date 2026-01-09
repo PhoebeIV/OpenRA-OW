@@ -173,6 +173,10 @@ actor-bossfaction =
    .description = Enables a new faction.
    .name = Faction
 
+actor-perimeterupgrade = 
+   .desc = For AI, builds a random walled perimeter.
+   .name = Build Perimeter
+
 ## ai_veh.yaml
 actor-apc-ai1-description = AI prefilled APC.
 actor-stnk-ai1-description = AI prefilled Raider.
@@ -450,6 +454,13 @@ actor-avgun =
       Strong vs Vehicles
       Weak vs Infantry, Aircraft
    .name = Turret
+
+actor-avdefnode =
+   .description = When charged, automatically activates 
+    when taking damage from a superweapon.
+
+    Creates a large invulnerability field for 20 seconds.
+   .name = Raptor-Theorum Defense Matrix
 
 ## avali_veh.yaml
 actor-avmcv =
@@ -3969,14 +3980,43 @@ actor-e4deso =
    .name = Desolator
 
 ## soviet_str.yaml
-actor-soviet-iron =
+actor-soviet-teslabomb =
+   .name = Tesla Overcharge
+   .description = Nuclear Research has found an inexplicable
+    way to overcharge Tesla Coils with explosives.
+
+    Deals splash damage but reduces attack range.
+
+actor-soviet-iron1 =
    .name = Iron Blanket Protocol
-   .description = Increases armor of all Structures and Tanks by 20% with reactive plating.
+   .description = Increases armor of all Tanks by 15%.
+
+actor-soviet-iron =
+   .name = Iron Blanket Protocol II
+   .description = Increases armor of all Structures and Tanks 
+   by a further 20%, with self repair.
+
+actor-soviet-teslapower =
+   .name = Tesla Transmission
+   .description = Tesla Research has enabled wireless transmission
+   of power. Reduces Tesla Coil power use by 25%
 
 actor-soviet-tesla =
    .name = Improved Coils
    .description = A new alloy was discovered for use in electrical coils,
      increasing damage and range of Tesla weapons.
+
+actor-soviet-training =
+   .name = Ethical Training
+   .description = All units will now be trained as rank 1.
+
+actor-soviet-drones =
+   .name = Drone Strike
+   .description = Enables the use of the Drone Strike support
+    power from the Radar Dome.
+   .power = Launch a drone strike at the targeted area.
+
+    Large squadron, but easily shot down.
 
 actor-tsla-est =
    .description = Advanced base defense, disables current target.
@@ -3985,6 +4025,14 @@ actor-tsla-est =
       Strong vs Vehicles, Infantry
       Weak vs Aircraft
    .name = EMP Tesla Coil
+
+actor-tsla-ukr =
+   .description = Advanced base defense, deals splash damage.
+    Requires power to operate.
+    Can detect cloaked units.
+      Strong vs Vehicles, Infantry
+      Weak vs Aircraft
+   .name = Explosive Tesla Coil
 
 actor-brik-est =
    .description = Stop units and blocks enemy fire.
