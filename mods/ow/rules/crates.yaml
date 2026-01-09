@@ -326,6 +326,11 @@ CRATE:
 		Proxy: powerproxy.holyhandgrenade
 		Sound: holyhandgrenadetrigger.wav
 		Sequence: speed
+		SelectionShares: 2
+	SupportPowerCrateAction@bananabomb:
+		Proxy: powerproxy.bananabomb
+		Sound: bananaimpact.wav
+		Sequence: speed
 		SelectionShares: 3
 	Crate:
 		Duration: 6000
@@ -4179,7 +4184,7 @@ HUNTER.Crate:
 
 powerproxy.holyhandgrenade:
 	DropPodsPowerOW@holyhandgrenade:
-		Icon: mediholylighticon
+		Icon: holyhandgrenadeicon
 		SupportPowerPaletteOrder: 1
 		Name: Holy Hand Grenade
 		OrderName: holyhandgrenade
@@ -4234,5 +4239,65 @@ holyhandgrenade:
 		Weapons: holyhandgrenadeproj
 		Pieces: 1,1
 		Range: 3c0, 7c0
+	-EjectOnDeath:
+	Interactable:
+
+powerproxy.bananabomb:
+	DropPodsPowerOW@bananabomb:
+		Icon: bananabombicon
+		SupportPowerPaletteOrder: 1
+		Name: Holy Hand Grenade
+		OrderName: bananabomb
+		Description: Holy Hand Grenade
+		UnitTypes: bananabomb
+		Cursor: chrono-target
+		Drops: 1,1
+		PodScatter: 1
+		PodFacing: 704
+		PauseOnCondition: disabled
+		CameraActor: camera
+		CameraRemoveDelay: 750
+		Weapon: usarailguncharging
+		WeaponDelay: 5
+		ChargeInterval: 2500
+		EntryEffect: explosion
+		EntryEffectSequence: redeemerexplosion
+		LaunchSound: holyhandgrenadethrow.wav
+		SelectTargetSpeechNotification: SelectTarget
+		SelectTargetTextNotification: actor-powerproxy-bananabomb-droppodspower-bananabomb-select-target-text-notification
+		DisplayRadarPing: true
+		BeaconPoster: artillerybarragebeacon
+		OneShot: true
+		AllowMultiple: true
+
+bananabomb:
+	Inherits: ^Plane
+	Health:
+		HP: 200000
+	Aircraft:
+		TurnSpeed: 20
+		Speed: 300
+		CruiseAltitude: 16c0
+		MaximumPitch: 50
+		LandableTerrainTypes: Clear, ClearSnow, Road, Creep, Bridge, Water, Ore, Gems, Rough, Tiberium, BlueTiberium, Radiation, Beach
+	WithMuzzleOverlay:
+	-ActorLostNotification:
+	-Selectable:
+	AttackAircraft:
+	Armament:
+		Weapon: TerranGoliath
+	Tooltip:
+		Name: actor-bananabomb-name
+	RejectsOrders:
+	-SpawnActorOnDeath:
+	FallsToEarth:
+		Explosion: 125mmoverlord
+		Moves: true
+		Velocity: 450
+		MaximumSpinSpeed: 0
+	FireProjectilesOnDeath@1:
+		Weapons: bananabombproj
+		Pieces: 1,1
+		Range: 2c0, 5c0
 	-EjectOnDeath:
 	Interactable:

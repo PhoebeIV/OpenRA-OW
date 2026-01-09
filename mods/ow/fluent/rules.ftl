@@ -6440,6 +6440,51 @@ actor-maverick-tier5-parabomb7 =
    This weapon causes enemy units to turn against everyone and everything.
    The risk of carrying such a experimental weapon causes Maverick to take an extra 25% damage.
 
+actor-masterchief-hero0 =
+   .description = [HERO]
+
+    Role: Powerful Infantry Unit
+
+    Master Chief Petty Officer John-117, also known as Master Chief, is a SPARTAN-II commando of the UNSC Naval Special Warfare Command.
+
+    Weapons can be changed via the Hero Upgrade menu.
+
+    Starts with Battlerifle and can stockpile 4 grenades.
+
+    Speed: 90
+      Strong vs Infantry, Vehicles
+
+   .name = Master Chief  (Tier 0)
+   .real--name = Master Chief 
+
+actor-masterchief-hero1-name = Master Chief  (Tier 1)
+actor-masterchief-hero2-name = Master Chief  (Tier 2)
+actor-masterchief-hero3-name = Master Chief  (Tier 3)
+actor-masterchief-hero4-name = Master Chief  (Tier 4)
+actor-masterchief-hero5-name = Master Chief  (Tier 5)
+
+actor-masterchief =
+   .pistol = M6C Magnum
+   .pistoldesc = Arm the Master Chief with a M6C Magnum
+
+   Reduces Damage
+   Reduces Firerate
+   Increases Range (Doubles)
+
+actor-masterchief =
+   .plasmapistol = Type-25 Plasma Pistol
+   .plasmapistoldesc = Arm the Master Chief with a Type-25 Plasma Pistol
+
+   Overall Reduced Damage
+   Heavily Increased Damage to Shields
+   Increased Firerate
+   Reduced Range
+
+   Master Chief has a change to overcharge the Plasma Pistol and fire a charged shot:
+
+   Increased Radius Damage
+   Increased Damage to Shields
+
 ## forgotten
 actor-frge1 =
    .description = Light infantry. Heals in Tiberium.

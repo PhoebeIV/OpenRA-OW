@@ -1493,16 +1493,24 @@ holyhandgrenadeproj:
 		ImpactSounds: holyhandgrenadetrigger.wav
 		Explosions: holyhandgrenadesprite
 		ValidTargets: Ground, Water, Air
+	Warhead@3Effa: CreateEffect
+		ImpactSounds: holyhandgrenadetrigger.wav
+		Explosions: holyhandgrenadesprite
+		ValidTargets: Ground, Water, Air
+	Warhead@3Effb: CreateEffect
+		ImpactSounds: holyhandgrenadetrigger.wav
+		Explosions: holyhandgrenadesprite
+		ValidTargets: Ground, Water, Air
 	Warhead@1Dam: SpreadDamage
 		Delay: 50
 		Damage: 15000
 	Warhead@98Eff_impact: CreateEffect
 		Delay: 50
-		ImpactSounds: holyhandgrenadeexplode.wav
+		ImpactSounds: wormexp1.wav, wormexp2.wav, wormexp3.wav
 		ImpactActors: false
 	Warhead@99Eff_impact: CreateEffect
 		Delay: 50
-		ImpactSounds: holyhandgrenadeexplode.wav
+		ImpactSounds: wormexp1.wav, wormexp2.wav, wormexp3.wav
 		ImpactActors: false
 	Warhead@1Dam_impact: SpreadDamage
 		Delay: 50
@@ -1554,6 +1562,76 @@ holyhandgrenadeproj:
 		Delay: 55
 		Duration: 20
 		FlashType: Nuke
+
+bananabombproj:
+	Inherits: 155mm
+	Report: bananaimpact.wav
+	Projectile: Bullet
+		Speed: 128, 160
+		LaunchAngle: 128, 192
+		Image: bananabomb
+		Shadow: True
+		Palette: player
+		IsPlayerPalette: false
+		BounceCount: 8
+		BounceSound: bananaimpact.wav
+	Warhead@1Dam: SpreadDamage
+		Spread: 512
+		Damage: 40000
+		Versus:
+			None: 80
+			Wood: 100
+			Light: 100
+			Heavy: 100
+			Concrete: 50
+		DamageTypes: Prone50Percent, TriggerProne, SmallExplosionDeath
+	Warhead@3Eff: CreateEffect
+		Explosions: dukenukemexplosionmed
+		ImpactSounds: wormexp1.wav, wormexp2.wav, wormexp3.wav
+	Warhead@shrapnel: FireCluster
+		Weapon: bananabombprojcluster
+		RandomClusterCount: 5
+		Dimensions: 7,7
+		Footprint: xxxxxxx xxxxxxx xxx_xxx xx___xx xxx_xxx xxxxxxx xxxxxxx
+	Warhead@4EffWater: CreateEffect
+		Explosions: large_splash
+	Warhead@1Dam_impact: SpreadDamage
+		Spread: 1c0
+		Damage: 15000
+		Falloff: 1000, 368, 135, 50, 18, 7, 0
+		ValidTargets: GroundActor, Trees, WaterActor, Underwater, AirborneActor
+		Versus:
+			Concrete: 25
+		AffectsParent: true
+		DamageTypes: Prone50Percent, TriggerProne, FireDeath, Incendiary
+
+bananabombprojcluster:
+	Inherits: 155mm
+	Report: bananaimpact.wav
+	Projectile: Bullet
+		Speed: 128, 160
+		LaunchAngle: 128, 192
+		Image: bananabombsmall
+		Shadow: True
+		Palette: player
+		IsPlayerPalette: false
+		BounceCount: 8
+		BounceSound: bananaimpact.wav
+	Warhead@1Dam: SpreadDamage
+		Spread: 512
+		Damage: 25000
+		Versus:
+			None: 80
+			Wood: 100
+			Light: 100
+			Heavy: 100
+			Concrete: 50
+		DamageTypes: Prone50Percent, TriggerProne, SmallExplosionDeath
+	Warhead@3Eff: CreateEffect
+		Explosions: dukenukemexplosionsmall
+		ImpactSounds: wormexp1.wav, wormexp2.wav, wormexp3.wav
+	Warhead@4EffWater: CreateEffect
+		Explosions: large_splash
 
 MobDamage:
 	ValidTargets: Ground, Water, Air, GroundActor, WaterActor, AirborneActor
