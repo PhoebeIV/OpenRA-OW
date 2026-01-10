@@ -177,7 +177,7 @@ Tick = function()
 	end
 end
 
-GetActorList = function(player)
+GetActorList = function()
 	local buildings = Utils.Where(Map.ActorsInWorld, function(b) return b.HasProperty("AcceptsCondition") and b.AcceptsCondition("DevActorList") end)
 
 	Utils.Do(buildings, function(a)
@@ -185,6 +185,58 @@ GetActorList = function(player)
 	end)
 
 	print(DateTime.GameTime / 25 .. " seconds elapsed")
+end
+
+Newnodes = 0;
+
+ReplaceResourceNodes = function()
+	local nodes = Utils.Where(Map.ActorsInWorld, function(b) return b.Type == "mine" or b.Type == "mine.cr" or b.Type == "gmine" or b.Type == "gmine.cr" or b.Type == "split3" or b.Type == "split4" or b.Type == "tmonolith" or b.Type == "tmonolith.blue" end)
+	local i = 0
+
+	Utils.Do(nodes, function(a)
+		Newnodes = Newnodes + 1 + Utils.RandomInteger(0,2)
+		i = i+1
+		a.Destroy()
+	end)
+
+	print("Removed "..i.." resource nodes...")
+	SpawnNewNodes()
+end
+
+SpawnNewNodes = function()
+	local i = 0;
+
+	while (i < Newnodes) do
+		NewCell = Map.RandomCell()
+		if(Map.TerrainType(NewCell) == "Clear" or Map.TerrainType(NewCell) == "Road") then
+			Reinforcements.Reinforce(Neutral, {"1tnk.randommine"}, {NewCell}, 1)
+			i = i+1;
+		end
+	end
+
+	print("... and added "..i.." new nodes!")
+end
+
+DoStrike = function()
+	Reinforcements.Reinforce(Creeps, {"1tnk.lightning"}, {Map.RandomCell()}, 1)
+end
+
+SpawnWaterDerricks = function(amount)
+	local i = 0;
+	local attempts = 0;
+
+	while (i < amount) do
+		NewCell = Map.RandomCell()
+		if(Map.TerrainType(NewCell) == "Water") then
+			Reinforcements.Reinforce(Neutral, {"japanoilderrick.cr"}, {NewCell}, 1)
+			i = i+1;
+		end
+		attempts = attempts+1;
+		if (attempts > 500) then
+			i = amount;
+		end
+	end
+	print("Placed "..i.." oil derricks after "..attempts.." attempts")
 end
 
 Time = 0
@@ -210,27 +262,6 @@ DebugTicks = 7400
 CrateParadropTicks = 0
 CrateParadropTimer = 249
 
-DoStrike = function()
-	Reinforcements.Reinforce(Creeps, {"1tnk.lightning"}, {Map.RandomCell()}, 1)
-end
-
-SpawnWaterDerricks = function(amount)
-	local i = 0;
-	local attempts = 0;
-
-	while (i < amount) do
-		NewCell = Map.RandomCell()
-		if(Map.TerrainType(NewCell) == "Water") then
-			Reinforcements.Reinforce(Neutral, {"japanoilderrick.cr"}, {NewCell}, 1)
-			i = i+1;
-		end
-		attempts = attempts+1;
-		if (attempts > 500) then
-			i = amount;
-		end
-	end
-	print("Placed "..i.." oil derricks after "..attempts.." attempts")
-end
 
 WorldLoaded = function()
 	Neutral = Player.GetPlayer("Neutral")
@@ -293,4 +324,5 @@ WorldLoaded = function()
 	elseif Neutral.HasPrerequisites({"japanoilderrick.cr"}) then print("Map already has oil derricks!")
 	elseif Creeps.HasPrerequisites({"techlevel.noboats"}) then print("Boats are disabled!") end
 
+	if Creeps.HasPrerequisites({"environment.newmines"}) then ReplaceResourceNodes() end
 end

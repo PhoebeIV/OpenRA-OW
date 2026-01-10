@@ -194,12 +194,12 @@ Player:
 		MoveOldConyardFirst: false
 		BuildMcvInterval: 500
 		BuildAdditionalMCVCashAmount: 2500
-		MinimumConstructionYardCount: 4
+		MinimumConstructionYardCount: 2
 		AdditionalConstructionYardCount: 2
 		ScanForNewMcvInterval: 250
 		CBmodeMinDeployRadius: 8
 		CBmodeMaxDeployRadius: 30
-		InitialExpansionMode: CheckBase
+		InitialExpansionMode: CheckResource
 	McvExpansionManagerBotModule@surveyor:
 		RequiresCondition: enable-all-ai && enable-surveyor
 		McvTypes: tsengi.o, japansurveyorboat
@@ -261,9 +261,9 @@ Player:
 			ppylon.bot: 12
 			usacoldfusion: 18
 			tsupply: 14
-			chinanuclearreactor: 8
-			chinaadvnuclearreactor: 8
-			chinabreederreactor: 1
+			chinanuclearreactor: 12
+			chinaadvnuclearreactor: 12
+			chinabreederreactor: 2
 			japanantimatterreactor: 12
 			japanhyperantimatterreactor: 4
 			japanantimatterreactornavy: 12
@@ -808,6 +808,7 @@ Player:
 			upgrade.shieldarmor2: 6
 			upgrade.shieldarmor3: 2
 			upgrade.aiperimeter: 1
+			upgrade.wallrebuild: 1
 			upgrade.coldreactor: 15
 			upgrade.coldreactoradvanced: 4
 			upgrade.aircraftgeneral: 10
@@ -1109,6 +1110,9 @@ Player:
 	ProvidesPrerequisite@aiperimeter:
 		RequiresCondition: enable-turtle-defensive
 		Prerequisite: ai.perimeter
+	GrantConditionOnPrerequisite@wallrebuild:
+		Prerequisites: upgrade.wallrebuild
+		Condition: enable-turtle-defensive
 	MinelayerBotModule@normal:
 		RequiresCondition: enable-all-ai && enable-mines-normal
 		MinelayingActorTypes: mnly, mnly.g, lst2.bot, tvult, tvult.raynor

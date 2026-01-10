@@ -89,7 +89,7 @@ actor-player =
    .lobbyprerequisitecheckbox-alltech-label = All Tech
    .lobbyprerequisitecheckbox-alltech-description = Tech and Adv Tech from the get go
    .lobbyprerequisitecheckbox-gradualtech-label = Gradual Tech
-   .lobbyprerequisitecheckbox-gradualtech-description = Use with Infantry Only tech level. 
+   .lobbyprerequisitecheckbox-gradualtech-description = Best used with Infantry Only tech level. 
      
      Tech Levels are gained by your Hero's level
      Gained by either player score, levelling the hero directly,
@@ -100,6 +100,18 @@ actor-player =
    .lobbyprerequisitecheckbox-debugspeed-description = Allows bots to build structures in record time
    .lobbyprerequisitecheckbox-debuglistactors-label = Debug Hidden Actors
    .lobbyprerequisitecheckbox-debuglistactors-description = Writes to LUA log every 5 minutes
+   .lobbyprerequisitecheckbox-resourcemultiplier-dropdown = Resource Value
+   .lobbyprerequisitecheckbox-resourcemultiplier-description = Adjust how much resources are worth.
+   .lobbyprerequisitecheckbox-resourcemultiplier-label1 = 50%
+   .lobbyprerequisitecheckbox-resourcemultiplier-label2 = 75%
+   .lobbyprerequisitecheckbox-resourcemultiplier-label3 = 100%
+   .lobbyprerequisitecheckbox-resourcemultiplier-label4 = 125%
+   .lobbyprerequisitecheckbox-resourcemultiplier-label5 = 150%
+   .lobbyprerequisitecheckbox-resourcemultiplier-label6 = 200%
+   .lobbyprerequisitecheckbox-resourcemultiplier-label7 = 250%
+   .lobbyprerequisitecheckbox-newmines-label = Randomise Resource Nodes
+   .lobbyprerequisitecheckbox-newmines-description = Deletes the resource nodes on the map
+    and replaces them in random places.
 
 options-tech-level =
     .infantry-only = Infantry Only
@@ -461,6 +473,14 @@ actor-avdefnode =
 
     Creates a large invulnerability field for 20 seconds.
    .name = Auto-Defense Matrix
+
+actor-avlpost =
+   .description = An energy forcefield that blocks enemy
+    projectiles. Can be disabled and re-enabled to attack
+    trespassers.
+
+   .name = Hardlight Generator
+   .node = Hardlight Wall
 
 ## avali_veh.yaml
 actor-avmcv =

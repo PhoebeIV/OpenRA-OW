@@ -39,11 +39,11 @@
 	FreeActor@nobuildarea1:
 		RequiresCondition: botowner && blockleft
 		Actor: 3x3BotBlocker
-		SpawnOffset: -1,-1
+		SpawnOffset: -1,0
 	FreeActor@nobuildarea2:
 		RequiresCondition: botowner && blockright
 		Actor: 3x3BotBlocker
-		SpawnOffset: 0,-1
+		SpawnOffset: 0,0
 
 ^3x4BotBlockerChoose:
 	Inherits: ^3x3BotBlockerChoose
@@ -74,7 +74,6 @@
 		Actor: 2x3BotBlocker
 
 ^2x1Shape:
-	Inherits: ^2x1BotBlockerChoose
 	HitShape:
 		UseTargetableCellsOffsets: true
 		Type: Rectangle
@@ -131,17 +130,17 @@
 		TerrainTypes: ClearSnow
 		Condition: tile_snow
 	WithIdleOverlay@bibtemp:
-		RequiresCondition: tile_temp && !no_bib && !tile_snow
+		RequiresCondition: tile_temp && !no_bib && !tile_snow && !build-incomplete
 		Sequence: temp
 		Image: bib3compiled
 		Palette: terrain
 	WithIdleOverlay@bibsnow:
-		RequiresCondition: tile_snow && !no_bib
+		RequiresCondition: tile_snow && !no_bib && !build-incomplete
 		Sequence: snow
 		Image: bib3compiled
 		Palette: terrain
 	WithIdleOverlay@bibdes:
-		RequiresCondition: tile_des && !no_bib
+		RequiresCondition: tile_des && !no_bib && !build-incomplete
 		Sequence: des
 		Image: bib3compiled
 		Palette: terrain
@@ -782,15 +781,42 @@
 	GrantConditionOnPrerequisite@harderAI:
 		Condition: ai.harder
 		Prerequisites: ai.harder
-	ResourceValueMultiplier@medAI: # bots will get higher income based on their difficulty.
-		RequiresCondition: ai.medium
+	ResourceValueMultiplier@medAI:
+		RequiresCondition: ai.medium || resources.150percent
 		Modifier: 150
 	ResourceValueMultiplier@hardAI:
-		RequiresCondition: ai.hard && !ai.harder
+		RequiresCondition: (ai.hard && !ai.harder) || resources.250percent
 		Modifier: 250
 	ResourceValueMultiplier@harderAI:
 		RequiresCondition: ai.harder
 		Modifier: 350
+	GrantConditionOnPrerequisite@resources50:  # lobby option
+		Condition: resources.50percent
+		Prerequisites: resources.50percent
+	GrantConditionOnPrerequisite@resources75:
+		Condition: resources.75percent
+		Prerequisites: resources.75percent
+	GrantConditionOnPrerequisite@resources125:
+		Condition: resources.125percent
+		Prerequisites: resources.125percent
+	GrantConditionOnPrerequisite@resources150:
+		Condition: resources.150percent
+		Prerequisites: resources.150percent
+	GrantConditionOnPrerequisite@resources200:
+		Condition: resources.200percent
+		Prerequisites: resources.200percent
+	GrantConditionOnPrerequisite@resources250:
+		Condition: resources.250percent
+		Prerequisites: resources.250percent
+	ResourceValueMultiplier@resources75:
+		RequiresCondition: resources.75percent
+		Modifier: 75
+	ResourceValueMultiplier@resources125:
+		RequiresCondition: resources.125percent
+		Modifier: 125
+	ResourceValueMultiplier@resources200:
+		RequiresCondition: resources.200percent
+		Modifier: 200
 	GrantConditionOnPrerequisite@processing: # Nod Processing
 		Prerequisites: nod.tiberium
 		Condition: processing
@@ -827,7 +853,7 @@
 		RequiresCondition: upkeep.low
 		Modifier: 70
 	ResourceValueMultiplier@upkeep2:
-		RequiresCondition: upkeep.medium
+		RequiresCondition: upkeep.medium || resources.50percent
 		Modifier: 50
 	ResourceValueMultiplier@upkeep3:
 		RequiresCondition: upkeep.high

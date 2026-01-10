@@ -1187,7 +1187,6 @@ GTWR:
 SAM:
 	Buildable:
 		Prerequisites: radar, ~techlevel.medium, ~structures.samprereq
-	-GrantRandomCondition@nobuildselect:
 	Building:
 		Footprint: ++
 	DetectCloaked:
@@ -2073,9 +2072,17 @@ AGATE:
 		Types: concrete
 		Connections: -1,0, 1,0
 	WithGateSpriteBody:
+		RequiresCondition: !nearlaserfencepost
 		WallConnections: -1,0, 3,0
 		Type: concrete
 		OpenSequence: open
+	WithGateSpriteBody@laser:
+		RequiresCondition: nearlaserfencepost
+		WallConnections: -1,0, 3,0
+		Type: laserfence
+		OpenSequence: open
+	ExternalCondition@laser:
+		Condition: nearlaserfencepost
 	HitShape:
 		UseTargetableCellsOffsets: true
 		Type: Rectangle
@@ -2112,6 +2119,8 @@ VGATE:
 	LineBuildNode:
 		Connections: 0,-1, 0,3
 	WithGateSpriteBody:
+		WallConnections: 0,-1, 0,1
+	WithGateSpriteBody@laser:
 		WallConnections: 0,-1, 0,1
 	SpawnActorOnDeath:
 		Actor: VGATE.AutoReplace

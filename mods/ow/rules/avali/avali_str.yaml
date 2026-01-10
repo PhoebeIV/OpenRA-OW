@@ -643,3 +643,130 @@ AVDEFNODE:
 		SoundFiles: buzzy1.aud
 		RequiresCondition: start_transform
 		Interval: 30
+
+AVLPOST:
+	Inherits: ^Building
+	Inherits@IDISABLE: ^DisableOnLowPowerOrPowerDown
+	Buildable:
+		Queue: Wall
+		BuildPaletteOrder: 30
+		Prerequisites: anypower, barracks, ~structures.avalon, ~techlevel.low
+		Description: actor-avlpost.description
+	Valued:
+		Cost: 200
+	Tooltip:
+		Name: actor-avlpost.name
+	Health:
+		HP: 30000
+	Armor:
+		Type: Concrete
+	LineBuild:
+		Range: 10
+		NodeTypes: avalifencenode
+		SegmentType: avlfence
+		SegmentsRequireNode: true
+	LineBuildNode:
+		Types: avalifencenode
+	Power:
+		Amount: -25
+	RevealsShroud:
+		Range: 4c0
+	LineBuildSegmentExternalCondition:
+		RequiresCondition: !build-incomplete && !disabled
+		Condition: active-posts
+	-WithSpriteBody:
+	-WithMakeAnimation:
+	ExternalCondition:
+		Condition: nearlaserfence
+	ProximityExternalCondition@gates:
+		Range: 2c600
+		Condition: nearlaserfencepost
+	WithWallSpriteBody:
+		Type: laserfence
+	RenderSprites:
+		Image: brik2
+
+AVLFENCE:
+	Inherits: ^Wall
+	Tooltip:
+		Name: actor-avlpost.node
+	LineBuild:
+		NodeTypes: avalifence
+	LineBuildNode:
+		Types: avalifence
+	-Crushable:
+	-Sellable:
+	Targetable:
+		TargetTypes: Ground, GroundActor, NoAutoTarget, NoAITarget
+	-Building:
+	EnergyWall:
+		ActiveCondition: active-posts == 2
+		Weapon: TeslaZap
+		TerrainTypes: Clear, Rough, Road, ClearSnow
+	RequiresBuildableArea:
+		Adjacent: 4
+	GrantConditionOnLineBuildDirection@X:
+		Direction: X
+		Condition: laserfence-direction-x
+	GrantConditionOnLineBuildDirection@Y:
+		Direction: Y
+		Condition: laserfence-direction-y
+	Power:
+		Amount: -5
+		RequiresCondition: active-posts == 2
+	-WithWallSpriteBody:
+	ExternalCondition@ACTIVE:
+		Condition: active-posts
+	WithWallSpriteBody@XENABLED:
+		RequiresCondition: laserfence-direction-x && active-posts == 2
+		Type: laserfence
+		Sequence: enabled-x
+		Name: x-enabled
+	WithWallSpriteBody@YENABLED:
+		RequiresCondition: laserfence-direction-y && active-posts == 2
+		Type: laserfence
+		Sequence: enabled-y
+		Name: y-enabled
+	WithSpriteBody@XDISABLED:
+		RequiresCondition: laserfence-direction-x && active-posts < 2
+		Sequence: disabled-x
+		Name: x-disabled
+	WithSpriteBody@YDISABLED:
+		RequiresCondition: laserfence-direction-y && active-posts < 2
+		Sequence: disabled-y
+		Name: y-disabled
+	BlocksProjectiles:
+		RequiresCondition: active-posts == 2
+		ValidRelationships: Enemy, Neutral
+	DamageMultiplier: # Prevent all normal damage, but still allows direct kills from the post
+		Modifier: 0
+	-SoundOnDamageTransition:
+	FireWarheadsOnDeath:
+		Weapon: UnitExplodeSmall
+		EmptyWeapon: UnitExplodeSmall
+		Type: Footprint
+	ProximityExternalCondition@wall:
+		Range: 512
+		Condition: nearlaserfence
+		RequiresCondition: active-posts == 2
+	FreeActor:
+		RequiresCondition: active-posts == 2
+		AllowRespawn: true
+		Actor: AVLFENCE.Light
+	Interactable:
+		Bounds: 1448, 1448
+
+AVLFENCE.Light:
+	Inherits: MINE_DUMMY
+	ExternalCondition:
+		Condition: nearlaserfence
+	KillsSelf:
+		RequiresCondition: !nearlaserfence
+		Delay: 2
+		RemoveInstead: true
+	TerrainLightSource:
+		Range: 1c512
+		Intensity: 0.1
+		RedTint: 0.25
+		GreenTint: 0.10
+		BlueTint: 0.0
