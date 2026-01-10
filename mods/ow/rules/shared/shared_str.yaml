@@ -3,13 +3,13 @@ FACT:
 	Inherits@con: ^ConYard
 	Inherits@prereqs: ^ConYardPrereqs
 	Inherits@BIB: ^3x4BuildingBib
+	Inherits@botblocker: ^3x4BotBlockerChoose
 	-WithBuildingBib:
 	-Building:
 	D2kBuilding:
 		Footprint: xxX xxx XxX ===
 		Dimensions: 3,4
 		TerrainTypes: Clear,ClearSnow,Road,Creep
-		AllowPlacementOnResources: true
 		RequiresBaseProvider: True
 		BuildSounds: placbldg.aud, build5.aud
 		UndeploySounds: cashturn.aud
@@ -72,12 +72,12 @@ FACTD:
 	Inherits@prereqs: ^ConYardPrereqs
 	Inherits@con: ^ConYard
 	Inherits@BIB: ^3xBuildingBib
+	Inherits@botblocker: ^3x3BotBlockerChoose
 	-Building:
 	D2kBuilding:
 		Footprint: xxx xxx ===
 		Dimensions: 3,3
 		TerrainTypes: Clear,ClearSnow,Road,Creep
-		AllowPlacementOnResources: true
 		RequiresBaseProvider: True
 		BuildSounds: placbldg.aud, build5.aud
 		UndeploySounds: cashturn.aud
@@ -262,11 +262,12 @@ PROC:
 	Inherits: ^Building
 	Inherits@ref: ^Refinery
 	Inherits@BIB: ^3x4BuildingBib
+	Inherits@botblocker: ^3x4BotBlockerChoose
 	-WithBuildingBib:
 	Buildable:
 		Queue: Building
 		BuildPaletteOrder: 60
-		Prerequisites: anypower, ~techlevel.infonly, ~structures.procprereq, ~!ai.god # Allies, Soviet, Nazi
+		Prerequisites: anypower, ~techlevel.infonly, ~structures.procprereq, ~!ai.god, ~!structures.avalon # Allies, Soviet, Nazi
 		Description: actor-proc.description
 	Valued:
 		Cost: 1400
@@ -313,6 +314,7 @@ PROCD:
 	Inherits: ^DawnBuilding
 	Inherits@ref: ^Refinery
 	Inherits@BIB: ^3x4BuildingBib
+	Inherits@botblocker: ^3x4BotBlockerChoose
 	Buildable:
 		Queue: Building
 		BuildPaletteOrder: 61
@@ -1050,7 +1052,6 @@ HPAD:
 		Condition: produced
 	Building:
 		TerrainTypes: Clear, ClearSnow, Road, Water, Creep
-		AllowPlacementOnResources: true
 	RequiresBuildableArea:
 		Adjacent: 6
 	GrantConditionOnTerrain:
@@ -1186,6 +1187,7 @@ GTWR:
 SAM:
 	Buildable:
 		Prerequisites: radar, ~techlevel.medium, ~structures.samprereq
+	-GrantRandomCondition@nobuildselect:
 	Building:
 		Footprint: ++
 	DetectCloaked:
@@ -1195,6 +1197,7 @@ SAM:
 
 # Buildable by allies, estonia, nod
 GUN:
+	Inherits@AUTOTARGETGround: ^AutoTargetVehiclePriority
 	Buildable:
 		Prerequisites: barracks, ~techlevel.medium, ~structures.gunprereq
 	Valued:
@@ -1345,7 +1348,6 @@ OUTPOST:
 	Sellable:
 		SkipMakeAnimation: true
 	ProximityExternalCondition@surveyor:
-		RequiresCondition: botowner
 		Condition: surveyor_near_base
 		Range: 8c0
 
@@ -1814,6 +1816,13 @@ BRIK:
 	Crushable:
 		CrushClasses: heavywall
 	BlocksProjectiles:
+		RequiresCondition: !fireports
+	BlocksProjectiles@fireports:
+		RequiresCondition: fireports
+		ValidRelationships: Enemy, Neutral
+	GrantConditionOnPrerequisite@fireports:
+		Condition: upgrade.wallfireports
+		Prerequisites: upgrade.wallfireports
 	LineBuild:
 		NodeTypes: concrete
 	LineBuildNode:
@@ -1825,6 +1834,15 @@ BRIK:
 	ProximityExternalCondition:
 		Condition: wallattached
 		Range: 1c600
+	GrantConditionOnPrerequisite@botowner:
+		Condition: botowner
+		Prerequisites: ai.all, ai.perimeter
+	GrantConditionOnPrerequisite@wallrebuild:
+		Condition: upgrade.wallrebuild
+		Prerequisites: upgrade.wallrebuild
+	SpawnActorOnDeath:
+		RequiresCondition: (botowner && surveyor_near_base) || upgrade.wallrebuild
+		Actor: BRIK.AutoReplace
 
 BARB:
 	Inherits: ^Wall
@@ -2018,6 +2036,7 @@ AGATE:
 	Buildable:
 		Queue: Wall
 		BuildPaletteOrder: 45
+		Description: actor-agate-description
 		Prerequisites: ~techlevel.medium, ~structures.all
 	Building:
 		Footprint: x x x
@@ -2030,8 +2049,13 @@ AGATE:
 	CustomSellValue:
 		Value: 50
 	Tooltip:
-		Name: actor-agate-name
-		Description: Stops infantry and most tanks.\nBlocks some projectiles.
+		RequiresCondition: !exists
+		Name: actor-agate.buildname
+	Tooltip@world:
+		RequiresCondition: exists
+		Name: actor-agate.name
+	GrantCondition@exists:
+		Condition: exists
 	SoundOnDamageTransition:
 		DamagedSounds: crmble2.aud
 		DestroyedSounds: kaboom30.aud
@@ -2041,7 +2065,6 @@ AGATE:
 		Type: Concrete
 	Crushable:
 		CrushClasses: heavywall
-	BlocksProjectiles:
 	-WithSpriteBody:
 	-WithMakeAnimation:
 	-MustBeDestroyed:
@@ -2054,21 +2077,34 @@ AGATE:
 		Type: concrete
 		OpenSequence: open
 	HitShape:
+		UseTargetableCellsOffsets: true
 		Type: Rectangle
-			LocalYaw: -128
-			TopLeft: -512, -512
-			BottomRight: 512, 512
-			VerticalTopOffset: 768
+			TopLeft: -1536, -512
+			BottomRight: 1536, 512
 	Gate:
 		PauseOnCondition: disabled
 		OpeningSound: gatesound.aud
 		ClosingSound: gatesound.aud
-		BlocksProjectilesHeight: 768
+		BlocksProjectilesHeight: 1c0
+		BlocksProjectilesValidRelationships: Enemy, Neutral
+		TransitionDelay: 25
+		CloseDelay: 75
 	Replacement:
 		ReplaceableTypes: ConcreteWall
+	GrantConditionOnPrerequisite@botowner:
+		Condition: botowner
+		Prerequisites: ai.all, ai.perimeter
+	GrantConditionOnPrerequisite@wallrebuild:
+		Condition: upgrade.wallrebuild
+		Prerequisites: upgrade.wallrebuild
+	SpawnActorOnDeath:
+		RequiresCondition: (botowner && surveyor_near_base) || upgrade.wallrebuild
+		Actor: AGATE.AutoReplace
 
 VGATE:
 	Inherits: AGATE
+	Tooltip:
+		Name: actor-agate.buildname2
 	Building:
 		Footprint: xxx
 		Dimensions: 1,3
@@ -2077,6 +2113,13 @@ VGATE:
 		Connections: 0,-1, 0,3
 	WithGateSpriteBody:
 		WallConnections: 0,-1, 0,1
+	SpawnActorOnDeath:
+		Actor: VGATE.AutoReplace
+	HitShape:
+		UseTargetableCellsOffsets: true
+		Type: Rectangle
+			TopLeft: -512, -1536
+			BottomRight: 512, 1536
 
 ^concrete:
 	Interactable:

@@ -221,92 +221,24 @@ usabarracks:
 		DeathSequencePalette: dawn
 	
 usasupplycenter:
-	Inherits: ^DawnBuilding
-	Inherits@ref: ^Refinery
-	Inherits@BIB: ^3x4BuildingBib
+	Inherits: PROCD
 	Buildable:
 		Queue: Building
 		BuildPaletteOrder: 15
 		Prerequisites: anypower, ~structures.usa, ~!ai.god
 		Description: actor-usasupplycenter.description
-	Valued:
-		Cost: 1400
 	Tooltip:
 		Name: actor-usasupplycenter.name
-	Building:
-		Footprint: _x_ xxx === ===
-		Dimensions: 3,4
-		LocalCenterOffset: 0,-512,0
-	Selectable:
-		Bounds: 3072, 2133, 0, 170
-		DecorationBounds: 3072, 2986, 0, -85
-	SelectionDecorations:
-	Targetable:
-		TargetTypes: GroundActor, Structure, C4, DetonateAttack, ThiefInfiltrate, SpyInfiltrate
-	Health:
-		HP: 90000
-	Armor:
-		Type: Wood
-	RevealsShroud:
-		MinRange: 4c0
-		Range: 5c0
-		RevealGeneratedShroud: False
-	RevealsShroud@GAPGEN:
-		Range: 4c0
-	Refinery:
-	StoresPlayerResources:
-		Capacity: 2000
-	DrawLineToTarget:
-	CustomSellValue:
-		Value: 300
 	FreeActor:
 		Actor: USACHINOOK
 		SpawnOffset: 1,2
 		Facing: 256
-	InfiltrateForCash:
-		Percentage: 50
-		Types: SpyInfiltrate, ThiefInfiltrate
-		InfiltratedNotification: CreditsStolen
-		Maximum: 5000
 	RenderSprites:
 		Image: usasupplycenterbuilding
-	Power:
-		Amount: -30
-	WithDeathAnimation:
-		DeathSequence: dead
-		UseDeathTypeSuffix: false
-	ProvidesPrerequisite@buildingname:
-	ProvidesPrerequisite@usa:
-		Prerequisite: refinery
-	HitShape:
-		Type: Rectangle
-			TopLeft: -1536, -512
-			BottomRight: 1536, 598
-	HitShape@TOP:
-		TargetableOffsets: 1680,0,0
-		Type: Rectangle
-			TopLeft: -512, -1536
-			BottomRight: 512, -512
-	HitShape@BOTTOMLEFT:
-		TargetableOffsets: -1260,-1024,0
-		Type: Rectangle
-			TopLeft: -1536, 598
-			BottomRight: -512, 1280
-	WithResourceStoragePipsDecoration:
-		Position: BottomLeft
-		RequiresSelection: true
-		PipCount: 17
-		FullSequence: pip-yellow
 	Production:
 		Produces: Helicopter, Aircraft
 	Exit:
 		ProductionTypes: Helicopter
-	GrantConditionOnPrerequisite@supplylines:
-		Condition: supplylines
-		Prerequisites: ~upgrade.supplylines
-	ResourceValueMultiplier@supplylines:
-		Modifier: 125
-		RequiresCondition: supplylines
 	DockHost:
 		Type: Unload
 		DockAngle: 448
@@ -1097,6 +1029,7 @@ usapatriot:
 	Inherits@AUTOTARGET: ^AutoTargetAll
 	Inherits@LOWPOWER: ^DisableOnLowPowerOrPowerDown
 	Inherits@SHAPE: ^2x1Shape
+	Inherits@AUTOTARGETGround: ^AutoTargetAirVehiclePriority
 	Buildable:
 		Queue: Defense
 		BuildPaletteOrder: 4
@@ -1175,6 +1108,7 @@ usapatriotEMP:
 	Inherits@AUTOTARGET: ^AutoTargetAll
 	Inherits@LOWPOWER: ^DisableOnLowPowerOrPowerDown
 	Inherits@SHAPE: ^2x1Shape
+	Inherits@AUTOTARGETGround: ^AutoTargetAirVehiclePriority
 	Buildable:
 		Queue: Defense
 		BuildPaletteOrder: 4

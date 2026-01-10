@@ -66,6 +66,7 @@ AVPOWR1:
 	ProvidesPrerequisite:
 		Prerequisite: anypower
 	Building:
+		Footprint: +
 	Health:
 		HP: 36000
 	Armor:
@@ -496,6 +497,7 @@ AVGUN:
 	Inherits: ^Defense
 	Inherits@avali: ^AvaliBuilding
 	Inherits@AUTOTARGET: ^AutoTargetGround
+	Inherits@AUTOTARGETGround: ^AutoTargetVehiclePriority
 	Buildable:
 		Queue: Defense
 		BuildPaletteOrder: 70
@@ -562,6 +564,7 @@ AVDEFNODE:
 	Building:
 		Footprint: ++ xx
 		Dimensions: 2,2
+		UndeploySounds: radaron2.aud
 	Selectable:
 		Bounds: 2048, 2133, 0, -170
 	Power:
@@ -575,9 +578,11 @@ AVDEFNODE:
 		Type: Wood
 	RevealsShroud:
 		Range: 5c0
+	ToggleConditionOnOrder:
+		RequiresCondition: !activated
 	GrantDelayedCondition:
 		RequiresCondition: !activated
-		PauseOnCondition: lowpower || powerdown
+		PauseOnCondition: disabled
 		Condition: charged
 		RevokeOnDisabled: true
 		Delay: 13500
@@ -587,7 +592,7 @@ AVDEFNODE:
 		Name: actor-avdefnode.name
 		RequiresCondition: !activated
 		PauseOnCondition: charged || disabled
-		Description: actor-avdefnode.powerdesc
+		Description: actor-avdefnode.description
 		Icon: protossshields
 		Actors: c1
 		Type: NoType
@@ -603,11 +608,14 @@ AVDEFNODE:
 		SupportPowerPaletteOrder: 1
 		DisplayTimerRelationships: Ally, Enemy, Neutral
 	GrantConditionOnDamage@superweapon:
-		RequiresCondition: charged
+		RequiresCondition: charged && !disabled
 		DamageTypes: Superweapon
 		Condition: activated
 		ValidRelationships: Neutral, Enemy, Ally
 		Duration: 999
+	WithIdleOverlay@charged:
+		Sequence: active
+		RequiresCondition: charged
 	FireWarheads@activated:
 		RequiresCondition: activated
 		Interval: 90000
@@ -617,3 +625,21 @@ AVDEFNODE:
 		StartCooldown: 5
 		Interval: 90000
 		Weapons: EMPWeapon
+	GrantCondition@transform:
+		RequiresCondition: activated
+		GrantPermanently: true
+		Condition: start_transform
+	GrantCondition@disableme:
+		RequiresCondition: start_transform
+		Condition: disabled
+	GrantDelayedCondition@transform:
+		Condition: do_transform
+		RequiresCondition: start_transform
+		Delay: 1000
+	TransformOnCondition@transform:
+		RequiresCondition: do_transform
+		IntoActor: AVDEFNODE
+	AmbientSound@lowpower:
+		SoundFiles: buzzy1.aud
+		RequiresCondition: start_transform
+		Interval: 30

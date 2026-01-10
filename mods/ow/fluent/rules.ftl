@@ -460,7 +460,7 @@ actor-avdefnode =
     when taking damage from a superweapon.
 
     Creates a large invulnerability field for 20 seconds.
-   .name = Raptor-Theorum Defense Matrix
+   .name = Auto-Defense Matrix
 
 ## avali_veh.yaml
 actor-avmcv =
@@ -3707,7 +3707,13 @@ actor-oreext2 =
       Unarmed
    .name = Advanced Ore Extractor
 
-actor-agate-name = Gate
+actor-agate = 
+   .description = Stops infantry and most tanks.
+    Blocks some projectiles.
+   .name = Gate
+   .buildname = Horizontal Gate
+   .buildname2 = Vertical Gate
+
 
 actor-fix =
     .name = Service Depot
@@ -4314,10 +4320,8 @@ actor-tghost =
     Can use stealth, and launch spot for the Missile Silo.
    .generic-name = Ghost
    .name = Ghost
-   .2--generic-name = Ghost
-   .2--name = Ghost - Target Painting (No Nuke)
-   .3--generic-name = Ghost
-   .3--name = Ghost - Target Painting
+   .2-name = Ghost - Target Painting (No Nuke)
+   .3-name = Ghost - Target Painting
 
 actor-traynor =
    .description = Leader of Raynor's Raiders armed with a modified
@@ -4896,6 +4900,19 @@ actor-upgrade-buildfirepower2 =
 actor-upgrade-buildfirepower3 =
    .name = Structure Weapons Upgrade III
    .description = Improve defensive structure damage by 42%
+
+actor-upgrade-wallrebuild =
+   .name = Wall Regeneration
+   .description = Walls will auto-replace when destroyed
+    as long as they are near a Construction Yard, and
+    the segment location is not crossed or blocked.
+
+    Each Wall segment costs $25
+
+actor-upgrade-wallfireports =
+   .name = Firing Ports
+   .description = Allows your units to fire over 
+    your walls.
 
 actor-upgrade-infarmor1 =
    .name = Infantry Armour Upgrade I
@@ -5850,7 +5867,6 @@ actor-zspire =
     
     Must be placed on creep.
    .name = Spire
-   .2--name = Greater Spire
 
 actor-zgspire-up =
    .name = Evolve to Greater Spire

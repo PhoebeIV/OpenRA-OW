@@ -2494,12 +2494,59 @@ upgrade.aiperimeter:
 	Buildable:
 		Queue: ConYardPerimeter
 		Description: actor-perimeterupgrade.desc
-		BuildDuration: 125
+		BuildDuration: 1500
 		Prerequisites: ~ai.all, ~techlevel.medium, ~conyard.perimeter, ~ai.perimeter
 		IconPaletteIsPlayerPalette: false
 		IconPalette: chrome
+	ProductionTimeMultiplier@early:
+		Prerequisites: !conyard.perimeterearly
+		Multiplier: 5
 	RenderSprites:
 		Image: brik
+
+^BotBuildBlocker:
+	Building:
+		Dimensions: 2,2
+		Footprint: == ==
+	KillsSelfOnParentDeath:
+		RemoveInstead: true
+		Delay: 3
+
+3x4BotBlocker:
+	Inherits: ^BotBuildBlocker
+	Building:
+		Dimensions: 4,6
+		Footprint: ==== =__= =__= =__= =__= =__=
+
+3x3BotBlocker:
+	Inherits: ^BotBuildBlocker
+	Building:
+		Dimensions: 4,5
+		Footprint: ==== =__= =__= =__= =__=
+
+3x2BotBlocker:
+	Inherits: ^BotBuildBlocker
+	Building:
+		Dimensions: 4,4
+		Footprint: ==== =__= =__= =__=
+
+2x3BotBlocker:
+	Inherits: ^BotBuildBlocker
+	Building:
+		Dimensions: 3,5
+		Footprint: === =_= =_= =_= =_=
+
+2x2BotBlocker:
+	Inherits: ^BotBuildBlocker
+	Building:
+		Dimensions: 3,4
+		Footprint: === =_= =_= =_=
+
+2x1BotBlocker:
+	Inherits: ^BotBuildBlocker
+	Building:
+		Dimensions: 3,2
+		Footprint: === ===
 
 AIPerimeterPlaceholder:
 	Inherits: ^Building
@@ -2509,7 +2556,7 @@ AIPerimeterPlaceholder:
 	-GivesBuildableArea:
 	Building:
 		Dimensions: 21,21
-		Footprint: x==================== =___________________= =___________________= =___________________= =___________________= =___________________= =___________________= =___________________= =___________________= =___________________= =___________________= =___________________= =___________________= =___________________= =___________________= =___________________= =___________________= =___________________= =___________________= =___________________= =====================
+		Footprint: ===================== =___________________= =___________________= =___________________= =___________________= =___________________= =___________________= =___________________= =___________________= =___________________= =___________________= =___________________= =___________________= =___________________= =___________________= =___________________= =___________________= =___________________= =___________________= =___________________= =====================
 	KillsSelf:
 		RequiresCondition: !wall_placed
 		Delay: 25
@@ -2526,6 +2573,7 @@ BRIK.Spawn:
 	-FireWarheadsOnDeath:
 	KillsSelf:
 		Delay: 2
+		DamageTypes: Replace
 	GrantConditionOnTerrain:
 		TerrainTypes: Water, Rock, Beach, Oremine, TibTree, TibTreeBlue, TibMonolith, TibMonolithBlue, River, Brush, Tree, Wall
 		Condition: invalid
@@ -2538,19 +2586,59 @@ BRIK.Spawn:
 	FireWarheadsOnDeath@resource:
 		RequiresCondition: destroy_resource
 		Weapon: DestroyResource1x1
-	SpawnActorOnDeath:
+	-SpawnActorOnDeath:
+	SpawnActorOnDeathCA:
 		RequiresCondition: !invalid && !estonia
 		Actor: brik
 		OwnerType: Victim
-	SpawnActorOnDeath@estonia:
+		DeathType: Replace
+		IgnoreBlockingActors: false
+	SpawnActorOnDeathCA@estonia:
 		RequiresCondition: !invalid && estonia
 		Actor: brik.est
 		OwnerType: Victim
+		DeathType: Replace
+		IgnoreBlockingActors: false
+
+BRIK.AutoReplace:
+	Inherits: BRIK.Spawn
+	Mobile:
+		PauseOnCondition: surveyor_near_base
+	Interactable:
+		Bounds: 1024,1024
+	Targetable:
+		TargetTypes: NoAITarget, Ground
+	Mine:
+		CrushClasses: crate
+		DetonateClasses: crate
+		AvoidFriendly: true
+		BlockFriendly: false
+	ExternalCondition:
+		Condition: surveyor_near_base
+	GrantPeriodicCondition:
+		Condition: nothing
+		CooldownDuration: 745
+		ShowSelectionBar: true
+	GrantConditionOnPlayerResources: 
+		Threshold: 25
+		Condition: allow_rebuild
+	GrantConditionOnPrerequisite@bot:
+		Prerequisites: ai.all
+		Condition: botowner
+	CashTrickler:
+		Amount: -25
+		InitialDelay: 749
+	KillsSelf:
+		Delay: 750
+	KillsSelf@remove:
+		RequiresCondition: !surveyor_near_base || (!allow_rebuild && !botowner)
+		Delay: 4
+		RemoveInstead: true
 
 AGATE.Spawn:
 	Inherits: BRIK.Spawn
 	-GrantConditionOnPrerequisite@estonia:
-	-SpawnActorOnDeath@estonia:
+	-SpawnActorOnDeathCA@estonia:
 	FireWarheadsOnDeath@resource1:
 		RequiresCondition: destroy_resource
 		Weapon: DestroyResource1x1
@@ -2559,7 +2647,22 @@ AGATE.Spawn:
 		RequiresCondition: destroy_resource
 		Weapon: DestroyResource1x1
 		Offset: 1024,0,0
-	SpawnActorOnDeath:
+	SpawnActorOnDeathCA:
+		Actor: agate
+
+AGATE.AutoReplace:
+	Inherits: BRIK.AutoReplace
+	-GrantConditionOnPrerequisite@estonia:
+	-SpawnActorOnDeathCA@estonia:
+	FireWarheadsOnDeath@resource1:
+		RequiresCondition: destroy_resource
+		Weapon: DestroyResource1x1
+		Offset: -1024,0,0
+	FireWarheadsOnDeath@resource2:
+		RequiresCondition: destroy_resource
+		Weapon: DestroyResource1x1
+		Offset: 1024,0,0
+	SpawnActorOnDeathCA:
 		Actor: agate
 
 VGATE.Spawn:
@@ -2568,7 +2671,16 @@ VGATE.Spawn:
 		Offset: 0,-1024,0
 	FireWarheadsOnDeath@resource2:
 		Offset: 0,1024,0
-	SpawnActorOnDeath:
+	SpawnActorOnDeathCA:
+		Actor: vgate
+
+VGATE.AutoReplace:
+	Inherits: AGATE.AutoReplace
+	FireWarheadsOnDeath@resource1:
+		Offset: 0,-1024,0
+	FireWarheadsOnDeath@resource2:
+		Offset: 0,1024,0
+	SpawnActorOnDeathCA:
 		Actor: vgate
 
 AIPerimeterSpawner:

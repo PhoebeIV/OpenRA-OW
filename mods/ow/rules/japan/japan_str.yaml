@@ -114,93 +114,17 @@ AntiMatterPowerActor:
 	-MustBeDestroyed:
 
 japansupplycenter:
-	Inherits: ^Building
+	Inherits: PROC
 	Inherits@jshield: ^JapanBaseShield
-	Inherits@ref: ^Refinery
-	Inherits@BIB: ^3x4BuildingBib
 	Buildable:
 		Queue: Building
 		BuildPaletteOrder: 19
 		Prerequisites: ~structures.japan, anypower, ~!ai.god, ~!faction.navygeneral
 		Description: actor-japansupplycenter.description
-	Valued:
-		Cost: 1400
 	Tooltip:
 		Name: actor-japansupplycenter.name
-	Building:
-		Footprint: _X_ xxx X== ===
-		Dimensions: 3,4
-		LocalCenterOffset: 0,-512,0
-	Selectable:
-		Bounds: 3072, 2133, 0, 170
-		DecorationBounds: 3072, 2986, 0, -85
-	Targetable:
-		TargetTypes: GroundActor, Structure, C4, DetonateAttack, ThiefInfiltrate, SpyInfiltrate
-	Health:
-		HP: 90000
-	Armor:
-		Type: Wood
-	RevealsShroud:
-		MinRange: 4c0
-		Range: 5c0
-		RevealGeneratedShroud: False
-	RevealsShroud@GAPGEN:
-		Range: 4c0
-	Refinery:
-	StoresPlayerResources:
-		Capacity: 2000
-	CustomSellValue:
-		Value: 300
-	FreeActor:
-		Actor: HARV
-		SpawnOffset: 1,2
-		Facing: 256
-	InfiltrateForCash:
-		Percentage: 50
-		Types: SpyInfiltrate, ThiefInfiltrate
-		InfiltratedNotification: CreditsStolen
-		InfiltratedTextNotification: actor-japansupplycenter.infiltrateforcash-infiltrated-text-notification
-	WithIdleOverlay@TOP:
-		RequiresCondition: !build-incomplete
-		Sequence: idle-top
-	Power:
-		Amount: -30
-	WithDeathAnimation:
-		DeathSequence: dead
-		UseDeathTypeSuffix: false
-	ProvidesPrerequisite@buildingname:
-	ProvidesPrerequisite@refinery:
-		Prerequisite: refinery
-	HitShape:
-		Type: Rectangle
-			TopLeft: -1536, -512
-			BottomRight: 1536, 598
-	HitShape@TOP:
-		TargetableOffsets: 1680,0,0
-		Type: Rectangle
-			TopLeft: -512, -1536
-			BottomRight: 512, -512
-	HitShape@BOTTOMLEFT:
-		TargetableOffsets: -1260,-1024,0
-		Type: Rectangle
-			TopLeft: -1536, 598
-			BottomRight: -512, 1280
-	-ActorPreviewPlaceBuildingPreview:
-	SequencePlaceBuildingPreview:
-		Sequence: idle
-		SequenceAlpha: 0.65
-	WithResourceStoragePipsDecoration:
-		Position: BottomLeft
-		Margin: 4, 3
-		RequiresSelection: true
-		PipCount: 17
-		FullSequence: pip-yellow
 	RenderSprites:
 		Image: japansupplycenter
-	DockHost:
-		Type: Unload
-		DockAngle: 256
-		DockOffset: 0,1024,0
 
 japansupplycenternavy:
 	Inherits: japansupplycenter
@@ -212,9 +136,6 @@ japansupplycenternavy:
 	Tooltip:
 		Name: actor-japansupplycenternavy.name
 	Building:
-		Footprint: _X_ xxx X== ===
-		Dimensions: 3,4
-		LocalCenterOffset: 0,-512,0
 		TerrainTypes: Clear, ClearSnow, Road, Water, Creep
 	FreeActor:
 		Actor: HARVNAVY
@@ -1956,8 +1877,9 @@ japanaikokusha:
 		Cost: 1750
 	Tooltip:
 		Name: actor-japanaikokusha.name
+	-GrantRandomCondition@nobuildselect:
 	Building:
-		Footprint: xx
+		Footprint: ++
 		Dimensions: 2,1
 		TerrainTypes: Water
 	Health:

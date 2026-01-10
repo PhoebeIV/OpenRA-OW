@@ -598,12 +598,9 @@ UpgradeHandler:
 	ProvidesPrerequisite@herotier5tech:
 		RequiresCondition: (hero_tier4 || hero_tier5) && gradualtech
 		Prerequisite: techlevel.unrestricted
-	GrantConditionOnProduction@perimeter:
-		Actors: upgrade.aiperimeter
-		Condition: spawn_perimeter
-	FreeActor@perimeter:
-		RequiresCondition: spawn_perimeter
-		Actor: AIPerimeterSpawner
+	ProvidesDelayedPrerequisite@perimeterearly:
+		Prerequisite: conyard.perimeterearly
+		Delay: 3000
 	OwnerLostAction:
 		Action: Dispose
 
@@ -613,8 +610,6 @@ UpgradeHandlerBot:
 	-FreeActor@resources:
 	-FreeActor@colony:
 	-FreeActor@pipe:
-	-GrantConditionOnProduction@perimeter:
-	-FreeActor@perimeter:
 	ProductionQueue@Upgrade:
 		Type: Upgrade
 		Group: Upgrade
@@ -880,60 +875,6 @@ upgrade.buildfirepower3:
 		Types: UpgradeComplete
 		Prerequisites: upgrade.buildfirepower3
 	ProvidesPrerequisite@upgradename:
-
-upgrade.buildarmor1b:
-	Inherits: ^UpgradeBaseExt
-	Tooltip:
-		Name: actor-upgrade-buildarmor1.name
-	Buildable:
-		Description: actor-upgrade-buildarmor1.description
-		BuildPaletteOrder: 9997
-		Prerequisites: !upgrade.buildarmor1, ~techlevel.noupgrades, ~techlevel.low, hero.tier1
-	ProductionCostMultiplier@upgrade:
-		Multiplier: 2500
-	ProvidesPrerequisite@upgradename:
-		Prerequisite: upgrade.buildarmor1
-	WithProductionIconOverlay:
-		Types: UpgradeComplete
-		Prerequisites: upgrade.buildarmor1
-	RenderSprites:
-		Image: upgrade.buildarmor1
-
-upgrade.buildrepair1b:
-	Inherits: ^UpgradeBaseExt
-	Tooltip:
-		Name: actor-upgrade-buildrepair1.name
-	Buildable:
-		Description: actor-upgrade-buildrepair1.description
-		BuildPaletteOrder: 9998
-		Prerequisites: !upgrade.buildrepair1, ~techlevel.noupgrades, ~techlevel.low, hero.tier1
-	ProductionCostMultiplier@upgrade:
-		Multiplier: 2500
-	ProvidesPrerequisite@upgradename:
-		Prerequisite: upgrade.buildrepair1
-	WithProductionIconOverlay:
-		Types: UpgradeComplete
-		Prerequisites: upgrade.buildrepair1
-	RenderSprites:
-		Image: upgrade.buildrepair1
-
-upgrade.buildfirepower1b:
-	Inherits: ^UpgradeBaseExt
-	Tooltip:
-		Name: actor-upgrade-buildfirepower1.name
-	Buildable:
-		Description: actor-upgrade-buildfirepower1.description
-		BuildPaletteOrder: 9999
-		Prerequisites: !upgrade.buildfirepower1, ~techlevel.noupgrades, ~techlevel.low, hero.tier1
-	ProductionCostMultiplier@upgrade:
-		Multiplier: 2500
-	ProvidesPrerequisite@upgradename:
-		Prerequisite: upgrade.buildfirepower1
-	WithProductionIconOverlay:
-		Types: UpgradeComplete
-		Prerequisites: upgrade.buildfirepower1
-	RenderSprites:
-		Image: upgrade.buildfirepower1
 
 ###########################
 
@@ -1289,3 +1230,89 @@ techlevel.shields:
 	Interactable:
 	Buildable:
 		Description: actor-techlevelshields.description
+
+################################### Faction wide upgrades
+
+upgrade.buildarmor1b:
+	Inherits: ^UpgradeBaseExt
+	Tooltip:
+		Name: actor-upgrade-buildarmor1.name
+	Buildable:
+		Description: actor-upgrade-buildarmor1.description
+		BuildPaletteOrder: 9997
+		Prerequisites: !upgrade.buildarmor1, ~techlevel.noupgrades, ~techlevel.low, hero.tier1
+	ProductionCostMultiplier@upgrade:
+		Multiplier: 2500
+	ProvidesPrerequisite@upgradename:
+		Prerequisite: upgrade.buildarmor1
+	WithProductionIconOverlay:
+		Types: UpgradeComplete
+		Prerequisites: upgrade.buildarmor1
+	RenderSprites:
+		Image: upgrade.buildarmor1
+
+upgrade.buildrepair1b:
+	Inherits: ^UpgradeBaseExt
+	Tooltip:
+		Name: actor-upgrade-buildrepair1.name
+	Buildable:
+		Description: actor-upgrade-buildrepair1.description
+		BuildPaletteOrder: 9998
+		Prerequisites: !upgrade.buildrepair1, ~techlevel.noupgrades, ~techlevel.low, hero.tier1
+	ProductionCostMultiplier@upgrade:
+		Multiplier: 2500
+	ProvidesPrerequisite@upgradename:
+		Prerequisite: upgrade.buildrepair1
+	WithProductionIconOverlay:
+		Types: UpgradeComplete
+		Prerequisites: upgrade.buildrepair1
+	RenderSprites:
+		Image: upgrade.buildrepair1
+
+upgrade.buildfirepower1b:
+	Inherits: ^UpgradeBaseExt
+	Tooltip:
+		Name: actor-upgrade-buildfirepower1.name
+	Buildable:
+		Description: actor-upgrade-buildfirepower1.description
+		BuildPaletteOrder: 9999
+		Prerequisites: !upgrade.buildfirepower1, ~techlevel.noupgrades, ~techlevel.low, hero.tier1
+	ProductionCostMultiplier@upgrade:
+		Multiplier: 2500
+	ProvidesPrerequisite@upgradename:
+		Prerequisite: upgrade.buildfirepower1
+	WithProductionIconOverlay:
+		Types: UpgradeComplete
+		Prerequisites: upgrade.buildfirepower1
+	RenderSprites:
+		Image: upgrade.buildfirepower1
+
+upgrade.wallrebuild:
+	Inherits: ^UpgradeBaseExt
+	Tooltip:
+		Name: actor-upgrade-wallrebuild.name
+	Buildable:
+		Description: actor-upgrade-wallrebuild.description
+		BuildPaletteOrder: 9998
+		Prerequisites: ~upgrade.buildrepair1, ~techlevel.noupgrades, ~techlevel.medium
+	ProductionCostMultiplier@upgrade:
+		Multiplier: 2500
+	ProvidesPrerequisite@upgradename:
+	WithProductionIconOverlay:
+		Types: UpgradeComplete
+		Prerequisites: upgrade.wallrebuild
+
+upgrade.wallfireports:
+	Inherits: ^UpgradeBaseExt
+	Tooltip:
+		Name: actor-upgrade-wallfireports.name
+	Buildable:
+		Description: actor-upgrade-wallfireports.description
+		BuildPaletteOrder: 9998
+		Prerequisites: ~upgrade.buildrepair1, ~techlevel.noupgrades, ~techlevel.medium
+	ProductionCostMultiplier@upgrade:
+		Multiplier: 2500
+	ProvidesPrerequisite@upgradename:
+	WithProductionIconOverlay:
+		Types: UpgradeComplete
+		Prerequisites: upgrade.wallfireports

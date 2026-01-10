@@ -13,14 +13,100 @@
 		UncloakOn: Attack, Unload, Infiltrate, Demolish, Damage
 		CloakedCondition: cloaked
 
+^2x1BotBlockerChoose:
+	GrantRandomCondition@nobuildselect:
+		Conditions: blocktopleft, blocktopright, blockbotright, blockbotright
+	FreeActor@nobuildarea1:
+		RequiresCondition: botowner && blocktopleft
+		Actor: 2x1BotBlocker
+		SpawnOffset: -1,-1
+	FreeActor@nobuildarea2:
+		RequiresCondition: botowner && blocktopright
+		Actor: 2x1BotBlocker
+		SpawnOffset: 0,-1
+	FreeActor@nobuildarea3:
+		RequiresCondition: botowner && blockbotleft
+		Actor: 2x1BotBlocker
+		SpawnOffset: -1,0
+	FreeActor@nobuildarea4:
+		RequiresCondition: botowner && blockbotright
+		Actor: 2x1BotBlocker
+		SpawnOffset: 0,0
+
+^3x3BotBlockerChoose:
+	GrantRandomCondition@nobuildselect:
+		Conditions: blockleft, blockright
+	FreeActor@nobuildarea1:
+		RequiresCondition: botowner && blockleft
+		Actor: 3x3BotBlocker
+		SpawnOffset: -1,-1
+	FreeActor@nobuildarea2:
+		RequiresCondition: botowner && blockright
+		Actor: 3x3BotBlocker
+		SpawnOffset: 0,-1
+
+^3x4BotBlockerChoose:
+	Inherits: ^3x3BotBlockerChoose
+	FreeActor@nobuildarea1:
+		Actor: 3x4BotBlocker
+	FreeActor@nobuildarea2:
+		Actor: 3x4BotBlocker
+
+^2x2BotBlockerChoose:
+	Inherits: ^3x3BotBlockerChoose
+	FreeActor@nobuildarea1:
+		Actor: 2x2BotBlocker
+	FreeActor@nobuildarea2:
+		Actor: 2x2BotBlocker
+
+^3x2BotBlockerChoose:
+	Inherits: ^3x3BotBlockerChoose
+	FreeActor@nobuildarea1:
+		Actor: 3x2BotBlocker
+	FreeActor@nobuildarea2:
+		Actor: 3x2BotBlocker
+
+^2x3BotBlockerChoose:
+	Inherits: ^3x3BotBlockerChoose
+	FreeActor@nobuildarea1:
+		Actor: 2x3BotBlocker
+	FreeActor@nobuildarea2:
+		Actor: 2x3BotBlocker
+
+^2x1Shape:
+	Inherits: ^2x1BotBlockerChoose
+	HitShape:
+		UseTargetableCellsOffsets: true
+		Type: Rectangle
+			TopLeft: -1024, -512
+			BottomRight: 1024, 512
+
 ^3x3Shape:
+	Inherits: ^3x3BotBlockerChoose
 	HitShape:
 		UseTargetableCellsOffsets: true
 		Type: Rectangle
 			TopLeft: -1536, -1536
 			BottomRight: 1536, 1536
 
+^2x2Shape:
+	Inherits: ^2x2BotBlockerChoose
+	HitShape:
+		UseTargetableCellsOffsets: true
+		Type: Rectangle
+			TopLeft: -1024, -1024
+			BottomRight: 1024, 1024
+
+^3x2Shape:
+	Inherits: ^3x2BotBlockerChoose
+	HitShape:
+		UseTargetableCellsOffsets: true
+		Type: Rectangle
+			TopLeft: -1536, -1024
+			BottomRight: 1536, 1024
+
 ^2x3Shape:
+	Inherits: ^2x3BotBlockerChoose
 	HitShape:
 		UseTargetableCellsOffsets: true
 		Type: Rectangle
@@ -608,6 +694,10 @@
 		RequiresCondition: botowner
 		Condition: surveyor_near_base
 		Range: 22c0
+	ProximityExternalCondition@surveyor2:
+		RequiresCondition: !botowner
+		Condition: surveyor_near_base
+		Range: 16c0
 	ExternalCondition@surveyor:
 		Condition: surveyor_near_base
 	GrantCondition@bot_undeploy_block:
@@ -666,9 +756,13 @@
 	ProvidesPrerequisite@allowperimeter:
 		RequiresCondition: !build-incomplete
 		Prerequisite: conyard.perimeter
-	GrantConditionOnProduction@supply_upgrade:
+	GrantConditionOnProduction@perimeter1a:
 		Actors: upgrade.aiperimeter
 		Condition: perimeter1
+	GrantCondition@perimeterblock:
+		RequiresCondition: perimeter1 && botowner
+		Condition: bot_undeploy_block
+		GrantPermanently: true
 	FreeActor@perimeter1:
 		RequiresCondition: perimeter1
 		Actor: AIPerimeterSpawner
@@ -697,12 +791,18 @@
 	ResourceValueMultiplier@harderAI:
 		RequiresCondition: ai.harder
 		Modifier: 350
-	GrantConditionOnPrerequisite@processing:
+	GrantConditionOnPrerequisite@processing: # Nod Processing
 		Prerequisites: nod.tiberium
 		Condition: processing
 	ResourceValueMultiplier@processing:
 		RequiresCondition: processing
 		Modifier: 110
+	GrantConditionOnPrerequisite@supplylines: # USA Supply lines
+		Condition: supplylines
+		Prerequisites: upgrade.supplylines
+	ResourceValueMultiplier@supplylines:
+		Modifier: 125
+		RequiresCondition: supplylines
 	ProductionCostMultiplier@ainoref: # if the bot doesn't have a refinery, reduce the cost of getting a new one
 		Prerequisites: ai.all, !refinery
 		Multiplier: 10
@@ -1484,7 +1584,6 @@
 		LoseNotification: StructureLost
 	Building:
 		TerrainTypes: Clear,ClearSnow,Road,Creep
-		AllowPlacementOnResources: true
 	ProximityExternalCondition@addons:
 		Condition: kill_addon
 		Range: 2c0
@@ -1866,25 +1965,29 @@
 	ExternalCondition@turtledebuff:
 		Condition: turtledebuff_near
 	ProximityExternalCondition@turtledebuff:
+		RequiresCondition: turtledebuff
 		Condition: turtledebuff_near
 		Range: 5c0
+	ProximityExternalCondition@wall:
+		Condition: nearwall
+		Range: 5c0
 	FirepowerMultiplier@turtledebuff:
-		RequiresCondition: (turtledebuff_near > 4) && !botowner
+		RequiresCondition: (turtledebuff_near > 4) && !hardbotowner
 		Modifier: 80
 	FirepowerMultiplier@turtledebuff2:
-		RequiresCondition: (turtledebuff_near > 5) && !botowner
+		RequiresCondition: (turtledebuff_near > 5) && !hardbotowner
 		Modifier: 90
 	FirepowerMultiplier@turtledebuff3:
-		RequiresCondition: (turtledebuff_near > 6) && !botowner
+		RequiresCondition: (turtledebuff_near > 6) && !hardbotowner
 		Modifier: 90
 	DamageMultiplier@turtledebuff:
-		RequiresCondition: (turtledebuff_near > 4) && !botowner
+		RequiresCondition: (turtledebuff_near > 4) && !hardbotowner
 		Modifier: 125
 	ReloadDelayMultiplier@turtledebuff:
-		RequiresCondition: (turtledebuff_near > 4) && !botowner
+		RequiresCondition: (turtledebuff_near > 4) && !hardbotowner
 		Modifier: 125
-	GrantConditionOnPrerequisite@botowner:
-		Condition: botowner
+	GrantConditionOnPrerequisite@hardbotowner:
+		Condition: hardbotowner
 		Prerequisites: ai.harder
 	-GrantConditionOnPrerequisite@frost:
 	-SeedsResource@frost:
@@ -2156,6 +2259,9 @@
 	SpeedMultiplier@rae_speed:
 		RequiresCondition: upgrade_speed10
 		Modifier: 110
+	GrantConditionOnPrerequisite@botowner:
+		Condition: botowner
+		Prerequisites: ai.all
 	Cloneable:
 		Types: Vehicle
 
@@ -2237,6 +2343,9 @@
 	FirepowerMultiplier@nfp3:
 		RequiresCondition: nfp3
 		Modifier: 145
+	GrantConditionOnPrerequisite@botowner:
+		Condition: botowner
+		Prerequisites: ai.all
 	Mobile:
 		PauseOnCondition: disabled
 	WithColoredOverlay@IDISABLE:
@@ -2989,13 +3098,70 @@
 # Inherited and changed from mods/ra to change the palette, to allow player-coloured walls that inherit from this actor.
 # Also changed allowed terrain type for Zerg Creep
 ^Wall:
+	Inherits@corrosion: ^CorrodesFromTibWeaps
 	RenderSprites:
 		Palette: noplayer
 	Building:
 		TerrainTypes: Clear,ClearSnow,Road,Creep
-		AllowPlacementOnResources: true
 	Targetable:
 		TargetTypes: GroundActor, DetonateAttack, Wall
+	ExternalCondition@nearwall:
+		Condition: nearwall
+	Targetable@notargetwall:
+		TargetTypes: NoAutoTarget
+		RequiresCondition: nearwall
+	GrantConditionOnPrerequisite@botowner:
+		Prerequisites: ai.all
+		Condition: botowner
+	RepairableBuilding:
+		RequiresCondition: botowner
+		RepairPercent: 0
+		RepairStep: 350
+	GrantConditionOnPrerequisite@bar1:
+		Prerequisites: upgrade.buildarmor1
+		Condition: bar1
+	GrantConditionOnPrerequisite@bar2:
+		Prerequisites: upgrade.buildarmor2
+		Condition: bar2
+	GrantConditionOnPrerequisite@bar3:
+		Prerequisites: upgrade.buildarmor3
+		Condition: bar3
+	DamageMultiplier@bar1:
+		RequiresCondition: bar1 && (!bar2 && !corrode && !defiler_plague && !shielded)
+		Modifier: 80
+	DamageMultiplier@bar2:
+		RequiresCondition: bar2 && (!bar3 && !corrode && !defiler_plague && !shielded)
+		Modifier: 60
+	DamageMultiplier@bar3:
+		RequiresCondition: bar3 && (!corrode && !defiler_plague && !shielded)
+		Modifier: 40
+	GrantConditionOnPrerequisite@service1:
+		Prerequisites: upgrade.buildrepair1
+		Condition: brep1
+	GrantConditionOnPrerequisite@service2:
+		Prerequisites: upgrade.buildrepair2
+		Condition: brep2
+	GrantConditionOnPrerequisite@service3:
+		Prerequisites: upgrade.buildrepair3
+		Condition: brep3
+	ChangesHealth@service1:
+		PercentageStep: 1
+		Delay: 75
+		StartIfBelow: 100
+		DamageCooldown: 500
+		RequiresCondition: brep1
+	ChangesHealth@service2:
+		PercentageStep: 1
+		Delay: 125
+		StartIfBelow: 100
+		DamageCooldown: 375
+		RequiresCondition: brep2
+	ChangesHealth@service3:
+		PercentageStep: 1
+		Delay: 175
+		StartIfBelow: 100
+		DamageCooldown: 250
+		RequiresCondition: brep3
 
 
 # Inherited and changed from mods/ra to increase lifetime and allowed terrain types
@@ -3562,6 +3728,10 @@
 		ValidTargets: Infantry, Cyborg, Vehicle, Water, Ship, Underwater, Structure, Defense, Mine, Wall
 		InvalidTargets: NoAutoTarget, UpgradeThing, Ground, OreMine
 		Priority: 1
+	AutoTargetPriority@EPIC:
+		RequiresCondition: botowner
+		ValidTargets: EpicUnit, Hero
+		Priority: 5
 
 ^AutoTargetAll:
 	AutoTargetPriority@DEFAULT:
@@ -3572,6 +3742,10 @@
 		ValidTargets: Infantry, Cyborg, Vehicle, Water, Ship, Underwater, AirborneActor, Structure, Defense, Mine, Wall
 		InvalidTargets: NoAutoTarget, UpgradeThing, Ground, OreMine
 		Priority: 1
+	AutoTargetPriority@EPIC:
+		RequiresCondition: botowner
+		ValidTargets: EpicUnit, Hero
+		Priority: 5
 
 ^AutoTargetAirAssaultMove:
 	Inherits: ^AutoTargetAir
@@ -3587,6 +3761,10 @@
 	AutoTargetPriority@DEFAULT:
 		ValidTargets: AirborneActor
 		InvalidTargets: NoAutoTarget, UpgradeThing, Ground, OreMine
+	AutoTargetPriority@EPIC:
+		RequiresCondition: botowner
+		ValidTargets: EpicUnit, Hero
+		Priority: 5
 
 ^AutoTargetAllAssaultMove:
 	Inherits: ^AutoTargetAll
@@ -3600,13 +3778,25 @@
 ^AutoTargetInfantryPriority:
 	AutoTargetPriority@Infantry:
 		ValidTargets: Infantry
-		InvalidTargets: NoAutoTarget, UpgradeThing, Ground, OreMine
+		InvalidTargets: NoAutoTarget
 		Priority: 3
 
 ^AutoTargetVehiclePriority:
 	AutoTargetPriority@Vehicle:
 		ValidTargets: Vehicle
-		InvalidTargets: NoAutoTarget, UpgradeThing, Ground, OreMine
+		InvalidTargets: NoAutoTarget
+		Priority: 3
+
+^AutoTargetAirInfantryPriority:
+	AutoTargetPriority@AirAndInfantry:
+		ValidTargets: Infantry, AirborneActor
+		InvalidTargets: NoAutoTarget
+		Priority: 3
+
+^AutoTargetAirVehiclePriority:
+	AutoTargetPriority@AirAndVehicle:
+		ValidTargets: Vehicle, AirborneActor
+		InvalidTargets: NoAutoTarget
 		Priority: 3
 
 # Default actor type for Blossom trees and monoliths
@@ -3697,7 +3887,6 @@
 ^Tree:
 	Building:
 		TerrainTypes: Clear,ClearSnow,Road,Creep,ClearSnow
-		AllowPlacementOnResources: true
 	HitShape:
 		UseTargetableCellsOffsets: false
 		Type: Circle
@@ -3722,7 +3911,6 @@
 	HitShape:
 	Building:
 		TerrainTypes: Clear,ClearSnow,Road,Creep,ClearSnow
-		AllowPlacementOnResources: true
 	Health:
 		HP: 50000
 	Armor:
