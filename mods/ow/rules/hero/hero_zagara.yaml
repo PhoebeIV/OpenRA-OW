@@ -276,6 +276,9 @@ ZZAGARA.Hero0:
 	AutoTargetPriority@ATTACKANYTHING:
 		ValidRelationships: Neutral, Enemy
 		Priority: 10
+	AutoTargetPriority@HEAL:
+		ValidRelationships: Ally
+		ValidTargets: Heal, StructureRepair, Repair
 	WithInfantryBody:
 		DefaultAttackSequence: shoot
 		AttackSequences:
@@ -432,6 +435,8 @@ ZZAGARA.Hero2:
 		HP: 220000
 	Power:
 		Amount: 100
+	ConvertsDamageToHealth@zagara:
+		DamagePercentConverted: 15
 	TransformOnCondition@level:
 		IntoActor: ZZAGARA.Hero3
 	FirepowerMultiplier@1:
@@ -697,7 +702,7 @@ zagara.heal.cooldown:
 	SpawnActorOnDeath@spawn:
 		RequiresCondition: spawn_ready
 		DeathType: EggSpawn
-		Actor: zzergling
+		Actor: zzergling2
 	FireWarheadsOnDeath:
 		RequiresCondition: !spawn_ready
 		Weapon: ZergEggDeath
@@ -754,7 +759,15 @@ ZEGG.Zergling:
 	SpawnActorOnDeath@spawn1:
 		RequiresCondition: spawn_ready
 		DeathType: EggSpawn
-		Actor: zzergling
+		Actor: zzergling2
+	SpawnActorOnDeath@spawn2:
+		RequiresCondition: spawn_ready
+		DeathType: EggSpawn
+		Actor: zzergling2
+	SpawnActorOnDeath@spawn3:
+		RequiresCondition: spawn_ready
+		DeathType: EggSpawn
+		Actor: zzergling2
 
 # 45 seconds
 zegg.zergling.cooldown:

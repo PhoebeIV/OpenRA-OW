@@ -186,8 +186,10 @@ actor-bossfaction =
    .name = Faction
 
 actor-perimeterupgrade = 
-   .desc = For AI, builds a random walled perimeter.
-   .name = Build Perimeter
+   .desc = Build a preset fortification around
+    your construction yard.
+   .var-a = Build Perimeter: Variant A - Square Basic
+   .var-b = Build Perimeter: Variant B - Square Inner
 
 ## ai_veh.yaml
 actor-apc-ai1-description = AI prefilled APC.
@@ -4358,13 +4360,20 @@ actor-active-raynor-name = Super Tech Center
 actor-traynor-hero0 =
    .description = [HERO]
 
-    Role: Infantry support
+   Role: Infantry support
 
-    Leader of Raynor's Raiders armed with a modified
+   Leader of Raynor's Raiders armed with a modified
      C-14 Gauss Rifle.
-    Speed: 72
+
+   Tier 1 unlocks infantry Officer squad boost.
+   Tier 2 unlocks ability to place spider mines.
+   Tier 3 unlocks 2nd attack: grenade launcher.
+   Tier 4 unlocks increased damage output.
+   Tier 5 unlocks Hyperion.
+
+   Speed: 72
       Strong vs Infantry, Aircraft
-      Weak vs Vehicles 
+      Weak vs Heavy armor 
     
     Equipped with Stimpacks.
    .name = Jim Raynor (Tier 0)
@@ -5744,10 +5753,17 @@ actor-zkerrigan-hero0 =
    .description = [HERO]
 
     Role: Damage dealer, Infantry support
-    
     The Queen of the Swarm.
-      Speed: 112
-      Strong vs ground units.
+
+    Tier 1 unlocks infantry Officer squad boost.
+    Tier 2 replaces melee attack with ranged
+      attack that can also target air.
+    Tier 3 unlocks 2nd attack: explosive charge.
+    Tier 4 unlocks 3rd attack: plague bomb.
+    Tier 5 unlocks Zergling spawns while in combat.
+    
+     Speed: 112
+     Strong vs ground units.
    .name = Kerrigan (Tier 0)
    .real--name = Kerrigan
 
@@ -5756,10 +5772,18 @@ actor-zkerrigan-hero1-name = Kerrigan (Tier 1)
 actor-zkerrigan-hero2 =
    .description = [HERO]
     
-    The Queen of the Swarm
-     Now has a ranged attack.
-      Speed: 96
-      Strong vs everything.
+    Role: Damage dealer, Infantry support
+    The Queen of the Swarm.
+
+    Tier 1 unlocks infantry Officer squad boost.
+    Tier 2 replaces melee attack with ranged
+      attack that can also target air.
+    Tier 3 unlocks 2nd attack: explosive charge.
+    Tier 4 unlocks 3rd attack: plague bomb.
+    Tier 5 unlocks Zergling spawns while in combat.
+    
+     Speed: 96
+     Strong vs everything.
    .name = Kerrigan (Tier 2)
 
 actor-zkerrigan-hero3-name = Kerrigan (Tier 3)
@@ -5775,6 +5799,15 @@ actor-zzagara =
    Excellent base defense and expansion.
    Is more powerful when standing on Creep.
    Creep speed bonus to all units while alive.
+
+    Tier 1 unlocks infantry Officer squad boost
+      with a massive range, Transfusion, and
+      the ability to place Hydralisk eggs.
+    Tier 2 unlocks lifesteal.
+    Tier 3 unlocks Mutalisk eggs.
+    Tier 4 unlocks Swarm Frenzy.
+    Tier 5 unlocks Ultralisk eggs.
+
       Speed: 72
       Strong vs ground units
    .name = Zagara
@@ -5805,6 +5838,7 @@ actor-zegg =
    .zergling = Spawn Zerglings (45 sec cooldown)
    .hydra = Spawn Hydralisk (45 sec cooldown)
    .muta = Spawn Mutalisk (90 sec cooldown)
+   .ultra = Spawn Ultralisk (120 sec cooldown)
 
 ## zerg_str.yaml
 actor-zhatchery =
@@ -6717,7 +6751,8 @@ actor-btrae-hero =
 
    Tier 1 unlocks 2nd attack.
    Tier 2 unlocks anti-missile system and UAV.
-   Tier 3 unlocks stealth detection and 3rd attack.
+   Tier 3 unlocks stealth detection, 3rd attack,
+     and anti-cruise missile system.
    Tier 4 unlocks area vehicle boosting.
    Tier 5 unlocks 4th attack and emergency airdrop.
 

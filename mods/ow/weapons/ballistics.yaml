@@ -1433,8 +1433,17 @@ RaynorVultureGrenade:
 
 RaynorMarineGrenade:
 	Inherits: RaynorVultureGrenade
+	ReloadDelay: 50
 	Burst: 2
-	BurstDelays: 3
+	BurstDelays: 4
+	Warhead@1Dam: SpreadDamage
+		Spread: 256
+		Versus:
+			None: 100
+			Wood: 60
+			Light: 33
+			Heavy: 33
+			Concrete: 30
 	Warhead@condition: GrantExternalCondition
 		Condition: SupportPowerConsiderer
 		Range: 2c0
@@ -2614,7 +2623,6 @@ AvaliBurstGrenade:
 AvaliPredatorCannon:
 	Inherits: ^Cannon
 	ReloadDelay: 40
-	Range: 4c768
 	Report: BalloonWeap1.aud, BalloonWeap2.aud, BalloonWeap3.aud
 	ValidTargets: Ground, Water, GroundActor, WaterActor
 	Projectile: Bullet
@@ -2624,7 +2632,9 @@ AvaliPredatorCannon:
 	Warhead@1Dam: SpreadDamage
 		Damage: 3500
 		Versus:
+			None: 40
 			Heavy: 110
+			Shield: 125
 	Warhead@2Smu: LeaveSmudge
 		SmudgeType: Scorch
 	Warhead@3Eff: CreateEffect
@@ -3564,6 +3574,11 @@ AC20:
 	Warhead@3Eff: CreateEffect
 		Explosions: building
 		ImpactSounds: gexpcara.aud,gexpcarb.aud,gexpcarc.aud,gexpcard.aud
+		InvalidTargets: Vehicle, Wall, Structure
+	Warhead@4Eff: CreateEffect
+		Explosions: building
+		ImpactSounds: bt_acimp1.ogg, bt_acimp2.ogg, bt_acimp3.ogg, bt_acimp4.ogg, bt_acimp5.ogg, bt_acimp6.ogg, bt_acimp7.ogg, bt_acimp8.ogg, bt_acimp9.ogg, bt_acimp10.ogg
+		ValidTargets: Vehicle, Structure, Cyborg, Wall
 	Warhead@Res7: DestroyResource
 		Size: 2
 		Delay: 8

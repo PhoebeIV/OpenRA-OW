@@ -743,28 +743,31 @@
 		Type: ConYardPerimeter
 		Group: Upgrade
 		DisplayOrder: 2
-		BlockedAudio: NoBuild
-		LimitedAudio: BuildingInProgress
 		QueuedAudio: Building
-		OnHoldAudio: OnHold
-		CancelledAudio: Cancelled
 		QueueLimit: 1
 	Production@ConYardPerimeter:
 		Produces: ConYardPerimeter
-		RequiresCondition: !supply_upgrade
-	ProvidesPrerequisite@allowperimeter:
-		RequiresCondition: !build-incomplete
-		Prerequisite: conyard.perimeter
-	GrantConditionOnProduction@perimeter1a:
-		Actors: upgrade.aiperimeter
-		Condition: perimeter1
+		RequiresCondition: !perimeter
 	GrantCondition@perimeterblock:
-		RequiresCondition: perimeter1 && botowner
+		RequiresCondition: perimeter && botowner
 		Condition: bot_undeploy_block
 		GrantPermanently: true
-	FreeActor@perimeter1:
-		RequiresCondition: perimeter1
-		Actor: AIPerimeterSpawner
+	GrantConditionOnProduction@perimeter:
+		Actors: upgrade.perimeter_varianta, upgrade.perimeter_variantb
+		Condition: perimeter
+	GrantConditionOnProduction@perimeter_var_a:
+		Actors: upgrade.perimeter_varianta
+		Condition: perimeter_var_a
+	GrantConditionOnProduction@perimeter_var_b:
+		Actors: upgrade.perimeter_variantb
+		Condition: perimeter_var_b
+	FreeActor@perimeter_var_a:
+		RequiresCondition: perimeter_var_a
+		Actor: AIPerimeterSpawner_VariantA
+		SpawnOffset: 1,1
+	FreeActor@perimeter_var_b:
+		RequiresCondition: perimeter_var_b
+		Actor: AIPerimeterSpawner_VariantB
 		SpawnOffset: 1,1
 
 # Default actor for refineries, provides the "refinery" prerequisite
