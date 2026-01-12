@@ -390,3 +390,777 @@ ParaBombMaverickBerserker:
 		Explosions: small_splash
 		ImpactSounds: splash9.aud
 		ValidTargets: Water, Underwater
+
+#####---MASTERCHIEF---#####
+
+MasterChiefRifle:
+	Inherits: TerranMarineUp
+	Report: battleriflefire1.aud, battleriflefire2.aud, battleriflefire3.aud
+	ReloadDelay: 15
+	Range: 6c0
+	ValidTargets: Ground, Water, GroundActor, WaterActor, Air, AirborneActor
+	Warhead@1Dam: SpreadDamage
+		Damage: 5500
+		Versus:
+			None: 100
+			Wood: 25
+			Light: 40
+			Heavy: 50
+			Concrete: 20
+	Warhead@2Dam: SpreadDamage
+		Damage: 4000
+
+MasterChiefRifleTracer:
+	Inherits: ^TracerRound
+	ReloadDelay: 15
+	Range: 6c0
+	ValidTargets: Ground, Water, GroundActor, WaterActor, AirborneActor
+
+MasterChiefPistol:
+	Inherits: Pistol
+	Report: masterchiefpistolfire.aud
+	Range: 10c0
+	ReloadDelay: 8
+	Warhead@1Dam: SpreadDamage
+		Damage: 3750
+		Versus:
+			None: 150
+
+MasterChiefShotgun:
+	Inherits: ^LightMG
+	ReloadDelay: 20
+	Range: 4c0
+	Report: MasterChiefShotgunFire.aud
+	AfterFireSound: MasterChiefShotgunCock.aud
+	Warhead@1Dam: SpreadDamage
+		Spread: 512
+		Damage: 9000
+		Versus:
+			None: 100
+			Wood: 25
+			Light: 60
+			Heavy: 50
+			Concrete: 20
+		DamageTypes: Prone50Percent, TriggerProne, BulletDeath
+
+MasterChiefShotgunTracer:
+	Inherits: ^TracerRound
+	ReloadDelay: 20
+	Burst: 3
+	BurstDelays: 0
+	Range: 4c0
+	ValidTargets: Ground, Water, GroundActor, WaterActor, AirborneActor
+	Projectile: Bullet
+		Speed: 1c0
+		Inaccuracy: 1c0
+
+MasterChiefAssaultRifle:
+	Inherits: TerranMarineUp
+	Report: assaultriflefire1.aud, assaultriflefire2.aud, assaultriflefire3.aud, assaultriflefire4.aud
+	ReloadDelay: 75
+	Burst: 60
+	BurstDelays: 2
+	Range: 5c0
+	Projectile: InstantHit
+		Inaccuracy: 512
+	ValidTargets: Ground, Water, GroundActor, WaterActor, Air, AirborneActor
+	Warhead@1Dam: SpreadDamage
+		Damage: 2000
+		Versus:
+			None: 80
+			Wood: 25
+			Light: 40
+			Heavy: 50
+			Concrete: 20
+	Warhead@2Dam: SpreadDamage
+		Damage: 2000
+
+MasterChiefAssaultRifleTracer:
+	Inherits: ^TracerRound
+	ReloadDelay: 75
+	Burst: 12
+	BurstDelays: 10
+	Range: 5c0
+	ValidTargets: Ground, Water, GroundActor, WaterActor, AirborneActor
+
+MasterChiefSniper:
+	Inherits: ^SnipeWeapon
+	ReloadDelay: 75
+	Burst: 10
+	BurstDelays: 15
+	Range: 12c0
+	Report: MasterChiefSniper1.aud, MasterChiefSniper2.aud, MasterChiefSniper3.aud, MasterChiefSniper4.aud
+	ValidTargets: Ground, Infantry, Cyborg
+	Projectile: LaserZap
+		Color: FFFFFF
+		Width: 14
+		Duration: 25
+	Warhead@1Dam: SpreadDamage
+		Spread: 42
+		Damage: 10000
+		Versus:
+			None: 100
+			Wood: 25
+			Light: 75
+			Heavy: 50
+			Concrete: 25
+		DamageTypes: Prone50Percent, TriggerProne, BulletDeath
+
+MasterChiefPlasmaCarbine:
+	Inherits: ^SnipeWeapon
+	ReloadDelay: 75
+	Burst: 18
+	BurstDelays: 7
+	Range: 9c0
+	Report: MasterChiefPlasmaCarbineFire1.aud, MasterChiefPlasmaCarbineFire2.aud, MasterChiefPlasmaCarbineFire3.aud
+	ValidTargets: Ground, Water, GroundActor, WaterActor
+	-InvalidTargets:
+	Projectile: LaserZap
+		Color: 03fc07
+		Width: 14
+		Duration: 25
+	Warhead@1Dam: SpreadDamage
+		Spread: 42
+		Damage: 8000
+		Versus:
+			None: 75
+			Wood: 30
+			Light: 90
+			Heavy: 75
+			Concrete: 30
+			Shield: 150
+		DamageTypes: Prone50Percent, TriggerProne, ElectricityDeath
+		ValidTargets: Ground, Water, GroundActor, WaterActor
+	Warhead@2Eff: CreateEffect
+		Explosions: fuelrodtrail
+		ValidTargets: Ground, Water, GroundActor, WaterActor
+
+masterchiefplasmapistol:
+	ReloadDelay: 50
+	Burst: 15
+	BurstDelay: 5
+	Range: 4c0
+	Report: masterchiefplasmapistolfire1.aud, masterchiefplasmapistolfire2.aud, masterchiefplasmapistolfire3.aud, masterchiefplasmapistolfire4.aud, masterchiefplasmapistolfire5.aud
+	ValidTargets: Ground, Water, GroundActor, WaterActor
+	Projectile: Bullet
+		Speed: 512
+		Blockable: false
+		ContrailLength: 5
+		ContrailStartColor: 03fc07
+		Image: masterchiefplasmaproj1
+		Shadow: false
+		Inaccuracy: 256
+		ContrailStartWidth: 0c32
+	Warhead@1Dam: SpreadDamage
+		Spread: 256
+		Damage: 1500
+		ValidTargets: GroundActor, WaterActor
+		Versus:
+			None: 20
+			Wood: 75
+			Light: 60
+			Heavy: 75
+			Concrete: 50
+			Shield: 150
+		DamageTypes: Prone50Percent, TriggerProne, ElectricityDeath
+	Warhead@2Smu: LeaveSmudge
+		SmudgeType: Scorch
+		InvalidTargets: Structure, Wall, Vehicle
+	Warhead@3Eff_impact: CreateEffect
+		Explosions: laserhitsmall
+		ImpactSounds: masterchiefplasmahit1.aud, masterchiefplasmahit2.aud, masterchiefplasmahit3.aud
+		ValidTargets: Ground, Water, GroundActor, WaterActor
+
+masterchiefplasmapistolcharged:
+	ReloadDelay: 150
+	Range: 4c0
+	Report: masterchiefplasmachargefire.aud
+	ValidTargets: Ground, Water, GroundActor, WaterActor
+	Projectile: Bullet
+		Speed: 512
+		Blockable: false
+		ContrailLength: 5
+		ContrailStartColor: 03fc07
+		Image: masterchiefplasmaproj1
+		Shadow: false
+		Inaccuracy: 256
+		ContrailStartWidth: 0c32
+	Warhead@1Dam: SpreadDamage
+		Spread: 1c0
+		Damage: 7500
+		ValidTargets: GroundActor, WaterActor
+		Versus:
+			None: 30
+			Wood: 75
+			Light: 75
+			Heavy: 90
+			Concrete: 50
+			Shield: 250
+		DamageTypes: Prone50Percent, TriggerProne, ElectricityDeath
+	Warhead@2Smu: LeaveSmudge
+		SmudgeType: Scorch
+		InvalidTargets: Structure, Wall, Vehicle
+	Warhead@3Eff_impact: CreateEffect
+		Explosions: laserhitmed
+		ImpactSounds: masterchiefplasmaexplode1.aud, masterchiefplasmaexplode2.aud, masterchiefplasmaexplode3.aud, masterchiefplasmaexplode4.aud
+		ValidTargets: Ground, Water, GroundActor, WaterActor
+
+masterchiefplasmapistolchargedsound:
+	ReloadDelay: 150
+	Range: 4c0
+	Report: masterchiefplasmacharge.aud
+	ValidTargets: Ground, Water, GroundActor, WaterActor
+	Projectile: Missile
+		Speed: 2
+		RangeLimit: 3
+
+MasterChiefPlasmaPistolChargedOverheat:
+	ReloadDelay: 150
+	Range: 4c0
+	Report: masterchiefplasmapistoloverheat.aud
+	ValidTargets: Ground, Water, GroundActor, WaterActor
+	Projectile: Missile
+		Speed: 2
+		RangeLimit: 3
+
+masterchiefneedler:
+	ReloadDelay: 50
+	Burst: 30
+	BurstDelay: 1
+	Range: 6c0
+	Report: masterchiefneedlerfire1.aud, masterchiefneedlerfire2.aud, masterchiefneedlerfire3.aud
+	ValidTargets: Ground, Water, GroundActor, WaterActor
+	Projectile: Bullet
+		Speed: 256
+		Blockable: false
+		ContrailLength: 6
+		ContrailStartColor: d400ff
+		Image: masterchiefneedlerproj
+		Shadow: false
+		Inaccuracy: 1c128
+		ContrailStartWidth: 0c32
+	Warhead@1Dam: SpreadDamage
+		Spread: 128
+		Damage: 2000
+		ValidTargets: GroundActor, WaterActor
+		Versus:
+			None: 80
+			Wood: 75
+			Light: 60
+			Heavy: 75
+			Concrete: 50
+		DamageTypes: Prone50Percent, TriggerProne, ExplosionDeath
+	Warhead@2Smu: LeaveSmudge
+		SmudgeType: Scorch
+		InvalidTargets: Structure, Wall, Vehicle
+	Warhead@3Eff_impact: CreateEffect
+		Explosions: laserhitsmall
+		ValidTargets: Ground, Water, GroundActor, WaterActor
+	Warhead@Debuff1: GrantExternalCondition
+		Condition: needlereffect
+		Duration: 125
+		ValidTargets: GroundActor, WaterActor, AirborneActor
+
+NeedlerExplosion:
+	ReloadDelay: 90
+	Range: 6c0
+	Report: NeedlerExplosion1.aud, NeedlerExplosion2.aud, NeedlerExplosion3.aud
+	TargetActorCenter: True
+	ValidTargets: Ground, Water, GroundActor, WaterActor
+	Projectile: Railgun
+		Duration: 30
+		BeamColor: 00fbff
+		HelixColor: 0088ff
+	Warhead@1Dam: SpreadDamage
+		Damage: 8000
+		Spread: 1c0
+		Versus:
+			None: 80
+			Wood: 110
+			Light: 80
+			Heavy: 110
+			Concrete: 50
+		DamageTypes: Prone50Percent, TriggerProne, ExplosionDeath
+		ValidTargets: Ground, GroundActor, Water, WaterActor
+	Warhead@3Eff_impact: CreateEffect
+		Explosions: laserhitmed
+		ValidTargets: Ground, Water, GroundActor, WaterActor
+	Warhead@4Eff_impact: CreateEffect
+		Explosions: needlerexplosion
+		ValidTargets: Ground, Water, GroundActor, WaterActor
+	Warhead@3Dam: SpreadDamage
+		Spread: 2c0
+		Damage: 2000
+		ValidTargets: GroundActor, WaterActor
+		DamageTypes: Prone50Percent, TriggerProne, FireDeath
+
+masterchiefplasmarifle:
+	ReloadDelay: 50
+	Burst: 15
+	BurstDelay: 3
+	Range: 6c0
+	Report: masterchiefplasmariflefire.aud
+	ValidTargets: Ground, Water, GroundActor, WaterActor
+	Projectile: Bullet
+		Speed: 512
+		Blockable: false
+		ContrailLength: 5
+		ContrailStartColor: 00fbff
+		Image: masterchiefplasmarifleproj
+		Shadow: false
+		Inaccuracy: 256
+		ContrailStartWidth: 0c32
+	Warhead@1Dam: SpreadDamage
+		Spread: 256
+		Damage: 2500
+		ValidTargets: GroundActor, WaterActor
+		Versus:
+			None: 50
+			Wood: 75
+			Light: 60
+			Heavy: 75
+			Concrete: 50
+			Shield: 150
+		DamageTypes: Prone50Percent, TriggerProne, ElectricityDeath
+	Warhead@2Smu: LeaveSmudge
+		SmudgeType: Scorch
+		InvalidTargets: Structure, Wall, Vehicle
+	Warhead@3Eff_impact: CreateEffect
+		Explosions: laserhitsmall
+		ImpactSounds: masterchiefplasmahit1.aud, masterchiefplasmahit2.aud, masterchiefplasmahit3.aud
+		ValidTargets: Ground, Water, GroundActor, WaterActor
+
+MasterChiefFuelRodCannon:
+	Inherits: ^AntiGroundMissile
+	Report: MasterChiefFuelRodCannonFire.aud
+	MinRange: 6c0
+	Range: 12c0
+	ReloadDelay: 100
+	Burst: 4
+	BurstDelays: 15
+	Projectile: Missile
+		Speed: 200
+		HorizontalRateOfTurn: 20
+		RangeLimit: 15c0
+		Image: masterchieffuelrodproj
+		TrailImage: explosion
+		TrailSequences: fuelrodtrail
+		ContrailLength: 15
+		ContrailStartColor: 03fc07
+		Gravity: 1
+		MinimumLaunchAngle: 48
+		MinimumLaunchSpeed: 8
+		MaximumLaunchSpeed: 8
+		LockOnProbability: 0
+		Acceleration: 10
+		CruiseAltitude: 3c0
+		Inaccuracy: 2c0
+		Shadow: false
+		ContrailStartWidth: 0c64
+		ContrailEndWidth: 0c32
+		Blockable: false
+	Warhead@1Dam: SpreadDamage
+		Spread: 1024
+		Damage: 10000
+		ValidTargets: GroundActor, WaterActor
+		Versus:
+			None: 80
+			Wood: 75
+			Light: 80
+			Heavy: 80
+			Concrete: 50
+			Shield: 150
+		DamageTypes: Prone50Percent, TriggerProne, ElectricityDeath
+	Warhead@2Smu: LeaveSmudge
+		SmudgeType: Scorch
+		InvalidTargets: Structure, Wall, Vehicle
+	Warhead@3Eff: CreateEffect
+		Explosions: fuelrodexplosion
+		ImpactSounds: MasterChiefFuelRodCannonExplosion1.aud, MasterChiefFuelRodCannonExplosion2.aud
+		ValidTargets: Ground, Water, GroundActor, WaterActor
+	Warhead@zap: FireCluster
+		Weapon: FuelRodCannonClusterSmall
+		RandomClusterCount: 3
+		Dimensions: 3,3
+		Footprint: xxx x_x xxx
+
+FuelRodCannonClusterSmall:
+	Inherits: BFGZapCluster
+	Range: 2c0
+	Projectile: Missile
+		RangeLimit: 1c0
+		Speed: 600
+		MinimumLaunchSpeed: 600
+		MaximumLaunchSpeed: 600
+		Acceleration: 16
+		Inaccuracy: 1c0
+	Warhead@2cluster: FireShrapnel
+		Amount: 1
+		Weapon: FuelRodCannonSmallZap
+		AimTargetStances: Neutral, Enemy, None
+		AimChance: 50
+	Warhead@5Eff: CreateEffect
+		Inaccuracy: 64
+		Explosions: fuelrodtrail
+		ValidTargets: Ground, GroundActor, WaterActor, AirborneActor
+		ImpactActors: true
+
+FuelRodCannonZap:
+	Inherits: ^ElectricBoltWeapon
+	ReloadDelay: 7
+	Range: 3c0
+	Report: baud.aud
+	ValidTargets: Ground, GroundActor, WaterActor, AirborneActor
+	Projectile: ElectricBolt
+		Colors: 269db5, 6bf8ff, ffffff
+		Inaccuracy: 1c0
+	Warhead@1Dam: SpreadDamage
+		Damage: 500
+		Spread: 256
+		ValidTargets: Ground, GroundActor, WaterActor, AirborneActor
+	Warhead@3Eff: CreateEffect
+		Delay: 0
+		Inaccuracy: 64
+		Explosions: fuelrodtrail
+		ValidTargets: Ground, GroundActor, WaterActor, AirborneActor
+		ImpactActors: true
+	Warhead@4Eff: CreateEffect
+		Delay: 3
+		Inaccuracy: 64
+		Explosions: fuelrodtrail
+		ValidTargets: Ground, GroundActor, WaterActor, AirborneActor
+		ImpactActors: true
+	Warhead@5Eff: CreateEffect
+		Delay: 6
+		Inaccuracy: 64
+		Explosions: fuelrodtrail
+		ValidTargets: Ground, GroundActor, WaterActor, AirborneActor
+		ImpactActors: true
+
+FuelRodCannonSmallZap:
+	Inherits: FuelRodCannonZap
+	Range: 5c0
+	Projectile: ElectricBolt
+		Distortion: 200
+		DistortionAnimation: 16
+		SegmentLength: 128
+		Width: 12
+		Duration: 9
+		Inaccuracy: 256
+		Colors: 03fc07
+	Warhead@1Dam: SpreadDamage
+		Damage: 1000
+	-Warhead@4Eff: CreateEffect
+	-Warhead@5Eff: CreateEffect
+
+masterchiefsentinelbeam:
+	Inherits: TerranMarine
+	ReloadDelay: 14
+	Burst: 5
+	BurstDelays: 3
+	FirstBurstTargetOffset: 0,-128,0
+	FollowingBurstTargetOffset: 0,64,0
+	StartBurstReport: masterchiefsentinelbeamfire.aud
+	-Report:
+	Projectile: LaserZap
+		ZOffset: 512
+		Width: 64
+		SecondaryBeamWidth: 32
+		SecondaryBeamZOffset: 513
+		Color: 008cff
+		SecondaryBeamColor: 4daeff
+		SecondaryBeam: true
+		Duration: 4
+		Blockable: true
+		TrackTarget: false
+		Inaccuracy: 96
+	Warhead@1Dam: SpreadDamage
+		Damage: 3000
+		Versus:
+			None: 115
+			Wood: 20
+			Light: 35
+			Heavy: 25
+			Concrete: 25
+	Warhead@2Smu: LeaveSmudge
+		SmudgeType: Scorch
+		ValidTargets: Ground, Infantry
+		Chance: 1
+	Warhead@2Eff3: CreateEffect
+		Delay: 4
+		Explosions: laserhitsmall
+		ValidTargets: Ground, GroundActor, Air, AirborneActor, WaterActor, Trees
+		Inaccuracy: 171
+
+masterchieffraggrenade:
+	Inherits: ^Artillery
+	ReloadDelay: 30
+	Range: 6c0
+	MinRange: 1c0
+	Report: masterchiefgrenadethrow.aud
+	Projectile: Bullet
+		Speed: 156
+		Inaccuracy: 2c256
+		ContrailLength: 30
+		Image: BOMB
+	Warhead@1Dam: SpreadDamage
+		Spread: 512
+		Damage: 7500
+		Versus:
+			None: 90
+			Wood: 50
+			Light: 50
+			Heavy: 70
+			Concrete: 70
+		DamageTypes: Prone50Percent, TriggerProne, ExplosionDeath
+	Warhead@3Eff: CreateEffect
+		Explosions: artillery_explosion
+		ImpactSounds: masterchiefgrenadeexplode1.aud, masterchiefgrenadeexplode2.aud, masterchiefgrenadeexplode3.aud
+	Warhead@4EffWater: CreateEffect
+		Explosions: med_splash
+
+MasterChiefRocketLauncher:
+	Inherits: DoomRPG
+	Report: MasterChiefRocketLauncherFire1.aud, MasterChiefRocketLauncherFire2.aud
+	Range: 6c0
+	ReloadDelay: 50
+	Burst: 2
+	BurstDelays: 10
+	Projectile: Missile
+		Image: dukenukemrocket
+		Inaccuracy: 1c0
+	Warhead@1Dam: SpreadDamage
+		Spread: 512
+		Damage: 15000
+		ValidTargets: GroundActor, WaterActor
+		Versus:
+			None: 50
+			Wood: 50
+			Light: 110
+			Heavy: 90
+			Concrete: 80
+		DamageTypes: Prone50Percent, TriggerProne, SmallExplosionDeath
+	Warhead@3Eff: CreateEffect
+		Explosions: building
+		ImpactSounds: masterchiefgrenadeexplode1.aud, masterchiefgrenadeexplode2.aud, masterchiefgrenadeexplode3.aud
+		ValidTargets: Ground, Air, GroundActor, AirborneActor, WaterActor, Trees
+
+masterchiefbruteshot:
+	Inherits: ^Artillery
+	ReloadDelay: 75
+	Burst: 6
+	BurstDelays: 12
+	Range: 7c0
+	Report: masterchiefbruteshotfire1.aud, masterchiefbruteshotfire2.aud, masterchiefbruteshotfire3.aud
+	Projectile: Bullet
+		Speed: 256
+		Image: firemaceproj1
+		BounceCount: 2
+		BounceSound: masterchiefbruteshotbounce1.aud, masterchiefbruteshotbounce2.aud, masterchiefbruteshotbounce3.aud
+		Shadow: true
+		BounceRangeModifier: 40
+		LaunchAngle: 130
+		Inaccuracy: 1c0
+		ContrailLength: 15
+		ContrailStartColor: ff8400
+		ContrailStartWidth: 0c64
+		ContrailEndWidth: 0c32
+	Warhead@1Dam: SpreadDamage
+		Spread: 512
+		Damage: 7500
+		ValidTargets: GroundActor, WaterActor
+		Versus:
+			None: 70
+			Wood: 50
+			Light: 120
+			Heavy: 90
+			Concrete: 50
+		DamageTypes: Prone50Percent, TriggerProne, SmallExplosionDeath
+	Warhead@3Eff: CreateEffect
+		Explosions: building
+		ImpactSounds: masterchiefbruteshotexplode1.aud, masterchiefbruteshotexplode2.aud, masterchiefbruteshotexplode3.aud
+		ValidTargets: Ground, Air, GroundActor, AirborneActor, WaterActor, Trees
+	Warhead@4EffWater: CreateEffect
+		Explosions: small_splash
+		ImpactSounds: splash9.aud
+		ValidTargets: Water, Underwater
+		InvalidTargets: Bridge
+
+masterchiefenergysword:
+	ValidTargets: Infantry
+	ReloadDelay: 10
+	Range: 4c0
+	Report: masterchiefenergyswordmelee1.aud, masterchiefenergyswordmelee2.aud, masterchiefenergyswordmelee3.aud
+	TargetActorCenter: true
+	Projectile: InstantHit
+	Warhead@1Dam: TargetDamage
+		Damage: 50000
+		ValidTargets: Infantry
+		DamageTypes: Prone50Percent, TriggerProne, ElectricityDeath
+	Warhead@2Smu: LeaveSmudge
+		SmudgeType: Scorch
+		InvalidTargets: Structure, Wall, Vehicle
+	Warhead@3Eff_impact: CreateEffect
+		Explosions: laserhitmed
+		ImpactSounds: masterchiefenergyswordhit1.aud, masterchiefenergyswordhit2.aud, masterchiefenergyswordhit3.aud, masterchiefenergyswordhit4.aud, masterchiefenergyswordhit5.aud, masterchiefenergyswordhit6.aud
+		ValidTargets: Ground, Water, GroundActor, WaterActor
+	Warhead@4Eff_impact: CreateEffect
+		Explosions: japanplasmaring
+		ValidTargets: Ground, Water, GroundActor, WaterActor
+
+MasterChiefSpartanLaserAttackEffect:
+	ReloadDelay: 150
+	Range: 12c0
+	MinRange: 5c0
+	Report: MasterChiefSpartanLaserCharge.aud
+	ValidTargets: Ground, Water, GroundActor, WaterActor
+	Projectile: Missile
+		Speed: 2
+		RangeLimit: 3
+	Warhead@1Eff: CreateEffect
+		Explosions: lightbringer_charge
+		ImpactSounds: MasterChiefSpartanLaserCharge.aud
+		Inaccuracy: 256
+		ValidTargets: Ground, GroundActor, WaterActor, Trees, Air
+	Warhead@2Eff: CreateEffect
+		Delay: 5
+		Explosions: lightbringer_charge
+		Inaccuracy: 256
+		ValidTargets: Ground, GroundActor, WaterActor, Trees, Air
+	Warhead@3Eff: CreateEffect
+		Delay: 25
+		Explosions: lightbringer_charge
+		Inaccuracy: 256
+		ValidTargets: Ground, GroundActor, WaterActor, Trees, Air
+	Warhead@4Eff: CreateEffect
+		Delay: 55
+		Explosions: lightbringer_charge
+		Inaccuracy: 256
+		ValidTargets: Ground, GroundActor, WaterActor, Trees, Air
+	Warhead@5Eff: CreateEffect
+		Delay: 65
+		Explosions: japanplasmaringupgrade
+		Inaccuracy: 256
+		ValidTargets: Ground, GroundActor, WaterActor, Trees, Air
+	Warhead@6Eff: CreateEffect
+		Delay: 75
+		Explosions: japanplasmaringupgrade
+		Inaccuracy: 256
+		ValidTargets: Ground, GroundActor, WaterActor, Trees, Air
+	Warhead@7Eff: CreateEffect
+		Delay: 85
+		Explosions: japanplasmaringupgrade
+		Inaccuracy: 256
+		ValidTargets: Ground, GroundActor, WaterActor, Trees, Air
+	Warhead@8Eff: CreateEffect
+		Delay: 85
+		Explosions: lightbringer_charge
+		Inaccuracy: 256
+		ValidTargets: Ground, GroundActor, WaterActor, Trees, Air
+
+MasterChiefSpartanLaserAttackLaser:
+	Inherits: ^GaussWeapon
+	ReloadDelay: 150
+	Range: 12c0
+	MinRange: 5c0
+	Report: MasterChiefSpartanLaserFire1.aud, MasterChiefSpartanLaserFire2.aud, MasterChiefSpartanLaserFire3.aud
+	Projectile: Railgun
+		DamageActorsInLine: false
+		BeamWidth: 32
+		BeamColor: ff0000
+		BeamAlphaDeltaPerTick: -3
+		HelixAlphaDeltaPerTick: -3
+		HelixThickness: 32
+		HelixRadius: 196
+		HitAnim: explosion
+		HitAnimSequence: spartanlaserhit
+		Duration: 41
+	Warhead@1Dam: SpreadDamage
+		Spread: 1c1024
+		Damage: 20000
+		Versus:
+			None: 50
+			Wood: 80
+			Light: 60
+			Heavy: 100
+			Concrete: 100
+		DamageTypes: Prone50Percent, TriggerProne, ElectricityDeath
+	Warhead@2Dam: SpreadDamage
+		Spread: 1c0
+		Damage: 35000
+		Versus:
+			None: 80
+			Wood: 80
+			Light: 60
+			Heavy: 100
+			Concrete: 125
+		DamageTypes: Prone50Percent, TriggerProne, ElectricityDeath
+	Warhead@3Eff_impact: CreateEffect
+		Delay: 4
+		Explosions: spartanlaserhit
+		ImpactActors: false
+	Warhead@4Eff_impact: CreateEffect
+		Explosions: laserhitmed
+		ImpactActors: false
+	Warhead@7Eff: CreateEffect
+		ImpactSounds: MasterChiefSpartanLaserFire1.aud, MasterChiefSpartanLaserFire2.aud, MasterChiefSpartanLaserFire3.aud
+		ImpactActors: true
+
+MasterChiefSpartanLaserAttackLaserHit:
+	ReloadDelay: 150
+	Range: 12c0
+	MinRange: 5c0
+	Projectile: InstantHit
+	ValidTargets: Ground, Water, GroundActor, WaterActor
+	Warhead@3Eff_impact: CreateEffect
+		Delay: 4
+		Explosions: spartanlaserhit
+		ImpactActors: false
+	Warhead@4Eff_impact: CreateEffect
+		Explosions: laserhitmed
+		ImpactActors: false
+
+masterchiefflamethrower:
+	Inherits: Flamer
+	ReloadDelay: 25
+	Burst: 25
+	BurstDelays: 1
+	StartBurstReport: masterchiefflamethrowerfire1.aud, masterchiefflamethrowerfire2.aud, masterchiefflamethrowerfire3.aud
+	Range: 4c0
+	FirstBurstTargetOffset: 0,0,0
+	FollowingBurstTargetOffset: 0,0,0
+	Projectile: Bullet
+		Inaccuracy: 1024
+	Warhead@1Dam: SpreadDamage
+		Spread: 400
+		Damage: 800
+		Versus:
+			Light: 80
+			Wood: 50
+			Heavy: 25
+			Concrete: 20
+	Warhead@3Eff: CreateEffect
+		Explosions: small_napalm
+
+masterchiefgravityhammer:
+	ValidTargets: Ground, Water, GroundActor, WaterActor
+	ReloadDelay: 125
+	Range: 8c0
+	Report: masterchiefgravityhammermelee1.aud, masterchiefgravityhammermelee2.aud, masterchiefgravityhammermelee3.aud
+	TargetActorCenter: false
+	Projectile: InstantHit
+	Warhead@1Dam: SpreadDamage
+		Damage: 50000
+		Spread: 1c0
+		DamageTypes: Prone50Percent, TriggerProne, ElectricityDeath
+		ValidTargets: Ground, Water, GroundActor, WaterActor
+	Warhead@2Smu: LeaveSmudge
+		SmudgeType: Scorch
+		InvalidTargets: Structure, Wall, Vehicle
+	Warhead@3Eff_impact: CreateEffect
+		Explosions: laserhitmed
+		ImpactSounds: masterchiefgravityhammerhit1.aud, masterchiefgravityhammerhit2.aud, masterchiefgravityhammerhit3.aud
+		ValidTargets: Ground, Water, GroundActor, WaterActor
+	Warhead@4Eff_impact: CreateEffect
+		Explosions: gravityhammerhit
+		ValidTargets: Ground, Water, GroundActor, WaterActor
