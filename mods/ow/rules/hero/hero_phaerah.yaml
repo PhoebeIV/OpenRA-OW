@@ -1,0 +1,432 @@
+phaerah.allpick:
+	Inherits: ^HeroPickBase
+	RenderSprites:
+		Image: vulperadk
+	Buildable:
+		Prerequisites: ~disabled, ~techlevel.hero, ~!hero.chosen
+		Description: actor-phaedk-hero.description
+	Valued:
+		Cost: 0
+	Tooltip:
+		Name: actor-phaedk-hero.name
+	ProvidesPrerequisite@hero:
+		Prerequisite: hero.chosen
+	ProvidesPrerequisite@pickme:
+		Prerequisite: hero.phaerah
+
+PHAEDK.Hero0:
+	Inherits: ^DoomSoldier
+	Inherits@Hero: ^Hero
+	Inherits@heroTier: ^HeroTier0
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	-GainsExperience:
+	-SoundOnDamageTransition:
+	-SpawnActorOnDeath@fire:
+	-SpawnActorOnDeath@zombie:
+	AutoTarget:
+		ScanRadius: 6
+	DamageTypeDamageMultiplier@default:
+		DamageTypes: DefaultDeath, FireDeath
+		Modifier: 80
+	ConvertsDamageToHealth@default:
+		RequiresCondition: !deathstrike
+		DamagePercentConverted: 15
+	RenderSprites:
+		Image: vulperadk
+	Buildable:
+		Queue: Infantry
+		BuildAtProductionType: Soldier
+		BuildPaletteOrder: 50
+		Prerequisites: ~disabled, ~barracks, !active.phaerah, ~!hero.tier1, ~hero.phaerah
+		Description: actor-phaedk-hero.description
+		BuildDurationModifier: 100
+		BuildDuration: 750
+		BuildLimit: 1
+	Selectable:
+		Bounds: 1536, 1536, 0, -350
+		DecorationBounds: 1536, 1536, 0, -350
+	Tooltip:
+		Name: actor-phaedk-hero.tier0
+	Mobile:
+		PauseOnCondition: immobile
+		Speed: 96
+		Locomotor: foot2
+		Voice: Move
+	Guard:
+		Voice: Move
+	Health:
+		HP: 125000
+	RevealsShroud:
+		MinRange: 6c0
+		Range: 7c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 6c0
+	-ExternalCondition@wander:
+	Passenger:
+		CustomPipType: red
+		Voice: Move
+		Weight: 2
+	Voiced:
+		VoiceSet: PhaerahVoice
+	ChangesHealth@default:
+		PercentageStep: 1
+		Delay: 50
+		StartIfBelow: 101
+		DamageCooldown: 125
+	ExternalCondition@PRODUCED:
+		Condition: produced
+	VoiceAnnouncement:
+		RequiresCondition: produced
+		Voice: Build
+	AnnounceOnKillOW:
+	AnnounceOnKillOW@ally:
+		ValidStances: Ally
+		Voice: FriendlyFire
+	WithInfantryBody:
+		RequiresCondition: !in_combat && !fallback
+		DefaultAttackSequence: attack1
+		IdleSequences: idle
+		StandSequences: stand
+		MinIdleDelay: 125
+		MaxIdleDelay: 200
+	WithInfantryBody@ready:
+		RequiresCondition: in_combat || fallback
+		DefaultAttackSequence: attack1
+		AttackSequences:
+			basic1: attack1
+			basic2: attack2
+			obliterate: attack3
+			froststrike: attack4
+			dnd: aoe
+		StandSequences: stand-ready
+	GrantConditionOnAttack@0:
+		ArmamentNames: basic1, basic2, obliterate, froststrike, deathstrike, dnd
+		Condition: in_combat
+		RevokeDelay: 125
+	AttackFrontal:
+		Armaments: basic1, basic2, obliterate, froststrike, deathstrike, dnd
+	Armament@main1:
+		RequiresCondition: basic1
+		PauseOnCondition: ability
+		Name: basic1
+		Weapon: DKBasicMeleeRight
+	Armament@main2:
+		RequiresCondition: basic2
+		PauseOnCondition: ability
+		Name: basic2
+		Weapon: DKBasicMelee
+	GrantPeriodicConditionOW@main:
+		Condition: basic1
+		CooldownDuration: 17
+		ActiveDuration: 17
+	GrantPeriodicConditionOW@main2:
+		Condition: basic2
+		CooldownDuration: 17
+		ActiveDuration: 17
+		StartsGranted: true
+	GrantPeriodicConditionOW@useability: # use basic attack at least twice before doing something big and fancy
+		RequiresCondition: in_combat
+		Condition: allow_ability
+		CooldownDuration: 34
+		ActiveDuration: 34
+	Armament@runeability1:
+		RequiresCondition: allow_ability
+		PauseOnCondition: runes < 2 || ability
+		Name: obliterate
+		Weapon: DKObliterate
+		MuzzleSequence: swing1
+		LocalOffset: 256,0,256
+		AmmoUsage: 2
+	Armament@runeability2:
+		RequiresCondition: allow_ability
+		PauseOnCondition: !runes || ability
+		Name: dnd
+		Weapon: DKDeathAndDecay
+		AmmoUsage: 1
+	FreeActor@dnd:
+		RequiresCondition: dnd_cooldown
+		Actor: PHAEDK.DND
+		AllowRespawn: true
+	Armament@runicability1:
+		RequiresCondition: !lowhp && allow_ability
+		PauseOnCondition: runicpower < 30 || ability
+		Name: froststrike
+		Weapon: DKFroststrike
+		MuzzleSequence: swing2
+		LocalOffset: 256,0,256
+		AmmoUsage: 30
+	Armament@runicability2:
+		RequiresCondition: lowhp
+		PauseOnCondition: runicpower < 40 || ability
+		Name: deathstrike
+		Weapon: DKDeathstrike
+		MuzzleSequence: swing1
+		LocalOffset: 256,0,256
+		AmmoUsage: 40
+	ConvertsDamageToHealth@deathstrike:
+		RequiresCondition: deathstrike
+		DamagePercentConverted: 750
+	GrantConditionOnAttack@runes_1:
+		ArmamentNames: dnd
+		Condition: use_1_runes
+		RevokeDelay: 3
+	GrantConditionOnAttack@runes_2:
+		ArmamentNames: obliterate
+		Condition: use_2_runes
+		RevokeDelay: 3
+	GrantConditionOnAttack@ability:
+		ArmamentNames: froststrike, deathstrike, dnd
+		Condition: ability
+		RevokeDelay: 20
+	GrantConditionOnAttack@abilitylong:
+		ArmamentNames: obliterate
+		Condition: ability
+		RevokeDelay: 30
+	GrantConditionOnAttack@abilitydnd:
+		ArmamentNames: dnd
+		Condition: dnd_cooldown
+		RevokeDelay: 300
+	GrantConditionOnAttack@abilitydnd2:
+		ArmamentNames: dnd
+		Condition: immobile
+		RevokeDelay: 25
+	GrantConditionOnAttack@deathstrike:
+		ArmamentNames: deathstrike
+		Condition: deathstrike
+		RevokeDelay: 6
+	AmmoPool@runes:
+		Name: runes
+		InitialAmmo: 6
+		Ammo: 6
+		AmmoCondition: runes
+		Armaments: obliterate
+	AmmoPool@runicpower:
+		Name: runicpower
+		InitialAmmo: 100
+		Ammo: 100
+		AmmoCondition: runicpower
+		Armaments: froststrike, deathstrike
+	ReloadAmmoPool@runes:
+		Delay: 125
+		AmmoPool: runes
+	ReloadAmmoPool@runes2:
+		RequiresCondition: !in_combat
+		Delay: 55
+		AmmoPool: runes
+	ReloadAmmoPool@use_1_runes:
+		RequiresCondition: use_1_runes
+		AmmoPool: runicpower
+		Count: 10
+		Delay: 2
+	ReloadAmmoPool@use_2_runes:
+		RequiresCondition: use_2_runes
+		AmmoPool: runicpower
+		Count: 20
+		Delay: 2
+	WithAmmoPipsDecoration@runes:
+		AmmoPools: runes
+		PipCount: 6
+		EmptySequence: pip-oil
+		FullSequence: pip-blue
+		PipStride: 8,0
+		Margin: 6, 5
+	WithAmmoPipsDecoration@runicpower:
+		AmmoPools: runicpower
+		PipCount: 24
+		EmptySequence: bar-empty
+		FullSequence: bar-gray
+		Margin: 6, 1
+	WithMuzzleOverlay:
+	ExplodeWeapon@runicdrain:
+		RequiresCondition: !in_combat
+		AmmoPoolName: runicpower
+		Weapon: DrainRunicPower
+	GrantPeriodicConditionOnEvent@deathsadvance:
+		Condition: deathsadvance
+		Triggers: Damage, Attack
+		ActiveDuration: 200
+		CooldownDuration: 200
+	AmbientSound@deathsadvance:
+		RequiresCondition: deathsadvance
+		SoundFiles: vulpspeed1.ogg, vulpspeed2.ogg
+		Interval: 9000
+	Contrail: 
+		RequiresCondition: deathsadvance
+		StartColor: 8C00B3B5
+		StartColorUsePlayerColor: false
+		StartWidth: 400
+		StartColorAlpha: 96
+		TrailLength: 33
+		Offset: -330,0,0
+		ZOffset: -1
+	SpeedMultiplier@deathsadvance:
+		RequiresCondition: deathsadvance
+		Modifier: 133
+	SpeedMultiplier@cyrostrike:
+		RequiresCondition: cyrostrikeeffect && !deathsadvance
+	SpeedMultiplier@cyrostream:
+		RequiresCondition: (cyrostreameffect >= 8) && !deathsadvance
+	SpeedMultiplier@cyrostream2:
+		RequiresCondition: ((cyrostreameffect >= 3) && (cyrostreameffect < 8)) && !deathsadvance
+	SpeedMultiplier@ensnare:
+		RequiresCondition: queen_ensnare && !gdi_suits && !deathsadvance
+	GrantConditionOnDamage: 
+		Condition: hurt
+		ValidRelationships: Ally, Neutral, Enemy
+		Duration: 50
+	GrantConditionOnDamage@fallback: 
+		Condition: fallback
+		ValidRelationships: Ally, Neutral, Enemy
+		Duration: 375
+	AmbientSound@talky:
+		RequiresCondition: !healed
+		SoundFiles: vulpsilly1.ogg,vulpsilly2.ogg,vulpsilly3.ogg,vulpsilly4.ogg,vulpsilly5.ogg,vulpsilly6.ogg,vulpsilly7.ogg,baud.aud,baud.aud,baud.aud
+		Delay: 1500, 4500
+		Interval: 3000, 4500
+	AmbientSound@healing:
+		RequiresCondition: healed && !fullhealth && !active_stimpack
+		SoundFiles: vulpbeg.ogg, vulpsigh.ogg, vulpcheer.ogg
+		Delay: 25, 50
+		Interval: 1000
+	AmbientSound@healing2:
+		RequiresCondition: healed && fullhealth && !active_stimpack
+		SoundFiles: vulpkiss.ogg, vulpimpressed.ogg, vulptimetofight.ogg
+		Delay: 15
+		Interval: 1000
+	AmbientSound@hurt:
+		RequiresCondition: hurt && highhp
+		Interval: 50,75
+		SoundFiles: vulpwound01.ogg, vulpwound02.ogg, vulpwound03.ogg, vulpwound04.ogg, vulpwound05.ogg, vulpwound06.ogg, vulpwound07.ogg, vulpwound08.ogg, vulpwound09.ogg, vulpwound10.ogg
+	AmbientSound@hurt2:
+		RequiresCondition: hurt && lowhp 
+		Interval: 50,75
+		SoundFiles: vulpwoundcrit01.ogg, vulpwoundcrit02.ogg, vulpwoundcrit03.ogg, vulpwoundcrit04.ogg, vulpwoundcrit05.ogg
+	AmbientSound@hurt3:
+		RequiresCondition: fallback && lowhp && !in_combat
+		Interval: 9000
+		SoundFiles: vulpfallback.ogg, vulpfallback2.ogg
+	AmbientSound@combat:
+		RequiresCondition: in_combat
+		Interval: 9000
+		SoundFiles: vulpcharge01.ogg, vulpcharge02.ogg, vulpcharge03.ogg, vulpcharge04.ogg, vulpcharge05.ogg
+	GrantConditionOnHealthPercentage:
+		MaxHP: 101
+		MinHP: 100
+		RequiresCondition: healed
+		Condition: fullhealth
+	GrantConditionOnHealthPercentage@high:
+		MaxHP: 80
+		MinHP: 40
+		Condition: highhp
+	GrantConditionOnHealthPercentage@low:
+		MaxHP: 40
+		MinHP: 0
+		Condition: lowhp
+	GrantConditionOnHealthPercentage@critical:
+		MaxHP: 15
+		MinHP: 0
+		Condition: criticalhp
+	-WithDeathAnimation:
+	SpawnActorOnDeath@corpse:
+		Actor: PHAEDK.Husk
+	TransformOnCondition@level:
+		RequiresCondition: force_deploy
+		IntoActor: PHAEDK.Hero1
+		ForceHealthPercentage: 100
+	AmbientSound@raynorlevel:
+		SoundFiles: vulpvictory01.ogg, vulpvictory02.ogg, vulpvictory03.ogg
+		Interval: 9000
+		RequiresCondition: milestone
+
+PHAEDK.Hero1:
+	Inherits: PHAEDK.Hero0
+	Inherits@heroTier: ^HeroTier1
+	Buildable:
+		Prerequisites: ~barracks, !active.phaerah, ~!hero.tier2, ~hero.tier1, ~hero.phaerah
+		BuildDuration: 1500
+	Tooltip:
+		Name: actor-phaedk-hero.tier1
+	Health:
+		HP: 150000
+	TransformOnCondition@level:
+		IntoActor: PHAEDK.Hero2
+	FirepowerMultiplier@1:
+		Modifier: 100
+
+PHAEDK.Hero2:
+	Inherits: PHAEDK.Hero1
+	Inherits@heroTier: ^HeroTier2
+	Buildable:
+		Prerequisites: ~barracks, !active.phaerah, ~!hero.tier3, ~hero.tier2, ~hero.phaerah
+	Tooltip:
+		Name: actor-phaedk-hero.tier2
+	Health:
+		HP: 175000
+	TransformOnCondition@level:
+		IntoActor: PHAEDK.Hero3
+	FirepowerMultiplier@1:
+		Modifier: 100
+
+PHAEDK.Hero3:
+	Inherits: PHAEDK.Hero2
+	Inherits@heroTier: ^HeroTier3
+	Buildable:
+		Prerequisites: ~barracks, !active.phaerah, ~!hero.tier4, ~hero.tier3, ~hero.phaerah
+	Tooltip:
+		Name: actor-phaedk-hero.tier3
+	Health:
+		HP: 200000
+	TransformOnCondition@level:
+		IntoActor: PHAEDK.Hero4
+	FirepowerMultiplier@1:
+		Modifier: 100
+
+PHAEDK.Hero4:
+	Inherits: PHAEDK.Hero3
+	Inherits@heroTier: ^HeroTier4
+	Buildable:
+		Prerequisites: ~barracks, !active.phaerah, ~!hero.tier5, ~hero.tier4, ~hero.phaerah
+		BuildDuration: 3000
+	Tooltip:
+		Name: actor-phaedk-hero.tier4
+	Health:
+		HP: 225000
+	TransformOnCondition@level:
+		IntoActor: PHAEDK.Hero5
+	FirepowerMultiplier@1:
+		Modifier: 100
+
+PHAEDK.Hero5:
+	Inherits: PHAEDK.Hero4
+	Inherits@heroTier: ^HeroTier5
+	Buildable:
+		Prerequisites: ~barracks, !active.phaerah, ~hero.tier5, ~hero.phaerah
+		BuildDuration: 6000
+	Tooltip:
+		Name: actor-phaedk-hero.tier5
+	Health:
+		HP: 250000
+	-TransformOnCondition@level:
+	-GrantPeriodicCondition@deploy:
+	-GainsExperienceMultiplier@1:
+	-AmbientSound@raynorlevel:
+	FirepowerMultiplier@1:
+		Modifier: 100
+
+PHAEDK.DND:
+	Inherits: MINE_DUMMY
+	Targetable:
+		TargetTypes: Ground, NoAutoTarget, NoAITarget
+	KillsSelf:
+		Delay: 250
+		RemoveInstead: true
+	RenderSprites:
+		Image: explosion
+		Palette: effect
+	WithSpriteBody:
+		StartSequence: vulpdnd
+		Sequence: vulpdnd_loop
+	FireWarheads:
+		Weapons: DKDNDDamage
+		Interval: 25

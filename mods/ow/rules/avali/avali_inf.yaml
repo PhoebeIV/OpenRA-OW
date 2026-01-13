@@ -4,30 +4,24 @@
 	-ReloadDelayMultiplier@hordebonus:
 	-ReloadDelayMultiplier@hordebonusupgrade1:
 	-ReloadDelayMultiplier@hordebonusupgrade2:
-	ProximityExternalCondition@hordebonus:
-		Range: 3c0
-	ProximityExternalCondition@hordebonusupgrade1:
-		Range: 3c0
-	ProximityExternalCondition@hordebonusupgrade2:
-		Range: 3c0
 	FirepowerMultiplier@hordebonus:
-		RequiresCondition: hordebonus >= 15 && !upgradenationalism
+		RequiresCondition: hordebonus >= 10 && !upgradenationalism
 		Modifier: 110
 	FirepowerMultiplier@hordebonusupgrade1:
-		RequiresCondition: hordebonusupgrade1 >= 15 && upgradenationalism
+		RequiresCondition: hordebonusupgrade1 >= 10 && upgradenationalism
 		Modifier: 115
 	FirepowerMultiplier@hordebonusupgrade2:
-		RequiresCondition: hordebonusupgrade2 >= 15
+		RequiresCondition: hordebonusupgrade2 >= 10
 		Modifier: 120
 	DamageMultiplier@hordebonus:
-		RequiresCondition: (hordebonus >= 15) || (hordebonusupgrade1 >= 15) || (hordebonusupgrade2 >= 15)
+		RequiresCondition: (hordebonus >= 10) || (hordebonusupgrade1 >= 10) || (hordebonusupgrade2 >= 10)
 		Modifier: 90
 	WithIdleOverlay@hordebonus:
-		RequiresCondition: hordebonus >= 15 && !upgradenationalism
+		RequiresCondition: hordebonus >= 10 && !upgradenationalism
 	WithIdleOverlay@hordebonusupgrade1:
-		RequiresCondition: hordebonusupgrade1 >= 15 && upgradenationalism
+		RequiresCondition: hordebonusupgrade1 >= 10 && upgradenationalism
 	WithIdleOverlay@hordebonusupgrade2:
-		RequiresCondition: hordebonusupgrade2 >= 15
+		RequiresCondition: hordebonusupgrade2 >= 10
 	ProducibleWithLevel:
 		Prerequisites: barracks.upgraded
 	WithProductionIconOverlay:
@@ -332,6 +326,18 @@ AVINF3:
 			secondary: grenade
 	ReloadAmmoPool:
 		RequiresCondition: grenade_tick && ((hordebonus < 5) && (hordebonusupgrade1 < 5) && (hordebonusupgrade2 < 5))
+	ProximityExternalCondition@hordebonusb:
+		Condition: hordebonus
+		Range: 4c0
+		RequiresCondition: !upgradenationalism
+	ProximityExternalCondition@hordebonusupgrade1b:
+		Condition: hordebonusupgrade1
+		Range: 4c0
+		RequiresCondition: upgradenationalism && !upgradepatriotism
+	ProximityExternalCondition@hordebonusupgrade2b:
+		Condition: hordebonusupgrade2
+		Range: 4c0
+		RequiresCondition: upgradepatriotism
 
 # Heavy Inf
 AVINF4:
