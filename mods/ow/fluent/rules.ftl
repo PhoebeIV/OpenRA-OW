@@ -1250,6 +1250,7 @@ actor-johncena-name = John Cena (you cant see me)
 actor-jarofdirt-name = Captain Jack Sparrow
 actor-korone-name = Inugami Korone
 actor-jesus-name = Jesus
+actor-jesus-name2 = Training Dummy
 actor-garbageman-name = GARBAGE DAY
 actor-shoopdawhoop-cr-name = SHOOP DA WHOOP
 actor-powerproxy-holyhandgrenade-droppodspower-holyhandgrenade-select-target-text-notification = Select target.
@@ -5975,6 +5976,20 @@ actor-znydus-entry =
 actor-nydus-teleport-name = Nydus Canal Entry
 
 ## zerg_upg.yaml
+actor-zerg-gcarapace =
+   .name1 = Evolve Ground Carapace I
+   .description1 = Improve ground zerg
+    and infantry armour by 15%
+   .name2 = Evolve Ground Carapace II
+   .description2 = Improve ground zerg
+    and infantry armour by 30%
+
+actor-zerg-fcarapace =
+   .name1 = Evolve Flyer Carapace I
+   .description1 = Improve flyer armour by 18%
+   .name2 = Evolve Flyer Carapace II
+   .description2 = Improve flyer armour by 36%
+
 actor-zerg-zergling =
    .name = Evolve Zerglings
    .description = Improve Zergling attack and movement speed.
@@ -6819,6 +6834,102 @@ actor-btrae-uav =
    .desc = Launch a UAV for 2 minutes.
       Receives Rae's BAP or ECM upgrades.
       Detects cloaked units.
+
+
+actor-phaedk-hero =
+   .description = [HERO]
+
+   Role: Tank or Damage Dealer
+   
+     Death Knight, melee attacker with some
+     area-of-effects and self healing.
+
+     Uses Runes to use stronger attacks, which
+     generate Runic Power. Runic Power is used
+     for self-healing or debuffing.
+
+     She may be in the Frost DPS spec, or Blood
+       Tanking spec.
+   
+     Each tier unlocks 2 upgrades for either or both specs.
+
+     Starting Frost attacks: Basic melee, Obliterate, 
+       Howling Blast, Frost Strike, Death Strike.
+
+     Starting Blood attacks: Basic melee, Heart Strike
+       Blood Boil, Marrowrend, Death Strike.
+
+   Tier 1 unlocks Death & Decay and Death's Advance
+   Tier 2 unlocks Remorseless Winter and Lichborne
+   Tier 3 unlocks ???
+   Tier 4 unlocks ???
+   Tier 5 unlocks ???
+
+     Speed: 96
+     Strong vs Ground units
+     Weak vs Aircraft
+   .name = Phaerah
+   .husk = Phaerah (Corpse)
+   .tier0 = Phaerah (Tier 0)
+   .tier1 = Phaerah (Tier 1)
+   .tier2 = Phaerah (Tier 2)
+   .tier3 = Phaerah (Tier 3)
+   .tier4 = Phaerah (Tier 4)
+   .tier5 = Phaerah (Tier 5)
+   .blood = Blood (Tank) Spec
+   .blooddesc = Increases armor by 20% and reduces 
+   damage by 20%.
+
+   Blood Strike: 1 rune, area of effect melee attack.
+   Blood Boil: Area of effect attack and debuff:
+      Inflicts corrosion for 6 seconds.
+   Marrowrend: 2 runes, moderate damage, and grants 
+      Phae with a 10% damage reduction.
+   Death Strike: 40 Runic Power, deals moderate damage
+      and damage done will heal Phaerah times 5.
+
+   Tier 1: Death & Decay: deals damage over time in a 
+      large area. It also demoralises infantry and slows 
+      vehicles.
+   Tier 1: Death's Advance: Increases Phae's movement 
+      for 8 seconds.
+   Tier 2: Lichborne, increases Phaerah's armor and 
+      leech for 10 seconds.
+
+   .frost = Frost (DPS) Spec
+   .frostdesc = Maximmise damage output.
+
+   Obliterate: 2 runes, small area of effect high damage
+      melee attack.
+   Howling Blast: 1 rune, ranged ice attack, slows targets.
+   Frost Strike: 30 runic power, moderate damage, slows targets.
+   Death Strike: 40 Runic Power, deals moderate damage
+      and damage done will heal Phaerah times 5.
+   
+   Tier 1: Death & Decay: deals damage over time in a 
+      large area. It also demoralises infantry and slows 
+      vehicles.
+   Tier 1: Death's Advance: Increases Phae's movement 
+      for 8 seconds.
+   Tier 2: Remorseless Winter: 1 rune, deals moderate 
+      area of effect damage and slows nearby enemies.
+
+
+actor-phaerah-upgrade = 
+   .t1u1name = Killing Machine (Frost)
+   .t1u1desc = Phaerah's basic attack has a chance
+     to grant Killing Machine. This increases damage
+     done by Obliterate, by 400%
+   .t1u2name = Runic Mastery (All Specs)
+   .t1u2desc = Increases recharge time for Phaerah's
+     Runes by 45%
+   .t1u3name = Runic Empowerment (All Specs)
+   .t1u3desc = When Phaerah uses Runic Power, one
+     Rune is refunded.
+   .t1u4name = Vampiric Aura I (All Specs)
+   .t1u4desc = Increases life-steal by 10%
+   .t1u4name2 = Vampiric Aura II (All Specs)
+   .t1u4desc2 = Increases life-steal by 10%
 
 actor-maningauze =
    .description = Obnoxious record player. RETURN THE SLAB!

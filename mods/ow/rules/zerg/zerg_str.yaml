@@ -572,9 +572,13 @@ ZHATCHERY:
 	ProvidesPrerequisite@lair:
 		RequiresCondition: lair_upgrade || hive_upgrade
 		Prerequisite: zlair
+	ProvidesPrerequisite@radar:
+		RequiresCondition: lair_upgrade || hive_upgrade
+		Prerequisite: radar
 	ProvidesPrerequisite@advtech:
 		RequiresCondition: lair_upgrade || hive_upgrade
 		Prerequisite: advtechcenter
+		RequiresPrerequisites: techlevel.unrestricted
 	ProvidesPrerequisite@epic1:
 		RequiresCondition: hive_upgrade
 		Prerequisite: zhive
@@ -676,7 +680,7 @@ ZLAIR.up:
 	Buildable:
 		Queue: Tech
 		BuildPaletteOrder: 1000
-		Prerequisites: zhatchery, zchamber, ~structures.zerg, ~techlevel.high, ~free_hatchery
+		Prerequisites: zhatchery, zchamber, ~structures.zerg, ~techlevel.medium, ~free_hatchery
 		Description: actor-zlair-up.description
 		Icon: icon-lair
 		IconPalette: player-icon
@@ -1218,7 +1222,7 @@ ZCHAMBER:
 		Queue: Building
 		BuildPaletteOrder: 104
 		BuildDuration: 2000
-		Prerequisites: zhydraden, ~structures.zerg, ~techlevel.high, ~zerg.easybuild
+		Prerequisites: zhydraden, ~structures.zerg, ~techlevel.medium, ~zerg.easybuild
 		Description: actor-zchamber.description
 	Health:
 		HP: 90000
@@ -1270,7 +1274,7 @@ ZSPIRE:
 		Queue: Building
 		BuildPaletteOrder: 105
 		BuildDuration: 2000
-		Prerequisites: ~structures.zerg, techcenter, ~techlevel.high, ~zerg.easybuild
+		Prerequisites: ~structures.zerg, radar, ~techlevel.medium, ~zerg.easybuild
 		Description: actor-zspire.description
 		BuildLimit: 2
 	Health:
@@ -1418,7 +1422,7 @@ ZGSPIRE.up:
 		Queue: Tech
 		BuildPaletteOrder: 1002
 		BuildDuration: 4500
-		Prerequisites: zlair, ~zspire.up, ~structures.zerg, ~techlevel.unrestricted
+		Prerequisites: zlair, ~zspire.up, ~structures.zerg, ~techlevel.high
 		Description: actor-zgspire-up.description
 		Icon: icon-gspire
 		IconPalette: player-icon
