@@ -361,8 +361,6 @@
 			Creep: 70
 			Gems: 70
 			Radiation: 70
-	JumpjetActorLayer:
-		HeightOffset: 1280
 	Locomotor@FLOAT:
 		Name: floater
 		Crushes: crate
@@ -932,6 +930,11 @@
 		RandomFactionMembers: RandomAllies, navy, silver
 		Side: Playstyle
 		Description: player-factions.random-navy
+	Faction@HeroesOnly:
+		Name: Heroes Only
+		InternalName: heroonly
+		Side: Misc
+		Description: player-factions.heroes
 	ResourceRenderer:
 		ResourceTypes:
 			Ore:
@@ -1119,7 +1122,7 @@ World:
 	StartingUnits@mcvonly:
 		Class: none
 		ClassName: actor-world.startingunits-mcvonly-class-name
-		Factions: allies, england, france, germany, soviet, russia, ukraine, estonia, phobos, deimos, mars, hitler, himmler, heydrich, usa, townes, granger, alexander
+		Factions: allies, england, france, germany, soviet, russia, ukraine, estonia, phobos, deimos, mars, hitler, himmler, heydrich, usa, townes, granger, alexander, heroonly
 		BaseActor: mcv
 		SupportActors: upgrade.spawn
 	StartingUnits@mcvonlydawn:
@@ -1526,6 +1529,18 @@ World:
 		SupportActors: e1,e1,e1,e3,e3,bggyd,1tnk.n,1tnk.n,1tnk.n,bike,upgrade.spawn
 		InnerSupportRadius: 3
 		OuterSupportRadius: 5
+	StartingUnits@lightnone:
+		Class: light
+		ClassName: actor-world.startingunits-mcvonly-class-name
+		Factions: heroonly
+		BaseActor: mcv
+		SupportActors: upgrade.spawn
+	StartingUnits@heavynone:
+		Class: light
+		ClassName: actor-world.startingunits-mcvonly-class-name
+		Factions: heroonly
+		BaseActor: mcv
+		SupportActors: upgrade.spawn
 	MapStartingLocations:
 		SeparateTeamSpawnsCheckboxDisplayOrder: 6
 	SpawnStartingUnits:
@@ -1561,6 +1576,8 @@ World:
 	TintPostProcessEffect:
 	VoxelCache:
 	ModelRenderer:
+	JumpjetActorLayer:
+		HeightOffset: 1280
 
 EditorWorld:
 	Inherits: ^BaseWorld

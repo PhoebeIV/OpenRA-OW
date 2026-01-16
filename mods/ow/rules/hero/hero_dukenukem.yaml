@@ -181,8 +181,7 @@ dukenukem.Hero0:
 	RenderSprites:
 		Image: dukenukem
 	Buildable:
-		Queue: Infantry
-		BuildAtProductionType: Soldier
+		Queue: Infantry, Hero
 		BuildPaletteOrder: 50
 		Prerequisites: ~barracks, !active.dukenukem, ~!hero.tier1, ~hero.dukenukem
 		Description: actor-dukenukem-hero0.description
@@ -521,7 +520,7 @@ dukenukem.Hero5:
 	Inherits@heroTier: ^HeroTier5
 	Buildable:
 		Prerequisites: ~barracks, !active.dukenukem, ~hero.tier5, ~hero.dukenukem
-		BuildDuration: 6000
+		BuildDuration: 4500
 	Tooltip:
 		Name: actor-dukenukem-hero5-name
 	Health:
@@ -588,14 +587,15 @@ dukenukem.Hero5:
 
 FakeDukeNukem:
 	Inherits: ^Soldier
-	Inherits: ^EpicUnit
 	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Targetable@Hero:
+		TargetTypes: Hero, EpicUnit
 	Buildable:
 		Queue: Infantry
 		BuildPaletteOrder: 0
-		Prerequisites: ~OBL.CratePowers
+		Prerequisites: ~disabled
 	Valued:
-		Cost: 500
+		Cost: 100
 	Tooltip:
 		Name: actor-dukenukem-name
 	UpdatesPlayerStatistics:
@@ -622,12 +622,6 @@ FakeDukeNukem:
 	WithInfantryBody:
 		DefaultAttackSequence: shoot
 		StandSequences: stand
-	ExternalCondition@PRODUCED:
-		Condition: produced
-	VoiceAnnouncement:
-		RequiresCondition: produced
-	ProducibleWithLevel:
-		Prerequisites: barracks.upgraded
 	AnnounceOnSeen:
 		PingRader: true
 	RenderSprites:
@@ -646,6 +640,16 @@ FakeDukeNukem:
 		Delay: 750
 		DamageTypes: ElectricityDeath
 	-ActorLostNotification:
+	WithDecoration@eeee:
+		Image: rank
+		Sequence: rank-hero
+		Palette: effect
+		ValidRelationships: None,Neutral,Enemy,Ally
+	GpsDot:
+		String: Star
+	Selectable:
+		Bounds: 256, 256, 0, 0
+		DecorationBounds: 1536, 1536, 0, 0
 
 dukenukemship:
 	Inherits: ^Plane

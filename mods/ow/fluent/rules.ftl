@@ -112,6 +112,10 @@ actor-player =
    .lobbyprerequisitecheckbox-newmines-label = Randomise Resource Nodes
    .lobbyprerequisitecheckbox-newmines-description = Deletes the resource nodes on the map
     and replaces them in random places.
+   .lobbyprerequisitecheckbox-memes-label = No Memes
+   .lobbyprerequisitecheckbox-memes-description = Disables meme crates.
+   .lobbyprerequisitecheckbox-superweapons-label = No Superweapons
+   .lobbyprerequisitecheckbox-superweapons-description = Disables Superweapons regardless of tech level.
 
 options-tech-level =
     .infantry-only = Infantry Only
@@ -1224,6 +1228,8 @@ actor-moneycratesupplydrop-name = Supply Drop Money Crate
 actor-crate-fuckyou =
    .name = Crate
    .generic-name = Crate
+
+actor-crate-level = Level-Up Crate
 
 actor-grave-name = Haunted Mausoleum
 
@@ -6861,9 +6867,9 @@ actor-phaedk-hero =
 
    Tier 1 unlocks Death & Decay and Death's Advance
    Tier 2 unlocks Remorseless Winter and Lichborne
-   Tier 3 unlocks ???
-   Tier 4 unlocks ???
-   Tier 5 unlocks ???
+   Tier 3 unlocks additional hero upgrades
+   Tier 4 unlocks powerful hero upgrades
+   Tier 5 unlocks Frostwyrm's Fury and Second Wind
 
      Speed: 96
      Strong vs Ground units
@@ -6876,16 +6882,25 @@ actor-phaedk-hero =
    .tier3 = Phaerah (Tier 3)
    .tier4 = Phaerah (Tier 4)
    .tier5 = Phaerah (Tier 5)
+   .frostwyrm = Frostwyrm's Fury
+   .frostwyrmdesc = Call upon the wrath of an undead
+     Frostwyrm to blast icey breath in a 16 cell path.
+
+     Deals massive damage, and freezes units and infantry.
+   .raise = Second Wind
+   .raisedesc = When killed, resurrect a few moments later
+     with 60% health.
    .blood = Blood (Tank) Spec
    .blooddesc = Increases armor by 20% and reduces 
    damage by 20%.
 
-   Blood Strike: 1 rune, area of effect melee attack.
+   Heart Strike: 1 rune, cone area melee attack.
+      Reduces enemy movement speed for 8 sec.
    Blood Boil: Area of effect attack and debuff:
       Inflicts corrosion for 6 seconds.
    Marrowrend: 2 runes, moderate damage, and grants 
       Phae with a 10% damage reduction.
-   Death Strike: 40 Runic Power, deals moderate damage
+   Death Strike: 45 Runic Power, deals moderate damage
       and damage done will heal Phaerah times 5.
 
    Tier 1: Death & Decay: deals damage over time in a 
@@ -6902,8 +6917,8 @@ actor-phaedk-hero =
    Obliterate: 2 runes, small area of effect high damage
       melee attack.
    Howling Blast: 1 rune, ranged ice attack, slows targets.
-   Frost Strike: 30 runic power, moderate damage, slows targets.
-   Death Strike: 40 Runic Power, deals moderate damage
+   Frost Strike: 35 runic power, moderate damage, slows targets.
+   Death Strike: 45 Runic Power, deals moderate damage
       and damage done will heal Phaerah times 5.
    
    Tier 1: Death & Decay: deals damage over time in a 
@@ -6919,7 +6934,7 @@ actor-phaerah-upgrade =
    .t1u1name = Killing Machine (Frost)
    .t1u1desc = Phaerah's basic attack has a chance
      to grant Killing Machine. This increases damage
-     done by Obliterate, by 400%
+     done by Obliterate by 400%
    .t1u2name = Runic Mastery (All Specs)
    .t1u2desc = Increases recharge time for Phaerah's
      Runes by 45%
@@ -6927,9 +6942,56 @@ actor-phaerah-upgrade =
    .t1u3desc = When Phaerah uses Runic Power, one
      Rune is refunded.
    .t1u4name = Vampiric Aura I (All Specs)
-   .t1u4desc = Increases life-steal by 10%
-   .t1u4name2 = Vampiric Aura II (All Specs)
-   .t1u4desc2 = Increases life-steal by 10%
+   .t1u4desc = Increases life-steal by 33%
+   .t2u4name = Vampiric Aura II (All Specs)
+   .t2u4desc = Increases life-steal by a further 33%
+   .t2u1name = Veteran of the Third War I (All Specs)
+   .t2u1desc = Increases armor 7%
+   .t3u1name = Veteran of the Third War II (All Specs)
+   .t3u1desc = Increases armor 14%
+   .t2u2name = March of Darkness (All Specs)
+   .t2u2desc = Death's Advance occurs more frequently
+     and increases speed boost by 50%
+   .t2u3name = Rime (Frost)
+   .t2u3desc = Phaerah's Frost Strike triggers
+     Rime. This increases damage done by Howling 
+     Blast by 200%
+   .t3u2name = Runic Attenuation (All Specs)
+   .t3u2desc = Runic Power grows passively up to 30.
+   .t3u3name = Ice Cold (Frost)
+   .t3u3desc = Reduce damage taken by Fire and 
+     Toxic attacks by 33%
+   .t3u4name = Improved Death Strike (Blood)
+   .t3u4desc = Death Strike costs 10 less Runic Power,
+     and instead heals for 6 times the damage done.
+   .t3u5name = Arctic Assault (Frost)
+   .t3u5desc = Killng Machine when consumed sends a wave of 
+     icey glaciers in a line.
+   .t4u1name = Bone Collector (Blood)
+   .t4u1desc = Death Strike also generates boneshield. When the
+     shield is drained, it will cause an explosion of damage.
+   .t4u2name = Pillar of Frost (Frost)
+   .t4u2desc = Increase damage done by 20% when entering
+     combat, for 12 seconds. Cooldown 45 seconds.
+   .t4u3name = Icey Death Torrent (Frost)
+   .t4u3desc = Basic attack has a chance of blasting
+     nearby enemies with a wave of frost.
+   .t4u4name = Will of the Necropolis (All Specs)
+   .t4u4desc = Damage taken while below 30% health is 
+     reduced by 50%.
+   .t5u1name = Empower Rune Weapon (Frost)
+   .t5u1desc = Damaging enemies has a low chance to freeze
+     them solid for 3 seconds.
+   .t5u2name = Blood Draw (Blood)
+   .t5u2desc = When falling below 30% health, cast Bloodboil
+     and recover 50% health. Cooldown 45 seconds.
+   .t5u3name = Null Magic (All Specs)
+   .t5u3desc = Reduce damage caused by Fire, Explosions, 
+     Electricity and Toxin by 20%.
+   .t5u4name = Obliteration (Frost)
+   .t5u4desc = While Pillar of Frost is active, Frost Strike
+     and Howling Blast always grants Killing Machine and 
+     generates 1 rune.
 
 actor-maningauze =
    .description = Obnoxious record player. RETURN THE SLAB!

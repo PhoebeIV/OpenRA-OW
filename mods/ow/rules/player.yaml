@@ -139,6 +139,18 @@ Player:
 		LowPowerModifier: 200
 		SpeedUp: True
 		BuildTimeSpeedReduction: 100, 80, 70, 60, 50, 40, 30
+	ClassicProductionQueue@Hero:
+		Type: Hero
+		Group: Infantry
+		DisplayOrder: 4
+		BuildDurationModifier: 50
+		ReadyAudio: UnitReady
+		BlockedAudio: NoBuild
+		LimitedAudio: BuildingInProgress
+		QueuedAudio: Training
+		OnHoldAudio: OnHold
+		CancelledAudio: Cancelled
+		QueueLimit: 1
 	DamageNotifier:
 		AllyNotification: AllyBaseAttack
 		ValidTargets: BaseBuilding
@@ -150,6 +162,10 @@ Player:
 	PowerManager:
 		AdviceInterval: 40000
 	-ProvidesTechPrerequisite@unrestricted:
+	ProvidesTechPrerequisite@high:
+		Name: options-tech-level.no-superweapons
+		Prerequisites: techlevel.infonly, techlevel.low, techlevel.medium, techlevel.high, techlevel.nosuperweapons
+		Id: nosuperweapons
 	ProvidesTechPrerequisite@noepic:
 		Name: options-tech-level.noepic
 		Prerequisites: techlevel.infonly, techlevel.low, techlevel.medium, techlevel.high, techlevel.unrestricted, techlevel.noepic
@@ -183,6 +199,20 @@ Player:
 		Enabled: true
 		DisplayOrder: 11
 		Prerequisites: techlevel.noupgrades
+	LobbyPrerequisiteCheckbox@nosuperewapons:
+		ID: nosuperweap
+		Label: actor-player.lobbyprerequisitecheckbox-superweapons-label
+		Description: actor-player.lobbyprerequisitecheckbox-superweapons-description
+		Enabled: false
+		DisplayOrder: 11
+		Prerequisites: techlevel.nosuperweapons
+	LobbyPrerequisiteCheckbox@techbuildings:
+		ID: techbuildings
+		Label: actor-player.lobbyprerequisitecheckbox-techbuildings-label
+		Description: actor-player.lobbyprerequisitecheckbox-techbuildings-description
+		Enabled: True
+		DisplayOrder: 11
+		Prerequisites: techlevel.techrespamn
 	LobbyPrerequisiteCheckbox@herotest:
 		ID: herotest
 		Label: actor-player.lobbyprerequisitecheckbox-herotest-label
@@ -204,13 +234,6 @@ Player:
 		Enabled: False
 		DisplayOrder: 14
 		Prerequisites: techlevel.monoliths
-	LobbyPrerequisiteCheckbox@techbuildings:
-		ID: techbuildings
-		Label: actor-player.lobbyprerequisitecheckbox-techbuildings-label
-		Description: actor-player.lobbyprerequisitecheckbox-techbuildings-description
-		Enabled: True
-		DisplayOrder: 15
-		Prerequisites: techlevel.techrespamn
 	LobbyPrerequisiteCheckbox@notib:
 		ID: notib
 		Label: actor-player.lobbyprerequisitecheckbox-notib-label
@@ -288,6 +311,13 @@ Player:
 		Enabled: false
 		DisplayOrder: 27
 		Prerequisites: environment.newmines
+	LobbyPrerequisiteCheckbox@memes:
+		ID: memes
+		Label: actor-player.lobbyprerequisitecheckbox-memes-label
+		Description: actor-player.lobbyprerequisitecheckbox-memes-description
+		Enabled: false
+		DisplayOrder: 9
+		Prerequisites: environment.nomemes
 	LobbyPrerequisiteCheckbox@daynight:
 		ID: enviro2
 		Label: actor-player.lobbyprerequisitecheckbox-daynight-label

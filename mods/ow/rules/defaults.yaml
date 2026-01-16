@@ -236,9 +236,22 @@
 	ReloadAmmoDelayMultiplier@timestop:
 		RequiresCondition: timestop
 		Modifier: 1000
+	ExternalCondition@deepfreeze:
+		Condition: deepfreeze
 	WithColoredOverlay@timestop:
-		RequiresCondition: timestop
+		RequiresCondition: timestop && !deepfreeze
 		Color: 806D005A
+	WithColoredOverlay@deepfreeze:
+		RequiresCondition: deepfreeze
+		Color: 309CBC90
+	FireWarheads@deepfreeze:
+		Weapons: FrozenSmokey
+		Interval: 25
+		RequiresCondition: deepfreeze
+	AmbientSound@deepfreeze:
+		RequiresCondition: deepfreeze
+		Interval: 9000
+		SoundFiles: icefrozen.ogg, baud.aud, baud.aud
 	ExternalCondition@treecloak:
 		Condition: treecloak
 	Cloak@treecloak:
@@ -1897,6 +1910,12 @@
 		ValidRelationships: Enemy
 	ProvidesPrerequisite@superweapon:
 		Prerequisite: superweapon
+	GrantConditionOnPrerequisite@nosuper:
+		Prerequisites: techlevel.nosuperweapons
+		Condition: no_super
+	KillsSelf@nosuper:
+		RequiresCondition: no_super
+		RemoveInstead: true
 
 ^FakeBuilding:
 	FireWarheadsOnDeath@2:
@@ -2512,7 +2531,7 @@
 		Modifier: 75
 	-SpeedMultiplier@creep:
 	Rearmable:
-		RearmActors: hpad, hpad.bot, afld, afld.ukraine, usaairfield, usaairstriplandingspot, chinaairfield, japanairfield, japanairfieldnavy, pstarg, tsport, tsport.landed, zspire, zspire.spot, avpad
+		RearmActors: hpad, hpad.bot, afld, afld.ukraine, usaairfield, usaairstriplandingspot, chinaairfield, japanairfield, japanairfieldnavy, pstarg, tsport, tsport.landed, zspire, zspire.spot, avpad, barr.hero
 	Cloneable:
 		Types: Plane
 	Cloak@stealthgen:

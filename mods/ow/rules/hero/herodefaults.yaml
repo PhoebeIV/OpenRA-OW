@@ -47,12 +47,6 @@
 		String: Star
 	Cloneable:
 		Types: Epic
-	ChangesHealth@aeiouboost:
-		RequiresCondition: aeiouboost
-		PercentageStep: 1
-		Delay: 75
-		StartIfBelow: 70
-		DamageCooldown: 100
 	Targetable@epic1:
 		TargetTypes: EpicUnit, Hero, NoMindControl
 	DamageMultiplier@iar1:
@@ -157,6 +151,7 @@
 		Position: BottomRight
 		Margin: -16, -5
 		RequiresCondition: hero-level >= 1
+		ValidRelationships: None,Neutral,Enemy,Ally
 	WithDecoration@level2:
 		Image: pips
 		Sequence: pip-yellow
@@ -164,6 +159,7 @@
 		Position: BottomRight
 		Margin: -12, -5
 		RequiresCondition: hero-level >= 2
+		ValidRelationships: None,Neutral,Enemy,Ally
 	WithDecoration@level3:
 		Image: pips
 		Sequence: pip-yellow
@@ -171,6 +167,7 @@
 		Position: BottomRight
 		Margin: -8, -5
 		RequiresCondition: hero-level >= 3
+		ValidRelationships: None,Neutral,Enemy,Ally
 	WithDecoration@level4:
 		Image: pips
 		Sequence: pip-yellow
@@ -178,6 +175,7 @@
 		Position: BottomRight
 		Margin: -4, -5
 		RequiresCondition: hero-level >= 4
+		ValidRelationships: None,Neutral,Enemy,Ally
 	WithDecoration@level5:
 		Image: pips
 		Sequence: pip-gray
@@ -185,66 +183,77 @@
 		Position: BottomRight
 		Margin: 0, -5
 		RequiresCondition: hero-level == 5
+		ValidRelationships: None,Neutral,Enemy,Ally
 	WithDecoration@level1emp:
 		Image: pips
 		Sequence: pip-empty
 		Palette: effect
 		Position: BottomRight
 		Margin: -16, -5
+		ValidRelationships: None,Neutral,Enemy,Ally
 	WithDecoration@level2emp:
 		Image: pips
 		Sequence: pip-empty
 		Palette: effect
 		Position: BottomRight
 		Margin: -12, -5
+		ValidRelationships: None,Neutral,Enemy,Ally
 	WithDecoration@level3emp:
 		Image: pips
 		Sequence: pip-empty
 		Palette: effect
 		Position: BottomRight
 		Margin: -8, -5
+		ValidRelationships: None,Neutral,Enemy,Ally
 	WithDecoration@level4emp:
 		Image: pips
 		Sequence: pip-empty
 		Palette: effect
 		Position: BottomRight
 		Margin: -4, -5
+		ValidRelationships: None,Neutral,Enemy,Ally
 	WithDecoration@level5emp:
 		Image: pips
 		Sequence: pip-empty
 		Palette: effect
 		Position: BottomRight
 		Margin: 0, -5
+		ValidRelationships: None,Neutral,Enemy,Ally
 	WithDecoration@tier1emp:
 		Image: pips
 		Sequence: pip-empty
 		Palette: effect
 		Position: BottomRight
 		Margin: -16, -1
+		ValidRelationships: None,Neutral,Enemy,Ally
 	WithDecoration@tier2emp:
 		Image: pips
 		Sequence: pip-empty
 		Palette: effect
 		Position: BottomRight
 		Margin: -12, -1
+		ValidRelationships: None,Neutral,Enemy,Ally
 	WithDecoration@tier3emp:
 		Image: pips
 		Sequence: pip-empty
 		Palette: effect
 		Position: BottomRight
 		Margin: -8, -1
+		ValidRelationships: None,Neutral,Enemy,Ally
 	WithDecoration@tier4emp:
 		Image: pips
 		Sequence: pip-empty
 		Palette: effect
 		Position: BottomRight
 		Margin: -4, -1
+		ValidRelationships: None,Neutral,Enemy,Ally
 	WithDecoration@tier5emp:
 		Image: pips
 		Sequence: pip-empty
 		Palette: effect
 		Position: BottomRight
 		Margin: 0, -1
+		ValidRelationships: None,Neutral,Enemy,Ally
 	DamageMultiplier@level1:
 		RequiresCondition: hero-level == 1
 		Modifier: 98
@@ -344,7 +353,7 @@
 		Prerequisites: ai.all
 		Condition: botowner
 	GainsExperienceMultiplier@bot:
-		RequiresCondition: botowner
+		RequiresCondition: botowner && !heroonly_owner
 		Modifier: 200
 	GrantConditionOnAttack@passive:
 		Condition: attacking_passive
@@ -407,6 +416,21 @@
 		Condition: hero
 		Range: 1c0
 		ValidRelationships: Enemy, Ally, Neutral
+	GrantConditionOnFaction@heroonly:
+		Factions: heroonly
+		Condition: heroonly_owner
+	GrantPeriodicConditionOnEvent@heroonly:
+		RequiresCondition: heroonly_owner
+		Condition: disable_selfheal
+		Triggers: Damage, Attack
+		StartsCharged: true
+		ActiveDuration: 250
+		CooldownDuration: 5
+	ChangesHealth@heroonly_owner:
+		StartIfBelow: 100
+		PercentageStep: 5
+		Delay: 25
+		DamageCooldown: 250
 	TransferTimedExternalConditionOnTransformOW@1:
 		Condition: frenzyboost
 	TransferTimedExternalConditionOnTransformOW@2:
@@ -447,6 +471,7 @@
 		Palette: effect
 		Position: BottomRight
 		Margin: -16, -1
+		ValidRelationships: None,Neutral,Enemy,Ally
 	TooltipDescription@tier1:
 		Description: meta-herotier1-tooltipdescription-tier1-description
 		ValidRelationships: Ally, Neutral, Enemy, None
@@ -482,6 +507,7 @@
 		Palette: effect
 		Position: BottomRight
 		Margin: -12, -1
+		ValidRelationships: None,Neutral,Enemy,Ally
 	TooltipDescription@tier1:
 		Description: meta-herotier2-tooltipdescription-tier1-description
 	ProductionQueue@tier2:
@@ -513,6 +539,7 @@
 		Palette: effect
 		Position: BottomRight
 		Margin: -8, -1
+		ValidRelationships: None,Neutral,Enemy,Ally
 	TooltipDescription@tier1:
 		Description: meta-herotier3-tooltipdescription-tier1-description
 	ProductionQueue@tier3:
@@ -544,6 +571,7 @@
 		Palette: effect
 		Position: BottomRight
 		Margin: -4, -1
+		ValidRelationships: None,Neutral,Enemy,Ally
 	TooltipDescription@tier1:
 		Description: meta-herotier4-tooltipdescription-tier1-description
 	ProductionQueue@tier4:
@@ -575,6 +603,7 @@
 		Palette: effect
 		Position: BottomRight
 		Margin: 0, -1
+		ValidRelationships: None,Neutral,Enemy,Ally
 	TooltipDescription@tier1:
 		Description: meta-herotier5-tooltipdescription-tier1-description
 	ProductionQueue@tier5:
@@ -589,12 +618,84 @@
 	GrantConditionOnPrerequisite@tier5:
 		Condition: hero_upgraded5
 		Prerequisites: hero.upgraded5
-	ExperienceTrickler:
-		RequiresCondition: hero-level <= 4
-		Amount: 200000
-		Interval: 25
 	GainsExperience@1:
+		Conditions:
+			1750: hero-level
+			2500: hero-level
+			3250: hero-level
+			4000: hero-level
+			5000: hero-level
+	WithDecoration@level6:
+		Image: pips
+		Sequence: pip-green
+		Palette: effect
+		Position: BottomRight
+		Margin: -16, -5
+		RequiresCondition: hero-level >= 6
+		ValidRelationships: None,Neutral,Enemy,Ally
+	WithDecoration@level7:
+		Image: pips
+		Sequence: pip-green
+		Palette: effect
+		Position: BottomRight
+		Margin: -12, -5
+		RequiresCondition: hero-level >= 7
+		ValidRelationships: None,Neutral,Enemy,Ally
+	WithDecoration@level8:
+		Image: pips
+		Sequence: pip-green
+		Palette: effect
+		Position: BottomRight
+		Margin: -8, -5
+		RequiresCondition: hero-level >= 8
+		ValidRelationships: None,Neutral,Enemy,Ally
+	WithDecoration@level9:
+		Image: pips
+		Sequence: pip-green
+		Palette: effect
+		Position: BottomRight
+		Margin: -4, -5
+		RequiresCondition: hero-level >= 9
+		ValidRelationships: None,Neutral,Enemy,Ally
+	WithDecoration@level10:
+		Image: pips
+		Sequence: pip-gray
+		Palette: effect
+		Position: BottomRight
+		Margin: 0, -5
+		RequiresCondition: hero-level == 10
+		ValidRelationships: None,Neutral,Enemy,Ally
+	ChangesHealth@level6:
+		RequiresCondition: hero-level >= 6
+		StartIfBelow: 100
+		DamageCooldown: 50
+		Delay: 25
+		PercentageStep: 2
+	SpeedMultiplier@level7:
+		RequiresCondition: hero-level >= 7
+		Modifier: 110
+	ConvertsDamageToHealth@level8:
+		RequiresCondition: hero-level >= 8
+		DamagePercentConverted: 5
+	FirepowerMultiplier@level9:
+		RequiresCondition: hero-level >= 9
+		Modifier: 110
+	ReloadAmmoDelayMultiplier@level10: 
+		RequiresCondition: hero-level == 10
+		Modifier: 90
+	ReloadDelayMultiplier@level10: 
+		RequiresCondition: hero-level == 10
+		Modifier: 90
+	PeriodicConditionActiveMultiplier@level10: 
+		RequiresCondition: hero-level == 10
+		ActiveModifier: 90
+	PeriodicConditionCooldownMultiplier@level10: 
+		RequiresCondition: hero-level == 10
+		CooldownModifier: 90
 	-GrantConditionOnPrerequisite@forcelevelup:
+	ExperienceTrickler@forcelevelup:
+		Amount: 100
+		RequiresCondition: never
 	GivesExperienceMultiplier@i:
 		Modifier: 400
 	ProducibleWithLevel:
@@ -765,3 +866,71 @@ hero.tier5:
 	Interactable:
 	Tooltip:
 		Name: actor-herotier.tier5
+
+BARR.Hero:
+	Inherits: ^Building
+	Inherits@shape: ^2x2Shape
+	Inherits@PRIMARY: ^PrimaryBuilding
+	RenderSprites:
+		Image: BARR
+	Selectable:
+		Bounds: 2048, 2048
+	HitShape:
+		UseTargetableCellsOffsets: false
+		TargetableOffsets: 0,0,0, 490,-470,0, 355,512,0, -355,-512,0, -630,512,0
+	Buildable:
+		Queue: Building
+		BuildPaletteOrder: 30
+		Prerequisites: anypower, ~structures.heroonly
+		Description: actor-barr.description
+	Valued:
+		Cost: 500
+	Tooltip:
+		Name: actor-barr.name
+	Building:
+		Footprint: xx xx ==
+		Dimensions: 2,3
+		LocalCenterOffset: 0,-512,0
+	Health:
+		HP: 60000
+	Armor:
+		Type: Wood
+	RevealsShroud:
+		MinRange: 4c0
+		Range: 5c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 4c0
+	WithBuildingBib:
+	RallyPoint:
+	CommandBarBlacklist:
+		DisableStop: false
+	Exit@1:
+		RequiresCondition: !being-captured
+		SpawnOffset: -170,810,0
+		ExitCell: 1,2
+		ProductionTypes: Hero
+	Exit@2:
+		RequiresCondition: !being-captured
+		SpawnOffset: -725,640,0
+		ExitCell: 0,2
+		ProductionTypes: Hero
+	Production:
+		Produces: Hero, Tech
+	GrantExternalConditionToProduced:
+		Condition: produced
+	ProductionBar:
+		ProductionType: Hero
+	ProvidesPrerequisite:
+		Prerequisite: barracks
+	ProvidesPrerequisite@2:
+		Prerequisite: factory
+	Power:
+		Amount: 100
+	ProvidesPrerequisite@buildingname:
+	ProvidesPrerequisite@hero:
+		Prerequisite: techlevel.hero
+	Targetable:
+		TargetTypes: GroundActor, C4, DetonateAttack, Structure, SpyInfiltrate
+	Reservable:
+	ProvidesRadar:

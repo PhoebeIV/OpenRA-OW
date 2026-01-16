@@ -1,0 +1,256 @@
+Player:
+	Shroud:
+		FogCheckboxVisible: False
+		FogCheckboxLocked: True
+		FogCheckboxEnabled: True
+		ExploredMapCheckboxVisible: False
+		ExploredMapCheckboxLocked: True
+		ExploredMapCheckboxEnabled: False
+	PlayerResources:
+		DefaultCashDropdownVisible: False
+		DefaultCashDropdownLocked: True
+		DefaultCash: 25000
+	LobbyPrerequisiteCheckbox@GLOBALBOUNTY:
+		Enabled: False
+		Locked: True
+		Visible: False
+	LobbyPrerequisiteCheckbox@GLOBALFACTUNDEPLOY:
+		Enabled: True
+		Locked: True
+		Visible: False
+	LobbyPrerequisiteCheckbox@REUSABLEENGINEERS:
+		Enabled: False
+		Locked: True
+		Visible: False
+	LobbyPrerequisiteCheckbox@upkeep:
+		Enabled: True
+		Locked: True
+	LobbyPrerequisiteCheckbox@gradualtech:
+		Enabled: True
+		Locked: True
+	LobbyPrerequisiteCheckbox@herotest:
+		Enabled: False
+		Locked: True
+	PlayerExperienceLevels:
+		LevelXpRequirements: 250,750,1500,2500,4000
+		LevelPrerequisites: hero.tier1, hero.tier2, hero.tier3, hero.tier4, hero.tier5
+		Factions: heroonly
+	PlayerExperienceLevels@homebot:
+		LevelXpRequirements: 500,1500,3000,5000,8000
+		LevelPrerequisites: hero.tier1, hero.tier2, hero.tier3, hero.tier4, hero.tier5
+		Factions: england, germany
+	-GrantRandomCondition@squadai:
+	-SquadManagerBotModule@all:
+	-SquadManagerBotModule@easy:
+	-SquadManagerBotModule@mediumhard:
+	-SquadManagerBotModule@boss:
+	-SquadManagerBotModule@mediall:
+	SquadManagerBotModule@heroonly:
+		RequiresCondition: enable-all-ai
+
+World:
+	CrateSpawner:
+		CheckboxEnabled: True
+		CheckboxLocked: True
+		CheckboxVisible: False
+	-SpawnStartingUnits:
+	-MapStartingLocations:
+	MapBuildRadius:
+		AllyBuildRadiusCheckboxVisible: False
+		AllyBuildRadiusCheckboxLocked: True
+		AllyBuildRadiusCheckboxEnabled: False
+		BuildRadiusCheckboxVisible: False
+		BuildRadiusCheckboxLocked: True
+		BuildRadiusCheckboxEnabled: True
+	MapOptions:
+		ShortGameCheckboxVisible: False
+		ShortGameCheckboxLocked: True
+		ShortGameCheckboxEnabled: False
+		TechLevelDropdownVisible: False
+		TechLevelDropdownLocked: True
+	TimeLimitManager:
+		TimeLimitDropdownVisible: False
+
+^ExistsInWorld:
+	GivesExperience:
+		PlayerExperienceModifier: 2
+	GainsExperienceMultiplier@homebot:
+		Modifier: 50
+		RequiresCondition: homebot
+	GrantConditionOnFaction@homebot:
+		Condition: homebot
+		Factions: england, germany
+
+^Hero:
+	-DamageMultiplier@tech1:
+	-FirepowerMultiplier@tech1:
+	-DamageMultiplier@tech2:
+	-FirepowerMultiplier@tech2:
+	-DamageMultiplier@tech3:
+	-FirepowerMultiplier@tech3:
+	-DamageMultiplier@tech4:
+	-FirepowerMultiplier@tech4:
+	RevealsShroudMultiplier@default:
+		Modifier: 160
+	GivesExperience:
+		PlayerExperienceModifier: 1
+
+^BasicBuilding:
+	DamageMultiplier@defaults:
+		Modifier: 25
+	ProductionTimeMultiplier@default:
+		Multiplier: 200
+
+^Building:
+	GivesExperience:
+		PlayerExperienceModifier: 3
+
+^Defense:
+	ProductionTimeMultiplier@default:
+		Multiplier: 300
+	GivesExperience:
+		PlayerExperienceModifier: 3
+
+^TechBuilding:
+	Valued:
+		Cost: 2500
+	DamageMultiplier@defaults:
+		Modifier: 50
+
+BARR.Hero:
+	Health:
+		HP: 1000000
+	CashTrickler@default:
+		Interval: 1500
+		Amount: 1000
+	ChangesHealth@heroonly_owner:
+		StartIfBelow: 100
+		PercentageStep: 1
+		Delay: 25
+		DamageCooldown: 250
+	FreeActor@upgradessss:
+		Actor: UpgradeHandler
+	GrantConditionOnProduction@queue:
+		Condition: produce
+	FreeActor@queues:
+		Actor: BuildQueueHandler
+
+MCV:
+	-Buildable:
+
+MCV.2:
+	-Buildable:
+
+FACT:
+	FreeActor@upgradessss:
+		Actor: UpgradeHandler
+	Production:
+		Produces: Building,Tech,Wall
+
+BARR:
+	PeriodicProducer:
+		RequiresCondition: botowner && !lategame
+		Actors: e1, e1, e3, e3, e1of, medi
+		Type: Infantry
+		ChargeDuration: 1000
+		ShowSelectionBar: true
+	PeriodicProducer@2:
+		RequiresCondition: botowner && lategame
+		Actors: fe2, fe2, fe3, fe4, frmbo, fmedi, fmedi, dm2of
+		Type: Infantry
+		ChargeDuration: 1500
+		ShowSelectionBar: true
+	GrantConditionOnPrerequisite@late:
+		Prerequisites: hero.tier5
+		Condition: lategame
+
+WEAP:
+	PeriodicProducer:
+		RequiresCondition: botowner
+		Actors: jeep
+		Type: Vehicle
+		ChargeDuration: 500
+	PeriodicProducer@2:
+		RequiresCondition: botowner
+		Actors: 2tnk, 1tnk
+		Type: Vehicle
+		ChargeDuration: 750
+	PeriodicProducer@3:
+		RequiresCondition: botowner && lategame
+		Actors: 3tnk, 3tnk, 4tnk, gscud, gscud
+		Type: Vehicle
+		ChargeDuration: 1500
+	PeriodicProducer@4:
+		RequiresCondition: botowner && lategame
+		Actors: u.tnk
+		Type: Vehicle
+		ChargeDuration: 9000
+	GrantConditionOnPrerequisite@late:
+		Prerequisites: hero.tier5
+		Condition: lategame
+	-PeriodicProducer@nomcv1:
+
+EYED:
+	ProvidesPrerequisite@default:
+		Prerequisite: eyed.ion
+	ProvidesPrerequisite@default2:
+		Prerequisite: eyed.uac
+
+upgrade.buildarmor1b:
+	-Buildable:
+
+upgrade.buildrepair1b:
+	-Buildable:
+
+upgrade.buildfirepower1b:
+	-Buildable:
+
+allies.training1:
+	-Buildable:
+
+allies.training2:
+	-Buildable:
+
+allies.pointdefense:
+	-Buildable:
+
+allies.rockets:
+	-Buildable:
+
+allies.prism:
+	-Buildable:
+
+
+FCOM.Husk:
+	KillsSelf:
+		Delay: 9000
+
+FCOM:
+	PeriodicProducer:
+		RequiresCondition: enabled && !lategame
+		Actors: e1, e1, e3, e3, e1of, medi, e7
+		Type: Infantry
+		ChargeDuration: 1500
+		ShowSelectionBar: true
+	PeriodicProducer@2:
+		RequiresCondition: enabled && lategame
+		Actors: fe2, fe2, fe3, fe4, frmbo, fmedi, fmedi, dm2of
+		Type: Infantry
+		ChargeDuration: 2000
+		ShowSelectionBar: true
+	GrantConditionOnPrerequisite@late:
+		Prerequisites: hero.tier5
+		Condition: lategame
+	GrantConditionOnCapture:
+		Condition: enabled
+
+MONEYCRATE2:
+	-GiveCashCrateAction:
+	-GiveCashCrateAction@2:
+	-GiveCashCrateAction@3:
+	-GiveCashCrateAction@4:
+	-GiveCashCrateAction@5:
+	LevelUpCrateAction:
+		SelectionShares: 9000
+	Tooltip:
+		Name: actor-crate-level
