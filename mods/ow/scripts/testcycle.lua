@@ -262,8 +262,7 @@ DebugTicks = 7400
 CrateParadropTicks = 0
 CrateParadropTimer = 249
 
-
-WorldLoaded = function()
+DoBaseScriptLoad = function()
 	Neutral = Player.GetPlayer("Neutral")
 	Creeps = Player.GetPlayer("Creeps")
 
@@ -325,4 +324,8 @@ WorldLoaded = function()
 	elseif Creeps.HasPrerequisites({"techlevel.noboats"}) then print("Boats are disabled!") end
 
 	if Creeps.HasPrerequisites({"environment.newmines"}) then ReplaceResourceNodes() end
+end
+
+WorldLoaded = function()
+	DoBaseScriptLoad()
 end

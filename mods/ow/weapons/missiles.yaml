@@ -864,11 +864,13 @@ AvaliTowerAAMissile:
 ApocMissile:
 	Inherits: TowerMissile
 	ReloadDelay: 45
+	ValidTargets: Ground, Water, GroundActor, WaterActor, AirborneActor
 	Warhead@1Dam: SpreadDamage
 		Versus:
 			None: 100
 			Light: 60
 			Heavy: 110
+		ValidTargets: GroundActor, WaterActor, AirborneActor
 
 
 GDI277mm:
@@ -2006,6 +2008,40 @@ KerriganBomb:
 		Duration: 250
 		AffectsParent: false
 		ValidTargets: WaterActor, GroundActor, AirborneActor
+
+KerriganBioBomb:
+	Inherits: KerriganBomb
+	ReloadDelay: 250
+	Range: 6c0
+	Warhead@1Dam: SpreadDamage
+		Damage: 10000
+	Warhead@curtain: GrantExternalCondition
+		Delay: 10
+		Range: 4c0
+	Warhead@3EffGround: CreateEffect
+		Explosions: ensnare
+		ImpactSounds: zquens00.aud
+		ValidTargets: Ground, GroundActor, WaterActor, Trees, Air, AirborneActor
+
+KerriganToxinBomb:
+	Inherits: KerriganBomb
+	ReloadDelay: 250
+	Range: 6c0
+	Warhead@1Dam: SpreadDamage
+		Damage: 15000
+	Warhead@curtain: GrantExternalCondition
+		Condition: corrode
+		Delay: 10
+		Range: 3c0
+	Warhead@3EffGround: CreateEffect
+		Explosions: plague
+		ImpactSounds: zdeblo00.aud
+		ValidTargets: Ground, GroundActor, WaterActor, Trees, Air, AirborneActor
+	Warhead@gas: FireCluster
+		Weapon: A10Gas
+		RandomClusterCount: 5
+		Dimensions: 5,5
+		Footprint: _xxx_ xx_xx x_x_x xx_xx _xxx_
 
 ScourgeWeapon:
 	Inherits: ^AntiGroundMissile

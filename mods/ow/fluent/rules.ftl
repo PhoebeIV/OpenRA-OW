@@ -1207,6 +1207,11 @@ meta-hero =
    .tooltipdescription-3-description = Level 3
    .tooltipdescription-4-description = Level 4
    .tooltipdescription-5-description = Level 5
+   .tooltipdescription-6-description = Level 6
+   .tooltipdescription-7-description = Level 7
+   .tooltipdescription-8-description = Level 8
+   .tooltipdescription-9-description = Level 9
+   .tooltipdescription-10-description = Level 10
 
 meta-herotier1-tooltipdescription-tier1-description = Tier 1
 meta-herotier2-tooltipdescription-tier1-description = Tier 2
@@ -5847,6 +5852,91 @@ actor-zegg =
    .muta = Spawn Mutalisk (90 sec cooldown)
    .ultra = Spawn Ultralisk (120 sec cooldown)
 
+actor-zagara-tier1-fastupgrade1 =
+   .name = Enhanced Muscle Tissue
+   .description = Gain Structure Firepower I instantly.
+
+actor-zagara-tier1-fastupgrade2 =
+   .name = Hardened Epidermis
+   .description = Gain Structure Armor I instantly.
+
+actor-zagara-tier1-zagarmor =
+   .name1 = Broodmother's Carapace A: Light
+   .desc1 = Changes Zagara's armor type to Light.
+     Balanced resistance to anti-infantry and 
+      anti-armor weapons.
+
+     Increase movement speed by 10%
+   .name2 = Broodmother's Carapace B: Heavy
+   .desc2 = Changes Zagara's armor type to Heavy.
+     Massive resistance to anti-infantry weapons,
+      but weaker to anti-armor.
+   .name3 = Broodmother's Carapace C: None
+   .desc3 = Evolve Zagara's current armor.
+     Massive resistance to anti-vehicle weapons,
+      but remains weaker to anti-infantry.
+
+     Increase movement speed by 25%
+
+actor-zagara-tier2-costcut =
+   .name = Accelerated Evolution
+   .description = Produce units for 10% cheaper and 20% faster.
+
+actor-zagara-tier2-firespeed =
+   .name = Adrenal Glands
+   .description = Improves infantry attack speed by 10%.
+
+actor-zagara-tier3-fastupgrade1 =
+   .name = Enhanced Muscle Tissue II
+   .description = Gain Structure Firepower II instantly.
+
+actor-zagara-tier3-fastupgrade2 =
+   .name = Hardened Epidermis II
+   .description = Gain Structure Armor II instantly.
+
+actor-zagara-tier3-range =
+   .name = Mutate Optical Enhancements
+   .description = Increase view and attack range of defensive
+     structures by 10%.
+
+actor-zagara-tier3-zagdamage =
+   .name1 = Broodmother's Touch
+   .desc1 = Increases life-steal from 20% to 40%
+     Increases healing abilities by 100%
+   .name2 = Broodmother's Reach
+   .desc2 = Increases damage done by 50% and 
+     range by 1 cell.
+
+actor-zagara-tier4-support1 =
+   .name = Frenzy
+   .description = Enables Zerg Frenzy support power. 
+    
+    Boosts a group of units by 20%.
+    Cooldown: 5:00
+
+actor-zagara-tier4-support2 =
+   .name = Regenerative Cells
+   .description = Increases HP regen of all Zerg units by 100%. 
+
+actor-zagara-tier4-fastupgrade1 =
+   .name = Enhanced Muscle Tissue III
+   .description = Gain Structure Firepower III instantly.
+
+actor-zagara-tier4-fastupgrade2 =
+   .name = Hardened Epidermis III
+   .description = Gain Structure Armor III instantly.
+
+actor-zagara-tier5-option1 =
+   .name = 'Fortress' Mutation 
+   .description = Increases Zagara's armor by 25%.
+   Increases structure armor and damage by a further 20%.
+
+actor-zagara-tier5-option2 =
+   .name = Heart of the Swarm
+   .description = Produce units for a further 10% cheaper and 20% faster.
+
+   Totaling 20% and 40%.
+
 ## zerg_str.yaml
 actor-zhatchery =
    .description = Produces structures.
@@ -6036,9 +6126,18 @@ actor-kerrigan-tier2-fastupgrade2 =
    .name = Hardened Skeletons
    .description = Gain Infantry Armor I instantly.
 
+actor-kerrigan-tier2-bomb =
+   .name = Bio Bomb
+   .description = Kerrigan gains an attack to slow 
+     enemies down.
+
 actor-kerrigan-tier3-carapace =
    .name = Mutating Carapace
-   .description = Increases Kerrigan's life-steal from 15% to 30%
+   .description = Increases Kerrigan's life-steal from 15% to 25%
+
+actor-kerrigan-tier3-overreach =
+   .name = Swarming Overreach
+   .description = Increases Kerrigan's attack range by 1 cell.
 
 actor-kerrigan-tier4-torrasque =
    .name = Ultralisk Evolution: Torrasque
@@ -6048,64 +6147,13 @@ actor-kerrigan-tier4-torrasque =
     When killed, can be revived after 10 seconds, 
      once every 60 seconds.
 
-actor-zagara-tier1-fastupgrade1 =
-   .name = Enhanced Muscle Tissue
-   .description = Gain Structure Firepower I instantly.
-
-actor-zagara-tier1-fastupgrade2 =
-   .name = Hardened Epidermis
-   .description = Gain Structure Armor I instantly.
-
-actor-zagara-tier2-costcut =
-   .name = Accelerated Evolution
-   .description = Produce units for 10% cheaper and 20% faster.
-
-actor-zagara-tier2-firespeed =
-   .name = Adrenal Glands
-   .description = Improves infantry attack speed by 10%.
-
-actor-zagara-tier3-fastupgrade1 =
-   .name = Enhanced Muscle Tissue II
-   .description = Gain Structure Firepower II instantly.
-
-actor-zagara-tier3-fastupgrade2 =
-   .name = Hardened Epidermis II
-   .description = Gain Structure Armor II instantly.
-
-actor-zagara-tier3-range =
-   .name = Mutate Optical Enhancements
-   .description = Increase view and attack range of defensive
-     structures by 10%.
-
-actor-zagara-tier4-support1 =
-   .name = Frenzy
-   .description = Enables Zerg Frenzy support power. 
+actor-kerrigan-tier4-bloodlust =
+   .name = Bloodlust
+   .description = When entering combat, Kerrigan will cast
+     the Frenzy effect on herself and all nearby allies
+     for 15 seconds.
     
-    Boosts a group of units by 20%.
-    Cooldown: 5:00
-
-actor-zagara-tier4-support2 =
-   .name = Regenerative Cells
-   .description = Increases HP regen of all Zerg units by 100%. 
-
-actor-zagara-tier4-fastupgrade1 =
-   .name = Enhanced Muscle Tissue III
-   .description = Gain Structure Firepower III instantly.
-
-actor-zagara-tier4-fastupgrade2 =
-   .name = Hardened Epidermis III
-   .description = Gain Structure Armor III instantly.
-
-actor-zagara-tier5-option1 =
-   .name = 'Fortress' Mutation 
-   .description = Increases Zagara's HP by 100%.
-   Increases structure armor and damage by a further 20%.
-
-actor-zagara-tier5-option2 =
-   .name = Heart of the Swarm
-   .description = Produce units for a further 10% cheaper and 20% faster.
-
-   Totaling 20% and 40%.
+   Can only occur once every 75 seconds.
 
 notification-shield-projection-charging = Shield projection charging.
 notification-shield-projection-ready = Shield projection ready.
@@ -6974,7 +7022,7 @@ actor-btrae-hero =
    Tier 4 unlocks area vehicle boosting.
    Tier 5 unlocks 4th attack and emergency airdrop.
 
-     Speed: 100
+     Speed: 96
      Strong vs Everything
    .name = Rae Ven 3L
    .tier0 = Rae Ven 3L (Tier 0)
@@ -6993,6 +7041,15 @@ actor-btrae-upgrade =
    .t1u3name = Rae: Improved Cycles
    .t1u3desc = Increase Rae's fire rate by 20%.
       But will generate more heat.
+   .t1u4name = Rae: Improved Actuators
+   .t1u4desc = Increase Rae's movement speed by 7%.
+   .t1u5name = Rae: Ferro-Fibrous Plating
+   .t1u5desc = Increase Rae's movement speed by 14%,
+      but reduces armor by 20%
+   .t1u6name = Rae: Reactive Heavy Plating
+   .t1u6desc = Increase Rae's armor by 10% and 
+      enables auto-repairs, but decreases movement
+      speed by 10%.
    .t2u1name = Driving Courses
    .t2u1desc = Increase vehicle movement speed by 10%.
    .t2u3name = Rae: SRM 6
@@ -7019,10 +7076,13 @@ actor-btrae-upgrade =
    .t4u2desc = Install a 10-salvo long range missile pack on Rae.
       Slot: 2 (replaces a laser)
       Generates moderate heat. Increases vision range.
-   .t4u4name = Rae: Light PPC
-   .t4u4desc = Install a long range PPC on Rae.
+   .t4u3name = Rae: Light PPC
+   .t4u3desc = Install a long range PPC on Rae.
       Slot: 2 (replaces a laser)
       Generates high heat. Increases vision range.
+   .t4u4name = Rae: Clan Heatsinks
+   .t4u4desc = Install upgraded heatsinks on Rae.
+      Reduces overall heat generated by weapons.
    .t5u1name = Construction Bots
    .t5u1desc = Produce vehicles for 10% cheaper and 20% faster. 
    .t5u2name = Layered Armor

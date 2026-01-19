@@ -9,7 +9,9 @@ Player:
 	PlayerResources:
 		DefaultCashDropdownVisible: False
 		DefaultCashDropdownLocked: True
-		DefaultCash: 25000
+		DefaultCash: 5000
+		-CashTickUpNotification:
+		-CashTickDownNotification:
 	LobbyPrerequisiteCheckbox@GLOBALBOUNTY:
 		Enabled: False
 		Locked: True
@@ -40,13 +42,29 @@ Player:
 		LevelPrerequisites: hero.tier1, hero.tier2, hero.tier3, hero.tier4, hero.tier5
 		Factions: england, germany
 	-GrantRandomCondition@squadai:
-	-SquadManagerBotModule@all:
+	SquadManagerBotModule@all:
+		RequiresCondition: enable-all-ai && !enable-heroonly-ai
+		AttackForceInterval: 750
+		AssignRolesInterval: 750
+		RushInterval: 750
+	-PlayerCashTrickler@med:
+	-PlayerCashTrickler@hard:
+	-PlayerCashTrickler@harder:
+	-PlayerCashTrickler@realboss:
+	-PlayerCashTrickler@boss2:
+	PlayerCashTrickler@default:
+		Interval: 15
+		Amount: 1
 	-SquadManagerBotModule@easy:
 	-SquadManagerBotModule@mediumhard:
 	-SquadManagerBotModule@boss:
 	-SquadManagerBotModule@mediall:
 	SquadManagerBotModule@heroonly:
-		RequiresCondition: enable-all-ai
+	BaseBuilderBotModule@normal:
+		AssignRallyPointsInterval: 900000
+		ProductionMinCashRequirement: 0
+	UnitBuilderBotModule@normal:
+		ProductionMinCashRequirement: 0
 
 World:
 	CrateSpawner:
@@ -81,23 +99,10 @@ World:
 		Condition: homebot
 		Factions: england, germany
 
-^Hero:
-	-DamageMultiplier@tech1:
-	-FirepowerMultiplier@tech1:
-	-DamageMultiplier@tech2:
-	-FirepowerMultiplier@tech2:
-	-DamageMultiplier@tech3:
-	-FirepowerMultiplier@tech3:
-	-DamageMultiplier@tech4:
-	-FirepowerMultiplier@tech4:
-	RevealsShroudMultiplier@default:
-		Modifier: 160
-	GivesExperience:
-		PlayerExperienceModifier: 1
-
 ^BasicBuilding:
 	DamageMultiplier@defaults:
 		Modifier: 25
+		RequiresCondition: homebot
 	ProductionTimeMultiplier@default:
 		Multiplier: 200
 
@@ -117,24 +122,6 @@ World:
 	DamageMultiplier@defaults:
 		Modifier: 50
 
-BARR.Hero:
-	Health:
-		HP: 1000000
-	CashTrickler@default:
-		Interval: 1500
-		Amount: 1000
-	ChangesHealth@heroonly_owner:
-		StartIfBelow: 100
-		PercentageStep: 1
-		Delay: 25
-		DamageCooldown: 250
-	FreeActor@upgradessss:
-		Actor: UpgradeHandler
-	GrantConditionOnProduction@queue:
-		Condition: produce
-	FreeActor@queues:
-		Actor: BuildQueueHandler
-
 MCV:
 	-Buildable:
 
@@ -144,57 +131,94 @@ MCV.2:
 FACT:
 	FreeActor@upgradessss:
 		Actor: UpgradeHandler
-	Production:
-		Produces: Building,Tech,Wall
+	-Production:
+	-Production@Bot:
 
 BARR:
 	PeriodicProducer:
-		RequiresCondition: botowner && !lategame
+		RequiresCondition: botowner && !unit_cap
 		Actors: e1, e1, e3, e3, e1of, medi
 		Type: Infantry
 		ChargeDuration: 1000
 		ShowSelectionBar: true
 	PeriodicProducer@2:
-		RequiresCondition: botowner && lategame
-		Actors: fe2, fe2, fe3, fe4, frmbo, fmedi, fmedi, dm2of
+		RequiresCondition: botowner && lategame && !unit_cap
+		Actors: e1of, e1of, e3, e3, e1of, medi, e7
 		Type: Infantry
 		ChargeDuration: 1500
 		ShowSelectionBar: true
 	GrantConditionOnPrerequisite@late:
 		Prerequisites: hero.tier5
 		Condition: lategame
+	GrantConditionOnPlayerArmyValue:
+		Threshold: 125000
+		Condition: unit_cap
 
 WEAP:
 	PeriodicProducer:
-		RequiresCondition: botowner
+		RequiresCondition: botowner && !unit_cap
 		Actors: jeep
 		Type: Vehicle
-		ChargeDuration: 500
+		ChargeDuration: 1250
 	PeriodicProducer@2:
-		RequiresCondition: botowner
+		RequiresCondition: botowner && !unit_cap
 		Actors: 2tnk, 1tnk
 		Type: Vehicle
-		ChargeDuration: 750
+		ChargeDuration: 2000
 	PeriodicProducer@3:
-		RequiresCondition: botowner && lategame
-		Actors: 3tnk, 3tnk, 4tnk, gscud, gscud
+		RequiresCondition: botowner && lategame && !unit_cap
+		Actors: 2tnk, 2tnk, 2tnk, arty, arty
 		Type: Vehicle
-		ChargeDuration: 1500
+		ChargeDuration: 2250
 	PeriodicProducer@4:
-		RequiresCondition: botowner && lategame
-		Actors: u.tnk
+		RequiresCondition: botowner && lategame && !unit_cap
+		Actors: aeiou
 		Type: Vehicle
 		ChargeDuration: 9000
 	GrantConditionOnPrerequisite@late:
 		Prerequisites: hero.tier5
 		Condition: lategame
 	-PeriodicProducer@nomcv1:
+	GrantConditionOnPlayerArmyValue:
+		Threshold: 75000
+		Condition: unit_cap
 
 EYED:
 	ProvidesPrerequisite@default:
 		Prerequisite: eyed.ion
 	ProvidesPrerequisite@default2:
 		Prerequisite: eyed.uac
+
+GAP:
+	ProximityExternalCondition@propaganda:
+		Condition: propaganda
+		RequiresCondition: !disabled
+		Range: 7c0
+
+FCOM.Husk:
+	KillsSelf:
+		Delay: 9000
+
+FCOM:
+	PeriodicProducer:
+		RequiresCondition: enabled
+		Actors: e1, e1, e3, e3, e1of, medi, e7
+		Type: Infantry
+		ChargeDuration: 1500
+		ShowSelectionBar: true
+	PeriodicProducer@2:
+		RequiresCondition: enabled && lategame
+		Actors: e1, e1, e3, e3, e1of, medi, e7
+		Type: Infantry
+		ChargeDuration: 1500
+		ShowSelectionBar: true
+	GrantConditionOnPrerequisite@late:
+		Prerequisites: hero.tier5
+		Condition: lategame
+	GrantConditionOnCapture:
+		Condition: enabled
+	Production:
+		Produces: Infantry, Soldier, Dog, Vehicle
 
 upgrade.buildarmor1b:
 	-Buildable:
@@ -220,30 +244,6 @@ allies.rockets:
 allies.prism:
 	-Buildable:
 
-
-FCOM.Husk:
-	KillsSelf:
-		Delay: 9000
-
-FCOM:
-	PeriodicProducer:
-		RequiresCondition: enabled && !lategame
-		Actors: e1, e1, e3, e3, e1of, medi, e7
-		Type: Infantry
-		ChargeDuration: 1500
-		ShowSelectionBar: true
-	PeriodicProducer@2:
-		RequiresCondition: enabled && lategame
-		Actors: fe2, fe2, fe3, fe4, frmbo, fmedi, fmedi, dm2of
-		Type: Infantry
-		ChargeDuration: 2000
-		ShowSelectionBar: true
-	GrantConditionOnPrerequisite@late:
-		Prerequisites: hero.tier5
-		Condition: lategame
-	GrantConditionOnCapture:
-		Condition: enabled
-
 MONEYCRATE2:
 	-GiveCashCrateAction:
 	-GiveCashCrateAction@2:
@@ -254,3 +254,107 @@ MONEYCRATE2:
 		SelectionShares: 9000
 	Tooltip:
 		Name: actor-crate-level
+
+AEIOU:
+	Valued:
+		Cost: 5000
+
+
+^Hero:
+	-DamageMultiplier@tech1:
+	-FirepowerMultiplier@tech1:
+	-DamageMultiplier@tech2:
+	-FirepowerMultiplier@tech2:
+	-DamageMultiplier@tech3:
+	-FirepowerMultiplier@tech3:
+	-DamageMultiplier@tech4:
+	-FirepowerMultiplier@tech4:
+	RevealsShroudMultiplier@default:
+		Modifier: 160
+	GivesExperience:
+		PlayerExperienceModifier: 1
+	ProductionCostMultiplier@default:
+		Multiplier: 0
+	GrantPeriodicConditionOnEvent@heroonly:
+		ActiveDuration: 75
+	ChangesHealth@heroonly_owner:
+		RequiresCondition: nearbarracks && !disable_selfheal
+		StartIfBelow: 100
+		PercentageStep: 5
+		Delay: 17
+		DamageCooldown: 25
+	ChangesHealth@moba:
+		StartIfBelow: 100
+		PercentageStep: 2
+		Delay: 25
+		DamageCooldown: 125
+	SpeedMultiplier@barracks:
+		RequiresCondition: nearbarracks
+		Modifier: 150
+	ExternalCondition@barracks:
+		Condition: nearbarracks
+
+BARR.Hero:
+	Health:
+		HP: 1000000
+	CashTrickler@remove:
+		ShowTicks: false
+		Interval: 900000
+		Amount: -10000
+	ChangesHealth@heroonly_owner:
+		StartIfBelow: 100
+		Step: 2500
+		Delay: 25
+		DamageCooldown: 250
+	FreeActor@upgradessss:
+		Actor: UpgradeHandler
+	GrantConditionOnProduction@queue:
+		Condition: produce
+	FreeActor@queues:
+		Actor: BuildQueueHandler
+	-RepairableBuilding: 
+	-WithBuildingRepairDecoration:
+	-Targetable@bot_recapture:
+	ProximityExternalCondition@barracks:
+		Range: 7c0
+		Condition: nearbarracks
+
+^HeroAbility:
+	ProductionCostMultiplier@default:
+		Multiplier: 50
+
+BTRAE.Hero0:
+	Mobile:
+		Speed: 88
+	Turreted:
+		TurnSpeed: 24
+	FirepowerMultiplier@mobanerf:
+		Modifier: 80
+
+zagara.tier2.costcut:
+	-Buildable:
+
+zagara.tier4.fastupgrade1:
+	-Buildable:
+
+zagara.tier4.fastupgrade2:
+	-Buildable:
+
+zagara.tier5.heartoftheswarm:
+	-Buildable:
+
+ZULTRA:
+	Health:
+		HP: 80000
+
+kerrigan.tier4.torrasque:
+	-Buildable:
+
+raynor.tier3.fastupgrade2:
+	-Buildable:
+
+btrae.tier4.service:
+	-Buildable:
+
+btrae.tier5.build:
+	-Buildable:

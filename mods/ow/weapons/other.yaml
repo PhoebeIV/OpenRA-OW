@@ -399,7 +399,7 @@ DogJaw:
 Heal:
 	ReloadDelay: 80
 	Range: 2c0
-	Report: heal2.aud, dsitemup.aud, hlheal.aud
+	Report: heal2.aud, dsitemup.aud, hlheal.aud, uthealth.aud, uhealth.aud, utsuperheal.aud
 	ValidTargets: Heal
 	Projectile: Bullet
 		Speed: 1c682
@@ -2253,6 +2253,7 @@ ApocIronCurtain:
 		Duration: 150
 		AffectsParent: true
 		ValidTargets: GroundActor
+		InvalidTargets: Infantry
 
 IronShroudWeapon:
 	ReloadDelay: 375
@@ -3899,6 +3900,17 @@ KerriganBeam:
 		ValidTargets: Ground, Air, GroundActor, AirborneActor, WaterActor, Water, Trees
 		Delay: 6
 
+KerriganBeamHero:
+	Inherits: KerriganBeam
+	Range: 6c0
+	ReloadDelay: 29
+	Warhead@1Dam: SpreadDamage
+		Damage: 7500
+	Warhead@1Air: SpreadDamage
+		Damage: 2500
+	Warhead@2Dam: SpreadDamage
+		Damage: 3500
+
 KerriganMelee:
 	Inherits: KerriganBeam
 	Range: 2c512
@@ -3906,7 +3918,7 @@ KerriganMelee:
 	ValidTargets: Ground, Water, GroundActor, WaterActor
 	Warhead@1Dam: SpreadDamage
 		Spread: 256
-		Damage: 12000
+		Damage: 8000
 		ValidTargets: GroundActor, WaterActor
 		Versus:
 			None: 80
@@ -3920,7 +3932,7 @@ KerriganMelee:
 	Warhead@2Dam: SpreadDamage
 		Delay: 8
 		Spread: 400
-		Damage: 6000
+		Damage: 5000
 		ValidTargets: GroundActor, WaterActor
 		Versus:
 			Light: 80
@@ -3932,6 +3944,12 @@ KerriganMelee:
 	-Warhead@4EffGround:
 	-Warhead@5EffGround:
 	-Warhead@6EffGround:
+	Warhead@curtain: GrantExternalCondition
+		Condition: queen_ensnare
+		Range: 512
+		Duration: 31
+		AffectsParent: false
+		ValidTargets: WaterActor, GroundActor, AirborneActor
 
 KerriganPlague:
 	Inherits: DefilerPlague
@@ -3940,6 +3958,35 @@ KerriganPlague:
 	Warhead@curtain: GrantExternalCondition
 		AffectsParent: false
 		ValidRelationships: Enemy, Neutral
+
+KerriganPlagueHero:
+	Inherits: DefilerPlague
+	ReloadDelay: 1500
+	Range: 6c0
+	Warhead@curtain: GrantExternalCondition
+		AffectsParent: false
+		ValidRelationships: Enemy, Neutral
+
+KerriganBloodlust:
+	ValidTargets: Ground, Water, GroundActor, WaterActor
+	Projectile: GravityBomb
+		Acceleration: 0,0,-32
+	Warhead: GrantExternalCondition
+		Range: 7c0
+		Condition: patriotismboost
+		Duration: 375
+		AffectsParent: true
+		ValidTargets: GroundActor
+		ValidRelationships: Ally
+	Warhead@shake: ShakeScreen
+		Duration: 25
+		Intensity: 1
+		Multiplier: 1,1
+
+KerriganGlaive:
+	Inherits: MutaGlaive
+	ReloadDelay: 50
+	Range: 6c0
 
 ZagaraAttack:
 	ReloadDelay: 25
@@ -3979,6 +4026,14 @@ ZagaraAttack:
 		ImpactSounds: zaghit00.aud, zaghit01.aud, zaghit02.aud, zaghit03.aud, zaghit04.aud
 		ValidTargets: GroundActor, WaterActor, Trees
 
+ZagaraAttackUpgraded:
+	Inherits: ZagaraAttack
+	Range: 5c0
+	Warhead@1Dam: SpreadDamage
+		Damage: 14000
+	Warhead@2StructureDam: SpreadDamage
+		Damage: 6000
+
 ZagaraMend:
 	Inherits: Heal
 	ReloadDelay: 33
@@ -4010,11 +4065,22 @@ ZagaraMend:
 		DebugOverlayColor: 00FF00
 		DamageTypes: BypassShield
 
+ZagaraMendUpgraded:
+	Inherits: ZagaraMend
+	Range: 3c0
+	Warhead@1Dam: SpreadDamage
+		Damage: -4120
+	Warhead@2Dam: SpreadDamage
+		Damage: -1500
+	Warhead@3Dam: SpreadDamage
+		Damage: -1500
+
 ZagaraAreaHeal:
 	Inherits: Heal
 	Report: zagheal.aud
 	ReloadDelay: 100
 	Range: 5c0
+	ValidTargets: Heal, StructureRepair, Repair
 	Warhead@1Dam: HealthPercentageDamage
 		Spread: 3c0
 		Damage: -25
@@ -7998,11 +8064,11 @@ BigPPCZap:
 		Damage: 1250
 		Versus:
 			None: 200
-			Light: 80
-			Heavy: 75
+			Light: 70
+			Heavy: 65
 			Wood: 65
 			Concrete: 50
-			Shield: 150
+			Shield: 125
 		ValidTargets: Ground, Water, GroundActor, WaterActor, Trees
 	Warhead@1DamAir: SpreadDamage
 		Spread: 65
@@ -8035,10 +8101,10 @@ BTMedLaser_Single:
 		SecondaryBeamColor: 3CFF00
 		LaunchEffectSequence: medium
 	Warhead@1Dam: SpreadDamage
-		Damage: 2000
+		Damage: 1800
 	Warhead@1DamAir: SpreadDamage
 		Spread: 128
-		Damage: 1250
+		Damage: 1000
 
 BTLargeLaser_Single:
 	Inherits: ^BTLaserWeapon
@@ -8054,10 +8120,10 @@ BTLargeLaser_Single:
 		LaunchEffectSequence: large
 	Warhead@1Dam: SpreadDamage
 		Spread: 128
-		Damage: 3000
+		Damage: 2750
 	Warhead@1DamAir: SpreadDamage
 		Spread: 128
-		Damage: 1750
+		Damage: 1500
 
 MechShutdown:
 	Projectile: InstantHit
@@ -9434,7 +9500,7 @@ DKIceyDeathTorrentShrapnel:
 		Speed: 192
 		Inaccuracy: 372
 	Warhead@2Impact2: CreateEffect
-		ValidTargets: GroundActor
+		ValidTargets: Ground, Water, Air
 		Explosions: icesmoke1, icesmoke2, icesmoke3
 		ImpactSounds: vulpwinterhit1.ogg, vulpwinterhit2.ogg, vulpwinterhit3.ogg
 		ImpactSoundChance: 33

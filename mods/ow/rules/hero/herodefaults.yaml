@@ -182,7 +182,7 @@
 		Palette: effect
 		Position: BottomRight
 		Margin: 0, -5
-		RequiresCondition: hero-level == 5
+		RequiresCondition: hero-level >= 5
 		ValidRelationships: None,Neutral,Enemy,Ally
 	WithDecoration@level1emp:
 		Image: pips
@@ -290,6 +290,26 @@
 		RequiresCondition: hero-level == 5
 		Description: meta-hero.tooltipdescription-5-description
 		ValidRelationships: Ally, Neutral, Enemy, None
+	TooltipDescription@6:
+		RequiresCondition: hero-level == 6
+		Description: meta-hero.tooltipdescription-5-description
+		ValidRelationships: Ally, Neutral, Enemy, None
+	TooltipDescription@7:
+		RequiresCondition: hero-level == 7
+		Description: meta-hero.tooltipdescription-5-description
+		ValidRelationships: Ally, Neutral, Enemy, None
+	TooltipDescription@8:
+		RequiresCondition: hero-level == 8
+		Description: meta-hero.tooltipdescription-5-description
+		ValidRelationships: Ally, Neutral, Enemy, None
+	TooltipDescription@9:
+		RequiresCondition: hero-level == 9
+		Description: meta-hero.tooltipdescription-5-description
+		ValidRelationships: Ally, Neutral, Enemy, None
+	TooltipDescription@10:
+		RequiresCondition: hero-level == 10
+		Description: meta-hero.tooltipdescription-5-description
+		ValidRelationships: Ally, Neutral, Enemy, None
 	GrantCondition@milestone:
 		Condition: milestone
 		RequiresCondition: hero-level == 5
@@ -307,7 +327,7 @@
 		RequiresCondition: hero-level == 4
 	GrantTimedCondition@healup3:
 		Condition: heal_up
-		Duration: 33
+		Duration: 75
 		RequiresCondition: hero-level == 5
 	GrantTimedCondition@levelup:
 		Condition: milestone_timed
@@ -427,6 +447,7 @@
 		ActiveDuration: 250
 		CooldownDuration: 5
 	ChangesHealth@heroonly_owner:
+		RequiresCondition: !disable_selfheal
 		StartIfBelow: 100
 		PercentageStep: 5
 		Delay: 25
@@ -449,6 +470,7 @@
 	Exit@ability:
 		ProductionTypes: HeroAbility
 		SpawnOffset: 0,0,1024
+		ExitCell: 0,1
 	GrantConditionOnPrerequisite@forcelevelup:
 		Prerequisites: hero.tier1
 		Condition: forcelevelup
@@ -659,7 +681,7 @@
 		ValidRelationships: None,Neutral,Enemy,Ally
 	WithDecoration@level10:
 		Image: pips
-		Sequence: pip-gray
+		Sequence: pip-green
 		Palette: effect
 		Position: BottomRight
 		Margin: 0, -5
@@ -780,6 +802,11 @@
 	ProvidesPrerequisite@buildingname:
 	KillsSelf:
 		Delay: 1500
+
+^HeroAbility:
+	Buildable:
+		Queue: HeroAbility
+		BuildDuration: 1
 
 Player:
 	GrantDelayedCondition@herotier1:

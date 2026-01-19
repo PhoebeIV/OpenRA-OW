@@ -5,12 +5,14 @@ zagara.tier1.fastupgrade1:
 		Name: actor-zagara-tier1-fastupgrade1.name
 	Buildable:
 		Description: actor-zagara-tier1-fastupgrade1.description
-		Prerequisites: ~active.zagara, !upgrade.buildfirepower1
+		Prerequisites: ~active.zagara, !upgrade.buildfirepower1, ~!hero.talent1
 	RenderSprites:
 		Image: upgrade.buildfirepower1
 	ProvidesPrerequisite@buildingname:
 	ProvidesPrerequisite@upgradename:
 		Prerequisite: upgrade.buildfirepower1
+	ProvidesPrerequisite@tier:
+		Prerequisite: hero.talent1
 
 # Hardened epidermis, building armor 1
 zagara.tier1.fastupgrade2:
@@ -19,12 +21,47 @@ zagara.tier1.fastupgrade2:
 		Name: actor-zagara-tier1-fastupgrade2.name
 	Buildable:
 		Description: actor-zagara-tier1-fastupgrade2.description
-		Prerequisites: ~active.zagara, !upgrade.buildarmor1
+		Prerequisites: ~active.zagara, !upgrade.buildarmor1, ~!hero.talent1
 	RenderSprites:
 		Image: upgrade.buildarmor1
 	ProvidesPrerequisite@buildingname:
 	ProvidesPrerequisite@upgradename:
 		Prerequisite: upgrade.buildarmor1
+	ProvidesPrerequisite@tier:
+		Prerequisite: hero.talent1
+
+# Brootmother's Carapace 1: Light Armor
+zagara.tier1.zagarmor1:
+	Inherits: ^HeroUpgradeBaseTier1
+	Tooltip:
+		Name: actor-zagara-tier1-zagarmor.name1
+	Buildable:
+		Description: actor-zagara-tier1-zagarmor.desc1
+		Prerequisites: ~active.zagara, ~hero.talent1
+	RenderSprites:
+		Image: zerg.gcarapace1
+
+# Brootmother's Carapace 2: Heavy Armor
+zagara.tier1.zagarmor2:
+	Inherits: ^HeroUpgradeBaseTier1
+	Tooltip:
+		Name: actor-zagara-tier1-zagarmor.name2
+	Buildable:
+		Description: actor-zagara-tier1-zagarmor.desc2
+		Prerequisites: ~active.zagara, ~hero.talent1
+	RenderSprites:
+		Image: zerg.gcarapace2
+
+# Brootmother's Carapace 3: None Armor -- extra speed
+zagara.tier1.zagarmor3:
+	Inherits: ^HeroUpgradeBaseTier1
+	Tooltip:
+		Name: actor-zagara-tier1-zagarmor.name3
+	Buildable:
+		Description: actor-zagara-tier1-zagarmor.desc3
+		Prerequisites: ~active.zagara, ~hero.talent1
+	RenderSprites:
+		Image: zerg.fcarapace1
 
 # Accelerated Evolution, Produce ground units for 10% cheaper and 20% faster.
 zagara.tier2.costcut:
@@ -73,12 +110,14 @@ zagara.tier3.fastupgrade1:
 		Name: actor-zagara-tier3-fastupgrade1.name
 	Buildable:
 		Description: actor-zagara-tier3-fastupgrade1.description
-		Prerequisites: ~active.zagara, upgrade.buildfirepower1, ~!upgrade.buildfirepower2
+		Prerequisites: ~active.zagara, upgrade.buildfirepower1, ~!upgrade.buildfirepower2, ~!hero.talent3
 	RenderSprites:
 		Image: upgrade.buildfirepower2
 	ProvidesPrerequisite@buildingname:
 	ProvidesPrerequisite@upgradename:
 		Prerequisite: upgrade.buildfirepower2
+	ProvidesPrerequisite@tier:
+		Prerequisite: hero.talent3
 
 # Hardened epidermis, building armor 2
 zagara.tier3.fastupgrade2:
@@ -87,12 +126,14 @@ zagara.tier3.fastupgrade2:
 		Name: actor-zagara-tier3-fastupgrade2.name
 	Buildable:
 		Description: actor-zagara-tier3-fastupgrade2.description
-		Prerequisites: ~active.zagara, upgrade.buildarmor1, ~!upgrade.buildarmor2
+		Prerequisites: ~active.zagara, upgrade.buildarmor1, ~!upgrade.buildarmor2, ~!hero.talent3
 	RenderSprites:
 		Image: upgrade.buildarmor2
 	ProvidesPrerequisite@buildingname:
 	ProvidesPrerequisite@upgradename:
 		Prerequisite: upgrade.buildarmor2
+	ProvidesPrerequisite@tier:
+		Prerequisite: hero.talent3
 
 # Mutate Optical Enhancements, Increase view and attack range of defensive structures.
 zagara.tier3.range:
@@ -101,12 +142,36 @@ zagara.tier3.range:
 		Name: actor-zagara-tier3-range.name
 	Buildable:
 		Description: actor-zagara-tier3-range.description
-		Prerequisites: ~active.zagara
+		Prerequisites: ~active.zagara, ~!hero.talent3
 	RenderSprites:
 		Image: upgrade.buildfirepower3
 	ProvidesPrerequisite@buildingname:
 	ProvidesPrerequisite@upgradename:
 		Prerequisite: building.attackrange1
+	ProvidesPrerequisite@tier:
+		Prerequisite: hero.talent3
+
+# Increase Leech + Healing
+zagara.tier3.zagdamage1:
+	Inherits: ^HeroUpgradeBaseTier3
+	Tooltip:
+		Name: actor-zagara-tier3-zagdamage.name1
+	Buildable:
+		Description: actor-zagara-tier3-zagdamage.desc1
+		Prerequisites: ~active.zagara, ~hero.talent3
+	RenderSprites:
+		Image: upgrade.inffirepower1
+
+# Increase Damage + Range
+zagara.tier3.zagdamage2:
+	Inherits: ^HeroUpgradeBaseTier3
+	Tooltip:
+		Name: actor-zagara-tier3-zagdamage.name2
+	Buildable:
+		Description: actor-zagara-tier3-zagdamage.desc2
+		Prerequisites: ~active.zagara, ~hero.talent3
+	RenderSprites:
+		Image: upgrade.inffirepower1
 
 # Frenzy support power
 zagara.tier4.support1:
@@ -127,7 +192,7 @@ zagara.tier4.regen:
 		Name: actor-zagara-tier4-support2.name
 	Buildable:
 		Description: actor-zagara-tier4-support2.description
-		Prerequisites: ~active.zagara, ~structures.zerg
+		Prerequisites: ~active.zagara
 		Icon: transfusion
 	RenderSprites:
 		Image: icon
@@ -139,7 +204,7 @@ zagara.tier4.fastupgrade1:
 		Name: actor-zagara-tier4-fastupgrade1.name
 	Buildable:
 		Description: actor-zagara-tier4-fastupgrade1.description
-		Prerequisites: ~active.zagara, upgrade.buildfirepower2, ~!upgrade.buildfirepower3, ~!structures.zerg
+		Prerequisites: ~active.zagara, upgrade.buildfirepower2, ~!upgrade.buildfirepower3
 	RenderSprites:
 		Image: upgrade.buildfirepower3
 	ProvidesPrerequisite@buildingname:
@@ -153,7 +218,7 @@ zagara.tier4.fastupgrade2:
 		Name: actor-zagara-tier4-fastupgrade2.name
 	Buildable:
 		Description: actor-zagara-tier4-fastupgrade2.description
-		Prerequisites: ~active.zagara, upgrade.buildarmor2, ~!upgrade.buildarmor3, ~!structures.zerg
+		Prerequisites: ~active.zagara, upgrade.buildarmor2, ~!upgrade.buildarmor3
 	RenderSprites:
 		Image: upgrade.buildarmor3
 	ProvidesPrerequisite@buildingname:
@@ -247,6 +312,24 @@ ZZAGARA.Hero0:
 		Condition: in_world
 	Health:
 		HP: 150000
+	Armor:
+		RequiresCondition: !zag_armor1 && !zag_armor2 && !shielded && !defense_matrix_up
+		Type: None
+	Armor@L:
+		RequiresCondition: zag_armor1 && !shielded && !defense_matrix_up
+		Type: Light
+	Armor@H:
+		RequiresCondition: zag_armor2 && !shielded && !defense_matrix_up
+		Type: Heavy
+	Targetable:
+		RequiresCondition: !parachute && !zag_armor2
+		TargetTypes: GroundActor, Infantry, HighHPInfantry
+	Targetable@H:
+		RequiresCondition: !parachute && zag_armor2
+		TargetTypes: GroundActor, Vehicle
+	Targetable@HEAL:
+		RequiresCondition: !parachute && damaged
+		TargetTypes: Heal
 	Mobile:
 		Speed: 72
 		TurnSpeed: 64
@@ -260,15 +343,46 @@ ZZAGARA.Hero0:
 	RevealsShroud:
 		Range: 9c0
 	Armament@1:
+		RequiresCondition: !zag_damage2
 		Name: primary
 		Weapon: ZagaraAttack
+	Armament@1_upgraded:
+		RequiresCondition: zag_damage2
+		Name: primary
+		Weapon: ZagaraAttackUpgraded
 	Armament@2:
+		RequiresCondition: !zag_damage1
 		Name: secondary
 		Weapon: ZagaraMend
 		Cursor: heal
 		OutsideRangeCursor: heal
 		TargetRelationships: Ally
 		ForceTargetRelationships: None
+	Armament@2_upgraded:
+		RequiresCondition: zag_damage1
+		Name: secondary
+		Weapon: ZagaraMendUpgraded
+		Cursor: heal
+		OutsideRangeCursor: heal
+		TargetRelationships: Ally
+		ForceTargetRelationships: None
+	Armament@3:
+		RequiresCondition: botowner
+		PauseOnCondition: !heal_ammo
+		Name: tertiary
+		Weapon: ZagaraAreaHeal
+		Cursor: heal
+		OutsideRangeCursor: heal
+		TargetRelationships: Ally
+		ForceTargetRelationships: None
+	AmmoPool@heal:
+		Name: heal_ammo
+		AmmoCondition: heal_ammo
+		Ammo: 1
+		Armaments: tertiary
+	ReloadAmmoPool@heal:
+		Delay: 1125
+		AmmoPool: heal_ammo
 	AutoTargetPriority@DEFAULT:
 		ValidRelationships: Neutral, Enemy
 		Priority: 10
@@ -330,6 +444,7 @@ ZZAGARA.Hero0:
 	ProximityCaptor:
 		Types: Infantry
 	AttackFrontal:
+		Armaments: primary, secondary
 		FacingTolerance: 32
 	Cloak@burrow:
 		RequiresCondition: burrowing
@@ -367,6 +482,31 @@ ZZAGARA.Hero0:
 		RequiresCondition: oncreep
 	GivesBuildableArea:
 		AreaTypes: zagara
+	GrantConditionOnPrerequisite@zagarmor1:
+		Prerequisites: zagara.tier1.zagarmor1
+		Condition: zag_armor1
+	GrantConditionOnPrerequisite@zagarmor2:
+		Prerequisites: zagara.tier1.zagarmor2
+		Condition: zag_armor2
+	GrantConditionOnPrerequisite@zagarmor3:
+		Prerequisites: zagara.tier1.zagarmor3
+		Condition: zag_armor3
+	SpeedMultiplier@zagarmor1:
+		Modifier: 110
+		RequiresCondition: zag_armor1
+	DamageTypeDamageMultiplier@zagarmor3:
+		RequiresCondition: zag_armor3
+		Modifier: 75
+		DamageTypes: FireDeath, TiberiumDeath, ElectricityDeath, Incendiary
+	SpeedMultiplier@zagarmor3:
+		Modifier: 125
+		RequiresCondition: zag_armor3
+	GrantConditionOnPrerequisite@zagdam1:
+		Prerequisites: zagara.tier1.zagdamage1
+		Condition: zag_damage1
+	GrantConditionOnPrerequisite@zagdam2:
+		Prerequisites: zagara.tier1.zagdamage2
+		Condition: zag_damage2
 	ProvidesPrerequisite@inthefield:
 		Prerequisite: active.zagara
 	TransformOnCondition@level:
@@ -379,14 +519,25 @@ ZZAGARA.Hero0:
 		Interval: 25
 	Production@ability:
 		PauseOnCondition: burrowed
-	GrantConditionOnPrerequisite@botowner:
-		Condition: botowner
-		Prerequisites: ai.all
 	Wanders@creep:
 		RequiresCondition: botowner
 		MinMoveDelay: 150
 		MaxMoveDelay: 750
 		WanderMoveRadius: 3
+	GrantConditionOnPrerequisite@bottumor:
+		Prerequisites: !ztumor.cooldown
+		Condition: allow_tumor
+	GrantPeriodicConditionOnEvent@placetumor:
+		RequiresCondition: allow_tumor && botowner
+		Condition: place_tumor
+		Triggers: Damage, Attack
+		StartsCharged: true
+		ActiveDuration: 25
+		CooldownDuration: 25
+	FreeActor@placetumor:
+		RequiresCondition: place_tumor
+		Actor: ZTUMOR
+		SpawnOffset: -1,0
 	WithResourceStoragePipsDecoration:
 		Position: BottomLeft
 		Margin: 4, 3
@@ -394,6 +545,9 @@ ZZAGARA.Hero0:
 		PipCount: 25
 		EmptySequence: bar-empty
 		FullSequence: bar-yellow
+	ProximityExternalCondition@zagara_creep:
+		Condition: zagara_active
+		Range: 7c0
 
 ZZAGARA.Hero1:
 	Inherits: ZZAGARA.Hero0
@@ -404,9 +558,11 @@ ZZAGARA.Hero1:
 	Tooltip:
 		Name: actor-zzagara.tier1
 	Health:
-		HP: 180000
+		HP: 175000
 	Power:
 		Amount: 75
+	AttackFrontal:
+		Armaments: primary, secondary, tertiary
 	TransformOnCondition@level:
 		IntoActor: ZZAGARA.Hero2
 	FirepowerMultiplier@1:
@@ -431,11 +587,15 @@ ZZAGARA.Hero2:
 	Tooltip:
 		Name: actor-zzagara.tier2
 	Health:
-		HP: 220000
+		HP: 200000
 	Power:
 		Amount: 100
 	ConvertsDamageToHealth@zagara:
-		DamagePercentConverted: 15
+		RequiresCondition: !zag_damage1
+		DamagePercentConverted: 20
+	ConvertsDamageToHealth@zagara2:
+		RequiresCondition: zag_damage1
+		DamagePercentConverted: 40
 	TransformOnCondition@level:
 		IntoActor: ZZAGARA.Hero3
 	FirepowerMultiplier@1:
@@ -449,7 +609,7 @@ ZZAGARA.Hero3:
 	Tooltip:
 		Name: actor-zzagara.tier3
 	Health:
-		HP: 260000
+		HP: 225000
 	Power:
 		Amount: 125
 	TransformOnCondition@level:
@@ -466,7 +626,7 @@ ZZAGARA.Hero4:
 	Tooltip:
 		Name: actor-zzagara.tier4
 	Health:
-		HP: 300000
+		HP: 250000
 	Power:
 		Amount: 150
 	TransformOnCondition@level:
@@ -500,7 +660,7 @@ ZZAGARA.Hero5:
 	Tooltip:
 		Name: actor-zzagara.tier5
 	Health:
-		HP: 360000
+		HP: 300000
 	Power:
 		Amount: 200
 	-TransformOnCondition@level:
@@ -510,15 +670,15 @@ ZZAGARA.Hero5:
 		Modifier: 150
 	DamageMultiplier@fortitude:
 		RequiresCondition: fort
-		Modifier: 75
+		Modifier: 80
 	GrantConditionOnPrerequisite@fort:
 		Prerequisites: zagara.tier5.fortress
 		Condition: fort
 
 ZTUMOR:
 	Inherits: ^ZergBuilding
+	Inherits@ability: ^HeroAbility
 	Buildable:
-		Queue: HeroAbility
 		BuildPaletteOrder: 12500
 		BuildDuration: 1
 		Prerequisites: ~active.zagara, !ztumor.cooldown
@@ -606,6 +766,7 @@ ztumor.cooldown:
 	Inherits: ^HeroAbilityCooldown
 
 ZZAGARA.Heal:
+	Inherits@ability: ^HeroAbility
 	Interactable:
 		Bounds: 512,512
 	WithSpriteBody:
@@ -628,13 +789,16 @@ ZZAGARA.Heal:
 	Tooltip:
 		Name: actor-zzagara.heal
 	Valued:
-		Cost: 500
+		Cost: 300
 	RequiresBuildableArea:
 		Adjacent: 8
 		AreaTypes: zagara
 	KillsSelf:
 		RemoveInstead: true
 		Delay: 2
+	GrantConditionOnPrerequisite@zagdam1:
+		Prerequisites: zagara.tier1.zagdamage1
+		Condition: zag_damage1
 	FireWarheads:
 		Weapons: ZagaraAreaHeal
 		Interval: 100000
@@ -644,6 +808,15 @@ ZZAGARA.Heal:
 # 45 seconds
 zagara.heal.cooldown:
 	Inherits: ^HeroAbilityCooldown
+	GrantConditionOnPrerequisite@zagdam1:
+		Prerequisites: zagara.tier1.zagdamage1
+		Condition: zag_damage1
+	KillsSelf:
+		RequiresCondition: !zag_damage1
+		Delay: 1125
+	KillsSelf@2:
+		RequiresCondition: zag_damage1
+		Delay: 750
 
 ^ZergEgg:
 	Inherits: ^ZergBuilding
@@ -744,8 +917,8 @@ zagara.heal.cooldown:
 
 ZEGG.Zergling:
 	Inherits: ^ZergEgg
+	Inherits@ability: ^HeroAbility
 	Buildable:
-		Queue: HeroAbility
 		BuildPaletteOrder: 12502
 		BuildDuration: 1
 		Prerequisites: ~active.zagara, !zegg.zergling.cooldown
@@ -754,7 +927,7 @@ ZEGG.Zergling:
 	FreeActor@cooldown:
 		Actor: zegg.zergling.cooldown
 	Valued:
-		Cost: 320
+		Cost: 150
 	Tooltip:
 		Name: actor-zegg.zergling
 	SpawnActorOnDeath@spawn1:
@@ -769,6 +942,14 @@ ZEGG.Zergling:
 		RequiresCondition: spawn_ready
 		DeathType: EggSpawn
 		Actor: zzergling2
+	SpawnActorOnDeath@spawn4:
+		RequiresCondition: spawn_ready
+		DeathType: EggSpawn
+		Actor: zzergling2
+	SpawnActorOnDeath@spawn5:
+		RequiresCondition: spawn_ready
+		DeathType: EggSpawn
+		Actor: zzergling2
 
 # 45 seconds
 zegg.zergling.cooldown:
@@ -778,8 +959,8 @@ zegg.zergling.cooldown:
 
 ZEGG.Hydra:
 	Inherits: ^ZergEgg
+	Inherits@ability: ^HeroAbility
 	Buildable:
-		Queue: HeroAbility
 		BuildPaletteOrder: 12503
 		BuildDuration: 1
 		Prerequisites: ~active.zagara, ~hero.tier1, !zegg.hydra.cooldown
@@ -788,7 +969,7 @@ ZEGG.Hydra:
 	FreeActor@cooldown:
 		Actor: zegg.hydra.cooldown
 	Valued:
-		Cost: 550
+		Cost: 200
 	Tooltip:
 		Name: actor-zegg.hydra
 	SpawnActorOnDeath@spawn:
@@ -804,8 +985,8 @@ zegg.hydra.cooldown:
 
 ZEGG.Muta:
 	Inherits: ^ZergEgg
+	Inherits@ability: ^HeroAbility
 	Buildable:
-		Queue: HeroAbility
 		BuildPaletteOrder: 12504
 		BuildDuration: 1
 		Prerequisites: ~active.zagara, ~hero.tier3, !zegg.muta.cooldown
@@ -814,7 +995,7 @@ ZEGG.Muta:
 	FreeActor@cooldown:
 		Actor: zegg.muta.cooldown
 	Valued:
-		Cost: 1400
+		Cost: 400
 	Tooltip:
 		Name: actor-zegg.muta
 	SpawnActorOnDeath@spawn:
@@ -830,8 +1011,8 @@ zegg.muta.cooldown:
 
 ZEGG.Ultra:
 	Inherits: ^ZergEgg
+	Inherits@ability: ^HeroAbility
 	Buildable:
-		Queue: HeroAbility
 		BuildPaletteOrder: 12505
 		BuildDuration: 1
 		Prerequisites: ~active.zagara, ~hero.tier5, !zegg.ultra.cooldown
@@ -840,7 +1021,7 @@ ZEGG.Ultra:
 	FreeActor@cooldown:
 		Actor: zegg.ultra.cooldown
 	Valued:
-		Cost: 3200
+		Cost: 1000
 	Tooltip:
 		Name: actor-zegg.ultra
 	SpawnActorOnDeath@spawn:

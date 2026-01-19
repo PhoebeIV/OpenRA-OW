@@ -5,9 +5,11 @@ btrae.tier1.fastupgrade1:
 		Name: actor-btrae-upgrade.t1u1name
 	Buildable:
 		Description: actor-btrae-upgrade.t1u1desc
-		Prerequisites: ~active.rae, !upgrade.vehfirepower1, !faction.novehicles
+		Prerequisites: ~active.rae, !upgrade.vehfirepower1, !faction.novehicles, ~!hero.talent1
 	RenderSprites:
 		Image: upgrade.vehfirepower1
+	ProvidesPrerequisite@tier:
+		Prerequisite: hero.talent1
 	ProvidesPrerequisite@upgradename:
 		Prerequisite: upgrade.vehfirepower1
 
@@ -18,9 +20,11 @@ btrae.tier1.fastupgrade2:
 		Name: actor-btrae-upgrade.t1u2name
 	Buildable:
 		Description: actor-btrae-upgrade.t1u2desc
-		Prerequisites: ~active.rae, !upgrade.veharmor1, !faction.novehicles
+		Prerequisites: ~active.rae, !upgrade.veharmor1, !faction.novehicles, ~!hero.talent1
 	RenderSprites:
 		Image: upgrade.veharmor1
+	ProvidesPrerequisite@tier:
+		Prerequisite: hero.talent1
 	ProvidesPrerequisite@upgradename:
 		Prerequisite: upgrade.veharmor1
 
@@ -31,9 +35,50 @@ btrae.tier1.cycles:
 		Name: actor-btrae-upgrade.t1u3name
 	Buildable:
 		Description: actor-btrae-upgrade.t1u3desc
-		Prerequisites: ~active.rae
+		Prerequisites: ~active.rae, ~!hero.talent1
 	RenderSprites:
 		Image: upgrade.airfirepower1
+	ProvidesPrerequisite@tier:
+		Prerequisite: hero.talent1
+	ProvidesPrerequisite@upgradename:
+
+# Rae: Improved Actuators
+btrae.tier1.actuators:
+	Inherits: ^HeroUpgradeBaseTier1
+	Tooltip:
+		Name: actor-btrae-upgrade.t1u4name
+	Buildable:
+		Description: actor-btrae-upgrade.t1u4desc
+		Prerequisites: ~active.rae, ~hero.talent1
+		Icon: actuators
+	RenderSprites:
+		Image: btrae.icons
+	ProvidesPrerequisite@upgradename:
+
+# Rae: Ferro-Fibrous Plating
+btrae.tier1.plating:
+	Inherits: ^HeroUpgradeBaseTier1
+	Tooltip:
+		Name: actor-btrae-upgrade.t1u5name
+	Buildable:
+		Description: actor-btrae-upgrade.t1u5desc
+		Prerequisites: ~active.rae, ~hero.talent1
+		Icon: plating
+	RenderSprites:
+		Image: btrae.icons
+	ProvidesPrerequisite@upgradename:
+
+# Rae: Reactive Heavy Plating
+btrae.tier1.heavyplating:
+	Inherits: ^HeroUpgradeBaseTier1
+	Tooltip:
+		Name: actor-btrae-upgrade.t1u6name
+	Buildable:
+		Description: actor-btrae-upgrade.t1u6desc
+		Prerequisites: ~active.rae, ~hero.talent1
+		Icon: plating2
+	RenderSprites:
+		Image: btrae.icons
 	ProvidesPrerequisite@upgradename:
 
 # Driver Courses
@@ -153,13 +198,26 @@ btrae.tier4.lrm:
 btrae.tier4.ppc:
 	Inherits: ^HeroUpgradeBaseTier4
 	Tooltip:
-		Name: actor-btrae-upgrade.t4u4name
+		Name: actor-btrae-upgrade.t4u3name
 	Buildable:
-		Description: actor-btrae-upgrade.t4u4desc
+		Description: actor-btrae-upgrade.t4u3desc
 		Prerequisites: ~active.rae
 		Icon: ioncannon
 	RenderSprites:
 		Image: icon
+	ProvidesPrerequisite@upgradename:
+
+# Rae: Heatsinks
+btrae.tier4.heat:
+	Inherits: ^HeroUpgradeBaseTier4
+	Tooltip:
+		Name: actor-btrae-upgrade.t4u4name
+	Buildable:
+		Description: actor-btrae-upgrade.t4u4desc
+		Prerequisites: ~active.rae
+		Icon: heat
+	RenderSprites:
+		Image: btrae.icons
 	ProvidesPrerequisite@upgradename:
 
 # Construction Bots
@@ -241,7 +299,7 @@ BTRAE.Hero0:
 		Name: actor-btrae-hero.tier0
 	Mobile:
 		TurnSpeed: 48
-		Speed: 100
+		Speed: 96
 		Voice: Move
 	Guard:
 		Voice: Move
@@ -424,21 +482,25 @@ BTRAE.Hero0:
 		AmmoPool: nuke
 		Delay: 575
 	GrantConditionOnAttack@heat1:
+		RequiresCondition: !rae_heatsinks
 		ArmamentNames: primary1, primary2, primary3, upg_largelaser, upg_ppc, upg_nuke
 		Condition: mech_heat
 		RevokeDelay: 33
 		MaximumInstances: 150
 	GrantConditionOnAttack@heat2:
+		RequiresCondition: !rae_heatsinks
 		ArmamentNames: primary1, primary2, primary3, upg_largelaser, upg_ppc, upg_nuke
 		Condition: mech_heat
 		RevokeDelay: 33
 		MaximumInstances: 150
 	GrantConditionOnAttack@heat3:
+		RequiresCondition: !rae_heatsinks
 		ArmamentNames: primary1, primary2, primary3, upg_largelaser, upg_ppc, upg_nuke
 		Condition: mech_heat
 		RevokeDelay: 45
 		MaximumInstances: 150
 	GrantConditionOnAttack@heat4:
+		RequiresCondition: !rae_heatsinks
 		ArmamentNames: primary2, upg_largelaser, upg_ppc, upg_nuke
 		Condition: mech_heat
 		RevokeDelay: 50
@@ -474,16 +536,19 @@ BTRAE.Hero0:
 		RevokeDelay: 100
 		MaximumInstances: 150
 	GrantConditionOnAttack@heat11:
+		RequiresCondition: !rae_heatsinks
 		ArmamentNames: upg_nuke
 		Condition: mech_heat
 		RevokeDelay: 100
 		MaximumInstances: 150
 	GrantConditionOnAttack@heat12:
+		RequiresCondition: !rae_heatsinks
 		ArmamentNames: upg_nuke
 		Condition: mech_heat
 		RevokeDelay: 100
 		MaximumInstances: 150
 	GrantConditionOnAttack@heat13:
+		RequiresCondition: !rae_heatsinks
 		ArmamentNames: upg_nuke
 		Condition: mech_heat
 		RevokeDelay: 100
@@ -575,6 +640,38 @@ BTRAE.Hero0:
 	SpeedMultiplier@nuke:
 		RequiresCondition: rae_nuke
 		Modifier: 80
+	GrantConditionOnPrerequisite@actuators:
+		Prerequisites: btrae.tier1.actuators
+		Condition: rae_actuators
+	SpeedMultiplier@actuators:
+		RequiresCondition: rae_actuators
+		Modifier: 107
+	GrantConditionOnPrerequisite@plating:
+		Prerequisites: btrae.tier1.plating
+		Condition: rae_plating
+	SpeedMultiplier@plating:
+		RequiresCondition: rae_plating
+		Modifier: 114
+	DamageMultiplier@plating:
+		RequiresCondition: rae_plating
+		Modifier: 120
+	GrantConditionOnPrerequisite@heavyplating:
+		Prerequisites: btrae.tier1.heavyplating
+		Condition: rae_heavyplating
+	SpeedMultiplier@heavyplating:
+		RequiresCondition: rae_heavyplating
+		Modifier: 90
+	DamageMultiplier@heavyplating:
+		RequiresCondition: rae_heavyplating
+		Modifier: 90
+	ChangesHealth@heavyplating:
+		RequiresCondition: rae_heavyplating
+		DamageCooldown: 50
+		PercentageStep: 1
+		Delay: 25
+	GrantConditionOnPrerequisite@heatsinks:
+		Prerequisites: btrae.tier4.heat
+		Condition: rae_heatsinks
 	Turreted:
 		TurnSpeed: 36
 		RequiresCondition: !disabled
@@ -704,7 +801,7 @@ BTRAE.Hero1:
 	Tooltip:
 		Name: actor-btrae-hero.tier1
 	Health:
-		HP: 100000
+		HP: 90000
 	FirepowerMultiplier@1:
 		Modifier: 70
 	AttackTurreted:
@@ -722,7 +819,7 @@ BTRAE.Hero2:
 	Tooltip:
 		Name: actor-btrae-hero.tier2
 	Health:
-		HP: 115000
+		HP: 105000
 	PointDefense:
 		PointDefenseTypes: pointdefense
 		Armament: ams
@@ -752,7 +849,7 @@ BTRAE.Hero3:
 	Tooltip:
 		Name: actor-btrae-hero.tier3
 	Health:
-		HP: 130000
+		HP: 120000
 	PointDefense@2:
 		PointDefenseTypes: cruisemissile
 		Armament: ams2
@@ -774,7 +871,7 @@ BTRAE.Hero4:
 	Tooltip:
 		Name: actor-btrae-hero.tier4
 	Health:
-		HP: 145000
+		HP: 135000
 	FireWarheads@boost:
 		Weapons: AEIOUBoostRae
 		Interval: 50
@@ -799,7 +896,7 @@ BTRAE.Hero5:
 	Tooltip:
 		Name: actor-btrae-hero.tier5
 	Health:
-		HP: 160000
+		HP: 150000
 	AttackTurreted:
 		Armaments: primary1, primary2, primary3, primary4, upg_largelaser, upg_srm6, upg_lrm, upg_ppc, upg_nuke
 	-TransformOnCondition@level:
