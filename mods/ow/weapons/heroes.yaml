@@ -485,7 +485,7 @@ MasterChiefAssaultRifleTracer:
 
 MasterChiefSniper:
 	Inherits: ^SnipeWeapon
-	ReloadDelay: 75
+	ReloadDelay: 125
 	Burst: 10
 	BurstDelays: 15
 	Range: 12c0
@@ -547,7 +547,7 @@ masterchiefplasmapistol:
 		Blockable: false
 		ContrailLength: 5
 		ContrailStartColor: 03fc07
-		Image: masterchiefplasmaproj1
+		Image: masterchiefplasmaproj
 		Shadow: false
 		Inaccuracy: 256
 		ContrailStartWidth: 0c32
@@ -581,7 +581,7 @@ masterchiefplasmapistolcharged:
 		Blockable: false
 		ContrailLength: 5
 		ContrailStartColor: 03fc07
-		Image: masterchiefplasmaproj1
+		Image: masterchiefplasmaproj
 		Shadow: false
 		Inaccuracy: 256
 		ContrailStartWidth: 0c32
@@ -627,7 +627,7 @@ masterchiefneedler:
 	ReloadDelay: 50
 	Burst: 30
 	BurstDelay: 1
-	Range: 6c0
+	Range: 7c0
 	Report: masterchiefneedlerfire1.aud, masterchiefneedlerfire2.aud, masterchiefneedlerfire3.aud
 	ValidTargets: Ground, Water, GroundActor, WaterActor
 	Projectile: Bullet
@@ -922,7 +922,7 @@ masterchieffraggrenade:
 MasterChiefRocketLauncher:
 	Inherits: DoomRPG
 	Report: MasterChiefRocketLauncherFire1.aud, MasterChiefRocketLauncherFire2.aud
-	Range: 6c0
+	Range: 7c0
 	ReloadDelay: 50
 	Burst: 2
 	BurstDelays: 10
@@ -950,7 +950,7 @@ masterchiefbruteshot:
 	ReloadDelay: 75
 	Burst: 6
 	BurstDelays: 12
-	Range: 7c0
+	Range: 6c0
 	Report: masterchiefbruteshotfire1.aud, masterchiefbruteshotfire2.aud, masterchiefbruteshotfire3.aud
 	Projectile: Bullet
 		Speed: 256
@@ -1164,3 +1164,124 @@ masterchiefgravityhammer:
 	Warhead@4Eff_impact: CreateEffect
 		Explosions: gravityhammerhit
 		ValidTargets: Ground, Water, GroundActor, WaterActor
+
+masterchiefplasmagrenade:
+	Inherits: ^Artillery
+	ReloadDelay: 30
+	Range: 6c0
+	MinRange: 1c0
+	Report: masterchiefgrenadethrow.aud
+	Projectile: Bullet
+		Speed: 156
+		Inaccuracy: 1c256
+		ContrailLength: 30
+		Image: masterchiefplasmarifleproj
+		ContrailStartColor: 00fbff
+		Shadow: false
+		ContrailStartWidth: 0c32
+	Warhead@1Dam: SpreadDamage
+		Spread: 512
+		Damage: 7500
+		Versus:
+			None: 80
+			Wood: 50
+			Light: 70
+			Heavy: 90
+			Concrete: 70
+			Shield: 150
+		DamageTypes: Prone50Percent, TriggerProne, ElectricityDeath
+	Warhead@3Eff: CreateEffect
+		Explosions: laserhitmed
+		ImpactSounds: masterchiefplasmaexplode1.aud, masterchiefplasmaexplode2.aud, masterchiefplasmaexplode3.aud, masterchiefplasmaexplode4.aud
+	Warhead@4Eff: CreateEffect
+		Explosions: japanplasmaring
+	Warhead@4EffWater: CreateEffect
+		Explosions: med_splash
+
+masterchiefpowerdrain:
+	Inherits: ^Artillery
+	ReloadDelay: 250
+	Range: 6c0
+	MinRange: 1c0
+	Report: masterchiefpowerdrainthrow.aud
+	Projectile: Bullet
+		Speed: 156
+		Inaccuracy: 1c256
+		ContrailLength: 30
+		Image: masterchiefplasmarifleproj
+		ContrailStartColor: 00fbff
+		Shadow: false
+		ContrailStartWidth: 0c32
+	Warhead@1Dam: SpreadDamage
+		Spread: 512
+		Damage: 7500
+		Versus:
+			None: 80
+			Wood: 50
+			Light: 70
+			Heavy: 90
+			Concrete: 70
+			Shield: 150
+		DamageTypes: Prone50Percent, TriggerProne, ElectricityDeath
+	Warhead@3Eff: CreateEffect
+		Explosions: laserhitmed
+	Warhead@4Eff: CreateEffect
+		Explosions: japanplasmaring
+	Warhead@4EffWater: CreateEffect
+		Explosions: med_splash
+	Warhead@4Cluster: FireShrapnel
+		Amount: 2
+		Weapon: PowerDrainEMPSpike1
+	Warhead@2EMP: GrantExternalCondition
+		Duration: 250
+		Condition: disabled
+		ValidTargets: Structure
+	Warhead@3EMP: GrantExternalCondition
+		Duration: 175
+		Condition: disabled
+		InvalidTargets: Structure
+		ValidTargets: GroundActor, WaterActor
+
+PowerDrainEMPSpike1:
+	Inherits: AvaliEMPSpike
+	Range: 3c0
+	Report: masterchiefpowerdrainexplode1.aud, masterchiefpowerdrainexplode2.aud, masterchiefpowerdrainexplode3.aud, masterchiefpowerdrainexplode4.aud
+	ValidTargets: Ground, Water, GroundActor, WaterActor
+	InvalidTargets: Infantry
+	Warhead@3EffGround: CreateEffect
+		-ImpactSounds:
+	Warhead@4Cluster: FireShrapnel
+		Amount: 1
+		Weapon: PowerDrainEMPSpike2
+		AimTargetStances: Neutral, Enemy
+		AimChance: 100
+		ThrowWithoutTarget: true
+		AroundTarget: true
+		ImpactActors: false
+	Warhead@3Eff: CreateEffect
+		Explosions: laserhitmed
+		ImpactSounds: masterchiefpowerdrainexplode1.aud, masterchiefpowerdrainexplode2.aud, masterchiefpowerdrainexplode3.aud, masterchiefpowerdrainexplode4.aud
+
+PowerDrainEMPSpike2:
+	Inherits: PowerDrainEMPSpike1
+	Warhead@4Cluster: FireShrapnel
+		Delay: 1
+		Amount: 1
+		Weapon: PowerDrainEMPSpike3
+	Warhead@3Eff: CreateEffect
+		Explosions: laserhitmed
+		ImpactSounds: masterchiefpowerdrainexplode1.aud, masterchiefpowerdrainexplode2.aud, masterchiefpowerdrainexplode3.aud, masterchiefpowerdrainexplode4.aud
+
+PowerDrainEMPSpike3:
+	Inherits: PowerDrainEMPSpike1
+	Warhead@4Cluster: FireShrapnel
+		Delay: 1
+		Amount: 1
+		Weapon: PowerDrainEMPSpike4
+	Warhead@3Eff: CreateEffect
+		Explosions: laserhitmed
+		ImpactSounds: masterchiefpowerdrainexplode1.aud, masterchiefpowerdrainexplode2.aud, masterchiefpowerdrainexplode3.aud, masterchiefpowerdrainexplode4.aud
+
+PowerDrainEMPSpike4:
+	Inherits: PowerDrainEMPSpike1
+	-Warhead@4Cluster:

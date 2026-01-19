@@ -6602,15 +6602,66 @@ actor-masterchief-hero3-name = Master Chief  (Tier 3)
 actor-masterchief-hero4-name = Master Chief  (Tier 4)
 actor-masterchief-hero5-name = Master Chief  (Tier 5)
 
+actor-masterchief-tier1-sprinterpack =
+    .name = Sprinter Pack
+    .description = Increases movement speed by 20%
+
+actor-masterchief-tier1-titaniumalloy =
+    .name = Titanium Alloy
+    .description = Increases armor by 20%
+
+actor-masterchief-tier2-cornealimplants =
+    .name = Corneal Implants
+    .description = Increases vision range by 20%
+
+actor-masterchief-tier2-plasmagrenade =
+    .name = Plasma Grenades
+    .description = Add a chance to replace frag grenades with plasma grenades.
+
+    Plasma grenades do more damage to shields.
+
+actor-masterchief-tier3-jammer =
+    .name = Jammer
+    .description = Produces a gap shroud around the Master Chief.
+
+actor-masterchief-tier3-regenerator =
+    .name = Regenerator
+    .description = Adds a health regeneration buff to the Master Chief.
+
+    Nearby units will also gain health regen.
+
+actor-masterchief-tier4-cloakingdevice =
+    .name = Active Camo
+    .description = Adds the ability to provide active camo to the Master Chief.
+
+actor-masterchief-tier4-bubbleshield =
+    .name = Bubble Shield
+    .description = Adds the ability to construct a bubble shield around the Master Chief.
+
+actor-masterchief-tier4-powerdrain =
+    .name = Power Drain
+    .description = The Master Chief will throw an EMP grenade that will disable units and structures.
+
+actor-masterchief-tier5-invulnerability =
+    .name = Invincibility
+    .description = Adds the ability to provide invincibility to the Master Chief.
+
+actor-masterchief-tier5-markviarmor =
+    .name = Mark VI Armor
+    .description = Upgrade armor provides buffs to all statistics.
+
+actor-masterchief-tier5-autoturret =
+    .name = Forerunner Auto Turret
+    .description = A forerunner auto turret will  assist the Master Chief.
+
 actor-masterchief =
    .pistol = M6C Magnum
    .pistoldesc = Arm the Master Chief with a M6C Magnum
 
    Reduces Damage
    Reduces Firerate
-   Increases Range (Doubles)
+   Increases Range
 
-actor-masterchief =
    .plasmapistol = Type-25 Plasma Pistol
    .plasmapistoldesc = Arm the Master Chief with a Type-25 Plasma Pistol
 
@@ -6623,6 +6674,152 @@ actor-masterchief =
 
    Increased Radius Damage
    Increased Damage to Shields
+   Delay in firing after overheating
+
+   .plasmapistol = Type-25 Plasma Pistol
+   .plasmapistoldesc = Arm the Master Chief with a Type-25 Plasma Pistol
+
+   Reduced Damage
+   Heavily Increased Damage to Shields
+   Increased Firerate
+   Reduced Range
+
+   Master Chief has a change to overcharge the Plasma Pistol and fire a charged shot:
+
+   Increased Radius Damage
+   Increased Damage to Shields
+
+   .shotgun = M90 Shotgun
+   .shotgundesc = Arm the Master Chief with a M90 Shotgun
+
+    Reduced Range
+    Increased Damage
+    Increased Damage Spread
+
+   .needler = Type-33 Needler
+   .needlerdesc = Arm the Master Chief with a Type-33 Needler
+
+    Reduced Damage
+    Increased Firespeed
+    Increased Firerange
+    Spread Damage
+
+    Needler will cause an explosion if a unit is hit multiple times in a short period of time
+
+   .plasmarifle = Okarda'phaa-pattern plasma rifle
+   .plasmarifledesc = Arm the Master Chief with a Okarda'phaa-pattern plasma rifle
+
+    Reduced Damage
+    Increased Firespeed
+    Heavily Increased damage to Shields
+
+   .assaultrifle = MA5B assault rifle
+   .assaultrifledesc = Arm the Master Chief with a MA5B assault rifle
+
+   60 Round magazine
+
+    Reduced Damage
+    Increased Firespeed
+    Decreased Accuracy
+    Long reload time
+
+   .sniper = SRS99C-S2 AM sniper rifle
+   .sniperdesc = Arm the Master Chief with a SRS99C-S2 AM sniper rifle
+
+    Heavily Increased Firerange
+    Heavily Increased Damage
+    Can only target Infantry
+    Long reload time
+
+   .plasmacarbine = Vostu-pattern carbine
+   .plasmacarbinedesc = Arm the Master Chief with a Vostu-pattern carbine
+
+    Increased Firerange
+    Increased Firerate
+    Increased Damage to Shields
+
+   .energysword = Type-1 energy sword
+   .energysworddesc = Arm the Master Chief with a Type-1 energy sword
+
+    Will leap to units when attacking
+    Short range
+    Damage reduction and movement speed increased while weapon is equipped
+    Can only target Infantry
+
+   .rocketlauncher = M41 rocket launcher
+   .rocketlauncherdesc = Arm the Master Chief with a M41 rocket launcher
+
+   2 Burst Salvo
+   Increased Damage to vehicles and buildings
+   Increased Firerange
+   Can target aircraft
+
+   .fuelrodcannon = Fuel Rod Cannon
+   .fuelrodcannondesc = Arm the Master Chief with a Fuel Rod Cannon
+
+   4 Burst Salvo
+   Heavily Increased Firerange
+   Heavily Increased Damage
+   Spread damage
+   Long reload time
+
+   .bruteshot = Jovokada Workshop Brute Shot
+   .bruteshotdesc = Arm the Master Chief with a Jovokada Workshop Brute Shot
+
+   8 Burst Salvo
+   Increased Damage to Infantry and Vehicles
+   Spread Damage
+
+   .sentinelbeam = Sentinel beam
+   .sentinelbeamdesc = Arm the Master Chief with a Sentinel beam
+
+   Increased Firerate
+   Increased Damage to Shields
+
+   .gravityhammer = Akelus Workshop Gravity Hammer
+   .gravityhammerdesc = Arm the Master Chief with a Akelus Workshop Gravity Hammer
+
+    Will leap to units when attacking
+    Long range
+    Damage reduction and movement speed increased while weapon is equipped
+    Can only target Infantry
+    Spread damage that causes heavy damage
+    Long reload time
+
+   .spartanlaser = M6/R Spartan Laser
+   .spartanlaserdesc = Arm the Master Chief with a M6/R Spartan Laser
+
+   Heavily Increased Firerange
+   Heavily Increased Damage
+   Increased Damage to Shields
+   Spread damage
+   Long reload time
+
+   .flamethrower = M7057 Flamethrower
+   .flamethrowerdesc = Arm the Master Chief with a M7057 flamethrower
+
+   Increased Damage to Infantry
+   Increased Firerate
+   Decreased Firerange
+   Spread Damage
+
+   .bubbleshieldname = Z-4190 Bubble Shield
+   .bubbleshielddesc = Places a Shield generator that provides shields to nearby units.
+
+   Will self destruct after 30 seconds.
+   Build limit 1.
+
+   .cloakingdevicename = Active camouflage
+   .cloakingdevicedesc = Covenant active camouflage conceals by bending and refracting light around the surface of the camouflaged object.
+
+   .invincibilityname = Invincibility
+   .invincibilitydesc = Provides 10 seconds of invincibility.
+
+actor-masterchiefautoturret =
+   .name = Forerunner Automated Turret
+
+actor-UNSCMarine =
+   .name = UNSC Marine 
 
 ## forgotten
 actor-frge1 =
