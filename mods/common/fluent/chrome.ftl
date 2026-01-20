@@ -103,21 +103,13 @@ button-editor-world-root-options =
     .label = Menu
     .tooltip = Menu
 
-button-editor-world-root-copy =
-    .label = Copy
-    .tooltip = Copy the selected area
+button-editor-world-root-copy-tooltip = Copy the selected area
 
-button-editor-world-root-paste =
-    .label = Paste
-    .tooltip = Paste the saved area
+button-editor-world-root-paste-tooltip = Paste the saved area
 
-button-editor-world-root-undo =
-    .label = Undo
-    .tooltip = Undo last step
+button-editor-world-root-undo-tooltip = Undo last step
 
-button-editor-world-root-redo =
-    .label = Redo
-    .tooltip = Redo last step
+button-editor-world-root-redo-tooltip = Redo last step
 
 dropdownbutton-editor-world-root-overlay-button = Overlays
 button-select-categories-buttons-all = All
@@ -228,6 +220,57 @@ label-container-title = Track
 label-no-music-title = Music Not Installed
 label-no-music-desc-a = The game music can be installed
 label-no-music-desc-b = from the "Manage Content" menu.
+
+## ingame-observer.yaml
+button-replay-pause-tooltip = Pause
+button-replay-play-tooltip = Play
+
+button-replay-slow =
+    .tooltip = Slow speed
+    .label = 50%
+
+button-replay-regular =
+    .tooltip = Regular speed
+    .label = 100%
+
+button-replay-fast =
+    .tooltip = Fast speed
+    .label = 200%
+
+button-replay-maximum =
+    .tooltip = Maximum speed
+    .label = MAX
+
+label-basic-stats-player-header = Player
+label-basic-stats-cash-header = Cash
+label-basic-stats-power-header = Power
+label-basic-stats-kills-header = Kills
+label-basic-stats-deaths-header = Deaths
+label-basic-stats-assets-destroyed-header = Destroyed
+label-basic-stats-assets-lost-header = Lost
+label-basic-stats-experience-header = Score
+label-basic-stats-actions-min-header = APM
+label-economy-stats-player-header = Player
+label-economy-stats-cash-header = Cash
+label-economy-stats-income-header = Income
+label-economy-stats-assets-header = Assets
+label-economy-stats-earned-header = Earned
+label-economy-stats-spent-header = Spent
+label-production-stats-player-header = Player
+label-production-stats-header = Production
+label-support-powers-player-header = Player
+label-support-powers-header = Support Powers
+label-army-player-header = Player
+label-army-header = Army
+label-combat-stats-player-header = Player
+label-combat-stats-assets-destroyed-header = Destroyed
+label-combat-stats-assets-lost-header = Lost
+label-combat-stats-units-killed-header = U. Killed
+label-combat-stats-units-dead-header = U. Lost
+label-combat-stats-buildings-killed-header = B. Killed
+label-combat-stats-buildings-dead-header = B. Lost
+label-combat-stats-army-value-header = Army Value
+label-combat-stats-vision-header = Vision
 
 ## lobby-options.yaml
 label-lobby-options-bin-title = Map Options
