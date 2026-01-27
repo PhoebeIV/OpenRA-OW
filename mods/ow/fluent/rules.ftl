@@ -7490,7 +7490,7 @@ player-factions =
      Superweapon: Nuclear Missile
      Super Ability: Artillery Strike
    .nuke = General Tsing Shi Tao
-     Special Units: Nuclear based units
+     Special Units: Nuclear based units & Deathhand
      Superweapon: Super Nuclear Missile
      Super Ability: Nuclear Parabombs
    .japan = Neo Japanese Empire
@@ -7566,6 +7566,18 @@ player-factions =
       Special units: 'Mech Lances
      
       Drawbacks: Resource intensive, but many options.
+    .unsc = UNSC Marine Corps [WIP]
+      "Provide combined arms expeditionary forces and security detachments."
+
+      The UNSC Marine Corps is a branch of the United Nations Space Command responsible
+      for conducting land-based expeditionary amphibious and airborne combat operations,
+      using the mobility provided by the UNSC Navy to rapidly deliver forces.
+
+      Speciality: Multipurpose
+      Superweapon: ??? 
+      Special units: ???
+      Abilities: ???
+
    .civ = [incomplete] Civilians: Support
      Special Unit: Nothing
      Super Unit: President
@@ -7672,3 +7684,13 @@ actor-iron =
     for 20 seconds.
     .grantexternalconditionpower-ironcurtain-description2 = Grants invulnerability to a large group of units
     for 20 seconds.
+
+## unsc_str.yaml
+actor-unscreactor =
+   .description = Provides power for other structures.
+    Can be deployed to Overcharge Power at the cost of structure integrity.
+   .name = UNSC Reactor
+
+actor-unscbarracks =
+   .description = The Barracks trains the bulk of the UNSC infantry units. Infantry technology upgrades can also be found here.
+   .name = UNSC Barracks

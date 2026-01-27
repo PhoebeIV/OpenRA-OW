@@ -1,0 +1,217 @@
+unscmarine:
+	Inherits: ^Soldier
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Buildable:
+		Queue: Infantry
+		BuildAtProductionType: Soldier
+		BuildPaletteOrder: 4
+		Prerequisites: ~infantry.unsc
+		Description: actor-unscmarine.description
+	Tooltip:
+		Name: actor-unscmarine.name
+	Valued:
+		Cost: 125
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 10000
+	Mobile:
+		Voice: Move
+	Guard:
+		Voice: Move
+	Passenger:
+		Voice: Move
+	GrantRandomCondition:
+		Conditions: battlerifle, shotgun, assaultrifle, fake1
+	Armament@PRIMARY:
+		Weapon: unscpistol
+		PauseOnCondition: battlerifle || shotgun || assaultrifle
+	Armament@GARRISONED:
+		Name: garrisoned
+		Weapon: unscpistol
+		MuzzleSequence: garrison-muzzle
+		PauseOnCondition: battlerifle || shotgun || assaultrifle
+	Armament@BUS:
+		Name: bus
+		Weapon: unscpistol
+		MuzzleSequence: garrison-muzzle
+		PauseOnCondition: battlerifle || shotgun || assaultrifle
+	Armament@PRIMARYbattlerifle:
+		Weapon: unscmarinebattlerifle
+		RequiresCondition: battlerifle
+	Armament@PRIMARYbattlerifle1:
+		Weapon: unscmarinebattlerifletracer
+		LocalOffset: 0,0,250
+		RequiresCondition: battlerifle
+	Armament@GARRISONEDbattlerifle:
+		Name: garrisoned
+		Weapon: unscmarinebattlerifle
+		MuzzleSequence: garrison-muzzle
+		RequiresCondition: battlerifle
+	Armament@BUSbattlerifle:
+		Name: bus
+		Weapon: unscmarinebattlerifle
+		RequiresCondition: battlerifle
+	Armament@PRIMARYshotgun:
+		Weapon: unscshotgun
+		RequiresCondition: shotgun
+	Armament@PRIMARYshotgun1:
+		Weapon: unscshotguntracer
+		LocalOffset: 0,0,250
+		RequiresCondition: shotgun
+	Armament@GARRISONEDshotgun:
+		Name: garrisoned
+		Weapon: unscshotgun
+		MuzzleSequence: garrison-muzzle
+		RequiresCondition: shotgun
+	Armament@BUSshotgun:
+		Name: bus
+		Weapon: unscshotgun
+		RequiresCondition: shotgun
+	Armament@PRIMARYassaultrifle:
+		Weapon: unscassaultrifle
+		RequiresCondition: assaultrifle
+	Armament@GARRISONEDassaultrifle:
+		Name: garrisoned
+		Weapon: unscassaultrifle
+		MuzzleSequence: garrison-muzzle
+		RequiresCondition: assaultrifle
+	Armament@BUSassaultrifle:
+		Name: bus
+		Weapon: unscassaultrifle
+		RequiresCondition: assaultrifle
+	WithInfantryBody:
+		DefaultAttackSequence: shoot
+		RequiresCondition: !parachute
+	WithInfantryBody@PARACHUTE:
+		StandSequences: parachute
+		RequiresCondition: parachute
+	ProducibleWithLevel:
+		Prerequisites: barracks.upgraded
+	RevealsShroud:
+		Range: 5c0
+	Selectable:
+		Bounds: 768, 853, 0, -256
+		DecorationBounds: 640, 896, 0, -426
+	RenderSprites:
+		Image: usaranger
+	Voiced:
+		VoiceSet: RangerVoice
+
+unscheavyweaponsmarine:
+	Inherits: ^Soldier
+	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
+	Buildable:
+		Queue: Infantry
+		BuildAtProductionType: Soldier
+		BuildPaletteOrder: 5
+		Prerequisites: ~infantry.unsc
+		Description: actor-unscheavyweaponsmarine.description
+	Tooltip:
+		Name: actor-unscheavyweaponsmarine.name
+	Valued:
+		Cost: 350
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 10000
+	Mobile:
+		Voice: Move
+	Guard:
+		Voice: Move
+	Passenger:
+		Voice: Move
+	Armament@PRIMARY:
+		Weapon: unscrocketlauncher
+		LocalOffset: 0,0,555
+	Armament@GARRISONED:
+		Name: garrisoned
+		Weapon: unscrocketlauncher
+		MuzzleSequence: garrison-muzzle
+	Armament@BUS:
+		Name: bus
+		Weapon: unscrocketlauncher
+		MuzzleSequence: garrison-muzzle
+	WithInfantryBody:
+		DefaultAttackSequence: shoot
+		RequiresCondition: !parachute
+	WithInfantryBody@PARACHUTE:
+		StandSequences: parachute
+		RequiresCondition: parachute
+	ProducibleWithLevel:
+		Prerequisites: barracks.upgraded
+	RevealsShroud:
+		Range: 5c0
+	Selectable:
+		Bounds: 768, 853, 0, -256
+		DecorationBounds: 640, 896, 0, -426
+	RenderSprites:
+		Image: usadefender
+	Voiced:
+		VoiceSet: MissileDefenderVoice
+
+unscsniper:
+	Inherits: ^Soldier
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Buildable:
+		Queue: Infantry
+		BuildAtProductionType: Soldier
+		BuildPaletteOrder: 61
+		Prerequisites: ~infantry.unsc, techcenter
+		Description: actor-unscsniper.description
+	Tooltip:
+		Name: actor-unscsniper.name
+	Valued:
+		Cost: 1000
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 5000
+	Mobile:
+		Voice: Move
+	Guard:
+		Voice: Move
+	Passenger:
+		Voice: Move
+	AutoTargetPriority@DEFAULT:
+		ValidTargets: Infantry
+		InvalidTargets: NoAutoTarget
+	Armament@PRIMARY:
+		Weapon: unscsniperrifle
+		LocalOffset: 0,0,555
+	Armament@GARRISONED:
+		Name: garrisoned
+		Weapon: unscsniperrifle
+		MuzzleSequence: garrison-muzzle
+	Armament@BUS:
+		Name: bus
+		Weapon: unscsniperrifle
+		MuzzleSequence: garrison-muzzle
+	WithInfantryBody:
+		DefaultAttackSequence: shoot
+		RequiresCondition: !parachute
+	WithInfantryBody@PARACHUTE:
+		StandSequences: parachute
+		RequiresCondition: parachute
+	ProducibleWithLevel:
+		Prerequisites: barracks.upgraded
+	RevealsShroud:
+		Range: 5c0
+	Selectable:
+		Bounds: 768, 853, 0, -256
+		DecorationBounds: 640, 896, 0, -426
+	Cloak:
+		InitialDelay: 200
+		CloakDelay: 100
+		CloakSound:
+		UncloakSound:
+		UncloakOn: Attack, Unload, Infiltrate, Demolish, Move
+		IsPlayerPalette: true
+		RequiresCondition: !cloak-force-disabled
+	GrantConditionOnDamageState@UNCLOAK:
+		Condition: cloak-force-disabled
+		ValidDamageStates: Critical
+	RenderSprites:
+		Image: usapathfinder
+	Voiced:
+		VoiceSet: PathfinderVoice

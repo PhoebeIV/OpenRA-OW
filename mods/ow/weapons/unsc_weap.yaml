@@ -1,0 +1,133 @@
+unscmarinebattlerifle:
+	Inherits: TerranMarineUp
+	Report: battleriflefire1.aud, battleriflefire2.aud, battleriflefire3.aud
+	ReloadDelay: 22
+	Range: 5c0
+	ValidTargets: Ground, Water, GroundActor, WaterActor
+	Warhead@1Dam: SpreadDamage
+		Damage: 1000
+		Versus:
+			None: 100
+			Wood: 25
+			Light: 40
+			Heavy: 50
+			Concrete: 20
+	Warhead@2Dam: SpreadDamage
+		Damage: 1000
+
+unscmarinebattlerifletracer:
+	Inherits: ^TracerRound
+	ReloadDelay: 22
+	Range: 5c0
+	ValidTargets: Ground, Water, GroundActor, WaterActor
+
+unscpistol:
+	Inherits: Pistol
+	Report: masterchiefpistolfire.aud
+	Range: 6c0
+	ReloadDelay: 18
+	Warhead@1Dam: SpreadDamage
+		Damage: 1000
+		Versus:
+			None: 150
+
+unscshotgun:
+	Inherits: ^LightMG
+	ReloadDelay: 30
+	Range: 4c0
+	Report: MasterChiefShotgunFire.aud
+	AfterFireSound: MasterChiefShotgunCock.aud
+	Warhead@1Dam: SpreadDamage
+		Spread: 512
+		Damage: 3000
+		Versus:
+			None: 100
+			Wood: 25
+			Light: 60
+			Heavy: 50
+			Concrete: 20
+		DamageTypes: Prone50Percent, TriggerProne, BulletDeath
+
+unscshotguntracer:
+	Inherits: ^TracerRound
+	ReloadDelay: 30
+	Burst: 3
+	BurstDelays: 0
+	Range: 4c0
+	ValidTargets: Ground, Water, GroundActor, WaterActor, AirborneActor
+	Projectile: Bullet
+		Speed: 1c0
+		Inaccuracy: 1c0
+
+unscassaultrifle:
+	Inherits: TerranMarineUp
+	Report: assaultriflefire1.aud, assaultriflefire2.aud, assaultriflefire3.aud, assaultriflefire4.aud
+	ReloadDelay: 10
+	Burst: 5
+	BurstDelays: 2
+	Range: 5c0
+	Projectile: InstantHit
+		Inaccuracy: 1024
+	ValidTargets: Ground, Water, GroundActor, WaterActor, Air, AirborneActor
+	Warhead@1Dam: SpreadDamage
+		Damage: 500
+		Versus:
+			None: 80
+			Wood: 25
+			Light: 40
+			Heavy: 50
+			Concrete: 20
+	Warhead@2Dam: SpreadDamage
+		Damage: 500
+
+unscassaultrifletracer:
+	Inherits: ^TracerRound
+	ReloadDelay: 25
+	Range: 5c0
+	ValidTargets: Ground, Water, GroundActor, WaterActor, AirborneActor
+
+unscrocketlauncher:
+	Inherits: DoomRPG
+	Report: MasterChiefRocketLauncherFire1.aud, MasterChiefRocketLauncherFire2.aud
+	Range: 5c0
+	ReloadDelay: 50
+	Burst: 2
+	BurstDelays: 10
+	Projectile: Missile
+		Image: dukenukemrocketdev
+	Warhead@1Dam: SpreadDamage
+		Spread: 128
+		Damage: 5000
+		ValidTargets: Ground, Air, GroundActor, AirborneActor, WaterActor, Trees
+		Versus:
+			None: 10
+			Wood: 74
+			Light: 34
+			Heavy: 100
+			Concrete: 50
+		DamageTypes: Prone50Percent, TriggerProne, SmallExplosionDeath
+	Warhead@3Eff: CreateEffect
+		Explosions: med_explosion
+		ImpactSounds: masterchiefgrenadeexplode1.aud, masterchiefgrenadeexplode2.aud, masterchiefgrenadeexplode3.aud
+		ValidTargets: Ground, Air, GroundActor, AirborneActor, WaterActor, Trees
+
+unscsniperrifle:
+	Inherits: ^SnipeWeapon
+	ReloadDelay: 75
+	Range: 12c0
+	Report: MasterChiefSniper1.aud, MasterChiefSniper2.aud, MasterChiefSniper3.aud, MasterChiefSniper4.aud
+	ValidTargets: Ground, Infantry, Cyborg
+	Projectile: LaserZap
+		Color: FFFFFF
+		Width: 14
+		Duration: 25
+	Warhead@1Dam: SpreadDamage
+		Spread: 42
+		Damage: 5000
+		Versus:
+			None: 100
+			Wood: 25
+			Light: 75
+			Heavy: 50
+			Concrete: 25
+		DamageTypes: Prone50Percent, TriggerProne, BulletDeath

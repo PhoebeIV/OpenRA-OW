@@ -746,7 +746,7 @@ masterchief.Hero0:
 		LocalOffset: 564,0,0
 		PauseOnCondition: masterchiefpistolcondition || masterchiefplasmapistolcondition || masterchiefshotguncondition || masterchiefneedlercondition || masterchiefplasmariflecondition || masterchiefassaultriflecondition || masterchiefsnipercondition || masterchiefplasmacarbinecondition || masterchiefrocketlaunchercondition || masterchieffuelrodcannoncondition || masterchiefbruteshotcondition || masterchiefsentinelbeamcondition || masterchiefenergyswordcondition || masterchiefspartanlasercondition || masterchiefflamethrowercondition || masterchiefgravityhammercondition
 		RequiresCondition: masterchiefpowerdraincondition
-	GivesBuildableArea:
+	GivesBuildableArea@masterchief:
 		AreaTypes: masterchief
 	GrantConditionOnPrerequisite@invincibility:
 		Condition: masterchiefinvincibilitycondition
@@ -1642,53 +1642,6 @@ masterchief.ability.invincibility:
 		Interval: 10000,20000
 	ProvidesPrerequisite@pistol:
 		Prerequisite: masterchiefinvincibility
-
-UNSCMarine:
-	Inherits: ^Soldier
-	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
-	Tooltip:
-		Name: actor-UNSCMarine.name
-	Valued:
-		Cost: 5000
-	UpdatesPlayerStatistics:
-		AddToArmyValue: true
-	Health:
-		HP: 45000
-	Mobile:
-		Voice: Move
-	Guard:
-		Voice: Move
-	Passenger:
-		Voice: Move
-	Armament@PRIMARY:
-		Weapon: MasterChiefRifle
-	Armament@GARRISONED:
-		Name: garrisoned
-		Weapon: MasterChiefRifle
-		MuzzleSequence: garrison-muzzle
-	Armament@BUS:
-		Name: bus
-		Weapon: MasterChiefRifle
-	Armament@TRACER:
-		Weapon: MasterChiefRifleTracer
-		LocalOffset: 0,0,250
-	WithInfantryBody:
-		DefaultAttackSequence: shoot
-		RequiresCondition: !parachute
-	WithInfantryBody@PARACHUTE:
-		StandSequences: parachute
-		RequiresCondition: parachute
-	ProducibleWithLevel:
-		Prerequisites: barracks.upgraded
-	RevealsShroud:
-		Range: 5c0
-	Selectable:
-		Bounds: 768, 853, 0, -256
-		DecorationBounds: 640, 896, 0, -426
-	RenderSprites:
-		Image: usaranger
-	Voiced:
-		VoiceSet: RangerVoice
 
 # 20 seconds
 masterchief.weapon.cooldown:
