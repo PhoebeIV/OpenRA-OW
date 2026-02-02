@@ -1,97 +1,165 @@
+unsccommandcenter:
+	Inherits: ^Building
+	Inherits@con: ^ConYard
+	Inherits@prereqs: ^ConYardPrereqs
+	Inherits@BIB: ^4xBuildingBib
+	Inherits@botblocker: ^3x4BotBlockerChoose
+	-Building:
+	Tooltip:
+		Name: actor-unsccommandcenter.name
+	D2kBuilding:
+		Footprint: xxX= xxxx XxXX ====
+		Dimensions: 4,4
+		TerrainTypes: Clear,ClearSnow,Road,Creep
+		RequiresBaseProvider: True
+		BuildSounds: placbldg.aud, build5.aud
+		UndeploySounds: cashturn.aud
+		LocalCenterOffset: 0,-512,0
+		ConcreteTemplate: 1024
+		ConcretePrerequisites: techlevel.pavement
+	Buildable:
+		BuildPaletteOrder: 7500
+	ConyardChronoReturn:
+		ReturnOriginalActorOnCondition: build-incomplete
+		Condition: chrono-vortex
+		Damage: 1500
+	Transforms:
+		RequiresCondition: factundeploy && !bot_undeploy_block
+		PauseOnCondition: chrono-vortex || being-captured || being-demolished || build-incomplete
+		IntoActor: unscmcv
+		Offset: 1,1
+		Facing: 384
+	TransformsIntoMobile:
+		RequiresCondition: factundeploy && !bot_undeploy_block
+		Locomotor: heavywheeled
+		RequiresForceMove: true
+	TransformsIntoPassenger:
+		RequiresCondition: factundeploy && !bot_undeploy_block
+		CargoType: Vehicle
+		RequiresForceMove: true
+	TransformsIntoRepairable:
+		RequiresCondition: factundeploy && !bot_undeploy_block
+		RepairActors: fix, gfix, gfix.boss, tshop, weapgarage, unscrepairpad
+		RequiresForceMove: true
+	TransformsIntoTransforms:
+		RequiresCondition: factundeploy && build-incomplete && !bot_undeploy_block
+	Health:
+		HP: 80000
+	Armor:
+		Type: Wood
+	RevealsShroud:
+		MinRange: 4c0
+		Range: 5c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 4c0
+
 unscreactor:
 	Inherits: ^PowerPlant
 	Inherits@POWER_OUTAGE: ^DisabledByPowerOutage
-	Inherits@shape: ^2x2Shape
-	Inherits@BIB: ^2xBuildingBib
-	Selectable:
-		Bounds: 2048, 2048
-	HitShape:
-		UseTargetableCellsOffsets: false
-		TargetableOffsets: 0,0,0, 640,-384,0, 640,512,0, -710,-512,0, -710,512,0
-	Buildable:
-		Queue: Building
-		BuildPaletteOrder: 10
-		Prerequisites: ~structures.unsc, ~!ai.powerout
-		Description: actor-unscreactor.description
+	Inherits@shape: ^3x3Shape
+	Inherits@BIB: ^3xBuildingBib
 	Valued:
-		Cost: 600
+		Cost: 500
 	Tooltip:
 		Name: actor-unscreactor.name
+		RequiresCondition: !advancedreactor
+	Tooltip@advanced:
+		Name: actor-unscreactor.nameup
+		RequiresCondition: advancedreactor
 	ProvidesPrerequisite:
 		Prerequisite: anypower
 	Building:
-		Footprint: xx xx ==
-		Dimensions: 2,3
-		LocalCenterOffset: 0,-512,0
+		Footprint: xxx xxx ===
+		Dimensions: 3,3
+	Selectable:
+		Bounds: 3072, 4096
+		DecorationBounds: 3072, 4096
 	Health:
 		HP: 80000
 	Armor:
 		Type: Wood
 	RevealsShroud:
 		Range: 4c0
-	Power@notovercharged:
-		Amount: 150
-		RequiresCondition: !overcharge && !disabled
-	Power@overcharged:
-		Amount: 500
-		RequiresCondition: overcharge && !disabled
-	FireWarheadsOnDeath@overcharged:
-		Weapon: TinyNuke
-		EmptyWeapon: TinyNuke
-		RequiresCondition: overcharge && !disabled
-	FireWarheadsOnDeath:
-		Weapon: chinaoverlordexplosion
-		EmptyWeapon: chinaoverlordexplosion
-	GrantConditionOnDeploy:
-		MakeAnimationDeployTypes:
-		DeployedCondition: overcharge
-		SkipMakeAnimation: True
-	ChangesHealth@overcharged:
-		RequiresCondition: overcharge && !disabled
-		PercentageStep: -5
-		Delay: 25
-		DamageCooldown: 25
-		StartIfBelow: 110
-	WithIdleOverlay@overcharge:
+	Power:
+		Amount: 100
+		RequiresCondition: !disabled
+	Power@advancedreactor:
+		Amount: 100
+		RequiresCondition: advancedreactor
+	WithIdleOverlay:
 		Image: explosion
 		Sequence: cyrostreamexplosion
-		Offset: 0,-562,612
+		Offset: 0,256,896
 		RequiresCondition: !disabled
+		Palette: noplayer
+	WithIdleOverlay@advancedreactor:
+		Image: explosion
+		Sequence: cyrostreamexplosion
+		Offset: 0,-412,1408
+		RequiresCondition: !disabled && advancedreactor
 		Palette: noplayer
 	Targetable:
 		TargetTypes: GroundActor, Structure, C4, DetonateAttack, SpyInfiltrate
 	ScalePowerWithHealth:
-	WithDeathAnimation:
-		DeathSequence: dead
-		PlayerPalette: ra2
-		UseDeathTypeSuffix: false
+	Pluggable@1:
+		Offset: 0,0
+		Conditions:
+			unscreactor.up: advancedreactor
+		Requirements:
+			unscreactor.up: !build-incomplete && !advancedreactor && !estoniabuff
+		EditorOptions:
+			unscreactor.up: Advanced Reactor
+	WithSpriteBody@Extra50:
+		RequiresCondition: advancedreactor && !build-incomplete
+		Sequence: idle2
+	ToggleConditionOnOrder@sell:
+		OrderName: Sell
+		Condition: sell_me
+	TransformOnCondition@sell:
+		RequiresCondition: sell_me
+		IntoActor: unscfirebase
+	SpawnActorOnDeath@firebase:
+		Actor: unscfirebase
+
+unscreactor.up:
+	Inherits: ^BuildingPlug
+	Valued:
+		Cost: 500
+	Tooltip:
+		Name: actor-unscreactor-up.name
+	Buildable:
+		Queue: Wall
+		BuildPaletteOrder: 102
+		Prerequisites: ~structures.unsc, ~anypower
+		Description: actor-unscreactor-up.description
+		Icon: icon-controlrods
+		BuildDuration: 800
+	Plug:
+		Type: unscreactor.up
 	RenderSprites:
-		Image: chinanuclearreactor
-		PlayerPalette: dawn
+		Image: oregen
+	SequencePlaceBuildingPreview:
+		Sequence: idle
 
 unscbarracks:
 	Inherits: ^DawnBuilding
 	Inherits@prereqs: ^BarracksPrereqs
-	Inherits@shape: ^2x2Shape
-	Inherits@BIB: ^2xBuildingBib
+	Inherits@shape: ^3x3Shape
+	Inherits@BIB: ^3xBuildingBib
 	Selectable:
-		Bounds: 2048, 2048
+		Bounds: 3072, 4096
+		DecorationBounds: 3072, 4096
 	HitShape:
 		UseTargetableCellsOffsets: false
 		TargetableOffsets: 0,0,0, 630,-512,0, 355,512,0, -281,-512,0, -630,512,0
-	Buildable:
-		Queue: Building
-		BuildPaletteOrder: 20
-		Prerequisites: anypower, ~structures.unsc, ~!structures.bothard
-		Description: actor-unscbarracks.description
 	Valued:
-		Cost: 600
+		Cost: 200
 	Tooltip:
 		Name: actor-unscbarracks.name
 	Building:
-		Footprint: xx xx ==
-		Dimensions: 2,3
-		LocalCenterOffset: 0,-512,0
+		Footprint: xxx xxx ===
+		Dimensions: 3,3
 	Health:
 		HP: 70000
 	Armor:
@@ -102,9 +170,6 @@ unscbarracks:
 		RevealGeneratedShroud: False
 	RevealsShroud@GAPGEN:
 		Range: 4c0
-	RenderSprites:
-		PlayerPalette: dawn
-		Image: usabarracksbuilding
 	ActorPreviewPlaceBuildingPreview:
 	Cloak@stealthgen:
 		Palette: dawncloak
@@ -148,7 +213,933 @@ unscbarracks:
 	ProvidesPrerequisite@phobosupgrade:
 		RequiresPrerequisites: structures.phobos
 		Prerequisite: barracks.upgraded
-	WithDeathAnimation:
-		DeathSequence: dead
-		UseDeathTypeSuffix: false
-		DeathSequencePalette: dawn
+	ToggleConditionOnOrder@sell:
+		OrderName: Sell
+		Condition: sell_me
+	TransformOnCondition@sell:
+		RequiresCondition: sell_me
+		IntoActor: unscfirebase
+	SpawnActorOnDeath@firebase:
+		Actor: unscfirebase
+
+unscgarage:
+	Inherits: ^Building
+	Inherits@prereqs: ^WeaponsFactory
+	Inherits@shape: ^3x3Shape
+	Inherits@BIB: ^3xBuildingBib
+	Selectable:
+		Bounds: 3072, 4096
+		DecorationBounds: 3072, 4096
+	Valued:
+		Cost: 1700
+	Tooltip:
+		Name: actor-unscgarage.name
+	Building:
+		Footprint: xxx x== ===
+		Dimensions: 3,3
+	Health:
+		HP: 150000
+	Armor:
+		Type: Wood
+	RevealsShroud:
+		MinRange: 4c0
+		Range: 5c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 4c0
+	RallyPoint:
+	Exit@1:
+		RequiresCondition: !being-captured
+		SpawnOffset: 213,-128,0
+		ExitCell: 1,2
+	Production:
+		Produces: Vehicle
+	GrantExternalConditionToProduced:
+		Condition: produced
+	ProductionBar:
+		ProductionType: Vehicle
+	Power:
+		Amount: -30
+	ProvidesPrerequisite@buildingname:
+	Targetable:
+		TargetTypes: GroundActor, C4, DetonateAttack, Structure, SpyInfiltrate
+	InfiltrateForSupportPower:
+		Proxy: vehicles.upgraded
+		Types: SpyInfiltrate
+	ToggleConditionOnOrder@sell:
+		OrderName: Sell
+		Condition: sell_me
+	TransformOnCondition@sell:
+		RequiresCondition: sell_me
+		IntoActor: unscfirebase
+	SpawnActorOnDeath@firebase:
+		Actor: unscfirebase
+
+unscsupplypad:
+	Inherits: ^Building
+	Inherits@ref: ^Refinery
+	Inherits@shape: ^3x3Shape
+	Inherits@BIB: ^3xBuildingBib
+	Inherits@botblocker: ^3x4BotBlockerChoose
+	Building:
+		Footprint: xxx xxx ===
+		Dimensions: 3,3
+	Selectable:
+		Bounds: 3072, 4096
+		DecorationBounds: 3072, 4096
+	Valued:
+		Cost: 1100
+	Health:
+		HP: 60000
+	Power:
+		Amount: -60
+	Tooltip:
+		Name: actor-unscsupplypad.name
+	Refinery:
+	StoresPlayerResources:
+		Capacity: 2000
+	DrawLineToTarget:
+	CustomSellValue:
+		Value: 300
+	FreeActor:
+		Actor: unscdarter
+		SpawnOffset: 1,2
+		Facing: 256
+	DockHost:
+		Type: Unload
+		DockAngle: 448
+		IsDragRequired: false
+		DragOffset: -554,512,0
+		DragLength: 0
+		DockOffset: 0,1024,0
+	InfiltrateForCash:
+		Percentage: 50
+		Types: SpyInfiltrate, ThiefInfiltrate
+		InfiltratedNotification: CreditsStolen
+		Maximum: 5000
+	ProvidesPrerequisite@buildingname:
+	ToggleConditionOnOrder@sell:
+		OrderName: Sell
+		Condition: sell_me
+	TransformOnCondition@sell:
+		RequiresCondition: sell_me
+		IntoActor: unscfirebase
+	SpawnActorOnDeath@firebase:
+		Actor: unscfirebase
+
+unscairpad:
+	Inherits: ^Building
+	Inherits@prereqs: ^AircraftPrereqs
+	Inherits@shape: ^3x3Shape
+	Inherits@BIB: ^3xBuildingBib
+	Building:
+		TerrainTypes: Clear, ClearSnow, Road, Creep
+		Footprint: xxx xxx ===
+		Dimensions: 3,3
+	Selectable:
+		Bounds: 3072, 4096
+		DecorationBounds: 3072, 4096
+	Production:
+		Produces: Aircraft, Plane, Helicopter
+	ProductionBar:
+		ProductionType: Aircraft
+	Exit:
+		ProductionTypes: Aircraft, Plane, Helicopter
+	Valued:
+		Cost: 1400
+	Health:
+		HP: 60000
+	Armor:
+		Type: Wood
+	Power:
+		Amount: -30
+	RevealsShroud:
+		MinRange: 4c0
+		Range: 5c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 4c0
+	GrantExternalConditionToProduced:
+		Condition: produced
+	Sellable:
+		RequiresCondition: !being-captured && !being-demolished
+
+unscarmory:
+	Inherits: ^ScienceBuilding
+	Inherits@shape: ^3x3Shape
+	Inherits@BIB: ^3xBuildingBib
+	Tooltip:
+		Name: actor-unscarmory.name
+	Building:
+		Footprint: xxx xxx ===
+		Dimensions: 3,3
+	Selectable:
+		Bounds: 3072, 4096
+		DecorationBounds: 3072, 4096
+	Valued:
+		Cost: 1500
+	Health:
+		HP: 80000
+	Armor:
+		Type: Heavy
+	Power:
+		Amount: -150
+	RevealsShroud:
+		MinRange: 5c0
+		Range: 7c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 5c0
+	Targetable:
+		TargetTypes: GroundActor, C4, DetonateAttack, Structure, SpyInfiltrate
+	ProvidesPrerequisite@buildingname:
+	ProvidesPrerequisite:
+		Prerequisite: techcenter
+		RequiresPrerequisites: techlevel.high
+	ToggleConditionOnOrder@sell:
+		OrderName: Sell
+		Condition: sell_me
+	TransformOnCondition@sell:
+		RequiresCondition: sell_me
+		IntoActor: unscfirebase
+	SpawnActorOnDeath@firebase:
+		Actor: unscfirebase
+
+unscradartower:
+	Inherits: ^Building
+	Inherits@shape: ^3x3Shape
+	Inherits@BIB: ^3xBuildingBib
+	Tooltip:
+		Name: actor-unscradartower.name
+	ProvidesRadar:
+		RequiresCondition: !lowpower
+	Building:
+		Footprint: xxx xxx ===
+		Dimensions: 3,3
+	Selectable:
+		Bounds: 3072, 4096
+		DecorationBounds: 3072, 4096
+	Valued:
+		Cost: 1000
+	Health:
+		HP: 80000
+	Armor:
+		Type: Heavy
+	Power:
+		Amount: -40
+	RevealsShroud:
+		MinRange: 5c0
+		Range: 7c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 5c0
+	Targetable:
+		TargetTypes: GroundActor, C4, DetonateAttack, Structure, SpyInfiltrate
+	ProvidesPrerequisite@buildingname:
+	ProvidesRadar:
+		RequiresCondition: !jammed && !disabled
+	ProvidesPrerequisite:
+		Prerequisite: radar
+		RequiresPrerequisites: techlevel.high
+	InfiltrateForExploration:
+		Types: SpyInfiltrate
+	ParatroopersPower:
+		OrderName: UNSCParadrop
+		Icon: paratroopers
+		ChargeInterval: 15000
+		Name: UNSC Marine Paradrop
+		Description: 3 D75 Pelicans drops a squad of UNSC Marine anywhere on the map.
+		UnitType: unscpelican
+		DropItems: UNSCMarine, UNSCMarine, UNSCMarine, UNSCMarine, UNSCMarine, UNSCMarine, UNSCMarine, UNSCMarine, UNSCMarine, UNSCMarine, UNSCMarine, UNSCMarine, UNSCMarine, UNSCMarine, UNSCMarine
+		SquadSize: 3
+		Cordon: 256
+		ReinforcementsArrivedSpeechNotification: ReinforcementsArrived
+		SelectTargetSpeechNotification: SelectTarget
+		AllowImpassableCells: false
+		QuantizedFacings: 8
+		CameraActor: camera.paradrop
+		DisplayBeacon: true
+		BeaconPoster: pinficon
+		ArrowSequence: arrow
+		ClockSequence: clock
+		CircleSequence: circles
+		UseDirectionalTarget: True
+		DirectionArrowAnimation: paradirection
+		SupportPowerPaletteOrder: 50
+	ToggleConditionOnOrder@sell:
+		OrderName: Sell
+		Condition: sell_me
+	TransformOnCondition@sell:
+		RequiresCondition: sell_me
+		IntoActor: unscfirebase
+	SpawnActorOnDeath@firebase:
+		Actor: unscfirebase
+
+unscrepairpad:
+	Inherits: ^Building
+	Inherits@SHAPE: ^3x3Shape
+	Inherits@BIB: ^3xBuildingBib
+	Valued:
+		Cost: 1000
+	Tooltip:
+		Name: actor-fix.name
+	Building:
+		Footprint: x++ +++ ===
+		Dimensions: 3,3
+	Selectable:
+		Bounds: 3072, 3072
+		DecorationBounds: 3072, 3072
+	HitShape:
+		TargetableOffsets: 840,0,0, 598,-640,0, 598,640,0, -1060,0,0, -768,-640,0, -768,640,0
+		Type: Polygon
+			Points: -1536,-300, -640,-811, 640,-811, 1536,-300, 1536,555, 640,1110, -640,1110, -1536,555
+	Health:
+		HP: 80000
+	Armor:
+		Type: Wood
+	RevealsShroud:
+		MinRange: 4c0
+		Range: 5c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 4c0
+	Reservable:
+	RallyPoint:
+	CommandBarBlacklist:
+		DisableStop: false
+	RepairsUnits:
+		HpPerStep: 1000
+		Interval: 7
+		StartRepairingNotification: Repairing
+		StartRepairingTextNotification: notification-repairing
+		FinishRepairingNotification: UnitRepaired
+		FinishRepairingTextNotification: notification-unit-repaired
+		PlayerExperience: 5
+	WithResupplyAnimation:
+		Sequence: idle
+		RequiresCondition: !build-incomplete
+	Power:
+		Amount: -30
+	ProvidesPrerequisite@buildingname:
+	ProvidesPrerequisite:
+		Prerequisite: fix
+	ToggleConditionOnOrder@sell:
+		OrderName: Sell
+		Condition: sell_me
+	TransformOnCondition@sell:
+		RequiresCondition: sell_me
+		IntoActor: unscfirebase
+	SpawnActorOnDeath@firebase:
+		Actor: unscfirebase
+
+unscmac:
+	Inherits: ^Building
+	Inherits@superweapon: ^Superweapon
+	Inherits@SHAPE: ^3x3Shape
+	Inherits@BIB: ^3xBuildingBib
+	Inherits@IDISABLE: ^DisableOnLowPowerOrPowerDown
+	Valued:
+		Cost: 4700
+	Tooltip:
+		Name: actor-unscmac.name
+	Building:
+		Footprint: xxx xxx ===
+		Dimensions: 3,3
+	Selectable:
+		Bounds: 3072, 4096
+		DecorationBounds: 3072, 4096
+	WithIdleOverlay@POWER:
+		Offset: -20,-70,0
+		Sequence: power
+	Health:
+		HP: 100000
+	Armor:
+		Type: Wood
+	RevealsShroud:
+		Range: 4c0
+	IonCannonPower:
+		OrderName: MagneticAcceleratorCannon
+		PauseOnCondition: disabled
+		Icon: magneticacceleratorcannonicon
+		Cursor: chrono-target
+		ChargeInterval: 22500
+		Name: Magnetic Accelerator Cannon
+		Description: actor-eyed.illumdesc
+		BeginChargeSpeechNotification: IonCannonCharge
+		EndChargeSpeechNotification: IonCannonReady
+		SelectTargetSpeechNotification: DawnSelectTarget
+		InsufficientPowerSpeechNotification: InsufficientPower
+		OnFireSound: magneticacceleratorcannonfire1.aud
+		DisplayRadarPing: True
+		CameraActor: camera.small
+		SupportPowerPaletteOrder: 19
+		WeaponDelay: 0
+		CameraRemoveDelay: 100
+		Effect: explosion
+		EffectSequence: piff
+		Weapon: MagneticAcceleratorCannonBombardment
+		DisplayTimerRelationships: Ally, Neutral, Enemy
+	SupportPowerChargeBar:
+	Power:
+		Amount: -200
+	MustBeDestroyed:
+		RequiredForShortGame: false
+	ProvidesPrerequisite@superweapon:
+		Prerequisite: superweapon
+	ToggleConditionOnOrder@sell:
+		OrderName: Sell
+		Condition: sell_me
+	TransformOnCondition@sell:
+		RequiresCondition: sell_me
+		IntoActor: unscfirebase
+	SpawnActorOnDeath@firebase:
+		Actor: unscfirebase
+
+unscfirebase:
+	Inherits: ^Building
+	Inherits@SHAPE: ^3x3Shape
+	Inherits@BIB: ^3xBuildingBib
+	Buildable:
+		Queue: Building
+		Prerequisites: ~structures.unsc
+		BuildPaletteOrder: 1
+		Description: actor-unscfirebase.description
+	Valued:
+		Cost: 300
+	Tooltip:
+		Name: actor-unscfirebase.name
+	Building:
+		Footprint: xxx xxx ===
+		Dimensions: 3,3
+	Selectable:
+		Bounds: 3072, 3072
+		DecorationBounds: 3072, 3072
+	Health:
+		HP: 100000
+	Armor:
+		Type: Wood
+	Power:
+		Amount: 0
+	ProvidesPrerequisite@buildingname:
+	RevealsShroud@GAPGEN:
+		Range: 3c0
+	ProductionQueue@firebase:
+		Type: Firebase
+		Group: Building
+		BlockedAudio: NoBuild
+		LimitedAudio: BuildingInProgress
+		QueuedAudio: Building
+		OnHoldAudio: OnHold
+		CancelledAudio: Cancelled
+		QueueLimit: 1
+	Production@firebase:
+		Produces: Firebase
+	ProductionBar@firebase:
+		ProductionType: Firebase
+	GrantConditionOnProduction@reactor:
+		Condition: reactor
+		Actors: unscfirebase.reactor
+	TransformOnCondition@reactor:
+		IntoActor: unscreactor
+		RequiresCondition: reactor
+	GrantConditionOnProduction@barracks:
+		Condition: barracks
+		Actors: unscfirebase.barracks
+	TransformOnCondition@barracks:
+		IntoActor: unscbarracks
+		RequiresCondition: barracks
+	GrantConditionOnProduction@garage:
+		Condition: garage
+		Actors: unscfirebase.garage
+	TransformOnCondition@garage:
+		IntoActor: unscgarage
+		RequiresCondition: garage
+	GrantConditionOnProduction@supplypad:
+		Condition: supplypad
+		Actors: unscfirebase.supplypad
+	TransformOnCondition@supplypad:
+		IntoActor: unscsupplypad
+		RequiresCondition: supplypad
+	GrantConditionOnProduction@airpad:
+		Condition: airpad
+		Actors: unscfirebase.airpad
+	TransformOnCondition@airpad:
+		IntoActor: unscairpad
+		RequiresCondition: airpad
+	GrantConditionOnProduction@armory:
+		Condition: armory
+		Actors: unscfirebase.armory
+	TransformOnCondition@armory:
+		IntoActor: unscarmory
+		RequiresCondition: armory
+	GrantConditionOnProduction@repairpad:
+		Condition: repairpad
+		Actors: unscfirebase.repairpad
+	TransformOnCondition@repairpad:
+		IntoActor: unscrepairpad
+		RequiresCondition: repairpad
+	GrantConditionOnProduction@radartower:
+		Condition: radartower
+		Actors: unscfirebase.radartower
+	TransformOnCondition@radartower:
+		IntoActor: unscradartower
+		RequiresCondition: radartower
+	GrantConditionOnProduction@mac:
+		Condition: mac
+		Actors: unscfirebase.mac
+	TransformOnCondition@mac:
+		IntoActor: unscmac
+		RequiresCondition: mac
+
+^unscfirebase:
+	Buildable:
+		Queue: Firebase
+		BuildDurationModifier: 60
+		IconPalette: player-icon
+		IconPaletteIsPlayerPalette: true
+	Interactable:
+	ScriptTriggers:
+	KillsSelf:
+		RemoveInstead: true
+
+unscfirebase.reactor:
+	Inherits: ^unscfirebase
+	Tooltip:
+		Name: actor-unscreactor.name
+	Buildable:
+		Queue: Firebase
+		BuildAtProductionType: Firebase
+		Description: actor-unscreactor.description
+		Prerequisites: ~structures.unsc
+		IconPalette: player-icon
+		BuildPaletteOrder: 1
+		IconPaletteIsPlayerPalette: true
+	Valued:
+		Cost: 400
+	RenderSprites:
+		Image: unscreactor
+
+unscfirebase.barracks:
+	Inherits: ^unscfirebase
+	Tooltip:
+		Name: actor-unscbarracks.name
+	Buildable:
+		Queue: Firebase
+		BuildAtProductionType: Firebase
+		Description: actor-unscbarracks.description
+		Prerequisites: ~structures.unsc, anypower
+		IconPalette: player-icon
+		BuildPaletteOrder: 3
+		IconPaletteIsPlayerPalette: true
+	Valued:
+		Cost: 600
+	RenderSprites:
+		Image: unscbarracks
+
+unscfirebase.garage:
+	Inherits: ^unscfirebase
+	Tooltip:
+		Name: actor-unscgarage.name
+	Buildable:
+		Queue: Firebase
+		BuildAtProductionType: Firebase
+		Description: actor-unscgarage.description
+		Prerequisites: refinery, unscbarracks, ~techlevel.low, ~!structures.bothard
+		IconPalette: player-icon
+		BuildPaletteOrder: 4
+		IconPaletteIsPlayerPalette: true
+	Valued:
+		Cost: 1500
+	RenderSprites:
+		Image: unscgarage
+
+unscfirebase.supplypad:
+	Inherits: ^unscfirebase
+	Tooltip:
+		Name: actor-unscsupplypad.name
+	Buildable:
+		Queue: Firebase
+		BuildAtProductionType: Firebase
+		Description: actor-unscsupplypad.description
+		Prerequisites: anypower, ~techlevel.low, ~!structures.bothard
+		IconPalette: player-icon
+		BuildPaletteOrder: 2
+		IconPaletteIsPlayerPalette: true
+	Valued:
+		Cost: 1400
+	RenderSprites:
+		Image: unscsupplypad
+
+unscfirebase.airpad:
+	Inherits: ^unscfirebase
+	Tooltip:
+		Name: actor-unscairpad.name
+	Buildable:
+		Queue: Firebase
+		BuildAtProductionType: Firebase
+		Description: actor-unscairpad.description
+		Prerequisites: refinery, ~techlevel.low, ~!structures.bothard
+		IconPalette: player-icon
+		BuildPaletteOrder: 5
+		IconPaletteIsPlayerPalette: true
+	Valued:
+		Cost: 700
+	RenderSprites:
+		Image: unscairpad
+
+unscfirebase.armory:
+	Inherits: ^unscfirebase
+	Tooltip:
+		Name: actor-unscarmory.name
+	Buildable:
+		Queue: Firebase
+		BuildAtProductionType: Firebase
+		Description: actor-unscarmory.description
+		Prerequisites: refinery, factory, anypower, ~techlevel.low, ~!structures.bothard
+		IconPalette: player-icon
+		BuildPaletteOrder: 6
+		IconPaletteIsPlayerPalette: true
+	Valued:
+		Cost: 1500
+	RenderSprites:
+		Image: unscarmory
+
+unscfirebase.repairpad:
+	Inherits: ^unscfirebase
+	Tooltip:
+		Name: actor-unscrepairpad.name
+	Buildable:
+		Queue: Firebase
+		BuildAtProductionType: Firebase
+		Description: actor-unscrepairpad.description
+		Prerequisites: factory, ~techlevel.low, ~!structures.bothard
+		IconPalette: player-icon
+		BuildPaletteOrder: 7
+		IconPaletteIsPlayerPalette: true
+	Valued:
+		Cost: 1200
+	RenderSprites:
+		Image: unscrepairpad
+
+unscfirebase.radartower:
+	Inherits: ^unscfirebase
+	Tooltip:
+		Name: actor-unscradartower.name
+	Buildable:
+		Queue: Firebase
+		BuildAtProductionType: Firebase
+		Description: actor-unscradartower.description
+		Prerequisites: factory, ~techlevel.low, ~!structures.bothard
+		IconPalette: player-icon
+		BuildPaletteOrder: 8
+		IconPaletteIsPlayerPalette: true
+	Valued:
+		Cost: 800
+	RenderSprites:
+		Image: unscradartower
+
+unscfirebase.mac:
+	Inherits: ^unscfirebase
+	Tooltip:
+		Name: actor-unscmag.name
+	Buildable:
+		Queue: Firebase
+		BuildAtProductionType: Firebase
+		Description: actor-unscmac.description
+		Prerequisites: techcenter, ~techlevel.low, ~!structures.bothard
+		IconPalette: player-icon
+		BuildPaletteOrder: 10
+		IconPaletteIsPlayerPalette: true
+	Valued:
+		Cost: 5000
+	RenderSprites:
+		Image: unscmac
+
+unsctalos:
+	Inherits: ^Defense
+	Inherits@LOWPOWER: ^DisableOnLowPowerOrPowerDown
+	Inherits@AUTOTARGET: ^AutoTargetAll
+	Inherits@AUTOTARGETGround: ^AutoTargetAirInfantryPriority
+	Valued:
+		Cost: 800
+	Selectable:
+		Bounds: 1024, 1024
+		DecorationBounds: 1024, 2048, 0, -512
+	Tooltip:
+		Name: actor-unsctalos.name
+	Building:
+	Health:
+		HP: 70000
+	Armor:
+		Type: Heavy
+	RevealsShroud:
+		MinRange: 5c0
+		Range: 6c512
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 5c0
+	WithBuildingBib:
+		HasMinibib: true
+	Turreted:
+		TurnSpeed: 48
+		InitialFacing: 192
+		RealignDelay: -1
+		RequiresCondition: !build-incomplete
+	WithSpriteTurret:
+		RequiresCondition: !build-incomplete
+		Recoils: false
+	Armament@PRIMARY:
+		Weapon: unsctalosminigun
+		LocalOffset: 512,0,112
+		MuzzleSequence: muzzle
+		PauseOnCondition: disabled
+	GrantConditionOnAttack@gatling:
+		Condition: gatling
+		RequiredShotsPerInstance: 4
+		MaximumInstances: 2
+		RevokeDelay: 25
+		RevokeAll: true
+		IsCyclic: false
+	ReloadDelayMultiplier@Gatling1:
+		RequiresCondition: gatling >= 3
+		Modifier: 75
+	AttackTurreted:
+		PauseOnCondition: build-incomplete
+	WithRangeCircle:
+		Range: 6c640
+	RenderDetectionCircle:
+	DetectCloaked:
+		Range: 5c0
+		DetectionTypes: Cloak, AirCloak
+		RequiresCondition: !disabled
+	WithMuzzleOverlay:
+	Power:
+		Amount: -40
+	-BodyOrientation:
+	ClassicFacingBodyOrientation:
+	ToggleConditionOnOrder@sell:
+		OrderName: Sell
+		Condition: sell_me
+	TransformOnCondition@sell:
+		RequiresCondition: sell_me
+		IntoActor: unscpod
+	SpawnActorOnDeath@firebase:
+		Actor: unscpod
+
+unscsiege:
+	Inherits: ^Defense
+	Inherits@LOWPOWER: ^DisableOnLowPowerOrPowerDown
+	Inherits@AUTOTARGET: ^AutoTargetAll
+	Inherits@AUTOTARGETGround: ^AutoTargetAirInfantryPriority
+	Valued:
+		Cost: 1500
+	Selectable:
+		Bounds: 1024, 1024
+		DecorationBounds: 1024, 2048, 0, -512
+	Tooltip:
+		Name: actor-unscsiege.name
+	Building:
+	Health:
+		HP: 70000
+	Armor:
+		Type: Heavy
+	RevealsShroud:
+		MinRange: 5c0
+		Range: 6c512
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 5c0
+	WithBuildingBib:
+		HasMinibib: true
+	Turreted:
+		TurnSpeed: 48
+		InitialFacing: 192
+		RealignDelay: -1
+		RequiresCondition: !build-incomplete
+	WithSpriteTurret:
+		RequiresCondition: !build-incomplete
+		Recoils: false
+	Armament@PRIMARY:
+		Weapon: unscsiegecannon
+		LocalOffset: 256,0,512
+		MuzzleSequence: muzzle
+		PauseOnCondition: disabled
+	ReloadDelayMultiplier:
+		Modifier: 50
+	AttackTurreted:
+		PauseOnCondition: build-incomplete
+	WithRangeCircle:
+		Range: 6c640
+	RenderDetectionCircle:
+	DetectCloaked:
+		Range: 5c0
+		DetectionTypes: Cloak, AirCloak
+		RequiresCondition: !disabled
+	WithMuzzleOverlay:
+	Power:
+		Amount: -60
+	-BodyOrientation:
+	ClassicFacingBodyOrientation:
+	ToggleConditionOnOrder@sell:
+		OrderName: Sell
+		Condition: sell_me
+	TransformOnCondition@sell:
+		RequiresCondition: sell_me
+		IntoActor: unscpod
+	SpawnActorOnDeath@firebase:
+		Actor: unscpod
+
+unscwatchtower:
+	Inherits: ^Building
+	Inherits@IDISABLE: ^DisableOnLowPower
+	Valued:
+		Cost: 850
+	Tooltip:
+		Name: actor-unscwatchtower.name
+	Selectable:
+		Bounds: 1024, 1024
+		DecorationBounds: 1024, 2048, 0, -512
+	WithBuildingBib:
+		HasMinibib: true
+	Power:
+		Amount: -100
+	Health:
+		HP: 40000
+	Armor:
+		Type: Wood
+	RevealsShroud:
+		MinRange: 15c0
+		Range: 18c0
+		RevealGeneratedShroud: False
+		RequiresCondition: !jammed && !disabled
+	RevealsShroud@lowpower:
+		Range: 3c0
+		RequiresCondition: jammed || disabled
+	DetectCloaked:
+		Range: 8c0
+		RequiresCondition: !jammed && !disabled
+		DetectionTypes: Cloak, AirCloak, Underwater
+	RevealsShroud@GAPGEN:
+		Range: 15c0
+		RequiresCondition: !disabled
+	RenderDetectionCircle:
+	ExternalCondition@JAMMED:
+		Condition: jammed
+
+^unscpod:
+	Buildable:
+		Queue: Pod
+		BuildDurationModifier: 60
+		IconPalette: player-icon
+		IconPaletteIsPlayerPalette: true
+	Interactable:
+	ScriptTriggers:
+	KillsSelf:
+		RemoveInstead: true
+
+unscpod:
+	Inherits: ^Building
+	Buildable:
+		Queue: Defense
+		Prerequisites: unscbarracks, ~structures.unsc
+		BuildPaletteOrder: 1
+		Description: actor-unscpod.description
+	WithBuildingBib:
+		HasMinibib: true
+	Building:
+		Footprint: +
+	Valued:
+		Cost: 200
+	Tooltip:
+		Name: actor-unscpod.name
+	Health:
+		HP: 70000
+	Armor:
+		Type: Wood
+	Power:
+		Amount: 0
+	ProvidesPrerequisite@buildingname:
+	RevealsShroud@GAPGEN:
+		Range: 3c0
+	ProductionQueue@firebase:
+		Type: Pod
+		Group: Defense
+		BlockedAudio: NoBuild
+		LimitedAudio: BuildingInProgress
+		QueuedAudio: Building
+		OnHoldAudio: OnHold
+		CancelledAudio: Cancelled
+		QueueLimit: 1
+	Production@firebase:
+		Produces: Pod
+	ProductionBar@firebase:
+		ProductionType: Pod
+	GrantConditionOnProduction@talos:
+		Condition: talos
+		Actors: unscpod.talos
+	TransformOnCondition@talos:
+		IntoActor: unsctalos
+		RequiresCondition: talos
+	GrantConditionOnProduction@siege:
+		Condition: siege
+		Actors: unscpod.siege
+	TransformOnCondition@siege:
+		IntoActor: unscsiege
+		RequiresCondition: siege
+	GrantConditionOnProduction@watchtower:
+		Condition: watchtower
+		Actors: unscpod.watchtower
+	TransformOnCondition@watchtower:
+		IntoActor: unscwatchtower
+		RequiresCondition: watchtower
+
+unscpod.talos:
+	Inherits: ^unscpod
+	Tooltip:
+		Name: actor-unsctalos.name
+	Buildable:
+		Queue: Pod
+		BuildAtProductionType: Pod
+		Description: actor-unsctalos.description
+		Prerequisites: ~techlevel.low, ~!structures.bothard
+		IconPalette: player-icon
+		BuildPaletteOrder: 1
+		IconPaletteIsPlayerPalette: true
+	Valued:
+		Cost: 600
+	RenderSprites:
+		Image: unsctalos
+
+unscpod.siege:
+	Inherits: ^unscpod
+	Tooltip:
+		Name: actor-unscsiege.name
+	Buildable:
+		Queue: Pod
+		BuildAtProductionType: Pod
+		Description: actor-unscsiege.description
+		Prerequisites: techcenter, ~techlevel.low, ~!structures.bothard
+		IconPalette: player-icon
+		BuildPaletteOrder: 2
+		IconPaletteIsPlayerPalette: true
+	Valued:
+		Cost: 1300
+	RenderSprites:
+		Image: unscsiege
+
+unscpod.watchtower:
+	Inherits: ^unscpod
+	Tooltip:
+		Name: actor-unscatchtower.name
+	Buildable:
+		Queue: Pod
+		BuildAtProductionType: Pod
+		Description: actor-usncwatchtower.description
+		Prerequisites: techcenter, ~techlevel.low, ~!structures.bothard
+		IconPalette: player-icon
+		BuildPaletteOrder: 2
+		IconPaletteIsPlayerPalette: true
+	Valued:
+		Cost: 1100
+	RenderSprites:
+		Image: unscwatchtower

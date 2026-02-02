@@ -5,7 +5,7 @@ unscmarinebattlerifle:
 	Range: 5c0
 	ValidTargets: Ground, Water, GroundActor, WaterActor
 	Warhead@1Dam: SpreadDamage
-		Damage: 1000
+		Damage: 1200
 		Versus:
 			None: 100
 			Wood: 25
@@ -27,7 +27,7 @@ unscpistol:
 	Range: 6c0
 	ReloadDelay: 18
 	Warhead@1Dam: SpreadDamage
-		Damage: 1000
+		Damage: 800
 		Versus:
 			None: 150
 
@@ -39,7 +39,7 @@ unscshotgun:
 	AfterFireSound: MasterChiefShotgunCock.aud
 	Warhead@1Dam: SpreadDamage
 		Spread: 512
-		Damage: 3000
+		Damage: 2000
 		Versus:
 			None: 100
 			Wood: 25
@@ -131,3 +131,556 @@ unscsniperrifle:
 			Heavy: 50
 			Concrete: 25
 		DamageTypes: Prone50Percent, TriggerProne, BulletDeath
+
+unscflamethrower:
+	Inherits: Flamer
+	ReloadDelay: 25
+	Burst: 25
+	BurstDelays: 1
+	StartBurstReport: masterchiefflamethrowerfire1.aud, masterchiefflamethrowerfire2.aud, masterchiefflamethrowerfire3.aud
+	Range: 4c0
+	FirstBurstTargetOffset: 0,0,0
+	FollowingBurstTargetOffset: 0,0,0
+	Projectile: Bullet
+		Inaccuracy: 1024
+	Warhead@1Dam: SpreadDamage
+		Spread: 400
+		Damage: 400
+		Versus:
+			None: 120
+			Light: 100
+			Wood: 25
+			Heavy: 10
+			Concrete: 10
+	Warhead@3Eff: CreateEffect
+		Explosions: small_napalm
+
+unscwarthogminigun:
+	Inherits: ^HeavyMG
+	Report: unscwarthogminigun1.aud, unscwarthogminigun2.aud, unscwarthogminigun3.aud
+	ReloadDelay: 3
+	Range: 5c0
+	Warhead@1Dam: SpreadDamage
+		Spread: 128
+		Damage: 800
+		Versus:
+			None: 120
+			Wood: 40
+			Light: 40
+			Heavy: 20
+			Concrete: 20
+		DamageTypes: Prone50Percent, TriggerProne, BulletDeath
+	Warhead@2Eff: CreateEffect
+		Explosions: piff
+		ValidTargets: Ground, GroundActor, Air, AirborneActor, WaterActor, Trees
+		ImpactActors: false
+
+unsctalosminigun:
+	Inherits: unscwarthogminigun
+	Range: 6c0
+	Warhead@1Dam: SpreadDamage
+		ValidTargets: Ground, GroundActor, Air, AirborneActor, WaterActor, Trees
+
+unscwarthogrocketlauncher:
+	Inherits: unscrocketlauncher
+	ReloadDelay: 50
+	Burst: 3
+	BurstDelays: 12
+	Warhead@1Dam: SpreadDamage
+		Spread: 256
+		Damage: 7500
+
+unscscorpioncannon:
+	Inherits: ^Cannon
+	ReloadDelay: 60
+	Report: unscscorpioncannonfire.aud
+	Projectile: Bullet
+		Speed: 682
+		Image: 125mm
+		Shadow: True
+		ContrailLength: 8
+		ContrailStartWidth: 16
+	Warhead@1Dam: SpreadDamage
+		Damage: 7000
+		Versus:
+			Heavy: 115
+		InvalidTargets: Air
+	Warhead@3Eff: CreateEffect
+		Explosions: large_explosion
+		ImpactSounds: masterchiefgrenadeexplode1.aud, masterchiefgrenadeexplode2.aud, masterchiefgrenadeexplode3.aud
+		ValidTargets: Ground, GroundActor, WaterActor, Trees
+
+unscsiegecannon:
+	Inherits: unscscorpioncannon
+	Range: 10c0
+	ReloadDelay: 120
+	Warhead@1Dam: SpreadDamage
+		Damage: 10000
+		Versus:
+			Heavy: 115
+		InvalidTargets: Air
+
+unscgrizzlycannon:
+	Inherits: ^Cannon
+	Range: 5c0
+	ReloadDelay: 60
+	Burst: 2
+	BurstDelays: 6
+	Report: unscgrizzlycannonfire.aud
+	Projectile: Bullet
+		Speed: 682
+		Image: 125mm
+		Shadow: True
+		ContrailLength: 8
+		ContrailStartWidth: 16
+	Warhead@1Dam: SpreadDamage
+		Damage: 9000
+		Versus:
+			Heavy: 115
+		InvalidTargets: Air
+	Warhead@3Eff: CreateEffect
+		Explosions: building_sm
+		ImpactSounds: masterchiefgrenadeexplode1.aud, masterchiefgrenadeexplode2.aud, masterchiefgrenadeexplode3.aud
+		ValidTargets: Ground, GroundActor, WaterActor, Trees
+
+unsccobratwincannon:
+	ReloadDelay: 70
+	Burst: 2
+	BurstDelays: 6
+	Range: 5c768
+	Report: unsccobratwincannonfire1.aud, unsccobratwincannonfire2.aud, unsccobratwincannonfire3.aud, unsccobratwincannonfire4.aud
+	ValidTargets: Ground, Water, GroundActor, WaterActor
+	Projectile: Bullet
+		Speed: 682
+		Blockable: false
+		ContrailLength: 10
+		ContrailStartColor: 00fbff
+		Image: PLASMAPROJSMALL
+		Shadow: false
+		Inaccuracy: 128
+	Warhead@1Dam: SpreadDamage
+		Spread: 256
+		Damage: 4500
+		ValidTargets: GroundActor, WaterActor
+		Versus:
+			None: 30
+			Wood: 75
+			Light: 75
+			Heavy: 115
+			Concrete: 50
+			Shield: 120
+		DamageTypes: Prone50Percent, TriggerProne, ExplosionDeath
+	Warhead@2Smu: LeaveSmudge
+		SmudgeType: Scorch
+		InvalidTargets: Structure, Wall, Vehicle
+	Warhead@3Eff_impact: CreateEffect
+		Explosions: laserhitmed
+		ImpactSounds: PlasmaCannonImpact1.aud, PlasmaCannonImpact2.aud
+		ValidTargets: Ground, Water, GroundActor, WaterActor
+
+unsccobracannon:
+	ReloadDelay: 90
+	Range: 8c0
+	Report: unsccobracannonfire1.aud, unsccobracannonfire2.aud, unsccobracannonfire3.aud
+	TargetActorCenter: True
+	ValidTargets: Vehicle, Structure, Building, Wall
+	Projectile: Railgun
+		Duration: 30
+		BeamColor: 00fbff
+		HelixColor: 0088ff
+	Warhead@1Dam: SpreadDamage
+		Damage: 14400
+		Spread: 128
+		Versus:
+			None: 80
+			Wood: 110
+			Light: 80
+			Heavy: 110
+			Concrete: 50
+		DamageTypes: Prone50Percent, TriggerProne, FireDeath
+		ValidTargets: Vehicle, Structure, Building, Wall
+	Warhead@3Eff_impact: CreateEffect
+		Explosions: laserhitmed
+		ValidTargets: Ground, Water, GroundActor, WaterActor
+	Warhead@4Eff_impact: CreateEffect
+		Explosions: japanplasmaring
+		ValidTargets: Ground, Water, GroundActor, WaterActor
+	Warhead@3Dam: SpreadDamage
+		Spread: 1c0
+		Damage: 50
+		ValidTargets: Ground, Water, GroundActor, WaterActor
+		DamageTypes: Prone50Percent, TriggerProne, DefaultDeath
+
+unscwolverinerockets:
+	Inherits: Dragon
+	ReloadDelay: 150
+	Burst: 8
+	BurstDelays: 8
+	Range: 10c0
+	MinRange: 3c0
+	Report: unscwolverinerocketsfire1.aud, unscwolverinerocketsfire2.aud, unscwolverinerocketsfire3.aud, unscwolverinerocketsfire4.aud
+	ValidTargets: Air, AirborneActor, Building, Structure, Wall
+	Projectile: Missile
+		Speed: 260
+		Inaccuracy: 512
+		RangeLimit: 12c0
+		HorizontalRateOfTurn: 10
+		Image: dukenukemrocketdev
+	Warhead@1Dam: SpreadDamage
+		Spread: 192
+		Damage: 2650
+		ValidTargets: Air, AirborneActor, Building, Structure, Wall
+		Versus:
+			None: 20
+			Wood: 70
+			Light: 60
+			Heavy: 100
+			Concrete: 50
+	Warhead@3Eff: CreateEffect
+		ImpactSounds: masterchiefgrenadeexplode1.aud, masterchiefgrenadeexplode2.aud, masterchiefgrenadeexplode3.aud
+
+unscvulturerockets:
+	Inherits: Dragon
+	ReloadDelay: 150
+	Burst: 8
+	BurstDelays: 8
+	Range: 7c0
+	MinRange: 1c0
+	ValidTargets: Ground, Air, GroundActor, AirborneActor, WaterActor, Trees
+	Report: unscwolverinerocketsfire1.aud, unscwolverinerocketsfire2.aud, unscwolverinerocketsfire3.aud, unscwolverinerocketsfire4.aud
+	Projectile: Missile
+		Speed: 260
+		Inaccuracy: 512
+		RangeLimit: 12c0
+		HorizontalRateOfTurn: 10
+		Image: dukenukemrocketdev
+	Warhead@1Dam: SpreadDamage
+		Spread: 192
+		Damage: 3000
+		ValidTargets: Ground, Air, GroundActor, AirborneActor, WaterActor, Trees
+		Versus:
+			None: 20
+			Wood: 70
+			Light: 60
+			Heavy: 100
+			Concrete: 50
+	Warhead@3Eff: CreateEffect
+		ImpactSounds: masterchiefgrenadeexplode1.aud, masterchiefgrenadeexplode2.aud, masterchiefgrenadeexplode3.aud
+		ValidTargets: Ground, Air, GroundActor, AirborneActor, WaterActor, Trees
+
+unscfraggrenade:
+	Inherits: ^Artillery
+	ReloadDelay: 250
+	Range: 5c0
+	MinRange: 1c0
+	Report: masterchiefgrenadethrow.aud
+	Projectile: Bullet
+		Speed: 156
+		Inaccuracy: 1c256
+		ContrailLength: 30
+		Image: BOMB
+	Warhead@1Dam: SpreadDamage
+		Spread: 512
+		Damage: 7500
+		Versus:
+			None: 90
+			Wood: 50
+			Light: 50
+			Heavy: 70
+			Concrete: 70
+		DamageTypes: Prone50Percent, TriggerProne, ExplosionDeath
+	Warhead@3Eff: CreateEffect
+		Explosions: med_explosion
+		ImpactSounds: masterchiefgrenadeexplode1.aud, masterchiefgrenadeexplode2.aud, masterchiefgrenadeexplode3.aud
+	Warhead@4EffWater: CreateEffect
+		Explosions: med_splash
+
+unscplasmagrenade:
+	Inherits: ^Artillery
+	ReloadDelay: 250
+	Range: 5c0
+	MinRange: 1c0
+	Report: masterchiefgrenadethrow.aud
+	Projectile: Bullet
+		Speed: 156
+		Inaccuracy: 1c256
+		ContrailLength: 30
+		Image: masterchiefplasmarifleproj
+		ContrailStartColor: 00fbff
+		Shadow: false
+		ContrailStartWidth: 0c32
+	Warhead@1Dam: SpreadDamage
+		Spread: 512
+		Damage: 7500
+		Versus:
+			None: 80
+			Wood: 50
+			Light: 70
+			Heavy: 90
+			Concrete: 70
+			Shield: 150
+		DamageTypes: Prone50Percent, TriggerProne, ElectricityDeath
+	Warhead@3Eff: CreateEffect
+		Explosions: laserhitmed
+		ImpactSounds: masterchiefplasmaexplode1.aud, masterchiefplasmaexplode2.aud, masterchiefplasmaexplode3.aud, masterchiefplasmaexplode4.aud
+	Warhead@4Eff: CreateEffect
+		Explosions: japanplasmaring
+	Warhead@4EffWater: CreateEffect
+		Explosions: med_splash
+
+unscplasmapistol:
+	ReloadDelay: 50
+	Burst: 3
+	BurstDelay: 5
+	Range: 4c0
+	Report: masterchiefplasmapistolfire1.aud, masterchiefplasmapistolfire2.aud, masterchiefplasmapistolfire3.aud, masterchiefplasmapistolfire4.aud, masterchiefplasmapistolfire5.aud
+	ValidTargets: Ground, Water, GroundActor, WaterActor
+	Projectile: Bullet
+		Speed: 512
+		Blockable: false
+		ContrailLength: 5
+		ContrailStartColor: 03fc07
+		Image: masterchiefplasmaproj
+		Shadow: false
+		Inaccuracy: 512
+		ContrailStartWidth: 0c32
+	Warhead@1Dam: SpreadDamage
+		Spread: 256
+		Damage: 1500
+		ValidTargets: GroundActor, WaterActor
+		Versus:
+			None: 20
+			Wood: 75
+			Light: 60
+			Heavy: 75
+			Concrete: 50
+			Shield: 150
+		DamageTypes: Prone50Percent, TriggerProne, ElectricityDeath
+	Warhead@2Smu: LeaveSmudge
+		SmudgeType: Scorch
+		InvalidTargets: Structure, Wall, Vehicle
+	Warhead@3Eff_impact: CreateEffect
+		Explosions: laserhitsmall
+		ImpactSounds: masterchiefplasmahit1.aud, masterchiefplasmahit2.aud, masterchiefplasmahit3.aud
+		ValidTargets: Ground, Water, GroundActor, WaterActor
+
+unscplasmarifle:
+	ReloadDelay: 50
+	Burst: 4
+	BurstDelay: 2
+	Range: 6c0
+	Report: masterchiefplasmariflefire.aud
+	ValidTargets: Ground, Water, GroundActor, WaterActor
+	Projectile: Bullet
+		Speed: 512
+		Blockable: false
+		ContrailLength: 5
+		ContrailStartColor: 00fbff
+		Image: masterchiefplasmarifleproj
+		Shadow: false
+		Inaccuracy: 512
+		ContrailStartWidth: 0c32
+	Warhead@1Dam: SpreadDamage
+		Spread: 256
+		Damage: 2500
+		ValidTargets: GroundActor, WaterActor
+		Versus:
+			None: 50
+			Wood: 75
+			Light: 60
+			Heavy: 75
+			Concrete: 50
+			Shield: 150
+		DamageTypes: Prone50Percent, TriggerProne, ElectricityDeath
+	Warhead@2Smu: LeaveSmudge
+		SmudgeType: Scorch
+		InvalidTargets: Structure, Wall, Vehicle
+	Warhead@3Eff_impact: CreateEffect
+		Explosions: laserhitsmall
+		ImpactSounds: masterchiefplasmahit1.aud, masterchiefplasmahit2.aud, masterchiefplasmahit3.aud
+		ValidTargets: Ground, Water, GroundActor, WaterActor
+
+unscgrenadelauncher:
+	Inherits: ^Artillery
+	ReloadDelay: 40
+	Range: 4c0
+	Report: unscgrenadelauncherfire1.aud, unscgrenadelauncherfire2.aud, unscgrenadelauncherfire3.aud
+	Projectile: Bullet
+		Speed: 256
+		Image: firemaceproj1tiny
+		BounceCount: 1
+		Shadow: true
+		BounceRangeModifier: 40
+		LaunchAngle: 50
+		Inaccuracy: 256
+		ContrailLength: 15
+		ContrailStartColor: ff8400
+		ContrailStartWidth: 0c64
+		ContrailEndWidth: 0c32
+	Warhead@1Dam: SpreadDamage
+		Spread: 512
+		Damage: 5000
+		ValidTargets: GroundActor, WaterActor
+		Versus:
+			None: 90
+			Wood: 50
+			Light: 80
+			Heavy: 60
+			Concrete: 50
+		DamageTypes: Prone50Percent, TriggerProne, SmallExplosionDeath
+	Warhead@3Eff: CreateEffect
+		Explosions: med_explosion
+		ImpactSounds: unscgrenadelauncherexplode1.aud, unscgrenadelauncherexplode2.aud, unscgrenadelauncherexplode3.aud
+		ValidTargets: Ground, Air, GroundActor, AirborneActor, WaterActor, Trees
+	Warhead@4EffWater: CreateEffect
+		Explosions: small_splash
+		ImpactSounds: splash9.aud
+		ValidTargets: Water, Underwater
+		InvalidTargets: Bridge
+
+unscbruteshot:
+	Inherits: ^Artillery
+	ReloadDelay: 75
+	Burst: 3
+	BurstDelays: 12
+	Range: 5c0
+	Report: masterchiefbruteshotfire1.aud, masterchiefbruteshotfire2.aud, masterchiefbruteshotfire3.aud
+	Projectile: Bullet
+		Speed: 256
+		Image: firemaceproj1
+		BounceCount: 2
+		BounceSound: masterchiefbruteshotbounce1.aud, masterchiefbruteshotbounce2.aud, masterchiefbruteshotbounce3.aud
+		Shadow: true
+		BounceRangeModifier: 40
+		LaunchAngle: 130
+		Inaccuracy: 1c0
+		ContrailLength: 15
+		ContrailStartColor: ff8400
+		ContrailStartWidth: 0c64
+		ContrailEndWidth: 0c32
+	Warhead@1Dam: SpreadDamage
+		Spread: 512
+		Damage: 5000
+		ValidTargets: GroundActor, WaterActor
+		Versus:
+			None: 70
+			Wood: 50
+			Light: 120
+			Heavy: 90
+			Concrete: 50
+		DamageTypes: Prone50Percent, TriggerProne, SmallExplosionDeath
+	Warhead@3Eff: CreateEffect
+		Explosions: large_explosion
+		ImpactSounds: masterchiefbruteshotexplode1.aud, masterchiefbruteshotexplode2.aud, masterchiefbruteshotexplode3.aud
+		ValidTargets: Ground, Air, GroundActor, AirborneActor, WaterActor, Trees
+	Warhead@4EffWater: CreateEffect
+		Explosions: small_splash
+		ImpactSounds: splash9.aud
+		ValidTargets: Water, Underwater
+		InvalidTargets: Bridge
+
+unscfuelrodcannon:
+	Inherits: ^AntiGroundMissile
+	Report: MasterChiefFuelRodCannonFire.aud
+	MinRange: 2c0
+	Range: 8c0
+	ReloadDelay: 125
+	Projectile: Missile
+		Speed: 200
+		HorizontalRateOfTurn: 20
+		RangeLimit: 15c0
+		Image: masterchieffuelrodproj
+		TrailImage: explosion
+		TrailSequences: fuelrodtrail
+		ContrailLength: 15
+		ContrailStartColor: 03fc07
+		Gravity: 1
+		MinimumLaunchAngle: 48
+		MinimumLaunchSpeed: 8
+		MaximumLaunchSpeed: 8
+		LockOnProbability: 0
+		Acceleration: 10
+		CruiseAltitude: 3c0
+		Inaccuracy: 2c0
+		Shadow: false
+		ContrailStartWidth: 0c64
+		ContrailEndWidth: 0c32
+		Blockable: false
+	Warhead@1Dam: SpreadDamage
+		Spread: 1024
+		Damage: 6000
+		ValidTargets: GroundActor, WaterActor
+		Versus:
+			None: 80
+			Wood: 75
+			Light: 80
+			Heavy: 80
+			Concrete: 50
+			Shield: 150
+		DamageTypes: Prone50Percent, TriggerProne, ElectricityDeath
+	Warhead@2Smu: LeaveSmudge
+		SmudgeType: Scorch
+		InvalidTargets: Structure, Wall, Vehicle
+	Warhead@3Eff: CreateEffect
+		Explosions: fuelrodexplosion
+		ImpactSounds: MasterChiefFuelRodCannonExplosion1.aud, MasterChiefFuelRodCannonExplosion2.aud
+		ValidTargets: Ground, Water, GroundActor, WaterActor
+	Warhead@zap: FireCluster
+		Weapon: FuelRodCannonClusterSmall
+		RandomClusterCount: 3
+		Dimensions: 3,3
+		Footprint: xxx x_x xxx
+
+unscplasmacarbine:
+	Inherits: ^SnipeWeapon
+	ReloadDelay: 100
+	Burst: 3
+	BurstDelays: 7
+	Range: 9c0
+	Report: MasterChiefPlasmaCarbineFire1.aud, MasterChiefPlasmaCarbineFire2.aud, MasterChiefPlasmaCarbineFire3.aud
+	ValidTargets: Ground, Water, GroundActor, WaterActor
+	-InvalidTargets:
+	Projectile: LaserZap
+		Color: 03fc07
+		Width: 14
+		Duration: 25
+	Warhead@1Dam: SpreadDamage
+		Spread: 42
+		Damage: 6000
+		Versus:
+			None: 75
+			Wood: 30
+			Light: 90
+			Heavy: 75
+			Concrete: 30
+			Shield: 150
+		DamageTypes: Prone50Percent, TriggerProne, ElectricityDeath
+		ValidTargets: Ground, Water, GroundActor, WaterActor
+	Warhead@2Eff: CreateEffect
+		Explosions: fuelrodtrail
+		ValidTargets: Ground, Water, GroundActor, WaterActor
+
+unscsgtjohnsonsniper:
+	Inherits: ^SnipeWeapon
+	ReloadDelay: 125
+	Burst: 7
+	BurstDelays: 15
+	Range: 10c0
+	Report: MasterChiefSniper1.aud, MasterChiefSniper2.aud, MasterChiefSniper3.aud, MasterChiefSniper4.aud
+	ValidTargets: Ground, Water, GroundActor, WaterActor
+	-InvalidTargets:
+	Projectile: LaserZap
+		Color: FFFFFF
+		Width: 14
+		Duration: 25
+	Warhead@1Dam: SpreadDamage
+		Spread: 42
+		Damage: 10000
+		Versus:
+			None: 120
+			Wood: 25
+			Light: 60
+			Heavy: 40
+			Concrete: 25
+		DamageTypes: Prone50Percent, TriggerProne, BulletDeath
+		ValidTargets: Ground, Water, GroundActor, WaterActor

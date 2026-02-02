@@ -7686,11 +7686,192 @@ actor-iron =
     for 20 seconds.
 
 ## unsc_str.yaml
+
+actor-unsccommandcenter =
+   .description = A prefabricated base of operations used by the UNSC Marine Corps in combat zones or locations that are otherwise hostile.
+
+   "The United Nations Space Command makes extensive use of military bases.
+   They are often flexible, using various designs, terrain, and functions in their setup,
+   allowing their occupants the best degree of flexibility possible.
+   Incorporating existing and specialty equipment, ranging from old 20th Century bunkers to Forerunner mesas,
+   to repurposed colony starter units, there are many different types."
+
+   .name = UNSC Command Center
+
+actor-unscfirebase =
+   .description = Firebase platforms are a prerequisite required for allowing construction of UNSC buildings.
+   Each Firebase has its on production queue and any buildings constructed can be sold back into a firebase platform.
+   .name = UNSC Firebase
+
 actor-unscreactor =
-   .description = Provides power for other structures.
-    Can be deployed to Overcharge Power at the cost of structure integrity.
+   .description = UNSC Reactors provide the energy needed to access the advanced buildings, units and technology upgrades.
+
+   "Prefabricated firebases contain a fusion reactor powered by reactions between hydrogen isotopes."
+
    .name = UNSC Reactor
+   .nameup = UNSC Advanced Reactor
+
+actor-unscreactor-up =
+   .description = Upgrades the reactor into an advanced reactor, doubling power output.
+   .name = Advanced Reactor Upgrade
 
 actor-unscbarracks =
    .description = The Barracks trains the bulk of the UNSC infantry units. Infantry technology upgrades can also be found here.
+   
+   "Army and Marine Corps troopers are detached ("chopped") from their parent unit aboard the Spirit of Fire
+   and deployed to reinforce key firebases on the Ark's surface,
+   replacing injured personnel who are then medevac‘d out of the combat zone."
+
    .name = UNSC Barracks
+
+actor-unscgarage =
+   .description = The Garage constructs the ground vehicles for the UNSC army. Vehicle technology upgrades can also be found here.
+   
+   "A tank's a tank, light-bulb." - Sgt Johnson.
+
+   .name = UNSC Garage
+actor-unscsupplypad =
+   .description = The supply pad refines resources gathered by harvesters.
+
+   "Supply Pads allow the firebase to receive a constant flow of Supplies from the Spirit of Fire.
+   These are vital logistical ports for UNSC combat operations,
+   and the force commander should carefully weigh the cost of delaying their construction."
+
+   .name = UNSC Supply Pad
+
+actor-unscairpad =
+   .description = The Airpad assembles UNSC aircraft for battle. Aircraft technology upgrades can also be found here.
+
+   "Expeditionary airpads house the maintenance crews and equipment needed to assemble, repair, refuel, and rearm UNSC aircraft.
+   Airpads also support the force commander with sensor feeds and intelligence uplinks which allow for proper battlespace deconfliction,
+   kill chain assignment, and other aerospace management tasks."
+
+   .name = UNSC Airpad
+
+actor-unscarmory =
+   .description = Tech building. Unlocks advanced technology & construction of the MAG superweapon.
+
+   "The Armory contains specialized machinery and robotic assemblers needed to support the logistical upgrades Isabel has added to the Spirit of Fire,
+   as well as additional communication and sensor systems to expand the force commander's option when assembling battle groups"
+
+   .name = UNSC Armory
+
+actor-unscrepairpad =
+   .description = The repair pad repairs damaged vehicles.
+
+   "After too many incidents from on field repairs in the battlezone, UNSC forces had to utilize a firebase zone for repairing damaged vehicles.
+   This greatly reduced the incident count."
+
+   .name = UNSC Repair Pad
+
+actor-unscradartower =
+   .description = Provides radar. Also allows usage of emergency support powers.
+
+   "The radar tower is a key constuction for UNSC forces.
+   Allowing communication at further distances is key for strategic actions,
+   as well as preparing counters for advancing Covenant forces."
+
+   .name = UNSC Radar Tower
+
+actor-unscmac =
+   .description = The UNSC superweapon. Utilizing the MAC unleashes a barrage of multi-ton projectiles at extraordinarily high velocities from the bow of a capital ship from orbit.
+
+    "Nils Thune: "Space? Those things even make noise in zero-gee?"
+    Ponder: "If you’re inside a MAC ship when the cannon fires? I don’t know if you’re a religious man, Governor. But it’s a little like a church bell—"
+    — Governor Thune and Captain Ponder discussing MACs."
+
+   .name = UNSC Magnetic Accelerator Cannon
+
+actor-unsctalos =
+   .description = The M5 Talos Weapons Station an automated stationary weapons platform armed with a M202 XP machine gun.
+
+      Strong vs Infantry, Aircraft
+      Weak vs Vehicles
+
+   .name = M5 Talos Weapon Station
+
+actor-unscsiege =
+   .description = Equipped with a 152mm M4131 rapid-fire howitzer. 
+
+      Strong vs Vehicles
+      Weak vs Infantry, Aircraft
+
+    "Siege Turrets are long-range artillery systems built to counter enemy bombardment platforms\
+    that would otherwise be out of range of standard Turrets.
+    These structures occupy a turret slot."
+
+   .name = M5 Talos Siege Turret
+
+actor-unscwatchtower =
+   .description = Watchtowers are fully-automated structures, capable of detecting cloaked enemies.
+
+   .name = Watchtower
+
+## unsc_inf.yaml
+actor-unscmarine =
+   .description = Main UNSC infantry unit. Can come armed with the following weapons:
+
+   M6C Magnum - Longer range, less damage
+   M90 Shotgun - Shorter range, more damage
+   MA5B Assault Rifle -  Standard damage and range, fires in short 5 round bursts
+   BR55 Battle Rifle - Standard damage and range, fires in short 3 round bursts
+
+   Marines can also be upgraded to carry frag grenades, increasing damage to vehicles.
+
+   If the Covenant weapons upgrade is researched, marines can also be armed with the following weapons:
+
+   Type-25 Plasma Pistol - Shorter Range, higher damage to shields
+   Okarda'phaa-pattern plasma rifle - Standard range, higher damage to shields
+   Type-33 Needler - Longer range, Burst damage when needles are stacked onto a single unit
+
+   Speed: 62
+      Strong vs Infantry
+      Weak vs Vehicles, Aircraft
+   .name = UNSC Marine
+
+actor-unscheavyweaponsmarine =
+   .description = Anti-vehicle UNSC Marine. Can come armed with the following weapons:
+
+   M41 Rocket Launcher - Standard range, able to attack air
+   M301 Grenade Launcher - Standard range, increased damage to infantry
+
+   If the Covenant weapons upgrade is researched, marines can also be armed with the following weapons:
+
+   Jovokada Workshop Brute Shot - Standard range, incrased damage to infantry
+   Fuel Rod Cannon - Increased range, longer reload, increased spread damage.
+
+   Speed: 62
+      Strong vs Aircraft, Vehicles
+      Weak vs Infantry
+   .name = UNSC Heavy-Weapons Marine
+
+actor-unscsniper =
+   .description = UNSC Sniper. Cloaked when stationary. Can come armed with the following weapons:
+
+   SRS99C-S2 AM sniper rifle - Standard range and damage
+
+   If the Covenant weapons upgrade is researched, snipers can also be armed with the following weapons:
+
+   Vostu-pattern carbine - Shorter range, can target vehicles.
+
+   Speed: 62
+      Strong vs Infantry
+      Weak vs Vehicles, Aircraft
+   .name = UNSC Sniper
+
+actor-unschellbringer =
+   .description = UNSC Hellbringer. Armed with an M7057 Flamethrower
+
+   Hellbringers can be upgraded to carry flashbangs that disorientate infantry.
+
+   Speed: 62
+      Strong vs Infantry, Vehicles
+      Weak vs Aircraft
+   .name = UNSC Hellbringer
+
+## unsc_air.yaml
+actor-unscdarter =
+   .description = Collects Ore, Tiberium and Gems for processing.
+    Speed: 96 
+      Unarmed
+   .name = D82-EST Darter

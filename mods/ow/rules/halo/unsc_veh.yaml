@@ -1,0 +1,365 @@
+unscmcv:
+	Inherits: MCV
+	Inherits: ^Vehicle
+	Inherits@selection: ^SelectableSupportUnit
+	Inherits@MCV: ^MCVBehaviour
+	Buildable:
+		Queue: Vehicle
+		BuildPaletteOrder: 90
+		Prerequisites: fix, ~mcv, ~techlevel.medium, ~vehicles.mcvprereq
+		BuildDurationModifier: 50
+		Description: actor-mcv-description
+	Valued:
+		Cost: 5000
+	ProvidesPrerequisite:
+		Prerequisite: mcv
+	Health:
+		HP: 60000
+	Armor:
+		Type: Light
+	RenderSprites:
+		Image: mcv
+	Transforms:
+		IntoActor: unsccommandcenter
+
+unscmcv.2:
+	Inherits: unscmcv
+	Buildable:
+		Queue: Vehicle
+		BuildPaletteOrder: 90
+		BuildDurationModifier: 35
+		Prerequisites: ~!mcv, ~techlevel.medium, ~vehicles.mcvprereq
+	Valued:
+		Cost: 3000
+	RenderSprites:
+		Image: mcv
+
+unscwarthog:
+	Inherits: ^Vehicle
+	Inherits@GAINSEXPERIENCE: ^GainsExperience
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Buildable:
+		Queue: Vehicle
+		BuildPaletteOrder: 30
+		Prerequisites: ~vehicles.unsc, ~techlevel.low
+		Description: actor-unscwarthog.description
+	Tooltip:
+		Name: actor-unscwarthog.name
+	Valued:
+		Cost: 700
+	Armor:
+		Type: Light
+	Mobile:
+		Locomotor: wheeled
+		TurnSpeed: 32
+		Speed: 135
+	RevealsShroud:
+		MinRange: 5c0
+		Range: 8c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 5c0
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 18000
+	Turreted:
+		TurnSpeed: 40
+		Offset: -298,0,212
+	GrantRandomCondition:
+		Conditions: fake1, rocketlauncher, flamerthrower
+	Armament:
+		Weapon: unscwarthogminigun
+		LocalOffset: 171,0,256
+		PauseOnCondition: rocketlauncher || flamerthrower
+	Armament@rocketlauncher:
+		Weapon: unscwarthogrocketlauncher
+		LocalOffset: 171,0,256
+		RequiresCondition: rocketlauncher
+	Armament@flamerthrower:
+		Weapon: unscflamethrower
+		LocalOffset: 171,0,256
+		RequiresCondition: flamerthrower
+	AttackTurreted:
+		PauseOnCondition: disabled
+	FireProjectilesOnDeath:
+		Weapons: TechnicalTurret
+		Pieces: 1,1
+		Range: 1c0, 3c0
+	RenderSprites:
+		Image: GTECHNICAL
+
+unscmongoose:
+	Inherits: ^Vehicle
+	Inherits@GAINSEXPERIENCE: ^GainsExperience
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Buildable:
+		Queue: Vehicle
+		BuildPaletteOrder: 29
+		Prerequisites: ~vehicles.unsc, ~techlevel.low
+		Description: actor-unscmongoose.description
+	Tooltip:
+		Name: actor-unscmongoose.name
+	Valued:
+		Cost: 400
+	Armor:
+		Type: Light
+	Mobile:
+		Locomotor: wheeled
+		TurnSpeed: 32
+		Speed: 155
+	RevealsShroud:
+		MinRange: 5c0
+		Range: 8c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 5c0
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 8000
+	Turreted:
+		TurnSpeed: 40
+		Offset: -298,0,212
+	GrantRandomCondition:
+		Conditions: fake1, rocketlauncher, flamerthrower
+	AttackTurreted:
+		PauseOnCondition: disabled
+	FireProjectilesOnDeath:
+		Weapons: TechnicalTurret
+		Pieces: 1,1
+		Range: 1c0, 3c0
+	RenderSprites:
+		Image: usasentrydrone
+
+unscscorpion:
+	Inherits: 2TNK
+	Buildable:
+		BuildPaletteOrder: 31
+		Prerequisites: ~vehicles.unsc
+		Description: actor-unscscorpion.description
+		BuildDuration: 900
+	Valued:
+		Cost: 1400
+	Tooltip:
+		Name: actor-unscscorpion.name
+	Health:
+		HP: 85000
+	Mobile:
+		Speed: 85
+		Voice: Move
+	Guard:
+		Voice: Move
+	Passenger:
+		Voice: Move
+	Turreted:
+		TurnSpeed: 16
+	Armament:
+		Weapon: unscscorpioncannon
+		Recoil: 128
+		RecoilRecovery: 38
+		LocalOffset: 720,0,80
+		MuzzleSequence: muzzle
+	SpawnActorOnDeath:
+		Actor: usacrusader.Husk
+	SelectionDecorations:
+	RenderSprites:
+		Image: usacrusadertank
+	Voiced:
+		VoiceSet: CrusaderTankVoice
+
+unscgrizzly:
+	Inherits: ^TrackedVehicle
+	Inherits@GAINSEXPERIENCE: ^GainsExperience
+	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
+	Inherits@mindcontrol: ^MindControlResistant
+	Buildable:
+		Queue: Vehicle
+		BuildPaletteOrder: 50
+		Prerequisites: ~vehicles.unsc, advtechcenter
+		Description: actor-unscgrizzly.description
+	Valued:
+		Cost: 3000
+	Tooltip:
+		Name: actor-unscgrizzly-name
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 120000
+	Armor:
+		Type: Heavy
+	Mobile:
+		Speed: 35
+		Locomotor: heavytracked
+		Voice: Move
+	Guard:
+		Voice: Move
+	Passenger:
+		Weight: 8
+		CustomPipType: red
+		Voice: Move
+	RevealsShroud:
+		MinRange: 7c0
+		Range: 8c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 7c0
+	Turreted:
+		TurnSpeed: 8
+		Turret: primary
+	Armament@PRIMARY:
+		Weapon: unscgrizzlycannon
+		LocalOffset: 1400,100,340, 1400,-100,340
+		Recoil: 171
+		RecoilRecovery: 30
+		MuzzleSequence: muzzle
+		Turret: primary
+	AttackTurreted:
+		Turrets: primary
+		PauseOnCondition: disabled
+	WithMuzzleOverlay:
+	WithSpriteTurret:
+		Sequence: turret
+		Turret: primary
+	SelectionDecorations:
+	Voiced:
+		VoiceSet: OverlordTankVoice
+	Selectable:
+		DecorationBounds: 1877, 1621, 0, -170
+	SpawnActorOnDeath:
+		Actor: chinaoverlord.Husk
+	RenderSprites:
+		Image: chinaoverlord
+	-Cloneable:
+
+unsccobra:
+	Inherits: ^TrackedVehicle
+	Inherits@GAINSEXPERIENCE: ^GainsExperience
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Buildable:
+		Queue: Vehicle
+		BuildPaletteOrder: 33
+		Prerequisites: ~vehicles.unsc, ~techlevel.medium
+		Description: actor-unsccobra.description
+	Valued:
+		Cost: 900
+	Tooltip:
+		Name: actor-unsccobra.name
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 46000
+	Armor:
+		Type: Heavy
+	Mobile:
+		Speed: 95
+		RequireForceMoveCondition: !undeployed
+		ImmovableCondition: !undeployed
+	RevealsShroud:
+		MinRange: 4c0
+		Range: 6c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 4c0
+	Turreted:
+		TurnSpeed: 24
+	Armament:
+		Weapon: unsccobratwincannon
+		LocalOffset: 900,180,340, 900,-180,340
+		Recoil: 85
+		RecoilRecovery: 25
+		MuzzleSequence: muzzle
+		PauseOnCondition: disabled || deployed
+	Armament@deployed:
+		Weapon: unsccobracannon
+		Recoil: 85
+		RecoilRecovery: 25
+		LocalOffset: 768,0,90
+		MuzzleSequence: muzzle
+		RequiresCondition: deployed
+		PauseOnCondition: disabled
+	AttackTurreted:
+		PauseOnCondition: disabled
+	WithMuzzleOverlay:
+	WithSpriteTurret:
+		Sequence: turret2
+		RequiresCondition: !deployed
+	WithSpriteTurret@deployed:
+		Sequence: turret
+		RequiresCondition: deployed
+	ProducibleWithLevel:
+		Prerequisites: vehicles.upgraded
+	GrantConditionOnDeploy:
+		PauseOnCondition: disabled || being-captured
+		DeployedCondition: deployed
+		UndeployedCondition: undeployed
+		UndeployOnMove: true
+		UndeployOnPickup: true
+		Facing: 128
+		AllowedTerrainTypes: Clear, ClearSnow, Road, Rough
+		DeploySounds: vnukde1a.aud
+		UndeploySounds: vnukde2a.aud
+		Voice: Action
+	Repairable:
+		RequireForceMoveCondition: !undeployed
+	Passenger:
+		RequireForceMoveCondition: !undeployed
+		Weight: 4
+	Voiced:
+		VoiceSet: TsunamiTankVoice
+	RenderSprites:
+		Image: japantsunamitank
+
+unscwolverine:
+	Inherits: ^Vehicle
+	Inherits@GAINSEXPERIENCE: ^GainsExperience
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Buildable:
+		Queue: Vehicle
+		BuildPaletteOrder: 32
+		Prerequisites: techcenter, ~vehicles.unsc, ~techlevel.high
+		Icon: icon-gla
+		Description: actor-unscwolverine.description
+	Valued:
+		Cost: 800
+	Tooltip:
+		Name: actor-unscwolverine.name
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 17500
+	Armor:
+		Type: Light
+	Mobile:
+		Locomotor: wheeled_salvage
+		TurnSpeed: 32
+		Speed: 135
+	RevealsShroud:
+		MinRange: 5c0
+		Range: 8c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 5c0
+	Turreted:
+		TurnSpeed: 20
+		Offset: -256,0,96
+	Armament:
+		RequiresCondition: !duallaunchers
+		Weapon: unscwolverinerockets
+		LocalOffset: 171,-192,64, 171,0,-64, 171,192,64, 171,-192,-64, 171,0,64, 171,192,-64
+	Armament@upgraded:
+		RequiresCondition: duallaunchers
+		Weapon: unscwolverinerockets
+		Delay: 8
+		LocalOffset: 171,-192,64, 171,0,-64, 171,192,64, 171,-192,-64, 171,0,64, 171,192,-64
+	AttackTurreted:
+		PauseOnCondition: disabled
+	WithSpriteTurret:
+		Sequence: pod
+	ProducibleWithLevel:
+		Prerequisites: vehicles.upgraded
+	GrantConditionOnPrerequisite@duallaunchers:
+		Condition: duallaunchers
+		Prerequisites: unsc.duallaunchers
+	RenderSprites:
+		Image: bggyd
