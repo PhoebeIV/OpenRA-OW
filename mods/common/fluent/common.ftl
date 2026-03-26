@@ -7,7 +7,6 @@ button-quit = Quit
 
 ## Server Orders
 notification-custom-rules = This map contains custom rules. Game experience may change.
-notification-map-bots-disabled = Bots have been disabled on this map.
 notification-two-humans-required = This server requires at least two human players to start a match.
 notification-unknown-server-command = Unknown server command: { $command }.
 notification-admin-start-game = Only the host can start the game.
@@ -87,7 +86,6 @@ notification-lobby-disconnected = { $player } has left.
 
 ## UnitOrders
 notification-game-has-started = The game has started.
-notification-game-saved = Game saved.
 notification-game-paused = The game has been paused by { $player }.
 notification-game-unpaused = The game has been un-paused by { $player }.
 
@@ -205,6 +203,7 @@ label-bot-player = AI Player
 ## LobbyLogic
 notification-lobby-option = { $name }: { $value }.
 notification-lobby-option-changed = { $name } changed to { $value }.
+notification-map-bots-disabled = Bots have been disabled on this map.
 
 ## IngameMenuLogic
 menu-ingame =
@@ -1120,9 +1119,12 @@ keycode =
     .mouse5 = Mouse 5
 
 ## MapGeneratorToolLogic
-label-map-generator-failed-cancel = Dismiss
 notification-map-generator-generated = Generated using { $name }
-notification-map-generator-failed = Map generation failed
+
+dialog-notification-map-generator-failed =
+    .title = Map generation failed
+    .prompt = See debug.log for details.
+    .cancel = Dismiss
 
 ## EditorTilingPathBrush
 notification-tiling-path-started = Started tiling path
