@@ -91,7 +91,7 @@ unscreactor:
 		Image: explosion
 		Sequence: cyrostreamexplosion
 		Offset: 0,256,896
-		RequiresCondition: !disabled
+		RequiresCondition: !disabled || !build-incomplete
 		Palette: noplayer
 	WithIdleOverlay@advancedreactor:
 		Image: explosion
@@ -119,6 +119,7 @@ unscreactor:
 	TransformOnCondition@sell:
 		RequiresCondition: sell_me
 		IntoActor: unscfirebase
+		SkipMakeAnims: false
 	SpawnActorOnDeath@firebase:
 		Actor: unscfirebase
 
@@ -218,6 +219,7 @@ unscbarracks:
 		Condition: sell_me
 	TransformOnCondition@sell:
 		RequiresCondition: sell_me
+		SkipMakeAnims: false
 		IntoActor: unscfirebase
 	SpawnActorOnDeath@firebase:
 		Actor: unscfirebase
@@ -272,6 +274,7 @@ unscgarage:
 	TransformOnCondition@sell:
 		RequiresCondition: sell_me
 		IntoActor: unscfirebase
+		SkipMakeAnims: false
 	SpawnActorOnDeath@firebase:
 		Actor: unscfirebase
 
@@ -282,7 +285,7 @@ unscsupplypad:
 	Inherits@BIB: ^3xBuildingBib
 	Inherits@botblocker: ^3x4BotBlockerChoose
 	Building:
-		Footprint: xxx xxx ===
+		Footprint: xxx +x+ ===
 		Dimensions: 3,3
 	Selectable:
 		Bounds: 3072, 4096
@@ -324,6 +327,7 @@ unscsupplypad:
 	TransformOnCondition@sell:
 		RequiresCondition: sell_me
 		IntoActor: unscfirebase
+		SkipMakeAnims: false
 	SpawnActorOnDeath@firebase:
 		Actor: unscfirebase
 
@@ -363,6 +367,15 @@ unscairpad:
 		Condition: produced
 	Sellable:
 		RequiresCondition: !being-captured && !being-demolished
+	ToggleConditionOnOrder@sell:
+		OrderName: Sell
+		Condition: sell_me
+	TransformOnCondition@sell:
+		RequiresCondition: sell_me
+		SkipMakeAnims: false
+		IntoActor: unscfirebase
+	SpawnActorOnDeath@firebase:
+		Actor: unscfirebase
 
 unscarmory:
 	Inherits: ^ScienceBuilding
@@ -402,6 +415,7 @@ unscarmory:
 	TransformOnCondition@sell:
 		RequiresCondition: sell_me
 		IntoActor: unscfirebase
+		SkipMakeAnims: false
 	SpawnActorOnDeath@firebase:
 		Actor: unscfirebase
 
@@ -471,6 +485,7 @@ unscradartower:
 		Condition: sell_me
 	TransformOnCondition@sell:
 		RequiresCondition: sell_me
+		SkipMakeAnims: false
 		IntoActor: unscfirebase
 	SpawnActorOnDeath@firebase:
 		Actor: unscfirebase
@@ -529,6 +544,7 @@ unscrepairpad:
 	TransformOnCondition@sell:
 		RequiresCondition: sell_me
 		IntoActor: unscfirebase
+		SkipMakeAnims: false
 	SpawnActorOnDeath@firebase:
 		Actor: unscfirebase
 
@@ -592,6 +608,7 @@ unscmac:
 	TransformOnCondition@sell:
 		RequiresCondition: sell_me
 		IntoActor: unscfirebase
+		SkipMakeAnims: false
 	SpawnActorOnDeath@firebase:
 		Actor: unscfirebase
 
@@ -615,7 +632,7 @@ unscfirebase:
 		Bounds: 3072, 3072
 		DecorationBounds: 3072, 3072
 	Health:
-		HP: 100000
+		HP: 50000
 	Armor:
 		Type: Wood
 	Power:
@@ -642,54 +659,63 @@ unscfirebase:
 	TransformOnCondition@reactor:
 		IntoActor: unscreactor
 		RequiresCondition: reactor
+		SkipMakeAnims: false
 	GrantConditionOnProduction@barracks:
 		Condition: barracks
 		Actors: unscfirebase.barracks
 	TransformOnCondition@barracks:
 		IntoActor: unscbarracks
 		RequiresCondition: barracks
+		SkipMakeAnims: false
 	GrantConditionOnProduction@garage:
 		Condition: garage
 		Actors: unscfirebase.garage
 	TransformOnCondition@garage:
 		IntoActor: unscgarage
 		RequiresCondition: garage
+		SkipMakeAnims: false
 	GrantConditionOnProduction@supplypad:
 		Condition: supplypad
 		Actors: unscfirebase.supplypad
 	TransformOnCondition@supplypad:
 		IntoActor: unscsupplypad
 		RequiresCondition: supplypad
+		SkipMakeAnims: false
 	GrantConditionOnProduction@airpad:
 		Condition: airpad
 		Actors: unscfirebase.airpad
 	TransformOnCondition@airpad:
 		IntoActor: unscairpad
 		RequiresCondition: airpad
+		SkipMakeAnims: false
 	GrantConditionOnProduction@armory:
 		Condition: armory
 		Actors: unscfirebase.armory
 	TransformOnCondition@armory:
 		IntoActor: unscarmory
 		RequiresCondition: armory
+		SkipMakeAnims: false
 	GrantConditionOnProduction@repairpad:
 		Condition: repairpad
 		Actors: unscfirebase.repairpad
 	TransformOnCondition@repairpad:
 		IntoActor: unscrepairpad
 		RequiresCondition: repairpad
+		SkipMakeAnims: false
 	GrantConditionOnProduction@radartower:
 		Condition: radartower
 		Actors: unscfirebase.radartower
 	TransformOnCondition@radartower:
 		IntoActor: unscradartower
 		RequiresCondition: radartower
+		SkipMakeAnims: false
 	GrantConditionOnProduction@mac:
 		Condition: mac
 		Actors: unscfirebase.mac
 	TransformOnCondition@mac:
 		IntoActor: unscmac
 		RequiresCondition: mac
+		SkipMakeAnims: false
 
 ^unscfirebase:
 	Buildable:
