@@ -154,6 +154,8 @@ bot-name =
     .boss = Boss
     .god = God
     .tech = Tech Rusher
+    .dummy = MCV Only
+    .dummy2 = Builder
 
 ## ai_str.yaml
 actor-foundry-bot-name = Automation Facility

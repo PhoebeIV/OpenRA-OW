@@ -21,6 +21,12 @@ Player:
 	ModularBot@Hard1AI:
 		Name: bot-name.tech
 		Type: hard_b
+	ModularBot@dummyAI:
+		Name: bot-name.dummy
+		Type: dummy
+	ModularBot@dummy2AI:
+		Name: bot-name.dummy2
+		Type: dummy_build
 	ProvidesPrerequisite@all:
 		RequiresCondition: enable-all-ai
 		Prerequisite: ai.all
@@ -78,6 +84,12 @@ Player:
 	GrantConditionOnBotOwner@all:
 		Condition: enable-all-ai
 		Bots: easy, medium, hard, harder, boss, boss2, hard_b
+	GrantConditionOnBotOwner@dummy1:
+		Condition: enable-dummy-build-ai
+		Bots: dummy_build
+	GrantConditionOnBotOwner@dummy2:
+		Condition: enable-dummy-mcv-ai
+		Bots: dummy, dummy_build
 	GrantConditionOnFaction@medi:
 		Condition: enable-medi-ai
 		Factions: zerg, infantry, zagara, kerrigan
@@ -145,7 +157,7 @@ Player:
 		Condition: override_hatetib
 		RequiresCondition: enable-all-ai
 	HarvesterBotModule@base:
-		RequiresCondition: enable-all-ai
+		RequiresCondition: enable-all-ai || enable-dummy-mcv-ai
 		HarvesterTypes: harv, harvd, usachinook, avharv, lst.harv
 		RefineryTypes: proc, procd, gproc, passim, zextrac, trefinery, usasupplycenter, chinasupplycenter, japansupplycenter, avproc, japansupplycenternavy, barr.boss
 		ScanForIdleHarvestersInterval: 250
@@ -158,7 +170,7 @@ Player:
 		HarvesterEnemyAvoidanceRadius: 10c0
 		InitialHarvesters: 30
 	ResourceMapBotModule:
-		RequiresCondition: enable-all-ai
+		RequiresCondition: enable-all-ai || enable-dummy-build-ai
 		ResourceCreatorTypes: mine, gmine, mine.cr, gmine.cr, split3, split3.cr, split4, split4.cr, tmonolith, tmonolith.blue, japanoilderrick.cr
 		ValuableResourceTypes: Ore, Gems, Tiberium, BlueTiberium, Oil
 		HarvesterTypes: harv, harvd,  gharv, pprobe, zdrone, usachinook, tscv, avharv, lst.harv
@@ -167,7 +179,7 @@ Player:
 		UpdateResourceMapInverval: 250
 		ResourceMapStrideRadius: 30
 	BuildingRepairBotModule:
-		RequiresCondition: enable-all-ai
+		RequiresCondition: enable-all-ai || enable-dummy-mcv-ai
 	McvManagerBotModule@easy:
 		RequiresCondition: enable-easy-ai
 		McvTypes: mcv, mcvd, mcvd.2, mcv.2, gmcv, gmcv.2, mcvc, pmcv, pmcv.2, zmcv, zmcv.2, tcommand.air, tcommand.air2, avmcv, avmcv.2
@@ -176,7 +188,7 @@ Player:
 		ScanForNewMcvInterval: 500
 		MinimumConstructionYardCount: 1
 	McvManagerBotModule@medhard:
-		RequiresCondition: enable-medium-ai || enable-hard-ai
+		RequiresCondition: enable-medium-ai || enable-hard-ai || enable-dummy-mcv-ai
 		McvTypes: mcv, mcvd, mcvd.2, mcv.2, gmcv, gmcv.2, mcvc, pmcv, pmcv.2, zmcv, zmcv.2, tcommand.air, tcommand.air2, avmcv, avmcv.2
 		ConstructionYardTypes: fact, factd, gfact, v01.c, pnexus, zhatchery, tcommand, tcommand.landed, tcommand.ai, avfact
 		McvFactoryTypes: weap, weapd, afldd, gair, probot, weap.bot, weapd.bot, afldd.bot, gair.bot, usawarfactory, zhatchery, chinawarfactory, japanmechabay, avweap, japanmechabaynavy, tsport
@@ -190,7 +202,7 @@ Player:
 		ScanForNewMcvInterval: 500
 		MinimumConstructionYardCount: 4
 	McvExpansionManagerBotModule@all:
-		RequiresCondition: enable-all-ai && enable-mcv-exp
+		RequiresCondition: (enable-all-ai && enable-mcv-exp) || enable-dummy-build-ai
 		McvTypes: mcv, mcvd, mcvd.2, mcv.2, gmcv, gmcv.2, mcvc, pmcv, pmcv.2, zmcv, zmcv.2, tcommand.air, tcommand.air2, avmcv, avmcv.2
 		ConstructionYardTypes: fact, factd, gfact, v01.c, pnexus, zhatchery, tcommand, tcommand.landed, tcommand.ai, avfact
 		McvFactoryTypes: weap, weapd, afldd, gair, probot, weap.bot, weapd.bot, afldd.bot, gair.bot, usawarfactory, zhatchery, chinawarfactory, japanmechabay, avweap, japanmechabaynavy, tsport
@@ -223,7 +235,7 @@ Player:
 		RequiresCondition: enable-all-ai
 		PowerDownTypes: hellgate,hellgate.d,dome,tsla,mslo,agun,sam,chinanuclearsilo,iron,chinasupernuclearsilo,japandecimator,gateoflight,medidarkcrystal,firestormmedi,tmpld,ptempl,eyed,tsilo,usaparticlecannon,zmslo,atd,tsla.est, tsla.ukr,ironball,atwr,atwr2,oblid,samd,advsam,plstur,pphoto,psbatt,usapatriot,usapatriotemp,tmissile,tmissile.mengsk,chinagatlinggun,usasupportmatrix, japanlaserbaseai, japanmindcontrol, japanballoon, japanberserktower, japanwaveforceturret,ftemple
 	BaseBuilderBotModule@normal:
-		RequiresCondition: enable-all-ai
+		RequiresCondition: enable-all-ai || enable-dummy-build-ai
 		PlaceDefenseTowardsEnemyChance: 40
 		InititalMinimumRefineryCount: 0
 		AdditionalMinimumRefineryCount: 1
