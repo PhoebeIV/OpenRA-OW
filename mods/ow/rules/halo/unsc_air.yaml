@@ -53,7 +53,7 @@ unscdarter:
 		Range: 6c0
 		Type: GroundPosition
 	SpawnActorOnDeath:
-		Actor: SUPPLYCHINOOK.Husk
+		Actor: unscdarter.Husk
 	Selectable:
 		Bounds: 1706, 1536, 0,-1536
 		DecorationBounds: 1706, 1536,0,-1536
@@ -124,13 +124,13 @@ unschornet:
 		Prerequisites: ~aircraft.unsc
 		Description: actor-unschornet.description
 	Valued:
-		Cost: 1800
+		Cost: 900
 	Tooltip:
 		Name: actor-unschornet.name
 	UpdatesPlayerStatistics:
 		AddToArmyValue: true
 	Health:
-		HP: 15000
+		HP: 7500
 	RevealsShroud:
 		MinRange: 8c0
 		Range: 10c0
@@ -150,11 +150,11 @@ unschornet:
 		LocalOffset: 85,213,-85, 85,-213,-85
 		MuzzleSequence: muzzle
 	Armament@TRI:
-		Weapon: HellfireAA
+		Weapon: unscrocketlauncher
 		LocalOffset: 0,-213,-85, 0,213,-85
 		PauseOnCondition: !ammo
 	Armament@QUAD:
-		Weapon: HellfireAG
+		Weapon: unscrocketlauncheraa
 		LocalOffset: 0,213,-85, 0,-213,-85
 		PauseOnCondition: !ammo
 	AttackAircraft:
@@ -171,19 +171,13 @@ unschornet:
 	AutoTarget:
 		InitialStance: HoldFire
 		InitialStanceAI: HoldFire
-	WithIdleOverlay@ROTORAIR:
-		Sequence: rotor
-		RequiresCondition: airborne
-	WithIdleOverlay@ROTORGROUND:
-		Sequence: slow-rotor
-		RequiresCondition: !airborne
 	AmmoPool:
 		Ammo: 24
 		ReloadDelay: 8
 		AmmoCondition: ammo
 	WithMuzzleOverlay:
 	SpawnActorOnDeath:
-		Actor: HIND.Husk
+		Actor: unschornet.Husk
 	LeavesTrails:
 		Offsets: -427,0,0
 		Image: smokey
@@ -207,8 +201,6 @@ unschornet:
 	WithProductionIconOverlay:
 		Types: Veterancy
 		Prerequisites: aircraft.upgraded
-	RenderSprites:
-		Image: usacomanche
 	ReloadAmmoPool@reloadnear:
 		RequiresCondition: reloadnear
 		Delay: 500
@@ -264,28 +256,20 @@ unscsparrowhawk:
 		OpportunityFire: true
 	Aircraft:
 		TurnSpeed: 16
-		Speed: 112
+		Speed: 96
 		Voice: Move
 	Guard:
 		Voice: Move
 	AutoTarget:
 		InitialStance: HoldFire
 		InitialStanceAI: HoldFire
-	WithIdleOverlay@ROTOR1AIR:
-		Offset: 260,0,343
-		Sequence: rotor
-		RequiresCondition: airborne
-	WithIdleOverlay@ROTOR1GROUND:
-		Offset: 260,0,343
-		Sequence: slow-rotor
-		RequiresCondition: !airborne
 	AmmoPool:
 		Ammo: 200
 		ReloadDelay: 8
 		AmmoCondition: ammo
 	WithMuzzleOverlay:
 	SpawnActorOnDeath:
-		Actor: VECHICLECHINOOK.Husk
+		Actor: unscsparrowhawk.Husk
 	LeavesTrails:
 		Offsets: -427,0,0
 		Image: smokey
@@ -309,8 +293,6 @@ unscsparrowhawk:
 	WithProductionIconOverlay:
 		Types: Veterancy
 		Prerequisites: aircraft.upgraded
-	RenderSprites:
-		Image: chinagatlinghelix
 	ReloadAmmoPool@reloadnear:
 		RequiresCondition: reloadnear
 		Delay: 500
@@ -363,11 +345,24 @@ unscvulture:
 		Weapon: unscvulturerockets
 		LocalOffset: 85,-213,-85, 85,213,-85
 		MuzzleSequence: muzzle
+		PauseOnCondition: megabarrage
 	Armament@SECONDARY2:
 		Weapon: unscvulturerockets
 		Delay: 4
 		LocalOffset: 85,213,-85, 85,-213,-85
 		MuzzleSequence: muzzle
+		PauseOnCondition: megabarrage
+	Armament@PRIMARY2up:
+		Weapon: unscvulturerocketsupgrade
+		LocalOffset: 85,-213,-85, 85,213,-85
+		MuzzleSequence: muzzle
+		RequiresCondition: megabarrage
+	Armament@SECONDARY2up:
+		Weapon: unscvulturerocketsupgrade
+		Delay: 4
+		LocalOffset: 85,213,-85, 85,-213,-85
+		MuzzleSequence: muzzle
+		RequiresCondition: megabarrage
 	AttackAircraft:
 		FacingTolerance: 80
 		PersistentTargeting: false
@@ -375,24 +370,16 @@ unscvulture:
 		OpportunityFire: true
 	Aircraft:
 		TurnSpeed: 16
-		Speed: 112
+		Speed: 64
 		Voice: Move
 	Guard:
 		Voice: Move
 	AutoTarget:
 		InitialStance: HoldFire
 		InitialStanceAI: HoldFire
-	WithIdleOverlay@ROTOR1AIR:
-		Offset: 260,0,343
-		Sequence: rotor
-		RequiresCondition: airborne
-	WithIdleOverlay@ROTOR1GROUND:
-		Offset: 260,0,343
-		Sequence: slow-rotor
-		RequiresCondition: !airborne
 	WithMuzzleOverlay:
 	SpawnActorOnDeath:
-		Actor: VECHICLECHINOOK.Husk
+		Actor: unscvulture.Husk
 	LeavesTrails:
 		Offsets: -427,0,0
 		Image: smokey
@@ -411,8 +398,6 @@ unscvulture:
 	WithProductionIconOverlay:
 		Types: Veterancy
 		Prerequisites: aircraft.upgraded
-	RenderSprites:
-		Image: chinaspeakerhelix
 	Voiced:
 		VoiceSet: HelixVoice
 	Cargo:
@@ -420,6 +405,9 @@ unscvulture:
 		MaxWeight: 8
 		AfterUnloadDelay: 40
 		EjectOnDeath: true
+	GrantConditionOnPrerequisite@megabarrage:
+		Condition: megabarrage
+		Prerequisites: unsc.megabarrage
 
 unscpelican:
 	Inherits: BADR

@@ -91,7 +91,7 @@ unscreactor:
 		Image: explosion
 		Sequence: cyrostreamexplosion
 		Offset: 0,256,896
-		RequiresCondition: !disabled || !build-incomplete
+		RequiresCondition: !build-incomplete || !disabled
 		Palette: noplayer
 	WithIdleOverlay@advancedreactor:
 		Image: explosion
@@ -308,6 +308,7 @@ unscsupplypad:
 		Actor: unscdarter
 		SpawnOffset: 1,2
 		Facing: 256
+		RequiresCondition: !build-incomplete
 	DockHost:
 		Type: Unload
 		DockAngle: 448
@@ -1052,6 +1053,77 @@ unscwatchtower:
 	ExternalCondition@JAMMED:
 		Condition: jammed
 
+unscanaconda:
+	Inherits: ^Defense
+	Inherits@LOWPOWER: ^DisableOnLowPowerOrPowerDown
+	Inherits@AUTOTARGET: ^AutoTargetAll
+	Inherits@AUTOTARGETGround: ^AutoTargetAirInfantryPriority
+	Valued:
+		Cost: 1000
+	Selectable:
+		Bounds: 1024, 1024
+		DecorationBounds: 1024, 2048, 0, -512
+	Tooltip:
+		Name: actor-unscanaconda.name
+	Building:
+	Health:
+		HP: 70000
+	Armor:
+		Type: Heavy
+	RevealsShroud:
+		MinRange: 5c0
+		Range: 6c512
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 5c0
+	WithBuildingBib:
+		HasMinibib: true
+	Turreted:
+		TurnSpeed: 48
+		InitialFacing: 192
+		RealignDelay: -1
+		RequiresCondition: !build-incomplete
+	WithSpriteTurret:
+		RequiresCondition: !build-incomplete
+		Recoils: false
+	Armament@PRIMARY:
+		Weapon: unscanacondarockets
+		LocalOffset: 256,0,512
+		MuzzleSequence: muzzle
+		PauseOnCondition: disabled || megabarrage
+	Armament@upgraded:
+		RequiresCondition: megabarrage
+		Weapon: unscanacondarocketsupgrade
+		LocalOffset: 256,0,512
+		MuzzleSequence: muzzle
+	ReloadDelayMultiplier:
+		Modifier: 50
+	AttackTurreted:
+		PauseOnCondition: build-incomplete
+	WithRangeCircle:
+		Range: 6c640
+	RenderDetectionCircle:
+	DetectCloaked:
+		Range: 5c0
+		DetectionTypes: Cloak, AirCloak
+		RequiresCondition: !disabled
+	WithMuzzleOverlay:
+	Power:
+		Amount: -60
+	-BodyOrientation:
+	ClassicFacingBodyOrientation:
+	ToggleConditionOnOrder@sell:
+		OrderName: Sell
+		Condition: sell_me
+	TransformOnCondition@sell:
+		RequiresCondition: sell_me
+		IntoActor: unscpod
+	SpawnActorOnDeath@firebase:
+		Actor: unscpod
+	GrantConditionOnPrerequisite@megabarrage:
+		Condition: megabarrage
+		Prerequisites: unsc.megabarrage
+
 ^unscpod:
 	Buildable:
 		Queue: Pod
@@ -1118,6 +1190,12 @@ unscpod:
 	TransformOnCondition@watchtower:
 		IntoActor: unscwatchtower
 		RequiresCondition: watchtower
+	GrantConditionOnProduction@anaconda:
+		Condition: anaconda
+		Actors: unscpod.anaconda
+	TransformOnCondition@anaconda:
+		IntoActor: unscanaconda
+		RequiresCondition: anaconda
 
 unscpod.talos:
 	Inherits: ^unscpod
@@ -1163,9 +1241,26 @@ unscpod.watchtower:
 		Description: actor-usncwatchtower.description
 		Prerequisites: techcenter, ~techlevel.low, ~!structures.bothard
 		IconPalette: player-icon
-		BuildPaletteOrder: 2
+		BuildPaletteOrder: 4
 		IconPaletteIsPlayerPalette: true
 	Valued:
 		Cost: 1100
 	RenderSprites:
 		Image: unscwatchtower
+
+unscpod.anaconda:
+	Inherits: ^unscpod
+	Tooltip:
+		Name: actor-unscanaconda.name
+	Buildable:
+		Queue: Pod
+		BuildAtProductionType: Pod
+		Description: actor-unscanaconda.description
+		Prerequisites: techcenter, ~techlevel.low, ~!structures.bothard
+		IconPalette: player-icon
+		BuildPaletteOrder: 5
+		IconPaletteIsPlayerPalette: true
+	Valued:
+		Cost: 1000
+	RenderSprites:
+		Image: unscanaconda

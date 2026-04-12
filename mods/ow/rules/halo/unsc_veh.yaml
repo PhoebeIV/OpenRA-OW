@@ -6,7 +6,7 @@ unscmcv:
 	Buildable:
 		Queue: Vehicle
 		BuildPaletteOrder: 90
-		Prerequisites: fix, ~mcv, ~techlevel.medium, ~vehicles.mcvprereq
+		Prerequisites: unscrepairpad, ~mcv, ~techlevel.medium, ~vehicles.mcvprereq
 		BuildDurationModifier: 50
 		Description: actor-mcv-description
 	Valued:
@@ -37,7 +37,7 @@ unscmcv.2:
 unscwarthog:
 	Inherits: ^Vehicle
 	Inherits@GAINSEXPERIENCE: ^GainsExperience
-	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
 	Buildable:
 		Queue: Vehicle
 		BuildPaletteOrder: 30
@@ -66,28 +66,51 @@ unscwarthog:
 	Turreted:
 		TurnSpeed: 40
 		Offset: -298,0,212
-	GrantRandomCondition:
-		Conditions: fake1, rocketlauncher, flamerthrower
+	GrantRandomPeriodicCondition:
+		Conditions: fake1, rocketlauncher
+		CooldownDuration: 1
+		ActiveDuration: 90000
+		PauseOnCondition: warthogweapons
+	GrantRandomPeriodicCondition@warthogweapons:
+		Conditions: fake1, rocketlauncher, missilebarrage, railgun
+		CooldownDuration: 1
+		ActiveDuration: 90000
+		RequiresCondition: warthogweapons
 	Armament:
 		Weapon: unscwarthogminigun
 		LocalOffset: 171,0,256
-		PauseOnCondition: rocketlauncher || flamerthrower
+		PauseOnCondition: rocketlauncher || missilebarrage || railgun
 	Armament@rocketlauncher:
 		Weapon: unscwarthogrocketlauncher
+		LocalOffset: 171,0,256
+		RequiresCondition: rocketlauncher
+	Armament@rocketlauncheraa:
+		Weapon: unscwarthogrocketlauncheraa
 		LocalOffset: 171,0,256
 		RequiresCondition: rocketlauncher
 	Armament@flamerthrower:
 		Weapon: unscflamethrower
 		LocalOffset: 171,0,256
 		RequiresCondition: flamerthrower
+	Armament@missilebarrage:
+		Weapon: unscgrizzlyrockets
+		LocalOffset: 171,0,288, 171,0,224
+		RequiresCondition: missilebarrage
+	Armament@railgun:
+		Weapon: unscwarthograilgun
+		LocalOffset: 171,0,256
+		RequiresCondition: railgun
 	AttackTurreted:
-		PauseOnCondition: disabled
+		PauseOnCondition: disabled 
 	FireProjectilesOnDeath:
 		Weapons: TechnicalTurret
 		Pieces: 1,1
 		Range: 1c0, 3c0
 	RenderSprites:
-		Image: GTECHNICAL
+		Image: unscwarthog
+	GrantConditionOnPrerequisite@warthogweapons:
+		Condition: warthogweapons
+		Prerequisites: unsc.warthogweapons
 
 unscmongoose:
 	Inherits: ^Vehicle
@@ -98,6 +121,7 @@ unscmongoose:
 		BuildPaletteOrder: 29
 		Prerequisites: ~vehicles.unsc, ~techlevel.low
 		Description: actor-unscmongoose.description
+		Icon: icon-unsc
 	Tooltip:
 		Name: actor-unscmongoose.name
 	Valued:
@@ -140,13 +164,13 @@ unscscorpion:
 		Description: actor-unscscorpion.description
 		BuildDuration: 900
 	Valued:
-		Cost: 1200
+		Cost: 1500
 	Tooltip:
 		Name: actor-unscscorpion.name
 	Health:
 		HP: 85000
 	Mobile:
-		Speed: 85
+		Speed: 65
 		Voice: Move
 	Guard:
 		Voice: Move
@@ -160,13 +184,24 @@ unscscorpion:
 		RecoilRecovery: 38
 		LocalOffset: 720,0,80
 		MuzzleSequence: muzzle
+	Armament@2:
+		Weapon: unscscorpionminigun
+		LocalOffset: 260,40,40
+		MuzzleSequence: muzzle2
+	Armament@3:
+		Weapon: unscscorpionsmoke
+		LocalOffset: 280,40,40
+		RequiresCondition: smokesystem
 	SpawnActorOnDeath:
-		Actor: usacrusader.Husk
+		Actor: unscscorpion.Husk
 	SelectionDecorations:
 	RenderSprites:
-		Image: usacrusadertank
+		Image: unscscorpion
 	Voiced:
 		VoiceSet: CrusaderTankVoice
+	GrantConditionOnPrerequisite@smokesystem:
+		Condition: smokesystem
+		Prerequisites: unsc.smokesystem
 
 unscgrizzly:
 	Inherits: ^TrackedVehicle
@@ -214,6 +249,14 @@ unscgrizzly:
 		RecoilRecovery: 30
 		MuzzleSequence: muzzle
 		Turret: primary
+	Armament@2:
+		Weapon: unscscorpionminigun
+		LocalOffset: 260,40,40
+		MuzzleSequence: muzzle2
+	Armament@3:
+		Weapon: unscgrizzlyrockets
+		LocalOffset: 171,-192,64, 171,0,-64, 171,192,64, 171,-192,-64, 171,0,64, 171,192,-64
+		RequiresCondition: mlrssystem
 	AttackTurreted:
 		Turrets: primary
 		PauseOnCondition: disabled
@@ -227,10 +270,11 @@ unscgrizzly:
 	Selectable:
 		DecorationBounds: 1877, 1621, 0, -170
 	SpawnActorOnDeath:
-		Actor: chinaoverlord.Husk
-	RenderSprites:
-		Image: chinaoverlord
+		Actor: unscgrizzly.Husk
 	-Cloneable:
+	GrantConditionOnPrerequisite@mlrssystem:
+		Condition: mlrssystem
+		Prerequisites: unsc.mlrssystem
 
 unsccobra:
 	Inherits: ^TrackedVehicle
@@ -282,11 +326,7 @@ unsccobra:
 		PauseOnCondition: disabled
 	WithMuzzleOverlay:
 	WithSpriteTurret:
-		Sequence: turret2
-		RequiresCondition: !deployed
-	WithSpriteTurret@deployed:
 		Sequence: turret
-		RequiresCondition: deployed
 	ProducibleWithLevel:
 		Prerequisites: vehicles.upgraded
 	GrantConditionOnDeploy:
@@ -307,18 +347,15 @@ unsccobra:
 		Weight: 4
 	Voiced:
 		VoiceSet: TsunamiTankVoice
-	RenderSprites:
-		Image: japantsunamitank
 
 unscwolverine:
 	Inherits: ^Vehicle
 	Inherits@GAINSEXPERIENCE: ^GainsExperience
-	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
 	Buildable:
 		Queue: Vehicle
 		BuildPaletteOrder: 32
 		Prerequisites: techcenter, ~vehicles.unsc, ~techlevel.high
-		Icon: icon-gla
 		Description: actor-unscwolverine.description
 	Valued:
 		Cost: 800
@@ -327,7 +364,7 @@ unscwolverine:
 	UpdatesPlayerStatistics:
 		AddToArmyValue: true
 	Health:
-		HP: 17500
+		HP: 12500
 	Armor:
 		Type: Light
 	Mobile:
@@ -344,12 +381,15 @@ unscwolverine:
 		TurnSpeed: 20
 		Offset: -256,0,96
 	Armament:
-		RequiresCondition: !duallaunchers
+		PauseOnCondition: megabarrage
 		Weapon: unscwolverinerockets
 		LocalOffset: 171,-192,64, 171,0,-64, 171,192,64, 171,-192,-64, 171,0,64, 171,192,-64
+	Armament@2:
+		Weapon: unscgrenadelauncher
+		LocalOffset: 260,40,40
 	Armament@upgraded:
-		RequiresCondition: duallaunchers
-		Weapon: unscwolverinerockets
+		RequiresCondition: megabarrage
+		Weapon: unscwolverinerocketsupgrade
 		Delay: 8
 		LocalOffset: 171,-192,64, 171,0,-64, 171,192,64, 171,-192,-64, 171,0,64, 171,192,-64
 	AttackTurreted:
@@ -358,8 +398,6 @@ unscwolverine:
 		Sequence: pod
 	ProducibleWithLevel:
 		Prerequisites: vehicles.upgraded
-	GrantConditionOnPrerequisite@duallaunchers:
-		Condition: duallaunchers
-		Prerequisites: unsc.duallaunchers
-	RenderSprites:
-		Image: bggyd
+	GrantConditionOnPrerequisite@megabarrage:
+		Condition: megabarrage
+		Prerequisites: unsc.megabarrage

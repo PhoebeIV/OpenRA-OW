@@ -2190,6 +2190,8 @@ actor-avfrigate-husk-name = Illuminate Frigate
 actor-avbomber-husk-name = Illuminate Bomber
 actor-avcarrier-husk-name = Illuminate Warpship Carrier
 actor-avcarrier-groundhusk-name = Husk (Carrier)
+actor-unscscorpion-husk-name = Husk (M808B Scorpion)
+actor-unscgrizzly-husk-name = Husk (M850 Grizzly)
 
 ## japan_air.yaml
 actor-japanchoppervx =
@@ -6866,9 +6868,6 @@ actor-masterchief =
 actor-masterchiefautoturret =
    .name = Forerunner Automated Turret
 
-actor-UNSCMarine =
-   .name = UNSC Marine 
-
 ## forgotten
 actor-frge1 =
    .description = Light infantry. Heals in Tiberium.
@@ -7782,6 +7781,14 @@ actor-unscmac =
 
    .name = UNSC Magnetic Accelerator Cannon
 
+actor-unscpod =
+   .description = The Talos is a fairly modular weapons platform, capable of targeting and firing on enemy targets automatically or via manned use of a remote battle network uplink.
+
+   It is used as a Talos platform to construct turrets.
+   Each Talos platform has its on production queue and any defenses constructed can be sold back into a Talos platform.
+
+   .name = M5 Talos
+
 actor-unsctalos =
    .description = The M5 Talos Weapons Station an automated stationary weapons platform armed with a M202 XP machine gun.
 
@@ -7796,7 +7803,7 @@ actor-unscsiege =
       Strong vs Vehicles
       Weak vs Infantry, Aircraft
 
-    "Siege Turrets are long-range artillery systems built to counter enemy bombardment platforms\
+    "Siege Turrets are long-range artillery systems built to counter enemy bombardment platforms
     that would otherwise be out of range of standard Turrets.
     These structures occupy a turret slot."
 
@@ -7805,14 +7812,21 @@ actor-unscsiege =
 actor-unscwatchtower =
    .description = Watchtowers are fully-automated structures, capable of detecting cloaked enemies.
 
-   .name = Watchtower
+   .name = M5 Talos Watchtower
+
+actor-unscanaconda =
+   .description = Equipped with two Anaconda surface-to-air missile launchers are installed on both sides of a base turret to repel attacking aircraft
+
+      Strong vs Aircraft
+      Weak vs Infantry, Vehicles
+
+   .name = M5 Talos Anaconda
+
 
 ## unsc_inf.yaml
 actor-unscmarine =
-   .description = Main UNSC infantry unit. Can come armed with the following weapons:
+   .description = Main UNSC infantry unit [Mid Range]. Can come armed with the following weapons:
 
-   M6C Magnum - Longer range, less damage
-   M90 Shotgun - Shorter range, more damage
    MA5B Assault Rifle -  Standard damage and range, fires in short 5 round bursts
    BR55 Battle Rifle - Standard damage and range, fires in short 3 round bursts
 
@@ -7820,11 +7834,27 @@ actor-unscmarine =
 
    If the Covenant weapons upgrade is researched, marines can also be armed with the following weapons:
 
-   Type-25 Plasma Pistol - Shorter Range, higher damage to shields
    Okarda'phaa-pattern plasma rifle - Standard range, higher damage to shields
    Type-33 Needler - Longer range, Burst damage when needles are stacked onto a single unit
 
    Speed: 62
+      Strong vs Infantry
+      Weak vs Vehicles, Aircraft
+   .name = UNSC Marine
+
+actor-unscfrontrunner =
+   .description = Main UNSC infantry unit [Short Range]. Can come armed with the following weapons:
+
+   M6C Magnum - Longer range, less damage
+   M90 Shotgun - Shorter range, more damage
+
+   Marines can also be upgraded to carry frag grenades, increasing damage to vehicles.
+
+   If the Covenant weapons upgrade is researched, marines can also be armed with the following weapons:
+
+   Type-25 Plasma Pistol - Shorter Range, higher damage to shields
+
+   Speed: 70
       Strong vs Infantry
       Weak vs Vehicles, Aircraft
    .name = UNSC Marine
@@ -7838,7 +7868,7 @@ actor-unscheavyweaponsmarine =
    If the Covenant weapons upgrade is researched, marines can also be armed with the following weapons:
 
    Jovokada Workshop Brute Shot - Standard range, incrased damage to infantry
-   Fuel Rod Cannon - Increased range, longer reload, increased spread damage.
+   Fuel Rod Cannon - Increased range, longer reload, increased spread damage
 
    Speed: 62
       Strong vs Aircraft, Vehicles
@@ -7853,6 +7883,7 @@ actor-unscsniper =
    If the Covenant weapons upgrade is researched, snipers can also be armed with the following weapons:
 
    Vostu-pattern carbine - Shorter range, can target vehicles.
+   Sulok-pattern beam rifle - Shorter range, can target vehicles and aircraft.
 
    Speed: 62
       Strong vs Infantry
@@ -7875,3 +7906,144 @@ actor-unscdarter =
     Speed: 96 
       Unarmed
    .name = D82-EST Darter
+
+actor-unschornet =
+   .description = The AV-14 Attack VTOL (colloquially nicknamed the Hornet), is a VTOL attack aerodyne manufactured by Misriah Armory.
+
+   Armed with a 20mm GAU-23/AW/Linkless Feed Autocannon
+   and 2 M651 missile launchers
+
+   When Chaff Pod is researched, Hornet will be able to shoot down incoming missiles.
+
+    Speed: 96 
+      Strong vs Infantry, Vehicles
+      Weak vs Aircraft
+   .name = AV-14B Hornet
+
+actor-unschornet =
+   .description = The AV-14 Attack VTOL (colloquially nicknamed the Hornet), is a VTOL attack aerodyne manufactured by Misriah Armory.
+
+   Armed with a 20mm GAU-23/AW/Linkless Feed Autocannon
+   and 2 M651 missile launchers
+
+   When Chaff Pod is researched, Hornet will be able to shoot down incoming missiles.
+
+    Speed: 112
+      Strong vs Infantry, Vehicles
+      Weak vs Aircraft
+   .name = AV-14B Hornet
+
+actor-unscsparrowhawk =
+   .description = The Sparrowhawk is a VTOL aerodyne used to hunt tanks and support ground operations.
+
+   Armed with 2 wing-mounted GAU-23/AW/Linkless Feed Autocannons
+   and 1 chin-mounted M6 Grindell/Galilean Nonlinear Cannon
+
+    Speed: 96 
+      Strong vs Infantry, Vehicles
+      Weak vs Aircraft
+   .name = AV-22 Sparrowhawk
+
+actor-unscvulture =
+   .description = The AC-220 Gunship, colloquially known as the Vulture, is a heavy gunship manufactured by Ushuaia Armory and fielded by the UNSC.
+
+   Armed with 4 GAU-23/AW/Linkless Feed Autocannons
+   and 2 A-74 Sylver VLS pods
+
+   If [UPGRADE NAME] is researched, enables the use of the "Phoenix missile".
+
+   If Mega Barrage is researched, the rocket barrage is doubled.
+
+    Speed: 64
+      Strong vs Infantry, Vehicles
+      Weak vs Aircraft
+   .name = AC-220 Vulture
+
+## unsc_veh.yaml
+
+actor-unscwarthog =
+   .description = UNSC Warthog, main vehicle fleet for offensive and defensive capabilities. Can be armed with the following weapons:
+
+   M41 Chaingun - High firerate, effective on infantry
+   M39 Rocket turret - Effective on ground vehicles and aircraft
+   M7057 flamethrower - Effective on groups of infantry
+
+   If Warthog Weapons is researched, the warthog can also be armed with:
+
+   M68 Gauss cannon - Longer range, higher damage
+   M79 Missile launcher - Rocket barrage, long reload time
+
+   "The Warthog is as much a part of the UNSC as boots, guns, and tasteless coffee."
+
+    Speed: 135 
+      Strong vs Infantry
+      Weak vs Vehicles, Aircraft
+   .name =  M12 FAV Warthog
+
+actor-unscmongoose =
+   .description = UNSC Mongoose, best used for reconnaissance.
+
+   "The (M274) is definitely the most Buddhist land-based motive system in the UNSC’s arsenal… I’ll just let that sit with you for a while."
+    — Unnamed E2-BAG/1/7 serviceman.
+
+    Speed: 155
+      Unarmed
+   .name =  M274 Mongoose
+
+actor-unscscorpion =
+   .description = UNSC Scorpion, main battle tank. Armed with a M512 90mm Smooth Bore High Velocity Cannon and coaxial M231 Medium Machine Gun.
+
+   If Smoke System is researched, the Scorpion can fire out smoke grenades to disrupt enemy infantry.
+
+   "This here is 66 tons of straight-up, HE-spewin', dee-vine intervention!"
+    — Avery Johnson during the Battle of Mombasa.
+
+    Speed: 65
+      Strong vs Infantry, Vehicles
+      Weak vs Aircraft
+   .name =  M808B Scorpion
+
+actor-unscgrizzly =
+   .description = UNSC Grizzly, the heaviest armored vehicle in service with the UNSC military, and is usually deployed in situations that require devastating firepower and a resilient design in a single, mobile package.
+
+   Armed with twin M310 120mm smooth-bore high-velocity cannons and a coaxial M247T 7.62mm machine gun
+
+   If MLRS System is researched, the Grizzly will be armed with missile launchers.
+
+   "Ah, Grizzly tanks. Forge's pet project."
+    — Serina on Sergeant Forge's fixation with Grizzlies.
+
+    Speed: 35
+      Strong vs Infantry, Vehicles
+      Weak vs Aircraft
+   .name =  M850 Grizzly
+
+actor-unsccobra =
+   .description = UNSC Cobra, is a hybrid anti-matériel and anti-fortification vehicle built by the Misriah Armory.
+
+   While undeployed it can traverse and fire its 2 M66 30mm light railguns
+   While deployed it will lockdown and fire its M98 105mm light railgun, causing a massive explosion
+
+   If [UPGRADE NAME] is researched, while deployed it will recieve a 50% damage decrease due to additional hardened steel deflection plating.
+
+   If [UPGRADE NAME] is researched, the M98 105mm light railgun will have its damage radius increased by 25%.
+
+    Speed: 95
+      Strong vs Vehicles, Structures
+      Weak vs Infantry, Aircraft
+   .name =  SP42 Cobra
+
+actor-unscwolverine =
+   .description = UNSC Wolverine, Specialized anti-aircraft vehicle. The Wolverine is a tactical air defense vehicle.
+
+   Fitted with 2 70mm M260 Multiple Launch Rocket Systems
+   And a 60mm XM511 Heavy Grenade Launcher to engage ground targets
+
+   It is recommended that the Wolverine avoid engaging armored vehicles.
+
+   If Mega Barrage is researched, the rocket barrage is doubled.
+
+    Speed: 135
+      Strong vs Aircraft
+      Weak vs Infantry, Vehicles
+   .name =  M9 Wolverine
