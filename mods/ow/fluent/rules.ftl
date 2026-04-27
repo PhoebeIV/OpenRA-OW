@@ -7928,7 +7928,7 @@ actor-unschornet =
    Armed with a 20mm GAU-23/AW/Linkless Feed Autocannon
    and 2 M651 missile launchers
 
-   When Chaff Pod is researched, Hornet will be able to shoot down incoming missiles.
+   When Chaff Pod is researched, the Hornet will be able to shoot down incoming missiles.
 
     Speed: 112
       Strong vs Infantry, Vehicles
@@ -7952,7 +7952,7 @@ actor-unscvulture =
    Armed with 4 GAU-23/AW/Linkless Feed Autocannons
    and 2 A-74 Sylver VLS pods
 
-   If [UPGRADE NAME] is researched, enables the use of the "Phoenix missile".
+   If Phoenix is researched, enables the use of the "Phoenix missile".
 
    If Mega Barrage is researched, the rocket barrage is doubled.
 
@@ -7976,6 +7976,8 @@ actor-unscwarthog =
    M79 Missile launcher - Rocket barrage, long reload time
 
    "The Warthog is as much a part of the UNSC as boots, guns, and tasteless coffee."
+
+   If Armoured Warthog is researched, the warthog has 20% damage reduction.
 
     Speed: 135 
       Strong vs Infantry
@@ -8026,9 +8028,9 @@ actor-unsccobra =
    While undeployed it can traverse and fire its 2 M66 30mm light railguns
    While deployed it will lockdown and fire its M98 105mm light railgun, causing a massive explosion
 
-   If [UPGRADE NAME] is researched, while deployed it will recieve a 50% damage decrease due to additional hardened steel deflection plating.
+   If Deflection Plating is researched, while deployed it will recieve a 50% damage decrease due to additional hardened steel deflection plating.
 
-   If [UPGRADE NAME] is researched, the M98 105mm light railgun will have its damage radius increased by 25%.
+   If Heat Output is researched, the M98 105mm light railgun will have its damage radius increased by 25%.
 
     Speed: 95
       Strong vs Vehicles, Structures
@@ -8049,3 +8051,60 @@ actor-unscwolverine =
       Strong vs Aircraft
       Weak vs Infantry, Vehicles
    .name =  M9 Wolverine
+
+## unsc_upg.yaml
+actor-unsc-fraggrenades =
+   .name = Frag Grenades
+   .description = Infantry units are now armed with Frag Grenades.
+
+   If Covenant Weapons is researched, they have a chance to be Plasma Grenades
+
+   "The M9 is a high-explosive, dual-purpose grenade utilized by all branches of the UNSC.
+   Skilled users can bounce the grenade to get hard-to-reach targets and bypass obstacles"
+
+actor-unsc-covenantweapons =
+   .name = Covenant Weapons
+   .description = Infantry units will now have a chance to be armed with Covenant Weapons.
+
+actor-unsc-megabarrage =
+   .name = Mega Barrage
+   .description = All rocket barrage units will now shoot double the rockets.
+
+   Units affected:
+   Wolverine
+   Vulture
+   Anaconda
+
+actor-unsc-mlrssystem =
+   .name = MLRS System
+   .description = Grizzly Tanks will now shoot rockets at enemies.
+
+actor-unsc-smokesystem =
+   .name = Smoke System
+   .description = Scorpion Tanks will now shoot smoke grenades at infantry.
+
+   This causes infantry to have less range and decrease accuracy.
+
+actor-unsc-warthogweapons =
+   .name = Warthog Weapons
+   .description = Warthogs will now have an increased arsenal of weapons
+
+actor-unsc-chaffpod =
+   .name = Chaff Pod
+   .description = Hornets will now be able to shoot down incoming missiles
+
+actor-unsc-phoenix =
+   .name = Phoenix Missile
+   .description = Vultures will now shoot a powerful missile.
+
+actor-unsc-plating =
+   .name = Deflection Plating
+   .description = Cobras will now have 20% damage reduction when deployed.
+
+actor-unsc-heatoutput =
+   .name = Heat Output
+   .description = Deployed shots from Cobras will now have increased damage radius.
+
+actor-unsc-armouredwarthog =
+   .name = Armoured Warthog
+   .description = Warthogs will now have 20% damage reduction.

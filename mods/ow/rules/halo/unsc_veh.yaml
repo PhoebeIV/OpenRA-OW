@@ -6,7 +6,7 @@ unscmcv:
 	Buildable:
 		Queue: Vehicle
 		BuildPaletteOrder: 90
-		Prerequisites: unscrepairpad, ~mcv, ~techlevel.medium, ~vehicles.mcvprereq
+		Prerequisites: unscrepairpad, ~mcv, ~techlevel.medium, ~vehicles.unsc
 		BuildDurationModifier: 50
 		Description: actor-mcv-description
 	Valued:
@@ -17,8 +17,6 @@ unscmcv:
 		HP: 60000
 	Armor:
 		Type: Light
-	RenderSprites:
-		Image: mcv
 	Transforms:
 		IntoActor: unsccommandcenter
 
@@ -28,11 +26,11 @@ unscmcv.2:
 		Queue: Vehicle
 		BuildPaletteOrder: 90
 		BuildDurationModifier: 35
-		Prerequisites: ~!mcv, ~techlevel.medium, ~vehicles.mcvprereq
+		Prerequisites: ~!mcv, ~techlevel.medium, ~vehicles.unsc
 	Valued:
 		Cost: 3000
 	RenderSprites:
-		Image: mcv
+		Image: unscmcv
 
 unscwarthog:
 	Inherits: ^Vehicle
@@ -111,6 +109,12 @@ unscwarthog:
 	GrantConditionOnPrerequisite@warthogweapons:
 		Condition: warthogweapons
 		Prerequisites: unsc.warthogweapons
+	GrantConditionOnPrerequisite@armouredwarthog:
+		Condition: armouredwarthog
+		Prerequisites: unsc.armouredwarthog
+	DamageMultiplier@armouredwarthog:
+		Condition: armouredwarthog
+		Modifier: 80
 
 unscmongoose:
 	Inherits: ^Vehicle
@@ -255,7 +259,7 @@ unscgrizzly:
 		MuzzleSequence: muzzle2
 	Armament@3:
 		Weapon: unscgrizzlyrockets
-		LocalOffset: 171,-192,64, 171,0,-64, 171,192,64, 171,-192,-64, 171,0,64, 171,192,-64
+		LocalOffset: 0,100,340, 0,-100,340
 		RequiresCondition: mlrssystem
 	AttackTurreted:
 		Turrets: primary
@@ -321,7 +325,7 @@ unsccobra:
 		LocalOffset: 768,0,90
 		MuzzleSequence: muzzle
 		RequiresCondition: deployed
-		PauseOnCondition: disabled
+		PauseOnCondition: disabled || heatoutput
 	AttackTurreted:
 		PauseOnCondition: disabled
 	WithMuzzleOverlay:
@@ -347,6 +351,29 @@ unsccobra:
 		Weight: 4
 	Voiced:
 		VoiceSet: TsunamiTankVoice
+	GrantConditionOnPrerequisite@plating:
+		Condition: plating
+		Prerequisites: unsc.plating
+	WithIdleOverlay@plating:
+		Image: patriotism-overlay
+		Sequence: vehicle
+		Palette: effect
+		RequiresCondition: plating && deployed
+		IsDecoration: True
+	DamageMultiplier@plating:
+		Modifier: 80
+		RequiresCondition: plating
+	GrantConditionOnPrerequisite@heatoutput:
+		Condition: heatoutput
+		Prerequisites: unsc.heatoutput
+	Armament@heatoutput:
+		Weapon: unsccobracannonupgraded
+		LocalOffset: 768,0,90
+		Recoil: 85
+		RecoilRecovery: 25
+		MuzzleSequence: muzzle
+		PauseOnCondition: disabled
+		RequiresCondition: deployed || heatoutput
 
 unscwolverine:
 	Inherits: ^Vehicle

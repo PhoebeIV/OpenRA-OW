@@ -1,9 +1,42 @@
+^unscbuilding:
+	GrantConditionOnDamageState@fire1:
+		Condition: damaged_light
+		ValidDamageStates: Medium, Heavy, Critical
+	GrantConditionOnDamageState@fire2:
+		Condition: damaged_heavy
+		ValidDamageStates: Heavy, Critical
+	GrantConditionOnDamageState@fire3:
+		Condition: damaged_critical
+		ValidDamageStates: Critical
+	WithIdleOverlay@fire1:
+		RequiresCondition: damaged_light
+		Image: fire
+		Sequence: 4
+		IsDecoration: true
+		Offset: -512,512,0
+		Palette: effect
+	WithIdleOverlay@fire2:
+		RequiresCondition: damaged_heavy
+		Image: fire
+		Sequence: 3
+		IsDecoration: true
+		Offset: -128,-256,0
+		Palette: effect
+	WithIdleOverlay@fire3:
+		RequiresCondition: damaged_critical
+		Image: fire
+		Sequence: 2
+		IsDecoration: true
+		Offset: 512,128,0
+		Palette: effect
+
 unsccommandcenter:
 	Inherits: ^Building
 	Inherits@con: ^ConYard
 	Inherits@prereqs: ^ConYardPrereqs
 	Inherits@BIB: ^4xBuildingBib
 	Inherits@botblocker: ^3x4BotBlockerChoose
+	Inherits@unscbuilding: ^unscbuilding
 	-Building:
 	Tooltip:
 		Name: actor-unsccommandcenter.name
@@ -59,6 +92,7 @@ unscreactor:
 	Inherits@POWER_OUTAGE: ^DisabledByPowerOutage
 	Inherits@shape: ^3x3Shape
 	Inherits@BIB: ^3xBuildingBib
+	Inherits@unscbuilding: ^unscbuilding
 	Valued:
 		Cost: 500
 	Tooltip:
@@ -76,16 +110,19 @@ unscreactor:
 		Bounds: 3072, 4096
 		DecorationBounds: 3072, 4096
 	Health:
-		HP: 80000
+		HP: 100000
 	Armor:
 		Type: Wood
 	RevealsShroud:
 		Range: 4c0
 	Power:
-		Amount: 100
+		Amount: 200
 		RequiresCondition: !disabled
 	Power@advancedreactor:
-		Amount: 100
+		Amount: 400
+		RequiresCondition: advancedreactor
+	DamageMultiplier@advancedreactor:
+		Modifier: 80
 		RequiresCondition: advancedreactor
 	WithIdleOverlay:
 		Image: explosion
@@ -148,6 +185,7 @@ unscbarracks:
 	Inherits@prereqs: ^BarracksPrereqs
 	Inherits@shape: ^3x3Shape
 	Inherits@BIB: ^3xBuildingBib
+	Inherits@unscbuilding: ^unscbuilding
 	Selectable:
 		Bounds: 3072, 4096
 		DecorationBounds: 3072, 4096
@@ -162,7 +200,7 @@ unscbarracks:
 		Footprint: xxx xxx ===
 		Dimensions: 3,3
 	Health:
-		HP: 70000
+		HP: 90000
 	Armor:
 		Type: Wood
 	RevealsShroud:
@@ -229,6 +267,7 @@ unscgarage:
 	Inherits@prereqs: ^WeaponsFactory
 	Inherits@shape: ^3x3Shape
 	Inherits@BIB: ^3xBuildingBib
+	Inherits@unscbuilding: ^unscbuilding
 	Selectable:
 		Bounds: 3072, 4096
 		DecorationBounds: 3072, 4096
@@ -240,7 +279,7 @@ unscgarage:
 		Footprint: xxx x== ===
 		Dimensions: 3,3
 	Health:
-		HP: 150000
+		HP: 175000
 	Armor:
 		Type: Wood
 	RevealsShroud:
@@ -254,6 +293,9 @@ unscgarage:
 		RequiresCondition: !being-captured
 		SpawnOffset: 213,-128,0
 		ExitCell: 1,2
+	PrimaryBuilding:
+		PrimaryCondition: primary
+		SelectionNotification: PrimaryBuildingSelected
 	Production:
 		Produces: Vehicle
 	GrantExternalConditionToProduced:
@@ -284,6 +326,7 @@ unscsupplypad:
 	Inherits@shape: ^3x3Shape
 	Inherits@BIB: ^3xBuildingBib
 	Inherits@botblocker: ^3x4BotBlockerChoose
+	Inherits@unscbuilding: ^unscbuilding
 	Building:
 		Footprint: xxx +x+ ===
 		Dimensions: 3,3
@@ -293,7 +336,13 @@ unscsupplypad:
 	Valued:
 		Cost: 1100
 	Health:
-		HP: 60000
+		HP: 80000
+	RevealsShroud:
+		MinRange: 4c0
+		Range: 5c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 4c0
 	Power:
 		Amount: -60
 	Tooltip:
@@ -337,6 +386,7 @@ unscairpad:
 	Inherits@prereqs: ^AircraftPrereqs
 	Inherits@shape: ^3x3Shape
 	Inherits@BIB: ^3xBuildingBib
+	Inherits@unscbuilding: ^unscbuilding
 	Building:
 		TerrainTypes: Clear, ClearSnow, Road, Creep
 		Footprint: xxx xxx ===
@@ -353,7 +403,7 @@ unscairpad:
 	Valued:
 		Cost: 1400
 	Health:
-		HP: 60000
+		HP: 80000
 	Armor:
 		Type: Wood
 	Power:
@@ -366,6 +416,10 @@ unscairpad:
 		Range: 4c0
 	GrantExternalConditionToProduced:
 		Condition: produced
+	RallyPoint:
+	PrimaryBuilding:
+		PrimaryCondition: primary
+		SelectionNotification: PrimaryBuildingSelected
 	Sellable:
 		RequiresCondition: !being-captured && !being-demolished
 	ToggleConditionOnOrder@sell:
@@ -382,6 +436,7 @@ unscarmory:
 	Inherits: ^ScienceBuilding
 	Inherits@shape: ^3x3Shape
 	Inherits@BIB: ^3xBuildingBib
+	Inherits@unscbuilding: ^unscbuilding
 	Tooltip:
 		Name: actor-unscarmory.name
 	Building:
@@ -393,7 +448,7 @@ unscarmory:
 	Valued:
 		Cost: 1500
 	Health:
-		HP: 80000
+		HP: 100000
 	Armor:
 		Type: Heavy
 	Power:
@@ -424,6 +479,7 @@ unscradartower:
 	Inherits: ^Building
 	Inherits@shape: ^3x3Shape
 	Inherits@BIB: ^3xBuildingBib
+	Inherits@unscbuilding: ^unscbuilding
 	Tooltip:
 		Name: actor-unscradartower.name
 	ProvidesRadar:
@@ -437,7 +493,7 @@ unscradartower:
 	Valued:
 		Cost: 1000
 	Health:
-		HP: 80000
+		HP: 100000
 	Armor:
 		Type: Heavy
 	Power:
@@ -465,7 +521,7 @@ unscradartower:
 		Name: UNSC Marine Paradrop
 		Description: 3 D75 Pelicans drops a squad of UNSC Marine anywhere on the map.
 		UnitType: unscpelican
-		DropItems: UNSCMarine, UNSCMarine, UNSCMarine, UNSCMarine, UNSCMarine, UNSCMarine, UNSCMarine, UNSCMarine, UNSCMarine, UNSCMarine, UNSCMarine, UNSCMarine, UNSCMarine, UNSCMarine, UNSCMarine
+		DropItems: unscmarine, unscfrontrunner, unscfrontrunner, unscfrontrunner, UNSCMarine, UNSCMarine, unscfrontrunner, unscfrontrunner, unscfrontrunner, UNSCMarine, UNSCMarine, unscfrontrunner, unscfrontrunner, unscfrontrunner, UNSCMarine
 		SquadSize: 3
 		Cordon: 256
 		ReinforcementsArrivedSpeechNotification: ReinforcementsArrived
@@ -481,6 +537,21 @@ unscradartower:
 		UseDirectionalTarget: True
 		DirectionArrowAnimation: paradirection
 		SupportPowerPaletteOrder: 50
+		Prerequisites: techcenter
+	SpawnActorPower@Clairvoyance:
+		PauseOnCondition: disabled
+		OrderName: clairvoyance
+		Cursor: chrono-target
+		Icon: clairvoyanceicon
+		ChargeInterval: 2250
+		LifeTime: 125
+		Name: Clairvoyance
+		Description: Reveal an area on the map for 5 seconds. \nReveals cloaked units.
+		Actor: camera.spyplane
+		SelectTargetSpeechNotification: SelectTarget
+		DisplayRadarPing: True
+		DeploySound: JapanPsychicReveal.aud
+		EffectSequence: idle
 	ToggleConditionOnOrder@sell:
 		OrderName: Sell
 		Condition: sell_me
@@ -495,6 +566,7 @@ unscrepairpad:
 	Inherits: ^Building
 	Inherits@SHAPE: ^3x3Shape
 	Inherits@BIB: ^3xBuildingBib
+	Inherits@unscbuilding: ^unscbuilding
 	Valued:
 		Cost: 1000
 	Tooltip:
@@ -510,7 +582,7 @@ unscrepairpad:
 		Type: Polygon
 			Points: -1536,-300, -640,-811, 640,-811, 1536,-300, 1536,555, 640,1110, -640,1110, -1536,555
 	Health:
-		HP: 80000
+		HP: 100000
 	Armor:
 		Type: Wood
 	RevealsShroud:
@@ -555,6 +627,7 @@ unscmac:
 	Inherits@SHAPE: ^3x3Shape
 	Inherits@BIB: ^3xBuildingBib
 	Inherits@IDISABLE: ^DisableOnLowPowerOrPowerDown
+	Inherits@unscbuilding: ^unscbuilding
 	Valued:
 		Cost: 4700
 	Tooltip:
@@ -569,7 +642,7 @@ unscmac:
 		Offset: -20,-70,0
 		Sequence: power
 	Health:
-		HP: 100000
+		HP: 150000
 	Armor:
 		Type: Wood
 	RevealsShroud:
@@ -617,6 +690,7 @@ unscfirebase:
 	Inherits: ^Building
 	Inherits@SHAPE: ^3x3Shape
 	Inherits@BIB: ^3xBuildingBib
+	Inherits@unscbuilding: ^unscbuilding
 	Buildable:
 		Queue: Building
 		Prerequisites: ~structures.unsc
@@ -633,11 +707,17 @@ unscfirebase:
 		Bounds: 3072, 3072
 		DecorationBounds: 3072, 3072
 	Health:
-		HP: 50000
+		HP: 80000
 	Armor:
 		Type: Wood
 	Power:
 		Amount: 0
+	GrantTimedCondition@invul:
+		Duration: 66
+		Condition: invince
+	DamageMultiplier@invul:
+		RequiresCondition: invince
+		Modifier: 15
 	ProvidesPrerequisite@buildingname:
 	RevealsShroud@GAPGEN:
 		Range: 3c0
@@ -759,7 +839,7 @@ unscfirebase.barracks:
 		BuildPaletteOrder: 3
 		IconPaletteIsPlayerPalette: true
 	Valued:
-		Cost: 600
+		Cost: 300
 	RenderSprites:
 		Image: unscbarracks
 
@@ -776,7 +856,7 @@ unscfirebase.garage:
 		BuildPaletteOrder: 4
 		IconPaletteIsPlayerPalette: true
 	Valued:
-		Cost: 1500
+		Cost: 1700
 	RenderSprites:
 		Image: unscgarage
 
@@ -793,7 +873,7 @@ unscfirebase.supplypad:
 		BuildPaletteOrder: 2
 		IconPaletteIsPlayerPalette: true
 	Valued:
-		Cost: 1400
+		Cost: 1200
 	RenderSprites:
 		Image: unscsupplypad
 
@@ -827,7 +907,7 @@ unscfirebase.armory:
 		BuildPaletteOrder: 6
 		IconPaletteIsPlayerPalette: true
 	Valued:
-		Cost: 1500
+		Cost: 1200
 	RenderSprites:
 		Image: unscarmory
 
@@ -844,7 +924,7 @@ unscfirebase.repairpad:
 		BuildPaletteOrder: 7
 		IconPaletteIsPlayerPalette: true
 	Valued:
-		Cost: 1200
+		Cost: 900
 	RenderSprites:
 		Image: unscrepairpad
 
@@ -861,7 +941,7 @@ unscfirebase.radartower:
 		BuildPaletteOrder: 8
 		IconPaletteIsPlayerPalette: true
 	Valued:
-		Cost: 800
+		Cost: 700
 	RenderSprites:
 		Image: unscradartower
 
@@ -878,7 +958,7 @@ unscfirebase.mac:
 		BuildPaletteOrder: 10
 		IconPaletteIsPlayerPalette: true
 	Valued:
-		Cost: 5000
+		Cost: 4700
 	RenderSprites:
 		Image: unscmac
 
@@ -887,8 +967,9 @@ unsctalos:
 	Inherits@LOWPOWER: ^DisableOnLowPowerOrPowerDown
 	Inherits@AUTOTARGET: ^AutoTargetAll
 	Inherits@AUTOTARGETGround: ^AutoTargetAirInfantryPriority
+	Inherits@unscbuilding: ^unscbuilding
 	Valued:
-		Cost: 800
+		Cost: 600
 	Selectable:
 		Bounds: 1024, 1024
 		DecorationBounds: 1024, 2048, 0, -512
@@ -958,8 +1039,9 @@ unscsiege:
 	Inherits@LOWPOWER: ^DisableOnLowPowerOrPowerDown
 	Inherits@AUTOTARGET: ^AutoTargetAll
 	Inherits@AUTOTARGETGround: ^AutoTargetAirInfantryPriority
+	Inherits@unscbuilding: ^unscbuilding
 	Valued:
-		Cost: 1500
+		Cost: 1300
 	Selectable:
 		Bounds: 1024, 1024
 		DecorationBounds: 1024, 2048, 0, -512
@@ -967,7 +1049,7 @@ unscsiege:
 		Name: actor-unscsiege.name
 	Building:
 	Health:
-		HP: 70000
+		HP: 90000
 	Armor:
 		Type: Heavy
 	RevealsShroud:
@@ -1019,6 +1101,7 @@ unscsiege:
 unscwatchtower:
 	Inherits: ^Building
 	Inherits@IDISABLE: ^DisableOnLowPower
+	Inherits@unscbuilding: ^unscbuilding
 	Valued:
 		Cost: 850
 	Tooltip:
@@ -1058,8 +1141,9 @@ unscanaconda:
 	Inherits@LOWPOWER: ^DisableOnLowPowerOrPowerDown
 	Inherits@AUTOTARGET: ^AutoTargetAll
 	Inherits@AUTOTARGETGround: ^AutoTargetAirInfantryPriority
+	Inherits@unscbuilding: ^unscbuilding
 	Valued:
-		Cost: 1000
+		Cost: 800
 	Selectable:
 		Bounds: 1024, 1024
 		DecorationBounds: 1024, 2048, 0, -512
@@ -1137,6 +1221,7 @@ unscanaconda:
 
 unscpod:
 	Inherits: ^Building
+	Inherits@unscbuilding: ^unscbuilding
 	Buildable:
 		Queue: Defense
 		Prerequisites: unscbarracks, ~structures.unsc
@@ -1264,3 +1349,78 @@ unscpod.anaconda:
 		Cost: 1000
 	RenderSprites:
 		Image: unscanaconda
+
+unscodstdroppod1:
+	Inherits: ^Plane
+	RenderSprites:
+		Image: unscdroppod
+	-Targetable@AIRBORNE:
+	Health:
+		HP: 50000
+	Valued:
+		Cost: 1
+	-GainsExperience:
+	-UpdatesPlayerStatistics:
+	Aircraft:
+		TurnSpeed: 20
+		Speed: 50
+		CruiseAltitude: 32c0
+		MaximumPitch: 110
+		VTOL: true
+		LandableTerrainTypes: Clear, ClearSnow, Road, Creep, Bridge, Water, Ore, Gems, Rough, Tiberium, BlueTiberium, Radiation, Beach
+	WithMuzzleOverlay:
+	-ActorLostNotification:
+	Contrail:
+		Offset: 0,0,0
+		StartColor: FFFFFF
+		TrailLength: 35
+	-Selectable:
+	AttackAircraft:
+	Armament:
+		Weapon: NuclearParaDrop
+	Tooltip:
+		Name: actor-unscdroppod-name
+	RejectsOrders:
+	SpawnActorOnDeath:
+		Actor: unscodstmarine
+	FallsToEarth:
+		Explosion: unscdroppodweap1
+		Moves: true
+		Velocity: 180
+		MaximumSpinSpeed: 0
+	-EjectOnDeath:
+	Interactable:
+	RenderSprites:
+		Image: unscdroppod
+
+unscodstdroppod2:
+	Inherits: unscodstdroppod1
+	SpawnActorOnDeath:
+		Actor: unscodstfrontrunner
+	FallsToEarth:
+		Explosion: unscdroppodweap2
+		Velocity: 160
+
+unscodstdroppod3:
+	Inherits: unscodstdroppod1
+	SpawnActorOnDeath:
+		Actor: unscodstheavyweaponsmarine
+	FallsToEarth:
+		Explosion: unscdroppodweap3
+		Velocity: 190
+
+unscodstdroppod4:
+	Inherits: unscodstdroppod1
+	SpawnActorOnDeath:
+		Actor: unscodstsniper
+	FallsToEarth:
+		Explosion: unscdroppodweap4
+		Velocity: 150
+
+unscodstdroppod5:
+	Inherits: unscodstdroppod1
+	SpawnActorOnDeath:
+		Explosion: unscdroppodweap5
+		Actor: unscodsthellbringer
+	FallsToEarth:
+		Velocity: 140

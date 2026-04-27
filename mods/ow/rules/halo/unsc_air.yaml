@@ -144,11 +144,13 @@ unschornet:
 		Delay: 1
 		LocalOffset: 85,-213,-85, 85,213,-85
 		MuzzleSequence: muzzle
+		AmmoUsage: 0
 	Armament@SECONDARY:
 		Name: secondary
 		Weapon: unscwarthogminigun
 		LocalOffset: 85,213,-85, 85,-213,-85
 		MuzzleSequence: muzzle
+		AmmoUsage: 0
 	Armament@TRI:
 		Weapon: unscrocketlauncher
 		LocalOffset: 0,-213,-85, 0,213,-85
@@ -207,6 +209,19 @@ unschornet:
 		Count: 12
 	Voiced:
 		VoiceSet: ComancheVoice
+	GrantConditionOnPrerequisite@chaffpod:
+		Condition: chaffpod
+		Prerequisites: unsc.chaffpod
+	PointDefense:
+		PointDefenseTypes: pointdefense
+		Armament: laser
+		RequiresCondition: chaffpod
+	Armament@laser:
+		Name: laser
+		Weapon: PointDefenseLaser
+		RequiresCondition: chaffpod
+	Rearmable:
+		RearmActors: chinaairfield, usaairfield, hpad, usaairstriplandingspot, japanairfield, japanairfieldnavy, unscairpad
 
 unscsparrowhawk:
 	Inherits: ^Helicopter
@@ -216,10 +231,10 @@ unscsparrowhawk:
 		Queue: Aircraft
 		BuildAtProductionType: Helicopter
 		BuildPaletteOrder: 20
-		Prerequisites: ~aircraft.unsc, advtechcenter
+		Prerequisites: ~aircraft.unsc, techcenter
 		Description: actor-unscsparrowhawk.description
 	Valued:
-		Cost: 2000
+		Cost: 1800
 	Tooltip:
 		Name: actor-unscsparrowhawk.name
 	UpdatesPlayerStatistics:
@@ -304,6 +319,8 @@ unscsparrowhawk:
 		MaxWeight: 8
 		AfterUnloadDelay: 40
 		EjectOnDeath: true
+	Rearmable:
+		RearmActors: chinaairfield, usaairfield, hpad, usaairstriplandingspot, japanairfield, japanairfieldnavy, unscairpad
 
 
 unscvulture:
@@ -317,7 +334,7 @@ unscvulture:
 		Prerequisites: ~aircraft.unsc, advtechcenter
 		Description: actor-unscvulture.description
 	Valued:
-		Cost: 5000
+		Cost: 4000
 	Tooltip:
 		Name: actor-unscvulture.name
 	UpdatesPlayerStatistics:
@@ -363,6 +380,11 @@ unscvulture:
 		LocalOffset: 85,213,-85, 85,-213,-85
 		MuzzleSequence: muzzle
 		RequiresCondition: megabarrage
+	Armament@phoenix:
+		Weapon: unscphoenixmissile
+		LocalOffset: 85,0,0
+		MuzzleSequence: muzzle
+		RequiresCondition: phoenix
 	AttackAircraft:
 		FacingTolerance: 80
 		PersistentTargeting: false
@@ -408,6 +430,11 @@ unscvulture:
 	GrantConditionOnPrerequisite@megabarrage:
 		Condition: megabarrage
 		Prerequisites: unsc.megabarrage
+	GrantConditionOnPrerequisite@phoenix:
+		Condition: phoenix
+		Prerequisites: unsc.phoenix
+	Rearmable:
+		RearmActors: chinaairfield, usaairfield, hpad, usaairstriplandingspot, japanairfield, japanairfieldnavy, unscairpad
 
 unscpelican:
 	Inherits: BADR
@@ -431,3 +458,260 @@ unscpelican:
 		TrailLength: 15
 	SpawnActorOnDeath:
 		Actor: unscpelican.Husk
+
+unsccolonyship:
+	Inherits: ^Helicopter
+	Inherits@cargo: ^CargoPips
+	Inherits@selection: ^SelectableSupportUnit
+	Inherits@mindcontrol: ^MindControlResistant
+	Buildable:
+		Queue: Aircraft
+		BuildAtProductionType: Helicopter
+		BuildPaletteOrder: 21
+		Prerequisites: ulttechcenter, ~aircraft.unsc, ~techlevel.high
+		Description: actor-unsccolonyship.description
+		BuildLimit: 4
+	HitShape:
+		Type: Rectangle
+			TopLeft: -1250, -2816
+			BottomRight: 1250, 2816
+		TargetableOffsets: 0,0,0, 2048,-512,0, 1536,-512,0, 1024,-512,0, 512,-512,0, 0,-512,0, -512,-512,0, -1024,-512,0, -1536,-512,0, -2048,-512,0, 2048,512,0, 1536,512,0, 1024,512,0, 512,512,0, 0,512,0, -512,512,0, -1024,512,0, -1536,512,0, -2048,512,0, -2560,-512,0, -1024,1024,-512, -1024,-1024,-512
+	Valued: # 4000
+		Cost: 20000
+	GivesExperienceMultiplier@value:
+		Modifier: 200
+	ProductionCostMultiplier@value:
+		Multiplier: 200
+	Tooltip:
+		Name: actor-unsccolonyship.name
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 160000
+	Shielded:
+		MaxStrength: 120000
+		RequiresCondition: !emp_shields && !defense_matrix && !airborne
+		RemoveOnDisable: false
+		HideBarWhenFull: false
+	RevealsShroud:
+		MinRange: 8c0
+		Range: 12c0
+		Type: GroundPosition
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 8c0
+		Type: GroundPosition
+	Armament:
+		Name: primary
+		Weapon: unsccolonyshipmac
+		LocalOffset: 1524,96,128
+		AmmoUsage: 0
+		PauseOnCondition: !spartanammo
+	Armament@mac:
+		Name: primary
+		FireDelay: 100
+		Weapon: unsccolonyshipmachit
+		LocalOffset: 1524,96,128
+		PauseOnCondition: !spartanammo
+	AmmoPool:
+		Armaments: primary
+		AmmoCondition: spartanammo
+		Ammo: 1
+	ReloadAmmoPool:
+		AmmoPool: primary
+		Delay: 125
+	Turreted@primary:
+		Turret: primary
+		TurnSpeed: 9
+		Offset: 0,0,0
+		InitialFacing: 32
+		FacingTolerance: 64
+	AutoTarget:
+	AttackOmni:
+		TargetFrozenActors: true
+	Aircraft:
+		CruisingCondition: cruising
+		TurnSpeed: 8
+		Speed: 50
+		LandAltitude: 0
+		CruiseAltitude: 2048
+	SpawnActorOnDeath:
+		Actor: unsccolonyship.Husk
+	WithDamageOverlay:
+		Offset: -427,0,0
+	ProducibleWithLevel:
+		Prerequisites: aircraft.upgraded
+	Selectable:
+		DecorationBounds: 5120, 3072
+		Bounds: 4000,2500
+	Hovers@CRUISING:
+		Ticks: 25
+	Voiced:
+		VoiceSet: HelixVoice
+	RenderSprites:
+	WithFacingSpriteBody:
+	EjectOnDeath:
+		PilotActor: unscmarine
+	-ClassicFacingBodyOrientation:
+	BodyOrientation:
+	-Rearmable:
+	Exit@0:
+		SpawnOffset: 512,0,128
+	Exit@1:
+		SpawnOffset: 1024,0,128
+	Exit@2:
+		SpawnOffset: -512,0,128
+	Exit@3:
+		SpawnOffset: 1024,0,128
+	GrantConditionOnDamageState@fire1:
+		Condition: damaged_light
+		ValidDamageStates: Medium, Heavy, Critical
+	GrantConditionOnDamageState@fire2:
+		Condition: damaged_heavy
+		ValidDamageStates: Heavy, Critical
+	GrantConditionOnDamageState@fire3:
+		Condition: damaged_critical
+		ValidDamageStates: Critical
+	WithFacingSpriteBody:
+	WithIdleOverlay@fire1:
+		RequiresCondition: damaged_light
+		Image: fire
+		Sequence: 4
+		IsDecoration: true
+		Offset: -512,512,0
+		Palette: effect
+	WithIdleOverlay@fire2:
+		RequiresCondition: damaged_heavy
+		Image: fire
+		Sequence: 3
+		IsDecoration: true
+		Offset: -128,-256,0
+		Palette: effect
+	WithIdleOverlay@fire3:
+		RequiresCondition: damaged_critical
+		Image: fire
+		Sequence: 2
+		IsDecoration: true
+		Offset: 512,128,0
+		Palette: effect
+	Cargo:
+		Types: Infantry, Vehicle
+		MaxWeight: 20
+		PassengerFacing: 0
+		LoadingCondition: notmobile
+		AfterLoadDelay: 50
+		BeforeUnloadDelay: 25
+	GrantConditionOnPrerequisite@botowner:
+		Condition: botowner
+		Prerequisites: ai.hard
+	PeriodicProducer:
+		RequiresCondition: botowner
+		Actors: unscmarine
+		Type: Special
+		ChargeDuration: 2900
+	PeriodicProducer@2:
+		RequiresCondition: botowner
+		Actors: unscfrontrunner
+		Type: Special
+		ChargeDuration: 1500
+	Production:
+		Produces: Special, ColonyShip
+	ProductionQueue@player:
+		Type: ColonyShip
+		Group: Special
+		LowPowerModifier: 100
+		BuildDurationModifier: 200
+	ProductionBar:
+		ProductionType: ColonyShip
+	Exit:
+		SpawnOffset: 0,0,-256
+	Targetable@ColonyShip:
+		TargetTypes: ColonyShip
+	Repairable:
+		HpPerStep: 1000
+	Reservable:
+	-Cloneable:
+	AttackTurreted:
+		Turrets: 1,2,3,4,5
+	Armament@1:
+		Weapon: unsccolonyshipcannon
+		Turret: 1
+		LocalOffset: 384,0,-96
+		MuzzleSequence: muzzle
+	Armament@2:
+		Weapon: unsccolonyshipcannon
+		LocalOffset: 384,0,-96
+		Turret: 2
+		AttackDelay: 8
+		MuzzleSequence: muzzle
+	Armament@3:
+		Weapon: unsccolonyshipcannon
+		LocalOffset: 384,0,-96
+		Turret: 3
+		AttackDelay: 16
+		MuzzleSequence: muzzle
+	Armament@4:
+		Weapon: unsccolonyshipcannon
+		LocalOffset: 384,0,-96
+		Turret: 4
+		AttackDelay: 24
+		MuzzleSequence: muzzle
+	Armament@5:
+		Weapon: unsccolonyshipcannon
+		LocalOffset: 384,0,-96
+		Turret: 5
+		AttackDelay: 32
+		MuzzleSequence: muzzle
+	Turreted@1:
+		Turret: 1
+		TurnSpeed: 9
+		Offset: -128,768,0
+		InitialFacing: 32
+	Turreted@2:
+		Turret: 2
+		TurnSpeed: 9
+		Offset: -128,-768,0
+		InitialFacing: 64
+	Turreted@3:
+		Turret: 3
+		TurnSpeed: 12
+		Offset: 512,0,-96
+		InitialFacing: 96
+	Turreted@4:
+		Turret: 4
+		TurnSpeed: 12
+		Offset: -256,-64,-96
+		InitialFacing: 128
+	Turreted@5:
+		Turret: 5
+		TurnSpeed: 15
+		Offset: -256,64,-96
+		InitialFacing: 160
+	Contrail@1:
+		Offset: -2800,256,0
+		StartColorAlpha: 128
+		TrailLength: 100
+		StartWidth: 192
+		StartColorUsePlayerColor: false
+		EndColorUsePlayerColor: true
+	Contrail@2:
+		Offset: -2800,-256,0
+		StartColorAlpha: 128
+		TrailLength: 100
+		StartWidth: 192
+		StartColorUsePlayerColor: false
+		EndColorUsePlayerColor: true
+	Contrail@3:
+		Offset: -2800,256,512
+		StartColorAlpha: 128
+		TrailLength: 100
+		StartWidth: 192
+		StartColorUsePlayerColor: false
+		EndColorUsePlayerColor: true
+	Contrail@4:
+		Offset: -2800,-256,-512
+		StartColorAlpha: 128
+		TrailLength: 100
+		StartWidth: 192
+		StartColorUsePlayerColor: false
+		EndColorUsePlayerColor: true

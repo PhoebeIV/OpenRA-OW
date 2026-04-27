@@ -158,6 +158,9 @@
 	ProvidesPrerequisite@forgotten:
 		Factions: forgotten
 		Prerequisite: ulttech.forgotten
+	ProvidesPrerequisite@unsc:
+		Factions: unsc
+		Prerequisite: ulttech.unsc
 	ProvidesPrerequisite@structuresallies:
 		RequiresPrerequisites: structures.allies
 		Prerequisite: ulttech.allies
@@ -287,6 +290,9 @@
 	ProvidesPrerequisite@structuresforgotten:
 		RequiresPrerequisites: structures.forgotten
 		Prerequisite: ulttech.forgotten
+	ProvidesPrerequisite@structuresforgotten:
+		RequiresPrerequisites: structures.unsc
+		Prerequisite: ulttech.unsc
 	AirstrikePower@himmlerbomb:
 		PauseOnCondition: disabled
 		OrderName: EpicHimmler1
@@ -761,7 +767,7 @@
 		BlockedAudio: NoBuild
 		BlockedTextNotification: actor-t-miss.produceactorpower-devouringone-blocked-text-notification
 		OrderName: SpawnDevouringOne
-	DropPodsPowerOW@artillery:
+	DropPodsPower@artillery:
 		Icon: artillerybarrageicon
 		Name: Artillery Barrage
 		OrderName: artillerybarrage
@@ -991,6 +997,32 @@
 		Weapon: DarkArchonDummy
 		WeaponDelay: 5
 		DisplayTimerRelationships: Ally, Neutral, Enemy
+	DropPodsPower@unscdroppods:
+		Icon: artillerybarrageicon
+		Name: ODST Drop
+		OrderName: odstdrop
+		Description: ODST troops deployed via droppods on a selected area.
+		UnitTypes: unscodstdroppod1, unscodstdroppod2, unscodstdroppod3, unscodstdroppod4, unscodstdroppod5
+		Cursor: chrono-target
+		Drops: 32,32
+		PodScatter: 10
+		PodFacing: 704
+		Prerequisites: ulttech.unsc
+		PauseOnCondition: disabled
+		CameraActor: camera
+		CameraRemoveDelay: 300
+		Weapon: ArtilleryPowerMarker
+		WeaponDelay: 5
+		ChargeInterval: 15000
+		EntryEffect: explosion
+		EntryEffectSequence: bunkerbustersring
+		LaunchSound: unscdroppodsound.aud
+		IncomingSpeechNotification: ArtilleryBarrageSound
+		SelectTargetSpeechNotification: SelectTarget
+		SelectTargetTextNotification: actor-t-miss.droppodspower-artillery-select-target-text-notification
+		DisplayRadarPing: true
+		DisplayTimerRelationships: Ally, Enemy, Neutral
+		BeaconPoster: artillerybarragebeacon
 
 T.MISS:
 	Inherits: ^ScienceBuilding

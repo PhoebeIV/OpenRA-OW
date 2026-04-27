@@ -155,7 +155,7 @@ unscrocketlauncheraa:
 		RangeLimit: 6c0
 		PointDefenseType: pointdefense
 	Warhead@1Dam: SpreadDamage
-		Damage: 3000
+		Damage: 5000
 		ValidTargets: AirborneActor, Air
 	Warhead@3Eff: CreateEffect
 		ImpactActors: false
@@ -478,7 +478,7 @@ unsccobracannon:
 	ValidTargets: GroundActor, Vehicle, Structure, Building, Wall
 	Projectile: Railgun
 		Duration: 30
-		BeamColor: 00fbff
+		BeamColor: 003cff
 		HelixColor: 0088ff
 	Warhead@1Dam: SpreadDamage
 		Damage: 14400
@@ -503,6 +503,30 @@ unsccobracannon:
 		ValidTargets: Ground, Water, GroundActor, WaterActor
 		DamageTypes: Prone50Percent, TriggerProne, DefaultDeath
 
+unsccobracannonupgraded:
+	Inherits: unsccobracannon
+	Projectile: Railgun
+		Duration: 30
+		BeamColor: ff0000
+		HelixColor: 990000
+	Warhead@1Dam: SpreadDamage
+		Damage: 14400
+		Spread: 512
+		Versus:
+			None: 80
+			Wood: 110
+			Light: 80
+			Heavy: 110
+			Concrete: 50
+		DamageTypes: Prone50Percent, TriggerProne, FireDeath
+		ValidTargets: GroundActor, Vehicle, Structure, Building, Wall
+	Warhead@3Eff_impact: CreateEffect
+		Explosions: japanplasmaringupgrade
+		ValidTargets: Ground, Water, GroundActor, WaterActor
+	Warhead@4Eff_impact: CreateEffect
+		Explosions: laserhitmed
+		ValidTargets: Ground, Water, GroundActor, WaterActor
+
 unscwolverinerockets:
 	Inherits: Dragon
 	ReloadDelay: 150
@@ -513,10 +537,10 @@ unscwolverinerockets:
 	Report: unscwolverinerocketsfire1.aud, unscwolverinerocketsfire2.aud, unscwolverinerocketsfire3.aud, unscwolverinerocketsfire4.aud
 	ValidTargets: Air, AirborneActor
 	Projectile: Missile
-		Speed: 260
+		Speed: 341
 		Inaccuracy: 512
 		RangeLimit: 12c0
-		HorizontalRateOfTurn: 10
+		HorizontalRateOfTurn: 100
 		Image: dukenukemrocketdev
 	Warhead@1Dam: SpreadDamage
 		Spread: 192
@@ -557,10 +581,10 @@ unscvulturerockets:
 	ValidTargets: Ground, Air, GroundActor, AirborneActor, WaterActor, Trees
 	Report: unscwolverinerocketsfire1.aud, unscwolverinerocketsfire2.aud, unscwolverinerocketsfire3.aud, unscwolverinerocketsfire4.aud
 	Projectile: Missile
-		Speed: 260
+		Speed: 341
 		Inaccuracy: 512
 		RangeLimit: 12c0
-		HorizontalRateOfTurn: 10
+		HorizontalRateOfTurn: 100
 		Image: dukenukemrocketdev
 	Warhead@1Dam: SpreadDamage
 		Spread: 192
@@ -941,3 +965,265 @@ unscsgtjohnsonsniper:
 			Concrete: 25
 		DamageTypes: Prone50Percent, TriggerProne, BulletDeath
 		ValidTargets: Ground, Water, GroundActor, WaterActor
+
+unscphoenixmissile:
+	Inherits: ^AntiGroundMissile
+	ReloadDelay: 500
+	Range: 7c0
+	MinRange: 2c0
+	Report: missile1.aud
+	-Projectile:
+	Projectile: Bullet
+		Speed: 170
+		Blockable: false
+		TrailImage: smokey
+		TrailDelay: 5
+		Inaccuracy: 213
+		Image: V2
+		Shadow: True
+		LaunchAngle: 20
+	Warhead@1Dam: SpreadDamage
+		Spread: 600
+		Damage: 22500
+		ValidTargets: GroundActor, WaterActor, Trees
+		Falloff: 225, 75, 60, 40, 20, 10, 0
+		Versus:
+			None: 35
+			Wood: 75
+			Light: 90
+			Heavy: 110
+			Concrete: 25
+		AffectsParent: true
+		DamageTypes: Prone50Percent, TriggerProne, SmallExplosionDeath, Incendiary
+	Warhead@3Eff: CreateEffect
+		Explosions: dukenukemexplosionmed2
+		ImpactSounds: gexpcara.aud, gexpcarb.aud, gexpcarc.aud, gexpcard.aud
+	Warhead@4EffWater: CreateEffect
+		Explosions: large_splash
+	Warhead@5shake: ShakeScreen
+		Duration: 5
+		Intensity: 1
+		Multiplier: 1,1
+
+unscdroppodweap1:
+	Warhead@gas: FireCluster
+		Weapon: smokegrenadegas
+		RandomClusterCount: 2
+		Dimensions: 3,3
+		Footprint: _x_ xxx _x_
+	Warhead@1b: SpawnActor
+		Range: 2
+		Delay: 10
+		Actors: unscodstmarine
+		ValidTargets: Ground, GroundActor
+
+unscdroppodweap2:
+	Warhead@gas: FireCluster
+		Weapon: smokegrenadegas
+		RandomClusterCount: 2
+		Dimensions: 3,3
+		Footprint: _x_ xxx _x_
+	Warhead@1b: SpawnActor
+		Range: 2
+		Delay: 10
+		Actors: unscodstfrontrunner
+		ValidTargets: Ground, GroundActor
+
+unscdroppodweap3:
+	Warhead@gas: FireCluster
+		Weapon: smokegrenadegas
+		RandomClusterCount: 2
+		Dimensions: 3,3
+		Footprint: _x_ xxx _x_
+	Warhead@1b: SpawnActor
+		Range: 2
+		Delay: 10
+		Actors: unscodstheavyweaponsmarine
+		ValidTargets: Ground, GroundActor
+
+unscdroppodweap4:
+	Warhead@gas: FireCluster
+		Weapon: smokegrenadegas
+		RandomClusterCount: 2
+		Dimensions: 3,3
+		Footprint: _x_ xxx _x_
+	Warhead@1b: SpawnActor
+		Range: 2
+		Delay: 10
+		Actors: unscodstsniper
+		ValidTargets: Ground, GroundActor
+
+unscdroppodweap5:
+	Warhead@gas: FireCluster
+		Weapon: smokegrenadegas
+		RandomClusterCount: 2
+		Dimensions: 3,3
+		Footprint: _x_ xxx _x_
+	Warhead@1b: SpawnActor
+		Range: 2
+		Delay: 10
+		Actors: unscodsthellbringer
+		ValidTargets: Ground, GroundActor
+
+unsccolonyshipmac:
+	ReloadDelay: 750
+	Range: 16c0
+	MinRange: 5c0
+	Report: MasterChiefSpartanLaserCharge.aud
+	ValidTargets: Ground, Water, GroundActor, WaterActor
+	Projectile: Missile
+		Speed: 2
+		RangeLimit: 3
+	Warhead@1Eff: CreateEffect
+		Explosions: lightbringer_charge
+		ImpactSounds: MasterChiefSpartanLaserCharge.aud
+		Inaccuracy: 256
+		ValidTargets: Ground, GroundActor, WaterActor, Trees, Air
+	Warhead@2Eff: CreateEffect
+		Delay: 5
+		Explosions: lightbringer_charge
+		Inaccuracy: 256
+		ValidTargets: Ground, GroundActor, WaterActor, Trees, Air
+	Warhead@3Eff: CreateEffect
+		Delay: 25
+		Explosions: lightbringer_charge
+		Inaccuracy: 256
+		ValidTargets: Ground, GroundActor, WaterActor, Trees, Air
+	Warhead@4Eff: CreateEffect
+		Delay: 55
+		Explosions: lightbringer_charge
+		Inaccuracy: 256
+		ValidTargets: Ground, GroundActor, WaterActor, Trees, Air
+	Warhead@5Eff: CreateEffect
+		Delay: 65
+		Explosions: unsccolonyshipmaccharge
+		Inaccuracy: 256
+		ValidTargets: Ground, GroundActor, WaterActor, Trees, Air
+	Warhead@6Eff: CreateEffect
+		Delay: 75
+		Explosions: unsccolonyshipmaccharge
+		Inaccuracy: 256
+		ValidTargets: Ground, GroundActor, WaterActor, Trees, Air
+	Warhead@7Eff: CreateEffect
+		Delay: 85
+		Explosions: unsccolonyshipmaccharge
+		Inaccuracy: 256
+		ValidTargets: Ground, GroundActor, WaterActor, Trees, Air
+	Warhead@8Eff: CreateEffect
+		Delay: 85
+		Explosions: lightbringer_charge
+		Inaccuracy: 256
+		ValidTargets: Ground, GroundActor, WaterActor, Trees, Air
+
+unsccolonyshipmachit:
+	Inherits: ^GaussWeapon
+	ReloadDelay: 750
+	Range: 16c0
+	MinRange: 5c0
+	Report: magneticacceleratorcannonfire1.aud, magneticacceleratorcannonfire2.aud, magneticacceleratorcannonfire3.aud
+	Projectile: Railgun
+		DamageActorsInLine: false
+		BeamWidth: 128
+		BeamColor: fbff00
+		BeamAlphaDeltaPerTick: -3
+		HelixAlphaDeltaPerTick: -3
+		HelixThickness: 128
+		HelixRadius: 32
+		HelixColor: fbff00
+		HitAnim: explosion
+		HitAnimSequence: maccannonexplosion
+		Duration: 75
+	Warhead@2Eff: CreateEffect
+		Delay: 5
+		Explosions: maccannonexplosion
+		ImpactSounds: magneticacceleratorcannonexplosion1.aud, magneticacceleratorcannonexplosion2.aud, magneticacceleratorcannonexplosion3.aud, magneticacceleratorcannonexplosion4.aud, magneticacceleratorcannonexplosion5.aud
+		ImpactActors: false
+		ValidTargets: Ground, Water, Air
+	Warhead@superweapon: SpreadDamage
+		Delay: 2
+		Spread: 1c0
+		Damage: 1000
+		ValidTargets: Superweapon
+		DamageTypes: Superweapon
+	Warhead@1Dam_impact: SpreadDamage
+		Delay: 6
+		Spread: 1c0
+		Damage: 15000
+		Falloff: 1000, 368, 135, 50, 18, 7, 0
+		ValidTargets: GroundActor, WaterActor, Underwater, AirborneActor, Trees
+		Versus:
+			Concrete: 25
+			Shield: 200
+		AffectsParent: true
+		DamageTypes: TriggerProne, ElectricityDeath, Superweapon
+	Warhead@2Res_impact: DestroyResource
+		Size: 1
+		Delay: 6
+	Warhead@4Dam_areanuke1: SpreadDamage
+		Spread: 2c0
+		Damage: 2000
+		Falloff: 1000, 368, 135, 50, 18, 7, 0
+		Delay: 13
+		ValidTargets: GroundActor, WaterActor, Underwater, AirborneActor, Trees
+		Versus:
+			Wood: 50
+			Concrete: 25
+			Shield: 200
+		AffectsParent: true
+		DamageTypes: TriggerProne, ElectricityDeath, Superweapon
+	Warhead@5Res_areanuke1: DestroyResource
+		Size: 2
+		Delay: 13
+	Warhead@7Dam_areanuke2: SpreadDamage
+		Spread: 3c0
+		Damage: 2000
+		Falloff: 1000, 368, 135, 50, 18, 7, 0
+		Delay: 20
+		ValidTargets: GroundActor, WaterActor, Underwater, AirborneActor, Trees
+		Versus:
+			Wood: 50
+			Concrete: 25
+			Shield: 200
+		AffectsParent: true
+		DamageTypes: TriggerProne, ElectricityDeath, Superweapon
+	Warhead@8Dam_areanuke2: SpreadDamage
+		Spread: 3c0
+		Damage: 1500
+		Falloff: 1000, 368, 135, 50, 18, 7, 0
+		Delay: 27
+		ValidTargets: Trees
+		DamageTypes: Incendiary
+	Warhead@9Res_areanuke2: DestroyResource
+		Size: 3
+		Delay: 23
+	Warhead@13Smu_areanuke3: LeaveSmudge
+		SmudgeType: Scorch
+		InvalidTargets: Vehicle, Structure, Wall, Trees
+		Size: 3
+		Delay: 23
+	Warhead@14Dam_impact: SpreadDamage
+		Delay: 25
+		Spread: 2c0
+		Damage: 15000
+		Falloff: 1000, 368, 135, 50, 18, 7, 0
+		ValidTargets: Hole
+		DamageTypes: ElectricityDeath
+	Warhead@empshield: GrantExternalCondition
+		Delay: 1
+		Range: 6c0
+		Duration: 25
+		Condition: emp_shields
+		ValidTargets: GroundActor, AirborneActor
+	Warhead@15Shake: ShakeScreen
+		Duration: 20
+		Intensity: 4
+		Multiplier: 0.5 ,2
+	Warhead@22FlashEffect: FlashEffect
+		Duration: 20
+		FlashType: Nuke
+
+unsccolonyshipcannon:
+	Inherits: unscscorpioncannon
+	Projectile: Bullet
+		Inaccuracy: 512
+	Range: 9c0
