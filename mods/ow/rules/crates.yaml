@@ -552,6 +552,13 @@ CRATE.FuckYou:
 	ExplodeCrateAction@nukedrop:
 		Weapon: TerranCrateNukeDrop
 		SelectionShares: 6
+	ExplodeCrateAction@fartbomb:
+		Weapon: FartExplosion
+		SelectionShares: 6
+		Prerequisites: !environment.nomemes
+	ExplodeCrateAction@tyler:
+		Weapon: DisappearExplosion
+		SelectionShares: 3
 	ExplodeCrateAction@superweapons:
 		Weapon: ExplodeSuperweapons
 		TimeDelay: 6000
@@ -665,6 +672,10 @@ CRATE.FuckYou:
 	GiveUnitCrateAction@rmbo:
 		SelectionShares: 4
 		Units: rmbo.left
+	GiveUnitCrateAction@rmboinvis:
+		SelectionShares: 3
+		Units: rmbo.invis
+		Owner: Creeps
 	GiveUnitCrateAction@ionstorm:
 		SelectionShares: 2
 		Units: 1tnk.ionstorm
@@ -3779,6 +3790,82 @@ RMBO.Left:
 	Targetable@noauto:
 		RequiresCondition: spawned
 		TargetTypes: NoAutoTarget
+
+RMBO.Invis:
+	Inherits: RMBO
+	Buildable:
+		Queue: Infantry
+		BuildAtProductionType: Soldier
+		BuildPaletteOrder: 12000
+		Prerequisites: ~disabled
+		Description: actor-rmbo.description
+	Tooltip:
+		Name: actor-rmbo.name
+	RevealsShroud:
+		Range: 24c0
+	Valued:
+		Cost: 1200
+	Health:
+		HP: 50000
+	RenderSprites:
+		Image: RMBO
+	AttackFrontal:
+		RequiresCondition: allow_attack
+	Armament@PRIMARY:
+		Weapon: CommandoSniperLeft
+		ForceTargetRelationships: Enemy
+		RequiresCondition: allow_attack
+	Armament@GARRISONED:
+		Name: garrisoned
+		Weapon: CommandoSniperLeft
+		MuzzleSequence: garrison-muzzle
+		RequiresCondition: allow_attack
+	Armament@BUS:
+		Name: bus
+		Weapon: CommandoSniperLeft
+		MuzzleSequence: garrison-muzzle
+		RequiresCondition: allow_attack
+	-Crushable:
+	AttackWander:
+		WanderMoveRadius: 16
+		MinMoveDelay: 25
+		MaxMoveDelay: 75
+	GrantConditionOnAttack@attack:
+		Condition: attacking
+		RevokeDelay: 75
+	GrantPeriodicCondition@allowattack:
+		Condition: allow_attack
+		ActiveDuration: 50
+		CooldownDuration: 1000
+	GrantDelayedCondition@left:
+		RequiresCondition: attacking
+		Condition: announcehit
+		Delay: 4
+		RevokeOnDisabled: true
+		RevokeOnPaused: true
+	VoiceAnnouncement@left:
+		RequiresCondition: announcehit
+		Voice: Kill2
+	GrantRandomCondition@fpsdoug:
+		Conditions: z,z,z,z,z,z,z,fpsdoug
+	-DamageMultiplier@fpsdoug:
+	-FirepowerMultiplier@fpsdoug:
+	GrantDelayedCondition@produced:
+		Condition: produced
+		Delay: 8
+	RangeMultiplier@invis:
+		Modifier: 250
+	Targetable:
+		RequiresCondition: !cloaked
+		TargetTypes: GroundActor, Infantry, Disguise
+	Cloak:
+		InitialDelay: 0
+		CloakDelay: 125
+		CloakSound: gstealof.aud
+		DetectionTypes: Undetectable
+		UncloakOn: Attack
+		CloakedCondition: cloaked
+
 
 IONSTORM:
 	Inherits: XBAR
