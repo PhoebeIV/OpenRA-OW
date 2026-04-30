@@ -119,7 +119,7 @@ unscreactor:
 		Amount: 200
 		RequiresCondition: !disabled
 	Power@advancedreactor:
-		Amount: 400
+		Amount: 200
 		RequiresCondition: advancedreactor
 	DamageMultiplier@advancedreactor:
 		Modifier: 80
@@ -349,6 +349,12 @@ unscsupplypad:
 		Name: actor-unscsupplypad.name
 	Refinery:
 	DrawLineToTarget:
+	WithResourceStoragePipsDecoration:
+		Position: BottomLeft
+		Margin: 4, 3
+		RequiresSelection: true
+		PipCount: 20
+		FullSequence: pip-yellow
 	CustomSellValue:
 		Value: 300
 	FreeActor:
@@ -385,6 +391,8 @@ unscairpad:
 	Inherits@shape: ^3x3Shape
 	Inherits@BIB: ^3xBuildingBib
 	Inherits@unscbuilding: ^unscbuilding
+	Tooltip:
+		Name: actor-unscairpad.name
 	Building:
 		TerrainTypes: Clear, ClearSnow, Road, Creep
 		Footprint: xxx xxx ===
@@ -795,6 +803,261 @@ unscfirebase:
 		IntoActor: unscmac
 		RequiresCondition: mac
 		SkipMakeAnims: false
+	GrantConditionOnProduction@silo:
+		Condition: silo
+		Actors: unscfirebase.silo
+	TransformOnCondition@silo:
+		IntoActor: unscsilo
+		RequiresCondition: silo
+		SkipMakeAnims: false
+	GrantConditionOnProduction@advtech:
+		Condition: advtech
+		Actors: unscfirebase.advtech
+	TransformOnCondition@advtech:
+		IntoActor: unscadvtech
+		RequiresCondition: advtech
+		SkipMakeAnims: false
+	GrantConditionOnProduction@ulttechcenter:
+		Condition: ulttechcenter
+		Actors: unscfirebase.ulttechcenter
+	TransformOnCondition@ulttechcenter:
+		IntoActor: unsculttechcenter
+		RequiresCondition: ulttechcenter
+		SkipMakeAnims: false
+	GrantConditionOnProduction@foundry:
+		Condition: foundry
+		Actors: unscfirebase.foundry
+	TransformOnCondition@foundry:
+		IntoActor: unscfoundry
+		RequiresCondition: foundry
+		SkipMakeAnims: false
+
+unscsilo:
+	Inherits: ^Building
+	Inherits@SHAPE: ^3x3Shape
+	Inherits@BIB: ^3xBuildingBib
+	Inherits@unscbuilding: ^unscbuilding
+	Inherits@silo: ^Silo
+	Valued:
+		Cost: 500
+	Tooltip:
+		Name: actor-unscsilo.name
+	Building:
+		Footprint: xxx xxx ===
+		Dimensions: 3,3
+	Selectable:
+		Bounds: 3072, 4096
+		DecorationBounds: 3072, 4096
+	Health:
+		HP: 80000
+	Armor:
+		Type: Wood
+	RevealsShroud:
+		Range: 4c0
+	Power:
+		Amount: -100
+	ToggleConditionOnOrder@sell:
+		OrderName: Sell
+		Condition: sell_me
+	TransformOnCondition@sell:
+		RequiresCondition: sell_me
+		IntoActor: unscfirebase
+		SkipMakeAnims: false
+	SpawnActorOnDeath@firebase:
+		Actor: unscfirebase
+	WithResourceStoragePipsDecoration:
+		Position: BottomLeft
+		Margin: 4, 3
+		RequiresSelection: true
+		PipCount: 20
+		FullSequence: pip-yellow
+	StoresPlayerResources:
+		Capacity: 13500
+	CashTrickler@interest:
+        RequiresCondition: interest
+        InitialDelay: 250
+        Interval: 750
+        Amount: 225
+	InfiltrateForCash:
+		Percentage: 50
+		Types: ThiefInfiltrate
+		InfiltratedNotification: CreditsStolen
+		InfiltratedTextNotification: actor-unscsilo.infiltrateforcash-infiltrated-text-notification
+
+unscadvtech:
+	Inherits: ADVTECH
+	Inherits@SHAPE: ^3x3Shape
+	Inherits@BIB: ^3xBuildingBib
+	Inherits@IDISABLE: ^DisableOnLowPower
+	Inherits@unscbuilding: ^unscbuilding
+	-Buildable:
+	Tooltip:
+		Name: actor-unscadvtech.name
+	Building:
+		Footprint: xxx xxx ===
+		Dimensions: 3,3
+		LocalCenterOffset: 0,0,0
+	Selectable:
+		Bounds: 3072, 4096
+		DecorationBounds: 3072, 4096
+	ProvidesPrerequisite:
+		Prerequisite: advtechcenter
+	ToggleConditionOnOrder@sell:
+		OrderName: Sell
+		Condition: sell_me
+	TransformOnCondition@sell:
+		RequiresCondition: sell_me
+		IntoActor: unscfirebase
+		SkipMakeAnims: false
+	SpawnActorOnDeath@firebase:
+		Actor: unscfirebase
+	RenderSprites:
+		Image: unscadvtech
+
+unsculttechcenter:
+	Inherits: T.MISS
+	Inherits@SHAPE: ^3x3Shape
+	Inherits@BIB: ^3xBuildingBib
+	Inherits@IDISABLE: ^DisableOnLowPower
+	Inherits@unscbuilding: ^unscbuilding
+	Inherits@supertech: ^SuperTechPowers
+	-Buildable:
+	Tooltip:
+		Name: actor-unsculttechcenter.name
+	Building:
+		Footprint: xxx xxx ===
+		Dimensions: 3,3
+		LocalCenterOffset: 0,0,0
+		TerrainTypes: Clear, ClearSnow, Road, Creep
+	Selectable:
+		Bounds: 3072, 4096
+		DecorationBounds: 3072, 4096
+	ProvidesPrerequisite:
+		Prerequisite: ulttechcenter
+	ToggleConditionOnOrder@sell:
+		OrderName: Sell
+		Condition: sell_me
+	TransformOnCondition@sell:
+		RequiresCondition: sell_me
+		IntoActor: unscfirebase
+		SkipMakeAnims: false
+	SpawnActorOnDeath@firebase:
+		Actor: unscfirebase
+	RenderSprites:
+		Image: unsculttechcenter
+	TransformOnCondition@vehicle:
+		RequiresCondition: miss_veh
+		IntoActor: T.MISSVEHunsc
+	TransformOnCondition@inf:
+		RequiresCondition: miss_inf
+		IntoActor: T.MISSINFunsc
+	TransformOnCondition@air:
+		RequiresCondition: miss_air
+		IntoActor: T.MISSAIRunsc
+	TransformOnCondition@navy:
+		RequiresCondition: miss_navy
+		IntoActor: T.MISSNAVYunsc
+	TransformOnCondition@str:
+		RequiresCondition: miss_str
+		IntoActor: T.MISSSTRunsc
+
+^SuperTechRevertunsc:
+	TooltipDescription:
+		Description: actor-t-miss.sell
+		ValidRelationships: None, Ally
+	ToggleConditionOnOrder@sell:
+		OrderName: Sell
+		Condition: sell_me
+	TransformOnCondition@sell:
+		RequiresCondition: sell_me
+		IntoActor: unsculttechcenter
+	GrantConditionOnPrerequisite@botowner:
+		Prerequisites: ai.all
+		Condition: botowner
+	GrantDelayedCondition@botreset:
+		RequiresCondition: botowner
+		Delay: 9000, 15000
+		Condition: sell_me
+
+T.MISSVEHunsc:
+	Inherits: T.MISSVEH
+	Inherits@Sell: ^SuperTechRevertunsc
+	Building:
+		Footprint: xxx xxx ===
+		Dimensions: 3,3
+		LocalCenterOffset: 0,0,0
+	Selectable:
+		Bounds: 3072, 4096
+		DecorationBounds: 3072, 4096
+	RenderSprites:
+		Image: unsculttechcenter
+
+T.MISSINFunsc:
+	Inherits: T.MISSINF
+	Inherits@Sell: ^SuperTechRevertunsc
+	Building:
+		Footprint: xxx xxx ===
+		Dimensions: 3,3
+		LocalCenterOffset: 0,0,0
+	Selectable:
+		Bounds: 3072, 4096
+		DecorationBounds: 3072, 4096
+	RenderSprites:
+		Image: unsculttechcenter
+
+T.MISSAIRunsc:
+	Inherits: T.MISSAIR
+	Inherits@Sell: ^SuperTechRevertunsc
+	Building:
+		Footprint: xxx xxx ===
+		Dimensions: 3,3
+		LocalCenterOffset: 0,0,0
+	Selectable:
+		Bounds: 3072, 4096
+		DecorationBounds: 3072, 4096
+	RenderSprites:
+		Image: unsculttechcenter
+
+T.MISSSTRunsc:
+	Inherits: T.MISSSTR
+	Inherits@Sell: ^SuperTechRevertunsc
+	Building:
+		Footprint: xxx xxx ===
+		Dimensions: 3,3
+		LocalCenterOffset: 0,0,0
+	Selectable:
+		Bounds: 3072, 4096
+		DecorationBounds: 3072, 4096
+	RenderSprites:
+		Image: unsculttechcenter
+
+unscfoundry:
+	Inherits: FOUNDRY
+	Inherits: ^Building
+	Inherits@SHAPE: ^3x3Shape
+	Inherits@BIB: ^3xBuildingBib
+	Inherits@unscbuilding: ^unscbuilding
+	-Buildable:
+	Building:
+		Footprint: xxx xxx ===
+		Dimensions: 3,3
+		LocalCenterOffset: 0,0,0
+		TerrainTypes: Clear, ClearSnow, Road, Creep
+	Selectable:
+		Bounds: 3072, 4096
+		DecorationBounds: 3072, 4096
+	Production@2:
+		Produces: Building,Defense
+		RequiresCondition: conyard
+	ToggleConditionOnOrder@sell:
+		OrderName: Sell
+		Condition: sell_me
+	TransformOnCondition@sell:
+		RequiresCondition: sell_me
+		IntoActor: unscfirebase
+		SkipMakeAnims: false
+	SpawnActorOnDeath@firebase:
+		Actor: unscfirebase
 
 ^unscfirebase:
 	Buildable:
@@ -959,6 +1222,74 @@ unscfirebase.mac:
 		Cost: 4700
 	RenderSprites:
 		Image: unscmac
+
+unscfirebase.silo:
+	Inherits: ^unscfirebase
+	Tooltip:
+		Name: actor-silo.name
+	Buildable:
+		Queue: Firebase
+		BuildAtProductionType: Firebase
+		Description: actor-unscsilo.description
+		Prerequisites: refinery, ~techlevel.low, ~!structures.bothard
+		IconPalette: player-icon
+		BuildPaletteOrder: 12
+		IconPaletteIsPlayerPalette: true
+	Valued:
+		Cost: 500
+	RenderSprites:
+		Image: unscsilo
+
+unscfirebase.advtech:
+	Inherits: ^unscfirebase
+	Tooltip:
+		Name: actor-advtech.name
+	Buildable:
+		Queue: Firebase
+		BuildAtProductionType: Firebase
+		Description: actor-unscadvtech.description
+		Prerequisites: techcenter, ~techlevel.low, ~!structures.bothard
+		IconPalette: player-icon
+		BuildPaletteOrder: 13
+		IconPaletteIsPlayerPalette: true
+	Valued:
+		Cost: 2700
+	RenderSprites:
+		Image: unscadvtech
+
+unscfirebase.ulttechcenter:
+	Inherits: ^unscfirebase
+	Tooltip:
+		Name: actor-ulttechcenter.name
+	Buildable:
+		Queue: Firebase
+		BuildAtProductionType: Firebase
+		Description: actor-unsculttechcenter.description
+		Prerequisites: advtechcenter, ~techlevel.low, ~!structures.bothard
+		IconPalette: player-icon
+		BuildPaletteOrder: 14
+		IconPaletteIsPlayerPalette: true
+	Valued:
+		Cost: 4700
+	RenderSprites:
+		Image: unsculttechcenter
+
+unscfirebase.foundry:
+	Inherits: ^unscfirebase
+	Tooltip:
+		Name: actor-foundry.name
+	Buildable:
+		Queue: Firebase
+		BuildAtProductionType: Firebase
+		Description: actor-unscfoundry.description
+		Prerequisites: conyard, ~techlevel.medium, ~structures.foundryprereq, ~!structures.bothard
+		IconPalette: player-icon
+		BuildPaletteOrder: 11
+		IconPaletteIsPlayerPalette: true
+	Valued:
+		Cost: 1700
+	RenderSprites:
+		Image: unscfoundry
 
 unsctalos:
 	Inherits: ^Defense

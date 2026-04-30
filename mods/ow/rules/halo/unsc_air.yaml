@@ -461,16 +461,16 @@ unscpelican:
 
 unsccolonyship:
 	Inherits: ^Helicopter
-	Inherits@cargo: ^CargoPips
-	Inherits@selection: ^SelectableSupportUnit
-	Inherits@mindcontrol: ^MindControlResistant
+	Inherits@NoExp: ^NoExp
+	Inherits@EPIC: ^EpicUnit
+	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
 	Buildable:
 		Queue: Aircraft
 		BuildAtProductionType: Helicopter
 		BuildPaletteOrder: 21
 		Prerequisites: ulttechcenter, ~aircraft.unsc, ~techlevel.high
 		Description: actor-unsccolonyship.description
-		BuildLimit: 4
+		BuildLimit: 1
 	HitShape:
 		Type: Rectangle
 			TopLeft: -1250, -2816
@@ -527,6 +527,8 @@ unsccolonyship:
 		InitialFacing: 32
 		FacingTolerance: 64
 	AutoTarget:
+		InitialStance: Defend
+		InitialStanceAI: Defend
 	AttackOmni:
 		TargetFrozenActors: true
 	Aircraft:
@@ -550,8 +552,7 @@ unsccolonyship:
 		VoiceSet: HelixVoice
 	RenderSprites:
 	WithFacingSpriteBody:
-	EjectOnDeath:
-		PilotActor: unscmarine
+	-EjectOnDeath:
 	-ClassicFacingBodyOrientation:
 	BodyOrientation:
 	-Rearmable:
@@ -594,13 +595,6 @@ unsccolonyship:
 		IsDecoration: true
 		Offset: 512,128,0
 		Palette: effect
-	Cargo:
-		Types: Infantry, Vehicle
-		MaxWeight: 20
-		PassengerFacing: 0
-		LoadingCondition: notmobile
-		AfterLoadDelay: 50
-		BeforeUnloadDelay: 25
 	GrantConditionOnPrerequisite@botowner:
 		Condition: botowner
 		Prerequisites: ai.hard

@@ -7731,6 +7731,7 @@ actor-unscgarage =
    "A tank's a tank, light-bulb." - Sgt Johnson.
 
    .name = UNSC Garage
+
 actor-unscsupplypad =
    .description = The supply pad refines resources gathered by harvesters.
 
@@ -7824,6 +7825,23 @@ actor-unscanaconda =
 
    .name = M5 Talos Anaconda
 
+actor-unscsilo =
+   .description = Stores additional credits
+
+   .name = UNSC Silo
+
+actor-unscadvtech =
+   .description = Unlocks advanced technology
+   .name = UNSC Advanced Tech Centre
+
+actor-unsculttechcenter =
+   .description = Unlocks super advanced technology and epic unit
+   .name = UNSC Super Tech Centre
+
+actor-unscfoundry =
+   .description = Increases build speed much more than standard foundrys.
+   .name = UNSC Foundry
+
 
 ## unsc_inf.yaml
 actor-unscmarine =
@@ -7901,6 +7919,92 @@ actor-unschellbringer =
       Strong vs Infantry, Vehicles
       Weak vs Aircraft
    .name = UNSC Hellbringer
+
+actor-unscsgtjohnson =
+   .description = Sergeant Major Avery Junior Johnson. Armed with an SRS99C-S2 AM sniper rifle with AP rounds.
+
+   "Dear humanity: We regret being alien bastards. We regret coming to Earth. And we most definitely regret that the Corps just blew up our raggedy-ass fleet!"
+
+   Speed: 62
+      Strong vs Infantry, Vehicles
+      Weak vs Aircraft
+   .name = Sergeant Johnson
+
+actor-unscodstmarine =
+   .description = Elite special operations infantry unit [Mid Range]. Can come armed with the following weapons:
+
+   MA5B Assault Rifle -  Standard damage and range, fires in short 5 round bursts
+   BR55 Battle Rifle - Standard damage and range, fires in short 3 round bursts
+
+   Marines can also be upgraded to carry frag grenades, increasing damage to vehicles.
+
+   If the Covenant weapons upgrade is researched, marines can also be armed with the following weapons:
+
+   Okarda'phaa-pattern plasma rifle - Standard range, higher damage to shields
+   Type-33 Needler - Longer range, Burst damage when needles are stacked onto a single unit
+
+   Speed: 62
+      Strong vs Infantry
+      Weak vs Vehicles, Aircraft
+   .name = ODST Marine
+
+actor-unscodstfrontrunner =
+   .description = Elite special operations infantry unit [Short Range]. Can come armed with the following weapons:
+
+   M6C Magnum - Longer range, less damage
+   M90 Shotgun - Shorter range, more damage
+
+   Marines can also be upgraded to carry frag grenades, increasing damage to vehicles.
+
+   If the Covenant weapons upgrade is researched, marines can also be armed with the following weapons:
+
+   Type-25 Plasma Pistol - Shorter Range, higher damage to shields
+
+   Speed: 70
+      Strong vs Infantry
+      Weak vs Vehicles, Aircraft
+   .name = ODST Marine
+
+actor-unscodstheavyweaponsmarine =
+   .description = Elite special operations Anti-vehicle unit. Can come armed with the following weapons:
+
+   M41 Rocket Launcher - Standard range, able to attack air
+   M301 Grenade Launcher - Standard range, increased damage to infantry
+
+   If the Covenant weapons upgrade is researched, marines can also be armed with the following weapons:
+
+   Jovokada Workshop Brute Shot - Standard range, incrased damage to infantry
+   Fuel Rod Cannon - Increased range, longer reload, increased spread damage
+
+   Speed: 62
+      Strong vs Aircraft, Vehicles
+      Weak vs Infantry
+   .name = ODST Heavy-Weapons Marine
+
+actor-unscodstsniper =
+   .description = Elite special operations Sniper. Cloaked when stationary. Can come armed with the following weapons:
+
+   SRS99C-S2 AM sniper rifle - Standard range and damage
+
+   If the Covenant weapons upgrade is researched, snipers can also be armed with the following weapons:
+
+   Vostu-pattern carbine - Shorter range, can target vehicles.
+   Sulok-pattern beam rifle - Shorter range, can target vehicles and aircraft.
+
+   Speed: 62
+      Strong vs Infantry
+      Weak vs Vehicles, Aircraft
+   .name = ODST Sniper
+
+actor-unscodsthellbringer =
+   .description = Elite special operations Hellbringer. Armed with an M7057 Flamethrower
+
+   Hellbringers can be upgraded to carry flashbangs that disorientate infantry.
+
+   Speed: 62
+      Strong vs Infantry, Vehicles
+      Weak vs Aircraft
+   .name = ODST Hellbringer
 
 ## unsc_air.yaml
 actor-unscdarter =
