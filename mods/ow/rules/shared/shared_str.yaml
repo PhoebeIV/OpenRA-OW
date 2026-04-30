@@ -280,7 +280,7 @@ PROC:
 		DockAngle: 256
 		DockOffset: 0, 1c0, 0
 	StoresPlayerResources:
-		Capacity: 2000
+		Capacity: 1500
 	DrawLineToTarget:
 	CustomSellValue:
 		Value: 300
@@ -304,12 +304,15 @@ PROC:
 		RequiresCondition: uac && !build-incomplete
 
 SILO:
+	Inherits@silo: ^Silo
 	Buildable:
 		Prerequisites: refinery, ~techlevel.infonly, ~structures.procprereq # Allies, Soviet, Nazi
 		Description: actor-silo-description
 		BuildPaletteOrder: 701
 	InfiltrateForCash:
 		Maximum: 5000
+	StoresPlayerResources:
+		Capacity: 1500
 
 PROCD:
 	Inherits: ^DawnBuilding
@@ -354,7 +357,7 @@ PROCD:
 		DragLength: 12
 		DockOffset: -1024,1024,0
 	StoresPlayerResources:
-		Capacity: 2000
+		Capacity: 1500
 	DrawLineToTarget:
 	CustomSellValue:
 		Value: 300
@@ -398,6 +401,7 @@ PROCD:
 
 SILOD:
 	Inherits: ^DawnBuilding
+	Inherits@silo: ^Silo
 	Inherits@shape: ^2x1Shape
 	Selectable:
 		Bounds: 2048, 1024
@@ -434,7 +438,7 @@ SILOD:
 	WithResourceLevelSpriteBody:
 		Sequence: stages
 	StoresPlayerResources:
-		Capacity: 1000
+		Capacity: 1500
 	-SpawnActorsOnSell:
 	Power:
 		Amount: -15

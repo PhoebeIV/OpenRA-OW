@@ -3631,7 +3631,7 @@ actor-proc =
 
 actor-silo-description = Stores excess refined
     Ore, Tiberium and Gems.
-     Capacity: 2500
+     Capacity: 1500
 
 actor-procd =
    .description = Refines Ore, Tiberium and Gems
@@ -3641,7 +3641,7 @@ actor-procd =
 actor-silod =
    .description = Stores excess refined
     Ore, Tiberium and Gems.
-     Capacity: 3500
+     Capacity: 1500
    .name = Silo
 
 actor-barr-name = Barracks

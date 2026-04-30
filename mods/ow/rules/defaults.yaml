@@ -791,6 +791,8 @@
 
 # Default actor for refineries, provides the "refinery" prerequisite
 ^Refinery:
+	StoresPlayerResources:
+		Capacity: 1500
 	GrantConditionOnPrerequisite@botowner:
 		Condition: botowner
 		Prerequisites: ai.all
@@ -880,8 +882,33 @@
 	ResourceValueMultiplier@upkeep3:
 		RequiresCondition: upkeep.high
 		Modifier: 30
+	GrantConditionOnPrerequisite@nosilos: # if no silos, reduce value of income
+		RequiresCondition: !botowner
+		Condition: nosilos
+		Prerequisites: !silo
+	ResourceValueMultiplier@nosilos:
+		RequiresCondition: nosilos
+		Modifier: 90
 	ProvidesPrerequisite:
 		Prerequisite: refinery
+
+# Default actor for silos, storing resources. At a certain percentage threshold, generates money.
+^Silo:
+	ProvidesPrerequisite@silo:
+		Prerequisite: silo
+	StoresPlayerResources:
+		Capacity: 1500
+	GrantConditionOnPlayerResourcesPercentage:
+		PercentageThreshold: 60
+		Condition: interest
+	CashTrickler@interest:
+		RequiresCondition: interest
+		InitialDelay: 250
+		Interval: 750
+		Amount: 25
+	FireWarheadsOnDeath@ore:
+		RequiresCondition: interest
+		Weapon: OreExplosion
 
 # Default actor to be used by Tech Center type buildings. It allows all factions access to the GPS, as long as they also have a Radio Telescope on the field.
 ^TechCenter:
