@@ -1,0 +1,351 @@
+## Had AI make this file cos i was lazy and wanted faster testing, will delete later, just wanted examples to show my code.
+## it commented wayyyy to heavily but cbf changing that at 3am
+
+
+# test buildings for the random support power traits
+# all built off MSLF (missile silo) since it already has everything a building needs
+# each one strips out MSLF's nuke and swaps in a different random power variant
+# icons/weapons/sounds are all pulled from real actors in the mod so nothing should be missing
+#
+# only two things are changed from the originals:
+#   OrderName     - has to be unique per player, test ones all start with Test
+#   ChargeInterval - cranked way down so you dont sit there waiting forever
+#
+# to use: turn on cheats in lobby, build from construction yard like normal
+
+
+# --- 1. RandomNukePower ---
+# fires a nuke at a totally random spot on the map, ignores where you clicked
+# grabbed the config from chinanuclearsilo in china_str.yaml
+TEST.RANDNUKE:
+	Inherits: MSLF              # steal all of MSLF's building traits so we dont have to redo them
+	-NukePower:                 # strip the nuke that came with MSLF
+	Tooltip:
+		Name: "[TEST] Random Nuke"
+	Buildable:
+		Queue: Building
+		Prerequisites: ~disabled    # cheat only
+		BuildPaletteOrder: 9901
+	RandomNukePower:
+		TargetMode: RandomMap       # pick anywhere on the map, ignore the click
+		PauseOnCondition: disabled
+		Cursor: nuke
+		Icon: nuclearmissile
+		ChargeInterval: 50          # fast charge for testing
+		Name: "[TEST] Nuclear Missile"
+		OrderName: TestRandNuke     # has to be unique -- if you copy this actor change this first
+		MissileWeapon: ChinaNuke
+		MissileImage: atomic
+		MissileDelay: 5
+		SpawnOffset: 1c0,427,0      # where the missile comes out of the building
+		DisplayTimerRelationships: Ally, Neutral, Enemy
+		DisplayBeacon: True
+		DisplayRadarPing: True
+		BeaconPoster: chinanukebeacon
+		CameraRange: 10c0
+		ArrowSequence: arrow
+		ClockSequence: clock
+		CircleSequence: circles
+		IncomingSpeechNotification: AbombLaunchDetected
+		SupportPowerPaletteOrder: 70
+
+
+# --- 2. RandomIonCannonPower (NearTarget) ---
+# fires a lightning beam within 20 cells of wherever you clicked
+# good for testing the radius mode
+# grabbed from BIO.A in allies_str.yaml
+#
+# heads up: IonCannonPower is locked in the engine so we cant inherit its fields
+# all the fields below had to be declared manually in the trait, thats why there are more of them
+TEST.RANDION:
+	Inherits: MSLF
+	-NukePower:
+	Tooltip:
+		Name: "[TEST] Random Ion Cannon"
+	Buildable:
+		Queue: Building
+		Prerequisites: ~disabled
+		BuildPaletteOrder: 9902
+	RandomIonCannonPower:
+		TargetMode: NearTarget      # random within the radius of the click
+		MaxRadius: 20c0             # lands somewhere within 20 cells of cursor
+		PauseOnCondition: disabled
+		Cursor: chrono-target
+		Icon: weathericon
+		ChargeInterval: 50
+		Name: "[TEST] Lightning Storm"
+		OrderName: TestRandIon
+		Weapon: WeatherGrenade      # what actually does the damage
+		WeaponDelay: 0              # damage and visual fire at the same time
+		Effect: explosion           # sprite sheet with the beam animation on it
+		EffectSequence: piff        # which animation from that sheet to play
+		EffectPalette: effect
+		OnFireSound: thunder-ambient.aud
+		DisplayRadarPing: True
+		DisplayTimerRelationships: Ally, Neutral, Enemy
+		BeginChargeSpeechNotification: IonCannonCharge
+		EndChargeSpeechNotification: IonCannonReady
+		SelectTargetSpeechNotification: DawnSelectTarget
+		SupportPowerPaletteOrder: 19
+
+
+# --- 3. RandomAirstrikePower ---
+# sends 3 bombers to a random spot on the map
+# UseDirectionalTarget is on so you can still drag a direction, but the landing spot is random anyway
+# grabbed from DOME in shared_str.yaml
+TEST.RANDAIR:
+	Inherits: MSLF
+	-NukePower:
+	Tooltip:
+		Name: "[TEST] Random Airstrike"
+	Buildable:
+		Queue: Building
+		Prerequisites: ~disabled
+		BuildPaletteOrder: 9903
+	RandomAirstrikePower:
+		TargetMode: RandomMap
+		Cursor: chrono-target
+		Icon: parabombs
+		ChargeInterval: 50
+		Name: "[TEST] Carpet Bomb"
+		OrderName: TestRandAir
+		UnitType: do17.bomber       # the plane that flies in
+		SquadSize: 3                # 3 planes
+		SquadOffset: 1792,1792,0    # how far apart they fly from each other
+		QuantizedFacings: 8         # 8 possible approach angles
+		UseDirectionalTarget: True  # drag to pick approach direction
+		DirectionArrowAnimation: paradirection
+		DisplayBeacon: true
+		BeaconPoster: pbmbicon
+		ArrowSequence: arrow
+		ClockSequence: clock
+		CircleSequence: circles
+		CameraActor: camera
+		CameraRemoveDelay: 150      # how long before the camera snaps back
+		SelectTargetSpeechNotification: SelectTarget
+		SupportPowerPaletteOrder: 40
+
+
+# --- 4. RandomParatroopersPower ---
+# drops 3 medium tanks from a covenant spirit dropship at a random map location
+# grabbed from covenanttheeye in covenant_str.yaml
+TEST.RANDPARA:
+	Inherits: MSLF
+	-NukePower:
+	Tooltip:
+		Name: "[TEST] Random Paradrop"
+	Buildable:
+		Queue: Building
+		Prerequisites: ~disabled
+		BuildPaletteOrder: 9904
+	RandomParatroopersPower:
+		TargetMode: RandomMap
+		Cursor: chrono-target
+		Icon: paratroopers
+		ChargeInterval: 50
+		Name: "[TEST] Covenant Spirit Drop"
+		OrderName: TestRandPara
+		UnitType: covenantspirit    # the carrier plane, not what gets dropped
+		DropItems: 2TNK, 2TNK, 2TNK # what actually lands (3 medium tanks)
+		SquadSize: 1                # one carrier plane
+		Cordon: 256                 # spread between drop points
+		AllowImpassableCells: false # dont drop on walls or water
+		QuantizedFacings: 8
+		UseDirectionalTarget: True
+		DirectionArrowAnimation: paradirection
+		DisplayBeacon: true
+		BeaconPoster: pinficon
+		ArrowSequence: arrow
+		ClockSequence: clock
+		CircleSequence: circles
+		CameraActor: camera.paradrop
+		ReinforcementsArrivedSpeechNotification: ReinforcementsArrived
+		SelectTargetSpeechNotification: SelectTarget
+		SupportPowerPaletteOrder: 50
+
+
+# --- 5. RandomSpawnActorPower ---
+# pops a medium tank directly at map center, no plane or animation, just appears
+# grabbed from covenantprojector in covenant_str.yaml
+TEST.RANDSPAWN:
+	Inherits: MSLF
+	-NukePower:
+	Tooltip:
+		Name: "[TEST] Random Spawn Actor"
+	Buildable:
+		Queue: Building
+		Prerequisites: ~disabled
+		BuildPaletteOrder: 9905
+	RandomSpawnActorPower:
+		TargetMode: MapCenter       # always spawns dead center of the map
+		PauseOnCondition: disabled
+		Cursor: chrono-target
+		Icon: particle
+		ChargeInterval: 50
+		Name: "[TEST] Spawn Tank"
+		OrderName: TestRandSpawn
+		Actor: 2TNK                 # what spawns
+		LifeTime: 500               # despawns after 500 ticks so it doesnt just sit there
+		DisplayTimerRelationships: Ally, Neutral, Enemy
+		LaunchSound: eulapar.wav
+		EndChargeSound: euparrea.wav
+		DetectedSound: eudepar.wav
+		SupportPowerPaletteOrder: 74
+
+
+# --- 6. RandomDropPodsPower ---
+# drops a tank in a pod within 15 cells of where you clicked
+# pod flies in from the edge of the map and lands near the cursor
+# grabbed from TCTRL in terran_add.yaml
+#
+# this version is fine with ground units in UnitTypes, no aircraft required
+TEST.RANDDROP:
+	Inherits: MSLF
+	-NukePower:
+	Tooltip:
+		Name: "[TEST] Random Drop Pods"
+	Buildable:
+		Queue: Building
+		Prerequisites: ~disabled
+		BuildPaletteOrder: 9906
+	RandomDropPodsPower:
+		TargetMode: NearTarget      # lands within MaxRadius of the click
+		MaxRadius: 15c0             # 15 cell radius
+		Cursor: chrono-target
+		Icon: orbitaldrop
+		ChargeInterval: 50
+		Name: "[TEST] Orbital Drop"
+		OrderName: TestRandDrop
+		UnitTypes: 2TNK             # what comes out (medium tank)
+		Drops: 1,1                  # drop between 1 and 1 pods (just always 1)
+		PodScatter: 1               # how spread the landing spots are
+		PodFacing: 704              # facing of the pod when it opens
+		EntryEffect: explosion      # effect when the pod enters the map
+		EntryEffectSequence: ionring
+		CameraActor: camera
+		Weapon: TerranGoliath2      # explosion on landing
+		WeaponDelay: 5              # slight delay before the landing explosion
+		DisplayRadarPing: true
+		SelectTargetSpeechNotification: SelectTarget
+		SupportPowerPaletteOrder: 75
+
+
+# --- 7. RandomDropPodsPowerOW ---
+# OW version of drop pods, always lands 10 cells east of map center
+# grabbed from TRAYNOR.Hero4 in hero_raynor.yaml
+#
+# WARNING: this version requires UnitTypes to be aircraft actors
+# the pods fly in under their own power so they need Aircraft on them
+# putting a ground unit like 2TNK here will crash the game when you place the building
+# use the regular RandomDropPodsPower above if you want to drop ground units
+TEST.RANDDROPOW:
+	Inherits: MSLF
+	-NukePower:
+	Tooltip:
+		Name: "[TEST] Random DropPodsOW"
+	Buildable:
+		Queue: Building
+		Prerequisites: ~disabled
+		BuildPaletteOrder: 9907
+	RandomDropPodsPowerOW:
+		TargetMode: CenterOffset    # always land at an offset from map center
+		CenterOffset: 10,0          # 10 cells east (X,Y in cells)
+		Cursor: chrono-target
+		Icon: parabombs
+		ChargeInterval: 50
+		Name: "[TEST] Orbital Bombardment"
+		OrderName: TestRandDropOW
+		Drops: 2,2                  # always drop exactly 2
+		PodScatter: 3
+		PodFacing: 704
+		UnitTypes: TSIEGE_SUPPORT1, TSIEGE_SUPPORT2  # aircraft pods -- dont swap these for ground units
+		EntryEffect: explosion
+		EntryEffectSequence: bunkerbustersring
+		CameraActor: camera
+		CameraRemoveDelay: 250
+		Weapon: TerranGhostPainter  # landing explosion
+		WeaponDelay: 5
+		SelectTargetSpeechNotification: SelectTarget
+		SupportPowerPaletteOrder: 76
+
+
+# --- 8. RandomIonCannonPower (RandomMap) ---
+# same beam as TEST.RANDION but lands anywhere on the map instead of near cursor
+# using the UNSC MAC cannon setup from unsc_str.yaml this time
+TEST.RANDION2:
+	Inherits: MSLF
+	-NukePower:
+	Tooltip:
+		Name: "[TEST] Random Ion Cannon (RandomMap)"
+	Buildable:
+		Queue: Building
+		Prerequisites: ~disabled
+		BuildPaletteOrder: 9908
+	RandomIonCannonPower:
+		TargetMode: RandomMap       # completely random, ignores click
+		PauseOnCondition: disabled
+		Cursor: chrono-target
+		Icon: magneticacceleratorcannonicon
+		ChargeInterval: 50
+		Name: "[TEST] MAC Cannon (Random)"
+		OrderName: TestRandIon2
+		Weapon: MagneticAcceleratorCannonBombardment
+		WeaponDelay: 0
+		Effect: explosion
+		EffectSequence: piff
+		EffectPalette: effect
+		OnFireSound: magneticacceleratorcannonfire1.aud
+		DisplayRadarPing: True
+		DisplayTimerRelationships: Ally, Neutral, Enemy
+		BeginChargeSpeechNotification: IonCannonCharge
+		EndChargeSpeechNotification: IonCannonReady
+		SelectTargetSpeechNotification: DawnSelectTarget
+		SupportPowerPaletteOrder: 77
+
+
+# --- 9. DelayedPowerTrigger ---
+# fires a nuke automatically on a random timer, no player input needed at all
+# place the building and just watch it go
+#
+# how this works:
+# RandomNukePower is set up normally with a short charge time
+# DelayedPowerTrigger sits alongside it and fires it once its charged
+# PowerOrderName has to match OrderName exactly or nothing fires
+#
+# set Repeat: false for one shot, set DelayMin and DelayMax to the same number for a fixed wait
+TEST.AUTONUKE:
+	Inherits: MSLF
+	-NukePower:
+	Tooltip:
+		Name: "[TEST] Auto Nuke (DelayedTrigger)"
+	Buildable:
+		Queue: Building
+		Prerequisites: ~disabled
+		BuildPaletteOrder: 9909
+	RandomNukePower:
+		TargetMode: RandomMap
+		PauseOnCondition: disabled
+		Cursor: nuke
+		Icon: nuclearmissile
+		ChargeInterval: 100         # slightly longer than 50 so you can see the delay working
+		Name: "[TEST] Auto Nuclear Missile"
+		OrderName: AutoTestNuke     # DelayedPowerTrigger below needs to match this exactly
+		MissileWeapon: ChinaNuke
+		MissileImage: atomic
+		MissileDelay: 5
+		SpawnOffset: 1c0,427,0
+		DisplayTimerRelationships: Ally, Neutral, Enemy
+		DisplayBeacon: True
+		DisplayRadarPing: True
+		BeaconPoster: chinanukebeacon
+		CameraRange: 10c0
+		ArrowSequence: arrow
+		ClockSequence: clock
+		CircleSequence: circles
+		IncomingSpeechNotification: AbombLaunchDetected
+		SupportPowerPaletteOrder: 78
+	DelayedPowerTrigger:
+		PowerOrderName: AutoTestNuke  # has to match OrderName above exactly
+		DelayMin: 150               # shortest possible wait in ticks
+		DelayMax: 400               # longest possible wait, picks random between these two
+		Repeat: true                # keep firing forever

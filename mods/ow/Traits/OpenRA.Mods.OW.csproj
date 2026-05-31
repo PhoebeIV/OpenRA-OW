@@ -1,0 +1,31 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <AssemblyName>OpenRA.Mods.OW</AssemblyName>
+    <!--
+      Directory.Build.props evaluates OutputPath eagerly from its own EngineRootPath (..)
+      before this file runs. Override OutputPath directly so the DLL lands in the repo
+      root bin\ folder alongside OpenRA.Mods.Common.dll etc., where the engine can find it.
+    -->
+    <EngineRootPath>$(MSBuildProjectDirectory)\..\..\..</EngineRootPath>
+    <OutputPath>$(MSBuildProjectDirectory)\..\..\..\bin</OutputPath>
+    <DebugType>none</DebugType>
+    <DebugSymbols>false</DebugSymbols>
+    <GenerateDependencyFile>false</GenerateDependencyFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- Reference pre-compiled engine DLLs. Private=false keeps them out of our output. -->
+    <Reference Include="OpenRA.Game">
+      <HintPath>$(MSBuildProjectDirectory)\..\..\..\bin\OpenRA.Game.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="OpenRA.Mods.Common">
+      <HintPath>$(MSBuildProjectDirectory)\..\..\..\bin\OpenRA.Mods.Common.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="OpenRA.Mods.Cnc">
+      <HintPath>$(MSBuildProjectDirectory)\..\..\..\bin\OpenRA.Mods.Cnc.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+  </ItemGroup>
+</Project>
