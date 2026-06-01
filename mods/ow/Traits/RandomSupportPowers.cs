@@ -23,12 +23,17 @@
 
 // SpawnActorPower doesn't have that method, so instead we jankily swap out its target right before it fires. 
 
+using System.Collections.Generic;
 using System.Linq;					  // lets shit function without breaking.
+using OpenRA.Graphics;                // IRenderable, WorldRenderer
+using OpenRA.Orders;                  // IOrderGenerator
 using OpenRA.Mods.Cnc.Effects;        // gives IonCannon effects
 using OpenRA.Mods.Cnc.Traits;         // AirstrikePower, ParatroopersPower, DropPodsPower
 using OpenRA.Mods.Common.Effects;     // gives NukeLaunch effect
+using OpenRA.Mods.Common.Graphics;    // RangeCircleAnnotationRenderable for the targeting circle
 using OpenRA.Mods.Common.Traits;      // SupportPower, SpawnActorPower, NukePowerInfo
 using OpenRA.Mods.RA.Traits;          // DropPodsPowerOW is found in here
+using OpenRA.Primitives;              // Color
 using OpenRA.Traits;
 
 namespace OpenRA.Mods.OW.Traits
@@ -124,6 +129,32 @@ namespace OpenRA.Mods.OW.Traits
 			}
 		}
 
+		// Handles clicking the power icon in the UI.
+		// For RandomMap/MapCenter/CenterOffset there's no point making the player click a target
+		// since we're going to ignore it anyway -- so we just fire immediately.
+		// For NearTarget we show a custom targeting cursor that also draws the radius circle
+		// so the player can see where the random spread could land.
+		public static void HandleSelectTarget(World world, Actor self, string order, SupportPowerManager manager,
+			SupportPowerInfo baseInfo, RandomTargetMode mode, WDist maxRadius)
+		{
+			if (mode == RandomTargetMode.NearTarget)
+			{
+				// Play the "select target" speech then hand off to our custom order generator
+				// which will show the cursor and the radius circle until the player clicks.
+				Game.Sound.PlayNotification(world.Map.Rules, self.Owner, "Speech",
+					baseInfo.SelectTargetSpeechNotification, self.Owner.Faction.InternalName);
+				world.OrderGenerator = new SelectNearTargetPowerTarget(order, manager, baseInfo.Cursor, maxRadius);
+			}
+			else
+			{
+				// No targeting UI needed -- fire right away using the building's own cell as a
+				// dummy target. The Activate() override picks the real random cell anyway.
+				var dummyCell = world.Map.CellContaining(self.CenterPosition);
+				var dummyTarget = Target.FromCell(world, dummyCell);
+				world.IssueOrder(new Order(order, manager.Self, dummyTarget, dummyTarget, false));
+			}
+		}
+
 		// This is the jank swap used by SpawnActorPower.
 		// It replaces the target stored with our random cell,
 		// so when SpawnActorPower reads it a moment later it thinks that's where the player aimed.
@@ -140,6 +171,82 @@ namespace OpenRA.Mods.OW.Traits
 			var cell = Resolve(world, order, mode, maxRadius, centerOffset);
 			OrderTargetField.SetValue(order, Target.FromCell(world, cell));
 		}
+	}
+
+	// Custom targeting cursor for NearTarget mode.
+	// Shows the normal power cursor AND a circle showing the random scatter radius.
+	// Fires when the player left-clicks, cancels on right-click.
+	class SelectNearTargetPowerTarget : IOrderGenerator
+	{
+		readonly string order;
+		readonly SupportPowerManager manager;
+		readonly string cursor;
+		readonly WDist radius;
+		CPos currentCell; // updated every frame in GetCursor so we know where to draw the circle
+
+		public SelectNearTargetPowerTarget(string order, SupportPowerManager manager, string cursor, WDist radius)
+		{
+			this.order = order;
+			this.manager = manager;
+			this.cursor = cursor;
+			this.radius = radius;
+		}
+
+		public MouseButton ActionButton => MouseButton.Left;
+
+		public IEnumerable<Order> Order(World world, CPos cell, int2 worldPixel, MouseInput mi)
+		{
+			// Right-click cancels targeting
+			if (mi.Button == MouseButton.Right)
+			{
+				world.CancelInputMode();
+				yield break;
+			}
+
+			// Left-click fires the power at the clicked cell (Activate() will then
+			// pick the actual random cell within the radius -- this just sets the center)
+			if (mi.Button == MouseButton.Left && mi.Event == MouseInputEvent.Down)
+			{
+				world.CancelInputMode();
+				var target = Target.FromCell(world, cell);
+				yield return new Order(order, manager.Self, target, target, false);
+			}
+		}
+
+		public void Tick(World world) { }
+
+		// No world-space renderables needed
+		public IEnumerable<IRenderable> Render(WorldRenderer wr, World world)
+			=> Enumerable.Empty<IRenderable>();
+
+		public IEnumerable<IRenderable> RenderAboveShroud(WorldRenderer wr, World world)
+			=> Enumerable.Empty<IRenderable>();
+
+		// Draw the radius circle as an annotation so it sits on top of everything
+		public IEnumerable<IRenderable> RenderAnnotations(WorldRenderer wr, World world)
+		{
+			var center = world.Map.CenterOfCell(currentCell);
+			yield return new RangeCircleAnnotationRenderable(
+				center,
+				radius,
+				0,
+				Color.FromArgb(128, Color.Yellow),   // semi-transparent yellow fill line
+				1f,
+				Color.FromArgb(96, Color.Black),     // dark border to make it readable
+				3f);
+		}
+
+		// GetCursor is called every frame -- we piggyback on it to track the current cell
+		// so RenderAnnotations knows where to draw the circle
+		public string GetCursor(World world, CPos cell, int2 worldPixel, MouseInput mi)
+		{
+			currentCell = cell;
+			return world.Map.Contains(cell) ? cursor : "default";
+		}
+
+		public void Deactivate() { }
+		public bool HandleKeyPress(KeyInput e) => false;
+		public void SelectionChanged(World world, IEnumerable<Actor> selected) { }
 	}
 
 	// ==========================================================================
@@ -180,6 +287,9 @@ namespace OpenRA.Mods.OW.Traits
 
 		public RandomNukePower(Actor self, RandomNukePowerInfo info)
 			: base(self, info) { this.info = info; }
+
+		public override void SelectTarget(Actor self, string order, SupportPowerManager manager)
+			=> RandomTargetHelper.HandleSelectTarget(self.World, self, order, manager, info, info.TargetMode, info.MaxRadius);
 
 		public override void Activate(Actor self, Order order, SupportPowerManager manager)
 		{
@@ -283,6 +393,9 @@ namespace OpenRA.Mods.OW.Traits
 		public RandomIonCannonPower(Actor self, RandomIonCannonPowerInfo info)
 			: base(self, info) { this.info = info; }
 
+		public override void SelectTarget(Actor self, string order, SupportPowerManager manager)
+			=> RandomTargetHelper.HandleSelectTarget(self.World, self, order, manager, info, info.TargetMode, info.MaxRadius);
+
 		public override void Activate(Actor self, Order order, SupportPowerManager manager)
 		{
 			PlayLaunchSounds();
@@ -348,6 +461,9 @@ namespace OpenRA.Mods.OW.Traits
 		public RandomAirstrikePower(Actor self, RandomAirstrikePowerInfo info)
 			: base(self, info) { this.info = info; }
 
+		public override void SelectTarget(Actor self, string order, SupportPowerManager manager)
+			=> RandomTargetHelper.HandleSelectTarget(self.World, self, order, manager, info, info.TargetMode, info.MaxRadius);
+
 		public override void Activate(Actor self, Order order, SupportPowerManager manager)
 		{
 			PlayLaunchSounds();
@@ -405,6 +521,9 @@ namespace OpenRA.Mods.OW.Traits
 		public RandomParatroopersPower(Actor self, RandomParatroopersPowerInfo info)
 			: base(self, info) { this.info = info; }
 
+		public override void SelectTarget(Actor self, string order, SupportPowerManager manager)
+			=> RandomTargetHelper.HandleSelectTarget(self.World, self, order, manager, info, info.TargetMode, info.MaxRadius);
+
 		public override void Activate(Actor self, Order order, SupportPowerManager manager)
 		{
 			PlayLaunchSounds();
@@ -454,6 +573,9 @@ namespace OpenRA.Mods.OW.Traits
 		public RandomSpawnActorPower(Actor self, RandomSpawnActorPowerInfo info)
 			: base(self, info) { this.info = info; }
 
+		public override void SelectTarget(Actor self, string order, SupportPowerManager manager)
+			=> RandomTargetHelper.HandleSelectTarget(self.World, self, order, manager, info, info.TargetMode, info.MaxRadius);
+
 		public override void Activate(Actor self, Order order, SupportPowerManager manager)
 		{
 			// Swap the target to our random cell, then let the base class
@@ -496,6 +618,9 @@ namespace OpenRA.Mods.OW.Traits
 
 		public RandomDropPodsPower(Actor self, RandomDropPodsPowerInfo info)
 			: base(self, info) { this.info = info; }
+
+		public override void SelectTarget(Actor self, string order, SupportPowerManager manager)
+			=> RandomTargetHelper.HandleSelectTarget(self.World, self, order, manager, info, info.TargetMode, info.MaxRadius);
 
 		public override void Activate(Actor self, Order order, SupportPowerManager manager)
 		{
@@ -541,6 +666,9 @@ namespace OpenRA.Mods.OW.Traits
 
 		public RandomDropPodsPowerOW(Actor self, RandomDropPodsPowerOWInfo info)
 			: base(self, info) { this.info = info; }
+
+		public override void SelectTarget(Actor self, string order, SupportPowerManager manager)
+			=> RandomTargetHelper.HandleSelectTarget(self.World, self, order, manager, info, info.TargetMode, info.MaxRadius);
 
 		public override void Activate(Actor self, Order order, SupportPowerManager manager)
 		{
