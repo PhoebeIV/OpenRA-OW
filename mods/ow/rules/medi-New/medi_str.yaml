@@ -88,7 +88,7 @@ mediconyard:
 	Valued:
 		Cost: 2000
 	Tooltip:
-		Name: Mediaval conyard
+		Name: Medieval Conyard
 	BaseBuilding:
 	Transforms:
 		RequiresCondition: factundeploy && !bot_undeploy_block
@@ -188,7 +188,7 @@ slavecampgc:
 		BuildPaletteOrder: 3
 		BuildDuration: 500
 	Tooltip:
-		Name: Farm
+		Name: Slave Camp
 	Building:
 		Footprint: == ==
 		Dimensions: 2,2
@@ -385,7 +385,7 @@ dwarfsettlement:
 		TurnSpeed: 1023
 		Offset: 128,128,384
 	Turreted@T3:
-		Turret:	T4
+		Turret:	T3
 		TurnSpeed: 1023
 		Offset: 128,128,384
 	Turreted@T4:
@@ -487,7 +487,7 @@ techcenterblacksmith:
 		BuildPaletteOrder: 5
 		BuildLimit: 4
 	Tooltip:
-		Name: Medieval techcenter (Techcenter)
+		Name: Medieval Tech Center
 	Building:
 		Footprint: xxx xxx x=x
 		Dimensions: 3,3
@@ -596,7 +596,7 @@ techcenterblacksmith:
 		LifeTime: 500
 		ChargeInterval: 5000
 		Icon: medivoidportalicon
-		Name: Spawn an Rock Golem
+		Name: Spawn a Rock Golem
 		Description: Bring forth an elemental construct
 		Prerequisites: ~structures.mediwizards
 		EffectSequence: idle
@@ -708,7 +708,7 @@ advtechcenterlibrary:
 		LifeTime: 500
 		ChargeInterval: 5000
 		Icon: medivoidportalicon
-		Name: Spawn an undead hoard
+		Name: Spawn an undead horde
 		Description: Bring forth the undead to attack your foes
 		Prerequisites: ~structures.medicult
 		EffectSequence: idle
@@ -921,6 +921,8 @@ brashnards:
 		Image: brashnards
 	Production:
 		Produces: Infantry
+	PrimaryBuilding:
+		PrimaryCondition: primary
 	RallyPoint:
 		Path: 3,3
 	Exit@1:
@@ -1031,7 +1033,7 @@ radarwg:
 		IconPalette: tsunit
 		Queue: Tech
 		Prerequisites: ~structures.medi, techcenter, ~techlevel.medium
-		Description: Provides radar
+		Description: Wizard Guild that provides radar coverage.
 		BuildLimit: 2
 		BuildPaletteOrder: 6
 	Building:
@@ -1073,7 +1075,7 @@ radarwg:
 		Condition: jammed
 	##Vision Power
 	SpawnActorPower@spyvan:
-		PauseOnCondition: disabled || Eyelow
+		PauseOnCondition: disabled
 		OrderName: SeerVision
 		Cursor: chrono-target
 		Icon: spy
@@ -1089,7 +1091,7 @@ radarwg:
 		RequiresCondition: !medivision
 	##Vision Power
 	SpawnActorPower@spyvan2:
-		PauseOnCondition: disabled || Eyelow
+		PauseOnCondition: disabled
 		OrderName: SeerVision
 		Cursor: chrono-target
 		Icon: spy
@@ -1123,11 +1125,11 @@ Archertower:
 	Valued:
 		Cost: 600
 	Tooltip:
-		Name: Archer Tower
+		Name: Archer Tower \n  Strong Vs Infantry\n  Weak Vs Vehicles, Buildings\n  Cannot target Air
 	Buildable:
 		Queue: Defense
 		Prerequisites: ~structures.medi, ~techlevel.low
-		Description: Tower that fires arrows \nStrong vs Infantry
+		Description: Tower that fires arrows.\n  Strong Vs Infantry\n  Weak Vs Vehicles, Buildings\n  Cannot target Air
 		BuildPaletteOrder: 2
 	Selectable:
 		Bounds: 1024, 1024
@@ -1189,7 +1191,7 @@ guardhouse:
 		IconPalette: tsunit
 		Queue: Defense
 		Prerequisites: ~structures.medi, barracks, ~techlevel.low
-		Description: Garison Units for Defence
+		Description: Garrison Units for Defence
 		BuildPaletteOrder: 3
 	Building:
 		Dimensions: 2,2
@@ -1261,14 +1263,14 @@ wizardtower:
 		IconPalette: tsunit
 		Queue: Defense
 		Prerequisites: ~structures.medi, techcenter, ~techlevel.medium
-		Description: Tower that user Mana To fire a constant Beam \nStrong vs Aircraft, Vehicles & Infantry
+		Description: Tower that uses Mana to fire constant magical beams.\n  Strong Vs Aircraft, Vehicles, Infantry\n  Weak Vs Buildings\n  Can target Air
 		BuildPaletteOrder: 4
 	Building:
 		BuildSounds: medibuild1.aud, medibuildjobdone1.aud, medibuildplace1.aud
 	Valued:
 		Cost: 1500
 	Tooltip:
-		Name: Arcane Tower
+		Name: Arcane Tower \n  Strong Vs Aircraft, Vehicles, Infantry\n  Weak Vs Buildings\n  Can target Air
 	Selectable:
 		Bounds: 1024, 1024
 		DecorationBounds: 1024, 1024, 0, 0
@@ -1400,12 +1402,12 @@ balistatower:
 		IconPalette: tsunit
 		Queue: Defense
 		Prerequisites: ~structures.medi, techcenter
-		Description: Tower With a Siege Weapon strapped to the roof \nStrong vs Vehicles
+		Description: Tower with a siege weapon strapped to the roof.\n  Strong Vs Vehicles, Light armor, Buildings\n  Weak Vs Infantry\n  Cannot target Air
 		BuildPaletteOrder: 5
 	Valued:
 		Cost: 1000
 	Tooltip:
-		Name: Balista Tower
+		Name: Balista Tower \n  Strong Vs Vehicles, Light armor, Buildings\n  Weak Vs Infantry\n  Cannot target Air
 	Health:
 		HP: 35000
 	AttackTurreted:
@@ -1469,8 +1471,10 @@ TempleofLunord:
 	Buildable:
 		IconPalette: tsunit
 		Prerequisites: barracks, ~structures.medi, ~!ai.hard, ~techlevel.low, ~structures.mediholy
-		Description: Allows production of creatures.
+		Description: Allows production of Holy creatures.
 		BuildPaletteOrder: 4
+	Tooltip:
+		Name: Temple of Lunord
 	RenderSprites:
 		Image: mcreatureholy
 
@@ -1484,8 +1488,10 @@ Templeofkrypta:
 	Buildable:
 		IconPalette: tsunit
 		Prerequisites: barracks, ~structures.medi, ~!ai.hard, ~techlevel.low, ~structures.medicult
-		Description: Allows production of creatures.
+		Description: Allows production of Cult creatures.
 		BuildPaletteOrder: 4
+	Tooltip:
+		Name: Temple of Krypta
 	RenderSprites:
 		Image: mcreaturecult
 		PlayerPalette: ra2
@@ -1497,8 +1503,10 @@ GoblinCamp:
 		IconPalette: tsunit
 		Queue: Building
 		Prerequisites: ~structures.medi, ~techlevel.infonly, ~!structures.bothard, ~structures.medicult
-		Description: Allows production of infantry units.
+		Description: Allows production of goblin infantry units.
 		BuildPaletteOrder: 1
+	Tooltip:
+		Name: Goblin Camp
 	RenderSprites:
 		Image: barracksgc
 		PlayerPalette: tsunit
@@ -1510,6 +1518,8 @@ Goblinhovel:
 		IconPalette: tsunit
 		Prerequisites: ~structures.medi, ~refinarymarket, ~!ai.boss, ~techlevel.infonly, ~structures.medicult
 		Description: Produces Slaves.\nAlso acts as a Silo to allow more credits to be held.
+	Tooltip:
+		Name: Goblin Hovel
 	FreeActor@Respawn1:
 		Actor: SLAVESpawn2
 	FreeActor@Respawn2:
@@ -1528,6 +1538,8 @@ Graveyard:
 		IconPalette: tsunit
 		Prerequisites: ~structures.medicult, advtechcenter, ~!ai.boss, ~techlevel.infonly
 		Description: Produces undead to defend the area
+	Tooltip:
+		Name: Graveyard
 	Health:
 		HP: 50000
 	-RenderRangeCircle:
@@ -1577,8 +1589,10 @@ TempleofKrolm:
 	Buildable:
 		IconPalette: tsunit
 		Prerequisites: barracks, ~structures.medi, ~!ai.hard, ~techlevel.low, ~structures.mediwizards
-		Description: Allows production of creatures.
+		Description: Allows production of Wizard creatures.
 		BuildPaletteOrder: 4
+	Tooltip:
+		Name: Temple of Krolm
 	RenderSprites:
 		Image: mcreaturewiz
 
@@ -1601,7 +1615,7 @@ GATEOFLIGHT:
 	Valued:
 		Cost: 2500
 	Tooltip:
-		Name: Gate of Light
+		Name: Gate of Babylon
 	Buildable:
 		Queue: Tech
 		Prerequisites: ~structures.medi, ~structures.mediholy, ~techlevel.unrestricted, techcenter
@@ -1634,7 +1648,7 @@ GATEOFLIGHT:
 		Icon: medigateofbabylonicon
 		ChargeInterval: 20000
 		Name: Gate Of Babylon
-		Description: Gate Of Babylon
+		Description: Rains down a storm of swords that destroys an area
 		BeginChargeSpeechNotification: AbombPrepping
 		EndChargeSpeechNotification: AbombReady
 		SelectTargetSpeechNotification: SelectTarget
@@ -1716,7 +1730,7 @@ MediDarkCrystal:
 		Icon: voidrainicon
 		ChargeInterval: 20500
 		Name: Void Rain
-		Description: Void Rain
+		Description: Dark energy rains from above, destroying everything in the target area
 		BeginChargeSpeechNotification: AbombPrepping
 		EndChargeSpeechNotification: AbombReady
 		SelectTargetSpeechNotification: SelectTarget
@@ -1769,7 +1783,7 @@ FireStormMedi:
 		Queue: Tech
 		Prerequisites: ~structures.medi, ~structures.mediwizards, ~techlevel.unrestricted, techcenter
 		BuildLimit: 1
-		Description: Provides the Natures Will Super Weapon\nDevestates an area with explosive magic
+		Description: Provides the Natures Will Super Weapon\nDevastates an area with explosive magic
 		BuildPaletteOrder: 10
 	Building:
 		Footprint: xxx xxx xxx
@@ -1797,7 +1811,7 @@ FireStormMedi:
 		Icon: medifirestormicon
 		ChargeInterval: 22000
 		Name: Natures Will
-		Description: Natures Will
+		Description: Devastates an area with explosive magic
 		BeginChargeSpeechNotification: AbombPrepping
 		EndChargeSpeechNotification: AbombReady
 		SelectTargetSpeechNotification: SelectTarget
@@ -1841,6 +1855,8 @@ monumentgazebo:
 	Inherits: ^Defense
 	Inherits@tax: ^TaxableHigh
 	Inherits@AUTOTARGET: ^AutoTargetAll
+	Tooltip:
+		Name: Healing Monument
 	-Targetable:
 	-Capturable:
 	-CapturableProgressBar:

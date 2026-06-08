@@ -74,6 +74,9 @@ MCVM:
 	Inherits@selection: ^SelectableSupportUnit
 	Buildable:
 		Prerequisites: fix, ~mcv, ~techlevel.medium, ~vehicles.medi
+		Description: Deploys into a Construction Yard.
+	Tooltip:
+		Name: Mobile Construction Vehicle
 	Transforms:
 		IntoActor: mediconyard
 	RenderSprites:
@@ -135,11 +138,11 @@ catapult:
 		Prerequisites: ~vehicles.medi
 		BuildPaletteOrder: 401
 		BuildDuration: 400
-		Description: medium ranged artillery.\n  Strong vs Infantry, Buildings\n  Weak vs Vehicles, Aircraft
+		Description: medium ranged artillery.\n  Strong Vs Infantry, Buildings\n  Weak Vs Vehicles\n  Cannot target Air
 	Valued:
 		Cost: 400
 	Tooltip:
-		Name: Catapult
+		Name: Catapult \n Strong Vs Infantry, Buildings\n  Weak Vs Vehicles\n  Cannot target Air
 	UpdatesPlayerStatistics:
 		AddToArmyValue: true
 	Health:
@@ -201,11 +204,11 @@ Trebuchet:
 		Queue: Vehicle
 		Prerequisites: ~vehicles.medi, advtechcenter
 		BuildPaletteOrder: 401
-		Description: Long-range artillery.\n  Strong vs Infantry, Buildings\n  Weak vs Vehicles, Aircraft
+		Description: Long-range artillery.\n  Strong Vs Infantry, Buildings\n  Weak Vs Vehicles\n  Cannot target Air
 	Valued:
 		Cost: 1300
 	Tooltip:
-		Name: Trebuchet
+		Name: Trebuchet \n Strong Vs Infantry, Buildings\n  Weak Vs Vehicles\n  Cannot target Air
 	UpdatesPlayerStatistics:
 		AddToArmyValue: true
 	Health:
@@ -251,11 +254,11 @@ Hwacha:
 		Queue: Vehicle
 		BuildPaletteOrder: 420
 		Prerequisites: ~vehicles.medi
-		Description: Long-range arrow artillery.\n  Strong vs Infantry, Light armor\n  Weak vs Tanks
+		Description: Long-range arrow artillery.\n  Strong Vs Infantry\n  Weak Vs Vehicles\n  Cannot target Air
 	Valued:
 		Cost: 600
 	Tooltip:
-		Name: Hwacha
+		Name: Hwacha \n Strong Vs Infantry\n  Weak Vs Vehicles\n  Cannot target Air
 	Health:
 		HP: 10000
 	UpdatesPlayerStatistics:
@@ -307,11 +310,11 @@ Ballista:
 		Prerequisites: ~vehicles.medi, techcenter
 		BuildPaletteOrder: 401
 		BuildDuration: 900
-		Description: Long-range Sniper artillery.\n  Strong vs Infantry, Vehicles\n  Weak vs Aircraft
+		Description: Long-range Sniper artillery.\n  Strong Vs Vehicles, Buildings\n  Weak Vs Infantry\n  Cannot target Air
 	Valued:
 		Cost: 800
 	Tooltip:
-		Name: Ballista
+		Name: Ballista \n Strong Vs Vehicles, Buildings\n  Weak Vs Infantry\n  Cannot target Air
 	UpdatesPlayerStatistics:
 		AddToArmyValue: true
 	Health:
@@ -356,11 +359,11 @@ Cannon:
 		Queue: Vehicle
 		Prerequisites: ~vehicles.medi, advtechcenter
 		BuildPaletteOrder: 401
-		Description: Long-range artillery.\n  Strong vs Vehicles, Buildings\n  Weak vs Infantry
+		Description: Long-range artillery.\n  Strong Vs Vehicles\n  Weak Vs Infantry, Buildings\n  Cannot target Air
 	Valued:
 		Cost: 900
 	Tooltip:
-		Name: Cannon
+		Name: Cannon \n Strong Vs Vehicles\n  Weak Vs Infantry, Buildings\n  Cannot target Air
 	UpdatesPlayerStatistics:
 		AddToArmyValue: true
 	Health:
@@ -411,14 +414,14 @@ SiegeTower:
 		Queue: Vehicle
 		BuildPaletteOrder: 120
 		Prerequisites: ~vehicles.medi, techcenter, ~techlevel.high
-		Description: Tough infantry transport.\n  Can Fire while moving \nStrength varies with occupants
+		Description: Tough infantry transport that can fight on the move.\n  Strong Vs Infantry, Buildings\n  Weak Vs Vehicles\n  Cannot target Air
 	Selectable:
 		Bounds: 2986, 2474
 		DecorationBounds: 2986, 2474
 	Valued:
 		Cost: 2500
 	Tooltip:
-		Name: Siege Tower
+		Name: Siege Tower \n Strong Vs Infantry, Buildings\n  Weak Vs Vehicles\n  Cannot target Air
 	UpdatesPlayerStatistics:
 		AddToArmyValue: true
 	Health:
@@ -492,14 +495,14 @@ werewolf:
 	Buildable:
 		IconPalette: tsunit
 		Prerequisites: ~vehicles.medi
-		Description: Berserkers Wish they were him. \n Strong vs infantry
+		Description: Attacks faster the longer it stays in combat. \n Strong Vs Infantry\n Weak Vs Vehicles, Buildings\n Cannot target Air
 		Queue: Vehicle
 		BuildPaletteOrder: 409
 		BuildDuration: 150
 	Valued:
 		Cost: 800
 	Tooltip:
-		Name: Berserker
+		Name: Werewolf \n Strong Vs Infantry\n Weak Vs Vehicles, Buildings\n Cannot target Air
 	Armor:
 		Type: Light
 	Health:
@@ -552,14 +555,14 @@ giantbear:
 	Buildable:
 		IconPalette: tsunit
 		Prerequisites: ~vehicles.mediholy
-		Description: Berserkers Wish they were him. \n Strong vs infantry
+		Description: A holy beast that fights alongside the faithful. \n Strong Vs Infantry\n Weak Vs Vehicles, Buildings\n Cannot target Air
 		Queue: Vehicle
 		BuildPaletteOrder: 409
 		BuildDuration: 150
 	Valued:
 		Cost: 800
 	Tooltip:
-		Name: Berserker
+		Name: Giant Bear \n Strong Vs Infantry\n Weak Vs Vehicles, Buildings\n Cannot target Air
 	Armor:
 		Type: Light
 	Health:
@@ -603,14 +606,14 @@ giantwolf:
 	Buildable:
 		IconPalette: tsunit
 		Prerequisites: ~vehicles.mediholy
-		Description: Fast attack beast. Deadly against infantry.
+		Description: Fast attack beast. Deadly against infantry.\n  Strong Vs Infantry\n  Weak Vs Vehicles, Buildings\n  Cannot target Air
 		Queue: Vehicle
 		BuildPaletteOrder: 409
 		BuildDuration: 150
 	Valued:
 		Cost: 800
 	Tooltip:
-		Name: Giant Wolf
+		Name: Giant Wolf \n Strong Vs Infantry\n  Weak Vs Vehicles, Buildings\n  Cannot target Air
 	UpdatesPlayerStatistics:
 		AddToArmyValue: true
 	Health:
@@ -662,14 +665,14 @@ dirgo:
 	Buildable:
 		IconPalette: tsunit
 		Prerequisites: ~vehicles.medicult
-		Description: Slow but devastating. Regens unless corroded. Cannot target infantry.
+		Description: Slow but devastating. Regens unless corroded. Cannot target infantry.\n  Strong Vs Vehicles, Buildings\n  Weak Vs Infantry\n  Can target Air
 		Queue: Vehicle
 		BuildPaletteOrder: 409
 		BuildDuration: 150
 	Valued:
 		Cost: 1000
 	Tooltip:
-		Name: Dirgo
+		Name: Dirgo \n Strong Vs Vehicles, Buildings\n  Weak Vs Infantry\n  Can target Air
 	Armor:
 		Type: Heavy
 	Health:
@@ -702,14 +705,14 @@ giantspider:
 	Buildable:
 		IconPalette: tsunit
 		Prerequisites: ~vehicles.medicult
-		Description: Stealthy. Corrosive bite. Slow but deadly.
+		Description: Stealthy. Corrosive bite. Slow but deadly.\n  Strong Vs Vehicles, Buildings\n  Weak Vs Infantry\n  Cannot target Air
 		Queue: Vehicle
 		BuildPaletteOrder: 409
 		BuildDuration: 200
 	Valued:
 		Cost: 900
 	Tooltip:
-		Name: Giant Spider
+		Name: Giant Spider \n Strong Vs Vehicles, Buildings\n  Weak Vs Infantry\n  Cannot target Air
 	Armor:
 		Type: Light
 	Health:
@@ -743,14 +746,14 @@ medusa:
 	Buildable:
 		IconPalette: tsunit
 		Prerequisites: ~vehicles.medicult
-		Description: Ranged magic attack. Explodes on death stunning nearby infantry.
+		Description: Ranged magic attack. Explodes on death stunning nearby infantry.\n  Strong Vs Vehicles\n  Weak Vs Infantry, Buildings\n  Can target Air
 		Queue: Vehicle
 		BuildPaletteOrder: 409
 		BuildDuration: 200
 	Valued:
 		Cost: 900
 	Tooltip:
-		Name: Medusa
+		Name: Medusa \n Strong Vs Vehicles\n  Weak Vs Infantry, Buildings\n  Can target Air
 	Armor:
 		Type: Light
 	Health:
@@ -794,14 +797,14 @@ minotaur:
 	Buildable:
 		IconPalette: tsunit
 		Prerequisites: ~vehicles.medicult
-		Description: Vehicle berserker. Gains speed and power at low HP.
+		Description: Vehicle berserker. Gains speed and power at low HP.\n  Strong Vs Vehicles, Buildings\n  Weak Vs Infantry\n  Cannot target Air
 		Queue: Vehicle
 		BuildPaletteOrder: 409
 		BuildDuration: 150
 	Valued:
 		Cost: 800
 	Tooltip:
-		Name: Minotaur
+		Name: Minotaur \n Strong Vs Vehicles, Buildings\n  Weak Vs Infantry\n  Cannot target Air
 	Armor:
 		Type: Light
 	Health:
@@ -843,7 +846,7 @@ rrongol:
 	Buildable:
 		IconPalette: tsunit
 		Prerequisites: ~vehicles.medicult
-		Description: Fast beast. Periodically enters a crit frenzy doubling damage.
+		Description: Fast beast. Periodically enters a crit frenzy doubling damage.\n  Strong Vs Vehicles, Buildings\n  Weak Vs Infantry\n  Cannot target Air
 		Queue: Vehicle
 		BuildPaletteOrder: 409
 		BuildDuration: 150
@@ -851,7 +854,7 @@ rrongol:
 	Valued:
 		Cost: 1000
 	Tooltip:
-		Name: Rrongol
+		Name: Rrongol \n Strong Vs Vehicles, Buildings\n  Weak Vs Infantry\n  Cannot target Air
 	Armor:
 		Type: Light
 	Health:
@@ -886,14 +889,14 @@ troll:
 	Buildable:
 		IconPalette: tsunit
 		Prerequisites: ~vehicles.medicult
-		Description: Powerful melee beast. Regenerates HP unless corroded.
+		Description: Powerful melee beast. Regenerates HP unless corroded.\n  Strong Vs Vehicles, Buildings\n  Weak Vs Infantry\n  Cannot target Air
 		Queue: Vehicle
 		BuildPaletteOrder: 409
 		BuildDuration: 150
 	Valued:
 		Cost: 800
 	Tooltip:
-		Name: Troll
+		Name: Troll \n Strong Vs Vehicles, Buildings\n  Weak Vs Infantry\n  Cannot target Air
 	Armor:
 		Type: Light
 	Health:
@@ -931,11 +934,11 @@ daemonwood:
 		Queue: Vehicle
 		Prerequisites: ~vehicles.mediwizards, advtechcenter
 		BuildPaletteOrder: 401
-		Description: Tanky creature. Regenerates HP unless corroded.
+		Description: Tanky creature. Regenerates HP unless corroded.\n  Strong Vs Vehicles, Buildings\n  Weak Vs Infantry\n  Cannot target Air
 	Valued:
 		Cost: 1000
 	Tooltip:
-		Name: Daemonwood
+		Name: Daemonwood \n Strong Vs Vehicles, Buildings\n  Weak Vs Infantry\n  Cannot target Air
 	UpdatesPlayerStatistics:
 		AddToArmyValue: true
 	Health:
@@ -982,11 +985,11 @@ rockgolem:
 		Queue: Vehicle
 		Prerequisites: ~vehicles.mediwizards, advtechcenter
 		BuildPaletteOrder: 401
-		Description: Long-range artillery.\n  Strong vs Vehicles, Buildings\n  Weak vs Infantry
+		Description: Slow, huge HP, splits into smaller golems on death.\n  Strong Vs Infantry\n  Weak Vs Vehicles, Buildings\n  Cannot target Air
 	Valued:
 		Cost: 900
 	Tooltip:
-		Name: Cannon
+		Name: Rock Golem \n Strong Vs Infantry\n  Weak Vs Vehicles, Buildings\n  Cannot target Air
 	UpdatesPlayerStatistics:
 		AddToArmyValue: true
 	Health:
@@ -1058,11 +1061,11 @@ rustspitter:
 		Queue: Vehicle
 		Prerequisites: ~vehicles.mediwizards, advtechcenter
 		BuildPaletteOrder: 401
-		Description: Corrosive spitter. Excellent anti-air. Corrodes everything it hits.
+		Description: Corrosive spitter. Excellent anti-air. Corrodes everything it hits.\n  Strong Vs Infantry, Vehicles\n  Weak Vs Buildings\n  Can target Air
 	Valued:
 		Cost: 900
 	Tooltip:
-		Name: Rust Spitter
+		Name: Rust Spitter \n Strong Vs Infantry, Vehicles\n  Weak Vs Buildings\n  Can target Air
 	UpdatesPlayerStatistics:
 		AddToArmyValue: true
 	Health:
@@ -1111,11 +1114,11 @@ urlshekk:
 		Prerequisites: ~vehicles.mediwizards, advtechcenter
 		BuildPaletteOrder: 401
 		BuildLimit: 1
-		Description: Ranged Elite, Attacks change on cycle, Anti Tank, Anti Infantry, Anti Structure
+		Description: Ranged elite. Cycles between anti-infantry, anti-vehicle and anti-structure attacks.\n  Strong Vs Infantry, Vehicles, Buildings\n  Weak Vs Aircraft\n  Can target Air
 	Valued:
 		Cost: 1200
 	Tooltip:
-		Name: Url Shekk
+		Name: Url Shekk \n Strong Vs Infantry, Vehicles, Buildings\n  Weak Vs Aircraft\n  Can target Air
 	UpdatesPlayerStatistics:
 		AddToArmyValue: true
 	Health:
@@ -1135,7 +1138,7 @@ urlshekk:
 		Range: 4c0
 	GrantConditionOnAttack:
 		Condition: AttackCycle
-		ArmamentNames: ShrekInf
+		ArmamentNames: primary, Secondary, Tetiary
 		MaximumInstances: 3
 		IsCyclic: True
 	Armament@1:
@@ -1176,7 +1179,7 @@ moculus:
 	Buildable:
 		IconPalette: tsunit
 		Prerequisites: ~aircraft.mediwizards
-		Description: Beholder of magic
+		Description: Beholder of magic. Wields a vast arsenal of spells from its many eyes.\n  Strong Vs Vehicles, Buildings\n  Weak Vs Infantry\n  Can target Air
 		Queue: Aircraft
 		BuildLimit: 1
 		BuildAtProductionType: Helicopter
@@ -1186,7 +1189,7 @@ moculus:
 	UpdatesPlayerStatistics:
 		AddToArmyValue: true
 	Tooltip:
-		Name: Beholder of magic
+		Name: Beholder of magic \n Strong Vs Vehicles, Buildings\n  Weak Vs Infantry\n  Can target Air
 	Armor:
 		Type: Heavy
 	Health:
