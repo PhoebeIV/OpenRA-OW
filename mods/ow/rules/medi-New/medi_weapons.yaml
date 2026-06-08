@@ -1,11 +1,100 @@
 
+
+###############################################################################
+##################################   Inherits   ##############################
+###############################################################################
+##
+#Base for melee attacks
+##
+Swordbase:
+	ReloadDelay: 30
+	Range: 2c0
+	Report: footmansword1.aud,footmansword2.aud,footmansword3.aud,footmansword4.aud,footmansword5.aud,footmansword6.aud
+	ValidTargets: Ground, Water, GroundActor, WaterActor, Structure
+	Projectile: InstantHit
+	Warhead@1Dam: SpreadDamage
+		Spread: 64
+		Damage: 3000
+		Versus:
+			None: 100
+			Wood: 15
+			Light: 60
+			Heavy: 15
+			Concrete: 10
+		DamageTypes: DefaultDeath
+		ValidTargets: GroundActor, WaterActor, Structure
+##
+#Arrow Base
+##
+Basicarrow: 
+	ValidTargets: GroundActor, WaterActor, Ground, Water, AirborneActor
+	ReloadDelay: 150
+	Range: 5c0
+	Report: crossbowmanshoot1.aud,crossbowmanshoot2.aud,crossbowmanshoot3.aud
+	Projectile: Bullet
+		Speed: 600
+		Image: DRAGON
+		ContrailLength: 8
+	Warhead@GDam: SpreadDamage
+		Spread: 256
+		Damage: 7000
+		ValidTargets: GroundActor, WaterActor
+		Versus:
+			None: 120
+			Wood: 20
+			Light: 50
+			Heavy: 35
+			Concrete: 20
+		DamageTypes: Prone50Percent, TriggerProne, DefaultDeath
+	Warhead@1Dam: SpreadDamage
+		Spread: 256
+		Damage: 3000
+		ValidTargets: Air, AirborneActor
+		DamageTypes: Prone50Percent, TriggerProne, DefaultDeath
 ###############################################################################
 ##################################   Buildings   ##############################
 ###############################################################################
-
-Dummyattacker:
-#
-Castlearrows:
+##
+#Archer Tower
+##
+Archertowershot:
+	Inherits: Basicarrow
+	ReloadDelay: 50
+	Burst: 5
+	BurstDelays: 0
+	Range: 7c0
+	MinRange: 1c0
+	Projectile: Bullet
+		Speed: 250, 300
+		LaunchAngle: 80, 120
+		Image: DRAGON
+		ContrailLength: 0
+		Inaccuracy: 2c0
+	Warhead@GDam: SpreadDamage
+		Spread: 256
+		InvalidTargets: Structure
+		Versus:
+			None: 110
+			Wood: 10
+			Light: 20
+			Heavy: 25
+			Concrete: 20
+		DamageTypes: DefaultDeath
+	Warhead@bDam: SpreadDamage
+		Spread: 256
+		ValidTargets: Structure
+		Damage: 1000
+		Versus:
+			None: 10
+			Wood: 10
+			Light: 10
+			Heavy: 10
+			Concrete: 10
+		DamageTypes: DefaultDeath
+##
+#Anti Air Balista for the Castle
+##
+Castlearrowsair:
 	Inherits: Basicarrow
 	ValidTargets: GroundActor, WaterActor, Ground, Water, Air, AirborneActor
 	ReloadDelay: 60
@@ -15,8 +104,10 @@ Castlearrows:
 		Damage: 2500
 		ValidTargets: Air, AirborneActor
 		DamageTypes: Prone50Percent, TriggerProne, DefaultDeath
-#
-Castlearrowsb:
+##
+#Fires a volly of arrows to deal with infantry
+##
+Castlearrowsground:
 	Inherits: Basicarrow
 	ReloadDelay: 500
 	Range: 9c0
@@ -50,42 +141,36 @@ Castlearrowsb:
 			Heavy: 10
 			Concrete: 10
 		DamageTypes: DefaultDeath
-#
+##
+#Anti air laser deals constant damage
+##
 ArcaneZap:
-	ReloadDelay: 7
-	Range: 8c0
-	TargetActorCenter: True
-	ValidTargets: Ground, Water, GroundActor, WaterActor, Air, AirborneActor
+	ReloadDelay: 5
+	ValidTargets: Ground, Water, GroundActor, WaterActor
 	Projectile: LaserZap
 		Blockable: False
-		Duration: 20
-		DamageInterval: 10
-		SecondaryBeam: True
-		TrackTarget: True
-		Color: 0033cc
+		Duration: 30
 	Warhead@1Dam: SpreadDamage
 		Spread: 42
-		Damage: 500
+		Damage: 300
 		Versus:
-			None: 100
-			Wood: 70
-			Light: 50
-			Heavy: 50
-			Concrete: 30
+			Wood: 100
+			Light: 100
+			Heavy: 100
+			Concrete: 100
 		DamageTypes: Prone50Percent, TriggerProne, ElectricityDeath
-		ValidTargets: Ground, GroundActor, Water, WaterActor
-	TargetActorCenter: True
-#
+		ValidTargets: Ground, Water, GroundActor, WaterActor
+
+
 ArcaneZap2:
-	Inherits: ArcaneZap
-	ReloadDelay: 10
+	ReloadDelay: 5
 	ValidTargets: AirborneActor
 	Projectile: LaserZap
 		Blockable: False
 		Duration: 30
 	Warhead@1Dam: SpreadDamage
 		Spread: 42
-		Damage: 500
+		Damage: 300
 		Versus:
 			Wood: 100
 			Light: 100
@@ -93,7 +178,9 @@ ArcaneZap2:
 			Concrete: 100
 		DamageTypes: Prone50Percent, TriggerProne, ElectricityDeath
 		ValidTargets: AirborneActor
-#
+##
+#Single target anti tank
+##
 Ballistatowershot:
 	ValidTargets: Ground, Water, GroundActor, WaterActor
 	ReloadDelay: 150
@@ -133,52 +220,69 @@ Ballistatowershot:
 		ImpactSounds: splash9.aud
 		ValidTargets: Water, Underwater
 		InvalidTargets: Bridge
-#
-Cannontowershot:
-	ValidTargets: Ground, Water, GroundActor, WaterActor
-	ReloadDelay: 150
-	Range: 12c0
-	MinRange: 5c0
-	Report: cannonattack1.aud
+##
+#Anti Tank, faster fire rate than balista
+##
+Dwarfsettlementshot:
+	Inherits: Ballistatowershot
+	ReloadDelay: 130
+	Range: 7c0
+	Warhead@1Dam: SpreadDamage
+		Damage: 2000
+##
+#Single target corrosive
+##
+Spitterbarb:
+	ValidTargets: Ground, Water, GroundActor, WaterActor, AirborneActor
+	ReloadDelay: 10
+	Range: 7c0
+	Burst: 2
+	BurstDelays: 15
+	Report: crossbowmanshoot1.aud,crossbowmanshoot2.aud,crossbowmanshoot3.aud
 	TargetActorCenter: True
 	Projectile: Bullet
-		Speed: 500
-		Blockable: false
-		LaunchAngle: 62
-		Inaccuracy: 1c400
-		Image: catapultshot
-		Shadow: True
+		Speed: 400
+		HorizontalRateOfTurn: 60
+		RangeLimit: 9c0
+		Image: V2
 		ContrailLength: 7
+		Inaccuracy: 756
+		Blockable: True
 	Warhead@1Dam: SpreadDamage
-		Spread: 150
-		Damage: 8000
+		Spread: 50
+		Damage: 150
 		Falloff: 1000, 368, 135, 50, 18, 7, 0
-		ValidTargets: GroundActor, WaterActor, Trees
+		ValidTargets: GroundActor, WaterActor, AirborneActor
 		Versus:
-			None: 40
-			Wood: 45
-			Light: 100
-			Heavy: 70
-			Concrete: 30
-		DamageTypes: Prone50Percent, TriggerProne, SmallExplosionDeath
-	Warhead@2Smu: LeaveSmudge
-		SmudgeType: Crater
-		InvalidTargets: Vehicle, Structure, Wall, Husk, Trees
-	Warhead@3Eff: CreateEffect
-		Explosions: artillery_explosion
-		ImpactSounds: CatapultMissile1.aud,CatapultMissile2.aud,CatapultMissile3.aud,CatapultMissile4.aud
-
-
+			None: 70
+			Wood: 40
+			Light: 60
+			Heavy: 40
+			Concrete: 80
+		DamageTypes: Prone50Percent, TriggerProne, ExplosionDeath
+	Warhead@poison1: GrantExternalCondition
+		Delay: 1
+		Condition: corrode
+		Range: 1c0
+		Duration: 200
+		ValidTargets: GroundActor, WaterActor, AirborneActor
+##
+#Wizard attack when in building
+##
 WizBallBuilding:
 	Inherits: WizBall
 	ReloadDelay: 40
 	Range: 9c0
-#
+##
+#Wizard attack when in building
+##
 WizFireBallBuilding:
 	Inherits: WizFireBall
 	ReloadDelay: 60
 	Range: 8c0
-#
+##
+#Wizard attack when in building
+##
 WizzapBuilding:
 	Inherits: Wizzap
 	ReloadDelay: 800
@@ -187,7 +291,29 @@ WizzapBuilding:
 ###############################################################################
 ##############################   Infantry Unit Attacks   ######################
 ###############################################################################
-#
+MusketeerShot:
+	Inherits: CannonShot
+
+
+##
+#Gathers money via Tax
+##
+PayTax:
+	Range: 2c0
+	Report: footmansword1.aud
+	ValidTargets: Taxable
+	ValidRelationships: Ally
+	Projectile: InstantHit
+	ReloadDelay: 1
+	Warhead@curtain: GrantExternalCondition
+		ValidTargets: Structure
+		ValidRelationships: Ally
+		Condition: TaxMan
+		Range: 2c0
+		Duration: 1000
+##
+#Sword used by Knight
+##
 Sword:
 	ReloadDelay: 30
 	Range: 2c0
@@ -205,59 +331,49 @@ Sword:
 			Concrete: 10
 		DamageTypes: DefaultDeath
 		ValidTargets: GroundActor, WaterActor, Structure
-#
+
 Sword2:
 	Inherits: Sword
-	ReloadDelay: 25
+##
+#Sword used by goblin Warrior
+##
+goblinsword:
+	Inherits: Sword
+	ReloadDelay: 40
+	Report: swordmanattack1.aud,swordmanattack2.aud,swordmanattack3.aud,swordmanattack4.aud,swordmanattack5.aud,swordmanattack6.aud,swordmanattack7.aud,swordmanattack8.aud,swordmanattack9.aud,swordmanattack10.aud,swordmanattack11.aud,swordmanattack12.aud
+	Warhead@1Dam: SpreadDamage
+		Damage: 3000
+	Warhead@corrode: GrantExternalCondition
+		Delay: 1
+		Condition: corrode
+		Range: 1c0
+		Duration: 200
+		ValidTargets: GroundActor, WaterActor
+##
+#Sword used by ratman
+##
+ratsword:
+	Inherits: Tankbustersword
+	ReloadDelay: 35
+	Report: swordmanattack1.aud,swordmanattack2.aud,swordmanattack3.aud,swordmanattack4.aud,swordmanattack5.aud,swordmanattack6.aud,swordmanattack7.aud,swordmanattack8.aud,swordmanattack9.aud,swordmanattack10.aud,swordmanattack11.aud,swordmanattack12.aud
+##
+#Sword used by goblinchampion
+##
+championgoblinsword:
+	Inherits: goblinsword
+	ReloadDelay: 35
 	Report: swordmanattack1.aud,swordmanattack2.aud,swordmanattack3.aud,swordmanattack4.aud,swordmanattack5.aud,swordmanattack6.aud,swordmanattack7.aud,swordmanattack8.aud,swordmanattack9.aud,swordmanattack10.aud,swordmanattack11.aud,swordmanattack12.aud
 	Warhead@1Dam: SpreadDamage
 		Damage: 4000
-#
-Mediassasinblade:
-	ReloadDelay: 100
-	Range: 5c0
-	Report: footmansword1.aud,footmansword2.aud,footmansword3.aud,footmansword4.aud,footmansword5.aud,footmansword6.aud
-	Projectile: InstantHit
-	ValidTargets: Ground, Infantry, Cyborg
-	InvalidTargets: Vehicle, Water, Wall, Husk, Mine, Structure
-	Warhead@1Dam: SpreadDamage
-		Spread: 64
-		Damage: 20000
-		Versus:
-			None: 100
-			Wood: 15
-			Light: 60
-			Heavy: 15
-			Concrete: 10
-		DamageTypes: DefaultDeath, Assasindeath
-		ValidTargets: GroundActor, WaterActor, Structure
-##is inherited by: Castlearrows
-Basicarrow:
-	ValidTargets: GroundActor, WaterActor, Ground, Water, AirborneActor
-	ReloadDelay: 150
-	Range: 5c0
-	Report: crossbowmanshoot1.aud,crossbowmanshoot2.aud,crossbowmanshoot3.aud
-	Projectile: Bullet
-		Speed: 600
-		Image: DRAGON
-		ContrailLength: 8
-	Warhead@GDam: SpreadDamage
-		Spread: 256
-		Damage: 7000
+	Warhead@corrode: GrantExternalCondition
+		Delay: 1
+		Condition: corrode
+		Range: 1c0
+		Duration: 250
 		ValidTargets: GroundActor, WaterActor
-		Versus:
-			None: 120
-			Wood: 20
-			Light: 50
-			Heavy: 35
-			Concrete: 20
-		DamageTypes: Prone50Percent, TriggerProne, DefaultDeath
-	Warhead@1Dam: SpreadDamage
-		Spread: 256
-		Damage: 3000
-		ValidTargets: Air, AirborneActor
-		DamageTypes: Prone50Percent, TriggerProne, DefaultDeath
-#
+##
+#Basic archer attack, shared with goblin archer
+##
 Infantryarrow:
 	Inherits: Basicarrow
 	ReloadDelay: 150
@@ -271,7 +387,20 @@ Infantryarrow:
 			Light: 40
 			Heavy: 35
 			Concrete: 70
-#
+##
+#Basic archer for goblin archer
+##
+goblinarcher:
+	Inherits: Infantryarrow
+	Warhead@corrode: GrantExternalCondition
+		Delay: 1
+		Condition: corrode
+		Range: 1c0
+		Duration: 200
+		ValidTargets: GroundActor, WaterActor, AirborneActor
+##
+#Used by Priest, Monk and Goblin Priest
+##
 Healmedi:
 	Inherits: Heal
 	Range: 4c0
@@ -289,81 +418,45 @@ Healmedi:
 		Duration: 375
 		ValidTargets: Infantry
 		InvalidTargets: BeingHealed
-#
-Healmedim:
+##
+#Used by dryad
+##
+dryadrepair:
 	Inherits: Heal
-	ReloadDelay: 350
+	Report: fixit1.aud
+	ValidTargets: Repair
+	Warhead@1Eff: FlashTargetsInRadius
+		ValidTargets: Repair
 	Warhead@1Dam: SpreadDamage
-		Spread: 2c0
-		Damage: -400
-		ValidRelationships: Ally
-		ValidTargets: Heal
-		DebugOverlayColor: 00FF00
-		DamageTypes: BypassShield
-	Warhead@cond: GrantExternalCondition
-		Condition: healed
-		Range: 1c0
-		Duration: 375
-		ValidTargets: Infantry
-		InvalidTargets: BeingHealed
-#
-HealmediT:
-	Inherits: Healmedi
-	Range: 9c0
-#
-Martyrdeath:
-	Inherits: ^Explosion
-		ValidTargets: Repair, Heal, StructureRepair
+		Damage: -3000
+		ValidTargets: Repair
+##
+#Used by monument
+##
+monumentheal:
+	Inherits: Heal
+	Range: 5c0
+	ReloadDelay: 500
+	Report: fixit1.aud
+	ValidTargets: GroundActor, WaterActor, AirborneActor
+	Warhead@1Eff: FlashTargetsInRadius
+		ValidTargets: GroundActor, WaterActor, AirborneActor
 	Warhead@1Dam: SpreadDamage
-		Delay: 50
-		Spread: 426
-		Damage: -300
-		Falloff: 250, 250, 175, 150, 0, 0, 0
-		Versus:
-			None: 100
-			Wood: 75
-			Light: 100
-			Heavy: 100
-			Concrete: 100
-		AffectsParent: true
+		Spread: 10c0
+		Damage: -5000
+		ValidRelationships: Enemy, Neutral, Ally
+		ValidTargets: GroundActor, WaterActor, AirborneActor
+	Warhead@bless: GrantExternalCondition
+		ValidTargets: GroundActor, WaterActor, AirborneActor
 		ValidRelationships: Ally
-		ValidTargets: Repair, Heal, StructureRepair
-	Warhead@2Dam: SpreadDamage
-		Delay: 0
-		Spread: 300
-		Damage: -300
-		Falloff: 250, 250, 175, 150, 0, 0, 0
-		ValidRelationships: Ally
-		ValidTargets: Repair, Heal, StructureRepair
-		DamageTypes: Prone50Percent, TriggerProne, ExplosionDeath
-	Warhead@1heala: HealthPercentageDamage
-		Spread: 5c0
-		Damage: -2
-		ValidTargets: Repair, Heal, StructureRepair
-		ValidRelationships: Ally
-	Warhead@1healb: CreateEffect
-		Explosions: medihealeffect
-		ImpactSounds: mediholyheal.aud
-		ImpactActors: false
-	Warhead@cond: GrantExternalCondition
-		Condition: healed
-		Range: 1c0
-		Duration: 375
-		ValidTargets: Infantry
-		InvalidTargets: BeingHealed
-	Warhead@mtr: GrantExternalCondition
-		Condition: martyhot
-		Range: 5c0
-		Duration: 375
-		ValidTargets: Infantry
-		ValidRelationships: Ally
-	Warhead@crs: GrantExternalCondition
-		Condition: MediCurseCondition
-		Range: 5c0
-		Duration: 375
-		ValidRelationships: Enemy
-#
+		Condition: MediBlessCondition
+		Range: 10c0
+		Duration: 125
+##
+#Used by Void archer
+##
 Voidarchershot:
+	Inherits: Basicarrow
 	ValidTargets: Ground, Water, GroundActor, WaterActor, AirborneActor
 	ReloadDelay: 100
 	Burst: 2
@@ -398,7 +491,9 @@ Voidarchershot:
 			Heavy: 10
 			Concrete: 20
 		DamageTypes: Prone50Percent, TriggerProne, DefaultDeath, ElectricityDeath
-#
+##
+#Burst fire gives some variation
+##
 Voidarchershot2:
 	Inherits: Voidarchershot
 	ReloadDelay: 150
@@ -407,13 +502,17 @@ Voidarchershot2:
 	Projectile: Bullet
 		Blockable: False
 		Inaccuracy: 1c200
-#
+##
+#more range when garrisoned
+##
 Voidarchershot3:
 	Inherits: Voidarchershot
 	Range: 9c0
-#
+##
+#Used by Paladin
+##
 PaladinSword:
-	Inherits: Sword2
+	Inherits: Swordbase
 	Range: 3c0
 	ReloadDelay: 75
 	Warhead@1Dam: SpreadDamage
@@ -426,9 +525,68 @@ PaladinSword:
 			Heavy: 60
 			Concrete: 50
 		DamageTypes: DefaultDeath
-#
+##
+#Used by Shield Hero
+##
+PaladinHealWep:
+	ReloadDelay: 209
+	Range: 3c0
+	Report: tesla1.aud
+	ValidTargets: Ground, Water, GroundActor, WaterActor, Air, AirborneActor
+	Projectile: InstantHit
+	Warhead@1heala: HealthPercentageDamage
+		Spread: 2c0
+		Damage: -3
+		ValidTargets: Heal
+		ValidRelationships: Ally
+	Warhead@1Dam: SpreadDamage
+		Damage: -2000
+		Spread: 2c0 
+		ValidTargets: Heal
+		ValidRelationships: Ally
+	Warhead@1healb: CreateEffect
+		Explosions: medihealeffect
+		ImpactSounds: mediholyheal.aud
+		ImpactActors: false
+##
+#Used by Shield Hero
+##
+SmitePaladinWep:
+	ReloadDelay: 303
+	Range: 3c0
+	Report: tesla1.aud
+	ValidTargets: Ground, Water, GroundActor, WaterActor, Air, AirborneActor
+	Projectile: InstantHit
+	Warhead@: HealthPercentageDamage
+		Delay: 0
+		Spread: 2c512
+		ValidTargets: Infantry
+		Damage: 5
+		ValidRelationships: Enemy, Neutral
+		DamageTypes: Prone50Percent, TriggerProne, ElectricityDeath
+	Warhead@Eff: CreateEffect
+		Explosions: medigryphonriderattack
+		Image: explosion
+		Delay: 0
+	Warhead@friend: HealthPercentageDamage
+		Delay: 0
+		Spread: 2c0
+		ValidTargets: Infantry
+		Damage: 1
+		ValidRelationships: Ally
+		DamageTypes: Prone50Percent, TriggerProne, ElectricityDeath
+	Warhead@SmiteDam_impact: SpreadDamage
+		Delay: 0
+		Spread: 2c0
+		Damage: 7000
+		ValidTargets: Infantry
+		ValidRelationships: Enemy, Neutral
+		DamageTypes: Prone50Percent, TriggerProne, ElectricityDeath
+##
+#Used by Berserker
+##
 BerserkerSword:
-	Inherits: Sword2
+	Inherits: Swordbase
 	ReloadDelay: 50
 	Warhead@1Dam: SpreadDamage
 		Spread: 128
@@ -440,129 +598,120 @@ BerserkerSword:
 			Heavy: 100
 			Concrete: 40
 		DamageTypes: DefaultDeath
-#
+##
+#Used by Berserker when damaged
+##
 BerserkerSwordFast:
 	Inherits: BerserkerSword
 	ReloadDelay: 20
-#
-Blademastersword:
-	Inherits: Sword2
-	ReloadDelay: 15
+##
+#Used by Tank Buster
+##
+Tankbustersword:
+	Inherits: Swordbase
+	ReloadDelay: 60
 	Warhead@1Dam: SpreadDamage
 		Spread: 128
 		Damage: 7000
 		Versus:
-			None: 100
-			Wood: 35
-			Light: 45
-			Heavy: 35
-			Concrete: 20
+			None: 60
+			Wood: 90
+			Light: 120
+			Heavy: 110
+			Concrete: 100
 		DamageTypes: DefaultDeath
-#
-Blademasterswordleap:
-	Inherits: Blademastersword
-	ReloadDelay: 200
+	Warhead@zapstack: GrantExternalCondition
+		ValidTargets: GroundActor, WaterActor, Underwater, AirborneActor
+		InvalidTargets: Infantry
+		ValidRelationships: Enemy, Neutral
+		Condition: zapstack
+		Duration: 200
+		Range: 1c0
+##
+#Used by Tank Buster when leaping
+##
+Tankbusterswordleap:
+	Inherits: Tankbustersword
+	ReloadDelay: 120
 	Warhead@1Dam: SpreadDamage
 		Damage: 15000
-#
-BladeMasterTornado:
-	ValidTargets: Ground, GroundActor, Water, WaterActor
-	ReloadDelay: 175
-	Range: 2c0
-	Report: blademastertornado.aud
-	TargetActorCenter: True
-	Projectile: Missile
-		Jammable: False
-		Speed: 50
-		HorizontalRateOfTurn: 60
-		RangeLimit: 25c0
-		Image: mediblademastertornado
+##
+#Used by Giant Rat
+##
+GiantRatBite:
+	Inherits: Sword
+	ReloadDelay: 35
+	Report: swordmanattack1.aud,swordmanattack2.aud,swordmanattack3.aud,swordmanattack4.aud,swordmanattack5.aud,swordmanattack6.aud,swordmanattack7.aud,swordmanattack8.aud,swordmanattack9.aud,swordmanattack10.aud,swordmanattack11.aud,swordmanattack12.aud
 	Warhead@1Dam: SpreadDamage
-		Spread: 150
+		Damage: 3000
+##
+#Used by Giant Bear
+##
+giantbearbite:
+	Inherits: GiantRatBite
+	ReloadDelay: 35
+	Report: swordmanattack1.aud,swordmanattack2.aud,swordmanattack3.aud,swordmanattack4.aud,swordmanattack5.aud,swordmanattack6.aud,swordmanattack7.aud,swordmanattack8.aud,swordmanattack9.aud,swordmanattack10.aud,swordmanattack11.aud,swordmanattack12.aud
+	Warhead@1Dam: SpreadDamage
+		Damage: 3000
+##
+#Used by Giant Bear
+##
+werewolfclaw:
+	Inherits: GiantRatBite
+	ReloadDelay: 35
+	Report: swordmanattack1.aud,swordmanattack2.aud,swordmanattack3.aud,swordmanattack4.aud,swordmanattack5.aud,swordmanattack6.aud,swordmanattack7.aud,swordmanattack8.aud,swordmanattack9.aud,swordmanattack10.aud,swordmanattack11.aud,swordmanattack12.aud
+	Warhead@1Dam: SpreadDamage
+		Damage: 3000
+##
+#Used by Giant Bear
+##
+golembig:
+	Inherits: GiantRatBite
+	ReloadDelay: 35
+	Report: swordmanattack1.aud,swordmanattack2.aud,swordmanattack3.aud,swordmanattack4.aud,swordmanattack5.aud,swordmanattack6.aud,swordmanattack7.aud,swordmanattack8.aud,swordmanattack9.aud,swordmanattack10.aud,swordmanattack11.aud,swordmanattack12.aud
+	Warhead@1Dam: SpreadDamage
+		Damage: 3000
+##
+#Used by Giant Bear
+##
+GolemSplit:
+	Inherits: golembig
+	ReloadDelay: 35
+	Report: swordmanattack1.aud,swordmanattack2.aud,swordmanattack3.aud,swordmanattack4.aud,swordmanattack5.aud,swordmanattack6.aud,swordmanattack7.aud,swordmanattack8.aud,swordmanattack9.aud,swordmanattack10.aud,swordmanattack11.aud,swordmanattack12.aud
+	Warhead@1Dam: SpreadDamage
 		Damage: 1000
-		Falloff: 1000, 368, 135, 50, 18, 7, 0
-		ValidTargets: GroundActor, WaterActor, Trees
-		Versus:
-			None: 80
-			Wood: 50
-			Light: 40
-			Heavy: 40
-			Concrete: 50
-		DamageTypes: DefaultDeath
-#
-swarmlingAttack:
-	ReloadDelay: 13
-	Burst: 6
-	BurstDelays: 13,11,12,10,14
-	Range: 2c0
-	Report: zzeatk00.aud, zzeatk01.aud
-	ValidTargets: Ground, Infantry, Cyborg
-	Projectile: InstantHit
+##
+#Used by Skeleton
+##
+SkeletonSword:
+	Inherits: Sword
+	ReloadDelay: 40
+	Report: swordmanattack1.aud,swordmanattack2.aud,swordmanattack3.aud,swordmanattack4.aud,swordmanattack5.aud,swordmanattack6.aud,swordmanattack7.aud,swordmanattack8.aud,swordmanattack9.aud,swordmanattack10.aud,swordmanattack11.aud,swordmanattack12.aud
 	Warhead@1Dam: SpreadDamage
-		Spread: 64
-		Damage: 425
-		Versus:
-			None: 100
-			Wood: 15
-			Light: 60
-			Heavy: 15
-			Concrete: 10
-		DamageTypes: DefaultDeath
-		ValidTargets: GroundActor, WaterActor
-	Warhead@2StructureDam: SpreadDamage
-		Spread: 64
-		Damage: 400
-		Versus:
-			None: 100
-			Wood: 15
-			Light: 60
-			Heavy: 15
-			Concrete: 10
-		DamageTypes: DefaultDeath
-		ValidTargets: Structure
-#
-swarmlingAttack1:
-	Inherits: swarmlingAttack
-	BurstDelays: 13,11,12,10,14
-#
-swarmlingAttack2:
-	Inherits: swarmlingAttack
-	BurstDelays: 16,10,13,11,14
-#
-swarmlingAttack3:
-	Inherits: swarmlingAttack
-	BurstDelays: 14,13,10,12,15
-#
-MusketeerShot:
-	ReloadDelay: 140
-	Range: 10c0
-	Report: riflemanattack1.aud, riflemanattack2.aud
-	ValidTargets: Ground, Infantry, Cyborg, Structure
-	InvalidTargets: Vehicle, Water, Wall, Husk, Mine
-	Projectile: InstantHit
+		Damage: 4000
+##
+#Used by SummonedZombie
+##
+SummonedZombieBite:
+	Inherits: Sword
+	ReloadDelay: 45
+	Report: swordmanattack1.aud,swordmanattack2.aud,swordmanattack3.aud,swordmanattack4.aud,swordmanattack5.aud,swordmanattack6.aud,swordmanattack7.aud,swordmanattack8.aud,swordmanattack9.aud,swordmanattack10.aud,swordmanattack11.aud,swordmanattack12.aud
 	Warhead@1Dam: SpreadDamage
-		Spread: 100
-		Damage: 10000
-		ValidTargets: Ground, Infantry, Cyborg, Structure
-		Versus:
-			None: 100
-			Wood: 20
-			Light: 40
-			Heavy: 20
-			Concrete: 20
-		DamageTypes: Prone50Percent, TriggerProne, DefaultDeath
-	Warhead@2Eff: CreateEffect
-		Explosions: piff
-		Inaccuracy: 171
-	Warhead@3EffWater: CreateEffect
-		Explosions: water_piff
-		Inaccuracy: 171
+		Damage: 4000
+##
+#Used by vampire
+##
+vampireblite:
+	Inherits: Sword
+	ReloadDelay: 50
+	Report: swordmanattack1.aud,swordmanattack2.aud,swordmanattack3.aud,swordmanattack4.aud,swordmanattack5.aud,swordmanattack6.aud,swordmanattack7.aud,swordmanattack8.aud,swordmanattack9.aud,swordmanattack10.aud,swordmanattack11.aud,swordmanattack12.aud
+	Warhead@1Dam: SpreadDamage
+		Damage: 8000
 
-###############################################################################
-##############################   Mage Attacks   ############################
-###############################################################################
-#
-WizBall:
+##
+#Used by witch king
+##
+witchking:
 	ReloadDelay: 50
 	Range: 7c512
 	Report: plasma1.aud
@@ -590,7 +739,162 @@ WizBall:
 		Explosions: napalm
 		ImpactSounds: firebl3.aud
 		ValidTargets: Ground, GroundActor, Water, WaterActor, Trees, Air, AirborneActor
+	Warhead@corrode: GrantExternalCondition
+		Delay: 1
+		Condition: corrode
+		Range: 1c0
+		Duration: 200
+		ValidTargets: GroundActor, WaterActor, AirborneActor
+##
+#Used by UrlShekk on infantry
+##
+ShrekInfantry:
+	ReloadDelay: 50
+	Range: 7c512
+	Report: plasma1.aud
+	ValidTargets: Ground, Infantry
+	Projectile: Missile
+		Jammable: False
+		Blockable: False
+		Speed: 582
+		Image: Plasma
+		ContrailLength: 2
+	Warhead@ArcBoat1Dam: SpreadDamage
+		Spread: 256
+		Damage: 7000
+		ValidTargets: Infantry
+		Versus:
+			None: 36
+			Wood: 88
+			Light: 88
+			Heavy: 120
+			Concrete: 60
+		DamageTypes: Prone50Percent, TriggerProne, ExplosionDeath
+	Warhead@ArcBoat2Smu: LeaveSmudge
+		SmudgeType: Scorch
+##
+#Used by UrlShekk on Vehicles
+##
+ShrekVehicle:
+	ReloadDelay: 50
+	Range: 7c512
+	Report: plasma1.aud
+	ValidTargets: Ground, Water, WaterActor, Vehicle, Air, AirborneActor
+	Projectile: Missile
+		Jammable: False
+		Blockable: False
+		Speed: 582
+		Image: Plasma
+		ContrailLength: 2
+	Warhead@ArcBoat1Dam: SpreadDamage
+		Spread: 256
+		Damage: 7000
+		ValidTargets: WaterActor, Vehicle, AirborneActor
+		Versus:
+			None: 36
+			Wood: 88
+			Light: 88
+			Heavy: 120
+			Concrete: 60
+		DamageTypes: Prone50Percent, TriggerProne, ExplosionDeath
+	Warhead@ArcBoat2Smu: LeaveSmudge
+		SmudgeType: Scorch
+##
+#Used by UrlShekk on infantry
+##
+shrekbuild:
+	ReloadDelay: 50
+	Range: 7c512
+	Report: plasma1.aud
+	ValidTargets:  Structure, Wall, Husk, Trees
+	Projectile: Missile
+		Jammable: False
+		Blockable: False
+		Speed: 582
+		Image: Plasma
+		ContrailLength: 2
+	Warhead@ArcBoat1Dam: SpreadDamage
+		Spread: 256
+		Damage: 7000
+		ValidTargets: Structure, Wall, Husk, Trees
+		Versus:
+			None: 36
+			Wood: 88
+			Light: 88
+			Heavy: 120
+			Concrete: 60
+		DamageTypes: Prone50Percent, TriggerProne, ExplosionDeath
+	Warhead@ArcBoat2Smu: LeaveSmudge
+		SmudgeType: Scorch
+
+
+
+###############################################################################
+##############################   Inherit Attacks   ############################
+###############################################################################
 #
+BladeMasterTornado:
+	ValidTargets: Ground, GroundActor, Water, WaterActor
+	ReloadDelay: 175
+	Range: 2c0
+	Report: blademastertornado.aud
+	TargetActorCenter: True
+	Projectile: Missile
+		Jammable: False
+		Speed: 50
+		HorizontalRateOfTurn: 60
+		RangeLimit: 25c0
+		Image: mediblademastertornado
+	Warhead@1Dam: SpreadDamage
+		Spread: 150
+		Damage: 1000
+		Falloff: 1000, 368, 135, 50, 18, 7, 0
+		ValidTargets: GroundActor, WaterActor, Trees
+		Versus:
+			None: 80
+			Wood: 50
+			Light: 40
+			Heavy: 40
+			Concrete: 50
+		DamageTypes: DefaultDeath
+
+###############################################################################
+##############################   Mage Attacks   ############################
+###############################################################################
+##
+#Used by Arcane Wizard
+##
+WizBall:
+	ReloadDelay: 50
+	Range: 7c512
+	Report: plasma1.aud
+	ValidTargets: Ground, Water, GroundActor, WaterActor, Air, AirborneActor
+	Projectile: Missile
+		Jammable: False
+		Blockable: False
+		Speed: 582
+		Image: Plasma
+		ContrailLength: 2
+	Warhead@ArcBoat1Dam: SpreadDamage
+		Spread: 256
+		Damage: 7000
+		ValidTargets: GroundActor, WaterActor, Air, AirborneActor
+		Versus:
+			None: 30
+			Wood: 70
+			Light: 100
+			Heavy: 130
+			Concrete: 40
+		DamageTypes: Prone50Percent, TriggerProne, ExplosionDeath
+	Warhead@ArcBoat2Smu: LeaveSmudge
+		SmudgeType: Scorch
+	Warhead@ArcBoat3Eff: CreateEffect
+		Explosions: napalm
+		ImpactSounds: firebl3.aud
+		ValidTargets: Ground, GroundActor, Water, WaterActor, Trees, Air, AirborneActor
+##
+#Used by Fire Wizard
+##
 WizFireBall:
 	ReloadDelay: 70
 	Range: 6c0
@@ -607,11 +911,11 @@ WizFireBall:
 		Damage: 6000
 		ValidTargets: GroundActor, WaterActor
 		Versus:
-			None: 50
-			Wood: 88
-			Light: 88
-			Heavy: 120
-			Concrete: 60
+			None: 120
+			Wood: 100
+			Light: 100
+			Heavy: 40
+			Concrete: 80
 		DamageTypes: Prone50Percent, TriggerProne, ExplosionDeath
 	Warhead@3Eff: CreateEffect
 		Explosions: large_napalm
@@ -621,7 +925,8 @@ WizFireBall:
 		RandomClusterCount: 4
 		Dimensions: 3,3
 		Footprint: xxx xxx xxx
-#
+##
+##
 WizFireCluster:
 	Inherits: Nazi155mm
 	Report: baud.aud
@@ -639,7 +944,9 @@ WizFireCluster:
 		Explosions: napalm
 		ImpactSounds: firebl3.aud
 	-Warhead@cluster:
-#
+##
+#Used by Lightning Wizard
+##
 Wizzap:
 	Inherits: ^ElectricBoltWeapon
 	ReloadDelay: 100
@@ -684,11 +991,13 @@ Wizzap:
 		Footprint: xxx x_x xxx
 	Warhead@zapstack: GrantExternalCondition
 		ValidTargets: GroundActor, WaterActor, Underwater, AirborneActor
+		InvalidTargets: Infantry
 		ValidRelationships: Enemy, Neutral
 		Condition: zapstack
 		Duration: 200
 		Range: 1c0
-#
+##
+##
 wizzapcluster:
 	Inherits: BFGZapCluster
 	Range: 4c0
@@ -709,11 +1018,13 @@ wizzapcluster:
 		ImpactActors: true
 	Warhead@zapstack: GrantExternalCondition
 		ValidTargets: GroundActor, WaterActor, Underwater, AirborneActor
+		InvalidTargets: Infantry
 		ValidRelationships: Enemy, Neutral
 		Condition: zapstack
 		Duration: 200
 		Range: 2c0
-#
+##
+##
 wizzapclusterx:
 	Inherits: kuruttanekoZapupgrade
 	Range: 4c0
@@ -754,39 +1065,13 @@ ElementalSpawner:
 	Warhead@GDam: SpawnRandomActor
 		Range: 5
 		ForceGround: True
-		Actors: swarmling,swarmling,swarmling,swarmling,swarmling,swarmling,swarmling
+		Actors: Knight,Knight,Knight,Knight,Knight,Knight,Knight
 
 ZombieSpawner:
 	Inherits: ElementalSpawner
 	Warhead@GDam: SpawnRandomActor
-		Actors: Goul,Goul,Goul,Goul,Goul,Goul,Goul
+		Actors: Knight,Knight,Knight,Knight,Knight,Knight,Knight
 		
-###############################################################################
-##############################   Condition Attacks   ##########################
-###############################################################################
-#
-CurseEyeWep:
-	ReloadDelay: 500
-	Range: 8c0
-	Projectile: InstantHit
-	Warhead@curtain: GrantExternalCondition
-		ValidTargets: GroundActor, Trees, WaterActor, Underwater, AirborneActor
-		ValidRelationships: Enemy, Neutral
-		Condition: MediCurseCondition
-		Range: 4c0
-		Duration: 600
-#
-BlessEyeWep:
-	ReloadDelay: 500
-	Range: 8c0
-	Projectile: InstantHit
-	Warhead@curtain: GrantExternalCondition
-		ValidTargets: GroundActor, Trees, WaterActor, Underwater, AirborneActor
-		ValidRelationships: Enemy, Neutral
-		Condition: MediBlessCondition
-		Range: 4c0
-		Duration: 600
-
 ###############################################################################
 ################################   Powers Attacks   ###########################
 ###############################################################################
@@ -831,6 +1116,12 @@ medihealorder:
 		Explosions: medihealeffect
 		ImpactSounds: mediholyheal.aud
 		ImpactActors: false
+	Warhead@bless: GrantExternalCondition
+		ValidTargets: Repair, Heal, StructureRepair
+		ValidRelationships: Ally
+		Condition: MediBlessCondition
+		Range: 5c0
+		Duration: 125
 #
 ChainsPowerWep:
 	ReloadDelay: 300
@@ -854,17 +1145,360 @@ CursePowerWep:
 		Range: 4c0
 		Duration: 600
 #
-BlessPowerWep:
+FrostNovaWep:
 	ReloadDelay: 500
-	Range: 8c0
+	Range: 6c0
 	Projectile: InstantHit
-	Warhead@curtain: GrantExternalCondition
+	Warhead@chill: GrantExternalCondition
 		ValidTargets: GroundActor, Trees, WaterActor, Underwater, AirborneActor
 		ValidRelationships: Enemy, Neutral
-		Condition: MediBlessCondition
+		Condition: chilled
 		Range: 4c0
-		Duration: 600
-
+		Duration: 400
+#
+##Used by Cult Soul Harvest power: marks enemies, who spawn undead from their corpse on death
+SoulHarvestWep:
+	ReloadDelay: 500
+	Range: 6c0
+	Projectile: InstantHit
+	Warhead@dam: SpreadDamage
+		Spread: 3c0
+		Damage: 3000
+		Falloff: 100, 50, 25
+		ValidTargets: GroundActor, WaterActor
+		ValidRelationships: Enemy, Neutral
+		DamageTypes: Prone50Percent, TriggerProne, ExplosionDeath
+	Warhead@mark: GrantExternalCondition
+		ValidTargets: GroundActor, Trees, WaterActor, Underwater, AirborneActor
+		ValidRelationships: Enemy, Neutral
+		Condition: soulmarked
+		Range: 4c0
+		Duration: 1000
+	Warhead@Eff: CreateEffect
+		Explosions: undeath
+		Image: explosion
+		ImpactActors: false
+#
+##Used by Cult Chaos Storm power: scatters markers that detonate with a random elemental effect
+ChaosStormMarkerWeapon:
+	ValidTargets: Ground, Water, GroundActor, WaterActor, Underwater, AirborneActor, Trees
+	Projectile: Bullet
+		Speed: 2c0
+	Warhead@SpawnMarker: SpawnActor
+		Range: 0
+		ForceGround: true
+		Actors: ChaosStormMarker
+		OwnerType: InternalName
+#
+ChaosStormWep:
+	ValidTargets: Ground, Water, GroundActor, WaterActor, Underwater, AirborneActor, Trees
+	Range: 8c0
+	Projectile: InstantHit
+	Warhead@Eff: CreateEffect
+		Explosions: chaosburst
+		Image: explosion
+		ImpactActors: false
+	Warhead@SpawnMarkers: FireCluster
+		Weapon: ChaosStormMarkerWeapon
+		RandomClusterCount: 8
+		Dimensions: 6,6
+		Footprint: xxxxxx xxxxxx xxxxxx xxxxxx xxxxxx xxxxxx
+#
+##Random detonation effects fired by ChaosStormMarker
+ChaosStormFireImpact:
+	ValidTargets: Ground, GroundActor, Trees, Water, WaterActor, Underwater, Air, AirborneActor
+	Warhead@Dam: SpreadDamage
+		Spread: 1c512
+		Damage: 6000
+		Falloff: 100, 50
+		ValidRelationships: Enemy, Neutral
+		DamageTypes: Prone50Percent, TriggerProne, FireDeath, Incendiary
+	Warhead@Eff: CreateEffect
+		Explosions: napalm
+		ImpactSounds: flamer2.aud
+		ImpactActors: false
+#
+ChaosStormLightningImpact:
+	ValidTargets: GroundActor, Trees, WaterActor, Underwater, AirborneActor
+	Warhead@Dam: SpreadDamage
+		Spread: 1c512
+		Damage: 5000
+		Falloff: 100, 50
+		ValidRelationships: Enemy, Neutral
+		DamageTypes: Prone50Percent, TriggerProne, ElectricityDeath
+	Warhead@Stun: GrantExternalCondition
+		ValidTargets: GroundActor, WaterActor, Underwater, AirborneActor
+		ValidRelationships: Enemy, Neutral
+		Condition: disabled
+		Range: 1c512
+		Duration: 60
+	Warhead@Eff: CreateEffect
+		Explosions: electricburst
+		Image: explosion
+		ImpactActors: false
+#
+ChaosStormCurseImpact:
+	ValidTargets: GroundActor, Trees, WaterActor, Underwater, AirborneActor
+	Warhead@Curse: GrantExternalCondition
+		ValidTargets: GroundActor, Trees, WaterActor, Underwater, AirborneActor
+		ValidRelationships: Enemy, Neutral
+		Condition: MediCurseCondition
+		Range: 2c0
+		Duration: 400
+	Warhead@Eff: CreateEffect
+		Explosions: chaosorbeffect
+		Image: explosion
+		ImpactActors: false
+#
+##Used by Holy Sanctuary power: grants brief total damage immunity to allies, infantry included
+SanctuaryWep:
+	ReloadDelay: 500
+	Range: 6c0
+	Projectile: InstantHit
+	ValidTargets: Ground, GroundActor, Trees, Water, WaterActor, Underwater, Air, AirborneActor
+	Warhead@shield: GrantExternalCondition
+		ValidTargets: Ground, GroundActor, Trees, Water, WaterActor, Underwater, Air, AirborneActor
+		ValidRelationships: Ally
+		Condition: medisanctuary
+		Range: 3c0
+		Duration: 250
+	Warhead@Eff: CreateEffect
+		Explosions: medisanctuaryshield
+		Image: explosion
+		ImpactActors: false
+#
+##Used by Holy Petrify power: stuns and shatters enemy armor briefly
+PetrifyWep:
+	ReloadDelay: 500
+	Range: 6c0
+	Projectile: InstantHit
+	Warhead@stun: GrantExternalCondition
+		ValidTargets: GroundActor, Trees, WaterActor, Underwater, AirborneActor
+		ValidRelationships: Enemy, Neutral
+		Condition: disabled
+		Range: 4c0
+		Duration: 100
+	Warhead@crystal: GrantExternalCondition
+		ValidTargets: GroundActor, Trees, WaterActor, Underwater, AirborneActor
+		ValidRelationships: Enemy, Neutral
+		Condition: petrified
+		Range: 4c0
+		Duration: 350
+	Warhead@Eff: CreateEffect
+		Explosions: crystalburst
+		Image: explosion
+		ImpactActors: false
+#
+##Used by Wizard Ice Spike Barrage power: a piercing burst of icy spikes, the offensive twin to Frost Nova
+IceSpikeBarrageWep:
+	Inherits: ^ElectricBoltWeapon
+	ReloadDelay: 100
+	Range: 6c0
+	Report: plasma1.aud
+	ValidTargets: Ground, Water, GroundActor, WaterActor, Air, AirborneActor
+	Projectile: ElectricBolt
+		Duration: 20
+		Blockable: True
+	Warhead@1Dam: SpreadDamage
+		Spread: 1c0
+		Damage: 9000
+		Falloff: 100, 75, 50, 25
+		ValidTargets: GroundActor, WaterActor
+		ValidRelationships: Enemy, Neutral
+		DamageTypes: Prone50Percent, TriggerProne, FrostDeath
+	Warhead@chill: GrantExternalCondition
+		ValidTargets: GroundActor, Trees, WaterActor, Underwater, AirborneActor
+		ValidRelationships: Enemy, Neutral
+		Condition: chilled
+		Range: 1c512
+		Duration: 200
+	Warhead@Eff: CreateEffect
+		Explosions: icespikeeffect
+		Image: explosion
+		ImpactActors: false
+#
+##Used by Wizard Chain Lightning power: arcs between clustered enemies, briefly stunning each
+ChainLightningWep:
+	Inherits: ^ElectricBoltWeapon
+	ReloadDelay: 100
+	Range: 6c0
+	Report: plasma1.aud
+	ValidTargets: Ground, Water, GroundActor, WaterActor, Air, AirborneActor
+	Projectile: ElectricBolt
+		Duration: 20
+		Blockable: True
+	Warhead@1Dam: SpreadDamage
+		Spread: 256
+		Damage: 4000
+		ValidTargets: GroundActor, WaterActor
+		ValidRelationships: Enemy, Neutral
+		DamageTypes: Prone50Percent, TriggerProne, ElectricityDeath
+	Warhead@stun: GrantExternalCondition
+		ValidTargets: GroundActor, WaterActor, Underwater, AirborneActor
+		ValidRelationships: Enemy, Neutral
+		Condition: disabled
+		Range: 256
+		Duration: 50
+	Warhead@Eff: CreateEffect
+		Explosions: electricburst
+		Image: explosion
+		ImpactActors: false
+	Warhead@arc: FireShrapnel
+		Amount: 2
+		Weapon: ChainLightningArc
+		AimTargetStances: Enemy, Neutral
+		AimChance: 75
+#
+ChainLightningArc:
+	Inherits: ^ElectricBoltWeapon
+	Range: 4c0
+	Projectile: ElectricBolt
+		Duration: 14
+		Blockable: True
+	Warhead@1Dam: SpreadDamage
+		Spread: 256
+		Damage: 2500
+		ValidTargets: GroundActor, WaterActor
+		ValidRelationships: Enemy, Neutral
+		DamageTypes: Prone50Percent, TriggerProne, ElectricityDeath
+	Warhead@stun: GrantExternalCondition
+		ValidTargets: GroundActor, WaterActor, Underwater, AirborneActor
+		ValidRelationships: Enemy, Neutral
+		Condition: disabled
+		Range: 256
+		Duration: 50
+	Warhead@Eff: CreateEffect
+		Explosions: electricburst
+		Image: explosion
+		ImpactActors: false
+#
+##Used by the Toxic Cloud power: a lingering corrosive gas field that ticks DoT and weakens armor
+ToxicCloudWep:
+	ValidTargets: Ground, Water, GroundActor, WaterActor, Underwater, AirborneActor, Trees
+	Range: 8c0
+	Projectile: InstantHit
+	Warhead@Eff: CreateEffect
+		Explosions: poisonorbeffect
+		Image: explosion
+		ImpactActors: false
+	Warhead@pulse1: SpreadDamage
+		Delay: 25
+		Spread: 3c0
+		Damage: 1200
+		Falloff: 100, 75, 50
+		ValidTargets: GroundActor, WaterActor
+		ValidRelationships: Enemy, Neutral
+		DamageTypes: Prone50Percent, TriggerProne, PoisonDeath
+	Warhead@mark1: GrantExternalCondition
+		Delay: 25
+		ValidTargets: GroundActor, Trees, WaterActor, Underwater, AirborneActor
+		ValidRelationships: Enemy, Neutral
+		Condition: poisoned
+		Range: 3c0
+		Duration: 200
+	Warhead@pulse2: SpreadDamage
+		Delay: 100
+		Spread: 3c0
+		Damage: 1200
+		Falloff: 100, 75, 50
+		ValidTargets: GroundActor, WaterActor
+		ValidRelationships: Enemy, Neutral
+		DamageTypes: Prone50Percent, TriggerProne, PoisonDeath
+	Warhead@mark2: GrantExternalCondition
+		Delay: 100
+		ValidTargets: GroundActor, Trees, WaterActor, Underwater, AirborneActor
+		ValidRelationships: Enemy, Neutral
+		Condition: poisoned
+		Range: 3c0
+		Duration: 200
+	Warhead@Eff2: CreateEffect
+		Delay: 100
+		Explosions: poisoncloudeffect
+		Image: explosion
+		ImpactActors: false
+	Warhead@pulse3: SpreadDamage
+		Delay: 175
+		Spread: 3c0
+		Damage: 1200
+		Falloff: 100, 75, 50
+		ValidTargets: GroundActor, WaterActor
+		ValidRelationships: Enemy, Neutral
+		DamageTypes: Prone50Percent, TriggerProne, PoisonDeath
+	Warhead@mark3: GrantExternalCondition
+		Delay: 175
+		ValidTargets: GroundActor, Trees, WaterActor, Underwater, AirborneActor
+		ValidRelationships: Enemy, Neutral
+		Condition: poisoned
+		Range: 3c0
+		Duration: 200
+#
+##Used by the Pillars of Fire power: drops scattered heavy fire-pillar impacts across the target area
+PillarOfFireImpact:
+	ValidTargets: Ground, GroundActor, Trees, Water, WaterActor, Underwater, Air, AirborneActor
+	Warhead@Dam: SpreadDamage
+		Spread: 1c512
+		Damage: 9000
+		Falloff: 100, 75, 50, 25
+		ValidTargets: GroundActor, WaterActor
+		ValidRelationships: Enemy, Neutral
+		Versus:
+			Wood: 100
+			Light: 75
+			Heavy: 75
+			Concrete: 100
+		DamageTypes: Prone50Percent, TriggerProne, FireDeath, Incendiary
+	Warhead@Smu: LeaveSmudge
+		SmudgeType: Crater
+		InvalidTargets: Vehicle, Structure, Wall, Husk, Trees
+	Warhead@Eff: CreateEffect
+		Explosions: firepillareffect
+		Image: explosion
+		ImpactSounds: flamer2.aud
+		ImpactActors: false
+#
+PillarsOfFireWep:
+	ValidTargets: Ground, Water, GroundActor, WaterActor, Underwater, AirborneActor, Trees
+	Range: 8c0
+	Projectile: InstantHit
+	Warhead@Pillars: FireCluster
+		Weapon: PillarOfFireImpact
+		RandomClusterCount: 6
+		Dimensions: 5,5
+		Footprint: xxxxx xxxxx xxxxx xxxxx xxxxx
+##
+#Used by Dragon Bomber
+##
+DragonGroundBomber:
+	ValidTargets: Ground, Water, GroundActor, WaterActor, Trees
+	Range: 6c0
+	ReloadDelay: 6
+	Projectile: GravityBomb
+		Image: imp
+		Velocity: 72, 0, -128
+		Acceleration: 0, 0, 0
+		Shadow: False
+	Warhead@1Dam: SpreadDamage
+		Spread: 768
+		Damage: 10000
+		ValidTargets: GroundActor, WaterActor
+		Versus:
+			None: 50
+			Wood: 75
+			Light: 50
+			Concrete: 75
+			Heavy: 75
+		DamageTypes: Prone50Percent, TriggerProne, FireDeath, Incendiary
+	Warhead@2Smu: LeaveSmudge
+		SmudgeType: Crater
+		InvalidTargets: Vehicle, Structure, Wall, Husk, Trees
+	Warhead@3Eff: CreateEffect
+		Explosions: napalm
+		ImpactSounds: flamer2.aud
+		ValidTargets: Ground, GroundActor, WaterActor, Trees
+	Warhead@4EffWater: CreateEffect
+		Explosions: small_splash
+		ImpactSounds: splash9.aud
+		ValidTargets: Water, Underwater
 ###############################################################################
 ##################################   Nuke Attacks   ###########################
 ###############################################################################
@@ -884,197 +1518,95 @@ MediHolyWeapon:
 	Warhead@Voidcluster1: FireCluster
 		Weapon: MediHolyWeaponSmall
 		RandomClusterCount: 1
-		Dimensions: 2,2
-		Footprint: xx xx
+		Dimensions: 7,7
+		Footprint: xxxxxxx xxxxxxx xxxxxxx xxxxxxx xxxxxxx xxxxxxx xxxxxxx
 		Delay: 25
-	Warhead@Voidcluster1b: FireCluster
-		Weapon: MediHolyWeaponSmall
-		RandomClusterCount: 1
-		Dimensions: 2,2
-		Footprint: xx xx
-		Delay: 37
-	Warhead@Voidcluster1c: FireCluster
-		Weapon: MediHolyWeaponSmall
-		RandomClusterCount: 1
-		Dimensions: 2,2
-		Footprint: xx xx
-		Delay: 45
 	Warhead@Voidcluster2: FireCluster
 		Weapon: MediHolyWeaponSmall
 		RandomClusterCount: 1
-		Dimensions: 3,3
-		Footprint: xxx xxx xxx
-		Delay: 50
-	Warhead@Voidcluster2b: FireCluster
-		Weapon: MediHolyWeaponSmall
-		RandomClusterCount: 1
-		Dimensions: 3,3
-		Footprint: xxx xxx xxx
-		Delay: 62
-	Warhead@Voidcluster2c: FireCluster
-		Weapon: MediHolyWeaponSmall
-		RandomClusterCount: 1
-		Dimensions: 3,3
-		Footprint: xxx xxx xxx
-		Delay: 70
+		Dimensions: 7,7
+		Footprint: xxxxxxx xxxxxxx xxxxxxx xxxxxxx xxxxxxx xxxxxxx xxxxxxx
+		Delay: 45
 	Warhead@Voidcluster3: FireCluster
 		Weapon: MediHolyWeaponSmall
 		RandomClusterCount: 1
-		Dimensions: 4,4
-		Footprint: xxxx xxxx xxxx xxxx
-		Delay: 75
-	Warhead@Voidcluster3b: FireCluster
-		Weapon: MediHolyWeaponSmall
-		RandomClusterCount: 1
-		Dimensions: 4,4
-		Footprint: xxxx xxxx xxxx xxxx
-		Delay: 84
-	Warhead@Voidcluster3c: FireCluster
-		Weapon: MediHolyWeaponSmall
-		RandomClusterCount: 1
-		Dimensions: 4,4
-		Footprint: xxxx xxxx xxxx xxxx
-		Delay: 96
+		Dimensions: 7,7
+		Footprint: xxxxxxx xxxxxxx xxxxxxx xxxxxxx xxxxxxx xxxxxxx xxxxxxx
+		Delay: 62
 	Warhead@Voidcluster4: FireCluster
 		Weapon: MediHolyWeaponSmall
-		RandomClusterCount: 2
-		Dimensions: 4,4
-		Footprint: xxxx xxxx xxxx xxxx
-		Delay: 100
-	Warhead@Voidcluster4b: FireCluster
-		Weapon: MediHolyWeaponSmall
-		RandomClusterCount: 2
-		Dimensions: 4,4
-		Footprint: xxxx xxxx xxxx xxxx
-		Delay: 107
-	Warhead@Voidcluster4c: FireCluster
-		Weapon: MediHolyWeaponSmall
-		RandomClusterCount: 2
-		Dimensions: 4,4
-		Footprint: xxxx xxxx xxxx xxxx
-		Delay: 119
+		RandomClusterCount: 1
+		Dimensions: 7,7
+		Footprint: xxxxxxx xxxxxxx xxxxxxx xxxxxxx xxxxxxx xxxxxxx xxxxxxx
+		Delay: 80
+	Warhead@BigSword: FireCluster
+		Weapon: MediHolySuperSword
+		Dimensions: 1,1
+		Footprint: x
+		Delay: 330
 	Warhead@Voidcluster5: FireCluster
 		Weapon: MediHolyWeaponSmall
-		RandomClusterCount: 2
-		Dimensions: 5,5
-		Footprint: xxxxx xxxxx xxxxx xxxxx xxxxx
-		Delay: 125
-	Warhead@Voidcluster5b: FireCluster
-		Weapon: MediHolyWeaponSmall
-		RandomClusterCount: 2
-		Dimensions: 5,5
-		Footprint: xxxxx xxxxx xxxxx xxxxx xxxxx
-		Delay: 134
-	Warhead@Voidcluster5c: FireCluster
-		Weapon: MediHolyWeaponSmall
-		RandomClusterCount: 2
-		Dimensions: 5,5
-		Footprint: xxxxx xxxxx xxxxx xxxxx xxxxx
-		Delay: 143
+		RandomClusterCount: 1
+		Dimensions: 7,7
+		Footprint: xxxxxxx xxxxxxx xxxxxxx xxxxxxx xxxxxxx xxxxxxx xxxxxxx
+		Delay: 100
 	Warhead@Voidcluster6: FireCluster
 		Weapon: MediHolyWeaponSmall
-		RandomClusterCount: 2
-		Dimensions: 5,5
-		Footprint: xxxxx xxxxx xxxxx xxxxx xxxxx
-		Delay: 150
-	Warhead@Voidcluster6b: FireCluster
-		Weapon: MediHolyWeaponSmall
-		RandomClusterCount: 2
-		Dimensions: 5,5
-		Footprint: xxxxx xxxxx xxxxx xxxxx xxxxx
-		Delay: 158
-	Warhead@Voidcluster6c: FireCluster
-		Weapon: MediHolyWeaponSmall
-		RandomClusterCount: 2
-		Dimensions: 5,5
-		Footprint: xxxxx xxxxx xxxxx xxxxx xxxxx
-		Delay: 168
+		RandomClusterCount: 1
+		Dimensions: 7,7
+		Footprint: xxxxxxx xxxxxxx xxxxxxx xxxxxxx xxxxxxx xxxxxxx xxxxxxx
+		Delay: 115
 	Warhead@Voidcluster7: FireCluster
 		Weapon: MediHolyWeaponSmall
-		RandomClusterCount: 2
-		Dimensions: 5,5
-		Footprint: xxxxx xxxxx xxxxx xxxxx xxxxx
-		Delay: 175
-	Warhead@Voidcluster7b: FireCluster
-		Weapon: MediHolyWeaponSmall
-		RandomClusterCount: 2
-		Dimensions: 6,6
-		Footprint: xxxxxx xxxxxx xxxxxx xxxxxx xxxxxx xxxxxx
-		Delay: 190
-	Warhead@Voidcluster7c: FireCluster
-		Weapon: MediHolyWeaponSmall
-		RandomClusterCount: 2
-		Dimensions: 6,6
-		Footprint: xxxxxx xxxxxx xxxxxx xxxxxx xxxxxx xxxxxx
-		Delay: 196
+		RandomClusterCount: 1
+		Dimensions: 7,7
+		Footprint: xxxxxxx xxxxxxx xxxxxxx xxxxxxx xxxxxxx xxxxxxx xxxxxxx
+		Delay: 132
 	Warhead@Voidcluster8: FireCluster
 		Weapon: MediHolyWeaponSmall
-		RandomClusterCount: 2
-		Dimensions: 6,6
-		Footprint: xxxxxx xxxxxx xxxxxx xxxxxx xxxxxx xxxxxx
-		Delay: 200
-	Warhead@Voidcluster8b: FireCluster
-		Weapon: MediHolyWeaponSmall
-		RandomClusterCount: 2
-		Dimensions: 6,6
-		Footprint: xxxxxx xxxxxx xxxxxx xxxxxx xxxxxx xxxxxx
-		Delay: 210
-	Warhead@Voidcluster8c: FireCluster
-		Weapon: MediHolyWeaponSmall
-		RandomClusterCount: 2
-		Dimensions: 6,6
-		Footprint: xxxxxx xxxxxx xxxxxx xxxxxx xxxxxx xxxxxx
-		Delay: 224
+		RandomClusterCount: 1
+		Dimensions: 7,7
+		Footprint: xxxxxxx xxxxxxx xxxxxxx xxxxxxx xxxxxxx xxxxxxx xxxxxxx
+		Delay: 150
 	Warhead@Voidcluster9: FireCluster
 		Weapon: MediHolyWeaponSmall
-		RandomClusterCount: 2
-		Dimensions: 6,6
-		Footprint: xxxxxx xxxxxx xxxxxx xxxxxx xxxxxx xxxxxx
-		Delay: 230
-	Warhead@Voidcluster9b: FireCluster
-		Weapon: MediHolyWeaponSmall
-		Dimensions: 6,6
-		Footprint: xxxxxx xxxxxx xxxxxx xxxxxx xxxxxx xxxxxx
-		Delay: 240
-	Warhead@Voidcluster9c: FireCluster
-		Weapon: MediHolyWeaponSmall
-		RandomClusterCount: 2
-		Dimensions: 6,6
-		Footprint: xxxxxx xxxxxx xxxxxx xxxxxx xxxxxx xxxxxx
-		Delay: 248
+		RandomClusterCount: 1
+		Dimensions: 7,7
+		Footprint: xxxxxxx xxxxxxx xxxxxxx xxxxxxx xxxxxxx xxxxxxx xxxxxxx
+		Delay: 168
 	Warhead@Voidcluster10: FireCluster
 		Weapon: MediHolyWeaponSmall
-		RandomClusterCount: 2
+		RandomClusterCount: 1
 		Dimensions: 7,7
 		Footprint: xxxxxxx xxxxxxx xxxxxxx xxxxxxx xxxxxxx xxxxxxx xxxxxxx
-		Delay: 260
-	Warhead@Voidcluster10b: FireCluster
-		Weapon: MediHolyWeaponSmall
-		RandomClusterCount: 2
-		Dimensions: 7,7
-		Footprint: xxxxxxx xxxxxxx xxxxxxx xxxxxxx xxxxxxx xxxxxxx xxxxxxx
-		Delay: 268
-	Warhead@Voidcluster10c: FireCluster
-		Weapon: MediHolyWeaponSmall
-		RandomClusterCount: 2
-		Dimensions: 7,7
-		Footprint: xxxxxxx xxxxxxx xxxxxxx xxxxxxx xxxxxxx xxxxxxx xxxxxxx
-		Delay: 280
+		Delay: 185
 	Warhead@Voidcluster11: FireCluster
 		Weapon: MediHolyWeaponSmall
-		RandomClusterCount: 2
+		RandomClusterCount: 1
 		Dimensions: 7,7
 		Footprint: xxxxxxx xxxxxxx xxxxxxx xxxxxxx xxxxxxx xxxxxxx xxxxxxx
-		Delay: 290
-	Warhead@Voidcluster11b: FireCluster
+		Delay: 210
+	Warhead@Voidcluster12: FireCluster
 		Weapon: MediHolyWeaponSmall
-		RandomClusterCount: 2
+		RandomClusterCount: 1
 		Dimensions: 7,7
 		Footprint: xxxxxxx xxxxxxx xxxxxxx xxxxxxx xxxxxxx xxxxxxx xxxxxxx
-		Delay: 305
-	Warhead@Voidcluster11c: FireCluster
+		Delay: 230
+	Warhead@Voidcluster13: FireCluster
 		Weapon: MediHolyWeaponSmall
-		RandomClusterCount: 2
+		RandomClusterCount: 1
+		Dimensions: 7,7
+		Footprint: xxxxxxx xxxxxxx xxxxxxx xxxxxxx xxxxxxx xxxxxxx xxxxxxx
+		Delay: 248
+	Warhead@Voidcluster14: FireCluster
+		Weapon: MediHolyWeaponSmall
+		RandomClusterCount: 1
+		Dimensions: 7,7
+		Footprint: xxxxxxx xxxxxxx xxxxxxx xxxxxxx xxxxxxx xxxxxxx xxxxxxx
+		Delay: 275
+	Warhead@Voidcluster15: FireCluster
+		Weapon: MediHolyWeaponSmall
+		RandomClusterCount: 1
 		Dimensions: 7,7
 		Footprint: xxxxxxx xxxxxxx xxxxxxx xxxxxxx xxxxxxx xxxxxxx xxxxxxx
 		Delay: 311
@@ -1139,6 +1671,55 @@ MediHolyWeaponSmall:
 		Intensity: 2
 		Multiplier: 1,1
 		Delay: 75
+
+MediHolySuperSword:
+	ValidTargets: Ground, Water, GroundActor, WaterActor, Underwater, AirborneActor, Trees
+	Projectile: Bullet
+		Speed: 2c0
+	Warhead@1Effect: CreateEffect
+		Explosions: holylonglarge3
+		ExplosionPalette: player
+		UsePlayerPalette: true
+		ImpactActors: false
+	Warhead@2Effect: CreateEffect
+		Delay: 22
+		Explosions: holylonglarge2
+		ExplosionPalette: player
+		UsePlayerPalette: true
+		ImpactActors: false
+	Warhead@3Effect: CreateEffect
+		Delay: 44
+		Explosions: holylonglarge1
+		ExplosionPalette: player
+		UsePlayerPalette: true
+		ImpactActors: false
+	Warhead@98Eff_impact: CreateEffect
+		ImpactSounds: holyswordhit1.aud,holyswordhit2.aud,holyswordhit3.aud,holyswordhit4.aud,holyswordhit5.aud,holyswordhit6.aud
+		Delay: 66
+		ImpactActors: false
+	Warhead@1Dam_impact: SpreadDamage
+		Delay: 66
+		Spread: 8c0
+		Damage: 15000
+		Falloff: 1000, 368, 135, 50, 18, 7, 0
+		ValidTargets: GroundActor, WaterActor, Underwater, AirborneActor, Trees
+		Versus:
+			Concrete: 25
+			Shield: 200
+		AffectsParent: true
+		DamageTypes: Prone50Percent, TriggerProne, FireDeath, Incendiary
+	Warhead@2Res_impact: DestroyResource
+		Size: 5
+		Delay: 66
+	Warhead@2Eff: CreateEffect
+		Delay: 66
+		Explosions: large_napalm
+		ImpactActors: false
+	Warhead@13Smu_areanuke3: LeaveSmudge
+		SmudgeType: Scorch
+		ValidTargets: Ground, Infantry
+		Size: 5
+		Delay: 66
 
 ###############################################################################
 ##############################  Evil Nuke Attacks   ###########################
@@ -1229,6 +1810,12 @@ MediVoidWeapon:
 		Duration: 50
 		Delay: 138
 		FlashType: Red
+	Warhead@SpawnMarkers: FireCluster
+		Weapon: MediVoidMarkerWeapon
+		RandomClusterCount: 30
+		Dimensions: 18,18
+		Footprint: xxxxxxxxxxxxxxxxxx xxxxxxxxxxxxxxxxxx xxxxxxxxxxxxxxxxxx xxxxxxxxxxxxxxxxxx xxxxxxxxxxxxxxxxxx xxxxxxxxxxxxxxxxxx xxxxxxxxxxxxxxxxxx xxxxxxxxxxxxxxxxxx xxxxxxxxxxxxxxxxxx xxxxxxxxxxxxxxxxxx xxxxxxxxxxxxxxxxxx xxxxxxxxxxxxxxxxxx xxxxxxxxxxxxxxxxxx xxxxxxxxxxxxxxxxxx xxxxxxxxxxxxxxxxxx xxxxxxxxxxxxxxxxxx xxxxxxxxxxxxxxxxxx xxxxxxxxxxxxxxxxxx
+		Delay: 80
 #
 ##Damage Ion
 MediVoidWeaponSmall:
@@ -1350,6 +1937,17 @@ MediVoidWeaponSmallMark:
 			Heavy: 60
 			Concrete: 30
 		DamageTypes: Prone50Percent, ElectricityDeath
+#
+##Scatter-spawns VoidRiseMarker actors independently of damage lasers
+MediVoidMarkerWeapon:
+	ValidTargets: Ground, Water, GroundActor, WaterActor, Underwater, AirborneActor, Trees
+	Projectile: Bullet
+		Speed: 2c0
+	Warhead@SpawnMarker: SpawnActor
+		Range: 0
+		ForceGround: true
+		Actors: VoidRiseMarker
+		OwnerType: InternalName
 
 ###############################################################################
 ##############################   Mage Nuke Attacks   ##########################
@@ -1365,19 +1963,21 @@ MageSuperWeapon:
 		ImpactActors: false
 	Warhead@1Smu: LeaveSmudge
 		SmudgeType: Crater
-		Size: 5
+		Size: 10
 		Delay: 150
-	Warhead@1a: HealthPercentageDamage
-		Spread: 3c0
-		Damage: 75
+	Warhead@1a: SpreadDamage
+		Spread: 6c0
+		Damage: 1400
+		Falloff: 1000, 368, 135, 50, 18, 7, 0
 		Delay: 150
 		ValidTargets: GroundActor, WaterActor
+		DamageTypes: Prone50Percent, TriggerProne
 	Warhead@22FlashEffect: FlashEffect
 		Duration: 20
 		Delay: 150
 		FlashType: Catalyst
 	Warhead@1b: CreateEffect
-		Explosions: elementalsuperexplosion
+		Explosions: elementalsuperexplosion2
 		ImpactSounds: elementalbang.aud
 		ImpactActors: false
 		Delay: 150
@@ -1388,15 +1988,17 @@ MageSuperWeapon:
 		Delay: 150
 	Warhead@2Smu: LeaveSmudge
 		SmudgeType: Crater
-		Size: 7
+		Size: 14
 		Delay: 200
-	Warhead@2a: HealthPercentageDamage
-		Spread: 7c0
-		Damage: 30
+	Warhead@2a: SpreadDamage
+		Spread: 14c0
+		Damage: 2100
+		Falloff: 1000, 368, 135, 50, 18, 7, 0
 		Delay: 200
 		ValidTargets: GroundActor, WaterActor
+		DamageTypes: Prone50Percent, TriggerProne
 	Warhead@2b: CreateEffect
-		Explosions: elementalsuperexplosion
+		Explosions: elementalsuperexplosion3
 		ImpactSounds: elementalbang.aud
 		ImpactActors: false
 		Delay: 200
@@ -1407,15 +2009,17 @@ MageSuperWeapon:
 		Delay: 200
 	Warhead@3Smu: LeaveSmudge
 		SmudgeType: Crater
-		Size: 9
+		Size: 18
 		Delay: 250
-	Warhead@3a: HealthPercentageDamage
-		Spread: 9c0
-		Damage: 30
+	Warhead@3a: SpreadDamage
+		Spread: 18c0
+		Damage: 3150
+		Falloff: 1000, 368, 135, 50, 18, 7, 0
 		Delay: 250
 		ValidTargets: GroundActor, WaterActor
+		DamageTypes: Prone50Percent, TriggerProne
 	Warhead@3b: CreateEffect
-		Explosions: elementalsuperexplosion
+		Explosions: elementalsuperexplosion4
 		ImpactSounds: elementalbang.aud
 		ImpactActors: false
 		Delay: 250
@@ -1426,15 +2030,17 @@ MageSuperWeapon:
 		Delay: 250
 	Warhead@4Smu: LeaveSmudge
 		SmudgeType: Crater
-		Size: 11
+		Size: 22
 		Delay: 300
-	Warhead@4a: HealthPercentageDamage
-		Spread: 11c0
-		Damage: 30
+	Warhead@4a: SpreadDamage
+		Spread: 22c0
+		Damage: 4550
+		Falloff: 1000, 368, 135, 50, 18, 7, 0
 		Delay: 300
 		ValidTargets: GroundActor, WaterActor
+		DamageTypes: Prone50Percent, TriggerProne
 	Warhead@4b: CreateEffect
-		Explosions: elementalsuperexplosion
+		Explosions: elementalsuperexplosion5
 		ImpactSounds: elementalbang.aud
 		ImpactActors: false
 		Delay: 300
@@ -1451,7 +2057,9 @@ MageSuperWeapon:
 ###############################################################################
 ##############################   Air Unit Attacks   ######################
 ###############################################################################
-#
+##
+#Used by Gyro
+##
 GyroChain:
 	ReloadDelay: 5
 	Range: 5c0
@@ -1479,7 +2087,9 @@ GyroChain:
 		Explosions: water_piffs
 		ValidTargets: Water, Underwater
 		InvalidTargets: Bridge
-#
+##
+#Used by gryphon
+##
 GryphonRiderAttack:
 	ReloadDelay: 60
 	Range: 6c0
@@ -1510,11 +2120,14 @@ GryphonRiderAttack:
 		Explosions: medigryphonriderattack
 		ImpactSounds: gryphonriderhit.aud
 		ValidTargets: Ground, GroundActor, Water, WaterActor, Trees, AirborneActor
-#
+##
+##
 GryphonRiderAttackBurst:
 	Inherits: GryphonRiderAttack
 	ReloadDelay: 8
-#
+##
+#Used by Dragon
+##
 DragonGround:
 	ValidTargets: Ground, GroundActor, Water, WaterActor, Trees
 	ReloadDelay: 150
@@ -1549,7 +2162,8 @@ DragonGround:
 		RandomClusterCount: 7
 		Dimensions: 4,4
 		Footprint: XxxX xxxx xxxx XxxX
-#
+##
+##
 DragonGroundCluster:
 	Inherits@Dragon: DragonGround
 	Projectile: Bullet
@@ -1561,11 +2175,13 @@ DragonGroundCluster:
 		Dimensions: 2,2
 		Footprint: xx xx
 	-Warhead@Cluster1: FireCluster
-#
+##
+##
 DragonGroundCluster2:
 	Inherits@Dragon: DragonGroundCluster
 	-Warhead@Cluster2: FireCluster
-#
+##
+##
 DragonAir:
 	Inherits@Dragon: DragonGround
 	ValidTargets: AirborneActor
@@ -1587,41 +2203,193 @@ DragonAir:
 			Light: 100
 			Heavy: 100
 			Concrete: 100
-#
-DragonGroundBomber:
-	ValidTargets: Ground, Water, GroundActor, WaterActor, Trees
-	Range: 6c0
-	ReloadDelay: 6
-	Projectile: GravityBomb
-		Image: imp
-		Velocity: 72, 0, -128
-		Acceleration: 0, 0, 0
-		Shadow: False
+##
+#Used by GiantEagle
+##
+GiantEagle:
+	Inherits: ratsword
+	ReloadDelay: 30
+	Report: swordmanattack1.aud,swordmanattack2.aud,swordmanattack3.aud,swordmanattack4.aud,swordmanattack5.aud,swordmanattack6.aud,swordmanattack7.aud,swordmanattack8.aud,swordmanattack9.aud,swordmanattack10.aud,swordmanattack11.aud,swordmanattack12.aud
 	Warhead@1Dam: SpreadDamage
-		Spread: 768
-		Damage: 10000
+		Damage: 5000
+##
+#Used by Harpy
+##
+HarpyGround:
+	Inherits: GryphonRiderAttack
+##
+##
+HarpyGroundburst:
+	Inherits: GryphonRiderAttackBurst
+	ReloadDelay: 8
+##
+#Used by Vendral
+##
+VendralGround:
+	ValidTargets: Ground, GroundActor, Water, WaterActor, Trees
+	ReloadDelay: 150
+	Range: 6c0
+	Burst: 5
+	Projectile: Bullet
+		Speed: 345
+		Image: manf
+		Inaccuracy: 2c0
+		ContrailLength: 1
+	Warhead@1Dam: SpreadDamage
+		Spread: 512
+		Damage: 1000
 		ValidTargets: GroundActor, WaterActor
 		Versus:
-			None: 50
-			Wood: 75
-			Light: 50
-			Concrete: 75
-			Heavy: 75
+			None: 100
+			Wood: 150
+			Light: 150
+			Concrete: 80
+			Heavy: 100
 		DamageTypes: Prone50Percent, TriggerProne, FireDeath, Incendiary
 	Warhead@2Smu: LeaveSmudge
-		SmudgeType: Crater
-		InvalidTargets: Vehicle, Structure, Wall, Husk, Trees
+		SmudgeType: Scorch
+		InvalidTargets: Structure, Wall
 	Warhead@3Eff: CreateEffect
 		Explosions: napalm
-		ImpactSounds: flamer2.aud
-		ValidTargets: Ground, GroundActor, WaterActor, Trees
-	Warhead@4EffWater: CreateEffect
-		Explosions: small_splash
-		ImpactSounds: splash9.aud
-		ValidTargets: Water, Underwater
+		ImpactSounds: firebl3.aud
+		ImpactActors: false
+		ValidTargets: Ground, GroundActor, Water, WaterActor, Trees
+	Warhead@Cluster1: FireCluster
+		Weapon: DragonGroundCluster
+		RandomClusterCount: 9
+		Dimensions: 4,4
+		Footprint: XxxX xxxx xxxx XxxX
+##
+##
+VendralGroundCluster:
+	Inherits@Vendral: VendralGround
+	Projectile: Bullet
+		Speed: 200
+		Image: fb3
+	Warhead@Cluster2: FireCluster
+		Weapon: DragonGroundCluster2
+		RandomClusterCount: 2
+		Dimensions: 2,2
+		Footprint: xx xx
+	-Warhead@Cluster1: FireCluster
+##
+##
+VendralGroundCluster2:
+	Inherits@Vendral: VendralGroundCluster
+	-Warhead@Cluster2: FireCluster
+##
+##
+VendralAir:
+	Inherits@Dragon: DragonAir
+##
+#Used by wyvern
+##
+wyvernbomb:
+	Inherits@Dragon: DragonGround
+	ValidTargets: Ground, GroundActor, Water, WaterActor, Trees
+	ReloadDelay: 300
+	Range: 15c0
+	Burst: 1
+	Projectile: Bullet
+		Speed: 345
+		Image: manf
+		Inaccuracy: 2c0
+		ContrailLength: 1
+	Warhead@1Dam: SpreadDamage
+		Spread: 512
+		Damage: 2000
+		ValidTargets: Infantry, Vehicles, WaterActor
+		Versus:
+			None: 100
+			Wood: 150
+			Light: 150
+			Concrete: 80
+			Heavy: 100
+		DamageTypes: Prone50Percent, TriggerProne, FireDeath, Incendiary
+	Warhead@2Dam: SpreadDamage
+		Spread: 512
+		Damage: 20000
+		ValidTargets: Structure, Wall, Husk, Trees
+		Versus:
+			None: 100
+			Wood: 150
+			Light: 150
+			Concrete: 80
+			Heavy: 100
+		DamageTypes: Prone50Percent, TriggerProne, FireDeath, Incendiary
+	Warhead@2Smu: LeaveSmudge
+		SmudgeType: Scorch
+		InvalidTargets: Structure, Wall
+	Warhead@3Eff: CreateEffect
+		Explosions: napalm
+		ImpactSounds: firebl3.aud
+		ImpactActors: false
+		ValidTargets: Ground, GroundActor, Water, WaterActor, Trees
+	Warhead@Cluster1: FireCluster
+		Weapon: DragonGroundCluster
+		RandomClusterCount: 7
+		Dimensions: 4,4
+		Footprint: XxxX xxxx xxxx XxxX
+
 ###############################################################################
 ##############################   Boat Unit Attacks   ######################
 ###############################################################################
+
+##
+#Used by medibattleship
+##
+medibattleballista:
+	Inherits: Ballistashot
+	ReloadDelay: 100
+##
+#Used by medijuggernaut
+##
+mManofWar:
+	Inherits: Catapult
+	ReloadDelay: 60
+	Burst: 5
+	BurstDelay: 0
+	Range: 10c0
+	MinRange: 2c0
+	Projectile: Bullet
+		Inaccuracy: 3c0
+##
+#Anti sub laser deals constant damage
+##
+ArcaneZapboat:
+	Inherits: ArcaneZap
+	ReloadDelay: 5
+	ValidTargets: Ground, Water, GroundActor, WaterActor
+	Projectile: LaserZap
+		Blockable: False
+		Duration: 30
+	Warhead@1Dam: SpreadDamage
+		Spread: 42
+		Damage: 300
+		Versus:
+			Wood: 100
+			Light: 100
+			Heavy: 100
+			Concrete: 100
+		DamageTypes: Prone50Percent, TriggerProne, ElectricityDeath
+		ValidTargets: Ground, Water, GroundActor, WaterActor
+
+ArcaneZapboatair:
+	ReloadDelay: 15
+	ValidTargets: AirborneActor
+	Projectile: LaserZap
+		Blockable: False
+		Duration: 30
+	Warhead@1Dam: SpreadDamage
+		Spread: 42
+		Damage: 300
+		Versus:
+			Wood: 100
+			Light: 100
+			Heavy: 100
+			Concrete: 100
+		DamageTypes: Prone50Percent, TriggerProne, ElectricityDeath
+		ValidTargets: AirborneActor
 
 
 
@@ -1825,3 +2593,174 @@ SiegeTower:
 			Light: 80
 			Heavy: 50
 			Concrete: 130
+
+
+
+###############################################################################
+##############################   Monster Unit Attacks   ######################
+###############################################################################
+
+##
+#Used by Giantbear
+##
+Giantbearclaw:
+	Inherits: ratsword
+	ReloadDelay: 30
+	Report: swordmanattack1.aud,swordmanattack2.aud,swordmanattack3.aud,swordmanattack4.aud,swordmanattack5.aud,swordmanattack6.aud,swordmanattack7.aud,swordmanattack8.aud,swordmanattack9.aud,swordmanattack10.aud,swordmanattack11.aud,swordmanattack12.aud
+	Warhead@1Dam: SpreadDamage
+		Damage: 5000
+##
+#Used by GiantWolf
+##
+GiantWolfBite:
+	Inherits: ratsword
+	ReloadDelay: 30
+	Report: swordmanattack1.aud,swordmanattack2.aud,swordmanattack3.aud,swordmanattack4.aud,swordmanattack5.aud,swordmanattack6.aud,swordmanattack7.aud,swordmanattack8.aud,swordmanattack9.aud,swordmanattack10.aud,swordmanattack11.aud,swordmanattack12.aud
+	Warhead@1Dam: SpreadDamage
+		Damage: 5000
+##
+#Used by Dirgo
+##
+Dirgo:
+	Inherits: ratsword
+	ReloadDelay: 120
+	Report: swordmanattack1.aud,swordmanattack2.aud,swordmanattack3.aud,swordmanattack4.aud,swordmanattack5.aud,swordmanattack6.aud,swordmanattack7.aud,swordmanattack8.aud,swordmanattack9.aud,swordmanattack10.aud,swordmanattack11.aud,swordmanattack12.aud
+	Warhead@1Dam: SpreadDamage
+		Damage: 18000
+		ValidTargets: Vehicle, Structure, Defense, Ship, AirborneActor, WaterActor
+##
+#Used by GiantSpider
+##
+GiantSpider:
+	Inherits: ratsword
+	ReloadDelay: 60
+	Report: swordmanattack1.aud,swordmanattack2.aud,swordmanattack3.aud,swordmanattack4.aud,swordmanattack5.aud,swordmanattack6.aud,swordmanattack7.aud,swordmanattack8.aud,swordmanattack9.aud,swordmanattack10.aud,swordmanattack11.aud,swordmanattack12.aud
+	Warhead@1Dam: SpreadDamage
+		Damage: 5000
+	Warhead@corrode: GrantExternalCondition
+		Delay: 1
+		Condition: corrode
+		Range: 1c0
+		Duration: 300
+		ValidTargets: GroundActor, WaterActor
+##
+#Used by Medusa
+##
+Medusa:
+	Inherits: WizBall
+	ReloadDelay: 75
+	Range: 6c0
+	ValidTargets: Ground, Water, GroundActor, WaterActor, AirborneActor
+
+MedusaDeathStun:
+	ValidTargets: GroundActor, WaterActor
+	Projectile: InstantHit
+	Warhead@stun: GrantExternalCondition
+		Condition: stunned
+		Range: 4c0
+		Duration: 250
+		ValidTargets: Infantry
+	Warhead@eff: CreateEffect
+		Explosions: bunkerbustersring
+		ValidTargets: Ground, GroundActor
+
+MedusaStunBlast:
+	ReloadDelay: 750
+	Range: 6c0
+	ValidTargets: Ground, Water, GroundActor, WaterActor, AirborneActor
+	Projectile: InstantHit
+	Warhead@stun: GrantExternalCondition
+		Condition: stunned
+		Range: 3c0
+		Duration: 250
+		ValidTargets: Infantry
+	Warhead@eff: CreateEffect
+		Explosions: bunkerbustersring
+		ValidTargets: Ground, GroundActor
+##
+#Used by Minotaur
+##
+MinotaurStrike:
+	Inherits: ratsword
+	ReloadDelay: 30
+	Report: swordmanattack1.aud,swordmanattack2.aud,swordmanattack3.aud,swordmanattack4.aud,swordmanattack5.aud,swordmanattack6.aud,swordmanattack7.aud,swordmanattack8.aud,swordmanattack9.aud,swordmanattack10.aud,swordmanattack11.aud,swordmanattack12.aud
+	Warhead@1Dam: SpreadDamage
+		Damage: 5000
+##
+#Used by Rrongol
+##
+RrongolStrike:
+	Inherits: ratsword
+	ReloadDelay: 30
+	Report: swordmanattack1.aud,swordmanattack2.aud,swordmanattack3.aud,swordmanattack4.aud,swordmanattack5.aud,swordmanattack6.aud,swordmanattack7.aud,swordmanattack8.aud,swordmanattack9.aud,swordmanattack10.aud,swordmanattack11.aud,swordmanattack12.aud
+	Warhead@1Dam: SpreadDamage
+		Damage: 5000
+##
+#Used by Troll
+##
+TrollStrike:
+	Inherits: ratsword
+	ReloadDelay: 30
+	Report: swordmanattack1.aud,swordmanattack2.aud,swordmanattack3.aud,swordmanattack4.aud,swordmanattack5.aud,swordmanattack6.aud,swordmanattack7.aud,swordmanattack8.aud,swordmanattack9.aud,swordmanattack10.aud,swordmanattack11.aud,swordmanattack12.aud
+	Warhead@1Dam: SpreadDamage
+		Damage: 5000
+##
+#Used by Daemonwood
+##
+DaemonwoodStrike:
+	Inherits: ratsword
+	ReloadDelay: 30
+	Report: swordmanattack1.aud,swordmanattack2.aud,swordmanattack3.aud,swordmanattack4.aud,swordmanattack5.aud,swordmanattack6.aud,swordmanattack7.aud,swordmanattack8.aud,swordmanattack9.aud,swordmanattack10.aud,swordmanattack11.aud,swordmanattack12.aud
+	Warhead@1Dam: SpreadDamage
+		Damage: 5000
+##
+#Used by RockGolem
+##
+RockGolemStrike:
+	Inherits: ratsword
+	ReloadDelay: 30
+	Report: swordmanattack1.aud,swordmanattack2.aud,swordmanattack3.aud,swordmanattack4.aud,swordmanattack5.aud,swordmanattack6.aud,swordmanattack7.aud,swordmanattack8.aud,swordmanattack9.aud,swordmanattack10.aud,swordmanattack11.aud,swordmanattack12.aud
+	Warhead@1Dam: SpreadDamage
+		Damage: 5000
+##
+#Used by SplitGolem
+##
+SplitGolemStrike:
+	Inherits: ratsword
+	ReloadDelay: 30
+	Report: swordmanattack1.aud,swordmanattack2.aud,swordmanattack3.aud,swordmanattack4.aud,swordmanattack5.aud,swordmanattack6.aud,swordmanattack7.aud,swordmanattack8.aud,swordmanattack9.aud,swordmanattack10.aud,swordmanattack11.aud,swordmanattack12.aud
+	Warhead@1Dam: SpreadDamage
+		Damage: 5000
+##
+#Used by RustSpitter
+##
+RustSpitterStrike:
+	Inherits: Spitterbarb
+	ReloadDelay: 15
+	Range: 8c0
+	ValidTargets: Ground, Water, GroundActor, WaterActor, AirborneActor
+	Warhead@1Dam: SpreadDamage
+		Spread: 512
+		Damage: 4000
+		ValidTargets: GroundActor, WaterActor, AirborneActor
+		Versus:
+			None: 150
+			Light: 120
+			Heavy: 80
+			Concrete: 30
+		DamageTypes: Prone50Percent, TriggerProne
+	Warhead@corrode: GrantExternalCondition
+		Delay: 1
+		Condition: corrode
+		Range: 1c0
+		Duration: 200
+		ValidTargets: GroundActor, WaterActor, AirborneActor
+##
+#Used by UrlShekk
+##
+UrlShekkStrike:
+	Inherits: ratsword
+	ReloadDelay: 30
+	Report: swordmanattack1.aud,swordmanattack2.aud,swordmanattack3.aud,swordmanattack4.aud,swordmanattack5.aud,swordmanattack6.aud,swordmanattack7.aud,swordmanattack8.aud,swordmanattack9.aud,swordmanattack10.aud,swordmanattack11.aud,swordmanattack12.aud
+	Warhead@1Dam: SpreadDamage
+		Damage: 5000

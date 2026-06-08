@@ -1,0 +1,763 @@
+###############################################################################
+###################################  Gamba   ##################################
+###############################################################################
+
+##Gambling House - capturable by any infantry
+gamblinghall:
+	Inherits: ^PlayableCivBuilding
+	Inherits@tax: ^TaxableLow
+	-SpawnActorsOnSell:
+	Valued:
+		Cost: 3000
+	Tooltip:
+		Name: Gambling House
+	Building:
+		Footprint: == ==
+		Dimensions: 2,2
+		BuildSounds: medibuild1.aud, medibuildjobdone1.aud, medibuildplace1.aud
+	Selectable:
+		Bounds: 2048, 2048
+		DecorationBounds: 2048, 2048
+	Power:
+		Amount: -100
+	Health:
+		HP: 20000
+	Armor:
+		Type: Wood
+	Capturable:
+		ValidRelationships: Enemy, Neutral, Ally
+		Types: gamba
+	CaptureManager:
+		BeingCapturedCondition: being-captured
+	RallyPoint:
+	ProductionQueue@GamblingCode:
+		Type: GamblingCode
+		Group: GamblingCode
+		DisplayOrder: 1
+		LowPowerModifier: 100
+		BuildDurationModifier: 100
+	Exit:
+		SpawnOffset: 0,1024,0
+		ExitCell: 0,1
+	ProvidesPrerequisite@buildingname:
+	ProvidesPrerequisite@gamba:
+		Prerequisite: gamblinghall
+	RenderSprites:
+		Image: gamblinghall
+
+##Buildable gambling tokens
+GamblingCodeT1:
+	Inherits@gamba: ^GamblingCodeT1
+	Inherits@dummy: MINE_DUMMY
+	-Interactable:
+	-Targetable:
+	Buildable:
+		Queue: GamblingCode
+		Prerequisites: gamblinghall
+		BuildPaletteOrder: 1
+		Description: Risky Bet. High variance - big jackpot chance but most rolls pay little.
+	Valued:
+		Cost: 5000
+	Tooltip:
+		Name: Risky Bet
+
+GamblingCodeT2:
+	Inherits@gamba: ^GamblingCodeT2
+	Inherits@dummy: MINE_DUMMY
+	-Interactable:
+	-Targetable:
+	Buildable:
+		Queue: GamblingCode
+		Prerequisites: gamblinghall
+		BuildPaletteOrder: 2
+		Description: Standard Bet. Moderate risk, moderate rewards across the board.
+	Valued:
+		Cost: 10000
+	Tooltip:
+		Name: Standard Bet
+
+GamblingCodeT3:
+	Inherits@gamba: ^GamblingCodeT3
+	Inherits@dummy: MINE_DUMMY
+	-Interactable:
+	-Targetable:
+	Buildable:
+		Queue: GamblingCode
+		Prerequisites: gamblinghall
+		BuildPaletteOrder: 3
+		Description: Safe Bet. Lower jackpot ceiling but strong guaranteed minimums.
+	Valued:
+		Cost: 20000
+	Tooltip:
+		Name: Safe Bet
+
+GamblingCodeT4:
+	Inherits@gamba: ^GamblingCodeT4
+	Inherits@dummy: MINE_DUMMY
+	-Interactable:
+	-Targetable:
+	Buildable:
+		Queue: GamblingCode
+		Prerequisites: gamblinghall
+		BuildPaletteOrder: 4
+		Description: Outlier Bet. Pay 15000 for a shot at 65000 - or walk away with nothing.
+	Valued:
+		Cost: 15000
+	Tooltip:
+		Name: Outlier Bet
+
+### Outliers
+### Cost 15000
+^GamblingCodeT4:
+	KillsSelf@gamba:
+		RemoveInstead: true
+		Delay: 500
+	GrantRandomCondition@Gamba:
+		Conditions: Jackpot, Big1, Big2, Big3, Big4, Big5, Big6, Big7, Big8, Big9, Big10, Big11, Big12, Big13, Big14, Big15, Small1, Small2, Small3, Small4, Small5, Small6, Small7, Small8, Small9, Small10, Small11, Small12, Small13, Small14, Small15
+	##MegaJackpot
+	CashTrickler@Jackpot:
+		Interval: 99999
+		Amount: 65000
+		RequiresCondition: Jackpot
+	##Big
+	CashTrickler@Big1:
+		Interval: 99999
+		Amount: 25000
+		RequiresCondition: Big1
+	##Big
+	CashTrickler@Big2:
+		Interval: 99999
+		Amount: 25000
+		RequiresCondition: Big2
+	##Big
+	CashTrickler@Big3:
+		Interval: 99999
+		Amount: 24500
+		RequiresCondition: Big3
+	##Big
+	CashTrickler@Big4:
+		Interval: 99999
+		Amount: 24000
+		RequiresCondition: Big4
+	##Big
+	CashTrickler@Big5:
+		Interval: 99999
+		Amount: 23500
+		RequiresCondition: Big5
+	##Big
+	CashTrickler@Big6:
+		Interval: 99999
+		Amount: 22000
+		RequiresCondition: Big6
+	##Big
+	CashTrickler@Big7:
+		Interval: 99999
+		Amount: 22000
+		RequiresCondition: Big7
+	##Big
+	CashTrickler@Big8:
+		Interval: 99999
+		Amount: 21000
+		RequiresCondition: Big8
+	##Big
+	CashTrickler@Big9:
+		Interval: 99999
+		Amount: 20000
+		RequiresCondition: Big9
+	##Big
+	CashTrickler@Big10:
+		Interval: 99999
+		Amount: 18500
+		RequiresCondition: Big10
+	##Big
+	CashTrickler@Big11:
+		Interval: 99999
+		Amount: 18000
+		RequiresCondition: Big11
+	##Big
+	CashTrickler@Big12:
+		Interval: 99999
+		Amount: 18000
+		RequiresCondition: Big12
+	##Big
+	CashTrickler@Big13:
+		Interval: 99999
+		Amount: 17000
+		RequiresCondition: Big13
+	##Big
+	CashTrickler@Big14:
+		Interval: 99999
+		Amount: 16500
+		RequiresCondition: Big14
+	##Big
+	CashTrickler@Big15:
+		Interval: 99999
+		Amount: 14500
+		RequiresCondition: Big15
+	##Low
+	CashTrickler@Small1:
+		Interval: 99999
+		Amount: 13000
+		RequiresCondition: Small1
+	##Low
+	CashTrickler@Small2:
+		Interval: 99999
+		Amount: 12000
+		RequiresCondition: Small2
+	##Low
+	CashTrickler@Small3:
+		Interval: 99999
+		Amount: 10000
+		RequiresCondition: Small3
+	##Low
+	CashTrickler@Small4:
+		Interval: 99999
+		Amount: 9000
+		RequiresCondition: Small4
+	##Low
+	CashTrickler@Small5:
+		Interval: 99999
+		Amount: 8000
+		RequiresCondition: Small5
+	##Low
+	CashTrickler@Small6:
+		Interval: 99999
+		Amount: 6500
+		RequiresCondition: Small6
+	##Low
+	CashTrickler@Small7:
+		Interval: 99999
+		Amount: 5500
+		RequiresCondition: Small7
+	##Low
+	CashTrickler@Small8:
+		Interval: 99999
+		Amount: 4000
+		RequiresCondition: Small8
+	##Low
+	CashTrickler@Small9:
+		Interval: 99999
+		Amount: 3000
+		RequiresCondition: Small9
+	##Low
+	CashTrickler@Small10:
+		Interval: 99999
+		Amount: 2000
+		RequiresCondition: Small10
+	##Low
+	CashTrickler@Small11:
+		Interval: 99999
+		Amount: 950
+		RequiresCondition: Small11
+	##Low
+	CashTrickler@Small12:
+		Interval: 99999
+		Amount: 500
+		RequiresCondition: Small12
+	##Low
+	CashTrickler@Small13:
+		Interval: 99999
+		Amount: 200
+		RequiresCondition: Small13
+	##Low
+	CashTrickler@Small14:
+		Interval: 99999
+		Amount: 100
+		RequiresCondition: Small14
+	##Low
+	CashTrickler@Small15:
+		Interval: 99999
+		Amount: 0
+		RequiresCondition: Small15
+
+### Safe Slow
+### Cost 20000
+^GamblingCodeT3:
+	KillsSelf@gamba:
+		RemoveInstead: true
+		Delay: 500
+	GrantRandomCondition@Gamba:
+		Conditions: Jackpot, Big1, Big2, Big3, Big4, Big5, Big6, Big7, Big8, Big9, Big10, Big11, Big12, Big13, Big14, Big15, Small1, Small2, Small3, Small4, Small5, Small6, Small7, Small8, Small9, Small10, Small11, Small12, Small13, Small14, Small15
+	##MegaJackpot
+	CashTrickler@Jackpot:
+		Interval: 99999
+		Amount: 25000
+		RequiresCondition: Jackpot
+	##Big
+	CashTrickler@Big1:
+		Interval: 99999
+		Amount: 24800
+		RequiresCondition: Big1
+	##Big
+	CashTrickler@Big2:
+		Interval: 99999
+		Amount: 24500
+		RequiresCondition: Big2
+	##Big
+	CashTrickler@Big3:
+		Interval: 99999
+		Amount: 24000
+		RequiresCondition: Big3
+	##Big
+	CashTrickler@Big4:
+		Interval: 99999
+		Amount: 23500
+		RequiresCondition: Big4
+	##Big
+	CashTrickler@Big5:
+		Interval: 99999
+		Amount: 23000
+		RequiresCondition: Big5
+	##Big
+	CashTrickler@Big6:
+		Interval: 99999
+		Amount: 22500
+		RequiresCondition: Big6
+	##Big
+	CashTrickler@Big7:
+		Interval: 99999
+		Amount: 22000
+		RequiresCondition: Big7
+	##Big
+	CashTrickler@Big8:
+		Interval: 99999
+		Amount: 21500
+		RequiresCondition: Big8
+	##Big
+	CashTrickler@Big9:
+		Interval: 99999
+		Amount: 21000
+		RequiresCondition: Big9
+	##Big
+	CashTrickler@Big10:
+		Interval: 99999
+		Amount: 20500
+		RequiresCondition: Big10
+	##Big
+	CashTrickler@Big11:
+		Interval: 99999
+		Amount: 20000
+		RequiresCondition: Big11
+	##Big
+	CashTrickler@Big12:
+		Interval: 99999
+		Amount: 19500
+		RequiresCondition: Big12
+	##Big
+	CashTrickler@Big13:
+		Interval: 99999
+		Amount: 19000
+		RequiresCondition: Big13
+	##Big
+	CashTrickler@Big14:
+		Interval: 99999
+		Amount: 18500
+		RequiresCondition: Big14
+	##Big
+	CashTrickler@Big15:
+		Interval: 99999
+		Amount: 18000
+		RequiresCondition: Big15
+	##Low
+	CashTrickler@Small1:
+		Interval: 99999
+		Amount: 17500
+		RequiresCondition: Small1
+	##Low
+	CashTrickler@Small2:
+		Interval: 99999
+		Amount: 17000
+		RequiresCondition: Small2
+	##Low
+	CashTrickler@Small3:
+		Interval: 99999
+		Amount: 16000
+		RequiresCondition: Small3
+	##Low
+	CashTrickler@Small4:
+		Interval: 99999
+		Amount: 15000
+		RequiresCondition: Small4
+	##Low
+	CashTrickler@Small5:
+		Interval: 99999
+		Amount: 14000
+		RequiresCondition: Small5
+	##Low
+	CashTrickler@Small6:
+		Interval: 99999
+		Amount: 13000
+		RequiresCondition: Small6
+	##Low
+	CashTrickler@Small7:
+		Interval: 99999
+		Amount: 12000
+		RequiresCondition: Small7
+	##Low
+	CashTrickler@Small8:
+		Interval: 99999
+		Amount: 11000
+		RequiresCondition: Small8
+	##Low
+	CashTrickler@Small9:
+		Interval: 99999
+		Amount: 10000
+		RequiresCondition: Small9
+	##Low
+	CashTrickler@Small10:
+		Interval: 99999
+		Amount: 9000
+		RequiresCondition: Small10
+	##Low
+	CashTrickler@Small11:
+		Interval: 99999
+		Amount: 8000
+		RequiresCondition: Small11
+	##Low
+	CashTrickler@Small12:
+		Interval: 99999
+		Amount: 7500
+		RequiresCondition: Small12
+	##Low
+	CashTrickler@Small13:
+		Interval: 99999
+		Amount: 7000
+		RequiresCondition: Small13
+	##Low
+	CashTrickler@Small14:
+		Interval: 99999
+		Amount: 6500
+		RequiresCondition: Small14
+	##Low
+	CashTrickler@Small15:
+		Interval: 99999
+		Amount: 0
+		RequiresCondition: Small15
+
+### Average
+### Cost 10000
+^GamblingCodeT2:
+	KillsSelf@gamba:
+		RemoveInstead: true
+		Delay: 500
+	GrantRandomCondition@Gamba:
+		Conditions: Jackpot, Big1, Big2, Big3, Big4, Big5, Big6, Big7, Big8, Big9, Big10, Big11, Big12, Big13, Big14, Big15, Small1, Small2, Small3, Small4, Small5, Small6, Small7, Small8, Small9, Small10, Small11, Small12, Small13, Small14, Small15
+	##MegaJackpot
+	CashTrickler@Jackpot:
+		Interval: 99999
+		Amount: 22000
+		RequiresCondition: Jackpot
+	##Big
+	CashTrickler@Big1:
+		Interval: 99999
+		Amount: 20000
+		RequiresCondition: Big1
+	##Big
+	CashTrickler@Big2:
+		Interval: 99999
+		Amount: 18500
+		RequiresCondition: Big2
+	##Big
+	CashTrickler@Big3:
+		Interval: 99999
+		Amount: 17000
+		RequiresCondition: Big3
+	##Big
+	CashTrickler@Big4:
+		Interval: 99999
+		Amount: 16000
+		RequiresCondition: Big4
+	##Big
+	CashTrickler@Big5:
+		Interval: 99999
+		Amount: 15000
+		RequiresCondition: Big5
+	##Big
+	CashTrickler@Big6:
+		Interval: 99999
+		Amount: 14000
+		RequiresCondition: Big6
+	##Big
+	CashTrickler@Big7:
+		Interval: 99999
+		Amount: 13000
+		RequiresCondition: Big7
+	##Big
+	CashTrickler@Big8:
+		Interval: 99999
+		Amount: 12000
+		RequiresCondition: Big8
+	##Big
+	CashTrickler@Big9:
+		Interval: 99999
+		Amount: 11500
+		RequiresCondition: Big9
+	##Big
+	CashTrickler@Big10:
+		Interval: 99999
+		Amount: 11000
+		RequiresCondition: Big10
+	##Big
+	CashTrickler@Big11:
+		Interval: 99999
+		Amount: 10500
+		RequiresCondition: Big11
+	##Big
+	CashTrickler@Big12:
+		Interval: 99999
+		Amount: 10000
+		RequiresCondition: Big12
+	##Big
+	CashTrickler@Big13:
+		Interval: 99999
+		Amount: 9500
+		RequiresCondition: Big13
+	##Big
+	CashTrickler@Big14:
+		Interval: 99999
+		Amount: 9000
+		RequiresCondition: Big14
+	##Big
+	CashTrickler@Big15:
+		Interval: 99999
+		Amount: 8500
+		RequiresCondition: Big15
+	##Low
+	CashTrickler@Small1:
+		Interval: 99999
+		Amount: 8000
+		RequiresCondition: Small1
+	##Low
+	CashTrickler@Small2:
+		Interval: 99999
+		Amount: 7500
+		RequiresCondition: Small2
+	##Low
+	CashTrickler@Small3:
+		Interval: 99999
+		Amount: 7000
+		RequiresCondition: Small3
+	##Low
+	CashTrickler@Small4:
+		Interval: 99999
+		Amount: 6500
+		RequiresCondition: Small4
+	##Low
+	CashTrickler@Small5:
+		Interval: 99999
+		Amount: 6000
+		RequiresCondition: Small5
+	##Low
+	CashTrickler@Small6:
+		Interval: 99999
+		Amount: 5500
+		RequiresCondition: Small6
+	##Low
+	CashTrickler@Small7:
+		Interval: 99999
+		Amount: 5000
+		RequiresCondition: Small7
+	##Low
+	CashTrickler@Small8:
+		Interval: 99999
+		Amount: 4500
+		RequiresCondition: Small8
+	##Low
+	CashTrickler@Small9:
+		Interval: 99999
+		Amount: 4000
+		RequiresCondition: Small9
+	##Low
+	CashTrickler@Small10:
+		Interval: 99999
+		Amount: 3600
+		RequiresCondition: Small10
+	##Low
+	CashTrickler@Small11:
+		Interval: 99999
+		Amount: 3300
+		RequiresCondition: Small11
+	##Low
+	CashTrickler@Small12:
+		Interval: 99999
+		Amount: 3000
+		RequiresCondition: Small12
+	##Low
+	CashTrickler@Small13:
+		Interval: 99999
+		Amount: 2800
+		RequiresCondition: Small13
+	##Low
+	CashTrickler@Small14:
+		Interval: 99999
+		Amount: 2600
+		RequiresCondition: Small14
+	##Low
+	CashTrickler@Small15:
+		Interval: 99999
+		Amount: 0
+		RequiresCondition: Small15
+
+### Risky Fast
+### Cost 5000
+^GamblingCodeT1:
+	KillsSelf@gamba:
+		RemoveInstead: true
+		Delay: 500
+	GrantRandomCondition@Gamba:
+		Conditions: Jackpot, Big1, Big2, Big3, Big4, Big5, Big6, Big7, Big8, Big9, Big10, Big11, Big12, Big13, Big14, Big15, Small1, Small2, Small3, Small4, Small5, Small6, Small7, Small8, Small9, Small10, Small11, Small12, Small13, Small14, Small15
+	##MegaJackpot
+	CashTrickler@Jackpot:
+		Interval: 99999
+		Amount: 18000
+		RequiresCondition: Jackpot
+	##Big
+	CashTrickler@Big1:
+		Interval: 99999
+		Amount: 16500
+		RequiresCondition: Big1
+	##Big
+	CashTrickler@Big2:
+		Interval: 99999
+		Amount: 14500
+		RequiresCondition: Big2
+	##Big
+	CashTrickler@Big3:
+		Interval: 99999
+		Amount: 12000
+		RequiresCondition: Big3
+	##Big
+	CashTrickler@Big4:
+		Interval: 99999
+		Amount: 10000
+		RequiresCondition: Big4
+	##Big
+	CashTrickler@Big5:
+		Interval: 99999
+		Amount: 8000
+		RequiresCondition: Big5
+	##Big
+	CashTrickler@Big6:
+		Interval: 99999
+		Amount: 6500
+		RequiresCondition: Big6
+	##Big
+	CashTrickler@Big7:
+		Interval: 99999
+		Amount: 5200
+		RequiresCondition: Big7
+	##Big
+	CashTrickler@Big8:
+		Interval: 99999
+		Amount: 4000
+		RequiresCondition: Big8
+	##Big
+	CashTrickler@Big9:
+		Interval: 99999
+		Amount: 3200
+		RequiresCondition: Big9
+	##Big
+	CashTrickler@Big10:
+		Interval: 99999
+		Amount: 2500
+		RequiresCondition: Big10
+	##Big
+	CashTrickler@Big11:
+		Interval: 99999
+		Amount: 2000
+		RequiresCondition: Big11
+	##Big
+	CashTrickler@Big12:
+		Interval: 99999
+		Amount: 1600
+		RequiresCondition: Big12
+	##Big
+	CashTrickler@Big13:
+		Interval: 99999
+		Amount: 1300
+		RequiresCondition: Big13
+	##Big
+	CashTrickler@Big14:
+		Interval: 99999
+		Amount: 1100
+		RequiresCondition: Big14
+	##Big
+	CashTrickler@Big15:
+		Interval: 99999
+		Amount: 950
+		RequiresCondition: Big15
+	##Low
+	CashTrickler@Small1:
+		Interval: 99999
+		Amount: 820
+		RequiresCondition: Small1
+	##Low
+	CashTrickler@Small2:
+		Interval: 99999
+		Amount: 700
+		RequiresCondition: Small2
+	##Low
+	CashTrickler@Small3:
+		Interval: 99999
+		Amount: 600
+		RequiresCondition: Small3
+	##Low
+	CashTrickler@Small4:
+		Interval: 99999
+		Amount: 520
+		RequiresCondition: Small4
+	##Low
+	CashTrickler@Small5:
+		Interval: 99999
+		Amount: 460
+		RequiresCondition: Small5
+	##Low
+	CashTrickler@Small6:
+		Interval: 99999
+		Amount: 400
+		RequiresCondition: Small6
+	##Low
+	CashTrickler@Small7:
+		Interval: 99999
+		Amount: 350
+		RequiresCondition: Small7
+	##Low
+	CashTrickler@Small8:
+		Interval: 99999
+		Amount: 300
+		RequiresCondition: Small8
+	##Low
+	CashTrickler@Small9:
+		Interval: 99999
+		Amount: 260
+		RequiresCondition: Small9
+	##Low
+	CashTrickler@Small10:
+		Interval: 99999
+		Amount: 220
+		RequiresCondition: Small10
+	##Low
+	CashTrickler@Small11:
+		Interval: 99999
+		Amount: 180
+		RequiresCondition: Small11
+	##Low
+	CashTrickler@Small12:
+		Interval: 99999
+		Amount: 150
+		RequiresCondition: Small12
+	##Low
+	CashTrickler@Small13:
+		Interval: 99999
+		Amount: 120
+		RequiresCondition: Small13
+	##Low
+	CashTrickler@Small14:
+		Interval: 99999
+		Amount: 100
+		RequiresCondition: Small14
+	##Low
+	CashTrickler@Small15:
+		Interval: 99999
+		Amount: 0
+		RequiresCondition: Small15

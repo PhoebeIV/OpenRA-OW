@@ -277,10 +277,10 @@
 	ExternalCondition@corrode:
 		Condition: corrode
 	DamageMultiplier@corrode:
-		RequiresCondition: corrode && !gdi_suits && !medishield
+		RequiresCondition: corrode && !gdi_suits && !medishield && !medishieldreq
 		Modifier: 110
 	WithColoredOverlay@corrode:
-		RequiresCondition: corrode && !gdi_suits && !medishield
+		RequiresCondition: corrode && !gdi_suits && !medishield && !medishieldreq
 		Color: 00800040
 	ExternalCondition@plague:
 		Condition: defiler_plague
@@ -308,7 +308,7 @@
 		Prerequisites: gdi.suits
 		Condition: gdi_suits
 	DamageMultiplier@corrode:
-		RequiresCondition: corrode && gdi_suits && !medishield
+		RequiresCondition: corrode && gdi_suits && !medishield && !medishieldreq
 		Modifier: 75
 	GrantConditionOnPrerequisite@fanatics:
 		Prerequisites: nod.fanatic
@@ -995,6 +995,8 @@
 
 # Inherited and changed from mods/ra to add upgrade modifiers and numerous other buff/debuff modifiers from support powers
 ^Infantry:
+	ProximityCaptor@gamba:
+		Types: gamba
 	Inherits@MediConditions: ^MediConditionsI
 	Inherits@corrode: ^CorrodesFromTibWeaps
 	Inherits@aeiou: ^AEIOUBoosted
@@ -2899,7 +2901,7 @@
 	ExternalCondition@corrode:
 		Condition: corrode
 	DamageMultiplier@corrode:
-		RequiresCondition: corrode
+		RequiresCondition: corrode 
 		Modifier: 75
 	WithColoredOverlay@corrode:
 		RequiresCondition: corrode
@@ -4146,24 +4148,12 @@
 		Modifier: 0
 
 ^MediConditionsplus:
-	### Bless Condition heals units and grants damage resistance
-	ExternalCondition@Mediblesscondition:
+	### Bless Condition: short, strong damage resistance + minor regen (granted by holy heals on hit)
+	ExternalCondition@MediBlessCondition:
 		Condition: MediBlessCondition
-	###Monumnet heals, buffs defense, attack speed and damage done
-	ExternalCondition@MonumentBoost:
-		Condition: MonumentBoost
-	###Monumnet heals, buffs defense, attack speed and damage done, wagon version gives faster move speed too
-	ExternalCondition@MonumentWagonBoost:
-		Condition: MonumentWagonBoost
 	##Weaker Monumnet heal from paladin
 	ExternalCondition@PallyBoost:
 		Condition: PallyBoost
-	###Generates shields on Wizards and buffs stats
-	ExternalCondition@ArchmageAura:
-		Condition: ArchmageAura
-	###Heal over time condition from martyr
-	ExternalCondition@martyhot:
-		Condition: martyhot
 	##Non Magic units get bonus Vehicle Damage
 	GrantConditionOnPrerequisite@medimagicwep:
 		Prerequisites: upgrade.medimagicwep
@@ -4174,119 +4164,59 @@
 		Condition: medimagiclogs
 	##units can see stealth from longer
 	GrantConditionOnPrerequisite@mediblessed:
-		Prerequisites: upgrade.medibless
+		Prerequisites: upgrade.mediBlessing
 		Condition: mediblessed
 	##units get imunity to debuffs when neer paladin or monuments
 	GrantConditionOnPrerequisite@medishield:
 		Prerequisites: upgrade.medishield
 		Condition: medishield
-	
+	##Sanctuary: brief total damage immunity from Holy support power
+	ExternalCondition@medisanctuary:
+		Condition: medisanctuary
+
 ^MediConditionsnegative:
-	###blank
-	ExternalCondition@thisdoesnothing:
-		Condition: thisdoesnothing
 	###Too many stacks will Stun the unit
 	ExternalCondition@zapstacks:
 		Condition: zapstack
 	###Curse Debuff, reduce damage done and damage taken up
 	ExternalCondition@MediCurseCondition:
 		Condition: MediCurseCondition
-	###Corrodes, and slows
-	ExternalCondition@RotElementHitCon:
-		Condition: RotElementHitCon
-	###Slows movement and attack speed
-	ExternalCondition@WaterElementHit:
-		Condition: WaterElementHit
-	### % DoT and slows
-	ExternalCondition@DarkWiz:
-		Condition: DarkWiz
 	###Prevents movement, lower range
 	ExternalCondition@ChainsofGod:
 		Condition: ChainsofGod
-	###Corrodes and drains HP
-	ExternalCondition@DarkKnightAuraHostile:
-		Condition: DarkKnightAuraHostile
-	###Drains shields over time
-	ExternalCondition@ArchamageAntiShield:
-		Condition: ArchamageAntiShield
+	###Frost Debuff, slows movement and attack speed
+	ExternalCondition@chilled:
+		Condition: chilled
+	###Soul Mark: spawns undead from the corpse on death
+	ExternalCondition@soulmarked:
+		Condition: soulmarked
+	###Petrify Debuff: turned to crystal, takes more damage
+	ExternalCondition@petrified:
+		Condition: petrified
+	###Poison Debuff: lingering damage weakens armor
+	ExternalCondition@poisoned:
+		Condition: poisoned
 
 ##Infantry
 ^MediConditionsI:
 	Inherits: ^MediConditionsnegative
 	Inherits: ^MediConditionsplus
-	### Bless Condition heals units and grants damage resistance
-	FirepowerMultiplier@MediblessconditionF:
+	### Bless Condition: short, strong damage resistance + minor regen (granted by holy heals on hit)
+	DamageMultiplier@MediBlessConditionD:
 		RequiresCondition: MediBlessCondition
-		Modifier: 120
-	SpeedMultiplier@MediblessconditionS:
-		RequiresCondition: MediBlessCondition
-		Modifier: 130
-	DamageMultiplier@MediblessconditionD:
-		RequiresCondition: MediBlessCondition
-		Modifier: 90
+		Modifier: 75
 	ChangesHealth@MediBlessCondition:
-		Step: 250
+		Step: 100
 		Delay: 15
 		StartIfBelow: 100
 		RequiresCondition: MediBlessCondition
 		DamageTypes: BypassShield
-	WithIdleOverlay@Mediblesscondition:
+	WithIdleOverlay@MediBlessCondition:
 		Image: japancurse-overlay
 		Sequence: vehicle
 		Palette: effect
 		RequiresCondition: MediBlessCondition
 		IsDecoration: True
-	###Monumnet heals, buffs defense, attack speed and damage done
-	DamageMultiplier@MonumentBoostD:
-		RequiresCondition: MonumentBoost
-		Modifier: 90
-	FirepowerMultiplier@MonumentBoostF:
-		RequiresCondition: MonumentBoost
-		Modifier: 120
-	ChangesHealth@MonumentBoost:
-		Step: 250
-		Delay: 50
-		StartIfBelow: 100
-		RequiresCondition: MonumentBoost
-		DamageTypes: BypassShield
-	WithIdleOverlay@MonumentBoost:
-		Image: japancurse-overlay
-		Sequence: vehicle
-		Palette: effect
-		RequiresCondition: MonumentBoost
-		IsDecoration: True
-	###Monumnet heals, buffs defense, attack speed and damage done, wagon version gives faster move speed too
-	FirepowerMultiplier@MonumentWagonBoostF:
-		RequiresCondition: MonumentWagonBoost
-		Modifier: 125
-	SpeedMultiplier@MonumentWagonBoostS:
-		RequiresCondition: MonumentWagonBoost
-		Modifier: 130
-	DamageMultiplier@MonumentWagonBoostD:
-		RequiresCondition: MonumentWagonBoost
-		Modifier: 85
-	RangeMultiplier@MonumentWagonBoostR:
-		RequiresCondition: MonumentWagonBoost
-		Modifier: 120
-	ChangesHealth@MonumentWagonBoost:
-		Step: 300
-		Delay: 50
-		StartIfBelow: 100
-		RequiresCondition: MonumentWagonBoost
-		DamageTypes: BypassShield
-	WithIdleOverlay@MonumentWagonBoost:
-		Image: japancurse-overlay
-		Sequence: vehicle
-		Palette: effect
-		RequiresCondition: MonumentWagonBoost
-		IsDecoration: True
-	###Heal over time condition from martyr
-	ChangesHealth@martyhot:
-		Step: 600
-		Delay: 15
-		StartIfBelow: 100
-		RequiresCondition: martyhot
-		DamageTypes: BypassShield
 	###Curse Debuff, reduce damage done and damage taken up
 	FirepowerMultiplier@MediCurseConditionF:
 		RequiresCondition: MediCurseCondition
@@ -4300,27 +4230,6 @@
 	RangeMultiplier@MediCurseConditionR:
 		RequiresCondition: MediCurseCondition
 		Modifier: 90
-	###Corrodes, and slows
-	GrantCondition@RotElementHitCon:
-		Condition: corrode
-		RequiresCondition: RotElementHitCon
-	SpeedMultiplier@RotElementHitConS:
-		RequiresCondition: RotElementHitCon
-		Modifier: 95
-	###Slows movement and attack speed
-	SpeedMultiplier@WaterElementHitS:
-		RequiresCondition: WaterElementHit
-		Modifier: 90
-	ReloadDelayMultiplier@WaterElementHitR:
-		RequiresCondition: WaterElementHit
-		Modifier: 115
-	### % DoT and slows
-	ChangesHealth@DarkWiz:
-		PercentageStep: -1
-		Delay: 20
-		StartIfBelow: 101
-		RequiresCondition: DarkWiz
-		DamageTypes: BypassShield
 	###Prevents movement, lower range
 	SpeedMultiplier@ChainsofGodS:
 		RequiresCondition: ChainsofGod
@@ -4328,29 +4237,56 @@
 	RangeMultiplier@ChainsofGodR:
 		RequiresCondition: ChainsofGod
 		Modifier: 70
-	###Corrodes and drains HP
-	GrantCondition@DarkKnightAuraHostile:
+	###Frost Debuff, slows movement and attack speed
+	SpeedMultiplier@chilledS:
+		RequiresCondition: chilled
+		Modifier: 60
+	ReloadDelayMultiplier@chilledR:
+		RequiresCondition: chilled
+		Modifier: 130
+	###Soul Mark: spawns a skeleton from the corpse on death
+	SpawnActorOnDeath@soulmarked:
+		Actor: Skeleton
+		RequiresCondition: soulmarked
+	###Petrify Debuff: turned to crystal, takes more damage while stunned
+	DamageMultiplier@petrifiedD:
+		RequiresCondition: petrified
+		Modifier: 130
+	WithIdleOverlay@petrified:
+		Image: explosion
+		Sequence: crystalburst
+		Palette: tsunit2
+		RequiresCondition: petrified
+		IsDecoration: True
+	GrantCondition@petrified:
+		Condition: disabled
+		RequiresCondition: petrified
+	###Poison Debuff: lingering damage corrodes armor
+	ChangesHealth@poisoned:
+		RequiresCondition: poisoned && !healed
+		PercentageStep: 15
+		StartIfBelow: 110
+	WithIdleOverlay@poisoned:
+		Image: explosion
+		Sequence: poisonorbeffect
+		Palette: tsunit2
+		RequiresCondition: poisoned && !healed
+		IsDecoration: True
+	GrantCondition@poisoned:
 		Condition: corrode
-		RequiresCondition: DarkKnightAuraHostile
-	SpeedMultiplier@DarkKnightAuraHostileS:
-		RequiresCondition: DarkKnightAuraHostile
-		Modifier: 95
-	ChangesHealth@DarkKnightAuraHostile:
-		PercentageStep: -1
-		Delay: 100
-		StartIfBelow: 101
-		RequiresCondition: DarkKnightAuraHostile
-		DamageTypes: BypassShield
-	###Drains shields over time
-	ChangesHealth@ArchamageAntiShield:
-		PercentageStep: -1
-		Delay: 1
-		StartIfBelow: 101
-		RequiresCondition: ArchamageAntiShield && shielded
-	##Non Magic units get bonus Vehicle Damage
-	GrantConditionOnPrerequisite@medimagicwep:
-		Prerequisites: upgrade.medimagicwep
-		Condition: medimagicwep
+		RequiresCondition: poisoned && !healed
+	##Sanctuary: brief total damage resist from Holy support power
+	DamageMultiplier@medisanctuaryD:
+		RequiresCondition: medisanctuary
+		Modifier: 30
+	WithIdleOverlay@medisanctuary:
+		Image: explosion
+		Sequence: medisanctuaryshield
+		Palette: tsunit2
+		RequiresCondition: medisanctuary
+		IsDecoration: True
+	TimedConditionBar@medisanctuary:
+		Condition: medisanctuary
 	##units can see stealth from longer
 	DetectCloakedMultiplier@mediblessed:
 		Modifier: 150
@@ -4359,15 +4295,13 @@
 	GrantConditionOnPrerequisite@medishield:
 		Prerequisites: upgrade.medishield
 		Condition: medishieldreq
-	GrantCondition@medishield:
-		Condition: medishield
-		RequiresCondition: medishieldreq && MonumentBoost
-	GrantCondition@medishield2:
-		Condition: medishield
-		RequiresCondition: medishieldreq && MonumentWagonBoost
 	GrantCondition@medishield3:
 		Condition: medishield
 		RequiresCondition: medishieldreq && PallyBoost
+	##Magic weapons: non-magic units attack faster
+	ReloadDelayMultiplier@medimagicwep:
+		RequiresCondition: medimagicwep
+		Modifier: 75
 	##Pally heals, buffs defense and damage done
 	DamageMultiplier@PallyBoostD:
 		RequiresCondition: PallyBoost
@@ -4394,79 +4328,38 @@
 ^MediConditionsV:
 	Inherits: ^MediConditionsnegative
 	Inherits: ^MediConditionsplus
-	### Bless Condition heals units and grants damage resistance
-	FirepowerMultiplier@MediblessconditionF:
+	### Bless Condition: short, strong damage resistance + minor regen (granted by holy heals on hit)
+	DamageMultiplier@MediBlessConditionD:
 		RequiresCondition: MediBlessCondition
-		Modifier: 120
-	SpeedMultiplier@MediblessconditionS:
-		RequiresCondition: MediBlessCondition
-		Modifier: 130
-	DamageMultiplier@MediblessconditionD:
-		RequiresCondition: MediBlessCondition
-		Modifier: 90
+		Modifier: 75
 	ChangesHealth@MediBlessCondition:
-		Step: 250
+		Step: 100
 		Delay: 15
 		StartIfBelow: 100
 		RequiresCondition: MediBlessCondition
 		DamageTypes: BypassShield
-	WithIdleOverlay@Mediblesscondition:
+	WithIdleOverlay@MediBlessCondition:
 		Image: japancurse-overlay
 		Sequence: vehicle
 		Palette: effect
 		RequiresCondition: MediBlessCondition
 		IsDecoration: True
-	###Monumnet heals, buffs defense, attack speed and damage done
-	DamageMultiplier@MonumentBoostD:
-		RequiresCondition: MonumentBoost
-		Modifier: 95
-	FirepowerMultiplier@MonumentBoostF:
-		RequiresCondition: MonumentBoost
-		Modifier: 120
-	ChangesHealth@MonumentBoost:
-		Step: 250
-		Delay: 50
-		StartIfBelow: 100
-		RequiresCondition: MonumentBoost
-		DamageTypes: BypassShield
-	WithIdleOverlay@MonumentBoost:
-		Image: japancurse-overlay
-		Sequence: vehicle
-		Palette: effect
-		RequiresCondition: MonumentBoost
-		IsDecoration: True
-	###Monumnet heals, buffs defense, attack speed and damage done, wagon version gives faster move speed too
-	FirepowerMultiplier@MonumentWagonBoostF:
-		RequiresCondition: MonumentWagonBoost
-		Modifier: 125
-	SpeedMultiplier@MonumentWagonBoostS:
-		RequiresCondition: MonumentWagonBoost
-		Modifier: 130
-	DamageMultiplier@MonumentWagonBoostD:
-		RequiresCondition: MonumentWagonBoost
-		Modifier: 85
-	RangeMultiplier@MonumentWagonBoostR:
-		RequiresCondition: MonumentWagonBoost
-		Modifier: 120
-	ChangesHealth@MonumentWagonBoost:
-		Step: 300
-		Delay: 50
-		StartIfBelow: 100
-		RequiresCondition: MonumentWagonBoost
-		DamageTypes: BypassShield
-	WithIdleOverlay@MonumentWagonBoost:
-		Image: japancurse-overlay
-		Sequence: vehicle
-		Palette: effect
-		RequiresCondition: MonumentWagonBoost
-		IsDecoration: True
 	###Too many stacks will Stun the unit
-	RangeMultiplier@zapstacksR:
-		RequiresCondition: zapstack
-		Modifier: 80
-	SpeedMultiplier@zapstacksS:
-		RequiresCondition: zapstack
-		Modifier: 1
+	GrantTimedCondition@zapstackEMP:
+		Condition: disabled
+		RequiresCondition: (zapstack >= 5) && !zaplockout
+		Duration: 150
+	###Once the stun ends, arm a cooldown so it can't be immediately re-procced
+	GrantDelayedCondition@zapcool_arm:
+		Condition: zapcool_arm
+		Delay: 150
+		RequiresCondition: (zapstack >= 5) && !zaplockout
+		RevokeOnDisabled: true
+	###Lock out re-triggering for a while after the stun ends, to prevent stun-locking
+	GrantTimedCondition@zaplockout:
+		Condition: zaplockout
+		RequiresCondition: zapcool_arm
+		Duration: 250
 	###Curse Debuff, reduce damage done and damage taken up
 	FirepowerMultiplier@MediCurseConditionF:
 		RequiresCondition: MediCurseCondition
@@ -4480,27 +4373,6 @@
 	RangeMultiplier@MediCurseConditionR:
 		RequiresCondition: MediCurseCondition
 		Modifier: 90
-	###Corrodes, and slows
-	GrantCondition@RotElementHitCon:
-		Condition: corrode
-		RequiresCondition: RotElementHitCon
-	SpeedMultiplier@RotElementHitConS:
-		RequiresCondition: RotElementHitCon
-		Modifier: 85
-	###Slows movement and attack speed
-	SpeedMultiplier@WaterElementHitS:
-		RequiresCondition: WaterElementHit
-		Modifier: 85
-	ReloadDelayMultiplier@WaterElementHitR:
-		RequiresCondition: WaterElementHit
-		Modifier: 125
-	### % DoT
-	ChangesHealth@DarkWiz:
-		PercentageStep: -1
-		Delay: 10
-		StartIfBelow: 101
-		RequiresCondition: DarkWiz
-		DamageTypes: BypassShield
 	###Prevents movement, lower range
 	SpeedMultiplier@ChainsofGodS:
 		RequiresCondition: ChainsofGod
@@ -4508,29 +4380,39 @@
 	RangeMultiplier@ChainsofGodR:
 		RequiresCondition: ChainsofGod
 		Modifier: 70
-	###Corrodes and drains HP
-	GrantCondition@DarkKnightAuraHostile:
-		Condition: corrode
-		RequiresCondition: DarkKnightAuraHostile
-	SpeedMultiplier@DarkKnightAuraHostileS:
-		RequiresCondition: DarkKnightAuraHostile
-		Modifier: 95
-	ChangesHealth@DarkKnightAuraHostile:
-		PercentageStep: -1
-		Delay: 100
-		StartIfBelow: 101
-		RequiresCondition: DarkKnightAuraHostile
-		DamageTypes: BypassShield
-	###Drains shields over time
-	ChangesHealth@ArchamageAntiShield:
-		PercentageStep: -1
-		Delay: 1
-		StartIfBelow: 101
-		RequiresCondition: ArchamageAntiShield && shielded
-	##Non Magic units get bonus Vehicle Damage
-	GrantConditionOnPrerequisite@medimagicwep:
-		Prerequisites: upgrade.medimagicwep
-		Condition: medimagicwep
+	###Frost Debuff, slows movement and attack speed
+	SpeedMultiplier@chilledS:
+		RequiresCondition: chilled
+		Modifier: 60
+	ReloadDelayMultiplier@chilledR:
+		RequiresCondition: chilled
+		Modifier: 130
+	###Soul Mark: spawns a zombie from the wreck on death
+	SpawnActorOnDeath@soulmarked:
+		Actor: SummonedZombie
+		RequiresCondition: soulmarked
+	###Petrify Debuff: turned to crystal, takes more damage while stunned
+	DamageMultiplier@petrifiedD:
+		RequiresCondition: petrified
+		Modifier: 130
+	WithIdleOverlay@petrified:
+		Image: explosion
+		Sequence: crystalburst
+		Palette: tsunit2
+		RequiresCondition: petrified
+		IsDecoration: True
+	##Sanctuary: brief total damage immunity from Holy support power
+	DamageMultiplier@medisanctuaryD:
+		RequiresCondition: medisanctuary
+		Modifier: 30
+	WithIdleOverlay@medisanctuary:
+		Image: explosion
+		Sequence: medisanctuaryshield
+		Palette: tsunit2
+		RequiresCondition: medisanctuary
+		IsDecoration: True
+	TimedConditionBar@medisanctuary:
+		Condition: medisanctuary
 	##units can see stealth from longer
 	DetectCloakedMultiplier@mediblessed:
 		Modifier: 150
@@ -4539,15 +4421,17 @@
 	GrantConditionOnPrerequisite@medishield:
 		Prerequisites: upgrade.medishield
 		Condition: medishieldreq
-	GrantCondition@medishield:
-		Condition: medishield
-		RequiresCondition: medishieldreq && MonumentBoost
-	GrantCondition@medishield2:
-		Condition: medishield
-		RequiresCondition: medishieldreq && MonumentWagonBoost
 	GrantCondition@medishield3:
 		Condition: medishield
 		RequiresCondition: medishieldreq && PallyBoost
+	##Holy shield: corrode immunity when upgrade is purchased
+	DamageMultiplier@medishield_corrode:
+		RequiresCondition: medishieldreq && corrode
+		Modifier: 0
+	##Magic weapons: non-magic units attack faster
+	ReloadDelayMultiplier@medimagicwep:
+		RequiresCondition: medimagicwep
+		Modifier: 75
 	##Pally heals, buffs defense and damage done
 	DamageMultiplier@PallyBoostD:
 		RequiresCondition: PallyBoost
@@ -4567,84 +4451,43 @@
 		Palette: effect
 		RequiresCondition: PallyBoost
 		IsDecoration: True
-	
+
 ##Buildings
 ^MediConditionsB:
 	Inherits: ^MediConditionsnegative
 	Inherits: ^MediConditionsplus
-	### Bless Condition heals units and grants damage resistance
-	DamageMultiplier@MediblessconditionD:
+	### Bless Condition: short, strong damage resistance + minor regen (granted by holy heals on hit)
+	DamageMultiplier@MediBlessConditionD:
 		RequiresCondition: MediBlessCondition
-		Modifier: 90
+		Modifier: 75
 	ChangesHealth@MediBlessCondition:
-		Step: 250
+		Step: 100
 		Delay: 15
 		StartIfBelow: 100
 		RequiresCondition: MediBlessCondition
 		DamageTypes: BypassShield
-	WithIdleOverlay@Mediblesscondition:
+	WithIdleOverlay@MediBlessCondition:
 		Image: japancurse-overlay
 		Sequence: vehicle
 		Palette: effect
 		RequiresCondition: MediBlessCondition
-		IsDecoration: True
-	###Monumnet heals, buffs defense, attack speed and damage done
-	DamageMultiplier@MonumentBoostD:
-		RequiresCondition: MonumentBoost
-		Modifier: 95
-	ChangesHealth@MonumentBoost:
-		Step: 500
-		Delay: 50
-		StartIfBelow: 100
-		RequiresCondition: MonumentBoost
-		DamageTypes: BypassShield
-	WithIdleOverlay@MonumentBoost:
-		Image: japancurse-overlay
-		Sequence: vehicle
-		Palette: effect
-		RequiresCondition: MonumentBoost
-		IsDecoration: True
-	###Monumnet heals, buffs defense, attack speed and damage done, wagon version gives faster move speed too
-	DamageMultiplier@MonumentWagonBoostD:
-		RequiresCondition: MonumentWagonBoost
-		Modifier: 85
-	ChangesHealth@MonumentWagonBoost:
-		Step: 800
-		Delay: 50
-		StartIfBelow: 100
-		RequiresCondition: MonumentWagonBoost
-		DamageTypes: BypassShield
-	WithIdleOverlay@MonumentWagonBoost:
-		Image: japancurse-overlay
-		Sequence: vehicle
-		Palette: effect
-		RequiresCondition: MonumentWagonBoost
 		IsDecoration: True
 	###Curse Debuff, reduce damage done and damage taken up
 	DamageMultiplier@MediCurseConditionD:
 		RequiresCondition: MediCurseCondition
 		Modifier: 110
-	###Corrodes, and slows
-	GrantCondition@RotElementHitCon:
-		Condition: corrode
-		RequiresCondition: RotElementHitCon
-	### % DoT
-	ChangesHealth@DarkWiz:
-		PercentageStep: -1
-		Delay: 10
-		StartIfBelow: 101
-		RequiresCondition: DarkWiz
-		DamageTypes: BypassShield
-	###Corrodes and drains HP
-	GrantCondition@DarkKnightAuraHostile:
-		Condition: corrode
-		RequiresCondition: DarkKnightAuraHostile
-	###Drains shields over time
-	ChangesHealth@ArchamageAntiShield:
-		PercentageStep: -1
-		Delay: 1
-		StartIfBelow: 101
-		RequiresCondition: ArchamageAntiShield && shielded
+	##Sanctuary: brief total damage immunity from Holy support power
+	DamageMultiplier@medisanctuaryD:
+		RequiresCondition: medisanctuary
+		Modifier: 30
+	WithIdleOverlay@medisanctuary:
+		Image: explosion
+		Sequence: medisanctuaryshield
+		Palette: tsunit2
+		RequiresCondition: medisanctuary
+		IsDecoration: True
+	TimedConditionBar@medisanctuary:
+		Condition: medisanctuary
 	##units can see stealth from longer
 	DetectCloakedMultiplier@mediblessed:
 		Modifier: 150
@@ -4653,12 +4496,6 @@
 	GrantConditionOnPrerequisite@medishield:
 		Prerequisites: upgrade.medishield
 		Condition: medishieldreq
-	GrantCondition@medishield:
-		Condition: medishield
-		RequiresCondition: medishieldreq && MonumentBoost
-	GrantCondition@medishield2:
-		Condition: medishield
-		RequiresCondition: medishieldreq && MonumentWagonBoost
 	GrantCondition@medishield3:
 		Condition: medishield
 		RequiresCondition: medishieldreq && PallyBoost
@@ -4669,15 +4506,18 @@
 	GrantConditionOnPrerequisite@medimagiclogsshield:
 		Prerequisites: upgrade.medimagiclogs
 		Condition: external_shield
+	ChangesHealth@magiclogs:
+		Step: 300
+		Delay: 50
+		StartIfBelow: 100
+		DamageCooldown: 250
+		RequiresCondition: medimagiclogs
+		DamageTypes: BypassShield
 	
 
 ##Defenses
 ^MediConditionsD:
 	Inherits: ^MediConditionsB
-	##Non Magic units get bonus Vehicle Damage
-	GrantConditionOnPrerequisite@medimagicwep:
-		Prerequisites: upgrade.medimagicwep
-		Condition: medimagicwep
 
 # For an insanely hacky way of allowing bots to capture stuff without using the Capture bot module
 ^EngineerBehaviour:

@@ -3,20 +3,266 @@
 ################################   Boats   ####################################
 ###############################################################################
 
-##Balista on a boat
-##medibattleship
+## Transport Ship
+mcanoe:
+	Inherits: ^Ship
+	Inherits@CARGOPIPS: ^CargoPips
+	Buildable:
+		Queue: Ship
+		BuildAtProductionType: Boat
+		BuildPaletteOrder: 10
+		Prerequisites: ~ships.medi, ~!techlevel.noboats
+		Description: General-purpose naval transport.\nCan carry infantry and tanks.\n  Unarmed when unloaded
+	Valued:
+		Cost: 700
+	Tooltip:
+		Name: Canoe
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	WithMoveAnimation:
+		MoveSequence: run
+	Health:
+		HP: 30000
+	Armor:
+		Type: Heavy
+	Mobile:
+		Locomotor: lcraft
+		Speed: 113
+		PauseOnCondition: notmobile
+	RevealsShroud:
+		MinRange: 5c0
+		Range: 6c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 5c0
+	SelectionDecorations:
+	WithLandingCraftAnimation:
+		OpenTerrainTypes: Clear, Rough, Road, Ore, Gems, Beach
+	Cargo:
+		Types: Infantry, Vehicle
+		MaxWeight: 5
+		PassengerFacing: 0
+		LoadingCondition: notmobile
+	AttackGarrisoned:
+		Armaments: bus
+		PortOffsets: 384,0,128, 224,-341,128, -224,-341,128, -384,0,128, -224,341,128, 224,341,128
+		PortYaws: 0, 176, 341, 512, 682, 853
+		PortCones: 88, 88, 88, 88, 88, 88
+	ClassicFacingBodyOrientation:
+		QuantizedFacings: 32
+	-BodyOrientation:
+	AttackFrontal:
+		FacingTolerance: 0
+	-Chronoshiftable:
+	Selectable:
+		DecorationBounds: 1536, 1536
+	RenderSprites:
+		Image: medicanoe
+	WithCargoPipsDecoration:
+		Position: BottomLeft
+		RequiresSelection: true
 
-##AOE siege ship
-##medijuggernaut
+##Anti Infantry Long range.
+MBalistaboat:
+	Inherits: ^Ship
+	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
+	Buildable:
+		Queue: Ship
+		BuildAtProductionType: Boat
+		BuildPaletteOrder: 40
+		Prerequisites: ~ships.medi, ~!techlevel.noboats
+		Description: Fast arrow artillery ship.\nCan detect submarines.\n  Strong vs Subs, Infantry\n  Weak vs anything else
+	Valued:
+		Cost: 1000
+	Tooltip:
+		Name: Hwacha Boat
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 30000
+	Armor:
+		Type: Heavy
+	Mobile:
+		TurnSpeed: 40
+		Speed: 90
+	RevealsShroud:
+		MinRange: 5c0
+		Range: 6c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 5c0
+	Turreted:
+		TurnSpeed: 40
+		Offset: 469,0,128
+	Armament@PRIMARY:
+		Weapon: medibattleballista
+		LocalOffset: 0,-100,0, 0,100,0
+		LocalYaw: 64, -64
+	Armament@SECONDARY:
+		Name: secondary
+		Weapon: DepthCharge
+		MuzzleSequence: muzzle
+	AttackTurreted:
+	SelectionDecorations:
+	DetectCloaked:
+		DetectionTypes: Underwater
+		Range: 8c0
+	RenderDetectionCircle:
+	Selectable:
+		DecorationBounds: 1621, 1621
+	RenderSprites:
+		Image: medibalistaboat
 
-##magic torpeedoes and shit
-##medisub
+## Anti Vehicle and Buildings, Slow attacks. long range
+mmanofwar:
+	Inherits: ^Ship
+	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
+	Buildable:
+		Queue: Ship
+		BuildAtProductionType: Boat
+		BuildPaletteOrder: 40
+		Prerequisites: ~ships.medi, ~!techlevel.noboats
+		Description: Long range area siege.\n  Strong vs Buildings \n  Weak vs Infantry, Vehicles, Air
+	Valued:
+		Cost: 3000
+	Tooltip:
+		Name: Man of War
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 50000
+	Armor:
+		Type: Heavy
+	Mobile:
+		TurnSpeed: 40
+		Speed: 90
+	RevealsShroud:
+		MinRange: 5c0
+		Range: 6c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 5c0
+	Turreted:
+		TurnSpeed: 40
+		Offset: 469,0,128
+	Armament@PRIMARY:
+		Weapon: mManofWar
+		LocalOffset: 0,-100,0, 0,100,0
+		LocalYaw: 64, -64
+	Armament@SECONDARY:
+		Name: secondary
+		Weapon: mManofWar
+		LocalOffset: 480,-100,40, 480,100,40
+		LocalYaw: 64, -64
+	AttackTurreted:
+	SelectionDecorations:
+	DetectCloaked:
+		DetectionTypes: Underwater
+		Range: 8c0
+	RenderDetectionCircle:
+	Selectable:
+		DecorationBounds: 1621, 1621
+	RenderSprites:
+		Image: medimanofwar
 
-##Flame thrower on a boat
-##elvendestroyer
+##General purpose attack boat, Strong for Air or Subs.
+marcaneboat:
+	Inherits: ^Ship
+	Inherits@MediLowPower: ^MediLowPower
+	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
+	Buildable:
+		Queue: Ship
+		BuildAtProductionType: Boat
+		BuildPaletteOrder: 40
+		Prerequisites: ~ships.medi, ~!techlevel.noboats
+		Description: Ship with a Arcane Tower built onto it.\n  Strong vs Close range.
+	Valued:
+		Cost: 1500
+	Tooltip:
+		Name: Arcane Boat
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 50000
+	Armor:
+		Type: Heavy
+	Mobile:
+		TurnSpeed: 40
+		Speed: 80
+	RevealsShroud:
+		MinRange: 5c0
+		Range: 6c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 5c0
+	Turreted:
+		TurnSpeed: 40
+		Offset: 469,0,128
+	Armament@PRIMARY:
+		Weapon: ArcaneZapboat
+		RequiresCondition: !lowpower
+	Armament@SECONDARY:
+		Name: secondary
+		Weapon: ArcaneZapboatair
+		RequiresCondition: !lowpower
+	AttackTurreted:
+	SelectionDecorations:
+	DetectCloaked@u:
+		DetectionTypes: Underwater
+		Range: 8c0
+	RenderDetectionCircle:
+	Selectable:
+		DecorationBounds: 1621, 1621
+	RenderSprites:
+		Image: mediarcaneboat
+	Rearmable:
+		RearmActors: gspen, spen, syrd, dockmedi
+	AmmoPool:
+		Ammo: 4
+		RearmSound: minelay1.aud
+		ReloadCount: 4
+		ReloadDelay: 375
+		Armaments:
+	Minelayer:
+		Mine: SEAMINE
+	DetectCloaked:
+		Range: 5c0
+		DetectionTypes: Mine
+		RequiresCondition: !lowpower
+	WithAmmoPipsDecoration:
+		Position: BottomLeft
+		RequiresSelection: true
 
-##Armored suicide bomber
-##tanker
+###############################################################################
+################################## Test Spawner ################################
+###############################################################################
 
-##Infantry transport, units can attack from within
-##meditransport
+MediShipTest:
+	Inherits: barrackswg
+	Buildable:
+		IconPalette: tsunit
+		Queue: Building
+		Prerequisites: ~structures.medi
+		Description: Spawns all medi ships for testing - place at water edge
+		BuildPaletteOrder: 9999
+		BuildDuration: 1
+	Valued:
+		Cost: 0
+	Tooltip:
+		Name: Ship Test Spawner
+	KillsSelf:
+		Delay: 5
+		RemoveInstead: true
+	## Row 0 (y=0)
+	FreeActor@s01:
+		Actor: mcanoe
+		SpawnOffset: 0,0
+	FreeActor@s02:
+		Actor: MBalistaboat
+		SpawnOffset: 3,0
+	FreeActor@s03:
+		Actor: mmanofwar
+		SpawnOffset: 6,0
+	FreeActor@s04:
+		Actor: marcaneboat
+		SpawnOffset: 9,0

@@ -3,18 +3,136 @@
 ##################################   Buildings   ##############################
 ###############################################################################
 
+^TaxGen:
+	Inherits: MINE_DUMMY
+	-Interactable:
+	-Targetable:
+	ExternalCondition@anchor:
+		Condition: tax-anchor
+	KillsSelf:
+		RequiresCondition: !tax-anchor
+		Delay: 25
+	FireWarheadsOnDeath@tribute:
+		Type: CenterPosition
+		Weapon: TributeCleanup
+		EmptyWeapon: TributeCleanup
+
+taxgen.low:
+	Inherits: ^TaxGen
+	SeedsResource:
+		ResourceType: TributeLow
+		Interval: 400
+		MaxRange: 6
+
+taxgen.mid:
+	Inherits: ^TaxGen
+	SeedsResource:
+		ResourceType: TributeMid
+		Interval: 500
+		MaxRange: 6
+
+taxgen.high:
+	Inherits: ^TaxGen
+	SeedsResource:
+		ResourceType: TributeHigh
+		Interval: 600
+		MaxRange: 6
+
+taxgen.super:
+	Inherits: ^TaxGen
+	SeedsResource:
+		ResourceType: TributeSuper
+		Interval: 750
+		MaxRange: 6
+
+^TaxableBase:
+	ProximityExternalCondition@taxgen:
+		Condition: tax-anchor
+		Range: 2c0
+		AffectsParent: false
+
+^TaxableLow:
+	Inherits@tax: ^TaxableBase
+	FreeActor@tribute:
+		Actor: taxgen.low
+		SpawnOffset: 0,0
+
+^TaxableMid:
+	Inherits@tax: ^TaxableBase
+	FreeActor@tribute:
+		Actor: taxgen.mid
+		SpawnOffset: 0,0
+
+^TaxableHigh:
+	Inherits@tax: ^TaxableBase
+	FreeActor@tribute:
+		Actor: taxgen.high
+		SpawnOffset: 0,0
+
+^TaxableSuper:
+	Inherits@tax: ^TaxableBase
+	FreeActor@tribute:
+		Actor: taxgen.super
+		SpawnOffset: 0,0
+
 
 ###############################################################################
 ##############################   MCV and Inherits   ###########################
 ###############################################################################
 
 ##Main MCV Building
-##mcvmed
+mediconyard:
+	Inherits: FACTD
+	-WithIdleOverlay@soviet:
+	-SpawnActorsOnSell:
+	Valued:
+		Cost: 2000
+	Tooltip:
+		Name: Mediaval conyard
+	BaseBuilding:
+	Transforms:
+		RequiresCondition: factundeploy && !bot_undeploy_block
+		PauseOnCondition: chrono-vortex || being-captured || being-demolished || build-incomplete
+		IntoActor: mcvm
+	TransformsIntoMobile:
+		RequiresCondition: factundeploy && !bot_undeploy_block
+		Locomotor: heavywheeled
+		RequiresForceMove: true
+	TransformsIntoPassenger:
+		RequiresCondition: factundeploy && !bot_undeploy_block
+		CargoType: Vehicle
+		RequiresForceMove: true
+	TransformsIntoRepairable:
+		RequiresCondition: factundeploy && !bot_undeploy_block
+		RepairActors: fix
+		RequiresForceMove: true
+	TransformsIntoTransforms:
+		RequiresCondition: factundeploy && build-incomplete && !bot_undeploy_block
+	Sellable:
+		RequiresCondition: !build-incomplete && !chrono-vortex && !being-captured && !being-demolished
+	Power:
+		Amount: 0
+	ProvidesPrerequisite@buildingname:
+	ProvidesPrerequisite@medi:
+		Prerequisite: structures.medi
+	ProvidesPrerequisite@mediwizards:
+		Prerequisite: structures.mediwizards
+		Factions: mediwizards
+	ProvidesPrerequisite@medicult:
+		Prerequisite: structures.medicult
+		Factions: medicult
+	ProvidesPrerequisite@mediholy:
+		Prerequisite: structures.mediholy
+		Factions: mediholy
+	RenderSprites:
+		Image: factm
+		PlayerPalette: player
 
-##No Power Foundry
 ##foundrymed
 foundrymedi:
 	Inherits: FOUNDRY
+	Inherits@tax: ^TaxableLow
+	Inherits@IDISABLE: ^DisableOnLowPowerOrPowerDown
 	Valued:
 		Cost: 2000
 	Buildable:
@@ -23,13 +141,14 @@ foundrymedi:
 		Prerequisites: conyard, ~techlevel.medium, ~structures.medi, ~!structures.bothard
 		Description: Autonomous building construction. \nIncreases build speed of Structures and\nDefense by 1 stage (max 10).
 	Power:
-		Amount: 0
+		Amount: -100
 	RenderSprites:
 		Image: foundry
 
 ##Medi Version of Servayor outpost
 ##outpostmed
 outpostmedi:
+	Inherits@tax: ^TaxableLow
 	Inherits: OUTPOST
 	Valued:
 		Cost: 500
@@ -41,36 +160,101 @@ outpostmedi:
 		Image: outpostmedi
 
 ###############################################################################
-##############################   Unit Production   ############################
+##############################   Shared Buildings  ############################
 ############################################################################### 
 
-##Infantry
-##trainingcamp
-meditent:
-	Inherits: TENT
-	Buildable:
-		Queue: Building
-		Prerequisites: ~structures.medi, ~techlevel.infonly, ~!structures.bothard
-		Description: Allows production of infantry units.
-		BuildPaletteOrder: 1
-	Tooltip:
-		Name: Medieval Barracks
-	Building:
-		BuildSounds: medibuild1.aud, medibuildjobdone1.aud, medibuildplace1.aud
+##Drop off site
+##GnomeCamp
+slavecampgc:
+	Inherits@tax: ^TaxableLow
+	Inherits: GPROC
+	Inherits@BIB: ^2xBuildingBib
+	-Refinery:
+	-DockHost:
 	Power:
 		Amount: 0
+	-WithIdleOverlay@TOP:
+	-WithIdleOverlay@uac:
+	-WithDeathAnimation:
+	Selectable:
+		Class: gproc
+		Bounds: 2048, 2048
+	-SpawnActorOnDeath:
+	Buildable:
+		IconPalette: tsunit
+		Queue: Building
+		Prerequisites: ~structures.medi, ~!ai.boss, ~techlevel.infonly, ~!structures.medicult
+		Description: Produces Slaves.\nAlso acts as a Silo to allow more credits to be held.
+		BuildPaletteOrder: 3
+		BuildDuration: 500
+	Tooltip:
+		Name: Farm
+	Building:
+		Footprint: == ==
+		Dimensions: 2,2
+		BuildSounds: medibuild1.aud, medibuildjobdone1.aud, medibuildplace1.aud
+	StoresPlayerResources:
+		Capacity: 800
+	Valued:
+		Cost: 600
+	Health:
+		HP: 15000
+	ProvidesPrerequisite@buildingname:
+	GrantPeriodicCondition@RS1:
+		Condition: RespawnSlaves1
+		CooldownDuration: 110, 300
+	GrantPeriodicCondition@RS2:
+		Condition: RespawnSlaves2
+		CooldownDuration: 110, 300
+	FreeActor@Respawn1:
+		AllowRespawn: True
+		Actor: SLAVESpawn
+		SpawnOffset: 2,2
+		RequiresCondition: !build-incomplete && !mediabolish && RespawnSlaves1
+	FreeActor@Respawn2:
+		AllowRespawn: True
+		Actor: SLAVESpawn
+		SpawnOffset: 2,2
+		RequiresCondition: !build-incomplete && !mediabolish && RespawnSlaves2
+	FreeActor:
+		Actor: mediSLAVE
+		SpawnOffset: 1,2
+		RequiresCondition: !build-incomplete && !mediabolish
+	FreeActor@1:
+		Actor: mediSLAVE
+		SpawnOffset: 1,2
+		RequiresCondition: !build-incomplete && !mediabolish
+	FreeActor@3:
+		Actor: MEDIWORKER
+		SpawnOffset: 1,2
+		RequiresCondition: mediabolish
+	GrantConditionOnPrerequisite@mediabolish:
+		Condition: mediabolish
+		Prerequisites: !upgrade.mediabolish
 	RenderSprites:
-		Image: meditent
-	RenderSprites:
-		Image: tentmedi
+		Image: slavecampgc
+	WithResourceStoragePipsDecoration:
+		Position: BottomLeft
+		RequiresSelection: true
+		PipCount: 5
+		FullSequence: pip-yellow
+	ProvidesPrerequisite@medi:
+		RequiresPrerequisites: structures.medi
+		Prerequisite: refinery
 
 ##Harvesters
-##laborcamp
-laborcamp:
+##Market - Refinary for Medi
+refinarymarket:
+	Inherits@tax: ^TaxableLow
 	Inherits: GPROC
 	-SpawnActorsOnSell:
+	-SpawnActorOnDeath:
+	GrantConditionOnPrerequisite@mediabolish:
+		Condition: mediabolish
+		Prerequisites: ~!upgrade.mediabolish
 	Buildable:
-		Prerequisites: ~structures.medi, ~techlevel.infonly, ~!ai.god
+		IconPalette: tsunit
+		Prerequisites: ~structures.medi, ~techlevel.infonly, ~!ai.boss
 		Description: Allows production of Slaves and Workers
 		BuildPaletteOrder: 2
 		BuildDuration: 800
@@ -80,34 +264,14 @@ laborcamp:
 		Footprint: === =x= === ===
 		Dimensions: 3,4
 		BuildSounds: medibuild1.aud, medibuildjobdone1.aud, medibuildplace1.aud
-	RallyPoint:
-		Path: 0,2
-	Exit@1:
-		RequiresCondition: !being-captured
-		SpawnOffset: 0,0,0
-		ExitCell: 1,1
-		ProductionTypes: Dog, Infantry
-	Exit@2:
-		RequiresCondition: !being-captured
-		SpawnOffset: 0,0,0
-		ExitCell: 1,1
-		ProductionTypes: Dog, Infantry
 	-FreeActor:
 	-FreeActor@1:
 	-FreeActor@2:
-	Production:
-		Produces: Infantry, Dog
-	PrimaryBuilding:
-		PrimaryCondition: primary
-		SelectionNotification: PrimaryBuildingSelected
-	WithDecoration@primary:
-		RequiresSelection: true
-		Image: pips
-		Sequence: tag-primary
-		Position: Top
-		RequiresCondition: primary
-	ProductionBar:
-		ProductionType: Infantry
+	FreeActor@Worker:
+		Actor: MEDIWORKER
+		SpawnOffset: 1,2
+		RequiresCondition: mediabolish
+	Refinery:
 	Armor:
 		Type: Wood
 	Valued:
@@ -118,18 +282,72 @@ laborcamp:
 		TargetTypes: GroundActor, C4, DetonateAttack, Structure
 	ProvidesPrerequisite@buildingname:
 	RenderSprites:
-		Image: laborcampmedi
+		Image: refinarymarket
+	ProvidesPrerequisite@medi:
+		RequiresPrerequisites: structures.medi
+		Prerequisite: refinery
 
-##Vehicles
-##stable
-stables:
-	Inherits: WEAP
+##Infantry
+##Warrior Guild
+barrackswg:
+	Inherits@tax: ^TaxableLow
+	Inherits: TENT
 	Buildable:
+		IconPalette: tsunit
+		Queue: Building
+		Prerequisites: ~structures.medi, ~techlevel.infonly, ~!structures.bothard, ~!structures.medicult
+		Description: Allows production of infantry units.
+		BuildPaletteOrder: 1
+	Tooltip:
+		Name: Medieval Barracks
+	Building:
+		Footprint: == ==
+		Dimensions: 2,2
+		BuildSounds: medibuild1.aud, medibuildjobdone1.aud, medibuildplace1.aud
+	Selectable:
+		Bounds: 2048, 2048
+	Power:
+		Amount: 0
+	RenderSprites:
+		Image: barrackswg
+		PlayerPalette: tsunit
+	ProvidesPrerequisite@medi:
+		RequiresPrerequisites: structures.medi
+		Prerequisite: infantry.medi
+	ProvidesPrerequisite@medicult:
+		RequiresPrerequisites: structures.medicult
+		Prerequisite: infantry.medicult
+	ProvidesPrerequisite@mediholy:
+		RequiresPrerequisites: structures.mediholy
+		Prerequisite: infantry.mediholy
+	ProvidesPrerequisite@mediwizards:
+		RequiresPrerequisites: structures.mediwizards
+		Prerequisite: infantry.mediwizards
+
+
+##Medieval creatures
+AnimalDen:
+	Inherits: KENN
+	Inherits@tax: ^TaxableLow
+	-Buildable
+	Power:
+		Amount: -50
+	RenderSprites:
+		Image: animalden
+
+##Vehicles and Defence Balista
+##Dwarfsettlement
+dwarfsettlement:
+	Inherits: WEAP
+	Inherits@tax: ^TaxableMid
+	Inherits@AUTOTARGET: ^AutoTargetAll
+	Buildable:
+		IconPalette: tsunit
 		Prerequisites: barracks, ~structures.medi, ~!ai.hard, ~techlevel.low
-		Description: Allows production of horse based,\n Mechanical & Elemental units.
+		Description: Allows production of Vehicles.
 		BuildPaletteOrder: 4
 	Valued:
-		Cost: 1500
+		Cost: 2500
 	Tooltip:
 		Name: Medieval Stables
 	Building:
@@ -137,12 +355,49 @@ stables:
 	Power:
 		Amount: 0
 	RenderSprites:
-		Image: stablemedi
+		Image: dwarfsettlement
+	ProvidesPrerequisite@medi:
+		RequiresPrerequisites: structures.medi
+		Prerequisite: Vehicles.medi
+	ProvidesPrerequisite@medicult:
+		RequiresPrerequisites: structures.medicult
+		Prerequisite: Vehicles.medicult
+	ProvidesPrerequisite@mediholy:
+		RequiresPrerequisites: structures.mediholy
+		Prerequisite: Vehicles.mediholy
+	ProvidesPrerequisite@mediwizards:
+		RequiresPrerequisites: structures.mediwizards
+		Prerequisite: Vehicles.mediwizards
+	AttackTurreted:
+		Armaments: PRIMARY
+		Turrets: PRIMARY, T2, T3, T4
+	Armament@PRIMARY:
+		Name: PRIMARY
+		Weapon: Dwarfsettlementshot
+		LocalOffset: 256,128,0, 256,-128,0
+		LocalYaw: -100,100
+	Turreted@PRIMARY:
+		Turret:	PRIMARY
+		TurnSpeed: 1023
+		Offset: 128,128,384
+	Turreted@T2:
+		Turret:	T2
+		TurnSpeed: 1023
+		Offset: 128,128,384
+	Turreted@T3:
+		Turret:	T4
+		TurnSpeed: 1023
+		Offset: 128,128,384
+	Turreted@T4:
+		Turret:	T4
+		TurnSpeed: 1023
+		Offset: 128,128,384
 
 ##Boats
-##dockmedi
-dockmedi:
+##Drydock
+Drydock:
 	Inherits: SYRD
+	Inherits@tax: ^TaxableMid
 	Buildable:
 		Prerequisites: ~structures.medi, ~!techlevel.noboats
 		Description: Produces and repairs\nships and transports.
@@ -156,14 +411,28 @@ dockmedi:
 	RenderSprites:
 		Image: syrd
 	Power:
-		Amount: 0
+		Amount: -50
+	ProvidesPrerequisite@medi:
+		RequiresPrerequisites: structures.medi
+		Prerequisite: ships.medi
+	ProvidesPrerequisite@medicult:
+		RequiresPrerequisites: structures.medicult
+		Prerequisite: ships.medicult
+	ProvidesPrerequisite@mediholy:
+		RequiresPrerequisites: structures.mediholy
+		Prerequisite: ships.mediholy
+	ProvidesPrerequisite@mediwizards:
+		RequiresPrerequisites: structures.mediwizards
+		Prerequisite: ships.mediwizards
 
 ##Aircraft
-##aviary
-aviary:
+##Dragons Lair produces Aircraft
+dragonlair:
 	Inherits: AFLD
+	Inherits@tax: ^TaxableMid
 	Buildable:
-		Prerequisites: techcenter, ~structures.medi, ~techlevel.low
+		IconPalette: tsunit
+		Prerequisites: Vehicles.medi, ~structures.medi, ~techlevel.low
 		Description: Allows production of air units.
 		BuildPaletteOrder: 7
 	Valued:
@@ -183,11 +452,12 @@ aviary:
 	ProvidesPrerequisite@mediholy:
 		RequiresPrerequisites: structures.mediholy
 		Prerequisite: aircraft.mediholy
-	ProvidesPrerequisite@medimages:
-		RequiresPrerequisites: structures.medimages
-		Prerequisite: aircraft.medimages
+	ProvidesPrerequisite@mediwizards:
+		RequiresPrerequisites: structures.mediwizards
+		Prerequisite: aircraft.mediwizards
 	RenderSprites:
-		Image: medihatchery
+		Image: dragonlair
+		PlayerPalette: tsunit
 	Power:
 		Amount: 0
 	RallyPoint:
@@ -200,426 +470,24 @@ aviary:
 	ProductionBar:
 		ProductionType: Aircraft
 
-
-###############################################################################
-##############################   Resources   ##################################
-###############################################################################
-
-##Drop off site
-##farmmedi
-farmmedi:
-	Inherits: GPROC
-	Inherits@BIB: ^2xBuildingBib
-	-Power:
-	-WithIdleOverlay@TOP:
-	-WithIdleOverlay@uac:
-	-WithDeathAnimation:
-	Power:
-		Amount: 0
-	Selectable:
-		Class: gproc
-		Bounds: 2048, 2048
-	-SpawnActorOnDeath:
-	Buildable:
-		Queue: Building
-		Prerequisites: ~structures.medi, ~laborcamp, ~!ai.god, ~techlevel.infonly
-		Description: Drop off point for resources gathered by Slaves and Workers.\nAlso acts as a Silo to allow more credits to be held.
-		BuildPaletteOrder: 3
-		BuildDuration: 500
-	Tooltip:
-		Name: Farm
-	Building:
-		Footprint: == ==
-		Dimensions: 2,2
-		BuildSounds: medibuild1.aud, medibuildjobdone1.aud, medibuildplace1.aud
-	StoresPlayerResources:
-		Capacity: 800
-	Valued:
-		Cost: 800
-	Health:
-		HP: 15000
-	ProvidesPrerequisite@buildingname:
-	FreeActor:
-		Actor: SLAVE
-		SpawnOffset: 1,2
-		RequiresCondition: !build-incomplete && !mediabolish
-	FreeActor@1:
-		Actor: SLAVE
-		SpawnOffset: 1,2
-		RequiresCondition: !build-incomplete && !mediabolish
-	FreeActor@2:
-		Actor: SLAVE
-		SpawnOffset: 2,2
-		RequiresCondition: !build-incomplete && !mediabolish
-	FreeActor@3:
-		Actor: MEDIWORKER
-		SpawnOffset: 1,2
-		RequiresCondition: mediabolish
-	GrantConditionOnPrerequisite@mediabolish:
-		Condition: mediabolish
-		Prerequisites: ~!upgrade.mediabolish
-	RenderSprites:
-		Image: farmmedi
-	WithResourceStoragePipsDecoration:
-		Position: BottomLeft
-		RequiresSelection: true
-		PipCount: 5
-		FullSequence: pip-yellow
-
-##Resource Generation
-##goldminemedi
-GoldMine:
-	Inherits: ^Building
-	Inherits@shape: ^2x2Shape
-	Selectable:
-		Bounds: 2048, 2048
-	Tooltip:
-		Name: Garison with workers to generate money.
-	Buildable:
-		Queue: Tech
-		Prerequisites: ~structures.medi, refinery, ulttechcenter, ~techlevel.high
-		Description: Slowly produces money when workers provided
-		BuildPaletteOrder: 31
-		BuildLimit: 4
-	Building:
-		Footprint: xx xx
-		Dimensions: 2,2
-		BuildSounds: medibuild1.aud, medibuildjobdone1.aud, medibuildplace1.aud
-	Health:
-		HP: 20000
-	Valued:
-		Cost: 6000
-	Power:
-		Amount: 200
-	Armor:
-		Type: Wood
-	RevealsShroud:
-		Range: 3c0
-	Targetable:
-		TargetTypes: GroundActor, C4, DetonateAttack, Structure
-	ProvidesPrerequisite@GoldMine:
-		Prerequisite: GoldMine
-	RenderSprites:
-		Image: medigoldmine
-	Pluggable@1:
-		Offset: 0,-1
-		Conditions:
-			gmine.l1: has_l
-			gmine.l2: has_2
-			gmine.l3: has_3
-			gmine.l4: has_4
-			gmine.l5: has_5
-		Requirements:
-			gmine.l1: !has_l && !has_2 && !has_3 && !has_4 && !has_5
-			gmine.l2: has_l && !has_2 && !has_3 && !has_4 && !has_5
-			gmine.l3: has_2 && !has_3 && !has_4 && !has_5
-			gmine.l4: has_3 && !has_4 && !has_5
-			gmine.l5: has_4 && !has_5
-		EditorOptions:
-			gmine.l1: Depth 1
-			gmine.l2: Depth 2
-			gmine.l3: Depth 3
-			gmine.l4: Depth 4
-			gmine.l5: Depth 5
-	Cargo:
-		Types: GaryWorker
-		MaxWeight: 30
-		LoadedCondition: garyslave
-	WithCargoPipsDecoration:
-		Position: BottomLeft
-		RequiresSelection: true
-		PipCount: 15
-	CashTrickler:
-		Interval: 800
-		Amount: 150
-		InitialDelay: 100
-		RequiresCondition: !disabled
-	CashTricklerMultiplier@t1:
-		Modifier: 120
-		RequiresCondition: has_1 && garyslave >= 1 && garyslave <= 5
-	CashTricklerMultiplier@t2:
-		Modifier: 140
-		RequiresCondition: has_2 && garyslave >= 6 && garyslave <= 11
-	CashTricklerMultiplier@t3:
-		Modifier: 160
-		RequiresCondition: has_3 && garyslave >= 12 && garyslave <= 17
-	CashTricklerMultiplier@t4:
-		Modifier: 180
-		RequiresCondition: has_4 && garyslave >= 17 && garyslave <= 25
-	CashTricklerMultiplier@t5:
-		Modifier: 250
-		RequiresCondition: has_5 && garyslave >= 26
-
-##GoldMine Plugs
-gmine.l1:
-	Inherits: ^BuildingPlug
-	Valued:
-		Cost: 1000
-	Tooltip:
-		Name: Expand the Mine to Depth 1
-	Buildable:
-		Queue: Wall
-		BuildPaletteOrder: 52
-		Prerequisites: ~structures.medi, ~GoldMine, ulttechcenter, ~techlevel.high
-		Description: Place on a Gold Mine to expand its depths /n (Must be built in sequence)
-		Icon: icon-gun
-		BuildDuration: 2000
-	Plug:
-		Type: gmine.l1
-	Building:
-		BuildSounds: medibuild1.aud, medibuildjobdone1.aud, medibuildplace1.aud
-	RenderSprites:
-		Image: medigoldmine
-		
-gmine.l2:
-	Inherits: gmine.l1
-	Valued:
-		Cost: 3000
-	Tooltip:
-		Name: Expand the Mine to Depth 2
-	Buildable:
-		Description: Place on a Gold Mine to expand its depths /n (Must be built in sequence)
-	Plug:
-		Type: gmine.l2
-		
-gmine.l3:
-	Inherits: gmine.l1
-	Valued:
-		Cost: 5000
-	Tooltip:
-		Name: Expand the Mine to Depth 3
-	Buildable:
-		Description: Place on a Gold Mine to expand its depths /n (Must be built in sequence)
-	Plug:
-		Type: gmine.l3
-		
-gmine.l4:
-	Inherits: gmine.l1
-	Valued:
-		Cost: 7000
-	Tooltip:
-		Name: Expand the Mine to Depth 4
-	Buildable:
-		Description: Place on a Gold Mine to expand its depths /n (Must be built in sequence)
-	Plug:
-		Type: gmine.l4
-		
-gmine.l5:
-	Inherits: gmine.l1
-	Valued:
-		Cost: 10000
-	Tooltip:
-		Name: Expand the Mine to Depth 5
-	Buildable:
-		Description: Place on a Gold Mine to expand its depths /n (Must be built in sequence)
-	Plug:
-		Type: gmine.l5
-		
-##Power Plants
-##manawell
-manawell:
-	Inherits: ^PowerPlant
-	Inherits@POWER_OUTAGE: ^DisabledByPowerOutage
-	Inherits@shape: ^2x2Shape
-	Inherits@BIB: ^2xBuildingBib
-	Selectable:
-		Bounds: 2048, 2048
-	Buildable:
-		Queue: Building
-		Prerequisites: ~structures.medi, techcenter, ~!ai.powerout, ~!ai.god,  ~techlevel.low
-		Description: Provides Power
-		BuildPaletteOrder: 6
-		BuildDuration: 1000
-	Tooltip:
-		Name: Mana Well
-	Building:
-		Footprint: xx ==
-		Dimensions: 2,2
-		BuildSounds: medibuild1.aud, medibuildjobdone1.aud, medibuildplace1.aud
-	Valued:
-		Cost: 1500
-	Health:
-		HP: 50000
-	Armor:
-		Type: Wood
-	RevealsShroud:
-		Range: 4c0
-	Power:
-		Amount: 150
-	Targetable:
-		TargetTypes: GroundActor, C4, DetonateAttack, Structure
-	ProvidesPrerequisite@buildingname:
-	ProvidesPrerequisite:
-		Prerequisite: anypower
-	RenderSprites:
-		Image: medimanawell
-	PowerMultiplier@hardAI:
-		RequiresCondition: bot_hard
-		Modifier: 200
-	WithIdleOverlay@bibtemp:
-		Image: bib3compiled_terran
-	WithIdleOverlay@bibsnow:
-		Image: bib3compiled_terran
-	WithIdleOverlay@bibdes:
-		Image: bib3compiled_terran
-	PowerMultiplier@t0:
-		RequiresCondition: manaproxboost == 0
-		Modifier: 25
-	PowerMultiplier@t1:
-		RequiresCondition: manaproxboost == 1
-		Modifier: 105
-	PowerMultiplier@t3:
-		RequiresCondition: manaproxboost == 2
-		Modifier: 115
-	PowerMultiplier@t5:
-		RequiresCondition: manaproxboost == 3
-		Modifier: 125
-	PowerMultiplier@t7:
-		RequiresCondition: manaproxboost == 4
-		Modifier: 135
-	PowerMultiplier@t9:
-		RequiresCondition: manaproxboost == 5
-		Modifier: 145
-	PowerMultiplier@t11:
-		RequiresCondition: manaproxboost == 6
-		Modifier: 160
-	PowerMultiplier@t13:
-		RequiresCondition: manaproxboost == 7
-		Modifier: 180
-	PowerMultiplier@t15:
-		RequiresCondition: manaproxboost == 8
-		Modifier: 200
-	PowerMultiplier@t17:
-		RequiresCondition: manaproxboost == 9
-		Modifier: 220
-	PowerMultiplier@t19:
-		RequiresCondition: manaproxboost >= 10
-		Modifier: 300
-	DamageMultiplier@t1:
-		RequiresCondition: manaproxboost == 1
-		Modifier: 99
-	DamageMultiplier@t2:
-		RequiresCondition: manaproxboost == 2
-		Modifier: 98
-	DamageMultiplier@t3:
-		RequiresCondition: manaproxboost >= 2 && manaproxboost <= 3
-		Modifier: 94
-	DamageMultiplier@t4:
-		RequiresCondition: manaproxboost >= 4 && manaproxboost <= 6
-		Modifier: 90
-	DamageMultiplier@t5:
-		RequiresCondition: manaproxboost >= 7 && manaproxboost <= 9
-		Modifier: 80
-	DamageMultiplier@t6:
-		RequiresCondition: manaproxboost >= 10
-		Modifier: 75
-	WithRangeCircle@proxboost:
-		Range: 8c512
-		RequiresCondition: manaproxboost
-	ExternalCondition@proxboost:
-		Condition: manaproxboost
-
-##manaconduit
-manaconduit:
-	Inherits: ^PowerPlant
-	Inherits@POWER_OUTAGE: ^DisabledByPowerOutage
-	Inherits@shape: ^2x1Shape
-	Inherits@BIB: ^2xBuildingBib
-	Selectable:
-		Bounds: 1024, 2048
-	Buildable:
-		Queue: Building
-		Prerequisites: ~structures.medi, techcenter, ~!ai.powerout, ~!ai.god,  ~techlevel.low
-		Description: Empowers mana wells.
-		BuildPaletteOrder: 6
-		BuildDuration: 500
-	Tooltip:
-		Name: Mana Conduit, Empowers mana wells.
-	Building:
-		Footprint: ==
-		Dimensions: 1,2
-		BuildSounds: medibuild1.aud, medibuildjobdone1.aud, medibuildplace1.aud
-	Valued:
-		Cost: 2500
-	Health:
-		HP: 40000
-	Armor:
-		Type: Wood
-	RevealsShroud:
-		Range: 4c0
-	Power:
-		Amount: 50
-	Targetable:
-		TargetTypes: GroundActor, C4, DetonateAttack, Structure
-	ProvidesPrerequisite@buildingname:
-	ProvidesPrerequisite:
-		Prerequisite: anypower
-	RenderSprites:
-		Image: medimanawell
-	WithIdleOverlay@bibtemp:
-		Image: bib3compiled_terran
-	WithIdleOverlay@bibsnow:
-		Image: bib3compiled_terran
-	WithIdleOverlay@bibdes:
-		Image: bib3compiled_terran
-	DamageMultiplier@t1:
-		RequiresCondition: manaproxboost == 1
-		Modifier: 99
-	DamageMultiplier@t2:
-		RequiresCondition: manaproxboost == 2
-		Modifier: 98
-	DamageMultiplier@t3:
-		RequiresCondition: manaproxboost >= 2 && manaproxboost <= 3
-		Modifier: 94
-	DamageMultiplier@t4:
-		RequiresCondition: manaproxboost >= 4 && manaproxboost <= 6
-		Modifier: 90
-	DamageMultiplier@t5:
-		RequiresCondition: manaproxboost >= 7 && manaproxboost <= 9
-		Modifier: 80
-	DamageMultiplier@t6:
-		RequiresCondition: manaproxboost >= 10
-		Modifier: 75
-	WithRangeCircle@proxboost:
-		Range: 8c512
-		RequiresCondition: manaproxboost
-	ExternalCondition@proxboost:
-		Condition: manaproxboost
-	ProximityExternalCondition@proxboost:
-		Condition: manaproxboost
-		Range: 8c512
-	GrantCondition@maxstack:
-		Condition: manamaxstack
-		GrantPermanently: True
-		RequiresCondition: manaproxboost >= 10
-	GrantCondition@midstack:
-		Condition: manamidstack
-		GrantPermanently: True
-		RequiresCondition: manaproxboost >= 5 && manaproxboost <= 9
-
-
-###############################################################################
-#################################   Tech   ###################################
-###############################################################################
-
-##Mix of Tech building and a strong defense structure
-##Castle
-castle:
-	Inherits: ^Defense
-	Inherits@AUTOTARGET: ^AutoTargetAll
+##Tech building
+##techcenterblacksmith
+techcenterblacksmith:
 	Inherits: ^ScienceBuilding
+	Inherits@tax: ^TaxableHigh
 	Inherits@shape: ^3x3Shape
 	Inherits@BIB: ^3xBuildingBib
 	Selectable:
 		Bounds: 3072, 3072
 	Buildable:
+		IconPalette: tsunit
 		Queue: Building
-		Prerequisites: ~structures.medi, stables, ~!ai.hard, ~techlevel.infonly
+		Prerequisites: ~structures.medi, Vehicles.medi, ~!ai.hard, ~techlevel.infonly
 		Description: Mix of a Tech Center and Defense structure
 		BuildPaletteOrder: 5
 		BuildLimit: 4
 	Tooltip:
-		Name: Medieval Castle (Techcenter)
+		Name: Medieval techcenter (Techcenter)
 	Building:
 		Footprint: xxx xxx x=x
 		Dimensions: 3,3
@@ -638,126 +506,18 @@ castle:
 	Targetable:
 		TargetTypes: GroundActor, C4, DetonateAttack, Structure, SpyInfiltrate
 	ProvidesPrerequisite@buildingname:
-	ProvidesPrerequisite:
+	ProvidesPrerequisite@techcenter:
 		Prerequisite: techcenter
 	RenderSprites:
-		Image: medicastle
-	Turreted@T1:
-		Turret: T1
-		TurnSpeed: 1023
-		Offset: -512,-512,384
-	Turreted@T2:
-		Turret: T2
-		TurnSpeed: 1023
-		Offset: 512,512,384
-	Turreted@T3:
-		Turret: T3
-		TurnSpeed: 1023
-		Offset: 512,-512,384
-	Turreted@T4:
-		Turret: T4
-		TurnSpeed: 1023
-		Offset: -512,512,384
-	Turreted@T5:
-		Turret: T5
-		TurnSpeed: 1023
-		Offset: -512,-512,384
-	Turreted@T6:
-		Turret: T6
-		TurnSpeed: 1023
-		Offset: 512,512,384
-	Turreted@T7:
-		Turret: T7
-		TurnSpeed: 1023
-		Offset: 512,-512,384
-	Turreted@T8:
-		Turret: T8
-		TurnSpeed: 1023
-		Offset: -512,512,384
-	AmmoPool@Arrows:
-		Name: Arrows
-		Armaments: T1,T2,T3,T4
-		Ammo: 100
-		InitialAmmo: 20
-		ReloadCount: 10
-		ReloadDelay: 50
-		AmmoCondition: Arrows
-	AmmoPool@Arrowsb:
-		Name: Arrows
-		Armaments: T5,T6,T7,T8
-		Ammo: 100
-		InitialAmmo: 20
-		ReloadCount: 10
-		ReloadDelay: 50
-		AmmoCondition: Arrows
-	Armament@T1:
-		Name: T1
-		Turret: T1
-		Weapon: Castlearrows
-		LocalOffset: 256,128,0, 256,-128,0
-		LocalYaw: -100,100
-	Armament@T2:
-		Name: T2
-		Turret: T2
-		Weapon: Castlearrows
-		LocalOffset: 256,128,0, 256,-128,0
-		LocalYaw: -100,100
-	Armament@T4:
-		Name: T4
-		Turret: T4
-		Weapon: Castlearrows
-		LocalOffset: 256,128,0, 256,-128,0
-		LocalYaw: -100,100
-	Armament@T4:
-		Name: T4
-		Turret: T4
-		Weapon: Castlearrows
-		LocalOffset: 256,128,0, 256,-128,0
-		LocalYaw: -100,100
-	Armament@T5:
-		Name: T5
-		Turret: T5
-		Weapon: Castlearrowsb
-		LocalOffset: 256,128,0, 256,-128,0
-		LocalYaw: -100,100
-		AmmoUsage: 30
-	Armament@T6:
-		Name: T6
-		Turret: T6
-		Weapon: Castlearrowsb
-		LocalOffset: 256,128,0, 256,-128,0
-		LocalYaw: -100,100
-		AmmoUsage: 30
-	Armament@T7:
-		Name: T7
-		Turret: T7
-		Weapon: Castlearrowsb
-		LocalOffset: 256,128,0, 256,-128,0
-		LocalYaw: -100,100
-		AmmoUsage: 30
-	Armament@T8:
-		Name: T8
-		Turret: T8
-		Weapon: Castlearrowsb
-		LocalOffset: 256,128,0, 256,-128,0
-		LocalYaw: -100,100
-		AmmoUsage: 30
-	AttackTurreted:
-		Turrets: T1,T2,T3,T4,T5,T6,T7,T8
-		Armaments: T1,T2,T3,T4,T5,T6,T7,T8
-		RequiresCondition: !build-incomplete
-		PauseOnCondition: lowpower || disabled
-	-BodyOrientation:
-	ClassicFacingBodyOrientation:
-		QuantizedFacings: 8
+		Image: techcenterblacksmith
+	Inherits@IDISABLE: ^DisableOnLowPowerOrPowerDown
 	Power:
-		Amount: 0
+		Amount: 100
 	DetectCloaked:
 		Range: 6c0
 		DetectionTypes: Cloak, AirCloak
 		RequiresCondition: !disabled
-	## darkHarvest.ion : warhead that causes buildings to spawn mix of swarmlings units
-	## Airstrike power
+	## Neutral Powers
 	AirstrikePower@ElementalAirstrike:
 		UnitType: medidragonbomber ##MediDragonBomber
 		SquadSize: 3
@@ -781,26 +541,81 @@ castle:
 		ArrowSequence: arrow
 		ClockSequence: clock
 		CircleSequence: circles
-	##Need to add a few extra arrow points. maybe hwatcha attack instead of archers?
-
+	## Cult Powers
+	IonCannonPower@CursePower:
+		OrderName: CursePower
+		Prerequisites: ~structures.medicult
+		PauseOnCondition: disabled
+		Icon: medicurseicon
+		Cursor: chrono-target
+		ChargeInterval: 4000
+		Name: Curse
+		Description: Weakens enemy forces
+		SelectTargetSpeechNotification: SelectTarget
+		InsufficientPowerSpeechNotification: InsufficientPower
+		OnFireSound: medicurse.aud
+		DisplayRadarPing: True
+		SupportPowerPaletteOrder: 20
+		Effect: explosion
+		EffectSequence: medicurseproj
+		Weapon: CursePowerWep
+		DisplayTimerRelationships: None
+	## Holy Powers
+	NukePower@HolyLight:
+		Prerequisites: ~structures.mediholy
+		OrderName: HolyLight
+		PauseOnCondition: disabled
+		Cursor: chrono-target
+		Icon: mediholylighticon
+		ChargeInterval: 3500
+		Name: Holy Light
+		Description: Heals units
+		SelectTargetSpeechNotification: SelectTarget
+		InsufficientPowerSpeechNotification: InsufficientPower
+		MissileWeapon: medihealorder
+		MissileDelay: 1
+		SpawnOffset: 0,0,0
+		DisplayTimerRelationships: None
+		DisplayBeacon: True
+		DisplayRadarPing: True
+		BeaconPoster: mediholylightbeacon
+		CameraRange: 0c0
+		ArrowSequence: arrow
+		ClockSequence: clock
+		CircleSequence: circles
+		SupportPowerPaletteOrder: 70
+		SkipAscent: True
+		FlightDelay: 50
+		MissilePalette: player
+		IsPlayerPalette: true
+		MissileImage: medihealorder	
+	## Wizard Powers
+	SpawnActorPower@Golem:
+		OrderName: Golem Magic
+		Actor: rockgolem
+		LifeTime: 500
+		ChargeInterval: 5000
+		Icon: medivoidportalicon
+		Name: Spawn an Rock Golem
+		Description: Bring forth an elemental construct
+		Prerequisites: ~structures.mediwizards
+		EffectSequence: idle
 
 ##Advanced Tech
 ##alchlab
-alchlab:
-	Inherits: ^ScienceBuilding
+advtechcenterlibrary:
+	Inherits: ADVTECH
+	Inherits@tax: ^TaxableHigh
 	Inherits@IDISABLE: ^DisableOnLowPowerOrPowerDown
-	Inherits@shape: ^2x2Shape
-	Inherits@BIB: ^2xBuildingBib
-	Selectable:
-		Bounds: 2048, 2048
 	Buildable:
+		IconPalette: tsunit
 		Queue: Tech
-		Prerequisites: ~structures.medi, techcenter, ~techlevel.high, anypower
+		Prerequisites: ~structures.medi, techcenter, ~techlevel.high
 		BuildLimit: 1
 		Description: Unlocks spells and provides passive income.\nConsumes lots of power.
 		BuildPaletteOrder: 9
 	Tooltip:
-		Name: Alchemy lab
+		Name: Great Library
 	Building:
 		Footprint: xx ==
 		Dimensions: 2,2
@@ -814,7 +629,7 @@ alchlab:
 	RevealsShroud:
 		Range: 4c0
 	Power:
-		Amount: -500
+		Amount: -200
 	CashTrickler:
 		Interval: 50
 		Amount: 25
@@ -822,15 +637,74 @@ alchlab:
 	ProvidesPrerequisite@buildingname:
 	ProvidesPrerequisite@adv:
 		Prerequisite: advtechcenter
+	ProvidesPrerequisite@techcenter:
+		Prerequisite: techcenter
 	Targetable:
 		TargetTypes: GroundActor, C4, DetonateAttack, Structure, SpyInfiltrate
 	RenderSprites:
-		Image: medialchemy
-	## Evil Powers
-	## Zombies
+		Image: advtechcenterlibrary
+		PlayerPalette: tsunit
+	## Neutral Powers
+	IonCannonPower@SmitePower:
+		OrderName: SmitePower
+		Prerequisites: ~structures.medi, ~!structures.medicult
+		PauseOnCondition: disabled
+		Icon: medismiteicon
+		Cursor: chrono-target
+		ChargeInterval: 6300
+		Name: Smite
+		Description: Damages infantry in an area
+		SelectTargetSpeechNotification: SelectTarget
+		InsufficientPowerSpeechNotification: InsufficientPower
+		OnFireSound: medismitesound.wav
+		DisplayRadarPing: True
+		SupportPowerPaletteOrder: 20
+		Effect: explosion
+		EffectSequence: medismiteproj
+		Weapon: SmitePowerWep
+		DisplayTimerRelationships: None
+	IonCannonPower@ToxicCloud:
+		OrderName: ToxicCloud
+		Prerequisites: ~structures.medi
+		PauseOnCondition: disabled
+		Icon: medivoidportalicon
+		Cursor: chrono-target
+		ChargeInterval: 6000
+		Name: Toxic Cloud
+		Description: Drenches an area in corrosive gas, dealing lingering damage and weakening armor
+		SelectTargetSpeechNotification: SelectTarget
+		InsufficientPowerSpeechNotification: InsufficientPower
+		OnFireSound: medicurse.aud
+		DisplayRadarPing: True
+		SupportPowerPaletteOrder: 20
+		Effect: explosion
+		EffectSequence: poisonorbeffect
+		EffectPalette: tsunit2
+		Weapon: ToxicCloudWep
+		DisplayTimerRelationships: None
+	IonCannonPower@PillarsOfFire:
+		OrderName: PillarsOfFire
+		Prerequisites: ~structures.medi
+		PauseOnCondition: disabled
+		Icon: medivoidportalicon
+		Cursor: chrono-target
+		ChargeInterval: 6000
+		Name: Pillars of Fire
+		Description: Drops scattered columns of flame across the target area, devastating clusters and structures
+		SelectTargetSpeechNotification: SelectTarget
+		InsufficientPowerSpeechNotification: InsufficientPower
+		OnFireSound: medicurse.aud
+		DisplayRadarPing: True
+		SupportPowerPaletteOrder: 20
+		Effect: explosion
+		EffectSequence: firepillareffect
+		EffectPalette: tsunit2
+		Weapon: PillarsOfFireWep
+		DisplayTimerRelationships: None
+	## Cult Powers
 	SpawnActorPower@Undead:
 		OrderName: Undead Magic
-		Actor: swarmlingSwarm
+		Actor: Skeleton
 		LifeTime: 500
 		ChargeInterval: 5000
 		Icon: medivoidportalicon
@@ -838,8 +712,6 @@ alchlab:
 		Description: Bring forth the undead to attack your foes
 		Prerequisites: ~structures.medicult
 		EffectSequence: idle
-	## Neutral Powers
-	## Stealth
 	GrantExternalConditionPower@DarknessStealth:
 		OrderName: ElementalStealth
 		PauseOnCondition: disabled
@@ -856,26 +728,179 @@ alchlab:
 		DisplayTimerRelationships: None
 		Dimensions: 3, 3
 		Footprint: _x_ xxx _x_
-	## Magic Powers
-	## ElementalPortal
+	IonCannonPower@SoulHarvest:
+		OrderName: SoulHarvest
+		Prerequisites: ~structures.medicult
+		PauseOnCondition: disabled
+		Icon: medivoidportalicon
+		Cursor: chrono-target
+		ChargeInterval: 5000
+		Name: Soul Harvest
+		Description: Marks enemies in an area; marked units rise again as undead when slain
+		SelectTargetSpeechNotification: SelectTarget
+		InsufficientPowerSpeechNotification: InsufficientPower
+		OnFireSound: medicurse.aud
+		DisplayRadarPing: True
+		SupportPowerPaletteOrder: 20
+		Effect: explosion
+		EffectSequence: undeath
+		EffectPalette: tsunit2
+		Weapon: SoulHarvestWep
+		DisplayTimerRelationships: None
+	IonCannonPower@ChaosStorm:
+		OrderName: ChaosStorm
+		Prerequisites: ~structures.medicult
+		PauseOnCondition: disabled
+		Icon: medivoidportalicon
+		Cursor: chrono-target
+		ChargeInterval: 6000
+		Name: Chaos Storm
+		Description: Scatters unstable motes across an area that detonate with random elemental fury
+		SelectTargetSpeechNotification: SelectTarget
+		InsufficientPowerSpeechNotification: InsufficientPower
+		OnFireSound: medicurse.aud
+		DisplayRadarPing: True
+		SupportPowerPaletteOrder: 20
+		Effect: explosion
+		EffectSequence: chaosburst
+		EffectPalette: tsunit2
+		Weapon: ChaosStormWep
+		DisplayTimerRelationships: None
+	## Holy Powers
+	IonCannonPower@ChainsPower:
+		OrderName: ChainsPower
+		Prerequisites: ~structures.mediholy
+		PauseOnCondition: disabled
+		Icon: mediholychainsicon
+		Cursor: chrono-target
+		ChargeInterval: 4000
+		Name: Chains of Heaven
+		Description: Stunlocks units in place for a period of time
+		SelectTargetSpeechNotification: SelectTarget
+		InsufficientPowerSpeechNotification: InsufficientPower
+		OnFireSound: mediholychainsound.wav
+		DisplayRadarPing: True
+		SupportPowerPaletteOrder: 20
+		Effect: explosion
+		EffectSequence: mediholychains
+		Weapon: ChainsPowerWep
+		DisplayTimerRelationships: None
+	IonCannonPower@Sanctuary:
+		OrderName: Sanctuary
+		Prerequisites: ~structures.mediholy
+		PauseOnCondition: disabled
+		Icon: medivoidportalicon
+		Cursor: chrono-target
+		ChargeInterval: 6000
+		Name: Sanctuary
+		Description: Grants allied units and structures in an area brief total immunity to damage
+		SelectTargetSpeechNotification: SelectTarget
+		InsufficientPowerSpeechNotification: InsufficientPower
+		OnFireSound: mediholyheal.aud
+		DisplayRadarPing: True
+		SupportPowerPaletteOrder: 20
+		Effect: explosion
+		EffectSequence: medisanctuaryshield
+		EffectPalette: tsunit2
+		Weapon: SanctuaryWep
+		DisplayTimerRelationships: None
+	IonCannonPower@Petrify:
+		OrderName: Petrify
+		Prerequisites: ~structures.mediholy
+		PauseOnCondition: disabled
+		Icon: medivoidportalicon
+		Cursor: chrono-target
+		ChargeInterval: 5000
+		Name: Petrify
+		Description: Turns enemies in an area to crystal, stunning them and shattering their armor
+		SelectTargetSpeechNotification: SelectTarget
+		InsufficientPowerSpeechNotification: InsufficientPower
+		OnFireSound: mediholychainsound.wav
+		DisplayRadarPing: True
+		SupportPowerPaletteOrder: 20
+		Effect: explosion
+		EffectSequence: crystalburst
+		EffectPalette: tsunit2
+		Weapon: PetrifyWep
+		DisplayTimerRelationships: None
+	## Wizard Powers
+	IonCannonPower@FrostNova:
+		OrderName: FrostNova
+		Prerequisites: ~structures.mediwizards
+		PauseOnCondition: disabled
+		Icon: medivoidportalicon
+		Cursor: chrono-target
+		ChargeInterval: 4000
+		Name: Frost Nova
+		Description: Blankets the target area in freezing cold, slowing enemy movement and attacks
+		SelectTargetSpeechNotification: SelectTarget
+		InsufficientPowerSpeechNotification: InsufficientPower
+		OnFireSound: medicurse.aud
+		DisplayRadarPing: True
+		SupportPowerPaletteOrder: 20
+		Effect: explosion
+		EffectSequence: frostnova
+		Weapon: FrostNovaWep
+		DisplayTimerRelationships: None
+	IonCannonPower@IceSpikeBarrage:
+		OrderName: IceSpikeBarrage
+		Prerequisites: ~structures.mediwizards
+		PauseOnCondition: disabled
+		Icon: medivoidportalicon
+		Cursor: chrono-target
+		ChargeInterval: 4500
+		Name: Ice Spike Barrage
+		Description: Hurls a piercing volley of ice spikes that shatters armor and chills survivors
+		SelectTargetSpeechNotification: SelectTarget
+		InsufficientPowerSpeechNotification: InsufficientPower
+		OnFireSound: medicurse.aud
+		DisplayRadarPing: True
+		SupportPowerPaletteOrder: 20
+		Effect: explosion
+		EffectSequence: icespikeeffect
+		EffectPalette: tsunit2
+		Weapon: IceSpikeBarrageWep
+		DisplayTimerRelationships: None
+	IonCannonPower@ChainLightning:
+		OrderName: ChainLightning
+		Prerequisites: ~structures.mediwizards
+		PauseOnCondition: disabled
+		Icon: medivoidportalicon
+		Cursor: chrono-target
+		ChargeInterval: 4500
+		Name: Chain Lightning
+		Description: Arcs lightning between clustered enemies, stunning and damaging each in turn
+		SelectTargetSpeechNotification: SelectTarget
+		InsufficientPowerSpeechNotification: InsufficientPower
+		OnFireSound: medicurse.aud
+		DisplayRadarPing: True
+		SupportPowerPaletteOrder: 20
+		Effect: explosion
+		EffectSequence: electricburst
+		EffectPalette: tsunit2
+		Weapon: ChainLightningWep
+		DisplayTimerRelationships: None
 
 ##Super Tech
-##Library
-library:
+##Brashnards (Super Tech)
+brashnards:
 	Inherits: ^ScienceBuilding
+	Inherits@tax: ^TaxableSuper
 	Inherits@shape: ^3x3Shape
 	Inherits@BIB: ^3xBuildingBib
+	Inherits@IDISABLE: ^DisableOnLowPowerOrPowerDown
 	Selectable:
 		Bounds: 4096, 3072
 	Buildable:
+		IconPalette: tsunit
 		Queue: Tech
 		BuildDuration: 4500
-		Prerequisites: ~structures.medi, advtechcenter, ~techlevel.unrestricted, ~!ai.god, anypower
+		Prerequisites: ~structures.medi, advtechcenter, ~techlevel.unrestricted, ~!ai.boss
 		Description: Super Tech Center\nclones infantry units\nUnlocks Super Units
 		BuildLimit: 1
 		BuildPaletteOrder: 11
 	Tooltip:
-		Name: Library (Super Tech)
+		Name: Brashnards (Super Tech)
 	Building:
 		Footprint: xxxx =xx= ====
 		Dimensions: 4,3
@@ -893,7 +918,7 @@ library:
 		TargetTypes: GroundActor, C4, DetonateAttack, Structure, SpyInfiltrate
 	ProvidesPrerequisite@buildingname:
 	RenderSprites:
-		Image: medilibrary
+		Image: brashnards
 	Production:
 		Produces: Infantry
 	RallyPoint:
@@ -942,182 +967,155 @@ library:
 		Type: CenterPosition
 		Weapon: EMPExplosion
 		EmptyWeapon: EMPExplosion
+	Power:
+		Amount: -300
+	## Cult
+	DropPodsPowerOW@zombierain:
+		Icon: medivoidportalicon
+		Name: Zombie Rain
+		OrderName: zombierain
+		Description: Rain the undead upon your enemies - zombies and skeletons fall from the sky
+		UnitTypes: zombierainpod, zombierainpod1, zombierainpod2, zombierainpod3, zombierainpod4
+		Cursor: chrono-target
+		Drops: 20,25
+		PodScatter: 10
+		PodFacing: 704
+		PauseOnCondition: disabled
+		CameraActor: camera
+		CameraRemoveDelay: 300
+		Weapon: ArtilleryPowerMarker
+		WeaponDelay: 5
+		ChargeInterval: 12000
+		EntryEffect: explosion
+		EntryEffectSequence: bunkerbustersring
+		LaunchSound: InterceptorMissile01.wav
+		SelectTargetSpeechNotification: SelectTarget
+		DisplayRadarPing: true
+		DisplayTimerRelationships: Ally, Enemy, Neutral
+		BeaconPoster: artillerybarragebeacon
+		Prerequisites: ~structures.medicult
+	##Holy
+	SpawnActorPower@TransmuteHoly:
+		OrderName: TransmuteHoly
+		Actor: TransmuteSpawnerHoly
+		LifeTime: 100
+		ChargeInterval: 8000
+		Icon: medivoidportalicon
+		Name: Holy Transmute
+		Description: Convert all Ore, Tiberium and Blue Tiberium in a large area into Gems
+		Prerequisites: ~structures.mediholy
+		EffectSequence: idle
+	## Wizard Powers
+	SpawnActorPower@TransmuteWizard:
+		OrderName: TransmuteWizard
+		Actor: TransmuteSpawnerWizard
+		LifeTime: 100
+		ChargeInterval: 4000
+		Icon: medivoidportalicon
+		Name: Transmute
+		Description: Convert Ore in a small area into Gems
+		Prerequisites: ~structures.mediwizards
+		EffectSequence: idle
 
-##Grants access to most powers
-##churchmedi
-churchmedi:
-	Inherits: ^Building
-	Inherits@shape: ^2x2Shape
-	Selectable:
-		Bounds: 2048, 2048
-	Buildable:
-		Queue: Tech
-		Prerequisites: ~structures.medi, advtechcenter, ~techlevel.medium, anypower
-		Description: Grants Magic of the gods
-		BuildLimit: 2
-		BuildPaletteOrder: 5
+##radar structure
+##medi radar
+radarwg:
+	Inherits: ^ScienceBuilding
+	Inherits@tax: ^TaxableHigh
+	Inherits@IDISABLE: ^DisableOnLowPowerOrPowerDown
+	Valued:
+		Cost: 1400
 	Tooltip:
-		Name: Medieval Church
+		Name: Wizard Guild
+	Buildable:
+		IconPalette: tsunit
+		Queue: Tech
+		Prerequisites: ~structures.medi, techcenter, ~techlevel.medium
+		Description: Provides radar
+		BuildLimit: 2
+		BuildPaletteOrder: 6
 	Building:
-		Footprint: xx ==
+		Footprint: == ==
 		Dimensions: 2,2
 		BuildSounds: medibuild1.aud, medibuildjobdone1.aud, medibuildplace1.aud
-	Valued:
-		Cost: 800
+	Selectable:
+		Bounds: 2048, 2048
+		DecorationBounds: 2048, 2048, 0, 0
+	SelectionDecorations:
+	WithBuildingBib:
+		HasMinibib: true
 	Health:
 		HP: 80000
 	Armor:
 		Type: Wood
 	RevealsShroud:
-		Range: 4c0
-	Targetable:
-		TargetTypes: GroundActor, C4, DetonateAttack, Structure, SpyInfiltrate
+		MinRange: 8c0
+		Range: 12c0
+		RequiresCondition: !disabled
+		RevealGeneratedShroud: False
+	RevealsShroud@Offline:
+		Range: 2c0
+		RequiresCondition: disabled
+	RevealsShroud@GAPGEN:
+		Range: 6c0
+		RequiresCondition: !disabled
+	DetectCloaked:
+		Range: 6c0
+		RequiresCondition: !disabled
+	ProvidesPrerequisite:
+		Prerequisite: radar
 	ProvidesPrerequisite@buildingname:
+	Power:
+		Amount: -150
+	ProvidesRadar:
+		RequiresCondition: !jammed && !disabled
+	ExternalCondition@JAMMED:
+		Condition: jammed
+	##Vision Power
+	SpawnActorPower@spyvan:
+		PauseOnCondition: disabled || Eyelow
+		OrderName: SeerVision
+		Cursor: chrono-target
+		Icon: spy
+		ChargeInterval: 3000
+		LifeTime: 125
+		Name: Seer
+		Description: Reveal an area on the map for 5 seconds. \nReveals cloaked units.
+		Actor: camera.spyplane
+		SelectTargetSpeechNotification: SelectTarget
+		DisplayRadarPing: True
+		DeploySound: gradarup.aud
+		EffectSequence: idle
+		RequiresCondition: !medivision
+	##Vision Power
+	SpawnActorPower@spyvan2:
+		PauseOnCondition: disabled || Eyelow
+		OrderName: SeerVision
+		Cursor: chrono-target
+		Icon: spy
+		ChargeInterval: 2000
+		LifeTime: 200
+		Name: Seer
+		Description: Reveal an area on the map for 5 seconds. \nReveals cloaked units.
+		Actor: camera.spyplane
+		SelectTargetSpeechNotification: SelectTarget
+		DisplayRadarPing: True
+		DeploySound: gradarup.aud
+		EffectSequence: idle
+		RequiresCondition: medivision
+	GrantConditionOnPrerequisite@medivision:
+		Condition: medivision
+		Prerequisites: upgrade.medivision
 	RenderSprites:
-		Image: medichurch
-	## Holy Powers ##
-	## HolyLight : Healing Power
-	NukePower@HolyLight:
-		Prerequisites: ~structures.mediholy
-		OrderName: HolyLight
-		PauseOnCondition: disabled
-		Cursor: chrono-target
-		Icon: mediholylighticon
-		ChargeInterval: 3500
-		Name: Holy Light
-		Description: Contantly Heals units over a short time
-		SelectTargetSpeechNotification: SelectTarget
-		InsufficientPowerSpeechNotification: InsufficientPower
-		MissileWeapon: medihealorder
-		MissileDelay: 1
-		SpawnOffset: 0,0,0
-		DisplayTimerRelationships: None
-		DisplayBeacon: True
-		DisplayRadarPing: True
-		BeaconPoster: mediholylightbeacon
-		CameraRange: 0c0
-		ArrowSequence: arrow
-		ClockSequence: clock
-		CircleSequence: circles
-		SupportPowerPaletteOrder: 70
-		SkipAscent: True
-		FlightDelay: 50
-		MissilePalette: player
-		IsPlayerPalette: true
-		MissileImage: medihealorder
-	## Smite : Kills infantry
-	IonCannonPower@SmitePower:
-		OrderName: SmitePower
-		Prerequisites: ~structures.mediholy
-		PauseOnCondition: disabled
-		Icon: medismiteicon
-		Cursor: chrono-target
-		ChargeInterval: 6300
-		Name: Smite
-		Description: Damages infantry in an area
-		SelectTargetSpeechNotification: SelectTarget
-		InsufficientPowerSpeechNotification: InsufficientPower
-		OnFireSound: medismitesound.wav
-		DisplayRadarPing: True
-		SupportPowerPaletteOrder: 20
-		Effect: explosion
-		EffectSequence: medismiteproj
-		Weapon: SmitePowerWep
-		DisplayTimerRelationships: None
-	##Chains : Stuns Enemies
-	IonCannonPower@ChainsPower:
-		OrderName: ChainsPower
-		Prerequisites: ~structures.mediholy
-		PauseOnCondition: disabled
-		Icon: mediholychainsicon
-		Cursor: chrono-target
-		ChargeInterval: 4000
-		Name: Chains of Heaven
-		Description: Stunlocks units in place for a period of time
-		SelectTargetSpeechNotification: SelectTarget
-		InsufficientPowerSpeechNotification: InsufficientPower
-		OnFireSound: mediholychainsound.wav
-		DisplayRadarPing: True
-		SupportPowerPaletteOrder: 20
-		Effect: explosion
-		EffectSequence: mediholychains
-		Weapon: ChainsPowerWep
-		DisplayTimerRelationships: None
-	##Bless : Inverse of Curse, Buffs units
-	## Needs to be updated with its own sprites
-	IonCannonPower@BlessPower:
-		OrderName: BlessPower
-		Prerequisites: ~structures.mediholy
-		PauseOnCondition: disabled
-		Icon: medicurseicon
-		Cursor: chrono-target
-		ChargeInterval: 4000
-		Name: Bless
-		Description: Buffs ally forces
-		SelectTargetSpeechNotification: SelectTarget
-		InsufficientPowerSpeechNotification: InsufficientPower
-		OnFireSound: medicurse.aud
-		DisplayRadarPing: True
-		SupportPowerPaletteOrder: 20
-		Effect: explosion
-		EffectSequence: medicurseproj
-		Weapon: BlessPowerWep
-		DisplayTimerRelationships: None
-	## Evil Powers ##
-	## Curse : Debufs enemies 
-	IonCannonPower@CursePower:
-		OrderName: CursePower
-		Prerequisites: ~structures.medicult
-		PauseOnCondition: disabled
-		Icon: medicurseicon
-		Cursor: chrono-target
-		ChargeInterval: 4000
-		Name: Curse
-		Description: Weakens enemy forces
-		SelectTargetSpeechNotification: SelectTarget
-		InsufficientPowerSpeechNotification: InsufficientPower
-		OnFireSound: medicurse.aud
-		DisplayRadarPing: True
-		SupportPowerPaletteOrder: 20
-		Effect: explosion
-		EffectSequence: medicurseproj
-		Weapon: CursePowerWep
-		DisplayTimerRelationships: None
-	## Insanity : makes units hostile to all
-	## Needs to be updated with its own sprites
-	IonCannonPower@JapanBerserkerPower:
-		OrderName: JapanBerserker
-		Prerequisites: ~structures.medicult
-		PauseOnCondition: disabled
-		Icon: japanberserkicon
-		Cursor: chrono-target
-		ChargeInterval: 9000
-		Name: Berserk
-		Description: Causes all units in a large area to become berserk and attack anything and everything.
-		SelectTargetSpeechNotification: SelectTarget
-		InsufficientPowerSpeechNotification: InsufficientPower
-		OnFireSound: japanberserkactivate.aud
-		DisplayRadarPing: True
-		SupportPowerPaletteOrder: 22
-		Effect: explosion
-		EffectSequence: japanberserkanim
-		Weapon: JapanBerserkerPower
-		DisplayTimerRelationships: None
-	## Mage Powers
-	## MageArmor : Grants an overshield to units
-	## Fireball : like an airstike but much faster
-	## Force Wall : Blocks all movement through an area
+		Image: radarwg
 
-###############################################################################
-################################   Defences   #################################
-###############################################################################
 
-##Archer Tower Base
-##archertowerbase
+##Archer Tower
 Archertower:
 	ProvidesPrerequisite@AT:
 		Prerequisite: ArchTower
 	Inherits: ^Defense
+	Inherits@tax: ^TaxableLow
 	-SpawnActorsOnSell:
 	Inherits@AUTOTARGET: ^AutoTargetAll
 	Building:
@@ -1128,212 +1126,69 @@ Archertower:
 		Name: Archer Tower
 	Buildable:
 		Queue: Defense
-		Prerequisites: ~structures.medi, ~!upgrade.mediarrow, ~techlevel.low
-		Description: Tower that fires arrows is Upgradable\nStrong vs Infantry
+		Prerequisites: ~structures.medi, ~techlevel.low
+		Description: Tower that fires arrows \nStrong vs Infantry
 		BuildPaletteOrder: 2
 	Selectable:
 		Bounds: 1024, 1024
 		DecorationBounds: 1024, 1024, 0, 0
 	SelectionDecorations:
 	Health:
-		HP: 55000
-	Pluggable@1:
-		Offset: 0,0
-		Conditions:
-			archplug.l1: has_l
-			archplug.l2: has_2
-			archplug.l3: has_3
-			archplug.l4: has_4
-		Requirements:
-			archplug.l1: !has_l && !has_2 && !has_3 && !has_4
-			archplug.l2: has_l && !has_2 && !has_3 && !has_4
-			archplug.l3: has_2 && !has_3 && !has_4
-			archplug.l4: has_3 && !has_4
-		EditorOptions:
-			archplug.l1: Archer Plug 1
-			archplug.l2: Archer Plug 2
-			archplug.l3: Archer Plug 3
-			archplug.l4: Archer Plug 4
-	DamageMultiplier@plug1:
-		Modifier: 95
-		RequiresCondition: has_l
-	DamageMultiplier@plug1:
-		Modifier: 95
-		RequiresCondition: has_2
-	DamageMultiplier@plug1:
-		Modifier: 95
-		RequiresCondition: has_3
-	DamageMultiplier@plug1:
-		Modifier: 95
-		RequiresCondition: has_4
+		HP:55000
 	Armor:
 		Type: Wood
-		RequiresCondition: !has_4
-	Armor:
-		Type: Heavy
-		RequiresCondition: has_4
 	RevealsShroud:
 		Range: 8c0
 	WithBuildingBib:
 		HasMinibib: true
 	Turreted@T1:
-		Turret: T1
+		Turret:	T1
 		TurnSpeed: 1023
 		Offset: 128,128,384
 		HasMinibib: true
-	Turreted@T2:
-		Turret: T2
-		TurnSpeed: 1023
-		Offset: 128,128,384
-		HasMinibib: true
-	Turreted@T3:
-		Turret: T3
-		TurnSpeed: 1023
-		Offset: 128,128,384
-		HasMinibib: true
-	Turreted@T3:
-		Turret: T3
-		TurnSpeed: 1023
-		Offset: 128,128,384
-		HasMinibib: true
-	Turreted@T4:
-		Turret: T4
-		TurnSpeed: 1023
-		Offset: 128,128,384
-		HasMinibib: true
-	Turreted@T5:
-		Turret: T5
-		TurnSpeed: 1023
-		Offset: 128,128,384
 	DetectCloaked:
 		DetectionTypes: Cloak, AirCloak
 		Range: 6c0
 	RenderSprites:
-		Image: mediarrowtower
-	GrantConditionOnPrerequisite@wiz:
-		Condition: elementalists
-		Prerequisites: structures.elementalists
+		Image: archertower
+	GrantConditionOnPrerequisite@arrowupgrade:
+		Prerequisites: upgrade.mediarrow
+		Condition: arrowupgrade
 	Armament@base:
 		Name: base
 		Turret: T1
-		Weapon: Castlearrows
-	Armament@plug1:
-		Name: plug1
-		Turret: T2
-		Weapon: Castlearrowsb
-		RequiresCondition: has_1
-	Armament@plug2:
-		Name: plug2
-		Turret: T3
-		Weapon: HealmediT
-		RequiresCondition: has_2
-	Armament@plug3:
-		Name: plug3
-		Turret: T4
-		Weapon: WizBall
-		RequiresCondition: has_3
-	Armament@plug31:
-		Name: plug31
-		Turret: T4
-		Weapon: Wizzap
-		RequiresCondition: has_3 && elementalists
-	Armament@plug4:
-		Name: plug4
-		Turret: T5
-		Weapon: MusketeerShot
-		RequiresCondition: has_4
+		Weapon: Archertowershot
+	Armament@extra:
+		Name: extra
+		Turret: T1
+		Weapon: Archertowershot
+		RequiresCondition: arrowupgrade
 	AttackTurreted:
-		Turrets: T1,T2,T3,T31,T4,T5
-		Armaments: base, plug1, plug2, plug3, plug31, plug4
+		Turrets: T1
+		Armaments: base, extra
 		RequiresCondition: !build-incomplete
 	-BodyOrientation:
 	ClassicFacingBodyOrientation:
 		QuantizedFacings: 8
+	Power:
+		Amount: 0
 
-
-
-Archertower2:
-	Inherits: Archertower
-	-Buildable:
-	
-Archertower3:
-	Inherits: Archertower
-	-Buildable:
-	
+##Archer Tower redundancy?
 Archertower4:
 	Inherits: Archertower
-	-Buildable:
-	
-##Archer Tower Plugs
-##archerplug1
-archerplug.l1:
-	Inherits: ^BuildingPlug
-	Valued:
-		Cost: 200
-	Tooltip:
-		Name: Upgrade your archer tower to Level 1
-	Buildable:
-		Queue: Wall
-		BuildPaletteOrder: 52
-		Prerequisites: ~structures.medi, ~upgrade.mediarrowt1, ArchTower
-		Description: Place on archer tower to upgrade it /n (Must be built in sequence)
-		Icon: icon-gun
-	Plug:
-		Type: archplug.l1
-	Building:
-		BuildSounds: medibuild1.aud, medibuildjobdone1.aud, medibuildplace1.aud
-	RenderSprites:
-		Image: mediarrowtower
-
-##archerplug2
-archerplug.l2:
-	Inherits: archerplug.l1
-	Valued:
-		Cost: 400
-	Tooltip:
-		Name: Upgrade your archer tower to Level 2
-	Buildable:
-		Description: Place on archer tower to upgrade it /n (Must be built in sequence)
-		Prerequisites: ~structures.medi, ~upgrade.mediarrowt2, ArchTower
-	Plug:
-		Type: archplug.l2
-
-##archerplug3
-archerplug.l3:
-	Inherits: archerplug.l1
-	Valued:
-		Cost: 500
-	Tooltip:
-		Name: Upgrade your archer tower to Level 3
-	Buildable:
-		Description: Place on archer tower to upgrade it /n (Must be built in sequence)
-		Prerequisites: ~structures.medi, ~upgrade.mediarrowt3, ArchTower
-	Plug:
-		Type: archplug.l3
-
-##archerplug4
-archerplug.l4:
-	Inherits: archerplug.l1
-	Valued:
-		Cost: 750
-	Tooltip:
-		Name: Upgrade your archer tower to Level 4
-	Buildable:
-		Description: Place on archer tower to upgrade it /n (Must be built in sequence)
-		Prerequisites: ~structures.medi, ~upgrade.mediarrowt4, Archertower
-	Plug:
-		Type: archplug.l4
+	-Buildable
 
 ##Garrison structure
-##garrison
-MediGarrisonTower:
+guardhouse:
 	Inherits: ^Defense
+	Inherits@tax: ^TaxableLow
 	Inherits@AUTOTARGET: ^AutoTargetAll
 	Inherits@shape: ^2x2Shape
 	Inherits@CARGOPIPS: ^CargoPips
 	Buildable:
+		IconPalette: tsunit
 		Queue: Defense
-		Prerequisites: ~structures.medi, barracks, ~techlevel.low, ~!structures.medicult
+		Prerequisites: ~structures.medi, barracks, ~techlevel.low
 		Description: Garison Units for Defence
 		BuildPaletteOrder: 3
 	Building:
@@ -1376,68 +1231,36 @@ MediGarrisonTower:
 		FallbackRange: 6c0
 	ProvidesPrerequisite@buildingname:
 	RenderSprites:
-		Image: medigarrisontower
+		Image: guardhouse
 	WithCargoPipsDecoration:
 		Position: BottomLeft
 		RequiresSelection: true
+	GrantPeriodicCondition@Guardhousespawner:
+		Condition: Guardhousespawner
+		CooldownDuration: 300, 500
+	GrantPeriodicCondition@Guardhousespawner2:
+		Condition: Guardhousespawner2
+		CooldownDuration: 300, 500
+	FreeActor@Guardhousespawner:
+		Actor: guardhouseguard
+		AllowRespawn: True
+		RequiresCondition: Guardhousespawner
+	FreeActor@Guardhousespawner2:
+		Actor: guardhouseguard
+		AllowRespawn: True
+		RequiresCondition: Guardhousespawner2
 
-##Holy monument, support structure
-##monument
-monument:
-	Inherits: ^Building
-	Inherits@IDISABLE: ^DisableOnLowPowerOrPowerDown
-	Inherits@shape: ^2x2Shape
-	-SpawnActorsOnSell:
-	Selectable:
-		Bounds: 2048, 2048
-	Valued:
-		Cost: 2000
-	Tooltip:
-		Name: Monument To The Gods
-	Buildable:
-		Queue: Defense
-		Prerequisites: ~structures.mediholy, ~techlevel.medium, anypower
-		Description: Gives Healing aura to units and structures
-		BuildPaletteOrder: 15
-	Building:
-		Footprint: xx xx
-		Dimensions: 2,2
-		BuildSounds: medibuild1.aud, medibuildjobdone1.aud, medibuildplace1.aud
-	Health:
-		HP: 80000
-	Armor:
-		Type: Wood
-	RevealsShroud:
-		MinRange: 5c0
-		Range: 6c0
-		RequiresCondition: !disabled
-		RevealGeneratedShroud: False
-	RevealsShroud@Offline:
-		Range: 5c0
-		RequiresCondition: disabled
-	RevealsShroud@GAPGEN:
-		Range: 5c0
-		RequiresCondition: !disabled
-	ProximityExternalCondition@Monumentboost:
-		RequiresCondition: !disabled
-		Condition: Monumentboost
-		Range: 11c512
-	WithRangeCircle:
-		Range: 11c512
-	Power:
-		Amount: -100
-	RenderSprites:
-		Image: medimonument
-
-##Users Mana, Like an obilisk but constant beam
-ArcaneTower:
+##Anti Air
+wizardtower:
 	Inherits: ^Defense
+	Inherits@tax: ^TaxableLow
 	Inherits@IDISABLE: ^DisableOnLowPowerOrPowerDown
 	Inherits@AUTOTARGET: ^AutoTargetAll
 	-SpawnActorsOnSell:
 	Buildable:
+		IconPalette: tsunit
 		Queue: Defense
-		Prerequisites: ~structures.medi, techcenter, ~techlevel.medium, anypower
+		Prerequisites: ~structures.medi, techcenter, ~techlevel.medium
 		Description: Tower that user Mana To fire a constant Beam \nStrong vs Aircraft, Vehicles & Infantry
 		BuildPaletteOrder: 4
 	Building:
@@ -1458,6 +1281,10 @@ ArcaneTower:
 		Range: 8c0
 	WithBuildingBib:
 		HasMinibib: true
+	Turreted@base:
+		Turret: base
+		TurnSpeed: 1023
+		Offset: 128,128,384
 	Turreted@arc1:
 		Turret: arc1
 		TurnSpeed: 1023
@@ -1466,99 +1293,78 @@ ArcaneTower:
 		Turret: arc2
 		TurnSpeed: 1023
 		Offset: 128,128,384
-	Turreted@arc3:
-		Turret: arc3
+	Turreted@fire1:
+		Turret: fire1
 		TurnSpeed: 1023
 		Offset: 128,128,384
-	Turreted@arc4:
-		Turret: arc4
+	Turreted@fire2:
+		Turret: fire2
 		TurnSpeed: 1023
 		Offset: 128,128,384
-	Turreted@arc5:
-		Turret: arc5
+	Turreted@zap1:
+		Turret: zap1
 		TurnSpeed: 1023
 		Offset: 128,128,384
-	Turreted@arc6:
-		Turret: arc6
+	Turreted@zap2:
+		Turret: zap2
 		TurnSpeed: 1023
 		Offset: 128,128,384
-	Turreted@arc7:
-		Turret: arc7
-		TurnSpeed: 1023
-		Offset: 128,128,384
-	Turreted@arc8:
-		Turret: arc8
-		TurnSpeed: 1023
-		Offset: 128,128,384
-	Turreted@arc9:
-		Turret: arc9
-		TurnSpeed: 1023
-		Offset: 128,128,384
+	Armament@base:
+		Name: base
+		Weapon: WizBallBuilding
+		LocalOffset: 256,128,0, 256,-128,0
+		LocalYaw: -100,100
+		Turret: base
 	Armament@arc1:
 		Name: arc1
-		Weapon: ArcaneZap
-		LocalOffset: 256,128,0, 256,-128,0
-		LocalYaw: -100,100
-		Turret: arc1
-	Armament@arc2:
-		Name: arc2
-		Weapon: ArcaneZap
-		LocalOffset: 256,128,0, 256,-128,0
-		LocalYaw: -100,100
-		Turret: arc2
-	Armament@arc3:
-		Name: arc3
-		Weapon: ArcaneZap2
-		LocalOffset: 256,128,0, 256,-128,0
-		LocalYaw: -100,100
-		Turret: arc
-	Armament@arc4:
-		Name: arc4
 		Weapon: WizBallBuilding
 		LocalOffset: 256,128,0, 256,-128,0
 		LocalYaw: -100,100
 		RequiresCondition: arcanewizard
-		Turret: arc4
-	Armament@arc5:
-		Name: arc5
+		Turret: arc1
+	Armament@arc2:
+		Name: arc2
+		Weapon: WizBallBuilding
+		LocalOffset: 256,128,0, 256,-128,0
+		LocalYaw: -100,100
+		RequiresCondition: arcanewizard == 2
+		Turret: arc2
+	Armament@fire1:
+		Name: fire1
 		Weapon: WizFireBallBuilding
 		LocalOffset: 256,128,0, 256,-128,0
 		LocalYaw: -100,100
 		RequiresCondition: firewizard
-		Turret: arc5
-	Armament@arc6:
-		Name: arc6
+		Turret: fire1
+	Armament@fire2:
+		Name: fire2
+		Weapon: WizFireBallBuilding
+		LocalOffset: 256,128,0, 256,-128,0
+		LocalYaw: -100,100
+		RequiresCondition: firewizard == 2
+		Turret: fire2
+	Armament@zap1:
+		Name: zap1
 		Weapon: Wizzap
 		LocalOffset: 256,128,0, 256,-128,0
 		LocalYaw: -100,100
 		RequiresCondition: lightningwizard
-		Turret: arc6
-	Armament@arc7:
-		Name: arc7
-		Weapon: ArcaneZap
+		Turret: zap1
+	Armament@zap2:
+		Name: zap2
+		Weapon: Wizzap
 		LocalOffset: 256,128,0, 256,-128,0
 		LocalYaw: -100,100
-		Turret: arc7
-	Armament@arc8:
-		Name: arc8
-		Weapon: ArcaneZap
-		LocalOffset: 256,128,0, 256,-128,0
-		LocalYaw: -100,100
-		Turret: arc8
-	Armament@arc9:
-		Name: arc9
-		Weapon: ArcaneZap2
-		LocalOffset: 256,128,0, 256,-128,0
-		LocalYaw: -100,100
-		Turret: arc9
+		RequiresCondition: lightningwizard == 2
+		Turret: zap2
 	AttackTurreted:
-		Turrets: arc1, arc2, arc3, arc4, arc5, arc6, arc6, arc7, arc8, arc9
-		Armaments: arc1, arc2, arc3, arc4, arc5, arc6, arc7, arc8, arc9
+		Turrets: base, arc1, arc2, fire1, fire2, zap1, zap2
+		Armaments: base, arc1, arc2, fire1, fire2, zap1, zap2
 		RequiresCondition: !build-incomplete
 		PauseOnCondition: lowpower || disabled
 	Cargo:
 		Types: arcanewizard, firewizard, lightningwizard
-		MaxWeight: 1
+		MaxWeight: 2
 		PassengerConditions:
 			firewizard: firewizard
 			lightningwizard: lightningwizard
@@ -1566,28 +1372,32 @@ ArcaneTower:
 	WithCargoPipsDecoration:
 		Position: BottomLeft
 		RequiresSelection: true
-		PipCount: 1
+		PipCount: 2
 	-BodyOrientation:
 	ClassicFacingBodyOrientation:
 		QuantizedFacings: 8
 	Power:
-		Amount: -75
+		Amount: -100
 	DetectCloaked:
 		Range: 6c0
 		DetectionTypes: Cloak, AirCloak
 		RequiresCondition: !disabled
 	ProvidesPrerequisite@buildingname:
 	RenderSprites:
-		Image: mediarcanetower
+		Image: wizardtower
 
-##Balista Tower
-##balistatower
-BalistaTower:
-	Inherits: ArcaneTower
-	-Power:
-	-DetectCloaked:
-		ProvidesPrerequisite@buildingname:
+arcanetower:
+	Inherits: wizardtower
+	-Buildable
+
+##Anti Tank
+balistatower:
+	Inherits: ^Defense
+	Inherits@tax: ^TaxableLow
+	Power:
+		Amount: 0
 	Buildable:
+		IconPalette: tsunit
 		Queue: Defense
 		Prerequisites: ~structures.medi, techcenter
 		Description: Tower With a Siege Weapon strapped to the roof \nStrong vs Vehicles
@@ -1599,258 +1409,178 @@ BalistaTower:
 	Health:
 		HP: 35000
 	AttackTurreted:
-		Armaments: PRIMARY, SECONDARY
+		Armaments: PRIMARY
+		Turrets: PRIMARY
 	Armament@PRIMARY:
 		Name: PRIMARY
 		Weapon: Ballistatowershot
 		LocalOffset: 256,128,0, 256,-128,0
 		LocalYaw: -100,100
-		RequiresCondition: !has_l
-	Armament@PRIMARY1:
-		Name: SECONDARY
-		Weapon: Cannontowershot
-		LocalOffset: 256,128,0, 256,-128,0
-		LocalYaw: -100,100
-		RequiresCondition: has_l
 	RenderSprites:
-		Image: medibalistatower
-	Pluggable@1:
-		Offset: 0,0
-		Conditions:
-			Cannon.l1: has_l
-		Requirements:
-			Cannon.l1: !has_l
-		EditorOptions:
-			Cannon.l1: Cannon Plug 1
-
-Cannon.l1:
-	Inherits: ^BuildingPlug
-	Valued:
-		Cost: 1000
-	Tooltip:
-		Name: Upgrade your archer tower to Level 1
-	Buildable:
-		Queue: Wall
-		BuildPaletteOrder: 52
-		Prerequisites: ~structures.medi
-		Description: Place on Balista tower to upgrade it
-		Icon: icon-gun
-	Plug:
-		Type: Cannon.l1
+		Image: balistatower
+		PlayerPalette: tsunit
+	-SpawnActorsOnSell:
+	Inherits@AUTOTARGET: ^AutoTargetAll
 	Building:
 		BuildSounds: medibuild1.aud, medibuildjobdone1.aud, medibuildplace1.aud
-	RenderSprites:
-		Image: medicannontower
+	Selectable:
+		Bounds: 1024, 1024
+		DecorationBounds: 1024, 1024, 0, 0
+	SelectionDecorations:
+	Armor:
+		Type: Wood
+	RevealsShroud:
+		Range: 8c0
+	WithBuildingBib:
+		HasMinibib: true
+	Turreted@PRIMARY:
+		Turret:	PRIMARY
+		TurnSpeed: 1023
+		Offset: 128,128,384
+		HasMinibib: true
+	DetectCloaked:
+		Range: 6c0
+	-BodyOrientation:
+	ClassicFacingBodyOrientation:
+		QuantizedFacings: 8
 
-##Spawns Units when hostile in range
-##summoning Ring
 
-##Zombie Spawner when hostiles in range
-##graveyard
-
-###############################################################################
-#################################   Utilities   ###############################
-###############################################################################
-
-##radar structure
-##medieye
+##Grants radar but also provides a smaller circle of dark shroud, fragile, high mana cost
 TheEye:
-	Inherits: ^Defense
-	Inherits@IDISABLE: ^DisableOnLowPowerOrPowerDown
-	Inherits@AUTOTARGET: ^AutoTargetAll
-	Valued:
-		Cost: 1400
+	Inherits: GAP3
+	Inherits@tax: ^TaxableMid
 	Tooltip:
 		Name: The Eye
 	Buildable:
-		Queue: Tech
-		Prerequisites: ~structures.medi, advtechcenter, ~techlevel.medium, anypower, ~!structures.medicult
-		Description: Provides radar
-		BuildLimit: 2
+		Queue: Defense
+		Prerequisites: ~structures.medi, advtechcenter, ~techlevel.medium
+		Description: Grants Vision in large area
 		BuildPaletteOrder: 6
-	Building:
-		Footprint: x x x
-		Dimensions: 1,3
-		BuildSounds: medibuild1.aud, medibuildjobdone1.aud, medibuildplace1.aud
-	Selectable:
-		Bounds: 1024, 3072
-		DecorationBounds: 1024, 3072, 0, 0
-	SelectionDecorations:
-	WithBuildingBib:
-		HasMinibib: true
-	Health:
-		HP: 80000
-	Armor:
-		Type: Wood
-	RevealsShroud:
-		MinRange: 8c0
-		Range: 12c0
-		RequiresCondition: !disabled
-		RevealGeneratedShroud: False
-	RevealsShroud@Offline:
-		Range: 2c0
-		RequiresCondition: disabled
-	RevealsShroud@GAPGEN:
-		Range: 6c0
-		RequiresCondition: !disabled
-	DetectCloaked:
-		Range: 6c0
-		DetectionTypes: Cloak, AirCloak, Underwater
-		RequiresCondition: !disabled
-	ProvidesPrerequisite:
-		Prerequisite: radar
-	ProvidesPrerequisite@buildingname:
-	Power:
-		Amount: -100
-	ProvidesRadar:
-		RequiresCondition: !jammed && !disabled
-	ExternalCondition@JAMMED:
-		Condition: jammed
-	##Vision Power
-	SpawnActorPower@spyvan:
-		PauseOnCondition: disabled || Eyelow
-		OrderName: SeerVision
-		Cursor: chrono-target
-		Icon: spy
-		ChargeInterval: 3000
-		LifeTime: 125
-		Name: Seer
-		Description: Reveal an area on the map for 5 seconds. \nReveals cloaked units.
-		Actor: camera.spyplane
-		SelectTargetSpeechNotification: SelectTarget
-		DisplayRadarPing: True
-		DeploySound: gradarup.aud
-		EffectSequence: idle
-		RequiresCondition: !medivision
-	##Vision Power
-	SpawnActorPower@spyvan2:
-		PauseOnCondition: disabled || Eyelow
-		OrderName: SeerVision
-		Cursor: chrono-target
-		Icon: spy
-		ChargeInterval: 2000
-		LifeTime: 200
-		Name: Seer
-		Description: Reveal an area on the map for 5 seconds. \nReveals cloaked units.
-		Actor: camera.spyplane
-		SelectTargetSpeechNotification: SelectTarget
-		DisplayRadarPing: True
-		DeploySound: gradarup.aud
-		EffectSequence: idle
-		RequiresCondition: medivision
-	GrantConditionOnPrerequisite@medivision:
-		Condition: medivision
-		Prerequisites: upgrade.medivision
 	RenderSprites:
 		Image: medieyetower
-	AutoTarget:
-		InitialStance: AttackAnything
-	GrantConditionOnPrerequisite:
-		Condition: Holyeye
-		Prerequisites: structures.mediholy
-	AttackOmni:
-	Armament:
-		Name: primary
-		Weapon: BlessEyeWep
-		RequiresCondition: Holyeye
 
-##Same as eye but can debuff
-##medieyecursed
-TheEvilEye:
-	Inherits: ^Defense
-	Inherits@IDISABLE: ^DisableOnLowPowerOrPowerDown
-	Inherits@AUTOTARGET: ^AutoTargetAll
-	Valued:
-		Cost: 1400
-	Tooltip:
-		Name: The Eye
+###############################################################################
+#################################   Holy   ###############################
+###############################################################################
+
+##Medieval creatures
+TempleofLunord:
+	Inherits@AnimalDen: AnimalDen
 	Buildable:
-		Queue: Tech
-		Prerequisites: ~structures.medi, advtechcenter, ~techlevel.medium, anypower, ~structures.medicult
-		Description: Provides radar
-		BuildLimit: 2
-		BuildPaletteOrder: 6
-	Building:
-		Footprint: x x x
-		Dimensions: 1,3
-		BuildSounds: medibuild1.aud, medibuildjobdone1.aud, medibuildplace1.aud
-	Selectable:
-		Bounds: 1024, 3072
-		DecorationBounds: 1024, 3072, 0, 0
-	SelectionDecorations:
-	WithBuildingBib:
-		HasMinibib: true
-	Health:
-		HP: 80000
-	Armor:
-		Type: Wood
-	RevealsShroud:
-		MinRange: 8c0
-		Range: 12c0
-		RequiresCondition: !disabled
-		RevealGeneratedShroud: False
-	RevealsShroud@Offline:
-		Range: 2c0
-		RequiresCondition: disabled
-	RevealsShroud@GAPGEN:
-		Range: 6c0
-		RequiresCondition: !disabled
-	DetectCloaked:
-		Range: 6c0
-		DetectionTypes: Cloak, AirCloak, Underwater
-		RequiresCondition: !disabled
-	ProvidesPrerequisite:
-		Prerequisite: radar
-	ProvidesPrerequisite@buildingname:
-	Power:
-		Amount: -100
-	ProvidesRadar:
-		RequiresCondition: !jammed && !disabled
-	ExternalCondition@JAMMED:
-		Condition: jammed
-	##Vision Power
-	SpawnActorPower@spyvan:
-		PauseOnCondition: disabled || Eyelow
-		OrderName: SeerVision
-		Cursor: chrono-target
-		Icon: spy
-		ChargeInterval: 3000
-		LifeTime: 125
-		Name: Seer
-		Description: Reveal an area on the map for 5 seconds. \nReveals cloaked units.
-		Actor: camera.spyplane
-		SelectTargetSpeechNotification: SelectTarget
-		DisplayRadarPing: True
-		DeploySound: gradarup.aud
-		EffectSequence: idle
-		RequiresCondition: !medivision
-	##Vision Power
-	SpawnActorPower@spyvan2:
-		PauseOnCondition: disabled || Eyelow
-		OrderName: SeerVision
-		Cursor: chrono-target
-		Icon: spy
-		ChargeInterval: 2000
-		LifeTime: 200
-		Name: Seer
-		Description: Reveal an area on the map for 5 seconds. \nReveals cloaked units.
-		Actor: camera.spyplane
-		SelectTargetSpeechNotification: SelectTarget
-		DisplayRadarPing: True
-		DeploySound: gradarup.aud
-		EffectSequence: idle
-		RequiresCondition: medivision
+		IconPalette: tsunit
+		Prerequisites: barracks, ~structures.medi, ~!ai.hard, ~techlevel.low, ~structures.mediholy
+		Description: Allows production of creatures.
+		BuildPaletteOrder: 4
 	RenderSprites:
-		Image: medieyetower
-	AutoTarget:
-		InitialStance: AttackAnything
-	AttackOmni:
-	Armament:
-		Name: primary
-		Weapon: CurseEyeWep
-	GrantConditionOnPrerequisite@medivision:
-		Condition: medivision
-		Prerequisites: upgrade.medivision
+		Image: mcreatureholy
+
+###############################################################################
+#################################   Cult   ###############################
+###############################################################################
+
+##Medieval creatures
+Templeofkrypta:
+	Inherits@AnimalDen: AnimalDen
+	Buildable:
+		IconPalette: tsunit
+		Prerequisites: barracks, ~structures.medi, ~!ai.hard, ~techlevel.low, ~structures.medicult
+		Description: Allows production of creatures.
+		BuildPaletteOrder: 4
+	RenderSprites:
+		Image: mcreaturecult
+		PlayerPalette: ra2
+
+##Barracks
+GoblinCamp:
+	Inherits: barrackswg
+	Buildable:
+		IconPalette: tsunit
+		Queue: Building
+		Prerequisites: ~structures.medi, ~techlevel.infonly, ~!structures.bothard, ~structures.medicult
+		Description: Allows production of infantry units.
+		BuildPaletteOrder: 1
+	RenderSprites:
+		Image: barracksgc
+		PlayerPalette: tsunit
+
+##Slave Generation
+Goblinhovel:
+	Inherits: slavecampgc
+	Buildable:
+		IconPalette: tsunit
+		Prerequisites: ~structures.medi, ~refinarymarket, ~!ai.boss, ~techlevel.infonly, ~structures.medicult
+		Description: Produces Slaves.\nAlso acts as a Silo to allow more credits to be held.
+	FreeActor@Respawn1:
+		Actor: SLAVESpawn2
+	FreeActor@Respawn2:
+		Actor: SLAVESpawn2
+	RenderSprites:
+		Image: slavecampgh
+		PlayerPalette: tsunit
+
+##Graveyard, Spawns uncontrolled Skeletons in area, attacks targeted units in large area
+Graveyard:
+	Inherits: ^Defense
+	Inherits@tax: ^TaxableLow
+	Inherits@shape: ^2x2Shape
+	Inherits@BIB: ^2xBuildingBib
+	Buildable:
+		IconPalette: tsunit
+		Prerequisites: ~structures.medicult, advtechcenter, ~!ai.boss, ~techlevel.infonly
+		Description: Produces undead to defend the area
+	Health:
+		HP: 50000
+	-RenderRangeCircle:
+	Power:
+		Amount: 0
+	GrantPeriodicCondition@Undeadspawner1:
+		Condition: Undeadspawner
+		CooldownDuration: 300, 500
+	FreeActor@Undeadspawner1:
+		Actor: Skeleton2
+		AllowRespawn: True
+		RequiresCondition: Undeadspawner1
+	GrantPeriodicCondition@Undeadspawner2:
+		Condition: Undeadspawner2
+		CooldownDuration: 150, 550
+	FreeActor@Undeadspawner2:
+		Actor: Skeleton2
+		AllowRespawn: True
+		RequiresCondition: Undeadspawner2
+	GrantPeriodicCondition@Undeadspawner3:
+		Condition: Undeadspawner3
+		CooldownDuration: 200, 400
+	FreeActor@Undeadspawner3:
+		Actor: Skeleton2
+		AllowRespawn: True
+		RequiresCondition: Undeadspawner3
+	GrantPeriodicCondition@Undeadspawner4:
+		Condition: Undeadspawner4
+		CooldownDuration: 250, 450
+	FreeActor@Undeadspawner4:
+		Actor: Skeleton2
+		AllowRespawn: True
+		RequiresCondition: Undeadspawner4
+	Selectable:
+		Bounds: 4096, 4096
+		DecorationBounds: 4096, 4096
+	RenderSprites:
+		Image: medigraveyard
+
+###############################################################################
+#################################   Wizards   ###############################
+###############################################################################
+
+##Medieval creatures
+TempleofKrolm:
+	Inherits: AnimalDen
+	Buildable:
+		IconPalette: tsunit
+		Prerequisites: barracks, ~structures.medi, ~!ai.hard, ~techlevel.low, ~structures.mediwizards
+		Description: Allows production of creatures.
+		BuildPaletteOrder: 4
+	RenderSprites:
+		Image: mcreaturewiz
 
 ###############################################################################
 ###################################  Nukes   ##################################
@@ -1862,6 +1592,7 @@ TheEvilEye:
 ## Replace This ? ##
 GATEOFLIGHT:
 	Inherits: ^Building
+	Inherits@tax: ^TaxableSuper
 	Inherits@superweapon: ^Superweapon
 	Inherits@IDISABLE: ^DisableOnLowPowerOrPowerDown
 	Inherits@shape: ^3x3Shape
@@ -1873,7 +1604,7 @@ GATEOFLIGHT:
 		Name: Gate of Light
 	Buildable:
 		Queue: Tech
-		Prerequisites: ~structures.medi, anypower, ~structures.mediholy, ~techlevel.unrestricted, techcenter, ~!techlevel.nosuperweapons
+		Prerequisites: ~structures.medi, ~structures.mediholy, ~techlevel.unrestricted, techcenter
 		BuildLimit: 1
 		Description: Provides the Gate of Babylon Super Weapon \nRains down swords that destroy an area.
 		BuildPaletteOrder: 10
@@ -1927,7 +1658,7 @@ GATEOFLIGHT:
 		MissileImage: mediholyweapon
 	SupportPowerChargeBar:
 	Power:
-		Amount: -150
+		Amount: 500
 	MustBeDestroyed:
 		RequiredForShortGame: false
 	WithSupportPowerActivationAnimation:
@@ -1935,7 +1666,7 @@ GATEOFLIGHT:
 	ProvidesPrerequisite@superweapon:
 		Prerequisite: superweapon
 	RenderSprites:
-		Image: medigateofbabylon
+		Image: nuketod
 
 ##Rains zombies from the sky, weaker than a scud storm 
 ##spawns high HP Low Lifetime zombies from buildings that are hit
@@ -1943,6 +1674,7 @@ GATEOFLIGHT:
 ## Replace This ?  ##
 MediDarkCrystal:
 	Inherits: ^Building
+	Inherits@tax: ^TaxableSuper
 	Inherits@superweapon: ^Superweapon
 	Inherits@IDISABLE: ^DisableOnLowPowerOrPowerDown
 	Inherits@shape: ^3x3Shape
@@ -1954,7 +1686,7 @@ MediDarkCrystal:
 		Name: Void Crystal
 	Buildable:
 		Queue: Tech
-		Prerequisites: ~structures.medi, anypower, ~structures.medicult, ~techlevel.unrestricted, techcenter, ~!techlevel.nosuperweapons
+		Prerequisites: ~structures.medi, ~structures.medicult, ~techlevel.unrestricted, techcenter
 		BuildLimit: 1
 		Description: Provides the Void Rain Super Weapon\nDark energy rains from above to destroy an area
 		BuildPaletteOrder: 10
@@ -2008,7 +1740,7 @@ MediDarkCrystal:
 		MissileImage: medivoidweapon
 	SupportPowerChargeBar:
 	Power:
-		Amount: -150
+		Amount: 500
 	MustBeDestroyed:
 		RequiredForShortGame: false
 	WithSupportPowerActivationAnimation:
@@ -2016,13 +1748,14 @@ MediDarkCrystal:
 	ProvidesPrerequisite@superweapon:
 		Prerequisite: superweapon
 	RenderSprites:
-		Image: medidarkcrystal
+		Image: nukesp
 
 ##Smaller Meteorites rain from the sky before a bigger main meteor lands direct on target
 ##meteorstorm
 ## Replace This ? ##
 FireStormMedi:
 	Inherits: ^Building
+	Inherits@tax: ^TaxableSuper
 	Inherits@superweapon: ^Superweapon
 	Inherits@IDISABLE: ^DisableOnLowPowerOrPowerDown
 	Inherits@shape: ^3x3Shape
@@ -2034,7 +1767,7 @@ FireStormMedi:
 		Name: Natures Will
 	Buildable:
 		Queue: Tech
-		Prerequisites: ~structures.medi, anypower, ~structures.elementalists, ~techlevel.unrestricted, techcenter, ~!techlevel.nosuperweapons
+		Prerequisites: ~structures.medi, ~structures.mediwizards, ~techlevel.unrestricted, techcenter
 		BuildLimit: 1
 		Description: Provides the Natures Will Super Weapon\nDevestates an area with explosive magic
 		BuildPaletteOrder: 10
@@ -2088,7 +1821,7 @@ FireStormMedi:
 		MissileImage: MageSuperWeapon
 	SupportPowerChargeBar:
 	Power:
-		Amount: -150
+		Amount: 500
 	MustBeDestroyed:
 		RequiredForShortGame: false
 	WithSupportPowerActivationAnimation:
@@ -2096,4 +1829,662 @@ FireStormMedi:
 	ProvidesPrerequisite@superweapon:
 		Prerequisite: superweapon
 	RenderSprites:
-		Image: medifirestorm
+		Image: nuketoh
+
+
+###############################################################################
+###################################  Other   ##################################
+###############################################################################
+
+## cannot be captured or destroyed, Heals all units, friend or foe in area
+monumentgazebo:
+	Inherits: ^Defense
+	Inherits@tax: ^TaxableHigh
+	Inherits@AUTOTARGET: ^AutoTargetAll
+	-Targetable:
+	-Capturable:
+	-CapturableProgressBar:
+	-CapturableProgressBlink:
+	Health:
+		HP: 9000000
+	DamageMultiplier:
+		Modifier: 0
+	ChangesHealth@Monumentregen:
+		PercentageStep: 1
+		Delay: 10
+		StartIfBelow: 100
+		DamageCooldown: 0
+	AttackTurreted:
+		Turrets: T1
+		Armaments: base
+		RequiresCondition: !build-incomplete
+	Turreted@T1:
+		Turret: T1
+		TurnSpeed: 1023
+		Offset: 128,128,384
+	Armament:
+		Name: base
+		Turret: T1
+		Weapon: monumentheal
+		Cursor: heal
+		TargetRelationships: Enemy, Neutral, Ally
+	Power:
+		Amount: 300
+	RenderSprites:
+		Image: monumentgazebo
+
+## Cannot be captured, acts as regenerating defense area, cannot be fully killed.
+spittervine:
+	Inherits: ^Defense
+	Inherits@tax: ^TaxableMid
+	Power:
+		Amount: 0
+	Tooltip:
+		Name: Spitter vine
+	Health:
+		HP: 35000
+	SpawnActorOnDeath@revive:
+		Actor: spittervine.dead
+	AttackTurreted:
+		Armaments: PRIMARY
+		Turrets: PRIMARY
+	Armament@PRIMARY:
+		Name: PRIMARY
+		Weapon: Spitterbarb
+		LocalOffset: 256,128,0, 256,-128,0
+		LocalYaw: -100,100
+	-SpawnActorsOnSell:
+	Inherits@AUTOTARGET: ^AutoTargetAll
+	Building:
+		BuildSounds: medibuild1.aud, medibuildjobdone1.aud, medibuildplace1.aud
+	Selectable:
+		Bounds: 1024, 1024
+		DecorationBounds: 1024, 1024, 0, 0
+	SelectionDecorations:
+	Armor:
+		Type: Wood
+	RevealsShroud:
+		Range: 8c0
+	WithBuildingBib:
+		HasMinibib: true
+	Turreted@PRIMARY:
+		Turret:	PRIMARY
+		TurnSpeed: 1023
+		Offset: 128,128,384
+		HasMinibib: true
+	DetectCloaked:
+		Range: 8c0
+	-BodyOrientation:
+	ClassicFacingBodyOrientation:
+		QuantizedFacings: 8
+	RenderSprites:
+		Image: spittervine
+
+## Dormant state - revives after 60 seconds
+spittervine.dead:
+	Inherits: ^Building
+	-Targetable:
+	Tooltip:
+		Name: Spitter Vine (Dormant)
+	Health:
+		HP: 10000
+	SpawnActorOnDeath@revive2:
+		Actor: spittervine
+	Building:
+		Footprint: +
+		BuildSounds: medibuild1.aud, medibuildjobdone1.aud, medibuildplace1.aud
+	Selectable:
+		Bounds: 1024, 1024
+		DecorationBounds: 1024, 1024, 0, 0
+	Armor:
+		Type: Wood
+	KillsSelf:
+		Delay: 1500
+	RenderSprites:
+		Image: spittervine
+	WithSpriteBody:
+		Sequence: dead
+
+## Meteor Storm pods
+## Fireballs: large AOE, strong vs units, weak vs buildings
+## Meteors: building damage only, no unit AOE
+meteorstorm_fire:
+	Inherits: tomahawkstormpower
+	FallsToEarth:
+		Explosion: MeteorStormFireball
+		Moves: true
+		Velocity: 160
+		MaximumSpinSpeed: 0
+	Armament:
+		Weapon: MeteorStormFireball
+	RenderSprites:
+		Image: napalm3
+	WithSpriteBody:
+		Sequence: idle
+
+meteorstorm_fire1:
+	Inherits: meteorstorm_fire
+	FallsToEarth:
+		Explosion: MeteorStormFireball
+		Moves: true
+		Velocity: 180
+		MaximumSpinSpeed: 0
+
+meteorstorm_fire2:
+	Inherits: meteorstorm_fire
+	FallsToEarth:
+		Explosion: MeteorStormFireball
+		Moves: true
+		Velocity: 200
+		MaximumSpinSpeed: 0
+
+meteorstorm_meteor:
+	Inherits: tomahawkstormpower
+	FallsToEarth:
+		Explosion: MeteorStormMeteor
+		Moves: true
+		Velocity: 140
+		MaximumSpinSpeed: 0
+	Armament:
+		Weapon: MeteorStormMeteor
+	RenderSprites:
+		Image: rockgolem
+	-BodyOrientation:
+	ClassicFacingBodyOrientation:
+		QuantizedFacings: 8
+	WithSpriteBody:
+		Sequence: idle
+
+meteorstorm_meteor1:
+	Inherits: meteorstorm_meteor
+	FallsToEarth:
+		Explosion: MeteorStormMeteor
+		Moves: true
+		Velocity: 165
+		MaximumSpinSpeed: 0
+
+meteorstorm_meteor2:
+	Inherits: meteorstorm_meteor
+	FallsToEarth:
+		Explosion: MeteorStormMeteor
+		Moves: true
+		Velocity: 190
+		MaximumSpinSpeed: 0
+
+## Zombie Rain pods - dropped by DropPodsPowerOW, falls to earth, explodes, spawns undead
+zombierainpod:
+	Inherits: tomahawkstormpower
+	GrantRandomCondition@undead:
+		Conditions: spawn-zombie, spawn-skeleton
+	SpawnActorOnDeath@zombie:
+		Actor: SummonedZombie
+		RequiresCondition: spawn-zombie
+	SpawnActorOnDeath@skeleton:
+		Actor: Skeleton
+		RequiresCondition: spawn-skeleton
+	FallsToEarth:
+		Explosion: ZombieRainExplosion
+		Moves: true
+		Velocity: 150
+		MaximumSpinSpeed: 0
+	Armament:
+		Weapon: ZombieRainExplosion
+	RenderSprites:
+		Image: mzombie
+	-BodyOrientation:
+	ClassicFacingBodyOrientation:
+		QuantizedFacings: 8
+	WithSpriteBody:
+		Sequence: run
+
+zombierainpod1:
+	Inherits: zombierainpod
+	FallsToEarth:
+		Explosion: ZombieRainExplosion
+		Moves: true
+		Velocity: 170
+		MaximumSpinSpeed: 0
+
+zombierainpod2:
+	Inherits: zombierainpod
+	FallsToEarth:
+		Explosion: ZombieRainExplosion
+		Moves: true
+		Velocity: 190
+		MaximumSpinSpeed: 0
+
+zombierainpod3:
+	Inherits: zombierainpod
+	FallsToEarth:
+		Explosion: ZombieRainExplosion
+		Moves: true
+		Velocity: 210
+		MaximumSpinSpeed: 0
+
+zombierainpod4:
+	Inherits: zombierainpod
+	FallsToEarth:
+		Explosion: ZombieRainExplosion
+		Moves: true
+		Velocity: 230
+		MaximumSpinSpeed: 0
+
+## Invisible marker placed at each void laser impact; rises undead after a random delay
+VoidRiseMarker:
+	Inherits: MINE_DUMMY
+	Immobile:
+		OccupiesSpace: false
+	BodyOrientation:
+		QuantizedFacings: 0
+	HitShape:
+	Health:
+		HP: 999999
+	GrantRandomCondition:
+		Conditions: spawn-nothing, spawn-zombie, spawn-skeleton
+	GrantDelayedCondition:
+		Condition: rise-time
+		Delay: 500, 5000
+	SpawnActorOnDeath@zombie:
+		Actor: SummonedZombie
+		RequiresCondition: spawn-zombie
+	SpawnActorOnDeath@skeleton:
+		Actor: Skeleton
+		RequiresCondition: spawn-skeleton
+	KillsSelf:
+		RequiresCondition: rise-time
+
+## Invisible marker scattered by Chaos Storm; detonates with a random elemental effect after a short fuse
+ChaosStormMarker:
+	Inherits: MINE_DUMMY
+	Immobile:
+		OccupiesSpace: false
+	BodyOrientation:
+		QuantizedFacings: 0
+	HitShape:
+	Health:
+		HP: 999999
+	GrantRandomCondition:
+		Conditions: chaos-fire, chaos-lightning, chaos-curse
+	GrantDelayedCondition:
+		Condition: detonate-time
+		Delay: 50, 250
+	FireWarheadsOnDeath@fire:
+		Weapon: ChaosStormFireImpact
+		RequiresCondition: chaos-fire
+	FireWarheadsOnDeath@lightning:
+		Weapon: ChaosStormLightningImpact
+		RequiresCondition: chaos-lightning
+	FireWarheadsOnDeath@curse:
+		Weapon: ChaosStormCurseImpact
+		RequiresCondition: chaos-curse
+	KillsSelf:
+		RequiresCondition: detonate-time
+
+##  Spawns Void archers for owner, gives powers.
+elvenhideout:
+	Inherits: guardhouse
+	-Buildable:
+	GrantPeriodicCondition@Voidarcher:
+		Condition: Voidarcherspawn
+		CooldownDuration: 500, 1000
+	FreeActor@Voidarcher:
+		Actor: VOIDARCHER_SPAWN
+		AllowRespawn: True
+		RequiresCondition: Voidarcherspawn
+	-GrantPeriodicCondition@Guardhousespawner:
+	-FreeActor@Guardhousespawner:
+	-GrantPeriodicCondition@Guardhousespawner2:
+	-FreeActor@Guardhousespawner2:
+	Power:
+		Amount: 200
+	RenderSprites:
+		Image: elvenhideout
+		PlayerPalette: tsunit
+
+## Redundant ##
+medigarrisontower:
+	Inherits: guardhouse
+	-Buildable
+
+
+^TransmuteProbe:
+	Inherits: MINE_DUMMY
+	-Interactable:
+	-Targetable:
+
+TransmuteProbeHoly:
+	Inherits: ^TransmuteProbe
+	GrantConditionOnTerrain@resource:
+		Condition: on-resource
+		TerrainTypes: Ore, Tiberium, BlueTiberium
+	KillsSelf@notore:
+		RequiresCondition: !on-resource
+		Delay: 3
+		RemoveInstead: true
+	KillsSelf@convert:
+		RequiresCondition: on-resource
+		Delay: 50
+	FireWarheadsOnDeath@transmute:
+		Type: CenterPosition
+		Weapon: TransmuteConvertHoly
+		EmptyWeapon: TransmuteConvertHoly
+
+TransmuteProbeWizard:
+	Inherits: ^TransmuteProbe
+	GrantConditionOnTerrain@resource:
+		Condition: on-resource
+		TerrainTypes: Ore
+	KillsSelf@notore:
+		RequiresCondition: !on-resource
+		Delay: 3
+		RemoveInstead: true
+	KillsSelf@convert:
+		RequiresCondition: on-resource
+		Delay: 50
+	FireWarheadsOnDeath@transmute:
+		Type: CenterPosition
+		Weapon: TransmuteConvertWizard
+		EmptyWeapon: TransmuteConvertWizard
+
+## 7x7 grid spawner for Holy Transmute
+TransmuteSpawnerHoly:
+	Immobile:
+		OccupiesSpace: false
+	KillsSelf:
+		Delay: 5
+		RemoveInstead: true
+	FreeActor@h00:
+		Actor: TransmuteProbeHoly
+		SpawnOffset: -3,-3
+	FreeActor@h01:
+		Actor: TransmuteProbeHoly
+		SpawnOffset: -2,-3
+	FreeActor@h02:
+		Actor: TransmuteProbeHoly
+		SpawnOffset: -1,-3
+	FreeActor@h03:
+		Actor: TransmuteProbeHoly
+		SpawnOffset: 0,-3
+	FreeActor@h04:
+		Actor: TransmuteProbeHoly
+		SpawnOffset: 1,-3
+	FreeActor@h05:
+		Actor: TransmuteProbeHoly
+		SpawnOffset: 2,-3
+	FreeActor@h06:
+		Actor: TransmuteProbeHoly
+		SpawnOffset: 3,-3
+	FreeActor@h07:
+		Actor: TransmuteProbeHoly
+		SpawnOffset: -3,-2
+	FreeActor@h08:
+		Actor: TransmuteProbeHoly
+		SpawnOffset: -2,-2
+	FreeActor@h09:
+		Actor: TransmuteProbeHoly
+		SpawnOffset: -1,-2
+	FreeActor@h10:
+		Actor: TransmuteProbeHoly
+		SpawnOffset: 0,-2
+	FreeActor@h11:
+		Actor: TransmuteProbeHoly
+		SpawnOffset: 1,-2
+	FreeActor@h12:
+		Actor: TransmuteProbeHoly
+		SpawnOffset: 2,-2
+	FreeActor@h13:
+		Actor: TransmuteProbeHoly
+		SpawnOffset: 3,-2
+	FreeActor@h14:
+		Actor: TransmuteProbeHoly
+		SpawnOffset: -3,-1
+	FreeActor@h15:
+		Actor: TransmuteProbeHoly
+		SpawnOffset: -2,-1
+	FreeActor@h16:
+		Actor: TransmuteProbeHoly
+		SpawnOffset: -1,-1
+	FreeActor@h17:
+		Actor: TransmuteProbeHoly
+		SpawnOffset: 0,-1
+	FreeActor@h18:
+		Actor: TransmuteProbeHoly
+		SpawnOffset: 1,-1
+	FreeActor@h19:
+		Actor: TransmuteProbeHoly
+		SpawnOffset: 2,-1
+	FreeActor@h20:
+		Actor: TransmuteProbeHoly
+		SpawnOffset: 3,-1
+	FreeActor@h21:
+		Actor: TransmuteProbeHoly
+		SpawnOffset: -3,0
+	FreeActor@h22:
+		Actor: TransmuteProbeHoly
+		SpawnOffset: -2,0
+	FreeActor@h23:
+		Actor: TransmuteProbeHoly
+		SpawnOffset: -1,0
+	FreeActor@h24:
+		Actor: TransmuteProbeHoly
+		SpawnOffset: 0,0
+	FreeActor@h25:
+		Actor: TransmuteProbeHoly
+		SpawnOffset: 1,0
+	FreeActor@h26:
+		Actor: TransmuteProbeHoly
+		SpawnOffset: 2,0
+	FreeActor@h27:
+		Actor: TransmuteProbeHoly
+		SpawnOffset: 3,0
+	FreeActor@h28:
+		Actor: TransmuteProbeHoly
+		SpawnOffset: -3,1
+	FreeActor@h29:
+		Actor: TransmuteProbeHoly
+		SpawnOffset: -2,1
+	FreeActor@h30:
+		Actor: TransmuteProbeHoly
+		SpawnOffset: -1,1
+	FreeActor@h31:
+		Actor: TransmuteProbeHoly
+		SpawnOffset: 0,1
+	FreeActor@h32:
+		Actor: TransmuteProbeHoly
+		SpawnOffset: 1,1
+	FreeActor@h33:
+		Actor: TransmuteProbeHoly
+		SpawnOffset: 2,1
+	FreeActor@h34:
+		Actor: TransmuteProbeHoly
+		SpawnOffset: 3,1
+	FreeActor@h35:
+		Actor: TransmuteProbeHoly
+		SpawnOffset: -3,2
+	FreeActor@h36:
+		Actor: TransmuteProbeHoly
+		SpawnOffset: -2,2
+	FreeActor@h37:
+		Actor: TransmuteProbeHoly
+		SpawnOffset: -1,2
+	FreeActor@h38:
+		Actor: TransmuteProbeHoly
+		SpawnOffset: 0,2
+	FreeActor@h39:
+		Actor: TransmuteProbeHoly
+		SpawnOffset: 1,2
+	FreeActor@h40:
+		Actor: TransmuteProbeHoly
+		SpawnOffset: 2,2
+	FreeActor@h41:
+		Actor: TransmuteProbeHoly
+		SpawnOffset: 3,2
+	FreeActor@h42:
+		Actor: TransmuteProbeHoly
+		SpawnOffset: -3,3
+	FreeActor@h43:
+		Actor: TransmuteProbeHoly
+		SpawnOffset: -2,3
+	FreeActor@h44:
+		Actor: TransmuteProbeHoly
+		SpawnOffset: -1,3
+	FreeActor@h45:
+		Actor: TransmuteProbeHoly
+		SpawnOffset: 0,3
+	FreeActor@h46:
+		Actor: TransmuteProbeHoly
+		SpawnOffset: 1,3
+	FreeActor@h47:
+		Actor: TransmuteProbeHoly
+		SpawnOffset: 2,3
+	FreeActor@h48:
+		Actor: TransmuteProbeHoly
+		SpawnOffset: 3,3
+
+## 3x3 grid spawner for Wizard Transmute
+TransmuteSpawnerWizard:
+	Immobile:
+		OccupiesSpace: false
+	KillsSelf:
+		Delay: 5
+		RemoveInstead: true
+	FreeActor@w00:
+		Actor: TransmuteProbeWizard
+		SpawnOffset: -1,-1
+	FreeActor@w01:
+		Actor: TransmuteProbeWizard
+		SpawnOffset: 0,-1
+	FreeActor@w02:
+		Actor: TransmuteProbeWizard
+		SpawnOffset: 1,-1
+	FreeActor@w03:
+		Actor: TransmuteProbeWizard
+		SpawnOffset: -1,0
+	FreeActor@w04:
+		Actor: TransmuteProbeWizard
+		SpawnOffset: 0,0
+	FreeActor@w05:
+		Actor: TransmuteProbeWizard
+		SpawnOffset: 1,0
+	FreeActor@w06:
+		Actor: TransmuteProbeWizard
+		SpawnOffset: -1,1
+	FreeActor@w07:
+		Actor: TransmuteProbeWizard
+		SpawnOffset: 0,1
+	FreeActor@w08:
+		Actor: TransmuteProbeWizard
+		SpawnOffset: 1,1
+
+###############################################################################
+##########################   Debug Test Spawner   #############################
+###############################################################################
+
+## Place this in debug mode to spawn all medi buildings in a grid.
+## 5-wide grid, 7-cell spacing. Spawner removes itself after 5 ticks.
+MediAllBuildingsTest:
+	Inherits: barrackswg
+	Buildable:
+		IconPalette: tsunit
+		Queue: Building
+		Prerequisites: ~structures.medi
+		Description: Spawns all medi buildings in a grid for testing
+		BuildPaletteOrder: 9999
+		BuildDuration: 1
+	Valued:
+		Cost: 0
+	Tooltip:
+		Name: Building Test Spawner
+	KillsSelf:
+		Delay: 5
+		RemoveInstead: true
+	## Row 0 (y=0)
+	FreeActor@b01:
+		Actor: mediconyard
+		SpawnOffset: 0,0
+	FreeActor@b02:
+		Actor: barrackswg
+		SpawnOffset: 7,0
+	FreeActor@b03:
+		Actor: refinarymarket
+		SpawnOffset: 14,0
+	FreeActor@b04:
+		Actor: slavecampgc
+		SpawnOffset: 21,0
+	FreeActor@b05:
+		Actor: dragonlair
+		SpawnOffset: 28,0
+	## Row 1 (y=7)
+	FreeActor@b06:
+		Actor: foundrymedi
+		SpawnOffset: 0,7
+	FreeActor@b07:
+		Actor: dwarfsettlement
+		SpawnOffset: 7,7
+	FreeActor@b08:
+		Actor: techcenterblacksmith
+		SpawnOffset: 14,7
+	FreeActor@b09:
+		Actor: advtechcenterlibrary
+		SpawnOffset: 21,7
+	FreeActor@b10:
+		Actor: brashnards
+		SpawnOffset: 28,7
+	## Row 2 (y=14)
+	FreeActor@b11:
+		Actor: radarwg
+		SpawnOffset: 0,14
+	FreeActor@b12:
+		Actor: Archertower
+		SpawnOffset: 7,14
+	FreeActor@b13:
+		Actor: guardhouse
+		SpawnOffset: 14,14
+	FreeActor@b14:
+		Actor: wizardtower
+		SpawnOffset: 21,14
+	FreeActor@b15:
+		Actor: balistatower
+		SpawnOffset: 28,14
+	## Row 3 (y=21)
+	FreeActor@b16:
+		Actor: TheEye
+		SpawnOffset: 0,21
+	FreeActor@b17:
+		Actor: gamblinghall
+		SpawnOffset: 7,21
+	FreeActor@b18:
+		Actor: elvenhideout
+		SpawnOffset: 14,21
+	FreeActor@b19:
+		Actor: monumentgazebo
+		SpawnOffset: 21,21
+	FreeActor@b20:
+		Actor: Graveyard
+		SpawnOffset: 28,21
+	## Row 4 (y=28)
+	FreeActor@b21:
+		Actor: outpostmedi
+		SpawnOffset: 0,28
+	FreeActor@b22:
+		Actor: spittervine
+		SpawnOffset: 7,28
+	FreeActor@b23:
+		Actor: GATEOFLIGHT
+		SpawnOffset: 14,28
+	FreeActor@b24:
+		Actor: MediDarkCrystal
+		SpawnOffset: 21,28
+	FreeActor@b25:
+		Actor: FireStormMedi
+		SpawnOffset: 28,28
+	## Row 5 (y=35)
+	FreeActor@b26:
+		Actor: Templeofkrypta
+		SpawnOffset: 0,35
+	FreeActor@b27:
+		Actor: TempleofLunord
+		SpawnOffset: 7,35
+	FreeActor@b28:
+		Actor: TempleofKrolm
+		SpawnOffset: 14,35

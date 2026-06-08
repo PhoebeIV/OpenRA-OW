@@ -1169,59 +1169,6 @@ Chaoswep15:
 	ReloadDelay: 43
 	Range: 7c0
 
-PaladinHealWep:
-	ReloadDelay: 209
-	Range: 3c0
-	Report: tesla1.aud
-	ValidTargets: Ground, Water, GroundActor, WaterActor, Air, AirborneActor
-	Projectile: InstantHit
-	Warhead@1heala: HealthPercentageDamage
-		Spread: 2c0
-		Damage: -3
-		ValidTargets: Heal
-		ValidRelationships: Ally
-	Warhead@1Dam: SpreadDamage
-		Damage: -2000
-		Spread: 2c0
-		ValidTargets: Heal
-		ValidRelationships: Ally
-	Warhead@1healb: CreateEffect
-		Explosions: medihealeffect
-		ImpactSounds: mediholyheal.aud
-		ImpactActors: false
-	
-SmitePaladinWep:
-	ReloadDelay: 303
-	Range: 3c0
-	Report: tesla1.aud
-	ValidTargets: Ground, Water, GroundActor, WaterActor, Air, AirborneActor
-	Projectile: InstantHit
-	Warhead@: HealthPercentageDamage
-		Delay: 0
-		Spread: 2c512
-		ValidTargets: Infantry
-		Damage: 5
-		ValidRelationships: Enemy, Neutral
-		DamageTypes: Prone50Percent, TriggerProne, ElectricityDeath
-	Warhead@Eff: CreateEffect
-		Explosions: medigryphonriderattack
-		Image: explosion
-		Delay: 0
-	Warhead@friend: HealthPercentageDamage
-		Delay: 0
-		Spread: 2c0
-		ValidTargets: Infantry
-		Damage: 1
-		ValidRelationships: Ally
-		DamageTypes: Prone50Percent, TriggerProne, ElectricityDeath
-	Warhead@SmiteDam_impact: SpreadDamage
-		Delay: 0
-		Spread: 2c0
-		Damage: 7000
-		ValidTargets: Infantry
-		ValidRelationships: Enemy, Neutral
-		DamageTypes: Prone50Percent, TriggerProne, ElectricityDeath
-
 
 ###############################################################################
 ##############################   Ability Attacks   ############################
@@ -1334,3 +1281,83 @@ medi155mmCluster:
 	Warhead@3Eff: CreateEffect
 		Explosions: napalm
 		ImpactSounds: firebl3.aud
+
+TributeCleanup:
+	Range: 0c0
+	Warhead@cleanup: DestroyResource
+		Size: 4
+		ResourceTypes: TributeLow, TributeMid, TributeHigh, TributeSuper
+
+MeteorStormFireball:
+	ValidTargets: Ground, Water, GroundActor, WaterActor
+	Projectile: InstantHit
+	Warhead@fire: SpreadDamage
+		Damage: 9000
+		Spread: 3c0
+		Versus:
+			None: 150
+			Wood: 100
+			Light: 120
+			Heavy: 100
+			Concrete: 20
+		DamageTypes: Prone50Percent, TriggerProne, FireDeath
+	Warhead@eff: CreateEffect
+		Explosions: megaexplosion
+		ImpactSounds: largeexplosion.aud
+		ValidTargets: Ground, GroundActor, Water, WaterActor, Trees, Air, AirborneActor
+
+MeteorStormMeteor:
+	ValidTargets: Ground, Water, GroundActor, WaterActor
+	Projectile: InstantHit
+	Warhead@impact: SpreadDamage
+		Damage: 14000
+		Spread: 2c0
+		ValidTargets: Structure, Defense
+		Versus:
+			Wood: 200
+			Light: 100
+			Heavy: 150
+			Concrete: 100
+		DamageTypes: Prone50Percent, TriggerProne
+	Warhead@eff: CreateEffect
+		Explosions: megaexplosion
+		ImpactSounds: largeexplosion.aud
+		ValidTargets: Ground, GroundActor, Water, WaterActor, Trees
+
+ZombieRainExplosion:
+	Inherits: TomahawkStormExplosion
+	Warhead@1Dam: SpreadDamage
+		Damage: 7000
+		Spread: 2c0
+		Versus:
+			None: 120
+			Wood: 100
+			Light: 90
+			Heavy: 90
+			Concrete: 50
+		DamageTypes: Prone50Percent, TriggerProne
+	Warhead@2Dam: SpreadDamage
+		Spread: 256
+		Damage: 3500
+		Delay: 5
+		ValidTargets: GroundActor, WaterActor, Underwater, AirborneActor, Trees
+
+TransmuteConvertHoly:
+	Range: 0c0
+	Warhead@destroy: DestroyResource
+		Size: 1
+		ResourceTypes: Ore, Tiberium, BlueTiberium
+	Warhead@gems: CreateResource
+		AddsResourceType: Gems
+		Size: 1
+		Delay: 1
+
+TransmuteConvertWizard:
+	Range: 0c0
+	Warhead@destroy: DestroyResource
+		Size: 1
+		ResourceTypes: Ore
+	Warhead@gems: CreateResource
+		AddsResourceType: Gems
+		Size: 1
+		Delay: 1
