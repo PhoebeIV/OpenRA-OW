@@ -547,7 +547,7 @@ actor-avqtnk =
 
 ## avali_upg.yaml
 actor-avalon-carrier =
-   .name = Researech Doubled Repair Cycles
+   .name = Research Doubled Repair Cycles
    .description = Increases Carrier repair amount.
 
 actor-avalon-terra =
