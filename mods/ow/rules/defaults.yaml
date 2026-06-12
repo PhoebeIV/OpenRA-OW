@@ -4151,9 +4151,10 @@
 	### Bless Condition: short, strong damage resistance + minor regen (granted by holy heals on hit)
 	ExternalCondition@MediBlessCondition:
 		Condition: MediBlessCondition
-	##Weaker Monumnet heal from paladin
+		##Weaker Monumnet heal from paladin
 	ExternalCondition@PallyBoost:
 		Condition: PallyBoost
+
 	##Non Magic units get bonus Vehicle Damage
 	GrantConditionOnPrerequisite@medimagicwep:
 		Prerequisites: upgrade.medimagicwep
@@ -4311,16 +4312,10 @@
 		Modifier: 115
 	ChangesHealth@PallyBoost:
 		Step: 150
-		Delay: 50
+		Delay: 150
 		StartIfBelow: 100
 		RequiresCondition: PallyBoost
 		DamageTypes: BypassShield
-	WithIdleOverlay@PallyBoost:
-		Image: japancurse-overlay
-		Sequence: vehicle
-		Palette: effect
-		RequiresCondition: PallyBoost
-		IsDecoration: True
 
 
 
@@ -4423,7 +4418,7 @@
 		Condition: medishieldreq
 	GrantCondition@medishield3:
 		Condition: medishield
-		RequiresCondition: medishieldreq && PallyBoost
+		RequiresCondition: medishieldreq
 	##Holy shield: corrode immunity when upgrade is purchased
 	DamageMultiplier@medishield_corrode:
 		RequiresCondition: medishieldreq && corrode
@@ -4441,16 +4436,10 @@
 		Modifier: 115
 	ChangesHealth@PallyBoost:
 		Step: 150
-		Delay: 15
+		Delay: 150
 		StartIfBelow: 100
 		RequiresCondition: PallyBoost
 		DamageTypes: BypassShield
-	WithIdleOverlay@PallyBoost:
-		Image: japancurse-overlay
-		Sequence: vehicle
-		Palette: effect
-		RequiresCondition: PallyBoost
-		IsDecoration: True
 
 ##Buildings
 ^MediConditionsB:
@@ -4498,7 +4487,7 @@
 		Condition: medishieldreq
 	GrantCondition@medishield3:
 		Condition: medishield
-		RequiresCondition: medishieldreq && PallyBoost
+		RequiresCondition: medishieldreq
 	##Buildings get shields, very small regen
 	GrantConditionOnPrerequisite@medimagiclogs:
 		Prerequisites: upgrade.medimagiclogs

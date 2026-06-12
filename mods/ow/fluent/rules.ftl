@@ -2715,18 +2715,19 @@ actor-meditent =
    .name = Medieval Barracks
 
 actor-laborcamp =
-   .description = Allows production of Slaves and Workers
+   .description = Allows production of slave units.
+    Worker units will also produce from this building.
    .name = Labor Camp
 
 actor-stables =
-   .description = Allows production of horse based,
-     Mechanical & Elemental units.
+   .description = Allows production of
+    horse based units.
    .name = Medieval Stables
 
 actor-dockmedi =
    .description = Produces and repairs
     ships and transports.
-   .name = Dockyard
+   .name = Dock
 
 actor-aviary =
    .description = Allows production of air units.
@@ -2758,14 +2759,6 @@ actor-upgrade-mediworkboot =
    .name = Worker boots
    .description = Upgrades your workers and slaves with boots, safe to walk on Tiberium
 
-actor-upgrade-medimagicwep =
-   .name = Magic Weapons
-   .description = Enchant your weapons for bonus damage to vehicles
-
-actor-upgrade-medimagiclogs =
-   .name = Magic Logs
-   .description = Enchant your Buildings for bonus Shields
-
 actor-upgrade-medibless =
    .name = Holy Blessing
    .description = Protect your units from stealth, see invisable from further away
@@ -2773,10 +2766,6 @@ actor-upgrade-medibless =
 actor-upgrade-medishield =
    .name = Holy Shield
    .description = Protect your units with a holy shield at low HP
-
-actor-upgrade-mediabolish =
-   .name = Abolish Slavery
-   .description = Can no longer build slaves, cheaper workers, faster workers.
 
 actor-upgrade-medipure =
    .name = Pure Magic
@@ -2801,6 +2790,445 @@ actor-upgrade-medirituals =
 actor-upgrade-medinecro =
    .name = Necromancy
    .description = Enhance your Zombies and spawn gouls on death of units.
+
+actor-upgrade-mediarrowzap =
+   .name = Mage Defence
+   .description = Upgrades your Arrow Towers With a Mage
+
+actor-upgrade-mediarrowvoid =
+   .name = Dark Archer Defence
+   .description = Upgrades your Arrow Towers With a Dark Archer
+
+actor-upgrade-mediarrowwiz =
+   .name = Mage Defence (Elemental)
+   .description = Upgrades your Arrow Towers With a Mage
+
+actor-upgrade-mediarrowmusk =
+   .name = Musket Defence
+   .description = Upgrades your Arrow Towers With Muskets
+
+actor-upgrade-elementalwepstech =
+   .name = Elemental Wepons
+   .description = Enchant your weapons with Toxin
+
+actor-upgrade-cannondefence =
+   .name = Cannon Defence
+   .description = Upgrades your Balista Towers with a Cannon
+
+actor-upgrade-heavyhorsearmor =
+   .name = Heavy Horse Armor
+   .description = Premium DLC Horse Armor
+
+actor-upgrade-workertib =
+   .name = Worker Tiberium Immunity
+   .description = Worker Tiberium imunity
+
+actor-factm =
+   .description = Allows the construction of buildings.
+   .name = Keep
+
+actor-outpostmedi =
+   .name = Outpost
+
+actor-medifoundry =
+   .description = Autonomous building construction.
+    Increases build speed of Structures and
+    Defense by 1 stage (max 10).
+
+actor-armorymedi =
+   .description = Allows production of Siege Weapons.
+   .name = Medieval Armory
+
+actor-castle =
+   .description = Basic Techcenter building.
+    Also unlocks upgrades.
+   .name = Medieval Castle (Techcenter)
+
+actor-blacksmithmedi =
+   .description = Allows the production of gun-powder based units.
+   .name = Blacksmith
+
+actor-churchmedi =
+   .description = Unlocks priests that heal infantry.
+    Provides abilities
+   .name = Medieval Church
+
+actor-merchantguild =
+   .description = Allows production of Workers.
+    Also provides passive income
+   .name = Merchant Guild (Advanced Tech)
+
+actor-alchemylab =
+   .description = Unlocks spells and provides passive income.
+    Consumes lots of power.
+   .name = Alchemy Lab
+
+actor-library =
+   .description = Super Tech Center
+    clones infantry units
+    Unlocks Super Units
+   .name = Library (Super Tech)
+
+actor-manawell =
+   .description = Provides Power
+   .name = Mana Well
+
+actor-deepmanawell =
+   .description = Provides a large amount of Power
+   .name = Deep Mana Well
+
+actor-firestormmedi =
+   .description = Provides the Natures Will Super Weapon
+      Devastates an area with explosive magic
+   .name = Natures Will
+
+actor-gateoflight =
+   .description = Provides the Gate of Babylon Super Weapon
+      Rains down swords that destroy an area.
+   .name = Gate of Babylon
+
+actor-medidarkcrystal =
+   .description = Provides the Void Rain Super Weapon
+    Dark energy rains from above to destroy an area
+   .name = Void Crystal
+
+actor-theeye =
+   .description = Grants Vision in large area
+   .name = The Eye
+
+actor-monumenttothegods =
+   .description = Gives Healing aura to units and structures.
+    Smaller Aura that gives larger boost to just Holy Units (Disabled Near Super units.)
+   .name = Monument To The Gods
+
+actor-medigraveyard =
+   .description = Turns nearby Dead infantry into uncontrollable Zombies.
+   .name = Graveyard
+
+actor-magewall =
+   .description = Magic Wall (Regenrates Health)
+   .name = Magic Wall
+
+actor-sbagmedi =
+   .description = Stops infantry and light vehicles.
+    Can be crushed by tanks.
+   .name = Sandbag Wall
+
+actor-brikmedi =
+   .description = Stop units and blocks enemy fire.
+   .name = Medi Concrete Wall
+
+actor-archertower =
+   .description = Tower that fires arrows.
+      Strong Vs Infantry
+      Weak Vs Vehicles, Buildings
+      Cannot target Air
+   .name = Archer Tower
+      Strong Vs Infantry
+      Weak Vs Vehicles, Buildings
+      Cannot target Air
+
+actor-archertower2 =
+   .description = Tower that fires Multiple arrows, is Upgradable
+    Strong vs Infantry
+   .name = Double Archer Tower
+
+actor-archertower3 =
+   .description = Tower that fires Multiple arrows, Has Magic upgrade and is Upgradable
+    Strong vs Infantry & Vehicles
+   .name = Magic Tower
+
+actor-archertower4 =
+   .description = Tower that fires Multiple arrows, Has Magic upgrade and Musketeer
+    Strong vs Infantry & Vehicles
+   .name = Musket Tower
+
+actor-scouttower =
+   .description = Stealth Scout Tower, no attacks, Huge Vision
+   .name = Scout Tower
+
+actor-arcanetower =
+   .description = Tower that uses Mana to fire a constant Beam
+    Strong vs Aircraft, Vehicles & Infantry
+   .name = Arcane Tower
+
+actor-balistatower =
+   .description = Tower with a siege weapon strapped to the roof.
+      Strong Vs Vehicles, Light armor, Buildings
+      Weak Vs Infantry
+      Cannot target Air
+   .name = Balista Tower
+      Strong Vs Vehicles, Light armor, Buildings
+      Weak Vs Infantry
+      Cannot target Air
+
+actor-cannontower =
+   .description = Tower With a Cannon strapped to the roof
+    Strong vs Aircraft & Vehicles
+   .name = Cannon Tower
+
+actor-magicmine =
+   .description = Highly explosive proximity trap.
+      Strong vs Ground units
+      Weak vs Aircraft
+   .name = Magic Trap
+
+actor-medigarrisontower =
+   .description = Garrison Units for Defence
+   .name = Garrison Tower
+
+actor-goldminespawner =
+   .description = Slowly produces money when workers provided
+
+actor-goldmined1 =
+   .name = Gold Mine (Depth 1)
+
+actor-goldmined2 =
+   .name = Gold Mine (Depth 2)
+
+actor-goldmined3 =
+   .name = Gold Mine (Depth 3)
+
+actor-goldmined4 =
+   .name = Gold Mine (Depth 4)
+
+actor-goldmined5 =
+   .name = Gold Mine (Depth 5)
+
+## medi-New/medi_inf.yaml (continued: priest, berserker, medipaladin, voidarcher, lightningwizard)
+actor-priest =
+   .description = Heals nearby infantry.
+   .name = Priest
+
+actor-berserker =
+   .description = He carries the anger of a thousand small dwarfs.
+      Strong Vs Vehicles, Light armor
+      Weak Vs Infantry, Buildings
+      Cannot target Air
+   .name = Berserker
+      Strong Vs Vehicles, Light armor
+      Weak Vs Infantry, Buildings
+      Cannot target Air
+
+actor-medipaladin =
+   .description = He carries a holy sword.
+      Strong Vs Infantry, Light armor
+      Weak Vs Vehicles, Buildings
+      Cannot target Air
+   .name = Holy Paladin
+      Strong Vs Infantry, Light armor
+      Weak Vs Vehicles, Buildings
+      Cannot target Air
+
+actor-voidarcher =
+   .description = Dark magic archer
+      Strong Vs Infantry, Vehicles
+      Weak Vs Buildings
+      Can target Air
+   .name = Void Archer
+      Strong Vs Infantry, Vehicles
+      Weak Vs Buildings
+      Can target Air
+
+actor-lightningwizard =
+   .description = Elemental Mage uses Lightning magic
+      Strong Vs Infantry
+      Weak Vs Buildings
+      Can target Air
+   .name = Lightning Wizard
+      Strong Vs Infantry
+      Weak Vs Buildings
+      Can target Air
+
+## oldmedi_veh.yaml
+actor-mcvm =
+   .description = Deploys into a Construction Yard.
+   .name = Mobile Construction Vehicle
+
+actor-trukmedi =
+   .description = Transports cash to other players.
+      Unarmed
+   .name = Supply Truck
+
+actor-trojan =
+   .description = Truck with actively armed nuclear
+    explosives. Has very weak armor.
+   .name = Trojan
+
+actor-horsecrossbowman =
+   .description = Crossbowman on a horse.
+      Strong vs Infantry
+      Weak vs Vehicles, Aircraft
+   .name = Horse Crossbowman
+
+actor-horseswordman =
+   .description = Horseback Swordsman.
+      Strong vs Infantry and Artilary
+      Weak vs Vehicles, Aircraft
+   .name = Horse Swordsman
+
+actor-horsepaladin =
+   .description = Horseback Paladin.
+      Strong vs Infantry and Artilary
+      Weak vs Vehicles, Aircraft
+   .name = Horse Paladin
+
+actor-horsescout =
+   .description = Horseback Scout.
+      Strong vs None
+   .name = Horse Scout
+
+actor-horsemusket =
+   .description = Musketeer on horseback.
+      Strong vs Infantry
+      Weak vs Vehicles, Aircraft
+   .name = Horse Musketeer
+
+actor-catapult =
+   .description = medium ranged artillery.
+      Strong Vs Infantry, Buildings
+      Weak Vs Vehicles
+      Cannot target Air
+   .name = Catapult
+      Strong Vs Infantry, Buildings
+      Weak Vs Vehicles
+      Cannot target Air
+
+actor-trebuchet =
+   .description = Long-range artillery.
+      Strong Vs Infantry, Buildings
+      Weak Vs Vehicles
+      Cannot target Air
+   .name = Trebuchet
+      Strong Vs Infantry, Buildings
+      Weak Vs Vehicles
+      Cannot target Air
+
+actor-hwacha =
+   .description = Long-range arrow artillery.
+      Strong Vs Infantry
+      Weak Vs Vehicles
+      Cannot target Air
+   .name = Hwacha
+      Strong Vs Infantry
+      Weak Vs Vehicles
+      Cannot target Air
+
+actor-ballista =
+   .description = Long-range Sniper artillery.
+      Strong Vs Vehicles, Buildings
+      Weak Vs Infantry
+      Cannot target Air
+   .name = Ballista
+      Strong Vs Vehicles, Buildings
+      Weak Vs Infantry
+      Cannot target Air
+
+actor-cannon =
+   .description = Long-range artillery.
+      Strong Vs Vehicles
+      Weak Vs Infantry, Buildings
+      Cannot target Air
+   .name = Cannon
+      Strong Vs Vehicles
+      Weak Vs Infantry, Buildings
+      Cannot target Air
+
+actor-carriage =
+   .description = Light infantry transport.
+    Can Fire while moving
+    Strength varies with occupants
+   .name = Carriage
+
+actor-siegetower =
+   .description = Tough infantry transport that can fight on the move.
+      Strong Vs Infantry, Buildings
+      Weak Vs Vehicles
+      Cannot target Air
+   .name = Siege Tower
+      Strong Vs Infantry, Buildings
+      Weak Vs Vehicles
+      Cannot target Air
+
+actor-mcvm-2 =
+   .description = Emergency Replacement
+
+actor-mcvm-3 =
+   .description = Emergency Replacement
+
+## oldmedi_air.yaml
+actor-medidragon =
+   .description = Airborn Fighter of the Medieval era,
+      Strong Vs Infantry, Light armor, Aircraft
+      Weak Vs Vehicles
+      Can target Air
+   .name = Dragon
+      Strong Vs Infantry, Light armor, Aircraft
+      Weak Vs Vehicles
+      Can target Air
+
+actor-medigyro =
+   .description = Helicopter gunship armed
+    with dual chainguns.
+      Strong vs Infantry, Light armor
+      Weak vs Tanks, Aircraft
+   .name = Gyro
+
+actor-medigryphonrider =
+   .description = Magical Attack Aircraft.
+    Regenerates Ammo
+      Strong vs Tanks
+      Weak vs Infantry, Light armor, Aircraft
+   .name = Gryphon Rider
+
+actor-mediicewyvern =
+   .description = Demon of the sky, Strong Siege flyer, Hit and run with slow attacks
+   .name = Ice Wyvern
+
+actor-medilightningelement =
+   .description = Lightning Elemental
+    Has magic EMP attack.
+      Strong vs Tanks, Aircraft
+      Weak vs Infantry, Light armor
+   .name = Lightning Elemental
+
+actor-chaoselemental =
+   .description = Chaos Elemental, Cannot be controlled and will attack and wander around the map
+   .name = Chaos Elemental
+
+actor-chaosorb =
+   .name = Ball of Chaos
+
+## oldmedi_shp.yaml
+actor-medicanoe =
+   .description = General-purpose naval transport.
+    Can carry infantry and tanks.
+      Unarmed when unloaded
+   .name = Canoe
+
+actor-medihwachaboat =
+   .description = Fast arrow artillery ship.
+    Can detect submarines.
+      Strong vs Subs, Infantry
+      Weak vs anything else
+   .name = Hwacha Boat
+
+actor-medimanofwar =
+   .description = Long range area siege.
+      Strong vs Buildings
+      Weak vs Infantry, Vehicles, Air
+   .name = Man of War
+
+actor-mediarcaneboat =
+   .description = Ship with an Arcane Tower built onto it.
+      Strong vs Close range.
+   .name = Arcane Boat
+
+actor-waterelemental =
+   .description = Elemental beast.
+      Strong vs Vehicles and Ships
+      Weak vs Infantry, Aircraft
+   .name = Water Elemental
 
 ## misc.yaml
 actor-camera-name = (reveals area to owner)
@@ -8563,3 +8991,657 @@ actor-covenantshieldgenerator =
    "Generates a large bubble shield to protect the base"
 
    .name = Covenant Shield Generator
+
+## medi-New/medi_str.yaml
+actor-mediconyard =
+   .name = Medieval Conyard
+
+actor-foundrymedi =
+   .description = Autonomous building construction.
+      Increases build speed of Structures and
+      Defense by 1 stage (max 10).
+
+actor-slavecampgc =
+   .description = Produces Slaves.
+      Also acts as a Silo to allow more credits to be held.
+   .name = Slave Camp
+
+actor-refinarymarket =
+   .description = Allows production of Slaves and Workers
+   .name = Labor Camp
+
+actor-barrackswg =
+   .description = Allows production of infantry units.
+   .name = Medieval Barracks
+
+actor-dwarfsettlement =
+   .description = Allows production of Vehicles.
+   .name = Medieval Stables
+
+actor-drydock =
+   .description = Produces and repairs
+      ships and transports.
+   .name = Dockyard
+
+actor-dragonlair =
+   .description = Allows production of air units.
+   .name = Aviary
+
+actor-techcenterblacksmith =
+   .description = Tech Center. Unlocks advanced production and grants powerful support abilities.
+   .name = Medieval Tech Center
+
+actor-advtechcenterlibrary =
+   .description = Unlocks spells and provides passive income.
+   .name = Great Library
+
+actor-brashnards =
+   .description = Super Tech Center
+      clones infantry units
+      Unlocks Super Units
+   .name = Brashnards (Super Tech)
+
+actor-radarwg =
+   .description = Wizard Guild that provides radar coverage and access to magic.
+   .name = Wizard Guild
+
+actor-guardhouse =
+   .description = Garrison Units for Defence
+   .name = Garrison Tower
+
+actor-wizardtower =
+   .description = Tower armed with arcane bolts. Garrisoning wizards grants it additional elemental attacks.
+      Strong Vs Aircraft, Vehicles, Infantry
+      Weak Vs Buildings
+      Can target Air
+   .name = Arcane Tower
+      Strong Vs Aircraft, Vehicles, Infantry
+      Weak Vs Buildings
+      Can target Air
+
+actor-templeoflunord =
+   .description = Allows production of Holy creatures.
+   .name = Temple of Lunord
+
+actor-templeofkrypta =
+   .description = Allows production of Cult creatures.
+   .name = Temple of Krypta
+
+actor-goblincamp =
+   .description = Allows production of goblin infantry units.
+   .name = Goblin Camp
+
+actor-goblinhovel =
+   .description = Produces Slaves.
+      Also acts as a Silo to allow more credits to be held.
+   .name = Goblin Hovel
+
+actor-graveyard =
+   .description = Produces undead to defend the area
+   .name = Graveyard
+
+actor-templeofkrolm =
+   .description = Allows production of Wizard creatures.
+   .name = Temple of Krolm
+
+actor-monumentgazebo =
+   .name = Healing Monument
+
+actor-spittervine =
+   .name = Spitter vine
+
+actor-spittervine-dead =
+   .name = Spitter Vine (Dormant)
+
+actor-mediallbuildingstest =
+   .description = Spawns all medi buildings in a grid for testing
+   .name = Building Test Spawner
+
+## medi-New/medi_upg.yaml
+actor-upgrade-mediarrow =
+   .description = Upgrades your Arrow Towers with another Archer
+   .name = Archer Defence
+
+actor-upgrade-mediworkerboots =
+   .description = Upgrades your workers and slaves with boots, safe to walk on Tiberium
+   .name = Worker boots
+
+actor-upgrade-medimagicwep =
+   .description = Enchant your weapons for faster attack speed
+   .name = Magic Weapons
+
+actor-upgrade-medimagiclogs =
+   .description = Enchant your Buildings for bonus Shields and slow hp regen while shields are up
+   .name = Magic Logs
+
+actor-upgrade-medivision =
+   .description = Enhances your vision powers
+   .name = True Vision
+
+actor-upgrade-medideathandtaxes =
+   .description = You can now collect taxes.
+   .name = Death and taxes
+
+actor-upgrade-mediblessing =
+   .description = Protect your units from stealth, see invisable from further away, Vehicles can spot stealth
+   .name = Holy Blessing
+
+actor-upgrade-mediholyshield =
+   .description = Empower your paladins to Protect your units with a holy shield preventing debuffs
+   .name = Holy Shield
+
+actor-upgrade-mediabolish =
+   .description = Can no longer build slaves, cheaper workers, faster workers.
+   .name = Abolish Slavery
+
+actor-upgrade-medipuremagic =
+   .description = Boosts Magic Damage and range
+   .name = Pure Magic
+
+actor-upgrade-medimagearmor =
+   .description = Shields for Wizards
+   .name = Mage Armor
+
+actor-upgrade-mediwizardtower =
+   .description = Cheaper Arcane Towers, Can Garrison Mages.
+   .name = Wizard Towers
+
+actor-upgrade-medislavedrive =
+   .description = Slaves carry more.
+   .name = Slave Drive
+
+actor-upgrade-mediblackblood =
+   .description = Black Blood grants your reatures damage reduction and regen missing HP
+   .name = Black Blood
+
+actor-upgrade-medinecromancy =
+   .description = Undead units have small chance to respawn once per life.
+   .name = Necromancy
+
+## medi-New/medi_inf.yaml
+actor-medislave =
+   .description = Collects Ore, Tiberium and Gems for processing, but slower and with less capacity than a standard worker.
+      Can repair buildings and vehicles.
+   .name = Slave
+
+actor-mediworker =
+   .description = Collects Ore, Tiberium and Gems for processing.
+      Can repair buildings and vehicles.
+   .name = Worker
+
+actor-mediworker2 =
+   .description = Collects Ore, Tiberium and Gems for processing.
+      Can repair buildings and vehicles.
+   .name = Worker
+
+actor-taxcollector =
+   .description = Collects tax from your base structures.
+   .name = Tax Collector
+
+actor-knight =
+   .description = Mediaval Knight
+      Strong Vs Infantry, Light armor
+      Weak Vs Vehicles, Buildings
+      Cannot target Air
+   .name = Knight
+      Strong Vs Infantry, Light armor
+      Weak Vs Vehicles, Buildings
+      Cannot target Air
+
+actor-guardhouseguard =
+   .name = Guard for the Guard House
+
+actor-arcanewizard =
+   .description = War Mage fires penetrating magic
+      Strong Vs Vehicles, Light armor
+      Weak Vs Infantry, Buildings
+      Can target Air
+   .name = Arcane Wizard
+      Strong Vs Vehicles, Light armor
+      Weak Vs Infantry, Buildings
+      Can target Air
+
+actor-archer =
+   .description = Mediaval Crossbowman
+      Strong Vs Infantry, Buildings
+      Weak Vs Vehicles
+      Can target Air
+   .name = Archer
+      Strong Vs Infantry, Buildings
+      Weak Vs Vehicles
+      Can target Air
+
+actor-tankbuster =
+   .description = Smash big things with big hammer.
+      Strong Vs Vehicles, Buildings
+      Weak Vs Infantry
+      Cannot target Air
+   .name = Dwarven Tank Buster
+      Strong Vs Vehicles, Buildings
+      Weak Vs Infantry
+      Cannot target Air
+
+actor-shieldhero =
+   .description = He carries a holy sword and gods Protection.
+      After a flurry of attacks, he smites his foes and heals nearby allies.
+      Strong Vs Infantry, Light armor
+      Weak Vs Vehicles, Buildings
+      Can target Air
+   .name = Divine Protection
+      Strong Vs Infantry, Light armor
+      Weak Vs Vehicles, Buildings
+      Can target Air
+
+actor-blackphantom =
+   .description = Slave that collects resources for processing, but slower and with less capacity than a standard worker.
+      Can repair buildings and vehicles.
+   .name = Black Phantom
+
+actor-ratman =
+   .description = Toxic ratman from the sewers.
+      Strong Vs Vehicles, Buildings
+      Weak Vs Infantry
+      Cannot target Air
+   .name = Ratman
+      Strong Vs Vehicles, Buildings
+      Weak Vs Infantry
+      Cannot target Air
+
+actor-giantrat =
+   .description = Toxic Rat from the sewers.
+      Strong Vs Infantry
+      Weak Vs Vehicles, Buildings
+      Cannot target Air
+   .name = Rat
+      Strong Vs Infantry
+      Weak Vs Vehicles, Buildings
+      Cannot target Air
+
+actor-goblinwarrior =
+   .description = Goblin Warrior.
+      Strong Vs Infantry, Light armor
+      Weak Vs Vehicles, Buildings
+      Cannot target Air
+   .name = Goblin Warrior
+      Strong Vs Infantry, Light armor
+      Weak Vs Vehicles, Buildings
+      Cannot target Air
+
+actor-goblinchampion =
+   .description = Goblin Champion.
+      Strong Vs Infantry, Light armor
+      Weak Vs Vehicles, Buildings
+      Cannot target Air
+   .name = Goblin Champion
+      Strong Vs Infantry, Light armor
+      Weak Vs Vehicles, Buildings
+      Cannot target Air
+
+actor-goblinpriest =
+   .description = Goblin Priest. Heals units
+   .name = Goblin Priest
+
+actor-goblinarcher =
+   .description = Goblin Archer.
+      Strong Vs Infantry, Buildings
+      Weak Vs Vehicles
+      Can target Air
+   .name = Goblin Archer
+      Strong Vs Infantry, Buildings
+      Weak Vs Vehicles
+      Can target Air
+
+actor-witchking =
+   .description = Witch King, Master Necromancer
+      Strong Vs Vehicles, Buildings, Light armor
+      Weak Vs Infantry
+      Can target Air
+   .name = Witch King
+      Strong Vs Vehicles, Buildings, Light armor
+      Weak Vs Infantry
+      Can target Air
+
+actor-skeleton =
+   .description = Undead Skeleton
+      Strong Vs Infantry
+      Weak Vs Vehicles, Buildings
+      Cannot target Air
+   .name = Undead Skeleton
+      Strong Vs Infantry
+      Weak Vs Vehicles, Buildings
+      Cannot target Air
+
+actor-summonedzombie =
+   .description = Undead Zombie
+      Strong Vs Infantry
+      Weak Vs Vehicles, Buildings
+      Cannot target Air
+   .name = Undead Zombie
+      Strong Vs Infantry
+      Weak Vs Vehicles, Buildings
+      Cannot target Air
+
+actor-medideathknight =
+   .description = Dark Knight Super unit, Practicaly a nuke on legs.
+      Strong Vs Infantry, Vehicles
+      Weak Vs Buildings
+      Cannot target Air
+   .name = Death Knight
+      Strong Vs Infantry, Vehicles
+      Weak Vs Buildings
+      Cannot target Air
+
+actor-firewizard =
+   .description = Elemental Mage Uses Fire magic
+      Strong Vs Infantry, Buildings, Light armor
+      Weak Vs Vehicles
+      Cannot target Air
+   .name = Fire Wizard
+      Strong Vs Infantry, Buildings, Light armor
+      Weak Vs Vehicles
+      Cannot target Air
+
+actor-monk =
+   .description = Human Monk. Heals units
+   .name = Healing Monk
+
+actor-dryad =
+   .description = Dryad Repairs structures.
+   .name = Dryad
+
+actor-vampire =
+   .description = Lifesteal goes up as HP gets lower.
+      Strong Vs Infantry, Light armor
+      Weak Vs Vehicles, Buildings
+      Cannot target Air
+   .name = Vampire
+      Strong Vs Infantry, Light armor
+      Weak Vs Vehicles, Buildings
+      Cannot target Air
+
+actor-mediinfantrytest =
+   .description = Spawns all medi infantry for testing
+   .name = Infantry Test Spawner
+
+## medi-New/medi_veh.yaml
+actor-werewolf =
+   .description = Attacks faster the longer it stays in combat.
+      Strong Vs Infantry
+      Weak Vs Vehicles, Buildings
+      Cannot target Air
+   .name = Werewolf
+      Strong Vs Infantry
+      Weak Vs Vehicles, Buildings
+      Cannot target Air
+
+actor-giantbear =
+   .description = A holy beast that fights alongside the faithful.
+      Strong Vs Infantry
+      Weak Vs Vehicles, Buildings
+      Cannot target Air
+   .name = Giant Bear
+      Strong Vs Infantry
+      Weak Vs Vehicles, Buildings
+      Cannot target Air
+
+actor-giantwolf =
+   .description = Fast attack beast. Deadly against infantry.
+      Strong Vs Infantry
+      Weak Vs Vehicles, Buildings
+      Cannot target Air
+   .name = Giant Wolf
+      Strong Vs Infantry
+      Weak Vs Vehicles, Buildings
+      Cannot target Air
+
+actor-dirgo =
+   .description = Slow but devastating. Regens unless corroded. Cannot target infantry.
+      Strong Vs Vehicles, Buildings
+      Weak Vs Infantry
+      Can target Air
+   .name = Dirgo
+      Strong Vs Vehicles, Buildings
+      Weak Vs Infantry
+      Can target Air
+
+actor-giantspider =
+   .description = Stealthy. Corrosive bite. Slow but deadly.
+      Strong Vs Vehicles, Buildings
+      Weak Vs Infantry
+      Cannot target Air
+   .name = Giant Spider
+      Strong Vs Vehicles, Buildings
+      Weak Vs Infantry
+      Cannot target Air
+
+actor-medusa =
+   .description = Ranged magic attack. Explodes on death stunning nearby infantry.
+      Strong Vs Vehicles
+      Weak Vs Infantry, Buildings
+      Can target Air
+   .name = Medusa
+      Strong Vs Vehicles
+      Weak Vs Infantry, Buildings
+      Can target Air
+
+actor-minotaur =
+   .description = Vehicle berserker. Gains speed and power at low HP.
+      Strong Vs Vehicles, Buildings
+      Weak Vs Infantry
+      Cannot target Air
+   .name = Minotaur
+      Strong Vs Vehicles, Buildings
+      Weak Vs Infantry
+      Cannot target Air
+
+actor-rrongol =
+   .description = Fast beast. Periodically enters a crit frenzy doubling damage.
+      Strong Vs Vehicles, Buildings
+      Weak Vs Infantry
+      Cannot target Air
+   .name = Rrongol
+      Strong Vs Vehicles, Buildings
+      Weak Vs Infantry
+      Cannot target Air
+
+actor-troll =
+   .description = Powerful melee beast. Regenerates HP unless corroded.
+      Strong Vs Vehicles, Buildings
+      Weak Vs Infantry
+      Cannot target Air
+   .name = Troll
+      Strong Vs Vehicles, Buildings
+      Weak Vs Infantry
+      Cannot target Air
+
+actor-daemonwood =
+   .description = Tanky creature. Regenerates HP unless corroded.
+      Strong Vs Vehicles, Buildings
+      Weak Vs Infantry
+      Cannot target Air
+   .name = Daemonwood
+      Strong Vs Vehicles, Buildings
+      Weak Vs Infantry
+      Cannot target Air
+
+actor-rockgolem =
+   .description = Slow, huge HP, splits into smaller golems on death.
+      Strong Vs Infantry
+      Weak Vs Vehicles, Buildings
+      Cannot target Air
+   .name = Rock Golem
+      Strong Vs Infantry
+      Weak Vs Vehicles, Buildings
+      Cannot target Air
+
+actor-rustspitter =
+   .description = Corrosive spitter. Excellent anti-air. Corrodes everything it hits.
+      Strong Vs Infantry, Vehicles
+      Weak Vs Buildings
+      Can target Air
+   .name = Rust Spitter
+      Strong Vs Infantry, Vehicles
+      Weak Vs Buildings
+      Can target Air
+
+actor-urlshekk =
+   .description = Ranged elite. Cycles between anti-infantry, anti-vehicle and anti-structure attacks.
+      Strong Vs Infantry, Vehicles, Buildings
+      Weak Vs Aircraft
+      Can target Air
+   .name = Url Shekk
+      Strong Vs Infantry, Vehicles, Buildings
+      Weak Vs Aircraft
+      Can target Air
+
+actor-moculus =
+   .description = Beholder of magic. Wields a vast arsenal of spells from its many eyes.
+      Strong Vs Vehicles, Buildings
+      Weak Vs Infantry
+      Can target Air
+   .name = Beholder of magic
+      Strong Vs Vehicles, Buildings
+      Weak Vs Infantry
+      Can target Air
+
+actor-medivehicletest =
+   .description = Spawns all medi vehicles for testing
+   .name = Vehicle Test Spawner
+
+## medi-New/medi_air.yaml
+actor-gyro =
+   .description = Helicopter gunship armed
+      with dual chainguns.
+      Strong Vs Infantry, Light armor
+      Weak Vs Tanks, Aircraft
+      Can target Air
+   .name = Gyro
+      Strong Vs Infantry, Light armor
+      Weak Vs Tanks, Aircraft
+      Can target Air
+
+actor-gryphon =
+   .description = Magical Attack Aircraft.
+      Regenerates Ammo
+      Strong Vs Vehicles, Cavalry
+      Weak Vs Infantry, Light armor
+      Can target Air
+   .name = Gryphon Rider
+      Strong Vs Vehicles, Cavalry
+      Weak Vs Infantry, Light armor
+      Can target Air
+
+actor-gianteagle =
+   .description = Giant magical bird that swoops down to maul enemies in melee.
+      Strong Vs Vehicles, Cavalry, Buildings
+      Weak Vs Infantry
+      Cannot target Air
+   .name = Giant Eagle
+      Strong Vs Vehicles, Cavalry, Buildings
+      Weak Vs Infantry
+      Cannot target Air
+
+actor-harpy =
+   .description = Magical Attack beast.
+      Regenerates Ammo
+      Strong Vs Vehicles, Cavalry
+      Weak Vs Infantry, Light armor
+      Can target Air
+   .name = Harpy
+      Strong Vs Vehicles, Cavalry
+      Weak Vs Infantry, Light armor
+      Can target Air
+
+actor-vendral =
+   .description = Airborn beast who rules the sky,
+      Strong Vs Vehicles, Light armor
+      Weak Vs Buildings
+      Can target Air
+   .name = Vendral
+      Strong Vs Vehicles, Light armor
+      Weak Vs Buildings
+      Can target Air
+
+actor-medidragonbomber =
+   .name = Dragon
+
+actor-wyvern =
+   .description = Flying siege unit with an area-of-effect slowing attack.
+      Strong Vs Buildings, Vehicles
+      Weak Vs Infantry
+      Cannot target Air
+   .name = Wyvern
+      Strong Vs Buildings, Vehicles
+      Weak Vs Infantry
+      Cannot target Air
+
+actor-medizeplin =
+   .description = Air transport carrying up to 20 infantry.
+      Unarmed
+   .name = Zeppelin
+
+actor-mediaircrafttest =
+   .description = Spawns all medi aircraft for testing
+   .name = Aircraft Test Spawner
+
+## medi-New/medi_shp.yaml
+actor-mcanoe =
+   .description = General-purpose naval transport.
+      Can carry infantry and tanks.
+      Unarmed when unloaded
+   .name = Canoe
+
+actor-mbalistaboat =
+   .description = Fast arrow artillery ship.
+      Can detect submarines.
+      Strong Vs Subs, Vehicles, Buildings
+      Weak Vs Infantry
+      Cannot target Air
+   .name = Hwacha Boat
+      Strong Vs Subs, Vehicles, Buildings
+      Weak Vs Infantry
+      Cannot target Air
+
+actor-mmanofwar =
+   .description = Long range area siege.
+      Strong Vs Infantry, Buildings
+      Weak Vs Vehicles
+      Cannot target Air
+   .name = Man of War
+      Strong Vs Infantry, Buildings
+      Weak Vs Vehicles
+      Cannot target Air
+
+actor-marcaneboat =
+   .description = Ship with a Arcane Tower built onto it.
+      Strong Vs Vehicles, Buildings
+      Weak Vs Infantry
+      Can target Air
+   .name = Arcane Boat
+      Strong Vs Vehicles, Buildings
+      Weak Vs Infantry
+      Can target Air
+
+actor-medishiptest =
+   .description = Spawns all medi ships for testing - place at water edge
+   .name = Ship Test Spawner
+
+## medi-New/medi_gamba.yaml
+actor-gamblinghall =
+   .name = Gambling House
+
+actor-gamblingcodet1 =
+   .description = Risky Bet. High variance - big jackpot chance but most rolls pay little.
+   .name = Risky Bet
+
+actor-gamblingcodet2 =
+   .description = Standard Bet. Moderate risk, moderate rewards across the board.
+   .name = Standard Bet
+
+actor-gamblingcodet3 =
+   .description = Safe Bet. Lower jackpot ceiling but strong guaranteed minimums.
+   .name = Safe Bet
+
+actor-gamblingcodet4 =
+   .description = Outlier Bet. Pay 15000 for a shot at 65000 - or walk away with nothing.
+   .name = Outlier Bet
