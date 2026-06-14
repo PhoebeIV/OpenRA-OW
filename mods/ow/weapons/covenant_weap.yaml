@@ -338,7 +338,6 @@ covenantfuelrodcannonAA:
 			Shield: 150
 		DamageTypes: Prone50Percent, TriggerProne, ElectricityDeath
 
-
 covenantplasmalauncher:
 	Inherits: ^AntiGroundMissile
 	Report: covenantplasmalauncherfire1.aud, covenantplasmalauncherfire2.aud, covenantplasmalauncherfire3.aud
@@ -774,7 +773,7 @@ covenantfuelrodcannonhunter:
 	Burst: 3
 	BurstDelays: 12
 	Range: 8c0
-	MinRange: 3c0
+	MinRange: 2c0
 	Projectile: Missile
 		Image: starfoxproj1
 
@@ -803,6 +802,36 @@ covenantfuelrodcannonhunterAA:
 			Concrete: 50
 			Shield: 150
 		DamageTypes: Prone50Percent, TriggerProne, ElectricityDeath
+
+covenantbansheefuelrodcannon:
+	Inherits: covenantfuelrodcannonhunter
+	Burst: 1
+	-MinRange:
+	Range: 7c0
+	Projectile: Missile
+		-TrailImage:
+		-TrailSequences:
+	Warhead@1Dam: SpreadDamage
+		Spread: 1024
+		Damage: 10000
+		ValidTargets: GroundActor, WaterActor
+		Versus:
+			None: 100
+			Wood: 75
+			Light: 80
+			Heavy: 80
+			Concrete: 50
+			Shield: 150
+		DamageTypes: Prone50Percent, TriggerProne, ElectricityDeath
+
+covenantbansheefuelrodcannonAA:
+	Inherits: covenantfuelrodcannonhunterAA
+	Burst: 1
+	-MinRange:
+	Range: 7c0
+	Projectile: Missile
+		-TrailImage:
+		-TrailSequences:
 
 covenantfuelrodcannonbeam:
 	Range: 7c0

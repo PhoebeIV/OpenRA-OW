@@ -115,7 +115,7 @@ covenantbanshee:
 	UpdatesPlayerStatistics:
 		AddToArmyValue: true
 	Health:
-		HP: 20000
+		HP: 30000
 	RevealsShroud:
 		MinRange: 11c0
 		Range: 13c0
@@ -133,6 +133,18 @@ covenantbanshee:
 		Weapon: covenantbansheeplasmaAA
 		LocalOffset: 0,-640,0, 0,640,0
 		LocalYaw: -40, 24
+		PauseOnCondition: !ammo
+	Armament@PRIMARYAA:
+		Weapon: covenantbansheefuelrodcannon
+		LocalOffset: 0,0,555
+		RequiresCondition: bansheecannon
+		AmmoUsage: 0
+		PauseOnCondition: !ammo
+	Armament@AA:
+		Weapon: covenantbansheefuelrodcannonaa
+		LocalOffset: 0,0,555
+		RequiresCondition: bansheecannon
+		AmmoUsage: 0
 		PauseOnCondition: !ammo
 	AttackAircraft:
 		FacingTolerance: 20
@@ -205,6 +217,12 @@ covenantbanshee:
 		RequiresCondition: damaged_critical
 		Sequence: fire1
 		Offset: -128,-128,0
+	GrantConditionOnPrerequisite@bansheecannon:
+		Condition: bansheecannon
+		Prerequisites: covenant.bansheecannon
+	GrantConditionOnPrerequisite@bansheecannon:
+		Condition: bansheecannon
+		Prerequisites: covenant.bansheecannon
 
 covenantspirit:
 	Inherits: BADR
