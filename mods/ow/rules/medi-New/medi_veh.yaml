@@ -19,8 +19,8 @@
 		Locomotor: heavywheeled
 	Armor:
 		Type: Light
-	Power:
-		Amount: 5
+	PowerMultiplier@medip:
+		Modifier: 120
 
 ^Medibeast:
 	Inherits: ^Vehicle
@@ -28,8 +28,8 @@
 		TurnSpeed: 160
 		Speed: 100
 		Locomotor: foot
-	Power:
-		Amount: -10
+	PowerMultiplier@medip:
+		Modifier: 175
 	GrantConditionOnPrerequisite@blackblood:
 		Prerequisites: upgrade.mediblackblood
 		Condition: blackblood
@@ -46,8 +46,8 @@
 		Modifier: 0
 
 ^MediDog:
-	Power:
-		Amount: -5
+	PowerMultiplier@medip:
+		Modifier: 150
 	GrantConditionOnPrerequisite@blackblood:
 		Prerequisites: upgrade.mediblackblood
 		Condition: blackblood
@@ -93,6 +93,7 @@ MCVM2:
 ##Sends Money to others
 TRUKMedi:
 	Inherits: ^TrackedVehicle
+	Inherits@PowerTier: ^MediPowerTier2
 	Inherits@move: ^Horse
 	Inherits@selection: ^SelectableSupportUnit
 	Buildable:
@@ -133,6 +134,7 @@ TRUKMedi:
 ##short range spread shot, Fires explosive magic against vehicles
 ##catapult
 catapult:
+	Inherits@PowerTier: ^MediPowerTier1
 	Inherits: ^TrackedVehicle
 	Inherits@Msiege: ^MediSiege
 	Inherits@GAINSEXPERIENCE: ^GainsExperience
@@ -200,6 +202,7 @@ catapult:
 ##long range, Needs to deploy
 ##trebuchet
 Trebuchet:
+	Inherits@PowerTier: ^MediPowerTier3
 	Inherits: ^TrackedVehicle
 	Inherits@Msiege: ^MediSiege
 	Inherits@GAINSEXPERIENCE: ^GainsExperience
@@ -250,6 +253,7 @@ Trebuchet:
 ##long range, large aoe, no damage to armor
 ##hwacha
 Hwacha:
+	Inherits@PowerTier: ^MediPowerTier1
 	Inherits: ^TrackedVehicle
 	Inherits@Msiege: ^MediSiege
 	Inherits@GAINSEXPERIENCE: ^GainsExperience
@@ -305,6 +309,7 @@ Hwacha:
 ##railgun like attack, Needs to deploy
 ##ballista
 Ballista:
+	Inherits@PowerTier: ^MediPowerTier2
 	Inherits: ^TrackedVehicle
 	Inherits@Msiege: ^MediSiege
 	Inherits@GAINSEXPERIENCE: ^GainsExperience
@@ -355,6 +360,7 @@ Ballista:
 ##Explosive shots
 ##cannon
 Cannon:
+	Inherits@PowerTier: ^MediPowerTier3
 	Inherits: ^TrackedVehicle
 	Inherits@Msiege: ^MediSiege
 	Inherits@GAINSEXPERIENCE: ^GainsExperience
@@ -409,6 +415,7 @@ Cannon:
 ##siege tower
 ##Slow Armored Transport
 SiegeTower:
+	Inherits@PowerTier: ^MediPowerTier2
 	Inherits: ^TrackedVehicle
 	Inherits@Msiege: ^MediSiege
 	Inherits@GAINSEXPERIENCE: ^GainsExperience
@@ -493,6 +500,7 @@ SiegeTower:
 
 ##Werewolf, Vehicle version of beserker, attacks faster the longer it is in combat
 werewolf:
+	Inherits@PowerTier: ^MediPowerTier3
 	Inherits@Medibeast: ^Medibeast
 	Inherits@GAINSEXPERIENCE: ^GainsExperience
 	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
@@ -553,6 +561,7 @@ werewolf:
 ###############################################################################
 ##Giant Bear: Vehicle version of beserker
 giantbear:
+	Inherits@PowerTier: ^MediPowerTier3
 	Inherits@Medibeast: ^Medibeast
 	Inherits@GAINSEXPERIENCE: ^GainsExperience
 	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
@@ -604,6 +613,7 @@ giantbear:
 
 ##Giant Wolf, Attack dog with more HP
 giantwolf:
+	Inherits@PowerTier: ^MediPowerTier1
 	Inherits@Medibeast: ^Medibeast
 	Inherits@GAINSEXPERIENCE: ^GainsExperience
 	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
@@ -663,6 +673,7 @@ giantwolf:
 
 ##Dirgo, Regens HP when not corroded, Slow attack speed but hits really hard per hit, cannot target infantry
 dirgo:
+	Inherits@PowerTier: ^MediPowerTier3
 	Inherits@Medibeast: ^Medibeast
 	Inherits@GAINSEXPERIENCE: ^GainsExperience
 	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
@@ -703,6 +714,7 @@ dirgo:
 
 ##Giant Spider, Corrosive and stealth, slow
 giantspider:
+	Inherits@PowerTier: ^MediPowerTier2
 	Inherits@Medibeast: ^Medibeast
 	Inherits@GAINSEXPERIENCE: ^GainsExperience
 	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
@@ -744,6 +756,7 @@ giantspider:
 
 ##Medusa, Ranged magic attack, explodes stunning infantry on death (infantry only)
 medusa:
+	Inherits@PowerTier: ^MediPowerTier1
 	Inherits@Medibeast: ^Medibeast
 	Inherits@GAINSEXPERIENCE: ^GainsExperience
 	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
@@ -788,6 +801,7 @@ medusa:
 
 ##Minotaur, Vehicle version of berserker
 minotaur:
+	Inherits@PowerTier: ^MediPowerTier3
 	Inherits@Medibeast: ^Medibeast
 	Inherits@GAINSEXPERIENCE: ^GainsExperience
 	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
@@ -837,6 +851,7 @@ minotaur:
 
 ##Rrongol, Fast, Can Crit, gains temp FirepowerMultiplier 200 on random timer
 rrongol:
+	Inherits@PowerTier: ^MediPowerTier4
 	Inherits@Medibeast: ^Medibeast
 	Inherits@GAINSEXPERIENCE: ^GainsExperience
 	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
@@ -880,6 +895,7 @@ rrongol:
 
 ##Troll, Regens HP unless corroded
 troll:
+	Inherits@PowerTier: ^MediPowerTier3
 	Inherits@Medibeast: ^Medibeast
 	Inherits@GAINSEXPERIENCE: ^GainsExperience
 	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
@@ -923,6 +939,7 @@ troll:
 
 ##Daemonwood, Tanky Regen unless corroded
 daemonwood:
+	Inherits@PowerTier: ^MediPowerTier3
 	Inherits@Medibeast: ^Medibeast
 	Inherits@GAINSEXPERIENCE: ^GainsExperience
 	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
@@ -974,6 +991,7 @@ daemonwood:
 
 ##Rock Golem, Splits on death cluster, Slow huge HP
 rockgolem:
+	Inherits@PowerTier: ^MediPowerTier2
 	Inherits@Medibeast: ^Medibeast
 	Inherits@GAINSEXPERIENCE: ^GainsExperience
 	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
@@ -1025,6 +1043,7 @@ rockgolem:
 
 #Damages self to half HP on spawn, can explode only once full healed.#
 splitgolem:
+	Inherits@PowerTier: ^MediPowerTier1
 	Inherits: rockgolem
 	-Buildable
 	GrantConditionOnHealth@BrokenGolem:
@@ -1050,6 +1069,7 @@ splitgolem:
 
 ##Rust Spitter, Corrosive, strong AA
 rustspitter:
+	Inherits@PowerTier: ^MediPowerTier1
 	Inherits: ^Medibeast
 	Inherits@GAINSEXPERIENCE: ^GainsExperience
 	Inherits@AUTOTARGET: ^AutoTargetAll
@@ -1102,6 +1122,7 @@ rustspitter:
 
 ##Url Shekk, Ranged Elite, Attacks change on cycle, Anti Tank, Anti Infantry, Anti Structure
 urlshekk:
+	Inherits@PowerTier: ^MediPowerTier4
 	Inherits@Medibeast: ^Medibeast
 	Inherits@GAINSEXPERIENCE: ^GainsExperience
 	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
@@ -1167,6 +1188,7 @@ urlshekk:
 
 ##Beholder
 moculus:
+	Inherits@PowerTier: ^MediPowerTier4
 	Inherits: ^Helicopter
 	Inherits@NoExp: ^NoExp
 	Inherits@EPIC: ^EpicUnit

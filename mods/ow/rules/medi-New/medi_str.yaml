@@ -56,24 +56,32 @@ taxgen.super:
 	FreeActor@tribute:
 		Actor: taxgen.low
 		SpawnOffset: 0,0
+	Power:
+		Amount: -50
 
 ^TaxableMid:
 	Inherits@tax: ^TaxableBase
 	FreeActor@tribute:
 		Actor: taxgen.mid
 		SpawnOffset: 0,0
+	Power:
+		Amount: -100
 
 ^TaxableHigh:
 	Inherits@tax: ^TaxableBase
 	FreeActor@tribute:
 		Actor: taxgen.high
 		SpawnOffset: 0,0
+	Power:
+		Amount: -200
 
 ^TaxableSuper:
 	Inherits@tax: ^TaxableBase
 	FreeActor@tribute:
 		Actor: taxgen.super
 		SpawnOffset: 0,0
+	Power:
+		Amount: -400
 
 
 ###############################################################################
@@ -110,8 +118,6 @@ mediconyard:
 		RequiresCondition: factundeploy && build-incomplete && !bot_undeploy_block
 	Sellable:
 		RequiresCondition: !build-incomplete && !chrono-vortex && !being-captured && !being-demolished
-	Power:
-		Amount: 0
 	ProvidesPrerequisite@buildingname:
 	ProvidesPrerequisite@medi:
 		Prerequisite: structures.medi
@@ -140,8 +146,6 @@ foundrymedi:
 		BuildPaletteOrder: 25
 		Prerequisites: conyard, ~techlevel.medium, ~structures.medi, ~!structures.bothard
 		Description: actor-foundrymedi.description
-	Power:
-		Amount: -100
 	RenderSprites:
 		Image: foundry
 
@@ -171,8 +175,6 @@ slavecampgc:
 	Inherits@BIB: ^2xBuildingBib
 	-Refinery:
 	-DockHost:
-	Power:
-		Amount: 0
 	-WithIdleOverlay@TOP:
 	-WithIdleOverlay@uac:
 	-WithDeathAnimation:
@@ -276,8 +278,6 @@ refinarymarket:
 		Type: Wood
 	Valued:
 		Cost: 1600
-	Power:
-		Amount: 0
 	Targetable:
 		TargetTypes: GroundActor, C4, DetonateAttack, Structure
 	ProvidesPrerequisite@buildingname:
@@ -306,8 +306,6 @@ barrackswg:
 		BuildSounds: medibuild1.aud, medibuildjobdone1.aud, medibuildplace1.aud
 	Selectable:
 		Bounds: 2048, 2048
-	Power:
-		Amount: 0
 	RenderSprites:
 		Image: barrackswg
 		PlayerPalette: tsunit
@@ -330,8 +328,6 @@ AnimalDen:
 	Inherits: KENN
 	Inherits@tax: ^TaxableLow
 	-Buildable
-	Power:
-		Amount: 0
 	RenderSprites:
 		Image: animalden
 
@@ -352,8 +348,6 @@ dwarfsettlement:
 		Name: actor-dwarfsettlement.name
 	Building:
 		BuildSounds: medibuild1.aud, medibuildjobdone1.aud, medibuildplace1.aud
-	Power:
-		Amount: 0
 	RenderSprites:
 		Image: dwarfsettlement
 	ProvidesPrerequisite@medi:
@@ -410,8 +404,6 @@ Drydock:
 		Type: Wood
 	RenderSprites:
 		Image: syrd
-	Power:
-		Amount: 0
 	ProvidesPrerequisite@medi:
 		RequiresPrerequisites: structures.medi
 		Prerequisite: ships.medi
@@ -458,8 +450,6 @@ dragonlair:
 	RenderSprites:
 		Image: dragonlair
 		PlayerPalette: tsunit
-	Power:
-		Amount: 0
 	RallyPoint:
 		ForceSetType: Helicopter
 	CommandBarBlacklist:
@@ -511,8 +501,6 @@ techcenterblacksmith:
 	RenderSprites:
 		Image: techcenterblacksmith
 	Inherits@IDISABLE: ^DisableOnLowPowerOrPowerDown
-	Power:
-		Amount: 100
 	DetectCloaked:
 		Range: 6c0
 		DetectionTypes: Cloak, AirCloak
@@ -628,8 +616,6 @@ advtechcenterlibrary:
 		Type: Wood
 	RevealsShroud:
 		Range: 4c0
-	Power:
-		Amount: -200
 	CashTrickler:
 		Interval: 50
 		Amount: 25
@@ -969,8 +955,6 @@ brashnards:
 		Type: CenterPosition
 		Weapon: EMPExplosion
 		EmptyWeapon: EMPExplosion
-	Power:
-		Amount: -500
 	## Cult
 	DropPodsPowerOW@zombierain:
 		Icon: medivoidportalicon
@@ -1067,8 +1051,6 @@ radarwg:
 	ProvidesPrerequisite:
 		Prerequisite: radar
 	ProvidesPrerequisite@buildingname:
-	Power:
-		Amount: -200
 	ProvidesRadar:
 		RequiresCondition: !jammed && !disabled
 	ExternalCondition@JAMMED:
@@ -1172,8 +1154,6 @@ Archertower:
 	-BodyOrientation:
 	ClassicFacingBodyOrientation:
 		QuantizedFacings: 8
-	Power:
-		Amount: 0
 
 ##Archer Tower redundancy?
 Archertower4:
@@ -1378,8 +1358,6 @@ wizardtower:
 	-BodyOrientation:
 	ClassicFacingBodyOrientation:
 		QuantizedFacings: 8
-	Power:
-		Amount: -100
 	DetectCloaked:
 		Range: 6c0
 		DetectionTypes: Cloak, AirCloak
@@ -1396,8 +1374,6 @@ arcanetower:
 balistatower:
 	Inherits: ^Defense
 	Inherits@tax: ^TaxableLow
-	Power:
-		Amount: 0
 	Buildable:
 		IconPalette: tsunit
 		Queue: Defense
@@ -1543,8 +1519,6 @@ Graveyard:
 	Health:
 		HP: 50000
 	-RenderRangeCircle:
-	Power:
-		Amount: 0
 	GrantPeriodicCondition@Undeadspawner1:
 		Condition: Undeadspawner
 		CooldownDuration: 300, 500
@@ -1671,8 +1645,6 @@ GATEOFLIGHT:
 		IsPlayerPalette: true
 		MissileImage: mediholyweapon
 	SupportPowerChargeBar:
-	Power:
-		Amount: 250
 	MustBeDestroyed:
 		RequiredForShortGame: false
 	WithSupportPowerActivationAnimation:
@@ -1753,8 +1725,6 @@ MediDarkCrystal:
 		IsPlayerPalette: true
 		MissileImage: medivoidweapon
 	SupportPowerChargeBar:
-	Power:
-		Amount: 250
 	MustBeDestroyed:
 		RequiredForShortGame: false
 	WithSupportPowerActivationAnimation:
@@ -1834,8 +1804,6 @@ FireStormMedi:
 		IsPlayerPalette: true
 		MissileImage: MageSuperWeapon
 	SupportPowerChargeBar:
-	Power:
-		Amount: 250
 	MustBeDestroyed:
 		RequiredForShortGame: false
 	WithSupportPowerActivationAnimation:
@@ -1884,8 +1852,6 @@ monumentgazebo:
 		Weapon: monumentheal
 		Cursor: heal
 		TargetRelationships: Enemy, Neutral, Ally
-	Power:
-		Amount: 0
 	RenderSprites:
 		Image: monumentgazebo
 
@@ -1893,8 +1859,6 @@ monumentgazebo:
 spittervine:
 	Inherits: ^Defense
 	Inherits@tax: ^TaxableMid
-	Power:
-		Amount: 0
 	Tooltip:
 		Name: actor-spittervine.name
 	Health:
@@ -2151,8 +2115,6 @@ elvenhideout:
 	-FreeActor@Guardhousespawner:
 	-GrantPeriodicCondition@Guardhousespawner2:
 	-FreeActor@Guardhousespawner2:
-	Power:
-		Amount: 0
 	RenderSprites:
 		Image: elvenhideout
 		PlayerPalette: tsunit

@@ -44,17 +44,34 @@
 		SpeedModifier: 140
 		Duration: 75
 		DamageTriggers: TriggerProne
+
+^MediPowerTier0:
+	Power:
+		Amount: 0
+
+^MediPowerTier1:
 	Power:
 		Amount: 50
 
-^Wizards:
-	Inherits@MediSoldier: ^MediSoldier
-	-GrantConditionOnPrerequisite@medimagicwep:
-	##magic units get bonus damage
+^MediPowerTier2:
+	Power:
+		Amount: 75
+
+^MediPowerTier3:
 	Power:
 		Amount: 100
+
+^MediPowerTier4:
+	Power:
+		Amount: 150
+
+^Wizards:
+	Inherits@MediSoldier: ^MediSoldier
+	Inherits@PowerTier: ^MediPowerTier3
+	-GrantConditionOnPrerequisite@medimagicwep:
+	##magic units get bonus damage
 	GrantConditionOnPrerequisite@medipure:
-		Prerequisites: upgrade.mediPureMagic
+		Prerequisites: upgrade.medipuremagic
 		Condition: medipure
 	FirepowerMultiplier@medipure:
 		RequiresCondition: medipure
@@ -66,7 +83,7 @@
 		RequiresCondition: medimagearmor
 		Modifier: 70
 	GrantConditionOnPrerequisite@mediwiztow:
-		Prerequisites: upgrade.mediWizardTower
+		Prerequisites: upgrade.mediwizardtower
 		Condition: mediwiztow
 
 ^Undead:
@@ -76,8 +93,6 @@
 	GrantConditionOnPrerequisite@Necromancy:
 		Prerequisites: upgrade.medinecromancy
 		Condition: Necromancy
-	Power:
-		Amount: 10
 
 ###############################################################################
 ##########################   Harvesters and Utility   #########################
@@ -87,6 +102,7 @@
 ##medislave
 mediSLAVE:
 	Inherits@gharve: GHARV
+	Inherits@PowerTier: ^MediPowerTier1
 	-SpeedMultiplier@shoes:
 	Buildable:
 		IconPalette: tsunit
@@ -137,7 +153,7 @@ mediSLAVE:
 	StoresResources:
 		Capacity: 5
 	GrantConditionOnPrerequisite@mediworkboot:
-		Prerequisites: upgrade.mediWorkerboots
+		Prerequisites: upgrade.mediworkerboots
 		Condition: shoes
 	GrantConditionOnPrerequisite@slavedrive:
 		Prerequisites: upgrade.medislavedrive
@@ -146,13 +162,12 @@ mediSLAVE:
 		Capacity: 5
 		Resources: Ore, Gems, Tiberium, BlueTiberium
 		RequiresCondition: slavedrive
-	Power:
-		Amount: 5
 
 ##upgraded harvester
 ##worker
 MEDIWORKER:
 	Inherits@SLAVE: mediSLAVE
+	Inherits@PowerTier: ^MediPowerTier2
 	Buildable:
 		IconPalette: tsunit
 		Queue: Infantry
@@ -189,18 +204,18 @@ MEDIWORKER:
 		Step: -30
 	StoresResources:
 		Capacity: 10
-	Power:
-		Amount: 10
 
 ##medislave
 SLAVESpawn:
 	Inherits@SLAVE: mediSLAVE
+	Inherits@PowerTier: ^MediPowerTier0
 	-Buildable
 	KillsSelf:
 		Delay: 150,350
 ##medislave2
 SLAVESpawn2:
 	Inherits@SLAVE: BlackPhantom
+	Inherits@PowerTier: ^MediPowerTier0
 	-Buildable
 	KillsSelf:
 		Delay: 150,350
@@ -216,6 +231,8 @@ MEDIWORKER2:
 		Cost: 400
 	Tooltip:
 		Name: actor-mediworker2.name
+	Mobile:
+		Speed: 100
 	RenderSprites:
 		Image: mworker2
 
@@ -224,6 +241,7 @@ MEDIWORKER2:
 SURVEYORMEDI:
 	Inherits@TSENGI: TSENGI.O
 	Inherits@MediSoldier: ^MediSoldier
+	Inherits@PowerTier: ^MediPowerTier1
 	Buildable:
 		IconPalette: tsunit
 		Queue: Infantry
@@ -248,9 +266,10 @@ TaxCollector:
 	Inherits@Soldier: ^Soldier
 	Inherits@selection: ^SelectableEconomicUnit
 	Inherits@sprite: ^TSMedi
+	Inherits@PowerTier: ^MediPowerTier2
 	Buildable:
 		IconPalette: tsunit
-		Prerequisites: ~infantry.medi, upgrade.mediDeathandtaxes
+		Prerequisites: ~infantry.medi, upgrade.medideathandtaxes
 		Description: actor-taxcollector.description
 		Queue: Infantry
 		BuildAtProductionType: Soldier
@@ -313,6 +332,7 @@ TaxCollector:
 ##Knight
 Knight:
 	Inherits@MediSoldier: ^MediSoldier
+	Inherits@PowerTier: ^MediPowerTier1
 	Inherits@sprite: ^TSMedi
 	Inherits@InfPro: ^AutoTargetInfantryPriority
 	Buildable:
@@ -357,6 +377,7 @@ Knight:
 ##Guard
 guardhouseguard:
 	Inherits@Knight: Knight
+	Inherits@PowerTier: ^MediPowerTier0
 	Tooltip:
 		Name: actor-guardhouseguard.name
 	-Buildable:
@@ -381,6 +402,7 @@ guardhouseguard:
 ##berserker
 BERSERKER:
 	Inherits@Knight: Knight
+	Inherits@PowerTier: ^MediPowerTier3
 	-Crushable:
 	Buildable:
 		IconPalette: tsunit
@@ -480,6 +502,7 @@ arcanewizard:
 ##crossbow
 Archer:
 	Inherits@MediSoldier: ^MediSoldier
+	Inherits@PowerTier: ^MediPowerTier2
 	Inherits@sprite: ^TSMedi
 	Inherits@InfPro: ^AutoTargetInfantryPriority
 	UpdatesPlayerStatistics:
@@ -528,6 +551,7 @@ Archer:
 ##TankBuster Melee Unit Leap attack on tanks
 TankBuster:
 	Inherits@Knight: Knight
+	Inherits@PowerTier: ^MediPowerTier2
 	-AttackFrontal:
 	AttackLeap:
 		Voice: Attack
@@ -578,6 +602,7 @@ TankBuster:
 ##medipriest
 PRIEST:
 	Inherits@MediSoldier: ^MediSoldier
+	Inherits@PowerTier: ^MediPowerTier2
 	Inherits@MediLowPower: ^MediLowPower
 	Inherits@sprite: ^TSMedi
 	Buildable:
@@ -634,6 +659,7 @@ MEDIPALADIN:
 	Inherits@Knight: Knight
 	Inherits@MediLowPower: ^MediLowPower
 	Inherits@InfPro: ^AutoTargetVehiclePriority
+	Inherits@PowerTier: ^MediPowerTier3
 	Buildable:
 		IconPalette: tsunit
 		Prerequisites: ~infantry.mediholy, advtechcenter
@@ -669,6 +695,7 @@ MEDIPALADIN:
 ##Holy Super Unit currently just using as base need to replace sprites and attacks
 ShieldHero:
 	Inherits@MediSoldier: ^MediSoldier
+	Inherits@PowerTier: ^MediPowerTier4
 	Inherits@sprite: ^TSMedi
 	Inherits@NoExp: ^NoExp
 	Inherits@EPIC: ^EpicUnit
@@ -780,6 +807,7 @@ Ratman:
 ##GiantRat
 Giantrat:
 	Inherits@mediDog: ^MediDog
+	Inherits@PowerTier: ^MediPowerTier1
 	Inherits@Dog: DOG
 	DamageMultiplier:
 		Modifier: 120
@@ -871,6 +899,7 @@ GoblinArcher:
 ##Witchking
 Witchking:
 	Inherits@arcanewizard: arcanewizard
+	Inherits@Undead: ^Undead
 	Buildable:
 		IconPalette: tsunit
 		Prerequisites: ~infantry.medicult, advtechcenter
@@ -918,6 +947,7 @@ Witchking:
 ##Skeleton
 Skeleton:
 	Inherits@Knight: Knight
+	Inherits@Undead: ^Undead
 	-Buildable:
 	Tooltip:
 		Name: actor-skeleton.name
@@ -933,6 +963,7 @@ Skeleton:
 
 Skeleton2:
 	Inherits@Knight: Skeleton
+	Inherits@PowerTier: ^MediPowerTier0
 	-Selectable:
 	Interactable:
 	-SelectionDecorations:
@@ -945,6 +976,8 @@ Skeleton2:
 ##Zombie
 SummonedZombie:
 	Inherits@Knight: Knight
+	Inherits@Undead: ^Undead
+	Inherits@PowerTier: ^MediPowerTier0
 	-Buildable:
 	Tooltip:
 		Name: actor-summonedzombie.name
@@ -961,6 +994,7 @@ SummonedZombie:
 ##Death knight Super Unit
 MEDIDEATHKNIGHT:
 	Inherits@MediSoldier: ^MediSoldier
+	Inherits@PowerTier: ^MediPowerTier4
 	Inherits@NoExp: ^NoExp
 	Inherits@EPIC: ^EpicUnit
 	Inherits@EPIC2: ^EpicInfantryNerf
@@ -1074,6 +1108,7 @@ VOIDARCHER:
 
 VOIDARCHER_SPAWN:
 	Inherits@VOIDARCHER: VOIDARCHER
+	Inherits@PowerTier: ^MediPowerTier0
 	-Buildable:
 	-Selectable:
 	Interactable:
@@ -1173,6 +1208,7 @@ Monk:
 ##Dryad : Ranged Building healer.
 Dryad:
 	Inherits@MediSoldier: ^MediSoldier
+	Inherits@PowerTier: ^MediPowerTier2
 	Inherits@MediLowPower: ^MediLowPower
 	Inherits@sprite: ^TSMedi
 	Buildable:
@@ -1223,6 +1259,8 @@ Dryad:
 ##Vampire : Lifesteal goes up as HP gets lower, Regen goes down as HP gets lower
 Vampire:
 	Inherits@Knight: Knight
+	Inherits@Undead: ^Undead
+	Inherits@PowerTier: ^MediPowerTier2
 	-Crushable:
 	Buildable:
 		Queue: Infantry
