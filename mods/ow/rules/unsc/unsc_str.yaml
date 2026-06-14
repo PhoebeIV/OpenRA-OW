@@ -1,4 +1,7 @@
 ^unscbuilding:
+	GrantConditionOnPrerequisite@botowner:
+		Condition: botowner
+		Prerequisites: ai.all
 	GrantConditionOnDamageState@fire1:
 		Condition: damaged_light
 		ValidDamageStates: Medium, Heavy, Critical
@@ -29,6 +32,20 @@
 		IsDecoration: true
 		Offset: 512,128,0
 		Palette: effect
+	ToggleConditionOnOrder@sell:
+		OrderName: Sell
+		Condition: sell_me
+	TransformOnCondition@sell:
+		RequiresCondition: sell_me
+		IntoActor: unscfirebase
+		SkipMakeAnims: false
+	SpawnActorOnDeath@firebase:
+		RequiresCondition: !botowner
+		Actor: unscfirebase
+	SpawnActorOnDeath@firebasebot:
+		RequiresCondition: botowner
+		Actor: unscfirebase
+		Probability: 40
 
 unsccommandcenter:
 	Inherits: ^Building
@@ -86,6 +103,10 @@ unsccommandcenter:
 		RevealGeneratedShroud: False
 	RevealsShroud@GAPGEN:
 		Range: 4c0
+	-ToggleConditionOnOrder@sell:
+	-TransformOnCondition@sell:
+	-SpawnActorOnDeath@firebase:
+	-SpawnActorOnDeath@firebasebot:
 
 unscreactor:
 	Inherits: ^PowerPlant
@@ -153,15 +174,6 @@ unscreactor:
 	WithSpriteBody@Extra50:
 		RequiresCondition: advancedreactor && !build-incomplete
 		Sequence: idle2
-	ToggleConditionOnOrder@sell:
-		OrderName: Sell
-		Condition: sell_me
-	TransformOnCondition@sell:
-		RequiresCondition: sell_me
-		IntoActor: unscfirebase
-		SkipMakeAnims: false
-	SpawnActorOnDeath@firebase:
-		Actor: unscfirebase
 
 unscreactor.up:
 	Inherits: ^BuildingPlug
@@ -319,15 +331,6 @@ unscgarage:
 	InfiltrateForSupportPower:
 		Proxy: vehicles.upgraded
 		Types: SpyInfiltrate
-	ToggleConditionOnOrder@sell:
-		OrderName: Sell
-		Condition: sell_me
-	TransformOnCondition@sell:
-		RequiresCondition: sell_me
-		IntoActor: unscfirebase
-		SkipMakeAnims: false
-	SpawnActorOnDeath@firebase:
-		Actor: unscfirebase
 
 unscsupplypad:
 	Inherits: ^Building
@@ -387,15 +390,6 @@ unscsupplypad:
 		InfiltratedNotification: CreditsStolen
 		Maximum: 5000
 	ProvidesPrerequisite@buildingname:
-	ToggleConditionOnOrder@sell:
-		OrderName: Sell
-		Condition: sell_me
-	TransformOnCondition@sell:
-		RequiresCondition: sell_me
-		IntoActor: unscfirebase
-		SkipMakeAnims: false
-	SpawnActorOnDeath@firebase:
-		Actor: unscfirebase
 
 unscairpad:
 	Inherits: ^Building
@@ -489,15 +483,6 @@ unscarmory:
 	ProvidesPrerequisite:
 		Prerequisite: techcenter
 		RequiresPrerequisites: techlevel.high
-	ToggleConditionOnOrder@sell:
-		OrderName: Sell
-		Condition: sell_me
-	TransformOnCondition@sell:
-		RequiresCondition: sell_me
-		IntoActor: unscfirebase
-		SkipMakeAnims: false
-	SpawnActorOnDeath@firebase:
-		Actor: unscfirebase
 
 unscradartower:
 	Inherits: ^Building
@@ -641,15 +626,6 @@ unscrepairpad:
 	ProvidesPrerequisite@buildingname:
 	ProvidesPrerequisite:
 		Prerequisite: fix
-	ToggleConditionOnOrder@sell:
-		OrderName: Sell
-		Condition: sell_me
-	TransformOnCondition@sell:
-		RequiresCondition: sell_me
-		IntoActor: unscfirebase
-		SkipMakeAnims: false
-	SpawnActorOnDeath@firebase:
-		Actor: unscfirebase
 
 unscmac:
 	Inherits: ^Building
@@ -709,15 +685,6 @@ unscmac:
 		RequiredForShortGame: false
 	ProvidesPrerequisite@superweapon:
 		Prerequisite: superweapon
-	ToggleConditionOnOrder@sell:
-		OrderName: Sell
-		Condition: sell_me
-	TransformOnCondition@sell:
-		RequiresCondition: sell_me
-		IntoActor: unscfirebase
-		SkipMakeAnims: false
-	SpawnActorOnDeath@firebase:
-		Actor: unscfirebase
 
 unscfirebase:
 	Inherits: ^Building
@@ -858,6 +825,10 @@ unscfirebase:
 		IntoActor: unscfoundry
 		RequiresCondition: foundry
 		SkipMakeAnims: false
+	-ToggleConditionOnOrder@sell:
+	-TransformOnCondition@sell:
+	-SpawnActorOnDeath@firebase:
+	-SpawnActorOnDeath@firebasebot:
 
 unscsilo:
 	Inherits: ^Building
@@ -886,15 +857,6 @@ unscsilo:
 		Range: 4c0
 	Power:
 		Amount: -100
-	ToggleConditionOnOrder@sell:
-		OrderName: Sell
-		Condition: sell_me
-	TransformOnCondition@sell:
-		RequiresCondition: sell_me
-		IntoActor: unscfirebase
-		SkipMakeAnims: false
-	SpawnActorOnDeath@firebase:
-		Actor: unscfirebase
 	WithResourceStoragePipsDecoration:
 		Position: BottomLeft
 		Margin: 4, 3
@@ -935,15 +897,6 @@ unscadvtech:
 		DecorationBounds: 3072, 4096
 	ProvidesPrerequisite:
 		Prerequisite: advtechcenter
-	ToggleConditionOnOrder@sell:
-		OrderName: Sell
-		Condition: sell_me
-	TransformOnCondition@sell:
-		RequiresCondition: sell_me
-		IntoActor: unscfirebase
-		SkipMakeAnims: false
-	SpawnActorOnDeath@firebase:
-		Actor: unscfirebase
 	RenderSprites:
 		Image: unscadvtech
 
@@ -970,15 +923,6 @@ unsculttechcenter:
 		DecorationBounds: 3072, 4096
 	ProvidesPrerequisite:
 		Prerequisite: ulttechcenter
-	ToggleConditionOnOrder@sell:
-		OrderName: Sell
-		Condition: sell_me
-	TransformOnCondition@sell:
-		RequiresCondition: sell_me
-		IntoActor: unscfirebase
-		SkipMakeAnims: false
-	SpawnActorOnDeath@firebase:
-		Actor: unscfirebase
 	RenderSprites:
 		Image: unsculttechcenter
 	TransformOnCondition@vehicle:
@@ -1088,15 +1032,6 @@ unscfoundry:
 	Production@2:
 		Produces: Building,Defense
 		RequiresCondition: conyard
-	ToggleConditionOnOrder@sell:
-		OrderName: Sell
-		Condition: sell_me
-	TransformOnCondition@sell:
-		RequiresCondition: sell_me
-		IntoActor: unscfirebase
-		SkipMakeAnims: false
-	SpawnActorOnDeath@firebase:
-		Actor: unscfirebase
 
 ^unscfirebase:
 	Buildable:
@@ -1330,12 +1265,29 @@ unscfirebase.foundry:
 	RenderSprites:
 		Image: unscfoundry
 
+^unscdefense:
+	Inherits: ^unscbuilding
+	ToggleConditionOnOrder@sell:
+		OrderName: Sell
+		Condition: sell_me
+	TransformOnCondition@sell:
+		RequiresCondition: sell_me
+		IntoActor: unscpod
+		SkipMakeAnims: false
+	SpawnActorOnDeath@firebase:
+		RequiresCondition: !botowner
+		Actor: unscpod
+	SpawnActorOnDeath@firebasebot:
+		RequiresCondition: botowner
+		Actor: unscpod
+		Probability: 40
+
 unsctalos:
 	Inherits: ^Defense
 	Inherits@LOWPOWER: ^DisableOnLowPowerOrPowerDown
 	Inherits@AUTOTARGET: ^AutoTargetAll
 	Inherits@AUTOTARGETGround: ^AutoTargetAirInfantryPriority
-	Inherits@unscbuilding: ^unscbuilding
+	Inherits@unscbuilding: ^unscdefense
 	Valued:
 		Cost: 600
 	Selectable:
@@ -1396,21 +1348,13 @@ unsctalos:
 		Amount: -40
 	-BodyOrientation:
 	ClassicFacingBodyOrientation:
-	ToggleConditionOnOrder@sell:
-		OrderName: Sell
-		Condition: sell_me
-	TransformOnCondition@sell:
-		RequiresCondition: sell_me
-		IntoActor: unscpod
-	SpawnActorOnDeath@firebase:
-		Actor: unscpod
 
 unscsiege:
 	Inherits: ^Defense
 	Inherits@LOWPOWER: ^DisableOnLowPowerOrPowerDown
 	Inherits@AUTOTARGET: ^AutoTargetAll
 	Inherits@AUTOTARGETGround: ^AutoTargetAirInfantryPriority
-	Inherits@unscbuilding: ^unscbuilding
+	Inherits@unscbuilding: ^unscdefense
 	Valued:
 		Cost: 1300
 	Selectable:
@@ -1463,14 +1407,6 @@ unscsiege:
 		Amount: -60
 	-BodyOrientation:
 	ClassicFacingBodyOrientation:
-	ToggleConditionOnOrder@sell:
-		OrderName: Sell
-		Condition: sell_me
-	TransformOnCondition@sell:
-		RequiresCondition: sell_me
-		IntoActor: unscpod
-	SpawnActorOnDeath@firebase:
-		Actor: unscpod
 
 unscwatchtower:
 	Inherits: ^Building
@@ -1518,7 +1454,7 @@ unscanaconda:
 	Inherits@LOWPOWER: ^DisableOnLowPowerOrPowerDown
 	Inherits@AUTOTARGET: ^AutoTargetAll
 	Inherits@AUTOTARGETGround: ^AutoTargetAirInfantryPriority
-	Inherits@unscbuilding: ^unscbuilding
+	Inherits@unscbuilding: ^unscdefense
 	Valued:
 		Cost: 800
 	Selectable:
@@ -1576,14 +1512,6 @@ unscanaconda:
 		Amount: -60
 	-BodyOrientation:
 	ClassicFacingBodyOrientation:
-	ToggleConditionOnOrder@sell:
-		OrderName: Sell
-		Condition: sell_me
-	TransformOnCondition@sell:
-		RequiresCondition: sell_me
-		IntoActor: unscpod
-	SpawnActorOnDeath@firebase:
-		Actor: unscpod
 	GrantConditionOnPrerequisite@megabarrage:
 		Condition: megabarrage
 		Prerequisites: unsc.megabarrage
