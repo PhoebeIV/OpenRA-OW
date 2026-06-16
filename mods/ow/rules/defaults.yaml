@@ -1255,6 +1255,7 @@
 		DeathType: ZombieDeath
 	-WithDeathAnimation:
 	WithDeathAnimation:
+		RequiresCondition: !die_fort1 && !die_fort2
 		DeathTypes:
 			DefaultDeath: 1
 			BulletDeath: 2
@@ -1297,9 +1298,9 @@
 		RequiresCondition: akuma
 		IsDecoration: True
 	GrantRandomCondition@rings:
-		Conditions: die_with_rings1,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x
+		Conditions: die_with_rings1,die_fort1,die_fort1,die_fort1,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x
 	GrantRandomCondition@rings2:
-		Conditions: die_with_rings2,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x
+		Conditions: die_with_rings2,die_fort2,die_fort2,die_fort2,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x
 	FireWarheadsOnDeath@rings:
 		Weapon: RingExplosion
 		EmptyWeapon: RingExplosion
@@ -1309,6 +1310,10 @@
 		Pieces: 10, 50
 		Range: 1c0, 5c0
 		RequiresCondition: die_with_rings1 && die_with_rings2
+	FireWarheadsOnDeath@fortnut:
+		Weapon: FortniteDeath
+		EmptyWeapon: FortniteDeath
+		RequiresCondition: die_fort1 && die_fort2
 	ToggleConditionOnOrder@scatter:
 		Condition: scattering
 		OrderName: Scatter
@@ -1788,7 +1793,7 @@
 		RequiresCondition: !water
 	SpawnActorsOnSell@terran:
 		Factions: terran, raynor, mengsk
-		ActorTypes: tecn,tecn,tecn,c10,tmarine
+		ActorTypes: tecn,tecn,tecn,c10,tmarine,einstein
 		RequiresCondition: !water
 	SpawnActorsOnSell@japan:
 		Factions: japan, navy, mecha, economic
@@ -1927,38 +1932,39 @@
 ^ScienceBuilding:
 	SpawnActorsOnSell:
 		Factions: england, germany, france, russia, ukraine, estonia, gdi, steel, zocom, gdi3, nod, marked, bhand, nod3, hitler, himmler, heydrich
+		ActorTypes: e1,e1,e1,e1,tecn,tecn2,tecn,tecn2,tecn,tecn2,tecn,tecn2,tecn,tecn2,e6,e6,e6,e6,e6,c10,c10,c10,c10,einstein
 		RequiresCondition: !water
 	SpawnActorsOnSell@uac:
 		Factions: phobos, mars, deimos
-		ActorTypes: dm2,dm2,dm2,dm2,tecn,tecn2,tecn,tecn2,tecn,tecn2,tecn,tecn2,tecn,tecn2,e6,e6,e6,c10,c10,c10,c10
+		ActorTypes: dm2,dm2,dm2,dm2,tecn,tecn2,tecn,tecn2,tecn,tecn2,tecn,tecn2,tecn,tecn2,e6,e6,e6,c10,c10,c10,c10,einstein
 		RequiresCondition: !water
 	SpawnActorsOnSell@fed:
 		Factions: angels, silver, sword
-		ActorTypes: fe1,fe1,fe1,fe1,tecn,tecn2,tecn,tecn2,tecn,tecn2,tecn,tecn2,tecn,tecn2,fe6,fe6,fe6,c10,c10,c10,c10
+		ActorTypes: fe1,fe1,fe1,fe1,tecn,tecn2,tecn,tecn2,tecn,tecn2,tecn,tecn2,tecn,tecn2,fe6,fe6,fe6,c10,c10,c10,c10,einstein
 		RequiresCondition: !water
 	SpawnActorsOnSell@gla:
 		Factions: demo, kassad, thrax
-		ActorTypes: ge1,ge1,ge1,ge1,tecn,tecn2,tecn,tecn2,tecn,tecn2,tecn,tecn2,tecn,tecn2,gharv,gharv,gharv,c10,c10,c10,c10
+		ActorTypes: ge1,ge1,ge1,ge1,tecn,tecn2,tecn,tecn2,tecn,tecn2,tecn,tecn2,tecn,tecn2,gharv,gharv,gharv,c10,c10,c10,c10,einstein
 		RequiresCondition: !water
 	SpawnActorsOnSell@usa:
 		Factions: usa, granger, alexander, townes
-		ActorTypes: usaranger,usaranger,usaranger,usaranger,usaranger,tecn,tecn2,tecn,tecn2,tecn,tecn2,tecn,tecn2,tecn,tecn2,e6,e6,e6,c10,c10,c10,c10
+		ActorTypes: usaranger,usaranger,usaranger,usaranger,usaranger,tecn,tecn2,tecn,tecn2,tecn,tecn2,tecn,tecn2,tecn,tecn2,e6,e6,e6,c10,c10,c10,c10,einstein
 		RequiresCondition: !water
 	SpawnActorsOnSell@china:
 		Factions: china, tank, infantry, nuke
-		ActorTypes: chinaredguard2,chinaredguard2,chinaredguard2,chinaredguard2,tecn,tecn2,tecn,tecn2,tecn,tecn2,tecn,tecn2,tecn,tecn2,e6,e6,e6,c10,c10,c10,c10
+		ActorTypes: chinaredguard2,chinaredguard2,chinaredguard2,chinaredguard2,tecn,tecn2,tecn,tecn2,tecn,tecn2,tecn,tecn2,tecn,tecn2,e6,e6,e6,c10,c10,c10,c10,einstein
 		RequiresCondition: !water
 	SpawnActorsOnSell@japan:
 		Factions: japan, navy, mecha, economic
-		ActorTypes: japanimperialwarrior,japanimperialwarrior,japanimperialwarrior,japanimperialwarrior,tecn,tecn2,tecn,tecn2,tecn,tecn2,tecn,tecn2,tecn,tecn2,e6,e6,e6,c10,c10,c10,c10
+		ActorTypes: japanimperialwarrior,japanimperialwarrior,japanimperialwarrior,japanimperialwarrior,tecn,tecn2,tecn,tecn2,tecn,tecn2,tecn,tecn2,tecn,tecn2,e6,e6,e6,c10,c10,c10,c10,einstein
 		RequiresCondition: !water
 	SpawnActorsOnSell@avalon:
 		Factions: avalon
-		ActorTypes: avinf1,avinf1,avinf1,c10,c10,c10,c10,tecn,tecn2,tecn,tecn2,tecn,tecn2,tecn,tecn2,tecn,tecn2
+		ActorTypes: avinf1,avinf1,avinf1,c10,c10,c10,c10,tecn,tecn2,tecn,tecn2,tecn,tecn2,tecn,tecn2,tecn,tecn2,einstein
 		RequiresCondition: !water
 	SpawnActorsOnSell@forgotten:
 		Factions: forgotten
-		ActorTypes: frge1,frge1,frge1,frge1,c10,c10,c10,c10,tecn,tecn2,tecn,tecn2,tecn,tecn2,tecn,tecn2,tecn,tecn2,frge6,frge6,frge6
+		ActorTypes: frge1,frge1,frge1,frge1,c10,c10,c10,c10,tecn,tecn2,tecn,tecn2,tecn,tecn2,tecn,tecn2,tecn,tecn2,frge6,frge6,frge6,einstein
 		RequiresCondition: !water
 	SpawnActorsOnSell@medi:
 		Factions: medi

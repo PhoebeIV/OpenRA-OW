@@ -218,6 +218,12 @@ camera.spyplane:
 	DetectCloaked:
 		Range: 10c0
 
+CAMERA.AllPlayers:
+	Inherits: CAMERA
+	RevealsShroud:
+		Range: 10c0
+		ValidRelationships: Ally, Neutral, Enemy
+
 SPLIT3:
 	Inherits: SPLIT3.CR
 	-FireWarheads@changeowner: 
@@ -689,7 +695,7 @@ HUGECRATER.colony:
 	RenderSprites:
 		Image: HUGECRATER
 	FireWarheads@lightning:
-		RequiresCondition: !prereq
+		RequiresCondition: !noweather
 		StartCooldown: 200
 		Interval: 475
 		Weapons: WeatherGrenade
@@ -699,6 +705,9 @@ HUGECRATER.colony:
 	GrantDelayedCondition@prereq:
 		Condition: prereq
 		Delay: 7500
+	GrantDelayedCondition@weather:
+		Condition: noweather
+		Delay: 1500
 	FreeActor:
 		Actor: HUGECRATER.Blocker
 

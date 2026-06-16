@@ -168,6 +168,27 @@ Tick = function()
 		end
 	end
 
+	if (Neutral.HasPrerequisites({"environment.spawnrick"})) then
+		while (RickSanchez < 1) do
+			RickCell = Map.RandomCell()
+			if(Map.TerrainType(RickCell) == "Clear" or Map.TerrainType(RickCell) == "Road") then
+				local rickSpawn = Reinforcements.Reinforce(Neutral, {"einstein.rick"}, {RickCell}, 1)
+				RickSanchez = 1;
+				Trigger.OnAllKilled(rickSpawn, function() RickSanchez = 0 print("Rick killed") end)
+			end
+		end
+	end
+
+	if (Neutral.HasPrerequisites({"environment.rick"})) then
+		RickTicks = RickTicks+1
+		if(RickTicks >= 13500) then
+				local playerSpots = Utils.Where(Map.ActorsInWorld, function(actor) return actor.Type == "upgradehandler" end)
+				local lz = Utils.Random(playerSpots)
+				ProxyRickHand.TargetDropPodsOW(lz.Location)
+				RickTicks = 0
+		end
+	else RickTicks = 0 end
+
 	if (Neutral.HasPrerequisites({"debug.listactors"})) then
 		DebugTicks = DebugTicks+1
 		if(DebugTicks == 7500) then
@@ -256,6 +277,9 @@ SunSet = 15000
 
 CrateTicks = 0
 CrateTimer = 3000
+RickTicks = 0
+RickTimer = 500
+RickSanchez = 0
 
 DebugTicks = 7400
 
@@ -278,6 +302,7 @@ DoBaseScriptLoad = function()
 	ProxyCreepPara6 = Actor.Create("powerproxy.creepdrop6", false, { Owner = Creeps })
 	ProxyCreepPara7 = Actor.Create("powerproxy.creepdrop7", false, { Owner = Creeps })
 	ProxyCreepPara8 = Actor.Create("powerproxy.creepdrop8", false, { Owner = Creeps })
+	ProxyRickHand = Actor.Create("powerproxy.rickhand", false, { Owner = Creeps })
 
 	if (Creeps.HasPrerequisites({"environment.morecrates"})) then
 		MinExtraCrates = 2

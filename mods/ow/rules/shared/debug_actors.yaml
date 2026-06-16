@@ -65,6 +65,9 @@ HAXOR:
 	ProvidesPrerequisite@disabled:
 		RequiresCondition: cheats_on
 		Prerequisite: disabled
+	ProductionQueue@Infantry:
+		Type: Infantry
+		Group: Infantry
 	ProductionQueue@tier1:
 		Type: HeroUpgrade1
 		Group: Special
@@ -81,7 +84,11 @@ HAXOR:
 		Type: HeroUpgrade5
 		Group: Special
 	Production@herotiers:
-		Produces: HeroUpgrade1,HeroUpgrade2,HeroUpgrade3,HeroUpgrade4,HeroUpgrade5
+		Produces: HeroUpgrade1,HeroUpgrade2,HeroUpgrade3,HeroUpgrade4,HeroUpgrade5,Infantry,Soldier
+	FreeActor@crate:
+		Actor: CRATE.DEBUG
+		SpawnOffset: 0,2
+	Exit:
 	Tooltip:
 		Name: actor-haxor.name
 	Power:
@@ -757,8 +764,8 @@ CRATE.DEBUG:
 		Sequence: fpower
 		SelectionShares: 1
 	GiveUnitCrateAction@ionstorm:
-		SelectionShares: 1
-		Units: 1tnk.ionstorm
+		SelectionShares: 5000
+		Units: 1tnk.rick
 		Owner: Neutral
 		Sequence: timequake
 	GiveUnitCrateAction@allyourbase:
@@ -774,7 +781,7 @@ CRATE.DEBUG:
 		Image: explosion
 		Sequence: morshubombs
 		Sound: morshubombs.ogg
-		SelectionShares: 6000
+		SelectionShares: 1
 	ExplodeSupportPowerCrateAction@fartbomb:
 		Proxy: powerproxy.morshubombs
 		Weapon: MorshuBombs

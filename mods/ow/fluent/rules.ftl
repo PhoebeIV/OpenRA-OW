@@ -26,6 +26,8 @@ actor-player =
    .lobbyprerequisitecheckbox-herotest-description = Enables all factions to train Heroes.
    .lobbyprerequisitecheckbox-badcrates-label = Bad Crates
    .lobbyprerequisitecheckbox-badcrates-description = Enable the bad crates.
+   .lobbyprerequisitecheckbox-doctors-label = No Bad Doctors
+   .lobbyprerequisitecheckbox-doctors-description = Disables bad doctors from spawning.
    .lobbyprerequisitecheckbox-morecrates-dropdown = Crates
    .lobbyprerequisitecheckbox-morecrates-description = Change the amount of crates. Uses LUA script.
    .lobbyprerequisitecheckbox-morecrates-label = More Crates
@@ -1211,6 +1213,7 @@ actor-mcvc =
 ## civilian.yaml
 actor-c10-dr-name = Dr. Fowl
 actor-c10-scot-name = Dr. Scotsman
+actor-c10-mobius-name = Dr. Mobius
 
 ## corehero.yaml
 meta-heroexp-gainsexperience-hero-level-up-text-notification = Unit promoted.
@@ -9645,3 +9648,16 @@ actor-gamblingcodet3 =
 actor-gamblingcodet4 =
    .description = Outlier Bet. Pay 15000 for a shot at 65000 - or walk away with nothing.
    .name = Outlier Bet
+
+label-ra-map-generator-choice-resources-full =
+   .label = TiberOreful
+label-ra-map-generator-choice-resources-notib-low =
+   .label = Low - No Tib
+label-ra-map-generator-choice-resources-notib-medium =
+   .label = Medium - No Tib
+label-ra-map-generator-choice-resources-notib-high =
+   .label = High - No Tib
+label-ra-map-generator-choice-resources-notib-very-high =
+   .label = Very High - No Tib
+label-ra-map-generator-choice-resources-notib-full =
+   .label = Oreful

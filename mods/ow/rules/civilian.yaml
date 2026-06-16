@@ -41,36 +41,77 @@ OILB:
 #scientist
 C10:
 	Inherits@2: ^ArmedCivilian
+	Buildable:
+		Prerequisites: ~disabled
+		BuildPaletteOrder: 90000
+		Queue: Infantry
+		Icon: stand
 	GrantRandomCondition@dude:
-		Conditions: none,none,none,none,none,dude,dude2
+		Conditions: x,x,x,x,x,x,mobius,dude,dude2
+	GrantConditionOnPrerequisite@nodrdude:
+		Prerequisites: environment.nodrspawn
+		Condition: no_dr
 	KillsSelf@dude:
-		RequiresCondition: dude || dude2
+		RequiresCondition: !no_dr && (dude || dude2)
+		Delay: 25
+	KillsSelf@mobius:
+		RequiresCondition: mobius
 		Delay: 25
 	SpawnActorOnDeath@dude:
-		RequiresCondition: dude
+		RequiresCondition: !no_dr && dude
 		Actor: C10.Dr
 		OwnerType: InternalName
 		InternalOwner: Creeps
 		RequiresLobbyCreeps: true
 	SpawnActorOnDeath@dude2:
-		RequiresCondition: dude2
+		RequiresCondition: !no_dr && dude2
 		Actor: C10.Scot
 		OwnerType: InternalName
 		InternalOwner: Creeps
 		RequiresLobbyCreeps: true
+	SpawnActorOnDeath@dude3:
+		RequiresCondition: mobius
+		Actor: C10.Mobius
 
-CHAN:
+EINSTEIN:
 	GrantRandomCondition@dude:
-		Conditions: none,none,none,none,none,dude
+		Conditions: x,x,x,x,x,x,x,x,x,x,x,x,x,rick
 	KillsSelf@dude:
-		RequiresCondition: dude
+		RequiresCondition: rick
 		Delay: 25
 	SpawnActorOnDeath@dude:
 		RequiresCondition: dude
+		Actor: EINSTEIN.Rick
+		OwnerType: InternalName
+		InternalOwner: Neutral
+
+CHAN:
+	GrantRandomCondition@dude:
+		Conditions: x,x,x,x,x,x,mobius,dude,dude2
+	GrantConditionOnPrerequisite@nodrdude:
+		Prerequisites: environment.nodrspawn
+		Condition: no_dr
+	KillsSelf@dude:
+		RequiresCondition: !no_dr && (dude || dude2)
+		Delay: 25
+	KillsSelf@mobius:
+		RequiresCondition: mobius
+		Delay: 25
+	SpawnActorOnDeath@dude:
+		RequiresCondition: !no_dr && dude
 		Actor: C10.Dr
 		OwnerType: InternalName
 		InternalOwner: Creeps
 		RequiresLobbyCreeps: true
+	SpawnActorOnDeath@dude2:
+		RequiresCondition: !no_dr && dude2
+		Actor: C10.Scot
+		OwnerType: InternalName
+		InternalOwner: Creeps
+		RequiresLobbyCreeps: true
+	SpawnActorOnDeath@dude3:
+		RequiresCondition: mobius
+		Actor: C10.Mobius
 
 C10.Dr:
 	Inherits: C10
@@ -151,6 +192,84 @@ C10.Scot:
 	AutoTarget:
 		ScanRadius: 48
 		InitialStance: AttackAnything
+
+C10.Mobius:
+	Inherits: C10
+	-GrantRandomCondition@dude:
+	-KillsSelf@dude:
+	-SpawnActorOnDeath@dude:
+	-ScaredyCat:
+	Tooltip:
+		Name: actor-c10-mobius-name
+	Buildable:
+		Prerequisites: ~disabled
+		BuildPaletteOrder: 90000
+		Queue: Infantry
+		Icon: stand
+	Valued:
+		Cost: 800
+	Health:
+		HP: 10000
+	Voiced:
+		VoiceSet: MobiusVoice
+	RevealsShroud:
+		Range: 8c0
+	-Wanders:
+	AttackWander:
+		MinMoveDelay: 150
+		MaxMoveDelay: 750
+	SpawnActorOnDeath:
+		Actor: drfowlcrate
+	Armament:
+		Weapon: VoltAutorifle
+		LocalOffset: 256,0,512
+		PauseOnCondition: !ammo
+	Armament@GARRISONED:
+		Name: garrisoned
+		Weapon: VoltAutorifle
+		MuzzleSequence: garrison-muzzle
+	Armament@BUS:
+		Name: bus
+		Weapon: VoltAutorifle
+		MuzzleSequence: garrison-muzzle
+	AmmoPool:
+		Ammo: 50
+		AmmoCondition: ammo
+	ReloadAmmoPool:
+		Count: 50
+		Sound: voltauto_reload.aud
+		ResetOnFire: true
+	AmmoPool@hack:
+		InitialAmmo: 0
+		Name: hackammo
+	ReloadAmmoPool@hack:
+		RequiresCondition: firing
+		AmmoPool: hackammo
+		Delay: 1
+	GrantPeriodicCondition@randomiseattackspeed:
+		ActiveDuration: 2,5
+		CooldownDuration: 2,5
+		Condition: attackspeed
+		RequiresCondition: firing
+	GrantConditionOnAttack@firing:
+		Condition: firing
+		RevokeDelay: 4
+	ExplodeWeapon@endsound:
+		Weapon: VoltAutorifleEnd
+		AmmoPoolName: hackammo
+		RequiresCondition: !firing
+	ReloadDelayMultiplier@randomiseattackspeed:
+		RequiresCondition: attackspeed
+		Modifier: 150
+	-ReloadDelayMultiplier@squadboost:
+	-ReloadDelayMultiplier@RANK-1:
+	-ReloadDelayMultiplier@RANK-2:
+	-ReloadDelayMultiplier@RANK-3:
+	-ReloadDelayMultiplier@RANK-ELITE:
+	AutoTargetPriority@DEFAULT:
+		RequiresCondition: !stance-attackanything
+		ValidTargets: Infantry, Vehicle, Ship, Underwater, Defense, Mine, NoAutoTarget
+		-InvalidTargets:
 
 DRFOWLCRATE:
 	Inherits: ^Crate

@@ -348,6 +348,7 @@ CRATE:
 		Image: explosion
 		Sequence: morshubombs
 		SelectionShares: 2
+		Prerequisites: !environment.nomemes
 	SupportPowerCrateAction@Chromoshift:
 		Proxy: powerproxy.Chromoshift
 		Sound: ironcur9.aud
@@ -657,12 +658,14 @@ CRATE.FuckYou:
 		Weapon: MorshuBombs
 		TimeDelay: 6000
 		SelectionShares: 2
+		Prerequisites: !environment.nomemes
 	GiveUnitCrateAction@bitconnect:
 		SelectionShares: 4
 		Units: 1tnk.bitconnect
 		Sound: bitconnect.aud
 		Sequence: idle
 		Image: bitconnect
+		Prerequisites: !environment.nomemes
 	GiveUnitCrateAction@gamecube:
 		SelectionShares: 2
 		Units: gamecube
@@ -698,6 +701,7 @@ CRATE.FuckYou:
 		SelectionShares: 3
 		Units: e6.cunt
 		Owner: Creeps
+		Prerequisites: !environment.nomemes
 	GiveUnitCrateAction@rmbo:
 		SelectionShares: 4
 		Units: rmbo.left
@@ -719,6 +723,16 @@ CRATE.FuckYou:
 		Units: 1tnk.shoopdawhoop
 		Owner: Creeps
 		TimeDelay: 6000
+		Prerequisites: !environment.nomemes
+	GrantConditionOnPrerequisite@rickactive:
+		Prerequisites: environment.rick
+		Condition: no_rick
+	GiveUnitCrateAction@ricksanchez:
+		RequiresCondition: !no_rick
+		SelectionShares: 2
+		Units: 1tnk.rick
+		Owner: Neutral
+		Sequence: timequake
 		Prerequisites: !environment.nomemes
 	Crate:
 		Duration: 6000
@@ -4776,3 +4790,131 @@ powerproxy.starfox:
 		OneShot: true
 		AllowMultiple: true
 		LaunchSound: starfoxenter.aud
+
+1TNK.RICK:
+	Inherits: 1TNK.MINE
+	KillsSelf:
+		Delay: 5
+		RemoveInstead: true
+	ProvidesPrerequisite: 
+		Prerequisite: environment.spawnrick
+
+
+EINSTEIN.RICK:
+	Inherits: EINSTEIN
+	Buildable:
+		Prerequisites: ~disabled
+		BuildPaletteOrder: 90000
+		Queue: Infantry
+	Tooltip:
+		Name: Rick Sanchez
+	EligibleForRandomActorCrate:
+		Type: epic
+	Voiced:
+		VoiceSet: Scientist2Voice
+	Wanders:
+		MinMoveDelay: 150
+		MaxMoveDelay: 750
+		WanderMoveRadius: 4
+	KillsSelf: 
+		RequiresCondition: killself
+		Delay: 13550
+		DamageTypes: ElectricityDeath
+	KillsSelf@2: 
+		RequiresCondition: killself2
+		Delay: 100
+		DamageTypes: ElectricityDeath
+	GrantConditionOnOwnerName:
+		Condition: killself
+		PlayerName: Neutral
+	GrantConditionOnPrerequisite@hand:
+		Prerequisites: rickhand
+		Condition: killself2
+	ProvidesPrerequisite:
+		Prerequisite: environment.rick
+	Targetable:
+		TargetTypes: GroundActor, Infantry, NoAutoTarget, NoAITarget
+	DropPodsPowerOW:
+		Icon: rickhand
+		Name: Rick's Boredom
+		OrderName: rickhand
+		Description: Bitch slap the target
+		UnitTypes: RICKHAND
+		Cursor: chrono-target
+		Drops: 1,1
+		PodScatter: 1
+		PodFacing: 448
+		PauseOnCondition: disabled
+		CameraActor: CAMERA.AllPlayers
+		CameraRemoveDelay: 1500
+		Weapon: ArtilleryPowerMarker
+		WeaponDelay: 5
+		ChargeInterval: 13500
+		EntryEffect: explosion
+		EntryEffectSequence: bunkerbustersring
+		LaunchSound: sartweaa.wav
+		IncomingSpeechNotification: RickHandSound
+		SelectTargetSpeechNotification: SelectTarget
+		SelectTargetTextNotification: actor-t-miss.droppodspower-artillery-select-target-text-notification
+		DisplayRadarPing: true
+		DisplayTimerRelationships: Ally, Enemy, Neutral
+		BeaconPoster: artillerybarragebeacon
+		OneShot: true
+		AllowMultiple: true
+
+powerproxy.rickhand:
+	DropPodsPowerOW:
+		Icon: rickhand
+		Name: Rick's Boredom
+		OrderName: rickhand
+		Description: Bitch slap the target
+		UnitTypes: RICKHAND
+		Cursor: chrono-target
+		Drops: 1,1
+		PodScatter: 1
+		PodFacing: 448
+		PauseOnCondition: disabled
+		CameraActor: CAMERA.AllPlayers
+		CameraRemoveDelay: 1500
+		Weapon: ArtilleryPowerMarker
+		WeaponDelay: 5
+		ChargeInterval: 13500
+		EntryEffect: explosion
+		EntryEffectSequence: bunkerbustersring
+		LaunchSound: sartweaa.wav
+		IncomingSpeechNotification: RickHandSound
+		SelectTargetSpeechNotification: SelectTarget
+		SelectTargetTextNotification: actor-t-miss.droppodspower-artillery-select-target-text-notification
+		DisplayRadarPing: true
+		DisplayTimerRelationships: Ally, Enemy, Neutral
+		BeaconPoster: artillerybarragebeacon
+		OneShot: true
+		AllowMultiple: true
+
+RICKHAND:
+	Inherits: ColonyDrop
+	ProvidesPrerequisite:
+	AmbientSound@0:
+		Interval: 9000
+		SoundFiles: mortykill1.ogg
+	AmbientSound@1:
+		Delay: 60
+		SoundFiles: mortykillcello.ogg
+	-Contrail:
+	-Contrail@1:
+	-Contrail@2:
+	-Contrail@3:
+	-Contrail@4:
+	-WithIdleOverlay@1:
+	-WithIdleOverlay@2:
+	-WithIdleOverlay@3:
+	-WithIdleOverlay@4:
+	-WithIdleOverlay@5:
+	-WithIdleOverlay@6:
+	-WithIdleOverlay@7:
+	-WithIdleOverlay@8:
+	FallsToEarth:
+		Explosion: RickHandSlap
+		Moves: true
+		Velocity: 40
+		MaximumSpinSpeed: 0

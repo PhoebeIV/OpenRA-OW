@@ -241,7 +241,6 @@ japanrocketangel:
 		DefaultAttackSequence: shoot
 		IdleSequences: idle1,idle2
 		StandSequences: stand
-	WithInfantryBody:
 	WithInfantryBody@flying:
 		RequiresCondition: airborne
 		DefaultAttackSequence: shoot-air
@@ -251,7 +250,9 @@ japanrocketangel:
 	Hovers:
 		RequiresCondition: airborne
 	ChangesHealth@tiberium:
-		RequiresCondition: !airborne && standing_in_tiberium
+		RequiresCondition: !airborne && standing_in_tiberium && shielded && !gdi_suits
+	ChangesHealth@tiberium_noshield:
+		RequiresCondition: !airborne && standing_in_tiberium && !shielded && !gdi_suits
 	ProducibleWithLevel:
 		Prerequisites: barracks.upgraded
 	WithShadow:
