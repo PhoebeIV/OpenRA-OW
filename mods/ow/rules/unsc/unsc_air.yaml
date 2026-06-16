@@ -99,8 +99,6 @@ unscdarter:
 	WithShadow:
 		Offset: 43, 1536, 0
 		ZOffset: -129
-	Voiced:
-		VoiceSet: ChinookVoice
 	GpsDot:
 		String: Harvester
 	Targetable:
@@ -156,6 +154,12 @@ unschornet:
 		Name: secondary
 		Weapon: unscwarthogminigun
 		LocalOffset: 85,213,-85, 85,-213,-85
+		MuzzleSequence: muzzle
+		PauseOnCondition: !ammo
+		AmmoUsage: 0
+	Armament@tracer:
+		Weapon: unscmarinebattlerifletracer
+		LocalOffset: 85,-213,-85, 85,213,-85
 		MuzzleSequence: muzzle
 		PauseOnCondition: !ammo
 		AmmoUsage: 0
@@ -215,8 +219,6 @@ unschornet:
 		RequiresCondition: reloadnear
 		Delay: 500
 		Count: 12
-	Voiced:
-		VoiceSet: ComancheVoice
 	GrantConditionOnPrerequisite@chaffpod:
 		Condition: chaffpod
 		Prerequisites: unsc.chaffpod
@@ -228,6 +230,8 @@ unschornet:
 		Name: laser
 		Weapon: PointDefenseLaser
 		RequiresCondition: chaffpod
+	EjectOnDeath:
+		PilotActor: unscmarine
 
 unscsparrowhawk:
 	Inherits: ^Helicopter
@@ -266,6 +270,12 @@ unscsparrowhawk:
 	Armament@SECONDARY:
 		Weapon: unscwarthogminigun
 		LocalOffset: 85,213,-85, 85,-213,-85
+		MuzzleSequence: muzzle
+		PauseOnCondition: !ammo
+		AmmoUsage: 0
+	Armament@tracer:
+		Weapon: unscmarinebattlerifletracer
+		LocalOffset: 85,-213,-85, 85,213,-85
 		MuzzleSequence: muzzle
 		PauseOnCondition: !ammo
 		AmmoUsage: 0
@@ -321,13 +331,13 @@ unscsparrowhawk:
 		RequiresCondition: reloadnear
 		Delay: 500
 		Count: 50
-	Voiced:
-		VoiceSet: HelixVoice
 	Cargo:
 		Types: Infantry
 		MaxWeight: 8
 		AfterUnloadDelay: 40
 		EjectOnDeath: true
+	EjectOnDeath:
+		PilotActor: unscmarine
 
 unscvulture:
 	Inherits: ^Helicopter
@@ -369,6 +379,12 @@ unscvulture:
 		MuzzleSequence: muzzle
 		AmmoUsage: 0
 		PauseOnCondition: !ammo
+	Armament@tracer:
+		Weapon: unscmarinebattlerifletracer
+		LocalOffset: 85,-213,-85, 85,213,-85
+		MuzzleSequence: muzzle
+		PauseOnCondition: !ammo
+		AmmoUsage: 0
 	Armament@PRIMARY2:
 		Weapon: unscvulturerockets
 		LocalOffset: 85,-213,-85, 85,213,-85
@@ -444,8 +460,6 @@ unscvulture:
 	WithProductionIconOverlay:
 		Types: Veterancy
 		Prerequisites: aircraft.upgraded
-	Voiced:
-		VoiceSet: HelixVoice
 	Cargo:
 		Types: Infantry
 		MaxWeight: 8
@@ -457,6 +471,8 @@ unscvulture:
 	GrantConditionOnPrerequisite@phoenix:
 		Condition: phoenix
 		Prerequisites: unsc.phoenix
+	EjectOnDeath:
+		PilotActor: unscmarine
 
 unscpelican:
 	Inherits: BADR

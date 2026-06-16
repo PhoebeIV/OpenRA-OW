@@ -76,16 +76,37 @@ unscwarthog:
 		CooldownDuration: 1
 		ActiveDuration: 90000
 		RequiresCondition: warthogweapons
+	AttackTurreted:
+		Armaments: primary, secondary, minigun
 	Armament:
+		Name: minigun
+		MuzzleSequence: muzzle
 		Weapon: unscwarthogminigun
 		LocalOffset: 171,0,256
 		PauseOnCondition: rocketlauncher || missilebarrage || railgun
+	Armament@2:
+		Weapon: unscmarinebattlerifletracer
+		LocalOffset: 171,0,256
+		PauseOnCondition: rocketlauncher || missilebarrage || railgun
+	GrantConditionOnAttack@gatling:
+		ArmamentNames: minigun
+		Condition: gatling
+		RequiredShotsPerInstance: 4
+		MaximumInstances: 3
+		RevokeDelay: 25
+		RevokeAll: true
+		IsCyclic: false
+	ReloadDelayMultiplier@Gatling1:
+		RequiresCondition: gatling >= 3
+		Modifier: 80
 	Armament@rocketlauncher:
 		Weapon: unscwarthogrocketlauncher
+		MuzzleSequence: muzzle
 		LocalOffset: 171,0,256
 		RequiresCondition: rocketlauncher
 	Armament@rocketlauncheraa:
 		Weapon: unscwarthogrocketlauncheraa
+		MuzzleSequence: muzzle
 		LocalOffset: 171,0,256
 		RequiresCondition: rocketlauncher
 	Armament@flamerthrower:
@@ -94,10 +115,12 @@ unscwarthog:
 		RequiresCondition: flamerthrower
 	Armament@missilebarrage:
 		Weapon: unscgrizzlyrockets
+		MuzzleSequence: muzzle
 		LocalOffset: 171,0,288, 171,0,224
 		RequiresCondition: missilebarrage
 	Armament@railgun:
 		Weapon: unscwarthograilgun
+		MuzzleSequence: muzzle
 		LocalOffset: 171,0,256
 		RequiresCondition: railgun
 	AttackTurreted:
@@ -152,8 +175,6 @@ unscmongoose:
 	Turreted:
 		TurnSpeed: 40
 		Offset: -298,0,212
-	GrantRandomCondition:
-		Conditions: fake1, rocketlauncher, flamerthrower
 	AttackTurreted:
 		PauseOnCondition: disabled
 	FireProjectilesOnDeath:
@@ -196,6 +217,9 @@ unscscorpion:
 		Weapon: unscscorpionminigun
 		LocalOffset: 260,40,40
 		MuzzleSequence: muzzle2
+	Armament@2a:
+		Weapon: unsctalosminiguntracer
+		LocalOffset: 260,40,40
 	Armament@3:
 		Weapon: unscscorpionsmoke
 		LocalOffset: 280,40,40
@@ -262,6 +286,9 @@ unscgrizzly:
 		Weapon: unscscorpionminigun
 		LocalOffset: 260,40,40
 		MuzzleSequence: muzzle2
+	Armament@2a:
+		Weapon: unsctalosminiguntracer
+		LocalOffset: 260,40,40
 	Armament@3:
 		Weapon: unscgrizzlyrockets
 		LocalOffset: 0,100,340, 0,-100,340

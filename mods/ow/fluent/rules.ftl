@@ -2222,6 +2222,7 @@ actor-covenantlich-husk-name = Husk (Kmiro'sish-pattern Lich)
 actor-covenantspirit-husk-name = Husk (Dextro Xur-pattern Spirit)
 actor-covenantphantom-husk-name = Husk (Ru'swum-pattern Phantom Spirit)
 actor-covenantscarab-husk-name = Husk (Protos-pattern Scarab)
+actor-covenantvampire-husk-name = Husk (Bkowe'nei-pattern Vampire)
 
 ## japan_air.yaml
 actor-japanchoppervx =
@@ -8801,6 +8802,16 @@ actor-covenantphantom =
       Weak vs Aircraft, Vehicles
    .name = Ru'swum-pattern Phantom
 
+actor-covenantvampire =
+   .description = The Vampire is a specialized ground-attack aircraft, with impressive anti-air support capabilities in part due to its speed and maneuverability.
+
+   The Vampire is also equipped with a stasis cannon and forward-facing needle cannon,
+
+    Speed: 96
+      Strong vs Aircraft, Vehicles
+      Weak vs Infantry
+   .name = Bkowe'nei-pattern Vampire
+
 ## covenant_inf.yaml
 
 actor-covenantgrunt =
@@ -8892,6 +8903,14 @@ actor-covenanthunter =
       Weak vs Aircraft
    .name = Mgalekgolo (Hunter)
 
+actor-covenantengineer =
+   .description = The Huragok were created by the Forerunners' Builders prior to the activation of the Halo Array with nanocellular technology to serve as maintenance, repair, and enhancement engineers. They served as "servant-tools" to the Builders.
+
+   They can repair vehicles and capture buildings.
+
+    Speed: 50
+   .name = Huragok (Engineer)
+
 ## covenant_str.yaml
 
 actor-covenantcitadel =
@@ -8971,12 +8990,20 @@ actor-covenantfoundry =
    .name = Covenant Foundry
 
 actor-covenantshade =
-   .description = Anti-infantry gun turret
+   .description = The Shades serve as the Covenant's primary stationary gun turrets and are commonly operated by Unggoy.
    .name = Covenant Preksheda-pattern Shade
 
 actor-covenantweevil =
-   .description = Anti-air artillery
+   .description = The Weevil is a heavy sky striker commonly employed by the Covenant's military. The piece consists of a tripodal base mounting a single ultra-heavy plasma mortar weapon.
    .name = Zo'op-pattern Weevil
+
+actor-covenantcommnode =
+   .description = Provides high vision range, detects stealth units and produces gap shroud in a small radius
+   .name = Covenant comm node
+
+actor-covenantwatchtower =
+   .description = The Covenant watchtower is comprised of a circular platform and a gravity base, it can garrison 3 troops
+   .name = Covenant watchtower
 
 actor-covenantmegaturret =
    .description = [EPIC]

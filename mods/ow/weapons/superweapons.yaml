@@ -5092,3 +5092,66 @@ aoe.glassing_beam:
 		Dimensions: 7,7
 		Footprint: xxxxxxx xxxxxxx xxxxxxx xxxxxxx xxxxxxx xxxxxxx xxxxxxx
 		ValidTargets: Ground, Water, GroundActor, WaterActor, AirborneActor, Air
+
+StasisFieldWeapon:
+	Inherits: EMPWeapon
+	Warhead@start: CreateEffect
+		ImpactSounds: stasisfieldweaponsound.ogg
+		ImpactActors: false
+	Warhead@4Effect: CreateEffect
+		Delay: 50
+		Explosions: stasisfieldbeam6
+		ImpactActors: false
+	Warhead@5Effect: CreateEffect
+		Delay: 51
+		Explosions: stasisfieldbeam5
+		ImpactActors: false
+	Warhead@6Effect: CreateEffect
+		Delay: 52
+		Explosions: stasisfieldbeam4
+		ImpactActors: false
+	Warhead@7Effect: CreateEffect
+		Delay: 53
+		Explosions: stasisfieldbeam3
+		ImpactActors: false
+	Warhead@8Effect: CreateEffect
+		Delay: 54
+		Explosions: stasisfieldbeam2
+		ImpactActors: false
+	Warhead@9Effect: CreateEffect
+		Delay: 55
+		Explosions: stasisfieldbeam
+		ImpactActors: false
+	Warhead@4Effecta: CreateEffect
+		Explosions: stasisfield
+		Delay: 55
+		ImpactActors: false
+		ValidTargets: Ground, Water, GroundActor, WaterActor, Underwater, AirborneActor, Air
+	Warhead@emp1: GrantExternalCondition
+		Delay: 55
+		Range: 3c0
+		Duration: 500
+		Condition: timestop
+		InvalidTargets: Structure
+	Warhead@emp2: GrantExternalCondition
+		Delay: 60
+		Range: 6c0
+		Duration: 500
+		Condition: timestop
+		InvalidTargets: Structure
+	Warhead@emp3: GrantExternalCondition
+		Delay: 65
+		Range: 10c0
+		Duration: 500
+		Condition: timestop
+		InvalidTargets: Structure
+	Warhead@emp4: GrantExternalCondition
+		Delay: 70
+		Range: 10c0
+		Duration: 500
+		Condition: disabled
+		ValidTargets: GroundActor, WaterActor, Underwater, Cyborg
+		InvalidTargets: Structure, AirborneActor
+	-Warhead@emppwrplant: GrantExternalCondition
+	-Warhead@emppwrplant2: GrantExternalCondition
+	-Warhead@empshield: GrantExternalCondition

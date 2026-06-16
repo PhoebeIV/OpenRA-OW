@@ -130,6 +130,9 @@ covenantghost:
 		RequiresCondition: damaged_critical
 		Sequence: fire1
 		Offset: -128,-128,0
+	GrantConditionOnPrerequisite@heavyshield:
+		Condition: external_shield
+		Prerequisites: covenant.heavyshield
 
 covenantchopper:
 	Inherits: ^TrackedVehicle
@@ -166,6 +169,11 @@ covenantchopper:
 	Armament:
 		Weapon: covenantchopperspiker
 		LocalOffset: 171,-64,0, 171,64,0
+		PauseOnCondition: autocannons
+	Armament@autocannons:
+		Weapon: covenantchopperspikerautocannons
+		LocalOffset: 171,-64,0, 171,64,0
+		RequiresCondition: autocannons
 	FireProjectilesOnDeath@1:
 		Weapons: TechnicalTurret
 		Pieces: 1,1
@@ -179,6 +187,9 @@ covenantchopper:
 		Image: covenantchopper
 	Voiced:
 		VoiceSet: CovenantBrute
+	GrantConditionOnPrerequisite@autocannons:
+		Condition: autocannons
+		Prerequisites: covenant.autocannons
 
 covenantwraith:
 	Inherits: ^Vehicle
@@ -255,6 +266,9 @@ covenantwraith:
 		Offset: -128,-128,0
 	Voiced:
 		VoiceSet: CovenantElite
+	GrantConditionOnPrerequisite@heavyshield:
+		Condition: external_shield
+		Prerequisites: covenant.heavyshield
 
 covenantskyhunter:
 	Inherits: ^Vehicle
@@ -331,6 +345,9 @@ covenantskyhunter:
 		Offset: -128,-128,0
 	Voiced:
 		VoiceSet: CovenantElite
+	GrantConditionOnPrerequisite@heavyshield:
+		Condition: external_shield
+		Prerequisites: covenant.heavyshield
 
 covenantrevenant:
 	Inherits: ^Vehicle
@@ -448,6 +465,12 @@ covenantscarab:
 		Weapon: covenantscarabbeam
 		LocalOffset: 256,0,0
 		AmmoUsage: 1
+		FireDelay: 45
+		PauseOnCondition: !ammo
+	Armament@3:
+		Weapon: covenantscarabbeamproj
+		LocalOffset: 256,0,0
+		AmmoUsage: 0
 		FireDelay: 45
 		PauseOnCondition: !ammo
 	Armament@PRIMARYb:

@@ -125,7 +125,7 @@ covenantPlasmaPistolChargedOverheat:
 covenantplasmarifle:
 	ReloadDelay: 50
 	Burst: 6
-	BurstDelay: 2
+	BurstDelays: 5
 	Range: 6c0
 	Report: masterchiefplasmariflefire.aud
 	ValidTargets: Ground, Water, GroundActor, WaterActor
@@ -163,7 +163,7 @@ covenantghostplasma:
 	Report: covenantghostfire.aud
 	ReloadDelay: 50
 	Burst: 10
-	BurstDelay: 2
+	BurstDelays: 4
 
 covenantghostdeathproj:
 	Inherits: 155mm
@@ -467,6 +467,11 @@ covenantplasmacarbine:
 		Explosions: fuelrodtrail
 		ValidTargets: Ground, Water, GroundActor, WaterActor
 
+covenantplasmacarbinejackal:
+	Inherits: covenantplasmacarbine
+	ReloadDelay: 70
+	Range: 8c0
+
 covenantparticlebeamrifle:
 	Inherits: ^SnipeWeapon
 	ReloadDelay: 90
@@ -618,9 +623,10 @@ covenantspiker:
 			Heavy: 90
 			Concrete: 50
 			Shield: 100
-		DamageTypes: Prone50Percent, TriggerProne, ElectricityDeath
+		DamageTypes: Prone50Percent, TriggerProne, SmallExplosionDeath
 	Warhead@2Eff: CreateEffect
 		Explosions: piff
+		Inaccuracy: 256
 		ValidTargets: Ground, Water, GroundActor, WaterActor
 
 covenantchopperspiker:
@@ -628,6 +634,28 @@ covenantchopperspiker:
 	ReloadDelay: 25
 	Burst: 14
 	BurstDelays: 4
+
+covenantchopperspikerautocannons:
+	Inherits: covenantspiker
+	ReloadDelay: 25
+	Burst: 14
+	BurstDelays: 4
+	Warhead@1Dam: SpreadDamage
+		Spread: 512
+		Damage: 2600
+		ValidTargets: GroundActor, WaterActor
+		Versus:
+			None: 100
+			Wood: 90
+			Light: 80
+			Heavy: 100
+			Concrete: 50
+			Shield: 100
+		DamageTypes: Prone50Percent, TriggerProne, SmallExplosionDeath
+	Warhead@2Eff: CreateEffect
+		Explosions: med_explosion
+		Inaccuracy: 256
+		ValidTargets: Ground, Water, GroundActor, WaterActor
 
 covenantbruteshot:
 	Inherits: ^Artillery
@@ -700,7 +728,7 @@ covenantmaulertracer:
 covenantbruteplasmarifle:
 	ReloadDelay: 50
 	Burst: 6
-	BurstDelays: 3
+	BurstDelays: 4
 	Range: 6c0
 	Report: masterchiefplasmariflefire.aud
 	ValidTargets: Ground, Water, GroundActor, WaterActor
@@ -885,7 +913,7 @@ covenantwraithcannon:
 		LockOnProbability: 0
 		Acceleration: 10
 		CruiseAltitude: 3c0
-		Inaccuracy: 2c0
+		Inaccuracy: 1c0
 		Shadow: true
 		ContrailStartWidth: 0c128
 		ContrailEndWidth: 0c64
@@ -944,13 +972,15 @@ covenantweevilcannon:
 	ReloadDelay: 25
 	Burst: 1
 	Range: 12c0
+	Projectile: Missile
+		Speed: 441
 
 covenantbansheeplasma:
 	Inherits: covenantplasmarifle
 	Report: covenantbansheeplasmafire1.aud, covenantbansheeplasmafire2.aud, covenantbansheeplasmafire3.aud
 	ReloadDelay: 45
 	Burst: 10
-	BurstDelay: 2
+	BurstDelays: 4
 	Range: 7c0
 
 covenantbansheeplasmaAA:
@@ -958,7 +988,7 @@ covenantbansheeplasmaAA:
 	Report: covenantbansheeplasmafire1.aud, covenantbansheeplasmafire2.aud, covenantbansheeplasmafire3.aud
 	ReloadDelay: 45
 	Burst: 10
-	BurstDelay: 2
+	BurstDelays: 4
 	Range: 7c0
 	ValidTargets: AirborneActor, Air
 	Warhead@1Dam: SpreadDamage
@@ -1271,7 +1301,7 @@ covenantscarabbeam:
 	Warhead@1Dam: SpreadDamage
 		Delay: 5
 		Spread: 1024
-		Damage: 10000
+		Damage: 1000
 		Versus:
 			None: 110
 			Wood: 40
@@ -1284,3 +1314,118 @@ covenantscarabbeam:
 	Warhead@2Smu: LeaveSmudge
 		SmudgeType: Scorch
 		InvalidTargets: Structure, Wall, Vehicle
+
+covenantscarabbeamproj:
+	Inherits: ^AntiGroundMissile
+	-Report:
+	MinRange: 2c0
+	Range: 9c0
+	Burst: 10
+	BurstDelays: 10
+	ReloadDelay: 125
+	Projectile: Missile
+		Speed: 500
+		HorizontalRateOfTurn: 20
+		RangeLimit: 15c0
+		Gravity: 1
+		MinimumLaunchAngle: 48
+		MinimumLaunchSpeed: 8
+		MaximumLaunchSpeed: 8
+		Image: masterchief.weaponhack
+		TrailImage: explosion
+		TrailSequences: fuelrodtrail
+		ContrailLength: 0
+		LockOnProbability: 0
+		Acceleration: 10
+		CruiseAltitude: 3c0
+		Inaccuracy: 0
+		Shadow: false
+		ContrailStartWidth: 0c64
+		ContrailEndWidth: 0c32
+		Blockable: false
+	Warhead@1Dam: SpreadDamage
+		Spread: 1024
+		Damage: 9000
+		ValidTargets: GroundActor, WaterActor
+		Versus:
+			None: 100
+			Wood: 100
+			Light: 100
+			Heavy: 100
+			Concrete: 50
+			Shield: 150
+		DamageTypes: Prone50Percent, TriggerProne, ElectricityDeath
+	Warhead@2Smu: LeaveSmudge
+		SmudgeType: Scorch
+		InvalidTargets: Structure, Wall, Vehicle
+	Warhead@3Eff: CreateEffect
+		Explosions: fuelrodexplosion
+		ValidTargets: Ground, Water, GroundActor, WaterActor , AirborneActor, Air
+	Warhead@zap: FireCluster
+		Weapon: FuelRodCannonClusterSmall
+		RandomClusterCount: 2
+		Dimensions: 2,2
+		Footprint: xx xx
+		ValidTargets: Ground, Water, GroundActor, WaterActor , AirborneActor, Air
+
+covenantvampirebeam:
+	ReloadDelay: 125
+	BurstDelays: 10
+	Burst: 10
+	Range: 9c0
+	Report: USAMicrowaveLasershot.aud
+	TargetActorCenter: True
+	ValidTargets: Tank, Vehicle
+	Projectile: LaserZap
+		Width: 100
+		Duration: 20
+		Color: 00d9ff70
+		Shape: Cylindrical
+	Warhead@1Dam: SpreadDamage
+		Spread: 1
+		Damage: 2000
+		Versus:
+			None: 0
+			Wood: 0
+			Light: 0
+			Heavy: 0
+			Concrete: 0
+		DamageTypes: Prone50Percent, TriggerProne, FireDeath
+		ValidTargets: Tank, Vehicle
+	Warhead@2EMP: GrantExternalCondition
+		Spread: 1
+		Condition: disabled
+		Duration: 30
+		ValidTargets: Tank, Vehicle
+	TargetActorCenter: True
+
+covenantvampireneedlerifle:
+	Inherits: ^SnipeWeapon
+	ReloadDelay: 25
+	Range: 9c0
+	Report: covenantneedleriflefire1.aud, covenantneedleriflefire2.aud, covenantneedleriflefire3.aud
+	ValidTargets: Air, AirborneActor
+	InvalidTargets: Ground, GroundActor, Infantry
+	Projectile: LaserZap
+		Color: d400ff
+		Width: 14
+		Duration: 15
+	Warhead@1Dam: SpreadDamage
+		Spread: 42
+		Damage: 6500
+		Versus:
+			None: 75
+			Wood: 30
+			Light: 90
+			Heavy: 75
+			Concrete: 30
+			Shield: 125
+		DamageTypes: Prone50Percent, TriggerProne, ElectricityDeath
+		ValidTargets: Air, AirborneActor
+	Warhead@2Eff: CreateEffect
+		Explosions: laserhitsmall
+		ValidTargets: Air, AirborneActor
+	Warhead@Debuff1: GrantExternalCondition
+		Condition: needlereffectweak
+		Duration: 300
+		ValidTargets: Air, AirborneActor

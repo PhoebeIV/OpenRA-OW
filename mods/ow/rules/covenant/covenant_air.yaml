@@ -220,9 +220,11 @@ covenantbanshee:
 	GrantConditionOnPrerequisite@bansheecannon:
 		Condition: bansheecannon
 		Prerequisites: covenant.bansheecannon
-	GrantConditionOnPrerequisite@bansheecannon:
-		Condition: bansheecannon
-		Prerequisites: covenant.bansheecannon
+	EjectOnDeath:
+		PilotActor: covenantelite
+	GrantConditionOnPrerequisite@heavyshield:
+		Condition: external_shield
+		Prerequisites: covenant.heavyshield
 
 covenantspirit:
 	Inherits: BADR
@@ -298,3 +300,75 @@ covenantphantom:
 	Armament:
 		Name: primary
 		Weapon: covenantconcussionrifle
+	EjectOnDeath:
+		PilotActor: covenantelite
+	GrantConditionOnPrerequisite@heavyshield:
+		Condition: external_shield
+		Prerequisites: covenant.heavyshield
+
+covenantvampire:
+	Inherits: ^Helicopter
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Buildable:
+		Queue: Aircraft
+		BuildAtProductionType: Helicopter
+		BuildPaletteOrder: 5
+		Prerequisites: ~aircraft.covenant, techcenter
+		Description: actor-covenantvampire.description
+	Valued:
+		Cost: 1500
+	Tooltip:
+		Name: actor-covenantvampire.name
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 50000
+	RevealsShroud:
+		MinRange: 6c0
+		Range: 8c0
+		Type: GroundPosition
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 6c0
+		Type: GroundPosition
+	Aircraft:
+		TurnSpeed: 20
+		Speed: 96
+		AltitudeVelocity: 0c58
+	SpawnActorOnDeath:
+		Actor: covenantvampire.Husk
+	Selectable:
+		DecorationBounds: 1706, 1536
+	Voiced:
+		VoiceSet: CovenantElite
+	WithAmmoPipsDecoration:
+		Position: BottomLeft
+		Margin: 4, 3
+		RequiresSelection: true
+		PipCount: 8
+	AttackAircraft:
+		FacingTolerance: 80
+		PersistentTargeting: false
+		AttackType: Hover
+		OpportunityFire: true
+	AmmoPool:
+		Ammo: 15
+		ReloadDelay: 8
+		AmmoCondition: ammo
+	Armament@PRIMARY:
+		Weapon: covenantvampireneedlerifle
+		LocalOffset: 85,0,-85
+		MuzzleSequence: muzzle
+		PauseOnCondition: !ammo
+	Armament@secondary:
+		Weapon: covenantvampirebeam
+		Delay: 1
+		LocalOffset: 85,0,-85
+		MuzzleSequence: muzzle
+		AmmoUsage: 0
+		PauseOnCondition: !ammo
+	EjectOnDeath:
+		PilotActor: covenantelite
+	GrantConditionOnPrerequisite@heavyshield:
+		Condition: external_shield
+		Prerequisites: covenant.heavyshield

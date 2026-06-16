@@ -1527,7 +1527,7 @@ covenantweevil:
 		Description: actor-covenantweevil.description
 		Prerequisites: ~structures.covenant, techcenter, ~techlevel.low, ~!structures.bothard
 		IconPalette: player-icon
-		BuildPaletteOrder: 3
+		BuildPaletteOrder: 6
 		IconPaletteIsPlayerPalette: true
 	Health:
 		HP: 60000
@@ -1568,3 +1568,109 @@ covenantweevil:
 		Amount: 0
 	-BodyOrientation:
 	ClassicFacingBodyOrientation:
+
+covenantcommnode:
+	Inherits: ^Building
+	Inherits@LOWPOWER: ^DisableOnLowPowerOrPowerDown
+	Inherits@unscbuilding: ^covenantbuilding
+	Valued:
+		Cost: 1500
+	Selectable:
+		Bounds: 1024, 1024
+		DecorationBounds: 1024, 2048, 0, -512
+	Tooltip:
+		Name: actor-covenantcommnode.name
+	Building:
+	Buildable:
+		Queue: Defense
+		Description: actor-covenantshade.description
+		Prerequisites: ~structures.covenant, techcenter, ~techlevel.low, ~!structures.bothard
+		IconPalette: player-icon
+		BuildPaletteOrder: 5
+		IconPaletteIsPlayerPalette: true
+	Health:
+		HP: 40000
+	Armor:
+		Type: Wood
+	RevealsShroud:
+		MinRange: 7c0
+		Range: 8c0
+		RevealGeneratedShroud: False
+		RequiresCondition: !jammed && !disabled
+	RevealsShroud@lowpower:
+		Range: 3c0
+		RequiresCondition: jammed || disabled
+	DetectCloaked:
+		Range: 8c0
+		RequiresCondition: !jammed && !disabled
+		DetectionTypes: Cloak, AirCloak, Underwater
+	RevealsShroud@GAPGEN:
+		Range: 8c0
+		RequiresCondition: !disabled
+	CreatesShroud:
+		MinRange: 5c0
+		Range: 6c0
+		RequiresCondition: !jammed && !disabled
+	WithBuildingBib:
+		HasMinibib: true
+	RenderDetectionCircle:
+	Power:
+		Amount: 0
+	-BodyOrientation:
+	ClassicFacingBodyOrientation:
+
+covenantwatchtower:
+	Inherits: ^Defense
+	Inherits@unscbuilding: ^covenantbuilding
+	Tooltip:
+		Name: actor-covenantwatchtower.name
+	Building:
+	Selectable:
+		Bounds: 1024, 1024
+		DecorationBounds: 1024, 2048, 0, -512
+	Buildable:
+		Queue: Defense
+		Description: actor-covenantshade.description
+		Prerequisites: ~structures.covenant, barracks, ~techlevel.low, ~!structures.bothard
+		IconPalette: player-icon
+		BuildPaletteOrder: 4
+		IconPaletteIsPlayerPalette: true
+	Valued:
+		Cost: 700
+	CustomSellValue:
+		Value: 400
+	Health:
+		HP: 80000
+	Armor:
+		Type: Heavy
+	RevealsShroud:
+		MinRange: 5c0
+		Range: 6c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 5c0
+	WithBuildingBib:
+		HasMinibib: true
+	Turreted:
+		TurnSpeed: 512
+	-QuantizeFacingsFromSequence:
+	BodyOrientation:
+		QuantizedFacings: 8
+	InstantlyRepairable:
+		RequiresCondition: damaged
+	GrantConditionOnDamageState@DAMAGED:
+		Condition: damaged
+		ValidDamageStates: Light, Medium, Heavy, Critical
+	Cargo:
+		Types: Infantry
+		MaxWeight: 3
+	-SpawnActorsOnSell:
+	AttackGarrisoned:
+		PauseOnCondition: build-incomplete
+		Armaments: garrisoned
+		PortOffsets: 384,0,128, 224,-341,128, -224,-341,128, -384,0,128, -224,341,128, 224,341,128
+		PortYaws: 0, 176, 341, 512, 682, 853
+		PortCones: 88, 88, 88, 88, 88, 88
+	RenderRangeCircle:
+	Power:
+		Amount: 0
