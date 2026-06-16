@@ -1154,7 +1154,7 @@ FrostNovaWep:
 		ValidRelationships: Enemy, Neutral
 		Condition: chilled
 		Range: 4c0
-		Duration: 400
+		Duration: 1000
 #
 ##Used by Cult Soul Harvest power: marks enemies, who spawn undead from their corpse on death
 SoulHarvestWep:
@@ -1173,7 +1173,7 @@ SoulHarvestWep:
 		ValidRelationships: Enemy, Neutral
 		Condition: soulmarked
 		Range: 4c0
-		Duration: 1000
+		Duration: 0
 	Warhead@Eff: CreateEffect
 		Explosions: undeath
 		Image: explosion
@@ -1193,6 +1193,8 @@ ChaosStormMarkerWeapon:
 ChaosStormWep:
 	ValidTargets: Ground, Water, GroundActor, WaterActor, Underwater, AirborneActor, Trees
 	Range: 8c0
+	Burst: 4
+	BurstDelays: 300
 	Projectile: InstantHit
 	Warhead@Eff: CreateEffect
 		Explosions: chaosburst
@@ -1246,10 +1248,61 @@ ChaosStormCurseImpact:
 		Range: 2c0
 		Duration: 400
 	Warhead@Eff: CreateEffect
-		Explosions: chaosorbeffect
+		Explosions: medicurseproj
 		Image: explosion
 		ImpactActors: false
 #
+ChaosStormchillImpact:
+	ValidTargets: GroundActor, Trees, WaterActor, Underwater, AirborneActor
+	Warhead@chill: GrantExternalCondition
+		ValidTargets: GroundActor, Trees, WaterActor, Underwater, AirborneActor
+		ValidRelationships: Enemy, Neutral
+		Condition: chilled
+		Range: 4c0
+		Duration: 1000
+	Warhead@Eff: CreateEffect
+		Explosions: frostnova
+		Image: explosion
+		ImpactActors: false
+#
+ChaosStormhealImpact:
+	Warhead@1heala: HealthPercentageDamage
+		Spread: 5c0
+		Damage: -45
+		ValidTargets: Repair, Heal, StructureRepair
+		ValidRelationships: Ally
+	Warhead@1healb: CreateEffect
+		Explosions: medihealeffect
+		ImpactSounds: mediholyheal.aud
+		ImpactActors: false
+	Warhead@bless: GrantExternalCondition
+		ValidTargets: Repair, Heal, StructureRepair
+		ValidRelationships: Ally
+		Condition: MediBlessCondition
+		Range: 5c0
+		Duration: 125
+#
+ChaosStormsmiteImpact:
+	ValidTargets: Ground, GroundActor, Trees, Water, WaterActor, Underwater, Air, AirborneActor
+	Warhead@: HealthPercentageDamage
+		Delay: 150
+		Spread: 3c512
+		ValidTargets: Infantry
+		Damage: 40
+		ValidRelationships: Enemy, Neutral
+		DamageTypes: Prone50Percent, TriggerProne, ElectricityDeath
+	Warhead@Eff: CreateEffect
+		Explosions: medismiteproj
+		Image: explosion
+		Delay: 150
+	Warhead@SmiteDam_impact: SpreadDamage
+		Delay: 150
+		Spread: 2c0
+		Damage: 20000
+		Falloff: 100, 75, 50
+		ValidTargets: Infantry
+		ValidRelationships: Enemy, Neutral
+		DamageTypes: Prone50Percent, TriggerProne, ElectricityDeath
 ##Used by Holy Sanctuary power: grants brief total damage immunity to allies, infantry included
 SanctuaryWep:
 	ReloadDelay: 500
@@ -1301,7 +1354,7 @@ IceSpikeBarrageWep:
 		Blockable: True
 	Warhead@1Dam: SpreadDamage
 		Spread: 1c0
-		Damage: 9000
+		Damage: 20000
 		Falloff: 100, 75, 50, 25
 		ValidTargets: GroundActor, WaterActor
 		ValidRelationships: Enemy, Neutral
@@ -1329,7 +1382,7 @@ ChainLightningWep:
 		Blockable: True
 	Warhead@1Dam: SpreadDamage
 		Spread: 256
-		Damage: 4000
+		Damage: 20000
 		ValidTargets: GroundActor, WaterActor
 		ValidRelationships: Enemy, Neutral
 		DamageTypes: Prone50Percent, TriggerProne, ElectricityDeath
@@ -1357,7 +1410,7 @@ ChainLightningArc:
 		Blockable: True
 	Warhead@1Dam: SpreadDamage
 		Spread: 256
-		Damage: 2500
+		Damage: 10500
 		ValidTargets: GroundActor, WaterActor
 		ValidRelationships: Enemy, Neutral
 		DamageTypes: Prone50Percent, TriggerProne, ElectricityDeath
@@ -1437,7 +1490,7 @@ PillarOfFireImpact:
 	ValidTargets: Ground, GroundActor, Trees, Water, WaterActor, Underwater, Air, AirborneActor
 	Warhead@Dam: SpreadDamage
 		Spread: 1c512
-		Damage: 9000
+		Damage: 20000
 		Falloff: 100, 75, 50, 25
 		ValidTargets: GroundActor, WaterActor
 		ValidRelationships: Enemy, Neutral

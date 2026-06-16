@@ -9067,6 +9067,90 @@ actor-advtechcenterlibrary =
 
 actor-brashnards =
    .description = Super Tech Center
+
+actor-eye-airstrike =
+   .name = Dragon Strike Plug
+   .description = Plugs the Dragon Strike support power into The Eye.
+
+actor-eye-curse =
+   .name = Curse Plug
+   .description = Plugs the Curse support power into The Eye.
+
+actor-eye-t2upgrade =
+   .name = Power Amplifier Plug
+   .description = Requires an active power plug. Upgrades the active power into its more powerful Tier 2 version, if one exists.
+
+actor-eye-holylight =
+   .name = Holy Light Plug
+   .description = Plugs the Holy Light support power into The Eye.
+
+actor-eye-golem =
+   .name = Rock Golem Plug
+   .description = Plugs the Rock Golem support power into The Eye.
+
+actor-eye-smite =
+   .name = Smite Plug
+   .description = Plugs the Smite support power into The Eye.
+
+actor-eye-toxiccloud =
+   .name = Toxic Cloud Plug
+   .description = Plugs the Toxic Cloud support power into The Eye.
+
+actor-eye-pillars =
+   .name = Pillars of Fire Plug
+   .description = Plugs the Pillars of Fire support power into The Eye.
+
+actor-eye-undead =
+   .name = Undead Magic Plug
+   .description = Plugs the Undead Magic support power into The Eye.
+
+actor-eye-darkness =
+   .name = Invisibility Plug
+   .description = Plugs the Invisibility support power into The Eye.
+
+actor-eye-soulharvest =
+   .name = Soul Harvest Plug
+   .description = Plugs the Soul Harvest support power into The Eye.
+
+actor-eye-chaosstorm =
+   .name = Chaos Storm Plug
+   .description = Plugs the Chaos Storm support power into The Eye.
+
+actor-eye-chains =
+   .name = Chains of Heaven Plug
+   .description = Plugs the Chains of Heaven support power into The Eye.
+
+actor-eye-sanctuary =
+   .name = Sanctuary Plug
+   .description = Plugs the Sanctuary support power into The Eye.
+
+actor-eye-petrify =
+   .name = Petrify Plug
+   .description = Plugs the Petrify support power into The Eye.
+
+actor-eye-frostnova =
+   .name = Frost Nova Plug
+   .description = Plugs the Frost Nova support power into The Eye.
+
+actor-eye-icespike =
+   .name = Ice Spike Barrage Plug
+   .description = Plugs the Ice Spike Barrage support power into The Eye.
+
+actor-eye-chainlightning =
+   .name = Chain Lightning Plug
+   .description = Plugs the Chain Lightning support power into The Eye.
+
+actor-eye-zombierain =
+   .name = Zombie Rain Plug
+   .description = Plugs the Zombie Rain support power into The Eye.
+
+actor-eye-transholy =
+   .name = Holy Transmute Plug
+   .description = Plugs the Holy Transmute support power into The Eye.
+
+actor-eye-transwiz =
+   .name = Transmute Plug
+   .description = Plugs the Transmute support power into The Eye.
       clones infantry units
       Unlocks Super Units
    .name = Brashnards (Super Tech)

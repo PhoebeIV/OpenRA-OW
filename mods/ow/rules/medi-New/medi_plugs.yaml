@@ -1,0 +1,2032 @@
+^MediPlugs:
+	Production@powerplugs:
+		Produces: EyePlugs
+	ProductionQueue@powerplugs:
+		Type: EyePlugs
+		Group: Tech
+		BlockedAudio: NoBuild
+		LimitedAudio: BuildingInProgress
+		QueuedAudio: Building
+		OnHoldAudio: OnHold
+		CancelledAudio: Cancelled
+	ProductionBar@powerplugs:
+		ProductionType: EyePlugs
+	Pluggable@PowerCore:
+		Offset: 0,0
+		Conditions:
+			power.airstrike: power-airstrike
+			power.curse: power-curse
+			power.holylight: power-holylight
+			power.golem: power-golem
+			power.smite: power-smite
+			power.toxiccloud: power-toxiccloud
+			power.pillars: power-pillars
+			power.undead: power-undead
+			power.darkness: power-darkness
+			power.soulharvest: power-soulharvest
+			power.chaosstorm: power-chaosstorm
+			power.chains: power-chains
+			power.sanctuary: power-sanctuary
+			power.petrify: power-petrify
+			power.frostnova: power-frostnova
+			power.icespike: power-icespike
+			power.chainlightning: power-chainlightning
+			power.zombierain: power-zombierain
+			power.transholy: power-transholy
+			power.transwiz: power-transwiz
+		Requirements:
+			power.airstrike: !power-active
+			power.curse: !power-active
+			power.holylight: !power-active
+			power.golem: !power-active
+			power.smite: !power-active
+			power.toxiccloud: !power-active
+			power.pillars: !power-active
+			power.undead: !power-active
+			power.darkness: !power-active
+			power.soulharvest: !power-active
+			power.chaosstorm: !power-active
+			power.chains: !power-active
+			power.sanctuary: !power-active
+			power.petrify: !power-active
+			power.frostnova: !power-active
+			power.icespike: !power-active
+			power.chainlightning: !power-active
+			power.zombierain: !power-active
+			power.transholy: !power-active
+			power.transwiz: !power-active
+		EditorOptions:
+			power.airstrike: Dragon Strike
+			power.curse: Curse
+			power.holylight: Holy Light
+			power.golem: Rock Golem
+			power.smite: Smite
+			power.toxiccloud: Toxic Cloud
+			power.pillars: Pillars of Fire
+			power.undead: Undead Magic
+			power.darkness: Invisibility
+			power.soulharvest: Soul Harvest
+			power.chaosstorm: Chaos Storm
+			power.chains: Chains of Heaven
+			power.sanctuary: Sanctuary
+			power.petrify: Petrify
+			power.frostnova: Frost Nova
+			power.icespike: Ice Spike Barrage
+			power.chainlightning: Chain Lightning
+			power.zombierain: Zombie Rain
+			power.transholy: Holy Transmute
+			power.transwiz: Transmute
+	GrantCondition@PowerActive:
+		RequiresCondition: power-airstrike || power-curse || power-holylight || power-golem || power-smite || power-toxiccloud || power-pillars || power-undead || power-darkness || power-soulharvest || power-chaosstorm || power-chains || power-sanctuary || power-petrify || power-frostnova || power-icespike || power-chainlightning || power-zombierain || power-transholy || power-transwiz
+		Condition: power-active
+	Pluggable@PowerT2:
+		Offset: 0,1
+		Conditions:
+			power.t2: power-t2
+		Requirements:
+			power.t2: power-active && !power-t2
+		EditorOptions:
+			power.t2: Power Amplifier I
+	Pluggable@PowerT2b:
+		Offset: 0,2
+		Conditions:
+			power.t2: power-t2b
+		Requirements:
+			power.t2: power-active && power-t2 && !power-t2b
+		EditorOptions:
+			power.t2: Power Amplifier II
+	Pluggable@PowerT2c:
+		Offset: 0,3
+		Conditions:
+			power.t2: power-t2c
+		Requirements:
+			power.t2: power-active && power-t2b && !power-t2c
+		EditorOptions:
+			power.t2: Power Amplifier III
+	## Power Plugs - moved from techcenterblacksmith
+	AirstrikePower@ElementalAirstrike:
+		RequiresCondition: power-airstrike && !power-t2
+		UnitType: medidragonbomber ##MediDragonBomber
+		SquadSize: 3
+		SquadOffset: 1792,1792,0
+		QuantizedFacings: 8
+		CameraActor: camera
+		CameraRemoveDelay: 150
+		UseDirectionalTarget: True
+		DirectionArrowAnimation: paradirection
+		Icon: medidragonstrikeicon
+		ChargeInterval: 6000
+		Name: Dragon Strike
+		Description: Dragons are sent out to rain fire on an area
+		Prerequisites: ~structures.medi
+		SelectTargetSpeechNotification: SelectTarget
+		BeaconPoster: medidragonstrikebeacon
+		OrderName: ElementalAirstrike
+		SupportPowerPaletteOrder: 40
+		PauseOnCondition: disabled
+		DisplayBeacon: true
+		ArrowSequence: arrow
+		ClockSequence: clock
+		CircleSequence: circles
+	AirstrikePower@ElementalAirstrikeT2a:
+		RequiresCondition: power-airstrike && power-t2 && !power-t2b
+		UnitType: medidragonbomber ##MediDragonBomber
+		SquadSize: 3
+		SquadOffset: 1792,1792,0
+		QuantizedFacings: 8
+		CameraActor: camera
+		CameraRemoveDelay: 150
+		UseDirectionalTarget: True
+		DirectionArrowAnimation: paradirection
+		Icon: medidragonstrikeicon
+		ChargeInterval: 5100
+		Name: Dragon Strike
+		Description: Dragons are sent out to rain fire on an area
+		Prerequisites: ~structures.medi
+		SelectTargetSpeechNotification: SelectTarget
+		BeaconPoster: medidragonstrikebeacon
+		OrderName: ElementalAirstrike
+		SupportPowerPaletteOrder: 40
+		PauseOnCondition: disabled
+		DisplayBeacon: true
+		ArrowSequence: arrow
+		ClockSequence: clock
+		CircleSequence: circles
+	AirstrikePower@ElementalAirstrikeT2b:
+		RequiresCondition: power-airstrike && power-t2b && !power-t2c
+		UnitType: medidragonbomber ##MediDragonBomber
+		SquadSize: 3
+		SquadOffset: 1792,1792,0
+		QuantizedFacings: 8
+		CameraActor: camera
+		CameraRemoveDelay: 150
+		UseDirectionalTarget: True
+		DirectionArrowAnimation: paradirection
+		Icon: medidragonstrikeicon
+		ChargeInterval: 4200
+		Name: Dragon Strike
+		Description: Dragons are sent out to rain fire on an area
+		Prerequisites: ~structures.medi
+		SelectTargetSpeechNotification: SelectTarget
+		BeaconPoster: medidragonstrikebeacon
+		OrderName: ElementalAirstrike
+		SupportPowerPaletteOrder: 40
+		PauseOnCondition: disabled
+		DisplayBeacon: true
+		ArrowSequence: arrow
+		ClockSequence: clock
+		CircleSequence: circles
+	AirstrikePower@ElementalAirstrikeT2c:
+		RequiresCondition: power-airstrike && power-t2c
+		UnitType: medidragonbomber ##MediDragonBomber
+		SquadSize: 3
+		SquadOffset: 1792,1792,0
+		QuantizedFacings: 8
+		CameraActor: camera
+		CameraRemoveDelay: 150
+		UseDirectionalTarget: True
+		DirectionArrowAnimation: paradirection
+		Icon: medidragonstrikeicon
+		ChargeInterval: 3300
+		Name: Dragon Strike
+		Description: Dragons are sent out to rain fire on an area
+		Prerequisites: ~structures.medi
+		SelectTargetSpeechNotification: SelectTarget
+		BeaconPoster: medidragonstrikebeacon
+		OrderName: ElementalAirstrike
+		SupportPowerPaletteOrder: 40
+		PauseOnCondition: disabled
+		DisplayBeacon: true
+		ArrowSequence: arrow
+		ClockSequence: clock
+		CircleSequence: circles
+	IonCannonPower@CursePower:
+		RequiresCondition: power-curse && !power-t2
+		OrderName: CursePower
+		Prerequisites: ~structures.medicult
+		PauseOnCondition: disabled
+		Icon: medicurseicon
+		Cursor: chrono-target
+		ChargeInterval: 4000
+		Name: Curse
+		Description: Weakens enemy forces
+		SelectTargetSpeechNotification: SelectTarget
+		InsufficientPowerSpeechNotification: InsufficientPower
+		OnFireSound: medicurse.aud
+		DisplayRadarPing: True
+		SupportPowerPaletteOrder: 20
+		Effect: explosion
+		EffectSequence: medicurseproj
+		Weapon: CursePowerWep
+		DisplayTimerRelationships: None
+	IonCannonPower@CursePowerT2a:
+		RequiresCondition: power-curse && power-t2 && !power-t2b
+		OrderName: CursePower
+		Prerequisites: ~structures.medicult
+		PauseOnCondition: disabled
+		Icon: medicurseicon
+		Cursor: chrono-target
+		ChargeInterval: 3400
+		Name: Curse
+		Description: Weakens enemy forces
+		SelectTargetSpeechNotification: SelectTarget
+		InsufficientPowerSpeechNotification: InsufficientPower
+		OnFireSound: medicurse.aud
+		DisplayRadarPing: True
+		SupportPowerPaletteOrder: 20
+		Effect: explosion
+		EffectSequence: medicurseproj
+		Weapon: CursePowerWep
+		DisplayTimerRelationships: None
+	IonCannonPower@CursePowerT2b:
+		RequiresCondition: power-curse && power-t2b && !power-t2c
+		OrderName: CursePower
+		Prerequisites: ~structures.medicult
+		PauseOnCondition: disabled
+		Icon: medicurseicon
+		Cursor: chrono-target
+		ChargeInterval: 2800
+		Name: Curse
+		Description: Weakens enemy forces
+		SelectTargetSpeechNotification: SelectTarget
+		InsufficientPowerSpeechNotification: InsufficientPower
+		OnFireSound: medicurse.aud
+		DisplayRadarPing: True
+		SupportPowerPaletteOrder: 20
+		Effect: explosion
+		EffectSequence: medicurseproj
+		Weapon: CursePowerWep
+		DisplayTimerRelationships: None
+	IonCannonPower@CursePowerT2c:
+		RequiresCondition: power-curse && power-t2c
+		OrderName: CursePower
+		Prerequisites: ~structures.medicult
+		PauseOnCondition: disabled
+		Icon: medicurseicon
+		Cursor: chrono-target
+		ChargeInterval: 2200
+		Name: Curse
+		Description: Weakens enemy forces
+		SelectTargetSpeechNotification: SelectTarget
+		InsufficientPowerSpeechNotification: InsufficientPower
+		OnFireSound: medicurse.aud
+		DisplayRadarPing: True
+		SupportPowerPaletteOrder: 20
+		Effect: explosion
+		EffectSequence: medicurseproj
+		Weapon: CursePowerWep
+		DisplayTimerRelationships: None
+	NukePower@HolyLight:
+		RequiresCondition: power-holylight && !power-t2
+		Prerequisites: ~structures.mediholy
+		OrderName: HolyLight
+		PauseOnCondition: disabled
+		Cursor: chrono-target
+		Icon: mediholylighticon
+		ChargeInterval: 3500
+		Name: Holy Light
+		Description: Heals units
+		SelectTargetSpeechNotification: SelectTarget
+		InsufficientPowerSpeechNotification: InsufficientPower
+		MissileWeapon: medihealorder
+		MissileDelay: 1
+		SpawnOffset: 0,0,0
+		DisplayTimerRelationships: None
+		DisplayBeacon: True
+		DisplayRadarPing: True
+		BeaconPoster: mediholylightbeacon
+		CameraRange: 0c0
+		ArrowSequence: arrow
+		ClockSequence: clock
+		CircleSequence: circles
+		SupportPowerPaletteOrder: 70
+		SkipAscent: True
+		FlightDelay: 50
+		MissilePalette: player
+		IsPlayerPalette: true
+		MissileImage: medihealorder
+	NukePower@HolyLightT2a:
+		RequiresCondition: power-holylight && power-t2 && !power-t2b
+		Prerequisites: ~structures.mediholy
+		OrderName: HolyLight
+		PauseOnCondition: disabled
+		Cursor: chrono-target
+		Icon: mediholylighticon
+		ChargeInterval: 2975
+		Name: Holy Light
+		Description: Heals units
+		SelectTargetSpeechNotification: SelectTarget
+		InsufficientPowerSpeechNotification: InsufficientPower
+		MissileWeapon: medihealorder
+		MissileDelay: 1
+		SpawnOffset: 0,0,0
+		DisplayTimerRelationships: None
+		DisplayBeacon: True
+		DisplayRadarPing: True
+		BeaconPoster: mediholylightbeacon
+		CameraRange: 0c0
+		ArrowSequence: arrow
+		ClockSequence: clock
+		CircleSequence: circles
+		SupportPowerPaletteOrder: 70
+		SkipAscent: True
+		FlightDelay: 50
+		MissilePalette: player
+		IsPlayerPalette: true
+		MissileImage: medihealorder
+	NukePower@HolyLightT2b:
+		RequiresCondition: power-holylight && power-t2b && !power-t2c
+		Prerequisites: ~structures.mediholy
+		OrderName: HolyLight
+		PauseOnCondition: disabled
+		Cursor: chrono-target
+		Icon: mediholylighticon
+		ChargeInterval: 2450
+		Name: Holy Light
+		Description: Heals units
+		SelectTargetSpeechNotification: SelectTarget
+		InsufficientPowerSpeechNotification: InsufficientPower
+		MissileWeapon: medihealorder
+		MissileDelay: 1
+		SpawnOffset: 0,0,0
+		DisplayTimerRelationships: None
+		DisplayBeacon: True
+		DisplayRadarPing: True
+		BeaconPoster: mediholylightbeacon
+		CameraRange: 0c0
+		ArrowSequence: arrow
+		ClockSequence: clock
+		CircleSequence: circles
+		SupportPowerPaletteOrder: 70
+		SkipAscent: True
+		FlightDelay: 50
+		MissilePalette: player
+		IsPlayerPalette: true
+		MissileImage: medihealorder
+	NukePower@HolyLightT2c:
+		RequiresCondition: power-holylight && power-t2c
+		Prerequisites: ~structures.mediholy
+		OrderName: HolyLight
+		PauseOnCondition: disabled
+		Cursor: chrono-target
+		Icon: mediholylighticon
+		ChargeInterval: 1925
+		Name: Holy Light
+		Description: Heals units
+		SelectTargetSpeechNotification: SelectTarget
+		InsufficientPowerSpeechNotification: InsufficientPower
+		MissileWeapon: medihealorder
+		MissileDelay: 1
+		SpawnOffset: 0,0,0
+		DisplayTimerRelationships: None
+		DisplayBeacon: True
+		DisplayRadarPing: True
+		BeaconPoster: mediholylightbeacon
+		CameraRange: 0c0
+		ArrowSequence: arrow
+		ClockSequence: clock
+		CircleSequence: circles
+		SupportPowerPaletteOrder: 70
+		SkipAscent: True
+		FlightDelay: 50
+		MissilePalette: player
+		IsPlayerPalette: true
+		MissileImage: medihealorder
+	SpawnActorPower@Golem:
+		RequiresCondition: power-golem && !power-t2
+		OrderName: Golem Magic
+		Actor: rockgolem
+		LifeTime: 500
+		ChargeInterval: 5000
+		Icon: medivoidportalicon
+		Name: Spawn a Rock Golem
+		Description: Bring forth an elemental construct
+		Prerequisites: ~structures.mediwizards
+		EffectSequence: idle
+	SpawnActorPower@GolemT2a:
+		RequiresCondition: power-golem && power-t2 && !power-t2b
+		OrderName: Golem Magic
+		Actor: rockgolem
+		LifeTime: 500
+		ChargeInterval: 4250
+		Icon: medivoidportalicon
+		Name: Spawn a Rock Golem
+		Description: Bring forth an elemental construct
+		Prerequisites: ~structures.mediwizards
+		EffectSequence: idle
+	SpawnActorPower@GolemT2b:
+		RequiresCondition: power-golem && power-t2b && !power-t2c
+		OrderName: Golem Magic
+		Actor: rockgolem
+		LifeTime: 500
+		ChargeInterval: 3500
+		Icon: medivoidportalicon
+		Name: Spawn a Rock Golem
+		Description: Bring forth an elemental construct
+		Prerequisites: ~structures.mediwizards
+		EffectSequence: idle
+	SpawnActorPower@GolemT2c:
+		RequiresCondition: power-golem && power-t2c
+		OrderName: Golem Magic
+		Actor: rockgolem
+		LifeTime: 500
+		ChargeInterval: 2750
+		Icon: medivoidportalicon
+		Name: Spawn a Rock Golem
+		Description: Bring forth an elemental construct
+		Prerequisites: ~structures.mediwizards
+		EffectSequence: idle
+	## Power Plugs - moved from advtechcenterlibrary
+	IonCannonPower@SmitePower:
+		RequiresCondition: power-smite && !power-t2
+		OrderName: SmitePower
+		Prerequisites: ~structures.medi, ~!structures.medicult
+		PauseOnCondition: disabled
+		Icon: medismiteicon
+		Cursor: chrono-target
+		ChargeInterval: 6300
+		Name: Smite
+		Description: Damages infantry in an area
+		SelectTargetSpeechNotification: SelectTarget
+		InsufficientPowerSpeechNotification: InsufficientPower
+		OnFireSound: medismitesound.wav
+		DisplayRadarPing: True
+		SupportPowerPaletteOrder: 20
+		Effect: explosion
+		EffectSequence: medismiteproj
+		Weapon: SmitePowerWep
+		DisplayTimerRelationships: None
+	IonCannonPower@SmitePowerT2a:
+		RequiresCondition: power-smite && power-t2 && !power-t2b
+		OrderName: SmitePower
+		Prerequisites: ~structures.medi, ~!structures.medicult
+		PauseOnCondition: disabled
+		Icon: medismiteicon
+		Cursor: chrono-target
+		ChargeInterval: 5355
+		Name: Smite
+		Description: Damages infantry in an area
+		SelectTargetSpeechNotification: SelectTarget
+		InsufficientPowerSpeechNotification: InsufficientPower
+		OnFireSound: medismitesound.wav
+		DisplayRadarPing: True
+		SupportPowerPaletteOrder: 20
+		Effect: explosion
+		EffectSequence: medismiteproj
+		Weapon: SmitePowerWep
+		DisplayTimerRelationships: None
+	IonCannonPower@SmitePowerT2b:
+		RequiresCondition: power-smite && power-t2b && !power-t2c
+		OrderName: SmitePower
+		Prerequisites: ~structures.medi, ~!structures.medicult
+		PauseOnCondition: disabled
+		Icon: medismiteicon
+		Cursor: chrono-target
+		ChargeInterval: 4410
+		Name: Smite
+		Description: Damages infantry in an area
+		SelectTargetSpeechNotification: SelectTarget
+		InsufficientPowerSpeechNotification: InsufficientPower
+		OnFireSound: medismitesound.wav
+		DisplayRadarPing: True
+		SupportPowerPaletteOrder: 20
+		Effect: explosion
+		EffectSequence: medismiteproj
+		Weapon: SmitePowerWep
+		DisplayTimerRelationships: None
+	IonCannonPower@SmitePowerT2c:
+		RequiresCondition: power-smite && power-t2c
+		OrderName: SmitePower
+		Prerequisites: ~structures.medi, ~!structures.medicult
+		PauseOnCondition: disabled
+		Icon: medismiteicon
+		Cursor: chrono-target
+		ChargeInterval: 3465
+		Name: Smite
+		Description: Damages infantry in an area
+		SelectTargetSpeechNotification: SelectTarget
+		InsufficientPowerSpeechNotification: InsufficientPower
+		OnFireSound: medismitesound.wav
+		DisplayRadarPing: True
+		SupportPowerPaletteOrder: 20
+		Effect: explosion
+		EffectSequence: medismiteproj
+		Weapon: SmitePowerWep
+		DisplayTimerRelationships: None
+	IonCannonPower@ToxicCloud:
+		RequiresCondition: power-toxiccloud && !power-t2
+		OrderName: ToxicCloud
+		Prerequisites: ~structures.medi
+		PauseOnCondition: disabled
+		Icon: medivoidportalicon
+		Cursor: chrono-target
+		ChargeInterval: 6000
+		Name: Toxic Cloud
+		Description: Drenches an area in corrosive gas, dealing lingering damage and weakening armor
+		SelectTargetSpeechNotification: SelectTarget
+		InsufficientPowerSpeechNotification: InsufficientPower
+		OnFireSound: medicurse.aud
+		DisplayRadarPing: True
+		SupportPowerPaletteOrder: 20
+		Effect: explosion
+		EffectSequence: poisonorbeffect
+		EffectPalette: tsunit2
+		Weapon: ToxicCloudWep
+		DisplayTimerRelationships: None
+	IonCannonPower@ToxicCloudT2a:
+		RequiresCondition: power-toxiccloud && power-t2 && !power-t2b
+		OrderName: ToxicCloud
+		Prerequisites: ~structures.medi
+		PauseOnCondition: disabled
+		Icon: medivoidportalicon
+		Cursor: chrono-target
+		ChargeInterval: 5100
+		Name: Toxic Cloud
+		Description: Drenches an area in corrosive gas, dealing lingering damage and weakening armor
+		SelectTargetSpeechNotification: SelectTarget
+		InsufficientPowerSpeechNotification: InsufficientPower
+		OnFireSound: medicurse.aud
+		DisplayRadarPing: True
+		SupportPowerPaletteOrder: 20
+		Effect: explosion
+		EffectSequence: poisonorbeffect
+		EffectPalette: tsunit2
+		Weapon: ToxicCloudWep
+		DisplayTimerRelationships: None
+	IonCannonPower@ToxicCloudT2b:
+		RequiresCondition: power-toxiccloud && power-t2b && !power-t2c
+		OrderName: ToxicCloud
+		Prerequisites: ~structures.medi
+		PauseOnCondition: disabled
+		Icon: medivoidportalicon
+		Cursor: chrono-target
+		ChargeInterval: 4200
+		Name: Toxic Cloud
+		Description: Drenches an area in corrosive gas, dealing lingering damage and weakening armor
+		SelectTargetSpeechNotification: SelectTarget
+		InsufficientPowerSpeechNotification: InsufficientPower
+		OnFireSound: medicurse.aud
+		DisplayRadarPing: True
+		SupportPowerPaletteOrder: 20
+		Effect: explosion
+		EffectSequence: poisonorbeffect
+		EffectPalette: tsunit2
+		Weapon: ToxicCloudWep
+		DisplayTimerRelationships: None
+	IonCannonPower@ToxicCloudT2c:
+		RequiresCondition: power-toxiccloud && power-t2c
+		OrderName: ToxicCloud
+		Prerequisites: ~structures.medi
+		PauseOnCondition: disabled
+		Icon: medivoidportalicon
+		Cursor: chrono-target
+		ChargeInterval: 3300
+		Name: Toxic Cloud
+		Description: Drenches an area in corrosive gas, dealing lingering damage and weakening armor
+		SelectTargetSpeechNotification: SelectTarget
+		InsufficientPowerSpeechNotification: InsufficientPower
+		OnFireSound: medicurse.aud
+		DisplayRadarPing: True
+		SupportPowerPaletteOrder: 20
+		Effect: explosion
+		EffectSequence: poisonorbeffect
+		EffectPalette: tsunit2
+		Weapon: ToxicCloudWep
+		DisplayTimerRelationships: None
+	IonCannonPower@PillarsOfFire:
+		RequiresCondition: power-pillars && !power-t2
+		OrderName: PillarsOfFire
+		Prerequisites: ~structures.medi
+		PauseOnCondition: disabled
+		Icon: medivoidportalicon
+		Cursor: chrono-target
+		ChargeInterval: 6000
+		Name: Pillars of Fire
+		Description: Drops scattered columns of flame across the target area, devastating clusters and structures
+		SelectTargetSpeechNotification: SelectTarget
+		InsufficientPowerSpeechNotification: InsufficientPower
+		OnFireSound: medicurse.aud
+		DisplayRadarPing: True
+		SupportPowerPaletteOrder: 20
+		Effect: explosion
+		EffectSequence: firepillareffect
+		EffectPalette: tsunit2
+		Weapon: PillarsOfFireWep
+		DisplayTimerRelationships: None
+	IonCannonPower@PillarsOfFireT2a:
+		RequiresCondition: power-pillars && power-t2 && !power-t2b
+		OrderName: PillarsOfFire
+		Prerequisites: ~structures.medi
+		PauseOnCondition: disabled
+		Icon: medivoidportalicon
+		Cursor: chrono-target
+		ChargeInterval: 5100
+		Name: Pillars of Fire
+		Description: Drops scattered columns of flame across the target area, devastating clusters and structures
+		SelectTargetSpeechNotification: SelectTarget
+		InsufficientPowerSpeechNotification: InsufficientPower
+		OnFireSound: medicurse.aud
+		DisplayRadarPing: True
+		SupportPowerPaletteOrder: 20
+		Effect: explosion
+		EffectSequence: firepillareffect
+		EffectPalette: tsunit2
+		Weapon: PillarsOfFireWep
+		DisplayTimerRelationships: None
+	IonCannonPower@PillarsOfFireT2b:
+		RequiresCondition: power-pillars && power-t2b && !power-t2c
+		OrderName: PillarsOfFire
+		Prerequisites: ~structures.medi
+		PauseOnCondition: disabled
+		Icon: medivoidportalicon
+		Cursor: chrono-target
+		ChargeInterval: 4200
+		Name: Pillars of Fire
+		Description: Drops scattered columns of flame across the target area, devastating clusters and structures
+		SelectTargetSpeechNotification: SelectTarget
+		InsufficientPowerSpeechNotification: InsufficientPower
+		OnFireSound: medicurse.aud
+		DisplayRadarPing: True
+		SupportPowerPaletteOrder: 20
+		Effect: explosion
+		EffectSequence: firepillareffect
+		EffectPalette: tsunit2
+		Weapon: PillarsOfFireWep
+		DisplayTimerRelationships: None
+	IonCannonPower@PillarsOfFireT2c:
+		RequiresCondition: power-pillars && power-t2c
+		OrderName: PillarsOfFire
+		Prerequisites: ~structures.medi
+		PauseOnCondition: disabled
+		Icon: medivoidportalicon
+		Cursor: chrono-target
+		ChargeInterval: 3300
+		Name: Pillars of Fire
+		Description: Drops scattered columns of flame across the target area, devastating clusters and structures
+		SelectTargetSpeechNotification: SelectTarget
+		InsufficientPowerSpeechNotification: InsufficientPower
+		OnFireSound: medicurse.aud
+		DisplayRadarPing: True
+		SupportPowerPaletteOrder: 20
+		Effect: explosion
+		EffectSequence: firepillareffect
+		EffectPalette: tsunit2
+		Weapon: PillarsOfFireWep
+		DisplayTimerRelationships: None
+	SpawnActorPower@Undead:
+		RequiresCondition: power-undead && !power-t2
+		OrderName: Undead Magic
+		Actor: Skeleton
+		LifeTime: 500
+		ChargeInterval: 5000
+		Icon: medivoidportalicon
+		Name: Spawn an undead horde
+		Description: Bring forth the undead to attack your foes
+		Prerequisites: ~structures.medicult
+		EffectSequence: idle
+	SpawnActorPower@UndeadT2a:
+		RequiresCondition: power-undead && power-t2 && !power-t2b
+		OrderName: Undead Magic
+		Actor: Skeleton
+		LifeTime: 500
+		ChargeInterval: 4250
+		Icon: medivoidportalicon
+		Name: Spawn an undead horde
+		Description: Bring forth the undead to attack your foes
+		Prerequisites: ~structures.medicult
+		EffectSequence: idle
+	SpawnActorPower@UndeadT2b:
+		RequiresCondition: power-undead && power-t2b && !power-t2c
+		OrderName: Undead Magic
+		Actor: Skeleton
+		LifeTime: 500
+		ChargeInterval: 3500
+		Icon: medivoidportalicon
+		Name: Spawn an undead horde
+		Description: Bring forth the undead to attack your foes
+		Prerequisites: ~structures.medicult
+		EffectSequence: idle
+	SpawnActorPower@UndeadT2c:
+		RequiresCondition: power-undead && power-t2c
+		OrderName: Undead Magic
+		Actor: Skeleton
+		LifeTime: 500
+		ChargeInterval: 2750
+		Icon: medivoidportalicon
+		Name: Spawn an undead horde
+		Description: Bring forth the undead to attack your foes
+		Prerequisites: ~structures.medicult
+		EffectSequence: idle
+	GrantExternalConditionPower@DarknessStealth:
+		RequiresCondition: power-darkness && !power-t2
+		OrderName: ElementalStealth
+		PauseOnCondition: disabled
+		Icon: mediinvisibilityicon
+		Prerequisites: ~structures.medicult
+		ChargeInterval: 8000
+		Name: Invisibility
+		Description: Provide invisibility for all units & buildings
+		SelectTargetSpeechNotification: SelectTarget
+		InsufficientPowerSpeechNotification: InsufficientPower
+		Condition: stealthgen
+		OnFireSound: mediinvisibility.wav
+		SupportPowerPaletteOrder: 10
+		DisplayTimerRelationships: None
+		Dimensions: 3, 3
+		Footprint: _x_ xxx _x_
+	GrantExternalConditionPower@DarknessStealthT2a:
+		RequiresCondition: power-darkness && power-t2 && !power-t2b
+		OrderName: ElementalStealth
+		PauseOnCondition: disabled
+		Icon: mediinvisibilityicon
+		Prerequisites: ~structures.medicult
+		ChargeInterval: 6800
+		Name: Invisibility
+		Description: Provide invisibility for all units & buildings
+		SelectTargetSpeechNotification: SelectTarget
+		InsufficientPowerSpeechNotification: InsufficientPower
+		Condition: stealthgen
+		OnFireSound: mediinvisibility.wav
+		SupportPowerPaletteOrder: 10
+		DisplayTimerRelationships: None
+		Dimensions: 3, 3
+		Footprint: _x_ xxx _x_
+	GrantExternalConditionPower@DarknessStealthT2b:
+		RequiresCondition: power-darkness && power-t2b && !power-t2c
+		OrderName: ElementalStealth
+		PauseOnCondition: disabled
+		Icon: mediinvisibilityicon
+		Prerequisites: ~structures.medicult
+		ChargeInterval: 5600
+		Name: Invisibility
+		Description: Provide invisibility for all units & buildings
+		SelectTargetSpeechNotification: SelectTarget
+		InsufficientPowerSpeechNotification: InsufficientPower
+		Condition: stealthgen
+		OnFireSound: mediinvisibility.wav
+		SupportPowerPaletteOrder: 10
+		DisplayTimerRelationships: None
+		Dimensions: 3, 3
+		Footprint: _x_ xxx _x_
+	GrantExternalConditionPower@DarknessStealthT2c:
+		RequiresCondition: power-darkness && power-t2c
+		OrderName: ElementalStealth
+		PauseOnCondition: disabled
+		Icon: mediinvisibilityicon
+		Prerequisites: ~structures.medicult
+		ChargeInterval: 4400
+		Name: Invisibility
+		Description: Provide invisibility for all units & buildings
+		SelectTargetSpeechNotification: SelectTarget
+		InsufficientPowerSpeechNotification: InsufficientPower
+		Condition: stealthgen
+		OnFireSound: mediinvisibility.wav
+		SupportPowerPaletteOrder: 10
+		DisplayTimerRelationships: None
+		Dimensions: 3, 3
+		Footprint: _x_ xxx _x_
+	IonCannonPower@SoulHarvest:
+		RequiresCondition: power-soulharvest && !power-t2
+		OrderName: SoulHarvest
+		Prerequisites: ~structures.medicult
+		PauseOnCondition: disabled
+		Icon: medivoidportalicon
+		Cursor: chrono-target
+		ChargeInterval: 5000
+		Name: Soul Harvest
+		Description: Marks enemies in an area; marked units rise again as undead when slain
+		SelectTargetSpeechNotification: SelectTarget
+		InsufficientPowerSpeechNotification: InsufficientPower
+		OnFireSound: medicurse.aud
+		DisplayRadarPing: True
+		SupportPowerPaletteOrder: 20
+		Effect: explosion
+		EffectSequence: undeath
+		EffectPalette: tsunit2
+		Weapon: SoulHarvestWep
+		DisplayTimerRelationships: None
+	IonCannonPower@SoulHarvestT2a:
+		RequiresCondition: power-soulharvest && power-t2 && !power-t2b
+		OrderName: SoulHarvest
+		Prerequisites: ~structures.medicult
+		PauseOnCondition: disabled
+		Icon: medivoidportalicon
+		Cursor: chrono-target
+		ChargeInterval: 4250
+		Name: Soul Harvest
+		Description: Marks enemies in an area; marked units rise again as undead when slain
+		SelectTargetSpeechNotification: SelectTarget
+		InsufficientPowerSpeechNotification: InsufficientPower
+		OnFireSound: medicurse.aud
+		DisplayRadarPing: True
+		SupportPowerPaletteOrder: 20
+		Effect: explosion
+		EffectSequence: undeath
+		EffectPalette: tsunit2
+		Weapon: SoulHarvestWep
+		DisplayTimerRelationships: None
+	IonCannonPower@SoulHarvestT2b:
+		RequiresCondition: power-soulharvest && power-t2b && !power-t2c
+		OrderName: SoulHarvest
+		Prerequisites: ~structures.medicult
+		PauseOnCondition: disabled
+		Icon: medivoidportalicon
+		Cursor: chrono-target
+		ChargeInterval: 3500
+		Name: Soul Harvest
+		Description: Marks enemies in an area; marked units rise again as undead when slain
+		SelectTargetSpeechNotification: SelectTarget
+		InsufficientPowerSpeechNotification: InsufficientPower
+		OnFireSound: medicurse.aud
+		DisplayRadarPing: True
+		SupportPowerPaletteOrder: 20
+		Effect: explosion
+		EffectSequence: undeath
+		EffectPalette: tsunit2
+		Weapon: SoulHarvestWep
+		DisplayTimerRelationships: None
+	IonCannonPower@SoulHarvestT2c:
+		RequiresCondition: power-soulharvest && power-t2c
+		OrderName: SoulHarvest
+		Prerequisites: ~structures.medicult
+		PauseOnCondition: disabled
+		Icon: medivoidportalicon
+		Cursor: chrono-target
+		ChargeInterval: 2750
+		Name: Soul Harvest
+		Description: Marks enemies in an area; marked units rise again as undead when slain
+		SelectTargetSpeechNotification: SelectTarget
+		InsufficientPowerSpeechNotification: InsufficientPower
+		OnFireSound: medicurse.aud
+		DisplayRadarPing: True
+		SupportPowerPaletteOrder: 20
+		Effect: explosion
+		EffectSequence: undeath
+		EffectPalette: tsunit2
+		Weapon: SoulHarvestWep
+		DisplayTimerRelationships: None
+	IonCannonPower@ChaosStorm:
+		RequiresCondition: power-chaosstorm && !power-t2
+		OrderName: ChaosStorm
+		Prerequisites: ~structures.medicult
+		PauseOnCondition: disabled
+		Icon: medivoidportalicon
+		Cursor: chrono-target
+		ChargeInterval: 6000
+		Name: Chaos Storm
+		Description: Scatters unstable motes across an area that detonate with random elemental fury
+		SelectTargetSpeechNotification: SelectTarget
+		InsufficientPowerSpeechNotification: InsufficientPower
+		OnFireSound: medicurse.aud
+		DisplayRadarPing: True
+		SupportPowerPaletteOrder: 20
+		Effect: explosion
+		EffectSequence: chaosburst
+		EffectPalette: tsunit2
+		Weapon: ChaosStormWep
+		DisplayTimerRelationships: None
+	IonCannonPower@ChaosStormT2a:
+		RequiresCondition: power-chaosstorm && power-t2 && !power-t2b
+		OrderName: ChaosStorm
+		Prerequisites: ~structures.medicult
+		PauseOnCondition: disabled
+		Icon: medivoidportalicon
+		Cursor: chrono-target
+		ChargeInterval: 5100
+		Name: Chaos Storm
+		Description: Scatters unstable motes across an area that detonate with random elemental fury
+		SelectTargetSpeechNotification: SelectTarget
+		InsufficientPowerSpeechNotification: InsufficientPower
+		OnFireSound: medicurse.aud
+		DisplayRadarPing: True
+		SupportPowerPaletteOrder: 20
+		Effect: explosion
+		EffectSequence: chaosburst
+		EffectPalette: tsunit2
+		Weapon: ChaosStormWep
+		DisplayTimerRelationships: None
+	IonCannonPower@ChaosStormT2b:
+		RequiresCondition: power-chaosstorm && power-t2b && !power-t2c
+		OrderName: ChaosStorm
+		Prerequisites: ~structures.medicult
+		PauseOnCondition: disabled
+		Icon: medivoidportalicon
+		Cursor: chrono-target
+		ChargeInterval: 4200
+		Name: Chaos Storm
+		Description: Scatters unstable motes across an area that detonate with random elemental fury
+		SelectTargetSpeechNotification: SelectTarget
+		InsufficientPowerSpeechNotification: InsufficientPower
+		OnFireSound: medicurse.aud
+		DisplayRadarPing: True
+		SupportPowerPaletteOrder: 20
+		Effect: explosion
+		EffectSequence: chaosburst
+		EffectPalette: tsunit2
+		Weapon: ChaosStormWep
+		DisplayTimerRelationships: None
+	IonCannonPower@ChaosStormT2c:
+		RequiresCondition: power-chaosstorm && power-t2c
+		OrderName: ChaosStorm
+		Prerequisites: ~structures.medicult
+		PauseOnCondition: disabled
+		Icon: medivoidportalicon
+		Cursor: chrono-target
+		ChargeInterval: 3300
+		Name: Chaos Storm
+		Description: Scatters unstable motes across an area that detonate with random elemental fury
+		SelectTargetSpeechNotification: SelectTarget
+		InsufficientPowerSpeechNotification: InsufficientPower
+		OnFireSound: medicurse.aud
+		DisplayRadarPing: True
+		SupportPowerPaletteOrder: 20
+		Effect: explosion
+		EffectSequence: chaosburst
+		EffectPalette: tsunit2
+		Weapon: ChaosStormWep
+		DisplayTimerRelationships: None
+	IonCannonPower@ChainsPower:
+		RequiresCondition: power-chains && !power-t2
+		OrderName: ChainsPower
+		Prerequisites: ~structures.mediholy
+		PauseOnCondition: disabled
+		Icon: mediholychainsicon
+		Cursor: chrono-target
+		ChargeInterval: 4000
+		Name: Chains of Heaven
+		Description: Stunlocks units in place for a period of time
+		SelectTargetSpeechNotification: SelectTarget
+		InsufficientPowerSpeechNotification: InsufficientPower
+		OnFireSound: mediholychainsound.wav
+		DisplayRadarPing: True
+		SupportPowerPaletteOrder: 20
+		Effect: explosion
+		EffectSequence: mediholychains
+		Weapon: ChainsPowerWep
+		DisplayTimerRelationships: None
+	IonCannonPower@ChainsPowerT2a:
+		RequiresCondition: power-chains && power-t2 && !power-t2b
+		OrderName: ChainsPower
+		Prerequisites: ~structures.mediholy
+		PauseOnCondition: disabled
+		Icon: mediholychainsicon
+		Cursor: chrono-target
+		ChargeInterval: 3400
+		Name: Chains of Heaven
+		Description: Stunlocks units in place for a period of time
+		SelectTargetSpeechNotification: SelectTarget
+		InsufficientPowerSpeechNotification: InsufficientPower
+		OnFireSound: mediholychainsound.wav
+		DisplayRadarPing: True
+		SupportPowerPaletteOrder: 20
+		Effect: explosion
+		EffectSequence: mediholychains
+		Weapon: ChainsPowerWep
+		DisplayTimerRelationships: None
+	IonCannonPower@ChainsPowerT2b:
+		RequiresCondition: power-chains && power-t2b && !power-t2c
+		OrderName: ChainsPower
+		Prerequisites: ~structures.mediholy
+		PauseOnCondition: disabled
+		Icon: mediholychainsicon
+		Cursor: chrono-target
+		ChargeInterval: 2800
+		Name: Chains of Heaven
+		Description: Stunlocks units in place for a period of time
+		SelectTargetSpeechNotification: SelectTarget
+		InsufficientPowerSpeechNotification: InsufficientPower
+		OnFireSound: mediholychainsound.wav
+		DisplayRadarPing: True
+		SupportPowerPaletteOrder: 20
+		Effect: explosion
+		EffectSequence: mediholychains
+		Weapon: ChainsPowerWep
+		DisplayTimerRelationships: None
+	IonCannonPower@ChainsPowerT2c:
+		RequiresCondition: power-chains && power-t2c
+		OrderName: ChainsPower
+		Prerequisites: ~structures.mediholy
+		PauseOnCondition: disabled
+		Icon: mediholychainsicon
+		Cursor: chrono-target
+		ChargeInterval: 2200
+		Name: Chains of Heaven
+		Description: Stunlocks units in place for a period of time
+		SelectTargetSpeechNotification: SelectTarget
+		InsufficientPowerSpeechNotification: InsufficientPower
+		OnFireSound: mediholychainsound.wav
+		DisplayRadarPing: True
+		SupportPowerPaletteOrder: 20
+		Effect: explosion
+		EffectSequence: mediholychains
+		Weapon: ChainsPowerWep
+		DisplayTimerRelationships: None
+	IonCannonPower@Sanctuary:
+		RequiresCondition: power-sanctuary && !power-t2
+		OrderName: Sanctuary
+		Prerequisites: ~structures.mediholy
+		PauseOnCondition: disabled
+		Icon: medivoidportalicon
+		Cursor: chrono-target
+		ChargeInterval: 6000
+		Name: Sanctuary
+		Description: Grants allied units and structures in an area brief total immunity to damage
+		SelectTargetSpeechNotification: SelectTarget
+		InsufficientPowerSpeechNotification: InsufficientPower
+		OnFireSound: mediholyheal.aud
+		DisplayRadarPing: True
+		SupportPowerPaletteOrder: 20
+		Effect: explosion
+		EffectSequence: medisanctuaryshield
+		EffectPalette: tsunit2
+		Weapon: SanctuaryWep
+		DisplayTimerRelationships: None
+	IonCannonPower@SanctuaryT2a:
+		RequiresCondition: power-sanctuary && power-t2 && !power-t2b
+		OrderName: Sanctuary
+		Prerequisites: ~structures.mediholy
+		PauseOnCondition: disabled
+		Icon: medivoidportalicon
+		Cursor: chrono-target
+		ChargeInterval: 5100
+		Name: Sanctuary
+		Description: Grants allied units and structures in an area brief total immunity to damage
+		SelectTargetSpeechNotification: SelectTarget
+		InsufficientPowerSpeechNotification: InsufficientPower
+		OnFireSound: mediholyheal.aud
+		DisplayRadarPing: True
+		SupportPowerPaletteOrder: 20
+		Effect: explosion
+		EffectSequence: medisanctuaryshield
+		EffectPalette: tsunit2
+		Weapon: SanctuaryWep
+		DisplayTimerRelationships: None
+	IonCannonPower@SanctuaryT2b:
+		RequiresCondition: power-sanctuary && power-t2b && !power-t2c
+		OrderName: Sanctuary
+		Prerequisites: ~structures.mediholy
+		PauseOnCondition: disabled
+		Icon: medivoidportalicon
+		Cursor: chrono-target
+		ChargeInterval: 4200
+		Name: Sanctuary
+		Description: Grants allied units and structures in an area brief total immunity to damage
+		SelectTargetSpeechNotification: SelectTarget
+		InsufficientPowerSpeechNotification: InsufficientPower
+		OnFireSound: mediholyheal.aud
+		DisplayRadarPing: True
+		SupportPowerPaletteOrder: 20
+		Effect: explosion
+		EffectSequence: medisanctuaryshield
+		EffectPalette: tsunit2
+		Weapon: SanctuaryWep
+		DisplayTimerRelationships: None
+	IonCannonPower@SanctuaryT2c:
+		RequiresCondition: power-sanctuary && power-t2c
+		OrderName: Sanctuary
+		Prerequisites: ~structures.mediholy
+		PauseOnCondition: disabled
+		Icon: medivoidportalicon
+		Cursor: chrono-target
+		ChargeInterval: 3300
+		Name: Sanctuary
+		Description: Grants allied units and structures in an area brief total immunity to damage
+		SelectTargetSpeechNotification: SelectTarget
+		InsufficientPowerSpeechNotification: InsufficientPower
+		OnFireSound: mediholyheal.aud
+		DisplayRadarPing: True
+		SupportPowerPaletteOrder: 20
+		Effect: explosion
+		EffectSequence: medisanctuaryshield
+		EffectPalette: tsunit2
+		Weapon: SanctuaryWep
+		DisplayTimerRelationships: None
+	IonCannonPower@Petrify:
+		RequiresCondition: power-petrify && !power-t2
+		OrderName: Petrify
+		Prerequisites: ~structures.mediholy
+		PauseOnCondition: disabled
+		Icon: medivoidportalicon
+		Cursor: chrono-target
+		ChargeInterval: 5000
+		Name: Petrify
+		Description: Turns enemies in an area to crystal, stunning them and shattering their armor
+		SelectTargetSpeechNotification: SelectTarget
+		InsufficientPowerSpeechNotification: InsufficientPower
+		OnFireSound: mediholychainsound.wav
+		DisplayRadarPing: True
+		SupportPowerPaletteOrder: 20
+		Effect: explosion
+		EffectSequence: crystalburst
+		EffectPalette: tsunit2
+		Weapon: PetrifyWep
+		DisplayTimerRelationships: None
+	IonCannonPower@PetrifyT2a:
+		RequiresCondition: power-petrify && power-t2 && !power-t2b
+		OrderName: Petrify
+		Prerequisites: ~structures.mediholy
+		PauseOnCondition: disabled
+		Icon: medivoidportalicon
+		Cursor: chrono-target
+		ChargeInterval: 4250
+		Name: Petrify
+		Description: Turns enemies in an area to crystal, stunning them and shattering their armor
+		SelectTargetSpeechNotification: SelectTarget
+		InsufficientPowerSpeechNotification: InsufficientPower
+		OnFireSound: mediholychainsound.wav
+		DisplayRadarPing: True
+		SupportPowerPaletteOrder: 20
+		Effect: explosion
+		EffectSequence: crystalburst
+		EffectPalette: tsunit2
+		Weapon: PetrifyWep
+		DisplayTimerRelationships: None
+	IonCannonPower@PetrifyT2b:
+		RequiresCondition: power-petrify && power-t2b && !power-t2c
+		OrderName: Petrify
+		Prerequisites: ~structures.mediholy
+		PauseOnCondition: disabled
+		Icon: medivoidportalicon
+		Cursor: chrono-target
+		ChargeInterval: 3500
+		Name: Petrify
+		Description: Turns enemies in an area to crystal, stunning them and shattering their armor
+		SelectTargetSpeechNotification: SelectTarget
+		InsufficientPowerSpeechNotification: InsufficientPower
+		OnFireSound: mediholychainsound.wav
+		DisplayRadarPing: True
+		SupportPowerPaletteOrder: 20
+		Effect: explosion
+		EffectSequence: crystalburst
+		EffectPalette: tsunit2
+		Weapon: PetrifyWep
+		DisplayTimerRelationships: None
+	IonCannonPower@PetrifyT2c:
+		RequiresCondition: power-petrify && power-t2c
+		OrderName: Petrify
+		Prerequisites: ~structures.mediholy
+		PauseOnCondition: disabled
+		Icon: medivoidportalicon
+		Cursor: chrono-target
+		ChargeInterval: 2750
+		Name: Petrify
+		Description: Turns enemies in an area to crystal, stunning them and shattering their armor
+		SelectTargetSpeechNotification: SelectTarget
+		InsufficientPowerSpeechNotification: InsufficientPower
+		OnFireSound: mediholychainsound.wav
+		DisplayRadarPing: True
+		SupportPowerPaletteOrder: 20
+		Effect: explosion
+		EffectSequence: crystalburst
+		EffectPalette: tsunit2
+		Weapon: PetrifyWep
+		DisplayTimerRelationships: None
+	IonCannonPower@FrostNova:
+		RequiresCondition: power-frostnova && !power-t2
+		OrderName: FrostNova
+		Prerequisites: ~structures.mediwizards
+		PauseOnCondition: disabled
+		Icon: medivoidportalicon
+		Cursor: chrono-target
+		ChargeInterval: 4000
+		Name: Frost Nova
+		Description: Blankets the target area in freezing cold, slowing enemy movement and attacks
+		SelectTargetSpeechNotification: SelectTarget
+		InsufficientPowerSpeechNotification: InsufficientPower
+		OnFireSound: medicurse.aud
+		DisplayRadarPing: True
+		SupportPowerPaletteOrder: 20
+		Effect: explosion
+		EffectSequence: frostnova
+		Weapon: FrostNovaWep
+		DisplayTimerRelationships: None
+	IonCannonPower@FrostNovaT2a:
+		RequiresCondition: power-frostnova && power-t2 && !power-t2b
+		OrderName: FrostNova
+		Prerequisites: ~structures.mediwizards
+		PauseOnCondition: disabled
+		Icon: medivoidportalicon
+		Cursor: chrono-target
+		ChargeInterval: 3400
+		Name: Frost Nova
+		Description: Blankets the target area in freezing cold, slowing enemy movement and attacks
+		SelectTargetSpeechNotification: SelectTarget
+		InsufficientPowerSpeechNotification: InsufficientPower
+		OnFireSound: medicurse.aud
+		DisplayRadarPing: True
+		SupportPowerPaletteOrder: 20
+		Effect: explosion
+		EffectSequence: frostnova
+		Weapon: FrostNovaWep
+		DisplayTimerRelationships: None
+	IonCannonPower@FrostNovaT2b:
+		RequiresCondition: power-frostnova && power-t2b && !power-t2c
+		OrderName: FrostNova
+		Prerequisites: ~structures.mediwizards
+		PauseOnCondition: disabled
+		Icon: medivoidportalicon
+		Cursor: chrono-target
+		ChargeInterval: 2800
+		Name: Frost Nova
+		Description: Blankets the target area in freezing cold, slowing enemy movement and attacks
+		SelectTargetSpeechNotification: SelectTarget
+		InsufficientPowerSpeechNotification: InsufficientPower
+		OnFireSound: medicurse.aud
+		DisplayRadarPing: True
+		SupportPowerPaletteOrder: 20
+		Effect: explosion
+		EffectSequence: frostnova
+		Weapon: FrostNovaWep
+		DisplayTimerRelationships: None
+	IonCannonPower@FrostNovaT2c:
+		RequiresCondition: power-frostnova && power-t2c
+		OrderName: FrostNova
+		Prerequisites: ~structures.mediwizards
+		PauseOnCondition: disabled
+		Icon: medivoidportalicon
+		Cursor: chrono-target
+		ChargeInterval: 2200
+		Name: Frost Nova
+		Description: Blankets the target area in freezing cold, slowing enemy movement and attacks
+		SelectTargetSpeechNotification: SelectTarget
+		InsufficientPowerSpeechNotification: InsufficientPower
+		OnFireSound: medicurse.aud
+		DisplayRadarPing: True
+		SupportPowerPaletteOrder: 20
+		Effect: explosion
+		EffectSequence: frostnova
+		Weapon: FrostNovaWep
+		DisplayTimerRelationships: None
+	IonCannonPower@IceSpikeBarrage:
+		RequiresCondition: power-icespike && !power-t2
+		OrderName: IceSpikeBarrage
+		Prerequisites: ~structures.mediwizards
+		PauseOnCondition: disabled
+		Icon: medivoidportalicon
+		Cursor: chrono-target
+		ChargeInterval: 4500
+		Name: Ice Spike Barrage
+		Description: Hurls a piercing volley of ice spikes that shatters armor and chills survivors
+		SelectTargetSpeechNotification: SelectTarget
+		InsufficientPowerSpeechNotification: InsufficientPower
+		OnFireSound: medicurse.aud
+		DisplayRadarPing: True
+		SupportPowerPaletteOrder: 20
+		Effect: explosion
+		EffectSequence: icespikeeffect
+		EffectPalette: tsunit2
+		Weapon: IceSpikeBarrageWep
+		DisplayTimerRelationships: None
+	IonCannonPower@IceSpikeBarrageT2a:
+		RequiresCondition: power-icespike && power-t2 && !power-t2b
+		OrderName: IceSpikeBarrage
+		Prerequisites: ~structures.mediwizards
+		PauseOnCondition: disabled
+		Icon: medivoidportalicon
+		Cursor: chrono-target
+		ChargeInterval: 3825
+		Name: Ice Spike Barrage
+		Description: Hurls a piercing volley of ice spikes that shatters armor and chills survivors
+		SelectTargetSpeechNotification: SelectTarget
+		InsufficientPowerSpeechNotification: InsufficientPower
+		OnFireSound: medicurse.aud
+		DisplayRadarPing: True
+		SupportPowerPaletteOrder: 20
+		Effect: explosion
+		EffectSequence: icespikeeffect
+		EffectPalette: tsunit2
+		Weapon: IceSpikeBarrageWep
+		DisplayTimerRelationships: None
+	IonCannonPower@IceSpikeBarrageT2b:
+		RequiresCondition: power-icespike && power-t2b && !power-t2c
+		OrderName: IceSpikeBarrage
+		Prerequisites: ~structures.mediwizards
+		PauseOnCondition: disabled
+		Icon: medivoidportalicon
+		Cursor: chrono-target
+		ChargeInterval: 3150
+		Name: Ice Spike Barrage
+		Description: Hurls a piercing volley of ice spikes that shatters armor and chills survivors
+		SelectTargetSpeechNotification: SelectTarget
+		InsufficientPowerSpeechNotification: InsufficientPower
+		OnFireSound: medicurse.aud
+		DisplayRadarPing: True
+		SupportPowerPaletteOrder: 20
+		Effect: explosion
+		EffectSequence: icespikeeffect
+		EffectPalette: tsunit2
+		Weapon: IceSpikeBarrageWep
+		DisplayTimerRelationships: None
+	IonCannonPower@IceSpikeBarrageT2c:
+		RequiresCondition: power-icespike && power-t2c
+		OrderName: IceSpikeBarrage
+		Prerequisites: ~structures.mediwizards
+		PauseOnCondition: disabled
+		Icon: medivoidportalicon
+		Cursor: chrono-target
+		ChargeInterval: 2475
+		Name: Ice Spike Barrage
+		Description: Hurls a piercing volley of ice spikes that shatters armor and chills survivors
+		SelectTargetSpeechNotification: SelectTarget
+		InsufficientPowerSpeechNotification: InsufficientPower
+		OnFireSound: medicurse.aud
+		DisplayRadarPing: True
+		SupportPowerPaletteOrder: 20
+		Effect: explosion
+		EffectSequence: icespikeeffect
+		EffectPalette: tsunit2
+		Weapon: IceSpikeBarrageWep
+		DisplayTimerRelationships: None
+	IonCannonPower@ChainLightning:
+		RequiresCondition: power-chainlightning && !power-t2
+		OrderName: ChainLightning
+		Prerequisites: ~structures.mediwizards
+		PauseOnCondition: disabled
+		Icon: medivoidportalicon
+		Cursor: chrono-target
+		ChargeInterval: 4500
+		Name: Chain Lightning
+		Description: Arcs lightning between clustered enemies, stunning and damaging each in turn
+		SelectTargetSpeechNotification: SelectTarget
+		InsufficientPowerSpeechNotification: InsufficientPower
+		OnFireSound: medicurse.aud
+		DisplayRadarPing: True
+		SupportPowerPaletteOrder: 20
+		Effect: explosion
+		EffectSequence: electricburst
+		EffectPalette: tsunit2
+		Weapon: ChainLightningWep
+		DisplayTimerRelationships: None
+	IonCannonPower@ChainLightningT2a:
+		RequiresCondition: power-chainlightning && power-t2 && !power-t2b
+		OrderName: ChainLightning
+		Prerequisites: ~structures.mediwizards
+		PauseOnCondition: disabled
+		Icon: medivoidportalicon
+		Cursor: chrono-target
+		ChargeInterval: 3825
+		Name: Chain Lightning
+		Description: Arcs lightning between clustered enemies, stunning and damaging each in turn
+		SelectTargetSpeechNotification: SelectTarget
+		InsufficientPowerSpeechNotification: InsufficientPower
+		OnFireSound: medicurse.aud
+		DisplayRadarPing: True
+		SupportPowerPaletteOrder: 20
+		Effect: explosion
+		EffectSequence: electricburst
+		EffectPalette: tsunit2
+		Weapon: ChainLightningWep
+		DisplayTimerRelationships: None
+	IonCannonPower@ChainLightningT2b:
+		RequiresCondition: power-chainlightning && power-t2b && !power-t2c
+		OrderName: ChainLightning
+		Prerequisites: ~structures.mediwizards
+		PauseOnCondition: disabled
+		Icon: medivoidportalicon
+		Cursor: chrono-target
+		ChargeInterval: 3150
+		Name: Chain Lightning
+		Description: Arcs lightning between clustered enemies, stunning and damaging each in turn
+		SelectTargetSpeechNotification: SelectTarget
+		InsufficientPowerSpeechNotification: InsufficientPower
+		OnFireSound: medicurse.aud
+		DisplayRadarPing: True
+		SupportPowerPaletteOrder: 20
+		Effect: explosion
+		EffectSequence: electricburst
+		EffectPalette: tsunit2
+		Weapon: ChainLightningWep
+		DisplayTimerRelationships: None
+	IonCannonPower@ChainLightningT2c:
+		RequiresCondition: power-chainlightning && power-t2c
+		OrderName: ChainLightning
+		Prerequisites: ~structures.mediwizards
+		PauseOnCondition: disabled
+		Icon: medivoidportalicon
+		Cursor: chrono-target
+		ChargeInterval: 2475
+		Name: Chain Lightning
+		Description: Arcs lightning between clustered enemies, stunning and damaging each in turn
+		SelectTargetSpeechNotification: SelectTarget
+		InsufficientPowerSpeechNotification: InsufficientPower
+		OnFireSound: medicurse.aud
+		DisplayRadarPing: True
+		SupportPowerPaletteOrder: 20
+		Effect: explosion
+		EffectSequence: electricburst
+		EffectPalette: tsunit2
+		Weapon: ChainLightningWep
+		DisplayTimerRelationships: None
+	## Power Plugs - moved from brashnards
+	DropPodsPowerOW@zombierain:
+		RequiresCondition: power-zombierain && !power-t2
+		Icon: medivoidportalicon
+		Name: Zombie Rain
+		OrderName: zombierain
+		Description: Rain the undead upon your enemies - zombies and skeletons fall from the sky
+		UnitTypes: zombierainpod, zombierainpod1, zombierainpod2, zombierainpod3, zombierainpod4
+		Cursor: chrono-target
+		Drops: 20,25
+		PodScatter: 10
+		PodFacing: 704
+		PauseOnCondition: disabled
+		CameraActor: camera
+		CameraRemoveDelay: 300
+		Weapon: ArtilleryPowerMarker
+		WeaponDelay: 5
+		ChargeInterval: 12000
+		EntryEffect: explosion
+		EntryEffectSequence: bunkerbustersring
+		LaunchSound: InterceptorMissile01.wav
+		SelectTargetSpeechNotification: SelectTarget
+		DisplayRadarPing: true
+		DisplayTimerRelationships: Ally, Enemy, Neutral
+		BeaconPoster: artillerybarragebeacon
+		Prerequisites: ~structures.medicult
+	DropPodsPowerOW@zombierainT2a:
+		RequiresCondition: power-zombierain && power-t2 && !power-t2b
+		Icon: medivoidportalicon
+		Name: Zombie Rain
+		OrderName: zombierain
+		Description: Rain the undead upon your enemies - zombies and skeletons fall from the sky
+		UnitTypes: zombierainpod, zombierainpod1, zombierainpod2, zombierainpod3, zombierainpod4
+		Cursor: chrono-target
+		Drops: 20,25
+		PodScatter: 10
+		PodFacing: 704
+		PauseOnCondition: disabled
+		CameraActor: camera
+		CameraRemoveDelay: 300
+		Weapon: ArtilleryPowerMarker
+		WeaponDelay: 5
+		ChargeInterval: 10200
+		EntryEffect: explosion
+		EntryEffectSequence: bunkerbustersring
+		LaunchSound: InterceptorMissile01.wav
+		SelectTargetSpeechNotification: SelectTarget
+		DisplayRadarPing: true
+		DisplayTimerRelationships: Ally, Enemy, Neutral
+		BeaconPoster: artillerybarragebeacon
+		Prerequisites: ~structures.medicult
+	DropPodsPowerOW@zombierainT2b:
+		RequiresCondition: power-zombierain && power-t2b && !power-t2c
+		Icon: medivoidportalicon
+		Name: Zombie Rain
+		OrderName: zombierain
+		Description: Rain the undead upon your enemies - zombies and skeletons fall from the sky
+		UnitTypes: zombierainpod, zombierainpod1, zombierainpod2, zombierainpod3, zombierainpod4
+		Cursor: chrono-target
+		Drops: 20,25
+		PodScatter: 10
+		PodFacing: 704
+		PauseOnCondition: disabled
+		CameraActor: camera
+		CameraRemoveDelay: 300
+		Weapon: ArtilleryPowerMarker
+		WeaponDelay: 5
+		ChargeInterval: 8400
+		EntryEffect: explosion
+		EntryEffectSequence: bunkerbustersring
+		LaunchSound: InterceptorMissile01.wav
+		SelectTargetSpeechNotification: SelectTarget
+		DisplayRadarPing: true
+		DisplayTimerRelationships: Ally, Enemy, Neutral
+		BeaconPoster: artillerybarragebeacon
+		Prerequisites: ~structures.medicult
+	DropPodsPowerOW@zombierainT2c:
+		RequiresCondition: power-zombierain && power-t2c
+		Icon: medivoidportalicon
+		Name: Zombie Rain
+		OrderName: zombierain
+		Description: Rain the undead upon your enemies - zombies and skeletons fall from the sky
+		UnitTypes: zombierainpod, zombierainpod1, zombierainpod2, zombierainpod3, zombierainpod4
+		Cursor: chrono-target
+		Drops: 20,25
+		PodScatter: 10
+		PodFacing: 704
+		PauseOnCondition: disabled
+		CameraActor: camera
+		CameraRemoveDelay: 300
+		Weapon: ArtilleryPowerMarker
+		WeaponDelay: 5
+		ChargeInterval: 6600
+		EntryEffect: explosion
+		EntryEffectSequence: bunkerbustersring
+		LaunchSound: InterceptorMissile01.wav
+		SelectTargetSpeechNotification: SelectTarget
+		DisplayRadarPing: true
+		DisplayTimerRelationships: Ally, Enemy, Neutral
+		BeaconPoster: artillerybarragebeacon
+		Prerequisites: ~structures.medicult
+	SpawnActorPower@TransmuteHoly:
+		RequiresCondition: power-transholy && !power-t2
+		OrderName: TransmuteHoly
+		Actor: TransmuteSpawnerHoly
+		LifeTime: 100
+		ChargeInterval: 8000
+		Icon: medivoidportalicon
+		Name: Holy Transmute
+		Description: Convert all Ore, Tiberium and Blue Tiberium in a large area into Gems
+		Prerequisites: ~structures.mediholy
+		EffectSequence: idle
+	SpawnActorPower@TransmuteHolyT2a:
+		RequiresCondition: power-transholy && power-t2 && !power-t2b
+		OrderName: TransmuteHoly
+		Actor: TransmuteSpawnerHoly
+		LifeTime: 100
+		ChargeInterval: 6800
+		Icon: medivoidportalicon
+		Name: Holy Transmute
+		Description: Convert all Ore, Tiberium and Blue Tiberium in a large area into Gems
+		Prerequisites: ~structures.mediholy
+		EffectSequence: idle
+	SpawnActorPower@TransmuteHolyT2b:
+		RequiresCondition: power-transholy && power-t2b && !power-t2c
+		OrderName: TransmuteHoly
+		Actor: TransmuteSpawnerHoly
+		LifeTime: 100
+		ChargeInterval: 5600
+		Icon: medivoidportalicon
+		Name: Holy Transmute
+		Description: Convert all Ore, Tiberium and Blue Tiberium in a large area into Gems
+		Prerequisites: ~structures.mediholy
+		EffectSequence: idle
+	SpawnActorPower@TransmuteHolyT2c:
+		RequiresCondition: power-transholy && power-t2c
+		OrderName: TransmuteHoly
+		Actor: TransmuteSpawnerHoly
+		LifeTime: 100
+		ChargeInterval: 4400
+		Icon: medivoidportalicon
+		Name: Holy Transmute
+		Description: Convert all Ore, Tiberium and Blue Tiberium in a large area into Gems
+		Prerequisites: ~structures.mediholy
+		EffectSequence: idle
+	SpawnActorPower@TransmuteWizard:
+		RequiresCondition: power-transwiz && !power-t2
+		OrderName: TransmuteWizard
+		Actor: TransmuteSpawnerWizard
+		LifeTime: 100
+		ChargeInterval: 4000
+		Icon: medivoidportalicon
+		Name: Transmute
+		Description: Convert Ore in a small area into Gems
+		Prerequisites: ~structures.mediwizards
+		EffectSequence: idle
+	SpawnActorPower@TransmuteWizardT2a:
+		RequiresCondition: power-transwiz && power-t2 && !power-t2b
+		OrderName: TransmuteWizard
+		Actor: TransmuteSpawnerWizard
+		LifeTime: 100
+		ChargeInterval: 3400
+		Icon: medivoidportalicon
+		Name: Transmute
+		Description: Convert Ore in a small area into Gems
+		Prerequisites: ~structures.mediwizards
+		EffectSequence: idle
+	SpawnActorPower@TransmuteWizardT2b:
+		RequiresCondition: power-transwiz && power-t2b && !power-t2c
+		OrderName: TransmuteWizard
+		Actor: TransmuteSpawnerWizard
+		LifeTime: 100
+		ChargeInterval: 2800
+		Icon: medivoidportalicon
+		Name: Transmute
+		Description: Convert Ore in a small area into Gems
+		Prerequisites: ~structures.mediwizards
+		EffectSequence: idle
+	SpawnActorPower@TransmuteWizardT2c:
+		RequiresCondition: power-transwiz && power-t2c
+		OrderName: TransmuteWizard
+		Actor: TransmuteSpawnerWizard
+		LifeTime: 100
+		ChargeInterval: 2200
+		Icon: medivoidportalicon
+		Name: Transmute
+		Description: Convert Ore in a small area into Gems
+		Prerequisites: ~structures.mediwizards
+		EffectSequence: idle
+	WithDecoration@slot1-active:
+		RequiresSelection: true
+		Image: pips
+		Sequence: pip-green
+		Position: BottomLeft
+		Margin: 0, 0
+		RequiresCondition: power-active
+	WithDecoration@slot1-empty:
+		RequiresSelection: true
+		Image: pips
+		Sequence: pip-empty
+		Position: BottomLeft
+		Margin: 0, 0
+		RequiresCondition: !power-active
+	WithDecoration@slot2-active:
+		RequiresSelection: true
+		Image: pips
+		Sequence: pip-yellow
+		Position: BottomLeft
+		Margin: 6, 0
+		RequiresCondition: power-t2
+	WithDecoration@slot2-empty:
+		RequiresSelection: true
+		Image: pips
+		Sequence: pip-empty
+		Position: BottomLeft
+		Margin: 6, 0
+		RequiresCondition: !power-t2
+
+
+
+
+##############################################################################
+## The Eye - Power Plugs
+## One plug per support power. Each plugged power grants its own power-X
+## condition, and GrantCondition@PowerActive ORs all of those into a single
+## power-active condition. Pluggable@PowerCore.Requirements then just checks
+## !power-active, enforcing a single active power without repeating a long
+## expression for every plug type.
+##
+## EYE.T2UPGRADE is a universal stacking plug: it requires power-active
+## (i.e. some power is already plugged in) and grants power-t2. The Greater
+## Curse plug is the worked example - IonCannonPower@CursePowerGreater
+## requires power-curse && power-t2 and replaces the base Curse power with a
+## faster-recharging version. Other powers can gain their own "Greater"
+## variant the same way, gated on their power-X && power-t2.
+##############################################################################
+EYE.AIRSTRIKE:
+	Inherits: ^BuildingPlug
+	Valued:
+		Cost: 750
+	Tooltip:
+		Name: actor-eye-airstrike.name
+	Buildable:
+		Queue: EyePlugs
+		Prerequisites: ~structures.medi, Vehicles.medi, ~!ai.hard, ~techlevel.infonly
+		Description: actor-eye-airstrike.description
+		Icon: medidragonstrikeicon
+		IconPalette: player-icon
+		IconPaletteIsPlayerPalette: true
+	Plug:
+		Type: power.airstrike
+	RenderSprites:
+		Image: medieyetower
+
+EYE.CURSE:
+	Inherits: ^BuildingPlug
+	Valued:
+		Cost: 750
+	Tooltip:
+		Name: actor-eye-curse.name
+	Buildable:
+		Queue: EyePlugs
+		Prerequisites: ~structures.medi, Vehicles.medi, ~!ai.hard, ~techlevel.infonly, ~structures.medicult
+		Description: actor-eye-curse.description
+		Icon: medicurseicon
+		IconPalette: player-icon
+		IconPaletteIsPlayerPalette: true
+	Plug:
+		Type: power.curse
+	RenderSprites:
+		Image: medieyetower
+
+EYE.T2UPGRADE:
+	Inherits: ^BuildingPlug
+	Valued:
+		Cost: 1500
+	Tooltip:
+		Name: actor-eye-t2upgrade.name
+	Buildable:
+		Queue: EyePlugs
+		Prerequisites: ~structures.medi, ~techlevel.infonly
+		Description: actor-eye-t2upgrade.description
+		Icon: medivoidportalicon
+		IconPalette: player-icon
+		IconPaletteIsPlayerPalette: true
+	Plug:
+		Type: power.t2
+	RenderSprites:
+		Image: medieyetower
+
+EYE.HOLYLIGHT:
+	Inherits: ^BuildingPlug
+	Valued:
+		Cost: 750
+	Tooltip:
+		Name: actor-eye-holylight.name
+	Buildable:
+		Queue: EyePlugs
+		Prerequisites: ~structures.medi, Vehicles.medi, ~!ai.hard, ~techlevel.infonly, ~structures.mediholy
+		Description: actor-eye-holylight.description
+		Icon: mediholylighticon
+		IconPalette: player-icon
+		IconPaletteIsPlayerPalette: true
+	Plug:
+		Type: power.holylight
+	RenderSprites:
+		Image: medieyetower
+
+EYE.GOLEM:
+	Inherits: ^BuildingPlug
+	Valued:
+		Cost: 750
+	Tooltip:
+		Name: actor-eye-golem.name
+	Buildable:
+		Queue: EyePlugs
+		Prerequisites: ~structures.medi, Vehicles.medi, ~!ai.hard, ~techlevel.infonly, ~structures.mediwizards
+		Description: actor-eye-golem.description
+		Icon: medivoidportalicon
+		IconPalette: player-icon
+		IconPaletteIsPlayerPalette: true
+	Plug:
+		Type: power.golem
+	RenderSprites:
+		Image: medieyetower
+
+EYE.SMITE:
+	Inherits: ^BuildingPlug
+	Valued:
+		Cost: 750
+	Tooltip:
+		Name: actor-eye-smite.name
+	Buildable:
+		Queue: EyePlugs
+		Prerequisites: ~structures.medi, techcenter, ~techlevel.high, ~!structures.medicult
+		Description: actor-eye-smite.description
+		Icon: medismiteicon
+		IconPalette: player-icon
+		IconPaletteIsPlayerPalette: true
+	Plug:
+		Type: power.smite
+	RenderSprites:
+		Image: medieyetower
+
+EYE.TOXICCLOUD:
+	Inherits: ^BuildingPlug
+	Valued:
+		Cost: 750
+	Tooltip:
+		Name: actor-eye-toxiccloud.name
+	Buildable:
+		Queue: EyePlugs
+		Prerequisites: ~structures.medi, techcenter, ~techlevel.high
+		Description: actor-eye-toxiccloud.description
+		Icon: medivoidportalicon
+		IconPalette: player-icon
+		IconPaletteIsPlayerPalette: true
+	Plug:
+		Type: power.toxiccloud
+	RenderSprites:
+		Image: medieyetower
+
+EYE.PILLARS:
+	Inherits: ^BuildingPlug
+	Valued:
+		Cost: 750
+	Tooltip:
+		Name: actor-eye-pillars.name
+	Buildable:
+		Queue: EyePlugs
+		Prerequisites: ~structures.medi, techcenter, ~techlevel.high
+		Description: actor-eye-pillars.description
+		Icon: medivoidportalicon
+		IconPalette: player-icon
+		IconPaletteIsPlayerPalette: true
+	Plug:
+		Type: power.pillars
+	RenderSprites:
+		Image: medieyetower
+
+EYE.UNDEAD:
+	Inherits: ^BuildingPlug
+	Valued:
+		Cost: 750
+	Tooltip:
+		Name: actor-eye-undead.name
+	Buildable:
+		Queue: EyePlugs
+		Prerequisites: ~structures.medi, techcenter, ~techlevel.high, ~structures.medicult
+		Description: actor-eye-undead.description
+		Icon: medivoidportalicon
+		IconPalette: player-icon
+		IconPaletteIsPlayerPalette: true
+	Plug:
+		Type: power.undead
+	RenderSprites:
+		Image: medieyetower
+
+EYE.DARKNESS:
+	Inherits: ^BuildingPlug
+	Valued:
+		Cost: 750
+	Tooltip:
+		Name: actor-eye-darkness.name
+	Buildable:
+		Queue: EyePlugs
+		Prerequisites: ~structures.medi, techcenter, ~techlevel.high, ~structures.medicult
+		Description: actor-eye-darkness.description
+		Icon: mediinvisibilityicon
+		IconPalette: player-icon
+		IconPaletteIsPlayerPalette: true
+	Plug:
+		Type: power.darkness
+	RenderSprites:
+		Image: medieyetower
+
+EYE.SOULHARVEST:
+	Inherits: ^BuildingPlug
+	Valued:
+		Cost: 750
+	Tooltip:
+		Name: actor-eye-soulharvest.name
+	Buildable:
+		Queue: EyePlugs
+		Prerequisites: ~structures.medi, techcenter, ~techlevel.high, ~structures.medicult
+		Description: actor-eye-soulharvest.description
+		Icon: medivoidportalicon
+		IconPalette: player-icon
+		IconPaletteIsPlayerPalette: true
+	Plug:
+		Type: power.soulharvest
+	RenderSprites:
+		Image: medieyetower
+
+EYE.CHAOSSTORM:
+	Inherits: ^BuildingPlug
+	Valued:
+		Cost: 750
+	Tooltip:
+		Name: actor-eye-chaosstorm.name
+	Buildable:
+		Queue: EyePlugs
+		Prerequisites: ~structures.medi, techcenter, ~techlevel.high, ~structures.medicult
+		Description: actor-eye-chaosstorm.description
+		Icon: medivoidportalicon
+		IconPalette: player-icon
+		IconPaletteIsPlayerPalette: true
+	Plug:
+		Type: power.chaosstorm
+	RenderSprites:
+		Image: medieyetower
+
+EYE.CHAINS:
+	Inherits: ^BuildingPlug
+	Valued:
+		Cost: 750
+	Tooltip:
+		Name: actor-eye-chains.name
+	Buildable:
+		Queue: EyePlugs
+		Prerequisites: ~structures.medi, techcenter, ~techlevel.high, ~structures.mediholy
+		Description: actor-eye-chains.description
+		Icon: mediholychainsicon
+		IconPalette: player-icon
+		IconPaletteIsPlayerPalette: true
+	Plug:
+		Type: power.chains
+	RenderSprites:
+		Image: medieyetower
+
+EYE.SANCTUARY:
+	Inherits: ^BuildingPlug
+	Valued:
+		Cost: 750
+	Tooltip:
+		Name: actor-eye-sanctuary.name
+	Buildable:
+		Queue: EyePlugs
+		Prerequisites: ~structures.medi, techcenter, ~techlevel.high, ~structures.mediholy
+		Description: actor-eye-sanctuary.description
+		Icon: medivoidportalicon
+		IconPalette: player-icon
+		IconPaletteIsPlayerPalette: true
+	Plug:
+		Type: power.sanctuary
+	RenderSprites:
+		Image: medieyetower
+
+EYE.PETRIFY:
+	Inherits: ^BuildingPlug
+	Valued:
+		Cost: 750
+	Tooltip:
+		Name: actor-eye-petrify.name
+	Buildable:
+		Queue: EyePlugs
+		Prerequisites: ~structures.medi, techcenter, ~techlevel.high, ~structures.mediholy
+		Description: actor-eye-petrify.description
+		Icon: medivoidportalicon
+		IconPalette: player-icon
+		IconPaletteIsPlayerPalette: true
+	Plug:
+		Type: power.petrify
+	RenderSprites:
+		Image: medieyetower
+
+EYE.FROSTNOVA:
+	Inherits: ^BuildingPlug
+	Valued:
+		Cost: 750
+	Tooltip:
+		Name: actor-eye-frostnova.name
+	Buildable:
+		Queue: EyePlugs
+		Prerequisites: ~structures.medi, techcenter, ~techlevel.high, ~structures.mediwizards
+		Description: actor-eye-frostnova.description
+		Icon: medivoidportalicon
+		IconPalette: player-icon
+		IconPaletteIsPlayerPalette: true
+	Plug:
+		Type: power.frostnova
+	RenderSprites:
+		Image: medieyetower
+
+EYE.ICESPIKE:
+	Inherits: ^BuildingPlug
+	Valued:
+		Cost: 750
+	Tooltip:
+		Name: actor-eye-icespike.name
+	Buildable:
+		Queue: EyePlugs
+		Prerequisites: ~structures.medi, techcenter, ~techlevel.high, ~structures.mediwizards
+		Description: actor-eye-icespike.description
+		Icon: medivoidportalicon
+		IconPalette: player-icon
+		IconPaletteIsPlayerPalette: true
+	Plug:
+		Type: power.icespike
+	RenderSprites:
+		Image: medieyetower
+
+EYE.CHAINLIGHTNING:
+	Inherits: ^BuildingPlug
+	Valued:
+		Cost: 750
+	Tooltip:
+		Name: actor-eye-chainlightning.name
+	Buildable:
+		Queue: EyePlugs
+		Prerequisites: ~structures.medi, techcenter, ~techlevel.high, ~structures.mediwizards
+		Description: actor-eye-chainlightning.description
+		Icon: medivoidportalicon
+		IconPalette: player-icon
+		IconPaletteIsPlayerPalette: true
+	Plug:
+		Type: power.chainlightning
+	RenderSprites:
+		Image: medieyetower
+
+EYE.ZOMBIERAIN:
+	Inherits: ^BuildingPlug
+	Valued:
+		Cost: 750
+	Tooltip:
+		Name: actor-eye-zombierain.name
+	Buildable:
+		Queue: EyePlugs
+		Prerequisites: ~structures.medi, advtechcenter, ~techlevel.unrestricted, ~!ai.boss, ~structures.medicult
+		Description: actor-eye-zombierain.description
+		Icon: medivoidportalicon
+		IconPalette: player-icon
+		IconPaletteIsPlayerPalette: true
+	Plug:
+		Type: power.zombierain
+	RenderSprites:
+		Image: medieyetower
+
+EYE.TRANSHOLY:
+	Inherits: ^BuildingPlug
+	Valued:
+		Cost: 750
+	Tooltip:
+		Name: actor-eye-transholy.name
+	Buildable:
+		Queue: EyePlugs
+		Prerequisites: ~structures.medi, advtechcenter, ~techlevel.unrestricted, ~!ai.boss, ~structures.mediholy
+		Description: actor-eye-transholy.description
+		Icon: medivoidportalicon
+		IconPalette: player-icon
+		IconPaletteIsPlayerPalette: true
+	Plug:
+		Type: power.transholy
+	RenderSprites:
+		Image: medieyetower
+
+EYE.TRANSWIZ:
+	Inherits: ^BuildingPlug
+	Valued:
+		Cost: 750
+	Tooltip:
+		Name: actor-eye-transwiz.name
+	Buildable:
+		Queue: EyePlugs
+		Prerequisites: ~structures.medi, advtechcenter, ~techlevel.unrestricted, ~!ai.boss, ~structures.mediwizards
+		Description: actor-eye-transwiz.description
+		Icon: medivoidportalicon
+		IconPalette: player-icon
+		IconPaletteIsPlayerPalette: true
+	Plug:
+		Type: power.transwiz
+	RenderSprites:
+		Image: medieyetower

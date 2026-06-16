@@ -64,7 +64,7 @@ gyro:
 		Sequence: slow-rotor
 		RequiresCondition: !airborne
 	Rearmable:
-		RearmActors: AFLD
+		RearmActors: dragonlair, hpad, hpad.bot, afld, afld.ukraine, usaairfield, usaairstriplandingspot, chinaairfield, japanairfield, japanairfieldnavy, pstarg, tsport, tsport.landed, zspire, zspire.spot, unscairpad
 		AmmoPools: ammo
 	AmmoPool:
 		Ammo: 45
@@ -130,7 +130,7 @@ gryphon:
 		PauseOnCondition: !GryphonAmmo
 		RequiresCondition: !lowpower
 	Rearmable:
-		RearmActors: AFLD
+		RearmActors: dragonlair, hpad, hpad.bot, afld, afld.ukraine, usaairfield, usaairstriplandingspot, chinaairfield, japanairfield, japanairfieldnavy, pstarg, tsport, tsport.landed, zspire, zspire.spot, unscairpad
 		AmmoPools: GryphonAmmo
 	AmmoPool:
 		Armaments: secondary
@@ -604,56 +604,3 @@ medizeplin:
 	RenderSprites:
 		Image: mblimp
 	-Voiced:
-
-###############################################################################
-################################## Test Spawner ################################
-###############################################################################
-
-MediAircraftTest:
-	Inherits: barrackswg
-	Buildable:
-		IconPalette: tsunit
-		Queue: Building
-		Prerequisites: ~structures.medi
-		Description: Spawns all medi aircraft for testing
-		BuildPaletteOrder: 9999
-		BuildDuration: 1
-	Valued:
-		Cost: 0
-	Tooltip:
-		Name: Aircraft Test Spawner
-	KillsSelf:
-		Delay: 5
-		RemoveInstead: true
-	## Row 0 (y=0)
-	FreeActor@a01:
-		Actor: gyro
-		SpawnOffset: 0,0
-	FreeActor@a02:
-		Actor: gryphon
-		SpawnOffset: 3,0
-	FreeActor@a03:
-		Actor: GiantEagle
-		SpawnOffset: 6,0
-	FreeActor@a04:
-		Actor: Harpy
-		SpawnOffset: 9,0
-	FreeActor@a05:
-		Actor: Vendral
-		SpawnOffset: 12,0
-	## Row 1 (y=3)
-	FreeActor@a06:
-		Actor: MediDragon
-		SpawnOffset: 0,3
-	FreeActor@a07:
-		Actor: MediDragonBomber
-		SpawnOffset: 3,3
-	FreeActor@a08:
-		Actor: MediDragonBomberZoomies
-		SpawnOffset: 6,3
-	FreeActor@a09:
-		Actor: wyvern
-		SpawnOffset: 9,3
-	FreeActor@a10:
-		Actor: medizeplin
-		SpawnOffset: 12,3

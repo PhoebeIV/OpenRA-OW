@@ -1,0 +1,819 @@
+
+## Meteor Storm pods
+## Fireballs: large AOE, strong vs units, weak vs buildings
+## Meteors: building damage only, no unit AOE
+meteorstorm_fire:
+	Inherits: tomahawkstormpower
+	FallsToEarth:
+		Explosion: MeteorStormFireball
+		Moves: true
+		Velocity: 160
+		MaximumSpinSpeed: 0
+	Armament:
+		Weapon: MeteorStormFireball
+	RenderSprites:
+		Image: napalm3
+	WithSpriteBody:
+		Sequence: idle
+
+meteorstorm_fire1:
+	Inherits: meteorstorm_fire
+	FallsToEarth:
+		Explosion: MeteorStormFireball
+		Moves: true
+		Velocity: 180
+		MaximumSpinSpeed: 0
+
+meteorstorm_fire2:
+	Inherits: meteorstorm_fire
+	FallsToEarth:
+		Explosion: MeteorStormFireball
+		Moves: true
+		Velocity: 200
+		MaximumSpinSpeed: 0
+
+meteorstorm_meteor:
+	Inherits: tomahawkstormpower
+	FallsToEarth:
+		Explosion: MeteorStormMeteor
+		Moves: true
+		Velocity: 140
+		MaximumSpinSpeed: 0
+	Armament:
+		Weapon: MeteorStormMeteor
+	RenderSprites:
+		Image: rockgolem
+	-BodyOrientation:
+	ClassicFacingBodyOrientation:
+		QuantizedFacings: 8
+	WithSpriteBody:
+		Sequence: idle
+
+meteorstorm_meteor1:
+	Inherits: meteorstorm_meteor
+	FallsToEarth:
+		Explosion: MeteorStormMeteor
+		Moves: true
+		Velocity: 165
+		MaximumSpinSpeed: 0
+
+meteorstorm_meteor2:
+	Inherits: meteorstorm_meteor
+	FallsToEarth:
+		Explosion: MeteorStormMeteor
+		Moves: true
+		Velocity: 190
+		MaximumSpinSpeed: 0
+
+## Zombie Rain pods - dropped by DropPodsPowerOW, falls to earth, explodes, spawns undead
+zombierainpod:
+	Inherits: tomahawkstormpower
+	GrantRandomCondition@undead:
+		Conditions: spawn-zombie, spawn-skeleton
+	SpawnActorOnDeath@zombie:
+		Actor: SummonedZombie
+		RequiresCondition: spawn-zombie
+	SpawnActorOnDeath@skeleton:
+		Actor: Skeleton
+		RequiresCondition: spawn-skeleton
+	FallsToEarth:
+		Explosion: ZombieRainExplosion
+		Moves: true
+		Velocity: 150
+		MaximumSpinSpeed: 0
+	Armament:
+		Weapon: ZombieRainExplosion
+	RenderSprites:
+		Image: mzombie
+	-BodyOrientation:
+	ClassicFacingBodyOrientation:
+		QuantizedFacings: 8
+	WithSpriteBody:
+		Sequence: run
+
+zombierainpod1:
+	Inherits: zombierainpod
+	FallsToEarth:
+		Explosion: ZombieRainExplosion
+		Moves: true
+		Velocity: 170
+		MaximumSpinSpeed: 0
+
+zombierainpod2:
+	Inherits: zombierainpod
+	FallsToEarth:
+		Explosion: ZombieRainExplosion
+		Moves: true
+		Velocity: 190
+		MaximumSpinSpeed: 0
+
+zombierainpod3:
+	Inherits: zombierainpod
+	FallsToEarth:
+		Explosion: ZombieRainExplosion
+		Moves: true
+		Velocity: 210
+		MaximumSpinSpeed: 0
+
+zombierainpod4:
+	Inherits: zombierainpod
+	FallsToEarth:
+		Explosion: ZombieRainExplosion
+		Moves: true
+		Velocity: 230
+		MaximumSpinSpeed: 0
+
+## Invisible marker placed at each void laser impact; rises undead after a random delay
+VoidRiseMarker:
+	Inherits: MINE_DUMMY
+	Immobile:
+		OccupiesSpace: false
+	BodyOrientation:
+		QuantizedFacings: 0
+	HitShape:
+	Health:
+		HP: 999999
+	GrantRandomCondition:
+		Conditions: spawn-nothing, spawn-zombie, spawn-skeleton
+	GrantDelayedCondition:
+		Condition: rise-time
+		Delay: 500, 5000
+	SpawnActorOnDeath@zombie:
+		Actor: SummonedZombie
+		RequiresCondition: spawn-zombie
+	SpawnActorOnDeath@skeleton:
+		Actor: Skeleton
+		RequiresCondition: spawn-skeleton
+	KillsSelf:
+		RequiresCondition: rise-time
+
+## Invisible marker scattered by Chaos Storm; detonates with a random elemental effect after a short fuse
+ChaosStormMarker:
+	Inherits: MINE_DUMMY
+	Immobile:
+		OccupiesSpace: false
+	BodyOrientation:
+		QuantizedFacings: 0
+	HitShape:
+	Health:
+		HP: 999999
+	GrantRandomCondition:
+		Conditions: chaos-fire, chaos-lightning, chaos-curse, chaos-heal, chaos-smite, chaos-chill
+	GrantDelayedCondition:
+		Condition: detonate-time
+		Delay: 50, 250
+	FireWarheadsOnDeath@fire:
+		Weapon: ChaosStormFireImpact
+		RequiresCondition: chaos-fire
+	FireWarheadsOnDeath@lightning:
+		Weapon: ChaosStormLightningImpact
+		RequiresCondition: chaos-lightning
+	FireWarheadsOnDeath@curse:
+		Weapon: ChaosStormCurseImpact
+		RequiresCondition: chaos-curse
+	FireWarheadsOnDeath@heal:
+		Weapon: ChaosStormhealImpact
+		RequiresCondition: chaos-heal
+	FireWarheadsOnDeath@smite:
+		Weapon: ChaosStormsmiteImpact
+		RequiresCondition: chaos-smite
+	FireWarheadsOnDeath@chill:
+		Weapon: ChaosStormchillImpact
+		RequiresCondition: chaos-chill
+	KillsSelf:
+		RequiresCondition: detonate-time
+
+^TransmuteProbe:
+	Inherits: MINE_DUMMY
+	-Interactable:
+	-Targetable:
+
+TransmuteProbeHoly:
+	Inherits: ^TransmuteProbe
+	GrantConditionOnTerrain@resource:
+		Condition: on-resource
+		TerrainTypes: Ore, Tiberium, BlueTiberium
+	KillsSelf@notore:
+		RequiresCondition: !on-resource
+		Delay: 3
+		RemoveInstead: true
+	KillsSelf@convert:
+		RequiresCondition: on-resource
+		Delay: 50
+	FireWarheadsOnDeath@transmute:
+		Type: CenterPosition
+		Weapon: TransmuteConvertHoly
+		EmptyWeapon: TransmuteConvertHoly
+
+TransmuteProbeWizard:
+	Inherits: ^TransmuteProbe
+	GrantConditionOnTerrain@resource:
+		Condition: on-resource
+		TerrainTypes: Ore
+	KillsSelf@notore:
+		RequiresCondition: !on-resource
+		Delay: 3
+		RemoveInstead: true
+	KillsSelf@convert:
+		RequiresCondition: on-resource
+		Delay: 50
+	FireWarheadsOnDeath@transmute:
+		Type: CenterPosition
+		Weapon: TransmuteConvertWizard
+		EmptyWeapon: TransmuteConvertWizard
+
+## 7x7 grid spawner for Holy Transmute
+TransmuteSpawnerHoly:
+	Immobile:
+		OccupiesSpace: false
+	KillsSelf:
+		Delay: 5
+		RemoveInstead: true
+	FreeActor@h00:
+		Actor: TransmuteProbeHoly
+		SpawnOffset: -3,-3
+	FreeActor@h01:
+		Actor: TransmuteProbeHoly
+		SpawnOffset: -2,-3
+	FreeActor@h02:
+		Actor: TransmuteProbeHoly
+		SpawnOffset: -1,-3
+	FreeActor@h03:
+		Actor: TransmuteProbeHoly
+		SpawnOffset: 0,-3
+	FreeActor@h04:
+		Actor: TransmuteProbeHoly
+		SpawnOffset: 1,-3
+	FreeActor@h05:
+		Actor: TransmuteProbeHoly
+		SpawnOffset: 2,-3
+	FreeActor@h06:
+		Actor: TransmuteProbeHoly
+		SpawnOffset: 3,-3
+	FreeActor@h07:
+		Actor: TransmuteProbeHoly
+		SpawnOffset: -3,-2
+	FreeActor@h08:
+		Actor: TransmuteProbeHoly
+		SpawnOffset: -2,-2
+	FreeActor@h09:
+		Actor: TransmuteProbeHoly
+		SpawnOffset: -1,-2
+	FreeActor@h10:
+		Actor: TransmuteProbeHoly
+		SpawnOffset: 0,-2
+	FreeActor@h11:
+		Actor: TransmuteProbeHoly
+		SpawnOffset: 1,-2
+	FreeActor@h12:
+		Actor: TransmuteProbeHoly
+		SpawnOffset: 2,-2
+	FreeActor@h13:
+		Actor: TransmuteProbeHoly
+		SpawnOffset: 3,-2
+	FreeActor@h14:
+		Actor: TransmuteProbeHoly
+		SpawnOffset: -3,-1
+	FreeActor@h15:
+		Actor: TransmuteProbeHoly
+		SpawnOffset: -2,-1
+	FreeActor@h16:
+		Actor: TransmuteProbeHoly
+		SpawnOffset: -1,-1
+	FreeActor@h17:
+		Actor: TransmuteProbeHoly
+		SpawnOffset: 0,-1
+	FreeActor@h18:
+		Actor: TransmuteProbeHoly
+		SpawnOffset: 1,-1
+	FreeActor@h19:
+		Actor: TransmuteProbeHoly
+		SpawnOffset: 2,-1
+	FreeActor@h20:
+		Actor: TransmuteProbeHoly
+		SpawnOffset: 3,-1
+	FreeActor@h21:
+		Actor: TransmuteProbeHoly
+		SpawnOffset: -3,0
+	FreeActor@h22:
+		Actor: TransmuteProbeHoly
+		SpawnOffset: -2,0
+	FreeActor@h23:
+		Actor: TransmuteProbeHoly
+		SpawnOffset: -1,0
+	FreeActor@h24:
+		Actor: TransmuteProbeHoly
+		SpawnOffset: 0,0
+	FreeActor@h25:
+		Actor: TransmuteProbeHoly
+		SpawnOffset: 1,0
+	FreeActor@h26:
+		Actor: TransmuteProbeHoly
+		SpawnOffset: 2,0
+	FreeActor@h27:
+		Actor: TransmuteProbeHoly
+		SpawnOffset: 3,0
+	FreeActor@h28:
+		Actor: TransmuteProbeHoly
+		SpawnOffset: -3,1
+	FreeActor@h29:
+		Actor: TransmuteProbeHoly
+		SpawnOffset: -2,1
+	FreeActor@h30:
+		Actor: TransmuteProbeHoly
+		SpawnOffset: -1,1
+	FreeActor@h31:
+		Actor: TransmuteProbeHoly
+		SpawnOffset: 0,1
+	FreeActor@h32:
+		Actor: TransmuteProbeHoly
+		SpawnOffset: 1,1
+	FreeActor@h33:
+		Actor: TransmuteProbeHoly
+		SpawnOffset: 2,1
+	FreeActor@h34:
+		Actor: TransmuteProbeHoly
+		SpawnOffset: 3,1
+	FreeActor@h35:
+		Actor: TransmuteProbeHoly
+		SpawnOffset: -3,2
+	FreeActor@h36:
+		Actor: TransmuteProbeHoly
+		SpawnOffset: -2,2
+	FreeActor@h37:
+		Actor: TransmuteProbeHoly
+		SpawnOffset: -1,2
+	FreeActor@h38:
+		Actor: TransmuteProbeHoly
+		SpawnOffset: 0,2
+	FreeActor@h39:
+		Actor: TransmuteProbeHoly
+		SpawnOffset: 1,2
+	FreeActor@h40:
+		Actor: TransmuteProbeHoly
+		SpawnOffset: 2,2
+	FreeActor@h41:
+		Actor: TransmuteProbeHoly
+		SpawnOffset: 3,2
+	FreeActor@h42:
+		Actor: TransmuteProbeHoly
+		SpawnOffset: -3,3
+	FreeActor@h43:
+		Actor: TransmuteProbeHoly
+		SpawnOffset: -2,3
+	FreeActor@h44:
+		Actor: TransmuteProbeHoly
+		SpawnOffset: -1,3
+	FreeActor@h45:
+		Actor: TransmuteProbeHoly
+		SpawnOffset: 0,3
+	FreeActor@h46:
+		Actor: TransmuteProbeHoly
+		SpawnOffset: 1,3
+	FreeActor@h47:
+		Actor: TransmuteProbeHoly
+		SpawnOffset: 2,3
+	FreeActor@h48:
+		Actor: TransmuteProbeHoly
+		SpawnOffset: 3,3
+
+## 3x3 grid spawner for Wizard Transmute
+TransmuteSpawnerWizard:
+	Immobile:
+		OccupiesSpace: false
+	KillsSelf:
+		Delay: 5
+		RemoveInstead: true
+	FreeActor@w00:
+		Actor: TransmuteProbeWizard
+		SpawnOffset: -1,-1
+	FreeActor@w01:
+		Actor: TransmuteProbeWizard
+		SpawnOffset: 0,-1
+	FreeActor@w02:
+		Actor: TransmuteProbeWizard
+		SpawnOffset: 1,-1
+	FreeActor@w03:
+		Actor: TransmuteProbeWizard
+		SpawnOffset: -1,0
+	FreeActor@w04:
+		Actor: TransmuteProbeWizard
+		SpawnOffset: 0,0
+	FreeActor@w05:
+		Actor: TransmuteProbeWizard
+		SpawnOffset: 1,0
+	FreeActor@w06:
+		Actor: TransmuteProbeWizard
+		SpawnOffset: -1,1
+	FreeActor@w07:
+		Actor: TransmuteProbeWizard
+		SpawnOffset: 0,1
+	FreeActor@w08:
+		Actor: TransmuteProbeWizard
+		SpawnOffset: 1,1
+
+###############################################################################
+##########################   Debug Test Spawner   #############################
+###############################################################################
+
+## Place this in debug mode to spawn all medi buildings in a grid.
+## 5-wide grid, 7-cell spacing. Spawner removes itself after 5 ticks.
+MediAllBuildingsTest:
+	Inherits: barrackswg
+	Buildable:
+		IconPalette: tsunit
+		Queue: Building
+		Prerequisites: ~structures.medi && ~!structures.medi
+		Description: actor-mediallbuildingstest.description
+		BuildPaletteOrder: 9999
+		BuildDuration: 1
+	Valued:
+		Cost: 0
+	Tooltip:
+		Name: actor-mediallbuildingstest.name
+	KillsSelf:
+		Delay: 5
+		RemoveInstead: true
+	## Row 0 (y=0)
+	FreeActor@b01:
+		Actor: mediconyard
+		SpawnOffset: 0,0
+	FreeActor@b02:
+		Actor: barrackswg
+		SpawnOffset: 7,0
+	FreeActor@b03:
+		Actor: refinarymarket
+		SpawnOffset: 14,0
+	FreeActor@b04:
+		Actor: slavecampgc
+		SpawnOffset: 21,0
+	FreeActor@b05:
+		Actor: dragonlair
+		SpawnOffset: 28,0
+	## Row 1 (y=7)
+	FreeActor@b06:
+		Actor: foundrymedi
+		SpawnOffset: 0,7
+	FreeActor@b07:
+		Actor: dwarfsettlement
+		SpawnOffset: 7,7
+	FreeActor@b08:
+		Actor: techcenterblacksmith
+		SpawnOffset: 14,7
+	FreeActor@b09:
+		Actor: advtechcenterlibrary
+		SpawnOffset: 21,7
+	FreeActor@b10:
+		Actor: brashnards
+		SpawnOffset: 28,7
+	## Row 2 (y=14)
+	FreeActor@b11:
+		Actor: radarwg
+		SpawnOffset: 0,14
+	FreeActor@b12:
+		Actor: Archertower
+		SpawnOffset: 7,14
+	FreeActor@b13:
+		Actor: guardhouse
+		SpawnOffset: 14,14
+	FreeActor@b14:
+		Actor: wizardtower
+		SpawnOffset: 21,14
+	FreeActor@b15:
+		Actor: balistatower
+		SpawnOffset: 28,14
+	## Row 3 (y=21)
+	FreeActor@b16:
+		Actor: TheEye
+		SpawnOffset: 0,21
+	FreeActor@b17:
+		Actor: gamblinghall
+		SpawnOffset: 7,21
+	FreeActor@b18:
+		Actor: elvenhideout
+		SpawnOffset: 14,21
+	FreeActor@b19:
+		Actor: monumentgazebo
+		SpawnOffset: 21,21
+	FreeActor@b20:
+		Actor: Graveyard
+		SpawnOffset: 28,21
+	## Row 4 (y=28)
+	FreeActor@b21:
+		Actor: outpostmedi
+		SpawnOffset: 0,28
+	FreeActor@b22:
+		Actor: spittervine
+		SpawnOffset: 7,28
+	FreeActor@b23:
+		Actor: GATEOFLIGHT
+		SpawnOffset: 14,28
+	FreeActor@b24:
+		Actor: MediDarkCrystal
+		SpawnOffset: 21,28
+	FreeActor@b25:
+		Actor: FireStormMedi
+		SpawnOffset: 28,28
+	## Row 5 (y=35)
+	FreeActor@b26:
+		Actor: Templeofkrypta
+		SpawnOffset: 0,35
+	FreeActor@b27:
+		Actor: TempleofLunord
+		SpawnOffset: 7,35
+	FreeActor@b28:
+		Actor: TempleofKrolm
+		SpawnOffset: 14,35
+
+MediAircraftTest:
+	Inherits: barrackswg
+	Buildable:
+		IconPalette: tsunit
+		Queue: Building
+		Prerequisites: ~structures.medi && ~!structures.medi
+		Description: Spawns all medi aircraft for testing
+		BuildPaletteOrder: 9999
+		BuildDuration: 1
+	Valued:
+		Cost: 0
+	Tooltip:
+		Name: Aircraft Test Spawner
+	KillsSelf:
+		Delay: 5
+		RemoveInstead: true
+	## Row 0 (y=0)
+	FreeActor@a01:
+		Actor: gyro
+		SpawnOffset: 0,0
+	FreeActor@a02:
+		Actor: gryphon
+		SpawnOffset: 3,0
+	FreeActor@a03:
+		Actor: GiantEagle
+		SpawnOffset: 6,0
+	FreeActor@a04:
+		Actor: Harpy
+		SpawnOffset: 9,0
+	FreeActor@a05:
+		Actor: Vendral
+		SpawnOffset: 12,0
+	## Row 1 (y=3)
+	FreeActor@a06:
+		Actor: MediDragon
+		SpawnOffset: 0,3
+	FreeActor@a07:
+		Actor: MediDragonBomber
+		SpawnOffset: 3,3
+	FreeActor@a08:
+		Actor: MediDragonBomberZoomies
+		SpawnOffset: 6,3
+	FreeActor@a09:
+		Actor: wyvern
+		SpawnOffset: 9,3
+	FreeActor@a10:
+		Actor: medizeplin
+		SpawnOffset: 12,3
+
+MediInfantryTest:
+	Inherits@barrackswg: barrackswg
+	Buildable:
+		IconPalette: tsunit
+		Queue: Building
+		Prerequisites: ~structures.medi && ~!structures.medi
+		Description: actor-mediinfantrytest.description
+		BuildPaletteOrder: 9999
+		BuildDuration: 1
+	Valued:
+		Cost: 0
+	Tooltip:
+		Name: actor-mediinfantrytest.name
+	KillsSelf:
+		Delay: 5
+		RemoveInstead: true
+	## Row 0 (y=0)
+	FreeActor@i01:
+		Actor: mediSLAVE
+		SpawnOffset: 0,0
+	FreeActor@i02:
+		Actor: MEDIWORKER
+		SpawnOffset: 2,0
+	FreeActor@i03:
+		Actor: MEDIWORKER2
+		SpawnOffset: 4,0
+	FreeActor@i04:
+		Actor: SURVEYORMEDI
+		SpawnOffset: 6,0
+	FreeActor@i05:
+		Actor: TaxCollector
+		SpawnOffset: 8,0
+	## Row 1 (y=2)
+	FreeActor@i06:
+		Actor: Knight
+		SpawnOffset: 0,2
+	FreeActor@i07:
+		Actor: guardhouseguard
+		SpawnOffset: 2,2
+	FreeActor@i08:
+		Actor: BERSERKER
+		SpawnOffset: 4,2
+	FreeActor@i09:
+		Actor: arcanewizard
+		SpawnOffset: 6,2
+	FreeActor@i10:
+		Actor: Archer
+		SpawnOffset: 8,2
+	## Row 2 (y=4)
+	FreeActor@i11:
+		Actor: TankBuster
+		SpawnOffset: 0,4
+	FreeActor@i12:
+		Actor: PRIEST
+		SpawnOffset: 2,4
+	FreeActor@i13:
+		Actor: MEDIPALADIN
+		SpawnOffset: 4,4
+	FreeActor@i14:
+		Actor: ShieldHero
+		SpawnOffset: 6,4
+	FreeActor@i15:
+		Actor: BlackPhantom
+		SpawnOffset: 8,4
+	## Row 3 (y=6)
+	FreeActor@i16:
+		Actor: Ratman
+		SpawnOffset: 0,6
+	FreeActor@i17:
+		Actor: Giantrat
+		SpawnOffset: 2,6
+	FreeActor@i18:
+		Actor: GoblinWarrior
+		SpawnOffset: 4,6
+	FreeActor@i19:
+		Actor: GoblinChampion
+		SpawnOffset: 6,6
+	FreeActor@i20:
+		Actor: GoblinArcher
+		SpawnOffset: 8,6
+	## Row 4 (y=8)
+	FreeActor@i21:
+		Actor: GoblinPriest
+		SpawnOffset: 0,8
+	FreeActor@i22:
+		Actor: Witchking
+		SpawnOffset: 2,8
+	FreeActor@i23:
+		Actor: Skeleton
+		SpawnOffset: 4,8
+	FreeActor@i24:
+		Actor: Skeleton2
+		SpawnOffset: 6,8
+	FreeActor@i25:
+		Actor: SummonedZombie
+		SpawnOffset: 8,8
+	## Row 5 (y=10)
+	FreeActor@i26:
+		Actor: MEDIDEATHKNIGHT
+		SpawnOffset: 0,10
+	FreeActor@i27:
+		Actor: VOIDARCHER
+		SpawnOffset: 2,10
+	FreeActor@i28:
+		Actor: VOIDARCHER_SPAWN
+		SpawnOffset: 4,10
+	FreeActor@i29:
+		Actor: lightningwizard
+		SpawnOffset: 6,10
+	FreeActor@i30:
+		Actor: firewizard
+		SpawnOffset: 8,10
+	## Row 6 (y=12)
+	FreeActor@i31:
+		Actor: Monk
+		SpawnOffset: 0,12
+	FreeActor@i32:
+		Actor: Dryad
+		SpawnOffset: 2,12
+	FreeActor@i33:
+		Actor: Vampire
+		SpawnOffset: 4,12
+
+MediVehicleTest:
+	Inherits: barrackswg
+	Buildable:
+		IconPalette: tsunit
+		Queue: Building
+		Prerequisites: ~structures.medi && ~!structures.medi
+		Description: Spawns all medi vehicles for testing
+		BuildPaletteOrder: 9999
+		BuildDuration: 1
+	Valued:
+		Cost: 0
+	Tooltip:
+		Name: Vehicle Test Spawner
+	KillsSelf:
+		Delay: 5
+		RemoveInstead: true
+	## Row 0 (y=0)
+	FreeActor@v01:
+		Actor: MCVM
+		SpawnOffset: 0,0
+	FreeActor@v02:
+		Actor: TRUKMedi
+		SpawnOffset: 3,0
+	FreeActor@v03:
+		Actor: catapult
+		SpawnOffset: 6,0
+	FreeActor@v04:
+		Actor: Trebuchet
+		SpawnOffset: 9,0
+	FreeActor@v05:
+		Actor: Hwacha
+		SpawnOffset: 12,0
+	## Row 1 (y=3)
+	FreeActor@v06:
+		Actor: Ballista
+		SpawnOffset: 0,3
+	FreeActor@v07:
+		Actor: Cannon
+		SpawnOffset: 3,3
+	FreeActor@v08:
+		Actor: SiegeTower
+		SpawnOffset: 6,3
+	FreeActor@v09:
+		Actor: werewolf
+		SpawnOffset: 9,3
+	FreeActor@v10:
+		Actor: giantbear
+		SpawnOffset: 12,3
+	## Row 2 (y=6)
+	FreeActor@v11:
+		Actor: giantwolf
+		SpawnOffset: 0,6
+	FreeActor@v12:
+		Actor: dirgo
+		SpawnOffset: 3,6
+	FreeActor@v13:
+		Actor: giantspider
+		SpawnOffset: 6,6
+	FreeActor@v14:
+		Actor: medusa
+		SpawnOffset: 9,6
+	FreeActor@v15:
+		Actor: minotaur
+		SpawnOffset: 12,6
+	## Row 3 (y=9)
+	FreeActor@v16:
+		Actor: rrongol
+		SpawnOffset: 0,9
+	FreeActor@v17:
+		Actor: troll
+		SpawnOffset: 3,9
+	FreeActor@v18:
+		Actor: daemonwood
+		SpawnOffset: 6,9
+	FreeActor@v19:
+		Actor: rockgolem
+		SpawnOffset: 9,9
+	FreeActor@v20:
+		Actor: splitgolem
+		SpawnOffset: 12,9
+	## Row 4 (y=12)
+	FreeActor@v21:
+		Actor: rustspitter
+		SpawnOffset: 0,12
+	FreeActor@v22:
+		Actor: urlshekk
+		SpawnOffset: 3,12
+	FreeActor@v23:
+		Actor: moculus
+		SpawnOffset: 6,12
+
+MediShipTest:
+	Inherits: barrackswg
+	Buildable:
+		IconPalette: tsunit
+		Queue: Building
+		Prerequisites: ~structures.medi && ~!structures.medi
+		Description: Spawns all medi ships for testing - place at water edge
+		BuildPaletteOrder: 9999
+		BuildDuration: 1
+	Valued:
+		Cost: 0
+	Tooltip:
+		Name: Ship Test Spawner
+	KillsSelf:
+		Delay: 5
+		RemoveInstead: true
+	## Row 0 (y=0)
+	FreeActor@s01:
+		Actor: mcanoe
+		SpawnOffset: 0,0
+	FreeActor@s02:
+		Actor: MBalistaboat
+		SpawnOffset: 3,0
+	FreeActor@s03:
+		Actor: mmanofwar
+		SpawnOffset: 6,0
+	FreeActor@s04:
+		Actor: marcaneboat
+		SpawnOffset: 9,0

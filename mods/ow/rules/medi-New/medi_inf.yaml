@@ -394,7 +394,7 @@ guardhouseguard:
 		PauseOnCondition: attack-cooldown
 	KillsSelf:
 		RemoveInstead: True
-		Delay: 500
+		Delay: 300
 	RenderSprites:
 		Image: mknight
 
@@ -457,14 +457,7 @@ BERSERKER:
 ##arcanewizard AOE anti vehicle
 arcanewizard:
 	Inherits@Wizards: ^Wizards
-	Inherits@MediLowPower: ^MediLowPower
 	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
-	ReloadDelayMultiplier:
-		Modifier: 150
-		RequiresCondition: lowpower
-	FirepowerMultiplier:
-		Modifier: 50
-		RequiresCondition: lowpower
 	Buildable:
 		IconPalette: tsunit
 		Prerequisites: ~infantry.mediholy, advtechcenter, ~!infantry.medicult
@@ -556,7 +549,6 @@ TankBuster:
 	AttackLeap:
 		Voice: Attack
 		PauseOnCondition: attack-cooldown
-	Inherits@MediLowPower: ^MediLowPower
 	Inherits@InfPro: ^AutoTargetVehiclePriority
 	Buildable:
 		IconPalette: tsunit
@@ -603,7 +595,6 @@ TankBuster:
 PRIEST:
 	Inherits@MediSoldier: ^MediSoldier
 	Inherits@PowerTier: ^MediPowerTier2
-	Inherits@MediLowPower: ^MediLowPower
 	Inherits@sprite: ^TSMedi
 	Buildable:
 		IconPalette: tsunit
@@ -657,7 +648,6 @@ PRIEST:
 ##paladin
 MEDIPALADIN:
 	Inherits@Knight: Knight
-	Inherits@MediLowPower: ^MediLowPower
 	Inherits@InfPro: ^AutoTargetVehiclePriority
 	Inherits@PowerTier: ^MediPowerTier3
 	Buildable:
@@ -1209,7 +1199,6 @@ Monk:
 Dryad:
 	Inherits@MediSoldier: ^MediSoldier
 	Inherits@PowerTier: ^MediPowerTier2
-	Inherits@MediLowPower: ^MediLowPower
 	Inherits@sprite: ^TSMedi
 	Buildable:
 		IconPalette: tsunit
@@ -1331,130 +1320,3 @@ Vampire:
 	ConvertsDamageToHealth@4:
 		DamagePercentConverted: 25
 		RequiresCondition: under25hp
-
-###############################################################################
-################################## Test Spawner ################################
-###############################################################################
-
-MediInfantryTest:
-	Inherits@barrackswg: barrackswg
-	Buildable:
-		IconPalette: tsunit
-		Queue: Building
-		Prerequisites: ~structures.medi
-		Description: actor-mediinfantrytest.description
-		BuildPaletteOrder: 9999
-		BuildDuration: 1
-	Valued:
-		Cost: 0
-	Tooltip:
-		Name: actor-mediinfantrytest.name
-	KillsSelf:
-		Delay: 5
-		RemoveInstead: true
-	## Row 0 (y=0)
-	FreeActor@i01:
-		Actor: mediSLAVE
-		SpawnOffset: 0,0
-	FreeActor@i02:
-		Actor: MEDIWORKER
-		SpawnOffset: 2,0
-	FreeActor@i03:
-		Actor: MEDIWORKER2
-		SpawnOffset: 4,0
-	FreeActor@i04:
-		Actor: SURVEYORMEDI
-		SpawnOffset: 6,0
-	FreeActor@i05:
-		Actor: TaxCollector
-		SpawnOffset: 8,0
-	## Row 1 (y=2)
-	FreeActor@i06:
-		Actor: Knight
-		SpawnOffset: 0,2
-	FreeActor@i07:
-		Actor: guardhouseguard
-		SpawnOffset: 2,2
-	FreeActor@i08:
-		Actor: BERSERKER
-		SpawnOffset: 4,2
-	FreeActor@i09:
-		Actor: arcanewizard
-		SpawnOffset: 6,2
-	FreeActor@i10:
-		Actor: Archer
-		SpawnOffset: 8,2
-	## Row 2 (y=4)
-	FreeActor@i11:
-		Actor: TankBuster
-		SpawnOffset: 0,4
-	FreeActor@i12:
-		Actor: PRIEST
-		SpawnOffset: 2,4
-	FreeActor@i13:
-		Actor: MEDIPALADIN
-		SpawnOffset: 4,4
-	FreeActor@i14:
-		Actor: ShieldHero
-		SpawnOffset: 6,4
-	FreeActor@i15:
-		Actor: BlackPhantom
-		SpawnOffset: 8,4
-	## Row 3 (y=6)
-	FreeActor@i16:
-		Actor: Ratman
-		SpawnOffset: 0,6
-	FreeActor@i17:
-		Actor: Giantrat
-		SpawnOffset: 2,6
-	FreeActor@i18:
-		Actor: GoblinWarrior
-		SpawnOffset: 4,6
-	FreeActor@i19:
-		Actor: GoblinChampion
-		SpawnOffset: 6,6
-	FreeActor@i20:
-		Actor: GoblinArcher
-		SpawnOffset: 8,6
-	## Row 4 (y=8)
-	FreeActor@i21:
-		Actor: GoblinPriest
-		SpawnOffset: 0,8
-	FreeActor@i22:
-		Actor: Witchking
-		SpawnOffset: 2,8
-	FreeActor@i23:
-		Actor: Skeleton
-		SpawnOffset: 4,8
-	FreeActor@i24:
-		Actor: Skeleton2
-		SpawnOffset: 6,8
-	FreeActor@i25:
-		Actor: SummonedZombie
-		SpawnOffset: 8,8
-	## Row 5 (y=10)
-	FreeActor@i26:
-		Actor: MEDIDEATHKNIGHT
-		SpawnOffset: 0,10
-	FreeActor@i27:
-		Actor: VOIDARCHER
-		SpawnOffset: 2,10
-	FreeActor@i28:
-		Actor: VOIDARCHER_SPAWN
-		SpawnOffset: 4,10
-	FreeActor@i29:
-		Actor: lightningwizard
-		SpawnOffset: 6,10
-	FreeActor@i30:
-		Actor: firewizard
-		SpawnOffset: 8,10
-	## Row 6 (y=12)
-	FreeActor@i31:
-		Actor: Monk
-		SpawnOffset: 0,12
-	FreeActor@i32:
-		Actor: Dryad
-		SpawnOffset: 2,12
-	FreeActor@i33:
-		Actor: Vampire
-		SpawnOffset: 4,12
