@@ -1339,27 +1339,64 @@ BanebladeBFGZap:
 		ValidTargets: Ground, Water, GroundActor, WaterActor
 
 DoomSpawnCube:
-	ReloadDelay: 150
+	ReloadDelay: 151
 	Range: 10c0
 	Report: dsbospit.aud
+	Burst: 3
+	BurstDelays: 150
+	FirstBurstTargetOffset: -2048,-4096,0
+	FollowingBurstTargetOffset: 0,4096,0
 	ValidTargets: Ground, Water, GroundActor, WaterActor
-	Projectile: Missile
+	Projectile: Bullet
 		Speed: 135
 		Blockable: false
 		Image: bcube
-		RangeLimit: 20c0
+		Inaccuracy: 1c0
 	Warhead@1Dam: SpreadDamage
 		Spread: 256
-		Damage: 20000
+		Damage: 30000
 		DamageTypes: Prone50Percent, TriggerProne, SpawnCubeDeath
 		ValidTargets: GroundActor, WaterActor
 	Warhead@2Smu: LeaveSmudge
 		SmudgeType: Scorch
 		ValidTargets: Ground, Infantry
 	Warhead@3EffGround: CreateEffect
-		Explosions: large_napalm
 		ImpactSounds: dstelept.aud
 		ValidTargets: Ground, GroundActor, Water, WaterActor, Trees
+	Warhead@actor: SpawnRandomActor
+		RandomActors: helld1, helld2, helld4, helld4, helld4, helld4, helld4, helld5, helld6, helld6.s, helld6, helld6.s, helld6, helld6.s, helld7, helld9, zombie,zombie,zombie
+		Delay: 3
+		ValidTargets: Ground, GroundActor
+		Range: 2
+		Image: explosion
+		Sequence: small_napalm
+	Warhead@wander: GrantExternalCondition
+		Condition: wander
+		ValidRelationships: Ally
+		AffectsParent: true
+		Duration: 25
+		Range: 2c512
+		ValidTargets: Infantry
+
+DoomSpawnCube2:
+	Inherits: DoomSpawnCube
+	FirstBurstTargetOffset: -3072,4096,0
+	FollowingBurstTargetOffset: 0,-4096,0
+
+DoomSpawnCubeNoSound:
+	Inherits: DoomSpawnCube
+	Report: baud.aud
+	-Warhead@1Dam:
+	-Warhead@3EffGround:
+	Warhead@actor: SpawnRandomActor
+		RandomActors: helld1, helld2, helld4, helld4, helld4, helld4, helld4, helld5, helld6, helld6.s, helld6, helld6.s, helld6, helld6.s, helld7, helld9, zombie, zombie, zombie, tecn, c10, fe2, e1, zzergling, zzergling, zzergling
+		Delay: 3
+		ValidTargets: Ground, GroundActor
+		Range: 3
+		Sequence: bfgzap2
+		OwnerType: InternalName
+		InternalOwner: Creeps
+		Sounds: dstelept.aud
 
 SolShellNew:
 	ReloadDelay: 350
@@ -3369,13 +3406,13 @@ BFG10kExplosion:
 	Warhead@superweapon: SpreadDamage
 		Delay: 20
 		Spread: 1c0
-		Damage: 1000
+		Damage: 2000
 		ValidTargets: Superweapon
 		DamageTypes: Superweapon
 	Warhead@1Dam_impact: SpreadDamage
 		Delay: 22
 		Spread: 1c0
-		Damage: 25000
+		Damage: 30000
 		Falloff: 1000, 368, 135, 50, 18, 7, 0
 		ValidTargets: GroundActor, WaterActor, Underwater, AirborneActor, Trees
 		Versus:
@@ -3391,7 +3428,7 @@ BFG10kExplosion:
 		Size: 1
 	Warhead@5Dam_areanuke1: SpreadDamage
 		Spread: 1c512
-		Damage: 10000
+		Damage: 15000
 		Falloff: 1000, 368, 135, 50, 18, 7, 0
 		Delay: 27
 		ValidTargets: GroundActor, WaterActor, Underwater, AirborneActor, Trees
@@ -3413,7 +3450,7 @@ BFG10kExplosion:
 		ImpactActors: false
 	Warhead@9Dam_areanuke2: SpreadDamage
 		Spread: 2c0
-		Damage: 7500
+		Damage: 10000
 		Falloff: 1000, 368, 135, 50, 18, 7, 0
 		Delay: 32
 		ValidTargets: GroundActor, Trees, WaterActor, Underwater, AirborneActor
@@ -3439,7 +3476,7 @@ BFG10kExplosion:
 		Delay: 32
 	Warhead@13Dam_areanuke3: SpreadDamage
 		Spread: 3c0
-		Damage: 6000
+		Damage: 7500
 		Falloff: 1000, 368, 135, 50, 18, 7, 0
 		Delay: 37
 		ValidTargets: GroundActor, Trees, WaterActor, Underwater, AirborneActor
@@ -3457,7 +3494,7 @@ BFG10kExplosion:
 		Delay: 37
 	Warhead@17Dam_areanuke4: SpreadDamage
 		Spread: 3c512
-		Damage: 6000
+		Damage: 7500
 		Falloff: 1000, 368, 135, 50, 18, 7, 0
 		Delay: 42
 		ValidTargets: GroundActor, Trees, WaterActor, Underwater, AirborneActor

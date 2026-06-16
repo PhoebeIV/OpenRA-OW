@@ -4799,7 +4799,6 @@ powerproxy.starfox:
 	ProvidesPrerequisite: 
 		Prerequisite: environment.spawnrick
 
-
 EINSTEIN.RICK:
 	Inherits: EINSTEIN
 	Buildable:
@@ -4811,11 +4810,39 @@ EINSTEIN.RICK:
 	EligibleForRandomActorCrate:
 		Type: epic
 	Voiced:
-		VoiceSet: Scientist2Voice
+		VoiceSet: RickSanchezVoice
+	GrantPeriodicCondition@teleport:
+		Condition: portal_mode
+		ActiveDuration: 500,750
+		CooldownDuration: 750, 1500
+	Cloak:
+		RequiresCondition: portal_mode
+		InitialDelay: 0
+		CloakDelay: 125
+		DetectionTypes: Undetectable
+		UncloakOn: Attack
+		CloakedCondition: cloaked
+	FreeActor@portal:
+		RequiresCondition: portal_mode
+		AllowRespawn: true
+		Actor: RICK.PORTAL
+	FreeActor@portal2:
+		RequiresCondition: !portal_mode
+		AllowRespawn: true
+		Actor: RICK.PORTAL
 	Wanders:
+		RequiresCondition: !portal_mode
 		MinMoveDelay: 150
-		MaxMoveDelay: 750
+		MaxMoveDelay: 150
 		WanderMoveRadius: 4
+	Wanders@portal:
+		RequiresCondition: portal_mode
+		WanderMoveRadius: 10
+	SpeedMultiplier@portal:
+		RequiresCondition: portal_mode
+		Modifier: 400
+	WithInfantryBody:
+		RequiresCondition: !portal_mode
 	KillsSelf: 
 		RequiresCondition: killself
 		Delay: 13550
@@ -4833,6 +4860,7 @@ EINSTEIN.RICK:
 	ProvidesPrerequisite:
 		Prerequisite: environment.rick
 	Targetable:
+		RequiresCondition: !portal_mode
 		TargetTypes: GroundActor, Infantry, NoAutoTarget, NoAITarget
 	DropPodsPowerOW:
 		Icon: rickhand
@@ -4861,6 +4889,54 @@ EINSTEIN.RICK:
 		BeaconPoster: artillerybarragebeacon
 		OneShot: true
 		AllowMultiple: true
+
+RICK.PORTAL:
+	Inherits: ^Building
+	RenderSprites:
+		Image: rickportal
+		Palette: tseffect
+	AmbientSound:
+		SoundFiles: quaketele1.ogg, quaketele2.ogg, quaketele3.ogg, quaketele4.ogg
+		Interval: 9000
+	Health:
+		HP: 1000
+	GrantRandomCondition:
+		Conditions: x,x,x,x,x,x,creeps
+	KillsSelf:
+		Delay: 100
+		DamageTypes: DefaultDeath
+	-WithMakeAnimation:
+	WithDeathAnimation:
+		DeathSequencePalette: tseffect
+		DeathTypes: DefaultDeath
+	DamageMultiplier:
+		Modifier: 0
+	Building:
+		Footprint: +
+	TransformOnCondition:
+		RequiresCondition: creeps
+		IntoActor: RICK.PORTAL2
+	-ActorLostNotification:
+	-ShakeOnDeath:
+	-SoundOnDamageTransition:
+	-UpdatesPlayerStatistics:
+	-Selectable:
+	-SelectionDecorations:
+	-Tooltip:
+	-FireWarheadsOnDeath:
+	Targetable:
+		TargetTypes: GroundActor, Structure, NoAutoTarget, NoAITarget
+
+
+RICK.PORTAL2:
+	Inherits: RICK.PORTAL
+	-GrantRandomCondition:
+	-TransformOnCondition:
+	KillsSelf:
+		Delay: 500
+	FireWarheads:
+		Weapons: DoomSpawnCubeNoSound
+		Interval: 150
 
 powerproxy.rickhand:
 	DropPodsPowerOW:
