@@ -571,7 +571,7 @@ AVDEFNODE:
 		Amount: -300
 	Power@active:
 		RequiresCondition: activated
-		Amount: -1000
+		Amount: -2000
 	Health:
 		HP: 300000
 	Armor:
@@ -586,16 +586,20 @@ AVDEFNODE:
 		Condition: charged
 		RevokeOnDisabled: true
 		Delay: 13500
+	Exit:
+		ProductionTypes: DefenseMatrix
 	SupportPowerChargeBar:
 		Color: FF0000
+	Production:
+		Produces: DefenseMatrix
 	ProduceActorPower:
 		Name: actor-avdefnode.name
 		RequiresCondition: !activated
-		PauseOnCondition: charged || disabled
+		PauseOnCondition: disabled
 		Description: actor-avdefnode.description
 		Icon: protossshields
-		Actors: c1
-		Type: NoType
+		Actors: avdefnode.activate
+		Type: DefenseMatrix
 		ChargeInterval: 13500
 		InsufficientPowerSpeechNotification: InsufficientPower
 		BeginChargeSpeechNotification: IronCurtainCharging
@@ -613,6 +617,8 @@ AVDEFNODE:
 		Condition: activated
 		ValidRelationships: Neutral, Enemy, Ally
 		Duration: 999
+	ExternalCondition@activated:
+		Condition: activated
 	WithIdleOverlay@charged:
 		Sequence: active
 		RequiresCondition: charged
@@ -643,6 +649,16 @@ AVDEFNODE:
 		SoundFiles: buzzy1.aud
 		RequiresCondition: start_transform
 		Interval: 30
+	Targetable@defnode:
+		TargetTypes: AvaliDefenseNode
+
+AVDEFNODE.Activate:
+	Inherits: 1TNK.MINE
+	-SpawnActorOnDeath:
+	KillsSelf:
+	FireWarheadsOnDeath:
+		Weapon: AvaliDefenseNodeActivation
+		EmptyWeapon: AvaliDefenseNodeActivation
 
 AVLPOST:
 	Inherits: ^Building
