@@ -113,17 +113,19 @@ Tick = function()
 			local i = 0
 			local crateCount = Utils.RandomInteger(MinExtraCrates, MaxExtraCrates)
 			while(i < crateCount) do
-				local pickCrate = Utils.RandomInteger(1, 404)
+				local pickCrate = Utils.RandomInteger(1, 612)
 				local chosenCrate;
 
-				if(pickCrate < 212) then
+				if(pickCrate < 301) then
 					chosenCrate = Powerproxy1
-				elseif(pickCrate > 212 and pickCrate < 351) then
+				elseif(pickCrate >= 301 and pickCrate < 500) then
 					chosenCrate = Powerproxy2
-				elseif(pickCrate > 351 and pickCrate < 400) then
+				elseif(pickCrate >= 501 and pickCrate < 600) then
 					chosenCrate = Powerproxy3
+				elseif(pickCrate >= 601 and pickCrate < 611) then
+					chosenCrate = Powerproxy4
 				else
-					chosenCrate = Powerproxy4 end
+					chosenCrate = Powerproxy5 end
 
 				local lz = Map.RandomCell()
 				chosenCrate.TargetParatroopers(Map.CenterOfCell(lz))
@@ -294,6 +296,7 @@ DoBaseScriptLoad = function()
 	Powerproxy2 = Actor.Create("powerproxy.cratedrop2", false, { Owner = Neutral })
 	Powerproxy3 = Actor.Create("powerproxy.cratedrop3", false, { Owner = Neutral })
 	Powerproxy4 = Actor.Create("powerproxy.cratedrop4", false, { Owner = Neutral })
+	Powerproxy5 = Actor.Create("powerproxy.cratedrop5", false, { Owner = Neutral })
 	ProxyCreepPara1 = Actor.Create("powerproxy.creepdrop1", false, { Owner = Creeps })
 	ProxyCreepPara2 = Actor.Create("powerproxy.creepdrop2", false, { Owner = Creeps })
 	ProxyCreepPara3 = Actor.Create("powerproxy.creepdrop3", false, { Owner = Creeps })
@@ -319,6 +322,14 @@ DoBaseScriptLoad = function()
 	elseif (Creeps.HasPrerequisites({"environment.morecrates4"})) then
 		MinExtraCrates = 20
 		MaxExtraCrates = 30
+		ExtraCrates = true
+	elseif (Creeps.HasPrerequisites({"environment.morecrates5"})) then
+		MinExtraCrates = 31
+		MaxExtraCrates = 45
+		ExtraCrates = true
+	elseif (Creeps.HasPrerequisites({"environment.morecrates6"})) then
+		MinExtraCrates = 50
+		MaxExtraCrates = 80
 		ExtraCrates = true
 	end
 

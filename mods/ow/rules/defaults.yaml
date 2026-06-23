@@ -16,32 +16,38 @@
 ^2x1BotBlockerChoose:
 	GrantRandomCondition@nobuildselect:
 		Conditions: blocktopleft, blocktopright, blockbotright, blockbotright
+	GrantConditionOnPrerequisite@noblocker:
+		Prerequisites: techlevel.nobotblocker
+		Condition: no_blockers
 	FreeActor@nobuildarea1:
-		RequiresCondition: botowner && blocktopleft
+		RequiresCondition: botowner && blocktopleft && !no_blockers
 		Actor: 2x1BotBlocker
 		SpawnOffset: -1,-1
 	FreeActor@nobuildarea2:
-		RequiresCondition: botowner && blocktopright
+		RequiresCondition: botowner && blocktopright && !no_blockers
 		Actor: 2x1BotBlocker
 		SpawnOffset: 0,-1
 	FreeActor@nobuildarea3:
-		RequiresCondition: botowner && blockbotleft
+		RequiresCondition: botowner && blockbotleft && !no_blockers
 		Actor: 2x1BotBlocker
 		SpawnOffset: -1,0
 	FreeActor@nobuildarea4:
-		RequiresCondition: botowner && blockbotright
+		RequiresCondition: botowner && blockbotright && !no_blockers
 		Actor: 2x1BotBlocker
 		SpawnOffset: 0,0
 
 ^3x3BotBlockerChoose:
 	GrantRandomCondition@nobuildselect:
 		Conditions: blockleft, blockright
+	GrantConditionOnPrerequisite@noblocker:
+		Prerequisites: techlevel.nobotblocker
+		Condition: no_blockers
 	FreeActor@nobuildarea1:
-		RequiresCondition: botowner && blockleft
+		RequiresCondition: botowner && blockleft && !no_blockers
 		Actor: 3x3BotBlocker
 		SpawnOffset: -1,0
 	FreeActor@nobuildarea2:
-		RequiresCondition: botowner && blockright
+		RequiresCondition: botowner && blockright && !no_blockers
 		Actor: 3x3BotBlocker
 		SpawnOffset: 0,0
 
@@ -1070,10 +1076,10 @@
 		Multiplier: 80
 	ProductionTimeMultiplier@missdiscount1:
 		Prerequisites: prodcost.missinf
-		Multiplier: 75
+		Multiplier: 90
 	ProductionCostMultiplier@missdiscount2:
 		Prerequisites: prodcost.missinf
-		Multiplier: 75
+		Multiplier: 80
 	GrantConditionOnPrerequisite@firespeed1:
 		Prerequisites: infantry.firespeed1
 		Condition: infantry.firespeed1
@@ -1255,7 +1261,7 @@
 		DeathType: ZombieDeath
 	-WithDeathAnimation:
 	WithDeathAnimation:
-		RequiresCondition: !die_fort1 && !die_fort2
+		RequiresCondition: !die_fort
 		DeathTypes:
 			DefaultDeath: 1
 			BulletDeath: 2
@@ -1301,6 +1307,9 @@
 		Conditions: die_with_rings1,die_fort1,die_fort1,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x
 	GrantRandomCondition@rings2:
 		Conditions: die_with_rings2,die_fort2,die_fort2,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x
+	GrantCondition@diefort:
+		RequiresCondition: die_fort1 && die_fort2
+		Condition: die_fort
 	FireWarheadsOnDeath@rings:
 		Weapon: RingExplosion
 		EmptyWeapon: RingExplosion
@@ -1313,7 +1322,7 @@
 	FireWarheadsOnDeath@fortnut:
 		Weapon: FortniteDeath
 		EmptyWeapon: FortniteDeath
-		RequiresCondition: die_fort1 && die_fort2
+		RequiresCondition: die_fort
 	ToggleConditionOnOrder@scatter:
 		Condition: scattering
 		OrderName: Scatter
@@ -1505,6 +1514,16 @@
 	Targetable@highHP:
 		TargetTypes: HighHPInfantry
 
+^ArmedCivilian:
+	DamageMultiplier@RANK-ELITE:
+		RequiresCondition: rank-elite
+		Modifier: 2
+	Armament:
+		RequiresCondition: !rank-elite
+	Armament@sniper:
+		RequiresCondition: rank-elite
+		Weapon: CommandoGauss
+
 ^PlayableCivInfantry:
 	Inherits: ^CivInfantry
 	UpdatesPlayerStatistics:
@@ -1688,10 +1707,10 @@
 	Inherits@shape: ^1x1Shape
 	ProductionTimeMultiplier@missdiscount1:
 		Prerequisites: prodcost.missstr
-		Multiplier: 75
+		Multiplier: 90
 	ProductionCostMultiplier@missdiscount2:
 		Prerequisites: prodcost.missstr
-		Multiplier: 75
+		Multiplier: 80
 	Tooltip:
 		Name: meta-basicbuilding-generic-name
 		GenericName: meta-basicbuilding-generic-name
@@ -2228,10 +2247,10 @@
 		Multiplier: 80
 	ProductionTimeMultiplier@missdiscount1:
 		Prerequisites: prodcost.missveh
-		Multiplier: 75
+		Multiplier: 90
 	ProductionCostMultiplier@missdiscount2:
 		Prerequisites: prodcost.missveh
-		Multiplier: 75
+		Multiplier: 80
 	GrantConditionOnPrerequisite@var1:
 		Prerequisites: upgrade.veharmor1
 		Condition: var1
@@ -2436,10 +2455,10 @@
 		Multiplier: 80
 	ProductionTimeMultiplier@missdiscount1:
 		Prerequisites: prodcost.missship
-		Multiplier: 75
+		Multiplier: 90
 	ProductionCostMultiplier@missdiscount2:
 		Prerequisites: prodcost.missship
-		Multiplier: 75
+		Multiplier: 80
 	GrantConditionOnPrerequisite@nar1:
 		Prerequisites: upgrade.navarmor1
 		Condition: nar1
@@ -2530,10 +2549,10 @@
 		Multiplier: 80
 	ProductionTimeMultiplier@missdiscount1:
 		Prerequisites: prodcost.missair
-		Multiplier: 75
+		Multiplier: 90
 	ProductionCostMultiplier@missdiscount2:
 		Prerequisites: prodcost.missair
-		Multiplier: 75
+		Multiplier: 80
 	GrantConditionOnPrerequisite@aar1:
 		Prerequisites: upgrade.airarmor1
 		Condition: aar1

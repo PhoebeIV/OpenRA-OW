@@ -2018,8 +2018,40 @@ CrateShrapnel:
 			None: 300
 		DamageTypes: Prone50Percent, TriggerProne, ExplosionDeath
 	Warhead@1actor: SpawnRandomActor
-		Range: 1
+		Range: 2
 		RandomActors: crate,crate,crate,crate.fuckyou,moneycrate2
+		Image: explosion
+		Sequence: strifeteleport
+
+BiggerCrateRewardExplosion:
+	Inherits: CrateRewardExplosion
+	Warhead@shrapnel: FireShrapnel
+		Delay: 5
+		Weapon: BiggerCrateShrapnel
+		Amount: 12
+	Warhead@shrapnel2: FireShrapnel
+		Delay: 5
+		Weapon: BigCrateShrapnel
+		Amount: 2
+	Warhead@explosion: FireCluster
+		Weapon: MinecraftNukeInstant
+		Footprint: X
+		Dimensions: 1,1
+
+BiggerCrateShrapnel:
+	Inherits: CrateShrapnel
+	Range: 8c0
+
+BigCrateShrapnel:
+	Inherits: CrateShrapnel
+	Range: 5c0
+	Projectile: Bullet
+		Image: bigcrate
+		Sequences: idle
+		Palette: player
+	Warhead@1actor: SpawnRandomActor
+		Range: 2
+		RandomActors: crate.big
 		Image: explosion
 		Sequence: strifeteleport
 
@@ -2088,7 +2120,7 @@ BridgeExplode:
 
 ManInGauzeExplosion:
 	Inherits: DemoTrapExplosion
-	ValidTargets: Ground, Water, GroundActor, WaterActor
+	ValidTargets: Ground, GroundActor
 	Projectile: InstantHit
 	Warhead@1Dam: SpreadDamage
 		Spread: 512
@@ -2114,6 +2146,7 @@ ManInGauzeShrapnel:
 	Inherits: ^ShrapnelBase
 	MinRange: 5c0
 	Range: 32c0
+	ValidTargets: Ground
 	InvalidTargets: GroundActor, WaterActor
 	Projectile: Bullet
 		Image: scrate

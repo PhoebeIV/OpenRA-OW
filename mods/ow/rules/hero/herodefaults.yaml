@@ -441,16 +441,22 @@
 		Factions: heroonly
 		Condition: heroonly_owner
 	GrantPeriodicConditionOnEvent@heroonly:
-		RequiresCondition: heroonly_owner
 		Condition: disable_selfheal
 		Triggers: Damage, Attack
 		StartsCharged: true
 		ActiveDuration: 250
 		CooldownDuration: 5
 	ChangesHealth@heroonly_owner:
-		RequiresCondition: !disable_selfheal
+		RequiresCondition: !disable_selfheal && (heroonly_owner || hero-level >= 9)
 		StartIfBelow: 100
 		PercentageStep: 5
+		Delay: 25
+		DamageCooldown: 250
+		DamageTypes: BypassShield
+	ChangesHealth@default:
+		RequiresCondition: !disable_selfheal
+		StartIfBelow: 100
+		PercentageStep: 1
 		Delay: 25
 		DamageCooldown: 250
 		DamageTypes: BypassShield

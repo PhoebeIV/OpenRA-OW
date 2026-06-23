@@ -28,13 +28,17 @@ actor-player =
    .lobbyprerequisitecheckbox-badcrates-description = Enable the bad crates.
    .lobbyprerequisitecheckbox-doctors-label = No Bad Doctors
    .lobbyprerequisitecheckbox-doctors-description = Disables bad doctors from spawning.
+   .lobbyprerequisitecheckbox-noblocker-label = No Bot Blockers
+   .lobbyprerequisitecheckbox-noblocker-description = Removes the buildable area blocker for bots to prevent locking themselves in.
    .lobbyprerequisitecheckbox-morecrates-dropdown = Crates
    .lobbyprerequisitecheckbox-morecrates-description = Change the amount of crates. Uses LUA script.
    .lobbyprerequisitecheckbox-morecrates-label = More Crates
    .lobbyprerequisitecheckbox-morecrates-label2 = Even More Crates
    .lobbyprerequisitecheckbox-morecrates-label3 = Maximum Crates
    .lobbyprerequisitecheckbox-morecrates-label4 = Normal Crates
-   .lobbyprerequisitecheckbox-morecrates-label5 = Maximum+ Crates
+   .lobbyprerequisitecheckbox-morecrates-label5 = Maximumer Crates
+   .lobbyprerequisitecheckbox-morecrates-label6 = Maximumest Crates
+   .lobbyprerequisitecheckbox-morecrates-label7 = Maximumesterer Crates
    .lobbyprerequisitecheckbox-upkeep-label = Upkeep
    .lobbyprerequisitecheckbox-upkeep-description = The higher your army value, the less money you earn.
       $40,000: -30% resource, -15% build speed
@@ -4229,6 +4233,7 @@ meta-crate2 =
    .level = Rank Crate
    .frenzy = Frenzy Crate
    .big = BIG CRATE
+   .bigger = BIGGER CRATE
 
 actor-concretea-name = Pavement 3x3
 actor-concreteb-name = Pavement 4x4
@@ -4913,10 +4918,10 @@ actor-tenbay-air-name = Technology Center
 actor-tenbay-husk-name = Technology Center
 
 actor-tmissile =
-   .description = Anti-Armor base defense.
+   .description = Anti-Air base defense.
     Can detect cloaked units.
-      Strong vs Vehicles
-      Weak vs Infantry, Aircraft
+      Strong vs Aircraft
+      Weak vs Ground units
    .name = Missile Turret
 
 actor-tmissile-mengsk-name = Fortified Missile Turret

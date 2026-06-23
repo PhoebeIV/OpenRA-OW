@@ -8,8 +8,8 @@ World:
 		WaterChance: 12
 		InitialSpawnDelay: 50
 		CheckboxDisplayOrder: 1
-		CrateActors: crate, moneycrate2, crate.fuckyou, crate.big
-		CrateActorShares: 212, 138, 49, 4
+		CrateActors: crate, moneycrate2, crate.fuckyou, crate.big, crate.bigger
+		CrateActorShares: 300, 200, 100, 10, 1
 
 # Inherited and changed from mods/ra to increase lifetime and allowed terrain types
 ^Crate:
@@ -238,6 +238,7 @@ CRATE:
 		SelectionShares: 1
 		Units: 1tnk.bitconnect
 		Sound: bitconnect.aud
+		Prerequisites: !environment.nomemes
 	GiveUnitCrateAction@civvies:
 		SelectionShares: 3
 		Units: 1tnk.cpanic,c1,c2,c3,c4,c5,c6,c7,c8,c9,c10,c1,c2,c3,c4,c5,c10
@@ -351,18 +352,24 @@ CRATE:
 		Prerequisites: !environment.nomemes
 	SupportPowerCrateAction@Chromoshift:
 		Proxy: powerproxy.Chromoshift
-		Sound: ironcur9.aud
+		Sound: chrono2.aud
 		Sequence: speed
 		SelectionShares: 2
 	SupportPowerCrateAction@Chronoshifty:
 		Proxy: powerproxy.Chronoshifty
-		Sound: ironcur9.aud
+		Sound: chrono2.aud
 		SelectionShares: 3
 	SupportPowerCrateAction@starfox:
 		Proxy: powerproxy.starfox
 		Sound: starfoxpickup.aud
 		Sequence: speed
 		SelectionShares: 2
+	SupportPowerCrateAction@ironcurtain:
+		Proxy: powerproxy.ironcurtain
+		Sequence: invuln
+		Sound: ironcur9.aud
+		Condition: invulnerability
+		SelectionShares: 3
 	Crate:
 		Duration: 6000
 
@@ -665,14 +672,12 @@ CRATE.FuckYou:
 		Proxy: powerproxy.morshubombs
 		Weapon: MorshuBombs
 		TimeDelay: 6000
-		SelectionShares: 2
+		SelectionShares: 1
 		Prerequisites: !environment.nomemes
 	GiveUnitCrateAction@bitconnect:
 		SelectionShares: 4
 		Units: 1tnk.bitconnect
 		Sound: bitconnect.aud
-		Sequence: idle
-		Image: bitconnect
 		Prerequisites: !environment.nomemes
 	GiveUnitCrateAction@gamecube:
 		SelectionShares: 2
@@ -848,6 +853,15 @@ CRATE.Big:
 		Image: bigcrate
 	WithSpriteBody:
 
+CRATE.Bigger:
+	Inherits: CRATE.Big
+	SpawnActorOnDeath@2:
+		Actor: CRATE.BiggerLanded
+	Parachutable:
+		FallRate: 24
+	RenderSprites:
+		Image: bigcrate2
+
 CRATE.BigLanded:
 	Inherits: XBAR
 	-Buildable:
@@ -879,6 +893,24 @@ CRATE.BigLanded:
 		WaterSequence: water
 	RenderSprites:
 		Image: bigcrate
+
+CRATE.BiggerLanded:
+	Inherits: CRATE.BigLanded
+	Building:
+		Dimensions: 3,3
+		Footprint: _x_ xxx _x_
+	Tooltip:
+		Name: meta-crate2.bigger
+	Selectable:
+		Bounds: 3072,3072
+	RenderSprites:
+		Image: bigcrate2
+	FireWarheadsOnDeath:
+		Type: CenterPosition
+		Weapon: BiggerCrateRewardExplosion
+		EmptyWeapon: BiggerCrateRewardExplosion
+		DamageSource: Killer
+		DeathTypes: Suicide, DefaultDeath, ExplosionDeath, ElectricityDeath, FireDeath, TiberiumDeath, BulletDeath
 
 CRATE.LEVEL:
 	Inherits: MONEYCRATE
@@ -2892,6 +2924,9 @@ THXEARTHQUAKE:
 		-RequiresCondition:
 		SoundFiles: thx.ogg
 		Interval: 9000
+	AmbientSound@2:
+		SoundFiles: thx.ogg
+		Interval: 9000
 	-KillsSelf:
 	Tooltip:
 		Name: THX
@@ -3155,6 +3190,13 @@ powerproxy.cratedrop4:
 	Inherits: powerproxy.cratedrop1
 	ParatroopersPower:
 		DropItems: crate.big
+		UnitType: C17
+
+powerproxy.cratedrop5:
+	Inherits: powerproxy.cratedrop1
+	ParatroopersPower:
+		DropItems: crate.bigger
+		UnitType: C17
 
 powerproxy.earthquake:
 	SpawnActorPower:
@@ -4817,6 +4859,9 @@ EINSTEIN.RICK:
 		Name: Rick Sanchez
 	EligibleForRandomActorCrate:
 		Type: epic
+	Crushable:
+		RequiresCondition: !portal_mode
+		WarnProbability: 100
 	Voiced:
 		VoiceSet: RickSanchezVoice
 	GrantPeriodicCondition@teleport:
@@ -4871,6 +4916,14 @@ EINSTEIN.RICK:
 		RequiresCondition: !portal_mode
 		TargetTypes: GroundActor, Infantry, NoAutoTarget, NoAITarget
 	-GrantConditionOnTerrain@tiberium:
+	AmbientSound@spawned:
+		SoundFiles: ricksanchez31.ogg,ricksanchez28.ogg,ricksanchez22.ogg
+		Interval: 13551
+		Delay: 25
+	AmbientSound:
+		SoundFiles: ricksanchez01.ogg,ricksanchez02.ogg,ricksanchez03.ogg,ricksanchez04.ogg,ricksanchez05.ogg,ricksanchez06.ogg,ricksanchez07.ogg,ricksanchez08.ogg,ricksanchez09.ogg,ricksanchez10.ogg,ricksanchez11.ogg,ricksanchez12.ogg,ricksanchez13.ogg,ricksanchez14.ogg,ricksanchez15.ogg,ricksanchez16.ogg,ricksanchez17.ogg,ricksanchez18.ogg,ricksanchez19.ogg,ricksanchez20.ogg,ricksanchez21.ogg,ricksanchez22.ogg,ricksanchez23.ogg,ricksanchez24.ogg,ricksanchez25.ogg,ricksanchez26.ogg,ricksanchez27.ogg,ricksanchez28.ogg,ricksanchez29.ogg,ricksanchez30.ogg,ricksanchez31.ogg,ricksanchez32.ogg,ricksanchez33.ogg,ricksanchez34.ogg
+		Interval: 1150, 1750
+		Delay: 750
 	DropPodsPowerOW:
 		Icon: rickhand
 		Name: Rick's Boredom
@@ -5003,3 +5056,32 @@ RICKHAND:
 		Moves: true
 		Velocity: 40
 		MaximumSpinSpeed: 0
+
+powerproxy.ironcurtain:
+	GrantExternalConditionPowerOW@IRONCURTAIN:
+		OrderName: CrateIronCurtain
+		ChargeInterval: 3750
+		ValidRelationships: Ally, Enemy, Neutral
+		PauseOnCondition: disabled
+		Icon: invuln
+		Name: Crate Iron Curtain
+		Description: actor-iron.grantexternalconditionpower-ironcurtain-description
+		Duration: 500
+		SelectTargetSpeechNotification: SelectTarget
+		InsufficientPowerSpeechNotification: InsufficientPower
+		BeginChargeSpeechNotification: IronCurtainCharging
+		EndChargeSpeechNotification: IronCurtainReady
+		SelectTargetTextNotification: notification-select-target
+		InsufficientPowerTextNotification: notification-insufficient-power
+		BeginChargeTextNotification: notification-iron-curtain-charging
+		EndChargeTextNotification: notification-iron-curtain-ready
+		DisplayRadarPing: True
+		Condition: invulnerability
+		NegativeCondition: invuln_kill
+		OnFireSound: ironcur9.aud
+		SupportPowerPaletteOrder: 10
+		Dimensions: 3, 3
+		Footprint: _x_ xxx _x_
+		BlockedCursor: move-blocked
+		OneShot: true
+		AllowMultiple: true
