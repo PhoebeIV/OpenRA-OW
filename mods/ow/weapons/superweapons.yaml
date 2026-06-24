@@ -1383,6 +1383,17 @@ DoomSpawnCube2:
 	FirstBurstTargetOffset: -3072,4096,0
 	FollowingBurstTargetOffset: 0,-4096,0
 
+DoomSpawnCube3:
+	Inherits: DoomSpawnCube
+	FirstBurstTargetOffset: 0,0,0
+	FollowingBurstTargetOffset: 0,0,0
+	Warhead@actor: SpawnRandomActor
+		RandomActors: helld1, helld2, helld4, helld4, helld4, helld5, helld6, helld6.s, helld6, helld6.s, helld7, helld9
+		Delay: 3
+		ValidTargets: Ground, GroundActor
+		Range: 3
+		Sequence: bfgzap2
+
 DoomSpawnCubeNoSound:
 	Inherits: DoomSpawnCube
 	Report: baud.aud
@@ -2588,6 +2599,21 @@ DeleteNuke:
 		RandomClusterCount: 48
 		Dimensions: 12,12
 		Footprint: xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxxxx
+
+DebugChangeToCreeps:
+	ValidTargets: Ground, Water, GroundActor, WaterActor, Underwater, AirborneActor, Trees
+	Warhead@owner: ChangeOwnerOW
+		OwnerType: InternalName
+		InternalName: Creeps
+		Range: 10c0
+		ValidTargets: GroundActor, WaterActor, AirborneActor
+
+DebugChangeToNeutral:
+	ValidTargets: Ground, Water, GroundActor, WaterActor, Underwater, AirborneActor, Trees
+	Warhead@owner: ChangeOwnerOW
+		OwnerType: InternalName
+		Range: 10c0
+		ValidTargets: GroundActor, WaterActor, AirborneActor
 
 DebugTib:
 	Inherits: DemoTrapExplosion2
@@ -5217,3 +5243,94 @@ StasisFieldWeapon:
 	-Warhead@emppwrplant: GrantExternalCondition
 	-Warhead@emppwrplant2: GrantExternalCondition
 	-Warhead@empshield: GrantExternalCondition
+
+ImpStrikeReinforcements:
+	Inherits: StrifeTeleportFake
+	ReloadDelay: 375
+	Range: 10c0
+	ValidTargets: Ground, Water, GroundActor, WaterActor, Underwater, AirborneActor, Air
+	Warhead@1a: CreateEffect
+		ImpactSounds: dstelept.aud
+	Warhead@1b: SpawnActor
+		Actors: helld4,helld4,helld4,helld4,helld4
+		Sequence: bfgzap2
+	Warhead@wander1: GrantExternalCondition
+		Delay: 11
+		Condition: wander
+		ValidRelationships: Ally
+		AffectsParent: true
+		Duration: 25
+		Range: 2c512
+		ValidTargets: Infantry
+	Warhead@2a: CreateEffect
+		ImpactSounds: dstelept.aud
+	Warhead@2b: SpawnActor
+		Actors: helld4,helld4,helld4,helld4,helld4
+		Sequence: bfgzap2
+	Warhead@wander2: GrantExternalCondition
+		Delay: 51
+		Condition: wander
+		ValidRelationships: Ally
+		AffectsParent: true
+		Duration: 25
+		Range: 2c512
+		ValidTargets: Infantry
+	Warhead@3a: CreateEffect
+		ImpactSounds: dstelept.aud
+	Warhead@3b: SpawnActor
+		Actors: helld4,helld4,helld4,helld4,helld4
+		Sequence: bfgzap2
+	Warhead@wander3: GrantExternalCondition
+		Delay: 91
+		Condition: wander
+		ValidRelationships: Ally
+		AffectsParent: true
+		Duration: 25
+		Range: 2c512
+		ValidTargets: Infantry
+	Warhead@4a: CreateEffect
+		ImpactSounds: dstelept.aud
+	Warhead@4b: SpawnActor
+		Actors: helld4,helld4,helld4,helld4,helld4
+		Sequence: bfgzap2
+	Warhead@wander4: GrantExternalCondition
+		Delay: 131
+		Condition: wander
+		ValidRelationships: Ally
+		AffectsParent: true
+		Duration: 25
+		Range: 2c512
+		ValidTargets: Infantry
+
+DemonStrikeReinforcements:
+	Report: dsbossit.ogg
+	ReloadDelay: 375
+	Range: 10c0
+	ValidTargets: Ground, Water, GroundActor, WaterActor, Underwater, AirborneActor, Air
+	Projectile: Bullet
+		Speed: 2c0
+		Image: acolytestrikeactordumb
+		Blockable: false
+	Warhead@1a: CreateEffect
+		Delay: 130
+		ValidTargets: Ground, GroundActor, WaterActor
+		ImpactActors: false
+		ImpactSounds: dsbospit.aud
+	Warhead@1b: FireCluster
+		Delay: 130
+		Footprint: _xxx_ _xxx_ xxxxx _xxx_ _xxx_
+		Dimensions: 5,5
+		Weapon: DoomSpawnCube3
+		RandomClusterCount: 5
+	Warhead@2b: FireCluster
+		Delay: 280
+		Footprint: _xxx_ _xxx_ xxxxx _xxx_ _xxx_
+		Dimensions: 5,5
+		Weapon: DoomSpawnCube3
+		RandomClusterCount: 5
+	Warhead@3b: FireCluster
+		Delay: 430
+		Footprint: _xxx_ _xxx_ xxxxx _xxx_ _xxx_
+		Dimensions: 5,5
+		Weapon: DoomSpawnCube3
+		RandomClusterCount: 5

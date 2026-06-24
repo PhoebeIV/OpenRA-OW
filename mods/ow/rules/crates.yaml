@@ -261,23 +261,23 @@ CRATE:
 		Proxy: powerproxy.roadroller
 		Sound: roadrollerpickup.wav
 		Sequence: armor
-		SelectionShares: 2
+		SelectionShares: 1
 		Prerequisites: !environment.nomemes
 	SupportPowerCrateAction@lightning:
 		Proxy: powerproxy.lightning
 		Sound: thunder-ambient.aud
 		Sequence: speed
-		SelectionShares: 2
+		SelectionShares: 1
 	SupportPowerCrateAction@ioncannon:
 		Proxy: powerproxy.ioncannon
 		Sound: ionchrg1.aud
 		Sequence: speed
-		SelectionShares: 2
+		SelectionShares: 1
 	SupportPowerCrateAction@iondrop:
 		Proxy: powerproxy.iondrop
 		Sound: ionchrg1.aud
 		Sequence: speed
-		SelectionShares: 2
+		SelectionShares: 1
 	SupportPowerCrateAction@emp:
 		Proxy: powerproxy.emp
 		Sequence: speed
@@ -287,21 +287,26 @@ CRATE:
 		Sound: DSRADIO.wav
 		Sequence: fpower
 		SelectionShares: 4
+	SupportPowerCrateAction@impstrike:
+		Proxy: powerproxy.impstrike
+		Sound: dsbgact.aud
+		Sequence: fpower
+		SelectionShares: 4
 	SupportPowerCrateAction@metalnuke:
 		Proxy: powerproxy.metalnuke
 		Sound: DSRADIO.wav
 		Sequence: armor
-		SelectionShares: 2
+		SelectionShares: 1
 	SupportPowerCrateAction@smite:
 		Proxy: powerproxy.smite
 		Sound: thunder-ambient.aud
 		Sequence: speed
-		SelectionShares: 2
+		SelectionShares: 1
 	SupportPowerCrateAction@earthquake:
 		Proxy: powerproxy.earthquake
 		Sound: johnaeiou.aud
 		Sequence: timequake
-		SelectionShares: 3
+		SelectionShares: 2
 		Prerequisites: !environment.nomemes
 	SupportPowerCrateAction@emergencyairdrop:
 		Proxy: powerproxy.emergencyairdrop
@@ -312,14 +317,14 @@ CRATE:
 		Proxy: powerproxy.fakenuke
 		Sound: aprep1.aud
 		Sequence: fpower
-		SelectionShares: 3
+		SelectionShares: 2
 	GiveUnitCrateAction@korone:
 		SelectionShares: 2
 		Units: korone
 		Sound: koronetaunt4.wav
 		Prerequisites: !environment.nomemes
 	GiveUnitCrateAction@gamecube:
-		SelectionShares: 2
+		SelectionShares: 1
 		Units: gamecube
 		Sound: gamecube.wav
 		Prerequisites: !gamecube.bugged, !environment.nomemes
@@ -328,7 +333,7 @@ CRATE:
 		Units: 1tnk.firesale
 		Sequence: dollar
 	GiveUnitCrateAction@glasalvage:
-		SelectionShares: 6
+		SelectionShares: 5
 		Units: crate.gla, crate.gla, crate.gla, crate.gla, crate.gla, crate.gla
 		Prerequisites: structures.gla
 	SupportPowerCrateAction@holyhandgrenade:
@@ -5164,3 +5169,26 @@ aaaaa:
 		WanderMoveRadius: 10
 		MinMoveDelay: 5
 		MaxMoveDelay: 100
+
+powerproxy.impstrike:
+	AirstrikePower:
+		OrderName: impstrike
+		PauseOnCondition: disabled
+		IconImage: helld4
+		Icon: icon
+		Cursor: chrono-target
+		ChargeInterval: 4500
+		Name: Imp Portal
+		Description: A sudden swarm of Imps spawn in targeted area.
+		SelectTargetSpeechNotification: SelectTarget
+		InsufficientPowerSpeechNotification: InsufficientPower
+		DisplayRadarPing: True
+		CameraActor: camera
+		SupportPowerPaletteOrder: 1
+		WeaponDelay: 0
+		CameraRemoveDelay: 450
+		DisplayTimerRelationships: Ally, Neutral, Enemy
+		AllowMultiple: true
+		OneShot: true
+		IncomingSound: dstelept.aud
+		UnitType: u2.impstrike
