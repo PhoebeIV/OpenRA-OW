@@ -370,6 +370,12 @@ CRATE:
 		Sound: ironcur9.aud
 		Condition: invulnerability
 		SelectionShares: 3
+	GiveUnitCrateAction@aaaaa:
+		SelectionShares: 2
+		TimeDelay: 6000
+		Units: aaaaa,aaaaa,aaaaa,aaaaa,aaaaa,aaaaa,aaaaa,aaaaa,aaaaa,aaaaa,aaaaa,aaaaa,aaaaa,aaaaa,aaaaa
+		Sound: aaaaasound.wav
+		Prerequisites: !environment.nomemes
 	Crate:
 		Duration: 6000
 
@@ -746,6 +752,13 @@ CRATE.FuckYou:
 		Units: 1tnk.rick
 		Owner: Neutral
 		Sequence: timequake
+		Prerequisites: !environment.nomemes
+	GiveUnitCrateAction@aaaaa:
+		SelectionShares: 2
+		TimeDelay: 6000
+		Units: aaaaa,aaaaa,aaaaa,aaaaa,aaaaa,aaaaa,aaaaa,aaaaa,aaaaa,aaaaa,aaaaa,aaaaa,aaaaa,aaaaa,aaaaa
+		Sound: aaaaasound.wav
+		Owner: Creeps
 		Prerequisites: !environment.nomemes
 	Crate:
 		Duration: 6000
@@ -5087,3 +5100,67 @@ powerproxy.ironcurtain:
 		BlockedCursor: move-blocked
 		OneShot: true
 		AllowMultiple: true
+
+aaaaa:
+	Inherits: ^NewStrifeGuy
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Buildable:
+		Queue: Infantry
+		BuildPaletteOrder: 0
+		Prerequisites: ~disabled
+	Valued:
+		Cost: 140
+	Tooltip:
+		Name: actor-aaaaa.name
+	Mobile:
+		Speed: 128
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 15000
+	AttackFrontal:
+		FacingTolerance: 512
+	Armament@PRIMARY:
+		Weapon: TerroristTargeting
+	AutoTarget:
+		InitialStance: AttackAnything
+		ScanRadius: 12
+	WithInfantryBody:
+		StandSequences: stand
+		DefaultAttackSequence: stand
+	FireWarheadsOnDeath:
+		Weapon: TerroristBomb
+		EmptyWeapon: TerroristBomb
+		DeathTypes: SmallExplosionDeath, ExplosionDeath, FireDeath, TiberiumDeath, ElectricityDeath, Suicide
+	KillsSelf:
+		RequiresCondition: triggered
+		DamageTypes: Suicide
+	WithDeathAnimation:
+		DeathTypes:
+			Suicide: 4
+	DeathSounds@SUICIDE:
+		DeathTypes: Suicide
+	TakeCover:
+		DamageModifiers:
+			Prone50Percent: 70
+		Duration: 100
+		SpeedModifier: 140
+		ProneSequencePrefix: panic-
+	GrantConditionOnAttack:
+		Condition: triggered
+	RenderSprites:
+		Image: aaaaa
+	DamageMultiplier@iar1:
+		Modifier: 75
+	DamageMultiplier@iar2:
+		Modifier: 60
+	DamageMultiplier@iar3:
+		Modifier: 45
+	AmbientSound@talky:
+		SoundFiles: aaaaasound.wav
+		Delay: 0
+		Interval: 18
+	AttackWander:
+		WanderMoveRadius: 10
+		MinMoveDelay: 5
+		MaxMoveDelay: 100

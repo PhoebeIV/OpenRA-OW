@@ -1290,6 +1290,7 @@ actor-shoopdawhoop-cr-name = SHOOP DA WHOOP
 actor-powerproxy-holyhandgrenade-droppodspower-holyhandgrenade-select-target-text-notification = Select target.
 actor-holyhandgrenade-name = Holy Hand Grenade
 actor-starfoxarwingfox.name = Starfox Arwing
+actor-aaaaa.name = Beheaded Kamikaze
 
 actor-proxynuke-description = Launches a dud atomic bomb
     at the target location to 
