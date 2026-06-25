@@ -1366,7 +1366,7 @@ DoomSpawnCube:
 	Warhead@actor: SpawnRandomActor
 		RandomActors: helld1, helld2, helld4, helld4, helld4, helld4, helld4, helld5, helld6, helld6.s, helld6, helld6.s, helld6, helld6.s, helld7, helld9, zombie,zombie,zombie
 		Delay: 3
-		ValidTargets: Ground, GroundActor
+		ValidTargets: Ground, GroundActor, Water, WaterActor
 		Range: 2
 		Image: explosion
 		Sequence: small_napalm
@@ -1383,18 +1383,7 @@ DoomSpawnCube2:
 	FirstBurstTargetOffset: -3072,4096,0
 	FollowingBurstTargetOffset: 0,-4096,0
 
-DoomSpawnCube3:
-	Inherits: DoomSpawnCube
-	FirstBurstTargetOffset: 0,0,0
-	FollowingBurstTargetOffset: 0,0,0
-	Warhead@actor: SpawnRandomActor
-		RandomActors: helld1, helld2, helld4, helld4, helld4, helld5, helld6, helld6.s, helld6, helld6.s, helld7, helld9
-		Delay: 3
-		ValidTargets: Ground, GroundActor
-		Range: 3
-		Sequence: bfgzap2
-
-DoomSpawnCubeNoSound:
+DoomSpawnCubeRick:
 	Inherits: DoomSpawnCube
 	Report: baud.aud
 	-Warhead@1Dam:
@@ -5311,26 +5300,95 @@ DemonStrikeReinforcements:
 		Speed: 2c0
 		Image: acolytestrikeactordumb
 		Blockable: false
+	Warhead@0a: FireCluster
+		Delay: 1
+		Footprint: X
+		Dimensions: 1,1
+		Weapon: DemoTrapExplosion2
+	Warhead@0b: CreateEffect
+		ImpactActors: false
+		Image: hellgatepad
+		Explosions: 1,2,3
 	Warhead@1a: CreateEffect
 		Delay: 130
-		ValidTargets: Ground, GroundActor, WaterActor
 		ImpactActors: false
-		ImpactSounds: dsbospit.aud
+		Image: hellgatepad
+		Explosions: 1,2,3
 	Warhead@1b: FireCluster
 		Delay: 130
-		Footprint: _xxx_ _xxx_ xxxxx _xxx_ _xxx_
+		Footprint: __X__ _____ X_X_X _____ __X__
 		Dimensions: 5,5
 		Weapon: DoomSpawnCube3
-		RandomClusterCount: 5
+		RandomClusterCount: 0
+	Warhead@2a: CreateEffect
+		Delay: 280
+		ImpactActors: false
+		Image: hellgatepad
+		Explosions: 1,2,3
 	Warhead@2b: FireCluster
 		Delay: 280
-		Footprint: _xxx_ _xxx_ xxxxx _xxx_ _xxx_
+		Footprint: X___X _____ __X__ _____ X___X
 		Dimensions: 5,5
 		Weapon: DoomSpawnCube3
-		RandomClusterCount: 5
+		RandomClusterCount: 0
+	Warhead@3a: CreateEffect
+		Delay: 430
+		ImpactActors: false
+		Image: hellgatepad
+		Explosions: 1,2,3
 	Warhead@3b: FireCluster
 		Delay: 430
-		Footprint: _xxx_ _xxx_ xxxxx _xxx_ _xxx_
+		Footprint: _____ _X_X_ __X__ _X_X_ _____
 		Dimensions: 5,5
 		Weapon: DoomSpawnCube3
-		RandomClusterCount: 5
+		RandomClusterCount: 0
+
+DemonStrikeReinforcementsJohn:
+	Inherits: DemonStrikeReinforcements
+	Warhead@0b: CreateEffect
+		Image: johnromero
+		Explosions: 1
+	Warhead@1a: CreateEffect
+		Image: johnromero
+		Explosions: 2
+	Warhead@2a: CreateEffect
+		Image: johnromero
+		Explosions: 2
+	Warhead@3a: CreateEffect
+		Image: johnromero
+		Explosions: 2
+	Warhead@4b: SpawnActor
+		Actors: johnromero.bombs
+		Delay: 580
+		ValidTargets: Ground, GroundActor
+		Range: 1
+
+DoomSpawnCube3:
+	Inherits: DoomSpawnCube
+	FirstBurstTargetOffset: 0,0,0
+	FollowingBurstTargetOffset: 0,0,0
+	Warhead@actor: SpawnRandomActor
+		RandomActors: helld1, helld2, helld4, helld4, helld4, helld5, helld6, helld6.s, helld6, helld6.s, helld7, helld9
+		Range: 3
+		Sequence: bfgzap2
+	Warhead@1Dam: SpreadDamage
+		Damage: 15000
+		ValidRelationships: Enemy, Neutral
+
+DoomSpawnCubeJohn1:
+	Projectile: InstantHit
+	Warhead@cluster: FireCluster
+		ValidTargets: Ground, GroundActor
+		Footprint: xxxxx x___x x___x x___x xxxxx
+		Dimensions: 5,5
+		RandomClusterCount: 2
+		Weapon: DoomSpawnCubeJohn2
+
+DoomSpawnCubeJohn2:
+	Inherits: DoomSpawnCube3
+	Projectile: Missile
+		Inaccuracy: 16c0
+		InaccuracyType: PerCellIncrement
+		RangeLimit: 90c0
+	Warhead@actor: SpawnRandomActor
+		RandomActors: helld3, helld1, helld2, helld4, helld4, helld4, helld5, helld6, helld6.s, helld6, helld6.s, helld7, helld9, helld1, helld2, helld4, helld4, helld4, helld5, helld6, helld6.s, helld6, helld6.s, helld7, helld9, dm1.zombie, dm2.zombie, dm3.zombie, dm4.zombie, dm6.zombie, dm7.zombie, dm7.zombie, dm7.zombie, dm1.zombie, dm2.zombie, dm3.zombie, dm4.zombie, dm6.zombie, dm7.zombie, dm7.zombie, dm7.zombie

@@ -170,17 +170,6 @@ Tick = function()
 		end
 	end
 
-	if (Neutral.HasPrerequisites({"environment.spawnrick"})) then
-		while (RickSanchez < 1) do
-			RickCell = Map.RandomCell()
-			if(Map.TerrainType(RickCell) == "Clear" or Map.TerrainType(RickCell) == "Road") then
-				local rickSpawn = Reinforcements.Reinforce(Neutral, {"einstein.rick"}, {RickCell}, 1)
-				RickSanchez = 1;
-				Trigger.OnAllKilled(rickSpawn, function() RickSanchez = 0 print("Rick killed") end)
-			end
-		end
-	end
-
 	if (Neutral.HasPrerequisites({"environment.rick"})) then
 		RickTicks = RickTicks+1
 		if(RickTicks >= 13500) then

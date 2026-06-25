@@ -289,8 +289,9 @@ CRATE:
 		SelectionShares: 4
 	SupportPowerCrateAction@impstrike:
 		Proxy: powerproxy.impstrike
-		Sound: dsbgact.aud
-		Sequence: fpower
+		Sound: dstelept.aud
+		Image: hellgatepad
+		Sequence: 4
 		SelectionShares: 4
 	SupportPowerCrateAction@metalnuke:
 		Proxy: powerproxy.metalnuke
@@ -734,14 +735,25 @@ CRATE.FuckYou:
 		Units: rmbo.invis
 		Owner: Creeps
 	GiveUnitCrateAction@ionstorm:
-		SelectionShares: 2
+		SelectionShares: 1
 		Units: 1tnk.ionstorm
 		Owner: Neutral
 		Sequence: timequake
-	ExplodeCrateAction@maningauze:
+	SpawnRandomUnitCrateAction@maningauze:
 		SelectionShares: 3
-		Weapon: ManInGauzeExplosion
+		Units: 1tnk.maningauze
+		IgnoreLocomotor: true
+		Owner: Creeps
 		Prerequisites: !environment.nomemes
+	SpawnRandomUnitCrateAction@johnromero:
+		SelectionShares: 3
+		Units: 1tnk.johnromero
+		IgnoreLocomotor: true
+		Owner: Creeps
+		Sound: dstelept.aud
+		Image: hellgatepad
+		Sequence: 4
+		Prerequisites: techcenter
 	GiveUnitCrateAction@shoopdawhoop:
 		SelectionShares: 3
 		Units: 1tnk.shoopdawhoop
@@ -751,13 +763,14 @@ CRATE.FuckYou:
 	GrantConditionOnPrerequisite@rickactive:
 		Prerequisites: environment.rick
 		Condition: no_rick
-	GiveUnitCrateAction@ricksanchez:
+	SpawnRandomUnitCrateAction@ricksanchez:
 		RequiresCondition: !no_rick
 		SelectionShares: 5 # change to 2 later
-		Units: 1tnk.rick
+		Units: einstein.rick
 		Owner: Neutral
 		Sequence: timequake
-		Prerequisites: !environment.nomemes
+		Prerequisites: !environment.nomemes, !environment.rick
+		Sound: ricksanchez28.ogg
 	GiveUnitCrateAction@aaaaa:
 		SelectionShares: 2
 		TimeDelay: 6000
@@ -1132,9 +1145,29 @@ GRAVE:
 		Condition: wander
 		Range: 2c0
 
+^SpeedRandomizer:
+	GrantRandomCondition@speed:
+		Conditions: rspeed1,rspeed2,rspeed3,rspeed4,rspeed5,rspeed6
+	SpeedMultiplier@1:
+		RequiresCondition: rspeed1
+		Modifier: 90
+	SpeedMultiplier@2:
+		RequiresCondition: rspeed2
+		Modifier: 95
+	SpeedMultiplier@3:
+		RequiresCondition: rspeed3
+		Modifier: 105
+	SpeedMultiplier@4:
+		RequiresCondition: rspeed4
+		Modifier: 110
+	SpeedMultiplier@5:
+		RequiresCondition: rspeed5
+		Modifier: 115
+
 Zombie:
 	Inherits: ^Soldier
 	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Inherits@Zombie: ^SpeedRandomizer
 	Valued:
 		Cost: 100
 	Tooltip:
@@ -1151,23 +1184,6 @@ Zombie:
 		HP: 36000
 	Mobile:
 		Speed: 42
-	GrantRandomCondition@speed:
-		Conditions: 1,2,3,4,5,6
-	SpeedMultiplier@1:
-		RequiresCondition: 1
-		Modifier: 90
-	SpeedMultiplier@2:
-		RequiresCondition: 2
-		Modifier: 95
-	SpeedMultiplier@3:
-		RequiresCondition: 3
-		Modifier: 105
-	SpeedMultiplier@4:
-		RequiresCondition: 4
-		Modifier: 110
-	SpeedMultiplier@5:
-		RequiresCondition: 5
-		Modifier: 115
 	AutoTarget:
 		InitialStance: AttackAnything
 		ScanRadius: 256
@@ -1185,7 +1201,7 @@ Zombie:
 	AmbientSound:
 		SoundFiles: dsposit1.aud,dsposit2.aud,dsposit3.aud,dsposact.aud
 		Interval: 400, 1200
-		Delay: 400, 1200
+		Delay: 5, 1200
 	-SpawnActorOnDeath@zombie:
 
 DukeNukem:
@@ -1984,7 +2000,6 @@ roadroller.leave:
 
 OBLID.CR:
 	Inherits: OBLID
-	Inherits@AUTOTARGET: ^AutoTargetAll
 	-Buildable:
 	Valued:
 		Cost: 2000
@@ -1998,6 +2013,8 @@ OBLID.CR:
 		Range: 12c0
 		RequiresCondition: !disabled
 	ProvidesPrerequisite@buildingname:
+	AutoTarget:
+		InitialStance: AttackAnything
 	RevealsShroud:
 		MinRange: 6c0
 		Range: 15c0
@@ -4028,6 +4045,8 @@ IONSTORM:
 
 1TNK.MANINGAUZE:
 	Inherits: 1TNK.MINE
+	Mobile:
+		Locomotor: hover
 	SpawnActorOnDeath:
 		Actor: maningauze
 		OwnerType: InternalName
@@ -4985,8 +5004,16 @@ RICK.PORTAL:
 	GrantRandomCondition:
 		Conditions: x,x,x,x,x,x,creeps
 	KillsSelf:
+		RequiresCondition: x
 		Delay: 100
 		DamageTypes: DefaultDeath
+	KillsSelf@creeps:
+		RequiresCondition: creeps
+		Delay: 500
+	FireWarheads:
+		RequiresCondition: creeps
+		Weapons: DoomSpawnCubeRick
+		Interval: 150
 	-WithMakeAnimation:
 	WithDeathAnimation:
 		DeathSequencePalette: tseffect
@@ -4995,9 +5022,6 @@ RICK.PORTAL:
 		Modifier: 0
 	Building:
 		Footprint: +
-	TransformOnCondition:
-		RequiresCondition: creeps
-		IntoActor: RICK.PORTAL2
 	-ActorLostNotification:
 	-ShakeOnDeath:
 	-SoundOnDamageTransition:
@@ -5008,17 +5032,6 @@ RICK.PORTAL:
 	-FireWarheadsOnDeath:
 	Targetable:
 		TargetTypes: GroundActor, Structure, NoAutoTarget, NoAITarget
-
-
-RICK.PORTAL2:
-	Inherits: RICK.PORTAL
-	-GrantRandomCondition:
-	-TransformOnCondition:
-	KillsSelf:
-		Delay: 500
-	FireWarheads:
-		Weapons: DoomSpawnCubeNoSound
-		Interval: 150
 
 powerproxy.rickhand:
 	DropPodsPowerOW:
@@ -5192,3 +5205,102 @@ powerproxy.impstrike:
 		OneShot: true
 		IncomingSound: dstelept.aud
 		UnitType: u2.impstrike
+
+1TNK.JOHNROMERO:
+	Inherits: 1TNK.MINE
+	Mobile:
+		Locomotor: hover
+	SpawnActorOnDeath:
+		Actor: johnromero
+		InternalOwner: Creeps
+	-FireWarheadsOnDeath:
+
+JOHNROMERO:
+	Inherits: OBLID
+	Buildable:
+		Prerequisites: ~disabled
+		BuildPaletteOrder: 9999
+	-WithChargeSpriteBody:
+	-WithDeathAnimation:
+	-Selectable:
+	Selectable:
+	Armament:
+		RequiresCondition: never
+	-AmbientSound:
+	WithSpriteBody:
+		Sequence: 1
+	WithSpriteBody@injure:
+		RequiresCondition: injure
+		Sequence: 2
+	AmbientSound@spawn:
+		SoundFiles: dsbossit.ogg
+		Interval: 90000
+	GrantConditionOnDamage:
+		Condition: allow_injure
+		Duration: 100
+		DamageTypes: FireDeath, ExplosionDeath, ElectricityDeath, BulletDeath, TiberiumDeath, SmallExplosionDeath
+	GrantPeriodicConditionOnEvent:
+		RequiresCondition: allow_injure
+		Condition: injure
+		Triggers: Damage
+		ActiveDuration: 6,25
+		CooldownDuration: 1
+	FireWarheads@injure:
+		RequiresCondition: injure
+		Weapons: JohnRomeroHurtSound
+		Interval: 26
+	Valued:
+		Cost: 10000
+	Tooltip:
+		Name: Oremor Nhoj
+	Health:
+		HP: 500000
+	Power:
+		Amount: 0
+	DetectCloaked:
+		Range: 12c0
+		RequiresCondition: !disabled
+	ProvidesPrerequisite@buildingname:
+	RevealsShroud:
+		MinRange: 6c0
+		Range: 15c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 6c0
+	RenderSprites:
+		Image: johnromero
+		Modifier: 120
+	SpawnActorOnDeath:
+		Actor: JOHNROMERO.Bombs
+	SpawnActorOnDeath@crate:
+		Actor: FakeCrateReward
+		Offset: 0,-1
+	FireWarheads:
+		Weapons: DoomSpawnCubeJohn1
+		Interval: 150
+		StartCooldown: 130
+	FireWarheads@2:
+		Weapons: DoomSpawnCubeJohn2
+		Interval: 300
+		StartCooldown: 130
+	-WithBuildingBib:
+
+JOHNROMERO.Bombs:
+	Inherits: 1TNK.MINE
+	AmbientSound@injure:
+		SoundFiles: dsbosdth.ogg
+		Interval: 9000
+	KillsSelf:
+		Delay: 100
+	-SpawnActorOnDeath:
+	-Targetable:
+	FireWarheadsOnDeath:
+		Weapon: BuildingExplode
+		EmptyWeapon: BuildingExplode
+	WithSpriteBody:
+		Sequence: 1
+	RenderSprites:
+		Image: johnromero
+	FireWarheads@1:
+		Interval: 3
+		Weapons: JohnRomeroBombs

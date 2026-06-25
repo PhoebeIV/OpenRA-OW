@@ -121,23 +121,11 @@ DM2:
 		MuzzleSequence: garrison-muzzle
 	RenderSprites:
 		Image: n_dm1
-	GrantRandomCondition@a:
-		Conditions: none,none,variant_a
-	GrantPeriodicCondition@variantdeploy:
-		Condition: force_deploy
-		RequiresCondition: variant_a
-		CooldownDuration: 25
-		ActiveDuration: 50
-		StartsGranted: false
-	TransformOnCondition@a:
-		RequiresCondition: variant_a && force_deploy
-		IntoActor: dm2a
 	-TakeCover:
 
 DM2A:
 	Inherits: DM2
 	-Buildable:
-	-GrantRandomCondition@a:
 	-ProducibleWithLevel:
 	GrantTimedCondition@move:
 		Condition: wander
@@ -475,6 +463,7 @@ DM4:
 	WithInfantryBody:
 		DefaultAttackSequence: shoot
 	RenderSprites:
+		Image: dm4
 
 TSE5P.DM:
 	Inherits: ^TibSunSoldier
@@ -549,6 +538,7 @@ TSE5P.DM:
 		Condition: cloak-force-disabled
 		ValidDamageStates: Critical
 
+# SARGE
 DM5:
 	Inherits: ^DoomSoldier
 	Inherits@EPIC: ^EpicUnit
@@ -1443,3 +1433,134 @@ HELLD9:
 		RequiresCondition: give_xp
 		Amount: 5000
 		Interval: 50
+
+DM1.Zombie:
+	Inherits: DM1
+	Inherits@Zombie: ^SpeedRandomizer
+	-Buildable:
+	-SpawnActorOnDeath@zombie:
+	Voiced:
+		VoiceSet: ZombieVoice
+	SpeedMultiplier:
+		Modifier: 75
+	AutoTarget:
+		InitialStance: AttackAnything
+		ScanRadius: 256
+	AmbientSound:
+		SoundFiles: dsposit1.aud,dsposit2.aud,dsposit3.aud,dsposact.aud
+		Interval: 400, 1200
+		Delay: 5, 1200
+
+DM2.Zombie:
+	Inherits: DM2
+	Inherits@Zombie: ^SpeedRandomizer
+	Buildable:
+		Prerequisites: ~disabled
+		BuildPaletteOrder: 9999
+	-SpawnActorOnDeath@zombie:
+	Voiced:
+		VoiceSet: ZombieVoice
+	SpeedMultiplier:
+		Modifier: 75
+	AutoTarget:
+		InitialStance: AttackAnything
+		ScanRadius: 256
+	AmbientSound:
+		SoundFiles: dsposit1.aud,dsposit2.aud,dsposit3.aud,dsposact.aud
+		Interval: 400, 1200
+		Delay: 5, 1200
+
+DM2OF.Zombie:
+	Inherits: DM2OF
+	Inherits@Zombie: ^SpeedRandomizer
+	Buildable:
+		Prerequisites: ~disabled
+		BuildPaletteOrder: 9999
+	-SpawnActorOnDeath@zombie:
+	Voiced:
+		VoiceSet: ZombieVoice
+	SpeedMultiplier:
+		Modifier: 75
+	AutoTarget:
+		InitialStance: AttackAnything
+		ScanRadius: 256
+	AmbientSound:
+		SoundFiles: dsposit1.aud,dsposit2.aud,dsposit3.aud,dsposact.aud
+		Interval: 400, 1200
+		Delay: 5, 1200
+
+DM3.Zombie:
+	Inherits: DM3
+	Inherits@Zombie: ^SpeedRandomizer
+	Buildable:
+		Prerequisites: ~disabled
+		BuildPaletteOrder: 9999
+	-SpawnActorOnDeath@zombie:
+	Voiced:
+		VoiceSet: ZombieVoice
+	SpeedMultiplier:
+		Modifier: 75
+	AutoTarget:
+		InitialStance: AttackAnything
+		ScanRadius: 256
+	AmbientSound:
+		SoundFiles: dsposit1.aud,dsposit2.aud,dsposit3.aud,dsposact.aud
+		Interval: 400, 1200
+		Delay: 5, 1200
+
+DM4.Zombie:
+	Inherits: DM4
+	Inherits@Zombie: ^SpeedRandomizer
+	Buildable:
+		Prerequisites: ~disabled
+		BuildPaletteOrder: 9999
+	-SpawnActorOnDeath@zombie:
+	Voiced:
+		VoiceSet: ZombieVoice
+	SpeedMultiplier:
+		Modifier: 75
+	AutoTarget:
+		InitialStance: AttackAnything
+		ScanRadius: 256
+	AmbientSound:
+		SoundFiles: dsposit1.aud,dsposit2.aud,dsposit3.aud,dsposact.aud
+		Interval: 400, 1200
+		Delay: 5, 1200
+
+DM6.Zombie:
+	Inherits: DM6
+	Inherits@Zombie: ^SpeedRandomizer
+	Buildable:
+		Prerequisites: ~disabled
+		BuildPaletteOrder: 9999
+	-SpawnActorOnDeath@zombie:
+	Voiced:
+		VoiceSet: ZombieVoice
+	SpeedMultiplier:
+		Modifier: 75
+	AutoTarget:
+		InitialStance: AttackAnything
+		ScanRadius: 256
+	AmbientSound:
+		SoundFiles: dsposit1.aud,dsposit2.aud,dsposit3.aud,dsposact.aud
+		Interval: 400, 1200
+		Delay: 5, 1200
+
+DM7.Zombie:
+	Inherits: Zombie
+	-WithDeathAnimation:
+	Armament:
+		Weapon: DoomBaronClaw
+	Buildable:
+		Prerequisites: ~disabled
+		BuildPaletteOrder: 9999
+	WithDeathAnimation:
+		DeathTypes:
+			DefaultDeath: 1,3
+			BulletDeath: 2
+			SmallExplosionDeath: 2
+			ExplosionDeath: 1,3
+			ElectricityDeath: 6
+		CrushedSequence: die-crushed
+	RenderSprites:
+		Image: dm7
