@@ -18,6 +18,22 @@
 	Warhead@3Shield: CreateEffect
 		ImpactSoundChance: 20
 
+^TracerRound:
+	ValidTargets: Ground, Water, GroundActor, WaterActor
+	Projectile: Bullet
+		Speed: 1c0
+		Inaccuracy: 256
+		Image: btracer
+	Warhead@2Eff2: CreateEffect
+		Explosions: piff
+		ValidTargets: Ground, GroundActor, Air, AirborneActor, WaterActor, Trees
+		Inaccuracy: 171
+	Warhead@3EffWater2: CreateEffect
+		ValidTargets: Water, Underwater
+		InvalidTargets: Bridge
+		Explosions: water_piff
+		Inaccuracy: 171
+
 ZSU-23:
 	Inherits: ^AACannon
 	Burst: 2
@@ -823,6 +839,28 @@ DawnM60mgTechnical:
 	Inherits: DawnM60mg
 	ReloadDelay: 5
 	Range: 5c0
+
+DawnM60mgKodiac:
+	Inherits: DawnM60mg
+	ReloadDelay: 5
+	Range: 12c0
+	ValidTargets: Ground, GroundActor, Water, WaterActor, AirborneActor
+	Projectile: InstantHit
+		Blockable: false
+	Warhead@2Eff: CreateEffect
+		Explosions: piffs
+		Inaccuracy: 171
+	Warhead@1Dam: SpreadDamage
+		ValidTargets: GroundActor, WaterActor, AirborneActor
+
+DawnM60mgKodiacTracer:
+	Inherits: ^TracerRound
+	ReloadDelay: 15
+	Range: 12c0
+	ValidTargets: Ground, GroundActor, Water, WaterActor, AirborneActor
+	Projectile: Bullet
+		Inaccuracy: 768
+		Blockable: false
 
 WolverineVulcan:
 	ReloadDelay: 55
@@ -2439,22 +2477,6 @@ DoomGuyPistol:
 		Damage: 1750
 		Versus:
 			None: 150
-
-^TracerRound:
-	ValidTargets: Ground, Water, GroundActor, WaterActor
-	Projectile: Bullet
-		Speed: 1c0
-		Inaccuracy: 256
-		Image: btracer
-	Warhead@2Eff2: CreateEffect
-		Explosions: piff
-		ValidTargets: Ground, GroundActor, Air, AirborneActor, WaterActor, Trees
-		Inaccuracy: 171
-	Warhead@3EffWater2: CreateEffect
-		ValidTargets: Water, Underwater
-		InvalidTargets: Bridge
-		Explosions: water_piff
-		Inaccuracy: 171
 
 BTSupressionGun:
 	Inherits: M1Carbine

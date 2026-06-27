@@ -24,10 +24,16 @@ V18:
 	-GrantConditionOnDamageState@DAMAGED:
 	-GrantConditionOnDamage@ai_consideration_iron:
 
+V19:
+	GrantCondition@nobuild:
+		Condition: x
+
 V19.Husk:
 	-Targetable@REPAIR:
 	-GrantConditionOnDamageState@DAMAGED:
 	-GrantConditionOnDamage@ai_consideration_iron:
+	GrantCondition@nobuild:
+		Condition: x
 
 RICE:
 	-Targetable@REPAIR:
@@ -47,7 +53,7 @@ C10:
 		Queue: Infantry
 		Icon: stand
 	GrantRandomCondition@dude:
-		Conditions: x,x,x,x,x,x,mobius,dude,dude2
+		Conditions: x,x,x,x,x,x,x,x,x,x,mobius,dude,dude2,bravo
 	GrantConditionOnPrerequisite@nodrdude:
 		Prerequisites: environment.nodrspawn
 		Condition: no_dr
@@ -55,7 +61,7 @@ C10:
 		RequiresCondition: !no_dr && (dude || dude2)
 		Delay: 25
 	KillsSelf@mobius:
-		RequiresCondition: mobius
+		RequiresCondition: mobius || bravo
 		Delay: 25
 	SpawnActorOnDeath@dude:
 		RequiresCondition: !no_dr && dude
@@ -72,6 +78,9 @@ C10:
 	SpawnActorOnDeath@dude3:
 		RequiresCondition: mobius
 		Actor: C10.Mobius
+	SpawnActorOnDeath@dude4:
+		RequiresCondition: bravo
+		Actor: C10.JohnBravo
 
 EINSTEIN:
 	GrantRandomCondition@dude:
@@ -87,7 +96,7 @@ EINSTEIN:
 
 CHAN:
 	GrantRandomCondition@dude:
-		Conditions: x,x,x,x,x,x,mobius,dude,dude2
+		Conditions: x,x,x,x,x,x,x,x,x,x,mobius,dude,dude2,bravo
 	GrantConditionOnPrerequisite@nodrdude:
 		Prerequisites: environment.nodrspawn
 		Condition: no_dr
@@ -95,7 +104,7 @@ CHAN:
 		RequiresCondition: !no_dr && (dude || dude2)
 		Delay: 25
 	KillsSelf@mobius:
-		RequiresCondition: mobius
+		RequiresCondition: mobius || bravo
 		Delay: 25
 	SpawnActorOnDeath@dude:
 		RequiresCondition: !no_dr && dude
@@ -112,6 +121,9 @@ CHAN:
 	SpawnActorOnDeath@dude3:
 		RequiresCondition: mobius
 		Actor: C10.Mobius
+	SpawnActorOnDeath@dude4:
+		RequiresCondition: bravo
+		Actor: C10.JohnBravo
 
 C10.Dr:
 	Inherits: C10
@@ -192,6 +204,40 @@ C10.Scot:
 	AutoTarget:
 		ScanRadius: 48
 		InitialStance: AttackAnything
+
+C10.JohnBravo:
+	Inherits: C10.Scot
+	Tooltip:
+		Name: actor-c10-bravo1-name
+	VoiceAnnouncement:
+		Voice: Build
+	Armament:
+		Weapon: JohnBravoFist
+	Voiced:
+		VoiceSet: JohnBravoVoice
+	-AmbientSound:
+	AmbientSound@2:
+		SoundFiles: johnb911.ogg, johnbass.ogg, johnbcommon.ogg, johnbhippo.ogg, johnbironic.ogg, johnbladiesman.ogg, johnbtriangle.ogg, johnbmake.ogg, johnbhueh1.ogg, johnbhueh2.ogg, johnbhueh3.ogg, johnbhueh4.ogg, johnbhueh5.ogg, johnbhah.ogg
+		Delay: 150
+		Interval: 150,400
+	ProximityExternalCondition:
+		Condition: squadboost
+		Range: 4c0
+		AffectsParent: true
+	WithDecoration@officer2:
+		Image: pips
+		Sequence: pip-bonus
+		Palette: effect
+		Position: TopRight
+		ValidRelationships: None,Neutral,Enemy,Ally
+		RequiresCondition: !demoralise
+	WithInfantryBody:
+		Palette: player
+	WithDeathAnimation:
+		DeathSequencePalette: player
+	RenderSprites:
+		Image: c1bravo
+
 
 C10.Mobius:
 	Inherits: C10

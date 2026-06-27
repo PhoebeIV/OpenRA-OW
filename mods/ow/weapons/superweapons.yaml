@@ -1366,11 +1366,19 @@ DoomSpawnCube:
 	Warhead@actor: SpawnRandomActor
 		RandomActors: helld1, helld2, helld4, helld4, helld4, helld4, helld4, helld5, helld6, helld6.s, helld6, helld6.s, helld6, helld6.s, helld7, helld9, zombie,zombie,zombie
 		Delay: 3
-		ValidTargets: Ground, GroundActor, Water, WaterActor
+		ValidTargets: Ground, GroundActor
+		Range: 2
+		Image: explosion
+		Sequence: small_napalm
+	Warhead@actor_water: SpawnRandomActor
+		RandomActors: helld1,helld1,helld1,helld1,helld1,helld1,helld1,helld1,helld1,helld1,helld1,helld1,nbos2
+		Delay: 3
+		ValidTargets: Water, WaterActor
 		Range: 2
 		Image: explosion
 		Sequence: small_napalm
 	Warhead@wander: GrantExternalCondition
+		Delay: 4
 		Condition: wander
 		ValidRelationships: Ally
 		AffectsParent: true
@@ -4254,6 +4262,7 @@ MDKLightningZap:
 		Versus:
 			None: 100
 		DamageTypes: Prone50Percent, TriggerProne, ElectricityDeath, Incendiary, BypassShield
+		ValidTargets: GroundActor, WaterActor, AirborneActor, Trees
 	Warhead@22FlashEffect: FlashEffect
 		Duration: 15
 		FlashType: Nuke
@@ -5392,3 +5401,49 @@ DoomSpawnCubeJohn2:
 		RangeLimit: 90c0
 	Warhead@actor: SpawnRandomActor
 		RandomActors: helld3, helld1, helld2, helld4, helld4, helld4, helld5, helld6, helld6.s, helld6, helld6.s, helld7, helld9, helld1, helld2, helld4, helld4, helld4, helld5, helld6, helld6.s, helld6, helld6.s, helld7, helld9, dm1.zombie, dm2.zombie, dm3.zombie, dm4.zombie, dm6.zombie, dm7.zombie, dm7.zombie, dm7.zombie, dm1.zombie, dm2.zombie, dm3.zombie, dm4.zombie, dm6.zombie, dm7.zombie, dm7.zombie, dm7.zombie
+
+KodiacDropPod1:
+	ReloadDelay: 225
+	Range: 18c0
+	Burst: 5
+	BurstDelays: 0
+	Report: vnukweaa.wav, baud.aud
+	FirstBurstTargetOffset: -2048,0,0
+	FollowingBurstTargetOffset: -512,512,0
+	ValidTargets: Ground, Water, GroundActor, WaterActor
+	Projectile: Bullet
+		Speed: 480
+		Blockable: false
+		Image: unscdroppod
+		Inaccuracy: 2c0
+		TrailImage: smokey
+		Shadow: true
+	Warhead@1Dam: SpreadDamage
+		Spread: 256
+		Damage: 5000
+		DamageTypes: Prone50Percent, TriggerProne, SmallExplosionDeath
+		ValidTargets: GroundActor, WaterActor
+	Warhead@2Smu: LeaveSmudge
+		SmudgeType: Crater
+		ValidTargets: Ground, Infantry
+	Warhead@3EffGround: CreateEffect
+		ImpactSounds: gexpcara.aud, gexpcarb.aud, gexpcarc.aud, gexpcard.aud, baud.aud, baud.aud
+		Explosions: building_sm
+		ValidTargets: Ground, GroundActor, Water, WaterActor, Trees
+	Warhead@actor: SpawnRandomActor
+		RandomActors: e1r1,e1r1,e1r1,e1r1,e1of,e2,e2,e3r1,e3r1
+		Delay: 3
+		ValidTargets: Ground, GroundActor
+		Range: 2
+	Warhead@wander: GrantExternalCondition
+		Delay: 4
+		Condition: external_shield
+		ValidRelationships: Ally
+		Duration: 1500
+		Range: 2c512
+		ValidTargets: Infantry
+
+KodiacDropPod2:
+	Inherits: KodiacDropPod1
+	Warhead@actor: SpawnRandomActor
+		RandomActors: e1of,e1of,e3r1,e3r1,rmbo,medi

@@ -2147,6 +2147,78 @@
 ^CivBuilding:
 	SpawnActorOnDeath@c1:
 		Actor: C1
+	Exit:
+		ExitCell: 2,0
+	GrantRandomCondition@produce:
+		Conditions: x,x,enable_build
+	GrantConditionOnCombatantOwner:
+		Condition: x
+	GrantRandomPeriodicCondition@produce:
+		RequiresCondition: enable_build && !x
+		Conditions: c1,c2,c3,c4,c5,c6,c7,c8,c9,c11,c1,c2,c3,c4,c5,c6,c7,c8,c9,c11,c10,chan
+		CooldownDuration: 1500,12000
+		ActiveDuration: 100
+	FreeActor@C1:
+		RequiresCondition: c1
+		Actor: C1
+		AllowRespawn: true
+		SpawnOffset: 0,-1
+	FreeActor@C2:
+		RequiresCondition: c2
+		Actor: C2
+		AllowRespawn: true
+		SpawnOffset: 0,-1
+	FreeActor@C3:
+		RequiresCondition: c3
+		Actor: C3
+		AllowRespawn: true
+		SpawnOffset: 0,-1
+	FreeActor@C4:
+		RequiresCondition: c4
+		Actor: C4
+		AllowRespawn: true
+		SpawnOffset: 0,-1
+	FreeActor@C5:
+		RequiresCondition: c5
+		Actor: C5
+		AllowRespawn: true
+		SpawnOffset: 0,-1
+	FreeActor@C6:
+		RequiresCondition: c6
+		Actor: C6
+		AllowRespawn: true
+		SpawnOffset: 0,-1
+	FreeActor@C7:
+		RequiresCondition: c7
+		Actor: C7
+		AllowRespawn: true
+		SpawnOffset: 0,-1
+	FreeActor@C8:
+		RequiresCondition: c8
+		Actor: C8
+		AllowRespawn: true
+		SpawnOffset: 0,-1
+	FreeActor@C9:
+		RequiresCondition: c9
+		Actor: C9
+		AllowRespawn: true
+		SpawnOffset: 0,-1
+	FreeActor@C10:
+		RequiresCondition: c10
+		Actor: C10
+		AllowRespawn: true
+		SpawnOffset: 0,-1
+	FreeActor@C11:
+		RequiresCondition: c11
+		Actor: C11
+		AllowRespawn: true
+		SpawnOffset: 0,-1
+	FreeActor@chan:
+		RequiresCondition: chan
+		Actor: chan
+		AllowRespawn: true
+		SpawnOffset: 0,-1
+
 
 ^BuildingPlug:
 	Interactable:
@@ -2647,6 +2719,9 @@
 
 # This gives planes a passive, slow repair when landed.
 ^Plane:
+	Passenger:
+		CargoType: Aircraft
+		Weight: 5
 	ChangesHealth@landed:
 		PercentageStep: 1
 		Delay: 25
@@ -3359,6 +3434,11 @@
 ^CivInfantry:
 	Voiced:
 		VoiceSet: ScientistVoice
+	GrantTimedCondition@wander:
+		Condition: wander2
+		Duration: 25
+	Wanders@2:
+		RequiresCondition: wander2
 
 # Inherited and changed from mods/ra to make fields destructible
 ^CivField:
@@ -3379,6 +3459,8 @@
 		DestroyedSounds: sandbag2.aud
 	-ShakeOnDeath:
 	-SpawnActorOnDeath@c1:
+	GrantCondition@nobuild:
+		Condition: x
 
 # Upgrade from USA
 ^AdvancedTraining:

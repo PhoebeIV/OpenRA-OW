@@ -1218,6 +1218,8 @@ actor-mcvc =
 actor-c10-dr-name = Dr. Fowl
 actor-c10-scot-name = Dr. Scotsman
 actor-c10-mobius-name = Dr. Mobius
+actor-c10-bravo1-name = John Bravo
+actor-c10-bravo2-name = Johnny Bravo
 
 ## corehero.yaml
 meta-heroexp-gainsexperience-hero-level-up-text-notification = Unit promoted.
@@ -1636,6 +1638,14 @@ actor-tskodiac =
       Strong vs Ground
       Weak vs Air
    .name = Flagship Kodiak
+   .pod1 = Load up Drop Pod A
+   .pod1desc = Call in 5 infantry to the battlefield.
+      May contain:
+         Light infantry, grenadier, officer, rocket soldier.
+   .pod2 = Load up Drop Pod B
+   .pod2desc = Call in 5 infantry to the battlefield.
+      May contain:
+         Officer, rocket soldier, commando, medic, veteran light infantry.
 
 actor-tskodiac-husk-name = Flagship Kodiak
 actor-tskodid-name = Flagship Kodiak

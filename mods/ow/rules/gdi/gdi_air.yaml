@@ -467,16 +467,16 @@ TSORCATRAN.Leave:
 	-Rearmable:
 	-ParachuteCargoOnCondition:
 
-TSKODIAC:
+#OLD KODIAC
+TSKODIAC.OLD:
 	Inherits: ^TSHelicopter
 	Inherits@NoExp: ^NoExp
 	Inherits@EPIC: ^EpicUnit
 	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
 	Buildable:
 		Queue: Aircraft
-		BuildAtProductionType: Helicopter
-		BuildPaletteOrder: 900
-		Prerequisites: ~hpad, ulttechcenter, ~techlevel.unrestricted, ~aircraft.gdi3, !kodiakexist
+		BuildPaletteOrder: 9999
+		Prerequisites: ~hpad, ulttechcenter, ~techlevel.unrestricted, ~aircraft.gdi3, !kodiakexist, ~disabled
 		Description: actor-tskodiac.description
 		BuildLimit: 1
 	Valued:
@@ -603,7 +603,7 @@ TSKODIAC:
 		NoTransformNotification: BuildingCannotPlaceAudio
 	AnnounceOnKill:
 	SpawnActorOnDeath:
-		Actor: TSKODIAC.Husk
+		Actor: TSKODIAC.OLD.Husk
 	ProvidesPrerequisite@kodiak:
 		Prerequisite: kodiakexist
 	Voiced:
@@ -626,7 +626,7 @@ TSKODIAC:
 		Scale: 11
 	-Rearmable:
 
-TSKODIAC.Husk:
+TSKODIAC.OLD.Husk:
 	Inherits: ^TSPlaneHusk
 	Tooltip:
 		Name: actor-tskodiac-husk-name
@@ -654,13 +654,12 @@ TSKODIAC.Husk:
 		Explosion: CrateNuke
 		MaximumSpinSpeed: 0
 	RenderSprites:
-		Image: tskodiac
+		Image: tskodiac.old
 	RenderVoxels:
-		Image: tskodiac
+		Image: tskodiac.old
 		Scale: 11
 	ShakeOnDeath:
 		Duration: 15
-
 
 TSKODID:
 	Inherits: PYLED
@@ -788,3 +787,330 @@ TSKODID:
 		Position: Center
 	GrantCondition@primary:
 		Condition: primary
+
+TSKODIAC:
+	Inherits: ^TSHelicopter
+	Inherits@NoExp: ^NoExp
+	Inherits@EPIC: ^EpicUnit
+	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
+	Buildable:
+		Queue: Aircraft
+		BuildPaletteOrder: 900
+		Prerequisites: ~hpad, ulttechcenter, ~techlevel.unrestricted, ~aircraft.gdi3, !kodiakexist
+		Description: actor-tskodiac.description
+		BuildLimit: 1
+	Valued:
+		Cost: 20000
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Tooltip:
+		Name: actor-tskodiac.name
+	Health:
+		HP: 220000
+	Armor:
+		Type: Light
+	RevealsShroud:
+		Range: 18c0
+		Type: CenterPosition
+	Turreted@PRIMARY:
+		Turret: primary
+		Offset: -768,0,-128
+		TurnSpeed: 20
+	Turreted@SECONDARY:
+		Turret: secondary
+		Offset: 768,0,-128
+		TurnSpeed: 20
+	Turreted@tertiary:
+		Turret: tertiary
+		Offset: -768,0,340
+		TurnSpeed: 20
+	Turreted@four:
+		Turret: four
+		TurnSpeed: 1023
+	Armament@1a:
+		Name: lrm
+		Turret: four
+		Weapon: LRM10Kodiac
+		MuzzleSequence: muzzle
+		LocalOffset: 192,160,0, 384,160,0, 192,320,0, 384,320,0, 192,480,0, 384,480,0, 192,640,0, 384,640,0, 192,800,0, 384,800,0
+		PauseOnCondition: !airborne || !lrm_ammo
+	Armament@1b:
+		Name: lrm
+		Turret: four
+		Weapon: LRM10Kodiac
+		MuzzleSequence: muzzle
+		LocalOffset: 192,-160,0, 384,-160,0, 192,-320,0, 384,-320,0, 192,-480,0, 384,-480,0, 192,-640,0, 384,-640,0, 192,-800,0, 384,-800,0
+		PauseOnCondition: !airborne || !lrm_ammo
+	Armament@2a:
+		Name: m60
+		Turret: primary
+		Weapon: DawnM60mgKodiac
+		MuzzleSequence: muzzle2
+		LocalOffset: 256,-256,0, 256,256,0, -256,-256,0, -256,256,0, 0,0,0
+		PauseOnCondition: !airborne
+		FireDelay: 2
+	Armament@2b:
+		Name: m60
+		Turret: secondary
+		Weapon: DawnM60mgKodiac
+		MuzzleSequence: muzzle2
+		LocalOffset:  0,0,0, 256,-256,0, -256,256,0, -256,-256,0, 256,256,0
+		PauseOnCondition: !airborne
+	Armament@2c:
+		Name: m60
+		Turret: primary
+		Weapon: DawnM60mgKodiacTracer
+		LocalOffset: 0,512,-512
+		PauseOnCondition: !airborne
+		FireDelay: 2
+	Armament@2d:
+		Name: m60
+		Turret: secondary
+		Weapon: DawnM60mgKodiacTracer
+		LocalOffset: 0,512,-512
+		PauseOnCondition: !airborne
+	Armament@3a:
+		Name: droppods1
+		Turret: four
+		Weapon: KodiacDropPod1
+		LocalOffset: 0,0,22000, 0,0,23500, 0,0,21000, 0,0,25000, 0,0,19500
+		PauseOnCondition: !airborne || !droppods1
+	Armament@3b:
+		Name: droppods2
+		Turret: four
+		Weapon: KodiacDropPod2
+		FireDelay: 50
+		LocalOffset: 0,0,22000, 0,0,23500, 0,0,21000, 0,0,25000, 0,0,19500
+		PauseOnCondition: !airborne || !droppods2
+	AmmoPool@LRM:
+		Ammo: 20
+		AmmoCondition: lrm_ammo
+		Name: lrm_ammo
+		InitialAmmo: 20
+		Armaments: lrm
+	ReloadAmmoPool@normal:
+		AmmoPool: lrm_ammo
+		Delay: 375
+		Count: 20
+		Sound: bt_reload3.aud
+	AmmoPool@droppods1:
+		Ammo: 25
+		AmmoCondition: droppods1
+		Name: droppod_ammo1
+		InitialAmmo: 5
+		Armaments: droppods1
+	ReloadAmmoPool@droppods1:
+		RequiresCondition: reload_droppod1
+		AmmoPool: droppod_ammo1
+		Delay: 5
+		Count: 5
+		Sound: bt_srmreload.aud
+	ProvidesPrerequisite@droppods1:
+		RequiresCondition: droppods1 == 25
+		Prerequisite: kodiac.pods1
+	GrantConditionOnProduction@droppods1:
+		Actors: TSKODIAC.Pod1
+		Condition: reload_droppod1
+		Duration: 6
+		ShowSelectionBar: false
+	WithAmmoPipsDecoration@1:
+		Position: BottomLeft
+		Margin: 4, 3
+		RequiresSelection: false
+		PipCount: 5
+		ValidRelationships: Ally, Neutral
+		AmmoPools: droppod_ammo1
+	AmmoPool@droppods2:
+		Ammo: 25
+		AmmoCondition: droppods2
+		Name: droppod_ammo2
+		InitialAmmo: 0
+		Armaments: droppods2
+	ReloadAmmoPool@droppods2:
+		RequiresCondition: reload_droppod2
+		AmmoPool: droppod_ammo2
+		Delay: 5
+		Count: 5
+		Sound: bt_srmreload.aud
+	ProvidesPrerequisite@droppods2:
+		RequiresCondition: droppods2 == 25
+		Prerequisite: kodiac.pods2
+	GrantConditionOnProduction@droppods2:
+		Actors: TSKODIAC.Pod2
+		Condition: reload_droppod2
+		Duration: 6
+		ShowSelectionBar: false
+	WithAmmoPipsDecoration@2:
+		Position: BottomLeft
+		Margin: 4, 8
+		RequiresSelection: false
+		PipCount: 5
+		FullSequence: pip-blue
+		ValidRelationships: Ally, Neutral
+		AmmoPools: droppod_ammo2
+	WithMuzzleOverlay:
+	AttackTurreted:
+		Turrets: primary, secondary, tertiary, four
+		Armaments: lrm, m60, droppods1, droppods2
+	AttackMove:
+		Voice: Move
+	Guard:
+		Voice: Move
+	WithVoxelTurret@PRIMARY:
+		Turret: primary
+	WithVoxelTurret@SECONDARY:
+		Turret: secondary
+	WithVoxelTurret@tertiary:
+		Turret: tertiary
+		Sequence: turret2
+	EjectOnDeath:
+		PilotActor: RMBO
+		SuccessRate: 100
+	Aircraft:
+		CruiseAltitude: 2560
+		TurnSpeed: 8
+		Speed: 60
+		TakeoffSounds: dropup1.aud
+		LandingSounds: dropdwn1.aud
+		Voice: Move
+	Selectable:
+		DecorationBounds: 6100, 4500, 0, 0
+		Bounds: 4000,3000
+	WithDamageOverlay@0:
+		Offset: -432,560,0
+		Interval: 2
+	WithDamageOverlay@1:
+		Offset: 0,-256,0
+		Interval: 2
+	WithDamageOverlay@2:
+		Offset: 512,100,0
+		Interval: 2
+		MinimumDamageState: Critical
+	AnnounceOnKill:
+	SpawnActorOnDeath:
+		Actor: TSKODIAC.Husk
+	ProvidesPrerequisite@kodiak:
+		Prerequisite: kodiakexist
+	Voiced:
+		VoiceSet: KodiacVoice
+		Volume: 1.5
+	DamageMultiplier@aar1:
+		Modifier: 96
+	DamageMultiplier@nar2:
+		Modifier: 92
+	DamageMultiplier@nar3:
+		Modifier: 88
+	FirepowerMultiplier@nfp1:
+		Modifier: 104
+	FirepowerMultiplier@nfp2:
+		Modifier: 108
+	FirepowerMultiplier@nfp3:
+		Modifier: 112
+	RenderVoxels:
+		PlayerPalette: tsunit
+		Scale: 9
+	-Rearmable:
+	FireWarheads@officer:
+		Weapons: SquadBoostSpider
+		Interval: 50
+	WithDecoration@officer2:
+		Image: pips
+		Sequence: pip-bonus
+		Palette: effect
+		Position: TopRight
+		ValidRelationships: None,Neutral,Enemy,Ally
+		RequiresCondition: !demoralise
+	Production:
+		Produces: Special, Kodiac
+	ParallelProductionQueue@player:
+		Type: Kodiac
+		Group: Special
+		InfiniteBuildLimit: 5
+	ProductionBar:
+		ProductionType: Kodiac
+	Exit:
+	FireWarheadsOnDeath@die:
+		Weapon: MaverickDeath
+		EmptyWeapon: MaverickDeath
+
+TSKODIAC.Husk:
+	Inherits: ^TSPlaneHusk
+	Tooltip:
+		Name: actor-tskodiac-husk-name
+	Aircraft:
+		TurnSpeed: 16
+		Speed: 60
+	WithDamageOverlay@0:
+		Offset: -432,560,0
+		Interval: 2
+		MinimumDamageState: Undamaged
+	WithDamageOverlay@1:
+		Offset: 0,-256,0
+		Interval: 2
+		MinimumDamageState: Undamaged
+	WithDamageOverlay@2:
+		Offset: 512,100,0
+		Interval: 2
+		MinimumDamageState: Undamaged
+	RevealsShroud:
+		Range: 12c0
+		Type: CenterPosition
+	FallsToEarth:
+		Moves: True
+		Velocity: 35
+		Explosion: CrateNuke
+		MaximumSpinSpeed: 0
+	RenderSprites:
+		Image: tskodiac
+	RenderVoxels:
+		Image: tskodiac
+		Scale: 9
+	ShakeOnDeath:
+		Duration: 15
+
+TSKODIAC.Pod1:
+	ScriptTriggers:
+	RenderSprites:
+	Aircraft:
+	Interactable:
+		Bounds: 256,256
+	Targetable:
+		TargetTypes: NoAITarget
+	Buildable: 
+		Queue: Kodiac
+		BuildDuration: 350
+		BuildDurationModifier: 100
+		Prerequisites: ~kodiakexist, !kodiac.pods1
+		Description: actor-tskodiac.pod1desc
+	ProvidesPrerequisite:
+	Valued:
+		Cost: 100
+	ProductionCostMultiplier:
+		Multiplier: 800
+	Tooltip:
+		Name: actor-tskodiac.pod1
+	KillsSelf:
+		Delay: 5
+		RemoveInstead: true
+	WithProductionIconOverlay:
+		Types: UpgradeComplete
+		Prerequisites: kodiac.pods1
+	RenderSprites:
+		Image: e1
+
+TSKODIAC.Pod2:
+	Inherits: TSKODIAC.Pod1
+	RenderSprites:
+		Image: e1of
+	Buildable: 
+		Queue: Kodiac
+		BuildDuration: 500
+		BuildDurationModifier: 100
+		Prerequisites: ~kodiakexist, !kodiac.pods2
+		Description: actor-tskodiac.pod2desc
+	ProductionCostMultiplier:
+		Multiplier: 1250
+	Tooltip:
+		Name: actor-tskodiac.pod2
+	WithProductionIconOverlay:
+		Prerequisites: kodiac.pods2
