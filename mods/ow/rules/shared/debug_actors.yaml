@@ -88,6 +88,9 @@ HAXOR:
 	FreeActor@crate:
 		Actor: CRATE.DEBUG
 		SpawnOffset: 0,2
+	FreeActor@e1:
+		Actor: E1GOD
+		SpawnOffset: 1,2
 	Exit:
 	Tooltip:
 		Name: actor-haxor.name
@@ -133,21 +136,59 @@ HAXOR:
 		RequiresCondition: cheats_on
 	IonCannonPower@SmitePower:
 		OrderName: DeleteNuke
-		PauseOnCondition: disabled
 		Icon: medismiteicon
-		Cursor: chrono-target
-		ChargeInterval: 25
 		Name: Smite the World
 		Description: Kills everything in a massive area
-		SelectTargetSpeechNotification: SelectTarget
-		InsufficientPowerSpeechNotification: InsufficientPower
 		OnFireSound: medismitesound.wav
 		DisplayRadarPing: True
 		SupportPowerPaletteOrder: 50
 		Effect: explosion
 		EffectSequence: medismiteproj
 		Weapon: DeleteNuke
-		DisplayTimerRelationships: None
+	IonCannonPower@DeleteInfantry:
+		OrderName: DeleteNukeInfantry
+		Icon: medismiteicon
+		Name: Smite the Infantry
+		Description: Kills Infantry in a massive area
+		OnFireSound: medismitesound.wav
+		DisplayRadarPing: True
+		SupportPowerPaletteOrder: 50
+		Effect: explosion
+		EffectSequence: medismiteproj
+		Weapon: DeleteNukeInfantry
+	IonCannonPower@DeleteVehicle:
+		OrderName: DeleteNukeVehicle
+		Icon: medismiteicon
+		Name: Smite the Vehicle
+		Description: Kills Vehicle in a massive area
+		OnFireSound: medismitesound.wav
+		DisplayRadarPing: True
+		SupportPowerPaletteOrder: 50
+		Effect: explosion
+		EffectSequence: medismiteproj
+		Weapon: DeleteNukeVehicle
+	IonCannonPower@DeleteAircraft:
+		OrderName: DeleteNukeAircraft
+		Icon: medismiteicon
+		Name: Smite the Aircraft
+		Description: Kills Aircraft in a massive area
+		OnFireSound: medismitesound.wav
+		DisplayRadarPing: True
+		SupportPowerPaletteOrder: 50
+		Effect: explosion
+		EffectSequence: medismiteproj
+		Weapon: DeleteNukeAircraft
+	IonCannonPower@DeleteStructure:
+		OrderName: DeleteNukeStructure
+		Icon: medismiteicon
+		Name: Smite the Structure
+		Description: Kills Structure in a massive area
+		OnFireSound: medismitesound.wav
+		DisplayRadarPing: True
+		SupportPowerPaletteOrder: 50
+		Effect: explosion
+		EffectSequence: medismiteproj
+		Weapon: DeleteNukeStructure
 	IonCannonPower@DebugTib:
 		OrderName: DebugTib
 		PauseOnCondition: disabled
@@ -175,7 +216,7 @@ HAXOR:
 		SelectTargetSpeechNotification: SelectTarget
 		InsufficientPowerSpeechNotification: InsufficientPower
 		DisplayRadarPing: True
-		SupportPowerPaletteOrder: 49
+		SupportPowerPaletteOrder: 40
 		Effect: explosion
 		EffectSequence: large_explosion
 		Weapon: MDKLightningZap
@@ -202,6 +243,7 @@ HAXOR:
 		UseDirectionalTarget: True
 		DirectionArrowAnimation: paradirection
 		SupportPowerPaletteOrder: 1
+		RequiresCondition: !cheats_on
 	ParatroopersPower@crates2:
 		OrderName: Crates2
 		Icon: cratedrop
@@ -223,6 +265,7 @@ HAXOR:
 		UseDirectionalTarget: True
 		DirectionArrowAnimation: paradirection
 		SupportPowerPaletteOrder: 2
+		RequiresCondition: !cheats_on
 	ParatroopersPower@crates3:
 		OrderName: Crates3
 		Icon: cratedrop
@@ -244,6 +287,7 @@ HAXOR:
 		UseDirectionalTarget: True
 		DirectionArrowAnimation: paradirection
 		SupportPowerPaletteOrder: 3
+		RequiresCondition: !cheats_on
 	ParatroopersPower@crates4:
 		OrderName: Crates4
 		Icon: cratedrop
@@ -265,6 +309,7 @@ HAXOR:
 		UseDirectionalTarget: True
 		DirectionArrowAnimation: paradirection
 		SupportPowerPaletteOrder: 3
+		RequiresCondition: !cheats_on
 	ParatroopersPower@crates5:
 		OrderName: Crates5
 		Icon: cratedrop
@@ -286,6 +331,7 @@ HAXOR:
 		UseDirectionalTarget: True
 		DirectionArrowAnimation: paradirection
 		SupportPowerPaletteOrder: 3
+		RequiresCondition: !cheats_on
 	ChronoshiftPower@chronoshift:
 		OrderName: ChronoshiftHax
 		PauseOnCondition: disabled
@@ -307,6 +353,7 @@ HAXOR:
 		SupportPowerPaletteOrder: 12
 		Dimensions: 1, 1
 		Footprint: x
+		RequiresCondition: !cheats_on
 	GrantExternalConditionPower@shield:
 		OrderName: GPSScrambler
 		PauseOnCondition: disabled
@@ -322,6 +369,7 @@ HAXOR:
 		SupportPowerPaletteOrder: 10
 		Dimensions: 3, 3
 		Footprint: xxx xxx xxx
+		RequiresCondition: !cheats_on
 	IonCannonPower@debugcreeps:
 		OrderName: DebugChangeToCreeps
 		PauseOnCondition: disabled
@@ -823,7 +871,7 @@ CRATE.DEBUG:
 		Weapon: MorshuBombs
 		SelectionShares: 1
 	SpawnRandomUnitCrateAction@tyler:
-		Units: 1tnk.johnromero
+		Units: cratetrap.superweapon
 		SelectionShares: 5000
 		Owner: Creeps
 		Sound: dstelept.aud
@@ -1060,3 +1108,25 @@ E1RA:
 	WithProductionIconOverlay:
 		Types: Veterancy
 		Prerequisites: barracks.upgraded
+
+DTRK.GameOver:
+	Inherits: DTRK
+	Buildable:
+		Prerequisites: ~disabled
+	RenderSprites:
+		Image: dtrk
+	TimedConditionBar:
+		Condition: spawned
+	GrantTimedCondition:
+		Condition: spawned
+		Duration: 150
+	DamageMultiplier:
+		RequiresCondition: spawned
+		Modifier: 0
+	Tooltip:
+		Name: Kill-Everything Truck
+	Mobile:
+		Speed: 120
+	FireWarheadsOnDeath:
+		Weapon: DeleteNuke
+		EmptyWeapon: DeleteNuke

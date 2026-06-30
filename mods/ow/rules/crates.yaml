@@ -515,8 +515,13 @@ CRATE.FuckYou:
 	ExplodeCrateAction@lightningzap:
 		Weapon: CrateLightningZap
 		SelectionShares: 2
-	GiveUnitCrateAction@ionbeam:
-		SelectionShares: 6
+	GiveUnitCrateAction@particlebeam:
+		SelectionShares: 4
+		Units: hack.particle_beam
+		TimeDelay: 3000
+		Owner: Creeps
+	SpawnRandomUnitCrateAction@particlebeam:
+		SelectionShares: 4
 		Units: hack.particle_beam
 		TimeDelay: 3000
 		Owner: Creeps
@@ -771,6 +776,12 @@ CRATE.FuckYou:
 		Sequence: timequake
 		Prerequisites: !environment.nomemes, !environment.rick
 		Sound: ricksanchez28.ogg
+	SpawnRandomUnitCrateAction@cratetrapsuperweapon:
+		Units: cratetrap.superweapon
+		SelectionShares: 6
+		Owner: Creeps
+		Sound: buzzy1.aud
+		IgnoreLocomotor: true
 	GiveUnitCrateAction@aaaaa:
 		SelectionShares: 2
 		TimeDelay: 6000
@@ -807,6 +818,7 @@ CRATE.FuckYou:
 	-AutoTarget:
 	-AutoTargetPriority@DEFAULT:
 	-AutoTargetPriority@ATTACKANYTHING:
+	-AutoTargetPriority@ATTACKANYTHINGBOT:
 	-AutoTargetPriority@EPIC:
 	-Selectable:
 	-SelectionDecorations:
@@ -895,7 +907,10 @@ CRATE.Bigger:
 
 CRATE.BigLanded:
 	Inherits: XBAR
-	-Buildable:
+	Buildable:
+		Queue: Tech
+		Prerequisites: ~disabled
+		Icon: land
 	-Armament:
 	DamageMultiplier@0:
 		RequiresCondition: !delay
@@ -906,6 +921,8 @@ CRATE.BigLanded:
 		Name: meta-crate2.big
 	Selectable:
 		Bounds: 2048,2048
+	Valued:
+		Cost: 5000
 	Health:
 		HP: 300000
 	Building:
@@ -918,6 +935,8 @@ CRATE.BigLanded:
 	-Cloak:
 	-WithSpriteBody:
 	-WithMakeAnimation:
+	-GrantConditionOnOwnerName@creeps:
+	-Targetable@noaiautotarget:
 	WithCrateBody:
 		XmasImages: bigcrate
 		LandSequence: land
@@ -927,6 +946,8 @@ CRATE.BigLanded:
 
 CRATE.BiggerLanded:
 	Inherits: CRATE.BigLanded
+	Valued:
+		Cost: 10000
 	Building:
 		Dimensions: 3,3
 		Footprint: _x_ xxx _x_
@@ -2083,6 +2104,14 @@ camera.5sec:
 	KillsSelf:
 		RemoveInstead: true
 		Delay: 125
+
+camera.15sec:
+	Inherits: CAMERA
+	KillsSelf:
+		RemoveInstead: true
+		Delay: 375
+	RevealsShroud:
+		Range: 10c0
 
 camera.20sec:
 	Inherits: CAMERA
@@ -4133,6 +4162,8 @@ MANINGAUZE:
 		TargetRelationships: Neutral, Enemy, Ally
 	AttackTurreted:
 	Turreted:
+	-GrantConditionOnOwnerName@creeps:
+	-Targetable@noaiautotarget:
 
 MANINGAUZE.Rock:
 	Inherits: ^Building
@@ -4164,6 +4195,8 @@ MANINGAUZE.Rock:
 	FireWarheads@1:
 		Weapons: CommandoSniperLeftNoSound
 		Interval: 50
+	-GrantConditionOnOwnerName@creeps:
+	-Targetable@noaiautotarget:
 
 MANINGAUZE.Prereq:
 	Inherits: ^Building
@@ -5284,6 +5317,8 @@ JOHNROMERO:
 		Interval: 300
 		StartCooldown: 130
 	-WithBuildingBib:
+	-GrantConditionOnOwnerName@creeps:
+	-Targetable@noaiautotarget:
 
 JOHNROMERO.Bombs:
 	Inherits: 1TNK.MINE
@@ -5304,3 +5339,62 @@ JOHNROMERO.Bombs:
 	FireWarheads@1:
 		Interval: 3
 		Weapons: JohnRomeroBombs
+
+CRATETRAP.Superweapon:
+	Inherits: 1TNK.MINE
+	Voiced:
+		VoiceSet: EVANotification
+	KillsSelf:
+		Delay: 100
+		RemoveInstead: true
+	-Targetable:
+	-SpawnActorOnDeath:
+	AutoTarget:
+		InitialStance: AttackAnything
+	AutoTargetPriority:
+		ValidRelationships: Ally, Neutral, Enemy
+		ValidTargets: CrateTrapTarget
+	FreeActor:
+		Actor: CRATETRAP.Target
+		Owner: Neutral
+	AttackTurreted:
+	Turreted:
+	GrantRandomCondition:
+		Conditions: weap1, weap2, weap3
+	VoiceAnnouncement@weap1:
+		RequiresCondition: weap1
+		Voice: AbombLaunchDetected
+	Armament@weap1:
+		RequiresCondition: weap1
+		Weapon: CrateTrap.Atomic
+		LocalOffset: 0,0,128000
+		TargetRelationships: Ally, Neutral, Enemy
+	VoiceAnnouncement@weap2:
+		RequiresCondition: weap2
+		Voice: IonSound
+	Armament@weap2:
+		RequiresCondition: weap2
+		Weapon: CrateTrap.Ion
+		TargetRelationships: Ally, Neutral, Enemy
+	AmbientSound@weap3b:
+		RequiresCondition: weap3
+		SoundFiles: debfgfire2.wav
+		Interval: 9000
+	AmbientSound@weap3c:
+		RequiresCondition: weap3
+		SoundFiles: debfgfire2.wav
+		Interval: 9000
+	Armament@weap3:
+		RequiresCondition: weap3
+		Weapon: CrateTrap.BFG10k
+		LocalOffset: 0,-48000,96000
+		TargetRelationships: Ally, Neutral, Enemy
+
+CRATETRAP.Target:
+	Inherits: 1TNK.MINE
+	-SpawnActorOnDeath:
+	KillsSelf:
+		Delay: 100
+		RemoveInstead: true
+	Targetable:
+		TargetTypes: CrateTrapTarget
