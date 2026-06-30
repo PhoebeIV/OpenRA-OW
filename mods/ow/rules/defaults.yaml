@@ -392,6 +392,12 @@
 		RequiresCondition: DisappearMe
 		RemoveInstead: true
 		Delay: 1
+	GrantConditionOnOwnerName@creeps:
+		PlayerName: Creeps
+		Condition: creeps_owner
+	Targetable@noaiautotarget:
+		RequiresCondition: creeps_owner
+		TargetTypes: NoAITarget
 
 # Inherited and changed from mods/ra to add support from Estonia's Iron Shroud structure
 ^IronCurtainable:
@@ -2144,82 +2150,6 @@
 	-FireWarheads@frost:
 	-ProximityExternalCondition@frost:
 
-^CivBuilding:
-	SpawnActorOnDeath@c1:
-		Actor: C1
-	Exit:
-		ExitCell: 2,0
-	GrantRandomCondition@produce:
-		Conditions: x,x,enable_build
-	GrantConditionOnCombatantOwner:
-		Condition: x
-	GrantRandomPeriodicCondition@produce:
-		RequiresCondition: enable_build && !x
-		Conditions: c1,c2,c3,c4,c5,c6,c7,c8,c9,c11,c1,c2,c3,c4,c5,c6,c7,c8,c9,c11,c10,chan
-		CooldownDuration: 1500,12000
-		ActiveDuration: 100
-	FreeActor@C1:
-		RequiresCondition: c1
-		Actor: C1
-		AllowRespawn: true
-		SpawnOffset: 0,-1
-	FreeActor@C2:
-		RequiresCondition: c2
-		Actor: C2
-		AllowRespawn: true
-		SpawnOffset: 0,-1
-	FreeActor@C3:
-		RequiresCondition: c3
-		Actor: C3
-		AllowRespawn: true
-		SpawnOffset: 0,-1
-	FreeActor@C4:
-		RequiresCondition: c4
-		Actor: C4
-		AllowRespawn: true
-		SpawnOffset: 0,-1
-	FreeActor@C5:
-		RequiresCondition: c5
-		Actor: C5
-		AllowRespawn: true
-		SpawnOffset: 0,-1
-	FreeActor@C6:
-		RequiresCondition: c6
-		Actor: C6
-		AllowRespawn: true
-		SpawnOffset: 0,-1
-	FreeActor@C7:
-		RequiresCondition: c7
-		Actor: C7
-		AllowRespawn: true
-		SpawnOffset: 0,-1
-	FreeActor@C8:
-		RequiresCondition: c8
-		Actor: C8
-		AllowRespawn: true
-		SpawnOffset: 0,-1
-	FreeActor@C9:
-		RequiresCondition: c9
-		Actor: C9
-		AllowRespawn: true
-		SpawnOffset: 0,-1
-	FreeActor@C10:
-		RequiresCondition: c10
-		Actor: C10
-		AllowRespawn: true
-		SpawnOffset: 0,-1
-	FreeActor@C11:
-		RequiresCondition: c11
-		Actor: C11
-		AllowRespawn: true
-		SpawnOffset: 0,-1
-	FreeActor@chan:
-		RequiresCondition: chan
-		Actor: chan
-		AllowRespawn: true
-		SpawnOffset: 0,-1
-
-
 ^BuildingPlug:
 	Interactable:
 	Building:
@@ -3017,6 +2947,12 @@
 # TargetType for EpicUnit which is used for AI superweapon consideration, and mind control nerf
 ^EpicUnit:
 	Inherits@GAINSEXPERIENCE: ^GainsExperience
+	GrantConditionOnOwnerName@creeps:
+		Condition: creeps_owner
+		PlayerName: Creeps
+	Targetable@noaiautotarget:
+		RequiresCondition: creeps_owner
+		TargetTypes: EpicUnit
 	Buildable:
 		BuildDuration: 10000
 		BuildDurationModifier: 65
@@ -3971,10 +3907,15 @@
 ^AutoTargetGround:
 	AutoTargetPriority@DEFAULT:
 		ValidTargets: Infantry, Cyborg, Vehicle, Water, Ship, Underwater, Defense, Mine
-		InvalidTargets: NoAutoTarget, UpgradeThing, Ground, OreMine
+		InvalidTargets: NoAutoTarget, UpgradeThing, Ground, OreMine, TibTreeBotTarget
 		Priority: 1
 	AutoTargetPriority@ATTACKANYTHING:
-		ValidTargets: Infantry, Cyborg, Vehicle, Water, Ship, Underwater, Structure, Defense, Mine, Wall
+		ValidTargets: Infantry, Cyborg, Vehicle, Water, Ship, Underwater, Structure, Defense, Mine
+		InvalidTargets: NoAutoTarget, UpgradeThing, Ground, OreMine, TibTreeBotTarget
+		Priority: 1
+	AutoTargetPriority@ATTACKANYTHINGBOT:
+		RequiresCondition: botowner
+		ValidTargets: Wall, TibTreeBotTarget
 		InvalidTargets: NoAutoTarget, UpgradeThing, Ground, OreMine
 		Priority: 1
 	AutoTargetPriority@EPIC:
@@ -3985,10 +3926,15 @@
 ^AutoTargetAll:
 	AutoTargetPriority@DEFAULT:
 		ValidTargets: Infantry, Cyborg, Vehicle, Water, Ship, Underwater, AirborneActor, Defense, Mine
-		InvalidTargets: NoAutoTarget, UpgradeThing, Ground, OreMine
+		InvalidTargets: NoAutoTarget, UpgradeThing, Ground, OreMine, TibTreeBotTarget
 		Priority: 1
 	AutoTargetPriority@ATTACKANYTHING:
-		ValidTargets: Infantry, Cyborg, Vehicle, Water, Ship, Underwater, AirborneActor, Structure, Defense, Mine, Wall
+		ValidTargets: Infantry, Cyborg, Vehicle, Water, Ship, Underwater, AirborneActor, Structure, Defense, Mine
+		InvalidTargets: NoAutoTarget, UpgradeThing, Ground, OreMine, TibTreeBotTarget
+		Priority: 1
+	AutoTargetPriority@ATTACKANYTHINGBOT:
+		RequiresCondition: botowner
+		ValidTargets: Wall, TibTreeBotTarget
 		InvalidTargets: NoAutoTarget, UpgradeThing, Ground, OreMine
 		Priority: 1
 	AutoTargetPriority@EPIC:
@@ -4085,12 +4031,12 @@
 	Targetable@tree:
 		RequiresCondition: !creeps
 		TargetTypes: TibTree, Ground, UpgradeThing, OreMine, NoAITarget, NoAutoTarget, TiberiumImmune
-	Targetable@creeps:
+	Targetable@creeps: # make this only auto-targetable by AI, but not actively seek them out
 		RequiresCondition: creeps
-		TargetTypes: TibTree, Defense, Structure, GroundActor, TiberiumImmune
+		TargetTypes: TibTree, NoAITarget, TibTreeBotTarget, GroundActor, TiberiumImmune
 	DamageMultiplier@creeps:
 		RequiresCondition: creeps
-		Modifier: 150
+		Modifier: 200
 	KillsSelf@notib:
 		RequiresCondition: notib
 	FreeActor@notib:
