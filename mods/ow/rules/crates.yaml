@@ -672,6 +672,11 @@ CRATE.FuckYou:
 		Units: ae86
 		Sound: ae86_build.wav
 		Owner: Creeps
+	GiveUnitCrateAction@nyancat:
+		SelectionShares: 2
+		Units: nyancat
+		Sound: nyanstart.aud
+		Owner: Creeps
 	ExplodeCrateAction@MinecraftNuke:
 		Weapon: MinecraftNuke
 		TimeDelay: 6000
@@ -2753,7 +2758,7 @@ ae86:
 	Valued:
 		Cost: 10000
 	Tooltip:
-		Name: actor-usacrusader.name
+		Name: actor-ae86-name
 	Health:
 		HP: 250000
 	Mobile:
@@ -5129,7 +5134,7 @@ aaaaa:
 	Valued:
 		Cost: 140
 	Tooltip:
-		Name: actor-aaaaa.name
+		Name: actor-aaaaa-name
 	Mobile:
 		Speed: 128
 	UpdatesPlayerStatistics:
@@ -5304,3 +5309,73 @@ JOHNROMERO.Bombs:
 	FireWarheads@1:
 		Interval: 3
 		Weapons: JohnRomeroBombs
+
+nyancat:
+	Inherits: ^TrackedVehicle
+	Buildable:
+		Queue: Vehicle
+		BuildPaletteOrder: 0
+		Prerequisites: ~disabled
+	Valued:
+		Cost: 10000
+	Tooltip:
+		Name: actor-nyancat-name
+	Health:
+		HP: 250000
+	Mobile:
+		Locomotor: tracked
+		Speed: 256
+		TurnsWhileMoving: true
+		CanMoveBackward: true
+	SelectionDecorations:
+	RenderSprites:
+		Image: nyancat
+	AmbientSound:
+		SoundFiles: nyanloop.aud
+		Delay: 100
+		Interval: 168
+	WithSpriteBody:
+	FireWarheadsOnDeath:
+		Weapon: CrateNuke
+		EmptyWeapon: CrateNuke
+	SpawnActorOnDeath@1:
+		Actor: FakeCrateReward
+	SpawnActorOnDeath@2:
+		Actor: CRATE
+		Offset: 1,0
+	SpawnActorOnDeath@3:
+		Actor: CRATE
+		Offset: -1,1
+	Wanders:
+		WanderMoveRadius: 10
+	-Voiced:
+	Contrail@red:
+		Offset: 0,0,384
+		TrailLength: 125
+		StartColor: ff0000
+		StartColorUsePlayerColor: false
+	Contrail@orange:
+		Offset: 0,0,256
+		TrailLength: 125
+		StartColor: ff8000
+		StartColorUsePlayerColor: false
+	Contrail@yellow:
+		Offset: 0,0,128
+		TrailLength: 125
+		StartColor: ffff00
+		StartColorUsePlayerColor: false
+	Contrail@green:
+		Offset: 0,0,0
+		TrailLength: 125
+		StartColor: 00ff00
+		StartColorUsePlayerColor: false
+	Contrail@blue:
+		Offset: 0,0,-128
+		TrailLength: 125
+		StartColor: 0080ff
+		StartColorUsePlayerColor: false
+	Contrail@purple:
+		Offset: 0,0,-256
+		TrailLength: 125
+		StartColor: 7f00ff
+		StartColorUsePlayerColor: false

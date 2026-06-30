@@ -1291,8 +1291,10 @@ actor-garbageman-name = GARBAGE DAY
 actor-shoopdawhoop-cr-name = SHOOP DA WHOOP
 actor-powerproxy-holyhandgrenade-droppodspower-holyhandgrenade-select-target-text-notification = Select target.
 actor-holyhandgrenade-name = Holy Hand Grenade
-actor-starfoxarwingfox.name = Starfox Arwing
-actor-aaaaa.name = Beheaded Kamikaze
+actor-starfoxarwingfox-name = Starfox Arwing
+actor-aaaaa-name = Beheaded Kamikaze
+actor-nyancat-name = Nyan Cat!
+actor-ae86-name = Toyota Sprinter Trueno AE86
 
 actor-proxynuke-description = Launches a dud atomic bomb
     at the target location to 
