@@ -155,6 +155,7 @@ notification-silos-needed = Silos needed.
 notification-quad-charging = Quad Damage charging.
 notification-quad-ready = Quad Damage ready.
 notification-quad-desc = Grants a small group of actors 400% damage bonus for 30 sec.
+notification-udam-desc = Grants a small group of actors 200% damage bonus for 30 sec.
 
 ## ai.yaml
 bot-name =
