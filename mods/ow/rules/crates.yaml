@@ -252,6 +252,22 @@ CRATE:
 		Sound: ironcur9.aud
 		Condition: invulnerability
 		Duration: 750
+	GrantExternalConditionCrateAction@quaddamage:
+		SelectionShares: 2
+		Sequence: fpower
+		Sound: qdamage.ogg
+		Condition: quaddamage
+		Duration: 750
+		MaxExtraCollectors: 10
+		Range: 5c0
+	GrantExternalConditionCrateAction@udamage:
+		SelectionShares: 2
+		Sequence: fpower
+		Sound: uamppickup.ogg
+		Condition: udamage
+		Duration: 750
+		MaxExtraCollectors: 10
+		Range: 5c0
 	SupportPowerCrateAction@colonydrop:
 		Proxy: powerproxy.colonydrop
 		Sound: colonydroppickup.wav
@@ -374,8 +390,15 @@ CRATE:
 		Proxy: powerproxy.ironcurtain
 		Sequence: invuln
 		Sound: ironcur9.aud
-		Condition: invulnerability
 		SelectionShares: 3
+	SupportPowerCrateAction@quaddamage:
+		Proxy: powerproxy.quaddamage
+		Sequence: fpower
+		SelectionShares: 2
+	SupportPowerCrateAction@udamage:
+		Proxy: powerproxy.udamage
+		Sequence: fpower
+		SelectionShares: 2
 	GiveUnitCrateAction@aaaaa:
 		SelectionShares: 2
 		TimeDelay: 6000
@@ -1318,10 +1341,16 @@ DukeNukem:
 	VoiceAnnouncement:
 		RequiresCondition: produced
 		Voice: Build
-	AmbientSound:
+	AmbientSound@talky:
+		RequiresCondition: !newvoice
 		SoundFiles: dukenukembuild1.aud, dukenukembuild2.aud, dukenukembuild3.aud, dukenukembuild4.aud, dukenukembuild5.aud, dukenukembuild6.aud, dukenukembuild7.aud, dukenukembuild8.aud, dukenukembuild9.aud, dukenukembuild10.aud, dukenukembuild1.aud, dukenukemkill3.aud, dukenukemkill5.aud, dukenukembuild2.aud, dukenukemselect2.aud, dukenukembuild6.aud, dukenukemmove3.aud, dukenukemselect3.aud, dukenukemmove4.aud, dukenukembuild8.aud, dukenukemmove5.aud, dukenukemmove6.aud, dukenukemmove7.aud, dukenukemselect4.aud
-		Delay: 0
-		Interval: 250, 500
+		Delay: 50
+		Interval: 500, 750
+	AmbientSound@talky2:
+		RequiresCondition: newvoice
+		SoundFiles: dukenukembuild1.aud, dukenukembuild2.aud, dukenukembuild3.aud, dukenukembuild4.aud, dukenukembuild5.aud, dukenukembuild6.aud, dukenukembuild7.aud, dukenukembuild8.aud, dukenukembuild9.aud, dukenukembuild10.aud, dukenukembuild1.aud, dukenukemkill3.aud, dukenukemkill5.aud, dukenukembuild2.aud, dukenukemselect2.aud, dukenukembuild6.aud, dukenukemmove3.aud, dukenukemselect3.aud, dukenukemmove4.aud, dukenukembuild8.aud, dukenukemmove5.aud, dukenukemmove6.aud, dukenukemmove7.aud, dukenukemselect4.aud, DN_BC_1.aud, DN_BC_2.aud, DN_BC_3.aud, DN_BC_4.aud
+		Delay: 50
+		Interval: 500, 750
 	AnnounceOnKill:
 		Voice: Kill
 	ProducibleWithLevel:
@@ -1330,8 +1359,15 @@ DukeNukem:
 		PingRader: true
 	RenderSprites:
 		Image: dukenukem
+	GrantConditionOnFaction@china:
+		Condition: newvoice
+		Factions: china, infantry, tank, nuke
 	Voiced:
+		RequiresCondition: !newvoice
 		VoiceSet: DukeNukemVoice
+	Voiced@1:
+		RequiresCondition: newvoice
+		VoiceSet: DukeNukemVoice2
 	AttackWander:
 		WanderMoveRadius: 10
 		MinMoveDelay: 5
@@ -5157,6 +5193,64 @@ powerproxy.ironcurtain:
 		OneShot: true
 		AllowMultiple: true
 
+powerproxy.quaddamage:
+	GrantExternalConditionPower@quaddamage:
+		OrderName: CrateQuadDamage
+		ChargeInterval: 7500
+		ValidRelationships: Ally
+		PauseOnCondition: disabled
+		Icon: quad
+		Name: Crate Quad Damage
+		Description: notification-quad-desc
+		Duration: 750
+		SelectTargetSpeechNotification: SelectTarget
+		InsufficientPowerSpeechNotification: InsufficientPower
+		BeginChargeSound: qdamage2.ogg
+		EndChargeSound: qdamage.ogg
+		SelectTargetTextNotification: notification-select-target
+		InsufficientPowerTextNotification: notification-insufficient-power
+		BeginChargeTextNotification: notification-quad-charging
+		EndChargeTextNotification: notification-quad-ready
+		DisplayRadarPing: True
+		Condition: quaddamage
+		OnFireSound: qdamage.ogg
+		SupportPowerPaletteOrder: 10
+		Dimensions: 3, 3
+		Footprint: _x_ xxx _x_
+		BlockedCursor: move-blocked
+		OneShot: true
+		AllowMultiple: true
+		DisplayTimerRelationships: Ally, Neutral, Enemy
+
+powerproxy.udamage:
+	GrantExternalConditionPower@udamage:
+		OrderName: CrateUDamage
+		ChargeInterval: 7500
+		ValidRelationships: Ally
+		PauseOnCondition: disabled
+		Icon: udam
+		Name: Crate Damage Amplifier
+		Description: notification-quad-desc
+		Duration: 750
+		SelectTargetSpeechNotification: SelectTarget
+		InsufficientPowerSpeechNotification: InsufficientPower
+		BeginChargeSound: uampfire2.ogg
+		EndChargeSound: uamppickup.ogg
+		SelectTargetTextNotification: notification-select-target
+		InsufficientPowerTextNotification: notification-insufficient-power
+		BeginChargeTextNotification: notification-quad-charging
+		EndChargeTextNotification: notification-quad-ready
+		DisplayRadarPing: True
+		Condition: udamage
+		OnFireSound: uamppickup.ogg
+		SupportPowerPaletteOrder: 10
+		Dimensions: 3, 3
+		Footprint: _x_ xxx _x_
+		BlockedCursor: move-blocked
+		OneShot: true
+		AllowMultiple: true
+		DisplayTimerRelationships: Ally, Neutral, Enemy
+
 aaaaa:
 	Inherits: ^NewStrifeGuy
 	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
@@ -5212,14 +5306,41 @@ aaaaa:
 		Modifier: 60
 	DamageMultiplier@iar3:
 		Modifier: 45
-	AmbientSound@talky:
-		SoundFiles: aaaaasound.aud, aaaaasound2.aud, aaaaasound3.aud
-		Delay: 0,10
-		Interval: 15,18
+	GrantRandomPeriodicCondition:
+		Conditions: 1,2,3,4,5
+		CooldownDuration: 1
+		ActiveDuration: 750
+	AmbientSound@talky1:
+		RequiresCondition: 1
+		SoundFiles: aaaaasound.aud
+		Delay: 0, 10
+	AmbientSound@talky2:
+		RequiresCondition: 2
+		SoundFiles: aaaaasound2.aud
+		Delay: 0, 10
+	AmbientSound@talky3:
+		RequiresCondition: 3
+		SoundFiles: aaaaasound3.aud
+		Delay: 0, 10
+	AmbientSound@talky4:
+		RequiresCondition: 4
+		SoundFiles: aaaaasound4.aud
+		Delay: 0, 10
+	AmbientSound@talky5:
+		RequiresCondition: 5
+		SoundFiles: aaaaasound5.aud
+		Delay: 0, 10
 	AttackWander:
 		WanderMoveRadius: 10
 		MinMoveDelay: 5
 		MaxMoveDelay: 100
+	GrantConditionOnPrerequisite@botowner:
+		Condition: botowner
+		Prerequisites: ai.all
+	KillsSelf@bot:
+		Delay: 3000,3100
+		DamageTypes: ExplosionDeath
+		RequiresCondition: botowner
 
 powerproxy.impstrike:
 	AirstrikePower:

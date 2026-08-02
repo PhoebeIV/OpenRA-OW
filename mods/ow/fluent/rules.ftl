@@ -122,6 +122,8 @@ actor-player =
    .lobbyprerequisitecheckbox-memes-description = Disables meme crates.
    .lobbyprerequisitecheckbox-superweapons-label = No Superweapons
    .lobbyprerequisitecheckbox-superweapons-description = Disables Superweapons regardless of tech level.
+   .lobbyprerequisitecheckbox-truck-label = Game Over Truck
+   .lobbyprerequisitecheckbox-truck-description = When the game ends, a map-wiping demo truck is spawned.
 
 options-tech-level =
     .infantry-only = Infantry Only
@@ -150,6 +152,9 @@ notification-low-power = Low power.
 notification-base-under-attack = Base under attack.
 notification-ally-under-attack = Our ally is under attack.
 notification-silos-needed = Silos needed.
+notification-quad-charging = Quad Damage charging.
+notification-quad-ready = Quad Damage ready.
+notification-quad-desc = Grants a small group of actors 400% damage bonus for 30 sec.
 
 ## ai.yaml
 bot-name =

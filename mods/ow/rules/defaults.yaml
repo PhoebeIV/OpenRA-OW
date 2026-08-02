@@ -275,7 +275,7 @@
 		RequiresCondition: treecloak && cloaked
 		Modifier: 110
 
-# Applies to infantry, vehicles, aircraft and structures. This was primarily used add a damage resistance debuff caused by toxin weapons
+# Applies to infantry, naval, vehicles, aircraft and structures. This was primarily used add a damage resistance debuff caused by toxin weapons
 # GDI Suits upgrade grants immunity to some of these debuffs.
 # Used also for the Zerg Defiler plague attack (and superweapon), USA Avenger target painting, Terran Science Vessel irradiate, Nod Fanatics reload speed upgrade
 # Japan Dominatrix debuff/buffs, Akuma effect, and a SupportPowerConsiderer for AI
@@ -3813,6 +3813,52 @@
 	ExplodeWeapon@needler:
 		RequiresCondition: needlereffectweak >= 15
 		Weapon: NeedlerExplosionweak
+	ExternalCondition@quaddamage:
+		Condition: quaddamage
+	FirepowerMultiplier@quaddamage:
+		Modifier: 400
+		RequiresCondition: quaddamage
+	AttackSounds@quaddamage:
+		RequiresCondition: quaddamage
+		Sounds: qdamage3.ogg
+	AmbientSound@quaddamagefade: 
+		RequiresCondition: quaddamage
+		SoundFiles: qdamage2.ogg
+		Delay: 675
+		Interval: 100
+	WithColoredOverlay@quaddamage:
+		RequiresCondition: quaddamage
+		Color: 3A6B9D83
+	TimedConditionBar@quaddamage:
+		Condition: quaddamage
+		Color: 5797D6
+	ExternalCondition@udamage:
+		Condition: udamage
+	FirepowerMultiplier@udamage:
+		Modifier: 400
+		RequiresCondition: udamage
+	GrantDelayedCondition@udamage:
+		RequiresCondition: udamage
+		Delay: 500
+		Condition: udamagelow
+		RevokeOnDisabled: true
+	AttackSounds@udamage:
+		RequiresCondition: udamage && !udamagelow
+		Sounds: uampfire.ogg
+	AttackSounds@udamage2:
+		RequiresCondition: udamage && udamagelow
+		Sounds: uampfire2.ogg
+	AmbientSound@udamagefade: 
+		RequiresCondition: udamage
+		SoundFiles: uampout.ogg
+		Delay: 675
+		Interval: 100
+	WithColoredOverlay@udamage:
+		RequiresCondition: udamage
+		Color: BE46FF83
+	TimedConditionBar@udamage:
+		Condition: udamage
+		Color: C157D6
 
 ^FrenzyBoostInfantry:
 	Inherits: ^FrenzyBoost

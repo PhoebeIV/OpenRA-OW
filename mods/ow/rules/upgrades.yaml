@@ -605,8 +605,11 @@ UpgradeHandler:
 		Action: Dispose
 	GrantConditionOnOwnerWon:
 		Condition: truck
-	FreeActor:
-		RequiresCondition: truck
+	GrantConditionOnPrerequisite@truck:
+		Prerequisites: techlevel.gamovertruck
+		Condition: truck_enabled
+	FreeActor@gameovertruck:
+		RequiresCondition: truck && truck_enabled
 		Actor: DTRK.GameOver
 
 UpgradeHandlerBot:

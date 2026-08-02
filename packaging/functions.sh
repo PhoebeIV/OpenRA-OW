@@ -10,7 +10,7 @@
 # Arguments:
 #   SRC_PATH: Path to the root OpenRA directory
 #   DEST_PATH: Path to the root of the install destination (will be created if necessary)
-#   TARGETPLATFORM: Platform type (win-x64, osx-x64, osx-arm64, linux-x64, linux-arm64, unix-generic)
+#   TARGETPLATFORM: Platform type (win-x64, win-arm64, osx-x64, osx-arm64, linux-x64, linux-arm64)
 #   COPY_GENERIC_LAUNCHER: If set to True the OpenRA.exe will also be copied (True, False)
 #   COPY_CNC_DLL: If set to True the OpenRA.Mods.Cnc.dll will also be copied (True, False)
 #   COPY_D2K_DLL: If set to True the OpenRA.Mods.D2k.dll will also be copied (True, False)
@@ -74,7 +74,7 @@ install_data() (
 
 	while [ -n "${1}" ]; do
 		MOD_ID="${1}"
-		if [ "${MOD_ID}" = "ow" ] || [ "${MOD_ID}" = "cnc" ] || [ "${MOD_ID}" = "d2k" ]; then
+		if [ "${MOD_ID}" = "ra" ] || [ "${MOD_ID}" = "cnc" ] || [ "${MOD_ID}" = "d2k" ]; then
 			echo "Installing mod ${MOD_ID} to ${DEST_PATH}"
 			cp -r "${SRC_PATH}/mods/${MOD_ID}" "${DEST_PATH}/mods/"
 			cp -r "${SRC_PATH}/mods/common-content" "${DEST_PATH}/mods/"
@@ -89,7 +89,7 @@ install_data() (
 # Arguments:
 #   SRC_PATH: Path to the root OpenRA directory
 #   DEST_PATH: Path to the root of the install destination (will be created if necessary)
-#   TARGETPLATFORM: Platform type (win-x64)
+#   TARGETPLATFORM: Platform type (win-x64, win-arm64)
 #   MOD_ID: Mod id to launch (e.g. "ra")
 #   LAUNCHER_NAME: Filename (without the .exe extension) for the launcher
 #   MOD_NAME: Human-readable mod name to show in the crash dialog (e.g. "Red Alert")
