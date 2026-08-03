@@ -79,6 +79,13 @@ make_appimage() {
 	local build="$1" outfile="$2"
 	local appdir="$build/AppDir"
 
+	for tool in file desktop-file-validate; do
+		if ! command -v "$tool" >/dev/null 2>&1; then
+			echo "appimagetool requires '$tool'. Install it, e.g. apt install file desktop-file-utils" >&2
+			exit 1
+		fi
+	done
+
 	mkdir -p "$appdir/usr/lib/openra"
 	cp -r "$build/bin" "$build/mods" "$build/glsl" "$appdir/usr/lib/openra/"
 	cp "$build/VERSION" "$build/AUTHORS" "$build/COPYING" "$appdir/usr/lib/openra/"
@@ -89,7 +96,9 @@ make_appimage() {
 	chmod +x "$appdir/AppRun"
 
 	mkdir -p "$appdir/usr/share/applications" "$appdir/usr/share/icons/hicolor/256x256/apps"
-	cat > "$appdir/usr/share/applications/openra-ow.desktop" <<-EOF
+	# appimagetool only looks for *.desktop in the AppDir root, so write it
+	# there as well as in the FSH-standard location.
+	cat > "$appdir/openra-ow.desktop" <<-EOF
 	[Desktop Entry]
 	Type=Application
 	Name=OpenRA - Opposing Worlds
@@ -99,6 +108,9 @@ make_appimage() {
 	Terminal=false
 	Categories=Game;StrategyGame;
 	EOF
+	cp "$appdir/openra-ow.desktop" "$appdir/usr/share/applications/openra-ow.desktop"
+	# appimagetool also resolves Icon=<name> against the AppDir root.
+	cp "$build/mods/ow/icon.png" "$appdir/openra-ow.png"
 	cp "$build/mods/ow/icon.png" "$appdir/usr/share/icons/hicolor/256x256/apps/openra-ow.png"
 
 	local tool="$HOME/.cache/openra-ow/appimagetool"
