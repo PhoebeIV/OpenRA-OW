@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # Builds an OpenRA-OW release for THIS computer. No input needed.
-# Downloads the latest source and leaves the finished file in ./release/
+# Downloads the latest source (or builds the local copy with --local)
+# and leaves the finished file in ./release/
 set -euo pipefail
 
 . "$(dirname "$0")/packaging/release-lib.sh"
@@ -17,11 +18,17 @@ version="$(date +%Y%m%d)"               # e.g. 20260803
 mkdir -p ./release
 work="$(mktemp -d)"; trap 'rm -rf "$work"' EXIT
 
-echo "==> Downloading the latest OpenRA-OW source"
-fetch_source "$work"
+if [ "${1:-}" = "--local" ]; then
+	src="$(cd "$(dirname "$0")" && pwd)"
+	echo "==> Building from local copy at $src"
+else
+	echo "==> Downloading the latest OpenRA-OW source"
+	fetch_source "$work"
+	src="$work/OpenRA-OW"
+fi
 
 echo "==> Building $rid"
-publish_and_copy "$work/OpenRA-OW" "$version" "$rid" "$work/build"
+publish_and_copy "$src" "$version" "$rid" "$work/build"
 if [ "$rid" = "linux-x64" ]; then
 	make_appimage "$work/build" "./release/OpenRA-OW-$version-$name"
 else

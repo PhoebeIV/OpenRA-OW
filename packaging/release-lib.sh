@@ -15,7 +15,13 @@ fetch_source() {
 publish_and_copy() {
 	local src="$1" version="$2" rid="$3" build="$4"
 
-	"$src/fetch-geoip.sh"
+	if [ ! -f "$src/OpenRA-OWEngine/OpenRA.slnx" ]; then
+		echo "Engine source not found at $src/OpenRA-OWEngine" >&2
+		echo "Run 'git submodule update --init --recursive' in the repo, or drop --local." >&2
+		exit 1
+	fi
+
+	sh "$src/fetch-geoip.sh"
 
 	local bin_dir="$build"
 	[ "$rid" != "win-x64" ] && bin_dir="$build/bin"
@@ -25,6 +31,7 @@ publish_and_copy() {
 		-p:CopyGenericLauncher="$([ "$rid" = "win-x64" ] && echo False || echo True)" \
 		-p:PublishDir="$bin_dir"
 
+	mkdir -p "$build/mods"
 	for d in ow common common-content ra ra-content all; do
 		cp -r "$src/mods/$d" "$build/mods/"
 	done
@@ -49,6 +56,7 @@ publish_and_copy() {
 
 zip_dir() {
 	local build="$1" outfile="$2"
+	outfile="$(cd "$(dirname "$outfile")" && pwd)/$(basename "$outfile")"
 	if command -v zip >/dev/null 2>&1; then
 		(cd "$build" && zip -qr "$outfile" .)
 	elif command -v python3 >/dev/null 2>&1; then

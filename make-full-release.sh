@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # Builds the FULL set of OpenRA-OW release files for the GitHub Releases tab.
 # Run this on Linux (WSL2 or a VM). No input needed.
+# Downloads the latest source (or builds the local copy with --local).
 set -euo pipefail
 
 . "$(dirname "$0")/packaging/release-lib.sh"
@@ -15,9 +16,14 @@ version="$(date +%Y%m%d)"
 mkdir -p ./release
 work="$(mktemp -d)"; trap 'rm -rf "$work"' EXIT
 
-echo "==> Downloading the latest OpenRA-OW source"
-fetch_source "$work"
-src="$work/OpenRA-OW"
+if [ "${1:-}" = "--local" ]; then
+	src="$(cd "$(dirname "$0")" && pwd)"
+	echo "==> Building from local copy at $src"
+else
+	echo "==> Downloading the latest OpenRA-OW source"
+	fetch_source "$work"
+	src="$work/OpenRA-OW"
+fi
 
 echo "==> Linux AppImage"
 publish_and_copy "$src" "$version" linux-x64 "$work/build-linux"
