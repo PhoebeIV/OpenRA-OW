@@ -4,7 +4,8 @@
 ## Meteors: building damage only, no unit AOE
 meteorstorm_fire:
 	Inherits: tomahawkstormpower
-	FallsToEarth:
+	FallsToEarthOW:
+		FiredByOwner: true
 		Explosion: MeteorStormFireball
 		Moves: true
 		Velocity: 160
@@ -18,27 +19,19 @@ meteorstorm_fire:
 
 meteorstorm_fire1:
 	Inherits: meteorstorm_fire
-	FallsToEarth:
-		Explosion: MeteorStormFireball
-		Moves: true
+	FallsToEarthOW:
 		Velocity: 180
-		MaximumSpinSpeed: 0
 
 meteorstorm_fire2:
 	Inherits: meteorstorm_fire
-	FallsToEarth:
-		Explosion: MeteorStormFireball
-		Moves: true
+	FallsToEarthOW:
 		Velocity: 200
-		MaximumSpinSpeed: 0
 
 meteorstorm_meteor:
 	Inherits: tomahawkstormpower
-	FallsToEarth:
+	FallsToEarthOW:
 		Explosion: MeteorStormMeteor
-		Moves: true
 		Velocity: 140
-		MaximumSpinSpeed: 0
 	Armament:
 		Weapon: MeteorStormMeteor
 	RenderSprites:
@@ -51,19 +44,14 @@ meteorstorm_meteor:
 
 meteorstorm_meteor1:
 	Inherits: meteorstorm_meteor
-	FallsToEarth:
-		Explosion: MeteorStormMeteor
-		Moves: true
+	FallsToEarthOW:
 		Velocity: 165
-		MaximumSpinSpeed: 0
 
 meteorstorm_meteor2:
 	Inherits: meteorstorm_meteor
-	FallsToEarth:
+	FallsToEarthOW:
 		Explosion: MeteorStormMeteor
-		Moves: true
 		Velocity: 190
-		MaximumSpinSpeed: 0
 
 ## Zombie Rain pods - dropped by DropPodsPowerOW, falls to earth, explodes, spawns undead
 zombierainpod:
@@ -125,7 +113,7 @@ zombierainpod4:
 
 ## Invisible marker placed at each void laser impact; rises undead after a random delay
 VoidRiseMarker:
-	Inherits: MINE_DUMMY
+	Inherits: ^MineDummy
 	Immobile:
 		OccupiesSpace: false
 	BodyOrientation:
@@ -149,7 +137,7 @@ VoidRiseMarker:
 
 ## Invisible marker scattered by Chaos Storm; detonates with a random elemental effect after a short fuse
 ChaosStormMarker:
-	Inherits: MINE_DUMMY
+	Inherits: ^MineDummy
 	Immobile:
 		OccupiesSpace: false
 	BodyOrientation:
@@ -184,7 +172,7 @@ ChaosStormMarker:
 		RequiresCondition: detonate-time
 
 ^TransmuteProbe:
-	Inherits: MINE_DUMMY
+	Inherits: ^MineDummy
 	-Interactable:
 	-Targetable:
 
