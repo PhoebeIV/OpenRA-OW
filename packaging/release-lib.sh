@@ -10,7 +10,56 @@ fetch_source() {
 	git -C "$work/OpenRA-OW" config url."https://github.com/".insteadOf "git@github.com:"
 	git -C "$work/OpenRA-OW" submodule update --init --recursive --quiet
 }
+find_icon_png() {
+	local src="$1"
+	local name="ow"
+	for size in 1024 512 256 128 64 48 32 24 16; do
+		if [ -f "$src/packaging/artwork/${name}_${size}x${size}.png" ]; then
+			echo "$src/packaging/artwork/${name}_${size}x${size}.png"
+			return
+		fi
+	done
+	echo "$src/mods/ow/icon.png"
+}
+make_ico() {
+	local out="$1" src="$2"
+	local pngs=()
+	local size
+	for size in 16 24 32 48 64 128 256 512 1024; do
+		if [ -f "$src/packaging/artwork/ow_${size}x${size}.png" ]; then
+			pngs+=("$src/packaging/artwork/ow_${size}x${size}.png")
+		fi
+	done
+	[ ${#pngs[@]} -eq 0 ] && pngs+=("$src/mods/ow/icon.png")
 
+	python3 - "$out" "${pngs[@]}" <<'PYEOF'
+import struct, sys
+
+out, pngs = sys.argv[1], sys.argv[2:]
+offset = 6 + 16 * len(pngs)
+entries, blobs = [], []
+for p in pngs:
+    with open(p, 'rb') as f:
+        data = f.read()
+    w, h = struct.unpack_from('>II', data, 16)
+    blobs.append(data)
+    entries.append(struct.pack(
+        '<BBBBHHII',
+        w if w < 256 else 0,   # width (0 means 256)
+        h if h < 256 else 0,   # height (0 means 256)
+        0,                     # colors
+        0,                     # reserved
+        1,                     # planes
+        32,                    # bpp
+        len(data),             # bytes in resource
+        offset                 # image offset
+    ))
+    offset += len(data)
+with open(out, 'wb') as f:
+    f.write(struct.pack('<HHH', 0, 1, len(pngs))
+            + b''.join(entries) + b''.join(blobs))
+PYEOF
+}
 # Publish the engine self-contained + copy the mod/data files into <build>
 publish_and_copy() {
 	local src="$1" version="$2" rid="$3" build="$4"
@@ -22,7 +71,8 @@ publish_and_copy() {
 	fi
 
 	sh "$src/fetch-geoip.sh"
-
+	
+	
 	local bin_dir="$build"
 	[ "$rid" != "win-x64" ] && bin_dir="$build/bin"
 
@@ -35,6 +85,11 @@ publish_and_copy() {
 	for d in ow common common-content ra ra-content all; do
 		cp -r "$src/mods/$d" "$build/mods/"
 	done
+	local icon="$(find_icon_png "$src")"
+	if [ -n "$icon" ] && [ "$icon" != "$src/mods/ow/icon.png" ]; then
+		cp "$icon" "$build/mods/ow/icon.png"
+	fi
+	cp "$(find_icon_png "$src")" "$build/mods/ow/icon.png"
 	cp -r "$src/glsl" "$build/"
 	cp "$src/VERSION" "$src/AUTHORS" "$src/COPYING" "$build/"
 	cp "$src/global mix database.dat" "$build/"
@@ -43,15 +98,18 @@ publish_and_copy() {
 	sed -i.bak "s/Version:.*/Version: $version/" "$build/mods/ow/mod.yaml"
 	rm -f "$build/mods/ow/mod.yaml.bak"
 
-	if [ "$rid" = "win-x64" ]; then
-		dotnet publish "$src/OpenRA-OWEngine/OpenRA.WindowsLauncher" -c Release -r win-x64 --self-contained true \
-			-p:ModID=ow -p:LauncherName=OW -p:DisplayName="Opposing Worlds" \
-			-p:FaqUrl="https://wiki.openra.net/FAQ" -p:PublishDir="$build"
-	else
-		printf '#!/bin/bash\ncd "$(dirname "$0")"\nexec ./bin/OpenRA Game.Mod=ow Engine.EngineDir=".."\n' \
-			> "$build/OpenRA-OW.command"
-		chmod +x "$build/OpenRA-OW.command"
+if [ "$rid" = "win-x64" ]; then
+	local launcher_icon=""
+	if command -v python3 >/dev/null 2>&1; then
+		launcher_icon="$build/mods/ow/icon.ico"
+		make_ico "$launcher_icon" "$src"
 	fi
+	dotnet publish "$src/OpenRA-OWEngine/OpenRA.WindowsLauncher" -c Release -r win-x64 --self-contained true \
+		-p:ModID=ow -p:LauncherName=OW -p:DisplayName="Opposing Worlds" \
+		-p:FaqUrl="https://wiki.openra.net/FAQ" \
+		${launcher_icon:+-p:LauncherIcon="$launcher_icon"} \
+		-p:PublishDir="$build"
+fi
 }
 
 zip_dir() {
@@ -98,6 +156,7 @@ make_appimage() {
 	mkdir -p "$appdir/usr/share/applications" "$appdir/usr/share/icons/hicolor/256x256/apps"
 	# appimagetool only looks for *.desktop in the AppDir root, so write it
 	# there as well as in the FSH-standard location.
+	
 	cat > "$appdir/openra-ow.desktop" <<-EOF
 	[Desktop Entry]
 	Type=Application
