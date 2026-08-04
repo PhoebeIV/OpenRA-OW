@@ -14,7 +14,6 @@ case "$(uname -s)-$(uname -m)" in
 	*) echo "Unsupported: $(uname -s) $(uname -m)"; exit 1 ;;
 esac
 
-version="$(date +%Y%m%d)"               # e.g. 20260803
 mkdir -p ./release
 work="$(mktemp -d)"; trap 'rm -rf "$work"' EXIT
 
@@ -26,9 +25,14 @@ else
 	fetch_source "$work"
 	src="$work/OpenRA-OW"
 fi
-
+#making it use date + time + commit hash for version number
+version="$(date +%Y%m%d-%H%M)-$(git -C "$src" rev-parse --short HEAD)"
+if [ -n "$(git -C "$src" status --porcelain)" ]; then
+	version="$version-dirty"
+fi
 echo "==> Building $rid"
 publish_and_copy "$src" "$version" "$rid" "$work/build"
+
 if [ "$rid" = "linux-x64" ]; then
 	make_appimage "$work/build" "./release/OpenRA-OW-$version-$name"
 else

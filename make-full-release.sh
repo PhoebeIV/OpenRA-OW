@@ -12,7 +12,6 @@ if [ "$(uname -s)" != "Linux" ]; then
 	exit 1
 fi
 
-version="$(date +%Y%m%d)"
 mkdir -p ./release
 work="$(mktemp -d)"; trap 'rm -rf "$work"' EXIT
 
@@ -25,6 +24,11 @@ else
 	src="$work/OpenRA-OW"
 fi
 
+#making it use date + time + commit hash for version number
+version="$(date +%Y%m%d-%H%M)-$(git -C "$src" rev-parse --short HEAD)"
+if [ -n "$(git -C "$src" status --porcelain)" ]; then
+	version="$version-dirty"
+fi
 echo "==> Linux AppImage"
 publish_and_copy "$src" "$version" linux-x64 "$work/build-linux"
 make_appimage "$work/build-linux" "./release/OpenRA-OW-$version-linux-x86_64.AppImage"

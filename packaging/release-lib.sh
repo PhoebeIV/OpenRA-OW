@@ -94,9 +94,69 @@ publish_and_copy() {
 	cp "$src/VERSION" "$src/AUTHORS" "$src/COPYING" "$build/"
 	cp "$src/global mix database.dat" "$build/"
 	cp "$src/IP2LOCATION-LITE-DB1.IPV6.BIN.ZIP" "$build/" 2>/dev/null || true
-	echo "$version" > "$build/VERSION"
-	sed -i.bak "s/Version:.*/Version: $version/" "$build/mods/ow/mod.yaml"
+	echo "OpenRA-OW-$version" > "$build/VERSION"
+	sed -i.bak "s/Version:.*/Version: OpenRA-OW-$version/" "$build/mods/ow/mod.yaml"
 	rm -f "$build/mods/ow/mod.yaml.bak"
+	cat > "$build/server.conf" <<'EOF'
+# OW dedicated server settings. Command-line args (--port/--name/--map) override these.
+Name=OW Server
+ListenPort=10668
+Map=
+Password=
+AdvertiseOnline=True
+AdvertiseOnLocalNetwork=True
+RecordReplays=False
+RequireAuthentication=False
+ProfileIDBlacklist=
+ProfileIDWhitelist=
+EnableSingleplayer=False
+EnableSyncReports=False
+EnableGeoIP=True
+EnableLintChecks=True
+ShareAnonymizedIPs=True
+FloodLimitJoinCooldown=5000
+EOF
+	
+case "$rid" in
+    osx-*)
+        cat > "$build/launch-game.command" <<'EOF'
+#!/bin/sh
+set -e
+HERE=$(dirname "$0")
+cd "$HERE"
+exec ./bin/OpenRA Game.Mod=ow Engine.EngineDir=".." Engine.LaunchPath="$HERE/bin/OpenRA"
+EOF
+        cat > "$build/launch-server.command" <<'EOF'
+#!/bin/sh
+set -e
+HERE=$(dirname "$0")
+cd "$HERE"
+CONF="${CONF:-"$HERE/server.conf"}"
+exec ./bin/OpenRA.Server Engine.EngineDir=".." Game.Mod=ow --conf "$CONF" "$@"
+EOF
+        chmod +x "$build/launch-game.command" "$build/launch-server.command"
+        ;;
+    linux-x64)
+        cat > "$build/launch-server.sh" <<'EOF'
+#!/bin/sh
+set -e
+HERE=$(dirname "$0")
+CONF="${CONF:-"$HERE/server.conf"}"
+exec ./bin/OpenRA.Server Engine.EngineDir=".." Game.Mod=ow --conf "$CONF" "$@"
+EOF
+        chmod +x "$build/launch-server.sh"
+        ;;
+    win-x64)
+        cat > "$build/launch-server.bat" <<'EOF'
+@echo off
+if exist "%~dp0bin\OpenRA.Server.exe" (
+    bin\OpenRA.Server.exe Engine.EngineDir=".." Game.Mod=ow --conf "%~dp0server.conf" %*
+) else (
+    OpenRA.Server.exe Game.Mod=ow --conf "%~dp0server.conf" %*
+)
+EOF
+        ;;
+esac
 
 if [ "$rid" = "win-x64" ]; then
 	local launcher_icon=""
@@ -148,8 +208,9 @@ make_appimage() {
 	cp -r "$build/bin" "$build/mods" "$build/glsl" "$appdir/usr/lib/openra/"
 	cp "$build/VERSION" "$build/AUTHORS" "$build/COPYING" "$appdir/usr/lib/openra/"
 	cp "$build/global mix database.dat" "$appdir/usr/lib/openra/"
+	cp "$build/server.conf" "$build/launch-server.sh" "$appdir/usr/lib/openra/"
 
-	printf '#!/bin/sh\nset -e\nHERE="$(dirname "$0")"\ncd "$HERE/usr/lib/openra"\nexec ./bin/OpenRA Game.Mod=ow Engine.EngineDir=".."\n' \
+	printf '#!/bin/sh\nset -e\nHERE="$(dirname "$0")"\ncd "$HERE/usr/lib/openra"\nexec ./bin/OpenRA Game.Mod=ow Engine.EngineDir=".." Engine.LaunchPath="$HERE/usr/lib/openra/bin/OpenRA"\n' \
 		> "$appdir/AppRun"
 	chmod +x "$appdir/AppRun"
 
