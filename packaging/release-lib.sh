@@ -187,8 +187,11 @@ with zipfile.ZipFile(dst, 'w', zipfile.ZIP_DEFLATED) as z:
             p = os.path.join(root, f)
             z.write(p, os.path.relpath(p, src))
 EOF
+	elif command -v powershell.exe >/dev/null 2>&1 && command -v cygpath >/dev/null 2>&1; then
+		local src_win="$(cygpath -w "$build")" dst_win="$(cygpath -w "$outfile")"
+		powershell.exe -NoProfile -Command "Compress-Archive -Path '$src_win\\*' -DestinationPath '$dst_win' -CompressionLevel Optimal -Force"
 	else
-		echo "zip or python3 is required to create the release archive" >&2
+		echo "Powershell, zip or python3 is required to create the release archive" >&2
 		exit 1
 	fi
 }

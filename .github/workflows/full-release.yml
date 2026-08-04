@@ -2,9 +2,14 @@ name: Full Release
 
 on:
   workflow_dispatch:
-
+    inputs:
+      create_release:
+        description: Create a GitHub Release from the built files 
+        type: boolean
+        required: false
+        default: true
 permissions:
-  contents: read  #  to fetch code (actions/checkout)
+  contents: write  #  to fetch code and create GitHub Releases
 
 jobs:
   release:
@@ -35,3 +40,30 @@ jobs:
           name: openra-ow-full-release
           path: release/*
           if-no-files-found: error
+      - name: Create GitHub Release
+        if: inputs.create_release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          version="$(cat release/version.txt)"
+          cat > release-notes.md <<EOF
+          ## OpenRA-OW $version
+
+          - macOS aarch64: arm64 zip
+          - Windows: x64 zip
+          - Linux: AppImage
+
+          Note for macOS: there is currently no plan to release an x86 version of the program for macOS.
+
+          ---For server---
+          Linux server can be run via ./launch-server.sh from the extracted AppDir.
+          The Windows and macOS zips include OpenRA.Server too (with their own launch-server.bat/.command).
+          A server.conf is included with all of the settings you need to run the server.
+          EOF
+
+          gh release create "v$version" \
+            release/OpenRA-OW-"$version"-linux-x86_64.AppImage \
+            release/OpenRA-OW-"$version"-windows-x64.zip \
+            release/OpenRA-OW-"$version"-macos-arm64.zip \
+            --title "OpenRA-OW $version" \
+            --notes-file release-notes.md

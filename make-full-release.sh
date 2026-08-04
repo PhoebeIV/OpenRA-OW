@@ -42,6 +42,8 @@ echo "==> macOS portable"
 publish_and_copy "$src" "$version" osx-arm64 "$work/build-mac"
 zip_dir "$work/build-mac" "./release/OpenRA-OW-$version-macos-arm64.zip"
 
+echo "$version" > ./release/version.txt
+
 echo
 echo "Done. Upload these to a GitHub Release:"
 ls -lh ./release/
