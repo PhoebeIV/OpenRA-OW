@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Builds an OpenRA-OW release for THIS computer. No input needed.
-# Downloads the latest source (or builds the local copy with --local)
+# Builds the local copy (or downloads the latest source with --remote).
 # and leaves the finished file in ./release/
 set -euo pipefail
 
@@ -17,13 +17,13 @@ esac
 mkdir -p ./release
 work="$(mktemp -d)"; trap 'rm -rf "$work"' EXIT
 
-if [ "${1:-}" = "--local" ]; then
-	src="$(cd "$(dirname "$0")" && pwd)"
-	echo "==> Building from local copy at $src"
-else
+if [ "${1:-}" = "--remote" ]; then
 	echo "==> Downloading the latest OpenRA-OW source"
 	fetch_source "$work"
 	src="$work/OpenRA-OW"
+else
+	src="$(cd "$(dirname "$0")" && pwd)"
+	echo "==> Building from local copy at $src"
 fi
 #making it use date + time + commit hash for version number
 version="$(date +%Y%m%d-%H%M)-$(git -C "$src" rev-parse --short HEAD)"

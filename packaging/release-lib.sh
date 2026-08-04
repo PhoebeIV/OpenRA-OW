@@ -66,7 +66,7 @@ publish_and_copy() {
 
 	if [ ! -f "$src/OpenRA-OWEngine/OpenRA.slnx" ]; then
 		echo "Engine source not found at $src/OpenRA-OWEngine" >&2
-		echo "Run 'git submodule update --init --recursive' in the repo, or drop --local." >&2
+		echo "Run 'git submodule update --init --recursive' in the repo, or use --remote." >&2
 		exit 1
 	fi
 

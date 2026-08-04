@@ -1,0 +1,37 @@
+name: Full Release
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read  #  to fetch code (actions/checkout)
+
+jobs:
+  release:
+    name: Build All Platforms
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Clone Repository
+        uses: actions/checkout@v5
+        with:
+          submodules: recursive
+
+      - name: Install .NET 10
+        uses: actions/setup-dotnet@v5
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Install Packaging Tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y zip desktop-file-utils
+
+      - name: Build Full Release
+        run: bash ./make-full-release.sh
+
+      - name: Upload Release Files
+        uses: actions/upload-artifact@v4
+        with:
+          name: openra-ow-full-release
+          path: release/*
+          if-no-files-found: error
