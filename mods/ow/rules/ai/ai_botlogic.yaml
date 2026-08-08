@@ -1417,11 +1417,14 @@ Player:
 	ProvidesPrerequisite@slowai1:
 		RequiresCondition: upkeep_bot && enable-all-ai
 		Prerequisite: prodspeed.botupkeep
+	GrantConditionOnPrerequisite@botlimiter:
+		Condition: bot-build-limiter
+		Prerequisites: techlevel.botlimiter
 	GrantConditionOnPlayerArmyValue@slowai2:
 		Condition: disable-unitbuilder
-		Threshold: 150000
+		Threshold: 200000
 	UnitBuilderBotModule@normal:
-		RequiresCondition: (enable-all-ai && !disable-unitbuilder)
+		RequiresCondition: enable-all-ai && (!disable-unitbuilder && bot-build-limiter)
 		UnitQueues: Vehicle, Infantry, Plane, Ship, Aircraft, Hero
 		UnitsToBuild:
 			e1: 30
@@ -1489,6 +1492,7 @@ Player:
 			harvd: 10
 			gharv: 10
 			harvnavy: 10
+			dtrk.bot: 30
 			apc: 30
 			apc.ai1: 10
 			apc.ai2: 10

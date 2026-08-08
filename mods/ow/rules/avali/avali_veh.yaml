@@ -1128,6 +1128,7 @@ AVQTNK:
 		Weapon: TerranSiegeDeploy
 		RequiresCondition: !deployed && botowner
 	GrantConditionOnAttack:
+		RequiresCondition: !near_avqtnk
 		Condition: force_deploy
 	GrantConditionOnPrerequisite@botowner:
 		Condition: botowner
@@ -1143,3 +1144,9 @@ AVQTNK:
 		RequiresCondition: deployed
 		Range: 8c0
 		ValidRelationships: Neutral, Ally, Enemy
+	ProximityExternalCondition@deployedbot:
+		Condition: near_avqtnk
+		RequiresCondition: deployed
+		Range: 10c0
+	ExternalCondition@avqtnk:
+		Condition: near_avqtnk

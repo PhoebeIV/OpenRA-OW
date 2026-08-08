@@ -372,6 +372,17 @@ dukenukem.Hero2:
 		Weapon: dukenukemmg
 	Armament@BUS:
 		Weapon: dukenukemmg
+	Targetable@epic1:
+		RequiresCondition: !fakeduke
+	GrantConditionOnPrerequisite@fakeduke:
+		Prerequisites: fakeduke
+		Condition: fakeduke
+	GrantConditionOnAttack@item:
+		ArmamentNames: item
+		Condition: duke_notarget
+		RevokeDelay: 50
+	Targetable:
+		RequiresCondition: !duke_notarget
 
 dukenukem.Hero3:
 	Inherits: dukenukem.Hero2
@@ -654,6 +665,8 @@ FakeDukeNukem:
 	Selectable:
 		Bounds: 256, 256, 0, 0
 		DecorationBounds: 1536, 1536, 0, 0
+	ProvidesPrerequisite@fakeduke:
+		Prerequisite: fakeduke
 
 dukenukemship:
 	Inherits: ^Plane

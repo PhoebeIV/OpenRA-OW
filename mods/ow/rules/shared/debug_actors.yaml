@@ -1121,13 +1121,11 @@ DTRK.GameOver:
 	Inherits: DTRK
 	Buildable:
 		Prerequisites: ~disabled
-	RenderSprites:
-		Image: dtrk
 	TimedConditionBar:
 		Condition: spawned
 	GrantTimedCondition:
 		Condition: spawned
-		Duration: 150
+		Duration: 250
 	DamageMultiplier:
 		RequiresCondition: spawned
 		Modifier: 0
@@ -1144,3 +1142,20 @@ DTRK.GameOver:
 	KillsSelf@kill:
 		Delay: 1500, 3000
 		RequiresCondition: kill_self
+	-EligibleForRandomActorCrate:
+
+DTRK.Colony:
+	Inherits: DTRK
+	Mobile:
+		Speed: 120
+	Health:
+		HP: 10000
+	Buildable:
+		Prerequisites: ~disabled
+	Tooltip:
+		Name: Big Badaboom Truck
+	FireWarheadsOnDeath:
+		Weapon: ColonyDropExplosion
+		EmptyWeapon: ColonyDropExplosion
+	EligibleForRandomActorCrate:
+		Type: epic

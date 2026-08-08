@@ -2057,6 +2057,7 @@
 	Inherits@usabombardment: ^USAStrategyBuffs
 	Inherits@propagandaboost: ^propagandaboost
 	Inherits@japanbuffs_buildings: ^japanbuffs_buildings
+	Inherits@uquaddamage: ^DamageAmplifier
 	RevealOnDeath:
 	Building:
 		Footprint: +
@@ -3357,7 +3358,7 @@
 # Inherited and changed from mods/ra to add a toggle button for destructible bridges
 ^Bridge:
 	GrantConditionOnPrerequisite:
-		Prerequisites: explodebridges
+		Prerequisites: environment.indestructiblebridge
 		Condition: explodebridges
 	Health:
 		HP: 200000
@@ -3365,6 +3366,10 @@
 		RequiresCondition: explodebridges
 		StartIfBelow: 100
 		PercentageStep: 100
+	DamageMultiplier@bridges:
+		RequiresCondition: explodebridges
+		Modifier: 0
+
 
 # Inherited and changed from mods/ra to add a new voice set
 ^CivInfantry:
@@ -3664,11 +3669,60 @@
 		Modifier: 125
 		RequiresCondition: shishironbuff
 
+^DamageAmplifier:
+	ExternalCondition@quaddamage:
+		Condition: quaddamage
+	FirepowerMultiplier@quaddamage:
+		Modifier: 400
+		RequiresCondition: quaddamage
+	AttackSounds@quaddamage:
+		RequiresCondition: quaddamage
+		Sounds: qdamage3.ogg
+	AmbientSound@quaddamagefade: 
+		RequiresCondition: quaddamage
+		SoundFiles: qdamage2.ogg
+		Delay: 675
+		Interval: 100
+	WithColoredOverlay@quaddamage:
+		RequiresCondition: quaddamage
+		Color: 3A6B9D83
+	TimedConditionBar@quaddamage:
+		Condition: quaddamage
+		Color: 5797D6
+	ExternalCondition@udamage:
+		Condition: udamage
+	FirepowerMultiplier@udamage:
+		Modifier: 250
+		RequiresCondition: udamage
+	GrantDelayedCondition@udamage:
+		RequiresCondition: udamage
+		Delay: 500
+		Condition: udamagelow
+		RevokeOnDisabled: true
+	AttackSounds@udamage:
+		RequiresCondition: udamage && !udamagelow
+		Sounds: uampfire.ogg
+	AttackSounds@udamage2:
+		RequiresCondition: udamage && udamagelow
+		Sounds: uampfire2.ogg
+	AmbientSound@udamagefade: 
+		RequiresCondition: udamage
+		SoundFiles: uampout.ogg
+		Delay: 675
+		Interval: 100
+	WithColoredOverlay@udamage:
+		RequiresCondition: udamage
+		Color: BE46FF83
+	TimedConditionBar@udamage:
+		Condition: udamage
+		Color: C157D6
+
 # Used for units that can receive Patriot/Frenzy boost, Japan Curse as well as:
 # Defense Matrix from Terran Science Vessel or Protoss (Artanis) support power
 # AI check to use any of the above support powers
 # Cryostream speed debuff
 ^FrenzyBoost:
+	Inherits: ^DamageAmplifier
 	ExternalCondition@patriotismboost:
 		Condition: patriotismboost
 	ExternalCondition@frenzyboost:
@@ -3813,52 +3867,6 @@
 	ExplodeWeapon@needler:
 		RequiresCondition: needlereffectweak >= 15
 		Weapon: NeedlerExplosionweak
-	ExternalCondition@quaddamage:
-		Condition: quaddamage
-	FirepowerMultiplier@quaddamage:
-		Modifier: 400
-		RequiresCondition: quaddamage
-	AttackSounds@quaddamage:
-		RequiresCondition: quaddamage
-		Sounds: qdamage3.ogg
-	AmbientSound@quaddamagefade: 
-		RequiresCondition: quaddamage
-		SoundFiles: qdamage2.ogg
-		Delay: 675
-		Interval: 100
-	WithColoredOverlay@quaddamage:
-		RequiresCondition: quaddamage
-		Color: 3A6B9D83
-	TimedConditionBar@quaddamage:
-		Condition: quaddamage
-		Color: 5797D6
-	ExternalCondition@udamage:
-		Condition: udamage
-	FirepowerMultiplier@udamage:
-		Modifier: 250
-		RequiresCondition: udamage
-	GrantDelayedCondition@udamage:
-		RequiresCondition: udamage
-		Delay: 500
-		Condition: udamagelow
-		RevokeOnDisabled: true
-	AttackSounds@udamage:
-		RequiresCondition: udamage && !udamagelow
-		Sounds: uampfire.ogg
-	AttackSounds@udamage2:
-		RequiresCondition: udamage && udamagelow
-		Sounds: uampfire2.ogg
-	AmbientSound@udamagefade: 
-		RequiresCondition: udamage
-		SoundFiles: uampout.ogg
-		Delay: 675
-		Interval: 100
-	WithColoredOverlay@udamage:
-		RequiresCondition: udamage
-		Color: BE46FF83
-	TimedConditionBar@udamage:
-		Condition: udamage
-		Color: C157D6
 
 ^FrenzyBoostInfantry:
 	Inherits: ^FrenzyBoost

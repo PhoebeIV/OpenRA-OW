@@ -48,11 +48,41 @@ TTNK:
 		Modifier: 120
 
 DTRK:
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
 	Buildable:
 		Prerequisites: advtechcenter, superweapon, ~vehicles.dtrkprereq, ~techlevel.unrestricted
 		Description: actor-dtrk.description
 	Tooltip:
 		Name: actor-dtrk.name
+	GrantConditionOnPrerequisite@bot:
+		Prerequisites: ai.all
+		Condition: botowner
+	AutoTarget: 
+		ScanRadius: 65
+		InitialStance: HoldFire
+		InitialStanceAI: AttackAnything
+	RejectsOrders:
+		RequiresCondition: botowner
+	AutoTargetPriority@DEFAULT:
+		InvalidTargets: NoAutoTarget, UpgradeThing, Ground, OreMine, TibTreeBotTarget, WaterActor
+	AutoTargetPriority@ATTACKANYTHING:
+		InvalidTargets: NoAutoTarget, UpgradeThing, Ground, OreMine, TibTreeBotTarget, WaterActor
+	AutoTargetPriority@ATTACKANYTHINGBOT:
+		InvalidTargets: NoAutoTarget, UpgradeThing, Ground, OreMine, WaterActor
+	AutoTargetPriority@EPIC:
+		InvalidTargets: WaterActor
+	RenderSprites: 
+		Image: dtrk
+
+DTRK.Bot:
+	Inherits: DTRK
+	Buildable:
+		Prerequisites: advtechcenter, superweapon, ~vehicles.dtrkprereq, ~techlevel.unrestricted, ~ai.all
+		BuildLimit: 1
+	UpdatesPlayerStatistics:
+		OverrideActor: dtrk
+	Selectable:
+		Class: DTRK
 
 QTNK:
 	Inherits: ^TrackedVehicle

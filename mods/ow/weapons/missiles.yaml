@@ -732,14 +732,14 @@ GLASCUD:
 		PointDefenseType: cruisemissile
 	Warhead@1Dam: SpreadDamage
 		Spread: 600
-		Damage: 22500
+		Damage: 20000
 		ValidTargets: GroundActor, WaterActor, Trees
-		Falloff: 225, 75, 60, 40, 20, 10, 0
+		Falloff: 225, 100, 60, 40, 20, 10, 0
 		Versus:
-			None: 35
-			Wood: 75
+			None: 20
+			Wood: 60
 			Light: 90
-			Heavy: 110
+			Heavy: 100
 			Concrete: 25
 		AffectsParent: true
 		DamageTypes: Prone50Percent, TriggerProne, SmallExplosionDeath, Incendiary
@@ -760,10 +760,10 @@ ToxinSCUD:
 		ContrailStartColor: 60FF60
 	Warhead@1Dam: SpreadDamage
 		Spread: 768
-		Damage: 12500
+		Damage: 12000
 		Versus:
 			None: 60
-			Wood: 45
+			Wood: 40
 			Light: 45
 			Heavy: 45
 			Concrete: 20
@@ -1051,6 +1051,37 @@ GunnerRocket:
 		Damage: 7500
 		Versus:
 			None: 30
+
+QuakeRocket:
+	Inherits: DoomRPG
+	ReloadDelay: 21
+	Range: 6c512
+	Report: qrocketfire.ogg
+	Projectile: Bullet
+		ContrailLength: 0
+		Image: dukenukemrocketdev
+		TrailImage: smokey
+	Warhead@1Dam: SpreadDamage
+		Spread: 512
+		Damage: 10000
+	Warhead@3Eff: CreateEffect
+		ImpactSounds: qexplo.ogg
+
+QuakeGrenade:
+	Inherits: QuakeRocket
+	ReloadDelay: 27
+	Range: 7c512
+	Report: qgrenade.ogg
+	Projectile: Bullet
+		Speed: 200
+		Image: 120MM
+		LaunchAngle: 48,128
+		BounceCount: 3
+		BounceSound: qbounce.ogg
+		InvalidBounceTerrain: Water
+	Warhead@1Dam: SpreadDamage
+		Spread: 800
+		Damage: 12500
 
 CyberAA:
 	Inherits: ^AntiAirMissile
@@ -1951,7 +1982,7 @@ dukenukemfreezer:
 	Warhead@4Eff: GrantExternalCondition
 		Condition: cyrostreameffect
 		Duration: 250
-		ValidTargets: Ground, Air, GroundActor, AirborneActor, WaterActor, Trees, Water, Underwater
+		ValidTargets: Ground, GroundActor, WaterActor, Trees, Water, Underwater
 
 dukenukemdevestator:
 	Inherits: ^AntiGroundMissile

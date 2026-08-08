@@ -206,28 +206,33 @@ CRATE:
 		SelectionShares: 2
 		Units: dukenukem
 		Sound: dukenukembuild5.aud
-		Prerequisites: techlevel.medium
+		Prerequisites: techlevel.high
 	GiveUnitCrateAction@judgedredd:
 		SelectionShares: 2
 		Units: judgedredd
 		Sound: dredd1.aud
-		Prerequisites: techlevel.medium
+		Prerequisites: techlevel.high
 	GiveUnitCrateAction@corvus:
 		SelectionShares: 2
 		Units: hereticcorvus
 		Sound: WPNUP.wav
-		Prerequisites: techlevel.medium
+		Prerequisites: techlevel.high
 	GiveUnitCrateAction@hartman:
 		SelectionShares: 2
 		Units: hartman
 		Sound: hartmanrdy1.aud
-		Prerequisites: techlevel.medium, !environment.nomemes
+		Prerequisites: techlevel.high, !environment.nomemes
 	GiveUnitCrateAction@terminator:
 		SelectionShares: 2
 		TimeDelay: 6000
 		Units: terminator
 		Sound: arniekil2.aud
-		Prerequisites: techlevel.medium, !environment.nomemes
+		Prerequisites: techlevel.high, !environment.nomemes
+	GiveUnitCrateAction@quakeguy:
+		SelectionShares: 2
+		Units: quakeguy
+		Sound: qvoice1.ogg
+		Prerequisites: techlevel.high
 	GiveUnitCrateAction@hunterkiller:
 		SelectionShares: 4
 		Units: 1tnk.hunter
@@ -375,12 +380,15 @@ CRATE:
 	SupportPowerCrateAction@Chromoshift:
 		Proxy: powerproxy.Chromoshift
 		Sound: chrono2.aud
-		Sequence: speed
+		Sequence: chrono
 		SelectionShares: 2
+		Prerequisites: !ai.all
 	SupportPowerCrateAction@Chronoshifty:
 		Proxy: powerproxy.Chronoshifty
 		Sound: chrono2.aud
-		SelectionShares: 3
+		Sequence: chrono
+		SelectionShares: 2
+		Prerequisites: !ai.all
 	SupportPowerCrateAction@starfox:
 		Proxy: powerproxy.starfox
 		Sound: starfoxpickup.aud
@@ -554,28 +562,35 @@ CRATE.FuckYou:
 		Units: dukenukem
 		Sound: dukenukembuild5.aud
 		Owner: Creeps
-		Prerequisites: techlevel.medium
+		Prerequisites: techlevel.high
 	GiveUnitCrateAction@hartman:
 		SelectionShares: 3
 		TimeDelay: 6000
 		Units: hartman
 		Sound: hartmanrdy1.aud
 		Owner: Creeps
-		Prerequisites: techlevel.medium, !environment.nomemes
+		Prerequisites: techlevel.high, !environment.nomemes
 	GiveUnitCrateAction@judgedredd:
 		SelectionShares: 3
 		TimeDelay: 6000
 		Units: judgedredd
 		Sound: dredd1.aud
 		Owner: Creeps
-		Prerequisites: techlevel.medium
+		Prerequisites: techlevel.high
 	GiveUnitCrateAction@corvus:
 		SelectionShares: 3
 		TimeDelay: 6000
 		Units: hereticcorvus
 		Sound: WPNUP.wav
 		Owner: Creeps
-		Prerequisites: techlevel.medium
+		Prerequisites: techlevel.high
+	GiveUnitCrateAction@quakeguy:
+		SelectionShares: 3
+		TimeDelay: 6000
+		Units: quakeguy
+		Sound: qvoice1.ogg
+		Owner: Creeps
+		Prerequisites: techlevel.high
 	GiveUnitCrateAction@wall:
 		SelectionShares: 8
 		Units: 1tnk.brik,1tnk.brik,1tnk.brik,1tnk.brik,1tnk.brik,1tnk.brik,1tnk.brik,1tnk.brik,1tnk.brik,1tnk.brik
@@ -950,7 +965,7 @@ CRATE.BigLanded:
 	Selectable:
 		Bounds: 2048,2048
 	Valued:
-		Cost: 5000
+		Cost: 100
 	Health:
 		HP: 300000
 	Building:
@@ -965,6 +980,14 @@ CRATE.BigLanded:
 	-WithMakeAnimation:
 	-GrantConditionOnOwnerName@creeps:
 	-Targetable@noaiautotarget:
+	GrantConditionOnTerrain@water:
+		TerrainTypes: Water
+		Condition: water
+	Targetable:
+		RequiresCondition: !triggered && !water
+	Targetable@water:
+		RequiresCondition: !triggered && water
+		TargetTypes: WaterActor, C4, DetonateAttack, Structure, Defense
 	WithCrateBody:
 		XmasImages: bigcrate
 		LandSequence: land
@@ -975,7 +998,7 @@ CRATE.BigLanded:
 CRATE.BiggerLanded:
 	Inherits: CRATE.BigLanded
 	Valued:
-		Cost: 10000
+		Cost: 100
 	Building:
 		Dimensions: 3,3
 		Footprint: _x_ xxx _x_
@@ -1279,7 +1302,10 @@ DukeNukem:
 	Passenger:
 		CustomPipType: red
 	AttackFrontal:
-		Armaments: gun1, gun2, gun3, gun4, gun5, gun6, gun7, gun8, gun9
+		Armaments: gun1, gun2, gun3, gun4, gun5, gun6, gun7, gun8, gun9, item
+	Armament@FakeDuke:
+		Weapon: FakeDukeWeapon
+		Name: item
 	GrantRandomPeriodicCondition:
 		Conditions: gun1, gun2, gun3, gun4, gun5, gun6, gun7, gun8, gun9
 		CooldownDuration: 1
@@ -1377,6 +1403,17 @@ DukeNukem:
 		Delay: 25
 		StartIfBelow: 50
 		DamageCooldown: 500
+	Targetable@epic1:
+		RequiresCondition: !fakeduke
+	GrantConditionOnPrerequisite@fakeduke:
+		Prerequisites: fakeduke
+		Condition: fakeduke
+	GrantConditionOnAttack@item:
+		ArmamentNames: item
+		Condition: duke_notarget
+		RevokeDelay: 50
+	Targetable:
+		RequiresCondition: !duke_notarget
 
 HARTMAN:
 	Inherits: DukeNukem
@@ -1386,6 +1423,7 @@ HARTMAN:
 		Image: d6.havoc
 	Voiced:
 		VoiceSet: HartmanVoice
+	-GrantConditionOnFaction@china:
 	AmbientSound:
 		SoundFiles: hartmanwht1.aud,hartmanwht2.aud,hartmanwht3.aud,hartmanwht4.aud,hartmanwht5.aud,hartmanwht6.aud,hartmanwht7.aud,hartmanwht8.aud,hartmanwht9.aud,hartmanwht10.aud,hartmanyes1.aud,hartmanyes2.aud,hartmanyes3.aud
 		Delay: 250
@@ -4717,12 +4755,12 @@ powerproxy.morshubombs:
 powerproxy.Chromoshift:
 	ChronoshiftPower@Chromoshift:
 		OrderName: Chromoshift
-		Icon: chrono
-		ChargeInterval: 2000
+		Icon: chromo
+		ChargeInterval: 4500
 		AllowMultiple: True
 		OneShot: True
-		Name: actor-pdox.chronoshiftpower-advancedchronoshift-name
-		Description: Steal Their Chromosones
+		Name: Chromoshift
+		Description: Rearrange their chromosomes.
 		SelectTargetSpeechNotification: SelectTarget
 		InsufficientPowerSpeechNotification: InsufficientPower
 		BeginChargeSpeechNotification: ChronosphereCharging
@@ -4735,14 +4773,14 @@ powerproxy.Chromoshift:
 		KillCargo: true
 		DisplayRadarPing: True
 		SupportPowerPaletteOrder: 30
-		Dimensions: 5, 5
-		Footprint: __x__ _xxx_ xxxxx _xxx_ __x__
+		Dimensions: 3, 3
+		Footprint: _x_ xxx _x_
 
 powerproxy.Chronoshifty:
 	ChronoshiftPower@Chronoshifty:
 		OrderName: Chronoshifty
 		Icon: chrono
-		ChargeInterval: 2000
+		ChargeInterval: 4500
 		AllowMultiple: True
 		OneShot: True
 		Name: actor-pdox.chronoshiftpower-advancedchronoshift-name
@@ -4755,12 +4793,12 @@ powerproxy.Chronoshifty:
 		InsufficientPowerTextNotification: notification-insufficient-power
 		BeginChargeTextNotification: notification-chronosphere-charging
 		EndChargeTextNotification: notification-chronosphere-charging
-		Duration: 2000
+		Duration: 500
 		KillCargo: true
 		DisplayRadarPing: True
 		SupportPowerPaletteOrder: 30
-		Dimensions: 5, 5
-		Footprint: __x__ _xxx_ xxxxx _xxx_ __x__
+		Dimensions: 3, 3
+		Footprint: _x_ xxx _x_
 
 starfoxarwingfox:
 	Inherits: ^Plane
@@ -5151,7 +5189,12 @@ RICKHAND:
 	AmbientSound@1:
 		Delay: 60
 		SoundFiles: mortykillcello.ogg
-	-Contrail:
+	Contrail:
+		Offset: 3072, 1024, 0
+		TrailLength: 1500
+		StartWidth: 4200
+		StartColor: d8d4d8
+		EndColorAlpha: 255
 	-Contrail@1:
 	-Contrail@2:
 	-Contrail@3:
@@ -5581,11 +5624,11 @@ CRATETRAP.Superweapon:
 		TargetRelationships: Ally, Neutral, Enemy
 	AmbientSound@weap3b:
 		RequiresCondition: weap3
-		SoundFiles: debfgfire2.wav
+		SoundFiles: debfgfire2.ogg
 		Interval: 9000
 	AmbientSound@weap3c:
 		RequiresCondition: weap3
-		SoundFiles: debfgfire2.wav
+		SoundFiles: debfgfire2.ogg
 		Interval: 9000
 	Armament@weap3:
 		RequiresCondition: weap3
@@ -5601,3 +5644,204 @@ CRATETRAP.Target:
 		RemoveInstead: true
 	Targetable:
 		TargetTypes: CrateTrapTarget
+
+QUAKEGUY:
+	Inherits: ^Soldier
+	Inherits@EPIC: ^EpicUnit
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Selectable:
+		Bounds: 1000, 1000, 0, 0
+		DecorationBounds: 1200, 1200, 0, 0
+	Buildable:
+		Queue: Infantry
+		BuildPaletteOrder: 0
+		Prerequisites: ~disabled
+	Valued:
+		Cost: 10000
+	Tooltip:
+		Name: actor-quakeguy-name
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 150000
+	Mobile:
+		Speed: 90
+	RevealsShroud:
+		Range: 7c0
+	Passenger:
+		CustomPipType: red
+	AttackFrontal:
+		Armaments: gun1, gun2, gun3, gun4, gun5, gun6, gun7, gun8, gun9
+	GrantRandomPeriodicCondition:
+		Conditions: gun1, gun2, gun3, gun4, gun7, gun8, gun9
+		CooldownDuration: 0
+		ActiveDuration: 250
+	GrantRandomPeriodicCondition@2:
+		Conditions: gun5, gun6
+		CooldownDuration: 0
+		ActiveDuration: 251
+	Armament@1:
+		Name: gun1
+		Weapon: QuakeShotgun
+		LocalOffset: 0,0,555
+		RequiresCondition: gun1
+	Armament@2:
+		Name: gun2
+		Weapon: QuakeSSG
+		LocalOffset: 0,0,555
+		RequiresCondition: gun2
+	Armament@3:
+		Name: gun3
+		Weapon: QuakeNailgun
+		LocalOffset: 0,-128,555, 0,128,555
+		RequiresCondition: gun3
+	Armament@4:
+		Name: gun4
+		Weapon: QuakeSuperNailgun
+		LocalOffset: 0,0,555
+		RequiresCondition: gun4
+	Armament@5:
+		Name: gun5
+		Weapon: QuakeRocket
+		LocalOffset: 0,0,555
+		RequiresCondition: gun5
+	Armament@6:
+		Name: gun6
+		Weapon: QuakeGrenade
+		LocalOffset: 0,0,555
+		RequiresCondition: gun6
+	Armament@7:
+		Name: gun7
+		Weapon: QuakePlasma
+		LocalOffset: 0,0,555
+		RequiresCondition: gun7
+	Armament@8:
+		Name: gun8
+		Weapon: QuakeRailgun
+		LocalOffset: 0,0,555
+		RequiresCondition: gun8
+	Armament@9:
+		Name: gun9
+		Weapon: QuakeLightningGun
+		LocalOffset: 0,0,555
+		RequiresCondition: gun9
+	TakeCover:
+		ProneOffset: 500,0,-555
+	AmbientSound@9sound1:
+		RequiresCondition: lightning_attack
+		Interval: 9000
+		SoundFiles: qlg_fire.ogg
+	AmbientSound@9sound2:
+		RequiresCondition: lightning_attack
+		SoundFiles: qlg_hum.ogg
+		Delay: 3
+	GrantConditionOnAttack@9condition:
+		ArmamentNames: gun9
+		Condition: lightning_attack
+		RevokeDelay: 6
+	Armament@GARRISONED:
+		Name: garrisoned
+		Weapon: QuakeNailgun
+		MuzzleSequence: garrison-muzzle
+	Armament@BUS:
+		Name: bus
+		Weapon: QuakeNailgun
+		MuzzleSequence: garrison-muzzle
+	WithInfantryBody:
+		DefaultAttackSequence: shoot
+		StandSequences: stand
+	ExternalCondition@PRODUCED:
+		Condition: produced
+	VoiceAnnouncement:
+		RequiresCondition: produced
+		Voice: Build
+	ProducibleWithLevel:
+		Prerequisites: barracks.upgraded
+	AnnounceOnSeen:
+		PingRader: true
+	RenderSprites:
+		Image: tsquake
+		PlayerPalette: tsunit
+	Voiced:
+		VoiceSet: QuakeGuyVoice
+	AttackWander:
+		WanderMoveRadius: 10
+		MinMoveDelay: 5
+		MaxMoveDelay: 100
+	ChangesHealth:
+		Step: 100
+		Delay: 25
+		StartIfBelow: 50
+		DamageCooldown: 500
+		RequiresCondition: !quake_invincible
+	GrantPeriodicCondition@randomiseattackspeed:
+		ActiveDuration: 2,5
+		CooldownDuration: 2,5
+		Condition: attackspeed
+		RequiresCondition: firing
+	GrantConditionOnAttack@firing:
+		Condition: firing
+		RevokeDelay: 4
+		ArmamentNames: gun4,gun7,gun9
+	ReloadDelayMultiplier@randomiseattackspeed:
+		RequiresCondition: attackspeed
+		Modifier: 150
+	GrantPeriodicConditionOnEvent@quaddamage:
+		Condition: quaddamage
+		CooldownDuration: 1500
+		ActiveDuration: 750
+		ActiveColor: 00AAFF
+		CooldownColor: 4A758B
+		ShowSelectionBar: true
+		Triggers: Attack
+		StartsCharged: true
+	GrantPeriodicConditionOnEvent@protecc:
+		RequiresCondition: low_health
+		Condition: quake_invincible
+		CooldownDuration: 3000
+		ActiveDuration: 500
+		ActiveColor: FFDFDF
+		CooldownColor: 6F4040
+		ShowSelectionBar: true
+		Triggers: Damage
+		StartsCharged: true
+	GrantConditionOnHealthPercentage@low:
+		MaxHP: 51
+		Condition: low_health
+	DamageMultiplier@protecc:
+		Modifier: 1
+		RequiresCondition: quake_invincible
+	AmbientSound@protecc: 
+		RequiresCondition: quake_invincible
+		SoundFiles: qprotect.ogg
+		Interval: 600
+	AmbientSound@proteccfade: 
+		RequiresCondition: quake_invincible
+		SoundFiles: qprotect2.ogg
+		Delay: 425
+		Interval: 100
+	WithColoredOverlay@protecc:
+		RequiresCondition: quake_invincible
+		Color: E7E7E7AD
+	SoundOnDamageTransition:
+		DamagedSounds: qpain.ogg, qpain4.ogg, qpain5.ogg, qpain6.ogg
+	AmbientSound@talky:
+		Delay: 25
+		Interval: 500, 1000
+		SoundFiles: qpkup.ogg, qarmor1.ogg, qlock4.ogg
+	ReloadDelayMultiplier@squadboost:
+		RequiresCondition: !firing && squadboost
+	ReloadDelayMultiplier@aeiouboost:
+		RequiresCondition: !firing && aeiouboost
+	ReloadDelayMultiplier@RANK-1:
+		RequiresCondition: !firing && (rank-veteran == 1)
+	ReloadDelayMultiplier@RANK-2:
+		RequiresCondition: !firing && (rank-veteran == 2)
+	ReloadDelayMultiplier@RANK-3:
+		RequiresCondition: !firing && (rank-veteran == 3)
+	ReloadDelayMultiplier@RANK-ELITE:
+		RequiresCondition: !firing && rank-elite
+	ReloadDelayMultiplier@firespeed1:
+		RequiresCondition: !firing && infantry.firespeed1
+	ReloadDelayMultiplier@firespeed2:
+		RequiresCondition: !firing && infantry.firespeed1 && !infantry.firespeed2

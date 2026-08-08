@@ -123,7 +123,11 @@ actor-player =
    .lobbyprerequisitecheckbox-superweapons-label = No Superweapons
    .lobbyprerequisitecheckbox-superweapons-description = Disables Superweapons regardless of tech level.
    .lobbyprerequisitecheckbox-truck-label = Game Over Truck
-   .lobbyprerequisitecheckbox-truck-description = When the game ends, a map-wiping demo truck is spawned.
+   .lobbyprerequisitecheckbox-truck-description = When the game ends, a map-wiping demo truck is spawned
+    at surviving players bases.
+   .lobbyprerequisitecheckbox-botlimiter-label = Bot Army Limiter
+   .lobbyprerequisitecheckbox-botlimiter-description = Limits bots when reaching an army value threshold of
+    over $200000. Mainly for performance reasons.
 
 options-tech-level =
     .infantry-only = Infantry Only
@@ -1275,6 +1279,7 @@ actor-zombie =
 
 actor-dukenukem-name = Duke Nukem
 actor-hartman-name = Sgt. Hartman
+actor-quakeguy-name = Ranger
 actor-strifeacolytebasic-name = Acolyte
 actor-hereticcorvus-name = Corvus
 actor-judgedredd-name = Judge Dredd

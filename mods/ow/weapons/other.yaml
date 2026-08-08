@@ -326,6 +326,22 @@ VoltAutorifleEnd:
 		ImpactSounds: voltgun_end.aud
 		ImpactActors: false
 
+QuakeLightningGun:
+	Inherits: ^ElectricBoltWeapon
+	ReloadDelay: 2
+	Range: 8c512
+	Report: baud.aud
+	Warhead@1Dam: SpreadDamage
+		Damage: 2250
+		Versus:
+			None: 125
+			Wood: 73
+			Heavy: 60
+	Warhead@2EffGround: CreateEffect
+		Explosions: plasma
+		ValidTargets: Ground, Air, GroundActor, AirborneActor, WaterActor, Water, Trees
+		ImpactSounds: qlg_hit.ogg, qlg_hit2.ogg, qlg_hit3.ogg, baud.aud
+
 HotwireRepairGun:
 	ReloadDelay: 2
 	Range: 5c0
@@ -1245,6 +1261,12 @@ MammothGauss:
 		Spread: 256
 		Damage: 5000
 
+QuakeRailgun:
+	Inherits: ^GaussWeapon
+	ReloadDelay: 32
+	Report: qrailgf1a.ogg
+	Range: 8c512
+
 DesolatorGun:
 	Inherits: ^GaussWeapon
 	ReloadDelay: 100
@@ -1488,6 +1510,20 @@ DoomGuySuperPlasma:
 	ReloadDelay: 55
 	Burst: 5
 	BurstDelays: 3
+
+QuakePlasma:
+	Inherits: ^PlasmaWeapon
+	Range: 6c512
+	ReloadDelay: 2
+	Report: qplasma.aud
+	Projectile: Bullet
+		Image: plasma
+		Sequences: idle_sm
+	Warhead@1Dam: SpreadDamage
+		Spread: 256
+		Damage: 3500
+	Warhead@3EffGround: CreateEffect
+		ImpactSounds: dsfirxpl.aud
 
 DoomBFG:
 	ReloadDelay: 175
