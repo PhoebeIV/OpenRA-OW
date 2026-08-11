@@ -16,6 +16,31 @@ World:
 	Crate:
 		Duration: 6000
 		TerrainTypes: Clear, ClearSnow, Creep, Rough, Road, Ore, Beach, Water, Gems, Tiberium, BlueTiberium
+	GrantRandomCondition@botcrate:
+		Conditions: bot_enabled,x,x
+	ExternalCondition@botcrate:
+		Condition: bot_near_crate
+	ProximityExternalCondition@cratealive:
+		Condition: crate_here
+		RequiresCondition: bot_near_crate && bot_enabled && !x
+		ValidRelationships: Ally, Neutral, Enemy
+	FreeActor@terrain:
+		RequiresCondition: bot_near_crate && !on_water
+		AllowRespawn: true
+		Actor: CRATE.AITerrain
+	GrantConditionOnTerrain@notground:
+		TerrainTypes: Water
+		Condition: on_water
+
+CRATE.AITerrain:
+	Inherits: ^MineDummy
+	ChangesTerrain:
+		TerrainType: CrateTerrain
+	ExternalCondition:
+		Condition: crate_here
+	KillsSelf:
+		Delay: 75
+		RequiresCondition: !crate_here
 
 CRATE:
 	-GiveCashCrateAction:
@@ -163,6 +188,10 @@ CRATE:
 		SelectionShares: 1
 		Prerequisites: ulttechcenter
 		Type: epic
+	GiveRandomActorCrateAction@4:
+		SelectionShares: 1
+		Prerequisites: shippen, !techlevel.noboats
+		Type: ship
 	GiveUnitCrateAction@squadlight:
 		ValidFactions: allies, england, france, germany, soviet, russia, ukraine, gdi, gdi3, zocom, steel, nod, nod3, bhand, marked, civ, hitler, himmler, heydrich
 	GiveUnitCrateAction@squadlightfed:
@@ -698,6 +727,11 @@ CRATE.FuckYou:
 		Type: epic
 		Owner: Creeps
 		Prerequisites: techlevel.medium
+	GiveRandomActorCrateAction@4:
+		SelectionShares: 1
+		Prerequisites: shippen, !techlevel.noboats
+		Type: ship
+		Owner: Creeps
 	GiveUnitCrateAction@jarofdirt:
 		SelectionShares: 2
 		Units: jarofdirt
@@ -832,6 +866,12 @@ CRATE.FuckYou:
 		Sound: aaaaasound.wav
 		Owner: Creeps
 		Prerequisites: !environment.nomemes
+	SpawnRandomUnitCrateAction@whirlpool:
+		SelectionShares: 3
+		Units: whirlpool
+		Owner: Creeps
+		Sound: blackhole3.aud
+		Sequence: timequake
 	Crate:
 		Duration: 6000
 	Tooltip:
@@ -1304,7 +1344,7 @@ DukeNukem:
 	AttackFrontal:
 		Armaments: gun1, gun2, gun3, gun4, gun5, gun6, gun7, gun8, gun9, item
 	Armament@FakeDuke:
-		Weapon: FakeDukeWeapon
+		Weapon: FakeDukeWeaponCrate
 		Name: item
 	GrantRandomPeriodicCondition:
 		Conditions: gun1, gun2, gun3, gun4, gun5, gun6, gun7, gun8, gun9
@@ -1415,6 +1455,17 @@ DukeNukem:
 	Targetable:
 		RequiresCondition: !duke_notarget
 
+FakeDukeNukemCrate:
+	Inherits: FakeDukeNukem
+	WithDecoration@eeee:
+		Image: pips
+		Sequence: pip-poison
+	GpsDot:
+		String: Biohazard
+	Selectable:
+		Bounds: 512, 512, 0, 0
+		DecorationBounds: 1200, 1200, 0, 0
+
 HARTMAN:
 	Inherits: DukeNukem
 	Tooltip:
@@ -1424,6 +1475,7 @@ HARTMAN:
 	Voiced:
 		VoiceSet: HartmanVoice
 	-GrantConditionOnFaction@china:
+	-Armament@FakeDuke:
 	AmbientSound:
 		SoundFiles: hartmanwht1.aud,hartmanwht2.aud,hartmanwht3.aud,hartmanwht4.aud,hartmanwht5.aud,hartmanwht6.aud,hartmanwht7.aud,hartmanwht8.aud,hartmanwht9.aud,hartmanwht10.aud,hartmanyes1.aud,hartmanyes2.aud,hartmanyes3.aud
 		Delay: 250
@@ -5128,12 +5180,15 @@ RICK.PORTAL:
 	KillsSelf@creeps:
 		RequiresCondition: creeps
 		Delay: 500
+		DamageTypes: DefaultDeath
 	FireWarheads:
 		RequiresCondition: creeps
 		Weapons: DoomSpawnCubeRick
 		Interval: 150
 	-WithMakeAnimation:
 	WithDeathAnimation:
+		UseDeathTypeSuffix: false
+		DeathPaletteIsPlayerPalette: false
 		DeathSequencePalette: tseffect
 		DeathTypes: DefaultDeath
 	DamageMultiplier:
@@ -5591,7 +5646,7 @@ CRATETRAP.Superweapon:
 	Voiced:
 		VoiceSet: EVANotification
 	KillsSelf:
-		Delay: 100
+		Delay: 500
 		RemoveInstead: true
 	-Targetable:
 	-SpawnActorOnDeath:
@@ -5635,6 +5690,9 @@ CRATETRAP.Superweapon:
 		Weapon: CrateTrap.BFG10k
 		LocalOffset: 0,-48000,96000
 		TargetRelationships: Ally, Neutral, Enemy
+	RevealsShroud:
+		Range: 8c0
+		ValidRelationships: Ally, Neutral, Enemy
 
 CRATETRAP.Target:
 	Inherits: 1TNK.MINE
@@ -5673,57 +5731,53 @@ QUAKEGUY:
 	AttackFrontal:
 		Armaments: gun1, gun2, gun3, gun4, gun5, gun6, gun7, gun8, gun9
 	GrantRandomPeriodicCondition:
-		Conditions: gun1, gun2, gun3, gun4, gun7, gun8, gun9
+		Conditions: gun1, gun2, gun3, gun4,gun5, gun6, gun7, gun8, gun9
 		CooldownDuration: 0
-		ActiveDuration: 250
-	GrantRandomPeriodicCondition@2:
-		Conditions: gun5, gun6
-		CooldownDuration: 0
-		ActiveDuration: 251
+		ActiveDuration: 175
 	Armament@1:
 		Name: gun1
 		Weapon: QuakeShotgun
-		LocalOffset: 0,0,555
+		LocalOffset: 400,0,555
 		RequiresCondition: gun1
 	Armament@2:
 		Name: gun2
 		Weapon: QuakeSSG
-		LocalOffset: 0,0,555
+		LocalOffset: 400,0,555
 		RequiresCondition: gun2
 	Armament@3:
 		Name: gun3
 		Weapon: QuakeNailgun
-		LocalOffset: 0,-128,555, 0,128,555
+		LocalOffset: 400,-128,555, 400,128,555
 		RequiresCondition: gun3
 	Armament@4:
 		Name: gun4
 		Weapon: QuakeSuperNailgun
-		LocalOffset: 0,0,555
+		LocalOffset: 400,0,555
 		RequiresCondition: gun4
 	Armament@5:
 		Name: gun5
 		Weapon: QuakeRocket
-		LocalOffset: 0,0,555
+		LocalOffset: 400,0,555
 		RequiresCondition: gun5
 	Armament@6:
 		Name: gun6
 		Weapon: QuakeGrenade
-		LocalOffset: 0,0,555
+		LocalOffset: 400,0,555
 		RequiresCondition: gun6
 	Armament@7:
 		Name: gun7
 		Weapon: QuakePlasma
-		LocalOffset: 0,0,555
+		LocalOffset: 400,0,555
 		RequiresCondition: gun7
 	Armament@8:
 		Name: gun8
 		Weapon: QuakeRailgun
-		LocalOffset: 0,0,555
+		LocalOffset: 400,0,555
 		RequiresCondition: gun8
 	Armament@9:
 		Name: gun9
 		Weapon: QuakeLightningGun
-		LocalOffset: 0,0,555
+		LocalOffset: 400,0,555
 		RequiresCondition: gun9
 	TakeCover:
 		ProneOffset: 500,0,-555
@@ -5776,25 +5830,42 @@ QUAKEGUY:
 		RequiresCondition: !quake_invincible
 	GrantPeriodicCondition@randomiseattackspeed:
 		ActiveDuration: 2,5
-		CooldownDuration: 2,5
+		CooldownDuration: 3,5
 		Condition: attackspeed
 		RequiresCondition: firing
+	GrantPeriodicCondition@randomiseattackspeed2:
+		ActiveDuration: 2,3
+		CooldownDuration: 3,5
+		Condition: attackspeed2
+		RequiresCondition: firing2
 	GrantConditionOnAttack@firing:
 		Condition: firing
 		RevokeDelay: 4
-		ArmamentNames: gun4,gun7,gun9
+		ArmamentNames: gun7,gun9
+	GrantConditionOnAttack@firing2:
+		Condition: firing2
+		RevokeDelay: 4
+		ArmamentNames: gun4
 	ReloadDelayMultiplier@randomiseattackspeed:
 		RequiresCondition: attackspeed
 		Modifier: 150
+	ReloadDelayMultiplier@randomiseattackspeed2:
+		RequiresCondition: attackspeed2
+		Modifier: 50
 	GrantPeriodicConditionOnEvent@quaddamage:
 		Condition: quaddamage
 		CooldownDuration: 1500
-		ActiveDuration: 750
+		ActiveDuration: 500
 		ActiveColor: 00AAFF
 		CooldownColor: 4A758B
 		ShowSelectionBar: true
 		Triggers: Attack
 		StartsCharged: true
+	AmbientSound@quaddamagefade: 
+		RequiresCondition: quaddamage
+		SoundFiles: qdamage2.ogg
+		Delay: 425
+		Interval: 100
 	GrantPeriodicConditionOnEvent@protecc:
 		RequiresCondition: low_health
 		Condition: quake_invincible
@@ -5809,7 +5880,7 @@ QUAKEGUY:
 		MaxHP: 51
 		Condition: low_health
 	DamageMultiplier@protecc:
-		Modifier: 1
+		Modifier: 5
 		RequiresCondition: quake_invincible
 	AmbientSound@protecc: 
 		RequiresCondition: quake_invincible
@@ -5830,18 +5901,102 @@ QUAKEGUY:
 		Interval: 500, 1000
 		SoundFiles: qpkup.ogg, qarmor1.ogg, qlock4.ogg
 	ReloadDelayMultiplier@squadboost:
-		RequiresCondition: !firing && squadboost
+		RequiresCondition: (!firing && !firing2) && squadboost
 	ReloadDelayMultiplier@aeiouboost:
-		RequiresCondition: !firing && aeiouboost
+		RequiresCondition: (!firing && !firing2) && aeiouboost
 	ReloadDelayMultiplier@RANK-1:
-		RequiresCondition: !firing && (rank-veteran == 1)
+		RequiresCondition: (!firing && !firing2) && (rank-veteran == 1)
 	ReloadDelayMultiplier@RANK-2:
-		RequiresCondition: !firing && (rank-veteran == 2)
+		RequiresCondition: (!firing && !firing2) && (rank-veteran == 2)
 	ReloadDelayMultiplier@RANK-3:
-		RequiresCondition: !firing && (rank-veteran == 3)
+		RequiresCondition: (!firing && !firing2) && (rank-veteran == 3)
 	ReloadDelayMultiplier@RANK-ELITE:
-		RequiresCondition: !firing && rank-elite
+		RequiresCondition: (!firing && !firing2) && rank-elite
 	ReloadDelayMultiplier@firespeed1:
-		RequiresCondition: !firing && infantry.firespeed1
+		RequiresCondition: (!firing && !firing2) && infantry.firespeed1
 	ReloadDelayMultiplier@firespeed2:
-		RequiresCondition: !firing && infantry.firespeed1 && !infantry.firespeed2
+		RequiresCondition: (!firing && !firing2) && infantry.firespeed1 && !infantry.firespeed2
+
+WHIRLPOOL:
+	Inherits: ^Ship
+	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
+	Tooltip:
+		Name: Whirlpool
+	Health:
+		HP: 5000
+	-UpdatesPlayerStatistics:
+	-SelectionDecorations:
+	-GpsDot:
+	-Voiced:
+	-Targetable:
+	-Targetable@REPAIR:
+	Mobile:
+		Speed: 24
+	GainsExperienceMultiplier:
+		Modifier: 0
+	DamageMultiplier@UNKILLABLE:
+		Modifier: 0
+	RevealsShroud:
+		Range: 3c0
+		Type: GroundPosition
+		RevealGeneratedShroud: False
+	Armament@PRIMARY:
+		Weapon: ParticleDummyWeapon
+		TargetRelationships: Ally, Enemy, Neutral
+		ForceTargetRelationships: None
+	FireWarheads:
+		Weapons: WhirlpoolDamage
+		StartCooldown: 25
+		Interval: 4
+	Turreted:
+		TurnSpeed: 90
+	AttackTurreted:
+	AutoTarget:
+		InitialStance: AttackAnything
+		InitialStanceAI: AttackAnything
+		EnableStances: false
+	-Selectable:
+	-ActorLostNotification:
+	Interactable:
+		Bounds: 2400,1600
+	AmbientSound:
+		SoundFiles: blackhole3.aud
+	KillsSelf@2:
+		Delay: 7500,15000
+		DamageTypes: Die
+	WithMakeAnimation:
+	WithDeathAnimation:
+		UseDeathTypeSuffix: false
+		DeathTypes: Die
+	-FireWarheadsOnDeath:
+	GrantDelayedCondition@wander:
+		Condition: wander
+		Delay: 250
+	Wanders:
+		RequiresCondition: wander
+		WanderMoveRadius: 10
+		MinMoveDelay: 25
+		MaxMoveDelay: 50
+
+WHIRLPOOL.Short:
+	Inherits: WHIRLPOOL
+	RenderSprites:
+		Image: whirlpool
+	KillsSelf@2:
+		Delay: 1000,1500
+	ProvidesPrerequisite:
+
+1TNK.WHIRLPOOL:
+	Inherits: 1TNK.MINE
+	-FireWarheadsOnDeath:
+	Mobile:
+		Locomotor: naval
+	GrantConditionOnPrerequisite:
+		Prerequisites: whirlpool.short
+		Condition: no_spawn
+	SpawnActorOnDeath:
+		RequiresCondition: !no_spawn
+		Actor: whirlpool.short
+		OwnerType: Victim
+		Probability: 33
+		SkipMakeAnimations: false

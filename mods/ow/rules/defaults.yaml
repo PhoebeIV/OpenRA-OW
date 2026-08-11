@@ -17,7 +17,7 @@
 	GrantRandomCondition@nobuildselect:
 		Conditions: blocktopleft, blocktopright, blockbotright, blockbotright
 	GrantConditionOnPrerequisite@noblocker:
-		Prerequisites: techlevel.nobotblocker
+		Prerequisites: ai.nobaseblocker
 		Condition: no_blockers
 	FreeActor@nobuildarea1:
 		RequiresCondition: botowner && blocktopleft && !no_blockers
@@ -40,7 +40,7 @@
 	GrantRandomCondition@nobuildselect:
 		Conditions: blockleft, blockright
 	GrantConditionOnPrerequisite@noblocker:
-		Prerequisites: techlevel.nobotblocker
+		Prerequisites: ai.nobaseblocker
 		Condition: no_blockers
 	FreeActor@nobuildarea1:
 		RequiresCondition: botowner && blockleft && !no_blockers
@@ -2414,6 +2414,14 @@
 	GrantConditionOnPrerequisite@avalishield:
 		Prerequisites: vehicle.shields, avalon.shieldsvehicle
 		Condition: external_shield
+	GrantConditionOnPrerequisite@botcrates:
+		Prerequisites: ai.cratemagnet
+		Condition: cratemagnet
+	ProximityExternalCondition@crate:
+		Condition: bot_near_crate
+		Range: 8c0
+		RequiresCondition: botowner && cratemagnet
+		ValidRelationships: Ally, Neutral, Enemy
 	GrantConditionOnPrerequisite@botowner:
 		Condition: botowner
 		Prerequisites: ai.all
@@ -2514,6 +2522,8 @@
 	TemporaryOwnerManager:
 	Cloneable:
 		Types: Ship
+	EligibleForRandomActorCrate:
+		Type: ship
 
 # Inherited and changed from mods/ra to add upgrade modifiers and numerous other buff/debuff modifiers from support powers
 # Also adds additional/cross faction rearm structures and a generic name in case a newly defined actor does not have Tooltip/name

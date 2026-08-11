@@ -128,6 +128,8 @@ actor-player =
    .lobbyprerequisitecheckbox-botlimiter-label = Bot Army Limiter
    .lobbyprerequisitecheckbox-botlimiter-description = Limits bots when reaching an army value threshold of
     over $200000. Mainly for performance reasons.
+   .lobbyprerequisitecheckbox-botcrates-label = Bot Crate Magnet
+   .lobbyprerequisitecheckbox-botcrates-description = Bots become more likely to walk over crates.
 
 options-tech-level =
     .infantry-only = Infantry Only
@@ -8082,8 +8084,14 @@ player-factions =
      Special Unit: Nothing
      Super Unit: President
      Super Tech Ability: Mass Supply Drop
-   .random = Random Faction
+   .random = Random
      A random faction will be chosen when the game starts.
+   .randombot = Random (Bot)
+     Avoids choosing support factions.
+   .randomboats = Random (No Boats)
+     Avoids choosing Naval factions. Best if 'No Boats' is on, or no water is on the map.
+   .randombotboat = Random (Bot/No Boats)
+     Avoids choosing Naval factions and support factions. Best if 'No Boats' is on, or no water is on the map.
    .random-allies = Random Allied Country
      Specialty: Intelligence and logistics.
      Utility: Chronosphere, GPS Satellite
