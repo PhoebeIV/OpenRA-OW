@@ -3268,6 +3268,8 @@ actor-waterelemental =
 actor-camera-name = (reveals area to owner)
 actor-camera-small-name = (reveals small area to owner)
 actor-tmonolith-name = Tiberium Monolith
+actor-tibflora-name = Tiberium Flora
+actor-tibalgae-name = Tiberium Algae
 
 ## nazi_air.yaml
 actor-bf109 =

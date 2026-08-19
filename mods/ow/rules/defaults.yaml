@@ -1240,11 +1240,15 @@
 		Delay: 16
 		StartIfBelow: 101
 	GrantConditionOnTerrain@radiation:
-		Condition: standing_in_radiation
+		Condition: standing_in_radiation && !gdi_suits
 		TerrainTypes: Radiation
 	Targetable@radationsuit:
 		RequiresCondition: gdi_suits
-		TargetTypes: NewRadiationImmune
+		TargetTypes: NewRadiationImmune, TiberiumImmune
+	DamageTypeDamageMultiplier@tibsuit:
+		RequiresCondition: gdi_suits
+		DamageTypes: TiberiumDeath
+		Modifier: 75
 	SpawnActorOnDeath@tiberium:
 		Actor: vice
 		Probability: 5
@@ -2880,7 +2884,7 @@
 	Health:
 		HP: 30000
 	Armor:
-		Type: Wood
+		Type: Light
 	RevealsShroud:
 		Range: 6c0
 	Mobile:
@@ -2892,7 +2896,7 @@
 	Selectable:
 		Bounds: 1024, 1024
 	Targetable:
-		TargetTypes: GroundActor, Vehicle
+		TargetTypes: GroundActor, Vehicle, TiberiumImmune
 	Targetable@noauto:
 		RequiresCondition: spawned
 		TargetTypes: NoAutoTarget
@@ -4063,6 +4067,11 @@
 	Inherits@1: ^SpriteActor
 	Interactable:
 	HitShape:
+	Buildable:
+		Prerequisites: ~disabled
+		BuildPaletteOrder: 99999
+		Queue: Wall
+		Icon: idle
 	Tooltip:
 		Name: meta-tibtree-name
 		ShowOwnerRow: false
@@ -4206,25 +4215,25 @@
 		RequiresCondition: tibtree && !notib
 		Name: meta-infectabletree-infected--name
 	Targetable@infectable:
-		RequiresCondition: infectable
+		RequiresCondition: infectable || lessinfectable || moreinfectable || mostinfectable || leastinfectable
 		TargetTypes: OreMine
 	GrantRandomCondition@tibtree:
 		Conditions: tibtree,none,none,none,none,none,none,none,none,none,none,none,none,none,none,none,none,none,none,none,none,none,none,none,none,none,none,none,none,none,none,none,none,none,none,none,none,none,none,none,none
 	GrantRandomCondition@infectable:
-		Conditions: infectable,lessinfectable,moreinfectable
+		Conditions: infectable,lessinfectable,moreinfectable,mostinfectable,leastinfectable
 	ExternalCondition@growth:
 		Condition: growth
 	ExternalCondition@dotransform:
 		Condition: dotransform
 	GrantPeriodicCondition@aaa:
-		RequiresCondition: (lessinfectable && (growth > 95)) || (infectable && (growth > 70)) || (moreinfectable && (growth > 45)) || tibtree && !notib
+		RequiresCondition: (leastinfectable && (growth > 145)) || (lessinfectable && (growth > 95)) || (infectable && (growth > 70)) || (moreinfectable && (growth > 45)) || (mostinfectable && (growth > 25)) || tibtree && !notib
 		Condition: dotransform
 		CooldownDuration: 1500, 4500
 		ActiveDuration: 50
 	AmbientSound:
-		RequiresCondition: (lessinfectable && (growth > 95)) || (infectable && (growth > 70)) || (moreinfectable && (growth > 45)) || tibtree && !notib
+		RequiresCondition: (leastinfectable && (growth > 145)) || (lessinfectable && (growth > 95)) || (infectable && (growth > 70)) || (moreinfectable && (growth > 45)) || (mostinfectable && (growth > 25)) || tibtree && !notib
 		SoundFiles: ambtibe2.wav
-		Delay: 250, 3000
+		Delay: 250, 1350
 		Interval: 1500, 3000
 	FreeActor@tibtree:
 		RequiresCondition: dotransform
@@ -4244,7 +4253,7 @@
 		Prerequisites: techlevel.tibremove
 		Condition: notib
 	DamageMultiplier:
-		RequiresCondition: (lessinfectable && (growth > 95)) || (infectable && (growth > 70)) || (moreinfectable && (growth > 45)) || tibtree && !notib
+		RequiresCondition: (leastinfectable && (growth > 145)) || (lessinfectable && (growth > 95)) || (infectable && (growth > 70)) || (moreinfectable && (growth > 45)) || (mostinfectable && (growth > 25)) || tibtree && !notib
 		Modifier: 0
 
 # Give this to units that should not be 100% mind controlled, and instead only temporary
@@ -4732,7 +4741,7 @@
 	DockClientManager:
 	StoresResources:
 		Capacity: 20
-		Resources: Ore,Gems,Tiberium,BlueTiberium,Oil
+		Resources: Ore,Gems,Tiberium,BlueTiberium,Oil,TiberiumAlgae,BlueTiberiumAlgae
 	Cloak@stealthgen:
 		PauseOnCondition: cloak-force-disabled
 	GrantConditionOnDamageState@UNCLOAK:

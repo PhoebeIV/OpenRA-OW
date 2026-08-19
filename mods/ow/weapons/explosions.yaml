@@ -1051,7 +1051,7 @@ TibTreeBlueBurst:
 		Weapon: TibTreeBlueSeed
 	Warhead@15Res_areanuke4: DestroyResource
 		Size: 1
-		ResourceTypes: Tiberium
+		ResourceTypes: Tiberium, Ore, Gems
 
 TibTreeSeed:
 	Range: 12c0
@@ -1114,6 +1114,12 @@ TibTreeSeed:
 		OwnerType: InternalName
 		Range: 2
 		Actors: 1tnk.fiend
+	Warhead@algae: SpawnActor
+		ValidTargets: Water, WaterActor
+		InternalOwner: Creeps
+		OwnerType: InternalName
+		Range: 2
+		Actors: 1tnk.tibalgae
 
 TibSupportSeed:
 	Inherits: TibTreeSeed
@@ -1143,6 +1149,36 @@ TibTreeBlueSeed:
 		AddsResourceType: BlueTiberium
 	Warhead@6Resource: CreateResource
 		AddsResourceType: BlueTiberium
+
+TibFloraBurst:
+	Inherits: TibTreeBurst
+	-Warhead@15Res_areanuke4:
+	Warhead@seed: FireCluster
+		Delay: 25
+		Weapon: TibFloraSeed
+		RandomClusterCount: 1
+		Dimensions: 9,9
+		Footprint: xxxxxxxxx xxxxxxxxx xxxxxxxxx xxxxxxxxx xxxxxxxxx xxxxxxxxx xxxxxxxxx xxxxxxxxx xxxxxxxxx
+
+TibFloraBlueBurst:
+	Inherits: TibFloraBurst
+	Warhead@seed: FireCluster
+		Weapon: TibFloraBlueSeed
+		RandomClusterCount: 1
+
+TibFloraSeed:
+	Range: 15c0
+	Projectile: Bullet
+		Inaccuracy: 3c0
+		Speed: 512
+	Warhead@dog: SpawnActor
+		Range: 3
+		Actors: 1tnk.gascloud
+
+TibFloraBlueSeed:
+	Inherits: TibFloraSeed
+	Warhead@dog: SpawnActor
+		Actors: 1tnk.gascloudblue
 
 TibTreeGrowthSpread:
 	Range: 12c0

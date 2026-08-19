@@ -477,6 +477,164 @@ TMONOLITH.BLUE:
 		GreenTint: -0.1
 		BlueTint: 0.1
 
+TIBFLORA:
+	Inherits: TMONOLITH
+	RenderSprites:
+		Palette: player
+		Image: tibflora
+	Health:
+		HP: 50000
+	Tooltip:
+		Name: actor-tibflora-name
+	-SpawnActorOnDeath:
+	-SpawnActorOnDeath@spread:
+	-GrantCondition@growth:
+	-ExternalCondition@growth:
+	-WithSpriteBody:
+	-WithSpriteBody@burst:
+	-WithSpriteBody@make:
+	-GrantTimedCondition:
+	-SeedsResource@burst:
+	-GrantPeriodicConditionOnEvent@burst:
+	FireWarheads@burst:
+		RequiresCondition: burst && !blue
+		Weapons: TibFloraBurst
+		Interval: 100
+	FireWarheads@burstblue:
+		RequiresCondition: burst && blue
+		Weapons: TibFloraBlueBurst
+		Interval: 100
+	-WithIdleOverlay:
+	FireWarheadsOnDeath:
+		Weapon: SmallBuildingExplode
+		EmptyWeapon: SmallBuildingExplode
+	-TerrainLightSource:
+	-ChangesTerrain:
+	SeedsResource:
+		RequiresCondition: !blue
+		ResourceType: Tiberium
+		Interval: 250
+	SeedsResource@blue:
+		RequiresCondition: blue
+		ResourceType: BlueTiberium
+		Interval: 250
+	GrantCondition@blue:
+		RequiresCondition: s0 || s1 || s2 || s3
+		Condition: blue
+	GrantRandomCondition:
+		Conditions: s0,s1,s2,s3,s4,s5,s6,s7,s8,s9,s10,s11,s12,s13,s14
+	WithSpriteBody@0:
+		RequiresCondition: s0
+		Sequence: 0
+	WithSpriteBody@1:
+		RequiresCondition: s1
+		Sequence: 1
+	WithSpriteBody@2:
+		RequiresCondition: s2
+		Sequence: 2
+	WithSpriteBody@3:
+		RequiresCondition: s3
+		Sequence: 3
+	WithSpriteBody@4:
+		RequiresCondition: s4
+		Sequence: 4
+	WithSpriteBody@5:
+		RequiresCondition: s5
+		Sequence: 5
+	WithSpriteBody@6:
+		RequiresCondition: s6
+		Sequence: 6
+	WithSpriteBody@7:
+		RequiresCondition: s7
+		Sequence: 7
+	WithSpriteBody@8:
+		RequiresCondition: s8
+		Sequence: 8
+	WithSpriteBody@9:
+		RequiresCondition: s9
+		Sequence: 9
+	WithSpriteBody@10:
+		RequiresCondition: s10
+		Sequence: 10
+	WithSpriteBody@11:
+		RequiresCondition: s11
+		Sequence: 11
+	WithSpriteBody@12:
+		RequiresCondition: s12
+		Sequence: 12
+	WithSpriteBody@13:
+		RequiresCondition: s13
+		Sequence: 13
+	WithSpriteBody@14:
+		RequiresCondition: s14
+		Sequence: 14
+
+TIBALGAE:
+	Inherits: TIBFLORA
+	RenderSprites:
+		Image: resources
+		Palette: greentiberium_ra
+	Tooltip:
+		Name: actor-tibalgae-name
+	SeedsResource:
+		-RequiresCondition:
+		ResourceType: TiberiumAlgae
+		Interval: 75
+	SeedsResource@fast:
+		RequiresCondition: spread
+		ResourceType: TiberiumAlgae
+		Interval: 7
+	GrantTimedCondition@fast:
+		Condition: spread
+		Duration: 100
+	KillsSelf:
+		RemoveInstead: true
+		Delay: 7500,15000
+	-GrantPeriodicCondition@burst:
+	-FireWarheads@burst:
+	-FireWarheads@burstblue:
+	-SeedsResource@blue:
+	-GrantCondition@blue:
+	-FireWarheadsOnDeath:
+	GrantRandomCondition:
+		Conditions: s0,s1,s2,s3
+	WithSpriteBody@0:
+		RequiresCondition: s0
+		StartSequence: gold01
+		Sequence: algae01
+	WithSpriteBody@1:
+		RequiresCondition: s1
+		StartSequence: gold02
+		Sequence: algae02
+	WithSpriteBody@2:
+		RequiresCondition: s2
+		StartSequence: gold03
+		Sequence: algae03
+	WithSpriteBody@3:
+		RequiresCondition: s3
+		StartSequence: gold04
+		Sequence: algae04
+	-WithSpriteBody@4:
+	-WithSpriteBody@5:
+	-WithSpriteBody@6:
+	-WithSpriteBody@7:
+	-WithSpriteBody@8:
+	-WithSpriteBody@9:
+	-WithSpriteBody@10:
+	-WithSpriteBody@11:
+	-WithSpriteBody@12:
+	-WithSpriteBody@13:
+	-WithSpriteBody@14:
+
+TIBALGAEBLUE:
+	Inherits: TIBALGAE
+	RenderSprites:
+		Palette: bluetiberium_ra
+	SeedsResource:
+		ResourceType: BlueTiberiumAlgae
+	SeedsResource@fast:
+		ResourceType: BlueTiberiumAlgae
+
 VICE:
 	Inherits: ^Viceroid
 	AttackWander:
@@ -751,6 +909,13 @@ japanoilderrick.cr:
 	SeedsResource:
 		Interval: 78
 		MaxRange: 10
+	SeedsResource@fast:
+		RequiresCondition: spread
+		ResourceType: Oil
+		Interval: 5
+	GrantTimedCondition@fast:
+		Condition: spread
+		Duration: 100
 	-CashTrickler:
 	-Buildable:
 	-Capturable:
@@ -773,7 +938,132 @@ japanoilderrick.cr2:
 1TNK.FIEND:
 	Inherits: 1TNK.MINE
 	-FireWarheadsOnDeath:
+	GrantRandomCondition:
+		Conditions: dog, dog, vice, flora
 	SpawnActorOnDeath:
+		RequiresCondition: dog
 		Actor: frgdog
 		OwnerType: Victim
 		Probability: 1
+	SpawnActorOnDeath@vice:
+		RequiresCondition: vice
+		Actor: vice
+		OwnerType: Victim
+		Probability: 1
+	SpawnActorOnDeath@flora:
+		RequiresCondition: flora
+		Actor: tibflora
+		OwnerType: InternalName
+		Probability: 1
+
+1TNK.TIBALGAE:
+	Inherits: 1TNK.MINE
+	-FireWarheadsOnDeath:
+	Mobile:
+		Locomotor: naval
+	GrantRandomCondition:
+		Conditions: g,g,g,g,b
+	SpawnActorOnDeath:
+		RequiresCondition: g
+		Actor: tibalgae
+		OwnerType: InternalName
+		Probability: 10
+	SpawnActorOnDeath@b:
+		RequiresCondition: b
+		Actor: tibalgaeblue
+		OwnerType: InternalName
+		Probability: 10
+
+1TNK.GASCLOUD:
+	Inherits: 1TNK.MINE
+	-FireWarheadsOnDeath:
+	Mobile:
+		Locomotor: hover
+	SpawnActorOnDeath:
+		Actor: gascloud
+		Probability: 66
+	SpawnActorOnDeath@2:
+		Actor: gascloud
+		Probability: 20
+	SpawnActorOnDeath@3:
+		Actor: gascloud
+		Probability: 5
+	SpawnActorOnDeath@4:
+		Actor: gascloud
+		Probability: 1
+
+1TNK.GASCLOUDBLUE:
+	Inherits: 1TNK.MINE
+	-FireWarheadsOnDeath:
+	Mobile:
+		Locomotor: hover
+	SpawnActorOnDeath:
+		Actor: gascloud.blue
+	SpawnActorOnDeath@2:
+		Actor: gascloud.blue
+	SpawnActorOnDeath@3:
+		Actor: gascloud.blue
+	SpawnActorOnDeath@4:
+		Actor: gascloud.blue
+
+GASCLOUD:
+	Inherits: ^Helicopter
+	-Tooltip:
+	Health:
+		HP: 5000
+	-UpdatesPlayerStatistics:
+	-SelectionDecorations:
+	-GpsDot:
+	-Voiced:
+	-Targetable@GROUND:
+	-Targetable@AIRBORNE:
+	-Targetable@REPAIR:
+	-WithShadow:
+	-ActorLostNotification:
+	GainsExperienceMultiplier:
+		Modifier: 0
+	DamageMultiplier@UNKILLABLE:
+		Modifier: 0
+	RevealsShroud:
+		Range: 3c0
+		Type: GroundPosition
+		RevealGeneratedShroud: False
+	FireWarheads:
+		Weapons: GasCloudDamage
+		Interval: 18
+	Aircraft:
+		TurnSpeed: 4
+		Speed: 8
+		CanSlide: false
+		CanForceLand: false
+		CruiseAltitude: 32
+		LandAltitude: 0
+		AltitudeVelocity: 16
+	-Selectable:
+	-KillsSelf:
+	-WithFacingSpriteBody:
+	WithSpriteBody:
+		Sequence: cloudloop
+	KillsSelf@1:
+		Delay: 1000,1750
+		DamageTypes: Dead
+	WithDeathAnimation:
+		UseDeathTypeSuffix: false
+		DeathSequence: cloud
+		DeathTypes: Dead
+	RenderSprites:
+		Image: explosion
+		Palette: effect
+	Wanders:
+		WanderMoveRadius: 2
+	-SpawnActorOnDeath:
+	-EjectOnDeath:
+
+GASCLOUD.Blue:
+	Inherits: GASCLOUD
+	WithSpriteBody:
+		Sequence: cloudloopb
+	WithDeathAnimation:
+		DeathSequence: cloudb
+	FireWarheads:
+		Interval: 11
