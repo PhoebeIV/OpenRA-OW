@@ -887,6 +887,17 @@ CRATE.FuckYou:
 	SpawnActorOnDeath@badcrates:
 		DeathType: Replace
 		Actor: CRATE
+	GiveRandomActorCrateAction@pacman:
+		SelectionShares: 2
+		TimeDelay: 3000
+		Type: pacman
+		Owner: Creeps
+		Prerequisites: techlevel.medium
+	GiveRandomActorCrateAction@pacman2:
+		SelectionShares: 2
+		TimeDelay: 3000
+		Type: pacmansmall
+		Owner: Creeps
 
 
 1TNK.MINE:
@@ -6004,3 +6015,362 @@ WHIRLPOOL.Short:
 		OwnerType: Victim
 		Probability: 33
 		SkipMakeAnimations: false
+
+PACKMANBLUE:
+	Inherits: ^TrackedVehicle
+	Inherits@EPIC: ^EpicUnit
+	Inherits@EPIC2: ^EpicVehicle
+	Valued:
+		Cost: 10000
+	Voiced:
+		VoiceSet: BulldozerVoice
+	Buildable:
+		Queue: Vehicle
+		BuildPaletteOrder: 2500
+		Prerequisites: ~disabled
+		Description: PACKMAN!
+	Tooltip:
+		Name: PACKMAN!
+	Health:
+		HP: 500000
+	Armor:
+		Type: Heavy
+	Mobile:
+		Speed: 60
+		TurnSpeed: 20
+		Locomotor: heavytracked
+		Voice: Move
+	RenderSprites:
+		Image: pacmanblue
+		Palette: tsunit
+	DockClientManager:
+	StoresResources:
+		Capacity: 500000
+		Resources: Ore,Gems,Tiberium,BlueTiberium
+	ResourceCrusher:
+		ValueModifier: 0
+		ResourceType: Ore, Gems, Tiberium, BlueTiberium
+	Harvester:
+		Resources: Ore,Gems,Tiberium,BlueTiberium
+		BaleLoadDelay: 0
+		FullyLoadedSpeed: 150
+		Capacity: 500000
+		SearchFromHarvesterRadius: 200
+	ResourceCrusher:
+		ValueModifier: 0
+		ResourceType: Ore, Gems, Tiberium, BlueTiberium
+	SpawnActorOnDeath:
+		Actor: GHOSTBLUE
+	EligibleForRandomActorCrate:
+		Type: pacman
+
+PACKMANRED:
+	Inherits: PACKMANBLUE
+	-Harvester:
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	AutoTarget:
+		ScanRadius: 3
+	RejectsOrders:
+	AttackWander:
+		WanderMoveRadius: 200
+	Armament@PRIMARY:
+		Weapon: PACKMANREDWEP
+	AttackFrontal:
+		PauseOnCondition: disabled
+		FacingTolerance: 32
+	RenderSprites:
+		Image: pacmanred
+		Palette: tsunit
+	SpawnActorOnDeath:
+		Actor: GHOSTRED
+
+PACKMANYELLOW:
+	Inherits: PACKMANBLUE
+	-Harvester:
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	AutoTarget:
+		ScanRadius: 3
+	RejectsOrders:
+	AttackWander:
+		WanderMoveRadius: 200
+	Armament@PRIMARY:
+		Weapon: PACKMANYELLOWWEP
+	AttackFrontal:
+		PauseOnCondition: disabled
+		FacingTolerance: 32
+	RenderSprites:
+		Image: pacmanyellow
+		Palette: tsunit
+	SpawnActorOnDeath:
+		Actor: GHOSTYELLOW
+
+GHOSTBLUE:
+	Inherits@EPIC: ^EpicUnit
+	Inherits@EPIC2: ^EpicVehicle
+	Valued:
+		Cost: 500
+	Voiced:
+		VoiceSet: BulldozerVoice
+	Tooltip:
+		Name: SPOOKY!
+	ScaredyCat:
+		PanicSpeedModifier: 90
+	Health:
+		HP: 100000
+	Armor:
+		Type: Light
+	Mobile:
+		Locomotor: hover
+		TurnSpeed: 512
+		Speed: 70
+	Hovers:
+		InitialHeight: 128
+	TransformOnCondition@BLUE:
+		IntoActor: PACKMANBLUE
+		RequiresCondition: RespawntimerghostBLUE
+	TransformOnCondition@RED:
+		IntoActor: PACKMANRED
+		RequiresCondition: RespawntimerghostRED
+	TransformOnCondition@YELLOW:
+		IntoActor: PACKMANYELLOW
+		RequiresCondition: RespawntimerghostYELLOW
+	GrantRandomCondition:
+		Conditions: PACBLUE, PACBLUE, PACYELLOW
+	GrantDelayedCondition@BLUE:
+		Condition: RespawntimerghostBLUE
+		Delay: 1000
+		RequiresCondition: PACBLUE
+	GrantDelayedCondition@RED:
+		Condition: RespawntimerghostRED
+		Delay: 1000
+		RequiresCondition: PACRED
+	GrantDelayedCondition@YELLOW:
+		Condition: RespawntimerghostYELLOW
+		Delay: 1000
+		RequiresCondition: PACYELLOW
+	RenderSprites:
+		Image: pacmanghostblue
+		Palette: tsunit
+	FireWarheadsOnDeath:
+		Weapon: Fruitspawner
+		EmptyWeapon: Fruitspawner
+
+GHOSTYELLOW:
+	Inherits: GHOSTBLUE
+	GrantRandomCondition:
+		Conditions: PACBLUE, PACYELLOW, PACYELLOW, PACYELLOW, PACYELLOW, PACYELLOW, PACYELLOW, PACYELLOW, PACYELLOW, PACYELLOW,PACBLUE, PACYELLOW, PACYELLOW, PACYELLOW, PACYELLOW, PACYELLOW, PACYELLOW, PACYELLOW, PACYELLOW, PACYELLOW,PACBLUE, PACYELLOW, PACYELLOW, PACYELLOW, PACYELLOW, PACYELLOW, PACYELLOW, PACYELLOW, PACYELLOW, PACYELLOW, PACRED
+	RenderSprites:
+		Image: pacmanghostyellow
+		Palette: tsunit
+
+GHOSTRED:
+	Inherits: GHOSTBLUE
+	GrantRandomCondition:
+		Conditions: PACYELLOW, PACRED, PACRED, PACRED, PACRED, PACRED, PACRED, PACRED, PACRED, PACRED,PACYELLOW, PACRED, PACRED, PACRED, PACRED, PACRED, PACRED, PACRED, PACRED, PACRED, PACYELLOW, PACRED, PACRED, PACRED, PACRED, PACRED, PACRED, PACRED, PACRED, PACRED, PACBLUE
+	RenderSprites:
+		Image: pacmanghostred
+		Palette: tsunit
+
+
+pacfruit1:
+	Inherits: MONEYCRATE
+	-GiveCashCrateAction:
+	LevelUpCrateAction:
+		SelectionShares: 1
+		Levels: 1
+	Tooltip:
+		Name: Pacman Fruit
+	RenderSprites:
+		Image: pacfruit1
+		Palette: tsunit
+		
+pacfruit2:
+	Inherits: MONEYCRATE
+	-GiveCashCrateAction:
+	LevelUpCrateAction:
+		SelectionShares: 1
+		Levels: 1
+	Tooltip:
+		Name: Pacman Fruit
+	RenderSprites:
+		Image: pacfruit2
+		Palette: tsunit
+		
+pacfruit3:
+	Inherits: MONEYCRATE
+	Tooltip:
+		Name: Pacman Fruit
+	RenderSprites:
+		Image: pacfruit3
+		Palette: tsunit
+		
+pacfruit4:
+	Inherits: MONEYCRATE
+	Tooltip:
+		Name: Pacman Fruit
+	RenderSprites:
+		Image: pacfruit4
+		Palette: tsunit
+		
+pacfruit5:
+	Inherits: MONEYCRATE
+	Tooltip:
+		Name: Pacman Fruit
+	RenderSprites:
+		Image: pacfruit5
+		Palette: tsunit
+
+PACKMANBLUE2:
+	Inherits: ^TrackedVehicle
+	Inherits@EPIC: ^EpicUnit
+	Inherits@EPIC2: ^EpicVehicle
+	Valued:
+		Cost: 10000
+	Voiced:
+		VoiceSet: BulldozerVoice
+	Buildable:
+		Queue: Vehicle
+		BuildPaletteOrder: 2500
+		Prerequisites: ~disabled
+		Description: PACKMAN!
+	Tooltip:
+		Name: PACKMAN!
+	Health:
+		HP: 100000
+	Armor:
+		Type: Heavy
+	Mobile:
+		Speed: 60
+		TurnSpeed: 20
+		Locomotor: lighttracked
+		Voice: Move
+	RenderSprites:
+		Image: pacmanblue2
+		Palette: tsunit
+	DockClientManager:
+	StoresResources:
+		Capacity: 500000
+		Resources: Ore,Gems,Tiberium,BlueTiberium
+	ResourceCrusher:
+		ValueModifier: 0
+		ResourceType: Ore, Gems, Tiberium, BlueTiberium
+	Harvester:
+		Resources: Ore,Gems,Tiberium,BlueTiberium
+		BaleLoadDelay: 0
+		FullyLoadedSpeed: 150
+		Capacity: 500000
+		SearchFromHarvesterRadius: 200
+	ResourceCrusher:
+		ValueModifier: 0
+		ResourceType: Ore, Gems, Tiberium, BlueTiberium
+	SpawnActorOnDeath:
+		Actor: GHOSTBLUE2
+
+PACKMANRED2:
+	Inherits: PACKMANBLUE2
+	-Harvester:
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	AutoTarget:
+		ScanRadius: 3
+	RejectsOrders:
+	AttackWander:
+		WanderMoveRadius: 200
+	Armament@PRIMARY:
+		Weapon: PACKMANREDWEP2
+	AttackFrontal:
+		PauseOnCondition: disabled
+		FacingTolerance: 32
+	RenderSprites:
+		Image: pacmanred2
+		Palette: tsunit
+	SpawnActorOnDeath:
+		Actor: GHOSTRED2
+
+PACKMANYELLOW2:
+	Inherits: PACKMANBLUE2
+	-Harvester:
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	AutoTarget:
+		ScanRadius: 3
+	RejectsOrders:
+	AttackWander:
+		WanderMoveRadius: 200
+	Armament@PRIMARY:
+		Weapon: PACKMANYELLOWWEP2
+	AttackFrontal:
+		PauseOnCondition: disabled
+		FacingTolerance: 32
+	RenderSprites:
+		Image: pacmanyellow2
+		Palette: tsunit
+	SpawnActorOnDeath:
+		Actor: GHOSTYELLOW2
+				
+GHOSTRNG:
+	Inherits@EPIC: ^EpicUnit
+	Inherits@EPIC2: ^EpicVehicle
+	Valued:
+		Cost: 500
+	Voiced:
+		VoiceSet: BulldozerVoice
+	Tooltip:
+		Name: SPOOKY! but smol
+	ScaredyCat:
+		PanicSpeedModifier: 90
+	Health:
+		HP: 50000
+	Armor:
+		Type: Light
+	Mobile:
+		Locomotor: hover
+		TurnSpeed: 512
+		Speed: 90
+	Hovers:
+		InitialHeight: 128
+	TransformOnCondition@BLUE2:
+		IntoActor: PACKMANBLUE2
+		RequiresCondition: RespawntimerghostBLUE2
+	TransformOnCondition@RED2:
+		IntoActor: PACKMANRED2
+		RequiresCondition: RespawntimerghostRED2
+	TransformOnCondition@YELLOW2:
+		IntoActor: PACKMANYELLOW2
+		RequiresCondition: RespawntimerghostYELLOW2
+	GrantRandomCondition@ghost2:
+		Conditions: PACBLUE2, PACRED2, PACYELLOW2
+	GrantDelayedCondition@BLUE2:
+		Condition: RespawntimerghostBLUE2
+		Delay: 500
+		RequiresCondition: PACBLUE2
+	GrantDelayedCondition@RED2:
+		Condition: RespawntimerghostRED2
+		Delay: 700
+		RequiresCondition: PACRED2
+	GrantDelayedCondition@YELLOW2:
+		Condition: RespawntimerghostYELLOW2
+		Delay: 600
+		RequiresCondition: PACYELLOW2
+	RenderSprites:
+		Image: pacmanghostyellow2
+		Palette: tsunit
+	EligibleForRandomActorCrate:
+		Type: pacmansmall
+
+				
+GHOSTYELLOW2:
+	Inherits: GHOSTRNG
+	RenderSprites:
+		Image: pacmanghostyellow2
+		Palette: tsunit			
+
+GHOSTRED2:
+	Inherits: GHOSTRNG
+	RenderSprites:
+		Image: pacmanghostred2
+		Palette: tsunit			
+
+GHOSTBLUE2:
+	Inherits: GHOSTRNG
+	RenderSprites:
+		Image: pacmanghostblue2
+		Palette: tsunit
