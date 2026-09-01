@@ -16,16 +16,15 @@ World:
 	Crate:
 		Duration: 6000
 		TerrainTypes: Clear, ClearSnow, Creep, Rough, Road, Ore, Beach, Water, Gems, Tiberium, BlueTiberium
-	GrantRandomCondition@botcrate:
-		Conditions: bot_enabled,x,x
 	ExternalCondition@botcrate:
 		Condition: bot_near_crate
 	ProximityExternalCondition@cratealive:
 		Condition: crate_here
-		RequiresCondition: bot_near_crate && bot_enabled && !x
+		RequiresCondition: bot_near_crate && !parachute && !on_water
 		ValidRelationships: Ally, Neutral, Enemy
+		Range: 1c0
 	FreeActor@terrain:
-		RequiresCondition: bot_near_crate && !on_water
+		RequiresCondition: bot_near_crate && !on_water && !parachute
 		AllowRespawn: true
 		Actor: CRATE.AITerrain
 	GrantConditionOnTerrain@notground:
@@ -41,6 +40,7 @@ CRATE.AITerrain:
 	KillsSelf:
 		Delay: 75
 		RequiresCondition: !crate_here
+		RemoveInstead: true
 
 CRATE:
 	-GiveCashCrateAction:
@@ -1488,9 +1488,12 @@ HARTMAN:
 	RenderSprites:
 		Image: d6.havoc
 	Voiced:
+		-RequiresCondition:
 		VoiceSet: HartmanVoice
 	-GrantConditionOnFaction@china:
 	-Armament@FakeDuke:
+	-AmbientSound@talky:
+	-AmbientSound@talky2:
 	AmbientSound:
 		SoundFiles: hartmanwht1.aud,hartmanwht2.aud,hartmanwht3.aud,hartmanwht4.aud,hartmanwht5.aud,hartmanwht6.aud,hartmanwht7.aud,hartmanwht8.aud,hartmanwht9.aud,hartmanwht10.aud,hartmanyes1.aud,hartmanyes2.aud,hartmanyes3.aud
 		Delay: 250
@@ -6305,7 +6308,7 @@ PACKMANYELLOW2:
 		Palette: tsunit
 	SpawnActorOnDeath:
 		Actor: GHOSTYELLOW2
-				
+
 GHOSTRNG:
 	Inherits@EPIC: ^EpicUnit
 	Inherits@EPIC2: ^EpicVehicle
@@ -6356,7 +6359,6 @@ GHOSTRNG:
 	EligibleForRandomActorCrate:
 		Type: pacmansmall
 
-				
 GHOSTYELLOW2:
 	Inherits: GHOSTRNG
 	RenderSprites:
