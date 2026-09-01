@@ -97,7 +97,6 @@ hotkey-description-cyclestatusbars = Cycle status bars display
 hotkey-description-togglemute = Toggle audio mute
 hotkey-description-toggleplayerstancecolor = Toggle relationship colors
 hotkey-description-takescreenshot = Take screenshot
-hotkey-description-quicksave = Quick Save
 hotkey-description-attackmove = Attack Move
 hotkey-description-stop = Stop
 hotkey-description-scatter = Scatter
