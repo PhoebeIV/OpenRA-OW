@@ -9921,3 +9921,99 @@ Fruitspawnercluster:
 	Projectile: InstantHit
 	Warhead@spawner: SpawnRandomActor
 		RandomActors: pacfruit1, pacfruit2, pacfruit3, pacfruit4, pacfruit5
+
+dinnerblastershot:
+	Inherits: ^Cannon
+	Range: 8c768
+	ReloadDelay: 4
+	Report: dinnerblastershoot.aud
+	Projectile: Bullet
+		Speed: 256
+		Inaccuracy: 2c0
+		Image: dinnerblasterproj
+	Warhead@1Dam: SpreadDamage
+		Spread: 1c0
+		Damage: 2500
+		Versus:
+			Heavy: 100
+	Warhead@2Dam: SpreadDamage
+		Spread: 1c0
+		Damage: 5000
+		ValidTargets: Infantry
+	Warhead@3Eff: CreateEffect
+		Explosions: med_explosion
+
+dinnerblastershake:
+	Range: 8c768
+	ReloadDelay: 4
+	ValidTargets: Ground, Water, GroundActor, WaterActor, AirborneActor
+	Projectile: InstantHit
+	Warhead@1Dam: SpreadDamage
+		Damage: 1
+		ValidTargets: Ground, Water, GroundActor, WaterActor, AirborneActor
+	Warhead@Shake: ShakeScreen
+		Duration: 4
+		Intensity: 2
+		Multiplier: 1,1
+
+blackholedestroy1:
+	Range: 100c0
+	ReloadDelay: 25
+	ValidTargets: Ground, Water, GroundActor, WaterActor, AirborneActor
+	Projectile: Missile
+		Image: acolytestrikeactordumb
+		RangeLimit: 1c0
+	Warhead@1Dam: SpreadDamage
+		Spread: 5c0
+		Damage: 4000
+		ValidTargets: Ground, Water, GroundActor, WaterActor, AirborneActor
+	Warhead@2Dam: SpreadDamage
+		Spread: 6c0
+		Damage: 5000
+		ValidTargets: Building, Structure
+		Falloff: 100,75,50
+	Warhead@3Dam: SpreadDamage
+		Spread: 7c0
+		Damage: 5000
+		ValidTargets: Infantry, Vehicle
+		Falloff: 100,75,50
+	Warhead@Shake: ShakeScreen
+		Duration: 10
+		Intensity: 2
+		Multiplier: 1,1
+
+blackholedestroy2:
+	Inherits: blackholedestroy1
+	Warhead@1Dam: SpreadDamage
+		Spread: 6c0
+		Damage: 5000
+		ValidTargets: Ground, Water, GroundActor, WaterActor, AirborneActor
+
+blackholedestroy3:
+	Inherits: blackholedestroy1
+	Warhead@1Dam: SpreadDamage
+		Spread: 7c0
+		Damage: 6000
+		ValidTargets: Ground, Water, GroundActor, WaterActor, AirborneActor
+
+blackholedestroy4:
+	Inherits: blackholedestroy1
+	Warhead@1Dam: SpreadDamage
+		Spread: 8c0
+		Damage: 7000
+		ValidTargets: Ground, Water, GroundActor, WaterActor, AirborneActor
+
+blackholedestroy5:
+	Inherits: blackholedestroy1
+	Warhead@1Dam: SpreadDamage
+		Spread: 10c0
+		Damage: 8000
+		ValidTargets: Ground, Water, GroundActor, WaterActor, AirborneActor
+
+blackholecrater:
+	ValidTargets: Ground, Water, GroundActor, WaterActor, Underwater, AirborneActor, Trees
+	Projectile: InstantHit
+	Warhead@5: SpawnActor
+		Range: 4
+		Actors: 1tnk.crater
+		OwnerType: InternalName

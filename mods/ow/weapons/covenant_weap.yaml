@@ -1429,3 +1429,46 @@ covenantvampireneedlerifle:
 		Condition: needlereffectweak
 		Duration: 300
 		ValidTargets: Air, AirborneActor
+
+covenantshade1:
+	ReloadDelay: 50
+	Burst: 6
+	BurstDelays: 5
+	Range: 6c0
+	Report: masterchiefplasmariflefire.aud
+	ValidTargets: Ground, Water, GroundActor, WaterActor
+	Projectile: Bullet
+		Speed: 512
+		Blockable: false
+		ContrailLength: 5
+		ContrailStartColor: 00fbff
+		Image: masterchiefplasmarifleproj
+		Shadow: false
+		Inaccuracy: 512
+		ContrailStartWidth: 0c32
+	Warhead@1Dam: SpreadDamage
+		Spread: 256
+		Damage: 1000
+		ValidTargets: GroundActor, WaterActor
+		Versus:
+			None: 50
+			Wood: 75
+			Light: 60
+			Heavy: 75
+			Concrete: 50
+			Shield: 150
+		DamageTypes: Prone50Percent, TriggerProne, ElectricityDeath
+	Warhead@2Smu: LeaveSmudge
+		SmudgeType: Scorch
+		InvalidTargets: Structure, Wall, Vehicle
+	Warhead@3Eff_impact: CreateEffect
+		Explosions: laserhitsmall
+		ImpactSounds: masterchiefplasmahit1.aud, masterchiefplasmahit2.aud, masterchiefplasmahit3.aud
+		ValidTargets: Ground, Water, GroundActor, WaterActor
+
+covenantshade2:
+	Inherits: covenantshade1
+	-Report:
+	Warhead@3Eff_impact: CreateEffect
+		Explosions: laserhitsmall
+		ValidTargets: Ground, Water, GroundActor, WaterActor

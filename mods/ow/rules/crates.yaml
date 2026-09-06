@@ -94,6 +94,16 @@ CRATE:
 		SelectionShares: 0
 		NoBaseSelectionShares: 1000
 		Units: avmcv
+	GiveBaseBuilderCrateAction@unsc:
+		ValidFactions: unsc
+		SelectionShares: 0
+		NoBaseSelectionShares: 1000
+		Units: unscmcv
+	GiveBaseBuilderCrateAction@covenant:
+		ValidFactions: covenant
+		SelectionShares: 0
+		NoBaseSelectionShares: 1000
+		Units: covenantmcv
 	DuplicateUnitCrateAction:
 		SelectionShares: 10
 		MaxAmount: 10
@@ -634,6 +644,29 @@ CRATE.FuckYou:
 		SelectionShares: 5
 		Units: 1tnk.oblid
 		Owner: Creeps
+	GiveUnitCrateAction@dinnerblaster:
+		SelectionShares: 5
+		TimeDelay: 3000
+		Units: 1tnk.dinnerblaster
+		Sound: dinnerblasterstart.ogg
+		Owner: Creeps
+		Prerequisites: !environment.nomemes
+	GiveUnitCrateAction@calculating:
+		SelectionShares: 2
+		TimeDelay: 3000
+		Units: 1tnk.calculating
+		Owner: Creeps
+		Prerequisites: !environment.nomemes
+	GiveUnitCrateAction@blackhole:
+		SelectionShares: 1
+		TimeDelay: 12000
+		Units: 1tnk.blackhole
+		Owner: Creeps
+	GiveUnitCrateAction@doompistolfacememe:
+		SelectionShares: 5
+		Units: 1tnk.doompistolfacememe
+		Owner: Creeps
+		Prerequisites: !environment.nomemes
 	GiveUnitCrateAction@madden:
 		SelectionShares: 2
 		TimeDelay: 6000
@@ -4466,17 +4499,18 @@ shoopdawhoop:
 		OwnerType: Victim
 
 dinnerblaster:
-	Inherits: OBLID
+	Inherits: ^Defense
 	Inherits@AUTOTARGET: ^AutoTargetAll
 	Buildable:
+		Queue: Defense
 		BuildPaletteOrder: 0
 		Prerequisites: ~disabled
 	Valued:
 		Cost: 2000
 	Tooltip:
-		Name: actor-dinnerblaster-cr-name
+		Name: actor-dinnerblaster-name
 	Health:
-		HP: 1000000
+		HP: 300000
 	Power:
 		Amount: 0
 	DetectCloaked:
@@ -4494,21 +4528,43 @@ dinnerblaster:
 	RangeMultiplier@1:
 		Modifier: 120
 	AmbientSound:
-		RequiresCondition: charging
-		SoundFiles: obelpowr.aud
-		Interval: 30, 40
+		SoundFiles: dinnerblasterstart.ogg
+		Delay: 0
+		Interval: 50000, 60000
+	AmbientSound@2:
+		SoundFiles: dinnerblastermusic.ogg
+		Delay: 60
+		Interval: 116
+	AmbientSound@3:
+		SoundFiles: dinnerblastermusic.ogg
+		Delay: 60
+		Interval: 116
+	Turreted:
+		TurnSpeed: 512
+	-QuantizeFacingsFromSequence:
+	BodyOrientation:
+		QuantizedFacings: 8
+	AttackTurreted:
+	GrantDelayedCondition:
+		Condition: ready
+		Delay: 60
 	Armament:
-		Weapon: strifeguycrusadermissile
+		Weapon: dinnerblastershot
+		RequiresCondition: ready
 		LocalOffset: 0,0,1024
+	Armament@2:
+		Weapon: dinnerblastershake
+		RequiresCondition: ready
+		LocalOffset: 0,0,1024
+		Name: secondary
 	FireWarheadsOnDeath:
-		Weapon: Redeemernuke
-		EmptyWeapon: Redeemernuke
+		Weapon: FartExplosion
+		EmptyWeapon: FartExplosion
 	WithAttackAnimation:
 		Sequence: firing
 	WithAttackOverlay:
 		Sequence: firing
 	WithSpriteBody:
-	-WithChargeSpriteBody:
 
 powerproxy.iondrop:
 	DropPodsPowerOW:
@@ -6376,3 +6432,342 @@ GHOSTBLUE2:
 	RenderSprites:
 		Image: pacmanghostblue2
 		Palette: tsunit
+
+teambuddiesgreen:
+	Inherits: ^NewStrifeGuy
+	Inherits@highHP: ^HighHPInfantry
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Buildable:
+		Queue: Infantry
+		BuildPaletteOrder: 0
+		Prerequisites: ~disabled
+	Valued:
+		Cost: 750
+	Tooltip:
+		Name: actor-teambuddiesgreen-name
+	Health:
+		HP: 25000
+	Armor:
+		Type: Heavy
+	Mobile:
+		Speed: 48
+	Armament@PRIMARY:
+		Weapon: strifeacolytebasicmg
+		LocalOffset: 0,0,555
+	Armament@GARRISONED:
+		Name: garrisoned
+		Weapon: strifeacolytebasicmg
+	Armament@BUS:
+		Name: bus
+		Weapon: strifeacolytebasicmg
+	RenderSprites:
+		Image: teambuddiesgreen
+	Voiced:
+		VoiceSet: StrifeAcolyte
+	WithParachute:
+		Image: explosion
+		Sequence: strifeteleport
+		OpeningSequence: strifeteleport
+		ShadowImage: parach-shadow
+		ShadowSequence: idle
+		RequiresCondition: parachute
+	Wanders:
+		WanderMoveRadius: 2
+		RequiresCondition: roam
+	GrantTimedCondition@roam:
+		Condition: roam
+		Duration: 25
+	-SpawnActorOnDeath@fire:
+
+1TNK.blackhole:
+	Inherits: 1TNK.MINE
+	SpawnActorOnDeath:
+		Actor: blackhole
+		SkipMakeAnimations: false
+		OwnerType: Victim
+
+blackhole:
+	Inherits: ^Defense
+	Inherits@AUTOTARGET: ^AutoTargetAll
+	-Selectable:
+	Interactable:
+	Targetable:
+		TargetTypes: blackhole
+	Buildable:
+		Queue: Defense
+		BuildPaletteOrder: 0
+		Prerequisites: ~disabled
+	Valued:
+		Cost: 2000
+	Tooltip:
+		Name: actor-blackhole-name
+	Health:
+		HP: 300000
+	Power:
+		Amount: 0
+	DetectCloaked:
+		Range: 12c0
+		RequiresCondition: !disabled
+	ProvidesPrerequisite@buildingname:
+	RevealsShroud:
+		MinRange: 6c0
+		Range: 15c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 6c0
+	RenderSprites:
+		Image: blackhole
+	RangeMultiplier@1:
+		Modifier: 120
+	AmbientSound:
+		SoundFiles: blackholesound.ogg
+		Interval: 765
+	AmbientSound@2:
+		SoundFiles: blackholesound.ogg
+		Interval: 765
+	Turreted:
+		TurnSpeed: 512
+	-QuantizeFacingsFromSequence:
+	BodyOrientation:
+		QuantizedFacings: 8
+	AttackTurreted:
+	Armament:
+		Weapon: blackholedestroy1
+		LocalOffset: 0,0,1024
+	FireWarheadsOnDeath:
+		Weapon: Redeemernuke
+		EmptyWeapon: Redeemernuke
+	WithSpriteBody:
+	TerrainLighting:
+		BinSize: 5
+    TerrainLightSource:
+		Range: 5c0
+		Intensity: 1
+		RedTint: 2
+		GreenTint: 1
+		BlueTint: 0
+	GrantDelayedCondition:
+		Condition: big
+		Delay: 250
+	TransformOnCondition:
+		RequiresCondition: big
+		IntoActor: blackhole2
+	Hovers:
+		InitialHeight: 512
+
+blackhole2:
+	Inherits: blackhole
+	RenderSprites:
+		Image: blackhole2
+	Armament:
+		Weapon: blackholedestroy2
+		LocalOffset: 0,0,1024
+	TerrainLighting:
+		BinSize: 10
+    TerrainLightSource:
+		Range: 10c0
+		Intensity: 1
+		RedTint: 2
+		GreenTint: 1
+		BlueTint: 0
+	GrantDelayedCondition:
+		Condition: big
+		Delay: 250
+	TransformOnCondition:
+		RequiresCondition: big
+		IntoActor: blackhole3
+
+blackhole3:
+	Inherits: blackhole
+	RenderSprites:
+		Image: blackhole3
+	Armament:
+		Weapon: blackholedestroy3
+		LocalOffset: 0,0,1024
+	TerrainLighting:
+		BinSize: 15
+    TerrainLightSource:
+		Range: 15c0
+		Intensity: 1
+		RedTint: 2
+		GreenTint: 1
+		BlueTint: 0
+	GrantDelayedCondition:
+		Condition: big
+		Delay: 250
+	TransformOnCondition:
+		RequiresCondition: big
+		IntoActor: blackhole4
+
+blackhole4:
+	Inherits: blackhole
+	RenderSprites:
+		Image: blackhole4
+	Armament:
+		Weapon: blackholedestroy4
+		LocalOffset: 0,0,1024
+	TerrainLighting:
+		BinSize: 20
+    TerrainLightSource:
+		Range: 20c0
+		Intensity: 1
+		RedTint: 2
+		GreenTint: 1
+		BlueTint: 0
+	GrantDelayedCondition:
+		Condition: big
+		Delay: 250
+	TransformOnCondition:
+		RequiresCondition: big
+		IntoActor: blackhole5
+
+blackhole5:
+	Inherits: blackhole
+	RenderSprites:
+		Image: blackhole5
+	Armament:
+		Weapon: blackholedestroy5
+		LocalOffset: 0,0,1024
+	TerrainLighting:
+		BinSize: 25
+    TerrainLightSource:
+		Range: 25c0
+		Intensity: 1
+		RedTint: 2
+		GreenTint: 1
+		BlueTint: 0
+	-GrantDelayedCondition:
+	-TransformOnCondition:
+	KillsSelf:
+		Delay: 250
+		RemoveInstead: False
+	FireWarheadsOnDeath:
+		Weapon: blackholecrater
+		EmptyWeapon: blackholecrater
+
+1TNK.doompistolfacememe:
+	Inherits: 1TNK.MINE
+	SpawnActorOnDeath:
+		Actor: doompistolfacememe
+		SkipMakeAnimations: false
+		OwnerType: Victim
+
+doompistolfacememe:
+	Inherits: ^Defense
+	Inherits@AUTOTARGET: ^AutoTargetAll
+	-Selectable:
+	Interactable:
+	Targetable:
+		TargetTypes: donthurtme
+	Buildable:
+		Queue: Defense
+		BuildPaletteOrder: 0
+		Prerequisites: ~disabled
+	Valued:
+		Cost: 2000
+	Tooltip:
+		Name: actor-doompistolfacememe-name
+	Health:
+		HP: 300000
+	Power:
+		Amount: 0
+	DetectCloaked:
+		Range: 12c0
+		RequiresCondition: !disabled
+	ProvidesPrerequisite@buildingname:
+	RevealsShroud:
+		MinRange: 6c0
+		Range: 15c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 6c0
+	RenderSprites:
+		Image: doompistolfacememe
+	RangeMultiplier@1:
+		Modifier: 120
+	AmbientSound:
+		SoundFiles: doompistolfacememesound.ogg
+		Interval: 1400
+	Turreted:
+		TurnSpeed: 512
+	-QuantizeFacingsFromSequence:
+	BodyOrientation:
+		QuantizedFacings: 8
+	AttackTurreted:
+	FireWarheadsOnDeath:
+		Weapon: Redeemernuke
+		EmptyWeapon: Redeemernuke
+	WithSpriteBody:
+	KillsSelf:
+		RemoveInstead: True
+		Delay: 1400
+
+1TNK.calculating:
+	Inherits: 1TNK.MINE
+	SpawnActorOnDeath:
+		Actor: calculating
+		SkipMakeAnimations: false
+		OwnerType: Victim
+
+calculating:
+	Inherits: ^Defense
+	Inherits@AUTOTARGET: ^AutoTargetAll
+	-Selectable:
+	Interactable:
+	Targetable:
+		TargetTypes: donthurtme
+	Buildable:
+		Queue: Defense
+		BuildPaletteOrder: 0
+		Prerequisites: ~disabled
+	Valued:
+		Cost: 2000
+	Tooltip:
+		Name: actor-calculating-name
+	Health:
+		HP: 300000
+	Power:
+		Amount: 0
+	DetectCloaked:
+		Range: 12c0
+		RequiresCondition: !disabled
+	ProvidesPrerequisite@buildingname:
+	RevealsShroud:
+		MinRange: 6c0
+		Range: 15c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 6c0
+	RenderSprites:
+		Image: calculating
+	AmbientSound@1:
+		SoundFiles: calculatingsound.ogg
+		Interval: 35
+		RequiresCondition: !wrong
+	GrantDelayedCondition@1:
+		Condition: wrong
+		Delay: 80
+	AmbientSound@2:
+		SoundFiles: calculatingsoundwrong.ogg
+		RequiresCondition: wrong
+		Interval: 300
+	GrantDelayedCondition@2:
+		Condition: die
+		Delay: 110
+	Turreted:
+		TurnSpeed: 512
+	-QuantizeFacingsFromSequence:
+	BodyOrientation:
+		QuantizedFacings: 8
+	AttackTurreted:
+	FireWarheadsOnDeath:
+		Weapon: Redeemernuke
+		EmptyWeapon: Redeemernuke
+	WithSpriteBody:
+		PauseOnCondition: wrong
+	WithSpriteBody@1:
+		Sequence: idle-wrong
+		RequiresCondition: wrong
+	KillsSelf:
+		RemoveInstead: False
+		RequiresCondition: die

@@ -1308,7 +1308,10 @@ actor-starfoxarwingfox-name = Starfox Arwing
 actor-aaaaa-name = Beheaded Kamikaze
 actor-nyancat-name = Nyan Cat!
 actor-ae86-name = Toyota Sprinter Trueno AE86
-
+actor-dinnerblaster-name = DINNER blaster
+actor-blackhole-name = Blackhole
+actor-doompistolfacememe-name = smiley face
+actor-calculating-name = You are about to install some gay ass game...
 actor-proxynuke-description = Launches a dud atomic bomb
     at the target location to 
     strike fear in your enemies.
