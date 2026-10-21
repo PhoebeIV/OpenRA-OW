@@ -9,7 +9,7 @@ World:
 		InitialSpawnDelay: 50
 		CheckboxDisplayOrder: 1
 		CrateActors: crate, moneycrate2, crate.fuckyou, crate.big, crate.bigger
-		CrateActorShares: 300, 200, 100, 10, 1
+		CrateActorShares: 3000, 2000, 1000, 50, 5
 
 # Inherited and changed from mods/ra to increase lifetime and allowed terrain types
 ^Crate:
@@ -47,19 +47,35 @@ CRATE:
 	-ExplodeCrateAction@fire:
 	-ExplodeCrateAction@boom:
 	-HideMapCrateAction:
+	-GiveUnitCrateAction@lst:
+	-GiveUnitCrateAction@pt:
+	-GiveUnitCrateAction@ss:
+	-GiveUnitCrateAction@dd:
+	-GiveUnitCrateAction@ss2:
+	-GiveUnitCrateAction@ca:
+	-GiveUnitCrateAction@msub:
+	-GiveUnitCrateAction@apc:
+	-GiveUnitCrateAction@ftrk:
+	-GiveUnitCrateAction@arty:
+	HealActorsCrateAction:
+		SelectionShares: 350
+	RevealMapCrateAction:
+		SelectionShares: 50
 	ExternalCondition@tree:
 		Condition: near_tree
 	ExplodeCrateAction@neartree:
 		RequiresCondition: near_tree
 		Weapon: TibCrateGrowth
-		SelectionShares: 50
+		SelectionShares: 5000
 	LevelUpCrateAction:
-		SelectionShares: 12
+		SelectionShares: 1000
 		RequiresCondition: !hero
+		Range: 4c0
 	LevelUpCrateAction@hero:
-		SelectionShares: 5
+		SelectionShares: 500
 		RequiresCondition: hero
 		Levels: 5
+		MaxExtraCollectors: 0
 	GiveBaseBuilderCrateAction:
 		ValidFactions: england, france, germany, russia, ukraine, estonia, phobos, deimos, mars, hitler, himmler, heydrich, usa, townes, granger, alexander
 		NoBaseSelectionShares: 1000
@@ -105,13 +121,13 @@ CRATE:
 		NoBaseSelectionShares: 1000
 		Units: covenantmcv
 	DuplicateUnitCrateAction:
-		SelectionShares: 10
+		SelectionShares: 1000
 		MaxAmount: 10
 		MaxDuplicateValue: 6000
 		Sound: clonesnd.aud
 		RequiresCondition: !hero && !harvester
 	DuplicateUnitCrateAction@harv:
-		SelectionShares: 10
+		SelectionShares: 1000
 		MaxAmount: 4
 		Sound: clonesnd.aud
 		RequiresCondition: !hero && harvester
@@ -120,49 +136,49 @@ CRATE:
 	ExternalCondition@harvester:
 		Condition: harvester
 	GiveUnitCrateAction@split:
-		SelectionShares: 2
+		SelectionShares: 200
 		Units: 1tnk.split3
 	GiveUnitCrateAction@split2:
-		SelectionShares: 1
+		SelectionShares: 100
 		Units: 1tnk.split4
 	GiveUnitCrateAction@mono1:
-		SelectionShares: 2
+		SelectionShares: 150
 		Units: 1tnk.monolith
 	GiveUnitCrateAction@mono2:
-		SelectionShares: 1
+		SelectionShares: 75
 		Units: 1tnk.monolithblue
 	GiveUnitCrateAction@mine:
-		SelectionShares: 2
+		SelectionShares: 300
 		Units: 1tnk.mine
 	GiveUnitCrateAction@gmine:
-		SelectionShares: 1
+		SelectionShares: 50
 		Units: 1tnk.gmine
 	GiveUnitCrateAction@oil:
-		SelectionShares: 4
+		SelectionShares: 400
 		Units: 1tnk.oil
 	GiveUnitCrateAction@dtrk:
-		SelectionShares: 2
+		SelectionShares: 200
 		Units: dtrk
 		Prerequisites: techlevel.unrestricted
 	GiveUnitCrateAction@xbar:
-		SelectionShares: 6
+		SelectionShares: 300
 		Units: 1tnk.xbar,1tnk.xbar,1tnk.xbar
 	GrantExternalConditionCrateAction@cloak:
 		Condition: stealthgen
-		SelectionShares: 5
+		SelectionShares: 500
 		Sequence: stealth
 		MaxExtraCollectors: 4
 		Range: 3c0
 		Sound: invisible.aud
 	GrantExternalConditionCrateAction@shield:
 		Condition: external_shield
-		SelectionShares: 5
+		SelectionShares: 500
 		Sequence: armor
 		MaxExtraCollectors: 10
 		Range: 3c0
 		Sound: beltsnd.aud
 	GrantExternalConditionCrateAction@frenzy:
-		SelectionShares: 5
+		SelectionShares: 500
 		Duration: 750
 		Condition: frenzyboost
 		Sound: sfrenzya.wav
@@ -170,134 +186,21 @@ CRATE:
 		Range: 7c512
 		MaxExtraCollectors: -1
 	GrantExternalConditionCrateAction@overshield:
-		SelectionShares: 5
+		SelectionShares: 500
 		Condition: defense_matrix
 		Duration: 750
 		Sequence: armor
 		MaxExtraCollectors: -1
 		Range: 5c0
 		Sound: tvedef00.aud
-	GiveUnitCrateAction@apc:
-		-ValidFactions:
-		Prerequisites: techlevel.low, vehicles.apcprereq
-	GiveUnitCrateAction@ftrk:
-		-ValidFactions:
-		Prerequisites: techlevel.low, vehicles.ftrkprereq
-	GiveUnitCrateAction@arty:
-		-ValidFactions:
-		Prerequisites: techlevel.medium, radar, vehicles.artyprereq
-	GiveRandomActorCrateAction@1:
-		SelectionShares: 5
-		Prerequisites: barracks
-		Type: soldier
-	GiveRandomActorCrateAction@2:
-		SelectionShares: 5
-		Prerequisites: factory
-		Type: vehicle
-	GiveRandomActorCrateAction@3:
-		SelectionShares: 1
-		Prerequisites: ulttechcenter
-		Type: epic
-	GiveRandomActorCrateAction@4:
-		SelectionShares: 1
-		Prerequisites: shippen, !techlevel.noboats
-		Type: ship
-	GiveUnitCrateAction@squadlight:
-		ValidFactions: allies, england, france, germany, soviet, russia, ukraine, gdi, gdi3, zocom, steel, nod, nod3, bhand, marked, civ, hitler, himmler, heydrich
-	GiveUnitCrateAction@squadlightfed:
-		SelectionShares: 10
-		Units: fe1,fe1,fe1,fe1,fe1,fe2
-		ValidFactions: sword, angels, silver
-	GiveUnitCrateAction@squadlightuac:
-		SelectionShares: 10
-		Units: dm2,dm2,dm2,dm2,dm1
-		ValidFactions: phobos, deimos, mars
-	GiveUnitCrateAction@squadlightgla:
-		SelectionShares: 10
-		Units: ge1,ge1,ge1,ge3,ge3
-		ValidFactions: gla, demo, kassad, thrax
-	GiveUnitCrateAction@squadheavysoviet:
-		SelectionShares: 7
-		Units: e1,e1,e4,e4,e3,e3,e3,e6,e1of
-		ValidFactions: soviet, russia, ukraine, nod, nod3, bhand, marked, hitler, himmler, heydrich
-		TimeDelay: 4500
-	GiveUnitCrateAction@squadheavyallies:
-		SelectionShares: 7
-		Units: e1,e1,e1,e1,e3,e3,e3,e6,medi,e1of
-		ValidFactions: allies, england, france, germany, marked, zocom
-		TimeDelay: 4500
-	GiveUnitCrateAction@squadheavyfed:
-		SelectionShares: 7
-		Units: fe1,fe1,fe1,fe1,fe2,fe2,fe4,fmedi
-		ValidFactions: sword, angels, silver
-		TimeDelay: 4500
-	GiveUnitCrateAction@squadheavyuac:
-		SelectionShares: 7
-		Units: dm2,dm2,dm2,dm2of,dm1,dm6,dm6,medi.dm
-		ValidFactions: phobos, deimos, mars
-		TimeDelay: 4500
-	GiveUnitCrateAction@squadheavygla:
-		SelectionShares: 7
-		Units: e1,e1,e1,e1,e3,e3,e3,e6,medi
-		ValidFactions: gla, demo, kassad, thrax
-		TimeDelay: 4500
-	GiveUnitCrateAction@dukenukem:
-		SelectionShares: 2
-		Units: dukenukem
-		Sound: dukenukembuild5.aud
-		Prerequisites: techlevel.high
-	GiveUnitCrateAction@judgedredd:
-		SelectionShares: 2
-		Units: judgedredd
-		Sound: dredd1.aud
-		Prerequisites: techlevel.high
-	GiveUnitCrateAction@corvus:
-		SelectionShares: 2
-		Units: hereticcorvus
-		Sound: WPNUP.wav
-		Prerequisites: techlevel.high
-	GiveUnitCrateAction@hartman:
-		SelectionShares: 2
-		Units: hartman
-		Sound: hartmanrdy1.aud
-		Prerequisites: techlevel.high, !environment.nomemes
-	GiveUnitCrateAction@terminator:
-		SelectionShares: 2
-		TimeDelay: 6000
-		Units: terminator
-		Sound: arniekil2.aud
-		Prerequisites: techlevel.high, !environment.nomemes
-	GiveUnitCrateAction@quakeguy:
-		SelectionShares: 2
-		Units: quakeguy
-		Sound: qvoice1.ogg
-		Prerequisites: techlevel.high
-	GiveUnitCrateAction@hunterkiller:
-		SelectionShares: 4
-		Units: 1tnk.hunter
-	GiveUnitCrateAction@hunterkillercrate:
-		SelectionShares: 2
-		Units: 1tnk.huntercrate
-	GiveUnitCrateAction@bitconnect:
-		SelectionShares: 1
-		Units: 1tnk.bitconnect
-		Sound: bitconnect.aud
-		Prerequisites: !environment.nomemes
-	GiveUnitCrateAction@civvies:
-		SelectionShares: 3
-		Units: 1tnk.cpanic,c1,c2,c3,c4,c5,c6,c7,c8,c9,c10,c1,c2,c3,c4,c5,c10
-		Owner: Neutral
-		Sound: iangsela.aud
-	RevealMapCrateAction:
-		SelectionShares: 3
 	GrantExternalConditionCrateAction@invuln:
-		SelectionShares: 4
+		SelectionShares: 400
 		Sequence: invuln
 		Sound: ironcur9.aud
 		Condition: invulnerability
 		Duration: 750
 	GrantExternalConditionCrateAction@quaddamage:
-		SelectionShares: 2
+		SelectionShares: 150
 		Sequence: fpower
 		Sound: quaddamage.ogg
 		Condition: quaddamage
@@ -305,152 +208,259 @@ CRATE:
 		MaxExtraCollectors: 10
 		Range: 5c0
 	GrantExternalConditionCrateAction@udamage:
-		SelectionShares: 3
+		SelectionShares: 200
 		Sequence: fpower
 		Sound: uamppickup.ogg
 		Condition: udamage
 		Duration: 750
 		MaxExtraCollectors: 10
 		Range: 5c0
+	GiveRandomActorCrateAction@1:
+		SelectionShares: 500
+		Prerequisites: barracks
+		Type: soldier
+	GiveRandomActorCrateAction@2:
+		SelectionShares: 500
+		Prerequisites: factory
+		Type: vehicle
+	GiveRandomActorCrateAction@3:
+		SelectionShares: 25
+		Prerequisites: ulttechcenter
+		Type: epic
+	GiveRandomActorCrateAction@4:
+		SelectionShares: 250
+		Prerequisites: shippen, !techlevel.noboats
+		Type: ship
+	GiveUnitCrateAction@squadlight:
+		ValidFactions: allies, england, france, germany, soviet, russia, ukraine, gdi, gdi3, zocom, steel, nod, nod3, bhand, marked, civ, hitler, himmler, heydrich
+		SelectionShares: 1000
+	GiveUnitCrateAction@squadlightfed:
+		SelectionShares: 1000
+		Units: fe1,fe1,fe1,fe1,fe1,fe2
+		ValidFactions: sword, angels, silver
+	GiveUnitCrateAction@squadlightuac:
+		SelectionShares: 1000
+		Units: dm2,dm2,dm2,dm2,dm1
+		ValidFactions: phobos, deimos, mars
+	GiveUnitCrateAction@squadlightgla:
+		SelectionShares: 1000
+		Units: ge1,ge1,ge1,ge3,ge3
+		ValidFactions: gla, demo, kassad, thrax
+	GiveUnitCrateAction@squadheavysoviet:
+		SelectionShares: 700
+		Units: e1,e1,e4,e4,e3,e3,e3,e6,e1of
+		ValidFactions: soviet, russia, ukraine, nod, nod3, bhand, marked, hitler, himmler, heydrich
+		TimeDelay: 4500
+	GiveUnitCrateAction@squadheavyallies:
+		SelectionShares: 700
+		Units: e1,e1,e1,e1,e3,e3,e3,e6,medi,e1of
+		ValidFactions: allies, england, france, germany, marked, zocom
+		TimeDelay: 4500
+	GiveUnitCrateAction@squadheavyfed:
+		SelectionShares: 700
+		Units: fe1,fe1,fe1,fe1,fe2,fe2,fe4,fmedi
+		ValidFactions: sword, angels, silver
+		TimeDelay: 4500
+	GiveUnitCrateAction@squadheavyuac:
+		SelectionShares: 700
+		Units: dm2,dm2,dm2,dm2of,dm1,dm6,dm6,medi.dm
+		ValidFactions: phobos, deimos, mars
+		TimeDelay: 4500
+	GiveUnitCrateAction@squadheavygla:
+		SelectionShares: 700
+		Units: e1,e1,e1,e1,e3,e3,e3,e6,medi
+		ValidFactions: gla, demo, kassad, thrax
+		TimeDelay: 4500
+	GiveUnitCrateAction@dukenukem:
+		SelectionShares: 50
+		Units: dukenukem
+		Sound: dukenukembuild5.aud
+		Prerequisites: techlevel.high
+	GiveUnitCrateAction@judgedredd:
+		SelectionShares: 50
+		Units: judgedredd
+		Sound: dredd1.aud
+		Prerequisites: techlevel.high
+	GiveUnitCrateAction@corvus:
+		SelectionShares: 50
+		Units: hereticcorvus
+		Sound: WPNUP.wav
+		Prerequisites: techlevel.high
+	GiveUnitCrateAction@hartman:
+		SelectionShares: 50
+		Units: hartman
+		Sound: hartmanrdy1.aud
+		Prerequisites: techlevel.high, !environment.nomemes
+	GiveUnitCrateAction@terminator:
+		SelectionShares: 50
+		TimeDelay: 6000
+		Units: terminator
+		Sound: arniekil2.aud
+		Prerequisites: techlevel.high, !environment.nomemes
+	GiveUnitCrateAction@quakeguy:
+		SelectionShares: 50
+		Units: quakeguy
+		Sound: qvoice1.ogg
+		Prerequisites: techlevel.high
+	GiveUnitCrateAction@hunterkiller:
+		SelectionShares: 75
+		Units: 1tnk.hunter
+	GiveUnitCrateAction@hunterkillercrate:
+		SelectionShares: 75
+		Units: 1tnk.huntercrate
+	GiveUnitCrateAction@bitconnect:
+		SelectionShares: 50
+		Units: 1tnk.bitconnect
+		Sound: bitconnect.aud
+		Prerequisites: !environment.nomemes
+	GiveUnitCrateAction@rmbo:
+		SelectionShares: 100
+		Units: rmbo.left
+	GiveUnitCrateAction@korone:
+		SelectionShares: 75
+		Units: korone
+		Sound: koronetaunt4.wav
+		Prerequisites: !environment.nomemes
+	GiveUnitCrateAction@gamecube:
+		SelectionShares: 25
+		Units: gamecube
+		Sound: gamecube.wav
+		Prerequisites: !gamecube.bugged, !environment.nomemes
+	GiveUnitCrateAction@firesale:
+		SelectionShares: 250
+		Units: 1tnk.firesale
+		Sequence: dollar
+	GiveUnitCrateAction@glasalvage:
+		SelectionShares: 300
+		Units: crate.gla, crate.gla, crate.gla, crate.gla, crate.gla, crate.gla
+		Prerequisites: structures.gla
+	GiveUnitCrateAction@aaaaa:
+		SelectionShares: 100
+		TimeDelay: 6000
+		Units: aaaaa,aaaaa,aaaaa,aaaaa,aaaaa,aaaaa,aaaaa,aaaaa,aaaaa,aaaaa,aaaaa,aaaaa,aaaaa,aaaaa,aaaaa
+		Sound: aaaaasound.wav
+		Prerequisites: !environment.nomemes
 	SupportPowerCrateAction@colonydrop:
 		Proxy: powerproxy.colonydrop
 		Sound: colonydroppickup.wav
 		Sequence: timequake
-		SelectionShares: 1
+		SelectionShares: 20
 	SupportPowerCrateAction@roadroller:
 		Proxy: powerproxy.roadroller
 		Sound: roadrollerpickup.wav
 		Sequence: armor
-		SelectionShares: 1
+		SelectionShares: 75
 		Prerequisites: !environment.nomemes
 	SupportPowerCrateAction@lightning:
 		Proxy: powerproxy.lightning
 		Sound: thunder-ambient.aud
 		Sequence: speed
-		SelectionShares: 1
+		SelectionShares: 75
 	SupportPowerCrateAction@ioncannon:
 		Proxy: powerproxy.ioncannon
 		Sound: ionchrg1.aud
 		Sequence: speed
-		SelectionShares: 1
+		SelectionShares: 75
 	SupportPowerCrateAction@iondrop:
 		Proxy: powerproxy.iondrop
 		Sound: ionchrg1.aud
 		Sequence: speed
-		SelectionShares: 1
+		SelectionShares: 75
 	SupportPowerCrateAction@emp:
 		Proxy: powerproxy.emp
 		Sequence: speed
-		SelectionShares: 2
+		SelectionShares: 150
 	SupportPowerCrateAction@acolytestrike:
 		Proxy: powerproxy.acolytestrike
 		Sound: DSRADIO.wav
 		Sequence: fpower
-		SelectionShares: 4
+		SelectionShares: 250
 	SupportPowerCrateAction@impstrike:
 		Proxy: powerproxy.impstrike
 		Sound: dstelept.aud
 		Image: hellgatepad
 		Sequence: 4
-		SelectionShares: 4
+		SelectionShares: 250
 	SupportPowerCrateAction@metalnuke:
 		Proxy: powerproxy.metalnuke
 		Sound: DSRADIO.wav
 		Sequence: armor
-		SelectionShares: 1
+		SelectionShares: 50
+		Prerequisites: !environment.nomemes
 	SupportPowerCrateAction@smite:
 		Proxy: powerproxy.smite
 		Sound: thunder-ambient.aud
 		Sequence: speed
-		SelectionShares: 1
+		SelectionShares: 100
 	SupportPowerCrateAction@earthquake:
 		Proxy: powerproxy.earthquake
 		Sound: johnaeiou.aud
 		Sequence: timequake
-		SelectionShares: 2
+		SelectionShares: 75
 		Prerequisites: !environment.nomemes
 	SupportPowerCrateAction@emergencyairdrop:
 		Proxy: powerproxy.emergencyairdrop
 		Sound: dsitemup.aud
 		Sequence: parabombs
-		SelectionShares: 3
+		SelectionShares: 250
 	SupportPowerCrateAction@fakenuke:
 		Proxy: powerproxy.fakenuke
 		Sound: aprep1.aud
 		Sequence: fpower
-		SelectionShares: 2
-	GiveUnitCrateAction@korone:
-		SelectionShares: 2
-		Units: korone
-		Sound: koronetaunt4.wav
-		Prerequisites: !environment.nomemes
-	GiveUnitCrateAction@gamecube:
-		SelectionShares: 1
-		Units: gamecube
-		Sound: gamecube.wav
-		Prerequisites: !gamecube.bugged, !environment.nomemes
-	GiveUnitCrateAction@firesale:
-		SelectionShares: 4
-		Units: 1tnk.firesale
-		Sequence: dollar
-	GiveUnitCrateAction@glasalvage:
-		SelectionShares: 5
-		Units: crate.gla, crate.gla, crate.gla, crate.gla, crate.gla, crate.gla
-		Prerequisites: structures.gla
+		SelectionShares: 200
 	SupportPowerCrateAction@holyhandgrenade:
 		Proxy: powerproxy.holyhandgrenade
 		Sound: holyhandgrenadetrigger.wav
 		Sequence: speed
-		SelectionShares: 2
+		SelectionShares: 50
 		Prerequisites: !environment.nomemes
 	SupportPowerCrateAction@bananabomb:
 		Proxy: powerproxy.bananabomb
 		Sound: bananaimpact.wav
 		Sequence: speed
-		SelectionShares: 2
+		SelectionShares: 100
 		Prerequisites: !environment.nomemes
 	SupportPowerCrateAction@morshubombs:
 		Proxy: powerproxy.morshubombs
 		Sound: morshubombs.ogg
 		Image: explosion
 		Sequence: morshubombs
-		SelectionShares: 2
+		SelectionShares: 100
 		Prerequisites: !environment.nomemes
 	SupportPowerCrateAction@Chromoshift:
 		Proxy: powerproxy.Chromoshift
 		Sound: chrono2.aud
 		Sequence: chrono
-		SelectionShares: 2
+		SelectionShares: 200
 		Prerequisites: !ai.all
 	SupportPowerCrateAction@Chronoshifty:
 		Proxy: powerproxy.Chronoshifty
 		Sound: chrono2.aud
 		Sequence: chrono
-		SelectionShares: 2
+		SelectionShares: 200
 		Prerequisites: !ai.all
 	SupportPowerCrateAction@starfox:
 		Proxy: powerproxy.starfox
 		Sound: starfoxpickup.aud
 		Sequence: speed
-		SelectionShares: 2
+		SelectionShares: 75
 	SupportPowerCrateAction@ironcurtain:
 		Proxy: powerproxy.ironcurtain
 		Sequence: invuln
 		Sound: ironcur9.aud
-		SelectionShares: 3
+		SelectionShares: 250
 	SupportPowerCrateAction@quaddamage:
 		Proxy: powerproxy.quaddamage
 		Sequence: fpower
-		SelectionShares: 1
+		SelectionShares: 100
 	SupportPowerCrateAction@udamage:
 		Proxy: powerproxy.udamage
 		Sequence: fpower
-		SelectionShares: 3
-	GiveUnitCrateAction@aaaaa:
-		SelectionShares: 2
-		TimeDelay: 6000
-		Units: aaaaa,aaaaa,aaaaa,aaaaa,aaaaa,aaaaa,aaaaa,aaaaa,aaaaa,aaaaa,aaaaa,aaaaa,aaaaa,aaaaa,aaaaa
-		Sound: aaaaasound.wav
+		SelectionShares: 200
+	SupportPowerCrateAction@bottleflip:
+		Proxy: powerproxy.bottleflip
+		Sound: bottlememe3.ogg
+		SelectionShares: 200
 		Prerequisites: !environment.nomemes
 	Crate:
 		Duration: 6000
@@ -459,24 +469,33 @@ MONEYCRATE2:
 	Inherits: MONEYCRATE
 	GiveCashCrateAction:
 		Amount: 1000
-		SelectionShares: 75
+		SelectionShares: 7500
 		UseCashTick: true
 	GiveCashCrateAction@2:
 		Amount: 2000
-		SelectionShares: 40
+		SelectionShares: 4000
 		UseCashTick: true
 	GiveCashCrateAction@3:
 		Amount: 3000
-		SelectionShares: 15
+		SelectionShares: 1500
 		UseCashTick: true
 	GiveCashCrateAction@4:
 		Amount: 5000
-		SelectionShares: 6
+		SelectionShares: 600
 		UseCashTick: true
 	GiveCashCrateAction@5:
 		Amount: 6990
-		SelectionShares: 3
+		SelectionShares: 300
 		UseCashTick: true
+	GiveCashCrateAction@6:
+		Amount: 42069
+		SelectionShares: 5
+		UseCashTick: true
+	GiveUnitCrateAction@bitconnect:
+		SelectionShares: 10
+		Units: 1tnk.bitconnect
+		Sound: bitconnect.aud
+		Prerequisites: !environment.nomemes
 	Crate:
 		Duration: 6000
 
@@ -489,12 +508,12 @@ CRATE.GLA:
 		CrushClass: salvage
 	GiveCashCrateAction:
 		Amount: 100
-		SelectionShares: 1
+		SelectionShares: 100
 		UseCashTick: true
 	ExternalCondition@gla:
 		Condition: salvage_upgrade
 	LevelUpCrateAction:
-		SelectionShares: 1000
+		SelectionShares: 100000
 		RequiresCondition: salvage_upgrade
 	RenderSprites:
 		Palette: player
@@ -510,7 +529,7 @@ MONEYCRATESUPPLYDROP:
 		Name: actor-moneycratesupplydrop-name
 	GiveCashCrateAction:
 		Amount: 300
-		SelectionShares: 1
+		SelectionShares: 100
 		UseCashTick: true
 	RenderSprites:
 		Image: wcrate
@@ -518,393 +537,14 @@ MONEYCRATESUPPLYDROP:
 CRATE.FuckYou:
 	Inherits: ^Crate
 	HideMapCrateAction:
-		SelectionShares: 5
+		SelectionShares: 500
 		Sequence: hide-map
 	ExternalCondition@tree:
 		Condition: near_tree
 	ExplodeCrateAction@neartree:
 		RequiresCondition: near_tree
 		Weapon: TibCrateGrowth
-		SelectionShares: 300
-	GiveUnitCrateAction@crate:
-		SelectionShares: 2
-		Units: 1tnk.crate
-		Owner: Neutral
-	GiveUnitCrateAction@supertank:
-		SelectionShares: 2
-		Units: u.tnkcrate
-		Prerequisites: techlevel.unrestricted, factory
-		TimeDelay: 6000
-		Owner: Creeps
-	GiveUnitCrateAction@vice:
-		SelectionShares: 12
-		Units: vice
-		Owner: Creeps
-	GiveUnitCrateAction@cratetrap:
-		SelectionShares: 10
-		Units: cratetrap
-		Owner: Creeps
-	ExplodeCrateAction@bfgexplode:
-		Weapon: DoomSuperBFG
-		SelectionShares: 10
-		Sound: dsbfg2.aud
-	ExplodeCrateAction@bfgexplode2:
-		Weapon: BanebladeBFG
-		SelectionShares: 5
-	ExplodeCrateAction@warpshipweap:
-		Weapon: WarpshipJump
-		SelectionShares: 3
-	ExplodeCrateAction@ion:
-		Weapon: MiniNukeIonCrate
-		SelectionShares: 10
-		Sound: ion_fire2.aud
-	ExplodeCrateAction@biglightning:
-		Weapon: WeatherGrenade
-		SelectionShares: 3
-	ExplodeCrateAction@nuke:
-		Weapon: CrateNuke
-		SelectionShares: 5
-	ExplodeCrateAction@plague:
-		Weapon: DefilerPlague
-		SelectionShares: 5
-	GiveUnitCrateAction@grave:
-		SelectionShares: 5
-		Units: 1tnk.grave
-	ExplodeCrateAction@emp:
-		Weapon: EMPExplosion
-		SelectionShares: 6
-	ExplodeCrateAction@timestop:
-		Weapon: TimeStopCrate
-		SelectionShares: 6
-	ExplodeCrateAction@dk:
-		Weapon: MediDeathKnightAttack2
-		SelectionShares: 6
-	ExplodeCrateAction@poison:
-		Weapon: ToxinScudstormSmall
-		SelectionShares: 6
-	ExplodeCrateAction@lightningzap:
-		Weapon: CrateLightningZap
-		SelectionShares: 2
-	GiveUnitCrateAction@particlebeam:
-		SelectionShares: 4
-		Units: hack.particle_beam
-		TimeDelay: 3000
-		Owner: Creeps
-	SpawnRandomUnitCrateAction@particlebeam:
-		SelectionShares: 4
-		Units: hack.particle_beam
-		TimeDelay: 3000
-		Owner: Creeps
-	GiveUnitCrateAction@dukenukem:
-		SelectionShares: 3
-		TimeDelay: 6000
-		Units: dukenukem
-		Sound: dukenukembuild5.aud
-		Owner: Creeps
-		Prerequisites: techlevel.high
-	GiveUnitCrateAction@hartman:
-		SelectionShares: 3
-		TimeDelay: 6000
-		Units: hartman
-		Sound: hartmanrdy1.aud
-		Owner: Creeps
-		Prerequisites: techlevel.high, !environment.nomemes
-	GiveUnitCrateAction@judgedredd:
-		SelectionShares: 3
-		TimeDelay: 6000
-		Units: judgedredd
-		Sound: dredd1.aud
-		Owner: Creeps
-		Prerequisites: techlevel.high
-	GiveUnitCrateAction@corvus:
-		SelectionShares: 3
-		TimeDelay: 6000
-		Units: hereticcorvus
-		Sound: WPNUP.wav
-		Owner: Creeps
-		Prerequisites: techlevel.high
-	GiveUnitCrateAction@quakeguy:
-		SelectionShares: 3
-		TimeDelay: 6000
-		Units: quakeguy
-		Sound: qvoice1.ogg
-		Owner: Creeps
-		Prerequisites: techlevel.high
-	GiveUnitCrateAction@wall:
-		SelectionShares: 8
-		Units: 1tnk.brik,1tnk.brik,1tnk.brik,1tnk.brik,1tnk.brik,1tnk.brik,1tnk.brik,1tnk.brik,1tnk.brik,1tnk.brik
-		Owner: Creeps
-	GiveUnitCrateAction@fakecrate:
-		SelectionShares: 2
-		TimeDelay: 6000
-		Units: fakecrate
-		Owner: Creeps
-		Prerequisites: advtechcenter
-	GiveUnitCrateAction@oblid:
-		SelectionShares: 5
-		Units: 1tnk.oblid
-		Owner: Creeps
-	GiveUnitCrateAction@dinnerblaster:
-		SelectionShares: 5
-		TimeDelay: 3000
-		Units: 1tnk.dinnerblaster
-		Sound: dinnerblasterstart.ogg
-		Owner: Creeps
-		Prerequisites: !environment.nomemes
-	GiveUnitCrateAction@calculating:
-		SelectionShares: 2
-		TimeDelay: 3000
-		Units: 1tnk.calculating
-		Owner: Creeps
-		Prerequisites: !environment.nomemes
-	GiveUnitCrateAction@blackhole:
-		SelectionShares: 1
-		TimeDelay: 12000
-		Units: 1tnk.blackhole
-		Owner: Creeps
-	GiveUnitCrateAction@doompistolfacememe:
-		SelectionShares: 5
-		Units: 1tnk.doompistolfacememe
-		Owner: Creeps
-		Prerequisites: !environment.nomemes
-	GiveUnitCrateAction@madden:
-		SelectionShares: 2
-		TimeDelay: 6000
-		Units: johnmadden
-		Sound: johnmadden.aud
-		Owner: Creeps
-		Prerequisites: techlevel.medium
-	GiveUnitCrateAction@terminator:
-		SelectionShares: 3
-		TimeDelay: 6000
-		Units: terminator
-		Sound: arniekil2.aud
-		Owner: Creeps
-		Prerequisites: techlevel.medium, !environment.nomemes
-	GiveUnitCrateAction@quake:
-		SelectionShares: 4
-		Units: 1tnk.earthquake
-		Owner: Creeps
-		Prerequisites: !environment.nomemes
-	GiveUnitCrateAction@thx:
-		SelectionShares: 3
-		Units: 1tnk.earthquake.thx
-		Owner: Creeps
-		Prerequisites: factory, !environment.nomemes
-	ExplodeCrateAction@redeemernuke:
-		Weapon: Redeemernuke
-		SelectionShares: 6
-	ExplodeCrateAction@nukedrop:
-		Weapon: TerranCrateNukeDrop
-		SelectionShares: 6
-	ExplodeCrateAction@fartbomb:
-		Weapon: FartExplosion
-		SelectionShares: 6
-		Prerequisites: !environment.nomemes
-	ExplodeCrateAction@tyler:
-		Weapon: DisappearExplosion
-		SelectionShares: 3
-	ExplodeCrateAction@superweapons:
-		Weapon: ExplodeSuperweapons
-		TimeDelay: 6000
-		SelectionShares: 1
-		Prerequisites: superweapon
-	ExplodeCrateAction@ExplodeEpicUnits:
-		Weapon: ExplodeEpicUnits
-		SelectionShares: 1
-		Prerequisites: epicunit
-	ExplodeCrateAction@ExplodeHeroes:
-		Weapon: ExplodeHeroes
-		SelectionShares: 1
-		Prerequisites: hashero
-	GiveUnitCrateAction@amogus:
-		SelectionShares: 2
-		TimeDelay: 6000
-		Units: amogus,amogus2,amogus3,amogus4,amogus5,amogus2,amogus3,amogus4,amogus5,amogus2,amogus3,amogus4,amogus5,amogus,amogus2,amogus3,amogus4,amogus5,amogus2,amogus3,amogus4,amogus5,amogus2,amogus3,amogus4,amogus5
-		Sound: amogusspawn.aud
-		Owner: Creeps
-		Prerequisites: !environment.nomemes
-	ExplodeCrateAction@bsod:
-		Weapon: BSODnuke
-		SelectionShares: 5
-		Prerequisites: !environment.nomemes
-	ExplodeCrateAction@ChinaCrateNuke:
-		Weapon: ChinaCrateNuke
-		SelectionShares: 5
-	GiveUnitCrateAction@johncena:
-		SelectionShares: 2
-		Units: johncena
-		Sound: bingchilling.wav
-		Owner: Creeps
-		Prerequisites: !environment.nomemes
-	GiveUnitCrateAction@angrydoom:
-		SelectionShares: 5
-		Units: dm7,dm7
-		Sound: tottfiu.aud
-		Owner: Creeps
-	GiveRandomActorCrateAction@1:
-		SelectionShares: 7
-		TimeDelay: 6000
-		Prerequisites: barracks
-		Type: soldier
-		Owner: Creeps
-	GiveRandomActorCrateAction@2:
-		SelectionShares: 5
-		TimeDelay: 6000
-		Prerequisites: factory
-		Type: vehicle
-		Owner: Creeps
-	GiveRandomActorCrateAction@3:
-		SelectionShares: 1
-		TimeDelay: 6000
-		Type: epic
-		Owner: Creeps
-		Prerequisites: techlevel.medium
-	GiveRandomActorCrateAction@4:
-		SelectionShares: 1
-		Prerequisites: shippen, !techlevel.noboats
-		Type: ship
-		Owner: Creeps
-	GiveUnitCrateAction@jarofdirt:
-		SelectionShares: 2
-		Units: jarofdirt
-		Sound: jardirt.ogg
-		Owner: Creeps
-		TimeDelay: 6000
-		Prerequisites: !environment.nomemes
-	ExplodeCrateAction@nggyu:
-		SelectionShares: 2
-		Weapon: RedeemerNukeDelayed
-		Sound: nggyu.ogg
-		TimeDelay: 6000
-	GiveUnitCrateAction@ae86:
-		SelectionShares: 2
-		Units: ae86
-		Sound: ae86_build.wav
-		Owner: Creeps
-	GiveUnitCrateAction@nyancat:
-		SelectionShares: 2
-		Units: nyancat
-		Sound: nyanstart.aud
-		Owner: Creeps
-	ExplodeCrateAction@MinecraftNuke:
-		Weapon: MinecraftNuke
-		TimeDelay: 6000
-		SelectionShares: 2
-	ExplodeCrateAction@wtfboom:
-		Weapon: WTFBoom
-		TimeDelay: 9000
-		SelectionShares: 2
-	ExplodeSupportPowerCrateAction@morshubombs:
-		Proxy: powerproxy.morshubombs
-		Weapon: MorshuBombs
-		TimeDelay: 6000
-		SelectionShares: 1
-		Prerequisites: !environment.nomemes
-	GiveUnitCrateAction@bitconnect:
-		SelectionShares: 4
-		Units: 1tnk.bitconnect
-		Sound: bitconnect.aud
-		Prerequisites: !environment.nomemes
-	GiveUnitCrateAction@gamecube:
-		SelectionShares: 2
-		Units: gamecube
-		Sound: gamecube.wav
-		Prerequisites: !gamecube.bugged
-	GiveUnitCrateAction@jesus:
-		SelectionShares: 2
-		TimeDelay: 6000
-		Units: jesus
-		Sound: jesusspawn.aud
-		Owner: Creeps
-		Prerequisites: !environment.nomemes
-	GiveUnitCrateAction@timspace:
-		SelectionShares: 2
-		TimeDelay: 6000
-		Units: timspace
-		Sound: timspace.ogg
-		Prerequisites: techlevel.unrestricted, !environment.nomemes
-		Owner: Creeps
-	GiveUnitCrateAction@garbageman:
-		SelectionShares: 3
-		Units: garbageman
-		Prerequisites: techlevel.unrestricted, !environment.nomemes
-		Owner: Creeps
-	GiveUnitCrateAction@creepparadrop:
-		SelectionShares: 2
-		Units: 1tnk.creepparadrop
-		Prerequisites: techlevel.unrestricted
-		Owner: Creeps
-		Sequence: timequake
-		TimeDelay: 6000
-	GiveUnitCrateAction@allyourbase:
-		SelectionShares: 3
-		Units: e6.cunt
-		Owner: Creeps
-		Prerequisites: !environment.nomemes
-	GiveUnitCrateAction@rmbo:
-		SelectionShares: 4
-		Units: rmbo.left
-	GiveUnitCrateAction@rmboinvis:
-		SelectionShares: 3
-		Units: rmbo.invis
-		Owner: Creeps
-	GiveUnitCrateAction@ionstorm:
-		SelectionShares: 1
-		Units: 1tnk.ionstorm
-		Owner: Neutral
-		Sequence: timequake
-	SpawnRandomUnitCrateAction@maningauze:
-		SelectionShares: 3
-		Units: 1tnk.maningauze
-		IgnoreLocomotor: true
-		Owner: Creeps
-		Prerequisites: !environment.nomemes
-	SpawnRandomUnitCrateAction@johnromero:
-		SelectionShares: 3
-		Units: 1tnk.johnromero
-		IgnoreLocomotor: true
-		Owner: Creeps
-		Sound: dstelept.aud
-		Image: hellgatepad
-		Sequence: 4
-		Prerequisites: techcenter
-	GiveUnitCrateAction@shoopdawhoop:
-		SelectionShares: 3
-		Units: 1tnk.shoopdawhoop
-		Owner: Creeps
-		TimeDelay: 6000
-		Prerequisites: !environment.nomemes
-	GrantConditionOnPrerequisite@rickactive:
-		Prerequisites: environment.rick
-		Condition: no_rick
-	SpawnRandomUnitCrateAction@ricksanchez:
-		RequiresCondition: !no_rick
-		SelectionShares: 5 # change to 2 later
-		Units: einstein.rick
-		Owner: Neutral
-		Sequence: timequake
-		Prerequisites: !environment.nomemes, !environment.rick
-		Sound: ricksanchez28.ogg
-	SpawnRandomUnitCrateAction@cratetrapsuperweapon:
-		Units: cratetrap.superweapon
-		SelectionShares: 6
-		Owner: Creeps
-		Sound: buzzy1.aud
-		IgnoreLocomotor: true
-	GiveUnitCrateAction@aaaaa:
-		SelectionShares: 2
-		TimeDelay: 6000
-		Units: aaaaa,aaaaa,aaaaa,aaaaa,aaaaa,aaaaa,aaaaa,aaaaa,aaaaa,aaaaa,aaaaa,aaaaa,aaaaa,aaaaa,aaaaa
-		Sound: aaaaasound.wav
-		Owner: Creeps
-		Prerequisites: !environment.nomemes
-	SpawnRandomUnitCrateAction@whirlpool:
-		SelectionShares: 3
-		Units: whirlpool
-		Owner: Creeps
-		Sound: blackhole3.aud
-		Sequence: timequake
+		SelectionShares: 30000
 	Crate:
 		Duration: 6000
 	Tooltip:
@@ -917,21 +557,452 @@ CRATE.FuckYou:
 		RequiresCondition: !allow-me && !parachute
 		Delay: 100
 		DamageTypes: Replace
+	GiveUnitCrateAction@crate:
+		SelectionShares: 200
+		Units: 1tnk.crate
+		Owner: Neutral
+	GiveUnitCrateAction@supertank:
+		SelectionShares: 75
+		Units: u.tnkcrate
+		Prerequisites: techlevel.unrestricted, factory
+		TimeDelay: 6000
+		Owner: Creeps
+	SpawnRandomUnitCrateAction@supertank:
+		SelectionShares: 75
+		Units: u.tnkcrate
+		Prerequisites: techlevel.unrestricted
+		TimeDelay: 6000
+		Owner: Creeps
+	GiveUnitCrateAction@deathknight:
+		SelectionShares: 75
+		Units: medideathknight
+		Prerequisites: techlevel.unrestricted
+		TimeDelay: 6000
+		Owner: Creeps
+	SpawnRandomUnitCrateAction@deathknight:
+		SelectionShares: 75
+		Units: medideathknight
+		Prerequisites: techlevel.unrestricted
+		TimeDelay: 6000
+		Owner: Creeps
+	SpawnRandomUnitCrateAction@split:
+		SelectionShares: 100
+		Units: 1tnk.split3
+	SpawnRandomUnitCrateAction@split2:
+		SelectionShares: 100
+		Units: 1tnk.split4
+	SpawnRandomUnitCrateAction@mono1:
+		SelectionShares: 100
+		Units: 1tnk.monolith
+	SpawnRandomUnitCrateAction@mono2:
+		SelectionShares: 100
+		Units: 1tnk.monolithblue
+	SpawnRandomUnitCrateAction@mine:
+		SelectionShares: 100
+		Units: 1tnk.mine
+	SpawnRandomUnitCrateAction@gmine:
+		SelectionShares: 100
+		Units: 1tnk.gmine
+	SpawnRandomUnitCrateAction@oil:
+		SelectionShares: 200
+		Units: 1tnk.oil
+	SpawnRandomUnitCrateAction@dtrk:
+		SelectionShares: 100
+		Units: dtrk
+		Prerequisites: techlevel.unrestricted
+		Owner: Creeps
+	GiveUnitCrateAction@vice:
+		SelectionShares: 500
+		Units: vice
+		Owner: Creeps
+	GiveUnitCrateAction@cratetrap:
+		SelectionShares: 1000
+		Units: cratetrap
+		Owner: Creeps
+	ExplodeCrateAction@bfgexplode:
+		Weapon: DoomSuperBFG
+		SelectionShares: 750
+		Sound: dsbfg2.aud
+	ExplodeCrateAction@bfgexplode2:
+		Weapon: BanebladeBFG
+		SelectionShares: 250
+	ExplodeCrateAction@warpshipweap:
+		Weapon: WarpshipJump
+		SelectionShares: 150
+	ExplodeCrateAction@ion:
+		Weapon: MiniNukeIonCrate
+		SelectionShares: 300
+		Sound: ion_fire2.aud
+	ExplodeCrateAction@biglightning:
+		Weapon: WeatherGrenade
+		SelectionShares: 75
+	ExplodeCrateAction@nuke:
+		Weapon: CrateNuke
+		SelectionShares: 250
+	ExplodeCrateAction@plague:
+		Weapon: DefilerPlague
+		SelectionShares: 500
+	GiveUnitCrateAction@grave:
+		SelectionShares: 500
+		Units: 1tnk.grave
+	ExplodeCrateAction@emp:
+		Weapon: EMPExplosion
+		SelectionShares: 600
+	ExplodeCrateAction@timestop:
+		Weapon: TimeStopCrate
+		SelectionShares: 600
+	ExplodeCrateAction@dk:
+		Weapon: MediDeathKnightAttack2
+		SelectionShares: 600
+	ExplodeCrateAction@poison:
+		Weapon: ToxinScudstormSmall
+		SelectionShares: 600
+	ExplodeCrateAction@lightningzap:
+		Weapon: CrateLightningZap
+		SelectionShares: 500
+	GiveUnitCrateAction@particlebeam:
+		SelectionShares: 300
+		Units: hack.particle_beam
+		TimeDelay: 3000
+		Owner: Creeps
+	SpawnRandomUnitCrateAction@particlebeam:
+		SelectionShares: 300
+		Units: hack.particle_beam
+		TimeDelay: 3000
+		Owner: Creeps
+	GiveUnitCrateAction@dukenukem:
+		SelectionShares: 200
+		TimeDelay: 6000
+		Units: dukenukem
+		Sound: dukenukembuild5.aud
+		Owner: Creeps
+		Prerequisites: techlevel.high
+	GiveUnitCrateAction@hartman:
+		SelectionShares: 200
+		TimeDelay: 6000
+		Units: hartman
+		Sound: hartmanrdy1.aud
+		Owner: Creeps
+		Prerequisites: techlevel.high, !environment.nomemes
+	GiveUnitCrateAction@judgedredd:
+		SelectionShares: 200
+		TimeDelay: 6000
+		Units: judgedredd
+		Sound: dredd1.aud
+		Owner: Creeps
+		Prerequisites: techlevel.high
+	GiveUnitCrateAction@corvus:
+		SelectionShares: 200
+		TimeDelay: 6000
+		Units: hereticcorvus
+		Sound: WPNUP.wav
+		Owner: Creeps
+		Prerequisites: techlevel.high
+	GiveUnitCrateAction@quakeguy:
+		SelectionShares: 100
+		TimeDelay: 6000
+		Units: quakeguy
+		Sound: qvoice1.ogg
+		Owner: Creeps
+		Prerequisites: techlevel.high
+	GiveUnitCrateAction@wall:
+		SelectionShares: 800
+		Units: 1tnk.brik,1tnk.brik,1tnk.brik,1tnk.brik,1tnk.brik,1tnk.brik,1tnk.brik,1tnk.brik,1tnk.brik,1tnk.brik
+		Owner: Creeps
+	GiveUnitCrateAction@fakecrate:
+		SelectionShares: 50
+		TimeDelay: 6000
+		Units: fakecrate
+		Owner: Creeps
+		Prerequisites: advtechcenter
+	GiveUnitCrateAction@oblid:
+		SelectionShares: 500
+		Units: 1tnk.oblid
+		Owner: Creeps
+	GiveUnitCrateAction@dinnerblaster:
+		SelectionShares: 250
+		TimeDelay: 3000
+		Units: 1tnk.dinnerblaster
+		Sound: dinnerblasterstart.ogg
+		Owner: Creeps
+		Prerequisites: !environment.nomemes
+	GiveUnitCrateAction@calculating:
+		SelectionShares: 200
+		TimeDelay: 3000
+		Units: 1tnk.calculating
+		Owner: Creeps
+		Prerequisites: !environment.nomemes
+	GiveUnitCrateAction@blackhole:
+		SelectionShares: 100
+		TimeDelay: 12000
+		Units: 1tnk.blackhole
+		Owner: Creeps
+	GiveUnitCrateAction@doompistolfacememe:
+		SelectionShares: 200
+		Units: 1tnk.doompistolfacememe
+		Owner: Creeps
+		Prerequisites: !environment.nomemes
+	GiveUnitCrateAction@madden:
+		SelectionShares: 50
+		TimeDelay: 6000
+		Units: johnmadden
+		Sound: johnmadden.aud
+		Owner: Creeps
+		Prerequisites: techlevel.medium, !environment.nomemes
+	GiveUnitCrateAction@terminator:
+		SelectionShares: 150
+		TimeDelay: 6000
+		Units: terminator
+		Sound: arniekil2.aud
+		Owner: Creeps
+		Prerequisites: techlevel.medium, !environment.nomemes
+	GiveUnitCrateAction@quake:
+		SelectionShares: 300
+		Units: 1tnk.earthquake
+		Owner: Creeps
+		Prerequisites: !environment.nomemes
+	GiveUnitCrateAction@thx:
+		SelectionShares: 50
+		Units: 1tnk.earthquake.thx
+		Owner: Creeps
+		Prerequisites: techcenter, !environment.nomemes
+	ExplodeCrateAction@redeemernuke:
+		Weapon: Redeemernuke
+		SelectionShares: 300
+	ExplodeCrateAction@nukedrop:
+		Weapon: TerranCrateNukeDrop
+		SelectionShares: 200
+	ExplodeCrateAction@fartbomb:
+		Weapon: FartExplosion
+		SelectionShares: 600
+		Prerequisites: !environment.nomemes
+	ExplodeCrateAction@tyler:
+		Weapon: DisappearExplosion
+		SelectionShares: 100
+	ExplodeCrateAction@superweapons:
+		Weapon: ExplodeSuperweapons
+		TimeDelay: 6000
+		SelectionShares: 25
+		Prerequisites: superweapon
+	ExplodeCrateAction@ExplodeEpicUnits:
+		Weapon: ExplodeEpicUnits
+		SelectionShares: 25
+		Prerequisites: epicunit
+	ExplodeCrateAction@ExplodeHeroes:
+		Weapon: ExplodeHeroes
+		SelectionShares: 25
+		Prerequisites: hashero
+	GiveUnitCrateAction@amogus:
+		SelectionShares: 100
+		TimeDelay: 6000
+		Units: amogus,amogus2,amogus3,amogus4,amogus5,amogus2,amogus3,amogus4,amogus5,amogus2,amogus3,amogus4,amogus5,amogus,amogus2,amogus3,amogus4,amogus5,amogus2,amogus3,amogus4,amogus5,amogus2,amogus3,amogus4,amogus5
+		Sound: amogusspawn.aud
+		Owner: Creeps
+		Prerequisites: !environment.nomemes
+	ExplodeCrateAction@bsod:
+		Weapon: BSODnuke
+		SelectionShares: 500
+		Prerequisites: !environment.nomemes
+	ExplodeCrateAction@ChinaCrateNuke:
+		Weapon: ChinaCrateNuke
+		SelectionShares: 300
+	GiveUnitCrateAction@johncena:
+		SelectionShares: 200
+		Units: johncena
+		Sound: bingchilling.wav
+		Owner: Creeps
+		Prerequisites: !environment.nomemes
+	GiveUnitCrateAction@angrydoom:
+		SelectionShares: 300
+		Units: dm7,dm7
+		Sound: tottfiu.aud
+		Owner: Creeps
+	GiveRandomActorCrateAction@1:
+		SelectionShares: 1000
+		TimeDelay: 6000
+		Prerequisites: barracks
+		Type: soldier
+		Owner: Creeps
+	GiveRandomActorCrateAction@2:
+		SelectionShares: 500
+		TimeDelay: 6000
+		Prerequisites: factory
+		Type: vehicle
+		Owner: Creeps
+	GiveRandomActorCrateAction@3:
+		SelectionShares: 50
+		TimeDelay: 6000
+		Type: epic
+		Owner: Creeps
+		Prerequisites: techlevel.medium
+	GiveRandomActorCrateAction@4:
+		SelectionShares: 100
+		Prerequisites: shippen, !techlevel.noboats
+		Type: ship
+		Owner: Creeps
+	GiveUnitCrateAction@jarofdirt:
+		SelectionShares: 100
+		Units: jarofdirt
+		Sound: jardirt.ogg
+		Owner: Creeps
+		TimeDelay: 6000
+		Prerequisites: !environment.nomemes
+	ExplodeCrateAction@nggyu:
+		SelectionShares: 200
+		Weapon: RedeemerNukeDelayed
+		Sound: nggyu.ogg
+		TimeDelay: 6000
+	GiveUnitCrateAction@ae86:
+		SelectionShares: 100
+		Units: ae86
+		Sound: ae86_build.wav
+		Owner: Creeps
+	GiveUnitCrateAction@nyancat:
+		SelectionShares: 100
+		Units: nyancat
+		Sound: nyanstart.aud
+		Owner: Creeps
+	ExplodeCrateAction@MinecraftNuke:
+		Weapon: MinecraftNuke
+		TimeDelay: 6000
+		SelectionShares: 50
+	ExplodeCrateAction@wtfboom:
+		Weapon: WTFBoom
+		TimeDelay: 9000
+		SelectionShares: 50
+	ExplodeSupportPowerCrateAction@morshubombs:
+		Proxy: powerproxy.morshubombs
+		Weapon: MorshuBombs
+		TimeDelay: 6000
+		SelectionShares: 100
+		Prerequisites: !environment.nomemes
+	GiveUnitCrateAction@bitconnect:
+		SelectionShares: 200
+		Units: 1tnk.bitconnect
+		Sound: bitconnect.aud
+		Prerequisites: !environment.nomemes
+	GiveUnitCrateAction@gamecube:
+		SelectionShares: 100
+		Units: gamecube
+		Sound: gamecube.wav
+		Prerequisites: !gamecube.bugged, !environment.nomemes
+	GiveUnitCrateAction@jesus:
+		SelectionShares: 200
+		TimeDelay: 6000
+		Units: jesus
+		Sound: jesusspawn.aud
+		Owner: Creeps
+		Prerequisites: !environment.nomemes
+	GiveUnitCrateAction@timspace:
+		SelectionShares: 100
+		TimeDelay: 6000
+		Units: timspace
+		Sound: timspace.ogg
+		Prerequisites: techlevel.unrestricted, !environment.nomemes
+		Owner: Creeps
+	GiveUnitCrateAction@garbageman:
+		SelectionShares: 200
+		Units: garbageman
+		Prerequisites: techlevel.unrestricted, !environment.nomemes
+		Owner: Creeps
+	GiveUnitCrateAction@creepparadrop:
+		SelectionShares: 50
+		Units: 1tnk.creepparadrop
+		Prerequisites: techlevel.unrestricted
+		Owner: Creeps
+		Sequence: timequake
+		TimeDelay: 6000
+	GiveUnitCrateAction@allyourbase:
+		SelectionShares: 200
+		Units: e6.cunt
+		Owner: Creeps
+		Prerequisites: !environment.nomemes
+	GiveUnitCrateAction@rmbo:
+		SelectionShares: 200
+		Units: rmbo.left
+		Owner: Creeps
+	GiveUnitCrateAction@rmboinvis:
+		SelectionShares: 200
+		Units: rmbo.invis
+		Owner: Creeps
+	GiveUnitCrateAction@ionstorm:
+		SelectionShares: 50
+		Units: 1tnk.ionstorm
+		Owner: Neutral
+		Sequence: timequake
+	SpawnRandomUnitCrateAction@maningauze:
+		SelectionShares: 50
+		Units: 1tnk.maningauze
+		IgnoreLocomotor: true
+		Owner: Creeps
+		Prerequisites: !environment.nomemes
+	SpawnRandomUnitCrateAction@johnromero:
+		SelectionShares: 150
+		Units: 1tnk.johnromero
+		IgnoreLocomotor: true
+		Owner: Creeps
+		Sound: dstelept.aud
+		Image: hellgatepad
+		Sequence: 4
+		Prerequisites: techcenter
+	GiveUnitCrateAction@shoopdawhoop:
+		SelectionShares: 100
+		Units: 1tnk.shoopdawhoop
+		Owner: Creeps
+		TimeDelay: 6000
+		Prerequisites: !environment.nomemes
+	GrantConditionOnPrerequisite@rickactive:
+		Prerequisites: environment.rick
+		Condition: no_rick
+	SpawnRandomUnitCrateAction@ricksanchez:
+		RequiresCondition: !no_rick
+		SelectionShares: 100
+		Units: einstein.rick
+		Owner: Neutral
+		Sequence: timequake
+		Prerequisites: !environment.nomemes, !environment.rick
+		Sound: ricksanchez28.ogg
+	SpawnRandomUnitCrateAction@cratetrapsuperweapon:
+		Units: cratetrap.superweapon
+		SelectionShares: 450
+		Owner: Creeps
+		Sound: buzzy1.aud
+		IgnoreLocomotor: true
+	GiveUnitCrateAction@aaaaa:
+		SelectionShares: 200
+		TimeDelay: 6000
+		Units: aaaaa,aaaaa,aaaaa,aaaaa,aaaaa,aaaaa,aaaaa,aaaaa,aaaaa,aaaaa,aaaaa,aaaaa,aaaaa,aaaaa,aaaaa
+		Sound: aaaaasound.wav
+		Owner: Creeps
+		Prerequisites: !environment.nomemes
+	SpawnRandomUnitCrateAction@whirlpool:
+		SelectionShares: 300
+		Units: whirlpool
+		Owner: Creeps
+		Sound: blackhole3.aud
+		Sequence: timequake
 	SpawnActorOnDeath@badcrates:
 		DeathType: Replace
 		Actor: CRATE
 	GiveRandomActorCrateAction@pacman:
-		SelectionShares: 2
+		SelectionShares: 75
 		TimeDelay: 3000
 		Type: pacman
 		Owner: Creeps
 		Prerequisites: techlevel.medium
 	GiveRandomActorCrateAction@pacman2:
-		SelectionShares: 2
+		SelectionShares: 75
 		TimeDelay: 3000
 		Type: pacmansmall
 		Owner: Creeps
-
+	GiveUnitCrateAction@civvies:
+		SelectionShares: 200
+		Units: 1tnk.cpanic,c1,c2,c3,c4,c5,c6,c7,c8,c9,c10,c1,c2,c3,c4,c5,c10
+		Owner: Neutral
+		Sound: iangsela.aud
+	ExplodeCrateAction@bottleflip:
+		Weapon: BottleFlipCluster
+		SelectionShares: 200
 
 1TNK.MINE:
 	Inherits: 1TNK
@@ -1025,8 +1096,15 @@ CRATE.Big:
 
 CRATE.Bigger:
 	Inherits: CRATE.Big
+	GrantConditionOnPrerequisite@memes1:
+		Prerequisites: environment.nomemes
+		Condition: disable_me
 	SpawnActorOnDeath@2:
+		RequiresCondition: !disable_me
 		Actor: CRATE.BiggerLanded
+	SpawnActorOnDeath@3:
+		RequiresCondition: disable_me
+		Actor: CRATE.BigLanded
 	Parachutable:
 		FallRate: 24
 	RenderSprites:
@@ -1107,7 +1185,7 @@ CRATE.LEVEL:
 	Inherits: MONEYCRATE
 	-GiveCashCrateAction:
 	LevelUpCrateAction:
-		SelectionShares: 1
+		SelectionShares: 100
 		Levels: 1
 	Tooltip:
 		Name: actor-crate-level
@@ -1732,14 +1810,14 @@ FakeCrateReward:
 	Inherits: MONEYCRATE
 	GiveCashCrateAction:
 		Amount: 15000
-		SelectionShares: 25
+		SelectionShares: 2500
 		UseCashTick: true
 	GiveUnitCrateAction@dukenukem:
-		SelectionShares: 20
+		SelectionShares: 2000
 		Units: dukenukem
 		Sound: dukenukembuild5.aud
 	GiveUnitCrateAction@judgedredd:
-		SelectionShares: 20
+		SelectionShares: 2000
 		Units: judgedredd
 		Sound: dredd1.aud
 	GiveBaseBuilderCrateAction:
@@ -1748,37 +1826,37 @@ FakeCrateReward:
 		Units: mcv
 	GiveBaseBuilderCrateAction@dawn:
 		ValidFactions: nod, bhand, marked, nod3, gdi, steel, zocom, gdi3, sword, angels, silver, china, infantry, tank, nuke, japan
-		SelectionShares: 10
+		SelectionShares: 1000
 		NoBaseSelectionShares: 1000
 		Units: mcvd
 	GiveBaseBuilderCrateAction@gla:
 		ValidFactions: thrax, demo, kassad
-		SelectionShares: 10
+		SelectionShares: 1000
 		NoBaseSelectionShares: 1000
 		Units: gmcv
 	GiveBaseBuilderCrateAction@protoss:
 		ValidFactions: protoss, artanis, vorazun
-		SelectionShares: 10
+		SelectionShares: 1000
 		NoBaseSelectionShares: 1000
 		Units: pmcv
 	GiveBaseBuilderCrateAction@zerg:
 		ValidFactions: zerg, kerrigan, zagara
-		SelectionShares: 10
+		SelectionShares: 1000
 		NoBaseSelectionShares: 1000
 		Units: zmcv
 	GiveBaseBuilderCrateAction@terran:
 		ValidFactions: terran, raynor, mengsk
-		SelectionShares: 10
+		SelectionShares: 1000
 		NoBaseSelectionShares: 1000
 		Units: tcommand.air
 	DuplicateUnitCrateAction:
-		SelectionShares: 15
+		SelectionShares: 1500
 		MaxAmount: 10
 		MaxDuplicateValue: 6000
 		Sound: clonesnd.aud
 		RequiresCondition: !hero && !harvester
 	DuplicateUnitCrateAction@harv:
-		SelectionShares: 15
+		SelectionShares: 1500
 		MaxAmount: 4
 		Sound: clonesnd.aud
 		RequiresCondition: !hero && harvester
@@ -1787,16 +1865,16 @@ FakeCrateReward:
 	ExternalCondition@harvester:
 		Condition: harvester
 	GiveUnitCrateAction@split:
-		SelectionShares: 10
+		SelectionShares: 1000
 		Units: 1tnk.split3
 	GiveUnitCrateAction@mine:
-		SelectionShares: 15
+		SelectionShares: 1500
 		Units: 1tnk.mine
 	GiveUnitCrateAction@gmine:
-		SelectionShares: 5
+		SelectionShares: 500
 		Units: 1tnk.gmine
 	GiveUnitCrateAction@split2:
-		SelectionShares: 5
+		SelectionShares: 500
 		Units: 1tnk.split4
 	Crate:
 		Duration: 6000
@@ -2315,13 +2393,13 @@ CRATE.Chain:
 	Inherits: ^Crate
 	GiveCashCrateAction:
 		Amount: 20000
-		SelectionShares: 5
+		SelectionShares: 500
 		UseCashTick: true
 	ExplodeCrateAction@nuke:
 		Weapon: MiniNuke
-		SelectionShares: 5
+		SelectionShares: 500
 	GiveUnitCrateAction@crate:
-		SelectionShares: 90
+		SelectionShares: 9000
 		Units: 1tnk.crate
 		Owner: Neutral
 
@@ -6235,7 +6313,7 @@ pacfruit1:
 	Inherits: MONEYCRATE
 	-GiveCashCrateAction:
 	LevelUpCrateAction:
-		SelectionShares: 1
+		SelectionShares: 100
 		Levels: 1
 	Tooltip:
 		Name: Pacman Fruit
@@ -6247,7 +6325,7 @@ pacfruit2:
 	Inherits: MONEYCRATE
 	-GiveCashCrateAction:
 	LevelUpCrateAction:
-		SelectionShares: 1
+		SelectionShares: 100
 		Levels: 1
 	Tooltip:
 		Name: Pacman Fruit
@@ -6771,3 +6849,46 @@ calculating:
 	KillsSelf:
 		RemoveInstead: False
 		RequiresCondition: die
+
+powerproxy.bottleflip:
+	SpawnActorPower:
+		OrderName: CrateEarthquake
+		Icon: bottle
+		Cursor: chrono-target
+		ChargeInterval: 7500
+		Name: Bottle Flip
+		Description: Show off your sick bottle flipping skills.
+		SelectTargetSpeechNotification: SelectTarget
+		DisplayRadarPing: True
+		SupportPowerPaletteOrder: 1
+		DisplayTimerRelationships: Ally, Neutral, Enemy
+		EndChargeSound: bottlememe3.ogg
+		AllowMultiple: true
+		OneShot: true
+		Actor: bottleflipactor
+
+BOTTLEFLIPACTOR:
+	Inherits: 1TNK.MINE
+	FireWarheadsOnDeath:
+		Weapon: BottleFlipCluster
+	KillsSelf:
+		Delay: 2
+	FreeActor:
+		Actor: camera.20sec
+	-SpawnActorOnDeath:
+
+BOTTLEFLIPQUAKE:
+	Inherits: CHINESEEARTHQUAKE
+	-AmbientSound:
+	-Building:
+	-RequiresBuildableArea:
+	-FrozenUnderFogUpdatedByGps:
+	-FrozenUnderFog:
+	Immobile:
+	KillsSelf@badcrates:
+		Delay: 250
+	GrantDelayedCondition:
+		Delay: 2
+		Condition: allow_attack
+	FirepowerMultiplier:
+		Modifier: 121
