@@ -8577,6 +8577,20 @@ actor-unscvulture =
       Weak vs Aircraft
    .name = AC-220 Vulture
 
+actor-colonyship =
+   .description = A Stalwart-class light frigate in service with the UNSC Navy during the Human-Covenant War
+
+   Armed with 6 M870 Rampart Point Defense Guns
+   16 M58 Archer Missile Pods
+   and a Mark II Light MAC - 56A2S4
+
+   Infantry units can be trained and deployed from the colony ship.
+
+    Speed: 50
+      Strong vs Infantry, Vehicles
+      Weak vs Aircraft
+   .name = UNSC In Amber Clad Colony Ship
+
 ## unsc_veh.yaml
 
 actor-unscwarthog =
