@@ -1315,6 +1315,10 @@ actor-calculating-name = You are about to install some gay ass game...
 actor-proxynuke-description = Launches a dud atomic bomb
     at the target location to 
     strike fear in your enemies.
+actor-rko-name = WATCH OUT WATCH OUT WATCH OUT
+actor-sanic-name = SANIC
+actor-discord-name = Discord
+actor-orange-name = Annoying Orange
 
 actor-firesale = 
    .name = fire sale!

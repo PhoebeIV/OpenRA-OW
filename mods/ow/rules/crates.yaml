@@ -351,6 +351,12 @@ CRATE:
 		Sequence: armor
 		SelectionShares: 75
 		Prerequisites: !environment.nomemes
+	SupportPowerCrateAction@rko:
+		Proxy: powerproxy.rko
+		Sound: DSRADIO.wav
+		Sequence: armor
+		SelectionShares: 75
+		Prerequisites: !environment.nomemes
 	SupportPowerCrateAction@lightning:
 		Proxy: powerproxy.lightning
 		Sound: thunder-ambient.aud
@@ -735,6 +741,18 @@ CRATE.FuckYou:
 		Units: 1tnk.calculating
 		Owner: Creeps
 		Prerequisites: !environment.nomemes
+	SpawnRandomUnitCrateAction@discord:
+		SelectionShares: 400
+		Units: 1tnk.discord
+		Owner: Creeps
+		Sound: discordping.ogg
+		Prerequisites: !environment.nomemes
+	SpawnRandomUnitCrateAction@orange:
+		SelectionShares: 400
+		Units: 1tnk.orange
+		Owner: Creeps
+		Sound: orange1.ogg
+		Prerequisites: !environment.nomemes
 	GiveUnitCrateAction@blackhole:
 		SelectionShares: 100
 		TimeDelay: 12000
@@ -864,6 +882,10 @@ CRATE.FuckYou:
 		SelectionShares: 100
 		Units: nyancat
 		Sound: nyanstart.aud
+		Owner: Creeps
+	GiveUnitCrateAction@sanic:
+		SelectionShares: 100
+		Units: sanic
 		Owner: Creeps
 	ExplodeCrateAction@MinecraftNuke:
 		Weapon: MinecraftNuke
@@ -6895,3 +6917,220 @@ BOTTLEFLIPQUAKE:
 		Condition: allow_attack
 	FirepowerMultiplier:
 		Modifier: 121
+
+powerproxy.rko:
+	DropPodsPowerOW@rko:
+		Icon: rkoicon
+		SupportPowerPaletteOrder: 1
+		Name: RKO
+		OrderName: rko
+		Description: WATCH OUT WATCH OUT WATCH OUT
+		UnitTypes: rko
+		Cursor: chrono-target
+		Drops: 1,1
+		PodScatter: 1
+		PodFacing: 704
+		PauseOnCondition: disabled
+		CameraActor: camera
+		CameraRemoveDelay: 750
+		Weapon: usarailguncharging
+		WeaponDelay: 5
+		ChargeInterval: 1250
+		EntryEffect: explosion
+		EntryEffectSequence: redeemerexplosion
+		LaunchSound: watchoutwatchout.ogg
+		SelectTargetSpeechNotification: SelectTarget
+		SelectTargetTextNotification: actor-powerproxy-rko-droppodspower-rko-select-target-text-notification
+		DisplayRadarPing: true
+		BeaconPoster: artillerybarragebeacon
+		OneShot: true
+		AllowMultiple: true
+
+rko:
+	Inherits: ^Plane
+	Health:
+		HP: 200000
+	Aircraft:
+		TurnSpeed: 20
+		Speed: 300
+		CruiseAltitude: 16c0
+		MaximumPitch: 110
+		LandableTerrainTypes: Clear, ClearSnow, Road, Creep, Bridge, Water, Ore, Gems, Rough, Tiberium, BlueTiberium, Radiation, Beach
+	WithMuzzleOverlay:
+	-ActorLostNotification:
+	-Selectable:
+	AttackAircraft:
+	Armament:
+		Weapon: TerranGoliath
+	Tooltip:
+		Name: actor-rko-name
+	RejectsOrders:
+	-SpawnActorOnDeath:
+	FallsToEarthOW:
+		FiredByOwner: true
+		Explosion: E100Cannon
+		Moves: true
+		Velocity: 350
+		MaximumSpinSpeed: 0
+	FireWarheadsOnDeath:
+		Weapon: rkonuke
+		EmptyWeapon: rkonuke
+	-EjectOnDeath:
+	Interactable:
+
+sanic:
+	Inherits: ^TrackedVehicle
+	Buildable:
+		Queue: Vehicle
+		BuildPaletteOrder: 0
+		Prerequisites: ~disabled
+	Valued:
+		Cost: 10000
+	Tooltip:
+		Name: actor-sanic-name
+	Health:
+		HP: 250000
+	Mobile:
+		Locomotor: tracked
+		Speed: 256
+		TurnsWhileMoving: true
+		CanMoveBackward: true
+	SelectionDecorations:
+	RenderSprites:
+		Image: sanic
+	AmbientSound:
+		SoundFiles: sanictheme.aud
+		Delay: 5
+		Interval: 2750
+	WithSpriteBody:
+	FireWarheadsOnDeath:
+		Weapon: CrateNuke
+		EmptyWeapon: CrateNuke
+	SpawnActorOnDeath@1:
+		Actor: FakeCrateReward
+	SpawnActorOnDeath@2:
+		Actor: CRATE
+		Offset: 1,0
+	SpawnActorOnDeath@3:
+		Actor: CRATE
+		Offset: -1,1
+	Wanders:
+		WanderMoveRadius: 10
+	-Voiced:
+
+1TNK.discord:
+	Inherits: 1TNK.MINE
+	SpawnActorOnDeath:
+		Actor: discord
+		SkipMakeAnimations: false
+		OwnerType: Victim
+
+discord:
+	Inherits: ^Defense
+	Inherits@AUTOTARGET: ^AutoTargetAll
+	Buildable:
+		Queue: Defense
+		BuildPaletteOrder: 0
+		Prerequisites: ~disabled
+	Valued:
+		Cost: 2000
+	Tooltip:
+		Name: actor-discord-name
+	Health:
+		HP: 300000
+	Power:
+		Amount: 0
+	DetectCloaked:
+		Range: 12c0
+		RequiresCondition: !disabled
+	ProvidesPrerequisite@buildingname:
+	RevealsShroud:
+		MinRange: 6c0
+		Range: 15c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 6c0
+	RenderSprites:
+		Image: discord
+	AmbientSound@1:
+		SoundFiles: discordping.ogg
+		Interval: 150, 1500
+	Turreted:
+		TurnSpeed: 512
+	-QuantizeFacingsFromSequence:
+	BodyOrientation:
+		QuantizedFacings: 8
+	AttackTurreted:
+	FireWarheadsOnDeath:
+		Weapon: Redeemernuke
+		EmptyWeapon: Redeemernuke
+	SpawnActorOnDeath@1:
+		Actor: FakeCrateReward
+	SpawnActorOnDeath@2:
+		Actor: CRATE
+		Offset: 1,0
+	SpawnActorOnDeath@3:
+		Actor: CRATE
+		Offset: -1,1
+
+1TNK.orange:
+	Inherits: 1TNK.MINE
+	SpawnActorOnDeath:
+		Actor: orange
+		SkipMakeAnimations: false
+		OwnerType: Victim
+
+orange:
+	Inherits: ^Defense
+	Inherits@AUTOTARGET: ^AutoTargetAll
+	Buildable:
+		Queue: Defense
+		BuildPaletteOrder: 0
+		Prerequisites: ~disabled
+	Valued:
+		Cost: 2000
+	Tooltip:
+		Name: actor-orange-name
+	Health:
+		HP: 300000
+	Power:
+		Amount: 0
+	DetectCloaked:
+		Range: 12c0
+		RequiresCondition: !disabled
+	ProvidesPrerequisite@buildingname:
+	RevealsShroud:
+		MinRange: 6c0
+		Range: 15c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 6c0
+	RenderSprites:
+		Image: orange
+	AmbientSound@1:
+		SoundFiles: orange1.ogg, orange2.ogg, orange3.ogg, orange4.ogg, orange5.ogg
+		Interval: 150, 300
+	Turreted:
+		TurnSpeed: 512
+	-QuantizeFacingsFromSequence:
+	BodyOrientation:
+		QuantizedFacings: 8
+	AttackTurreted:
+	FireWarheadsOnDeath:
+		Weapon: Redeemernuke
+		EmptyWeapon: Redeemernuke
+	SpawnActorOnDeath@1:
+		Actor: FakeCrateReward
+	SpawnActorOnDeath@2:
+		Actor: CRATE
+		Offset: 1,0
+	SpawnActorOnDeath@3:
+		Actor: CRATE
+		Offset: -1,1
+
+1TNK.HomingMissile:
+	Inherits: 1TNK.MINE
+	-FireWarheadsOnDeath:
+	SpawnActorOnDeath:
+		Actor: HomingMissile
+		OwnerType: Victim
