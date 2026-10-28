@@ -24,7 +24,7 @@ World:
 		ValidRelationships: Ally, Neutral, Enemy
 		Range: 1c0
 	FreeActor@terrain:
-		RequiresCondition: bot_near_crate && !on_water && !parachute
+		RequiresCondition: bot_near_crate && !parachute && !on_water
 		AllowRespawn: true
 		Actor: CRATE.AITerrain
 	GrantConditionOnTerrain@notground:
@@ -39,8 +39,14 @@ CRATE.AITerrain:
 		Condition: crate_here
 	KillsSelf:
 		Delay: 75
-		RequiresCondition: !crate_here
+		RequiresCondition: !crate_here || on_water
 		RemoveInstead: true
+	KillsSelf@default:
+		Delay: 6000
+		RemoveInstead: true
+	GrantConditionOnTerrain@notground:
+		TerrainTypes: Water
+		Condition: on_water
 
 CRATE:
 	-GiveCashCrateAction:

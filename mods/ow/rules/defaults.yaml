@@ -709,6 +709,7 @@
 ^ConYard:
 	Inherits@pips: ^AdvTechPips
 	Inherits@target: ^BotCaptureTarget
+	BaseBuilding:
 	BaseProvider:
 		Range: 16c0
 		RequiresCondition: !botowner
@@ -979,6 +980,15 @@
 	GrantConditionOnPrerequisite@mcv5:
 		Prerequisites: vehicles.avalon
 		Condition: mcv5
+	GrantConditionOnPrerequisite@mcv6:
+		Prerequisites: vehicles.unsc
+		Condition: mcv6
+	GrantConditionOnPrerequisite@mcv7:
+		Prerequisites: vehicles.covenant
+		Condition: mcv7
+	GrantConditionOnPrerequisite@mcv8:
+		Prerequisites: vehicles.medi
+		Condition: mcv8
 	PeriodicProducer@nomcv1:
 		RequiresCondition: build_mcv && mcv1
 		Type: Vehicle
@@ -1004,6 +1014,21 @@
 		Type: Vehicle
 		ChargeDuration: 99
 		Actors: AVMCV
+	PeriodicProducer@nomcv6:
+		RequiresCondition: build_mcv && mcv6
+		Type: Vehicle
+		ChargeDuration: 99
+		Actors: unscmcv
+	PeriodicProducer@nomcv7:
+		RequiresCondition: build_mcv && mcv7
+		Type: Vehicle
+		ChargeDuration: 99
+		Actors: covenantmcv
+	PeriodicProducer@nomcv8:
+		RequiresCondition: build_mcv && mcv8
+		Type: Vehicle
+		ChargeDuration: 99
+		Actors: MCVM
 
 # Inherited and changed from mods/ra to add upgrade modifiers and numerous other buff/debuff modifiers from support powers
 ^Infantry:
@@ -4769,6 +4794,7 @@
 	Production:
 		PauseOnCondition: !never
 		Produces: Building, Defense, Tech, Wall, Upgrade
+	BaseBuilding:
 
 ^NavalYardSpot:
 	ProximityExternalCondition@syrd:
