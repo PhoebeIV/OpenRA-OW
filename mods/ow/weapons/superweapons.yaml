@@ -4837,6 +4837,54 @@ HunterSeekerBombCrate:
 		Palette: effect
 		IsPlayerPalette: false
 
+homingmissileproj:
+	Inherits: HunterSeekerBomb
+	Projectile: Missile
+		Image: homingmissile
+		IsPlayerPalette: true
+		ContrailLength: 35
+	Warhead@1Dam: SpreadDamage
+		Spread: 512
+		Damage: 30000
+		Falloff: 250, 200, 175, 150, 0, 0, 0
+		Versus:
+			None: 100
+			Wood: 100
+			Light: 100
+			Heavy: 100
+			Concrete: 100
+		AffectsParent: true
+		ValidRelationships: Neutral, Enemy
+		ValidTargets: GroundActor, WaterActor, AirborneActor
+		DamageTypes: Prone50Percent, TriggerProne, ExplosionDeath
+	Warhead@inf: SpreadDamage
+		Spread: 1c512
+		Delay: 1
+		Damage: 10000
+		AffectsParent: true
+		ValidRelationships: Neutral, Enemy
+		ValidTargets: Infantry
+		DamageTypes: ElectricityDeath
+	Warhead@2Dam: SpreadDamage
+		Delay: 4
+		Spread: 300
+		Damage: 5000
+		Falloff: 250, 250, 175, 150, 0, 0, 0
+		ValidRelationships: Ally
+		ValidTargets: GroundActor, WaterActor, AirborneActor
+		DamageTypes: Prone50Percent, TriggerProne, ExplosionDeath
+	Warhead@2Eff: CreateEffect
+		ValidTargets: Ground, Air, GroundActor, AirborneActor, WaterActor, Trees, Water
+		Explosions: dukenukemexplosionmed
+		ImpactSounds: wormexp1.wav, wormexp2.wav, wormexp3.wav
+	-Warhead@3Eff:
+	Warhead@15Shake: ShakeScreen
+		Duration: 5
+		Intensity: 1
+		Multiplier: 1,1
+	-Warhead@99Eff_impact:
+
+
 DroneStrikeDummy:
 	ReloadDelay: 250
 	Range: 9c0

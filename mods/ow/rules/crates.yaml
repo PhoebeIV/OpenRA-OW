@@ -356,6 +356,11 @@ CRATE:
 		SelectionShares: 75
 		Units: 1tnk.huntercrate
 		TextNotification: crate-notif.seeker
+	GiveUnitCrateAction@homingmissile:
+		SelectionShares: 7500
+		Units: 1tnk.homingmissile
+		Sound: homingmissilefire.aud
+		TextNotification: crate-notif.seeker
 	GiveUnitCrateAction@bitconnect:
 		SelectionShares: 50
 		Units: 1tnk.bitconnect
@@ -7292,9 +7297,28 @@ orange:
 		Actor: CRATE
 		Offset: -1,1
 
-1TNK.HomingMissile:
+1TNK.homingmissile:
 	Inherits: 1TNK.MINE
 	-FireWarheadsOnDeath:
 	SpawnActorOnDeath:
-		Actor: HomingMissile
+		Actor: homingmissile
 		OwnerType: Victim
+
+homingmissile:
+	Inherits: HUNTER
+	RenderSprites:
+		Palette: effect
+		Image: homingmissile
+	Armament@PRIMARY:
+		Weapon: homingmissileproj
+	Contrail@1:
+		Offset: 0,0,0
+		StartColorAlpha: 128
+		TrailLength: 100
+		StartWidth: 192
+		StartColorUsePlayerColor: false
+		EndColorUsePlayerColor: true
+	AmbientSound:
+		SoundFiles: homingmissilebeep.aud
+		Interval: 10
+		Delay: 5
